@@ -20,7 +20,7 @@ const en = {
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     safetyArrangements: {
       required: 'Please select an answer',
@@ -49,7 +49,7 @@ const cy: typeof en = {
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     safetyArrangements: {
       required: 'Please select an answer',
@@ -76,34 +76,34 @@ export const form: FormContent = {
         {
           name: 'safetyArrangements',
           label: l => l.waitingroom,
-          value: 'separate waiting room',
+          value: 'waitingroom',
         },
         {
           name: 'safetyArrangements',
           label: l => l.separateexitentry,
-          value: 'separate exits and entrances',
+          value: 'separateexitentry',
         },
         {
           name: 'safetyArrangements',
           label: l => l.screens,
           hint: l => l.screenshint,
-          value: 'screens to separate',
+          value: 'screens',
         },
         {
           name: 'safetyArrangements',
           label: l => l.toilet,
-          value: 'separate toilets',
+          value: 'toilet',
         },
         {
           name: 'safetyArrangements',
           label: l => l.advancedview,
-          value: 'other',
+          value: 'advancedview',
         },
         {
           name: 'safetyArrangements',
           label: l => l.videolinks,
           hint: l => l.videolinkshint,
-          value: 'other',
+          value: 'videolinks',
         },
         {
           name: 'safetyArrangements',
@@ -124,14 +124,14 @@ export const form: FormContent = {
         {
           name: 'safetyArrangements',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],
       validator: atLeastOneFieldIsChecked,
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

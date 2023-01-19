@@ -9,15 +9,17 @@ const en = {
   one: 'Yes',
   two: 'No',
   twoHint:
-    'For example, because a court in another country has the power to make decisions or judgments (jurisdiction).',
+    'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     jurisdiction: {
-      required: 'Please select one of the options before proceeding further',
+      required:
+        'Select yes if another person in the application could apply for a similar order in a country outside England or Wales',
     },
     iFactorsJurisdictionProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
+      required:
+        'Provide details about another person in the application applying for a similar order in a country outside England or Wales',
     },
   },
 };
@@ -28,15 +30,17 @@ const cy: typeof en = {
   one: 'Yes',
   two: 'No',
   twoHint:
-    'For example, because a court in another country has the power to make decisions or judgments (jurisdiction).',
+    'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     jurisdiction: {
-      required: 'Please select one of the options before proceeding further',
+      required:
+        'Select yes if another person in the application could apply for a similar order in a country outside England or Wales',
     },
     iFactorsJurisdictionProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
+      required:
+        'Provide details about another person in the application applying for a similar order in a country outside England or Wales',
     },
   },
 };

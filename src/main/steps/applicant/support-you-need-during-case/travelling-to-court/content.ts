@@ -17,13 +17,19 @@ const en = {
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     travellingToCourt: {
       required: 'Please select an answer',
     },
     travellingOtherDetails: {
       required: 'Please describe your need in detail',
+    },
+    parkingDetails: {
+      required: 'Please describe parking space details',
+    },
+    differentChairDetails: {
+      required: 'Please describe different chair details',
     },
   },
 };
@@ -43,13 +49,19 @@ const cy: typeof en = {
   other: 'Other',
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     travellingToCourt: {
       required: 'Please select an answer',
     },
     travellingOtherDetails: {
       required: 'Please describe your need in detail',
+    },
+    parkingDetails: {
+      required: 'Please describe parking space details',
+    },
+    differentChairDetails: {
+      required: 'Please describe different chair details',
     },
   },
 };
@@ -70,37 +82,54 @@ export const form: FormContent = {
         {
           name: 'travellingToCourt',
           label: l => l.parkingspace,
-          value: 'parking space close to the venue',
+          value: 'parkingspace',
+          subFields: {
+            parkingDetails: {
+              type: 'textarea',
+              label: l => l.parkingSpaceDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'travellingToCourt',
           label: l => l.stepfree,
-          value: 'step free / wheelchair access',
+          value: 'stepfree',
         },
         {
           name: 'travellingToCourt',
           label: l => l.wheelchair,
-          value: 'use of venue wheelchair',
+          value: 'wheelchair',
         },
         {
           name: 'travellingToCourt',
           label: l => l.toilet,
-          value: 'accessible toilet',
+          value: 'toilet',
         },
         {
           name: 'travellingToCourt',
           label: l => l.lift,
-          value: 'help using a lift',
+          value: 'lift',
         },
         {
           name: 'travellingToCourt',
           label: l => l.differentchair,
-          value: 'a different type of chair',
+          value: 'differentchair',
+          subFields: {
+            differentChairDetails: {
+              type: 'textarea',
+              label: l => l.differentChairDetails,
+              hint: l => l.differentChairDetailsHint,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
         },
         {
           name: 'travellingToCourt',
           label: l => l.building,
-          value: 'guiding in the building',
+          value: 'building',
         },
         {
           name: 'travellingToCourt',
@@ -122,14 +151,14 @@ export const form: FormContent = {
         {
           name: 'travellingToCourt',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],
       validator: atLeastOneFieldIsChecked,
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

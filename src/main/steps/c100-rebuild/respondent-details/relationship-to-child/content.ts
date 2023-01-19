@@ -7,7 +7,7 @@ import {
 } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { isAlphaNumeric, isFieldFilledIn } from '../../../../app/form/validation';
 import { getPartyDetails } from '../../people/util';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -31,6 +31,7 @@ const en = () => ({
     },
     otherRelationshipTypeDetails: {
       required: 'Enter the relationship',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
   },
 });
@@ -54,6 +55,7 @@ const cy = () => ({
     },
     otherRelationshipTypeDetails: {
       required: 'Nodwch y berthynas',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.- (Welsh)',
     },
   },
 });
@@ -122,7 +124,7 @@ export const generateFormFields = (relationshipTypeOption: RelationshipToChildre
               label: l => l.otherRelationshipDetails,
               labelSize: null,
               value: otherRelationshipTypeDetails,
-              validator: isFieldFilledIn,
+              validator: value => isFieldFilledIn(value) || isAlphaNumeric(value),
             },
           },
         },

@@ -98,6 +98,7 @@ section {
     @include for-tablet-portrait-up {
       &:first-child {
         .status-bar__title {
+          font-family: "GDS Transport", arial, sans-serif;
           width: 10rem;
           left: calc(-5rem + 1.375rem);
         }
@@ -105,6 +106,7 @@ section {
 
       &:not(:first-child) {
         .status-bar__title {
+          font-family: "GDS Transport", arial, sans-serif;
           width: 100%;
           left: calc(50% - 1.375rem);
         }
@@ -165,8 +167,7 @@ section {
 
 .stage--active {
   .status-bar__ring {
-    background-image: url('/assets/images/icon-progress-tick.png');
-    background-size: contain;
+    background-repeat: no-repeat;
     background-color: $govuk-link-colour;
     background-position: center;
     border: .25rem solid $govuk-link-colour;

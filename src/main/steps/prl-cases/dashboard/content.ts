@@ -6,7 +6,7 @@ import { CommonContent } from '../../common/common.content';
 import { summaryCaseList } from '../../common/summary/utils';
 
 export const enContent = {
-  title: 'Your private law account',
+  title: 'Child arrangements and family injunction cases',
   CAApplicationNote: 'Case once submitted cannot be accessed.',
   createCAApplication: 'Start new C100 application',
   sectionTitles: {
@@ -21,7 +21,7 @@ export const enContent = {
 };
 
 export const cyContent = {
-  title: 'Eich cyfrif cyfraith breifat',
+  title: 'Child arrangements and family injunction cases (in welsh)',
   CAApplicationNote: 'Unwaith y bydd achos wedi’i gyflwyno, ni ellir cael mynediad ato wedyn.',
   createCAApplication: 'Dechrau cais C100 newydd',
   sectionTitles: {

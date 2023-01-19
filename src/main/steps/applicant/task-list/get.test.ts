@@ -6,7 +6,6 @@ import ApplicantTaskListGetController from './get';
 
 describe('ApplicantTaskListGetController', () => {
   const controller = new ApplicantTaskListGetController();
-
   test('Should render the ApplicantTaskList page for private law service', async () => {
     const req = mockRequest({
       session: {
@@ -29,6 +28,7 @@ describe('ApplicantTaskListGetController', () => {
     });
     const res = mockResponse();
     await controller.get(req, res);
+
     expect(res.render).toBeCalled;
   });
 });

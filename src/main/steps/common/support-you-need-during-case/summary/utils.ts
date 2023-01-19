@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { CaseWithId } from '../../../../app/case/case';
+import { SupportYouNeedAllEnum } from '../../../../app/case/definition';
+//import { AttendingToCourtEnum } from '../../../../app/case/definition';
 import { PageContent } from '../../../../app/controller/GetController';
 import { GovUkNunjucksSummary, SummaryListRow } from '../../summary/utils';
 export interface SummaryList {
@@ -53,7 +54,7 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value: userCase[key],
+      value: getValue(key, userCase),
       changeUrl: url,
     };
 
@@ -64,4 +65,20 @@ export const summaryList = (
     title: sectionTitle || '',
     rows: getSectionSummaryList(summaryData, content),
   };
+};
+
+const getValue = (key: string, userCase: Partial<CaseWithId>) => {
+  const value = userCase[key];
+  if (typeof value === 'string') {
+    return SupportYouNeedAllEnum[value] as string;
+  }
+  let temp = '';
+  for (const k of value) {
+    const keyLabel = k as string;
+    temp += SupportYouNeedAllEnum[keyLabel];
+    if (value.indexOf(k) !== value.length - 1) {
+      temp += ', ';
+    }
+  }
+  return temp as string;
 };
