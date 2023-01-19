@@ -18,13 +18,13 @@ const en = {
   nosupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
-    respondentCourtComfort: {
+    courtComfort: {
       required: 'Select what help you need to feel comfortable during a court hearing',
     },
-    respondentLightingDetails: {
+    lightingProvideDetails: {
       required: 'Please describe lighting detail',
     },
-    respondentOtherProvideDetails: {
+    otherProvideDetails: {
       required: 'Please describe your need in details',
     },
   },
@@ -46,13 +46,13 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
-    respondentCourtComfort: {
+    courtComfort: {
       required: 'Select what help you need to feel comfortable during a court hearing',
     },
-    respondentLightingDetails: {
+    lightingProvideDetails: {
       required: 'Please describe lighting detail',
     },
-    respondentOtherProvideDetails: {
+    otherProvideDetails: {
       required: 'Please describe your need in details',
     },
   },
@@ -65,18 +65,18 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentCourtComfort: {
+    courtComfort: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
       section: l => l.section,
       values: [
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.appropriatelighting,
-          value: 'appropriate lighting',
+          value: 'appropriatelighting',
           subFields: {
-            respondentLightingDetails: {
+            lightingProvideDetails: {
               type: 'textarea',
               attributes: {
                 rows: 1,
@@ -88,21 +88,21 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.break,
-          value: 'Regular breaks',
+          value: 'breaks',
         },
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.space,
-          value: 'space to move around',
+          value: 'space',
         },
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.other,
-          value: 'Other',
+          value: 'other',
           subFields: {
-            respondentOtherProvideDetails: {
+            otherProvideDetails: {
               type: 'textarea',
               attributes: {
                 rows: 2,
@@ -117,9 +117,9 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],

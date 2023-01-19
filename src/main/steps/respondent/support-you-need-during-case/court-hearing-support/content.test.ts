@@ -22,19 +22,19 @@ const en = {
   nosupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
-    respondentCourtHearing: {
+    courtHearing: {
       required: 'Select what help you need to bring support with you to a court hearing',
     },
-    respondentSupportWorkerDetails: {
+    supportWorkerDetails: {
       required: 'Please provide support worker details',
     },
-    respondentFamilyDetails: {
+    familyProviderDetails: {
       required: 'Please provide family member details',
     },
-    respondentTherapyDetails: {
+    therapyDetails: {
       required: 'Please provide therapy animal details',
     },
-    respondentCommSupportOther: {
+    communicationSupportOther: {
       required: 'Please provide the details',
     },
   },
@@ -58,19 +58,19 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
-    respondentCourtHearing: {
+    courtHearing: {
       required: 'Select what help you need to bring support with you to a court hearing',
     },
-    respondentSupportWorkerDetails: {
+    supportWorkerDetails: {
       required: 'Please provide support worker details',
     },
-    respondentFamilyDetails: {
+    familyProviderDetails: {
       required: 'Please provide family member details',
     },
-    respondentTherapyDetails: {
+    therapyDetails: {
       required: 'Please provide therapy animal details',
     },
-    respondentCommSupportOther: {
+    communicationSupportOther: {
       required: 'Please provide the details',
     },
   },
@@ -120,12 +120,12 @@ describe('citizen-home content', () => {
   });
 
   test('should contain courthearing field', () => {
-    const courthearingField = fields.respondentCourtHearing as FormOptions;
+    const courthearingField = fields.courtHearing as FormOptions;
     expect(courthearingField.type).toBe('checkboxes');
     expect((courthearingField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Save and continue button', () => {
+  test('should contain Continue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });

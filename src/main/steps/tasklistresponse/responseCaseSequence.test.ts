@@ -2,7 +2,7 @@ import { responseCaseSequence } from './responseCaseSequence';
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(responseCaseSequence).toHaveLength(58);
+    expect(responseCaseSequence).toHaveLength(69);
     expect(responseCaseSequence[0].url).toBe('/respondent/task-list');
     expect(responseCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -149,26 +149,22 @@ describe('respondent1Sequence', () => {
     expect(responseCaseSequence[36].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[36].getNextStep({})).toBe('/tasklistresponse/start');
 
-    expect(responseCaseSequence[37].url).toBe('/tasklistresponse/start');
-    expect(responseCaseSequence[37].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[37].url).toBe('/tasklistresponse/support-you-need-during-case/attending-the-court');
+    expect(responseCaseSequence[37].showInSection).toBe('aboutCaAndDaRespondentCase');
     expect(responseCaseSequence[37].getNextStep({})).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page'
+      '/tasklistresponse/support-you-need-during-case/language-requirements'
     );
 
-    expect(responseCaseSequence[38].url).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page'
-    );
-    expect(responseCaseSequence[38].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[38].url).toBe('/tasklistresponse/support-you-need-during-case/language-requirements');
+    expect(responseCaseSequence[38].showInSection).toBe('aboutCaAndDaRespondentCase');
     expect(responseCaseSequence[38].getNextStep({})).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns'
+      '/tasklistresponse/support-you-need-during-case/special-arrangements'
     );
 
-    expect(responseCaseSequence[39].url).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns'
-    );
-    expect(responseCaseSequence[39].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[39].url).toBe('/tasklistresponse/support-you-need-during-case/special-arrangements');
+    expect(responseCaseSequence[39].showInSection).toBe('aboutCaAndDaRespondentCase');
     expect(responseCaseSequence[39].getNextStep({})).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes'
+      '/tasklistresponse/support-you-need-during-case/reasonable-adjustments'
     );
   });
 });

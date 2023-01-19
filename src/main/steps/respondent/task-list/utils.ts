@@ -240,45 +240,45 @@ export const getCheckAllegationOfHarmStatus = (
 
 export const getRespondentSupportYourNeedsDetails = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
-    userCase?.respondentAttendingToCourt &&
-    userCase?.respondentLangRequirements &&
-    userCase?.respondentSpecialArrangements &&
-    userCase?.respondentReasonableAdjustments &&
-    userCase?.respondentDocsSupport &&
-    userCase?.respondentHelpCommunication &&
-    userCase?.respondentCourtHearing &&
-    userCase?.respondentCourtComfort &&
-    userCase?.respondentTravellingToCourt
+    userCase?.attendingToCourt &&
+    userCase?.languageRequirements &&
+    userCase?.safetyArrangements &&
+    userCase?.reasonableAdjustments &&
+    userCase?.docsSupport &&
+    userCase?.helpCommunication &&
+    userCase?.courtHearing &&
+    userCase?.courtComfort &&
+    userCase?.travellingToCourt
   ) {
     return SectionStatus.COMPLETED;
   }
   if (
-    userCase?.respondentAttendingToCourt ||
-    userCase?.respondentHearingDetails ||
-    userCase?.respondentLangRequirements ||
-    userCase?.respondentLangDetails ||
-    userCase?.respondentSpecialArrangements ||
-    userCase?.respondentSpecialArrangementsDetails ||
-    userCase?.respondentReasonableAdjustments ||
-    userCase?.respondentDocsSupport ||
-    userCase?.respondentDocsDetails ||
-    userCase?.respondentLargePrintDetails ||
-    userCase?.respondentOtherDetails ||
-    userCase?.respondentHelpCommunication ||
-    userCase?.respondentSignLanguageDetails ||
-    userCase?.respondentDescribeOtherNeed ||
-    userCase?.respondentCourtHearing ||
-    userCase?.respondentSupportWorkerDetails ||
-    userCase?.respondentFamilyDetails ||
-    userCase?.respondentTherapyDetails ||
-    userCase?.respondentCommSupportOther ||
-    userCase?.respondentCourtComfort ||
-    userCase?.respondentLightingDetails ||
-    userCase?.respondentOtherProvideDetails ||
-    userCase?.respondentTravellingToCourt ||
-    userCase?.respondentParkingDetails ||
-    userCase?.respondentDifferentChairDetails ||
-    userCase?.respondentTravellingOtherDetails
+    userCase?.attendingToCourt ||
+    userCase?.hearingDetails ||
+    userCase?.languageRequirements ||
+    userCase?.languageDetails ||
+    userCase?.safetyArrangements ||
+    userCase?.safetyArrangementsDetails ||
+    userCase?.reasonableAdjustments ||
+    userCase?.docsSupport ||
+    userCase?.docsDetails ||
+    userCase?.largePrintDetails ||
+    userCase?.otherDetails ||
+    userCase?.helpCommunication ||
+    userCase?.describeSignLanguageDetails ||
+    userCase?.describeOtherNeed ||
+    userCase?.courtHearing ||
+    userCase?.supportWorkerDetails ||
+    userCase?.familyProviderDetails ||
+    userCase?.therapyDetails ||
+    userCase?.communicationSupportOther ||
+    userCase?.courtComfort ||
+    userCase?.lightingProvideDetails ||
+    userCase?.otherProvideDetails ||
+    userCase?.travellingToCourt ||
+    userCase?.parkingDetails ||
+    userCase?.differentChairDetails ||
+    userCase?.travellingOtherDetails
   ) {
     return SectionStatus.IN_PROGRESS;
   }

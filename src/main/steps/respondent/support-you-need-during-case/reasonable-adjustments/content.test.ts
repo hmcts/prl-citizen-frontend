@@ -25,7 +25,7 @@ const en = {
   noSupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
-    respondentReasonableAdjustments: {
+    reasonableAdjustments: {
       required: 'Please select an answer',
     },
   },
@@ -52,7 +52,7 @@ const cy: typeof en = {
   noSupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
-    respondentReasonableAdjustments: {
+    reasonableAdjustments: {
       required: 'Please select an answer',
     },
   },
@@ -109,12 +109,12 @@ describe('citizen-home content', () => {
   });
 
   test('should contain reasonableAdjustments field', () => {
-    const reasonableAdjustmentsField = fields.respondentReasonableAdjustments as FormOptions;
+    const reasonableAdjustmentsField = fields.reasonableAdjustments as FormOptions;
     expect(reasonableAdjustmentsField.type).toBe('checkboxes');
     expect((reasonableAdjustmentsField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Save and continue button', () => {
+  test('should contain Continue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });

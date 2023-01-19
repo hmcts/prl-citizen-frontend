@@ -67,17 +67,17 @@ export const form: FormContent = {
         {
           name: 'languageRequirements',
           label: l => l.speakwelsh,
-          value: 'I need to speak in Welsh',
+          value: 'speakwelsh',
         },
         {
           name: 'languageRequirements',
           label: l => l.readandwritewelsh,
-          value: 'I need to read and write in Welsh',
+          value: 'readandwritewelsh',
         },
         {
           name: 'languageRequirements',
           label: l => l.languageinterpreter,
-          value: 'I need an interpreter in a certain language',
+          value: 'languageinterpreter',
           subFields: {
             languageDetails: {
               type: 'textarea',
@@ -93,7 +93,7 @@ export const form: FormContent = {
         {
           name: 'languageRequirements',
           label: l => l.nointerpreter,
-          value: 'No, I do not have any language requirements at this time',
+          value: 'nointerpreter',
           exclusive: true,
         },
       ],

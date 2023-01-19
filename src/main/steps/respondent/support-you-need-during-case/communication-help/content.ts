@@ -29,13 +29,13 @@ const en = {
   noSupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
-    respondentHelpCommunication: {
+    helpCommunication: {
       required: 'Select what help you need in communicating and understanding',
     },
-    respondentSignLanguageDetails: {
+    describeSignLanguageDetails: {
       required: 'Please provide sign language details',
     },
-    respondentDescribeOtherNeed: {
+    describeOtherNeed: {
       required: 'Please provide the details',
     },
   },
@@ -68,13 +68,13 @@ const cy: typeof en = {
   noSupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
-    respondentHelpCommunication: {
+    helpCommunication: {
       required: 'Select what help you need in communicating and understanding',
     },
-    respondentSignLanguageDetails: {
+    describeSignLanguageDetails: {
       required: 'Please provide sign language details',
     },
-    respondentDescribeOtherNeed: {
+    describeOtherNeed: {
       required: 'Please provide the details',
     },
   },
@@ -87,7 +87,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentHelpCommunication: {
+    helpCommunication: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
@@ -95,32 +95,32 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.hearingLoop,
-          value: 'hearing loop',
+          value: 'hearingloop',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.infraredReceiver,
-          value: 'infrared receiver',
+          value: 'infraredreceiver',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.needSpeakingHelp,
-          value: 'speaking help',
+          value: 'needspeakinghelp',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.lipSpeaker,
           hint: l => l.lipSpeakerHint,
-          value: 'lip speaker',
+          value: 'lipspeaker',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.signLanguage,
-          value: 'sign language interpreter',
+          value: 'signlanguage',
           subFields: {
-            respondentSignLanguageDetails: {
+            describeSignLanguageDetails: {
               type: 'textarea',
               label: l => l.signLanguageDetails,
               labelSize: null,
@@ -129,37 +129,37 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.speechReporter,
-          value: 'speech to text reporter',
+          value: 'speechreporter',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.extraTime,
-          value: 'extra time to think and explain myself',
+          value: 'extratime',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.courtVisit,
-          value: 'vist to court before hearing',
+          value: 'courtvisit',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.courtHearing,
-          value: 'court hearing',
+          value: 'courthearing',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.intermediary,
           hint: l => l.intermediaryHint,
           value: 'intermediary',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.other,
-          value: 'Other',
+          value: 'other',
           subFields: {
-            respondentDescribeOtherNeed: {
+            describeOtherNeed: {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,
@@ -171,9 +171,9 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.noSupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],

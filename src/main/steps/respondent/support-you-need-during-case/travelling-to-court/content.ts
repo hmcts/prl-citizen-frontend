@@ -23,16 +23,16 @@ const en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
-    respondentTravellingToCourt: {
+    travellingToCourt: {
       required: 'Please select an answer',
     },
-    respondentParkingDetails: {
+    parkingDetails: {
       required: 'Please describe parking space details',
     },
-    respondentDifferentChairDetails: {
+    differentChairDetails: {
       required: 'Please describe different chair details',
     },
-    respondentTravellingOtherDetails: {
+    travellingOtherDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -59,16 +59,16 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
-    respondentTravellingToCourt: {
+    travellingToCourt: {
       required: 'Please select an answer',
     },
-    respondentParkingDetails: {
+    parkingDetails: {
       required: 'Please describe parking space details',
     },
-    respondentDifferentChairDetails: {
+    differentChairDetails: {
       required: 'Please describe different chair details',
     },
-    respondentTravellingOtherDetails: {
+    travellingOtherDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -81,18 +81,18 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentTravellingToCourt: {
+    travellingToCourt: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
       section: l => l.section,
       values: [
         {
-          name: 'respondentTravellingToCourt',
+          name: 'travellingToCourt',
           label: l => l.parkingspace,
-          value: 'parking space close to the venue',
+          value: 'parkingspace',
           subFields: {
-            respondentParkingDetails: {
+            parkingDetails: {
               type: 'textarea',
               label: l => l.parkingSpaceDetails,
               labelSize: null,
@@ -101,31 +101,31 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'respondentTravellingToCourt',
+          name: 'travellingToCourt',
           label: l => l.stepfree,
-          value: 'step free / wheelchair access',
+          value: 'stepfree',
         },
         {
-          name: 'respondentTravellingToCourt',
+          name: 'travellingToCourt',
           label: l => l.wheelchair,
-          value: 'use of venue wheelchair',
+          value: 'wheelchair',
         },
         {
-          name: 'respondentTravellingToCourt',
+          name: 'travellingToCourt',
           label: l => l.toilet,
-          value: 'accessible toilet',
+          value: 'toilet',
         },
         {
-          name: 'respondentTravellingToCourt',
+          name: 'travellingToCourt',
           label: l => l.lift,
-          value: 'help using a lift',
+          value: 'lift',
         },
         {
-          name: 'respondentTravellingToCourt',
+          name: 'travellingToCourt',
           label: l => l.differentchair,
-          value: 'a different type of chair',
+          value: 'differentchair',
           subFields: {
-            respondentDifferentChairDetails: {
+            differentChairDetails: {
               type: 'textarea',
               label: l => l.differentChairDetails,
               hint: l => l.differentChairDetailsHint,
@@ -135,16 +135,16 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'respondentTravellingToCourt',
+          name: 'travellingToCourt',
           label: l => l.building,
-          value: 'guiding in the building',
+          value: 'building',
         },
         {
-          name: 'respondentTravellingToCourt',
+          name: 'travellingToCourt',
           label: l => l.other,
           value: 'other',
           subFields: {
-            respondentTravellingOtherDetails: {
+            travellingOtherDetails: {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,
@@ -157,9 +157,9 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'respondentTravellingToCourt',
+          name: 'travellingToCourt',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],

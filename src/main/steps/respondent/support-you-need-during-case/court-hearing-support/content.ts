@@ -21,19 +21,19 @@ const en = {
   nosupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
-    respondentCourtHearing: {
+    courtHearing: {
       required: 'Select what help you need to bring support with you to a court hearing',
     },
-    respondentSupportWorkerDetails: {
+    supportWorkerDetails: {
       required: 'Please provide support worker details',
     },
-    respondentFamilyDetails: {
+    familyProviderDetails: {
       required: 'Please provide family member details',
     },
-    respondentTherapyDetails: {
+    therapyDetails: {
       required: 'Please provide therapy animal details',
     },
-    respondentCommSupportOther: {
+    communicationSupportOther: {
       required: 'Please provide the details',
     },
   },
@@ -58,19 +58,19 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any extra support at this time',
   continue: 'Continue',
   errors: {
-    respondentCourtHearing: {
+    courtHearing: {
       required: 'Select what help you need to bring support with you to a court hearing',
     },
-    respondentSupportWorkerDetails: {
+    supportWorkerDetails: {
       required: 'Please provide support worker details',
     },
-    respondentFamilyDetails: {
+    familyProviderDetails: {
       required: 'Please provide family member details',
     },
-    respondentTherapyDetails: {
+    therapyDetails: {
       required: 'Please provide therapy animal details',
     },
-    respondentCommSupportOther: {
+    communicationSupportOther: {
       required: 'Please provide the details',
     },
   },
@@ -83,18 +83,18 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentCourtHearing: {
+    courtHearing: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
       section: l => l.section,
       values: [
         {
-          name: 'respondentCourtHearing',
+          name: 'courtHearing',
           label: l => l.supportworker,
-          value: 'support worker or carer',
+          value: 'supportworker',
           subFields: {
-            respondentSupportWorkerDetails: {
+            supportWorkerDetails: {
               type: 'textarea',
               label: l => l.supportWorkerDetails,
               attributes: {
@@ -106,11 +106,11 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'respondentCourtHearing',
+          name: 'courtHearing',
           label: l => l.familymember,
-          value: 'friend or family member',
+          value: 'familymember',
           subFields: {
-            respondentFamilyDetails: {
+            familyProviderDetails: {
               type: 'textarea',
               label: l => l.familyMemberDetails,
               attributes: {
@@ -122,16 +122,16 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'respondentCourtHearing',
+          name: 'courtHearing',
           label: l => l.assistance,
           value: 'assistance',
         },
         {
-          name: 'respondentCourtHearing',
+          name: 'courtHearing',
           label: l => l.animal,
           value: 'animal',
           subFields: {
-            respondentTherapyDetails: {
+            therapyDetails: {
               type: 'textarea',
               label: l => l.animalDetails,
               attributes: {
@@ -143,11 +143,11 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'respondentCourtHearing',
+          name: 'courtHearing',
           label: l => l.other,
           value: 'other',
           subFields: {
-            respondentCommSupportOther: {
+            communicationSupportOther: {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,
@@ -162,9 +162,9 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'respondentCourtHearing',
+          name: 'courtHearing',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],

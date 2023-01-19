@@ -23,10 +23,10 @@ const en = {
   noSupport: 'No, I do not have any safety requirements at this time',
   continue: 'Continue',
   errors: {
-    respondentSpecialArrangements: {
+    safetyArrangements: {
       required: 'Please select an answer',
     },
-    respondentSpecialArrangementsDetails: {
+    safetyArrangementsDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -53,10 +53,10 @@ const cy: typeof en = {
   noSupport: 'No, I do not have any safety requirements at this time',
   continue: 'Continue',
   errors: {
-    respondentSpecialArrangements: {
+    safetyArrangements: {
       required: 'Please select an answer',
     },
-    respondentSpecialArrangementsDetails: {
+    safetyArrangementsDetails: {
       required: 'Please describe your need in details',
     },
   },
@@ -69,50 +69,50 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentSpecialArrangements: {
+    safetyArrangements: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
       section: l => l.section,
       values: [
         {
-          name: 'respondentSpecialArrangements',
+          name: 'safetyArrangements',
           label: l => l.waitingRoom,
-          value: 'separate waiting room',
+          value: 'waitingroom',
         },
         {
-          name: 'respondentSpecialArrangements',
+          name: 'safetyArrangements',
           label: l => l.separateExitEntry,
-          value: 'separate exits and entrances',
+          value: 'separateexitentry',
         },
         {
-          name: 'respondentSpecialArrangements',
+          name: 'safetyArrangements',
           label: l => l.screens,
           hint: l => l.screensHint,
-          value: 'screens to separate',
+          value: 'screens',
         },
         {
-          name: 'respondentSpecialArrangements',
+          name: 'safetyArrangements',
           label: l => l.toilet,
-          value: 'separate toilets',
+          value: 'separatetoilets',
         },
         {
-          name: 'respondentSpecialArrangements',
+          name: 'safetyArrangements',
           label: l => l.visitToCourt,
-          value: 'visit to court',
+          value: 'visitToCourt',
         },
         {
-          name: 'respondentSpecialArrangements',
+          name: 'safetyArrangements',
           label: l => l.videoLinks,
           hint: l => l.videoLinksHint,
-          value: 'video links',
+          value: 'videolinks',
         },
         {
-          name: 'respondentSpecialArrangements',
+          name: 'safetyArrangements',
           label: l => l.other,
           value: 'other',
           subFields: {
-            respondentSpecialArrangementsDetails: {
+            safetyArrangementsDetails: {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,
@@ -124,9 +124,9 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'respondentSpecialArrangements',
+          name: 'safetyArrangements',
           label: l => l.noSupport,
-          value: 'no need of support',
+          value: 'noSafetyrequirements',
           exclusive: true,
         },
       ],

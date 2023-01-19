@@ -25,16 +25,16 @@ const en = {
   noSupport: 'I do not need any of this support at this time',
   continue: 'Continue',
   errors: {
-    respondentDocsSupport: {
+    docsSupport: {
       required: 'Please select an answer',
     },
-    respondentDocsDetails: {
+    docsDetails: {
       required: 'Please provide the docs details',
     },
-    respondentLargePrintDetails: {
+    largePrintDetails: {
       required: 'Please provide the large print details',
     },
-    respondentOtherDetails: {
+    otherDetails: {
       required: 'Please provide the other details',
     },
   },
@@ -63,16 +63,16 @@ const cy: typeof en = {
   noSupport: 'I do not need any of this support at this time',
   continue: 'Continue',
   errors: {
-    respondentDocsSupport: {
+    docsSupport: {
       required: 'Please select an answer',
     },
-    respondentDocsDetails: {
+    docsDetails: {
       required: 'Please provide the docs details',
     },
-    respondentLargePrintDetails: {
+    largePrintDetails: {
       required: 'Please provide the large print details',
     },
-    respondentOtherDetails: {
+    otherDetails: {
       required: 'Please provide the other details',
     },
   },
@@ -85,18 +85,18 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentDocsSupport: {
+    docsSupport: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
       section: l => l.section,
       values: [
         {
-          name: 'respondentDocsSupport',
+          name: 'docsSupport',
           label: l => l.docsColour,
-          value: 'Documents in colour print',
+          value: 'docsprint',
           subFields: {
-            respondentDocsDetails: {
+            docsDetails: {
               type: 'textarea',
               label: l => l.docsColourDetails,
               labelSize: null,
@@ -105,22 +105,22 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'respondentDocsSupport',
+          name: 'docsSupport',
           label: l => l.docsReadFormat,
           hint: l => l.docsReadFormatHint,
-          value: 'documents in read format',
+          value: 'docsreadformat',
         },
         {
-          name: 'respondentDocsSupport',
+          name: 'docsSupport',
           label: l => l.brailleDocs,
-          value: 'Braille documents',
+          value: 'brailledocs',
         },
         {
-          name: 'respondentDocsSupport',
+          name: 'docsSupport',
           label: l => l.largePrintDocs,
-          value: 'Large print documents',
+          value: 'largeprintdocs',
           subFields: {
-            respondentLargePrintDetails: {
+            largePrintDetails: {
               type: 'textarea',
               label: l => l.largePrintDocsDetails,
               labelSize: null,
@@ -129,26 +129,26 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'respondentDocsSupport',
+          name: 'docsSupport',
           label: l => l.audioTranslation,
-          value: 'Audio translation of documents',
+          value: 'docsaudio',
         },
         {
-          name: 'respondentDocsSupport',
+          name: 'docsSupport',
           label: l => l.docsReadOut,
-          value: 'Documents read out to me',
+          value: 'docsReadOut',
         },
         {
-          name: 'respondentDocsSupport',
+          name: 'docsSupport',
           label: l => l.emailInfo,
-          value: 'email information',
+          value: 'emailInfo',
         },
         {
-          name: 'respondentDocsSupport',
+          name: 'docsSupport',
           label: l => l.other,
           value: 'other',
           subFields: {
-            respondentOtherDetails: {
+            otherDetails: {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,
@@ -160,9 +160,9 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'respondentDocsSupport',
+          name: 'docsSupport',
           label: l => l.noSupport,
-          value: 'no need of support',
+          value: 'noSupport',
           exclusive: true,
         },
       ],

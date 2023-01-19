@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
@@ -17,13 +17,13 @@ const en = {
   nosupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
-    respondentCourtComfort: {
+    courtComfort: {
       required: 'Select what you need to feel comfortable during a court hearing',
     },
-    respondentLightingDetails: {
+    lightingProvideDetails: {
       required: 'Please describe lighting detail',
     },
-    respondentOtherProvideDetails: {
+    otherProvideDetails: {
       required: 'Please describe your need in details',
     },
   },
@@ -44,13 +44,13 @@ const cy: typeof en = {
   nosupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
-    respondentCourtComfort: {
+    courtComfort: {
       required: 'Select what you need to feel comfortable during a court hearing',
     },
-    respondentLightingDetails: {
+    lightingProvideDetails: {
       required: 'Please describe lighting detail',
     },
-    respondentOtherProvideDetails: {
+    otherProvideDetails: {
       required: 'Please describe your need in details',
     },
   },
@@ -63,51 +63,48 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentCourtComfort: {
+    courtComfort: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
       section: l => l.section,
       values: [
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.appropriatelighting,
-          value: 'appropriate lighting',
+          value: 'appropriatelighting',
           subFields: {
-            respondentLightingDetails: {
-              type: 'textarea',
-              attributes: {
-                rows: 1,
-              },
+            lightingProvideDetails: {
+              type: 'text',
               label: l => l.lightingDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.break,
-          value: 'Regular breaks',
+          value: 'breaks',
         },
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.space,
-          value: 'space to move around',
+          value: 'space',
         },
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.other,
-          value: 'Other',
+          value: 'other',
           subFields: {
-            respondentOtherProvideDetails: {
+            otherProvideDetails: {
               type: 'textarea',
               attributes: {
                 rows: 2,
               },
               label: l => l.otherDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
@@ -115,9 +112,9 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],
