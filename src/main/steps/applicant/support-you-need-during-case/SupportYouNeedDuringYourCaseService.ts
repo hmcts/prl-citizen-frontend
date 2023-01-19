@@ -1,8 +1,8 @@
-import { Applicant, Respondent } from '../../../app/case/definition';
+import { Applicant, Respondent, Response } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 
-export const setSupportDetails = (party: Respondent | Applicant, req: AppRequest): Respondent | Applicant => {
-  party.value.response = {
+export const setSupportDetails = (response: Response, req: AppRequest): Response => {
+  response = {
     supportYouNeed: {
       attendingToCourt: req.session.userCase?.attendingToCourt,
       hearingDetails: req.session.userCase?.hearingDetails,
@@ -40,22 +40,19 @@ export const setSupportDetails = (party: Respondent | Applicant, req: AppRequest
       travellingOtherDetails: req.session.userCase.travellingOtherDetails,
     },
   };
-  return party;
+  return response;
 };
 
 export const getSupportDetails = (respondent: Respondent | Applicant, req: AppRequest): AppRequest => {
   req.session.userCase.communicationSupportOther = respondent.value.response.supportYouNeed?.communicationSupportOther;
   req.session.userCase.courtComfort = respondent.value.response.supportYouNeed?.courtComfort;
   req.session.userCase.courtHearing = respondent.value.response.supportYouNeed?.courtHearing;
-  req.session.userCase.courtProceedingProvideDetails =
-    respondent.value.response.supportYouNeed?.courtProceedingProvideDetails;
   req.session.userCase.describeOtherNeed = respondent.value.response.supportYouNeed?.describeOtherNeed;
   req.session.userCase.docsSupport = respondent.value.response.supportYouNeed?.docsSupport;
   req.session.userCase.helpCommunication = respondent.value.response.supportYouNeed?.helpCommunication;
   req.session.userCase.languageDetails = respondent.value.response.supportYouNeed?.languageDetails;
   req.session.userCase.otherDetails = respondent.value.response.supportYouNeed?.otherDetails;
   req.session.userCase.otherProvideDetails = respondent.value.response.supportYouNeed?.otherProvideDetails;
-  req.session.userCase.unableForCourtProceedings = respondent.value.response.supportYouNeed?.unableForCourtProceedings;
   req.session.userCase.reasonableAdjustments = respondent.value.response.supportYouNeed?.reasonableAdjustments;
   req.session.userCase.languageRequirements = respondent.value.response.supportYouNeed?.languageRequirements;
   req.session.userCase.safetyArrangements = respondent.value.response.supportYouNeed?.safetyArrangements;

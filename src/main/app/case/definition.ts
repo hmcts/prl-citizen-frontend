@@ -142,8 +142,6 @@ export interface ReasonableAdjustmentsSupport {
   safetyArrangementsDetails?: string,
   travellingToCourt?: string[],
   travellingOtherDetails?: string,
-  unableForCourtProceedings?: YesOrNo,
-  courtProceedingProvideDetails?: string,
   //respondent support you need
   attendingToCourt?: string[],
   hearingDetails?: string,

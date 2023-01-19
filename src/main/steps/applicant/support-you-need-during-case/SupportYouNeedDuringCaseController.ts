@@ -24,27 +24,41 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
 
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
       Object.assign(req.session.userCase, caseDataFromCos);
-
       if (req.url.includes('respondent') || req.url.includes('tasklistresponse')) {
-        req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-          //if (respondent?.value?.user?.idamId === req.session?.user.id) {
-          if (req.url.includes('support-you-need-during-case')) {
-            setSupportDetails(respondent, req);
-          }
-          //}
-        });
-      } else if (req.url.includes('applicant')) {
-        req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
-          if (applicant?.value?.user?.idamId === req.session?.user.id) {
+        if ('C100' === req.session.userCase.caseTypeOfApplication) {
+          req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
+            //if (respondent?.value?.user?.idamId === req.session?.user.id) {
             if (req.url.includes('support-you-need-during-case')) {
-              setSupportDetails(applicant, req);
+              respondent.value.response = setSupportDetails(respondent.value.response, req);
             }
+            //}
+          });
+        } else {
+          if (req.url.includes('support-you-need-during-case')) {
+            req.session.userCase.respondentsFL401!.response = setSupportDetails(
+              req.session.userCase.respondentsFL401!.response,
+              req
+            );
           }
-        });
+        }
+      } else if (req.url.includes('applicant')) {
+        if ('C100' === req.session.userCase.caseTypeOfApplication) {
+          req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
+            if (applicant?.value?.user?.idamId === req.session?.user.id) {
+              if (req.url.includes('support-you-need-during-case')) {
+                applicant.value.response = setSupportDetails(applicant.value.response, req);
+              }
+            }
+          });
+        } else {
+          if (req.url.includes('support-you-need-during-case')) {
+            req.session.userCase.applicantsFL401!.response = setSupportDetails(
+              req.session.userCase.applicantsFL401!.response,
+              req
+            );
+          }
+        }
       }
-
-      console.log('UserCase=====>' + JSON.stringify(req.session.userCase));
-
       const caseData = toApiFormat(req?.session?.userCase);
       caseData.id = caseReference;
       const updatedCaseDataFromCos = await client.updateCase(
