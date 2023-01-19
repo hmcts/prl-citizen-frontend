@@ -2,7 +2,7 @@ import { responseCaseSequence } from './responseCaseSequence';
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(responseCaseSequence).toHaveLength(69);
+    expect(responseCaseSequence).toHaveLength(72);
     expect(responseCaseSequence[0].url).toBe('/respondent/task-list');
     expect(responseCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -121,49 +121,60 @@ describe('respondent1Sequence', () => {
     expect(responseCaseSequence[29].url).toBe('/tasklistresponse/proceedings/start');
     expect(responseCaseSequence[29].showInSection).toBe('aboutRespondentCase');
 
-    expect(responseCaseSequence[30].url).toBe('/tasklistresponse/proceedings/court-proceedings');
+    expect(responseCaseSequence[30].url).toBe('/tasklistresponse/proceedings/courtproceedings');
     expect(responseCaseSequence[30].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[30].getNextStep({})).toBe('/tasklistresponse/proceedings/summary');
 
-    expect(responseCaseSequence[31].url).toBe('/tasklistresponse/proceedings/summary');
+    expect(responseCaseSequence[31].url).toBe('/tasklistresponse/proceedings/:orderType/order-details');
     expect(responseCaseSequence[31].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[31].getNextStep({})).toBe('/tasklistresponse/start');
 
-    expect(responseCaseSequence[32].url).toBe('/respondent/upload-document');
+    expect(responseCaseSequence[32].url).toBe(
+      '/tasklistresponse/proceedings/:orderType/:orderId/documentUpload/:removeId?'
+    );
     expect(responseCaseSequence[32].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[32].getNextStep({})).toBe('/respondent/upload-document/start');
 
-    expect(responseCaseSequence[33].url).toBe('/respondent/upload-document/start');
+    expect(responseCaseSequence[33].url).toBe('/tasklistresponse/proceedings/document-summary');
     expect(responseCaseSequence[33].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[33].getNextStep({})).toBe('/respondent/upload-document/document-sharing-details');
+    expect(responseCaseSequence[33].getNextStep({})).toBe('/tasklistresponse/proceedings/summary');
 
-    expect(responseCaseSequence[34].url).toBe('/respondent/upload-document/document-sharing-details');
+    expect(responseCaseSequence[34].url).toBe('/tasklistresponse/proceedings/summary');
     expect(responseCaseSequence[34].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[34].getNextStep({})).toBe('/respondent/upload-document/upload-your-documents');
+    expect(responseCaseSequence[34].getNextStep({})).toBe('/tasklistresponse/proceedings/save');
 
-    expect(responseCaseSequence[35].url).toBe('/respondent/upload-document/upload-your-documents');
+    expect(responseCaseSequence[35].url).toBe('/respondent/upload-document');
     expect(responseCaseSequence[35].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[35].getNextStep({})).toBe('/respondent/upload-document/upload-documents-success');
+    expect(responseCaseSequence[35].getNextStep({})).toBe('/respondent/upload-document/start');
 
-    expect(responseCaseSequence[36].url).toBe('/respondent/upload-document/upload-documents-success');
+    expect(responseCaseSequence[36].url).toBe('/respondent/upload-document/start');
     expect(responseCaseSequence[36].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[36].getNextStep({})).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[36].getNextStep({})).toBe('/respondent/upload-document/document-sharing-details');
 
-    expect(responseCaseSequence[37].url).toBe('/tasklistresponse/support-you-need-during-case/attending-the-court');
-    expect(responseCaseSequence[37].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(responseCaseSequence[37].getNextStep({})).toBe(
+    expect(responseCaseSequence[37].url).toBe('/respondent/upload-document/document-sharing-details');
+    expect(responseCaseSequence[37].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[37].getNextStep({})).toBe('/respondent/upload-document/upload-your-documents');
+
+    expect(responseCaseSequence[38].url).toBe('/respondent/upload-document/upload-your-documents');
+    expect(responseCaseSequence[38].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[38].getNextStep({})).toBe('/respondent/upload-document/upload-documents-success');
+
+    expect(responseCaseSequence[39].url).toBe('/respondent/upload-document/upload-documents-success');
+    expect(responseCaseSequence[39].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[39].getNextStep({})).toBe('/tasklistresponse/start');
+
+    expect(responseCaseSequence[40].url).toBe('/tasklistresponse/support-you-need-during-case/attending-the-court');
+    expect(responseCaseSequence[40].showInSection).toBe('aboutCaAndDaRespondentCase');
+    expect(responseCaseSequence[40].getNextStep({})).toBe(
       '/tasklistresponse/support-you-need-during-case/language-requirements'
     );
 
-    expect(responseCaseSequence[38].url).toBe('/tasklistresponse/support-you-need-during-case/language-requirements');
-    expect(responseCaseSequence[38].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(responseCaseSequence[38].getNextStep({})).toBe(
+    expect(responseCaseSequence[41].url).toBe('/tasklistresponse/support-you-need-during-case/language-requirements');
+    expect(responseCaseSequence[41].showInSection).toBe('aboutCaAndDaRespondentCase');
+    expect(responseCaseSequence[41].getNextStep({})).toBe(
       '/tasklistresponse/support-you-need-during-case/special-arrangements'
     );
 
-    expect(responseCaseSequence[39].url).toBe('/tasklistresponse/support-you-need-during-case/special-arrangements');
-    expect(responseCaseSequence[39].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(responseCaseSequence[39].getNextStep({})).toBe(
+    expect(responseCaseSequence[42].url).toBe('/tasklistresponse/support-you-need-during-case/special-arrangements');
+    expect(responseCaseSequence[42].showInSection).toBe('aboutCaAndDaRespondentCase');
+    expect(responseCaseSequence[42].getNextStep({})).toBe(
       '/tasklistresponse/support-you-need-during-case/reasonable-adjustments'
     );
   });

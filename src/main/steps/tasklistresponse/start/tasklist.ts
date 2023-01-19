@@ -1,4 +1,4 @@
-import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Respondent, YesOrNo } from '../../../app/case/definition';
 import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
 import * as URL from '../../urls';
 
