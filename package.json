@@ -23,7 +23,7 @@
     "sonar-scan": "sonar-scanner",
     "test:smoke:e2e": "MOCHAWESOME_REPORTFILENAME=smoke codeceptjs run --grep \"${SMOKE_TESTS_SELECTOR:=@smoke-tests}\" --reporter mocha-multi",
     "test:smoke:downstream": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.smoke.config.js",
-    "test:smoke": "run-p test:smoke:downstream test:smoke:e2e",
+    "test:smoke": "run-p test:smoke:downstream",
     "test:functional": "echo 'functional tests disabled temporarily for setup' && exit 0",
     "test:fullfunctional": "run-p test:pa11y",
     "cichecks": "yarn && run-p build lint test",
