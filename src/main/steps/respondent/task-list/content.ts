@@ -75,7 +75,7 @@ const en = () => ({
         text: 'Check the application (PDF)',
       },
       {
-        href: RESPOND_TO_APPLICATION,
+        href: RESPOND_TO_APPLICATION + '/updateFlag',
         text: 'Respond to the application',
       },
     ],
@@ -193,7 +193,7 @@ const cy = () => ({
         text: 'Check the application (PDF)',
       },
       {
-        href: RESPOND_TO_APPLICATION,
+        href: RESPOND_TO_APPLICATION + '/updateFlag',
         text: 'Respond to the application',
       },
     ],
@@ -266,8 +266,22 @@ export const generateContent: TranslationFn = content => {
       ? getC100Banners(content.userCase, translations, content.userIdamId)
       : getFl401Banners(content.userCase, translations, content.userIdamId);
 
+  const stages = buildProgressBarStages(content.userCase!);
   const req: AppRequest = content.additionalData?.req;
-
+  if (content.userCase?.caseTypeOfApplication === 'C100') {
+    const respondent = getRespondentPartyDetailsCa(content.userCase, req.session.user.id);
+    if (respondent?.value.response.citizenFlags?.isResponseInitiated) {
+      stages[2].active = true;
+    }
+    const partyId = respondent?.id;
+    if (content.userCase.citizenResponseC7DocumentList) {
+      for (let i = 0; i < content.userCase.citizenResponseC7DocumentList.length; i++) {
+        if (content.userCase.citizenResponseC7DocumentList[i].value.createdBy === partyId) {
+          stages[2].completed = true;
+        }
+      }
+    }
+  }
   translations.respondentName = getRespondentName(req.session.userCase, req.session.user.id);
 
   return {
@@ -279,7 +293,7 @@ export const generateContent: TranslationFn = content => {
       content.userIdamId
     ),
     banners,
-    stages: buildProgressBarStages(content.userCase!),
+    stages,
   };
 };
 

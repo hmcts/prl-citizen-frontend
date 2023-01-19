@@ -1,6 +1,9 @@
 import { Response } from 'express';
 
 import { CaseWithId } from '../../app/case/case';
+
+import { Respondent } from '../../app/case/definition';
+import { getInternationalFactorsDetails } from '../../steps/tasklistresponse/international-factors/InternationalFactorsMapper';
 import {
   APPLICANT,
   APPLICANT_TASK_LIST_URL,
@@ -49,7 +52,17 @@ export class GetCaseController {
     }
     if (req.session?.userCase) {
       req.session.userCaseList = [];
+      req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
+        if (
+          respondent?.value?.user?.idamId === req.session?.user.id &&
+          respondent?.value?.response &&
+          respondent?.value?.response.citizenInternationalElements
+        ) {
+          getInternationalFactorsDetails(respondent, req);
+        }
+      });
     }
+
     return req.session.userCase;
   }
 

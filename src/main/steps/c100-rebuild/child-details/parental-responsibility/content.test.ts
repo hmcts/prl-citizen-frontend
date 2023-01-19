@@ -19,6 +19,7 @@ const en = {
   errors: {
     statement: {
       required: 'Enter an answer',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
   },
 };
@@ -32,6 +33,7 @@ const cy = {
   errors: {
     statement: {
       required: 'Rhowch ateb',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.(in Welsh)',
     },
   },
 };

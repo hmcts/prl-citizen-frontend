@@ -1,7 +1,7 @@
 import { C100ListOfApplicants } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { isFieldFilledIn, isFieldLetters } from '../../../../app/form/validation';
 import { C100_APPLICANT_ADD_APPLICANTS } from '../../../urls';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -18,9 +18,11 @@ const en = () => ({
   errors: {
     applicantFirstName: {
       required: 'Enter the first name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     applicantLastName: {
       required: 'Enter the last name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
   },
 });
@@ -38,9 +40,13 @@ const cy = () => ({
   errors: {
     applicantFirstName: {
       required: 'Nodwch yr enw cyntaf',
+      invalid:
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     applicantLastName: {
       required: 'Nodwch yr enw olaf',
+      invalid:
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
   },
 });
@@ -73,7 +79,7 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
           labelSize: 'none',
           classes: 'govuk-input govuk-!-width-one-half',
           label: l => l.firstName,
-          validator: value => isFieldFilledIn(value as string),
+          validator: value => isFieldFilledIn(value) || isFieldLetters(value),
         },
         [`ApplicantLastName-${count}`]: {
           type: 'text',
@@ -82,7 +88,7 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
           classes: 'govuk-input govuk-!-width-one-half',
           hint: h => h.caseNumberHint,
           labelSize: 'none',
-          validator: isFieldFilledIn,
+          validator: value => isFieldFilledIn(value) || isFieldLetters(value),
         },
         removeApplicant: {
           type: 'link',
@@ -122,14 +128,14 @@ export const form: FormContent = {
       classes: 'govuk-input govuk-!-width-one-half',
       label: label => label.firstName,
       hint: hint => hint.firstNameHint,
-      validator: isFieldFilledIn,
+      validator: value => isFieldFilledIn(value) || isFieldLetters(value),
       labelSize: 'none',
     },
     applicantLastName: {
       type: 'text',
       classes: 'govuk-input govuk-!-width-one-half',
       label: label => label.lastName,
-      validator: isFieldFilledIn,
+      validator: value => isFieldFilledIn(value) || isFieldLetters(value),
       labelSize: 'none',
     },
     addAnotherApplicant: {

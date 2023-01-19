@@ -45,6 +45,7 @@ const en = {
     },
     previousFullName: {
       required: 'Enter their previous name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     dateOfBirth: {
       required: 'Enter the date of birth',
@@ -68,6 +69,10 @@ const en = {
     },
     respondentPlaceOfBirth: {
       required: 'Enter their place of birth',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
+    },
+    otherGenderDetails: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
   },
 };
@@ -88,8 +93,8 @@ const cy = {
   previousName: 'Nodwch eu henw blaenorol',
   previousNameHint: 'Dylai hwn fod yr enw cyfreithiol llawn (gan gynnwys unrhyw enwau canol)',
   respondentGenderLabel: 'Rhyw',
-  male: 'Benyw',
-  female: 'Gwryw',
+  male: 'Gwryw',
+  female: 'Benyw',
   other: 'Maen nhw’n uniaethu mewn ffordd arall',
   respondentPlaceOfBirthUnknown: 'Nid wyf yn gwybod beth yw eu man genih',
   otherGenderDetailsLabel: 'Rhywedd yr atebydd (Dewisol)',
@@ -102,6 +107,8 @@ const cy = {
     },
     previousFullName: {
       required: 'Nodwch eu henw blaenorol',
+      invalid:
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     dateOfBirth: {
       required: 'Nodwch ei ddyddiad geni',
@@ -125,6 +132,10 @@ const cy = {
     },
     respondentPlaceOfBirth: {
       required: 'Nodwch y man geni',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
+    },
+    otherGenderDetails: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
     },
   },
 };

@@ -25,7 +25,7 @@ const cy = () => ({
   three: 'Nid wyf yn gwybod ',
   errors: {
     detailsKnown: {
-      required: 'Select yes if the other people in the application know your contact details - welsh',
+      required: "Dewiswch 'ydy' os yw'r bobl eraill yn y cais yn gwybod eich manylion cyswllt",
     },
   },
 });

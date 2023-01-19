@@ -47,7 +47,7 @@ export const cy = () => ({
       required: 'Rhowch fanylion yr iaith mae angen cyfieithydd arnoch ar ei gyfer',
     },
     ra_languageNeeds: {
-      required: 'Select whether you have any language requirements - welsh',
+      required: 'Nodwch a oes gennych chi unrhyw ofynion ieithyddol',
     },
   },
 });

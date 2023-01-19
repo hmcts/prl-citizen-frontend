@@ -21,6 +21,9 @@ export default class DashboardGetController extends GetController {
       pageContent: this.content,
       userCase: req.session?.userCase,
       userCaseList: req.session?.userCaseList,
+      additionalData: {
+        req,
+      },
     });
     res.render(this.view, {
       ...content,
