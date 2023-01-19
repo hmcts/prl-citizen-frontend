@@ -181,7 +181,7 @@ const cy: typeof en = {
   notSure: 'Not sure (in welsh)',
   english: 'Saesneg',
   welsh: 'Cymraeg',
-  contactUsForHelp: 'Cysylltwch â ni am gymorth',
+  contactUsForHelp: 'Cysylltu â ni am gymorth',
   webChat: 'Sgwrsio dros y we',
   webChatDetails: 'I ofyn cwestiwn neu i gael cymorth',
   sendUsAMessage: 'Anfonwch neges atom',

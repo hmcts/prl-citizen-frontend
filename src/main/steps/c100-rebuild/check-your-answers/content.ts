@@ -214,7 +214,7 @@ export const cyContent = {
     insetTextPayAndSubmit:
       ' <p>Unwaith y byddwch yn cyflwyno’ch cais, ni allwch wneud unrhyw newidiadau pellach. Dewiswch cadw a dychwelyd yn nes ymlaen i gadw eich cais, neu dewiswch Talu a chyflwyno eich cais i gwblhau eich cais ar-lein.</p><p>Gallwch lwytho copi o’r cais i lawr mewn fformat PDF gan ddefnyddio’r ddolen.</p>',
     insetTextSubmit:
-      '<p>Unwaith y byddwch yn cyflwyno’ch cais, ni allwch wneud unrhyw newidiadau pellach. Dewiswch ‘Cadw a dychwelyd yn hwyrach ymlaen’ i gadw eich cais, neu dewiswch ‘Cyflwyno eich cais’ i gwblhau eich cais ar-lein.</p><p>Gallwch ddefnyddio’r ddolen a ddarparwyd i chi i lawrlwytho copi PDF o’r cais yr ydych wedi’i gyflwyno.</p>',
+      "<p>Unwaith y byddwch yn cyflwyno’ch cais, ni allwch wneud unrhyw newidiadau pellach. Dewiswch ‘Cadw'r cais a dychwelyd ato yn hwyrach ymlaen’ i gadw eich cais, neu dewiswch ‘Cyflwyno eich cais’ i gwblhau eich cais ar-lein.</p><p>Gallwch ddefnyddio’r ddolen a ddarparwyd i chi i lawrlwytho copi PDF o’r cais yr ydych wedi’i gyflwyno.</p>",
     check: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir',
     lastPara:
       'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
