@@ -2,6 +2,7 @@ import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 
 import {
   miam_cost_exemption_content_cy,
@@ -15,6 +16,7 @@ const en = {
   title: 'Would you be willing to attend a MIAM?',
   one: 'Yes',
   two: 'No',
+  pagetitle: '',
   explainWhyLabel: 'Explain why',
   miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
   miamCostExemptionsInfo: miam_cost_exemption_content_en,
@@ -36,6 +38,7 @@ const cy: typeof en = {
   title: 'Would you be willing to attend a MIAM?',
   one: 'Yes',
   two: 'No',
+  pagetitle: '',
   explainWhyLabel: 'Explain why',
   miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
   miamCostExemptionsInfo: miam_cost_exemption_content_cy,
@@ -105,5 +108,6 @@ export const form: FormContent = {
 
 export const generateContent = (content: CommonContent): PageContent => ({
   ...languages[content.language],
+  pagetitle: typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false),
   form,
 });

@@ -2,12 +2,13 @@ import { PRL_C1AAbuseTypes } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 import { generateContent as parentContent } from '../content';
-
 const en = () => ({
   serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   title: 'What type of behaviour have you experienced or are at risk of experiencing?',
+  pagetitle: '',
   paragraph1:
     'Describe the abusive behaviour that you are concerned about. If you are not sure that the behaviour is abusive,',
   seeGuidanceHyperLink: 'https://supportnav.org.uk/what-is-domestic-abuse',
@@ -41,6 +42,7 @@ const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   caption: 'Safety concerns - welsh',
   title: 'What type of behaviour have you experienced or are at risk of experiencing? - welsh',
+  pagetitle: '',
   paragraph1:
     'Describe the abusive behaviour that you are concerned about. If you are not sure that the behaviour is abusive,- welsh',
   seeGuidanceHyperLink: 'https://supportnav.org.uk/what-is-domestic-abuse - welsh',
@@ -130,6 +132,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     ...parentContent(content),

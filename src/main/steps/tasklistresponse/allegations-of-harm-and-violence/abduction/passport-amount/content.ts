@@ -3,8 +3,8 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 import { generateContent as commonContent } from '../content';
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Safety concerns',
@@ -14,6 +14,7 @@ export const en = () => ({
   select_all_relevant: 'Select all that apply',
   one: 'Yes',
   two: 'No',
+  pagetitle: '',
   option1: 'Mother',
   option2: 'Father',
   option3: 'Other',
@@ -39,6 +40,7 @@ export const cy = () => ({
   select_all_relevant: 'Select all that apply - welsh',
   one: 'Yes - welsh',
   two: 'No - welsh',
+  pagetitle: '',
   option1: 'Mother - welsh',
   option2: 'Father - welsh',
   option3: 'Other - welsh',
@@ -121,6 +123,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...commonContent(content),
     ...translations,

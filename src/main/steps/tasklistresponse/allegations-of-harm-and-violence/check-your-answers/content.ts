@@ -4,7 +4,7 @@ import { PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbout, YesOrNo } from '../../..
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 // eslint-disable-next-line import/no-unresolved
 import { ANYTYPE } from './common/index';
 import { SafetyConcerns, SafetyConcerns_child, SafetyConcerns_others, SafetyConcerns_yours } from './mainUtil';
@@ -15,6 +15,7 @@ export const enContent = {
   serviceName: 'Check your answers ',
   section: '',
   title: 'Check your Answers',
+  pagetitle: '',
   change: 'Edit',
   topWarning: 'Your answers will be shared with the other people in this case.',
   makingSure: 'Please review your answers before you finish your application.',
@@ -41,6 +42,7 @@ export const cyContent: typeof enContent = {
   serviceName: 'Check your answers - welsh ',
   section: '',
   title: 'Check your Answers -welsh',
+  pagetitle: '',
   change: 'change - welsh',
   topWarning: 'Your answers will be shared with the other people in this case. - welsh',
   makingSure: 'Please review your answers before you finish your application.- welsh',
@@ -156,7 +158,7 @@ export const generateContent: TranslationFn = content => {
     ...SafetyConcernContentElements(content['language']),
   };
   const translations = languages[content.language](content);
-
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

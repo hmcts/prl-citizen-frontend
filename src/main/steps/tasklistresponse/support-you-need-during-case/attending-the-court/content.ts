@@ -1,9 +1,10 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   section: 'Attending the court',
+  pagetitle: '',
   title: 'Would you be able to take part in hearings by video and phone?',
   courtcommunication:
     'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
@@ -27,6 +28,7 @@ const en = {
 
 const cy: typeof en = {
   section: 'Reasonable adjustments',
+  pagetitle: '',
   title: 'Would you be able to take part in hearings by video and phone?',
   courtcommunication:
     'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
@@ -100,6 +102,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

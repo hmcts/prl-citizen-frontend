@@ -2,12 +2,13 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   section: ' ',
   title: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
   one: 'Yes',
   two: 'No',
+  pagetitle: '',
   twoHint:
     'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
   summaryText: 'Contacts for help',
@@ -29,6 +30,7 @@ const cy: typeof en = {
   title: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
   one: 'Yes',
   two: 'No',
+  pagetitle: '',
   twoHint:
     'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
   summaryText: 'Contacts for help',
@@ -86,6 +88,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

@@ -3,10 +3,11 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 export const en = () => ({
   serviceName: 'Child Arrangements',
   title: 'Safety Concerns',
+  pagetitle: '',
   headingTitle: 'Do you have any concerns for your safety or the safety of the children?',
   paragraph1: '<p> You may have concerns about current, or future safety. </p>',
   paragraph2:
@@ -31,6 +32,7 @@ export const en = () => ({
 export const cy = () => ({
   serviceName: 'Child Arrangements - Welsh',
   title: 'Safety Concerns - Welsh',
+  pagetitle: '',
   headingTitle: 'Do you have any concerns for your safety or the safety of the children? - Welsh',
   paragraph1: '<p> You may have concerns about current, or future safety. </p> - Welsh',
   paragraph2:
@@ -102,6 +104,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

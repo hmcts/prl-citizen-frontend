@@ -8,10 +8,12 @@ import {
   isFieldFilledIn,
   isFutureDate,
 } from '../../../../app/form/validation';
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 
 const en = {
   section: 'Current or previous proceedings',
   title: 'Provide details of court cases you or the children have been involved in',
+  pagetitle: '',
   emergencyOrder: 'Emergency Protection Order',
   caseno: 'Case number',
   casenohint: 'For example, BS19F99999',
@@ -267,6 +269,7 @@ const en = {
 const cy: typeof en = {
   section: 'Current or previous proceedings',
   title: 'Provide details of court cases you or the children have been involved in',
+  pagetitle: '',
   emergencyOrder: 'Emergency Protection Order',
   caseno: 'Case number',
   casenohint: 'For example, BS19F99999',
@@ -1731,6 +1734,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

@@ -3,12 +3,14 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 import { generateContent as parentContent } from '../content';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   title: 'Has the passport office been notified? ',
+  pagetitle: '',
   Yes: 'Yes',
   No: 'No',
   errors: {
@@ -22,6 +24,7 @@ export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   caption: 'Safety concerns - welsh',
   title: 'Has the passport office been notified? - welsh',
+  pagetitle: '',
   Yes: 'Yes - welsh',
   No: 'No - welsh',
   errors: {
@@ -64,6 +67,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     ...parentContent(content),

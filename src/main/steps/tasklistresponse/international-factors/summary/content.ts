@@ -10,11 +10,13 @@ import {
   INTERNATIONAL_FACTORS_START,
 } from '../../../../steps/urls';
 import { summaryList } from '../../../common/summary/utils';
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 
 export const enContent = {
   section: ' ',
   title: 'Check your answers',
   title2: 'International element',
+  pagetitle: '',
   sectionTitles: {
     respondentAdditionalInformation: 'International elements',
   },
@@ -46,6 +48,7 @@ const cyContent: typeof enContent = {
   section: ' ',
   title: 'Check your answers',
   title2: 'International element',
+  pagetitle: '',
   sectionTitles: {
     respondentAdditionalInformation: 'International elements',
   },
@@ -97,6 +100,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

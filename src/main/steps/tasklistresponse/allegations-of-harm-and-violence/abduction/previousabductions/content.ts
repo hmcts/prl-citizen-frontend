@@ -2,12 +2,13 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 import { generateContent as parentContent } from '../content';
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Safety concerns',
   title: 'Provide details of the previous abductions',
+  pagetitle: '',
   line1: 'Give a short description of the previous incidents of abduction.',
   c1A_previousAbductionsShortDescHint: 'Include any previous attempts to threaten or abduct the children.',
   c1A_policeOrInvestigatorInvolved: 'Were the police, private investigators or any other organisation involved?',
@@ -32,6 +33,7 @@ export const en = () => ({
 export const cy = () => ({
   caption: 'Safety concerns - welsh',
   title: 'Provide details of the previous abductions - welsh',
+  pagetitle: '',
   line1: 'Give a short description of the previous incidents of abduction. - welsh',
   c1A_previousAbductionsShortDescHint: 'Include any previous attempts to threaten or abduct the children. - welsh',
   c1A_policeOrInvestigatorInvolved:
@@ -99,6 +101,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     ...parentContent(content),

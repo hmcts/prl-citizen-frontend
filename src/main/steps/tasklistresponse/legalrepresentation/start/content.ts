@@ -2,9 +2,10 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 //import { isFieldFilledIn } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   title: 'Will you be using a legal representative to respond to the application?',
+  pagetitle: '',
   insetText:
     "You can respond to the applicant's request yourself and then redirect your case to your legal representative for the remainder of the proceedings.",
   one: 'Yes',
@@ -20,6 +21,7 @@ const en = {
 
 const cy: typeof en = {
   title: 'Will you be using a legal representative to respond to the application?',
+  pagetitle: '',
   insetText:
     "You can respond to the applicant's request yourself and then redirect your case to your legal representative for the remainder of the proceedings.",
   one: 'Yes',
@@ -44,6 +46,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

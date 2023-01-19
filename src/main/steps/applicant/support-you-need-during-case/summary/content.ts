@@ -3,7 +3,6 @@ import { TranslationFn } from '../../../../../main/app/controller/GetController'
 import { FormContent } from '../../../../../main/app/form/Form';
 import { CommonContent } from '../../../../../main/steps/common/common.content';
 import { summaryList } from '../../../../../main/steps/common/support-you-need-during-case/summary/utils';
-import { typeofcaseuser } from '../../../common/typeofcaseuser';
 import {
   COMMUNICATION_HELP,
   COURT_HEARING_COMFORT,
@@ -15,6 +14,7 @@ import {
   TRAVELLING_TO_COURT,
   UNABLE_TO_TAKE_COURT_PROCEEDINGS,
 } from '../../../../../main/steps/urls';
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 export const enContent = {
   section: 'Check your answers',
   title: 'Your hearing needs and requirements',

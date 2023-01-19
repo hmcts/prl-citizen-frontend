@@ -1,7 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   title: 'Safety concerns',
+  pagetitle: '',
   title_desc:
     'The court needs to know about any violent or abusive behaviour that puts you or the children at risk of harm.',
   heading1: 'Abusive behaviour',
@@ -50,6 +51,7 @@ const en = {
 
 const cy: typeof en = {
   title: 'Safety concerns - welsh',
+  pagetitle: '',
   title_desc:
     'The court needs to know about any violent or abusive behaviour that puts you or the children at risk of harm. - welsh',
   heading1: 'Abusive behaviour - welsh',
@@ -104,6 +106,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
   };

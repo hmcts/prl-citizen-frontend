@@ -2,10 +2,11 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   section: ' ',
   title: "Are the children's lives mainly based outside of England and Wales?",
+  pagetitle: '',
   one: 'Yes',
   two: 'No',
   hint: 'For example, is their family life mainly based outside of England and Wales?',
@@ -26,6 +27,7 @@ const en = {
 const cy: typeof en = {
   section: ' ',
   title: "Are the children's lives mainly based outside of England and Wales?",
+  pagetitle: '',
   one: 'Yes',
   two: 'No',
   hint: 'For example, is their family life mainly based outside of England and Wales?',
@@ -85,6 +87,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

@@ -3,7 +3,7 @@ import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
 import { CONSENT_TO_APPLICATION } from '../../../../steps/urls';
 import { summaryList } from '../../../common/summary/utils';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const urls = {
   doYouConsent: CONSENT_TO_APPLICATION,
   applicationReceivedDate: CONSENT_TO_APPLICATION,
@@ -18,6 +18,7 @@ const fieldType = {
 
 export const enContent = {
   section: 'Check your answers',
+  pagetitle: '',
   title: 'Your consent to the application',
   sectionTitles: {
     consentDetails: '',
@@ -42,6 +43,7 @@ const en = (content: CommonContent) => {
 
 const cyContent: typeof enContent = {
   section: 'Check your answers',
+  pagetitle: '',
   title: 'Your consent to the application',
   sectionTitles: {
     consentDetails: '',
@@ -78,6 +80,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

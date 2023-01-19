@@ -1,7 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   title: 'Complete your response',
+  pagetitle: '',
   line1: "Complete your response to the applicant's request for child arrangements.",
   line2: 'Once you have completed all of the main sections, you will be able to review and submit your answers.',
   medheading: 'Transfer your case to your legal representative',
@@ -17,6 +18,7 @@ const en = {
 
 const cy: typeof en = {
   title: 'Complete your response - welsh',
+  pagetitle: '',
   line1: "Complete your response to the applicant's request for child arrangements. - welsh",
   line2:
     'Once you have completed all of the main sections, you will be able to review and submit your answers. - welsh',
@@ -39,6 +41,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   const caseId = content.userCase?.id;
 
   return {

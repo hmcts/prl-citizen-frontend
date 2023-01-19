@@ -2,10 +2,12 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   section: 'Safety concerns',
   title: 'Contact between the children and the other people in this application',
+  pagetitle: '',
   subtitle:
     "The court will presume it is good for the children's welfare to have both of their parents involved in their lives, unless there is evidence showing that this would cause harm to the children.",
   selectSupervisionAgreementLabel:
@@ -32,6 +34,7 @@ export const en = () => ({
 export const cy = () => ({
   section: 'Safety concerns - welsh',
   title: 'Contact between the children and the other people in this application - welsh',
+  pagetitle: '',
   subtitle:
     "The court will presume it is good for the children's welfare to have both of their parents involved in their lives, unless there is evidence showing that this would cause harm to the children. - welsh",
   selectSupervisionAgreementLabel:
@@ -108,6 +111,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

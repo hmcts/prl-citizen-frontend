@@ -1,10 +1,11 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = () => ({
   serviceName: 'Child Arrangements',
   caption: 'Safety Concerns',
   title: "The children's safety",
+  pagetitle: '',
   firstParagraph:
     'The court needs to know if any of the other people in this application, or anyone connected to them who has contact with the children, poses a risk to the safety of the children.',
   subHeading: 'What you told us',
@@ -25,6 +26,7 @@ const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
   caption: 'Safety Concerns - welsh',
   title: "The children's safety - welsh",
+  pagetitle: '',
   firstParagraph:
     'The court needs to know if any of the other people in this application, or anyone connected to them who has contact with the children, poses a risk to the safety of the children. - welsh',
   subHeading: 'What you told us - welsh',
@@ -55,6 +57,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

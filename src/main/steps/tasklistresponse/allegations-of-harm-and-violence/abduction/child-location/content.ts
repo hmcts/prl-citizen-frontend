@@ -2,11 +2,12 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 import { generateContent as parentContent } from '../content';
-
 export const en = () => ({
   section: 'Safety concerns',
   title: 'Why do you think the children may be abducted or kept outside the UK without your consent?',
+  pagetitle: '',
   warningText: {
     text: 'Contact the police or social services if a child you’re responsible for is at risk of being taken out of the UK without your consent.',
     iconFallbackText: 'Warning',
@@ -30,6 +31,7 @@ export const en = () => ({
 export const cy = () => ({
   section: 'Safety concerns - welsh',
   title: 'Why do you think the children may be abducted or kept outside the UK without your consent? - welsh',
+  pagetitle: '',
   warningText: {
     text: 'Contact the police or social services if a child you’re responsible for is at risk of being taken out of the UK without your consent. - welsh',
     iconFallbackText: 'Warning - welsh',
@@ -84,6 +86,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     ...parentContent(content),

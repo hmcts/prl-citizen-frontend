@@ -9,10 +9,12 @@ import {
   isFutureDate,
   isTextAreaValid,
 } from '../../../../app/form/validation';
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 
 const en = {
   title: 'Your understanding of the application',
   consent: 'Do you consent to the application?',
+  pagetitle: '',
   dateReceived: 'When did you receive the application?',
   courtPermission: 'Does the applicant need permission from the court before making applications?',
   one: 'Yes',
@@ -50,6 +52,7 @@ const en = {
 const cy: typeof en = {
   title: 'Your understanding of the application (welsh)',
   consent: 'Do you consent to the application? (welsh)',
+  pagetitle: '',
   dateReceived: 'When did you receive the application? (welsh)',
   courtPermission: 'Does the applicant need permission from the court before making applications? (welsh)',
   one: 'Yes (welsh)',
@@ -183,6 +186,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

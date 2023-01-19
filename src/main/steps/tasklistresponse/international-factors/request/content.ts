@@ -2,12 +2,13 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   section: ' ',
   title: 'Has another country asked (or been asked) for information or help for the children?',
   one: 'Yes',
   two: 'No',
+  pagetitle: '',
   twoHint:
     'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
   summaryText: 'Contacts for help',
@@ -28,6 +29,7 @@ const cy: typeof en = {
   title: 'Has another country asked (or been asked) for information or help for the children?',
   one: 'Yes',
   two: 'No',
+  pagetitle: '',
   twoHint:
     'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
   summaryText: 'Contacts for help',
@@ -84,6 +86,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

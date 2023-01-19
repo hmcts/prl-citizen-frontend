@@ -2,12 +2,13 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   title: 'Have the children been impacted by drug, alcohol or substance abuse?',
+  pagetitle: '',
   line1: 'This could be abuse that is taking place now, or abuse that occurred in the past.',
   line2: 'For example, you think the children are impacted by living with someone who has a substance abuse problem.',
   one: 'Yes',
@@ -28,6 +29,7 @@ export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   caption: 'Safety concerns - welsh',
   title: 'Have the children been impacted by drug, alcohol or substance abuse? - welsh',
+  pagetitle: '',
   line1: 'This could be abuse that is taking place now, or abuse that occurred in the past. - welsh',
   line2:
     'For example, you think the children are impacted by living with someone who has a substance abuse problem. -welsh',
@@ -84,6 +86,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

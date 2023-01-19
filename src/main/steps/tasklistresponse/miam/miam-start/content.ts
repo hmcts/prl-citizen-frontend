@@ -1,6 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 
 import { miam_collapse_content_cy, miam_collapse_content_en } from './miam-details-content';
 
@@ -9,6 +10,7 @@ const en = {
   one: 'Yes',
   two: 'No',
   three: "I don't know",
+  pagetitle: '',
   miamDetailsLabel: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
   miamSubFields: miam_collapse_content_en,
   threeHint: 'This is a 8 character code',
@@ -26,6 +28,7 @@ const cy: typeof en = {
   one: 'Yes',
   two: 'No',
   three: "I don't know",
+  pagetitle: '',
   miamDetailsLabel: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
   miamSubFields: miam_collapse_content_cy,
   threeHint: 'This is a 8 character code',
@@ -73,6 +76,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

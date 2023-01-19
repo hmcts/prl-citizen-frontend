@@ -2,7 +2,7 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   section: ' ',
   title:
@@ -10,6 +10,7 @@ const en = {
   hint: 'For example, this could include a grandparent or another close relative. They may have work, property or school arrangements that are mainly based outside of England and Wales.',
   one: 'Yes',
   two: 'No',
+  pagetitle: '',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
@@ -29,6 +30,7 @@ const cy: typeof en = {
   hint: 'For example, this could include a grandparent or another close relative. They may have work, property or school arrangements that are mainly based outside of England and Wales.',
   one: 'Yes',
   two: 'No',
+  pagetitle: '',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
@@ -81,6 +83,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

@@ -3,11 +3,12 @@ import { PRL_C1ASafteyConcernsAbout } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 export const en = () => ({
   serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   headingTitle: 'Who are you concerned about?',
+  pagetitle: '',
   select_all_relevant: 'Select all options that are relevant to you.',
   childrenInThisApplication: 'The children in this application',
   yourself: 'Yourself',
@@ -22,6 +23,7 @@ export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   caption: 'Safety concerns - welsh',
   headingTitle: 'Who are you concerned about? - welsh',
+  pagetitle: '',
   select_all_relevant: 'Select all options that are relevant to you. - welsh',
   childrenInThisApplication: 'The children in this application - welsh',
   yourself: 'Yourself - welsh',
@@ -65,6 +67,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

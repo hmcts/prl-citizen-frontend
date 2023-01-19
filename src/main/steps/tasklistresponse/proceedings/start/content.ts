@@ -1,10 +1,11 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 const en = {
   section: 'Current or previous proceedings',
   title: 'Have you or the children ever been involved in court proceedings?',
+  pagetitle: '',
   courtCase: 'Have the children been involved in a court case?',
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',
@@ -27,6 +28,7 @@ const en = {
 const cy: typeof en = {
   section: 'Current or previous proceedings',
   title: 'Have you or the children ever been involved in court proceedings?',
+  pagetitle: '',
   courtCase: 'Have the children been involved in a court case?',
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',
@@ -101,6 +103,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

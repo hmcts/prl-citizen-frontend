@@ -1,6 +1,7 @@
 import { SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import { typeofcaseuser } from '../../common/typeofcaseuser';
 
 import { respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
@@ -8,6 +9,7 @@ import { respondent_tasklist_items_en } from './tasklist-items';
 
 const en = () => ({
   title: 'Respond to the application',
+  pagetitle: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -23,6 +25,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
+  pagetitle: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -49,6 +52,7 @@ export const form: FormContent = {
 };
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     sections: generateRespondentTaskList(

@@ -16,10 +16,12 @@ import {
   CA_DA_TRAVELLING_TO_COURT,
 } from '../../../../steps/urls';
 import { CommonContent } from '../../../common/common.content';
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 
 export const enContent = {
   section: 'Check your answers ',
   title: 'Your hearing needs and requirments',
+  pagetitle: '',
   sectionTitles: {
     aboutYou: 'About you',
   },
@@ -138,6 +140,7 @@ const en = (content: CommonContent) => {
 const cyContent: typeof enContent = {
   section: 'Check your answers ',
   title: 'Your hearing needs and requirments',
+  pagetitle: '',
   sectionTitles: {
     aboutYou: 'About you',
   },
@@ -276,6 +279,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

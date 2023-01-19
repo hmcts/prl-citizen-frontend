@@ -1,11 +1,12 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
-
+import { typeofcaseuser } from '../../../../common/typeofcaseuser';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Safety concerns',
   title: 'What do you want the court to do to keep you and the children safe?',
+  pagetitle: '',
   paragraph:
     'Describe what you want the court to do to keep you and the children safe. The court may be able to make a protective order.',
   detailsSummary: 'Actions the court can take',
@@ -24,6 +25,7 @@ export const en = () => ({
 export const cy = () => ({
   caption: 'Safety concerns - welsh',
   title: 'What do you want the court to do to keep you and the children safe? - welsh',
+  pagetitle: '',
   paragraph:
     'Describe what you want the court to do to keep you and the children safe. The court may be able to make a protective order. - welsh',
   detailsSummary: 'Actions the court can take - welsh',
@@ -59,6 +61,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,

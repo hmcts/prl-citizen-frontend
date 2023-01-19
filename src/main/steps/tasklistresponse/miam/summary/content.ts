@@ -3,9 +3,10 @@ import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
 import { MIAM_ATTEND_WILLINGNESS, MIAM_START } from '../../../../steps/urls';
 import { summaryList } from '../../../common/summary/utils';
-
+import { typeofcaseuser } from '../../../common/typeofcaseuser';
 export const enContent = {
   section: 'Check your answers',
+  pagetitle: '',
   title: 'Mediation Information and Assessment Meeting (MIAM) attendance',
   sectionTitles: {
     MIAMDetails: '',
@@ -29,6 +30,7 @@ const en = (content: CommonContent) => {
 
 const cyContent: typeof enContent = {
   section: 'Check your answers',
+  pagetitle: '',
   title: 'Mediation Information and Assessment Meeting (MIAM) attendance',
   sectionTitles: {
     MIAMDetails: '',
@@ -72,6 +74,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  translations.pagetitle = typeofcaseuser(content.language, content.userCase?.caseTypeOfApplication, false);
   return {
     ...translations,
     form,
