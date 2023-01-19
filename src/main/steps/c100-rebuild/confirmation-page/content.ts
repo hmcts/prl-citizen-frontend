@@ -49,7 +49,7 @@ const cy = () => ({
      yn cysylltu â chi i wneud y gwiriadau diogelu angenrheidiol`,
     'bydd yr atebydd yn cael copi o’ch cais, a bydd yn cael cyfle i ymateb iddo',
     'bydd y llys yn cysylltu â chi i egluro beth fydd yn digwydd nesaf a beth fydd angen ichi ei wneud',
-    'os ydych wedi rhoi gwybod i’r llys fod arnoch angen addasiadau penodol er mwyn cymryd rhan yn yr achos',
+    "os ydych wedi rhoi gwybod i’r llys fod arnoch angen addasiadau penodol er mwyn cymryd rhan yn yr achos, bydd y llys yn cysylltu â chi i gadarnhau'r trefniadau. Os na fyddwch wedi clywed oddi wrth y llys o fewn 3 diwrnod i'r gwrandawiad, ffoniwch 0300 123 711 neu e-bostiwch customer.service.justice.gov.uk",
     `bydd y llys yn cysylltu â chi i gadarnhau’r trefniadau. Os na fyddwch wedi clywed oddi wrth y llys o fewn 3 diwrnod i’r gwrandawiad, 
     ffoniwch 0300 123 711 neu e-bostiwch <a href="#" class="govuk-link">customer.service@justice.gov.uk</a>.`,
   ],

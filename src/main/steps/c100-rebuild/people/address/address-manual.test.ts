@@ -22,7 +22,7 @@ const cyContent = {
   country: 'Gwlad',
   postcode: 'Cod post',
   enterInternationalAddress: 'Nodwch gyfeiriad rhyngwladol',
-  explainNoLabel: 'nid wyf yn gwybod lle maen nhw’n byw ar hyn o bryd',
+  explainNoLabel: 'Nid wyf yn gwybod lle maen nhw’n byw ar hyn o bryd',
 };
 
 /* eslint-disable @typescript-eslint/ban-types */

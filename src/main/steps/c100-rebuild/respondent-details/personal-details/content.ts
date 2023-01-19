@@ -97,7 +97,7 @@ export const cy = () => ({
   male: 'Gwryw',
   female: 'Benyw',
   other: 'Maen nhw’n uniaethu mewn ffordd arall',
-  respondentPlaceOfBirthUnknown: 'Nid wyf yn gwybod beth yw eu man genih',
+  respondentPlaceOfBirthUnknown: 'Nid wyf yn gwybod beth yw eu man geni',
   otherGenderDetailsLabel: 'Rhywedd yr atebydd (Dewisol)',
   // day: 'Diwrnod',
   // month: 'Mis',
