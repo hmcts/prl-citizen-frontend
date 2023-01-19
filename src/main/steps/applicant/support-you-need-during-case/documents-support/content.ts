@@ -129,7 +129,7 @@ export const form: FormContent = {
         {
           name: 'docsSupport',
           label: l => l.readoutdocs,
-          value: 'readoutdocs',
+          value: 'docsReadOut',
         },
         {
           name: 'docsSupport',
