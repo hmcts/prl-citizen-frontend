@@ -12,7 +12,6 @@ import {
   REASONABLE_ADJUSTMENTS,
   SAFETY_ARRANGEMENTS,
   TRAVELLING_TO_COURT,
-  UNABLE_TO_TAKE_COURT_PROCEEDINGS,
 } from '../../../../../main/steps/urls';
 
 export const enContent = {
@@ -237,16 +236,6 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     Object.assign(enContent.keys, { travellingOtherDetails: 'Describe what you need' });
   }
 
-  if (userCase.reasonableAdjustments?.includes('unabletotakecourtproceedings')) {
-    Object.assign(urls, { unableForCourtProceedings: UNABLE_TO_TAKE_COURT_PROCEEDINGS });
-    Object.assign(urls, { courtProceedingProvideDetails: UNABLE_TO_TAKE_COURT_PROCEEDINGS });
-
-    Object.assign(enContent.keys, {
-      unableForCourtProceedings: 'I need something to make me feel comfortable during a court hearing',
-    });
-    Object.assign(enContent.keys, { courtProceedingProvideDetails: 'Provie details' });
-  }
-
   if (userCase.reasonableAdjustments?.includes('nosupport')) {
     //delete all fields //
     deleteLanguageRequirementsFields(userCase);
@@ -255,7 +244,6 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     deleteCourtHearingFields(userCase);
     deleteCourtComfortFields(userCase);
     deleteTravellingToCourtFields(userCase);
-    deleteUnableForCourtProceedingsFields(userCase);
     deleteSafetyArrangementsFields(userCase);
   }
 
@@ -283,10 +271,6 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     deleteTravellingToCourtFields(userCase);
   }
 
-  if (userCase.unableForCourtProceedings?.includes('No')) {
-    deleteUnableForCourtProceedingsFields(userCase);
-  }
-
   if (userCase.safetyArrangements?.includes('nosupport')) {
     deleteSafetyArrangementsFields(userCase);
   }
@@ -294,13 +278,6 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
 
 function deleteSafetyArrangementsFields(userCase: Partial<CaseWithId>) {
   userCase.safetyArrangementsDetails = '';
-}
-
-function deleteUnableForCourtProceedingsFields(userCase: Partial<CaseWithId>) {
-  userCase.courtProceedingProvideDetails = '';
-
-  delete urls['unableForCourtProceedings'];
-  delete urls['courtProceedingProvideDetails'];
 }
 
 function deleteTravellingToCourtFields(userCase: Partial<CaseWithId>) {

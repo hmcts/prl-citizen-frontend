@@ -42,6 +42,7 @@ import {
   OthersToNotify,
   PRLDocument,
   PartyDetails,
+  ProceedingsOrderTypes,
   ReasonableAdjustments,
   Respondent,
   ResponseDocumentList,
@@ -377,9 +378,9 @@ export interface Case {
   /*** Document upload */
   respondentUploadFiles?: UploadedFile[];
   proceedingsCourtCase?: string;
-  proceedingsStart?: string;
+  proceedingsStart?: YesOrNo;
   proceedingsCourtOrder?: string;
-  proceedingsStartOrder?: string;
+  proceedingsStartOrder?: YesOrNo;
   courtProceedingsInvolved?: string;
   supervisionOrderOption?: YesOrNo;
   supervisionOrder?: orderInterface;
@@ -481,6 +482,9 @@ export interface Case {
   citizenRole?: FieldPrefix;
   orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
   legalRepresentation?: YesOrNo;
+
+  courtProceedingsOrders?: ProceedingsOrderTypes[];
+  otherProceedings?: OtherProceedings;
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];

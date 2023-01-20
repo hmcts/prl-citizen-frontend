@@ -1,10 +1,11 @@
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
-  section: 'Current or previous proceedings',
-  title: 'Have you or the children ever been involved in court proceedings?',
+  section: 'Have you or the children ever been involved in court proceedings?',
+  title: '',
   courtCase: 'Have the children been involved in a court case?',
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',
@@ -13,20 +14,20 @@ const en = {
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
   summaryText: 'Contacts for help',
-  saveAndContinue: 'Save and continue',
+  onlyContinue: 'Continue',
   errors: {
     proceedingsStart: {
-      required: 'Please choose an option for court proceedings',
+      required: 'Select yes if the children have been involved in a previous court case',
     },
     proceedingsStartOrder: {
-      required: 'Please choose an option for court order',
+      required: 'Select yes if you have had a court order made for your protection',
     },
   },
 };
 
 const cy: typeof en = {
-  section: 'Current or previous proceedings',
-  title: 'Have you or the children ever been involved in court proceedings?',
+  section: 'Have you or the children ever been involved in court proceedings?',
+  title: '',
   courtCase: 'Have the children been involved in a court case?',
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',
@@ -35,13 +36,13 @@ const cy: typeof en = {
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
   summaryText: 'Contacts for help',
-  saveAndContinue: 'Save and continue',
+  onlyContinue: 'Continue',
   errors: {
     proceedingsStart: {
-      required: 'Please select an answer',
+      required: 'Select yes if the children have been involved in a previous court case',
     },
     proceedingsStartOrder: {
-      required: 'Please select an answer',
+      required: 'Select yes if you have had a court order made for your protection',
     },
   },
 };
@@ -68,10 +69,6 @@ export const form: FormContent = {
           label: l => l.courtCaseNo,
           value: 'No',
         },
-        {
-          label: l => l.courtCaseDontKnow,
-          value: 'I',
-        },
       ],
       validator: isFieldFilledIn,
     },
@@ -84,18 +81,18 @@ export const form: FormContent = {
       values: [
         {
           label: l => l.courtOrderYes,
-          value: 'Yes',
+          value: YesOrNo.YES,
         },
         {
           label: l => l.courtOrderNo,
-          value: 'No',
+          value: YesOrNo.NO,
         },
       ],
       validator: isFieldFilledIn,
     },
   },
-  submit: {
-    text: l => l.saveAndContinue,
+  onlyContinue: {
+    text: l => l.onlyContinue,
   },
 };
 

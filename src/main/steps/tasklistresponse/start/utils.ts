@@ -152,46 +152,16 @@ export const getInternationalFactorsStatus = (
 };
 
 export const getCurrentOrOtherProceedingsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
-  if (
-    userCase?.proceedingsStart &&
-    userCase?.proceedingsStartOrder &&
-    userCase?.emergencyOrderOptions &&
-    userCase?.supervisionOrderOption &&
-    userCase?.careOrderOptions &&
-    userCase?.childAbductionOrderOption &&
-    userCase?.caOrderOption &&
-    userCase?.financialOrderOption &&
-    userCase?.nonmolestationOrderOption &&
-    userCase?.occupationalOrderOptions &&
-    userCase?.marraigeOrderOptions &&
-    userCase?.restrainingOrderOptions &&
-    userCase?.injuctiveOrderOptions &&
-    userCase?.underTakingOrderOptions
-  ) {
+  if (userCase?.proceedingsStart && userCase?.proceedingsStartOrder) {
     return SectionStatus.COMPLETED;
   }
-  if (
-    (userCase?.proceedingsStart?.match('No') || userCase?.proceedingsStart?.match('I')) &&
-    userCase?.proceedingsStartOrder?.match('No')
-  ) {
+  if (userCase?.proceedingsStart?.match('No') && userCase?.proceedingsStartOrder?.match('No')) {
     return SectionStatus.COMPLETED;
   }
-  if (
-    userCase?.proceedingsStart ||
-    userCase?.proceedingsStartOrder ||
-    userCase?.supervisionOrderOption ||
-    userCase?.supervisionOrderOption ||
-    userCase?.careOrderOptions ||
-    userCase?.childAbductionOrderOption ||
-    userCase?.caOrderOption ||
-    userCase?.financialOrderOption ||
-    userCase?.nonmolestationOrderOption ||
-    userCase?.occupationalOrderOptions ||
-    userCase?.marraigeOrderOptions ||
-    userCase?.restrainingOrderOptions ||
-    userCase?.injuctiveOrderOptions ||
-    userCase?.underTakingOrderOptions
-  ) {
+  if (userCase?.proceedingsStart?.match('Yes') && userCase?.proceedingsStartOrder?.match('Yes')) {
+    return SectionStatus.COMPLETED;
+  }
+  if (userCase?.proceedingsStart || userCase?.proceedingsStartOrder) {
     return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;
