@@ -1,39 +1,21 @@
 Feature('C100 Rebuild - with urgency flow');
 
-Scenario('C100 Rebuild - urgent hearing flow',  async ({
-    CitizenLoginPage,
-    CreateApplication,
-    CaseNameAndPostCode,
-    ScreeningQuestions,
-    GoToMiam,
-    TypeOfOrder,
-    UrgencyWithoutNotice,
-    ChildrenDetails,
-    ApplicantDetails,
-    RespondentDetails,
-    OtherPersonDetails,
-    OtherProceedings,
-    SafetyConcerns,
-    InternationElements,
-    ReasonableAdjustments,
-    HelpWithFees,
-    CheckYourAnswersSimple,
-  }) => {
-    await CitizenLoginPage.loginAsCitizenUserNamePassWord();
-    await CreateApplication.createNewC100Application();
-    await CaseNameAndPostCode.addCaseNameAndPostCode();
-    await ScreeningQuestions.screeningQuestions();
-    await GoToMiam.miamUrgent();
-    await UrgencyWithoutNotice.urgencyWithoutNotice();
-    await TypeOfOrder.typeOfOrder();
-    await ChildrenDetails.childrenDetails();
-    await ApplicantDetails.applicantDetails();
-    await RespondentDetails.respondentDetails();
-    await OtherPersonDetails.otherPersonDetails();
-    await OtherProceedings.otherProceedings();
-    await SafetyConcerns.safetyConcerns();
-    await InternationElements.internationElements();
-    await ReasonableAdjustments.reasonableAdjustments();
-    await HelpWithFees.helpWithFeeEvent();
-    await CheckYourAnswersSimple.checkYourAnswersSimpleEvent();
+Scenario('C100 Rebuild - urgent hearing flow',  async ({ I }) => {
+    await I.loginAsCitizenUserNamePassWord();
+    await I.createC100Application();
+    await I.addCaseNameAndPostCode();
+    await I.screeningQuestions();
+    await I.miamUrgent();
+    await I.urgencyWithoutNotice();
+    await I.typeOfOrder();
+    await I.childrenDetails();
+    await I.applicantDetails();
+    await I.respondentDetails();
+    await I.otherPersonDetails();
+    await I.otherProceedings();
+    await I.safetyConcerns();
+    await I.internationElements();
+    await I.reasonableAdjustments();
+    await I.helpWithFeeEvent();
+    await I.checkYourAnswersSimpleEvent();
 }).retry({ retries: 3, minTimeout: 30000 });
