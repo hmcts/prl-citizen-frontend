@@ -79,13 +79,13 @@ const cy = {
   // year: 'Blwyddyn',
   errors: {
     haveYouChangeName: {
-      required: 'Dewiswch sut wnaethoch chi newid eich enw',
+      required: 'Dewiswch a ydych wedi newid eich enw',
     },
     applPreviousName: {
       required: 'Nodwch eich enwau blaenorol',
     },
     dateOfBirth: {
-      required: 'Nodwch ei ddyddiad geni',
+      required: 'Nodwch y dyddiad geni',
       invalidDate: 'Nid yw’r dyddiad geni yn ddilys ‘,',
       incompleteDay: 'Rhaid i’r dyddiad geni gynnwys diwrnod',
       incompleteMonth: 'Rhaid i’r dyddiad geni gynnwys mis',

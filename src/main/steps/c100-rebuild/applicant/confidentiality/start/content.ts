@@ -47,7 +47,7 @@ export const cy = () => ({
   Email: 'E-bost',
   errors: {
     start: {
-      required: 'Dewiswch oes os ydych eisiau cadw eich mnylion yn gyfrinachol',
+      required: 'Dewiswch ydw os ydych eisiau cadw eich manylion yn gyfrinachol',
     },
     contactDetailsPrivate: {
       required: "Dewiswch pa fanylion cyswllt rydych chi eisiau eu cadw'n gyfrinachol",

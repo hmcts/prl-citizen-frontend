@@ -39,7 +39,7 @@ const cy = () => ({
       required: 'Nodwch yr enw cyntaf',
     },
     c100TempLastName: {
-      required: 'Nodwch yr enw olaf',
+      required: 'Nodwch y cyfenw',
     },
   },
 });

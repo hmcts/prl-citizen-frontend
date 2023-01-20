@@ -64,10 +64,10 @@ const cy = {
   canNotProvideTelephoneNumberReason: 'Dywedwch wrthym pam na allwch ddarparu rhif ffôn',
   errors: {
     canProvideEmail: {
-      required: ' Dewiswch opsiwn e-bost',
+      required: 'Dewiswch opsiwn ar gyfer e-bost',
     },
     canProvideTelephoneNumber: {
-      required: 'Dewiswch opsiwn rhif ffôn',
+      required: 'Dewiswch opsiwn ar gyfer rhif ffôn',
     },
     emailAddress: {
       required: 'Rhowch gyfeiriad e-bost neu  dewiswch yr opsiwn ni allaf ddarparu cyfeiriad e-bost',
@@ -81,7 +81,7 @@ const cy = {
       required: 'Dywedwch wrthym pam na allwch ddarparu rhif ffôn',
     },
     canLeaveVoiceMail: {
-      required: 'Dewiswch opsiwn neges llais',
+      required: 'Dewiswch opsiwn ar gyfer neges llais',
     },
   },
 };

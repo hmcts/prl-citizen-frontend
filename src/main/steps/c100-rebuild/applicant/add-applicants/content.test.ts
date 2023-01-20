@@ -45,7 +45,7 @@ const cy = {
       required: 'Nodwch yr enw cyntaf',
     },
     applicantLastName: {
-      required: 'Nodwch yr enw olaf',
+      required: 'Nodwch y cyfenw',
     },
   },
 };

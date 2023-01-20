@@ -104,7 +104,7 @@ const cy = {
       required: 'Nodwch eu henw blaenorol',
     },
     dateOfBirth: {
-      required: 'Nodwch ei ddyddiad geni',
+      required: 'Nodwch y dyddiad geni',
       invalidDate: 'Nid yw’r dyddiad geni yn ddilys',
       incompleteDay: 'DRhaid i’r dyddiad geni gynnwys diwrnod',
       incompleteMonth: 'Rhaid i’r dyddiad geni gynnwys mis',
@@ -124,7 +124,7 @@ const cy = {
       required: 'Nodwch y rhywedd',
     },
     respondentPlaceOfBirth: {
-      required: 'Nodwch y man geni',
+      required: 'Nodwch y lleoliad geni',
     },
   },
 };

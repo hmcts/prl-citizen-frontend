@@ -48,7 +48,7 @@ export const cy = () => ({
       required: 'Rhowch fanylion',
     },
     cd_childrenSubjectOfProtectionPlan: {
-      required: 'Nodwch a oes unrhyw un o’r plant yn destun cynllun amddiffyn plentyn - cymraeg',
+      required: 'Nodwch a yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn',
     },
   },
 });
