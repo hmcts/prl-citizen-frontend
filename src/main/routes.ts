@@ -35,6 +35,8 @@ import { InternationalFactorsGetController } from './steps/tasklistresponse/inte
 import { InternationalFactorsPostController } from './steps/tasklistresponse/international-factors/InternationalFactorsPostController';
 import { MIAMGetController } from './steps/tasklistresponse/miam/MIAMGetController';
 import { MIAMPostController } from './steps/tasklistresponse/miam/MIAMPostController';
+import { ProceedingGetController } from './steps/tasklistresponse/proceedings/ProceedingGetController';
+import { ProceedingPostController } from './steps/tasklistresponse/proceedings/ProceedingPostController';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
@@ -93,6 +95,10 @@ import {
   C100_RETRIVE_CASE,
   C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
   C100_DOWNLOAD_APPLICATION,
+  APPLICANT_VIEW_ALL_DOCUMENTS,
+  RESPONDENT_VIEW_ALL_DOCUMENTS,
+  PROCEEDING_SAVE,
+  PROCEEDINGS_START,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
   CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
@@ -111,8 +117,16 @@ export class Routes {
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
-    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getApplicantCase));
-    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getRespondentCase));
+    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
+    app.get(`${RESPOND_TO_APPLICATION}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
+    app.get(
+      `${APPLICANT_VIEW_ALL_DOCUMENTS}/:caseId`,
+      errorHandler(new GetCaseController().fetchAndRedirectToTasklist)
+    );
+    app.get(
+      `${RESPONDENT_VIEW_ALL_DOCUMENTS}/:caseId`,
+      errorHandler(new GetCaseController().fetchAndRedirectToTasklist)
+    );
     app.get(`${CA_RESPONDENT_RESPONSE_SUBMIT}`, errorHandler(new RespondentSubmitResponseController().save));
     app.get(
       `${CA_RESPONDENT_GENERATE_C7_DRAFT}`,
@@ -145,6 +159,7 @@ export class Routes {
         `${CONSENT_TO_APPLICATION}/:caseId`,
         errorHandler(new ConsentGetController(step.view, step.generateContent).get)
       );
+      app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
       app.get(
         `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
         errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)
@@ -165,6 +180,10 @@ export class Routes {
       );
 
       app.get(`${MIAM_START}/:caseId`, errorHandler(new MIAMGetController(step.view, step.generateContent).get));
+      app.get(
+        `${PROCEEDINGS_START}/:caseId`,
+        errorHandler(new ProceedingGetController(step.view, step.generateContent).get)
+      );
       app.get(
         `${INTERNATIONAL_FACTORS_START}/:caseId`,
         errorHandler(new InternationalFactorsGetController(step.view, step.generateContent).get)
@@ -242,6 +261,7 @@ export class Routes {
           errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
         );
         app.get(`${MIAM_SAVE}`, errorHandler(new MIAMPostController(step.form.fields).post));
+        app.get(`${PROCEEDING_SAVE}`, errorHandler(new ProceedingPostController(step.form.fields).post));
         app.get(
           `${INTERNATIONAL_FACTORS_SAVE}`,
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)
