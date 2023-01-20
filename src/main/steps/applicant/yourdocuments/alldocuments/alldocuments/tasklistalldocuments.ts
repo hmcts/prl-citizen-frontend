@@ -36,9 +36,9 @@ export const getOrdersFromCourt = (sectionTitles, taskListItems, userCase, url) 
 
 export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, isApplicant) => {
   let url = URL.APPLICANT;
-  const urlr = URL.RESPONDENT;
-  url = !isApplicant ? urlr : url;
-
+  if (!isApplicant) {
+    url = URL.RESPONDENT;
+  }
   const flags = {
     isDrugDocUploaded: false,
     isPaternityDocUploaded: false,
@@ -51,32 +51,41 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     isWitnessAvailabilityUploaded: false,
     isTenancyUploaded: false,
   };
-  const isC100Application = () => {
-    userCase.applicants.forEach((applicant: Applicant) => {
-      if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
-        applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
-      } else if (userCase.c1ADocument) {
-        applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
-      }
-      applicantItems.push(getApplicantRequestToCA(applicant, taskListItems));
-      applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems, url));
-      applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, url));
-    });
-  };
-  const isNotC100Application = () => {
-    applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems));
-    applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
-    applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems));
-    applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
-    applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
-  };
+
   for (const doc of userCase?.citizenUploadedDocumentList || []) {
     if (doc.value.isApplicant === YesOrNo.YES) {
       getUpdatedFlags(doc, flags);
     }
   }
   const applicantItems: object[] = [];
-  userCase.caseTypeOfApplication === 'C100' ? isC100Application() : isNotC100Application();
+  if (userCase.caseTypeOfApplication === 'C100') {
+    userCase.applicants.forEach((applicant: Applicant) => {
+      applicantItems.push(getApplicantRequestToCA(applicant, taskListItems));
+    });
+    userCase.applicants.forEach((applicant: Applicant) => {
+      if (userCase.c1ADocument) {
+        applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
+      }
+    });
+    /** Uncomment and add condition when Response to AOH document is implemeted for Applicant */
+    userCase.applicants.forEach((applicant: Applicant) => {
+      if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
+        applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
+      }
+    });
+    userCase.applicants.forEach((applicant: Applicant) => {
+      applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, url));
+    });
+    userCase.applicants.forEach((applicant: Applicant) => {
+      applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems, url));
+    });
+  } else {
+    applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems));
+    applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
+    applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems));
+    applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
+    applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
+  }
 
   applicantItems.push({
     id: 'other_people_witness_statements',
