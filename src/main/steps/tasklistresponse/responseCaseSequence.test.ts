@@ -1,5 +1,3 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-
 import { responseCaseSequence } from './responseCaseSequence';
 
 describe('respondent1Sequence', () => {
@@ -185,17 +183,4 @@ describe('respondent1Sequence', () => {
     //   '/tasklistresponse/support-you-need-during-case/reasonable-adjustments'
     // );
   });
-});
-
-const reasonableAdjustmentsMockData = mockRequest({
-  session: {
-    userCase: {
-      reasonableAdjustments: ['docsformat', 'commhelp', 'hearingsupport', 'hearingcomfort', 'travellinghelp'],
-      respondentDocsSupportPage: ['none'],
-      respondentHelpCommunicationPage: ['none'],
-      respondentCourtHearingPage: ['none'],
-      respondentCourtComfortPage: ['none'],
-      respondentTravellingToCourtPage: ['none'],
-    },
-  },
 });
