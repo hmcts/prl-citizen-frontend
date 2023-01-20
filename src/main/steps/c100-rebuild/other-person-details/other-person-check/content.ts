@@ -36,7 +36,7 @@ export const cy = () => ({
   two: 'Nac oes',
   errors: {
     oprs_otherPersonCheck: {
-      required: 'Dewiswch ‘dylai’ os dylai unrhyw un arall wybod am y cais',
+      required: 'Dewiswch ‘oes’ os dylai unrhyw un arall wybod am y cais',
     },
   },
 });

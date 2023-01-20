@@ -132,7 +132,7 @@ export const cy = () => ({
       required: 'Nodwch y rhywedd',
     },
     respondentPlaceOfBirth: {
-      required: 'Nodwch y man geni',
+      required: 'Nodwch y lleoliad geni',
       invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
     },
     otherGenderDetails: {

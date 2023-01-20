@@ -91,7 +91,7 @@ export const cy = () => ({
   // year: 'Blwyddyn',
   errors: {
     haveYouChangeName: {
-      required: 'Dewiswch sut wnaethoch chi newid eich enw',
+      required: 'Dewiswch a ydych wedi newid eich enw',
     },
     applPreviousName: {
       required: 'Nodwch eich enwau blaenorol',
