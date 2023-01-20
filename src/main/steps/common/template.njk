@@ -1,5 +1,8 @@
 {% extends "./page.njk" %}
 
+{% block pageTitle %}
+  {{ headingTitle }}{{ title }} - Private law - GOV.UK
+{% endblock %}
 {% block page_content %}
   {% if section %}
     <span class="govuk-heading-l">{{ section }}</span>

@@ -10,7 +10,7 @@ import { applicant_tasklist_items_en } from './tasklist-items';
 import { getApplicantPartyDetails } from './utils';
 
 const en = () => ({
-  title: '',
+  title: 'Applicant tasklist',
   applicantName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
@@ -69,7 +69,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: ' ',
+  title: 'Applicant tasklist',
   applicantName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
