@@ -1,14 +1,10 @@
 {% extends "./page.njk" %}
 
 {% set realtitle = ""%}
-{% if headingTitle and title === undefined %}
+{% if title %}
+    {% set realtitle = title%}
+{% else %}
     {% set realtitle = headingTitle%}
-{% endif %}
-{% if headingTitle === undefined and title %}
-    {% set realtitle = title%}
-{% endif %}
-{% if headingTitle and title %}
-    {% set realtitle = title%}
 {% endif %}
 {% block pageTitle %}
   {{realtitle }} - Private law - GOV.UK
