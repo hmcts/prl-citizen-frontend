@@ -96,7 +96,7 @@ const cy = {
   male: 'Gwryw',
   female: 'Benyw',
   other: 'Maen nhw’n uniaethu mewn ffordd arall',
-  respondentPlaceOfBirthUnknown: 'Nid wyf yn gwybod beth yw eu man genih',
+  respondentPlaceOfBirthUnknown: 'Nid wyf yn gwybod beth yw eu man geni',
   otherGenderDetailsLabel: 'Rhywedd yr atebydd (Dewisol)',
   // day: 'Diwrnod',
   // month: 'Mis',
@@ -131,7 +131,7 @@ const cy = {
       required: 'Nodwch y rhywedd',
     },
     respondentPlaceOfBirth: {
-      required: 'Nodwch y man geni',
+      required: 'Nodwch y lleoliad geni',
       invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
     },
     otherGenderDetails: {

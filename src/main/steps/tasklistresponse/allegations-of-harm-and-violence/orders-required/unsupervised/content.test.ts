@@ -47,9 +47,9 @@ const cy = {
   no: 'No - welsh',
   errors: {
     PRL_c1A_supervisionAgreementDetails:
-      'Select whether you agree to the children spending time with the other people in this application - welsh',
+      "Dewiswch a ydych chi'n cytuno i'r plant dreulio amser gyda'r bobl eraill yn y cais hwn",
     PRL_c1A_agreementOtherWaysDetails:
-      'Select yes if you agree to the other people in this application being in touch with the children in other ways - welsh',
+      "Dewiswch a ydych chi'n cytuno i'r bobl eraill yn y cais hwn fod mewn cysylltiad â'r plant mewn ffyrdd eraill",
   },
 };
 

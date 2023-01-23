@@ -26,7 +26,7 @@ export const cy = () => ({
   three: 'Nid wyf yn gwybod ',
   errors: {
     detailsKnown: {
-      required: "Dewiswch ydy os yw'r bobl eraill yn y cais yn gwybod eich manylion cyswllt",
+      required: "Dewiswch ydynt os yw'r bobl eraill yn y cais yn gwybod eich manylion cyswllt",
     },
   },
 });

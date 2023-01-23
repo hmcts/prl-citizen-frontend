@@ -43,7 +43,7 @@ describe('test cases for typeOfCourtOrderContents', () => {
   });
   test('notenglish', () => {
     expect(typeOfCourtOrderContents('cy')).toStrictEqual({
-      allowMedicalTreatment: "Caniatáu i'r plant gael triniaedh feddygol",
+      allowMedicalTreatment: "Caniatáu i'r plant gael triniaeth feddygol",
       changeChildrenNameSurname: "Newid enwau neu gyfenwau'r plant",
       changeChildrenNameSurname1: "Newid enwau neu gyfenwau'r plant",
       childTimeSpent: 'Penderfynu faint o amser y bydd y plant yn ei dreulio gyda phob unigolyn',

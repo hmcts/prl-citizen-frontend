@@ -62,7 +62,7 @@ const cy = {
   explanationOfCourt: 'Esboniad o osodiad y llys a phwy fydd yn yr ystafell wrandawiadau',
   intermediary: 'Cyfryngwr',
   intermediaryHint:
-    'Rhywun i’ch helpu os oes gennych anghenion cyfathreby drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
+    'Rhywun i’ch helpu os oes gennych anghenion cyfathrebu drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
   communicationHelpOther: 'Arall',
   noSupportRequired: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   describeWhatNeeded: 'Disgrifiwch yr hyn sydd ei angen arnoch',

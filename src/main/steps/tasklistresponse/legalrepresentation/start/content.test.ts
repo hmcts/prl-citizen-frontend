@@ -31,7 +31,7 @@ const enContent = {
 };
 
 const cyContent = {
-  title: 'Will you be using a legal representative to respond to the application?',
+  title: "A fyddwch yn defnyddio cynrychiolydd cyfreithiol i ymateb i'r cais?",
   insetText:
     "You can respond to the applicant's request yourself and then redirect your case to your legal representative for the remainder of the proceedings.",
   one: 'Yes',

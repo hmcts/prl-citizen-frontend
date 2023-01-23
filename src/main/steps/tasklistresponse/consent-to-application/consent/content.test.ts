@@ -53,13 +53,13 @@ const enContent = {
 };
 
 const cyContent = {
-  title: 'Your understanding of the application (welsh)',
-  consent: 'Do you consent to the application? (welsh)',
-  dateReceived: 'When did you receive the application? (welsh)',
-  courtPermission: 'Does the applicant need permission from the court before making applications? (welsh)',
+  title: "Eich dealltwriaeth o'r cais",
+  consent: "Ydych chi'n cydsynio i'r cais?",
+  dateReceived: "Pryd gawsoch chi'r cais?",
+  courtPermission: 'A oes angen caniatâd y llys ar yr ymgeisydd cyn gwneud ceisiadau?',
   one: 'Yes (welsh)',
   two: 'No (welsh)',
-  hint: 'For example, 27 3 2007 (welsh)',
+  hint: 'Er enghraifft, 27 3 2007',
   continue: 'Save and continue (welsh)',
   reasonNotConsenting: 'Give your reasons for not consenting to the application. (welsh)',
   courtOrderDetails: 'Provide details of the court order in place. (welsh)',

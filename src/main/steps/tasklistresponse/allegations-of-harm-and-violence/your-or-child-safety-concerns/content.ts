@@ -42,7 +42,7 @@ export const cy = () => ({
   identifySignsOfDomesticAbuseHyperlink: 'https://supportnav.org.uk/what-is-domestic-abuse - Welsh',
   identifySignsOfDomesticAbuseLabel: 'Identify signs of domestic abuse - Welsh',
   infoSafetyConcernsYes:
-    'The information you give will be considered as part of your application. If you need to make <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link" target="_blank" aria-label="an application for a domestic abuse injunction">an application for a domestic abuse injunction</a>. you can do this separately. - Welsh',
+    'Bydd y wybodaeth y byddwch yn ei rhoi yn cael ei hystyried fel rhan o\'ch cais. Os oes angen i chi wneud <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link" target="_blank" aria-label="an application for a domestic abuse injunction">cais am waharddeb cam-drin domestig</a>. gallwch wneud hyn ar wahân.',
   warningMessage:
     'You may find some of these questions difficult or upsetting to answer. Take your time and complete them as best you can. - Welsh',
   yesHaveSafetyConcerns: 'Yes - Welsh',

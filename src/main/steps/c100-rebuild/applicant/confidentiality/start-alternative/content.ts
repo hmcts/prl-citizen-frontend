@@ -44,7 +44,7 @@ const cy = () => ({
   Email: 'E-bost',
   errors: {
     startAlternative: {
-      required: 'Dewiswch oes os ydych eisiau cadw eich mnylion yn gyfrinachol',
+      required: 'Dewiswch ydw os ydych eisiau cadw eich manylion yn gyfrinachol',
     },
     contactDetailsPrivateAlternative: {
       required: "Dewiswch pa fanylion cyswllt rydych chi eisiau eu cadw'n gyfrinachol",
