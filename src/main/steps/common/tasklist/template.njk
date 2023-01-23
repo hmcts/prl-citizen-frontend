@@ -1,5 +1,8 @@
 {% extends "common/page.njk" %}
 
+{% block pageTitle %}
+  {{ title }} - Private law - GOV.UK
+{% endblock %}
 {% macro taskName(item) %}
   <span class="app-task-list__task-name">
     {% if item.href %}

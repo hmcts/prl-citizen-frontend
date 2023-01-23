@@ -57,7 +57,7 @@ describe('common > components > address-select', () => {
     });
 
     expect(generatedContent.options).toEqual([
-      { attributes: { id: 'totalAddressesFound' }, selected: true, text: '0 addresses found', value: -1 },
+      { attributes: { id: 'totalAddressesFound' }, selected: true, text: '0 address found', value: -1 },
     ]);
 
     expect(generatedContent.changePostCodeUrl).toEqual('#');
@@ -77,7 +77,7 @@ describe('common > components > address-select', () => {
     });
 
     expect(generatedContent.options).toEqual([
-      { attributes: { id: 'totalAddressesFound' }, selected: true, text: '0 addresses found (in welsh)', value: -1 },
+      { attributes: { id: 'totalAddressesFound' }, selected: true, text: 'Daethpwyd o hyd i 0 cyfeiriad', value: -1 },
     ]);
 
     expect(generatedContent.changePostCodeUrl).toEqual('#');
@@ -100,7 +100,7 @@ describe('common > components > address-select', () => {
         addresses: [{ fullAddress: 'MOCK_FULL_ADDRESS_1' }],
       });
       expect(generatedContent.options).toEqual([
-        { attributes: { id: 'totalAddressesFound' }, selected: true, text: '1 address found (in welsh)', value: -1 },
+        { attributes: { id: 'totalAddressesFound' }, selected: true, text: 'Daethpwyd o hyd i 1 cyfeiriad', value: -1 },
         { text: 'MOCK_FULL_ADDRESS_1', value: 0 },
       ]);
     });
@@ -110,14 +110,14 @@ describe('common > components > address-select', () => {
     test('should create correct options for citizenUserSelectAddress field', () => {
       generatedContent = generateContent({ ...commonContent, addresses: undefined });
       expect(generatedContent.options).toEqual([
-        { attributes: { id: 'totalAddressesFound' }, selected: true, text: '0 addresses found', value: -1 },
+        { attributes: { id: 'totalAddressesFound' }, selected: true, text: '0 address found', value: -1 },
       ]);
     });
 
     test('should create correct options for citizenUserSelectAddress field (welsh)', () => {
       generatedContent = generateContent({ ...commonContent, language: 'cy', addresses: undefined });
       expect(generatedContent.options).toEqual([
-        { attributes: { id: 'totalAddressesFound' }, selected: true, text: '0 addresses found (in welsh)', value: -1 },
+        { attributes: { id: 'totalAddressesFound' }, selected: true, text: 'Daethpwyd o hyd i 0 cyfeiriad', value: -1 },
       ]);
     });
   });
