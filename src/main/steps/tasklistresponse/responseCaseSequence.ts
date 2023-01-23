@@ -65,14 +65,9 @@ import {
   RESPONDENT_CHECK_ANSWERS_NO,
   RESPONDENT_CHECK_ANSWERS_YES,
   RESPONDENT_CONTACT_DETAILS,
-  RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_FIND_ADDRESS,
-  RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_PERSONAL_DETAILS,
-  RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
-  RESPONDENT_START_ALTERNATIVE,
-  RESPONDENT_TASK_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
@@ -90,11 +85,6 @@ import ReasonableAdjustmentsNavigationController from './support-you-need-during
 
 export const responseCaseSequence: Step[] = [
   {
-    url: RESPONDENT_TASK_LIST_URL,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  },
-  {
     url: CONSENT_TO_APPLICATION,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => CONSENT_SUMMARY,
@@ -103,21 +93,6 @@ export const responseCaseSequence: Step[] = [
     url: CONSENT_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => CONSENT_SAVE,
-  },
-  {
-    url: RESPONDENT_DETAILS_KNOWN,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_START_ALTERNATIVE,
-  },
-  {
-    url: RESPONDENT_START_ALTERNATIVE,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
-  },
-  {
-    url: RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,

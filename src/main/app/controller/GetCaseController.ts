@@ -2,6 +2,7 @@ import { Response } from 'express';
 
 import { CaseWithId } from '../../app/case/case';
 import { Respondent } from '../../app/case/definition';
+import { mapSafetyConcernsDetails } from '../../steps/tasklistresponse/allegations-of-harm-and-violence/SafetyConcernsMapper';
 import { getInternationalFactorsDetails } from '../../steps/tasklistresponse/international-factors/InternationalFactorsMapper';
 import {
   APPLICANT,
@@ -52,12 +53,13 @@ export class GetCaseController {
     if (req.session?.userCase) {
       req.session.userCaseList = [];
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-        if (
-          respondent?.value?.user?.idamId === req.session?.user.id &&
-          respondent?.value?.response &&
-          respondent?.value?.response.citizenInternationalElements
-        ) {
-          getInternationalFactorsDetails(respondent, req);
+        if (respondent?.value?.user?.idamId === req.session?.user.id) {
+          if (respondent?.value?.response?.citizenInternationalElements) {
+            getInternationalFactorsDetails(respondent, req);
+          }
+          if (respondent?.value?.response?.safetyConcerns) {
+            Object.assign(req.session.userCase, mapSafetyConcernsDetails(respondent));
+          }
         }
       });
     }
@@ -111,8 +113,8 @@ export class GetCaseController {
     if (!req.session.user) {
       res.redirect(SIGN_IN_URL + '?callback=' + req.originalUrl);
     } else {
-      const caseId = req.originalUrl.split('/').pop();
-      if (caseId) {
+      const caseId = req.originalUrl.split('/').pop() ?? '';
+      if (parseInt(caseId)) {
         let url = DASHBOARD_URL;
         req.session.userCase = await GetCaseController.assignUserCase(req, caseId);
         if (req.originalUrl.includes(RESPONDENT)) {

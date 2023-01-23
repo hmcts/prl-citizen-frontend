@@ -4,8 +4,8 @@ import { CaseWithId } from '../../../app/case/case';
 /* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
 import * as Urls from '../../urls';
+import { SummaryList, SummaryListContentWithBoolean, getSectionSummaryList } from '../allegations-of-harm-and-violence/check-your-answers/lib/lib';
 
-import { SummaryList, SummaryListContentWithBoolean, getSectionSummaryList } from './lib';
 import { OPotherProceedingsSessionParserUtil } from './proceedingUtils';
 
 /* eslint-disable import/namespace */
