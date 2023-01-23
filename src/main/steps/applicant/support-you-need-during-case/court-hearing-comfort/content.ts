@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
@@ -23,7 +23,7 @@ const en = {
     otherProvideDetails: {
       required: 'Please describe your need in detail',
     },
-    appropriateLightingProvideDetails: {
+    lightingProvideDetails: {
       required: 'Please describe appropriate lighting in detail',
     },
   },
@@ -50,7 +50,7 @@ const cy: typeof en = {
     otherProvideDetails: {
       required: 'Please describe your need in detail',
     },
-    appropriateLightingProvideDetails: {
+    lightingProvideDetails: {
       required: 'Please describe appropriate lighting in detail',
     },
   },
@@ -74,7 +74,7 @@ export const form: FormContent = {
           label: l => l.appropriatelighting,
           value: 'appropriate lighting',
           subFields: {
-            appropriateLightingProvideDetails: {
+            lightingProvideDetails: {
               type: 'textarea',
               attributes: {
                 rows: 1,
@@ -107,7 +107,7 @@ export const form: FormContent = {
               },
               label: l => l.otherDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },

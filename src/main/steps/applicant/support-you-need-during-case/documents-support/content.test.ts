@@ -29,6 +29,12 @@ const en = {
     otherDetails: {
       required: 'Please provide the details',
     },
+    largePrintDetails: {
+      required: 'Please provide the large print details',
+    },
+    docsDetails: {
+      required: 'Please provide the docs details',
+    },
   },
 };
 
@@ -56,6 +62,12 @@ const cy: typeof en = {
     },
     otherDetails: {
       required: 'Please provide the details',
+    },
+    largePrintDetails: {
+      required: 'Please provide the large print details',
+    },
+    docsDetails: {
+      required: 'Please provide the docs details',
     },
   },
 };

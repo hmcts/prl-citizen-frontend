@@ -97,9 +97,9 @@ describe('task-list > content', () => {
               text: 'Confirm or edit your contact details',
             },
             {
-              href: '#',
+              href: '/tasklistresponse/support-you-need-during-case/attending-the-court',
               id: 'support_you_need_during_your_case',
-              status: 'NOT_AVAILABLE_YET',
+              status: 'TO_DO',
               text: 'Support you need during your case',
             },
           ],
@@ -114,9 +114,9 @@ describe('task-list > content', () => {
               text: 'Mediation(MIAM)',
             },
             {
-              href: '#',
+              href: '/tasklistresponse/proceedings/start/1234567',
               id: 'current-or-previous-proceedings',
-              status: 'NOT_AVAILABLE_YET',
+              status: 'TO_DO',
               text: 'Current or previous proceedings',
             },
           ],
