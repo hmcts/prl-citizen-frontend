@@ -1,0 +1,19 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+<div id="timeout-modal-container" class="modal" hidden>
+  <div #outerContainer id="timeout-modal" class="modal-content govuk-width-container clearfix" tabindex="0">
+    <h1 class="govuk-heading-l">{{ timeout.title }}</h1>
+    <p class="govuk-body">{{ timeout.part1 }}<span id="countdown-timer"
+                                                   data-minutes="{{ timeout.minutes }}"
+                                                   data-seconds="{{ timeout.seconds }}"
+                                                   data-default="{{ timeout.twoMinutes }}"> {{ timeout.twoMinutes }} </span>{{ timeout.part2 }}</p>
+    <div class="govuk-form-group">
+      {{ govukButton({
+            text: timeout.buttonText,
+            attributes: { id: 'timeout-modal-close-button' }
+      }) }}
+      <p class="govuk-body">
+        <a id="timeout-signout-link" href="{{ saveAndSignOutLink }}?lng={{ language }}" class="govuk-link">{{ saveAndSignOut }}</a>
+      </p>
+    </div>
+  </div>
+</div>
