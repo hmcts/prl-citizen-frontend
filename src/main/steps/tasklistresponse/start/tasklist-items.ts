@@ -6,6 +6,7 @@ export const respondent_tasklist_items_en = {
   support_you_need_during_your_case: 'Support you need during your case',
   mediation_miam: 'Mediation(MIAM)',
   current_or_previous_proceedings: 'Current or previous proceedings',
+  allegations_of_harm_and_violence: 'Allegations of harm and violence',
   your_safety: 'Your safety',
   childrens_safety: "The children's safety",
   abduction_concerns: 'Abduction concerns',

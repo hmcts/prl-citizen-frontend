@@ -3,7 +3,7 @@ import { CaseWithId } from '../../../../app/case/case';
 import { ChildrenDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { isAlphaNumeric, isFieldFilledIn } from '../../../../app/form/validation';
 import { getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
@@ -20,6 +20,7 @@ export const en = () => ({
   errors: {
     statement: {
       required: 'Enter an answer',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
   },
 });
@@ -27,12 +28,13 @@ export const en = () => ({
 export const cy = () => ({
   title: 'Cyfrifoldeb rhiant dros',
   parentalResponsibility: 'Datganwch bawb sydd â chyfrifoldeb rhiant a dros bwy, a sut ganddynt gyfrifoldeb rhiant.',
-  subTitle: 'Nodwch bawb sydd â chyfrifoldeb rhiant a dros bwy, a sut ganddynt gyfrifoldeb rhiant.',
+  subTitle: 'Nodwch bawb sydd â chyfrifoldeb rhiant, a sut mae ganddynt gyfrifoldeb rhiant.',
   bodyHint: `<p>Er enghraifft, ‘mam y plentyn’ neu ‘tad y plentyn oedd wedi priodi â’r fam pan gafodd y plentyn ei (g)eni’.</p>
   <p><a target="_blank" href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1">Gweler Adran E o daflen CB1 am ragor o wybodaeth</a></p> `,
   errors: {
     statement: {
       required: 'Rhowch ateb',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.(in Welsh)',
     },
   },
 });
@@ -66,7 +68,7 @@ export const generateFormFields = (
     statement: {
       type: 'text',
       value: statement,
-      validator: isFieldFilledIn,
+      validator: value => isFieldFilledIn(value) || isAlphaNumeric(value),
     },
   };
 

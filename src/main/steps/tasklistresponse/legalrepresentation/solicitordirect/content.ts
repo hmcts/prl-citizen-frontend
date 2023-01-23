@@ -15,11 +15,14 @@ const en = {
 const cy: typeof en = {
   title: "Trosglwyddo eich achos i'ch cynrychiolydd cyfreithiol",
   line1: "I drosglwyddo eich achos i'ch cynrychiolydd cyfreithiol, rhowch eich rhif achos iddo.",
+  title: "Trosglwyddo eich achos i'ch cynrychiolydd cyfreithiol",
+  line1: "I drosglwyddo eich achos i'ch cynrychiolydd cyfreithiol, rhowch eich rhif achos iddo.",
   line2:
     "Ar ôl i'ch achos gael ei drosglwyddo i'ch cynrychiolydd, ni fyddwch yn gallu golygu eich ymateb. Bydd yn trin eich achos ac yn derbyn unrhyw ddiweddariadau gan y llys.",
   listItem: 'Rhif eich achos yw:',
   warning: 'Warning - welsh',
   line3:
+    "Peidiwch ag ymateb i'r cais hwn eich hun os ydych yn bwriadu cael cynrychiolydd cyfreithiol i gwblhau'r ymateb.",
     "Peidiwch ag ymateb i'r cais hwn eich hun os ydych yn bwriadu cael cynrychiolydd cyfreithiol i gwblhau'r ymateb.",
   continue: 'Continue',
 };

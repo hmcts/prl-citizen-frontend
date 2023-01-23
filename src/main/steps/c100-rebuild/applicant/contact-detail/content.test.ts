@@ -40,6 +40,7 @@ const en = {
     },
     canNotProvideTelephoneNumberReason: {
       required: 'Please tell us why you cannot provide telephone number',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
     canLeaveVoiceMail: {
       required: 'Please select voice mail option',
@@ -50,7 +51,7 @@ const en = {
 const cy = {
   title: 'Manylion cyswllt ',
   serviceName: 'Trefniadau plant',
-  canProvideEmailLabel: 'Allwch chi ddarparu cyfeiriad e-bost',
+  canProvideEmailLabel: 'Gallaf ddarparu cyfeiriad e-bost',
   canNotProvideEmailLabel: 'Ni allaf ddarparu cyfeiriad e-bost',
   emailAdddressLabel: 'Eich cyfeiriad e-bost',
   telephoneNumberLabel: 'Eich rhif ffôn',
@@ -64,7 +65,7 @@ const cy = {
   canNotProvideTelephoneNumberReason: 'Dywedwch wrthym pam na allwch ddarparu rhif ffôn',
   errors: {
     canProvideEmail: {
-      required: 'Dewiswch opsiwn ar gyfer e-bost',
+      required: ' Dewiswch opsiwn ar gyfer e-bost',
     },
     canProvideTelephoneNumber: {
       required: 'Dewiswch opsiwn ar gyfer rhif ffôn',
@@ -79,6 +80,7 @@ const cy = {
     },
     canNotProvideTelephoneNumberReason: {
       required: 'Dywedwch wrthym pam na allwch ddarparu rhif ffôn',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
     },
     canLeaveVoiceMail: {
       required: 'Dewiswch opsiwn ar gyfer neges llais',

@@ -3,7 +3,7 @@ import { CaseWithId } from '../../../../app/case/case';
 import { C100Applicant, YesNoEmpty } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
-import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
+import { isAlphaNumeric, isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -38,6 +38,7 @@ export const en = () => ({
     },
     canNotProvideTelephoneNumberReason: {
       required: 'Please tell us why you cannot provide telephone number',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
     canLeaveVoiceMail: {
       required: 'Please select voice mail option',
@@ -48,7 +49,7 @@ export const en = () => ({
 export const cy = () => ({
   title: 'Manylion cyswllt ',
   serviceName: 'Trefniadau plant',
-  canProvideEmailLabel: 'Allwch chi ddarparu cyfeiriad e-bost',
+  canProvideEmailLabel: 'Gallaf ddarparu cyfeiriad e-bost',
   canNotProvideEmailLabel: 'Ni allaf ddarparu cyfeiriad e-bost',
   emailAdddressLabel: 'Eich cyfeiriad e-bost',
   telephoneNumberLabel: 'Eich rhif ffôn',
@@ -62,7 +63,7 @@ export const cy = () => ({
   canNotProvideTelephoneNumberReason: 'Dywedwch wrthym pam na allwch ddarparu rhif ffôn',
   errors: {
     canProvideEmail: {
-      required: 'Dewiswch opsiwn ar gyfer e-bost',
+      required: ' Dewiswch opsiwn ar gyfer e-bost',
     },
     canProvideTelephoneNumber: {
       required: 'Dewiswch opsiwn ar gyfer rhif ffôn',
@@ -77,6 +78,7 @@ export const cy = () => ({
     },
     canNotProvideTelephoneNumberReason: {
       required: 'Dywedwch wrthym pam na allwch ddarparu rhif ffôn',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
     },
     canLeaveVoiceMail: {
       required: 'Dewiswch opsiwn ar gyfer neges llais',
@@ -173,7 +175,7 @@ export const generateFormFields = (
               label: l => l.canNotProvideTelephoneNumberReasonLabel,
               labelSize: null,
               value: canNotProvideTelephoneNumberReason,
-              validator: isFieldFilledIn,
+              validator: value => isFieldFilledIn(value) || isAlphaNumeric(value),
             },
           },
         },

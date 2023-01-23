@@ -47,6 +47,7 @@
 {% endmacro %}
 
 {% macro taskListSection(section, index) %}
+  {% if section %}
   <li>
     <h2 class="app-task-list__section">
       {{section.title}}
@@ -57,6 +58,7 @@
       {% endfor %}
     </ul>
   </li>
+   {% endif %}
 {% endmacro %}
 
 {% block content %}

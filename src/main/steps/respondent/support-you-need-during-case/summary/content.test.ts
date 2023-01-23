@@ -11,117 +11,98 @@ const en = {
     aboutYou: 'About you',
   },
   keys: {
-    respondentAttendingToCourt: 'Would you be able to take part in hearings by video and phone?',
-    respondentHearingDetails: 'Please provide the details',
-    respondentLangRequirements: 'Do you have any language requirements?',
-    respondentLangDetails: 'Please provide language details',
-    respondentSpecialArrangements: 'Do you or the children need special safety arrangements at court?',
-    respondentSpecialArrangementsDetails: 'Please describe your need in detail',
-    respondentReasonableAdjustments:
+    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
+    hearingDetails: 'Please provide the details',
+    languageRequirements: 'Do you have any language requirements?',
+    languageDetails: 'Please provide language details',
+    safetyArrangements: 'Do you or the children need special safety arrangements at court?',
+    safetyArrangementsDetails: 'Please describe your need in detail',
+    reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-    respondentDocsSupport: 'I need documents in an alternative format',
-    respondentDocsDetails: 'Please provide the docs details',
-    respondentLargePrintDetails: 'Please provide the large print details',
-    respondentOtherDetails: 'Please provide the other details',
-    respondentHelpCommunication: 'I need help communicating and understanding',
-    respondentSignLanguageDetails: 'Please provide sign language details',
-    respondentDescribeOtherNeed: 'Please provide the details',
-    respondentCourtHearing: 'I would need to bring support with me to a court hearing',
-    respondentSupportWorkerDetails: 'Please provide support worker details',
-    respondentFamilyDetails: 'Please provide family member details',
-    respondentTherapyDetails: 'Please provide therapy animal details',
-    respondentCommSupportOther: 'Please provide the details',
-    respondentCourtComfort: 'I need something to make me feel comfortable during a court hearing',
-    respondentLightingDetails: 'Please describe appropriate lighting details',
-    respondentOtherProvideDetails: 'Please describe your need in detail',
-    respondentTravellingToCourt: 'I need help travelling to, or moving around court buildings',
-    respondentParkingDetails: 'Please describe parking space details',
-    respondentDifferentChairDetails: 'Please describe different chair details',
-    respondentTravellingOtherDetails: 'Please describe your need in detail',
   },
   dependencies: {
-    respondentHearingDetails: {
-      dependentOn: 'respondentAttendingToCourt',
+    hearingDetails: {
+      dependentOn: 'attendingToCourt',
       value: 'no hearings',
       display: true,
     },
-    respondentLangDetails: {
-      dependentOn: 'respondentLangRequirements',
+    languageDetails: {
+      dependentOn: 'languageRequirements',
       value: 'I need an interpreter in a certain language',
       display: true,
     },
-    respondentSpecialArrangementsDetails: {
-      dependentOn: 'respondentSpecialArrangements',
+    safetyArrangementsDetails: {
+      dependentOn: 'safetyArrangements',
       value: 'other',
       display: true,
     },
-    respondentDocsDetails: {
-      dependentOn: 'respondentDocsSupport',
+    docsDetails: {
+      dependentOn: 'docsSupport',
       value: 'Documents in colour print',
       display: true,
     },
-    respondentLargePrintDetails: {
-      dependentOn: 'respondentDocsSupport',
+    largePrintDetails: {
+      dependentOn: 'docsSupport',
       value: 'Large print documents',
       display: true,
     },
-    respondentOtherDetails: {
-      dependentOn: 'respondentDocsSupport',
+    otherDetails: {
+      dependentOn: 'docsSupport',
       value: 'other',
       display: true,
     },
-    respondentSignLanguageDetails: {
-      dependentOn: 'respondentHelpCommunication',
+    describeSignLanguageDetails: {
+      dependentOn: 'helpCommunication',
       value: 'sign language interpreter',
       display: true,
     },
-    respondentDescribeOtherNeed: {
-      dependentOn: 'respondentHelpCommunication',
+    describeOtherNeed: {
+      dependentOn: 'helpCommunication',
       value: 'Other',
       display: true,
     },
-    respondentSupportWorkerDetails: {
-      dependentOn: 'respondentCourtHearing',
+    supportWorkerDetails: {
+      dependentOn: 'courtHearing',
       value: 'support worker or carer',
       display: true,
     },
-    respondentFamilyDetails: {
-      dependentOn: 'respondentCourtHearing',
+    familyProviderDetails: {
+      dependentOn: 'courtHearing',
       value: 'friend or family member',
       display: true,
     },
-    respondentTherapyDetails: {
-      dependentOn: 'respondentCourtHearing',
+    therapyDetails: {
+      dependentOn: 'courtHearing',
       value: 'animal',
       display: true,
     },
-    respondentCommSupportOther: {
-      dependentOn: 'respondentCourtHearing',
+    communicationSupportOther: {
+      dependentOn: 'courtHearing',
       value: 'other',
       display: true,
     },
-    respondentLightingDetails: {
-      dependentOn: 'respondentCourtComfort',
+    lightingProvideDetails: {
+      dependentOn: 'courtComfort',
       value: 'appropriate lighting',
       display: true,
     },
-    respondentOtherProvideDetails: {
-      dependentOn: 'respondentCourtComfort',
+    otherProvideDetails: {
+      dependentOn: 'courtComfort',
       value: 'Other',
       display: true,
     },
-    respondentParkingDetails: {
-      dependentOn: 'respondentTravellingToCourt',
+    parkingDetails: {
+      dependentOn: 'travellingToCourt',
       value: 'parking space close to the venue',
       display: true,
     },
-    respondentDifferentChairDetails: {
-      dependentOn: 'respondentTravellingToCourt',
+    differentChairDetails: {
+      dependentOn: 'travellingToCourt',
       value: 'a different type of chair',
       display: true,
     },
-    respondentTravellingOtherDetails: {
-      dependentOn: 'respondentTravellingToCourt',
+    travellingOtherDetails: {
+      dependentOn: 'travellingToCourt',
       value: 'Other',
       display: true,
     },
@@ -136,117 +117,98 @@ const cy: typeof en = {
     aboutYou: 'About you',
   },
   keys: {
-    respondentAttendingToCourt: 'Would you be able to take part in hearings by video and phone?',
-    respondentHearingDetails: 'Please provide the details',
-    respondentLangRequirements: 'Do you have any language requirements?',
-    respondentLangDetails: 'Please provide language details',
-    respondentSpecialArrangements: 'Do you or the children need special safety arrangements at court?',
-    respondentSpecialArrangementsDetails: 'Please describe your need in detail',
-    respondentReasonableAdjustments:
+    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
+    hearingDetails: 'Please provide the details',
+    languageRequirements: 'Do you have any language requirements?',
+    languageDetails: 'Please provide language details',
+    safetyArrangements: 'Do you or the children need special safety arrangements at court?',
+    safetyArrangementsDetails: 'Please describe your need in detail',
+    reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-    respondentDocsSupport: 'I need documents in an alternative format',
-    respondentDocsDetails: 'Please provide the docs details',
-    respondentLargePrintDetails: 'Please provide the large print details',
-    respondentOtherDetails: 'Please provide the other details',
-    respondentHelpCommunication: 'I need help communicating and understanding',
-    respondentSignLanguageDetails: 'Please provide sign language details',
-    respondentDescribeOtherNeed: 'Please provide the details',
-    respondentCourtHearing: 'I would need to bring support with me to a court hearing',
-    respondentSupportWorkerDetails: 'Please provide support worker details',
-    respondentFamilyDetails: 'Please provide family member details',
-    respondentTherapyDetails: 'Please provide therapy animal details',
-    respondentCommSupportOther: 'Please provide the details',
-    respondentCourtComfort: 'I need something to make me feel comfortable during a court hearing',
-    respondentLightingDetails: 'Please describe appropriate lighting details',
-    respondentOtherProvideDetails: 'Please describe your need in detail',
-    respondentTravellingToCourt: 'I need help travelling to, or moving around court buildings',
-    respondentParkingDetails: 'Please describe parking space details',
-    respondentDifferentChairDetails: 'Please describe different chair details',
-    respondentTravellingOtherDetails: 'Please describe your need in detail',
   },
   dependencies: {
-    respondentHearingDetails: {
-      dependentOn: 'respondentAttendingToCourt',
+    hearingDetails: {
+      dependentOn: 'attendingToCourt',
       value: 'no hearings',
       display: true,
     },
-    respondentLangDetails: {
-      dependentOn: 'respondentLangRequirements',
+    languageDetails: {
+      dependentOn: 'languageRequirements',
       value: 'I need an interpreter in a certain language',
       display: true,
     },
-    respondentSpecialArrangementsDetails: {
-      dependentOn: 'respondentSpecialArrangements',
+    safetyArrangementsDetails: {
+      dependentOn: 'safetyArrangements',
       value: 'other',
       display: true,
     },
-    respondentDocsDetails: {
-      dependentOn: 'respondentDocsSupport',
+    docsDetails: {
+      dependentOn: 'docsSupport',
       value: 'Documents in colour print',
       display: true,
     },
-    respondentLargePrintDetails: {
-      dependentOn: 'respondentDocsSupport',
+    largePrintDetails: {
+      dependentOn: 'docsSupport',
       value: 'Large print documents',
       display: true,
     },
-    respondentOtherDetails: {
-      dependentOn: 'respondentDocsSupport',
+    otherDetails: {
+      dependentOn: 'docsSupport',
       value: 'other',
       display: true,
     },
-    respondentSignLanguageDetails: {
-      dependentOn: 'respondentHelpCommunication',
+    describeSignLanguageDetails: {
+      dependentOn: 'helpCommunication',
       value: 'sign language interpreter',
       display: true,
     },
-    respondentDescribeOtherNeed: {
-      dependentOn: 'respondentHelpCommunication',
+    describeOtherNeed: {
+      dependentOn: 'helpCommunication',
       value: 'Other',
       display: true,
     },
-    respondentSupportWorkerDetails: {
-      dependentOn: 'respondentCourtHearing',
+    supportWorkerDetails: {
+      dependentOn: 'courtHearing',
       value: 'support worker or carer',
       display: true,
     },
-    respondentFamilyDetails: {
-      dependentOn: 'respondentCourtHearing',
+    familyProviderDetails: {
+      dependentOn: 'courtHearing',
       value: 'friend or family member',
       display: true,
     },
-    respondentTherapyDetails: {
-      dependentOn: 'respondentCourtHearing',
+    therapyDetails: {
+      dependentOn: 'courtHearing',
       value: 'animal',
       display: true,
     },
-    respondentCommSupportOther: {
-      dependentOn: 'respondentCourtHearing',
+    communicationSupportOther: {
+      dependentOn: 'courtHearing',
       value: 'other',
       display: true,
     },
-    respondentLightingDetails: {
-      dependentOn: 'respondentCourtComfort',
+    lightingProvideDetails: {
+      dependentOn: 'courtComfort',
       value: 'appropriate lighting',
       display: true,
     },
-    respondentOtherProvideDetails: {
-      dependentOn: 'respondentCourtComfort',
+    otherProvideDetails: {
+      dependentOn: 'courtComfort',
       value: 'Other',
       display: true,
     },
-    respondentParkingDetails: {
-      dependentOn: 'respondentTravellingToCourt',
+    parkingDetails: {
+      dependentOn: 'travellingToCourt',
       value: 'parking space close to the venue',
       display: true,
     },
-    respondentDifferentChairDetails: {
-      dependentOn: 'respondentTravellingToCourt',
+    differentChairDetails: {
+      dependentOn: 'travellingToCourt',
       value: 'a different type of chair',
       display: true,
     },
-    respondentTravellingOtherDetails: {
-      dependentOn: 'respondentTravellingToCourt',
+    travellingOtherDetails: {
+      dependentOn: 'travellingToCourt',
       value: 'Other',
       display: true,
     },
@@ -260,7 +222,16 @@ describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
   beforeEach(() => {
-    commonContent.userCase = mockUserCase;
+    commonContent.userCase = {
+      ...mockUserCase,
+      attendingToCourt: [''],
+      hearingDetails: '',
+      languageRequirements: [''],
+      languageDetails: '',
+      safetyArrangements: [''],
+      safetyArrangementsDetails: 'Please describe your need in detail',
+      reasonableAdjustments: [''],
+    };
     generatedContent = generateContent(commonContent);
   });
 
@@ -268,10 +239,10 @@ describe('citizen-home content', () => {
     expect(generatedContent.title).toEqual('Your hearing needs and requirments');
     expect(generatedContent.section).toEqual('Check your answers ');
     expect(generatedContent.sectionTitles.aboutYou).toEqual('About you');
-    expect(generatedContent.keys.respondentAttendingToCourt).toEqual(
+    expect(generatedContent.keys.attendingToCourt).toEqual(
       'Would you be able to take part in hearings by video and phone?'
     );
-    expect(generatedContent.dependencies.respondentHearingDetails.value).toEqual('no hearings');
+    expect(generatedContent.dependencies.hearingDetails.value).toEqual('no hearings');
   });
 
   // eslint-disable-next-line jest/expect-expect

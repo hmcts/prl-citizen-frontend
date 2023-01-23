@@ -36,7 +36,7 @@ const cy = {
   childrenKnownToSocialServicesLabel: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
   childrenKnownToSocialServicesHint:
     'Nodwch pa blentyn ac enw’r awdurdod lleol a’r gweithiwr cymdeithasol, os ydynt yn hysbys',
-  childrenSubjectOfProtectionPlanLabel: 'A yw unrhyw un o’r plant yn destun cynllun amnddiffyn plentyn?',
+  childrenSubjectOfProtectionPlanLabel: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
   childrenProtectionPlanHint:
     'Mae cynllun amddiffyn plentyn yn cael ei baratoi gan yr awdurdod lleol lle ystyrir bod risg y bydd plentyn yn dioddef niwed sylweddol. Mae’n nodi’r camau i’w cymryd i amddiffyn y plentyn a chefnogi’r teulu.',
   one: 'Ydyn',

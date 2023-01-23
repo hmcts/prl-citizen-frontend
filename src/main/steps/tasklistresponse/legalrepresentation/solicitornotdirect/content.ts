@@ -20,13 +20,19 @@ const cy: typeof en = {
   line1: 'Cwblhau eich ymateb i gais yr ymgeisydd am drefniadau plant.',
   line2: "Ar ôl i chi  gwblhau'r holl brif adrannau, byddwch yn gallu adolygu a chyflwyno eich atebion.",
   medheading: "Trosglwyddo eich achos i'ch cynrychiolydd cyfreithiol",
+  title: 'Cwblhau eich ymateb',
+  line1: 'Cwblhau eich ymateb i gais yr ymgeisydd am drefniadau plant.',
+  line2: "Ar ôl i chi  gwblhau'r holl brif adrannau, byddwch yn gallu adolygu a chyflwyno eich atebion.",
+  medheading: "Trosglwyddo eich achos i'ch cynrychiolydd cyfreithiol",
   line3:
+    'Ar ôl i chi gyflwyno eich ymateb, mae gennych yr opsiwn i basio eich achos drosodd i gynrychiolydd cyfreithiol.',
     'Ar ôl i chi gyflwyno eich ymateb, mae gennych yr opsiwn i basio eich achos drosodd i gynrychiolydd cyfreithiol.',
   line4:
     'Bydd angen i chi ddarparu eich rhif achos iddo. Unwaith y bydd yr achos yn cael ei drosglwyddo, ni fyddwch yn gallu golygu eich ymateb.',
   listItem: 'Rhif eich achos yw:',
   warning: 'Warning - welsh',
   respond:
+    "Peidiwch ag ymateb i'r cais hwn eich hun os ydych yn bwriadu cael cynrychiolydd cyfreithiol i gwblhau'r ymateb.",
     "Peidiwch ag ymateb i'r cais hwn eich hun os ydych yn bwriadu cael cynrychiolydd cyfreithiol i gwblhau'r ymateb.",
   continue: 'Continue',
 };

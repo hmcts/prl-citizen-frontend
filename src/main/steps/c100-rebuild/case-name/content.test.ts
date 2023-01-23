@@ -11,13 +11,13 @@ const en = {
   errors: {
     applicantCaseName: {
       required: 'Case Name is required',
-      invalid: 'Please enter a valid case name to proceed',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
   },
 };
 
 const cy = {
-  title: 'Nodwch enw’r achos',
+  title: "Enw'r achos",
   caseNameHint: 'Nodwch enw llawn y plentyn hynaf. Er enghraifft, John Smith',
 
   errors: {

@@ -6,6 +6,7 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/For
 import { covertToDateObject } from '../../../../app/form/parser';
 import {
   areDateFieldsFilledIn,
+  isAlphaNumeric,
   isDateInputInvalid,
   isFieldFilledIn,
   isFutureDate,
@@ -52,6 +53,9 @@ export const en = () => ({
     gender: {
       required: 'Select the gender',
     },
+    otherGenderDetails: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
+    },
   },
 });
 
@@ -91,6 +95,9 @@ export const cy = () => ({
     },
     gender: {
       required: 'Nodwch y rhywedd',
+    },
+    otherGenderDetails: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.- Welsh',
     },
   },
 });
@@ -243,6 +250,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
               label: l => l.otherGenderDetailsLabel,
               labelSize: null,
               value: otherGenderDetails,
+              validator: value => isAlphaNumeric(value),
             },
           },
         },

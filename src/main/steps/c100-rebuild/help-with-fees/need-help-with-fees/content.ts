@@ -30,13 +30,13 @@ export const cy = () => ({
   paragraph1: 'Cost y cais hwn £',
   paragraph2:
     '. Mae’n bosibl y gallwch gael help i dalu’r ffi os  \n nad oes gennych fawr ddim cynilion, neu ddim cynilion o gwbl, a naill ai:',
-  line1: 'cael budd-daliadau penodol',
-  line2: 'ar incwm isel',
+  line1: 'rydych yn cael budd-daliadau penodol',
+  line2: 'rydych ar incwm isel',
   seeEligbilityHyperLink:
     '<a href="https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a" class="govuk-link" target="_blank" aria-label="See if you are eligible for Help with Fees.">Gweld a ydych yn gymwys i gael help i dalu ffioedd.</a>',
   select_all_apply: 'Dewiswch bob un sy’n berthnasol',
   yesNeedHelpWithFeesPaying: 'Oes, rwyf eisiau help i dalu’r ffi',
-  noNeedHelpWithFeesPaying: 'Nac oes, ni wyf eisiau help',
+  noNeedHelpWithFeesPaying: 'Nac oes, nid wyf eisiau help',
   errors: {
     hwf_needHelpWithFees: {
       required: 'Dewiswch oes os ydych chi eisiau help i dalu’r ffi am y cais hwn',
