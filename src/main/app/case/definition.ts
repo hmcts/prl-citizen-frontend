@@ -2821,8 +2821,34 @@ export interface C1ASafteyConcerns {
     }
 
     export interface PRL_C1ASafteyConcerns_total {
-     c1asafetyconcerns:PRL_C1ASafteyConcerns,
-      otherconcerns:{
+     haveSafetyConcerns?: YesOrNo;
+     safetyConcernAbout?: PRL_C1ASafteyConcernsAbout[];
+     concernAboutChild?: PRL_C1AAbuseTypes[];
+     concernAboutRespondent?: PRL_C1AAbuseTypes[];
+     child?: {
+      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
+      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+    },
+    applicant?:{
+      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
+      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+      somethingElse?: PRL_C1ASafteyConcernsAbuse;
+    },
+    respondent?:{
+      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
+      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+      somethingElse?: PRL_C1ASafteyConcernsAbuse;
+    },
+     otherconcerns?:{
         c1AkeepingSafeStatement?:string;
         c1AsupervisionAgreementDetails?:string;
         c1AagreementOtherWaysDetails?:YesOrNo;
@@ -2831,7 +2857,7 @@ export interface C1ASafteyConcerns {
         c1AchildSafetyConcerns?:YesOrNo;
         c1AchildSafetyConcernsDetails?:string;
       },
-      abductions:{
+      abductions?:{
         c1AabductionReasonOutsideUk?:string;
         c1AchildsCurrentLocation?:string;
         c1AchildrenMoreThanOnePassport?:YesOrNo;
