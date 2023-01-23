@@ -48,7 +48,7 @@ export const cyContent: typeof enContent = {
   Yes: 'Yes - welsh',
   No: 'No - welsh',
   sectionTitles: {
-    safetyConcerns: '[^^sectionNo^^]. Safety concerns - welsh', //section 10
+    safetyConcerns: '[^^sectionNo^^]. Pryderon diogelwch', //section 10
     additionationDetailsAboutChildern: 'Additional details about the children - welsh',
     childSafetyConcerns: 'Safety concerns: the children in the application ',
     yourSafetyConcerns: 'Safety concern: your safety',
