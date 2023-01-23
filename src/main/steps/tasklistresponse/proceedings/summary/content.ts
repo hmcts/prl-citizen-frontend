@@ -36,9 +36,16 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: ' ',
-  title: 'Gwirio eich atebion',
-  title2: 'Current or previous court cases',
+  serviceName: 'Check your answers ',
+  section: '',
+  title: 'Check your answers',
+  change: 'Edit',
+  topWarning: 'Your answers will be shared with the other people in this case.',
+  makingSure: 'Please review your answers before you finish your application.',
+  continue: 'Save and continue',
+  Yes: 'Yes',
+  No: 'No ',
+  errors: {},
   sectionTitles: {
     otherProceedings: 'Current or previous proceedings',
   },
