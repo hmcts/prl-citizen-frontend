@@ -111,8 +111,8 @@ export class GetCaseController {
     if (!req.session.user) {
       res.redirect(SIGN_IN_URL + '?callback=' + req.originalUrl);
     } else {
-      const caseId = req.originalUrl.split('/').pop();
-      if (caseId) {
+      const caseId = req.originalUrl.split('/').pop() ?? '';
+      if (parseInt(caseId)) {
         let url = DASHBOARD_URL;
         req.session.userCase = await GetCaseController.assignUserCase(req, caseId);
         if (req.originalUrl.includes(RESPONDENT)) {

@@ -35,7 +35,12 @@ export class OidcMiddleware {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
           if (req.session.cookie.path) {
-            req.session.save(() => res.redirect(req.session.cookie.path));
+            const caseId = req.session.cookie.path.split('/').pop();
+            if (parseInt(caseId)) {
+              req.session.save(() => res.redirect(req.session.cookie.path));
+            } else {
+              req.session.save(() => res.redirect(DASHBOARD_URL));
+            }
           } else {
             req.session.save(() => res.redirect(DASHBOARD_URL));
           }
