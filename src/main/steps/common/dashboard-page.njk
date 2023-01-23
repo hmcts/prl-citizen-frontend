@@ -24,8 +24,18 @@
 {% endblock %}
 
 
+{% set realtitle = ""%}
+{% if headingTitle and title === undefined %}
+    {% set realtitle = headingTitle%}
+{% endif %}
+{% if headingTitle === undefined and title %}
+    {% set realtitle = title%}
+{% endif %}
+{% if headingTitle and title %}
+    {% set realtitle = title%}
+{% endif %}
 {% block pageTitle %}
-  {{ headingTitle }}{{ title }} - Private law - GOV.UK
+  {{realtitle }} - Private law - GOV.UK
 {% endblock %}
 
 {% block beforeContent %}
