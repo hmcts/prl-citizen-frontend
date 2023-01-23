@@ -151,7 +151,7 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const isMedicalReportsUploadedd = (taskListItems, url, isMedicalReportsUploaded): any => {
+export const isMedicalReportsUploadedd = (taskListItems, url, isMedicalReportsUploaded): any => {
   if (isMedicalReportsUploaded) {
     return {
       id: 'medical_reports',
@@ -161,7 +161,7 @@ const isMedicalReportsUploadedd = (taskListItems, url, isMedicalReportsUploaded)
   }
 };
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const isPreviousOrdersSubmittedd = (taskListItems, url, isPreviousOrdersSubmitted): any => {
+export const isPreviousOrdersSubmittedd = (taskListItems, url, isPreviousOrdersSubmitted): any => {
   if (isPreviousOrdersSubmitted) {
     return {
       id: 'previous_orders_submitted',
@@ -171,7 +171,7 @@ const isPreviousOrdersSubmittedd = (taskListItems, url, isPreviousOrdersSubmitte
   }
 };
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const isLettersFromSchoold = (taskListItems, url, isLettersFromSchool): any => {
+export const isLettersFromSchoold = (taskListItems, url, isLettersFromSchool): any => {
   if (isLettersFromSchool) {
     return {
       id: 'letters_from_school',
@@ -181,7 +181,7 @@ const isLettersFromSchoold = (taskListItems, url, isLettersFromSchool): any => {
   }
 };
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const isDigitalDownloadsUploadedd = (taskListItems, url, isDigitalDownloadsUploaded): any => {
+export const isDigitalDownloadsUploadedd = (taskListItems, url, isDigitalDownloadsUploaded): any => {
   if (isDigitalDownloadsUploaded) {
     return {
       id: 'digital_downloads',
@@ -191,7 +191,7 @@ const isDigitalDownloadsUploadedd = (taskListItems, url, isDigitalDownloadsUploa
   }
 };
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const isMedicalRecordsUploadd = (taskListItems, url, isMedicalRecordsUpload): any => {
+export const isMedicalRecordsUploadd = (taskListItems, url, isMedicalRecordsUpload): any => {
   if (isMedicalRecordsUpload) {
     return {
       id: 'medical_records',
@@ -201,7 +201,7 @@ const isMedicalRecordsUploadd = (taskListItems, url, isMedicalRecordsUpload): an
   }
 };
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const isPaternityDocUploadedd = (taskListItems, url, isPaternityDocUploaded): any => {
+export const isPaternityDocUploadedd = (taskListItems, url, isPaternityDocUploaded): any => {
   if (isPaternityDocUploaded) {
     return {
       id: 'paternity_test_reports',
@@ -211,7 +211,7 @@ const isPaternityDocUploadedd = (taskListItems, url, isPaternityDocUploaded): an
   }
 };
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const isDrugDocUploadedd = (taskListItems, url, isDrugDocUploaded): any => {
+export const isDrugDocUploadedd = (taskListItems, url, isDrugDocUploaded): any => {
   if (isDrugDocUploaded) {
     return {
       id: 'drug_alcohol_tests',
@@ -321,7 +321,7 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const isPreviousOrdersSubmittedRespondent = (taskListItems, url, isPreviousOrdersSubmitted): any => {
+export const isPreviousOrdersSubmittedRespondent = (taskListItems, url, isPreviousOrdersSubmitted): any => {
   if (isPreviousOrdersSubmitted) {
     return {
       id: 'previous_orders_submitted_respondent',
@@ -332,7 +332,7 @@ const isPreviousOrdersSubmittedRespondent = (taskListItems, url, isPreviousOrder
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const isLettersFromSchoolRespondent = (taskListItems, url, isLettersFromSchool): any => {
+export const isLettersFromSchoolRespondent = (taskListItems, url, isLettersFromSchool): any => {
   if (isLettersFromSchool) {
     return {
       id: 'letters_from_school_respondent',
@@ -343,7 +343,7 @@ const isLettersFromSchoolRespondent = (taskListItems, url, isLettersFromSchool):
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const isDigitalDownloadsUploadedRespondent = (taskListItems, url, isDigitalDownloadsUploaded): any => {
+export const isDigitalDownloadsUploadedRespondent = (taskListItems, url, isDigitalDownloadsUploaded): any => {
   if (isDigitalDownloadsUploaded) {
     return {
       id: 'digital_downloads_respondent',
@@ -354,7 +354,7 @@ const isDigitalDownloadsUploadedRespondent = (taskListItems, url, isDigitalDownl
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const isMedicalRecordsUploadRespondent = (taskListItems, url, isMedicalRecordsUpload): any => {
+export const isMedicalRecordsUploadRespondent = (taskListItems, url, isMedicalRecordsUpload): any => {
   if (isMedicalRecordsUpload) {
     return {
       id: 'medical_records_respondent',
@@ -365,7 +365,7 @@ const isMedicalRecordsUploadRespondent = (taskListItems, url, isMedicalRecordsUp
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const isMedicalReportsUploadedRespondent = (taskListItems, url, isMedicalReportsUploaded): any => {
+export const isMedicalReportsUploadedRespondent = (taskListItems, url, isMedicalReportsUploaded): any => {
   if (isMedicalReportsUploaded) {
     return {
       id: 'medical_reports_respondent',
@@ -376,7 +376,7 @@ const isMedicalReportsUploadedRespondent = (taskListItems, url, isMedicalReports
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const isPaternityDocUploadedRespondent = (taskListItems, url, isPaternityDocUploaded): any => {
+export const isPaternityDocUploadedRespondent = (taskListItems, url, isPaternityDocUploaded): any => {
   if (isPaternityDocUploaded) {
     return {
       id: 'paternity_test_reports_respondent',
@@ -387,7 +387,7 @@ const isPaternityDocUploadedRespondent = (taskListItems, url, isPaternityDocUplo
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const isDrugDocUploadedRespondent = (taskListItems, url, isDrugDocUploaded): any => {
+export const isDrugDocUploadedRespondent = (taskListItems, url, isDrugDocUploaded): any => {
   if (isDrugDocUploaded) {
     return {
       id: 'drug_alcohol_tests_respondent',
