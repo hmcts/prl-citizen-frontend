@@ -232,7 +232,7 @@ export class Routes {
           errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
         );
         app.get(
-          `${RESPOND_TO_APPLICATION}/updateFlag`,
+          `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
           errorHandler(new ViewAllDocumentsPostController(step.form.fields).setResponseInitiatedFlag)
         );
         app.get(
