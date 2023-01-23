@@ -102,6 +102,7 @@ import {
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
   CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
+  RESPONDENT_CHECK_ANSWERS_NO,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -282,6 +283,7 @@ export class Routes {
           C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
           errorHandler(new SafetyConcernsPostController(step.form.fields).post)
         );
+        app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
       }
     }
     /**
