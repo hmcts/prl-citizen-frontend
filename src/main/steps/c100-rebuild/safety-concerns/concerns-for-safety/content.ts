@@ -49,7 +49,7 @@ export const cy = () => ({
   noHaveSafetyConcerns: 'Nac oes',
   errors: {
     c1A_haveSafetyConcerns: {
-      required: 'Dewiswch oes os oes gennych unrhyw bryderon am eich diogelwch neu ddiogelwch y plant',
+      required: 'Dewiswch oes os oes gennych bryderon eraill am ddiogelwch a lles y plant',
     },
   },
 });

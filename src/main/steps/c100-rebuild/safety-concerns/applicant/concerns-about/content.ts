@@ -63,7 +63,7 @@ const cy = () => ({
   somethingElseHint: "Unrhyw bryderon sydd gennych nad ydynt yn ffitio i'r categorïau uchod",
   errors: {
     c1A_concernAboutApplicant: {
-      required: "Nodwch y math o ymddygiad y mae'r plant wedi ei brofi neu maent mewn perygl o’i brofi",
+      required: 'Nodwch y math o ymddygiad ydych chi wedi ei brofi neu mewn perygl o’i brofi',
     },
   },
 });

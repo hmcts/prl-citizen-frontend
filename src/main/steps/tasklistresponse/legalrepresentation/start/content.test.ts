@@ -33,9 +33,9 @@ const enContent = {
 const cyContent = {
   title: "A fyddwch yn defnyddio cynrychiolydd cyfreithiol i ymateb i'r cais?",
   insetText:
-    "You can respond to the applicant's request yourself and then redirect your case to your legal representative for the remainder of the proceedings.",
-  one: 'Yes',
-  two: 'No',
+    "Gallwch ymateb i gais y ceisydd eich hun ac yna ailgyfeirio eich achos i'ch cynrychiolydd cyfreithiol am weddill yr achos.",
+  one: 'Byddaf',
+  two: 'Na fyddaf',
   summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
