@@ -15,7 +15,7 @@ import {
 import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
 import { applyParms } from '../url-parser';
 
-const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
+export const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
   console.log(content.title);
   return rows.map(item => {
     const changeUrl = item.changeUrl;
