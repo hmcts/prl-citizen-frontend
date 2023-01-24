@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -117,6 +117,14 @@ describe('citizen-home content', () => {
     expect(startAlternativeField.type).toBe('radios');
     expect(startAlternativeField.classes).toBe('govuk-radios');
     expect((startAlternativeField.section as Function)(generatedContent)).toBe(enContent.section);
+    expect((startAlternativeField.values[0].label as LanguageLookup)(generatedContent)).toBe('Yes');
+    expect(startAlternativeField.values[0].subFields!.contactDetailsPrivate.type).toBe('checkboxes');
+    expect(
+      (startAlternativeField.values[0].subFields!.contactDetailsPrivate.label as LanguageLookup)(generatedContent)
+    ).toBe('Which contact details do you want to keep private from the other people in this application?');
+    const subFields = startAlternativeField.values[0].subFields!.contactDetailsPrivate as FormOptions;
+    expect((subFields.values[0].label as LanguageLookup)(generatedContent)).toBe('Address');
+    expect((subFields.values[1].label as LanguageLookup)(generatedContent)).toBe('Phone number');
   });
 
   test('should contain Save and continue button', () => {
