@@ -6,49 +6,14 @@ import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { State } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
+import {
+  GovUkNunjucksSummary,
+  SummaryList,
+  SummaryListContent,
+  SummaryListRow,
+} from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../urls';
 import { applyParms } from '../url-parser';
-interface GovUkNunjucksSummary {
-  key: {
-    text?: string;
-    html?: string;
-    classes?: string;
-  };
-  value: {
-    text?: string;
-    html?: string;
-  };
-  actions?: {
-    items?: [
-      {
-        href: string;
-        text: string;
-        visuallyHiddenText: string;
-      }
-    ];
-  };
-  classes?: string;
-}
-
-interface SummaryListRow {
-  key?: string;
-  keyHtml?: string;
-  value?: string;
-  valueHtml?: string;
-  changeUrl?: string;
-  classes?: string;
-  caseLink?: string;
-}
-
-export interface SummaryList {
-  title: string;
-  rows: GovUkNunjucksSummary[];
-}
-
-type SummaryListContent = PageContent & {
-  sectionTitles: Record<string, string>;
-  keys: Record<string, string>;
-};
 
 const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
   console.log(content.title);

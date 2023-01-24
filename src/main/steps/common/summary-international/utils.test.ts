@@ -1,8 +1,8 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
+import { SummaryList } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
 
-import { SummaryList, summaryCaseList, summaryList } from './utils';
-
+import { summaryCaseList, summaryList } from './utils';
 const enContent = {
   section: 'Check your details',
   title: 'Read the information to make sure it is correct, and add any missing details',

@@ -4,16 +4,12 @@ import { CaseWithId } from '../../../../app/case/case';
 import { SupportYouNeedAllEnum } from '../../../../app/case/definition';
 //import { AttendingToCourtEnum } from '../../../../app/case/definition';
 import { PageContent } from '../../../../app/controller/GetController';
-import { GovUkNunjucksSummary, SummaryListRow } from '../../summary/utils';
-export interface SummaryList {
-  title: string;
-  rows: GovUkNunjucksSummary[];
-}
-
-type SummaryListContent = PageContent & {
-  sectionTitles: Record<string, string>;
-  keys: Record<string, string>;
-};
+import {
+  GovUkNunjucksSummary,
+  SummaryList,
+  SummaryListContent,
+  SummaryListRow,
+} from '../../../../steps/c100-rebuild/check-your-answers/lib/lib';
 
 const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
   console.log(content);
