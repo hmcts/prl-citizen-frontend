@@ -10,7 +10,7 @@ import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { EVENT_RESPONDENT_MIAM } from '../../../steps/constants';
 import { RESPOND_TO_APPLICATION } from '../../../steps/urls';
 
-import { setSafetyConcerns } from './SafetyConcernsMapper';
+import { prepareRequest } from './SafetyConcernsMapper';
 @autobind
 export class SafetyConcernsPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
@@ -26,11 +26,10 @@ export class SafetyConcernsPostController extends PostController<AnyObject> {
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
       Object.assign(req.session.userCase, caseDataFromCos);
 
-      // console.log(req.session.userCase);
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (respondent?.value?.user?.idamId === req.session?.user.id) {
           if (req.url.includes('allegations-of-harm-and-violence')) {
-            setSafetyConcerns(respondent, req);
+            respondent.value.response['safetyConcerns'] = prepareRequest(respondent, req);
           }
         }
       });

@@ -1,5 +1,14 @@
 {% extends "./page.njk" %}
 
+{% set realtitle = ""%}
+{% if title %}
+    {% set realtitle = title%}
+{% else %}
+    {% set realtitle = headingTitle%}
+{% endif %}
+{% block pageTitle %}
+  {{realtitle }} - Private law - GOV.UK
+{% endblock %}
 {% block page_content %}
   {% if section %}
     <span class="govuk-heading-l">{{ section }}</span>

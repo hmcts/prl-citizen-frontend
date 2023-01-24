@@ -146,7 +146,7 @@ const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWith
             id: 'respond_to_application',
             text: taskListItems.respond_to_application,
             status: getInternationalFactorsStatus(userCase),
-            href: !hasCitizenResponse ? URL.RESPOND_TO_APPLICATION + '/updateFlag' : null,
+            href: !hasCitizenResponse ? `${URL.RESPOND_TO_APPLICATION}/flag/updateFlag` : null,
             hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
           },
           {
