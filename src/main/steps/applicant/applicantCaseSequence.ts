@@ -1,3 +1,4 @@
+import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
 import {
   APPLICANT,
@@ -424,6 +425,7 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_YOURHEARINGS_HEARINGS,
     showInSection: Sections.AboutApplicantCase,
+    getController: HearingsGetController,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {

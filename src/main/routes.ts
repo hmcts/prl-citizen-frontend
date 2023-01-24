@@ -21,7 +21,6 @@ import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
-import HearingsGetController from './steps/common/yourhearings/hearings/HearingsGetController';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
@@ -104,9 +103,6 @@ import {
   CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   RESPONDENT_CHECK_ANSWERS_NO,
-  APPLICANT_YOURHEARINGS_HEARINGS,
-  RESPONDENT_YOURHEARINGS_HEARINGS,
-  //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
 export class Routes {
@@ -162,14 +158,6 @@ export class Routes {
       app.get(
         `${CONSENT_TO_APPLICATION}/:caseId`,
         errorHandler(new ConsentGetController(step.view, step.generateContent).get)
-      );
-      app.get(
-        APPLICANT_YOURHEARINGS_HEARINGS,
-        errorHandler(new HearingsGetController(step.view, step.generateContent).get)
-      );
-      app.get(
-        RESPONDENT_YOURHEARINGS_HEARINGS,
-        errorHandler(new HearingsGetController(step.view, step.generateContent).get)
       );
       app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
       app.get(
