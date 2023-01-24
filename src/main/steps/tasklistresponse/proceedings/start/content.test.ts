@@ -23,8 +23,8 @@ const en = {
 };
 
 const cy = {
-  section: 'Have you or the children ever been involved in court proceedings?',
-  courtCase: 'Have the children been involved in a court case?',
+  section: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
+  courtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
   courtOrder: 'Have you had a court order made for your protection?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',

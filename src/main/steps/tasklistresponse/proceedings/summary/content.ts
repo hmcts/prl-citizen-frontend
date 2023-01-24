@@ -491,7 +491,7 @@ const cyContent: typeof enContent = {
     applicationDetails: 'Application details',
   },
   keys: {
-    proceedingsStart: 'Have the children been involved in a court case?',
+    proceedingsStart: "Ydy'r plant wedi bod yn rhan o achos llys?",
     proceedingsStartOrder: 'Have you had a court order made for your protection?',
     emergencyOrderOptions: 'Emergency Protection Order',
     'emergencyOrder.caseNoDetails': 'Case number',

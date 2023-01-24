@@ -61,7 +61,7 @@ export const cy = () => ({
   otherInjuctionOrder: 'Other injunction order - welsh',
   undertakingOrder: 'Undertaking in place of an order - welsh',
   otherOrder: 'Other orders - welsh',
-  childrenInvolvedCourtCase: 'Have the children been involved in a court case?',
+  childrenInvolvedCourtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
   courtOrderProtection: 'Have you had a court order made for your protection?',
   errors: {
     courtProceedingsOrders: {

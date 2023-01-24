@@ -26,9 +26,9 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Have you or the children ever been involved in court proceedings?',
+  section: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
   title: '',
-  courtCase: 'Have the children been involved in a court case?',
+  courtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',
   courtCaseDontKnow: "I don't know",
