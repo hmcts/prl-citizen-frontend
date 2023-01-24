@@ -1,14 +1,17 @@
 import { capitalize } from 'lodash';
 
 import { CaseWithId } from '../../app/case/case';
+import { C100_CASE_TYPE } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
-import { C100_URL } from '../../steps/urls';
+import { C100_URL, DASHBOARD_URL } from '../../steps/urls';
 
 const en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law',
   applyForDissolution: 'Private Law',
+  commonServiceName: 'Child arrangements and family injunctions',
   c100ServiceName: 'Child arrangements',
+  fl401ServiceName: 'Family Injunctions',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.',
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
@@ -119,7 +122,9 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law" (in welsh)',
   applyForDissolution: 'Private Law"(in welsh)',
-  c100ServiceName: 'Trefniadau plant',
+  commonServiceName: 'Child arrangements and family injunctions (in welsh)',
+  c100ServiceName: 'Child arrangements (in welsh)',
+  fl401ServiceName: 'Family injunction (in welsh)',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.(in welsh)',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
@@ -139,7 +144,7 @@ const cy: typeof en = {
   errorSummaryHeading: 'Mae yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
   saveAndComeLater: 'Cadw’r cais a dychwelyd ato yn hwyrach ymlaen',
-  goBack: 'Go back - welsh',
+  goBack: 'Yn ôl',
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Sign out (in welsh)',
   signIn: 'Sign in (in welsh)',
@@ -192,7 +197,7 @@ const cy: typeof en = {
   telephone: 'Ffoniwch',
   telephoneNumber: '0300 303 0742',
   telephoneDetails: 'Dydd Llun i Ddydd Gwener, 8.30am - 5pm.',
-  onlyContinue: 'Continue (in welsh)',
+  onlyContinue: 'Parhau',
   onlycontinue: 'Parhau',
   divider: 'neu',
 };
@@ -211,9 +216,7 @@ export const generatePageContent = ({
   userIdamId,
   additionalData,
   userId,
-}: // eligibility,
-// fee,
-{
+}: {
   language: Language;
   pageContent?: TranslationFn;
   userCase?: Partial<CaseWithId>;
@@ -227,11 +230,9 @@ export const generatePageContent = ({
   userIdamId?: string;
   additionalData?: CommonContentAdditionalData;
   userId?: string | undefined;
-  // eligibility?: Eligibility;
-  // fee?: Fee;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
-  const serviceName = getServiceName(additionalData, commonTranslations);
+  const serviceName = getServiceName(additionalData?.req, commonTranslations);
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -246,11 +247,8 @@ export const generatePageContent = ({
     document_type,
     userIdamId,
     byApplicant,
-    // contactEmail,
     additionalData,
     userId,
-    // eligibility,
-    // fee,
   };
 
   if (pageContent !== null && pageContent !== undefined) {
@@ -260,11 +258,16 @@ export const generatePageContent = ({
   return content;
 };
 
-const getServiceName = (addtionalReqData: CommonContentAdditionalData | undefined, translations: typeof en): string => {
-  let serviceName = translations.applyForChildArrangements;
-  if (addtionalReqData?.req?.path?.startsWith(C100_URL)) {
-    serviceName = translations.c100ServiceName;
-  }
+const getServiceName = (
+  reqData: CommonContentAdditionalData | undefined,
+  translations: typeof en | typeof cy
+): string => {
+  const url = reqData?.path;
+  const isDashboard = url?.includes(DASHBOARD_URL);
+  const isC100 = url?.startsWith(C100_URL) || reqData?.session?.userCase?.caseTypeOfApplication === C100_CASE_TYPE.C100;
+  const appServicename = isC100 ? translations.c100ServiceName : translations.fl401ServiceName;
+  const serviceName = isDashboard ? translations.commonServiceName : appServicename;
+
   return capitalize(serviceName);
 };
 
@@ -289,8 +292,6 @@ export type CommonContent = typeof en & {
   byApplicant?: string;
   additionalData?: CommonContentAdditionalData;
   userId?: string | undefined;
-  // eligibility?: Eligibility;
-  // fee?: Fee;
   userIdamId?: string;
 };
 

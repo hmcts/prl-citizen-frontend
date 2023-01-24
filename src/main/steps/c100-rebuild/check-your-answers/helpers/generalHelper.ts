@@ -1,5 +1,7 @@
+import { genderChose } from '../mainUtil';
+
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const nameAndGenderParser = (personalDetails, keys, HTML) => {
+export const nameAndGenderParser = (personalDetails, keys, HTML, language) => {
   let changeNameInformation = '';
   const hasNameChanged = personalDetails['hasNameChanged'];
   if (hasNameChanged === 'dontKnow') {
@@ -18,7 +20,7 @@ export const nameAndGenderParser = (personalDetails, keys, HTML) => {
     changeNameInformation += HTML.BOTTOM_PADDING_CLOSE;
   }
   let childGender = '';
-  childGender += personalDetails['gender'];
+  childGender += genderChose(personalDetails['gender'], language);
   if (personalDetails['otherGenderDetails'] !== '') {
     childGender +=
       HTML.BREAK +

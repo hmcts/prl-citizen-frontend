@@ -27,9 +27,13 @@ export class OidcMiddleware {
     const port = app.locals.developmentMode ? `:${config.get('port')}` : '';
     const { errorHandler } = app.locals;
 
-    app.get(SIGN_IN_URL, (req, res) =>
-      res.redirect(getRedirectUrl(`${protocol}${res.locals.host}${port}`, CALLBACK_URL))
-    );
+    app.get(SIGN_IN_URL, (req, res) => {
+      if (req.query?.callback && req.query?.callback !== '/') {
+        req.session.cookie.path = req.query?.callback as string;
+      }
+      const url = getRedirectUrl(`${protocol}${res.locals.host}${port}`, CALLBACK_URL);
+      res.redirect(url);
+    });
 
     app.get(SIGN_OUT_URL, (req, res) => req.session.destroy(() => res.redirect('/')));
 
@@ -38,7 +42,16 @@ export class OidcMiddleware {
       errorHandler(async (req, res) => {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
-          req.session.save(() => res.redirect(DASHBOARD_URL));
+          if (req.session.cookie.path) {
+            const caseId = req.session.cookie.path.split('/').pop();
+            if (parseInt(caseId)) {
+              req.session.save(() => res.redirect(req.session.cookie.path));
+            } else {
+              req.session.save(() => res.redirect(DASHBOARD_URL));
+            }
+          } else {
+            req.session.save(() => res.redirect(DASHBOARD_URL));
+          }
         } else {
           if (!req.session?.accessCodeLoginIn) {
             res.redirect(CITIZEN_HOME_URL);
@@ -107,7 +120,8 @@ export class OidcMiddleware {
           }
           return next();
         } else {
-          res.redirect(SIGN_IN_URL);
+          const url = encodeURIComponent(req.originalUrl);
+          res.redirect(SIGN_IN_URL + `?callback=${url}`);
         }
       })
     );

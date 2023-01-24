@@ -17,7 +17,7 @@ export class Form {
       .reduce((_fields: [string, FormField][], [key, field]) => {
         _fields =
           field.type === 'fieldset' && Object.keys(field?.subFields ?? {}).length
-            ? [..._fields, ...(Object.entries(field.subFields) as [string, FormField][])]
+            ? [..._fields, ...(Object.entries(field.subFields) as [])]
             : [..._fields, [key, field]];
         return _fields;
       }, [])
@@ -251,6 +251,7 @@ interface CaseWithFormData extends CaseWithId {
   addAnotherName?: string;
   addAnotherNameHidden?: string;
 }
+
 export interface GenerateDynamicFormFields {
   fields: FormContent['fields'];
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any

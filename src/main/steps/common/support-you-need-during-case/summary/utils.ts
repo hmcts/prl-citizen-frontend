@@ -1,48 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { CaseWithId } from '../../../../app/case/case';
+import { SupportYouNeedAllEnum } from '../../../../app/case/definition';
+//import { AttendingToCourtEnum } from '../../../../app/case/definition';
 import { PageContent } from '../../../../app/controller/GetController';
-interface GovUkNunjucksSummary {
-  key: {
-    text?: string;
-    html?: string;
-    classes?: string;
-  };
-  value: {
-    text?: string;
-    html?: string;
-  };
-  actions?: {
-    items?: [
-      {
-        href: string;
-        text: string;
-        visuallyHiddenText: string;
-      }
-    ];
-  };
-  classes?: string;
-}
-
-interface SummaryListRow {
-  key?: string;
-  keyHtml?: string;
-  value?: string;
-  valueHtml?: string;
-  changeUrl?: string;
-  classes?: string;
-}
-
-export interface SummaryList {
-  title: string;
-  rows: GovUkNunjucksSummary[];
-}
-
-type SummaryListContent = PageContent & {
-  sectionTitles: Record<string, string>;
-  keys: Record<string, string>;
-};
+import {
+  GovUkNunjucksSummary,
+  SummaryList,
+  SummaryListContent,
+  SummaryListRow,
+} from '../../../../steps/c100-rebuild/check-your-answers/lib/lib';
 
 const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
   console.log(content);
@@ -83,7 +50,7 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value: userCase[key],
+      value: getValue(key, userCase),
       changeUrl: url,
     };
 
@@ -94,4 +61,20 @@ export const summaryList = (
     title: sectionTitle || '',
     rows: getSectionSummaryList(summaryData, content),
   };
+};
+
+const getValue = (key: string, userCase: Partial<CaseWithId>) => {
+  const value = userCase[key];
+  if (typeof value === 'string') {
+    return SupportYouNeedAllEnum[value] as string;
+  }
+  let temp = '';
+  for (const k of value) {
+    const keyLabel = k as string;
+    temp += SupportYouNeedAllEnum[keyLabel];
+    if (value.indexOf(k) !== value.length - 1) {
+      temp += ', ';
+    }
+  }
+  return temp as string;
 };

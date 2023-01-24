@@ -68,4 +68,13 @@ describe('ViewAllDocumentsPostController', () => {
     await controller.setAllDocumentsViewed(req, res);
     expect(req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('Yes');
   });
+
+  test('Should update the IsresponseInitiated details if user id matches with respondent for DA', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.url = 'respondent';
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.userCase.respondents = partyDetails;
+    await controller.setResponseInitiatedFlag(req, res);
+    expect(req.session.userCase.respondents[0].value.response.citizenFlags.isResponseInitiated).toEqual('Yes');
+  });
 });

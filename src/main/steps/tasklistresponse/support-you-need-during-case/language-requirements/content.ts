@@ -14,12 +14,12 @@ const en = {
   languageinterpreter: 'I need an interpreter in a certain language',
   typeoflanguage: 'Give details of the language you require (including dialect, if applicable)',
   nointerpreter: 'No, I do not have any language requirements at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
-    respondentLangRequirements: {
+    languageRequirements: {
       required: 'Please select an answer',
     },
-    respondentLangDetails: {
+    languageDetails: {
       required: 'Please provide language details',
     },
   },
@@ -37,12 +37,12 @@ const cy: typeof en = {
   languageinterpreter: 'I need an interpreter in a certain language',
   typeoflanguage: 'Give details of the language you require (including dialect, if applicable)',
   nointerpreter: 'No, I do not have any language requirements at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
-    respondentLangRequirements: {
+    languageRequirements: {
       required: 'Please select an answer',
     },
-    respondentLangDetails: {
+    languageDetails: {
       required: 'Please provide language details',
     },
   },
@@ -55,7 +55,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentLangRequirements: {
+    languageRequirements: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
@@ -63,21 +63,21 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'respondentLangRequirements',
+          name: 'languageRequirements',
           label: l => l.speakwelsh,
-          value: 'I need to speak in Welsh',
+          value: 'speakwelsh',
         },
         {
-          name: 'respondentLangRequirements',
+          name: 'languageRequirements',
           label: l => l.readandwritewelsh,
-          value: 'I need to read and write in Welsh',
+          value: 'readandwritewelsh',
         },
         {
-          name: 'respondentLangRequirements',
+          name: 'languageRequirements',
           label: l => l.languageinterpreter,
-          value: 'I need an interpreter in a certain language',
+          value: 'languageinterpreter',
           subFields: {
-            respondentLangDetails: {
+            languageDetails: {
               type: 'textarea',
               label: l => l.typeoflanguage,
               labelSize: null,
@@ -89,15 +89,15 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'respondentLangRequirements',
+          name: 'languageRequirements',
           label: l => l.nointerpreter,
-          value: 'No, I do not have any language requirements at this time',
+          value: 'nointerpreter',
           exclusive: true,
         },
       ],
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

@@ -9,9 +9,9 @@ const supportedBrowsers = {
       browserVersion: 'latest',
       'sauce:options': {
         name: 'PRL: Edge_Win10',
-        screenResolution: '1400x1050'
-      }
-    }
+        screenResolution: '1400x1050',
+      },
+    },
   },
   webkit: {
     webkit_latest: {
@@ -20,9 +20,9 @@ const supportedBrowsers = {
       browserVersion: 'latest',
       'sauce:options': {
         name: 'PRL: Webkit_MAC',
-        screenResolution: '1400x1050'
-      }
-    }
+        screenResolution: '1400x1050',
+      },
+    },
   },
   safari: {
     safari_mac_latest: {
@@ -32,9 +32,9 @@ const supportedBrowsers = {
       'sauce:options': {
         name: 'PRL: MAC_SAFARI',
         seleniumVersion: '3.141.59',
-        screenResolution: '1376x1032'
-      }
-    }
+        screenResolution: '1376x1032',
+      },
+    },
   },
   chrome: {
     chrome_win_latest: {
@@ -43,8 +43,8 @@ const supportedBrowsers = {
       browserVersion: 'latest',
       'sauce:options': {
         name: 'PRL: WIN_CHROME_LATEST',
-        screenResolution: '1600x1200'
-      }
+        screenResolution: '1600x1200',
+      },
     },
     chrome_mac_latest: {
       browserName: 'chrome',
@@ -52,9 +52,9 @@ const supportedBrowsers = {
       browserVersion: 'latest',
       'sauce:options': {
         name: 'PRL: MAC_CHROME_LATEST',
-        screenResolution: '1600x1200'
-      }
-    }
+        screenResolution: '1600x1200',
+      },
+    },
   },
   firefox: {
     firefox_win_latest: {
@@ -63,8 +63,8 @@ const supportedBrowsers = {
       browserVersion: 'latest',
       'sauce:options': {
         name: 'PRL: WIN_FIREFOX_LATEST',
-        screenResolution: '1600x1200'
-      }
+        screenResolution: '1600x1200',
+      },
     },
     firefox_mac_latest: {
       browserName: 'firefox',
@@ -72,10 +72,10 @@ const supportedBrowsers = {
       browserVersion: 'latest',
       'sauce:options': {
         name: 'PRL: MAC_FIREFOX_LATEST',
-        screenResolution: '1600x1200'
-      }
-    }
-  }
+        screenResolution: '1600x1200',
+      },
+    },
+  },
 };
 
 module.exports = supportedBrowsers;

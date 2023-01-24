@@ -81,8 +81,7 @@ export const RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${RESPONDENT}
 
 /* MIAM */
 export const TASK_LIST_RESPONSE: PageLink = '/tasklistresponse';
-export const MIAM_HOME: PageLink = `${TASK_LIST_RESPONSE}`;
-export const MIAM: PageLink = `${MIAM_HOME}/miam`;
+export const MIAM: PageLink = `${TASK_LIST_RESPONSE}/miam`;
 export const MIAM_START: PageLink = `${MIAM}/miam-start`;
 export const MIAM_ATTEND_WILLINGNESS: PageLink = `${MIAM}/willingness-to-attend-miam`;
 
@@ -99,6 +98,12 @@ export const INTERNATIONAL_FACTORS_SAVE: PageLink = `${INTERNATIONAL_FACTORS}/sa
 export const MIAM_SUMMARY: PageLink = `${MIAM}/summary`;
 export const MIAM_SAVE: PageLink = `${MIAM}/save`;
 /* MIAM */
+
+/* your hearings */
+export const YOURHEARINGS: PageLink = '/yourhearings';
+export const HEARINGS: PageLink = '/hearings';
+export const RESPONDENT_YOURHEARINGS_HEARINGS: PageLink = `${RESPONDENT}${YOURHEARINGS}${HEARINGS}`;
+/* your hearings */
 
 /* safety concerns */
 export const SAFETY_CONCERNS: PageLink = `${RESPONSE_TASKLIST}/safety_concerns`;
@@ -163,6 +168,56 @@ export const CONSENT_SAVE: PageLink = `${CONSENT}/save`;
 /* consent-to-the-application */
 export const RESPONDENT_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/orders`;
 
+export const RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE_LINK: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence';
+export const RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page';
+export const RESPONDENT_YOUR_CHILD_CONCERNS: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns';
+export const RESPONDENT_CHECK_ANSWERS_NO: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/check-answers-no';
+export const RESPONDENT_CHECK_ANSWERS_YES: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes';
+
+export const PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/child/concerns-about';
+export const PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_RESPONDENT: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/respondent/concerns-about';
+export const PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/:abuseType';
+export const PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/respondent/report-abuse/:abuseType';
+export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/drugs';
+export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_OTHER: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/other-issues';
+export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_COURT_ACTION: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/orders-required/court-action';
+export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/orders-required/unsupervised';
+export const C1A_SAFETY_CONCERNS_ABDUCTION: PageLink = '/tasklistresponse/allegations-of-harm-and-violence/abduction';
+export const PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/no-feedback';
+
+export const C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/abduction/child-location';
+export const C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_AMOUNT: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-amount';
+export const C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-office';
+export const C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-office-notified';
+export const C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/abduction/previousabductions';
+export const C1A_SAFETY_CONCERNS_ABDUCTION_THREATS: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/abduction/threats';
+
+export const C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/check-your-answers';
+
+export const C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE: PageLink =
+  '/tasklistresponse/allegations-of-harm-and-violence/check-your-answers/save';
+
 export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
 export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;
 export const APPLICATION_WITNESS_STATEMENT: PageLink = '/public/docs/witness-statement-Final-Document.pdf';
@@ -225,6 +280,7 @@ export const RESPONDENT_SUPPORT_NEEDED: PageLink = `${VIEW_ALL_DOCUMENTS}/suppor
 export const DOCUMENT_MANAGER: PageLink = '/document-manager';
 /* your needs when you go to court */
 export const SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${APPLICANT}/support-you-need-during-case`;
+export const APPLICANT_ATTENDING_THE_COURT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/attending-the-court`;
 export const LANGUAGE_REQUIREMENTS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/language-requirements`;
 export const REASONABLE_ADJUSTMENTS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/reasonable-adjustments`;
 export const DOCUMENTS_SUPPORT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/documents-support`;
@@ -235,11 +291,16 @@ export const TRAVELLING_TO_COURT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/tr
 export const UNABLE_TO_TAKE_COURT_PROCEEDINGS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/unable-to-take-court-proceedings`;
 export const SAFETY_ARRANGEMENTS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/safety-arrangements`;
 export const SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/summary`;
+export const SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE_SUMMARY}/save`;
 
 export const PROCEEDINGS: PageLink = `${RESPONSE_TASKLIST}/proceedings`;
 export const PROCEEDINGS_START: PageLink = `${PROCEEDINGS}/start`;
-export const PROCEEDINGS_COURT_PROCEEDINGS: PageLink = `${PROCEEDINGS}/court-proceedings`;
-export const COURT_PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/summary`;
+export const PROCEEDINGS_COURT_PROCEEDINGS: PageLink = `${PROCEEDINGS}/courtproceedings`;
+export const PROCEEDINGS_ORDER_DETAILS: PageLink = `${PROCEEDINGS}/:orderType/order-details`;
+export const COURT_PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/document-summary`;
+export const PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/documentUpload`;
+export const PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/summary`;
+export const PROCEEDING_SAVE: PageLink = `${PROCEEDINGS}/save`;
 
 /* your needs when you go to court */
 export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${RESPONDENT}/support-you-need-during-case`;
@@ -253,6 +314,21 @@ export const CA_DA_COURT_HEARING_SUPPORT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_D
 export const CA_DA_COURT_HEARING_COMFORT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-comfort`;
 export const CA_DA_TRAVELLING_TO_COURT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/travelling-to-court`;
 export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/summary`;
+export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/save`;
+
+/* C7 response your needs when you go to court */
+export const C7_SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${TASK_LIST_RESPONSE}/support-you-need-during-case`;
+export const C7_ATTENDING_THE_COURT: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/attending-the-court`;
+export const C7_LANGUAGE_REQUIREMENTS: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/language-requirements`;
+export const C7_SPECIAL_ARRANGEMENTS: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/special-arrangements`;
+export const C7_REASONABLE_ADJUSTMENTS: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/reasonable-adjustments`;
+export const C7_DOCUMENTS_SUPPORT: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/documents-support`;
+export const C7_COMMUNICATION_HELP: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/communication-help`;
+export const C7_COURT_HEARING_SUPPORT: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-support`;
+export const C7_COURT_HEARING_COMFORT: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-comfort`;
+export const C7_TRAVELLING_TO_COURT: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/travelling-to-court`;
+export const C7_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/summary`;
+export const C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/save`;
 
 /* Banner Links */
 export const FIND_OUT_ABOUT_CAFCASS =
@@ -271,6 +347,9 @@ export const LEGAL_REPRESENTATION_SOLICITOR_DIRECT: PageLink = '/tasklistrespons
 export const LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT: PageLink =
   '/tasklistresponse/legalrepresentation/solicitornotdirect';
 export const REDIRECT_LEGAL: PageLink = '/legalrepresentation/redirect';
+
+/* Applicant Hearings */
+export const APPLICANT_YOURHEARINGS_HEARINGS: PageLink = `${APPLICANT}${YOURHEARINGS}${HEARINGS}`;
 
 /**   @C100 features */
 /* This is a route for the C100 application. */
@@ -457,3 +536,7 @@ export const C100_CONSENT_ORDER_UPLOAD_CONFIRMATION: PageLink = `${C100_CONSENT_
 export const C100_CHECK_YOUR_ANSWER: PageLink = `${C100_URL}/check-your-answers`;
 
 export const C100_CASE_NAME: PageLink = `${C100_URL}/case-name`;
+export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orderType/:orderId/documentUpload/:removeId?`;
+
+/** @C100 rebuild */
+export const C100_REBUILD_URL: PageLink = '/c100-rebuild';

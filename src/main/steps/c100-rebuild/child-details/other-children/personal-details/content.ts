@@ -5,6 +5,7 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/
 import { covertToDateObject } from '../../../../../app/form/parser';
 import {
   areDateFieldsFilledIn,
+  isAlphaNumeric,
   isDateInputInvalid,
   isFieldFilledIn,
   isFutureDate,
@@ -56,6 +57,9 @@ const en = () => ({
     gender: {
       required: 'Select the gender',
     },
+    otherGenderDetails: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
+    },
   },
 });
 
@@ -66,8 +70,8 @@ const cy = () => ({
   approxCheckboxLabel: 'Nid wyf yn gwybod beth yw ei (d)dyddiad geni',
   approxDobLabel: 'Dyddiad geni bras',
   childGenderLabel: 'Rhyw',
-  male: 'Benyw',
-  female: 'Gwryw',
+  male: 'Gwryw',
+  female: 'Benyw',
   other: 'Maen nhw’n uniaethu mewn ffordd arall',
   otherGenderDetailsLabel: 'Rhyw y plentyn (Dewisol)',
   // day: 'Diwrnod',
@@ -82,7 +86,7 @@ const cy = () => ({
       incompleteYear: 'Rhaid i’r dyddiad geni gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni fod yn y gorffennol',
       cannotHaveBothApproxAndExact: 'Methu cael dyddiad geni a hefyd “ nid wyf yn gwybod beth yw ei ddyddiad geni',
-      invalidDateOver18: 'Enter a date of birth under 18 years of age - welsh',
+      invalidDateOver18: 'Rhowch ddyddiad geni sy’n addas ar gyfer unigolyn dan 18 oed',
     },
     approxDateOfBirth: {
       required: 'Nodwch ddyddiad geni bras',
@@ -91,10 +95,13 @@ const cy = () => ({
       incompleteMonth: 'Rhaid i’r dyddiad geni bras gynnwys mis',
       incompleteYear: 'Rhaid i’r dyddiad geni bras gynnwys blwyddyn',
       invalidDateInFuture: 'Rhaid i’r dyddiad geni bras fod yn y gorffennol',
-      invalidDateOver18: 'Enter a date of birth under 18 years of age - welsh',
+      invalidDateOver18: 'Rhowch ddyddiad geni sy’n addas ar gyfer unigolyn dan 18 oed',
     },
     gender: {
       required: 'Nodwch y rhywedd',
+    },
+    otherGenderDetails: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only. - Welsh',
     },
   },
 });
@@ -249,6 +256,7 @@ export const generateFormFields = (
               label: l => l.otherGenderDetailsLabel,
               labelSize: null,
               value: otherGenderDetails,
+              validator: value => isAlphaNumeric(value),
             },
           },
         },

@@ -18,7 +18,7 @@
    {% set orderDocuments = [] %}
    {% for orderDocument in data.documents %}
      {% set editLink %}
-     <a class="govuk-link" href="{{orderDocument.editUrl}}">Edit</a>
+     <a class="govuk-link" href="{{orderDocument.editUrl}}">{{ Edit }}</a>
      {% endset %}
 
      {% set orderDocuments = (orderDocuments.push([
@@ -31,7 +31,7 @@
    {% endfor %}
 
    {{ govukTable({
-   caption: "What you have uploaded",
+   caption: uploadList,
    captionClasses: "govuk-table__caption--l",
    firstCellIsHeader: false,
    rows: orderDocuments
