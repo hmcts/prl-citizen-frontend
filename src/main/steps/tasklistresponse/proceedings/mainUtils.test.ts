@@ -2,11 +2,11 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 import { PastAndCurrentProceedings } from './mainUtils';
 //  ,ChildernDetailsAdditional ,ChildernDetailsAdditional, ApplicantDetails, MiamTitle,  MiamAttendance, MiamExemption, InternationalElement, PastAndCurrentProceedings, SafetyConcerns, SafetyConcerns_child, SafetyConcerns_yours, SafetyConcerns_others  } from './mainUtil';
-
+type ANYTYPE = any;
 const userCase = {
   id: 'id',
   state: undefined,
-};
+} as ANYTYPE;
 
 const enContent = {
   Yes: 'Yes',
@@ -19,6 +19,16 @@ const enContent = {
     proceedingsStartOrder: 'Have you had a court order made for your protection?',
   },
 };
+
+const sectionTitles = {
+  PastAndCurrentProceedings: 'PastAndCurrentProceedings',
+};
+
+const content = {
+  x: 'aaa',
+};
+
+const keys = {};
 
 describe('test cases for main util', () => {
   test.skip('PastAndCurrentProceedings', () => {
@@ -53,5 +63,11 @@ describe('test cases for main util', () => {
       ],
       title: 'PastAndCurrentProceedings',
     });
+  });
+
+  test('PastAndCurrentProceedings - util', () => {
+    const CaseName_fun = PastAndCurrentProceedings({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    expect(CaseName_fun?.rows).not.toBe([]);
+    expect(CaseName_fun?.title).toBe(undefined);
   });
 });
