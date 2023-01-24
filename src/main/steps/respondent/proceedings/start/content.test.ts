@@ -33,7 +33,7 @@ const cyContent = {
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',
   courtCaseDontKnow: "I don't know",
-  courtOrder: 'Have you had a court order made for your protection?',
+  courtOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
   summaryText: 'Contacts for help',

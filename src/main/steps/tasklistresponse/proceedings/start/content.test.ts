@@ -25,7 +25,7 @@ const en = {
 const cy = {
   section: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
   courtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
-  courtOrder: 'Have you had a court order made for your protection?',
+  courtOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
   errors: {
