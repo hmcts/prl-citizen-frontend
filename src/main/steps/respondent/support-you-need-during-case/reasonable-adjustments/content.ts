@@ -30,24 +30,24 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Reasonable adjustments',
+  section: 'Addasiadau rhesymol',
   title:
-    'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+    'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
   courtcommunication:
-    'We know some people need support to access information and use our services. We often call this a reasonable adjustment. Some reasonable adjustments need to be agreed by the judge or HMCTS. You can discuss with the court if your needs change.',
-  optionHint: 'Select all that apply to you - specific requirements can be given next',
+    'Gwyddom fod rhai pobl angen cymorth i gael mynediad at wybodaeth ac i ddefnyddio ein gwasanaethau. Gelwir hyn yn aml yn addasiad rhesymol. Rhaid i rai addasiadau rhesymol gael eu cytuno gan farnwr neu GLlTEM. Gallwch drafod gyda’r llys os bydd eich anghenion yn newid.',
+  optionHint: 'Dewiswch bob un sy’n berthnasol - gellir nodi gofynion penodol nesaf',
   summaryText: 'Contacts for help',
-  docsFormat: 'I need documents in an alternative format',
-  docsFormatHint: 'for example, braille or different colours and text sizes',
-  commHelp: 'I need help communicating and understanding',
-  commHelpHint: 'for example, hearing, speaking or interpretation',
-  hearingSupport: 'I need to bring support with me to a hearing',
-  hearingSupportHint: 'for example, someone you know or an assistance animal',
-  hearingComfort: 'I need something to feel comfortable during a hearing',
-  hearingComfortHint: 'for example, breaks or extra space',
-  travellingHelp: 'I need help travelling to, or moving around court buildings',
-  travellingHelpHint: 'for example, access and mobility support if a hearing takes place in person',
-  noSupport: 'No, I do not need any extra support at this time',
+  docsFormat: 'Rwyf angen dogfennau mewn fformat amgen',
+  docsFormatHint: 'er enghraifft, print bras neu wahanol liwiau a meintiau testun',
+  commHelp: 'Rwyf angen cymorth gyda chyfathrebu a deall pethau',
+  commHelpHint: "er enghraifft, rhywun rydych chi'n ei adnabod neu gi cymorth",
+  hearingSupport: 'Rwyf eisiau dod â rhywun efo fi i fy nghefnogi mewn gwrandawiad',
+  hearingSupportHint: "er enghraifft, rhywun rydych chi'n ei adnabod neu gi cymorth",
+  hearingComfort: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad',
+  hearingComfortHint: 'er enghraifft, seibiannau ychwanegol neu fannau ychwanegol',
+  travellingHelp: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
+  travellingHelpHint: 'access and mobility support if a hearing takes place in person',
+  noSupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   continue: 'Continue',
   errors: {
     reasonableAdjustments: {

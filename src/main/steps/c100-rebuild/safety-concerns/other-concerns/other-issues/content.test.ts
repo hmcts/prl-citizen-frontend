@@ -30,7 +30,7 @@ const cy = {
   hint: "Er enghraifft, nid yw eu hanghenion sylfaenol yn cael eu diwallu (a elwir yn esgeuluso plant) neu rydych chi'n poeni am rywun y gallai fod ganddynt gysylltiad â nhw.",
   one: 'Oes',
   two: 'Nac oes',
-  summaryText: 'Cysylltiadau am gymorth',
+  summaryText: 'Contacts for help',
   detail:
     "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
   errors: {

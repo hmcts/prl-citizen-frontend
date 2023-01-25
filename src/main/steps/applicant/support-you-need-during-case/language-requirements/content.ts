@@ -26,17 +26,17 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Language requirements',
-  title: 'Do you have any language requirements?',
+  section: 'Gofynion ieithyddol',
+  title: 'A oes gennych chi unrhyw ofynion ieithyddol?',
   courtcommunication:
-    'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
-  optionHint: 'Select all that apply to you',
+    'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
+  optionHint: "Dewiswch bob un sy'n berthnasol i chi",
   summaryText: 'Contacts for help',
-  speakwelsh: 'I need to speak in Welsh',
-  readandwritewelsh: 'I need to read and write in Welsh',
-  languageinterpreter: 'I need an interpreter in a certain language',
+  speakwelsh: 'Rwyf eisiau siarad Cymraeg',
+  readandwritewelsh: 'Rwyf eisiau siarad ac ysgrifennu yn Gymraeg',
+  languageinterpreter: 'Mae arnaf angen cyfieithydd mewn iaith benodol',
   typeoflanguage: 'Give details of the language you require (including dialect, if applicable)',
-  nointerpreter: 'No, I do not have any language requirements at this time',
+  nointerpreter: 'Nac oes, nid oes gennyf unrhyw ofynion o ran iaith ar hyn o bryd',
   continue: 'Continue',
   errors: {
     languageRequirements: {

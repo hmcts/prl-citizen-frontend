@@ -72,7 +72,7 @@ const cy: typeof en = {
   section: 'Check your answers',
   title: 'Your hearing needs and requirements',
   sectionTitles: {
-    aboutYou: 'About you',
+    aboutYou: 'Amdanoch chi',
   },
   keys: {
     communicationSupportOther: 'Describe what you need',

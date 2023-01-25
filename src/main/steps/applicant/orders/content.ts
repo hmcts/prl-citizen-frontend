@@ -13,11 +13,11 @@ const en = () => {
 
 const cy: typeof en = () => {
   return {
-    section: 'All documents',
-    title: 'Orders from the court',
+    section: 'Pob dogfen',
+    title: 'Gorchmynion gan y llys',
     summaryText: 'Contacts for help',
-    caseNumber: 'Case number',
-    continue: 'Go back',
+    caseNumber: 'Rhif yr achos ',
+    continue: 'Yn ôl',
   };
 };
 
