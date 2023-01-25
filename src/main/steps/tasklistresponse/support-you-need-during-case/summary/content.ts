@@ -139,7 +139,7 @@ const cyContent: typeof enContent = {
   section: 'Check your answers ',
   title: 'Your hearing needs and requirments',
   sectionTitles: {
-    aboutYou: 'About you',
+    aboutYou: 'Amdanoch chi',
   },
   keys: {
     attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
