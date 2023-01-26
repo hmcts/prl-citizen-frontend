@@ -47,7 +47,7 @@ const cy: typeof en = {
   courtCommunication:
     'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
   optionHint: "Dewiswch bob un sy'n berthnasol i chi",
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   docsColour: 'Dogfennau mewn lliw penodol',
   docsColourDetails: 'Describe what you need',
   docsReadFormat: 'Dogfennau mewn fformat hawdd i’w darllen',

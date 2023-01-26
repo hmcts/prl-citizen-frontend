@@ -31,7 +31,7 @@ const cy: typeof en = {
   courtcommunication:
     'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
   optionHint: 'Select all that apply',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   videoHearings: 'Yes, I can take part in video hearings',
   phoneHearings: 'Gallaf, rwyf yn gallu cymryd rhan mewn gwrandawiad fideo',
   noHearings: 'Na allaf, ni allaf gymryd rhan mewn gwrandawiad fideo na gwrandawiad dros y ffôn',

@@ -38,7 +38,7 @@ const cy: typeof en = {
   courtcommunication:
     'Gwyddom fod rhai pobl angen cymorth i gael mynediad at wybodaeth ac i ddefnyddio ein gwasanaethau. Gelwir hyn yn aml yn addasiad rhesymol. Rhaid i rai addasiadau rhesymol gael eu cytuno gan farnwr neu GLlTEM. Gallwch drafod gyda’r llys os bydd eich anghenion yn newid.',
   optionHint: 'Dewiswch bob un sy’n berthnasol - gellir nodi gofynion penodol nesaf',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   docsformat: 'Rwyf angen dogfennau mewn fformat amgen',
   docsformathint: 'er enghraifft, print bras neu wahanol liwiau a meintiau testun',
   commhelp: 'Rwyf angen cymorth gyda chyfathrebu a deall pethau',

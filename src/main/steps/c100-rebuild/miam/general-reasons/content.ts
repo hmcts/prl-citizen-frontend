@@ -39,7 +39,7 @@ export const cy = () => ({
   previousMIAMOrExempt: 'Rwyf eisoes wedi mynychu MIAM, neu mae’r llys eisoes wedi cadarnhau’r esemptiad',
   validExemption: 'Mae gen i resymau dilys eraill dros gael fy eithrio rhag mynychu MIAM',
   noReason: 'Dim un o’r uchod',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   continue: 'Cadw’r cais a dychwelyd ato yn hwyrach ymlaen',
   divider: 'neu',
   errors: {

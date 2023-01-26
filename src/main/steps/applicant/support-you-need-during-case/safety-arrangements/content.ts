@@ -37,7 +37,7 @@ const cy: typeof en = {
   courtcommunication:
     'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
   optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   waitingroom: 'Separate waiting room',
   separateexitentry: 'Separate exits and entrances',
   screens: 'Screens so you and the other people in the case cannot see each other',

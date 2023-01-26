@@ -15,7 +15,7 @@ const enContent = {
 const cyContent = {
   section: 'Pob dogfen',
   title: 'Gorchmynion gan y llys',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   caseNumber: 'Rhif yr achos ',
   continue: 'Yn ôl',
 };
