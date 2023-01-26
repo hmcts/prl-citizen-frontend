@@ -47,7 +47,7 @@ const cy: typeof en = {
   three: "I don't know",
   threeHint: 'This is a 8 character code',
   summaryText: 'Contacts for help',
-  address: 'Address',
+  address: 'Cyfeiriad',
   Phone_number: 'Phone number',
   Email: 'Email',
   contact_details_private:
