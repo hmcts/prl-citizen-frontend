@@ -47,7 +47,7 @@ const cyContent = {
   summaryText: 'Contacts for help',
   address: 'Home address',
   postalAddress: 'Postal address',
-  Phone_number: 'Telephone number',
+  Phone_number: 'Rhif ffôn',
   Email: 'Email',
   contact_details_private: "Nodwch pa fanylion cyswllt rydych chi eisiau eu cadw'n breifat.",
   contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
