@@ -135,4 +135,3 @@ test('Should throw error when getCases fails', async () => {
   await expect(api.getCases()).rejects.toThrow('Case could not be retrieved.');
   expect(mockLogger.error).toHaveBeenCalledWith('API Error GET undefined 500');
 });
-
