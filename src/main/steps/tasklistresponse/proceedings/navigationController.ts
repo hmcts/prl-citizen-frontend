@@ -17,6 +17,8 @@ import {
   PageLink,
 } from '../../urls';
 
+import { isAnyOrderWithOrderCopy } from './util';
+
 class OtherProceedingsNavigationController {
   private selectedOrderTypes: ProceedingsOrderTypes[] | [] = [];
   private orders: ProceedingsOrderInterface[] | [] = [];
@@ -63,38 +65,15 @@ class OtherProceedingsNavigationController {
         nextUrl = applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: this.selectedOrderTypes[0] });
         break;
       case PROCEEDINGS_ORDER_DETAILS: {
-        const orderId = this.getOrderId();
-        if (orderId) {
-          // if any order has order copy to be uploaded
-          nextUrl = applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: this.orderType, orderId });
-        } else {
-          // none of the orders in the current order type have order copy to be uploaded
-          const nextOrderType = this.getNextOrderType();
-          if (nextOrderType) {
-            nextUrl = applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
-          } else {
-            nextUrl = COURT_PROCEEDINGS_SUMMARY;
-          }
-        }
+        nextUrl = this.getNextUrlOtherProceedingDetails(caseData);
         break;
       }
       case OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: {
-        const nextOrderId = this.getNextOrderId();
-        if (nextOrderId) {
-          // if there are any more orders with order copy
-          nextUrl = applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
-            orderType: this.orderType,
-            orderId: nextOrderId,
-          });
-        } else {
-          // none of the orders in the current order type have order copy to be uploaded
-          const nextOrderType = this.getNextOrderType();
-          if (nextOrderType) {
-            nextUrl = applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
-          } else {
-            nextUrl = COURT_PROCEEDINGS_SUMMARY;
-          }
-        }
+        nextUrl = this.getNextUrlOtherProceedingDocument();
+        break;
+      }
+      case COURT_PROCEEDINGS_SUMMARY: {
+        nextUrl = PROCEEDINGS_SUMMARY;
         break;
       }
       default:
@@ -103,6 +82,49 @@ class OtherProceedingsNavigationController {
     }
     return nextUrl;
   }
-}
 
+  private getNextUrlOtherProceedingDetails(caseData) {
+    let url;
+    const orderId = this.getOrderId();
+    if (orderId) {
+      // if any order has order copy to be uploaded
+      url = applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: this.orderType, orderId });
+    } else {
+      // none of the orders in the current order type have order copy to be uploaded
+      const nextOrderType = this.getNextOrderType();
+      if (nextOrderType) {
+        url = applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
+      } else {
+        // there is no other order type present
+        if (isAnyOrderWithOrderCopy(caseData?.otherProceedings?.order)) {
+          // check at last if there were any previous order types having at least an order with order copy
+          url = COURT_PROCEEDINGS_SUMMARY;
+        } else {
+          url = PROCEEDINGS_COURT_PROCEEDINGS;
+        }
+      }
+    }
+    return url;
+  }
+  private getNextUrlOtherProceedingDocument() {
+    const nextOrderId = this.getNextOrderId();
+    let url;
+    if (nextOrderId) {
+      // if there are any more orders with order copy
+      url = applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
+        orderType: this.orderType,
+        orderId: nextOrderId,
+      });
+    } else {
+      // none of the orders in the current order type have order copy to be uploaded
+      const nextOrderType = this.getNextOrderType();
+      if (nextOrderType) {
+        url = applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
+      } else {
+        url = COURT_PROCEEDINGS_SUMMARY;
+      }
+    }
+    return url;
+  }
+}
 export default new OtherProceedingsNavigationController();

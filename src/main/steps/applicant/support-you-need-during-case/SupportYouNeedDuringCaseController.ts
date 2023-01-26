@@ -27,11 +27,9 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
       if (req.url.includes('respondent') || req.url.includes('tasklistresponse')) {
         if ('C100' === req.session.userCase.caseTypeOfApplication) {
           req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-            //if (respondent?.value?.user?.idamId === req.session?.user.id) {
             if (req.url.includes('support-you-need-during-case')) {
               respondent.value.response = setSupportDetails(req);
             }
-            //}
           });
         } else {
           if (req.url.includes('support-you-need-during-case')) {

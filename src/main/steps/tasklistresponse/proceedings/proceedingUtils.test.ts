@@ -36,14 +36,14 @@ describe('test cases for otherProceedingsContents', () => {
 
   test('OPotherProceedingsSessionParserUtil with some content', () => {
     const UserCase = {
-      op_courtProceedingsOrders: [
+      courtProceedingsOrders: [
         'childArrangementOrder',
         'emergencyProtectionOrder',
         'supervisionOrder',
         'careOrder',
         'childAbductionOrder',
       ],
-      op_otherProceedings: {
+      otherProceedings: {
         order: {
           childArrangementOrders: [
             {
@@ -145,7 +145,7 @@ describe('test cases for otherProceedingsContents', () => {
     };
     const keys = {};
     const URLS = Urls;
-    const sessionKey = 'op_courtProceedingsOrders';
+    const sessionKey = 'courtProceedingsOrders';
     expect(OPotherProceedingsSessionParserUtil(UserCase, keys, URLS, sessionKey)).not.toBe([]);
   });
 });

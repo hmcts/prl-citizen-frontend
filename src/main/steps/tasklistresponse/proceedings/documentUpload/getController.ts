@@ -72,7 +72,6 @@ export default class DocumentUpload extends GetController {
         req.session.errors = undefined;
       }
 
-      //super.clearConfidentialitySessionSaveData(req);
       res.render(this.view, {
         ...content,
         sessionErrors,
