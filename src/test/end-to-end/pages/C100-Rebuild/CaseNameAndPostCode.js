@@ -7,7 +7,7 @@ module.exports = {
     eventList: 'select[id="next-step"]',
     submit: 'button[type="submit"]',
     caseName: '//*[@id="applicantCaseName"]',
-    caseNameDetails: 'Test C100 Rebuild',
+    caseNameDetails: 'Test Case',
     childrenPostcodeDetails: '//*[@id="c100RebuildChildPostCode"]',
     childPostcode: 'B1 1LS'
 
