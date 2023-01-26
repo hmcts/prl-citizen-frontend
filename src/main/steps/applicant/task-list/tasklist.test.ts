@@ -75,7 +75,7 @@ describe('applicant tasklist getRemainingTaskList', () => {
           {
             href: '/applicant/yourhearings/hearings',
             id: 'check-details-of-your-court-hearings',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Check details of your court hearings',
           },
         ],
@@ -205,7 +205,7 @@ describe('applicant tasklist getRemainingTaskList', () => {
           {
             href: '/applicant/yourhearings/hearings',
             id: 'check-details-of-your-court-hearings',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Check details of your court hearings',
           },
         ],

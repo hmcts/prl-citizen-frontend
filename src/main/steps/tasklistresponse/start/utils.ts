@@ -177,5 +177,5 @@ export const getAllegationOfHarmStatus = (userCase: CaseWithId): SectionStatus =
   if (userCase.PRL_c1A_haveSafetyConcerns === YesOrNo.NO || userCase.PRL_c1A_haveSafetyConcerns === YesOrNo.YES) {
     return SectionStatus.COMPLETED;
   }
-  return SectionStatus.NOT_AVAILABLE_YET;
+  return SectionStatus.TO_DO;
 };

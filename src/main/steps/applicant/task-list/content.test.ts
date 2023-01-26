@@ -113,7 +113,7 @@ describe('task-list > content', () => {
             {
               href: '/applicant/yourhearings/hearings',
               id: 'check-details-of-your-court-hearings',
-              status: SectionStatus.NOT_AVAILABLE_YET,
+              status: SectionStatus.TO_DO,
               text: 'Check details of your court hearings',
             },
           ],
@@ -185,7 +185,7 @@ describe('task-list > content', () => {
             {
               href: '/applicant/yourhearings/hearings',
               id: 'check-details-of-your-court-hearings',
-              status: SectionStatus.NOT_AVAILABLE_YET,
+              status: SectionStatus.TO_DO,
               text: 'Check details of your court hearings',
             },
           ],
