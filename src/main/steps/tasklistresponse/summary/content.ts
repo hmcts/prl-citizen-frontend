@@ -951,7 +951,7 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
+  section: 'Gwirio eich atebion',
   title: 'Please review your answers before you complete your response.',
   title2: 'Current or previous court cases',
   sectionTitles: {

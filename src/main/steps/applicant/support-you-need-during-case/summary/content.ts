@@ -91,7 +91,7 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
+  section: 'Gwirio eich atebion',
   title: 'Your hearing needs and requirements',
   sectionTitles: {
     aboutYou: 'Amdanoch chi',

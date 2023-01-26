@@ -25,7 +25,7 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
+  section: 'Gwirio eich atebion',
   title: 'Pryderon diogelwch',
   sectionTitles: {
     applicationDetails: 'Manylion y cais',

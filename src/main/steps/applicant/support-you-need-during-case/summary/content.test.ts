@@ -69,7 +69,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Check your answers',
+  section: 'Gwirio eich atebion',
   title: 'Your hearing needs and requirements',
   sectionTitles: {
     aboutYou: 'Amdanoch chi',

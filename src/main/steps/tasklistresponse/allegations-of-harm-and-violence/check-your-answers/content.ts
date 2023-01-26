@@ -38,9 +38,9 @@ export const enContent = {
   },
 };
 export const cyContent: typeof enContent = {
-  serviceName: 'Check your answers - welsh ',
+  serviceName: 'Gwirio eich atebion',
   section: '',
-  title: 'Check your Answers -welsh',
+  title: 'Gwirio eich atebion',
   change: 'change - welsh',
   topWarning: 'Your answers will be shared with the other people in this case. - welsh',
   makingSure: 'Please review your answers before you finish your application.- welsh',
