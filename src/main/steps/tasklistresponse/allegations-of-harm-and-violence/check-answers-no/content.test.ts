@@ -16,9 +16,9 @@ const enContent = {
 
 const cyContent: typeof enContent = {
   section: 'Check your answers',
-  title: 'Safety concerns',
+  title: 'Pryderon diogelwch',
   sectionTitles: {
-    applicationDetails: 'Application details',
+    applicationDetails: 'Manylion y cais',
   },
   keys: {
     PRL_c1A_haveSafetyConcerns: 'Do you have any concerns for your safety or the safety of the children?',

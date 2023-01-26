@@ -29,7 +29,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Safety concerns',
+  section: 'Pryderon diogelwch',
   title: 'Have you suffered or are you at risk of suffering domestic violence or abuse?',
   line1: 'Only include abuse by the people in this application or someone connected to them.',
   line2: 'Domestic violence or abuse includes incidents or a pattern of incidents of abusive or violent behaviour.',

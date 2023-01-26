@@ -27,7 +27,7 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Current or previous proceedings',
+  section: 'Achos cyfredol neu flaenorol',
   title: 'Have you or the children ever been involved in court proceedings?',
   courtCase: 'Have the children been involved in a court case?',
   courtCaseYes: 'Yes',

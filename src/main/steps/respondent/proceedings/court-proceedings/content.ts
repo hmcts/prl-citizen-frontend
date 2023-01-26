@@ -94,7 +94,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Current or previous proceedings',
+  section: 'Achos cyfredol neu flaenorol',
   title: 'Provide details of court cases you or the children have been involved in',
   emergencyOrder: 'Emergency Protection Order',
   caseno: 'Case number',

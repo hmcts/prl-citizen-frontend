@@ -30,7 +30,7 @@ export const en = () => ({
 });
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  section: 'Safety concerns - welsh',
+  section: 'Pryderon diogelwch',
   title: 'Contact between the children and the other people in this application - welsh',
   subtitle:
     "The court will presume it is good for the children's welfare to have both of their parents involved in their lives, unless there is evidence showing that this would cause harm to the children. - welsh",

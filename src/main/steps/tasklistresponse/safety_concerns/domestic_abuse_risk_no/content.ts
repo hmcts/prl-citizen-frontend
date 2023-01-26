@@ -27,7 +27,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Safety concerns',
+  section: 'Pryderon diogelwch',
   title: 'Your safety',
   line1: 'What you told us',
   line2: 'You have not suffered or are not at risk of suffering: ',
