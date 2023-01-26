@@ -107,3 +107,32 @@ test('Should create api', async () => {
   getCaseApi(userDetails, mockLogger);
   expect(api).toBeCalled;
 });
+
+test('Should throw error when get case fails', async () => {
+  mockedAxios.get.mockRejectedValue({
+    response: {
+      status: 500,
+    },
+    config: {
+      method: 'GET',
+    },
+  });
+
+  await expect(api.getCases()).rejects.toThrow('Case could not be retrieved.');
+  expect(mockLogger.error).toHaveBeenCalledWith('API Error GET undefined 500');
+});
+
+test('Should throw error when getCases fails', async () => {
+  mockedAxios.get.mockRejectedValue({
+    response: {
+      status: 500,
+    },
+    config: {
+      method: 'GET',
+    },
+  });
+
+  await expect(api.getCases()).rejects.toThrow('Case could not be retrieved.');
+  expect(mockLogger.error).toHaveBeenCalledWith('API Error GET undefined 500');
+});
+

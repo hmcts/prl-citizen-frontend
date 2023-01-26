@@ -6,7 +6,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { UserDetails } from '../controller/AppRequest';
 
 import { CaseApi, caseApi } from './C100CaseApi';
-import { C100_CASE_EVENT, C100_CASE_TYPE, CaseData } from './definition';
+import { C100_CASE_EVENT, C100_CASE_TYPE, CaseData, State } from './definition';
 
 jest.mock('axios');
 
@@ -191,6 +191,38 @@ describe('CaseApi', () => {
     expect(mockLogger.error).toHaveBeenCalledWith('API Error', 'caseId not found so case could not be deleted.');
   });
 
+  test('Should throw error when caseId is not present in the session', async () => {
+    //mock
+    const caseData = {
+      ...mockData,
+      state: State.DELETED,
+    };
+
+    await expect(api.deleteCase(caseData)).rejects.toThrow('Error occured, case could not be deleted');
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error', 'caseId not found so case could not be deleted.');
+  });
+
+  test('Should delete a case when caseId is present', async () => {
+    //mock
+    const caseData = {
+      ...mockData,
+      caseId: '1234',
+      state: State.DELETED,
+    };
+    const req = mockRequest({
+      session: {
+        userCase: {
+          caseId: '1234',
+        },
+        save: () => ({}),
+      },
+    });
+    mockedAxios.post.mockResolvedValueOnce({ data: caseData });
+    await api.deleteCase(caseData, req.session);
+
+    expect(req.session.userCase).toStrictEqual({});
+  });
+
   test('Should upload document', async () => {
     const formData: FormData = new FormData();
     const req = mockRequest();
@@ -289,5 +321,38 @@ describe('CaseApi', () => {
         headers: { accessCode: 'null' },
       }
     );
+  });
+
+  test('Should throw error when draft application download fails', async () => {
+    mockedAxios.post.mockRejectedValue({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'POST',
+      },
+    });
+
+    await expect(api.downloadDraftApplication()).rejects.toThrow('Draft application could not be downloaded.');
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error GET undefined 500');
+  });
+
+  test('Should be able to download draft application', async () => {
+    const document = {
+      data: {
+        status: 'Success',
+        document: {
+          document_url:
+            'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+          document_filename: 'final_document_order10_12092022.rtf',
+          document_binary_url:
+            'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+        },
+      },
+    };
+    mockedAxios.get.mockResolvedValue(document);
+
+    const response = await api.downloadDraftApplication(123);
+    expect(response).toStrictEqual(document.data);
   });
 });
