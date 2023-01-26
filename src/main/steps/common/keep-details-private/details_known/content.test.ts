@@ -21,7 +21,7 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Keeping your contact details private',
+  section: 'Cadw eich manylion cyswllt yn breifat',
   title: 'Do the other people named in this application (the applicants) know any of your contact details?',
   one: 'Yes',
   two: 'No',

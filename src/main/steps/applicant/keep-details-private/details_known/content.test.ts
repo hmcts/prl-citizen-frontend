@@ -23,7 +23,7 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Keeping your contact details private',
+  section: 'Cadw eich manylion cyswllt yn breifat',
   title: 'Does the other person named in your application (the respondent) know any of your contact details?',
   line2:
     'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',

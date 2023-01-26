@@ -35,7 +35,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Keeping your contact details private',
+  section: 'Cadw eich manylion cyswllt yn breifat',
   title:
     'Do you want to keep your contact details private from the other people named in the application (the applicants)?',
   line1:

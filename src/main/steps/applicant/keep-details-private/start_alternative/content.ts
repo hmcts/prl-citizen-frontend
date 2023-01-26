@@ -33,7 +33,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Keeping your contact details private',
+  section: 'Cadw eich manylion cyswllt yn breifat',
   title:
     'Do you want to keep your contact details private from the other person named in the application (the respondent)?',
 
@@ -48,7 +48,7 @@ const cy: typeof en = {
   postalAddress: 'Postal address',
   Phone_number: 'Telephone number',
   Email: 'Email',
-  contact_details_private: 'Specify which contact details you want to keep private.',
+  contact_details_private: "Nodwch pa fanylion cyswllt rydych chi eisiau eu cadw'n breifat.",
   contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
   continue: 'Save and continue',
   errors: {
