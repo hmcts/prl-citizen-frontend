@@ -30,7 +30,7 @@ export const applicant_tasklist_items_cy = {
   check_other_side_aoh_and_violence: "Check the other side's allegations of harm and violence",
   view_all_documents: 'Gweld yr holl ddogfennau',
   view_all_orders_from_the_court: 'Gweld yr holl orchmynion gan y llys',
-  support_you_need_during_your_case: 'Support you need during your case',
+  support_you_need_during_your_case: 'Cymorth sydd ei angen arnoch yn ystod eich achos chi',
   application_submitted: 'Application submitted (PDF)',
   witness_statement: 'Witness statement (PDF)',
   details_of_court_hearings: 'Gwiriwch fanylion eich gwrandawiadau llys',

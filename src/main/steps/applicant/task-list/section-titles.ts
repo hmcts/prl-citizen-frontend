@@ -13,7 +13,7 @@ export const applicant_cy = {
   applicantYourDetails: 'Amdanoch chi',
   yourApplication: 'Y cais',
   applicationDetails: 'Application detail',
-  viewAllDocuments: 'Your documents',
+  viewAllDocuments: 'Eich dogfennau',
   ordersFromTheCourt: 'Gorchmynion gan y llys',
   courtHearings: 'Eich gwrandawiadau llys',
   yourDocuments: 'Eich dogfennau',
