@@ -117,7 +117,7 @@ const cy: typeof en = {
     aboutYou: 'Amdanoch chi',
   },
   keys: {
-    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
+    attendingToCourt: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
     hearingDetails: 'Please provide the details',
     languageRequirements: 'Do you have any language requirements?',
     languageDetails: 'Please provide language details',
