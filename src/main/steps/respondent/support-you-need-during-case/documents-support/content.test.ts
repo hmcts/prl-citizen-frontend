@@ -51,7 +51,7 @@ const cy: typeof en = {
   docsColour: 'Dogfennau mewn lliw penodol',
   docsColourDetails: 'Describe what you need',
   docsReadFormat: 'Dogfennau mewn fformat hawdd i’w darllen',
-  docsReadFormatHint: 'information written in simple language with pictures',
+  docsReadFormatHint: "Gwybodaeth wedi'i hysgrifennu mewn iaith syml â lluniau",
   brailleDocs: 'Dogfennau Braille',
   largePrintDocs: 'Dogfennau mewn print bras',
   largePrintDocsDetails: 'Describe what you need',
