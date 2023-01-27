@@ -47,7 +47,7 @@ const cyContent = {
   two: 'No',
   three: "I don't know",
   threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   address: 'Cyfeiriad',
   Phone_number: 'Phone number',
   contact_details_private_hint:

@@ -31,7 +31,7 @@ const cyContent = {
   miamDetailsLabel: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
   miamSubFields: miam_collapse_content_cy,
   threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   onlyContinue: 'Continue',
   errors: {
     miamStart: {

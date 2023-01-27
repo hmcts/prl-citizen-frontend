@@ -17,7 +17,7 @@ const cy: typeof en = () => {
     section: 'Pob dogfen',
     title: 'Section 37 report',
     threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
+    summaryText: 'Cysylltiadau am gymorth',
     caseNumber: 'Rhif yr achos',
     continue: 'Go back',
   };

@@ -31,7 +31,7 @@ const cyContent = {
   two: 'No',
   three: "I don't know",
   threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   continue: 'Save and continue',
   errors: {
     detailsKnown: {

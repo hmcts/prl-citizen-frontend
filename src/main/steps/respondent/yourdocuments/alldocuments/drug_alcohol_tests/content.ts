@@ -18,7 +18,7 @@ const cy: typeof en = () => {
     section: 'Pob dogfen',
     title: 'Drug and alcohol tests (toxicology)',
     threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
+    summaryText: 'Cysylltiadau am gymorth',
     caseNumber: 'Rhif yr achos',
     continue: 'Go back',
   };

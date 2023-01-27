@@ -43,7 +43,7 @@ const cy: typeof en = {
   two: 'No',
   three: "I don't know",
   threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   address: 'Home address',
   postalAddress: 'Postal address',
   Phone_number: 'Rhif ffôn',
