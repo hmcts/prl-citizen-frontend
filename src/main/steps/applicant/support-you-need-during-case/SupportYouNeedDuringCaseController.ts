@@ -25,9 +25,31 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
       Object.assign(req.session.userCase, caseDataFromCos);
       if (req.url.includes('respondent') || req.url.includes('tasklistresponse')) {
-        this.getSupportNeededForRespondent(req);
+        if ('C100' === req.session.userCase.caseTypeOfApplication) {
+          req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
+            if (req.url.includes('support-you-need-during-case')) {
+              respondent.value.response = setSupportDetails(req);
+            }
+          });
+        } else {
+          if (req.url.includes('support-you-need-during-case')) {
+            req.session.userCase.respondentsFL401!.response = setSupportDetails(req);
+          }
+        }
       } else if (req.url.includes('applicant')) {
-        this.getSupportNeededForApplicant(req);
+        if ('C100' === req.session.userCase.caseTypeOfApplication) {
+          req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
+            if (applicant?.value?.user?.idamId === req.session?.user.id) {
+              if (req.url.includes('support-you-need-during-case')) {
+                applicant.value.response = setSupportDetails(req);
+              }
+            }
+          });
+        } else {
+          if (req.url.includes('support-you-need-during-case')) {
+            req.session.userCase.applicantsFL401!.response = setSupportDetails(req);
+          }
+        }
       }
       const caseData = toApiFormat(req?.session?.userCase);
       caseData.id = caseReference;
@@ -47,40 +69,6 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
       req.session.save(() => res.redirect(return_url));
     } catch (err) {
       throw new Error('SafetyConcernsPostController - Case could not be updated.');
-    }
-  }
-
-  private getSupportNeededForApplicant(
-    req: AppRequest<Partial<import('/Users/m_2120297/hmcts-repos/prl-citizen-frontend/src/main/app/case/case').Case>>
-  ) {
-    if ('C100' === req.session.userCase.caseTypeOfApplication) {
-      req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
-        if (applicant?.value?.user?.idamId === req.session?.user.id) {
-          if (req.url.includes('support-you-need-during-case')) {
-            applicant.value.response = setSupportDetails(req);
-          }
-        }
-      });
-    } else {
-      if (req.url.includes('support-you-need-during-case')) {
-        req.session.userCase.applicantsFL401!.response = setSupportDetails(req);
-      }
-    }
-  }
-
-  private getSupportNeededForRespondent(
-    req: AppRequest<Partial<import('/Users/m_2120297/hmcts-repos/prl-citizen-frontend/src/main/app/case/case').Case>>
-  ) {
-    if ('C100' === req.session.userCase.caseTypeOfApplication) {
-      req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-        if (req.url.includes('support-you-need-during-case')) {
-          respondent.value.response = setSupportDetails(req);
-        }
-      });
-    } else {
-      if (req.url.includes('support-you-need-during-case')) {
-        req.session.userCase.respondentsFL401!.response = setSupportDetails(req);
-      }
     }
   }
 }
