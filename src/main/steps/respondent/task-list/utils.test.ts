@@ -266,9 +266,7 @@ test('should return correct status of court hearings', () => {
       ],
     })
   ).toBe(SectionStatus.READY_TO_VIEW);
-  expect(getViewAllHearingsFromTheCourt({ ...mockUserCase, hearingCollection: [] })).toBe(
-    SectionStatus.NOT_AVAILABLE_YET
-  );
+  expect(getViewAllHearingsFromTheCourt({ ...mockUserCase, hearingCollection: [] })).toBe(SectionStatus.TO_DO);
 });
 
 test('should return correct status of get view all docs', () => {
