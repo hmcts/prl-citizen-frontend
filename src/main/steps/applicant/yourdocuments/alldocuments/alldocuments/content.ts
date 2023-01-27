@@ -22,7 +22,7 @@ const cy: typeof en = () => {
     title: 'All documents',
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
-    caseNumber: 'Case number',
+    caseNumber: 'Rhif yr achos',
     continue: 'Go back',
     sectionTitles: applicant_all_docs_en,
     taskListItems: applicant_tasklist_items_all_docs_en,
