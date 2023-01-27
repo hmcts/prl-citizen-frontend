@@ -121,13 +121,7 @@ export default class AddPersonPostController {
       req.session.userCase[dataReference] = transformAddPeople(context, rest, req.session.userCase[dataReference]);
       req.session.errors = form.getErrors(formData);
 
-      if (!req.session.errors.length) {
-        this.addPerson(c100TempFirstName, c100TempLastName);
-      } else if (req.session.userCase[dataReference].length && !c100TempFirstName && !c100TempLastName) {
-        req.session.errors = req.session.errors.filter(
-          error => !['c100TempFirstName', 'c100TempLastName'].includes(error.propertyName)
-        );
-      }
+      this.addPeopleOnContinue(req, c100TempFirstName, c100TempLastName, dataReference);
 
       return this.parent.redirect(req, res);
     } else if (saveAndComeLater) {
@@ -138,6 +132,21 @@ export default class AddPersonPostController {
       }
 
       this.parent.saveAndComeLater(req, res, req.session.userCase);
+    }
+  }
+
+  private addPeopleOnContinue(
+    req: AppRequest<AnyObject>,
+    c100TempFirstName: string | undefined,
+    c100TempLastName: string | undefined,
+    dataReference: string
+  ) {
+    if (!req.session?.errors?.length) {
+      this.addPerson(c100TempFirstName, c100TempLastName);
+    } else if (req.session.userCase[dataReference].length && !c100TempFirstName && !c100TempLastName) {
+      req.session.errors = req.session.errors.filter(
+        error => !['c100TempFirstName', 'c100TempLastName'].includes(error.propertyName)
+      );
     }
   }
 }
