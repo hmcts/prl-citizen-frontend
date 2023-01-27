@@ -16,10 +16,20 @@ export const getKeepYourDetailsPrivateStatus = (
   } else {
     keepDetailsPrivate = userCase?.respondentsFL401?.response?.keepDetailsPrivate;
   }
-  if (keepDetailsPrivate?.confidentiality && keepDetailsPrivate?.otherPeopleKnowYourContactDetails) {
+  if (
+    keepDetailsPrivate?.confidentiality === 'Yes' &&
+    keepDetailsPrivate?.otherPeopleKnowYourContactDetails &&
+    keepDetailsPrivate?.confidentialityList.length >= 1
+  ) {
     status = SectionStatus.COMPLETED;
-  } else if (keepDetailsPrivate?.confidentiality || keepDetailsPrivate?.otherPeopleKnowYourContactDetails) {
+  } else if (
+    keepDetailsPrivate?.confidentiality === 'Yes' &&
+    keepDetailsPrivate?.otherPeopleKnowYourContactDetails &&
+    keepDetailsPrivate?.confidentialityList.length === 0
+  ) {
     status = SectionStatus.IN_PROGRESS;
+  } else if (keepDetailsPrivate?.confidentiality || keepDetailsPrivate?.otherPeopleKnowYourContactDetails) {
+    status = SectionStatus.COMPLETED;
   }
   return status;
 };
@@ -103,7 +113,7 @@ export const getViewAllHearingsFromTheCourt = (userCase: CaseWithId): SectionSta
   if (userCase && userCase.hearingCollection && userCase.hearingCollection.length > 0) {
     return SectionStatus.READY_TO_VIEW;
   }
-  return SectionStatus.NOT_AVAILABLE_YET;
+  return SectionStatus.TO_DO;
 };
 
 export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatus => {
