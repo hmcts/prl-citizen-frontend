@@ -52,7 +52,7 @@ const cyContent = {
   Phone_number: 'Phone number',
   contact_details_private_hint:
     "You've said that the applicants know some of your contact details. Make sure you select contact details the applicants do not already know.",
-  Email: 'Email',
+  Email: 'E-bost',
   contact_details_private:
     'Which contact details do you want to keep private from the other people in this application?',
   continue: 'Save and continue',

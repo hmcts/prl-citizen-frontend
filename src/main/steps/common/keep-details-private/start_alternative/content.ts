@@ -49,7 +49,7 @@ const cy: typeof en = {
   summaryText: 'Contacts for help',
   address: 'Address',
   Phone_number: 'Phone number',
-  Email: 'Email',
+  Email: 'E-bost',
   contact_details_private:
     'Which contact details do you want to keep private from the other people in this application?',
   contact_details_private_hint:

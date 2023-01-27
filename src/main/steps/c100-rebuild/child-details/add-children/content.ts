@@ -34,7 +34,7 @@ const cy = () => ({
   firstNameHint: 'Dylech gynnwys yr holl enwau canol yma',
   lastNameLabel: 'Cyfenw(au)',
   addChildLabel: 'Ychwanegu plentyn arall',
-  removeChildLabel: 'Symud plentyn',
+  removeChildLabel: 'Dileu plentyn',
   newNameLabel: 'Nodwch enw newydd',
   errors: {
     c100TempFirstName: {
@@ -43,7 +43,7 @@ const cy = () => ({
         'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     c100TempLastName: {
-      required: 'Nodwch yr enw olaf',
+      required: 'Nodwch y cyfenw',
       invalid:
         'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },

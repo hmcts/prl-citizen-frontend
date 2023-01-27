@@ -38,7 +38,7 @@ const cy = {
   headingTitle: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
   paragraph1: '<p> Efallai bod gennych bryderon am eich diogelwch ar hyn o bryd, neu eich diogelwch yn y dyfodol. </p>',
   paragraph2:
-    "<p>Os ydych chi neu'r plant wedi profi camdriniaeth neu yn teimlo'n anniogel, mae cymorth ar gael <a href='https://www.gov.uk/guidance/domestic-abuse-how-to-get-help' class='govuk-link' target='blank' aria-label='See a list of organisations that can help'>Gweler rhestr o sefydliadau a all helpu.</a>. </p> ",
+    "<p>Os ydych chi neu'r plant wedi profi camdriniaeth neu yn teimlo'n anniogel, mae cymorth ar gael. <a href='https://www.gov.uk/guidance/domestic-abuse-how-to-get-help' class='govuk-link' target='blank' aria-label='See a list of organisations that can help'>Gweler rhestr o sefydliadau a all helpu.</a>. </p> ",
   listOfOrganisationsHyperlink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help',
   listOfOrganisationLabel: 'Gweler rhestr o sefydliadau a all helpu.',
   identifySignsOfChildAbuseHyperlink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse/',

@@ -14,7 +14,7 @@ export const respondent_tasklist_items_en = {
 };
 
 export const respondent_tasklist_items_cy = {
-  keep_your_details_private: 'Cadw eich manylion yn breifat',
+  keep_your_details_private: 'Cadw eich manylion cyswllt yn breifat ar gyfer',
   confirm_or_edit_your_contact_details: 'Cadarnhau neu olygu eich manylion cyswllt',
   support_you_need_during_your_case: 'Cymorth sydd ei angen arnoch yn ystod eich achos chi',
   check_the_application: 'Gwirio’r cais (PDF)',
