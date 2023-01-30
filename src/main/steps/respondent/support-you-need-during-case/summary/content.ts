@@ -131,7 +131,7 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls, enContent.sectionTitles.aboutYou)],
+    sections: [summaryList(enContent, userCase, urls, 'en', enContent.sectionTitles.aboutYou)],
   };
 };
 
@@ -258,7 +258,7 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou)],
+    sections: [summaryList(cyContent, userCase, urls, 'cy', enContent.sectionTitles.aboutYou)],
   };
 };
 

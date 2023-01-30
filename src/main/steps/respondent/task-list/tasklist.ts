@@ -52,7 +52,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
       title: sectionTitles.theApplication,
       items: [...getTheApplicationSection(taskListItems, userCase, userIdamId)],
     },
-    ...(!isCaseClosed ? getYourResponseSection(sectionTitles, taskListItems, userCase) : []),
+    ...(!isCaseClosed ? getYourResponseSection(sectionTitles, taskListItems, userCase, userIdamId) : []),
     {
       title: sectionTitles.yourcourtHearings,
       items: [
@@ -135,9 +135,9 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
   return itemList;
 };
 
-const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWithId) => {
+const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWithId, userId: string) => {
   if (userCase?.caseTypeOfApplication === 'C100') {
-    const hasCitizenResponse = isApplicationResponded(userCase);
+    const hasCitizenResponse = isApplicationResponded(userCase, userId);
     return [
       {
         title: sectionTitles.yourResponse,
