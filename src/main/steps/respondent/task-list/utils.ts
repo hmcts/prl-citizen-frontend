@@ -180,7 +180,7 @@ export const getFinalApplicationStatus = (
   userCase: Partial<CaseWithId> | undefined,
   userIdamId: string
 ): SectionStatus => {
-  let result = SectionStatus.DOWNLOAD;
+  let result = SectionStatus.READY_TO_VIEW;
 
   if (!userCase?.finalDocument?.document_binary_url) {
     return SectionStatus.NOT_AVAILABLE_YET;

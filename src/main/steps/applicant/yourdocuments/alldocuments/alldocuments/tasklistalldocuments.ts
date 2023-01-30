@@ -80,11 +80,16 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
       applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems, url));
     });
   } else {
-    applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems));
-    applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
-    applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems));
-    applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
-    applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
+    if (!isApplicant) {
+      applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
+      applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
+    } else {
+      applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems));
+      applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
+      applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems));
+      applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
+      applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
+    }
   }
 
   applicantItems.push({
