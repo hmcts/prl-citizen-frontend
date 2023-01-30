@@ -18,12 +18,12 @@ const en = {
 };
 
 const cy = {
-  title: 'Do you want your legal representative to complete the application for you? - welsh  ',
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
+  title: " Ydych chi eisiau i'ch cynrychiolydd cyfreithiol lenwi'r cais ar eich rhan?",
+  one: 'Ydw',
+  two: 'Nac ydw',
   errors: {
     sq_legalRepresentationApplication: {
-      required: 'Select yes if you want your legal representative to complete this application- welsh',
+      required: "Dewiswch ‘ydw’ os ydych am i'ch cynrychiolydd cyfreithiol lenwi'r cais hwn",
     },
   },
 };

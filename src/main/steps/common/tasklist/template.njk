@@ -26,11 +26,20 @@
   <strong id="{{item.id}}-status" class="govuk-tag app-task-list__tag {{statusClass}}">{{statuses[item.status]}}</strong>
 {% endmacro %}
 
+{% macro taskHint(item) %}
+  {%if item.hint %}
+  <div class="govuk-grid-row">
+    <div class="govuk-hint govuk-grid-column-three-quarters govuk-!-padding-top-1 govuk-!-margin-0">{{item.hint}}</div>
+  </div>
+{% endif %}
+{% endmacro %}
+
 {% macro taskListItem(item) %}
   {% if item.id %}
     <li class="app-task-list__item">
       {{ taskName(item) }}
       {{ taskStatus(item) }}
+      {{ taskHint(item) }}
     </li>
   {% else %}
     <p class="govuk-!-font-weight-bold govuk-!-margin-top-7 govuk-!-margin-bottom-2">{{item.text}}</p>
