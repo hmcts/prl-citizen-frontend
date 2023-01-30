@@ -53,7 +53,7 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'check_details_of_your_court_hearings',
             text: taskListItems.check_details_of_your_court_hearings,
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             href: '/respondent/yourhearings/hearings',
           },
         ],
@@ -137,7 +137,7 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'check_details_of_your_court_hearings',
             text: taskListItems.check_details_of_your_court_hearings,
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             href: '/respondent/yourhearings/hearings',
           },
         ],
@@ -246,7 +246,7 @@ describe('generateRespondentTaskList', () => {
           {
             href: '/respondent/yourhearings/hearings',
             id: 'check_details_of_your_court_hearings',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Check details of your court hearings',
           },
         ],

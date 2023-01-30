@@ -1,5 +1,7 @@
-import { responseCaseSequence } from './responseCaseSequence';
+import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { YesOrNo } from '../../app/case/definition';
 
+import { responseCaseSequence } from './responseCaseSequence';
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
     expect(responseCaseSequence).toHaveLength(68);
@@ -182,5 +184,48 @@ describe('respondent1Sequence', () => {
     // expect(responseCaseSequence[42].getNextStep({})).toBe(
     //   '/tasklistresponse/support-you-need-during-case/reasonable-adjustments'
     // );
+
+    expect(responseCaseSequence[47].url).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[47].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[47].getNextStep({})).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page'
+    );
+
+    expect(responseCaseSequence[48].url).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page'
+    );
+    expect(responseCaseSequence[48].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[48].getNextStep({})).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns'
+    );
+
+    expect(responseCaseSequence[49].url).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns'
+    );
+    expect(responseCaseSequence[49].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[49].getNextStep({ PRL_c1A_haveSafetyConcerns: YesOrNo.YES })).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes'
+    );
+    expect(responseCaseSequence[49].getNextStep({ PRL_c1A_haveSafetyConcerns: YesOrNo.NO })).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/check-answers-no'
+    );
+
+    expect(responseCaseSequence[50].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes');
+    expect(responseCaseSequence[50].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[50].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/child/concerns-about'
+    );
   });
+});
+
+const PRL_safetyConcernsMockData = mockRequest({
+  params: {},
+  session: {
+    userCase: {
+      PRL_c1A_childAbductedBefore: 'No',
+      PRL_c1A_safetyConernAbout: ['children', 'applicant'],
+      PRL_c1A_concernAboutChild: ['physicalAbuse', 'financialAbuse', 'abduction'],
+      PRL_c1A_concernAboutApplicant: ['somethingElse'],
+    },
+  },
 });
