@@ -35,7 +35,7 @@ const cy = {
   localAuthority:
     'Mae’r plant yn y cais, neu blentyn arall ar yr aelwyd, yn destun ymholiadau gan awdurdod lleol o dan adran 47 Deddf Plant 1989',
   localAuthorityHint:
-    'This may mean that a local authority is carrying out enquiries because of concerns the children are suffering or might suffer significant harm. See <a href="https://www.legislation.gov.uk/ukpga/1989/41/section/17" class="govuk-link" target="_blank" aria-label="section 47 of the Children Act 1989 Act">section 47 of the Children Act 1989 Act</a> for further details.',
+    'Fe allai hynny olygu bod awdurdod lleol yn cynnal ymholiadau oherwydd pryderon fod y plant yn dioddef neu y gallant ddioddef niwed sylweddol. Gweler <a href="https://www.legislation.gov.uk/ukpga/1989/41/section/17" class="govuk-link" target="_blank" aria-label="section 47 of the Children Act 1989 Act">sdran 47 Deddf Plant 1989</a> am fwy o fanylion.',
   childProtectionPlan:
     'Mae’r plant yn y cais, neu blentyn arall ar yr aelwyd, yn destun cynllun amddiffyn plant a roddwyd ar waith gan yr awdurdod lleol',
   none: 'Dim un o’r uchod',

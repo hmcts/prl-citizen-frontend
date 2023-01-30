@@ -45,6 +45,10 @@ export const en = () => ({
   isCurrentOrderLabel: 'Is this a current order? (optional)',
   copyOfOrderLabel: 'Do you have a copy of the order? (optional)',
   addOrderLabel: 'Add another order',
+  yes1: 'Yes',
+  no1: 'No',
+  yes2: 'Yes',
+  no2: 'No',
   errors: {
     orderDate: {
       invalidDate: 'Order date must be a real date',
@@ -93,20 +97,24 @@ export const cy = () => ({
   isCurrentOrderLabel: 'Ai gorchymyn cyfredol yw hwn? (dewisol)',
   copyOfOrderLabel: 'A oes gennych chi gopi o’r gorchymyn? (dewisol)',
   addOrderLabel: 'Ychwanegu gorchymyn arall',
+  yes1: 'Ie',
+  no1: 'Na',
+  yes2: 'Oes',
+  no2: 'Nac oes',
   errors: {
     orderDate: {
-      invalidDate: 'Order date must be a real date - welsh',
-      incompleteDay: 'Order date must include a day - welsh',
-      incompleteMonth: 'Order date must include a month - welsh',
-      incompleteYear: 'Order date must include a year - welsh',
-      invalidDateInFuture: 'Order date must be in the past - welsh',
+      invalidDate: 'Rhaid i ddyddiad y gorchymyn fod yn ddyddiad go iawn',
+      incompleteDay: 'Rhaid i ddyddiad y gorchymyn gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i ddyddiad y gorchymyn gynnwys mis',
+      incompleteYear: 'Rhaid i ddyddiad y gorchymyn gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i ddyddiad y gorchymyn gynnwys blwyddyn',
     },
     orderEndDate: {
-      invalidDate: 'Order end date must be a real date - welsh',
-      incompleteDay: 'Order end date must include a day - welsh',
-      incompleteMonth: 'Order end date must include a month - welsh',
-      incompleteYear: 'Order end date must include a year - welsh',
-      invalidDateInFuture: 'Order end date must be in the past - welsh',
+      invalidDate: 'Rhaid i ddyddiad dod i ben y gorchymyn fod yn ddyddiad go iawn',
+      incompleteDay: 'Rhaid i ddyddiad dod i ben y gorchymyn gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i ddyddiad dod i ben y gorchymyn gynnwys mis',
+      incompleteYear: 'Rhaid i ddyddiad dod i ben y gorchymyn gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i ddyddiad dod i ben y gorchymyn fod yn y gorffennol',
     },
   },
 });
@@ -195,11 +203,11 @@ export const generateFormFields = (
           label: l => l.isCurrentOrderLabel,
           values: [
             {
-              label: l => l.yes,
+              label: l => l.yes1,
               value: YesNoEmpty.YES,
             },
             {
-              label: l => l.no,
+              label: l => l.no1,
               value: YesNoEmpty.NO,
             },
             {
@@ -251,11 +259,11 @@ export const generateFormFields = (
           label: l => l.copyOfOrderLabel,
           values: [
             {
-              label: l => l.yes,
+              label: l => l.yes2,
               value: YesNoEmpty.YES,
             },
             {
-              label: l => l.no,
+              label: l => l.no2,
               value: YesNoEmpty.NO,
             },
             {

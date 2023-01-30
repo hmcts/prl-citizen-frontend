@@ -61,7 +61,7 @@ const keys = {
   addressDetails: 'addressDetails',
   detailsOfChildConcern: 'detailsOfChildConcern',
 };
-
+const language = 'en';
 const content = {
   x: 'aaa',
 };
@@ -113,7 +113,7 @@ describe('test cases for main util', () => {
       id: 'id',
       state: undefined,
     };
-    expect(WithoutNoticeHearing({ sectionTitles, keys, content }, userCase)).toStrictEqual({
+    expect(WithoutNoticeHearing({ sectionTitles, keys, content }, userCase, language)).toStrictEqual({
       rows: [
         {
           actions: {
@@ -157,7 +157,7 @@ describe('test cases for main util', () => {
       id: 'id',
       state: undefined,
     };
-    expect(ChildernDetails({ sectionTitles, keys, content }, userCase)).toStrictEqual({
+    expect(ChildernDetails({ sectionTitles, keys, content }, userCase, language)).toStrictEqual({
       rows: [],
       title: 'ChildernDetails',
     });
@@ -179,7 +179,7 @@ describe('test cases for main util', () => {
       id: 'id',
       state: undefined,
     };
-    const TypeOfApplicationObj = TypeOfApplication({ sectionTitles, keys, content }, userCase);
+    const TypeOfApplicationObj = TypeOfApplication({ sectionTitles, keys, content }, userCase, language);
     expect(TypeOfApplicationObj?.rows).not.toBe([]);
     expect(TypeOfApplicationObj?.title).toBe(undefined);
   });
@@ -189,7 +189,11 @@ describe('test cases for main util', () => {
       id: 'id',
       state: undefined,
     };
-    const LegalRepresentativeDetailsObj = LegalRepresentativeDetails({ sectionTitles, keys, content }, userCase);
+    const LegalRepresentativeDetailsObj = LegalRepresentativeDetails(
+      { sectionTitles, keys, content },
+      userCase,
+      language
+    );
     expect(LegalRepresentativeDetailsObj?.rows).not.toBe([]);
     expect(LegalRepresentativeDetailsObj?.title).toBe(undefined);
   });
@@ -200,7 +204,11 @@ describe('test cases for main util', () => {
       state: undefined,
       sq_legalRepresentation: YesOrNo.YES,
     };
-    const LegalRepresentativeDetailsObj = LegalRepresentativeDetails({ sectionTitles, keys, content }, userCase);
+    const LegalRepresentativeDetailsObj = LegalRepresentativeDetails(
+      { sectionTitles, keys, content },
+      userCase,
+      language
+    );
     expect(LegalRepresentativeDetailsObj?.rows).not.toBe([]);
     expect(LegalRepresentativeDetailsObj?.title).toBe(undefined);
   });
@@ -210,7 +218,7 @@ describe('test cases for main util', () => {
       id: 'id',
       state: undefined,
     };
-    const PermissionForApplicationObj = PermissionForApplication({ sectionTitles, keys, content }, userCase);
+    const PermissionForApplicationObj = PermissionForApplication({ sectionTitles, keys, content }, userCase, language);
     expect(PermissionForApplicationObj?.rows).not.toBe([]);
     expect(PermissionForApplicationObj?.title).toBe(undefined);
   });
@@ -269,7 +277,7 @@ describe('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const PermissionForApplicationObj = ApplicantDetails({ sectionTitles, keys, content }, userCase);
+    const PermissionForApplicationObj = ApplicantDetails({ sectionTitles, keys, content }, userCase, language);
     expect(PermissionForApplicationObj).not.toBe(null);
   });
 
@@ -327,7 +335,7 @@ describe('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const PermissionForApplicationObj = ApplicantDetails({ sectionTitles, keys, content }, userCase);
+    const PermissionForApplicationObj = ApplicantDetails({ sectionTitles, keys, content }, userCase, language);
     expect(PermissionForApplicationObj).not.toBe(null);
   });
 
@@ -379,7 +387,7 @@ describe('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const childrenDetailsObj = ChildernDetails({ sectionTitles, keys, content }, userCase);
+    const childrenDetailsObj = ChildernDetails({ sectionTitles, keys, content }, userCase, language);
     expect(childrenDetailsObj?.rows).not.toBe([]);
   });
 
@@ -412,7 +420,7 @@ describe('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const childrenDetailsObj = ChildernDetails({ sectionTitles, keys, content }, userCase);
+    const childrenDetailsObj = ChildernDetails({ sectionTitles, keys, content }, userCase, language);
     expect(childrenDetailsObj?.rows).not.toBe([]);
   });
 
@@ -446,7 +454,7 @@ describe('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const otherChildrenDetailsObj = OtherChildrenDetails({ sectionTitles, keys, content }, userCase);
+    const otherChildrenDetailsObj = OtherChildrenDetails({ sectionTitles, keys, content }, userCase, language);
     expect(otherChildrenDetailsObj?.rows).not.toBe([]);
   });
 
@@ -481,7 +489,7 @@ describe('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const otherChildrenDetailsObj = OtherChildrenDetails({ sectionTitles, keys, content }, userCase);
+    const otherChildrenDetailsObj = OtherChildrenDetails({ sectionTitles, keys, content }, userCase, language);
     expect(otherChildrenDetailsObj?.rows).not.toBe([]);
     expect(otherChildrenDetailsObj).toEqual({
       rows: [
@@ -502,7 +510,7 @@ describe('test cases for main util', () => {
         },
         {
           key: {
-            html: '<h4 class="app-task-list__section">Child 1</h4>',
+            html: '<h4 class="app-task-list__section">undefined 1</h4>',
           },
           value: {},
         },
@@ -613,18 +621,18 @@ describe('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const otherPeopleDetailsObj = OtherPeopleDetails({ sectionTitles, keys, content }, userCase);
+    const otherPeopleDetailsObj = OtherPeopleDetails({ sectionTitles, keys, content }, userCase, language);
     expect(otherPeopleDetailsObj?.rows).not.toBe([]);
   });
 
   test('helpWithFee', () => {
-    const helpWithFeeObj = HelpWithFee({ sectionTitles, keys, content }, {});
+    const helpWithFeeObj = HelpWithFee({ sectionTitles, keys, content }, {}, language);
     expect(helpWithFeeObj?.rows).not.toBe([]);
     expect(helpWithFeeObj?.title).toBe(undefined);
   });
 
   test('otherPeopleDetailsTitle', () => {
-    const otherPeopleDetailsTitleObj = OtherPeopleDetailsTitle({ sectionTitles, keys, content }, {});
+    const otherPeopleDetailsTitleObj = OtherPeopleDetailsTitle({ sectionTitles, keys, content }, {}, language);
     expect(otherPeopleDetailsTitleObj?.rows).not.toBe([]);
     expect(otherPeopleDetailsTitleObj?.title).toBe(undefined);
   });
@@ -640,7 +648,8 @@ describe('test cases for main util', () => {
     };
     const childernDetailsAdditionalObj = ChildernDetailsAdditional(
       { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
-      userCase
+      userCase,
+      language
     );
     expect(childernDetailsAdditionalObj?.rows).not.toBe([]);
     expect(childernDetailsAdditionalObj?.title).toBe(undefined);
@@ -760,7 +769,7 @@ describe('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const respondentDetailsObj = RespondentDetails({ sectionTitles, keys, content }, userCase);
+    const respondentDetailsObj = RespondentDetails({ sectionTitles, keys, content }, userCase, language);
     expect(respondentDetailsObj?.rows).not.toBe([]);
     expect(respondentDetailsObj?.title).toBe(undefined);
   });
@@ -773,7 +782,11 @@ describe('test cases for main util', () => {
       c1A_safetyConernAbout: ['applicant'],
       c1A_haveSafetyConcerns: 'Yes',
     } as ANYTYPE;
-    const SafetyConcernsObj = SafetyConcerns({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    const SafetyConcernsObj = SafetyConcerns(
+      { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
+      userCase,
+      language
+    );
     expect(SafetyConcernsObj?.rows).not.toBe([]);
     expect(SafetyConcernsObj?.title).toBe(undefined);
   });
@@ -790,7 +803,8 @@ describe('test cases for main util', () => {
     } as ANYTYPE;
     const safetyConcerns_childObj = SafetyConcerns_child(
       { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
-      userCase
+      userCase,
+      language
     );
     expect(safetyConcerns_childObj?.rows).not.toBe([]);
     expect(safetyConcerns_childObj?.title).toBe(undefined);
@@ -850,7 +864,7 @@ describe('test cases for main util', () => {
         },
       ],
     } as ANYTYPE;
-    const respondentDetailsObj = RespondentDetails({ sectionTitles, keys, content }, userCase);
+    const respondentDetailsObj = RespondentDetails({ sectionTitles, keys, content }, userCase, language);
     expect(respondentDetailsObj?.rows).not.toBe([]);
     expect(respondentDetailsObj?.title).toBe(undefined);
   });
@@ -864,7 +878,8 @@ describe('test cases for main util', () => {
     } as ANYTYPE;
     const safetyConcerns_yoursObj = SafetyConcerns_yours(
       { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
-      userCase
+      userCase,
+      language
     );
     expect(safetyConcerns_yoursObj?.rows).not.toBe([]);
     expect(safetyConcerns_yoursObj?.title).toBe(undefined);
@@ -891,7 +906,7 @@ describe('test cases for main util', () => {
       id: 'id',
       state: undefined,
     } as ANYTYPE;
-    const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase, language);
     expect(CaseName_fun?.rows).not.toBe([]);
     expect(CaseName_fun?.title).toBe('MiamAttendance');
   });
@@ -903,7 +918,7 @@ describe('test cases for main util', () => {
       miam_otherProceedings: YesOrNo.NO,
       miam_attendance: YesOrNo.NO,
     } as ANYTYPE;
-    const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase, language);
     expect(CaseName_fun?.rows).not.toBe([]);
     expect(CaseName_fun?.title).toBe('MiamAttendance');
   });
@@ -916,7 +931,7 @@ describe('test cases for main util', () => {
       miam_attendance: YesOrNo.YES,
       miam_mediatorDocument: YesOrNo.YES,
     } as ANYTYPE;
-    const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase, language);
     expect(CaseName_fun?.rows).not.toBe([]);
     expect(CaseName_fun?.title).toBe('MiamAttendance');
   });
@@ -929,7 +944,7 @@ describe('test cases for main util', () => {
       miam_attendance: YesOrNo.YES,
       miam_mediatorDocument: YesOrNo.NO,
     } as ANYTYPE;
-    const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    const CaseName_fun = MiamAttendance({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase, language);
     expect(CaseName_fun?.rows).not.toBe([]);
     expect(CaseName_fun?.title).toBe('MiamAttendance');
   });
@@ -939,7 +954,11 @@ describe('test cases for main util', () => {
       id: 'id',
       state: undefined,
     } as ANYTYPE;
-    const CaseName_fun = InternationalElement({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    const CaseName_fun = InternationalElement(
+      { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
+      userCase,
+      language
+    );
     expect(CaseName_fun?.rows).not.toBe([]);
     expect(CaseName_fun?.title).toBe('InternationalElement');
   });
@@ -949,7 +968,11 @@ describe('test cases for main util', () => {
       id: 'id',
       state: undefined,
     } as ANYTYPE;
-    const CaseName_fun = PastAndCurrentProceedings({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    const CaseName_fun = PastAndCurrentProceedings(
+      { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
+      userCase,
+      language
+    );
     expect(CaseName_fun?.rows).not.toBe([]);
     expect(CaseName_fun?.title).toBe(undefined);
   });

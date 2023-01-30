@@ -84,75 +84,75 @@ const en = {
 };
 
 const cy = {
-  title: 'Other ways to reach an agreement - welsh',
-  secondaryTitle: 'Options to consider - welsh',
-  thirdTitle: 'Negotiation tools and services - welsh',
-  fourthTitle: 'Mediation - welsh',
-  fifthTitle: 'Lawyer negotiation - welsh',
-  sixthTitle: 'Collaborative law - welsh',
-  paragraph: 'It is usually better for the children if you reach an agreement outside of court. - welsh',
-  secondaryLabel: 'This could: - welsh',
+  title: 'Ffyrdd eraill o ddod i gytundeb',
+  secondaryTitle: "Opsiynau i'w hystyried",
+  thirdTitle: 'Dulliau a gwasanaethau negodi',
+  fourthTitle: 'Cyfryngu',
+  fifthTitle: 'Trafod drwy gyfreithiwr',
+  sixthTitle: 'Cyfraith gydweithredol',
+  paragraph: "Fel arfer mae'n well i'r plant os byddwch yn dod i gytundeb y tu allan i'r llys.",
+  secondaryLabel: 'Gallai hyn:',
   firstList: [
-    'make the situation less stressful for the children - welsh',
-    'help the children to maintain contact with family members - welsh',
-    'save time and money - welsh',
+    'olygu y bydd y sefyllfa yn rhoi llai o bwysau ar y plant',
+    "helpu'r plant i gadw mewn cysylltiad ag aelodau o'r teulu",
+    'arbed amser ac arian',
   ],
-  paragraph1: `If you still communicate with the other people in the case,
-    and there are no safety concerns, you could try to negotiate with each other.
+  paragraph1: `Os ydych chi'n dal i gyfathrebu gyda'r bobl eraill yn yr achos,
+  ac nad oes pryderon diogelwch, gallech geisio trafod gyda'ch gilydd.
     <br/><br/>
-    This can be faster and less expensive than going to court.
+    Gall hyn fod yn gyflymach ac yn llai costus na mynd i'r llys.
     <br/><br/> 
-    There are free tools and services such as 
+    Mae yna ddulliau a gwasanaethau am ddim fel 
     <a href="https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/parenting-together/parenting-plan/" 
-    class="govuk-link" rel="external" target="_blank">parenting plans</a>
-    that can help you reach an agreement. - welsh`,
+    class="govuk-link" rel="external" target="_blank">Cynlluniau rhianta</a>
+    a allai eich helpu i ddod i gytundeb.`,
 
-  paragraph2: `Mediation sessions are run by professionals who help you try 
-    to reach an agreement without going to court.
+  paragraph2: `Mae sesiynau cyfryngu yn cael eu cynnal gan weithwyr proffesiynol sy'n eich helpu 
+  i geisio dod i gytundeb heb fynd i'r llys.
     <br/><br/>
-    Mediation isn’t relationship counselling and you don’t 
-    have to be in the same room the other people in the case.
+    Nid yw cyfryngu yn gwnsela perthynas ac nid ydych 
+    yn gorfod bod yn yr un ystafell â’r bobl eraill yn yr achos.
     <br/><br/> 
-    Mediation is suitable for people who want to reach an agreement 
-    but need help from someone who is independent.
+    Mae cyfryngu yn addas ar gyfer pobl sydd am ddod i gytundeb 
+    ond bod angen help gan rywun sy'n annibynnol.
     <br/><br/>
     <a href="https://helpwithchildarrangements.service.justice.gov.uk/professional-mediation" 
     class="govuk-link" rel="external" target="_blank">
-    Find out more about professional mediation</a> - welsh`,
-  paragraph3: `With lawyer negotiation you don't deal directly with the other people in the case.
-  You hire a lawyer to negotiate arrangements for you.
+    Mwy o wybodaeth am gyfryngu proffesiynol`,
+  paragraph3: `Wrth drafod drwy gyfreithiwr nid ydych yn delio'n uniongyrchol gyda'r bobl eraill yn yr achos.
+  Rydych yn talu i gyfreithiwr i drafod trefniadau ar eich rhan.
   <br/><br/>
-  You can still hire a lawyer to negotiate on your behalf,
-  even if the other people choose not to use one.
+  Gallwch dal dalu i gyfreithiwr drafod ar eich rhan,
+  hyd yn oed os yw'r bobl eraill yn dewis peidio defnyddio cyfreithiwr.
   <br/><br/> 
-  Lawyer negotiation is suitable for people who prefer not to meet because their 
-  relationship is still difficult, or because there’s a lack of trust.
+  Mae trafod drwy gyfreithiwr yn addas i bobl y mae'n well ganddyn nhw beidio â chyfarfod oherwydd bod eu 
+  perthynas yn dal i fod yn anodd, neu oherwydd bod diffyg ymddiriedaeth.
   <br/><br/>
   <a href="https://helpwithchildarrangements.service.justice.gov.uk/lawyer-negotiation" 
-  class="govuk-link" rel="external" target="_blank">Find out more about lawyer negotiation</a> - welsh`,
-  paragraph4: `Collaborative lawyers work with you and the other people in the case to resolve your 
-  issues out of court. You each hire a lawyer, then all meet to negotiate in person.
+  class="govuk-link" rel="external" target="_blank">Rhagor o wybodaeth am drafod drwy gyfreithiwr</a>`,
+  paragraph4: `Mae cyfreithwyr cydweithredol yn gweithio gyda chi a'r bobl eraill yn yr achos i ddatrys eich 
+  materion y tu allan i'r llys. Byddwch chi a’r bobl eraill yn yr achos yn hurio cyfreithiwr, yna bydd pob un yn cwrdd i drafod wyneb yn wyneb.
   <br/><br/>
-  The process takes time but is often quicker and cheaper than going to court.
+  Mae'r broses yn cymryd amser ond mae'n aml yn gyflymach ac yn rhatach na mynd i'r llys.
   <br/><br/> 
-  This option is suitable for people who can still communicate with each other, 
-  but have complex legal issues to resolve.
+  Mae'r opsiwn hwn yn addas i bobl sy'n gallu cyfathrebu â'i gilydd o hyd, 
+  ond bod ganddynt faterion cyfreithiol cymhleth i'w datrys.
   <br/><br/>
   <a href="https://helpwithchildarrangements.service.justice.gov.uk/collaborative-law"
-  class="govuk-link" rel="external" target="_blank">Find out more about collaborative law</a> - welsh`,
+  class="govuk-link" rel="external" target="_blank">Mwy o wybodaeth am gyfraith gydweithredol</a>`,
   insetText: {
-    html: `<p class="govuk-body govuk-!-font-weight-bold">You could get up to £500 towards family mediation</p>
+    html: `<p class="govuk-body govuk-!-font-weight-bold">Mwy o wybodaeth am gyfraith gydweithredol</p>
   <p class="govuk-body">
-    This is a new scheme available for a short time only. Find out more about the
+  Dyma gynllun newydd sydd ar gael am gyfnod byr yn unig. Mwy o wybodaeth am y
     <a href="https://www.gov.uk/guidance/family-mediation-voucher-scheme?utm_source=C100&amp;utm_campaign=mediation_vouchers" 
-    class="govuk-link" rel="external" target="_blank">family
-      mediation voucher scheme</a>.
-  </p> - welsh`,
+    class="govuk-link" rel="external" target="_blank">cynllun
+    talebau cyfryngu teuluol</a>.
+  </p>`,
   },
-  formTitle: 'Have you considered any alternative options to reach an agreement? - welsh',
-  one: 'Yes - welsh',
-  two: 'No - welsh',
-  otherDetails: 'Provide details (optional) - welsh',
+  formTitle: 'Ydych chi wedi ystyried unrhyw opsiynau amgen i ddod i gytundeb?',
+  one: 'Do',
+  two: 'Naddo',
+  otherDetails: 'Rhowch fanylion (dewisol)',
 };
 
 /* eslint-disable @typescript-eslint/ban-types */
