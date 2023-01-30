@@ -35,7 +35,7 @@ const cy = () => ({
   serviceName: 'Trefniadau plant',
   caption: 'Cychwyn arni',
   headingTitle: 'Beth fydd arnoch ei angen i gwblhau eich cais',
-  subTitle1: 'You will need to have: - welsh',
+  subTitle1: 'Bydd angen i chi gael:',
   subTitle2: 'Efallai y byddwch hefyd angen:',
   paraGraph1:
     "Os ydych yn gwneud cais am orchymyn i ffurfioli trefniant (gorchymyn cydsynio) gwnewch yn siŵr bod gennych gytundeb ysgrifenedig wedi’i lofnodi gan yr atebydd mewn lle, cyn i  chi ddechrau'r cais.",
@@ -43,9 +43,9 @@ const cy = () => ({
     "Gallwch barhau i gwblhau'r cais os nad oes gennych yr holl fanylion - ond mae'n debygol y bydd yn cymryd mwy o amser i'w brosesu.",
   paraGraph3:
     "Os ydych ar hyn o bryd yn ymwneud â Threfniadau Plant, Camau Gwaharddedig neu achosion Gorchymyn Materion Penodol ar gyfer yr un plentyn neu blant, gallwch wneud cais i'r un llys gan ddefnyddio ffurflen C2. Gwnewch yn siŵr eich bod yn nodi rhif yr achos pan fyddwch yn cyflwyno'r ffurflen.",
-  paraGraph4: `You will need to pay the court fee of £232 before your application can be processed. 
-  You may be able to get help with making this payment. 
-  See the guidance on <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link app-link--inverted" target="_blank" rel="external">help i dalu ffioedd</a>. - welsh`,
+  paraGraph4: `Bydd angen i chi dalu ffi llys o £232 cyn y gellir prosesu eich cais. 
+  Mae'n bosib y gallwch gael help i wneud y taliad hwn.  
+  Gweler y canllawiau ar <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link app-link--inverted" target="_blank" rel="external">help i dalu ffioedd</a>.`,
   btnText: 'Parhau',
   btnLinkText: 'Yn ôl',
   firstList: [
@@ -56,7 +56,7 @@ const cy = () => ({
   ],
   secondList: [
     "cytundeb ysgrifenedig i'r llys ffurfioli, os ydych yn gwneud cais am orchymyn cydsynio",
-    'documentation for the <a href="https://www.gov.uk/litigation-friend/apply" class="govuk-link app-link--inverted" target="_blank" rel="external">litigation friend</a> if any of the people making the application are under 18 years old - welsh',
+    'ddogfennaeth ar gyfer y<a href="https://www.gov.uk/litigation-friend/apply" class="govuk-link app-link--inverted" target="_blank" rel="external">cyfaill cyfreitha</a> os oes unrhyw un o\'r bobl sy\'n gwneud y cais o dan 18 oed',
   ],
 });
 
