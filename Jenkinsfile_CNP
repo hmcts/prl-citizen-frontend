@@ -44,10 +44,14 @@ env.LAUNCH_DARKLY_OFFLINE_MODE = false
 
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
+  enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
 
+  onMaster {
+    env.PACT_TAG = 'master'
+  }
   afterAlways('build') {
     yarnBuilder.yarn('build')
   }
