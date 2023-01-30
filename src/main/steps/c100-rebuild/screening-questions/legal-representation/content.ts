@@ -22,16 +22,16 @@ export const en = () => ({
 
 export const cy = () => ({
   serviceName: 'Trefniadau plant',
-  title: 'Will you be using a legal representative in these proceedings? - welsh',
-  one: 'Yes - welsh',
-  two: 'No - welsh',
-  findLegalRepresentationLabel: 'Find legal representation - welsh',
+  title: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
+  one: 'Byddaf',
+  two: 'Na fyddaf',
+  findLegalRepresentationLabel: 'Dod o hyd i gynrychiolydd cyfreithiol',
   findLegalRepresentationLink: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
-  legalAidLabel: 'Do you need legal aid? - welsh',
+  legalAidLabel: 'A oes arnoch chi angen cymorth cyfreithiol?',
   legalAidLink: 'https://www.gov.uk/legal-aid',
   errors: {
     sq_legalRepresentation: {
-      required: 'Select yes if you will be using a legal representative in these proceedings - welsh',
+      required: 'Dewiswch ‘byddaf’ os byddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn',
     },
   },
 });

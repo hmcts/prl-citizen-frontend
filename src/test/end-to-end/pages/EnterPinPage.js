@@ -15,6 +15,7 @@ module.exports = {
   async enterPin() {
     await I.retry(retryCount).amOnPage(`${process.env.PRL_CITIZEN_URL}`);
     try {
+      I.wait('2');
       await I.retry(retryCount).click('Accept analytics cookies');
       await I.retry(retryCount).click('Hide this message');
       await I.runAccessibilityTest();

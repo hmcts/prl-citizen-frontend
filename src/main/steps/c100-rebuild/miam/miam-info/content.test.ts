@@ -55,9 +55,9 @@ const cy = {
   serviceName: 'Trefniadau plant',
   title: 'Mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
   paragraph1:
-    'Before completing this application you’re legally required to attend a Mediation Information and Assessment Meeting (MIAM), unless <a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" target="_blank" aria-label=" you’re exempt."> you’re exempt.</a> - welsh',
+    'Cyn gallu cwblhau’r cais hwn, mae  gofyniad cyfreithiol i chi fynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM), oni <a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" target="_blank" aria-label=" you’re exempt.">bai eich bod wedi\'ch heithrio.</a>',
   paragraph2:
-    'A <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr> is a meeting where you\'ll be given information about <a href="https://helpwithchildarrangements.service.justice.gov.uk/professional-mediation" class="govuk-link" target="_blank" aria-label="mediation,"> mediation,</a> and other ways to reach an agreement without going to court. A mediator will discuss with you whether these options are suitable for your case. - welsh',
+    'Cyfarfod lle byddwch yn cael gwybodaeth am <a href="https://helpwithchildarrangements.service.justice.gov.uk/professional-mediation" class="govuk-link" target="_blank" aria-label="mediation,">gyfryngu</a> yw <abbr title="Mediation Information and Assessment Meeting"> MIAM</abbr>, a ffyrdd eraill o ddod i gytundeb heb fynd i\'r llys. Bydd cyfryngwr yn trafod gyda chi a yw\'r opsiynau hyn yn addas ar gyfer eich achos.',
   legalAidLink:
     '<a href="https://www.gov.uk/check-legal-aid" class="govuk-link" target="_blank" aria-label="Check if you’re eligible for legal aid during mediation">Gwiriwch a ydych yn gymwys i gael cymorth cyfreithiol yn ystod cyfryngu</a>',
   miamMeeting:
@@ -76,7 +76,7 @@ const cy = {
   ],
   line1: 'Yn y <abbr title="Mediation Information and Assessment Meeting">MIAM</abbr>, bydd y cyfryngwr yn egluro:',
   line2:
-    'Your mediator will also discuss the <a href="https://www.gov.uk/guidance/family-mediation-voucher-scheme" class="govuk-link" target="_blank" aria-label="Family Mediation Voucher Scheme">Family Mediation Voucher Scheme</a> with you if you are eligible. - welsh',
+    'Bydd eich cyfryngwr hefyd yn trafod y <a href="https://www.gov.uk/guidance/family-mediation-voucher-scheme" class="govuk-link" target="_blank" aria-label="Family Mediation Voucher Scheme">Cynllun Talebau Cyfryngu i Deuluoedd</a> gyda chi os ydych yn gymwys.',
   line3Link:
     '<a href="https://www.familymediationcouncil.org.uk/find-local-mediator/" class="govuk-link" target="_blank" aria-label="Find a mediator to book a MIAM">Dod o hyd i gyfryngwr i drefnu MIAM</a>',
   line4:

@@ -54,7 +54,7 @@ const cy = {
   remove: 'Dileu',
   errors: {
     document: {
-      required: 'Please choose a file. - welsh',
+      required: 'Dewiswch ffeil.',
       multipleFiles:
         "Dim ond un ffeil y gallwch ei llwytho. Os ydych yn dymuno llwytho ffeil newydd, dylech ddileu'r ffeil bresennol a llwytho un newydd.",
       fileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",

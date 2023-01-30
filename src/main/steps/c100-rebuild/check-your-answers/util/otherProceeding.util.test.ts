@@ -9,6 +9,7 @@ import {
 } from './otherProceeding.util';
 
 describe('test cases for otherProceedingsContents', () => {
+  const language = 'en';
   const contentLoaders = SystemLanguage => {
     const opContents = {
       en: () => {
@@ -144,7 +145,7 @@ describe('test cases for otherProceedingsContents', () => {
     const keys = {};
     const URLS = Urls;
     const sessionKey = 'op_courtProceedingsOrders';
-    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, URLS, sessionKey)).not.toBe([]);
+    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, URLS, sessionKey, language)).not.toBe([]);
   });
 
   test('IndividualOrderFieldsParser', () => {
@@ -157,6 +158,6 @@ describe('test cases for otherProceedingsContents', () => {
       copyOfOrderLabel: '',
       orderEndDate: '',
     };
-    expect(IndividualOrderFieldsParser(keys, order)).not.toBe([]);
+    expect(IndividualOrderFieldsParser(keys, order, language)).not.toBe([]);
   });
 });

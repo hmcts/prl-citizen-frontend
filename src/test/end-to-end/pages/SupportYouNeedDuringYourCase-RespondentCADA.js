@@ -3,7 +3,9 @@ const retryCount = 3;
 
 module.exports = {
   async clickCADARespondent() {
-    await I.retry(retryCount).click('#main-content > div > div.govuk-grid-column-two-thirds > a:nth-child(7)');
+    I.wait('2');
+    await I.retry(retryCount).waitForText('DA Applicant');
+    await I.retry(retryCount).click('#main-content > div > div.govuk-grid-column-two-thirds > a:nth-child(5)');
     I.wait('2');
   },
 
@@ -23,13 +25,14 @@ module.exports = {
     await I.retry(retryCount).waitForText('Do you have any language requirements?');
     await I.retry(retryCount).click('#respondentLangRequirements');
     await I.retry(retryCount).click('#respondentLangRequirements-2');
+    await I.retry(retryCount).click('#respondentLangRequirements-3');
     await I.retry(retryCount).fillField('#respondentLangDetails', 'Test Language Details');
     await I.retry(retryCount).click('Save and continue');
     I.wait('2');
   },
 
   async specialArrangements() {
-    await I.retry(retryCount).waitForText('Do you or the children need special safety arrangements at court?');
+    await I.retry(retryCount).waitForText('Do you or the children need special arrangements at court?');
     await I.retry(retryCount).click('#respondentSpecialArrangements');
     await I.retry(retryCount).click('#respondentSpecialArrangements-2');
     await I.retry(retryCount).click('#respondentSpecialArrangements-3');

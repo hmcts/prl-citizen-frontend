@@ -33,10 +33,10 @@ const cy = {
   provideDetails: 'Rhowch fanylion',
   errors: {
     ie_internationalStart: {
-      required: 'Select yes if the children live outside of England or Wales - Welsh',
+      required: "Dewiswch 'ydy' os yw'r plant yn byw y tu allan i Gymru neu Loegr",
     },
     ie_provideDetailsStart: {
-      required: 'Provide details about the children living outside of England or Wales - Welsh',
+      required: "Darparwch fanylion am y plant sy'n byw y tu allan i Gymru neu Loegr",
     },
   },
 };
