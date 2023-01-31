@@ -35,7 +35,10 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
           });
         } else {
           if (req.url.includes('support-you-need-during-case')) {
-            req.session.userCase.respondentsFL401!.response = setSupportDetails(req);
+            req.session.userCase.respondentsFL401!.response = {
+              ...req.session.userCase.respondentsFL401!.response,
+              ...setSupportDetails(req),
+            };
           }
         }
       } else if (req.url.includes('applicant')) {

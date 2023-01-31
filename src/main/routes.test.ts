@@ -87,7 +87,7 @@ const mockRespondentTaskListGetController = jest.fn();
 jest.mock('../main/steps/respondent/task-list/get', () => {
   return {
     RespondentTaskListGetController: jest.fn().mockImplementation(() => {
-      return { get: mockRespondentTaskListGetController };
+      return { load: mockRespondentTaskListGetController };
     }),
   };
 });
