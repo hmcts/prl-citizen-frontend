@@ -9,6 +9,7 @@ let updatedForm: FormContent;
 const en = () => ({
   title: 'Enter the names of the children',
   subTitle: 'Only include the children you’re making this application about',
+  Child: 'Child ',
   firstNameLabel: 'First name(s)',
   firstNameHint: 'Include all middle names here',
   lastNameLabel: 'Last name(s)',
@@ -30,6 +31,7 @@ const en = () => ({
 const cy = () => ({
   title: 'Nodwch enwau’r plant',
   subTitle: 'Dylech ond gynnwys y plant sy’n destun y cais rydych yn ei wneud',
+  Child: 'Plentyn ',
   firstNameLabel: 'Enw(au) cyntaf',
   firstNameHint: 'Dylech gynnwys yr holl enwau canol yma',
   lastNameLabel: 'Cyfenw(au)',
@@ -80,7 +82,7 @@ export const generateFormFields = (children: ChildrenDetails[]): GenerateDynamic
 
     fields[key] = {
       type: 'fieldset',
-      label: () => `Child ${count}`,
+      label: l => l.Child + count,
       classes: 'govuk-fieldset__legend--m',
       subFields: {
         [`firstName-${count}`]: {
