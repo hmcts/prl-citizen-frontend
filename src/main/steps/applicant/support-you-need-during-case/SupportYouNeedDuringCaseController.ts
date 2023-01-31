@@ -2,7 +2,6 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
-import { Case } from '../../../app/case/case';
 import { Applicant, Respondent } from '../../../app/case/definition';
 import { toApiFormat } from '../../../app/case/to-api-format';
 import type { AppRequest } from '../../../app/controller/AppRequest';
@@ -84,36 +83,6 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
       req.session.save(() => res.redirect(return_url));
     } catch (err) {
       throw new Error('SafetyConcernsPostController - Case could not be updated.');
-    }
-  }
-
-  private getSupportYouNeedForApplicant(req: AppRequest<Partial<Case>>) {
-    if ('C100' === req.session.userCase.caseTypeOfApplication) {
-      req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
-        if (applicant?.value?.user?.idamId === req.session?.user.id) {
-          if (req.url.includes('support-you-need-during-case')) {
-            applicant.value.response = setSupportDetails(req);
-          }
-        }
-      });
-    } else {
-      if (req.url.includes('support-you-need-during-case')) {
-        req.session.userCase.applicantsFL401!.response = setSupportDetails(req);
-      }
-    }
-  }
-
-  private getSupportYouneedForRespondent(req: AppRequest<Partial<Case>>) {
-    if ('C100' === req.session.userCase.caseTypeOfApplication) {
-      req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-        if (req.url.includes('support-you-need-during-case')) {
-          respondent.value.response = setSupportDetails(req);
-        }
-      });
-    } else {
-      if (req.url.includes('support-you-need-during-case')) {
-        req.session.userCase.respondentsFL401!.response = setSupportDetails(req);
-      }
     }
   }
 }

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CaseWithId } from '../../../../app/case/case';
-import { SupportYouNeedAllEnum } from '../../../../app/case/definition';
 import { PageContent } from '../../../../app/controller/GetController';
 import {
   GovUkNunjucksSummary,
