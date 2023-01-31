@@ -156,69 +156,6 @@ export interface ReasonableAdjustmentsSupport {
   differentChairDetails?: string,
 }
 
-export const SupportYouNeedAllEnum = {
-  videohearings : 'Yes, I can take part in video hearings',
-  phonehearings : 'Yes, I can take part in phone hearings',
-  nohearings : 'No, I cannot take part in either video or phone hearings',
-  //Travelling
-  parkingspace : 'Parking space close to the venue',
-  stepfree : 'Step free / wheelchair access',
-  wheelchair : 'Use of venue wheelchair',
-  toilet : 'Accessible toilet',
-  lift : 'Help using a lift',
-  differentchair : 'A different type of chair',
-  building : 'Guiding in the building',
-  other : 'Other',
-  //Help Coomunication
-  hearingloop : 'Hearing loop (hearing enhancement system)',
-  infraredreceiver : 'Infrared receiver (hearing enhancement system)',
-  needspeakinghelp : 'Need to be close to who is speaking',
-  lipspeaker : 'Lip speaker',
-  signlanguage : 'Sign Language interpreter',
-  speechreporter : 'Speech to text reporter (palantypist)',
-  extratime : 'Extra time to think and explain myself',
-  courtvisit : 'Visit to court before the hearing',
-  courthearing : "Explanation of the court and who's in the room at the hearing",
-  intermediary : 'Intermediary',
-  nosupport : 'No, I do not need any support at this time',
-  //Court comfort
-  appropriatelighting : 'Appropriate lighting',
-  breaks : 'Regular breaks',
-  space : 'Space to be able to get up and move around',
-  //Safety Arrangements
-  waitingroom: 'Separate waiting room',
-  separateexitentry: 'Separate exits and entrances',
-  screens: 'Screens so you and the other people in the case cannot see each other',
-  separatetoilets: 'Separate toilets',
-  visitToCourt: 'Visit to court before the hearing',
-  videolinks : 'Video links',
-  noSafetyrequirements : 'No, I do not have any safety requirements at this time',
-  //Docs support
-  docsreadformat: 'Documents in an easy read format',
-  brailledocs : 'Braille documents',
-  largeprintdocs : 'Documents in large print',
-  docsaudio : 'Audio translation of documents',
-  docsReadOut : 'Documents read out to me',
-  emailInfo : 'Information emailed to me',
-  docsprint : 'Documents in a specified colour',
-  //Reasonable adjustments
-  docsformat: 'I need documents in an alternative format',
-  commhelp: 'I need help communicating and understanding',
-  hearingsupport: 'I need to bring support with me to a hearing',
-  hearingcomfort: 'I need something to feel comfortable during a hearing',
-  travellinghelp: 'I need help travelling to, or moving around court buildings',
-  //court support
-  supportworker: 'A support worker or carer',
-  familymember: 'A friend or family member',
-  assistance: 'Assistance / guide dog',
-  animal: 'Therapy animal',
-  //languagerequirements
-  speakwelsh: 'I need to speak in Welsh',
-  readandwritewelsh: 'I need to read and write in Welsh',
-  languageinterpreter: 'I need an interpreter in a certain language',
-  nointerpreter: 'No, I do not have any language requirements at this time',
-}
-
 export interface CurrentOrPreviousProceedings {
   haveChildrenBeenInvolvedInCourtCase?: YesOrNo;
   courtOrderMadeForProtection?: YesOrNo;
