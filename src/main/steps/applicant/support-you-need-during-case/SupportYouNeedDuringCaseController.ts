@@ -29,7 +29,10 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
           req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
             //if (respondent?.value?.user?.idamId === req.session?.user.id) {
             if (req.url.includes('support-you-need-during-case')) {
-              respondent.value.response = setSupportDetails(req);
+              respondent.value.response = {
+                ...respondent.value.response,
+                ...setSupportDetails(req),
+              };
             }
             //}
           });
@@ -46,13 +49,19 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
           req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
             if (applicant?.value?.user?.idamId === req.session?.user.id) {
               if (req.url.includes('support-you-need-during-case')) {
-                applicant.value.response = setSupportDetails(req);
+                applicant.value.response = {
+                  ...applicant.value.response,
+                  ...setSupportDetails(req),
+                };
               }
             }
           });
         } else {
           if (req.url.includes('support-you-need-during-case')) {
-            req.session.userCase.applicantsFL401!.response = setSupportDetails(req);
+            req.session.userCase.applicantsFL401!.response = {
+              ...req.session.userCase.applicantsFL401!.response,
+              ...setSupportDetails(req),
+            };
           }
         }
       }
