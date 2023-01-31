@@ -26,9 +26,45 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
       Object.assign(req.session.userCase, caseDataFromCos);
       if (req.url.includes('respondent') || req.url.includes('tasklistresponse')) {
-        this.getSupportYouneedForRespondent(req);
+        if ('C100' === req.session.userCase.caseTypeOfApplication) {
+          req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
+            //if (respondent?.value?.user?.idamId === req.session?.user.id) {
+            if (req.url.includes('support-you-need-during-case')) {
+              respondent.value.response = {
+                ...respondent.value.response,
+                ...setSupportDetails(req),
+              };
+            }
+            //}
+          });
+        } else {
+          if (req.url.includes('support-you-need-during-case')) {
+            req.session.userCase.respondentsFL401!.response = {
+              ...req.session.userCase.respondentsFL401!.response,
+              ...setSupportDetails(req),
+            };
+          }
+        }
       } else if (req.url.includes('applicant')) {
-        this.getSupportYouNeedForApplicant(req);
+        if ('C100' === req.session.userCase.caseTypeOfApplication) {
+          req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
+            if (applicant?.value?.user?.idamId === req.session?.user.id) {
+              if (req.url.includes('support-you-need-during-case')) {
+                applicant.value.response = {
+                  ...applicant.value.response,
+                  ...setSupportDetails(req),
+                };
+              }
+            }
+          });
+        } else {
+          if (req.url.includes('support-you-need-during-case')) {
+            req.session.userCase.applicantsFL401!.response = {
+              ...req.session.userCase.applicantsFL401!.response,
+              ...setSupportDetails(req),
+            };
+          }
+        }
       }
       const caseData = toApiFormat(req?.session?.userCase);
       caseData.id = caseReference;

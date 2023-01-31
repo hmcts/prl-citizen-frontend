@@ -180,7 +180,7 @@ export const getFinalApplicationStatus = (
   userCase: Partial<CaseWithId> | undefined,
   userIdamId: string
 ): SectionStatus => {
-  let result = SectionStatus.DOWNLOAD;
+  let result = SectionStatus.READY_TO_VIEW;
 
   if (!userCase?.finalDocument?.document_binary_url) {
     return SectionStatus.NOT_AVAILABLE_YET;
@@ -275,5 +275,16 @@ export const getRespondentPartyDetailsCa = (userCase: Partial<CaseWithId>, userI
   return undefined;
 };
 
-export const isApplicationResponded = (userCase: Partial<CaseWithId>): boolean =>
-  userCase?.citizenResponseC7DocumentList ? userCase.citizenResponseC7DocumentList.length > 0 : false;
+export const isApplicationResponded = (userCase: Partial<CaseWithId>, userId: string): boolean => {
+  if (userCase?.citizenResponseC7DocumentList?.length) {
+    return !!userCase.respondents?.find(respondent => {
+      if (respondent.value.user.idamId === userId) {
+        return userCase.citizenResponseC7DocumentList!.find(
+          responseDocument => responseDocument.value.createdBy === respondent.id
+        );
+      }
+    });
+  }
+
+  return false;
+};
