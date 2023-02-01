@@ -49,7 +49,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Safety concerns - welsh',
+  title: 'Pryderon diogelwch',
   title_desc:
     'The court needs to know about any violent or abusive behaviour that puts you or the children at risk of harm. - welsh',
   heading1: 'Abusive behaviour - welsh',

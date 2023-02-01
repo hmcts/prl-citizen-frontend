@@ -94,7 +94,7 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Current or previous proceedings',
+  section: 'Achos cyfredol neu flaenorol',
   title: 'Provide details of court cases you or the children have been involved in',
   emergencyOrder: 'Emergency Protection Order',
   caseno: 'Case number',
@@ -121,7 +121,7 @@ const cyContent = {
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
   courtOrderDontKnow: "I don't know",
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   saveAndContinue: 'Save and continue',
   errors: {
     emergencyOrderOptions: {

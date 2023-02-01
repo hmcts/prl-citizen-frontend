@@ -488,7 +488,7 @@ const cyContent: typeof enContent = {
   title: 'Gwirio eich atebion',
   title2: 'Current or previous court cases',
   sectionTitles: {
-    applicationDetails: 'Application details',
+    applicationDetails: 'Manylion y cais',
   },
   keys: {
     proceedingsStart: 'Have the children been involved in a court case?',

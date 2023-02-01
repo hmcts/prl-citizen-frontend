@@ -25,7 +25,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Current or previous proceedings',
+  section: 'Achos cyfredol neu flaenorol',
   title: 'Have you or the children ever been involved in court proceedings?',
   courtCase: 'Have the children been involved in a court case?',
   courtCaseYes: 'Yes',
@@ -34,7 +34,7 @@ const cy: typeof en = {
   courtOrder: 'Have you had a court order made for your protection?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   saveAndContinue: 'Save and continue',
   errors: {
     proceedingsStart: {

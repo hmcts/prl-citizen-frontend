@@ -31,7 +31,7 @@ const cyContent = {
   two: 'No',
   twoHint:
     'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   continue: 'Continue',
   errors: {
     request: {

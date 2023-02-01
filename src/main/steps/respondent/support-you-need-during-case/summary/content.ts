@@ -136,13 +136,13 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers ',
-  title: 'Your hearing needs and requirments',
+  section: 'Gwirio eich atebion',
+  title: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
-    aboutYou: 'About you',
+    aboutYou: 'Amdanoch chi',
   },
   keys: {
-    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
+    attendingToCourt: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
     hearingDetails: 'Please provide the details',
     languageRequirements: 'Do you have any language requirements?',
     languageDetails: 'Please provide language details',

@@ -34,7 +34,7 @@ const en = {
 
 const cy = {
   serviceName: 'Child Arrangements - Welsh',
-  title: 'Safety Concerns - Welsh',
+  title: 'Pryderon diogelwch',
   headingTitle: 'Do you have any concerns for your safety or the safety of the children? - Welsh',
   paragraph1: '<p> You may have concerns about current, or future safety. </p> - Welsh',
   paragraph2:

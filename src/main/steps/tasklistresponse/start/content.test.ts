@@ -21,11 +21,11 @@ const enContent = {
 const cyContent = {
   title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
   statuses: {
-    [SectionStatus.COMPLETED]: 'Wedi cwblhau',
+    [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
-    [SectionStatus.READY_TO_VIEW]: 'Ready to view (in Welsh)',
-    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet  (in Welsh)',
+    [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,

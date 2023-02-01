@@ -30,7 +30,7 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Safety concerns',
+  section: 'Pryderon diogelwch',
   title: 'Your safety',
   line1: 'What you told us',
   line2: 'You have not suffered or are not at risk of suffering: ',
@@ -49,7 +49,7 @@ const cyContent = {
   line14: 'If you are a man and have concerns for your safety',
   line15: 'National Domestic Violence Helpline',
   line16: 'If you want to change your answer, go back to the previous screen.',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   continue: 'Continue',
   goBack: 'Go back',
 };
