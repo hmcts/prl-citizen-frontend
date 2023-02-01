@@ -24,8 +24,7 @@ const cy = () => ({
   howToReportChildAbuseHyperLink: 'https://www.gov.uk/report-child-abuse - welsh',
   howToReportChildAbuseLabel: 'How to report child abuse - welsh',
   nationalSocietyPreventionCrueltyHyperLink: 'https://www.nspcc.org.uk - welsh',
-  nationalSocietyPreventionCrueltyChildrenLabel:
-    'NSPCC: National Society for the Prevention of Cruelty to Children - welsh',
+  nationalSocietyPreventionCrueltyChildrenLabel: 'NSPCC: Cymdeithas Genedlaethol er Atal Creulondeb i Blant',
   childlineHyperLink: 'https://www.childline.org.uk - welsh',
   childlineLabel: 'Childline - welsh',
   supportDirectoryHyperLink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help - welsh',
