@@ -1,7 +1,7 @@
 Feature('C100 Rebuild - with urgency flow');
 
 Scenario('C100 Rebuild - urgent hearing flow',  async ({ I }) => {
-    await I.loginAsCitizenUserNamePassWord();
+    await I.loginAsCitizen();
     await I.createC100Application();
     await I.addCaseNameAndPostCode();
     await I.screeningQuestions();

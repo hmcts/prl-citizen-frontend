@@ -6,7 +6,6 @@ const ConsentToApplication = require('./pages/ConsentToApplication');
 const SupportYouNeedApplicant = require('./pages/SupportYouNeedDuringYourCase-Applicant');
 const SupportYouNeedRespondent = require('./pages/SupportYouNeedDuringYourCase-RespondentCADA');
 const UploadDocuments = require('./pages/uploadDocuments');
-const CitizenLoginPage = require('./pages/C100-Rebuild/CitizenLoginPage');
 const CreateApplication = require('./pages/C100-Rebuild/CreateApplication');
 const CaseNameAndPostCode = require('./pages/C100-Rebuild/CaseNameAndPostCode');
 const ScreeningQuestions = require('./pages/C100-Rebuild/ScreeningQuestions'); 
@@ -53,9 +52,6 @@ module.exports = () => {
     },
     uploadDocuments () {
       return UploadDocuments.clickUploadDocuments();
-    },
-    loginAsCitizenUserNamePassWord() {
-      return CitizenLoginPage.loginAsCitizenUserNamePassWord();
     },
     createC100Application() {
       return CreateApplication.createNewC100Application();
