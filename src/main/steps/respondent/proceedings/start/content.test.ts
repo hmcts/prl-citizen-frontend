@@ -27,7 +27,7 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Current or previous proceedings',
+  section: 'Achos cyfredol neu flaenorol',
   title: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
   courtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
   courtCaseYes: 'Yes',
@@ -36,7 +36,7 @@ const cyContent = {
   courtOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   saveAndContinue: 'Save and continue',
   errors: {
     proceedingsStart: {

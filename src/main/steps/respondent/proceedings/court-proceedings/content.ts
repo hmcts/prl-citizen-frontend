@@ -94,7 +94,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Current or previous proceedings',
+  section: 'Achos cyfredol neu flaenorol',
   title: "Darparwch fanylion am achosion llys rydych chi neu'r plant wedi bod yn rhan ohonynt",
   emergencyOrder: 'Gorchymyn Diogelu Brys',
   caseno: 'Case number',
@@ -121,7 +121,7 @@ const cy: typeof en = {
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
   courtOrderDontKnow: "I don't know",
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   saveAndContinue: 'Save and continue',
   errors: {
     emergencyOrderOptions: {

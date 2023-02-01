@@ -35,7 +35,7 @@ const cy: typeof en = {
   courtOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   onlyContinue: 'Continue',
   errors: {
     proceedingsStart: {

@@ -37,20 +37,20 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Reasonable adjustments',
-  title: 'I need help travelling to, or moving around court buildings',
-  optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
-  parkingspace: 'Parking space close to the venue',
-  stepfree: 'Step free / wheelchair access',
-  wheelchair: 'Use of venue wheelchair',
-  toilet: 'Accessible toilet',
-  lift: 'Help using a lift',
-  differentchair: 'A different type of chair',
-  building: 'Guiding in the building',
-  other: 'Other',
+  section: 'Addasiadau rhesymol',
+  title: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
+  optionHint: "Dewiswch bob un sy'n berthnasol i chi",
+  summaryText: 'Cysylltiadau am gymorth',
+  parkingspace: "Lle parcio yn agos i'r lleoliad",
+  stepfree: 'Dim grisiau / mynediad ar gyfer cadair olwyn',
+  wheelchair: 'Y gallu i ddefnyddio cadair olwyn a geir yn y lleoliad',
+  toilet: 'Toiledau hygyrch',
+  lift: 'Help i ddefnyddio lifft',
+  differentchair: 'Math gwahanol o gadair',
+  building: 'Cymorth i fynd o amgylch yr adeilad',
+  other: 'Arall',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   continue: 'Continue',
   errors: {
     travellingToCourt: {

@@ -31,7 +31,7 @@ const cyContent = {
   explainWhyLabel: 'Explain why',
   miamCostExemptionsLabel: 'Help gyda chostau ac esemptiadau MIAM',
   threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   onlyContinue: 'Continue',
   errors: {
     miamWillingness: {

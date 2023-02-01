@@ -91,10 +91,10 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
-  title: 'Your hearing needs and requirements',
+  section: 'Gwirio eich atebion',
+  title: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
-    aboutYou: 'About you',
+    aboutYou: 'Amdanoch chi',
   },
 
   keys: {

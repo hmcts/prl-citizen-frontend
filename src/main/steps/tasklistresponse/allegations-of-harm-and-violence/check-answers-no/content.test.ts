@@ -15,10 +15,10 @@ const enContent = {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
-  title: 'Safety concerns',
+  section: 'Gwirio eich atebion',
+  title: 'Pryderon diogelwch',
   sectionTitles: {
-    applicationDetails: 'Application details',
+    applicationDetails: 'Manylion y cais',
   },
   keys: {
     PRL_c1A_haveSafetyConcerns: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',

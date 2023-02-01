@@ -32,7 +32,7 @@ const cyContent = {
   two: 'No',
   twoHint:
     'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   continue: 'Continue',
   errors: {
     jurisdiction: {

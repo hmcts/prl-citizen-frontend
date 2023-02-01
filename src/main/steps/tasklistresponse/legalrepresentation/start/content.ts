@@ -24,7 +24,7 @@ const cy: typeof en = {
     "Gallwch ymateb i gais y ceisydd eich hun ac yna ailgyfeirio eich achos i'ch cynrychiolydd cyfreithiol am weddill yr achos.",
   one: 'Byddaf',
   two: 'Na fyddaf',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   continue: 'Save and continue',
   errors: {
     legalRepresentation: {

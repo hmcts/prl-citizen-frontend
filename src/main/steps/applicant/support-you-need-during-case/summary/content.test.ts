@@ -69,10 +69,10 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Check your answers',
-  title: 'Your hearing needs and requirements',
+  section: 'Gwirio eich atebion',
+  title: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
-    aboutYou: 'About you',
+    aboutYou: 'Amdanoch chi',
   },
   keys: {
     communicationSupportOther: 'Describe what you need',

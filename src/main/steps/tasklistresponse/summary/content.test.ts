@@ -5,11 +5,11 @@ import { CommonContent } from '../../common/common.content';
 import { enContent, generateContent } from './content';
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
+  section: 'Gwirio eich atebion',
   title: 'Please review your answers before you complete your response.',
   title2: 'Current or previous court cases',
   sectionTitles: {
-    title: '4. Application details',
+    title: '4. Manylion y cais',
   },
   statementOfTruth: 'Statement of truth',
   warning: 'Warning',

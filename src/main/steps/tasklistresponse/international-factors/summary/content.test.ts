@@ -25,7 +25,7 @@ const cy: typeof en = {
   title: 'Gwirio eich atebion',
   title2: 'Elfennau rhyngwladol',
   sectionTitles: {
-    respondentAdditionalInformation: 'International elements',
+    respondentAdditionalInformation: 'Elfennau rhyngwladol',
   },
   keys: {
     jurisdiction:

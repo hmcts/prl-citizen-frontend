@@ -41,7 +41,7 @@ const cy: typeof en = {
   miamCostExemptionsInfo: miam_cost_exemption_content_cy,
   miamLabel: miam_how_to_arrange_mediation_label_cy,
   threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   onlyContinue: 'Continue',
   errors: {
     miamWillingness: {

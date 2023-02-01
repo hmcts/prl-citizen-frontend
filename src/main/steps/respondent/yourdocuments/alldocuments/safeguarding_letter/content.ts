@@ -14,11 +14,11 @@ const en = () => {
 
 const cy: typeof en = () => {
   return {
-    section: 'All documents',
+    section: 'Pob dogfen',
     title: 'Safeguarding Letter',
     threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
-    caseNumber: 'Case number',
+    summaryText: 'Cysylltiadau am gymorth',
+    caseNumber: 'Rhif yr achos',
     continue: 'Go back',
   };
 };

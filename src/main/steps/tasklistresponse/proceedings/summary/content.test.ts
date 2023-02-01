@@ -397,7 +397,7 @@ const cyContent = {
   title: 'Gwirio eich atebion',
   title2: 'Current or previous court cases',
   sectionTitles: {
-    applicationDetails: 'Application details',
+    applicationDetails: 'Manylion y cais',
   },
   keys: {
     proceedingsStart: "Ydy'r plant wedi bod yn rhan o achos llys?",

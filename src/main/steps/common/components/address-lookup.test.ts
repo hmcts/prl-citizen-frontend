@@ -20,7 +20,7 @@ const enContent = {
 };
 
 const cyContent = {
-  citizenUserAddressPostcode: 'Your current postcode (in welsh)',
+  citizenUserAddressPostcode: 'Eich cod post cyfredol',
   findAddress: 'Find address (in welsh)',
   enterAddressManually: 'I live outisde the UK (in welsh)',
   errors: {

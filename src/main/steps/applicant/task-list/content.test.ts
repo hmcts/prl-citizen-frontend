@@ -23,12 +23,12 @@ const enContent = {
 const cyContent = {
   title: ' ',
   statuses: {
-    [SectionStatus.COMPLETED]: 'Wedi cwblhau',
+    [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'I WNEUD',
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
-    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
-    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
