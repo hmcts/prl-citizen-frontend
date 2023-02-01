@@ -31,12 +31,7 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value:
-        fieldTypes[key] === 'Date'
-          ? getFormattedDate(userCase[key], language)
-          : key === 'startAlternative' && userCase[key] !== 'undefined'
-          ? userCase[key] + getSelectedPrivateDetails(userCase)
-          : userCase[key],
+      value: getFieldValue(fieldTypes, key, userCase, language),
       changeUrl: url,
     };
     if (key !== 'citizenUserSafeToCall') {
@@ -123,6 +118,17 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   tempDetails = tempDetails + '</ul>';
   return tempDetails;
 };
+
+function getFieldValue(fieldTypes: any, key: string, userCase: Partial<CaseWithId>, language: string | undefined) {
+  if (fieldTypes[key] === 'Date') {
+    return getFormattedDate(userCase[key], language);
+  } else if (key === 'startAlternative' && userCase[key] !== 'undefined') {
+    return userCase[key] + getSelectedPrivateDetails(userCase);
+  } else {
+    return userCase[key];
+  }
+}
+
 function getUserCaseUrl(
   userCase: Partial<CaseWithId>,
   isRespondent: boolean | undefined,
