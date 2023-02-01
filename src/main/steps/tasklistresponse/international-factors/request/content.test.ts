@@ -10,15 +10,16 @@ const enContent = {
   one: 'Yes',
   two: 'No',
   twoHint:
-    'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case.',
+    'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     request: {
-      required: 'Please select one of the options before proceeding further',
+      required: 'Select yes if another country has asked (or been asked) for information or help for the children',
     },
     iFactorsRequestProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
+      required:
+        'Provide details about another country asking (or being asked) for information or help for the children',
     },
   },
 };
@@ -29,15 +30,16 @@ const cyContent = {
   one: 'Yes',
   two: 'No',
   twoHint:
-    'This may be due to child protection concerns, the need to enforce an order abroad or to help a court with a request for another case.',
+    'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
   summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     request: {
-      required: 'Please select one of the options before proceeding further',
+      required: 'Select yes if another country has asked (or been asked) for information or help for the children',
     },
     iFactorsRequestProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
+      required:
+        'Provide details about another country asking (or being asked) for information or help for the children',
     },
   },
 };

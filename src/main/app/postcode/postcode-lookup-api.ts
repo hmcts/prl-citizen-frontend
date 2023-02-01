@@ -65,7 +65,7 @@ export const getAddressesFromPostcode = async (postcode: string, logger: LoggerI
   } catch (err) {
     if (err.response?.status === StatusCodes.UNAUTHORIZED) {
       logger.error('Postcode lookup key is invalid', err);
-    } else if (!err.response?.data?.error?.message.includes('postcode must contain a minimum')) {
+    } else if (!err.response?.data?.error?.message?.includes('postcode must contain a minimum')) {
       logger.error('Postcode lookup service error', err);
     }
     return [];

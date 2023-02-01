@@ -76,7 +76,7 @@ export default class ChildDetailsPostController {
 
     req.session.userCase.cd_children = updatePartyDetails(
       {
-        ...getPartyDetails(childId, req.session.userCase.cd_children!),
+        ...getPartyDetails(childId, req.session.userCase.cd_children),
         ...data,
       },
       req.session.userCase.cd_children

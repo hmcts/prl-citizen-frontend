@@ -1,1 +1,14 @@
-{% extends "common/summary/template.njk" %}
+{% extends "common/template.njk" %}
+
+
+{% block content %}
+<h1 class="govuk-heading-xl govuk-!-margin-top-5">{{title}}</h1>
+
+{% block form %}
+  {% include "./form.njk"%}
+{% endblock %}
+
+
+{% block page_contact_us %}
+ {% endblock %}
+  {% endblock %}

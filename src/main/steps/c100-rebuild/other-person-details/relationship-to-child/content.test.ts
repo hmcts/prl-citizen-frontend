@@ -27,6 +27,7 @@ const en = {
     },
     otherRelationshipTypeDetails: {
       required: 'Enter the relationship',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
   },
 };
@@ -50,6 +51,7 @@ const cy = {
     },
     otherRelationshipTypeDetails: {
       required: 'Nodwch y berthynas',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only. - (in Welsh)',
     },
   },
 };
