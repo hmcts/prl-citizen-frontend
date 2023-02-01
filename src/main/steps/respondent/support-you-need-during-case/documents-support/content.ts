@@ -53,7 +53,7 @@ const cy: typeof en = {
   brailleDocs: 'Dogfennau Braille',
   largePrintDocs: 'Dogfennau mewn print bras',
   largePrintDocsDetails: 'Describe what you need',
-  audioTranslation: 'Audio translation of documents',
+  audioTranslation: 'Cyfieithiad sain o ddogfennau',
   docsReadOut: 'Cyfieithiad sain o ddogfennau',
   emailInfo: 'Gwybodaeth yn cael ei hanfon ataf drwy e-bost',
   other: 'Arall',
