@@ -112,7 +112,7 @@ const en = {
 
 const cy: typeof en = {
   section: 'Gwirio eich atebion',
-  title: 'Your hearing needs and requirments',
+  title: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
     aboutYou: 'Amdanoch chi',
   },
