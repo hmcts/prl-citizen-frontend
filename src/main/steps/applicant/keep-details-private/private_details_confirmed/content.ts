@@ -20,9 +20,9 @@ const cy: typeof en = {
   title: 'The court will keep your contact details private',
   line1: 'You have told us you want to keep these contact details private:',
   address: 'Home address',
-  email: 'E-bost',
+  email: 'Email',
   postalAddress: 'Postal address',
-  phone: 'Rhif ffôn',
+  phone: 'Telephone number',
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',

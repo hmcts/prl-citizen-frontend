@@ -38,11 +38,11 @@ const cy = {
   childrenMoreThanOnePassport: 'Do the children have more than one passport? - welsh',
   possessionChildrenPassport: 'Who is in possession of the children’s passports? - welsh',
   select_all_relevant: 'Select all that apply - welsh',
-  one: 'Oes',
-  two: 'Nac oes',
-  option1: 'Mam',
-  option2: 'Tad',
-  option3: 'Arall',
+  one: 'Yes - welsh',
+  two: 'No - welsh',
+  option1: 'Mother - welsh',
+  option2: 'Father - welsh',
+  option3: 'Other - welsh',
   otherDetails: 'Provide more details - welsh',
   errors: {
     PRL_c1A_childrenMoreThanOnePassport: {

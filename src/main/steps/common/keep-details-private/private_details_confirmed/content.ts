@@ -17,7 +17,7 @@ const cy: typeof en = {
   title: 'The court will keep your contact details private',
   line1: 'You have told us you want to keep these contact details private',
   address: 'Address',
-  email: 'E-bost',
+  email: 'Email',
   phoneNumber: 'Phone Number',
   line2: 'What the court will do',
   line3:
