@@ -35,8 +35,8 @@ const en = {
 const cy = {
   serviceName: 'Child Arrangements - Welsh',
   title: 'Pryderon diogelwch',
-  headingTitle: 'Do you have any concerns for your safety or the safety of the children? - Welsh',
-  paragraph1: '<p> You may have concerns about current, or future safety. </p> - Welsh',
+  headingTitle: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+  paragraph1: '<p> Efallai bod gennych bryderon am eich diogelwch ar hyn o bryd, neu eich diogelwch yn y dyfodol. </p>',
   paragraph2:
     '<p> If you or the children have experienced abuse or feel unsafe, support is available. <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" target="_blank" aria-label="See a list of organisations that can help">See a list of organisations that can help</a>. </p> - Welsh',
   listOfOrganisationsHyperlink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help - Welsh',

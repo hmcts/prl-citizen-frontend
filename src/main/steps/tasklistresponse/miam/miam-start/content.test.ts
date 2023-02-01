@@ -24,11 +24,11 @@ const enContent = {
 };
 
 const cyContent = {
-  title: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
+  title: 'A ydych chi wedi mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)?',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
-  miamDetailsLabel: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
+  miamDetailsLabel: 'Beth yw Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)?',
   miamSubFields: miam_collapse_content_cy,
   threeHint: 'This is a 8 character code',
   summaryText: 'Cysylltiadau am gymorth',

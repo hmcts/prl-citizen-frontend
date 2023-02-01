@@ -21,7 +21,7 @@ const cyContent: typeof enContent = {
     applicationDetails: 'Manylion y cais',
   },
   keys: {
-    PRL_c1A_haveSafetyConcerns: 'Do you have any concerns for your safety or the safety of the children?',
+    PRL_c1A_haveSafetyConcerns: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
   },
   errors: {},
 };
