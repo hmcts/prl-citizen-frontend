@@ -1,7 +1,7 @@
 Feature('C100 Rebuild - Basic Miam Document flow');
 
 Scenario('C100 Rebuild - basic miam document journey', async ({ I }) => {
-  await I.loginAsCitizenUserNamePassWord();
+  await I.loginAsCitizen();
   await I.createC100Application();
   await I.addCaseNameAndPostCode();
   await I.screeningQuestions();
