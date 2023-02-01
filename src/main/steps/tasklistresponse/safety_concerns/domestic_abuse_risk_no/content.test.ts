@@ -36,8 +36,8 @@ const cyContent = {
   line2: 'You have not suffered or are not at risk of suffering: ',
   line3: 'psychological abuse',
   line4: 'financial abuse',
-  line5: 'emotional abuse',
-  line6: 'physical abuse',
+  line5: 'cam-drin emosiynol',
+  line6: 'cam-drin corfforol',
   line7: 'sexual abuse',
   line8:
     'Based on your answer, we will not ask you any more questions about domestic violence or abuse. You can continue your response.',
