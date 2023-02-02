@@ -2,6 +2,7 @@
 /* eslint-disable prettier/prettier */
 import { CaseWithId } from '../../../../app/case/case';
 import { PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbout, YesOrNo } from '../../../../app/case/definition';
+import { SummaryList, SummaryListContentWithBoolean, getSectionSummaryList } from '../../../c100-rebuild/check-your-answers/lib/lib';
 import { applyParms } from '../../../common/url-parser';
 import * as Urls from '../../../urls';
 
@@ -9,7 +10,6 @@ import * as Urls from '../../../urls';
 import { HTML } from './common/htmlSelectors';
 import { ANYTYPE } from './common/index';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
-import { SummaryList, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
 // import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
 /* eslint-disable import/namespace */
 

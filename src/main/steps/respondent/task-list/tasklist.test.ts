@@ -53,7 +53,7 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'check_details_of_your_court_hearings',
             text: taskListItems.check_details_of_your_court_hearings,
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             href: '/respondent/yourhearings/hearings',
           },
         ],
@@ -137,7 +137,7 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'check_details_of_your_court_hearings',
             text: taskListItems.check_details_of_your_court_hearings,
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             href: '/respondent/yourhearings/hearings',
           },
         ],
@@ -225,7 +225,7 @@ describe('generateRespondentTaskList', () => {
         title: sectionTitles.yourResponse,
         items: [
           {
-            href: '/tasklistresponse/start/updateFlag',
+            href: '/tasklistresponse/start/flag/updateFlag',
             id: 'respond_to_application',
             status: 'IN_PROGRESS',
             text: 'Respond to the application',
@@ -246,7 +246,7 @@ describe('generateRespondentTaskList', () => {
           {
             href: '/respondent/yourhearings/hearings',
             id: 'check_details_of_your_court_hearings',
-            status: 'NOT_AVAILABLE_YET',
+            status: 'TO_DO',
             text: 'Check details of your court hearings',
           },
         ],

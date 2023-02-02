@@ -92,7 +92,7 @@ export const form: FormContent = {
         {
           name: 'safetyArrangements',
           label: l => l.toilet,
-          value: 'toilet',
+          value: 'separatetoilets',
         },
         {
           name: 'safetyArrangements',
@@ -124,7 +124,7 @@ export const form: FormContent = {
         {
           name: 'safetyArrangements',
           label: l => l.nosupport,
-          value: 'nosupport',
+          value: 'noSafetyrequirements',
           exclusive: true,
         },
       ],

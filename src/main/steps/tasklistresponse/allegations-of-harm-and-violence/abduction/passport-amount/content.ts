@@ -91,17 +91,17 @@ export const form: FormContent = {
         {
           name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option1,
-          value: 'Mother',
+          value: 'mother',
         },
         {
           name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option2,
-          value: 'Father',
+          value: 'father',
         },
         {
           name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option3,
-          value: 'Other',
+          value: 'otherPerson',
           subFields: {
             PRL_c1A_provideOtherDetails: {
               type: 'textarea',

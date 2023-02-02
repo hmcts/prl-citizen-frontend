@@ -127,7 +127,7 @@ describe('task-list > content', () => {
             {
               href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
               id: 'allegations_of_harm_and_violence',
-              status: 'NOT_AVAILABLE_YET',
+              status: 'TO_DO',
               text: 'Allegations of harm and violence',
             },
           ],

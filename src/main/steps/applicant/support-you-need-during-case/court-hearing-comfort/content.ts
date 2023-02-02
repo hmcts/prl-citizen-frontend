@@ -73,7 +73,7 @@ export const form: FormContent = {
         {
           name: 'courtComfort',
           label: l => l.appropriatelighting,
-          value: 'appropriate lighting',
+          value: 'appropriatelighting',
           subFields: {
             lightingProvideDetails: {
               type: 'textarea',
@@ -89,12 +89,12 @@ export const form: FormContent = {
         {
           name: 'courtComfort',
           label: l => l.break,
-          value: 'Regular breaks',
+          value: 'break',
         },
         {
           name: 'courtComfort',
           label: l => l.space,
-          value: 'space to move around',
+          value: 'space',
         },
         {
           name: 'courtComfort',
@@ -118,7 +118,7 @@ export const form: FormContent = {
         {
           name: 'courtComfort',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],

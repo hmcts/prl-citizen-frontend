@@ -97,7 +97,7 @@ export const form: FormContent = {
         {
           name: 'courtHearing',
           label: l => l.supportworker,
-          value: 'support worker or carer',
+          value: 'supportworker',
           subFields: {
             supportWorkerDetails: {
               type: 'textarea',
@@ -113,7 +113,7 @@ export const form: FormContent = {
         {
           name: 'courtHearing',
           label: l => l.familymember,
-          value: 'friend or family member',
+          value: 'familymember',
           subFields: {
             familyProviderDetails: {
               type: 'textarea',
@@ -169,7 +169,7 @@ export const form: FormContent = {
         {
           name: 'courtHearing',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],

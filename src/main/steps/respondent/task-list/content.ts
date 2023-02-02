@@ -19,7 +19,7 @@ import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './ta
 import { getRespondentPartyDetailsCa } from './utils';
 
 const en = () => ({
-  title: '',
+  title: 'Respondent tasklist',
   respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
@@ -137,7 +137,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: '',
+  title: 'Respondent tasklist - welsh',
   respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
