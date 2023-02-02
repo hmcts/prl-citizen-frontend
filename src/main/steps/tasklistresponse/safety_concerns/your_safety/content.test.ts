@@ -16,7 +16,7 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Safety concerns',
+  section: 'Pryderon diogelwch',
   title: 'Your safety',
   line1:
     'The court needs to know if you have suffered, or are at risk of suffering, any form of domestic violence or abuse.',

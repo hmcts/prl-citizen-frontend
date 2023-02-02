@@ -13,7 +13,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  section: 'Upload documents',
+  section: 'Llwytho dogfennau',
   title: 'Select the type of document',
   line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
   sectionTitles: document_list_en,

@@ -19,13 +19,13 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Keeping your contact details private',
+  section: 'Cadw eich manylion cyswllt yn breifat',
   title: 'Do the other people named in this application (the applicants) know any of your contact details?',
   one: 'Yes',
   two: 'No',
   three: "I don't know",
   threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   onlyContinue: 'Continue',
   errors: {
     detailsKnown: {

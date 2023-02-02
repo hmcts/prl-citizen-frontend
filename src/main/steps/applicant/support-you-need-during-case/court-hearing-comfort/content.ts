@@ -30,18 +30,19 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Reasonable adjustments',
-  title: 'I need something to feel comfortable during a court hearing',
-  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
-  optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
-  appropriatelighting: 'Appropriate lighting',
+  section: 'Addasiadau rhesymol',
+  title: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad llys',
+  courtcommunication:
+    'Meddyliwch am yr hyn y byddwch ei angen os bydd eich gwrandawiad yn un wyneb yn wyneb, trwy fideo neu dros y ffôn.',
+  optionHint: "Dewiswch bob un sy'n berthnasol i chi",
+  summaryText: 'Cysylltiadau am gymorth',
+  appropriatelighting: 'Goleuadau priodol',
   appropriateLightingDetails: 'Describe what you need',
-  break: 'Regular breaks',
-  space: 'Space to be able to get up and move around',
-  other: 'Other',
+  break: 'Seibiannau rheolaidd',
+  space: 'Lle i allu codi a symud o gwmpas',
+  other: 'Arall',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any support at this time',
+  nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   continue: 'Continue',
   errors: {
     courtComfort: {
@@ -72,7 +73,7 @@ export const form: FormContent = {
         {
           name: 'courtComfort',
           label: l => l.appropriatelighting,
-          value: 'appropriate lighting',
+          value: 'appropriatelighting',
           subFields: {
             lightingProvideDetails: {
               type: 'textarea',
@@ -88,12 +89,12 @@ export const form: FormContent = {
         {
           name: 'courtComfort',
           label: l => l.break,
-          value: 'Regular breaks',
+          value: 'break',
         },
         {
           name: 'courtComfort',
           label: l => l.space,
-          value: 'space to move around',
+          value: 'space',
         },
         {
           name: 'courtComfort',
@@ -117,7 +118,7 @@ export const form: FormContent = {
         {
           name: 'courtComfort',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],

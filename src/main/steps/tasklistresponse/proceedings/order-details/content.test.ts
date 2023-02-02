@@ -59,23 +59,22 @@ const en = {
 };
 
 const cy = {
-  pageTitle: 'Provide details of court cases you or the children have been involved in - welsh',
-  additionalNote:
-    'If you do not have the specific details, you can skip this section and proceed with the application. - welsh',
-  emergencyProtectionOrderLabel: 'Emergency Protection Order - welsh',
+  pageTitle: "Darparwch fanylion am achosion llys rydych chi neu'r plant wedi bod yn rhan ohonynt",
+  additionalNote: "Os nad oes gennych y manylion penodol, gallwch hepgor yr adran hon a bwrw ymlaen â'r cais.",
+  emergencyProtectionOrderLabel: 'Gorchymyn Diogelu Brys',
   childArrangementOrderLabel: 'Child Arrangements Order - welsh',
-  supervisionOrderLabel: 'Supervision Order - welsh',
-  careOrderLabel: 'Care Order - welsh',
+  supervisionOrderLabel: 'Gorchymyn Goruchwylio',
+  careOrderLabel: 'Gorchymyn Gofal',
   childAbductionOrderLabel: 'Child Abduction Order - welsh',
   contactOrderForDivorceLabel:
-    'A contact or residence order (Section 8 Children Act 1989) made within proceedings for a divorce or dissolution of a civil partnership - welsh',
+    'A contact or residence order (Adran 8 Deddf Plant 1989) made within proceedings for a divorce or dissolution of a civil partnership - welsh',
   contactOrderForAdoptionLabel:
-    'A contact or residence order (Section 8 Children Act 1989) made in connection with an Adoption Order - welsh',
+    'A contact or residence order (Adran 8 Deddf Plant 1989) made in connection with an Adoption Order - welsh',
   childMaintenanceOrderLabel: 'Child Maintenance Order - welsh',
   financialOrderLabel: 'Financial Order - welsh',
-  nonMolestationOrderLabel: 'Non-molestation Order - welsh',
-  occupationOrderLabel: 'Occupation Order - welsh',
-  forcedMarriageProtectionOrderLabel: 'Forced Marriage Protection Order - welsh',
+  nonMolestationOrderLabel: 'Gorchymyn Rhag Molestu',
+  occupationOrderLabel: 'Gorchymyn Anheddu',
+  forcedMarriageProtectionOrderLabel: 'Gorchymyn Amddiffyn rhag Priodas dan Orfod',
   restrainingOrderLabel: 'Restraining Order - welsh',
   otherInjuctionOrderLabel: 'Other Injunction Order - welsh',
   undertakingOrderLabel: 'Undertaking Order - welsh',

@@ -35,7 +35,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Keeping your contact details private',
+  section: 'Cadw eich manylion cyswllt yn breifat',
   title:
     'Do you want to keep your contact details private from the other people named in the application (the applicants)?',
   line1:
@@ -46,8 +46,8 @@ const cy: typeof en = {
   two: 'No',
   three: "I don't know",
   threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
-  address: 'Address',
+  summaryText: 'Cysylltiadau am gymorth',
+  address: 'Cyfeiriad',
   Phone_number: 'Phone number',
   Email: 'Email',
   contact_details_private:

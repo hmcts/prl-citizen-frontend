@@ -32,7 +32,7 @@ const en = {
 
 const cy: typeof en = {
   section: '',
-  title: 'Safety concerns',
+  title: 'Pryderon diogelwch',
   line1: 'The court needs to know if anyone who spends time with the children poses a risk to their safety or yours.',
   line2:
     'We use ‘children’ as a general term to avoid repetition. In this service it applies to whether it is about a child or children.',

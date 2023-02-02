@@ -9,16 +9,17 @@ import { ordinalNumberMap } from '../../../../steps/constants';
 import { Language, generatePageContent } from '../../../common/common.content';
 
 @autobind
-export default class HearingsApplicantGetController extends GetController {
+export default class HearingsGetController {
+  private parent;
   constructor(protected readonly view: string, protected readonly content: TranslationFn) {
-    super(view, content);
+    this.parent = new GetController(view, content);
   }
   public async get(req: AppRequest, res: Response): Promise<void> {
     if (res.locals.isError || res.headersSent) {
       return;
     }
 
-    const language = super.getPreferredLanguage(req) as Language;
+    const language = this.parent.getPreferredLanguage(req) as Language;
 
     const content = generatePageContent({
       language,
