@@ -24,6 +24,13 @@ export const getKeepYourDetailsPrivateStatus = (
   return status;
 };
 
+export const getApplicantViewAllHearingsFromTheCourt = (userCase: CaseWithId): SectionStatus => {
+  if (userCase && userCase.hearingCollection && userCase.hearingCollection.length > 0) {
+    return SectionStatus.READY_TO_VIEW;
+  }
+  return SectionStatus.TO_DO;
+};
+
 export const getConfirmOrEditYourContactDetails = (
   userCase: Partial<CaseWithId> | undefined,
   userIdamId: string
@@ -97,44 +104,18 @@ export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus 
   if (
     userCase?.languageRequirements &&
     userCase?.reasonableAdjustments &&
-    userCase?.helpCommunication &&
-    userCase?.courtHearing &&
-    userCase?.docsSupport &&
-    userCase?.courtComfort &&
     userCase?.safetyArrangements &&
-    userCase?.travellingToCourt &&
-    userCase?.unableForCourtProceedings
+    userCase?.attendingToCourt
   ) {
     return SectionStatus.COMPLETED;
-  }
-  if (
-    userCase?.languageRequirements ||
-    userCase?.languageDetails ||
-    userCase?.reasonableAdjustments ||
-    userCase?.helpCommunication ||
-    userCase?.describeOtherNeed ||
-    userCase?.courtHearing ||
-    userCase?.communicationSupportOther ||
-    userCase?.docsSupport ||
-    userCase?.otherDetails ||
-    userCase?.courtComfort ||
-    userCase?.otherProvideDetails ||
-    userCase?.safetyArrangements ||
-    userCase?.safetyArrangementsDetails ||
-    userCase?.travellingToCourt ||
-    userCase?.travellingOtherDetails ||
-    userCase?.unableForCourtProceedings ||
-    userCase?.courtProceedingProvideDetails
-  ) {
-    return SectionStatus.IN_PROGRESS;
   }
   return SectionStatus.TO_DO;
 };
 
 export const getApplicantPartyDetails = (userCase: Partial<CaseWithId>, userId: string): Applicant | undefined => {
-  for (let i = 0; i < userCase.applicants!.length; i++) {
-    if (userCase.applicants![i].value.user.idamId === userId) {
-      return userCase.applicants![i];
+  for (const userapplicant of userCase.applicants!) {
+    if (userapplicant.value.user.idamId === userId) {
+      return userapplicant;
     }
   }
   return undefined;

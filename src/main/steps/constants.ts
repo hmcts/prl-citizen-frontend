@@ -37,3 +37,31 @@ export const EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement';
 
 export const EVENT_RESPONDENT_MIAM = 'respondentMiam';
 export const UPDATE_CASE_YES = '?updateCase=Yes';
+
+export const ordinalNumberMap = new Map<number, string>([
+  [1, 'First'],
+  [2, 'Second'],
+  [3, 'Third'],
+  [4, 'Fourth'],
+  [5, 'Fifth'],
+  [6, 'Sixth'],
+  [7, 'Seventh'],
+  [8, 'Eighth'],
+  [9, 'Ninth'],
+  [10, 'Tenth'],
+  [11, 'Eleventh'],
+  [12, 'Twelfth'],
+  [13, 'Thirteenth'],
+  [14, 'Fourteenth'],
+  [15, 'Fifteenth'],
+  [16, 'Sixteenth'],
+  [17, 'Seventeenth'],
+  [18, 'Eighteenth'],
+  [19, 'Nineteenth'],
+  [20, 'Twentieth'],
+]);
+
+export const NO_NEED_OF_SUPPORT = 'No, I do not have any language requirements at this time';
+export const NO_NEED_OF_SUPPORT_AT_THIS_TIME = 'No, I do not need any extra support at this time';
+export const NO_I_DO_NOT_NEED_OF_SUPPORT_AT_THIS_TIME = 'I do not need any of this support at this time';
+export const NO_HEARINGS = 'no hearings';

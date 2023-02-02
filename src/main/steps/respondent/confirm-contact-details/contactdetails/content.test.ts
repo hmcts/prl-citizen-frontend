@@ -19,6 +19,9 @@ const en = {
       required: 'Enter a valid email address',
       invalid: 'Enter a valid email address, like name@example.com',
     },
+    citizenUserSafeToCall: {
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
+    },
   },
 };
 

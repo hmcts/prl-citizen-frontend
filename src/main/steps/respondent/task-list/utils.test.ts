@@ -9,6 +9,9 @@ import {
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
+  getUploadDocuments,
+  getViewAllDocuments,
+  getViewAllHearingsFromTheCourt,
   getYourSafetyStatus,
 } from './utils';
 
@@ -82,58 +85,22 @@ describe('utils', () => {
           ...mockUserCase,
           proceedingsStart: undefined,
           proceedingsStartOrder: undefined,
-          emergencyOrderOptions: undefined,
-          supervisionOrderOption: undefined,
-          careOrderOptions: undefined,
-          childAbductionOrderOption: undefined,
-          caOrderOption: undefined,
-          financialOrderOption: undefined,
-          nonmolestationOrderOption: undefined,
-          occupationalOrderOptions: undefined,
-          marraigeOrderOptions: undefined,
-          restrainingOrderOptions: undefined,
-          injuctiveOrderOptions: undefined,
-          underTakingOrderOptions: undefined,
         },
         expected: SectionStatus.TO_DO,
       },
       {
         data: {
           ...mockUserCase,
-          proceedingsStart: 'undefined',
-          proceedingsStartOrder: 'undefined',
-          emergencyOrderOptions: YesOrNo.NO,
-          supervisionOrderOption: YesOrNo.NO,
-          careOrderOptions: YesOrNo.NO,
-          childAbductionOrderOption: YesOrNo.NO,
-          caOrderOption: YesOrNo.NO,
-          financialOrderOption: YesOrNo.NO,
-          nonmolestationOrderOption: YesOrNo.NO,
-          occupationalOrderOptions: YesOrNo.NO,
-          marraigeOrderOptions: YesOrNo.NO,
-          restrainingOrderOptions: YesOrNo.NO,
-          injuctiveOrderOptions: YesOrNo.NO,
-          underTakingOrderOptions: YesOrNo.NO,
+          proceedingsStart: YesOrNo.YES,
+          proceedingsStartOrder: YesOrNo.YES,
         },
         expected: SectionStatus.COMPLETED,
       },
       {
         data: {
           ...mockUserCase,
-          proceedingsStart: 'undefined',
-          proceedingsStartOrder: 'undefined',
-          emergencyOrderOptions: undefined,
-          supervisionOrderOption: YesOrNo.NO,
-          careOrderOptions: undefined,
-          childAbductionOrderOption: undefined,
-          caOrderOption: undefined,
-          financialOrderOption: undefined,
-          nonmolestationOrderOption: undefined,
-          occupationalOrderOptions: undefined,
-          marraigeOrderOptions: undefined,
-          restrainingOrderOptions: undefined,
-          injuctiveOrderOptions: undefined,
-          underTakingOrderOptions: undefined,
+          proceedingsStart: YesOrNo.YES,
+          proceedingsStartOrder: YesOrNo.NO,
         },
         expected: SectionStatus.IN_PROGRESS,
       },
@@ -269,4 +236,43 @@ describe('utils', () => {
       expect(getYourSafetyStatus({ ...userCase, ...data })).toBe(expected);
     });
   });
+});
+
+test('should return correct status of court hearings', () => {
+  expect(
+    getViewAllHearingsFromTheCourt({
+      ...mockUserCase,
+      hearingCollection: [
+        {
+          prev: [
+            {
+              date: 'string',
+              time: 'string',
+              typeOfHearing: 'string',
+              courtName: 'string',
+              courtAddress: 'string',
+              hearingOutcome: 'string',
+            },
+          ],
+          next: {
+            date: 'string',
+            time: 'string',
+            typeOfHearing: 'string',
+            courtName: 'string',
+            courtAddress: 'string',
+            hearingOutcome: 'string',
+          },
+        },
+      ],
+    })
+  ).toBe(SectionStatus.READY_TO_VIEW);
+  expect(getViewAllHearingsFromTheCourt({ ...mockUserCase, hearingCollection: [] })).toBe(SectionStatus.TO_DO);
+});
+
+test('should return correct status of get view all docs', () => {
+  expect(getViewAllDocuments()).toBe(SectionStatus.READY_TO_VIEW);
+});
+
+test('should return correct status of get upload docs', () => {
+  expect(getUploadDocuments()).toBe(SectionStatus.TO_DO);
 });

@@ -8,7 +8,7 @@ const en = {
   section: 'Reasonable adjustments',
   title: 'I need help communicating and understanding',
   courtcommunication:
-    'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
+    'Think about all communications with the court, as well as what you might need at a hearing. Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   hearingloop: 'Hearing loop (hearing enhancement system)',
@@ -16,24 +16,28 @@ const en = {
   needspeakinghelp: 'Need to be close to who is speaking',
   lipspeaker: 'Lip speaker',
   lipspeakerhint: 'hearing person who has been trained to be easily lip read',
-  signlanguage: 'British Sign Language interpreter',
+  signlanguage: 'Sign Language interpreter',
+  signLanguageDetails: 'Describe what you need',
   speechreporter: 'Speech to text reporter (palantypist)',
   extratime: 'Extra time to think and explain myself',
-  courtvisit: 'Visit to court before the court hearing',
-  courthearing: 'Explanation of the court hearing room layout and who will be in the room',
+  courtvisit: 'Visit to court before the hearing',
+  courthearing: "Explanation of the court and who's in the room at the hearing",
   intermediary: 'Intermediary',
   intermediaryhint:
-    'a person to act as a link and assist you in the hearing - a judge may allow this to help you understand and communicate better',
+    'a person to help you if you have communication needs by providing professional support to participate in a hearing',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  nosupport: 'No, I do not need any support at this time',
+  continue: 'Continue',
   errors: {
     helpCommunication: {
-      required: 'Please select an answer',
+      required: 'Select what help you need in communicating and understanding',
     },
     describeOtherNeed: {
       required: 'Please provide the details',
+    },
+    describeSignLanguageDetails: {
+      required: 'Please describe sign language details',
     },
   },
 };
@@ -42,7 +46,7 @@ const cy: typeof en = {
   section: 'Reasonable adjustments',
   title: 'I need help communicating and understanding',
   courtcommunication:
-    'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
+    'Think about all communications with the court, as well as what you might need at a hearing. Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   hearingloop: 'Hearing loop (hearing enhancement system)',
@@ -50,24 +54,28 @@ const cy: typeof en = {
   needspeakinghelp: 'Need to be close to who is speaking',
   lipspeaker: 'Lip speaker',
   lipspeakerhint: 'hearing person who has been trained to be easily lip read',
-  signlanguage: 'British Sign Language interpreter',
+  signlanguage: 'Sign Language interpreter',
+  signLanguageDetails: 'Describe what you need',
   speechreporter: 'Speech to text reporter (palantypist)',
   extratime: 'Extra time to think and explain myself',
-  courtvisit: 'Visit to court before the court hearing',
-  courthearing: 'Explanation of the court hearing room layout and who will be in the room',
+  courtvisit: 'Visit to court before the hearing',
+  courthearing: "Explanation of the court and who's in the room at the hearing",
   intermediary: 'Intermediary',
   intermediaryhint:
-    'a person to act as a link and assist you in the hearing - a judge may allow this to help you understand and communicate better',
+    'a person to help you if you have communication needs by providing professional support to participate in a hearing',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  nosupport: 'No, I do not need any support at this time',
+  continue: 'Continue',
   errors: {
     helpCommunication: {
-      required: 'Please select an answer',
+      required: 'Select what help you need in communicating and understanding',
     },
     describeOtherNeed: {
       required: 'Please provide the details',
+    },
+    describeSignLanguageDetails: {
+      required: 'Please describe sign language details',
     },
   },
 };
@@ -89,7 +97,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.title).toEqual('I need help communicating and understanding');
     expect(generatedContent.section).toEqual('Reasonable adjustments');
     expect(generatedContent.courtcommunication).toEqual(
-      'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.'
+      'Think about all communications with the court, as well as what you might need at a hearing. Consider in-person, phone or video, in case your preferred hearing type is not possible'
     );
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
@@ -98,19 +106,17 @@ describe('citizen-home content', () => {
     expect(generatedContent.needspeakinghelp).toEqual('Need to be close to who is speaking');
     expect(generatedContent.lipspeaker).toEqual('Lip speaker');
     expect(generatedContent.lipspeakerhint).toEqual('hearing person who has been trained to be easily lip read');
-    expect(generatedContent.signlanguage).toEqual('British Sign Language interpreter');
+    expect(generatedContent.signlanguage).toEqual('Sign Language interpreter');
     expect(generatedContent.speechreporter).toEqual('Speech to text reporter (palantypist)');
     expect(generatedContent.extratime).toEqual('Extra time to think and explain myself');
-    expect(generatedContent.courtvisit).toEqual('Visit to court before the court hearing');
-    expect(generatedContent.courthearing).toEqual(
-      'Explanation of the court hearing room layout and who will be in the room'
-    );
+    expect(generatedContent.courtvisit).toEqual('Visit to court before the hearing');
+    expect(generatedContent.courthearing).toEqual("Explanation of the court and who's in the room at the hearing");
     expect(generatedContent.intermediary).toEqual('Intermediary');
     expect(generatedContent.intermediaryhint).toEqual(
-      'a person to act as a link and assist you in the hearing - a judge may allow this to help you understand and communicate better'
+      'a person to help you if you have communication needs by providing professional support to participate in a hearing'
     );
     expect(generatedContent.other).toEqual('Other');
-    expect(generatedContent.nosupport).toEqual('No, I do not need any extra support at this time');
+    expect(generatedContent.nosupport).toEqual('No, I do not need any support at this time');
   });
 
   // eslint-disable-next-line jest/expect-expect
@@ -129,8 +135,8 @@ describe('citizen-home content', () => {
     expect((helpcommunicationField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+  test('should contain Continue button', () => {
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 

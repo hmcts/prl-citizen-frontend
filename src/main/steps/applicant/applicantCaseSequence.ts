@@ -1,3 +1,4 @@
+import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
 import {
   APPLICANT,
@@ -5,6 +6,7 @@ import {
   APPLICANT_ADDRESS_DETAILS,
   APPLICANT_ADDRESS_HISTORY,
   APPLICANT_ADDRESS_LOOKUP,
+  APPLICANT_ATTENDING_THE_COURT,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_CONTACT_DETAILS,
   APPLICANT_CONTACT_DETAILS_SAVE,
@@ -28,6 +30,7 @@ import {
   // APPLICANT_START_ALTERNATIVE,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_WITNESS_STATEMENTS_DA,
+  APPLICANT_YOURHEARINGS_HEARINGS,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   COMMUNICATION_HELP,
   COURT_HEARING_COMFORT,
@@ -51,14 +54,16 @@ import {
   RESPONDENT_SECTION37_REPORT,
   RESPONDENT_SECTION7_REPORT,
   SAFETY_ARRANGEMENTS,
-  SUPPORT_YOU_NEED_DURING_CASE,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
+  SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
   TRAVELLING_TO_COURT,
   UNABLE_TO_TAKE_COURT_PROCEEDINGS,
   WITNESS_AVAILABILITY,
   YOUR_WITNESS_STATEMENTS,
 } from '../urls';
+
+import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
 
 export const applicantCaseSequence: Step[] = [
   {
@@ -142,7 +147,12 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
-    url: SUPPORT_YOU_NEED_DURING_CASE,
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_ATTENDING_THE_COURT,
+  },
+  {
+    url: APPLICANT_ATTENDING_THE_COURT,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => LANGUAGE_REQUIREMENTS,
   },
@@ -154,37 +164,43 @@ export const applicantCaseSequence: Step[] = [
   {
     url: REASONABLE_ADJUSTMENTS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => DOCUMENTS_SUPPORT,
+    getNextStep: caseData =>
+      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(REASONABLE_ADJUSTMENTS, caseData),
   },
   {
     url: DOCUMENTS_SUPPORT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => COMMUNICATION_HELP,
+    getNextStep: caseData => ApplicantReasonableAdjustmentsNavigationController.getNextUrl(DOCUMENTS_SUPPORT, caseData),
   },
   {
     url: COMMUNICATION_HELP,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => COURT_HEARING_SUPPORT,
+    getNextStep: caseData =>
+      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(COMMUNICATION_HELP, caseData),
   },
   {
     url: COURT_HEARING_SUPPORT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => COURT_HEARING_COMFORT,
+    getNextStep: caseData =>
+      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(COURT_HEARING_SUPPORT, caseData),
   },
   {
     url: COURT_HEARING_COMFORT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => TRAVELLING_TO_COURT,
+    getNextStep: caseData =>
+      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(COURT_HEARING_COMFORT, caseData),
   },
   {
     url: TRAVELLING_TO_COURT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => UNABLE_TO_TAKE_COURT_PROCEEDINGS,
+    getNextStep: caseData =>
+      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(TRAVELLING_TO_COURT, caseData),
   },
   {
     url: UNABLE_TO_TAKE_COURT_PROCEEDINGS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => SAFETY_ARRANGEMENTS,
+    getNextStep: caseData =>
+      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(UNABLE_TO_TAKE_COURT_PROCEEDINGS, caseData),
   },
   {
     url: SAFETY_ARRANGEMENTS,
@@ -194,7 +210,7 @@ export const applicantCaseSequence: Step[] = [
   {
     url: SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: () => SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
   },
   {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
@@ -343,27 +359,27 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_UPLOAD_DOCUMENT,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
@@ -407,43 +423,59 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
+    url: APPLICANT_YOURHEARINGS_HEARINGS,
+    showInSection: Sections.AboutApplicantCase,
+    getController: HearingsGetController,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_ATTENDING_THE_COURT,
+  },
+  {
+    url: APPLICANT_ATTENDING_THE_COURT,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => `${APPLICANT}${RESPONDENT_SAFEGUARDING_LETTER}`,
   },
   {
     url: `${APPLICANT}${RESPONDENT_SAFEGUARDING_LETTER}`,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
   {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => `${APPLICANT}${RESPONDENT_SECTION7_REPORT}`,
   },
   {
     url: `${APPLICANT}${RESPONDENT_SECTION7_REPORT}`,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
   {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => `${APPLICANT}${RESPONDENT_SECTION37_REPORT}`,
   },
   {
     url: `${APPLICANT}${RESPONDENT_SECTION37_REPORT}`,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
   {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => `${APPLICANT}${RESPONDENT_RISK_ASSESSMENT}`,
   },
   {
     url: `${APPLICANT}${RESPONDENT_RISK_ASSESSMENT}`,
-    showInSection: Sections.AboutRespondentCase,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
 ];

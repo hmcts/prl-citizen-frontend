@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { SectionStatus } from '../../../app/case/definition';
+import { SectionStatus, State } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
@@ -8,7 +8,7 @@ import { applicant_en } from './section-titles';
 import { applicant_tasklist_items_en } from './tasklist-items';
 
 const enContent = {
-  title: '',
+  title: 'Applicant tasklist',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -21,7 +21,7 @@ const enContent = {
   taskListItems: applicant_tasklist_items_en,
 };
 const cyContent = {
-  title: ' ',
+  title: 'Applicant tasklist',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -83,10 +83,10 @@ describe('task-list > content', () => {
               text: 'Confirm or edit your contact details',
             },
             {
-              href: '#',
+              href: '/applicant/support-you-need-during-case/attending-the-court',
               id: 'support-you-need-during-your-case',
               text: 'Support you need during your case',
-              status: 'NOT_AVAILABLE_YET',
+              status: 'TO_DO',
             },
           ],
           title: 'About you',
@@ -111,9 +111,9 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '#',
+              href: '/applicant/yourhearings/hearings',
               id: 'check-details-of-your-court-hearings',
-              status: SectionStatus.NOT_AVAILABLE_YET,
+              status: SectionStatus.TO_DO,
               text: 'Check details of your court hearings',
             },
           ],
@@ -150,6 +150,73 @@ describe('task-list > content', () => {
       ],
     },
   ])('should generate correct task list %#', ({ userCase, expected }) => {
+    userCase.id = '1234567';
+    const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
+    expect(taskListItems).toEqual(expected);
+  });
+
+  test.each([
+    {
+      userCase: {
+        ...mockUserCase,
+        state: State.ALL_FINAL_ORDERS_ISSUED,
+      },
+      expected: [
+        null,
+        {
+          title: 'Your application',
+          items: [
+            {
+              href: '/applicant/public/docs/FL401-Final-Document.pdf',
+              id: 'your-application',
+              status: 'DOWNLOAD',
+              text: 'Application submitted (PDF)',
+            },
+            {
+              href: '/applicant/witnessstatements',
+              id: 'your-application-witness-statment',
+              status: 'DOWNLOAD',
+              text: 'Witness statement (PDF)',
+            },
+          ],
+        },
+        {
+          items: [
+            {
+              href: '/applicant/yourhearings/hearings',
+              id: 'check-details-of-your-court-hearings',
+              status: SectionStatus.TO_DO,
+              text: 'Check details of your court hearings',
+            },
+          ],
+          title: 'Your court hearings',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/upload-document',
+              id: 'upload-document',
+              status: SectionStatus.TO_DO,
+              text: 'Upload documents',
+            },
+            null,
+          ],
+          title: 'Your documents',
+        },
+        {
+          items: [
+            {
+              href: '#',
+              id: 'view-all-orders-from-the-court',
+              status: SectionStatus.NOT_AVAILABLE_YET,
+              text: 'View all orders from the court',
+            },
+          ],
+          title: applicant_en.ordersFromTheCourt,
+        },
+      ],
+    },
+  ])('should generate correct task list when the case is closed %#', ({ userCase, expected }) => {
     userCase.id = '1234567';
     const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
     expect(taskListItems).toEqual(expected);
