@@ -49,7 +49,7 @@ const cy = {
               <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately. - Welsh</p>`,
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said. - Welsh',
-  childrenConcernedAboutLabel: 'Which children are you concerned about? (optional) - Welsh',
+  childrenConcernedAboutLabel: "Pa blant ydych chi'n poeni amdanyn nhw?",
   behaviourDetailsLabel: "Disgrifiwch yr ymddygiadau yr hoffech i'r llys fod yn ymwybodol ohonynt.",
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings. - Welsh',
