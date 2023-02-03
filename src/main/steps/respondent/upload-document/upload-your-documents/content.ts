@@ -43,7 +43,7 @@ const cy: typeof en = {
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   continue: 'Continue',
   add: 'Submit',
-  uploadFiles: 'Your documents',
+  uploadFiles: 'Eich dogfennau',
   remove: 'Remove',
   textAreaDocUploadText1: 'You can use this box to:',
   textAreaDocUploadText2: 'write a statement if you do not want to upload a document',

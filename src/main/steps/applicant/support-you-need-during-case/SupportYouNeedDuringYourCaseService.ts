@@ -44,11 +44,22 @@ export const setSupportDetails = (req: AppRequest): Response => {
 };
 
 export const getSupportDetails = (respondent: Respondent | Applicant, req: AppRequest): AppRequest => {
+  req.session.userCase.attendingToCourt = respondent.value.response.supportYouNeed?.attendingToCourt;
+  req.session.userCase.hearingDetails = respondent.value.response.supportYouNeed?.hearingDetails;
+  req.session.userCase.describeSignLanguageDetails = respondent.value.response.supportYouNeed?.signLanguageDetails;
+  req.session.userCase.lightingProvideDetails = respondent.value.response.supportYouNeed?.lightingDetails;
+  req.session.userCase.supportWorkerDetails = respondent.value.response.supportYouNeed?.supportWorkerDetails;
+  req.session.userCase.therapyDetails = respondent.value.response.supportYouNeed?.therapyDetails;
+  req.session.userCase.familyProviderDetails = respondent.value.response.supportYouNeed?.familyProviderDetails;
   req.session.userCase.communicationSupportOther = respondent.value.response.supportYouNeed?.communicationSupportOther;
   req.session.userCase.courtComfort = respondent.value.response.supportYouNeed?.courtComfort;
   req.session.userCase.courtHearing = respondent.value.response.supportYouNeed?.courtHearing;
   req.session.userCase.describeOtherNeed = respondent.value.response.supportYouNeed?.describeOtherNeed;
   req.session.userCase.docsSupport = respondent.value.response.supportYouNeed?.docsSupport;
+  req.session.userCase.docsDetails = respondent.value.response.supportYouNeed?.docsDetails;
+  req.session.userCase.largePrintDetails = respondent.value.response.supportYouNeed?.largePrintDetails;
+  req.session.userCase.differentChairDetails = respondent.value.response.supportYouNeed?.differentChairDetails;
+  req.session.userCase.parkingDetails = respondent.value.response.supportYouNeed?.parkingDetails;
   req.session.userCase.helpCommunication = respondent.value.response.supportYouNeed?.helpCommunication;
   req.session.userCase.languageDetails = respondent.value.response.supportYouNeed?.languageDetails;
   req.session.userCase.otherDetails = respondent.value.response.supportYouNeed?.otherDetails;

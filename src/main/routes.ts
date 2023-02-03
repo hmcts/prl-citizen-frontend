@@ -102,7 +102,7 @@ import {
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
   CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
-  //C100_DOCUMENT_SUBMISSION,
+  RESPONDENT_CHECK_ANSWERS_NO,
 } from './steps/urls';
 
 export class Routes {
@@ -134,7 +134,7 @@ export class Routes {
     );
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
-    app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
+    app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().load));
     //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
     app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
@@ -231,7 +231,7 @@ export class Routes {
           errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
         );
         app.get(
-          `${RESPOND_TO_APPLICATION}/updateFlag`,
+          `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
           errorHandler(new ViewAllDocumentsPostController(step.form.fields).setResponseInitiatedFlag)
         );
         app.get(
@@ -282,6 +282,7 @@ export class Routes {
           C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
           errorHandler(new SafetyConcernsPostController(step.form.fields).post)
         );
+        app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
       }
     }
     /**

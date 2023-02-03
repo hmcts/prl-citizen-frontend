@@ -40,8 +40,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
     const NoOfApplicantLength = req.session.userCase.appl_allApplicants?.length;
     const checkIfApplicantLengthLess = NoOfApplicantLength === 0;
     const checkIfApplicantLengthLessAndFormError =
-      (checkIfApplicantLengthLess && applicantFirstName === '') ||
-      (checkIfApplicantLengthLess && applicantLastName === '');
+      checkIfApplicantLengthLess && (applicantFirstName === '' || applicantLastName === '');
     const saveAndComeBackToggled = req.body['saveAndComeLater'];
 
     if (saveAndComeBackToggled) {

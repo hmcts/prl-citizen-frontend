@@ -17,6 +17,7 @@ module.exports = {
   async loginAsCitizen() {
     try {
       I.wait('2');
+      await I.retry(retryCount).amOnPage(baseUrl);
       await I.retry(retryCount).waitForText('Sign in or create an account');
       await I.retry(retryCount).click('Accept additional cookies');
       await I.retry(retryCount).click('#cookie-accept-all-success-banner-hide');

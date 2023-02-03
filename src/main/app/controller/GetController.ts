@@ -23,10 +23,10 @@ export class GetController {
       return;
     }
 
-    const name = this.getName(req) as string;
+    const name = this.getName(req);
     const language = this.getPreferredLanguage(req) as Language;
-    const captionValue = this.getCaption(req) as string;
-    const document_type = this.getDocumentType(req) as string;
+    const captionValue = this.getCaption(req);
+    const document_type = this.getDocumentType(req);
     const byApplicant = req.query['byApplicant'] as string;
     const addresses = req.session?.addresses;
     const content = generatePageContent({

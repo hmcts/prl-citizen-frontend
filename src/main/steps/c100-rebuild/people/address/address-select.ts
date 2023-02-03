@@ -2,28 +2,15 @@ import { C100RebuildPartyDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isAddressSelected } from '../../../../app/form/validation';
-
-const getAddressItems = addresses => addresses.map((item, index) => ({ text: item.fullAddress, value: index }));
+import { getAddress } from '../../address-select-util';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = content => {
-  const addresses = content.addresses || [];
-  const options = [
-    {
-      attributes: { id: 'totalAddressesFound' },
-      value: -1,
-      text: `${addresses?.length} address${addresses?.length !== 1 ? 'es' : ''} found`,
-      selected: true,
-    },
-  ];
-
-  options.push(...getAddressItems(addresses));
-
   return {
     postcode: 'Current postcode',
     selectAddress: 'Select an address',
     cannotFindAddress: 'I cannot find the address in the list',
     enterAddressManually: 'Or enter address manually',
-    options,
+    options: getAddress('en', content.addresses),
     changePostCodeUrl: '#',
     cantFindAddressUrl: '#',
   };
@@ -31,24 +18,12 @@ const en = content => {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const cy = content => {
-  const addresses = content.addresses || [];
-  const options = [
-    {
-      attributes: { id: 'totalAddressesFound' },
-      value: -1,
-      text: `Daethpwyd o hyd i ${addresses.length} cyfeiriad`,
-      selected: true,
-    },
-  ];
-
-  options.push(...getAddressItems(addresses));
-
   return {
     postcode: 'Cod post cyfredol',
     selectAddress: 'Dewiswch gyfeiriad',
     cannotFindAddress: 'Ni allaf ddod o hyd i’r cyfeiriad yn y rhestr',
     enterAddressManually: 'Neu theipiwch y cyfeiriad',
-    options,
+    options: getAddress('cy', content.addresses),
     changePostCodeUrl: '#',
     cantFindAddressUrl: '#',
   };

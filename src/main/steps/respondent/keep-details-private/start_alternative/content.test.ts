@@ -36,7 +36,7 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Keeping your contact details private',
+  section: 'Cadw eich manylion cyswllt yn breifat',
   title:
     'Do you want to keep your contact details private from the other people named in the application (the applicants)?',
   line1:
@@ -47,8 +47,8 @@ const cyContent = {
   two: 'No',
   three: "I don't know",
   threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
-  address: 'Address',
+  summaryText: 'Cysylltiadau am gymorth',
+  address: 'Cyfeiriad',
   Phone_number: 'Phone number',
   contact_details_private_hint:
     "You've said that the applicants know some of your contact details. Make sure you select contact details the applicants do not already know.",
