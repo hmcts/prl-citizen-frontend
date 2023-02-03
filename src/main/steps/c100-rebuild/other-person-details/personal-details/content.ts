@@ -95,7 +95,7 @@ const cy = () => ({
   // year: 'Blwyddyn',
   errors: {
     hasNameChanged: {
-      required: 'Nodwch os ydyw wedi newid ei enw',
+      required: 'Nodwch a ydynt wedi newid eu henw',
     },
     previousFullName: {
       required: 'Nodwch eu henw blaenorol',

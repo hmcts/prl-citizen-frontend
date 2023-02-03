@@ -25,13 +25,13 @@ const enContent = {
 };
 
 const cyContent = {
-  title: 'Would you be willing to attend a MIAM?',
+  title: "A fyddech chi'n fodlon mynychu MIAM?",
   one: 'Yes',
   two: 'No',
   explainWhyLabel: 'Explain why',
-  miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
+  miamCostExemptionsLabel: 'Help gyda chostau ac esemptiadau MIAM',
   threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   onlyContinue: 'Continue',
   errors: {
     miamWillingness: {

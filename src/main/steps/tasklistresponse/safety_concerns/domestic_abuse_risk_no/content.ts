@@ -27,14 +27,14 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Safety concerns',
+  section: 'Pryderon diogelwch',
   title: 'Your safety',
   line1: 'What you told us',
   line2: 'You have not suffered or are not at risk of suffering: ',
   line3: 'psychological abuse',
   line4: 'financial abuse',
-  line5: 'cam-drin emosiynol',
-  line6: 'cam-drin corfforol',
+  line5: 'emotional abuse',
+  line6: 'physical abuse',
   line7: 'sexual abuse',
   line8:
     'Based on your answer, we will not ask you any more questions about domestic violence or abuse. You can continue your response.',
@@ -46,7 +46,7 @@ const cy: typeof en = {
   line14: 'If you are a man and have concerns for your safety',
   line15: 'National Domestic Violence Helpline',
   line16: 'If you want to change your answer, go back to the previous screen.',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   continue: 'Continue',
   goBack: 'Go back',
 };

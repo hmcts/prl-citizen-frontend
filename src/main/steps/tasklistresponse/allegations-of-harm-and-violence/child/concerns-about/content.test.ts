@@ -44,19 +44,19 @@ const en = {
 
 const cy = {
   serviceName: 'Child arrangements - welsh',
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   headingTitle: 'What type of behaviour have the children experienced or are at risk of experiencing? - welsh',
   paragraph1: 'See the National Society for Prevention of Cruelty to Children (NSPCC) guidance on - welsh',
   spottingSignsOfChildHyperLink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse - welsh',
   spottingSignsOfChildAbuseLabel: ' spotting the signs of child abuse. - welsh',
   supportNavLabel: 'SupportNav - welsh',
   select_all_relevant: 'Select any options that are relevant to your situation. - welsh',
-  physicalAbuse: 'cam-drin corfforol',
+  physicalAbuse: 'Physical abuse - welsh',
   physicalAbuseHint: 'Behaviour such as punching, choking, kicking or hitting with an object - welsh',
   psychologicalAbuse: 'Psychological abuse - welsh',
   psychologicalAbuseHint:
     'Being subjected to a situation that leads to anxiety, depression, or post-traumatic stress disorder - welsh',
-  emotionalAbuse: 'cam-drin emosiynol',
+  emotionalAbuse: 'Emotional abuse - welsh',
   emotionalAbuseHint: 'Making a child feel unloved, worthless, humiliated or ignored - welsh',
   sexualAbuse: 'Sexual abuse - welsh',
   sexualAbuseHint:

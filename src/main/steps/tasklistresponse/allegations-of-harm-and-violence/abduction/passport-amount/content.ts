@@ -32,7 +32,7 @@ export const en = () => ({
 });
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   title: 'Provide details of the children’s passports - welsh',
   childrenMoreThanOnePassport: 'Do the children have more than one passport? - welsh',
   possessionChildrenPassport: 'Who is in possession of the children’s passports? - welsh',
@@ -91,17 +91,17 @@ export const form: FormContent = {
         {
           name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option1,
-          value: 'Mother',
+          value: 'mother',
         },
         {
           name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option2,
-          value: 'Father',
+          value: 'father',
         },
         {
           name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option3,
-          value: 'Other',
+          value: 'otherPerson',
           subFields: {
             PRL_c1A_provideOtherDetails: {
               type: 'textarea',

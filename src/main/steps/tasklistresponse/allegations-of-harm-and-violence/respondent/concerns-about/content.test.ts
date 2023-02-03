@@ -40,19 +40,19 @@ const en = {
 
 const cy = {
   serviceName: 'Child arrangements - welsh',
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   title: 'What type of behaviour have you experienced or are at risk of experiencing? - welsh',
   paragraph1:
     'Describe the abusive behaviour that you are concerned about. If you are not sure that the behaviour is abusive,- welsh',
   seeGuidanceHyperLink: 'https://supportnav.org.uk/what-is-domestic-abuse - welsh',
   seeGuidanceLabel: ' see the guidance. - welsh',
   select_all_relevant: 'Select any options that are relevant to your situation.- welsh',
-  physicalAbuse: 'cam-drin corfforol',
+  physicalAbuse: 'Physical abuse - welsh',
   physicalAbuseHint: 'Behaviour such as punching, choking, kicking or hitting with an object - welsh',
   psychologicalAbuse: 'Psychological abuse - welsh',
   psychologicalAbuseHint:
     'Being subjected to a situation that leads to anxiety, depression, or post-traumatic stress disorder - welsh',
-  emotionalAbuse: 'cam-drin emosiynol',
+  emotionalAbuse: 'Emotional abuse - welsh',
   emotionalAbuseHint:
     'Emotional abuse could be spoken (verbal) or not involving words or speech (non-verbal). Examples may include name calling, constant criticism, controlling behaviour, not letting you have an opinion - welsh',
   sexualAbuse: 'Sexual abuse - welsh',

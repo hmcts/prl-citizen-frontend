@@ -26,7 +26,7 @@ export const cy = () => ({
   enterInternationalAddress: 'Nodwch gyfeiriad rhyngwladol',
   addressHistoryLabel: 'A ydych wedi byw yn y cyfeiriad hwn am fwy na 5 mlynedd?',
   one: 'Do',
-  two: 'Naddoo',
+  two: 'Naddo',
   explainNoLabel: 'Darparwch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf',
   explainNoHint: 'Cychwynnwch gyda’r un mwyaf diweddar',
 });

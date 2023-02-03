@@ -28,7 +28,7 @@ export const getApplicantViewAllHearingsFromTheCourt = (userCase: CaseWithId): S
   if (userCase && userCase.hearingCollection && userCase.hearingCollection.length > 0) {
     return SectionStatus.READY_TO_VIEW;
   }
-  return SectionStatus.NOT_AVAILABLE_YET;
+  return SectionStatus.TO_DO;
 };
 
 export const getConfirmOrEditYourContactDetails = (
@@ -113,9 +113,9 @@ export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus 
 };
 
 export const getApplicantPartyDetails = (userCase: Partial<CaseWithId>, userId: string): Applicant | undefined => {
-  for (let i = 0; i < userCase.applicants!.length; i++) {
-    if (userCase.applicants![i].value.user.idamId === userId) {
-      return userCase.applicants![i];
+  for (const userapplicant of userCase.applicants!) {
+    if (userapplicant.value.user.idamId === userId) {
+      return userapplicant;
     }
   }
   return undefined;

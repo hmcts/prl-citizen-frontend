@@ -38,7 +38,7 @@ export const en = () => ({
 });
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  caption: 'Safety concerns - Welsh',
+  caption: 'Pryderon diogelwch',
   physicalAbusePageTitle: 'Briefly describe the physical abuse against the children if you feel able to - Welsh',
   psychologicalAbusePageTitle:
     'Briefly describe the psychological abuse against the children if you feel able to - Welsh',
@@ -50,19 +50,20 @@ export const cy = () => ({
               <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately. - Welsh</p>`,
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said. - Welsh',
-  childrenConcernedAboutLabel: "Pa blant ydych chi'n poeni amdanyn nhw?",
+  childrenConcernedAboutLabel: 'Which children are you concerned about? (optional) - Welsh',
   allchildLabel: 'All the children in above application - Welsh',
-  behaviourDetailsLabel: "Disgrifiwch yr ymddygiadau yr hoffech i'r llys fod yn ymwybodol ohonynt.",
+  behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. - Welsh (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings. - Welsh',
-  behaviourStartDateLabel: 'Pryd ddechreuodd yr ymddygiad hwn a pha mor hir wnaeth hynny barhau?',
+  behaviourStartDateLabel: 'When did this behaviour start and how long did it continue? - Welsh (optional)',
   behaviourStartDateHintText: 'This does not need to be an exact date. - Welsh',
   isOngoingBehaviourLabel: 'Is the behaviour ongoing? - Welsh (optional)',
   isOngoingBehaviourHint:
     '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, consider contacting <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> or <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">the social care team at you local council - Welsh </a>.</p>',
   YesOptionLabel: 'Yes - Welsh',
   NoOptionLabel: 'No - Welsh',
-  seekHelpFromPersonOrAgencyLabel: 'Ydych chi erioed wedi gofyn am help gan unigolyn neu asiantaeth broffesiynol?',
+  seekHelpFromPersonOrAgencyLabel:
+    'Have you ever asked for help from a professional person or agency? - Welsh (optional)',
   seekHelpFromPersonOrAgencyHintText: 'For example, speaking to your local GP. - Welsh',
   seekHelpDetailsYesHint:
     '<p class="govuk-body">Indicate who you sought help from, and what they did to help (optional). </p><p class="govuk-body">Do not include personal details such as names and addresses. - Welsh</p>',

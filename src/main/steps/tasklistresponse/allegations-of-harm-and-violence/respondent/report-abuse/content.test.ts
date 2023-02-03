@@ -37,7 +37,7 @@ const en = {
 };
 
 const cy = {
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   physicalAbusePageTitle: 'Briefly describe the physical abuse if you feel able to - welsh',
   psychologicalAbusePageTitle: 'Briefly describe the psychological abuse if you feel able to - welsh',
   emotionalAbusePageTitle: 'Briefly describe the emotional abuse if you feel able to - welsh',
@@ -49,17 +49,18 @@ const cy = {
   <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately. - welsh</p>`,
   warningText:
     'We will share the information that you give in this section with the other person in the case (the applicant) so that they can respond to what you have said. - welsh',
-  behaviourDetailsLabel: "Disgrifiwch yr ymddygiadau yr hoffech i'r llys fod yn ymwybodol ohonynt.",
+  behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. - welsh (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings. - welsh',
-  behaviourStartDateLabel: 'Pryd ddechreuodd yr ymddygiad hwn a pha mor hir wnaeth hynny barhau?',
+  behaviourStartDateLabel: 'When did this behaviour start and how long did it continue? - welsh (optional)',
   behaviourStartDateHintText: 'This does not need to be an exact date. - welsh',
   isOngoingBehaviourLabel: 'Is the behaviour ongoing? - welsh (optional)',
   isOngoingBehaviourHint:
     '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, <a href="https://www.gov.uk/report-domestic-abuse" class="govuk-link" rel="external" target="_blank">contact one of the suggested agencies</a> to get help or report the behaviour with <a href="https://www.police.uk/" class="govuk-link" rel="external" target="_blank">your local policing team</a>. - welsh</p>',
   YesOptionLabel: 'Yes - welsh',
   NoOptionLabel: 'No - welsh',
-  seekHelpFromPersonOrAgencyLabel: 'Ydych chi erioed wedi gofyn am help gan unigolyn neu asiantaeth broffesiynol?',
+  seekHelpFromPersonOrAgencyLabel:
+    'Have you ever asked for help from a professional person or agency? - welsh (optional)',
   seekHelpFromPersonOrAgencyHintText: 'For example, speaking to your local GP. - welsh',
   seekHelpDetailsYesHint: `<p class="govuk-body">Indicate who you sought help from, and what they did to help - welsh (optional). </p>
   <p class="govuk-body">Do not include personal details such as names and addresses. - welsh</p>`,

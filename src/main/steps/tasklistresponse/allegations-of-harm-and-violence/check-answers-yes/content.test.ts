@@ -23,7 +23,7 @@ const en = {
 
 const cy = {
   serviceName: 'Child arrangements - welsh',
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   headingTitle: 'Who are you concerned about? - welsh',
   select_all_relevant: 'Select all options that are relevant to you. - welsh',
   childrenInThisApplication: 'The children in this application - welsh',

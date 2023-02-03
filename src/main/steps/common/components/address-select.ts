@@ -1,22 +1,9 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isAddressSelected } from '../../../app/form/validation';
-
-const getAddressItems = addresses => addresses.map((item, index) => ({ text: item.fullAddress, value: index }));
+import { getAddress } from '../../c100-rebuild/address-select-util';
 
 const en = content => {
-  const addresses = content.addresses || [];
-  const options = [
-    {
-      attributes: { id: 'totalAddressesFound' },
-      value: -1,
-      text: `${addresses?.length} address${addresses?.length !== 1 ? 'es' : ''} found`,
-      selected: true,
-    },
-  ];
-
-  options.push(...getAddressItems(addresses));
-
   return {
     postcode: 'Current postcode',
     citizenUserSelectAddress: 'Select an address',
@@ -28,25 +15,13 @@ const en = content => {
         notSelected: 'Select an address',
       },
     },
-    options,
+    options: getAddress('en', content.addresses),
     changePostCodeUrl: '#',
     cantFindAddressUrl: '#',
   };
 };
 
 const cy = content => {
-  const addresses = content.addresses || [];
-  const options = [
-    {
-      attributes: { id: 'totalAddressesFound' },
-      value: -1,
-      text: `${addresses.length} address${addresses?.length !== 1 ? 'es' : ''} found (in welsh)`,
-      selected: true,
-    },
-  ];
-
-  options.push(...getAddressItems(addresses));
-
   return {
     postcode: 'Current postcode (in welsh)',
     citizenUserSelectAddress: 'Select an address (in welsh)',
@@ -56,7 +31,7 @@ const cy = content => {
         notSelected: 'Select an address (in welsh)',
       },
     },
-    options,
+    options: getAddress('cy', content.addresses),
     changePostCodeUrl: '#',
     cantFindAddressUrl: '#',
   };

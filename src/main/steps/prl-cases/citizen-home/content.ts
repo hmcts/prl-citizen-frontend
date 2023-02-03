@@ -39,7 +39,7 @@ const cy: typeof en = {
   caseCodeLabelHint: 'You will find this on the email or letter we sent you',
   accessCodeLabel: 'Your access code',
   accessCodeLabelHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   contactDetails: contact_cy,
   continue: 'Continue',
   errors: {
