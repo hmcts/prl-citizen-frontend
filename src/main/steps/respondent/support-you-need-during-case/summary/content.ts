@@ -131,18 +131,18 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls, enContent.sectionTitles.aboutYou)],
+    sections: [summaryList(enContent, userCase, urls, 'en', enContent.sectionTitles.aboutYou)],
   };
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers ',
-  title: 'Your hearing needs and requirments',
+  section: 'Gwirio eich atebion',
+  title: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
-    aboutYou: 'About you',
+    aboutYou: 'Amdanoch chi',
   },
   keys: {
-    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
+    attendingToCourt: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
     hearingDetails: 'Please provide the details',
     languageRequirements: 'Do you have any language requirements?',
     languageDetails: 'Please provide language details',
@@ -258,7 +258,7 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou)],
+    sections: [summaryList(cyContent, userCase, urls, 'cy', enContent.sectionTitles.aboutYou)],
   };
 };
 

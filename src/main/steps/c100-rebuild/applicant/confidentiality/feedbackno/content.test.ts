@@ -13,9 +13,9 @@ const en = {
 };
 
 const cy = {
-  caption: 'Cadw eich manylion cyswllt yn breifat',
-  headingTitle: 'Ni fydd y llys yn cadw eich manylion cyswllt yn breifat',
-  p1: 'Rydych wedi dweud wrthym nad ydych eisiau cadw eich manylion cyswllt yn breifat oddi wrth y bobl eraill yn y cais hwn.',
+  caption: 'Cadw eich manylion cyswllt yn breifat ar gyfer',
+  headingTitle: 'Ni fydd y llys yn cadw eich manylion cyswllt yn breifat ar gyfer',
+  p1: 'Rydych wedi dweud wrthym nad ydych eisiau cadw eich manylion cyswllt yn breifat ar gyfer oddi wrth y bobl eraill yn y cais hwn.',
 };
 
 describe('applicant personal details > confidentiality > feedback', () => {

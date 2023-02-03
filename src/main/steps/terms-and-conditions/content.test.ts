@@ -60,7 +60,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Terms and conditions {in welsh}',
+  title: 'Telerau ac amodau',
   byAccessingThisService:
     'By accessing this service (‘Private law’), you’re agreeing to the following terms of use. This includes the <a class="govuk-link" href="/privacy-policy">privacy policy</a>. {in welsh}',
   theUseOfTheService:

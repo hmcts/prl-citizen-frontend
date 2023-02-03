@@ -120,8 +120,8 @@ const en = {
 const cy: typeof en = {
   ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
-  applyForChildArrangements: 'Private Law" (in welsh)',
-  applyForDissolution: 'Private Law"(in welsh)',
+  applyForChildArrangements: 'Cyfraith breifat',
+  applyForDissolution: 'Cyfraith breifat',
   commonServiceName: 'Child arrangements and family injunctions (in welsh)',
   c100ServiceName: 'Child arrangements (in welsh)',
   fl401ServiceName: 'Family injunction (in welsh)',
@@ -181,9 +181,9 @@ const cy: typeof en = {
     month: 'Mis',
     year: 'Blwyddyn',
   },
-  yes: 'Yes (in welsh)',
-  no: 'No (in welsh)',
-  notSure: 'Not sure (in welsh)',
+  yes: 'Do',
+  no: 'Naddo',
+  notSure: 'Ddim yn siŵr',
   english: 'Saesneg',
   welsh: 'Cymraeg',
   contactUsForHelp: 'Cysylltu â ni am gymorth',

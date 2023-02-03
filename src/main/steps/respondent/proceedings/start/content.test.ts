@@ -27,16 +27,16 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Current or previous proceedings',
-  title: 'Have you or the children ever been involved in court proceedings?',
-  courtCase: 'Have the children been involved in a court case?',
+  section: 'Achos cyfredol neu flaenorol',
+  title: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
+  courtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',
   courtCaseDontKnow: "I don't know",
-  courtOrder: 'Have you had a court order made for your protection?',
+  courtOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   saveAndContinue: 'Save and continue',
   errors: {
     proceedingsStart: {

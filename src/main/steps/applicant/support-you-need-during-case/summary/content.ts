@@ -25,16 +25,6 @@ export const enContent = {
     languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-    docsSupport: 'I need documents in an alternative format',
-    otherDetails: 'Describe what you need',
-    helpCommunication: 'I need help communicating and understanding',
-    describeOtherNeed: 'Describe what you need',
-    courtHearing: 'I need to bring support with me to a court hearing',
-    communicationSupportOther: 'Describe what you need',
-    courtComfort: 'I need something to make me feel comfortable during a court hearing',
-    otherProvideDetails: 'Describe what you need',
-    travellingToCourt: 'I need help travelling to, or moving around court buildings',
-    travellingOtherDetails: 'Describe what you need',
     safetyArrangements: 'Do you or the children need special safety arrangements at court?',
     safetyArrangementsDetails: 'Describe what you need',
   },
@@ -86,15 +76,15 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou)],
+    sections: [summaryList(enContent, userCase, urls, 'en', enContent.sectionTitles.aboutYou)],
   };
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
-  title: 'Your hearing needs and requirements',
+  section: 'Gwirio eich atebion',
+  title: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
-    aboutYou: 'About you',
+    aboutYou: 'Amdanoch chi',
   },
 
   keys: {
@@ -102,16 +92,6 @@ const cyContent: typeof enContent = {
     languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-    docsSupport: 'I need documents in an alternative format',
-    otherDetails: 'Describe what you need',
-    helpCommunication: 'I need help communicating and understanding',
-    describeOtherNeed: 'Describe what you need',
-    courtHearing: 'I need to bring support with me to a court hearing',
-    communicationSupportOther: 'Describe what you need',
-    courtComfort: 'I need something to make me feel comfortable during a court hearing',
-    otherProvideDetails: 'Describe what you need',
-    travellingToCourt: 'I need help travelling to, or moving around court buildings',
-    travellingOtherDetails: 'Describe what you need',
     safetyArrangements: 'Do you or the children need special safety arrangements at court?',
     safetyArrangementsDetails: 'Describe what you need',
   },
@@ -169,7 +149,7 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou)],
+    sections: [summaryList(cyContent, userCase, urls, 'cy', cyContent.sectionTitles.aboutYou)],
   };
 };
 
@@ -198,24 +178,42 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     Object.assign(urls, { docsSupport: DOCUMENTS_SUPPORT });
     Object.assign(urls, { otherDetails: DOCUMENTS_SUPPORT });
 
-    Object.assign(enContent.keys, { docsSupport: 'I need documents in an alternative format' });
-    Object.assign(enContent.keys, { otherDetails: 'Describe what you need' });
+    Object.assign(enContent.keys, {
+      docsSupport: 'I need documents in an alternative format',
+      otherDetails: 'Describe what you need',
+    });
+    Object.assign(cyContent.keys, {
+      docsSupport: 'I need documents in an alternative format - welsh',
+      otherDetails: 'Describe what you need - welsh',
+    });
   }
 
   if (userCase.reasonableAdjustments?.includes('commhelp')) {
     Object.assign(urls, { helpCommunication: COMMUNICATION_HELP });
     Object.assign(urls, { describeOtherNeed: COMMUNICATION_HELP });
 
-    Object.assign(enContent.keys, { helpCommunication: 'I need help communicating and understanding' });
-    Object.assign(enContent.keys, { describeOtherNeed: 'Describe what you need' });
+    Object.assign(enContent.keys, {
+      helpCommunication: 'I need help communicating and understanding',
+      describeOtherNeed: 'Describe what you need',
+    });
+    Object.assign(cyContent.keys, {
+      helpCommunication: 'I need help communicating and understanding - welsh',
+      describeOtherNeed: 'Describe what you need - welsh',
+    });
   }
 
   if (userCase.reasonableAdjustments?.includes('hearingsupport')) {
     Object.assign(urls, { courtHearing: COURT_HEARING_SUPPORT });
     Object.assign(urls, { communicationSupportOther: COURT_HEARING_SUPPORT });
 
-    Object.assign(enContent.keys, { courtHearing: 'I would need to bring support with me to a court hearing' });
-    Object.assign(enContent.keys, { communicationSupportOther: 'Describe what you need' });
+    Object.assign(enContent.keys, {
+      courtHearing: 'I would need to bring support with me to a court hearing',
+      communicationSupportOther: 'Describe what you need',
+    });
+    Object.assign(cyContent.keys, {
+      courtHearing: 'I would need to bring support with me to a court hearing - welsh',
+      communicationSupportOther: 'Describe what you need - welsh',
+    });
   }
 
   if (userCase.reasonableAdjustments?.includes('hearingcomfort')) {
@@ -224,16 +222,26 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
 
     Object.assign(enContent.keys, {
       courtComfort: 'I need something to make me feel comfortable during a court hearing',
+      otherProvideDetails: 'Describe what you need',
     });
-    Object.assign(enContent.keys, { otherProvideDetails: 'Describe what you need' });
+    Object.assign(cyContent.keys, {
+      courtComfort: 'I need something to make me feel comfortable during a court hearing - welsh',
+      otherProvideDetails: 'Describe what you need - welsh',
+    });
   }
 
   if (userCase.reasonableAdjustments?.includes('travellinghelp')) {
     Object.assign(urls, { travellingToCourt: TRAVELLING_TO_COURT });
     Object.assign(urls, { travellingOtherDetails: TRAVELLING_TO_COURT });
 
-    Object.assign(enContent.keys, { travellingToCourt: 'I need help travelling to, or moving around court buildings' });
-    Object.assign(enContent.keys, { travellingOtherDetails: 'Describe what you need' });
+    Object.assign(enContent.keys, {
+      travellingToCourt: 'I need help travelling to, or moving around court buildings',
+      travellingOtherDetails: 'Describe what you need',
+    });
+    Object.assign(cyContent.keys, {
+      travellingToCourt: 'I need help travelling to, or moving around court buildings - welsh',
+      travellingOtherDetails: 'Describe what you need - welsh',
+    });
   }
 
   if (userCase.reasonableAdjustments?.includes('nosupport')) {

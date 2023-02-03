@@ -4,6 +4,7 @@ import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 const en = () => {
   return {
     section: 'Your court hearings',
+    title: 'Your Hearings',
     goBack: 'Go back',
     caseNumber: 'Case number',
     yourPreviousHearings: 'Your previous hearings',
@@ -21,6 +22,7 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Eich gwrandawiadau llys',
+    title: 'Your Hearings',
     goBack: 'Mynd yn ôl',
     caseNumber: 'Rhif yr achos',
     yourPreviousHearings: 'Eich gwrandawiadau blaenorol',

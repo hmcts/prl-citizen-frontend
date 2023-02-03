@@ -22,7 +22,7 @@ const en = {
 };
 
 const cy = {
-  section: 'Safety concerns - welsh',
+  section: 'Pryderon diogelwch',
   title: 'Do you have any other concerns about the children’s safety and wellbeing? - welsh',
   hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with. - welsh',
   one: 'Yes - welsh',

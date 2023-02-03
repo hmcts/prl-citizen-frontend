@@ -44,7 +44,7 @@ const en = {
 
 const cy = {
   serviceName: 'Child arrangements - welsh',
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   headingTitle: 'What type of behaviour have the children experienced or are at risk of experiencing? - welsh',
   paragraph1: 'See the National Society for Prevention of Cruelty to Children (NSPCC) guidance on - welsh',
   spottingSignsOfChildHyperLink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse - welsh',

@@ -37,7 +37,7 @@ const en = {
 };
 
 const cy = {
-  caption: 'Safety concerns - Welsh',
+  caption: 'Pryderon diogelwch',
   physicalAbusePageTitle: 'Briefly describe the physical abuse against the children if you feel able to - Welsh',
   psychologicalAbusePageTitle:
     'Briefly describe the psychological abuse against the children if you feel able to - Welsh',

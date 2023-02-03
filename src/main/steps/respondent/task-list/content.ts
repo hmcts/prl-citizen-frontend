@@ -19,7 +19,7 @@ import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './ta
 import { getRespondentPartyDetailsCa } from './utils';
 
 const en = () => ({
-  title: '',
+  title: 'Respondent tasklist',
   respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
@@ -137,13 +137,13 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: '',
+  title: 'Respondent tasklist - welsh',
   respondentName: '',
   statuses: {
-    [SectionStatus.COMPLETED]: 'Wedi cwblhau',
+    [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
-    [SectionStatus.READY_TO_VIEW]: "barod i'w weld",
+    [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
     [SectionStatus.DOWNLOAD]: 'DOWNLOAD (in Welsh)',
     [SectionStatus.VIEW]: 'VIEW (in Welsh)',

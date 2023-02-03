@@ -33,8 +33,8 @@ const en = {
 };
 
 const cy = {
-  title: 'Beth yw',
-  title1: ' Perthynas efo',
+  title: 'Beth yw perthynas',
+  title1: ' â',
   mother: 'Mam',
   father: 'Tad',
   guardian: 'Gwarcheidwad',
