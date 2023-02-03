@@ -3,8 +3,8 @@
 import { CaseWithId } from '../../../app/case/case';
 /* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
+import { SummaryList, SummaryListContentWithBoolean, getSectionSummaryList } from '../../c100-rebuild/check-your-answers/lib/lib';
 import * as Urls from '../../urls';
-import { SummaryList, SummaryListContentWithBoolean, getSectionSummaryList } from '../allegations-of-harm-and-violence/check-your-answers/lib/lib';
 
 import { OPotherProceedingsSessionParserUtil } from './proceedingUtils';
 

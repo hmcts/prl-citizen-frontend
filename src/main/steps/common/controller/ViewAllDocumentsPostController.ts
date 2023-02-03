@@ -113,6 +113,10 @@ export class ViewAllDocumentsPostController extends PostController<AnyObject> {
       'citizen-case-update'
     );
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
+    req.session.applicationSettings = {
+      ...req.session.applicationSettings,
+      navfromRespondToApplication: true,
+    };
 
     req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
   }

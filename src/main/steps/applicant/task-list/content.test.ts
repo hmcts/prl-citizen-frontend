@@ -8,7 +8,7 @@ import { applicant_en } from './section-titles';
 import { applicant_tasklist_items_en } from './tasklist-items';
 
 const enContent = {
-  title: '',
+  title: 'Applicant tasklist',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -21,14 +21,14 @@ const enContent = {
   taskListItems: applicant_tasklist_items_en,
 };
 const cyContent = {
-  title: ' ',
+  title: 'Applicant tasklist',
   statuses: {
-    [SectionStatus.COMPLETED]: 'Wedi cwblhau',
+    [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'I WNEUD',
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
-    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
-    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
@@ -113,7 +113,7 @@ describe('task-list > content', () => {
             {
               href: '/applicant/yourhearings/hearings',
               id: 'check-details-of-your-court-hearings',
-              status: SectionStatus.NOT_AVAILABLE_YET,
+              status: SectionStatus.TO_DO,
               text: 'Check details of your court hearings',
             },
           ],
@@ -185,7 +185,7 @@ describe('task-list > content', () => {
             {
               href: '/applicant/yourhearings/hearings',
               id: 'check-details-of-your-court-hearings',
-              status: SectionStatus.NOT_AVAILABLE_YET,
+              status: SectionStatus.TO_DO,
               text: 'Check details of your court hearings',
             },
           ],

@@ -64,10 +64,10 @@ const enContent = {
 };
 
 const cyContent = {
-  title: 'Safety concerns - welsh',
+  title: 'Pryderon diogelwch',
   title_desc:
-    'The court needs to know about any violent or abusive behaviour that puts you or the children at risk of harm. - welsh',
-  heading1: 'Abusive behaviour - welsh',
+    "Mae angen i'r llys wybod am unrhyw ymddygiad treisgar neu ddifrïol sy'n eich rhoi chi neu'r plant mewn perygl o niwed.",
+  heading1: 'Ymddygiad difrïol',
   line1:
     'The court needs to know about any violent or abusive behaviour by the other people in this application. - welsh',
   line2: 'This could be abuse that occured in the past, or abuse that is happening now. - welsh',
@@ -92,13 +92,13 @@ const cyContent = {
     'The court needs to know about this behaviour, to make sure that any orders are in the best interests of you and the children. - welsh',
   line2h2: 'The court will use the information you provide to handle your case correctly. - welsh',
   warning:
-    'The information that you give in this section will also be shared with the other people in this application, so they are able to respond to what you have said. - welsh',
-  heading3: "If you don't feel ready to describe the abuse at this stage - welsh",
+    "Bydd yr wybodaeth y byddwch yn ei rhoi yn yr adran hon hefyd yn cael ei rhannu â'r bobl eraill yn y cais hwn, fel eu bod nhw yn gallu ymateb i'r hyn yr ydych chi wedi'i ddweud.",
+  heading3: "Os nad ydych yn teimlo'n barod i ddisgrifio'r cam-drin ar hyn o bryd",
   line1h3p1: "If you don't feel ready to talk about the abuse right now, you can do so when you speak to -welsh",
   line1h3p2: 'Cafcass - welsh',
   line1h3p3: 'Cafcass Cymru. - welsh',
   line2h3: 'It will not harm your application if you give details of the abuse later in the process. - welsh',
-  dropdown: 'How Cafcass can support you in your case - welsh',
+  dropdown: 'Sut gall Cafcass eich cefnogi yn eich achos chi',
   dropdown_content1p1: 'Children and Family Court Advisory and Support Service (Cafcass) -  welsh',
   dropdown_content1p2: 'Cafcass Cymru - welsh',
   dropdown_content1p3:

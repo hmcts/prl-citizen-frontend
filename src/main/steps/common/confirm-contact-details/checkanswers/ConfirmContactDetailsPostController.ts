@@ -7,7 +7,7 @@ import { toApiFormat } from '../../../../app/case/to-api-format';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL } from '../../../../steps/urls';
+import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../../steps/urls';
 
 import { setContactDetails } from './ContactDetailsMapper';
 
@@ -79,7 +79,9 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
     let redirectUrl;
 
     if (req.url.includes('respondent')) {
-      redirectUrl = RESPONDENT_TASK_LIST_URL;
+      redirectUrl = req.session.applicationSettings?.navfromRespondToApplication
+        ? RESPOND_TO_APPLICATION
+        : RESPONDENT_TASK_LIST_URL;
     } else {
       redirectUrl = APPLICANT_TASK_LIST_URL;
     }

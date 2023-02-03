@@ -31,7 +31,7 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Safety concerns',
+  section: 'Pryderon diogelwch',
   title: 'Have you suffered or are you at risk of suffering domestic violence or abuse?',
   line1: 'Only include abuse by the people in this application or someone connected to them.',
   line2: 'Domestic violence or abuse includes incidents or a pattern of incidents of abusive or violent behaviour.',
@@ -52,7 +52,7 @@ const cyContent = {
     'It also includes culturally specific forms of abuse, including forced marriage, honour-based violence and dowry-related abuse.',
   one: 'Yes',
   two: 'No',
-  summaryText: 'Contacts for help',
+  summaryText: 'Cysylltiadau am gymorth',
   saveAndContinue: 'Save and Continue',
 };
 

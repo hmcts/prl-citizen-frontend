@@ -13,11 +13,11 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'All documents',
-  title: 'Orders from the court',
-  summaryText: 'Contacts for help',
-  caseNumber: 'Case number',
-  continue: 'Go back',
+  section: 'Pob dogfen',
+  title: 'Gorchmynion gan y llys',
+  summaryText: 'Cysylltiadau am gymorth',
+  caseNumber: 'Rhif yr achos ',
+  continue: 'Yn ôl',
 };
 
 jest.mock('../../../app/form/validation');

@@ -18,7 +18,7 @@ const cy: typeof en = {
   title: 'Provide the documents',
   continue: 'Continue',
   add: 'Submit',
-  uploadFiles: 'Your documents',
+  uploadFiles: 'Eich dogfennau',
   remove: 'Remove',
 };
 

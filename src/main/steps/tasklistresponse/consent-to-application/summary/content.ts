@@ -41,14 +41,14 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
+  section: 'Gwirio eich atebion',
   title: 'Your consent to the application',
   sectionTitles: {
     consentDetails: '',
   },
   keys: {
     doYouConsent: 'Do you provide your consent to the application?',
-    applicationReceivedDate: 'When did you receive the application?',
+    applicationReceivedDate: "Pryd gawsoch chi'r cais?",
     courtPermission: 'Is the applicant required to seek permission from the court before making applications?',
   },
 };

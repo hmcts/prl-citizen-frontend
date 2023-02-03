@@ -38,7 +38,7 @@ describe('common > components > address-select', () => {
     languageAssertions('en', enContent, () => generateContent(commonContent));
 
     expect(generatedContent.options).toEqual([
-      { attributes: { id: 'totalAddressesFound' }, selected: true, text: '0 addresses found', value: -1 },
+      { attributes: { id: 'totalAddressesFound' }, selected: true, text: '0 address found', value: -1 },
     ]);
 
     expect(generatedContent.changePostCodeUrl).toEqual('#');
@@ -93,7 +93,7 @@ describe('common > components > address-select', () => {
     test('should create correct options for selectAddress field', () => {
       generatedContent = generateContent({ ...commonContent, addresses: undefined });
       expect(generatedContent.options).toEqual([
-        { attributes: { id: 'totalAddressesFound' }, selected: true, text: '0 addresses found', value: -1 },
+        { attributes: { id: 'totalAddressesFound' }, selected: true, text: '0 address found', value: -1 },
       ]);
     });
 

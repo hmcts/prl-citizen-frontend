@@ -54,6 +54,7 @@ withNightlyPipeline(type, product, component) {
   env.TEST_URL = "https://privatelaw.aat.platform.hmcts.net/"
   env.PRL_CITIZEN_URL = params.FRONTEND_URL
   loadVaultSecrets(secrets)
+  enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
   // enableMutationTest()
   enableFortifyScan()
   enableFullFunctionalTest(120)

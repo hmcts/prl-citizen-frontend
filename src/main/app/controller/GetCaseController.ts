@@ -1,7 +1,9 @@
 import { Response } from 'express';
 
+import { getSupportDetails } from '../../../main/steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
 import { CaseWithId } from '../../app/case/case';
 import { Respondent } from '../../app/case/definition';
+import { mapSafetyConcernsDetails } from '../../steps/tasklistresponse/allegations-of-harm-and-violence/SafetyConcernsMapper';
 import { getInternationalFactorsDetails } from '../../steps/tasklistresponse/international-factors/InternationalFactorsMapper';
 import {
   APPLICANT,
@@ -52,12 +54,16 @@ export class GetCaseController {
     if (req.session?.userCase) {
       req.session.userCaseList = [];
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-        if (
-          respondent?.value?.user?.idamId === req.session?.user.id &&
-          respondent?.value?.response &&
-          respondent?.value?.response.citizenInternationalElements
-        ) {
-          getInternationalFactorsDetails(respondent, req);
+        if (respondent?.value?.user?.idamId === req.session?.user.id) {
+          if (respondent?.value?.response?.citizenInternationalElements) {
+            getInternationalFactorsDetails(respondent, req);
+          }
+          if (respondent?.value?.response?.safetyConcerns) {
+            Object.assign(req.session.userCase, mapSafetyConcernsDetails(respondent));
+          }
+          if (respondent?.value?.response?.supportYouNeed) {
+            getSupportDetails(respondent, req);
+          }
         }
       });
     }

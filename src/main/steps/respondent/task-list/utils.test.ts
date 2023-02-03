@@ -9,6 +9,9 @@ import {
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
+  getUploadDocuments,
+  getViewAllDocuments,
+  getViewAllHearingsFromTheCourt,
   getYourSafetyStatus,
 } from './utils';
 
@@ -233,4 +236,43 @@ describe('utils', () => {
       expect(getYourSafetyStatus({ ...userCase, ...data })).toBe(expected);
     });
   });
+});
+
+test('should return correct status of court hearings', () => {
+  expect(
+    getViewAllHearingsFromTheCourt({
+      ...mockUserCase,
+      hearingCollection: [
+        {
+          prev: [
+            {
+              date: 'string',
+              time: 'string',
+              typeOfHearing: 'string',
+              courtName: 'string',
+              courtAddress: 'string',
+              hearingOutcome: 'string',
+            },
+          ],
+          next: {
+            date: 'string',
+            time: 'string',
+            typeOfHearing: 'string',
+            courtName: 'string',
+            courtAddress: 'string',
+            hearingOutcome: 'string',
+          },
+        },
+      ],
+    })
+  ).toBe(SectionStatus.READY_TO_VIEW);
+  expect(getViewAllHearingsFromTheCourt({ ...mockUserCase, hearingCollection: [] })).toBe(SectionStatus.TO_DO);
+});
+
+test('should return correct status of get view all docs', () => {
+  expect(getViewAllDocuments()).toBe(SectionStatus.READY_TO_VIEW);
+});
+
+test('should return correct status of get upload docs', () => {
+  expect(getUploadDocuments()).toBe(SectionStatus.TO_DO);
 });
