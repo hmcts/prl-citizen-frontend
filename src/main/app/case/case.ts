@@ -573,6 +573,9 @@ export interface Case {
   hwn_hearingPart1?: YesOrNo;
   c100RebuildChildPostCode?: string;
   helpWithFeesReferenceNumber?: string;
+  createdDate?: string;
+  applicantName?: string;
+  lastModifiedDate?: string;
 }
 
 export interface CaseWithId extends Case {

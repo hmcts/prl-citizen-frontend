@@ -19,6 +19,7 @@ import ApplicantConfirmContactDetailsPostController from './steps/applicant/conf
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
+import DashboardGetController from './steps/common/dashboard/DashboardGetController';
 import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { ContactUsGetController } from './steps/contact-us/get';
@@ -103,6 +104,8 @@ import {
   CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   RESPONDENT_CHECK_ANSWERS_NO,
+  DASHBOARD_URL_NEW,
+  //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
 export class Routes {
@@ -112,6 +115,7 @@ export class Routes {
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(HOME_URL, (req, res) => res.redirect(DASHBOARD_URL));
+    app.get(DASHBOARD_URL_NEW, errorHandler(new DashboardGetController().get));
     app.get(COOKIES_PAGE, errorHandler(new CookiesGetController().get));
     app.get(PRIVACY_POLICY, errorHandler(new PrivacyPolicyGetController().get));
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));

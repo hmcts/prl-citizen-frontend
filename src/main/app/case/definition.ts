@@ -2929,3 +2929,8 @@ export type ChildrenDetails = {
       lastName: string;
       partyType: PartyType;
   }
+
+  export enum CaseType {
+    C100 = 'C100',
+    FL401 = 'FL401',
+}

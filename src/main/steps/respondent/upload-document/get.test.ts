@@ -23,7 +23,12 @@ describe('UploadDocumentListGetController', () => {
           pageContent: generateContent,
           userCase,
           userEmail: 'test@example.com',
-          additionalData: { req },
+          additionalData: {
+            req,
+            user: {
+              fullname: `${req.session.user.givenName} ${req.session.user.familyName}`,
+            },
+          },
         }),
       })
     );

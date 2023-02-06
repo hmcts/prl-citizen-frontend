@@ -12,6 +12,7 @@ export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 export const CITIZEN_HOME_URL: PageLink = '/citizen-home';
 export const SERVICE_TYPE: PageLink = '/service-type';
 export const DASHBOARD_URL: PageLink = '/dashboard';
+export const DASHBOARD_URL_NEW: PageLink = '/dashboard/new';
 export const ELIGIBILITY_URL: PageLink = '/eligibility';
 export const PRL_CASE_URL: PageLink = '/prl-cases';
 
