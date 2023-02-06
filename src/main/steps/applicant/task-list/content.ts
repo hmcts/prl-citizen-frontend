@@ -62,7 +62,7 @@ const en = () => ({
     bannerLinks: [
       {
         href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
-        text: 'View the order (PDF)',
+        text: 'View the final order (PDF)',
       },
     ],
   },
@@ -83,10 +83,10 @@ const cy = () => ({
   taskListItems: applicant_tasklist_items_en,
 
   viewDocumentBanner: {
-    bannerHeading: 'You have a new document to view (in Welsh)',
+    bannerHeading: 'Mae gennych ddogfen newydd i edrych arni',
     bannerContent: [
       {
-        line1: 'A new document has been added to your case.',
+        line1: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
       },
     ],
     bannerLinks: [
@@ -97,30 +97,32 @@ const cy = () => ({
     ],
   },
   newOrderBanner: {
-    bannerHeading: 'You have a new order from the court',
+    bannerHeading: 'Mae gennych orchymyn newydd gan y llys',
     bannerContent: [
       {
-        line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
+        line1:
+          'Mae’r llys wedi gwneud penderfyniad ynghylch eich achos. Mae’r gorchymyn yn dweud wrthych beth y mae’r llys wedi penderfynu. ',
       },
     ],
     bannerLinks: [
       {
         href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
-        text: 'View the order (PDF)',
+        text: 'Gweld y gorchymyn (PDF)',
       },
     ],
   },
   finalOrderBanner: {
-    bannerHeading: 'You have a final order',
+    bannerHeading: 'Mae gennych orchymyn terfynol',
     bannerContent: [
       {
-        line1: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+        line1:
+          'Mae’r llys wedi gwneud penderfyniad terfynol ynghylch eich achos. Mae’r gorchymyn yn dweud wrthych beth y mae’r llys wedi penderfynu. ',
       },
     ],
     bannerLinks: [
       {
         href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
-        text: 'View the order (PDF)',
+        text: 'Gweld y gorchymyn terfynol (PDF)',
       },
     ],
   },

@@ -172,7 +172,7 @@ describe('applicant tasklist getRemainingTaskList', () => {
             href: '/applicant/yourdocuments/alldocuments/yourwitnessstatements',
             id: 'your_allegations_of_harm',
             status: 'DOWNLOAD',
-            text: 'Your allegations of harm and violence (PDF)',
+            text: 'View allegations of harm and violence (PDF)',
           },
           {
             href: '/applicant/yourdocuments/alldocuments/yourwitnessstatements',
@@ -189,7 +189,7 @@ describe('applicant tasklist getRemainingTaskList', () => {
             href: '/applicant/upload-document',
             id: 'response_to_your_application',
             status: 'TO_DO',
-            text: 'The response to your application (PDF)',
+            text: 'Gweld yr ymateb i’ch cais (PDF)',
           },
           {
             href: '/applicant/yourdocuments/alldocuments/alldocuments',
