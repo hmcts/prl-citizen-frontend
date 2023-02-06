@@ -43,8 +43,8 @@ const cy: typeof en = {
   line9: 'Examples include:',
   line10: 'psychological abuse',
   line11: 'financial abuse',
-  line12: 'emotional abuse',
-  line13: 'physical abuse',
+  line12: 'cam-drin emosiynol',
+  line13: 'cam-drin corfforol',
   line14: 'sexual abuse',
   line15:
     'It also includes culturally specific forms of abuse, including forced marriage, honour-based violence and dowry-related abuse.',
