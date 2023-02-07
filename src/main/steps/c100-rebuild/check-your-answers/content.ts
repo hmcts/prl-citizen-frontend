@@ -1,11 +1,11 @@
 /* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../../steps/common/common.content';
-import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 import { cy as caseNameCyContent, en as caseNameEnContent } from '../case-name/content';
