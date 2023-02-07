@@ -164,7 +164,7 @@ const prepareTableData = (caseData: CaseDetails, tab: string): TableRowFields[] 
 export const prepareCaseView = (caseData: Partial<CaseWithId>[], content: Record<string, string>): Tabs => {
   let tabs = prepareTabContent(content);
 
-  if (caseData.length) {
+  if (caseData?.length) {
     tabs = caseData.reduce(
       (_tabs: Tabs, _case: Partial<CaseWithId>) => {
         const { state, caseTypeOfApplication, ...rest } = _case;
@@ -211,12 +211,11 @@ const caseLinkPartyType = (caseType: CaseType, caseData: Partial<CaseWithId>): P
       ? PartyType.RESPONDENT
       : PartyType.APPLICANT;
   } else {
-    return caseData.caseInvites?.find(
+     return caseData.caseInvites?.find(
       invities =>
         invities.value.isApplicant === YesOrNo.NO &&
-        invities.value.invitedUserId === caseData.respondentsFL401?.user.idamId
-    )
-      ? PartyType.RESPONDENT
+          invities.value.invitedUserId && invities.value.invitedUserId === caseData.respondentsFL401?.user.idamId
+    ) ? PartyType.RESPONDENT
       : PartyType.APPLICANT;
   }
 };
