@@ -211,11 +211,13 @@ const caseLinkPartyType = (caseType: CaseType, caseData: Partial<CaseWithId>): P
       ? PartyType.RESPONDENT
       : PartyType.APPLICANT;
   } else {
-     return caseData.caseInvites?.find(
+    return caseData.caseInvites?.find(
       invities =>
         invities.value.isApplicant === YesOrNo.NO &&
-          invities.value.invitedUserId && invities.value.invitedUserId === caseData.respondentsFL401?.user.idamId
-    ) ? PartyType.RESPONDENT
+        invities.value.invitedUserId &&
+        invities.value.invitedUserId === caseData.respondentsFL401?.user.idamId
+    )
+      ? PartyType.RESPONDENT
       : PartyType.APPLICANT;
   }
 };
