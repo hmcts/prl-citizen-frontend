@@ -6,8 +6,6 @@ import {
   generateContent as generateAddressLookupContent,
 } from '../../../../common/components/address-lookup';
 import { APPLICANT_MANUAL_ADDRESS } from '../../../../urls';
-
-
 import { generateContent } from './content';
 
 const resourceLoader = new ResourceReader();
