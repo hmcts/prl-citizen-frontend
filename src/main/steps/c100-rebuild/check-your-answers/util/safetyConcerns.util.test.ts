@@ -8,14 +8,14 @@ import {
 import {
   cy as passportAmountCy,
   en as passportAmountEn,
-} from '../../safety-concerns/abduction/passport-office/content';
-import {
-  cy as previousAbductionCy,
-  en as previousAbductionEn,
 } from '../../safety-concerns/abduction/passport-amount/content';
 import {
   cy as passportOfficeNotifiedCy,
   en as passportOfficeNotifiedEn,
+} from '../../safety-concerns/abduction/passport-office/content';
+import {
+  cy as previousAbductionCy,
+  en as previousAbductionEn,
 } from '../../safety-concerns/abduction/passport-office-notified/content';
 import {
   cy as passportOfficeCy,
