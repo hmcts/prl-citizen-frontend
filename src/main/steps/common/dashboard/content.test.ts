@@ -18,6 +18,7 @@ describe('Dashboard content', () => {
       state: 'AWAITING_SUBMISSION_TO_HMCTS',
       caseTypeOfApplication: 'C100',
       caseCreatedBy: 'CITIZEN',
+      createdDate: '2023-02-06T14:32:57.227543Z',
       caseStatus: {
         state: 'Draft',
       },
@@ -27,6 +28,7 @@ describe('Dashboard content', () => {
       state: 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
       dateSubmitted: '2023-02-02',
       caseSubmittedTimeStamp: '2023-02-02T14:32:57.227543Z',
+      lastModifiedDate: '2023-02-06T14:32:57.227543Z',
       caseTypeOfApplication: 'FL401',
       selectedCaseTypeID: 'FL401',
       applicantCaseName: 'Case Test welsh',
