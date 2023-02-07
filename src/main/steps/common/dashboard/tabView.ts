@@ -8,11 +8,17 @@ import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, PageLink, RESPONDENT_TASK_L
 
 const tabGroup = {
   [State.AwaitingSubmissionToHmcts]: 'draft',
-  [State.Submitted]: 'draft',
+  [State.SUBMITTED_NOT_PAID]: 'draft',
+  [State.SUBMITTED_PAID]: 'draft',
   [State.ALL_FINAL_ORDERS_ISSUED]: 'closed',
   '*': 'active',
 };
 
+const caseStatusTranslation = {
+  [State.AwaitingSubmissionToHmcts]: 'draftCaseStatus',
+  [State.SUBMITTED_NOT_PAID]: 'pendingCaseStatus',
+  [State.SUBMITTED_PAID]: 'submittedCaseStatus',
+};
 interface CaseDetails {
   caseNumber: string;
   caseType: CaseType;
@@ -169,6 +175,7 @@ export const prepareCaseView = (caseData: Partial<CaseWithId>[], content: Record
       (_tabs: Tabs, _case: Partial<CaseWithId>) => {
         const { state, caseTypeOfApplication, ...rest } = _case;
         const tab = tabGroup[state as string] ?? tabGroup['*'];
+        const caseStatus = content?.[caseStatusTranslation?.[state!]] ?? (state as string);
 
         if (_tabs[tab]) {
           _tabs[tab].rows.push(
@@ -178,7 +185,7 @@ export const prepareCaseView = (caseData: Partial<CaseWithId>[], content: Record
                 caseType: caseTypeOfApplication as CaseType,
                 caseLinkPartyType: caseLinkPartyType(caseTypeOfApplication as CaseType, _case),
                 caseApplicantName: rest.applicantName ?? '',
-                caseStatus: state!,
+                caseStatus,
                 createdDate: dayjs(rest.createdDate).format('DD MMM YYYY'),
                 lastModifiedDate: dayjs(rest.lastModifiedDate).format('DD MMM YYYY'),
               },

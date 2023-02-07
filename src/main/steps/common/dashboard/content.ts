@@ -23,6 +23,9 @@ const en = {
   lastUpdated: 'Last updated',
   closeDate: 'Close date',
   noCase: 'No case available.',
+  draftCaseStatus: 'Draft',
+  pendingCaseStatus: 'Application submitted',
+  submittedCaseStatus: 'Application submitted',
 };
 
 const cy = {
@@ -46,6 +49,9 @@ const cy = {
   lastUpdated: 'Last updated - welsh',
   closeDate: 'Close date - welsh',
   noCase: 'No case available. - welsh',
+  draftCaseStatus: 'Draft - welsh',
+  pendingCaseStatus: 'Application submitted - welsh',
+  submittedCaseStatus: 'Application submitted - welsh',
 };
 
 export const languages = {

@@ -103,7 +103,7 @@ describe('Dashboard tab content', () => {
                 text: 'C100',
               },
               {
-                text: 'AWAITING_SUBMISSION_TO_HMCTS',
+                text: 'Draft',
               },
               {
                 text: '06 Feb 2023',
