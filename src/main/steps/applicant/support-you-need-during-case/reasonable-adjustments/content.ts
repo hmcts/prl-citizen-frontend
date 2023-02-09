@@ -20,8 +20,11 @@ const en = {
   hearingcomforthint: 'for example, breaks or extra space',
   travellinghelp: 'I need help travelling to, or moving around court buildings',
   travellinghelphint: 'access and mobility support if a hearing takes place in person',
+  unabletotakecourtproceedings: 'Is there a reason you are unable to take part in the court proceedings?',
+  unabletotakecourtproceedingshint:
+    'For example, do you have a disability that would prevent you from attending court in person?',
   nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     reasonableAdjustments: {
       required: 'Please select an answer',
@@ -47,8 +50,11 @@ const cy: typeof en = {
   hearingcomforthint: 'for example, breaks or extra space',
   travellinghelp: 'I need help travelling to, or moving around court buildings',
   travellinghelphint: 'access and mobility support if a hearing takes place in person',
+  unabletotakecourtproceedings: 'Is there a reason you are unable to take part in the court proceedings?',
+  unabletotakecourtproceedingshint:
+    'For example, do you have a disability that would prevent you from attending court in person?',
   nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
     reasonableAdjustments: {
       required: 'Please select an answer',
@@ -74,31 +80,31 @@ export const form: FormContent = {
           name: 'reasonableAdjustments',
           label: l => l.docsformat,
           hint: l => l.docsformathint,
-          value: 'document format',
+          value: 'docsformat',
         },
         {
           name: 'reasonableAdjustments',
           label: l => l.commhelp,
           hint: l => l.commhelphint,
-          value: 'comminication help',
+          value: 'commhelp',
         },
         {
           name: 'reasonableAdjustments',
           label: l => l.hearingsupport,
           hint: l => l.hearingsupporthint,
-          value: 'hearing support',
+          value: 'hearingsupport',
         },
         {
           name: 'reasonableAdjustments',
           label: l => l.hearingcomfort,
           hint: l => l.hearingcomforthint,
-          value: 'hearing comfort',
+          value: 'hearingcomfort',
         },
         {
           name: 'reasonableAdjustments',
           label: l => l.travellinghelp,
           hint: l => l.travellinghelphint,
-          value: 'travel help',
+          value: 'travellinghelp',
         },
         {
           divider: true,
@@ -106,13 +112,13 @@ export const form: FormContent = {
         {
           name: 'reasonableAdjustments',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

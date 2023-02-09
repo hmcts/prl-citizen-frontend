@@ -1,7 +1,18 @@
+import { CaseWithId } from '../../../../../main/app/case/case';
 import { TranslationFn } from '../../../../../main/app/controller/GetController';
 import { FormContent } from '../../../../../main/app/form/Form';
 import { CommonContent } from '../../../../../main/steps/common/common.content';
 import { summaryList } from '../../../../../main/steps/common/support-you-need-during-case/summary/utils';
+import {
+  COMMUNICATION_HELP,
+  COURT_HEARING_COMFORT,
+  COURT_HEARING_SUPPORT,
+  DOCUMENTS_SUPPORT,
+  LANGUAGE_REQUIREMENTS,
+  REASONABLE_ADJUSTMENTS,
+  SAFETY_ARRANGEMENTS,
+  TRAVELLING_TO_COURT,
+} from '../../../../../main/steps/urls';
 
 export const enContent = {
   section: 'Check your answers',
@@ -14,18 +25,6 @@ export const enContent = {
     languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-    docsSupport: 'I need documents in an alternative format',
-    otherDetails: 'Describe what you need',
-    helpCommunication: 'I need help communicating and understanding',
-    describeOtherNeed: 'Describe what you need',
-    courtHearing: 'I would need to bring support with me to a court hearing',
-    communicationSupportOther: 'Describe what you need',
-    courtComfort: 'I need something to make me feel comfortable during a court hearing',
-    otherProvideDetails: 'Describe what you need',
-    travellingToCourt: 'I need help travelling to, or moving around court buildings',
-    travellingOtherDetails: 'Describe what you need',
-    unableForCourtProceedings: 'I need something to make me feel comfortable during a court hearing',
-    courtProceedingProvideDetails: 'Provie details',
     safetyArrangements: 'Do you or the children need special safety arrangements at court?',
     safetyArrangementsDetails: 'Describe what you need',
   },
@@ -73,10 +72,11 @@ const en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
 
+  filterApplicantSelectedUrls(userCase);
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou)],
+    sections: [summaryList(enContent, userCase, urls, 'en', enContent.sectionTitles.aboutYou)],
   };
 };
 
@@ -86,23 +86,12 @@ const cyContent: typeof enContent = {
   sectionTitles: {
     aboutYou: 'About you',
   },
+
   keys: {
     languageRequirements: 'Do you have any language requirements?',
     languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-    docsSupport: 'I need documents in an alternative format',
-    otherDetails: 'Describe what you need',
-    helpCommunication: 'I need help communicating and understanding',
-    describeOtherNeed: 'Describe what you need',
-    courtHearing: 'I would need to bring support with me to a court hearing',
-    communicationSupportOther: 'Describe what you need',
-    courtComfort: 'I need something to make me feel comfortable during a court hearing',
-    otherProvideDetails: 'Describe what you need',
-    travellingToCourt: 'I need help travelling to, or moving around court buildings',
-    travellingOtherDetails: 'Describe what you need',
-    unableForCourtProceedings: 'I need something to make me feel comfortable during a court hearing',
-    courtProceedingProvideDetails: 'Provie details',
     safetyArrangements: 'Do you or the children need special safety arrangements at court?',
     safetyArrangementsDetails: 'Describe what you need',
   },
@@ -147,23 +136,11 @@ const cyContent: typeof enContent = {
 };
 
 const urls = {
-  languageRequirements: 'language-requirements',
-  languageDetails: 'language-requirements',
-  reasonableAdjustments: 'reasonable-adjustments',
-  docsSupport: 'documents-support',
-  otherDetails: 'documents-support',
-  helpCommunication: 'communication-help',
-  describeOtherNeed: 'communication-help',
-  courtHearing: 'court-hearing-support',
-  communicationSupportOther: 'court-hearing-support',
-  courtComfort: 'court-hearing-comfort',
-  otherProvideDetails: 'court-hearing-comfort',
-  travellingToCourt: 'travelling-to-court',
-  travellingOtherDetails: 'travelling-to-court',
-  unableForCourtProceedings: 'unable-to-take-court-proceedings',
-  courtProceedingProvideDetails: 'unable-to-take-court-proceedings',
-  safetyArrangements: 'safety-arrangements',
-  safetyArrangementsDetails: 'safety-arrangements',
+  languageRequirements: LANGUAGE_REQUIREMENTS,
+  languageDetails: LANGUAGE_REQUIREMENTS,
+  reasonableAdjustments: REASONABLE_ADJUSTMENTS,
+  safetyArrangements: SAFETY_ARRANGEMENTS,
+  safetyArrangementsDetails: SAFETY_ARRANGEMENTS,
 };
 
 const cy: typeof en = (content: CommonContent) => {
@@ -172,7 +149,7 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, enContent.sectionTitles.aboutYou)],
+    sections: [summaryList(cyContent, userCase, urls, 'cy', cyContent.sectionTitles.aboutYou)],
   };
 };
 
@@ -195,3 +172,157 @@ export const generateContent: TranslationFn = content => {
     form,
   };
 };
+
+function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
+  if (userCase.reasonableAdjustments?.includes('docsformat')) {
+    Object.assign(urls, { docsSupport: DOCUMENTS_SUPPORT });
+    Object.assign(urls, { otherDetails: DOCUMENTS_SUPPORT });
+
+    Object.assign(enContent.keys, {
+      docsSupport: 'I need documents in an alternative format',
+      otherDetails: 'Describe what you need',
+    });
+    Object.assign(cyContent.keys, {
+      docsSupport: 'I need documents in an alternative format - welsh',
+      otherDetails: 'Describe what you need - welsh',
+    });
+  }
+
+  if (userCase.reasonableAdjustments?.includes('commhelp')) {
+    Object.assign(urls, { helpCommunication: COMMUNICATION_HELP });
+    Object.assign(urls, { describeOtherNeed: COMMUNICATION_HELP });
+
+    Object.assign(enContent.keys, {
+      helpCommunication: 'I need help communicating and understanding',
+      describeOtherNeed: 'Describe what you need',
+    });
+    Object.assign(cyContent.keys, {
+      helpCommunication: 'I need help communicating and understanding - welsh',
+      describeOtherNeed: 'Describe what you need - welsh',
+    });
+  }
+
+  if (userCase.reasonableAdjustments?.includes('hearingsupport')) {
+    Object.assign(urls, { courtHearing: COURT_HEARING_SUPPORT });
+    Object.assign(urls, { communicationSupportOther: COURT_HEARING_SUPPORT });
+
+    Object.assign(enContent.keys, {
+      courtHearing: 'I would need to bring support with me to a court hearing',
+      communicationSupportOther: 'Describe what you need',
+    });
+    Object.assign(cyContent.keys, {
+      courtHearing: 'I would need to bring support with me to a court hearing - welsh',
+      communicationSupportOther: 'Describe what you need - welsh',
+    });
+  }
+
+  if (userCase.reasonableAdjustments?.includes('hearingcomfort')) {
+    Object.assign(urls, { courtComfort: COURT_HEARING_COMFORT });
+    Object.assign(urls, { otherProvideDetails: COURT_HEARING_COMFORT });
+
+    Object.assign(enContent.keys, {
+      courtComfort: 'I need something to make me feel comfortable during a court hearing',
+      otherProvideDetails: 'Describe what you need',
+    });
+    Object.assign(cyContent.keys, {
+      courtComfort: 'I need something to make me feel comfortable during a court hearing - welsh',
+      otherProvideDetails: 'Describe what you need - welsh',
+    });
+  }
+
+  if (userCase.reasonableAdjustments?.includes('travellinghelp')) {
+    Object.assign(urls, { travellingToCourt: TRAVELLING_TO_COURT });
+    Object.assign(urls, { travellingOtherDetails: TRAVELLING_TO_COURT });
+
+    Object.assign(enContent.keys, {
+      travellingToCourt: 'I need help travelling to, or moving around court buildings',
+      travellingOtherDetails: 'Describe what you need',
+    });
+    Object.assign(cyContent.keys, {
+      travellingToCourt: 'I need help travelling to, or moving around court buildings - welsh',
+      travellingOtherDetails: 'Describe what you need - welsh',
+    });
+  }
+
+  if (userCase.reasonableAdjustments?.includes('nosupport')) {
+    //delete all fields //
+    deleteLanguageRequirementsFields(userCase);
+    deleteDocsSupportFields(userCase);
+    deleteHelpCommunicationFields(userCase);
+    deleteCourtHearingFields(userCase);
+    deleteCourtComfortFields(userCase);
+    deleteTravellingToCourtFields(userCase);
+    deleteSafetyArrangementsFields(userCase);
+  }
+
+  if (userCase.languageRequirements?.includes('nointerpreter')) {
+    deleteLanguageRequirementsFields(userCase);
+  }
+
+  if (userCase.docsSupport?.includes('nosupport')) {
+    deleteDocsSupportFields(userCase);
+  }
+
+  if (userCase.helpCommunication?.includes('nosupport')) {
+    deleteHelpCommunicationFields(userCase);
+  }
+
+  if (userCase.courtHearing?.includes('nosupport')) {
+    deleteCourtHearingFields(userCase);
+  }
+
+  if (userCase.courtComfort?.includes('nosupport')) {
+    deleteCourtComfortFields(userCase);
+  }
+
+  if (userCase.travellingToCourt?.includes('nosupport')) {
+    deleteTravellingToCourtFields(userCase);
+  }
+
+  if (userCase.safetyArrangements?.includes('nosupport')) {
+    deleteSafetyArrangementsFields(userCase);
+  }
+}
+
+function deleteSafetyArrangementsFields(userCase: Partial<CaseWithId>) {
+  userCase.safetyArrangementsDetails = '';
+}
+
+function deleteTravellingToCourtFields(userCase: Partial<CaseWithId>) {
+  userCase.travellingOtherDetails = '';
+
+  delete urls['travellingToCourt'];
+  delete urls['travellingOtherDetails'];
+}
+
+function deleteCourtComfortFields(userCase: Partial<CaseWithId>) {
+  userCase.otherProvideDetails = '';
+
+  delete urls['courtComfort'];
+  delete urls['otherProvideDetails'];
+}
+
+function deleteCourtHearingFields(userCase: Partial<CaseWithId>) {
+  userCase.communicationSupportOther = '';
+
+  delete urls['courtHearing'];
+  delete urls['communicationSupportOther'];
+}
+
+function deleteHelpCommunicationFields(userCase: Partial<CaseWithId>) {
+  userCase.describeOtherNeed = '';
+
+  delete urls['helpCommunication'];
+  delete urls['describeOtherNeed'];
+}
+
+function deleteLanguageRequirementsFields(userCase: Partial<CaseWithId>) {
+  userCase.languageDetails = '';
+}
+
+function deleteDocsSupportFields(userCase: Partial<CaseWithId>) {
+  userCase.otherDetails = '';
+
+  delete urls['docsSupport'];
+  delete urls['otherDetails'];
+}

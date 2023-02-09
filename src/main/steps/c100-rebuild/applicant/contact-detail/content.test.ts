@@ -40,6 +40,7 @@ const en = {
     },
     canNotProvideTelephoneNumberReason: {
       required: 'Please tell us why you cannot provide telephone number',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
     canLeaveVoiceMail: {
       required: 'Please select voice mail option',
@@ -79,6 +80,7 @@ const cy = {
     },
     canNotProvideTelephoneNumberReason: {
       required: 'Dywedwch wrthym pam na allwch ddarparu rhif ffôn',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
     },
     canLeaveVoiceMail: {
       required: 'Dewiswch opsiwn neges llais',

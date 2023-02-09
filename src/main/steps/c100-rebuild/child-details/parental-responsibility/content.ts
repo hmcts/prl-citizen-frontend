@@ -3,7 +3,7 @@ import { CaseWithId } from '../../../../app/case/case';
 import { ChildrenDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { isAlphaNumeric, isFieldFilledIn } from '../../../../app/form/validation';
 import { getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
@@ -20,6 +20,7 @@ export const en = () => ({
   errors: {
     statement: {
       required: 'Enter an answer',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
   },
 });
@@ -33,6 +34,7 @@ export const cy = () => ({
   errors: {
     statement: {
       required: 'Rhowch ateb',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.(in Welsh)',
     },
   },
 });
@@ -66,7 +68,7 @@ export const generateFormFields = (
     statement: {
       type: 'text',
       value: statement,
-      validator: isFieldFilledIn,
+      validator: value => isFieldFilledIn(value) || isAlphaNumeric(value),
     },
   };
 

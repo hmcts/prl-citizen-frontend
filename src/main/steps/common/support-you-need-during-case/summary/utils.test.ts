@@ -29,7 +29,11 @@ describe('common > summary > utils', () => {
   describe('SummaryList', () => {
     test.each([
       {
-        userCase: mockUserCase,
+        userCase: {
+          ...mockUserCase,
+          languageRequirements: ['nointerpreter'],
+          languageDetails: '',
+        },
         expected: {
           title: 'About you',
           rows: [
@@ -44,7 +48,7 @@ describe('common > summary > utils', () => {
                 ],
               },
               key: { text: 'Do you have any language requirements?' },
-              value: {},
+              value: { text: 'No, I do not have any language requirements at this time' },
             },
             {
               actions: {
@@ -63,7 +67,7 @@ describe('common > summary > utils', () => {
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(summaryList(enContent, userCase, urls, 'About you')).toStrictEqual(expected);
+      expect(summaryList(enContent, userCase, urls, 'en', 'About you')).toEqual(expected);
     });
   });
 });

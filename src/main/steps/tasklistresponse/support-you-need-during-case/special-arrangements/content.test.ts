@@ -22,12 +22,12 @@ const en = {
   other: 'Other',
   otherDetails: 'Provide details of what you or the children need',
   noSupport: 'No, I do not have any safety requirements at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
-    respondentSpecialArrangements: {
+    safetyArrangements: {
       required: 'Please select an answer',
     },
-    respondentSpecialArrangementsDetails: {
+    safetyArrangementsDetails: {
       required: 'Please describe your need in detail',
     },
   },
@@ -51,12 +51,12 @@ const cy: typeof en = {
   other: 'Other',
   otherDetails: 'Provide details of what you or the children need',
   noSupport: 'No, I do not have any safety requirements at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
-    respondentSpecialArrangements: {
+    safetyArrangements: {
       required: 'Please select an answer',
     },
-    respondentSpecialArrangementsDetails: {
+    safetyArrangementsDetails: {
       required: 'Please describe your need in details',
     },
   },
@@ -104,13 +104,13 @@ describe('citizen-home content', () => {
   });
 
   test('should contain courthearing field', () => {
-    const specialArrangementsField = fields.respondentSpecialArrangements as FormOptions;
+    const specialArrangementsField = fields.safetyArrangements as FormOptions;
     expect(specialArrangementsField.type).toBe('checkboxes');
     expect((specialArrangementsField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+  test('should contain Continue button', () => {
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 

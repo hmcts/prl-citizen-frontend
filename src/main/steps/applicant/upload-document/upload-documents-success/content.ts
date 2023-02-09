@@ -4,6 +4,7 @@ import { FormContent } from '../../../../app/form/Form';
 const en = {
   section: 'How your documents will be shared',
   status: 'Your documents have been uploaded',
+  title: 'Your documents have been uploaded',
   continue: 'Continue',
   remove: 'Remove',
   sucess: 'Success',
@@ -13,6 +14,7 @@ const en = {
 const cy: typeof en = {
   section: 'How your documents will be shared',
   status: 'Your documents have been uploaded',
+  title: 'Your documents have been uploaded',
   continue: 'Continue',
   remove: 'Remove',
   sucess: 'Success',

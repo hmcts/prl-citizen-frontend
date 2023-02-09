@@ -1,0 +1,62 @@
+{% extends "common/template.njk" %}
+
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% block page_content %}
+<div>
+  <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
+    <div class="govuk-grid-row">
+       <div class="govuk-grid-column-full">
+          <h1 class="govuk-heading-xl ">{{title}}</h1>
+          <p class="govuk-body-l ">{{title_desc}}</p>
+          <h2 class="govuk-heading-m ">{{heading1}}</h2>
+          <h2>
+           <p class="govuk-body">{{line1}}</p>
+           <p class="govuk-body">{{line2}}</p>
+           <p class="govuk-body">{{line3}}</p>
+           <p class="govuk-body">{{line4}}</p>
+           <p class="govuk-body">{{line5}}</p>
+           <ul class="govuk-list govuk-list--bullet">
+            <li>{{listItem1}}</li>
+            <li>{{listItem2}}</li>
+            <li>{{listItem3}}</li>
+            <li>{{listItem4}}</li>
+            <li>{{listItem5}}</li>
+            <li>{{listItem6}}</li>
+           </ul>
+           <p class="govuk-body">{{line6}}</p>
+           <p class="govuk-body">{{line7p1}} <a href="https://supportnav.org.uk/what-is-domestic-abuse" class="govuk-link govuk-link" rel="external" target="_blank">{{line7p2}}</a> {{line7p3}} <a href="https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse/" class="govuk-link govuk-link" rel="external" target="_blank">{{line7p4}}</a></p>
+          </h2>
+          <h2 class="govuk-heading-m ">{{heading2}}</h2>
+          <p class="govuk-body ">{{line1h2}}</p>
+          <p class="govuk-body ">{{line2h2}}</p>
+          <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+             <strong class="govuk-warning-text__text">
+                <span class="govuk-warning-text__assistive">Warning</span>
+                {{warning}}
+              </strong>
+          </div>
+          <h2 class="govuk-heading-m ">{{heading3}}</h2>
+          <p class="govuk-body ">{{line1h3p1}} <a href="https://www.cafcass.gov.uk/" class="govuk-link govuk-link" rel="external" target="_blank">{{line1h3p2}}</a> or <a href="https://gov.wales/cafcass-cymru" class="govuk-link govuk-link" rel="external" target="_blank">{{line1h3p3}}</a></p>
+          <p class="govuk-body ">{{line2h3}}</p>
+          <details class="govuk-details " data-module="govuk-details">
+            <summary class="govuk-details__summary ">
+              <span class="govuk-details__summary-text " data-ga-category="explanations" data-ga-label="abuse details">{{dropdown}}</span>
+            </summary>
+            <div class="govuk-details__text">
+                 <p class="govuk-body">The <a href="https://www.cafcass.gov.uk/" class="govuk-link govuk-link" rel="external" target="_blank">{{dropdown_content1p1}}</a>, in England, and <a href="https://gov.wales/cafcass-cymru" class="govuk-link govuk-link" rel="external" target="_blank">{{dropdown_content1p2}}</a>{{dropdown_content1p3}}</p>
+                 <p class="govuk-body ">{{dropdown_content2}}</p>
+                 <p class="govuk-body ">{{dropdown_content3}}</p>
+            </div>
+          </details>
+          <p class="govuk-body ">{{line3h3}}</p>
+          <p class="govuk-body ">{{line4h3}}</p>
+          <div class="govuk-!-padding-bottom-4"></div>
+        </div>
+        <div class="govuk-button-group govuk-!-margin-top-6">
+          <a class="govuk-button " role="button" draggable="false" data-module="govuk-button" href="../allegations-of-harm-and-violence/your-or-child-safety-concerns">{{continue}}</a>   
+        </div>
+    </div>
+  </main>
+</div>
+{% endblock %}

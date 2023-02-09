@@ -6,7 +6,7 @@ const en = {
   section: 'Reasonable adjustments',
   title: 'I need help communicating and understanding',
   courtcommunication:
-    'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
+    'Think about all communications with the court, as well as what you might need at a hearing. Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   hearingloop: 'Hearing loop (hearing enhancement system)',
@@ -14,24 +14,28 @@ const en = {
   needspeakinghelp: 'Need to be close to who is speaking',
   lipspeaker: 'Lip speaker',
   lipspeakerhint: 'hearing person who has been trained to be easily lip read',
-  signlanguage: 'British Sign Language interpreter',
+  signlanguage: 'Sign Language interpreter',
+  signLanguageDetails: 'Describe what you need',
   speechreporter: 'Speech to text reporter (palantypist)',
   extratime: 'Extra time to think and explain myself',
-  courtvisit: 'Visit to court before the court hearing',
-  courthearing: 'Explanation of the court hearing room layout and who will be in the room',
+  courtvisit: 'Visit to court before the hearing',
+  courthearing: "Explanation of the court and who's in the room at the hearing",
   intermediary: 'Intermediary',
   intermediaryhint:
-    'a person to act as a link and assist you in the hearing - a judge may allow this to help you understand and communicate better',
+    'a person to help you if you have communication needs by providing professional support to participate in a hearing',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  nosupport: 'No, I do not need any support at this time',
+  continue: 'Continue',
   errors: {
     helpCommunication: {
-      required: 'Please select an answer',
+      required: 'Select what help you need in communicating and understanding',
     },
     describeOtherNeed: {
       required: 'Please provide the details',
+    },
+    describeSignLanguageDetails: {
+      required: 'Please describe sign language details',
     },
   },
 };
@@ -40,7 +44,7 @@ const cy: typeof en = {
   section: 'Reasonable adjustments',
   title: 'I need help communicating and understanding',
   courtcommunication:
-    'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
+    'Think about all communications with the court, as well as what you might need at a hearing. Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   hearingloop: 'Hearing loop (hearing enhancement system)',
@@ -48,24 +52,28 @@ const cy: typeof en = {
   needspeakinghelp: 'Need to be close to who is speaking',
   lipspeaker: 'Lip speaker',
   lipspeakerhint: 'hearing person who has been trained to be easily lip read',
-  signlanguage: 'British Sign Language interpreter',
+  signlanguage: 'Sign Language interpreter',
+  signLanguageDetails: 'Describe what you need',
   speechreporter: 'Speech to text reporter (palantypist)',
   extratime: 'Extra time to think and explain myself',
-  courtvisit: 'Visit to court before the court hearing',
-  courthearing: 'Explanation of the court hearing room layout and who will be in the room',
+  courtvisit: 'Visit to court before the hearing',
+  courthearing: "Explanation of the court and who's in the room at the hearing",
   intermediary: 'Intermediary',
   intermediaryhint:
-    'a person to act as a link and assist you in the hearing - a judge may allow this to help you understand and communicate better',
+    'a person to help you if you have communication needs by providing professional support to participate in a hearing',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  nosupport: 'No, I do not need any support at this time',
+  continue: 'Continue',
   errors: {
     helpCommunication: {
-      required: 'Please select an answer',
+      required: 'Select what help you need in communicating and understanding',
     },
     describeOtherNeed: {
       required: 'Please provide the details',
+    },
+    describeSignLanguageDetails: {
+      required: 'Please describe sign language details',
     },
   },
 };
@@ -87,48 +95,59 @@ export const form: FormContent = {
         {
           name: 'helpCommunication',
           label: l => l.hearingloop,
-          value: 'hearing loop',
+          value: 'hearingloop',
         },
         {
           name: 'helpCommunication',
           label: l => l.infraredreceiver,
-          value: 'infrared receiver',
+          value: 'infraredreceiver',
         },
         {
           name: 'helpCommunication',
           label: l => l.needspeakinghelp,
-          value: 'speaking help',
+          value: 'needspeakinghelp',
         },
         {
           name: 'helpCommunication',
           label: l => l.lipspeaker,
           hint: l => l.lipspeakerhint,
-          value: 'lip speaker',
+          value: 'lipspeaker',
         },
         {
           name: 'helpCommunication',
           label: l => l.signlanguage,
-          value: 'sign language interpreter',
+          value: 'signlanguage',
+          subFields: {
+            describeSignLanguageDetails: {
+              type: 'textarea',
+              attributes: {
+                rows: 1,
+              },
+              label: l => l.signLanguageDetails,
+              labelSize: null,
+              validator: value => isFieldFilledIn(value),
+            },
+          },
         },
         {
           name: 'helpCommunication',
           label: l => l.speechreporter,
-          value: 'speech to text reporter',
+          value: 'speechreporter',
         },
         {
           name: 'helpCommunication',
           label: l => l.extratime,
-          value: 'extra time to think and explain myself',
+          value: 'extratime',
         },
         {
           name: 'helpCommunication',
           label: l => l.courtvisit,
-          value: 'vist to court before hearing',
+          value: 'courtvisit',
         },
         {
           name: 'helpCommunication',
           label: l => l.courthearing,
-          value: 'court hearing',
+          value: 'courthearing',
         },
         {
           name: 'helpCommunication',
@@ -155,13 +174,13 @@ export const form: FormContent = {
         {
           name: 'helpCommunication',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

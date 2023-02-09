@@ -1,5 +1,8 @@
 {% extends "common/page.njk" %}
 
+{% block pageTitle %}
+  {{ title }} - Private law - GOV.UK
+{% endblock %}
 {% macro taskName(item) %}
   <span class="app-task-list__task-name">
     {% if item.href %}
@@ -47,6 +50,7 @@
 {% endmacro %}
 
 {% macro taskListSection(section, index) %}
+  {% if section %}
   <li>
     <h2 class="app-task-list__section">
       {{section.title}}
@@ -57,6 +61,7 @@
       {% endfor %}
     </ul>
   </li>
+   {% endif %}
 {% endmacro %}
 
 {% block content %}

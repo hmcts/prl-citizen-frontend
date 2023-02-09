@@ -1,9 +1,12 @@
-import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Respondent, YesOrNo } from '../../../app/case/definition';
+import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
 import * as URL from '../../urls';
 
 import {
+  getAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
+  getCurrentOrOtherProceedingsStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getLegalRepresentationStatus,
@@ -69,8 +72,8 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: SectionStatus.NOT_AVAILABLE_YET,
-            href: '#',
+            status: getSupportYourNeedsDetails(userCase),
+            href: URL.C7_ATTENDING_THE_COURT,
           },
         ],
       },
@@ -86,8 +89,8 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
           {
             id: 'current-or-previous-proceedings',
             text: taskListItems.current_or_previous_proceedings,
-            status: SectionStatus.NOT_AVAILABLE_YET,
-            href: '#',
+            status: getCurrentOrOtherProceedingsStatus(userCase),
+            href: URL.PROCEEDINGS_START + '/' + userCase.id,
           },
         ],
       },
@@ -95,10 +98,10 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
         title: sectionTitles.safetyConcerns,
         items: [
           {
-            id: 'your-safety',
-            text: taskListItems.your_safety,
-            status: SectionStatus.NOT_AVAILABLE_YET,
-            href: '#',
+            id: 'allegations_of_harm_and_violence',
+            text: taskListItems.allegations_of_harm_and_violence,
+            status: getAllegationOfHarmStatus(userCase),
+            href: URL.RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
           },
         ],
       },
