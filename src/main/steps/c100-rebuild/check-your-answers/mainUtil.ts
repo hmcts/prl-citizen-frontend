@@ -830,7 +830,7 @@ export const SafetyConcerns_child = (
    * @policeOrInvestigatorsOtherDetails session Values
    */
   let policeOrInvestigatorsOtherDetailsHTML = '';
-  policeOrInvestigatorsOtherDetailsHTML += userCase['c1A_policeOrInvestigatorInvolved'];
+  policeOrInvestigatorsOtherDetailsHTML += getYesNoTranslation(language,userCase['c1A_policeOrInvestigatorInvolved'],'oeddTranslation');
    policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
     ?  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + userCase['c1A_policeOrInvestigatorOtherDetails']
     :  '' ;
@@ -838,24 +838,23 @@ export const SafetyConcerns_child = (
    * @c1A_childAbductedBefore session Values
    */
   let c1A_childAbductedBefore = '';
-  c1A_childAbductedBefore += userCase?.['c1A_passportOffice'];
+  c1A_childAbductedBefore += getYesNoTranslation(language,userCase?.['c1A_passportOffice'],'oesTranslation');
   if (userCase.hasOwnProperty('c1A_passportOffice') && userCase.c1A_passportOffice === 'Yes') {
     c1A_childAbductedBefore += HTML.RULER;
     c1A_childAbductedBefore += HTML.H4;
     c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
     c1A_childAbductedBefore += HTML.H4_CLOSE;
-    c1A_childAbductedBefore += userCase['c1A_childrenMoreThanOnePassport'];
+    c1A_childAbductedBefore += getYesNoTranslation(language,userCase['c1A_childrenMoreThanOnePassport'],'oesTranslation');
     c1A_childAbductedBefore += HTML.RULER;
     c1A_childAbductedBefore += HTML.H4;
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
     c1A_childAbductedBefore += HTML.H4_CLOSE;
     c1A_childAbductedBefore += HTML.UNORDER_LIST;
-    c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport']
-      .filter(element => element !== 'Other')
-      .map(relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END)
-      .toString()
-      .split(',')
-      .join('');
+    c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport'].filter(element => element !== 'Other')
+    .map(relatives => HTML.LIST_ITEM + getYesNoTranslation(language,relatives,'parentalTranslation') + HTML.LIST_ITEM_END)
+    .toString()
+    .split(',')
+    .join('');
     if(userCase['c1A_possessionChildrenPassport'].some(element => element === 'Other')){
       c1A_childAbductedBefore +=  HTML.LIST_ITEM + userCase['c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
     }
@@ -880,12 +879,12 @@ export const SafetyConcerns_child = (
     },
     {
       key: keys['haspassportOfficeNotified'],
-      valueHtml: userCase['c1A_abductionPassportOfficeNotified'],
+      valueHtml: getYesNoTranslation(language, userCase['c1A_abductionPassportOfficeNotified'],'ydyTranslation'),
       changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION'],
     },
     {
       key: keys['abducionThreats'],
-      valueHtml: userCase['c1A_childAbductedBefore'] as string,
+      valueHtml: getYesNoTranslation(language, userCase['c1A_childAbductedBefore'] as string,'ydynTranslation'),
       changeUrl: Urls['C100_C1A_CHILD_ABDUCTION_THREATS'],
     },
 
@@ -1037,13 +1036,13 @@ export const SafetyConcerns_others = (
   };
 };
 
-const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent, keys, id, contactDetails ) => {
+const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent, keys, id, contactDetails,language ) => {
   const newRespondentStorage = [] as ANYTYPE;
   if(!sessionRespondentData[respondent].hasOwnProperty('addressUnknown')){
     newRespondentStorage.push({
       key: keys['addressDetails'],
       value: '',
-      valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys),
+      valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys,language),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
     },
     );
@@ -1059,7 +1058,7 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
 
     newRespondentStorage.push(
       {
-        key: 'Email',
+        key: getYesNoTranslation(language,'Email', 'personalDetails'),
         value: contactDetails?.['emailAddress'],
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
       },
@@ -1068,7 +1067,7 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
     if(contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes'){
       newRespondentStorage.push(
         {
-          key: 'I dont know their email address',
+          key: getYesNoTranslation(language,'I dont know their email address', 'personalDetails'),
           value: contactDetails?.['donKnowEmailAddress'],
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
         },
@@ -1076,7 +1075,7 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
     }
     newRespondentStorage.push(
       {
-        key: 'Telephone number',
+        key: getYesNoTranslation(language,'Telephone number', 'personalDetails'),
         value: contactDetails?.['telephoneNumber'],
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
       }
@@ -1084,7 +1083,7 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
     if(contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes'){
       newRespondentStorage.push(
         {
-          key: 'I dont know their telephone number',
+          key: getYesNoTranslation(language,'I dont know their telephone number', 'personalDetails'),
           value: contactDetails?.['donKnowTelephoneNumber'],
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
         },
@@ -1189,7 +1188,7 @@ export const RespondentDetails = (
         });
       });
       //section 1 insertion
-     newRespondentStorage.push(...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails ));
+     newRespondentStorage.push(...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails,language));
     }
 
   const SummaryData = newRespondentStorage;

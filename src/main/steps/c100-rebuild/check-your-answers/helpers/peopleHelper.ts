@@ -24,12 +24,12 @@ export const applicantAddressParser = (sessionApplicantData, keys,language) => {
  return html;
 };
 
-export const applicantAddressParserForRespondents_addressHistory = (sessionApplicantData, keys) => {
+export const applicantAddressParserForRespondents_addressHistory = (sessionApplicantData, keys,language) => {
   let html = '' as string;
   if(sessionApplicantData.hasOwnProperty('addressHistory')){
     html += HTML.H4 + keys['respondentAddressLabel'] + HTML.H4_CLOSE;
     html += HTML.BOTTOM_PADDING_3;
-    html += sessionApplicantData['addressHistory'] === 'dontKnow' ? keys['dontKnow'] : sessionApplicantData['addressHistory'].charAt(0).toUpperCase() + sessionApplicantData['addressHistory'].slice(1);
+    html += getYesNoTranslation(language,sessionApplicantData?.['addressHistory'],'ydyntTranslationResp');
     html += HTML.BOTTOM_PADDING_CLOSE;
     if(sessionApplicantData.addressHistory === 'no'){
     html += HTML.RULER;
@@ -41,7 +41,7 @@ export const applicantAddressParserForRespondents_addressHistory = (sessionAppli
   return html;
 };
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const applicantAddressParserForRespondents = (sessionApplicantData, keys): string => {
+export const applicantAddressParserForRespondents = (sessionApplicantData, keys,language): string => {
   let html = '' as string;
   html+= sessionApplicantData.hasOwnProperty('AddressLine1') && sessionApplicantData['AddressLine1'] !==  '' ? sessionApplicantData['AddressLine1'] + HTML.BREAK  : '';
   html+=  sessionApplicantData.hasOwnProperty('AddressLine2') && sessionApplicantData['AddressLine2'] !==  '' ? sessionApplicantData['AddressLine2'] + HTML.BREAK  : '';
@@ -49,7 +49,7 @@ export const applicantAddressParserForRespondents = (sessionApplicantData, keys)
   html+= sessionApplicantData.hasOwnProperty('County') && sessionApplicantData['County'] !==  '' ? sessionApplicantData['County'] + HTML.BREAK + HTML.BREAK : '';
   html+=  sessionApplicantData.hasOwnProperty('PostCode') && sessionApplicantData['PostCode'] !==  '' ? sessionApplicantData['PostCode']+ HTML.BREAK : '';
   html+=  sessionApplicantData.hasOwnProperty('Country') && sessionApplicantData['Country'] !==  '' ?  sessionApplicantData['Country']+ HTML.RULER : '';
-  html += applicantAddressParserForRespondents_addressHistory (sessionApplicantData, keys);
+  html += applicantAddressParserForRespondents_addressHistory (sessionApplicantData, keys,language);
  return html;
 };
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
