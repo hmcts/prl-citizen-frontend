@@ -6,56 +6,58 @@ import { generateContent } from './content';
 jest.mock('../../app/form/validation');
 
 const en = {
-  title: 'Accessibility statement for the private law service',
-  websiteRanBy: 'This service allows prospective parents to apply to adopt a child online.',
+  title: 'Accessibility statement for Family Private Law',
+  websiteRanBy: 'The website is run by HM Courts & Tribunals Service (HMCTS).',
   asManyAsPossible:
-    "This service is run by HM Courts and Tribunals. We want as many people as possible to be able to use it, so we've designed it to be accessible. For example, you should be able to:",
+    'We want as many people as possible to be able to use this website. For example, that means you should be able to:',
   asManyAsPossibleColours: 'change colours, contrast levels and fonts',
   asManyAsPossibleZoom: 'zoom in up to 300% without the text spilling off the screen',
   asManyAsPossibleKeyboard: 'navigate most of the website using just a keyboard',
   asManyAsPossibleSpeech: 'navigate most of the website using speech recognition software',
   asManyAsPossibleListen:
-    'listen to most of the website using a screen reader (including the most recent versions of NVDA, CCA(colour contrast Analyser) and Voiceover)',
-  simpleAsPossible: "We've also made the text as simple as possible to understand.",
+    'listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)',
+  simpleAsPossible: 'We’ve also made the website text as simple as possible to understand.',
   abilityNet:
     '<a href="https://mcmw.abilitynet.org.uk" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for AbilityNet">AbilityNet</a> has advice on making your device easier to use if you have a disability.',
   howAccessible: 'How accessible this website is',
-  somePartsNot: 'We know some parts of this service may not be accessible:',
-  somePartsNotReflow: 'the text will not reflow in a single column when you change the size of the browser window',
-  somePartsNotSpacing: 'you cannot modify the line height or spacing of text',
-  somePartsNotFooter: 'All footer links not yet implemented and so has not tested.',
+  somePartsNot: 'We know some parts of this website are not fully accessible, for example:',
+  somePartsNotReflow: "some PDF documents aren't fully accessible to screen reader software",
+  somePartsNotSpacing: 'text to speech software cannot read all the text on every page',
+  somePartsNotFooter: 'the text used for hyperlinks does not always describe the destination and purpose of the link',
   feedbackAndContactInformation: 'Feedback and contact information',
   needMoreInformation:
     'If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille:',
   email:
-    'Email: <a href="privatelawproject@justice.gov.uk" class="govuk-link" aria-label="This link will open in a new email to privatelawproject@justice.gov.uk">privatelawproject@justice.gov.uk</a>',
-  phone: 'Call: 01634 887900',
+    'Email: <a href="hmctsforms@justice.gov.uk" class="govuk-link" aria-label="This link will open in a new email to hmctsforms@justice.gov.uk">hmctsforms@justice.gov.uk</a>',
+  phone: 'Call:  0300 323 0185',
   considerYourRequest: 'We’ll consider your request and get back to you in 10 working days.',
   reportingAccessibility: 'Reporting accessibility problems with this website',
-  accessibilityPhoneNumber: 'Telephone: 01634 887900',
+  accessibilityPhoneNumber: 'Telephone: 0300 323 0185',
   improveAccessibility:
-    'We’re always looking to improve the accessibility of this website. If you find any problems that aren’t addressed on this page, or think we’re not meeting accessibility requirements, please contact us:',
+    'If you find any problems not listed on this page or think we’re not meeting accessibility requirements:',
   enforcementProcedure: 'Enforcement procedure',
   humanRightsCommission:
     'The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’).',
   notHappy:
-    'If you’ve contacted us about accessibility and you’re not happy with our response, you can contact the <a href="https://www.equalityadvisoryservice.com/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Equality Advisory and Support Service">Equality Advisory and Support Service (EASS)</a>.',
+    'If you’re not happy with how we respond to your complaint, contact the <a href="https://www.equalityadvisoryservice.com/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Equality Advisory and Support Service">Equality Advisory and Support Service (EASS)</a>.',
   contactingUs: 'Contacting us by phone or visiting us in person',
-  contactCourtDirectly:
-    'If you have a question about accessibility in our family courts, you can <a href="https://www.find-court-tribunal.service.gov.uk/services/childcare-and-parenting/adoption/search-by-postcode" class="govuk-link" target="blank">contact the court directly</a>.',
   contactTextRelay:
     'We provide a text relay service for people who are D/deaf, hearing impaired or have a speech impediment.',
   contactInductionLoops:
-    'The family courts have audio induction loops and you can also request step-free access, a sign language interpreter or foreign language interpreter.',
+    'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
+  contactCourtDirectly:
+    'To get in touch with us:\
+    phone 0300 323 0185\
+    email hmctsforms@justice.gov.uk',
   technicalInfo: 'Technical information about this website’s accessibility',
   hmctsIsCommitted:
     'HMCTS is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.',
   complianceStatus: 'Compliance status',
   partiallyCompliant:
-    'This website is partially compliant with the <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="blank">Web Content Accessibility Guidelines version 2.1</a> AA standard, due to the non-compliances and exemptions listed below.',
+    'This website is partially compliant with the <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="blank">Web Content Accessibility Guidelines version 2.1</a> AA standard, due to the non-compliances listed below.',
   partiallyCompliantMobile:
     'Content not presented without loss of information and requiring scrolling in two dimensions while using Adoption application via Mobile.',
-  nonAccessibleContent: 'Content that’s not within the scope of the accessibility regulations',
+  nonAccessibleContent: 'Non-accessible content',
   issuesWithDocuments: 'Documents',
   issuesWithDocumentDescription1:
     'Many of our older PDFs and Word documents do not meet accessibility standards - for example, they may not be structured so they’re accessible to a screen reader. This does not meet WCAG 2.1 success criterion 4.1.2 (name, role value).',
