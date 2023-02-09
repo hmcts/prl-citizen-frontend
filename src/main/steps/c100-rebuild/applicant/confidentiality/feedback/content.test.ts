@@ -29,7 +29,7 @@ const dummyApplicantData = [
 ];
 
 const enLanguageContent = {
-  caption: 'Keeping your contact details private',
+  caption: 'Keeping your contact details private for',
   headingTitle: 'The court will keep your contact details private',
   p1: 'You have told us you want to keep these contact details private',
   heading3: 'What the court will do',

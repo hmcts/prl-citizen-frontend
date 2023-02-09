@@ -22,6 +22,7 @@ export const cy = () => ({
   addressLine1: 'Adeilad a stryd',
   town: 'Tref neu ddinas',
   county: 'Sir',
+  country: 'Gwlad',
   postcode: 'Cod post',
   enterInternationalAddress: 'Nodwch gyfeiriad rhyngwladol',
   addressHistoryLabel: 'A ydych wedi byw yn y cyfeiriad hwn am fwy na 5 mlynedd?',

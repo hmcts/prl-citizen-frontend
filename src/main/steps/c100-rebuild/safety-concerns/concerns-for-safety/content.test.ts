@@ -46,7 +46,7 @@ const cy = {
   identifySignsOfDomesticAbuseHyperlink: 'https://supportnav.org.uk/what-is-domestic-abuse',
   identifySignsOfDomesticAbuseLabel: 'Adnabod arwyddion o gam-drin domestig',
   infoSafetyConcernsYes:
-    'Bydd y wybodaeth y byddwch yn ei rhoi yn cael ei hystyried fel rhan o\'ch cais. Os oes angen i chi wneud <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link" target="_blank" aria-label="an application for a domestic abuse injunction">cais am waharddeb cam-drin domestig</a>. gallwch wneud hyn ar wahân.',
+    'Bydd y wybodaeth y byddwch yn ei rhoi yn cael ei hystyried fel rhan o\'ch cais. Os oes angen i chi wneud <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link" target="_blank" aria-label="an application for a domestic abuse injunction">cais am waharddeb cam-drin domestig</a>, gallwch wneud hyn ar wahân.',
   warningMessage:
     "Efallai y byddwch chi'n ystyried rhai o'r cwestiynau hyn yn anodd i’w hateb neu eu bod yn peri gofid i chi. Cymerwch eich amser a cheisiwch eu hateb cystal ag y gallwch.",
   yesHaveSafetyConcerns: 'Oes',

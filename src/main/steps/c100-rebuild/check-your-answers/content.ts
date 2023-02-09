@@ -338,6 +338,10 @@ export const cyContent = {
       Yes: 'Gallai',
       No: 'Na allai',
     },
+    gallaiTranslation1: {
+      Yes: 'Gallai',
+      No: 'Na allai',
+    },
     oesSpecial: {
       Yes: 'Oes',
       No: 'Nac oes',

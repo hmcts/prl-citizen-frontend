@@ -43,9 +43,9 @@ const cy = {
   caption: 'Pryderon diogelwch',
   title: 'Pa fath o ymddygiad ydych chi wedi ei brofi neu mewn perygl o’i brofi?',
   paragraph1:
-    'Disgrifiwch yr ymddygiad camdriniol rydych yn bryderus amdano. Os ydych yn ansicr a yw’r ymddygiad yn ymddygiad camdriniol',
+    'Disgrifiwch yr ymddygiad camdriniol rydych yn bryderus amdano. Os ydych yn ansicr a yw’r ymddygiad yn ymddygiad camdriniol,',
   seeGuidanceHyperLink: 'https://supportnav.org.uk/what-is-domestic-abuse',
-  seeGuidanceLabel: 'gweler y canllawiau.',
+  seeGuidanceLabel: ' gweler y canllawiau.',
   select_all_relevant: "Dewiswch unrhyw opsiynau sy'n berthnasol i'ch sefyllfa.",
   physicalAbuse: 'Cam-drin corfforol',
   physicalAbuseHint: 'Ymddygiad megis dyrnu, tagu, cicio neu daro gyda gwrthrych',
