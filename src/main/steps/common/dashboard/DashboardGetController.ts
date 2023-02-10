@@ -16,9 +16,17 @@ export default class DashboardGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     try {
       req.session.userCaseList = await getCaseDetails(req);
-      req.session.save();
-    } finally {
+      clean(req.session);
+      req.session.save(() => {
+        super.get(req, res);
+      });
+    } catch (e) {
       super.get(req, res);
     }
   }
+}
+
+function clean(session) {
+  delete session.userCase;
+  return session;
 }

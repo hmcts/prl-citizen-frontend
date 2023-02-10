@@ -22,6 +22,8 @@ import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAl
 import DashboardGetController from './steps/common/dashboard/DashboardGetController';
 import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
+import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
+import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
@@ -105,6 +107,8 @@ import {
   C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   RESPONDENT_CHECK_ANSWERS_NO,
   DASHBOARD_URL_NEW,
+  FETCH_CASE_DETAILS,
+  PARTY_TASKLIST,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -116,6 +120,8 @@ export class Routes {
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(HOME_URL, (req, res) => res.redirect(DASHBOARD_URL));
     app.get(DASHBOARD_URL_NEW, errorHandler(new DashboardGetController().get));
+    app.get(FETCH_CASE_DETAILS, errorHandler(new CaseDetailsGetController().get));
+    app.get(PARTY_TASKLIST, errorHandler(new TaskListGetController().get));
     app.get(COOKIES_PAGE, errorHandler(new CookiesGetController().get));
     app.get(PRIVACY_POLICY, errorHandler(new PrivacyPolicyGetController().get));
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));

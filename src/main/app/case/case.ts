@@ -220,6 +220,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   doesOrderClosesCase: 'doesOrderClosesCase',
   selectTypeOfOrder: 'selectTypeOfOrder',
   citizenResponseC7DocumentList: 'citizenResponseC7DocumentList',
+  caseInvites: 'caseInvites',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {

@@ -28,6 +28,8 @@ export const RESPOND_TO_APPLICATION: PageLink = '/tasklistresponse/start';
 export const RESPOND_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 export const RESPONSE_TASKLIST: PageLink = '/tasklistresponse';
 export const RESPONDENT: PageLink = '/respondent';
+export const FETCH_CASE_DETAILS: PageLink = '/case/:caseId';
+export const PARTY_TASKLIST: PageLink = '/task-list/:partyType';
 
 /*confirm-contact-details-start */
 export const CONFIRM_CONTACT_DETAILS: PageLink = '/confirm-contact-details';
