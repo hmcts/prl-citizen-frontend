@@ -1058,7 +1058,7 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
 
     newRespondentStorage.push(
       {
-        key: getYesNoTranslation(language,'Email', 'personalDetails'),
+        key:(language === 'en')? 'Email': getYesNoTranslation(language,'Email', 'personalDetails'),
         value: contactDetails?.['emailAddress'],
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
       },
@@ -1067,7 +1067,7 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
     if(contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes'){
       newRespondentStorage.push(
         {
-          key: getYesNoTranslation(language,'I dont know their email address', 'personalDetails'),
+          key: (language === 'en')? 'I dont know their email address':getYesNoTranslation(language,'I dont know their email address', 'personalDetails'),
           value: contactDetails?.['donKnowEmailAddress'],
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
         },
@@ -1075,7 +1075,7 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
     }
     newRespondentStorage.push(
       {
-        key: getYesNoTranslation(language,'Telephone number', 'personalDetails'),
+        key: (language === 'en')? 'Telephone number' :getYesNoTranslation(language,'Telephone number', 'personalDetails'),
         value: contactDetails?.['telephoneNumber'],
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
       }
@@ -1112,7 +1112,6 @@ export const RespondentDetails = (
       const contactDetails = sessionRespondentData[respondent]['contactDetails'];
 
       const { changeNameInformation, childGender } = nameAndGenderParser(personalDetails, keys, HTML,language);
-
       newRespondentStorage.push(
         {
           key: '',

@@ -358,7 +358,7 @@ export const cyContent = {
       Other: 'Arall',
     },
     personalDetails: {
-      Email: 'E-boot',
+      Email: 'E-bost',
       'Telephone number': 'Rhif ffôn',
       'I dont know their email address': 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
       'I dont know their telephone number': 'Nid wyf yn gwybod beth yw eu rhif ffôn',
