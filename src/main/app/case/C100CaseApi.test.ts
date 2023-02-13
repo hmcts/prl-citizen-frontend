@@ -290,4 +290,27 @@ describe('CaseApi', () => {
       }
     );
   });
+
+  test('Should submit case on citizen-case-submit-with-hwf', async () => {
+    //mock
+    const caseData = {
+      ...mockData,
+    };
+    mockedAxios.post.mockResolvedValueOnce({ data: caseData });
+    const updatedCaseData = await api.updateCase(
+      '1234',
+      caseData,
+      'c100-rebuild/dummyUrl',
+      C100_CASE_EVENT.CASE_SUBMIT_WITH_HWF
+    );
+
+    expect(updatedCaseData).toStrictEqual({ data: caseData });
+    expect(mockedAxios.post).toHaveBeenCalledWith(
+      '1234/citizen-case-submit-with-hwf/update-case',
+      { ...mockData },
+      {
+        headers: { accessCode: 'null' },
+      }
+    );
+  });
 });
