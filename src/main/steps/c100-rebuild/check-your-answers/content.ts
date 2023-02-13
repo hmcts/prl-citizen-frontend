@@ -338,11 +338,35 @@ export const cyContent = {
       Yes: 'Gallai',
       No: 'Na allai',
     },
+    gallaiTranslation1: {
+      Yes: 'Gallai',
+      No: 'Na allai',
+    },
     oesSpecial: {
       Yes: 'Oes',
       No: 'Nac oes',
       'Yes, I need help with paying the fee': 'Oes, rwyf eisiau help i dalu’r ffi',
       'No, I do not need help': 'Nac oes, nid wyf eisiau help',
+    },
+    oeddTranslation: {
+      Yes: 'Oedd',
+      No: 'Nac oedd',
+    },
+    parentalTranslation: {
+      Mother: 'Mam',
+      Father: 'Tad',
+      Other: 'Arall',
+    },
+    personalDetails: {
+      Email: 'E-boot',
+      'Telephone number': 'Rhif ffôn',
+      'I dont know their email address': 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
+      'I dont know their telephone number': 'Nid wyf yn gwybod beth yw eu rhif ffôn',
+    },
+    ydyntTranslationResp: {
+      yes: 'Ydynt',
+      no: 'Nac ydynt',
+      dontKnow: 'Ddim yn gwybod',
     },
     ieTranslation: {
       Yes: 'Ie',

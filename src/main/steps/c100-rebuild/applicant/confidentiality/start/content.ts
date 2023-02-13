@@ -7,7 +7,7 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/fo
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  caption: 'Keeping your contact details private',
+  caption: 'Keeping your contact details private for',
   headingTitle: `Do you want to keep your contact details private from 
   the other people named in the application (the respondents)?`,
   paragraph1: 'The information you give us will be shared with the respondents. This includes your contact details.',
