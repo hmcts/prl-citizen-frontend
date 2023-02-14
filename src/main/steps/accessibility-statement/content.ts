@@ -43,7 +43,7 @@ const en = {
   contactCourtDirectly: 'To get in touch with us:',
   technicalInfo: 'Technical information about this website’s accessibility',
   partiallyCompliant:
-     'This website is partially compliant with the <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="blank">Web Content Accessibility Guidelines version 2.1</a> AA standard, due to the non-compliances listed below.',
+     '',
   hmctsIsCommitted:
     'HMCTS is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.',
   nonAccessibleContent: 'Non-accessible content',
