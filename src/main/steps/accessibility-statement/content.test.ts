@@ -46,8 +46,6 @@ const en = {
   contactInductionLoops:
     'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
   contactCourtDirectly: 'To get in touch with us:',
-  callCourtDirectly: 'Telephone: 0300 323 0185',
-  emaillCourtDirectly: 'Email: hmctsforms@justice.gov.uk',
   technicalInfo: 'Technical information about this website’s accessibility',
   hmctsIsCommitted:
     'HMCTS is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.',
