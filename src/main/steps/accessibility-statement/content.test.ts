@@ -45,10 +45,7 @@ const en = {
     'We provide a text relay service for people who are D/deaf, hearing impaired or have a speech impediment.',
   contactInductionLoops:
     'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
-  contactCourtDirectly:
-    'To get in touch with us:\
-    phone 0300 323 0185\
-    email hmctsforms@justice.gov.uk',
+  contactCourtDirectly: 'To get in touch with us: phone 0300 323 0185 email hmctsforms@justice.gov.uk',
   technicalInfo: 'Technical information about this website’s accessibility',
   hmctsIsCommitted:
     'HMCTS is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.',
@@ -58,40 +55,44 @@ const en = {
   partiallyCompliantMobile:
     'Content not presented without loss of information and requiring scrolling in two dimensions while using Adoption application via Mobile.',
   nonAccessibleContent: 'Non-accessible content',
-  issuesWithDocuments: 'Documents',
+  issuesWithDocuments: 'Non-compliance with the accessibility regulations',
   issuesWithDocumentDescription1:
-    'Many of our older PDFs and Word documents do not meet accessibility standards - for example, they may not be structured so they’re accessible to a screen reader. This does not meet WCAG 2.1 success criterion 4.1.2 (name, role value).',
+    'Some pages do not have a logical heading structure in place, which is a barrier for users who rely on headings for navigation. This does not meet WCAG 2.1 success criterion 1.3.1 (Information and Relationships).',
   issuesWithDocumentDescription2:
-    'Some of our PDFs and Word documents are essential to providing our services. By December 2021, we plan to either fix these or replace them with accessible HTML pages. Any new PDFs or Word documents we publish will meet accessibility standards.',
-  issuesSurveys: 'Surveys',
-  issuesSurveysDescription:
-    'Our feedback form and exit survey are both hosted by a third-party provider. We identified a number of accessibility issues with these pages but fixing them is beyond our control. We are liaising with the Ministry of Justice Transforming Performance and Perception team to see what improvements can be made.',
-  issuesWithLinks: 'Issues with links',
-  issuesWithLinksDescription:
-    'On some pages, text used for links doesn’t clearly state where the link goes or what its for. This doesn’t meet WCAG 2.1 success criterion 2.4.4 (Link Purpose, In Context).',
-  issuesWithHeadings: 'Issues with headings',
-  issuesWithHeadingsDescription: 'N/A',
-  issuesWithColour: 'Colour contrast',
-  issuesWithColourDescription: 'N/A',
-  issuesWithLanguage: 'Issues with language',
-  issuesWithLanguageDescription:
-    'On some pages the language has not been set in the code. This doesn’t meet WCAG 2.1 success criterion 3.1.2 (Language of Page) as “WELSH” translation is in work in progress.',
-  issuesWithOther: 'Other known issues',
-  issuesWithOtherDescription1: 'N/A',
-  howWeTested: 'How we tested this website',
-  howWeTestedUI: 'The user interface has been tested by our team using a range of tools.',
-  howWeTestedPatty: 'Pa11Y – Test automation tool kit',
-  howWeTestedNVDA: 'NVDA tool',
-  howWeTestedColourContrast: 'Colour contrast analyser tool for validating contrast ratio’s',
-  howWeTestedVoiceOver: 'VoiceOver',
-  howWeTestedE2E: 'End-to-end testing for all GDS browsers for keyboard use.',
-  improvingAccessibility: 'What we’re doing to improve accessibility',
-  statementCommitted:
-    'We’re committed to ensuring our services are accessible to all our customers and that they comply with level AA of the Web Content Accessibility Guidelines – WCAG 2.1.',
-  statementDAC:
-    'To help us achieve this, we will commission the <a href="https://digitalaccessibilitycentre.org/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Digital Accessibility Centre">Digital Accessibility Centre (DAC)</a> to carry out a WCAG 2.1 AA level technical compliance audit that includes over 50 hours of testing by users with a wide range of disabilities. We will update this statement with the testing date when it is confirmed. Any issues identified during testing will be reviewed and addressed appropriately.',
+    'Some content is presented to look like a table, but does not contain table mark-up. This does not meet WCAG 2.1 success criteria 1.3.1 (Information and Relationships) and 1.3.2 (Meaningful Sequence).',
+  issuesWithDocumentDescription3:
+    'Some links are ambiguous and non-descriptive, and do not describe the destination of the link. This does not meet WCAG 2.1. success criterion 2.4.9 (Link Purpose - Link Only).',
+  issuesWithDocumentDescription4:
+    'Some lists are not structured to be compatible with screen readers and other assistive technology. This does not meet WCAG 2.1 success criteria 1.3.1 (Information and Relationships) and 4.1.1 (Parsing).',
+  issuesWithDocumentDescription5:
+    'Some forms are difficult to navigate using a screen reader or keyboard commands. This does not meet WCAG 2.1 success criteria 1.3.1 (Information and Relationships) and 2.4.6 (Heading and Labels).',
+  issuesWithDocumentDescription6:
+    'PDFs are used to download and keep service receipts and copies of orders and directions, but are not structured to be accessible to a screen reader.  This does not meet WCAG 2.1 success criteria 1.3.1 (Information and Relationships), 1.1.1 (Non-text Content) and 2.3.2 (Page Titled).',
+  otherKnownIssues: 'Other known issues',
+  knownIssues1: 'On some pages, fields do not have associated labels that are accessible to a screen reader.',
+  knownIssues2:
+    'Some page elements are coded with duplicate IDs, which means that these elements can be missed by a screen reader.',
+  knownIssues3: 'Some visual labels do not function correctly for users who navigate pages with voice activation.',
+  knownIssues4:
+    "Users are not warned of a 'timeout' or given the option to extend their time when completing certain tasks.",
+  toImproveAccessibility: 'What we’re doing to improve accessibility',
+  improveAccessibilityDescription:
+    'We are working to improve accessibility on this website, and plan to fix the identified issues by 30 November 2023.',
   preparationAccessibilityStatement: 'Preparation of this accessibility statement',
-  statementPreparationDate: 'This statement was prepared on 11 March 2022. It was last reviewed on 11 March 2022.',
+  statementPreparationDate:
+    'This statement was prepared on Wednesday 4 January 2023. It was last reviewed on 17 January 2023.',
+  statementPreparationWebsite:
+    'This website was last tested on 25 November 2022. The test was carried out by the Digital Accessibility Centre (DAC).',
+  dacExcerpt: 'This is an excerpt from the DAC report explaining their methodology:',
+  dacTestingProcedure: 'Testing procedure:',
+  dacTestingProcedureDescription:
+    '“The service is tested by a team of experienced auditors and analysts, many of whom are disabled individuals and users of adaptive technology. The combination of subjective pan-disability user feedback and comprehensive technical auditing allows us to measure how the service performs technically and practically, thereby offering an essential added dimension to our test results that other methods of testing cannot provide.”',
+  dacTestingProcedure2: 'User testing:',
+  dacTestingProcedureDescription2:
+    '“Manual accessibility checking was conducted by a team of disabled individuals, using a range of adaptive technologies (hardware and software designed to facilitate the use of computers by people with disabilities).”',
+  dacTestingProcedure3: 'Technical auditing:',
+  dacTestingProcedureDescription3:
+    '“Technical auditing involves the experienced application of a number of technical auditing and standards compliance assessment tools. This combined with an extensive knowledge of WCAG, its application and wider global practice provides the DAC website with further credibility and quality.”',
   contactHelp: 'Contact us for help:',
 };
 
