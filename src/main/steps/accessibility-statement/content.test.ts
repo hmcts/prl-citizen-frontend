@@ -27,9 +27,9 @@ const en = {
   feedbackAndContactInformation: 'Feedback and contact information',
   needMoreInformation:
     'If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille:',
+  phone: 'Telephone:  0300 323 0185',
   email:
     'Email: <a href="hmctsforms@justice.gov.uk" class="govuk-link" aria-label="This link will open in a new email to hmctsforms@justice.gov.uk">hmctsforms@justice.gov.uk</a>',
-  phone: 'Call:  0300 323 0185',
   considerYourRequest: 'We’ll consider your request and get back to you in 10 working days.',
   reportingAccessibility: 'Reporting accessibility problems with this website',
   accessibilityPhoneNumber: 'Telephone: 0300 323 0185',
@@ -37,7 +37,7 @@ const en = {
     'If you find any problems not listed on this page or think we’re not meeting accessibility requirements:',
   enforcementProcedure: 'Enforcement procedure',
   humanRightsCommission:
-    'The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’).',
+    'The Equality and Human Rights Commission (EHRC) is responsible for enforcing the <a href="www.legislation.gov.uk/uksi/2018/852/contents/made" class="govuk-link" target="_blank" aria-label="This link will open a new tab for legislation.gov.uk">Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 </a> (the ‘accessibility regulations’).',
   notHappy:
     'If you’re not happy with how we respond to your complaint, contact the <a href="https://www.equalityadvisoryservice.com/" class="govuk-link" target="_blank" aria-label="This link will open in a new tab for Equality Advisory and Support Service">Equality Advisory and Support Service (EASS)</a>.',
   contactingUs: 'Contacting us by phone or visiting us in person',
@@ -45,15 +45,14 @@ const en = {
     'We provide a text relay service for people who are D/deaf, hearing impaired or have a speech impediment.',
   contactInductionLoops:
     'Our offices have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.',
-  contactCourtDirectly: 'To get in touch with us: phone 0300 323 0185 email hmctsforms@justice.gov.uk',
+  contactCourtDirectly: 'To get in touch with us:',
+  callCourtDirectly: 'Telephone: 0300 323 0185',
+  emaillCourtDirectly: 'Email: hmctsforms@justice.gov.uk',
   technicalInfo: 'Technical information about this website’s accessibility',
   hmctsIsCommitted:
     'HMCTS is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.',
-  complianceStatus: 'Compliance status',
   partiallyCompliant:
     'This website is partially compliant with the <a href="https://www.w3.org/TR/WCAG21/" class="govuk-link" target="blank">Web Content Accessibility Guidelines version 2.1</a> AA standard, due to the non-compliances listed below.',
-  partiallyCompliantMobile:
-    'Content not presented without loss of information and requiring scrolling in two dimensions while using Adoption application via Mobile.',
   nonAccessibleContent: 'Non-accessible content',
   issuesWithDocuments: 'Non-compliance with the accessibility regulations',
   issuesWithDocumentDescription1:
