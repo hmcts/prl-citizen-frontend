@@ -2,9 +2,9 @@ import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../app/case/definition';
-import { applyParms } from '../url-parser';
+import { applyParms } from '../../common/url-parser';
+import { APPLICANT_TASK_LIST_URL, FETCH_CASE_DETAILS, PageLink, RESPONDENT_TASK_LIST_URL } from '../../urls';
 
-import { APPLICANT_TASK_LIST_URL, FETCH_CASE_DETAILS, PageLink, RESPONDENT_TASK_LIST_URL } from './../../urls';
 import { getCasePartyType } from './utils';
 
 const tabGroup = {
