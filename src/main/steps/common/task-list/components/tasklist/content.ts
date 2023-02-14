@@ -4,6 +4,8 @@ const en = {
   stateTags: {
     notStartedYet: 'Not started yet',
     inProgress: 'In progress',
+    notAvailableYet: 'Not available yet',
+    readyToView: 'Ready to view',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
@@ -15,6 +17,14 @@ const en = {
           },
         },
       },
+      yourDocuments: {
+        heading: 'Your documents',
+        tasks: {
+          viewAllDocuments: {
+            linkText: 'View all documents',
+          },
+        },
+      },
     },
   },
 };
@@ -23,6 +33,8 @@ const cy: typeof en = {
   stateTags: {
     notStartedYet: 'Not started yet - welsh',
     inProgress: 'In progress - welsh',
+    notAvailableYet: 'Not available yet - welsh',
+    readyToView: 'Ready to view - welsh',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
@@ -31,6 +43,14 @@ const cy: typeof en = {
         tasks: {
           childArrangementApplication: {
             linkText: 'Your child arrangements application - welsh',
+          },
+        },
+      },
+      yourDocuments: {
+        heading: 'Your documents - welsh',
+        tasks: {
+          viewAllDocuments: {
+            linkText: 'View all documents - welsh',
           },
         },
       },

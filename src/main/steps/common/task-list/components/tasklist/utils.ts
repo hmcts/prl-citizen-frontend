@@ -7,14 +7,18 @@ import { languages as content } from './content';
 
 enum TaskListSection {
   YOUR_APPLICATION = 'yourApplication',
+  YOUR_DOCUMENTS = 'yourDocuments',
 }
 enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
+  VIEW_ALL_DOCUMENTS = 'viewAllDocuments',
 }
 
 enum StateTags {
   NOT_STARTED_YET = 'notStartedYet',
   IN_PROGRESS = 'inProgress',
+  NOT_AVAILABLE_YET = 'notAvailableYet',
+  READY_TO_VIEW = 'readyToView',
 }
 
 /*interface StateTag {
@@ -55,6 +59,14 @@ const stateTagsConfig = {
     label: getStateTagLabel.bind(null, StateTags.IN_PROGRESS),
     className: 'govuk-tag--yellow',
   },
+  [StateTags.NOT_AVAILABLE_YET]: {
+    label: getStateTagLabel.bind(null, StateTags.NOT_AVAILABLE_YET),
+    className: 'govuk-tag--grey',
+  },
+  [StateTags.READY_TO_VIEW]: {
+    label: getStateTagLabel.bind(null, StateTags.READY_TO_VIEW),
+    className: 'govuk-tag--blue',
+  },
 };
 
 const taskListConfig = {
@@ -87,6 +99,30 @@ const taskListConfig = {
                 return StateTags.IN_PROGRESS;
               }
             },
+          },
+        ],
+      },
+      {
+        id: TaskListSection.YOUR_DOCUMENTS,
+        content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
+        show: () => true,
+        tasks: [
+          {
+            id: Tasks.VIEW_ALL_DOCUMENTS,
+            href: () => {
+              '/';
+            },
+            show: (caseData: Partial<CaseWithId>): boolean =>
+              !caseData || caseData?.state === State.AwaitingSubmissionToHmcts,
+            stateTag: (caseData: Partial<CaseWithId>) => {
+              if (!caseData) {
+                return StateTags.NOT_AVAILABLE_YET;
+              }
+              if (caseData?.state === State.AwaitingSubmissionToHmcts) {
+                return StateTags.READY_TO_VIEW;
+              }
+            },
+            disabled: (caseData: Partial<CaseWithId>): boolean => !caseData,
           },
         ],
       },

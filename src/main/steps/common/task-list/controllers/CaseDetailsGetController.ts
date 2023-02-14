@@ -3,8 +3,8 @@ import { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { AppRequest } from '../../../../app/controller/AppRequest';
-import { DASHBOARD_URL_NEW, PARTY_TASKLIST, SIGN_IN_URL } from '../../../urls';
-import { getCasePartyType } from '../../dashboard/utils';
+import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
+import { DASHBOARD_URL, PARTY_TASKLIST, SIGN_IN_URL } from '../../../urls';
 import { applyParms } from '../../url-parser';
 
 @autobind
@@ -25,7 +25,7 @@ export default class CaseDetailsGetController {
         res.redirect(applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData) }));
       });
     } catch (e) {
-      res.redirect(DASHBOARD_URL_NEW);
+      res.redirect(DASHBOARD_URL);
     }
   }
 }
