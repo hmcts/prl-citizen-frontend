@@ -47,12 +47,12 @@ const cy = {
   seeGuidanceHyperLink: 'https://supportnav.org.uk/what-is-domestic-abuse - welsh',
   seeGuidanceLabel: ' see the guidance. - welsh',
   select_all_relevant: 'Select any options that are relevant to your situation.- welsh',
-  physicalAbuse: 'Physical abuse - welsh',
+  physicalAbuse: 'cam-drin corfforol',
   physicalAbuseHint: 'Behaviour such as punching, choking, kicking or hitting with an object - welsh',
   psychologicalAbuse: 'Psychological abuse - welsh',
   psychologicalAbuseHint:
     'Being subjected to a situation that leads to anxiety, depression, or post-traumatic stress disorder - welsh',
-  emotionalAbuse: 'Emotional abuse - welsh',
+  emotionalAbuse: 'cam-drin emosiynol',
   emotionalAbuseHint:
     'Emotional abuse could be spoken (verbal) or not involving words or speech (non-verbal). Examples may include name calling, constant criticism, controlling behaviour, not letting you have an opinion - welsh',
   sexualAbuse: 'Sexual abuse - welsh',

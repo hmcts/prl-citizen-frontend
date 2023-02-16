@@ -51,12 +51,12 @@ const cy = {
   spottingSignsOfChildAbuseLabel: ' spotting the signs of child abuse. - welsh',
   supportNavLabel: 'SupportNav - welsh',
   select_all_relevant: 'Select any options that are relevant to your situation. - welsh',
-  physicalAbuse: 'Physical abuse - welsh',
+  physicalAbuse: 'cam-drin corfforol',
   physicalAbuseHint: 'Behaviour such as punching, choking, kicking or hitting with an object - welsh',
   psychologicalAbuse: 'Psychological abuse - welsh',
   psychologicalAbuseHint:
     'Being subjected to a situation that leads to anxiety, depression, or post-traumatic stress disorder - welsh',
-  emotionalAbuse: 'Emotional abuse - welsh',
+  emotionalAbuse: 'cam-drin emosiynol',
   emotionalAbuseHint: 'Making a child feel unloved, worthless, humiliated or ignored - welsh',
   sexualAbuse: 'Sexual abuse - welsh',
   sexualAbuseHint:
