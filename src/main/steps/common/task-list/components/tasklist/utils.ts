@@ -85,7 +85,7 @@ const taskListConfig = {
               }
 
               if (caseData?.state === State.AwaitingSubmissionToHmcts) {
-                return '/';
+                return caseData.c100RebuildReturnUrl;
               }
             },
             show: (caseData: Partial<CaseWithId>): boolean =>

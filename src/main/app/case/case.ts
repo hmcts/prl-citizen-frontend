@@ -577,6 +577,8 @@ export interface Case {
   createdDate?: string;
   applicantName?: string;
   lastModifiedDate?: string;
+  c100RebuildReturnUrl?: string;
+  noOfDaysRemainingToSubmitCase?: number;
 }
 
 export interface CaseWithId extends Case {

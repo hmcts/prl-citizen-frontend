@@ -3,7 +3,13 @@ import dayjs from 'dayjs';
 import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
-import { APPLICANT_TASK_LIST_URL, FETCH_CASE_DETAILS, PageLink, RESPONDENT_TASK_LIST_URL } from '../../urls';
+import {
+  APPLICANT_TASK_LIST_URL,
+  C100_RETRIVE_CASE,
+  FETCH_CASE_DETAILS,
+  PageLink,
+  RESPONDENT_TASK_LIST_URL,
+} from '../../urls';
 
 import { getCasePartyType } from './utils';
 
@@ -24,7 +30,8 @@ interface CaseDetails {
   caseNumber: string;
   caseType: CaseType;
   caseApplicantName: string;
-  caseStatus: string;
+  caseStatus: string; //This is to group cases based on caseState like draft, active & closed
+  state; //This is current state of the case
   createdDate: string;
   lastModifiedDate: string;
   casePartyType: PartyType;
@@ -138,11 +145,16 @@ const prepareTabContent = (content): Tabs => {
 };
 
 const prepareTableData = (caseData: CaseDetails, tab: string): TableRowFields[] => {
-  const { caseNumber, caseType, casePartyType, caseStatus, caseApplicantName, createdDate, lastModifiedDate } =
+  const { caseNumber, caseType, casePartyType, caseStatus, state, caseApplicantName, createdDate, lastModifiedDate } =
     caseData;
   const rows: TableRowFields[] = [
     {
-      html: `<a class="govuk-link" href="${getTaskListUrl(caseType, casePartyType, caseNumber)}">${caseNumber}</a>`,
+      html: `<a class="govuk-link" href="${getTaskListUrl(
+        caseType,
+        casePartyType,
+        caseNumber,
+        state
+      )}">${caseNumber}</a>`,
     },
     {
       text: caseType,
@@ -187,6 +199,7 @@ export const prepareCaseView = (caseData: Partial<CaseWithId>[], content: Record
                 casePartyType: getCasePartyType(_case),
                 caseApplicantName: rest.applicantName ?? '',
                 caseStatus,
+                state,
                 createdDate: dayjs(rest.createdDate).format('DD MMM YYYY'),
                 lastModifiedDate: dayjs(rest.lastModifiedDate).format('DD MMM YYYY'),
               },
@@ -214,7 +227,8 @@ export const prepareCaseView = (caseData: Partial<CaseWithId>[], content: Record
 const getTaskListUrl = (
   caseType: CaseType,
   linkPartyType: PartyType,
-  caseNumber: CaseDetails['caseNumber']
+  caseNumber: CaseDetails['caseNumber'],
+  caseState: CaseDetails['state']
 ): PageLink => {
   let url;
 
@@ -222,7 +236,11 @@ const getTaskListUrl = (
     url = `${RESPONDENT_TASK_LIST_URL}/${caseNumber}`;
   } else {
     if (caseType === CaseType.C100) {
-      url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
+      if (State.AwaitingSubmissionToHmcts === caseState) {
+        url = applyParms(`${C100_RETRIVE_CASE}`, { caseId: caseNumber });
+      } else {
+        url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
+      }
     } else {
       url = `${APPLICANT_TASK_LIST_URL}/${caseNumber}`;
     }

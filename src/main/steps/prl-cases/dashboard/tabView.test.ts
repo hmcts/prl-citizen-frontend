@@ -97,7 +97,7 @@ describe('Dashboard tab content', () => {
           rows: [
             [
               {
-                html: '<a class="govuk-link" href="/case/1675576280723116">1675576280723116</a>',
+                html: '<a class="govuk-link" href="/c100-rebuild/case/1675576280723116/retrive">1675576280723116</a>',
               },
               {
                 text: 'C100',
