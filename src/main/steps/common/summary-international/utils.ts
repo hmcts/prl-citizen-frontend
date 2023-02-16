@@ -129,7 +129,7 @@ function getFieldValue(fieldTypes: any, key: string, userCase: Partial<CaseWithI
   }
 }
 
-function getUserCaseUrl(
+export function getUserCaseUrl(
   userCase: Partial<CaseWithId>,
   isRespondent: boolean | undefined,
   state: string | undefined,

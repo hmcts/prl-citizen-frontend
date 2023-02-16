@@ -2,7 +2,7 @@ import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { SummaryList } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
 
-import { summaryCaseList, summaryList } from './utils';
+import { getSelectedPrivateDetails, getUserCaseUrl, summaryCaseList, summaryList } from './utils';
 const enContent = {
   section: 'Check your details',
   title: 'Read the information to make sure it is correct, and add any missing details',
@@ -129,5 +129,71 @@ describe('common > summary > utils', () => {
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
       expect(expected).toEqual(summaryCaseList([userCase], '', false));
     });
+  });
+
+  test('getCaseUrl functionality test1', () => {
+    const userCase = {
+      ...mockUserCase,
+      caseStatus: { state: '' },
+      applicantCaseName: 'test',
+      caseTypeOfApplication: 'C100',
+    };
+    const isRespondent = true;
+    const state = 'Draft';
+    const Url = '';
+    const id = '123';
+    expect(getUserCaseUrl(userCase, isRespondent, state, Url, id)).toBe('/respondent/task-list/123');
+  });
+
+  test('getCaseUrl functionality test2', () => {
+    const userCase = {
+      ...mockUserCase,
+      caseStatus: { state: '' },
+      applicantCaseName: 'test',
+      caseTypeOfApplication: 'C100',
+    };
+    const isRespondent = false;
+    const state = 'Draft';
+    const Url = '';
+    const id = '123';
+    expect(getUserCaseUrl(userCase, isRespondent, state, Url, id)).toBe('/c100-rebuild/case/123/retrive');
+  });
+
+  test('getCaseUrl functionality test3', () => {
+    const userCase = {
+      ...mockUserCase,
+      caseStatus: { state: '' },
+      applicantCaseName: 'test',
+      caseTypeOfApplication: 'FL401',
+    };
+    const isRespondent = false;
+    const state = undefined;
+    const Url = '';
+    const id = '123';
+    expect(getUserCaseUrl(userCase, isRespondent, state, Url, id)).toBe('/applicant/task-list/123');
+  });
+
+  test('getCaseUrl functionality test4', () => {
+    const userCase = {
+      ...mockUserCase,
+      caseStatus: { state: '' },
+      applicantCaseName: 'test',
+      caseTypeOfApplication: 'FL401',
+    };
+    const isRespondent = true;
+    const state = undefined;
+    const Url = '';
+    const id = '123';
+    expect(getUserCaseUrl(userCase, isRespondent, state, Url, id)).toBe('/respondent/task-list/123');
+  });
+
+  test('getSelectedPrivateDetails functionality', () => {
+    const userCase = {
+      ...mockUserCase,
+      caseStatus: { state: '' },
+      applicantCaseName: 'test',
+      caseTypeOfApplication: 'FL401',
+    };
+    expect(getSelectedPrivateDetails(userCase)).toBe('<br/><br/><ul class="govuk-list govuk-list--bullet"></ul>');
   });
 });
