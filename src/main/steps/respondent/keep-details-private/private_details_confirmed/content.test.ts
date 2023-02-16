@@ -16,14 +16,14 @@ const enContent = {
 };
 
 const cyContent = {
-  title: 'The court will keep your contact details private',
-  line1: 'You have told us you want to keep these contact details private',
-  address: 'Address',
-  email: 'Email',
-  line2: 'What the court will do',
+  title: 'The court will keep your contact details private - welsh',
+  line1: 'You have told us you want to keep these contact details private - welsh',
+  address: 'Address - welsh',
+  email: 'Email - welsh',
+  line2: 'What the court will do - welsh',
   line3:
-    'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
-  continue: 'Continue',
+    'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court. - welsh',
+  continue: 'Continue - welsh',
 };
 
 jest.mock('../../../../app/form/validation');

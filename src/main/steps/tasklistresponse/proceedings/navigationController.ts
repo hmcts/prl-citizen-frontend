@@ -100,7 +100,7 @@ class OtherProceedingsNavigationController {
           // check at last if there were any previous order types having at least an order with order copy
           url = COURT_PROCEEDINGS_SUMMARY;
         } else {
-          url = PROCEEDINGS_COURT_PROCEEDINGS;
+          url = PROCEEDINGS_SUMMARY;
         }
       }
     }

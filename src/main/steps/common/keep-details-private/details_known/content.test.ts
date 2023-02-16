@@ -21,17 +21,17 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Keeping your contact details private',
-  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
-  one: 'Yes',
-  two: 'No',
-  three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
-  onlyContinue: 'Continue',
+  section: 'Keeping your contact details private - welsh',
+  title: 'Do the other people named in this application (the applicants) know any of your contact details? - welsh',
+  one: 'Yes - welsh',
+  two: 'No - welsh',
+  three: "I don't know - welsh",
+  threeHint: 'This is a 8 character code - welsh',
+  summaryText: 'Contacts for help - welsh',
+  onlyContinue: 'Continue - welsh',
   errors: {
     detailsKnown: {
-      required: 'Enter your details known',
+      required: 'Enter your details known - welsh',
     },
   },
 };

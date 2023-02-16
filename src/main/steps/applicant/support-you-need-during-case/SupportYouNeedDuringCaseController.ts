@@ -76,20 +76,16 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
   private getSupportYouNeedForRespondent(req: AppRequest<Partial<Case>>) {
     if ('C100' === req.session.userCase.caseTypeOfApplication) {
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-        if (req.url.includes('support-you-need-during-case')) {
-          respondent.value.response = {
-            ...respondent.value.response,
-            ...setSupportDetails(req),
-          };
-        }
-      });
-    } else {
-      if (req.url.includes('support-you-need-during-case')) {
-        req.session.userCase.respondentsFL401!.response = {
-          ...req.session.userCase.respondentsFL401!.response,
+        respondent.value.response = {
+          ...respondent.value.response,
           ...setSupportDetails(req),
         };
-      }
+      });
+    } else {
+      req.session.userCase.respondentsFL401!.response = {
+        ...req.session.userCase.respondentsFL401!.response,
+        ...setSupportDetails(req),
+      };
     }
   }
 }

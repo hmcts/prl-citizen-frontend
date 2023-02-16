@@ -35,32 +35,32 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Keeping your contact details private',
+  section: 'Keeping your contact details private - welsh',
   title:
-    'Do you want to keep your contact details private from the other people named in the application (the applicants)?',
+    'Do you want to keep your contact details private from the other people named in the application (the applicants)? - welsh',
   line1:
-    'The answers you give in your response will be shared with the other people named in this application (the applicants). This will include your contact details.',
+    'The answers you give in your response will be shared with the other people named in this application (the applicants). This will include your contact details. - welsh',
   line2:
-    'For example, if you believe the other people in the case pose a risk to you or the children, you can ask the court to keep your contact details private.',
-  one: 'Yes',
-  two: 'No',
-  three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
-  address: 'Address',
-  Phone_number: 'Phone number',
-  Email: 'Email',
+    'For example, if you believe the other people in the case pose a risk to you or the children, you can ask the court to keep your contact details private. - welsh',
+  one: 'Yes - welsh',
+  two: 'No - welsh',
+  three: "I don't know - welsh",
+  threeHint: 'This is a 8 character code - welsh',
+  summaryText: 'Contacts for help - welsh',
+  address: 'Address - welsh',
+  Phone_number: 'Phone number - welsh',
+  Email: 'Email - welsh',
   contact_details_private:
-    'Which contact details do you want to keep private from the other people in this application?',
+    'Which contact details do you want to keep private from the other people in this application? - welsh',
   contact_details_private_hint:
-    "You've said that the applicants know some of your contact details. Make sure you select contact details the applicants do not already know.",
-  continue: 'Save and continue',
+    "You've said that the applicants know some of your contact details. Make sure you select contact details the applicants do not already know. - welsh",
+  continue: 'Save and continue - welsh',
   errors: {
     startAlternative: {
-      required: 'Enter your start alternative',
+      required: 'Enter your start alternative - welsh',
     },
     contactDetailsPrivate: {
-      required: 'Select your contact details',
+      required: 'Select your contact details - welsh',
     },
   },
 };
