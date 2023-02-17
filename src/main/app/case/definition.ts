@@ -2587,6 +2587,7 @@ export const enum C100_CASE_EVENT {
   CASE_UPDATE = 'citizen-case-update',
   CASE_SUBMIT = 'citizen-case-submit',
   DELETE_CASE = 'deleteApplication',
+  CASE_SUBMIT_WITH_HWF = 'citizenCaseSubmitWithHWF',
 }
 
 export enum C100OrderTypes {
