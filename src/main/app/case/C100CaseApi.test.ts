@@ -306,7 +306,7 @@ describe('CaseApi', () => {
 
     expect(updatedCaseData).toStrictEqual({ data: caseData });
     expect(mockedAxios.post).toHaveBeenCalledWith(
-      '1234/citizen-case-submit-with-hwf/update-case',
+      '1234/citizenCaseSubmitWithHWF/update-case',
       { ...mockData },
       {
         headers: { accessCode: 'null' },
