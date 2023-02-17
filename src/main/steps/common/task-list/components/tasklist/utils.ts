@@ -105,15 +105,14 @@ const taskListConfig = {
       {
         id: TaskListSection.YOUR_DOCUMENTS,
         content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-        show: () => true,
+        show: (caseData: Partial<CaseWithId>): boolean => showYourDocuments(caseData),
         tasks: [
           {
             id: Tasks.VIEW_ALL_DOCUMENTS,
             href: () => {
               '/';
             },
-            show: (caseData: Partial<CaseWithId>): boolean =>
-              !caseData || caseData?.state === State.AwaitingSubmissionToHmcts,
+            show: (caseData: Partial<CaseWithId>): boolean => showYourDocuments(caseData),
             stateTag: (caseData: Partial<CaseWithId>) => {
               if (!caseData) {
                 return StateTags.NOT_AVAILABLE_YET;
@@ -122,7 +121,7 @@ const taskListConfig = {
                 return StateTags.READY_TO_VIEW;
               }
             },
-            disabled: (caseData: Partial<CaseWithId>): boolean => !caseData,
+            disabled: (caseData: Partial<CaseWithId>): boolean => showYourDocuments(caseData),
           },
         ],
       },
@@ -193,3 +192,8 @@ export const getTaskListConfig = (
       return config !== null;
     });
 };
+
+export const showYourDocuments = (caseData: Partial<CaseWithId>): boolean =>
+  caseData
+    ? ![State.AwaitingSubmissionToHmcts, State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(caseData.state!)
+    : false;
