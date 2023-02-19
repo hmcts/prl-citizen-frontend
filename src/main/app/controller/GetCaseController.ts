@@ -78,11 +78,18 @@ export class GetCaseController {
     const userDeatils = req?.session?.user;
     if (userDeatils) {
       try {
-        const { id: caseId, caseTypeOfApplication } = await req.locals.C100Api.createCase();
+        const {
+          id: caseId,
+          caseTypeOfApplication,
+          state,
+          noOfDaysRemainingToSubmitCase,
+        } = await req.locals.C100Api.createCase();
 
         req.session.userCase = {
           caseId,
           caseTypeOfApplication,
+          state,
+          noOfDaysRemainingToSubmitCase,
         } as CaseWithId;
         req.session.userCaseList = [];
         req.session.save(() => {

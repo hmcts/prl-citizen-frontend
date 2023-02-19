@@ -34,8 +34,8 @@ export class CaseApi {
 
     try {
       const response = await this.axios.post<CreateCaseResponse>('/case/create', data);
-      const { id, caseTypeOfApplication, c100RebuildReturnUrl } = response?.data;
-      return { id, caseTypeOfApplication, c100RebuildReturnUrl };
+      const { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase } = response?.data;
+      return { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
@@ -223,6 +223,8 @@ interface CreateCaseResponse {
   id: string;
   caseTypeOfApplication: string;
   c100RebuildReturnUrl: string;
+  state: State;
+  noOfDaysRemainingToSubmitCase: string;
 }
 interface UpdateCaseResponse {
   [key: string]: any;

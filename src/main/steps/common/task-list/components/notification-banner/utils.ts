@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { CaseWithId } from '../../../../../app/case/case';
+import { interpolate } from '../../../string-parser';
 
 import { CaseType, PartyType, State } from './../../../../../app/case/definition';
 import { languages as content } from './content';
@@ -72,9 +73,22 @@ export const getNotificationBannerConfig = (
       const { id, show } = config;
 
       if (show(caseData)) {
+        const _content = config.content(caseType, language);
         return {
           id,
-          ...config.content(caseType, language),
+          ..._content,
+          links: _content?.links?.map(link => ({
+            text: link.text,
+            href: interpolate(link.href, {
+              c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#caseData.c100RebuildReturnUrl',
+            }),
+          })),
+          contents: _content?.contents?.map(blueboxContent => ({
+            text: interpolate(blueboxContent.text, {
+              noOfDaysRemainingToSubmitCase:
+                caseData?.noOfDaysRemainingToSubmitCase ?? 'caseData.noOfDaysRemainingToSubmitCase',
+            }),
+          })),
         };
       }
 

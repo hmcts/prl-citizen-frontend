@@ -22,13 +22,13 @@ const en = {
         heading: 'You have not finished your application',
         contents: [
           {
-            text: 'You have {{noOfDaysRemaining}} days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
+            text: 'You have {noOfDaysRemainingToSubmitCase} days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
           },
         ],
         links: [
           {
             text: 'Continue your application',
-            href: '/',
+            href: '{c100RebuildReturnUrl}',
           },
         ],
       },
@@ -58,13 +58,13 @@ const cy: typeof en = {
         heading: 'You have not finished your application - welsh',
         contents: [
           {
-            text: 'You have {{noOfDaysRemaining}} days to submit your application or it will be deleted and you will need to start again. This is for security reasons. - welsh',
+            text: 'You have {noOfDaysRemainingToSubmitCase} days to submit your application or it will be deleted and you will need to start again. This is for security reasons. - welsh',
           },
         ],
         links: [
           {
             text: 'Continue your application - welsh',
-            href: '/gfhg',
+            href: '{c100RebuildReturnUrl}',
           },
         ],
       },
