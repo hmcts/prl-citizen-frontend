@@ -58,6 +58,8 @@ describe('CaseApi', () => {
       data: {
         id: '1234',
         ...request,
+        state: 'AWAITING_SUBMISSION_TO_HMCTS',
+        noOfDaysRemainingToSubmitCase: '28',
       },
     });
     const userCase = await api.createCase();
@@ -65,6 +67,8 @@ describe('CaseApi', () => {
     expect(userCase).toStrictEqual({
       id: '1234',
       ...request,
+      state: 'AWAITING_SUBMISSION_TO_HMCTS',
+      noOfDaysRemainingToSubmitCase: '28',
     });
     expect(mockedAxios.post).toHaveBeenCalledWith('/case/create', request);
   });

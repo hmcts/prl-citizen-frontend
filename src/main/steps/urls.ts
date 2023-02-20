@@ -12,6 +12,7 @@ export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 export const CITIZEN_HOME_URL: PageLink = '/citizen-home';
 export const SERVICE_TYPE: PageLink = '/service-type';
 export const DASHBOARD_URL: PageLink = '/dashboard';
+export const DASHBOARD_URL_NEW: PageLink = '/dashboard/new';
 export const ELIGIBILITY_URL: PageLink = '/eligibility';
 export const PRL_CASE_URL: PageLink = '/prl-cases';
 
@@ -27,6 +28,8 @@ export const RESPOND_TO_APPLICATION: PageLink = '/tasklistresponse/start';
 export const RESPOND_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 export const RESPONSE_TASKLIST: PageLink = '/tasklistresponse';
 export const RESPONDENT: PageLink = '/respondent';
+export const FETCH_CASE_DETAILS: PageLink = '/case/:caseId';
+export const PARTY_TASKLIST: PageLink = '/task-list/:partyType';
 
 /*confirm-contact-details-start */
 export const CONFIRM_CONTACT_DETAILS: PageLink = '/confirm-contact-details';

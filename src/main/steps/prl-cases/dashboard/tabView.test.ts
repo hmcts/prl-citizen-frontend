@@ -1,18 +1,12 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { CommonContent } from '../../common/common.content';
 
-import { generateContent } from './content';
+import { languages } from './content';
+import { prepareCaseView } from './tabView';
 
-describe('Dashboard content', () => {
+describe('Dashboard tab content', () => {
   const req = mockRequest();
-  const commonContent = {
-    language: 'en',
-    additionalData: {
-      req,
-    },
-  } as unknown as CommonContent;
 
-  commonContent.additionalData!.req.session.userCaseList = [
+  req.session.userCaseList = [
     {
       id: 1675576280723116,
       state: 'AWAITING_SUBMISSION_TO_HMCTS',
@@ -78,20 +72,8 @@ describe('Dashboard content', () => {
     },
   ];
 
-  test('should return correct english content', () => {
-    const generatedContent = generateContent({ ...commonContent, language: 'en' });
-    expect(generatedContent.title).toEqual('Child arrangements and family injunction cases');
-  });
-
-  test('should return correct welsh content', () => {
-    const generatedContent = generateContent({ ...commonContent, language: 'cy' });
-    expect(generatedContent.title).toEqual('Child arrangements and family injunction cases - welsh');
-  });
-
-  test('should return the appropriate tab contents for caseView', () => {
-    const generatedContent = generateContent({ ...commonContent, language: 'en' });
-
-    expect(generatedContent.tabs).toEqual(
+  test('prepareCaseView method should return the appropriate tab contents for caseView', () => {
+    expect(prepareCaseView(req.session.userCaseList, languages.en)).toEqual(
       expect.objectContaining({
         draft: {
           label: 'Draft applications',

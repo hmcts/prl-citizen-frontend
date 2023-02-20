@@ -1993,7 +1993,7 @@ export const enum State {
   DECISION_OUTCOME = "DECISION_OUTCOME",
   ALL_FINAL_ORDERS_ISSUED = "ALL_FINAL_ORDERS_ISSUED",
   CASE_HEARING = "Prepare for hearing",
-  DELETED = "Deleted",
+  DELETED = "DELETED",
 }
 
 export const enum UserRole {
@@ -2930,3 +2930,8 @@ export type ChildrenDetails = {
       lastName: string;
       partyType: PartyType;
   }
+
+  export enum CaseType {
+    C100 = 'C100',
+    FL401 = 'FL401',
+}
