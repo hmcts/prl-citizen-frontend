@@ -26,7 +26,7 @@ services:
     url: 'https://prl-cos-pr-973.service.core-compute-preview.internal'
   documentManagement:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-942.service.core-compute-preview.internal'
-health:
+  health:
   timeout: 5000
   deadline: 15000
 session:
