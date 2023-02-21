@@ -21,6 +21,11 @@ import {
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   APPLICANT_SELECT_ADDRESS,
   APPLICANT_START_ALTERNATIVE,
+  APPLICANT_TASKLIST_CONTACT_EMAIL,
+  APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
+  APPLICANT_TASKLIST_CONTACT_POST,
+  APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
+  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   APPLICANT_TASK_LIST_URL,
   APPLICANT_UPLOAD_DOCUMENT,
   APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
@@ -63,6 +68,7 @@ import {
   YOUR_WITNESS_STATEMENTS,
 } from '../urls';
 
+import { applicantContactPreferencesEnum } from './../../app/case/definition';
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
 
 export const applicantCaseSequence: Step[] = [
@@ -477,5 +483,33 @@ export const applicantCaseSequence: Step[] = [
     url: `${APPLICANT}${RESPONDENT_RISK_ASSESSMENT}`,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: data =>
+      data.applicantPreferredContact === applicantContactPreferencesEnum.DIGITAL
+        ? APPLICANT_TASKLIST_CONTACT_EMAIL
+        : APPLICANT_TASKLIST_CONTACT_POST,
+  },
+  {
+    url: APPLICANT_TASKLIST_CONTACT_EMAIL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
+  },
+  {
+    url: APPLICANT_TASKLIST_CONTACT_POST,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
+  },
+  {
+    url: APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
 ];

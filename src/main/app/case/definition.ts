@@ -124,6 +124,7 @@ export interface Response {
   supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;  
+  applicantPreferredContact?: PreferredContact;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -970,6 +971,7 @@ citizenUserManualAddressPostcode?: string;
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+  applicantPreferredContact?: String[];
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -2933,4 +2935,10 @@ export type ChildrenDetails = {
   export enum CaseType {
     C100 = 'C100',
     FL401 = 'FL401',
+}
+
+export interface PreferredContact {
+  phone?: string;
+  email?: string;
+  post?: string;
 }
