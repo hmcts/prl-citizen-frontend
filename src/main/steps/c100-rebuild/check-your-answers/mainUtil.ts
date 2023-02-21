@@ -552,18 +552,18 @@ export const ApplicantDetails = (
         });
 
         const applicantContactPreferences = sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences;
-        let applicantContactPre = '';
+        // let applicantContactPre = '';
 
-        if(applicantContactPreferences !== undefined && Array.isArray(applicantContactPreferences)) {
-          applicantContactPre += HTML.UNORDER_LIST;
-          applicantContactPre += applicantContactPreferences.map(preferences => HTML.LIST_ITEM + contactTranslation(preferences,language) + HTML.LIST_ITEM_END ).toString().split(',').join('');
-          applicantContactPre += HTML.UNORDER_LIST_END;
-        }
+        // if(applicantContactPreferences !== undefined) {
+        //   applicantContactPre += HTML.UNORDER_LIST;
+        //   applicantContactPre += applicantContactPreferences.map(preferences => HTML.LIST_ITEM + contactTranslation(preferences,language) + HTML.LIST_ITEM_END ).toString().split(',').join('');
+        //   applicantContactPre += HTML.UNORDER_LIST_END;
+        // }
         newApplicantData.push(
           {
             key: keys['contactPrefernces'],
-            value: '',
-            valueHtml: `${applicantContactPre}`,
+            value: contactTranslation(applicantContactPreferences, language),
+            // valueHtml: `${applicantContactPre}`,
             changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_PREFERENCES'], { applicantId: sessionApplicantData[applicant]['id'] }),
           }
         );
