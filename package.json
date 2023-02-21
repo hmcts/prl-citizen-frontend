@@ -46,6 +46,7 @@
     "@hmcts/nodejs-healthcheck": "^1.8.0",
     "@hmcts/nodejs-logging": "^4.0.2",
     "@hmcts/properties-volume": "^0.0.14",
+    "@types/ua-parser-js": "^1.0.33",
     "@types/autobind-decorator": "^2.1.0",
     "@types/config": "^0.0.41",
     "@types/connect-redis": "^0.0.18",
