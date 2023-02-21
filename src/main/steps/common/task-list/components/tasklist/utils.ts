@@ -19,6 +19,7 @@ enum StateTags {
   IN_PROGRESS = 'inProgress',
   NOT_AVAILABLE_YET = 'notAvailableYet',
   READY_TO_VIEW = 'readyToView',
+  SUBMITTED = 'submitted',
 }
 
 /*interface StateTag {
@@ -67,6 +68,10 @@ const stateTagsConfig = {
     label: getStateTagLabel.bind(null, StateTags.READY_TO_VIEW),
     className: 'govuk-tag--blue',
   },
+  [StateTags.SUBMITTED]: {
+    label: getStateTagLabel.bind(null, StateTags.SUBMITTED),
+    className: 'govuk-tag--turquoise',
+  },
 };
 
 const taskListConfig = {
@@ -97,6 +102,10 @@ const taskListConfig = {
 
               if (caseData?.state === State.AwaitingSubmissionToHmcts) {
                 return StateTags.IN_PROGRESS;
+              }
+
+              if ([State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(caseData.state!)) {
+                return StateTags.SUBMITTED;
               }
             },
           },

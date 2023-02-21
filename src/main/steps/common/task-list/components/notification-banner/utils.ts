@@ -9,6 +9,7 @@ import { languages as content } from './content';
 enum BannerNotification {
   APPLICATION_NOT_STARTED = 'applicationNotStarted',
   APPLICATION_IN_PROGRESS = 'applicationInProgress',
+  APPLICATION_SUBMITTED = 'applicationSubmitted',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string) => {
@@ -31,6 +32,11 @@ const notificationBanner = {
     content: getContent.bind(null, BannerNotification.APPLICATION_IN_PROGRESS),
     show: () => false,
   },
+  [BannerNotification.APPLICATION_SUBMITTED]: {
+    id: BannerNotification.APPLICATION_SUBMITTED,
+    content: getContent.bind(null, BannerNotification.APPLICATION_SUBMITTED),
+    show: () => false,
+  },
 };
 
 const notificationBannerConfig = {
@@ -46,6 +52,12 @@ const notificationBannerConfig = {
         ...notificationBanner.applicationInProgress,
         show: (caseData: Partial<CaseWithId>): boolean => {
           return caseData?.state === State.AwaitingSubmissionToHmcts;
+        },
+      },
+      {
+        ...notificationBanner.applicationSubmitted,
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return caseData?.state === State.SUBMITTED_PAID || caseData?.state === State.SUBMITTED_NOT_PAID;
         },
       },
     ],
