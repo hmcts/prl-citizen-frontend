@@ -33,18 +33,53 @@ describe('testcase for tasklist', () => {
 
     expect(generatedContent).toEqual({
       caseNumber: 'Case number #',
+      hyperlinks: [
+        {
+          label: 'Know more about child arrangements',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
+        },
+        {
+          label: 'Know more about attending court',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+        },
+        {
+          label: 'Understand what a Mediation Information & Assessment Meeting (MIAM) is',
+          link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
+        },
+        {
+          label: 'Check if I am eligible for Legal Aid',
+          link: 'https://www.gov.uk/check-legal-aid',
+        },
+        {
+          label: 'Check if I am eligible for Help with Fees',
+          link: 'https://www.gov.uk/get-help-with-court-fees',
+        },
+        {
+          label: 'Find out about The Family Mediation Voucher scheme',
+          link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
+        },
+        {
+          label: 'Find legal advice',
+          link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+        },
+        {
+          label: 'Read how to represent myself in court',
+          link: 'https://www.gov.uk/represent-yourself-in-court',
+        },
+      ],
+      iWantTo: 'I want to...',
       notifications: [
         {
           contents: [
             {
-              text: 'You have {{noOfDaysRemaining}} days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
+              text: 'You have caseData.noOfDaysRemainingToSubmitCase days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
             },
           ],
           heading: 'You have not finished your application',
           id: 'applicationInProgress',
           links: [
             {
-              href: '/',
+              href: '#caseData.c100RebuildReturnUrl',
               text: 'Continue your application',
             },
           ],
@@ -123,18 +158,53 @@ describe('testcase for tasklist', () => {
 
     expect(generatedContent).toEqual({
       caseNumber: 'Case number # - welsh',
+      hyperlinks: [
+        {
+          label: 'Know more about child arrangements - welsh',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
+        },
+        {
+          label: 'Know more about attending court - welsh',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+        },
+        {
+          label: 'Understand what a Mediation Information & Assessment Meeting (MIAM) is - welsh',
+          link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
+        },
+        {
+          label: 'Check if I am eligible for Legal Aid - welsh',
+          link: 'https://www.gov.uk/check-legal-aid',
+        },
+        {
+          label: 'Check if I am eligible for Help with Fees - welsh',
+          link: 'https://www.gov.uk/get-help-with-court-fees',
+        },
+        {
+          label: 'Find out about The Family Mediation Voucher scheme - welsh',
+          link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
+        },
+        {
+          label: 'Find legal advice - welsh',
+          link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+        },
+        {
+          label: 'Read how to represent myself in court - welsh',
+          link: 'https://www.gov.uk/represent-yourself-in-court',
+        },
+      ],
+      iWantTo: 'I want to... - welsh',
       notifications: [
         {
           contents: [
             {
-              text: 'You have {{noOfDaysRemaining}} days to submit your application or it will be deleted and you will need to start again. This is for security reasons. - welsh',
+              text: 'You have caseData.noOfDaysRemainingToSubmitCase days to submit your application or it will be deleted and you will need to start again. This is for security reasons. - welsh',
             },
           ],
           heading: 'You have not finished your application - welsh',
           id: 'applicationInProgress',
           links: [
             {
-              href: '/gfhg',
+              href: '#caseData.c100RebuildReturnUrl',
               text: 'Continue your application - welsh',
             },
           ],
