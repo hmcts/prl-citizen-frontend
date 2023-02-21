@@ -8,11 +8,81 @@ import { getPartyName } from './utils';
 const en = {
   title: 'Child arrangements and family injunction cases',
   caseNumber: 'Case number #',
+  iWantTo: 'I want to...',
+  hyperlinks: [
+    {
+      label: 'Know more about child arrangements',
+      link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
+    },
+    {
+      label: 'Know more about attending court',
+      link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+    },
+    {
+      label: 'Understand what a Mediation Information & Assessment Meeting (MIAM) is',
+      link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
+    },
+    {
+      label: 'Check if I am eligible for Legal Aid',
+      link: 'https://www.gov.uk/check-legal-aid',
+    },
+    {
+      label: 'Check if I am eligible for Help with Fees',
+      link: 'https://www.gov.uk/get-help-with-court-fees',
+    },
+    {
+      label: 'Find out about The Family Mediation Voucher scheme',
+      link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
+    },
+    {
+      label: 'Find legal advice',
+      link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+    },
+    {
+      label: 'Read how to represent myself in court',
+      link: 'https://www.gov.uk/represent-yourself-in-court',
+    },
+  ],
 };
 
 const cy = {
   title: 'Child arrangements and family injunction cases - welsh',
   caseNumber: 'Case number # - welsh',
+  iWantTo: 'I want to... - welsh',
+  hyperlinks: [
+    {
+      label: 'Know more about child arrangements - welsh',
+      link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
+    },
+    {
+      label: 'Know more about attending court - welsh',
+      link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+    },
+    {
+      label: 'Understand what a Mediation Information & Assessment Meeting (MIAM) is - welsh',
+      link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
+    },
+    {
+      label: 'Check if I am eligible for Legal Aid - welsh',
+      link: 'https://www.gov.uk/check-legal-aid',
+    },
+    {
+      label: 'Check if I am eligible for Help with Fees - welsh',
+      link: 'https://www.gov.uk/get-help-with-court-fees',
+    },
+    {
+      label: 'Find out about The Family Mediation Voucher scheme - welsh',
+      link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
+    },
+    {
+      label: 'Find legal advice',
+      link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser - welsh',
+    },
+    {
+      label: 'Read how to represent myself in court - welsh',
+      link: 'https://www.gov.uk/represent-yourself-in-court',
+    },
+  ],
 };
 
 export const languages = {
