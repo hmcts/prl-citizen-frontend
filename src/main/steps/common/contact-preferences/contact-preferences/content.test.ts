@@ -7,8 +7,10 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 import { generateContent } from './content';
 
 jest.mock('../../../../app/form/validation');
+let caseNumber;
 
 const en = {
+  caption: `Case number #${caseNumber}`,
   title: 'Contact Preferences',
   paragraphs: [
     'You can choose to receive case updates by email or post.',
@@ -30,6 +32,7 @@ const en = {
 };
 
 const cy = {
+  caption: `Case number - welsh #${caseNumber}`,
   title: 'Dewisiadau cyswllt',
   paragraphs: [
     'Gallwch ddewis cael diweddariadau ynghylch yr achos drwy e-bost neu drwy’r post.',

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
@@ -5,16 +6,17 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 import { generateContent } from './content';
 
 jest.mock('../../../../app/form/validation');
+let caseNumber;
 
 const en = {
-  caption: 'Case number #',
+  caption: `Case number #${caseNumber}`,
   title: 'Contact preferences updated',
   text: 'You will receive updates on the case by post.',
   continue: 'Continue',
 };
 
 const cy = {
-  caption: 'Case number - welsh #',
+  caption: `Case number - welsh #${caseNumber}`,
   title: 'Contact preferences updated -welsh',
   text: 'You will receive updates on the case by post. - welsh',
   continue: 'Continue - welsh',

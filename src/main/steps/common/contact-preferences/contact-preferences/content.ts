@@ -5,9 +5,11 @@ import { applicantContactPreferencesEnum } from '../../../../app/case/definition
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import { interpolate } from '../../../../steps/common/string-parser';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
+  caption: 'Case number #{caseNumber}',
   title: 'Contact Preferences',
   paragraphs: [
     'You can choose to receive case updates by email or post.',
@@ -29,6 +31,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
+  caption: 'Case number - welsh #{caseNumber}',
   title: 'Dewisiadau cyswllt',
   paragraphs: [
     'Gallwch ddewis cael diweddariadau ynghylch yr achos drwy e-bost neu drwy’r post.',
@@ -89,7 +92,6 @@ export const generateFormFields = (): GenerateDynamicFormFields => {
           name: 'applicantPreferredContact',
           value: applicantContactPreferencesEnum.DIGITAL,
           hint: l => l.labelDitigalHintText,
-          //? disabled: !data?.applicantContactDetail?.emailAddress,
         },
         {
           label: l => l.labelPost,
@@ -129,14 +131,14 @@ export const getFormFields = (caseData: Partial<CaseWithId>): FormContent => {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  // const applicantId = content?.additionalData?.req.params.applicantId;
-  // const applicantData = content.userCase?.appl_allApplicants!.find(i => i.id === applicantId) as C100Applicant;
-  // const { applicantFirstName, applicantLastName } = applicantData;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const caseNumber = content.userCase?.caseId!;
+
   const { fields } = generateFormFields();
 
   return {
     ...translations,
-    // title: `${translations.title} ${applicantFirstName} ${applicantLastName}`,
+    caption: interpolate(translations.caption, { caseNumber }),
     title: `${translations.title}`,
     form: updateFormFields(form, fields),
   };

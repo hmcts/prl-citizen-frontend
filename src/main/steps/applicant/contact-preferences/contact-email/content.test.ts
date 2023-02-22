@@ -5,9 +5,10 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 import { generateContent } from './content';
 
 jest.mock('../../../../app/form/validation');
+let caseNumber;
 
 const en = {
-  caption: 'Case number #',
+  caption: `Case number #${caseNumber}`,
   title: 'Contact Preferences',
   subTitle: 'Personal details',
   text: 'You have decided to receive updates by email. You will still receive some information by post.',
@@ -15,7 +16,7 @@ const en = {
 };
 
 const cy = {
-  caption: 'Case number - welsh #',
+  caption: `Case number - welsh #${caseNumber}`,
   title: 'Contact Preferences - welsh',
   subTitle: 'Personal details - welsh',
   text: 'You have decided to receive updates by email. You will still receive some information by post. - welsh',

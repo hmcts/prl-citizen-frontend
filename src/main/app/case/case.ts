@@ -76,6 +76,7 @@ import {
   PRL_C1ASafteyConcernsAbout,
   PRL_C1ASafteyConcerns,
   PRL_C1AAbuseTypes,
+  applicantContactPreferencesEnum,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -579,7 +580,7 @@ export interface Case {
   lastModifiedDate?: string;
   c100RebuildReturnUrl?: string;
   noOfDaysRemainingToSubmitCase?: string;
-  applicantPreferredContact?: string;
+  applicantPreferredContact?: applicantContactPreferencesEnum;
 }
 
 export interface CaseWithId extends Case {

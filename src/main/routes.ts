@@ -18,8 +18,8 @@ import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/c
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
-import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
-import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
+// import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
+// import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
@@ -110,7 +110,7 @@ import {
   RESPONDENT_CHECK_ANSWERS_NO,
   FETCH_CASE_DETAILS,
   PARTY_TASKLIST,
-  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+  // APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -199,10 +199,10 @@ export class Routes {
         `${INTERNATIONAL_FACTORS_START}/:caseId`,
         errorHandler(new InternationalFactorsGetController(step.view, step.generateContent).get)
       );
-      app.get(
-        `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}`,
-        errorHandler(new ContactPreferencesGetController(step.view, step.generateContent).get)
-      );
+      // app.get(
+      //   `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}`,
+      //   errorHandler(new ContactPreferencesGetController(step.view, step.generateContent).get)
+      // );
 
       if (step.form) {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
@@ -298,10 +298,9 @@ export class Routes {
           errorHandler(new SafetyConcernsPostController(step.form.fields).post)
         );
         app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
-        app.get(
-          `${APPLICANT_KEEP_DETAILS_PRIVATE_SAVE}`,
-          errorHandler(new ContactPreferencesPostController(step.form.fields).post)
-        );
+        // app.get(APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+        //   errorHandler(new ContactPreferencesPostController(step.form.fields).post)
+        // );
       }
     }
     /**

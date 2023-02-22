@@ -5,16 +5,17 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 import { generateContent } from './content';
 
 jest.mock('../../../../app/form/validation');
+let caseNumber;
 
 const en = {
-  caption: 'Case number #',
+  caption: `Case number #${caseNumber}`,
   title: 'Contact preferences updated',
   text: 'You will receive digital updates about the case.',
   continue: 'Continue',
 };
 
 const cy = {
-  caption: 'Case number - welsh #',
+  caption: `Case number - welsh #${caseNumber}`,
   title: 'Contact preferences updated- welsh',
   text: 'You will receive digital updates about the case. - welsh',
   continue: 'Continue - welsh',

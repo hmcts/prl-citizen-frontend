@@ -3,10 +3,11 @@
 import { CaseWithId } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
+import { interpolate } from '../../../../steps/common/string-parser';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  caption: 'Case number #',
+  caption: 'Case number #{caseNumber}',
   title: 'Contact Preferences',
   continue: 'Submit',
   textList: [
@@ -16,7 +17,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  caption: 'Case number -welsh #',
+  caption: 'Case number - welsh #{caseNumber}',
   title: 'Contact Preferences -welsh',
   continue: 'Submit - welsh',
   textList: [
@@ -70,6 +71,9 @@ export const getFormFields = (caseData: Partial<CaseWithId>): FormContent => {
 };
 
 export const generateContent: TranslationFn = content => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const caseNumber = content.userCase?.caseId!;
+
   // ! Need to change this ADDRESS from the actual caseData
   const tempAddress: string[] = ['24 Happy Hill', 'Happy End', 'H24 HE'];
   const translations = languages[content.language]();
@@ -77,7 +81,7 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    caption: `${translations.caption}`,
+    caption: interpolate(translations.caption, { caseNumber }),
     form: updateFormFields(form, fields),
     addresses: tempAddress,
   };

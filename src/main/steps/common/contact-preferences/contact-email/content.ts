@@ -3,10 +3,13 @@
 import { CaseWithId } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
+import { interpolate } from '../../../../steps/common/string-parser';
+// import { getPartyDetails } from '../../../../steps/c100-rebuild/people/util';
+// import { C100Applicant } from 'app/case/definition';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  caption: 'Case number #',
+  caption: 'Case number #{caseNumber}',
   title: 'Contact Preferences',
   subTitle: 'Personal details',
   text: 'You have decided to receive updates by email. You will still receive some information by post.',
@@ -14,7 +17,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  caption: 'Case number - welsh #',
+  caption: 'Case number - welsh #{caseNumber}',
   title: 'Contact Preferences - welsh',
   subTitle: 'Personal details - welsh',
   text: 'You have decided to receive updates by email. You will still receive some information by post. - welsh',
@@ -66,15 +69,17 @@ export const getFormFields = (caseData: Partial<CaseWithId>): FormContent => {
 };
 
 export const generateContent: TranslationFn = content => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const caseNumber = content.userCase?.caseId!;
+
   // ! Need to change this EMAIL from the actual caseData
   const tempEmail = 'test@email.com';
-  // console.log(content!.userCase!.appl_allApplicants!)
   const translations = languages[content.language]();
   const { fields } = generateFormFields();
 
   return {
     ...translations,
-    caption: `${translations.caption}`,
+    caption: interpolate(translations.caption, { caseNumber }),
     form: updateFormFields(form, fields),
     userEmail: tempEmail,
   };

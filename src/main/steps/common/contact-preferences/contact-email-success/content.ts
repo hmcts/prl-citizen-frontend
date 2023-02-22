@@ -3,17 +3,18 @@
 import { CaseWithId } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
+import { interpolate } from '../../../../steps/common/string-parser';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  caption: 'Case number #',
+  caption: 'Case number #{caseNumber}',
   title: 'Contact preferences updated',
   text: 'You will receive digital updates about the case.',
   continue: 'Continue',
 });
 
 export const cy = () => ({
-  caption: 'Case number - welsh #',
+  caption: 'Case number - welsh #{caseNumber}',
   title: 'Contact preferences updated- welsh',
   text: 'You will receive digital updates about the case. - welsh',
   continue: 'Continue - welsh',
@@ -66,10 +67,12 @@ export const getFormFields = (caseData: Partial<CaseWithId>): FormContent => {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const { fields } = generateFormFields();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const caseNumber = content.userCase?.caseId!;
 
   return {
     ...translations,
-    caption: `${translations.caption}`,
+    caption: interpolate(translations.caption, { caseNumber }),
     form: updateFormFields(form, fields),
   };
 };

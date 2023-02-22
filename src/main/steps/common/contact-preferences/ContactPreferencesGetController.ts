@@ -33,16 +33,6 @@ export class ContactPreferencesGetController extends GetController {
     });
   }
 
-  public static async FL401Respondent(req: AppRequest): Promise<void> {
-    if (
-      req.session.userCase?.respondentsFL401?.user.idamId === req.session?.user.id &&
-      req.session.userCase?.respondentsFL401?.response &&
-      req.session.userCase?.respondentsFL401?.response?.applicantPreferredContact
-    ) {
-      Object.assign(req.session.userCase, getContactPreferences(req.session.userCase.respondentsFL401, req));
-    }
-  }
-
   public async get(req: AppRequest, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     console.log('loggedInCitizen ->', loggedInCitizen);
@@ -63,30 +53,13 @@ export class ContactPreferencesGetController extends GetController {
         ContactPreferencesGetController.c100Applicant(req);
       }
     } else {
-      if (req.url.includes('respondent')) {
-        ContactPreferencesGetController.FL401Respondent(req);
-      } else {
-        if (
-          req.session.userCase?.applicantsFL401?.user.idamId === req.session?.user.id &&
-          req.session.userCase?.applicantsFL401?.response &&
-          req.session.userCase?.applicantsFL401?.response?.applicantPreferredContact
-        ) {
-          Object.assign(req.session.userCase, getContactPreferences(req.session.userCase.applicantsFL401, req));
-        }
+      if (
+        req.session.userCase?.applicantsFL401?.user.idamId === req.session?.user.id &&
+        req.session.userCase?.applicantsFL401?.response &&
+        req.session.userCase?.applicantsFL401?.response?.applicantPreferredContact
+      ) {
+        Object.assign(req.session.userCase, getContactPreferences(req.session.userCase.applicantsFL401, req));
       }
     }
-
-    // const redirectUrl = setRedirectUrl(req);
-    // req.session.save(() => res.redirect(redirectUrl));
   }
 }
-// function setRedirectUrl(req: AppRequest<Partial<Case>>) {
-//   let redirectUrl = '';
-
-//   if (req.url.includes('respondent')) {
-//     redirectUrl = RESPONDENT_DETAILS_KNOWN;
-//   } else {
-//     redirectUrl = APPLICANT_TASKLIST_CONTACT_PREFERENCES;
-//   }
-//   return redirectUrl;
-// }

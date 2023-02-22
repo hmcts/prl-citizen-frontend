@@ -33,24 +33,6 @@ export class ContactPreferencesPostController extends PostController<AnyObject> 
     });
   }
 
-  public async FL401Respondent(req: AppRequest<AnyObject>): Promise<void> {
-    if (req.session.userCase?.respondentsFL401?.user?.idamId === req.session?.user.id) {
-      Object.assign(
-        req.session.userCase.respondentsFL401,
-        setContactPreferences(req.session.userCase.respondentsFL401, req)
-      );
-    }
-  }
-
-  public async FL401Applicant(req: AppRequest<AnyObject>): Promise<void> {
-    if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session?.user.id) {
-      Object.assign(
-        req.session.userCase.applicantsFL401,
-        setContactPreferences(req.session.userCase.applicantsFL401, req)
-      );
-    }
-  }
-
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     const caseReference = req.session.userCase.id;
@@ -67,12 +49,6 @@ export class ContactPreferencesPostController extends PostController<AnyObject> 
       } else {
         this.c100Applicant(req);
       }
-    } else {
-      if (req.url.includes('respondent')) {
-        this.FL401Respondent(req);
-      } else {
-        this.FL401Applicant(req);
-      }
     }
 
     const caseData = toApiFormat(req?.session?.userCase);
@@ -84,13 +60,5 @@ export class ContactPreferencesPostController extends PostController<AnyObject> 
       'linkCitizenAccount'
     );
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
-
-    // let redirectUrl;
-    // if (req.url.includes('respondent')) {
-    //   redirectUrl = RESPONDENT_PRIVATE_DETAILS_CONFIRMED;
-    // } else {
-    //   redirectUrl = APPLICANT_PRIVATE_DETAILS_CONFIRMED;
-    // }
-    // req.session.save(() => res.redirect(redirectUrl));
   }
 }
