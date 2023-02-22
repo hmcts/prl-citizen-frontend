@@ -172,7 +172,7 @@ export const isPhoneNoValid: Validator = value => {
 
 export const isAlphaNumeric: Validator = value => {
   if (typeof value === 'string') {
-    return !value.match(/^[a-zA-Z0-9_\s]*$/) ? 'invalid' : undefined;
+    return !value.match(/^[a-zA-Z0-9'_\s]*$/) ? 'invalid' : undefined;
   }
 };
 
