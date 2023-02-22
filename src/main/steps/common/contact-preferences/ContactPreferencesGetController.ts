@@ -52,14 +52,6 @@ export class ContactPreferencesGetController extends GetController {
       } else {
         ContactPreferencesGetController.c100Applicant(req);
       }
-    } else {
-      if (
-        req.session.userCase?.applicantsFL401?.user.idamId === req.session?.user.id &&
-        req.session.userCase?.applicantsFL401?.response &&
-        req.session.userCase?.applicantsFL401?.response?.applicantPreferredContact
-      ) {
-        Object.assign(req.session.userCase, getContactPreferences(req.session.userCase.applicantsFL401, req));
-      }
     }
   }
 }

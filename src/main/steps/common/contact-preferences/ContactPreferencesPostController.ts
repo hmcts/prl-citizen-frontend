@@ -36,6 +36,7 @@ export class ContactPreferencesPostController extends PostController<AnyObject> 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     const caseReference = req.session.userCase.id;
+    console.log('loggedInCitizen >> ', loggedInCitizen);
 
     const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
 
