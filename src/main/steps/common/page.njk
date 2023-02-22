@@ -44,6 +44,10 @@
     <div class="govuk-grid-column-two-thirds">
         {% block backLink %}
     <a href="#" class="govuk-back-link">{{ back }}</a>
+    
+  {% endblock %}
+  {% block modal %}
+    {% include "./timeout-dialog.njk" %}
   {% endblock %}
 
       {% block error_summary %}

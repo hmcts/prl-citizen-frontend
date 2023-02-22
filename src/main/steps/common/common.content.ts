@@ -115,6 +115,15 @@ const en = {
   useApmCookies: 'Use cookies that measure website application performance monitoring',
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
   divider: 'or',
+  timeout: {
+    title: 'You are about to be signed out',
+    part1: 'You are going to be signed out of your application in',
+    part2: 'because of inactivity. This is to protect your personal information.',
+    buttonText: 'Continue with your application',
+    twoMinutes: '2 minutes',
+    minutes: 'minute',
+    seconds: 'seconds',
+  },
 };
 
 const cy: typeof en = {
