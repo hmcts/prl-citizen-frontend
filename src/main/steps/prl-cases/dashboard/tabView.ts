@@ -30,8 +30,7 @@ interface CaseDetails {
   caseNumber: string;
   caseType: CaseType;
   caseApplicantName: string;
-  caseStatus: string; //This is to group cases based on caseState like draft, active & closed
-  //state; //This is current state of the case
+  caseStatus: string; //This is to group cases based on caseStatus.state like draft, active & closed
   createdDate: string;
   lastModifiedDate: string;
   casePartyType: PartyType;
