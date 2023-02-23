@@ -6,7 +6,7 @@ describe('testcase for progress-bar', () => {
   test('when state submitted but not paid', () => {
     const data = {
       id: '12',
-      state: State.SUBMITTED_NOT_PAID,
+      state: State.AwaitingSubmissionToHmcts,
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -15,7 +15,18 @@ describe('testcase for progress-bar', () => {
       {
         heading: 'Your application',
         id: 'yourApplication',
-        tasks: [],
+        tasks: [
+          {
+            disabled: false,
+            href: undefined,
+            id: 'childArrangementApplication',
+            linkText: 'Your child arrangements application',
+            stateTag: {
+              className: 'govuk-tag--yellow',
+              label: 'In progress',
+            },
+          },
+        ],
       },
     ]);
   });
@@ -41,25 +52,4 @@ describe('testcase for progress-bar', () => {
 
     expect(getTaskListConfig(data, party, language)).toStrictEqual([]);
   });
-  //   test('C100 Appilant', () => {
-  //     const data = {
-  //       id: '12',
-  //       state: State.AWAITING_SUBMISSION_TO_HMCTS,
-  //       caseTypeOfApplication: CaseType.C100,
-  //     //   tasks:[
-  //     //     {
-  //     //         VIEW_ALL_DOCUMENTS : 'viewAllDocuments'
-  //     //     }
-
-  //     //   ]
-  //     };
-  //     const party = PartyType.APPLICANT;
-  //     const language = 'en';
-
-  //     expect(getTaskListConfig(data, party, language)).toStrictEqual([{
-  //         heading: 'Your application',
-  //         id: 'yourApplication',
-  //         tasks: [],
-  //       },]);
-  //   });
 });

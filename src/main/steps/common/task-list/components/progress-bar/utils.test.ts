@@ -3,10 +3,10 @@ import { CaseType, PartyType, State } from '../../../../../app/case/definition';
 import { getProgressBarConfig } from './utils';
 
 describe('testcase for progress-bar', () => {
-  test('when state submitted but not paid', () => {
+  test('when in progress state', () => {
     const data = {
       id: '12',
-      state: State.SUBMITTED_NOT_PAID,
+      state: State.AwaitingSubmissionToHmcts,
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
