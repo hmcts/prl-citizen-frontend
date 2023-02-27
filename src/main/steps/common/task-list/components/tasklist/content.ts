@@ -25,6 +25,14 @@ const en = {
           },
         },
       },
+      yourHearing: {
+        heading: 'Your court hearings',
+        tasks: {
+          viewHearingDetails: {
+            linkText: 'Check details of your court hearings',
+          },
+        },
+      },
     },
   },
 };
@@ -51,6 +59,14 @@ const cy: typeof en = {
         tasks: {
           viewAllDocuments: {
             linkText: 'View all documents - welsh',
+          },
+        },
+      },
+      yourHearing: {
+        heading: 'Your court hearings - welsh',
+        tasks: {
+          viewHearingDetails: {
+            linkText: 'Check details of your court hearings - welsh',
           },
         },
       },
