@@ -87,24 +87,19 @@ const taskListConfig = {
             href: (caseData: Partial<CaseWithId>) => {
               if (!caseData) {
                 return '/c100-rebuild/start';
-              }
-
-              if (caseData?.state === State.AwaitingSubmissionToHmcts) {
+              } else if (caseData?.state === State.AwaitingSubmissionToHmcts) {
                 return caseData.c100RebuildReturnUrl;
+              } else {
+                return '#download';
               }
             },
-            show: (caseData: Partial<CaseWithId>): boolean =>
-              !caseData || caseData?.state === State.AwaitingSubmissionToHmcts,
+            show: () => true,
             stateTag: (caseData: Partial<CaseWithId>) => {
               if (!caseData) {
                 return StateTags.NOT_STARTED_YET;
-              }
-
-              if (caseData?.state === State.AwaitingSubmissionToHmcts) {
+              } else if (caseData?.state === State.AwaitingSubmissionToHmcts) {
                 return StateTags.IN_PROGRESS;
-              }
-
-              if ([State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(caseData.state!)) {
+              } else if ([State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(caseData.state!)) {
                 return StateTags.SUBMITTED;
               }
             },
