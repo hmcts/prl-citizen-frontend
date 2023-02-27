@@ -114,7 +114,9 @@ export const PermissionForApplication = (
   language
 ): SummaryList | undefined => {
   const valForPermissionWhy = userCase.hasOwnProperty('sq_permissionsWhy') ? (HTML.UNORDER_LIST + userCase['sq_permissionsWhy']?.map(props => HTML.LIST_ITEM + keys[props] + ': ' + userCase[`sq_${props}_subfield`] + HTML.LIST_ITEM_END) + HTML.UNORDER_LIST_END).split(',').join('') : '';
-  const SummaryData = [
+  let SummaryData=[{}];
+  if(userCase['sq_courtPermissionRequired']===YesOrNo.YES){
+   SummaryData = [
     {
       key: keys['reasonPermissionRequired'],
       value: getYesNoTranslation(language,userCase['sq_courtPermissionRequired'],'oesTranslation'),
@@ -130,7 +132,13 @@ export const PermissionForApplication = (
       value: userCase['sq_permissionsRequest'],
       changeUrl: Urls['C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST'],
     },
-  ];
+  ];}
+  else {SummaryData = [
+    {
+      key: keys['reasonPermissionRequired'],
+      value: getYesNoTranslation(language,userCase['sq_courtPermissionRequired'],'oesTranslation'),
+      changeUrl: Urls['C100_SCREENING_QUESTIONS_COURT_PERMISSION'],
+    }];}
   return {
     title: sectionTitles['permissionForApplication'],
     rows: getSectionSummaryList(SummaryData, content),
@@ -415,17 +423,18 @@ export const OtherChildrenDetails = (
 };
 
 
-export const ApplicantDetailNameParser = (personalDetails, keys): string => {
-  let changeNameInformation = '' as string;
-  const hasNameChanged = personalDetails['haveYouChangeName'];
+export const ApplicantDetailNameParser = (personalDetails, keys,language): string => {
+  let changeNameInformation = '';
+  const hasNameChanged = getYesNoTranslation(language,personalDetails['haveYouChangeName'],'doTranslation');
   changeNameInformation += hasNameChanged;
-  if(hasNameChanged === 'Yes'){
+  if(personalDetails['haveYouChangeName'] === 'Yes'){
+    const changedName = personalDetails['applPreviousName'];
     changeNameInformation += HTML.RULER;
     changeNameInformation += HTML.H4;
     changeNameInformation += keys['details'];
     changeNameInformation += HTML.H4_CLOSE;
     changeNameInformation += HTML.BOTTOM_PADDING_3;
-    changeNameInformation +=  personalDetails['applPreviousName'];
+    changeNameInformation += changedName;
     changeNameInformation += HTML.BOTTOM_PADDING_CLOSE;
   }
   return changeNameInformation;
@@ -496,7 +505,7 @@ export const ApplicantDetails = (
       {
         key: keys['haveYouChangeNameLabel'],
         value: '',
-        valueHtml: getYesNoTranslation(language,ApplicantDetailNameParser(personalDetails, keys),'doTranslation'),
+        valueHtml: ApplicantDetailNameParser(personalDetails, keys,language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
@@ -697,7 +706,9 @@ export const PastAndCurrentProceedings = (
       order => '<li class="govuk-!-padding-bottom-2">' + keys[`${order}Label`] + '</li>'
     ) +
     '</ul>';
-  const SummaryData = [
+    let SummaryData=[{}];
+    if(userCase['op_childrenInvolvedCourtCase']===YesOrNo.YES || userCase['op_courtOrderProtection']===YesOrNo.YES){
+    SummaryData = [
     {
       key: keys['childrenInvolvedCourtCase'],
       value: getYesNoTranslation(language,userCase['op_childrenInvolvedCourtCase'],'doTranslation'),
@@ -714,7 +725,20 @@ export const PastAndCurrentProceedings = (
       changeUrl: Urls['C100_OTHER_PROCEEDINGS_DETAILS'],
     },
     ...OPotherProceedingsSessionParserUtil(userCase, keys, Urls, 'op_courtProceedingsOrders',language),
-  ];
+  ];}
+  else{
+    SummaryData = [
+      {
+        key: keys['childrenInvolvedCourtCase'],
+        value: getYesNoTranslation(language,userCase['op_childrenInvolvedCourtCase'],'doTranslation'),
+        changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
+      },
+      {
+        key: keys['courtOrderProtection'],
+        value: getYesNoTranslation(language,userCase['op_courtOrderProtection'],'oesTranslation'),
+        changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
+      },];
+  }
   return {
     title: sectionTitles['otherProceedings'],
     rows: getSectionSummaryList(SummaryData, content),
