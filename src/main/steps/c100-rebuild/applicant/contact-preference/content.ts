@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../app/case/case';
-import { C100Applicant, YesNoEmpty, applicantContactPreferencesEnum } from '../../../../app/case/definition';
+import { C100Applicant, applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
@@ -89,8 +89,7 @@ export const generateFormFields = (data: C100Applicant): GenerateDynamicFormFiel
           name: 'applicantContactPreferences',
           value: applicantContactPreferencesEnum.DIGITAL,
           hint: l => l.labelDitigalHintText,
-          disabled: checkcondition(data),
-          //!(data?.applicantContactDetail?.canProvideEmail),
+          disabled: !data?.applicantContactDetail?.emailAddress,
         },
         {
           label: l => l.labelPost,
@@ -142,10 +141,3 @@ export const generateContent: TranslationFn = content => {
     form: updateFormFields(form, fields),
   };
 };
-function checkcondition(data: C100Applicant): boolean {
-  if (data.applicantContactDetail?.canProvideEmail === YesNoEmpty.NO) {
-    return true;
-  } else {
-    return false;
-  }
-}
