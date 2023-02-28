@@ -6,6 +6,7 @@ const en = {
     inProgress: 'In progress',
     notAvailableYet: 'Not available yet',
     readyToView: 'Ready to view',
+    submitted: 'Submitted',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
@@ -35,6 +36,7 @@ const cy: typeof en = {
     inProgress: 'In progress - welsh',
     notAvailableYet: 'Not available yet - welsh',
     readyToView: 'Ready to view - welsh',
+    submitted: 'Submitted - welsh',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {

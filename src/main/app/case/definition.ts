@@ -1985,8 +1985,8 @@ export const enum State {
   successAuthentication = 'SuccessAuthentication',
   AWAITING_SUBMISSION_TO_HMCTS = "Draft",
   AWAITING_FL401_SUBMISSION_TO_HMCTS = "Draft",
-  SUBMITTED_NOT_PAID = "Pending",
-  SUBMITTED_PAID = "Submitted",
+  SUBMITTED_NOT_PAID = "SUBMITTED_NOT_PAID",
+  SUBMITTED_PAID = "SUBMITTED_PAID",
   AWAITING_RESUBMISSION_TO_HMCTS = "Returned",
   CASE_ISSUE = "Case Issued",
   CASE_WITHDRAWN = "Withdrawn",
@@ -1996,6 +1996,7 @@ export const enum State {
   ALL_FINAL_ORDERS_ISSUED = "ALL_FINAL_ORDERS_ISSUED",
   CASE_HEARING = "Prepare for hearing",
   DELETED = "DELETED",
+  PENDING = "Pending",
 }
 
 export const enum UserRole {

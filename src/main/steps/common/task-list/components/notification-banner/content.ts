@@ -32,6 +32,20 @@ const en = {
           },
         ],
       },
+      applicationSubmitted: {
+        heading: 'Your application is in progress',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps.',
+          },
+        ],
+        links: [
+          {
+            text: 'Withdraw your application',
+            href: '/c100-rebuild/withdraw',
+          },
+        ],
+      },
     },
   },
 };
@@ -65,6 +79,20 @@ const cy: typeof en = {
           {
             text: 'Continue your application - welsh',
             href: '{c100RebuildReturnUrl}',
+          },
+        ],
+      },
+      applicationSubmitted: {
+        heading: 'Your application is in progress - welsh',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
+          },
+        ],
+        links: [
+          {
+            text: 'Withdraw your application - welsh',
+            href: '/c100-rebuild/withdraw',
           },
         ],
       },

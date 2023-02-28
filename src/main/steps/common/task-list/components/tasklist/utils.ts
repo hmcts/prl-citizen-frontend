@@ -19,6 +19,7 @@ enum StateTags {
   IN_PROGRESS = 'inProgress',
   NOT_AVAILABLE_YET = 'notAvailableYet',
   READY_TO_VIEW = 'readyToView',
+  SUBMITTED = 'submitted',
 }
 
 /*interface StateTag {
@@ -67,6 +68,10 @@ const stateTagsConfig = {
     label: getStateTagLabel.bind(null, StateTags.READY_TO_VIEW),
     className: 'govuk-tag--blue',
   },
+  [StateTags.SUBMITTED]: {
+    label: getStateTagLabel.bind(null, StateTags.SUBMITTED),
+    className: 'govuk-tag--turquoise',
+  },
 };
 
 const taskListConfig = {
@@ -82,21 +87,20 @@ const taskListConfig = {
             href: (caseData: Partial<CaseWithId>) => {
               if (!caseData) {
                 return '/c100-rebuild/start';
-              }
-
-              if (caseData?.state === State.AwaitingSubmissionToHmcts) {
+              } else if (caseData?.state === State.AwaitingSubmissionToHmcts) {
                 return caseData.c100RebuildReturnUrl;
+              } else {
+                return '#download';
               }
             },
-            show: (caseData: Partial<CaseWithId>): boolean =>
-              !caseData || caseData?.state === State.AwaitingSubmissionToHmcts,
+            show: () => true,
             stateTag: (caseData: Partial<CaseWithId>) => {
               if (!caseData) {
                 return StateTags.NOT_STARTED_YET;
-              }
-
-              if (caseData?.state === State.AwaitingSubmissionToHmcts) {
+              } else if (caseData?.state === State.AwaitingSubmissionToHmcts) {
                 return StateTags.IN_PROGRESS;
+              } else if ([State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(caseData.state!)) {
+                return StateTags.SUBMITTED;
               }
             },
           },
