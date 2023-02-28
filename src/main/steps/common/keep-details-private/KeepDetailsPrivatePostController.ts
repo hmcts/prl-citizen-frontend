@@ -89,7 +89,6 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
       'keepYourDetailsPrivate',
       accessCode as string
     );
-    console.log(updatedCaseDataFromCos);
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
     let redirectUrl;
