@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../app/case/case';
 import { PartyDetails, YesOrNo } from '../../../../app/case/definition';
 import { fromApiDate } from '../../../../app/case/from-api-format';
@@ -183,11 +184,56 @@ export const setTextFields = (req: AppRequest): Partial<CaseWithId> => {
   } else {
     req.session.userCase.citizenUserEmailAddressText = req.session.userCase.citizenUserEmailAddress;
   }
-
   setAddressFields(req);
+  return req.session.userCase;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function setAddressFieldsForApplicant(foundApplicant, req) {
+  const { address } = foundApplicant;
+  req.session.userCase.citizenUserAddressText = address['AddressLine1'] + ', ';
+  req.session.userCase.citizenUserAddressText += address['AddressLine2'] + ', ';
+  address['AddressLine3'] !== null
+    ? (req.session.userCase.citizenUserAddressText += address['AddressLine3'] + '<br> ')
+    : '';
+  address['County'] !== null ? (req.session.userCase.citizenUserAddressText += address['County'] + ', <br> ') : '';
+  address['PostTown'] !== null ? (req.session.userCase.citizenUserAddressText += address['PostTown'] + ', <br> ') : '';
+  address['Country'] !== null ? (req.session.userCase.citizenUserAddressText += address['Country'] + ', <br> ') : '';
+  address['PostCode'] !== null ? (req.session.userCase.citizenUserAddressText += address['PostCode'] + '. <br> ') : '';
+
+  if (foundApplicant['isAtAddressLessThan5Years'] === YesOrNo.YES) {
+    req.session.userCase.citizenUserAddressHistory = '';
+  }
+  return req.session.userCase;
+}
+
+export const setTextFieldsForApplicant = (req: AppRequest): Partial<CaseWithId> => {
+  const foundApplicant = req.session.userCase?.applicants?.filter(
+    applicant => applicant.value.user.idamId === req.session.user.id
+  )?.[0]?.value;
+  if (foundApplicant) {
+    if (foundApplicant.firstName && foundApplicant.lastName) {
+      req.session.userCase.citizenUserFullName = foundApplicant.firstName + ' ' + foundApplicant.lastName;
+    }
+    if (foundApplicant.placeOfBirth) {
+      req.session.userCase.citizenUserPlaceOfBirthText = foundApplicant.placeOfBirth;
+    }
+    if (foundApplicant.dateOfBirth) {
+      req.session.userCase.citizenUserDateOfBirthText = foundApplicant['dateOfBirth'];
+    }
+    if (foundApplicant.phoneNumber) {
+      req.session.userCase.citizenUserPhoneNumberText = foundApplicant.phoneNumber;
+    }
+    if (foundApplicant.email) {
+      req.session.userCase.citizenUserEmailAddressText = foundApplicant.email;
+    }
+
+    setAddressFieldsForApplicant(foundApplicant, req);
+  }
 
   return req.session.userCase;
 };
+
 function clearSessionData(req: AppRequest) {
   req.session.userCase.citizenUserFirstNames = '';
   req.session.userCase.citizenUserLastNames = '';

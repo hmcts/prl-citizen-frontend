@@ -59,7 +59,6 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     const caseReference = req.session.userCase.id;
-
     const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
 
     const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
@@ -80,12 +79,17 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
 
     const caseData = toApiFormat(req?.session?.userCase);
     caseData.id = caseReference;
+    const accessCode = req.session.userCase.caseInvites?.filter(
+      userInvited => userInvited.value.invitedUserId === req.session.user.id
+    )[0]?.value.accessCode;
     const updatedCaseDataFromCos = await client.updateCase(
       loggedInCitizen,
       caseReference,
       caseData,
-      'keepYourDetailsPrivate'
+      'keepYourDetailsPrivate',
+      accessCode as string
     );
+    console.log(updatedCaseDataFromCos);
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
     let redirectUrl;
@@ -102,7 +106,6 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
         redirectUrl = APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED;
       }
     }
-
     req.session.save(() => res.redirect(redirectUrl));
   }
 }
