@@ -795,7 +795,7 @@ export interface ContactDetail {
   telephoneNumber?: string,
   canNotProvideTelephoneNumberReason?: string,
   canLeaveVoiceMail?: YesNoEmpty,
-  applicantContactPreferences?: String[];
+  applicantContactPreferences?: string;
 }
 
 export enum applicantContactPreferencesEnum {
