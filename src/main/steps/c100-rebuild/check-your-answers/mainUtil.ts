@@ -558,24 +558,12 @@ export const ApplicantDetails = (
           value: '',
           valueHtml: applicantCourtCanLeaveVoiceMail(sessionApplicantData[applicant].applicantContactDetail, keys),
           changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_DETAIL'], { applicantId: sessionApplicantData[applicant]['id'] }),
+        },
+        {
+          key: keys['contactPrefernces'],
+          value: contactTranslation(sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences, language),
+          changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_PREFERENCES'], { applicantId: sessionApplicantData[applicant]['id'] }),
         });
-
-        const applicantContactPreferences = sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences;
-        let applicantContactPre = '';
-
-        if(applicantContactPreferences !== undefined && Array.isArray(applicantContactPreferences)) {
-          applicantContactPre += HTML.UNORDER_LIST;
-          applicantContactPre += applicantContactPreferences.map(preferences => HTML.LIST_ITEM + contactTranslation(preferences,language) + HTML.LIST_ITEM_END ).toString().split(',').join('');
-          applicantContactPre += HTML.UNORDER_LIST_END;
-        }
-        newApplicantData.push(
-          {
-            key: keys['contactPrefernces'],
-            value: '',
-            valueHtml: `${applicantContactPre}`,
-            changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_PREFERENCES'], { applicantId: sessionApplicantData[applicant]['id'] }),
-          }
-        );
   }
   return {
     title: sectionTitles['ApplicantDetails'],
