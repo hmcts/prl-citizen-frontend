@@ -97,13 +97,8 @@ export const form: FormContent = {
                 },
                 {
                   name: 'contactDetailsPrivate',
-                  label: l => l.postalAddress,
-                  value: 'postalAddress',
-                },
-                {
-                  name: 'contactDetailsPrivate',
                   label: l => l.Phone_number,
-                  value: 'phone',
+                  value: 'phoneNumber',
                 },
                 {
                   name: 'contactDetailsPrivate',
