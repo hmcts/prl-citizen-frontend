@@ -53,35 +53,21 @@ pipelineConf.vaultSecrets = secrets
 withNightlyPipeline(type, product, component) {
   env.TEST_URL = "https://privatelaw.aat.platform.hmcts.net/"
   env.PRL_CITIZEN_URL = params.FRONTEND_URL
+  
   loadVaultSecrets(secrets)
-  // enableMutationTest()
-  enableFortifyScan()
-  enableFullFunctionalTest(120)
-  enableCrossBrowserTest(['chrome', 'firefox','microsoft'])
-  enableFortifyScan()
-  enableSecurityScan()
+    enableSlackNotifications(channel)
+    enableFullFunctionalTest(200)
+    // enableCrossBrowserTest(['chrome', 'firefox','microsoft'])
+    enableCrossBrowserTest(60)
 
-  afterAlways('test') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
-  }
+    afterAlways('fullFunctionalTest') {
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/functional/output/**/*'
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+    }
 
-  before('crossBrowserTest') {
-  }
+    before('crossBrowserTest') {}
 
-  afterAlways('crossBrowserTest') {
+    afterAlways('crossBrowserTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  before('fullFunctionalTest') {
-    env.PARALLEL_CHUNKS = params.FUNCTIONAL_TESTS_WORKERS
-  }
-
-  afterAlways('fullFunctionalTest') {
-    archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  afterAlways('fortify-scan') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'build/reports/**/*'
-  }
+    }
 }
