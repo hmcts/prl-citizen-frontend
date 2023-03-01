@@ -26,6 +26,7 @@ import {
   APPLICANT_TASKLIST_CONTACT_POST,
   APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+  APPLICANT_TASKLIST_CONTACT_PREFERENCES_SAVE,
   APPLICANT_TASK_LIST_URL,
   APPLICANT_UPLOAD_DOCUMENT,
   APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
@@ -68,7 +69,7 @@ import {
   YOUR_WITNESS_STATEMENTS,
 } from '../urls';
 
-import { applicantContactPreferencesEnum } from './../../app/case/definition';
+// import { applicantContactPreferencesEnum } from './../../app/case/definition';
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
 
 export const applicantCaseSequence: Step[] = [
@@ -487,10 +488,16 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_TASKLIST_CONTACT_PREFERENCES,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: data =>
-      data.applicantPreferredContact === applicantContactPreferencesEnum.DIGITAL
-        ? APPLICANT_TASKLIST_CONTACT_EMAIL
-        : APPLICANT_TASKLIST_CONTACT_POST,
+    getNextStep: () => APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+    // getNextStep: data =>
+    //   data.applicantPreferredContact === applicantContactPreferencesEnum.DIGITAL
+    //     ? APPLICANT_TASKLIST_CONTACT_EMAIL
+    //     : APPLICANT_TASKLIST_CONTACT_POST,
+  },
+  {
+    url: APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASKLIST_CONTACT_PREFERENCES_SAVE,
   },
   {
     url: APPLICANT_TASKLIST_CONTACT_EMAIL,

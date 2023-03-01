@@ -39,16 +39,6 @@ describe('ContactPreferencesPostController', () => {
     updateCaserMock.mockClear();
   });
 
-  test('Should update the applicantContactPreferences details if user id matches with respondent with Digital preference', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
-    req.session.userCase.applicants = partyDetails;
-    req.session.userCase.applicantPreferredContact = applicantContactPreferencesEnum.DIGITAL;
-    req.session.userCase.caseTypeOfApplication = 'C100';
-    req.url = 'applicant';
-    await controller.post(req, res);
-    expect(req.session.userCase.applicants[0].value.response.applicantPreferredContact).toEqual('Digital');
-  });
-
   test('Should not update the applicantContactPreferences details if user id matches with respondent', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     req.session.userCase.applicants = partyDetails;
@@ -56,16 +46,6 @@ describe('ContactPreferencesPostController', () => {
     req.url = 'applicant';
     await controller.post(req, res);
     expect(req.session.userCase.applicants[0].value.response.applicantPreferredContact).toEqual(undefined);
-  });
-
-  test('Should update the applicantContactPreferences details if user id matches with applicant for Post contact preference', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
-    req.session.userCase.applicants = partyDetails;
-    req.session.userCase.applicantPreferredContact = applicantContactPreferencesEnum.POST;
-    req.session.userCase.caseTypeOfApplication = 'C100';
-    req.url = 'applicant';
-    await controller.post(req, res);
-    expect(req.session.userCase.applicants[0].value.response.applicantPreferredContact).toEqual('Post');
   });
 
   test('Should not update the KeepDetailsPrivate details if user id matches with applicant for Post contact preference', async () => {

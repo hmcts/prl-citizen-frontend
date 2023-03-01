@@ -24,14 +24,7 @@ describe('ContactPreferencesMapper', () => {
     ];
   });
 
-  test('Should setContactPreferences without response', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-    req.session.userCase.applicantPreferredContact = 'Digital';
-    await setContactPreferences(applicants[0].value, req);
-    expect(applicants[0].value.response.applicantPreferredContact).toEqual('Digital');
-  });
-
-  test('Should setContactPreferences with response', async () => {
+  test('Should setContactPreferences with response as Digital', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     req.session.userCase.applicantPreferredContact = 'Digital';
     const response = {
@@ -42,32 +35,35 @@ describe('ContactPreferencesMapper', () => {
     expect(applicants[0].value.response.applicantPreferredContact).toEqual('Digital');
   });
 
-  test('Should setContactPreferences without applicantPreferredContact', async () => {
+  test('Should setContactPreferences with response as Post', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     req.session.userCase.applicantPreferredContact = 'Digital';
-    const response = {};
-    applicants[0].value.response = response;
-    await setContactPreferences(applicants[0].value, req);
-    expect(applicants[0].value.response.applicantPreferredContact).toEqual('Digital');
-  });
-
-  test('Should getContactPreferences with applicant contact preference indicated as Post', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     const response = {
       applicantPreferredContact: 'Post',
     };
     applicants[0].value.response = response;
+    await setContactPreferences(applicants[0].value, req);
+    expect(applicants[0].value.response.applicantPreferredContact).toEqual('Post');
+  });
+
+  test('Should getContactPreferences with applicant contact preference indicated as Post', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+
+    const response = {
+      contactPreferences: 'post',
+    };
+    applicants[0].value.response = response;
     await getContactPreferences(applicants[0].value, req);
-    expect(req.session.userCase.applicantPreferredContact).toEqual('Post');
+    expect(req.session.userCase.applicantPreferredContact).toEqual('post');
   });
 
   test('Should getContactPreferences with applicant contact preference indicated as Digital', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     const response = {
-      applicantPreferredContact: 'Digital',
+      contactPreferences: 'digital',
     };
     applicants[0].value.response = response;
     await getContactPreferences(applicants[0].value, req);
-    expect(req.session.userCase.applicantPreferredContact).toEqual('Digital');
+    expect(req.session.userCase.applicantPreferredContact).toEqual('digital');
   });
 });

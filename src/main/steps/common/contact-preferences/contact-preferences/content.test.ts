@@ -79,9 +79,9 @@ describe('contact preferences common content', () => {
 
     expect(applicantPreferredContact.type).toBe('radios');
     expect(applicantPreferredContact.values[0].label(generatedContent)).toBe(en.labelDigital);
-    expect(applicantPreferredContact.values[0].value).toBe(en.labelDigital);
+    expect(applicantPreferredContact.values[0].value).toBe('digital');
     expect(applicantPreferredContact.values[1].label(generatedContent)).toBe(en.labelPost);
-    expect(applicantPreferredContact.values[1].value).toBe(en.labelPost);
+    expect(applicantPreferredContact.values[1].value).toBe('post');
 
     (applicantPreferredContact.validator as Function)(applicantContactPreferencesEnum.DIGITAL);
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith(applicantContactPreferencesEnum.DIGITAL);

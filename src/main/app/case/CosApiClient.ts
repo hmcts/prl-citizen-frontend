@@ -87,7 +87,8 @@ export class CosApiClient {
     user: UserDetails,
     caseId: string,
     data: Partial<CaseData>,
-    eventId: string
+    eventId: string,
+    partyAccessCode?: string
   ): Promise<CaseWithId> {
     try {
       const headers = {
@@ -95,12 +96,11 @@ export class CosApiClient {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
         ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-        accessCode: 'Dummy accessCode',
+        accessCode: partyAccessCode !== '' ? (partyAccessCode as string) : ('' as string),
       };
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
         headers,
       });
-
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
       throw new Error('Case could not be updated.');

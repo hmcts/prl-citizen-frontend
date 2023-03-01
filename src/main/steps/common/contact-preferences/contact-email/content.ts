@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars*/
-import { CaseWithId } from '../../../../app/case/case';
+/* eslint-disable @typescript-eslint/no-explicit-any*/
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { interpolate } from '../../../../steps/common/string-parser';
-// import { getPartyDetails } from '../../../../steps/c100-rebuild/people/util';
-// import { C100Applicant } from 'app/case/definition';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -43,7 +41,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (): GenerateDynamicFormFields => {
+export const generateFormFields = (caseData: any): GenerateDynamicFormFields => {
   const errors = {
     en: {},
     cy: {},
@@ -64,18 +62,20 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (caseData: Partial<CaseWithId>): FormContent => {
-  return updateFormFields(form, generateFormFields().fields);
+export const getFormFields = (caseData: any): FormContent => {
+  return updateFormFields(form, generateFormFields(caseData.userCase!.applicants).fields);
 };
 
 export const generateContent: TranslationFn = content => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-  const caseNumber = content.userCase?.caseId!;
+  const caseNumber = content.userCase?.id!;
 
   // ! Need to change this EMAIL from the actual caseData
   const tempEmail = 'test@email.com';
   const translations = languages[content.language]();
-  const { fields } = generateFormFields();
+  const { fields } = generateFormFields(content.userCase!.applicants);
+  console.log('content.userCase!', content.userCase!);
+  console.log('email ->', content.userCase!.applicants);
 
   return {
     ...translations,

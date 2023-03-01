@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars*/
-import { CaseWithId } from '../../../../app/case/case';
+/* eslint-disable @typescript-eslint/no-explicit-any*/
 import { applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
@@ -71,7 +71,12 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (): GenerateDynamicFormFields => {
+export const generateFormFields = (caseData: any): GenerateDynamicFormFields => {
+  console.log('CASE DATA ->=> ', caseData);
+
+  const contactPreferences = caseData?.contactPreferences;
+  // console.log('hello ->', contactPreferences);
+
   const errors = {
     en: {},
     cy: {},
@@ -103,14 +108,9 @@ export const generateFormFields = (): GenerateDynamicFormFields => {
     },
   };
 
-  // mark the selection for the 'Digital' and 'Post' checkboxes based on the option chosen
-  //* fields.applicantContactPreferences.values = fields.applicantContactPreferences.values.map(config =>
-  // Checking if the data.applicantContactDetail.applicantContactPreferences Array has been pre-populated.
-  // If YES, data will be fetched from userCase. If NOT, checkboxes are made fresh and untouched
-  //* data?.applicantContactDetail?.applicantContactPreferences?.includes(config.value as string)
-  //* ? { ...config, selected: true }
-  //* : config
-  //*);
+  fields.applicantPreferredContact.values = fields.applicantPreferredContact.values.map(config =>
+    config.value === contactPreferences ? { ...config, selected: true } : config
+  );
 
   return { fields, errors };
 };
@@ -125,16 +125,16 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (caseData: Partial<CaseWithId>): FormContent => {
-  return updateFormFields(form, generateFormFields().fields);
+export const getFormFields = (caseData: any): FormContent => {
+  return updateFormFields(form, generateFormFields(caseData.userCase!.applicants).fields);
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-  const caseNumber = content.userCase?.caseId!;
-
-  const { fields } = generateFormFields();
+  const caseNumber = content.userCase?.id!;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const { fields } = generateFormFields(content?.userCase?.applicants!);
 
   return {
     ...translations,

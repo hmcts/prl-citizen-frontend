@@ -60,7 +60,7 @@ describe('ContactPreferencesGetController', () => {
     expect(req.session.userCase.applicantPreferredContact).not.toEqual('Post');
   });
 
-  test('Should get applicantPreferredContact if user id matches with applicant', async () => {
+  test('Should get applicantPreferredContact if user id matches with applicant - Post', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     req.session.userCase.caseTypeOfApplication = 'C100';
     const response = {
@@ -70,6 +70,19 @@ describe('ContactPreferencesGetController', () => {
     req.session.userCase.applicants = partyDetails;
     req.url = 'applicant';
     await controller.get(req, res);
-    expect(req.session.userCase.applicantPreferredContact).toEqual('Post');
+    expect(req.session.userCase.applicants[0].value.response.applicantPreferredContact).toEqual('Post');
+  });
+
+  test('Should get applicantPreferredContact if user id matches with applicant - Digital', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    const response = {
+      applicantPreferredContact: 'Digital',
+    };
+    partyDetails[0].value.response = response;
+    req.session.userCase.applicants = partyDetails;
+    req.url = 'applicant';
+    await controller.get(req, res);
+    expect(req.session.userCase.applicants[0].value.response.applicantPreferredContact).toEqual('Digital');
   });
 });

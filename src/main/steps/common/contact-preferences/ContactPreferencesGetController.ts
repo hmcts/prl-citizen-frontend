@@ -2,9 +2,11 @@
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
+import { Case } from '../../../app/case/case';
 import { Applicant, Respondent } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
+import { APPLICANT_TASKLIST_CONTACT_PREFERENCES } from '../../../steps/urls';
 
 import { getContactPreferences } from './ContactPreferencesMapper';
 
@@ -26,25 +28,25 @@ export class ContactPreferencesGetController extends GetController {
       if (
         applicant?.value?.user?.idamId === req.session?.user.id &&
         applicant?.value?.response &&
-        applicant?.value?.response?.applicantPreferredContact
+        applicant?.value?.contactPreferences
       ) {
+        console.log('getcontractpref =>', getContactPreferences(applicant.value, req));
         Object.assign(req.session.userCase, getContactPreferences(applicant.value, req));
+        // console.log("user case after objectassign =>", req.session.userCase);
       }
     });
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
-    console.log('loggedInCitizen ->', loggedInCitizen);
-    console.log('req.params =>', req.params);
     const caseReference = req.params?.caseId;
-    console.log('caseReference -> ->', caseReference);
 
     const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
 
     const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
-    console.log('caseDataFromCos =++++===> ', caseDataFromCos);
     Object.assign(req.session.userCase, caseDataFromCos);
+
+    console.log('req.session.userCase from getController ->', req.session.userCase);
 
     if (req.session.userCase.caseTypeOfApplication === 'C100') {
       if (req.url.includes('respondent')) {
@@ -53,5 +55,17 @@ export class ContactPreferencesGetController extends GetController {
         ContactPreferencesGetController.c100Applicant(req);
       }
     }
+
+    const redirectUrl = setRedirectUrl(req);
+    req.session.save(() => res.redirect(redirectUrl));
   }
+}
+
+function setRedirectUrl(req: AppRequest<Partial<Case>>) {
+  let redirectUrl = '';
+
+  if (req.url.includes('applicant')) {
+    redirectUrl = APPLICANT_TASKLIST_CONTACT_PREFERENCES;
+  }
+  return redirectUrl;
 }
