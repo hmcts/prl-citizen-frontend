@@ -1,4 +1,4 @@
-import { Case } from 'app/case/case';
+import { Case } from '../../app/case/case';
 import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
 import {
@@ -428,8 +428,8 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_YOURHEARINGS_HEARINGS,
     showInSection: Sections.AboutApplicantCase,
     getController: HearingsGetController,
-    getNextStep: 
-    (data: Partial<Case>) =>data.caseTypeOfApplication=== 'C100'? PARTY_TASKLIST:APPLICANT_TASK_LIST_URL,
+    getNextStep: (data: Partial<Case>) =>
+      data.caseTypeOfApplication === 'C100' ? PARTY_TASKLIST : APPLICANT_TASK_LIST_URL,
   },
   {
     url: APPLICANT_TASK_LIST_URL,

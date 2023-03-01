@@ -2,7 +2,7 @@
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../../../app/case/definition';
-import {  APPLICANT_YOURHEARINGS_HEARINGS } from '../../../../urls';
+import { APPLICANT_YOURHEARINGS_HEARINGS } from '../../../../urls';
 
 import { languages as content } from './content';
 
@@ -136,9 +136,9 @@ const taskListConfig = {
           {
             id: Tasks.VIEW_HEARING_DETAILS,
             href: (caseData: Partial<CaseWithId>) => {
-                if (caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0) {
+              if (caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0) {
                 return APPLICANT_YOURHEARINGS_HEARINGS;
-              } else{
+              } else {
                 return '/';
               }
             },
@@ -224,6 +224,5 @@ export const showYourDocuments = (caseData: Partial<CaseWithId>): boolean =>
   caseData
     ? ![State.AwaitingSubmissionToHmcts, State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(caseData.state!)
     : false;
-export const showHearing=(caseData: Partial<CaseWithId>): boolean =>
- (caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0)? true:false;
-
+export const showHearing = (caseData: Partial<CaseWithId>): boolean =>
+  !!(caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0);
