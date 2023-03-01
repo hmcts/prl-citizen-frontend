@@ -8,7 +8,7 @@ const SupportYouNeedRespondent = require('./pages/SupportYouNeedDuringYourCase-R
 const UploadDocuments = require('./pages/uploadDocuments');
 const CreateApplication = require('./pages/C100-Rebuild/CreateApplication');
 const CaseNameAndPostCode = require('./pages/C100-Rebuild/CaseNameAndPostCode');
-const ScreeningQuestions = require('./pages/C100-Rebuild/ScreeningQuestions'); 
+const ScreeningQuestions = require('./pages/C100-Rebuild/ScreeningQuestions');
 const GoToMiam = require('./pages/C100-Rebuild/GoToMiam');
 const TypeOfOrder = require('./pages/C100-Rebuild/TypeOfOrder');
 const UrgencyWithoutNotice = require('./pages/C100-Rebuild/UrgencyWithoutNotice');
@@ -24,11 +24,23 @@ const HelpWithFees = require('./pages/C100-Rebuild/HelpWithFees');
 const CheckYourAnswers = require('./pages/C100-Rebuild/CheckYourAnswers');
 const ConsentOrder = require('./pages/C100-Rebuild/ConsentOrder');
 const CheckYourAnswersSimple = require('./pages/C100-Rebuild/CheckYourAnswersSimple');
+const TaskList = require('./pages/TaskListPage');
+const KeepDetailsPrivate = require('./pages/KeepDetailsPrivatePage');
+const Dashboard = require('./pages/DashboardPage');
 
 
 module.exports = () => {
   return actor({
 
+    clickOnActiveCase(){
+      return Dashboard.clickOnActiveCase();
+    },
+    fillKeepYourDetailsPrivate(){
+      return KeepDetailsPrivate.fillKeepYourDetailsPrivate();
+    },
+     taskListClickKeepYourDetailsPrivate(){
+      return TaskList.clickKeepYourDetailsPrivate()
+    },
     enterPinPageHappyPath() {
       return EnterPinPage.enterPin();
     },
@@ -80,7 +92,7 @@ module.exports = () => {
     typeOfOrder() {
       return TypeOfOrder.typeOfOrder();
     },
-    urgencyWithoutNotice() { 
+    urgencyWithoutNotice() {
       return UrgencyWithoutNotice.urgencyWithoutNotice();
     },
     childrenDetails() {

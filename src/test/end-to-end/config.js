@@ -1,11 +1,11 @@
-const defaultPassword = 'Nagoya0102';
+const defaultPassword = 'Password12';
 
 module.exports = {
   citizenFrontEnd: {
-    email: 'pooja689nag@gmail.com',
+    email: 'familyprivatelaw@gmail.com',
     password: defaultPassword,
-    caseCode: '1234567812345678',
-    accessCode: '1234567y'
+    caseCode: '1677692356531412',
+    accessCode: '4DH3BALT'
   },
   definition: {
     jurisdiction: 'PRIVATELAW',
