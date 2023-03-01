@@ -128,7 +128,6 @@ export class Routes {
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
     app.get(`${RESPOND_TO_APPLICATION}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
-    app.get('/applicant/task-list', (req, res) => res.redirect('/task-list/applicant'));
     app.get(
       `${APPLICANT_VIEW_ALL_DOCUMENTS}/:caseId`,
       errorHandler(new GetCaseController().fetchAndRedirectToTasklist)
