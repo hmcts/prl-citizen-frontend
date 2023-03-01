@@ -68,7 +68,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const { fields } = generateFormFields();
   // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-  const caseNumber = content.userCase?.caseId!;
+  const caseNumber = content.userCase?.id!;
 
   return {
     ...translations,

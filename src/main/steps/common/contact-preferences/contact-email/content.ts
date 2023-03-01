@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-unused-vars*/
-/* eslint-disable @typescript-eslint/no-explicit-any*/
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { interpolate } from '../../../../steps/common/string-parser';
@@ -41,7 +40,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (caseData: any): GenerateDynamicFormFields => {
+export const generateFormFields = (): GenerateDynamicFormFields => {
   const errors = {
     en: {},
     cy: {},
@@ -62,25 +61,24 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (caseData: any): FormContent => {
-  return updateFormFields(form, generateFormFields(caseData.userCase!.applicants).fields);
+export const getFormFields = (): FormContent => {
+  return updateFormFields(form, generateFormFields().fields);
 };
 
 export const generateContent: TranslationFn = content => {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  let applicantEmail;
   const caseNumber = content.userCase?.id!;
-
-  // ! Need to change this EMAIL from the actual caseData
-  const tempEmail = 'test@email.com';
   const translations = languages[content.language]();
-  const { fields } = generateFormFields(content.userCase!.applicants);
-  console.log('content.userCase!', content.userCase!);
-  console.log('email ->', content.userCase!.applicants);
+  const { fields } = generateFormFields();
+
+  if (content?.userCase?.applicants) {
+    applicantEmail = content?.userCase?.applicants![0].value.email!;
+  }
 
   return {
     ...translations,
     caption: interpolate(translations.caption, { caseNumber }),
     form: updateFormFields(form, fields),
-    userEmail: tempEmail,
+    userEmail: applicantEmail,
   };
 };

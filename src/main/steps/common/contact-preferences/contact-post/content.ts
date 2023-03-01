@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-unused-vars*/
-import { CaseWithId } from '../../../../app/case/case';
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+import { PartyDetailsEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { interpolate } from '../../../../steps/common/string-parser';
@@ -66,16 +66,35 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (caseData: Partial<CaseWithId>): FormContent => {
+export const getFormFields = (): FormContent => {
   return updateFormFields(form, generateFormFields().fields);
 };
 
 export const generateContent: TranslationFn = content => {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-  const caseNumber = content.userCase?.caseId!;
+  const caseNumber: string = content.userCase?.id!;
+  let applicantAddressObj;
+  let value;
+  const applicantAddress: string[] = [];
 
-  // ! Need to change this ADDRESS from the actual caseData
-  const tempAddress: string[] = ['24 Happy Hill', 'Happy End', 'H24 HE'];
+  if (content?.userCase?.applicants) {
+    applicantAddressObj = content?.userCase?.applicants![0].value?.address! ?? {};
+    for (const key in applicantAddressObj) {
+      switch (key) {
+        case PartyDetailsEnum.AddressLine1:
+          value = applicantAddressObj[key];
+          applicantAddress.push(value);
+          break;
+        case PartyDetailsEnum.PostTown:
+          value = applicantAddressObj[key];
+          applicantAddress.push(value);
+          break;
+        case PartyDetailsEnum.PostCode:
+          value = applicantAddressObj[key];
+          applicantAddress.push(value);
+          break;
+      }
+    }
+  }
   const translations = languages[content.language]();
   const { fields } = generateFormFields();
 
@@ -83,6 +102,6 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     caption: interpolate(translations.caption, { caseNumber }),
     form: updateFormFields(form, fields),
-    addresses: tempAddress,
+    addresses: applicantAddress,
   };
 };
