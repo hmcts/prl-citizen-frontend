@@ -30,6 +30,33 @@ describe('testcase for progress-bar', () => {
       },
     ]);
   });
+  test('when case is submitted', () => {
+    const data = {
+      id: '12',
+      state: State.SUBMITTED_PAID,
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+
+    expect(getTaskListConfig(data, party, language)).toStrictEqual([
+      {
+        heading: 'Your application',
+        id: 'yourApplication',
+        tasks: [
+          {
+            disabled: false,
+            href: '#download',
+            id: 'childArrangementApplication',
+            linkText: 'Your child arrangements application',
+            stateTag: {
+              className: 'govuk-tag--turquoise',
+              label: 'Submitted',
+            },
+          },
+        ],
+      },
+    ]);
+  });
   test('FL401 Applicant', () => {
     const data = {
       id: '12',
