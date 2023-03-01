@@ -22,9 +22,13 @@ export const setContactPreferences = (partyDetails: PartyDetails, req: AppReques
 };
 
 export const getContactPreferences = (partyDetails: PartyDetails, req: AppRequest): Partial<CaseWithId> => {
-  // req.session.userCase.applicantPreferredContact = partyDetails.contactPreferences;
+  console.log('partyDetails.contactPreferences', partyDetails.contactPreferences);
+  // req.session.userCase.applicantPreferredContact = partyDetails.response.contactPreferences;
+  req.session.userCase.applicantPreferredContact = partyDetails.contactPreferences;
   req.session.userCase.applicantPreferredContact = partyDetails.response.contactPreferences;
   console.log('req from getContactPreferences ->', req.session.userCase);
+
+  console.log('partyDetails from getContactPreferences ->->->', partyDetails);
   // return req.session.userCase;
   return partyDetails;
 };

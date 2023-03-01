@@ -11,7 +11,24 @@ describe('testcase for notification Banner', () => {
     const party = PartyType.APPLICANT;
     const language = 'cy';
 
-    expect(getNotificationBannerConfig(data, party, language)).toStrictEqual([]);
+    expect(getNotificationBannerConfig(data, party, language)).toStrictEqual([
+      {
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
+          },
+        ],
+        heading: 'Your application is in progress - welsh',
+        id: 'applicationSubmitted',
+        links: [
+          {
+            href: '/c100-rebuild/withdraw',
+            text: 'Withdraw your application - welsh',
+          },
+        ],
+        title: 'Important - welsh',
+      },
+    ]);
   });
   test('when casetype c100', () => {
     const data = {

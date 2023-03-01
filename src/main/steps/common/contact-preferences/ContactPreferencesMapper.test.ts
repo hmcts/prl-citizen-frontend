@@ -54,6 +54,8 @@ describe('ContactPreferencesMapper', () => {
     };
     applicants[0].value.response = response;
     await getContactPreferences(applicants[0].value, req);
+    console.log('applicants[0].value ->', applicants[0].value);
+    console.log('temp ->', req.session.userCase);
     expect(req.session.userCase.applicantPreferredContact).toEqual('post');
   });
 

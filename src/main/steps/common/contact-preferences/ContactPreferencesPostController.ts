@@ -4,7 +4,7 @@ import type { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Case } from '../../../app/case/case';
-import { Applicant, Respondent } from '../../../app/case/definition';
+import { Applicant, Respondent, applicantContactPreferencesEnum } from '../../../app/case/definition';
 import { toApiFormat } from '../../../app/case/to-api-format';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
@@ -82,8 +82,12 @@ export class ContactPreferencesPostController extends PostController<AnyObject> 
     console.log('value ->', req!.session!.userCase!.applicants![0].value);
     // console.log("req.session.userCase after assigning applicantPreferredContact =>", req.session.userCase.applicantPreferredContact)
 
+    // const redirectUrl = setRedirectUrl(req);
+    // req.session.save(() => res.redirect(redirectUrl));
+
     const redirectUrl = setRedirectUrl(req);
-    req.session.save(() => res.redirect(redirectUrl));
+    req.session.save(() => console.log('saved'));
+    super.redirect(req, res, redirectUrl);
   }
 }
 
@@ -91,7 +95,7 @@ function setRedirectUrl(req: AppRequest<Partial<Case>>) {
   let redirectUrl = '';
 
   if (req.url.includes('applicant')) {
-    if (req.body.applicantPreferredContact === 'post') {
+    if (req.body.applicantPreferredContact === applicantContactPreferencesEnum.POST) {
       redirectUrl = APPLICANT_TASKLIST_CONTACT_POST;
     } else {
       redirectUrl = APPLICANT_TASKLIST_CONTACT_EMAIL;

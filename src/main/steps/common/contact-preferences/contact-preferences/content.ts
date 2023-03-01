@@ -73,9 +73,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 
 export const generateFormFields = (caseData: any): GenerateDynamicFormFields => {
   console.log('CASE DATA ->=> ', caseData);
-
-  const contactPreferences = caseData?.contactPreferences;
-  // console.log('hello ->', contactPreferences);
+  const contactPreferences = caseData?.value?.contactPreferences;
 
   const errors = {
     en: {},
@@ -126,7 +124,7 @@ export const form: FormContent = {
 };
 
 export const getFormFields = (caseData: any): FormContent => {
-  return updateFormFields(form, generateFormFields(caseData.userCase!.applicants).fields);
+  return updateFormFields(form, generateFormFields(caseData.userCase!.applicants![0]).fields);
 };
 
 export const generateContent: TranslationFn = content => {
@@ -134,7 +132,7 @@ export const generateContent: TranslationFn = content => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
   const caseNumber = content.userCase?.id!;
   // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-  const { fields } = generateFormFields(content?.userCase?.applicants!);
+  const { fields } = generateFormFields(content?.userCase?.applicants![0]);
 
   return {
     ...translations,
