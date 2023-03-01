@@ -5,7 +5,11 @@ import { UserDetails } from '../../../app/controller/AppRequest';
 
 import { CaseType, PartyType } from './../../../app/case/definition';
 
-export const getPartyName = (caseData: Partial<CaseWithId>, partyType: PartyType, userDetails: UserDetails): string => {
+export const getPartyName = (
+  caseData: Partial<CaseWithId> | undefined,
+  partyType: PartyType,
+  userDetails: UserDetails
+): string => {
   let partyDetails: Record<string, any> | undefined;
 
   if (caseData) {
@@ -21,6 +25,5 @@ export const getPartyName = (caseData: Partial<CaseWithId>, partyType: PartyType
   } else {
     partyDetails = { firstName: userDetails.givenName, lastName: userDetails.familyName };
   }
-
   return partyDetails ? `${partyDetails.firstName} ${partyDetails.lastName}` : '';
 };
