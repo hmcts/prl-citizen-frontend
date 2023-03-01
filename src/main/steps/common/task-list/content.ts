@@ -75,8 +75,8 @@ const cy = {
       link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
     },
     {
-      label: 'Find legal advice',
-      link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser - welsh',
+      label: 'Find legal advice - welsh',
+      link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
     },
     {
       label: 'Read how to represent myself in court - welsh',
