@@ -27,7 +27,7 @@ const languages = {
 };
 //@typescript-eslint/explicit-module-boundary-type
 export const formWithFields: FormContent = {
-  fields: form.fields ,
+  fields: form.fields,
   submit: {
     text: l => l.continue,
   },

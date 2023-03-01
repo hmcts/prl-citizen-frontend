@@ -3,7 +3,6 @@ import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 import { en as english, cy as welsh } from '../../../common/keep-details-private/private_details_confirmed/content';
 
-
 import { generateContent } from './content';
 
 const enContent = {
