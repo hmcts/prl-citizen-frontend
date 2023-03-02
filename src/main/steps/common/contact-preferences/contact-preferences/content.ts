@@ -119,9 +119,6 @@ export const form: FormContent = {
   onlycontinue: {
     text: l => l.continue,
   },
-  cancel: {
-    text: l => l.cancel,
-  },
 };
 
 export const getFormFields = (caseData: any): FormContent => {
