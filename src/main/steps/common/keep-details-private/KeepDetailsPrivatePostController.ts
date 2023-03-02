@@ -14,7 +14,7 @@ import {
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
 } from '../../../steps/urls';
 
-import { setKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
+import { mapConfidentialListToFields, setKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
 
 @autobind
 export class KeepDetailsPrivatePostController extends PostController<AnyObject> {
@@ -33,7 +33,9 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
   public async c100Applicant(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
       if (applicant?.value?.user?.idamId === req.session?.user.id) {
-        Object.assign(applicant.value, setKeepYourDetailsPrivate(applicant.value, req));
+        Object.assign(applicant.value, {
+          ...mapConfidentialListToFields(setKeepYourDetailsPrivate(applicant.value, req)),
+        });
       }
     });
   }
