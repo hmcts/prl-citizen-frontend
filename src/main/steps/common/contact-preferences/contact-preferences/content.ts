@@ -72,7 +72,6 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 };
 
 export const generateFormFields = (caseData: any): GenerateDynamicFormFields => {
-  console.log('CASE DATA ->=> ', caseData);
   const contactPreferences = caseData?.value?.contactPreferences;
 
   const errors = {

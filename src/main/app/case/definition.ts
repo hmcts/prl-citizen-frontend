@@ -973,7 +973,6 @@ citizenUserManualAddressPostcode?: string;
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
-  applicantPreferredContact?: applicantContactPreferencesEnum;
 }
 
 export const enum SelectTypeOfOrderEnum {

@@ -30,9 +30,7 @@ export class ContactPreferencesGetController extends GetController {
         applicant?.value?.response &&
         applicant?.value?.contactPreferences
       ) {
-        // console.log('getcontractpref =>', getContactPreferences(applicant.value, req));
         Object.assign(req.session.userCase, getContactPreferences(applicant.value, req));
-        // console.log("user case after objectassign =>", req.session.userCase);
       }
     });
   }
@@ -44,10 +42,7 @@ export class ContactPreferencesGetController extends GetController {
     const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
 
     const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
-    console.log('caseDataFromCos getController->', caseDataFromCos);
     Object.assign(req.session.userCase, caseDataFromCos);
-
-    console.log('req.session.userCase from getController ->', req.session.userCase);
 
     if (req.session.userCase.caseTypeOfApplication === 'C100') {
       if (req.url.includes('respondent')) {
