@@ -1,10 +1,27 @@
+import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
+import { en as english, cy as welsh } from '../../../common/keep-details-private/details_known/content';
 
 import { generateContent } from './content';
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
+
+const en = {
+  ...english,
+  title: 'Does the other person named in your application (the respondent) know any of your contact details?',
+  line2:
+    'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
+};
+
+const cy = {
+  ...welsh,
+  title: 'Does the other person named in your application (the respondent) know any of your contact details?',
+  line2:
+    'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
+};
+
 describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
@@ -14,6 +31,15 @@ describe('citizen-home content', () => {
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;
     fields = form.fields as FormFields;
+  });
+
+  // eslint-disable-next-line jest/expect-expect
+  test('should return correct english content Data', () => {
+    languageAssertions('en', en, () => generateContent(commonContent));
+  });
+  // eslint-disable-next-line jest/expect-expect
+  test('should return correct welsh content', () => {
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
   test('should return correct english content', () => {
