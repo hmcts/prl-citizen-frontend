@@ -31,6 +31,8 @@ export const RESPONDENT: PageLink = '/respondent';
 export const FETCH_CASE_DETAILS: PageLink = '/case/:caseId';
 export const PARTY_TASKLIST: PageLink = '/task-list/:partyType';
 
+export const C100_APPLICANT_TASKLIST: PageLink = '/task-list/applicant';
+
 /*confirm-contact-details-start */
 export const CONFIRM_CONTACT_DETAILS: PageLink = '/confirm-contact-details';
 export const CHECK_ANSWERS: PageLink = `${CONFIRM_CONTACT_DETAILS}/checkanswers`;
