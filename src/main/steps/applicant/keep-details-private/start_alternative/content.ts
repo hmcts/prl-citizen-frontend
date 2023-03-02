@@ -1,7 +1,10 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { en as english, form, cy as welsh } from '../../../common/keep-details-private/start_alternative/content';
-
+import {
+  en as english,
+  form as formWithContents,
+  cy as welsh,
+} from '../../../common/keep-details-private/start_alternative/content';
 const en = {
   ...english,
   title:
@@ -26,8 +29,8 @@ const languages = {
   cy,
 };
 //@typescript-eslint/explicit-module-boundary-type
-export const formWithFields: FormContent = {
-  fields: form.fields,
+export const form: FormContent = {
+  fields: formWithContents.fields,
   submit: {
     text: l => l.continue,
   },
@@ -37,6 +40,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   return {
     ...translations,
-    form: formWithFields,
+    form,
   };
 };

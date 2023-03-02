@@ -1,6 +1,10 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { en as english, form, cy as welsh } from '../../../common/keep-details-private/details_known/content';
+import {
+  en as english,
+  form as formContents,
+  cy as welsh,
+} from '../../../common/keep-details-private/details_known/content';
 const en = {
   ...english,
   title: 'Does the other person named in your application (the respondent) know any of your contact details?',
@@ -20,8 +24,8 @@ const languages = {
   cy,
 };
 
-export const formWithFields: FormContent = {
-  fields: form.fields,
+export const form: FormContent = {
+  fields: formContents.fields,
   submit: {
     text: l => l.continue,
   },
@@ -31,6 +35,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   return {
     ...translations,
-    form: formWithFields,
+    form,
   };
 };

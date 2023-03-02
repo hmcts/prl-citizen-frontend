@@ -23,7 +23,7 @@ const languages = {
   cy,
 };
 
-export const formWithFields: FormContent = {
+export const form: FormContent = {
   fields: {},
   submit: {
     text: l => l.continue,
@@ -34,6 +34,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   return {
     ...translations,
-    form: formWithFields,
+    form,
   };
 };
