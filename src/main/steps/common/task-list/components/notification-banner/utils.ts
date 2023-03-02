@@ -10,7 +10,7 @@ enum BannerNotification {
   APPLICATION_NOT_STARTED = 'applicationNotStarted',
   APPLICATION_IN_PROGRESS = 'applicationInProgress',
   APPLICATION_SUBMITTED = 'applicationSubmitted',
-  APPLICATION_WITHDRAWN = 'applicationWithdrawn'
+  APPLICATION_WITHDRAWN = 'applicationWithdrawn',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string) => {

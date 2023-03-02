@@ -47,15 +47,15 @@ const en = {
         ],
       },
       applicationWithdrawn: {
-        heading: 'This case has now been withdrawn - welsh',
+        heading: 'This case has now been withdrawn',
         contents: [
           {
-            text: 'You can still access all documents related to the case - welsh',
+            text: 'You can still access all documents related to the case',
           },
         ],
         links: [
           {
-            text: 'View case withdrawal letter - welsh',
+            text: 'View case withdrawal letter',
             href: '/c100-rebuild/withdrawal_letter',
           },
         ],

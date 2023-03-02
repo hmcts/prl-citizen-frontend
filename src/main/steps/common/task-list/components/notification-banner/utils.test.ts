@@ -58,4 +58,32 @@ describe('testcase for notification Banner', () => {
       },
     ]);
   });
+  test('when case is withdrawn', () => {
+    const data = {
+      id: '12',
+      state: State.Withdrawn,
+      caseTypeOfApplication: CaseType.C100,
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+
+    expect(getNotificationBannerConfig(data, party, language)).toStrictEqual([
+      {
+        contents: [
+          {
+            text: 'You can still access all documents related to the case',
+          },
+        ],
+        heading: 'This case has now been withdrawn',
+        id: 'applicationWithdrawn',
+        links: [
+          {
+            href: '/c100-rebuild/withdrawal_letter',
+            text: 'View case withdrawal letter',
+          },
+        ],
+        title: 'Important',
+      },
+    ]);
+  });
 });

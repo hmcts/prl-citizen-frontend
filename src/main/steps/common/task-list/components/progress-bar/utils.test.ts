@@ -108,9 +108,10 @@ describe('testcase for progress-bar', () => {
       },
     ]);
   });
-  test('when state submitted', () => {
+  test('when state submitted and withdrawn', () => {
     const data = {
       id: '12',
+      state: State.Withdrawn,
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -137,9 +138,45 @@ describe('testcase for progress-bar', () => {
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Case closed stage is not yet started',
+        ariaLabel: 'Case closed stage is completed',
         label: 'Case closed',
+        statusBarClassName: 'stage--completed',
+      },
+    ]);
+  });
+  test('when state submitted and waiting for withdrawn', () => {
+    const data = {
+      id: '12',
+      state: State.AwaitingWithdrawDecision,
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+
+    expect(getProgressBarConfig(data, party, language)).toStrictEqual([
+      {
+        ariaLabel: 'Application submitted stage is completed',
+        label: 'Application<br/> submitted',
+        statusBarClassName: 'stage--completed',
+      },
+      {
+        ariaLabel: 'Cafcass child safety checks stage is not yet started',
+        label: 'Cafcass child<br/> safety checks',
         statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Response submitted stage is not yet started',
+        label: 'Response<br/> submitted',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Hearings and court orders stage is not yet started',
+        label: 'Hearings and<br/> court orders',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Case closed stage is in progress',
+        label: 'Case closed',
+        statusBarClassName: 'stage--active',
       },
     ]);
   });
