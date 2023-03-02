@@ -1,0 +1,25 @@
+{% extends "common/template.njk" %}
+
+
+{% block page_content %}
+<main class="govuk-main-wrapper govuk-main-wrapper--l" id="main-content" role="main">
+
+          <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-6">
+            <h1 class="govuk-panel__title">
+              {{successMessage}}
+            </h1>
+            <div class="govuk-panel__body">
+              {{label}} <br><strong>{{caseId}}</strong>
+            </div>
+          </div>
+          <p class="govuk-body-l">{{subContent}} 
+            </p>
+          <p class="govuk-body">{{secondaryContent}}</p>
+          <div class="govuk-button-group">
+              <input type="hidden" name="answers-checked" value="true">
+                <a class="govuk-button govuk-button--secondary" href="../../dashboard" data-module="govuk-button">
+                  {{secondaryBtnLabel}}
+                </a>
+          </div>
+        </main>
+{% endblock %}
