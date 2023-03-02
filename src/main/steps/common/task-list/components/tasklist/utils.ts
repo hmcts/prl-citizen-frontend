@@ -2,16 +2,19 @@
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../../../app/case/definition';
+import { APPLICANT_YOURHEARINGS_HEARINGS } from '../../../../urls';
 
 import { languages as content } from './content';
 
 enum TaskListSection {
   YOUR_APPLICATION = 'yourApplication',
   YOUR_DOCUMENTS = 'yourDocuments',
+  YOUR_HEARING = 'yourHearing',
 }
 enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
   VIEW_ALL_DOCUMENTS = 'viewAllDocuments',
+  VIEW_HEARING_DETAILS = 'viewHearingDetails',
 }
 
 enum StateTags {
@@ -129,6 +132,30 @@ const taskListConfig = {
           },
         ],
       },
+      {
+        id: TaskListSection.YOUR_HEARING,
+        content: getContents.bind(null, TaskListSection.YOUR_HEARING),
+        show: (caseData: Partial<CaseWithId>): boolean => showHearing(caseData),
+        tasks: [
+          {
+            id: Tasks.VIEW_HEARING_DETAILS,
+            href: (caseData: Partial<CaseWithId>) => {
+              if (caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0) {
+                return APPLICANT_YOURHEARINGS_HEARINGS;
+              } else {
+                return '/';
+              }
+            },
+            show: (caseData: Partial<CaseWithId>): boolean => showHearing(caseData),
+            stateTag: (caseData: Partial<CaseWithId>) => {
+              if (caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0) {
+                return StateTags.READY_TO_VIEW;
+              }
+              return StateTags.NOT_AVAILABLE_YET;
+            },
+          },
+        ],
+      },
     ],
     [PartyType.RESPONDENT]: [],
   },
@@ -201,3 +228,5 @@ export const showYourDocuments = (caseData: Partial<CaseWithId>): boolean =>
   caseData
     ? ![State.AwaitingSubmissionToHmcts, State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(caseData.state!)
     : false;
+export const showHearing = (caseData: Partial<CaseWithId>): boolean =>
+  !!(caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0);

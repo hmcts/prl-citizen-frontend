@@ -2,7 +2,7 @@ import { CaseType, PartyType, State } from '../../../../../app/case/definition';
 
 import { getTaskListConfig } from './utils';
 
-describe('testcase for progress-bar', () => {
+describe('testcase for tasklist', () => {
   test('when state submitted but not paid', () => {
     const data = {
       id: '12',
@@ -30,10 +30,18 @@ describe('testcase for progress-bar', () => {
       },
     ]);
   });
-  test('when case is submitted', () => {
+
+  test('case with hearing collection', () => {
     const data = {
       id: '12',
-      state: State.SUBMITTED_PAID,
+      state: State.AwaitingSubmissionToHmcts,
+      hearingCollection: [
+        {
+          next: {
+            courtName: 'Swansea',
+          },
+        },
+      ],
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -45,12 +53,28 @@ describe('testcase for progress-bar', () => {
         tasks: [
           {
             disabled: false,
-            href: '#download',
+            href: undefined,
             id: 'childArrangementApplication',
             linkText: 'Your child arrangements application',
             stateTag: {
-              className: 'govuk-tag--turquoise',
-              label: 'Submitted',
+              className: 'govuk-tag--yellow',
+              label: 'In progress',
+            },
+          },
+        ],
+      },
+      {
+        heading: 'Your court hearings',
+        id: 'yourHearing',
+        tasks: [
+          {
+            disabled: false,
+            href: '/applicant/yourhearings/hearings',
+            id: 'viewHearingDetails',
+            linkText: 'Check details of your court hearings',
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Ready to view',
             },
           },
         ],
