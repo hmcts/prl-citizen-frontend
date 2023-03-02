@@ -32,14 +32,14 @@ const Dashboard = require('./pages/DashboardPage');
 module.exports = () => {
   return actor({
 
+    clickTaskList(taskListName){
+      return TaskList.clickTaskList(taskListName);
+    },
     clickOnActiveCase(){
       return Dashboard.clickOnActiveCase();
     },
     fillKeepYourDetailsPrivate(){
       return KeepDetailsPrivate.fillKeepYourDetailsPrivate();
-    },
-     taskListClickKeepYourDetailsPrivate(){
-      return TaskList.clickKeepYourDetailsPrivate()
     },
     enterPinPageHappyPath() {
       return EnterPinPage.enterPin();

@@ -66,7 +66,7 @@ module.exports = {
   },
 
   async fillKeepYourDetailsPrivate(){
-    await I.taskListClickKeepYourDetailsPrivate();
+    await I.clickTaskList('Keep your details private');
     await this.isOtherPeopleKnowYourContactDetails_No();
     await this.doYouWantToKeepYourContactDetailsPrivate_No();
   }
