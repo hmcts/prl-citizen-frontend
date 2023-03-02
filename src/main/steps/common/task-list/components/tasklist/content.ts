@@ -26,6 +26,20 @@ const en = {
           },
         },
       },
+      aboutYou: {
+        heading: 'About you',
+        tasks: {
+          editYouContactDetails: {
+            linkText: 'Confirm or edit your contact details',
+          },
+          contactPreferences: {
+            linkText: 'Contact preferences',
+          },
+          keepYourDetailsPrivate: {
+            linkText: 'Keep your details private',
+          },
+        },
+      },
     },
   },
 };
@@ -53,6 +67,20 @@ const cy: typeof en = {
         tasks: {
           viewAllDocuments: {
             linkText: 'View all documents - welsh',
+          },
+        },
+      },
+      aboutYou: {
+        heading: 'About you - welsh',
+        tasks: {
+          editYouContactDetails: {
+            linkText: 'Confirm or edit your contact details - welsh',
+          },
+          contactPreferences: {
+            linkText: 'Contact preferences - welsh',
+          },
+          keepYourDetailsPrivate: {
+            linkText: 'Keep your details private - welsh',
           },
         },
       },

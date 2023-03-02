@@ -372,11 +372,11 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[85].url).toBe('/applicant/contact-preferences/contact-email-success');
     expect(applicantCaseSequence[85].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[85].getNextStep({})).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[85].getNextStep({})).toBe('/task-list/applicant');
 
     expect(applicantCaseSequence[86].url).toBe('/applicant/contact-preferences/contact-post-success');
     expect(applicantCaseSequence[86].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[86].getNextStep({})).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[86].getNextStep({})).toBe('/task-list/applicant');
   });
 });
 

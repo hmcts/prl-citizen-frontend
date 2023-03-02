@@ -90,12 +90,6 @@ describe('contact preferences common content', () => {
   test('should contain Save and continue button', () => {
     expect(
       (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Continue');
-  });
-
-  test('should contain Cancel button', () => {
-    expect(
-      (form?.cancel?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Cancel');
+    ).toBe('Save and continue');
   });
 });

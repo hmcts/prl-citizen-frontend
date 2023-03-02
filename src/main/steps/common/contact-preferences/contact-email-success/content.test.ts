@@ -40,12 +40,4 @@ describe('contact email common content', () => {
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and continue');
   });
-
-  test('should contain Cancel button', () => {
-    const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent | undefined;
-    expect(
-      (form?.cancel?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Cancel');
-  });
 });

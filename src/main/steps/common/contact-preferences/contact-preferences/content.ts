@@ -23,6 +23,7 @@ export const en = () => ({
   labelDitigalHintText: 'All communication from the court will be sent by email.',
   labelPost: 'Post',
   labelPostHintText: 'All communication from the court will be sent by post.',
+  continue: 'Save and continue',
   errors: {
     applicantPreferredContact: {
       required: 'Please select a contact preference',
@@ -45,6 +46,7 @@ export const cy = () => ({
   labelDitigalHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy e-bost.',
   labelPost: 'Drwy’r post',
   labelPostHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy’r post.',
+  continue: 'Save and continue - welsh',
   errors: {
     applicantPreferredContact: {
       required: 'Dewiswch sut hoffech inni gysylltu â chi',
@@ -115,7 +117,7 @@ export const generateFormFields = (caseData: any): GenerateDynamicFormFields => 
 export const form: FormContent = {
   fields: {},
   onlycontinue: {
-    text: l => l.onlycontinue,
+    text: l => l.continue,
   },
   cancel: {
     text: l => l.cancel,

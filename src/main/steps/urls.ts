@@ -552,4 +552,7 @@ export const APPLICANT_TASKLIST_CONTACT_EMAIL: PageLink = `${APPLICANT}${CONTACT
 export const APPLICANT_TASKLIST_CONTACT_POST: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-post`;
 export const APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-email-success`;
 export const APPLICANT_TASKLIST_CONTACT_POST_SUCCESS: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-post-success`;
+/*temporary task-list/applicant URL for applicant dashboard */
+export const TASK_LIST_APPLICANT_URL: PageLink = '/task-list/applicant';
+/*temporary task-list/applicant URL for applicant dashboard end/*
 /* applicant-tasklist-contactpreferences-end*/

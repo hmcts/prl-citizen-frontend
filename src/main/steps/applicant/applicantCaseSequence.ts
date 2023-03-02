@@ -62,6 +62,7 @@ import {
   SAFETY_ARRANGEMENTS,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
+  TASK_LIST_APPLICANT_URL,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
   TRAVELLING_TO_COURT,
   UNABLE_TO_TAKE_COURT_PROCEEDINGS,
@@ -489,10 +490,6 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_TASKLIST_CONTACT_PREFERENCES,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-    // getNextStep: data =>
-    //   data.applicantPreferredContact === applicantContactPreferencesEnum.DIGITAL
-    //     ? APPLICANT_TASKLIST_CONTACT_EMAIL
-    //     : APPLICANT_TASKLIST_CONTACT_POST,
   },
   {
     url: APPLICANT_TASKLIST_CONTACT_PREFERENCES,
@@ -512,11 +509,11 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: () => TASK_LIST_APPLICANT_URL,
   },
   {
     url: APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: () => TASK_LIST_APPLICANT_URL,
   },
 ];
