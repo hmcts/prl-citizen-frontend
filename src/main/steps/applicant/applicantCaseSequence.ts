@@ -95,7 +95,7 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: (data: Partial<Case>) =>
-    data.caseTypeOfApplication === C100_CASE_TYPE.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+      data.caseTypeOfApplication === C100_CASE_TYPE.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
   },
   {
     url: APPLICANT_CHECK_ANSWERS,
