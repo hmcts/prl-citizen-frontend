@@ -46,6 +46,20 @@ const en = {
           },
         ],
       },
+      applicationWithdrawn: {
+        heading: 'This case has now been withdrawn - welsh',
+        contents: [
+          {
+            text: 'You can still access all documents related to the case - welsh',
+          },
+        ],
+        links: [
+          {
+            text: 'View case withdrawal letter - welsh',
+            href: '/c100-rebuild/withdrawal_letter',
+          },
+        ],
+      },
     },
   },
 };
@@ -93,6 +107,20 @@ const cy: typeof en = {
           {
             text: 'Withdraw your application - welsh',
             href: '/c100-rebuild/withdraw',
+          },
+        ],
+      },
+      applicationWithdrawn: {
+        heading: 'This case has now been withdrawn - welsh',
+        contents: [
+          {
+            text: 'You can still access all documents related to the case - welsh',
+          },
+        ],
+        links: [
+          {
+            text: 'View case withdrawal letter - welsh',
+            href: '/c100-rebuild/withdrawal_letter',
           },
         ],
       },

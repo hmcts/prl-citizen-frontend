@@ -10,6 +10,7 @@ enum BannerNotification {
   APPLICATION_NOT_STARTED = 'applicationNotStarted',
   APPLICATION_IN_PROGRESS = 'applicationInProgress',
   APPLICATION_SUBMITTED = 'applicationSubmitted',
+  APPLICATION_WITHDRAWN = 'applicationWithdrawn'
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string) => {
@@ -37,6 +38,11 @@ const notificationBanner = {
     content: getContent.bind(null, BannerNotification.APPLICATION_SUBMITTED),
     show: () => false,
   },
+  [BannerNotification.APPLICATION_WITHDRAWN]: {
+    id: BannerNotification.APPLICATION_WITHDRAWN,
+    content: getContent.bind(null, BannerNotification.APPLICATION_WITHDRAWN),
+    show: () => false,
+  },
 };
 
 const notificationBannerConfig = {
@@ -58,6 +64,12 @@ const notificationBannerConfig = {
         ...notificationBanner.applicationSubmitted,
         show: (caseData: Partial<CaseWithId>): boolean => {
           return caseData?.state === State.SUBMITTED_PAID || caseData?.state === State.SUBMITTED_NOT_PAID;
+        },
+      },
+      {
+        ...notificationBanner.applicationWithdrawn,
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return caseData?.state === State.Withdrawn;
         },
       },
     ],
