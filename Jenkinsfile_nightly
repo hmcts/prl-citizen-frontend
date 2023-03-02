@@ -57,6 +57,7 @@ withNightlyPipeline(type, product, component) {
   loadVaultSecrets(secrets)
     enableSlackNotifications(channel)
     enableFullFunctionalTest(200)
+    enableFortifyScan()
     // enableCrossBrowserTest(['chrome', 'firefox','microsoft'])
     enableCrossBrowserTest(60)
 
