@@ -16,6 +16,9 @@ const en = {
           childArrangementApplication: {
             linkText: 'Your child arrangements application',
           },
+          yourApplication: {
+            linkText: 'Your application (PDF)',
+          },
         },
       },
       yourDocuments: {
@@ -23,6 +26,20 @@ const en = {
         tasks: {
           viewAllDocuments: {
             linkText: 'View all documents',
+          },
+        },
+      },
+      aboutYou: {
+        heading: 'About you',
+        tasks: {
+          editYouContactDetails: {
+            linkText: 'Confirm or edit your contact details',
+          },
+          contactPreferences: {
+            linkText: 'Contact preferences',
+          },
+          keepYourDetailsPrivate: {
+            linkText: 'Keep your details private',
           },
         },
       },
@@ -46,6 +63,9 @@ const cy: typeof en = {
           childArrangementApplication: {
             linkText: 'Your child arrangements application - welsh',
           },
+          yourApplication: {
+            linkText: 'Your application (PDF) - welsh',
+          },
         },
       },
       yourDocuments: {
@@ -53,6 +73,20 @@ const cy: typeof en = {
         tasks: {
           viewAllDocuments: {
             linkText: 'View all documents - welsh',
+          },
+        },
+      },
+      aboutYou: {
+        heading: 'About you - welsh',
+        tasks: {
+          editYouContactDetails: {
+            linkText: 'Confirm or edit your contact details - welsh',
+          },
+          contactPreferences: {
+            linkText: 'Contact preferences - welsh',
+          },
+          keepYourDetailsPrivate: {
+            linkText: 'Keep your details private - welsh',
           },
         },
       },
