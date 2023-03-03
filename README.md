@@ -132,6 +132,11 @@ Here's an example setup:
 
 Make sure you have those values set correctly for your application.
 
+#### Troubleshooting
+
+### Managing Preview environment PODs
+Make sure you have added the label 'keep-helm' while creating the PR. Otherwise, add the label and re-trigger the build.
+
 ### Healthcheck
 
 The application exposes a health endpoint (https://localhost:3001/health), created with the use of
