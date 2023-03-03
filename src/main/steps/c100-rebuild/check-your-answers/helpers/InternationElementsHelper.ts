@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-//import { Case } from 'app/case/case';
 import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation } from '../mainUtil';
 

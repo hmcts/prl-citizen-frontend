@@ -65,27 +65,20 @@ class ReasonableAdjustmentsNavigationController {
 
     let url: PageLink;
 
-    switch (currentPageUrl) {
-      case C7_REASONABLE_ADJUSTMENTS: {
-        this.selectedPageUrls = [];
-        url = this.pages[this.selectedPages[0]].url;
+    if (currentPageUrl === C7_REASONABLE_ADJUSTMENTS) {
+      this.selectedPageUrls = [];
+      url = this.pages[this.selectedPages[0]].url;
+      this.selectedPageUrls.push(url);
+    } else {
+      let pageUrl: PageLink | null = null;
+      pageUrl = this.getNextPageUrl(currentPageUrl);
+      if (pageUrl !== null) {
+        url = pageUrl;
         this.selectedPageUrls.push(url);
-
-        break;
-      }
-      default: {
-        let pageUrl: PageLink | null = null;
-        pageUrl = this.getNextPageUrl(currentPageUrl);
-        if (pageUrl !== null) {
-          url = pageUrl;
-          this.selectedPageUrls.push(url);
-        } else {
-          url = C7_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY;
-        }
-        break;
+      } else {
+        url = C7_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY;
       }
     }
-
     return url;
   }
 }
