@@ -1,4 +1,5 @@
 import { Case } from '../../app/case/case';
+import { C100_CASE_TYPE } from '../../app/case/definition';
 import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
 import {
@@ -63,6 +64,8 @@ import {
   UNABLE_TO_TAKE_COURT_PROCEEDINGS,
   WITNESS_AVAILABILITY,
   YOUR_WITNESS_STATEMENTS,
+  // eslint-disable-next-line sort-imports
+  C100_APPLICANT_TASKLIST,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -86,12 +89,14 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_PRIVATE_DETAILS_CONFIRMED,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: (data: Partial<Case>) =>
+      data.caseTypeOfApplication === C100_CASE_TYPE.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
   },
   {
     url: APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: (data: Partial<Case>) =>
+      data.caseTypeOfApplication === C100_CASE_TYPE.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
   },
   {
     url: APPLICANT_CHECK_ANSWERS,

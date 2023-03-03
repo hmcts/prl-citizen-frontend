@@ -8,7 +8,6 @@ import { ConfirmContactDetailsGetController } from '../../../../../steps/common/
 @autobind
 export class RespondentConfirmContactDetailsGetController extends ConfirmContactDetailsGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
-    console.log({ msg: 'this is being triggered' });
     req.session.userCase.citizenRole = FieldPrefix.RESPONDENT;
     super.get(req, res);
   }

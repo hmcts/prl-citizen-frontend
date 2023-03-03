@@ -15,12 +15,9 @@ export class ConfirmContactDetailsGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     const caseReference = req.session.userCase.id;
-
     const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
-
     const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
     Object.assign(req.session.userCase, caseDataFromCos);
-
     if (req.session.userCase.caseTypeOfApplication === 'C100') {
       if (req.url.includes('respondent')) {
         req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
@@ -29,7 +26,7 @@ export class ConfirmContactDetailsGetController extends GetController {
           }
         });
       } else {
-        req.session.userCase?.respondents?.forEach((applicant: Applicant) => {
+        req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
           if (applicant?.value?.user?.idamId === req.session?.user.id) {
             Object.assign(req.session.userCase, getContactDetails(applicant.value, req));
           }
