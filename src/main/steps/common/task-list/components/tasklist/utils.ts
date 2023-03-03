@@ -92,7 +92,7 @@ const taskListConfig = {
             href: () => {
               '/';
             },
-            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            show: () => false,
             stateTag: () => StateTags.SUBMITTED,
           },
           {
@@ -108,7 +108,7 @@ const taskListConfig = {
             href: (caseData: Partial<CaseWithId>) => {
               return `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`;
             },
-            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            show: () => false,
             stateTag: () => StateTags.SUBMITTED,
           },
         ],
