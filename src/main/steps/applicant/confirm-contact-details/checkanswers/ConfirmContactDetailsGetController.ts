@@ -3,10 +3,7 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController } from '../../../../app/controller/GetController';
-import {
-  setTextFields,
-  //setTextFieldsForApplicant,
-} from '../../../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
+import { setTextFields } from '../../../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
 
 import {
   getConfidentialData,
