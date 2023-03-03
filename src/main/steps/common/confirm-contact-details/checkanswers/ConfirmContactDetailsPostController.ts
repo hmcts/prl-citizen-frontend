@@ -34,7 +34,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    console.log({body: req.body});
+    console.log({ body: req.body });
     const loggedInCitizen = req.session.user;
     const caseReference = req.session.userCase.id;
 
