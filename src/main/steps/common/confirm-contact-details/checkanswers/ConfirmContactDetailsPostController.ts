@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { Applicant, Respondent, CaseType } from '../../../../app/case/definition';
+import { Applicant, CaseType, Respondent } from '../../../../app/case/definition';
 import { toApiFormat } from '../../../../app/case/to-api-format';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
