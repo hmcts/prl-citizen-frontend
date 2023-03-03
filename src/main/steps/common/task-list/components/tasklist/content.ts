@@ -29,12 +29,14 @@ const en = {
           },
         },
       },
-
       yourHearing: {
         heading: 'Your court hearings',
         tasks: {
           viewHearingDetails: {
             linkText: 'Check details of your court hearings',
+          },
+        },
+      },
       aboutYou: {
         heading: 'About you',
         tasks: {
@@ -88,6 +90,9 @@ const cy: typeof en = {
         tasks: {
           viewHearingDetails: {
             linkText: 'Check details of your court hearings - welsh',
+          },
+        },
+      },
 
       aboutYou: {
         heading: 'About you - welsh',
@@ -100,7 +105,6 @@ const cy: typeof en = {
           },
           keepYourDetailsPrivate: {
             linkText: 'Keep your details private - welsh',
-
           },
         },
       },

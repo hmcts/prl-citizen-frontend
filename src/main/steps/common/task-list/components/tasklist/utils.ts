@@ -2,11 +2,7 @@
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../../../app/case/definition';
-
-import { APPLICANT_YOURHEARINGS_HEARINGS } from '../../../../urls';
-
-import { APPLICANT_CHECK_ANSWERS, APPLICANT_DETAILS_KNOWN } from '../../../../../steps/urls';
-
+import { APPLICANT_CHECK_ANSWERS, APPLICANT_DETAILS_KNOWN, APPLICANT_YOURHEARINGS_HEARINGS } from '../../../../urls';
 
 import { languages as content } from './content';
 
@@ -17,7 +13,6 @@ enum TaskListSection {
   YOUR_HEARING = 'yourHearing',
 
   ABOUT_YOU = 'aboutYou',
-
 }
 enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
@@ -28,7 +23,6 @@ enum Tasks {
   EDIT_YOUR_CONTACT_DETAILS = 'editYouContactDetails',
   CONTACT_PREFERENCES = 'contactPreferences',
   KEEP_YOUR_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
-
 }
 
 enum StateTags {
@@ -179,7 +173,7 @@ const taskListConfig = {
       {
         id: TaskListSection.YOUR_HEARING,
         content: getContents.bind(null, TaskListSection.YOUR_HEARING),
-        show: (caseData: Partial<CaseWithId>): boolean => showHearing(caseData),
+        show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
         tasks: [
           {
             id: Tasks.VIEW_HEARING_DETAILS,
@@ -190,7 +184,7 @@ const taskListConfig = {
                 return '/';
               }
             },
-            show: (caseData: Partial<CaseWithId>): boolean => showHearing(caseData),
+            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
             stateTag: (caseData: Partial<CaseWithId>) => {
               if (caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0) {
                 return StateTags.READY_TO_VIEW;
@@ -268,11 +262,9 @@ export const getTaskListConfig = (
     });
 };
 
-
-export const showHearing = (caseData: Partial<CaseWithId>): boolean =>
-  !!(caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0);
+// export const showHearing = (caseData: Partial<CaseWithId>): boolean =>
+//   !!(caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0);
 
 export const isActiveCase = (caseData: Partial<CaseWithId>): boolean =>
   caseData &&
   ![State.AwaitingSubmissionToHmcts, State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(caseData.state!);
-
