@@ -2,7 +2,7 @@
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../../../app/case/definition';
-import { APPLICANT_DETAILS_KNOWN } from '../../../../../steps/urls';
+import { APPLICANT_CHECK_ANSWERS, APPLICANT_DETAILS_KNOWN } from '../../../../../steps/urls';
 
 import { languages as content } from './content';
 
@@ -89,10 +89,10 @@ const taskListConfig = {
         tasks: [
           {
             id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
-            href: () => {
-              '/';
+            href: (caseData: Partial<CaseWithId>) => {
+              return `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`;
             },
-            show: () => false,
+            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
             stateTag: () => StateTags.SUBMITTED,
           },
           {

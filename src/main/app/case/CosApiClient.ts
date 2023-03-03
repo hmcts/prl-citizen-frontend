@@ -87,8 +87,7 @@ export class CosApiClient {
     user: UserDetails,
     caseId: string,
     data: Partial<CaseData>,
-    eventId: string,
-    partyAccessCode?: string
+    eventId: string
   ): Promise<CaseWithId> {
     try {
       const headers = {
@@ -96,7 +95,7 @@ export class CosApiClient {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
         ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-        accessCode: partyAccessCode !== '' ? (partyAccessCode as string) : ('' as string),
+        accessCode: 'dummy',
       };
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
         headers,

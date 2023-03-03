@@ -81,15 +81,11 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
 
     const caseData = toApiFormat(req?.session?.userCase);
     caseData.id = caseReference;
-    const accessCode = req.session.userCase.caseInvites?.filter(
-      userInvited => userInvited.value.invitedUserId === req.session.user.id
-    )[0]?.value.accessCode;
     const updatedCaseDataFromCos = await client.updateCase(
       loggedInCitizen,
       caseReference,
       caseData,
-      'keepYourDetailsPrivate',
-      accessCode as string
+      'linkCitizenAccount'
     );
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
