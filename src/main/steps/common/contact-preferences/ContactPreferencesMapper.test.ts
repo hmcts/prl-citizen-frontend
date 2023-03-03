@@ -19,6 +19,7 @@ describe('ContactPreferencesMapper', () => {
             email: 'test@example.net',
           },
           response: '',
+          contactPreferences: '',
         },
       },
     ];
@@ -48,24 +49,17 @@ describe('ContactPreferencesMapper', () => {
 
   test('Should getContactPreferences with applicant contact preference indicated as Post', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-
-    const response = {
-      contactPreferences: 'post',
-    };
-    applicants[0].value.response = response;
+    applicants[0].value.contactPreferences = 'post';
     await getContactPreferences(applicants[0].value, req);
-    console.log('applicants[0].value ->', applicants[0].value);
-    console.log('temp ->', req.session.userCase);
+
     expect(req.session.userCase.applicantPreferredContact).toEqual('post');
   });
 
   test('Should getContactPreferences with applicant contact preference indicated as Digital', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-    const response = {
-      contactPreferences: 'digital',
-    };
-    applicants[0].value.response = response;
+    applicants[0].value.contactPreferences = 'digital';
     await getContactPreferences(applicants[0].value, req);
+
     expect(req.session.userCase.applicantPreferredContact).toEqual('digital');
   });
 });

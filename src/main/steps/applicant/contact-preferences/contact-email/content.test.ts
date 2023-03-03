@@ -13,6 +13,7 @@ const en = {
   subTitle: 'Personal details',
   text: 'You have decided to receive updates by email. You will still receive some information by post.',
   continue: 'Submit',
+  warningText: 'Make sure that your contact details are up to date.',
 };
 
 const cy = {
@@ -21,6 +22,7 @@ const cy = {
   subTitle: 'Personal details - welsh',
   text: 'You have decided to receive updates by email. You will still receive some information by post. - welsh',
   continue: 'Submit - welsh',
+  warningText: 'Make sure that your contact details are up to date. -welsh',
 };
 
 describe('contact email common content', () => {

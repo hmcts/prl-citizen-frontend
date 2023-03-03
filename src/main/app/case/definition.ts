@@ -125,8 +125,8 @@ export interface Response {
   supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;  
-  applicantPreferredContact?: applicantContactPreferencesEnum;
-  contactPreferences?: applicantContactPreferencesEnum;
+  // applicantPreferredContact?: applicantContactPreferencesEnum;
+  // contactPreferences?: applicantContactPreferencesEnum;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -2939,15 +2939,3 @@ export type ChildrenDetails = {
     C100 = 'C100',
     FL401 = 'FL401',
 }
-
-  export enum PartyDetailsEnum {
-    AddressLine1 = 'AddressLine1',
-    AddressLine2 = 'AddressLine2',
-    AddressLine3 = 'AddressLine3',
-    PostTown = 'PostTown',
-    County = 'County',
-    PostCode = 'PostCode',
-    Country = 'Country',
-  }
-
-

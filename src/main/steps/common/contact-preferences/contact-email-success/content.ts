@@ -11,6 +11,7 @@ export const en = () => ({
   title: 'Contact preferences updated',
   text: 'You will receive digital updates about the case.',
   continue: 'Continue',
+  warningText: "If you cannot find the emails in your inbox, check your 'spam' folder.",
 });
 
 export const cy = () => ({
@@ -18,6 +19,7 @@ export const cy = () => ({
   title: 'Contact preferences updated- welsh',
   text: 'You will receive digital updates about the case. - welsh',
   continue: 'Continue - welsh',
+  warningText: "If you cannot find the emails in your inbox, check your 'spam' folder. -welsh",
 });
 
 const languages = {

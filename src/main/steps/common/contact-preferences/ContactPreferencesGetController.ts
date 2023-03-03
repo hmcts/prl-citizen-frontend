@@ -13,11 +13,7 @@ import { getContactPreferences } from './ContactPreferencesMapper';
 export class ContactPreferencesGetController extends GetController {
   public static async c100Respondent(req: AppRequest): Promise<void> {
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-      if (
-        respondent?.value?.user?.idamId === req.session?.user.id &&
-        respondent?.value?.response &&
-        respondent?.value?.response?.applicantPreferredContact
-      ) {
+      if (respondent?.value?.user?.idamId === req.session?.user.id && respondent?.value?.response) {
         Object.assign(req.session.userCase, getContactPreferences(respondent.value, req));
       }
     });

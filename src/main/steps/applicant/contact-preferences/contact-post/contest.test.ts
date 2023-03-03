@@ -15,6 +15,7 @@ const en = {
     'You have decided to receive updates by post.',
     'You will no longer receive updates by email. You can still access previous updates through your dashboard.',
   ],
+  warningText: 'Make sure that your contact details are up to date.',
 };
 
 const cy = {
@@ -25,6 +26,7 @@ const cy = {
     'You have decided to receive updates by post. -welsh',
     'You will no longer receive updates by email. You can still access previous updates through your dashboard. -welsh',
   ],
+  warningText: 'Make sure that your contact details are up to date. -welsh',
 };
 
 describe('contact email common content', () => {

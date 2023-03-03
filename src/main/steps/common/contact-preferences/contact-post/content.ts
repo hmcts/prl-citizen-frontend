@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import { PartyDetailsEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { interpolate } from '../../../../steps/common/string-parser';
@@ -14,6 +13,7 @@ export const en = () => ({
     'You have decided to receive updates by post.',
     'You will no longer receive updates by email. You can still access previous updates through your dashboard.',
   ],
+  warningText: 'Make sure that your contact details are up to date.',
 });
 
 export const cy = () => ({
@@ -24,6 +24,7 @@ export const cy = () => ({
     'You have decided to receive updates by post. -welsh',
     'You will no longer receive updates by email. You can still access previous updates through your dashboard. -welsh',
   ],
+  warningText: 'Make sure that your contact details are up to date. -welsh',
 });
 
 const languages = {
@@ -70,28 +71,17 @@ export const getFormFields = (): FormContent => {
 export const generateContent: TranslationFn = content => {
   const caseNumber: string = content.userCase?.id!;
   let applicantAddressObj;
-  let value;
   const applicantAddress: string[] = [];
 
   if (content?.userCase?.applicants) {
     applicantAddressObj = content?.userCase?.applicants![0].value?.address! ?? {};
     for (const key in applicantAddressObj) {
-      switch (key) {
-        case PartyDetailsEnum.AddressLine1:
-          value = applicantAddressObj[key];
-          applicantAddress.push(value);
-          break;
-        case PartyDetailsEnum.PostTown:
-          value = applicantAddressObj[key];
-          applicantAddress.push(value);
-          break;
-        case PartyDetailsEnum.PostCode:
-          value = applicantAddressObj[key];
-          applicantAddress.push(value);
-          break;
+      if (applicantAddressObj[key] !== '' || applicantAddressObj[key] !== null) {
+        applicantAddress.push(applicantAddressObj[key]);
       }
     }
   }
+
   const translations = languages[content.language]();
   const { fields } = generateFormFields();
 
@@ -99,6 +89,6 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     caption: interpolate(translations.caption, { caseNumber }),
     form: updateFormFields(form, fields),
-    addresses: applicantAddress,
+    addresses: applicantAddress.filter(item => item),
   };
 };

@@ -135,7 +135,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     caption: interpolate(translations.caption, { caseNumber }),
-    title: `${translations.title}`,
     form: updateFormFields(form, fields),
   };
 };
