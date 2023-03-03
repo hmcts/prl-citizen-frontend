@@ -10,6 +10,7 @@ let caseNumber;
 const en = {
   caption: `Case number #${caseNumber}`,
   title: 'Contact Preferences',
+  subTitle: 'Personal details',
   continue: 'Submit',
   textList: [
     'You have decided to receive updates by post.',
@@ -21,6 +22,7 @@ const en = {
 const cy = {
   caption: `Case number - welsh #${caseNumber}`,
   title: 'Contact Preferences -welsh',
+  subTitle: 'Personal details -welsh',
   continue: 'Submit - welsh',
   textList: [
     'You have decided to receive updates by post. -welsh',
