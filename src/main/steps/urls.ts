@@ -543,3 +543,6 @@ export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orde
 
 /** @C100 rebuild */
 export const C100_REBUILD_URL: PageLink = '/c100-rebuild';
+
+/** @C100 PIN-ACTIVATION */
+export const PIN_ACTIVATION_URL: PageLink = '/pin-activation';
