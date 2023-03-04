@@ -95,10 +95,24 @@ const progressBarConfig = {
       {
         ...progressBarStage.caseClosed,
         isComplete: (caseData: Partial<CaseWithId>) => {
-          return caseData.state === State.Withdrawn;
+          return caseData
+            ? ![
+                State.AwaitingSubmissionToHmcts,
+                State.SUBMITTED_NOT_PAID,
+                State.SUBMITTED_PAID,
+                State.AwaitingWithdrawDecision,
+              ].includes(caseData.state!)
+            : false;
         },
         isInProgress: (caseData: Partial<CaseWithId>) => {
-          return caseData.state === State.AwaitingWithdrawDecision;
+          return caseData
+            ? ![
+                State.AwaitingSubmissionToHmcts,
+                State.SUBMITTED_NOT_PAID,
+                State.SUBMITTED_PAID,
+                State.Withdrawn,
+              ].includes(caseData.state!)
+            : false;
         },
       },
     ],
