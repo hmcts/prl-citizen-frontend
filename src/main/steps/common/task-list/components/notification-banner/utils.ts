@@ -11,6 +11,8 @@ enum BannerNotification {
   APPLICATION_IN_PROGRESS = 'applicationInProgress',
   APPLICATION_SUBMITTED = 'applicationSubmitted',
   APPLICATION_WITHDRAWN = 'applicationWithdrawn',
+  WITHDRAWAL_REQ_IN_PROGRESS = 'withdrawalRequestInProgress',
+  WITHDRAWAL_REQ_REJECTED = 'withdrawalRequestRejected',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string) => {
@@ -41,6 +43,16 @@ const notificationBanner = {
   [BannerNotification.APPLICATION_WITHDRAWN]: {
     id: BannerNotification.APPLICATION_WITHDRAWN,
     content: getContent.bind(null, BannerNotification.APPLICATION_WITHDRAWN),
+    show: () => false,
+  },
+  [BannerNotification.WITHDRAWAL_REQ_IN_PROGRESS]: {
+    id: BannerNotification.WITHDRAWAL_REQ_IN_PROGRESS,
+    content: getContent.bind(null, BannerNotification.WITHDRAWAL_REQ_IN_PROGRESS),
+    show: () => false,
+  },
+  [BannerNotification.WITHDRAWAL_REQ_REJECTED]: {
+    id: BannerNotification.WITHDRAWAL_REQ_REJECTED,
+    content: getContent.bind(null, BannerNotification.WITHDRAWAL_REQ_REJECTED),
     show: () => false,
   },
 };

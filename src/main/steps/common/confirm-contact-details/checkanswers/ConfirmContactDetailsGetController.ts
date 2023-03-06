@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { Case } from '../../../../app/case/case';
-import { Applicant, CONFIDENTIAL_DETAILS, Respondent } from '../../../../app/case/definition';
+import { Applicant, CONFIDENTIAL_DETAILS, CaseType, Respondent } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController } from '../../../../app/controller/GetController';
 import { APPLICANT_CHECK_ANSWERS, RESPONDENT_CHECK_ANSWERS } from '../../../../steps/urls';
@@ -18,7 +18,7 @@ export class ConfirmContactDetailsGetController extends GetController {
     const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
     const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
     Object.assign(req.session.userCase, caseDataFromCos);
-    if (req.session.userCase.caseTypeOfApplication === 'C100') {
+    if (req.session.userCase.caseTypeOfApplication === CaseType.C100) {
       if (req.url.includes('respondent')) {
         req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
           if (respondent?.value?.user?.idamId === req.session?.user.id) {
@@ -59,7 +59,11 @@ function setRedirectUrl(req: AppRequest<Partial<Case>>) {
   if (req.url.includes('respondent')) {
     redirectUrl = RESPONDENT_CHECK_ANSWERS;
   } else {
-    redirectUrl = APPLICANT_CHECK_ANSWERS;
+    if (req.session.userCase.caseTypeOfApplication === CaseType.C100) {
+      redirectUrl = APPLICANT_CHECK_ANSWERS + '?byApplicant=applicant';
+    } else {
+      redirectUrl = APPLICANT_CHECK_ANSWERS;
+    }
   }
   return redirectUrl;
 }
