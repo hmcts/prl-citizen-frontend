@@ -188,7 +188,9 @@ export class PostController<T extends AnyObject> {
   ): Promise<void> {
     const caseworkerUser = await getSystemUser();
     const caseReference = formData.caseCode?.replace(/-/g, '');
+    console.log('caseReference ->', caseReference);
     const accessCode = formData.accessCode?.replace(/-/g, '');
+    console.log('accessCode ->', accessCode);
 
     req.session.errors = form.getErrors(formData);
 
@@ -209,6 +211,7 @@ export class PostController<T extends AnyObject> {
     } catch (err) {
       req.locals.logger.error('Retrieving case failed with error: ' + err);
       req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
+      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'accessCode' });
     }
 
     if (req.session.errors.length) {

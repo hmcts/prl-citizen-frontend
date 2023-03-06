@@ -20,11 +20,11 @@ export const citizenSequence: Step[] = [
   {
     url: PIN_ACTIVATION_ENTER_PIN_URL,
     showInSection: Sections.AboutEdgeCase,
-    getNextStep: () => PIN_ACTIVATION_ENTER_PIN_URL,
+    getNextStep: () => PIN_ACTIVATION_CASE_ACTIVATED_URL,
   },
   {
     url: PIN_ACTIVATION_CASE_ACTIVATED_URL,
     showInSection: Sections.AboutEdgeCase,
-    getNextStep: () => PIN_ACTIVATION_CASE_ACTIVATED_URL,
+    getNextStep: () => DASHBOARD_URL,
   },
 ];

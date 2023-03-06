@@ -62,6 +62,7 @@ export const getFormFields = (): FormContent => {
 
 export const generateContent: TranslationFn = content => {
   const caseNumber = content.userCase?.id! ?? undefined;
+  console.log('searching for id ->', content.userCase);
   const translations = languages[content.language]();
   const { fields } = generateFormFields();
 

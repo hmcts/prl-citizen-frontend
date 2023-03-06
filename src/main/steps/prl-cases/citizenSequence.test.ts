@@ -14,10 +14,10 @@ describe('applicant1Sequence', () => {
 
     expect(citizenSequence[2].url).toBe('/pin-activation/enter-pin');
     expect(citizenSequence[2].showInSection).toBe('aboutEdgeCase');
-    expect(citizenSequence[2].getNextStep({})).toBe('/pin-activation/enter-pin');
+    expect(citizenSequence[2].getNextStep({})).toBe('/pin-activation/case-activated');
 
     expect(citizenSequence[3].url).toBe('/pin-activation/case-activated');
     expect(citizenSequence[3].showInSection).toBe('aboutEdgeCase');
-    expect(citizenSequence[3].getNextStep({})).toBe('/pin-activation/case-activated');
+    expect(citizenSequence[3].getNextStep({})).toBe('/dashboard');
   });
 });
