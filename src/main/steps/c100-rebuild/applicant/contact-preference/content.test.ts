@@ -110,7 +110,7 @@ describe('Contact Preference > content', () => {
   test('should contain contact-preference details form fields', () => {
     const { applicantContactPreferences } = fields as Record<string, FormFields>;
 
-    expect(applicantContactPreferences.type).toBe('checkboxes');
+    expect(applicantContactPreferences.type).toBe('radios');
     expect((applicantContactPreferences.values[0].label as Function)(generatedContent)).toBe(en.labelDigital);
     expect(applicantContactPreferences.values[0].value).toBe(en.labelDigital);
     expect((applicantContactPreferences.values[1].label as Function)(generatedContent)).toBe(en.labelPost);

@@ -3,6 +3,7 @@ Feature('C100 Rebuild - draft consent flow');
 Scenario('C100 Rebuild - draft consent flow',  async ({ I }) => {
    await I.loginAsCitizen();
    await I.createC100Application();
+   await I.startTheApplication();
    await I.addCaseNameAndPostCode();
    await I.withDraftConsentOrder();
    await I.typeOfOrder();

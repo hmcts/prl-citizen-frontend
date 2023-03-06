@@ -78,7 +78,8 @@ export const generateFormFields = (data: C100Applicant): GenerateDynamicFormFiel
   const fields = {
     applicantContactPreferences: {
       id: 'applicantContactPreferences',
-      type: 'checkboxes',
+      type: 'radios',
+      classes: 'govuk-radios',
       validator: atLeastOneFieldIsChecked,
       label: l => l.contactPreferenceLabel,
       labelSize: 'm',

@@ -3,7 +3,7 @@ import { CaseWithId } from '../../../../app/case/case';
 import { ChildrenDetails } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
-import { isAlphaNumeric, isFieldFilledIn } from '../../../../app/form/validation';
+import { isAlphaNumericWithApostrophe, isFieldFilledIn } from '../../../../app/form/validation';
 import { getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
@@ -68,7 +68,7 @@ export const generateFormFields = (
     statement: {
       type: 'text',
       value: statement,
-      validator: value => isFieldFilledIn(value) || isAlphaNumeric(value),
+      validator: value => isFieldFilledIn(value) || isAlphaNumericWithApostrophe(value),
     },
   };
 
