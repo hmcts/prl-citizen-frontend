@@ -2,7 +2,12 @@
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../../../app/case/definition';
-import { APPLICANT_CHECK_ANSWERS, APPLICANT_DETAILS_KNOWN } from '../../../../../steps/urls';
+import {
+  APPLICANT_CHECK_ANSWERS,
+  APPLICANT_DETAILS_KNOWN,
+  C100_DOWNLOAD_APPLICATION,
+  C100_START,
+} from '../../../../../steps/urls';
 
 import { languages as content } from './content';
 
@@ -122,11 +127,13 @@ const taskListConfig = {
             id: Tasks.CHILD_ARRANGEMENT_APPLICATION,
             href: (caseData: Partial<CaseWithId>) => {
               if (!caseData) {
-                return '/c100-rebuild/start';
-              } else if (caseData?.state === State.AwaitingSubmissionToHmcts) {
+                return C100_START;
+              }
+
+              if (caseData?.state === State.AwaitingSubmissionToHmcts) {
                 return caseData.c100RebuildReturnUrl;
               } else {
-                return '#download';
+                return C100_DOWNLOAD_APPLICATION;
               }
             },
             show: () => true,
