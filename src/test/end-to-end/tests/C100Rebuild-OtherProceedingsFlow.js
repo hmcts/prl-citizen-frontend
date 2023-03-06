@@ -3,6 +3,7 @@ Feature('C100 Rebuild - other proceedings flow');
 Scenario('C100 Rebuild - other proceedings flow',  async ({ I }) => {
   await I.loginAsCitizen();
   await I.createC100Application();
+  await I.startTheApplication();
   await I.addCaseNameAndPostCode();
   await I.screeningQuestions();
   await I.miamOtherProceedingsEvent();

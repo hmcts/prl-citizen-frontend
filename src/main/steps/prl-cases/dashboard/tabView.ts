@@ -14,7 +14,7 @@ import {
 import { getCasePartyType } from './utils';
 
 const tabGroup = {
-  [State.AwaitingSubmissionToHmcts]: 'draft',
+  [State.AWAITING_SUBMISSION_TO_HMCTS]: 'draft',
   [State.SUBMITTED_NOT_PAID]: 'draft',
   [State.SUBMITTED_PAID]: 'draft',
   [State.ALL_FINAL_ORDERS_ISSUED]: 'closed',
@@ -22,7 +22,7 @@ const tabGroup = {
 };
 
 const caseStatusTranslation = {
-  [State.AwaitingSubmissionToHmcts]: 'draftCaseStatus',
+  [State.AWAITING_SUBMISSION_TO_HMCTS]: 'draftCaseStatus',
   [State.SUBMITTED_NOT_PAID]: 'pendingCaseStatus',
   [State.SUBMITTED_PAID]: 'submittedCaseStatus',
 };
@@ -30,8 +30,7 @@ interface CaseDetails {
   caseNumber: string;
   caseType: CaseType;
   caseApplicantName: string;
-  caseStatus: string; //This is to group cases based on caseState like draft, active & closed
-  state; //This is current state of the case
+  caseStatus: string; //This is to group cases based on caseStatus.state like draft, active & closed
   createdDate: string;
   lastModifiedDate: string;
   casePartyType: PartyType;
@@ -145,7 +144,7 @@ const prepareTabContent = (content): Tabs => {
 };
 
 const prepareTableData = (caseData: CaseDetails, tab: string): TableRowFields[] => {
-  const { caseNumber, caseType, casePartyType, caseStatus, state, caseApplicantName, createdDate, lastModifiedDate } =
+  const { caseNumber, caseType, casePartyType, caseStatus, caseApplicantName, createdDate, lastModifiedDate } =
     caseData;
   const rows: TableRowFields[] = [
     {
@@ -153,7 +152,7 @@ const prepareTableData = (caseData: CaseDetails, tab: string): TableRowFields[] 
         caseType,
         casePartyType,
         caseNumber,
-        state
+        caseStatus
       )}">${caseNumber}</a>`,
     },
     {
@@ -186,7 +185,8 @@ export const prepareCaseView = (caseData: Partial<CaseWithId>[], content: Record
   if (caseData?.length) {
     tabs = caseData.reduce(
       (_tabs: Tabs, _case: Partial<CaseWithId>) => {
-        const { state, caseTypeOfApplication, ...rest } = _case;
+        const { caseTypeOfApplication, ...rest } = _case;
+        const state = _case?.caseStatus?.state;
         const tab = tabGroup[state as string] ?? tabGroup['*'];
         const caseStatus = content?.[caseStatusTranslation?.[state!]] ?? (state as string);
 
@@ -199,7 +199,6 @@ export const prepareCaseView = (caseData: Partial<CaseWithId>[], content: Record
                 casePartyType: getCasePartyType(_case),
                 caseApplicantName: rest.applicantName ?? '',
                 caseStatus,
-                state,
                 createdDate: dayjs(rest.createdDate).format('DD MMM YYYY'),
                 lastModifiedDate: dayjs(rest.lastModifiedDate).format('DD MMM YYYY'),
               },
@@ -228,7 +227,7 @@ const getTaskListUrl = (
   caseType: CaseType,
   linkPartyType: PartyType,
   caseNumber: CaseDetails['caseNumber'],
-  caseState: CaseDetails['state']
+  caseStatus: CaseDetails['caseStatus']
 ): PageLink => {
   let url;
 
@@ -236,7 +235,7 @@ const getTaskListUrl = (
     url = `${RESPONDENT_TASK_LIST_URL}/${caseNumber}`;
   } else {
     if (caseType === CaseType.C100) {
-      if (State.AwaitingSubmissionToHmcts === caseState) {
+      if (State.AWAITING_SUBMISSION_TO_HMCTS === caseStatus) {
         url = applyParms(`${C100_RETRIVE_CASE}`, { caseId: caseNumber });
       } else {
         url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
