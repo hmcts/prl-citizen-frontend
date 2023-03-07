@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars*/
 import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
@@ -88,8 +87,7 @@ export class CosApiClient {
     user: UserDetails,
     caseId: string,
     data: Partial<CaseData>,
-    eventId: string,
-    partyAccessCode?: string
+    eventId: string
   ): Promise<CaseWithId> {
     try {
       const headers = {
@@ -102,6 +100,7 @@ export class CosApiClient {
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
         headers,
       });
+
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
       throw new Error('Case could not be updated.');

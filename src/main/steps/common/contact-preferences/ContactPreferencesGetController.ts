@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Case } from '../../../app/case/case';
-import { Applicant, Respondent } from '../../../app/case/definition';
+import { Applicant, CaseType, Respondent } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
 import { APPLICANT_TASKLIST_CONTACT_PREFERENCES } from '../../../steps/urls';
@@ -40,7 +40,7 @@ export class ContactPreferencesGetController extends GetController {
     const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
     Object.assign(req.session.userCase, caseDataFromCos);
 
-    if (req.session.userCase.caseTypeOfApplication === 'C100') {
+    if (req.session.userCase.caseTypeOfApplication === CaseType.C100) {
       if (req.url.includes('respondent')) {
         ContactPreferencesGetController.c100Respondent(req);
       } else {

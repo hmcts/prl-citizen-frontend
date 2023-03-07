@@ -124,9 +124,7 @@ export interface Response {
   safeToCallOption?: string;
   supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
-  currentOrPreviousProceedings?: CurrentOrPreviousProceedings;  
-  // applicantPreferredContact?: applicantContactPreferencesEnum;
-  // contactPreferences?: applicantContactPreferencesEnum;
+  currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
 }
 
 export interface ReasonableAdjustmentsSupport {

@@ -74,7 +74,6 @@ import {
   C100_APPLICANT_TASKLIST,
 } from '../urls';
 
-// import { applicantContactPreferencesEnum } from './../../app/case/definition';
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
 
 export const applicantCaseSequence: Step[] = [
