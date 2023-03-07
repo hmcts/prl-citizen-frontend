@@ -5,6 +5,7 @@ import { CaseType, PartyType, State } from '../../../../../app/case/definition';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
+  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
 } from '../../../../../steps/urls';
@@ -102,10 +103,10 @@ const taskListConfig = {
           },
           {
             id: Tasks.CONTACT_PREFERENCES,
-            href: () => {
-              '/';
+            href: (caseData: Partial<CaseWithId>) => {
+              return `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/${caseData.id}`;
             },
-            show: () => false,
+            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
             stateTag: () => StateTags.SUBMITTED,
           },
           {
