@@ -7,6 +7,7 @@ import { covertToDateObject } from '../../../../app/form/parser';
 import {
   areDateFieldsFilledIn,
   isAlphaNumeric,
+  isAlphaNumericWithApostrophe,
   isDateInputInvalid,
   isFieldFilledIn,
   isFieldLetters,
@@ -352,7 +353,9 @@ export const generateFormFields = (
       labelSize: 'm',
       //  validator: value => isFieldFilledIn(value),
       validator: (value, formData) =>
-        formData?.respondentPlaceOfBirthUnknown === YesOrNo.YES ? '' : isFieldFilledIn(value) || isAlphaNumeric(value),
+        formData?.respondentPlaceOfBirthUnknown === YesOrNo.YES
+          ? ''
+          : isFieldFilledIn(value) || isAlphaNumericWithApostrophe(value),
     },
     respondentPlaceOfBirthUnknown: {
       type: 'checkboxes',
