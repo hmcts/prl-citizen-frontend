@@ -43,6 +43,9 @@ export class GetController {
       byApplicant,
       additionalData: {
         req,
+        user: {
+          fullname: `${req.session.user?.givenName} ${req.session.user?.familyName}`,
+        },
       },
     });
 
