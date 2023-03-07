@@ -1,12 +1,11 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { C100_CASE_EVENT } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
-//import { PaymentHandler } from '../../../modules/payments/paymentController';
-import { C100_CHECK_YOUR_ANSWER, C100_CONFIRMATIONPAGE } from '../../../steps/urls';
+import { PaymentHandler } from '../../../modules/payments/paymentController';
+import { C100_CHECK_YOUR_ANSWER } from '../../../steps/urls';
 
 @autobind
 export default class PayAndSubmitPostController extends PostController<AnyObject> {
@@ -32,23 +31,7 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
          * 1. Create only service request for case with help with fees opted
          * 2. Create service request & payment request ref in case of pay & submit
          * */
-        /** COMMENTED OUT FOR CASE PROGRESSION TESTING - DO NOT MERGE TO MASTER */
-        //PaymentHandler(req, res);
-
-        /** SUBMITTING CASE WITHOUT PAYMENT - TEST FOR CASE PROGRESSION */
-        const updatedCase = await req.locals.C100Api.updateCase(
-          req.session.userCase!.caseId!,
-          req.session.userCase,
-          req.originalUrl,
-          C100_CASE_EVENT.CASE_SUBMIT
-        );
-        //update final document in session for download on confirmation
-        req.session.userCase.finalDocument = updatedCase.data?.draftOrderDoc;
-        //save & redirect to confirmation page
-        req.session.save(() => {
-          res.redirect(C100_CONFIRMATIONPAGE);
-        });
-        /** SUBMITTING CASE WITHOUT PAYMENT - TEST FOR CASE PROGRESSION */
+        PaymentHandler(req, res);
       }
     } catch (e) {
       req.session.paymentError = true;
