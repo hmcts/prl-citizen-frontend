@@ -33,13 +33,13 @@ const cy: typeof en = {
   stateTags: {
     notStartedYet: 'Not started yet - welsh',
     inProgress: 'In progress - welsh',
-    notAvailableYet: 'Not available yet - welsh',
+    notAvailableYet: 'Ddim ar gael eto',
     readyToView: 'Ready to view - welsh',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
       yourApplication: {
-        heading: 'Your application - welsh',
+        heading: 'Eich cais',
         tasks: {
           childArrangementApplication: {
             linkText: 'Your child arrangements application - welsh',
@@ -47,7 +47,7 @@ const cy: typeof en = {
         },
       },
       yourDocuments: {
-        heading: 'Your documents - welsh',
+        heading: 'Eich dogfennau',
         tasks: {
           viewAllDocuments: {
             linkText: 'View all documents - welsh',

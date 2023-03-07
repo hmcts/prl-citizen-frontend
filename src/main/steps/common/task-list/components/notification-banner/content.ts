@@ -49,7 +49,7 @@ const cy: typeof en = {
         ],
         links: [
           {
-            text: 'Start the application - welsh',
+            text: 'Cychwyn y cais',
             href: '/c100-rebuild/start',
           },
         ],

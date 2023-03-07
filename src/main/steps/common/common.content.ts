@@ -148,6 +148,7 @@ const cy: typeof en = {
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Allgofnodi',
   signIn: 'Sign in (in welsh)',
+  cancel: 'Canslo',
   accessibility: 'Datganiad hygyrchedd',
   cookies: 'Cwcis',
   privacyPolicy: 'Polisi preifatrwydd',
