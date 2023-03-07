@@ -16,6 +16,9 @@ const en = {
           childArrangementApplication: {
             linkText: 'Your child arrangements application',
           },
+          yourApplication: {
+            linkText: 'Your application (PDF)',
+          },
         },
       },
       yourDocuments: {
@@ -59,6 +62,9 @@ const cy: typeof en = {
         tasks: {
           childArrangementApplication: {
             linkText: 'Your child arrangements application - welsh',
+          },
+          yourApplication: {
+            linkText: 'Your application (PDF) - welsh',
           },
         },
       },

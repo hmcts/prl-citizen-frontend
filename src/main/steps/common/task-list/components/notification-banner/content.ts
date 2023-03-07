@@ -46,6 +46,22 @@ const en = {
           },
         ],
       },
+      withdrawalRequestInProgress: {
+        heading: 'Your withdrawal request is in progress',
+        contents: [
+          {
+            text: 'The court is reviewing your request, and will let you know if it is granted.',
+          },
+        ],
+      },
+      withdrawalRequestRejected: {
+        heading: 'Your withdrawal request was rejected',
+        contents: [
+          {
+            text: 'The court rejected your request to withdraw this application. The application will continue to progress.',
+          },
+        ],
+      },
     },
   },
 };
@@ -93,6 +109,22 @@ const cy: typeof en = {
           {
             text: 'Withdraw your application - welsh',
             href: '/c100-rebuild/withdraw',
+          },
+        ],
+      },
+      withdrawalRequestInProgress: {
+        heading: 'Your withdrawal request is in progress - welsh',
+        contents: [
+          {
+            text: 'The court is reviewing your request, and will let you know if it is granted. - welsh',
+          },
+        ],
+      },
+      withdrawalRequestRejected: {
+        heading: 'Your withdrawal request was rejected - welsh',
+        contents: [
+          {
+            text: 'The court rejected your request to withdraw this application. The application will continue to progress. - welsh',
           },
         ],
       },

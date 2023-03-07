@@ -19,11 +19,11 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[3].url).toBe('/applicant/keep-details-private/private_details_confirmed');
     expect(applicantCaseSequence[3].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[3].getNextStep({})).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[3].getNextStep({ caseTypeOfApplication: 'C100' })).toBe('/task-list/applicant');
 
     expect(applicantCaseSequence[4].url).toBe('/applicant/keep-details-private/private_details_not_confirmed');
     expect(applicantCaseSequence[4].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[4].getNextStep({})).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[4].getNextStep({ caseTypeOfApplication: 'C100' })).toBe('/task-list/applicant');
 
     expect(applicantCaseSequence[5].url).toBe('/applicant/confirm-contact-details/checkanswers');
     expect(applicantCaseSequence[5].showInSection).toBe('aboutApplicantCase');
