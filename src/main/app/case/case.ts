@@ -581,6 +581,7 @@ export interface Case {
   noOfDaysRemainingToSubmitCase?: string;
   applicationGuidancePayOnline?: YesOrNo;
   applicationGuidanceLegalRepresentative?: YesOrNo;
+  applicationFillupLegalRepresentative?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
