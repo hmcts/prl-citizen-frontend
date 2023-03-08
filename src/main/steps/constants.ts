@@ -9,6 +9,7 @@ export enum Sections {
   AboutApplicantCase = 'aboutApplicantCase',
   AboutCaAndDaRespondentCase = 'aboutCaAndDaRespondentCase',
   C100 = 'c100',
+  CompleteYourApplication = 'completeYourApplicationCase',
 }
 
 export interface Step {

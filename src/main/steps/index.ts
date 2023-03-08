@@ -12,6 +12,7 @@ import { Form, FormContent } from '../app/form/Form';
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
 import { C100Sequence } from './c100-rebuild/c100sequence';
 import { parseUrl } from './common/url-parser';
+import { completeApplicationSequence } from './complete-your-application-guidance/completeApplicationSequence';
 import { Step } from './constants';
 import { citizenSequence } from './prl-cases/citizenSequence';
 import { respondentCaseSequence } from './respondent/respondentcaseSequence';
@@ -47,6 +48,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     ...applicantCaseSequence,
     ...responseCaseSequence,
     ...C100Sequence,
+    ...completeApplicationSequence,
   ].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data, req) : CITIZEN_HOME_URL;
   const { path: urlPath, queryString: urlQueryStr } = getPathAndQueryStringFromUrl(url);
@@ -117,6 +119,7 @@ export const stepsWithContentRespondent = getStepsWithContent(respondentCaseSequ
 export const stepsWithContentApplicant = getStepsWithContent(applicantCaseSequence);
 export const stepsWithContentC7response = getStepsWithContent(responseCaseSequence);
 export const c100CaseSequence = getStepsWithContent(C100Sequence, C100_URL);
+export const stepsWithContentcompleteApplication = getStepsWithContent(completeApplicationSequence);
 
 export const stepsWithContent = [
   ...stepsWithContentEdgecase,
@@ -124,6 +127,7 @@ export const stepsWithContent = [
   ...stepsWithContentApplicant,
   ...stepsWithContentC7response,
   ...c100CaseSequence,
+  ...stepsWithContentcompleteApplication,
 ];
 
 const getPathAndQueryStringFromUrl = (url: PageLink): { path: string; queryString: string } => {

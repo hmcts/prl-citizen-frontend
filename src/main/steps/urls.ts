@@ -543,3 +543,8 @@ export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orde
 
 /** @C100 rebuild */
 export const C100_REBUILD_URL: PageLink = '/c100-rebuild';
+
+/** @C100 Complete Your Application Guidance  */
+export const C100_COMPLETE_YOUR_APPLICATION_GUIDANCE: PageLink = '/complete-your-application-guidance';
+export const C100_COMPLETE_YOUR_APPLICATION_GUIDANCE_COMPLETE_APPLICATION: PageLink = `${C100_COMPLETE_YOUR_APPLICATION_GUIDANCE}/complete-application`;
+/** @C100 Complete Your Application Guidance ends here */
