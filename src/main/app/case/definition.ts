@@ -971,6 +971,7 @@ citizenUserManualAddressPostcode?: string;
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+  draftOrderDoc?: Document;
 }
 
 export const enum SelectTypeOfOrderEnum {
