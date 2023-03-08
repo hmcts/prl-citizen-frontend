@@ -580,6 +580,7 @@ export interface Case {
   c100RebuildReturnUrl?: string;
   noOfDaysRemainingToSubmitCase?: string;
   applicationGuidancePayOnline?: YesOrNo;
+  applicationGuidanceLegalRepresentative?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

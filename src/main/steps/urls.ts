@@ -548,4 +548,5 @@ export const C100_REBUILD_URL: PageLink = '/c100-rebuild';
 export const C100_COMPLETE_YOUR_APPLICATION_GUIDANCE: PageLink = '/complete-your-application-guidance';
 export const C100_COMPLETE_YOUR_APPLICATION_GUIDANCE_COMPLETE_APPLICATION: PageLink = `${C100_COMPLETE_YOUR_APPLICATION_GUIDANCE}/complete-application`;
 export const C100_COMPLETE_YOUR_APPLICATION_GUIDANCE_PAY_ONLINE: PageLink = `${C100_COMPLETE_YOUR_APPLICATION_GUIDANCE}/pay-online`;
+export const C100_COMPLETE_YOUR_APPLICATION_GUIDANCE_LEGAL_REPRESENTATIVE: PageLink = `${C100_COMPLETE_YOUR_APPLICATION_GUIDANCE}/legal-representative`;
 /** @C100 Complete Your Application Guidance ends here */
