@@ -13,7 +13,7 @@ export const completeApplicationSequence: Step[] = [
   {
     url: C100_COMPLETE_YOUR_APPLICATION_GUIDANCE_COMPLETE_APPLICATION,
     showInSection: Sections.CompleteYourApplication,
-    getNextStep: () => C100_COMPLETE_YOUR_APPLICATION_GUIDANCE_COMPLETE_APPLICATION,
+    getNextStep: () => C100_COMPLETE_YOUR_APPLICATION_GUIDANCE_PAY_ONLINE,
   },
   {
     url: C100_COMPLETE_YOUR_APPLICATION_GUIDANCE_PAY_ONLINE,

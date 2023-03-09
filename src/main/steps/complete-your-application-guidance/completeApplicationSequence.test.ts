@@ -6,9 +6,7 @@ describe('completeApplicationSequence', () => {
 
     expect(completeApplicationSequence[0].url).toBe('/complete-your-application-guidance/complete-application');
     expect(completeApplicationSequence[0].showInSection).toBe('completeYourApplicationCase');
-    expect(completeApplicationSequence[0].getNextStep({})).toBe(
-      '/complete-your-application-guidance/complete-application'
-    );
+    expect(completeApplicationSequence[0].getNextStep({})).toBe('/complete-your-application-guidance/pay-online');
 
     expect(completeApplicationSequence[1].url).toBe('/complete-your-application-guidance/pay-online');
     expect(completeApplicationSequence[1].showInSection).toBe('completeYourApplicationCase');
