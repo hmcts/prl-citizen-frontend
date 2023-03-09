@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { CaseWithId } from '../../../../../app/case/case';
+import { applyParms } from '../../../../../steps/common/url-parser';
 import { interpolate } from '../../../string-parser';
 
 import { CaseType, PartyType, State } from './../../../../../app/case/definition';
+import { C100_WITHDRAW_CASE } from './../../../../urls';
 import { languages as content } from './content';
 
 enum BannerNotification {
@@ -117,6 +119,7 @@ export const getNotificationBannerConfig = (
             text: link.text,
             href: interpolate(link.href, {
               c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#caseData.c100RebuildReturnUrl',
+              withdrawCase: applyParms(C100_WITHDRAW_CASE, { caseId: caseData.id! }),
             }),
           })),
           contents: _content?.contents?.map(blueboxContent => ({

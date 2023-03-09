@@ -2,6 +2,7 @@
 
 
 {% block page_content %}
+ {% block backLink %}{% endblock %}
 <main class="govuk-main-wrapper govuk-main-wrapper--l" id="main-content" role="main">
 
           <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-6">
@@ -17,7 +18,7 @@
           <p class="govuk-body">{{secondaryContent}}</p>
           <div class="govuk-button-group">
               <input type="hidden" name="answers-checked" value="true">
-                <a class="govuk-button govuk-button--secondary" href="../../dashboard" data-module="govuk-button">
+                <a class="govuk-button govuk-button--secondary" href="/dashboard" data-module="govuk-button">
                   {{secondaryBtnLabel}}
                 </a>
           </div>

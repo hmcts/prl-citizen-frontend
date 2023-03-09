@@ -545,3 +545,7 @@ export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orde
 
 /** @C100 rebuild */
 export const C100_REBUILD_URL: PageLink = '/c100-rebuild';
+
+/**@C100 withdraw case */
+export const C100_WITHDRAW_CASE: PageLink = `${C100_URL}/:caseId/withdraw`;
+export const C100_WITHDRAW_CASE_CONFIRMATION: PageLink = `${C100_URL}/withdraw/confirmation`;

@@ -22,7 +22,7 @@ describe('testcase for notification Banner', () => {
         id: 'applicationSubmitted',
         links: [
           {
-            href: '/c100-rebuild/withdraw',
+            href: '/c100-rebuild/12/withdraw',
             text: 'Withdraw your application',
           },
         ],

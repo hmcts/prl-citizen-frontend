@@ -16,10 +16,13 @@ const en = () => ({
   },
   one: 'Yes',
   two: 'No',
-  provideDetails: 'Why are you withdrawing this application?',
+  withdrawApplicationReason: 'Why are you withdrawing this application?',
   errors: {
     withdrawApplication: {
       required: 'Select yes if you want to withdraw else select no.',
+    },
+    withdrawApplicationReason: {
+      required: 'Provide details about withdrawing this application.',
     },
   },
 });
@@ -36,13 +39,13 @@ const cy = () => ({
   },
   one: 'Yes -welsh',
   two: 'No -welsh',
-  provideDetails: 'Why are you withdrawing this application? -welsh',
+  withdrawApplicationReason: 'Why are you withdrawing this application? -welsh',
   errors: {
     withdrawApplication: {
       required: 'Select yes if you want to withdraw else select no. -welsh',
     },
-    withdraw_provideDetails: {
-      required: 'Provide details about the children living outside of England or Wales',
+    withdrawApplicationReason: {
+      required: 'Provide details about withdrawing this application. - welsh',
     },
   },
 });
@@ -64,9 +67,9 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            withdraw_provideDetails: {
+            withdrawApplicationReason: {
               type: 'textarea',
-              label: l => l.provideDetails,
+              label: l => l.withdrawApplicationReason,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },

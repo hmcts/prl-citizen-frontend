@@ -42,7 +42,7 @@ const en = {
         links: [
           {
             text: 'Withdraw your application',
-            href: '/c100-rebuild/withdraw',
+            href: '{withdrawCase}',
           },
         ],
       },
@@ -122,7 +122,7 @@ const cy: typeof en = {
         links: [
           {
             text: 'Withdraw your application - welsh',
-            href: '/c100-rebuild/withdraw',
+            href: '{withdrawCase}',
           },
         ],
       },
