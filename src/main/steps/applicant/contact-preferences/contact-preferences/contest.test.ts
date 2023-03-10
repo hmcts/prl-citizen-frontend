@@ -7,16 +7,17 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 import { generateContent } from './content';
 
 jest.mock('../../../../app/form/validation');
+let caseNumber;
 
 const en = {
-  title: 'Contact Preferences for',
-  serviceName: 'Child Arrangements',
+  caption: `Case number #${caseNumber}`,
+  title: 'Contact Preferences',
   paragraphs: [
     'You can choose to receive case updates by email or post.',
     'If you receive updates by email, the updates will also be available to view in your dashboard.',
     'This includes updates on:',
   ],
-  listOfBullets: ['court orders', 'hearings', 'decisions in your case'],
+  bullets: ['court orders', 'hearings', 'decisions in your case'],
   contactPreferenceLabel: 'How would you prefer to be contacted?',
   contactPreferenceHintText: 'Select one of these options.',
   labelDigital: 'Digital',
@@ -24,21 +25,21 @@ const en = {
   labelPost: 'Post',
   labelPostHintText: 'All communication from the court will be sent by post.',
   errors: {
-    applicantContactPreferences: {
+    applicantPreferredContact: {
       required: 'Please select a contact preference',
     },
   },
 };
 
-const cy = () => ({
-  title: 'Dewisiadau cyswllt ar gyfer',
-  serviceName: 'Trefniadau plant',
+const cy = {
+  caption: `Case number - welsh #${caseNumber}`,
+  title: 'Dewisiadau cyswllt',
   paragraphs: [
     'Gallwch ddewis cael diweddariadau ynghylch yr achos drwy e-bost neu drwy’r post.',
     'Os byddwch yn dewis cael diweddariadau drwy e-bost, byddwch hefyd yn gallu gweld y diweddariadau yn eich dangosfwrdd.',
     'Mae hyn yn cynnwys diweddariadau ar:',
   ],
-  listOfBullets: ['gorchmynion llys', 'gwrandawiadau', 'penderfyniadau ynghylch eich achos'],
+  bullets: ['gorchmynion llys', 'gwrandawiadau', 'penderfyniadau ynghylch eich achos'],
   contactPreferenceLabel: 'Sut hoffech inni gysylltu â chi?',
   contactPreferenceHintText: 'Dewiswch un o’r opsiynau hyn.',
   labelDigital: 'Digidol',
@@ -46,36 +47,15 @@ const cy = () => ({
   labelPost: 'Drwy’r post',
   labelPostHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy’r post.',
   errors: {
-    applicantContactPreferences: {
+    applicantPreferredContact: {
       required: 'Dewiswch sut hoffech inni gysylltu â chi',
     },
   },
-});
+};
 
 /* eslint-disable @typescript-eslint/ban-types */
-describe('Contact Preference > content', () => {
-  const commonContent = {
-    language: 'en',
-    userCase: {
-      appl_allApplicants: [
-        {
-          id: '7483640e-0817-4ddc-b709-6723f7925474',
-          applicantFirstName: 'dummy',
-          applicantLastName: 'Test',
-          applicantContactDetail: {
-            applicantContactPreferences: ['Digital'],
-          },
-        },
-      ],
-    },
-    additionalData: {
-      req: {
-        params: {
-          applicantId: '7483640e-0817-4ddc-b709-6723f7925474',
-        },
-      },
-    },
-  } as unknown as CommonContent;
+describe('contact preferences common content', () => {
+  const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
   let form;
   let fields;
@@ -86,49 +66,30 @@ describe('Contact Preference > content', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    languageAssertions(
-      'en',
-      {
-        ...en,
-        title: `${en.title} dummy Test`,
-      },
-      () => generateContent(commonContent)
-    );
+    languageAssertions('en', en, () => generateContent(commonContent));
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    languageAssertions(
-      'cy',
-      {
-        ...cy,
-      },
-      () => generateContent({ ...commonContent, language: 'cy' })
-    );
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
   test('should contain contact-preference details form fields', () => {
-    const { applicantContactPreferences } = fields as Record<string, FormFields>;
+    const { applicantPreferredContact } = fields as Record<string, FormFields>;
 
-    expect(applicantContactPreferences.type).toBe('radios');
-    expect((applicantContactPreferences.values[0].label as Function)(generatedContent)).toBe(en.labelDigital);
-    expect(applicantContactPreferences.values[0].value).toBe('digital');
-    expect((applicantContactPreferences.values[1].label as Function)(generatedContent)).toBe(en.labelPost);
-    expect(applicantContactPreferences.values[1].value).toBe('post');
+    expect(applicantPreferredContact.type).toBe('radios');
+    expect(applicantPreferredContact.values[0].label(generatedContent)).toBe(en.labelDigital);
+    expect(applicantPreferredContact.values[0].value).toBe('digital');
+    expect(applicantPreferredContact.values[1].label(generatedContent)).toBe(en.labelPost);
+    expect(applicantPreferredContact.values[1].value).toBe('post');
 
-    (applicantContactPreferences.validator as Function)(applicantContactPreferencesEnum.DIGITAL);
+    (applicantPreferredContact.validator as Function)(applicantContactPreferencesEnum.DIGITAL);
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith(applicantContactPreferencesEnum.DIGITAL);
   });
 
   test('should contain Save and continue button', () => {
     expect(
       (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Continue');
-  });
-
-  test('should contain saveAndComeLater button', () => {
-    expect(
-      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
+    ).toBe('Save and continue');
   });
 });

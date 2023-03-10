@@ -79,7 +79,7 @@ describe('testcase for tasklist', () => {
         tasks: [
           {
             disabled: false,
-            href: '#download',
+            href: '/c100-rebuild/application-copy/download',
             id: 'childArrangementApplication',
             linkText: 'Your child arrangements application',
             stateTag: {

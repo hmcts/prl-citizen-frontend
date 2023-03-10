@@ -2,7 +2,14 @@
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../../../app/case/definition';
-import { APPLICANT_CHECK_ANSWERS, APPLICANT_DETAILS_KNOWN, APPLICANT_YOURHEARINGS_HEARINGS } from '../../../../urls';
+import {
+  APPLICANT_CHECK_ANSWERS,
+  APPLICANT_DETAILS_KNOWN,
+  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+  APPLICANT_YOURHEARINGS_HEARINGS,
+  C100_DOWNLOAD_APPLICATION,
+  C100_START,
+} from '../../../../urls';
 
 import { languages as content } from './content';
 
@@ -103,10 +110,10 @@ const taskListConfig = {
           },
           {
             id: Tasks.CONTACT_PREFERENCES,
-            href: () => {
-              '/';
+            href: (caseData: Partial<CaseWithId>) => {
+              return `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/${caseData.id}`;
             },
-            show: () => false,
+            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
             stateTag: () => StateTags.SUBMITTED,
           },
           {
@@ -128,11 +135,13 @@ const taskListConfig = {
             id: Tasks.CHILD_ARRANGEMENT_APPLICATION,
             href: (caseData: Partial<CaseWithId>) => {
               if (!caseData) {
-                return '/c100-rebuild/start';
-              } else if (caseData?.state === State.AwaitingSubmissionToHmcts) {
+                return C100_START;
+              }
+
+              if (caseData?.state === State.AwaitingSubmissionToHmcts) {
                 return caseData.c100RebuildReturnUrl;
               } else {
-                return '#download';
+                return C100_DOWNLOAD_APPLICATION;
               }
             },
             show: () => true,

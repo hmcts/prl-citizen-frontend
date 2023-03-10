@@ -1,50 +1,54 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { CaseWithId } from '../../../../app/case/case';
-import { C100Applicant, applicantContactPreferencesEnum } from '../../../../app/case/definition';
+/* eslint-disable @typescript-eslint/no-unused-vars*/
+/* eslint-disable @typescript-eslint/no-explicit-any*/
+import { applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import { interpolate } from '../../../../steps/common/string-parser';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  title: 'Contact Preferences for',
-  serviceName: 'Child Arrangements',
+  caption: 'Case number #{caseNumber}',
+  title: 'Contact Preferences',
   paragraphs: [
     'You can choose to receive case updates by email or post.',
     'If you receive updates by email, the updates will also be available to view in your dashboard.',
     'This includes updates on:',
   ],
-  listOfBullets: ['court orders', 'hearings', 'decisions in your case'],
+  bullets: ['court orders', 'hearings', 'decisions in your case'],
   contactPreferenceLabel: 'How would you prefer to be contacted?',
   contactPreferenceHintText: 'Select one of these options.',
   labelDigital: 'Digital',
   labelDitigalHintText: 'All communication from the court will be sent by email.',
   labelPost: 'Post',
   labelPostHintText: 'All communication from the court will be sent by post.',
+  continue: 'Save and continue',
   errors: {
-    applicantContactPreferences: {
+    applicantPreferredContact: {
       required: 'Please select a contact preference',
     },
   },
 });
 
 export const cy = () => ({
-  title: 'Dewisiadau cyswllt ar gyfer',
-  serviceName: 'Trefniadau plant',
+  caption: 'Case number - welsh #{caseNumber}',
+  title: 'Dewisiadau cyswllt',
   paragraphs: [
     'Gallwch ddewis cael diweddariadau ynghylch yr achos drwy e-bost neu drwy’r post.',
     'Os byddwch yn dewis cael diweddariadau drwy e-bost, byddwch hefyd yn gallu gweld y diweddariadau yn eich dangosfwrdd.',
     'Mae hyn yn cynnwys diweddariadau ar:',
   ],
-  listOfBullets: ['gorchmynion llys', 'gwrandawiadau', 'penderfyniadau ynghylch eich achos'],
+  bullets: ['gorchmynion llys', 'gwrandawiadau', 'penderfyniadau ynghylch eich achos'],
   contactPreferenceLabel: 'Sut hoffech inni gysylltu â chi?',
   contactPreferenceHintText: 'Dewiswch un o’r opsiynau hyn.',
   labelDigital: 'Digidol',
   labelDitigalHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy e-bost.',
   labelPost: 'Drwy’r post',
   labelPostHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy’r post.',
+  continue: 'Save and continue - welsh',
   errors: {
-    applicantContactPreferences: {
+    applicantPreferredContact: {
       required: 'Dewiswch sut hoffech inni gysylltu â chi',
     },
   },
@@ -69,15 +73,17 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (data: C100Applicant): GenerateDynamicFormFields => {
+export const generateFormFields = (caseData: any): GenerateDynamicFormFields => {
+  const contactPreferences = caseData?.value?.contactPreferences;
+
   const errors = {
     en: {},
     cy: {},
   };
 
   const fields = {
-    applicantContactPreferences: {
-      id: 'applicantContactPreferences',
+    applicantPreferredContact: {
+      id: 'applicantPreferredContact',
       type: 'radios',
       classes: 'govuk-radios',
       validator: atLeastOneFieldIsChecked,
@@ -87,14 +93,13 @@ export const generateFormFields = (data: C100Applicant): GenerateDynamicFormFiel
       values: [
         {
           label: l => l.labelDigital,
-          name: 'applicantContactPreferences',
+          name: 'applicantPreferredContact',
           value: applicantContactPreferencesEnum.DIGITAL,
           hint: l => l.labelDitigalHintText,
-          disabled: !data?.applicantContactDetail?.emailAddress,
         },
         {
           label: l => l.labelPost,
-          name: 'applicantContactPreferences',
+          name: 'applicantPreferredContact',
           value: applicantContactPreferencesEnum.POST,
           hint: l => l.labelPostHintText,
         },
@@ -102,13 +107,8 @@ export const generateFormFields = (data: C100Applicant): GenerateDynamicFormFiel
     },
   };
 
-  // mark the selection for the 'Digital' and 'Post' checkboxes based on the option chosen
-  fields.applicantContactPreferences.values = fields.applicantContactPreferences.values.map(config =>
-    // Checking if the data.applicantContactDetail.applicantContactPreferences Array has been pre-populated.
-    // If YES, data will be fetched from userCase. If NOT, checkboxes are made fresh and untouched
-    data?.applicantContactDetail?.applicantContactPreferences?.includes(config.value as string)
-      ? { ...config, selected: true }
-      : config
+  fields.applicantPreferredContact.values = fields.applicantPreferredContact.values.map(config =>
+    config.value === contactPreferences ? { ...config, selected: true } : config
   );
 
   return { fields, errors };
@@ -117,28 +117,24 @@ export const generateFormFields = (data: C100Applicant): GenerateDynamicFormFiel
 export const form: FormContent = {
   fields: {},
   onlycontinue: {
-    text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
+    text: l => l.continue,
   },
 };
 
-export const getFormFields = (caseData: Partial<CaseWithId>, applicantId: C100Applicant['id']): FormContent => {
-  const applicantData = caseData?.appl_allApplicants?.find(i => i.id === applicantId) as C100Applicant;
-  return updateFormFields(form, generateFormFields(applicantData ?? {}).fields);
+export const getFormFields = (caseData: any): FormContent => {
+  return updateFormFields(form, generateFormFields(caseData.userCase!.applicants![0]).fields);
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const applicantId = content?.additionalData?.req.params.applicantId;
-  const applicantData = content.userCase?.appl_allApplicants!.find(i => i.id === applicantId) as C100Applicant;
-  const { applicantFirstName, applicantLastName } = applicantData;
-  const { fields } = generateFormFields(applicantData ?? {});
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const caseNumber = content.userCase?.id!;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const { fields } = generateFormFields(content?.userCase?.applicants![0]);
 
   return {
     ...translations,
-    title: `${translations.title} ${applicantFirstName} ${applicantLastName}`,
+    caption: interpolate(translations.caption, { caseNumber }),
     form: updateFormFields(form, fields),
   };
 };

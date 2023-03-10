@@ -4,7 +4,7 @@ import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(applicantCaseSequence).toHaveLength(81);
+    expect(applicantCaseSequence).toHaveLength(87);
     expect(applicantCaseSequence[0].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[0].getNextStep({})).toBe('/applicant/task-list');
@@ -347,6 +347,36 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[76].url).toBe('/applicant/yourdocuments/alldocuments/section7_report');
     expect(applicantCaseSequence[76].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[76].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+
+    expect(applicantCaseSequence[76].url).toBe('/applicant/yourdocuments/alldocuments/section7_report');
+    expect(applicantCaseSequence[76].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[76].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+
+    expect(applicantCaseSequence[81].url).toBe('/applicant/contact-preferences/contact-preferences');
+    expect(applicantCaseSequence[81].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[81].getNextStep(contactPreferencesMockData.session.userCase)).toBe(
+      '/applicant/contact-preferences/contact-preferences'
+    );
+
+    expect(applicantCaseSequence[82].url).toBe('/applicant/contact-preferences/contact-preferences');
+    expect(applicantCaseSequence[82].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[82].getNextStep({})).toBe('/applicant/contact-preferences/contact-preferences/save');
+
+    expect(applicantCaseSequence[83].url).toBe('/applicant/contact-preferences/contact-email');
+    expect(applicantCaseSequence[83].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[83].getNextStep({})).toBe('/applicant/contact-preferences/contact-email-success');
+
+    expect(applicantCaseSequence[84].url).toBe('/applicant/contact-preferences/contact-post');
+    expect(applicantCaseSequence[84].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[84].getNextStep({})).toBe('/applicant/contact-preferences/contact-post-success');
+
+    expect(applicantCaseSequence[85].url).toBe('/applicant/contact-preferences/contact-email-success');
+    expect(applicantCaseSequence[85].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[85].getNextStep({})).toBe('/task-list/applicant');
+
+    expect(applicantCaseSequence[86].url).toBe('/applicant/contact-preferences/contact-post-success');
+    expect(applicantCaseSequence[86].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[86].getNextStep({})).toBe('/task-list/applicant');
   });
 });
 
@@ -359,6 +389,14 @@ const reasonableAdjustmentsMockData = mockRequest({
       applicantCourtHearingPage: ['none'],
       applicantCourtComfortPage: ['none'],
       applicantTravellingToCourtPage: ['none'],
+    },
+  },
+});
+
+const contactPreferencesMockData = mockRequest({
+  session: {
+    userCase: {
+      applicantPreferredContact: 'Digital',
     },
   },
 });

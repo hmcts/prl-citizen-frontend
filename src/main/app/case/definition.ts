@@ -106,6 +106,7 @@ export interface PartyDetails {
   isAtAddressLessThan5YearsWithDontKnow: string;
   response: Response;
   user: User;
+  contactPreferences?: applicantContactPreferencesEnum;
 }
 
 export interface User {
@@ -123,7 +124,7 @@ export interface Response {
   safeToCallOption?: string;
   supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
-  currentOrPreviousProceedings?: CurrentOrPreviousProceedings;  
+  currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -798,8 +799,8 @@ export interface ContactDetail {
 }
 
 export enum applicantContactPreferencesEnum {
-  DIGITAL = 'Digital',
-  POST = 'Post',
+  DIGITAL = 'digital',
+  POST = 'post',
 }
 
 export type C100ListOfApplicants = C100Applicant[];
@@ -970,6 +971,7 @@ citizenUserManualAddressPostcode?: string;
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+  draftOrderDoc?: Document;
 }
 
 export const enum SelectTypeOfOrderEnum {
