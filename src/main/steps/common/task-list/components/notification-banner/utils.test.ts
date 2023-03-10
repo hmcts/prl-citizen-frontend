@@ -50,7 +50,7 @@ describe('testcase for notification Banner', () => {
         id: 'applicationInProgress',
         links: [
           {
-            href: '#caseData.c100RebuildReturnUrl',
+            href: '#',
             text: 'Continue your application',
           },
         ],

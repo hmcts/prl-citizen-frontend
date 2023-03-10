@@ -118,8 +118,8 @@ export const getNotificationBannerConfig = (
           links: _content?.links?.map(link => ({
             text: link.text,
             href: interpolate(link.href, {
-              c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#caseData.c100RebuildReturnUrl',
-              withdrawCase: applyParms(C100_WITHDRAW_CASE, { caseId: caseData.id! }),
+              c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#',
+              withdrawCase: applyParms(C100_WITHDRAW_CASE, { caseId: caseData?.id ?? '' }),
             }),
           })),
           contents: _content?.contents?.map(blueboxContent => ({
