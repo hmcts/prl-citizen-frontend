@@ -68,6 +68,8 @@ export const enContent = {
   continue: 'Accept and continue',
   Yes: 'Yes',
   No: 'No',
+  yes: 'Yes',
+  no: 'No',
   'Dont know': 'Dont know',
   'I dont know': 'I dont know',
   'Yes, but I prefer that it is supervised': 'Yes, but I prefer that it is supervised',
@@ -180,6 +182,10 @@ export const enContent = {
     contactPrefernces: 'Contact preferences',
     child: 'Child',
     reasonForNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
+    email: 'Email',
+    dontKnowTheirEmailAddress: 'I dont know their email address',
+    telephoneNumber: 'Telephone number',
+    dontKnowTheirTelephoneNumber: 'I dont know their telephone number',
   },
 };
 export const cyContent = {
@@ -301,6 +307,10 @@ export const cyContent = {
     contactPrefernces: 'Dewisiadau cyswllt',
     child: 'Plant',
     reasonForNotAttendingMiam: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
+    email: 'Cyfeiriad e-bost',
+    dontKnowTheirEmailAddress: 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
+    telephoneNumber: 'Rhif ffôn',
+    dontKnowTheirTelephoneNumber: 'Nid wyf yn gwybod beth yw eu rhif ffônNid wyf yn gwybod beth yw eu rhif ffôn',
   },
   yesNo: {
     ydynTranslation: {
@@ -319,6 +329,8 @@ export const cyContent = {
     doTranslation: {
       Yes: 'Do',
       No: 'Naddo',
+      yes: 'Do',
+      no: 'Naddo',
     },
     ydwTranslation: {
       Yes: 'Ydw',
@@ -352,6 +364,10 @@ export const cyContent = {
     ieTranslation: {
       Yes: 'Ie',
       No: 'Na',
+    },
+    OeddTranslation: {
+      Yes: 'Oedd',
+      No: 'Nac oedd',
     },
   },
 };
