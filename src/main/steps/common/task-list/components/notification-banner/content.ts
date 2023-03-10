@@ -37,7 +37,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Important - welsh',
+  title: 'Pwysig',
   [CaseType.C100]: {
     notifications: {
       applicationNotStarted: {

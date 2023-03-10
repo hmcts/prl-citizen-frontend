@@ -39,7 +39,7 @@ const cy = {
   closedCasesTabLabel: 'Achosion sydd wedi dod i ben',
   draftApplicationTabHeading: 'Eich ceisiadau',
   draftApplicationTabContent: '<p class="govuk-body">Mae gennych 28 diwrnod i gyflwyno’r cais.</p>',
-  activeCasesTabHeading: 'Ongoing cases - welsh',
+  activeCasesTabHeading: 'Achosion gweithredol',
   closedCasesTabHeading: 'Achosion sydd wedi dod i ben',
   caseNumber: 'Rhif yr achos',
   caseType: 'Math o achos',

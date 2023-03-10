@@ -31,10 +31,10 @@ const en = {
 
 const cy: typeof en = {
   stateTags: {
-    notStartedYet: 'Not started yet - welsh',
-    inProgress: 'In progress - welsh',
+    notStartedYet: 'Heb gychwyn eto',
+    inProgress: 'Ar y gweill',
     notAvailableYet: 'Ddim ar gael eto',
-    readyToView: 'Ready to view - welsh',
+    readyToView: 'Yn barod i’w gweld',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
@@ -42,7 +42,7 @@ const cy: typeof en = {
         heading: 'Eich cais',
         tasks: {
           childArrangementApplication: {
-            linkText: 'Your child arrangements application - welsh',
+            linkText: 'Eich cais trefniadau plant',
           },
         },
       },
@@ -50,7 +50,7 @@ const cy: typeof en = {
         heading: 'Eich dogfennau',
         tasks: {
           viewAllDocuments: {
-            linkText: 'View all documents - welsh',
+            linkText: 'Gweld yr holl ddogfennau',
           },
         },
       },
