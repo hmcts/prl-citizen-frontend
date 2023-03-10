@@ -1073,13 +1073,13 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
     );
    }
 
-    newRespondentStorage.push(
-      {
-        key: keys['email'],
-        value: contactDetails?.['emailAddress'],
-        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-      },
-    );
+    // newRespondentStorage.push(
+    //   {
+    //     key: keys['email'],
+    //     value: contactDetails?.['emailAddress'],
+    //     changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+    //   },
+    // );
 
     if(contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes'){
       newRespondentStorage.push(
@@ -1089,14 +1089,15 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
         },
       );
-    }
-    newRespondentStorage.push(
-      {
-        key: keys['telephoneNumber'],
-        value: contactDetails?.['telephoneNumber'],
-        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-      }
-    );
+    }else {newRespondentStorage.push(
+        {
+          key: keys['email'],
+          value: contactDetails?.['emailAddress'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+        },
+      );}
+    
+    
     if(contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes'){
       newRespondentStorage.push(
         {
@@ -1105,7 +1106,13 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
         },
       );
-    }
+    }else {newRespondentStorage.push(
+      {
+        key: keys['telephoneNumber'],
+        value: contactDetails?.['telephoneNumber'],
+        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+      }
+    );}
     
 
     return newRespondentStorage;
@@ -1178,12 +1185,7 @@ export const RespondentDetails = (
           },
         );
       }
-      newRespondentStorage.push(
-      {
-        key: keys['respondentPlaceOfBirth'],
-        value: personalDetails?.['respondentPlaceOfBirth'],
-        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
-      });
+     
 
       if(personalDetails['respondentPlaceOfBirthUnknown'] !== 'No'){
         newRespondentStorage.push(
@@ -1192,7 +1194,12 @@ export const RespondentDetails = (
             value: getYesNoTranslation(language,personalDetails?.['respondentPlaceOfBirthUnknown'],'doTranslation'),
             changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
           });
-      }
+      }else  {newRespondentStorage.push(
+        {
+          key: keys['respondentPlaceOfBirth'],
+          value: personalDetails?.['respondentPlaceOfBirth'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
+        });}
 
       const relationShipToChildren = sessionRespondentData[respondent]['relationshipDetails']?.['relationshipToChildren'];
       relationShipToChildren.forEach(element => {
