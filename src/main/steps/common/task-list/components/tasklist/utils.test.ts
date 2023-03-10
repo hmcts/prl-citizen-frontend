@@ -63,6 +63,16 @@ describe('testcase for tasklist', () => {
           },
           {
             disabled: false,
+            href: '/applicant/contact-preferences/contact-preferences/12',
+            id: 'contactPreferences',
+            linkText: 'Contact preferences',
+            stateTag: {
+              className: 'govuk-tag--turquoise',
+              label: 'Submitted',
+            },
+          },
+          {
+            disabled: false,
             href: '/applicant/keep-details-private/details_known/12',
             id: 'keepYourDetailsPrivate',
             linkText: 'Keep your details private',

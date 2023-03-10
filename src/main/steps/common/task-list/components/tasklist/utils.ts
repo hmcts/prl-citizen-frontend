@@ -182,7 +182,7 @@ const taskListConfig = {
       {
         id: TaskListSection.YOUR_HEARING,
         content: getContents.bind(null, TaskListSection.YOUR_HEARING),
-        show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+        show: (caseData: Partial<CaseWithId>): boolean => showHearing(caseData),
         tasks: [
           {
             id: Tasks.VIEW_HEARING_DETAILS,
@@ -193,7 +193,7 @@ const taskListConfig = {
                 return '/';
               }
             },
-            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            show: (caseData: Partial<CaseWithId>): boolean => showHearing(caseData),
             stateTag: (caseData: Partial<CaseWithId>) => {
               if (caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0) {
                 return StateTags.READY_TO_VIEW;
@@ -271,8 +271,8 @@ export const getTaskListConfig = (
     });
 };
 
-// export const showHearing = (caseData: Partial<CaseWithId>): boolean =>
-//   !!(caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0);
+export const showHearing = (caseData: Partial<CaseWithId>): boolean =>
+  !!(caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0);
 
 export const isActiveCase = (caseData: Partial<CaseWithId>): boolean =>
   caseData &&
