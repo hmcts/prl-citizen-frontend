@@ -1,12 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-// import { CosApiClient } from '../../app/case/CosApiClient';
 
 import { CaseActivationPostController } from './CaseActivationPostController';
-
-// const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCase');
-// const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
-// // let partyDetails;
 
 describe('CaseActivationPostController', () => {
   let controller;

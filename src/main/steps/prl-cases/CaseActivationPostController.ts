@@ -2,11 +2,13 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
+import { CaseType, PartyType } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../app/form/Form';
-import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL } from '../../steps/urls';
-// import { toApiFormat } from '../../app/case/to-api-format';
+import { C100_APPLICANT_TASKLIST, RESPONDENT_TASK_LIST_URL } from '../../steps/urls';
+
+import { getCasePartyType } from './dashboard/utils';
 
 @autobind
 export class CaseActivationPostController extends PostController<AnyObject> {
@@ -16,38 +18,20 @@ export class CaseActivationPostController extends PostController<AnyObject> {
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     try {
-      // const loggedInCitizen = req.session.user;
-      // const caseReference = req.session.userCase.id;
-      // const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
-
-      // const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
-      // Object.assign(req.session.userCase, caseDataFromCos);
-
-      // const caseData = toApiFormat(req?.session?.userCase);
-
-      // caseData.id = caseReference;
-
-      // const updatedCaseDataFromCos = await client.updateCase(
-      //   loggedInCitizen,
-      //   caseReference,
-      //   caseData,
-      //   'linkCitizenAccount'
-      // );
-      // Object.assign(req.session.userCase, updatedCaseDataFromCos);
-
       let redirectUrl;
+      const partyType = getCasePartyType(req.session.userCase, req.session.user.id);
 
-      if (req.session.userCase.caseTypeOfApplication === 'C100') {
-        if (req.url.includes('respondent')) {
-          redirectUrl = RESPONDENT_TASK_LIST_URL;
+      if (req.session.userCase.caseTypeOfApplication === CaseType.C100) {
+        if (partyType === PartyType.APPLICANT) {
+          redirectUrl = C100_APPLICANT_TASKLIST;
         } else {
-          redirectUrl = APPLICANT_TASK_LIST_URL;
+          redirectUrl = RESPONDENT_TASK_LIST_URL;
         }
       } else {
-        if (req.url.includes('respondent')) {
-          redirectUrl = RESPONDENT_TASK_LIST_URL;
+        if (partyType === PartyType.APPLICANT) {
+          redirectUrl = C100_APPLICANT_TASKLIST;
         } else {
-          redirectUrl = APPLICANT_TASK_LIST_URL;
+          redirectUrl = RESPONDENT_TASK_LIST_URL;
         }
       }
       req.session.save(() => res.redirect(redirectUrl));

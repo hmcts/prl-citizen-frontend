@@ -18,6 +18,6 @@ describe('applicant1Sequence', () => {
 
     expect(citizenSequence[3].url).toBe('/pin-activation/case-activated');
     expect(citizenSequence[3].showInSection).toBe('aboutEdgeCase');
-    expect(citizenSequence[3].getNextStep({})).toBe('/dashboard');
+    expect(citizenSequence[3].getNextStep({})).toBe('/pin-activation/case-activated');
   });
 });
