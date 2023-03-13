@@ -9,9 +9,26 @@ describe('testcase for notification Banner', () => {
       state: State.SUBMITTED_NOT_PAID,
     };
     const party = PartyType.APPLICANT;
-    const language = 'cy';
+    const language = 'en';
 
-    expect(getNotificationBannerConfig(data, party, language)).toStrictEqual([]);
+    expect(getNotificationBannerConfig(data, party, language)).toStrictEqual([
+      {
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps.',
+          },
+        ],
+        heading: 'Your application is in progress',
+        id: 'applicationSubmitted',
+        links: [
+          {
+            href: '/c100-rebuild/withdraw',
+            text: 'Withdraw your application',
+          },
+        ],
+        title: 'Important',
+      },
+    ]);
   });
   test('when casetype c100', () => {
     const data = {

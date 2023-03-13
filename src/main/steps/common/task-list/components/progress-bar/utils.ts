@@ -84,6 +84,9 @@ const progressBarConfig = {
               )
             : false;
         },
+        isInProgress: (caseData: Partial<CaseWithId>) => {
+          return caseData ? !(State.AwaitingSubmissionToHmcts === caseData.state!) : false;
+        },
       },
       progressBarStage.cafcassSafetyChecks,
       progressBarStage.responseSubmitted,
