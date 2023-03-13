@@ -2,16 +2,19 @@
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../../../app/case/definition';
+import { APPLICANT_ORDERS_FROM_THE_COURT, PARTY_TASKLIST } from '../../../../../steps/urls';
 
 import { languages as content } from './content';
 
 enum TaskListSection {
   YOUR_APPLICATION = 'yourApplication',
   YOUR_DOCUMENTS = 'yourDocuments',
+  YOUR_ORDERS = 'ordersFromTheCourt',
 }
 enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
   VIEW_ALL_DOCUMENTS = 'viewAllDocuments',
+  VIEW_ORDERS = 'viewOrders',
 }
 
 enum StateTags {
@@ -125,6 +128,33 @@ const taskListConfig = {
           },
         ],
       },
+      {
+        id: TaskListSection.YOUR_ORDERS,
+        content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
+        show: (caseData: Partial<CaseWithId>): boolean => showYourOrders(caseData),
+        tasks: [
+          {
+            id: Tasks.VIEW_ORDERS,
+            href: caseData => {
+              if (caseData && caseData.orderCollection && caseData.orderCollection.length > 0) {
+                return APPLICANT_ORDERS_FROM_THE_COURT;
+              } else {
+                return PARTY_TASKLIST;
+              }
+            },
+            show: (caseData: Partial<CaseWithId>): boolean => showYourOrders(caseData),
+            stateTag: (caseData: Partial<CaseWithId>) => {
+              if (!caseData) {
+                return StateTags.NOT_AVAILABLE_YET;
+              }
+              if (caseData && caseData.orderCollection && caseData.orderCollection.length > 0) {
+                return StateTags.READY_TO_VIEW;
+              }
+            },
+            disabled: (caseData: Partial<CaseWithId>): boolean => showYourOrders(caseData),
+          },
+        ],
+      },
     ],
     [PartyType.RESPONDENT]: [],
   },
@@ -197,3 +227,5 @@ export const showYourDocuments = (caseData: Partial<CaseWithId>): boolean =>
   caseData
     ? ![State.AwaitingSubmissionToHmcts, State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(caseData.state!)
     : false;
+export const showYourOrders = (caseData: Partial<CaseWithId>): boolean =>
+  !!(caseData && caseData.orderCollection && caseData.orderCollection.length > 0);

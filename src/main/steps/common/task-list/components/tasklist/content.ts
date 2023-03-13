@@ -25,6 +25,14 @@ const en = {
           },
         },
       },
+      ordersFromTheCourt: {
+        heading: 'Orders from the court ',
+        tasks: {
+          viewOrders: {
+            linkText: ' View all orders from the court',
+          },
+        },
+      },
     },
   },
 };
@@ -51,6 +59,14 @@ const cy: typeof en = {
         tasks: {
           viewAllDocuments: {
             linkText: 'View all documents - welsh',
+          },
+        },
+      },
+      ordersFromTheCourt: {
+        heading: 'Orders from the court - welsh ',
+        tasks: {
+          viewOrders: {
+            linkText: ' View all orders from the court - welsh',
           },
         },
       },

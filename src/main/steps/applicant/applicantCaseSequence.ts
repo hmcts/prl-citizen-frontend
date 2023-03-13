@@ -1,3 +1,4 @@
+import { Case } from '../../app/case/case';
 import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
 import {
@@ -44,6 +45,7 @@ import {
   MEDICAL_REPORTS,
   OTHER_DOCUMENTS,
   OTHER_PEOPLE_WITNESS_STATEMENTS,
+  PARTY_TASKLIST,
   PATERNITY_TEST_REPORTS,
   POLICE_DISCLOSURE,
   POSITION_STATEMENTS,
@@ -235,7 +237,8 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_ORDERS_FROM_THE_COURT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+    getNextStep: (data: Partial<Case>) =>
+      data.caseTypeOfApplication === 'C100' ? PARTY_TASKLIST : APPLICANT_VIEW_ALL_DOCUMENTS,
   },
   {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
