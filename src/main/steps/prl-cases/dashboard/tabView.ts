@@ -15,16 +15,16 @@ import { getCasePartyType } from './utils';
 
 const tabGroup = {
   [State.AWAITING_SUBMISSION_TO_HMCTS]: 'draft',
-  [State.SUBMITTED_NOT_PAID]: 'draft',
-  [State.SUBMITTED_PAID]: 'draft',
+  [State.PENDING]: 'draft',
+  [State.Submitted]: 'draft',
   [State.ALL_FINAL_ORDERS_ISSUED]: 'closed',
   '*': 'active',
 };
 
 const caseStatusTranslation = {
   [State.AWAITING_SUBMISSION_TO_HMCTS]: 'draftCaseStatus',
-  [State.SUBMITTED_NOT_PAID]: 'pendingCaseStatus',
-  [State.SUBMITTED_PAID]: 'submittedCaseStatus',
+  [State.PENDING]: 'pendingCaseStatus',
+  [State.Submitted]: 'submittedCaseStatus',
 };
 interface CaseDetails {
   caseNumber: string;

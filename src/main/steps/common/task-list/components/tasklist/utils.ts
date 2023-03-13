@@ -3,6 +3,13 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../../../app/case/definition';
 import { APPLICANT_ORDERS_FROM_THE_COURT, PARTY_TASKLIST } from '../../../../../steps/urls';
+import {
+  APPLICANT_CHECK_ANSWERS,
+  APPLICANT_DETAILS_KNOWN,
+  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+  C100_DOWNLOAD_APPLICATION,
+  C100_START,
+} from '../../../../../steps/urls';
 
 import { languages as content } from './content';
 
@@ -10,11 +17,15 @@ enum TaskListSection {
   YOUR_APPLICATION = 'yourApplication',
   YOUR_DOCUMENTS = 'yourDocuments',
   YOUR_ORDERS = 'ordersFromTheCourt',
+  ABOUT_YOU = 'aboutYou',
 }
 enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
   VIEW_ALL_DOCUMENTS = 'viewAllDocuments',
   VIEW_ORDERS = 'viewOrders',
+  EDIT_YOUR_CONTACT_DETAILS = 'editYouContactDetails',
+  CONTACT_PREFERENCES = 'contactPreferences',
+  KEEP_YOUR_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
 }
 
 enum StateTags {
@@ -22,6 +33,7 @@ enum StateTags {
   IN_PROGRESS = 'inProgress',
   NOT_AVAILABLE_YET = 'notAvailableYet',
   READY_TO_VIEW = 'readyToView',
+  SUBMITTED = 'submitted',
 }
 
 /*interface StateTag {
@@ -70,11 +82,46 @@ const stateTagsConfig = {
     label: getStateTagLabel.bind(null, StateTags.READY_TO_VIEW),
     className: 'govuk-tag--blue',
   },
+  [StateTags.SUBMITTED]: {
+    label: getStateTagLabel.bind(null, StateTags.SUBMITTED),
+    className: 'govuk-tag--turquoise',
+  },
 };
 
 const taskListConfig = {
   [CaseType.C100]: {
     [PartyType.APPLICANT]: [
+      {
+        id: TaskListSection.ABOUT_YOU,
+        content: getContents.bind(null, TaskListSection.ABOUT_YOU),
+        show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+        tasks: [
+          {
+            id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
+            href: (caseData: Partial<CaseWithId>) => {
+              return `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`;
+            },
+            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            stateTag: () => StateTags.SUBMITTED,
+          },
+          {
+            id: Tasks.CONTACT_PREFERENCES,
+            href: (caseData: Partial<CaseWithId>) => {
+              return `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/${caseData.id}`;
+            },
+            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            stateTag: () => StateTags.SUBMITTED,
+          },
+          {
+            id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
+            href: (caseData: Partial<CaseWithId>) => {
+              return `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`;
+            },
+            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            stateTag: () => StateTags.SUBMITTED,
+          },
+        ],
+      },
       {
         id: TaskListSection.YOUR_APPLICATION,
         content: getContents.bind(null, TaskListSection.YOUR_APPLICATION),
@@ -84,22 +131,23 @@ const taskListConfig = {
             id: Tasks.CHILD_ARRANGEMENT_APPLICATION,
             href: (caseData: Partial<CaseWithId>) => {
               if (!caseData) {
-                return '/c100-rebuild/start';
+                return C100_START;
               }
 
               if (caseData?.state === State.AwaitingSubmissionToHmcts) {
                 return caseData.c100RebuildReturnUrl;
+              } else {
+                return C100_DOWNLOAD_APPLICATION;
               }
             },
-            show: (caseData: Partial<CaseWithId>): boolean =>
-              !caseData || caseData?.state === State.AwaitingSubmissionToHmcts,
+            show: () => true,
             stateTag: (caseData: Partial<CaseWithId>) => {
               if (!caseData) {
                 return StateTags.NOT_STARTED_YET;
-              }
-
-              if (caseData?.state === State.AwaitingSubmissionToHmcts) {
+              } else if (caseData?.state === State.AwaitingSubmissionToHmcts) {
                 return StateTags.IN_PROGRESS;
+              } else {
+                return StateTags.SUBMITTED;
               }
             },
           },
@@ -108,23 +156,22 @@ const taskListConfig = {
       {
         id: TaskListSection.YOUR_DOCUMENTS,
         content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-        show: (caseData: Partial<CaseWithId>): boolean => showYourDocuments(caseData),
+        show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
         tasks: [
           {
             id: Tasks.VIEW_ALL_DOCUMENTS,
             href: () => {
               '/';
             },
-            show: (caseData: Partial<CaseWithId>): boolean => showYourDocuments(caseData),
+            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
             stateTag: (caseData: Partial<CaseWithId>) => {
               if (!caseData) {
                 return StateTags.NOT_AVAILABLE_YET;
-              }
-              if (caseData?.state === State.AwaitingSubmissionToHmcts) {
+              } else {
                 return StateTags.READY_TO_VIEW;
               }
             },
-            disabled: (caseData: Partial<CaseWithId>): boolean => showYourDocuments(caseData),
+            disabled: () => true,
           },
         ],
       },
@@ -223,9 +270,13 @@ export const getTaskListConfig = (
     });
 };
 
+
 export const showYourDocuments = (caseData: Partial<CaseWithId>): boolean =>
   caseData
     ? ![State.AwaitingSubmissionToHmcts, State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(caseData.state!)
     : false;
 export const showYourOrders = (caseData: Partial<CaseWithId>): boolean =>
   !!(caseData && caseData.orderCollection && caseData.orderCollection.length > 0);
+export const isActiveCase = (caseData: Partial<CaseWithId>): boolean =>
+  caseData &&
+  ![State.AwaitingSubmissionToHmcts, State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(caseData.state!);

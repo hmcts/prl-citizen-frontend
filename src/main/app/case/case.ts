@@ -76,6 +76,7 @@ import {
   PRL_C1ASafteyConcernsAbout,
   PRL_C1ASafteyConcerns,
   PRL_C1AAbuseTypes,
+  applicantContactPreferencesEnum,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -221,6 +222,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   selectTypeOfOrder: 'selectTypeOfOrder',
   citizenResponseC7DocumentList: 'citizenResponseC7DocumentList',
   caseInvites: 'caseInvites',
+  draftOrderDoc: 'draftOrderDoc',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -579,6 +581,8 @@ export interface Case {
   lastModifiedDate?: string;
   c100RebuildReturnUrl?: string;
   noOfDaysRemainingToSubmitCase?: string;
+  applicantPreferredContact?: applicantContactPreferencesEnum;
+  draftOrderDoc?: Document;
 }
 
 export interface CaseWithId extends Case {

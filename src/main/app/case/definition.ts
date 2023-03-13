@@ -106,6 +106,7 @@ export interface PartyDetails {
   isAtAddressLessThan5YearsWithDontKnow: string;
   response: Response;
   user: User;
+  contactPreferences?: applicantContactPreferencesEnum;
 }
 
 export interface User {
@@ -123,7 +124,7 @@ export interface Response {
   safeToCallOption?: string;
   supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
-  currentOrPreviousProceedings?: CurrentOrPreviousProceedings;  
+  currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -798,8 +799,8 @@ export interface ContactDetail {
 }
 
 export enum applicantContactPreferencesEnum {
-  DIGITAL = 'Digital',
-  POST = 'Post',
+  DIGITAL = 'digital',
+  POST = 'post',
 }
 
 export type C100ListOfApplicants = C100Applicant[];
@@ -970,6 +971,7 @@ citizenUserManualAddressPostcode?: string;
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+  draftOrderDoc?: Document;
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -1983,8 +1985,8 @@ export const enum State {
   successAuthentication = 'SuccessAuthentication',
   AWAITING_SUBMISSION_TO_HMCTS = "Draft",
   AWAITING_FL401_SUBMISSION_TO_HMCTS = "Draft",
-  SUBMITTED_NOT_PAID = "Pending",
-  SUBMITTED_PAID = "Submitted",
+  SUBMITTED_NOT_PAID = "SUBMITTED_NOT_PAID",
+  SUBMITTED_PAID = "SUBMITTED_PAID",
   AWAITING_RESUBMISSION_TO_HMCTS = "Returned",
   CASE_ISSUE = "Case Issued",
   CASE_WITHDRAWN = "Withdrawn",
@@ -1994,6 +1996,7 @@ export const enum State {
   ALL_FINAL_ORDERS_ISSUED = "ALL_FINAL_ORDERS_ISSUED",
   CASE_HEARING = "Prepare for hearing",
   DELETED = "DELETED",
+  PENDING = "Pending",
 }
 
 export const enum UserRole {

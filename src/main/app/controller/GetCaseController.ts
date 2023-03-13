@@ -2,9 +2,8 @@ import { Response } from 'express';
 
 import { getSupportDetails } from '../../../main/steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
 import { CaseWithId } from '../../app/case/case';
-import { Respondent } from '../../app/case/definition';
+import { PartyType, Respondent } from '../../app/case/definition';
 import { applyParms } from '../../steps/common/url-parser';
-import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { mapSafetyConcernsDetails } from '../../steps/tasklistresponse/allegations-of-harm-and-violence/SafetyConcernsMapper';
 import { getInternationalFactorsDetails } from '../../steps/tasklistresponse/international-factors/InternationalFactorsMapper';
 import {
@@ -107,7 +106,7 @@ export class GetCaseController {
 
       req.session.userCase = caseData;
       req.session.save(() => {
-        res.redirect(applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData) }));
+        res.redirect(applyParms(PARTY_TASKLIST, { partyType: PartyType.APPLICANT }));
       });
     } catch (error) {
       res.redirect(DASHBOARD_URL);
