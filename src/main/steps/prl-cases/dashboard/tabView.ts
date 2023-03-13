@@ -179,7 +179,11 @@ const prepareTableData = (caseData: CaseDetails, tab: string): TableRowFields[] 
   return rows;
 };
 
-export const prepareCaseView = (caseData: Partial<CaseWithId>[], content: Record<string, string>): Tabs => {
+export const prepareCaseView = (
+  caseData: Partial<CaseWithId>[],
+  idamId: string,
+  content: Record<string, string>
+): Tabs => {
   let tabs = prepareTabContent(content);
 
   if (caseData?.length) {
@@ -196,7 +200,7 @@ export const prepareCaseView = (caseData: Partial<CaseWithId>[], content: Record
               {
                 caseNumber: rest.id!,
                 caseType: caseTypeOfApplication as CaseType,
-                casePartyType: getCasePartyType(_case),
+                casePartyType: getCasePartyType(_case, idamId),
                 caseApplicantName: rest.applicantName ?? '',
                 caseStatus,
                 createdDate: dayjs(rest.createdDate).format('DD MMM YYYY'),

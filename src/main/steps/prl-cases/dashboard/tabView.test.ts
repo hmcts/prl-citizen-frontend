@@ -73,7 +73,7 @@ describe('Dashboard tab content', () => {
   ];
 
   test('prepareCaseView method should return the appropriate tab contents for caseView', () => {
-    expect(prepareCaseView(req.session.userCaseList, languages.en)).toEqual(
+    expect(prepareCaseView(req.session.userCaseList, req.session.user.id, languages.en)).toEqual(
       expect.objectContaining({
         draft: {
           label: 'Draft applications',
