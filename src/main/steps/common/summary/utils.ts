@@ -3,7 +3,7 @@
 import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
-import { State } from '../../../app/case/definition';
+import { State, YesOrNo } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
 import {
@@ -68,6 +68,18 @@ export const summaryList = (
       changeUrl: url,
     };
     if (key !== 'citizenUserSafeToCall') {
+      if (language === 'cy' && row.value === 'No') {
+        row.value = 'Nac ydy';
+      }
+      if (language === 'cy' && row.value === 'Yes') {
+        row.value = 'Ydy';
+      }
+      if (language === 'en' && row.value === 'Nac ydy') {
+        row.value = YesOrNo.NO;
+      }
+      if (language === 'en' && row.value === 'Ydy') {
+        row.value = YesOrNo.YES;
+      }
       summaryData.push(row);
     }
   }
