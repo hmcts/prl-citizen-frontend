@@ -1,5 +1,5 @@
 import { Case } from '../../app/case/case';
-import { C100_CASE_TYPE } from '../../app/case/definition';
+import { C100_CASE_TYPE, CaseType } from '../../app/case/definition';
 import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
 import {
@@ -249,7 +249,7 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_ORDERS_FROM_THE_COURT,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: (data: Partial<Case>) =>
-      data.caseTypeOfApplication === 'C100' ? C100_APPLICANT_TASKLIST : APPLICANT_VIEW_ALL_DOCUMENTS,
+      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_VIEW_ALL_DOCUMENTS,
   },
   {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../../../app/case/definition';
 import {
@@ -172,7 +171,7 @@ const taskListConfig = {
                 return StateTags.READY_TO_VIEW;
               }
             },
-            disabled: () => true,
+            //disabled: () => true,
           },
         ],
       },
@@ -183,7 +182,7 @@ const taskListConfig = {
         tasks: [
           {
             id: Tasks.VIEW_ORDERS,
-            href: caseData => {
+            href: (caseData: Partial<CaseWithId>) => {
               if (caseData && caseData.orderCollection && caseData.orderCollection.length > 0) {
                 return APPLICANT_ORDERS_FROM_THE_COURT;
               } else {
@@ -198,7 +197,7 @@ const taskListConfig = {
                 return StateTags.NOT_AVAILABLE_YET;
               }
             },
-            disabled: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            disabled: (caseData: Partial<CaseWithId>): boolean => !isActiveCase(caseData),
           },
         ],
       },
@@ -217,7 +216,6 @@ export const getTaskListConfig = (
   language: string
 ): Record<string, any>[] => {
   let caseType = caseData?.caseTypeOfApplication;
-
   if (!caseType && partyType === PartyType.APPLICANT) {
     caseType = CaseType.C100;
   }
