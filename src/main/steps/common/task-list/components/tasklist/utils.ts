@@ -192,11 +192,10 @@ const taskListConfig = {
             },
             show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
             stateTag: (caseData: Partial<CaseWithId>) => {
-              if (!caseData) {
-                return StateTags.NOT_AVAILABLE_YET;
-              }
               if (caseData && caseData.orderCollection && caseData.orderCollection.length > 0) {
                 return StateTags.READY_TO_VIEW;
+              } else {
+                return StateTags.NOT_AVAILABLE_YET;
               }
             },
             disabled: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
