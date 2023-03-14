@@ -48,8 +48,8 @@ const en = {
         tasks: {
           viewOrders: {
             linkText: ' View all orders from the court',
-          }
-        }
+          },
+        },
       },
     },
   },
@@ -98,14 +98,14 @@ const cy: typeof en = {
           },
         },
       },
-    ordersFromTheCourt: {
+      ordersFromTheCourt: {
         heading: 'Orders from the court - welsh ',
         tasks: {
           viewOrders: {
             linkText: ' View all orders from the court - welsh',
-          }
-        }
-      }
+          },
+        },
+      },
     },
   },
 };
