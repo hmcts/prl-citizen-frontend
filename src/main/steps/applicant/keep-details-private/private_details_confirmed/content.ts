@@ -7,8 +7,7 @@ const en = {
   line1: 'You have told us you want to keep these contact details private:',
   address: 'Home address',
   email: 'Email',
-  postalAddress: 'Postal address',
-  phone: 'Telephone number',
+  phoneNumber: 'Telephone number',
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
@@ -21,8 +20,7 @@ const cy: typeof en = {
   line1: 'You have told us you want to keep these contact details private:',
   address: 'Home address',
   email: 'Email',
-  postalAddress: 'Postal address',
-  phone: 'Telephone number',
+  phoneNumber: 'Telephone number',
   line2: 'What the court will do',
   line3:
     'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',

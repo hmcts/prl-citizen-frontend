@@ -246,7 +246,7 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
 
   if (userCase.reasonableAdjustments?.includes('nosupport')) {
     //delete all fields //
-    deleteLanguageRequirementsFields(userCase);
+    //deleteLanguageRequirementsFields(userCase);
     deleteDocsSupportFields(userCase);
     deleteHelpCommunicationFields(userCase);
     deleteCourtHearingFields(userCase);

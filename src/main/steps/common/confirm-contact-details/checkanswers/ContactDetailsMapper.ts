@@ -60,7 +60,7 @@ export const setContactDetails = (partyDetails: PartyDetails, req: AppRequest): 
     ) {
       partyDetails.addressLivedLessThan5YearsDetails = req.session.userCase.citizenUserAddressHistory;
     } else {
-      partyDetails.addressLivedLessThan5YearsDetails = '';
+      partyDetails.addressLivedLessThan5YearsDetails = setAddressFields(req).citizenUserAddressHistory!;
     }
   }
 
@@ -84,6 +84,9 @@ export function getAddressDetails(partyDetails: PartyDetails, req: AppRequest): 
     if (partyDetails.address.PostCode) {
       req.session.userCase.citizenUserAddressPostcode = partyDetails.address.PostCode;
     }
+  }
+  if (partyDetails.isAtAddressLessThan5Years) {
+    req.session.userCase.isAtAddressLessThan5Years = partyDetails.isAtAddressLessThan5Years;
   }
   if (partyDetails.addressLivedLessThan5YearsDetails) {
     req.session.userCase.citizenUserAddressHistory = partyDetails.addressLivedLessThan5YearsDetails;
@@ -152,7 +155,7 @@ export function setAddressFields(req: AppRequest): Partial<CaseWithId> {
     }
   }
   if (YesOrNo.YES === req.session.userCase.isAtAddressLessThan5Years) {
-    req.session.userCase.citizenUserAddressHistory = '';
+    req.session.userCase.citizenUserAddressHistory = req.session.userCase.citizenUserAddressText;
   }
 
   return req.session.userCase;
