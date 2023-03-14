@@ -248,7 +248,8 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_ORDERS_FROM_THE_COURT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+    getNextStep: (data: Partial<Case>) =>
+      data.caseTypeOfApplication === 'C100' ? C100_APPLICANT_TASKLIST : APPLICANT_VIEW_ALL_DOCUMENTS,
   },
   {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,

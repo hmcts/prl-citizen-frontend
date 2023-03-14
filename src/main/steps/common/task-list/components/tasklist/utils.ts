@@ -5,7 +5,9 @@ import { CaseType, PartyType, State } from '../../../../../app/case/definition';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
+  APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+  C100_APPLICANT_TASKLIST,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
 } from '../../../../../steps/urls';
@@ -16,6 +18,7 @@ enum TaskListSection {
   YOUR_APPLICATION = 'yourApplication',
   YOUR_DOCUMENTS = 'yourDocuments',
   ABOUT_YOU = 'aboutYou',
+  YOUR_ORDERS = 'ordersFromTheCourt',
 }
 enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
@@ -23,6 +26,7 @@ enum Tasks {
   EDIT_YOUR_CONTACT_DETAILS = 'editYouContactDetails',
   CONTACT_PREFERENCES = 'contactPreferences',
   KEEP_YOUR_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
+  VIEW_ORDERS = 'viewOrders',
 }
 
 enum StateTags {
@@ -169,6 +173,33 @@ const taskListConfig = {
               }
             },
             disabled: () => true,
+          },
+        ],
+      },
+      {
+        id: TaskListSection.YOUR_ORDERS,
+        content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
+        show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+        tasks: [
+          {
+            id: Tasks.VIEW_ORDERS,
+            href: caseData => {
+              if (caseData && caseData.orderCollection && caseData.orderCollection.length > 0) {
+                return APPLICANT_ORDERS_FROM_THE_COURT;
+              } else {
+                return C100_APPLICANT_TASKLIST;
+              }
+            },
+            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            stateTag: (caseData: Partial<CaseWithId>) => {
+              if (!caseData) {
+                return StateTags.NOT_AVAILABLE_YET;
+              }
+              if (caseData && caseData.orderCollection && caseData.orderCollection.length > 0) {
+                return StateTags.READY_TO_VIEW;
+              }
+            },
+            disabled: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
           },
         ],
       },
