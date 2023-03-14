@@ -61,7 +61,7 @@ describe('testcase for notification Banner', () => {
   test('when case is withdrawn', () => {
     const data = {
       id: '12',
-      state: State.Withdrawn,
+      state: State.CASE_WITHDRAWN_STATE,
       caseTypeOfApplication: CaseType.C100,
     };
     const party = PartyType.APPLICANT;
@@ -76,12 +76,6 @@ describe('testcase for notification Banner', () => {
         ],
         heading: 'This case has now been withdrawn',
         id: 'applicationWithdrawn',
-        links: [
-          {
-            href: '/c100-rebuild/withdrawal_letter',
-            text: 'View case withdrawal letter',
-          },
-        ],
         title: 'Important',
       },
     ]);

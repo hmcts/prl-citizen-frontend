@@ -13,7 +13,6 @@ enum BannerNotification {
   APPLICATION_IN_PROGRESS = 'applicationInProgress',
   APPLICATION_SUBMITTED = 'applicationSubmitted',
   APPLICATION_WITHDRAWN = 'applicationWithdrawn',
-  WITHDRAWAL_REQ_IN_PROGRESS = 'withdrawalRequestInProgress',
   WITHDRAWAL_REQ_REJECTED = 'withdrawalRequestRejected',
 }
 
@@ -47,11 +46,6 @@ const notificationBanner = {
     content: getContent.bind(null, BannerNotification.APPLICATION_WITHDRAWN),
     show: () => false,
   },
-  [BannerNotification.WITHDRAWAL_REQ_IN_PROGRESS]: {
-    id: BannerNotification.WITHDRAWAL_REQ_IN_PROGRESS,
-    content: getContent.bind(null, BannerNotification.WITHDRAWAL_REQ_IN_PROGRESS),
-    show: () => false,
-  },
   [BannerNotification.WITHDRAWAL_REQ_REJECTED]: {
     id: BannerNotification.WITHDRAWAL_REQ_REJECTED,
     content: getContent.bind(null, BannerNotification.WITHDRAWAL_REQ_REJECTED),
@@ -83,7 +77,7 @@ const notificationBannerConfig = {
       {
         ...notificationBanner.applicationWithdrawn,
         show: (caseData: Partial<CaseWithId>): boolean => {
-          return caseData?.state === State.Withdrawn;
+          return caseData?.state === State.CASE_WITHDRAWN_STATE;
         },
       },
     ],
@@ -112,16 +106,9 @@ export const getNotificationBannerConfig = (
 
       if (show(caseData)) {
         const _content = config.content(caseType, language);
-        return {
+        let _config = {
           id,
           ..._content,
-          links: _content?.links?.map(link => ({
-            text: link.text,
-            href: interpolate(link.href, {
-              c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#',
-              withdrawCase: applyParms(C100_WITHDRAW_CASE, { caseId: caseData?.id ?? '' }),
-            }),
-          })),
           contents: _content?.contents?.map(blueboxContent => ({
             text: interpolate(blueboxContent.text, {
               noOfDaysRemainingToSubmitCase:
@@ -129,6 +116,21 @@ export const getNotificationBannerConfig = (
             }),
           })),
         };
+
+        if (_content?.links && _content.links.length) {
+          _config = {
+            ..._config,
+            links: _content.links.map(link => ({
+              text: link.text,
+              href: interpolate(link.href, {
+                c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#',
+                withdrawCase: applyParms(C100_WITHDRAW_CASE, { caseId: caseData?.id ?? '' }),
+              }),
+            })),
+          };
+        }
+
+        return _config;
       }
 
       return null;

@@ -53,20 +53,6 @@ const en = {
             text: 'You can still access all documents related to the case',
           },
         ],
-        links: [
-          {
-            text: 'View case withdrawal letter',
-            href: '/c100-rebuild/withdrawal_letter',
-          },
-        ],
-      },
-      withdrawalRequestInProgress: {
-        heading: 'Your withdrawal request is in progress',
-        contents: [
-          {
-            text: 'The court is reviewing your request, and will let you know if it is granted.',
-          },
-        ],
       },
       withdrawalRequestRejected: {
         heading: 'Your withdrawal request was rejected',
@@ -131,20 +117,6 @@ const cy: typeof en = {
         contents: [
           {
             text: 'You can still access all documents related to the case - welsh',
-          },
-        ],
-        links: [
-          {
-            text: 'View case withdrawal letter - welsh',
-            href: '/c100-rebuild/withdrawal_letter',
-          },
-        ],
-      },
-      withdrawalRequestInProgress: {
-        heading: 'Your withdrawal request is in progress - welsh',
-        contents: [
-          {
-            text: 'The court is reviewing your request, and will let you know if it is granted. - welsh',
           },
         ],
       },
