@@ -1958,7 +1958,6 @@ export const enum State {
   Withdrawn = 'Withdrawn',
   AwaitingDocuments = 'AwaitingDocuments',
   AwaitingSubmissionToHmcts = 'AWAITING_SUBMISSION_TO_HMCTS',
-  AwaitingWithdrawDecision ='AwaitingWithdrawDecision',
   AwaitingApplicant1Response = 'AwaitingApplicant1Response',
   AwaitingApplicant2Response = 'AwaitingApplicant2Response',
   AwaitingBailiffReferral = 'AwaitingBailiffReferral',
