@@ -71,7 +71,7 @@ export class GetController {
       ...content,
       sessionErrors,
       htmlLang: language,
-      caseId: req.session.userCase?.caseId,
+      caseId: req.session.userCase?.caseId || req.session.userCase?.id,
       paymentError: req.session.paymentError,
       document_type,
       name,

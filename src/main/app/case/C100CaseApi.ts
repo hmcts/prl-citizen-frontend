@@ -146,6 +146,38 @@ export class CaseApi {
     }
   }
 
+  /**
+   * Withdraw Case
+   * @param caseData
+   * @param session
+   */
+  public async withdrawCase(caseId: string, caseData: Partial<CaseWithId>): Promise<void> {
+    try {
+      if (!caseId) {
+        throw new Error('caseId not found so case could not be withdrawn.');
+      }
+      const { withdrawApplication, withdrawApplicationReason } = caseData;
+
+      await this.axios.post<UpdateCaseResponse>(
+        `${caseId}/withdraw`,
+        {
+          withDrawApplicationData: {
+            withDrawApplication: withdrawApplication,
+            withDrawApplicationReason: withdrawApplicationReason,
+          },
+        },
+        {
+          headers: {
+            accessCode: 'null',
+          },
+        }
+      );
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Error occured, case could not be withdrawn.');
+    }
+  }
+
   private logError(error: AxiosError) {
     if (error.response) {
       this.logger.error(`API Error ${error.config.method} ${error.config.url} ${error.response.status}`);
