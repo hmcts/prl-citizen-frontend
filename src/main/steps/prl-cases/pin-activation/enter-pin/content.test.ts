@@ -27,6 +27,7 @@ const en = {
       accesscodeAlreadyLinked: 'Provided access code is already linked to the case.',
       invalidAccessCode:
         'You have entered the wrong access code. Check your email and enter it again before continuing.',
+      invalidReference: 'The case number and access code do not match',
     },
   },
 };
@@ -53,6 +54,7 @@ const cy = {
       accesscodeAlreadyLinked: 'Provided access code is already linked to the case. -welsh',
       invalidAccessCode:
         'You have entered the wrong access code. Check your email and enter it again before continuing. -welsh',
+      invalidReference: 'The case number and access code do not match -welsh',
     },
   },
 };
