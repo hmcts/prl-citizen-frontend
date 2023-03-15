@@ -2364,6 +2364,9 @@ export interface PRLDocument {
   orderType: string;
   orderDocument: Document;
   otherDetails: OtherDetails;
+  orderTypeId?: string;
+  isWithdrawnRequestApproved?: YesOrNo
+  withdrawnRequestType?: string;
 }
 
 export interface HearingsList {

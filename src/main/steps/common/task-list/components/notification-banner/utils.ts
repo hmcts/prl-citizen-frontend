@@ -4,7 +4,7 @@ import { CaseWithId } from '../../../../../app/case/case';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { interpolate } from '../../../string-parser';
 
-import { CaseType, PartyType, State } from './../../../../../app/case/definition';
+import { CaseType, PartyType, State, YesOrNo } from './../../../../../app/case/definition';
 import { C100_WITHDRAW_CASE } from './../../../../urls';
 import { languages as content } from './content';
 
@@ -78,6 +78,17 @@ const notificationBannerConfig = {
         ...notificationBanner.applicationWithdrawn,
         show: (caseData: Partial<CaseWithId>): boolean => {
           return caseData?.state === State.CASE_WITHDRAWN_STATE;
+        },
+      },
+      {
+        ...notificationBanner.withdrawalRequestRejected,
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return !!caseData?.orderCollection?.find(
+            order =>
+              order.value?.orderTypeId === 'blankOrderOrDirectionsWithdraw' &&
+              order.value?.withdrawnRequestType === 'Withdrawn application' &&
+              order.value?.isWithdrawnRequestApproved === YesOrNo.NO
+          );
         },
       },
     ],

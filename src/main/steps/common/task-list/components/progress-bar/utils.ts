@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CaseWithId } from '../../../../../app/case/case';
+import { isCaseWithdrawn } from '../../utils';
 
 import { CaseType, PartyType, State } from './../../../../../app/case/definition';
 import { languages as content } from './content';
@@ -85,7 +86,7 @@ const progressBarConfig = {
             : false;
         },
         isInProgress: (caseData: Partial<CaseWithId>) => {
-          return caseData ? !(State.AwaitingSubmissionToHmcts === caseData.state!) : false;
+          return caseData ? caseData.state !== State.AwaitingSubmissionToHmcts : false;
         },
       },
       progressBarStage.cafcassSafetyChecks,
@@ -95,9 +96,7 @@ const progressBarConfig = {
       {
         ...progressBarStage.caseClosed,
         isComplete: (caseData: Partial<CaseWithId>) => {
-          return caseData
-            ? [State.CASE_WITHDRAWN_STATE, State.ALL_FINAL_ORDERS_ISSUED].includes(caseData.state!)
-            : false;
+          return caseData ? caseData.state === State.ALL_FINAL_ORDERS_ISSUED || isCaseWithdrawn(caseData) : false;
         },
       },
     ],
