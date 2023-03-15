@@ -129,12 +129,12 @@ function updateUserCaseUrls(userCase: Partial<CaseWithId>, isEnglish: YesOrNo) {
     }
   } else if (isEnglish === YesOrNo.NO) {
     cyContent.keys = {
-      start: "Are the children's lives mainly based outside of England and Wales?",
+      start: 'Ydy bywyd y plant yn cael ei dreulio’n bennaf y tu allan i Gymru a Lloegr?',
       parents:
-        "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+        "A yw rhieni'r plant (neu unrhyw un o bwys i'r plant) wedi'u lleoli y tu allan i Gymru a Lloegr yn bennaf?",
+      request: "A oes gwlad arall wedi gofyn (neu wedi cael cais) am wybodaeth neu gymorth i'r plant?",
       jurisdiction:
-        'Could another person in the application apply for a similar order in a country outside England or Wales?',
-      request: 'Has another country asked (or been asked) for information or help for the children?',
+        'A allai rhywun arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
     };
 
     for (const key in cyContent.keys) {
