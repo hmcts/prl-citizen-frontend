@@ -2,7 +2,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
-const en = {
+export const en = {
   section: 'Keeping your contact details private',
   title: 'Do the other people named in this application (the applicants) know any of your contact details?',
   one: 'Yes',
@@ -18,7 +18,7 @@ const en = {
   },
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   section: 'Keeping your contact details private',
   title: 'Do the other people named in this application (the applicants) know any of your contact details?',
   one: 'Yes',

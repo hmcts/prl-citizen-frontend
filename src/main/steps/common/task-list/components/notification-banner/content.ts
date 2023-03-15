@@ -32,6 +32,36 @@ const en = {
           },
         ],
       },
+      applicationSubmitted: {
+        heading: 'Your application is in progress',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps.',
+          },
+        ],
+        links: [
+          {
+            text: 'Withdraw your application',
+            href: '{withdrawCase}',
+          },
+        ],
+      },
+      applicationWithdrawn: {
+        heading: 'This case has now been withdrawn',
+        contents: [
+          {
+            text: 'You can still access all documents related to the case',
+          },
+        ],
+      },
+      withdrawalRequestRejected: {
+        heading: 'Your withdrawal request was rejected',
+        contents: [
+          {
+            text: 'The court rejected your request to withdraw this application. The application will continue to progress.',
+          },
+        ],
+      },
     },
   },
 };
@@ -65,6 +95,36 @@ const cy: typeof en = {
           {
             text: 'Continue your application - welsh',
             href: '{c100RebuildReturnUrl}',
+          },
+        ],
+      },
+      applicationSubmitted: {
+        heading: 'Your application is in progress - welsh',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
+          },
+        ],
+        links: [
+          {
+            text: 'Withdraw your application - welsh',
+            href: '{withdrawCase}',
+          },
+        ],
+      },
+      applicationWithdrawn: {
+        heading: 'This case has now been withdrawn - welsh',
+        contents: [
+          {
+            text: 'You can still access all documents related to the case - welsh',
+          },
+        ],
+      },
+      withdrawalRequestRejected: {
+        heading: 'Your withdrawal request was rejected - welsh',
+        contents: [
+          {
+            text: 'The court rejected your request to withdraw this application. The application will continue to progress. - welsh',
           },
         ],
       },
