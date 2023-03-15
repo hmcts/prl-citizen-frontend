@@ -255,6 +255,8 @@ export const DRUG_ALCOHOL_TESTS: PageLink = `${VIEW_ALL_DOCUMENTS}/drug_alcohol_
 export const POLICE_DISCLOSURE: PageLink = `${VIEW_ALL_DOCUMENTS}/police_disclosures`;
 export const WITNESS_AVAILABILITY: PageLink = `${VIEW_ALL_DOCUMENTS}/witness_availability`;
 export const TENANCY_AND_MORTGAGE_AVAILABILITY: PageLink = `${VIEW_ALL_DOCUMENTS}/tenancy_and_mortgage_availability`;
+export const ALLEGATION_OF_HARM_VOILENCE_DOC: PageLink = `${VIEW_ALL_DOCUMENTS}/allegationofharmandviolence`;
+export const RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC: PageLink = `${VIEW_ALL_DOCUMENTS}/respond_others_allegation_of_harm_and_violence`;
 
 /* Respondent Documents */
 export const RESPONDENT_CA_RESPONSE: PageLink = `${VIEW_ALL_DOCUMENTS}/caresponse`;

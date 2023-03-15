@@ -19,7 +19,7 @@ export const applicant_tasklist_items_all_docs_en = {
   drug_alcohol_tests: 'Drug and alcohol tests (toxicology)',
   police_disclosures: 'Police reports',
   witness_availability: 'Witness availability',
-  tenancy_and_mortgage_availability: 'Tenancy and mortgage',
+  tenancy_and_mortgage_availability: 'Tenancy and mortgage agreements',
   // respondent_response_to_request_for_child_arrangements:
   //   "<namerespondentxxxxx>'s response to the request for child arrangements",
   respondent_response_for_domestic_abuse: "<namerespondentxxxxx>'s response to the request for domestic abuse",

@@ -49,7 +49,10 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const drugCitizenDocs: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
-    if (doc.value.documentType === 'Drug and alcohol tests (toxicology)') {
+    if (
+      doc.value.isApplicant === content.byApplicant &&
+      doc.value.documentType === 'Drug and alcohol tests (toxicology)'
+    ) {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );

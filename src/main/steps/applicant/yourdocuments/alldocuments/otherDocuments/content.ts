@@ -48,16 +48,16 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
-  for (const doc of content.userCase?.otherDocuments || []) {
-    if (doc.value?.documentTypeOther === 'otherReports') {
-      const uid = doc.value.documentOther?.document_url.substring(
-        doc.value.documentOther.document_url.lastIndexOf('/') + 1
+  for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
+    if (doc.value.isApplicant === content.byApplicant && doc.value?.documentType === 'Other documents') {
+      const uid = doc.value.citizenDocument?.document_url.substring(
+        doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );
       const documentCreatedDate = doc.value['dateCreated'];
       orders.push({
         href: `${MANAGE_DOCUMENTS_DOWNLOAD}/${uid}`,
         createdDate: documentCreatedDate,
-        fileName: doc.value.documentOther?.document_filename,
+        fileName: doc.value.citizenDocument?.document_filename,
       });
     }
   }

@@ -1,11 +1,10 @@
-import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 
 const en = () => {
   return {
     section: 'All documents',
-    title: 'Paternity test reports',
+    title: "Your response to other's allegation of harm and violence",
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
@@ -16,7 +15,7 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'All documents',
-    title: 'Paternity test reports',
+    title: "Your response to other's allegation of harm and violence",
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
@@ -47,22 +46,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const paternityCitizenDocs: object[] = [];
-  for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
-    if (doc.value.isApplicant === content.byApplicant && doc.value.documentType === 'Paternity test reports') {
-      const uid = doc.value.citizenDocument.document_url.substring(
-        doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
-      );
-      paternityCitizenDocs.push({
-        href: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${uid}`,
-        createdDate: doc.value.documentDetails.documentUploadedDate,
-        fileName: doc.value.citizenDocument.document_filename,
-      });
-    }
-  }
-
   return {
     ...translations,
-    paternityCitizenDocs,
   };
 };
