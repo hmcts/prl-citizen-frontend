@@ -804,5 +804,13 @@ describe('C100Sequence', () => {
     expect(C100Sequence[122].getNextStep(applicantMockRequest.session.userCase, applicantMockRequest)).toBe(
       '/c100-rebuild/applicant/2cd885a0-135e-45f1-85b7-aa46a1f78f46/confidentiality/details-know'
     );
+
+    expect(C100Sequence[123].url).toBe('/c100-rebuild/:caseId/withdraw');
+    expect(C100Sequence[123].showInSection).toBe('c100');
+    expect(C100Sequence[123].getNextStep({})).toBe('/task-list/applicant');
+
+    expect(C100Sequence[124].url).toBe('/c100-rebuild/withdraw/confirmation');
+    expect(C100Sequence[124].showInSection).toBe('c100');
+    expect(C100Sequence[124].getNextStep({})).toBe('/');
   });
 });
