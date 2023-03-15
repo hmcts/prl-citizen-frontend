@@ -1,5 +1,5 @@
 import { Case } from '../../app/case/case';
-import { C100_CASE_TYPE } from '../../app/case/definition';
+import { CaseType } from '../../app/case/definition';
 import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
 import {
@@ -52,7 +52,6 @@ import {
   MEDICAL_REPORTS,
   OTHER_DOCUMENTS,
   OTHER_PEOPLE_WITNESS_STATEMENTS,
-  PARTY_TASKLIST,
   PATERNITY_TEST_REPORTS,
   POLICE_DISCLOSURE,
   POSITION_STATEMENTS,
@@ -97,13 +96,13 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_PRIVATE_DETAILS_CONFIRMED,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: (data: Partial<Case>) =>
-      data.caseTypeOfApplication === C100_CASE_TYPE.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
   },
   {
     url: APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: (data: Partial<Case>) =>
-      data.caseTypeOfApplication === C100_CASE_TYPE.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
   },
   {
     url: APPLICANT_CHECK_ANSWERS,
@@ -441,7 +440,7 @@ export const applicantCaseSequence: Step[] = [
     showInSection: Sections.AboutApplicantCase,
     getController: HearingsGetController,
     getNextStep: (data: Partial<Case>) =>
-      data.caseTypeOfApplication === 'C100' ? PARTY_TASKLIST : APPLICANT_TASK_LIST_URL,
+      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
   },
   {
     url: APPLICANT_TASK_LIST_URL,
