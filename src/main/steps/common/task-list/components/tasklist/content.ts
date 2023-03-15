@@ -31,26 +31,26 @@ const en = {
 
 const cy: typeof en = {
   stateTags: {
-    notStartedYet: 'Not started yet - welsh',
-    inProgress: 'In progress - welsh',
-    notAvailableYet: 'Not available yet - welsh',
-    readyToView: 'Ready to view - welsh',
+    notStartedYet: 'Heb gychwyn eto',
+    inProgress: 'Ar y gweill',
+    notAvailableYet: 'Ddim ar gael eto',
+    readyToView: 'Yn barod i’w gweld',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
       yourApplication: {
-        heading: 'Your application - welsh',
+        heading: 'Eich cais',
         tasks: {
           childArrangementApplication: {
-            linkText: 'Your child arrangements application - welsh',
+            linkText: 'Eich cais trefniadau plant',
           },
         },
       },
       yourDocuments: {
-        heading: 'Your documents - welsh',
+        heading: 'Eich dogfennau',
         tasks: {
           viewAllDocuments: {
-            linkText: 'View all documents - welsh',
+            linkText: 'Gweld yr holl ddogfennau',
           },
         },
       },

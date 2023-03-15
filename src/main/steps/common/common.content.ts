@@ -122,8 +122,8 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForChildArrangements: 'Cyfraith breifat',
   applyForDissolution: 'Cyfraith breifat',
-  commonServiceName: 'Child arrangements and family injunctions (in welsh)',
-  c100ServiceName: 'Child arrangements (in welsh)',
+  commonServiceName: 'Trefniadau plant a gwaharddebau teulu',
+  c100ServiceName: 'Trefniadau plant',
   fl401ServiceName: 'Family injunction (in welsh)',
   feedback:
     'Mae hwn yn wasanaeth newydd - bydd eich <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">adborth</a> yn ein helpu ni i’w wella.',
@@ -148,6 +148,7 @@ const cy: typeof en = {
   saveAsDraft: 'Save as draft (in welsh)',
   signOut: 'Allgofnodi',
   signIn: 'Sign in (in welsh)',
+  cancel: 'Canslo',
   accessibility: 'Datganiad hygyrchedd',
   cookies: 'Cwcis',
   privacyPolicy: 'Polisi preifatrwydd',
