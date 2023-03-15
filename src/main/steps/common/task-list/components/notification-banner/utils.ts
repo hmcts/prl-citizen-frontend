@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { CaseWithId } from '../../../../../app/case/case';
+import { applyParms } from '../../../../../steps/common/url-parser';
 import { interpolate } from '../../../string-parser';
 
-import { CaseType, PartyType, State } from './../../../../../app/case/definition';
+import { CaseType, PartyType, State, YesOrNo } from './../../../../../app/case/definition';
+import { C100_WITHDRAW_CASE } from './../../../../urls';
 import { languages as content } from './content';
 
 enum BannerNotification {
   APPLICATION_NOT_STARTED = 'applicationNotStarted',
   APPLICATION_IN_PROGRESS = 'applicationInProgress',
   APPLICATION_SUBMITTED = 'applicationSubmitted',
-  WITHDRAWAL_REQ_IN_PROGRESS = 'withdrawalRequestInProgress',
+  APPLICATION_WITHDRAWN = 'applicationWithdrawn',
   WITHDRAWAL_REQ_REJECTED = 'withdrawalRequestRejected',
 }
 
@@ -39,9 +41,9 @@ const notificationBanner = {
     content: getContent.bind(null, BannerNotification.APPLICATION_SUBMITTED),
     show: () => false,
   },
-  [BannerNotification.WITHDRAWAL_REQ_IN_PROGRESS]: {
-    id: BannerNotification.WITHDRAWAL_REQ_IN_PROGRESS,
-    content: getContent.bind(null, BannerNotification.WITHDRAWAL_REQ_IN_PROGRESS),
+  [BannerNotification.APPLICATION_WITHDRAWN]: {
+    id: BannerNotification.APPLICATION_WITHDRAWN,
+    content: getContent.bind(null, BannerNotification.APPLICATION_WITHDRAWN),
     show: () => false,
   },
   [BannerNotification.WITHDRAWAL_REQ_REJECTED]: {
@@ -72,6 +74,23 @@ const notificationBannerConfig = {
           return caseData?.state === State.SUBMITTED_PAID || caseData?.state === State.SUBMITTED_NOT_PAID;
         },
       },
+      {
+        ...notificationBanner.applicationWithdrawn,
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return caseData?.state === State.CASE_WITHDRAWN_STATE;
+        },
+      },
+      {
+        ...notificationBanner.withdrawalRequestRejected,
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return !!caseData?.orderCollection?.find(
+            order =>
+              order.value?.orderTypeId === 'blankOrderOrDirectionsWithdraw' &&
+              order.value?.withdrawnRequestType === 'Withdrawn application' &&
+              order.value?.isWithdrawnRequestApproved === YesOrNo.NO
+          );
+        },
+      },
     ],
     [PartyType.RESPONDENT]: [],
   },
@@ -98,15 +117,9 @@ export const getNotificationBannerConfig = (
 
       if (show(caseData)) {
         const _content = config.content(caseType, language);
-        return {
+        let _config = {
           id,
           ..._content,
-          links: _content?.links?.map(link => ({
-            text: link.text,
-            href: interpolate(link.href, {
-              c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#caseData.c100RebuildReturnUrl',
-            }),
-          })),
           contents: _content?.contents?.map(blueboxContent => ({
             text: interpolate(blueboxContent.text, {
               noOfDaysRemainingToSubmitCase:
@@ -114,6 +127,21 @@ export const getNotificationBannerConfig = (
             }),
           })),
         };
+
+        if (_content?.links && _content.links.length) {
+          _config = {
+            ..._config,
+            links: _content.links.map(link => ({
+              text: link.text,
+              href: interpolate(link.href, {
+                c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#',
+                withdrawCase: applyParms(C100_WITHDRAW_CASE, { caseId: caseData?.id ?? '' }),
+              }),
+            })),
+          };
+        }
+
+        return _config;
       }
 
       return null;

@@ -17,12 +17,17 @@ const tabGroup = {
   [State.AWAITING_SUBMISSION_TO_HMCTS]: 'draft',
   [State.PENDING]: 'draft',
   [State.Submitted]: 'draft',
+  [State.CASE_ISSUE]: 'draft',
+  [State.GATEKEEPING]: 'draft',
   [State.ALL_FINAL_ORDERS_ISSUED]: 'closed',
+  [State.CASE_WITHDRAWN]: 'closed',
   '*': 'active',
 };
 
 const caseStatusTranslation = {
   [State.AWAITING_SUBMISSION_TO_HMCTS]: 'draftCaseStatus',
+  [State.CASE_ISSUE]: 'caseIssued',
+  [State.GATEKEEPING]: 'caseGatekeeping',
   [State.PENDING]: 'pendingCaseStatus',
   [State.Submitted]: 'submittedCaseStatus',
 };

@@ -6,20 +6,27 @@ import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+  APPLICANT_YOURHEARINGS_HEARINGS,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
-} from '../../../../../steps/urls';
+} from '../../../../urls';
 
 import { languages as content } from './content';
 
 enum TaskListSection {
   YOUR_APPLICATION = 'yourApplication',
   YOUR_DOCUMENTS = 'yourDocuments',
+
+  YOUR_HEARING = 'yourHearing',
+
   ABOUT_YOU = 'aboutYou',
 }
 enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
   VIEW_ALL_DOCUMENTS = 'viewAllDocuments',
+
+  VIEW_HEARING_DETAILS = 'viewHearingDetails',
+
   EDIT_YOUR_CONTACT_DETAILS = 'editYouContactDetails',
   CONTACT_PREFERENCES = 'contactPreferences',
   KEEP_YOUR_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
@@ -172,6 +179,30 @@ const taskListConfig = {
           },
         ],
       },
+      {
+        id: TaskListSection.YOUR_HEARING,
+        content: getContents.bind(null, TaskListSection.YOUR_HEARING),
+        show: (caseData: Partial<CaseWithId>): boolean => showHearing(caseData),
+        tasks: [
+          {
+            id: Tasks.VIEW_HEARING_DETAILS,
+            href: (caseData: Partial<CaseWithId>) => {
+              if (caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0) {
+                return APPLICANT_YOURHEARINGS_HEARINGS;
+              } else {
+                return '/';
+              }
+            },
+            show: (caseData: Partial<CaseWithId>): boolean => showHearing(caseData),
+            stateTag: (caseData: Partial<CaseWithId>) => {
+              if (caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0) {
+                return StateTags.READY_TO_VIEW;
+              }
+              return StateTags.NOT_AVAILABLE_YET;
+            },
+          },
+        ],
+      },
     ],
     [PartyType.RESPONDENT]: [],
   },
@@ -239,6 +270,9 @@ export const getTaskListConfig = (
       return config !== null;
     });
 };
+
+export const showHearing = (caseData: Partial<CaseWithId>): boolean =>
+  !!(caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0);
 
 export const isActiveCase = (caseData: Partial<CaseWithId>): boolean =>
   caseData &&

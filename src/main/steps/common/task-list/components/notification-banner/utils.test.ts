@@ -22,7 +22,7 @@ describe('testcase for notification Banner', () => {
         id: 'applicationSubmitted',
         links: [
           {
-            href: '/c100-rebuild/withdraw',
+            href: '/c100-rebuild/12/withdraw',
             text: 'Withdraw your application',
           },
         ],
@@ -50,10 +50,32 @@ describe('testcase for notification Banner', () => {
         id: 'applicationInProgress',
         links: [
           {
-            href: '#caseData.c100RebuildReturnUrl',
+            href: '#',
             text: 'Continue your application',
           },
         ],
+        title: 'Important',
+      },
+    ]);
+  });
+  test('when case is withdrawn', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_WITHDRAWN_STATE,
+      caseTypeOfApplication: CaseType.C100,
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+
+    expect(getNotificationBannerConfig(data, party, language)).toStrictEqual([
+      {
+        contents: [
+          {
+            text: 'You can still access all documents related to the case',
+          },
+        ],
+        heading: 'This case has now been withdrawn',
+        id: 'applicationWithdrawn',
         title: 'Important',
       },
     ]);

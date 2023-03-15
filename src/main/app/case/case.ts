@@ -583,6 +583,8 @@ export interface Case {
   noOfDaysRemainingToSubmitCase?: string;
   applicantPreferredContact?: applicantContactPreferencesEnum;
   draftOrderDoc?: Document;
+  withdrawApplication?: YesOrNo;
+  withdrawApplicationReason?: string;
 }
 
 export interface CaseWithId extends Case {

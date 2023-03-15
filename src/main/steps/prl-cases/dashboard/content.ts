@@ -26,6 +26,8 @@ const en = {
   draftCaseStatus: 'Draft',
   pendingCaseStatus: 'Application submitted',
   submittedCaseStatus: 'Application submitted',
+  caseIssued: 'Application submitted (Case Issued)',
+  caseGatekeeping: 'Application submitted (Gatekeeping)',
 };
 
 const cy = {
@@ -52,6 +54,8 @@ const cy = {
   draftCaseStatus: 'Draft - welsh',
   pendingCaseStatus: 'Application submitted - welsh',
   submittedCaseStatus: 'Application submitted - welsh',
+  caseIssued: 'Application submitted (Case Issued) - welsh',
+  caseGatekeeping: 'Application submitted (Gatekeeping) - welsh',
 };
 
 export const languages = {

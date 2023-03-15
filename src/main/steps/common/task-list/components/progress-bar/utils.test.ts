@@ -108,9 +108,10 @@ describe('testcase for progress-bar', () => {
       },
     ]);
   });
-  test('when state submitted', () => {
+  test('when state submitted and withdrawn', () => {
     const data = {
       id: '12',
+      state: State.Withdrawn,
     };
     const party = PartyType.APPLICANT;
     const language = 'en';

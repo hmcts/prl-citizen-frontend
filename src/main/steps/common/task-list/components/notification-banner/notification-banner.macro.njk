@@ -12,26 +12,28 @@
     {% for content in notification.contents %}
       {% if content.html %}
         <p class="govuk-body govuk-!-margin-bottom-2">{{ content.html | safe }}</p>
-      {%else%}
+        {%else%}
         <p class="govuk-body govuk-!-margin-bottom-2">{{ content.text }}</p>
       {% endif %}
     {% endfor %}
 
-    {% for link in notification.links %}
-      <p class="govuk-notification-banner__heading">
-        {% if link.external %}
-          <a class="govuk-notification-banner__link" href={{ link.href }} target="_blank">{{link.text}}</a>
-        {%else%}
-          <a class="govuk-notification-banner__link" href={{ link.href }}>{{link.text}}</a>
-        {% endif %}
-      </p>
-    {% endfor %}
-  {% endset %}
+    {% if notification.links and notification.links.length > 0%}
+      {% for link in notification.links %}
+        <p class="govuk-notification-banner__heading">
+          {% if link.external %}
+            <a class="govuk-notification-banner__link" href={{ link.href }} target="_blank">{{link.text}}</a>
+            {%else%}
+            <a class="govuk-notification-banner__link" href={{ link.href }}>{{link.text}}</a>
+          {% endif %}
+        </p>
+      {% endfor %}
+    {% endif %}
+    {% endset %}
 
-  {{ govukNotificationBanner({
+    {{ govukNotificationBanner({
       titleText: notification.title,
       html: html
     }) 
   }}
-{% endfor %}
+  {% endfor %}
 {% endmacro %}
