@@ -2,6 +2,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 
 const en = {
   title: 'Accessibility statement for Family Private Law',
+  websiteAvailable: 'This accessibility statement applies to the website available at <INSERT PUBLIC LINK ONCE AVAILABLE>,  that enables users to make child arrangements or domestic abuse applications.',
   websiteRanBy: 'The website is run by HM Courts & Tribunals Service (HMCTS).',
   asManyAsPossible:
     'We want as many people as possible to be able to use this website. For example, that means you should be able to:',
@@ -28,6 +29,7 @@ const en = {
   considerYourRequest: 'We’ll consider your request and get back to you in 10 working days.',
   reportingAccessibility: 'Reporting accessibility problems with this website',
   accessibilityPhoneNumber: 'Telephone: 0300 323 0185',
+  lookingToImprove: 'We’re always looking to improve the accessibility of this website.',
   improveAccessibility:
     'If you find any problems not listed on this page or think we’re not meeting accessibility requirements:',
   enforcementProcedure: 'Enforcement procedure',
@@ -47,6 +49,7 @@ const en = {
   hmctsIsCommitted:
     'HMCTS is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.',
   nonAccessibleContent: 'Non-accessible content',
+  nonAccessibleDescription: 'The content listed below is non-accessible for the following reasons.',
   issuesWithDocuments: 'Non-compliance with the accessibility regulations',
   issuesWithDocumentDescription1:
     'Some pages do not have a logical heading structure in place, which is a barrier for users who rely on headings for navigation. This does not meet WCAG 2.1 success criterion 1.3.1 (Information and Relationships).',

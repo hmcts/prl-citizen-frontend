@@ -2,7 +2,7 @@
 
 {% block page_content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
-
+  <p class="govuk-body">{{ websiteAvailable }}</p>
   <p class="govuk-body">{{ websiteRanBy }}</p>
   <p class="govuk-body">{{ asManyAsPossible }}</p>
   <ul class="govuk-list govuk-list--bullet">
@@ -25,14 +25,19 @@
 
   <h2 class="govuk-heading-s">{{ feedbackAndContactInformation }}</h2>
   <p class="govuk-body">{{ needMoreInformation }}</p>
-  <p class="govuk-body">{{ email | safe }}</p>
-  <p class="govuk-body">{{ phone }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ email }}</li>
+    <li>{{ phone }}</li>
+  </ul>
   <p class="govuk-body">{{ considerYourRequest }}</p>
 
   <h2 class="govuk-heading-s">{{ reportingAccessibility }}</h2>
+  <p class="govuk-body">{{ lookingToImprove | safe }}</p>
   <p class="govuk-body">{{ improveAccessibility | safe }}</p>
-  <p class="govuk-body">{{ email | safe }}</p>
-  <p class="govuk-body">{{ accessibilityPhoneNumber }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ email }}</li>
+    <li>{{ accessibilityPhoneNumber }}</li>
+  </ul>
 
   <h2 class="govuk-heading-s">{{ enforcementProcedure }}</h2>
   <p class="govuk-body">{{ humanRightsCommission | safe }}</p>
@@ -42,8 +47,10 @@
   <p class="govuk-body">{{ contactTextRelay }}</p>
   <p class="govuk-body">{{ contactInductionLoops }}</p>
   <p class="govuk-body">{{ contactCourtDirectly | safe }}</p>
-  <p class="govuk-body">{{ email | safe }}</p>
-  <p class="govuk-body">{{ phone }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ email }}</li>
+    <li>{{ phone }}</li>
+  </ul>
 
   <h2 class="govuk-heading-m">{{ technicalInfo }}</h2>
   <p class="govuk-body">{{ hmctsIsCommitted }}</p>
@@ -52,6 +59,7 @@
   <p class="govuk-body">{{ partiallyCompliant | safe }}</p>
 
   <h2 class="govuk-heading-m">{{ nonAccessibleContent }}</h2>
+  <p class="govuk-body">{{ nonAccessibleDescription }}</p>
 
   <h3 class="govuk-heading-s">{{ issuesWithDocuments }}</h3>
   <p class="govuk-body">{{ issuesWithDocumentDescription1 }}</p>
