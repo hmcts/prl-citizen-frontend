@@ -68,12 +68,15 @@ export const enContent = {
   continue: 'Accept and continue',
   Yes: 'Yes',
   No: 'No',
+  'Dont know': 'Dont know',
+  'I dont know': 'I dont know',
   'Yes, but I prefer that it is supervised': 'Yes, but I prefer that it is supervised',
   'No, I would prefer the other people do not spend time with the children':
     'No, I would prefer the other people do not spend time with the children',
   Mother: 'Mother',
   Father: 'Father',
   Guardian: 'Guardian',
+  Grandparent: 'Grandparent',
   'Special Guardian': 'Special Guardian',
   None: 'None',
   Other: 'Other',
@@ -195,6 +198,7 @@ export const cyContent = {
   Mother: 'Mam',
   Father: 'Tad',
   Guardian: 'Gwarcheidwad',
+  Grandparent: 'Nain/Taid',
   'Special Guardian': 'Gwarcheidwad Arbennig',
   None: 'Nain/Taid',
   Other: 'Arall',
@@ -302,6 +306,7 @@ export const cyContent = {
     ydynTranslation: {
       Yes: 'Ydyn',
       No: 'Nac Ydyn',
+      'Dont know': 'Ddim yn gwybod',
     },
     oesTranslation: {
       Yes: 'Oes',

@@ -794,12 +794,12 @@ export interface ContactDetail {
   telephoneNumber?: string,
   canNotProvideTelephoneNumberReason?: string,
   canLeaveVoiceMail?: YesNoEmpty,
-  applicantContactPreferences?: String[];
+  applicantContactPreferences?: string;
 }
 
 export enum applicantContactPreferencesEnum {
-  DIGITAL = 'Digital',
-  POST = 'Post',
+  DIGITAL = 'digital',
+  POST = 'post',
 }
 
 export type C100ListOfApplicants = C100Applicant[];
@@ -1993,7 +1993,7 @@ export const enum State {
   DECISION_OUTCOME = "DECISION_OUTCOME",
   ALL_FINAL_ORDERS_ISSUED = "ALL_FINAL_ORDERS_ISSUED",
   CASE_HEARING = "Prepare for hearing",
-  DELETED = "Deleted",
+  DELETED = "DELETED",
 }
 
 export const enum UserRole {
@@ -2587,6 +2587,7 @@ export const enum C100_CASE_EVENT {
   CASE_UPDATE = 'citizen-case-update',
   CASE_SUBMIT = 'citizen-case-submit',
   DELETE_CASE = 'deleteApplication',
+  CASE_SUBMIT_WITH_HWF = 'citizenCaseSubmitWithHWF',
 }
 
 export enum C100OrderTypes {
@@ -2929,3 +2930,8 @@ export type ChildrenDetails = {
       lastName: string;
       partyType: PartyType;
   }
+
+  export enum CaseType {
+    C100 = 'C100',
+    FL401 = 'FL401',
+}

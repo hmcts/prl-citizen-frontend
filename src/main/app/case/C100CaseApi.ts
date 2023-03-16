@@ -34,8 +34,8 @@ export class CaseApi {
 
     try {
       const response = await this.axios.post<CreateCaseResponse>('/case/create', data);
-      const { id, caseTypeOfApplication, c100RebuildReturnUrl } = response?.data;
-      return { id, caseTypeOfApplication, c100RebuildReturnUrl };
+      const { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase } = response?.data;
+      return { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase };
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
@@ -205,6 +205,8 @@ const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => 
     c100RebuildChildPostCode: caseData.c100RebuildChildPostCode,
     helpWithFeesReferenceNumber: caseData.helpWithFeesReferenceNumber,
     c100RebuildReturnUrl: caseData.c100RebuildReturnUrl,
+    state: caseData.state,
+    noOfDaysRemainingToSubmitCase: caseData.noOfDaysRemainingToSubmitCase,
   } as RetreiveDraftCase;
 
   Object.values(updateCaseDataMapper).forEach(field => {
@@ -221,6 +223,8 @@ interface CreateCaseResponse {
   id: string;
   caseTypeOfApplication: string;
   c100RebuildReturnUrl: string;
+  state: State;
+  noOfDaysRemainingToSubmitCase: string;
 }
 interface UpdateCaseResponse {
   [key: string]: any;
