@@ -6,6 +6,7 @@ import { applyParms } from '../../common/url-parser';
 import {
   APPLICANT_TASK_LIST_URL,
   C100_RETRIVE_CASE,
+  FETCH_CASE_DETAILS,
   //FETCH_CASE_DETAILS,
   PageLink,
   RESPONDENT_TASK_LIST_URL,
@@ -247,7 +248,7 @@ const getTaskListUrl = (
       if (State.AWAITING_SUBMISSION_TO_HMCTS === caseStatus) {
         url = applyParms(`${C100_RETRIVE_CASE}`, { caseId: caseNumber });
       } else {
-        url = '#';
+        url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
       }
     } else {
       url = `${APPLICANT_TASK_LIST_URL}/${caseNumber}`;
