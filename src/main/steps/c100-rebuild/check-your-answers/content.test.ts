@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
-import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { YesOrNo } from '../../../app/case/definition';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
+import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { cy as caseNameCyContent, en as caseNameEnContent } from '../case-name/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
