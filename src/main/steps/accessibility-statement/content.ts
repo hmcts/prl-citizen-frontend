@@ -2,7 +2,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 
 const en = {
   title: 'Accessibility statement for Family Private Law',
-  websiteAvailable: 'This accessibility statement applies to the website available at <INSERT PUBLIC LINK ONCE AVAILABLE>,  that enables users to make child arrangements or domestic abuse applications.',
+  websiteAvailable: 'This accessibility statement applies to the website available at <INSERT PUBLIC LINK ONCE AVAILABLE>, that enables users to make child arrangements or domestic abuse applications.',
   websiteRanBy: 'The website is run by HM Courts & Tribunals Service (HMCTS).',
   asManyAsPossible:
     'We want as many people as possible to be able to use this website. For example, that means you should be able to:',
