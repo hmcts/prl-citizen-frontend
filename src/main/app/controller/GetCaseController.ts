@@ -2,7 +2,8 @@ import { Response } from 'express';
 
 import { getSupportDetails } from '../../../main/steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
 import { CaseWithId } from '../../app/case/case';
-import { Respondent } from '../../app/case/definition';
+import { PartyType, Respondent } from '../../app/case/definition';
+import { applyParms } from '../../steps/common/url-parser';
 import { mapSafetyConcernsDetails } from '../../steps/tasklistresponse/allegations-of-harm-and-violence/SafetyConcernsMapper';
 import { getInternationalFactorsDetails } from '../../steps/tasklistresponse/international-factors/InternationalFactorsMapper';
 import {
@@ -11,6 +12,7 @@ import {
   APPLICANT_VIEW_ALL_DOCUMENTS,
   C100_CASE_NAME,
   DASHBOARD_URL,
+  PARTY_TASKLIST,
   RESPONDENT,
   RESPONDENT_TASK_LIST_URL,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
@@ -75,11 +77,18 @@ export class GetCaseController {
     const userDeatils = req?.session?.user;
     if (userDeatils) {
       try {
-        const { id: caseId, caseTypeOfApplication } = await req.locals.C100Api.createCase();
+        const {
+          id: caseId,
+          caseTypeOfApplication,
+          state,
+          noOfDaysRemainingToSubmitCase,
+        } = await req.locals.C100Api.createCase();
 
         req.session.userCase = {
           caseId,
           caseTypeOfApplication,
+          state,
+          noOfDaysRemainingToSubmitCase,
         } as CaseWithId;
         req.session.userCaseList = [];
         req.session.save(() => {
@@ -94,21 +103,13 @@ export class GetCaseController {
   public async getC100ApplicantCase(req: AppRequest, res: Response): Promise<void> {
     try {
       const caseData = await req.locals.C100Api.retrieveCaseById(req.params?.caseId);
-      const { caseId, c100RebuildReturnUrl, ...rest } = caseData;
 
-      if (caseId) {
-        req.session.userCase = {
-          caseId,
-          ...rest,
-        };
-      }
-      if (c100RebuildReturnUrl !== '') {
-        req.session.userCaseList = [];
-      }
+      req.session.userCase = caseData;
       req.session.save(() => {
-        res.redirect(c100RebuildReturnUrl ?? DASHBOARD_URL);
+        res.redirect(applyParms(PARTY_TASKLIST, { partyType: PartyType.APPLICANT }));
       });
     } catch (error) {
+      res.redirect(DASHBOARD_URL);
       throw new Error('Error in retriving the case - getC100ApplicantCase');
     }
   }
