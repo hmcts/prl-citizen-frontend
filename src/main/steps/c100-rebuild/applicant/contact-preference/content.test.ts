@@ -111,11 +111,14 @@ describe('Contact Preference > content', () => {
     const { applicantContactPreferences } = fields as Record<string, FormFields>;
 
     expect(applicantContactPreferences.type).toBe('radios');
+    expect((applicantContactPreferences.label as Function)(generatedContent)).toBe(en.contactPreferenceLabel);
+    expect((applicantContactPreferences.hint as Function)(generatedContent)).toBe(en.contactPreferenceHintText);
     expect((applicantContactPreferences.values[0].label as Function)(generatedContent)).toBe(en.labelDigital);
     expect(applicantContactPreferences.values[0].value).toBe('digital');
+    expect((applicantContactPreferences.values[0].hint as Function)(generatedContent)).toBe(en.labelDitigalHintText);
     expect((applicantContactPreferences.values[1].label as Function)(generatedContent)).toBe(en.labelPost);
+    expect((applicantContactPreferences.values[1].hint as Function)(generatedContent)).toBe(en.labelPostHintText);
     expect(applicantContactPreferences.values[1].value).toBe('post');
-
     (applicantContactPreferences.validator as Function)(applicantContactPreferencesEnum.DIGITAL);
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith(applicantContactPreferencesEnum.DIGITAL);
   });
