@@ -65,9 +65,9 @@ export const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-
+  const session = content.additionalData!.req.session;
   return {
     ...translations,
-    tabs: prepareCaseView(content.additionalData!.req.session.userCaseList, translations),
+    tabs: prepareCaseView(session.userCaseList, session.user.id, translations),
   };
 };

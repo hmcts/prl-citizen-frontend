@@ -21,7 +21,7 @@ const en = {
   contactPreferenceHintText: 'Select one of these options.',
   labelDigital: 'Digital',
   labelDitigalHintText: 'All communication from the court will be sent by email.',
-  labelPost: 'Post',
+  labelPost: 'post',
   labelPostHintText: 'All communication from the court will be sent by post.',
   errors: {
     applicantContactPreferences: {
