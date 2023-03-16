@@ -2,7 +2,7 @@
 
 properties([
   // H allow predefined but random minute see https://en.wikipedia.org/wiki/Cron#Non-standard_characters
-  pipelineTriggers([cron('0 1 * * 1-5')]),
+  pipelineTriggers([cron('0 3 * * 1-5')]),
   parameters([
     string(name: 'FRONTEND_URL', defaultValue: 'https://privatelaw.aat.platform.hmcts.net/', description: 'The URL you want to run tests against')
   ])
@@ -56,8 +56,8 @@ withNightlyPipeline(type, product, component) {
   loadVaultSecrets(secrets)
   // enableMutationTest()
   enableFortifyScan()
-  enableFullFunctionalTest(120)
-  enableCrossBrowserTest(['chrome', 'firefox','microsoft'])
+  enableFullFunctionalTest(200)
+  enableCrossBrowserTest(60)
   enableFortifyScan()
   enableSecurityScan()
 
@@ -77,7 +77,8 @@ withNightlyPipeline(type, product, component) {
   }
 
   afterAlways('fullFunctionalTest') {
-    archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/functional/output/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 
   afterAlways('fortify-scan') {

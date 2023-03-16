@@ -7,6 +7,7 @@ const SupportYouNeedApplicant = require('./pages/SupportYouNeedDuringYourCase-Ap
 const SupportYouNeedRespondent = require('./pages/SupportYouNeedDuringYourCase-RespondentCADA');
 const UploadDocuments = require('./pages/uploadDocuments');
 const CreateApplication = require('./pages/C100-Rebuild/CreateApplication');
+const StartTheApplication= require('./pages/C100-Rebuild/MiniDashboard')
 const CaseNameAndPostCode = require('./pages/C100-Rebuild/CaseNameAndPostCode');
 const ScreeningQuestions = require('./pages/C100-Rebuild/ScreeningQuestions'); 
 const GoToMiam = require('./pages/C100-Rebuild/GoToMiam');
@@ -55,6 +56,9 @@ module.exports = () => {
     },
     createC100Application() {
       return CreateApplication.createNewC100Application();
+    },
+    startTheApplication() {
+      return StartTheApplication.clickStartTheApplication();
     },
     addCaseNameAndPostCode() {
       return CaseNameAndPostCode.addCaseNameAndPostCode();

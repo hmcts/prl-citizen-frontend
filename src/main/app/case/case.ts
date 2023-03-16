@@ -220,6 +220,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   doesOrderClosesCase: 'doesOrderClosesCase',
   selectTypeOfOrder: 'selectTypeOfOrder',
   citizenResponseC7DocumentList: 'citizenResponseC7DocumentList',
+  caseInvites: 'caseInvites',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -334,7 +335,7 @@ export interface Case {
   languageRequirementApplicationNeedWelsh?: string;
   previousOrOngoingProceedingsForChildren?: YesNoDontKnow;
   welshLanguageRequirementApplicationNeedEnglish?: string;
-  //TODO?: Below fields should be with in respondent object.
+  /***  Below fields should be with in respondent object.*/
   serviceType?: string;
   claimNumber?: string;
   caseCode?: string;
@@ -573,6 +574,11 @@ export interface Case {
   hwn_hearingPart1?: YesOrNo;
   c100RebuildChildPostCode?: string;
   helpWithFeesReferenceNumber?: string;
+  createdDate?: string;
+  applicantName?: string;
+  lastModifiedDate?: string;
+  c100RebuildReturnUrl?: string;
+  noOfDaysRemainingToSubmitCase?: string;
 }
 
 export interface CaseWithId extends Case {
