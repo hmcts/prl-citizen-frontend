@@ -26,7 +26,7 @@
   <h2 class="govuk-heading-s">{{ feedbackAndContactInformation }}</h2>
   <p class="govuk-body">{{ needMoreInformation }}</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>{{ email }}</li>
+    <li>{{ email | safe}}</li>
     <li>{{ phone }}</li>
   </ul>
   <p class="govuk-body">{{ considerYourRequest }}</p>
