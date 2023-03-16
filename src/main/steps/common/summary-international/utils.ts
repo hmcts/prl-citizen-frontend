@@ -31,12 +31,7 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value:
-        fieldTypes[key] === 'Date'
-          ? getFormattedDate(userCase[key], language)
-          : key === 'startAlternative' && userCase[key] !== 'undefined'
-          ? userCase[key] + getSelectedPrivateDetails(userCase)
-          : userCase[key],
+      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : notDate(key, userCase),
       changeUrl: url,
     };
     if (key !== 'citizenUserSafeToCall') {
@@ -137,3 +132,8 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   tempDetails = tempDetails + '</ul>';
   return tempDetails;
 };
+function notDate(key: string, userCase: Partial<CaseWithId>) {
+  return key === 'startAlternative' && userCase[key] !== 'undefined'
+    ? userCase[key] + getSelectedPrivateDetails(userCase)
+    : userCase[key];
+}

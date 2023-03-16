@@ -67,27 +67,20 @@ class ApplicantReasonableAdjustmentsNavigationController {
 
     let url: PageLink;
 
-    switch (currentPageUrl) {
-      case REASONABLE_ADJUSTMENTS: {
-        this.selectedPageUrls = [];
-        url = this.pages[this.selectedPages[0]].url;
+    if (currentPageUrl === REASONABLE_ADJUSTMENTS) {
+      this.selectedPageUrls = [];
+      url = this.pages[this.selectedPages[0]].url;
+      this.selectedPageUrls.push(url);
+    } else {
+      let pageUrl: PageLink | null = null;
+      pageUrl = this.getNextPageUrl(currentPageUrl);
+      if (pageUrl !== null) {
+        url = pageUrl;
         this.selectedPageUrls.push(url);
-
-        break;
-      }
-      default: {
-        let pageUrl: PageLink | null = null;
-        pageUrl = this.getNextPageUrl(currentPageUrl);
-        if (pageUrl !== null) {
-          url = pageUrl;
-          this.selectedPageUrls.push(url);
-        } else {
-          url = SAFETY_ARRANGEMENTS;
-        }
-        break;
+      } else {
+        url = SAFETY_ARRANGEMENTS;
       }
     }
-
     return url;
   }
 }

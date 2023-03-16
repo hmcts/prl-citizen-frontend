@@ -2,8 +2,8 @@ import { CaseType, PartyType, State } from '../../../../../app/case/definition';
 
 import { getTaskListConfig } from './utils';
 
-describe('testcase for progress-bar', () => {
-  test('when state submitted but not paid', () => {
+describe('testcase for tasklist', () => {
+  test('when case is state pending', () => {
     const data = {
       id: '12',
       state: State.AwaitingSubmissionToHmcts,
@@ -30,15 +30,59 @@ describe('testcase for progress-bar', () => {
       },
     ]);
   });
-  test('when case is submitted', () => {
+
+  test('case in non pending state', () => {
     const data = {
       id: '12',
-      state: State.SUBMITTED_PAID,
+      state: State.GATEKEEPING,
+      hearingCollection: [
+        {
+          next: {
+            courtName: 'Swansea',
+          },
+        },
+      ],
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
 
     expect(getTaskListConfig(data, party, language)).toStrictEqual([
+      {
+        heading: 'About you',
+        id: 'aboutYou',
+        tasks: [
+          {
+            disabled: false,
+            href: '/applicant/confirm-contact-details/checkanswers/12',
+            id: 'editYouContactDetails',
+            linkText: 'Confirm or edit your contact details',
+            stateTag: {
+              className: 'govuk-tag--turquoise',
+              label: 'Submitted',
+            },
+          },
+          {
+            disabled: false,
+            href: '/applicant/contact-preferences/contact-preferences/12',
+            id: 'contactPreferences',
+            linkText: 'Contact preferences',
+            stateTag: {
+              className: 'govuk-tag--turquoise',
+              label: 'Submitted',
+            },
+          },
+          {
+            disabled: false,
+            href: '/applicant/keep-details-private/details_known/12',
+            id: 'keepYourDetailsPrivate',
+            linkText: 'Keep your details private',
+            stateTag: {
+              className: 'govuk-tag--turquoise',
+              label: 'Submitted',
+            },
+          },
+        ],
+      },
       {
         heading: 'Your application',
         id: 'yourApplication',
@@ -51,6 +95,54 @@ describe('testcase for progress-bar', () => {
             stateTag: {
               className: 'govuk-tag--turquoise',
               label: 'Submitted',
+            },
+          },
+        ],
+      },
+      {
+        heading: 'Your documents',
+        id: 'yourDocuments',
+        tasks: [
+          {
+            disabled: true,
+            href: undefined,
+            id: 'viewAllDocuments',
+            linkText: 'View all documents',
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Ready to view',
+            },
+          },
+        ],
+      },
+      {
+        heading: 'Orders from the court',
+        id: 'ordersFromTheCourt',
+        tasks: [
+          {
+            disabled: false,
+            href: '/task-list/applicant',
+            id: 'viewOrders',
+            linkText: 'View all orders from the court',
+            stateTag: {
+              className: 'govuk-tag--grey',
+              label: 'Not available yet',
+            },
+          },
+        ],
+      },
+      {
+        heading: 'Your court hearings',
+        id: 'yourHearing',
+        tasks: [
+          {
+            disabled: false,
+            href: '/applicant/yourhearings/hearings',
+            id: 'viewHearingDetails',
+            linkText: 'Check details of your court hearings',
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Ready to view',
             },
           },
         ],

@@ -26,6 +26,8 @@ const en = {
   draftCaseStatus: 'Draft',
   pendingCaseStatus: 'Application submitted',
   submittedCaseStatus: 'Application submitted',
+  caseIssued: 'Application submitted (Case Issued)',
+  caseGatekeeping: 'Application submitted (Gatekeeping)',
 };
 
 const cy = {
@@ -52,6 +54,8 @@ const cy = {
   draftCaseStatus: 'Draft - welsh',
   pendingCaseStatus: 'Application submitted - welsh',
   submittedCaseStatus: 'Application submitted - welsh',
+  caseIssued: 'Application submitted (Case Issued) - welsh',
+  caseGatekeeping: 'Application submitted (Gatekeeping) - welsh',
 };
 
 export const languages = {
@@ -61,9 +65,9 @@ export const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-
+  const session = content.additionalData!.req.session;
   return {
     ...translations,
-    tabs: prepareCaseView(content.additionalData!.req.session.userCaseList, translations),
+    tabs: prepareCaseView(session.userCaseList, session.user.id, translations),
   };
 };

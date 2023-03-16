@@ -1990,6 +1990,7 @@ export const enum State {
   AWAITING_RESUBMISSION_TO_HMCTS = "Returned",
   CASE_ISSUE = "Case Issued",
   CASE_WITHDRAWN = "Withdrawn",
+  CASE_WITHDRAWN_STATE = "CASE_WITHDRAWN",
   GATEKEEPING = "Gatekeeping",
   PREPARE_FOR_HEARING_CONDUCT_HEARING = "Hearing",
   DECISION_OUTCOME = "DECISION_OUTCOME",
@@ -2362,6 +2363,9 @@ export interface PRLDocument {
   orderType: string;
   orderDocument: Document;
   otherDetails: OtherDetails;
+  orderTypeId?: string;
+  isWithdrawnRequestApproved?: YesOrNo
+  withdrawnRequestType?: string;
 }
 
 export interface HearingsList {

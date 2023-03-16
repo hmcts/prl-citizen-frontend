@@ -256,7 +256,7 @@ export const ChildernDetails = (
         newChildDataStorage.push(
           {
             key: keys['approxCheckboxLabel'],
-            value: personalDetails['isDateOfBirthUnknown'],
+            value: getYesNoTranslation(language,personalDetails['isDateOfBirthUnknown'],'doTranslation'),
             changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
           },
           {
@@ -387,7 +387,7 @@ export const OtherChildrenDetails = (
         newChildDataStorage.push(
           {
             key: keys['approxCheckboxLabel'],
-            value: personalDetails['isDateOfBirthUnknown'],
+            value: getYesNoTranslation(language,personalDetails['isDateOfBirthUnknown'],'doTranslation'),
             changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
           },
           {
@@ -842,7 +842,7 @@ export const SafetyConcerns_child = (
    * @policeOrInvestigatorsOtherDetails session Values
    */
   let policeOrInvestigatorsOtherDetailsHTML = '';
-  policeOrInvestigatorsOtherDetailsHTML += userCase['c1A_policeOrInvestigatorInvolved'];
+  policeOrInvestigatorsOtherDetailsHTML += getYesNoTranslation(language,userCase['c1A_policeOrInvestigatorInvolved'],'OeddTranslation');
    policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
     ?  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + userCase['c1A_policeOrInvestigatorOtherDetails']
     :  '' ;
@@ -850,13 +850,15 @@ export const SafetyConcerns_child = (
    * @c1A_childAbductedBefore session Values
    */
   let c1A_childAbductedBefore = '';
-  c1A_childAbductedBefore += userCase?.['c1A_passportOffice'];
+  c1A_childAbductedBefore += getYesNoTranslation(language,userCase?.['c1A_passportOffice'],'oesTranslation');
+  //userCase?.['c1A_passportOffice'];
   if (userCase.hasOwnProperty('c1A_passportOffice') && userCase.c1A_passportOffice === 'Yes') {
     c1A_childAbductedBefore += HTML.RULER;
     c1A_childAbductedBefore += HTML.H4;
     c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
     c1A_childAbductedBefore += HTML.H4_CLOSE;
-    c1A_childAbductedBefore += userCase['c1A_childrenMoreThanOnePassport'];
+    c1A_childAbductedBefore += getYesNoTranslation(language,userCase['c1A_childrenMoreThanOnePassport'],'oesTranslation');
+    //userCase['c1A_childrenMoreThanOnePassport'];
     c1A_childAbductedBefore += HTML.RULER;
     c1A_childAbductedBefore += HTML.H4;
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
@@ -864,7 +866,8 @@ export const SafetyConcerns_child = (
     c1A_childAbductedBefore += HTML.UNORDER_LIST;
     c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport']
       .filter(element => element !== 'Other')
-      .map(relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END)
+      .map(relatives => HTML.LIST_ITEM + relationshipTranslation(relatives,language)+ HTML.LIST_ITEM_END)
+      //.map(relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END)
       .toString()
       .split(',')
       .join('');
@@ -892,7 +895,8 @@ export const SafetyConcerns_child = (
     },
     {
       key: keys['haspassportOfficeNotified'],
-      valueHtml: userCase['c1A_abductionPassportOfficeNotified'],
+      valueHtml: getYesNoTranslation(language,userCase['c1A_abductionPassportOfficeNotified'],'ydyTranslation'),
+      //userCase['c1A_abductionPassportOfficeNotified'],
       changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION'],
     },
     {
@@ -1049,7 +1053,7 @@ export const SafetyConcerns_others = (
   };
 };
 
-const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent, keys, id, contactDetails ) => {
+const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent, keys, id, contactDetails,language ) => {
   const newRespondentStorage = [] as ANYTYPE;
   if(!sessionRespondentData[respondent].hasOwnProperty('addressUnknown')){
     newRespondentStorage.push({
@@ -1060,7 +1064,7 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
     },
     );
    }
-   if(sessionRespondentData[respondent].hasOwnProperty('addressUnknown') && sessionRespondentData[respondent]['addressUnknown'] === YesOrNo.YES){
+   if(sessionRespondentData[respondent].hasOwnProperty('addressUnknown') && sessionRespondentData[respondent]['addressUnknown'] === 'Yes'){
     newRespondentStorage.push({
       key: keys['explainNoLabel'],
       value: sessionRespondentData[respondent]?.['addressUnknown'],
@@ -1069,39 +1073,47 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
     );
    }
 
-    newRespondentStorage.push(
-      {
-        key: 'Email',
-        value: contactDetails?.['emailAddress'],
-        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-      },
-    );
+    // newRespondentStorage.push(
+    //   {
+    //     key: keys['email'],
+    //     value: contactDetails?.['emailAddress'],
+    //     changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+    //   },
+    // );
 
     if(contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes'){
       newRespondentStorage.push(
         {
-          key: 'I dont know their email address',
-          value: contactDetails?.['donKnowEmailAddress'],
+          key: keys['dontKnowTheirEmailAddress'],
+          value: getYesNoTranslation(language,contactDetails?.['donKnowEmailAddress'],'doTranslation'),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
         },
       );
-    }
-    newRespondentStorage.push(
-      {
-        key: 'Telephone number',
-        value: contactDetails?.['telephoneNumber'],
-        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-      }
-    );
+    }else {newRespondentStorage.push(
+        {
+          key: keys['email'],
+          value: contactDetails?.['emailAddress'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+        },
+      );}
+    
+    
     if(contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes'){
       newRespondentStorage.push(
         {
-          key: 'I dont know their telephone number',
-          value: contactDetails?.['donKnowTelephoneNumber'],
+          key: keys['dontKnowTheirTelephoneNumber'],
+          value: getYesNoTranslation(language,contactDetails?.['donKnowTelephoneNumber'],'doTranslation'),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
         },
       );
-    }
+    }else {newRespondentStorage.push(
+      {
+        key: keys['telephoneNumber'],
+        value: contactDetails?.['telephoneNumber'],
+        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+      }
+    );}
+    
 
     return newRespondentStorage;
 };
@@ -1154,7 +1166,7 @@ export const RespondentDetails = (
         newRespondentStorage.push(
           {
             key: keys['approxCheckboxLabel'],
-            value: personalDetails['isDateOfBirthUnknown'],
+            value: getYesNoTranslation(language,personalDetails['isDateOfBirthUnknown'],'doTranslation'),
             changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
           },
           {
@@ -1173,21 +1185,21 @@ export const RespondentDetails = (
           },
         );
       }
-      newRespondentStorage.push(
-      {
-        key: keys['respondentPlaceOfBirth'],
-        value: personalDetails?.['respondentPlaceOfBirth'],
-        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
-      });
+     
 
       if(personalDetails['respondentPlaceOfBirthUnknown'] !== 'No'){
         newRespondentStorage.push(
           {
             key: keys['respondentPlaceOfBirthUnknown'],
-            value: personalDetails?.['respondentPlaceOfBirthUnknown'],
+            value: getYesNoTranslation(language,personalDetails?.['respondentPlaceOfBirthUnknown'],'doTranslation'),
             changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
           });
-      }
+      }else  {newRespondentStorage.push(
+        {
+          key: keys['respondentPlaceOfBirth'],
+          value: personalDetails?.['respondentPlaceOfBirth'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
+        });}
 
       const relationShipToChildren = sessionRespondentData[respondent]['relationshipDetails']?.['relationshipToChildren'];
       relationShipToChildren.forEach(element => {
@@ -1201,7 +1213,7 @@ export const RespondentDetails = (
         });
       });
       //section 1 insertion
-     newRespondentStorage.push(...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails ));
+     newRespondentStorage.push(...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails,language ));
     }
 
   const SummaryData = newRespondentStorage;
@@ -1283,7 +1295,7 @@ export const OtherPeopleDetails = (
         newOtherPeopleStorage.push(
           {
             key: keys['approxCheckboxLabel'],
-            value: personalDetails['isDateOfBirthUnknown'],
+            value: getYesNoTranslation(language,personalDetails['isDateOfBirthUnknown'],'doTranslation'),
             changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
           },
           {
@@ -1327,7 +1339,7 @@ export const OtherPeopleDetails = (
      if(sessionOtherPeopleData[respondent].hasOwnProperty('addressUnknown') && sessionOtherPeopleData[respondent]['addressUnknown'] === YesOrNo.YES){
       newOtherPeopleStorage.push({
         key: keys['explainNoLabel'],
-        value: sessionOtherPeopleData[respondent]['addressUnknown'],
+        value: getYesNoTranslation(language,sessionOtherPeopleData[respondent]['addressUnknown'],'doTranslation'),
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
       },
       );

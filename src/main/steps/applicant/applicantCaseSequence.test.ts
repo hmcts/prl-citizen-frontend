@@ -1,4 +1,5 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { CaseType } from '../../app/case/definition';
 
 import { applicantCaseSequence } from './applicantCaseSequence';
 
@@ -320,7 +321,12 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[70].url).toBe('/applicant/yourhearings/hearings');
     expect(applicantCaseSequence[70].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[70].getNextStep({})).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[70].getNextStep({ caseTypeOfApplication: CaseType.C100 })).toBe(
+      '/task-list/applicant'
+    );
+    expect(applicantCaseSequence[70].getNextStep({ caseTypeOfApplication: CaseType.FL401 })).toBe(
+      '/applicant/task-list'
+    );
 
     expect(applicantCaseSequence[71].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[71].showInSection).toBe('aboutApplicantCase');

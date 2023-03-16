@@ -42,15 +42,15 @@ const en = {
         links: [
           {
             text: 'Withdraw your application',
-            href: '/c100-rebuild/withdraw',
+            href: '{withdrawCase}',
           },
         ],
       },
-      withdrawalRequestInProgress: {
-        heading: 'Your withdrawal request is in progress',
+      applicationWithdrawn: {
+        heading: 'This case has now been withdrawn',
         contents: [
           {
-            text: 'The court is reviewing your request, and will let you know if it is granted.',
+            text: 'You can still access all documents related to the case',
           },
         ],
       },
@@ -108,15 +108,15 @@ const cy: typeof en = {
         links: [
           {
             text: 'Withdraw your application - welsh',
-            href: '/c100-rebuild/withdraw',
+            href: '{withdrawCase}',
           },
         ],
       },
-      withdrawalRequestInProgress: {
-        heading: 'Your withdrawal request is in progress - welsh',
+      applicationWithdrawn: {
+        heading: 'This case has now been withdrawn - welsh',
         contents: [
           {
-            text: 'The court is reviewing your request, and will let you know if it is granted. - welsh',
+            text: 'You can still access all documents related to the case - welsh',
           },
         ],
       },
