@@ -6,6 +6,7 @@ import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+  APPLICANT_VIEW_ALL_DOCUMENTS,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
 } from '../../../../../steps/urls';
@@ -158,7 +159,7 @@ const taskListConfig = {
           {
             id: Tasks.VIEW_ALL_DOCUMENTS,
             href: () => {
-              '/';
+              return APPLICANT_VIEW_ALL_DOCUMENTS;
             },
             show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
             stateTag: (caseData: Partial<CaseWithId>) => {
@@ -168,7 +169,7 @@ const taskListConfig = {
                 return StateTags.READY_TO_VIEW;
               }
             },
-            disabled: () => true,
+            disabled: () => false,
           },
         ],
       },
