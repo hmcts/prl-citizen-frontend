@@ -56,7 +56,7 @@ const cy: typeof en = {
   largePrintDocs: 'Dogfennau mewn print bras',
   largePrintDocsDetails: 'Describe what you need',
   audioTranslation: 'Cyfieithiad sain o ddogfennau',
-  docsReadOut: 'Cyfieithiad sain o ddogfennau',
+  docsReadOut: 'Dogfennau yn cael eu darllen yn uchel i mi',
   emailInfo: 'Gwybodaeth yn cael ei hanfon ataf drwy e-bost',
   other: 'Arall',
   otherDetails: 'Describe what you need',
