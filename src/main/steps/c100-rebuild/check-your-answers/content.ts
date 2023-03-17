@@ -68,6 +68,8 @@ export const enContent = {
   continue: 'Accept and continue',
   Yes: 'Yes',
   No: 'No',
+  yes: 'Yes',
+  no: 'No',
   'Dont know': 'Dont know',
   'I dont know': 'I dont know',
   'Yes, but I prefer that it is supervised': 'Yes, but I prefer that it is supervised',
@@ -319,6 +321,8 @@ export const cyContent = {
     doTranslation: {
       Yes: 'Do',
       No: 'Naddo',
+      yes: 'Do',
+      no: 'Naddo',
     },
     ydwTranslation: {
       Yes: 'Ydw',
