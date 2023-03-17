@@ -35,6 +35,19 @@ describe('ContactPreferencesGetController', () => {
           response: '',
         },
       },
+      {
+        id: '0c09b130-2eba-4ca8-a910-1f001bac01e1',
+        value: {
+          firstName: 'Giorgi',
+          lastName: 'Citizen',
+          email: 'abc@example.net',
+          user: {
+            idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e1',
+            email: 'test@example.net',
+          },
+          response: '',
+        },
+      },
     ];
     req.session.userCase.applicantPreferredContact = '';
     retrieveByCaseIdMock.mockResolvedValue(req.session.userCase);
@@ -50,6 +63,14 @@ describe('ContactPreferencesGetController', () => {
     req.session.userCase.respondents = partyDetails;
     await controller.get(req, res);
     expect(req.session.userCase.applicantPreferredContact).not.toEqual('Digital');
+  });
+
+  test('Should not get applicantPreferredContact if user id not matches with applicants idamId for CA', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.userCase.applicants = partyDetails;
+    await controller.get(req, res);
+    expect(req.session.userCase.startAlternative).not.toEqual('Yes');
   });
 
   test('Should not get applicantPreferredContact if user id matches but there is no response', async () => {
