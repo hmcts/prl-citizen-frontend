@@ -36,9 +36,9 @@ export const en = () => ({
   female: 'Female',
   other: 'They identify in another way',
   otherGenderDetailsLabel: "Applicant's gender (Optional)",
-  // day: 'Day',
-  // month: 'Month',
-  // year: 'Year',
+  day: 'Day',
+  month: 'Month',
+  year: 'Year',
   errors: {
     haveYouChangeName: {
       required: 'Select if you’ve changed your name',
@@ -87,9 +87,9 @@ export const cy = () => ({
   female: 'Benyw',
   other: 'Maen nhw’n uniaethu mewn ffordd arall',
   otherGenderDetailsLabel: "Rhyw'r Ceisydd (Dewisol)",
-  // day: 'Diwrnod',
-  // month: 'Mis',
-  // year: 'Blwyddyn',
+  day: 'Diwrnod',
+  month: 'Mis',
+  year: 'Blwyddyn',
   errors: {
     haveYouChangeName: {
       required: 'Dewiswch a ydych wedi newid eich enw',

@@ -28,7 +28,7 @@ const en = {
 const cy: typeof en = {
   title: 'Eich manylion cyswllt',
   citizenUserPhoneNumber: 'Rhif ffôn y DU',
-  citizenUserEmailAddress: 'Cyfeiriad ebost',
+  citizenUserEmailAddress: 'Cyfeiriad e-bost',
   citizenUserSafeToCall: 'When it is safe to call you (optional)',
   safeToCallHint: 'Give a time between 9am and 5pm when it is safe to call you',
   continue: 'Continue',

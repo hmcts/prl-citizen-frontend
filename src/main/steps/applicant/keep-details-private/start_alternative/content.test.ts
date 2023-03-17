@@ -8,7 +8,6 @@ const enContent = {
   section: 'Keeping your contact details private',
   title:
     'Do you want to keep your contact details private from the other person named in the application (the respondent)?',
-
   line2:
     'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
   one: 'Yes',
@@ -36,21 +35,20 @@ const enContent = {
 const cyContent = {
   section: 'Cadw eich manylion cyswllt yn breifat',
   title:
-    'Do you want to keep your contact details private from the other person named in the application (the respondent)?',
-
+    'A yw’r unigolyn a wnaeth gais i’r llys (y ceisydd) yn gwybod unrhyw rai o’ch manylion cyswllt?',
   line2:
-    'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
-  one: 'Yes',
-  two: 'No',
-  three: "I don't know",
+    'Bydd eich manylion cyswllt yn cael eu rhannu gyda’r ceisydd, oni bai eich bod yn gofyn i’r llys beidio â rhannu’r wybodaeth hon.',
+  one: 'Ydy',
+  two: 'Nac ydy',
+  three: "Nid wyf yn gwybod",
   threeHint: 'This is a 8 character code',
   summaryText: 'Cysylltiadau am gymorth',
   address: 'Home address',
   postalAddress: 'Postal address',
   Phone_number: 'Rhif ffôn',
-  Email: 'Email',
+  Email: 'E-bost',
   contact_details_private: "Nodwch pa fanylion cyswllt rydych chi eisiau eu cadw'n breifat.",
-  contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
+  contact_details_private_hint: 'Gwnewch yn siŵr eich bod ond yn dewis manylion nad yw’r ceisydd eisoes yn gwybod amdanynt.',
   continue: 'Save and continue',
   errors: {
     startAlternative: {

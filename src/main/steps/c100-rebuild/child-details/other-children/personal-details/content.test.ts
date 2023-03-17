@@ -20,9 +20,9 @@ const en = {
   female: 'Female',
   other: 'They identify in another way',
   otherGenderDetailsLabel: "Child's gender (Optional)",
-  // day: 'Day',
-  // month: 'Month',
-  // year: 'Year',
+  day: 'Day',
+  month: 'Month',
+  year: 'Year',
   errors: {
     dateOfBirth: {
       required: 'Enter the date of birth',
@@ -63,9 +63,9 @@ const cy = {
   female: 'Benyw',
   other: 'Maen nhw’n uniaethu mewn ffordd arall',
   otherGenderDetailsLabel: 'Rhyw y plentyn (Dewisol)',
-  // day: 'Diwrnod',
-  // month: 'Mis',
-  // year: 'Blwyddyn',
+  day: 'Diwrnod',
+  month: 'Mis',
+  year: 'Blwyddyn',
   errors: {
     dateOfBirth: {
       required: 'Nodwch y dyddiad geni',
