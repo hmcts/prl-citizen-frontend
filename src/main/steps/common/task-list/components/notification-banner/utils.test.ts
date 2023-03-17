@@ -1,4 +1,4 @@
-import { CaseType, PartyType, State } from '../../../../../app/case/definition';
+import { CaseType, PartyType, State, YesOrNo } from '../../../../../app/case/definition';
 
 import { getNotificationBannerConfig } from './utils';
 
@@ -76,6 +76,49 @@ describe('testcase for notification Banner', () => {
         ],
         heading: 'This case has now been withdrawn',
         id: 'applicationWithdrawn',
+        title: 'Important',
+      },
+    ]);
+  });
+  test('withdrawn is rejected', () => {
+    const data = {
+      id: '12',
+      state: State.Submitted,
+      orderCollection: [
+        {
+          id: '',
+          value: {
+            dateCreated: '',
+            orderType: '',
+            orderDocument: {
+              document_url: '',
+              document_filename: '',
+              document_binary_url: '',
+            },
+            otherDetails: {
+              createdBy: '',
+              orderCreatedDate: '',
+              orderMadeDate: '',
+              orderRecipients: '',
+            },
+            orderTypeId: 'blankOrderOrDirectionsWithdraw',
+            isWithdrawnRequestApproved: YesOrNo.NO,
+            withdrawnRequestType: 'Withdrawn application',
+          },
+        },
+      ],
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+    expect(getNotificationBannerConfig(data, party, language)).toStrictEqual([
+      {
+        contents: [
+          {
+            text: 'The court rejected your request to withdraw this application. The application will continue to progress.',
+          },
+        ],
+        heading: 'Your withdrawal request was rejected',
+        id: 'withdrawalRequestRejected',
         title: 'Important',
       },
     ]);
