@@ -207,7 +207,7 @@ export const cyContent = {
   Digital: 'Digidol',
   Post: 'Drwy’r post',
   address: 'Cyfeiriad',
-  telephone: 'Rhif ffôn',
+  telephone: 'Ffôn',
   email: 'E-bost',
   Male: 'Gwryw',
   Female: 'Benyw',

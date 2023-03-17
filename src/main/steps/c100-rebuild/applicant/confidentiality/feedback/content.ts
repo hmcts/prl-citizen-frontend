@@ -24,7 +24,7 @@ export const cy = () => ({
   p2: "Bydd y llys yn cadw'r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass (Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd) neu Cafcass CYMRU oni bai ei fod trwy orchymyn y llys.",
   listOfCofidentialInfromations: [
     { key: 'address', value: 'Cyfeiriad' },
-    { key: 'telephone', value: 'Rhif ffôn' },
+    { key: 'telephone', value: 'Ffôn' },
     { key: 'email', value: 'E-bost' },
   ],
 });

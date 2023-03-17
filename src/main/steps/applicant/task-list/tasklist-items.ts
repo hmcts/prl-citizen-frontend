@@ -30,10 +30,10 @@ export const applicant_tasklist_items_cy = {
   check_other_side_aoh_and_violence: "Check the other side's allegations of harm and violence",
   view_all_documents: 'Gweld yr holl ddogfennau',
   view_all_orders_from_the_court: 'Gweld yr holl orchmynion gan y llys',
-  support_you_need_during_your_case: 'Cymorth sydd ei angen arnoch yn ystod eich achos chi',
+  support_you_need_during_your_case: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',
   application_submitted: 'Cais wedi’i gyflwyno (PDF)',
   witness_statement: 'Datganiad tyst (PDF)',
   details_of_court_hearings: 'Gwiriwch fanylion eich gwrandawiadau llys',
   orders: 'Gweld yr holl orchmynion gan y llys',
-  upload_document: 'Llwytho dogfennau',
+  upload_document: 'Llwytho dogfennau Dewisol',
 };
