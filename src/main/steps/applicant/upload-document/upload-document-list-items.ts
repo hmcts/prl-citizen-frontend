@@ -15,9 +15,9 @@ export const documents_list_items_en = {
 };
 
 export const documents_list_items_cy = {
-  your_position_statements: 'Eich datganiadau sefyllfa',
+  your_position_statements: 'Eich datganiadau safbwynt',
   your_witness_statements: 'Eich datganiadau tyst',
-  other_witness_statements: 'Datganiadau tystion pobl eraill',
+  other_witness_statements: 'Datganiadau tyst pobl eraill',
   mail_screenshots_media_files: 'E-byst, sgrinluniau, delweddau a ffeiliau cyfryngau eraill',
   medical_records: 'Cofnodion meddygol',
   letters_from_school: "Llythyrau o'r ysgol",

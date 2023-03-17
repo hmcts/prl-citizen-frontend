@@ -86,7 +86,7 @@ export const cy = () => ({
   undertakingOrderLabel: 'Undertaking Order - welsh',
   otherOrderLabel: 'Other Order - welsh',
   courtIssuedLabel: 'Which court issued the order? (optional) - welsh',
-  caseNumberLabel: 'Case number (optional) - welsh',
+  caseNumberLabel: 'Rhif yr achos (dewisol)',
   caseNumberHint: 'For example, BS19F99999 - welsh',
   orderDateLabel: 'What date was it made? (optional) - welsh',
   orderEndDateLabel: 'What date did it end? (optional) - welsh',

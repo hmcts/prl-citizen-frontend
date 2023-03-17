@@ -16,7 +16,7 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
-    title: "Other people's witness statements",
+    title: "Datganiadau tyst pobl eraill",
     threeHint: 'This is a 8 character code',
     summaryText: 'Cysylltiadau am gymorth',
     caseNumber: 'Rhif yr achos',
