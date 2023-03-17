@@ -43,7 +43,7 @@ const cy: typeof en = {
   title: 'Rwyf angen dogfennau mewn fformat amgen',
   courtcommunication:
     'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
-  optionHint: "Dogfennau mewn lliw penodol",
+  optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
   docsprint: 'Dogfennau mewn lliw penodol',
   docsreadformat: 'Dogfennau mewn fformat hawdd i’w darllen',

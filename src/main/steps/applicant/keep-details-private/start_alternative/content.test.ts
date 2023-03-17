@@ -34,13 +34,12 @@ const enContent = {
 
 const cyContent = {
   section: 'Cadw eich manylion cyswllt yn breifat',
-  title:
-    'A yw’r unigolyn a wnaeth gais i’r llys (y ceisydd) yn gwybod unrhyw rai o’ch manylion cyswllt?',
+  title: 'A yw’r unigolyn a wnaeth gais i’r llys (y ceisydd) yn gwybod unrhyw rai o’ch manylion cyswllt?',
   line2:
     'Bydd eich manylion cyswllt yn cael eu rhannu gyda’r ceisydd, oni bai eich bod yn gofyn i’r llys beidio â rhannu’r wybodaeth hon.',
   one: 'Ydy',
   two: 'Nac ydy',
-  three: "Nid wyf yn gwybod",
+  three: 'Nid wyf yn gwybod',
   threeHint: 'This is a 8 character code',
   summaryText: 'Cysylltiadau am gymorth',
   address: 'Home address',

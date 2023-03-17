@@ -31,7 +31,7 @@ const cy = {
   title: 'Pa dystiolaeth o bryderon amddiffyn plant sydd gennych?',
   needMoreDetails1: 'Os ydych chi’n ceisio esemptiad rhag mynychu MIAM, bydd angen i chi roi mwy o fanylion.',
   needMoreDetails2: "Mae'r llys angen yr wybodaeth hon i benderfynu a oes angen i chi fynychu MIAM ai peidio.",
-  optionHint: "Dogfennau mewn lliw penodol",
+  optionHint: 'Dogfennau mewn lliw penodol',
   localAuthority:
     'Mae’r plant yn y cais, neu blentyn arall ar yr aelwyd, yn destun ymholiadau gan awdurdod lleol o dan adran 47 Deddf Plant 1989',
   localAuthorityHint:

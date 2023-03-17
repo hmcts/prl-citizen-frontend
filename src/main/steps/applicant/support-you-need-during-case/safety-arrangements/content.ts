@@ -36,7 +36,7 @@ const cy: typeof en = {
   title: 'Do you or the children need special safety arrangements at court?',
   courtcommunication:
     'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
-  optionHint: "Dogfennau mewn lliw penodol",
+  optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
   waitingroom: 'Ystafell aros ar wahân',
   separateexitentry: "Drysau ar wahân i fynd i mewn ac allan o'r llys",

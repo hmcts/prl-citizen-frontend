@@ -42,7 +42,7 @@ const cy: typeof en = {
   docsFormat: 'Rwyf angen dogfennau mewn fformat amgen',
   docsFormatHint: 'er enghraifft, print bras neu wahanol liwiau a meintiau testun',
   commHelp: 'Rwyf angen cymorth gyda chyfathrebu a deall pethau',
-  commHelpHint: "er enghraifft, gwrando, siarad neu gymorth gan gyfieithydd/dehonglydd",
+  commHelpHint: 'er enghraifft, gwrando, siarad neu gymorth gan gyfieithydd/dehonglydd',
   hearingSupport: 'Rwyf eisiau dod â rhywun efo fi i fy nghefnogi mewn gwrandawiad',
   hearingSupportHint: "er enghraifft, rhywun rydych chi'n ei adnabod neu gi cymorth",
   hearingComfort: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad',
