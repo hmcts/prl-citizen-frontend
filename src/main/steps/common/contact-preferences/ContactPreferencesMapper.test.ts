@@ -19,8 +19,10 @@ describe('ContactPreferencesMapper', () => {
             idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
             email: 'test@example.net',
           },
-          response: '',
-          contactPreferences: '',
+          response: {
+            contactPreferences: 'Digital',
+          },
+          contactPreferences: 'Digital',
         },
       },
     ];
@@ -38,6 +40,7 @@ describe('ContactPreferencesMapper', () => {
           response: {
             contactPreferences: 'Digital',
           },
+          contactPreferences: 'Digital',
         },
       },
     ];
@@ -59,13 +62,11 @@ describe('ContactPreferencesMapper', () => {
 
   test('Should setContactPreferences with response as Post', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-    req.session.userCase.applicantPreferredContact = 'Digital';
-    const response = {
-      applicantPreferredContact: 'Post',
-    };
-    applicants[0].value.response = response;
-    await setContactPreferences(applicants[0].value, req);
-    expect(applicants[0].value.response.applicantPreferredContact).toEqual('Post');
+    partyDetails.response = 'Digital';
+    partyDetails.contactPreferences = 'Digital';
+    req.body.applicantPreferredContact = 'Post';
+    await setContactPreferences(partyDetails, req);
+    expect(partyDetails.contactPreferences).toEqual('Post');
   });
 
   test('Should getContactPreferences with applicant contact preference indicated as Post', async () => {
