@@ -33,7 +33,7 @@ const cy: typeof en = {
   continue: 'Continue',
   errors: {
     citizenUserPhoneNumber: {
-      required: 'Rhif ffôn yn y DU',
+      required: 'Rhowch rif ffôn y DU',
       invalid: 'Rhowch rif ffôn dilys yn y DU',
     },
     citizenUserEmailAddress: {
