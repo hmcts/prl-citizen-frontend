@@ -47,7 +47,8 @@ const cyContent = {
   Phone_number: 'Rhif ffôn',
   Email: 'E-bost',
   contact_details_private: "Nodwch pa fanylion cyswllt rydych chi eisiau eu cadw'n breifat.",
-  contact_details_private_hint: 'Gwnewch yn siŵr eich bod ond yn dewis manylion nad yw’r ceisydd eisoes yn gwybod amdanynt.',
+  contact_details_private_hint:
+    'Gwnewch yn siŵr eich bod ond yn dewis manylion nad yw’r ceisydd eisoes yn gwybod amdanynt.',
   continue: 'Save and continue',
   errors: {
     startAlternative: {
