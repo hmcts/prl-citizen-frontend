@@ -37,7 +37,7 @@ const en = {
 const cy: typeof en = {
   section: 'Addasiadau rhesymol',
   title: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
-  optionHint: "Dewiswch bob un sy'n berthnasol i chi",
+  optionHint: "Dogfennau mewn lliw penodol",
   summaryText: 'Cysylltiadau am gymorth',
   parkingspace: "Lle parcio yn agos i'r lleoliad",
   stepfree: 'Dim grisiau / mynediad ar gyfer cadair olwyn',

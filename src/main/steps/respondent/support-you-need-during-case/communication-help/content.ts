@@ -45,7 +45,7 @@ const cy: typeof en = {
   title: 'Rwyf angen cymorth gyda chyfathrebu a deall pethau',
   courtCommunication:
     'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
-  optionHint: "Dewiswch bob un sy'n berthnasol i chi",
+  optionHint: "Dogfennau mewn lliw penodol",
   summaryText: 'Cysylltiadau am gymorth',
   hearingLoop: 'Dolen sain (system gwella clyw)',
   infraredReceiver: 'Derbynnydd isgoch (system gwella clyw)',
