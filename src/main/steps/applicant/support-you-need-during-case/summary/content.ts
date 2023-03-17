@@ -88,7 +88,7 @@ const cyContent: typeof enContent = {
   },
 
   keys: {
-    languageRequirements: 'Do you have any language requirements?',
+    languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
     languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',

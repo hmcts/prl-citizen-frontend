@@ -119,7 +119,7 @@ const cy: typeof en = {
   keys: {
     attendingToCourt: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
     hearingDetails: 'Please provide the details',
-    languageRequirements: 'Do you have any language requirements?',
+    languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
     languageDetails: 'Please provide language details',
     safetyArrangements: 'Do you or the children need special safety arrangements at court?',
     safetyArrangementsDetails: 'Please describe your need in detail',
