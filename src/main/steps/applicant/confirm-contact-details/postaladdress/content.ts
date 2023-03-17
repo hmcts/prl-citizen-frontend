@@ -15,12 +15,12 @@ const en = {
 
 const cy: typeof en = {
   title: 'Postal address',
-  addressLine1: 'Building and street',
+  addressLine1: 'Adeilad a stryd',
   addressLine2: 'Address line 2',
   addressLine3: 'Address line 3',
-  town: 'Town or city',
-  country: 'Country',
-  postcode: 'Postcode',
+  town: 'Tref neu ddinas',
+  country: 'Gwlad',
+  postcode: 'Cod post',
   continue: 'Save and continue',
   errors: {},
 };

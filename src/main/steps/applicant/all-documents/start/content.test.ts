@@ -22,10 +22,10 @@ const enContent = {
 
 const cyContent = {
   section: 'Cadw eich manylion cyswllt yn breifat',
-  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
-  one: 'Yes',
-  two: 'No',
-  three: "I don't know",
+  title: 'A yw’r unigolyn a wnaeth gais i’r llys (y ceisydd) yn gwybod unrhyw rai o’ch manylion cyswllt?',
+  one: 'Ydy',
+  two: 'Nac ydy',
+  three: 'Nid wyf yn gwybod',
   threeHint: 'This is a 8 character code',
   summaryText: 'Cysylltiadau am gymorth',
   continue: 'Continue',
