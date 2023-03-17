@@ -101,6 +101,6 @@ export const applicant_tasklist_items_all_docs_cy = {
   privacy_notice: 'Hysbysiad Preifatrwydd',
   special_measures: 'Mesurau arbennig',
   notice_of_hearing: 'Hysbysiad o Wrandawiad',
-  support_you_need_during_your_case: 'Cefnogaeth y mae ei hangen arnoch yn ystod eich achos',
+  support_you_need_during_your_case: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',
   other_documents: 'Dogfennau eraill',
 };
