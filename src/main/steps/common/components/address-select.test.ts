@@ -24,7 +24,7 @@ const enContent = {
 const cyContent = {
   line1:
     "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
-  postcode: 'Current postcode (in welsh)',
+  postcode: 'Cod post cyfredol',
   citizenUserSelectAddress: 'Dewiswch gyfeiriad',
   cannotFindAddress: 'I cannot find the address in the list (in welsh)',
   errors: {
@@ -72,7 +72,7 @@ describe('common > components > address-select', () => {
 
     expect(generatedContent.errors).toEqual({
       citizenUserSelectAddress: {
-        notSelected: 'Select an address (in welsh)',
+        notSelected: 'Dewiswch gyfeiriad',
       },
     });
 

@@ -41,7 +41,7 @@ export const cyContent: typeof enContent = {
   serviceName: 'Gwirio eich atebion',
   section: '',
   title: 'Gwirio eich atebion',
-  change: 'change - welsh',
+  change: 'Golygu',
   topWarning: 'Your answers will be shared with the other people in this case. - welsh',
   makingSure: 'Please review your answers before you finish your application.- welsh',
   continue: 'Save and submit - welsh',
