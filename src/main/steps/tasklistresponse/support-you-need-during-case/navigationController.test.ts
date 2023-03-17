@@ -4,6 +4,7 @@ import {
   C7_COURT_HEARING_COMFORT,
   C7_COURT_HEARING_SUPPORT,
   C7_DOCUMENTS_SUPPORT,
+  C7_REASONABLE_ADJUSTMENTS,
   C7_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   C7_TRAVELLING_TO_COURT,
 } from '../../urls';
@@ -25,6 +26,11 @@ describe('ReasonableAdjustmentsNavigationController', () => {
       C7_DOCUMENTS_SUPPORT,
       dummyRequest.session.userCase
     );
+    const nextUrlDir = ReasonableAdjustmentsNavigationController.getNextUrl(
+      C7_REASONABLE_ADJUSTMENTS,
+      dummyRequest.session.userCase
+    );
+    expect(nextUrlDir).toBe(C7_DOCUMENTS_SUPPORT);
     expect(nextUrl).toBe(C7_COMMUNICATION_HELP);
 
     const nextUrl1 = ReasonableAdjustmentsNavigationController.getNextUrl(nextUrl, dummyRequest.session.userCase);
