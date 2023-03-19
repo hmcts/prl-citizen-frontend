@@ -106,4 +106,28 @@ describe('ContactPreferencesGetController', () => {
     await controller.get(req, res);
     expect(req.session.userCase.applicants[0].value.response.applicantPreferredContact).toEqual('Digital');
   });
+
+  test('Should not get the applicantContactPreferences details if user id matches with respondent', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    req.session.userCase.applicants = partyDetails;
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.userCase.respondents = [
+      {
+        id: '0c09b130-2eba-4ca8-a910-1f001bac01e1',
+        value: {
+          firstName: 'Giorgi',
+          lastName: 'Citizen',
+          email: 'abc@example.net',
+          user: {
+            idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e1',
+            email: 'test@example.net',
+          },
+          response: '',
+        },
+      },
+    ];
+    req.url = 'respondent';
+    await controller.get(req, res);
+    expect(req.session.userCase.respondents[0].value.response.applicantPreferredContact).toEqual(undefined);
+  });
 });
