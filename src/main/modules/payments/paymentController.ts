@@ -127,10 +127,10 @@ async function submitCase(
   }
 }
 
-function populateError(req: AppRequest, res: Response, errorMsg: string): void {
+const populateError = (req: AppRequest, res: Response, errorMsg: string) => {
   req.locals.logger.error(errorMsg);
   req.session.paymentError = true;
   req.session.save(() => {
     res.redirect(C100_CHECK_YOUR_ANSWER);
   });
-}
+};
