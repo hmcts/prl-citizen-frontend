@@ -19,9 +19,9 @@ const en = {
   listOfBullets: ['court orders', 'hearings', 'decisions in your case'],
   contactPreferenceLabel: 'How would you prefer to be contacted?',
   contactPreferenceHintText: 'Select one (or both) of these options.',
-  labelDigital: 'Digital',
+  labelDigital: 'digital',
   labelDitigalHintText: 'All communication from the court will be sent by email.',
-  labelPost: 'Post',
+  labelPost: 'post',
   labelPostHintText: 'All communication from the court will be sent by post.',
   errors: {
     applicantContactPreferences: {
@@ -110,7 +110,7 @@ describe('Contact Preference > content', () => {
   test('should contain contact-preference details form fields', () => {
     const { applicantContactPreferences } = fields as Record<string, FormFields>;
 
-    expect(applicantContactPreferences.type).toBe('checkboxes');
+    expect(applicantContactPreferences.type).toBe('radios');
     expect((applicantContactPreferences.values[0].label as Function)(generatedContent)).toBe(en.labelDigital);
     expect(applicantContactPreferences.values[0].value).toBe(en.labelDigital);
     expect((applicantContactPreferences.values[1].label as Function)(generatedContent)).toBe(en.labelPost);

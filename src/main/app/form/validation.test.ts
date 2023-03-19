@@ -7,6 +7,7 @@ import {
   isAccessCodeValid,
   isAddressSelected,
   isAlphaNumeric,
+  isAlphaNumericWithApostrophe,
   isCaseCodeValid,
   isDateInputInvalid,
   isEmailValid,
@@ -255,6 +256,20 @@ describe('Validation', () => {
     });
   });
 
+  describe('isAlphaNumericWithApostrophe', () => {
+    it.each([
+      { mockRef: '', expected: undefined },
+      { mockRef: 'a', expected: undefined },
+      { mockRef: 'A', expected: undefined },
+      { mockRef: '1', expected: undefined },
+      { mockRef: 'Aa1', expected: undefined },
+      { mockRef: '!!!!', expected: 'invalid' },
+      { mockRef: 'Aa1!', expected: 'invalid' },
+    ])('validates only alphanumeric with apostrophe strings', ({ mockRef, expected }) => {
+      expect(isAlphaNumericWithApostrophe(mockRef)).toEqual(expected);
+    });
+  });
+
   describe('isEmailValid()', () => {
     it.each([
       { mockEmail: '', expected: 'invalid' },
@@ -301,6 +316,11 @@ describe('Validation', () => {
       const isValid = atLeastOneFieldIsChecked([]);
 
       expect(isValid).toStrictEqual('required');
+    });
+
+    test('If fields is not an Array, assign it automatically in the else block', async () => {
+      const isValid = atLeastOneFieldIsChecked({});
+      expect(isValid).toStrictEqual(undefined);
     });
   });
 

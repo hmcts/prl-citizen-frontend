@@ -22,10 +22,13 @@ describe('PrivacyPolicyGetController', () => {
           pageContent: generateContent,
           userEmail: 'test@example.com',
           userCase: req.session.userCase,
-          additionalData: { req },
+          additionalData: {
+            req,
+            user: {
+              fullname: `${req.session.user.givenName} ${req.session.user.familyName}`,
+            },
+          },
         }),
-        // ...defaultViewArgs,
-        // userCase: req.session.userCase,
       })
     );
   });

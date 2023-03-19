@@ -24,6 +24,9 @@ describe('ContactUsGetController', () => {
           userCase: req.session.userCase,
           additionalData: {
             req,
+            user: {
+              fullname: `${req.session.user.givenName} ${req.session.user.familyName}`,
+            },
           },
         }),
       })
