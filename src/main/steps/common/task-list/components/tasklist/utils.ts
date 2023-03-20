@@ -6,6 +6,7 @@ import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+  APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   APPLICANT_YOURHEARINGS_HEARINGS,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
@@ -24,7 +25,7 @@ enum TaskListSection {
 enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
   VIEW_ALL_DOCUMENTS = 'viewAllDocuments',
-
+  UPLOAD_DOCUMENTS = 'uploadDocuments',
   VIEW_HEARING_DETAILS = 'viewHearingDetails',
 
   EDIT_YOUR_CONTACT_DETAILS = 'editYouContactDetails',
@@ -38,6 +39,7 @@ enum StateTags {
   NOT_AVAILABLE_YET = 'notAvailableYet',
   READY_TO_VIEW = 'readyToView',
   SUBMITTED = 'submitted',
+  OPTIONAL = 'optional',
 }
 
 /*interface StateTag {
@@ -84,6 +86,10 @@ const stateTagsConfig = {
   },
   [StateTags.READY_TO_VIEW]: {
     label: getStateTagLabel.bind(null, StateTags.READY_TO_VIEW),
+    className: 'govuk-tag--blue',
+  },
+  [StateTags.OPTIONAL]: {
+    label: getStateTagLabel.bind(null, StateTags.OPTIONAL),
     className: 'govuk-tag--blue',
   },
   [StateTags.SUBMITTED]: {
@@ -163,6 +169,16 @@ const taskListConfig = {
         show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
         tasks: [
           {
+            id: Tasks.UPLOAD_DOCUMENTS,
+            href: () => {
+              return APPLICANT_UPLOAD_DOCUMENT_LIST_URL;
+            },
+            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            stateTag: () => {
+              return StateTags.OPTIONAL;
+            },
+          },
+          {
             id: Tasks.VIEW_ALL_DOCUMENTS,
             href: () => {
               '/';
@@ -175,7 +191,6 @@ const taskListConfig = {
                 return StateTags.READY_TO_VIEW;
               }
             },
-            disabled: () => true,
           },
         ],
       },

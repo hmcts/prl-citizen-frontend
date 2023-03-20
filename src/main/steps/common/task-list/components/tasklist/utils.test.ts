@@ -104,7 +104,17 @@ describe('testcase for tasklist', () => {
         id: 'yourDocuments',
         tasks: [
           {
-            disabled: true,
+            disabled: false,
+            href: '/applicant/upload-document',
+            id: 'uploadDocuments',
+            linkText: ' Upload documents',
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Optional',
+            },
+          },
+          {
+            disabled: false,
             href: undefined,
             id: 'viewAllDocuments',
             linkText: 'View all documents',
