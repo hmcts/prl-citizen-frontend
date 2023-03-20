@@ -116,6 +116,22 @@ describe('testcase for tasklist', () => {
         ],
       },
       {
+        heading: 'Orders from the court',
+        id: 'ordersFromTheCourt',
+        tasks: [
+          {
+            disabled: false,
+            href: '/task-list/applicant',
+            id: 'viewOrders',
+            linkText: 'View all orders from the court',
+            stateTag: {
+              className: 'govuk-tag--grey',
+              label: 'Not available yet',
+            },
+          },
+        ],
+      },
+      {
         heading: 'Your court hearings',
         id: 'yourHearing',
         tasks: [
