@@ -27,6 +27,7 @@ const progressBarStage = {
     label: getLabel.bind(null, CaseProgressionStage.APPLICATION_SUBMITTED),
     ariaLabel: getAriaLabel.bind(null, CaseProgressionStage.APPLICATION_SUBMITTED),
     isInProgress: () => false,
+    isComplete: () => false,
   },
   cafcassSafetyChecks: {
     id: CaseProgressionStage.CAFCASS_SAFETY_CHECKS,
