@@ -715,11 +715,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
 
     if (YesOrNo.YES === isContinue) {
-      if (req.session.userCase.caseTypeOfApplication === CaseType.C100) {
-        this.redirect(req, res, C100_APPLICANT_TASKLIST);
-      } else {
-        this.redirect(req, res, this.setTaskListURL(isApplicant, isContinue));
-      }
+      this.redirect(req, res, this.setTaskListURL(isApplicant, isContinue, req));
     } else {
       this.redirect(req, res, this.setUploadDocumentListURL(isApplicant));
     }
@@ -735,10 +731,14 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return redirectUrl;
   }
 
-  private setTaskListURL(isApplicant, isContinue) {
+  private setTaskListURL(isApplicant, isContinue, req: AppRequest<AnyObject>) {
     let redirectUrl = '';
     if (YesOrNo.YES === isApplicant && YesOrNo.YES === isContinue) {
-      redirectUrl = APPLICANT_TASK_LIST_URL;
+      if (req.session.userCase.caseTypeOfApplication === CaseType.C100) {
+        redirectUrl = C100_APPLICANT_TASKLIST;
+      } else {
+        redirectUrl = APPLICANT_TASK_LIST_URL;
+      }
     } else {
       redirectUrl = RESPONDENT_TASK_LIST_URL;
     }
