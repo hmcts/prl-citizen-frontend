@@ -81,6 +81,16 @@ describe('testcase for tasklist', () => {
               label: 'Submitted',
             },
           },
+          {
+            disabled: false,
+            href: '/applicant/hearing-needs/support-help/12',
+            id: 'supportDuringCase',
+            linkText: 'Support you need during your case',
+            stateTag: {
+              className: 'govuk-tag--turquoise',
+              label: 'Submitted',
+            },
+          },
         ],
       },
       {

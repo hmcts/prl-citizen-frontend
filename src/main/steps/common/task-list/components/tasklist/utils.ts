@@ -6,6 +6,7 @@ import {
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+  APPLICANT_TASKLIST_HEARING_NEEDS,
   APPLICANT_YOURHEARINGS_HEARINGS,
   C100_APPLICANT_TASKLIST,
   C100_DOWNLOAD_APPLICATION,
@@ -32,6 +33,7 @@ enum Tasks {
   EDIT_YOUR_CONTACT_DETAILS = 'editYouContactDetails',
   CONTACT_PREFERENCES = 'contactPreferences',
   KEEP_YOUR_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
+  SUPPORT_DURING_CASE = 'supportDuringCase',
   VIEW_ORDERS = 'viewOrders',
 }
 
@@ -123,6 +125,14 @@ const taskListConfig = {
             id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
             href: (caseData: Partial<CaseWithId>) => {
               return `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`;
+            },
+            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            stateTag: () => StateTags.SUBMITTED,
+          },
+          {
+            id: Tasks.SUPPORT_DURING_CASE,
+            href: (caseData: Partial<CaseWithId>) => {
+              return `${APPLICANT_TASKLIST_HEARING_NEEDS}/${caseData.id}`;
             },
             show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
             stateTag: () => StateTags.SUBMITTED,
