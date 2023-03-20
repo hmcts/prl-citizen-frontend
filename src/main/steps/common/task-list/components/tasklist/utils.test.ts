@@ -30,11 +30,31 @@ describe('testcase for tasklist', () => {
       },
     ]);
   });
-
   test('case in non pending state', () => {
     const data = {
       id: '12',
       state: State.GATEKEEPING,
+      orderCollection: [
+        {
+          id: '1234',
+          value: {
+            dateCreated: 'date',
+            orderType: 'type',
+            orderDocument: {
+              document_url: 'string',
+              document_filename: 'string',
+              document_binary_url: 'string',
+              document_hash: 'string',
+            },
+            otherDetails: {
+              createdBy: 'string',
+              orderCreatedDate: 'string',
+              orderMadeDate: 'string',
+              orderRecipients: 'string',
+            },
+          },
+        },
+      ],
       hearingCollection: [
         {
           next: {
@@ -108,6 +128,22 @@ describe('testcase for tasklist', () => {
             href: '/applicant/yourdocuments/alldocuments/alldocuments',
             id: 'viewAllDocuments',
             linkText: 'View all documents',
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Ready to view',
+            },
+          },
+        ],
+      },
+      {
+        heading: 'Orders from the court',
+        id: 'ordersFromTheCourt',
+        tasks: [
+          {
+            disabled: true,
+            href: '/applicant/yourdocuments/alldocuments/orders',
+            id: 'viewOrders',
+            linkText: 'View all orders from the court',
             stateTag: {
               className: 'govuk-tag--blue',
               label: 'Ready to view',
