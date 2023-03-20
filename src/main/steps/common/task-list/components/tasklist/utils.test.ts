@@ -104,8 +104,8 @@ describe('testcase for tasklist', () => {
         id: 'yourDocuments',
         tasks: [
           {
-            disabled: true,
-            href: undefined,
+            disabled: false,
+            href: '/applicant/yourdocuments/alldocuments/alldocuments',
             id: 'viewAllDocuments',
             linkText: 'View all documents',
             stateTag: {
@@ -116,27 +116,11 @@ describe('testcase for tasklist', () => {
         ],
       },
       {
-        heading: 'Orders from the court',
-        id: 'ordersFromTheCourt',
-        tasks: [
-          {
-            disabled: false,
-            href: '/task-list/applicant',
-            id: 'viewOrders',
-            linkText: 'View all orders from the court',
-            stateTag: {
-              className: 'govuk-tag--grey',
-              label: 'Not available yet',
-            },
-          },
-        ],
-      },
-      {
         heading: 'Your court hearings',
         id: 'yourHearing',
         tasks: [
           {
-            disabled: false,
+            disabled: true,
             href: '/applicant/yourhearings/hearings',
             id: 'viewHearingDetails',
             linkText: 'Check details of your court hearings',
