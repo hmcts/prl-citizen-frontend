@@ -26,6 +26,9 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
         Object.assign(respondent.value, setKeepYourDetailsPrivate(respondent.value, req));
+        Object.assign(respondent.value, {
+          ...mapConfidentialListToFields(setKeepYourDetailsPrivate(respondent.value, req)),
+        });
       }
     });
   }
@@ -46,6 +49,9 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
         req.session.userCase.respondentsFL401,
         setKeepYourDetailsPrivate(req.session.userCase.respondentsFL401, req)
       );
+      Object.assign(req.session.userCase.respondentsFL401, {
+        ...mapConfidentialListToFields(setKeepYourDetailsPrivate(req.session.userCase.respondentsFL401, req)),
+      });
     }
   }
 
@@ -55,6 +61,9 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
         req.session.userCase.applicantsFL401,
         setKeepYourDetailsPrivate(req.session.userCase.applicantsFL401, req)
       );
+      Object.assign(req.session.userCase.applicantsFL401, {
+        ...mapConfidentialListToFields(setKeepYourDetailsPrivate(req.session.userCase.applicantsFL401, req)),
+      });
     }
   }
 
