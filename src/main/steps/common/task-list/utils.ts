@@ -28,7 +28,7 @@ export const getPartyName = (
   return partyDetails ? `${partyDetails.firstName} ${partyDetails.lastName}` : '';
 };
 
-export const isCaseWithdrawn = (caseData: Partial<CaseWithId>): boolean => {
+export const isCaseWithdrawn = (caseData: Partial<CaseWithId> | undefined): boolean => {
   if (!caseData) {
     return false;
   }
