@@ -32,7 +32,24 @@ const cy = {
 };
 
 describe('contact email common content', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+  const commonContent = {
+    language: 'en',
+    userCase: {
+      applicants: [
+        {
+          value: {
+            address: {
+              AddressLine1: 'test',
+              AddressLine2: 'test line 2',
+              PostTown: 'London',
+              County: 'Islington',
+              PostCode: 'EC1 EC11',
+            },
+          },
+        },
+      ],
+    },
+  } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));

@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../../../app/case/definition';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
+  APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   APPLICANT_YOURHEARINGS_HEARINGS,
+  C100_APPLICANT_TASKLIST,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
 } from '../../../../urls';
@@ -21,6 +22,7 @@ enum TaskListSection {
   YOUR_HEARING = 'yourHearing',
 
   ABOUT_YOU = 'aboutYou',
+  YOUR_ORDERS = 'ordersFromTheCourt',
 }
 enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
@@ -31,6 +33,7 @@ enum Tasks {
   EDIT_YOUR_CONTACT_DETAILS = 'editYouContactDetails',
   CONTACT_PREFERENCES = 'contactPreferences',
   KEEP_YOUR_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
+  VIEW_ORDERS = 'viewOrders',
 }
 
 enum StateTags {
@@ -195,6 +198,32 @@ const taskListConfig = {
         ],
       },
       {
+        id: TaskListSection.YOUR_ORDERS,
+        content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
+        show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+        tasks: [
+          {
+            id: Tasks.VIEW_ORDERS,
+            href: (caseData: Partial<CaseWithId>) => {
+              if (caseData && caseData.orderCollection && caseData.orderCollection.length > 0) {
+                return APPLICANT_ORDERS_FROM_THE_COURT;
+              } else {
+                return C100_APPLICANT_TASKLIST;
+              }
+            },
+            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            stateTag: (caseData: Partial<CaseWithId>) => {
+              if (caseData && caseData.orderCollection && caseData.orderCollection.length > 0) {
+                return StateTags.READY_TO_VIEW;
+              } else {
+                return StateTags.NOT_AVAILABLE_YET;
+              }
+            },
+            disabled: (caseData: Partial<CaseWithId>): boolean => !isActiveCase(caseData),
+          },
+        ],
+      },
+      {
         id: TaskListSection.YOUR_HEARING,
         content: getContents.bind(null, TaskListSection.YOUR_HEARING),
         show: (caseData: Partial<CaseWithId>): boolean => showHearing(caseData),
@@ -233,7 +262,6 @@ export const getTaskListConfig = (
   language: string
 ): Record<string, any>[] => {
   let caseType = caseData?.caseTypeOfApplication;
-
   if (!caseType && partyType === PartyType.APPLICANT) {
     caseType = CaseType.C100;
   }
