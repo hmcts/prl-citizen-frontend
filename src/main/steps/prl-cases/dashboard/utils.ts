@@ -1,20 +1,19 @@
 import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType, YesOrNo } from '../../../app/case/definition';
 
-export const getCasePartyType = (caseData: Partial<CaseWithId>): PartyType => {
-  const { caseTypeOfApplication: caseType, caseInvites, applicants, respondents, respondentsFL401 } = caseData;
+export const getCasePartyType = (caseData: Partial<CaseWithId>, idamId: string): PartyType => {
+  const { caseTypeOfApplication: caseType, caseInvites, respondents, respondentsFL401 } = caseData;
   let partyType = PartyType.APPLICANT; //default to applicant for now to avoid undefined issues
   if (caseType === CaseType.C100) {
     if (
-      caseInvites?.find(
-        invite =>
-          invite.value.isApplicant === YesOrNo.YES &&
-          applicants?.find(applicant => applicant.id === invite.value.partyId)
+      caseInvites?.find(invities =>
+        respondents?.find(
+          respondent =>
+            respondent.id === invities.value.partyId &&
+            respondent.value.user.idamId === invities.value.invitedUserId &&
+            respondent.value.user.idamId === idamId
+        )
       )
-    ) {
-      partyType = PartyType.APPLICANT;
-    } else if (
-      caseInvites?.find(invities => respondents?.find(respondent => respondent.id === invities.value.partyId))
     ) {
       partyType = PartyType.RESPONDENT;
     }
@@ -23,7 +22,8 @@ export const getCasePartyType = (caseData: Partial<CaseWithId>): PartyType => {
       invities =>
         invities.value.isApplicant === YesOrNo.NO &&
         invities.value.invitedUserId &&
-        invities.value.invitedUserId === respondentsFL401?.user.idamId
+        invities.value.invitedUserId === respondentsFL401?.user.idamId &&
+        respondentsFL401?.user?.idamId === idamId
     )
       ? PartyType.RESPONDENT
       : PartyType.APPLICANT;

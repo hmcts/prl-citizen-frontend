@@ -3,7 +3,7 @@ import { CaseType, PartyType, State } from '../../../../../app/case/definition';
 import { getProgressBarConfig } from './utils';
 
 describe('testcase for progress-bar', () => {
-  test('when in progress state', () => {
+  test('when not started yet', () => {
     const data = {
       id: '12',
       state: State.AwaitingSubmissionToHmcts,
@@ -108,9 +108,10 @@ describe('testcase for progress-bar', () => {
       },
     ]);
   });
-  test('when state submitted', () => {
+  test('when state submitted and withdrawn', () => {
     const data = {
       id: '12',
+      state: State.Withdrawn,
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -120,6 +121,42 @@ describe('testcase for progress-bar', () => {
         ariaLabel: 'Application submitted stage is completed',
         label: 'Application<br/> submitted',
         statusBarClassName: 'stage--completed',
+      },
+      {
+        ariaLabel: 'Cafcass child safety checks stage is not yet started',
+        label: 'Cafcass child<br/> safety checks',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Response submitted stage is not yet started',
+        label: 'Response<br/> submitted',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Hearings and court orders stage is not yet started',
+        label: 'Hearings and<br/> court orders',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Case closed stage is not yet started',
+        label: 'Case closed',
+        statusBarClassName: '',
+      },
+    ]);
+  });
+  test('when case in inprogress', () => {
+    const data = {
+      id: '12',
+      state: State.SUBMITTED_NOT_PAID,
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+
+    expect(getProgressBarConfig(data, party, language)).toStrictEqual([
+      {
+        ariaLabel: 'Application submitted stage is in progress',
+        label: 'Application<br/> submitted',
+        statusBarClassName: 'stage--active',
       },
       {
         ariaLabel: 'Cafcass child safety checks stage is not yet started',

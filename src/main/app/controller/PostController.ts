@@ -255,7 +255,6 @@ export class PostController<T extends AnyObject> {
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
-
     this.redirect(req, res);
   }
 

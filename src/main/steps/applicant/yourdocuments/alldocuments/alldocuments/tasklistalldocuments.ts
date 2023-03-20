@@ -263,9 +263,6 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
       respondentItems2.push(getRespondentWitnessStatements(respondent, taskListItems, userCase, url));
     });
   } else {
-    // respondentItems.push(getResponseToDA(userCase.respondentsFL401, taskListItems));
-    // respondentItems.push(getResponseToAohAndViolenceDA(userCase.respondentsFL401, taskListItems, userCase));
-    // respondentItems.push(getAohAndViolenceDA(userCase.respondentsFL401, taskListItems));
     respondentItems2.push(getRespondentPositionStatementsDA(userCase.respondentsFL401, taskListItems, url));
     respondentItems2.push(getRespondentWitnessStatementsDA(userCase.respondentsFL401, taskListItems, userCase, url));
   }
@@ -574,42 +571,6 @@ const getRespondentWitnessStatements = (respondent: Respondent, taskListItems, u
       '&byApplicant=No',
   };
 };
-
-// const getResponseToDA = (respondent: PartyDetails, taskListItems) => {
-//   return {
-//     id: 'respondent_response_to_request_for_child_arrangements',
-//     text: taskListItems.respondent_response_to_request_for_child_arrangements.replace(
-//       '<namerespondentxxxxx>',
-//       respondent.firstName + ' ' + respondent.lastName
-//     ),
-//     href: URL.APPLICANT + URL.RESPONDENT_CA_RESPONSE,
-//   };
-// };
-
-// const getAohAndViolenceDA = (respondent: PartyDetails, taskListItems) => {
-//   return {
-//     id: 'respondent_allegation_of_harm_and_violence',
-//     text: taskListItems.respondent_allegation_of_harm_and_violence.replace(
-//       '<namerespondentxxxxx>',
-//       respondent.firstName + ' ' + respondent.lastName
-//     ),
-//     href: URL.ALLEGATION_OF_HARM_VOILENCE,
-//   };
-// };
-
-// const getResponseToAohAndViolenceDA = (respondent: PartyDetails, taskListItems, userCase) => {
-//   return {
-//     id: 'respondent_response_to_allegations_of_harm_and_violence',
-//     text: taskListItems.respondent_response_to_allegations_of_harm_and_violence.replace(
-//       '<namerespondentxxxxx>',
-//       respondent.firstName + ' ' + respondent.lastName
-//     ),
-//     href:
-//       getApplicantAllegationsOfHarmAndViolence(userCase) === true
-//         ? URL.APPLICANT + URL.RESPONDENT_RESPONSE_TO_AOH_VIOLENCE
-//         : '#',
-//   };
-// };
 
 const getRespondentPositionStatementsDA = (respondent: PartyDetails, taskListItems, url) => {
   return {

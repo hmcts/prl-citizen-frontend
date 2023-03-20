@@ -96,12 +96,11 @@ export const generateContent: TranslationFn = content => {
   const caseData = request.session.userCase;
   const partyType = request.params.partyType;
 
-  const n = getTaskListConfig(caseData, partyType, content.language);
   return {
     ...translations,
     partyName: getPartyName(caseData, partyType, request.session.user),
     progressBar: getProgressBarConfig(caseData, partyType, content.language),
     notifications: getNotificationBannerConfig(caseData, partyType, content.language),
-    taskLists: n,
+    taskLists: getTaskListConfig(caseData, partyType, content.language),
   };
 };

@@ -29,6 +29,14 @@ const en = {
           },
         },
       },
+      yourHearing: {
+        heading: 'Your court hearings',
+        tasks: {
+          viewHearingDetails: {
+            linkText: 'Check details of your court hearings',
+          },
+        },
+      },
       aboutYou: {
         heading: 'About you',
         tasks: {
@@ -40,6 +48,14 @@ const en = {
           },
           keepYourDetailsPrivate: {
             linkText: 'Keep your details private',
+          },
+        },
+      },
+      ordersFromTheCourt: {
+        heading: 'Orders from the court',
+        tasks: {
+          viewOrders: {
+            linkText: 'View all orders from the court',
           },
         },
       },
@@ -76,6 +92,16 @@ const cy: typeof en = {
           },
         },
       },
+
+      yourHearing: {
+        heading: 'Your court hearings - welsh',
+        tasks: {
+          viewHearingDetails: {
+            linkText: 'Check details of your court hearings - welsh',
+          },
+        },
+      },
+
       aboutYou: {
         heading: 'About you - welsh',
         tasks: {
@@ -87,6 +113,14 @@ const cy: typeof en = {
           },
           keepYourDetailsPrivate: {
             linkText: 'Keep your details private - welsh',
+          },
+        },
+      },
+      ordersFromTheCourt: {
+        heading: 'Orders from the court - welsh ',
+        tasks: {
+          viewOrders: {
+            linkText: 'View all orders from the court - welsh',
           },
         },
       },

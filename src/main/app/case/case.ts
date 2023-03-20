@@ -337,7 +337,7 @@ export interface Case {
   languageRequirementApplicationNeedWelsh?: string;
   previousOrOngoingProceedingsForChildren?: YesNoDontKnow;
   welshLanguageRequirementApplicationNeedEnglish?: string;
-  //TODO?: Below fields should be with in respondent object.
+  /***  Below fields should be with in respondent object.*/
   serviceType?: string;
   claimNumber?: string;
   caseCode?: string;
@@ -583,6 +583,8 @@ export interface Case {
   noOfDaysRemainingToSubmitCase?: string;
   applicantPreferredContact?: applicantContactPreferencesEnum;
   draftOrderDoc?: Document;
+  withdrawApplication?: YesOrNo;
+  withdrawApplicationReason?: string;
 }
 
 export interface CaseWithId extends Case {
