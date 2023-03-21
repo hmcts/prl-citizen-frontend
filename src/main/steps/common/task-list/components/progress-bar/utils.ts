@@ -80,13 +80,11 @@ const progressBarConfig = {
         ...progressBarStage.applicationSubmitted,
         isComplete: (caseData: Partial<CaseWithId>) => {
           return caseData
-            ? ![State.AwaitingSubmissionToHmcts, State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(
-                caseData.state!
-              )
+            ? ![State.CASE_DRAFT, State.CASE_SUBMITTED_NOT_PAID, State.CASE_SUBMITTED_PAID].includes(caseData.state!)
             : false;
         },
         isInProgress: (caseData: Partial<CaseWithId>) => {
-          return caseData ? caseData.state !== State.AwaitingSubmissionToHmcts : false;
+          return caseData ? caseData.state !== State.CASE_DRAFT : false;
         },
       },
       progressBarStage.cafcassSafetyChecks,
@@ -96,7 +94,7 @@ const progressBarConfig = {
       {
         ...progressBarStage.caseClosed,
         isComplete: (caseData: Partial<CaseWithId>) => {
-          return caseData ? caseData.state === State.ALL_FINAL_ORDERS_ISSUED || isCaseWithdrawn(caseData) : false;
+          return caseData ? caseData.state === State.CASE_CLOSED || isCaseWithdrawn(caseData) : false;
         },
       },
     ],

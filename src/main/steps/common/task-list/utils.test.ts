@@ -6,7 +6,7 @@ describe('testcase for partyname', () => {
   test('when party type c100-respondent', () => {
     const data = {
       id: '12',
-      state: State.Submitted,
+      state: State.CASE_SUBMITTED_PAID,
       respondents: [
         {
           id: '1',
@@ -106,7 +106,7 @@ describe('testcase for partyname', () => {
   test('when party type FL401-respondent', () => {
     const data = {
       id: '12',
-      state: State.Submitted,
+      state: State.CASE_SUBMITTED_PAID,
       respondentsFL401: {
         email: 'abc',
         gender: 'male',
@@ -201,14 +201,14 @@ describe('testcase for isCaseWithdrawn', () => {
   test('withdrawn state', () => {
     const data = {
       id: '12',
-      state: State.CASE_WITHDRAWN_STATE,
+      state: State.CASE_WITHDRAWN,
     };
     expect(isCaseWithdrawn(data)).toBe(true);
   });
   test('not yet withdrawn', () => {
     const data = {
       id: '12',
-      state: State.Submitted,
+      state: State.CASE_SUBMITTED_PAID,
       orderCollection: [
         {
           id: '',
