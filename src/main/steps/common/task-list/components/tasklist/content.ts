@@ -73,8 +73,8 @@ const cy: typeof en = {
     inProgress: 'In progress - welsh',
     notAvailableYet: 'Not available yet - welsh',
     readyToView: 'Ready to view - welsh',
-    submitted: 'Submitted - welsh',
-    optional: 'Optional - welsh',
+    submitted: 'Wedi’i gyflwyno',
+    optional: ' Dewisol',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
@@ -85,7 +85,7 @@ const cy: typeof en = {
             linkText: 'Your child arrangements application - welsh',
           },
           yourApplication: {
-            linkText: 'Your application (PDF) - welsh',
+            linkText: 'Eich cais (PDF)',
           },
         },
       },
@@ -93,7 +93,7 @@ const cy: typeof en = {
         heading: 'Your documents - welsh',
         tasks: {
           uploadDocuments: {
-            linkText: ' Upload documents -welsh',
+            linkText: 'Llwytho dogfennau',
           },
           viewAllDocuments: {
             linkText: 'View all documents - welsh',
@@ -102,33 +102,33 @@ const cy: typeof en = {
       },
 
       yourHearing: {
-        heading: 'Your court hearings - welsh',
+        heading: 'Eich gwrandawiadau llys',
         tasks: {
           viewHearingDetails: {
-            linkText: 'Check details of your court hearings - welsh',
+            linkText: 'Gwirio manylion eich gwrandawiadau llys',
           },
         },
       },
 
       aboutYou: {
-        heading: 'About you - welsh',
+        heading: 'Amdanoch chi',
         tasks: {
           editYouContactDetails: {
-            linkText: 'Confirm or edit your contact details - welsh',
+            linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
           },
           contactPreferences: {
-            linkText: 'Contact preferences - welsh',
+            linkText: 'Dewisiadau cyswllt',
           },
           keepYourDetailsPrivate: {
-            linkText: 'Keep your details private - welsh',
+            linkText: 'Cadw eich manylion yn breifat',
           },
         },
       },
       ordersFromTheCourt: {
-        heading: 'Orders from the court - welsh ',
+        heading: 'Cadw eich manylion yn breifat',
         tasks: {
           viewOrders: {
-            linkText: 'View all orders from the court - welsh',
+            linkText: 'Gweld yr holl orchmynion gan y llys',
           },
         },
       },
