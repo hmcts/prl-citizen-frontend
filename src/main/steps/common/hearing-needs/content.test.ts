@@ -11,7 +11,7 @@ const en = {
     'If your support needs have changed, you will need to get in touch with the court that is handling your case.',
   bulletHeading: 'You must:',
   bulletPoints: [
-    'use GOV.UK to find <a  target="_blank" href="#">contact details for the court</a>.',
+    'use GOV.UK to find <a  target="_blank" href="https://www.gov.uk/find-court-tribunal">contact details for the court</a>.',
     'contact the court by phone or email',
     'provide your name and case number',
     'explain to the court how your support needs have changed',
@@ -29,7 +29,7 @@ const cy = {
     'If your support needs have changed, you will need to get in touch with the court that is handling your case. -welsh',
   bulletHeading: 'You must: -welsh',
   bulletPoints: [
-    'use GOV.UK to find <a  target="_blank" href="#">contact details for the court</a>. -welsh',
+    'use GOV.UK to find <a  target="_blank" href="https://www.gov.uk/find-court-tribunal">contact details for the court</a>. -welsh',
     'contact the court by phone or email -welsh',
     'provide your name and case number -welsh',
     'explain to the court how your support needs have changed -welsh',

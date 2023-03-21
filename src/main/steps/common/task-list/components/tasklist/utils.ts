@@ -131,8 +131,8 @@ const taskListConfig = {
           },
           {
             id: Tasks.SUPPORT_DURING_CASE,
-            href: (caseData: Partial<CaseWithId>) => {
-              return `${APPLICANT_TASKLIST_HEARING_NEEDS}/${caseData.id}`;
+            href: () => {
+              return `${APPLICANT_TASKLIST_HEARING_NEEDS}`;
             },
             show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
             stateTag: () => StateTags.SUBMITTED,

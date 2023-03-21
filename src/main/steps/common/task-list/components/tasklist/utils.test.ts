@@ -83,7 +83,7 @@ describe('testcase for tasklist', () => {
           },
           {
             disabled: false,
-            href: '/applicant/hearing-needs/support-help/12',
+            href: '/applicant/hearing-needs/support-help',
             id: 'supportDuringCase',
             linkText: 'Support you need during your case',
             stateTag: {
