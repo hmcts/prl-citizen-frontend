@@ -58,9 +58,9 @@ export const cy = () => ({
   occupationOrder: 'Gorchymyn Anheddu',
   forcedMarriageProtectionOrder: 'Gorchymyn Amddiffyn rhag Priodas dan Orfod',
   restrainingOrder: 'Restraining order - welsh',
-  otherInjuctionOrder: 'Other injunction order - welsh',
-  undertakingOrder: 'Undertaking in place of an order - welsh',
-  otherOrder: 'Other orders - welsh',
+  otherInjuctionOrder: 'Gorchymyn Gwaharddeb Arall',
+  undertakingOrder: 'Ymgymeriad yn lle gorchymyn',
+  otherOrder: 'Gorchmynion eraill',
   childrenInvolvedCourtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
   courtOrderProtection: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
   errors: {
