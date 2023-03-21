@@ -1,3 +1,4 @@
+import { FormContent } from 'app/form/Form';
 import { TranslationFn } from '../../app/controller/GetController';
 
 const en = {
@@ -12,11 +13,16 @@ const cy: typeof en = {
   createDraft: 'Create Drafts',
 };
 
+export const form: FormContent = {
+  fields: {}
+};
+
 const languages = {
   en,
   cy,
 };
 
 export const generateContent: TranslationFn = content => ({
-  ...languages[content.language]
+  ...form,
+  ...languages[content.language],
 });

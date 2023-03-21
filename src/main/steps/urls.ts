@@ -281,7 +281,6 @@ export const RESPONDENT_SUPPORT_NEEDED: PageLink = `${VIEW_ALL_DOCUMENTS}/suppor
 /** Document Urls */
 
 export const DOCUMENT_MANAGER: PageLink = '/document-manager';
-export const CREATE_DRAFT: PageLink = '/testing-support/post';
 /* your needs when you go to court */
 export const SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${APPLICANT}/support-you-need-during-case`;
 export const APPLICANT_ATTENDING_THE_COURT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/attending-the-court`;
@@ -547,3 +546,5 @@ export const C100_REBUILD_URL: PageLink = '/c100-rebuild';
 
 export const TESTING_SUPPORT: PageLink = '/testing-support';
 export const TESTING_SUPPORT_CREATE_DRAFT: PageLink = '/testing-support/create-Draft';
+
+export const CREATE_DRAFT: PageLink = '/draft-controller';

@@ -11,6 +11,7 @@ import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { RespondentSubmitResponseController } from './app/controller/RespondentSubmitResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
+import { TSDraftController } from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
@@ -112,7 +113,7 @@ import {
   PARTY_TASKLIST,
   TESTING_SUPPORT,
   TESTING_SUPPORT_CREATE_DRAFT,
-  // CREATE_DRAFT,
+  CREATE_DRAFT,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 //import draftCaseController from './steps/testing-support/post';
@@ -218,6 +219,10 @@ export class Routes {
           errorHandler(new postController(step.form.fields).post)
         );
 
+        const tsDraftController = new TSDraftController(step.form.fields);
+        app.post(CREATE_DRAFT, errorHandler(tsDraftController.post));
+        app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(tsDraftController.createC100Draft));
+
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
         app.get(
@@ -303,7 +308,7 @@ export class Routes {
         app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
       }
 
-      //      app.post(CREATE_DRAFT, errorHandler(new draftCaseController(step.form.fields).post));
+      
     }
     /**
      * @Payment_Handler
