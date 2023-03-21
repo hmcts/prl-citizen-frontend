@@ -41,6 +41,8 @@ import { MIAMPostController } from './steps/tasklistresponse/miam/MIAMPostContro
 import { ProceedingGetController } from './steps/tasklistresponse/proceedings/ProceedingGetController';
 import { ProceedingPostController } from './steps/tasklistresponse/proceedings/ProceedingPostController';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
+import { creatDraftGetController } from './steps/testing-support/create-draft/get';
+import { TestingSupportGetController } from './steps/testing-support/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT,
@@ -110,11 +112,9 @@ import {
   PARTY_TASKLIST,
   TESTING_SUPPORT,
   TESTING_SUPPORT_CREATE_DRAFT,
- // CREATE_DRAFT,
+  // CREATE_DRAFT,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
-import { TestingSupportGetController } from './steps/testing-support/get';
-import { creatDraftGetController } from './steps/testing-support/create-draft/get';
 //import draftCaseController from './steps/testing-support/post';
 
 export class Routes {
@@ -217,7 +217,7 @@ export class Routes {
           this.routeGuard.bind(this, step, 'post'),
           errorHandler(new postController(step.form.fields).post)
         );
-       
+
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
         app.get(
@@ -302,8 +302,8 @@ export class Routes {
         );
         app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
       }
-      
-//      app.post(CREATE_DRAFT, errorHandler(new draftCaseController(step.form.fields).post));
+
+      //      app.post(CREATE_DRAFT, errorHandler(new draftCaseController(step.form.fields).post));
     }
     /**
      * @Payment_Handler

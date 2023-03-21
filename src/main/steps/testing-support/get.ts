@@ -1,6 +1,5 @@
+import { GetController } from '../../app/controller/GetController';
 
-
-import { GetController } from '../../app/controller/GetController'
 import { generateContent } from './content';
 
 export class TestingSupportGetController extends GetController {

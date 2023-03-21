@@ -19,7 +19,7 @@ PostDocumentUploader method */
 //   // constructor() {
 //   //   super();
 //   // }
- 
+
 // //    req: AppRequest<AnyObject>=mockRequest({ session: { userCase:{
 // //     caseId:1679269512474296,
 // //     caseTypeOfApplication:"C100",
@@ -98,7 +98,7 @@ PostDocumentUploader method */
 // //           startAlternative:"Yes",
 // //           start:"",
 // //           contactDetailsPrivate:[
-             
+
 // //           ],
 // //           contactDetailsPrivateAlternative:[
 // //              "address"
@@ -220,17 +220,13 @@ PostDocumentUploader method */
 // //     hwf_feesAppliedDetails:"Yes",
 // //     helpWithFeesReferenceNumber:"HWF-A1B-23C"
 // //  } } })
-      
+
 //   public async post(checkYourAnswerFlow1: AppRequest<AnyObject>, res: Response): Promise<void> {
 
 //     this.redirect(checkYourAnswerFlow1, res, C100_CHECK_YOUR_ANSWER)
 
-    
 //   }
 
- 
-
-  
 // }
 // export default express.Router()
 //   .get(CREATE_DRAFT,
