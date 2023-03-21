@@ -41,7 +41,7 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
         req.session.userCase!.caseId!,
         req.session.userCase,
         req.originalUrl,
-        C100_CASE_EVENT.CASE_SUBMIT
+        C100_CASE_EVENT.CASE_SUBMIT_WITH_HWF
       );
     } else {
       res.redirect(response['next_url']);

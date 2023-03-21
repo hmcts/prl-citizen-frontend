@@ -4,7 +4,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { Document } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
-import { C100_CHECK_YOUR_ANSWER, C100_CONFIRMATIONPAGE, DASHBOARD_URL } from '../../urls';
+import { C100_CHECK_YOUR_ANSWER, C100_CONFIRMATIONPAGE } from '../../urls';
 
 import PayAndSubmitPostController from './PayAndSubmitPostController';
 
@@ -69,7 +69,7 @@ describe('PayAndSubmitPostController test cases', () => {
     const controller = new PayAndSubmitPostController(mockFormContent.fields);
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith(DASHBOARD_URL);
+    expect(res.redirect).toHaveBeenCalledWith('/task-list/applicant');
   });
 
   // test('Should submit case when help with fees reference number is present and navigate to confirmation page', async () => {
