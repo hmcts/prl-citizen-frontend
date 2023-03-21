@@ -145,7 +145,7 @@ const taskListConfig = {
             href: () => {
               return `${APPLICANT_TASKLIST_HEARING_NEEDS}`;
             },
-            show: () => true,
+            disabled: isCaseClosed,
             stateTag: () => StateTags.SUBMITTED,
           },
         ],
