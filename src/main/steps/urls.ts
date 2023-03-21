@@ -559,7 +559,6 @@ export const TASK_LIST_APPLICANT_URL: PageLink = '/task-list/applicant';
 /*temporary task-list/applicant URL for applicant dashboard end/*
 /* applicant-tasklist-contactpreferences-end*/
 
-
 /** @C100 PIN-ACTIVATION */
 export const PIN_ACTIVATION_URL: PageLink = '/pin-activation';
 export const PIN_ACTIVATION_ENTER_PIN_URL: PageLink = `${PIN_ACTIVATION_URL}/enter-pin`;
@@ -569,4 +568,3 @@ export const PIN_ACTIVATION_CASE_ACTIVATED_URL: PageLink = `${PIN_ACTIVATION_URL
 /**@C100 withdraw case */
 export const C100_WITHDRAW_CASE: PageLink = `${C100_URL}/:caseId/withdraw`;
 export const C100_WITHDRAW_CASE_CONFIRMATION: PageLink = `${C100_URL}/withdraw/confirmation`;
-
