@@ -134,7 +134,7 @@ const taskListConfig = {
             href: () => {
               return `${APPLICANT_TASKLIST_HEARING_NEEDS}`;
             },
-            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            show: () => true,
             stateTag: () => StateTags.SUBMITTED,
           },
         ],
