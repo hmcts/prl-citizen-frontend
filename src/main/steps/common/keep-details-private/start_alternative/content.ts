@@ -41,7 +41,7 @@ const cy: typeof en = {
   line1:
     'The answers you give in your response will be shared with the other people named in this application (the applicants). This will include your contact details.',
   line2:
-    'For example, if you believe the other people in the case pose a risk to you or the children, you can ask the court to keep your contact details private.',
+    "Er enghraifft, os ydych chi'n credu bod y bobl eraill yn yr achos yn peri risg i chi, gallwch ofyn i'r llys gadw eich manylion cyswllt yn breifat.",
   one: 'Ydw',
   two: 'Nac ydw',
   three: "I don't know",
