@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../../../app/case/definition';
+import { UserDetails } from '../../../../../app/controller/AppRequest';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
@@ -10,7 +12,6 @@ import {
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_YOURHEARINGS_HEARINGS,
-  C100_APPLICANT_TASKLIST,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
 } from '../../../../urls';
@@ -48,15 +49,21 @@ enum StateTags {
   OPTIONAL = 'optional',
 }
 
-export const showOrders = (caseData: Partial<CaseWithId>): boolean =>
-  !!(caseData && caseData.orderCollection && caseData.orderCollection.length > 0);
+export const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean =>
+  !!(caseData && caseData?.orderCollection?.length);
 
-export const showHearing = (caseData: Partial<CaseWithId>): boolean =>
-  !!(caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0);
+export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean =>
+  !!(caseData && caseData?.hearingCollection?.length);
 
-export const isActiveCase = (caseData: Partial<CaseWithId>): boolean =>
+export const isDraftCase = (caseData: Partial<CaseWithId>): boolean => caseData && caseData.state! === State.CASE_DRAFT;
+
+export const isCaseSubmitted = (caseData: Partial<CaseWithId>): boolean =>
+  caseData && [State.CASE_SUBMITTED_NOT_PAID, State.CASE_SUBMITTED_PAID].includes(caseData.state!);
+
+export const isCaseLinked = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean =>
   caseData &&
-  ![State.AwaitingSubmissionToHmcts, State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(caseData.state!);
+  caseData.state! === State.CASE_SERVED &&
+  !!caseData.applicants?.find(applicant => applicant.value.user.idamId === userDetails.id);
 
 interface TaskList {
   id: TaskList;
@@ -115,14 +122,14 @@ const taskListConfig = {
       {
         id: TaskListSection.ABOUT_YOU,
         content: getContents.bind(null, TaskListSection.ABOUT_YOU),
-        show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+        show: isCaseLinked,
         tasks: [
           {
             id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
             href: (caseData: Partial<CaseWithId>) => {
               return `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`;
             },
-            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            show: () => true,
             stateTag: () => StateTags.SUBMITTED,
           },
           {
@@ -130,7 +137,7 @@ const taskListConfig = {
             href: (caseData: Partial<CaseWithId>) => {
               return `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/${caseData.id}`;
             },
-            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            show: () => true,
             stateTag: () => StateTags.SUBMITTED,
           },
           {
@@ -138,7 +145,7 @@ const taskListConfig = {
             href: (caseData: Partial<CaseWithId>) => {
               return `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`;
             },
-            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            show: () => true,
             stateTag: () => StateTags.SUBMITTED,
           },
           {
@@ -154,7 +161,7 @@ const taskListConfig = {
       {
         id: TaskListSection.YOUR_APPLICATION,
         content: getContents.bind(null, TaskListSection.YOUR_APPLICATION),
-        show: () => true,
+        show: isDraftCase,
         tasks: [
           {
             id: Tasks.CHILD_ARRANGEMENT_APPLICATION,
@@ -163,7 +170,7 @@ const taskListConfig = {
                 return C100_START;
               }
 
-              if (caseData?.state === State.AwaitingSubmissionToHmcts) {
+              if (caseData?.state === State.CASE_DRAFT) {
                 return caseData.c100RebuildReturnUrl;
               } else {
                 return C100_DOWNLOAD_APPLICATION;
@@ -173,7 +180,7 @@ const taskListConfig = {
             stateTag: (caseData: Partial<CaseWithId>) => {
               if (!caseData) {
                 return StateTags.NOT_STARTED_YET;
-              } else if (caseData?.state === State.AwaitingSubmissionToHmcts) {
+              } else if (caseData?.state === State.CASE_DRAFT) {
                 return StateTags.IN_PROGRESS;
               } else {
                 return StateTags.SUBMITTED;
@@ -185,14 +192,14 @@ const taskListConfig = {
       {
         id: TaskListSection.YOUR_DOCUMENTS,
         content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-        show: isActiveCase,
+        show: isCaseSubmitted || isCaseLinked,
         tasks: [
           {
             id: Tasks.UPLOAD_DOCUMENTS,
             href: () => {
               return APPLICANT_UPLOAD_DOCUMENT_LIST_URL;
             },
-            show: isActiveCase,
+            show: isCaseLinked,
             stateTag: () => {
               return StateTags.OPTIONAL;
             },
@@ -202,66 +209,54 @@ const taskListConfig = {
             href: () => {
               return APPLICANT_VIEW_ALL_DOCUMENTS;
             },
-            show: isActiveCase,
-            stateTag: (caseData: Partial<CaseWithId>) => {
-              if (!caseData) {
-                return StateTags.NOT_AVAILABLE_YET;
-              } else {
-                return StateTags.READY_TO_VIEW;
-              }
-            },
-            disabled: () => false,
+            show: () => true,
+            stateTag: () => StateTags.READY_TO_VIEW,
           },
         ],
       },
       {
         id: TaskListSection.YOUR_ORDERS,
         content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
-        show: showOrders,
+        show: isCaseLinked,
         tasks: [
           {
             id: Tasks.VIEW_ORDERS,
             href: (caseData: Partial<CaseWithId>) => {
-              if (caseData && caseData.orderCollection && caseData.orderCollection.length > 0) {
+              if (hasAnyOrder(caseData)) {
                 return APPLICANT_ORDERS_FROM_THE_COURT;
-              } else {
-                return C100_APPLICANT_TASKLIST;
               }
             },
-            show: showOrders,
+            show: () => true,
             stateTag: (caseData: Partial<CaseWithId>) => {
-              if (caseData && caseData.orderCollection && caseData.orderCollection.length > 0) {
+              if (hasAnyOrder(caseData)) {
                 return StateTags.READY_TO_VIEW;
-              } else {
-                return StateTags.NOT_AVAILABLE_YET;
               }
+              return StateTags.NOT_AVAILABLE_YET;
             },
-            disabled: showOrders,
+            disabled: !hasAnyOrder,
           },
         ],
       },
       {
         id: TaskListSection.YOUR_HEARING,
         content: getContents.bind(null, TaskListSection.YOUR_HEARING),
-        show: showHearing,
+        show: isCaseLinked,
         tasks: [
           {
             id: Tasks.VIEW_HEARING_DETAILS,
             href: (caseData: Partial<CaseWithId>) => {
-              if (caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0) {
+              if (hasAnyHearing(caseData)) {
                 return APPLICANT_YOURHEARINGS_HEARINGS;
-              } else {
-                return '/';
               }
             },
-            show: showHearing,
+            show: () => true,
             stateTag: (caseData: Partial<CaseWithId>) => {
-              if (caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0) {
+              if (hasAnyHearing(caseData)) {
                 return StateTags.READY_TO_VIEW;
               }
               return StateTags.NOT_AVAILABLE_YET;
             },
-            disabled: showHearing,
+            disabled: !hasAnyHearing,
           },
         ],
       },
@@ -276,6 +271,7 @@ const taskListConfig = {
 
 export const getTaskListConfig = (
   caseData: Partial<CaseWithId>,
+  userDetails: UserDetails,
   partyType: PartyType,
   language: string
 ): Record<string, any>[] => {
@@ -286,7 +282,7 @@ export const getTaskListConfig = (
 
   return taskListConfig[caseType!][partyType]
     .map(section => {
-      if (section.show(caseData)) {
+      if (section.show(caseData, userDetails)) {
         const _content = section.content(caseType, partyType, language);
 
         return {
@@ -294,22 +290,22 @@ export const getTaskListConfig = (
           heading: _content.heading,
           tasks: section.tasks
             .map(task => {
-              if (task.show(caseData)) {
-                const stateTag = task.stateTag(caseData);
+              if (task.show(caseData, userDetails)) {
+                const stateTag = task.stateTag(caseData, userDetails);
                 const _stateTagConfig = stateTagsConfig?.[stateTag];
 
                 const config = {
                   id: task.id,
                   linkText: _content?.tasks[task.id]?.linkText,
-                  href: task.href(caseData),
-                  disabled: task?.disabled ? task?.disabled(caseData) : false,
+                  href: task.href(caseData, userDetails),
+                  disabled: task?.disabled ? task?.disabled(caseData, userDetails) : false,
                   stateTag: {
                     label: _stateTagConfig.label ? _stateTagConfig.label(language) : '',
                     className: _stateTagConfig.className ? _stateTagConfig.className : '',
                   },
                 };
 
-                if (task?.showHint && task?.showHint(caseData)) {
+                if (task?.showHint && task?.showHint(caseData, userDetails)) {
                   Object.assign(config, {
                     hintText: _content?.tasks[task.id]?.hintText,
                   });
