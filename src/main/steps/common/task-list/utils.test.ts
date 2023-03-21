@@ -89,7 +89,7 @@ describe('testcase for partyname', () => {
   test('when party type c100-applicant', () => {
     const data = {
       id: '12',
-      state: State.Submitted,
+      state: State.CASE_SUBMITTED_PAID,
       caseTypeOfApplication: CaseType.C100,
     };
     const party = PartyType.APPLICANT;
