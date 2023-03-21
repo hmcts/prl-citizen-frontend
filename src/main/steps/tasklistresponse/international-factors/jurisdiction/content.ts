@@ -26,11 +26,11 @@ const en = {
 
 const cy: typeof en = {
   section: ' ',
-  title: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
-  one: 'Yes',
-  two: 'No',
+  title: 'A allai rhywun arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
+  one: 'Gallai',
+  two: 'Na allai',
   twoHint:
-    'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
+    'Er enghraifft, am fod gan lys mewn gwlad arall y pŵer (awdurdodaeth) i wneud penderfyniadau neu ddyfarniadau.',
   summaryText: 'Cysylltiadau am gymorth',
   continue: 'Continue',
   errors: {

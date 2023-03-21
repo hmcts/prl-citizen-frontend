@@ -9,7 +9,7 @@ import { form as contentForms, generateContent } from './content';
 jest.mock('../../../../../app/form/validation');
 
 const en = {
-  caption: 'Keeping your contact details private',
+  caption: 'Keeping your contact details private for',
   headingTitle: 'Do the other people named in this application (the respondents) know any of your contact details?    ',
   one: 'Yes',
   two: 'No',

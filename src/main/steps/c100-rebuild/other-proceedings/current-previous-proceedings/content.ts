@@ -33,7 +33,7 @@ export const cy = () => ({
   two1: 'Nac oes',
   errors: {
     op_childrenInvolvedCourtCase: {
-      required: 'Dewiswch oes os oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi',
+      required: "Dewiswch do os yw'r plant wedi bod yn rhan o achos llys yn flaenorol",
     },
     op_courtOrderProtection: {
       required: 'Dewiswch oes os oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi',

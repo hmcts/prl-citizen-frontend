@@ -7,6 +7,7 @@ import { covertToDateObject } from '../../../../app/form/parser';
 import {
   areDateFieldsFilledIn,
   isAlphaNumeric,
+  isAlphaNumericWithApostrophe,
   isDateInputInvalid,
   isFieldFilledIn,
   isFieldLetters,
@@ -256,7 +257,7 @@ export const generateFormFields = (personalDetails: C100Applicant['personalDetai
       hint: l => l.applicantPlaceOfBirthHint,
       value: applicantPlaceOfBirth,
       labelSize: 'm',
-      validator: value => isFieldFilledIn(value) || isAlphaNumeric(value),
+      validator: value => isFieldFilledIn(value) || isAlphaNumericWithApostrophe(value),
     },
   };
 

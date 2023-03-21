@@ -13,5 +13,5 @@ export const contact_cy = `<b>Web Chat</b> </br> </br>
                            <u>contact@justice.gov.uk</u> </br></br>
                            We aim to get back to you within 5 days.</br></br>
                            <b>Telephone</b></br></br>
-                           0300 303 5171</br>
+                           0300 303 0742</br>
                            Monday to Friday, 8am to 8pm, Saturday, 8am to 2pm`;

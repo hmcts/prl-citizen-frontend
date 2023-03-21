@@ -25,10 +25,10 @@ const en = {
 
 const cy: typeof en = {
   section: ' ',
-  title: "Are the children's lives mainly based outside of England and Wales?",
-  one: 'Yes',
-  two: 'No',
-  hint: 'For example, is their family life mainly based outside of England and Wales?',
+  title: 'Ydy bywyd y plant yn cael ei dreulio’n bennaf y tu allan i Gymru a Lloegr?',
+  one: 'Ydy',
+  two: 'Nac ydy',
+  hint: 'Er enghraifft, a yw eu bywyd teuluol yn bennaf y tu allan i Gymru a Lloegr?',
   summaryText: 'Cysylltiadau am gymorth',
   continue: 'Continue',
   errors: {

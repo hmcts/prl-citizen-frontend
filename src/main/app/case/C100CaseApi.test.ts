@@ -58,6 +58,8 @@ describe('CaseApi', () => {
       data: {
         id: '1234',
         ...request,
+        state: 'AWAITING_SUBMISSION_TO_HMCTS',
+        noOfDaysRemainingToSubmitCase: '28',
       },
     });
     const userCase = await api.createCase();
@@ -65,6 +67,8 @@ describe('CaseApi', () => {
     expect(userCase).toStrictEqual({
       id: '1234',
       ...request,
+      state: 'AWAITING_SUBMISSION_TO_HMCTS',
+      noOfDaysRemainingToSubmitCase: '28',
     });
     expect(mockedAxios.post).toHaveBeenCalledWith('/case/create', request);
   });
@@ -284,6 +288,29 @@ describe('CaseApi', () => {
     expect(updatedCaseData).toStrictEqual({ data: caseData });
     expect(mockedAxios.post).toHaveBeenCalledWith(
       '1234/citizen-case-submit/update-case',
+      { ...mockData },
+      {
+        headers: { accessCode: 'null' },
+      }
+    );
+  });
+
+  test('Should submit case on citizen-case-submit-with-hwf', async () => {
+    //mock
+    const caseData = {
+      ...mockData,
+    };
+    mockedAxios.post.mockResolvedValueOnce({ data: caseData });
+    const updatedCaseData = await api.updateCase(
+      '1234',
+      caseData,
+      'c100-rebuild/dummyUrl',
+      C100_CASE_EVENT.CASE_SUBMIT_WITH_HWF
+    );
+
+    expect(updatedCaseData).toStrictEqual({ data: caseData });
+    expect(mockedAxios.post).toHaveBeenCalledWith(
+      '1234/citizen-case-submit-with-hwf/update-case',
       { ...mockData },
       {
         headers: { accessCode: 'null' },

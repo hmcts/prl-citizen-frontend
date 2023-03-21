@@ -30,7 +30,7 @@ const cy: typeof en = {
   title: 'A oes gennych chi unrhyw ofynion ieithyddol?',
   courtcommunication:
     'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
-  optionHint: "Dewiswch bob un sy'n berthnasol i chi",
+  optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
   speakwelsh: 'Rwyf eisiau siarad Cymraeg',
   readandwritewelsh: 'Rwyf eisiau siarad ac ysgrifennu yn Gymraeg',

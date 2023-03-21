@@ -114,7 +114,9 @@ export const PermissionForApplication = (
   language
 ): SummaryList | undefined => {
   const valForPermissionWhy = userCase.hasOwnProperty('sq_permissionsWhy') ? (HTML.UNORDER_LIST + userCase['sq_permissionsWhy']?.map(props => HTML.LIST_ITEM + keys[props] + ': ' + userCase[`sq_${props}_subfield`] + HTML.LIST_ITEM_END) + HTML.UNORDER_LIST_END).split(',').join('') : '';
-  const SummaryData = [
+  let SummaryData=[{}];
+  if(userCase['sq_courtPermissionRequired']===YesOrNo.YES){
+   SummaryData = [
     {
       key: keys['reasonPermissionRequired'],
       value: getYesNoTranslation(language,userCase['sq_courtPermissionRequired'],'oesTranslation'),
@@ -130,7 +132,13 @@ export const PermissionForApplication = (
       value: userCase['sq_permissionsRequest'],
       changeUrl: Urls['C100_SCREENING_QUESTIONS_PERMISSIONS_REQUEST'],
     },
-  ];
+  ];}
+  else {SummaryData = [
+    {
+      key: keys['reasonPermissionRequired'],
+      value: getYesNoTranslation(language,userCase['sq_courtPermissionRequired'],'oesTranslation'),
+      changeUrl: Urls['C100_SCREENING_QUESTIONS_COURT_PERMISSION'],
+    }];}
   return {
     title: sectionTitles['permissionForApplication'],
     rows: getSectionSummaryList(SummaryData, content),
@@ -248,7 +256,7 @@ export const ChildernDetails = (
         newChildDataStorage.push(
           {
             key: keys['approxCheckboxLabel'],
-            value: personalDetails['isDateOfBirthUnknown'],
+            value: getYesNoTranslation(language,personalDetails['isDateOfBirthUnknown'],'doTranslation'),
             changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
           },
           {
@@ -379,7 +387,7 @@ export const OtherChildrenDetails = (
         newChildDataStorage.push(
           {
             key: keys['approxCheckboxLabel'],
-            value: personalDetails['isDateOfBirthUnknown'],
+            value: getYesNoTranslation(language,personalDetails['isDateOfBirthUnknown'],'doTranslation'),
             changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
           },
           {
@@ -415,17 +423,18 @@ export const OtherChildrenDetails = (
 };
 
 
-export const ApplicantDetailNameParser = (personalDetails, keys): string => {
-  let changeNameInformation = '' as string;
-  const hasNameChanged = personalDetails['haveYouChangeName'];
+export const ApplicantDetailNameParser = (personalDetails, keys,language): string => {
+  let changeNameInformation = '';
+  const hasNameChanged = getYesNoTranslation(language,personalDetails['haveYouChangeName'],'doTranslation');
   changeNameInformation += hasNameChanged;
-  if(hasNameChanged === 'Yes'){
+  if(personalDetails['haveYouChangeName'] === 'Yes'){
+    const changedName = personalDetails['applPreviousName'];
     changeNameInformation += HTML.RULER;
     changeNameInformation += HTML.H4;
     changeNameInformation += keys['details'];
     changeNameInformation += HTML.H4_CLOSE;
     changeNameInformation += HTML.BOTTOM_PADDING_3;
-    changeNameInformation +=  personalDetails['applPreviousName'];
+    changeNameInformation += changedName;
     changeNameInformation += HTML.BOTTOM_PADDING_CLOSE;
   }
   return changeNameInformation;
@@ -496,7 +505,7 @@ export const ApplicantDetails = (
       {
         key: keys['haveYouChangeNameLabel'],
         value: '',
-        valueHtml: getYesNoTranslation(language,ApplicantDetailNameParser(personalDetails, keys),'doTranslation'),
+        valueHtml: ApplicantDetailNameParser(personalDetails, keys,language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
@@ -549,24 +558,12 @@ export const ApplicantDetails = (
           value: '',
           valueHtml: applicantCourtCanLeaveVoiceMail(sessionApplicantData[applicant].applicantContactDetail, keys),
           changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_DETAIL'], { applicantId: sessionApplicantData[applicant]['id'] }),
+        },
+        {
+          key: keys['contactPrefernces'],
+          value: contactTranslation(sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences, language),
+          changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_PREFERENCES'], { applicantId: sessionApplicantData[applicant]['id'] }),
         });
-
-        const applicantContactPreferences = sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences;
-        let applicantContactPre = '';
-
-        if(applicantContactPreferences !== undefined && Array.isArray(applicantContactPreferences)) {
-          applicantContactPre += HTML.UNORDER_LIST;
-          applicantContactPre += applicantContactPreferences.map(preferences => HTML.LIST_ITEM + contactTranslation(preferences,language) + HTML.LIST_ITEM_END ).toString().split(',').join('');
-          applicantContactPre += HTML.UNORDER_LIST_END;
-        }
-        newApplicantData.push(
-          {
-            key: keys['contactPrefernces'],
-            value: '',
-            valueHtml: `${applicantContactPre}`,
-            changeUrl: applyParms( Urls['C100_APPLICANT_CONTACT_PREFERENCES'], { applicantId: sessionApplicantData[applicant]['id'] }),
-          }
-        );
   }
   return {
     title: sectionTitles['ApplicantDetails'],
@@ -709,7 +706,9 @@ export const PastAndCurrentProceedings = (
       order => '<li class="govuk-!-padding-bottom-2">' + keys[`${order}Label`] + '</li>'
     ) +
     '</ul>';
-  const SummaryData = [
+    let SummaryData=[{}];
+    if(userCase['op_childrenInvolvedCourtCase']===YesOrNo.YES || userCase['op_courtOrderProtection']===YesOrNo.YES){
+    SummaryData = [
     {
       key: keys['childrenInvolvedCourtCase'],
       value: getYesNoTranslation(language,userCase['op_childrenInvolvedCourtCase'],'doTranslation'),
@@ -726,7 +725,20 @@ export const PastAndCurrentProceedings = (
       changeUrl: Urls['C100_OTHER_PROCEEDINGS_DETAILS'],
     },
     ...OPotherProceedingsSessionParserUtil(userCase, keys, Urls, 'op_courtProceedingsOrders',language),
-  ];
+  ];}
+  else{
+    SummaryData = [
+      {
+        key: keys['childrenInvolvedCourtCase'],
+        value: getYesNoTranslation(language,userCase['op_childrenInvolvedCourtCase'],'doTranslation'),
+        changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
+      },
+      {
+        key: keys['courtOrderProtection'],
+        value: getYesNoTranslation(language,userCase['op_courtOrderProtection'],'oesTranslation'),
+        changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
+      },];
+  }
   return {
     title: sectionTitles['otherProceedings'],
     rows: getSectionSummaryList(SummaryData, content),
@@ -830,7 +842,7 @@ export const SafetyConcerns_child = (
    * @policeOrInvestigatorsOtherDetails session Values
    */
   let policeOrInvestigatorsOtherDetailsHTML = '';
-  policeOrInvestigatorsOtherDetailsHTML += userCase['c1A_policeOrInvestigatorInvolved'];
+  policeOrInvestigatorsOtherDetailsHTML += getYesNoTranslation(language,userCase['c1A_policeOrInvestigatorInvolved'],'oeddTranslation');
    policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
     ?  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + userCase['c1A_policeOrInvestigatorOtherDetails']
     :  '' ;
@@ -838,24 +850,23 @@ export const SafetyConcerns_child = (
    * @c1A_childAbductedBefore session Values
    */
   let c1A_childAbductedBefore = '';
-  c1A_childAbductedBefore += userCase?.['c1A_passportOffice'];
+  c1A_childAbductedBefore += getYesNoTranslation(language,userCase?.['c1A_passportOffice'],'oesTranslation');
   if (userCase.hasOwnProperty('c1A_passportOffice') && userCase.c1A_passportOffice === 'Yes') {
     c1A_childAbductedBefore += HTML.RULER;
     c1A_childAbductedBefore += HTML.H4;
     c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
     c1A_childAbductedBefore += HTML.H4_CLOSE;
-    c1A_childAbductedBefore += userCase['c1A_childrenMoreThanOnePassport'];
+    c1A_childAbductedBefore += getYesNoTranslation(language,userCase['c1A_childrenMoreThanOnePassport'],'oesTranslation');
     c1A_childAbductedBefore += HTML.RULER;
     c1A_childAbductedBefore += HTML.H4;
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
     c1A_childAbductedBefore += HTML.H4_CLOSE;
     c1A_childAbductedBefore += HTML.UNORDER_LIST;
-    c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport']
-      .filter(element => element !== 'Other')
-      .map(relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END)
-      .toString()
-      .split(',')
-      .join('');
+    c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport'].filter(element => element !== 'Other')
+    .map(relatives => HTML.LIST_ITEM + relationshipTranslation(relatives,language)+ HTML.LIST_ITEM_END)
+    .toString()
+    .split(',')
+    .join('');
     if(userCase['c1A_possessionChildrenPassport'].some(element => element === 'Other')){
       c1A_childAbductedBefore +=  HTML.LIST_ITEM + userCase['c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
     }
@@ -880,12 +891,12 @@ export const SafetyConcerns_child = (
     },
     {
       key: keys['haspassportOfficeNotified'],
-      valueHtml: userCase['c1A_abductionPassportOfficeNotified'],
+      valueHtml: getYesNoTranslation(language, userCase['c1A_abductionPassportOfficeNotified'],'ydyTranslation'),
       changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION'],
     },
     {
       key: keys['abducionThreats'],
-      valueHtml: userCase['c1A_childAbductedBefore'] as string,
+      valueHtml: getYesNoTranslation(language, userCase['c1A_childAbductedBefore'] as string,'ydynTranslation'),
       changeUrl: Urls['C100_C1A_CHILD_ABDUCTION_THREATS'],
     },
 
@@ -1037,13 +1048,13 @@ export const SafetyConcerns_others = (
   };
 };
 
-const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent, keys, id, contactDetails ) => {
+const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent, keys, id, contactDetails,language ) => {
   const newRespondentStorage = [] as ANYTYPE;
   if(!sessionRespondentData[respondent].hasOwnProperty('addressUnknown')){
     newRespondentStorage.push({
       key: keys['addressDetails'],
       value: '',
-      valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys),
+      valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys,language),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
     },
     );
@@ -1051,43 +1062,44 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
    if(sessionRespondentData[respondent].hasOwnProperty('addressUnknown') && sessionRespondentData[respondent]['addressUnknown'] === YesOrNo.YES){
     newRespondentStorage.push({
       key: keys['explainNoLabel'],
-      value: sessionRespondentData[respondent]?.['addressUnknown'],
+      value: getYesNoTranslation(language,sessionRespondentData[respondent]?.['addressUnknown'],'doTranslation'),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
     },
     );
    }
 
-    newRespondentStorage.push(
-      {
-        key: 'Email',
-        value: contactDetails?.['emailAddress'],
-        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-      },
-    );
-
     if(contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes'){
       newRespondentStorage.push(
         {
-          key: 'I dont know their email address',
-          value: contactDetails?.['donKnowEmailAddress'],
+          key: (language === 'en')? 'I dont know their email address':getYesNoTranslation(language,'I dont know their email address', 'personalDetails'),
+          value: getYesNoTranslation(language,contactDetails?.['donKnowEmailAddress'],'doTranslation'),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
         },
       );
-    }
-    newRespondentStorage.push(
+    }else {
+      newRespondentStorage.push(
       {
-        key: 'Telephone number',
-        value: contactDetails?.['telephoneNumber'],
-        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-      }
-    );
+        key:(language === 'en')? 'Email': getYesNoTranslation(language,'Email', 'personalDetails'),
+            value: contactDetails?.['emailAddress'],
+            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+      },
+    );}
+   
     if(contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes'){
       newRespondentStorage.push(
         {
-          key: 'I dont know their telephone number',
-          value: contactDetails?.['donKnowTelephoneNumber'],
+          key: (language === 'en')? 'I dont know their telephone number':getYesNoTranslation(language,'I dont know their telephone number', 'personalDetails'),
+          value: getYesNoTranslation(language,contactDetails?.['donKnowTelephoneNumber'],'doTranslation'),
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
         },
+      );
+    }else{
+      newRespondentStorage.push(
+        {
+          key: (language === 'en')? 'Telephone number' :getYesNoTranslation(language,'Telephone number', 'personalDetails'),
+          value: contactDetails?.['telephoneNumber'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+        }
       );
     }
 
@@ -1113,7 +1125,6 @@ export const RespondentDetails = (
       const contactDetails = sessionRespondentData[respondent]['contactDetails'];
 
       const { changeNameInformation, childGender } = nameAndGenderParser(personalDetails, keys, HTML,language);
-
       newRespondentStorage.push(
         {
           key: '',
@@ -1161,22 +1172,23 @@ export const RespondentDetails = (
           },
         );
       }
-      newRespondentStorage.push(
-      {
-        key: keys['respondentPlaceOfBirth'],
-        value: personalDetails?.['respondentPlaceOfBirth'],
-        changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
-      });
+
 
       if(personalDetails['respondentPlaceOfBirthUnknown'] !== 'No'){
         newRespondentStorage.push(
           {
             key: keys['respondentPlaceOfBirthUnknown'],
-            value: personalDetails?.['respondentPlaceOfBirthUnknown'],
+            value: getYesNoTranslation(language,personalDetails?.['respondentPlaceOfBirthUnknown'],'doTranslation'),
             changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
           });
+      }else {
+        newRespondentStorage.push(
+        {
+          key: keys['respondentPlaceOfBirth'],
+          value: personalDetails?.['respondentPlaceOfBirth'],
+          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
+        });
       }
-
       const relationShipToChildren = sessionRespondentData[respondent]['relationshipDetails']?.['relationshipToChildren'];
       relationShipToChildren.forEach(element => {
         const childDetails = userCase?.['cd_children']?.filter(child => child.id === element['childId'])[0];
@@ -1189,7 +1201,7 @@ export const RespondentDetails = (
         });
       });
       //section 1 insertion
-     newRespondentStorage.push(...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails ));
+     newRespondentStorage.push(...RespondentDetails_AddressAndPersonal(sessionRespondentData, respondent, keys, id, contactDetails,language));
     }
 
   const SummaryData = newRespondentStorage;
@@ -1271,7 +1283,7 @@ export const OtherPeopleDetails = (
         newOtherPeopleStorage.push(
           {
             key: keys['approxCheckboxLabel'],
-            value: personalDetails['isDateOfBirthUnknown'],
+            value: getYesNoTranslation(language,personalDetails['isDateOfBirthUnknown'],'doTranslation'),
             changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS'], { otherPersonId: id }),
           },
           {
@@ -1315,7 +1327,7 @@ export const OtherPeopleDetails = (
      if(sessionOtherPeopleData[respondent].hasOwnProperty('addressUnknown') && sessionOtherPeopleData[respondent]['addressUnknown'] === YesOrNo.YES){
       newOtherPeopleStorage.push({
         key: keys['explainNoLabel'],
-        value: sessionOtherPeopleData[respondent]['addressUnknown'],
+        value: getYesNoTranslation(language,sessionOtherPeopleData[respondent]['addressUnknown'],'doTranslation'),
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
       },
       );

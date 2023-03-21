@@ -66,7 +66,7 @@ const cy: typeof en = {
   },
   keys: {
     languageDetails: 'Give details of the language you require (including dialect, if applicable)',
-    languageRequirements: 'Do you have any language requirements?',
+    languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
     safetyArrangements: 'Do you or the children need special safety arrangements at court?',

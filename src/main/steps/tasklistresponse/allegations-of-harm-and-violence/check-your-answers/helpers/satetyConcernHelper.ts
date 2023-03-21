@@ -6,7 +6,7 @@ import { ANYTYPE } from '../common/index';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const childNameFormatter = (childId, userCase) => {
   const sessionChildKey = 'children';
-  const founChildDetails = userCase[sessionChildKey].filter(child => child.id === childId) as ANYTYPE;
+  const founChildDetails = userCase[sessionChildKey].filter(child => child.id === childId);
   return (
     HTML.LIST_ITEM +
     founChildDetails[0]?.value?.['firstName'] +

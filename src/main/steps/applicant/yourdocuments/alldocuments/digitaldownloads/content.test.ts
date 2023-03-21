@@ -15,7 +15,7 @@ const enContent = {
 
 const cyContent = {
   section: 'Pob dogfen',
-  title: 'Emails, screenshots, images and other media files',
+  title: 'Negeseuon e-bost, cipluniau, delweddau a ffeiliau cyfryngau eraill',
   threeHint: 'This is a 8 character code',
   summaryText: 'Cysylltiadau am gymorth',
   caseNumber: 'Rhif yr achos',

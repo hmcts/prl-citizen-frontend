@@ -1,180 +1,69 @@
-import { CaseWithId } from '../../../app/case/case';
-import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { FormContent } from '../../../app/form/Form';
-import { CommonContent } from '../../common/common.content';
-import { summaryCaseList } from '../../common/summary/utils';
 
-export const enContent = {
+import { prepareCaseView } from './tabView';
+
+const en = {
   title: 'Child arrangements and family injunction cases',
-  CAApplicationNote: 'Case once submitted cannot be accessed.',
-  createCAApplication: 'Start new C100 application',
-  sectionTitles: {
-    yourCAapplication: 'C100 applications where you are an applicant',
-    youtCArespondentApplication: 'C100 applications where you are an respondent',
-    daApplicationsMadeByYou: 'FL401 applications where you are an applicant',
-    daApplicationsAgainstYou: 'FL401 applications where you are an respondent',
-  },
-  help: 'To view or progress your case click on your case number.',
-  keys: {},
-  errors: {},
+  sectionTitle: 'Activate an access code or start an application:',
+  activateAccessCodeLinkText: 'Activate access code',
+  newChildArrangementsLinkText: 'New child arrangements application (C100)',
+  newFamilyInjunctionLinkText: 'New family injunction application (FL401)',
+  draftApplicationTabLabel: 'Draft applications',
+  activeCasesTabLabel: 'Active cases',
+  closedCasesTabLabel: 'Closed cases',
+  draftApplicationTabHeading: 'Your applications',
+  draftApplicationTabContent: '<p class="govuk-body">You have 28 days to submit the application.</p>',
+  activeCasesTabHeading: 'Ongoing cases',
+  closedCasesTabHeading: 'Closed cases',
+  caseNumber: 'Case number',
+  caseType: 'Case type',
+  caseStatus: 'Status',
+  createdDate: 'Created date',
+  applicant: 'Applicant',
+  lastUpdated: 'Last updated',
+  closeDate: 'Close date',
+  noCase: 'No case available.',
+  draftCaseStatus: 'Draft',
+  pendingCaseStatus: 'Application submitted',
+  submittedCaseStatus: 'Application submitted',
 };
 
-export const cyContent = {
-  title: 'Child arrangements and family injunction cases (in welsh)',
-  CAApplicationNote: 'Unwaith y bydd achos wedi’i gyflwyno, ni ellir cael mynediad ato wedyn.',
-  createCAApplication: 'Dechrau cais C100 newydd',
-  sectionTitles: {
-    yourCAapplication: 'Ceisiadau C100 lle rydych yn geisydd',
-    youtCArespondentApplication: 'Ceisiadau C100 lle rydych yn atebydd',
-    daApplicationsMadeByYou: 'Ceisiadau FL401 lle rydych yn geisydd',
-    daApplicationsAgainstYou: 'Ceisiadau FL401 lle rydych yn atebydd',
-  },
-  help: 'To view or progress your case click on your case number.',
-  keys: {},
-  errors: {},
+const cy = {
+  title: 'Achosion trefniadau plant a gwaharddebau teulu',
+  sectionTitle: 'Actifadu cod mynediad neu gychwyn cais:',
+  activateAccessCodeLinkText: 'Actifadu cod mynediad',
+  newChildArrangementsLinkText: 'Cais trefniadau plant newydd (C100)',
+  newFamilyInjunctionLinkText: 'Cais gwaharddeb teulu newydd (FL401)',
+  draftApplicationTabLabel: 'Ceisiadau drafft',
+  activeCasesTabLabel: 'Achosion gweithredol',
+  closedCasesTabLabel: 'Achosion sydd wedi dod i ben',
+  draftApplicationTabHeading: 'Eich ceisiadau',
+  draftApplicationTabContent: '<p class="govuk-body">Mae gennych 28 diwrnod i gyflwyno’r cais.</p>',
+  activeCasesTabHeading: 'Achosion gweithredol',
+  closedCasesTabHeading: 'Achosion sydd wedi dod i ben',
+  caseNumber: 'Rhif yr achos',
+  caseType: 'Math o achos',
+  caseStatus: 'Statws',
+  createdDate: 'Dyddiad creu',
+  applicant: 'Ceisydd',
+  lastUpdated: 'Diweddarwyd diwethaf',
+  closeDate: 'Dyddiad cau',
+  noCase: 'No case available. - welsh',
+  draftCaseStatus: 'Drafft',
+  pendingCaseStatus: 'Cyflwynwyd y cais',
+  submittedCaseStatus: 'Cyflwynwyd y cais',
 };
 
-const en = (content: CommonContent) => {
-  const userCaseList: Partial<CaseWithId>[] = content.userCaseList || [];
-  const c100CaseListApplicant: Partial<CaseWithId>[] = [];
-  const c100CaseListRespondent: Partial<CaseWithId>[] = [];
-  const fl401CaseListApplicant: Partial<CaseWithId>[] = [];
-  const fl401CaseListRespondent: Partial<CaseWithId>[] = [];
-  let isRespondent = false;
-  let isRespondentFL401 = false;
-  for (const userCase of userCaseList || []) {
-    if (userCase.caseTypeOfApplication === 'C100') {
-      isRespondent = isLinkedToRespondent(userCase);
-      if (!isRespondent) {
-        c100CaseListApplicant.push(userCase);
-      } else {
-        c100CaseListRespondent.push(userCase);
-      }
-    } else if (userCase.caseTypeOfApplication === 'FL401') {
-      isRespondentFL401 = isLinkedToRespondentFl401(userCase);
-      if (!isRespondentFL401) {
-        fl401CaseListApplicant.push(userCase);
-      } else {
-        fl401CaseListRespondent.push(userCase);
-      }
-    }
-  }
-  return {
-    title: enContent.title,
-    sections: [
-      {
-        ...summaryCaseList(c100CaseListApplicant, enContent.sectionTitles.yourCAapplication, false),
-        help: `
-        <p class="govuk-body">${enContent.CAApplicationNote}</p>
-        <h1 class="govuk-heading-m"><a href="/c100-rebuild/start" class="govuk-link">${enContent.createCAApplication}</a></h1>`,
-        id: 'C100-applicant',
-      },
-      {
-        ...summaryCaseList(c100CaseListRespondent, enContent.sectionTitles.youtCArespondentApplication, true),
-        id: 'C100-respondent',
-      },
-      {
-        ...summaryCaseList(fl401CaseListApplicant, enContent.sectionTitles.daApplicationsMadeByYou, false),
-        id: 'fl401-applicant',
-      },
-      {
-        ...summaryCaseList(fl401CaseListRespondent, enContent.sectionTitles.daApplicationsAgainstYou, true),
-        id: 'fl401-respondent',
-      },
-    ],
-    help: enContent.help,
-  };
-};
-
-const cy = (content: CommonContent) => {
-  const userCaseList: Partial<CaseWithId>[] = content.userCaseList || [];
-  const c100CaseListApplicant: Partial<CaseWithId>[] = [];
-  const c100CaseListRespondent: Partial<CaseWithId>[] = [];
-  const fl401CaseListApplicant: Partial<CaseWithId>[] = [];
-  const fl401CaseListRespondent: Partial<CaseWithId>[] = [];
-  let isRespondent = false;
-  let isRespondentFL401 = false;
-  for (const userCase of userCaseList || []) {
-    if (userCase.caseTypeOfApplication === 'C100') {
-      isRespondent = isLinkedToRespondent(userCase);
-      if (!isRespondent) {
-        c100CaseListApplicant.push(userCase);
-      } else {
-        c100CaseListRespondent.push(userCase);
-      }
-    } else if (userCase.caseTypeOfApplication === 'FL401') {
-      isRespondentFL401 = isLinkedToRespondentFl401(userCase);
-      if (!isRespondentFL401) {
-        fl401CaseListApplicant.push(userCase);
-      } else {
-        fl401CaseListRespondent.push(userCase);
-      }
-    }
-  }
-  return {
-    title: cyContent.title,
-    sections: [
-      {
-        ...summaryCaseList(c100CaseListApplicant, cyContent.sectionTitles.yourCAapplication, false),
-        help: `
-        <p class="govuk-body">${cyContent.CAApplicationNote}</p>
-        <h1 class="govuk-heading-m"><a href="/c100-rebuild/start" class="govuk-link">${cyContent.createCAApplication}</a></h1>`,
-        id: 'C100-applicant',
-      },
-      {
-        ...summaryCaseList(c100CaseListRespondent, cyContent.sectionTitles.youtCArespondentApplication, true),
-        id: 'C100-respondent',
-      },
-      {
-        ...summaryCaseList(fl401CaseListApplicant, cyContent.sectionTitles.daApplicationsMadeByYou, false),
-        id: 'fl401-applicant',
-      },
-      {
-        ...summaryCaseList(fl401CaseListRespondent, cyContent.sectionTitles.daApplicationsAgainstYou, true),
-        id: 'fl401-respondent',
-      },
-    ],
-    help: cyContent.help,
-  };
-};
-
-const languages = {
+export const languages = {
   en,
   cy,
 };
 
-export const form: FormContent = {
-  fields: {},
-};
-
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language](content);
+  const translations = languages[content.language];
+  const session = content.additionalData!.req.session;
   return {
     ...translations,
-    form,
+    tabs: prepareCaseView(session.userCaseList, session.user.id, translations),
   };
 };
-function isLinkedToRespondent(userCase: Partial<CaseWithId>): boolean {
-  for (const caseInviteEmail of userCase.caseInvites || []) {
-    for (const respondent of userCase.respondents || []) {
-      if (caseInviteEmail.value.partyId === respondent.id) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
-function isLinkedToRespondentFl401(userCase: Partial<CaseWithId>): boolean {
-  for (const caseInviteEmail of userCase.caseInvites || []) {
-    if (
-      userCase.respondentsFL401?.user?.idamId &&
-      caseInviteEmail.value.invitedUserId &&
-      userCase.respondentsFL401?.user?.idamId === caseInviteEmail.value.invitedUserId &&
-      caseInviteEmail.value.isApplicant === YesOrNo.NO
-    ) {
-      return true;
-    }
-  }
-  return false;
-}

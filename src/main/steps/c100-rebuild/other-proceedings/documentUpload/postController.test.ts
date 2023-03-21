@@ -233,7 +233,7 @@ describe('Document upload controller', () => {
     });
 
     expect(res.redirect).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
+    expect(res.redirect).toHaveBeenCalledWith('/task-list/applicant');
   });
 
   test('Should upload document and redirect back to current page', async () => {

@@ -2,9 +2,9 @@ import { SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 
-import { respondent_en } from './section-titles';
+import { respondent_cy, respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
-import { respondent_tasklist_items_en } from './tasklist-items';
+import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
 
 const en = () => ({
   title: 'Respond to the application',
@@ -30,8 +30,8 @@ const cy = () => ({
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
   },
-  sectionTitles: respondent_en,
-  taskListItems: respondent_tasklist_items_en,
+  sectionTitles: respondent_cy,
+  taskListItems: respondent_tasklist_items_cy,
   respondToApplication: 'Review and submit',
   goBack: 'Go back',
 });

@@ -1,11 +1,11 @@
 /* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../../steps/common/common.content';
-import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 import { cy as caseNameCyContent, en as caseNameEnContent } from '../case-name/content';
@@ -68,12 +68,17 @@ export const enContent = {
   continue: 'Accept and continue',
   Yes: 'Yes',
   No: 'No',
+  yes: 'Yes',
+  no: 'No',
+  'Dont know': 'Dont know',
+  'I dont know': 'I dont know',
   'Yes, but I prefer that it is supervised': 'Yes, but I prefer that it is supervised',
   'No, I would prefer the other people do not spend time with the children':
     'No, I would prefer the other people do not spend time with the children',
   Mother: 'Mother',
   Father: 'Father',
   Guardian: 'Guardian',
+  Grandparent: 'Grandparent',
   'Special Guardian': 'Special Guardian',
   None: 'None',
   Other: 'Other',
@@ -195,13 +200,14 @@ export const cyContent = {
   Mother: 'Mam',
   Father: 'Tad',
   Guardian: 'Gwarcheidwad',
+  Grandparent: 'Nain/Taid',
   'Special Guardian': 'Gwarcheidwad Arbennig',
   None: 'Nain/Taid',
   Other: 'Arall',
   Digital: 'Digidol',
   Post: 'Drwy’r post',
   address: 'Cyfeiriad',
-  telephone: 'Rhif ffôn',
+  telephone: 'Ffôn',
   email: 'E-bost',
   Male: 'Gwryw',
   Female: 'Benyw',
@@ -302,6 +308,7 @@ export const cyContent = {
     ydynTranslation: {
       Yes: 'Ydyn',
       No: 'Nac Ydyn',
+      'Dont know': 'Ddim yn gwybod',
     },
     oesTranslation: {
       Yes: 'Oes',
@@ -314,6 +321,8 @@ export const cyContent = {
     doTranslation: {
       Yes: 'Do',
       No: 'Naddo',
+      yes: 'Do',
+      no: 'Naddo',
     },
     ydwTranslation: {
       Yes: 'Ydw',
@@ -338,11 +347,35 @@ export const cyContent = {
       Yes: 'Gallai',
       No: 'Na allai',
     },
+    gallaiTranslation1: {
+      Yes: 'Gallai',
+      No: 'Na allai',
+    },
     oesSpecial: {
       Yes: 'Oes',
       No: 'Nac oes',
       'Yes, I need help with paying the fee': 'Oes, rwyf eisiau help i dalu’r ffi',
       'No, I do not need help': 'Nac oes, nid wyf eisiau help',
+    },
+    oeddTranslation: {
+      Yes: 'Oedd',
+      No: 'Nac oedd',
+    },
+    parentalTranslation: {
+      Mother: 'Mam',
+      Father: 'Tad',
+      Other: 'Arall',
+    },
+    personalDetails: {
+      Email: 'E-bost',
+      'Telephone number': 'Rhif ffôn',
+      'I dont know their email address': 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
+      'I dont know their telephone number': 'Nid wyf yn gwybod beth yw eu rhif ffôn',
+    },
+    ydyntTranslationResp: {
+      yes: 'Ydynt',
+      no: 'Nac ydynt',
+      dontKnow: 'Ddim yn gwybod',
     },
     ieTranslation: {
       Yes: 'Ie',

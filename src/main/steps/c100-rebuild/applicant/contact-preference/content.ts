@@ -17,9 +17,9 @@ export const en = () => ({
   listOfBullets: ['court orders', 'hearings', 'decisions in your case'],
   contactPreferenceLabel: 'How would you prefer to be contacted?',
   contactPreferenceHintText: 'Select one (or both) of these options.',
-  labelDigital: 'Digital',
+  labelDigital: 'digital',
   labelDitigalHintText: 'All communication from the court will be sent by email.',
-  labelPost: 'Post',
+  labelPost: 'post',
   labelPostHintText: 'All communication from the court will be sent by post.',
   errors: {
     applicantContactPreferences: {
@@ -78,7 +78,8 @@ export const generateFormFields = (data: C100Applicant): GenerateDynamicFormFiel
   const fields = {
     applicantContactPreferences: {
       id: 'applicantContactPreferences',
-      type: 'checkboxes',
+      type: 'radios',
+      classes: 'govuk-radios',
       validator: atLeastOneFieldIsChecked,
       label: l => l.contactPreferenceLabel,
       labelSize: 'm',

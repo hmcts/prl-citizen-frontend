@@ -4,8 +4,8 @@ import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
-import { respondent_en } from './section-titles';
-import { respondent_tasklist_items_en } from './tasklist-items';
+import { respondent_cy, respondent_en } from './section-titles';
+import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
 const enContent = {
   title: 'Respond to the application',
   statuses: {
@@ -27,8 +27,8 @@ const cyContent = {
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
   },
-  sectionTitles: respondent_en,
-  taskListItems: respondent_tasklist_items_en,
+  sectionTitles: respondent_cy,
+  taskListItems: respondent_tasklist_items_cy,
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;

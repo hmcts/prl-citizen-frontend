@@ -53,7 +53,7 @@ export const applicant_tasklist_items_all_docs_en = {
 };
 
 export const applicant_tasklist_items_all_docs_cy = {
-  view_all_orders_from_the_court_all_docs: 'Gorchmynion gan y llys',
+  view_all_orders_from_the_court_all_docs: 'Gweld yr holl orchmynion gan y llys',
   applicant_request_for_child_arrangements: 'Ymateb  <\namerespondentxxxxx> i’r cais am drefniadau plant',
   applicant_request_for_domestic_abuse: "<nameapplicantxxxxx>'s request for domestic abuse",
   applicant_allegations_of_harm_and_violence: 'Honiadau <\nameapplicantxxxxx> o niwed a thrais',
@@ -101,6 +101,6 @@ export const applicant_tasklist_items_all_docs_cy = {
   privacy_notice: 'Hysbysiad Preifatrwydd',
   special_measures: 'Mesurau arbennig',
   notice_of_hearing: 'Hysbysiad o Wrandawiad',
-  support_you_need_during_your_case: 'Cefnogaeth y mae ei hangen arnoch yn ystod eich achos',
+  support_you_need_during_your_case: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',
   other_documents: 'Dogfennau eraill',
 };

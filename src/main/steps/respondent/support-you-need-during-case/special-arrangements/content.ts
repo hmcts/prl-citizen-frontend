@@ -36,7 +36,7 @@ const cy: typeof en = {
   title: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau arbennig?',
   courtcommunication:
     "Efallai y bydd angen trefniadau penodol arnoch chi neu'r plant pan fyddwch chi'n dod i'r llys. Rhaid i rai o’r addasiadau hyn gael eu cytuno gan farnwr neu GLlTEM. Os yw eich anghenion yn newid, gallwch drafod hyn gyda'r llys.",
-  optionHint: "Dewiswch bob un sy'n berthnasol i chi",
+  optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
   waitingRoom: 'Ystafell aros ar wahân',
   separateExitEntry: "Drysau ar wahân i fynd i mewn ac allan o'r llys",
