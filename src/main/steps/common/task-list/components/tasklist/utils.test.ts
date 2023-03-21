@@ -42,8 +42,8 @@ describe('testcase for tasklist', () => {
 
   test('case in non pending state', () => {
     const data = {
-      id: '12',
-      state: State.GATEKEEPING,
+      id: '123',
+      state: State.CASE_GATE_KEEPING,
       hearingCollection: [
         {
           next: {
@@ -56,52 +56,6 @@ describe('testcase for tasklist', () => {
     const language = 'en';
 
     expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
-      {
-        heading: 'About you',
-        id: 'aboutYou',
-        tasks: [
-          {
-            disabled: false,
-            href: '/applicant/confirm-contact-details/checkanswers/12',
-            id: 'editYouContactDetails',
-            linkText: 'Confirm or edit your contact details',
-            stateTag: {
-              className: 'govuk-tag--turquoise',
-              label: 'Submitted',
-            },
-          },
-          {
-            disabled: false,
-            href: '/applicant/contact-preferences/contact-preferences/12',
-            id: 'contactPreferences',
-            linkText: 'Contact preferences',
-            stateTag: {
-              className: 'govuk-tag--turquoise',
-              label: 'Submitted',
-            },
-          },
-          {
-            disabled: false,
-            href: '/applicant/keep-details-private/details_known/12',
-            id: 'keepYourDetailsPrivate',
-            linkText: 'Keep your details private',
-            stateTag: {
-              className: 'govuk-tag--turquoise',
-              label: 'Submitted',
-            },
-          },
-          {
-            disabled: false,
-            href: '/applicant/hearing-needs/support-help',
-            id: 'supportDuringCase',
-            linkText: 'Support you need during your case',
-            stateTag: {
-              className: 'govuk-tag--turquoise',
-              label: 'Submitted',
-            },
-          },
-        ],
-      },
       {
         heading: 'Your application',
         id: 'yourApplication',
@@ -124,35 +78,9 @@ describe('testcase for tasklist', () => {
         tasks: [
           {
             disabled: false,
-            href: '/applicant/upload-document',
-            id: 'uploadDocuments',
-            linkText: ' Upload documents',
-            stateTag: {
-              className: 'govuk-tag--blue',
-              label: 'Optional',
-            },
-          },
-          {
-            disabled: false,
             href: '/applicant/yourdocuments/alldocuments/alldocuments',
             id: 'viewAllDocuments',
             linkText: 'View all documents',
-            stateTag: {
-              className: 'govuk-tag--blue',
-              label: 'Ready to view',
-            },
-          },
-        ],
-      },
-      {
-        heading: 'Your court hearings',
-        id: 'yourHearing',
-        tasks: [
-          {
-            disabled: true,
-            href: '/applicant/yourhearings/hearings',
-            id: 'viewHearingDetails',
-            linkText: 'Check details of your court hearings',
             stateTag: {
               className: 'govuk-tag--blue',
               label: 'Ready to view',
