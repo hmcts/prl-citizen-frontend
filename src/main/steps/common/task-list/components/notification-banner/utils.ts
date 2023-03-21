@@ -65,19 +65,19 @@ const notificationBannerConfig = {
       {
         ...notificationBanner.applicationInProgress,
         show: (caseData: Partial<CaseWithId>): boolean => {
-          return caseData?.state === State.AwaitingSubmissionToHmcts;
+          return caseData?.state === State.CASE_DRAFT;
         },
       },
       {
         ...notificationBanner.applicationSubmitted,
         show: (caseData: Partial<CaseWithId>): boolean => {
-          return caseData?.state === State.SUBMITTED_PAID || caseData?.state === State.SUBMITTED_NOT_PAID;
+          return caseData?.state === State.CASE_SUBMITTED_PAID || caseData?.state === State.CASE_SUBMITTED_NOT_PAID;
         },
       },
       {
         ...notificationBanner.applicationWithdrawn,
         show: (caseData: Partial<CaseWithId>): boolean => {
-          return caseData?.state === State.CASE_WITHDRAWN_STATE;
+          return caseData?.state === State.CASE_WITHDRAWN;
         },
       },
       {

@@ -3,15 +3,24 @@ import { CaseType, PartyType, State } from '../../../../../app/case/definition';
 import { getTaskListConfig } from './utils';
 
 describe('testcase for tasklist', () => {
+  const userDetails = {
+    id: '123',
+    accessToken: 'mock-user-access-token',
+    name: 'test',
+    givenName: 'First name',
+    familyName: 'Last name',
+    email: 'test@example.com',
+  };
+
   test('when case is state pending', () => {
     const data = {
       id: '12',
-      state: State.AwaitingSubmissionToHmcts,
+      state: State.CASE_DRAFT,
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getTaskListConfig(data, party, language)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'Your application',
         id: 'yourApplication',
@@ -46,7 +55,7 @@ describe('testcase for tasklist', () => {
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getTaskListConfig(data, party, language)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'About you',
         id: 'aboutYou',
@@ -114,8 +123,18 @@ describe('testcase for tasklist', () => {
         id: 'yourDocuments',
         tasks: [
           {
-            disabled: true,
-            href: undefined,
+            disabled: false,
+            href: '/applicant/upload-document',
+            id: 'uploadDocuments',
+            linkText: ' Upload documents',
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Optional',
+            },
+          },
+          {
+            disabled: false,
+            href: '/applicant/yourdocuments/alldocuments/alldocuments',
             id: 'viewAllDocuments',
             linkText: 'View all documents',
             stateTag: {
@@ -126,27 +145,11 @@ describe('testcase for tasklist', () => {
         ],
       },
       {
-        heading: 'Orders from the court',
-        id: 'ordersFromTheCourt',
-        tasks: [
-          {
-            disabled: false,
-            href: '/task-list/applicant',
-            id: 'viewOrders',
-            linkText: 'View all orders from the court',
-            stateTag: {
-              className: 'govuk-tag--grey',
-              label: 'Not available yet',
-            },
-          },
-        ],
-      },
-      {
         heading: 'Your court hearings',
         id: 'yourHearing',
         tasks: [
           {
-            disabled: false,
+            disabled: true,
             href: '/applicant/yourhearings/hearings',
             id: 'viewHearingDetails',
             linkText: 'Check details of your court hearings',
@@ -162,23 +165,23 @@ describe('testcase for tasklist', () => {
   test('FL401 Applicant', () => {
     const data = {
       id: '12',
-      state: State.AWAITING_SUBMISSION_TO_HMCTS,
+      state: State.CASE_DRAFT,
       caseTypeOfApplication: CaseType.FL401,
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getTaskListConfig(data, party, language)).toStrictEqual([]);
+    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([]);
   });
   test('FL401 respondent', () => {
     const data = {
       id: '12',
-      state: State.AWAITING_SUBMISSION_TO_HMCTS,
+      state: State.CASE_DRAFT,
       caseTypeOfApplication: CaseType.FL401,
     };
     const party = PartyType.RESPONDENT;
     const language = 'en';
 
-    expect(getTaskListConfig(data, party, language)).toStrictEqual([]);
+    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([]);
   });
 });
