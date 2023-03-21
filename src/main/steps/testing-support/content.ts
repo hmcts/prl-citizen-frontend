@@ -1,5 +1,4 @@
 import { TranslationFn } from '../../app/controller/GetController';
-import { FormContent } from '../../app/form/Form';
 
 const en = {
   title: 'Testing support',
@@ -12,21 +11,12 @@ const cy: typeof en = {
   deleteDrafts: 'Delete Drafts',
   createDraft: 'Create Drafts',
 };
-export const form: FormContent = {
-  fields: {},
-  createDraft: {
-    text: l => l.createDraft,
-  },
-  editAddress: {
-    text: l => l.deleteDrafts,
-  },
-};
+
 const languages = {
   en,
   cy,
 };
 
 export const generateContent: TranslationFn = content => ({
-  ...languages[content.language],
-  ...form,
+  ...languages[content.language]
 });

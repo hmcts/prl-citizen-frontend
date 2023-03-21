@@ -2,7 +2,19 @@
 
 {% block page_content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
-  <form>
-  
-    </form>
+    <div class="grid-row">
+      <div class="column-two-thirds">
+        <div>
+          <form action="/testing-support/create-draft">
+            <button class="govuk-button" data-module="govuk-button">{{createC100Draft}}</button>
+          </form>
+        </div>
+        <div>
+          <form action="/testing-support/delete-draft">
+            <button class="govuk-button" data-module="govuk-button">{{createC100ResponseDraft}}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </h1>
 {% endblock %}
