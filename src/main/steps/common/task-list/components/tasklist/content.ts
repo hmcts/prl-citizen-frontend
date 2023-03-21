@@ -7,6 +7,7 @@ const en = {
     notAvailableYet: 'Not available yet',
     readyToView: 'Ready to view',
     submitted: 'Submitted',
+    optional: 'Optional',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
@@ -24,6 +25,9 @@ const en = {
       yourDocuments: {
         heading: 'Your documents',
         tasks: {
+          uploadDocuments: {
+            linkText: ' Upload documents',
+          },
           viewAllDocuments: {
             linkText: 'View all documents',
           },
@@ -73,6 +77,7 @@ const cy: typeof en = {
     notAvailableYet: 'Not available yet - welsh',
     readyToView: 'Ready to view - welsh',
     submitted: 'Submitted - welsh',
+    optional: 'Optional - welsh',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
@@ -90,6 +95,9 @@ const cy: typeof en = {
       yourDocuments: {
         heading: 'Your documents - welsh',
         tasks: {
+          uploadDocuments: {
+            linkText: ' Upload documents -welsh',
+          },
           viewAllDocuments: {
             linkText: 'View all documents - welsh',
           },
