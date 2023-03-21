@@ -6,7 +6,7 @@ describe('testcase for notification Banner', () => {
   test('when casetype not mentioned', () => {
     const data = {
       id: '12',
-      state: State.SUBMITTED_NOT_PAID,
+      state: State.CASE_SUBMITTED_NOT_PAID,
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -33,7 +33,7 @@ describe('testcase for notification Banner', () => {
   test('when casetype c100', () => {
     const data = {
       id: '12',
-      state: State.AwaitingSubmissionToHmcts,
+      state: State.CASE_DRAFT,
       caseTypeOfApplication: CaseType.C100,
     };
     const party = PartyType.APPLICANT;
@@ -61,7 +61,7 @@ describe('testcase for notification Banner', () => {
   test('when case is withdrawn', () => {
     const data = {
       id: '12',
-      state: State.CASE_WITHDRAWN_STATE,
+      state: State.CASE_WITHDRAWN,
       caseTypeOfApplication: CaseType.C100,
     };
     const party = PartyType.APPLICANT;
