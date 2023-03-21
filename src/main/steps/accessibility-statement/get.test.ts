@@ -28,6 +28,7 @@ describe('AccessibilityStatementGetController', () => {
       additionalData: expect.anything(),
       paymentError: false,
       caseId: '1234',
+      breadcrumbs: [],
     });
   });
 });

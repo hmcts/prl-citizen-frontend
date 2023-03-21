@@ -199,6 +199,13 @@ export const prepareCaseView = (
         const state = _case?.caseStatus?.state;
         const tab = tabGroup[state as string] ?? tabGroup['*'];
         const caseStatus = content?.[caseStatusTranslation?.[state!]] ?? (state as string);
+        let caseApplicantName = rest.applicantName;
+
+        if (!caseApplicantName) {
+          caseApplicantName = rest?.applicants?.length
+            ? `${rest.applicants[0].value.firstName} ${rest.applicants[0].value.lastName}`
+            : '';
+        }
 
         if (_tabs[tab]) {
           _tabs[tab].rows.push(
@@ -207,7 +214,7 @@ export const prepareCaseView = (
                 caseNumber: rest.id!,
                 caseType: caseTypeOfApplication as CaseType,
                 casePartyType: getCasePartyType(_case, idamId),
-                caseApplicantName: rest.applicantName ?? '',
+                caseApplicantName,
                 caseStatus,
                 createdDate: dayjs(rest.createdDate).format('DD MMM YYYY'),
                 lastModifiedDate: dayjs(rest.lastModifiedDate).format('DD MMM YYYY'),
