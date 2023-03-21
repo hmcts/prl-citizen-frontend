@@ -236,7 +236,7 @@ describe('testcase for isCaseWithdrawn', () => {
     expect(isCaseWithdrawn(data)).toBe(false);
   });
   test('when no case data', () => {
-    const data = undefined;
+    const data = {};
     expect(isCaseWithdrawn(data)).toBe(false);
   });
 });
