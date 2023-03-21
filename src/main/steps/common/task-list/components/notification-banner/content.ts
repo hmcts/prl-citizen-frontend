@@ -62,6 +62,22 @@ const en = {
           },
         ],
       },
+      applicationSentToLocalCourt: {
+        heading: 'Your application is in progress (sent to local court)',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps.',
+          },
+        ],
+      },
+      applicationSentToGateKeeping: {
+        heading: 'Your application is in progress (gatekeeping)',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps.',
+          },
+        ],
+      },
     },
   },
 };
@@ -125,6 +141,22 @@ const cy: typeof en = {
         contents: [
           {
             text: 'Bu i’r llys wrthod eich cais i dynnu’r cais hwn yn ôl. Bydd y cais yn parhau i fynd rhagddo.',
+          },
+        ],
+      },
+      applicationSentToLocalCourt: {
+        heading: 'Your application is in progress (sent to local court) - welsh',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
+          },
+        ],
+      },
+      applicationSentToGateKeeping: {
+        heading: 'Your application is in progress (gatekeeping) - welsh',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
           },
         ],
       },

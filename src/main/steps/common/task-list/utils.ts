@@ -44,3 +44,9 @@ export const isCaseWithdrawn = (caseData: Partial<CaseWithId>): boolean => {
     return [State.CASE_WITHDRAWN].includes(caseData.state!);
   }
 };
+
+export const isCaseLinked = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean =>
+  caseData && !!caseData.applicants?.find(applicant => applicant.value.user.idamId === userDetails.id);
+
+export const isCaseClosed = (caseData: Partial<CaseWithId>): boolean =>
+  caseData && [State.CASE_WITHDRAWN, State.CASE_CLOSED].includes(caseData.state!);
