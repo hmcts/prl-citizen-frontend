@@ -360,7 +360,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
           if (fieldFlag && req.query?.updateCase && req.query?.updateCase === YesOrNo.YES) {
             this.setFlagViewed(req, caseReference, client, req.session.user, fieldFlag);
           }
-          res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
+          res.setHeader('Content-Disposition', 'inline; filename="' + filename + '";');
           return res.end(generatedDocument.data);
         }
       }
