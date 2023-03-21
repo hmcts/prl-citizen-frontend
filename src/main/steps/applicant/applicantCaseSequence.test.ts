@@ -1,4 +1,5 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { CaseType } from '../../app/case/definition';
 
 import { applicantCaseSequence } from './applicantCaseSequence';
 
@@ -320,7 +321,12 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[70].url).toBe('/applicant/yourhearings/hearings');
     expect(applicantCaseSequence[70].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[70].getNextStep({})).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[70].getNextStep({ caseTypeOfApplication: CaseType.C100 })).toBe(
+      '/task-list/applicant'
+    );
+    expect(applicantCaseSequence[70].getNextStep({ caseTypeOfApplication: CaseType.FL401 })).toBe(
+      '/applicant/task-list'
+    );
 
     expect(applicantCaseSequence[71].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[71].showInSection).toBe('aboutApplicantCase');
@@ -348,9 +354,21 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[76].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[76].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
 
-    expect(applicantCaseSequence[76].url).toBe('/applicant/yourdocuments/alldocuments/section7_report');
-    expect(applicantCaseSequence[76].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[76].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+    expect(applicantCaseSequence[77].url).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+    expect(applicantCaseSequence[77].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[77].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/section37_report');
+
+    expect(applicantCaseSequence[78].url).toBe('/applicant/yourdocuments/alldocuments/section37_report');
+    expect(applicantCaseSequence[78].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[78].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+
+    expect(applicantCaseSequence[79].url).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+    expect(applicantCaseSequence[79].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[79].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/risk_assessment_16a');
+
+    expect(applicantCaseSequence[80].url).toBe('/applicant/yourdocuments/alldocuments/risk_assessment_16a');
+    expect(applicantCaseSequence[80].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[80].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
 
     expect(applicantCaseSequence[81].url).toBe('/applicant/contact-preferences/contact-preferences');
     expect(applicantCaseSequence[81].showInSection).toBe('aboutApplicantCase');

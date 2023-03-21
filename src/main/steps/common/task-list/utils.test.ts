@@ -1,12 +1,12 @@
-import { CaseType, PartyType, State } from '../../../app/case/definition';
+import { CaseType, PartyType, State, YesOrNo } from '../../../app/case/definition';
 
-import { getPartyName } from './utils';
+import { getPartyName, isCaseWithdrawn } from './utils';
 
 describe('testcase for partyname', () => {
   test('when party type c100-respondent', () => {
     const data = {
       id: '12',
-      state: State.Submitted,
+      state: State.CASE_SUBMITTED_PAID,
       respondents: [
         {
           id: '1',
@@ -89,7 +89,7 @@ describe('testcase for partyname', () => {
   test('when party type FL401-respondent', () => {
     const data = {
       id: '12',
-      state: State.Submitted,
+      state: State.CASE_SUBMITTED_PAID,
       respondentsFL401: {
         email: 'abc',
         gender: 'male',
@@ -178,5 +178,48 @@ describe('testcase for partyname', () => {
     console.log('data is' + data);
 
     expect(getPartyName(data, party, userDetail)).toBe('John Smith');
+  });
+});
+describe('testcase for isCaseWithdrawn', () => {
+  test('withdrawn state', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_WITHDRAWN,
+    };
+    expect(isCaseWithdrawn(data)).toBe(true);
+  });
+  test('not yet withdrawn', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SUBMITTED_PAID,
+      orderCollection: [
+        {
+          id: '',
+          value: {
+            dateCreated: '',
+            orderType: '',
+            orderDocument: {
+              document_url: '',
+              document_filename: '',
+              document_binary_url: '',
+            },
+            otherDetails: {
+              createdBy: '',
+              orderCreatedDate: '',
+              orderMadeDate: '',
+              orderRecipients: '',
+            },
+            orderTypeId: 'blankOrderOrDirectionsWithdraw',
+            isWithdrawnRequestApproved: YesOrNo.NO,
+            withdrawnRequestType: 'application',
+          },
+        },
+      ],
+    };
+    expect(isCaseWithdrawn(data)).toBe(false);
+  });
+  test('when no case data', () => {
+    const data = {};
+    expect(isCaseWithdrawn(data)).toBe(false);
   });
 });

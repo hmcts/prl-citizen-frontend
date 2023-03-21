@@ -28,7 +28,7 @@ describe('PayAndSubmitPostController test cases', () => {
     fields: {},
   } as unknown as FormContent;
 
-  /*   test('Should submit case when help with fees reference number is present and navigate to confirmation page', async () => {
+  /* test('Should submit case when help with fees reference number is present and navigate to confirmation page', async () => {
     req = mockRequest({
       body: {
         saveAndContinue: true,

@@ -22,7 +22,8 @@ export const getCasePartyType = (caseData: Partial<CaseWithId>, idamId: string):
       invities =>
         invities.value.isApplicant === YesOrNo.NO &&
         invities.value.invitedUserId &&
-        invities.value.invitedUserId === respondentsFL401?.user.idamId
+        invities.value.invitedUserId === respondentsFL401?.user.idamId &&
+        respondentsFL401?.user?.idamId === idamId
     )
       ? PartyType.RESPONDENT
       : PartyType.APPLICANT;

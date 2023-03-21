@@ -3,7 +3,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import { UserDetails } from '../../../app/controller/AppRequest';
 
-import { CaseType, PartyType } from './../../../app/case/definition';
+import { CaseType, PartyType, State, YesOrNo } from './../../../app/case/definition';
 
 export const getPartyName = (
   caseData: Partial<CaseWithId> | undefined,
@@ -26,4 +26,21 @@ export const getPartyName = (
     partyDetails = { firstName: userDetails.givenName, lastName: userDetails.familyName };
   }
   return partyDetails ? `${partyDetails.firstName} ${partyDetails.lastName}` : '';
+};
+
+export const isCaseWithdrawn = (caseData: Partial<CaseWithId>): boolean => {
+  if (!caseData) {
+    return false;
+  }
+
+  if (caseData?.orderCollection) {
+    return !!caseData.orderCollection.find(
+      order =>
+        order.value?.orderTypeId === 'blankOrderOrDirectionsWithdraw' &&
+        order.value?.withdrawnRequestType === 'Withdrawn application' &&
+        order.value.isWithdrawnRequestApproved === YesOrNo.YES
+    );
+  } else {
+    return [State.CASE_WITHDRAWN].includes(caseData.state!);
+  }
 };

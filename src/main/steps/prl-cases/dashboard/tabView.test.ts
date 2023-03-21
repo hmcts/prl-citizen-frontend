@@ -132,7 +132,7 @@ describe('Dashboard tab content', () => {
           rows: [
             [
               {
-                html: '<a class="govuk-link" href="/respondent/task-list/1675347915490145">1675347915490145</a>',
+                html: '<a class="govuk-link" href="/applicant/task-list/1675347915490145">1675347915490145</a>',
               },
               {
                 text: 'FL401',

@@ -3,10 +3,10 @@ import { CaseType, PartyType, State } from '../../../../../app/case/definition';
 import { getProgressBarConfig } from './utils';
 
 describe('testcase for progress-bar', () => {
-  test('when in progress state', () => {
+  test('when not started yet', () => {
     const data = {
       id: '12',
-      state: State.AwaitingSubmissionToHmcts,
+      state: State.CASE_DRAFT,
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -42,7 +42,7 @@ describe('testcase for progress-bar', () => {
   test('when respondent', () => {
     const data = {
       id: '12',
-      state: State.AWAITING_RESUBMISSION_TO_HMCTS,
+      state: State.CASE_DRAFT,
       caseTypeOfApplication: CaseType.C100,
     };
     const party = PartyType.RESPONDENT;
@@ -79,7 +79,7 @@ describe('testcase for progress-bar', () => {
   test('when FL401 respondent', () => {
     const data = {
       id: '12',
-      state: State.AWAITING_RESUBMISSION_TO_HMCTS,
+      state: State.CASE_DRAFT,
       caseTypeOfApplication: CaseType.FL401,
     };
     const party = PartyType.RESPONDENT;
@@ -108,9 +108,10 @@ describe('testcase for progress-bar', () => {
       },
     ]);
   });
-  test('when state submitted', () => {
+  test('when state submitted and withdrawn', () => {
     const data = {
       id: '12',
+      state: State.CASE_WITHDRAWN,
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -120,6 +121,42 @@ describe('testcase for progress-bar', () => {
         ariaLabel: 'Application submitted stage is completed',
         label: 'Application<br/> submitted',
         statusBarClassName: 'stage--completed',
+      },
+      {
+        ariaLabel: 'Cafcass child safety checks stage is not yet started',
+        label: 'Cafcass child<br/> safety checks',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Response submitted stage is not yet started',
+        label: 'Response<br/> submitted',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Hearings and court orders stage is not yet started',
+        label: 'Hearings and<br/> court orders',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Case closed stage is completed',
+        label: 'Case closed',
+        statusBarClassName: 'stage--completed',
+      },
+    ]);
+  });
+  test('when case in inprogress', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SUBMITTED_NOT_PAID,
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+
+    expect(getProgressBarConfig(data, party, language)).toStrictEqual([
+      {
+        ariaLabel: 'Application submitted stage is in progress',
+        label: 'Application<br/> submitted',
+        statusBarClassName: 'stage--active',
       },
       {
         ariaLabel: 'Cafcass child safety checks stage is not yet started',
