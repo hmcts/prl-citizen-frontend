@@ -108,8 +108,14 @@ import {
   RESPONDENT_CHECK_ANSWERS_NO,
   FETCH_CASE_DETAILS,
   PARTY_TASKLIST,
+  TESTING_SUPPORT,
+  TESTING_SUPPORT_CREATE_DRAFT,
+ // CREATE_DRAFT,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
+import { TestingSupportGetController } from './steps/testing-support/get';
+import { creatDraftGetController } from './steps/testing-support/create-draft/get';
+//import draftCaseController from './steps/testing-support/post';
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -124,6 +130,8 @@ export class Routes {
     app.get(COOKIES_PAGE, errorHandler(new CookiesGetController().get));
     app.get(PRIVACY_POLICY, errorHandler(new PrivacyPolicyGetController().get));
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
+    app.get(TESTING_SUPPORT, errorHandler(new TestingSupportGetController().get));
+    app.get(TESTING_SUPPORT_CREATE_DRAFT, errorHandler(new creatDraftGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
@@ -209,6 +217,7 @@ export class Routes {
           this.routeGuard.bind(this, step, 'post'),
           errorHandler(new postController(step.form.fields).post)
         );
+       
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
         app.get(
@@ -293,6 +302,8 @@ export class Routes {
         );
         app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
       }
+      
+//      app.post(CREATE_DRAFT, errorHandler(new draftCaseController(step.form.fields).post));
     }
     /**
      * @Payment_Handler

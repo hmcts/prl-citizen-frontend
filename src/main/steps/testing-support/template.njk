@@ -1,0 +1,18 @@
+{% extends "common/page.njk" %}
+
+
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+    <div class="grid-row">
+    <div class="column-two-thirds">
+      <div>
+      <form action="/c100-rebuild/check-your-answers" method="post">
+        
+        <button class="govuk-button" data-module="govuk-button" onclick= sessionStorage.setItem("caseId", "1669809594776886")>{{createDraft}}</button>
+        </form>
+      </div>
+     
+    </div>
+  </div>
+{% endblock %}
