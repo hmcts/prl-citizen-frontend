@@ -186,7 +186,7 @@ const SupportYouNeedAllEnum = {
     brailledocs: 'Braille documents - welsh',
     largeprintdocs: 'Documents in large print - welsh',
     docsaudio: 'Audio translation of documents - welsh',
-    docsReadOut: 'Documents read out to me - welsh',
+    docsReadOut: 'Dogfennau yn cael eu darllen yn uchel i mi',
     emailInfo: 'Information emailed to me - welsh',
     docsprint: 'Documents in a specified colour - welsh',
     //Reasonable adjustments

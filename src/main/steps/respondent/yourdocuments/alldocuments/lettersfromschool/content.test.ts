@@ -15,7 +15,7 @@ const enContent = {
 
 const cyContent = {
   section: 'Pob dogfen',
-  title: 'Letters from school',
+  title: 'Llythyrau gan yr ysgol',
   threeHint: 'This is a 8 character code',
   summaryText: 'Cysylltiadau am gymorth',
   caseNumber: 'Rhif yr achos',

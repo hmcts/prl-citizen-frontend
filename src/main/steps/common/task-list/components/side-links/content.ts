@@ -52,41 +52,41 @@ const cy: typeof en = {
   notStarted: 'is not yet started - welsh',
   [CaseType.C100]: {
     applicationSubmitted: {
-      label: 'Application<br/> submitted - welsh',
+      label: " Cais wedi'i<br/> gyflwyno",
       ariaLabel: 'Application submitted stage - welsh',
     },
     cafcassSafetyChecks: {
-      label: 'Cafcass child<br/> safety checks - welsh',
+      label: 'Gwiriadau diogelwch<br/> plant Cafcass',
       ariaLabel: 'Cafcass child safety checks stage - welsh',
     },
     responseSubmitted: {
-      label: 'Response<br/> submitted - welsh',
+      label: "Ymateb wedi'i<br/> gyflwyno",
       ariaLabel: 'Response submitted stage - welsh',
     },
     hearingAndCourtOrders: {
-      label: 'Hearings and<br/> court orders - welsh',
+      label: 'Gwrandawiadau a<br/> gorchmynion llys',
       ariaLabel: 'Hearings and court orders stage - welsh',
     },
     caseClosed: {
-      label: 'Case closed - welsh',
+      label: 'Achos wedi’i gau',
       ariaLabel: 'Case closed stage - welsh',
     },
   },
   [CaseType.FL401]: {
     caseOpened: {
-      label: 'Case<br/> opened - welsh',
+      label: 'Case<br/> opened',
       ariaLabel: 'Case opened stage - welsh',
     },
     hearingAndCourtOrders: {
-      label: 'Hearings and<br/> court orders - welsh',
+      label: 'Gwrandawiadau a<br/> gorchmynion llys',
       ariaLabel: 'Hearings and court orders stage - welsh',
     },
     finalOrder: {
-      label: 'Final order - welsh',
+      label: 'Final order',
       ariaLabel: 'Final order stage - welsh',
     },
     caseClosed: {
-      label: 'Case closed - welsh',
+      label: 'Achos wedi’i gau',
       ariaLabel: 'Case closed stage - welsh',
     },
   },

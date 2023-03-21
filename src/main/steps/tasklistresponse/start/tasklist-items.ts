@@ -20,7 +20,7 @@ export const respondent_tasklist_items_cy = {
   do_you_consent_to_the_application: "Ydych chi'n cydsynio i'r cais?",
   keep_your_details_private: 'Cadw eich manylion yn breifat',
   confirm_or_edit_your_contact_details: 'Cadarnhau neu olygu eich manylion cyswllt',
-  support_you_need_during_your_case: 'Cymorth sydd ei angen arnoch yn ystod eich achos chi',
+  support_you_need_during_your_case: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',
   mediation_miam: 'Cyfryngu (MIAM)',
   current_or_previous_proceedings: 'Achos cyfredol neu flaenorol',
   your_safety: 'Your safety',

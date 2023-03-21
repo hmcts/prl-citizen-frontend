@@ -35,7 +35,7 @@ const cy: typeof en = {
   title: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad llys',
   courtcommunication:
     'Meddyliwch am yr hyn y byddwch ei angen os bydd eich gwrandawiad yn un wyneb yn wyneb, trwy fideo neu dros y ffôn.',
-  optionHint: "Dewiswch bob un sy'n berthnasol i chi",
+  optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
   appropriatelighting: 'Goleuadau priodol',
   appropriateLightingDetails: 'Describe what you need',

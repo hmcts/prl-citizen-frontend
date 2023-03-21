@@ -85,7 +85,7 @@ describe('Dashboard content', () => {
 
   test('should return correct welsh content', () => {
     const generatedContent = generateContent({ ...commonContent, language: 'cy' });
-    expect(generatedContent.title).toEqual('Child arrangements and family injunction cases - welsh');
+    expect(generatedContent.title).toEqual('Achosion trefniadau plant a gwaharddebau teulu');
   });
 
   test('should return the appropriate tab contents for caseView', () => {
@@ -150,7 +150,7 @@ describe('Dashboard content', () => {
           rows: [
             [
               {
-                html: '<a class="govuk-link" href="/respondent/task-list/1675347915490145">1675347915490145</a>',
+                html: '<a class="govuk-link" href="/applicant/task-list/1675347915490145">1675347915490145</a>',
               },
               {
                 text: 'FL401',

@@ -798,8 +798,8 @@ export interface ContactDetail {
 }
 
 export enum applicantContactPreferencesEnum {
-  DIGITAL = 'Digital',
-  POST = 'Post',
+  DIGITAL = 'digital',
+  POST = 'post',
 }
 
 export type C100ListOfApplicants = C100Applicant[];
