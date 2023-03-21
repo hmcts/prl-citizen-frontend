@@ -210,8 +210,8 @@ export class PostController<T extends AnyObject> {
           req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
         } else if (accessCodeValidated !== 'Valid') {
           req.session.errors.push(
-            { errorType: 'invalidReference', propertyName: 'accessCode' },
-            { errorType: 'invalidReference', propertyName: 'caseCode' }
+            { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
+            { errorType: 'invalidAccessCode', propertyName: 'accessCode' }
           );
         }
       }

@@ -19,15 +19,13 @@ const en = {
       required: 'Enter your case code',
       invalid: 'The case code must be made up of 16 digits',
       notNumeric: 'Case code must be numeric',
-      invalidReference: 'The case number and access code do not match',
+      invalidCaseCode: 'Enter your case code',
     },
     accessCode: {
       required: 'Enter your access code',
       invalid: 'The access code must be made up of 8 characters and must be alphanumeric',
       accesscodeAlreadyLinked: 'Provided access code is already linked to the case.',
-      invalidAccessCode:
-        'You have entered the wrong access code. Check your email and enter it again before continuing.',
-      invalidReference: 'The case number and access code do not match',
+      invalidAccessCode: 'Enter your access code',
     },
   },
 };
@@ -46,15 +44,13 @@ const cy = {
       required: 'Enter your case code -welsh',
       invalid: 'The case code must be made up of 16 digits -welsh',
       notNumeric: 'Case code must be numeric -welsh',
-      invalidReference: 'The case number and access code do not match -welsh',
+      invalidCaseCode: 'Enter your case code -welsh',
     },
     accessCode: {
       required: 'Enter your access code -welsh',
       invalid: 'The access code must be made up of 8 characters and must be alphanumeric -welsh',
       accesscodeAlreadyLinked: 'Provided access code is already linked to the case. -welsh',
-      invalidAccessCode:
-        'You have entered the wrong access code. Check your email and enter it again before continuing. -welsh',
-      invalidReference: 'The case number and access code do not match -welsh',
+      invalidAccessCode: 'Enter your access code -welsh',
     },
   },
 };
