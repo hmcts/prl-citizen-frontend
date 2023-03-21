@@ -62,6 +62,22 @@ const en = {
           },
         ],
       },
+      applicationSentToLocalCourt: {
+        heading: 'Your application is in progress (sent to local court)',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps.',
+          },
+        ],
+      },
+      applicationSentToGateKeeping: {
+        heading: 'Your application is in progress (gatekeeping)',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps.',
+          },
+        ],
+      },
     },
   },
 };
@@ -125,6 +141,22 @@ const cy: typeof en = {
         contents: [
           {
             text: 'The court rejected your request to withdraw this application. The application will continue to progress. - welsh',
+          },
+        ],
+      },
+      applicationSentToLocalCourt: {
+        heading: 'Your application is in progress (sent to local court) - welsh',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
+          },
+        ],
+      },
+      applicationSentToGateKeeping: {
+        heading: 'Your application is in progress (gatekeeping) - welsh',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
           },
         ],
       },
