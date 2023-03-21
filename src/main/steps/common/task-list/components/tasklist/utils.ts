@@ -53,7 +53,13 @@ const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orde
 const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => !!caseData?.hearingCollection?.length;
 
 const isCaseSubmitted = (caseData: Partial<CaseWithId>): boolean =>
-  caseData && [State.CASE_SUBMITTED_NOT_PAID, State.CASE_SUBMITTED_PAID].includes(caseData.state!);
+  caseData &&
+  [
+    State.CASE_SUBMITTED_NOT_PAID,
+    State.CASE_SUBMITTED_PAID,
+    State.CASE_ISSUED_TO_LOCAL_COURT,
+    State.CASE_GATE_KEEPING,
+  ].includes(caseData.state!);
 
 interface TaskList {
   id: TaskList;
