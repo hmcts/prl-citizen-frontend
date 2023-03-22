@@ -61,6 +61,7 @@ const isCaseSubmitted = (caseData: Partial<CaseWithId>): boolean =>
     State.CASE_SUBMITTED_PAID,
     State.CASE_ISSUED_TO_LOCAL_COURT,
     State.CASE_GATE_KEEPING,
+    State.CASE_CLOSED,
   ].includes(caseData.state!);
 
 interface TaskList {
@@ -182,8 +183,9 @@ const taskListConfig = {
       {
         id: TaskListSection.YOUR_DOCUMENTS,
         content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
-          isCaseSubmitted(caseData) || isCaseLinked(caseData, userDetails),
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+          return isCaseSubmitted(caseData) || isCaseLinked(caseData, userDetails);
+        },
         tasks: [
           {
             id: Tasks.UPLOAD_DOCUMENTS,

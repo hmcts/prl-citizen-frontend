@@ -1,7 +1,14 @@
 import { CaseType, PartyType, State, YesOrNo } from '../../../../../app/case/definition';
 
 import { getNotificationBannerConfig } from './utils';
-
+const userDetails = {
+  id: '123',
+  accessToken: 'mock-user-access-token',
+  name: 'test',
+  givenName: 'First name',
+  familyName: 'Last name',
+  email: 'test@example.com',
+};
 describe('testcase for notification Banner', () => {
   test('when casetype not mentioned', () => {
     const data = {
@@ -11,7 +18,7 @@ describe('testcase for notification Banner', () => {
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getNotificationBannerConfig(data, party, language)).toStrictEqual([
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
         contents: [
           {
@@ -39,7 +46,7 @@ describe('testcase for notification Banner', () => {
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getNotificationBannerConfig(data, party, language)).toStrictEqual([
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
         contents: [
           {
@@ -67,7 +74,7 @@ describe('testcase for notification Banner', () => {
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getNotificationBannerConfig(data, party, language)).toStrictEqual([
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
         contents: [
           {
@@ -110,7 +117,7 @@ describe('testcase for notification Banner', () => {
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
-    expect(getNotificationBannerConfig(data, party, language)).toStrictEqual([
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
         contents: [
           {

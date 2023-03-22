@@ -104,7 +104,7 @@ export const generateContent: TranslationFn = content => {
     },
     partyName: getPartyName(caseData, partyType, request.session.user),
     progressBar: getProgressBarConfig(caseData, partyType, content.language),
-    notifications: getNotificationBannerConfig(caseData, partyType, content.language),
+    notifications: getNotificationBannerConfig(caseData, request.session.user, partyType, content.language),
     taskLists: getTaskListConfig(caseData, request.session.user, partyType, content.language),
   };
 };

@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { CaseWithId } from '../../../../../app/case/case';
+import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { interpolate } from '../../../string-parser';
+import { isCaseLinked } from '../../utils';
 
 import { CaseType, PartyType, State, YesOrNo } from './../../../../../app/case/definition';
 import { C100_WITHDRAW_CASE } from './../../../../urls';
@@ -16,6 +18,7 @@ enum BannerNotification {
   WITHDRAWAL_REQ_REJECTED = 'withdrawalRequestRejected',
   APPLICATION_SENT_TO_LOCAL_COURT = 'applicationSentToLocalCourt',
   APPLICATION_SENT_TO_GATE_KEEPING = 'applicationSentToGateKeeping',
+  APPLICATION_SERVED_LINKED = 'applicationServedAndLinked',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string) => {
@@ -61,6 +64,11 @@ const notificationBanner = {
   [BannerNotification.APPLICATION_SENT_TO_GATE_KEEPING]: {
     id: BannerNotification.APPLICATION_SENT_TO_GATE_KEEPING,
     content: getContent.bind(null, BannerNotification.APPLICATION_SENT_TO_GATE_KEEPING),
+    show: () => false,
+  },
+  [BannerNotification.APPLICATION_SERVED_LINKED]: {
+    id: BannerNotification.APPLICATION_SERVED_LINKED,
+    content: getContent.bind(null, BannerNotification.APPLICATION_SERVED_LINKED),
     show: () => false,
   },
 };
@@ -115,6 +123,12 @@ const notificationBannerConfig = {
           return caseData?.state === State.CASE_GATE_KEEPING;
         },
       },
+      {
+        ...notificationBanner.applicationServedAndLinked,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+          return caseData?.state === State.CASE_SERVED && isCaseLinked(caseData, userDetails);
+        },
+      },
     ],
     [PartyType.RESPONDENT]: [],
   },
@@ -126,6 +140,7 @@ const notificationBannerConfig = {
 
 export const getNotificationBannerConfig = (
   caseData: Partial<CaseWithId>,
+  userDetails: UserDetails,
   partyType: PartyType,
   language: string
 ): Record<string, any>[] => {
@@ -139,7 +154,7 @@ export const getNotificationBannerConfig = (
     .map(config => {
       const { id, show } = config;
 
-      if (show(caseData)) {
+      if (show(caseData, userDetails)) {
         const _content = config.content(caseType, language);
         let _config = {
           id,
