@@ -20,7 +20,7 @@
     {% if notification.links and notification.links.length > 0%}
       {% for link in notification.links %}
         <p class="govuk-notification-banner__heading">
-          {% if link.external %}
+          {% if link.external and link.external == 'true' %}
             <a class="govuk-notification-banner__link" href={{ link.href }} target="_blank">{{link.text}}</a>
             {%else%}
             <a class="govuk-notification-banner__link" href={{ link.href }}>{{link.text}}</a>

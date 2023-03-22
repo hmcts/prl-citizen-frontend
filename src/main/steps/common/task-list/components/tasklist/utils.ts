@@ -8,6 +8,7 @@ import {
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+  APPLICANT_TASKLIST_HEARING_NEEDS,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_YOURHEARINGS_HEARINGS,
@@ -36,6 +37,7 @@ enum Tasks {
   EDIT_YOUR_CONTACT_DETAILS = 'editYouContactDetails',
   CONTACT_PREFERENCES = 'contactPreferences',
   KEEP_YOUR_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
+  SUPPORT_DURING_CASE = 'supportDuringCase',
   VIEW_ORDERS = 'viewOrders',
 }
 
@@ -50,7 +52,7 @@ enum StateTags {
 
 const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
 
-const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => !!caseData?.hearingCollection?.length;
+const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => caseData && true;
 
 const isCaseSubmitted = (caseData: Partial<CaseWithId>): boolean =>
   caseData &&
@@ -59,6 +61,7 @@ const isCaseSubmitted = (caseData: Partial<CaseWithId>): boolean =>
     State.CASE_SUBMITTED_PAID,
     State.CASE_ISSUED_TO_LOCAL_COURT,
     State.CASE_GATE_KEEPING,
+    State.CASE_CLOSED,
   ].includes(caseData.state!);
 
 interface TaskList {
@@ -138,6 +141,14 @@ const taskListConfig = {
             disabled: isCaseClosed,
             stateTag: () => StateTags.SUBMITTED,
           },
+          {
+            id: Tasks.SUPPORT_DURING_CASE,
+            href: () => {
+              return `${APPLICANT_TASKLIST_HEARING_NEEDS}`;
+            },
+            disabled: isCaseClosed,
+            stateTag: () => StateTags.SUBMITTED,
+          },
         ],
       },
       {
@@ -172,8 +183,9 @@ const taskListConfig = {
       {
         id: TaskListSection.YOUR_DOCUMENTS,
         content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
-          isCaseSubmitted(caseData) || isCaseLinked(caseData, userDetails),
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+          return isCaseSubmitted(caseData) || isCaseLinked(caseData, userDetails);
+        },
         tasks: [
           {
             id: Tasks.UPLOAD_DOCUMENTS,
@@ -221,7 +233,7 @@ const taskListConfig = {
               }
               return StateTags.NOT_AVAILABLE_YET;
             },
-            disabled: (caseData: Partial<CaseWithId>) => !hasAnyOrder(caseData),
+            disabled: (caseData: Partial<CaseWithId>) => !hasAnyHearing(caseData),
           },
         ],
       },

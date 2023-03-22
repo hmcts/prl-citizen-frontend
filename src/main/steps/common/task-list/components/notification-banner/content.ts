@@ -78,6 +78,37 @@ const en = {
           },
         ],
       },
+      applicationServedAndLinked: {
+        heading: 'The court has issued your application',
+        contents: [
+          {
+            text: 'This means the court has sent your application to the other people in the case (the respondents).',
+          },
+          {
+            text: 'The court has also sent the application to the Children and Family Court advisory and Support Service (Cafcass or Cafcass Cymru). Cafcass or Cafcass Cymru will contact you to consider the needs of the children.',
+          },
+        ],
+        links: [
+          {
+            text: 'Find out about Cafcass',
+            href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
+            external: true,
+          },
+          {
+            text: 'Find out about Cafcass Cymru',
+            href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
+            external: true,
+          },
+        ],
+      },
+      applicationClosed: {
+        heading: 'The case is now closed.',
+        contents: [
+          {
+            text: 'You will still be able to access all documents related to this case.',
+          },
+        ],
+      },
     },
   },
 };
@@ -115,21 +146,21 @@ const cy: typeof en = {
         ],
       },
       applicationSubmitted: {
-        heading: 'Your application is in progress - welsh',
+        heading: 'Mae eich cais ar y gweill',
         contents: [
           {
-            text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
+            text: 'Mae eich cais yn cael ei adolygu a bydd y llys yn cysylltu â chi ynghylch y camau nesaf.',
           },
         ],
         links: [
           {
-            text: 'Withdraw your application - welsh',
+            text: 'Tynnu eich cais yn ôl',
             href: '{withdrawCase}',
           },
         ],
       },
       applicationWithdrawn: {
-        heading: 'This case has now been withdrawn - welsh',
+        heading: 'Mae’r achos wedi cael ei dynnu’n ôl.',
         contents: [
           {
             text: 'You can still access all documents related to the case - welsh',
@@ -137,10 +168,10 @@ const cy: typeof en = {
         ],
       },
       withdrawalRequestRejected: {
-        heading: 'Your withdrawal request was rejected - welsh',
+        heading: 'YCafodd eich cais i dynnu’r cais yn ôl ei wrthod ',
         contents: [
           {
-            text: 'The court rejected your request to withdraw this application. The application will continue to progress. - welsh',
+            text: 'Bu i’r llys wrthod eich cais i dynnu’r cais hwn yn ôl. Bydd y cais yn parhau i fynd rhagddo.',
           },
         ],
       },
@@ -157,6 +188,37 @@ const cy: typeof en = {
         contents: [
           {
             text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
+          },
+        ],
+      },
+      applicationServedAndLinked: {
+        heading: 'The court has issued your application - welsh',
+        contents: [
+          {
+            text: 'This means the court has sent your application to the other people in the case (the respondents) - welsh',
+          },
+          {
+            text: 'The court has also sent the application to the Children and Family Court advisory and Support Service (Cafcass or Cafcass Cymru). Cafcass or Cafcass Cymru will contact you to consider the needs of the children. - welsh',
+          },
+        ],
+        links: [
+          {
+            text: 'Find out about Cafcass - welsh',
+            href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
+            external: true,
+          },
+          {
+            text: 'Find out about Cafcass Cymru - welsh',
+            href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
+            external: true,
+          },
+        ],
+      },
+      applicationClosed: {
+        heading: 'The case is now closed. - welsh',
+        contents: [
+          {
+            text: 'You will still be able to access all documents related to this case. - welsh',
           },
         ],
       },

@@ -26,6 +26,14 @@ describe('address confirmation > content', () => {
   const commonContent = generatePageContent({
     language: 'en',
     userCase: {},
+    additionalData: {
+      req: {
+        session: {
+          userCase: {},
+        },
+        originalUrl: '/',
+      },
+    },
   }) as CommonContent;
 
   test('should return correct english content', () => {

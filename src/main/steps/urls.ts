@@ -568,3 +568,7 @@ export const PIN_ACTIVATION_CASE_ACTIVATED_URL: PageLink = `${PIN_ACTIVATION_URL
 /**@C100 withdraw case */
 export const C100_WITHDRAW_CASE: PageLink = `${C100_URL}/:caseId/withdraw`;
 export const C100_WITHDRAW_CASE_CONFIRMATION: PageLink = `${C100_URL}/withdraw/confirmation`;
+
+/** applicant/tasklist hearing needs */
+export const HEARING_NEEDS: PageLink = '/hearing-needs';
+export const APPLICANT_TASKLIST_HEARING_NEEDS: PageLink = `${APPLICANT}${HEARING_NEEDS}/support-help`;
