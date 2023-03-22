@@ -53,6 +53,9 @@ const en = {
           keepYourDetailsPrivate: {
             linkText: 'Keep your details private',
           },
+          supportDuringCase: {
+            linkText: 'Support you need during your case',
+          },
         },
       },
       ordersFromTheCourt: {
@@ -121,6 +124,9 @@ const cy: typeof en = {
           },
           keepYourDetailsPrivate: {
             linkText: 'Cadw eich manylion yn breifat',
+          },
+          supportDuringCase: {
+            linkText: 'Support you need during your case -welsh',
           },
         },
       },
