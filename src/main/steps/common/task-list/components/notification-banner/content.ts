@@ -62,6 +62,22 @@ const en = {
           },
         ],
       },
+      applicationSentToLocalCourt: {
+        heading: 'Your application is in progress (sent to local court)',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps.',
+          },
+        ],
+      },
+      applicationSentToGateKeeping: {
+        heading: 'Your application is in progress (gatekeeping)',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps.',
+          },
+        ],
+      },
     },
   },
 };
@@ -99,21 +115,21 @@ const cy: typeof en = {
         ],
       },
       applicationSubmitted: {
-        heading: 'Your application is in progress - welsh',
+        heading: 'Mae eich cais ar y gweill',
         contents: [
           {
-            text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
+            text: 'Mae eich cais yn cael ei adolygu a bydd y llys yn cysylltu â chi ynghylch y camau nesaf.',
           },
         ],
         links: [
           {
-            text: 'Withdraw your application - welsh',
+            text: 'Tynnu eich cais yn ôl',
             href: '{withdrawCase}',
           },
         ],
       },
       applicationWithdrawn: {
-        heading: 'This case has now been withdrawn - welsh',
+        heading: 'Mae’r achos wedi cael ei dynnu’n ôl.',
         contents: [
           {
             text: 'You can still access all documents related to the case - welsh',
@@ -121,10 +137,26 @@ const cy: typeof en = {
         ],
       },
       withdrawalRequestRejected: {
-        heading: 'Your withdrawal request was rejected - welsh',
+        heading: 'YCafodd eich cais i dynnu’r cais yn ôl ei wrthod ',
         contents: [
           {
-            text: 'The court rejected your request to withdraw this application. The application will continue to progress. - welsh',
+            text: 'Bu i’r llys wrthod eich cais i dynnu’r cais hwn yn ôl. Bydd y cais yn parhau i fynd rhagddo.',
+          },
+        ],
+      },
+      applicationSentToLocalCourt: {
+        heading: 'Your application is in progress (sent to local court) - welsh',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
+          },
+        ],
+      },
+      applicationSentToGateKeeping: {
+        heading: 'Your application is in progress (gatekeeping) - welsh',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
           },
         ],
       },

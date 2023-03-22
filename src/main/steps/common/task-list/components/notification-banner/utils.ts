@@ -14,6 +14,8 @@ enum BannerNotification {
   APPLICATION_SUBMITTED = 'applicationSubmitted',
   APPLICATION_WITHDRAWN = 'applicationWithdrawn',
   WITHDRAWAL_REQ_REJECTED = 'withdrawalRequestRejected',
+  APPLICATION_SENT_TO_LOCAL_COURT = 'applicationSentToLocalCourt',
+  APPLICATION_SENT_TO_GATE_KEEPING = 'applicationSentToGateKeeping',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string) => {
@@ -51,6 +53,16 @@ const notificationBanner = {
     content: getContent.bind(null, BannerNotification.WITHDRAWAL_REQ_REJECTED),
     show: () => false,
   },
+  [BannerNotification.APPLICATION_SENT_TO_LOCAL_COURT]: {
+    id: BannerNotification.APPLICATION_SENT_TO_LOCAL_COURT,
+    content: getContent.bind(null, BannerNotification.APPLICATION_SENT_TO_LOCAL_COURT),
+    show: () => false,
+  },
+  [BannerNotification.APPLICATION_SENT_TO_GATE_KEEPING]: {
+    id: BannerNotification.APPLICATION_SENT_TO_GATE_KEEPING,
+    content: getContent.bind(null, BannerNotification.APPLICATION_SENT_TO_GATE_KEEPING),
+    show: () => false,
+  },
 };
 
 const notificationBannerConfig = {
@@ -65,19 +77,19 @@ const notificationBannerConfig = {
       {
         ...notificationBanner.applicationInProgress,
         show: (caseData: Partial<CaseWithId>): boolean => {
-          return caseData?.state === State.AwaitingSubmissionToHmcts;
+          return caseData?.state === State.CASE_DRAFT;
         },
       },
       {
         ...notificationBanner.applicationSubmitted,
         show: (caseData: Partial<CaseWithId>): boolean => {
-          return caseData?.state === State.SUBMITTED_PAID || caseData?.state === State.SUBMITTED_NOT_PAID;
+          return caseData?.state === State.CASE_SUBMITTED_PAID || caseData?.state === State.CASE_SUBMITTED_NOT_PAID;
         },
       },
       {
         ...notificationBanner.applicationWithdrawn,
         show: (caseData: Partial<CaseWithId>): boolean => {
-          return caseData?.state === State.CASE_WITHDRAWN_STATE;
+          return caseData?.state === State.CASE_WITHDRAWN;
         },
       },
       {
@@ -89,6 +101,18 @@ const notificationBannerConfig = {
               order.value?.withdrawnRequestType === 'Withdrawn application' &&
               order.value?.isWithdrawnRequestApproved === YesOrNo.NO
           );
+        },
+      },
+      {
+        ...notificationBanner.applicationSentToLocalCourt,
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return caseData?.state === State.CASE_ISSUED_TO_LOCAL_COURT;
+        },
+      },
+      {
+        ...notificationBanner.applicationSentToGateKeeping,
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return caseData?.state === State.CASE_GATE_KEEPING;
         },
       },
     ],

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CaseWithId } from '../../../../../app/case/case';
-import { isCaseWithdrawn } from '../../utils';
 
 import { CaseType, PartyType, State } from './../../../../../app/case/definition';
+import { isCaseClosed } from './../../utils';
 import { languages as content } from './content';
 
 enum CaseProgressionStage {
@@ -78,16 +78,10 @@ const progressBarConfig = {
     [PartyType.APPLICANT]: [
       {
         ...progressBarStage.applicationSubmitted,
-        isComplete: (caseData: Partial<CaseWithId>) => {
-          return caseData
-            ? ![State.AwaitingSubmissionToHmcts, State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(
-                caseData.state!
-              )
-            : false;
-        },
-        isInProgress: (caseData: Partial<CaseWithId>) => {
-          return caseData ? caseData.state !== State.AwaitingSubmissionToHmcts : false;
-        },
+        isComplete: (caseData: Partial<CaseWithId>) =>
+          caseData &&
+          ![State.CASE_DRAFT, State.CASE_SUBMITTED_NOT_PAID, State.CASE_SUBMITTED_PAID].includes(caseData.state!),
+        isInProgress: (caseData: Partial<CaseWithId>) => caseData && caseData.state !== State.CASE_DRAFT,
       },
       progressBarStage.cafcassSafetyChecks,
       progressBarStage.responseSubmitted,
@@ -95,9 +89,7 @@ const progressBarConfig = {
 
       {
         ...progressBarStage.caseClosed,
-        isComplete: (caseData: Partial<CaseWithId>) => {
-          return caseData ? caseData.state === State.ALL_FINAL_ORDERS_ISSUED || isCaseWithdrawn(caseData) : false;
-        },
+        isComplete: isCaseClosed,
       },
     ],
     [PartyType.RESPONDENT]: [

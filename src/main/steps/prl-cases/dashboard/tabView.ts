@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../app/case/definition';
+import { isCaseLinked } from '../../../steps/common/task-list/utils';
 import { applyParms } from '../../common/url-parser';
 import {
   APPLICANT_TASK_LIST_URL,
@@ -12,25 +13,27 @@ import {
   RESPONDENT_TASK_LIST_URL,
 } from '../../urls';
 
+import { UserDetails } from './../../../app/controller/AppRequest';
 import { getCasePartyType } from './utils';
 
 const tabGroup = {
-  [State.AWAITING_SUBMISSION_TO_HMCTS]: 'draft',
-  [State.PENDING]: 'draft',
-  [State.Submitted]: 'draft',
-  [State.CASE_ISSUE]: 'draft',
-  [State.GATEKEEPING]: 'draft',
-  [State.ALL_FINAL_ORDERS_ISSUED]: 'closed',
+  [State.CASE_DRAFT]: 'draft',
+  [State.CASE_SUBMITTED_NOT_PAID]: 'draft',
+  [State.CASE_SUBMITTED_PAID]: 'draft',
+  [State.CASE_ISSUED_TO_LOCAL_COURT]: 'draft',
+  [State.CASE_GATE_KEEPING]: 'draft',
+  [State.CASE_CLOSED]: 'closed',
   [State.CASE_WITHDRAWN]: 'closed',
   '*': 'active',
 };
 
 const caseStatusTranslation = {
-  [State.AWAITING_SUBMISSION_TO_HMCTS]: 'draftCaseStatus',
-  [State.CASE_ISSUE]: 'caseIssued',
-  [State.GATEKEEPING]: 'caseGatekeeping',
-  [State.PENDING]: 'pendingCaseStatus',
-  [State.Submitted]: 'submittedCaseStatus',
+  [State.CASE_DRAFT]: 'draftCaseStatus',
+  [State.CASE_SUBMITTED_NOT_PAID]: 'submittedCaseStatus',
+  [State.CASE_SUBMITTED_PAID]: 'submittedCaseStatus',
+  [State.CASE_ISSUED_TO_LOCAL_COURT]: 'caseIssued',
+  [State.CASE_GATE_KEEPING]: 'caseGatekeeping',
+  [State.CASE_SERVED]: 'caseServed',
 };
 interface CaseDetails {
   caseNumber: string;
@@ -187,7 +190,7 @@ const prepareTableData = (caseData: CaseDetails, tab: string): TableRowFields[] 
 
 export const prepareCaseView = (
   caseData: Partial<CaseWithId>[],
-  idamId: string,
+  userDetails: UserDetails,
   content: Record<string, string>
 ): Tabs => {
   let tabs = prepareTabContent(content);
@@ -196,9 +199,19 @@ export const prepareCaseView = (
     tabs = caseData.reduce(
       (_tabs: Tabs, _case: Partial<CaseWithId>) => {
         const { caseTypeOfApplication, ...rest } = _case;
-        const state = _case?.caseStatus?.state;
-        const tab = tabGroup[state as string] ?? tabGroup['*'];
+        const state = _case.state;
+        let tab = tabGroup[state as string] ?? tabGroup['*'];
         const caseStatus = content?.[caseStatusTranslation?.[state!]] ?? (state as string);
+        const casePartyType = getCasePartyType(_case, userDetails.id);
+
+        if (
+          tab === 'active' &&
+          casePartyType === PartyType.APPLICANT &&
+          caseTypeOfApplication === CaseType.C100 &&
+          !isCaseLinked(_case, userDetails)
+        ) {
+          tab = 'draft';
+        }
         let caseApplicantName = rest.applicantName;
 
         if (!caseApplicantName) {
@@ -213,8 +226,8 @@ export const prepareCaseView = (
               {
                 caseNumber: rest.id!,
                 caseType: caseTypeOfApplication as CaseType,
-                casePartyType: getCasePartyType(_case, idamId),
-                caseApplicantName,
+                casePartyType,
+                caseApplicantName: rest.applicantName ?? '',
                 caseStatus,
                 createdDate: dayjs(rest.createdDate).format('DD MMM YYYY'),
                 lastModifiedDate: dayjs(rest.lastModifiedDate).format('DD MMM YYYY'),
