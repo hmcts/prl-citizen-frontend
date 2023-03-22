@@ -57,9 +57,9 @@ const cy = {
   occupationOrder: 'Gorchymyn Anheddu',
   forcedMarriageProtectionOrder: 'Gorchymyn Amddiffyn rhag Priodas dan Orfod',
   restrainingOrder: 'Restraining order - welsh',
-  otherInjuctionOrder: 'Other injunction order - welsh',
-  undertakingOrder: 'Undertaking in place of an order - welsh',
-  otherOrder: 'Other orders - welsh',
+  otherInjuctionOrder: 'Gorchymyn Gwaharddeb Arall',
+  undertakingOrder: 'Ymgymeriad yn lle gorchymyn',
+  otherOrder: 'Gorchmynion eraill',
   errors: {
     courtProceedingsOrders: {
       required: 'Specify which court cases you or the children have been involved in - welsh',
