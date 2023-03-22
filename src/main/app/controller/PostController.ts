@@ -217,6 +217,10 @@ export class PostController<T extends AnyObject> {
       }
     } catch (err) {
       req.locals.logger.error('Retrieving case failed with error: ' + err);
+      req.session.errors.push(
+        { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
+        { errorType: 'invalidAccessCode', propertyName: 'accessCode' }
+      );
     }
 
     if (req.session.errors.length) {
