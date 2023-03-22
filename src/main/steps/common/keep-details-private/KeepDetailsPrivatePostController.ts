@@ -25,7 +25,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
   public async c100Respondent(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
-        Object.assign(respondent.value, setKeepYourDetailsPrivate(respondent.value, req));
+        // Object.assign(respondent.value, setKeepYourDetailsPrivate(respondent.value, req));
         Object.assign(respondent.value, {
           ...mapConfidentialListToFields(setKeepYourDetailsPrivate(respondent.value, req)),
         });
