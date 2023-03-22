@@ -16,8 +16,6 @@ import {
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 
-import { ANYTYPE } from './dateformatter';
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const setProceedingDetails = (UserCase, respondent: Respondent, req: AppRequest): Respondent => {
   const respondentDetails = respondent;
@@ -168,14 +166,8 @@ function getLocalDate(orderDate: string): Date {
     const formated_Date = new Date(orderDate['year'], orderDate['month'] - 1, orderDate['day']);
     return formated_Date;
   } else {
-    const formattedDate = Object.values(orderDate)
-      .toString()
-      .split(',')
-      .filter(item => item !== '')
-      .toString()
-      .split(',')
-      .join('/') as ANYTYPE;
-    return formattedDate;
+    const formated_Date = new Date(orderDate['year'], orderDate['month'] - 1, orderDate['day']);
+    return formated_Date;
   }
 }
 

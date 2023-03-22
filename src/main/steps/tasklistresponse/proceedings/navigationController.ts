@@ -76,6 +76,7 @@ class OtherProceedingsNavigationController {
             nextUrl = PROCEEDINGS_SUMMARY;
           }
         }
+
         break;
       }
       case OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: {

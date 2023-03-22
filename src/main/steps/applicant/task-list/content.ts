@@ -95,7 +95,7 @@ const cy = () => ({
     ],
     bannerLinks: [
       {
-        href: APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
+        href: APPLICANT_VIEW_ALL_DOCUMENTS,
         text: 'See all documents',
       },
     ],
