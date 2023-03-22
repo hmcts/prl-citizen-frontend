@@ -101,6 +101,14 @@ const en = {
           },
         ],
       },
+      applicationClosed: {
+        heading: 'The case is now closed.',
+        contents: [
+          {
+            text: 'You will still be able to access all documents related to this case.',
+          },
+        ],
+      },
     },
   },
 };
@@ -203,6 +211,14 @@ const cy: typeof en = {
             text: 'Find out about Cafcass Cymru - welsh',
             href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
             external: true,
+          },
+        ],
+      },
+      applicationClosed: {
+        heading: 'The case is now closed. - welsh',
+        contents: [
+          {
+            text: 'You will still be able to access all documents related to this case. - welsh',
           },
         ],
       },
