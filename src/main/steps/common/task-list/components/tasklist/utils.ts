@@ -15,7 +15,7 @@ import {
   C100_DOWNLOAD_APPLICATION,
   C100_START,
 } from '../../../../urls';
-import { isCaseClosed, isCaseLinked } from '../../utils';
+import { isCaseClosed, isCaseLinked, isDraftCase } from '../../utils';
 
 import { languages as content } from './content';
 
@@ -30,6 +30,7 @@ enum TaskListSection {
 }
 enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
+  YOUR_APPLICATION_PDF = 'yourApplicationPDF',
   VIEW_ALL_DOCUMENTS = 'viewAllDocuments',
   UPLOAD_DOCUMENTS = 'uploadDocuments',
   VIEW_HEARING_DETAILS = 'viewHearingDetails',
@@ -161,22 +162,21 @@ const taskListConfig = {
               if (!caseData) {
                 return C100_START;
               }
-
-              if (caseData?.state === State.CASE_DRAFT) {
-                return caseData.c100RebuildReturnUrl;
-              } else {
-                return C100_DOWNLOAD_APPLICATION;
-              }
+              return caseData.c100RebuildReturnUrl;
             },
             stateTag: (caseData: Partial<CaseWithId>) => {
               if (!caseData) {
                 return StateTags.NOT_STARTED_YET;
-              } else if (caseData?.state === State.CASE_DRAFT) {
-                return StateTags.IN_PROGRESS;
-              } else {
-                return StateTags.SUBMITTED;
               }
+              return StateTags.IN_PROGRESS;
             },
+            show: (caseData: Partial<CaseWithId>) => !caseData || isDraftCase(caseData),
+          },
+          {
+            id: Tasks.YOUR_APPLICATION_PDF,
+            href: () => C100_DOWNLOAD_APPLICATION,
+            stateTag: () => StateTags.SUBMITTED,
+            show: (caseData: Partial<CaseWithId>) => !isDraftCase(caseData),
           },
         ],
       },
