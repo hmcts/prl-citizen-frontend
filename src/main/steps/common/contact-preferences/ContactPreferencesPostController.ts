@@ -63,7 +63,7 @@ export class ContactPreferencesPostController extends PostController<AnyObject> 
     );
 
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
-    req.session.userCase.applicantPreferredContact = updatedCaseDataFromCos.applicants![0].value!.contactPreferences;
+    req.session.userCase.applicantPreferredContact = updatedCaseDataFromCos.applicants?.[0].value?.contactPreferences;
 
     const redirectUrl = setRedirectUrl(req);
     req.session.save(() => console.log('saved'));
