@@ -200,18 +200,9 @@ export const prepareCaseView = (
       (_tabs: Tabs, _case: Partial<CaseWithId>) => {
         const { caseTypeOfApplication, ...rest } = _case;
         const state = _case.state;
-        let tab = tabGroup[state as string] ?? tabGroup['*'];
         const caseStatus = content?.[caseStatusTranslation?.[state!]] ?? (state as string);
         const casePartyType = getCasePartyType(_case, userDetails.id);
-
-        if (
-          tab === 'active' &&
-          casePartyType === PartyType.APPLICANT &&
-          caseTypeOfApplication === CaseType.C100 &&
-          !isCaseLinked(_case, userDetails)
-        ) {
-          tab = 'draft';
-        }
+        const tab = getCaseTabGrouping(_case, userDetails, casePartyType);
         let caseApplicantName = rest.applicantName;
 
         if (!caseApplicantName) {
@@ -227,7 +218,7 @@ export const prepareCaseView = (
                 caseNumber: rest.id!,
                 caseType: caseTypeOfApplication as CaseType,
                 casePartyType,
-                caseApplicantName: rest.applicantName ?? '',
+                caseApplicantName,
                 caseStatus,
                 createdDate: dayjs(rest.createdDate).format('DD MMM YYYY'),
                 lastModifiedDate: dayjs(rest.lastModifiedDate).format('DD MMM YYYY'),
@@ -251,6 +242,26 @@ export const prepareCaseView = (
   });
 
   return tabs;
+};
+
+const getCaseTabGrouping = (
+  caseData: Partial<CaseWithId>,
+  userDetails: UserDetails,
+  casePartyType: PartyType
+): string => {
+  const { state, caseTypeOfApplication } = caseData;
+  const tab = tabGroup[state as string] ?? tabGroup['*'];
+
+  if (
+    tab === 'active' &&
+    caseTypeOfApplication === CaseType.C100 &&
+    casePartyType === PartyType.APPLICANT &&
+    !isCaseLinked(caseData, userDetails)
+  ) {
+    return 'draft';
+  }
+
+  return tab;
 };
 
 const getTaskListUrl = (
