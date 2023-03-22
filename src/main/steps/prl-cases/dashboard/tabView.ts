@@ -212,6 +212,13 @@ export const prepareCaseView = (
         ) {
           tab = 'draft';
         }
+        let caseApplicantName = rest.applicantName;
+
+        if (!caseApplicantName) {
+          caseApplicantName = rest?.applicants?.length
+            ? `${rest.applicants[0].value.firstName} ${rest.applicants[0].value.lastName}`
+            : '';
+        }
 
         if (_tabs[tab]) {
           _tabs[tab].rows.push(
