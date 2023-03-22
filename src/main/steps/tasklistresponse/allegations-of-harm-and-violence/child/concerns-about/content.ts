@@ -43,22 +43,23 @@ export const en = () => ({
 export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   caption: 'Pryderon diogelwch',
-  headingTitle: 'What type of behaviour have the children experienced or are at risk of experiencing? - welsh',
+  headingTitle: 'Pa fath o ymddygiad ydych chi wedi ei brofi neu mewn perygl o’i brofi?',
   paragraph1: 'See the National Society for Prevention of Cruelty to Children (NSPCC) guidance on - welsh',
   spottingSignsOfChildHyperLink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse - welsh',
   spottingSignsOfChildAbuseLabel: ' spotting the signs of child abuse. - welsh',
-  select_all_relevant: 'Select any options that are relevant to your situation. - welsh',
+  supportNavLabel: 'SupportNav - welsh',
+  select_all_relevant: "Dewiswch bob opsiwn sy'n berthnasol i'ch sefyllfa.",
   physicalAbuse: 'cam-drin corfforol',
-  physicalAbuseHint: 'Behaviour such as punching, choking, kicking or hitting with an object - welsh',
-  psychologicalAbuse: 'Psychological abuse - welsh',
+  physicalAbuseHint: 'Ymddygiad megis dyrnu, tagu, cicio neu daro gyda gwrthrych',
+  psychologicalAbuse: 'Cam-drin seicolegol',
   psychologicalAbuseHint:
-    'Being subjected to a situation that leads to anxiety, depression, or post-traumatic stress disorder - welsh',
+    "Cael eu rhoi mewn sefyllfa sy'n arwain at or-bryder, iselder, neu anhwylder straen ar ôl trawma",
   emotionalAbuse: 'cam-drin emosiynol',
   emotionalAbuseHint: 'Making a child feel unloved, worthless, humiliated or ignored - welsh',
-  sexualAbuse: 'Sexual abuse - welsh',
+  sexualAbuse: 'Cam-drin rhywiol',
   sexualAbuseHint:
     'A child being forced or persuaded to take part in sexual activities, including online. It can be without contact, for example grooming or exploitation - welsh',
-  financialAbuse: 'Financial abuse - welsh',
+  financialAbuse: 'Cam-drin ariannol',
   financialAbuseHint:
     "Stealing and exploiting a child's money, or using their personal information to obtain funds - welsh",
   witnessingDomesticAbuse: 'Witnessing domestic abuse - welsh',
@@ -67,8 +68,8 @@ export const cy = () => ({
   abductionAbuse: 'Abduction - welsh',
   abductionAbuseHint:
     'A risk of the children being taken away from their caregivers, especially if they are kept abroad - welsh',
-  somethingElse: 'Something else - welsh',
-  somethingElseHint: 'Any concerns you have that do not fit into the above categories - welsh',
+  somethingElse: 'Rhywbeth Arall',
+  somethingElseHint: "Unrhyw bryderon sydd gennych nad ydynt yn ffitio i'r categorïau uchod",
   onlyContinue: 'Continue',
   errors: {
     PRL_c1A_concernAboutChild: {

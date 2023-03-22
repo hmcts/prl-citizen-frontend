@@ -38,7 +38,7 @@ const cy = {
   headingTitle: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
   paragraph1: '<p> Efallai bod gennych bryderon am eich diogelwch ar hyn o bryd, neu eich diogelwch yn y dyfodol. </p>',
   paragraph2:
-    '<p> If you or the children have experienced abuse or feel unsafe, support is available. <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" target="_blank" aria-label="See a list of organisations that can help">See a list of organisations that can help</a>. </p> - Welsh',
+    '<p> Os ydych chi neu\'r plant wedi profi camdriniaeth neu\'n teimlo\'n anniogel, mae cymorth ar gael. <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" target="_blank" aria-label="See a list of organisations that can help">Gweler rhestr o sefydliadau a all helpu.</a>. </p>',
   listOfOrganisationsHyperlink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help - Welsh',
   listOfOrganisationLabel: 'See a list of organisations that can help. - Welsh',
   identifySignsOfChildAbuseHyperlink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse/ - Welsh',
@@ -48,7 +48,7 @@ const cy = {
   infoSafetyConcernsYes:
     'Bydd y wybodaeth y byddwch yn ei rhoi yn cael ei hystyried fel rhan o\'ch cais. Os oes angen i chi wneud <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link" target="_blank" aria-label="an application for a domestic abuse injunction">cais am waharddeb cam-drin domestig</a>. gallwch wneud hyn ar wahân.',
   warningMessage:
-    'You may find some of these questions difficult or upsetting to answer. Take your time and complete them as best you can. - Welsh',
+    "Efallai y byddwch chi'n ystyried rhai o'r cwestiynau hyn yn peri gofid neu'n anodd i'w hateb. Cymerwch eich amser a cheisiwch eu hateb y gorau y gallwch.",
   yesHaveSafetyConcerns: 'Yes - Welsh',
   noHaveSafetyConcerns: 'No - Welsh',
   errors: {
