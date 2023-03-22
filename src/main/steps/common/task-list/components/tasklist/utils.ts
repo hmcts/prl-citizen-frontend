@@ -52,7 +52,7 @@ enum StateTags {
 
 const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
 
-const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => !!caseData?.hearingCollection?.length;
+const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => caseData && true;
 
 const isCaseSubmitted = (caseData: Partial<CaseWithId>): boolean =>
   caseData &&
@@ -231,7 +231,7 @@ const taskListConfig = {
               }
               return StateTags.NOT_AVAILABLE_YET;
             },
-            disabled: (caseData: Partial<CaseWithId>) => !hasAnyOrder(caseData),
+            disabled: (caseData: Partial<CaseWithId>) => !hasAnyHearing(caseData),
           },
         ],
       },
