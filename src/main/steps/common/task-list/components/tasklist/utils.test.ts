@@ -114,6 +114,22 @@ describe('testcase for tasklist', () => {
 
     expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
       {
+        heading: 'Your application',
+        id: 'yourApplication',
+        tasks: [
+          {
+            disabled: false,
+            href: '/c100-rebuild/application-copy/download',
+            id: 'childArrangementApplication',
+            linkText: 'Your child arrangements application',
+            stateTag: {
+              className: 'govuk-tag--turquoise',
+              label: 'Submitted',
+            },
+          },
+        ],
+      },
+      {
         heading: 'Your documents',
         id: 'yourDocuments',
         tasks: [
@@ -205,6 +221,58 @@ describe('testcase for tasklist', () => {
               label: 'Submitted',
             },
           },
+          {
+            disabled: false,
+            href: '/applicant/hearing-needs/support-help',
+            id: 'supportDuringCase',
+            linkText: 'Support you need during your case',
+            stateTag: {
+              className: 'govuk-tag--turquoise',
+              label: 'Submitted',
+            },
+          },
+        ],
+      },
+      {
+        heading: 'Your application',
+        id: 'yourApplication',
+        tasks: [
+          {
+            disabled: false,
+            href: '/c100-rebuild/application-copy/download',
+            id: 'childArrangementApplication',
+            linkText: 'Your child arrangements application',
+            stateTag: {
+              className: 'govuk-tag--turquoise',
+              label: 'Submitted',
+            },
+          },
+        ],
+      },
+      {
+        heading: 'Your documents',
+        id: 'yourDocuments',
+        tasks: [
+          {
+            disabled: false,
+            href: '/applicant/upload-document',
+            id: 'uploadDocuments',
+            linkText: ' Upload documents',
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Optional',
+            },
+          },
+          {
+            disabled: false,
+            href: '/applicant/yourdocuments/alldocuments/alldocuments',
+            id: 'viewAllDocuments',
+            linkText: 'View all documents',
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Ready to view',
+            },
+          },
         ],
       },
       {
@@ -286,6 +354,58 @@ describe('testcase for tasklist', () => {
               label: 'Submitted',
             },
           },
+          {
+            disabled: false,
+            href: '/applicant/hearing-needs/support-help',
+            id: 'supportDuringCase',
+            linkText: 'Support you need during your case',
+            stateTag: {
+              className: 'govuk-tag--turquoise',
+              label: 'Submitted',
+            },
+          },
+        ],
+      },
+      {
+        heading: 'Your application',
+        id: 'yourApplication',
+        tasks: [
+          {
+            disabled: false,
+            href: '/c100-rebuild/application-copy/download',
+            id: 'childArrangementApplication',
+            linkText: 'Your child arrangements application',
+            stateTag: {
+              className: 'govuk-tag--turquoise',
+              label: 'Submitted',
+            },
+          },
+        ],
+      },
+      {
+        heading: 'Your documents',
+        id: 'yourDocuments',
+        tasks: [
+          {
+            disabled: false,
+            href: '/applicant/upload-document',
+            id: 'uploadDocuments',
+            linkText: ' Upload documents',
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Optional',
+            },
+          },
+          {
+            disabled: false,
+            href: '/applicant/yourdocuments/alldocuments/alldocuments',
+            id: 'viewAllDocuments',
+            linkText: 'View all documents',
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Ready to view',
+            },
+          },
         ],
       },
       {
@@ -293,8 +413,8 @@ describe('testcase for tasklist', () => {
         id: 'ordersFromTheCourt',
         tasks: [
           {
-            disabled: false,
-            href: undefined,
+            disabled: true,
+            href: '/applicant/yourdocuments/alldocuments/orders',
             id: 'viewOrders',
             linkText: 'View all orders from the court',
             stateTag: {
@@ -310,17 +430,16 @@ describe('testcase for tasklist', () => {
         tasks: [
           {
             disabled: false,
-            href: undefined,
+            href: '/applicant/yourhearings/hearings',
             id: 'viewHearingDetails',
             linkText: 'Check details of your court hearings',
             stateTag: {
-              className: 'govuk-tag--grey',
-              label: 'Not available yet',
+              className: 'govuk-tag--blue',
+              label: 'Ready to view',
             },
           },
         ],
       },
-
     ]);
   });
   test('FL401 Applicant', () => {
