@@ -5,6 +5,14 @@ import { prepareCaseView } from './tabView';
 
 describe('Dashboard tab content', () => {
   const req = mockRequest();
+  const userDetails = {
+    id: '123',
+    accessToken: 'mock-user-access-token',
+    name: 'test',
+    givenName: 'First name',
+    familyName: 'Last name',
+    email: 'test@example.com',
+  };
 
   req.session.userCaseList = [
     {
@@ -73,7 +81,7 @@ describe('Dashboard tab content', () => {
   ];
 
   test('prepareCaseView method should return the appropriate tab contents for caseView', () => {
-    expect(prepareCaseView(req.session.userCaseList, req.session.user.id, languages.en)).toEqual(
+    expect(prepareCaseView(req.session.userCaseList, userDetails, languages.en)).toEqual(
       expect.objectContaining({
         draft: {
           label: 'Draft applications',

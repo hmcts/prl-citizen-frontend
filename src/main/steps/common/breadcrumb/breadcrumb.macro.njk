@@ -1,0 +1,12 @@
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+{% macro appBreadcrumb(breadcrumbs) %}
+  {%if breadcrumbs and breadcrumbs.length > 0 %}
+    {{ govukBreadcrumbs({
+        items: breadcrumbs
+      }) 
+    }}
+  {% else %}
+    <a href="#" class="govuk-back-link">{{ back }}</a>
+  {% endif %}
+{% endmacro %}

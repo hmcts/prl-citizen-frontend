@@ -158,6 +158,7 @@ describe('testcase for tasklist', () => {
           },
         },
       ],
+
       hearingCollection: [
         {
           next: {
@@ -209,6 +210,7 @@ describe('testcase for tasklist', () => {
       {
         heading: 'Orders from the court',
         id: 'ordersFromTheCourt',
+
         tasks: [
           {
             disabled: false,
@@ -318,6 +320,7 @@ describe('testcase for tasklist', () => {
           },
         ],
       },
+
     ]);
   });
   test('FL401 Applicant', () => {
