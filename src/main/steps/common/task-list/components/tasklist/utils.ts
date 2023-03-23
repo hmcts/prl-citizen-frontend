@@ -176,7 +176,7 @@ const taskListConfig = {
             id: Tasks.YOUR_APPLICATION_PDF,
             href: () => C100_DOWNLOAD_APPLICATION,
             stateTag: () => StateTags.SUBMITTED,
-            show: (caseData: Partial<CaseWithId>) => !isDraftCase(caseData),
+            show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
           },
         ],
       },
