@@ -86,6 +86,23 @@ describe('testcase for partyname', () => {
 
     expect(getPartyName(data, party, userDetail)).toBe('undefined undefined');
   });
+  test('when party type c100-applicant', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SUBMITTED_PAID,
+      caseTypeOfApplication: CaseType.C100,
+    };
+    const party = PartyType.APPLICANT;
+    const userDetail = {
+      accessToken: '1234',
+      id: '12345',
+      email: 'abc',
+      givenName: 'John',
+      familyName: 'Smith',
+    };
+
+    expect(getPartyName(data, party, userDetail)).toBe('John Smith');
+  });
   test('when party type FL401-respondent', () => {
     const data = {
       id: '12',
