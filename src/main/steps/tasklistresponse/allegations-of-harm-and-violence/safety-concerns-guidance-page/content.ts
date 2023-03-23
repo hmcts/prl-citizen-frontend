@@ -53,12 +53,11 @@ const cy: typeof en = {
   title_desc:
     "Mae angen i'r llys wybod am unrhyw ymddygiad treisgar neu ddifrïol sy'n eich rhoi chi neu'r plant mewn perygl o niwed.",
   heading1: 'Ymddygiad difrïol',
-  line1:
-    "Mae angen i'r llys wybod am unrhyw ymddygiad treisgar neu ddifrïol gan y bobl eraill yn y cais hwn.",
+  line1: "Mae angen i'r llys wybod am unrhyw ymddygiad treisgar neu ddifrïol gan y bobl eraill yn y cais hwn.",
   line2: "Gallai hyn fod yn gamdriniaeth a ddigwyddodd yn y gorffennol, neu gam-drin sy'n digwydd nawr.",
   line3: "Cam-drin yw pan fo rhywun yn achosi niwed neu ofid i chi neu'r plant.",
   line4:
-    "Mae niwed i blentyn yn golygu camdriniaeth neu niwed i iechyd a datblygiad y plentyn. Gallai hyn gynnwys, er enghraifft, dioddef o weld neu glywed rhywun arall yn cael ei gam-drin",
+    'Mae niwed i blentyn yn golygu camdriniaeth neu niwed i iechyd a datblygiad y plentyn. Gallai hyn gynnwys, er enghraifft, dioddef o weld neu glywed rhywun arall yn cael ei gam-drin',
   line5: 'Gallai cam-drin fod yn:',
   listItem1: 'gorfforol neu rywiol',
   listItem2: 'seicolegol',
@@ -79,7 +78,8 @@ const cy: typeof en = {
   warning:
     "Bydd yr wybodaeth y byddwch yn ei rhoi yn yr adran hon hefyd yn cael ei rhannu â'r bobl eraill yn y cais hwn, fel eu bod nhw yn gallu ymateb i'r hyn yr ydych chi wedi'i ddweud.",
   heading3: "Os nad ydych yn teimlo'n barod i ddisgrifio'r cam-drin ar hyn o bryd",
-  line1h3p1: "Os nad ydych yn teimlo'n barod i siarad am y cam-drin ar hyn o bryd, gallwch wneud hynny pan fyddwch yn siarad â",
+  line1h3p1: 
+    "Os nad ydych yn teimlo'n barod i siarad am y cam-drin ar hyn o bryd, gallwch wneud hynny pan fyddwch yn siarad â",
   line1h3p2: 'Cafcass neu',
   line1h3p3: 'Cafcass Cymru.',
   line2h3: 'Ni fydd yn effeithio ar eich cais os byddwch yn rhoi manylion am y cam-drin yn hwyrach yn y broses.',
@@ -93,7 +93,8 @@ const cy: typeof en = {
   dropdown_content3:
     "Byddan nhw'n cyflwyno gwybodaeth i'r llys cyn eich gwrandawiad cyntaf. Mae eu hasesiad yn helpu'r barnwr i wneud penderfyniad sydd er lles y plant",
   line3h3: 'Byddwn nawr yn gofyn rhai cwestiynau i chi am yr ymddygiad difrïol.',
-  line4h3: "Cymerwch eich amser yn llenwi'r wybodaeth ac ysgrifennwch gymaint ag y teimlwch eich bod yn gallu ei wneud.",
+  line4h3: 
+    "Cymerwch eich amser yn llenwi'r wybodaeth ac ysgrifennwch gymaint ag y teimlwch eich bod yn gallu ei wneud.",
   continue: 'Continue - welsh',
 };
 
