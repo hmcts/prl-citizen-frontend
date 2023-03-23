@@ -1,4 +1,5 @@
 import { CaseType } from '../../../../../app/case/definition';
+import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../../../steps/urls';
 
 const en = {
   title: 'Important',
@@ -106,6 +107,34 @@ const en = {
         contents: [
           {
             text: 'You will still be able to access all documents related to this case.',
+          },
+        ],
+      },
+      newOrder: {
+        heading: 'You have a new order from the court',
+        contents: [
+          {
+            text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+          },
+        ],
+        links: [
+          {
+            text: 'View the order (PDF)',
+            href: APPLICANT_ORDERS_FROM_THE_COURT,
+          },
+        ],
+      },
+      newDocument: {
+        heading: 'You have a new document to view',
+        contents: [
+          {
+            text: 'A new document has been added to your case.',
+          },
+        ],
+        links: [
+          {
+            text: 'See all documents',
+            href: APPLICANT_VIEW_ALL_DOCUMENTS,
           },
         ],
       },
@@ -219,6 +248,34 @@ const cy: typeof en = {
         contents: [
           {
             text: 'You will still be able to access all documents related to this case. - welsh',
+          },
+        ],
+      },
+      newOrder: {
+        heading: 'You have a new order from the court - welsh',
+        contents: [
+          {
+            text: 'The court has made a decision about your case. The order tells you what the court has decided. - welsh',
+          },
+        ],
+        links: [
+          {
+            text: 'View the order (PDF) - welsh',
+            href: APPLICANT_ORDERS_FROM_THE_COURT,
+          },
+        ],
+      },
+      newDocument: {
+        heading: 'You have a new document to view - welsh',
+        contents: [
+          {
+            text: 'A new document has been added to your case. - welsh',
+          },
+        ],
+        links: [
+          {
+            text: 'See all documents - welsh',
+            href: APPLICANT_VIEW_ALL_DOCUMENTS,
           },
         ],
       },

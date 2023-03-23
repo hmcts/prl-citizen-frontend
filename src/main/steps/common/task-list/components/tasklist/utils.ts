@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, PartyType, State } from '../../../../../app/case/definition';
+import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 import {
   APPLICANT_CHECK_ANSWERS,
@@ -53,17 +53,7 @@ enum StateTags {
 
 const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
 
-const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => caseData && true;
-
-const isCaseSubmitted = (caseData: Partial<CaseWithId>): boolean =>
-  caseData &&
-  [
-    State.CASE_SUBMITTED_NOT_PAID,
-    State.CASE_SUBMITTED_PAID,
-    State.CASE_ISSUED_TO_LOCAL_COURT,
-    State.CASE_GATE_KEEPING,
-    State.CASE_CLOSED,
-  ].includes(caseData.state!);
+const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => caseData && 1 === 1;
 
 interface TaskList {
   id: TaskList;
@@ -183,8 +173,8 @@ const taskListConfig = {
       {
         id: TaskListSection.YOUR_DOCUMENTS,
         content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-          return isCaseSubmitted(caseData) || isCaseLinked(caseData, userDetails);
+        show: (caseData: Partial<CaseWithId>) => {
+          return caseData && !isDraftCase(caseData);
         },
         tasks: [
           {

@@ -27,6 +27,10 @@ class BreadcrumbController {
   }
 
   public async add({ id, href }, session: AppSession): Promise<void | AppSession> {
+    if (!session?.applicationSettings?.breadcrumbs) {
+      await this.enable(session);
+    }
+
     let breadcrumbs = session?.applicationSettings?.breadcrumbs ? [...session?.applicationSettings?.breadcrumbs] : null;
 
     if (breadcrumbs) {

@@ -128,6 +128,22 @@ describe('testcase for notification Banner', () => {
         id: 'withdrawalRequestRejected',
         title: 'Important',
       },
+      {
+        contents: [
+          {
+            text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+          },
+        ],
+        heading: 'You have a new order from the court',
+        id: 'newOrder',
+        links: [
+          {
+            href: '/applicant/yourdocuments/alldocuments/orders',
+            text: 'View the order (PDF)',
+          },
+        ],
+        title: 'Important',
+      },
     ]);
   });
 });

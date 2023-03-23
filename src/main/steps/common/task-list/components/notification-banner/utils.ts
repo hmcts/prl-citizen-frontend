@@ -20,6 +20,8 @@ enum BannerNotification {
   APPLICATION_SENT_TO_GATE_KEEPING = 'applicationSentToGateKeeping',
   APPLICATION_SERVED_LINKED = 'applicationServedAndLinked',
   APPLICATION_CLOSED = 'applicationClosed',
+  NEW_ORDER = 'newOrder',
+  NEW_DOCUMENT = 'newDocument',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string) => {
@@ -77,37 +79,60 @@ const notificationBanner = {
     content: getContent.bind(null, BannerNotification.APPLICATION_CLOSED),
     show: () => false,
   },
+  [BannerNotification.NEW_ORDER]: {
+    id: BannerNotification.NEW_ORDER,
+    content: getContent.bind(null, BannerNotification.NEW_ORDER),
+    show: () => false,
+  },
+  [BannerNotification.NEW_DOCUMENT]: {
+    id: BannerNotification.NEW_DOCUMENT,
+    content: getContent.bind(null, BannerNotification.NEW_DOCUMENT),
+    show: () => false,
+  },
 };
 
 const notificationBannerConfig = {
   [CaseType.C100]: {
     [PartyType.APPLICANT]: [
       {
-        ...notificationBanner.applicationNotStarted,
+        ...notificationBanner[BannerNotification.NEW_DOCUMENT],
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+          return (
+            caseData &&
+            !!caseData?.applicants?.find(
+              applicant =>
+                applicant?.value?.user?.idamId === userDetails.id &&
+                applicant?.value.response?.citizenFlags?.isAllDocumentsViewed === YesOrNo.NO
+            )
+          );
+        },
+      },
+      {
+        ...notificationBanner[BannerNotification.APPLICATION_NOT_STARTED],
         show: (caseData: Partial<CaseWithId>): boolean => {
           return !caseData;
         },
       },
       {
-        ...notificationBanner.applicationInProgress,
+        ...notificationBanner[BannerNotification.APPLICATION_IN_PROGRESS],
         show: (caseData: Partial<CaseWithId>): boolean => {
           return caseData?.state === State.CASE_DRAFT;
         },
       },
       {
-        ...notificationBanner.applicationSubmitted,
+        ...notificationBanner[BannerNotification.APPLICATION_SUBMITTED],
         show: (caseData: Partial<CaseWithId>): boolean => {
           return caseData?.state === State.CASE_SUBMITTED_PAID || caseData?.state === State.CASE_SUBMITTED_NOT_PAID;
         },
       },
       {
-        ...notificationBanner.applicationWithdrawn,
+        ...notificationBanner[BannerNotification.APPLICATION_WITHDRAWN],
         show: (caseData: Partial<CaseWithId>): boolean => {
           return caseData?.state === State.CASE_WITHDRAWN;
         },
       },
       {
-        ...notificationBanner.withdrawalRequestRejected,
+        ...notificationBanner[BannerNotification.WITHDRAWAL_REQ_REJECTED],
         show: (caseData: Partial<CaseWithId>): boolean => {
           return !!caseData?.orderCollection?.find(
             order =>
@@ -118,27 +143,33 @@ const notificationBannerConfig = {
         },
       },
       {
-        ...notificationBanner.applicationSentToLocalCourt,
+        ...notificationBanner[BannerNotification.APPLICATION_SENT_TO_LOCAL_COURT],
         show: (caseData: Partial<CaseWithId>): boolean => {
           return caseData?.state === State.CASE_ISSUED_TO_LOCAL_COURT;
         },
       },
       {
-        ...notificationBanner.applicationSentToGateKeeping,
+        ...notificationBanner[BannerNotification.APPLICATION_SENT_TO_GATE_KEEPING],
         show: (caseData: Partial<CaseWithId>): boolean => {
           return caseData?.state === State.CASE_GATE_KEEPING;
         },
       },
       {
-        ...notificationBanner.applicationServedAndLinked,
+        ...notificationBanner[BannerNotification.APPLICATION_SERVED_LINKED],
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
           return caseData?.state === State.CASE_SERVED && isCaseLinked(caseData, userDetails);
         },
       },
       {
-        ...notificationBanner.applicationClosed,
+        ...notificationBanner[BannerNotification.APPLICATION_CLOSED],
         show: (caseData: Partial<CaseWithId>): boolean => {
           return caseData?.state === State.CASE_CLOSED;
+        },
+      },
+      {
+        ...notificationBanner[BannerNotification.NEW_ORDER],
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
         },
       },
     ],
