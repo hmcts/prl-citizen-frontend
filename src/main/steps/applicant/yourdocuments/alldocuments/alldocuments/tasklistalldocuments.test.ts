@@ -480,7 +480,7 @@ describe('testing all the additional function created as a part of applicant and
     });
   });
 
-  test('getApplicantDocuments for applicant, CA', async () => {
+  test('getResponseToCA CA', async () => {
     const req = mockRequest();
     req.session.userCase.respondent = [
       {
@@ -501,7 +501,7 @@ describe('testing all the additional function created as a part of applicant and
       getResponseToCA(req.session.userCase.respondent, applicant_tasklist_items_all_docs_en, respodoclist)
     ).toEqual({});
   });
-  test('getApplicantDocuments for applicant, CA2', async () => {
+  test('getResponseToCA', async () => {
     const req = mockRequest();
     req.session.userCase.respondent = {
       id: '310f3f16-7425-4680-8054-92f3a01ab923',
@@ -542,7 +542,7 @@ describe('testing all the additional function created as a part of applicant and
     ).toEqual(obj1);
   });
 
-  test('getApplicantDocuments for applicant, CA3', async () => {
+  test('getResponseToAohAndViolence', async () => {
     const req = mockRequest();
     req.session.userCase.respondent = {
       id: '310f3f16-7425-4680-8054-92f3a01ab923',
@@ -567,7 +567,7 @@ describe('testing all the additional function created as a part of applicant and
     ).toEqual(obj1);
   });
 
-  test('getApplicantDocuments for applicant, CA4', async () => {
+  test('getApplicantResponseToAohAndViolence', async () => {
     const req = mockRequest();
     req.session.userCase.applicant = {
       id: '310f3f16-7425-4680-8054-92f3a01ab923',
