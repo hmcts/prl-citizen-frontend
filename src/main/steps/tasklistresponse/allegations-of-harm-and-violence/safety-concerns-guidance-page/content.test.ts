@@ -93,7 +93,7 @@ const cyContent = {
   warning:
     "Bydd yr wybodaeth y byddwch yn ei rhoi yn yr adran hon hefyd yn cael ei rhannu â'r bobl eraill yn y cais hwn, fel eu bod nhw yn gallu ymateb i'r hyn yr ydych chi wedi'i ddweud.",
   heading3: "Os nad ydych yn teimlo'n barod i ddisgrifio'r cam-drin ar hyn o bryd",
-  line1h3p1: 
+  line1h3p1:
     "Os nad ydych yn teimlo'n barod i siarad am y cam-drin ar hyn o bryd, gallwch wneud hynny pan fyddwch yn siarad â",
   line1h3p2: 'Cafcass neu',
   line1h3p3: 'Cafcass Cymru.',
@@ -108,7 +108,7 @@ const cyContent = {
   dropdown_content3:
     "Byddan nhw'n cyflwyno gwybodaeth i'r llys cyn eich gwrandawiad cyntaf. Mae eu hasesiad yn helpu'r barnwr i wneud penderfyniad sydd er lles y plant",
   line3h3: 'Byddwn nawr yn gofyn rhai cwestiynau i chi am yr ymddygiad difrïol.',
-  line4h3: 
+  line4h3:
     "Cymerwch eich amser yn llenwi'r wybodaeth ac ysgrifennwch gymaint ag y teimlwch eich bod yn gallu ei wneud.",
   continue: 'Continue - welsh',
 };
