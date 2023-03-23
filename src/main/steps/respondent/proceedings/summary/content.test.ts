@@ -424,7 +424,7 @@ const cyContent = {
     'childAbductionOrder.caseNoDetails': 'Case number',
     'childAbductionOrder.orderDateDetails': 'What date was it made',
     'childAbductionOrder.orderTimeDetails': 'How long was the order for?',
-    'childAbductionOrder.currentOrderDetails': 'IAi gorchymyn cyfredol yw hwn?',
+    'childAbductionOrder.currentOrderDetails': 'Ai gorchymyn cyfredol yw hwn?',
     'childAbductionOrder.issueOrderDetails': 'Which court issued this order?',
     caOrderOption: 'Child Arrangements Order',
     'caOrder.caseNoDetails': 'Case number',
