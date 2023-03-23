@@ -26,6 +26,16 @@ describe('Dashboard tab content', () => {
       },
     },
     {
+      id: 1675576280723115,
+      state: 'SUBMITTED_PAID',
+      caseTypeOfApplication: 'C100',
+      caseCreatedBy: 'CITIZEN',
+      createdDate: '2023-02-06T14:32:57.227543Z',
+      caseStatus: {
+        state: 'Submitted',
+      },
+    },
+    {
       id: 1675347915490145,
       state: 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
       dateSubmitted: '2023-02-02',
@@ -112,6 +122,20 @@ describe('Dashboard tab content', () => {
               },
               {
                 text: 'Draft',
+              },
+              {
+                text: '06 Feb 2023',
+              },
+            ],
+            [
+              {
+                html: '<a class="govuk-link" href="/case/1675576280723115">1675576280723115</a>',
+              },
+              {
+                text: 'C100',
+              },
+              {
+                text: 'Application submitted',
               },
               {
                 text: '06 Feb 2023',
