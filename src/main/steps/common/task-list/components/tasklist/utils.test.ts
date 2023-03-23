@@ -120,8 +120,8 @@ describe('testcase for tasklist', () => {
           {
             disabled: false,
             href: '/c100-rebuild/application-copy/download',
-            id: 'childArrangementApplication',
-            linkText: 'Your child arrangements application',
+            id: 'yourApplicationPDF',
+            linkText: 'Your application (PDF)',
             stateTag: {
               className: 'govuk-tag--turquoise',
               label: 'Submitted',

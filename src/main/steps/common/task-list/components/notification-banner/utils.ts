@@ -19,6 +19,7 @@ enum BannerNotification {
   APPLICATION_SENT_TO_LOCAL_COURT = 'applicationSentToLocalCourt',
   APPLICATION_SENT_TO_GATE_KEEPING = 'applicationSentToGateKeeping',
   APPLICATION_SERVED_LINKED = 'applicationServedAndLinked',
+  APPLICATION_CLOSED = 'applicationClosed',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string) => {
@@ -69,6 +70,11 @@ const notificationBanner = {
   [BannerNotification.APPLICATION_SERVED_LINKED]: {
     id: BannerNotification.APPLICATION_SERVED_LINKED,
     content: getContent.bind(null, BannerNotification.APPLICATION_SERVED_LINKED),
+    show: () => false,
+  },
+  [BannerNotification.APPLICATION_CLOSED]: {
+    id: BannerNotification.APPLICATION_CLOSED,
+    content: getContent.bind(null, BannerNotification.APPLICATION_CLOSED),
     show: () => false,
   },
 };
@@ -127,6 +133,12 @@ const notificationBannerConfig = {
         ...notificationBanner.applicationServedAndLinked,
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
           return caseData?.state === State.CASE_SERVED && isCaseLinked(caseData, userDetails);
+        },
+      },
+      {
+        ...notificationBanner.applicationClosed,
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return caseData?.state === State.CASE_CLOSED;
         },
       },
     ],

@@ -153,7 +153,7 @@ const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWith
             id: 'respond_to_allegations_of_harm_and_violence',
             text: taskListItems.respond_to_allegations_of_harm_and_violence,
             status: getInternationalFactorsStatus(userCase),
-            href: !hasCitizenResponse ? URL.INTERNATIONAL_FACTORS_START : null,
+            href: '#',
             hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
           },
         ],

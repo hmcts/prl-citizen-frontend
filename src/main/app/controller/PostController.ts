@@ -209,12 +209,18 @@ export class PostController<T extends AnyObject> {
         if (accessCodeValidated === 'Linked') {
           req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
         } else if (accessCodeValidated !== 'Valid') {
-          req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+          req.session.errors.push(
+            { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
+            { errorType: 'invalidAccessCode', propertyName: 'accessCode' }
+          );
         }
       }
     } catch (err) {
       req.locals.logger.error('Retrieving case failed with error: ' + err);
-      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
+      req.session.errors.push(
+        { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
+        { errorType: 'invalidAccessCode', propertyName: 'accessCode' }
+      );
     }
 
     if (req.session.errors.length) {
