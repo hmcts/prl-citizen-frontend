@@ -500,7 +500,7 @@ export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, url) =>
   };
 };
 
-const getResponseToCA = (respondent: Respondent, taskListItems, citizenResponseC7DocumentList) => {
+export const getResponseToCA = (respondent: Respondent, taskListItems, citizenResponseC7DocumentList) => {
   for (const doc of citizenResponseC7DocumentList) {
     if (doc.value.partyName === respondent.value.firstName + ' ' + respondent.value.lastName) {
       return {
@@ -527,7 +527,7 @@ const getAohAndViolence = (respondent: Respondent, taskListItems) => {
   };
 };
 
-const getResponseToAohAndViolence = (respondent: Respondent, taskListItems, userCase) => {
+export const getResponseToAohAndViolence = (respondent: Respondent, taskListItems, userCase) => {
   return {
     id: 'respondent_response_to_allegations_of_harm_and_violence',
     text: taskListItems.respondent_response_to_allegations_of_harm_and_violence.replace(
@@ -631,7 +631,7 @@ const getApplicantAohAndViolence = (applicant: Applicant, taskListItems, userCas
         : URL.ALLEGATION_OF_HARM_VOILENCE_DOC,
   };
 };
-const getApplicantResponseToAohAndViolence = (applicant: Applicant, taskListItems) => {
+export const getApplicantResponseToAohAndViolence = (applicant: Applicant, taskListItems) => {
   return {
     id: 'applicant_response_to_other_side_allegation_of_harm',
     text: taskListItems.applicant_response_to_other_side_allegation_of_harm.replace(

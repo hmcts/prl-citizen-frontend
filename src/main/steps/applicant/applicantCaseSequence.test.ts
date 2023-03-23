@@ -117,6 +117,20 @@ describe('applicant1Sequence', () => {
       '/applicant/support-you-need-during-case/travelling-to-court'
     );
 
+    expect(applicantCaseSequence[24].url).toBe('/applicant/support-you-need-during-case/travelling-to-court');
+    expect(applicantCaseSequence[24].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[24].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
+      '/applicant/support-you-need-during-case/safety-arrangements'
+    );
+
+    expect(applicantCaseSequence[25].url).toBe(
+      '/applicant/support-you-need-during-case/unable-to-take-court-proceedings'
+    );
+    expect(applicantCaseSequence[25].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[25].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
+      '/applicant/support-you-need-during-case/safety-arrangements'
+    );
+
     expect(applicantCaseSequence[26].url).toBe('/applicant/support-you-need-during-case/safety-arrangements');
     expect(applicantCaseSequence[26].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[26].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
@@ -347,6 +361,44 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[76].url).toBe('/applicant/yourdocuments/alldocuments/section7_report');
     expect(applicantCaseSequence[76].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[76].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+
+    expect(applicantCaseSequence[77].url).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+    expect(applicantCaseSequence[77].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[77].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/section37_report');
+
+    expect(applicantCaseSequence[78].url).toBe('/applicant/yourdocuments/alldocuments/section37_report');
+    expect(applicantCaseSequence[78].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[78].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+
+    expect(applicantCaseSequence[79].url).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+    expect(applicantCaseSequence[79].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[79].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/risk_assessment_16a');
+
+    expect(applicantCaseSequence[80].url).toBe('/applicant/yourdocuments/alldocuments/risk_assessment_16a');
+    expect(applicantCaseSequence[80].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[80].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+
+    expect(applicantCaseSequence[81].url).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+    expect(applicantCaseSequence[81].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[81].getNextStep({})).toBe(
+      '/applicant/yourdocuments/alldocuments/allegationofharmandviolence'
+    );
+
+    expect(applicantCaseSequence[82].url).toBe('/applicant/yourdocuments/alldocuments/allegationofharmandviolence');
+    expect(applicantCaseSequence[82].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[82].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+
+    expect(applicantCaseSequence[83].url).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+    expect(applicantCaseSequence[83].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[83].getNextStep({})).toBe(
+      '/applicant/yourdocuments/alldocuments/respond_others_allegation_of_harm_and_violence'
+    );
+
+    expect(applicantCaseSequence[84].url).toBe(
+      '/applicant/yourdocuments/alldocuments/respond_others_allegation_of_harm_and_violence'
+    );
+    expect(applicantCaseSequence[84].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[84].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
   });
 });
 
