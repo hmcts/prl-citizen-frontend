@@ -1,6 +1,11 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { YesOrNo } from '../../../app/case/definition';
 
-import { getKeepYourDetailsPrivate, setKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
+import {
+  getKeepYourDetailsPrivate,
+  mapConfidentialListToFields,
+  setKeepYourDetailsPrivate,
+} from './KeepYourDetailsPrivateMapper';
 
 let respondents;
 
@@ -122,5 +127,72 @@ describe('KeepYourDetailsPrivateMapper', () => {
     await getKeepYourDetailsPrivate(respondents[0].value, req);
     expect(req.session.userCase.detailsKnown).toEqual('No');
     expect(req.session.userCase.startAlternative).toEqual('Yes');
+  });
+
+  test('Should setKeepYourDetailsPrivate with confidentiality Yes', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    req.session.userCase.startAlternative = YesOrNo.YES;
+    req.session.userCase.contactDetailsPrivate = ['phoneNumber', 'email', 'address'];
+    const response = {
+      legalRepresentation: 'No',
+      keepDetailsPrivate: {
+        otherPeopleKnowYourContactDetails: 'No',
+        confidentiality: 'Yes',
+        confidentialityList: ['address', 'phoneNumber'],
+      },
+    };
+
+    const expected = {
+      keepDetailsPrivate: {
+        confidentiality: 'Yes',
+        confidentialityList: ['phoneNumber', 'email', 'address'],
+        otherPeopleKnowYourContactDetails: 'No',
+      },
+      legalRepresentation: 'No',
+    };
+    respondents[0].value.response = response;
+    expect(setKeepYourDetailsPrivate(respondents[0].value, req).response).toEqual(expected);
+  });
+
+  test('Should setKeepYourDetailsPrivate with confidentiality No', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    req.session.userCase.startAlternative = YesOrNo.NO;
+    req.session.userCase.contactDetailsPrivate = [];
+    const response = {
+      legalRepresentation: 'No',
+      keepDetailsPrivate: {
+        otherPeopleKnowYourContactDetails: 'No',
+        confidentiality: 'Yes',
+        confidentialityList: ['address', 'phoneNumber'],
+      },
+    };
+
+    const expected = {
+      keepDetailsPrivate: {
+        confidentiality: 'No',
+        confidentialityList: [],
+        otherPeopleKnowYourContactDetails: 'No',
+      },
+      legalRepresentation: 'No',
+    };
+    respondents[0].value.response = response;
+    expect(setKeepYourDetailsPrivate(respondents[0].value, req).response).toEqual(expected);
+  });
+
+  test('mapConfidentialListToFields', async () => {
+    const partyDetails = {
+      ...respondents[0].value,
+      response: {
+        legalRepresentation: 'No',
+        keepDetailsPrivate: {
+          otherPeopleKnowYourContactDetails: 'No',
+          confidentiality: 'Yes',
+          confidentialityList: ['phoneNumber'],
+        },
+      },
+    };
+    expect(mapConfidentialListToFields(partyDetails).isAddressConfidential === 'No');
+    expect(mapConfidentialListToFields(partyDetails).isPhoneNumberConfidential === 'Yes');
+    expect(mapConfidentialListToFields(partyDetails).isEmailAddressConfidential === 'No');
   });
 });
