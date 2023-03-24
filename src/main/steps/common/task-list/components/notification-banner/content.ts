@@ -83,7 +83,7 @@ const en = {
         heading: 'The court has issued your application',
         contents: [
           {
-            text: 'This means the court has sent your application to the other people in the case (the respondents).',
+            text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
           },
           {
             text: 'The court has also sent the application to the Children and Family Court advisory and Support Service (Cafcass or Cafcass Cymru). Cafcass or Cafcass Cymru will contact you to consider the needs of the children.',
@@ -224,7 +224,7 @@ const cy: typeof en = {
         heading: 'The court has issued your application - welsh',
         contents: [
           {
-            text: 'This means the court has sent your application to the other people in the case (the respondents) - welsh',
+            text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond - welsh',
           },
           {
             text: 'The court has also sent the application to the Children and Family Court advisory and Support Service (Cafcass or Cafcass Cymru). Cafcass or Cafcass Cymru will contact you to consider the needs of the children. - welsh',
