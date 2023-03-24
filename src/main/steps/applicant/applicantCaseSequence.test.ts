@@ -22,9 +22,17 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[3].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[3].getNextStep({ caseTypeOfApplication: 'C100' })).toBe('/task-list/applicant');
 
+    expect(applicantCaseSequence[3].url).toBe('/applicant/keep-details-private/private_details_confirmed');
+    expect(applicantCaseSequence[3].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[3].getNextStep({})).toBe('/applicant/task-list');
+
     expect(applicantCaseSequence[4].url).toBe('/applicant/keep-details-private/private_details_not_confirmed');
     expect(applicantCaseSequence[4].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[4].getNextStep({ caseTypeOfApplication: 'C100' })).toBe('/task-list/applicant');
+
+    expect(applicantCaseSequence[4].url).toBe('/applicant/keep-details-private/private_details_not_confirmed');
+    expect(applicantCaseSequence[4].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[4].getNextStep({})).toBe('/applicant/task-list');
 
     expect(applicantCaseSequence[5].url).toBe('/applicant/confirm-contact-details/checkanswers');
     expect(applicantCaseSequence[5].showInSection).toBe('aboutApplicantCase');
@@ -117,6 +125,18 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[23].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
       '/applicant/support-you-need-during-case/travelling-to-court'
     );
+    expect(applicantCaseSequence[24].url).toBe('/applicant/support-you-need-during-case/travelling-to-court');
+    expect(applicantCaseSequence[24].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[24].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
+      '/applicant/support-you-need-during-case/safety-arrangements'
+    );
+    expect(applicantCaseSequence[25].url).toBe(
+      '/applicant/support-you-need-during-case/unable-to-take-court-proceedings'
+    );
+    expect(applicantCaseSequence[25].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[25].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
+      '/applicant/support-you-need-during-case/safety-arrangements'
+    );
 
     expect(applicantCaseSequence[26].url).toBe('/applicant/support-you-need-during-case/safety-arrangements');
     expect(applicantCaseSequence[26].showInSection).toBe('aboutApplicantCase');
@@ -153,6 +173,10 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[32].url).toBe('/applicant/yourdocuments/alldocuments/orders');
     expect(applicantCaseSequence[32].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[32].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
+
+    expect(applicantCaseSequence[32].url).toBe('/applicant/yourdocuments/alldocuments/orders');
+    expect(applicantCaseSequence[32].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[32].getNextStep({ caseTypeOfApplication: 'C100' })).toBe('/task-list/applicant');
 
     expect(applicantCaseSequence[33].url).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
     expect(applicantCaseSequence[33].showInSection).toBe('aboutApplicantCase');
@@ -422,3 +446,10 @@ const contactPreferencesMockData = mockRequest({
     },
   },
 });
+// const casetypeC100 = mockRequest({
+//   session: {
+//     userCase: {
+//       caseTypeOfApplication: CaseType.C100,
+//     },
+//   },
+// });
