@@ -188,7 +188,7 @@ const SupportYouNeedAllEnum = {
     docsaudio: 'Audio translation of documents - welsh',
     docsReadOut: 'Dogfennau yn cael eu darllen yn uchel i mi',
     emailInfo: 'Information emailed to me - welsh',
-    docsprint: 'Documents in a specified colour - welsh',
+    docsprint: 'Dogfennau mewn lliw penodol',
     //Reasonable adjustments
     docsformat: 'I need documents in an alternative format - welsh',
     commhelp: 'I need help communicating and understanding - welsh',
