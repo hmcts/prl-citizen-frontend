@@ -32,7 +32,7 @@ class BreadcrumbController {
     }
 
     let breadcrumbs = session?.applicationSettings?.breadcrumbs
-      ? [...session?.applicationSettings?.breadcrumbs]
+      ? [...session.applicationSettings.breadcrumbs]
       : [null];
 
     if (breadcrumbs) {
