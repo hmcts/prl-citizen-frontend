@@ -205,46 +205,46 @@ const cy: typeof en = {
         ],
       },
       applicationSentToLocalCourt: {
-        heading: 'Your application is in progress - welsh',
+        heading: 'Mae eich cais ar y gweill',
         contents: [
           {
-            text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
+            text: 'Mae eich cais yn cael ei adolygu a bydd y llys yn cysylltu â chi ynghylch y camau nesaf.',
           },
         ],
       },
       applicationSentToGateKeeping: {
-        heading: 'Your application is in progress - welsh',
+        heading: 'Mae eich cais ar y gweill',
         contents: [
           {
-            text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
+            text: 'Mae eich cais yn cael ei adolygu a bydd y llys yn cysylltu â chi ynghylch y camau nesaf.',
           },
         ],
       },
       applicationServedAndLinked: {
-        heading: 'The court has issued your application - welsh',
+        heading: 'Mae’r llys wedi cychwyn eich cais',
         contents: [
           {
-            text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond - welsh',
+            text: 'Mae hyn yn golygu bod y llys wedianfon eich cais at y bobl eraill yn yr achos (yr atebwyr). Bydd yr atebwyr yn cael cyfle i ymateb i’r hyn yr ydych wedi’i ddweud. Bydd y cais yn mynd rhagddo p’un a fyddant yn ymateb neu beidio.',
           },
           {
-            text: 'The court has also sent the application to the Children and Family Court advisory and Support Service (Cafcass or Cafcass Cymru). Cafcass or Cafcass Cymru will contact you to consider the needs of the children. - welsh',
+            text: 'Mae’r llys hefyd wedi anfon y cais i’r Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass neu Cafcass Cymru). Bydd Cafcass neu Cafcass Cymru yn cysylltu â chi i ystyried anghenion y plant.',
           },
         ],
         links: [
           {
-            text: 'Find out about Cafcass - welsh',
+            text: 'Mwy o wybodaeth am Cafcass',
             href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
             external: true,
           },
           {
-            text: 'Find out about Cafcass Cymru - welsh',
+            text: 'Mwy o wybodaeth am Cafcass Cymru',
             href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
             external: true,
           },
         ],
       },
       applicationClosed: {
-        heading: 'You have a final order - welsh',
+        heading: 'Mae gennych orchymyn terfynol',
         contents: [
           {
             text: 'Your case is closed. The court has made a final decision about your case. The order tells you what the court has decided. - welsh',
@@ -252,24 +252,24 @@ const cy: typeof en = {
         ],
       },
       newOrder: {
-        heading: 'You have a new order from the court - welsh',
+        heading: 'Mae gennych orchymyn newydd gan y llys',
         contents: [
           {
-            text: 'The court has made a decision about your case. The order tells you what the court has decided. - welsh',
+            text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchymyn hwn yn dweud wrthych beth mae’r llys wedi penderfynu.',
           },
         ],
         links: [
           {
-            text: 'View the order (PDF) - welsh',
+            text: 'Gweld y gorchymyn (PDF)',
             href: APPLICANT_ORDERS_FROM_THE_COURT,
           },
         ],
       },
       newDocument: {
-        heading: 'You have a new document to view - welsh',
+        heading: 'Mae gennych ddogfen newydd i edrych arni',
         contents: [
           {
-            text: 'A new document has been added to your case. - welsh',
+            text: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
           },
         ],
         links: [
