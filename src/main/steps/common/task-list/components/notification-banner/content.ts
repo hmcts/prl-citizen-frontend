@@ -64,7 +64,7 @@ const en = {
         ],
       },
       applicationSentToLocalCourt: {
-        heading: 'Your application is in progress (sent to local court)',
+        heading: 'Your application is in progress',
         contents: [
           {
             text: 'Your application is being reviewed and you will be contacted with next steps.',
@@ -72,7 +72,7 @@ const en = {
         ],
       },
       applicationSentToGateKeeping: {
-        heading: 'Your application is in progress (gatekeeping)',
+        heading: 'Your application is in progress',
         contents: [
           {
             text: 'Your application is being reviewed and you will be contacted with next steps.',
@@ -103,10 +103,10 @@ const en = {
         ],
       },
       applicationClosed: {
-        heading: 'The case is now closed.',
+        heading: 'You have a final order',
         contents: [
           {
-            text: 'You will still be able to access all documents related to this case.',
+            text: 'Your case is closed. The court has made a final decision about your case. The order tells you what the court has decided.',
           },
         ],
       },
@@ -205,7 +205,7 @@ const cy: typeof en = {
         ],
       },
       applicationSentToLocalCourt: {
-        heading: 'Your application is in progress (sent to local court) - welsh',
+        heading: 'Your application is in progress - welsh',
         contents: [
           {
             text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
@@ -213,7 +213,7 @@ const cy: typeof en = {
         ],
       },
       applicationSentToGateKeeping: {
-        heading: 'Your application is in progress (gatekeeping) - welsh',
+        heading: 'Your application is in progress - welsh',
         contents: [
           {
             text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
@@ -244,10 +244,10 @@ const cy: typeof en = {
         ],
       },
       applicationClosed: {
-        heading: 'The case is now closed. - welsh',
+        heading: 'You have a final order - welsh',
         contents: [
           {
-            text: 'You will still be able to access all documents related to this case. - welsh',
+            text: 'Your case is closed. The court has made a final decision about your case. The order tells you what the court has decided. - welsh',
           },
         ],
       },

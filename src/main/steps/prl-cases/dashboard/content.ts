@@ -25,9 +25,9 @@ const en = {
   noCase: 'No case available.',
   draftCaseStatus: 'Draft',
   submittedCaseStatus: 'Application submitted',
-  caseIssued: 'Application submitted (sent to local court)',
-  caseGatekeeping: 'Application submitted (Gatekeeping)',
-  caseServed: 'Application submitted (case issued)',
+  caseIssued: 'Application submitted',
+  caseGatekeeping: 'Application submitted',
+  caseServed: 'Application submitted',
 };
 
 const cy: typeof en = {
@@ -53,9 +53,9 @@ const cy: typeof en = {
   noCase: 'No case available. - welsh',
   draftCaseStatus: 'Draft - welsh',
   submittedCaseStatus: 'Application submitted - welsh',
-  caseIssued: 'Application submitted (sent to local court) - welsh',
-  caseGatekeeping: 'Application submitted (Gatekeeping) - welsh',
-  caseServed: 'Application submitted (case issued) - welsh',
+  caseIssued: 'Application submitted - welsh',
+  caseGatekeeping: 'Application submitted - welsh',
+  caseServed: 'Application submitted - welsh',
 };
 
 export const languages = {

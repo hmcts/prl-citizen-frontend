@@ -4,7 +4,7 @@ import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { interpolate } from '../../../string-parser';
-import { isCaseLinked } from '../../utils';
+import { isCaseLinked, isCaseWithdrawn } from '../../utils';
 
 import { CaseType, PartyType, State, YesOrNo } from './../../../../../app/case/definition';
 import { C100_WITHDRAW_CASE } from './../../../../urls';
@@ -127,9 +127,7 @@ const notificationBannerConfig = {
       },
       {
         ...notificationBanner[BannerNotification.APPLICATION_WITHDRAWN],
-        show: (caseData: Partial<CaseWithId>): boolean => {
-          return caseData?.state === State.CASE_WITHDRAWN;
-        },
+        show: isCaseWithdrawn,
       },
       {
         ...notificationBanner[BannerNotification.WITHDRAWAL_REQ_REJECTED],
@@ -163,7 +161,7 @@ const notificationBannerConfig = {
       {
         ...notificationBanner[BannerNotification.APPLICATION_CLOSED],
         show: (caseData: Partial<CaseWithId>): boolean => {
-          return caseData?.state === State.CASE_CLOSED;
+          return caseData?.state === State.CASE_CLOSED && !isCaseWithdrawn(caseData);
         },
       },
       {

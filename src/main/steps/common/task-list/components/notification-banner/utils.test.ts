@@ -235,7 +235,7 @@ describe('testcase for notification Banner', () => {
             text: 'Your application is being reviewed and you will be contacted with next steps.',
           },
         ],
-        heading: 'Your application is in progress (sent to local court)',
+        heading: 'Your application is in progress',
         id: 'applicationSentToLocalCourt',
         title: 'Important',
       },
@@ -257,7 +257,7 @@ describe('testcase for notification Banner', () => {
             text: 'Your application is being reviewed and you will be contacted with next steps.',
           },
         ],
-        heading: 'Your application is in progress (gatekeeping)',
+        heading: 'Your application is in progress',
         id: 'applicationSentToGateKeeping',
         title: 'Important',
       },
@@ -310,10 +310,10 @@ describe('testcase for notification Banner', () => {
       {
         contents: [
           {
-            text: 'You will still be able to access all documents related to this case.',
+            text: 'Your case is closed. The court has made a final decision about your case. The order tells you what the court has decided.',
           },
         ],
-        heading: 'The case is now closed.',
+        heading: 'You have a final order',
         id: 'applicationClosed',
         title: 'Important',
       },
