@@ -4,23 +4,21 @@ import { CommonContent } from '../../../common/common.content';
 import { generateContent } from './content';
 
 const en = {
-  successMessage: 'Your application has been submitted',
-  label: 'Case number',
-  subContent:
-    'The court will consider your request to withdraw the application, and will let you know if it is granted.',
-  secondaryContent:
-    'Your child arrangements application will not be issued to the other parties, while the court is considering your request.',
-  secondaryBtnLabel: 'Return to your dashboard',
+  successMessage: 'Application withdrawn',
+  subContent: 'Your application has been withdrawn.',
+  secondaryContent: 'If you want to take further action, you will need to start a new application.',
+  secondaryBtnLabel: 'Close and return to case overview',
+  whatHappensNext: 'What happens next',
+  childArrangementContent: 'Your child arrangements application will not be issued to the other parties.',
 };
 
 const cy = {
-  successMessage: 'Your application has been submitted -welsh',
-  label: 'Case number -welsh',
-  subContent:
-    'The court will consider your request to withdraw the application, and will let you know if it is granted. -welsh',
-  secondaryContent:
-    'Your child arrangements application will not be issued to the other parties, while the court is considering your request. -welsh',
-  secondaryBtnLabel: 'Return to your dashboard',
+  successMessage: 'Application withdrawn -welsh',
+  subContent: 'Your application has been withdrawn. -welsh',
+  secondaryContent: 'If you want to take further action, you will need to start a new application. -welsh',
+  secondaryBtnLabel: 'Close and return to case overview - welsh',
+  whatHappensNext: 'What happens next - welsh',
+  childArrangementContent: 'Your child arrangements application will not be issued to the other parties. - welsh',
 };
 
 /* eslint-disable @typescript-eslint/ban-types */
