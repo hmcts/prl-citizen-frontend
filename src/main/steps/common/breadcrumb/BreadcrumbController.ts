@@ -31,7 +31,9 @@ class BreadcrumbController {
       await this.enable(session);
     }
 
-    let breadcrumbs = session?.applicationSettings?.breadcrumbs ?? [...session?.applicationSettings?.breadcrumbs];
+    let breadcrumbs = session?.applicationSettings?.breadcrumbs
+      ? [...session?.applicationSettings?.breadcrumbs]
+      : [null];
 
     if (breadcrumbs) {
       const index = breadcrumbs.findIndex(breadcrumb => breadcrumb.id === id);
