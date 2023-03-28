@@ -4,7 +4,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  home: 'Home - welsh',
+  home: 'Hafan',
   caseView: 'CaseView - welsh',
 };
 
