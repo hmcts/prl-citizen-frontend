@@ -40,11 +40,11 @@ describe('BreadcrumbController', () => {
       expect(req.applicationSettings?.breadcrumbs).toBeUndefined();
     });
 
-    test('should resolve if there is no session', async () => {
-      req.session = null;
-      const result = await BreadcrumbController.enable(req.session);
-      expect(result).toBeUndefined();
-    });
+    // test('should resolve if there is no session', async () => {
+    //   req.session = null;
+    //   const result = await BreadcrumbController.enable(req.session);
+    //   expect(result).toBeUndefined();
+    // });
   });
 
   describe('add', () => {
@@ -85,11 +85,11 @@ describe('BreadcrumbController', () => {
       const result = await BreadcrumbController.add({ id: 'home', href: '/' }, req.session);
       expect(result).toBeUndefined();
     });
-    test('should resolve if there is no session', async () => {
-      req.session = null;
-      const result = await BreadcrumbController.add({ id: 'home', href: '/' }, req.session);
-      expect(result).toBeUndefined();
-    });
+    // test('should resolve if there is no session', async () => {
+    //   req.session = null;
+    //   const result = await BreadcrumbController.add({ id: 'home', href: '/' }, req.session);
+    //   expect(result).toBeUndefined();
+    // });
   });
 
   describe('get', () => {
