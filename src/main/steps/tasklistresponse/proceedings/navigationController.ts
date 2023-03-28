@@ -73,9 +73,10 @@ class OtherProceedingsNavigationController {
           if (nextOrderType) {
             nextUrl = applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: nextOrderType });
           } else {
-            nextUrl = COURT_PROCEEDINGS_SUMMARY;
+            nextUrl = PROCEEDINGS_SUMMARY;
           }
         }
+
         break;
       }
       case OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: {
