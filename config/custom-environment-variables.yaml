@@ -36,6 +36,7 @@ appInsights:
 
 featureToggles:
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
+  testingSupport: TESTING_SUPPORT_FLAG
   c100Rebuild: C100_REBUILD_FLAG
 
 launchDarkly:

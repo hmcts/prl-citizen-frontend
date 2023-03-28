@@ -20,12 +20,12 @@ services:
     systemPassword: 'dummy_password'
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
-  case:
-    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
+    case:
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-1121.service.core-compute-preview.internal'
   cos:
-    url: 'http://prl-cos-aat.service.core-compute-aat.internal'
+    url: 'https://prl-cos-pr-1195.service.core-compute-preview.internal'
   documentManagement:
-    url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
+    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-1121.service.core-compute-preview.internal'
 health:
   timeout: 5000
   deadline: 15000
@@ -43,6 +43,7 @@ appInsights:
 uploadTimeout: 60000
 featureToggles:
   c100Rebuild: C100_REBUILD_FLAG
+  testingSupport: TESTING_SUPPORT_FLAG
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
 
 launchDarkly:

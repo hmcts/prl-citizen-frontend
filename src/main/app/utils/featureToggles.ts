@@ -41,6 +41,15 @@ export class FeatureToggles {
     console.log('C100 - Launch Darkly Flag', isC100RebuildEnabled);
     return isC100RebuildEnabled;
   }
+
+  async isTestingSupportEnabled(): Promise<boolean> {
+    const isTestingSupportEnabled = this.launchDarklyClient.serviceVariation(
+      'testing-support',
+      toBoolean(config.get<boolean>('featureToggles.testing-support'))
+    );
+    console.log('Citizen journey - Testign Support enabled? ', isTestingSupportEnabled);
+    return isTestingSupportEnabled;
+  }
 }
 
 let featureToggleObj: FeatureToggles;
