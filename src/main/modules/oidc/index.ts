@@ -112,12 +112,13 @@ export class OidcMiddleware {
                     accessCode as string,
                     data
                   );
-                  Object.assign(req.session.userCase, JSON.stringify(linkCaseToCitizenData));
+                  req.session.userCase = linkCaseToCitizenData.data;
                   req.session.accessCodeLoginIn = false;
                 }
               } catch (err) {
                 req.session.accessCodeLoginIn = false;
               }
+              return req.session.save(next);
             }
           }
           return next();
