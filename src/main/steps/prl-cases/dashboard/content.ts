@@ -48,7 +48,7 @@ const cy = {
   applicant: 'Ceisydd',
   lastUpdated: 'Diweddarwyd diwethaf',
   closeDate: 'Dyddiad cau',
-  noCase: 'No case available. - welsh',
+  noCase: 'Dim cais ar gael.',
   draftCaseStatus: 'Drafft',
   pendingCaseStatus: 'Cyflwynwyd y cais',
   submittedCaseStatus: 'Cyflwynwyd y cais',

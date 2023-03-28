@@ -47,47 +47,47 @@ const en = {
 };
 
 const cy: typeof en = {
-  complete: 'is completed - welsh',
-  inProgress: 'is in progress - welsh',
-  notStarted: 'is not yet started - welsh',
+  complete: 'wedi’i gwblhau',
+  inProgress: 'ar y gweill',
+  notStarted: 'heb ddechrau eto',
   [CaseType.C100]: {
     applicationSubmitted: {
-      label: " Cais wedi'i<br/> gyflwyno",
-      ariaLabel: 'Application submitted stage - welsh',
+      label: "Cais wedi'i<br/> gyflwyno",
+      ariaLabel: 'Cam cais wedi’i gyflwyno',
     },
     cafcassSafetyChecks: {
       label: 'Gwiriadau diogelwch<br/> plant Cafcass',
-      ariaLabel: 'Cafcass child safety checks stage - welsh',
+      ariaLabel: 'Cam gwiriadau diogelwch plant Cafcass',
     },
     responseSubmitted: {
       label: "Ymateb wedi'i<br/> gyflwyno",
-      ariaLabel: 'Response submitted stage - welsh',
+      ariaLabel: 'Cam ymateb wedi’i gyflwyno',
     },
     hearingAndCourtOrders: {
-      label: 'Gwrandawiadau a<br/> gorchmynion llys',
-      ariaLabel: 'Hearings and court orders stage - welsh',
+      label: 'Gwrandawiadau <br/>a<br/> gorchmynion llys',
+      ariaLabel: 'Cam gwrandawiadau a gorchmynion llys',
     },
     caseClosed: {
-      label: 'Achos wedi’i gau',
-      ariaLabel: 'Case closed stage - welsh',
+      label: 'Achos wedi’i <br/>gau',
+      ariaLabel: 'Cam achos wedi’i gau',
     },
   },
   [CaseType.FL401]: {
     caseOpened: {
-      label: 'Case<br/> opened',
-      ariaLabel: 'Case opened stage - welsh',
+      label: 'Achos<br/> wedi’i agor',
+      ariaLabel: 'Cam achos wedi’i agor',
     },
     hearingAndCourtOrders: {
       label: 'Gwrandawiadau a<br/> gorchmynion llys',
-      ariaLabel: 'Hearings and court orders stage - welsh',
+      ariaLabel: 'Cam gwrandawiadau a gorchmynion llys',
     },
     finalOrder: {
-      label: 'Final order',
-      ariaLabel: 'Final order stage - welsh',
+      label: 'Gorchymyn terfynol',
+      ariaLabel: 'Cam gorchymyn terfynol',
     },
     caseClosed: {
       label: 'Achos wedi’i gau',
-      ariaLabel: 'Case closed stage - welsh',
+      ariaLabel: 'Cam achos wedi’i gau',
     },
   },
 };
