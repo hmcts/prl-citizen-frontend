@@ -42,6 +42,19 @@ export class CaseApi {
     }
   }
 
+  public async TScreateCase(): Promise<CreateCaseResponse> {
+
+    try {
+      const response = await this.axios.post<CreateCaseResponse>('/testing-support/create-dummy-citizen-case');
+      //const { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase } = response?.data;
+      console.log(response)
+      return response.data;
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be created.');
+    }
+  }
+
   /**
    * This is used to update/submit case based on the case event passed
    * @param caseId
@@ -218,6 +231,7 @@ const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => 
 
   return detransformedCaseData;
 };
+
 
 interface CreateCaseResponse {
   id: string;

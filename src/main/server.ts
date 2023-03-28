@@ -25,6 +25,8 @@ import { SessionStorage } from './modules/session';
 import { TooBusy } from './modules/too-busy';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
+import { FeatureToggles } from "./app/utils/featureToggles";
+import { LaunchDarklyClient } from './common/clients/launchDarklyClient';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
@@ -43,8 +45,13 @@ app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json() as RequestHandler);
 app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
 app.use(express.static(path.join(__dirname, 'public')));
-app.use((req, res, next) => {
+logger.info('Creating LaunchDarkly Client')
+const launchDarklyClient = new LaunchDarklyClient()
+const featureToggles = new FeatureToggles(launchDarklyClient)
+app.use(async (req, res, next) => {
+  app.settings.nunjucksEnv.globals.testingSupport = await featureToggles.isTestingSupportEnabled()
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
+  
   next();
 });
 new AxiosLogger().enableFor(app);

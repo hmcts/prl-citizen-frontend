@@ -1,10 +1,12 @@
-import { CaseWithId } from '../case/case';
+//import { CaseWithId } from '../case/case';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
 import { FormFields, FormFieldsFn } from '../form/Form';
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
-import { C100_CASE_NAME, HOME_URL } from '../../steps/urls';
+import {
+   //C100_CASE_NAME, 
+   C100_CHECK_YOUR_ANSWER, HOME_URL } from '../../steps/urls';
 
 @autobind
 export class TSDraftController extends PostController<AnyObject> {
@@ -19,27 +21,34 @@ export class TSDraftController extends PostController<AnyObject> {
   public async createC100Draft(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const userDeatils = req?.session?.user;
     if (userDeatils) {
+      console.log(userDeatils)
       try {
-        const {
-          id: caseId,
-          caseTypeOfApplication,
-          state,
-          noOfDaysRemainingToSubmitCase,
-        } = await req.locals.C100Api.createCase();
-
-        req.session.userCase = {
-          caseId,
-          caseTypeOfApplication,
-          state,
-          noOfDaysRemainingToSubmitCase,
-        } as CaseWithId;
-
-        req.session.userCaseList = [];
+        // const {
+        //   id: caseId,
+        //   caseTypeOfApplication,
+        //   c100RebuildReturnUrl,
+        //   state,
+        //   noOfDaysRemainingToSubmitCase,
+        // } = 
+        
+        const dummyCase = await req.locals.C100Api.TScreateCase();
+        console.log(dummyCase)
+        // req.session.userCase = {
+        //   caseId,
+        //   caseTypeOfApplication,
+        //   c100RebuildReturnUrl,
+        //   state,
+        //   noOfDaysRemainingToSubmitCase,
+        // } as CaseWithId;
+        Object.assign(req.session.userCase, dummyCase);
+        // req.session.userCase.c100RebuildReturnUrl = req.originalUrl
+        // console.log(req.session.userCase)
+        //req.session.userCaseList = [];
         req.session.save(() => {
-          res.redirect(C100_CASE_NAME);
+          res.redirect(C100_CHECK_YOUR_ANSWER);
         });
       } catch (e) {
-        throw new Error('C100 draft case could not be created');
+        throw new Error('C100case could not be created');
       }
     }
 

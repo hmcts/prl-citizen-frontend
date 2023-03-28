@@ -19,7 +19,7 @@
         text: signOut if isLoggedIn
       }
     ]
-  
+
   }) }}
 {% endblock %}
 
@@ -54,9 +54,9 @@
         {% if title %}
           <h1 class="govuk-heading-l govuk-!-margin-bottom-5">{{ title }}</h1>
         {% endif %}
-       
+
       {% endblock %}
-      
+
       {% if form %}
         {% block form %}
           {% include "common/form/form.njk"%}
@@ -94,10 +94,12 @@
           href: "/terms-and-conditions",
           text: termsAndConditions
         },
-        {
-          href: "/testing-support",
-          text: testingSupport
-        }
+        {% if testingSupport %}
+          {
+            href: "/testing-support",
+            text: testingSupport
+          }
+        {% else %}
       ]
     }
   }) }}
