@@ -1,3 +1,5 @@
+import { isNull } from 'lodash';
+
 import { CaseDate, CaseWithId } from '../../../app/case/case';
 import {
   CurrentOrPreviousProceedings,
@@ -13,8 +15,6 @@ import {
   Respondent,
 } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
-
-import { ANYTYPE } from './dateformatter';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const setProceedingDetails = (UserCase, respondent: Respondent, req: AppRequest): Respondent => {
@@ -34,11 +34,22 @@ export const setProceedingDetails = (UserCase, respondent: Respondent, req: AppR
             document_binary_url: nestedOrder?.orderDocument?.binaryUrl,
           };
           if (nestedOrder.orderDocument) {
+            let val, val2;
+            if (nestedOrder?.currentOrder.match('')) {
+              val = null;
+            } else {
+              val = nestedOrder?.currentOrder;
+            }
+            if (nestedOrder?.orderCopy.match('')) {
+              val2 = null;
+            } else {
+              val2 = nestedOrder?.orderCopy;
+            }
             const otherDetailsInfo: OtherProceedingDetails = {
               orderDetail: nestedOrder?.orderDetail,
               caseNo: nestedOrder?.caseNo,
-              currentOrder: nestedOrder?.currentOrder,
-              orderCopy: nestedOrder?.orderCopy,
+              currentOrder: val,
+              orderCopy: val2,
               orderDate: getLocalDate(nestedOrder?.orderDate),
               orderEndDate: getLocalDate(nestedOrder?.orderEndDate),
               orderDocument: orderDocumentDetails,
@@ -49,11 +60,22 @@ export const setProceedingDetails = (UserCase, respondent: Respondent, req: AppR
             };
             proceedingDetailsList.push(proceedingDetailsInfo);
           } else {
+            let val, val2;
+            if (nestedOrder?.currentOrder.match('')) {
+              val = null;
+            } else {
+              val = nestedOrder?.currentOrder;
+            }
+            if (nestedOrder?.orderCopy.match('')) {
+              val2 = null;
+            } else {
+              val2 = nestedOrder?.orderCopy;
+            }
             const otherDetailsInfo: OtherProceedingDetails = {
               orderDetail: nestedOrder?.orderDetail,
               caseNo: nestedOrder?.caseNo,
-              currentOrder: nestedOrder?.currentOrder,
-              orderCopy: nestedOrder?.orderCopy,
+              currentOrder: val,
+              orderCopy: val2,
               orderDate: getLocalDate(nestedOrder?.orderDate),
               orderEndDate: getLocalDate(nestedOrder?.orderEndDate),
             };
@@ -101,11 +123,22 @@ export const getProceedingDetails = (respondent: Respondent, req: AppRequest): P
       req.session.userCase.courtProceedingsOrders = courtProceedingsOrders;
       const id = 0;
       proceedings.value.proceedingDetails?.forEach(proceeding => {
+        let val, val2;
+        if (isNull(proceeding.value?.currentOrder)) {
+          val = '';
+        } else {
+          val = proceeding.value?.currentOrder;
+        }
+        if (isNull(proceeding.value?.orderCopy)) {
+          val2 = '';
+        } else {
+          val2 = proceeding.value?.orderCopy;
+        }
         const proceedingOrderInterface: ProceedingsOrderInterface = {
           id: getNextId(id),
           caseNo: proceeding.value?.caseNo,
-          currentOrder: proceeding.value?.currentOrder,
-          orderCopy: proceeding.value?.orderCopy,
+          currentOrder: val,
+          orderCopy: val2,
           orderDate: getDisplayDate(proceeding.value?.orderDate),
           orderEndDate: getDisplayDate(proceeding.value?.orderEndDate),
           orderDetail: proceeding.value?.orderDetail,
@@ -126,18 +159,12 @@ export const getProceedingDetails = (respondent: Respondent, req: AppRequest): P
 };
 
 function getLocalDate(orderDate: string): Date {
-  if (orderDate) {
-    const formated_Date = new Date(orderDate['year'], orderDate['month'] - 1, orderDate['day']);
+  if (orderDate['year'] === '' && orderDate['month'] === '' && orderDate['day'] === '') {
+    const formated_Date = new Date(orderDate[''], orderDate[''], orderDate['']);
     return formated_Date;
   } else {
-    const formattedDate = Object.values(orderDate)
-      .toString()
-      .split(',')
-      .filter(item => item !== '')
-      .toString()
-      .split(',')
-      .join('/') as ANYTYPE;
-    return formattedDate;
+    const formated_Date = new Date(orderDate['year'], orderDate['month'] - 1, orderDate['day']);
+    return formated_Date;
   }
 }
 
