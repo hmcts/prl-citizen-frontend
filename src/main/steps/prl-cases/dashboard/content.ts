@@ -52,10 +52,10 @@ const cy: typeof en = {
   closeDate: 'Close date - welsh',
   noCase: 'No case available. - welsh',
   draftCaseStatus: 'Draft - welsh',
-  submittedCaseStatus: 'Application submitted - welsh',
-  caseIssued: 'Application submitted - welsh',
-  caseGatekeeping: 'Application submitted - welsh',
-  caseServed: 'Application submitted - welsh',
+  submittedCaseStatus: 'Cyflwynwyd y cais',
+  caseIssued: 'Cyflwynwyd y cais',
+  caseGatekeeping: 'Cyflwynwyd y cais',
+  caseServed: 'Cyflwynwyd y cais',
 };
 
 export const languages = {
