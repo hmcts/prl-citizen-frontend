@@ -32,7 +32,7 @@ const cy = () => ({
   firstNameLabel: 'Enw(au) cyntaf',
   firstNameHint: 'Nodwch bob enw canol yma',
   lastNameLabel: 'Cyfenw(au)',
-  Person: 'Person -welsh',
+  Person: 'Unigolyn',
   addOtherPersonLabel: 'Ychwanegu unigolyn arall',
   removeOtherPersonLabel: 'Symud unigolyn',
   newNameLabel: 'Nodwch enw newydd',

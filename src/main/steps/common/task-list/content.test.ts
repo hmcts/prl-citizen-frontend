@@ -160,27 +160,27 @@ describe('testcase for tasklist', () => {
     partyName: 'undefined undefined',
     progressBar: [
       {
-        ariaLabel: 'Application submitted stage - welsh is not yet started - welsh',
+        ariaLabel: 'Cam cais wedi’i gyflwyno heb ddechrau eto',
         label: "Cais wedi'i<br/> gyflwyno",
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Cafcass child safety checks stage - welsh is not yet started - welsh',
+        ariaLabel: 'Cam gwiriadau diogelwch plant Cafcass heb ddechrau eto',
         label: 'Gwiriadau diogelwch<br/> plant Cafcass',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Response submitted stage - welsh is not yet started - welsh',
+        ariaLabel: 'Cam ymateb wedi’i gyflwyno heb ddechrau eto',
         label: "Ymateb wedi'i<br/> gyflwyno",
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Hearings and court orders stage - welsh is not yet started - welsh',
+        ariaLabel: 'Cam gwrandawiadau a gorchmynion llys heb ddechrau eto',
         label: 'Gwrandawiadau <br/>a<br/> gorchmynion llys',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Case closed stage - welsh is not yet started - welsh',
+        ariaLabel: 'Cam achos wedi’i gau heb ddechrau eto',
         label: 'Achos wedi’i <br/>gau',
         statusBarClassName: '',
       },
