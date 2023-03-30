@@ -1,5 +1,12 @@
 /* eslint-disable no-fallthrough */
-import { Applicant, PartyDetails, Respondent, YesNoDontKnow, YesOrNo } from '../../../../../app/case/definition';
+import {
+  Applicant,
+  CaseType,
+  PartyDetails,
+  Respondent,
+  YesNoDontKnow,
+  YesOrNo,
+} from '../../../../../app/case/definition';
 import * as URL from '../../../../urls';
 import { getApplicantAllegationsOfHarmAndViolence } from '../../../task-list/utils';
 
@@ -12,7 +19,7 @@ export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListIte
     getRespondentDocuments(sectionTitles, taskListItems, userCase, true),
     getCafcassDocuments(sectionTitles, taskListItems, userCase, URL.APPLICANT),
     getOtherDocuments(sectionTitles, taskListItems, userCase, URL.APPLICANT),
-    getAttendingTheHearingDocs(sectionTitles, taskListItems, URL.APPLICANT),
+    getAttendingTheHearingDocs(sectionTitles, taskListItems, URL.APPLICANT, userCase),
   ];
 };
 
@@ -477,8 +484,8 @@ export const getOtherDocuments = (sectionTitles, taskListItems, userCase, url) =
   };
 };
 
-export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, url) => {
-  return {
+export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, url, caseData) => {
+  const config = {
     title: sectionTitles.attendingTheHearing,
     items: [
       {
@@ -493,6 +500,12 @@ export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, url) =>
       },
     ],
   };
+
+  if (url !== URL.RESPONDENT && caseData && caseData?.caseTypeOfApplication === CaseType.C100) {
+    config.items = config.items.filter(item => item.id !== 'support_you_need_during_your_case');
+  }
+
+  return config;
 };
 
 const getResponseToCA = (respondent: Respondent, taskListItems, citizenResponseC7DocumentList) => {

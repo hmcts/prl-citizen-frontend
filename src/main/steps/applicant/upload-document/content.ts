@@ -1,4 +1,6 @@
+import { CaseType, PartyType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import { applyParms } from '../../../steps/common/url-parser';
 import * as URL from '../../urls';
 
 import { document_list_en } from './section-titles';
@@ -28,8 +30,18 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const request = content.additionalData?.req;
+  const caseData = request.session?.userCase;
+
   return {
     ...translations,
+    breadcrumb:
+      request.originalUrl.includes(PartyType.APPLICANT) && caseData?.caseTypeOfApplication === CaseType.C100
+        ? {
+            id: 'caseView',
+            href: applyParms(`${URL.FETCH_CASE_DETAILS}`, { caseId: caseData.id }),
+          }
+        : null,
     sections: generateUploadDocumentList(
       translations.sectionTitles,
       translations.documentsListItems,

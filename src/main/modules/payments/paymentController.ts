@@ -34,7 +34,8 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
     req.session.userCase.paymentDetails = response;
     //if previous payment is success then invoke submit case else redirect gov.uk
     //if help with fees opted then submit case & redirect to confirmation page
-    if (hwfRefNumber || SUCCESS === response?.status) {
+    if (hwfRefNumber && response?.serviceRequestReference) {
+      //help with fess, submit case without payment
       submitCase(
         req,
         res,
@@ -43,15 +44,26 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
         req.originalUrl,
         C100_CASE_EVENT.CASE_SUBMIT_WITH_HWF
       );
-    } else {
+    } else if (response?.serviceRequestReference && response?.payment_reference && response?.status === SUCCESS) {
+      //previous payment is success, retry submit case with 'citizen-case-submit' & reidrect confirmation page
+      submitCase(
+        req,
+        res,
+        req.session.userCase!.caseId!,
+        req.session.userCase,
+        req.originalUrl,
+        C100_CASE_EVENT.CASE_SUBMIT
+      );
+    } else if (response['next_url']) {
+      //redirect to gov pay for making payment
       res.redirect(response['next_url']);
+    } else {
+      //redirect to check your answers with error
+      populateError(req, res, 'Error in create service request/payment reference');
     }
   } catch (e) {
-    req.locals.logger.error('Error in create service request/payment reference', e);
-    req.session.paymentError = true;
-    req.session.save(() => {
-      res.redirect(C100_CHECK_YOUR_ANSWER);
-    });
+    req.locals.logger.error(e);
+    populateError(req, res, 'Error in create service request/payment reference');
   }
 };
 
@@ -71,31 +83,23 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
         .PaymentStatusInstance()
         .get('');
       const paymentStatus = checkPayment['data']['status'];
-      switch (paymentStatus) {
-        case 'Success':
-          req.session.userCase.paymentSuccessDetails = checkPayment['data'];
-          //Invoke update case with 'citizen-case-submit' event & reidrect confirmation page
-          submitCase(
-            req,
-            res,
-            req.session.userCase!.caseId!,
-            req.session.userCase,
-            req.originalUrl,
-            C100_CASE_EVENT.CASE_SUBMIT
-          );
-          break;
-        default:
-          req.session.paymentError = true;
-          req.session.save(() => {
-            res.redirect(C100_CHECK_YOUR_ANSWER);
-          });
+      if (paymentStatus && paymentStatus === SUCCESS) {
+        req.session.userCase.paymentSuccessDetails = checkPayment['data'];
+        //Invoke update case with 'citizen-case-submit' event & reidrect confirmation page
+        submitCase(
+          req,
+          res,
+          req.session.userCase!.caseId!,
+          req.session.userCase,
+          req.originalUrl,
+          C100_CASE_EVENT.CASE_SUBMIT
+        );
+      } else {
+        populateError(req, res, 'Error in retreive payment status');
       }
     } catch (error) {
       req.locals.logger.error(error);
-      res.status(500);
-      req.session.save(() => {
-        res.redirect(C100_CHECK_YOUR_ANSWER);
-      });
+      populateError(req, res, 'Error in retreive payment status');
     }
   }
 };
@@ -118,10 +122,15 @@ async function submitCase(
       res.redirect(C100_CONFIRMATIONPAGE);
     });
   } catch (e) {
-    req.locals.logger.error('Error in submit case ', e);
-    req.session.paymentError = true;
-    req.session.save(() => {
-      res.redirect(C100_CHECK_YOUR_ANSWER);
-    });
+    req.locals.logger.error(e);
+    populateError(req, res, 'Error in submit case');
   }
 }
+
+const populateError = (req: AppRequest, res: Response, errorMsg: string) => {
+  req.locals.logger.error(errorMsg);
+  req.session.paymentError = true;
+  req.session.save(() => {
+    res.redirect(C100_CHECK_YOUR_ANSWER);
+  });
+};

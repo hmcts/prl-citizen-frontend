@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import * as oidc from '../../../app/auth/user/oidc';
+import BreadcrumbController from '../../common/breadcrumb/BreadcrumbController';
 
 import DashboardGetController from './DashboardGetController';
 
@@ -11,6 +12,7 @@ describe('DashboardGetController', () => {
   const res = mockResponse();
 
   jest.spyOn(controller, 'get');
+  jest.spyOn(BreadcrumbController, 'enable').mockResolvedValue();
   getCaseDetailsMock.mockResolvedValue(req.session.userCase);
 
   test('Should able to render the view', async () => {
