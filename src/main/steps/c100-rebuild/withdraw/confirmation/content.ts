@@ -1,4 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { applyParms } from '../../../../steps/common/url-parser';
+import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -28,5 +30,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   return {
     ...translations,
+    redirectUrl: applyParms(FETCH_CASE_DETAILS, { caseId: content.additionalData?.req?.session?.userCase.id }),
   };
 };
