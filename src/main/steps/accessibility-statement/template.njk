@@ -2,7 +2,7 @@
 
 {% block page_content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
-  <p class="govuk-body">{{ websiteAvailable }}</p>
+  <p class="govuk-body">{{ websiteAvailable | safe}}</p>
   <p class="govuk-body">{{ websiteRanBy }}</p>
   <p class="govuk-body">{{ asManyAsPossible }}</p>
   <ul class="govuk-list govuk-list--bullet">
