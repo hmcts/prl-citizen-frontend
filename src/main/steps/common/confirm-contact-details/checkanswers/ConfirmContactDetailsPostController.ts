@@ -2,12 +2,17 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { Applicant, Respondent } from '../../../../app/case/definition';
+import { Applicant, CaseType, Respondent } from '../../../../app/case/definition';
 import { toApiFormat } from '../../../../app/case/to-api-format';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../../steps/urls';
+import {
+  APPLICANT_TASK_LIST_URL,
+  C100_APPLICANT_TASKLIST,
+  RESPONDENT_TASK_LIST_URL,
+  RESPOND_TO_APPLICATION,
+} from '../../../../steps/urls';
 
 import { setContactDetails } from './ContactDetailsMapper';
 
@@ -83,7 +88,11 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
         ? RESPOND_TO_APPLICATION
         : RESPONDENT_TASK_LIST_URL;
     } else {
-      redirectUrl = APPLICANT_TASK_LIST_URL;
+      if (req.session.userCase.caseTypeOfApplication === CaseType.C100) {
+        redirectUrl = C100_APPLICANT_TASKLIST;
+      } else {
+        redirectUrl = APPLICANT_TASK_LIST_URL;
+      }
     }
 
     req.session.save(() => res.redirect(redirectUrl));
