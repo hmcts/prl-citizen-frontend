@@ -446,10 +446,3 @@ const contactPreferencesMockData = mockRequest({
     },
   },
 });
-// const casetypeC100 = mockRequest({
-//   session: {
-//     userCase: {
-//       caseTypeOfApplication: CaseType.C100,
-//     },
-//   },
-// });
