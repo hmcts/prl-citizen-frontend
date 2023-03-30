@@ -2,7 +2,6 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import BreadcrumbController from '../../steps/common/breadcrumb/BreadcrumbController';
-// import BreadcrumbController from '../../steps/common/breadcrumb/BreadcrumbController';
 // import { generatePageContent } from '../../steps/common/common.content';
 // import { Case } from '../case/case';
 import * as Urls from '../../steps/urls';
@@ -98,7 +97,7 @@ describe('GetController', () => {
 
       /*expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        // ...generatePageContent({ language, pageContent: generateContent, userEmail }),
+        ...generatePageContent({ language, pageContent: generateContent, userEmail }),
         text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
@@ -120,7 +119,7 @@ describe('GetController', () => {
 
       /*expect(res.render).toBeCalledWith('page', {
         ...defaultViewArgs,
-        // ...generatePageContent({ language, pageContent: generateContent, userEmail }),
+        ...generatePageContent({ language, pageContent: generateContent, userEmail }),
         text: 'welsh',
         language: 'cy',
         htmlLang: 'cy',
