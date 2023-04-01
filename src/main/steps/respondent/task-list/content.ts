@@ -134,6 +134,34 @@ const en = () => ({
       },
     ],
   },
+  iWantTo: 'I want to...',
+  hyperlinks: [
+    {
+      label: 'Add a leagal representation',
+      link: '#',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Find my local court',
+      link: '#',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Find legal advice',
+      link: '#',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Know more about child arrangements',
+      link: '#',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Know more about attending court',
+      link: '#',
+      class: 'govuk-link',
+    },
+  ],
 });
 
 const cy = () => ({
@@ -252,6 +280,34 @@ const cy = () => ({
       },
     ],
   },
+  iWantTo: 'I want to...-welsh',
+  hyperlinks: [
+    {
+      label: 'Add a leagal representation-welsh',
+      link: '#',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Find my local court-welsh',
+      link: '#',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Find legal advice-welsh',
+      link: '#',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Know more about child arrangements-welsh',
+      link: '#',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Know more about attending court-welsh',
+      link: '#',
+      class: 'govuk-link',
+    },
+  ],
 });
 
 const languages = {

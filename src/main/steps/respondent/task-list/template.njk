@@ -22,26 +22,11 @@
   {% include "../../common/notifyBanner.njk" %}
 {% endblock %}
 {% block oneThird %}
-      <h2 class="govuk-heading-m">
-        I want to...
-      </h2>
-      <ul class="govuk-list">
-        <li>
-          <a class="govuk-link" href="#">Find my local court</a>
-          <div class="govuk-!-padding-bottom-2"></div>
-        </li>
-        <li>
-          <a class="govuk-link" href="#">Find legal advice</a>
-          <div class="govuk-!-padding-bottom-2"></div>
-        </li>
-        <li>
-          <a class="govuk-link" href="#">Know more about child arrangements</a>
-          <div class="govuk-!-padding-bottom-2"></div>
-        </li>
-        <li>
-          <a class="govuk-link" href="#">Know more about attending court</a>
-          <div class="govuk-!-padding-bottom-2"></div>
-        </li>
-      </ul>
-        {% include "../../common/contact-us.njk" %}
+          <h2 class="govuk-heading-m">{{iWantTo}}</h2>
+          <ul class="govuk-list">
+          {% for hyperlink in hyperlinks %}
+            <li><a href="{{hyperlink.link}}" target="_blank" class="govuk-link">{{hyperlink.label}}</a></li>
+          {% endfor %}
+          </ul class="govuk-list">
+          {% include "../../common/contact-us.njk" %}
 {% endblock %}
