@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../app/case/case';
 import { Applicant, Banner, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
@@ -153,14 +154,14 @@ export const generateContent: TranslationFn = content => {
   };
 };
 
-const getApplicantName = (userCase, userId) => {
+export const getApplicantName = (userCase: Partial<CaseWithId>, userId: string): string => {
   if (userCase.caseTypeOfApplication === 'C100') {
     const applicant = getApplicantPartyDetails(userCase, userId);
     if (applicant) {
       return applicant.value.firstName + ' ' + applicant.value.lastName;
     }
   } else {
-    return userCase.applicantsFL401.firstName + ' ' + userCase.applicantsFL401.lastName;
+    return userCase.applicantsFL401?.firstName + ' ' + userCase.applicantsFL401?.lastName;
   }
   return '';
 };

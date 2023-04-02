@@ -4,6 +4,7 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
 import {
+  ADD_LEGAL_REPRESENTATIVE,
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
   FIND_OUT_ABOUT_CAFCASS,
@@ -138,7 +139,7 @@ const en = () => ({
   hyperlinks: [
     {
       label: 'Add a leagal representation',
-      link: '#',
+      link: ADD_LEGAL_REPRESENTATIVE + '?isApplicant=No',
       class: 'govuk-link',
     },
     {
@@ -284,7 +285,7 @@ const cy = () => ({
   hyperlinks: [
     {
       label: 'Add a leagal representation-welsh',
-      link: '#',
+      link: ADD_LEGAL_REPRESENTATIVE + '?isApplicant=No',
       class: 'govuk-link',
     },
     {
@@ -353,7 +354,7 @@ export const generateContent: TranslationFn = content => {
   };
 };
 
-const getRespondentName = (userCase: Partial<CaseWithId>, userId: string): string => {
+export const getRespondentName = (userCase: Partial<CaseWithId>, userId: string): string => {
   if (userCase.caseTypeOfApplication === 'C100') {
     const respondent = getRespondentPartyDetailsCa(userCase, userId);
     return respondent ? respondent.value.firstName + ' ' + respondent.value.lastName : '';
