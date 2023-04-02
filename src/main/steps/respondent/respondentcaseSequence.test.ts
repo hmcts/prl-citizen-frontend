@@ -404,6 +404,10 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[87].url).toBe('/respondent/yourdocuments/alldocuments/risk_assessment_16a');
     expect(respondentCaseSequence[87].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[87].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
+
+    expect(respondentCaseSequence[88].url).toBe('/respondent/add-legal-representative');
+    expect(respondentCaseSequence[88].showInSection).toBe('aboutRespondentCase');
+    expect(respondentCaseSequence[88].getNextStep({})).toBe('/respondent/task-list');
   });
 });
 

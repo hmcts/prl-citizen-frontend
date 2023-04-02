@@ -521,7 +521,7 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
-    showInSection: Sections.AboutApplicantCase,
+    showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
 ];

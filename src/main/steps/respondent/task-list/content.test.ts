@@ -2,6 +2,7 @@ import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { SectionStatus } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
+import { RESPONDENT_ADD_LEGAL_REPRESENTATIVE } from '../../urls';
 
 import { generateContent } from './content';
 import { respondent_cy, respondent_en } from './section-titles';
@@ -20,6 +21,39 @@ const enContent = {
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
+  iWantTo: 'I want to...',
+  hyperlinks: [
+    {
+      label: 'Add a legal representative',
+      link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE + '?isApplicant=No',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Remove a legal representative',
+      link: '#',
+      class: 'govuk-link hidden',
+    },
+    {
+      label: 'Find my local court',
+      link: '#',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Find legal advice',
+      link: '#',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Know more about child arrangements',
+      link: '#',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Know more about attending court',
+      link: '#',
+      class: 'govuk-link',
+    },
+  ],
 };
 const cyContent = {
   title: 'Respondent tasklist - welsh',
@@ -35,6 +69,39 @@ const cyContent = {
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
+  iWantTo: 'I want to...-welsh',
+  hyperlinks: [
+    {
+      label: 'Add a legal representative-welsh',
+      link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE + '?isApplicant=No',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Remove a legal representative-welsh',
+      link: '#',
+      class: 'govuk-link hidden',
+    },
+    {
+      label: 'Find my local court-welsh',
+      link: '#',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Find legal advice-welsh',
+      link: '#',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Know more about child arrangements-welsh',
+      link: '#',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Know more about attending court-welsh',
+      link: '#',
+      class: 'govuk-link',
+    },
+  ],
 };
 describe('task-list > content', () => {
   const commonContent = {
