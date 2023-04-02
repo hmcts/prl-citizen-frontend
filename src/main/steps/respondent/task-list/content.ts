@@ -4,11 +4,11 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
 import {
-  ADD_LEGAL_REPRESENTATIVE,
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
+  RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
@@ -139,7 +139,7 @@ const en = () => ({
   hyperlinks: [
     {
       label: 'Add a leagal representation',
-      link: ADD_LEGAL_REPRESENTATIVE + '?isApplicant=No',
+      link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE + '?isApplicant=No',
       class: 'govuk-link',
     },
     {
@@ -285,7 +285,7 @@ const cy = () => ({
   hyperlinks: [
     {
       label: 'Add a leagal representation-welsh',
-      link: ADD_LEGAL_REPRESENTATIVE + '?isApplicant=No',
+      link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE + '?isApplicant=No',
       class: 'govuk-link',
     },
     {

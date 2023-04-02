@@ -2,7 +2,6 @@ import HearingsGetController from '../../../main/steps/common/yourhearings/heari
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
-  ADD_LEGAL_REPRESENTATIVE,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   CA_DA_ATTENDING_THE_COURT,
   CA_DA_COMMUNICATION_HELP,
@@ -43,6 +42,7 @@ import {
   RESPONDENT_ADDRESS_LOOKUP,
   RESPONDENT_ADDRESS_MANUAL,
   RESPONDENT_ADDRESS_SELECT,
+  RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_CONTACT_DETAILS_SAVE,
@@ -520,7 +520,7 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: ADD_LEGAL_REPRESENTATIVE,
+    url: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

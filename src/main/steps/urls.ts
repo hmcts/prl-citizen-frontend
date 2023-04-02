@@ -573,4 +573,4 @@ export const C100_WITHDRAW_CASE_CONFIRMATION: PageLink = `${C100_URL}/withdraw/c
 export const HEARING_NEEDS: PageLink = '/hearing-needs';
 export const APPLICANT_TASKLIST_HEARING_NEEDS: PageLink = `${APPLICANT}${HEARING_NEEDS}/support-help`;
 
-export const ADD_LEGAL_REPRESENTATIVE: PageLink = '/common/add-legal-representative';
+export const RESPONDENT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${RESPONDENT}/add-legal-representative`;

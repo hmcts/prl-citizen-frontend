@@ -49,12 +49,15 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const req: AppRequest = content.additionalData?.req;
+  let partyName;
   if (YesOrNo.YES === req.query.isApplicant) {
-    translations.partyName = getApplicantName(req.session.userCase, req.session.user.id);
+    partyName = getApplicantName(req.session.userCase, req.session.user.id);
   } else {
-    translations.partyName = getRespondentName(req.session.userCase, req.session.user.id);
+    partyName = getRespondentName(req.session.userCase, req.session.user.id);
   }
-  translations.caseRefernce = req.session.userCase.id;
+  translations.legalRepresentativeInformationLine3 =
+    translations.legalRepresentativeInformationLine3 + req.session.userCase.id;
+  translations.legalRepresentativeInformationLine4 = translations.legalRepresentativeInformationLine4 + partyName;
   return {
     ...translations,
     form,
