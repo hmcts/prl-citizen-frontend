@@ -138,8 +138,13 @@ const en = () => ({
   iWantTo: 'I want to...',
   hyperlinks: [
     {
-      label: 'Add a leagal representation',
+      label: 'Add a legal representative',
       link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE + '?isApplicant=No',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Remove a legal representative',
+      link: '#',
       class: 'govuk-link',
     },
     {
@@ -284,8 +289,13 @@ const cy = () => ({
   iWantTo: 'I want to...-welsh',
   hyperlinks: [
     {
-      label: 'Add a leagal representation-welsh',
+      label: 'Add a legal representative-welsh',
       link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE + '?isApplicant=No',
+      class: 'govuk-link',
+    },
+    {
+      label: 'Remove a legal representative-welsh',
+      link: '#',
       class: 'govuk-link',
     },
     {
@@ -340,6 +350,17 @@ export const generateContent: TranslationFn = content => {
     }
   }
   translations.respondentName = getRespondentName(req.session.userCase, req.session.user.id);
+  //logic to set isRepresentedBySolicotor flag - TBD
+  const isRepresentedBySolicotor = false;
+
+  translations.hyperlinks.forEach(hyperLink => {
+    if (hyperLink.label.includes('Add a legal representative') && isRepresentedBySolicotor) {
+      hyperLink.class = hyperLink.class + ' hidden';
+    }
+    if (hyperLink.label.includes('Remove a legal representative') && !isRepresentedBySolicotor) {
+      hyperLink.class = hyperLink.class + ' hidden';
+    }
+  });
 
   return {
     ...translations,
@@ -347,7 +368,8 @@ export const generateContent: TranslationFn = content => {
       translations.sectionTitles,
       translations.taskListItems,
       content.userCase,
-      content.userIdamId
+      content.userIdamId,
+      isRepresentedBySolicotor
     ),
     banners,
     stages,

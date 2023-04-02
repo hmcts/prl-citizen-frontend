@@ -8,7 +8,6 @@ import { getRespondentName } from '../../respondent/task-list/content';
 const en = {
   section: 'Adding a legal representative',
   partyName: '',
-  caseRefernce: '',
   continue: 'Continue',
   legalRepresentativeInformationLine1:
     'If you have hired a legal representative,  you will need to give them some information so they can access your case.',
@@ -22,7 +21,6 @@ const en = {
 const cy: typeof en = {
   section: 'Adding a legal representative-welsh',
   partyName: '',
-  caseRefernce: '',
   continue: 'Continue-welsh',
   legalRepresentativeInformationLine1:
     'If you have hired a legal representative,  you will need to give them some information so they can access your case.-welsh',
@@ -49,15 +47,11 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const req: AppRequest = content.additionalData?.req;
-  let partyName;
   if (YesOrNo.YES === req.query.isApplicant) {
-    partyName = getApplicantName(req.session.userCase, req.session.user.id);
+    translations.partyName = getApplicantName(req.session.userCase, req.session.user.id);
   } else {
-    partyName = getRespondentName(req.session.userCase, req.session.user.id);
+    translations.partyName = getRespondentName(req.session.userCase, req.session.user.id);
   }
-  translations.legalRepresentativeInformationLine3 =
-    translations.legalRepresentativeInformationLine3 + req.session.userCase.id;
-  translations.legalRepresentativeInformationLine4 = translations.legalRepresentativeInformationLine4 + partyName;
   return {
     ...translations,
     form,
