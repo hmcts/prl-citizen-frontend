@@ -2,6 +2,7 @@ import HearingsGetController from '../../../main/steps/common/yourhearings/heari
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
+  ADD_LEGAL_REPRESENTATIVE,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   CA_DA_ATTENDING_THE_COURT,
   CA_DA_COMMUNICATION_HELP,
@@ -517,5 +518,10 @@ export const respondentCaseSequence: Step[] = [
     url: `${RESPONDENT}${RESPONDENT_RISK_ASSESSMENT}`,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: ADD_LEGAL_REPRESENTATIVE,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
 ];
