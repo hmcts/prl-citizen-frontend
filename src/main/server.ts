@@ -7,6 +7,8 @@ import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
+import { FeatureToggles } from './app/utils/featureToggles';
+import { LaunchDarklyClient } from './common/clients/launchDarklyClient';
 import { AppInsights } from './modules/appinsights';
 import { AuthProvider } from './modules/auth-provider';
 import { AxiosLogger } from './modules/axios-logger';
@@ -25,8 +27,6 @@ import { SessionStorage } from './modules/session';
 import { TooBusy } from './modules/too-busy';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
-import { FeatureToggles } from "./app/utils/featureToggles";
-import { LaunchDarklyClient } from './common/clients/launchDarklyClient';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
@@ -45,9 +45,9 @@ app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json() as RequestHandler);
 app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
 app.use(express.static(path.join(__dirname, 'public')));
-logger.info('Creating LaunchDarkly Client')
-const launchDarklyClient = new LaunchDarklyClient()
-const featureToggles = new FeatureToggles(launchDarklyClient)
+logger.info('Creating LaunchDarkly Client');
+const launchDarklyClient = new LaunchDarklyClient();
+const featureToggles = new FeatureToggles(launchDarklyClient);
 app.use(async (req, res, next) => {
   if (app.locals.developmentMode) {
     app.settings.nunjucksEnv.globals.c100Rebuild = await featureToggles.isC100reBuildEnabled();
