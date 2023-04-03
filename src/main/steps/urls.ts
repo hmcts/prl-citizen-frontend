@@ -546,5 +546,5 @@ export const C100_REBUILD_URL: PageLink = '/c100-rebuild';
 
 export const TESTING_SUPPORT: PageLink = '/testing-support';
 export const TESTING_SUPPORT_CREATE_DRAFT: PageLink = '/testing-support/create-Draft';
-
+export const TESTING_SUPPORT_DELETE_DRAFT: PageLink = '/testing-support/delete-Draft';
 export const CREATE_DRAFT: PageLink = '/draft-controller';

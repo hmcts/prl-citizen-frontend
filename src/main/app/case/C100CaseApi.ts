@@ -42,16 +42,27 @@ export class CaseApi {
     }
   }
 
-  public async TScreateCase(): Promise<CreateCaseResponse> {
-
+  public async createCaseTestingSupport(): Promise<UpdateCaseResponse> {
     try {
-      const response = await this.axios.post<CreateCaseResponse>('/testing-support/create-dummy-citizen-case');
+      const response = await this.axios.post<UpdateCaseResponse>('/testing-support/create-dummy-citizen-case');
       //const { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase } = response?.data;
-      console.log(response)
-      return response.data;
+      //console.log(response)
+      return response.data.id;
     } catch (err) {
       this.logError(err);
       throw new Error('Case could not be created.');
+    }
+  }
+  public async deleteCaseTestingSupport(id: string): Promise<UpdateCaseResponse> {
+    console.log('id is' + id);
+    try {
+      const response = await this.axios.post<UpdateCaseResponse>('/testing-support/delete-citizen-case', id);
+      //const { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase } = response?.data;
+      //console.log(response)
+      return response.data;
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case delete methode failed');
     }
   }
 
@@ -231,7 +242,6 @@ const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => 
 
   return detransformedCaseData;
 };
-
 
 interface CreateCaseResponse {
   id: string;

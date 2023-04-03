@@ -43,6 +43,7 @@ import { ProceedingGetController } from './steps/tasklistresponse/proceedings/Pr
 import { ProceedingPostController } from './steps/tasklistresponse/proceedings/ProceedingPostController';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { creatDraftGetController } from './steps/testing-support/create-draft/get';
+import { deleteDraftGetController } from './steps/testing-support/delete-draft/get';
 import { TestingSupportGetController } from './steps/testing-support/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
@@ -114,6 +115,7 @@ import {
   TESTING_SUPPORT,
   TESTING_SUPPORT_CREATE_DRAFT,
   CREATE_DRAFT,
+  TESTING_SUPPORT_DELETE_DRAFT,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 //import draftCaseController from './steps/testing-support/post';
@@ -133,6 +135,7 @@ export class Routes {
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
     app.get(TESTING_SUPPORT, errorHandler(new TestingSupportGetController().get));
     app.get(TESTING_SUPPORT_CREATE_DRAFT, errorHandler(new creatDraftGetController().get));
+    app.get(TESTING_SUPPORT_DELETE_DRAFT, errorHandler(new deleteDraftGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
@@ -222,6 +225,7 @@ export class Routes {
         const tsDraftController = new TSDraftController(step.form.fields);
         app.post(CREATE_DRAFT, errorHandler(tsDraftController.post));
         app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(tsDraftController.createC100Draft));
+        app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(tsDraftController.deleteC100Draft));
 
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
@@ -307,8 +311,6 @@ export class Routes {
         );
         app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
       }
-
-      
     }
     /**
      * @Payment_Handler

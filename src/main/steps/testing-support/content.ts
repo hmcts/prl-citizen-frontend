@@ -1,5 +1,5 @@
-import { FormContent } from 'app/form/Form';
 import { TranslationFn } from '../../app/controller/GetController';
+import { FormContent } from '../../app/form/Form';
 
 const en = {
   title: 'Testing support',
@@ -14,7 +14,7 @@ const cy: typeof en = {
 };
 
 export const form: FormContent = {
-  fields: {}
+  fields: {},
 };
 
 const languages = {
