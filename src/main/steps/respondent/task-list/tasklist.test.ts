@@ -232,7 +232,7 @@ describe('generateRespondentTaskList', () => {
             hint: null,
           },
           {
-            href: '/tasklistresponse/international-factors/start',
+            href: '#',
             id: 'respond_to_allegations_of_harm_and_violence',
             status: 'IN_PROGRESS',
             text: 'Respond to the allegations of harm and violence',

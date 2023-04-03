@@ -14,7 +14,7 @@ import {
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
 } from '../../../steps/urls';
 
-import { setKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
+import { mapConfidentialListToFields, setKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
 
 @autobind
 export class KeepDetailsPrivatePostController extends PostController<AnyObject> {
@@ -33,7 +33,9 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
   public async c100Applicant(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
       if (applicant?.value?.user?.idamId === req.session?.user.id) {
-        Object.assign(applicant.value, setKeepYourDetailsPrivate(applicant.value, req));
+        Object.assign(applicant.value, {
+          ...mapConfidentialListToFields(setKeepYourDetailsPrivate(applicant.value, req)),
+        });
       }
     });
   }
@@ -59,7 +61,6 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     const caseReference = req.session.userCase.id;
-
     const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
 
     const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
@@ -84,7 +85,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
       loggedInCitizen,
       caseReference,
       caseData,
-      'keepYourDetailsPrivate'
+      'linkCitizenAccount'
     );
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
@@ -102,7 +103,6 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
         redirectUrl = APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED;
       }
     }
-
     req.session.save(() => res.redirect(redirectUrl));
   }
 }

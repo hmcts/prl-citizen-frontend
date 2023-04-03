@@ -1,7 +1,8 @@
 //import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-//import { generatePageContent } from '../../steps/common/common.content';
+import BreadcrumbController from '../../steps/common/breadcrumb/BreadcrumbController';
+// import { generatePageContent } from '../../steps/common/common.content';
 // import { Case } from '../case/case';
 import * as Urls from '../../steps/urls';
 import { State } from '../case/definition';
@@ -237,6 +238,53 @@ describe('GetController', () => {
         sessionErrors: [],
       });*/
       expect(1).toEqual(1);
+    });
+  });
+
+  describe('content includes breadcrumbs', () => {
+    let req;
+    let getController;
+    beforeEach(() => {
+      req = mockRequest({
+        session: {
+          userCase: {},
+          userCaseList: [
+            {
+              id: '1234',
+            },
+          ],
+          applicationSettings: {
+            breadcrumbs: [],
+          },
+        },
+        params: {
+          caseId: '1234',
+        },
+      });
+      getController = new GetController('view', jest.fn());
+      jest.clearAllMocks();
+    });
+    test('add breadcrumbs to the current session', async () => {
+      const breadcrumb = { id: 'home', href: '/test' };
+      const res = mockResponse();
+      jest.spyOn(BreadcrumbController, 'add').mockImplementation(() => Promise.resolve());
+      getController = new GetController(
+        'view',
+        jest.fn(() => ({ breadcrumb }))
+      );
+      await getController.get(req, res);
+      expect(BreadcrumbController.add).toHaveBeenCalledWith(breadcrumb, req.session);
+    });
+  });
+
+  describe('parseAndSetReturnUrl method', () => {
+    test('should set the return url when it is valid', () => {
+      const getContentMock = jest.fn().mockReturnValue({});
+      const controller = new GetController('page', getContentMock);
+      const req = mockRequest({ query: { returnUrl: '/test/valid' }, session: { returnUrl: '/test/valid' } });
+      controller.parseAndSetReturnUrl(req);
+      expect(req.session.returnUrl).toBe('/test/valid');
+      expect(req.session.returnUrl).toEqual(req.query.returnUrl);
     });
   });
 });

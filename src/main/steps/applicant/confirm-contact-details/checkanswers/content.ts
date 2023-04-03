@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { applyParms } from '../../../../steps/common/url-parser';
+import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 import { generateContent as checkAnswersGenerateContent } from '../../../common/confirm-contact-details/checkanswers/content';
+
+import { CaseType, PartyType } from './../../../../app/case/definition';
 
 export const enContent = {
   section: 'Check your details',
@@ -31,8 +36,18 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const checkAnswersContent = checkAnswersGenerateContent(content);
+  const checkAnswersContent = checkAnswersGenerateContent(content) as Record<string, any>;
+  const request = content.additionalData?.req;
+  const caseData = request.session.userCase;
+
   return {
     ...checkAnswersContent,
+    breadcrumb:
+      request.originalUrl.includes(PartyType.APPLICANT) && caseData.caseTypeOfApplication === CaseType.C100
+        ? {
+            id: 'caseView',
+            href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData.id }),
+          }
+        : null,
   };
 };
