@@ -24,11 +24,13 @@ const en = {
   closeDate: 'Close date',
   noCase: 'No case available.',
   draftCaseStatus: 'Draft',
-  pendingCaseStatus: 'Application submitted',
   submittedCaseStatus: 'Application submitted',
+  caseIssued: 'Application submitted',
+  caseGatekeeping: 'Application submitted',
+  caseServed: 'Application submitted',
 };
 
-const cy = {
+const cy: typeof en = {
   title: 'Achosion trefniadau plant a gwaharddebau teulu',
   sectionTitle: 'Actifadu cod mynediad neu gychwyn cais:',
   activateAccessCodeLinkText: 'Actifadu cod mynediad',
@@ -50,8 +52,10 @@ const cy = {
   closeDate: 'Dyddiad cau',
   noCase: 'Dim cais ar gael.',
   draftCaseStatus: 'Drafft',
-  pendingCaseStatus: 'Cyflwynwyd y cais',
   submittedCaseStatus: 'Cyflwynwyd y cais',
+  caseIssued: 'Cyflwynwyd y cais',
+  caseGatekeeping: 'Cyflwynwyd y cais',
+  caseServed: 'Cyflwynwyd y cais',
 };
 
 export const languages = {
@@ -64,6 +68,6 @@ export const generateContent: TranslationFn = content => {
   const session = content.additionalData!.req.session;
   return {
     ...translations,
-    tabs: prepareCaseView(session.userCaseList, session.user.id, translations),
+    tabs: prepareCaseView(session.userCaseList, session.user, translations),
   };
 };

@@ -53,7 +53,7 @@ describe('testcase for tasklist', () => {
         id: 'applicationInProgress',
         links: [
           {
-            href: '#caseData.c100RebuildReturnUrl',
+            href: '#',
             text: 'Continue your application',
           },
         ],
@@ -150,7 +150,7 @@ describe('testcase for tasklist', () => {
         id: 'applicationInProgress',
         links: [
           {
-            href: '#caseData.c100RebuildReturnUrl',
+            href: '#',
             text: 'Parhau gyda’ch cais',
           },
         ],

@@ -11,7 +11,7 @@ import {
   FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH,
   FIND_OUT_ABOUT_CAFCASS_WELSH,
   RESPONDENT_ORDERS_FROM_THE_COURT,
-  RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
+  RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
 } from '../../../steps/urls';
 
@@ -135,7 +135,7 @@ const en = () => ({
     ],
     bannerLinks: [
       {
-        href: RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
+        href: RESPONDENT_VIEW_ALL_DOCUMENTS,
         text: 'See all documents',
       },
     ],
@@ -259,7 +259,7 @@ const cy = () => ({
     ],
     bannerLinks: [
       {
-        href: RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
+        href: RESPONDENT_VIEW_ALL_DOCUMENTS,
         text: 'See all documents',
       },
     ],
