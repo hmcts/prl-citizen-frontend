@@ -42,8 +42,8 @@ import { MIAMPostController } from './steps/tasklistresponse/miam/MIAMPostContro
 import { ProceedingGetController } from './steps/tasklistresponse/proceedings/ProceedingGetController';
 import { ProceedingPostController } from './steps/tasklistresponse/proceedings/ProceedingPostController';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
-import { creatDraftGetController } from './steps/testing-support/create-draft/get';
-import { deleteDraftGetController } from './steps/testing-support/delete-draft/get';
+import { CreateDraftGetController } from './steps/testing-support/create-draft/get';
+import { DeleteDraftGetController } from './steps/testing-support/delete-draft/get';
 import { TestingSupportGetController } from './steps/testing-support/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
@@ -134,8 +134,8 @@ export class Routes {
     app.get(PRIVACY_POLICY, errorHandler(new PrivacyPolicyGetController().get));
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
     app.get(TESTING_SUPPORT, errorHandler(new TestingSupportGetController().get));
-    app.get(TESTING_SUPPORT_CREATE_DRAFT, errorHandler(new creatDraftGetController().get));
-    app.get(TESTING_SUPPORT_DELETE_DRAFT, errorHandler(new deleteDraftGetController().get));
+    app.get(TESTING_SUPPORT_CREATE_DRAFT, errorHandler(new CreateDraftGetController().get));
+    app.get(TESTING_SUPPORT_DELETE_DRAFT, errorHandler(new DeleteDraftGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));

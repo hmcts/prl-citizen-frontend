@@ -1,4 +1,3 @@
-//import { CaseWithId } from '../case/case';
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
@@ -27,7 +26,6 @@ export class TSDraftController extends PostController<AnyObject> {
     try {
       const newCaseId = (await req.locals.C100Api.createCaseTestingSupport()) as unknown as string;
       req.session.userCase = (await req.locals.C100Api.retrieveCaseById(newCaseId)) as CaseWithId;
-      //req.session.userCaseList = [];
       req.session.save(() => {
         res.redirect(C100_CHECK_YOUR_ANSWER);
       });
@@ -41,7 +39,6 @@ export class TSDraftController extends PostController<AnyObject> {
     const value = data.split(',');
     value.forEach(async element => {
       try {
-        //await req.locals.C100Api.deleteCaseTestingSupport(element);
         const caseData = await req.locals.C100Api.retrieveCaseById(element);
         await req.locals.C100Api.updateCase(element, caseData, HOME_URL, C100_CASE_EVENT.DELETE_CASE);
         req.session.save(() => {
