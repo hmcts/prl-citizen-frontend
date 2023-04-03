@@ -82,32 +82,61 @@
 {% endblock %}
 
 {% block footer %}
-  {{ govukFooter({
-    meta: {
-      items: [
-        {
-          href: "/cookies",
-          text: cookies
-        },
-        {
-          href: "/privacy-policy",
-          text: privacyPolicy
-        },
-        {
-          href: "/accessibility-statement",
-          text: accessibility
-        },
-        {
-          href: "/terms-and-conditions",
-          text: termsAndConditions
-        },
-        {
-          href: "/testing-support",
-          text: testingSupport
-        }
-      ]
-    }
-  }) }}
+  {% if testingSupport %}
+    {{ govukFooter({
+      meta: {
+        items: [
+          {
+            href: "/cookies",
+            text: cookies
+          },
+          {
+            href: "/privacy-policy",
+            text: privacyPolicy
+          },
+          {
+            href: "/accessibility-statement",
+            text: accessibility
+          },
+          {
+            href: "/terms-and-conditions",
+            text: termsAndConditions
+          },
+          {
+            href: "/testing-support",
+            text: testingSupport
+          }
+        ]
+      }
+    }) }}
+  {% else %}
+    {{ govukFooter({
+      meta: {
+        items: [
+          {
+            href: "/cookies",
+            text: cookies
+          },
+          {
+            href: "/privacy-policy",
+            text: privacyPolicy
+          },
+          {
+            href: "/accessibility-statement",
+            text: accessibility
+          },
+          {
+            href: "/terms-and-conditions",
+            text: termsAndConditions
+          },
+          {
+            href: "/testing-support",
+            text: testingSupport
+          }
+        ]
+      }
+    }) }}
+  {% endif %}
 {% endblock %}
 
 {% block bodyEnd %}
