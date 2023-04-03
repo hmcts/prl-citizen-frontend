@@ -49,9 +49,12 @@ logger.info('Creating LaunchDarkly Client')
 const launchDarklyClient = new LaunchDarklyClient()
 const featureToggles = new FeatureToggles(launchDarklyClient)
 app.use(async (req, res, next) => {
-  app.settings.nunjucksEnv.globals.testingSupport = await featureToggles.isTestingSupportEnabled()
+  if (app.locals.developmentMode) {
+    app.settings.nunjucksEnv.globals.c100Rebuild = await featureToggles.isC100reBuildEnabled();
+    app.settings.nunjucksEnv.globals.testingSupport = await featureToggles.isTestingSupportEnabled();
+  }
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
-  
+
   next();
 });
 new AxiosLogger().enableFor(app);

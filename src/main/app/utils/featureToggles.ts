@@ -45,7 +45,7 @@ export class FeatureToggles {
   async isTestingSupportEnabled(): Promise<boolean> {
     const isTestingSupportEnabled = this.launchDarklyClient.serviceVariation(
       'testing-support',
-      toBoolean(config.get<boolean>('featureToggles.testing-support'))
+      toBoolean(config.get<boolean>('featureToggles.testingSupport'))
     );
     console.log('Citizen journey - Testign Support enabled? ', isTestingSupportEnabled);
     return isTestingSupportEnabled;

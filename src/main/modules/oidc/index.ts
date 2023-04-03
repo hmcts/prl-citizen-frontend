@@ -74,6 +74,7 @@ export class OidcMiddleware {
 
         if (app.locals.developmentMode) {
           req.session.c100RebuildLdFlag = config.get('launchDarkly.offline');
+          req.session.testingSupport = config.get('launchDarkly.offline');
         }
 
         if (req.session?.user) {

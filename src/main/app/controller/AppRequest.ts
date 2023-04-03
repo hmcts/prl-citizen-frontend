@@ -21,6 +21,7 @@ export interface AppRequest<T = Partial<Case>> extends Request {
 }
 
 export interface AppSession extends Session {
+  testingSupport: boolean;
   paymentError: boolean;
   user: UserDetails;
   userCase: CaseWithId;
