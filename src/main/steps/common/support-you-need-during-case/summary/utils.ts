@@ -168,7 +168,7 @@ const SupportYouNeedAllEnum = {
     courtvisit: 'Visit to court before the hearing - welsh',
     courthearing: "Explanation of the court and who's in the room at the hearing - welsh",
     intermediary: 'Intermediary - welsh',
-    nosupport: 'No, I do not need any support at this time - welsh',
+    nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
     //Court comfort
     appropriatelighting: 'Appropriate lighting - welsh',
     breaks: 'Regular breaks - welsh',

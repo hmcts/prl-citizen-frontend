@@ -101,7 +101,7 @@ export const form: FormContent = {
           value: 'travellinghelp',
         },
         {
-          divider: true,
+          divider: l=>l.divider,
         },
         {
           name: 'reasonableAdjustments',
