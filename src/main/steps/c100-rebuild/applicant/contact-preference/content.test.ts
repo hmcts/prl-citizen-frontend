@@ -18,8 +18,8 @@ const en = {
   ],
   listOfBullets: ['court orders', 'hearings', 'decisions in your case'],
   contactPreferenceLabel: 'How would you prefer to be contacted?',
-  contactPreferenceHintText: 'Select one (or both) of these options.',
-  labelDigital: 'digital',
+  contactPreferenceHintText: 'Select one of these options.',
+  labelDigital: 'Digital',
   labelDitigalHintText: 'All communication from the court will be sent by email.',
   labelPost: 'post',
   labelPostHintText: 'All communication from the court will be sent by post.',
@@ -40,7 +40,7 @@ const cy = () => ({
   ],
   listOfBullets: ['gorchmynion llys', 'gwrandawiadau', 'penderfyniadau ynghylch eich achos'],
   contactPreferenceLabel: 'Sut hoffech inni gysylltu â chi?',
-  contactPreferenceHintText: 'Dewiswch un o’r opsiynau hyn (neu’r ddau).',
+  contactPreferenceHintText: 'Dewiswch un o’r opsiynau hyn.',
   labelDigital: 'Digidol',
   labelDitigalHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy e-bost.',
   labelPost: 'Drwy’r post',
@@ -111,11 +111,14 @@ describe('Contact Preference > content', () => {
     const { applicantContactPreferences } = fields as Record<string, FormFields>;
 
     expect(applicantContactPreferences.type).toBe('radios');
+    expect((applicantContactPreferences.label as Function)(generatedContent)).toBe(en.contactPreferenceLabel);
+    expect((applicantContactPreferences.hint as Function)(generatedContent)).toBe(en.contactPreferenceHintText);
     expect((applicantContactPreferences.values[0].label as Function)(generatedContent)).toBe(en.labelDigital);
-    expect(applicantContactPreferences.values[0].value).toBe(en.labelDigital);
+    expect(applicantContactPreferences.values[0].value).toBe('digital');
+    expect((applicantContactPreferences.values[0].hint as Function)(generatedContent)).toBe(en.labelDitigalHintText);
     expect((applicantContactPreferences.values[1].label as Function)(generatedContent)).toBe(en.labelPost);
-    expect(applicantContactPreferences.values[1].value).toBe(en.labelPost);
-
+    expect((applicantContactPreferences.values[1].hint as Function)(generatedContent)).toBe(en.labelPostHintText);
+    expect(applicantContactPreferences.values[1].value).toBe('post');
     (applicantContactPreferences.validator as Function)(applicantContactPreferencesEnum.DIGITAL);
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith(applicantContactPreferencesEnum.DIGITAL);
   });

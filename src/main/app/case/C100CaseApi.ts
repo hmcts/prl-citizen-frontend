@@ -115,7 +115,7 @@ export class CaseApi {
    */
   public async deleteCase(caseData: Partial<CaseWithId>, session: AppSession): Promise<void> {
     try {
-      caseData = { ...caseData, state: State.DELETED };
+      caseData = { ...caseData, state: State.CASE_DELETED };
       const { caseId } = caseData;
       if (!caseId) {
         throw new Error('caseId not found so case could not be deleted.');
@@ -167,6 +167,38 @@ export class CaseApi {
     } catch (err) {
       this.logError(err);
       throw new Error('Draft application could not be downloaded.');
+    }
+  }
+
+  /**
+   * Withdraw Case
+   * @param caseData
+   * @param session
+   */
+  public async withdrawCase(caseId: string, caseData: Partial<CaseWithId>): Promise<void> {
+    try {
+      if (!caseId) {
+        throw new Error('caseId not found so case could not be withdrawn.');
+      }
+      const { withdrawApplication, withdrawApplicationReason } = caseData;
+
+      await this.axios.post<UpdateCaseResponse>(
+        `${caseId}/withdraw`,
+        {
+          withDrawApplicationData: {
+            withDrawApplication: withdrawApplication,
+            withDrawApplicationReason: withdrawApplicationReason,
+          },
+        },
+        {
+          headers: {
+            accessCode: 'null',
+          },
+        }
+      );
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Error occured, case could not be withdrawn.');
     }
   }
 

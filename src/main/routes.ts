@@ -19,6 +19,8 @@ import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/c
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
+import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
+import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
@@ -28,6 +30,7 @@ import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
+import { CaseActivationPostController } from './steps/prl-cases/CaseActivationPostController';
 import DashboardGetController from './steps/prl-cases/dashboard/DashboardGetController';
 import { RespondentConfirmContactDetailsGetController } from './steps/respondent/confirm-contact-details/checkanswers/controller/RespondentConfirmContactDetailsGetController';
 import RespondentConfirmContactDetailsPostController from './steps/respondent/confirm-contact-details/checkanswers/controller/RespondentConfirmContactDetailsPostController';
@@ -116,6 +119,8 @@ import {
   TESTING_SUPPORT_CREATE_DRAFT,
   CREATE_DRAFT,
   TESTING_SUPPORT_DELETE_DRAFT,
+  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+  PIN_ACTIVATION_CASE_ACTIVATED_URL,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 //import draftCaseController from './steps/testing-support/post';
@@ -189,7 +194,6 @@ export class Routes {
         `${APPLICANT_DETAILS_KNOWN}/:caseId`,
         errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)
       );
-
       app.get(
         `${RESPONDENT_CHECK_ANSWERS}/:caseId`,
         errorHandler(new RespondentConfirmContactDetailsGetController(step.view, step.generateContent).get)
@@ -208,6 +212,10 @@ export class Routes {
       app.get(
         `${INTERNATIONAL_FACTORS_START}/:caseId`,
         errorHandler(new InternationalFactorsGetController(step.view, step.generateContent).get)
+      );
+      app.get(
+        `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/:caseId`,
+        errorHandler(new ContactPreferencesGetController(step.view, step.generateContent).get)
       );
 
       if (step.form) {
@@ -310,6 +318,14 @@ export class Routes {
           errorHandler(new SafetyConcernsPostController(step.form.fields).post)
         );
         app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
+        app.post(
+          `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}`,
+          errorHandler(new ContactPreferencesPostController(step.form.fields).post)
+        );
+        app.post(
+          PIN_ACTIVATION_CASE_ACTIVATED_URL,
+          errorHandler(new CaseActivationPostController(step.form.fields).post)
+        );
       }
     }
     /**

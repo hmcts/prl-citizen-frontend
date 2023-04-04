@@ -105,18 +105,21 @@ export class OidcMiddleware {
                   const caseReference = req.session.userCase.caseCode;
                   const accessCode = req.session.userCase.accessCode;
                   const data = { applicantCaseName: 'DUMMY CASE DATA' };
-                  await client.linkCaseToCitizen(
+
+                  const linkCaseToCitizenData = await client.linkCaseToCitizen(
                     req.session.user,
                     caseReference as string,
                     req,
                     accessCode as string,
                     data
                   );
+                  req.session.userCase = linkCaseToCitizenData.data;
                   req.session.accessCodeLoginIn = false;
                 }
               } catch (err) {
                 req.session.accessCodeLoginIn = false;
               }
+              return req.session.save(next);
             }
           }
           return next();
