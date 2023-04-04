@@ -110,7 +110,7 @@ export const form: FormContent = {
           },
         },
         {
-          divider: l=>l.divider,
+          divider: l => l.divider,
         },
         {
           name: 'courtComfort',
