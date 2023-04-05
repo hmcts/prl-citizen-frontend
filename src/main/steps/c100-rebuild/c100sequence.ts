@@ -1,9 +1,8 @@
-/* eslint-disable import/order */
-import { Case, CaseWithId } from '../../app/case/case';
-import { MiamNonAttendReason, YesOrNo } from '../../app/case/definition';
-import { AppRequest } from '../../app/controller/AppRequest';
-import { Sections, Step } from '../constants';
 import {
+  C100_WITHDRAW_CASE,
+  C100_WITHDRAW_CASE_CONFIRMATION,
+  PARTY_TASKLIST,
+  // eslint-disable-next-line sort-imports
   C100_CHILD_ADDRESS,
   C100_CONFIDENTIALITY_DETAILS_KNOW,
   C100_CONFIDENTIALITY_FEEDBACK,
@@ -148,7 +147,13 @@ import {
   C100_CASE_NAME,
   C100_CREATE_CASE,
   C100_APPLICANT_CONTACT_PREFERENCES,
-} from '../urls';
+} from './../urls';
+
+/* eslint-disable import/order */
+import { Case, CaseWithId } from '../../app/case/case';
+import { MiamNonAttendReason, YesOrNo } from '../../app/case/definition';
+import { AppRequest } from '../../app/controller/AppRequest';
+import { Sections, Step } from '../constants';
 
 import PageStepConfigurator from './PageStepConfigurator';
 import ChildrenDetailsNavigationController from './child-details/navigationController';
@@ -164,6 +169,7 @@ import ChildDetailsPostController from './child-details/childDetailPostControlle
 import ApplicantCommonConfidentialityController from './applicant/confidentiality/common/commonConfidentialityPostController';
 import LookupAndManualAddressPostController from './people/LookupAndManualAddressPostController';
 import UploadDocumentController from './uploadDocumentController';
+import { applyParms } from '../../steps/common/url-parser';
 
 export const C100Sequence: Step[] = [
   {
@@ -1018,5 +1024,18 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
       ApplicantNavigationController.getNextUrl(C100_APPLICANT_CONTACT_PREFERENCES, caseData, req?.params),
+  },
+  {
+    url: C100_WITHDRAW_CASE,
+    showInSection: Sections.C100,
+    getNextStep: caseData =>
+      caseData?.withdrawApplication === YesOrNo.YES
+        ? C100_WITHDRAW_CASE_CONFIRMATION
+        : (applyParms(PARTY_TASKLIST, { partyType: 'applicant' }) as PageLink),
+  },
+  {
+    url: C100_WITHDRAW_CASE_CONFIRMATION,
+    showInSection: Sections.C100,
+    getNextStep: () => '/',
   },
 ];

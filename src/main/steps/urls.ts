@@ -31,6 +31,8 @@ export const RESPONDENT: PageLink = '/respondent';
 export const FETCH_CASE_DETAILS: PageLink = '/case/:caseId';
 export const PARTY_TASKLIST: PageLink = '/task-list/:partyType';
 
+export const C100_APPLICANT_TASKLIST: PageLink = '/task-list/applicant';
+
 /*confirm-contact-details-start */
 export const CONFIRM_CONTACT_DETAILS: PageLink = '/confirm-contact-details';
 export const CHECK_ANSWERS: PageLink = `${CONFIRM_CONTACT_DETAILS}/checkanswers`;
@@ -546,3 +548,30 @@ export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orde
 
 /** @C100 rebuild */
 export const C100_REBUILD_URL: PageLink = '/c100-rebuild';
+
+/* applicant-tasklist-contactpreferences*/
+export const CONTACT_PREFERENCES: PageLink = '/contact-preferences';
+export const APPLICANT_TASKLIST_CONTACT_PREFERENCES: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-preferences`;
+export const APPLICANT_TASKLIST_CONTACT_PREFERENCES_SAVE: PageLink = `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/save`;
+export const APPLICANT_TASKLIST_CONTACT_EMAIL: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-email`;
+export const APPLICANT_TASKLIST_CONTACT_POST: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-post`;
+export const APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-email-success`;
+export const APPLICANT_TASKLIST_CONTACT_POST_SUCCESS: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-post-success`;
+/*temporary task-list/applicant URL for applicant dashboard */
+export const TASK_LIST_APPLICANT_URL: PageLink = '/task-list/applicant';
+/*temporary task-list/applicant URL for applicant dashboard end/*
+/* applicant-tasklist-contactpreferences-end*/
+
+/** @C100 PIN-ACTIVATION */
+export const PIN_ACTIVATION_URL: PageLink = '/pin-activation';
+export const PIN_ACTIVATION_ENTER_PIN_URL: PageLink = `${PIN_ACTIVATION_URL}/enter-pin`;
+export const PIN_ACTIVATION_CASE_ACTIVATED_URL: PageLink = `${PIN_ACTIVATION_URL}/case-activated`;
+/** @C100 PIN-ACTIVATION ends here */
+
+/**@C100 withdraw case */
+export const C100_WITHDRAW_CASE: PageLink = `${C100_URL}/:caseId/withdraw`;
+export const C100_WITHDRAW_CASE_CONFIRMATION: PageLink = `${C100_URL}/withdraw/confirmation`;
+
+/** applicant/tasklist hearing needs */
+export const HEARING_NEEDS: PageLink = '/hearing-needs';
+export const APPLICANT_TASKLIST_HEARING_NEEDS: PageLink = `${APPLICANT}${HEARING_NEEDS}/support-help`;

@@ -1,63 +1,28 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
+import { en as english, cy as welsh } from '../../../common/keep-details-private/start_alternative/content';
 
 import { generateContent } from './content';
 
 const enContent = {
-  section: 'Keeping your contact details private',
+  ...english,
   title:
     'Do you want to keep your contact details private from the other person named in the application (the respondent)?',
   line2:
     'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
-  one: 'Yes',
-  two: 'No',
-  three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
-  address: 'Home address',
-  postalAddress: 'Postal address',
-  Phone_number: 'Telephone number',
   contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
-  Email: 'Email',
-  contact_details_private: 'Specify which contact details you want to keep private.',
   continue: 'Save and continue',
-  errors: {
-    startAlternative: {
-      required: 'Enter your start alternative',
-    },
-    contactDetailsPrivate: {
-      required: 'Select your contact details',
-    },
-  },
 };
 
 const cyContent = {
-  section: 'Cadw eich manylion cyswllt yn breifat',
+  ...welsh,
   title: 'A yw’r unigolyn a wnaeth gais i’r llys (y ceisydd) yn gwybod unrhyw rai o’ch manylion cyswllt?',
   line2:
     'Bydd eich manylion cyswllt yn cael eu rhannu gyda’r ceisydd, oni bai eich bod yn gofyn i’r llys beidio â rhannu’r wybodaeth hon.',
-  one: 'Ydy',
-  two: 'Nac ydy',
-  three: 'Nid wyf yn gwybod',
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Cysylltiadau am gymorth',
-  address: 'Home address',
-  postalAddress: 'Postal address',
-  Phone_number: 'Rhif ffôn',
-  Email: 'E-bost',
-  contact_details_private: "Nodwch pa fanylion cyswllt rydych chi eisiau eu cadw'n breifat.",
   contact_details_private_hint:
     'Gwnewch yn siŵr eich bod ond yn dewis manylion nad yw’r ceisydd eisoes yn gwybod amdanynt.',
   continue: 'Save and continue',
-  errors: {
-    startAlternative: {
-      required: 'Enter your start alternative',
-    },
-    contactDetailsPrivate: {
-      required: 'Select your contact details',
-    },
-  },
 };
 
 jest.mock('../../../../app/form/validation');
@@ -81,14 +46,11 @@ describe('citizen-home content', () => {
     expect(generatedContent.line2).toEqual(
       'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.'
     );
-
-    expect(generatedContent.contact_details_private).toEqual('Specify which contact details you want to keep private.');
     expect(generatedContent.contact_details_private_hint).toEqual(
       'Make sure you only select details the respondent does not already know.'
     );
-    expect(generatedContent.Phone_number).toEqual('Telephone number');
-    expect(generatedContent.address).toEqual('Home address');
-    expect(generatedContent.postalAddress).toEqual('Postal address');
+    expect(generatedContent.Phone_number).toEqual('Phone number');
+    expect(generatedContent.address).toEqual('Address');
     expect(generatedContent.one).toEqual('Yes');
     expect(generatedContent.two).toEqual('No');
   });
