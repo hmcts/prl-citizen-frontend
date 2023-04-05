@@ -111,7 +111,8 @@ export interface PartyDetails {
 
 export interface User {
   email: string,
-  idamId: string
+  idamId: string,
+  solicitorRepresented?: string
 }
 
 export interface Response {

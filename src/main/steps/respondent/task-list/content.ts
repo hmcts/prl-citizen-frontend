@@ -1,8 +1,9 @@
 import { CaseWithId } from '../../../app/case/case';
-import { Banner, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Banner, PartyDetails, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
+import { checkPartyRepresentedBySolicitor } from '../../../steps/common/task-list/utils';
 import {
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
@@ -140,32 +141,26 @@ const en = () => ({
     {
       label: 'Add a legal representative',
       link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE + '?isApplicant=No',
-      class: 'govuk-link',
     },
     {
       label: 'Remove a legal representative',
       link: '#',
-      class: 'govuk-link',
     },
     {
       label: 'Find my local court',
       link: '#',
-      class: 'govuk-link',
     },
     {
       label: 'Find legal advice',
       link: '#',
-      class: 'govuk-link',
     },
     {
       label: 'Know more about child arrangements',
       link: '#',
-      class: 'govuk-link',
     },
     {
       label: 'Know more about attending court',
       link: '#',
-      class: 'govuk-link',
     },
   ],
 });
@@ -291,32 +286,26 @@ const cy = () => ({
     {
       label: 'Add a legal representative-welsh',
       link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE + '?isApplicant=No',
-      class: 'govuk-link',
     },
     {
       label: 'Remove a legal representative-welsh',
       link: '#',
-      class: 'govuk-link',
     },
     {
       label: 'Find my local court-welsh',
       link: '#',
-      class: 'govuk-link',
     },
     {
       label: 'Find legal advice-welsh',
       link: '#',
-      class: 'govuk-link',
     },
     {
       label: 'Know more about child arrangements-welsh',
       link: '#',
-      class: 'govuk-link',
     },
     {
       label: 'Know more about attending court-welsh',
       link: '#',
-      class: 'govuk-link',
     },
   ],
 });
@@ -349,16 +338,23 @@ export const generateContent: TranslationFn = content => {
       }
     }
   }
-  translations.respondentName = getRespondentName(req.session.userCase, req.session.user.id);
-  //logic to set isRepresentedBySolicotor flag - TBD
-  const isRepresentedBySolicotor = false;
 
-  translations.hyperlinks.forEach(hyperLink => {
-    if (hyperLink.label.includes('Add a legal representative') && isRepresentedBySolicotor) {
-      hyperLink.class = hyperLink.class + ' hidden';
+  const respondent = getRespondent(req.session.userCase, req.session.user.id);
+  translations.respondentName = getRespondentName(respondent);
+  const isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(respondent);
+  translations.hyperlinks.forEach((hyperLink, index) => {
+    //Added additonal checks not to display Add/Remove a legal representative link for DA caeses, needs to be removed later
+    if (
+      hyperLink.label.includes('Add a legal representative') &&
+      (req.session.userCase.caseTypeOfApplication === 'FL401' || isRepresentedBySolicotor)
+    ) {
+      translations.hyperlinks.splice(index, 1);
     }
-    if (hyperLink.label.includes('Remove a legal representative') && !isRepresentedBySolicotor) {
-      hyperLink.class = hyperLink.class + ' hidden';
+    if (
+      hyperLink.label.includes('Remove a legal representative') &&
+      (req.session.userCase.caseTypeOfApplication === 'FL401' || !isRepresentedBySolicotor)
+    ) {
+      translations.hyperlinks.splice(index, 1);
     }
   });
 
@@ -376,13 +372,17 @@ export const generateContent: TranslationFn = content => {
   };
 };
 
-export const getRespondentName = (userCase: Partial<CaseWithId>, userId: string): string => {
+export const getRespondent = (userCase: Partial<CaseWithId>, userId: string): PartyDetails | undefined => {
   if (userCase.caseTypeOfApplication === 'C100') {
     const respondent = getRespondentPartyDetailsCa(userCase, userId);
-    return respondent ? respondent.value.firstName + ' ' + respondent.value.lastName : '';
+    return respondent?.value;
   } else {
-    return userCase.respondentsFL401?.firstName + '' + userCase.respondentsFL401?.lastName;
+    return userCase.respondentsFL401;
   }
+};
+
+export const getRespondentName = (respondent: PartyDetails | undefined): string => {
+  return respondent ? respondent.firstName + ' ' + respondent.lastName : '';
 };
 
 const getC100Banners = (userCase, translations, userIdamId) => {

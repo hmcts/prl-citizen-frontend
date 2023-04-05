@@ -2,14 +2,13 @@ import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { SectionStatus } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
-import { RESPONDENT_ADD_LEGAL_REPRESENTATIVE } from '../../urls';
 
 import { generateContent } from './content';
 import { respondent_cy, respondent_en } from './section-titles';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
 const enContent = {
   title: 'Respondent tasklist',
-  respondentName: '',
+  respondentName: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -24,40 +23,30 @@ const enContent = {
   iWantTo: 'I want to...',
   hyperlinks: [
     {
-      label: 'Add a legal representative',
-      link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE + '?isApplicant=No',
-      class: 'govuk-link',
-    },
-    {
       label: 'Remove a legal representative',
       link: '#',
-      class: 'govuk-link hidden',
     },
     {
       label: 'Find my local court',
       link: '#',
-      class: 'govuk-link',
     },
     {
       label: 'Find legal advice',
       link: '#',
-      class: 'govuk-link',
     },
     {
       label: 'Know more about child arrangements',
       link: '#',
-      class: 'govuk-link',
     },
     {
       label: 'Know more about attending court',
       link: '#',
-      class: 'govuk-link',
     },
   ],
 };
 const cyContent = {
   title: 'Respondent tasklist - welsh',
-  respondentName: '',
+  respondentName: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -72,34 +61,24 @@ const cyContent = {
   iWantTo: 'I want to...-welsh',
   hyperlinks: [
     {
-      label: 'Add a legal representative-welsh',
-      link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE + '?isApplicant=No',
-      class: 'govuk-link',
-    },
-    {
       label: 'Remove a legal representative-welsh',
       link: '#',
-      class: 'govuk-link hidden',
     },
     {
       label: 'Find my local court-welsh',
       link: '#',
-      class: 'govuk-link',
     },
     {
       label: 'Find legal advice-welsh',
       link: '#',
-      class: 'govuk-link',
     },
     {
       label: 'Know more about child arrangements-welsh',
       link: '#',
-      class: 'govuk-link',
     },
     {
       label: 'Know more about attending court-welsh',
       link: '#',
-      class: 'govuk-link',
     },
   ],
 };
@@ -121,6 +100,7 @@ describe('task-list > content', () => {
               firstName: '',
               lastName: '',
             },
+            caseTypeOfApplication: 'FL401',
           },
         },
       },

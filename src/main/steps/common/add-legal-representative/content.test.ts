@@ -6,7 +6,7 @@ import { generateContent } from '../add-legal-representative/content';
 
 const enContent = {
   section: 'Adding a legal representative',
-  partyName: '',
+  partyName: ' ',
   continue: 'Continue',
   legalRepresentativeInformationLine1:
     'If you have hired a legal representative,  you will need to give them some information so they can access your case.',
@@ -19,7 +19,7 @@ const enContent = {
 
 const cyContent = {
   section: 'Adding a legal representative-welsh',
-  partyName: '',
+  partyName: ' ',
   continue: 'Continue-welsh',
   legalRepresentativeInformationLine1:
     'If you have hired a legal representative,  you will need to give them some information so they can access your case.-welsh',

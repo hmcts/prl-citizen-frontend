@@ -3,7 +3,7 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { getApplicantName } from '../../applicant/task-list/content';
-import { getRespondentName } from '../../respondent/task-list/content';
+import { getRespondent, getRespondentName } from '../../respondent/task-list/content';
 
 const en = {
   section: 'Adding a legal representative',
@@ -50,7 +50,7 @@ export const generateContent: TranslationFn = content => {
   if (YesOrNo.YES === req.query.isApplicant) {
     translations.partyName = getApplicantName(req.session.userCase, req.session.user.id);
   } else {
-    translations.partyName = getRespondentName(req.session.userCase, req.session.user.id);
+    translations.partyName = getRespondentName(getRespondent(req.session.userCase, req.session.user.id));
   }
   return {
     ...translations,
