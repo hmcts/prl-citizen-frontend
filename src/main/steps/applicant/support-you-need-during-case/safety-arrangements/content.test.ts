@@ -35,7 +35,7 @@ const en = {
 
 const cy: typeof en = {
   section: 'Safety requirements',
-  title: 'Do you or the children need special safety arrangements at court?',
+  title: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
   courtcommunication:
     'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
   optionHint: 'Dogfennau mewn lliw penodol',

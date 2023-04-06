@@ -28,7 +28,7 @@ const cyContent: typeof enContent = {
   hearingDate: 'Dyddiad',
   hearingTime: 'Amser',
   typeOfHearing: 'Wyneb yn wyneb',
-  courtName: 'Enw llys',
+  courtName: 'Enw’r llys',
   courtAddress: 'Cyfeiriad y llys',
   hearingOutcome: 'Canlyniad y gwrandawiad',
   usefulDocumentsMap: 'Dogfennau defnyddiol (Map)',

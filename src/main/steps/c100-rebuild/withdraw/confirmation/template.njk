@@ -1,0 +1,24 @@
+{% extends "common/template.njk" %}
+
+
+{% block page_content %}
+ {% block backLink %}{% endblock %}
+<main class="govuk-main-wrapper govuk-main-wrapper--l" id="main-content" role="main">
+
+          <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-6">
+            <h1 class="govuk-panel__title">
+              {{successMessage}}
+            </h1>
+          </div>
+          <p class="govuk-body">{{subContent}}</p>
+          <p class="govuk-body govuk-!-margin-bottom-6">{{secondaryContent}}</p>
+          <p class="govuk-notification-banner__heading"><b>{{whatHappensNext}}</b></p>
+          <p class="govuk-body">{{childArrangementContent}}</p>
+          <div class="govuk-button-group govuk-!-margin-top-8">
+              <input type="hidden" name="answers-checked" value="true">
+                <a class="govuk-button govuk-button" href="{{redirectUrl}}" data-module="govuk-button">
+                  {{secondaryBtnLabel}}
+                </a>
+          </div>
+        </main>
+{% endblock %}

@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
-const en = {
+export const en = {
   title: 'The court will keep your contact details private',
   line1: 'You have told us you want to keep these contact details private',
   address: 'Address',
@@ -13,7 +13,7 @@ const en = {
   continue: 'Continue',
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   title: 'Bydd y llys yn cadw eich manylion cyswllt yn breifat',
   line1: "Rydych wedi dweud wrthym eich bod eisiau cadw'r manylion cyswllt yma yn breifat:",
   address: 'Cyfeiriad',
