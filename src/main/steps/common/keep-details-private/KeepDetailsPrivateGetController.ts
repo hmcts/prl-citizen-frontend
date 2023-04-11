@@ -7,7 +7,7 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
 import { APPLICANT_DETAILS_KNOWN, RESPONDENT_DETAILS_KNOWN } from '../../urls';
 
-import { getKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
+import { mapKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
 
 export class KeepDetailsPrivateGetController extends GetController {
   public static async c100Respondent(req: AppRequest): Promise<void> {
@@ -18,7 +18,7 @@ export class KeepDetailsPrivateGetController extends GetController {
         respondent?.value?.response?.keepDetailsPrivate &&
         respondent?.value?.response?.keepDetailsPrivate?.confidentiality
       ) {
-        Object.assign(req.session.userCase, getKeepYourDetailsPrivate(respondent.value, req));
+        Object.assign(req.session.userCase, mapKeepYourDetailsPrivate(respondent.value));
       }
     });
   }
@@ -31,7 +31,7 @@ export class KeepDetailsPrivateGetController extends GetController {
         applicant?.value?.response?.keepDetailsPrivate &&
         applicant?.value?.response?.keepDetailsPrivate?.confidentiality
       ) {
-        Object.assign(req.session.userCase, getKeepYourDetailsPrivate(applicant.value, req));
+        Object.assign(req.session.userCase, mapKeepYourDetailsPrivate(applicant.value));
       }
     });
   }
@@ -43,7 +43,7 @@ export class KeepDetailsPrivateGetController extends GetController {
       req.session.userCase?.respondentsFL401?.response?.keepDetailsPrivate &&
       req.session.userCase?.respondentsFL401?.response?.keepDetailsPrivate?.confidentiality
     ) {
-      Object.assign(req.session.userCase, getKeepYourDetailsPrivate(req.session.userCase.respondentsFL401, req));
+      Object.assign(req.session.userCase, mapKeepYourDetailsPrivate(req.session.userCase.respondentsFL401));
     }
   }
 
@@ -72,7 +72,7 @@ export class KeepDetailsPrivateGetController extends GetController {
           req.session.userCase?.applicantsFL401?.response?.keepDetailsPrivate &&
           req.session.userCase?.applicantsFL401?.response?.keepDetailsPrivate?.confidentiality
         ) {
-          Object.assign(req.session.userCase, getKeepYourDetailsPrivate(req.session.userCase.applicantsFL401, req));
+          Object.assign(req.session.userCase, mapKeepYourDetailsPrivate(req.session.userCase.applicantsFL401));
         }
       }
     }
