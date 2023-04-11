@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../app/case/case';
 import { ConfidentialityList, KeepDetailsPrivate, PartyDetails, YesOrNo } from '../../../app/case/definition';
 import type { AppRequest } from '../../../app/controller/AppRequest';
@@ -28,7 +29,6 @@ export const setKeepYourDetailsPrivate = (partyDetails: PartyDetails, req: AppRe
   }
   return partyDetails;
 };
-
 export const getKeepYourDetailsPrivate = (partyDetails: PartyDetails, req: AppRequest): Partial<CaseWithId> => {
   req.session.userCase.detailsKnown = partyDetails.response.keepDetailsPrivate?.otherPeopleKnowYourContactDetails;
   req.session.userCase.startAlternative = partyDetails.response.keepDetailsPrivate?.confidentiality;
@@ -44,4 +44,24 @@ export const getKeepYourDetailsPrivate = (partyDetails: PartyDetails, req: AppRe
   }
 
   return req.session.userCase;
+};
+
+export const mapConfidentialListToFields = (partyDetails: PartyDetails) => {
+  partyDetails.isAddressConfidential = confidentailYesOrNo(
+    partyDetails.response.keepDetailsPrivate?.confidentialityList as string[],
+    ConfidentialityList.address
+  );
+  partyDetails.isPhoneNumberConfidential = confidentailYesOrNo(
+    partyDetails.response.keepDetailsPrivate?.confidentialityList as string[],
+    ConfidentialityList.phoneNumber
+  );
+  partyDetails.isEmailAddressConfidential = confidentailYesOrNo(
+    partyDetails.response.keepDetailsPrivate?.confidentialityList as string[],
+    ConfidentialityList.email
+  );
+  return partyDetails;
+};
+
+export const confidentailYesOrNo = (list: string[], field: string): YesOrNo => {
+  return list.includes(field) ? YesOrNo.YES : YesOrNo.NO;
 };

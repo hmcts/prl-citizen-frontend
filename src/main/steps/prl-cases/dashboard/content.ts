@@ -24,11 +24,13 @@ const en = {
   closeDate: 'Close date',
   noCase: 'No case available.',
   draftCaseStatus: 'Draft',
-  pendingCaseStatus: 'Application submitted',
   submittedCaseStatus: 'Application submitted',
+  caseIssued: 'Application submitted',
+  caseGatekeeping: 'Application submitted',
+  caseServed: 'Application submitted',
 };
 
-const cy = {
+const cy: typeof en = {
   title: 'Child arrangements and family injunction cases - welsh',
   sectionTitle: 'Activate an access code or start an application: - welsh',
   activateAccessCodeLinkText: 'Activate access code - welsh',
@@ -50,8 +52,10 @@ const cy = {
   closeDate: 'Close date - welsh',
   noCase: 'No case available. - welsh',
   draftCaseStatus: 'Draft - welsh',
-  pendingCaseStatus: 'Application submitted - welsh',
-  submittedCaseStatus: 'Application submitted - welsh',
+  submittedCaseStatus: 'Cyflwynwyd y cais',
+  caseIssued: 'Cyflwynwyd y cais',
+  caseGatekeeping: 'Cyflwynwyd y cais',
+  caseServed: 'Cyflwynwyd y cais',
 };
 
 export const languages = {
@@ -64,6 +68,6 @@ export const generateContent: TranslationFn = content => {
   const session = content.additionalData!.req.session;
   return {
     ...translations,
-    tabs: prepareCaseView(session.userCaseList, session.user.id, translations),
+    tabs: prepareCaseView(session.userCaseList, session.user, translations),
   };
 };
