@@ -33,7 +33,7 @@ describe('KeepYourDetailsPrivateMapper', () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     req.session.userCase.detailsKnown = 'Yes';
     req.session.userCase.startAlternative = 'Yes';
-    respondents[0].value = await prepareKeepDetailsPrivateRequest(req);
+    respondents[0].value.response.keepDetailsPrivate = await prepareKeepDetailsPrivateRequest(req.session.userCase);
     expect(respondents[0].value.response.keepDetailsPrivate.otherPeopleKnowYourContactDetails).toEqual('Yes');
     expect(respondents[0].value.response.keepDetailsPrivate.confidentiality).toEqual('Yes');
   });
@@ -46,7 +46,7 @@ describe('KeepYourDetailsPrivateMapper', () => {
       legalRepresentation: 'No',
     };
     respondents[0].value.response = response;
-    respondents[0].value = await prepareKeepDetailsPrivateRequest(req);
+    respondents[0].value.response.keepDetailsPrivate = await prepareKeepDetailsPrivateRequest(req.session.userCase);
     expect(respondents[0].value.response.keepDetailsPrivate.otherPeopleKnowYourContactDetails).toEqual('Yes');
     expect(respondents[0].value.response.keepDetailsPrivate.confidentiality).toEqual('Yes');
   });
@@ -60,7 +60,7 @@ describe('KeepYourDetailsPrivateMapper', () => {
       keepDetailsPrivate: '',
     };
     respondents[0].value.response = response;
-    respondents[0].value = await prepareKeepDetailsPrivateRequest(req);
+    respondents[0].value.response.keepDetailsPrivate = await prepareKeepDetailsPrivateRequest(req.session.userCase);
     expect(respondents[0].value.response.keepDetailsPrivate.otherPeopleKnowYourContactDetails).toEqual('Yes');
     expect(respondents[0].value.response.keepDetailsPrivate.confidentiality).toEqual('Yes');
   });
@@ -78,7 +78,7 @@ describe('KeepYourDetailsPrivateMapper', () => {
       },
     };
     respondents[0].value.response = response;
-    respondents[0].value = await prepareKeepDetailsPrivateRequest(req);
+    respondents[0].value.response.keepDetailsPrivate = await prepareKeepDetailsPrivateRequest(req.session.userCase);
     expect(respondents[0].value.response.keepDetailsPrivate.otherPeopleKnowYourContactDetails).toEqual('Yes');
     expect(respondents[0].value.response.keepDetailsPrivate.confidentiality).toEqual('Yes');
   });
@@ -97,7 +97,7 @@ describe('KeepYourDetailsPrivateMapper', () => {
       },
     };
     respondents[0].value.response = response;
-    respondents[0].value = await prepareKeepDetailsPrivateRequest(req);
+    respondents[0].value.response.keepDetailsPrivate = await prepareKeepDetailsPrivateRequest(req.session.userCase);
     expect(respondents[0].value.response.keepDetailsPrivate.otherPeopleKnowYourContactDetails).toEqual('Yes');
     expect(respondents[0].value.response.keepDetailsPrivate.confidentiality).toEqual('Yes');
     expect(respondents[0].value.response.keepDetailsPrivate.confidentialityList).toEqual(['address', 'phoneNumber']);
@@ -117,7 +117,7 @@ describe('KeepYourDetailsPrivateMapper', () => {
       },
     };
     respondents[0].value.response = response;
-    respondents[0].value = await prepareKeepDetailsPrivateRequest(req);
+    respondents[0].value.response.keepDetailsPrivate = await prepareKeepDetailsPrivateRequest(req.session.userCase);
     expect(respondents[0].value.response.keepDetailsPrivate.otherPeopleKnowYourContactDetails).toEqual('Yes');
     expect(respondents[0].value.response.keepDetailsPrivate.confidentiality).toEqual('No');
     expect(respondents[0].value.response.keepDetailsPrivate.confidentialityList).toEqual(undefined);
@@ -233,7 +233,7 @@ describe('KeepYourDetailsPrivateMapper', () => {
     req.session.userCase = mapKeepYourDetailsPrivate(respondents[0].value);
     expect(req.session.userCase.detailsKnown).toEqual('I dont know');
     expect(req.session.userCase.startAlternative).toEqual('No');
-    expect(req.session.userCase.contactDetailsPrivate).toEqual(undefined);
+    expect(req.session.userCase.contactDetailsPrivate).toEqual([]);
   });
 
   test('Should map confidential list items to fields', async () => {
@@ -241,15 +241,12 @@ describe('KeepYourDetailsPrivateMapper', () => {
     req.session.userCase.caseTypeOfApplication = 'C100';
     req.url = 'applicant';
     const response = {
-      legalRepresentation: 'No',
-      keepDetailsPrivate: {
-        otherPeopleKnowYourContactDetails: 'Yes',
-        confidentiality: 'No',
-        confidentialityList: ['address', 'phoneNumber'],
-      },
+      otherPeopleKnowYourContactDetails: 'Yes',
+      confidentiality: 'No',
+      confidentialityList: ['address', 'phoneNumber'],
     };
-    respondents[0].value.response = response;
-    req.session.userCase = mapConfidentialListToFields(respondents[0].value);
+    respondents[0].value.response.keepDetailsPrivate = response;
+    req.session.userCase = mapConfidentialListToFields(respondents[0].value.response.keepDetailsPrivate);
     expect(req.session.userCase.isAddressConfidential).toEqual(YesOrNo.YES);
     expect(req.session.userCase.isEmailAddressConfidential).toEqual(YesOrNo.NO);
     expect(req.session.userCase.isPhoneNumberConfidential).toEqual(YesOrNo.YES);

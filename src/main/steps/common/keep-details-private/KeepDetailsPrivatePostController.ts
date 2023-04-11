@@ -25,7 +25,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
   public async c100Respondent(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
-        respondent.value.response = prepareKeepDetailsPrivateRequest(req).response!;
+        respondent.value.response.keepDetailsPrivate = prepareKeepDetailsPrivateRequest(req.session.userCase);
       }
     });
   }
@@ -33,8 +33,8 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
   public async c100Applicant(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
       if (applicant?.value?.user?.idamId === req.session?.user.id) {
-        const preparedRequest = prepareKeepDetailsPrivateRequest(req);
-        applicant.value.response = preparedRequest.response!;
+        const preparedRequest = prepareKeepDetailsPrivateRequest(req.session.userCase);
+        applicant.value.response.keepDetailsPrivate = preparedRequest;
         Object.assign(applicant.value, {
           ...mapConfidentialListToFields(preparedRequest),
         });
@@ -44,13 +44,17 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
 
   public async FL401Respondent(req: AppRequest<AnyObject>): Promise<void> {
     if (req.session.userCase?.respondentsFL401?.user?.idamId === req.session?.user.id) {
-      req.session.userCase.respondentsFL401.response = prepareKeepDetailsPrivateRequest(req).response!;
+      req.session.userCase.respondentsFL401.response.keepDetailsPrivate = prepareKeepDetailsPrivateRequest(
+        req.session.userCase
+      );
     }
   }
 
   public async FL401Applicant(req: AppRequest<AnyObject>): Promise<void> {
     if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session?.user.id) {
-      req.session.userCase.applicantsFL401.response = prepareKeepDetailsPrivateRequest(req).response!;
+      req.session.userCase.applicantsFL401.response.keepDetailsPrivate = prepareKeepDetailsPrivateRequest(
+        req.session.userCase
+      );
     }
   }
 

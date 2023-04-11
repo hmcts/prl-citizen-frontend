@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../app/case/case';
-import { ConfidentialityList, PartyDetails, YesOrNo } from '../../../app/case/definition';
-import type { AppRequest } from '../../../app/controller/AppRequest';
+import { ConfidentialityList, KeepDetailsPrivate, PartyDetails, YesOrNo } from '../../../app/case/definition';
 
-export const prepareKeepDetailsPrivateRequest = (req: AppRequest): Partial<PartyDetails> => {
-  const { startAlternative, contactDetailsPrivate, detailsKnown } = req.session.userCase;
-  const request: Partial<PartyDetails> = {};
+export const prepareKeepDetailsPrivateRequest = (req: CaseWithId): KeepDetailsPrivate => {
+  const { startAlternative, contactDetailsPrivate, detailsKnown } = req;
+  const request: KeepDetailsPrivate = {};
 
   const confidentialityList: ConfidentialityList[] = [];
 
@@ -16,17 +15,13 @@ export const prepareKeepDetailsPrivateRequest = (req: AppRequest): Partial<Party
   }
 
   Object.assign(request, {
-    response: {
-      keepDetailsPrivate: {
-        otherPeopleKnowYourContactDetails: detailsKnown,
-        confidentiality: startAlternative,
-        confidentialityList,
-      },
-    },
+    otherPeopleKnowYourContactDetails: detailsKnown,
+    confidentiality: startAlternative,
+    confidentialityList,
   });
 
   if (startAlternative === YesOrNo.NO) {
-    delete request.response?.keepDetailsPrivate?.confidentialityList;
+    delete request?.confidentialityList;
   }
 
   return request;
@@ -36,15 +31,11 @@ export const mapKeepYourDetailsPrivate = (partyDetails: PartyDetails): Partial<C
   const privateDetails = {};
   const { keepDetailsPrivate } = partyDetails.response ?? {};
 
-  let confidentialityList: string[] | undefined = [];
+  const confidentialityList: string[] = [];
   if (keepDetailsPrivate?.confidentiality === YesOrNo.YES && keepDetailsPrivate.confidentialityList) {
     keepDetailsPrivate.confidentialityList.forEach(element => {
       confidentialityList?.push(ConfidentialityList[element]);
     });
-  }
-
-  if (confidentialityList.length === 0) {
-    confidentialityList = undefined;
   }
 
   Object.assign(privateDetails, {
@@ -56,9 +47,9 @@ export const mapKeepYourDetailsPrivate = (partyDetails: PartyDetails): Partial<C
   return privateDetails;
 };
 
-export const mapConfidentialListToFields = (partyDetails: Partial<PartyDetails>) => {
+export const mapConfidentialListToFields = (details: KeepDetailsPrivate) => {
   const request: Partial<PartyDetails> = {};
-  const { confidentialityList } = partyDetails.response?.keepDetailsPrivate ?? {};
+  const { confidentialityList } = details;
 
   const address = confidentailYesOrNo(confidentialityList as string[], ConfidentialityList.address);
   const phoneNumber = confidentailYesOrNo(confidentialityList as string[], ConfidentialityList.phoneNumber);
