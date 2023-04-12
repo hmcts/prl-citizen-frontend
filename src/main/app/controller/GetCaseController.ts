@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-import { getSupportDetails } from '../../../main/steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
+import { mapSupportYouNeedDetails } from '../../../main/steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
 import { CaseWithId } from '../../app/case/case';
 import { PartyType, Respondent } from '../../app/case/definition';
 import { applyParms } from '../../steps/common/url-parser';
@@ -64,7 +64,7 @@ export class GetCaseController {
             Object.assign(req.session.userCase, mapSafetyConcernsDetails(respondent));
           }
           if (respondent?.value?.response?.supportYouNeed) {
-            getSupportDetails(respondent, req);
+            Object.assign(req.session.userCase, mapSupportYouNeedDetails(respondent));
           }
         }
       });

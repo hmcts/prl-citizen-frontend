@@ -1,75 +1,238 @@
-import { Applicant, Respondent, Response } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
+/* eslint-disable object-shorthand */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { CaseWithId } from '../../../app/case/case';
+import { ReasonableAdjustmentsSupport, Respondent } from '../../../app/case/definition';
 
-export const setSupportDetails = (req: AppRequest): Response => {
-  const res = {
-    supportYouNeed: {
-      attendingToCourt: req.session.userCase?.attendingToCourt,
-      hearingDetails: req.session.userCase?.hearingDetails,
+export const prepareRequest = (userCase: CaseWithId): ReasonableAdjustmentsSupport => {
+  const {
+    attendingToCourt: attendingToCourt,
+    hearingDetails,
+    helpCommunication,
+    describeOtherNeed,
+    describeSignLanguageDetails,
+    courtComfort,
+    lightingProvideDetails,
+    otherProvideDetails,
+    courtHearing,
+    supportWorkerDetails,
+    therapyDetails,
+    familyProviderDetails,
+    communicationSupportOther,
+    docsSupport,
+    docsDetails,
+    largePrintDetails,
+    otherDetails,
+    languageRequirements,
+    languageDetails,
+    reasonableAdjustments,
+    safetyArrangements,
+    safetyArrangementsDetails,
+    travellingToCourt,
+    parkingDetails,
+    differentChairDetails,
+    travellingOtherDetails,
+  } = userCase;
 
-      helpCommunication: req.session.userCase?.helpCommunication,
-      describeOtherNeed: req.session.userCase?.describeOtherNeed,
-      signLanguageDetails: req.session.userCase?.describeSignLanguageDetails,
+  const request: ReasonableAdjustmentsSupport = {};
+  Object.assign(request, {
+    attendingToCourt,
+    hearingDetails,
+    helpCommunication,
+    describeOtherNeed,
+    describeSignLanguageDetails,
+    courtComfort,
+    lightingProvideDetails,
+    otherProvideDetails,
+    courtHearing,
+    supportWorkerDetails,
+    therapyDetails,
+    familyProviderDetails,
+    communicationSupportOther,
+    docsSupport,
+    docsDetails,
+    largePrintDetails,
+    otherDetails,
+    languageRequirements,
+    languageDetails,
+    reasonableAdjustments,
+    safetyArrangements,
+    safetyArrangementsDetails,
+    travellingToCourt,
+    parkingDetails,
+    differentChairDetails,
+    travellingOtherDetails,
+  });
 
-      courtComfort: req.session.userCase?.courtComfort,
-      lightingDetails: req.session.userCase?.lightingProvideDetails,
-      otherProvideDetails: req.session.userCase?.otherProvideDetails,
+  // data cleanup
+  if (!attendingToCourt?.includes('nohearings')) {
+    delete request.hearingDetails;
+  }
 
-      courtHearing: req.session.userCase?.courtHearing,
-      supportWorkerDetails: req.session.userCase?.supportWorkerDetails,
-      therapyDetails: req.session.userCase.therapyDetails,
-      familyProviderDetails: req.session.userCase?.familyProviderDetails,
-      communicationSupportOther: req.session.userCase?.communicationSupportOther,
+  if (!languageRequirements?.includes('languageinterpreter')) {
+    delete request.languageDetails;
+  }
 
-      docsSupport: req.session.userCase.docsSupport,
-      docsDetails: req.session.userCase.docsDetails,
-      largePrintDetails: req.session.userCase.largePrintDetails,
-      otherDetails: req.session.userCase.otherDetails,
+  if (!safetyArrangements?.includes('other')) {
+    delete request.safetyArrangementsDetails;
+  }
 
-      languageRequirements: req.session.userCase.languageRequirements,
-      languageDetails: req.session.userCase?.languageDetails,
+  // doing a loop over reasonableAdjustments array and checking what's selected from the checkbox
+  if (Array.isArray(reasonableAdjustments)) {
+    if (!reasonableAdjustments.includes('docsformat')) {
+      delete request.docsDetails;
+      delete request.largePrintDetails;
+      delete request.otherDetails;
+    }
 
-      reasonableAdjustments: req.session.userCase.reasonableAdjustments,
+    if (!reasonableAdjustments.includes('commhelp')) {
+      delete request.describeSignLanguageDetails;
+      delete request.describeOtherNeed;
+    }
 
-      safetyArrangements: req.session.userCase.safetyArrangements,
-      safetyArrangementsDetails: req.session.userCase.safetyArrangementsDetails,
+    if (!reasonableAdjustments.includes('hearingsupport')) {
+      delete request.supportWorkerDetails;
+      delete request.familyProviderDetails;
+      delete request.therapyDetails;
+      delete request.communicationSupportOther;
+    }
 
-      travellingToCourt: req.session.userCase.travellingToCourt,
-      parkingDetails: req.session.userCase.parkingDetails,
-      differentChairDetails: req.session.userCase.differentChairDetails,
-      travellingOtherDetails: req.session.userCase.travellingOtherDetails,
-    },
-  };
-  return res;
+    if (!reasonableAdjustments.includes('hearingcomfort')) {
+      delete request.lightingProvideDetails;
+      delete request.otherProvideDetails;
+    }
+
+    if (!reasonableAdjustments.includes('travellinghelp')) {
+      delete request.parkingDetails;
+      delete request.differentChairDetails;
+      delete request.travellingOtherDetails;
+    }
+  }
+
+  // looping over docsSupport array
+  if (Array.isArray(docsSupport)) {
+    if (!docsSupport?.includes('docsDetails')) {
+      delete request.docsDetails;
+    }
+    if (!docsSupport?.includes('largeprintdocs')) {
+      delete request.largePrintDetails;
+    }
+    if (!docsSupport?.includes('other')) {
+      delete request.otherDetails;
+    }
+  }
+
+  // looping over helpCommunication array
+  if (Array.isArray(helpCommunication)) {
+    if (!helpCommunication?.includes('signlanguage')) {
+      delete request.describeSignLanguageDetails;
+    }
+    if (!helpCommunication?.includes('other')) {
+      delete request.describeOtherNeed;
+    }
+  }
+
+  // looping over courtHearing array
+  if (Array.isArray(courtHearing)) {
+    if (!courtHearing?.includes('supportworker')) {
+      delete request.supportWorkerDetails;
+    }
+    if (!courtHearing?.includes('familymember')) {
+      delete request.familyProviderDetails;
+    }
+    if (!courtHearing?.includes('animal')) {
+      delete request.therapyDetails;
+    }
+    if (!courtHearing?.includes('other')) {
+      delete request.communicationSupportOther;
+    }
+  }
+
+  // looping over courtComfort array
+  if (Array.isArray(courtComfort)) {
+    if (!courtComfort?.includes('appropriatelighting')) {
+      delete request.lightingProvideDetails;
+    }
+    if (!courtComfort?.includes('other')) {
+      delete request.otherProvideDetails;
+    }
+  }
+
+  // looping over travellingToCourt array
+  if (Array.isArray(travellingToCourt)) {
+    if (!travellingToCourt?.includes('parkingspace')) {
+      delete request.parkingDetails;
+    }
+    if (!travellingToCourt?.includes('differentchair')) {
+      delete request.differentChairDetails;
+    }
+    if (!travellingToCourt?.includes('other')) {
+      delete request.travellingOtherDetails;
+    }
+  }
+
+  return request;
 };
 
-export const getSupportDetails = (respondent: Respondent | Applicant, req: AppRequest): AppRequest => {
-  req.session.userCase.attendingToCourt = respondent.value.response.supportYouNeed?.attendingToCourt;
-  req.session.userCase.hearingDetails = respondent.value.response.supportYouNeed?.hearingDetails;
-  req.session.userCase.describeSignLanguageDetails = respondent.value.response.supportYouNeed?.signLanguageDetails;
-  req.session.userCase.lightingProvideDetails = respondent.value.response.supportYouNeed?.lightingDetails;
-  req.session.userCase.supportWorkerDetails = respondent.value.response.supportYouNeed?.supportWorkerDetails;
-  req.session.userCase.therapyDetails = respondent.value.response.supportYouNeed?.therapyDetails;
-  req.session.userCase.familyProviderDetails = respondent.value.response.supportYouNeed?.familyProviderDetails;
-  req.session.userCase.communicationSupportOther = respondent.value.response.supportYouNeed?.communicationSupportOther;
-  req.session.userCase.courtComfort = respondent.value.response.supportYouNeed?.courtComfort;
-  req.session.userCase.courtHearing = respondent.value.response.supportYouNeed?.courtHearing;
-  req.session.userCase.describeOtherNeed = respondent.value.response.supportYouNeed?.describeOtherNeed;
-  req.session.userCase.docsSupport = respondent.value.response.supportYouNeed?.docsSupport;
-  req.session.userCase.docsDetails = respondent.value.response.supportYouNeed?.docsDetails;
-  req.session.userCase.largePrintDetails = respondent.value.response.supportYouNeed?.largePrintDetails;
-  req.session.userCase.differentChairDetails = respondent.value.response.supportYouNeed?.differentChairDetails;
-  req.session.userCase.parkingDetails = respondent.value.response.supportYouNeed?.parkingDetails;
-  req.session.userCase.helpCommunication = respondent.value.response.supportYouNeed?.helpCommunication;
-  req.session.userCase.languageDetails = respondent.value.response.supportYouNeed?.languageDetails;
-  req.session.userCase.otherDetails = respondent.value.response.supportYouNeed?.otherDetails;
-  req.session.userCase.otherProvideDetails = respondent.value.response.supportYouNeed?.otherProvideDetails;
-  req.session.userCase.reasonableAdjustments = respondent.value.response.supportYouNeed?.reasonableAdjustments;
-  req.session.userCase.languageRequirements = respondent.value.response.supportYouNeed?.languageRequirements;
-  req.session.userCase.safetyArrangements = respondent.value.response.supportYouNeed?.safetyArrangements;
-  req.session.userCase.safetyArrangementsDetails = respondent.value.response.supportYouNeed?.safetyArrangementsDetails;
-  req.session.userCase.travellingOtherDetails = respondent.value.response.supportYouNeed?.travellingOtherDetails;
-  req.session.userCase.travellingToCourt = respondent.value.response.supportYouNeed?.travellingToCourt;
+export const mapSupportYouNeedDetails = (respondent: Respondent): Partial<CaseWithId> => {
+  const supportYouNeed = {};
+  const {
+    helpCommunication,
+    describeOtherNeed,
+    courtComfort,
+    otherProvideDetails,
+    courtHearing,
+    communicationSupportOther,
+    docsSupport,
+    otherDetails,
+    languageRequirements,
+    describeSignLanguageDetails,
+    reasonableAdjustments,
+    safetyArrangements,
+    safetyArrangementsDetails,
+    travellingToCourt,
+    travellingOtherDetails,
+    attendingToCourt,
+    hearingDetails,
+    signLanguageDetails,
+    lightingProvideDetails,
+    supportWorkerDetails,
+    familyProviderDetails,
+    therapyDetails,
+    docsDetails,
+    largePrintDetails,
+    parkingDetails,
+    differentChairDetails,
+  } = respondent?.value?.response?.supportYouNeed ?? {};
 
-  return req;
+  Object.assign(supportYouNeed, {
+    helpCommunication: helpCommunication,
+    describeOtherNeed: describeOtherNeed,
+    courtComfort: courtComfort,
+    otherProvideDetails: otherProvideDetails,
+    courtHearing: courtHearing,
+    communicationSupportOther: communicationSupportOther,
+    docsSupport: docsSupport,
+    otherDetails: otherDetails,
+    languageRequirements: languageRequirements,
+    describeSignLanguageDetails: describeSignLanguageDetails,
+    reasonableAdjustments: reasonableAdjustments,
+    safetyArrangements: safetyArrangements,
+    safetyArrangementsDetails: safetyArrangementsDetails,
+    travellingToCourt: travellingToCourt,
+    travellingOtherDetails: travellingOtherDetails,
+    attendingToCourt: attendingToCourt,
+    hearingDetails: hearingDetails,
+    signLanguageDetails: signLanguageDetails,
+    lightingProvideDetails: lightingProvideDetails,
+    supportWorkerDetails: supportWorkerDetails,
+    familyProviderDetails: familyProviderDetails,
+    therapyDetails: therapyDetails,
+    docsDetails: docsDetails,
+    largePrintDetails: largePrintDetails,
+    parkingDetails: parkingDetails,
+    differentChairDetails: differentChairDetails,
+  });
+
+  return supportYouNeed;
 };
