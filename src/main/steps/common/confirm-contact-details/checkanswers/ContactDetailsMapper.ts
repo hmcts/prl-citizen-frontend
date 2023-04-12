@@ -87,7 +87,7 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
     isAtAddressLessThan5Years,
     citizenUserAddressHistory,
   } = userCase;
-  //console.log("citizen"+citizenUserLastNames)
+
   Object.assign(request, {
     lastName: citizenUserLastNames,
     firstName: citizenUserFirstNames,
@@ -116,14 +116,12 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
     delete request.response!.safeToCallOption;
   }
   if (isAtAddressLessThan5Years === YesOrNo.YES) {
-    delete request.addressLivedLessThan5YearsDetails;
+    request.addressLivedLessThan5YearsDetails = '';
   }
-  // console.log("*****")
-  // console.log(request)
   return request;
 };
 export const mapRequest = (partyDetails: PartyDetails): Partial<CaseWithId> => {
-  const contactDetail = {};
+  const contactDetail: Partial<CaseWithId> = {};
   const {
     lastName,
     firstName,
@@ -144,7 +142,6 @@ export const mapRequest = (partyDetails: PartyDetails): Partial<CaseWithId> => {
   } else {
     fullName = firstName + ' ' + lastName;
   }
-
   Object.assign(contactDetail, {
     citizenUserLastNames: lastName,
     citizenUserFirstNames: firstName,
@@ -154,8 +151,8 @@ export const mapRequest = (partyDetails: PartyDetails): Partial<CaseWithId> => {
     citizenUserPlaceOfBirth: placeOfBirth,
     citizenUserAdditionalName: previousName,
     citizenUserEmailAddress: email,
-
-    citizenUserSafeToCall: response?.safeToCallOption,
+    citizenUserSelectAddress: '',
+    citizenUserSafeToCall: !response?.safeToCallOption ? '' : response?.safeToCallOption,
 
     isAtAddressLessThan5Years,
     citizenUserAddressHistory: addressLivedLessThan5YearsDetails,
@@ -167,7 +164,9 @@ export const mapRequest = (partyDetails: PartyDetails): Partial<CaseWithId> => {
     citizenUserAddressPostcode: address.PostCode,
     ...rest,
   });
-
+  if (isAtAddressLessThan5Years === YesOrNo.YES) {
+    delete contactDetail.citizenUserAddressHistory;
+  }
   return contactDetail;
 };
 
@@ -257,7 +256,7 @@ export function setAddressFields(req: AppRequest): Partial<CaseWithId> {
         req.session.userCase.citizenUserAddressText + req.session.userCase.citizenUserAddressPostcode;
     }
   }
-  if (YesOrNo.YES === req.session.userCase.isAtAddressLessThan5Years) {
+  if (req.session.userCase.isAtAddressLessThan5Years === YesOrNo.YES) {
     req.session.userCase.citizenUserAddressHistory = '';
   }
 

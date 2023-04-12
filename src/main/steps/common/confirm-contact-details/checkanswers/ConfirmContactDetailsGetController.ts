@@ -25,8 +25,7 @@ export class ConfirmContactDetailsGetController extends GetController {
       if (req.url.includes('respondent')) {
         req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
           if (respondent?.value?.user?.idamId === req.session?.user.id) {
-            // Object.assign(req.session.userCase, getContactDetails(respondent.value, req));
-
+            //Object.assign(req.session.userCase, getContactDetails(respondent.value, req));
             Object.assign(req.session.userCase, mapRequest(respondent.value));
           }
         });

@@ -146,8 +146,8 @@ describe('ContactDetailsMapper', () => {
         citizenUserAddressCounty: 'Dummy County',
         citizenUserAddressPostcode: 'SW13ND',
         isAtAddressLessThan5Years: 'Yes',
-        // citizenUserAddressHistory:"Don't want to state",
         citizenUserSafeToCall: '4 pm',
+        citizenUserSelectAddress: '',
       })
     );
   });
@@ -193,8 +193,8 @@ describe('ContactDetailsMapper', () => {
         citizenUserAddressCounty: 'Dummy County',
         citizenUserAddressPostcode: 'SW13ND',
         isAtAddressLessThan5Years: 'Yes',
-        // citizenUserAddressHistory:"Don't want to state",
-        citizenUserSafeToCall: undefined,
+        citizenUserSelectAddress: '',
+        citizenUserSafeToCall: '',
       })
     );
   });
