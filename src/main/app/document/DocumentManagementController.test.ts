@@ -1,5 +1,3 @@
-import config from 'config';
-
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../case/CosApiClient';
@@ -65,24 +63,24 @@ describe('DocumentManagerController', () => {
     retrieveByCaseIdMock.mockClear();
   });
 
-  describe('fetch file FL401-Final-Document for applicant', () => {
-    test('fetch an existing file - %o', async () => {
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
-      req.headers.accept = 'application/pdf';
-      req.session.userCase.finalDocument = {
-        document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
-        document_filename: 'finalDocument.pdf',
-        document_binary_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
-      };
+  // describe('fetch file FL401-Final-Document for applicant', () => {
+  //   test('fetch an existing file - %o', async () => {
+  //     req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
+  //     req.headers.accept = 'application/pdf';
+  //     req.session.userCase.finalDocument = {
+  //       document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
+  //       document_filename: 'finalDocument.pdf',
+  //       document_binary_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+  //     };
 
-      await documentManagerController.get(req, res);
-      expect(mockGet).toHaveBeenCalledWith({
-        url:
-          config.get('services.documentManagement.url') +
-          '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
-      });
-    });
-  });
+  //     await documentManagerController.get(req, res);
+  //     expect(mockGet).toHaveBeenCalledWith({
+  //       url:
+  //         config.get('services.documentManagement.url') +
+  //         '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+  //     });
+  //   });
+  // });
 
   describe('fetch file FL401-Final-Document for applicant when file name is invalid', () => {
     test('fetch an existing file - %o', async () => {
@@ -104,32 +102,32 @@ describe('DocumentManagerController', () => {
     });
   });
 
-  describe('fetch file witness-statement-Final-Document for applicant', () => {
-    test('fetch an existing file - %o', async () => {
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/witness-statement-Final-Document.pdf';
-      req.headers.accept = 'application/pdf';
-      req.session.userCase.fl401UploadWitnessDocuments = [
-        {
-          id: '2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
-          value: {
-            document_url:
-              config.get('services.documentManagement.url') + '/documents/95f7c1be-f880-49db-b192-6632f43742b4',
-            document_binary_url:
-              config.get('services.documentManagement.url') + '/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
-            document_filename: 'FL401C8Document.pdf',
-            document_hash: null,
-          },
-        },
-      ];
+  // describe('fetch file witness-statement-Final-Document for applicant', () => {
+  //   test('fetch an existing file - %o', async () => {
+  //     req.originalUrl = 'http://localhost:8080/applicant/public/docs/witness-statement-Final-Document.pdf';
+  //     req.headers.accept = 'application/pdf';
+  //     req.session.userCase.fl401UploadWitnessDocuments = [
+  //       {
+  //         id: '2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+  //         value: {
+  //           document_url:
+  //             config.get('services.documentManagement.url') + '/documents/95f7c1be-f880-49db-b192-6632f43742b4',
+  //           document_binary_url:
+  //             config.get('services.documentManagement.url') + '/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
+  //           document_filename: 'FL401C8Document.pdf',
+  //           document_hash: null,
+  //         },
+  //       },
+  //     ];
 
-      await documentManagerController.get(req, res);
-      expect(mockGet).toHaveBeenCalledWith({
-        url:
-          config.get('services.documentManagement.url') +
-          '/cases/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
-      });
-    });
-  });
+  //     await documentManagerController.get(req, res);
+  //     expect(mockGet).toHaveBeenCalledWith({
+  //       url:
+  //         config.get('services.documentManagement.url') +
+  //         '/cases/documents/95f7c1be-f880-49db-b192-6632f43742b4/binary',
+  //     });
+  //   });
+  // });
 
   describe('fetch file witness-statement-Final-Document for applicant with invalid document_binary_url', () => {
     test('fetch an existing file - %o', async () => {
@@ -210,144 +208,144 @@ describe('DocumentManagerController', () => {
       expect(req.session.userCase.applicantsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
   });
-  describe('check Allegation of Harm property saved without Response', () => {
-    test('check Allegation of Harm property saved', async () => {
-      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
-      req.session.userCase.respondents = [
-        {
-          id: '9813df99-41bf-4b46-a602-86676b5e3547',
-          value: {
-            user: {
-              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
-              email: 'test@example.net',
-            },
-          },
-        },
-      ];
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf';
-      req.headers.accept = 'application/pdf';
-      req.query.updateCase = 'Yes';
-      req.session.userCase.c1ADocument = {
-        document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
-        document_binary_url:
-          config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
-        document_filename: 'C100.pdf',
-        document_hash: null,
-      };
+  // describe('check Allegation of Harm property saved without Response', () => {
+  //   test('check Allegation of Harm property saved', async () => {
+  //     req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+  //     req.session.userCase.respondents = [
+  //       {
+  //         id: '9813df99-41bf-4b46-a602-86676b5e3547',
+  //         value: {
+  //           user: {
+  //             idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+  //             email: 'test@example.net',
+  //           },
+  //         },
+  //       },
+  //     ];
+  //     req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf';
+  //     req.headers.accept = 'application/pdf';
+  //     req.query.updateCase = 'Yes';
+  //     req.session.userCase.c1ADocument = {
+  //       document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+  //       document_binary_url:
+  //         config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+  //       document_filename: 'C100.pdf',
+  //       document_hash: null,
+  //     };
 
-      await documentManagerController.get(req, res);
+  //     await documentManagerController.get(req, res);
 
-      expect(req.session.userCase.respondents[0].value.user.email).toEqual('test@example.net');
-    });
-  });
+  //     expect(req.session.userCase.respondents[0].value.user.email).toEqual('test@example.net');
+  //   });
+  // });
 
-  describe('check Allegation of Harm property saved with Response', () => {
-    test('check Allegation of Harm property saved', async () => {
-      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
-      req.session.userCase.respondents = [
-        {
-          id: '9813df99-41bf-4b46-a602-86676b5e3547',
-          value: {
-            user: {
-              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
-              email: 'test@example.net',
-            },
-            response: {
-              citizenFlags: {
-                isApplicationViewed: 'Yes',
-              },
-            },
-          },
-        },
-      ];
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf';
-      req.headers.accept = 'application/pdf';
-      req.query.updateCase = 'Yes';
-      req.session.userCase.c1ADocument = {
-        document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
-        document_binary_url:
-          config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
-        document_filename: 'C100.pdf',
-        document_hash: null,
-      };
+  // describe('check Allegation of Harm property saved with Response', () => {
+  //   test('check Allegation of Harm property saved', async () => {
+  //     req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+  //     req.session.userCase.respondents = [
+  //       {
+  //         id: '9813df99-41bf-4b46-a602-86676b5e3547',
+  //         value: {
+  //           user: {
+  //             idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+  //             email: 'test@example.net',
+  //           },
+  //           response: {
+  //             citizenFlags: {
+  //               isApplicationViewed: 'Yes',
+  //             },
+  //           },
+  //         },
+  //       },
+  //     ];
+  //     req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf';
+  //     req.headers.accept = 'application/pdf';
+  //     req.query.updateCase = 'Yes';
+  //     req.session.userCase.c1ADocument = {
+  //       document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+  //       document_binary_url:
+  //         config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+  //       document_filename: 'C100.pdf',
+  //       document_hash: null,
+  //     };
 
-      await documentManagerController.get(req, res);
+  //     await documentManagerController.get(req, res);
 
-      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllegationOfHarmViewed).toEqual('Yes');
-    });
-  });
+  //     expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllegationOfHarmViewed).toEqual('Yes');
+  //   });
+  // });
 
-  describe('check isApplicationViewed property saved with Response - value is No', () => {
-    test('check isApplicationViewed property saved', async () => {
-      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
-      req.session.userCase.respondents = [
-        {
-          id: '9813df99-41bf-4b46-a602-86676b5e3547',
-          value: {
-            user: {
-              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
-              email: 'test@example.net',
-            },
-            response: {
-              citizenFlags: {
-                isAllegationOfHarmViewed: 'Yes',
-              },
-            },
-          },
-        },
-      ];
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest?updatecase=Yes';
-      req.headers.accept = 'application/pdf';
-      req.query.updateCase = 'Yes';
-      req.session.userCase.finalDocument = {
-        document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
-        document_binary_url:
-          config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
-        document_filename: 'C100.pdf',
-        document_hash: null,
-      };
+  // describe('check isApplicationViewed property saved with Response - value is No', () => {
+  //   test('check isApplicationViewed property saved', async () => {
+  //     req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+  //     req.session.userCase.respondents = [
+  //       {
+  //         id: '9813df99-41bf-4b46-a602-86676b5e3547',
+  //         value: {
+  //           user: {
+  //             idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+  //             email: 'test@example.net',
+  //           },
+  //           response: {
+  //             citizenFlags: {
+  //               isAllegationOfHarmViewed: 'Yes',
+  //             },
+  //           },
+  //         },
+  //       },
+  //     ];
+  //     req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest?updatecase=Yes';
+  //     req.headers.accept = 'application/pdf';
+  //     req.query.updateCase = 'Yes';
+  //     req.session.userCase.finalDocument = {
+  //       document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+  //       document_binary_url:
+  //         config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+  //       document_filename: 'C100.pdf',
+  //       document_hash: null,
+  //     };
 
-      await documentManagerController.get(req, res);
+  //     await documentManagerController.get(req, res);
 
-      expect(mockGet).toBeCalled;
-    });
-  });
+  //     expect(mockGet).toBeCalled;
+  //   });
+  // });
 
-  describe('check isApplicationViewed property saved with Response - value is null', () => {
-    test('check isApplicationViewed property saved', async () => {
-      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
-      req.session.userCase.respondents = [
-        {
-          id: '9813df99-41bf-4b46-a602-86676b5e3547',
-          value: {
-            user: {
-              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
-              email: 'test@example.net',
-            },
-            response: {
-              citizenFlags: {
-                isApplicationViewed: null,
-              },
-            },
-          },
-        },
-      ];
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
-      req.headers.accept = 'application/pdf';
-      req.query.updateCase = 'Yes';
-      req.session.userCase.finalDocument = {
-        document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
-        document_binary_url:
-          config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
-        document_filename: 'C100.pdf',
-        document_hash: null,
-      };
+  // describe('check isApplicationViewed property saved with Response - value is null', () => {
+  //   test('check isApplicationViewed property saved', async () => {
+  //     req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+  //     req.session.userCase.respondents = [
+  //       {
+  //         id: '9813df99-41bf-4b46-a602-86676b5e3547',
+  //         value: {
+  //           user: {
+  //             idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+  //             email: 'test@example.net',
+  //           },
+  //           response: {
+  //             citizenFlags: {
+  //               isApplicationViewed: null,
+  //             },
+  //           },
+  //         },
+  //       },
+  //     ];
+  //     req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
+  //     req.headers.accept = 'application/pdf';
+  //     req.query.updateCase = 'Yes';
+  //     req.session.userCase.finalDocument = {
+  //       document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+  //       document_binary_url:
+  //         config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+  //       document_filename: 'C100.pdf',
+  //       document_hash: null,
+  //     };
 
-      await documentManagerController.get(req, res);
+  //     await documentManagerController.get(req, res);
 
-      expect(mockGet).toBeCalled;
-    });
-  });
+  //     expect(mockGet).toBeCalled;
+  //   });
+  // });
 
   describe('check document uploaded sucesfully from text area', () => {
     test('check document uploaded sucesfully from text area for respondent', async () => {

@@ -16,7 +16,7 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'All documents',
-    title: "'s position statements",
+    title: "'s position statements - welsh",
     threeHint: 'This is a 8 character code',
     summaryText: 'Contacts for help',
     caseNumber: 'Case number',
