@@ -29,7 +29,7 @@ export class MIAMPostController extends PostController<AnyObject> {
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (respondent?.value?.user?.idamId === req.session?.user.id) {
           if (req.url.includes(RESPONSE_MIAM_ELEMENTS)) {
-            setMIAMDetails(respondent, req);
+            respondent.value.response['miam'] = setMIAMDetails(respondent, req);
           }
         }
       });
