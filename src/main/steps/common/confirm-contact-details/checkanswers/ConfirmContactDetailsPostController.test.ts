@@ -60,6 +60,10 @@ describe('ConfirmContactDetailsPostController', () => {
           response: {
             safeToCallOption: '4 pm',
           },
+          user: {
+            idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+            email: 'test@example.net',
+          },
         },
       },
     ];
@@ -125,6 +129,10 @@ describe('ConfirmContactDetailsPostController', () => {
           placeOfBirth: 'london',
           previousName: 'Johnny Smith',
           response: { safeToCallOption: '4 pm' },
+          user: {
+            idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+            email: 'test@example.net',
+          },
         },
       },
     ];
@@ -198,9 +206,9 @@ describe('ConfirmContactDetailsPostController', () => {
   });
   test('Should redirect FL401 respondent', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.url = 'respondent';
     req.session.userCase.respondentsFL401 = partyDetails;
     req.session.userCase.caseTypeOfApplication = 'FL401';
-    req.url = 'respondent';
     await controller.post(req, res);
     expect(retrieveByCaseIdMock).toBeCalled;
     expect(updateCaserMock).toBeCalled;
