@@ -1,7 +1,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import { Miam, Respondent, YesOrNo } from '../../../app/case/definition';
 
-export const setMIAMDetails = (userCase: CaseWithId): Miam => {
+export const prepareMIAMRequest = (userCase: CaseWithId): Miam => {
   const { miamStart, miamWillingness, miamNotWillingExplnation } = userCase;
   const miamFromResponsent: Miam = {};
   Object.assign(miamFromResponsent, {
@@ -13,7 +13,7 @@ export const setMIAMDetails = (userCase: CaseWithId): Miam => {
   return miamFromResponsent;
 };
 
-export const getMIAMDetails = (respondent: Respondent): Partial<CaseWithId> => {
+export const mapMIAMRequest = (respondent: Respondent): Partial<CaseWithId> => {
   const { attendedMiam, willingToAttendMiam, reasonNotAttendingMiam } = respondent.value.response.miam!;
   const miamcontent = {
     miamStart: attendedMiam,

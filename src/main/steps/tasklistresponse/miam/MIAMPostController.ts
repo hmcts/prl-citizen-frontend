@@ -10,7 +10,7 @@ import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { EVENT_RESPONDENT_MIAM, RESPONSE_MIAM_ELEMENTS } from '../../../steps/constants';
 import { RESPOND_TO_APPLICATION } from '../../../steps/urls';
 
-import { setMIAMDetails } from './MIAMMapper';
+import { prepareMIAMRequest } from './MIAMMapper';
 @autobind
 export class MIAMPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
@@ -29,7 +29,7 @@ export class MIAMPostController extends PostController<AnyObject> {
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (respondent?.value?.user?.idamId === req.session?.user.id) {
           if (req.url.includes(RESPONSE_MIAM_ELEMENTS)) {
-            respondent.value.response['miam'] = setMIAMDetails(req.session.userCase);
+            respondent.value.response['miam'] = prepareMIAMRequest(req.session.userCase);
           }
         }
       });
