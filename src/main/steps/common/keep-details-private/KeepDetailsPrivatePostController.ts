@@ -14,7 +14,7 @@ import {
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
 } from '../../../steps/urls';
 
-import { mapConfidentialListToFields, setKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
+import { mapConfidentialListToFields, prepareKeepDetailsPrivateRequest } from './KeepYourDetailsPrivateMapper';
 
 @autobind
 export class KeepDetailsPrivatePostController extends PostController<AnyObject> {
@@ -25,7 +25,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
   public async c100Respondent(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
-        Object.assign(respondent.value, setKeepYourDetailsPrivate(respondent.value, req));
+        respondent.value.response.keepDetailsPrivate = prepareKeepDetailsPrivateRequest(req.session.userCase);
       }
     });
   }
@@ -33,8 +33,10 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
   public async c100Applicant(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
       if (applicant?.value?.user?.idamId === req.session?.user.id) {
+        const preparedRequest = prepareKeepDetailsPrivateRequest(req.session.userCase);
+        applicant.value.response.keepDetailsPrivate = preparedRequest;
         Object.assign(applicant.value, {
-          ...mapConfidentialListToFields(setKeepYourDetailsPrivate(applicant.value, req)),
+          ...mapConfidentialListToFields(preparedRequest),
         });
       }
     });
@@ -42,18 +44,16 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
 
   public async FL401Respondent(req: AppRequest<AnyObject>): Promise<void> {
     if (req.session.userCase?.respondentsFL401?.user?.idamId === req.session?.user.id) {
-      Object.assign(
-        req.session.userCase.respondentsFL401,
-        setKeepYourDetailsPrivate(req.session.userCase.respondentsFL401, req)
+      req.session.userCase.respondentsFL401.response.keepDetailsPrivate = prepareKeepDetailsPrivateRequest(
+        req.session.userCase
       );
     }
   }
 
   public async FL401Applicant(req: AppRequest<AnyObject>): Promise<void> {
     if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session?.user.id) {
-      Object.assign(
-        req.session.userCase.applicantsFL401,
-        setKeepYourDetailsPrivate(req.session.userCase.applicantsFL401, req)
+      req.session.userCase.applicantsFL401.response.keepDetailsPrivate = prepareKeepDetailsPrivateRequest(
+        req.session.userCase
       );
     }
   }
