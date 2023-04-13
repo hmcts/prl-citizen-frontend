@@ -6,7 +6,7 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
 import { MIAM_START } from '../../../steps/urls';
 
-import { getMIAMDetails } from './MIAMMapper';
+import { mapMIAMRequest } from './MIAMMapper';
 export class MIAMGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     try {
@@ -24,7 +24,7 @@ export class MIAMGetController extends GetController {
           respondent?.value?.response &&
           respondent?.value?.response.miam
         ) {
-          Object.assign(req.session.userCase, getMIAMDetails(respondent, req));
+          Object.assign(req.session.userCase, mapMIAMRequest(respondent));
         }
       });
       req.session.save(() => res.redirect(MIAM_START));
