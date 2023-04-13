@@ -2,9 +2,9 @@ import { CaseWithId } from '../../../app/case/case';
 import { Miam, Respondent, YesOrNo } from '../../../app/case/definition';
 import type { AppRequest } from '../../../app/controller/AppRequest';
 
-export const setMIAMDetails = (respondent: Respondent, req: AppRequest): Miam => {
-  const { miamStart, miamWillingness, miamNotWillingExplnation } = req.session.userCase;
-  const miamFromResponsent: Miam = respondent.value.response.miam!;
+export const setMIAMDetails = (userCase: CaseWithId): Miam => {
+  const { miamStart, miamWillingness, miamNotWillingExplnation } = userCase;
+  const miamFromResponsent: Miam = {};
   Object.assign(miamFromResponsent, {
     attendedMiam: miamStart,
     willingToAttendMiam: miamWillingness,
