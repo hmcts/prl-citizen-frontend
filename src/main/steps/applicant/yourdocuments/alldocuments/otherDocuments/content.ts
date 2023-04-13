@@ -1,7 +1,7 @@
 import { MANAGE_DOCUMENTS_DOWNLOAD } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-
+import { documents_list_items_en } from '../../../upload-document/upload-document-list-items';
 const en = () => {
   return {
     section: 'All documents',
@@ -49,7 +49,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
   for (const doc of content.userCase?.otherDocuments || []) {
-    if (doc.value?.documentTypeOther === 'otherReports') {
+    if (doc.value?.documentTypeOther === documents_list_items_en.other_documents) {
       const uid = doc.value.documentOther?.document_url.substring(
         doc.value.documentOther.document_url.lastIndexOf('/') + 1
       );
