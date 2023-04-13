@@ -2,12 +2,7 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import {
-  Applicant,
-  CaseType,
-  //PartyDetails,
-  Respondent,
-} from '../../../../app/case/definition';
+import { Applicant, CaseType, Respondent } from '../../../../app/case/definition';
 import { toApiFormat } from '../../../../app/case/to-api-format';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
@@ -34,7 +29,6 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
         const { response, address, ...rest } = prepareRequest(req.session.userCase);
-
         respondent.value = {
           ...respondent.value,
           ...rest,
@@ -57,7 +51,6 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
         //Object.assign(applicant.value, setContactDetails(applicant.value, req));
         // applicant.value = prepareRequest(req.session.userCase) as PartyDetails;
         const { response, address, ...rest } = prepareRequest(req.session.userCase);
-
         applicant.value = {
           ...applicant.value,
           ...rest,
@@ -94,7 +87,6 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
         req.session.userCase?.respondentsFL401?.user?.idamId === req.session?.user.id
       ) {
         const { response, address, ...rest } = prepareRequest(req.session.userCase);
-
         req.session.userCase.respondentsFL401 = {
           ...req.session.userCase.respondentsFL401,
           ...rest,
@@ -109,12 +101,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
         };
       } else {
         if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session?.user.id) {
-          // Object.assign(
-          //   req.session.userCase.applicantsFL401,
-          //   setContactDetails(req.session.userCase.applicantsFL401, req)
-          // );
           const { response, address, ...rest } = prepareRequest(req.session.userCase);
-
           req.session.userCase.applicantsFL401 = {
             ...req.session.userCase.applicantsFL401,
             ...rest,
@@ -132,7 +119,6 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
     }
 
     const caseData = toApiFormat(req?.session?.userCase);
-    console.log(caseData);
     caseData.id = caseReference;
     const updatedCaseDataFromCos = await client.updateCase(
       loggedInCitizen,

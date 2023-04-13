@@ -25,24 +25,20 @@ export class ConfirmContactDetailsGetController extends GetController {
       if (req.url.includes('respondent')) {
         req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
           if (respondent?.value?.user?.idamId === req.session?.user.id) {
-            //Object.assign(req.session.userCase, getContactDetails(respondent.value, req));
             Object.assign(req.session.userCase, mapRequest(respondent.value));
           }
         });
       } else {
         req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
           if (applicant?.value?.user?.idamId === req.session?.user.id) {
-            //Object.assign(req.session.userCase, getContactDetails(applicant.value, req));
             Object.assign(req.session.userCase, mapRequest(applicant.value));
           }
         });
       }
     } else {
       req.url.includes('respondent')
-        ? // ? Object.assign(req.session.userCase, getContactDetails(req.session.userCase.respondentsFL401!, req))
-          Object.assign(req.session.userCase, mapRequest(req.session.userCase.respondentsFL401!))
-        : //: Object.assign(req.session.userCase, getContactDetails(req.session.userCase.applicantsFL401!, req));
-          Object.assign(req.session.userCase, mapRequest(req.session.userCase.applicantsFL401!));
+        ? Object.assign(req.session.userCase, mapRequest(req.session.userCase.respondentsFL401!))
+        : Object.assign(req.session.userCase, mapRequest(req.session.userCase.applicantsFL401!));
     }
 
     const redirectUrl = setRedirectUrl(req);

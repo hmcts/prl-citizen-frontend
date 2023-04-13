@@ -85,33 +85,27 @@ describe('ConfirmContactDetailsGetController', () => {
       {
         id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
         value: {
-          firstName: 'Sonali',
-          lastName: 'Citizen',
-          email: 'abc@example.net',
-          user: {
-            idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
-            email: 'test@example.net',
+          address: {
+            AddressLine1: 'Flatc1',
+            AddressLine2: 'Unkonwn lane',
+            County: 'Dummy County',
+            PostCode: 'SW13ND',
+            PostTown: 'Dummy Town',
           },
-          response: '',
-        },
-      },
-      {
-        id: '0c09b130-2eba-4ca8-a910-1f001bac01e1',
-        value: {
-          firstName: 'Giorgi',
-          lastName: 'Citizen',
-          email: 'abc@example.net',
-          user: {
-            idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e1',
-            email: 'test@example.net',
-          },
-          response: '',
+          dateOfBirth: '2000-11-14',
+          email: 'a.b@test.com',
+          firstName: 'John',
+          isAtAddressLessThan5Years: 'Yes',
+
+          phoneNumber: '0987654321',
+          placeOfBirth: 'london',
+          previousName: 'Johnny Smith',
         },
       },
     ];
-    req.url = 'req';
+    req.url = 'respondent';
     await controller.get(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/confirm-contact-details/checkanswers?byApplicant=applicant');
+    expect(res.redirect).toHaveBeenCalledWith('/respondent/confirm-contact-details/checkanswers');
   });
   test('should redirect with c100 appilant case', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
@@ -138,6 +132,7 @@ describe('ConfirmContactDetailsGetController', () => {
         },
       },
     ];
+    req.url = 'applicant';
     await controller.get(req, res);
     expect(res.redirect).toHaveBeenCalledWith('/applicant/confirm-contact-details/checkanswers?byApplicant=applicant');
   });
@@ -161,7 +156,7 @@ describe('ConfirmContactDetailsGetController', () => {
       placeOfBirth: 'london',
       previousName: 'Johnny Smith',
     };
-
+    req.url = 'applicant';
     await controller.get(req, res);
     expect(res.redirect).toHaveBeenCalledWith('/applicant/confirm-contact-details/checkanswers');
   });
