@@ -29,7 +29,7 @@ describe('MIAMMapper', () => {
     req.session.userCase.miamStart = 'Yes';
     req.session.userCase.miamWillingness = 'Yes';
     expect(setMIAMDetails(req.session.userCase).attendedMiam).toEqual('Yes');
-    expect(setMIAMDetails(req.session.userCase).willingToAttendMiam).toEqual('Yes');
+    expect(setMIAMDetails(req.session.userCase).willingToAttendMiam).toEqual(null);
     expect(setMIAMDetails(req.session.userCase).reasonNotAttendingMiam).toEqual('');
   });
 
@@ -58,8 +58,8 @@ describe('MIAMMapper', () => {
     req.session.userCase.miamWillingness = 'No';
     req.session.userCase.miamNotWillingExplnation = 'testinputvalue';
     expect(setMIAMDetails(req.session.userCase).attendedMiam).toEqual('Yes');
-    expect(setMIAMDetails(req.session.userCase).willingToAttendMiam).toEqual('No');
-    expect(setMIAMDetails(req.session.userCase).reasonNotAttendingMiam).toEqual('testinputvalue');
+    expect(setMIAMDetails(req.session.userCase).willingToAttendMiam).toEqual(null);
+    expect(setMIAMDetails(req.session.userCase).reasonNotAttendingMiam).toEqual('');
   });
 
   test('Should setMIAM miamStart Yes miamWillingness No miamNotWillingExplnation testval', async () => {
@@ -67,8 +67,8 @@ describe('MIAMMapper', () => {
     respondents[0].value.response.miam = {};
     expect(setMIAMDetails(req.session.userCase)).toEqual({
       attendedMiam: 'Yes',
-      reasonNotAttendingMiam: 'testinputvalue',
-      willingToAttendMiam: 'No',
+      reasonNotAttendingMiam: '',
+      willingToAttendMiam: null,
     });
   });
 
@@ -76,16 +76,15 @@ describe('MIAMMapper', () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     const response = {
       miam: {
-        attendedMiam: 'Yes',
+        attendedMiam: 'No',
         willingToAttendMiam: null,
-        reasonNotAttendingMiam: null,
+        reasonNotAttendingMiam: '',
       },
     };
     respondents[0].value.response = response;
-    await getMIAMDetails(respondents[0], req);
-    expect(req.session.userCase.miamStart).toEqual('Yes');
-    expect(req.session.userCase.miamWillingness).toEqual('No');
-    expect(req.session.userCase.miamNotWillingExplnation).toEqual('');
+    expect(getMIAMDetails(respondents[0]).miamStart).toEqual('No');
+    expect(getMIAMDetails(respondents[0]).miamWillingness).toEqual(null);
+    expect(getMIAMDetails(respondents[0]).miamNotWillingExplnation).toEqual('');
   });
 
   test('Should getMIAM miamStart No miamWillingness Yes', async () => {
@@ -94,15 +93,13 @@ describe('MIAMMapper', () => {
       miam: {
         attendedMiam: 'No',
         willingToAttendMiam: 'Yes',
-        reasonNotAttendingMiam: null,
+        reasonNotAttendingMiam: '',
       },
     };
     respondents[0].value.response = response;
-    await getMIAMDetails(respondents[0], req);
-
-    expect(req.session.userCase.miamStart).toEqual('No');
-    expect(req.session.userCase.miamWillingness).toEqual('Yes');
-    expect(req.session.userCase.miamNotWillingExplnation).toEqual('');
+    expect(getMIAMDetails(respondents[0]).miamStart).toEqual('No');
+    expect(getMIAMDetails(respondents[0]).miamWillingness).toEqual('Yes');
+    expect(getMIAMDetails(respondents[0]).miamNotWillingExplnation).toEqual('');
   });
 
   test('Should getMIAM miamStart No miamWillingness No miamNotWillingExplnation Yes', async () => {
@@ -115,10 +112,9 @@ describe('MIAMMapper', () => {
       },
     };
     respondents[0].value.response = response;
-    await getMIAMDetails(respondents[0], req);
-
-    expect(req.session.userCase.miamStart).toEqual('No');
-    expect(req.session.userCase.miamWillingness).toEqual('No');
-    expect(req.session.userCase.miamNotWillingExplnation).toEqual('dummyValue');
+    respondents[0].value.response = response;
+    expect(getMIAMDetails(respondents[0]).miamStart).toEqual('No');
+    expect(getMIAMDetails(respondents[0]).miamWillingness).toEqual('No');
+    expect(getMIAMDetails(respondents[0]).miamNotWillingExplnation).toEqual('dummyValue');
   });
 });

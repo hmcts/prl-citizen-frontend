@@ -1,34 +1,25 @@
 import { CaseWithId } from '../../../app/case/case';
 import { Miam, Respondent, YesOrNo } from '../../../app/case/definition';
-import type { AppRequest } from '../../../app/controller/AppRequest';
 
 export const setMIAMDetails = (userCase: CaseWithId): Miam => {
   const { miamStart, miamWillingness, miamNotWillingExplnation } = userCase;
   const miamFromResponsent: Miam = {};
   Object.assign(miamFromResponsent, {
     attendedMiam: miamStart,
-    willingToAttendMiam: miamWillingness,
-    reasonNotAttendingMiam: miamWillingness === YesOrNo.NO ? miamNotWillingExplnation : '',
+    willingToAttendMiam: miamStart === YesOrNo.NO ? miamWillingness : null,
+    reasonNotAttendingMiam:
+      miamWillingness === YesOrNo.YES || miamStart === YesOrNo.YES ? '' : miamNotWillingExplnation,
   });
   return miamFromResponsent;
 };
 
-export const getMIAMDetails = (respondent: Respondent, req: AppRequest): Partial<CaseWithId> => {
-  if (respondent?.value?.response?.miam?.attendedMiam === YesOrNo.YES) {
-    req.session.userCase.miamStart = YesOrNo.YES;
-    req.session.userCase.miamWillingness = YesOrNo.NO;
-    req.session.userCase.miamNotWillingExplnation = '';
-  } else if (respondent?.value?.response?.miam?.attendedMiam === YesOrNo.NO) {
-    if (respondent?.value?.response?.miam?.willingToAttendMiam === YesOrNo.YES) {
-      req.session.userCase.miamStart = YesOrNo.NO;
-      req.session.userCase.miamWillingness = YesOrNo.YES;
-      req.session.userCase.miamNotWillingExplnation = '';
-    } else if (respondent?.value?.response?.miam?.willingToAttendMiam === YesOrNo.NO) {
-      req.session.userCase.miamStart = YesOrNo.NO;
-      req.session.userCase.miamWillingness = YesOrNo.NO;
-      req.session.userCase.miamNotWillingExplnation = respondent?.value?.response?.miam?.reasonNotAttendingMiam;
-    }
-  }
+export const getMIAMDetails = (respondent: Respondent): Partial<CaseWithId> => {
+  const { attendedMiam, willingToAttendMiam, reasonNotAttendingMiam } = respondent.value.response.miam!;
+  const miamcontent = {
+    miamStart: attendedMiam,
+    miamWillingness: willingToAttendMiam,
+    miamNotWillingExplnation: reasonNotAttendingMiam,
+  };
 
-  return req.session.userCase;
+  return miamcontent;
 };

@@ -24,7 +24,7 @@ export class MIAMGetController extends GetController {
           respondent?.value?.response &&
           respondent?.value?.response.miam
         ) {
-          Object.assign(req.session.userCase, getMIAMDetails(respondent, req));
+          Object.assign(req.session.userCase, getMIAMDetails(respondent));
         }
       });
       req.session.save(() => res.redirect(MIAM_START));
