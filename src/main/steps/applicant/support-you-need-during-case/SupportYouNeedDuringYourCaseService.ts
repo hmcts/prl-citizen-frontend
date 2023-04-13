@@ -3,10 +3,29 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../app/case/case';
 import { ReasonableAdjustmentsSupport, Respondent } from '../../../app/case/definition';
+import {
+  ANIMAL,
+  APPROPRIATE_LIGHTING,
+  COMM_HELP,
+  DIFFERENT_CHAIR,
+  DOCS_FORMAT,
+  DOCS_PRINT,
+  FAMILY_MEMBER,
+  HEARING_COMFORT,
+  HEARING_SUPPORT,
+  LANGUAGE_INTERPRETER,
+  LARGE_PRINT_DOCS,
+  NO_HEARINGS,
+  OTHER,
+  PARKING_SPACE,
+  SIGN_LANGUAGE,
+  SUPPORT_WORKER,
+  TRAVELLING_HELP,
+} from '../../../steps/constants';
 
 export const prepareRequest = (userCase: CaseWithId): ReasonableAdjustmentsSupport => {
   const {
-    attendingToCourt: attendingToCourt,
+    attendingToCourt,
     hearingDetails,
     helpCommunication,
     describeOtherNeed,
@@ -65,44 +84,44 @@ export const prepareRequest = (userCase: CaseWithId): ReasonableAdjustmentsSuppo
   });
 
   // data cleanup
-  if (!attendingToCourt?.includes('nohearings')) {
+  if (!attendingToCourt?.includes(NO_HEARINGS)) {
     delete request.hearingDetails;
   }
 
-  if (!languageRequirements?.includes('languageinterpreter')) {
+  if (!languageRequirements?.includes(LANGUAGE_INTERPRETER)) {
     delete request.languageDetails;
   }
 
-  if (!safetyArrangements?.includes('other')) {
+  if (!safetyArrangements?.includes(OTHER)) {
     delete request.safetyArrangementsDetails;
   }
 
   // doing a loop over reasonableAdjustments array and checking what's selected from the checkbox
   if (Array.isArray(reasonableAdjustments)) {
-    if (!reasonableAdjustments.includes('docsformat')) {
+    if (!reasonableAdjustments.includes(DOCS_FORMAT)) {
       delete request.docsDetails;
       delete request.largePrintDetails;
       delete request.otherDetails;
     }
 
-    if (!reasonableAdjustments.includes('commhelp')) {
+    if (!reasonableAdjustments.includes(COMM_HELP)) {
       delete request.describeSignLanguageDetails;
       delete request.describeOtherNeed;
     }
 
-    if (!reasonableAdjustments.includes('hearingsupport')) {
+    if (!reasonableAdjustments.includes(HEARING_SUPPORT)) {
       delete request.supportWorkerDetails;
       delete request.familyProviderDetails;
       delete request.therapyDetails;
       delete request.communicationSupportOther;
     }
 
-    if (!reasonableAdjustments.includes('hearingcomfort')) {
+    if (!reasonableAdjustments.includes(HEARING_COMFORT)) {
       delete request.lightingProvideDetails;
       delete request.otherProvideDetails;
     }
 
-    if (!reasonableAdjustments.includes('travellinghelp')) {
+    if (!reasonableAdjustments.includes(TRAVELLING_HELP)) {
       delete request.parkingDetails;
       delete request.differentChairDetails;
       delete request.travellingOtherDetails;
@@ -111,62 +130,62 @@ export const prepareRequest = (userCase: CaseWithId): ReasonableAdjustmentsSuppo
 
   // looping over docsSupport array
   if (Array.isArray(docsSupport)) {
-    if (!docsSupport?.includes('docsDetails')) {
+    if (!docsSupport?.includes(DOCS_PRINT)) {
       delete request.docsDetails;
     }
-    if (!docsSupport?.includes('largeprintdocs')) {
+    if (!docsSupport?.includes(LARGE_PRINT_DOCS)) {
       delete request.largePrintDetails;
     }
-    if (!docsSupport?.includes('other')) {
+    if (!docsSupport?.includes(OTHER)) {
       delete request.otherDetails;
     }
   }
 
   // looping over helpCommunication array
   if (Array.isArray(helpCommunication)) {
-    if (!helpCommunication?.includes('signlanguage')) {
+    if (!helpCommunication?.includes(SIGN_LANGUAGE)) {
       delete request.describeSignLanguageDetails;
     }
-    if (!helpCommunication?.includes('other')) {
+    if (!helpCommunication?.includes(OTHER)) {
       delete request.describeOtherNeed;
     }
   }
 
   // looping over courtHearing array
   if (Array.isArray(courtHearing)) {
-    if (!courtHearing?.includes('supportworker')) {
+    if (!courtHearing?.includes(SUPPORT_WORKER)) {
       delete request.supportWorkerDetails;
     }
-    if (!courtHearing?.includes('familymember')) {
+    if (!courtHearing?.includes(FAMILY_MEMBER)) {
       delete request.familyProviderDetails;
     }
-    if (!courtHearing?.includes('animal')) {
+    if (!courtHearing?.includes(ANIMAL)) {
       delete request.therapyDetails;
     }
-    if (!courtHearing?.includes('other')) {
+    if (!courtHearing?.includes(OTHER)) {
       delete request.communicationSupportOther;
     }
   }
 
   // looping over courtComfort array
   if (Array.isArray(courtComfort)) {
-    if (!courtComfort?.includes('appropriatelighting')) {
+    if (!courtComfort?.includes(APPROPRIATE_LIGHTING)) {
       delete request.lightingProvideDetails;
     }
-    if (!courtComfort?.includes('other')) {
+    if (!courtComfort?.includes(OTHER)) {
       delete request.otherProvideDetails;
     }
   }
 
   // looping over travellingToCourt array
   if (Array.isArray(travellingToCourt)) {
-    if (!travellingToCourt?.includes('parkingspace')) {
+    if (!travellingToCourt?.includes(PARKING_SPACE)) {
       delete request.parkingDetails;
     }
-    if (!travellingToCourt?.includes('differentchair')) {
+    if (!travellingToCourt?.includes(DIFFERENT_CHAIR)) {
       delete request.differentChairDetails;
     }
-    if (!travellingToCourt?.includes('other')) {
+    if (!travellingToCourt?.includes(OTHER)) {
       delete request.travellingOtherDetails;
     }
   }
