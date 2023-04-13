@@ -14,7 +14,10 @@ import {
   RESPOND_TO_APPLICATION,
 } from '../../../../steps/urls';
 
-import { setContactDetails } from './ContactDetailsMapper';
+import {
+  prepareRequest,
+  //setContactDetails
+} from './ContactDetailsMapper';
 
 @autobind
 export class ConfirmContactDetailsPostController extends PostController<AnyObject> {
@@ -25,7 +28,19 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
   public async c100Respondent(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
-        Object.assign(respondent.value, setContactDetails(respondent.value, req));
+        const { response, address, ...rest } = prepareRequest(req.session.userCase);
+        respondent.value = {
+          ...respondent.value,
+          ...rest,
+          address: {
+            ...respondent.value.address,
+            ...address,
+          },
+          response: {
+            ...respondent.value.response,
+            ...response,
+          },
+        };
       }
     });
   }
@@ -33,7 +48,21 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
   public async c100Apllicant(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
       if (applicant?.value?.user?.idamId === req.session?.user.id) {
-        Object.assign(applicant.value, setContactDetails(applicant.value, req));
+        //Object.assign(applicant.value, setContactDetails(applicant.value, req));
+        // applicant.value = prepareRequest(req.session.userCase) as PartyDetails;
+        const { response, address, ...rest } = prepareRequest(req.session.userCase);
+        applicant.value = {
+          ...applicant.value,
+          ...rest,
+          address: {
+            ...applicant.value.address,
+            ...address,
+          },
+          response: {
+            ...applicant.value.response,
+            ...response,
+          },
+        };
       }
     });
   }
@@ -57,16 +86,34 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
         req.url.includes('respondent') &&
         req.session.userCase?.respondentsFL401?.user?.idamId === req.session?.user.id
       ) {
-        Object.assign(
-          req.session.userCase.respondentsFL401,
-          setContactDetails(req.session.userCase.respondentsFL401, req)
-        );
+        const { response, address, ...rest } = prepareRequest(req.session.userCase);
+        req.session.userCase.respondentsFL401 = {
+          ...req.session.userCase.respondentsFL401,
+          ...rest,
+          address: {
+            ...req.session.userCase.respondentsFL401.address,
+            ...address,
+          },
+          response: {
+            ...req.session.userCase.respondentsFL401.response,
+            ...response,
+          },
+        };
       } else {
         if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session?.user.id) {
-          Object.assign(
-            req.session.userCase.applicantsFL401,
-            setContactDetails(req.session.userCase.applicantsFL401, req)
-          );
+          const { response, address, ...rest } = prepareRequest(req.session.userCase);
+          req.session.userCase.applicantsFL401 = {
+            ...req.session.userCase.applicantsFL401,
+            ...rest,
+            address: {
+              ...req.session.userCase.applicantsFL401.address,
+              ...address,
+            },
+            response: {
+              ...req.session.userCase.applicantsFL401.response,
+              ...response,
+            },
+          };
         }
       }
     }
