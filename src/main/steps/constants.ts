@@ -64,4 +64,22 @@ export const ordinalNumberMap = new Map<number, string>([
 export const NO_NEED_OF_SUPPORT = 'No, I do not have any language requirements at this time';
 export const NO_NEED_OF_SUPPORT_AT_THIS_TIME = 'No, I do not need any extra support at this time';
 export const NO_I_DO_NOT_NEED_OF_SUPPORT_AT_THIS_TIME = 'I do not need any of this support at this time';
-export const NO_HEARINGS = 'no hearings';
+export const NO_HEARINGS = 'nohearings';
+
+// CONSTANTS for SupportYouNeedDuringYourCaseService.ts file
+export const LANGUAGE_INTERPRETER = 'languageinterpreter';
+export const OTHER = 'other';
+export const DOCS_FORMAT = 'docsformat';
+export const COMM_HELP = 'commhelp';
+export const HEARING_SUPPORT = 'hearingsupport';
+export const HEARING_COMFORT = 'hearingcomfort';
+export const TRAVELLING_HELP = 'travellinghelp';
+export const DOCS_PRINT = 'docsprint';
+export const LARGE_PRINT_DOCS = 'largeprintdocs';
+export const SIGN_LANGUAGE = 'signlanguage';
+export const SUPPORT_WORKER = 'supportworker';
+export const FAMILY_MEMBER = 'familymember';
+export const ANIMAL = 'animal';
+export const APPROPRIATE_LIGHTING = 'appropriatelighting';
+export const PARKING_SPACE = 'parkingspace';
+export const DIFFERENT_CHAIR = 'differentchair';
