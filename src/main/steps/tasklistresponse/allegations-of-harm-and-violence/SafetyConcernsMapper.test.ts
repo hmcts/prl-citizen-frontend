@@ -81,7 +81,7 @@ describe('SafetyConcernsMapper', () => {
 
   test('When safetyconcerns are present, set respondent saftery concerns data appropriately', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-    respondents[0].value.response.safetyConcerns = await prepareRequest(respondents[0], req);
+    respondents[0].value.response.safetyConcerns = await prepareRequest(req.session.userCase);
     expect(respondents[0].value.response.safetyConcerns).toEqual(
       expect.objectContaining({
         child: {
@@ -148,7 +148,7 @@ describe('SafetyConcernsMapper', () => {
       ...req.session.userCase,
       PRL_c1A_haveSafetyConcerns: 'No',
     };
-    respondents[0].value.response.safetyConcerns = await prepareRequest(respondents[0], req);
+    respondents[0].value.response.safetyConcerns = await prepareRequest(req.session.userCase);
     expect(respondents[0].value.response.safetyConcerns).toEqual(expect.objectContaining({ haveSafetyConcerns: 'No' }));
   });
 
@@ -159,7 +159,7 @@ describe('SafetyConcernsMapper', () => {
       PRL_c1A_haveSafetyConcerns: 'Yes',
       PRL_c1A_concernAboutChild: ['physicalAbuse'],
     };
-    respondents[0].value.response.safetyConcerns = await prepareRequest(respondents[0], req);
+    respondents[0].value.response.safetyConcerns = await prepareRequest(req.session.userCase);
     expect(respondents[0].value.response.safetyConcerns).toEqual(
       expect.objectContaining({
         child: {
@@ -197,7 +197,7 @@ describe('SafetyConcernsMapper', () => {
       PRL_c1A_concernAboutChild: ['physicalAbuse', 'abduction'],
       PRL_c1A_childAbductedBefore: 'No',
     };
-    respondents[0].value.response.safetyConcerns = await prepareRequest(respondents[0], req);
+    respondents[0].value.response.safetyConcerns = await prepareRequest(req.session.userCase);
     expect(respondents[0].value.response.safetyConcerns).toEqual(
       expect.objectContaining({
         child: {
@@ -245,7 +245,7 @@ describe('SafetyConcernsMapper', () => {
       PRL_c1A_concernAboutChild: ['physicalAbuse', 'abduction'],
       PRL_c1A_passportOffice: 'No',
     };
-    respondents[0].value.response.safetyConcerns = await prepareRequest(respondents[0], req);
+    respondents[0].value.response.safetyConcerns = await prepareRequest(req.session.userCase);
     expect(respondents[0].value.response.safetyConcerns).toEqual(
       expect.objectContaining({
         child: {

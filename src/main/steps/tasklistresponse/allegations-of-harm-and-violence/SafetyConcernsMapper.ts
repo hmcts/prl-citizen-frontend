@@ -6,9 +6,8 @@ import {
   Respondent,
   YesOrNo,
 } from '../../../app/case/definition';
-import type { AppRequest } from '../../../app/controller/AppRequest';
 
-export const prepareRequest = (respondent: Respondent, req: AppRequest): PRL_C1ASafteyConcerns_total => {
+export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_total => {
   const {
     PRL_c1A_haveSafetyConcerns,
     PRL_c1A_safetyConernAbout,
@@ -33,7 +32,7 @@ export const prepareRequest = (respondent: Respondent, req: AppRequest): PRL_C1A
     PRL_c1A_policeOrInvestigatorOtherDetails,
     PRL_c1A_childAbductedBefore,
     PRL_c1A_safteyConcerns,
-  } = req.session.userCase;
+  } = userCase;
   let request: PRL_C1ASafteyConcerns_total = {};
 
   if (PRL_c1A_concernAboutChild?.length) {
