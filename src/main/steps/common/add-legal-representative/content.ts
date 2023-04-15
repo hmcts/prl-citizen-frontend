@@ -2,7 +2,7 @@ import { YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { getApplicantName } from '../../applicant/task-list/content';
+import { getApplicant, getApplicantName } from '../../applicant/task-list/content';
 import { getRespondent, getRespondentName } from '../../respondent/task-list/content';
 
 const en = {
@@ -48,7 +48,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const req: AppRequest = content.additionalData?.req;
   if (YesOrNo.YES === req.query.isApplicant) {
-    translations.partyName = getApplicantName(req.session.userCase, req.session.user.id);
+    translations.partyName = getApplicantName(getApplicant(req.session.userCase, req.session.user.id));
   } else {
     translations.partyName = getRespondentName(getRespondent(req.session.userCase, req.session.user.id));
   }

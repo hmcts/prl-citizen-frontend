@@ -23,8 +23,8 @@ const enContent = {
   iWantTo: 'I want to...',
   hyperlinks: [
     {
-      label: 'Remove a legal representative',
-      link: '#',
+      label: 'Add a legal representative',
+      link: '/respondent/add-legal-representative?isApplicant=No',
     },
     {
       label: 'Find my local court',
@@ -61,8 +61,8 @@ const cyContent = {
   iWantTo: 'I want to...-welsh',
   hyperlinks: [
     {
-      label: 'Remove a legal representative-welsh',
-      link: '#',
+      label: 'Add a legal representative-welsh',
+      link: '/respondent/add-legal-representative?isApplicant=No',
     },
     {
       label: 'Find my local court-welsh',

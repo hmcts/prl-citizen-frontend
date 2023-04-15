@@ -344,16 +344,10 @@ export const generateContent: TranslationFn = content => {
   const isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(respondent);
   translations.hyperlinks.forEach((hyperLink, index) => {
     //Added additonal checks not to display Add/Remove a legal representative link for DA caeses, needs to be removed later
-    if (
-      hyperLink.label.includes('Add a legal representative') &&
-      (req.session.userCase.caseTypeOfApplication === 'FL401' || isRepresentedBySolicotor)
-    ) {
+    if (hyperLink.label.includes('Add a legal representative') && isRepresentedBySolicotor) {
       translations.hyperlinks.splice(index, 1);
     }
-    if (
-      hyperLink.label.includes('Remove a legal representative') &&
-      (req.session.userCase.caseTypeOfApplication === 'FL401' || !isRepresentedBySolicotor)
-    ) {
+    if (hyperLink.label.includes('Remove a legal representative') && !isRepresentedBySolicotor) {
       translations.hyperlinks.splice(index, 1);
     }
   });

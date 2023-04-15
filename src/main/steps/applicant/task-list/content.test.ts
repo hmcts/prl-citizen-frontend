@@ -19,6 +19,29 @@ const enContent = {
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
+  iWantTo: 'I want to...',
+  hyperlinks: [
+    {
+      label: 'Add a legal representative',
+      link: '/applicant/add-legal-representative?isApplicant=Yes',
+    },
+    {
+      label: 'Find my local court',
+      link: '#',
+    },
+    {
+      label: 'Find legal advice',
+      link: '#',
+    },
+    {
+      label: 'Know more about child arrangements',
+      link: '#',
+    },
+    {
+      label: 'Know more about attending court',
+      link: '#',
+    },
+  ],
 };
 const cyContent = {
   title: 'Applicant tasklist',
@@ -32,6 +55,29 @@ const cyContent = {
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
+  iWantTo: 'I want to...-welsh',
+  hyperlinks: [
+    {
+      label: 'Add a legal representative-welsh',
+      link: '/applicant/add-legal-representative?isApplicant=Yes',
+    },
+    {
+      label: 'Find my local court-welsh',
+      link: '#',
+    },
+    {
+      label: 'Find legal advice-welsh',
+      link: '#',
+    },
+    {
+      label: 'Know more about child arrangements-welsh',
+      link: '#',
+    },
+    {
+      label: 'Know more about attending court-welsh',
+      link: '#',
+    },
+  ],
 };
 describe('task-list > content', () => {
   const commonContent = {
@@ -193,13 +239,13 @@ describe('task-list > content', () => {
         },
         {
           items: [
-            {
-              href: '/applicant/upload-document',
-              id: 'upload-document',
-              status: SectionStatus.TO_DO,
-              text: 'Upload documents',
-            },
             null,
+            {
+              href: '/applicant/yourdocuments/alldocuments/alldocuments',
+              id: 'view-all-documents',
+              status: SectionStatus.READY_TO_VIEW,
+              text: 'View all documents',
+            },
           ],
           title: 'Your documents',
         },

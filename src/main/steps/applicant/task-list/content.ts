@@ -1,9 +1,14 @@
 import { CaseWithId } from '../../../app/case/case';
-import { Applicant, Banner, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Applicant, Banner, PartyDetails, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
-import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../steps/urls';
+import { checkPartyRepresentedBySolicitor } from '../../../steps/common/task-list/utils';
+import {
+  APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+  APPLICANT_ORDERS_FROM_THE_COURT,
+  APPLICANT_VIEW_ALL_DOCUMENTS,
+} from '../../../steps/urls';
 
 import { applicant_en } from './section-titles';
 import { generateApplicantTaskList } from './tasklist';
@@ -67,6 +72,33 @@ const en = () => ({
       },
     ],
   },
+  iWantTo: 'I want to...',
+  hyperlinks: [
+    {
+      label: 'Add a legal representative',
+      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE + '?isApplicant=Yes',
+    },
+    {
+      label: 'Remove a legal representative',
+      link: '#',
+    },
+    {
+      label: 'Find my local court',
+      link: '#',
+    },
+    {
+      label: 'Find legal advice',
+      link: '#',
+    },
+    {
+      label: 'Know more about child arrangements',
+      link: '#',
+    },
+    {
+      label: 'Know more about attending court',
+      link: '#',
+    },
+  ],
 });
 
 const cy = () => ({
@@ -125,6 +157,33 @@ const cy = () => ({
       },
     ],
   },
+  iWantTo: 'I want to...-welsh',
+  hyperlinks: [
+    {
+      label: 'Add a legal representative-welsh',
+      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE + '?isApplicant=Yes',
+    },
+    {
+      label: 'Remove a legal representative-welsh',
+      link: '#',
+    },
+    {
+      label: 'Find my local court-welsh',
+      link: '#',
+    },
+    {
+      label: 'Find legal advice-welsh',
+      link: '#',
+    },
+    {
+      label: 'Know more about child arrangements-welsh',
+      link: '#',
+    },
+    {
+      label: 'Know more about attending court-welsh',
+      link: '#',
+    },
+  ],
 });
 
 const languages = {
@@ -140,30 +199,45 @@ export const generateContent: TranslationFn = content => {
       : getFl401Banners(content.userCase, translations, content.userIdamId);
   const stages = content.userCase?.caseTypeOfApplication === 'C100' ? [] : buildProgressBarStages(content.userCase!);
   const req: AppRequest = content.additionalData?.req;
-  translations.applicantName = getApplicantName(req.session.userCase, req.session.user.id);
+
+  const applicant = getApplicant(req.session.userCase, req.session.user.id);
+  translations.applicantName = getApplicantName(applicant);
+  const isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(applicant);
+  translations.hyperlinks.forEach((hyperLink, index) => {
+    //Added additonal checks not to display Add/Remove a legal representative link for DA caeses, needs to be removed later
+    if (hyperLink.label.includes('Add a legal representative') && isRepresentedBySolicotor) {
+      translations.hyperlinks.splice(index, 1);
+    }
+    if (hyperLink.label.includes('Remove a legal representative') && !isRepresentedBySolicotor) {
+      translations.hyperlinks.splice(index, 1);
+    }
+  });
+
   return {
     ...translations,
     sections: generateApplicantTaskList(
       translations.sectionTitles,
       translations.taskListItems,
       content.userCase,
-      content.userIdamId
+      content.userIdamId,
+      isRepresentedBySolicotor
     ),
     banners,
     stages,
   };
 };
 
-export const getApplicantName = (userCase: Partial<CaseWithId>, userId: string): string => {
+export const getApplicant = (userCase: Partial<CaseWithId>, userId: string): PartyDetails | undefined => {
   if (userCase.caseTypeOfApplication === 'C100') {
     const applicant = getApplicantPartyDetails(userCase, userId);
-    if (applicant) {
-      return applicant.value.firstName + ' ' + applicant.value.lastName;
-    }
+    return applicant?.value;
   } else {
-    return userCase.applicantsFL401?.firstName + ' ' + userCase.applicantsFL401?.lastName;
+    return userCase.applicantsFL401;
   }
-  return '';
+};
+
+export const getApplicantName = (applicant: PartyDetails | undefined): string => {
+  return applicant ? applicant.firstName + ' ' + applicant.lastName : '';
 };
 
 const getC100Banners = (userCase, translations, userIdamId) => {

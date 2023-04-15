@@ -73,6 +73,7 @@ import {
   // eslint-disable-next-line sort-imports
   C100_APPLICANT_TASKLIST,
   APPLICANT_TASKLIST_HEARING_NEEDS,
+  APPLICANT_ADD_LEGAL_REPRESENTATIVE,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -528,5 +529,10 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_TASKLIST_HEARING_NEEDS,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASKLIST_HEARING_NEEDS,
+  },
+  {
+    url: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
 ];

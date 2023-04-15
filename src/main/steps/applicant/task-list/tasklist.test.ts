@@ -28,6 +28,7 @@ describe('applicant tasklist getRemainingTaskList', () => {
       },
       userIdamId: '12345',
     };
+    const isRepresentedBySolicotor = false;
     const expected = [
       {
         items: [
@@ -110,7 +111,9 @@ describe('applicant tasklist getRemainingTaskList', () => {
         title: 'Orders from the court',
       },
     ];
-    expect(generateApplicantTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId)).toEqual(expected);
+    expect(
+      generateApplicantTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId, isRepresentedBySolicotor)
+    ).toEqual(expected);
   });
 
   test('applicant tasklist legalRepresentation yes C100 case', () => {
@@ -136,6 +139,7 @@ describe('applicant tasklist getRemainingTaskList', () => {
       },
       userIdamId: '12345',
     };
+    const isRepresentedBySolicotor = false;
     const expected = [
       {
         items: [
@@ -240,6 +244,73 @@ describe('applicant tasklist getRemainingTaskList', () => {
         title: 'Orders from the court',
       },
     ];
-    expect(generateApplicantTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId)).toEqual(expected);
+    expect(
+      generateApplicantTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId, isRepresentedBySolicotor)
+    ).toEqual(expected);
+  });
+
+  test('generateApplicentTaskListWhenRespresentedBySolicitor', () => {
+    const data = {
+      userCase: { ...mockUserCase, legalRepresentation: YesOrNo.NO, start: YesOrNo.YES },
+      userIdamId: '12345',
+    };
+    const isRepresentedBySolicotor = true;
+    const expected = [
+      null,
+      {
+        items: [
+          {
+            href: '/applicant/public/docs/FL401-Final-Document.pdf',
+            id: 'your-application',
+            status: 'DOWNLOAD',
+            text: 'Application submitted (PDF)',
+          },
+          {
+            href: '/applicant/witnessstatements',
+            id: 'your-application-witness-statment',
+            status: 'DOWNLOAD',
+            text: 'Witness statement (PDF)',
+          },
+        ],
+        title: 'Your application',
+      },
+      {
+        items: [
+          {
+            href: '/applicant/yourhearings/hearings',
+            id: 'check-details-of-your-court-hearings',
+            status: 'TO_DO',
+            text: 'Check details of your court hearings',
+          },
+        ],
+        title: 'Your court hearings',
+      },
+      {
+        items: [
+          null,
+          {
+            href: '/applicant/yourdocuments/alldocuments/alldocuments',
+            id: 'view-all-documents',
+            status: 'READY_TO_VIEW',
+            text: 'View all documents',
+          },
+        ],
+        title: 'Your documents',
+      },
+      {
+        items: [
+          {
+            href: '#',
+            id: 'view-all-orders-from-the-court',
+            status: 'NOT_AVAILABLE_YET',
+            text: 'View all orders from the court',
+          },
+        ],
+        title: 'Orders from the court',
+      },
+    ];
+    expect(
+      generateApplicantTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId, isRepresentedBySolicotor)
+    ).toEqual(expected);
   });
 });
