@@ -22,7 +22,7 @@ nodejs:
     DOCUMENT_MANAGEMENT_URL: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-1053.preview.platform.hmcts.net'
     COS_URL: 'http://prl-cos-pr-1093.preview.platform.hmcts.net'
     REDIS_HOST: 'prl-citizen-frontend-redis-{{ .Values.global.environment }}.redis.cache.windows.net'
-    LAUNCH_DARKLY_OFFLINE_MODE: false
+    LAUNCH_DARKLY_OFFLINE_MODE: true
     C100_REBUILD_FLAG: false
     TESTING_SUPPORT_FLAG: true
     ALLOW_CONFIG_MUTATIONS: true
