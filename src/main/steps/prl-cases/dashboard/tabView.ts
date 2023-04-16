@@ -2,29 +2,38 @@ import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../app/case/definition';
+import { isCaseLinked } from '../../../steps/common/task-list/utils';
 import { applyParms } from '../../common/url-parser';
 import {
   APPLICANT_TASK_LIST_URL,
   C100_RETRIVE_CASE,
   FETCH_CASE_DETAILS,
+  //FETCH_CASE_DETAILS,
   PageLink,
   RESPONDENT_TASK_LIST_URL,
 } from '../../urls';
 
+import { UserDetails } from './../../../app/controller/AppRequest';
 import { getCasePartyType } from './utils';
 
 const tabGroup = {
-  [State.AWAITING_SUBMISSION_TO_HMCTS]: 'draft',
-  [State.SUBMITTED_NOT_PAID]: 'draft',
-  [State.SUBMITTED_PAID]: 'draft',
-  [State.ALL_FINAL_ORDERS_ISSUED]: 'closed',
+  [State.CASE_DRAFT]: 'draft',
+  [State.CASE_SUBMITTED_NOT_PAID]: 'draft',
+  [State.CASE_SUBMITTED_PAID]: 'draft',
+  [State.CASE_ISSUED_TO_LOCAL_COURT]: 'draft',
+  [State.CASE_GATE_KEEPING]: 'draft',
+  [State.CASE_CLOSED]: 'closed',
+  [State.CASE_WITHDRAWN]: 'closed',
   '*': 'active',
 };
 
 const caseStatusTranslation = {
-  [State.AWAITING_SUBMISSION_TO_HMCTS]: 'draftCaseStatus',
-  [State.SUBMITTED_NOT_PAID]: 'pendingCaseStatus',
-  [State.SUBMITTED_PAID]: 'submittedCaseStatus',
+  [State.CASE_DRAFT]: 'draftCaseStatus',
+  [State.CASE_SUBMITTED_NOT_PAID]: 'submittedCaseStatus',
+  [State.CASE_SUBMITTED_PAID]: 'submittedCaseStatus',
+  [State.CASE_ISSUED_TO_LOCAL_COURT]: 'caseIssued',
+  [State.CASE_GATE_KEEPING]: 'caseGatekeeping',
+  [State.CASE_SERVED]: 'caseServed',
 };
 interface CaseDetails {
   caseNumber: string;
@@ -179,16 +188,28 @@ const prepareTableData = (caseData: CaseDetails, tab: string): TableRowFields[] 
   return rows;
 };
 
-export const prepareCaseView = (caseData: Partial<CaseWithId>[], content: Record<string, string>): Tabs => {
+export const prepareCaseView = (
+  caseData: Partial<CaseWithId>[],
+  userDetails: UserDetails,
+  content: Record<string, string>
+): Tabs => {
   let tabs = prepareTabContent(content);
 
   if (caseData?.length) {
     tabs = caseData.reduce(
       (_tabs: Tabs, _case: Partial<CaseWithId>) => {
         const { caseTypeOfApplication, ...rest } = _case;
-        const state = _case?.caseStatus?.state;
-        const tab = tabGroup[state as string] ?? tabGroup['*'];
+        const state = _case.state;
         const caseStatus = content?.[caseStatusTranslation?.[state!]] ?? (state as string);
+        const casePartyType = getCasePartyType(_case, userDetails.id);
+        const tab = getCaseTabGrouping(_case, userDetails, casePartyType);
+        let caseApplicantName = rest.applicantName;
+
+        if (!caseApplicantName) {
+          caseApplicantName = rest?.applicants?.length
+            ? `${rest.applicants[0].value.firstName} ${rest.applicants[0].value.lastName}`
+            : '';
+        }
 
         if (_tabs[tab]) {
           _tabs[tab].rows.push(
@@ -196,8 +217,8 @@ export const prepareCaseView = (caseData: Partial<CaseWithId>[], content: Record
               {
                 caseNumber: rest.id!,
                 caseType: caseTypeOfApplication as CaseType,
-                casePartyType: getCasePartyType(_case),
-                caseApplicantName: rest.applicantName ?? '',
+                casePartyType,
+                caseApplicantName,
                 caseStatus,
                 createdDate: dayjs(rest.createdDate).format('DD MMM YYYY'),
                 lastModifiedDate: dayjs(rest.lastModifiedDate).format('DD MMM YYYY'),
@@ -221,6 +242,26 @@ export const prepareCaseView = (caseData: Partial<CaseWithId>[], content: Record
   });
 
   return tabs;
+};
+
+const getCaseTabGrouping = (
+  caseData: Partial<CaseWithId>,
+  userDetails: UserDetails,
+  casePartyType: PartyType
+): string => {
+  const { state, caseTypeOfApplication } = caseData;
+  const tab = tabGroup[state as string] ?? tabGroup['*'];
+
+  if (
+    tab === 'active' &&
+    caseTypeOfApplication === CaseType.C100 &&
+    casePartyType === PartyType.APPLICANT &&
+    !isCaseLinked(caseData, userDetails)
+  ) {
+    return 'draft';
+  }
+
+  return tab;
 };
 
 const getTaskListUrl = (

@@ -6,13 +6,19 @@ import { getNextStepUrl } from '../../steps';
 import PreProcessCaseData from '../../steps/c100-rebuild/PreProcessCaseData';
 import { applyParms } from '../../steps/common/url-parser';
 import { ApplicantUploadFiles, RespondentUploadFiles, UploadDocumentSucess } from '../../steps/constants';
-import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { C100_URL, PARTY_TASKLIST, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
-import { C100_CASE_EVENT, CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, State } from '../case/definition';
+import {
+  C100_CASE_EVENT,
+  CITIZEN_SAVE_AND_CLOSE,
+  CITIZEN_UPDATE,
+  CaseData,
+  PartyType,
+  State,
+} from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -203,12 +209,18 @@ export class PostController<T extends AnyObject> {
         if (accessCodeValidated === 'Linked') {
           req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
         } else if (accessCodeValidated !== 'Valid') {
-          req.session.errors.push({ errorType: 'invalidAccessCode', propertyName: 'accessCode' });
+          req.session.errors.push(
+            { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
+            { errorType: 'invalidAccessCode', propertyName: 'accessCode' }
+          );
         }
       }
     } catch (err) {
       req.locals.logger.error('Retrieving case failed with error: ' + err);
-      req.session.errors.push({ errorType: 'invalidReference', propertyName: 'caseCode' });
+      req.session.errors.push(
+        { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
+        { errorType: 'invalidAccessCode', propertyName: 'accessCode' }
+      );
     }
 
     if (req.session.errors.length) {
@@ -249,7 +261,6 @@ export class PostController<T extends AnyObject> {
     if (req.session.errors.length) {
       return this.redirect(req, res);
     }
-
     this.redirect(req, res);
   }
 
@@ -273,7 +284,7 @@ export class PostController<T extends AnyObject> {
         //update latest reutrn URL in the session
         req.session.userCase.c100RebuildReturnUrl = req.originalUrl;
         req.session.save(() => {
-          res.redirect(applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(req.session.userCase) }));
+          res.redirect(applyParms(PARTY_TASKLIST, { partyType: PartyType.APPLICANT }));
         });
       } catch (e) {
         this.redirect(req, res, req.originalUrl);

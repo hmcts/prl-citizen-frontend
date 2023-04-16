@@ -106,6 +106,7 @@ export interface PartyDetails {
   isAtAddressLessThan5YearsWithDontKnow: string;
   response: Response;
   user: User;
+  contactPreferences?: applicantContactPreferencesEnum;
 }
 
 export interface User {
@@ -123,7 +124,7 @@ export interface Response {
   safeToCallOption?: string;
   supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
-  currentOrPreviousProceedings?: CurrentOrPreviousProceedings;  
+  currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -798,8 +799,8 @@ export interface ContactDetail {
 }
 
 export enum applicantContactPreferencesEnum {
-  DIGITAL = 'Digital',
-  POST = 'Post',
+  DIGITAL = 'digital',
+  POST = 'post',
 }
 
 export type C100ListOfApplicants = C100Applicant[];
@@ -970,6 +971,7 @@ citizenUserManualAddressPostcode?: string;
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+  draftOrderDoc?: Document;
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -1987,13 +1989,21 @@ export const enum State {
   SUBMITTED_PAID = "Submitted",
   AWAITING_RESUBMISSION_TO_HMCTS = "Returned",
   CASE_ISSUE = "Case Issued",
-  CASE_WITHDRAWN = "Withdrawn",
   GATEKEEPING = "Gatekeeping",
   PREPARE_FOR_HEARING_CONDUCT_HEARING = "Hearing",
   DECISION_OUTCOME = "DECISION_OUTCOME",
   ALL_FINAL_ORDERS_ISSUED = "ALL_FINAL_ORDERS_ISSUED",
   CASE_HEARING = "Prepare for hearing",
-  DELETED = "DELETED",
+  DELETED = "Deleted",
+  CASE_DRAFT = 'AWAITING_SUBMISSION_TO_HMCTS',
+  CASE_SUBMITTED_PAID = 'SUBMITTED_PAID',
+  CASE_SUBMITTED_NOT_PAID = 'SUBMITTED_NOT_PAID',
+  CASE_ISSUED_TO_LOCAL_COURT = 'CASE_ISSUE',
+  CASE_GATE_KEEPING = 'GATE_KEEPING',
+  CASE_CLOSED = 'ALL_FINAL_ORDERS_ISSUED',
+  CASE_SERVED = 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
+  CASE_WITHDRAWN = 'CASE_WITHDRAWN',
+  CASE_DELETED = 'DELETED',
 }
 
 export const enum UserRole {
@@ -2359,6 +2369,9 @@ export interface PRLDocument {
   orderType: string;
   orderDocument: Document;
   otherDetails: OtherDetails;
+  orderTypeId?: string;
+  isWithdrawnRequestApproved?: YesOrNo
+  withdrawnRequestType?: string;
 }
 
 export interface HearingsList {

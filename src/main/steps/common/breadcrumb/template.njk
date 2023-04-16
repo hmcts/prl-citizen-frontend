@@ -1,0 +1,6 @@
+{% extends "common/page.njk" %}
+{% from "common/breadcrumb/breadcrumb.macro.njk" import appBreadcrumb with context %}
+
+{% block backLink %}
+{{appBreadcrumb(breadcrumbs)}}
+ {% endblock %}

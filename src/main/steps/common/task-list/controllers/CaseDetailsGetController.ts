@@ -22,7 +22,7 @@ export default class CaseDetailsGetController {
       );
       req.session.userCase = caseData;
       req.session.save(() => {
-        res.redirect(applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData) }));
+        res.redirect(applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData, req.session.user.id) }));
       });
     } catch (e) {
       res.redirect(DASHBOARD_URL);
