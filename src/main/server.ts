@@ -51,8 +51,9 @@ const featureToggles = new FeatureToggles(launchDarklyClient);
 app.use(async (req, res, next) => {
   if (app.locals.developmentMode) {
     app.settings.nunjucksEnv.globals.c100Rebuild = await featureToggles.isC100reBuildEnabled();
+    logger.info('c100Rebuild ::' + (await featureToggles.isC100reBuildEnabled()));
     app.settings.nunjucksEnv.globals.testingSupport = await featureToggles.isTestingSupportEnabled();
-    console.log('testingSupport ::' + (await featureToggles.isTestingSupportEnabled()));
+    logger.info('testingSupport ::' + (await featureToggles.isTestingSupportEnabled()));
   }
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
 
