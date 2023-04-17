@@ -11,7 +11,7 @@ nodejs:
   autoscaling:
     enabled: false
   environment:
-    NODE_ENV: preview
+    NODE_ENV: development
     REFORM_TEAM: prl
     REFORM_SERVICE_NAME: prl-citizen-frontend
     SERVICE_AUTH_PROVIDER_URL: 'http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal'
