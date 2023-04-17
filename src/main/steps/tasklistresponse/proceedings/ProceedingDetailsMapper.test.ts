@@ -1,7 +1,13 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { ProceedingsOrderTypes, YesOrNo } from '../../../app/case/definition';
 
-import { setProceedingDetails } from './ProceedingDetailsMapper';
+import {
+  getDisplayDate,
+  getDocumentInfo,
+  getNextId,
+  getProceedingDetails,
+  setProceedingDetails,
+} from './ProceedingDetailsMapper';
 //import { getProceedingDetails, setProceedingDetails } from './ProceedingDetailsMapper';
 let respondents;
 
@@ -127,7 +133,7 @@ describe('ProceedingDetailsMapper', () => {
   //                    document_filename: undefined,
   //                    document_url: undefined,
   //                  },
-  //                  orderEndDate: 2022-03-01T00:00:00.000Z,
+  //                  orderEndDate: '2022-03-01T00:00:00.000Z',
   //                },
   //              },
   //            ],
@@ -157,19 +163,13 @@ describe('ProceedingDetailsMapper', () => {
   //             month: '03',
   //             day: '01'
   //           },
-  //           currentOrder: 'Yes',
+  //           currentOrder: '',
   //           orderEndDate: {
   //             year: '2022',
   //             month: '03',
   //             day: '01'
   //           },
-  //           orderCopy: 'No',
-  //           orderDocument: {
-  //             id : "dsf",
-  //             url: "string",
-  //             filename: "string",
-  //             binaryUrl: "string"
-  //           }
+  //           orderCopy: '',
   //         }
   //       ],
   //       emergencyProtectionOrders : [
@@ -210,11 +210,6 @@ describe('ProceedingDetailsMapper', () => {
   //                  orderCopy: null,
   //                  orderDate: '2022-03-01T00:00:00.000Z',
   //                  orderDetail: "string",
-  //                  orderDocument: {
-  //                    document_binary_url: "string",
-  //                    document_filename: "string",
-  //                    document_url: "string",
-  //                  },
   //                  orderEndDate: '2022-03-01T00:00:00.000Z',
   //                },
   //              },
@@ -230,16 +225,11 @@ describe('ProceedingDetailsMapper', () => {
   //                id: "",
   //                value: {
   //                  caseNo: "string",
-  //                  currentOrder: null,
-  //                  orderCopy: null,
-  //                  orderDate: 2022-03-01T00:00:00.000Z,
+  //                  currentOrder: "Yes",
+  //                  orderCopy: "No",
+  //                  orderDate: '2022-03-01T00:00:00.000Z',
   //                  orderDetail: "string",
-  //                  orderDocument: {
-  //                    document_binary_url: undefined,
-  //                    document_filename: undefined,
-  //                    document_url: undefined,
-  //                  },
-  //                  orderEndDate: 2022-03-01T00:00:00.000Z,
+  //                  orderEndDate: '2022-03-01T00:00:00.000Z',
   //                },
   //              },
   //            ],
@@ -348,34 +338,196 @@ describe('ProceedingDetailsMapper', () => {
     // expect(respondents[0].value.response.currentOrPreviousProceedings.courtOrderMadeForProtection).toEqual('No');
   });
 
-  // test('Should get data from response data to session', async () => {
-  //   req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-  //   const response = {
-  //     currentOrPreviousProceedings: {
-  //       haveChildrenBeenInvolvedInCourtCase: 'No',
-  //       courtOrderMadeForProtection: 'Yes',
-  //       proceedingsList: [],
-  //     },
-  //   };
-  //   respondents[0].value.response = response;
-  //   await getProceedingDetails(respondents[0]);
-  //   expect(req.session.userCase.proceedingsStart).toEqual('No');
-  //   expect(req.session.userCase.proceedingsStartOrder).toEqual('Yes');
-  // });
+  test('Should get data from response data to session', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    const response = {
+      currentOrPreviousProceedings: {
+        haveChildrenBeenInvolvedInCourtCase: 'No',
+        courtOrderMadeForProtection: 'Yes',
+        proceedingsList: [
+          {
+            id: 'string',
+            value: {
+              orderType: 'emergencyProtectionOrder',
+              proceedingDetails: [
+                {
+                  caseNo: 'test',
+                  orderDate: '2021-02-02',
+                  currentOrder: YesOrNo.YES,
+                  orderEndDate: '2021-02-02',
+                  orderCopy: YesOrNo.YES,
+                  orderDocument: 'test doc',
+                },
+              ],
+            },
+          },
+          {
+            id: 'string',
+            value: {
+              orderType: 'careOrder',
+              proceedingDetails: [
+                {
+                  caseNo: 'test',
+                  orderDate: '2021-02-02',
+                  currentOrder: YesOrNo.YES,
+                  orderEndDate: '2021-02-02',
+                  orderCopy: YesOrNo.NO,
+                },
+              ],
+            },
+          },
+        ],
+      },
+    };
+    respondents[0].value.response = response;
+    const expected = {
+      courtProceedingsOrders: ['emergencyProtectionOrder', 'careOrder'],
+      otherProceedings: {
+        order: {
+          careOrders: [
+            {
+              caseNo: undefined,
+              currentOrder: undefined,
+              id: '1',
+              orderCopy: undefined,
+              orderDate: { day: '', month: '', year: '' },
+              orderDetail: undefined,
+              orderEndDate: { day: '', month: '', year: '' },
+            },
+          ],
+          emergencyProtectionOrders: [
+            {
+              caseNo: undefined,
+              currentOrder: undefined,
+              id: '1',
+              orderCopy: undefined,
+              orderDate: { day: '', month: '', year: '' },
+              orderDetail: undefined,
+              orderEndDate: { day: '', month: '', year: '' },
+            },
+          ],
+        },
+      },
+      proceedingsStart: 'No',
+      proceedingsStartOrder: 'Yes',
+    };
+    expect(getProceedingDetails(respondents[0])).toEqual(expected);
+  });
 
-  // test('Should get proceeding data from response to session', async () => {
-  //   req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-  //   const response = {
-  //     currentOrPreviousProceedings: {
-  //       haveChildrenBeenInvolvedInCourtCase: 'No',
-  //       courtOrderMadeForProtection: 'Yes',
-  //       proceedingsList: [],
-  //     },
-  //   };
-  //   respondents[0].value.response = response;
-  //   await getProceedingDetails(respondents[0]);
+  test('Should get data from response data to session with ordercopy and current order not populated and along with doc value provided', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    const response = {
+      currentOrPreviousProceedings: {
+        haveChildrenBeenInvolvedInCourtCase: 'No',
+        courtOrderMadeForProtection: 'Yes',
+        proceedingsList: [
+          {
+            id: 'string',
+            value: {
+              orderType: 'emergencyProtectionOrder',
+              proceedingDetails: [
+                {
+                  id: 'string',
+                  value: {
+                    caseNo: 'test',
+                    orderDate: '2021-02-02',
+                    currentOrder: null,
+                    orderEndDate: '2021-02-02',
+                    orderCopy: null,
+                    orderDocument: {
+                      document_url: 'string',
+                      document_filename: 'string',
+                      document_binary_url: 'string',
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    };
+    respondents[0].value.response = response;
+    const expected = {
+      courtProceedingsOrders: ['emergencyProtectionOrder'],
+      otherProceedings: {
+        order: {
+          emergencyProtectionOrders: [
+            {
+              caseNo: 'test',
+              currentOrder: '',
+              id: '1',
+              orderCopy: '',
+              orderDate: {
+                day: '02',
+                month: '02',
+                year: '2021',
+              },
+              orderDetail: undefined,
+              orderDocument: {
+                binaryUrl: 'string',
+                filename: 'string',
+                id: ' ',
+                url: 'string',
+              },
+              orderEndDate: {
+                day: '02',
+                month: '02',
+                year: '2021',
+              },
+            },
+          ],
+        },
+      },
+      proceedingsStart: 'No',
+      proceedingsStartOrder: 'Yes',
+    };
+    expect(getProceedingDetails(respondents[0])).toEqual(expected);
+  });
 
-  //   expect(req.session.userCase.proceedingsStart).toEqual('No');
-  //   expect(req.session.userCase.proceedingsStartOrder).toEqual('Yes');
-  // });
+  test('Should get proceeding data from response to session', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    const response = {
+      currentOrPreviousProceedings: {
+        haveChildrenBeenInvolvedInCourtCase: 'No',
+        courtOrderMadeForProtection: 'Yes',
+        proceedingsList: [],
+      },
+    };
+    respondents[0].value.response = response;
+    await getProceedingDetails(respondents[0]);
+
+    expect(req.session.userCase.proceedingsStart).toEqual(undefined);
+    expect(req.session.userCase.proceedingsStartOrder).toEqual(undefined);
+  });
+
+  test('Should return value for providing a date for getDisplayDate', () => {
+    const retunrn_date = { day: undefined, month: undefined, year: 'April' };
+    expect(getDisplayDate(new Date())).toEqual(retunrn_date);
+  });
+
+  test('Should return undefined for providing a date for getDisplayDate', () => {
+    const retunrn_date = { day: '', month: '', year: '' };
+    expect(getDisplayDate(undefined)).toEqual(retunrn_date);
+  });
+
+  test('Should return string number for providing a value for getNextId', () => {
+    const num = 1;
+    expect(getNextId(num)).toEqual('2');
+  });
+
+  test('Should return order doc info for providing a docs related value for getDocumentInfo', () => {
+    const doc = {
+      document_url: 'string',
+      document_filename: 'string',
+      document_binary_url: 'string',
+    };
+    const expected = {
+      binaryUrl: 'string',
+      filename: 'string',
+      id: ' ',
+      url: 'string',
+    };
+    expect(getDocumentInfo(doc)).toEqual(expected);
+  });
 });

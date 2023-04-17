@@ -50,12 +50,12 @@ export const setProceedingDetails = (userCase: CaseWithId): CurrentOrPreviousPro
             };
           } else {
             let val, val2;
-            if (nestedOrder?.currentOrder.match('')) {
+            if (nestedOrder?.currentOrder === '') {
               val = null;
             } else {
               val = nestedOrder?.currentOrder;
             }
-            if (nestedOrder?.orderCopy.match('')) {
+            if (nestedOrder?.orderCopy === '') {
               val2 = null;
             } else {
               val2 = nestedOrder?.orderCopy;
@@ -139,7 +139,7 @@ export const getProceedingDetails = (respondent: Respondent): Partial<CaseWithId
 
       proceedingOrderTypeInterface[`${orderType}s`] = proceedingOrderInterfaceList;
       otherProceedings1 = {
-        ordered: proceedingOrderTypeInterface,
+        order: proceedingOrderTypeInterface,
       };
     });
   }
@@ -153,7 +153,7 @@ export const getProceedingDetails = (respondent: Respondent): Partial<CaseWithId
   return content;
 };
 
-function getLocalDate(orderDate: string): Date {
+export function getLocalDate(orderDate: string): Date {
   if (orderDate['year'] === '' && orderDate['month'] === '' && orderDate['day'] === '') {
     const formated_Date = new Date(orderDate[''], orderDate[''], orderDate['']);
     return formated_Date;
@@ -163,7 +163,7 @@ function getLocalDate(orderDate: string): Date {
   }
 }
 
-function getDisplayDate(orderDate: Date | undefined): CaseDate {
+export function getDisplayDate(orderDate: Date | undefined): CaseDate {
   let formated_Date = {
     year: '',
     month: '',
@@ -180,7 +180,7 @@ function getDisplayDate(orderDate: Date | undefined): CaseDate {
   return formated_Date;
 }
 
-function getDocumentInfo(
+export function getDocumentInfo(
   orderDocument: Document
 ): import('../../../app/case/definition').OrderDocumentInfo | undefined {
   const orderDocumentInfo: OrderDocumentInfo = {
@@ -191,7 +191,7 @@ function getDocumentInfo(
   };
   return orderDocumentInfo;
 }
-function getNextId(id: number): string {
+export function getNextId(id: number): string {
   id = id + 1;
   return id.toString();
 }
