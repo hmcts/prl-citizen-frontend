@@ -64,24 +64,7 @@ new LanguageToggle().enableFor(app);
 new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
 new FeatureToggleProvider().enable(app);
-logger.info('Creating LaunchDarkly Client');
-const launchDarklyClient = new LaunchDarklyClient();
-const featureToggles = new FeatureToggles(launchDarklyClient);
-logger.info('feature toggle is set');
-app.use(async (req, res, next) => {
-  if (app.locals.developmentMode) {
-    logger.info('we are in dev mode');
-    app.settings.nunjucksEnv.globals.c100Rebuild = await featureToggles.isC100reBuildEnabled();
-    logger.info('c100Rebuild ::' + app.settings.nunjucksEnv.globals.c100Rebuild);
-    app.settings.nunjucksEnv.globals.testingSupport = await featureToggles.isTestingSupportEnabled();
-    logger.info('testingSupport ::' + app.settings.nunjucksEnv.globals.testingSupport);
-  }
-  logger.info('we are not in dev mode');
-  res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
 
-  next();
-});
-logger.info('out of feature toggle is set');
 setupDev(app, developmentMode);
 
 const port: number = parseInt(process.env.PORT || '3001', 10);
@@ -99,3 +82,24 @@ if (app.locals.ENV === 'development') {
     logger.info(`Application started: http://localhost:${port}`);
   });
 }
+
+logger.info('Creating LaunchDarkly Client');
+const launchDarklyClient = new LaunchDarklyClient();
+const featureToggles = new FeatureToggles(launchDarklyClient);
+logger.info('feature toggle is set');
+logger.info('app.locals.developmentMode' + app.locals.developmentMode);
+logger.info('developmentMode' + developmentMode);
+app.use(async (req, res, next) => {
+  if (app.locals.developmentMode) {
+    logger.info('we are in dev mode');
+    app.settings.nunjucksEnv.globals.c100Rebuild = await featureToggles.isC100reBuildEnabled();
+    logger.info('c100Rebuild ::' + app.settings.nunjucksEnv.globals.c100Rebuild);
+    app.settings.nunjucksEnv.globals.testingSupport = await featureToggles.isTestingSupportEnabled();
+    logger.info('testingSupport ::' + app.settings.nunjucksEnv.globals.testingSupport);
+  }
+  logger.info('we are not in dev mode');
+  res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
+
+  next();
+});
+logger.info('out of feature toggle is set');
