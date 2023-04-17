@@ -108,7 +108,6 @@ describe('SafetyConcernsMapper', () => {
             behaviourStartDate: 'se',
             isOngoingBehaviour: 'No',
             seekHelpFromPersonOrAgency: 'No',
-            seekHelpDetails: '',
             childrenConcernedAbout: null,
           },
         },

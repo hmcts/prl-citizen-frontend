@@ -43,9 +43,12 @@ export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_tota
           ...request.child,
           [abuse]: {
             ...PRL_c1A_safteyConcerns?.child?.[abuse],
-            childrenConcernedAbout: PRL_c1A_safteyConcerns?.child?.[abuse].childrenConcernedAbout.join(','),
+            childrenConcernedAbout: PRL_c1A_safteyConcerns?.child?.[abuse].childrenConcernedAbout?.join(','),
           },
         };
+        if (PRL_c1A_safteyConcerns?.child?.[abuse].seekHelpFromPersonOrAgency === YesOrNo.NO) {
+          delete request.child?.[abuse].seekHelpDetails;
+        }
       }
     });
   }
@@ -58,6 +61,9 @@ export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_tota
           ...request.respondent,
           [abuse]: PRL_c1A_safteyConcerns?.respondent?.[abuse],
         };
+        if (PRL_c1A_safteyConcerns?.respondent?.[abuse].seekHelpFromPersonOrAgency === YesOrNo.NO) {
+          delete request.respondent?.[abuse].seekHelpDetails;
+        }
       }
     });
   }
@@ -97,7 +103,12 @@ export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_tota
       haveSafetyConcerns: PRL_c1A_haveSafetyConcerns,
     };
   }
-
+  if (PRL_c1A_otherConcernsDrugs === YesOrNo.NO) {
+    delete request.otherconcerns?.c1AotherConcernsDrugsDetails;
+  }
+  if (PRL_c1A_childSafetyConcerns === YesOrNo.NO) {
+    delete request.otherconcerns?.c1AchildSafetyConcernsDetails;
+  }
   if (
     !PRL_c1A_safetyConernAbout?.includes(PRL_C1ASafteyConcernsAbout.RESPONDENT) &&
     !PRL_c1A_concernAboutChild?.includes(PRL_C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE)
@@ -107,6 +118,9 @@ export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_tota
 
   if (!PRL_c1A_concernAboutChild?.includes(PRL_C1AAbuseTypes.ABDUCTION)) {
     delete request.abductions;
+  }
+  if (!PRL_c1A_possessionChildrenPassport?.includes('otherPerson')) {
+    delete request.abductions?.c1AprovideOtherDetails;
   }
 
   if (PRL_c1A_childAbductedBefore === YesOrNo.NO) {
