@@ -1,7 +1,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import { CitizenInternationalElements, Respondent, YesOrNo } from '../../../app/case/definition';
 
-export const prepareInternationalFactorsRequest = (req: CaseWithId): CitizenInternationalElements => {
+export const prepareInternationalFactorsRequest = (caseData: CaseWithId): CitizenInternationalElements => {
   const internationalElementsRequest: CitizenInternationalElements = {};
   const {
     start,
@@ -12,7 +12,7 @@ export const prepareInternationalFactorsRequest = (req: CaseWithId): CitizenInte
     iFactorsJurisdictionProvideDetails,
     request,
     iFactorsRequestProvideDetails,
-  } = req;
+  } = caseData;
 
   Object.assign(internationalElementsRequest, {
     childrenLiveOutsideOfEnWl: start,
