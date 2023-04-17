@@ -24,7 +24,7 @@ export class ProceedingGetController extends GetController {
           respondent?.value?.response &&
           respondent?.value?.response.currentOrPreviousProceedings
         ) {
-          Object.assign(req.session.userCase, getProceedingDetails(respondent, req));
+          Object.assign(req.session.userCase, getProceedingDetails(respondent));
         }
       });
       req.session.save(() => res.redirect(PROCEEDINGS_START));

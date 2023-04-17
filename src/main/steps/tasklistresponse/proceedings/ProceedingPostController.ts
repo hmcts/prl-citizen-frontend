@@ -28,7 +28,7 @@ export class ProceedingPostController extends PostController<AnyObject> {
 
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (respondent?.value?.user?.idamId === req.session?.user.id) {
-          setProceedingDetails(req.session.userCase, respondent, req);
+          respondent.value.response['currentOrPreviousProceedings'] = setProceedingDetails(req.session.userCase);
         }
       });
       const caseData = toApiFormat(req?.session?.userCase);
