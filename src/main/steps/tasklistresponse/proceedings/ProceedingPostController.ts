@@ -9,7 +9,7 @@ import { AnyObject, PostController } from '../../../app/controller/PostControlle
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { RESPOND_TO_APPLICATION } from '../../urls';
 
-import { setProceedingDetails } from './ProceedingDetailsMapper';
+import { prepareProceedingDetailsRequest } from './ProceedingDetailsMapper';
 
 @autobind
 export class ProceedingPostController extends PostController<AnyObject> {
@@ -28,7 +28,9 @@ export class ProceedingPostController extends PostController<AnyObject> {
 
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (respondent?.value?.user?.idamId === req.session?.user.id) {
-          respondent.value.response['currentOrPreviousProceedings'] = setProceedingDetails(req.session.userCase);
+          respondent.value.response['currentOrPreviousProceedings'] = prepareProceedingDetailsRequest(
+            req.session.userCase
+          );
         }
       });
       const caseData = toApiFormat(req?.session?.userCase);

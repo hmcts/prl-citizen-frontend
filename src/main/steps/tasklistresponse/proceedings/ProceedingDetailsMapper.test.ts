@@ -5,8 +5,8 @@ import {
   getDisplayDate,
   getDocumentInfo,
   getNextId,
-  getProceedingDetails,
-  setProceedingDetails,
+  mapProceedingDetails,
+  prepareProceedingDetailsRequest,
 } from './ProceedingDetailsMapper';
 //import { getProceedingDetails, setProceedingDetails } from './ProceedingDetailsMapper';
 let respondents;
@@ -84,7 +84,7 @@ describe('ProceedingDetailsMapper', () => {
         ],
       },
     };
-    expect(setProceedingDetails(req.session.userCase).courtOrderMadeForProtection).toEqual('Yes');
+    expect(prepareProceedingDetailsRequest(req.session.userCase).courtOrderMadeForProtection).toEqual('Yes');
   });
 
   test('Should set Proceeding details from session data for contactOrdersForDivorce', async () => {
@@ -140,7 +140,7 @@ describe('ProceedingDetailsMapper', () => {
         ],
       },
     };
-    expect(setProceedingDetails(req.session.userCase).courtOrderMadeForProtection).toEqual('Yes');
+    expect(prepareProceedingDetailsRequest(req.session.userCase).courtOrderMadeForProtection).toEqual('Yes');
   });
 
   test('Should set Proceeding details from session data for setProceedingDetails', async () => {
@@ -189,7 +189,7 @@ describe('ProceedingDetailsMapper', () => {
         ],
       },
     };
-    expect(setProceedingDetails(req.session.userCase).courtOrderMadeForProtection).toEqual('Yes');
+    expect(prepareProceedingDetailsRequest(req.session.userCase).courtOrderMadeForProtection).toEqual('Yes');
   });
 
   test('Should set response data wit session proceeding data', async () => {
@@ -234,7 +234,7 @@ describe('ProceedingDetailsMapper', () => {
     courtProceedingsOrders.push(orderType1);
     courtProceedingsOrders.push(orderType2);
     req.session.userCase.courtProceedingsOrders = courtProceedingsOrders;
-    await setProceedingDetails(req.session.userCase);
+    await prepareProceedingDetailsRequest(req.session.userCase);
     expect(respondents[0].value.response.currentOrPreviousProceedings.haveChildrenBeenInvolvedInCourtCase).toEqual(
       'No'
     );
@@ -283,7 +283,7 @@ describe('ProceedingDetailsMapper', () => {
     courtProceedingsOrders.push(orderType1);
     courtProceedingsOrders.push(orderType2);
     req.session.userCase.courtProceedingsOrders = courtProceedingsOrders;
-    await setProceedingDetails(req.session.userCase);
+    await prepareProceedingDetailsRequest(req.session.userCase);
     expect(respondents[0].value.response.currentOrPreviousProceedings.haveChildrenBeenInvolvedInCourtCase).toEqual(
       'No'
     );
@@ -363,7 +363,7 @@ describe('ProceedingDetailsMapper', () => {
       proceedingsStart: 'No',
       proceedingsStartOrder: 'Yes',
     };
-    expect(getProceedingDetails(respondents[0])).toEqual(expected);
+    expect(mapProceedingDetails(respondents[0])).toEqual(expected);
   });
 
   test('Should get data from response data to session with ordercopy and current order not populated and along with doc value provided', async () => {
@@ -400,7 +400,7 @@ describe('ProceedingDetailsMapper', () => {
       },
     };
     respondents[0].value.response = response;
-    expect(getProceedingDetails(respondents[0]).courtProceedingsOrders).toEqual(['contactOrderForAdoption']);
+    expect(mapProceedingDetails(respondents[0]).courtProceedingsOrders).toEqual(['contactOrderForAdoption']);
   });
 
   test('Should get data from response data to session with ordercopy and current order not populated and along with doc value provided1', async () => {
@@ -437,7 +437,7 @@ describe('ProceedingDetailsMapper', () => {
       },
     };
     respondents[0].value.response = response;
-    expect(getProceedingDetails(respondents[0]).courtProceedingsOrders).toEqual(['contactOrderForDivorce']);
+    expect(mapProceedingDetails(respondents[0]).courtProceedingsOrders).toEqual(['contactOrderForDivorce']);
   });
 
   test('Should get proceeding data from response to session', async () => {
@@ -450,7 +450,7 @@ describe('ProceedingDetailsMapper', () => {
       },
     };
     respondents[0].value.response = response;
-    await getProceedingDetails(respondents[0]);
+    await mapProceedingDetails(respondents[0]);
 
     expect(req.session.userCase.proceedingsStart).toEqual('No');
     expect(req.session.userCase.proceedingsStartOrder).toEqual('Yes');

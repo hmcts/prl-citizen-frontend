@@ -16,7 +16,7 @@ import {
 } from '../../../app/case/definition';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const setProceedingDetails = (userCase: CaseWithId): CurrentOrPreviousProceedings => {
+export const prepareProceedingDetailsRequest = (userCase: CaseWithId): CurrentOrPreviousProceedings => {
   const currentOrPreviousProceedings: CurrentOrPreviousProceedings = {};
   const proceedingDetails: ProceedingDetailsData[] = [];
   const { proceedingsStart, proceedingsStartOrder, courtProceedingsOrders, otherProceedings } = userCase;
@@ -107,7 +107,7 @@ export const setProceedingDetails = (userCase: CaseWithId): CurrentOrPreviousPro
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const getProceedingDetails = (respondent: Respondent): Partial<CaseWithId> => {
+export const mapProceedingDetails = (respondent: Respondent): Partial<CaseWithId> => {
   const { haveChildrenBeenInvolvedInCourtCase, courtOrderMadeForProtection, proceedingsList } =
     respondent.value.response.currentOrPreviousProceedings!;
   const courtProceedingsOrders: ProceedingsOrderTypes[] = [];
