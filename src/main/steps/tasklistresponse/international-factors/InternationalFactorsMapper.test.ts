@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 
-import { getInternationalFactorsDetails, setInternationalFactorsDetails } from './InternationalFactorsMapper';
+import { mapInternationalFactorsDetails, prepareInternationalFactorsRequest } from './InternationalFactorsMapper';
 
 let respondents;
 
@@ -18,7 +18,7 @@ describe('InternationalFactorsMapper', () => {
             idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
             email: 'test1234@example.net',
           },
-          response: '',
+          response: {},
         },
       },
     ];
@@ -35,7 +35,9 @@ describe('InternationalFactorsMapper', () => {
     req.session.userCase.request = 'Yes';
     req.session.userCase.iFactorsRequestProvideDetails = 'test_data3';
 
-    await setInternationalFactorsDetails(respondents[0], req);
+    respondents[0].value.response.citizenInternationalElements = await prepareInternationalFactorsRequest(
+      req.session.userCase
+    );
 
     expect(respondents[0].value.response.citizenInternationalElements.childrenLiveOutsideOfEnWl).toEqual('Yes');
     expect(respondents[0].value.response.citizenInternationalElements.childrenLiveOutsideOfEnWlDetails).toEqual(
@@ -80,7 +82,9 @@ describe('InternationalFactorsMapper', () => {
     respondents[0].value.response = response;
     req.session.userCase.respondents = respondents;
 
-    await setInternationalFactorsDetails(respondents[0], req);
+    respondents[0].value.response.citizenInternationalElements = await prepareInternationalFactorsRequest(
+      req.session.userCase
+    );
 
     expect(respondents[0].value.response.citizenInternationalElements.childrenLiveOutsideOfEnWl).toEqual('Yes');
     expect(respondents[0].value.response.citizenInternationalElements.childrenLiveOutsideOfEnWlDetails).toEqual(
@@ -107,7 +111,9 @@ describe('InternationalFactorsMapper', () => {
     req.session.userCase.jurisdiction = 'No';
     req.session.userCase.request = 'No';
 
-    await setInternationalFactorsDetails(respondents[0], req);
+    respondents[0].value.response.citizenInternationalElements = await prepareInternationalFactorsRequest(
+      req.session.userCase
+    );
 
     expect(respondents[0].value.response.citizenInternationalElements.childrenLiveOutsideOfEnWl).toEqual('No');
     expect(respondents[0].value.response.citizenInternationalElements.parentsAnyOneLiveOutsideEnWl).toEqual('No');
@@ -124,7 +130,9 @@ describe('InternationalFactorsMapper', () => {
     req.session.userCase.iFactorsJurisdictionProvideDetails = 'test_data2';
     req.session.userCase.request = 'No';
 
-    await setInternationalFactorsDetails(respondents[0], req);
+    respondents[0].value.response.citizenInternationalElements = await prepareInternationalFactorsRequest(
+      req.session.userCase
+    );
 
     expect(respondents[0].value.response.citizenInternationalElements.childrenLiveOutsideOfEnWl).toEqual('Yes');
     expect(respondents[0].value.response.citizenInternationalElements.childrenLiveOutsideOfEnWlDetails).toEqual(
@@ -136,6 +144,83 @@ describe('InternationalFactorsMapper', () => {
       'test_data2'
     );
     expect(respondents[0].value.response.citizenInternationalElements.anotherCountryAskedInformation).toEqual('No');
+  });
+
+  test('Should not add values in detail fields when No selected for international elements', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    req.session.userCase.start = 'No';
+    req.session.userCase.iFactorsStartProvideDetails = 'test_data';
+    req.session.userCase.parents = 'No';
+    req.session.userCase.iFactorsParentsProvideDetails = 'test_data1';
+    req.session.userCase.jurisdiction = 'No';
+    req.session.userCase.iFactorsJurisdictionProvideDetails = 'test_data2';
+    req.session.userCase.request = 'No';
+    req.session.userCase.iFactorsRequestProvideDetails = 'test_data3';
+
+    respondents[0].value.response.citizenInternationalElements = await prepareInternationalFactorsRequest(
+      req.session.userCase
+    );
+
+    expect(respondents[0].value.response.citizenInternationalElements.childrenLiveOutsideOfEnWl).toEqual('No');
+    expect(respondents[0].value.response.citizenInternationalElements.childrenLiveOutsideOfEnWlDetails).toEqual(
+      undefined
+    );
+    expect(respondents[0].value.response.citizenInternationalElements.parentsAnyOneLiveOutsideEnWl).toEqual('No');
+    expect(respondents[0].value.response.citizenInternationalElements.parentsAnyOneLiveOutsideEnWlDetails).toEqual(
+      undefined
+    );
+    expect(respondents[0].value.response.citizenInternationalElements.anotherPersonOrderOutsideEnWl).toEqual('No');
+    expect(respondents[0].value.response.citizenInternationalElements.anotherPersonOrderOutsideEnWlDetails).toEqual(
+      undefined
+    );
+    expect(respondents[0].value.response.citizenInternationalElements.anotherCountryAskedInformation).toEqual('No');
+    expect(respondents[0].value.response.citizenInternationalElements.anotherCountryAskedInformationDetaails).toEqual(
+      undefined
+    );
+  });
+
+  test('Should delete existing values in detail fields when No selected for international elements', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    req.session.userCase.start = 'No';
+    req.session.userCase.parents = 'No';
+    req.session.userCase.jurisdiction = 'No';
+    req.session.userCase.request = 'No';
+
+    const response = {
+      citizenInternationalElements: {
+        childrenLiveOutsideOfEnWl: 'Yes',
+        childrenLiveOutsideOfEnWlDetails: 'DUMMY_VALUE1',
+        parentsAnyOneLiveOutsideEnWl: 'Yes',
+        parentsAnyOneLiveOutsideEnWlDetails: 'DUMMY_VALUE2',
+        anotherPersonOrderOutsideEnWl: 'Yes',
+        anotherPersonOrderOutsideEnWlDetails: 'DUMMY_VALUE3',
+        anotherCountryAskedInformation: 'Yes',
+        anotherCountryAskedInformationDetaails: 'DUMMY_VALUE4',
+      },
+    };
+    respondents[0].value.response = response;
+    req.session.userCase.respondents = respondents;
+
+    respondents[0].value.response.citizenInternationalElements = await prepareInternationalFactorsRequest(
+      req.session.userCase
+    );
+
+    expect(respondents[0].value.response.citizenInternationalElements.childrenLiveOutsideOfEnWl).toEqual('No');
+    expect(respondents[0].value.response.citizenInternationalElements.childrenLiveOutsideOfEnWlDetails).toEqual(
+      undefined
+    );
+    expect(respondents[0].value.response.citizenInternationalElements.parentsAnyOneLiveOutsideEnWl).toEqual('No');
+    expect(respondents[0].value.response.citizenInternationalElements.parentsAnyOneLiveOutsideEnWlDetails).toEqual(
+      undefined
+    );
+    expect(respondents[0].value.response.citizenInternationalElements.anotherPersonOrderOutsideEnWl).toEqual('No');
+    expect(respondents[0].value.response.citizenInternationalElements.anotherPersonOrderOutsideEnWlDetails).toEqual(
+      undefined
+    );
+    expect(respondents[0].value.response.citizenInternationalElements.anotherCountryAskedInformation).toEqual('No');
+    expect(respondents[0].value.response.citizenInternationalElements.anotherCountryAskedInformationDetaails).toEqual(
+      undefined
+    );
   });
 
   test('Should getInternationalFactorsDetails all YES', async () => {
@@ -154,7 +239,7 @@ describe('InternationalFactorsMapper', () => {
     };
     respondents[0].value.response = response;
 
-    await getInternationalFactorsDetails(respondents[0], req);
+    req.session.userCase = await mapInternationalFactorsDetails(respondents[0]);
 
     expect(req.session.userCase.start).toEqual('Yes');
     expect(req.session.userCase.iFactorsStartProvideDetails).toEqual('test1');
@@ -181,7 +266,7 @@ describe('InternationalFactorsMapper', () => {
     };
     respondents[0].value.response = response;
 
-    await getInternationalFactorsDetails(respondents[0], req);
+    req.session.userCase = await mapInternationalFactorsDetails(respondents[0]);
 
     expect(req.session.userCase.start).toEqual('No');
     expect(req.session.userCase.parents).toEqual('No');
@@ -203,7 +288,7 @@ describe('InternationalFactorsMapper', () => {
     };
     respondents[0].value.response = response;
 
-    await getInternationalFactorsDetails(respondents[0], req);
+    req.session.userCase = await mapInternationalFactorsDetails(respondents[0]);
 
     expect(req.session.userCase.start).toEqual('Yes');
     expect(req.session.userCase.iFactorsStartProvideDetails).toEqual('test1');

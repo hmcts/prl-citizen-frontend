@@ -10,7 +10,7 @@ import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { EVENT_INTERNATIONAL_ELEMENT, URL_PATTERN_INTERNATIONAL_FACTORS } from '../../../steps/constants';
 import { RESPOND_TO_APPLICATION } from '../../../steps/urls';
 
-import { setInternationalFactorsDetails } from './InternationalFactorsMapper';
+import { prepareInternationalFactorsRequest } from './InternationalFactorsMapper';
 @autobind
 export class InternationalFactorsPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
@@ -29,7 +29,9 @@ export class InternationalFactorsPostController extends PostController<AnyObject
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (respondent?.value?.user?.idamId === req.session?.user.id) {
           if (req.url.includes(URL_PATTERN_INTERNATIONAL_FACTORS)) {
-            setInternationalFactorsDetails(respondent, req);
+            respondent.value.response.citizenInternationalElements = prepareInternationalFactorsRequest(
+              req.session.userCase
+            );
           }
         }
       });
