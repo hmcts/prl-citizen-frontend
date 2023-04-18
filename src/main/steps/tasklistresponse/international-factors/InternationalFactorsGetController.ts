@@ -6,7 +6,7 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
 import { INTERNATIONAL_FACTORS_START } from '../../urls';
 
-import { getInternationalFactorsDetails } from './InternationalFactorsMapper';
+import { mapInternationalFactorsDetails } from './InternationalFactorsMapper';
 export class InternationalFactorsGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     try {
@@ -24,7 +24,7 @@ export class InternationalFactorsGetController extends GetController {
           respondent?.value?.response &&
           respondent?.value?.response.citizenInternationalElements
         ) {
-          getInternationalFactorsDetails(respondent, req);
+          Object.assign(req.session.userCase, mapInternationalFactorsDetails(respondent));
         }
       });
       req.session.save(() => res.redirect(INTERNATIONAL_FACTORS_START));
