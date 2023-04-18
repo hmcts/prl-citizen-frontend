@@ -45,28 +45,32 @@ app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json() as RequestHandler);
 app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
 app.use(express.static(path.join(__dirname, 'public')));
-
+logger.info('I am here');
 new AxiosLogger().enableFor(app);
+logger.info('I am now here');
 new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new Helmet(config.get('security')).enableFor(app);
 new AppInsights().enable();
+logger.info('Oh, somewhere I am now here');
 new FileUpload().enableFor(app);
 new SessionStorage().enableFor(app);
 new Nunjucks().enableFor(app);
 new CSRFToken().enableFor(app);
 new AuthProvider().enable();
 new OidcMiddleware().enableFor(app);
+logger.info('Oh, think oidc');
 new Webpack().enableFor(app);
 new TooBusy().enableFor(app);
 new HealthCheck().enableFor(app);
 new LanguageToggle().enableFor(app);
 new Routes().enableFor(app);
+logger.info('Oh, almost there');
 new ErrorHandler().handleNextErrorsFor(app);
 new FeatureToggleProvider().enable(app);
 
 setupDev(app, developmentMode);
-
+logger.info('Oh, finally');
 const port: number = parseInt(process.env.PORT || '3001', 10);
 if (app.locals.ENV === 'development') {
   const server = app.listen(port, () => {
