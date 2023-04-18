@@ -29,7 +29,7 @@ export class SafetyConcernsPostController extends PostController<AnyObject> {
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (respondent?.value?.user?.idamId === req.session?.user.id) {
           if (req.url.includes('allegations-of-harm-and-violence')) {
-            respondent.value.response['safetyConcerns'] = prepareRequest(respondent, req);
+            respondent.value.response['safetyConcerns'] = prepareRequest(req.session.userCase);
           }
         }
       });

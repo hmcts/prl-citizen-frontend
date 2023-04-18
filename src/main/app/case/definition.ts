@@ -2728,6 +2728,7 @@ export interface C1ASafteyConcerns {
     emotionalAbuse?:C1ASafteyConcernsAbuse;
     sexualAbuse?:C1ASafteyConcernsAbuse;
     financialAbuse?: C1ASafteyConcernsAbuse;
+    somethingElse?: C1ASafteyConcernsAbuse;
   },
   applicant?:{
     physicalAbuse?:C1ASafteyConcernsAbuse;
@@ -2754,6 +2755,7 @@ export interface C1ASafteyConcerns {
       emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
       sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
       financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+      somethingElse?: PRL_C1ASafteyConcernsAbuse;
     },
     applicant?:{
       physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
@@ -2784,6 +2786,7 @@ export interface C1ASafteyConcerns {
       emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
       sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
       financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+      somethingElse?: PRL_C1ASafteyConcernsAbuse;
     },
     applicant?:{
       physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
