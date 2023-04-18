@@ -19,7 +19,7 @@ export const PastAndCurrentProceedings = (
       order => '<li class="govuk-!-padding-bottom-2">' + keys[`${order}Label`] + '</li>'
     ) +
     '</ul>';
-  const SummaryData = [
+  let SummaryData = [
     {
       key: keys['childrenInvolvedCourtCase'],
       value: userCase['proceedingsStart'],
@@ -37,6 +37,21 @@ export const PastAndCurrentProceedings = (
     },
     ...OPotherProceedingsSessionParserUtil(userCase, keys, Urls, 'courtProceedingsOrders'),
   ];
+
+  if(userCase.proceedingsStart === 'No' && userCase.proceedingsStartOrder === 'No'){
+    SummaryData = [
+      {
+        key: keys['childrenInvolvedCourtCase'],
+        value: userCase['proceedingsStart'],
+        changeUrl: Urls['PROCEEDINGS_START'],
+      },
+      {
+        key: keys['courtOrderProtection'],
+        value: userCase['proceedingsStartOrder'],
+        changeUrl: Urls['PROCEEDINGS_START'],
+      }
+    ];
+  }
   return {
     title: sectionTitles['otherProceedings'],
     rows: getSectionSummaryList(SummaryData, content),

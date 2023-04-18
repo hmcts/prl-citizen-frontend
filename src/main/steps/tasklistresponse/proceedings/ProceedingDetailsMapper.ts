@@ -23,9 +23,20 @@ export const setProceedingDetails = (userCase: CaseWithId): CurrentOrPreviousPro
 
   if (courtProceedingsOrders) {
     courtProceedingsOrders.forEach(order => {
-      if (otherProceedings?.['order']!.hasOwnProperty(`${order}s`)) {
+      if (
+        otherProceedings?.['order']!.hasOwnProperty(`${order}s`) ||
+        otherProceedings?.['order']!.hasOwnProperty('contactOrdersForDivorce') ||
+        otherProceedings?.['order']!.hasOwnProperty('contactOrdersForAdoption')
+      ) {
         const proceedingDetailsList: ProceedingsOrderDataInterface[] = [];
-        const orderDetails = otherProceedings?.['order']![`${order}s`];
+        let orderDetails;
+        if (order === 'contactOrderForDivorce') {
+          orderDetails = otherProceedings?.['order']!['contactOrdersForDivorce'];
+        } else if (order === 'contactOrderForAdoption') {
+          orderDetails = otherProceedings?.['order']!['contactOrdersForAdoption'];
+        } else {
+          orderDetails = otherProceedings?.['order']![`${order}s`];
+        }
         let otherDetailsInfo: OtherProceedingDetails;
         let proceedingDetailsInfo: ProceedingsOrderDataInterface;
         orderDetails.forEach(nestedOrder => {
@@ -138,6 +149,12 @@ export const getProceedingDetails = (respondent: Respondent): Partial<CaseWithId
       });
 
       proceedingOrderTypeInterface[`${orderType}s`] = proceedingOrderInterfaceList;
+      if (proceedings.value.orderType === 'contactOrderForDivorce') {
+        proceedingOrderTypeInterface['contactOrdersForDivorce'] = proceedingOrderInterfaceList;
+      }
+      if (proceedings.value.orderType === 'contactOrderForAdoption') {
+        proceedingOrderTypeInterface['contactOrdersForAdoption'] = proceedingOrderInterfaceList;
+      }
       otherProceedings1 = {
         order: proceedingOrderTypeInterface,
       };
