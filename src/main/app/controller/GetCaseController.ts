@@ -1,11 +1,11 @@
 import { Response } from 'express';
 
-import { getSupportDetails } from '../../../main/steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
+import { mapSupportYouNeedDetails } from '../../../main/steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
 import { CaseWithId } from '../../app/case/case';
 import { PartyType, Respondent } from '../../app/case/definition';
 import { applyParms } from '../../steps/common/url-parser';
 import { mapSafetyConcernsDetails } from '../../steps/tasklistresponse/allegations-of-harm-and-violence/SafetyConcernsMapper';
-import { getInternationalFactorsDetails } from '../../steps/tasklistresponse/international-factors/InternationalFactorsMapper';
+import { mapInternationalFactorsDetails } from '../../steps/tasklistresponse/international-factors/InternationalFactorsMapper';
 import {
   APPLICANT,
   APPLICANT_TASK_LIST_URL,
@@ -58,13 +58,13 @@ export class GetCaseController {
       req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
         if (respondent?.value?.user?.idamId === req.session?.user.id) {
           if (respondent?.value?.response?.citizenInternationalElements) {
-            getInternationalFactorsDetails(respondent, req);
+            Object.assign(req.session.userCase, mapInternationalFactorsDetails(respondent));
           }
           if (respondent?.value?.response?.safetyConcerns) {
             Object.assign(req.session.userCase, mapSafetyConcernsDetails(respondent));
           }
           if (respondent?.value?.response?.supportYouNeed) {
-            getSupportDetails(respondent, req);
+            Object.assign(req.session.userCase, mapSupportYouNeedDetails(respondent));
           }
         }
       });

@@ -9,7 +9,7 @@ import { AnyObject, PostController } from '../../../app/controller/PostControlle
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
 
-import { setSupportDetails } from './SupportYouNeedDuringYourCaseService';
+import { prepareRequest } from './SupportYouNeedDuringYourCaseService';
 @autobind
 export class SupportYouNeedDuringYourCaseController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
@@ -24,23 +24,18 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
 
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
       Object.assign(req.session.userCase, caseDataFromCos);
+
       if (req.url.includes('respondent') || req.url.includes('tasklistresponse')) {
         if ('C100' === req.session.userCase.caseTypeOfApplication) {
           req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
             if (req.url.includes('support-you-need-during-case')) {
-              respondent.value.response = {
-                ...respondent.value.response,
-                ...setSupportDetails(req),
-              };
+              respondent.value.response['supportYouNeed'] = prepareRequest(req.session.userCase);
             }
             //}
           });
         } else {
           if (req.url.includes('support-you-need-during-case')) {
-            req.session.userCase.respondentsFL401!.response = {
-              ...req.session.userCase.respondentsFL401!.response,
-              ...setSupportDetails(req),
-            };
+            req.session.userCase.respondentsFL401!.response['supportYouNeed'] = prepareRequest(req.session.userCase);
           }
         }
       } else if (req.url.includes('applicant')) {
@@ -48,19 +43,13 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
           req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
             if (applicant?.value?.user?.idamId === req.session?.user.id) {
               if (req.url.includes('support-you-need-during-case')) {
-                applicant.value.response = {
-                  ...applicant.value.response,
-                  ...setSupportDetails(req),
-                };
+                applicant.value.response['supportYouNeed'] = prepareRequest(req.session.userCase);
               }
             }
           });
         } else {
           if (req.url.includes('support-you-need-during-case')) {
-            req.session.userCase.applicantsFL401!.response = {
-              ...req.session.userCase.applicantsFL401!.response,
-              ...setSupportDetails(req),
-            };
+            req.session.userCase.applicantsFL401!.response['supportYouNeed'] = prepareRequest(req.session.userCase);
           }
         }
       }
