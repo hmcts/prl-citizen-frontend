@@ -68,6 +68,7 @@ describe('InternationalFactorsPostController', () => {
     req.session.userCase.iFactorsJurisdictionProvideDetails = 'test3';
     req.session.userCase.request = 'Yes';
     req.session.userCase.iFactorsRequestProvideDetails = 'test4';
+    req.url = 'international-factors';
 
     await internationalFactorsPostController.post(req, res);
 
@@ -125,6 +126,7 @@ describe('InternationalFactorsPostController', () => {
     req.session.userCase.jurisdiction = 'Yes';
     req.session.userCase.iFactorsJurisdictionProvideDetails = 'test3';
     req.session.userCase.request = 'No';
+    req.url = 'international-factors';
 
     await internationalFactorsPostController.post(req, res);
 
@@ -181,6 +183,7 @@ describe('InternationalFactorsPostController', () => {
     req.session.userCase.jurisdiction = 'No';
 
     req.session.userCase.request = 'No';
+    req.url = 'international-factors';
 
     await internationalFactorsPostController.post(req, res);
 

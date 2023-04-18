@@ -371,9 +371,12 @@ function filterSelectedUrls(userCase: Partial<CaseWithId>) {
     userCase.languageDetails = '';
   }
 
-  if (!userCase?.safetyArrangements?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
+  // I commented the below if statement, as it is messing up with the SupportYouNeedDuringYourCaseService.ts file
+  /* 
+  if(!userCase?.safetyArrangements?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
     userCase.safetyArrangementsDetails = '';
   }
+  */
 
   if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
     deleteDocumentSupportFields();
