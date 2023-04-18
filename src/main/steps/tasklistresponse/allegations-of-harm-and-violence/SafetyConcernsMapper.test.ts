@@ -174,7 +174,6 @@ describe('SafetyConcernsMapper', () => {
         haveSafetyConcerns: 'Yes',
         safetyConcernAbout: ['children'],
         concernAboutChild: ['physicalAbuse'],
-        concernAboutRespondent: ['financialAbuse', 'somethingElse'],
         otherconcerns: {
           c1AkeepingSafeStatement: 'safe statement',
           c1AsupervisionAgreementDetails: 'Yes, but I prefer that it is supervised',
@@ -212,7 +211,6 @@ describe('SafetyConcernsMapper', () => {
         haveSafetyConcerns: 'Yes',
         safetyConcernAbout: ['children'],
         concernAboutChild: ['physicalAbuse', 'abduction'],
-        concernAboutRespondent: ['financialAbuse', 'somethingElse'],
         otherconcerns: {
           c1AkeepingSafeStatement: 'safe statement',
           c1AsupervisionAgreementDetails: 'Yes, but I prefer that it is supervised',
@@ -260,7 +258,6 @@ describe('SafetyConcernsMapper', () => {
         haveSafetyConcerns: 'Yes',
         safetyConcernAbout: ['children'],
         concernAboutChild: ['physicalAbuse', 'abduction'],
-        concernAboutRespondent: ['financialAbuse', 'somethingElse'],
         otherconcerns: {
           c1AkeepingSafeStatement: 'safe statement',
           c1AsupervisionAgreementDetails: 'Yes, but I prefer that it is supervised',

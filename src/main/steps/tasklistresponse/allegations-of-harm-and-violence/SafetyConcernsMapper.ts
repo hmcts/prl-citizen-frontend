@@ -114,6 +114,7 @@ export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_tota
     !PRL_c1A_concernAboutChild?.includes(PRL_C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE)
   ) {
     delete request.respondent;
+    delete request.concernAboutRespondent;
   }
 
   if (!PRL_c1A_concernAboutChild?.includes(PRL_C1AAbuseTypes.ABDUCTION)) {
