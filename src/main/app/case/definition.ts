@@ -155,6 +155,8 @@ export interface ReasonableAdjustmentsSupport {
   largePrintDetails?: string,
   parkingDetails?: string,
   differentChairDetails?: string,
+  describeSignLanguageDetails?: string;
+  lightingProvideDetails?: string;
 }
 
 export interface CurrentOrPreviousProceedings {
