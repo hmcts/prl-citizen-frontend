@@ -14,7 +14,9 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
-    title: 'Medical reports',
+    title: 'Adroddiadau meddygol',
+    threeHint: 'This is a 8 character code',
+    summaryText: 'Cysylltiadau am gymorth',
     caseNumber: 'Rhif yr achos',
     continue: 'Go back',
   };

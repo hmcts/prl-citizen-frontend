@@ -7,7 +7,7 @@ export const respondent_all_docs_en = {
   attendingTheHearing: 'Attending the hearing',
 };
 
-export const applicant_all_docs_cy = {
+export const respondent_all_docs_cy = {
   ordersFromTheCourt: 'Gorchmynion gan y llys',
   applicantsDocuments: 'Dogfennau’r Ceisydd',
   respondentsDocuments: "Dogfennau'r Atebydd",

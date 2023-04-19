@@ -23,7 +23,7 @@ export const documents_list_items_cy = {
   letters_from_school: 'Llythyrau gan yr ysgol',
   tenancy_mortgage_agreements: 'Cytundebau tenantiaeth a morgais',
   previous_orders_submitted: "Gorchmynion blaenorol wedi'u cyflwyno gyda'r cais",
-  medical_reports: 'Medical reports',
+  medical_reports: 'Adroddiadau meddygol',
   paternity_test_reports: 'Adroddiadau profion tadolaeth',
   drug_and_alcohol_tests: 'Profion cyffuriau ac alcohol (tocsicoleg)',
   police_reports: "Adroddiadau'r heddlu",
