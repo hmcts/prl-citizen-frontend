@@ -6,7 +6,7 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
 import { PROCEEDINGS_START } from '../../urls';
 
-import { getProceedingDetails } from './ProceedingDetailsMapper';
+import { mapProceedingDetails } from './ProceedingDetailsMapper';
 export class ProceedingGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     try {
@@ -24,7 +24,7 @@ export class ProceedingGetController extends GetController {
           respondent?.value?.response &&
           respondent?.value?.response.currentOrPreviousProceedings
         ) {
-          Object.assign(req.session.userCase, getProceedingDetails(respondent, req));
+          Object.assign(req.session.userCase, mapProceedingDetails(respondent));
         }
       });
       req.session.save(() => res.redirect(PROCEEDINGS_START));
