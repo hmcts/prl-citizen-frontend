@@ -20,7 +20,6 @@ const en = () => {
 
 const cy: typeof en = () => {
   return {
-
     title: 'Pob dogfen',
     threeHint: 'This is a 8 character code',
     summaryText: 'Cysylltiadau am gymorth',
