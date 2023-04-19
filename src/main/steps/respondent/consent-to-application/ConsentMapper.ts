@@ -1,8 +1,9 @@
-import { CaseWithId } from '../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { Consent, Respondent, YesOrNo } from '../../../app/case/definition';
+import { toApiDate } from '../../../app/case/to-api-format';
 
 export const prepareRequest = (req: CaseWithId): Consent => {
-  const { doYouConsent, courtPermission, reasonForNotConsenting, courtOrderDetails } = req;
+  const { doYouConsent, courtPermission, reasonForNotConsenting, courtOrderDetails, applicationReceivedDate } = req;
 
   const request: Consent = {};
 
@@ -11,6 +12,7 @@ export const prepareRequest = (req: CaseWithId): Consent => {
     permissionFromCourt: courtPermission,
     noConsentReason: reasonForNotConsenting,
     courtOrderDetails,
+    applicationReceivedDate: toApiDate(applicationReceivedDate),
   });
 
   // data cleanup
@@ -28,7 +30,7 @@ export const prepareRequest = (req: CaseWithId): Consent => {
 export const mapConsentToApplicationDetails = (respondent: Respondent): Partial<CaseWithId> => {
   const consentToApplicationDetails = {};
 
-  const { consentToTheApplication, permissionFromCourt, noConsentReason, courtOrderDetails } =
+  const { consentToTheApplication, permissionFromCourt, noConsentReason, courtOrderDetails, applicationReceivedDate } =
     respondent?.value?.response?.consent ?? {};
 
   Object.assign(consentToApplicationDetails, {
@@ -36,6 +38,7 @@ export const mapConsentToApplicationDetails = (respondent: Respondent): Partial<
     courtPermission: permissionFromCourt,
     reasonForNotConsenting: noConsentReason,
     courtOrderDetails,
+    applicationReceivedDate: toApiDate(applicationReceivedDate as unknown as CaseDate),
   });
 
   return consentToApplicationDetails;
