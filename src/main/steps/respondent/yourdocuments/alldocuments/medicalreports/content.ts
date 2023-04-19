@@ -6,8 +6,6 @@ const en = () => {
   return {
     section: 'All documents',
     title: 'Medical reports',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
     caseNumber: 'Case number',
     continue: 'Go back',
   };

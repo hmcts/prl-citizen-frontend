@@ -9,7 +9,7 @@ const en = () => ({
   pageTitle: 'Enter your name  ',
   subTitle:
     'You and anyone else making this application are known as the applicants. <br> <br> The other people who will receive this application are known as the respondents. We will ask for their details later.',
-  applicant: 'Applicant ',
+  applicant: 'Applicant',
   firstName: 'First name(s)',
   firstNameHint: 'Include all middle names here',
   lastName: 'Last name(s)',
@@ -32,7 +32,7 @@ const cy = () => ({
   pageTitle: 'Nodwch eich enw',
   subTitle:
     'Gelwir chi ac unrhyw un arall sy’n gwneud y cais hwn yn ‘y ceiswyr’.<br> <br> Gelwir y bobl eraill sy’n derbyn y cais hwn yn ‘yr atebwyr.’ Byddwn yn gofyn am eu manylion yn nes ymlaen.',
-  applicant: 'Ceisydd ',
+  applicant: 'Ceisydd',
   firstName: 'Enw(au) cyntaf',
   firstNameHint: 'Nodwch bob enw canol yma',
   lastName: 'Cyfenw(au)',
@@ -71,7 +71,7 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
     fields[key] = {
       type: 'fieldset',
       label: l => {
-        return l.applicant + count;
+        return `${l.applicant} ${count}`;
       },
       classes: 'govuk-fieldset__legend--m',
       subFields: {

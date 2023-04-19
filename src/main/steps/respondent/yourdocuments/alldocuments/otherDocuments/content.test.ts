@@ -7,8 +7,6 @@ import { generateContent } from './content';
 const enContent = {
   section: 'All documents',
   title: 'Other documents',
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   caseNumber: 'Case number',
   continue: 'Go back',
 };
@@ -16,8 +14,6 @@ const enContent = {
 const cyContent = {
   section: 'Pob dogfen',
   title: 'Other documents',
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Cysylltiadau am gymorth',
   caseNumber: 'Rhif yr achos',
   continue: 'Go back',
 };
@@ -34,7 +30,6 @@ describe('citizen-home content', () => {
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('Other documents');
     expect(generatedContent.section).toEqual('All documents');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
   });
 
   // eslint-disable-next-line jest/expect-expect

@@ -9,7 +9,6 @@ const en = {
   title: 'I need to bring support with me to a court hearing',
   courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
   supportworker: 'A support worker or carer',
   supportWorkerDetails: 'Tell us who you will bring',
   familymember: 'A friend or family member',
@@ -46,7 +45,6 @@ const cy: typeof en = {
   courtcommunication:
     'Meddyliwch am yr hyn y byddwch ei angen os bydd eich gwrandawiad yn un wyneb yn wyneb, trwy fideo neu dros y ffôn.',
   optionHint: 'Dogfennau mewn lliw penodol',
-  summaryText: 'Cysylltiadau am gymorth',
   supportworker: 'Gweithiwr cymorth neu ofalwr',
   supportWorkerDetails: 'Tell us who you will bring',
   familymember: "ffrind neu aelod o'r teulu",
@@ -97,7 +95,6 @@ describe('citizen-home content', () => {
       'Consider in-person, phone or video, in case your preferred hearing type is not possible'
     );
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.supportworker).toEqual('A support worker or carer');
     expect(generatedContent.supportWorkerDetails).toEqual('Tell us who you will bring');
     expect(generatedContent.familymember).toEqual('A friend or family member');

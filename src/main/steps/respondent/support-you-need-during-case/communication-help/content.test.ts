@@ -10,7 +10,6 @@ const en = {
   courtCommunication:
     'Think about all communications with the court, as well as what you might need at a hearing. Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
   hearingLoop: 'Hearing loop (hearing enhancement system)',
   infraredReceiver: 'Infrared receiver (hearing enhancement system)',
   needSpeakingHelp: 'Need to be close to who is speaking',
@@ -48,7 +47,6 @@ const cy: typeof en = {
   courtCommunication:
     'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
   optionHint: 'Dogfennau mewn lliw penodol',
-  summaryText: 'Cysylltiadau am gymorth',
   hearingLoop: 'Dolen sain (system gwella clyw)',
   infraredReceiver: 'Derbynnydd isgoch (system gwella clyw)',
   needSpeakingHelp: "Angen bod yn agos at bwy bynnag sy'n siarad",
@@ -100,7 +98,6 @@ describe('citizen-home content', () => {
       'Think about all communications with the court, as well as what you might need at a hearing. Consider in-person, phone or video, in case your preferred hearing type is not possible'
     );
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.hearingLoop).toEqual('Hearing loop (hearing enhancement system)');
     expect(generatedContent.infraredReceiver).toEqual('Infrared receiver (hearing enhancement system)');
     expect(generatedContent.needSpeakingHelp).toEqual('Need to be close to who is speaking');

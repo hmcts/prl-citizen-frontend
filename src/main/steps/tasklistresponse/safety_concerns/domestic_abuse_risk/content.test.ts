@@ -26,7 +26,6 @@ const enContent = {
     'It also includes culturally specific forms of abuse, including forced marriage, honour-based violence and dowry-related abuse.',
   one: 'Yes',
   two: 'No',
-  summaryText: 'Contacts for help',
   saveAndContinue: 'Save and Continue',
 };
 
@@ -52,7 +51,6 @@ const cyContent = {
     'It also includes culturally specific forms of abuse, including forced marriage, honour-based violence and dowry-related abuse.',
   one: 'Yes',
   two: 'No',
-  summaryText: 'Cysylltiadau am gymorth',
   saveAndContinue: 'Save and Continue',
 };
 
