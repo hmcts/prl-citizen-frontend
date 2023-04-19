@@ -21,7 +21,6 @@ const en = {
   line14: 'If you are a man and have concerns for your safety',
   line15: 'National Domestic Violence Helpline',
   line16: 'If you want to change your answer, go back to the previous screen.',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   goBack: 'Go back',
 };
@@ -46,7 +45,6 @@ const cy: typeof en = {
   line14: 'If you are a man and have concerns for your safety',
   line15: 'National Domestic Violence Helpline',
   line16: 'If you want to change your answer, go back to the previous screen.',
-  summaryText: 'Cysylltiadau am gymorth',
   continue: 'Continue',
   goBack: 'Go back',
 };

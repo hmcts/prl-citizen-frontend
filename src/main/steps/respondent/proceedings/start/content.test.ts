@@ -14,7 +14,6 @@ const enContent = {
   courtOrder: 'Have you had a court order made for your protection?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
-  summaryText: 'Contacts for help',
   saveAndContinue: 'Save and continue',
   errors: {
     proceedingsStart: {
@@ -36,7 +35,6 @@ const cyContent = {
   courtOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
-  summaryText: 'Cysylltiadau am gymorth',
   saveAndContinue: 'Save and continue',
   errors: {
     proceedingsStart: {

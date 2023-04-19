@@ -8,7 +8,6 @@ const en = {
   courtCommunication:
     'Think about all communications with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
   optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
   docsColour: 'Documents in a specified colour',
   docsColourDetails: 'Describe what you need',
   docsReadFormat: 'Documents in an easy read format',
@@ -45,7 +44,6 @@ const cy: typeof en = {
   courtCommunication:
     'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
   optionHint: 'Dogfennau mewn lliw penodol',
-  summaryText: 'Cysylltiadau am gymorth',
   docsColour: 'Dogfennau mewn lliw penodol',
   docsColourDetails: 'Describe what you need',
   docsReadFormat: 'Dogfennau mewn fformat hawdd i’w darllen',

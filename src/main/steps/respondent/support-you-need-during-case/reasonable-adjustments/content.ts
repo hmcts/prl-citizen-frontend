@@ -9,7 +9,6 @@ const en = {
   courtcommunication:
     'We know some people need support to access information and use our services. We often call this a reasonable adjustment. Some reasonable adjustments need to be agreed by the judge or HMCTS. You can discuss with the court if your needs change.',
   optionHint: 'Select all that apply to you - specific requirements can be given next',
-  summaryText: 'Contacts for help',
   docsFormat: 'I need documents in an alternative format',
   docsFormatHint: 'for example, braille or different colours and text sizes',
   commHelp: 'I need help communicating and understanding',
@@ -36,7 +35,6 @@ const cy: typeof en = {
   courtcommunication:
     'Gwyddom fod rhai pobl angen cymorth i gael mynediad at wybodaeth ac i ddefnyddio ein gwasanaethau. Gelwir hyn yn aml yn addasiad rhesymol. Rhaid i rai addasiadau rhesymol gael eu cytuno gan farnwr neu GLlTEM. Gallwch drafod gyda’r llys os bydd eich anghenion yn newid.',
   optionHint: 'Dewiswch bob un sy’n berthnasol - gellir nodi gofynion penodol nesaf',
-  summaryText: 'Cysylltiadau am gymorth',
   docsFormat: 'Rwyf angen dogfennau mewn fformat amgen',
   docsFormatHint: 'er enghraifft, print bras neu wahanol liwiau a meintiau testun',
   commHelp: 'Rwyf angen cymorth gyda chyfathrebu a deall pethau',

@@ -8,8 +8,6 @@ import { generateRespondentTaskListAllDocuments } from './tasklistalldocuments';
 const en = () => {
   return {
     title: 'All documents',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
     caseNumber: 'Case number',
     continue: 'Go back',
     sectionTitles: respondent_all_docs_en,
@@ -20,8 +18,6 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     title: 'All documents',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Cysylltiadau am gymorth',
     caseNumber: 'Rhif yr achos',
     continue: 'Go back',
     sectionTitles: respondent_all_docs_en,

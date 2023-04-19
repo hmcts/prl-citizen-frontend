@@ -10,7 +10,6 @@ const en = {
   two: 'No',
   twoHint:
     'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     jurisdiction: {
@@ -31,7 +30,6 @@ const cy: typeof en = {
   two: 'Na allai',
   twoHint:
     'Er enghraifft, am fod gan lys mewn gwlad arall y pŵer (awdurdodaeth) i wneud penderfyniadau neu ddyfarniadau.',
-  summaryText: 'Cysylltiadau am gymorth',
   continue: 'Continue',
   errors: {
     jurisdiction: {

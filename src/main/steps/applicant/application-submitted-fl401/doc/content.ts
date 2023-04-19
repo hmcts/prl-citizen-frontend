@@ -8,8 +8,6 @@ const en = {
   one: 'Yes',
   two: 'No',
   three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     detailsKnown: {
@@ -24,8 +22,6 @@ const cy: typeof en = {
   one: 'Ydy',
   two: 'Nac ydy',
   three: 'Nid wyf yn gwybod',
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Cysylltiadau am gymorth',
   continue: 'Continue',
   errors: {
     detailsKnown: {

@@ -8,7 +8,6 @@ const en = {
   section: 'Reasonable adjustments',
   title: 'I need help travelling to, or moving around court buildings',
   optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
   parkingspace: 'Parking space close to the venue',
   parkingSpaceDetails: 'Describe why you need this',
   stepfree: 'Step free / wheelchair access',
@@ -43,7 +42,6 @@ const cy: typeof en = {
   section: 'Addasiadau rhesymol',
   title: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
   optionHint: 'Dogfennau mewn lliw penodol',
-  summaryText: 'Cysylltiadau am gymorth',
   parkingspace: "Lle parcio yn agos i'r lleoliad",
   parkingSpaceDetails: 'Describe why you need this',
   stepfree: 'Dim grisiau / mynediad ar gyfer cadair olwyn',
@@ -91,7 +89,6 @@ describe('citizen-home content', () => {
     expect(generatedContent.title).toEqual('I need help travelling to, or moving around court buildings');
     expect(generatedContent.section).toEqual('Reasonable adjustments');
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.parkingspace).toEqual('Parking space close to the venue');
     expect(generatedContent.stepfree).toEqual('Step free / wheelchair access');
     expect(generatedContent.wheelchair).toEqual('Use of venue wheelchair');

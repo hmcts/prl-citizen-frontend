@@ -9,7 +9,6 @@ const en = {
   one: 'Yes',
   two: 'No',
   hint: 'For example, is their family life mainly based outside of England and Wales?',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     start: {
@@ -29,7 +28,6 @@ const cy: typeof en = {
   one: 'Ydy',
   two: 'Nac ydy',
   hint: 'Er enghraifft, a yw eu bywyd teuluol yn bennaf y tu allan i Gymru a Lloegr?',
-  summaryText: 'Cysylltiadau am gymorth',
   continue: 'Continue',
   errors: {
     start: {

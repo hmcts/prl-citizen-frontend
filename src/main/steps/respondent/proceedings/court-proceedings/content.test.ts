@@ -32,7 +32,6 @@ const enContent = {
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
   courtOrderDontKnow: "I don't know",
-  summaryText: 'Contacts for help',
   saveAndContinue: 'Save and continue',
   errors: {
     emergencyOrderOptions: {
@@ -121,7 +120,6 @@ const cyContent = {
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
   courtOrderDontKnow: "I don't know",
-  summaryText: 'Cysylltiadau am gymorth',
   saveAndContinue: 'Save and continue',
   errors: {
     emergencyOrderOptions: {
