@@ -174,10 +174,6 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
-  createDraft?: {
-    text: Label;
-    classes?: string;
-  };
 
   fields: FormFields | FormFieldsFn;
 }

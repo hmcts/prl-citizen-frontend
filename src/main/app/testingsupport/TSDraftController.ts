@@ -1,8 +1,8 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
+
 import {
-  //C100_CASE_NAME,
   C100_CHECK_YOUR_ANSWER,
   HOME_URL,
 } from '../../steps/urls';
@@ -10,7 +10,7 @@ import { CaseWithId } from '../case/case';
 import { C100_CASE_EVENT } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
-import { FormFields, FormFieldsFn } from '../form/Form';
+ import { FormFields, FormFieldsFn } from '../form/Form';
 
 @autobind
 export class TSDraftController extends PostController<AnyObject> {
@@ -22,7 +22,7 @@ export class TSDraftController extends PostController<AnyObject> {
     this.redirect(req, res, HOME_URL);
   }
 
-  public async createC100Draft(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+  public async createTSC100Draft(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     try {
       const newCaseId = (await req.locals.C100Api.createCaseTestingSupport()) as unknown as string;
       req.session.userCase = (await req.locals.C100Api.retrieveCaseById(newCaseId)) as CaseWithId;
@@ -34,12 +34,12 @@ export class TSDraftController extends PostController<AnyObject> {
     }
   }
 
-  public async deleteC100Draft(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+  public async deleteTSC100Draft(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const data = req.body['ids'] as string;
     const value = data.split(',');
     value.forEach(async element => {
       try {
-        const caseData = await req.locals.C100Api.retrieveCaseById(element);
+       const caseData={};
         await req.locals.C100Api.updateCase(element, caseData, HOME_URL, C100_CASE_EVENT.DELETE_CASE);
         req.session.save(() => {
           res.redirect(HOME_URL);

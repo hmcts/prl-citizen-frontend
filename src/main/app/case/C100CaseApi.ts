@@ -45,8 +45,6 @@ export class CaseApi {
   public async createCaseTestingSupport(): Promise<UpdateCaseResponse> {
     try {
       const response = await this.axios.post<UpdateCaseResponse>('/testing-support/create-dummy-citizen-case');
-      //const { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase } = response?.data;
-      //console.log(response)
       return response.data.id;
     } catch (err) {
       this.logError(err);
@@ -57,8 +55,6 @@ export class CaseApi {
     console.log('id is' + id);
     try {
       const response = await this.axios.post<UpdateCaseResponse>('/testing-support/delete-citizen-case', id);
-      //const { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase } = response?.data;
-      //console.log(response)
       return response.data;
     } catch (err) {
       this.logError(err);

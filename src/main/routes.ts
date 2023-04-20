@@ -232,8 +232,8 @@ export class Routes {
 
         const tsDraftController = new TSDraftController(step.form.fields);
         app.post(CREATE_DRAFT, errorHandler(tsDraftController.post));
-        app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(tsDraftController.createC100Draft));
-        app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(tsDraftController.deleteC100Draft));
+        app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(tsDraftController.createTSC100Draft));
+        app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(tsDraftController.deleteTSC100Draft));
 
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
