@@ -10,7 +10,6 @@ const en = {
   courtcommunication:
     'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
   optionHint: 'Select all that apply',
-  summaryText: 'Contacts for help',
   videoHearings: 'Yes, I can take part in video hearings',
   phoneHearings: 'Yes, I can take part in phone hearings',
   noHearings: 'No, I cannot take part in either video or phone hearings',
@@ -33,7 +32,6 @@ const cy: typeof en = {
   courtcommunication:
     'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
   optionHint: "Dewiswch bob un sy'n berthnasol",
-  summaryText: 'Cysylltiadau am gymorth',
   videoHearings: 'Gallaf, rwyf yn gallu cymryd rhan mewn gwrandawiad fideos',
   phoneHearings: 'Gallaf, rwyf yn gallu cymryd rhan mewn gwrandawiad fideos',
   noHearings: 'Na allaf, ni allaf gymryd rhan mewn gwrandawiad fideo na gwrandawiad dros y ffôn',
@@ -67,7 +65,6 @@ describe('citizen-home content', () => {
     expect(generatedContent.title).toEqual('Would you be able to take part in hearings by video and phone?');
     expect(generatedContent.section).toEqual('Attending the court');
     expect(generatedContent.optionHint).toEqual('Select all that apply');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.videoHearings).toEqual('Yes, I can take part in video hearings');
     expect(generatedContent.phoneHearings).toEqual('Yes, I can take part in phone hearings');
     expect(generatedContent.noHearings).toEqual('No, I cannot take part in either video or phone hearings');

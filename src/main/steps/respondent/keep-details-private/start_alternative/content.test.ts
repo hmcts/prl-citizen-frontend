@@ -15,8 +15,6 @@ const enContent = {
   one: 'Yes',
   two: 'No',
   three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   address: 'Address',
   Phone_number: 'Phone number',
   contact_details_private_hint:
@@ -46,8 +44,6 @@ const cyContent = {
   one: 'Ydw',
   two: 'Nac ydw',
   three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Cysylltiadau am gymorth',
   address: 'Cyfeiriad',
   Phone_number: 'Rhif ffôn',
   contact_details_private_hint:

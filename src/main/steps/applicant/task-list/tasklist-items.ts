@@ -6,7 +6,7 @@ export const applicant_tasklist_items_en = {
   your_allegations_of_harm: 'View allegations of harm and violence (PDF)',
   respond_to_other_side_aoh_violence: "Respond to the other side's allegations of harm and violence",
   your_application_witness_statement: 'Witness statement (PDF)',
-  response_to_your_application: 'Gweld yr ymateb i’ch cais (PDF)',
+  response_to_your_application: 'The response to your application (PDF)',
   check_other_side_aoh_and_violence: "Check the other side's allegations of harm and violence",
   view_all_documents: 'View all documents',
   view_all_orders_from_the_court: 'View all orders from the court',

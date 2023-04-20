@@ -7,7 +7,6 @@ const en = {
   title: 'I need something to feel comfortable during a court hearing',
   courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
   appropriatelighting: 'Appropriate lighting',
   lightingDetails: 'Describe what you need',
   break: 'Regular breaks',
@@ -35,7 +34,6 @@ const cy: typeof en = {
   courtcommunication:
     'Meddyliwch am yr hyn y byddwch ei angen os bydd eich gwrandawiad yn un wyneb yn wyneb, trwy fideo neu dros y ffôn.',
   optionHint: 'Dogfennau mewn lliw penodol',
-  summaryText: 'Cysylltiadau am gymorth',
   appropriatelighting: 'Goleuadau priodol',
   lightingDetails: 'Describe what you need',
   break: 'Seibiannau rheolaidd',
@@ -113,7 +111,7 @@ export const form: FormContent = {
           },
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'courtComfort',

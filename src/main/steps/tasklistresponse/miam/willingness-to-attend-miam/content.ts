@@ -19,8 +19,6 @@ const en = {
   miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
   miamCostExemptionsInfo: miam_cost_exemption_content_en,
   miamLabel: miam_how_to_arrange_mediation_label_en,
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   onlyContinue: 'Continue',
   errors: {
     miamWillingness: {
@@ -40,8 +38,6 @@ const cy: typeof en = {
   miamCostExemptionsLabel: 'Help gyda chostau ac esemptiadau MIAM',
   miamCostExemptionsInfo: miam_cost_exemption_content_cy,
   miamLabel: miam_how_to_arrange_mediation_label_cy,
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Cysylltiadau am gymorth',
   onlyContinue: 'Continue',
   errors: {
     miamWillingness: {

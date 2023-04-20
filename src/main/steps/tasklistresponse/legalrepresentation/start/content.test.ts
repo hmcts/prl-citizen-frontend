@@ -21,7 +21,6 @@ const enContent = {
     "You can respond to the applicant's request yourself and then redirect your case to your legal representative for the remainder of the proceedings.",
   one: 'Yes',
   two: 'No',
-  summaryText: 'Contacts for help',
   continue: 'Save and continue',
   errors: {
     legalRepresentation: {
@@ -36,7 +35,6 @@ const cyContent = {
     "Gallwch ymateb i gais y ceisydd eich hun ac yna ailgyfeirio eich achos i'ch cynrychiolydd cyfreithiol am weddill yr achos.",
   one: 'Byddaf',
   two: 'Na fyddaf',
-  summaryText: 'Cysylltiadau am gymorth',
   continue: 'Save and continue',
   errors: {
     legalRepresentation: {

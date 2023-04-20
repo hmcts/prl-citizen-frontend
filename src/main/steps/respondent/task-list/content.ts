@@ -22,7 +22,13 @@ import { getRespondentPartyDetailsCa } from './utils';
 
 const en = () => ({
   title: 'Respondent tasklist',
+  caseNumber: 'Case number #',
   respondentName: '',
+  want: 'I want to...',
+  findMyLocalCourt: 'Find my local court',
+  findLegalAdvice: 'Find legal advice',
+  knowMoreAboutChildArrangements: 'Know more about child arrangements',
+  knowMoreAboutAttendingCourt: 'Know more about attending court',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -140,7 +146,13 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Respondent tasklist - welsh',
+  caseNumber: 'Rhif yr achos #',
   respondentName: '',
+  want: 'Rwyf eisiau ...',
+  findMyLocalCourt: 'Find my local court',
+  findLegalAdvice: 'Dod o hyd i gyngor cyfreithiol',
+  knowMoreAboutChildArrangements: 'Know more about child arrangements',
+  knowMoreAboutAttendingCourt: 'Gwybod mwy am fynychu’r llys',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',

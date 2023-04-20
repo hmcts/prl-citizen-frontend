@@ -11,8 +11,6 @@ const enContent = {
   two: 'No',
   explainWhyLabel: 'Explain why',
   miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   onlyContinue: 'Continue',
   errors: {
     miamWillingness: {
@@ -30,8 +28,6 @@ const cyContent = {
   two: 'No',
   explainWhyLabel: 'Explain why',
   miamCostExemptionsLabel: 'Help gyda chostau ac esemptiadau MIAM',
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Cysylltiadau am gymorth',
   onlyContinue: 'Continue',
   errors: {
     miamWillingness: {

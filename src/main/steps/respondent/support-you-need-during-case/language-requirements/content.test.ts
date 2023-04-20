@@ -10,7 +10,6 @@ const en = {
   courtcommunication:
     'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
   optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
   speakwelsh: 'I need to speak in Welsh',
   readandwritewelsh: 'I need to read and write in Welsh',
   languageinterpreter: 'I need an interpreter in a certain language',
@@ -32,7 +31,6 @@ const cy: typeof en = {
   courtcommunication:
     'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
   optionHint: 'Dogfennau mewn lliw penodol',
-  summaryText: 'Cysylltiadau am gymorth',
   speakwelsh: 'Rwyf eisiau siarad Cymraeg',
   readandwritewelsh: 'Rwyf eisiau siarad ac ysgrifennu yn Gymraeg',
   languageinterpreter: 'Mae arnaf angen cyfieithydd mewn iaith benodol',
@@ -68,7 +66,6 @@ describe('citizen-home content', () => {
       'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.'
     );
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.speakwelsh).toEqual('I need to speak in Welsh');
     expect(generatedContent.readandwritewelsh).toEqual('I need to read and write in Welsh');
     expect(generatedContent.languageinterpreter).toEqual('I need an interpreter in a certain language');

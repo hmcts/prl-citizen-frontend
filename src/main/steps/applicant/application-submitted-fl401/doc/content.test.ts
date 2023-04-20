@@ -10,8 +10,6 @@ const enContent = {
   one: 'Yes',
   two: 'No',
   three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     detailsKnown: {
@@ -26,8 +24,6 @@ const cyContent = {
   one: 'Ydy',
   two: 'Nac ydy',
   three: 'Nid wyf yn gwybod',
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Cysylltiadau am gymorth',
   continue: 'Continue',
   errors: {
     detailsKnown: {
@@ -54,7 +50,6 @@ describe('citizen-home content', () => {
       'Do the other people named in this application (the applicants) know any of your contact details?'
     );
     expect(generatedContent.section).toEqual('Keeping your contact details private');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
   });
 
   // eslint-disable-next-line jest/expect-expect

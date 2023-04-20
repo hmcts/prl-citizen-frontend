@@ -8,7 +8,7 @@ let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Enter the other child’s name',
-  Child: 'Child ',
+  Child: 'Child',
   firstNameLabel: 'First name(s)',
   firstNameHint: 'Include all middle names here',
   lastNameLabel: 'Last name(s)',
@@ -29,7 +29,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Nodwch enw’r plentyn arall',
-  Child: 'Plentyn ',
+  Child: 'Plentyn',
   firstNameLabel: 'Enw(au) cyntaf',
   firstNameHint: 'Nodwch bob enw canol yma',
   lastNameLabel: 'Cyfenw(au)',
@@ -80,7 +80,7 @@ export const generateFormFields = (children: OtherChildrenDetails[]): GenerateDy
 
     fields[key] = {
       type: 'fieldset',
-      label: l => l.Child + count,
+      label: l => `${l.Child} ${count}`,
       classes: 'govuk-fieldset__legend--m',
       subFields: {
         [`firstName-${count}`]: {

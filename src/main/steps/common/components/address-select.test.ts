@@ -26,7 +26,7 @@ const cyContent = {
     "We'll send all court papers to this address unless you advise us that you are happy to be served court orders by email.",
   postcode: 'Cod post cyfredol',
   citizenUserSelectAddress: 'Dewiswch gyfeiriad',
-  cannotFindAddress: 'I cannot find the address in the list (in welsh)',
+  cannotFindAddress: 'Ni allaf ddod o hyd i’r cyfeiriad yn y rhestr',
   errors: {
     citizenUserSelectAddress: {
       notSelected: 'Dewiswch gyfeiriad',

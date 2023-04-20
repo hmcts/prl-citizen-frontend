@@ -189,7 +189,7 @@ describe('applicant tasklist getRemainingTaskList', () => {
             href: '/applicant/upload-document',
             id: 'response_to_your_application',
             status: 'TO_DO',
-            text: 'Gweld yr ymateb i’ch cais (PDF)',
+            text: 'The response to your application (PDF)',
           },
           {
             href: '/applicant/yourdocuments/alldocuments/alldocuments',

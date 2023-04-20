@@ -14,8 +14,6 @@ export const en = {
   one: 'Yes',
   two: 'No',
   three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   address: 'Address',
   Phone_number: 'Phone number',
   contact_details_private_hint:
@@ -45,8 +43,6 @@ export const cy: typeof en = {
   one: 'Ydw',
   two: 'Nac ydw',
   three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Cysylltiadau am gymorth',
   address: 'Cyfeiriad',
   Phone_number: 'Rhif ffôn',
   Email: 'E-bost',
