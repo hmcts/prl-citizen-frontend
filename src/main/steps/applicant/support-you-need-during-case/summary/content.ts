@@ -91,8 +91,8 @@ const cyContent: typeof enContent = {
     languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
     languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     reasonableAdjustments:
-      'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-    safetyArrangements: 'Do you or the children need special safety arrangements at court?',
+      'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+    safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
     safetyArrangementsDetails: 'Describe what you need',
   },
   dependencies: {

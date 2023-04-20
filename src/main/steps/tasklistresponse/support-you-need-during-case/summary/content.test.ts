@@ -121,10 +121,10 @@ const cy: typeof en = {
     hearingDetails: 'Please provide the details',
     languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
     languageDetails: 'Please provide language details',
-    safetyArrangements: 'Do you or the children need special safety arrangements at court?',
+    safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
     safetyArrangementsDetails: 'Please describe your need in detail',
     reasonableAdjustments:
-      'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+      'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
   },
   dependencies: {
     hearingDetails: {
