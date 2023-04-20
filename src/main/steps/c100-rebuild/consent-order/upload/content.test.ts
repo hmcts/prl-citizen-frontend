@@ -27,8 +27,8 @@ const en = {
   errors: {
     document: {
       required: 'Please choose a file.',
-      multipleFiles: `You can upload only one file. 
-            If you wish to upload a new file, delete the existing 
+      multipleFiles: `You can upload only one file.
+            If you wish to upload a new file, delete the existing
             file and upload a new one`,
       fileSize: `The file you uploaded is too large.
             Maximum file size allowed is 20MB`,
@@ -36,7 +36,6 @@ const en = {
             Upload your file again in the correct format`,
     },
   },
-  err: 'Error: ',
 };
 
 const cy = {
@@ -66,7 +65,6 @@ const cy = {
       Llwythwch eich ffeil eto yn y fformat cywir`,
     },
   },
-  err: 'Error: -welsh',
 };
 
 /* eslint-disable @typescript-eslint/ban-types */
