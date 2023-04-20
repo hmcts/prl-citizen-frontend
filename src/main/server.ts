@@ -45,39 +45,35 @@ app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json() as RequestHandler);
 app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
 app.use(express.static(path.join(__dirname, 'public')));
-logger.info('Creating LaunchDarkly Client');
-const launchDarklyClient = new LaunchDarklyClient();
-const featureToggles = new FeatureToggles(launchDarklyClient);
-app.use(async (req, res, next) => {
-  if (app.locals.developmentMode) {
-    app.settings.nunjucksEnv.globals.c100Rebuild = await featureToggles.isC100reBuildEnabled();
-    app.settings.nunjucksEnv.globals.testingSupport = await featureToggles.isTestingSupportEnabled();
-  }
-  res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
-
-  next();
-});
+logger.info('I am here');
+logger.info('developmentMode is: ' + developmentMode);
+logger.info('app.locals.ENV is: ' + app.locals.ENV);
+logger.info('app.locals.developmentMode is: ' + app.locals.developmentMode);
 new AxiosLogger().enableFor(app);
+logger.info('I am now here');
 new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new Helmet(config.get('security')).enableFor(app);
 new AppInsights().enable();
+logger.info('Oh, somewhere I am now here');
 new FileUpload().enableFor(app);
 new SessionStorage().enableFor(app);
 new Nunjucks().enableFor(app);
 new CSRFToken().enableFor(app);
 new AuthProvider().enable();
 new OidcMiddleware().enableFor(app);
+logger.info('Oh, think oidc');
 new Webpack().enableFor(app);
 new TooBusy().enableFor(app);
 new HealthCheck().enableFor(app);
 new LanguageToggle().enableFor(app);
 new Routes().enableFor(app);
+logger.info('Oh, almost there');
 new ErrorHandler().handleNextErrorsFor(app);
 new FeatureToggleProvider().enable(app);
 
 setupDev(app, developmentMode);
-
+logger.info('Oh, finally');
 const port: number = parseInt(process.env.PORT || '3001', 10);
 if (app.locals.ENV === 'development') {
   const server = app.listen(port, () => {
@@ -93,3 +89,22 @@ if (app.locals.ENV === 'development') {
     logger.info(`Application started: http://localhost:${port}`);
   });
 }
+
+logger.info('Creating LaunchDarkly Client');
+const launchDarklyClient = new LaunchDarklyClient();
+const featureToggles = new FeatureToggles(launchDarklyClient);
+logger.info('feature toggle is set');
+logger.info('app.locals.developmentMode' + app.locals.developmentMode);
+logger.info('developmentMode' + developmentMode);
+app.use(async (req, res, next) => {
+  logger.info('we are in dev mode');
+  app.settings.nunjucksEnv.globals.c100Rebuild = await featureToggles.isC100reBuildEnabled();
+  logger.info('c100Rebuild ::' + app.settings.nunjucksEnv.globals.c100Rebuild);
+  app.settings.nunjucksEnv.globals.testingSupport = await featureToggles.isTestingSupportEnabled();
+  logger.info('testingSupport ::' + app.settings.nunjucksEnv.globals.testingSupport);
+  logger.info('we are not in dev mode');
+  res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
+
+  next();
+});
+logger.info('out of feature toggle is set');

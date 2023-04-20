@@ -1,5 +1,9 @@
 import config from 'config';
 import { LDClient, LDFlagValue, LDUser, init } from 'launchdarkly-node-server-sdk';
+import type { LoggerInstance } from 'winston';
+
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger: LoggerInstance = Logger.getLogger('server');
 
 const ldConfig = {
   offline: false,
@@ -11,6 +15,7 @@ export class LaunchDarklyClient {
   constructor() {
     if (!LaunchDarklyClient.client) {
       const sdkKey: string = config.get<string>('featureToggles.launchDarklyKey');
+      logger.info('SDK key we have:' + sdkKey);
       LaunchDarklyClient.client = init(sdkKey, ldConfig);
     }
   }
