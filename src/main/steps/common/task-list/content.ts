@@ -1,5 +1,6 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 
+import { DASHBOARD_URL } from './../../urls';
 import { getNotificationBannerConfig } from './components/notification-banner/utils';
 import { getProgressBarConfig } from './components/progress-bar/utils';
 import { getTaskListConfig } from './components/tasklist/utils';
@@ -95,12 +96,15 @@ export const generateContent: TranslationFn = content => {
   const request = content.additionalData?.req;
   const caseData = request.session.userCase;
   const partyType = request.params.partyType;
-
   return {
     ...translations,
+    breadcrumb: {
+      id: 'home',
+      href: DASHBOARD_URL,
+    },
     partyName: getPartyName(caseData, partyType, request.session.user),
     progressBar: getProgressBarConfig(caseData, partyType, content.language),
-    notifications: getNotificationBannerConfig(caseData, partyType, content.language),
-    taskLists: getTaskListConfig(caseData, partyType, content.language),
+    notifications: getNotificationBannerConfig(caseData, request.session.user, partyType, content.language),
+    taskLists: getTaskListConfig(caseData, request.session.user, partyType, content.language),
   };
 };

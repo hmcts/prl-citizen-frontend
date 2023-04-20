@@ -1,4 +1,5 @@
 import { CaseType } from '../../../../../app/case/definition';
+import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../../../steps/urls';
 
 const en = {
   title: 'Important',
@@ -62,6 +63,81 @@ const en = {
           },
         ],
       },
+      applicationSentToLocalCourt: {
+        heading: 'Your application is in progress',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps.',
+          },
+        ],
+      },
+      applicationSentToGateKeeping: {
+        heading: 'Your application is in progress',
+        contents: [
+          {
+            text: 'Your application is being reviewed and you will be contacted with next steps.',
+          },
+        ],
+      },
+      applicationServedAndLinked: {
+        heading: 'The court has issued your application',
+        contents: [
+          {
+            text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
+          },
+          {
+            text: 'The court has also sent the application to the Children and Family Court advisory and Support Service (Cafcass or Cafcass Cymru). Cafcass or Cafcass Cymru will contact you to consider the needs of the children.',
+          },
+        ],
+        links: [
+          {
+            text: 'Find out about Cafcass',
+            href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
+            external: true,
+          },
+          {
+            text: 'Find out about Cafcass Cymru',
+            href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
+            external: true,
+          },
+        ],
+      },
+      applicationClosed: {
+        heading: 'You have a final order',
+        contents: [
+          {
+            text: 'Your case is closed. The court has made a final decision about your case. The order tells you what the court has decided.',
+          },
+        ],
+      },
+      newOrder: {
+        heading: 'You have a new order from the court',
+        contents: [
+          {
+            text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+          },
+        ],
+        links: [
+          {
+            text: 'View the order (PDF)',
+            href: APPLICANT_ORDERS_FROM_THE_COURT,
+          },
+        ],
+      },
+      newDocument: {
+        heading: 'You have a new document to view',
+        contents: [
+          {
+            text: 'A new document has been added to your case.',
+          },
+        ],
+        links: [
+          {
+            text: 'See all documents',
+            href: APPLICANT_VIEW_ALL_DOCUMENTS,
+          },
+        ],
+      },
     },
   },
 };
@@ -99,21 +175,21 @@ const cy: typeof en = {
         ],
       },
       applicationSubmitted: {
-        heading: 'Your application is in progress - welsh',
+        heading: 'Mae eich cais ar y gweill',
         contents: [
           {
-            text: 'Your application is being reviewed and you will be contacted with next steps. - welsh',
+            text: 'Mae eich cais yn cael ei adolygu a bydd y llys yn cysylltu â chi ynghylch y camau nesaf.',
           },
         ],
         links: [
           {
-            text: 'Withdraw your application - welsh',
+            text: 'Tynnu eich cais yn ôl',
             href: '{withdrawCase}',
           },
         ],
       },
       applicationWithdrawn: {
-        heading: 'This case has now been withdrawn - welsh',
+        heading: 'Mae’r achos wedi cael ei dynnu’n ôl.',
         contents: [
           {
             text: 'You can still access all documents related to the case - welsh',
@@ -121,10 +197,85 @@ const cy: typeof en = {
         ],
       },
       withdrawalRequestRejected: {
-        heading: 'Your withdrawal request was rejected - welsh',
+        heading: 'YCafodd eich cais i dynnu’r cais yn ôl ei wrthod ',
         contents: [
           {
-            text: 'The court rejected your request to withdraw this application. The application will continue to progress. - welsh',
+            text: 'Bu i’r llys wrthod eich cais i dynnu’r cais hwn yn ôl. Bydd y cais yn parhau i fynd rhagddo.',
+          },
+        ],
+      },
+      applicationSentToLocalCourt: {
+        heading: 'Mae eich cais ar y gweill',
+        contents: [
+          {
+            text: 'Mae eich cais yn cael ei adolygu a bydd y llys yn cysylltu â chi ynghylch y camau nesaf.',
+          },
+        ],
+      },
+      applicationSentToGateKeeping: {
+        heading: 'Mae eich cais ar y gweill',
+        contents: [
+          {
+            text: 'Mae eich cais yn cael ei adolygu a bydd y llys yn cysylltu â chi ynghylch y camau nesaf.',
+          },
+        ],
+      },
+      applicationServedAndLinked: {
+        heading: 'Mae’r llys wedi cychwyn eich cais',
+        contents: [
+          {
+            text: 'Mae hyn yn golygu bod y llys wedianfon eich cais at y bobl eraill yn yr achos (yr atebwyr). Bydd yr atebwyr yn cael cyfle i ymateb i’r hyn yr ydych wedi’i ddweud. Bydd y cais yn mynd rhagddo p’un a fyddant yn ymateb neu beidio.',
+          },
+          {
+            text: 'Mae’r llys hefyd wedi anfon y cais i’r Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass neu Cafcass Cymru). Bydd Cafcass neu Cafcass Cymru yn cysylltu â chi i ystyried anghenion y plant.',
+          },
+        ],
+        links: [
+          {
+            text: 'Mwy o wybodaeth am Cafcass',
+            href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
+            external: true,
+          },
+          {
+            text: 'Mwy o wybodaeth am Cafcass Cymru',
+            href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
+            external: true,
+          },
+        ],
+      },
+      applicationClosed: {
+        heading: 'Mae gennych orchymyn terfynol',
+        contents: [
+          {
+            text: 'Your case is closed. The court has made a final decision about your case. The order tells you what the court has decided. - welsh',
+          },
+        ],
+      },
+      newOrder: {
+        heading: 'Mae gennych orchymyn newydd gan y llys',
+        contents: [
+          {
+            text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchymyn hwn yn dweud wrthych beth mae’r llys wedi penderfynu.',
+          },
+        ],
+        links: [
+          {
+            text: 'Gweld y gorchymyn (PDF)',
+            href: APPLICANT_ORDERS_FROM_THE_COURT,
+          },
+        ],
+      },
+      newDocument: {
+        heading: 'Mae gennych ddogfen newydd i edrych arni',
+        contents: [
+          {
+            text: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
+          },
+        ],
+        links: [
+          {
+            text: 'See all documents - welsh',
+            href: APPLICANT_VIEW_ALL_DOCUMENTS,
           },
         ],
       },

@@ -29,6 +29,7 @@ import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
+import { CaseActivationPostController } from './steps/prl-cases/CaseActivationPostController';
 import DashboardGetController from './steps/prl-cases/dashboard/DashboardGetController';
 import { RespondentConfirmContactDetailsGetController } from './steps/respondent/confirm-contact-details/checkanswers/controller/RespondentConfirmContactDetailsGetController';
 import RespondentConfirmContactDetailsPostController from './steps/respondent/confirm-contact-details/checkanswers/controller/RespondentConfirmContactDetailsPostController';
@@ -111,6 +112,7 @@ import {
   FETCH_CASE_DETAILS,
   PARTY_TASKLIST,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+  PIN_ACTIVATION_CASE_ACTIVATED_URL,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -301,6 +303,10 @@ export class Routes {
         app.post(
           `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}`,
           errorHandler(new ContactPreferencesPostController(step.form.fields).post)
+        );
+        app.post(
+          PIN_ACTIVATION_CASE_ACTIVATED_URL,
+          errorHandler(new CaseActivationPostController(step.form.fields).post)
         );
       }
     }

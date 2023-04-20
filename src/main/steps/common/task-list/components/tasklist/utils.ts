@@ -1,16 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, PartyType, State } from '../../../../../app/case/definition';
+import { CaseType, PartyType } from '../../../../../app/case/definition';
+import { UserDetails } from '../../../../../app/controller/AppRequest';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+  APPLICANT_TASKLIST_HEARING_NEEDS,
+  APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
+  APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_YOURHEARINGS_HEARINGS,
-  C100_APPLICANT_TASKLIST,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
 } from '../../../../urls';
+import { isCaseClosed, isCaseLinked, isDraftCase } from '../../utils';
 
 import { languages as content } from './content';
 
@@ -25,13 +30,15 @@ enum TaskListSection {
 }
 enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
+  YOUR_APPLICATION_PDF = 'yourApplicationPDF',
   VIEW_ALL_DOCUMENTS = 'viewAllDocuments',
-
+  UPLOAD_DOCUMENTS = 'uploadDocuments',
   VIEW_HEARING_DETAILS = 'viewHearingDetails',
 
   EDIT_YOUR_CONTACT_DETAILS = 'editYouContactDetails',
   CONTACT_PREFERENCES = 'contactPreferences',
   KEEP_YOUR_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
+  SUPPORT_DURING_CASE = 'supportDuringCase',
   VIEW_ORDERS = 'viewOrders',
 }
 
@@ -41,12 +48,12 @@ enum StateTags {
   NOT_AVAILABLE_YET = 'notAvailableYet',
   READY_TO_VIEW = 'readyToView',
   SUBMITTED = 'submitted',
+  OPTIONAL = 'optional',
 }
 
-/*interface StateTag {
-    lebel: string;
-    className: string;
-} */
+const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
+
+const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => !!caseData;
 
 interface TaskList {
   id: TaskList;
@@ -89,6 +96,10 @@ const stateTagsConfig = {
     label: getStateTagLabel.bind(null, StateTags.READY_TO_VIEW),
     className: 'govuk-tag--blue',
   },
+  [StateTags.OPTIONAL]: {
+    label: getStateTagLabel.bind(null, StateTags.OPTIONAL),
+    className: 'govuk-tag--blue',
+  },
   [StateTags.SUBMITTED]: {
     label: getStateTagLabel.bind(null, StateTags.SUBMITTED),
     className: 'govuk-tag--turquoise',
@@ -101,30 +112,32 @@ const taskListConfig = {
       {
         id: TaskListSection.ABOUT_YOU,
         content: getContents.bind(null, TaskListSection.ABOUT_YOU),
-        show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+        show: isCaseLinked,
         tasks: [
           {
             id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
-            href: (caseData: Partial<CaseWithId>) => {
-              return `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`;
-            },
-            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            href: (caseData: Partial<CaseWithId>) => `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`,
+            disabled: isCaseClosed,
             stateTag: () => StateTags.SUBMITTED,
           },
           {
             id: Tasks.CONTACT_PREFERENCES,
-            href: (caseData: Partial<CaseWithId>) => {
-              return `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/${caseData.id}`;
-            },
-            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            href: (caseData: Partial<CaseWithId>) => `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/${caseData.id}`,
+            disabled: isCaseClosed,
             stateTag: () => StateTags.SUBMITTED,
           },
           {
             id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
-            href: (caseData: Partial<CaseWithId>) => {
-              return `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`;
+            href: (caseData: Partial<CaseWithId>) => `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`,
+            disabled: isCaseClosed,
+            stateTag: () => StateTags.SUBMITTED,
+          },
+          {
+            id: Tasks.SUPPORT_DURING_CASE,
+            href: () => {
+              return `${APPLICANT_TASKLIST_HEARING_NEEDS}`;
             },
-            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            disabled: isCaseClosed,
             stateTag: () => StateTags.SUBMITTED,
           },
         ],
@@ -132,7 +145,6 @@ const taskListConfig = {
       {
         id: TaskListSection.YOUR_APPLICATION,
         content: getContents.bind(null, TaskListSection.YOUR_APPLICATION),
-        show: () => true,
         tasks: [
           {
             id: Tasks.CHILD_ARRANGEMENT_APPLICATION,
@@ -140,95 +152,78 @@ const taskListConfig = {
               if (!caseData) {
                 return C100_START;
               }
-
-              if (caseData?.state === State.AwaitingSubmissionToHmcts) {
-                return caseData.c100RebuildReturnUrl;
-              } else {
-                return C100_DOWNLOAD_APPLICATION;
-              }
+              return caseData.c100RebuildReturnUrl;
             },
-            show: () => true,
             stateTag: (caseData: Partial<CaseWithId>) => {
               if (!caseData) {
                 return StateTags.NOT_STARTED_YET;
-              } else if (caseData?.state === State.AwaitingSubmissionToHmcts) {
-                return StateTags.IN_PROGRESS;
-              } else {
-                return StateTags.SUBMITTED;
               }
+              return StateTags.IN_PROGRESS;
             },
+            show: (caseData: Partial<CaseWithId>) => !caseData || isDraftCase(caseData),
+          },
+          {
+            id: Tasks.YOUR_APPLICATION_PDF,
+            href: () => C100_DOWNLOAD_APPLICATION,
+            stateTag: () => StateTags.SUBMITTED,
+            show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
           },
         ],
       },
       {
         id: TaskListSection.YOUR_DOCUMENTS,
         content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-        show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+        show: (caseData: Partial<CaseWithId>) => {
+          return caseData && !isDraftCase(caseData);
+        },
         tasks: [
           {
+            id: Tasks.UPLOAD_DOCUMENTS,
+            href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
+            show: isCaseLinked,
+            disabled: isCaseClosed,
+            stateTag: () => StateTags.OPTIONAL,
+          },
+          {
             id: Tasks.VIEW_ALL_DOCUMENTS,
-            href: () => {
-              '/';
-            },
-            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
-            stateTag: (caseData: Partial<CaseWithId>) => {
-              if (!caseData) {
-                return StateTags.NOT_AVAILABLE_YET;
-              } else {
-                return StateTags.READY_TO_VIEW;
-              }
-            },
-            disabled: () => true,
+            href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+            stateTag: () => StateTags.READY_TO_VIEW,
           },
         ],
       },
       {
         id: TaskListSection.YOUR_ORDERS,
         content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
-        show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+        show: isCaseLinked,
         tasks: [
           {
             id: Tasks.VIEW_ORDERS,
-            href: (caseData: Partial<CaseWithId>) => {
-              if (caseData && caseData.orderCollection && caseData.orderCollection.length > 0) {
-                return APPLICANT_ORDERS_FROM_THE_COURT;
-              } else {
-                return C100_APPLICANT_TASKLIST;
-              }
-            },
-            show: (caseData: Partial<CaseWithId>): boolean => isActiveCase(caseData),
+            href: () => APPLICANT_ORDERS_FROM_THE_COURT,
             stateTag: (caseData: Partial<CaseWithId>) => {
-              if (caseData && caseData.orderCollection && caseData.orderCollection.length > 0) {
+              if (hasAnyOrder(caseData)) {
                 return StateTags.READY_TO_VIEW;
-              } else {
-                return StateTags.NOT_AVAILABLE_YET;
               }
+              return StateTags.NOT_AVAILABLE_YET;
             },
-            disabled: (caseData: Partial<CaseWithId>): boolean => !isActiveCase(caseData),
+            disabled: (caseData: Partial<CaseWithId>) => !hasAnyOrder(caseData),
           },
         ],
       },
       {
         id: TaskListSection.YOUR_HEARING,
         content: getContents.bind(null, TaskListSection.YOUR_HEARING),
-        show: (caseData: Partial<CaseWithId>): boolean => showHearing(caseData),
+        show: isCaseLinked,
         tasks: [
           {
             id: Tasks.VIEW_HEARING_DETAILS,
-            href: (caseData: Partial<CaseWithId>) => {
-              if (caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0) {
-                return APPLICANT_YOURHEARINGS_HEARINGS;
-              } else {
-                return '/';
-              }
-            },
-            show: (caseData: Partial<CaseWithId>): boolean => showHearing(caseData),
+            href: () => APPLICANT_YOURHEARINGS_HEARINGS,
             stateTag: (caseData: Partial<CaseWithId>) => {
-              if (caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0) {
+              if (hasAnyHearing(caseData)) {
                 return StateTags.READY_TO_VIEW;
               }
               return StateTags.NOT_AVAILABLE_YET;
             },
+            disabled: (caseData: Partial<CaseWithId>) => !hasAnyHearing(caseData),
           },
         ],
       },
@@ -243,6 +238,7 @@ const taskListConfig = {
 
 export const getTaskListConfig = (
   caseData: Partial<CaseWithId>,
+  userDetails: UserDetails,
   partyType: PartyType,
   language: string
 ): Record<string, any>[] => {
@@ -253,7 +249,10 @@ export const getTaskListConfig = (
 
   return taskListConfig[caseType!][partyType]
     .map(section => {
-      if (section.show(caseData)) {
+      if (
+        !section.hasOwnProperty('show') ||
+        (section.show instanceof Function && section.show(caseData, userDetails))
+      ) {
         const _content = section.content(caseType, partyType, language);
 
         return {
@@ -261,22 +260,23 @@ export const getTaskListConfig = (
           heading: _content.heading,
           tasks: section.tasks
             .map(task => {
-              if (task.show(caseData)) {
-                const stateTag = task.stateTag(caseData);
+              if (!task.hasOwnProperty('show') || (task.show instanceof Function && task.show(caseData, userDetails))) {
+                const stateTag = task.stateTag(caseData, userDetails);
                 const _stateTagConfig = stateTagsConfig?.[stateTag];
 
                 const config = {
                   id: task.id,
                   linkText: _content?.tasks[task.id]?.linkText,
-                  href: task.href(caseData),
-                  disabled: task?.disabled ? task?.disabled(caseData) : false,
+                  href: task.href(caseData, userDetails),
+                  disabled:
+                    task?.disabled && task.disabled instanceof Function ? task.disabled(caseData, userDetails) : false,
                   stateTag: {
                     label: _stateTagConfig.label ? _stateTagConfig.label(language) : '',
                     className: _stateTagConfig.className ? _stateTagConfig.className : '',
                   },
                 };
 
-                if (task?.showHint && task?.showHint(caseData)) {
+                if (task?.showHint && task.showHint instanceof Function && task.showHint(caseData, userDetails)) {
                   Object.assign(config, {
                     hintText: _content?.tasks[task.id]?.hintText,
                   });
@@ -298,10 +298,3 @@ export const getTaskListConfig = (
       return config !== null;
     });
 };
-
-export const showHearing = (caseData: Partial<CaseWithId>): boolean =>
-  !!(caseData && caseData.hearingCollection && caseData.hearingCollection.length > 0);
-
-export const isActiveCase = (caseData: Partial<CaseWithId>): boolean =>
-  caseData &&
-  ![State.AwaitingSubmissionToHmcts, State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(caseData.state!);
