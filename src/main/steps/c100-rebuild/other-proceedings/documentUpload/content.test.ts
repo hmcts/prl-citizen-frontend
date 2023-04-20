@@ -55,6 +55,7 @@ const en = {
                 Maximum file size allowed is 20MB`,
     },
   },
+  err: 'Error: ',
 };
 
 const cy = {
@@ -101,6 +102,7 @@ const cy = {
       fileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr",
     },
   },
+  err: 'Error: -welsh',
 };
 
 /* eslint-disable @typescript-eslint/ban-types */

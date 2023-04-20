@@ -51,11 +51,11 @@
     {%- if  error.propertyName === 'document'  %}
     {%- if  error.errorType === 'required'  %}
          <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error">
-    <span class="govuk-visually-hidden">Error: </span>{{errors['document'].required}}</span>
+    <span class="govuk-visually-hidden">{{err}}</span>{{errors['document'].required}}</span>
      {% endif %}
       {%- if  error.errorType === 'multipleFiles'  %}
      <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error">
-    <span class="govuk-visually-hidden">Error: </span>{{errors['document'].multipleFiles}}</span>
+    <span class="govuk-visually-hidden">{{err}}</span>{{errors['document'].multipleFiles}}</span>
      {% endif %}
      {% endif %}
     {% endfor %}

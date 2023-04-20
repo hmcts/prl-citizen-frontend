@@ -29,6 +29,7 @@ const en = () => ({
             Upload your file again in the correct format`,
     },
   },
+  err: 'Error: ',
 });
 
 const cy = () => ({
@@ -57,6 +58,7 @@ const cy = () => ({
       fileFormat: "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
     },
   },
+  err: 'Error: -welsh',
 });
 
 const languages = {
