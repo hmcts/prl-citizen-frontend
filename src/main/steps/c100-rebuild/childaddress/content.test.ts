@@ -31,7 +31,7 @@ const cy = {
   title: "Ble mae'r plant yn byw?",
   paragraph1: "Dywedwch wrthym beth yw cod post y plant y mae'r cais hwn yn ymwneud â nhw.",
   paragraph2:
-    "Bydd yr wybodaeth hon yn cael ei defnyddio i nodi pa lys fydd yn delio a’ch cais. Os oes gan y plant gôd post gwahanol, nodwch yr un sydd fwyaf cyfleus i'r rhan fwyaf o'r plant yn y cais.",
+    "Bydd yr wybodaeth hon yn cael ei defnyddio i nodi pa lys fydd yn delio a’ch cais. Os oes gan y plant god post gwahanol, nodwch yr un sydd fwyaf cyfleus i'r rhan fwyaf o'r plant yn y cais.",
   warningText: {
     text: "Dim ond os yw'r plant yn byw gyda chi yn eich cyfeiriad y dylech nodi eich cod post eich hun, neu os nad ydych chi'n gwybod ble mae'r plant yn byw.",
     iconFallbackText: 'Rhybudd',

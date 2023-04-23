@@ -16,7 +16,6 @@ jest.mock('axios');
 config.get = jest.fn();
 const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
 const token = 'authToken';
-
 describe('ConfirmContactDetailsGetController', () => {
   const languages = {
     en: {

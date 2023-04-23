@@ -44,7 +44,7 @@ const cy = {
   paraGraph2:
     "Gallwch barhau i gwblhau'r cais os nad oes gennych yr holl fanylion - ond mae'n debygol y bydd yn cymryd mwy o amser i'w brosesu.",
   paraGraph3:
-    "Os ydych ar hyn o bryd yn ymwneud â Threfniadau Plant, Camau Gwaharddedig neu achosion Gorchymyn Materion Penodol ar gyfer yr un plentyn neu blant, gallwch wneud cais i'r un llys gan ddefnyddio ffurflen C2. Gwnewch yn siŵr eich bod yn nodi rhif yr achos pan fyddwch yn cyflwyno'r ffurflen.",
+    "Os ydych ar hyn o bryd yn ymwneud â Threfniadau Plant, Camau Gwaharddedig neu achos Gorchymyn Materion Penodol ar gyfer yr un plentyn neu blant, gallwch wneud cais i'r un llys gan ddefnyddio ffurflen C2. Gwnewch yn siŵr eich bod yn nodi rhif yr achos pan fyddwch yn cyflwyno'r ffurflen.",
   paraGraph4: `Bydd angen i chi dalu ffi llys o £232 cyn y gellir prosesu eich cais. 
   Mae'n bosib y gallwch gael help i wneud y taliad hwn.  
   Gweler y canllawiau ar <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link app-link--inverted" target="_blank" rel="external">help i dalu ffioedd</a>.`,
@@ -58,7 +58,7 @@ const cy = {
   ],
   secondList: [
     "cytundeb ysgrifenedig i'r llys ffurfioli, os ydych yn gwneud cais am orchymyn cydsynio",
-    'ddogfennaeth ar gyfer y<a href="https://www.gov.uk/litigation-friend/apply" class="govuk-link app-link--inverted" target="_blank" rel="external">cyfaill cyfreitha</a> os oes unrhyw un o\'r bobl sy\'n gwneud y cais o dan 18 oed',
+    'ddogfennaeth ar gyfer y <a href="https://www.gov.uk/litigation-friend/apply" class="govuk-link app-link--inverted" target="_blank" rel="external">cyfaill cyfreitha</a> os oes unrhyw un o\'r bobl sy\'n gwneud y cais o dan 18 oed',
   ],
 };
 describe('applicant personal details > applying-with > content', () => {
