@@ -28,5 +28,6 @@ exports.config = {
   include: { I: './steps_file.js' },
   bootstrap: null,
   mocha: {},
-  name: 'prl-ccd-definitions'
+  name: 'prl-citizen-frontend'
 };
+

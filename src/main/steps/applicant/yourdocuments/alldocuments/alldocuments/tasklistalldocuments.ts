@@ -1,5 +1,12 @@
 /* eslint-disable no-fallthrough */
-import { Applicant, PartyDetails, Respondent, YesNoDontKnow, YesOrNo } from '../../../../../app/case/definition';
+import {
+  Applicant,
+  CaseType,
+  PartyDetails,
+  Respondent,
+  YesNoDontKnow,
+  YesOrNo,
+} from '../../../../../app/case/definition';
 import * as URL from '../../../../urls';
 import { getApplicantAllegationsOfHarmAndViolence } from '../../../task-list/utils';
 
@@ -12,7 +19,7 @@ export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListIte
     getRespondentDocuments(sectionTitles, taskListItems, userCase, true),
     getCafcassDocuments(sectionTitles, taskListItems, userCase, URL.APPLICANT),
     getOtherDocuments(sectionTitles, taskListItems, userCase, URL.APPLICANT),
-    getAttendingTheHearingDocs(sectionTitles, taskListItems),
+    getAttendingTheHearingDocs(sectionTitles, taskListItems, URL.APPLICANT, userCase),
   ];
 };
 
@@ -80,11 +87,16 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
       applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems, url));
     });
   } else {
-    applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems));
-    applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
-    applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems));
-    applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
-    applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
+    if (!isApplicant) {
+      applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
+      applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
+    } else {
+      applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems));
+      applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
+      applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems));
+      applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
+      applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
+    }
   }
 
   applicantItems.push({
@@ -258,9 +270,6 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
       respondentItems2.push(getRespondentWitnessStatements(respondent, taskListItems, userCase, url));
     });
   } else {
-    respondentItems.push(getResponseToDA(userCase.respondentsFL401, taskListItems));
-    respondentItems.push(getResponseToAohAndViolenceDA(userCase.respondentsFL401, taskListItems, userCase));
-    respondentItems.push(getAohAndViolenceDA(userCase.respondentsFL401, taskListItems));
     respondentItems2.push(getRespondentPositionStatementsDA(userCase.respondentsFL401, taskListItems, url));
     respondentItems2.push(getRespondentWitnessStatementsDA(userCase.respondentsFL401, taskListItems, userCase, url));
   }
@@ -475,8 +484,8 @@ export const getOtherDocuments = (sectionTitles, taskListItems, userCase, url) =
   };
 };
 
-export const getAttendingTheHearingDocs = (sectionTitles, taskListItems) => {
-  return {
+export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, url, caseData) => {
+  const config = {
     title: sectionTitles.attendingTheHearing,
     items: [
       {
@@ -487,10 +496,16 @@ export const getAttendingTheHearingDocs = (sectionTitles, taskListItems) => {
       {
         id: 'support_you_need_during_your_case',
         text: taskListItems.support_you_need_during_your_case,
-        href: '#',
+        href: url + '/support-you-need-during-case/attending-the-court',
       },
     ],
   };
+
+  if (url !== URL.RESPONDENT && caseData && caseData?.caseTypeOfApplication === CaseType.C100) {
+    config.items = config.items.filter(item => item.id !== 'support_you_need_during_your_case');
+  }
+
+  return config;
 };
 
 const getResponseToCA = (respondent: Respondent, taskListItems, citizenResponseC7DocumentList) => {
@@ -567,42 +582,6 @@ const getRespondentWitnessStatements = (respondent: Respondent, taskListItems, u
       ' ' +
       respondent.value.lastName +
       '&byApplicant=No',
-  };
-};
-
-const getResponseToDA = (respondent: PartyDetails, taskListItems) => {
-  return {
-    id: 'respondent_response_to_request_for_child_arrangements',
-    text: taskListItems.respondent_response_to_request_for_child_arrangements.replace(
-      '<namerespondentxxxxx>',
-      respondent.firstName + ' ' + respondent.lastName
-    ),
-    href: URL.APPLICANT + URL.RESPONDENT_CA_RESPONSE,
-  };
-};
-
-const getAohAndViolenceDA = (respondent: PartyDetails, taskListItems) => {
-  return {
-    id: 'respondent_allegation_of_harm_and_violence',
-    text: taskListItems.respondent_allegation_of_harm_and_violence.replace(
-      '<namerespondentxxxxx>',
-      respondent.firstName + ' ' + respondent.lastName
-    ),
-    href: URL.ALLEGATION_OF_HARM_VOILENCE,
-  };
-};
-
-const getResponseToAohAndViolenceDA = (respondent: PartyDetails, taskListItems, userCase) => {
-  return {
-    id: 'respondent_response_to_allegations_of_harm_and_violence',
-    text: taskListItems.respondent_response_to_allegations_of_harm_and_violence.replace(
-      '<namerespondentxxxxx>',
-      respondent.firstName + ' ' + respondent.lastName
-    ),
-    href:
-      getApplicantAllegationsOfHarmAndViolence(userCase) === true
-        ? URL.APPLICANT + URL.RESPONDENT_RESPONSE_TO_AOH_VIOLENCE
-        : '#',
   };
 };
 

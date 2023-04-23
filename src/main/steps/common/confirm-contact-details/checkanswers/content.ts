@@ -6,6 +6,10 @@ import { getFormattedDate, summaryList } from '../../../common/summary/utils';
 export const enContent = {
   section: 'Check your details',
   title: 'Read the information to make sure it is correct, and add any missing details',
+  contactdetailpriv:
+    'if you do not want to share your contact details with the other person in the case,update the section',
+  contactdetailprivlinktext: 'keeping your contact details private',
+  link: '',
   sectionTitles: {
     applicationDetails: 'Application details',
   },
@@ -43,6 +47,10 @@ const en = (content: CommonContent) => {
 const cyContent: typeof enContent = {
   section: 'Check your details (Welsh)',
   title: 'Read the information to make sure it is correct, and add any missing details (Welsh)',
+  contactdetailpriv:
+    'if you do not want to share your contact details with the other person in the case,update the section - welsh',
+  contactdetailprivlinktext: 'keeping your contact details private - welsh',
+  link: '',
   sectionTitles: {
     applicationDetails: 'Manylion y cais',
   },
@@ -112,6 +120,9 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  translations.link = content.byApplicant
+    ? '/applicant/keep-details-private/details_known'
+    : '/respondent/keep-details-private/details_known';
   return {
     ...translations,
     form,

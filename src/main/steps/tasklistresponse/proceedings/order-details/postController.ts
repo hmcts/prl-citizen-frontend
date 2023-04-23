@@ -3,9 +3,7 @@ import { Response } from 'express';
 
 import { Case } from '../../../../app/case/case';
 import {
-  OtherProceedings,
   ProceedingsOrderInterface,
-  ProceedingsOrderTypeInterface,
   ProceedingsOrderTypeKeyMapper,
   ProceedingsOrderTypes,
   YesNoEmpty,
@@ -30,9 +28,9 @@ export default class AddOrderDetailsPostController extends PostController<AnyObj
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const newData: Partial<Case> = {
       otherProceedings: {
-        ...((req.session?.userCase?.otherProceedings ?? {}) as OtherProceedings),
+        ...(req.session?.userCase?.otherProceedings ?? {}),
         order: {
-          ...((req.session.userCase?.otherProceedings?.order ?? {}) as ProceedingsOrderTypeInterface),
+          ...(req.session.userCase?.otherProceedings?.order ?? {}),
           [orderTypeCaseKey]: this.transformFormData(
             formData,
             req.session?.userCase?.otherProceedings?.order?.[orderTypeCaseKey]

@@ -20,7 +20,7 @@ export const getDataShape = (): C100Applicant => ({
     applicantPlaceOfBirth: '',
   },
   applicantContactDetail: {
-    applicantContactPreferences: [],
+    applicantContactPreferences: '',
   },
 });
 

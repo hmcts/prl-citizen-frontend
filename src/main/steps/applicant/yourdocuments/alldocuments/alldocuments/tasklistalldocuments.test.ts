@@ -347,7 +347,7 @@ describe('respondent-tasklistalldocuments', () => {
       false
     );
     expect(actual.title).toEqual(applicant_all_docs_en.respondentsDocuments);
-    expect(actual.items).toHaveLength(17);
+    expect(actual.items).toHaveLength(14);
   });
 });
 
