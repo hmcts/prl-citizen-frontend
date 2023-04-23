@@ -12,6 +12,8 @@ import { FieldPrefix } from '../../../app/case/case';
 import CheckYourAnswersGetController from './CheckYourAnswersGetController';
 
 jest.mock('axios');
+jest.useFakeTimers();
+jest.spyOn(global, 'setTimeout');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
 const req = mockRequest();
@@ -36,6 +38,17 @@ describe('DocumentUpload Get Controller', () => {
     await controller.get(req, res);
 
     expect(req.session.userCase.caseId).toEqual('1111');
+  });
+
+  test('should wait for 1 second before loading Check your answers screen', async () => {
+    req.session.userCase.caseId = '1111';
+    req.session.paymentError = false;
+    await controller.get(req, res);
+    const callback = jest.fn();
+    expect(callback).not.toHaveBeenCalled();
+    jest.runAllTimers();
+    expect(req.session.userCase.caseId).toEqual('1111');
+    expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
   });
 
   test('checkYourAnswerFlow1', async () => {

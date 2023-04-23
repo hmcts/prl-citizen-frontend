@@ -11,37 +11,12 @@ const en = {
     respondentAdditionalInformation: 'International elements',
   },
   keys: {
-    iFactorsJurisdictionProvideDetails: 'Provide details',
-    iFactorsParentsProvideDetails: 'Provide details',
-    iFactorsRequestProvideDetails: 'Provide details',
-    iFactorsStartProvideDetails: 'Provide details',
     jurisdiction:
       'Could another person in the application apply for a similar order in a country outside England or Wales?',
-    parents: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
+    parents:
+      "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
     request: 'Has another country asked (or been asked) for information or help for the children?',
-    start: 'Do the children live outside of England or Wales?',
-  },
-  dependencies: {
-    iFactorsStartProvideDetails: {
-      dependantOn: 'start',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsParentsProvideDetails: {
-      dependantOn: 'parents',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsJurisdictionProvideDetails: {
-      dependantOn: 'jurisdiction',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsRequestProvideDetails: {
-      dependantOn: 'request',
-      value: 'Yes',
-      display: true,
-    },
+    start: "Are the children's lives mainly based outside of England and Wales?",
   },
   errors: {},
 };
@@ -53,37 +28,12 @@ const cy: typeof en = {
     respondentAdditionalInformation: 'International elements',
   },
   keys: {
-    iFactorsJurisdictionProvideDetails: 'Provide details',
-    iFactorsParentsProvideDetails: 'Provide details',
-    iFactorsRequestProvideDetails: 'Provide details',
-    iFactorsStartProvideDetails: 'Provide details',
     jurisdiction:
       'Could another person in the application apply for a similar order in a country outside England or Wales?',
-    parents: "Do the children's parents or anyone significant to the children live outside of England or Wales?",
+    parents:
+      "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
     request: 'Has another country asked (or been asked) for information or help for the children?',
-    start: 'Do the children live outside of England or Wales?',
-  },
-  dependencies: {
-    iFactorsStartProvideDetails: {
-      dependantOn: 'start',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsParentsProvideDetails: {
-      dependantOn: 'parents',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsJurisdictionProvideDetails: {
-      dependantOn: 'jurisdiction',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsRequestProvideDetails: {
-      dependantOn: 'request',
-      value: 'Yes',
-      display: true,
-    },
+    start: "Are the children's lives mainly based outside of England and Wales?",
   },
   errors: {},
 };
@@ -102,7 +52,6 @@ describe('citizen-home content', () => {
     expect(generatedContent.title2).toEqual('International element');
     expect(generatedContent.title).toEqual('Check your answers');
     expect(generatedContent.sectionTitles.respondentAdditionalInformation).toEqual('International elements');
-    expect(generatedContent.dependencies.iFactorsStartProvideDetails.value).toEqual('Yes');
   });
 
   // eslint-disable-next-line jest/expect-expect

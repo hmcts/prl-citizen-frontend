@@ -25,8 +25,10 @@ describe('AccessibilityStatementGetController', () => {
       }),
       ...defaultViewArgs,
       userCase: req.session.userCase,
+      additionalData: expect.anything(),
       paymentError: false,
-      caseId: undefined,
+      caseId: '1234',
+      breadcrumbs: [],
     });
   });
 });

@@ -15,12 +15,18 @@ const en = {
   errors: {
     citizenUserFirstNames: {
       required: 'Enter Your first name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     citizenUserLastNames: {
       required: 'Enter Your last name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     citizenUserPlaceOfBirth: {
       required: 'Enter Your Place of birth',
+      invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
+    },
+    previousName: {
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     citizenUserDateOfBirth: {
       required: 'Enter your date of birth',

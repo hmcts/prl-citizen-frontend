@@ -1,0 +1,12 @@
+{% extends "common/template.njk" %}
+{% block page_content %}
+
+<span class="govuk-caption-xl">{{caption}}</span>
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{headingTitle}}</h1>
+<p class="govuk-body-m">{{paragraph1}}<a href="{{spottingSignsOfChildHyperLink}}" id="paragraph1" target="_blank" class="govuk-link">{{ spottingSignsOfChildAbuseLabel}}</a> </p>
+{% endblock %}
+{% block page_safetyConcerns %}
+{% include "../template.njk"%}<br>
+{% endblock %}
+
+

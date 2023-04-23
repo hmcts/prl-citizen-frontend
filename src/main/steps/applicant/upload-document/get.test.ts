@@ -1,4 +1,3 @@
-import { defaultViewArgs } from '../../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { generatePageContent } from '../../common/common.content';
@@ -26,10 +25,11 @@ describe('UploadDocumentListGetController', () => {
           userEmail: 'test@example.com',
           additionalData: {
             req,
+            user: {
+              fullname: `${req.session.user.givenName} ${req.session.user.familyName}`,
+            },
           },
         }),
-        ...defaultViewArgs,
-        userCase: req.session.userCase,
       })
     );
   });

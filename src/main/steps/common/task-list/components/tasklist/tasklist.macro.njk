@@ -1,0 +1,32 @@
+{% macro buildTaskList(taskLists) %}
+  {% for taskListSection in taskLists %}
+    <li>
+      <h2 class="app-task-list__section">
+        {{taskListSection.heading}}
+      </h2>
+      <ul class="app-task-list__items">
+        {% for task in taskListSection.tasks %}
+          <li class="app-task-list__item">
+            <span class="app-task-list__task-name">
+              {% if task.disabled %}
+                <p id="{{task.id}}" class="govuk-body govuk-!-margin-bottom-0" aria-describedby="{{task.id}}-status">
+                  {{task.linkText}}
+                </p>
+              {% else %}
+                <a id="{{task.id}}" class="govuk-link" href="{{task.href}}" aria-describedby="{{task.id}}-status">
+                  {{task.linkText}}
+                </a>
+              {% endif %}
+            </span>
+            <strong id="{{task.id}}-status" class="govuk-tag app-task-list__tag {{task.stateTag.className}}">{{task.stateTag.label}}</strong>
+            {% if task.hintText %}
+              <div class="govuk-grid-row">
+                <div class="govuk-hint govuk-grid-column-three-quarters govuk-!-padding-top-1 govuk-!-margin-0">{{task.hintText}}</div>
+              </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+{% endmacro %}

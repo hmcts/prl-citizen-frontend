@@ -24,9 +24,11 @@ const en = {
   errors: {
     applicantFirstName: {
       required: 'Enter the first name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     applicantLastName: {
       required: 'Enter the last name',
+      invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
   },
 };
@@ -45,9 +47,13 @@ const cy = {
   errors: {
     applicantFirstName: {
       required: 'Nodwch yr enw cyntaf',
+      invalid:
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     applicantLastName: {
       required: 'Nodwch yr enw olaf',
+      invalid:
+        'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
   },
 };

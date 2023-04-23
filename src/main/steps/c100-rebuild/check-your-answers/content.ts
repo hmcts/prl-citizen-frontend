@@ -1,11 +1,11 @@
 /* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../../steps/common/common.content';
-import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 import { cy as caseNameCyContent, en as caseNameEnContent } from '../case-name/content';
@@ -68,17 +68,20 @@ export const enContent = {
   continue: 'Accept and continue',
   Yes: 'Yes',
   No: 'No',
+  'Dont know': 'Dont know',
+  'I dont know': 'I dont know',
   'Yes, but I prefer that it is supervised': 'Yes, but I prefer that it is supervised',
   'No, I would prefer the other people do not spend time with the children':
     'No, I would prefer the other people do not spend time with the children',
   Mother: 'Mother',
   Father: 'Father',
   Guardian: 'Guardian',
+  Grandparent: 'Grandparent',
   'Special Guardian': 'Special Guardian',
   None: 'None',
   Other: 'Other',
-  Digital: 'Digital',
-  Post: 'Post',
+  digital: 'Digital',
+  post: 'Post',
   address: 'Address',
   telephone: 'Telephone',
   email: 'E-mail',
@@ -195,11 +198,12 @@ export const cyContent = {
   Mother: 'Mam',
   Father: 'Tad',
   Guardian: 'Gwarcheidwad',
+  Grandparent: 'Nain/Taid',
   'Special Guardian': 'Gwarcheidwad Arbennig',
   None: 'Nain/Taid',
   Other: 'Arall',
-  Digital: 'Digidol',
-  Post: 'Drwy’r post',
+  digital: 'Digidol',
+  post: 'Drwy’r post',
   address: 'Cyfeiriad',
   telephone: 'Rhif ffôn',
   email: 'E-bost',
@@ -302,6 +306,7 @@ export const cyContent = {
     ydynTranslation: {
       Yes: 'Ydyn',
       No: 'Nac Ydyn',
+      'Dont know': 'Ddim yn gwybod',
     },
     oesTranslation: {
       Yes: 'Oes',

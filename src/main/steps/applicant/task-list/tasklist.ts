@@ -1,54 +1,60 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { SectionStatus } from '../../../app/case/definition';
+import { State } from '../../../app/case/definition';
 import { getViewAllOrdersFromTheCourt } from '../../../steps/respondent/task-list/utils';
 import * as URL from '../../urls';
 
 import {
+  getApplicantViewAllHearingsFromTheCourt,
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
+  getSupportYourNeedsDetails,
   getUploadDocuments,
   getViewAllDocuments,
   getYourApplication,
 } from './utils';
 
 export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
+  const isCaseClosed = userCase.state === State.ALL_FINAL_ORDERS_ISSUED;
+
   return [
-    {
-      title: sectionTitles.applicantYourDetails,
-      items: [
-        {
-          id: 'keep-your-details-private',
-          text: taskListItems.keep_your_details_private,
-          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
-          href: URL.APPLICANT_DETAILS_KNOWN + '/' + userCase.id,
-        },
-        {
-          id: 'confirm-or-edit-your-contact-details',
-          text: taskListItems.confirm_or_edit_your_contact_details,
-          status: getConfirmOrEditYourContactDetails(userCase, userIdamId),
-          href: URL.APPLICANT_CHECK_ANSWERS + '/' + userCase.id,
-        },
-        {
-          id: 'support-you-need-during-your-case',
-          text: taskListItems.support_you_need_during_your_case,
-          status: SectionStatus.NOT_AVAILABLE_YET,
-          href: '#',
-        },
-      ],
-    },
+    !isCaseClosed
+      ? {
+          title: sectionTitles.applicantYourDetails,
+          items: [
+            {
+              id: 'keep-your-details-private',
+              text: taskListItems.keep_your_details_private,
+              status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
+              href: URL.APPLICANT_DETAILS_KNOWN + '/' + userCase.id,
+            },
+            {
+              id: 'confirm-or-edit-your-contact-details',
+              text: taskListItems.confirm_or_edit_your_contact_details,
+              status: getConfirmOrEditYourContactDetails(userCase, userIdamId),
+              href: URL.APPLICANT_CHECK_ANSWERS + '/' + userCase.id,
+            },
+            {
+              id: 'support-you-need-during-your-case',
+              text: taskListItems.support_you_need_during_your_case,
+              status: getSupportYourNeedsDetails(userCase),
+              href: URL.APPLICANT_ATTENDING_THE_COURT,
+            },
+          ],
+        }
+      : null,
     {
       title: sectionTitles.yourApplication,
       items: [...getTheApplication(taskListItems, userCase)],
     },
-    ...getYourResponse(sectionTitles, taskListItems, userCase, userIdamId),
+    ...(!isCaseClosed ? getYourResponse(sectionTitles, taskListItems, userCase, userIdamId) : []),
     {
       title: sectionTitles.courtHearings,
       items: [
         {
           id: 'check-details-of-your-court-hearings',
           text: taskListItems.details_of_court_hearings,
-          status: SectionStatus.NOT_AVAILABLE_YET,
-          href: '#',
+          status: getApplicantViewAllHearingsFromTheCourt(userCase),
+          href: URL.APPLICANT_YOURHEARINGS_HEARINGS,
         },
       ],
     },
@@ -61,12 +67,14 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           status: getUploadDocuments(),
           href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
         },
-        {
-          id: 'view-all-documents',
-          text: taskListItems.view_all_documents,
-          status: getViewAllDocuments(),
-          href: URL.APPLICANT_VIEW_ALL_DOCUMENTS,
-        },
+        !isCaseClosed
+          ? {
+              id: 'view-all-documents',
+              text: taskListItems.view_all_documents,
+              status: getViewAllDocuments(),
+              href: URL.APPLICANT_VIEW_ALL_DOCUMENTS,
+            }
+          : null,
       ],
     },
     {

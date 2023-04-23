@@ -1,12 +1,12 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
   title: 'I need help communicating and understanding',
   courtCommunication:
-    'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
+    'Think about all communications with the court, as well as what you might need at a hearing. Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   hearingLoop: 'Hearing loop (hearing enhancement system)',
@@ -14,27 +14,27 @@ const en = {
   needSpeakingHelp: 'Need to be close to who is speaking',
   lipSpeaker: 'Lip speaker',
   lipSpeakerHint: 'hearing person who has been trained to be easily lip read',
-  signLanguage: 'British Sign Language interpreter',
+  signLanguage: 'Sign Language interpreter',
   signLanguageDetails: 'Describe what you need',
   speechReporter: 'Speech to text reporter (palantypist)',
   extraTime: 'Extra time to think and explain myself',
-  courtVisit: 'Visit to court before the court hearing',
-  courtHearing: 'Explanation of the court hearing room layout and who will be in the room',
+  courtVisit: 'Visit to court before the hearing',
+  courtHearing: "Explanation of the court and who's in the room at the hearing",
   intermediary: 'Intermediary',
   intermediaryHint:
-    'a person to act as a link and assist you in the hearing - a judge may allow this to help you understand and communicate better',
+    'a person to help you if you have communication needs by providing professional support to participate in a hearing',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  noSupport: 'No, I do not need any extra support at this time',
+  noSupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
-    respondentHelpCommunication: {
-      required: 'Please select an answer',
+    helpCommunication: {
+      required: 'Select what help you need in communicating and understanding',
     },
-    respondentSignLanguageDetails: {
+    describeSignLanguageDetails: {
       required: 'Please provide sign language details',
     },
-    respondentDescribeOtherNeed: {
+    describeOtherNeed: {
       required: 'Please provide the details',
     },
   },
@@ -44,7 +44,7 @@ const cy: typeof en = {
   section: 'Reasonable adjustments',
   title: 'I need help communicating and understanding',
   courtCommunication:
-    'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
+    'Think about all communications with the court, as well as what you might need at a hearing. Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   hearingLoop: 'Hearing loop (hearing enhancement system)',
@@ -52,27 +52,27 @@ const cy: typeof en = {
   needSpeakingHelp: 'Need to be close to who is speaking',
   lipSpeaker: 'Lip speaker',
   lipSpeakerHint: 'hearing person who has been trained to be easily lip read',
-  signLanguage: 'British Sign Language interpreter',
+  signLanguage: 'Sign Language interpreter',
   signLanguageDetails: 'Describe what you need',
   speechReporter: 'Speech to text reporter (palantypist)',
   extraTime: 'Extra time to think and explain myself',
-  courtVisit: 'Visit to court before the court hearing',
-  courtHearing: 'Explanation of the court hearing room layout and who will be in the room',
+  courtVisit: 'Visit to court before the hearing',
+  courtHearing: "Explanation of the court and who's in the room at the hearing",
   intermediary: 'Intermediary',
   intermediaryHint:
-    'a person to act as a link and assist you in the hearing - a judge may allow this to help you understand and communicate better',
+    'a person to help you if you have communication needs by providing professional support to participate in a hearing',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  noSupport: 'No, I do not need any extra support at this time',
+  noSupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
-    respondentHelpCommunication: {
-      required: 'Please select an answer',
+    helpCommunication: {
+      required: 'Select what help you need in communicating and understanding',
     },
-    respondentSignLanguageDetails: {
+    describeSignLanguageDetails: {
       required: 'Please provide sign language details',
     },
-    respondentDescribeOtherNeed: {
+    describeOtherNeed: {
       required: 'Please provide the details',
     },
   },
@@ -85,7 +85,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentHelpCommunication: {
+    helpCommunication: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
@@ -93,75 +93,75 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.hearingLoop,
-          value: 'hearing loop',
+          value: 'hearingloop',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.infraredReceiver,
-          value: 'infrared receiver',
+          value: 'infraredreceiver',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.needSpeakingHelp,
-          value: 'speaking help',
+          value: 'needspeakinghelp',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.lipSpeaker,
           hint: l => l.lipSpeakerHint,
-          value: 'lip speaker',
+          value: 'lipspeaker',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.signLanguage,
-          value: 'sign language interpreter',
+          value: 'signlanguage',
           subFields: {
-            respondentSignLanguageDetails: {
+            describeSignLanguageDetails: {
               type: 'textarea',
               label: l => l.signLanguageDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+              validator: value => isFieldFilledIn(value),
             },
           },
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.speechReporter,
-          value: 'speech to text reporter',
+          value: 'speechreporter',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.extraTime,
-          value: 'extra time to think and explain myself',
+          value: 'extratime',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.courtVisit,
-          value: 'vist to court before hearing',
+          value: 'courtvisit',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.courtHearing,
-          value: 'court hearing',
+          value: 'courthearing',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.intermediary,
           hint: l => l.intermediaryHint,
           value: 'intermediary',
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.other,
-          value: 'Other',
+          value: 'other',
           subFields: {
-            respondentDescribeOtherNeed: {
+            describeOtherNeed: {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+              validator: value => isFieldFilledIn(value),
             },
           },
         },
@@ -169,9 +169,9 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'respondentHelpCommunication',
+          name: 'helpCommunication',
           label: l => l.noSupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],

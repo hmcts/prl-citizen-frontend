@@ -25,6 +25,7 @@ import {
   ExistingProceedings,
   Fl401UploadWitnessDocuments,
   HearingUrgencyTable,
+  HearingsList,
   InternationalElementTable,
   InterpreterNeed,
   ListValue,
@@ -41,6 +42,8 @@ import {
   OthersToNotify,
   PRLDocument,
   PartyDetails,
+  ProceedingsOrderTypes,
+  ReasonableAdjustments,
   Respondent,
   ResponseDocumentList,
   SelectTypeOfOrderEnum,
@@ -70,6 +73,10 @@ import {
   OtherChildrenDetails,
   C100RebuildPartyDetails,
   C100Applicant,
+  PRL_C1ASafteyConcernsAbout,
+  PRL_C1ASafteyConcerns,
+  PRL_C1AAbuseTypes,
+  applicantContactPreferencesEnum,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -169,6 +176,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   previousOrOngoingProceedingsForChildren: 'previousOrOngoingProceedingsForChildren',
   welshLanguageRequirementApplicationNeedEnglish: 'welshLanguageRequirementApplicationNeedEnglish',
   orderCollection: 'orderCollection',
+  hearingCollection: 'hearingCollection',
   respondentName: 'respondentName',
   respondentFirstName: 'respondentFirstName',
   finalDocument: 'finalDocument',
@@ -213,6 +221,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   doesOrderClosesCase: 'doesOrderClosesCase',
   selectTypeOfOrder: 'selectTypeOfOrder',
   citizenResponseC7DocumentList: 'citizenResponseC7DocumentList',
+  caseInvites: 'caseInvites',
+  draftOrderDoc: 'draftOrderDoc',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -327,7 +337,40 @@ export interface Case {
   languageRequirementApplicationNeedWelsh?: string;
   previousOrOngoingProceedingsForChildren?: YesNoDontKnow;
   welshLanguageRequirementApplicationNeedEnglish?: string;
-
+  /***  Below fields should be with in respondent object.*/
+  serviceType?: string;
+  claimNumber?: string;
+  caseCode?: string;
+  accessCode?: string;
+  detailsKnown?: string;
+  startAlternative?: string;
+  contactDetailsPrivate?: string[];
+  miamStart?: string;
+  miamWillingness?: string;
+  miamNotWillingExplnation?: string;
+  doYouConsent?: YesOrNo;
+  applicationReceivedDate?: CaseDate;
+  courtPermission?: YesOrNo;
+  reasonForNotConsenting?: string;
+  courtOrderDetails?: string;
+  start?: YesOrNo;
+  parents?: YesOrNo;
+  jurisdiction?: YesOrNo;
+  request?: YesOrNo;
+  iFactorsJurisdictionProvideDetails?: string;
+  iFactorsStartProvideDetails?: string;
+  iFactorsRequestProvideDetails?: string;
+  iFactorsParentsProvideDetails?: string;
+  confirmcontactdetails?: string;
+  respondentName?: string;
+  respondentFirstName?: string;
+  respondentLastName?: string;
+  caseInvites?: CaseInvite[];
+  orderCollection?: ListValue<PRLDocument>[];
+  hearingCollection?: HearingsList[];
+  documentsGenerated?: ListValue<PRLDocument>[];
+  yourchildconcernsstart?: YesOrNo;
+  cameoutofallegationsharmwithNo?: boolean;
   //applicant1CannotUploadDocuments?: DocumentType[];
   documentText?: string;
   applicantUploadFiles?: UploadedFile[];
@@ -338,9 +381,9 @@ export interface Case {
   /*** Document upload */
   respondentUploadFiles?: UploadedFile[];
   proceedingsCourtCase?: string;
-  proceedingsStart?: string;
+  proceedingsStart?: YesOrNo;
   proceedingsCourtOrder?: string;
-  proceedingsStartOrder?: string;
+  proceedingsStartOrder?: YesOrNo;
   courtProceedingsInvolved?: string;
   supervisionOrderOption?: YesOrNo;
   supervisionOrder?: orderInterface;
@@ -403,81 +446,38 @@ export interface Case {
 
   //applicant1LanguagePreference?: LanguagePreference;
   //support you need during the case
-  languageRequirements?: string;
   languageDetails?: string;
-  reasonableAdjustments?: string;
-  helpCommunication?: string;
+  helpCommunication?: string[];
   describeOtherNeed?: string;
-  courtHearing?: string;
-  communicationSupportOther?: string;
-  docsSupport?: string;
-  otherDetails?: string;
-  courtComfort?: string;
-  otherProvideDetails?: string;
-  safetyArrangements?: string;
+  safetyArrangements?: string[];
   safetyArrangementsDetails?: string;
-  travellingToCourt?: string;
   travellingOtherDetails?: string;
-  unableForCourtProceedings?: string;
+  unableForCourtProceedings?: YesOrNo;
   courtProceedingProvideDetails?: string;
 
   //CA-DA-Respondent
-  respondentAttendingToCourt?: string;
-  respondentHearingDetails?: string;
-  respondentLangRequirements?: string;
-  respondentLangDetails?: string;
-  respondentSpecialArrangements?: string;
-  respondentSpecialArrangementsDetails?: string;
-  respondentReasonableAdjustments?: string;
-  respondentDocsSupport?: string;
-  respondentDocsDetails?: string;
-  respondentLargePrintDetails?: string;
-  respondentOtherDetails?: string;
-  respondentHelpCommunication?: string;
-  respondentSignLanguageDetails?: string;
-  respondentDescribeOtherNeed?: string;
-  respondentCourtHearing?: string;
-  respondentSupportWorkerDetails?: string;
-  respondentFamilyDetails?: string;
-  respondentTherapyDetails?: string;
-  respondentCommSupportOther?: string;
-  respondentCourtComfort?: string;
-  respondentLightingDetails?: string;
-  respondentOtherProvideDetails?: string;
-  respondentTravellingToCourt?: string;
-  respondentParkingDetails?: string;
-  respondentDifferentChairDetails?: string;
-  respondentTravellingOtherDetails?: string;
-  serviceType?: string;
-  claimNumber?: string;
-  caseCode?: string;
-  accessCode?: string;
-  detailsKnown?: string;
-  startAlternative?: string;
-  contactDetailsPrivate?: string[];
-  miamStart?: string;
-  miamWillingness?: string;
-  miamNotWillingExplnation?: string;
-  doYouConsent?: YesOrNo;
-  applicationReceivedDate?: CaseDate;
-  courtPermission?: YesOrNo;
-  reasonForNotConsenting?: string;
-  courtOrderDetails?: string;
-  start?: YesOrNo;
-  parents?: YesOrNo;
-  jurisdiction?: YesOrNo;
-  request?: YesOrNo;
-  iFactorsJurisdictionProvideDetails?: string;
-  iFactorsStartProvideDetails?: string;
-  iFactorsRequestProvideDetails?: string;
-  iFactorsParentsProvideDetails?: string;
-  confirmcontactdetails?: string;
-  respondentName?: string;
-  respondentFirstName?: string;
-  respondentLastName?: string;
-  caseInvites?: CaseInvite[];
-  orderCollection?: ListValue<PRLDocument>[];
-  documentsGenerated?: ListValue<PRLDocument>[];
+  attendingToCourt?: string[];
+  respondentConcernedonChildAbout?: string;
+  ConcernedonSelfAbout?: string;
+  hearingDetails?: string;
+  languageRequirements?: string[];
+  reasonableAdjustments?: string[];
+  docsSupport?: string[];
+  docsDetails?: string;
+  largePrintDetails?: string;
+  otherDetails?: string;
+  describeSignLanguageDetails?: string;
+  courtHearing?: string[];
+  supportWorkerDetails?: string;
+  familyProviderDetails?: string;
+  therapyDetails?: string;
+  communicationSupportOther?: string;
+  courtComfort?: string[];
+  lightingProvideDetails?: string;
+  otherProvideDetails?: string;
+  travellingToCourt?: string[];
+  parkingDetails?: string;
+  differentChairDetails?: string;
   //applicant1LanguagePreference?: LanguagePreference;
 
   safetyConcerns?: string;
@@ -485,10 +485,19 @@ export interface Case {
   citizenRole?: FieldPrefix;
   orderWithoutGivingNoticeToRespondent?: WithoutNoticeOrderDetails;
   legalRepresentation?: YesOrNo;
+
+  courtProceedingsOrders?: ProceedingsOrderTypes[];
+  otherProceedings?: OtherProceedings;
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
-
+  reasonableAdjustmentsPages?: ReasonableAdjustments[];
+  respondentDocsSupportPage?: string[];
+  respondentHelpCommunicationPage?: string[];
+  respondentCourtHearingPage?: string[];
+  respondentCourtComfortPage?: string[];
+  respondentTravellingToCourtPage?: string[];
+  //selectedPageUrls: Array<PageLink>;
   //C100 Rebuild
   contactDetailsPrivateAlternative?: string;
   c100ApplicationFees?: string;
@@ -497,10 +506,18 @@ export interface Case {
   hwf_feesAppliedDetails?: YesOrNo;
   caseId?: string;
   c1A_haveSafetyConcerns?: YesOrNo;
+  PRL_c1A_haveSafetyConcerns?: YesOrNo;
   op_courtProceedingsOrders?: C100OrderTypes[];
   op_otherProceedings?: OtherProceedings;
   c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
+  PRL_c1A_safetyConernAbout?: PRL_C1ASafteyConcernsAbout[];
   c1A_safteyConcerns?: C1ASafteyConcerns;
+  PRL_c1A_safteyConcerns?: PRL_C1ASafteyConcerns;
+  PRL_c1A_abductionReasonOutsideUk?: string;
+  PRL_c1A_childsCurrentLocation?: string;
+  PRL_c1A_childrenMoreThanOnePassport?: YesOrNo;
+  PRL_c1A_possessionChildrenPassport?: string[];
+  PRL_c1A_provideOtherDetails?: string;
   miam_otherProceedings?: string;
   miam_haveDocSigned?: string;
   miam_consent?: string;
@@ -516,6 +533,19 @@ export interface Case {
   miam_notAttendingReasons?: string[];
   hu_urgentHearingReasons?: YesOrNo;
   c1A_passportOffice?: YesOrNo;
+  PRL_c1A_passportOffice?: YesOrNo;
+  PRL_c1A_abductionPassportOfficeNotified?: YesOrNo;
+  PRL_c1A_previousAbductionsShortDesc?: string;
+  PRL_c1A_policeOrInvestigatorInvolved?: YesOrNo;
+  PRL_c1A_policeOrInvestigatorOtherDetails?: string;
+  PRL_c1A_childAbductedBefore?: YesOrNo;
+  PRL_c1A_otherConcernsDrugs?: YesOrNo;
+  PRL_c1A_otherConcernsDrugsDetails?: string;
+  PRL_c1A_childSafetyConcerns?: YesOrNo;
+  PRL_c1A_childSafetyConcernsDetails?: string;
+  PRL_c1A_keepingSafeStatement?: string;
+  PRL_c1A_supervisionAgreementDetails?: string;
+  PRL_c1A_agreementOtherWaysDetails?: YesOrNo;
   cd_children?: ChildrenDetails[];
   ocd_otherChildren?: OtherChildrenDetails[];
   ocd_hasOtherChildren?: YesOrNo;
@@ -524,7 +554,10 @@ export interface Case {
   sq_legalRepresentationApplication?: YesOrNo;
   sq_courtPermissionRequired?: YesOrNo;
   c1A_concernAboutChild?: C1AAbuseTypes[];
+  PRL_c1A_concernAboutChild?: PRL_C1AAbuseTypes[];
   c1A_concernAboutApplicant?: C1AAbuseTypes[];
+  c1A_concernAboutRespondent?: C1AAbuseTypes[];
+  PRL_c1A_concernAboutRespondent?: PRL_C1AAbuseTypes[];
   c1A_childAbductedBefore?: YesOrNo;
   co_certificate?: C100DocumentInfo;
   too_courtOrder?: string[];
@@ -543,6 +576,15 @@ export interface Case {
   hwn_hearingPart1?: YesOrNo;
   c100RebuildChildPostCode?: string;
   helpWithFeesReferenceNumber?: string;
+  createdDate?: string;
+  applicantName?: string;
+  lastModifiedDate?: string;
+  c100RebuildReturnUrl?: string;
+  noOfDaysRemainingToSubmitCase?: string;
+  applicantPreferredContact?: applicantContactPreferencesEnum;
+  draftOrderDoc?: Document;
+  withdrawApplication?: YesOrNo;
+  withdrawApplicationReason?: string;
 }
 
 export interface CaseWithId extends Case {

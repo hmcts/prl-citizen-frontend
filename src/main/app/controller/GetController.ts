@@ -3,6 +3,7 @@ import { Response } from 'express';
 import Negotiator from 'negotiator';
 
 import { LanguageToggle } from '../../modules/i18n';
+import BreadcrumbController from '../../steps/common/breadcrumb/BreadcrumbController';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
 import * as Urls from '../../steps/urls';
 import { CITIZEN_UPDATE } from '../case/definition';
@@ -23,10 +24,10 @@ export class GetController {
       return;
     }
 
-    const name = this.getName(req) as string;
+    const name = this.getName(req);
     const language = this.getPreferredLanguage(req) as Language;
-    const captionValue = this.getCaption(req) as string;
-    const document_type = this.getDocumentType(req) as string;
+    const captionValue = this.getCaption(req);
+    const document_type = this.getDocumentType(req);
     const byApplicant = req.query['byApplicant'] as string;
     const addresses = req.session?.addresses;
     const content = generatePageContent({
@@ -43,6 +44,9 @@ export class GetController {
       byApplicant,
       additionalData: {
         req,
+        user: {
+          fullname: `${req.session.user?.givenName} ${req.session.user?.familyName}`,
+        },
       },
     });
 
@@ -64,13 +68,19 @@ export class GetController {
      * Added for C100 Rebuild
      * Handled scenario where caption is not present as query param
      */
+    if (content?.breadcrumb) {
+      const { id, href } = content.breadcrumb as Record<string, string>;
+      await BreadcrumbController.add({ id, href }, req.session);
+    }
+
     const viewData = {
       ...content,
       sessionErrors,
       htmlLang: language,
-      caseId: req.session.userCase?.caseId,
+      caseId: req.session.userCase?.caseId || req.session.userCase?.id,
       paymentError: req.session.paymentError,
       document_type,
+      breadcrumbs: BreadcrumbController.get(req.session, language),
       name,
     };
     //Add caption only if it exists else it will be rendered by specific page
