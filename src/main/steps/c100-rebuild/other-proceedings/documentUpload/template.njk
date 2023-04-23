@@ -3,13 +3,9 @@
 {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
-{% from "fileupload/macro.njk" import fileUpload %}
-
-
+{% from "../../../common/fileupload/macro.njk" import fileUpload %}
 
 {% extends "common/page.njk" %}
-
-
 {% block page_content %}
 
 {% if FileErrors.length > 0 %}
@@ -17,12 +13,9 @@
   titleText: "There is a problem",
   errorList: FileErrors
 }) }}
-
 {%endif%}
 
-
   <h1 class="govuk-heading-xl">{{titleList[orderType]}}
-  
  {% if orderId == '1' %}
   {{''}}
   {% else %}
@@ -32,6 +25,7 @@
   </h1>
   <p class="govuk-body">{{ youNeed }}</p>
   <p class="govuk-body">{{ youNeed2 }}</p>
+
 
 
 
@@ -49,14 +43,10 @@
 }) }}
 
 
-{% set removepoint = '/upload-your-documents?query=delete&docId={{documentId}}&documentType=applicationform'%}
-
-<div class="govuk-form-group govuk-inset-text">
+<div class="">
    {% for error in sessionErrors %}
     {%- if  error.propertyName === 'document'  %}<div class="govuk-form-group--error">  {% endif %}
     {% endfor %}
- <form action="{{postURL}}?orderType={{orderType}}&orderId={{orderId}}" method="post" enctype="multipart/form-data">
- <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
   {% for error in sessionErrors %}
     {%- if  error.propertyName === 'document'  %}
     {%- if  error.errorType === 'required'  %}
@@ -69,45 +59,31 @@
      {% endif %}
      {% endif %}
     {% endfor %}
-      {{ govukFileUpload({
-  id: "document",
-  name: "documents",
-  classes: "govuk-!-margin-bottom-3",
-  label: {
-    text: "Upload a file"
-  }
-}) }}
-  {{ govukButton({
-          text: uploadButton,
-          type: "upload document",
-          classes: "govuk-button--secondary govuk-!-margin-bottom-0 govuk--custom__button"
-        }) }}
-
+{% set documentId = document.id %}
+{% set removeURL = postURL+"?removeId="+documentId+"&orderType="+orderType+"&orderId="+orderId%}
+   {{ fileUpload(
+        {
+          uploadButtonText: uploadButton,
+          fileuploadTitle: "Upload a file",
+          formPostURL: postURL+ "?orderType="+orderType+"&orderId="+orderId,
+          sessionFilesArray: false,
+          sessionFiles: document,
+          uploadFileHeading: '',
+          sessionNullFilesMessage: noFilesUploaded,
+          removeText: remove,
+          csrfToken: csrfToken,
+          fileremoveURL : removeURL
+        }
+      ) }}
          {% for error in sessionErrors %}
     {%- if  error.propertyName === 'document'  %}</div>  {% endif %}
     {% endfor %}
 
-</form>  
-
-  </div>
-
-  {% if document.id !== undefined and document.id !== '' %}
-  <div id="uploadGroup" tabindex="0" class="uploadGroup">
-    <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
-    <p class="govuk-body govuk-section-break  govuk-!-padding-bottom-3{% if uploadedDocuments|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
-    <ul id="filesUploaded" class="govuk-list">
-        <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break">
-          <dt class="govuk-summary-list__value"> {{ document.filename }} </dt>
-          {% set documentId = document.id %}
-          <dd class="govuk-summary-list__actions">
-          <a href="{{postURL}}?removeId={{documentId}}&orderType={{orderType}}&orderId={{orderId}}" class="govuk-link--no-visited-state float-right ">{{ remove }}</a>
-        </dd>
-        </li>
-    </ul>
-  </div>   
-  {%endif%}
+  <div>
     <p class="govuk-body">
     {{ fileFormats }}<br>
     {{ fileSize }}
   </p>
+  </div>
+  </div>
 {% endblock %}

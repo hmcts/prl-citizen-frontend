@@ -1,0 +1,17 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% block page_content %}
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{headingTitle}}</h1>
+<p class="govuk-body-l">{{paragraph1}}</p>
+<p class="govuk-body-m">{{paragraph2}}</p>
+
+{{ govukWarningText(warningText) }}
+{% endblock %}
+  {% block page_content_under_form %}
+    {{ govukDetails({
+    summaryText: detailsLabel,
+    text: detailsContent
+    }) }}
+  {% endblock %}

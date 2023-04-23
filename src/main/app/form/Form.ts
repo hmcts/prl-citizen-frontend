@@ -154,6 +154,10 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+  goBack?: {
+    text: Label;
+    classes?: string;
+  };
 
   fields: FormFields | FormFieldsFn;
 }

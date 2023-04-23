@@ -12,8 +12,8 @@ const dummyRequest = mockRequest({
   query: {},
   session: {
     userCase: {
-      courtProceedingsOrders: ['careOrder', 'emergencyProtectionOrder', 'otherOrder', 'supervisionOrder'],
-      otherProceedings: {
+      op_courtProceedingsOrders: ['careOrder', 'emergencyProtectionOrder', 'otherOrder', 'supervisionOrder'],
+      op_otherProceedings: {
         order: {
           careOrders: [
             {

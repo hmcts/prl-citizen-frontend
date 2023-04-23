@@ -12,7 +12,7 @@ describe('OrderDetails Route Guard', () => {
       },
       session: {
         userCase: {
-          courtProceedingsOrders: [C100OrderTypes.CARE_ORDER],
+          op_courtProceedingsOrders: [C100OrderTypes.CARE_ORDER],
         },
       },
     });
@@ -29,7 +29,7 @@ describe('OrderDetails Route Guard', () => {
       },
       session: {
         userCase: {
-          courtProceedingsOrders: [C100OrderTypes.CARE_ORDER],
+          op_courtProceedingsOrders: [C100OrderTypes.CARE_ORDER],
         },
       },
     });

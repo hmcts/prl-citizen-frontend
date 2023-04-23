@@ -17,13 +17,13 @@ const en = () => ({
   feelComportableOtherSubField: 'Describe what you need',
   feelComportableNoOption: 'No, I do not need any support at this time',
   errors: {
-    appropriateLightingSubField: {
+    ra_appropriateLightingSubField: {
       required: 'Describe the appropriate lighting you need',
     },
-    feelComportableOtherSubField: {
+    ra_feelComportableOtherSubField: {
       required: 'Describe what you need to feel comfortable during a court hearing',
     },
-    feelComportable: {
+    ra_feelComportable: {
       required: 'Select what you need to feel comfortable during a court hearing',
     },
   },
@@ -43,13 +43,13 @@ const cy = () => ({
   feelComportableOtherSubField: 'Describe what you need - welsh',
   feelComportableNoOption: 'No, I do not need any support at this time - welsh',
   errors: {
-    appropriateLightingSubField: {
+    ra_appropriateLightingSubField: {
       required: 'Describe the appropriate lighting you need - welsh',
     },
     feelComportableSubField: {
       required: 'Describe what you need to feel comfortable during a court hearing - welsh',
     },
-    feelComportable: {
+    ra_feelComportable: {
       required: 'Select what you need to feel comfortable during a court hearing - welsh',
     },
   },
@@ -62,18 +62,18 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    feelComportable: {
-      id: 'feelComportable',
+    ra_feelComportable: {
+      id: 'ra_feelComportable',
       type: 'checkboxes',
       hint: l => l.select_all_apply,
       validator: value => atLeastOneFieldIsChecked(value),
       values: [
         {
-          name: 'feelComportable',
+          name: 'ra_feelComportable',
           label: l => l.appropriateLighting,
           value: 'appropriateLighting',
           subFields: {
-            appropriateLightingSubField: {
+            ra_appropriateLightingSubField: {
               type: 'textarea',
               label: l => l.appropriateLightingSubField,
               labelSize: null,
@@ -85,21 +85,21 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'feelComportable',
+          name: 'ra_feelComportable',
           label: l => l.regularBreaks,
           value: 'regularBreaks',
         },
         {
-          name: 'feelComportable',
+          name: 'ra_feelComportable',
           label: l => l.spaceUpAndMoveAround,
           value: 'spaceUpAndMoveAround',
         },
         {
-          name: 'feelComportable',
+          name: 'ra_feelComportable',
           label: l => l.feelComportableOther,
           value: 'feelComportableOther',
           subFields: {
-            feelComportableOtherSubField: {
+            ra_feelComportableOtherSubField: {
               type: 'textarea',
               label: l => l.feelComportableOtherSubField,
               labelSize: null,
@@ -114,7 +114,7 @@ export const form: FormContent = {
           divider: 'or',
         },
         {
-          name: 'feelComportable',
+          name: 'ra_feelComportable',
           label: l => l.feelComportableNoOption,
           value: 'feelComportableNoOption',
           behaviour: 'exclusive',

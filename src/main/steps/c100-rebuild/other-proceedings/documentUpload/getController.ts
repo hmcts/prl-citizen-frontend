@@ -49,7 +49,7 @@ export default class DocumentUpload extends GetController {
         binaryUrl: '',
       };
 
-      const orderSessionData = req.session.userCase?.otherProceedings?.order?.[
+      const orderSessionData = req.session.userCase?.op_otherProceedings?.order?.[
         C100OrderTypeKeyMapper[courtOrderType]
       ] as C100OrderInterface[];
       const orderSessionDataById = orderSessionData[courtOrderId - 1];
@@ -98,8 +98,10 @@ export default class DocumentUpload extends GetController {
       const courtOrderType: AnyType | undefined = orderType;
       const courtOrderId: AnyType | undefined = orderId;
 
-      if (req.session.userCase?.otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]) {
-        req.session.userCase.otherProceedings.order[C100OrderTypeKeyMapper[courtOrderType]][
+      if (
+        req.session.userCase?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]
+      ) {
+        req.session.userCase.op_otherProceedings.order[C100OrderTypeKeyMapper[courtOrderType]][
           courtOrderId - 1
         ].orderDocument = undefined;
       }

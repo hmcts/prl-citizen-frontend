@@ -3,6 +3,7 @@ import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Sections, Step } from '../constants';
 import {
+  C100_CHILD_ADDRESS,
   C100_CONFIDENTIALITY_DETAILS_KNOW,
   C100_CONFIDENTIALITY_FEEDBACK,
   C100_CONFIDENTIALITY_FEEDBACK_NO,
@@ -45,13 +46,44 @@ import {
   C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
 
   /** @C1A Safety concerns */
+  C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
   C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
-  PageLink,
+  C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+  C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+  C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+  C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+  C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
   C100_DOCUMENT_SUBMISSION,
+
+  /** @MIAM MIAM */
+  C100_MIAM_UPLOAD_CONFIRMATION,
+  C100_MIAM_MIAM_DOMESTIC_ABUSE,
+  C100_MIAM_OTHER_PROCEEDINGS,
+  C100_MIAM_MEDIATOR_DOCUMENT,
+  C100_MIAM_CHILD_PROTECTION,
+  C100_MIAM_ATTENDANCE,
+  C100_MIAM_PREVIOUS_ATTENDANCE,
+  C100_MIAM_MEDIATOR_CONFIRMAION,
+  C100_MIAM_URGENCY,
+  C100_MIAM_INFO,
+  C100_MIAM_VALID_REASON,
+  C100_MIAM_NONEED,
+  C100_MIAM_OTHER,
+  C100_MIAM_GENERAL_REASONS,
+  C100_MIAM_GET_MEDIATOR,
+  C100_MIAM_UPLOAD,
+  C100_MIAM_GET_DOC,
+
+  /** Hearing Urgency */
+  C100_HEARING_URGENCY_URGENT,
+  C100_HEARING_URGENCY_URGENT_DETAILS,
+  PageLink,
+  C100_MIAM_NO_NEED_WITH_REASONS,
 } from '../urls';
 
 import PageStepConfigurator from './PageStepConfigurator';
+import MIAMNavigationController from './miam/navigationController';
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
 import { sanitizeOtherProceedingsQueryString } from './other-proceedings/util';
 
@@ -125,7 +157,7 @@ export const C100Sequence: Step[] = [
     getNextStep: (data: Partial<CaseWithId>): PageLink => {
       PageStepConfigurator.deriveSteps(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
-        data?.disabilityRequirements
+        data?.ra_disabilityRequirements
       );
       const nextPage = PageStepConfigurator.getNextPage(C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS);
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
@@ -138,7 +170,7 @@ export const C100Sequence: Step[] = [
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION,
-        data?.disabilityRequirements
+        data?.ra_disabilityRequirements
       );
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
     },
@@ -150,7 +182,7 @@ export const C100Sequence: Step[] = [
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
-        data?.disabilityRequirements
+        data?.ra_disabilityRequirements
       );
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
     },
@@ -162,7 +194,7 @@ export const C100Sequence: Step[] = [
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
-        data?.disabilityRequirements
+        data?.ra_disabilityRequirements
       );
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
     },
@@ -174,7 +206,7 @@ export const C100Sequence: Step[] = [
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE,
-        data?.disabilityRequirements
+        data?.ra_disabilityRequirements
       );
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
     },
@@ -186,7 +218,7 @@ export const C100Sequence: Step[] = [
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
-        data?.disabilityRequirements
+        data?.ra_disabilityRequirements
       );
       return nextPage?.url || C100_CONFIDENTIALITY_DETAILS_KNOW;
     },
@@ -323,11 +355,152 @@ export const C100Sequence: Step[] = [
     url: C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
     showInSection: Sections.C100,
     getNextStep: data =>
-      data.haveSafetyConcerns === YesOrNo.YES ? C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT : C100_CONFIDENTIALITY_START,
+      data.c1A_haveSafetyConcerns === YesOrNo.YES ? C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT : C100_CONFIDENTIALITY_START,
+  },
+  {
+    url: C100_CHILD_ADDRESS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_CHILD_ADDRESS,
   },
   {
     url: C100_DOCUMENT_SUBMISSION,
     showInSection: Sections.C100,
     getNextStep: () => C100_DOCUMENT_SUBMISSION,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY,
+  },
+  {
+    url: C100_MIAM_MEDIATOR_DOCUMENT,
+    showInSection: Sections.C100,
+    getNextStep: data => (data.miam_haveDocSigned === YesOrNo.YES ? C100_MIAM_UPLOAD : C100_MIAM_GET_DOC),
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+  },
+  {
+    url: C100_MIAM_OTHER_PROCEEDINGS,
+    showInSection: Sections.C100,
+    getNextStep: data => (data.miam_otherProceedings === YesOrNo.YES ? C100_MIAM_NONEED : C100_MIAM_INFO),
+  },
+  {
+    url: C100_MIAM_ATTENDANCE,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.miam_attendance === YesOrNo.YES ? C100_MIAM_MEDIATOR_DOCUMENT : C100_MIAM_MEDIATOR_CONFIRMAION,
+  },
+  {
+    url: C100_MIAM_MEDIATOR_CONFIRMAION,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.miam_mediatorDocument === YesOrNo.YES ? C100_MIAM_MEDIATOR_DOCUMENT : C100_MIAM_VALID_REASON,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
+  },
+  {
+    url: C100_MIAM_URGENCY,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_URGENCY, caseData),
+  },
+  {
+    url: C100_MIAM_PREVIOUS_ATTENDANCE,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_PREVIOUS_ATTENDANCE, caseData),
+  },
+  {
+    url: C100_MIAM_INFO,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_ATTENDANCE,
+  },
+  {
+    url: C100_MIAM_VALID_REASON,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.miam_validReason === YesOrNo.YES ? C100_MIAM_GENERAL_REASONS : C100_MIAM_GET_MEDIATOR,
+  },
+  {
+    url: C100_MIAM_NONEED,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+  },
+  {
+    url: C100_MIAM_OTHER,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_OTHER, caseData),
+  },
+  {
+    url: C100_MIAM_CHILD_PROTECTION,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_CHILD_PROTECTION, caseData),
+  },
+  {
+    url: C100_MIAM_MIAM_DOMESTIC_ABUSE,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE, caseData),
+  },
+  {
+    url: C100_MIAM_GENERAL_REASONS,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_GENERAL_REASONS, caseData),
+  },
+  {
+    url: C100_MIAM_GET_MEDIATOR,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_GET_MEDIATOR,
+  },
+  {
+    url: C100_MIAM_UPLOAD,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_UPLOAD_CONFIRMATION,
+  },
+  {
+    url: C100_MIAM_UPLOAD_CONFIRMATION,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_TYPE_ORDER_SELECT_COURT_ORDER,
+  },
+  {
+    url: C100_MIAM_GET_DOC,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_MIAM_GET_DOC,
+  },
+  {
+    url: C100_MIAM_NO_NEED_WITH_REASONS,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_NO_NEED_WITH_REASONS, caseData),
+  },
+  {
+    url: C100_HEARING_URGENCY_URGENT,
+    showInSection: Sections.C100,
+    getNextStep: (data: Partial<Case>) =>
+      data.hu_urgentHearingReasons === YesOrNo.YES
+        ? C100_HEARING_URGENCY_URGENT_DETAILS
+        : C100_HEARING_WITHOUT_NOTICE_PART1,
+  },
+  {
+    url: C100_HEARING_URGENCY_URGENT_DETAILS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_HEARING_WITHOUT_NOTICE_PART1,
+  },
+  {
+    url: C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
+    showInSection: Sections.C100,
+    getNextStep: () => C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
   },
 ];

@@ -33,13 +33,13 @@ const en = {
   returningChildrenToYourCare: 'Returning the children to your care',
   returningChildrenToYourCareHint: 'If the children have been abducted, unlawfully removed or unlawfully retained',
   errors: {
-    courtOrder: {
+    too_courtOrder: {
       required: 'Select  what you are asking the court to do',
     },
-    stopOtherPeopleDoingSomethingSubField: {
+    too_stopOtherPeopleDoingSomethingSubField: {
       required: 'Specify what you want the court to stop the other people in the application doing',
     },
-    resolveSpecificIssueSubField: {
+    too_resolveSpecificIssueSubField: {
       required: 'Specify what issue you want the court to resolve',
     },
   },
@@ -72,13 +72,13 @@ const cy = {
   returningChildrenToYourCareHint:
     'If the children have been abducted, unlawfully removed or unlawfully retained - welsh',
   errors: {
-    courtOrder: {
+    too_courtOrder: {
       required: 'Select  what you are asking the court to do - welsh',
     },
-    stopOtherPeopleDoingSomethingSubField: {
+    too_stopOtherPeopleDoingSomethingSubField: {
       required: 'Specify what you want the court to stop the other people in the application doing - welsh',
     },
-    resolveSpecificIssueSubField: {
+    too_resolveSpecificIssueSubField: {
       required: 'Specify what issue you want the court to resolve - welsh',
     },
   },
@@ -105,7 +105,7 @@ describe('applicant personal details > applying-with > content', () => {
   });
 
   test('should contain courtOrder field', () => {
-    const courtOrderField = fields.courtOrder as FormOptions;
+    const courtOrderField = fields.too_courtOrder as FormOptions;
     expect(courtOrderField.type).toBe('checkboxes');
     expect((courtOrderField?.hint as Function)(generatedContent)).toBe(en.select_all_apply);
     expect((courtOrderField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.whoChildLiveWith);
@@ -123,7 +123,7 @@ describe('applicant personal details > applying-with > content', () => {
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('resolveSpecificIssue');
 
     const stopOtherPeopleDoingSomethingSubField = courtOrderField.values[2].subFields
-      ?.stopOtherPeopleDoingSomethingSubField as FormOptions;
+      ?.too_stopOtherPeopleDoingSomethingSubField as FormOptions;
     expect(stopOtherPeopleDoingSomethingSubField.type).toBe('checkboxes');
     expect((stopOtherPeopleDoingSomethingSubField.values[0].label as LanguageLookup)(generatedContent)).toBe(
       en.changeChildrenNameSurname
@@ -145,7 +145,7 @@ describe('applicant personal details > applying-with > content', () => {
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('takingChildOnHoliday');
 
     const resolveSpecificIssueSubField = courtOrderField.values[3].subFields
-      ?.resolveSpecificIssueSubField as FormOptions;
+      ?.too_resolveSpecificIssueSubField as FormOptions;
     expect(resolveSpecificIssueSubField.type).toBe('checkboxes');
     expect((resolveSpecificIssueSubField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.specificHoliday);
     expect((resolveSpecificIssueSubField.values[1].label as LanguageLookup)(generatedContent)).toBe(

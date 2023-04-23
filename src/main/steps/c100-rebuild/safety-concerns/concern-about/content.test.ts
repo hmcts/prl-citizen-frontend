@@ -15,7 +15,7 @@ const en = {
   childrenInThisApplication: 'The children in this application',
   yourself: 'Yourself',
   errors: {
-    safetyConernAbout: {
+    c1A_safetyConernAbout: {
       required: 'Specify who you are concerned about',
     },
   },
@@ -29,7 +29,7 @@ const cy = {
   childrenInThisApplication: 'The children in this application - welsh',
   yourself: 'Yourself - welsh',
   errors: {
-    safetyConernAbout: {
+    c1A_safetyConernAbout: {
       required: 'Specify who you are concerned about - welsh',
     },
   },
@@ -57,14 +57,14 @@ describe('Safety concern about > applying-with > content', () => {
   });
 
   test('should contain safety concern about field', () => {
-    const concernAboutField = fields.safetyConernAbout as FormOptions;
+    const concernAboutField = fields.c1A_safetyConernAbout as FormOptions;
     expect(concernAboutField.type).toBe('checkboxes');
     expect((concernAboutField?.hint as Function)(generatedContent)).toBe(en.select_all_relevant);
     expect((concernAboutField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.childrenInThisApplication);
     expect((concernAboutField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.yourself);
 
-    (concernAboutField.validator as Function)('safetyConernAbout');
-    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('safetyConernAbout');
+    (concernAboutField.validator as Function)('c1A_safetyConernAbout');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('c1A_safetyConernAbout');
   });
 
   test('should contain Save and continue button', () => {

@@ -21,10 +21,10 @@ const en = () => ({
   noVideoAndPhoneHearingReason: 'If you choose this option please tell us why in case we can assist you',
   noVideoAndPhoneHearingExplanation: 'Explain why you are unable to take part in video or phone hearings',
   errors: {
-    noVideoAndPhoneHearingExplanation: {
+    ra_noVideoAndPhoneHearingExplanation: {
       required: 'Explain why you are unable to take part in neither video or phone hearings',
     },
-    typeOfHearing: {
+    ra_typeOfHearing: {
       required: 'Select whether you can take part in a video or phone hearing',
     },
   },
@@ -48,10 +48,10 @@ const cy = () => ({
   noVideoAndPhoneHearingReason: 'If you choose this option please tell us why in case we can assist you - welsh',
   noVideoAndPhoneHearingExplanation: 'Explain why you are unable to take part in video or phone hearings - welsh',
   errors: {
-    noVideoAndPhoneHearingExplanation: {
+    ra_noVideoAndPhoneHearingExplanation: {
       required: 'Explain why you are unable to take part in neither video or phone hearings - welsh',
     },
-    typeOfHearing: {
+    ra_typeOfHearing: {
       required: 'Select whether you can take part in a video or phone hearing - welsh',
     },
   },
@@ -64,19 +64,19 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    typeOfHearing: {
-      id: 'typeOfHearing',
+    ra_typeOfHearing: {
+      id: 'ra_typeOfHearing',
       type: 'checkboxes',
       hint: l => l.select_all_apply,
       validator: value => atLeastOneFieldIsChecked(value),
       values: [
         {
-          name: 'typeOfHearing',
+          name: 'ra_typeOfHearing',
           label: l => l.videoHearing,
           value: 'videoHearing',
         },
         {
-          name: 'typeOfHearing',
+          name: 'ra_typeOfHearing',
           label: l => l.phoneHearing,
           value: 'phoneHearing',
         },
@@ -84,13 +84,13 @@ export const form: FormContent = {
           divider: 'or',
         },
         {
-          name: 'typeOfHearing',
+          name: 'ra_typeOfHearing',
           label: l => l.noVideoAndPhoneHearing,
           value: 'none',
           hint: l => l.noVideoAndPhoneHearingReason,
           behaviour: 'exclusive',
           subFields: {
-            noVideoAndPhoneHearingExplanation: {
+            ra_noVideoAndPhoneHearingExplanation: {
               type: 'textarea',
               label: l => l.noVideoAndPhoneHearingExplanation,
               labelSize: null,

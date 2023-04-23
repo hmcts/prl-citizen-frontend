@@ -13,7 +13,7 @@ const en = {
   one: 'Yes',
   two: 'No',
   errors: {
-    hearingPart1: {
+    hwn_hearingPart1: {
       required: "Select yes if you're asking for a without notice",
     },
   },
@@ -26,7 +26,7 @@ const cy = {
   one: 'Yes - welsh',
   two: 'No - welsh',
   errors: {
-    hearingPart1: {
+    hwn_hearingPart1: {
       required: "Select yes if you're asking for a without notice - welsh",
     },
   },
@@ -49,7 +49,7 @@ describe('hearing without notice hearing part1', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const hearingPart1Field = fields.hearingPart1 as FormOptions;
+    const hearingPart1Field = fields.hwn_hearingPart1 as FormOptions;
     expect(hearingPart1Field.type).toBe('radios');
     expect(hearingPart1Field.classes).toBe('govuk-radios');
     expect((hearingPart1Field.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);

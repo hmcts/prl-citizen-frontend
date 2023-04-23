@@ -19,8 +19,8 @@ const dummyRequest = mockRequest({
   query: {},
   session: {
     userCase: {
-      courtProceedingsOrders: ['careOrder', 'emergencyProtectionOrder', 'otherOrder', 'supervisionOrder'],
-      otherProceedings: {
+      op_courtProceedingsOrders: ['careOrder', 'emergencyProtectionOrder', 'otherOrder', 'supervisionOrder'],
+      op_otherProceedings: {
         order: {
           careOrders: [
             {
@@ -62,11 +62,11 @@ const dummyRequest = mockRequest({
 
 describe('OtherProceedingsNavigationController', () => {
   test('isAnyOrderWithOrderCopy should return true as there is an order with order copy set to yes', async () => {
-    expect(isAnyOrderWithOrderCopy(dummyRequest.session.userCase.otherProceedings.order)).toBe(true);
+    expect(isAnyOrderWithOrderCopy(dummyRequest.session.userCase.op_otherProceedings.order)).toBe(true);
   });
 
   test('isAnyOrderWithDocument should return true as there is an order with order copy having document informaation', async () => {
-    expect(isAnyOrderWithDocument(dummyRequest.session.userCase.otherProceedings.order)).toBe(true);
+    expect(isAnyOrderWithDocument(dummyRequest.session.userCase.op_otherProceedings.order)).toBe(true);
   });
 
   test('isValidOrderType should return true as the order type is chosen', async () => {
@@ -74,7 +74,7 @@ describe('OtherProceedingsNavigationController', () => {
   });
 
   test('getAllOrderDocuments should retrive all the orders containing document information', async () => {
-    expect(getAllOrderDocuments(dummyRequest.session.userCase.otherProceedings.order)).toEqual(
+    expect(getAllOrderDocuments(dummyRequest.session.userCase.op_otherProceedings.order)).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           orderCopy: 'Yes',

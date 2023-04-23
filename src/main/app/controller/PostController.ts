@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getNextStepUrl } from '../../steps';
-import { RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
+import { C100_URL, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
@@ -12,7 +12,6 @@ import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
 import { AppRequest } from './AppRequest';
-
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
@@ -32,6 +31,8 @@ export class PostController<T extends AnyObject> {
       await this.saveBeforeSessionTimeout(req, res, formData);
     } else if (req.body.accessCodeCheck) {
       await this.checkCaseAccessCode(req, res, form, formData);
+    } else if (req.body.saveAndComeLater) {
+      await this.saveAndComeLater(req, res, formData);
     } else {
       await this.checkCaseAccessCode(req, res, form, formData);
       await this.saveAndContinue(req, res, form, formData);
@@ -198,6 +199,24 @@ export class PostController<T extends AnyObject> {
       req.session.accessCodeLoginIn = false;
     } else {
       req.session.accessCodeLoginIn = true;
+    }
+  }
+
+  protected async saveAndComeLater(
+    req: AppRequest<T>,
+    res: Response,
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
+    formData: Partial<CaseWithId> | any
+  ): Promise<void> {
+    if (req.path.startsWith(C100_URL)) {
+      try {
+        Object.assign(req.session.userCase, formData);
+        await req.locals.C100Api.updateCase(req.session.userCase!.caseId!, req.session.userCase, req.originalUrl);
+      } finally {
+        this.redirect(req, res);
+      }
+    } else {
+      this.redirect(req, res);
     }
   }
 }

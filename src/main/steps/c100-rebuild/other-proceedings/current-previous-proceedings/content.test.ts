@@ -14,10 +14,10 @@ const en = {
   one: 'Yes',
   two: 'No',
   errors: {
-    childrenInvolvedCourtCase: {
+    op_childrenInvolvedCourtCase: {
       required: 'Select yes if the children have been involved in a previous court case',
     },
-    courtOrderProtection: {
+    op_courtOrderProtection: {
       required: 'Select yes if you have had a court order made for your protection',
     },
   },
@@ -30,10 +30,10 @@ const cy = {
   one: 'Yes - welsh',
   two: 'No - welsh',
   errors: {
-    childrenInvolvedCourtCase: {
+    op_childrenInvolvedCourtCase: {
       required: 'Select yes if the children have been involved in a previous court case - welsh',
     },
-    courtOrderProtection: {
+    op_courtOrderProtection: {
       required: 'Select yes if you have had a court order made for your protection - welsh',
     },
   },
@@ -56,7 +56,7 @@ describe('applicant personal details > international elements > start', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const childrenInvolvedCourtCaseField = fields.childrenInvolvedCourtCase as FormOptions;
+    const childrenInvolvedCourtCaseField = fields.op_childrenInvolvedCourtCase as FormOptions;
     expect(childrenInvolvedCourtCaseField.type).toBe('radios');
     expect(childrenInvolvedCourtCaseField.classes).toBe('govuk-radios');
     expect((childrenInvolvedCourtCaseField.label as LanguageLookup)(generatedContent)).toBe(
@@ -65,7 +65,7 @@ describe('applicant personal details > international elements > start', () => {
     expect((childrenInvolvedCourtCaseField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((childrenInvolvedCourtCaseField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
 
-    const courtOrderProtectionField = fields.courtOrderProtection as FormOptions;
+    const courtOrderProtectionField = fields.op_courtOrderProtection as FormOptions;
     expect(courtOrderProtectionField.type).toBe('radios');
     expect(courtOrderProtectionField.classes).toBe('govuk-radios');
     expect((courtOrderProtectionField.label as LanguageLookup)(generatedContent)).toBe(en.courtOrderProtection);

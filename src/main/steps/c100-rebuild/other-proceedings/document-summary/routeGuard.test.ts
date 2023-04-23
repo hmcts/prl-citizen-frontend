@@ -9,7 +9,7 @@ describe('OrderDetails Route Guard', () => {
     const req = mockRequest({
       session: {
         userCase: {
-          otherProceedings: {
+          op_otherProceedings: {
             order: {
               careOrders: [
                 {
@@ -54,7 +54,7 @@ describe('OrderDetails Route Guard', () => {
       },
       session: {
         userCase: {
-          courtProceedingsOrders: [C100OrderTypes.CARE_ORDER],
+          op_courtProceedingsOrders: [C100OrderTypes.CARE_ORDER],
         },
       },
     });

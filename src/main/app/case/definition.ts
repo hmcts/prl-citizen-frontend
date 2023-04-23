@@ -266,6 +266,17 @@ export const enum Nationality {
   NOT_SURE = 'Not sure',
 }
 
+export enum MiamNonAttendReason {
+  DOMESTIC = 'domesticViolence',
+  CHILD_PROTECTION = 'childProtection',
+  URGENT = 'urgentHearing',
+  PREV_MIAM = 'previousMIAMOrExempt',
+  EXEMPT = 'validExemption',
+  NONE = 'none',
+}
+
+
+
 export const enum ContactDetails {
   EMAIL = 'email',
   PHONE = 'phone',
@@ -1403,6 +1414,7 @@ export const enum CONFIDENTIAL_DETAILS {
 
 export const enum C100 {
   CASE_TYPE_OF_APPLICATION = 'C100',
+  CASE_UPDATE = 'citizen-case-update'
 }
 
 export enum C100OrderTypes {
@@ -1462,6 +1474,8 @@ export const C100OrderTypeKeyMapper = {
   undertakingOrder: 'undertakingOrders',
   otherOrder: 'otherOrders'
 }
+export const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png' , 'tif', 'tiff', 'pdf', 'doc', 'docx']
+export const C100MaxFileSize = '20000000'
 export interface C100OrderTypeInterface {
   childArrangementOrders?: C100OrderInterface[],
   emergencyProtectionOrders?:C100OrderInterface[],
@@ -1484,3 +1498,45 @@ export interface C100OrderTypeInterface {
 export interface OtherProceedings {
   order?: C100OrderTypeInterface
 }
+
+export enum C1AAbuseTypes {
+  PHYSICAL_ABUSE = 'physicalAbuse',
+  PSYCHOLOGICAL_ABUSE = 'psychologicalAbuse',
+  EMOTIONAL_ABUSE = 'emotionalAbuse',
+  SEXUAL_ABUSE = 'sexualAbuse',
+  FINANCIAL_ABUSE = 'financialAbuse',
+  ABDUCTION = 'abduction',
+  WITNESSING_DOMESTIC_ABUSE='witnessingDomesticAbuse',
+  SOMETHING_ELSE='somethingElse',
+}
+
+export enum C1ASafteyConcernsAbout{
+  CHILDREN = 'children',
+  APPLICANT = 'applicant',
+}
+
+export interface C1ASafteyConcernsAbuse{
+  behaviourDetails?: string;
+  behaviourStartDate?: string;
+  isOngoingBehaviour?:YesNoEmpty;
+  seekHelpFromPersonOrAgency?: YesNoEmpty;
+  seekHelpDetails?: string;
+}
+
+export interface C1ASafteyConcerns {
+  child?: {
+    physicalAbuse?:C1ASafteyConcernsAbuse;
+    psychologicalAbuse?:C1ASafteyConcernsAbuse;
+    emotionalAbuse?:C1ASafteyConcernsAbuse;
+    sexualAbuse?:C1ASafteyConcernsAbuse;
+    financialAbuse?: C1ASafteyConcernsAbuse;
+  },
+  applicant?:{
+    physicalAbuse?:C1ASafteyConcernsAbuse;
+    psychologicalAbuse?:C1ASafteyConcernsAbuse;
+    emotionalAbuse?:C1ASafteyConcernsAbuse;
+    sexualAbuse?:C1ASafteyConcernsAbuse;
+    financialAbuse?: C1ASafteyConcernsAbuse;
+    somethingElse?: C1ASafteyConcernsAbuse;
+  },
+  }

@@ -2,6 +2,7 @@ import { Request } from 'express';
 import { Session } from 'express-session';
 import type { LoggerInstance } from 'winston';
 
+import { CaseApi as C100Api } from '../case/C100CaseApi';
 import { CaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
 import { YesOrNo } from '../case/definition';
@@ -14,6 +15,7 @@ export interface AppRequest<T = Partial<Case>> extends Request {
     lang: string;
     logger: LoggerInstance;
     api: CaseApi;
+    C100Api: C100Api;
   };
   body: T;
 }

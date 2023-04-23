@@ -17,7 +17,7 @@ const en = {
     'what you would like the court to do',
   ],
   errors: {
-    shortStatement: {
+    too_shortStatement: {
       required: 'Describe what you want the court to do regarding the children in this application',
     },
   },
@@ -35,7 +35,7 @@ const cy = {
     'what you would like the court to do - welsh',
   ],
   errors: {
-    shortStatement: {
+    too_shortStatement: {
       required: 'Describe what you want the court to do regarding the children in this application - welsh',
     },
   },
@@ -65,7 +65,7 @@ describe('c100-rebuild > typeoforder > shortstatement', () => {
   });
 
   test('should contain courtOrder short statement text area', () => {
-    const courtOrderField = fields.shortStatement as FormOptions;
+    const courtOrderField = fields.too_shortStatement as FormOptions;
     expect(courtOrderField.type).toBe('textarea');
   });
 

@@ -15,10 +15,10 @@ const en = {
   two: 'No',
   provideDetails: 'Provide details',
   errors: {
-    internationalRequest: {
+    ie_internationalRequest: {
       required: 'Select yes if another country has asked (or been asked) for information or help for the children',
     },
-    provideDetailsRequest: {
+    ie_provideDetailsRequest: {
       required:
         'Provide details about another country asking (or being asked) for information or help for the children',
     },
@@ -33,11 +33,11 @@ const cy = {
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',
   errors: {
-    internationalRequest: {
+    ie_internationalRequest: {
       required:
         'Select yes if another country has asked (or been asked) for information or help for the children - Welsh',
     },
-    provideDetailsRequest: {
+    ie_provideDetailsRequest: {
       required:
         'Provide details about another country asking (or being asked) for information or help for the children - Welsh ',
     },
@@ -61,13 +61,13 @@ describe('applicant personal details > international elements > request', () => 
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.internationalRequest as FormOptions;
+    const applyingWithField = fields.ie_internationalRequest as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
 
-    const field2 = applyingWithField.values[0].subFields!.provideDetailsRequest;
+    const field2 = applyingWithField.values[0].subFields!.ie_provideDetailsRequest;
     expect((field2?.label as Function)(generatedContent)).toBe(en.provideDetails);
     expect(field2.type).toBe('textarea');
     (field2.validator as Function)('Yes');

@@ -21,13 +21,13 @@ const en = {
   feelComportableOtherSubField: 'Describe what you need',
   feelComportableNoOption: 'No, I do not need any support at this time',
   errors: {
-    appropriateLightingSubField: {
+    ra_appropriateLightingSubField: {
       required: 'Describe the appropriate lighting you need',
     },
-    feelComportableOtherSubField: {
+    ra_feelComportableOtherSubField: {
       required: 'Describe what you need to feel comfortable during a court hearing',
     },
-    feelComportable: {
+    ra_feelComportable: {
       required: 'Select what you need to feel comfortable during a court hearing',
     },
   },
@@ -47,13 +47,13 @@ const cy = {
   feelComportableOtherSubField: 'Describe what you need - welsh',
   feelComportableNoOption: 'No, I do not need any support at this time - welsh',
   errors: {
-    appropriateLightingSubField: {
+    ra_appropriateLightingSubField: {
       required: 'Describe the appropriate lighting you need - welsh',
     },
     feelComportableSubField: {
       required: 'Describe what you need to feel comfortable during a court hearing - welsh',
     },
-    feelComportable: {
+    ra_feelComportable: {
       required: 'Select what you need to feel comfortable during a court hearing - welsh',
     },
   },
@@ -80,9 +80,9 @@ describe('applicant personal details > applying-with > content', () => {
   });
 
   test('should contain specialArrangements field', () => {
-    const feelComportableField = fields.feelComportable as FormOptions;
+    const feelComportableField = fields.ra_feelComportable as FormOptions;
     const appropriateLightingSubFields = feelComportableField.values[0].subFields
-      ?.appropriateLightingSubField as FormOptions;
+      ?.ra_appropriateLightingSubField as FormOptions;
 
     expect(feelComportableField.type).toBe('checkboxes');
     expect(appropriateLightingSubFields.type).toBe('textarea');
@@ -95,7 +95,7 @@ describe('applicant personal details > applying-with > content', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
 
     const feelComportableOtherSubFields = feelComportableField.values[3].subFields
-      ?.feelComportableOtherSubField as FormOptions;
+      ?.ra_feelComportableOtherSubField as FormOptions;
 
     expect(feelComportableOtherSubFields.type).toBe('textarea');
     expect((feelComportableOtherSubFields?.label as Function)(generatedContent)).toBe(en.feelComportableOtherSubField);

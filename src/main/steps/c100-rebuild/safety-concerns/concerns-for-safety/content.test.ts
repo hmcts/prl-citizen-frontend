@@ -26,7 +26,7 @@ const en = {
   yesHaveSafetyConcerns: 'Yes',
   noHaveSafetyConcerns: 'No',
   errors: {
-    haveSafetyConcerns: {
+    c1A_haveSafetyConcerns: {
       required: 'Select yes if you have any concerns for your safety or the safety of the children',
     },
   },
@@ -52,7 +52,7 @@ const cy = {
   yesHaveSafetyConcerns: 'Yes - Welsh',
   noHaveSafetyConcerns: 'No - Welsh',
   errors: {
-    haveSafetyConcerns: {
+    c1A_haveSafetyConcerns: {
       required: 'Select yes if you have any concerns for your safety or the safety of the children - Welsh',
     },
   },
@@ -80,13 +80,13 @@ describe('Safety concern about > applying-with > content', () => {
   });
 
   test('should select if they have safety concerns field', () => {
-    const doYouHaveSafetyConcerns = fields.haveSafetyConcerns as FormOptions;
+    const doYouHaveSafetyConcerns = fields.c1A_haveSafetyConcerns as FormOptions;
     expect(doYouHaveSafetyConcerns.type).toBe('radios');
     expect((doYouHaveSafetyConcerns.values[0].label as LanguageLookup)(generatedContent)).toBe(YesOrNo.YES);
     expect((doYouHaveSafetyConcerns.values[1].label as LanguageLookup)(generatedContent)).toBe(YesOrNo.NO);
 
-    (doYouHaveSafetyConcerns.validator as Function)('haveSafetyConcerns');
-    expect(isFieldFilledIn).toHaveBeenCalledWith('haveSafetyConcerns');
+    (doYouHaveSafetyConcerns.validator as Function)('c1A_haveSafetyConcerns');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('c1A_haveSafetyConcerns');
   });
 
   test('should contain onlycontinue button', () => {

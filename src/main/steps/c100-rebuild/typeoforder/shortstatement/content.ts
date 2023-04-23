@@ -14,7 +14,7 @@ const en = () => ({
     'what you would like the court to do',
   ],
   errors: {
-    shortStatement: {
+    too_shortStatement: {
       required: 'Describe what you want the court to do regarding the children in this application',
     },
   },
@@ -32,7 +32,7 @@ const cy = () => ({
     'what you would like the court to do - welsh',
   ],
   errors: {
-    shortStatement: {
+    too_shortStatement: {
       required: 'Describe what you want the court to do regarding the children in this application - welsh',
     },
   },
@@ -45,7 +45,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    shortStatement: {
+    too_shortStatement: {
       type: 'textarea',
       label: l => l.shortStatement,
       labelSize: null,

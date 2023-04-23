@@ -1,0 +1,23 @@
+import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { MiamNonAttendReason } from '../../../app/case/definition';
+
+import { isAllowed } from './util';
+
+const dummyRequest = mockRequest({
+  query: {},
+  session: {
+    userCase: {
+      miam_nonAttendanceReasons: ['childProtection', 'urgentHearing', 'validExemption'],
+    },
+  },
+});
+
+describe('isAllowed method', () => {
+  test('isAllowed method should return true if the MIAM reason is valid when the respective reason details capture page is loaded', async () => {
+    expect(isAllowed(MiamNonAttendReason.URGENT, dummyRequest.session.userCase)).toBe(true);
+  });
+
+  test('isAllowed method should return false if the MIAM reason is in valid when the respective reason details capture page is loaded', async () => {
+    expect(isAllowed(MiamNonAttendReason.PREV_MIAM, dummyRequest.session.userCase)).toBe(false);
+  });
+});

@@ -26,16 +26,16 @@ const en = {
   noSupportRequired: 'No, I do not need any support at this time',
   describeWhatNeeded: 'Describe what you need',
   errors: {
-    documentInformation: {
+    ra_documentInformation: {
       required: 'Select which format you need your documents in',
     },
-    specifiedColorDocumentsDetails: {
+    ra_specifiedColorDocumentsDetails: {
       required: 'Describe which colour you need your documents in',
     },
-    largePrintDocumentsDetails: {
+    ra_largePrintDocumentsDetails: {
       required: 'Describe which large print you need your documents in',
     },
-    otherDetails: {
+    ra_otherDetails: {
       required: 'Describe which alternative format you need your documents in',
     },
   },
@@ -60,16 +60,16 @@ const cy = {
   noSupportRequired: 'No, I do not need any support at this time - welsh',
   describeWhatNeeded: 'Describe what you need - welsh',
   errors: {
-    documentInformation: {
+    ra_documentInformation: {
       required: 'Select which format you need your documents in - welsh',
     },
-    specifiedColorDocumentsDetails: {
+    ra_specifiedColorDocumentsDetails: {
       required: 'Describe which colour you need your documents in - welsh',
     },
-    largePrintDocumentsDetails: {
+    ra_largePrintDocumentsDetails: {
       required: 'Describe which large print you need your documents in - welsh',
     },
-    otherDetails: {
+    ra_otherDetails: {
       required: 'Describe which alternative format you need your documents in - welsh',
     },
   },
@@ -96,7 +96,7 @@ describe('Disability requirements content', () => {
   });
 
   test('should contain documentInformation field', () => {
-    const documentInformationField = fields.documentInformation as FormOptions;
+    const documentInformationField = fields.ra_documentInformation as FormOptions;
 
     expect(documentInformationField.type).toBe('checkboxes');
 
@@ -126,7 +126,7 @@ describe('Disability requirements content', () => {
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('specifiedColorDocuments');
 
     const specifiedColorDocumentsDetailsField = documentInformationField.values[0].subFields
-      ?.specifiedColorDocumentsDetails as FormOptions;
+      ?.ra_specifiedColorDocumentsDetails as FormOptions;
     expect(specifiedColorDocumentsDetailsField.type).toBe('textarea');
     expect((specifiedColorDocumentsDetailsField.label as LanguageLookup)(generatedContent)).toBe(en.describeWhatNeeded);
     (specifiedColorDocumentsDetailsField.validator as Function)('test text area');
@@ -134,14 +134,14 @@ describe('Disability requirements content', () => {
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
 
     const largePrintDocumentsDetailsField = documentInformationField.values[3].subFields
-      ?.largePrintDocumentsDetails as FormOptions;
+      ?.ra_largePrintDocumentsDetails as FormOptions;
     expect(largePrintDocumentsDetailsField.type).toBe('textarea');
     expect((largePrintDocumentsDetailsField.label as LanguageLookup)(generatedContent)).toBe(en.describeWhatNeeded);
     (largePrintDocumentsDetailsField.validator as Function)('test text area');
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
 
-    const otherDetailsField = documentInformationField.values[7].subFields?.otherDetails as FormOptions;
+    const otherDetailsField = documentInformationField.values[7].subFields?.ra_otherDetails as FormOptions;
     expect(otherDetailsField.type).toBe('textarea');
     expect((otherDetailsField.label as LanguageLookup)(generatedContent)).toBe(en.describeWhatNeeded);
     (otherDetailsField.validator as Function)('test text area');

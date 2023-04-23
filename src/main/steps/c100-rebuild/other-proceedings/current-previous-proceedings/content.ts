@@ -11,10 +11,10 @@ const en = () => ({
   one: 'Yes',
   two: 'No',
   errors: {
-    childrenInvolvedCourtCase: {
+    op_childrenInvolvedCourtCase: {
       required: 'Select yes if the children have been involved in a previous court case',
     },
-    courtOrderProtection: {
+    op_courtOrderProtection: {
       required: 'Select yes if you have had a court order made for your protection',
     },
   },
@@ -27,10 +27,10 @@ const cy = () => ({
   one: 'Yes - welsh',
   two: 'No - welsh',
   errors: {
-    childrenInvolvedCourtCase: {
+    op_childrenInvolvedCourtCase: {
       required: 'Select yes if the children have been involved in a previous court case - welsh',
     },
-    courtOrderProtection: {
+    op_courtOrderProtection: {
       required: 'Select yes if you have had a court order made for your protection - welsh',
     },
   },
@@ -43,7 +43,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    childrenInvolvedCourtCase: {
+    op_childrenInvolvedCourtCase: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.childrenInvolvedCourtCase,
@@ -61,7 +61,7 @@ export const form: FormContent = {
       ],
       validator: isFieldFilledIn,
     },
-    courtOrderProtection: {
+    op_courtOrderProtection: {
       type: 'radios',
       classes: 'govuk-radios',
       label: l => l.courtOrderProtection,

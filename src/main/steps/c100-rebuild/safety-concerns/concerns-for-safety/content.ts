@@ -21,7 +21,7 @@ const en = () => ({
   yesHaveSafetyConcerns: 'Yes',
   noHaveSafetyConcerns: 'No',
   errors: {
-    haveSafetyConcerns: {
+    c1A_haveSafetyConcerns: {
       required: 'Select yes if you have any concerns for your safety or the safety of the children',
     },
   },
@@ -47,7 +47,7 @@ const cy = () => ({
   yesHaveSafetyConcerns: 'Yes - Welsh',
   noHaveSafetyConcerns: 'No - Welsh',
   errors: {
-    haveSafetyConcerns: {
+    c1A_haveSafetyConcerns: {
       required: 'Select yes if you have any concerns for your safety or the safety of the children - Welsh',
     },
   },
@@ -72,7 +72,7 @@ export const form: FormContent = {
       type: 'warning',
       label: l => l.warningMessage,
     },
-    haveSafetyConcerns: {
+    c1A_haveSafetyConcerns: {
       type: 'radios',
       classes: 'govuk-radios',
       section: l => l.section,

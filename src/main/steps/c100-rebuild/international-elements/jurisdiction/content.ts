@@ -12,11 +12,11 @@ const en = () => ({
   two: 'No',
   provideDetails: 'Provide details',
   errors: {
-    internationalJurisdiction: {
+    ie_internationalJurisdiction: {
       required:
         'Select yes if another person in the application could apply for a similar order in a country outside England or Wales?',
     },
-    provideDetailsJurisdiction: {
+    ie_provideDetailsJurisdiction: {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales?',
     },
@@ -33,11 +33,11 @@ const cy = () => ({
   two: 'No - Welsh',
   provideDetails: 'Provide details - Welsh',
   errors: {
-    internationalJurisdiction: {
+    ie_internationalJurisdiction: {
       required:
         'Select yes if another person in the application could apply for a similar order in a country outside England or Wales? - Welsh',
     },
-    provideDetailsJurisdiction: {
+    ie_provideDetailsJurisdiction: {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales? - Welsh ',
     },
@@ -51,7 +51,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    internationalJurisdiction: {
+    ie_internationalJurisdiction: {
       type: 'radios',
       classes: 'govuk-radios',
       values: [
@@ -59,7 +59,7 @@ export const form: FormContent = {
           label: l => l.one,
           value: YesOrNo.YES,
           subFields: {
-            provideDetailsJurisdiction: {
+            ie_provideDetailsJurisdiction: {
               type: 'textarea',
               label: l => l.provideDetails,
               labelSize: null,

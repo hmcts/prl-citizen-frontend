@@ -2,9 +2,12 @@
 import { AnyObject } from '../controller/PostController';
 
 import {
+  C100DocumentInfo,
   C100OrderTypes,
+  C1ASafteyConcerns,
   CaseData,
   ContactDetails,
+  MiamNonAttendReason,
   OtherName,
   OtherProceedings,
   State,
@@ -67,6 +70,7 @@ export interface Case {
   startAlternative?: string;
   contactDetailsPrivate?: string;
   miamStart?: string;
+  miam_consent?: string;
   miamWillingness?: string;
   miamNotWillingExplnation?: string;
   doYouConsent?: YesOrNo;
@@ -200,13 +204,27 @@ export interface Case {
   //C100 Rebuild
   contactDetailsPrivateAlternative?: string;
   c100ApplicationFees?: string;
-  disabilityRequirements?: string[];
+  ra_disabilityRequirements?: string[];
   needHelpWithFees?: YesOrNo;
   feesAppliedDetails?: YesOrNo;
   caseId?: string;
-  courtProceedingsOrders?: C100OrderTypes[];
-  otherProceedings?: OtherProceedings;
-  haveSafetyConcerns?: YesOrNo;
+  c1A_haveSafetyConcerns?: YesOrNo;
+  op_courtProceedingsOrders?: C100OrderTypes[];
+  op_otherProceedings?: OtherProceedings;
+  c1A_safteyConcerns?: C1ASafteyConcerns;
+  miam_otherProceedings?: string;
+  miam_haveDocSigned?: string;
+  miam_attendance?: YesOrNo;
+  miam_validReason?: YesOrNo;
+  miam_certificate?: C100DocumentInfo;
+  miam_mediatorDocument?: YesOrNo;
+  miam_nonAttendanceReasons?: MiamNonAttendReason[];
+  miam_domesticAbuse?: string[];
+  miam_childProtectionEvidence?: string[];
+  miam_urgency?: string[];
+  miam_previousAttendance?: string[];
+  miam_notAttendingReasons?: string[];
+  hu_urgentHearingReasons?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

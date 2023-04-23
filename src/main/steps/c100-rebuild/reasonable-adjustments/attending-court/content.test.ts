@@ -66,9 +66,9 @@ describe('applicant personal details > applying-with > content', () => {
   });
 
   test('should contain typeOfHearing field', () => {
-    const typeOfHearingField = fields.typeOfHearing as FormOptions;
+    const typeOfHearingField = fields.ra_typeOfHearing as FormOptions;
     const noVideoAndPhoneHearingExplanationField = typeOfHearingField.values[3].subFields
-      ?.noVideoAndPhoneHearingExplanation as FormOptions;
+      ?.ra_noVideoAndPhoneHearingExplanation as FormOptions;
 
     expect(typeOfHearingField.type).toBe('checkboxes');
     expect(noVideoAndPhoneHearingExplanationField.type).toBe('textarea');
