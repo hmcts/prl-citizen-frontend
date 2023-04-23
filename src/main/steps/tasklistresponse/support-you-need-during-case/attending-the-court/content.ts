@@ -14,13 +14,13 @@ const en = {
   noHearings: 'No, I cannot take part in either video or phone hearings',
   noHearingsHint: 'If you choose this option please tell us why in case we can assist you',
   noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
-    respondentAttendingToCourt: {
-      required: 'Please select an answer',
+    attendingToCourt: {
+      required: 'Select whether you can take part in a video or phone hearing',
     },
-    respondentHearingDetails: {
-      required: 'Please provide the details',
+    hearingDetails: {
+      required: 'Explain why you are unable to take part in either video or phone hearings',
     },
   },
 };
@@ -37,13 +37,13 @@ const cy: typeof en = {
   noHearings: 'No, I cannot take part in either video or phone hearings',
   noHearingsHint: 'If you choose this option please tell us why in case we can assist you',
   noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
-    respondentAttendingToCourt: {
-      required: 'Please select an answer',
+    attendingToCourt: {
+      required: 'Select whether you can take part in a video or phone hearing',
     },
-    respondentHearingDetails: {
-      required: 'Please provide the details',
+    hearingDetails: {
+      required: 'Explain why you are unable to take part in either video or phone hearings',
     },
   },
 };
@@ -55,7 +55,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentAttendingToCourt: {
+    attendingToCourt: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
@@ -63,26 +63,26 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'respondentAttendingToCourt',
+          name: 'attendingToCourt',
           label: l => l.videoHearings,
-          value: 'video hearings',
+          value: 'videohearings',
         },
         {
-          name: 'respondentAttendingToCourt',
+          name: 'attendingToCourt',
           label: l => l.phoneHearings,
-          value: 'phone hearings',
+          value: 'phonehearings',
         },
         {
           divider: true,
         },
         {
-          name: 'respondentAttendingToCourt',
+          name: 'attendingToCourt',
           label: l => l.noHearings,
           hint: l => l.noHearingsHint,
-          value: 'no hearings',
+          value: 'nohearings',
           exclusive: true,
           subFields: {
-            respondentHearingDetails: {
+            hearingDetails: {
               type: 'textarea',
               label: l => l.noHearingDetails,
               labelSize: null,
@@ -93,7 +93,7 @@ export const form: FormContent = {
       ],
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

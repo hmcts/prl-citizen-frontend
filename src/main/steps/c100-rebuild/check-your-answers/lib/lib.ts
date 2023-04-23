@@ -29,6 +29,7 @@ export interface SummaryListRow {
   valueHtml?: string;
   changeUrl?: string;
   classes?: string;
+  caseLink?: string;
 }
 
 export interface SummaryList {

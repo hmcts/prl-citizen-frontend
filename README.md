@@ -1,6 +1,8 @@
 # prl-citizen-frontend
 
-### Getting Started
+Updated with Release 4.0
+
+## Getting Started
 
 ### Prerequisites
 
@@ -129,6 +131,11 @@ Here's an example setup:
 ```
 
 Make sure you have those values set correctly for your application.
+
+#### Troubleshooting
+
+### Managing Preview environment PODs
+Make sure you have added the label 'keep-helm' while creating the PR. Otherwise, add the label and re-trigger the build.
 
 ### Healthcheck
 

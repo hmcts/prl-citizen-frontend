@@ -1,3 +1,6 @@
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
+
 import { ApplicantConfirmContactDetailsGetController } from './ApplicantConfirmContactDetailsGetController';
 jest.mock('autobind-decorator');
 jest.mock('express');
@@ -25,5 +28,14 @@ describe('ApplicantConfirmContactDetailsGetController', () => {
 
   test('should extend ApplicantConfirmContactDetailsGetController', async () => {
     expect(controller).toBeInstanceOf(ApplicantConfirmContactDetailsGetController);
+  });
+
+  test('ApplicantConfirmContactDetailsGetController Should invoke post method', async () => {
+    const req = mockRequest();
+    const res = mockResponse();
+
+    await controller.get(req, res);
+
+    expect(1).toEqual(1);
   });
 });

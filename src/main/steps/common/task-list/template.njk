@@ -1,0 +1,48 @@
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "common/task-list/components/progress-bar/progress-bar.macro.njk" import buildProgressBar with context %}
+{% from "common/task-list/components/notification-banner/notification-banner.macro.njk" import buildNotificationBanners with context %}
+{% from "common/task-list/components/tasklist/tasklist.macro.njk" import buildTaskList with context %}
+{% from "common/breadcrumb/breadcrumb.macro.njk" import appBreadcrumb with context %}
+{% extends "common/page.njk" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      {% block backLink %}
+        {{appBreadcrumb(breadcrumbs)}}
+      {% endblock %}
+      <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
+          {{partyName}}
+        </h1>
+        {% if userCase.id %}
+          <p class="govuk-body">{{caseNumber}}
+            {{userCase.id}}</p>
+        {% endif %}
+      </div>
+
+      <div class="govuk-grid-column-two-thirds">
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        {{buildProgressBar(progressBar)}}
+        <div class="govuk-!-padding-bottom-4"></div>
+        {{buildNotificationBanners(notifications)}}
+        <ol class="app-task-list">
+          {{ buildTaskList(taskLists) }}
+        </ol>
+      </div>
+
+      <div class="govuk-grid-column-one-third">
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!">
+        {% block oneThird %}
+          <h2 class="govuk-heading-m">{{iWantTo}}</h2>
+          <ul class="govuk-list">
+          {% for hyperlink in hyperlinks %}
+            <li><a href="{{hyperlink.link}}" target="_blank" class="govuk-link">{{hyperlink.label}}</a></li>
+          {% endfor %}
+          </ul class="govuk-list">
+          {% include "../contact-us.njk" %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

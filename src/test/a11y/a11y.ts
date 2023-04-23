@@ -14,7 +14,6 @@ const IGNORED_URLS = [
   urls.FIND_OUT_ABOUT_CAFCASS,
   urls.FIND_OUT_ABOUT_CAFCASS_CYMRU,
 ];
-
 const pa11y = require('pa11y');
 const axios = Axios.create({ baseURL: config.TEST_URL });
 

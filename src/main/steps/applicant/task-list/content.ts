@@ -2,7 +2,7 @@ import { Applicant, Banner, SectionStatus, YesOrNo } from '../../../app/case/def
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
-import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER } from '../../../steps/urls';
+import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../steps/urls';
 
 import { applicant_en } from './section-titles';
 import { generateApplicantTaskList } from './tasklist';
@@ -10,7 +10,7 @@ import { applicant_tasklist_items_en } from './tasklist-items';
 import { getApplicantPartyDetails } from './utils';
 
 const en = () => ({
-  title: '',
+  title: 'Applicant tasklist',
   applicantName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
@@ -32,7 +32,7 @@ const en = () => ({
     ],
     bannerLinks: [
       {
-        href: APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
+        href: APPLICANT_VIEW_ALL_DOCUMENTS,
         text: 'See all documents',
       },
     ],
@@ -69,7 +69,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: ' ',
+  title: 'Applicant tasklist',
   applicantName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',
@@ -91,7 +91,7 @@ const cy = () => ({
     ],
     bannerLinks: [
       {
-        href: APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
+        href: APPLICANT_VIEW_ALL_DOCUMENTS,
         text: 'See all documents',
       },
     ],
@@ -137,6 +137,7 @@ export const generateContent: TranslationFn = content => {
     content.userCase?.caseTypeOfApplication === 'C100'
       ? getC100Banners(content.userCase, translations, content.userIdamId)
       : getFl401Banners(content.userCase, translations, content.userIdamId);
+  const stages = content.userCase?.caseTypeOfApplication === 'C100' ? [] : buildProgressBarStages(content.userCase!);
   const req: AppRequest = content.additionalData?.req;
   translations.applicantName = getApplicantName(req.session.userCase, req.session.user.id);
   return {
@@ -148,7 +149,7 @@ export const generateContent: TranslationFn = content => {
       content.userIdamId
     ),
     banners,
-    stages: buildProgressBarStages(content.userCase!),
+    stages,
   };
 };
 

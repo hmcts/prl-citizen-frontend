@@ -7,7 +7,7 @@ import { generateContent } from './content';
 import { respondent_cy, respondent_en } from './section-titles';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
 const enContent = {
-  title: '',
+  title: 'Respondent tasklist',
   respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
@@ -22,7 +22,7 @@ const enContent = {
   taskListItems: respondent_tasklist_items_en,
 };
 const cyContent = {
-  title: '',
+  title: 'Respondent tasklist - welsh',
   respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi cwblhau',

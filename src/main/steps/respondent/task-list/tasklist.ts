@@ -1,5 +1,6 @@
 import { CaseWithId } from '../../../app/case/case';
 import { SectionStatus } from '../../../app/case/definition';
+import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
 import { UPDATE_CASE_YES } from '../../../steps/constants';
 import * as URL from '../../urls';
 
@@ -11,6 +12,7 @@ import {
   getKeepYourDetailsPrivateStatus,
   getUploadDocuments,
   getViewAllDocuments,
+  getViewAllHearingsFromTheCourt,
   getViewAllOrdersFromTheCourt,
   isApplicationResponded,
 } from './utils';
@@ -18,43 +20,47 @@ import {
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
+  const isCaseClosed = userCase.state === 'ALL_FINAL_ORDERS_ISSUED';
+
   return [
-    {
-      title: sectionTitles.aboutYou,
-      items: [
-        {
-          id: 'keep-your-details-private',
-          text: taskListItems.keep_your_details_private,
-          status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
-          href: URL.RESPONDENT_DETAILS_KNOWN + '/' + userCase.id,
-        },
-        {
-          id: 'confirm-or-edit-your-contact-details',
-          text: taskListItems.confirm_or_edit_your_contact_details,
-          status: getConfirmOrEditYourContactDetails(userCase, userIdamId),
-          href: URL.RESPONDENT_CHECK_ANSWERS + '/' + userCase.id,
-        },
-        {
-          id: 'support_you_need_during_your_case',
-          text: taskListItems.support_you_need_during_your_case,
-          status: SectionStatus.NOT_AVAILABLE_YET,
-          href: '#',
-        },
-      ],
-    },
+    !isCaseClosed
+      ? {
+          title: sectionTitles.aboutYou,
+          items: [
+            {
+              id: 'keep-your-details-private',
+              text: taskListItems.keep_your_details_private,
+              status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
+              href: URL.RESPONDENT_DETAILS_KNOWN + '/' + userCase.id,
+            },
+            {
+              id: 'confirm-or-edit-your-contact-details',
+              text: taskListItems.confirm_or_edit_your_contact_details,
+              status: getConfirmOrEditYourContactDetails(userCase, userIdamId),
+              href: URL.RESPONDENT_CHECK_ANSWERS + '/' + userCase.id,
+            },
+            {
+              id: 'support_you_need_during_your_case',
+              text: taskListItems.support_you_need_during_your_case,
+              status: getSupportYourNeedsDetails(userCase),
+              href: URL.CA_DA_ATTENDING_THE_COURT,
+            },
+          ],
+        }
+      : null,
     {
       title: sectionTitles.theApplication,
       items: [...getTheApplicationSection(taskListItems, userCase, userIdamId)],
     },
-    ...getYourResponseSection(sectionTitles, taskListItems, userCase),
+    ...(!isCaseClosed ? getYourResponseSection(sectionTitles, taskListItems, userCase, userIdamId) : []),
     {
       title: sectionTitles.yourcourtHearings,
       items: [
         {
           id: 'check_details_of_your_court_hearings',
           text: taskListItems.check_details_of_your_court_hearings,
-          status: SectionStatus.NOT_AVAILABLE_YET,
-          href: '#',
+          status: getViewAllHearingsFromTheCourt(userCase),
+          href: URL.RESPONDENT_YOURHEARINGS_HEARINGS,
         },
       ],
     },
@@ -67,12 +73,14 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           status: getViewAllDocuments(),
           href: getViewAllDocuments() === 'READY_TO_VIEW' ? URL.RESPONDENT_VIEW_ALL_DOCUMENTS : '#',
         },
-        {
-          id: 'upload-document',
-          text: taskListItems.upload_document,
-          status: getUploadDocuments(),
-          href: URL.RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
-        },
+        !isCaseClosed
+          ? {
+              id: 'upload-document',
+              text: taskListItems.upload_document,
+              status: getUploadDocuments(),
+              href: URL.RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
+            }
+          : null,
       ],
     },
     {
@@ -127,9 +135,9 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
   return itemList;
 };
 
-const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWithId) => {
+const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWithId, userId: string) => {
   if (userCase?.caseTypeOfApplication === 'C100') {
-    const hasCitizenResponse = isApplicationResponded(userCase);
+    const hasCitizenResponse = isApplicationResponded(userCase, userId);
     return [
       {
         title: sectionTitles.yourResponse,
@@ -138,14 +146,14 @@ const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWith
             id: 'respond_to_application',
             text: taskListItems.respond_to_application,
             status: getInternationalFactorsStatus(userCase),
-            href: !hasCitizenResponse ? URL.RESPOND_TO_APPLICATION : null,
+            href: !hasCitizenResponse ? `${URL.RESPOND_TO_APPLICATION}/flag/updateFlag` : null,
             hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
           },
           {
             id: 'respond_to_allegations_of_harm_and_violence',
             text: taskListItems.respond_to_allegations_of_harm_and_violence,
             status: getInternationalFactorsStatus(userCase),
-            href: !hasCitizenResponse ? URL.INTERNATIONAL_FACTORS_START : null,
+            href: '#',
             hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
           },
         ],

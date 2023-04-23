@@ -1,22 +1,19 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
+import { en as english, cy as welsh } from '../../../common/keep-details-private/private_details_not_confirmed/content';
 
 import { generateContent } from './content';
 
 const enContent = {
+  ...english,
   section: 'Keeping your contact details private',
-  title: 'The court will not keep your contact details private',
-  line1:
-    'You have told us you do not want to keep your contact details private from the other people in this application.',
   continue: 'Save and continue',
 };
 
 const cyContent = {
+  ...welsh,
   section: 'Keeping your contact details private',
-  title: 'The court will not keep your contact details private',
-  line1:
-    'You have told us you do not want to keep your contact details private from the other people in this application.',
   continue: 'Save and continue',
 };
 

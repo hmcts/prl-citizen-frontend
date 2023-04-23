@@ -24,18 +24,18 @@ const en = {
   other: 'Other',
   otherDetails: 'Describe what you need',
   noSupport: 'I do not need any of this support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
-    respondentDocsSupport: {
+    docsSupport: {
       required: 'Please select an answer',
     },
-    respondentDocsDetails: {
+    docsDetails: {
       required: 'Please provide the docs details',
     },
-    respondentLargePrintDetails: {
+    largePrintDetails: {
       required: 'Please provide the large print details',
     },
-    respondentOtherDetails: {
+    otherDetails: {
       required: 'Please provide the other details',
     },
   },
@@ -61,18 +61,18 @@ const cy: typeof en = {
   other: 'Other',
   otherDetails: 'Describe what you need',
   noSupport: 'I do not need any of this support at this time',
-  continue: 'Save and continue',
+  continue: 'Continue',
   errors: {
-    respondentDocsSupport: {
+    docsSupport: {
       required: 'Please select an answer',
     },
-    respondentDocsDetails: {
+    docsDetails: {
       required: 'Please provide the docs details',
     },
-    respondentLargePrintDetails: {
+    largePrintDetails: {
       required: 'Please provide the large print details',
     },
-    respondentOtherDetails: {
+    otherDetails: {
       required: 'Please provide the other details',
     },
   },
@@ -121,13 +121,13 @@ describe('citizen-home content', () => {
   });
 
   test('should contain docsSupport field', () => {
-    const docsSupportField = fields.respondentDocsSupport as FormOptions;
+    const docsSupportField = fields.docsSupport as FormOptions;
     expect(docsSupportField.type).toBe('checkboxes');
     expect((docsSupportField.section as Function)(generatedContent)).toBe(en.section);
   });
 
-  test('should contain Save and continue button', () => {
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+  test('should contain Continue button', () => {
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 
