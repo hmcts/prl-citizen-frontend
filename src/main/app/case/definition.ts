@@ -40,7 +40,7 @@ export interface Miam {
   attendedMiam?: string;
   willingToAttendMiam?: string;
   reasonNotAttendingMiam?: string;
-}
+ }
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
@@ -106,6 +106,7 @@ export interface PartyDetails {
   isAtAddressLessThan5YearsWithDontKnow: string;
   response: Response;
   user: User;
+  contactPreferences?: applicantContactPreferencesEnum;
 }
 
 export interface User {
@@ -121,20 +122,76 @@ export interface Response {
   keepDetailsPrivate?: KeepDetailsPrivate;
   citizenFlags?: CitizenFlags
   safeToCallOption?: string;
+  supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
+  currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
 }
 
+export interface ReasonableAdjustmentsSupport {
+  helpCommunication?: string[],
+  describeOtherNeed?: string,
+  courtComfort?: string[],
+  otherProvideDetails?: string,
+  courtHearing?: string[],
+  communicationSupportOther?: string,
+  docsSupport?: string[],
+  otherDetails?: string,
+  languageRequirements?: string[],
+  languageDetails?: string,
+  reasonableAdjustments?: string[],
+  safetyArrangements?: string[],
+  safetyArrangementsDetails?: string,
+  travellingToCourt?: string[],
+  travellingOtherDetails?: string,
+  //respondent support you need
+  attendingToCourt?: string[],
+  hearingDetails?: string,
+  signLanguageDetails?: string,
+  lightingDetails?: string,
+  supportWorkerDetails?: string,
+  familyProviderDetails?: string,
+  therapyDetails?: string,
+  docsDetails?: string,
+  largePrintDetails?: string,
+  parkingDetails?: string,
+  differentChairDetails?: string,
+}
+
+export interface CurrentOrPreviousProceedings {
+  haveChildrenBeenInvolvedInCourtCase?: YesOrNo;
+  courtOrderMadeForProtection?: YesOrNo;
+  proceedingsList?: ProceedingDetailsData[];
+}
+
+export interface ProceedingDetailsData {
+  id: string;
+  value: Proceedings;
+}
+
+export interface Proceedings {
+  orderType?: string;
+  proceedingDetails?: ProceedingsOrderDataInterface[];
+}
+
+export interface ProceedingsOrderDataInterface {
+  id: string;
+  value: OtherProceedingDetails;
+}
+
+export interface OtherProceedingDetails {
+  orderDetail: string;
+  caseNo: string;
+  orderDate: Date;
+  currentOrder: YesNoEmpty;
+  orderEndDate: Date;
+  orderCopy: YesNoEmpty;
+  orderDocument?: Document;
+}
 export interface CitizenFlags {
   isApplicationViewed?: string,
   isAllegationOfHarmViewed?: string
   isAllDocumentsViewed?: string
   isResponseInitiated?: string
-}
-
-
-export interface CitizenFlags {
-  isApplicationViewed?: string,
-  isAllegationOfHarmViewed?: string
 }
 
 export const enum DownloadFileFieldFlag {
@@ -738,12 +795,12 @@ export interface ContactDetail {
   telephoneNumber?: string,
   canNotProvideTelephoneNumberReason?: string,
   canLeaveVoiceMail?: YesNoEmpty,
-  applicantContactPreferences?: String[];
+  applicantContactPreferences?: string;
 }
 
 export enum applicantContactPreferencesEnum {
-  DIGITAL = 'Digital',
-  POST = 'Post',
+  DIGITAL = 'digital',
+  POST = 'post',
 }
 
 export type C100ListOfApplicants = C100Applicant[];
@@ -845,6 +902,7 @@ export interface CaseData {
   previousOrOngoingProceedingsForChildren: YesNoDontKnow;
   welshLanguageRequirementApplicationNeedEnglish: string;
   orderCollection: ListValue<PRLDocument>[];
+  hearingCollection?: HearingsList[];
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
   finalDocument?: Document;
@@ -913,6 +971,7 @@ citizenUserManualAddressPostcode?: string;
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+  draftOrderDoc?: Document;
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -1930,13 +1989,21 @@ export const enum State {
   SUBMITTED_PAID = "Submitted",
   AWAITING_RESUBMISSION_TO_HMCTS = "Returned",
   CASE_ISSUE = "Case Issued",
-  CASE_WITHDRAWN = "Withdrawn",
   GATEKEEPING = "Gatekeeping",
   PREPARE_FOR_HEARING_CONDUCT_HEARING = "Hearing",
   DECISION_OUTCOME = "DECISION_OUTCOME",
   ALL_FINAL_ORDERS_ISSUED = "ALL_FINAL_ORDERS_ISSUED",
   CASE_HEARING = "Prepare for hearing",
   DELETED = "Deleted",
+  CASE_DRAFT = 'AWAITING_SUBMISSION_TO_HMCTS',
+  CASE_SUBMITTED_PAID = 'SUBMITTED_PAID',
+  CASE_SUBMITTED_NOT_PAID = 'SUBMITTED_NOT_PAID',
+  CASE_ISSUED_TO_LOCAL_COURT = 'CASE_ISSUE',
+  CASE_GATE_KEEPING = 'GATE_KEEPING',
+  CASE_CLOSED = 'ALL_FINAL_ORDERS_ISSUED',
+  CASE_SERVED = 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
+  CASE_WITHDRAWN = 'CASE_WITHDRAWN',
+  CASE_DELETED = 'DELETED',
 }
 
 export const enum UserRole {
@@ -2302,6 +2369,22 @@ export interface PRLDocument {
   orderType: string;
   orderDocument: Document;
   otherDetails: OtherDetails;
+  orderTypeId?: string;
+  isWithdrawnRequestApproved?: YesOrNo
+  withdrawnRequestType?: string;
+}
+
+export interface HearingsList {
+  prev?: Hearings[],
+  next?: Hearings,
+}
+export interface Hearings {
+  date?: string;
+  time?: string;
+  typeOfHearing?: string;
+  courtName?: string;
+  courtAddress?: string;
+  hearingOutcome?: string;
 }
 
 export interface OtherDetails {
@@ -2402,6 +2485,112 @@ export interface WithoutNoticeOrderDetails {
   orderWithoutGivingNotice?: YesOrNo;
 }
 
+export interface OrderDocumentInfo extends DocumentInfo{
+  id: string;
+}
+
+
+export interface ProceedingsOrderInterface {
+  id: string;
+  orderDetail: string;
+  caseNo: string;
+  orderDate: CaseDate;
+  currentOrder: YesNoEmpty;
+  orderEndDate: CaseDate;
+  orderCopy: YesNoEmpty;
+  orderDocument?: OrderDocumentInfo;
+}
+
+export const ProceedingsOrderTypeKeyMapper = {
+  childArrangementOrder: 'childArrangementOrders',
+  emergencyProtectionOrder:'emergencyProtectionOrders',
+  supervisionOrder:'supervisionOrders',
+  careOrder: 'careOrders',
+  childAbductionOrder:'childAbductionOrders',
+  contactOrderForDivorce: 'contactOrdersForDivorce',
+  contactOrderForAdoption: 'contactOrdersForAdoption',
+  childMaintenanceOrder: 'childMaintenanceOrders',
+  financialOrder: 'financialOrders',
+  nonMolestationOrder: 'nonMolestationOrders',
+  occupationOrder: 'occupationOrders',
+  forcedMarriageProtectionOrder: 'forcedMarriageProtectionOrders',
+  restrainingOrder: 'restrainingOrders',
+  otherInjuctionOrder: 'otherInjuctionOrders',
+  undertakingOrder: 'undertakingOrders',
+  otherOrder: 'otherOrders'
+}
+
+export enum ProceedingsOrderTypes {
+  CHILD_ARRANGEMENT_ORDER = 'childArrangementOrder',
+  EMERGENCY_PROTECTION_ORDER = 'emergencyProtectionOrder',
+  SUPERVISION_ORDER = 'supervisionOrder',
+  CARE_ORDER = 'careOrder',
+  CHILD_ABDUCTION_ORDER = 'childAbductionOrder',
+  CONTACT_ORDER_FOR_DIVORCE = 'contactOrderForDivorce',
+  CONTACT_ORDER_FOR_ADOPTION='contactOrderForAdoption',
+  CHILD_MAINTENANCE_ORDER='childMaintenanceOrder',
+  FINANCIAL_ORDER='financialOrder',
+  NON_MOLESTATION_ORDER='nonMolestationOrder',
+  OCCUPATION_ORDER='occupationOrder',
+  FORCED_MARRIAGE_PROTECTION_ORDER='forcedMarriageProtectionOrder',
+  RESTRANING_ORDER='restrainingOrder',
+  OTHER_INJUCTION_ORDER='otherInjuctionOrder',
+  UNDERTAKING_ORDER='undertakingOrder',
+  OTHER_ORDER='otherOrder',
+}
+
+export interface OtherProceedings {
+  order?: ProceedingsOrderTypeInterface
+}
+
+export interface ProceedingsOrderTypeInterface {
+  childArrangementOrders?: ProceedingsOrderInterface[],
+  emergencyProtectionOrders?:ProceedingsOrderInterface[],
+  supervisionOrders?:ProceedingsOrderInterface[],
+  careOrders?: ProceedingsOrderInterface[],
+  childAbductionOrders?:ProceedingsOrderInterface[],
+  contactOrdersForDivorce?: ProceedingsOrderInterface[],
+  contactOrdersForAdoption?: ProceedingsOrderInterface[],
+  childMaintenanceOrders?: ProceedingsOrderInterface[],
+  financialOrders?: ProceedingsOrderInterface[],
+  nonMolestationOrders?: ProceedingsOrderInterface[],
+  occupationOrders?: ProceedingsOrderInterface[],
+  forcedMarriageProtectionOrders?: ProceedingsOrderInterface[],
+  restrainingOrders?: ProceedingsOrderInterface[],
+  otherInjuctionOrders?: ProceedingsOrderInterface[],
+  undertakingOrders?: ProceedingsOrderInterface[],
+  otherOrders?: ProceedingsOrderInterface[]
+}
+
+export interface DocumentInfo {
+  url: string;
+  filename: string;
+  binaryUrl: string;
+}
+
+export interface OtherProceedingsDocumentInfo extends DocumentInfo{
+  id: string;
+}
+
+export interface DocumentUploadResponse {
+  status: string;
+  document: {
+    document_url: string;
+    document_binary_url: string;
+    document_filename: string;
+    document_hash: string;
+    document_creation_date: string;
+  };
+}
+
+ export enum ReasonableAdjustments {
+  DOCUMENTS_SUPPORT = 'docsformat',
+  COMMUNICATION_HELP = 'commhelp',
+  COURT_HEARING_SUPPORT = 'hearingsupport',
+  COURT_HEARING_COMFORT = 'hearingcomfort',
+  TRAVELLING_TO_COURT = 'travellinghelp',
+  NO_NEED_OF_SUPPORT = 'nosupport',
+ }
 
 export const enum C100_CASE_TYPE {
   C100 = 'C100',
@@ -2411,6 +2600,7 @@ export const enum C100_CASE_EVENT {
   CASE_UPDATE = 'citizen-case-update',
   CASE_SUBMIT = 'citizen-case-submit',
   DELETE_CASE = 'deleteApplication',
+  CASE_SUBMIT_WITH_HWF = 'citizenCaseSubmitWithHWF',
 }
 
 export enum C100OrderTypes {
@@ -2508,7 +2698,7 @@ export enum PRL_C1ASafteyConcernsAbout{
   RESPONDENT = 'respondent',
   APPLICANT = 'applicant',
   OTHER = 'otherConcerns',
-  
+
 }
 
 export interface C1ASafteyConcernsAbuse{
@@ -2582,8 +2772,34 @@ export interface C1ASafteyConcerns {
     }
 
     export interface PRL_C1ASafteyConcerns_total {
-     c1asafetyconcerns:PRL_C1ASafteyConcerns,
-      otherconcerns:{
+     haveSafetyConcerns?: YesOrNo;
+     safetyConcernAbout?: PRL_C1ASafteyConcernsAbout[];
+     concernAboutChild?: PRL_C1AAbuseTypes[];
+     concernAboutRespondent?: PRL_C1AAbuseTypes[];
+     child?: {
+      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
+      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+    },
+    applicant?:{
+      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
+      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+      somethingElse?: PRL_C1ASafteyConcernsAbuse;
+    },
+    respondent?:{
+      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
+      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
+      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+      somethingElse?: PRL_C1ASafteyConcernsAbuse;
+    },
+     otherconcerns?:{
         c1AkeepingSafeStatement?:string;
         c1AsupervisionAgreementDetails?:string;
         c1AagreementOtherWaysDetails?:YesOrNo;
@@ -2592,7 +2808,7 @@ export interface C1ASafteyConcerns {
         c1AchildSafetyConcerns?:YesOrNo;
         c1AchildSafetyConcernsDetails?:string;
       },
-      abductions:{
+      abductions?:{
         c1AabductionReasonOutsideUk?:string;
         c1AchildsCurrentLocation?:string;
         c1AchildrenMoreThanOnePassport?:YesOrNo;
@@ -2705,7 +2921,7 @@ export type ChildrenDetails = {
     OTHER = 'Other',
     EMPTY = ''
   }
-  
+
   export interface C100Address extends Address {
     selectedAddress?: number,
     addressHistory?: YesNoDontKnow,
@@ -2727,3 +2943,8 @@ export type ChildrenDetails = {
       lastName: string;
       partyType: PartyType;
   }
+
+  export enum CaseType {
+    C100 = 'C100',
+    FL401 = 'FL401',
+}

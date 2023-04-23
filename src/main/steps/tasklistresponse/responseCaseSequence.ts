@@ -1,4 +1,6 @@
+import { Case } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
+import { AppRequest } from '../../app/controller/AppRequest';
 import { Sections, Step } from '../constants';
 import {
   C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
@@ -9,6 +11,17 @@ import {
   C1A_SAFETY_CONCERNS_ABDUCTION_THREATS,
   C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS,
   C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
+  C7_ATTENDING_THE_COURT,
+  C7_COMMUNICATION_HELP,
+  C7_COURT_HEARING_COMFORT,
+  C7_COURT_HEARING_SUPPORT,
+  C7_DOCUMENTS_SUPPORT,
+  C7_LANGUAGE_REQUIREMENTS,
+  C7_REASONABLE_ADJUSTMENTS,
+  C7_SPECIAL_ARRANGEMENTS,
+  C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
+  C7_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
+  C7_TRAVELLING_TO_COURT,
   CONSENT_SAVE,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
@@ -25,6 +38,7 @@ import {
   MIAM_SAVE,
   MIAM_START,
   MIAM_SUMMARY,
+  OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_RESPONDENT,
   PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK,
@@ -35,7 +49,11 @@ import {
   PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
   PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE,
   PROCEEDINGS_COURT_PROCEEDINGS,
+  PROCEEDINGS_ORDER_DETAILS,
   PROCEEDINGS_START,
+  PROCEEDINGS_SUMMARY,
+  PROCEEDING_SAVE,
+  PageLink,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
   RESPONDENT_ADDRESS_HISTORY,
@@ -47,14 +65,9 @@ import {
   RESPONDENT_CHECK_ANSWERS_NO,
   RESPONDENT_CHECK_ANSWERS_YES,
   RESPONDENT_CONTACT_DETAILS,
-  RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_FIND_ADDRESS,
-  RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_PERSONAL_DETAILS,
-  RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
-  RESPONDENT_START_ALTERNATIVE,
-  RESPONDENT_TASK_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
@@ -67,13 +80,10 @@ import {
 } from '../urls';
 
 import SafteyConcernsNavigationController from './allegations-of-harm-and-violence/navigationController';
+import OtherProceedingsNavigationController from './proceedings/navigationController';
+import ReasonableAdjustmentsNavigationController from './support-you-need-during-case/navigationController';
 
 export const responseCaseSequence: Step[] = [
-  {
-    url: RESPONDENT_TASK_LIST_URL,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  },
   {
     url: CONSENT_TO_APPLICATION,
     showInSection: Sections.AboutRespondentCase,
@@ -83,21 +93,6 @@ export const responseCaseSequence: Step[] = [
     url: CONSENT_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => CONSENT_SAVE,
-  },
-  {
-    url: RESPONDENT_DETAILS_KNOWN,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_START_ALTERNATIVE,
-  },
-  {
-    url: RESPONDENT_START_ALTERNATIVE,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
-  },
-  {
-    url: RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
@@ -217,20 +212,40 @@ export const responseCaseSequence: Step[] = [
   {
     url: PROCEEDINGS_START,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: data =>
-      data.proceedingsStart === YesOrNo.YES || data.proceedingsStartOrder === YesOrNo.YES
-        ? PROCEEDINGS_COURT_PROCEEDINGS
-        : COURT_PROCEEDINGS_SUMMARY,
+    getNextStep: (caseData: Partial<Case>): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(PROCEEDINGS_START, caseData);
+    },
   },
   {
     url: PROCEEDINGS_COURT_PROCEEDINGS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => COURT_PROCEEDINGS_SUMMARY,
+    getNextStep: (caseData: Partial<Case>): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(PROCEEDINGS_COURT_PROCEEDINGS, caseData);
+    },
+  },
+  {
+    url: PROCEEDINGS_ORDER_DETAILS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(PROCEEDINGS_ORDER_DETAILS, caseData, req!.params);
+    },
+  },
+  {
+    url: OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData: Partial<Case>, req?: AppRequest): PageLink => {
+      return OtherProceedingsNavigationController.getNextUrl(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, caseData, req!.params);
+    },
   },
   {
     url: COURT_PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
+    getNextStep: () => PROCEEDINGS_SUMMARY,
+  },
+  {
+    url: PROCEEDINGS_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => PROCEEDING_SAVE,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
@@ -256,6 +271,61 @@ export const responseCaseSequence: Step[] = [
     url: RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
+  },
+  {
+    url: C7_ATTENDING_THE_COURT,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: () => C7_LANGUAGE_REQUIREMENTS,
+  },
+  {
+    url: C7_LANGUAGE_REQUIREMENTS,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: () => C7_SPECIAL_ARRANGEMENTS,
+  },
+  {
+    url: C7_SPECIAL_ARRANGEMENTS,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: () => C7_REASONABLE_ADJUSTMENTS,
+  },
+  {
+    url: C7_REASONABLE_ADJUSTMENTS,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(C7_REASONABLE_ADJUSTMENTS, caseData),
+  },
+  {
+    url: C7_DOCUMENTS_SUPPORT,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(C7_DOCUMENTS_SUPPORT, caseData),
+  },
+  {
+    url: C7_COMMUNICATION_HELP,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(C7_COMMUNICATION_HELP, caseData),
+  },
+  {
+    url: C7_COURT_HEARING_SUPPORT,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(C7_COURT_HEARING_SUPPORT, caseData),
+  },
+  {
+    url: C7_COURT_HEARING_COMFORT,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(C7_COURT_HEARING_COMFORT, caseData),
+  },
+  {
+    url: C7_TRAVELLING_TO_COURT,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(C7_TRAVELLING_TO_COURT, caseData),
+  },
+  {
+    url: C7_TRAVELLING_TO_COURT,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: () => C7_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
+  },
+  {
+    url: C7_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
+    showInSection: Sections.AboutCaAndDaRespondentCase,
+    getNextStep: () => C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   },
   {
     url: RESPOND_TO_APPLICATION,

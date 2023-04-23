@@ -4,76 +4,16 @@ import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { State } from '../../../app/case/definition';
-import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
+import {
+  GovUkNunjucksSummary,
+  SummaryList,
+  SummaryListContent,
+  SummaryListRow,
+} from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../urls';
+import { getSectionSummaryList } from '../summary/utils';
 import { applyParms } from '../url-parser';
-interface GovUkNunjucksSummary {
-  key: {
-    text?: string;
-    html?: string;
-    classes?: string;
-  };
-  value: {
-    text?: string;
-    html?: string;
-  };
-  actions?: {
-    items?: [
-      {
-        href: string;
-        text: string;
-        visuallyHiddenText: string;
-      }
-    ];
-  };
-  classes?: string;
-}
-
-interface SummaryListRow {
-  key?: string;
-  keyHtml?: string;
-  value?: string;
-  valueHtml?: string;
-  changeUrl?: string;
-  classes?: string;
-  caseLink?: string;
-}
-
-export interface SummaryList {
-  title: string;
-  rows: GovUkNunjucksSummary[];
-}
-
-type SummaryListContent = PageContent & {
-  sectionTitles: Record<string, string>;
-  keys: Record<string, string>;
-};
-
-const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
-  console.log(content.title);
-  return rows.map(item => {
-    const changeUrl = item.changeUrl;
-    return {
-      key: { ...(item.key ? { text: item.key } : {}) },
-      value: { ...(item.value ? { html: item.value } : {}) },
-      ...(changeUrl
-        ? {
-            actions: {
-              items: [
-                {
-                  href: changeUrl,
-                  text: 'Edit',
-                  visuallyHiddenText: `${item.key}`,
-                },
-              ],
-            },
-          }
-        : {}),
-      ...(item.classes ? { classes: item.classes } : {}),
-    };
-  });
-};
 
 /* eslint-disable import/namespace */
 export const summaryList = (
@@ -91,12 +31,7 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value:
-        fieldTypes[key] === 'Date'
-          ? getFormattedDate(userCase[key], language)
-          : key === 'startAlternative' && userCase[key] !== 'undefined'
-          ? userCase[key] + getSelectedPrivateDetails(userCase)
-          : userCase[key],
+      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : notDate(key, userCase),
       changeUrl: url,
     };
     if (key !== 'citizenUserSafeToCall') {
@@ -197,3 +132,8 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   tempDetails = tempDetails + '</ul>';
   return tempDetails;
 };
+function notDate(key: string, userCase: Partial<CaseWithId>) {
+  return key === 'startAlternative' && userCase[key] !== 'undefined'
+    ? userCase[key] + getSelectedPrivateDetails(userCase)
+    : userCase[key];
+}

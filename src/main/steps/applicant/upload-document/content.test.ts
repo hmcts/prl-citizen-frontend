@@ -10,7 +10,11 @@ const cyContent = {
   title: 'Select the type of document',
 };
 describe('task-list > content', () => {
-  const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    userCase: mockUserCase,
+    additionalData: { req: { session: { userCase: mockUserCase }, originalUrl: '/' } },
+  } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', enContent, () => generateContent(commonContent));

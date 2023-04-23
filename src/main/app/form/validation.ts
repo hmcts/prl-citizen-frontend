@@ -175,7 +175,11 @@ export const isAlphaNumeric: Validator = value => {
     return !value.match(/^[a-zA-Z0-9_\s]*$/) ? 'invalid' : undefined;
   }
 };
-
+export const isAlphaNumericWithApostrophe: Validator = value => {
+  if (typeof value === 'string') {
+    return !value.match(/^[a-zA-Z0-9'_\s]*$/) ? 'invalid' : undefined;
+  }
+};
 export const isEmailValid: Validator = value => {
   if (!isValidEmail(value as string)) {
     return 'invalid';

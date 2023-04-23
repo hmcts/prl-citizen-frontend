@@ -4,8 +4,8 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../.
 
 const en = {
   section: 'Reasonable adjustments',
-  title: 'I need something to make me feel comfortable during a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
+  title: 'I need something to feel comfortable during a court hearing',
+  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   appropriatelighting: 'Appropriate lighting',
@@ -14,16 +14,16 @@ const en = {
   space: 'Space to be able to get up and move around',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  nosupport: 'No, I do not need any support at this time',
+  continue: 'Continue',
   errors: {
-    respondentCourtComfort: {
-      required: 'Please select an answer',
+    courtComfort: {
+      required: 'Select what you need to feel comfortable during a court hearing',
     },
-    respondentLightingDetails: {
+    lightingProvideDetails: {
       required: 'Please describe lighting detail',
     },
-    respondentOtherProvideDetails: {
+    otherProvideDetails: {
       required: 'Please describe your need in details',
     },
   },
@@ -31,8 +31,8 @@ const en = {
 
 const cy: typeof en = {
   section: 'Reasonable adjustments',
-  title: 'I need something to make me feel comfortable during a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
+  title: 'I need something to feel comfortable during a court hearing',
+  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
   appropriatelighting: 'Appropriate lighting',
@@ -41,16 +41,16 @@ const cy: typeof en = {
   space: 'Space to be able to get up and move around',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Save and continue',
+  nosupport: 'No, I do not need any support at this time',
+  continue: 'Continue',
   errors: {
-    respondentCourtComfort: {
-      required: 'Please select an answer',
+    courtComfort: {
+      required: 'Select what you need to feel comfortable during a court hearing',
     },
-    respondentLightingDetails: {
+    lightingProvideDetails: {
       required: 'Please describe lighting detail',
     },
-    respondentOtherProvideDetails: {
+    otherProvideDetails: {
       required: 'Please describe your need in details',
     },
   },
@@ -63,18 +63,18 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    respondentCourtComfort: {
+    courtComfort: {
       type: 'checkboxes',
       labelHidden: true,
       hint: l => l.optionHint,
       section: l => l.section,
       values: [
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.appropriatelighting,
-          value: 'appropriate lighting',
+          value: 'appropriatelighting',
           subFields: {
-            respondentLightingDetails: {
+            lightingProvideDetails: {
               type: 'text',
               label: l => l.lightingDetails,
               labelSize: null,
@@ -83,22 +83,25 @@ export const form: FormContent = {
           },
         },
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.break,
-          value: 'Regular breaks',
+          value: 'breaks',
         },
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.space,
-          value: 'space to move around',
+          value: 'space',
         },
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.other,
-          value: 'Other',
+          value: 'other',
           subFields: {
-            respondentOtherProvideDetails: {
+            otherProvideDetails: {
               type: 'textarea',
+              attributes: {
+                rows: 2,
+              },
               label: l => l.otherDetails,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
@@ -109,16 +112,16 @@ export const form: FormContent = {
           divider: true,
         },
         {
-          name: 'respondentCourtComfort',
+          name: 'courtComfort',
           label: l => l.nosupport,
-          value: 'no need of support',
+          value: 'nosupport',
           exclusive: true,
         },
       ],
       validator: atLeastOneFieldIsChecked,
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

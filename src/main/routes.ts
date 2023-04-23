@@ -16,14 +16,21 @@ import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsGetController';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
+import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
+import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
+import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
+import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
+import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
+import { CaseActivationPostController } from './steps/prl-cases/CaseActivationPostController';
+import DashboardGetController from './steps/prl-cases/dashboard/DashboardGetController';
 import { RespondentConfirmContactDetailsGetController } from './steps/respondent/confirm-contact-details/checkanswers/controller/RespondentConfirmContactDetailsGetController';
 import RespondentConfirmContactDetailsPostController from './steps/respondent/confirm-contact-details/checkanswers/controller/RespondentConfirmContactDetailsPostController';
 import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
@@ -34,6 +41,8 @@ import { InternationalFactorsGetController } from './steps/tasklistresponse/inte
 import { InternationalFactorsPostController } from './steps/tasklistresponse/international-factors/InternationalFactorsPostController';
 import { MIAMGetController } from './steps/tasklistresponse/miam/MIAMGetController';
 import { MIAMPostController } from './steps/tasklistresponse/miam/MIAMPostController';
+import { ProceedingGetController } from './steps/tasklistresponse/proceedings/ProceedingGetController';
+import { ProceedingPostController } from './steps/tasklistresponse/proceedings/ProceedingPostController';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
@@ -92,6 +101,18 @@ import {
   C100_RETRIVE_CASE,
   C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
   C100_DOWNLOAD_APPLICATION,
+  APPLICANT_VIEW_ALL_DOCUMENTS,
+  RESPONDENT_VIEW_ALL_DOCUMENTS,
+  PROCEEDING_SAVE,
+  PROCEEDINGS_START,
+  SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
+  CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
+  C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
+  RESPONDENT_CHECK_ANSWERS_NO,
+  FETCH_CASE_DETAILS,
+  PARTY_TASKLIST,
+  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+  PIN_ACTIVATION_CASE_ACTIVATED_URL,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -102,13 +123,24 @@ export class Routes {
 
     app.get(CSRF_TOKEN_ERROR_URL, errorHandler(errorController.CSRFTokenError));
     app.get(HOME_URL, (req, res) => res.redirect(DASHBOARD_URL));
+    app.get(DASHBOARD_URL, errorHandler(new DashboardGetController().get));
+    app.get(FETCH_CASE_DETAILS, errorHandler(new CaseDetailsGetController().get));
+    app.get(PARTY_TASKLIST, errorHandler(new TaskListGetController().get));
     app.get(COOKIES_PAGE, errorHandler(new CookiesGetController().get));
     app.get(PRIVACY_POLICY, errorHandler(new PrivacyPolicyGetController().get));
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
-    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getApplicantCase));
-    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().getRespondentCase));
+    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
+    app.get(`${RESPOND_TO_APPLICATION}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
+    app.get(
+      `${APPLICANT_VIEW_ALL_DOCUMENTS}/:caseId`,
+      errorHandler(new GetCaseController().fetchAndRedirectToTasklist)
+    );
+    app.get(
+      `${RESPONDENT_VIEW_ALL_DOCUMENTS}/:caseId`,
+      errorHandler(new GetCaseController().fetchAndRedirectToTasklist)
+    );
     app.get(`${CA_RESPONDENT_RESPONSE_SUBMIT}`, errorHandler(new RespondentSubmitResponseController().save));
     app.get(
       `${CA_RESPONDENT_GENERATE_C7_DRAFT}`,
@@ -116,7 +148,7 @@ export class Routes {
     );
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
-    app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().get));
+    app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().load));
     //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
     app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
@@ -141,6 +173,7 @@ export class Routes {
         `${CONSENT_TO_APPLICATION}/:caseId`,
         errorHandler(new ConsentGetController(step.view, step.generateContent).get)
       );
+      app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
       app.get(
         `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
         errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)
@@ -149,7 +182,6 @@ export class Routes {
         `${APPLICANT_DETAILS_KNOWN}/:caseId`,
         errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)
       );
-
       app.get(
         `${RESPONDENT_CHECK_ANSWERS}/:caseId`,
         errorHandler(new RespondentConfirmContactDetailsGetController(step.view, step.generateContent).get)
@@ -162,8 +194,16 @@ export class Routes {
 
       app.get(`${MIAM_START}/:caseId`, errorHandler(new MIAMGetController(step.view, step.generateContent).get));
       app.get(
+        `${PROCEEDINGS_START}/:caseId`,
+        errorHandler(new ProceedingGetController(step.view, step.generateContent).get)
+      );
+      app.get(
         `${INTERNATIONAL_FACTORS_START}/:caseId`,
         errorHandler(new InternationalFactorsGetController(step.view, step.generateContent).get)
+      );
+      app.get(
+        `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/:caseId`,
+        errorHandler(new ContactPreferencesGetController(step.view, step.generateContent).get)
       );
 
       if (step.form) {
@@ -208,7 +248,7 @@ export class Routes {
           errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
         );
         app.get(
-          `${RESPOND_TO_APPLICATION}/updateFlag`,
+          `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
           errorHandler(new ViewAllDocumentsPostController(step.form.fields).setResponseInitiatedFlag)
         );
         app.get(
@@ -238,13 +278,35 @@ export class Routes {
           errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
         );
         app.get(`${MIAM_SAVE}`, errorHandler(new MIAMPostController(step.form.fields).post));
+        app.get(`${PROCEEDING_SAVE}`, errorHandler(new ProceedingPostController(step.form.fields).post));
         app.get(
           `${INTERNATIONAL_FACTORS_SAVE}`,
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)
         );
         app.get(
+          SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
+          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
+        );
+        app.get(
+          CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
+          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
+        );
+        app.get(
+          C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
+          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
+        );
+        app.get(
           C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
           errorHandler(new SafetyConcernsPostController(step.form.fields).post)
+        );
+        app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
+        app.post(
+          `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}`,
+          errorHandler(new ContactPreferencesPostController(step.form.fields).post)
+        );
+        app.post(
+          PIN_ACTIVATION_CASE_ACTIVATED_URL,
+          errorHandler(new CaseActivationPostController(step.form.fields).post)
         );
       }
     }

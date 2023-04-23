@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request } from 'express';
 import { Session } from 'express-session';
 import type { LoggerInstance } from 'winston';
@@ -31,6 +32,7 @@ export interface AppSession extends Session {
   returnUrl?: string;
   accessCodeLoginIn: boolean;
   c100RebuildLdFlag: boolean;
+  applicationSettings?: Record<string, any>;
 }
 export interface UserDetails {
   accessToken: string;
