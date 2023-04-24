@@ -5,11 +5,20 @@ import FormData from 'form-data';
 import { DeleteDocumentRequest } from '../../app/document/DeleteDocumentRequest';
 import { DocumentDetail } from '../../app/document/DocumentDetail';
 import { GenerateAndUploadDocumentRequest } from '../../app/document/GenerateAndUploadDocumentRequest';
+import { EVENT_RESPONDENT_MIAM } from '../../steps/constants';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
-import { CaseData, RespondentCaseData, RespondentCaseId, YesOrNo } from './definition';
+import {
+  CaseData,
+  CaseType,
+  PartyDetails,
+  PartyType,
+  RespondentCaseData,
+  RespondentCaseId,
+  YesOrNo,
+} from './definition';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -100,6 +109,39 @@ export class CosApiClient {
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
         headers,
       });
+
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
+    } catch (err) {
+      throw new Error('Case could not be updated.');
+    }
+  }
+
+  public async updateCaseData(
+    user: UserDetails,
+    caseId: string,
+    partyDetails: Partial<PartyDetails>,
+    partyType: PartyType,
+    caseType: CaseType
+  ): Promise<CaseWithId> {
+    try {
+      const data = {
+        partyDetails,
+        partyType,
+        caseType,
+      };
+      const response = await Axios.post(
+        config.get('services.cos.url') + `/${caseId}/${EVENT_RESPONDENT_MIAM}/case-update`,
+        data,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + user.accessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+            accessCode: 'Dummy accessCode',
+          },
+        }
+      );
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
