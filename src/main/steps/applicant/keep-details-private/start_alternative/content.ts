@@ -1,10 +1,8 @@
+import { Case } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import {
-  en as english,
-  form as formWithContents,
-  cy as welsh,
-} from '../../../common/keep-details-private/start_alternative/content';
+import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
+import { en as english, cy as welsh } from '../../../common/keep-details-private/start_alternative/content';
 const en = {
   ...english,
   title:
@@ -81,7 +79,6 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
   },
-  fields: formWithContents.fields,
   submit: {
     text: l => l.continue,
   },
