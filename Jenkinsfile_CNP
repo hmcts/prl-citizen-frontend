@@ -76,7 +76,7 @@ withPipeline(type, product, component) {
   }
 
   before('smoketest:aat') {
-    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.service.core-compute-aat.internal/"
+    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.aat.platform.hmcts.net/"
   }
 
   afterAlways('smoketest:aat') {
@@ -93,7 +93,7 @@ withPipeline(type, product, component) {
   }
 
   before('functionalTest:aat') {
-    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.service.core-compute-aat.internal/"
+    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.aat.platform.hmcts.net/"
     yarnBuilder.yarn('test:functional:skip')
   }
 
