@@ -327,7 +327,6 @@ describe('CaseApi', () => {
     );
   });
 
-
   test('Should throw error when draft application download fails', async () => {
     mockedAxios.post.mockRejectedValue({
       response: {
@@ -359,8 +358,7 @@ describe('CaseApi', () => {
 
     const response = await api.downloadDraftApplication(123);
     expect(response).toStrictEqual(document.data);
- });
-
+  });
 
   test('Should submit case on citizen-case-submit-with-hwf', async () => {
     //mock
