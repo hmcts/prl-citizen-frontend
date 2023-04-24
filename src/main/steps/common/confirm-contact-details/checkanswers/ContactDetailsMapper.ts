@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 import { CaseWithId } from '../../../../app/case/case';
 import { PartyDetails, YesOrNo } from '../../../../app/case/definition';
 import { fromApiDate } from '../../../../app/case/from-api-format';
@@ -186,11 +188,10 @@ export const setTextFields = (req: AppRequest): Partial<CaseWithId> => {
   } else {
     req.session.userCase.citizenUserEmailAddressText = req.session.userCase.citizenUserEmailAddress;
   }
-
   setAddressFields(req);
-
   return req.session.userCase;
 };
+
 function clearSessionData(req: AppRequest) {
   req.session.userCase.citizenUserFirstNames = '';
   req.session.userCase.citizenUserLastNames = '';

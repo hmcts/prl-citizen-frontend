@@ -2,6 +2,7 @@
 import { CaseWithId } from '../../../../../app/case/case';
 
 import { CaseType, PartyType, State } from './../../../../../app/case/definition';
+import { isCaseClosed } from './../../utils';
 import { languages as content } from './content';
 
 enum CaseProgressionStage {
@@ -77,18 +78,25 @@ const progressBarConfig = {
     [PartyType.APPLICANT]: [
       {
         ...progressBarStage.applicationSubmitted,
-        isComplete: (caseData: Partial<CaseWithId>) => {
-          return caseData
-            ? ![State.AwaitingSubmissionToHmcts, State.SUBMITTED_NOT_PAID, State.SUBMITTED_PAID].includes(
-                caseData.state!
-              )
-            : false;
-        },
+        isComplete: (caseData: Partial<CaseWithId>) =>
+          caseData &&
+          ![
+            State.CASE_DRAFT,
+            State.CASE_SUBMITTED_NOT_PAID,
+            State.CASE_SUBMITTED_PAID,
+            State.CASE_ISSUED_TO_LOCAL_COURT,
+            State.CASE_GATE_KEEPING,
+          ].includes(caseData.state!),
+        isInProgress: (caseData: Partial<CaseWithId>) => caseData && caseData.state !== State.CASE_DRAFT,
       },
       progressBarStage.cafcassSafetyChecks,
       progressBarStage.responseSubmitted,
       progressBarStage.hearingAndCourtOrders,
-      progressBarStage.caseClosed,
+
+      {
+        ...progressBarStage.caseClosed,
+        isComplete: isCaseClosed,
+      },
     ],
     [PartyType.RESPONDENT]: [
       {

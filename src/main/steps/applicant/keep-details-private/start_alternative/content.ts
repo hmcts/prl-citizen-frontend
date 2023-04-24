@@ -1,64 +1,28 @@
-import { Case } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
-
+import {
+  en as english,
+  form as formWithContents,
+  cy as welsh,
+} from '../../../common/keep-details-private/start_alternative/content';
 const en = {
-  section: 'Keeping your contact details private',
+  ...english,
   title:
     'Do you want to keep your contact details private from the other person named in the application (the respondent)?',
-
   line2:
     'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
-  one: 'Yes',
-  two: 'No',
-  three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
-  address: 'Home address',
-  postalAddress: 'Postal address',
-  Phone_number: 'Telephone number',
   contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
-  Email: 'Email',
-  contact_details_private: 'Specify which contact details you want to keep private.',
   continue: 'Save and continue',
-  errors: {
-    startAlternative: {
-      required: 'Enter your start alternative',
-    },
-    contactDetailsPrivate: {
-      required: 'Select your contact details',
-    },
-  },
 };
 
 const cy: typeof en = {
-  section: 'Keeping your contact details private',
+  ...welsh,
   title:
     'Do you want to keep your contact details private from the other person named in the application (the respondent)?',
-
   line2:
     'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
-  one: 'Yes',
-  two: 'No',
-  three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
-  address: 'Home address',
-  postalAddress: 'Postal address',
-  Phone_number: 'Telephone number',
-  Email: 'Email',
-  contact_details_private: 'Specify which contact details you want to keep private.',
   contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
   continue: 'Save and continue',
-  errors: {
-    startAlternative: {
-      required: 'Enter your start alternative',
-    },
-    contactDetailsPrivate: {
-      required: 'Select your contact details',
-    },
-  },
 };
 const languages = {
   en,
@@ -117,6 +81,7 @@ export const form: FormContent = {
       validator: isFieldFilledIn,
     },
   },
+  fields: formWithContents.fields,
   submit: {
     text: l => l.continue,
   },
