@@ -54,7 +54,7 @@ export const generateContent: TranslationFn = content => {
     );
     orders.push({
       href: `${APPLICATION_MADE_IN_THESE_PRCEEDINGS}/${uid}`,
-      createdDate: 'No creation date available',
+      createdDate: doc.value?.dateStarted ? doc.value?.dateStarted : 'No creation date available',
       fileName: doc.value?.uploadRelevantOrder?.document_filename,
     });
   }

@@ -106,6 +106,7 @@ export interface PartyDetails {
   isAtAddressLessThan5YearsWithDontKnow: string;
   response: Response;
   user: User;
+  contactPreferences?: applicantContactPreferencesEnum;
 }
 
 export interface User {
@@ -123,7 +124,7 @@ export interface Response {
   safeToCallOption?: string;
   supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
-  currentOrPreviousProceedings?: CurrentOrPreviousProceedings;  
+  currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -154,69 +155,6 @@ export interface ReasonableAdjustmentsSupport {
   largePrintDetails?: string,
   parkingDetails?: string,
   differentChairDetails?: string,
-}
-
-export const SupportYouNeedAllEnum = {
-  videohearings : 'Yes, I can take part in video hearings',
-  phonehearings : 'Yes, I can take part in phone hearings',
-  nohearings : 'No, I cannot take part in either video or phone hearings',
-  //Travelling
-  parkingspace : 'Parking space close to the venue',
-  stepfree : 'Step free / wheelchair access',
-  wheelchair : 'Use of venue wheelchair',
-  toilet : 'Accessible toilet',
-  lift : 'Help using a lift',
-  differentchair : 'A different type of chair',
-  building : 'Guiding in the building',
-  other : 'Other',
-  //Help Coomunication
-  hearingloop : 'Hearing loop (hearing enhancement system)',
-  infraredreceiver : 'Infrared receiver (hearing enhancement system)',
-  needspeakinghelp : 'Need to be close to who is speaking',
-  lipspeaker : 'Lip speaker',
-  signlanguage : 'Sign Language interpreter',
-  speechreporter : 'Speech to text reporter (palantypist)',
-  extratime : 'Extra time to think and explain myself',
-  courtvisit : 'Visit to court before the hearing',
-  courthearing : "Explanation of the court and who's in the room at the hearing",
-  intermediary : 'Intermediary',
-  nosupport : 'No, I do not need any support at this time',
-  //Court comfort
-  appropriatelighting : 'Appropriate lighting',
-  breaks : 'Regular breaks',
-  space : 'Space to be able to get up and move around',
-  //Safety Arrangements
-  waitingroom: 'Separate waiting room',
-  separateexitentry: 'Separate exits and entrances',
-  screens: 'Screens so you and the other people in the case cannot see each other',
-  separatetoilets: 'Separate toilets',
-  visitToCourt: 'Visit to court before the hearing',
-  videolinks : 'Video links',
-  noSafetyrequirements : 'No, I do not have any safety requirements at this time',
-  //Docs support
-  docsreadformat: 'Documents in an easy read format',
-  brailledocs : 'Braille documents',
-  largeprintdocs : 'Documents in large print',
-  docsaudio : 'Audio translation of documents',
-  docsReadOut : 'Documents read out to me',
-  emailInfo : 'Information emailed to me',
-  docsprint : 'Documents in a specified colour',
-  //Reasonable adjustments
-  docsformat: 'I need documents in an alternative format',
-  commhelp: 'I need help communicating and understanding',
-  hearingsupport: 'I need to bring support with me to a hearing',
-  hearingcomfort: 'I need something to feel comfortable during a hearing',
-  travellinghelp: 'I need help travelling to, or moving around court buildings',
-  //court support
-  supportworker: 'A support worker or carer',
-  familymember: 'A friend or family member',
-  assistance: 'Assistance / guide dog',
-  animal: 'Therapy animal',
-  //languagerequirements
-  speakwelsh: 'I need to speak in Welsh',
-  readandwritewelsh: 'I need to read and write in Welsh',
-  languageinterpreter: 'I need an interpreter in a certain language',
-  nointerpreter: 'No, I do not have any language requirements at this time',
 }
 
 export interface CurrentOrPreviousProceedings {
@@ -857,12 +795,12 @@ export interface ContactDetail {
   telephoneNumber?: string,
   canNotProvideTelephoneNumberReason?: string,
   canLeaveVoiceMail?: YesNoEmpty,
-  applicantContactPreferences?: String[];
+  applicantContactPreferences?: string;
 }
 
 export enum applicantContactPreferencesEnum {
-  DIGITAL = 'Digital',
-  POST = 'Post',
+  DIGITAL = 'digital',
+  POST = 'post',
 }
 
 export type C100ListOfApplicants = C100Applicant[];
@@ -1033,6 +971,7 @@ citizenUserManualAddressPostcode?: string;
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+  draftOrderDoc?: Document;
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -2050,13 +1989,21 @@ export const enum State {
   SUBMITTED_PAID = "Submitted",
   AWAITING_RESUBMISSION_TO_HMCTS = "Returned",
   CASE_ISSUE = "Case Issued",
-  CASE_WITHDRAWN = "Withdrawn",
   GATEKEEPING = "Gatekeeping",
   PREPARE_FOR_HEARING_CONDUCT_HEARING = "Hearing",
   DECISION_OUTCOME = "DECISION_OUTCOME",
   ALL_FINAL_ORDERS_ISSUED = "ALL_FINAL_ORDERS_ISSUED",
   CASE_HEARING = "Prepare for hearing",
   DELETED = "Deleted",
+  CASE_DRAFT = 'AWAITING_SUBMISSION_TO_HMCTS',
+  CASE_SUBMITTED_PAID = 'SUBMITTED_PAID',
+  CASE_SUBMITTED_NOT_PAID = 'SUBMITTED_NOT_PAID',
+  CASE_ISSUED_TO_LOCAL_COURT = 'CASE_ISSUE',
+  CASE_GATE_KEEPING = 'GATE_KEEPING',
+  CASE_CLOSED = 'ALL_FINAL_ORDERS_ISSUED',
+  CASE_SERVED = 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
+  CASE_WITHDRAWN = 'CASE_WITHDRAWN',
+  CASE_DELETED = 'DELETED',
 }
 
 export const enum UserRole {
@@ -2422,6 +2369,9 @@ export interface PRLDocument {
   orderType: string;
   orderDocument: Document;
   otherDetails: OtherDetails;
+  orderTypeId?: string;
+  isWithdrawnRequestApproved?: YesOrNo
+  withdrawnRequestType?: string;
 }
 
 export interface HearingsList {
@@ -2650,6 +2600,7 @@ export const enum C100_CASE_EVENT {
   CASE_UPDATE = 'citizen-case-update',
   CASE_SUBMIT = 'citizen-case-submit',
   DELETE_CASE = 'deleteApplication',
+  CASE_SUBMIT_WITH_HWF = 'citizenCaseSubmitWithHWF',
 }
 
 export enum C100OrderTypes {
@@ -2992,3 +2943,8 @@ export type ChildrenDetails = {
       lastName: string;
       partyType: PartyType;
   }
+
+  export enum CaseType {
+    C100 = 'C100',
+    FL401 = 'FL401',
+}

@@ -1,0 +1,13 @@
+{% macro buildProgressBar(stages) %}
+  <div class="status-bar govuk-!-padding-6">
+    {% for stage in stages %}
+      <div
+      class="status-bar__stage {{ stage.statusBarClassName }}"
+      aria-label="{{ stage.ariaLabel }}"
+    >
+        <div class="status-bar__ring"></div>
+        <span class="status-bar__title" aria-hidden="true">{{ stage.label | safe }}</span>
+      </div>
+    {% endfor %}
+  </div>
+{% endmacro %}

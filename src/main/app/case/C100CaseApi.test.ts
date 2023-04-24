@@ -58,6 +58,8 @@ describe('CaseApi', () => {
       data: {
         id: '1234',
         ...request,
+        state: 'AWAITING_SUBMISSION_TO_HMCTS',
+        noOfDaysRemainingToSubmitCase: '28',
       },
     });
     const userCase = await api.createCase();
@@ -65,6 +67,8 @@ describe('CaseApi', () => {
     expect(userCase).toStrictEqual({
       id: '1234',
       ...request,
+      state: 'AWAITING_SUBMISSION_TO_HMCTS',
+      noOfDaysRemainingToSubmitCase: '28',
     });
     expect(mockedAxios.post).toHaveBeenCalledWith('/case/create', request);
   });
@@ -323,6 +327,7 @@ describe('CaseApi', () => {
     );
   });
 
+
   test('Should throw error when draft application download fails', async () => {
     mockedAxios.post.mockRejectedValue({
       response: {
@@ -354,5 +359,29 @@ describe('CaseApi', () => {
 
     const response = await api.downloadDraftApplication(123);
     expect(response).toStrictEqual(document.data);
+ });
+
+
+  test('Should submit case on citizen-case-submit-with-hwf', async () => {
+    //mock
+    const caseData = {
+      ...mockData,
+    };
+    mockedAxios.post.mockResolvedValueOnce({ data: caseData });
+    const updatedCaseData = await api.updateCase(
+      '1234',
+      caseData,
+      'c100-rebuild/dummyUrl',
+      C100_CASE_EVENT.CASE_SUBMIT_WITH_HWF
+    );
+
+    expect(updatedCaseData).toStrictEqual({ data: caseData });
+    expect(mockedAxios.post).toHaveBeenCalledWith(
+      '1234/citizenCaseSubmitWithHWF/update-case',
+      { ...mockData },
+      {
+        headers: { accessCode: 'null' },
+      }
+    );
   });
 });

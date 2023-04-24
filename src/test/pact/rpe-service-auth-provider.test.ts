@@ -35,7 +35,7 @@ pactWith(
         uponReceiving: 'a request for service auth token',
         withRequest: {
           method: 'POST',
-          path: '/lease',
+          path: '/testing-support/lease',
           headers: {
             Accept: 'application/json, text/plain, */*',
             'content-type': 'application/json',
