@@ -19,6 +19,8 @@ const en = () => ({
   taskListItems: respondent_tasklist_items_en,
   respondToApplication: 'Review and submit',
   goBack: 'Go back',
+  warning: 'Warning',
+  yourResponse: 'Your response will be shared with the other people in this case.',
 });
 
 const cy = () => ({
@@ -34,6 +36,8 @@ const cy = () => ({
   taskListItems: respondent_tasklist_items_cy,
   respondToApplication: 'Review and submit',
   goBack: 'Go back',
+  warning: 'Warning -welsh',
+  yourResponse: 'Your response will be shared with the other people in this case. -welsh',
 });
 
 const languages = {

@@ -36,7 +36,7 @@ const cyContent = {
   warning: 'Warning - welsh',
   line3:
     "Peidiwch ag ymateb i'r cais hwn eich hun os ydych yn bwriadu cael cynrychiolydd cyfreithiol i gwblhau'r ymateb.",
-  continue: 'Continue',
+  continue: 'Parhau',
 };
 
 describe('consent to the application', () => {

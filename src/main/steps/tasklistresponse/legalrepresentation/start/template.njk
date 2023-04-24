@@ -35,12 +35,12 @@
     items: [
     {
       value: "Yes",
-      text: "Yes",
+      text: one,
       checked: true
     },
     {
       value: "No",
-      text: "No"
+      text: two
     }
   ],
     formGroup: {
@@ -62,11 +62,11 @@
     items: [
     {
       value: "Yes",
-      text: "Yes"
+      text: one
     },
     {
       value: "No",
-      text: "No",
+      text: two,
       checked: true
     }
   ],
@@ -90,11 +90,11 @@
     items: [
     {
       value: "Yes",
-      text: "Yes"
+      text: one
     },
     {
       value: "No",
-      text: "No"
+      text: two
     }
   ],
     formGroup: {
@@ -111,7 +111,7 @@
       Save and continue
     </button>
   </form>
-  <p class="govuk-body"><a href="https://www.gov.uk/find-legal-advice/find-legal-adviser" class="govuk-link" rel="external" target="_blank">Find legal representation</a></p>
-  <p class="govuk-body"><a href="https://www.gov.uk/legal-aid" class="govuk-link" rel="external" target="_blank">Do you need legal aid?</a></p>
+  <p class="govuk-body"><a href="https://www.gov.uk/find-legal-advice/find-legal-adviser" class="govuk-link" rel="external" target="_blank">{{find}}</a></p>
+  <p class="govuk-body"><a href="https://www.gov.uk/legal-aid" class="govuk-link" rel="external" target="_blank">{{legal}}</a></p>
 </main>
 {% endblock %}

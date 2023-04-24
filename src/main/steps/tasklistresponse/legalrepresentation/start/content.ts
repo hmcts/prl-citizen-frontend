@@ -15,6 +15,8 @@ const en = {
       required: 'Select yes if you are using a legal representative to respond to the application',
     },
   },
+  find: 'Find legal representation',
+  legal: 'Find legal representation',
 };
 
 const cy: typeof en = {
@@ -29,6 +31,8 @@ const cy: typeof en = {
       required: 'Select yes if you are using a legal representative to respond to the application',
     },
   },
+  find: 'Find legal representation -welsh',
+  legal: 'Find legal representation -welsh',
 };
 
 const languages = {

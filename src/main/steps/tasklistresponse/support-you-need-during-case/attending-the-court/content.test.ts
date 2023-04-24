@@ -16,6 +16,9 @@ const en = {
   noHearings: 'No, I cannot take part in either video or phone hearings',
   noHearingsHint: 'If you choose this option please tell us why in case we can assist you',
   noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
+  line1: 'If your case goes to a hearing, it can take place either: ',
+  list1:
+    "<li>in person, in a room at a venue ('face-to-face')</li><li>by video (where you can join from a place suitable to you)</li><li>by phone</li>",
   continue: 'Continue',
   errors: {
     attendingToCourt: {
@@ -39,6 +42,9 @@ const cy: typeof en = {
   noHearings: 'Na allaf, ni allaf gymryd rhan mewn gwrandawiad fideo na gwrandawiad dros y ffôn',
   noHearingsHint: 'Os dewiswch yr opsiwn hwn, dywedwch wrthym pam rhag ofn y gallwn eich cynorthwyo',
   noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
+  line1: 'If your case goes to a hearing, it can take place either:  -welsh',
+  list1:
+    "<li>yn bersonol, mewn ystafell mewn lleoliad penodol ('wyneb yn wyneb')</li><li>trwy fideo (lle gallwch chi ymuno o le sy'n addas i chi)</li><li>dros y ffôn</li>",
   continue: 'Continue',
   errors: {
     attendingToCourt: {

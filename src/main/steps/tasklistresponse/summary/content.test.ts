@@ -399,6 +399,8 @@ const cyContent: typeof enContent = {
     },
   },
   continue: 'Submit your response',
+  warning1: 'Warning -welsh',
+  yourResponse: 'Your response will be shared with the other people in this case. -welsh',
 };
 
 jest.mock('../../../app/form/validation');
