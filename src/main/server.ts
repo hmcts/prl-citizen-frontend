@@ -49,6 +49,20 @@ logger.info('I am here');
 logger.info('developmentMode is: ' + developmentMode);
 logger.info('app.locals.ENV is: ' + app.locals.ENV);
 logger.info('app.locals.developmentMode is: ' + app.locals.developmentMode);
+
+app.use(async (req, res, next) => {
+  logger.info('we are in dev mode');
+  app.settings.nunjucksEnv.globals.c100Rebuild = await featureToggles.isC100reBuildEnabled();
+  logger.info('c100Rebuild ::' + app.settings.nunjucksEnv.globals.c100Rebuild);
+  app.settings.nunjucksEnv.globals.testingSupport = await featureToggles.isTestingSupportEnabled();
+  logger.info('testingSupport ::' + app.settings.nunjucksEnv.globals.testingSupport);
+  logger.info('we are not in dev mode');
+  res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
+
+  next();
+});
+
+
 new AxiosLogger().enableFor(app);
 logger.info('I am now here');
 new PropertiesVolume().enableFor(app);
@@ -96,15 +110,15 @@ const featureToggles = new FeatureToggles(launchDarklyClient);
 logger.info('feature toggle is set');
 logger.info('app.locals.developmentMode' + app.locals.developmentMode);
 logger.info('developmentMode' + developmentMode);
-app.use(async (req, res, next) => {
-  logger.info('we are in dev mode');
-  app.settings.nunjucksEnv.globals.c100Rebuild = await featureToggles.isC100reBuildEnabled();
-  logger.info('c100Rebuild ::' + app.settings.nunjucksEnv.globals.c100Rebuild);
-  app.settings.nunjucksEnv.globals.testingSupport = await featureToggles.isTestingSupportEnabled();
-  logger.info('testingSupport ::' + app.settings.nunjucksEnv.globals.testingSupport);
-  logger.info('we are not in dev mode');
-  res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
+// app.use(async (req, res, next) => {
+//   logger.info('we are in dev mode');
+//   app.settings.nunjucksEnv.globals.c100Rebuild = await featureToggles.isC100reBuildEnabled();
+//   logger.info('c100Rebuild ::' + app.settings.nunjucksEnv.globals.c100Rebuild);
+//   app.settings.nunjucksEnv.globals.testingSupport = await featureToggles.isTestingSupportEnabled();
+//   logger.info('testingSupport ::' + app.settings.nunjucksEnv.globals.testingSupport);
+//   logger.info('we are not in dev mode');
+//   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
 
-  next();
-});
+//   next();
+// });
 logger.info('out of feature toggle is set');
