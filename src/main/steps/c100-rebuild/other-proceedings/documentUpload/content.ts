@@ -40,8 +40,8 @@ const en = () => ({
   errors: {
     document: {
       required: 'Please choose a file.',
-      multipleFiles: `You can upload only one file.
-            If you wish to upload a new file, delete the existing
+      multipleFiles: `You can upload only one file. 
+            If you wish to upload a new file, delete the existing 
             file and upload a new one`,
       fileFormat: `The file you uploaded is in the wrong format.
                 Upload your file again in the correct format`,

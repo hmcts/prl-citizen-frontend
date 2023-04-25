@@ -22,8 +22,8 @@ const en = () => ({
   errors: {
     document: {
       required: 'Please choose a file.',
-      multipleFiles: `You can upload only one file.
-            If you wish to upload a new file, delete the existing
+      multipleFiles: `You can upload only one file. 
+            If you wish to upload a new file, delete the existing 
             file and upload a new one`,
       fileSize: `The file you uploaded is too large.
             Maximum file size allowed is 20MB`,
