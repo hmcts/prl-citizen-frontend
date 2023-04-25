@@ -62,7 +62,6 @@ app.use(async (req, res, next) => {
   next();
 });
 
-
 new AxiosLogger().enableFor(app);
 logger.info('I am now here');
 new PropertiesVolume().enableFor(app);
