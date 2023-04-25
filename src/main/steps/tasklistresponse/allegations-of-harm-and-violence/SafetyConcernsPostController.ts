@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
-import { CaseType, PartyType } from '../../../app/case/definition';
+import { CaseEvent, CaseType, PartyType } from '../../../app/case/definition';
 import type { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
@@ -32,7 +32,8 @@ export class SafetyConcernsPostController extends PostController<AnyObject> {
             userCase.id,
             respondent.value,
             partyType,
-            userCase.caseTypeOfApplication as CaseType
+            userCase.caseTypeOfApplication as CaseType,
+            CaseEvent.SAFETY_CONCERNS
           );
           req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
         } catch (error) {
