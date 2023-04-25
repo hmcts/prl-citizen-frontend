@@ -1,16 +1,12 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
-
-import {
-  C100_CHECK_YOUR_ANSWER,
-  HOME_URL,
-} from '../../steps/urls';
+import { C100_CHECK_YOUR_ANSWER, HOME_URL } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
 import { C100_CASE_EVENT } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
- import { FormFields, FormFieldsFn } from '../form/Form';
+import { FormFields, FormFieldsFn } from '../form/Form';
 
 @autobind
 export class TSDraftController extends PostController<AnyObject> {
@@ -39,7 +35,7 @@ export class TSDraftController extends PostController<AnyObject> {
     const value = data.split(',');
     value.forEach(async element => {
       try {
-       const caseData={};
+        const caseData = {};
         await req.locals.C100Api.updateCase(element, caseData, HOME_URL, C100_CASE_EVENT.DELETE_CASE);
         req.session.save(() => {
           res.redirect(HOME_URL);
