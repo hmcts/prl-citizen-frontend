@@ -37,6 +37,8 @@ describe('citizen-home content', () => {
     expect(generatedContent.title).toEqual('Orders from the court');
     expect(generatedContent.section).toEqual('All documents');
     expect(generatedContent.summaryText).toEqual('Contacts for help');
+    expect(generatedContent.caseNumber).toEqual('Case number');
+    expect(generatedContent.continue).toEqual('Go back');
   });
 
   // eslint-disable-next-line jest/expect-expect

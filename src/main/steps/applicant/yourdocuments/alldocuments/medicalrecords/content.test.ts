@@ -34,6 +34,8 @@ describe('citizen-home content', () => {
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('Medical records');
     expect(generatedContent.section).toEqual('All documents');
+    expect(generatedContent.caseNumber).toEqual('Case number');
+    expect(generatedContent.continue).toEqual('Go back');
   });
 
   // eslint-disable-next-line jest/expect-expect
