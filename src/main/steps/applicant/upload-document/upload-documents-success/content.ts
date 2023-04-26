@@ -13,14 +13,14 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'How your documents will be shared',
-  status: 'Your documents have been uploaded',
-  title: 'Your documents have been uploaded',
+  section: 'How your documents will be shared (welsh)',
+  status: 'Your documents have been uploaded (welsh)',
+  title: 'Your documents have been uploaded (welsh)',
   uploadAgain: 'Upload another document (welsh)',
   continue: 'Parhau',
   remove: 'Dileu',
-  sucess: 'Success',
-  documentDetails: 'Your documents for ',
+  sucess: 'Success (welsh)',
+  documentDetails: 'Your documents for (welsh)',
 };
 
 const languages = {

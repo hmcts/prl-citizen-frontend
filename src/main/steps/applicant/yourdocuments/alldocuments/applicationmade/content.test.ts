@@ -13,9 +13,9 @@ const enContent = {
 
 const cyContent = {
   section: 'Pob dogfen',
-  title: 'Applications made in these proceedings',
+  title: 'Applications made in these proceedings (welsh)',
   caseNumber: 'Rhif yr achos',
-  continue: 'Go back',
+  continue: 'Go back (welsh)',
 };
 
 jest.mock('../../../../../app/form/validation');
