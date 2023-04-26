@@ -7,15 +7,19 @@ import { generateContent } from './content';
 const enContent = {
   section: 'All documents',
   title: 'Drug and alcohol tests (toxicology)',
+  threeHint: 'This is a 8 character code',
+  summaryText: 'Contacts for help',
   caseNumber: 'Case number',
   continue: 'Go back',
 };
 
 const cyContent = {
   section: 'Pob dogfen',
-  title: 'Drug and alcohol tests (toxicology)',
+  title: 'Drug and alcohol tests (toxicology) (welsh)',
+  threeHint: 'This is a 8 character code (welsh)',
+  summaryText: 'Cysylltiadau am gymorth',
   caseNumber: 'Rhif yr achos',
-  continue: 'Go back',
+  continue: 'Go back (welsh)',
 };
 
 jest.mock('../../../../../app/form/validation');
@@ -34,6 +38,8 @@ describe('citizen-home content', () => {
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('Drug and alcohol tests (toxicology)');
     expect(generatedContent.section).toEqual('All documents');
+    expect(generatedContent.caseNumber).toEqual('Case number');
+    expect(generatedContent.continue).toEqual('Go back');
   });
 
   // eslint-disable-next-line jest/expect-expect
