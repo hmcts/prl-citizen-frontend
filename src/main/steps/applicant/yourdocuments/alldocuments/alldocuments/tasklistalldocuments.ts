@@ -102,7 +102,7 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
   applicantItems.push({
     id: 'other_people_witness_statements',
     text: taskListItems.other_people_witness_statements,
-    href: url + URL.OTHER_PEOPLE_WITNESS_STATEMENTS + '?byApplicant=Yes',
+    href: url + URL.OTHER_PEOPLE_WITNESS_STATEMENTS,
   });
 
   applicantItems.push(isMedicalReportsUploadedd(taskListItems, url, flags.isMedicalReportsUploaded));
@@ -638,10 +638,9 @@ const getApplicantAohAndViolence = (applicant: Applicant, taskListItems, userCas
       '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
-    href:
-      getApplicantAllegationsOfHarmAndViolence(userCase) === true
-        ? URL.ALLEGATION_OF_HARM_VOILENCE
-        : URL.ALLEGATION_OF_HARM_VOILENCE_DOC,
+    href: getApplicantAllegationsOfHarmAndViolence(userCase)
+      ? URL.ALLEGATION_OF_HARM_VOILENCE
+      : URL.ALLEGATION_OF_HARM_VOILENCE_DOC,
   };
 };
 export const getApplicantResponseToAohAndViolence = (applicant: Applicant, taskListItems) => {
@@ -706,10 +705,9 @@ const getApplicantAohAndViolenceDA = (applicant: PartyDetails, taskListItems, us
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href:
-      getApplicantAllegationsOfHarmAndViolence(userCase) === true
-        ? URL.ALLEGATION_OF_HARM_VOILENCE
-        : URL.APPLICANT + URL.ALLEGATION_OF_HARM_VOILENCE_DOC,
+    href: getApplicantAllegationsOfHarmAndViolence(userCase)
+      ? URL.ALLEGATION_OF_HARM_VOILENCE
+      : URL.APPLICANT + URL.ALLEGATION_OF_HARM_VOILENCE_DOC,
   };
 };
 const getApplicantResponseToAohAndViolenceDA = (applicant: PartyDetails, taskListItems) => {
