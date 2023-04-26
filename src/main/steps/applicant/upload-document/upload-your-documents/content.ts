@@ -4,7 +4,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
-const en = {
+export const en = {
   section: 'Provide the document',
   title: 'Provide the documents',
   declaration: 'I believe that the facts stated in these documents are true',
@@ -38,7 +38,7 @@ const en = {
   },
 };
 
-const cy: typeof en = {
+export const cy = {
   section: 'Provide the document',
   title: 'Provide the documents',
   declaration: 'I believe that the facts stated in these documents are true',

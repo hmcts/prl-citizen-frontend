@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import { Validator, atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -120,6 +120,8 @@ describe('citizen-home content', () => {
     expect((attendingToCourtField.values[3].subFields?.hearingDetails.label as Function)(generatedContent)).toBe(
       en.noHearingDetails
     );
+    (attendingToCourtField.values[3].subFields?.hearingDetails.validator as Validator)('test value');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test value');
     expect(attendingToCourtField.values[3].subFields?.hearingDetails.type).toBe('textarea');
     expect(attendingToCourtField.validator).toBe(atLeastOneFieldIsChecked);
   });
