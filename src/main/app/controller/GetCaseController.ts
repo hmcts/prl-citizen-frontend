@@ -96,7 +96,6 @@ export class GetCaseController {
           res.redirect(C100_CASE_NAME);
         });
       } catch (e) {
-        console.info(e);
         throw new Error('case could not be created-createC100ApplicantCase');
       }
     }
