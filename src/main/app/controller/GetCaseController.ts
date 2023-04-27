@@ -75,7 +75,6 @@ export class GetCaseController {
 
   public async createC100ApplicantCase(req: AppRequest, res: Response): Promise<void> {
     const userDeatils = req?.session?.user;
-
     if (userDeatils) {
       try {
         const {
