@@ -93,8 +93,6 @@ export class CaseApi {
     try {
       caseData = { ...caseData, state: State.CASE_DELETED };
       const { caseId } = caseData;
-      const { state } = caseData;
-
       if (!caseId) {
         throw new Error('caseId not found so case could not be deleted.');
       }
