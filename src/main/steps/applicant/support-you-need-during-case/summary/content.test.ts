@@ -11,7 +11,7 @@ const en = {
     aboutYou: 'About you',
   },
   keys: {
-    languageDetails: 'Give details of the language you require (including dialect, if applicable)',
+    // languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     languageRequirements: 'Do you have any language requirements?',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
@@ -65,7 +65,7 @@ const cy: typeof en = {
     aboutYou: 'About you',
   },
   keys: {
-    languageDetails: 'Give details of the language you require (including dialect, if applicable)',
+    // languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     languageRequirements: 'Do you have any language requirements?',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',

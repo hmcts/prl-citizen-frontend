@@ -8,6 +8,12 @@ import { generateContent } from './content';
 const enContent = {
   ...english,
   section: 'Keeping your contact details private',
+  title: 'The court will keep your contact details private',
+  line1: 'You have told us you want to keep these contact details private:',
+  address: 'Home address',
+  email: 'Email',
+  phoneNumber: 'Telephone number',
+  line2: 'What the court will do',
   line3:
     'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
   continue: 'Save and continue',
@@ -15,10 +21,16 @@ const enContent = {
 
 const cyContent = {
   ...welsh,
-  section: 'Keeping your contact details private',
+  section: 'Keeping your contact details private-welsh',
+  title: 'The court will keep your contact details private-welsh',
+  line1: 'You have told us you want to keep these contact details private:-welsh',
+  address: 'Home address-welsh',
+  email: 'Email-welsh',
+  phoneNumber: 'Telephone number-welsh',
+  line2: 'What the court will do-welsh',
   line3:
-    'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.',
-  continue: 'Save and continue',
+    'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.-welsh',
+  continue: 'Save and continue-welsh',
 };
 
 jest.mock('../../../../app/form/validation');
