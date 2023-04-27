@@ -648,7 +648,7 @@ export const getApplicantResponseToAohAndViolence = (applicant: Applicant, taskL
     id: 'applicant_response_to_other_side_allegation_of_harm',
     text: taskListItems.applicant_response_to_other_side_allegation_of_harm.replace(
       '<nameapplicantxxxxx>',
-      applicant.value.firstName + ' ' + applicant.value.lastName
+      `${applicant.value.firstName} ${applicant.value.lastName}`
     ),
     href: URL.APPLICANT + URL.RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC,
   };
@@ -727,8 +727,7 @@ const getApplicantPositionStatementsDA = (applicant: PartyDetails, taskListItems
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href:
-      url + URL.POSITION_STATEMENTS + '?name=' + applicant.firstName + ' ' + applicant.lastName + '&byApplicant=Yes',
+    href: `${url}${URL.POSITION_STATEMENTS}?name=${applicant.firstName} ${applicant.lastName}&byApplicant=Yes`,
   };
 };
 
