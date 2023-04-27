@@ -92,11 +92,8 @@ export class CaseApi {
   public async deleteCase(caseData: Partial<CaseWithId>, session: AppSession): Promise<void> {
     try {
       caseData = { ...caseData, state: State.CASE_DELETED };
-      console.info('deletinggg');
       const { caseId } = caseData;
       const { state } = caseData;
-
-      console.info(state);
 
       if (!caseId) {
         throw new Error('caseId not found so case could not be deleted.');
