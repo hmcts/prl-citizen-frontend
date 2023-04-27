@@ -16,6 +16,8 @@
     "10104_User Agent Fuzzer_https://privatelaw.aat.platform.hmcts.net/_GET": "ignore",
     "10104_User Agent Fuzzer_https://privatelaw.aat.platform.hmcts.net_GET": "ignore",
     "10054_Cookie without SameSite Attribute_https://privatelaw.aat.platform.hmcts.net/sitemap.xml_GET": "ignore",
+    "10010_Cookie No HttpOnly Flag_https://privatelaw.aat.platform.hmcts.net/sitemap.xml_GET": "ignore",
+    "10096_Timestamp Disclosure - Unix_https://privatelaw.aat.platform.hmcts.net/robots.txt_GET": "ignore",
     "40035_Hidden File Found_https://privatelaw.aat.platform.hmcts.net/._darcs_GET": "ignore",
     "40035_Hidden File Found_https://privatelaw.aat.platform.hmcts.net/.bzr_GET": "ignore",
     "10011_Cookie Without Secure Flag_https://privatelaw.aat.platform.hmcts.net/sitemap.xml_GET": "ignore",
