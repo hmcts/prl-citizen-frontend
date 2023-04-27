@@ -80,16 +80,16 @@ export class GetCaseController {
      console.info('inside case');
       try {
         console.info('inside try');
-         console.info(caseId);
-          console.info(state);
-           console.info(caseTypeOfApplication);
-            console.info(noOfDaysRemainingToSubmitCase);
         const {
           id: caseId,
           caseTypeOfApplication,
           state,
           noOfDaysRemainingToSubmitCase,
         } = await req.locals.C100Api.createCase();
+         console.info(caseId);
+          console.info(state);
+           console.info(caseTypeOfApplication);
+            console.info(noOfDaysRemainingToSubmitCase);
       console.info('111111');
         req.session.userCase = {
           caseId,
