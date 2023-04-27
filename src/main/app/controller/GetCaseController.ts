@@ -77,32 +77,32 @@ export class GetCaseController {
     const userDeatils = req?.session?.user;
 
     if (userDeatils) {
-     console.info('inside case');
+     console.info('insidecase');
       try {
-        console.info('inside try');
+        console.info('insidetry');
         const {
           id: caseId,
           caseTypeOfApplication,
           state,
           noOfDaysRemainingToSubmitCase,
         } = await req.locals.C100Api.createCase();
-         console.info(caseId);
-          console.info(state);
-           console.info(caseTypeOfApplication);
-            console.info(noOfDaysRemainingToSubmitCase);
-      console.info('111111');
+         console.info(caseId)
+          console.info(state)
+           console.info(caseTypeOfApplication)
+            console.info(noOfDaysRemainingToSubmitCase)
+      console.info('111111')
         req.session.userCase = {
           caseId,
           caseTypeOfApplication,
           state,
           noOfDaysRemainingToSubmitCase,
         } as CaseWithId;
-         console.info('22222');
+         console.info('22222')
         req.session.userCaseList = [];
         req.session.save(() => {
           res.redirect(C100_CASE_NAME);
         });
-         console.info('333333');
+         console.info('333333')
       } catch (e) {
        console.info(e);
         throw new Error('case could not be created-createC100ApplicantCase');
