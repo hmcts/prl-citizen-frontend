@@ -19,12 +19,12 @@ export const applicant_tasklist_items_all_docs_en = {
   drug_alcohol_tests: 'Drug and alcohol tests (toxicology)',
   police_disclosures: 'Police reports',
   witness_availability: 'Witness availability',
-  tenancy_and_mortgage_availability: 'Tenancy and mortgage',
-  // respondent_response_to_request_for_child_arrangements:
-  //   "<namerespondentxxxxx>'s response to the request for child arrangements",
+  tenancy_and_mortgage_availability: 'Tenancy and mortgage agreements',
+  respondent_response_to_request_for_child_arrangements:
+    "<namerespondentxxxxx>'s response to the request for child arrangements",
   respondent_response_for_domestic_abuse: "<namerespondentxxxxx>'s response to the request for domestic abuse",
-  // respondent_response_to_allegations_of_harm_and_violence:
-  //   "<namerespondentxxxxx>'s response to the allegations of harm and violence",
+  respondent_response_to_allegations_of_harm_and_violence:
+    "<namerespondentxxxxx>'s response to the allegations of harm and violence",
   // respondent_allegation_of_harm_and_violence: "<namerespondentxxxxx>'s allegations of harm and violence",
   applications_made_in_these_proceedings_respondent: 'Applications made in these proceedings',
   previous_orders_submitted_respondent: 'Previous orders submitted with application',
