@@ -66,7 +66,7 @@ const cy: typeof en = {
   },
   keys: {
     // languageDetails: 'Give details of the language you require (including dialect, if applicable)',
-    languageRequirements: 'Do you have any language requirements?',
+    languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
     reasonableAdjustments:
       'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
     safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
