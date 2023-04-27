@@ -21,11 +21,11 @@ services:
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
-    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-1230.preview.platform.hmcts.net'
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-844.preview.platform.hmcts.net'
   cos:
-    url: 'https://prl-cos-pr-1329.preview.platform.hmcts.net'
+    url: 'https://prl-cos-pr-734.preview.platform.hmcts.net'
   documentManagement:
-    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-1230.preview.platform.hmcts.net'
+    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-844.preview.platform.hmcts.net'
 health:
   timeout: 5000
   deadline: 15000
