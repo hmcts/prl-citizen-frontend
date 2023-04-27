@@ -75,9 +75,8 @@ export class GetCaseController {
 
   public async createC100ApplicantCase(req: AppRequest, res: Response): Promise<void> {
     const userDeatils = req?.session?.user;
-    console.log('creating new case');
+    console.info('ccaseeeee');
     if (userDeatils) {
-     console.log('inside creating new case');
       try {
         const {
           id: caseId,
