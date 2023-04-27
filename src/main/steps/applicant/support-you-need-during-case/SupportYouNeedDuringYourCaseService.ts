@@ -27,7 +27,7 @@ export const setSupportDetails = (req: AppRequest): Response => {
       otherDetails: req.session.userCase.otherDetails,
 
       languageRequirements: req.session.userCase.languageRequirements,
-      languageDetails: req.session.userCase?.languageDetails,
+      languageDetails: req.session.userCase.languageDetails,
 
       reasonableAdjustments: req.session.userCase.reasonableAdjustments,
 

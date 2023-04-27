@@ -160,11 +160,11 @@ export const getProceedingDetails = (respondent: Respondent, req: AppRequest): P
 
 function getLocalDate(orderDate: string): Date {
   if (orderDate['year'] === '' && orderDate['month'] === '' && orderDate['day'] === '') {
-    const formated_Date = new Date(orderDate[''], orderDate[''], orderDate['']);
-    return formated_Date;
+    return new Date(orderDate[''], orderDate[''], orderDate['']);
+  } else if (orderDate) {
+    return new Date(orderDate['year'], orderDate['month'] - 1, orderDate['day']);
   } else {
-    const formated_Date = new Date(orderDate['year'], orderDate['month'] - 1, orderDate['day']);
-    return formated_Date;
+    return new Date(orderDate['year'], orderDate['month'] - 1, orderDate['day']);
   }
 }
 
