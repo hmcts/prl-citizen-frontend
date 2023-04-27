@@ -77,7 +77,6 @@ export class GetCaseController {
     const userDeatils = req?.session?.user;
 
     if (userDeatils) {
-     console.info('ccaseeeee');
       try {
         const {
           id: caseId,
