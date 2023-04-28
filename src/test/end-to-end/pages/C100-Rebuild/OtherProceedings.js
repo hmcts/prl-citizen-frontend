@@ -3,17 +3,17 @@ const { I } = inject();
 const retryCount = 3;
 module.exports = {
   fields: {
-    childrenInvolvedCourtCaseYesButton: '//*[@id="op_childrenInvolvedCourtCase"]', 
-    courtOrderProtectionYesButton: '//*[@id="op_courtOrderProtection"]', 
-    courtProceedingsOrdersButton: '//*[@id="op_courtProceedingsOrders"]', 
-    courtIssued: '//*[@id="orderDetail-1"]', 
-    caseNo: '//*[@id="caseNo-1"]', 
-    dateMadeDay: '//*[@id="orderDate-1-day"]', 
-    dateMadeMonth: '//*[@id="orderDate-1-month"]', 
-    dateMadeYear: '//*[@id="orderDate-1-year"]', 
-    currentOrderYes: '//*[@id="currentOrder-1"]', 
-    copyOfOrderYes: '//*[@id="orderCopy-1"]', 
-    //copyOfOrderNo: '//*[@id="orderCopy-1-2"]', 
+    childrenInvolvedCourtCaseYesButton: '//*[@id="op_childrenInvolvedCourtCase"]',
+    courtOrderProtectionYesButton: '//*[@id="op_courtOrderProtection"]',
+    courtProceedingsOrdersButton: '//*[@id="op_courtProceedingsOrders"]',
+    courtIssued: '//*[@id="orderDetail-1"]',
+    caseNo: '//*[@id="caseNo-1"]',
+    dateMadeDay: '//*[@id="orderDate-1-day"]',
+    dateMadeMonth: '//*[@id="orderDate-1-month"]',
+    dateMadeYear: '//*[@id="orderDate-1-year"]',
+    currentOrderYes: '//*[@id="currentOrder-1"]',
+    copyOfOrderYes: '//*[@id="orderCopy-1"]',
+    //copyOfOrderNo: '//*[@id="orderCopy-1-2"]',
   },
    async otherProceedingPage() {
     await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingPageTitle);
@@ -46,7 +46,7 @@ module.exports = {
   },
    async uploadOrder() {
     const uploadTime = 5;
-    await I.retry(retryCount).attachFile('//*[@id="document"]', '../resource/dummy.pdf');
+    await I.retry(retryCount).attachFile('//*[@id="document"]', '../../../resource/dummy.pdf');
     await I.runAccessibilityTest();
     await I.retry(retryCount).wait(uploadTime);
     await I.retry(retryCount).click('Upload file');

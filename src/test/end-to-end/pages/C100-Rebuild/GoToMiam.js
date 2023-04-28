@@ -89,12 +89,12 @@ module.exports = {
   async uploadMiamCertificate() {
      const uploadTime = 5;
      await I.retry(retryCount).waitForText(MiamContent.uploadMiamCertificatePageTitle);
-     await I.retry(retryCount).attachFile('//*[@id="document"]', '../resource/dummy.pdf');
+     await I.retry(retryCount).attachFile('//*[@id="document"]', '../../../resource/dummy.pdf');
      await I.runAccessibilityTest();
      await I.retry(retryCount).wait(uploadTime);
      await I.retry(retryCount).click('Upload file');
      await I.retry(retryCount).wait(uploadTime);
-     await I.retry(retryCount).click('Continue');    
+     await I.retry(retryCount).click('Continue');
   },
   async miamCertificateSummary() {
      await I.retry(retryCount).waitForText(MiamContent.miamCertificateSummaryPageTitle);
@@ -205,7 +205,7 @@ module.exports = {
   async goToMiam() {
     await this.miamOtherProceedings(false);
     await this.attendingMiam();
-    await this.attendedMiam(false); 
+    await this.attendedMiam(false);
     await this.medidatorConfirmed();
     await this.validReasonsMiam();
     await this.validReasonWhat();
