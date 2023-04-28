@@ -8,6 +8,7 @@ module.exports = {
     await I.retry(retryCount).waitForText(ConsentOrder.uploadDraftTitle);
     I.wait('1');
     await I.retry(retryCount).attachFile('//*[@id="document"]', '../../../resource/dummy.pdf');
+    I.wait('5');
     await I.runAccessibilityTest();
     await I.retry(retryCount).wait(uploadTime);
     await I.retry(retryCount).click('Upload file');
