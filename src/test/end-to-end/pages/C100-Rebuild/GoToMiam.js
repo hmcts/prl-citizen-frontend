@@ -89,8 +89,10 @@ module.exports = {
   async uploadMiamCertificate() {
      const uploadTime = 5;
      await I.retry(retryCount).waitForText(MiamContent.uploadMiamCertificatePageTitle);
+     I.wait('1');
      await I.retry(retryCount).attachFile('//*[@id="document"]', '../resource/dummy.pdf');
      await I.runAccessibilityTest();
+     I.wait('5');
      await I.retry(retryCount).wait(uploadTime);
      await I.retry(retryCount).click('Upload file');
      await I.retry(retryCount).wait(uploadTime);

@@ -7,9 +7,9 @@ module.exports = {
     const uploadTime = 5;
     await I.retry(retryCount).waitForText(ConsentOrder.uploadDraftTitle);
     I.wait('1');
-    await I.retry(retryCount).attachFile('//*[@id="document"]', '../../../resource/dummy.pdf');
-    I.wait('5');
+    await I.retry(retryCount).attachFile('//*[@id="document"]', '../resource/dummy.pdf');
     await I.runAccessibilityTest();
+    I.wait('5');
     await I.retry(retryCount).wait(uploadTime);
     await I.retry(retryCount).click('Upload file');
     await I.retry(retryCount).wait(uploadTime);
