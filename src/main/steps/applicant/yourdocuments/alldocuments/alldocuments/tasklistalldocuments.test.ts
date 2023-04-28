@@ -7,9 +7,11 @@ import {
   generateApplicantTaskListAllDocuments,
   getApplicantDocuments,
   getApplicantResponseToAohAndViolence,
+  getOtherDocuments,
   getRespondentDocuments,
   getResponseToAohAndViolence,
   getResponseToCA,
+  getUpdatedFlags,
   isDigitalDownloadsUploadedRespondent,
   isDigitalDownloadsUploadedd,
   isDrugDocUploadedRespondent,
@@ -209,7 +211,7 @@ describe('applicant-tasklistalldocuments', () => {
       true
     );
     expect(actual.title).toEqual(applicant_all_docs_en.applicantsDocuments);
-    expect(actual.items).toHaveLength(16);
+    expect(actual.items).toHaveLength(17);
   });
 
   test('getApplicantDocuments for applicant, CA1', async () => {
@@ -241,7 +243,7 @@ describe('applicant-tasklistalldocuments', () => {
       true
     );
     expect(actual.title).toEqual(applicant_all_docs_en.applicantsDocuments);
-    expect(actual.items).toHaveLength(17);
+    expect(actual.items).toHaveLength(18);
   });
 
   test('getApplicantDocuments for applicant, DA', async () => {
@@ -264,6 +266,28 @@ describe('applicant-tasklistalldocuments', () => {
     );
     expect(actual.title).toEqual(applicant_all_docs_en.applicantsDocuments);
     expect(actual.items).toHaveLength(18);
+  });
+
+  test('getApplicantDocuments for applicant, DA with respondent', async () => {
+    req.session.userCase.caseTypeOfApplication = 'FL401';
+    req.session.userCase.applicantsFL401 = {
+      user: {
+        email: null,
+        idamId: null,
+      },
+      lastName: 'Solicitor',
+      firstName: 'AAT',
+    };
+
+    req.session.userCase.previousOrOngoingProceedingsForChildren = YesNoDontKnow.yes;
+    const actual = getApplicantDocuments(
+      applicant_all_docs_en,
+      applicant_tasklist_items_all_docs_en,
+      req.session.userCase,
+      false
+    );
+    expect(actual.title).toEqual(applicant_all_docs_en.applicantsDocuments);
+    expect(actual.items).toHaveLength(15);
   });
 });
 
@@ -378,6 +402,76 @@ describe('respondent-tasklistalldocuments', () => {
     expect(actual.items).toHaveLength(14);
   });
 
+  test('getApplicantDocuments for respondent, CA2', async () => {
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.userCase.citizenResponseC7DocumentList = [
+      {
+        id: 'string',
+        value: {
+          partyName: 'string',
+          createdBy: 'string',
+          dateCreated: new Date(),
+          citizenDocument: {
+            document_url: 'string',
+            document_filename: 'string',
+            document_binary_url: 'string',
+            document_hash: 'string',
+          },
+        },
+      },
+    ];
+    req.session.userCase.respondents = [
+      {
+        id: '310f3f16-7425-4680-8054-92f3a01ab923',
+        value: {
+          user: {
+            email: null,
+            idamId: null,
+          },
+          lastName: 'Solicitor',
+          firstName: 'AAT',
+        },
+      },
+    ];
+
+    req.session.userCase.previousOrOngoingProceedingsForChildren = YesNoDontKnow.yes;
+    const actual = getRespondentDocuments(
+      applicant_all_docs_en,
+      applicant_tasklist_items_all_docs_en,
+      req.session.userCase,
+      false
+    );
+    expect(actual.title).toEqual(applicant_all_docs_en.respondentsDocuments);
+    expect(actual.items).toHaveLength(15);
+  });
+
+  test('getApplicantDocuments for respondent, DO_NOT_SHOW', async () => {
+    req.session.userCase.caseTypeOfApplication = 'DO_NOT_SHOW';
+    req.session.userCase.respondents = [
+      {
+        id: '310f3f16-7425-4680-8054-92f3a01ab923',
+        value: {
+          user: {
+            email: null,
+            idamId: null,
+          },
+          lastName: 'Solicitor',
+          firstName: 'AAT',
+        },
+      },
+    ];
+
+    req.session.userCase.previousOrOngoingProceedingsForChildren = YesNoDontKnow.yes;
+    const actual = getRespondentDocuments(
+      applicant_all_docs_en,
+      applicant_tasklist_items_all_docs_en,
+      req.session.userCase,
+      false
+    );
+    // expect(actual.title).toEqual(applicant_all_docs_en.respondentsDocuments);
+    expect(actual.items).toHaveLength(14);
+  });
+
   test('getApplicantDocuments for respondent, DA', async () => {
     req.session.userCase.caseTypeOfApplication = 'FL401';
     req.session.userCase.respondentsFL401 = {
@@ -398,6 +492,33 @@ describe('respondent-tasklistalldocuments', () => {
     );
     expect(actual.title).toEqual(applicant_all_docs_en.respondentsDocuments);
     expect(actual.items).toHaveLength(14);
+  });
+
+  test('testing getOtherDocuments for url not as applicant', async () => {
+    req.url = '';
+    req.session.userCase.previousOrOngoingProceedingsForChildren = YesNoDontKnow.yes;
+    const actual = getOtherDocuments(
+      applicant_all_docs_en,
+      applicant_tasklist_items_all_docs_en,
+      req.session.userCase,
+      'Hello'
+    );
+    expect(actual.title).toEqual(applicant_all_docs_en.otherDocuments);
+  });
+
+  test('testing getUpdatedFlags', async () => {
+    req.url = '';
+    req.session.userCase.previousOrOngoingProceedingsForChildren = YesNoDontKnow.yes;
+    const actual = getUpdatedFlags(
+      {
+        id: 'adfs',
+        value: {
+          documentType: 'heavy',
+        },
+      },
+      {}
+    );
+    expect(actual).toEqual(undefined);
   });
 });
 

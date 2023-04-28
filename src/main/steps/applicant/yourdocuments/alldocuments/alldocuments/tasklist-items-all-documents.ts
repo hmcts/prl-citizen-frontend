@@ -25,7 +25,7 @@ export const applicant_tasklist_items_all_docs_en = {
   respondent_response_for_domestic_abuse: "<namerespondentxxxxx>'s response to the request for domestic abuse",
   respondent_response_to_allegations_of_harm_and_violence:
     "<namerespondentxxxxx>'s response to the allegations of harm and violence",
-  // respondent_allegation_of_harm_and_violence: "<namerespondentxxxxx>'s allegations of harm and violence",
+  respondent_allegation_of_harm_and_violence: "<namerespondentxxxxx>'s allegations of harm and violence",
   applications_made_in_these_proceedings_respondent: 'Applications made in these proceedings',
   previous_orders_submitted_respondent: 'Previous orders submitted with application',
   letters_from_school_respondent: 'Letters from school',
