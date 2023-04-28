@@ -25,7 +25,7 @@
     "test:smoke:downstream": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.smoke.config.js",
     "test:smoke": "echo 'smoke tests disabled temporarily for setup' && exit 0",
     "test:functional": "codeceptjs run --steps -c src/test/end-to-end/codecept.conf.js",
-    "test:fullfunctional": "run-p test:pa11y",
+    "test:fullfunctional": "codeceptjs run --steps -c src/test/end-to-end/codecept.conf.js && run-p test:pa11y",
     "test:crossbrowser-e2e": "MOCHAWESOME_REPORTFILENAME=crossbrowser codeceptjs run-multiple --grep \"@cross-browser\" ${BROWSER_GROUP:-'--all'} -c saucelabs.conf.js --reporter mocha-multi",
     "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",
     "cichecks": "yarn && run-p build lint test",
@@ -97,23 +97,21 @@
     "lodash": "^4.17.21",
     "multer": "^1.4.5-lts.1",
     "negotiator": "^0.6.2",
-    "nunjucks": "^3.2.3",
+    "nunjucks": "^3.2.4",
     "otplib": "^12.0.1",
     "pcf-start": "^1.18.4",
-    "qs": "^6.9.7",
     "query-string": "^7.1.1",
     "redis": "^3.1.2",
     "require-directory": "^2.1.1",
     "serve-favicon": "^2.5.0",
     "session-file-store": "^1.5.0",
-    "ssri": ">=6.0.2",
     "supertest": "^6.2.2",
     "to-boolean": "^1.0.0",
     "toobusy-js": "^0.5.1",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^4.1.0",
     "typescript": "^4.7.4",
-    "ua-parser-js": ">=1.0.33",
+    "ua-parser-js": "^1.0.33",
     "uuid": "^8.3.2",
     "yarn": "^1.22.18"
   },
@@ -195,5 +193,6 @@
     "ssri": ">=6.0.2",
     "debug": ">=3.1.0",
     "ua-parser-js": ">=1.0.33"
-  }
+  },
+  "packageManager": "yarn@3.5.0"
 }
