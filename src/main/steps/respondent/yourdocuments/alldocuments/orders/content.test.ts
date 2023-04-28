@@ -15,7 +15,7 @@ const cyContent = {
   section: 'Pob dogfen',
   title: 'Gorchmynion gan y llys',
   caseNumber: 'Rhif yr achos',
-  continue: 'Go back',
+  continue: 'Go back (welsh)',
 };
 
 jest.mock('../../../../../app/form/validation');

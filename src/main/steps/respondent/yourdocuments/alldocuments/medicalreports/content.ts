@@ -15,10 +15,10 @@ const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
     title: 'Adroddiadau meddygol',
-    threeHint: 'This is a 8 character code',
+    threeHint: 'This is a 8 character code (welsh)',
     summaryText: 'Cysylltiadau am gymorth',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back',
+    continue: 'Go back (welsh)',
   };
 };
 
