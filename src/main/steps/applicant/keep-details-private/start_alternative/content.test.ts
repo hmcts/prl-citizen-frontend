@@ -13,16 +13,32 @@ const enContent = {
     'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
   contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
   continue: 'Save and continue',
+  errors: {
+    startAlternative: {
+      required: 'Please select one among the following',
+    },
+    contactDetailsPrivate: {
+      required: 'Please select atleast one of the following',
+    },
+  },
 };
 
 const cyContent = {
   ...welsh,
   title:
-    'Do you want to keep your contact details private from the other person named in the application (the respondent)?',
+    'Do you want to keep your contact details private from the other person named in the application (the respondent)?-welsh',
   line2:
-    'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
-  contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
-  continue: 'Save and continue',
+    'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.-welsh',
+  contact_details_private_hint: 'Make sure you only select details the respondent does not already know.-welsh',
+  continue: 'Save and continue-welsh',
+  errors: {
+    startAlternative: {
+      required: 'Please select one among the following-welsh',
+    },
+    contactDetailsPrivate: {
+      required: 'Please select atleast one of the following-welsh',
+    },
+  },
 };
 
 jest.mock('../../../../app/form/validation');
