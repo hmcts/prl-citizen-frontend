@@ -19,6 +19,7 @@ const en = {
   line1: 'If your case goes to a hearing, it can take place either: ',
   list1:
     "<li>in person, in a room at a venue ('face-to-face')</li><li>by video (where you can join from a place suitable to you)</li><li>by phone</li>",
+  line2: 'Some hearings use a combination of these methods. The approach taken will be decided by a judge.',
   continue: 'Continue',
   errors: {
     attendingToCourt: {
@@ -41,10 +42,11 @@ const cy: typeof en = {
   phoneHearings: 'Gallaf, rwyf yn gallu cymryd rhan mewn gwrandawiad fideo',
   noHearings: 'Na allaf, ni allaf gymryd rhan mewn gwrandawiad fideo na gwrandawiad dros y ffôn',
   noHearingsHint: 'Os dewiswch yr opsiwn hwn, dywedwch wrthym pam rhag ofn y gallwn eich cynorthwyo',
-  noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
+  noHearingDetails: 'Explain why you are unable to take part in video or phone hearings -welsh',
   line1: 'If your case goes to a hearing, it can take place either:  -welsh',
   list1:
     "<li>yn bersonol, mewn ystafell mewn lleoliad penodol ('wyneb yn wyneb')</li><li>trwy fideo (lle gallwch chi ymuno o le sy'n addas i chi)</li><li>dros y ffôn</li>",
+  line2: 'Some hearings use a combination of these methods. The approach taken will be decided by a judge. -welsh',
   continue: 'Continue -welsh',
   errors: {
     attendingToCourt: {
