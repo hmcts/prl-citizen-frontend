@@ -43,13 +43,13 @@ const cy: typeof en = {
   line1: 'If your case goes to a hearing, it can take place either:  -welsh',
   list1:
     "<li>yn bersonol, mewn ystafell mewn lleoliad penodol ('wyneb yn wyneb')</li><li>trwy fideo (lle gallwch chi ymuno o le sy'n addas i chi)</li><li>dros y ffôn</li>",
-  continue: 'Continue',
+  continue: 'Continue -welsh',
   errors: {
     attendingToCourt: {
-      required: 'Select whether you can take part in a video or phone hearing',
+      required: 'Select whether you can take part in a video or phone hearing -welsh',
     },
     hearingDetails: {
-      required: 'Explain why you are unable to take part in either video or phone hearings',
+      required: 'Explain why you are unable to take part in either video or phone hearings -welsh',
     },
   },
 };
