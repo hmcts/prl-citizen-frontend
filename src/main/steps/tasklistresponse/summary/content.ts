@@ -32,6 +32,7 @@ import {
   RESPONDENT_PERSONAL_DETAILS,
   START_ALTERNATIVE_RESPONDENT,
 } from '../../../steps/urls';
+import { generateContent as summaryFormGenerateContent } from '../../common/respondent-summary/content';
 import { summaryList } from '../../common/summary/utils';
 
 const applicationDetailsfieldType = {
@@ -1530,7 +1531,9 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const formTranslations = summaryFormGenerateContent(content);
   return {
+    ...formTranslations,
     ...translations,
     form,
   };
