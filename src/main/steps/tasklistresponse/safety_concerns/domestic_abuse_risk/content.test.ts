@@ -44,24 +44,25 @@ const enContent = {
 
 const cyContent = {
   section: 'Pryderon diogelwch',
-  title: 'Have you suffered or are you at risk of suffering domestic violence or abuse?',
-  line1: 'Only include abuse by the people in this application or someone connected to them.',
-  line2: 'Domestic violence or abuse includes incidents or a pattern of incidents of abusive or violent behaviour.',
-  line3: 'This may include:',
-  line4: 'controlling, threatening or coercive behaviour',
-  line5: 'violence',
-  line6: 'abuse',
+  title: 'Have you suffered or are you at risk of suffering domestic violence or abuse? -welsh',
+  line1: 'Only include abuse by the people in this application or someone connected to them. -welsh',
+  line2:
+    'Domestic violence or abuse includes incidents or a pattern of incidents of abusive or violent behaviour. -welsh',
+  line3: 'This may include: -welsh',
+  line4: 'controlling, threatening or coercive behaviour -welsh',
+  line5: 'violence -welsh',
+  line6: 'abuse -welsh',
   line7:
-    'The incidents must have taken place between people who are aged 16 or over, who are current (or former) intimate partners or family members.',
-  line8: 'Domestic violence or abuse can occur no matter what their gender or sexuality of the people involved.',
-  line9: 'Examples include:',
+    'The incidents must have taken place between people who are aged 16 or over, who are current (or former) intimate partners or family members. -welsh',
+  line8: 'Domestic violence or abuse can occur no matter what their gender or sexuality of the people involved. -welsh',
+  line9: 'Examples include: -welsh',
   line10: 'cam-drin seicolegol',
   line11: 'cam-drin ariannol',
   line12: 'cam-drin emosiynol',
   line13: 'cam-drin corfforol',
   line14: 'cam-drin rhywiol',
   line15:
-    'It also includes culturally specific forms of abuse, including forced marriage, honour-based violence and dowry-related abuse.',
+    'It also includes culturally specific forms of abuse, including forced marriage, honour-based violence and dowry-related abuse. -welsh',
   summery1: 'Why do we need this information and what will we do with it? -welsh',
   summery2:
     'The court needs to know if any of the other people in this application, or anyone connected to them who has contact with the children, poses a risk to the safety of the children. -welsh',
@@ -75,9 +76,9 @@ const cyContent = {
     'They will submit information to the court before your first hearing. Their assessment helps the judge make a decision that is in the best interests of the children. -welsh',
   summery7:
     'The information you provide in this section will also be shared with the respondents so that they have the opportunity to respond to your allegations. -welsh',
-  one: 'Yes',
-  two: 'No',
-  saveAndContinue: 'Save and Continue',
+  one: 'Yes -welsh',
+  two: 'No -welsh',
+  saveAndContinue: 'Save and Continue -welsh',
 };
 
 jest.mock('../../../../app/form/validation');
