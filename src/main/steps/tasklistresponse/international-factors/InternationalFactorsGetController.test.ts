@@ -33,7 +33,7 @@ describe('InternationalFactorsGetController', () => {
             idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
             email: 'test1234@example.net',
           },
-          response: '',
+          response: {},
         },
       },
     ];
