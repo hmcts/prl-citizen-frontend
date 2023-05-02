@@ -16,7 +16,7 @@ const cy: typeof en = () => {
     section: 'Pob dogfen',
     title: 'Negeseuon e-bost, cipluniau, delweddau a ffeiliau cyfryngau eraill',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back',
+    continue: 'Go back (welsh)',
   };
 };
 

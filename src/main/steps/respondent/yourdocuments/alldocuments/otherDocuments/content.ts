@@ -14,9 +14,9 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
-    title: 'Other documents',
+    title: 'Other documents (welsh)',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back',
+    continue: 'Go back (welsh)',
   };
 };
 
@@ -51,7 +51,7 @@ export const generateContent: TranslationFn = content => {
       );
       orders.push({
         href: `${MANAGE_DOCUMENTS_DOWNLOAD}/${uid}`,
-        createdDate: 'Not present',
+        createdDate: doc.value.documentDetails.documentUploadedDate,
         fileName: doc.value.citizenDocument?.document_filename,
       });
     }

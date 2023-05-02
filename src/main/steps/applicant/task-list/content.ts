@@ -12,6 +12,12 @@ import { getApplicantPartyDetails } from './utils';
 const en = () => ({
   title: 'Applicant tasklist',
   applicantName: '',
+  caseNumber: 'Case number  ',
+  iWant: 'I want to...',
+  findCourt: 'Find my local court',
+  legalAdvice: 'Find legal advice',
+  childArrangements: 'Know more about child arrangements',
+  attendingCourt: 'Know more about attending court',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -71,6 +77,12 @@ const en = () => ({
 const cy = () => ({
   title: 'Applicant tasklist',
   applicantName: '',
+  caseNumber: 'Rhif yr achos ',
+  iWant: 'I want to... (welsh)',
+  findCourt: 'Find my local court (welsh)',
+  legalAdvice: 'Find legal advice (welsh)',
+  childArrangements: 'Know more about child arrangements (welsh)',
+  attendingCourt: 'Know more about attending court (welsh)',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',

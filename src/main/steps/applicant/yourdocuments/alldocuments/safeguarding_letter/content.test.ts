@@ -13,9 +13,9 @@ const enContent = {
 
 const cyContent = {
   section: 'Pob dogfen',
-  title: 'Safeguarding Letter',
+  title: 'Safeguarding Letter (welsh)',
   caseNumber: 'Rhif yr achos',
-  continue: 'Go back',
+  continue: 'Go back (welsh)',
 };
 
 jest.mock('../../../../../app/form/validation');
@@ -30,6 +30,8 @@ describe('citizen-home content', () => {
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('Safeguarding Letter');
     expect(generatedContent.section).toEqual('All documents');
+    expect(generatedContent.caseNumber).toEqual('Case number');
+    expect(generatedContent.continue).toEqual('Go back');
   });
 
   // eslint-disable-next-line jest/expect-expect

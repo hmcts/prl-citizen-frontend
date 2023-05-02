@@ -15,7 +15,7 @@ const cyContent = {
   section: 'Pob dogfen',
   title: 'Negeseuon e-bost, cipluniau, delweddau a ffeiliau cyfryngau eraill',
   caseNumber: 'Rhif yr achos',
-  continue: 'Go back',
+  continue: 'Go back (welsh)',
 };
 
 jest.mock('../../../../../app/form/validation');
@@ -34,6 +34,8 @@ describe('citizen-home content', () => {
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('Emails, screenshots, images and other media files');
     expect(generatedContent.section).toEqual('All documents');
+    expect(generatedContent.caseNumber).toEqual('Case number');
+    expect(generatedContent.continue).toEqual('Go back');
   });
 
   // eslint-disable-next-line jest/expect-expect
