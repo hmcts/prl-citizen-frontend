@@ -115,7 +115,7 @@ const en = {
   useApmCookies: 'Use cookies that measure website application performance monitoring',
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
   divider: 'or',
-  pageTitleText: '- Private law - GOV.UK',
+  appName: '- Private law - GOV.UK',
 };
 
 const cy: typeof en = {
@@ -201,7 +201,7 @@ const cy: typeof en = {
   onlyContinue: 'Parhau',
   onlycontinue: 'Parhau',
   divider: 'neu',
-  pageTitleText: '- Private law - GOV.UK (welsh)',
+  appName: '- Private law - GOV.UK (welsh)',
 };
 
 export const generatePageContent = ({
