@@ -403,6 +403,16 @@ describe('isTextAreaValid()', () => {
     expect(isValid).toStrictEqual(undefined);
   });
 
+  test('Should check if value contains <>', async () => {
+    const isValid = isTextAreaValid('te<st<tes>t');
+    expect(isValid).toStrictEqual('invalidCharacters');
+  });
+
+  test('Should check if value contains {}', async () => {
+    const isValid = isTextAreaValid('te{}st}tes{}t');
+    expect(isValid).toStrictEqual('invalidCharacters');
+  });
+
   test('Should check if value does not exist', async () => {
     const value =
       'abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz098765432109876543212345abcdefghijklmnopqrstquvxyz0987654321098765432123450abcdefghijklmnopqrstuvwxyz0987654321000000000000000000000000000000';
