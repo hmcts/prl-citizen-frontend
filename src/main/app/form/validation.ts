@@ -211,7 +211,8 @@ export const isAddressSelected: Validator = value => {
 };
 
 export const isTextAreaValid: Validator = value => {
-  if (/[<>{}]/.exec(value as string)) {
+  const matcher = new RegExp(/[<>{}]/);
+  if (matcher.test(value as string)) {
     return 'invalidCharacters';
   }
 
