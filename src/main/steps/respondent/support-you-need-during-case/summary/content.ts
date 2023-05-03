@@ -25,6 +25,7 @@ export const enContent = {
     safetyArrangementsDetails: 'Please describe your need in detail',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+
     docsSupport: 'I need documents in an alternative format',
     docsDetails: 'Please provide the docs details',
     largePrintDetails: 'Please provide the large print details',
@@ -47,6 +48,7 @@ export const enContent = {
   },
   errors: {},
 };
+
 export const cyContent: typeof enContent = {
   section: 'Check your answers -welsh',
   title: 'Your hearing needs and requirments -welsh',

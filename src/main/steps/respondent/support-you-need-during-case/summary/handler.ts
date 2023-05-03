@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../../../app/case/case';
 import { ReasonableAdjustments } from '../../../../app/case/definition';
 import { LANGUAGE_INTERPRETER, NO_HEARINGS } from '../../../../steps/constants';
+
 import {
   CA_DA_COMMUNICATION_HELP,
   CA_DA_COURT_HEARING_COMFORT,
@@ -9,7 +10,9 @@ import {
   CA_DA_TRAVELLING_TO_COURT,
 } from '../../../../steps/urls';
 
+
 import { urls } from './content';
+
 
 export function filterSelectedUrls(userCase: Partial<CaseWithId>): void {
   if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.DOCUMENTS_SUPPORT)) {
@@ -31,6 +34,7 @@ export function filterSelectedUrls(userCase: Partial<CaseWithId>): void {
     Object.assign(urls, { familyProviderDetails: CA_DA_COURT_HEARING_SUPPORT });
     Object.assign(urls, { therapyDetails: CA_DA_COURT_HEARING_SUPPORT });
     Object.assign(urls, { communicationSupportOther: CA_DA_COURT_HEARING_SUPPORT });
+
   }
 
   if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.COURT_HEARING_COMFORT)) {

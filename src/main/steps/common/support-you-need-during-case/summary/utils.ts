@@ -57,6 +57,7 @@ export const summaryList = (
       value: getValue(key, userCase, language),
       changeUrl: url,
     };
+
     if (row.value) {
       summaryData.push(row);
     }
