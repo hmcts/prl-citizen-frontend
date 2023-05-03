@@ -1,7 +1,6 @@
 import { MANAGE_DOCUMENTS_DOWNLOAD } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { documents_list_items_en } from '../../../upload-document/upload-document-list-items';
 import { applicant_tasklist_items_all_docs_en } from '../../../../applicant/yourdocuments/alldocuments/alldocuments/tasklist-items-all-documents';
 const en = () => {
   return {
