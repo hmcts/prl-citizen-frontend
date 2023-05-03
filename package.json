@@ -195,4 +195,6 @@
     "ua-parser-js": ">=1.0.33"
   },
   "packageManager": "yarn@3.5.0"
+
 }
+
