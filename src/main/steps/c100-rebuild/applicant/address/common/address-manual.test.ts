@@ -3,8 +3,6 @@ import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './address-manual';
 
-jest.mock('../../../../../app/form/validation');
-
 const enContent = {
   addressLine1: 'Building and street',
   town: 'Town or city',
@@ -32,6 +30,7 @@ const cyContent = {
 };
 
 /* eslint-disable @typescript-eslint/ban-types */
+jest.mock('../../../../../app/form/validation');
 describe('common > components > manual-address > content', () => {
   const commonContent = { language: 'en', userCase: {} } as CommonContent;
 
