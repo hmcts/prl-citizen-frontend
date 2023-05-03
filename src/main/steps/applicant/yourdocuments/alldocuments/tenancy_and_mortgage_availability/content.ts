@@ -2,6 +2,7 @@ import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/url
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { documents_list_items_en } from '../../../upload-document/upload-document-list-items';
+import { applicant_tasklist_items_all_docs_en } from '../../../../applicant/yourdocuments/alldocuments/alldocuments/tasklist-items-all-documents';
 const en = () => {
   return {
     section: 'All documents',
@@ -48,11 +49,16 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
-  for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
+  const docs = content.userCase?.citizenUploadedDocumentList?.filter(doc => {
     if (
-      doc.value.documentType === documents_list_items_en.tenancy_mortgage_agreements &&
-      content.byApplicant === doc.value.isApplicant
+      doc.value.uploadedBy === content.userIdamId &&
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.tenancy_and_mortgage_availability
     ) {
+      return doc;
+    }
+  });
+  if (docs) {
+    for (const doc of docs) {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );

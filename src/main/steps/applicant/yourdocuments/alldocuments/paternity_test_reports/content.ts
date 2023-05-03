@@ -48,11 +48,13 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const paternityCitizenDocs: object[] = [];
-  for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
-    if (
-      doc.value.documentType === documents_list_items_en.paternity_test_reports &&
-      doc.value.isApplicant === content.byApplicant
-    ) {
+  const docs = content.userCase?.citizenUploadedDocumentList?.filter(doc => {
+    if (doc.value.uploadedBy === content.userIdamId && doc.value.documentType === 'Paternity test reports') {
+      return doc;
+    }
+  });
+  if (docs) {
+    for (const doc of docs) {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );
