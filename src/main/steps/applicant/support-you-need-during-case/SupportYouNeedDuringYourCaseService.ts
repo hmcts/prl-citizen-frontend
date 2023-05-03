@@ -222,6 +222,7 @@ export const mapSupportYouNeedDetails = (respondent: Respondent): Partial<CaseWi
     largePrintDetails,
     parkingDetails,
     differentChairDetails,
+    languageDetails,
   } = respondent?.value?.response?.supportYouNeed ?? {};
 
   Object.assign(supportYouNeed, {
@@ -251,6 +252,7 @@ export const mapSupportYouNeedDetails = (respondent: Respondent): Partial<CaseWi
     largePrintDetails: largePrintDetails,
     parkingDetails: parkingDetails,
     differentChairDetails: differentChairDetails,
+    languageDetails: languageDetails,
   });
 
   return supportYouNeed;
