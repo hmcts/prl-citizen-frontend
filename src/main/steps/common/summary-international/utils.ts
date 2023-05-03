@@ -41,7 +41,7 @@ export const summaryList = (
 
   return {
     title: sectionTitle || '',
-    rows: getSectionSummaryList(summaryData, content),
+    rows: getSectionSummaryList(summaryData, content, language),
   };
 };
 

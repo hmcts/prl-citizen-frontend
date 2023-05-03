@@ -23,6 +23,7 @@ export const respondent_tasklist_items_cy = {
   support_you_need_during_your_case: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',
   mediation_miam: 'Cyfryngu (MIAM)',
   current_or_previous_proceedings: 'Achos cyfredol neu flaenorol',
+  allegations_of_harm_and_violence: 'Allegations of harm and violence -welsh',
   your_safety: 'Your safety',
   childrens_safety: "The children's safety",
   abduction_concerns: 'Abduction concerns',

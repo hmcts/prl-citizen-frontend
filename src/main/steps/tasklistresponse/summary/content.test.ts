@@ -6,18 +6,18 @@ import { enContent, generateContent } from './content';
 
 const cyContent: typeof enContent = {
   section: 'Gwirio eich atebion',
-  title: 'Please review your answers before you complete your response.',
-  title2: 'Current or previous court cases',
+  title: 'Please review your answers before you complete your response. -welsh',
+  title2: 'Current or previous court cases -welsh',
   sectionTitles: {
     title: '4. Manylion y cais',
   },
-  statementOfTruth: 'Statement of truth',
-  warning: 'Warning',
+  statementOfTruth: 'Statement of truth -welsh',
+  warning: 'Warning -welsh',
   warningText:
-    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth. -welsh',
   errors: {
     declarationCheck: {
-      required: 'Please confirm the declaration',
+      required: 'Please confirm the declaration -welsh',
     },
   },
   keys: {
@@ -399,6 +399,8 @@ const cyContent: typeof enContent = {
     },
   },
   continue: 'Submit your response',
+  warning1: 'Warning -welsh',
+  yourResponse: 'Your response will be shared with the other people in this case. -welsh',
 };
 
 jest.mock('../../../app/form/validation');
