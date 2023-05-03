@@ -7,14 +7,22 @@ import { generateContent } from './content';
 
 const en = {
   section: 'How your documents will be shared',
-  //email: docsEmail,
+  title: 'Your document has been uploaded successfully',
+  status: 'Your documents have been uploaded',
   continue: 'Continue',
+  remove: 'Remove',
+  sucess: 'Success',
+  documentDetails: 'Your documents for ',
 };
 
 const cy: typeof en = {
-  section: 'How your documents will be shared',
-  //email: docsEmail,
-  continue: 'Continue',
+  section: 'How your documents will be shared - welsh',
+  title: 'Your document has been uploaded successfully - welsh',
+  status: 'Your documents have been uploaded - welsh',
+  continue: 'Continue - welsh',
+  remove: 'Remove - welsh',
+  sucess: 'Success - welsh',
+  documentDetails: 'Your documents for  - welsh',
 };
 
 jest.mock('../../../../app/form/validation');
