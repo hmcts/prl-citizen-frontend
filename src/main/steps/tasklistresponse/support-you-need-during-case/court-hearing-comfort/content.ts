@@ -25,7 +25,7 @@ const en = {
     },
     otherProvideDetails: {
       required: 'Please describe your need in details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 };
@@ -53,7 +53,7 @@ const cy: typeof en = {
     },
     otherProvideDetails: {
       required: 'Please describe your need in details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 };

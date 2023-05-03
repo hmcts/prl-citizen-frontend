@@ -22,15 +22,15 @@ const en = {
   errors: {
     sq_doNotHaveParentalResponsibility_subfield: {
       required: "Provide details for 'I do not have parental responsibility for the children'",
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     sq_courtOrderPrevent_subfield: {
       required: "Provide details for 'There is a court order preventing me from making an application'",
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     sq_anotherReason_subfield: {
       required: 'Provide details for another reason',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 };
@@ -49,15 +49,15 @@ const cy = {
   errors: {
     sq_doNotHaveParentalResponsibility_subfield: {
       required: 'Rhowch fanylion pam nad oes gennych gyfrifoldeb rhiant dros y plant',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     sq_courtOrderPrevent_subfield: {
       required: 'Rhowch fanylion am y gorchymyn llys sy’n eich atal rhag gwneud cais',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     sq_anotherReason_subfield: {
       required: 'Rhowch fanylion unrhyw reswm arall',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 };

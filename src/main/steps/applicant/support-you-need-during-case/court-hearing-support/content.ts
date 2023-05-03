@@ -25,22 +25,22 @@ const en = {
     },
     communicationSupportOther: {
       required: 'Please provide the details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     supportWorkerDetails: {
       required: 'Please provide the support worker details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     familyProviderDetails: {
       required: 'Please provide the family member details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     animalProvideDetails: {
       required: 'Please provide the therapy animal details',
     },
     therapyDetails: {
       required: 'Please provide therapy animal details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 };
@@ -68,22 +68,22 @@ const cy: typeof en = {
     },
     communicationSupportOther: {
       required: 'Please provide the details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     supportWorkerDetails: {
       required: 'Please provide the support worker details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     familyProviderDetails: {
       required: 'Please provide the family member details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     animalProvideDetails: {
       required: 'Please provide the therapy animal details',
     },
     therapyDetails: {
       required: 'Please provide therapy animal details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 };

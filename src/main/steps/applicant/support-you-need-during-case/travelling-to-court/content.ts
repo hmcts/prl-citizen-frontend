@@ -24,15 +24,15 @@ const en = {
     },
     travellingOtherDetails: {
       required: 'Please describe your need in detail',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     parkingDetails: {
       required: 'Please describe parking space details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     differentChairDetails: {
       required: 'Please describe different chair details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 };
@@ -59,15 +59,15 @@ const cy: typeof en = {
     },
     travellingOtherDetails: {
       required: 'Please describe your need in detail',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     parkingDetails: {
       required: 'Please describe parking space details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     differentChairDetails: {
       required: 'Please describe different chair details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 };

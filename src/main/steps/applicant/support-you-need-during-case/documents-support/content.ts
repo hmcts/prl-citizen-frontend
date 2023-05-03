@@ -27,15 +27,15 @@ const en = {
     },
     otherDetails: {
       required: 'Please provide the details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     largePrintDetails: {
       required: 'Please provide the large print details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     docsDetails: {
       required: 'Please provide the docs details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 };
@@ -65,15 +65,15 @@ const cy: typeof en = {
     },
     otherDetails: {
       required: 'Please provide the details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     largePrintDetails: {
       required: 'Please provide the large print details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     docsDetails: {
       required: 'Please provide the docs details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 };

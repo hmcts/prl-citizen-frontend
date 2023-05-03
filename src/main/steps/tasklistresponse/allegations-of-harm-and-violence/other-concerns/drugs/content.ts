@@ -20,7 +20,7 @@ export const en = () => ({
     },
     PRL_c1A_otherConcernsDrugsDetails: {
       required: 'Describe how the children have been impacted by drug, alcohol or substance abuse',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 });
@@ -42,7 +42,7 @@ export const cy = () => ({
     },
     PRL_c1A_otherConcernsDrugsDetails: {
       required: 'Describe how the children have been impacted by drug, alcohol or substance abuse - Welsh',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 });

@@ -21,7 +21,7 @@ const en = {
     ie_provideDetailsRequest: {
       required:
         'Provide details about another country asking (or being asked) for information or help for the children',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 };
@@ -41,7 +41,7 @@ const cy = {
     ie_provideDetailsRequest: {
       required:
         "Darparwch fanylion am wlad arall sy'n gofyn (neu y gofynnir iddo) am wybodaeth neu gymorth ar gyfer y plant",
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 };

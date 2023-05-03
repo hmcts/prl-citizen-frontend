@@ -19,7 +19,7 @@ const enContent = {
     },
     iFactorsParentsProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 };
@@ -39,7 +39,7 @@ const cyContent = {
     },
     iFactorsParentsProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 };

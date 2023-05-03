@@ -23,7 +23,7 @@ const en = {
   errors: {
     hwn_reasonsForApplicationWithoutNotice: {
       required: 'Enter details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     hwn_doYouNeedAWithoutNoticeHearing: {
       required: 'Select yes if the other person may obstruct',
@@ -33,11 +33,11 @@ const en = {
     },
     hwn_doYouNeedAWithoutNoticeHearingDetails: {
       required: 'Enter details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     hwn_doYouRequireAHearingWithReducedNoticeDetails: {
       required: 'Enter details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 };
@@ -58,7 +58,7 @@ const cy = {
   errors: {
     hwn_reasonsForApplicationWithoutNotice: {
       required: 'Rhowch fanylion',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     hwn_doYouNeedAWithoutNoticeHearing: {
       required: 'Dewiswch ‘ydw’ os yw’n bosib y bydd yr unigolyn arall yn gwrthwynebu’r cais',
@@ -68,11 +68,11 @@ const cy = {
     },
     hwn_doYouNeedAWithoutNoticeHearingDetails: {
       required: 'Rhowch fanylion',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     hwn_doYouRequireAHearingWithReducedNoticeDetails: {
       required: 'Rhowch fanylion',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 };

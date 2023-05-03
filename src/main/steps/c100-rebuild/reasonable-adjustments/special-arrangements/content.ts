@@ -25,7 +25,7 @@ export const en = () => ({
   errors: {
     ra_specialArrangementsOther_subfield: {
       required: 'Give details of the special arrangements you or the children need',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     ra_specialArrangements: {
       required: 'Select whether you or the children need special arrangements at court',
@@ -54,7 +54,7 @@ export const cy = () => ({
   errors: {
     ra_specialArrangementsOther_subfield: {
       required: "Rhowch fanylion y trefniadau arbennig sydd eu hangen arnoch chi neu'r plant",
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     ra_specialArrangements: {
       required: "Dewiswch p'un a oes angen trefniadau arbennig arnoch chi neu'r plant yn y llys",

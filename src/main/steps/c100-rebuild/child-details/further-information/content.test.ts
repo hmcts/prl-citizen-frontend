@@ -24,7 +24,7 @@ const en = {
     },
     cd_childrenKnownToSocialServicesDetails: {
       required: 'Enter details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     cd_childrenSubjectOfProtectionPlan: {
       required: 'Select if any of the children are the subject of a child protection plan',
@@ -49,7 +49,7 @@ const cy = {
     },
     cd_childrenKnownToSocialServicesDetails: {
       required: 'Rhowch fanylion',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     cd_childrenSubjectOfProtectionPlan: {
       required: 'Nodwch a oes unrhyw un o’r plant yn destun cynllun amddiffyn plentyn - cymraeg',

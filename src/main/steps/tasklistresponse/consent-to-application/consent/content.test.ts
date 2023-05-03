@@ -36,7 +36,7 @@ const enContent = {
     reasonForNotConsenting: {
       required: 'Please provide a reason',
       invalid: 'Reason must be 500 characters or fewer',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     courtOrderDetails: {
       required: 'Please provide court details',
@@ -74,7 +74,7 @@ const cyContent = {
     reasonForNotConsenting: {
       required: 'Please provide a reason (welsh)',
       invalid: 'Reason must be 500 characters or fewer (welsh)',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     courtOrderDetails: {
       required: 'Please provide court details (welsh)',

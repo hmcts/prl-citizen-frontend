@@ -22,7 +22,7 @@ export const en = () => ({
   errors: {
     ra_noVideoAndPhoneHearing_subfield: {
       required: 'Explain why you are unable to take part in neither video or phone hearings',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     ra_typeOfHearing: {
       required: 'Select whether you can take part in a video or phone hearing',
@@ -50,7 +50,7 @@ export const cy = () => ({
   errors: {
     ra_noVideoAndPhoneHearing_subfield: {
       required: 'Esboniwch pam nad ydych yn gallu cymryd rhan mewn gwrandawiad drwy fideo na gwrandawiad dros y ffôn',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     ra_typeOfHearing: {
       required: 'Dewiswch a allwch gymryd rhan mewn naill ai gwrandawiad drwy fideo neu wrandawiad dros y ffôn',

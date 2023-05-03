@@ -18,7 +18,7 @@ export const en = () => ({
   errors: {
     c1A_keepingSafeStatement: {
       required: 'Describe what do you want the court to do to keep you and the children safe',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 });
@@ -37,7 +37,7 @@ export const cy = () => ({
   errors: {
     c1A_keepingSafeStatement: {
       required: "Disgrifiwch beth ydych chi eisiau i'r llys ei wneud i'ch cadw chi a'r plant yn ddiogel",
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 });

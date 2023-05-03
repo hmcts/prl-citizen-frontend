@@ -27,7 +27,7 @@ export const en = () => ({
     },
     PRL_c1A_provideOtherDetails: {
       required: 'Please provide the details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 });
@@ -53,7 +53,7 @@ export const cy = () => ({
     },
     PRL_c1A_provideOtherDetails: {
       required: 'Please provide the details - welsh',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 });

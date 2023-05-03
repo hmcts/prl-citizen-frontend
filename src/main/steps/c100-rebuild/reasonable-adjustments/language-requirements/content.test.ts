@@ -25,7 +25,7 @@ const en = {
   errors: {
     ra_needInterpreterInCertainLanguage_subfield: {
       required: 'Give details of the language you need an interpreter for',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     ra_languageNeeds: {
       required: 'Select whether you have any language requirements',
@@ -49,7 +49,7 @@ const cy = {
   errors: {
     ra_needInterpreterInCertainLanguage_subfield: {
       required: 'Rhowch fanylion yr iaith mae angen cyfieithydd arnoch ar ei gyfer',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     ra_languageNeeds: {
       required: 'Nodwch a oes gennych chi unrhyw ofynion ieithyddol',

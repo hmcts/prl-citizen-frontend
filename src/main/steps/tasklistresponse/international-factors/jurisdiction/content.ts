@@ -20,7 +20,7 @@ const en = {
     iFactorsJurisdictionProvideDetails: {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 };
@@ -42,7 +42,7 @@ const cy: typeof en = {
     iFactorsJurisdictionProvideDetails: {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 };

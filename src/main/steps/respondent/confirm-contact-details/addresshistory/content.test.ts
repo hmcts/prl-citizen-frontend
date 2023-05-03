@@ -17,7 +17,7 @@ const en = {
     citizenUserAddressHistory: {
       required:
         'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 };

@@ -20,11 +20,11 @@ export const en = () => ({
   errors: {
     PRL_c1A_abductionReasonOutsideUk: {
       required: 'Explain why you think the children may be abducted or kept outside of the UK without your consent',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     PRL_c1A_childsCurrentLocation: {
       required: 'Describe where the children are now',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 });
@@ -46,11 +46,11 @@ export const cy = () => ({
     PRL_c1A_abductionReasonOutsideUk: {
       required:
         'Explain why you think the children may be abducted or kept outside of the UK without your consent - welsh',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     PRL_c1A_childsCurrentLocation: {
       required: 'Describe where the children are now - welsh',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 });

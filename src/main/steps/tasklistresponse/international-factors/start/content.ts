@@ -19,7 +19,7 @@ const en = {
     iFactorsStartProvideDetails: {
       required:
         "Provide details about the children's parents (or anyone significant to the children) lives outside of England and Wales",
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 };
@@ -40,7 +40,7 @@ const cy: typeof en = {
     iFactorsStartProvideDetails: {
       required:
         "Provide details about the children's parents (or anyone significant to the children) lives outside of England and Wales",
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 };

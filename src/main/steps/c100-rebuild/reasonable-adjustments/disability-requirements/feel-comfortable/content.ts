@@ -20,11 +20,11 @@ export const en = () => ({
   errors: {
     ra_appropriateLighting_subfield: {
       required: 'Describe the appropriate lighting you need',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     ra_feelComportableOther_subfield: {
       required: 'Describe what you need to feel comfortable during a court hearing',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     ra_feelComportable: {
       required: 'Select what you need to feel comfortable during a court hearing',
@@ -49,11 +49,11 @@ export const cy = () => ({
   errors: {
     ra_appropriateLighting_subfield: {
       required: 'Disgrifiwch y goleuadau priodol sydd ei angen arnoch',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     ra_feelComportableOther_subfield: {
       required: "Disgrifiwch yr hyn sydd angen arnoch i deimlo'n gyfforddus yn ystod y gwrandawiad llys",
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     ra_feelComportable: {
       required: "Dewiswch beth sydd angen arnoch i deimlo'n gyfforddus yn ystod y gwrandawiad llys",

@@ -28,15 +28,15 @@ export const en = () => ({
     },
     ra_specifiedColorDocuments_subfield: {
       required: 'Describe which colour you need your documents in',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     ra_largePrintDocuments_subfield: {
       required: 'Describe which large print you need your documents in',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
     ra_documentHelpOther_subfield: {
       required: 'Describe which alternative format you need your documents in',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 });
@@ -65,15 +65,15 @@ export const cy = () => ({
     },
     ra_specifiedColorDocuments_subfield: {
       required: 'Disgrifiwch ym mha liw yr ydych angen eich dogfennau',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     ra_largePrintDocuments_subfield: {
       required: 'Disgrifiwch ym mha brint bras yr ydych angen eich dogfennau',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
     ra_documentHelpOther_subfield: {
       required: 'Disgrifiwch ym mha fformat amgen y mae arnoch angen eich dogfennau',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 });

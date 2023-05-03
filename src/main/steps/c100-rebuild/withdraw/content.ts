@@ -23,7 +23,7 @@ const en = () => ({
     },
     withdrawApplicationReason: {
       required: 'Provide details about withdrawing this application.',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 });
@@ -47,7 +47,7 @@ const cy = () => ({
     },
     withdrawApplicationReason: {
       required: 'Provide details about withdrawing this application. - welsh',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 });

@@ -22,7 +22,7 @@ export const en = () => ({
     ie_provideDetailsParents: {
       required:
         "Provide details about the children's parents or anyone significant to the children living outside of England or Wales",
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
     },
   },
 });
@@ -44,7 +44,7 @@ export const cy = () => ({
     ie_provideDetailsParents: {
       required:
         "Darparwch fanylion am rieni’r plant neu unrhyw un sy’n bwysig i'r plant sy'n byw y tu allan i Gymru neu Loegr",
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
     },
   },
 });
