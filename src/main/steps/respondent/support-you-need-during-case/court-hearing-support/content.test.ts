@@ -27,19 +27,19 @@ const en = {
     },
     supportWorkerDetails: {
       required: 'Please provide support worker details',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
     familyProviderDetails: {
       required: 'Please provide family member details',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
     therapyDetails: {
       required: 'Please provide therapy animal details',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
     communicationSupportOther: {
       required: 'Please provide the details',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 };
@@ -67,19 +67,19 @@ const cy: typeof en = {
     },
     supportWorkerDetails: {
       required: 'Please provide support worker details',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
     familyProviderDetails: {
       required: 'Please provide family member details',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
     therapyDetails: {
       required: 'Please provide therapy animal details',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
     communicationSupportOther: {
       required: 'Please provide the details',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 };

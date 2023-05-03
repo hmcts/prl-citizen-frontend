@@ -20,7 +20,7 @@ const en = {
   errors: {
     c1A_keepingSafeStatement: {
       required: 'Describe what do you want the court to do to keep you and the children safe',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 };
@@ -39,7 +39,7 @@ const cy = {
   errors: {
     c1A_keepingSafeStatement: {
       required: "Disgrifiwch beth ydych chi eisiau i'r llys ei wneud i'ch cadw chi a'r plant yn ddiogel",
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 };

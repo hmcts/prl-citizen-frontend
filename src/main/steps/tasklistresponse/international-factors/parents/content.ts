@@ -18,7 +18,7 @@ const en = {
     },
     iFactorsParentsProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 };
@@ -38,7 +38,7 @@ const cy: typeof en = {
     },
     iFactorsParentsProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 };

@@ -20,7 +20,7 @@ const en = {
   errors: {
     too_shortStatement: {
       required: 'Describe what you want the court to do regarding the children in this application',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 };
@@ -39,7 +39,7 @@ const cy = {
   errors: {
     too_shortStatement: {
       required: "Disgrifiwch yr hyn rydych chi eisiau i'r llys ei wneud ynglŷn â'r plant yn y cais hwn",
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 };

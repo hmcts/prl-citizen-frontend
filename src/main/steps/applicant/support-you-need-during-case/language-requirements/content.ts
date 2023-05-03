@@ -21,7 +21,7 @@ const en = {
     },
     languageDetails: {
       required: 'Please provide language details',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 };
@@ -45,7 +45,7 @@ const cy: typeof en = {
     },
     languageDetails: {
       required: 'Please provide language details',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 };

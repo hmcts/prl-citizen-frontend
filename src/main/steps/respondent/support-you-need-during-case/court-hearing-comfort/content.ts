@@ -22,11 +22,11 @@ const en = {
     },
     lightingProvideDetails: {
       required: 'Please describe lighting detail',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
     otherProvideDetails: {
       required: 'Please describe your need in details',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 };
@@ -51,11 +51,11 @@ const cy: typeof en = {
     },
     lightingProvideDetails: {
       required: 'Please describe lighting detail',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
     otherProvideDetails: {
       required: 'Please describe your need in details',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 };

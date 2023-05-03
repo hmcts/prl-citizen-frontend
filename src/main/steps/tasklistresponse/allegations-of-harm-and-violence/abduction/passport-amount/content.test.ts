@@ -28,7 +28,7 @@ const en = {
     },
     PRL_c1A_provideOtherDetails: {
       required: 'Please provide the details',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 };
@@ -54,7 +54,7 @@ const cy = {
     },
     PRL_c1A_provideOtherDetails: {
       required: 'Please provide the details - welsh',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 };

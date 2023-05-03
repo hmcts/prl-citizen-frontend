@@ -21,7 +21,7 @@ export const en = () => ({
     },
     c1A_otherConcernsDrugsDetails: {
       required: 'Describe how the children have been impacted by drug, alcohol or substance abuse',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 });
@@ -45,7 +45,7 @@ export const cy = () => ({
     c1A_otherConcernsDrugsDetails: {
       required:
         "Dewiswch ydynt os yw'r plant wedi cael eu heffeithio gan rywun a oedd yn camddefnyddio cyffuriau, alcohol neu sylweddau",
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 });

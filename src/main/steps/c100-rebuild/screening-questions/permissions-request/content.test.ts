@@ -13,7 +13,7 @@ const en = {
   errors: {
     sq_permissionsRequest: {
       required: 'Explain why the court should grant you permission to submit this application',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 };
@@ -24,7 +24,7 @@ const cy = {
   errors: {
     sq_permissionsRequest: {
       required: "Esboniwch pam y dylai'r llys roi caniatâd i chi gyflwyno'r cais hwn",
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 };

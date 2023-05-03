@@ -21,7 +21,7 @@ const enContent = {
     iFactorsJurisdictionProvideDetails: {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 };
@@ -43,7 +43,7 @@ const cyContent = {
     iFactorsJurisdictionProvideDetails: {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 };

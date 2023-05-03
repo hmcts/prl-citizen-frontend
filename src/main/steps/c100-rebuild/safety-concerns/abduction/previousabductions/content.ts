@@ -19,14 +19,14 @@ export const en = () => ({
   errors: {
     c1A_previousAbductionsShortDesc: {
       required: 'Briefly describe the previous incidents of abduction',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
     c1A_policeOrInvestigatorInvolved: {
       required: 'Select yes if the police, private investigators or any other organisation was involved',
     },
     c1A_policeOrInvestigatorOtherDetails: {
       required: 'Provide details of the police, private investigators or any other organisation involvement',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 });
@@ -44,14 +44,14 @@ export const cy = () => ({
   errors: {
     c1A_previousAbductionsShortDesc: {
       required: 'Disgrifiwch yn fyr y digwyddiadau blaenorol o herwgydio',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
     c1A_policeOrInvestigatorInvolved: {
       required: 'Dewiswch oedd os oedd yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall yn rhan o hyn?',
     },
     c1A_policeOrInvestigatorOtherDetails: {
       required: 'Darparwch fanylion yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall oedd yn rhan o hyn',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 });

@@ -33,11 +33,11 @@ const en = {
     },
     describeSignLanguageDetails: {
       required: 'Please provide sign language details',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
     describeOtherNeed: {
       required: 'Please provide the details',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 };
@@ -73,11 +73,11 @@ const cy: typeof en = {
     },
     describeSignLanguageDetails: {
       required: 'Please provide sign language details',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
     describeOtherNeed: {
       required: 'Please provide the details',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 };

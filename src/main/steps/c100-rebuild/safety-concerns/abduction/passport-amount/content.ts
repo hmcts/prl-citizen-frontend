@@ -27,7 +27,7 @@ export const en = () => ({
     },
     c1A_provideOtherDetails: {
       required: 'Please provide the details',
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 });
@@ -53,7 +53,7 @@ export const cy = () => ({
     },
     c1A_provideOtherDetails: {
       required: 'Darparwch fwy o fanylion',
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 });

@@ -83,7 +83,7 @@ const en = {
   otherDetails: 'Provide details (optional)',
   errors: {
     sq_agreementReason: {
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 };
@@ -160,7 +160,7 @@ const cy = {
   otherDetails: 'Rhowch fanylion (dewisol)',
   errors: {
     sq_agreementReason: {
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 };

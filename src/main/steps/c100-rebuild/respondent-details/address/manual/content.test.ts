@@ -25,7 +25,7 @@ const en = {
       required: 'Enter the country ',
     },
     provideDetailsOfPreviousAddresses: {
-      invalidCharacters: 'The characters inputted are invalid',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed.',
     },
   },
 };
@@ -52,7 +52,7 @@ const cy = {
       required: 'Nodwch y wlad',
     },
     provideDetailsOfPreviousAddresses: {
-      invalidCharacters: 'The characters inputted are invalid (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,[,] are not allowed. (welsh)',
     },
   },
 };
