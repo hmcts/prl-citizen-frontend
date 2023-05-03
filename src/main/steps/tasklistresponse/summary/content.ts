@@ -689,6 +689,8 @@ export const enContent = {
     },
   },
   continue: 'Submit your response',
+  warning1: 'Warning',
+  yourResponse: 'Your response will be shared with the other people in this case.',
 };
 
 export const enSupportYouNeedContent = {
@@ -953,18 +955,18 @@ const en = (content: CommonContent) => {
 
 const cyContent: typeof enContent = {
   section: 'Gwirio eich atebion',
-  title: 'Please review your answers before you complete your response.',
-  title2: 'Current or previous court cases',
+  title: 'Please review your answers before you complete your response. -welsh',
+  title2: 'Current or previous court cases -welsh',
   sectionTitles: {
     title: '4. Manylion y cais',
   },
-  statementOfTruth: 'Statement of truth',
-  warning: 'Warning',
+  statementOfTruth: 'Statement of truth -welsh',
+  warning: 'Warning -welsh',
   warningText:
-    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth. -welsh',
   errors: {
     declarationCheck: {
-      required: 'Please confirm the declaration',
+      required: 'Please confirm the declaration -welsh',
     },
   },
   keys: {
@@ -1346,6 +1348,8 @@ const cyContent: typeof enContent = {
     },
   },
   continue: 'Submit your response',
+  warning1: 'Warning -welsh',
+  yourResponse: 'Your response will be shared with the other people in this case. -welsh',
 };
 
 const urls = {
@@ -1414,28 +1418,28 @@ const urls = {
 
 export const cyConsentContent = {
   section: 'Check your answers',
-  title: 'Please review your answers before you complete your response.',
+  title: 'Please review your answers before you complete your response. -welsh',
   title2: '',
-  statementOfTruth: 'Statement of truth',
-  warning: 'Warning',
+  statementOfTruth: 'Statement of truth -welsh',
+  warning: 'Warning -welsh',
   warningText:
-    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth. -welsh',
   errors: {
     declarationCheck: {
-      required: 'Please confirm the declaration',
+      required: 'Please confirm the declaration -welsh',
     },
   },
   sectionTitles: {
-    consentToTheApplication: 'Consent to the application',
+    consentToTheApplication: 'Consent to the application -welsh',
   },
   keys: {
-    doYouConsent: 'Do you consent to the application?',
-    applicationReceivedDate: 'When did you receive the application?',
-    courtPermission: 'Does the applicant need permission from the court before making applications?',
+    doYouConsent: 'Do you consent to the application? -welsh',
+    applicationReceivedDate: 'When did you receive the application? -welsh',
+    courtPermission: 'Does the applicant need permission from the court before making applications? -welsh',
     courtOrderDetails: 'Details',
   },
   dependencies: {},
-  continue: 'Submit your response',
+  continue: 'Submit your response -welsh',
 };
 
 const cy: typeof en = (content: CommonContent) => {

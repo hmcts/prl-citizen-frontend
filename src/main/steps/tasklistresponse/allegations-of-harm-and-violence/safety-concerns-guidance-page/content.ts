@@ -35,10 +35,8 @@ const en = {
   line1h3p3: 'Cafcass Cymru.',
   line2h3: 'It will not harm your application if you give details of the abuse later in the process.',
   dropdown: 'How Cafcass can support you in your case',
-  dropdown_content1p1: 'Children and Family Court Advisory and Support Service (Cafcass)',
-  dropdown_content1p2: 'Cafcass Cymru',
-  dropdown_content1p3:
-    ', in Wales, protect and promote the interests of children involved in family court cases. An advisor from Cafcass or Cafcass Cymru will look at your answers as part of their safeguarding checks, and may need to ask you further questions.',
+  dropdown_content1:
+    'The <a href="https://www.cafcass.gov.uk/" class="govuk-link" rel="external" target="_blank">Children and Family Court Advisory and Support Service (Cafcass)</a>, in England, and <a href="https://cafcass.gov.wales/" class="govuk-link" rel="external" target="_blank">Cafcass Cymru</a>, in Wales, protect and promote the interests of children involved in family court cases. An advisor from Cafcass or Cafcass Cymru will look at your answers as part of their safeguarding checks, and may need to ask you further questions.',
   dropdown_content2:
     'As part of their enquiries they will contact organisations such as the police and local authorities for any relevant information about you, any other person and the children.',
   dropdown_content3:
@@ -46,6 +44,8 @@ const en = {
   line3h3: 'We will now ask you some questions about the abusive behaviour.',
   line4h3: 'Take your time filling in the information and write as much as you feel able to.',
   continue: 'Continue',
+  Warning: 'Warning',
+  or: 'or',
 };
 
 const cy: typeof en = {
@@ -80,14 +80,12 @@ const cy: typeof en = {
   heading3: "Os nad ydych yn teimlo'n barod i ddisgrifio'r cam-drin ar hyn o bryd",
   line1h3p1:
     "Os nad ydych yn teimlo'n barod i siarad am y cam-drin ar hyn o bryd, gallwch wneud hynny pan fyddwch yn siarad â",
-  line1h3p2: 'Cafcass neu',
+  line1h3p2: 'Cafcass',
   line1h3p3: 'Cafcass Cymru.',
   line2h3: 'Ni fydd yn effeithio ar eich cais os byddwch yn rhoi manylion am y cam-drin yn hwyrach yn y broses.',
   dropdown: 'Sut gall Cafcass eich cefnogi yn eich achos chi',
-  dropdown_content1p1: "Mae'r gwasanaeth Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass),",
-  dropdown_content1p2: 'yn Lloegr, a Cafcass Cymru',
-  dropdown_content1p3:
-    ", yng Nghymru, yn gwarchod a hyrwyddo buddiannau plant sy'n ymwneud ag achosion llys teulu. Bydd cynghorydd o Cafcass neu Cafcass Cymru yn edrych ar eich atebion fel rhan o'u gwiriadau diogelu, ac efallai y bydd arnynt angen gofyn cwestiynau pellach i chi.",
+  dropdown_content1:
+    'Mae’r <a href="https://www.cafcass.gov.uk/" class="govuk-link" rel="external" target="_blank">Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass)</a>, yn Lloegr, a,<a href="https://cafcass.gov.wales/" class="govuk-link" rel="external" target="_blank">Cafcass Cymru</a>, yng Nghymru, yn gwarchod a hyrwyddo buddiannau plant sy’n ymwneud ag achosion llys teulu. Bydd cynghorydd o Cafcass neu Cafcass Cymru yn edrych ar eich atebion fel rhan o\'u gwiriadau diogelu, ac efallai y bydd arnynt angen gofyn cwestiynau pellach i chi.',
   dropdown_content2:
     "Fel rhan o'u hymholiadau byddant yn cysylltu gyda sefydliadau fel yr heddlu ac awdurdodau lleol i gael unrhyw wybodaeth berthnasol amdanoch chi, unrhyw unigolyn arall a'r plant.",
   dropdown_content3:
@@ -96,6 +94,8 @@ const cy: typeof en = {
   line4h3:
     "Cymerwch eich amser yn llenwi'r wybodaeth ac ysgrifennwch gymaint ag y teimlwch eich bod yn gallu ei wneud.",
   continue: 'Continue - welsh',
+  Warning: 'warning--welsh',
+  or: 'neu',
 };
 
 const languages = {
