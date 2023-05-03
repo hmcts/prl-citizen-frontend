@@ -83,8 +83,8 @@ describe('Accessibility', () => {
     // Login once only for other pages to reuse session
     const page = await browser.newPage();
     await page.goto(config.TEST_URL);
-    await page.type('#username', process.env.CITIZEN_USERNAME);
-    await page.type('#password', process.env.CITIZEN_PASSWORD);
+    await page.type('#username', 'aloknath.datta@cognizant.com');
+    await page.type('#password', 'Password12');
     await page.click('input[type="submit"]');
     cookies = await page.cookies(config.TEST_URL);
     await page.close();
