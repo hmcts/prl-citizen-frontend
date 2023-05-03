@@ -17,6 +17,8 @@ const enContent = {
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
+  yourResponse: 'Your response will be shared with the other people in this case.',
+  warning: 'Warning',
 };
 const cyContent = {
   title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
@@ -29,6 +31,8 @@ const cyContent = {
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
+  yourResponse: 'Your response will be shared with the other people in this case. -welsh',
+  warning: 'Warning -welsh',
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
