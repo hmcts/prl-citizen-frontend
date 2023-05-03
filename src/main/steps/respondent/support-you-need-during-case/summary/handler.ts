@@ -9,10 +9,7 @@ import {
   CA_DA_TRAVELLING_TO_COURT,
 } from '../../../../steps/urls';
 
-import {
-  //cyContent, enContent,
-  urls,
-} from './content';
+import { urls } from './content';
 
 export function filterSelectedUrls(userCase: Partial<CaseWithId>): void {
   if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.DOCUMENTS_SUPPORT)) {
