@@ -123,7 +123,6 @@ import {
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
-//import draftCaseController from './steps/testing-support/post';
 
 export class Routes {
   public enableFor(app: Application): void {

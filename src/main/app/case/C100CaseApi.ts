@@ -51,16 +51,6 @@ export class CaseApi {
       throw new Error('Case could not be created.');
     }
   }
-  public async deleteCaseTestingSupport(id: string): Promise<UpdateCaseResponse> {
-    console.log('id is' + id);
-    try {
-      const response = await this.axios.post<UpdateCaseResponse>('/testing-support/delete-citizen-case', id);
-      return response.data;
-    } catch (err) {
-      this.logError(err);
-      throw new Error('Case delete methode failed');
-    }
-  }
 
   /**
    * This is used to update/submit case based on the case event passed

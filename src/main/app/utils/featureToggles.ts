@@ -38,7 +38,6 @@ export class FeatureToggles {
       'c100-rebuild',
       toBoolean(config.get<boolean>('featureToggles.c100Rebuild'))
     );
-    console.log('C100 - Launch Darkly Flag', isC100RebuildEnabled);
     return isC100RebuildEnabled;
   }
 
@@ -47,7 +46,6 @@ export class FeatureToggles {
       'testing-support',
       toBoolean(config.get<boolean>('featureToggles.testingSupport'))
     );
-    console.log('Citizen journey - Testign Support enabled? ', isTestingSupportEnabled);
     return isTestingSupportEnabled;
   }
 }
