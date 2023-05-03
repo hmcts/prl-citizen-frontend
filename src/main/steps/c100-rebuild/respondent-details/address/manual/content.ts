@@ -3,7 +3,7 @@ import { CaseWithId } from '../../../../../app/case/case';
 import { C100RebuildPartyDetails, YesNoDontKnow } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 import {
   form as manualAddressForm,
   languages as manualAddressFormLanguages,
@@ -41,6 +41,9 @@ export const en = () => ({
     Country: {
       required: 'Enter the country ',
     },
+    provideDetailsOfPreviousAddresses: {
+      invalidCharacters: 'The characters inputted are invalid',
+    },
   },
 });
 
@@ -72,6 +75,9 @@ export const cy = () => ({
     },
     Country: {
       required: 'Nodwch y wlad',
+    },
+    provideDetailsOfPreviousAddresses: {
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 });
@@ -133,6 +139,7 @@ export const generateFormFields = (caseData: Partial<C100RebuildPartyDetails>): 
                 value: provideDetailsOfPreviousAddresses,
                 labelSize: null,
                 id: 'provideDetailsOfPreviousAddresses',
+                validator: value => isTextAreaValid(value),
               },
             },
           },

@@ -31,6 +31,7 @@ const en = {
     reasonForNotConsenting: {
       required: 'Please provide a reason',
       invalid: 'Reason must be 500 characters or fewer',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     courtOrderDetails: {
       required: 'Please provide court details',
@@ -68,6 +69,7 @@ const cy: typeof en = {
     reasonForNotConsenting: {
       required: 'Please provide a reason (welsh)',
       invalid: 'Reason must be 500 characters or fewer (welsh)',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     courtOrderDetails: {
       required: 'Please provide court details (welsh)',

@@ -20,6 +20,7 @@ const enContent = {
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -39,6 +40,7 @@ const cyContent = {
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

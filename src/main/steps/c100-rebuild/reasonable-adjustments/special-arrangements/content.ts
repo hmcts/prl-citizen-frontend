@@ -25,6 +25,7 @@ export const en = () => ({
   errors: {
     ra_specialArrangementsOther_subfield: {
       required: 'Give details of the special arrangements you or the children need',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     ra_specialArrangements: {
       required: 'Select whether you or the children need special arrangements at court',
@@ -53,6 +54,7 @@ export const cy = () => ({
   errors: {
     ra_specialArrangementsOther_subfield: {
       required: "Rhowch fanylion y trefniadau arbennig sydd eu hangen arnoch chi neu'r plant",
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     ra_specialArrangements: {
       required: "Dewiswch p'un a oes angen trefniadau arbennig arnoch chi neu'r plant yn y llys",

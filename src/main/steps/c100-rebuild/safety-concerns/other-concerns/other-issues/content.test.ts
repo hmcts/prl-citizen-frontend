@@ -20,6 +20,7 @@ const en = {
     },
     c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -39,6 +40,7 @@ const cy = {
     },
     c1A_childSafetyConcernsDetails: {
       required: 'Disgrifiwch unrhyw bryderon sydd gennych am ddiogelwch a lles y plant',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

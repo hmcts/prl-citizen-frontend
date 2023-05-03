@@ -23,6 +23,7 @@ const en = {
     },
     hearingDetails: {
       required: 'Explain why you are unable to take part in either video or phone hearings',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -46,6 +47,7 @@ const cy: typeof en = {
     },
     hearingDetails: {
       required: 'Explain why you are unable to take part in either video or phone hearings',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

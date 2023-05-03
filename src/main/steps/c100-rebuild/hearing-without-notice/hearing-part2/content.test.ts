@@ -23,6 +23,7 @@ const en = {
   errors: {
     hwn_reasonsForApplicationWithoutNotice: {
       required: 'Enter details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     hwn_doYouNeedAWithoutNoticeHearing: {
       required: 'Select yes if the other person may obstruct',
@@ -32,9 +33,11 @@ const en = {
     },
     hwn_doYouNeedAWithoutNoticeHearingDetails: {
       required: 'Enter details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     hwn_doYouRequireAHearingWithReducedNoticeDetails: {
       required: 'Enter details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -55,6 +58,7 @@ const cy = {
   errors: {
     hwn_reasonsForApplicationWithoutNotice: {
       required: 'Rhowch fanylion',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     hwn_doYouNeedAWithoutNoticeHearing: {
       required: 'Dewiswch ‘ydw’ os yw’n bosib y bydd yr unigolyn arall yn gwrthwynebu’r cais',
@@ -64,9 +68,11 @@ const cy = {
     },
     hwn_doYouNeedAWithoutNoticeHearingDetails: {
       required: 'Rhowch fanylion',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     hwn_doYouRequireAHearingWithReducedNoticeDetails: {
       required: 'Rhowch fanylion',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

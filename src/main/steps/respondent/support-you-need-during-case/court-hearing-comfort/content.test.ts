@@ -24,9 +24,11 @@ const en = {
     },
     lightingProvideDetails: {
       required: 'Please describe lighting detail',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     otherProvideDetails: {
       required: 'Please describe your need in details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -51,9 +53,11 @@ const cy: typeof en = {
     },
     lightingProvideDetails: {
       required: 'Please describe lighting detail',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     otherProvideDetails: {
       required: 'Please describe your need in details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

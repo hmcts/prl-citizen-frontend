@@ -29,12 +29,15 @@ const en = {
   errors: {
     ra_parkingSpace_subfield: {
       required: 'Describe why you need a parking space close to the venue',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     ra_differentTypeChair_subfield: {
       required: 'Describe what type of chair you need',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     ra_travellingCourtOther_subfield: {
       required: 'Describe what help you need if travelling to, or moving around court buildings',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     ra_travellingCourt: {
       required: 'Select what help you need if travelling to, or moving around court buildings',
@@ -64,13 +67,16 @@ const cy = {
   errors: {
     ra_parkingSpace_subfield: {
       required: "Disgrifiwch pam fod arnoch angen lle parcio yn agos i'r lleoliad",
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     ra_differentTypeChair_subfield: {
       required: 'Disgrifiwch pa fath o gadair sydd ei hangen arnoch',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     ra_travellingCourtOther_subfield: {
       required:
         "Disgrifiwch pa help sydd ei angen arnoch os ydych chi'n teithio i adeiladau'r llys, neu symud o gwmpas adeiladau'r llys",
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     ra_travellingCourt: {
       required:

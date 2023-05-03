@@ -29,6 +29,7 @@ const en = {
     },
     safetyArrangementsDetails: {
       required: 'Please describe your need in detail',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -58,6 +59,7 @@ const cy: typeof en = {
     },
     safetyArrangementsDetails: {
       required: 'Please describe your need in details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

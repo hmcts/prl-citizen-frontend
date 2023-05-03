@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -10,6 +10,7 @@ export const en = () => ({
   errors: {
     sq_permissionsRequest: {
       required: 'Explain why the court should grant you permission to submit this application',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 });
@@ -20,6 +21,7 @@ export const cy = () => ({
   errors: {
     sq_permissionsRequest: {
       required: "Esboniwch pam y dylai'r llys roi caniatâd i chi gyflwyno'r cais hwn",
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 });
@@ -34,7 +36,7 @@ export const form: FormContent = {
     sq_permissionsRequest: {
       type: 'textarea',
       attributes: { rows: 10 },
-      validator: value => isFieldFilledIn(value),
+      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
   },
   onlycontinue: {

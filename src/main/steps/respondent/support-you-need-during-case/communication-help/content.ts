@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
@@ -33,9 +33,11 @@ const en = {
     },
     describeSignLanguageDetails: {
       required: 'Please provide sign language details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     describeOtherNeed: {
       required: 'Please provide the details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -71,9 +73,11 @@ const cy: typeof en = {
     },
     describeSignLanguageDetails: {
       required: 'Please provide sign language details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     describeOtherNeed: {
       required: 'Please provide the details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };
@@ -122,7 +126,7 @@ export const form: FormContent = {
               type: 'textarea',
               label: l => l.signLanguageDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
@@ -161,7 +165,7 @@ export const form: FormContent = {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },

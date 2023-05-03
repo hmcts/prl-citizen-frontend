@@ -25,6 +25,7 @@ const en = {
     },
     withdrawApplicationReason: {
       required: 'Provide details about withdrawing this application.',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -48,6 +49,7 @@ const cy = {
     },
     withdrawApplicationReason: {
       required: 'Provide details about withdrawing this application. - welsh',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

@@ -28,6 +28,7 @@ const en = {
     },
     c1A_provideOtherDetails: {
       required: 'Please provide the details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -53,6 +54,7 @@ const cy = {
     },
     c1A_provideOtherDetails: {
       required: 'Darparwch fwy o fanylion',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

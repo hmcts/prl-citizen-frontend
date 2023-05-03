@@ -3,6 +3,7 @@ import { CaseWithId } from '../../../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbuse, ChildrenDetails, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
+import { isTextAreaValid } from '../../../../../app/form/validation';
 import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
 export * from './routeGuard';
@@ -38,6 +39,17 @@ export const en = () => ({
     '<p class="govuk-body">Indicate who you sought help from, and what they did to help (optional). </p><p class="govuk-body">Do not include personal details such as names and addresses.</p>',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">NSPCC guidance</a> if you are unsure how to get help.</p>',
+  errors: {
+    behaviourDetails: {
+      invalidCharacters: 'The characters inputted are invalid',
+    },
+    behaviourStartDate: {
+      invalidCharacters: 'The characters inputted are invalid',
+    },
+    seekHelpDetails: {
+      invalidCharacters: 'The characters inputted are invalid',
+    },
+  },
 });
 
 export const cy = () => ({
@@ -77,6 +89,17 @@ export const cy = () => ({
     '<p class="govuk-body">Dywedwch wrth bwy wnaethoch chi ofyn am help, a beth wnaethon nhw i helpu (dewisol). </p><p class="govuk-body">Peidiwch â chynnwys manylion personol fel enwau a chyfeiriadau.</p>',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">Gweler <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">cyfarwyddyd NSPCC</a>os nad ydych yn siŵr sut i gael help.</p>',
+  errors: {
+    behaviourDetails: {
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
+    },
+    behaviourStartDate: {
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
+    },
+    seekHelpDetails: {
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
+    },
+  },
 });
 
 const languages = {
@@ -127,6 +150,7 @@ export const generateFormFields = (
       attributes: {
         rows: 4,
       },
+      validator: value => isTextAreaValid(value),
     },
     behaviourStartDate: {
       type: 'textarea',
@@ -137,6 +161,7 @@ export const generateFormFields = (
       attributes: {
         rows: 2,
       },
+      validator: value => isTextAreaValid(value),
     },
     isOngoingBehaviour: {
       type: 'radios',
@@ -170,6 +195,7 @@ export const generateFormFields = (
               type: 'textarea',
               value: data.seekHelpDetails,
               hint: l => l.seekHelpDetailsYesHint,
+              validator: value => isTextAreaValid(value),
             },
           },
         },

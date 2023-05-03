@@ -20,6 +20,7 @@ const en = {
   errors: {
     PRL_c1A_keepingSafeStatement: {
       required: 'Describe what do you want the court to do to keep you and the children safe',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -38,6 +39,7 @@ const cy = {
   errors: {
     PRL_c1A_keepingSafeStatement: {
       required: 'Describe what do you want the court to do to keep you and the children safe - welsh',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

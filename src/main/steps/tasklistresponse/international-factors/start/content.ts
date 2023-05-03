@@ -19,6 +19,7 @@ const en = {
     iFactorsStartProvideDetails: {
       required:
         "Provide details about the children's parents (or anyone significant to the children) lives outside of England and Wales",
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -39,6 +40,7 @@ const cy: typeof en = {
     iFactorsStartProvideDetails: {
       required:
         "Provide details about the children's parents (or anyone significant to the children) lives outside of England and Wales",
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

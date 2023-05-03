@@ -21,6 +21,7 @@ const en = {
     },
     languageDetails: {
       required: 'Please provide language details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -44,6 +45,7 @@ const cy: typeof en = {
     },
     languageDetails: {
       required: 'Please provide language details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

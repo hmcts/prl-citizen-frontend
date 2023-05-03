@@ -24,6 +24,9 @@ const en = {
     Country: {
       required: 'Enter the country ',
     },
+    provideDetailsOfPreviousAddresses: {
+      invalidCharacters: 'The characters inputted are invalid',
+    },
   },
 };
 
@@ -47,6 +50,9 @@ const cy = {
     },
     Country: {
       required: 'Nodwch y wlad',
+    },
+    provideDetailsOfPreviousAddresses: {
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

@@ -1,7 +1,7 @@
 //import { Case } from '../../../../app/case/case';
 import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 const en = {
@@ -18,6 +18,7 @@ const en = {
     citizenUserAddressHistory: {
       required:
         'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -36,6 +37,7 @@ const cy: typeof en = {
     citizenUserAddressHistory: {
       required:
         'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };
@@ -76,7 +78,7 @@ export const addressHistoryFields = (): FormFields => ({
             type: 'textarea',
             label: l => l.explainNoLabel,
             id: 'provideDetailsOfPreviousAddresses',
-            validator: value => isFieldFilledIn(value),
+            validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
           },
         },
       },

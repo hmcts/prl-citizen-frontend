@@ -18,6 +18,7 @@ const en = {
     },
     iFactorsParentsProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -37,6 +38,7 @@ const cy: typeof en = {
     },
     iFactorsParentsProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

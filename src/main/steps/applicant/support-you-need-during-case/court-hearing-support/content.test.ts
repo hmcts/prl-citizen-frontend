@@ -27,18 +27,22 @@ const en = {
     },
     communicationSupportOther: {
       required: 'Please provide the details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     supportWorkerDetails: {
       required: 'Please provide the support worker details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     familyProviderDetails: {
       required: 'Please provide the family member details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     animalProvideDetails: {
       required: 'Please provide the therapy animal details',
     },
     therapyDetails: {
       required: 'Please provide therapy animal details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -66,18 +70,22 @@ const cy: typeof en = {
     },
     communicationSupportOther: {
       required: 'Please provide the details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     supportWorkerDetails: {
       required: 'Please provide the support worker details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     familyProviderDetails: {
       required: 'Please provide the family member details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     animalProvideDetails: {
       required: 'Please provide the therapy animal details',
     },
     therapyDetails: {
       required: 'Please provide therapy animal details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

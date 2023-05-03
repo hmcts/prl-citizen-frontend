@@ -20,12 +20,14 @@ const en = {
   errors: {
     PRL_c1A_previousAbductionsShortDesc: {
       required: 'Briefly describe the previous incidents of abduction',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     PRL_c1A_policeOrInvestigatorInvolved: {
       required: 'Select yes if the police, private investigators or any other organisation was involved',
     },
     PRL_c1A_policeOrInvestigatorOtherDetails: {
       required: 'Provide details of the police, private investigators or any other organisation involvement',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -44,12 +46,14 @@ const cy = {
   errors: {
     PRL_c1A_previousAbductionsShortDesc: {
       required: 'Briefly describe the previous incidents of abduction - welsh',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     PRL_c1A_policeOrInvestigatorInvolved: {
       required: 'Select yes if the police, private investigators or any other organisation was involved - welsh',
     },
     PRL_c1A_policeOrInvestigatorOtherDetails: {
       required: 'Provide details of the police, private investigators or any other organisation involvement - welsh',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

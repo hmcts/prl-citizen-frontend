@@ -27,12 +27,15 @@ const en = {
     },
     parkingDetails: {
       required: 'Please describe parking space details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     differentChairDetails: {
       required: 'Please describe different chair details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     travellingOtherDetails: {
       required: 'Please describe your need in detail',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -62,12 +65,15 @@ const cy: typeof en = {
     },
     parkingDetails: {
       required: 'Please describe parking space details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     differentChairDetails: {
       required: 'Please describe different chair details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     travellingOtherDetails: {
       required: 'Please describe your need in detail',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

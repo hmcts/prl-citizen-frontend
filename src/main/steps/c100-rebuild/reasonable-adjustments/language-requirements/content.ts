@@ -7,21 +7,22 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../.
 export const en = () => ({
   serviceName: 'Child Arrangements',
   caption: 'Language requirements',
-  headingTitle: `Do you have any language 
+  headingTitle: `Do you have any language
   requirements?`,
-  line1: `Think about all communication with the court, as well as what you might 
-  need at a hearing. Consider remote and in-person hearings, in case your preferred 
+  line1: `Think about all communication with the court, as well as what you might
+  need at a hearing. Consider remote and in-person hearings, in case your preferred
   hearing type is not possible.`,
   select_all_apply: 'Select all that apply to you',
   speakInWelsh: 'I need to speak in Welsh',
   readAndWriteInWelsh: 'I need to read and write in Welsh',
   needInterpreterInCertainLanguage: 'I need an interpreter in a certain language',
-  needInterpreterInCertainLanguage_subfield: `Give details of the language you require (including dialect, 
+  needInterpreterInCertainLanguage_subfield: `Give details of the language you require (including dialect,
     if applicable)`,
   noLanguageRequirements: 'No, I do not have any language requirements at this time',
   errors: {
     ra_needInterpreterInCertainLanguage_subfield: {
       required: 'Give details of the language you need an interpreter for',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     ra_languageNeeds: {
       required: 'Select whether you have any language requirements',
@@ -45,6 +46,7 @@ export const cy = () => ({
   errors: {
     ra_needInterpreterInCertainLanguage_subfield: {
       required: 'Rhowch fanylion yr iaith mae angen cyfieithydd arnoch ar ei gyfer',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     ra_languageNeeds: {
       required: 'Nodwch a oes gennych chi unrhyw ofynion ieithyddol',

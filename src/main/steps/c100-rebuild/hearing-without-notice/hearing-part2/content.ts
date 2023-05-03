@@ -2,7 +2,7 @@
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -21,6 +21,7 @@ export const en = () => ({
   errors: {
     hwn_reasonsForApplicationWithoutNotice: {
       required: 'Enter details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     hwn_doYouNeedAWithoutNoticeHearing: {
       required: 'Select yes if the other person may obstruct',
@@ -30,9 +31,11 @@ export const en = () => ({
     },
     hwn_doYouNeedAWithoutNoticeHearingDetails: {
       required: 'Enter details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     hwn_doYouRequireAHearingWithReducedNoticeDetails: {
       required: 'Enter details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 });
@@ -53,6 +56,7 @@ export const cy = () => ({
   errors: {
     hwn_reasonsForApplicationWithoutNotice: {
       required: 'Rhowch fanylion',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     hwn_doYouNeedAWithoutNoticeHearing: {
       required: 'Dewiswch ‘ydw’ os yw’n bosib y bydd yr unigolyn arall yn gwrthwynebu’r cais',
@@ -62,9 +66,11 @@ export const cy = () => ({
     },
     hwn_doYouNeedAWithoutNoticeHearingDetails: {
       required: 'Rhowch fanylion',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     hwn_doYouRequireAHearingWithReducedNoticeDetails: {
       required: 'Rhowch fanylion',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 });
@@ -79,7 +85,7 @@ export const form: FormContent = {
     hwn_reasonsForApplicationWithoutNotice: {
       type: 'textarea',
       hint: l => l.hint,
-      validator: value => isFieldFilledIn(value),
+      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
     hwn_doYouNeedAWithoutNoticeHearing: {
       type: 'radios',
@@ -95,7 +101,7 @@ export const form: FormContent = {
               type: 'textarea',
               label: l => l.provideDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
@@ -122,7 +128,7 @@ export const form: FormContent = {
               type: 'textarea',
               label: l => l.provideDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },

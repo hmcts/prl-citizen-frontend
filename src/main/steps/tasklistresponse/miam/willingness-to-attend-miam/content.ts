@@ -1,6 +1,6 @@
 import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import {
@@ -28,6 +28,7 @@ const en = {
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -49,6 +50,7 @@ const cy: typeof en = {
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };
@@ -90,7 +92,7 @@ export const form: FormContent = {
               type: 'textarea',
               label: l => l.explainWhyLabel,
               id: 'miam-explanation',
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },

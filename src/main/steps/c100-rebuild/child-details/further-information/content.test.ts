@@ -24,6 +24,7 @@ const en = {
     },
     cd_childrenKnownToSocialServicesDetails: {
       required: 'Enter details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     cd_childrenSubjectOfProtectionPlan: {
       required: 'Select if any of the children are the subject of a child protection plan',
@@ -48,6 +49,7 @@ const cy = {
     },
     cd_childrenKnownToSocialServicesDetails: {
       required: 'Rhowch fanylion',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     cd_childrenSubjectOfProtectionPlan: {
       required: 'Nodwch a oes unrhyw un o’r plant yn destun cynllun amddiffyn plentyn - cymraeg',

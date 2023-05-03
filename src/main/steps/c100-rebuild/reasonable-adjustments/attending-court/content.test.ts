@@ -10,11 +10,9 @@ jest.mock('../../../../app/form/validation');
 const en = {
   serviceName: 'Child Arrangements',
   caption: 'Attending the court',
-  headingTitle: `Would you be able to take 
-  part in hearings by video and phone?`,
+  headingTitle: 'Would you be able to take part in hearings by video and phone?',
   paragraph1: 'If your case goes to a hearing, it can take place either:',
-  paragraph2: `Some hearings use a combination of these methods. 
-  The approach taken will be decided by a judge.`,
+  paragraph2: 'Some hearings use a combination of these methods. The approach taken will be decided by a judge.',
   line1: "in person, in a room at a venue ('face-to-face')",
   line2: 'by video (where you can join from a place suitable to you)',
   line3: 'by phone',

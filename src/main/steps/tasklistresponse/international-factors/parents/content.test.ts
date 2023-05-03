@@ -19,6 +19,7 @@ const enContent = {
     },
     iFactorsParentsProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -38,6 +39,7 @@ const cyContent = {
     },
     iFactorsParentsProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

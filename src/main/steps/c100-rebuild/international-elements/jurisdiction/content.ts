@@ -20,6 +20,7 @@ export const en = () => ({
     ie_provideDetailsJurisdiction: {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales?',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 });
@@ -40,6 +41,7 @@ export const cy = () => ({
     ie_provideDetailsJurisdiction: {
       required:
         "Darparwch fanylion am unigolyn arall yn y cais sy'n gwneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?",
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 });

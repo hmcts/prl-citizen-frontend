@@ -21,6 +21,7 @@ const enContent = {
     iFactorsJurisdictionProvideDetails: {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -42,6 +43,7 @@ const cyContent = {
     iFactorsJurisdictionProvideDetails: {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

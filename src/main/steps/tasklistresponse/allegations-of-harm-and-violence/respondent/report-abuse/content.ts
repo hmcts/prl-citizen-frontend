@@ -1,6 +1,7 @@
 import { PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbuse, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
+import { isTextAreaValid } from '../../../../../app/form/validation';
 import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
 export * from './routeGuard';
@@ -34,6 +35,17 @@ const en = () => ({
   <p class="govuk-body">Do not include personal details such as names and addresses.</p>`,
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" rel="external" target="_blank">GOV.UK guidance</a> if you are unsure how to get help.</p>',
+  errors: {
+    behaviourDetails: {
+      invalidCharacters: 'The characters inputted are invalid',
+    },
+    behaviourStartDate: {
+      invalidCharacters: 'The characters inputted are invalid',
+    },
+    seekHelpDetails: {
+      invalidCharacters: 'The characters inputted are invalid',
+    },
+  },
 });
 
 const cy = () => ({
@@ -66,6 +78,17 @@ const cy = () => ({
   <p class="govuk-body">Do not include personal details such as names and addresses. - welsh</p>`,
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" rel="external" target="_blank">GOV.UK guidance</a> if you are unsure how to get help. - welsh</p>',
+  errors: {
+    behaviourDetails: {
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
+    },
+    behaviourStartDate: {
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
+    },
+    seekHelpDetails: {
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
+    },
+  },
 });
 
 const languages = {
@@ -98,6 +121,7 @@ export const generateFormFields = (data: PRL_C1ASafteyConcernsAbuse): GenerateDy
       attributes: {
         rows: 4,
       },
+      validator: value => isTextAreaValid(value),
     },
     behaviourStartDate: {
       type: 'textarea',
@@ -108,6 +132,7 @@ export const generateFormFields = (data: PRL_C1ASafteyConcernsAbuse): GenerateDy
       attributes: {
         rows: 2,
       },
+      validator: value => isTextAreaValid(value),
     },
     isOngoingBehaviour: {
       type: 'radios',
@@ -141,6 +166,7 @@ export const generateFormFields = (data: PRL_C1ASafteyConcernsAbuse): GenerateDy
               type: 'textarea',
               value: data.seekHelpDetails,
               hint: l => l.seekHelpDetailsYesHint,
+              validator: value => isTextAreaValid(value),
             },
           },
         },

@@ -20,6 +20,7 @@ const enContent = {
     iFactorsRequestProvideDetails: {
       required:
         'Provide details about another country asking (or being asked) for information or help for the children',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -40,6 +41,7 @@ const cyContent = {
     iFactorsRequestProvideDetails: {
       required:
         'Provide details about another country asking (or being asked) for information or help for the children',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

@@ -26,15 +26,19 @@ const en = {
   errors: {
     ra_supportWorkerCarer_subfield: {
       required: 'Enter the name of the support worker or carer you will bring',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     ra_friendFamilyMember_subfield: {
       required: 'Enter the name of a friend or family member you will bring',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     ra_therapyAnimal_subfield: {
       required: 'Describe which therapy animal you will bring',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     ra_supportCourtOther_subfield: {
       required: 'Describe which support you need to bring with you to a hearing ',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     ra_supportCourt: {
       required: 'Select which support you need to bring with you to a hearing',
@@ -62,15 +66,19 @@ const cy = {
   errors: {
     ra_supportWorkerCarer_subfield: {
       required: "Rhowch enw'r gweithiwr cymorth neu'r gofalwr y byddwch yn dod efo chi",
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     ra_friendFamilyMember_subfield: {
       required: "Rhowch enw ffrind neu aelod o'r teulu byddwch yn dod efo chi",
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     ra_therapyAnimal_subfield: {
       required: 'Disgrifiwch pa anifail therapi y byddwch yn dod efo chi',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     ra_supportCourtOther_subfield: {
       required: 'Disgrifiwch pa gefnogaeth sydd angen arnoch i chi ddod efo chi i’r gwrandawiad',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     ra_supportCourt: {
       required: 'Dewiswch pa gefnogaeth rydych angen dod efo chi i’r gwrandawiad',

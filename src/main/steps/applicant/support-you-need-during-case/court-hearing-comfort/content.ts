@@ -22,9 +22,11 @@ const en = {
     },
     otherProvideDetails: {
       required: 'Please describe your need in detail',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     lightingProvideDetails: {
       required: 'Please describe appropriate lighting in detail',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -49,9 +51,11 @@ const cy: typeof en = {
     },
     otherProvideDetails: {
       required: 'Please describe your need in detail',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     lightingProvideDetails: {
       required: 'Please describe appropriate lighting in detail',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };
@@ -81,7 +85,7 @@ export const form: FormContent = {
               },
               label: l => l.appropriateLightingDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },

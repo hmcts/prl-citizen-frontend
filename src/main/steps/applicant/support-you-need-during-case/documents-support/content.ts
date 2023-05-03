@@ -27,12 +27,15 @@ const en = {
     },
     otherDetails: {
       required: 'Please provide the details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     largePrintDetails: {
       required: 'Please provide the large print details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     docsDetails: {
       required: 'Please provide the docs details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -62,12 +65,15 @@ const cy: typeof en = {
     },
     otherDetails: {
       required: 'Please provide the details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     largePrintDetails: {
       required: 'Please provide the large print details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     docsDetails: {
       required: 'Please provide the docs details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

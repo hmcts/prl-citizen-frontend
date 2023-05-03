@@ -35,9 +35,11 @@ const en = {
     },
     describeOtherNeed: {
       required: 'Please provide the details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     describeSignLanguageDetails: {
       required: 'Please describe sign language details',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 };
@@ -73,9 +75,11 @@ const cy: typeof en = {
     },
     describeOtherNeed: {
       required: 'Please provide the details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     describeSignLanguageDetails: {
       required: 'Please describe sign language details',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 };

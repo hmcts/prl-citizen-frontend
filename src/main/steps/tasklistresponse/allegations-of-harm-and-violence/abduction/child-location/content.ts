@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 import { generateContent as parentContent } from '../content';
 
 export const en = () => ({
@@ -20,9 +20,11 @@ export const en = () => ({
   errors: {
     PRL_c1A_abductionReasonOutsideUk: {
       required: 'Explain why you think the children may be abducted or kept outside of the UK without your consent',
+      invalidCharacters: 'The characters inputted are invalid',
     },
     PRL_c1A_childsCurrentLocation: {
       required: 'Describe where the children are now',
+      invalidCharacters: 'The characters inputted are invalid',
     },
   },
 });
@@ -44,9 +46,11 @@ export const cy = () => ({
     PRL_c1A_abductionReasonOutsideUk: {
       required:
         'Explain why you think the children may be abducted or kept outside of the UK without your consent - welsh',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
     PRL_c1A_childsCurrentLocation: {
       required: 'Describe where the children are now - welsh',
+      invalidCharacters: 'The characters inputted are invalid (welsh)',
     },
   },
 });
@@ -64,7 +68,7 @@ export const form: FormContent = {
       attributes: {
         rows: 4,
       },
-      validator: isFieldFilledIn,
+      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
     PRL_c1A_childsCurrentLocation: {
       type: 'textarea',
@@ -74,7 +78,7 @@ export const form: FormContent = {
       attributes: {
         rows: 4,
       },
-      validator: isFieldFilledIn,
+      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
   },
   onlyContinue: {
