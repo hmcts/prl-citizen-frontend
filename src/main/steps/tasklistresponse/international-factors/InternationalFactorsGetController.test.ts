@@ -74,8 +74,23 @@ describe('InternationalFactorsGetController', () => {
     expect(req.session.userCase.start).not.toEqual('Yes');
   });
 
-  test.skip('Should get international elements if user id matches with respondent', async () => {
+  test('Should get international elements if user id matches with respondent', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.params.caseId = '123';
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.userCase.caseInvites = [
+      {
+        id: 'string',
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          caseInviteEmail: 'string',
+          accessCode: 'string',
+          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          expiryDate: 'string',
+          isApplicant: 'Yes',
+        },
+      },
+    ];
     const response = {
       citizenInternationalElements: {
         childrenLiveOutsideOfEnWl: 'Yes',
@@ -91,7 +106,7 @@ describe('InternationalFactorsGetController', () => {
 
     await internationalFactorsGetController.get(req, res);
 
-    expect(req.session.userCase.start).toEqual(undefined);
+    expect(req.session.userCase.start).toEqual('Yes');
     expect(req.session.userCase.iFactorsStartProvideDetails).toEqual('test1');
     expect(req.session.userCase.parents).toEqual('No');
     expect(req.session.userCase.jurisdiction).toEqual('Yes');
@@ -99,7 +114,7 @@ describe('InternationalFactorsGetController', () => {
     expect(req.session.userCase.request).toEqual('No');
   });
 
-  test.skip('Should get international elements if user id matches with respondent with no', async () => {
+  test('Should get international elements if user id matches with respondent with no', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     const response = {
       citizenInternationalElements: {
