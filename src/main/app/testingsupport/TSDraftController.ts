@@ -33,16 +33,20 @@ export class TSDraftController extends PostController<AnyObject> {
   public async deleteTSC100Draft(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const data = req.body['ids'] as string;
     const value = data.split(',');
-    value.forEach(async element => {
-      try {
-        const caseData = {};
-        await req.locals.C100Api.updateCase(element, caseData, HOME_URL, C100_CASE_EVENT.DELETE_CASE);
-        req.session.save(() => {
-          res.redirect(HOME_URL);
-        });
-      } catch (e) {
-        throw new Error('C100case could not be deleted');
-      }
+    value.forEach(element => {
+      this.deleteC100Draft(req, element, res);
     });
+  }
+
+  private async deleteC100Draft(req: AppRequest<AnyObject>, element: string, res: Response<any, Record<string, any>>) {
+    try {
+      const caseData = {};
+      await req.locals.C100Api.updateCase(element, caseData, HOME_URL, C100_CASE_EVENT.DELETE_CASE);
+      req.session.save(() => {
+        res.redirect(HOME_URL);
+      });
+    } catch (e) {
+      throw new Error('C100case could not be deleted');
+    }
   }
 }
