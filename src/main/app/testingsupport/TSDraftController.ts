@@ -33,8 +33,12 @@ export class TSDraftController extends PostController<AnyObject> {
   public async deleteTSC100Draft(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const data = req.body['ids'] as string;
     const value = data.split(',');
-    value.forEach(element => {
-      this.deleteC100Draft(req, element, res);
+    value.forEach(async element => {
+      try {
+        await this.deleteC100Draft(req, element, res);
+      } catch {
+        throw new Error('error occured while trying to delete');
+      }
     });
   }
 
