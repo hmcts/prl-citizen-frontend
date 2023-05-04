@@ -33,7 +33,7 @@ describe('InternationalFactorsGetController', () => {
             idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
             email: 'test1234@example.net',
           },
-          response: '',
+          response: {},
         },
       },
     ];
@@ -76,6 +76,21 @@ describe('InternationalFactorsGetController', () => {
 
   test('Should get international elements if user id matches with respondent', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.params.caseId = '123';
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.userCase.caseInvites = [
+      {
+        id: 'string',
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          caseInviteEmail: 'string',
+          accessCode: 'string',
+          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          expiryDate: 'string',
+          isApplicant: 'Yes',
+        },
+      },
+    ];
     const response = {
       citizenInternationalElements: {
         childrenLiveOutsideOfEnWl: 'Yes',
