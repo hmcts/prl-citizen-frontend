@@ -533,6 +533,7 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: (data: Partial<Case>) =>
+      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
   },
 ];

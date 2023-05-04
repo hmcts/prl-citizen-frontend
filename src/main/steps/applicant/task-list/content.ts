@@ -76,7 +76,7 @@ const en = () => ({
   hyperlinks: [
     {
       label: 'Add a legal representative',
-      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE + '?isApplicant=Yes',
+      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
     },
     {
       label: 'Remove a legal representative',
@@ -161,7 +161,7 @@ const cy = () => ({
   hyperlinks: [
     {
       label: 'Add a legal representative-welsh',
-      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE + '?isApplicant=Yes',
+      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
     },
     {
       label: 'Remove a legal representative-welsh',
@@ -204,7 +204,6 @@ export const generateContent: TranslationFn = content => {
   translations.applicantName = getApplicantName(applicant);
   const isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(applicant);
   translations.hyperlinks.forEach((hyperLink, index) => {
-    //Added additonal checks not to display Add/Remove a legal representative link for DA caeses, needs to be removed later
     if (hyperLink.label.includes('Add a legal representative') && isRepresentedBySolicotor) {
       translations.hyperlinks.splice(index, 1);
     }

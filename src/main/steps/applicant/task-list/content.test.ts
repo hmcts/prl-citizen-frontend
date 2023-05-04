@@ -23,7 +23,7 @@ const enContent = {
   hyperlinks: [
     {
       label: 'Add a legal representative',
-      link: '/applicant/add-legal-representative?isApplicant=Yes',
+      link: '/applicant/add-legal-representative',
     },
     {
       label: 'Find my local court',
@@ -59,7 +59,7 @@ const cyContent = {
   hyperlinks: [
     {
       label: 'Add a legal representative-welsh',
-      link: '/applicant/add-legal-representative?isApplicant=Yes',
+      link: '/applicant/add-legal-representative',
     },
     {
       label: 'Find my local court-welsh',

@@ -1,4 +1,3 @@
-import { YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -47,7 +46,7 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const req: AppRequest = content.additionalData?.req;
-  if (YesOrNo.YES === req.query.isApplicant) {
+  if (req.url && req.url.includes('applicant')) {
     translations.partyName = getApplicantName(getApplicant(req.session.userCase, req.session.user.id));
   } else {
     translations.partyName = getRespondentName(getRespondent(req.session.userCase, req.session.user.id));

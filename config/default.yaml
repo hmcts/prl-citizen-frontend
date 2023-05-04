@@ -27,7 +27,7 @@ services:
   documentManagement:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-1053.preview.platform.hmcts.net'
 health:
-  timeout: 5000
+  timeout: 7000
   deadline: 15000
 session:
   secret: 'local'

@@ -9,36 +9,49 @@ describe('testcase for tasklist', () => {
     caseNumber: 'Case number #',
     hyperlinks: [
       {
+        label: 'Add a legal representative',
+        link: '/applicant/add-legal-representative',
+        target: '',
+      },
+      {
         label: 'Know more about child arrangements',
         link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
+        target: '_blank',
       },
       {
         label: 'Know more about attending court',
         link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+        target: '_blank',
       },
       {
         label: 'Understand what a Mediation Information & Assessment Meeting (MIAM) is',
         link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
+        target: '_blank',
       },
       {
         label: 'Check if I am eligible for Legal Aid',
         link: 'https://www.gov.uk/check-legal-aid',
+        target: '_blank',
       },
       {
         label: 'Check if I am eligible for Help with Fees',
         link: 'https://www.gov.uk/get-help-with-court-fees',
+        target: '_blank',
       },
       {
         label: 'Find out about The Family Mediation Voucher scheme',
         link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
+        target: '_blank',
       },
       {
         label: 'Find legal advice',
         link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+        target: '_blank',
       },
       {
         label: 'Read how to represent myself in court',
         link: 'https://www.gov.uk/represent-yourself-in-court',
+        target: '_blank',
       },
     ],
     iWantTo: 'I want to...',
@@ -105,36 +118,49 @@ describe('testcase for tasklist', () => {
     caseNumber: 'Case number # - welsh',
     hyperlinks: [
       {
+        label: 'Add a legal representative - welsh',
+        link: '/applicant/add-legal-representative',
+        target: '',
+      },
+      {
         label: 'Know more about child arrangements - welsh',
         link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
+        target: '_blank',
       },
       {
         label: 'Know more about attending court - welsh',
         link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+        target: '_blank',
       },
       {
         label: 'Understand what a Mediation Information & Assessment Meeting (MIAM) is - welsh',
         link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
+        target: '_blank',
       },
       {
         label: 'Check if I am eligible for Legal Aid - welsh',
         link: 'https://www.gov.uk/check-legal-aid',
+        target: '_blank',
       },
       {
         label: 'Check if I am eligible for Help with Fees - welsh',
         link: 'https://www.gov.uk/get-help-with-court-fees',
+        target: '_blank',
       },
       {
         label: 'Find out about The Family Mediation Voucher scheme - welsh',
         link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
+        target: '_blank',
       },
       {
         label: 'Find legal advice - welsh',
         link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+        target: '_blank',
       },
       {
         label: 'Read how to represent myself in court - welsh',
         link: 'https://www.gov.uk/represent-yourself-in-court',
+        target: '_blank',
       },
     ],
     iWantTo: 'I want to... - welsh',
