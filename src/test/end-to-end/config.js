@@ -14,7 +14,7 @@ module.exports = {
     caseTypeFullDesc: 'C100 & FL401 Applications'
   },
 
-  baseUrl: process.env.PRL_CITIZEN_URL || 'https://prl-citizen-frontend-staging.aat.platform.hmcts.net/',
+  baseUrl: process.env.PRL_CITIZEN_URL || 'https://privatelaw.aat.platform.hmcts.net/',
   TestOutputDir: process.env.E2E_OUTPUT_DIR || './output',
   TestForAccessibility: process.env.TESTS_FOR_ACCESSIBILITY || false
 };
