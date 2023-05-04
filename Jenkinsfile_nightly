@@ -51,7 +51,7 @@ def secrets = [
 def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
-withNightlyPipeline(type, product, component) {
+withNightlyPipeline("nodejs", product, component) {
   env.TEST_URL = params.FRONTEND_URL
   env.PRL_CITIZEN_URL = params.FRONTEND_URL
   loadVaultSecrets(secrets)
