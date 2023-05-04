@@ -23,14 +23,20 @@ const en = {
     sq_doNotHaveParentalResponsibility_subfield: {
       required: "Provide details for 'I do not have parental responsibility for the children'",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     sq_courtOrderPrevent_subfield: {
       required: "Provide details for 'There is a court order preventing me from making an application'",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     sq_anotherReason_subfield: {
       required: 'Provide details for another reason',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -50,14 +56,20 @@ const cy = {
     sq_doNotHaveParentalResponsibility_subfield: {
       required: 'Rhowch fanylion pam nad oes gennych gyfrifoldeb rhiant dros y plant',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     sq_courtOrderPrevent_subfield: {
       required: 'Rhowch fanylion am y gorchymyn llys sy’n eich atal rhag gwneud cais',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     sq_anotherReason_subfield: {
       required: 'Rhowch fanylion unrhyw reswm arall',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };

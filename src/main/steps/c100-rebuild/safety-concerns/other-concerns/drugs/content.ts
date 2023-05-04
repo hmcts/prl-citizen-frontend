@@ -22,6 +22,8 @@ export const en = () => ({
     c1A_otherConcernsDrugsDetails: {
       required: 'Describe how the children have been impacted by drug, alcohol or substance abuse',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 });
@@ -46,6 +48,8 @@ export const cy = () => ({
       required:
         "Dewiswch ydynt os yw'r plant wedi cael eu heffeithio gan rywun a oedd yn camddefnyddio cyffuriau, alcohol neu sylweddau",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 });

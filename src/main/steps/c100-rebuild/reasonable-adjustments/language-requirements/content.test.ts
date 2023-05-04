@@ -26,6 +26,8 @@ const en = {
     ra_needInterpreterInCertainLanguage_subfield: {
       required: 'Give details of the language you need an interpreter for',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     ra_languageNeeds: {
       required: 'Select whether you have any language requirements',
@@ -50,6 +52,8 @@ const cy = {
     ra_needInterpreterInCertainLanguage_subfield: {
       required: 'Rhowch fanylion yr iaith mae angen cyfieithydd arnoch ar ei gyfer',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     ra_languageNeeds: {
       required: 'Nodwch a oes gennych chi unrhyw ofynion ieithyddol',

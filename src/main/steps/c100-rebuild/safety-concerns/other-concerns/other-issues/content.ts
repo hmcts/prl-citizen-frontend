@@ -20,6 +20,8 @@ export const en = () => ({
     c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 });
@@ -41,6 +43,8 @@ export const cy = () => ({
     c1A_childSafetyConcernsDetails: {
       required: 'Disgrifiwch unrhyw bryderon sydd gennych am ddiogelwch a lles y plant',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 });

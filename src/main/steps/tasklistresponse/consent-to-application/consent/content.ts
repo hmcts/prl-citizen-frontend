@@ -30,12 +30,15 @@ const en = {
     },
     reasonForNotConsenting: {
       required: 'Please provide a reason',
-      invalid: 'Reason must be 500 characters or fewer',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     courtOrderDetails: {
       required: 'Please provide court details',
-      invalid: 'Details must be 500 characters or fewer',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     applicationReceivedDate: {
       required: 'Enter application received date',
@@ -68,12 +71,15 @@ const cy: typeof en = {
     },
     reasonForNotConsenting: {
       required: 'Please provide a reason (welsh)',
-      invalid: 'Reason must be 500 characters or fewer (welsh)',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     courtOrderDetails: {
       required: 'Please provide court details (welsh)',
-      invalid: 'Details must be 500 characters or fewer (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     applicationReceivedDate: {
       required: 'Enter application received date (welsh)',

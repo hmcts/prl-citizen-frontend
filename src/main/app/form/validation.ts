@@ -216,7 +216,7 @@ export const isTextAreaValid: Validator = value => {
     return 'invalidCharacters';
   }
 
-  if (value && (value as string).trim?.().length > 500) {
+  if (value && (value as string).trim?.().length > 5000) {
     return ValidationError.INVALID;
   }
 };

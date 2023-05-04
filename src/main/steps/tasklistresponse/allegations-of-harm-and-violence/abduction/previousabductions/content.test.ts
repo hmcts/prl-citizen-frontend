@@ -21,6 +21,8 @@ const en = {
     PRL_c1A_previousAbductionsShortDesc: {
       required: 'Briefly describe the previous incidents of abduction',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     PRL_c1A_policeOrInvestigatorInvolved: {
       required: 'Select yes if the police, private investigators or any other organisation was involved',
@@ -28,6 +30,8 @@ const en = {
     PRL_c1A_policeOrInvestigatorOtherDetails: {
       required: 'Provide details of the police, private investigators or any other organisation involvement',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -47,6 +51,8 @@ const cy = {
     PRL_c1A_previousAbductionsShortDesc: {
       required: 'Briefly describe the previous incidents of abduction - welsh',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     PRL_c1A_policeOrInvestigatorInvolved: {
       required: 'Select yes if the police, private investigators or any other organisation was involved - welsh',
@@ -54,6 +60,8 @@ const cy = {
     PRL_c1A_policeOrInvestigatorOtherDetails: {
       required: 'Provide details of the police, private investigators or any other organisation involvement - welsh',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };

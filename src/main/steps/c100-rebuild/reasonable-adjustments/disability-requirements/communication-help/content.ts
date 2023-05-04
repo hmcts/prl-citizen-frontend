@@ -34,10 +34,14 @@ export const en = () => ({
     ra_signLanguageInterpreter_subfield: {
       required: 'Describe which Sign Language interpreter you need',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     ra_communicationHelpOther_subfield: {
       required: 'Describe what you need to help with communicating and understanding',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 });
@@ -72,10 +76,14 @@ export const cy = () => ({
     ra_signLanguageInterpreter_subfield: {
       required: 'Disgrifiwch pa gyfieithydd Iaith Arwyddion sydd ei angen arnoch',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     ra_communicationHelpOther_subfield: {
       required: 'Disgrifiwch yr hyn sydd ei angen arnoch i helpu gyda chyfathrebu a deall pethau',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 });

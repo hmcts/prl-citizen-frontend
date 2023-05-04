@@ -22,6 +22,8 @@ const enContent = {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -44,6 +46,8 @@ const cyContent = {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };

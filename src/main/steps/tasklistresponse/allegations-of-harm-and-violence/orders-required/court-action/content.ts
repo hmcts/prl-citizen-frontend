@@ -18,6 +18,8 @@ export const en = () => ({
     PRL_c1A_keepingSafeStatement: {
       required: 'Describe what do you want the court to do to keep you and the children safe',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 });
@@ -37,6 +39,8 @@ export const cy = () => ({
     PRL_c1A_keepingSafeStatement: {
       required: 'Describe what do you want the court to do to keep you and the children safe - welsh',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 });

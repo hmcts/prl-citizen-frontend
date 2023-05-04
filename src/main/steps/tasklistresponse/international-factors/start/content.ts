@@ -20,6 +20,8 @@ const en = {
       required:
         "Provide details about the children's parents (or anyone significant to the children) lives outside of England and Wales",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -41,6 +43,8 @@ const cy: typeof en = {
       required:
         "Provide details about the children's parents (or anyone significant to the children) lives outside of England and Wales",
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
