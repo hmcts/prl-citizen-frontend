@@ -51,7 +51,7 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
-  env.TEST_URL = "https://privatelaw.aat.platform.hmcts.net/"
+  env.TEST_URL = params.FRONTEND_URL
   env.PRL_CITIZEN_URL = params.FRONTEND_URL
   loadVaultSecrets(secrets)
   // enableMutationTest()
