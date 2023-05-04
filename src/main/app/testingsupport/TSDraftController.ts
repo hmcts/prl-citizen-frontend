@@ -38,7 +38,7 @@ export class TSDraftController extends PostController<AnyObject> {
     });
   }
 
-  private async deleteC100Draft(req: AppRequest<AnyObject>, element: string, res: Response<any, Record<string, any>>) {
+  private async deleteC100Draft(req: AppRequest<AnyObject>, element: string, res: Response) {
     try {
       const caseData = {};
       await req.locals.C100Api.updateCase(element, caseData, HOME_URL, C100_CASE_EVENT.DELETE_CASE);
