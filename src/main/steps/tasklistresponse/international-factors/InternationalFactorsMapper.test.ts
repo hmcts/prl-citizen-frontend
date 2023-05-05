@@ -239,7 +239,7 @@ describe('InternationalFactorsMapper', () => {
     };
     respondents[0].value.response = response;
 
-    req.session.userCase = await mapInternationalFactorsDetails(respondents[0]);
+    req.session.userCase = await mapInternationalFactorsDetails(respondents[0].value);
 
     expect(req.session.userCase.start).toEqual('Yes');
     expect(req.session.userCase.iFactorsStartProvideDetails).toEqual('test1');
@@ -266,7 +266,7 @@ describe('InternationalFactorsMapper', () => {
     };
     respondents[0].value.response = response;
 
-    req.session.userCase = await mapInternationalFactorsDetails(respondents[0]);
+    req.session.userCase = await mapInternationalFactorsDetails(respondents[0].value);
 
     expect(req.session.userCase.start).toEqual('No');
     expect(req.session.userCase.parents).toEqual('No');
@@ -288,7 +288,7 @@ describe('InternationalFactorsMapper', () => {
     };
     respondents[0].value.response = response;
 
-    req.session.userCase = await mapInternationalFactorsDetails(respondents[0]);
+    req.session.userCase = await mapInternationalFactorsDetails(respondents[0].value);
 
     expect(req.session.userCase.start).toEqual('Yes');
     expect(req.session.userCase.iFactorsStartProvideDetails).toEqual('test1');

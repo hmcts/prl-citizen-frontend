@@ -311,7 +311,7 @@ describe('SafetyConcernsMapper', () => {
       },
     };
     respondents[0].value.response = response;
-    req.session.userCase = mapSafetyConcernsDetails(respondents[0]);
+    req.session.userCase = mapSafetyConcernsDetails(respondents[0].value);
 
     expect(req.session.userCase).toEqual(
       expect.objectContaining({
