@@ -580,3 +580,6 @@ export const APPLICANT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${APPLICANT}/add-le
 
 export const RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START: PageLink = `${RESPONDENT}/remove-legal-representative/start`;
 export const RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM: PageLink = `${RESPONDENT}/remove-legal-representative/confirm`;
+
+export const APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START: PageLink = `${APPLICANT}/remove-legal-representative/start`;
+export const APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM: PageLink = `${APPLICANT}/remove-legal-representative/confirm`;

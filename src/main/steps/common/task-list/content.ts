@@ -2,7 +2,11 @@ import { PartyType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getApplicant } from '../../../steps/applicant/task-list/content';
 
-import { APPLICANT_ADD_LEGAL_REPRESENTATIVE, DASHBOARD_URL } from './../../urls';
+import {
+  APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+  DASHBOARD_URL,
+} from './../../urls';
 import { getNotificationBannerConfig } from './components/notification-banner/utils';
 import { getProgressBarConfig } from './components/progress-bar/utils';
 import { getTaskListConfig } from './components/tasklist/utils';
@@ -20,7 +24,7 @@ const en = {
     },
     {
       label: 'Remove a legal representative',
-      link: '#',
+      link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
       target: '',
     },
     {
@@ -78,7 +82,7 @@ const cy = {
     },
     {
       label: 'Remove a legal representative - welsh',
-      link: '#',
+      link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
       target: '',
     },
     {

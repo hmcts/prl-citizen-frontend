@@ -7,6 +7,7 @@ import { checkPartyRepresentedBySolicitor } from '../../../steps/common/task-lis
 import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
   APPLICANT_ORDERS_FROM_THE_COURT,
+  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_VIEW_ALL_DOCUMENTS,
 } from '../../../steps/urls';
 
@@ -80,7 +81,7 @@ const en = () => ({
     },
     {
       label: 'Remove a legal representative',
-      link: '#',
+      link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
     },
     {
       label: 'Find my local court',
@@ -165,7 +166,7 @@ const cy = () => ({
     },
     {
       label: 'Remove a legal representative-welsh',
-      link: '#',
+      link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
     },
     {
       label: 'Find my local court-welsh',
