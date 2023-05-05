@@ -11,6 +11,7 @@ import {
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
   RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
+  RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
 } from '../../../steps/urls';
@@ -144,7 +145,7 @@ const en = () => ({
     },
     {
       label: 'Remove a legal representative',
-      link: '#',
+      link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
     },
     {
       label: 'Find my local court',
@@ -289,7 +290,7 @@ const cy = () => ({
     },
     {
       label: 'Remove a legal representative-welsh',
-      link: '#',
+      link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
     },
     {
       label: 'Find my local court-welsh',
