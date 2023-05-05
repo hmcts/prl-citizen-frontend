@@ -11,8 +11,7 @@ const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseI
 let partyDetails;
 
 describe('KeepDetailsPrivatePostController', () => {
-  let fields;
-  const controller = new KeepDetailsPrivatePostController(fields);
+  const controller = new KeepDetailsPrivatePostController();
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {

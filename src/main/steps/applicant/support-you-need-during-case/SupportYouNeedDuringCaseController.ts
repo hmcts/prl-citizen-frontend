@@ -5,16 +5,15 @@ import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Applicant, Respondent } from '../../../app/case/definition';
 import { toApiFormat } from '../../../app/case/to-api-format';
 import type { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { FormFields, FormFieldsFn } from '../../../app/form/Form';
+// import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
 
 import { prepareRequest } from './SupportYouNeedDuringYourCaseService';
 @autobind
-export class SupportYouNeedDuringYourCaseController extends PostController<AnyObject> {
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {
-    super(fields);
-  }
+export class SupportYouNeedDuringYourCaseController {
+  // constructor(protected readonly fields: FormFields | FormFieldsFn) {
+  //   super(fields);
+  // }
   public async post(req: AppRequest, res: Response): Promise<void> {
     try {
       const caseworkerUser = req.session.user;

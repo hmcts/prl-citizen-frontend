@@ -3,12 +3,12 @@ import { Response } from 'express';
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Respondent } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { GetController } from '../../../app/controller/GetController';
+// import { GetController } from '../../../app/controller/GetController';
 import { CONSENT_TO_APPLICATION } from '../../urls';
 
 import { mapConsentToApplicationDetails } from './ConsentMapper';
 
-export class ConsentGetController extends GetController {
+export class ConsentGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     const caseReference = req.params?.caseId;

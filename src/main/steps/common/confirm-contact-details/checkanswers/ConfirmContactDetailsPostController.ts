@@ -5,8 +5,7 @@ import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { Applicant, CaseType, Respondent } from '../../../../app/case/definition';
 import { toApiFormat } from '../../../../app/case/to-api-format';
 import { AppRequest } from '../../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../../app/controller/PostController';
-import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { AnyObject } from '../../../../app/controller/PostController';
 import {
   APPLICANT_TASK_LIST_URL,
   C100_APPLICANT_TASKLIST,
@@ -20,10 +19,10 @@ import {
 } from './ContactDetailsMapper';
 
 @autobind
-export class ConfirmContactDetailsPostController extends PostController<AnyObject> {
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {
-    super(fields);
-  }
+export class ConfirmContactDetailsPostController {
+  // constructor(protected readonly fields: FormFields | FormFieldsFn) {
+  //   super(fields);
+  // }
 
   public async c100Respondent(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {

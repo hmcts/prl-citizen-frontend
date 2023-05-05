@@ -4,12 +4,11 @@ import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Case } from '../../../app/case/case';
 import { Applicant, Respondent } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { GetController } from '../../../app/controller/GetController';
 import { APPLICANT_DETAILS_KNOWN, RESPONDENT_DETAILS_KNOWN } from '../../urls';
 
 import { mapKeepYourDetailsPrivate } from './KeepYourDetailsPrivateMapper';
 
-export class KeepDetailsPrivateGetController extends GetController {
+export class KeepDetailsPrivateGetController {
   public static async c100Respondent(req: AppRequest): Promise<void> {
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (

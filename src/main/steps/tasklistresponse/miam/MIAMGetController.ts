@@ -3,11 +3,10 @@ import { Response } from 'express';
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Respondent } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { GetController } from '../../../app/controller/GetController';
 import { MIAM_START } from '../../../steps/urls';
 
 import { mapMIAMRequest } from './MIAMMapper';
-export class MIAMGetController extends GetController {
+export class MIAMGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     try {
       const loggedInCitizen = req.session.user;

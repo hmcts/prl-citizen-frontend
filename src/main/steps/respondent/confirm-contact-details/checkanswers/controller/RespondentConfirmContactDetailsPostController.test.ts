@@ -15,14 +15,14 @@ describe('RespondentConfirmContactDetailsPostController', () => {
   let req;
   let res;
   beforeEach(() => {
-    let fields;
+    //let fields;
     req = mockRequest({
       session: {
         userCase: {},
       },
     });
     res = mockResponse();
-    controller = new RespondentConfirmContactDetailsPostController(fields);
+    controller = new RespondentConfirmContactDetailsPostController();
   });
 
   test('should extend RespondentConfirmContactDetailsPostController', async () => {

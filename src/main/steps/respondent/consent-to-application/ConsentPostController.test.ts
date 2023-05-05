@@ -11,8 +11,8 @@ const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseI
 let respondents;
 
 describe('ConsentPostController', () => {
-  let fields;
-  const consentPostController = new ConsentPostController(fields);
+  //let fields;
+  const consentPostController = new ConsentPostController();
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {

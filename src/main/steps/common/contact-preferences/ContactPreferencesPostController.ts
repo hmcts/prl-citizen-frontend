@@ -7,17 +7,17 @@ import { Case } from '../../../app/case/case';
 import { Applicant, Respondent, applicantContactPreferencesEnum } from '../../../app/case/definition';
 import { toApiFormat } from '../../../app/case/to-api-format';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { AnyObject } from '../../../app/controller/PostController';
+// import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { APPLICANT_TASKLIST_CONTACT_EMAIL, APPLICANT_TASKLIST_CONTACT_POST } from '../../../steps/urls';
 
 import { setContactPreferences } from './ContactPreferencesMapper';
 
 @autobind
-export class ContactPreferencesPostController extends PostController<AnyObject> {
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {
-    super(fields);
-  }
+export class ContactPreferencesPostController {
+  // constructor(protected readonly fields: FormFields | FormFieldsFn) {
+  //   super(fields);
+  // }
 
   public async c100Respondent(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
@@ -66,8 +66,7 @@ export class ContactPreferencesPostController extends PostController<AnyObject> 
     req.session.userCase.applicantPreferredContact = updatedCaseDataFromCos.applicants?.[0].value?.contactPreferences;
 
     const redirectUrl = setRedirectUrl(req);
-    req.session.save(() => console.log('saved'));
-    super.redirect(req, res, redirectUrl);
+    req.session.save(() => res.redirect(redirectUrl));
   }
 }
 

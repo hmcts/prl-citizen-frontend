@@ -11,7 +11,7 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[1].url).toBe('/tasklistresponse/consent-to-application/summary');
     expect(responseCaseSequence[1].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[1].getNextStep({})).toBe('/tasklistresponse/consent-to-application/save');
+    expect(responseCaseSequence[1].getNextStep({})).toBe('/tasklistresponse/start');
 
     expect(responseCaseSequence[2].url).toBe('/respondent/keep-details-private/private_details_not_confirmed');
     expect(responseCaseSequence[2].showInSection).toBe('aboutRespondentCase');

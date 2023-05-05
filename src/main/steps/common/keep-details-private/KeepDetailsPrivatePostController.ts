@@ -5,8 +5,8 @@ import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Applicant, Respondent, YesOrNo } from '../../../app/case/definition';
 import { toApiFormat } from '../../../app/case/to-api-format';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { AnyObject } from '../../../app/controller/PostController';
+// import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import {
   APPLICANT_PRIVATE_DETAILS_CONFIRMED,
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
@@ -17,10 +17,10 @@ import {
 import { mapConfidentialListToFields, prepareKeepDetailsPrivateRequest } from './KeepYourDetailsPrivateMapper';
 
 @autobind
-export class KeepDetailsPrivatePostController extends PostController<AnyObject> {
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {
-    super(fields);
-  }
+export class KeepDetailsPrivatePostController {
+  // constructor(protected readonly fields: FormFields | FormFieldsFn) {
+  //   super(fields);
+  // }
 
   public async c100Respondent(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {

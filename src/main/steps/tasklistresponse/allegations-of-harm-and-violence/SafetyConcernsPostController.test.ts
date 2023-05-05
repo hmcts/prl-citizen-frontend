@@ -9,8 +9,7 @@ jest.mock('../../../app/case/CosApiClient');
 const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
 
 describe('SafetyConcernsPostController', () => {
-  let fields;
-  const safetyConcernsPostController = new SafetyConcernsPostController(fields);
+  const safetyConcernsPostController = new SafetyConcernsPostController();
   const req = mockRequest();
   const res = mockResponse();
 

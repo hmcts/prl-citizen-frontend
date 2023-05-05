@@ -22,18 +22,18 @@ const token = 'authToken';
 const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
 
 describe('ConfirmContactDetailsGetController', () => {
-  const languages = {
-    en: {
-      text: 'english',
-    },
-    cy: {
-      text: 'welsh',
-    },
-  };
+  // const languages = {
+  //   en: {
+  //     text: 'english',
+  //   },
+  //   cy: {
+  //     text: 'welsh',
+  //   },
+  // };
   const req = mockRequest();
   const res = mockResponse();
-  const generateContent = content => languages[content.language];
-  const controller = new ConfirmContactDetailsGetController('page', generateContent);
+  //const generateContent = content => languages[content.language];
+  const controller = new ConfirmContactDetailsGetController();
   //const userEmail = 'test@example.com';
   beforeEach(() => {
     getSystemUserMock.mockResolvedValue({

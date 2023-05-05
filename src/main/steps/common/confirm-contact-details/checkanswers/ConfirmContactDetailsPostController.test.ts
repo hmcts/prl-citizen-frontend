@@ -6,7 +6,7 @@ import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import * as oidc from '../../../../app/auth/user/oidc';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { FormContent } from '../../../../app/form/Form';
+//import { FormContent } from '../../../../app/form/Form';
 import * as steps from '../../../../steps';
 
 import { ConfirmContactDetailsPostController } from './ConfirmContactDetailsPostController';
@@ -26,8 +26,7 @@ let prepare;
 let updated;
 
 describe('ConfirmContactDetailsPostController', () => {
-  let fields;
-  const controller = new ConfirmContactDetailsPostController(fields);
+  const controller = new ConfirmContactDetailsPostController();
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {
@@ -148,13 +147,13 @@ describe('ConfirmContactDetailsPostController', () => {
 
   test('Should redirect back to the current page with the form data on errors', async () => {
     const body = { citizenUserPhoneNumber: 'invalid phone number' };
-    const mockPhoneNumberFormContent = {
-      fields: {
-        citizenUserPhoneNumber: {
-          type: 'tel',
-        },
-      },
-    } as unknown as FormContent;
+    // const mockPhoneNumberFormContent = {
+    //   fields: {
+    //     citizenUserPhoneNumber: {
+    //       type: 'tel',
+    //     },
+    //   },
+    // } as unknown as FormContent;
 
     when(config.get)
       .calledWith('services.idam.clientID')
@@ -168,7 +167,7 @@ describe('ConfirmContactDetailsPostController', () => {
         id_token: token,
       },
     });
-    const control = new ConfirmContactDetailsPostController(mockPhoneNumberFormContent.fields);
+    const control = new ConfirmContactDetailsPostController();
 
     const reqs = mockRequest({ body });
     const ress = mockResponse();

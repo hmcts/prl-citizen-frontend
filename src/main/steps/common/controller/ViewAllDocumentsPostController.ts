@@ -4,18 +4,18 @@ import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Applicant, Respondent, YesOrNo } from '../../../app/case/definition';
 import { toApiFormat } from '../../../app/case/to-api-format';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { AnyObject } from '../../../app/controller/PostController';
+// import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import {
   APPLICANT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
 } from '../../../steps/urls';
 
-export class ViewAllDocumentsPostController extends PostController<AnyObject> {
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {
-    super(fields);
-  }
+export class ViewAllDocumentsPostController {
+  // constructor(protected readonly fields: FormFields | FormFieldsFn) {
+  //   super(fields);
+  // }
 
   public static async setAllDocumentsViewedC100Respondent(req: AppRequest<AnyObject>): Promise<void> {
     req.session.userCase.respondents?.forEach((respondent: Respondent) => {

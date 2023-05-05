@@ -5,7 +5,6 @@ import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { Case } from '../../../../app/case/case';
 import { Applicant, CONFIDENTIAL_DETAILS, CaseType, Respondent } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
-import { GetController } from '../../../../app/controller/GetController';
 import { APPLICANT_CHECK_ANSWERS, RESPONDENT_CHECK_ANSWERS } from '../../../../steps/urls';
 
 import {
@@ -14,7 +13,7 @@ import {
 } from './ContactDetailsMapper';
 
 @autobind
-export class ConfirmContactDetailsGetController extends GetController {
+export class ConfirmContactDetailsGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     const caseReference = req.session.userCase.id;

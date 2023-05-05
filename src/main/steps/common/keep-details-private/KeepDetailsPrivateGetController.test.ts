@@ -8,16 +8,16 @@ const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseI
 let partyDetails;
 
 describe('KeepDetailsPrivateGetController', () => {
-  const languages = {
-    en: {
-      text: 'english',
-    },
-    cy: {
-      text: 'welsh',
-    },
-  };
-  const generateContent = content => languages[content.language];
-  const controller = new KeepDetailsPrivateGetController('page', generateContent);
+  // const languages = {
+  //   en: {
+  //     text: 'english',
+  //   },
+  //   cy: {
+  //     text: 'welsh',
+  //   },
+  // };
+  //const generateContent = content => languages[content.language];
+  const controller = new KeepDetailsPrivateGetController();
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {
@@ -179,16 +179,16 @@ describe('KeepDetailsPrivateGetController', () => {
 });
 
 describe('KeepDetailsPrivateGetController test', () => {
-  const languages = {
-    en: {
-      text: 'english',
-    },
-    cy: {
-      text: 'welsh',
-    },
-  };
-  const generateContent = content => languages[content.language];
-  const controller = new KeepDetailsPrivateGetController('page', generateContent);
+  // const languages = {
+  //   en: {
+  //     text: 'english',
+  //   },
+  //   cy: {
+  //     text: 'welsh',
+  //   },
+  // };
+  //const generateContent = content => languages[content.language];
+  const controller = new KeepDetailsPrivateGetController();
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {

@@ -11,8 +11,7 @@ let partyDetails;
 jest.mock('../../../app/case/CosApiClient');
 
 describe('SupportYouNeedDuringYourCaseController', () => {
-  let fields;
-  const controller = new SupportYouNeedDuringYourCaseController(fields);
+  const controller = new SupportYouNeedDuringYourCaseController();
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {

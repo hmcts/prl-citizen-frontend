@@ -3,11 +3,10 @@ import { Response } from 'express';
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Respondent } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { GetController } from '../../../app/controller/GetController';
 import { PROCEEDINGS_START } from '../../urls';
 
 import { mapProceedingDetails } from './ProceedingDetailsMapper';
-export class ProceedingGetController extends GetController {
+export class ProceedingGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     try {
       const loggedInCitizen = req.session.user;

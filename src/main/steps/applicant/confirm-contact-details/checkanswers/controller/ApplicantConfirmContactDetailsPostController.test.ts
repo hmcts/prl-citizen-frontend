@@ -14,9 +14,8 @@ describe('ApplicantConfirmContactDetailsPostController', () => {
   let controller;
 
   beforeEach(() => {
-    let fields;
     //const userEmail = 'test@example.com';
-    controller = new ApplicantConfirmContactDetailsPostController(fields);
+    controller = new ApplicantConfirmContactDetailsPostController();
   });
 
   test('should extend ApplicantConfirmContactDetailsPostController', async () => {

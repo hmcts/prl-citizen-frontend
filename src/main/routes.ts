@@ -63,7 +63,7 @@ import {
   CA_RESPONDENT_GENERATE_C7_Final,
   CA_RESPONDENT_RESPONSE_SUBMIT,
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
-  CONSENT_SAVE,
+  // CONSENT_SAVE,
   CONSENT_TO_APPLICATION,
   CONTACT_US,
   COOKIES_PAGE,
@@ -113,6 +113,7 @@ import {
   PARTY_TASKLIST,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
+  CONSENT_SUMMARY,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -154,6 +155,53 @@ export class Routes {
     app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
     app.get(C100_RETRIVE_CASE, errorHandler(new GetCaseController().getC100ApplicantCase));
     app.get(C100_DOWNLOAD_APPLICATION, errorHandler(new ApplicationDownloadController().download));
+    app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().get));
+    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
+    app.get(`${RESPONDENT_DETAILS_KNOWN}/:caseId`, errorHandler(new KeepDetailsPrivateGetController().get));
+    app.get(`${APPLICANT_DETAILS_KNOWN}/:caseId`, errorHandler(new KeepDetailsPrivateGetController().get));
+    app.get(
+      `${RESPONDENT_CHECK_ANSWERS}/:caseId`,
+      errorHandler(new RespondentConfirmContactDetailsGetController().get)
+    );
+    app.get(`${APPLICANT_CHECK_ANSWERS}/:caseId`, errorHandler(new ApplicantConfirmContactDetailsGetController().get));
+    app.get(`${MIAM_START}/:caseId`, errorHandler(new MIAMGetController().get));
+    app.get(`${PROCEEDINGS_START}/:caseId`, errorHandler(new ProceedingGetController().get));
+    app.get(`${INTERNATIONAL_FACTORS_START}/:caseId`, errorHandler(new InternationalFactorsGetController().get));
+    app.get(
+      `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/:caseId`,
+      errorHandler(new ContactPreferencesGetController().get)
+    );
+    app.get(
+      `${RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
+      errorHandler(new ViewAllDocumentsPostController().setAllDocumentsViewed)
+    );
+    app.get(
+      `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
+      errorHandler(new ViewAllDocumentsPostController().setResponseInitiatedFlag)
+    );
+    app.get(
+      `${APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
+      errorHandler(new ViewAllDocumentsPostController().setAllDocumentsViewed)
+    );
+
+    app.post(`${APPLICANT_TASKLIST_CONTACT_PREFERENCES}`, errorHandler(new ContactPreferencesPostController().post));
+    app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController().post));
+    app.get(C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE, errorHandler(new SafetyConcernsPostController().post));
+    app.get(`${RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE}`, errorHandler(new KeepDetailsPrivatePostController().post));
+
+    app.get(`${APPLICANT_KEEP_DETAILS_PRIVATE_SAVE}`, errorHandler(new KeepDetailsPrivatePostController().post));
+    app.get(
+      `${RESPONDENT_CONTACT_DETAILS_SAVE}`,
+      errorHandler(new RespondentConfirmContactDetailsPostController().post)
+    );
+    app.get(SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE, errorHandler(new SupportYouNeedDuringYourCaseController().post));
+    app.get(CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE, errorHandler(new SupportYouNeedDuringYourCaseController().post));
+    app.get(C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE, errorHandler(new SupportYouNeedDuringYourCaseController().post));
+    app.get(`${APPLICANT_CONTACT_DETAILS_SAVE}`, errorHandler(new ApplicantConfirmContactDetailsPostController().post));
+    app.get(`${MIAM_SAVE}`, errorHandler(new MIAMPostController().post));
+    app.get(`${PROCEEDING_SAVE}`, errorHandler(new ProceedingPostController().post));
+    app.get(`${INTERNATIONAL_FACTORS_SAVE}`, errorHandler(new InternationalFactorsPostController().post));
+    app.post(`${CONSENT_SUMMARY}`, errorHandler(new ConsentPostController().post));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
@@ -169,43 +217,6 @@ export class Routes {
           errorHandler(new getController(step.view, step.generateContent).get)
         );
       }
-      app.get(
-        `${CONSENT_TO_APPLICATION}/:caseId`,
-        errorHandler(new ConsentGetController(step.view, step.generateContent).get)
-      );
-      app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
-      app.get(
-        `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
-        errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)
-      );
-      app.get(
-        `${APPLICANT_DETAILS_KNOWN}/:caseId`,
-        errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)
-      );
-      app.get(
-        `${RESPONDENT_CHECK_ANSWERS}/:caseId`,
-        errorHandler(new RespondentConfirmContactDetailsGetController(step.view, step.generateContent).get)
-      );
-
-      app.get(
-        `${APPLICANT_CHECK_ANSWERS}/:caseId`,
-        errorHandler(new ApplicantConfirmContactDetailsGetController(step.view, step.generateContent).get)
-      );
-
-      app.get(`${MIAM_START}/:caseId`, errorHandler(new MIAMGetController(step.view, step.generateContent).get));
-      app.get(
-        `${PROCEEDINGS_START}/:caseId`,
-        errorHandler(new ProceedingGetController(step.view, step.generateContent).get)
-      );
-      app.get(
-        `${INTERNATIONAL_FACTORS_START}/:caseId`,
-        errorHandler(new InternationalFactorsGetController(step.view, step.generateContent).get)
-      );
-      app.get(
-        `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/:caseId`,
-        errorHandler(new ContactPreferencesGetController(step.view, step.generateContent).get)
-      );
-
       if (step.form) {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
         const postController = postControllerFileName
@@ -217,6 +228,7 @@ export class Routes {
           this.routeGuard.bind(this, step, 'post'),
           errorHandler(new postController(step.form.fields).post)
         );
+
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
         app.get(
@@ -243,66 +255,10 @@ export class Routes {
         app.get(`${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${MANAGE_DOCUMENTS_DOWNLOAD}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT}${RESPONDENT_CA_RESPONSE}/:uid`, errorHandler(documentManagerController.get));
-        app.get(
-          `${RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
-          errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
-        );
-        app.get(
-          `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
-          errorHandler(new ViewAllDocumentsPostController(step.form.fields).setResponseInitiatedFlag)
-        );
-        app.get(
-          `${APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
-          errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
-        );
 
-        app.get(`${CONSENT_SAVE}`, errorHandler(new ConsentPostController(step.form.fields).post));
-        app.get(
-          `${RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE}`,
-          errorHandler(new KeepDetailsPrivatePostController(step.form.fields).post)
-        );
-        app.get(
-          `${APPLICANT_KEEP_DETAILS_PRIVATE_SAVE}`,
-          errorHandler(new KeepDetailsPrivatePostController(step.form.fields).post)
-        );
-        app.get(
-          `${RESPONDENT_CONTACT_DETAILS_SAVE}`,
-          errorHandler(new RespondentConfirmContactDetailsPostController(step.form.fields).post)
-        );
         app.post(
           `${RESPONDENT_ADDRESS_LOOKUP}`,
           errorHandler(new AddressLookupPostControllerBase(step.form.fields, FieldPrefix.RESPONDENT).post)
-        );
-        app.get(
-          `${APPLICANT_CONTACT_DETAILS_SAVE}`,
-          errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
-        );
-        app.get(`${MIAM_SAVE}`, errorHandler(new MIAMPostController(step.form.fields).post));
-        app.get(`${PROCEEDING_SAVE}`, errorHandler(new ProceedingPostController(step.form.fields).post));
-        app.get(
-          `${INTERNATIONAL_FACTORS_SAVE}`,
-          errorHandler(new InternationalFactorsPostController(step.form.fields).post)
-        );
-        app.get(
-          SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
-          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
-        );
-        app.get(
-          CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
-          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
-        );
-        app.get(
-          C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
-          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
-        );
-        app.get(
-          C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
-          errorHandler(new SafetyConcernsPostController(step.form.fields).post)
-        );
-        app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
-        app.post(
-          `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}`,
-          errorHandler(new ContactPreferencesPostController(step.form.fields).post)
         );
         app.post(
           PIN_ACTIVATION_CASE_ACTIVATED_URL,

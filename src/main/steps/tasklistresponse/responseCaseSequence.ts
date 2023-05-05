@@ -22,7 +22,7 @@ import {
   C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   C7_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   C7_TRAVELLING_TO_COURT,
-  CONSENT_SAVE,
+  // CONSENT_SAVE,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
   COURT_PROCEEDINGS_SUMMARY,
@@ -92,7 +92,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: CONSENT_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => CONSENT_SAVE,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,

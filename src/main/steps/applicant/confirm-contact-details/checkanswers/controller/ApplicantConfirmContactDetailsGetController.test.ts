@@ -13,17 +13,17 @@ describe('ApplicantConfirmContactDetailsGetController', () => {
   let controller;
 
   beforeEach(() => {
-    const languages = {
-      en: {
-        text: 'english',
-      },
-      cy: {
-        text: 'welsh',
-      },
-    };
+    // const languages = {
+    //   en: {
+    //     text: 'english',
+    //   },
+    //   cy: {
+    //     text: 'welsh',
+    //   },
+    // };
     //const userEmail = 'test@example.com';
-    const generateContent = content => languages[content.language];
-    controller = new ApplicantConfirmContactDetailsGetController('page', generateContent);
+    // const generateContent = content => languages[content.language];
+    controller = new ApplicantConfirmContactDetailsGetController();
   });
 
   test('should extend ApplicantConfirmContactDetailsGetController', async () => {

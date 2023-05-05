@@ -10,8 +10,7 @@ const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseI
 let respondents;
 
 describe('MIAMPostController', () => {
-  let fields;
-  const miamPostController = new MIAMPostController(fields);
+  const miamPostController = new MIAMPostController();
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {

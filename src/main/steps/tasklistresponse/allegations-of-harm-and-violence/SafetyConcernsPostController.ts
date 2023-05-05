@@ -4,17 +4,17 @@ import type { Response } from 'express';
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { CaseEvent, CaseType, PartyType } from '../../../app/case/definition';
 import type { AppRequest } from '../../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { FormFields, FormFieldsFn } from '../../../app/form/Form';
+// import { AnyObject, PostController } from '../../../app/controller/PostController';
+// import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { RESPOND_TO_APPLICATION } from '../../../steps/urls';
 
 import { prepareRequest } from './SafetyConcernsMapper';
 @autobind
-export class SafetyConcernsPostController extends PostController<AnyObject> {
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {
-    super(fields);
-  }
+export class SafetyConcernsPostController {
+  // constructor(protected readonly fields: FormFields | FormFieldsFn) {
+  //   super(fields);
+  // }
 
   public async post(req: AppRequest, res: Response): Promise<void> {
     const { user, userCase } = req.session;

@@ -15,14 +15,14 @@ describe('RespondentConfirmContactDetailsGetController', () => {
   let req;
   let res;
   beforeEach(() => {
-    const languages = {
-      en: {
-        text: 'english',
-      },
-      cy: {
-        text: 'welsh',
-      },
-    };
+    // const languages = {
+    //   en: {
+    //     text: 'english',
+    //   },
+    //   cy: {
+    //     text: 'welsh',
+    //   },
+    // };
     //const userEmail = 'test@example.com';
     req = mockRequest({
       session: {
@@ -30,8 +30,8 @@ describe('RespondentConfirmContactDetailsGetController', () => {
       },
     });
     res = mockResponse();
-    const generateContent = content => languages[content.language];
-    controller = new RespondentConfirmContactDetailsGetController('page', generateContent);
+    //const generateContent = content => languages[content.language];
+    controller = new RespondentConfirmContactDetailsGetController();
   });
 
   test('should extend RespondentConfirmContactDetailsGetController', async () => {

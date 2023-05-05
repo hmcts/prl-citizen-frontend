@@ -10,8 +10,7 @@ const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseI
 let respondents;
 
 describe('InternationalFactorsPostController', () => {
-  let fields;
-  const internationalFactorsPostController = new InternationalFactorsPostController(fields);
+  const internationalFactorsPostController = new InternationalFactorsPostController();
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {

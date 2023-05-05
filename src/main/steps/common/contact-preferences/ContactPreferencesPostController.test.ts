@@ -10,8 +10,7 @@ const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseI
 let partyDetails;
 
 describe('ContactPreferencesPostController', () => {
-  let fields;
-  const controller = new ContactPreferencesPostController(fields);
+  const controller = new ContactPreferencesPostController();
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {
