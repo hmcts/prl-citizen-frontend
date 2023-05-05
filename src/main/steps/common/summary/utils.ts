@@ -58,6 +58,9 @@ export const summaryList = (
       if (key1 === 'startAlternative' && userCase[key1] !== 'undefined') {
         return getSelectedprivaedet;
       }
+      if (key1 === 'courtProceedingsOrders' && userCase[key1] !== 'undefined') {
+        return getOrdersDetail;
+      }
       return userkey;
     };
     const userkey = userCase[key];
@@ -67,9 +70,12 @@ export const summaryList = (
       value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : setkey(key)!,
       changeUrl: url,
     };
+    
     if (key !== 'citizenUserSafeToCall') {
       summaryData.push(row);
     }
+    
+    // if(key===emergencyOrderOptions)
   }
 
   return {
@@ -163,3 +169,18 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   tempDetails = tempDetails + '</ul>';
   return tempDetails;
 };
+export const getOrdersDetail = (userCase: Partial<CaseWithId>): string => {
+  let temp;
+  const value = userCase['courtProceedingsOrders'];
+  console.log(value)
+  if (value) {
+    for (const k of value) {
+      const keyLabel = k as string;
+      temp += keyLabel;
+      if (value.indexOf(k) !== value.length - 1) {
+        temp += ', ';
+      }
+    }
+};
+return temp
+}
