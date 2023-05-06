@@ -3,6 +3,7 @@ import { CaseType } from '../../app/case/definition';
 import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
 import {
+  ALLEGATION_OF_HARM_VOILENCE_DOC,
   APPLICANT,
   APPLICANT_ADDRESS_CONFIRMATION,
   APPLICANT_ADDRESS_DETAILS,
@@ -61,6 +62,7 @@ import {
   RESPONDENT_SAFEGUARDING_LETTER,
   RESPONDENT_SECTION37_REPORT,
   RESPONDENT_SECTION7_REPORT,
+  RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC,
   SAFETY_ARRANGEMENTS,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
@@ -491,6 +493,26 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: `${APPLICANT}${RESPONDENT_RISK_ASSESSMENT}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${ALLEGATION_OF_HARM_VOILENCE_DOC}`,
+  },
+  {
+    url: `${APPLICANT}${ALLEGATION_OF_HARM_VOILENCE_DOC}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC}`,
+  },
+  {
+    url: `${APPLICANT}${RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC}`,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
