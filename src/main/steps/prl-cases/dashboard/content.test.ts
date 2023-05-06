@@ -85,7 +85,7 @@ describe('Dashboard content', () => {
 
   test('should return correct welsh content', () => {
     const generatedContent = generateContent({ ...commonContent, language: 'cy' });
-    expect(generatedContent.title).toEqual('Child arrangements and family injunction cases - welsh');
+    expect(generatedContent.title).toEqual('Achosion trefniadau plant a gwaharddebau teulu');
   });
 
   test('should return the appropriate tab contents for caseView', () => {

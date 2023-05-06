@@ -10,7 +10,6 @@ const en = {
   two: 'No',
   line1:
     'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     start: {
@@ -26,7 +25,6 @@ const cy: typeof en = {
   two: 'No',
   line1:
     'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     start: {

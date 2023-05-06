@@ -39,22 +39,22 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Reasonable adjustments',
-  title: 'I need documents in an alternative format',
+  section: 'Addasiadau rhesymol',
+  title: 'Rwyf angen dogfennau mewn fformat amgen',
   courtcommunication:
-    'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
-  optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
-  docsprint: 'I need documents printed in a particular colour or font',
-  docsreadformat: 'Documents in an easy read format',
-  brailledocs: 'Braille documents',
-  largeprintdocs: 'Documents in large print',
-  docsaudio: 'Audio translation of documents',
-  readoutdocs: 'Documents read out to me',
-  emailInfo: 'Information emailed to me',
-  other: 'Other',
+    'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
+  optionHint: 'Dogfennau mewn lliw penodol',
+  summaryText: 'Cysylltiadau am gymorth',
+  docsprint: 'Dogfennau mewn lliw penodol',
+  docsreadformat: 'Dogfennau mewn fformat hawdd i’w darllen',
+  brailledocs: 'Dogfennau Braille',
+  largeprintdocs: 'Dogfennau mewn print bras',
+  docsaudio: 'Cyfieithiad sain o ddogfennau',
+  readoutdocs: 'Dogfennau yn cael eu darllen yn uchel i mi',
+  emailInfo: 'Gwybodaeth yn cael ei hanfon ataf drwy e-bost',
+  other: 'Arall',
   otherDetails: 'Describe what you need',
-  nosupport: 'I do not need any of this support at this time',
+  nosupport: 'Nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   continue: 'Continue',
   errors: {
     docsSupport: {

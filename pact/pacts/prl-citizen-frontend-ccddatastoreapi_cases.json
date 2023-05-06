@@ -29,6 +29,36 @@
           "token": "create-case-event-token"
         }
       }
+    },
+    {
+      "description": "a request to get cases",
+      "providerState": "prl-citizen-frontend makes request to get cases",
+      "request": {
+        "method": "GET",
+        "path": "/citizens/123456/jurisdictions/PRIVATELAW/case-types/PRLAPPS/cases",
+        "headers": {
+          "Authorization": "Bearer mock-user-access-token",
+          "ServiceAuthorization": "mock-service-auth-token",
+          "experimental": "true",
+          "Accept": "*/*",
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 201,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": [
+          {
+            "id": "45678",
+            "state": "Draft",
+            "case_data": {
+              "applyingWith": "alone"
+            }
+          }
+        ]
+      }
     }
   ],
   "metadata": {

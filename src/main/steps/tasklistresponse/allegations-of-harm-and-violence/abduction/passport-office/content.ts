@@ -20,7 +20,7 @@ export const en = () => ({
 export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
   title: 'Do any of the children have a passport? - welsh',
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   one: 'Yes - Welsh',
   two: 'No - Welsh',
   errors: {

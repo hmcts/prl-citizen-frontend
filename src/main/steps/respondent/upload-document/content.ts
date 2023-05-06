@@ -1,11 +1,12 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 
-import { document_list_en } from './section-titles';
+import { document_list_cy, document_list_en } from './section-titles';
 import { documents_list_items_cy, documents_list_items_en } from './upload-document-list-items';
 import { generateUploadDocumentList } from './upload-documents-list';
 
 const en = () => ({
   section: 'Upload documents',
+  caseNumber: 'Case Number #',
   title: 'Select the type of document',
   line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
   sectionTitles: document_list_en,
@@ -13,10 +14,11 @@ const en = () => ({
 });
 
 const cy = () => ({
-  section: 'Upload documents',
-  title: 'Select the type of document',
+  section: 'Llwytho dogfennau',
+  caseNumber: 'Rhif yr achos #',
+  title: 'Dewiswch y math o ddogfen',
   line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
-  sectionTitles: document_list_en,
+  sectionTitles: document_list_cy,
   documentsListItems: documents_list_items_cy,
 });
 

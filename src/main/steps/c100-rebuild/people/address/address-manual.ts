@@ -22,7 +22,7 @@ export const cy = () => ({
   country: 'Gwlad',
   postcode: 'Cod post',
   enterInternationalAddress: 'Nodwch gyfeiriad rhyngwladol',
-  explainNoLabel: 'nid wyf yn gwybod lle maen nhw’n byw ar hyn o bryd',
+  explainNoLabel: 'Nid wyf yn gwybod lle maen nhw’n byw ar hyn o bryd',
 });
 
 export const form = (caseData: Partial<C100RebuildPartyDetails>): FormContent => {

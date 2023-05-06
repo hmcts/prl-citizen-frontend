@@ -9,6 +9,7 @@ import { generateUploadDocumentList } from './upload-documents-list';
 
 const en = () => ({
   section: 'Upload documents',
+  caseNumber: 'Case Number #',
   title: 'Select the type of document',
   line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
   sectionTitles: document_list_en,
@@ -16,8 +17,9 @@ const en = () => ({
 });
 
 const cy = () => ({
-  section: 'Upload documents',
-  title: 'Select the type of document',
+  section: 'Llwytho dogfennau',
+  caseNumber: 'Rhif yr achos #',
+  title: 'Dewiswch y math o ddogfen',
   line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
   sectionTitles: document_list_en,
   documentsListItems: documents_list_items_cy,
