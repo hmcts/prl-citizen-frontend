@@ -76,9 +76,7 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     });
     /** Uncomment and add condition when Response to AOH document is implemeted for Applicant */
     userCase.applicants.forEach((applicant: Applicant) => {
-      if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
-        applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
-      }
+      applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
     });
     userCase.applicants.forEach((applicant: Applicant) => {
       applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, url));
@@ -262,12 +260,14 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
     userCase.respondents.forEach((respondent: Respondent) => {
       if (userCase.citizenResponseC7DocumentList) {
         respondentItems.push(getResponseToCA(respondent, taskListItems, userCase.citizenResponseC7DocumentList));
-      } else if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
-        respondentItems.push(getResponseToAohAndViolence(respondent, taskListItems, userCase));
-        respondentItems.push(getAohAndViolence(respondent, taskListItems));
       }
       respondentItems2.push(getRespondentPositionStatements(respondent, taskListItems, url));
       respondentItems2.push(getRespondentWitnessStatements(respondent, taskListItems, userCase, url));
+    });
+  } else if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
+    userCase.respondents.forEach((respondent: Respondent) => {
+      respondentItems.push(getResponseToAohAndViolence(respondent, taskListItems, userCase));
+      respondentItems.push(getAohAndViolence(respondent, taskListItems));
     });
   } else {
     respondentItems2.push(getRespondentPositionStatementsDA(userCase.respondentsFL401, taskListItems, url));
@@ -406,7 +406,7 @@ export const isDrugDocUploadedRespondent = (taskListItems, url, isDrugDocUploade
   }
 };
 
-const getUpdatedFlags = (doc, flags) => {
+export const getUpdatedFlags = (doc, flags) => {
   switch (doc.value.documentType) {
     case applicant_tasklist_items_all_docs_en.drug_alcohol_tests:
       flags.isDrugDocUploaded = true;

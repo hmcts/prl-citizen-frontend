@@ -46,3 +46,4 @@ idam-pr:
   redirect_uris:
     prl-citizen-frontend:
       - https://${SERVICE_FQDN}/receiver
+
