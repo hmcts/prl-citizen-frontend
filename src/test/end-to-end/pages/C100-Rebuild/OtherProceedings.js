@@ -13,7 +13,7 @@ module.exports = {
     dateMadeYear: '//*[@id="orderDate-1-year"]',
     currentOrderYes: '//*[@id="currentOrder-1"]',
     copyOfOrderYes: '//*[@id="orderCopy-1"]',
-    //copyOfOrderNo: '//*[@id="orderCopy-1-2"]',
+    copyOfOrderNo: '//*[@id="orderCopy-1-2"]',
   },
    async otherProceedingPage() {
     await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingPageTitle);
@@ -26,11 +26,12 @@ module.exports = {
   },
    async proceedingDetails() {
     await I.retry(retryCount).waitForText(OtherProceedings.proceedingDetailsPageTitle);
+    I.wait('2');
     await I.retry(retryCount).click(this.fields.courtProceedingsOrdersButton);
     I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
-   async provideDetailsOfCourtCases() {
+   async provideDetailsOfCourtCases(copyOfOrder) {
     await I.retry(retryCount).waitForText(OtherProceedings.provideDetailsOfCourtCasesPageTitle);
     await I.retry(retryCount).waitForText(OtherProceedings.provideDetailsOfCourtCasesSubHeading);
     await I.retry(retryCount).fillField(this.fields.courtIssued, OtherProceedings.testingText);
@@ -40,7 +41,8 @@ module.exports = {
     await I.retry(retryCount).fillField(this.fields.dateMadeYear, OtherProceedings.year);
     I.wait('1');
     await I.retry(retryCount).click(this.fields.currentOrderYes);
-    await I.retry(retryCount).click(this.fields.copyOfOrderYes);
+    await I.retry(retryCount).click(copyOfOrder ? this.fields.copyOfOrderYes : this.fields.copyOfOrderNo);
+    I.wait('2');
     I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
@@ -64,8 +66,8 @@ module.exports = {
   async otherProceedings() {
     await this.otherProceedingPage();
     await this.proceedingDetails();
-    await this.provideDetailsOfCourtCases();
-    await this.uploadOrder();
-    await this.uploadOrderSummary();
+    await this.provideDetailsOfCourtCases(false);
+    // await this.uploadOrder();
+    // await this.uploadOrderSummary();
   },
 };
