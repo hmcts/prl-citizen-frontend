@@ -100,6 +100,8 @@ const en = () => ({
       link: '#',
     },
   ],
+  addLegalRepresentative: 'Add a legal representative',
+  removeLegalRepresentative: 'Remove a legal representative',
 });
 
 const cy = () => ({
@@ -185,6 +187,8 @@ const cy = () => ({
       link: '#',
     },
   ],
+  addLegalRepresentative: 'Add a legal representative-welsh',
+  removeLegalRepresentative: 'Remove a legal representative-welsh',
 });
 
 const languages = {
@@ -205,10 +209,9 @@ export const generateContent: TranslationFn = content => {
   translations.applicantName = getApplicantName(applicant);
   const isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(applicant);
   translations.hyperlinks.forEach((hyperLink, index) => {
-    if (hyperLink.label.includes('Add a legal representative') && isRepresentedBySolicotor) {
+    if (hyperLink.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) {
       translations.hyperlinks.splice(index, 1);
-    }
-    if (hyperLink.label.includes('Remove a legal representative') && !isRepresentedBySolicotor) {
+    } else if (hyperLink.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor) {
       translations.hyperlinks.splice(index, 1);
     }
   });

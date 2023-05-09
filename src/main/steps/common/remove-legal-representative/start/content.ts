@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
+import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-const en = {
+export const en = {
   section: 'Remove my representative',
   continue: 'Continue',
   removeLegalRepresentativeInformationLine1:
@@ -19,7 +19,7 @@ const en = {
   },
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   section: 'Remove my representative - welsh',
   continue: 'Continue-welsh',
   removeLegalRepresentativeInformationLine1:
@@ -43,20 +43,18 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: () => {
-    return {
-      declarationCheck: {
-        type: 'checkboxes',
-        values: [
-          {
-            name: 'declarationCheck',
-            label: l => l.removelLegalRepresentativeInformationLine5,
-            value: 'declaration',
-          },
-        ],
-        validator: atLeastOneFieldIsChecked,
-      },
-    };
+  fields: {
+    declarationCheck: {
+      type: 'checkboxes',
+      validator: atLeastOneFieldIsChecked,
+      values: [
+        {
+          name: 'declarationCheck',
+          label: l => l.removelLegalRepresentativeInformationLine5,
+          value: 'declaration',
+        },
+      ],
+    },
   },
   onlyContinue: {
     text: l => l.continue,
@@ -67,6 +65,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   return {
     ...translations,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    form,
   };
 };

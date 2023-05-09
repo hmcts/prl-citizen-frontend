@@ -93,7 +93,7 @@ describe('add-legal-representative content', () => {
   });
 
   test('should contain continue button', () => {
-    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

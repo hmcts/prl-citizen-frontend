@@ -1,11 +1,22 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { generateContent as removeLegalRepresentativeContent } from '../../../common/remove-legal-representative/start/content';
+import { FormContent } from '../../../../app/form/Form';
+import { cy, en, form as formContents } from '../../../common/remove-legal-representative/start/content';
 
-export { form } from '../../../common/confirm-contact-details/addressdetails/content';
+export const form: FormContent = {
+  fields: formContents.fields,
+  submit: {
+    text: l => l.continue,
+  },
+};
 
+const languages = {
+  en,
+  cy,
+};
 export const generateContent: TranslationFn = content => {
-  const removeLegalRepresentativeGenerateContent = removeLegalRepresentativeContent(content);
+  const translations = languages[content.language];
   return {
-    ...removeLegalRepresentativeGenerateContent,
+    ...translations,
+    form,
   };
 };
