@@ -138,7 +138,6 @@ export const generateContent: TranslationFn = content => {
   const request = content.additionalData?.req;
   const caseData = request.session.userCase;
   const partyType = request.params.partyType;
-  console.log('request.params.partyType ==> ' + request.params.partyType);
   let isRepresentedBySolicotor = false;
   if (partyType === PartyType.APPLICANT) {
     const applicant = getApplicant(request.session.userCase, request.session.user.id);

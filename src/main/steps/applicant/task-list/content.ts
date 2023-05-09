@@ -231,7 +231,7 @@ export const generateContent: TranslationFn = content => {
 };
 
 export const getApplicant = (userCase: Partial<CaseWithId>, userId: string): PartyDetails | undefined => {
-  if (userCase.caseTypeOfApplication === 'C100') {
+  if ('C100' === userCase.caseTypeOfApplication) {
     const applicant = getApplicantPartyDetails(userCase, userId);
     return applicant?.value;
   } else {
