@@ -70,12 +70,11 @@ export const summaryList = (
       value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : setkey(key)!,
       changeUrl: url,
     };
-    
-    if (key !== 'citizenUserSafeToCall') {
-      summaryData.push(row);
+    if (row.value) {
+      if (key !== 'citizenUserSafeToCall') {
+        summaryData.push(row);
+      }
     }
-    
-    // if(key===emergencyOrderOptions)
   }
 
   return {
@@ -158,7 +157,6 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   let tempDetails = '<br/><br/><ul class="govuk-list govuk-list--bullet">';
   const contact_private_list = userCase['contactDetailsPrivate'];
   for (const key in contact_private_list) {
-    console.log(contact_private_list[key]);
     tempDetails =
       tempDetails +
       '<li>' +
@@ -170,9 +168,8 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   return tempDetails;
 };
 export const getOrdersDetail = (userCase: Partial<CaseWithId>): string => {
-  let temp;
+  let temp = '';
   const value = userCase['courtProceedingsOrders'];
-  console.log(value)
   if (value) {
     for (const k of value) {
       const keyLabel = k as string;
@@ -181,6 +178,6 @@ export const getOrdersDetail = (userCase: Partial<CaseWithId>): string => {
         temp += ', ';
       }
     }
+  }
+  return temp;
 };
-return temp
-}
