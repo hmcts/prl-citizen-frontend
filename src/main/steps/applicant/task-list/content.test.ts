@@ -239,13 +239,13 @@ describe('task-list > content', () => {
         },
         {
           items: [
-            null,
             {
-              href: '/applicant/yourdocuments/alldocuments/alldocuments',
-              id: 'view-all-documents',
-              status: SectionStatus.READY_TO_VIEW,
-              text: 'View all documents',
+              href: '/applicant/upload-document',
+              id: 'upload-document',
+              status: SectionStatus.TO_DO,
+              text: 'Upload documents',
             },
+            null,
           ],
           title: 'Your documents',
         },

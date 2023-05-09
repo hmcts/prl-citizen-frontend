@@ -69,7 +69,7 @@ export const generateApplicantTaskList = (
     {
       title: sectionTitles.yourDocuments,
       items: [
-        !isCaseClosed && !isRepresentedBySolicotor
+        !isRepresentedBySolicotor
           ? {
               id: 'upload-document',
               text: taskListItems.upload_document,
@@ -77,12 +77,14 @@ export const generateApplicantTaskList = (
               href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
             }
           : null,
-        {
-          id: 'view-all-documents',
-          text: taskListItems.view_all_documents,
-          status: getViewAllDocuments(),
-          href: URL.APPLICANT_VIEW_ALL_DOCUMENTS,
-        },
+        !isCaseClosed
+          ? {
+              id: 'view-all-documents',
+              text: taskListItems.view_all_documents,
+              status: getViewAllDocuments(),
+              href: URL.APPLICANT_VIEW_ALL_DOCUMENTS,
+            }
+          : null,
       ],
     },
     {
