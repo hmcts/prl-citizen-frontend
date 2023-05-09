@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 
-import { mapMIAMRequest, prepareMIAMRequest } from './MIAMMapper';
+import { mapMIAMDetails, prepareMIAMRequest } from './MIAMMapper';
 
 let respondents;
 
@@ -82,9 +82,11 @@ describe('MIAMMapper', () => {
       },
     };
     respondents[0].value.response = response;
-    expect(mapMIAMRequest(respondents[0]).miamStart).toEqual('No');
-    expect(mapMIAMRequest(respondents[0]).miamWillingness).toEqual(null);
-    expect(mapMIAMRequest(respondents[0]).miamNotWillingExplnation).toEqual('');
+    const miam = mapMIAMDetails(respondents[0].value);
+
+    expect(miam.miamStart).toEqual('No');
+    expect(miam.miamWillingness).toEqual(null);
+    expect(miam.miamNotWillingExplnation).toEqual('');
   });
 
   test('Should getMIAM miamStart No miamWillingness Yes', async () => {
@@ -97,9 +99,11 @@ describe('MIAMMapper', () => {
       },
     };
     respondents[0].value.response = response;
-    expect(mapMIAMRequest(respondents[0]).miamStart).toEqual('No');
-    expect(mapMIAMRequest(respondents[0]).miamWillingness).toEqual('Yes');
-    expect(mapMIAMRequest(respondents[0]).miamNotWillingExplnation).toEqual('');
+    const miam = mapMIAMDetails(respondents[0].value);
+
+    expect(miam.miamStart).toEqual('No');
+    expect(miam.miamWillingness).toEqual('Yes');
+    expect(miam.miamNotWillingExplnation).toEqual('');
   });
 
   test('Should getMIAM miamStart No miamWillingness No miamNotWillingExplnation Yes', async () => {
@@ -112,9 +116,9 @@ describe('MIAMMapper', () => {
       },
     };
     respondents[0].value.response = response;
-    respondents[0].value.response = response;
-    expect(mapMIAMRequest(respondents[0]).miamStart).toEqual('No');
-    expect(mapMIAMRequest(respondents[0]).miamWillingness).toEqual('No');
-    expect(mapMIAMRequest(respondents[0]).miamNotWillingExplnation).toEqual('dummyValue');
+    const miam = mapMIAMDetails(respondents[0].value);
+    expect(miam.miamStart).toEqual('No');
+    expect(miam.miamWillingness).toEqual('No');
+    expect(miam.miamNotWillingExplnation).toEqual('dummyValue');
   });
 });
