@@ -8,7 +8,11 @@ import {
   SummaryListContent,
   SummaryListRow,
 } from '../../../../steps/c100-rebuild/check-your-answers/lib/lib';
-import { SupportYouNeedAllEnum } from '../../../../steps/respondent/support-you-need-during-case/summary/content';
+import {
+  SupportYouNeedAllEnum,
+  cyContent,
+  enContent,
+} from '../../../../steps/respondent/support-you-need-during-case/summary/content';
 
 const getSectionSummaryList = (
   rows: SummaryListRow[],
@@ -27,7 +31,7 @@ const getSectionSummaryList = (
               items: [
                 {
                   href: changeUrl,
-                  text: language === 'en' ? 'Edit' : 'Edit-welsh',
+                  text: language === 'en' ? enContent.edit : cyContent.edit,
                   visuallyHiddenText: `${item.key}`,
                 },
               ],

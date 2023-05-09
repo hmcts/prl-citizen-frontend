@@ -16,6 +16,7 @@ export const enContent = {
   sectionTitles: {
     aboutYou: 'About you',
   },
+  edit: 'Edit',
   keys: {
     attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
     hearingDetails: 'Please provide the details',
@@ -55,6 +56,7 @@ export const cyContent: typeof enContent = {
   sectionTitles: {
     aboutYou: 'About you -welsh',
   },
+  edit: 'Edit -welsh',
   keys: {
     attendingToCourt: 'Would you be able to take part in hearings by video and phone? -welsh',
     hearingDetails: 'Please provide the details -welsh',
