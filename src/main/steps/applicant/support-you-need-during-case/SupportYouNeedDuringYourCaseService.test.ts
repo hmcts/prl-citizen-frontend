@@ -247,8 +247,8 @@ describe('prepareRequest', () => {
 
 describe('mapSupportYouNeedDetails', () => {
   test('mapSupportYouNeedDetails returns an empty object if respondent argument does not have a value property', () => {
-    const respondent = {};
-    const result = mapSupportYouNeedDetails(respondent as Respondent);
+    const respondent = {} as Respondent;
+    const result = mapSupportYouNeedDetails(respondent.value);
     expect(result).toEqual({});
   });
 
@@ -375,7 +375,7 @@ describe('mapSupportYouNeedDetails', () => {
       differentChairDetails: 'test details',
     };
 
-    const result = mapSupportYouNeedDetails(respondent);
+    const result = mapSupportYouNeedDetails(respondent.value);
     expect(result).toEqual(expectedResult);
   });
 });

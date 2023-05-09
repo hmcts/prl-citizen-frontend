@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { CitizenInternationalElements, Respondent, YesOrNo } from '../../../app/case/definition';
+import { CitizenInternationalElements, PartyDetails, YesOrNo } from '../../../app/case/definition';
 
 export const prepareInternationalFactorsRequest = (caseData: CaseWithId): CitizenInternationalElements => {
   const internationalElementsRequest: CitizenInternationalElements = {};
@@ -44,7 +44,7 @@ export const prepareInternationalFactorsRequest = (caseData: CaseWithId): Citize
   return internationalElementsRequest;
 };
 
-export const mapInternationalFactorsDetails = (respondent: Respondent): Partial<CaseWithId> => {
+export const mapInternationalFactorsDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
   const internationalFactorDetails = {};
   const {
     childrenLiveOutsideOfEnWl,
@@ -55,7 +55,7 @@ export const mapInternationalFactorsDetails = (respondent: Respondent): Partial<
     anotherPersonOrderOutsideEnWlDetails,
     anotherCountryAskedInformation,
     anotherCountryAskedInformationDetaails,
-  } = respondent?.value?.response?.citizenInternationalElements ?? {};
+  } = partyDetails?.response?.citizenInternationalElements ?? {};
 
   Object.assign(internationalFactorDetails, {
     start: childrenLiveOutsideOfEnWl,
