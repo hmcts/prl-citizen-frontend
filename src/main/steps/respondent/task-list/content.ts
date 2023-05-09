@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { Banner, PartyDetails, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Banner, CaseType, PartyDetails, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
@@ -370,11 +370,11 @@ export const generateContent: TranslationFn = content => {
 };
 
 export const getRespondent = (userCase: Partial<CaseWithId>, userId: string): PartyDetails | undefined => {
-  if (userCase.caseTypeOfApplication === 'C100') {
+  if (userCase && userCase.caseTypeOfApplication === CaseType.C100) {
     const respondent = getRespondentPartyDetailsCa(userCase, userId);
     return respondent?.value;
   } else {
-    return userCase.respondentsFL401;
+    return userCase?.respondentsFL401;
   }
 };
 
