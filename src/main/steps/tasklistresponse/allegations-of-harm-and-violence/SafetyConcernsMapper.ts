@@ -3,7 +3,7 @@ import {
   PRL_C1AAbuseTypes,
   PRL_C1ASafteyConcernsAbout,
   PRL_C1ASafteyConcerns_total,
-  Respondent,
+  PartyDetails,
   YesOrNo,
 } from '../../../app/case/definition';
 
@@ -139,7 +139,7 @@ export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_tota
   return request;
 };
 
-export const mapSafetyConcernsDetails = (respondent: Respondent): Partial<CaseWithId> => {
+export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
   const safetyConcenrs = {};
   const {
     haveSafetyConcerns,
@@ -149,7 +149,7 @@ export const mapSafetyConcernsDetails = (respondent: Respondent): Partial<CaseWi
     otherconcerns,
     abductions,
     ...rest
-  } = respondent?.value?.response?.safetyConcerns ?? {};
+  } = partyDetails?.response?.safetyConcerns ?? {};
 
   if (rest?.child) {
     rest.child = Object.entries(rest.child).reduce((childConcerns, [abuseType, data]) => {

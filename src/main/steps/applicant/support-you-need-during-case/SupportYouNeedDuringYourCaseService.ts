@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../app/case/case';
-import { ReasonableAdjustmentsSupport, Respondent } from '../../../app/case/definition';
+import { PartyDetails, ReasonableAdjustmentsSupport } from '../../../app/case/definition';
 import {
   ANIMAL,
   APPROPRIATE_LIGHTING,
@@ -193,7 +193,7 @@ export const prepareRequest = (userCase: CaseWithId): ReasonableAdjustmentsSuppo
   return request;
 };
 
-export const mapSupportYouNeedDetails = (respondent: Respondent): Partial<CaseWithId> => {
+export const mapSupportYouNeedDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
   const supportYouNeed = {};
   const {
     helpCommunication,
@@ -223,7 +223,7 @@ export const mapSupportYouNeedDetails = (respondent: Respondent): Partial<CaseWi
     parkingDetails,
     differentChairDetails,
     languageDetails,
-  } = respondent?.value?.response?.supportYouNeed ?? {};
+  } = partyDetails?.response?.supportYouNeed ?? {};
 
   Object.assign(supportYouNeed, {
     helpCommunication,

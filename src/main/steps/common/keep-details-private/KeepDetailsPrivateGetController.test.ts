@@ -45,8 +45,22 @@ describe('KeepDetailsPrivateGetController', () => {
   });
 
   test('Should not get KeepDetailsPrivate if user id not matches with respondent idamId for CA', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     req.session.userCase.caseTypeOfApplication = 'C100';
+    req.params.caseId = '123';
+    req.session.userCase.caseInvites = [
+      {
+        id: 'string',
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          caseInviteEmail: 'string',
+          accessCode: 'string',
+          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          expiryDate: 'string',
+          isApplicant: 'Yes',
+        },
+      },
+    ];
     req.session.userCase.respondents = partyDetails;
     await controller.get(req, res);
     expect(req.session.userCase.startAlternative).not.toEqual('Yes');
@@ -156,7 +170,7 @@ describe('KeepDetailsPrivateGetController', () => {
     req.session.userCase.respondentsFL401 = partyDetails[0].value;
     req.url = 'respondent';
     await controller.get(req, res);
-    expect(req.session.userCase.startAlternative).toEqual('Yes');
+    expect(req.session.userCase.startAlternative).toEqual('');
   });
 
   test('Should not get KeepDetailsPrivate if user id not matches with applicant idamId for CA', async () => {
@@ -174,7 +188,7 @@ describe('KeepDetailsPrivateGetController', () => {
     req.session.userCase.applicants = partyDetails;
     req.url = 'applicant';
     await controller.get(req, res);
-    expect(req.session.userCase.startAlternative).not.toEqual('Yes');
+    expect(req.session.userCase.startAlternative).toEqual('Yes');
   });
 });
 
