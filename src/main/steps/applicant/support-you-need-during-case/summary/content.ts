@@ -14,7 +14,7 @@ import {
   SAFETY_ARRANGEMENTS,
   TRAVELLING_TO_COURT,
 } from '../../../../../main/steps/urls';
-import { LANGUAGE_INTERPRETER, NO_HEARINGS } from '../../../../steps/constants';
+import { LANGUAGE_INTERPRETER, NO_HEARINGS, NO_INTERPRETER, NO_SUPPORT, OTHER } from '../../../../steps/constants';
 
 export const enContent = {
   section: 'Check your answers',
@@ -258,11 +258,11 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
   if (!userCase?.languageRequirements?.includes(LANGUAGE_INTERPRETER)) {
     userCase.languageDetails = '';
   }
-  if (!userCase?.safetyArrangements?.includes('other')) {
+  if (!userCase?.safetyArrangements?.includes(OTHER)) {
     userCase.safetyArrangementsDetails = '';
   }
 
-  if (userCase.reasonableAdjustments?.includes('nosupport')) {
+  if (userCase.reasonableAdjustments?.includes(NO_SUPPORT)) {
     //delete all fields //
     deleteLanguageRequirementsFields(userCase);
     deleteDocsSupportFields(userCase);
@@ -273,31 +273,31 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     deleteSafetyArrangementsFields(userCase);
   }
 
-  if (userCase.languageRequirements?.includes('nointerpreter')) {
+  if (userCase.languageRequirements?.includes(NO_INTERPRETER)) {
     deleteLanguageRequirementsFields(userCase);
   }
 
-  if (userCase.docsSupport?.includes('nosupport')) {
+  if (userCase.docsSupport?.includes(NO_SUPPORT)) {
     deleteDocsSupportFields(userCase);
   }
 
-  if (userCase.helpCommunication?.includes('nosupport')) {
+  if (userCase.helpCommunication?.includes(NO_SUPPORT)) {
     deleteHelpCommunicationFields(userCase);
   }
 
-  if (userCase.courtHearing?.includes('nosupport')) {
+  if (userCase.courtHearing?.includes(NO_SUPPORT)) {
     deleteCourtHearingFields(userCase);
   }
 
-  if (userCase.courtComfort?.includes('nosupport')) {
+  if (userCase.courtComfort?.includes(NO_SUPPORT)) {
     deleteCourtComfortFields(userCase);
   }
 
-  if (userCase.travellingToCourt?.includes('nosupport')) {
+  if (userCase.travellingToCourt?.includes(NO_SUPPORT)) {
     deleteTravellingToCourtFields(userCase);
   }
 
-  if (userCase.safetyArrangements?.includes('nosupport')) {
+  if (userCase.safetyArrangements?.includes(NO_SUPPORT)) {
     deleteSafetyArrangementsFields(userCase);
   }
 }

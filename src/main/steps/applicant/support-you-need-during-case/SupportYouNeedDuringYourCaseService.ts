@@ -92,7 +92,7 @@ export const prepareRequest = (userCase: CaseWithId): ReasonableAdjustmentsSuppo
     delete request.languageDetails;
   }
 
-  if (!safetyArrangements?.includes('other')) {
+  if (!safetyArrangements?.includes(OTHER)) {
     delete request.safetyArrangementsDetails;
   }
 
