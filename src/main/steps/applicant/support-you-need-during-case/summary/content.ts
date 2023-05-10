@@ -4,6 +4,7 @@ import { FormContent } from '../../../../../main/app/form/Form';
 import { CommonContent } from '../../../../../main/steps/common/common.content';
 import { summaryList } from '../../../../../main/steps/common/support-you-need-during-case/summary/utils';
 import {
+  CA_DA_ATTENDING_THE_COURT,
   COMMUNICATION_HELP,
   COURT_HEARING_COMFORT,
   COURT_HEARING_SUPPORT,
@@ -13,6 +14,7 @@ import {
   SAFETY_ARRANGEMENTS,
   TRAVELLING_TO_COURT,
 } from '../../../../../main/steps/urls';
+import { LANGUAGE_INTERPRETER, NO_HEARINGS } from '../../../../steps/constants';
 
 export const enContent = {
   section: 'Check your answers',
@@ -21,6 +23,8 @@ export const enContent = {
     aboutYou: 'About you',
   },
   keys: {
+    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
+    hearingDetails: 'Please provide the details',
     languageRequirements: 'Do you have any language requirements?',
     languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     reasonableAdjustments:
@@ -88,6 +92,8 @@ const cyContent: typeof enContent = {
   },
 
   keys: {
+    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
+    hearingDetails: 'Please provide the details',
     languageRequirements: 'Do you have any language requirements?',
     languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     reasonableAdjustments:
@@ -136,6 +142,8 @@ const cyContent: typeof enContent = {
 };
 
 const urls = {
+  attendingToCourt: CA_DA_ATTENDING_THE_COURT,
+  hearingDetails: CA_DA_ATTENDING_THE_COURT,
   languageRequirements: LANGUAGE_REQUIREMENTS,
   languageDetails: LANGUAGE_REQUIREMENTS,
   reasonableAdjustments: REASONABLE_ADJUSTMENTS,
@@ -242,6 +250,16 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
       travellingToCourt: 'I need help travelling to, or moving around court buildings - welsh',
       travellingOtherDetails: 'Describe what you need - welsh',
     });
+  }
+  if (!userCase?.attendingToCourt?.includes(NO_HEARINGS)) {
+    userCase.hearingDetails = '';
+  }
+
+  if (!userCase?.languageRequirements?.includes(LANGUAGE_INTERPRETER)) {
+    userCase.languageDetails = '';
+  }
+  if (!userCase?.safetyArrangements?.includes('other')) {
+    userCase.safetyArrangementsDetails = '';
   }
 
   if (userCase.reasonableAdjustments?.includes('nosupport')) {

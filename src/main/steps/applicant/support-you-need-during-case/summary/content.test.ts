@@ -11,6 +11,8 @@ const en = {
     aboutYou: 'About you',
   },
   keys: {
+    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
+    hearingDetails: 'Please provide the details',
     languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     languageRequirements: 'Do you have any language requirements?',
     reasonableAdjustments:
@@ -65,6 +67,8 @@ const cy: typeof en = {
     aboutYou: 'About you',
   },
   keys: {
+    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
+    hearingDetails: 'Please provide the details',
     languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     languageRequirements: 'Do you have any language requirements?',
     reasonableAdjustments:
