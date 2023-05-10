@@ -4,16 +4,12 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { TSDraftController } from '../../app/testingsupport/TSDraftController';
 import { HOME_URL } from '../../steps/urls';
-import { FormContent } from '../form/Form';
 
 jest.mock('axios');
 config.get = jest.fn();
 
 describe('TSDraftController', () => {
-  const mockFormContent = {
-    fields: {},
-  } as unknown as FormContent;
-  const controller = new TSDraftController(mockFormContent.fields);
+  const controller = new TSDraftController();
   const req = mockRequest();
   const res = mockResponse();
   test('Should create instance of TSDraftController', async () => {

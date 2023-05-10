@@ -5,17 +5,12 @@ import { C100_CHECK_YOUR_ANSWER, HOME_URL } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
 import { C100_CASE_EVENT } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
-import { AnyObject, PostController } from '../controller/PostController';
-import { FormFields, FormFieldsFn } from '../form/Form';
+import { AnyObject } from '../controller/PostController';
 
 @autobind
-export class TSDraftController extends PostController<AnyObject> {
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {
-    super(fields);
-  }
-
+export class TSDraftController {
   public async post(req: AppRequest, res: Response): Promise<void> {
-    this.redirect(req, res, HOME_URL);
+    res.redirect(HOME_URL);
   }
 
   public async createTSC100Draft(req: AppRequest<AnyObject>, res: Response): Promise<void> {

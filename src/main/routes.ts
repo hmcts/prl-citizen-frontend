@@ -166,6 +166,11 @@ export class Routes {
     app.get(C100_RETRIVE_CASE, errorHandler(new GetCaseController().getC100ApplicantCase));
     app.get(C100_DOWNLOAD_APPLICATION, errorHandler(new ApplicationDownloadController().download));
 
+    const tsDraftController = new TSDraftController();
+    app.post(CREATE_DRAFT, errorHandler(tsDraftController.post));
+    app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(tsDraftController.createTSC100Draft));
+    app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(tsDraftController.deleteTSC100Draft));
+
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
       const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
@@ -228,11 +233,6 @@ export class Routes {
           this.routeGuard.bind(this, step, 'post'),
           errorHandler(new postController(step.form.fields).post)
         );
-
-        const tsDraftController = new TSDraftController(step.form.fields);
-        app.post(CREATE_DRAFT, errorHandler(tsDraftController.post));
-        app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(tsDraftController.createTSC100Draft));
-        app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(tsDraftController.deleteTSC100Draft));
 
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
