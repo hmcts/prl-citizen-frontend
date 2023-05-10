@@ -1,4 +1,3 @@
-
 /* eslint-disable object-shorthand */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */

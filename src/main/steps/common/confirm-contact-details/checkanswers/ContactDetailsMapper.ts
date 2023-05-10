@@ -9,7 +9,6 @@ import { getFormattedDate } from '../../../common/summary/utils';
 export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
   const request: Partial<PartyDetails> = {};
 
-
   const {
     citizenUserFirstNames,
     citizenUserLastNames,
