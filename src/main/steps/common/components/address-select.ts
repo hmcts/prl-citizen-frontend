@@ -23,12 +23,12 @@ const en = content => {
 
 const cy = content => {
   return {
-    postcode: 'Current postcode (in welsh)',
-    citizenUserSelectAddress: 'Select an address (in welsh)',
-    cannotFindAddress: 'I cannot find the address in the list (in welsh)',
+    postcode: 'Cod post cyfredol',
+    citizenUserSelectAddress: 'Dewiswch gyfeiriad',
+    cannotFindAddress: 'Ni allaf ddod o hyd i’r cyfeiriad yn y rhestr',
     errors: {
       citizenUserSelectAddress: {
-        notSelected: 'Select an address (in welsh)',
+        notSelected: 'Dewiswch gyfeiriad',
       },
     },
     options: getAddress('cy', content.addresses),

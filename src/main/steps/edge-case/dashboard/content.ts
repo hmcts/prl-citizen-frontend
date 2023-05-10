@@ -3,11 +3,23 @@ import { TranslationFn } from '../../../app/controller/GetController';
 const en = () => ({
   title: 'Welcome to Citizen dashboard',
   paymentError: '',
+  applicant: 'DA Applicant',
+  respondent: 'CA DA Respondent',
+  c100: 'C100 Application',
+  pay: 'Pay Now ',
+  errorTitle: 'There is a problem',
+  paymentErrorText: 'The payment has been unsuccessful',
 });
 
 const cy = () => ({
   title: 'Welcome to Citizen dashboard(welsh)',
   paymentError: '',
+  applicant: 'DA Applicant (welsh)',
+  respondent: 'CA DA Respondent (welsh)',
+  c100: 'C100 Application (welsh)',
+  pay: 'Pay Now  (welsh)',
+  errorTitle: 'There is a problem (welsh)',
+  paymentErrorText: 'The payment has been unsuccessful (welsh)',
 });
 
 const languages = {

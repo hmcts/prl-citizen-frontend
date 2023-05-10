@@ -83,3 +83,4 @@ export const ANIMAL = 'animal';
 export const APPROPRIATE_LIGHTING = 'appropriatelighting';
 export const PARKING_SPACE = 'parkingspace';
 export const DIFFERENT_CHAIR = 'differentchair';
+

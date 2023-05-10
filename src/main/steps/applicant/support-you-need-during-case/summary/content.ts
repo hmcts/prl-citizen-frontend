@@ -22,7 +22,7 @@ export const enContent = {
   },
   keys: {
     languageRequirements: 'Do you have any language requirements?',
-    languageDetails: 'Give details of the language you require (including dialect, if applicable)',
+    // languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
     safetyArrangements: 'Do you or the children need special safety arrangements at court?',
@@ -81,18 +81,18 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
-  title: 'Your hearing needs and requirements',
+  section: 'Gwirio eich atebion',
+  title: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
-    aboutYou: 'About you',
+    aboutYou: 'Amdanoch chi',
   },
 
   keys: {
-    languageRequirements: 'Do you have any language requirements?',
-    languageDetails: 'Give details of the language you require (including dialect, if applicable)',
+    languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+    // languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     reasonableAdjustments:
-      'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-    safetyArrangements: 'Do you or the children need special safety arrangements at court?',
+      'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+    safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
     safetyArrangementsDetails: 'Describe what you need',
   },
   dependencies: {
@@ -137,7 +137,7 @@ const cyContent: typeof enContent = {
 
 const urls = {
   languageRequirements: LANGUAGE_REQUIREMENTS,
-  languageDetails: LANGUAGE_REQUIREMENTS,
+  // languageDetails: LANGUAGE_REQUIREMENTS,
   reasonableAdjustments: REASONABLE_ADJUSTMENTS,
   safetyArrangements: SAFETY_ARRANGEMENTS,
   safetyArrangementsDetails: SAFETY_ARRANGEMENTS,
@@ -185,6 +185,13 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     Object.assign(cyContent.keys, {
       docsSupport: 'I need documents in an alternative format - welsh',
       otherDetails: 'Describe what you need - welsh',
+    });
+  }
+
+  if (userCase.languageRequirements?.includes('languageinterpreter')) {
+    Object.assign(urls, { languageDetails: LANGUAGE_REQUIREMENTS });
+    Object.assign(enContent.keys, {
+      languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     });
   }
 
@@ -246,7 +253,7 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
 
   if (userCase.reasonableAdjustments?.includes('nosupport')) {
     //delete all fields //
-    deleteLanguageRequirementsFields(userCase);
+    //deleteLanguageRequirementsFields(userCase);
     deleteDocsSupportFields(userCase);
     deleteHelpCommunicationFields(userCase);
     deleteCourtHearingFields(userCase);

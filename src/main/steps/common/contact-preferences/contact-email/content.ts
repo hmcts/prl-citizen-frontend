@@ -12,6 +12,9 @@ export const en = () => ({
   text: 'You have decided to receive updates by email. You will still receive some information by post.',
   continue: 'Submit',
   warningText: 'Make sure that your contact details are up to date.',
+  email: 'Email',
+  change: 'Change',
+  nameText: 'name',
 });
 
 export const cy = () => ({
@@ -21,6 +24,9 @@ export const cy = () => ({
   text: 'You have decided to receive updates by email. You will still receive some information by post. - welsh',
   continue: 'Submit - welsh',
   warningText: 'Make sure that your contact details are up to date. -welsh',
+  email: 'E-bost',
+  change: 'Change (welsh)',
+  nameText: 'name (welsh)',
 });
 
 const languages = {

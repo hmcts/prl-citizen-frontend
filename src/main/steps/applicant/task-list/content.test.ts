@@ -9,6 +9,12 @@ import { applicant_tasklist_items_en } from './tasklist-items';
 
 const enContent = {
   title: 'Applicant tasklist',
+  caseNumber: 'Case number  ',
+  iWant: 'I want to...',
+  findCourt: 'Find my local court',
+  legalAdvice: 'Find legal advice',
+  childArrangements: 'Know more about child arrangements',
+  attendingCourt: 'Know more about attending court',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -22,13 +28,19 @@ const enContent = {
 };
 const cyContent = {
   title: 'Applicant tasklist',
+  caseNumber: 'Rhif yr achos ',
+  iWant: 'I want to... (welsh)',
+  findCourt: 'Find my local court (welsh)',
+  legalAdvice: 'Find legal advice (welsh)',
+  childArrangements: 'Know more about child arrangements (welsh)',
+  attendingCourt: 'Know more about attending court (welsh)',
   statuses: {
-    [SectionStatus.COMPLETED]: 'Wedi cwblhau',
+    [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'I WNEUD',
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
-    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
-    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,

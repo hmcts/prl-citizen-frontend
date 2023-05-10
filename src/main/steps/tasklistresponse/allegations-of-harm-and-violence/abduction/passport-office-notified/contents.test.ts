@@ -22,7 +22,7 @@ const en = {
 
 const cy = {
   serviceName: 'Child arrangements - welsh',
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   title: 'Has the passport office been notified? - welsh',
   Yes: 'Yes - welsh',
   No: 'No - welsh',

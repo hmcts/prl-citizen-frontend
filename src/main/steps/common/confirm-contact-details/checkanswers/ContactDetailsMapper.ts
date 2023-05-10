@@ -9,6 +9,7 @@ import { getFormattedDate } from '../../../common/summary/utils';
 export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
   const request: Partial<PartyDetails> = {};
 
+
   const {
     citizenUserFirstNames,
     citizenUserLastNames,
@@ -53,6 +54,7 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
   if (!request.response!.safeToCallOption) {
     delete request.response!.safeToCallOption;
   }
+
   if (isAtAddressLessThan5Years === YesOrNo.YES) {
     request.addressLivedLessThan5YearsDetails = '';
   }
@@ -130,6 +132,7 @@ export function setAddressFields(req: AppRequest): Partial<CaseWithId> {
         req.session.userCase.citizenUserAddressText + req.session.userCase.citizenUserAddressPostcode;
     }
   }
+
   if (req.session.userCase.isAtAddressLessThan5Years === YesOrNo.YES) {
     req.session.userCase.citizenUserAddressHistory = '';
   }

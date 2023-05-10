@@ -4,3 +4,9 @@ export const document_list_en = {
   expert_reports: 'Expert reports',
   other_documents: 'Other documents',
 };
+export const document_list_cy = {
+  witness_statements_and_evidence: 'Datganiadau tyst a thystiolaeth',
+  applications: 'Ceisiadau',
+  expert_reports: 'Adroddiadau arbenigwyr',
+  other_documents: 'Dogfennau eraill',
+};

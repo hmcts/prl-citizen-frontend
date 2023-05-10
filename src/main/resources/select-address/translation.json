@@ -19,7 +19,7 @@
         },
         "cy": {
             "citizenUserSelectAddress": {
-                "notSelected": "Select an address (in welsh)"
+                "notSelected": "Dewiswch gyfeiriad"
             }
         }
     }

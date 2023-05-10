@@ -10,7 +10,6 @@ const en = {
   two: 'No',
   twoHint:
     'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     request: {
@@ -25,12 +24,11 @@ const en = {
 
 const cy: typeof en = {
   section: ' ',
-  title: 'Has another country asked (or been asked) for information or help for the children?',
-  one: 'Yes',
-  two: 'No',
+  title: "A oes gwlad arall wedi gofyn (neu wedi cael cais) am wybodaeth neu gymorth i'r plant?",
+  one: 'Oes',
+  two: 'Nac oes',
   twoHint:
-    'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
-  summaryText: 'Contacts for help',
+    'Gall fod pryderon amddiffyn plant, cymorth ar gyfer llys gyda chais am achos arall, angen gorfodi gorchymyn dramor, neu bod ymdrechion yn cael eu gwneud i ddychwelyd y plant i Gymru neu Loegr.',
   continue: 'Continue',
   errors: {
     request: {

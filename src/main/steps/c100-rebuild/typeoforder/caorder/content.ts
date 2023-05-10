@@ -36,10 +36,10 @@ const en = () => ({
 const cy = () => ({
   title: "Beth ydych chi'n gofyn i'r llys ei wneud",
   singlechildTitle: 'Rydych am i’r llys:',
-  childOption1: 'Benderfynu gyda phwy y bydd y plant yn byw a phryd',
+  childOption1: 'Penderfynu gyda phwy y bydd y plant yn byw a phryd',
   childOption2: 'Benderfynu faint o amser y bydd y plant yn ei dreulio gyda phob unigolyn',
   childSecondary: 'Gelwir hyn yn Orchymyn Trefniadau Plant.',
-  stepsOrderTitle: 'You would like the court to stop the other people in the application: - welsh',
+  stepsOrderTitle: "Rydych am i'r llys atal y bobl eraill yn y cais rhag:",
   issueOrderTitle: "Rydych am i'r llys ddatrys mater penodol ynglŷn â:",
   stepsOrderSecondary: 'Gelwir hyn yn Orchymyn Camau Gwaharddedig.',
   issueOrderSecondary: 'Gelwir hyn yn Orchymyn Materion Penodol.',
