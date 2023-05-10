@@ -3,7 +3,7 @@ import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
-import { document_list_en } from './section-titles';
+import { document_list_cy, document_list_en } from './section-titles';
 import { documents_list_items_cy, documents_list_items_en } from './upload-document-list-items';
 const enContent = {
   // title: 'Select the type of document',
@@ -37,11 +37,11 @@ const enContent = {
 };
 const cyContent = {
   // title: 'Select the type of document',
-  section: 'Upload documents',
+  section: 'Llwytho dogfennau',
   title: 'Dewiswch y math o ddogfen',
   userName: '',
   line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
-  sectionTitles: document_list_en,
+  sectionTitles: document_list_cy,
   documentsListItems: documents_list_items_cy,
   // sectionTitles: {
   //   witness_statements_and_evidence: 'Witness statements and evidence',
