@@ -33,7 +33,7 @@ export const getSectionSummaryList = (
               items: [
                 {
                   href: changeUrl,
-                  text: language === 'en' ? 'Edit' : 'Edit-welsh',
+                  text: language === 'en' ? 'Edit' : 'Golygu',
                   visuallyHiddenText: `${item.key}`,
                 },
               ],

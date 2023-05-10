@@ -23,6 +23,7 @@ export const enContent = {
     citizenUserEmailAddressText: 'Email',
     citizenUserSafeToCall: 'When it is safe to call you (optional)',
   },
+  completeSection: 'Complete this section',
   errors: {},
 };
 
@@ -45,25 +46,26 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your details (Welsh)',
+  section: 'Gwiriwch eich manylion cyswllt',
   title: 'Read the information to make sure it is correct, and add any missing details (Welsh)',
   contactdetailpriv:
-    'if you do not want to share your contact details with the other person in the case,update the section - welsh',
-  contactdetailprivlinktext: 'keeping your contact details private - welsh',
+    'Os nad ydych eisiau rhannu eich manylion cyswllt gyda’r unigolyn arall yn yr achos, diweddarwch yr adran',
+  contactdetailprivlinktext: 'Cadw eich manylion cyswllt yn breifat',
   link: '',
   sectionTitles: {
     applicationDetails: 'Manylion y cais',
   },
   keys: {
-    citizenUserFullName: 'Name',
-    citizenUserDateOfBirthText: 'Date of birth',
-    citizenUserPlaceOfBirthText: 'Place of birth',
-    citizenUserAddressText: 'Address',
-    citizenUserAddressHistory: 'Address history',
-    citizenUserPhoneNumberText: 'Phone number',
-    citizenUserEmailAddressText: 'Email',
+    citizenUserFullName: 'Enw',
+    citizenUserDateOfBirthText: 'Dyddiad geni',
+    citizenUserPlaceOfBirthText: 'Lleoliad geni',
+    citizenUserAddressText: 'Cyfeiriad',
+    citizenUserAddressHistory: 'Hanes cyfeiriad',
+    citizenUserPhoneNumberText: 'Rhif ffôn',
+    citizenUserEmailAddressText: 'Cyfeiriad e-bost',
     citizenUserSafeToCall: 'When it is safe to call you (optional)',
   },
+  completeSection: 'Complete this section (welsh)',
   errors: {},
 };
 
