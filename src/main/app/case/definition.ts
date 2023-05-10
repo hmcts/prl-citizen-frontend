@@ -1628,6 +1628,19 @@ export const enum ApplyingWith {
   WITH_SOME_ONE_ELSE = 'withSomeoneElse',
 }
 
+export const enum EventRoutes {
+  KEEP_DETAILS_PRIVATE_RESPONDENT = "Keep details private respondent",
+  KEEP_DETAILS_PRIVATE_APPLICANT = "Keep details private applicant",
+  CONFIRM_CONTACT_DETAILS_RESPONDENT = "Confirm contacts respondent",
+  CONFIRM_CONTACT_DETAILS_APPLICANT = "Confirm contacts applicant",
+  MIAM_RESPONSE = "MIAM",
+  CONSENT_RESPONSE = "Consent application",
+  PROCEEDINGS_RESPONSE = "Proceedings",
+  SAFETY_CONCERNS_RESPONSE = "Safety Concerns",
+  INTERNATIONAL_FACTORS_RESPONSE = "International factors",
+  SUPPORT_DURING_CASE = "Support during case",
+}
+
 export const enum ClarificationReason {
   JURISDICTION_DETAILS = 'jurisdictionDetails',
   MARRIAGE_CERTIFICATE_TRANSLATION = 'marriageCertTranslation',

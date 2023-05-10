@@ -1,5 +1,6 @@
+import { mapConsentToApplicationDetails } from '../../steps/respondent/consent-to-application/ConsentMapper';
 import { CaseWithId } from '../../app/case/case';
-import { CaseType, PartyDetails, PartyType } from '../../app/case/definition';
+import { CaseType, PartyDetails, PartyType, Respondent } from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
 import { mapSupportYouNeedDetails } from '../../steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
 import { mapKeepYourDetailsPrivate } from '../../steps/common/keep-details-private/KeepYourDetailsPrivateMapper';
@@ -7,11 +8,14 @@ import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 
 import { mapSafetyConcernsDetails } from './allegations-of-harm-and-violence/SafetyConcernsMapper';
 import { mapInternationalFactorsDetails } from './international-factors/InternationalFactorsMapper';
+import { mapMIAMRequest } from './miam/MIAMMapper';
+import { mapProceedingDetails } from './proceedings/ProceedingDetailsMapper';
+import { mapRequest } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
 
 export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']): void => {
   const caseType = userCase.caseTypeOfApplication;
   const partyDetails = getPartyDetails(userCase, userId);
-
+  const respondentDetails = getRespondentDetails(userCase, userId);
   if (partyDetails) {
     if (caseType === CaseType.C100) {
       if (partyDetails.response?.safetyConcerns) {
@@ -21,15 +25,30 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
       if (partyDetails.response.citizenInternationalElements) {
         Object.assign(userCase, mapInternationalFactorsDetails(partyDetails));
       }
-    }
+      
+      if (partyDetails.response.miam) {
+        Object.assign(userCase, mapMIAMRequest(respondentDetails));
+      }
 
+      if (partyDetails.response.currentOrPreviousProceedings) {
+        Object.assign(userCase, mapProceedingDetails(respondentDetails));
+      }
+
+      if (partyDetails.response.consent) {
+        Object.assign(userCase, mapConsentToApplicationDetails(respondentDetails));
+      }
+    }
+    if (partyDetails) {
+      Object.assign(userCase, mapRequest(partyDetails));
+    }
+    if (partyDetails.response?.keepDetailsPrivate?.confidentiality) {
+      Object.assign(userCase, mapKeepYourDetailsPrivate(partyDetails));
+    }
     if (partyDetails.response?.supportYouNeed) {
       Object.assign(userCase, mapSupportYouNeedDetails(partyDetails));
     }
 
-    if (partyDetails.response?.keepDetailsPrivate?.confidentiality) {
-      Object.assign(userCase, mapKeepYourDetailsPrivate(partyDetails));
-    }
+    
   }
 };
 
@@ -49,4 +68,16 @@ export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id'])
   }
 
   return partyData?.value ? partyData.value : partyData;
+};
+
+export const getRespondentDetails = (userCase: CaseWithId, userId: UserDetails['id']): Respondent => {
+  const partyType = getCasePartyType(userCase, userId);
+  const caseType = userCase.caseTypeOfApplication;
+  let respondent;
+  if (caseType === CaseType.C100) {
+    if (partyType === PartyType.RESPONDENT) {
+      respondent = userCase.respondents!.find(respondent => respondent?.value?.user?.idamId === userId);
+    }
+  } 
+  return respondent;
 };

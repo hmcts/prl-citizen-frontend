@@ -14,14 +14,14 @@ import { DocumentManagerController } from './app/document/DocumentManagementCont
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
-import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsGetController';
+//import { ApplicantConfirmContactDetailsGetController } from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsGetController';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
 import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
-import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
+//import { KeepDetailsPrivateGetController } from './steps/common/keep-details-private/KeepDetailsPrivateGetController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
@@ -31,20 +31,21 @@ import { ErrorController } from './steps/error/error.controller';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
 import { CaseActivationPostController } from './steps/prl-cases/CaseActivationPostController';
 import DashboardGetController from './steps/prl-cases/dashboard/DashboardGetController';
-import { RespondentConfirmContactDetailsGetController } from './steps/respondent/confirm-contact-details/checkanswers/controller/RespondentConfirmContactDetailsGetController';
+//import { RespondentConfirmContactDetailsGetController } from './steps/respondent/confirm-contact-details/checkanswers/controller/RespondentConfirmContactDetailsGetController';
 import RespondentConfirmContactDetailsPostController from './steps/respondent/confirm-contact-details/checkanswers/controller/RespondentConfirmContactDetailsPostController';
-import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
+//import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
 import { ConsentPostController } from './steps/respondent/consent-to-application/ConsentPostController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { SafetyConcernsPostController } from './steps/tasklistresponse/allegations-of-harm-and-violence/SafetyConcernsPostController';
-import { InternationalFactorsGetController } from './steps/tasklistresponse/international-factors/InternationalFactorsGetController';
+//import { InternationalFactorsGetController } from './steps/tasklistresponse/international-factors/InternationalFactorsGetController';
 import { InternationalFactorsPostController } from './steps/tasklistresponse/international-factors/InternationalFactorsPostController';
-import { MIAMGetController } from './steps/tasklistresponse/miam/MIAMGetController';
+//import { MIAMGetController } from './steps/tasklistresponse/miam/MIAMGetController';
 import { MIAMPostController } from './steps/tasklistresponse/miam/MIAMPostController';
-import { ProceedingGetController } from './steps/tasklistresponse/proceedings/ProceedingGetController';
+//import { ProceedingGetController } from './steps/tasklistresponse/proceedings/ProceedingGetController';
 import { ProceedingPostController } from './steps/tasklistresponse/proceedings/ProceedingPostController';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
+
 import {
   ACCESSIBILITY_STATEMENT,
   ALLEGATION_OF_HARM_VOILENCE,
@@ -113,8 +114,12 @@ import {
   PARTY_TASKLIST,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
+  RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
+  C7_ATTENDING_THE_COURT,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
+import { TasklistresponseCommonGetController } from './steps/tasklistresponse/TasklistResponseCommonGetController';
+import { EventRoutes } from './app/case/definition';
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -155,6 +160,71 @@ export class Routes {
     app.get(C100_RETRIVE_CASE, errorHandler(new GetCaseController().getC100ApplicantCase));
     app.get(C100_DOWNLOAD_APPLICATION, errorHandler(new ApplicationDownloadController().download));
 
+    //Tasklist event common get controller routes
+    app.get(
+      `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
+      errorHandler(new TasklistresponseCommonGetController(EventRoutes.KEEP_DETAILS_PRIVATE_RESPONDENT).get)
+    );
+    app.get(
+      `${APPLICANT_DETAILS_KNOWN}/:caseId`,
+      errorHandler(new TasklistresponseCommonGetController(EventRoutes.KEEP_DETAILS_PRIVATE_APPLICANT).get)
+    );
+    app.get(
+      `${RESPONDENT_CHECK_ANSWERS}/:caseId`,
+      errorHandler(new TasklistresponseCommonGetController(EventRoutes.CONFIRM_CONTACT_DETAILS_RESPONDENT).get)
+    );
+
+    app.get(
+      `${APPLICANT_CHECK_ANSWERS}/:caseId`,
+      errorHandler(new TasklistresponseCommonGetController(EventRoutes.CONFIRM_CONTACT_DETAILS_APPLICANT).get)
+    );
+    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
+
+    app.get(
+      `${RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
+      errorHandler(new ViewAllDocumentsPostController().setAllDocumentsViewed)
+    );
+    app.get(
+      `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
+      errorHandler(new ViewAllDocumentsPostController().setResponseInitiatedFlag)
+    );
+    app.get(
+      `${APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
+      errorHandler(new ViewAllDocumentsPostController().setAllDocumentsViewed)
+    );
+    
+    // Common get controller for tasklist response events
+    app.get(
+      `${MIAM_START}/:caseId`, 
+      errorHandler(new TasklistresponseCommonGetController(EventRoutes.MIAM_RESPONSE).get)
+    );
+    app.get(
+      `${PROCEEDINGS_START}/:caseId`,
+      errorHandler(new TasklistresponseCommonGetController(EventRoutes.PROCEEDINGS_RESPONSE).get)
+    );
+    app.get(
+      `${CONSENT_TO_APPLICATION}/:caseId`,
+      errorHandler(new TasklistresponseCommonGetController(EventRoutes.CONSENT_RESPONSE).get)
+    );
+    app.get(
+      `${RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE}/:caseId`,
+      errorHandler(new TasklistresponseCommonGetController(EventRoutes.SAFETY_CONCERNS_RESPONSE).get)
+    );
+    app.get(
+      `${INTERNATIONAL_FACTORS_START}/:caseId`,
+      errorHandler(new TasklistresponseCommonGetController(EventRoutes.INTERNATIONAL_FACTORS_RESPONSE).get)
+    );
+    app.get(
+      `${C7_ATTENDING_THE_COURT}/:caseId`,
+      errorHandler(new TasklistresponseCommonGetController(EventRoutes.SUPPORT_DURING_CASE).get)
+    );
+
+    //C100 related routes
+    app.get(
+      `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/:caseId`,
+      errorHandler(new ContactPreferencesGetController().get)
+    );
+
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
       const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
@@ -169,43 +239,6 @@ export class Routes {
           errorHandler(new getController(step.view, step.generateContent).get)
         );
       }
-      app.get(
-        `${CONSENT_TO_APPLICATION}/:caseId`,
-        errorHandler(new ConsentGetController(step.view, step.generateContent).get)
-      );
-      app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
-      app.get(
-        `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
-        errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)
-      );
-      app.get(
-        `${APPLICANT_DETAILS_KNOWN}/:caseId`,
-        errorHandler(new KeepDetailsPrivateGetController(step.view, step.generateContent).get)
-      );
-      app.get(
-        `${RESPONDENT_CHECK_ANSWERS}/:caseId`,
-        errorHandler(new RespondentConfirmContactDetailsGetController(step.view, step.generateContent).get)
-      );
-
-      app.get(
-        `${APPLICANT_CHECK_ANSWERS}/:caseId`,
-        errorHandler(new ApplicantConfirmContactDetailsGetController(step.view, step.generateContent).get)
-      );
-
-      app.get(`${MIAM_START}/:caseId`, errorHandler(new MIAMGetController(step.view, step.generateContent).get));
-      app.get(
-        `${PROCEEDINGS_START}/:caseId`,
-        errorHandler(new ProceedingGetController(step.view, step.generateContent).get)
-      );
-      app.get(
-        `${INTERNATIONAL_FACTORS_START}/:caseId`,
-        errorHandler(new InternationalFactorsGetController(step.view, step.generateContent).get)
-      );
-      app.get(
-        `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/:caseId`,
-        errorHandler(new ContactPreferencesGetController(step.view, step.generateContent).get)
-      );
-
       if (step.form) {
         const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
         const postController = postControllerFileName
@@ -243,19 +276,7 @@ export class Routes {
         app.get(`${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${MANAGE_DOCUMENTS_DOWNLOAD}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT}${RESPONDENT_CA_RESPONSE}/:uid`, errorHandler(documentManagerController.get));
-        app.get(
-          `${RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
-          errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
-        );
-        app.get(
-          `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
-          errorHandler(new ViewAllDocumentsPostController(step.form.fields).setResponseInitiatedFlag)
-        );
-        app.get(
-          `${APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
-          errorHandler(new ViewAllDocumentsPostController(step.form.fields).setAllDocumentsViewed)
-        );
-
+        
         app.get(`${CONSENT_SAVE}`, errorHandler(new ConsentPostController(step.form.fields).post));
         app.get(
           `${RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE}`,
