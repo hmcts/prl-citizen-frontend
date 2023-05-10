@@ -9,6 +9,7 @@ import { GetController } from '../../../../app/controller/GetController';
 import { APPLICANT_CHECK_ANSWERS, RESPONDENT_CHECK_ANSWERS } from '../../../../steps/urls';
 
 import { getContactDetails } from './ContactDetailsMapper';
+import { cyContent, enContent } from './content';
 
 @autobind
 export class ConfirmContactDetailsGetController extends GetController {
@@ -74,8 +75,10 @@ export const validateDataCompletion = (req: AppRequest<Partial<Case>>): void => 
       const value = req.session.userCase[`${key}`];
       if (typeof value === 'string' && (value === null || value === undefined || value.trim() === '')) {
         req.session.lang === 'cy'
-          ? (req.session.userCase[`${key}`] = '<span class="govuk-error-message">Complete this section (welsh)</span>')
-          : (req.session.userCase[`${key}`] = '<span class="govuk-error-message">Complete this section</span>');
+          ? (req.session.userCase[`${key}`] =
+              '<span class="govuk-error-message">' + cyContent.completeSection + '</span>')
+          : (req.session.userCase[`${key}`] =
+              '<span class="govuk-error-message">' + enContent.completeSection + '</span>');
       }
     }
   }

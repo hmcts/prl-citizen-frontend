@@ -45,7 +45,7 @@ const en = (content: CommonContent) => {
   };
 };
 
-const cyContent: typeof enContent = {
+export const cyContent: typeof enContent = {
   section: 'Gwiriwch eich manylion cyswllt',
   title: 'Read the information to make sure it is correct, and add any missing details (Welsh)',
   contactdetailpriv:
