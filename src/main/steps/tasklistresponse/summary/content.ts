@@ -437,7 +437,7 @@ export const cyContentProceding = {
   serviceName: 'Check your answers ',
   section: '',
   title: 'Check your answers',
-  change: 'Edit',
+  change: 'Edit -welsh',
   topWarning: 'Your answers will be shared with the other people in this case.',
   makingSure: 'Please review your answers before you finish your application.',
   continue: 'Save and continue',

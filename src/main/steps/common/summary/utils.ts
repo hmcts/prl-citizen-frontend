@@ -13,10 +13,15 @@ import {
   SummaryListRow,
 } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
+import { cy, en } from '../common.content';
 import { applyParms } from '../url-parser';
 
-export const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
-  console.log(content.title);
+export const getSectionSummaryList = (
+  rows: SummaryListRow[],
+  content: PageContent,
+  language?: string
+): GovUkNunjucksSummary[] => {
+  console.log(language);
   return rows.map(item => {
     const changeUrl = item.changeUrl;
     return {
@@ -28,7 +33,7 @@ export const getSectionSummaryList = (rows: SummaryListRow[], content: PageConte
               items: [
                 {
                   href: changeUrl,
-                  text: 'Edit',
+                  text: language === 'en' ? en.edit : cy.edit,
                   visuallyHiddenText: `${item.key}`,
                 },
               ],
@@ -79,7 +84,7 @@ export const summaryList = (
 
   return {
     title: sectionTitle || '',
-    rows: getSectionSummaryList(summaryData, content),
+    rows: getSectionSummaryList(summaryData, content, language),
   };
 };
 

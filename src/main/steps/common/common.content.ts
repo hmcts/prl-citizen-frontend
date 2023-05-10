@@ -5,7 +5,7 @@ import { C100_CASE_TYPE } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 import { C100_URL, DASHBOARD_URL } from '../../steps/urls';
 
-const en = {
+export const en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law',
   applyForDissolution: 'Private Law',
@@ -115,9 +115,10 @@ const en = {
   useApmCookies: 'Use cookies that measure website application performance monitoring',
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
   divider: 'or',
+  edit: 'Edit',
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
   applyForChildArrangements: 'Private Law" (in welsh)',
@@ -200,6 +201,7 @@ const cy: typeof en = {
   onlyContinue: 'Parhau',
   onlycontinue: 'Parhau',
   divider: 'neu',
+  edit: 'Edit -welsh',
 };
 
 export const generatePageContent = ({
