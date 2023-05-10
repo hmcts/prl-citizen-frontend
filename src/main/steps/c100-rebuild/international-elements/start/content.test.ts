@@ -33,7 +33,7 @@ const cy = {
   provideDetails: 'Rhowch fanylion',
   errors: {
     ie_internationalStart: {
-      required: "Dewiswch 'ydy' os yw'r plant yn byw y tu allan i Gymru neu Loegr",
+      required: "Dewiswch 'ydynt' os yw'r plant yn byw y tu allan i Gymru neu Loegr",
     },
     ie_provideDetailsStart: {
       required: "Darparwch fanylion am y plant sy'n byw y tu allan i Gymru neu Loegr",

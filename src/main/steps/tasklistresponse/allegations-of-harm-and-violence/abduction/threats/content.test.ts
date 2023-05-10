@@ -26,7 +26,7 @@ const cy = {
   errors: {
     c1A_childAbductedBefore: {
       required:
-        "Dewiswch ydynt os yw'r plant wedi cael eu herwgydio neu eu cadw y tu allan i'r DU heb eich caniatâd o'r blaen",
+        "Dewiswch ydyn os yw'r plant wedi cael eu herwgydio neu eu cadw y tu allan i'r DU heb eich caniatâd o'r blaen",
     },
   },
 };

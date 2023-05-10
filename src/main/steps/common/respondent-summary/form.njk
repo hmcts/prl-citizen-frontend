@@ -28,7 +28,7 @@
                   {{statementOfTruth}}
                 </h2>
                 <h2 class="govuk-heading-m">
-                  Confirm before continuing
+                  {{confirm}}
                 </h2>
               </legend>
               <div class="govuk-warning-text">
@@ -40,10 +40,8 @@
                  </strong>
                </div>
 <div class="govuk-inset-text">
-          <p>Once you submit your response, you cannot make any further changes.
-            Please select 'Submit your response'
-            to complete your online response.</p>
-            <p>You can download a copy of your submitted response using the link below.</p>
+          <p>{{submit}}</p>
+            <p>{{download}}</p>
         </div>
             <div class="govuk-!-padding-bottom-6"></div>
             <div class="govuk-form-group">
@@ -51,13 +49,13 @@
             <div class="govuk-checkboxes__item">
               <input class="govuk-checkboxes__input" style="background-color: white" id="declarationCheck" name="declarationCheck" type="checkbox" value="declaration">
               <label class="govuk-label govuk-checkboxes__label" for="declarationCheck">
-                I believe that the facts stated in this response are true
+                {{believeFacts}}
               </label>
             </div>
           </div>
         </div>
             <p class="govuk-body govuk-!-padding-bottom-4">
-          This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.
+          {{statementOfTruthSubmission}}
         </p>
             </fieldset>
           </div>

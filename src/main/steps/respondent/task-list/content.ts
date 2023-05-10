@@ -8,6 +8,8 @@ import {
   APPLICANT_CA_DA_REQUEST,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
+  FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH,
+  FIND_OUT_ABOUT_CAFCASS_WELSH,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
@@ -20,7 +22,13 @@ import { getRespondentPartyDetailsCa } from './utils';
 
 const en = () => ({
   title: 'Respondent tasklist',
+  caseNumber: 'Case number #',
   respondentName: '',
+  want: 'I want to...',
+  findMyLocalCourt: 'Find my local court',
+  findLegalAdvice: 'Find legal advice',
+  knowMoreAboutChildArrangements: 'Know more about child arrangements',
+  knowMoreAboutAttendingCourt: 'Know more about attending court',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -138,12 +146,18 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Respondent tasklist - welsh',
+  caseNumber: 'Rhif yr achos #',
   respondentName: '',
+  want: 'Rwyf eisiau ...',
+  findMyLocalCourt: 'Find my local court',
+  findLegalAdvice: 'Dod o hyd i gyngor cyfreithiol',
+  knowMoreAboutChildArrangements: 'Know more about child arrangements',
+  knowMoreAboutAttendingCourt: 'Gwybod mwy am fynychu’r llys',
   statuses: {
-    [SectionStatus.COMPLETED]: 'Wedi cwblhau',
+    [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
-    [SectionStatus.READY_TO_VIEW]: "barod i'w weld",
+    [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
     [SectionStatus.DOWNLOAD]: 'DOWNLOAD (in Welsh)',
     [SectionStatus.VIEW]: 'VIEW (in Welsh)',
@@ -151,98 +165,100 @@ const cy = () => ({
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
   newOrderBanner: {
-    bannerHeading: 'You have a new order from the court',
+    bannerHeading: 'Mae gennych orchymyn newydd gan y llys',
     bannerContent: [
       {
-        line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
+        line1:
+          'Mae’r llys wedi gwneud penderfyniad ynghylch eich achos. Mae’r gorchymyn yn dweud wrthych beth y mae’r llys wedi penderfynu. ',
       },
     ],
     bannerLinks: [
       {
         href: `${RESPONDENT_ORDERS_FROM_THE_COURT}`,
-        text: 'View the order (PDF)',
+        text: 'Gweld y gorchymyn (PDF)',
       },
     ],
   },
   finalOrderBanner: {
-    bannerHeading: 'You have a final order',
+    bannerHeading: 'Mae gennych orchymyn terfynol',
     bannerContent: [
       {
-        line1: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+        line1:
+          'Mae’r llys wedi gwneud penderfyniad terfynol ynghylch eich achos. Mae’r gorchymyn yn dweud wrthych beth y mae’r llys wedi penderfynu.  ',
       },
     ],
     bannerLinks: [
       {
         href: `${RESPONDENT_ORDERS_FROM_THE_COURT}`,
-        text: 'View the order (PDF)',
+        text: 'Gweld y gorchymyn (PDF)',
       },
     ],
   },
   caRespondentServedBanner: {
-    bannerHeading: 'Respond to an application about a child',
+    bannerHeading: 'Ymateb i gais ynghylch plentyn',
     bannerContent: [
       {
-        line1: 'Another person (the applicant) has applied to the court to make a decision about a child.',
-        line2:
-          'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
+        line1: 'Mae person arall (y ceisydd) wedi gwneud cais i’r llys wneud penderfyniad ynghylch plentyn.',
+        line2: 'Dylech ymateb o fewn 14 diwrnod o dderbyn y cais oni bai bod y llys wedi gofyn i chi ymateb yn gynt.',
       },
     ],
     bannerLinks: [
       {
         href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
-        text: 'Check the application (PDF)',
+        text: 'Gwirio’r cais (PDF)',
       },
       {
         href: RESPOND_TO_APPLICATION + '/updateFlag',
-        text: 'Respond to the application',
+        text: "Ymateb i'r cais",
       },
     ],
   },
   cafcassBanner: {
-    bannerHeading: 'Cafcass will contact you **',
+    bannerHeading: 'Bydd Cafcass yn cysylltu â chi **',
     bannerContent: [
       {
         line1:
-          'The Children and Family Court advisory and Support Service (Cafcass or Cafcass Cymru) will contact you to consider the needs of the children.',
+          'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass neu Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.',
       },
     ],
     bannerLinks: [
       {
-        href: FIND_OUT_ABOUT_CAFCASS,
-        text: 'Find out about Cafcass',
+        href: FIND_OUT_ABOUT_CAFCASS_WELSH,
+        text: 'Gwybodaeth am Cafcass',
       },
       {
-        href: FIND_OUT_ABOUT_CAFCASS_CYMRU,
-        text: 'Find out about Cafcass Cymru ',
+        href: FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH,
+        text: 'Gwybodaeth am Cafcass Cymru ',
       },
     ],
   },
   daRespondentBanner: {
     bannerHeading:
-      'You have been named as the respondent in a domestic abuse application and have an order from the court',
+      'Rydych wedi cael eich enwi fel yr atebydd mewn cais cam-drin domestig ac mae gennych orchymyn gan y llys',
     bannerContent: [
       {
         line1:
-          'This means that another person (the applicant) has applied to a court for protection from domestic abuse.',
-        line2: 'The court has considered their concerns. The order tells you what the court has decided.',
+          'Mae hyn yn golygu bod unigolyn arall (y ceisydd) wedi gwneud cais i’r llys am orchymyn amddiffyn rhag cam-drin domestig.',
+        line2:
+          'Mae’r llys wedi ystyried eu pryderon. Mae’r gorchymyn hwn yn dweud wrthych beth mae’r llys wedi penderfynu.',
       },
     ],
     bannerLinks: [
       {
         href: RESPONDENT_ORDERS_FROM_THE_COURT,
-        text: 'Read the order (PDF)',
+        text: 'Darllen y gorchymyn (PDF)',
       },
       {
         href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
-        text: 'Read the application (PDF)',
+        text: 'Darllen y gorchymyn (PDF)',
       },
     ],
   },
   viewDocumentBanner: {
-    bannerHeading: 'You have a new document to view (in Welsh)',
+    bannerHeading: 'Mae gennych ddogfen newydd i edrych arni',
     bannerContent: [
       {
-        line1: 'A new document has been added to your case. (in Welsh)',
+        line1: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
       },
     ],
     bannerLinks: [

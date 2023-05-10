@@ -38,17 +38,17 @@ export const enContent = {
   },
 };
 export const cyContent: typeof enContent = {
-  serviceName: 'Check your answers - welsh ',
+  serviceName: 'Gwirio eich atebion',
   section: '',
-  title: 'Check your Answers -welsh',
-  change: 'change - welsh',
+  title: 'Gwirio eich atebion',
+  change: 'Golygu',
   topWarning: 'Your answers will be shared with the other people in this case. - welsh',
   makingSure: 'Please review your answers before you finish your application.- welsh',
   continue: 'Save and submit - welsh',
   Yes: 'Yes - welsh',
   No: 'No - welsh',
   sectionTitles: {
-    safetyConcerns: '[^^sectionNo^^]. Safety concerns - welsh', //section 10
+    safetyConcerns: '[^^sectionNo^^]. Pryderon diogelwch', //section 10
     additionationDetailsAboutChildern: 'Additional details about the children - welsh',
     childSafetyConcerns: 'Safety concerns: the children in the application ',
     yourSafetyConcerns: 'Safety concern: your safety',

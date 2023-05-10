@@ -7,8 +7,6 @@ const en = () => {
   return {
     section: 'All documents',
     title: "'s witness statements",
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
     caseNumber: 'Case number',
     continue: 'Go back',
   };
@@ -16,12 +14,10 @@ const en = () => {
 
 const cy: typeof en = () => {
   return {
-    section: 'All documents',
-    title: "'s witness statements",
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
-    caseNumber: 'Case number',
-    continue: 'Go back',
+    section: 'Pob dogfen',
+    title: "'s witness statements (welsh)",
+    caseNumber: 'Rhif yr achos',
+    continue: 'Go back (welsh)',
   };
 };
 

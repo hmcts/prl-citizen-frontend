@@ -6,8 +6,6 @@ const en = () => {
   return {
     section: 'All documents',
     title: 'Medical reports',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
     caseNumber: 'Case number',
     continue: 'Go back',
   };
@@ -15,12 +13,12 @@ const en = () => {
 
 const cy: typeof en = () => {
   return {
-    section: 'All documents',
-    title: 'Medical reports',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
-    caseNumber: 'Case number',
-    continue: 'Go back',
+    section: 'Pob dogfen',
+    title: 'Adroddiadau meddygol',
+    threeHint: 'This is a 8 character code (welsh)',
+    summaryText: 'Cysylltiadau am gymorth',
+    caseNumber: 'Rhif yr achos',
+    continue: 'Go back (welsh)',
   };
 };
 
