@@ -75,7 +75,7 @@ export const summaryList = (
       value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : setkey(key)!,
       changeUrl: url,
     };
-    if (row.value) {
+    if (row.value || key === 'citizenUserAddressHistory') {
       if (key !== 'citizenUserSafeToCall') {
         summaryData.push(row);
       }
