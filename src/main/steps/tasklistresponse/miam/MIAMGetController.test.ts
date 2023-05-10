@@ -5,7 +5,6 @@ import { CosApiClient } from '../../../app/case/CosApiClient';
 import { MIAMGetController } from './MIAMGetController';
 
 const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
-let respondents;
 
 describe('MIAMGetController', () => {
   const languages = {
@@ -22,21 +21,45 @@ describe('MIAMGetController', () => {
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {
-    respondents = [
-      {
-        id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
-        value: {
-          firstName: 'Test1234',
-          lastName: 'Citizen',
-          email: 'test@example.net',
-          user: {
-            idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
-            email: 'test1234@example.net',
+    req.session.user = {
+      ...req.session.user,
+      id: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+    };
+    req.session.userCase = {
+      ...req.session.userCase,
+      state: 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
+      respondents: [
+        {
+          id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          value: {
+            firstName: 'TestUser',
+            lastName: 'Citizen',
+            email: 'test@example.net',
+            user: {
+              idamId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+              email: 'test1234@example.net',
+            },
+            response: {},
           },
-          response: '',
         },
-      },
-    ];
+      ],
+      caseInvites: [
+        {
+          id: '577695bd-2fb5-4418-a699-79ee352ed5bb',
+          value: {
+            partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+            caseInviteEmail: 'respondent2@example.net',
+            accessCode: '3GYFGJHO',
+            invitedUserId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+            hasLinked: 'Yes',
+            expiryDate: '2023-05-07',
+            isApplicant: 'No',
+          },
+        },
+      ],
+      caseTypeOfApplication: 'C100',
+      PRL_c1A_haveSafetyConcerns: 'No',
+    };
     retrieveByCaseIdMock.mockResolvedValue(req.session.userCase);
   });
 
@@ -45,37 +68,29 @@ describe('MIAMGetController', () => {
   });
 
   test('Should not get miam details if user id not matches with respondent idamId', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-
-    req.session.userCase.respondents = respondents;
     await miamGetController.get(req, res);
     expect(req.session.userCase.miam).not.toEqual('Yes');
   });
 
   test('Should not get miam if user id matches with respondent but there is no consent', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     const response = {
       legalRepresentation: 'Yes',
     };
-    respondents[0].value.response = response;
-    req.session.userCase.respondents = respondents;
+    req.session.userCase.respondents[0].value.response = response;
     await miamGetController.get(req, res);
     expect(req.session.userCase.doYouConsent).not.toEqual('Yes');
   });
 
   test('Should not get miam if user id matches with respondent but there is no miam response details', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     const response = {
       miam: {},
     };
-    respondents[0].value.response = response;
-    req.session.userCase.respondents = respondents;
+    req.session.userCase.respondents[0].value.response = response;
     await miamGetController.get(req, res);
     expect(req.session.userCase.doYouConsent).not.toEqual('Yes');
   });
 
   test('Should get miam if user id matches with respondent', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     const response = {
       miam: {
         attendedMiam: 'Yes',
@@ -83,8 +98,7 @@ describe('MIAMGetController', () => {
         reasonNotAttendingMiam: '',
       },
     };
-    respondents[0].value.response = response;
-    req.session.userCase.respondents = respondents;
+    req.session.userCase.respondents[0].value.response = response;
     await miamGetController.get(req, res);
     expect(req.session.userCase.miamStart).toEqual('Yes');
     expect(req.session.userCase.miamWillingness).toEqual('No');
@@ -92,7 +106,6 @@ describe('MIAMGetController', () => {
   });
 
   test('Should get miam if user id matches with respondent1', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     const response = {
       miam: {
         attendedMiam: 'No',
@@ -100,8 +113,7 @@ describe('MIAMGetController', () => {
         reasonNotAttendingMiam: '',
       },
     };
-    respondents[0].value.response = response;
-    req.session.userCase.respondents = respondents;
+    req.session.userCase.respondents[0].value.response = response;
     await miamGetController.get(req, res);
     expect(req.session.userCase.miamStart).toEqual('No');
     expect(req.session.userCase.miamWillingness).toEqual('Yes');
@@ -109,7 +121,6 @@ describe('MIAMGetController', () => {
   });
 
   test('Should get miam if user id matches with respondent2', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     const response = {
       miam: {
         attendedMiam: 'No',
@@ -117,8 +128,7 @@ describe('MIAMGetController', () => {
         reasonNotAttendingMiam: 'dummy_value',
       },
     };
-    respondents[0].value.response = response;
-    req.session.userCase.respondents = respondents;
+    req.session.userCase.respondents[0].value.response = response;
     await miamGetController.get(req, res);
     expect(req.session.userCase.miamStart).toEqual('No');
     expect(req.session.userCase.miamWillingness).toEqual('No');
