@@ -69,7 +69,7 @@ const cyContent = {
       link: '#',
     },
     {
-      label: 'Find legal advice-welsh',
+      label: 'Dod o hyd i gyngor cyfreithiol',
       link: '#',
     },
     {
@@ -77,7 +77,7 @@ const cyContent = {
       link: '#',
     },
     {
-      label: 'Know more about attending court-welsh',
+      label: 'Gwybod mwy am fynychu’r llys',
       link: '#',
     },
   ],

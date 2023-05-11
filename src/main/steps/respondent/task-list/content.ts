@@ -9,9 +9,9 @@ import {
   APPLICANT_CA_DA_REQUEST,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
-  RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
   FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH,
   FIND_OUT_ABOUT_CAFCASS_WELSH,
+  RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
@@ -315,7 +315,7 @@ const cy = () => ({
       link: '#',
     },
     {
-      label: 'Find legal advice-welsh',
+      label: 'Dod o hyd i gyngor cyfreithiol',
       link: '#',
     },
     {
@@ -323,7 +323,7 @@ const cy = () => ({
       link: '#',
     },
     {
-      label: 'Know more about attending court-welsh',
+      label: 'Gwybod mwy am fynychu’r llys',
       link: '#',
     },
   ],
