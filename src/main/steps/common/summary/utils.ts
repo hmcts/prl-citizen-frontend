@@ -15,8 +15,13 @@ import {
 import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
 import { applyParms } from '../url-parser';
 
-export const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
+export const getSectionSummaryList = (
+  rows: SummaryListRow[],
+  content: PageContent,
+  language?: string
+): GovUkNunjucksSummary[] => {
   console.log(content.title);
+  console.log('lang' + language);
   return rows.map(item => {
     const changeUrl = item.changeUrl;
     return {
@@ -28,7 +33,7 @@ export const getSectionSummaryList = (rows: SummaryListRow[], content: PageConte
               items: [
                 {
                   href: changeUrl,
-                  text: 'Edit',
+                  text: language === 'en' ? 'Edit' : 'Edit-welsh',
                   visuallyHiddenText: `${item.key}`,
                 },
               ],
@@ -74,7 +79,7 @@ export const summaryList = (
 
   return {
     title: sectionTitle || '',
-    rows: getSectionSummaryList(summaryData, content),
+    rows: getSectionSummaryList(summaryData, content, language),
   };
 };
 

@@ -11,7 +11,6 @@ const en = {
   caseCodeLabelHint: 'You will find this on the email or letter we sent you',
   accessCodeLabel: 'Your access code',
   accessCodeLabelHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   contactDetails: contact_en,
   continue: 'Continue',
   errors: {
@@ -39,7 +38,6 @@ const cy: typeof en = {
   caseCodeLabelHint: 'You will find this on the email or letter we sent you',
   accessCodeLabel: 'Your access code',
   accessCodeLabelHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   contactDetails: contact_cy,
   continue: 'Continue',
   errors: {

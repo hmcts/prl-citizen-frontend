@@ -9,16 +9,18 @@ const en = {
   remove: 'Remove',
   sucess: 'Success',
   documentDetails: 'Your documents for ',
+  uploadAgain: 'Upload another document',
 };
 
 const cy: typeof en = {
-  section: 'How your documents will be shared - welsh',
-  title: 'Your document has been uploaded successfully - welsh',
-  status: 'Your documents have been uploaded - welsh',
-  continue: 'Continue - welsh',
-  remove: 'Remove - welsh',
-  sucess: 'Success - welsh',
-  documentDetails: 'Your documents for  - welsh',
+  section: 'How your documents will be shared (welsh)',
+  title: 'Your document has been uploaded successfully (welsh)',
+  status: 'Your documents have been uploaded (welsh)',
+  continue: 'Parhau',
+  remove: 'Dileu',
+  sucess: 'Success (welsh)',
+  documentDetails: 'Your documents for (welsh)',
+  uploadAgain: 'Upload another document (welsh)',
 };
 
 const languages = {

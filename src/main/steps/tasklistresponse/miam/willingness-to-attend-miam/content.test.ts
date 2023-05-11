@@ -11,8 +11,6 @@ const enContent = {
   two: 'No',
   explainWhyLabel: 'Explain why',
   miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   onlyContinue: 'Continue',
   errors: {
     miamWillingness: {
@@ -25,13 +23,11 @@ const enContent = {
 };
 
 const cyContent = {
-  title: 'Would you be willing to attend a MIAM?',
+  title: "A fyddech chi'n fodlon mynychu MIAM?",
   one: 'Yes',
   two: 'No',
   explainWhyLabel: 'Explain why',
-  miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
+  miamCostExemptionsLabel: 'Help gyda chostau ac esemptiadau MIAM',
   onlyContinue: 'Continue',
   errors: {
     miamWillingness: {

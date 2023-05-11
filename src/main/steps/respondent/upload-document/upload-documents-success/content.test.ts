@@ -13,16 +13,18 @@ const en = {
   remove: 'Remove',
   sucess: 'Success',
   documentDetails: 'Your documents for ',
+  uploadAgain: 'Upload another document',
 };
 
 const cy: typeof en = {
-  section: 'How your documents will be shared - welsh',
-  title: 'Your document has been uploaded successfully - welsh',
-  status: 'Your documents have been uploaded - welsh',
-  continue: 'Continue - welsh',
-  remove: 'Remove - welsh',
-  sucess: 'Success - welsh',
-  documentDetails: 'Your documents for  - welsh',
+  section: 'How your documents will be shared (welsh)',
+  title: 'Your document has been uploaded successfully (welsh)',
+  status: 'Your documents have been uploaded (welsh)',
+  continue: 'Parhau',
+  remove: 'Dileu',
+  sucess: 'Success (welsh)',
+  documentDetails: 'Your documents for (welsh)',
+  uploadAgain: 'Upload another document (welsh)',
 };
 
 jest.mock('../../../../app/form/validation');
@@ -36,8 +38,12 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.status).toEqual('Your documents have been uploaded');
-    //expect(generatedContent.email).toEqual('test');
     expect(generatedContent.section).toEqual('How your documents will be shared');
+    expect(generatedContent.uploadAgain).toEqual('Upload another document');
+    expect(generatedContent.continue).toEqual('Continue');
+    expect(generatedContent.remove).toEqual('Remove');
+    expect(generatedContent.sucess).toEqual('Success');
+    expect(generatedContent.documentDetails).toEqual('Your documents for ');
   });
 
   // eslint-disable-next-line jest/expect-expect

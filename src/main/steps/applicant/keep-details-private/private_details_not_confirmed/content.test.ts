@@ -13,7 +13,7 @@ const enContent = {
 
 const cyContent = {
   ...welsh,
-  section: 'Keeping your contact details private',
+  section: 'Cadw eich manylion cyswllt yn breifat',
   continue: 'Save and continue',
 };
 

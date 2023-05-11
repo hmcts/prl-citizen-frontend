@@ -44,7 +44,7 @@ export const cy = () => ({
   noLanguageRequirements: 'Nac oes, nid oes gennyf unrhyw ofynion ieithyddol ar hyn o bryd',
   errors: {
     ra_needInterpreterInCertainLanguage_subfield: {
-      required: 'Rhowch fanylion yr iaith mae angen cyfieithydd arnoch ar ei gyfer',
+      required: 'Rhowch fanylion yr iaith mae angen cyfieithydd arnoch ar ei chyfer',
     },
     ra_languageNeeds: {
       required: 'Nodwch a oes gennych chi unrhyw ofynion ieithyddol',

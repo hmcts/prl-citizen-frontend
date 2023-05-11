@@ -115,7 +115,9 @@ describe('testcase for tasklist', () => {
     title: 'Child arrangements and family injunction cases',
   };
   const cy = {
-    caseNumber: 'Case number # - welsh',
+    title: 'Trefniadau plant a gwaharddebau teulu',
+    caseNumber: 'Rhif yr achos #',
+    iWantTo: 'Rwyf eisiau...',
     hyperlinks: [
       {
         label: 'Add a legal representative - welsh',
@@ -123,109 +125,107 @@ describe('testcase for tasklist', () => {
         target: '',
       },
       {
-        label: 'Know more about child arrangements - welsh',
+        label: 'Gwybod mwy am drefniadau plant',
         link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
         target: '_blank',
       },
       {
-        label: 'Know more about attending court - welsh',
+        label: 'Gwybod mwy am fynychu’r llys',
         link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
         target: '_blank',
       },
       {
-        label: 'Understand what a Mediation Information & Assessment Meeting (MIAM) is - welsh',
+        label: 'Deall beth yw Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
         link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
         target: '_blank',
       },
       {
-        label: 'Check if I am eligible for Legal Aid - welsh',
+        label: 'Gwirio os wyf yn gymwys i gael Cymorth Cyfreithiol',
         link: 'https://www.gov.uk/check-legal-aid',
         target: '_blank',
       },
       {
-        label: 'Check if I am eligible for Help with Fees - welsh',
+        label: 'Gwirio os wyf yn gymwys i gael Help i Dalu Ffioedd',
         link: 'https://www.gov.uk/get-help-with-court-fees',
         target: '_blank',
       },
       {
-        label: 'Find out about The Family Mediation Voucher scheme - welsh',
+        label: 'Rhagor o wybodaeth am y Cynllun Talebau Cyfryngu Teuluol',
         link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
         target: '_blank',
       },
       {
-        label: 'Find legal advice - welsh',
+        label: 'Dod o hyd i gyngor cyfreithiol',
         link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
         target: '_blank',
       },
       {
-        label: 'Read how to represent myself in court - welsh',
+        label: 'Darllen mwy am sut i gynrychioli fy hun yn y llys',
         link: 'https://www.gov.uk/represent-yourself-in-court',
         target: '_blank',
       },
     ],
-    iWantTo: 'I want to... - welsh',
     notifications: [
       {
         contents: [
           {
-            text: 'You have caseData.noOfDaysRemainingToSubmitCase days to submit your application or it will be deleted and you will need to start again. This is for security reasons. - welsh',
+            text: 'Mae gennych caseData.noOfDaysRemainingToSubmitCase diwrnod i gyflwyno eich cais o’r dyddiad y gwnaethoch ei gychwyn, neu bydd yn cael ei ddileu a bydd rhaid i chi gychwyn y cais eto. Mae hyn er mwyn cadw eich gwybodaeth yn ddiogel.',
           },
         ],
-        heading: 'You have not finished your application - welsh',
+        heading: 'Nid ydych wedi gorffen eich cais',
         id: 'applicationInProgress',
         links: [
           {
             href: '#',
-            text: 'Continue your application - welsh',
+            text: 'Parhau gyda’ch cais',
           },
         ],
-        title: 'Important - welsh',
+        title: 'Pwysig',
       },
     ],
     partyName: 'undefined undefined',
     progressBar: [
       {
-        ariaLabel: 'Application submitted stage - welsh is not yet started - welsh',
-        label: 'Application<br/> submitted - welsh',
+        ariaLabel: 'Cam cais wedi’i gyflwyno heb ddechrau eto',
+        label: "Cais wedi'i<br/> gyflwyno",
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Cafcass child safety checks stage - welsh is not yet started - welsh',
-        label: 'Cafcass child<br/> safety checks - welsh',
+        ariaLabel: 'Cam gwiriadau diogelwch plant Cafcass heb ddechrau eto',
+        label: 'Gwiriadau diogelwch<br/> plant Cafcass',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Response submitted stage - welsh is not yet started - welsh',
-        label: 'Response<br/> submitted - welsh',
+        ariaLabel: 'Cam ymateb wedi’i gyflwyno heb ddechrau eto',
+        label: "Ymateb wedi'i<br/> gyflwyno",
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Hearings and court orders stage - welsh is not yet started - welsh',
-        label: 'Hearings and<br/> court orders - welsh',
+        ariaLabel: 'Cam gwrandawiadau a gorchmynion llys heb ddechrau eto',
+        label: 'Gwrandawiadau <br/>a<br/> gorchmynion llys',
         statusBarClassName: '',
       },
       {
-        ariaLabel: 'Case closed stage - welsh is not yet started - welsh',
-        label: 'Case closed - welsh',
+        ariaLabel: 'Cam achos wedi’i gau heb ddechrau eto',
+        label: 'Achos wedi’i <br/>gau',
         statusBarClassName: '',
       },
     ],
     taskLists: [
       {
-        heading: 'Your application - welsh',
+        heading: 'Eich cais',
         id: 'yourApplication',
         tasks: [
           {
             disabled: false,
             href: undefined,
             id: 'childArrangementApplication',
-            linkText: 'Your child arrangements application - welsh',
-            stateTag: { className: 'govuk-tag--yellow', label: 'In progress - welsh' },
+            linkText: 'Eich cais trefniadau plant',
+            stateTag: { className: 'govuk-tag--yellow', label: 'Ar y gweill' },
           },
         ],
       },
     ],
-    title: 'Child arrangements and family injunction cases - welsh',
   };
   const commonContent = {
     language: 'en',

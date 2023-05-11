@@ -71,9 +71,9 @@ const en = {
 };
 
 const cy = {
-  title: 'Child arrangements and family injunction cases - welsh',
-  caseNumber: 'Case number # - welsh',
-  iWantTo: 'I want to... - welsh',
+  title: 'Trefniadau plant a gwaharddebau teulu',
+  caseNumber: 'Rhif yr achos #',
+  iWantTo: 'Rwyf eisiau...',
   hyperlinks: [
     {
       label: 'Add a legal representative - welsh',
@@ -86,42 +86,42 @@ const cy = {
       target: '',
     },
     {
-      label: 'Know more about child arrangements - welsh',
+      label: 'Gwybod mwy am drefniadau plant',
       link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
       target: '_blank',
     },
     {
-      label: 'Know more about attending court - welsh',
+      label: 'Gwybod mwy am fynychu’r llys',
       link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
       target: '_blank',
     },
     {
-      label: 'Understand what a Mediation Information & Assessment Meeting (MIAM) is - welsh',
+      label: 'Deall beth yw Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
       link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
       target: '_blank',
     },
     {
-      label: 'Check if I am eligible for Legal Aid - welsh',
+      label: 'Gwirio os wyf yn gymwys i gael Cymorth Cyfreithiol',
       link: 'https://www.gov.uk/check-legal-aid',
       target: '_blank',
     },
     {
-      label: 'Check if I am eligible for Help with Fees - welsh',
+      label: 'Gwirio os wyf yn gymwys i gael Help i Dalu Ffioedd',
       link: 'https://www.gov.uk/get-help-with-court-fees',
       target: '_blank',
     },
     {
-      label: 'Find out about The Family Mediation Voucher scheme - welsh',
+      label: 'Rhagor o wybodaeth am y Cynllun Talebau Cyfryngu Teuluol',
       link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
       target: '_blank',
     },
     {
-      label: 'Find legal advice - welsh',
+      label: 'Dod o hyd i gyngor cyfreithiol',
       link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
       target: '_blank',
     },
     {
-      label: 'Read how to represent myself in court - welsh',
+      label: 'Darllen mwy am sut i gynrychioli fy hun yn y llys',
       link: 'https://www.gov.uk/represent-yourself-in-court',
       target: '_blank',
     },

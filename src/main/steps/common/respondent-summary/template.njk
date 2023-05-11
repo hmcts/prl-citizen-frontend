@@ -23,19 +23,19 @@
   <details class="govuk-details" data-module="govuk-details" open="">
         <summary class="govuk-details__summary">
           <span class="govuk-details__summary-text" data-ga-category="explanations" data-ga-label="cya download draft">
-            Download a draft of your response (PDF)
+            {{downloadDraftPDF}}
           </span>
         </summary>
         <div class="govuk-details__text">
           <p class="govuk-body">
-            If you cannot open the PDF file on your device, download and install
-            <a href="https://get.adobe.com/uk/reader/" class="govuk-link" rel="external" target="_blank">Adobe Acrobat Reader</a> and try again.
+            {{cannotOpen}}
+            <a href="https://get.adobe.com/uk/reader/" class="govuk-link" rel="external" target="_blank">{{adobeReader}}</a> {{tryAgain}}
           </p>
           <p class="govuk-body">
-            Please note this draft is for your records. Only the completed response will be admitted in court.
+            {{forRecords}}
           </p>
 
-          <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-draft">Download draft response</a>
+          <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-draft">{{downloadDraft}}</a>
 
         </div>
       </details>

@@ -18,7 +18,7 @@ const en = {
 
 const cy: typeof en = {
   ...welsh,
-  section: 'Keeping your contact details private-welsh',
+  section: 'Cadw eich manylion cyswllt yn breifat',
   title: 'The court will keep your contact details private-welsh',
   line1: 'You have told us you want to keep these contact details private:-welsh',
   address: 'Home address-welsh',
@@ -26,7 +26,7 @@ const cy: typeof en = {
   phoneNumber: 'Telephone number-welsh',
   line2: 'What the court will do-welsh',
   line3:
-    'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.-welsh',
+    'Bydd y llys yn cadw’r wybodaeth hon yn ddiogel. Bydd y manylion cyswllt hyn ond yn cael eu rhannu os bydd gorchymyn llys i wneud hynny.',
   continue: 'Save and continue-welsh',
 };
 
