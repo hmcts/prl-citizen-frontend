@@ -8,7 +8,7 @@ import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
 
 @autobind
-export class TSDraftController {
+class TSDraftController {
   public async post(req: AppRequest, res: Response): Promise<void> {
     res.redirect(HOME_URL);
   }
@@ -41,3 +41,5 @@ export class TSDraftController {
     });
   }
 }
+
+export default new TSDraftController();

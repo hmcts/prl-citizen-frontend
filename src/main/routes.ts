@@ -11,7 +11,7 @@ import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { RespondentSubmitResponseController } from './app/controller/RespondentSubmitResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
-import { TSDraftController } from './app/testingsupport/TSDraftController';
+import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
@@ -166,10 +166,9 @@ export class Routes {
     app.get(C100_RETRIVE_CASE, errorHandler(new GetCaseController().getC100ApplicantCase));
     app.get(C100_DOWNLOAD_APPLICATION, errorHandler(new ApplicationDownloadController().download));
 
-    const tsDraftController = new TSDraftController();
-    app.post(CREATE_DRAFT, errorHandler(tsDraftController.post));
-    app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(tsDraftController.createTSC100Draft));
-    app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(tsDraftController.deleteTSC100Draft));
+    app.post(CREATE_DRAFT, errorHandler(TSDraftController.post));
+    app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(TSDraftController.createTSC100Draft));
+    app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(TSDraftController.deleteTSC100Draft));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);

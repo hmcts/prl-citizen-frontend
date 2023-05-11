@@ -2,19 +2,19 @@ import config from 'config';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { TSDraftController } from '../../app/testingsupport/TSDraftController';
+import TSDraftController from '../../app/testingsupport/TSDraftController';
 import { HOME_URL } from '../../steps/urls';
 
 jest.mock('axios');
 config.get = jest.fn();
 
 describe('TSDraftController', () => {
-  const controller = new TSDraftController();
+  //const controller = new TSDraftController();
   const req = mockRequest();
   const res = mockResponse();
-  test('Should create instance of TSDraftController', async () => {
-    expect(controller).toBeInstanceOf(TSDraftController);
-  });
+  // test('Should create instance of TSDraftController', async () => {
+  //   expect(TSDraftController).toBeInstanceOf(TSDraftController);
+  // });
 
   beforeEach(() => {
     req.session.userCase = {
@@ -41,12 +41,12 @@ describe('TSDraftController', () => {
   });
 
   test('Should call post  > Home URL', async () => {
-    await controller.post(req, res);
+    await TSDraftController.post(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(HOME_URL);
   });
   test('Should return error for createC100Draft', async () => {
-    await expect(controller.createTSC100Draft(req, res)).rejects.toThrow('C100case could not be created');
+    await expect(TSDraftController.createTSC100Draft(req, res)).rejects.toThrow('C100case could not be created');
   });
   test('Should return to Home URL deleteC100Draft', async () => {
     const reqs = mockRequest({
@@ -63,7 +63,7 @@ describe('TSDraftController', () => {
     reqs.body['ids'] = '1234567890123456';
     const ress = mockResponse();
 
-    await controller.deleteTSC100Draft(reqs, ress);
+    await TSDraftController.deleteTSC100Draft(reqs, ress);
 
     expect(res.redirect).toHaveBeenCalledWith(HOME_URL);
   });
