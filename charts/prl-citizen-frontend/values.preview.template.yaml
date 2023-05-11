@@ -25,7 +25,6 @@ nodejs:
     LAUNCH_DARKLY_OFFLINE_MODE: false
     C100_REBUILD_FLAG: false
     TESTING_SUPPORT_FLAG: true
-    ALLOW_CONFIG_MUTATIONS: true
   keyVaults:
     prl:
       resourceGroup: prl
