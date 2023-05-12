@@ -61,7 +61,7 @@ export const prepareRequest = (userCase: CaseWithId): ReasonableAdjustmentsSuppo
     describeOtherNeed,
     describeSignLanguageDetails,
     courtComfort,
-    lightingProvideDetails,
+    lightingDetails: lightingProvideDetails,
     otherProvideDetails,
     courtHearing,
     supportWorkerDetails,
@@ -117,7 +117,7 @@ export const prepareRequest = (userCase: CaseWithId): ReasonableAdjustmentsSuppo
     }
 
     if (!reasonableAdjustments.includes(HEARING_COMFORT)) {
-      delete request.lightingProvideDetails;
+      delete request.lightingDetails;
       delete request.otherProvideDetails;
     }
 
@@ -170,7 +170,7 @@ export const prepareRequest = (userCase: CaseWithId): ReasonableAdjustmentsSuppo
   // looping over courtComfort array
   if (Array.isArray(courtComfort)) {
     if (!courtComfort?.includes(APPROPRIATE_LIGHTING)) {
-      delete request.lightingProvideDetails;
+      delete request.lightingDetails;
     }
     if (!courtComfort?.includes(OTHER)) {
       delete request.otherProvideDetails;
@@ -214,7 +214,7 @@ export const mapSupportYouNeedDetails = (partyDetails: PartyDetails): Partial<Ca
     attendingToCourt,
     hearingDetails,
     signLanguageDetails,
-    lightingProvideDetails,
+    lightingDetails,
     supportWorkerDetails,
     familyProviderDetails,
     therapyDetails,
@@ -222,35 +222,37 @@ export const mapSupportYouNeedDetails = (partyDetails: PartyDetails): Partial<Ca
     largePrintDetails,
     parkingDetails,
     differentChairDetails,
+    languageDetails,
   } = partyDetails?.response?.supportYouNeed ?? {};
 
   Object.assign(supportYouNeed, {
-    helpCommunication: helpCommunication,
-    describeOtherNeed: describeOtherNeed,
-    courtComfort: courtComfort,
-    otherProvideDetails: otherProvideDetails,
-    courtHearing: courtHearing,
-    communicationSupportOther: communicationSupportOther,
-    docsSupport: docsSupport,
-    otherDetails: otherDetails,
-    languageRequirements: languageRequirements,
-    describeSignLanguageDetails: describeSignLanguageDetails,
-    reasonableAdjustments: reasonableAdjustments,
-    safetyArrangements: safetyArrangements,
-    safetyArrangementsDetails: safetyArrangementsDetails,
-    travellingToCourt: travellingToCourt,
-    travellingOtherDetails: travellingOtherDetails,
-    attendingToCourt: attendingToCourt,
-    hearingDetails: hearingDetails,
-    signLanguageDetails: signLanguageDetails,
-    lightingProvideDetails: lightingProvideDetails,
-    supportWorkerDetails: supportWorkerDetails,
-    familyProviderDetails: familyProviderDetails,
-    therapyDetails: therapyDetails,
-    docsDetails: docsDetails,
-    largePrintDetails: largePrintDetails,
-    parkingDetails: parkingDetails,
-    differentChairDetails: differentChairDetails,
+    helpCommunication,
+    describeOtherNeed,
+    courtComfort,
+    otherProvideDetails,
+    courtHearing,
+    communicationSupportOther,
+    docsSupport,
+    otherDetails,
+    languageRequirements,
+    describeSignLanguageDetails,
+    reasonableAdjustments,
+    safetyArrangements,
+    safetyArrangementsDetails,
+    travellingToCourt,
+    travellingOtherDetails,
+    attendingToCourt,
+    hearingDetails,
+    signLanguageDetails,
+    lightingProvideDetails: lightingDetails,
+    supportWorkerDetails,
+    familyProviderDetails,
+    therapyDetails,
+    docsDetails,
+    largePrintDetails,
+    parkingDetails,
+    differentChairDetails,
+    languageDetails,
   });
 
   return supportYouNeed;

@@ -169,33 +169,6 @@ export function populateSummaryData(
       if (YesOrNo.YES === userCase.isAtAddressLessThan5Years) {
         userCase.citizenUserAddressHistory = '';
       }
-
-      userCase.attendingToCourt = respondent.value.response.supportYouNeed?.attendingToCourt;
-      userCase.hearingDetails = respondent.value.response.supportYouNeed?.hearingDetails;
-      userCase.languageRequirements = respondent.value.response.supportYouNeed?.languageRequirements;
-      userCase.languageDetails = respondent.value.response.supportYouNeed?.languageDetails;
-      userCase.safetyArrangements = respondent.value.response.supportYouNeed?.safetyArrangements;
-      userCase.safetyArrangementsDetails = respondent.value.response.supportYouNeed?.safetyArrangementsDetails;
-      userCase.reasonableAdjustments = respondent.value.response.supportYouNeed?.reasonableAdjustments;
-      userCase.docsSupport = respondent.value.response.supportYouNeed?.docsSupport;
-      userCase.docsDetails = respondent.value.response.supportYouNeed?.docsDetails;
-      userCase.largePrintDetails = respondent.value.response.supportYouNeed?.largePrintDetails;
-      userCase.otherDetails = respondent.value.response.supportYouNeed?.otherDetails;
-      userCase.helpCommunication = respondent.value.response.supportYouNeed?.helpCommunication;
-      userCase.describeSignLanguageDetails = respondent.value.response.supportYouNeed?.describeSignLanguageDetails;
-      userCase.describeOtherNeed = respondent.value.response.supportYouNeed?.describeOtherNeed;
-      userCase.courtHearing = respondent.value.response.supportYouNeed?.courtHearing;
-      userCase.supportWorkerDetails = respondent.value.response.supportYouNeed?.supportWorkerDetails;
-      userCase.familyProviderDetails = respondent.value.response.supportYouNeed?.familyProviderDetails;
-      userCase.therapyDetails = respondent.value.response.supportYouNeed?.therapyDetails;
-      userCase.communicationSupportOther = respondent.value.response.supportYouNeed?.communicationSupportOther;
-      userCase.courtComfort = respondent.value.response.supportYouNeed?.courtComfort;
-      userCase.lightingProvideDetails = respondent.value.response.supportYouNeed?.lightingProvideDetails;
-      userCase.otherProvideDetails = respondent.value.response.supportYouNeed?.otherProvideDetails;
-      userCase.travellingToCourt = respondent.value.response.supportYouNeed?.travellingToCourt;
-      userCase.parkingDetails = respondent.value.response.supportYouNeed?.parkingDetails;
-      userCase.differentChairDetails = respondent.value.response.supportYouNeed?.differentChairDetails;
-      userCase.travellingOtherDetails = respondent.value.response.supportYouNeed?.otherDetails;
     }
   });
 }
