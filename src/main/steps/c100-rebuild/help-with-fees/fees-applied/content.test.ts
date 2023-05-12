@@ -36,7 +36,7 @@ const cy = {
       required: 'Dewiswch do os ydych eisoes wedi gwneud cais am help i dalu ffi eich cais',
     },
     helpWithFeesReferenceNumber: {
-      required: 'ENodwch y cyfeirnod Help i dalu Ffioedd a gawsoch pan wnaethoch chi wneud cais am Help i dalu Ffioedd',
+      required: 'Nodwch y cyfeirnod Help i dalu Ffioedd a gawsoch pan wnaethoch chi wneud cais am Help i dalu Ffioedd',
     },
   },
 };

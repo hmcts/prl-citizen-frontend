@@ -16,7 +16,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  citizenUserAddressPostcode: 'Your current postcode (in welsh)',
+  citizenUserAddressPostcode: 'Eich cod post cyfredol',
   enterAddressManually: 'I live outisde the UK (in welsh)',
   errors: {
     citizenUserAddressPostcode: {

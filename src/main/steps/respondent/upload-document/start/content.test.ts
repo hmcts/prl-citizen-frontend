@@ -11,7 +11,6 @@ const en = {
   two: 'No',
   line1:
     'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     start: {
@@ -27,7 +26,6 @@ const cy: typeof en = {
   two: 'No',
   line1:
     'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     start: {
@@ -52,7 +50,6 @@ describe('citizen-home content', () => {
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('Has the court asked for this document?');
     expect(generatedContent.section).toEqual(' ');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.line1).toEqual(
       'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.'
     );

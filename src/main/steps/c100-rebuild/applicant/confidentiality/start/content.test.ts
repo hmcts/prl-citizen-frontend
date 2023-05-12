@@ -9,7 +9,7 @@ import { generateContent } from './content';
 jest.mock('../../../../../app/form/validation');
 
 const en = {
-  caption: 'Keeping your contact details private',
+  caption: 'Keeping your contact details private for',
   headingTitle: `Do you want to keep your contact details private from 
   the other people named in the application (the respondents)?`,
   paragraph1: 'The information you give us will be shared with the respondents. This includes your contact details.',
@@ -25,9 +25,9 @@ const en = {
 };
 
 const cy = {
-  caption: 'Cadw eich manylion cyswllt yn breifat',
+  caption: 'Cadw eich manylion cyswllt yn breifat ar gyfer',
   headingTitle:
-    'Ydych chi eisiau cadw eich manylion cyswllt yn breifat oddi wrth y bobl eraill a enwir yn y cais (yr atebwyr)?',
+    'Ydych chi eisiau cadw eich manylion cyswllt yn breifat ar gyfer oddi wrth y bobl eraill a enwir yn y cais (yr atebwyr)?',
   paragraph1:
     "Bydd yr wybodaeth a roddwch i ni yn cael ei rhannu gyda'r atebwyr. Mae hyn yn cynnwys eich manylion cyswllt.",
   paragraph2:
@@ -156,7 +156,7 @@ describe('applicant personal details > applying-with > content', () => {
     expect(generatedContentFields.Email).toBe('Email');
     expect(generatedContentFields.address).toBe('Address');
     expect(generatedContentFields.applicantName).toEqual('Test2 Test2');
-    expect(generatedContentFields.caption).toBe('Keeping your contact details private');
+    expect(generatedContentFields.caption).toBe('Keeping your contact details private for');
     expect(generatedContentFields.form.fields._ctx.value).toBe('appl_start');
   });
 });
