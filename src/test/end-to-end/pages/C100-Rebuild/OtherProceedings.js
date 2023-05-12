@@ -34,6 +34,7 @@ module.exports = {
    async provideDetailsOfCourtCases(copyOfOrder) {
     await I.retry(retryCount).waitForText(OtherProceedings.provideDetailsOfCourtCasesPageTitle);
     await I.retry(retryCount).waitForText(OtherProceedings.provideDetailsOfCourtCasesSubHeading);
+    await I.retry(retryCount).waitForSelector(this.fields.courtIssued, 30);
     await I.retry(retryCount).fillField(this.fields.courtIssued, OtherProceedings.testingText);
     await I.retry(retryCount).fillField(this.fields.caseNo, OtherProceedings.caseNumber);
     await I.retry(retryCount).fillField(this.fields.dateMadeDay, OtherProceedings.day);
