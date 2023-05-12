@@ -9,12 +9,8 @@ jest.mock('axios');
 config.get = jest.fn();
 
 describe('TSDraftController', () => {
-  //const controller = new TSDraftController();
   const req = mockRequest();
   const res = mockResponse();
-  // test('Should create instance of TSDraftController', async () => {
-  //   expect(TSDraftController).toBeInstanceOf(TSDraftController);
-  // });
 
   beforeEach(() => {
     req.session.userCase = {
