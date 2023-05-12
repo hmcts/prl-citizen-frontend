@@ -85,21 +85,21 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
-  title: 'Your hearing needs and requirements',
+  section: 'Check your answers -welsh',
+  title: 'Your hearing needs and requirements -welsh',
   sectionTitles: {
-    aboutYou: 'About you',
+    aboutYou: 'About you -welsh',
   },
 
   keys: {
-    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
-    hearingDetails: 'Please provide the details',
-    languageRequirements: 'Do you have any language requirements?',
-    languageDetails: 'Give details of the language you require (including dialect, if applicable)',
+    attendingToCourt: 'Would you be able to take part in hearings by video and phone? -welsh',
+    hearingDetails: 'Please provide the details -welsh',
+    languageRequirements: 'Do you have any language requirements? -welsh',
+    languageDetails: 'Give details of the language you require (including dialect, if applicable) -welsh',
     reasonableAdjustments:
-      'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-    safetyArrangements: 'Do you or the children need special safety arrangements at court?',
-    safetyArrangementsDetails: 'Describe what you need',
+      'Do you have a physical, mental or learning disability or health condition that means you need support during your case? -welsh',
+    safetyArrangements: 'Do you or the children need special safety arrangements at court? -welsh',
+    safetyArrangementsDetails: 'Describe what you need -welsh',
   },
   dependencies: {
     languageDetails: {
