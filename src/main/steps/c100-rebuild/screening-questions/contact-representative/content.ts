@@ -29,7 +29,7 @@ const cy = () => ({
     "Gofynnwch iddynt egluro'r camau nesaf",
   ],
   warningText: {
-    text: "Cau'r cais",
+    text: 'Peidiwch â chwblhau’r cais eich hun os ydych chi’n bwriadu gofyn i gynrychiolydd cyfreithiol wneud hyn ar eich rhan.',
     iconFallbackText: 'Rhybudd',
   },
 });

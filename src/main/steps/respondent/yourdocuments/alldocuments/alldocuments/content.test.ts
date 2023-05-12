@@ -1,10 +1,13 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../../../test/unit/utils/mockUserCase';
-import { applicant_tasklist_items_all_docs_en } from '../../../../applicant/yourdocuments/alldocuments/alldocuments/tasklist-items-all-documents';
+import {
+  applicant_tasklist_items_all_docs_cy,
+  applicant_tasklist_items_all_docs_en,
+} from '../../../../applicant/yourdocuments/alldocuments/alldocuments/tasklist-items-all-documents';
 import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
-import { respondent_all_docs_en } from './section-titles-all-documents';
+import { respondent_all_docs_cy, respondent_all_docs_en } from './section-titles-all-documents';
 
 const enContent = {
   title: 'All documents',
@@ -12,9 +15,9 @@ const enContent = {
   taskListItems: applicant_tasklist_items_all_docs_en,
 };
 const cyContent = {
-  title: 'All documents',
-  sectionTitles: respondent_all_docs_en,
-  taskListItems: applicant_tasklist_items_all_docs_en,
+  title: 'Pob dogfen',
+  sectionTitles: respondent_all_docs_cy,
+  taskListItems: applicant_tasklist_items_all_docs_cy,
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;

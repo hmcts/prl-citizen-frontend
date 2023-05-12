@@ -10,7 +10,6 @@ const en = {
   courtcommunication:
     'You or the children may need certain arrangements when you attend the court. Some of these arrangements will need to be agreed by the judge or HMCTS. If your needs change, you can discuss this with the court.',
   optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
   waitingRoom: 'Separate waiting room',
   separateExitEntry: 'Separate exits and entrances',
   screens: 'Screens so you and the other people in the case cannot see each other',
@@ -34,23 +33,22 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Special arrangements',
-  title: 'Do you or the children need special arrangements at court?',
+  section: 'Trefniadau arbennig',
+  title: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau arbennig?',
   courtcommunication:
-    'You or the children may need certain arrangements when you attend the court. Some of these arrangements will need to be agreed by the judge or HMCTS. If your needs change, you can discuss this with the court.',
-  optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
-  waitingRoom: 'Separate waiting room',
-  separateExitEntry: 'Separate exits and entrances',
-  screens: 'Screens so you and the other people in the case cannot see each other',
-  screensHint: 'This needs to be approved by a judge',
-  toilet: 'Separate toilets',
-  visitToCourt: 'Visit to court before the hearing',
-  videoLinks: 'Video links',
-  videoLinksHint: 'This needs to be approved by a judge',
-  other: 'Other',
+    "Efallai y bydd angen trefniadau penodol arnoch chi neu'r plant pan fyddwch chi'n dod i'r llys. Rhaid i rai o’r addasiadau hyn gael eu cytuno gan farnwr neu GLlTEM. Os yw eich anghenion yn newid, gallwch drafod hyn gyda'r llys.",
+  optionHint: 'Dogfennau mewn lliw penodol',
+  waitingRoom: 'Ystafell aros ar wahân',
+  separateExitEntry: "Drysau ar wahân i fynd i mewn ac allan o'r llys",
+  screens: 'Sgriniau i atal chi a’r bobl eraill yn yr achos rhag gweld eich gilydd',
+  screensHint: 'Mae angen i farnwr gymeradwyo hyn',
+  toilet: 'Toiledau ar wahân',
+  visitToCourt: "Ymweld â'r llys cyn y gwrandawiad",
+  videoLinks: 'Cyswllt fideo',
+  videoLinksHint: 'Mae angen i farnwr gymeradwyo hyn',
+  other: 'Arall',
   otherDetails: 'Provide details of what you or the children need',
-  noSupport: 'No, I do not have any safety requirements at this time',
+  noSupport: 'Nac oes, nid oes gennyf unrhyw ofynion o ran diogelwch ar hyn o bryd',
   continue: 'Continue',
   errors: {
     safetyArrangements: {
@@ -82,7 +80,6 @@ describe('citizen-home content', () => {
       'You or the children may need certain arrangements when you attend the court. Some of these arrangements will need to be agreed by the judge or HMCTS. If your needs change, you can discuss this with the court.'
     );
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.waitingRoom).toEqual('Separate waiting room');
     expect(generatedContent.separateExitEntry).toEqual('Separate exits and entrances');
     expect(generatedContent.screens).toEqual('Screens so you and the other people in the case cannot see each other');

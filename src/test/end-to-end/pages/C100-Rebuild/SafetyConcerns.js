@@ -65,7 +65,9 @@ module.exports = {
     },
     async concernAboutWhoChildApplicant() {
         await I.retry(retryCount).waitForText(SafetyConcerns.concernAboutWho);
+        I.wait('2');
         await I.retry(retryCount).click(this.fields.concernAboutChildren);
+        I.wait('1');
         await I.retry(retryCount).click(this.fields.concernAboutYourself);
         I.wait('2');
         await I.retry(retryCount).click('Continue');
@@ -82,8 +84,9 @@ module.exports = {
         await I.retry(retryCount).waitForText(SafetyConcerns.describePhysicalAbuseTitle);
         await I.retry(retryCount).waitForText(SafetyConcerns.whichChildren);
         await I.retry(retryCount).click(this.fields.childOne);
-        I.wait('1');
+        await I.retry(retryCount).waitForSelector(this.fields.behaviourDetails, 30);
         await I.retry(retryCount).fillField(this.fields.behaviourDetails, SafetyConcerns.testingText);
+        await I.retry(retryCount).waitForSelector(this.fields.behaviourStartDate, 30);
         await I.retry(retryCount).fillField(this.fields.behaviourStartDate, SafetyConcerns.testingText);
         await I.retry(retryCount).click(this.fields.ongoingBehaviourYes);
         await I.retry(retryCount).click(this.fields.seekHelpYes);
@@ -95,6 +98,7 @@ module.exports = {
     },
     async whyChildAbducted() {
         await I.retry(retryCount).waitForText(SafetyConcerns.whyChildAbduction);
+        I.wait('2');
         await I.retry(retryCount).fillField(this.fields.explainConcernsDetails, SafetyConcerns.testingText);
         await I.retry(retryCount).fillField(this.fields.whereChildrenNow, SafetyConcerns.testingText);
         I.wait('2');
@@ -169,6 +173,7 @@ module.exports = {
     //Other Concerns
     async otherConcerns() {
         await I.retry(retryCount).waitForText(SafetyConcerns.childImpactedDrugAlcohol);
+        await I.retry(retryCount).waitForSelector(this.fields.otherConcernsYes, 30);
         await I.retry(retryCount).click(this.fields.otherConcernsYes);
         I.wait('1');
         await I.retry(retryCount).fillField(this.fields.otherConcernsDetails, SafetyConcerns.testingText);
@@ -197,7 +202,7 @@ module.exports = {
         I.wait('1');
         await I.retry(retryCount).waitForText(SafetyConcerns.contactOtherWaysSubtitle);
         await I.retry(retryCount).click(this.fields.otherWaysContactYes);
-        I.wait('2');
+        await I.retry(retryCount).waitForText('Continue');
         await I.retry(retryCount).click('Continue');
     },
     async safetyConcerns() {

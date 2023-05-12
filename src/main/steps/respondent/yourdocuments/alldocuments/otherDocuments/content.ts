@@ -6,8 +6,6 @@ const en = () => {
   return {
     section: 'All documents',
     title: 'Other documents',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
     caseNumber: 'Case number',
     continue: 'Go back',
   };
@@ -15,12 +13,10 @@ const en = () => {
 
 const cy: typeof en = () => {
   return {
-    section: 'All documents',
-    title: 'Other documents',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
-    caseNumber: 'Case number',
-    continue: 'Go back',
+    section: 'Pob dogfen',
+    title: 'Other documents (welsh)',
+    caseNumber: 'Rhif yr achos',
+    continue: 'Go back (welsh)',
   };
 };
 
@@ -55,7 +51,7 @@ export const generateContent: TranslationFn = content => {
       );
       orders.push({
         href: `${MANAGE_DOCUMENTS_DOWNLOAD}/${uid}`,
-        createdDate: 'Not present',
+        createdDate: doc.value.documentDetails.documentUploadedDate,
         fileName: doc.value.citizenDocument?.document_filename,
       });
     }

@@ -11,6 +11,7 @@ const en = () => ({
   firstNameLabel: 'First name(s)',
   firstNameHint: 'Include all middle names here',
   lastNameLabel: 'Last name(s)',
+  Person: 'Person',
   addOtherPersonLabel: 'Add another person',
   removeOtherPersonLabel: 'Remove person',
   newNameLabel: 'Enter a new name',
@@ -31,6 +32,7 @@ const cy = () => ({
   firstNameLabel: 'Enw(au) cyntaf',
   firstNameHint: 'Nodwch bob enw canol yma',
   lastNameLabel: 'Cyfenw(au)',
+  Person: 'Unigolyn',
   addOtherPersonLabel: 'Ychwanegu unigolyn arall',
   removeOtherPersonLabel: 'Symud unigolyn',
   newNameLabel: 'Nodwch enw newydd',
@@ -41,7 +43,7 @@ const cy = () => ({
         'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     c100TempLastName: {
-      required: 'Nodwch yr enw olaf',
+      required: 'Nodwch y cyfenw',
       invalid:
         'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
@@ -78,7 +80,7 @@ export const generateFormFields = (otherPersons: C100RebuildPartyDetails[]): Gen
 
     fields[key] = {
       type: 'fieldset',
-      label: () => `Person ${count}`,
+      label: l => `${l.Person} ${count}`,
       classes: 'govuk-fieldset__legend--m',
       subFields: {
         [`firstName-${count}`]: {

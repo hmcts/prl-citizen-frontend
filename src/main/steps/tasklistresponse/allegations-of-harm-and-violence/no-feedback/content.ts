@@ -23,7 +23,7 @@ const en = () => ({
 
 const cy = () => ({
   serviceName: 'Child Arrangements - welsh',
-  caption: 'Safety Concerns - welsh',
+  caption: 'Pryderon diogelwch',
   title: "The children's safety - welsh",
   firstParagraph:
     'The court needs to know if any of the other people in this application, or anyone connected to them who has contact with the children, poses a risk to the safety of the children. - welsh',

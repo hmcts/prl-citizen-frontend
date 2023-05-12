@@ -260,6 +260,8 @@ export const DRUG_ALCOHOL_TESTS: PageLink = `${VIEW_ALL_DOCUMENTS}/drug_alcohol_
 export const POLICE_DISCLOSURE: PageLink = `${VIEW_ALL_DOCUMENTS}/police_disclosures`;
 export const WITNESS_AVAILABILITY: PageLink = `${VIEW_ALL_DOCUMENTS}/witness_availability`;
 export const TENANCY_AND_MORTGAGE_AVAILABILITY: PageLink = `${VIEW_ALL_DOCUMENTS}/tenancy_and_mortgage_availability`;
+export const ALLEGATION_OF_HARM_VOILENCE_DOC: PageLink = `${VIEW_ALL_DOCUMENTS}/allegationofharmandviolence`;
+export const RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC: PageLink = `${VIEW_ALL_DOCUMENTS}/respond_others_allegation_of_harm_and_violence`;
 
 /* Respondent Documents */
 export const RESPONDENT_CA_RESPONSE: PageLink = `${VIEW_ALL_DOCUMENTS}/caresponse`;
@@ -338,7 +340,10 @@ export const C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE: PageLink = `${C7_SUPPORT_YOU_
 /* Banner Links */
 export const FIND_OUT_ABOUT_CAFCASS =
   'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/';
+export const FIND_OUT_ABOUT_CAFCASS_WELSH =
+  'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/';
 export const FIND_OUT_ABOUT_CAFCASS_CYMRU = 'https://gov.wales/cafcass-cymru/what-we-do';
+export const FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH = 'https://llyw.cymru/cafcass-cymru/yr-hyn-yr-ydym-nin-ei-wneud';
 
 /* Respondent respnse */
 export const CA_RESPONDENT_RESPONSE_CONFIRMATION: PageLink = '/tasklistresponse/summary-confirmation';

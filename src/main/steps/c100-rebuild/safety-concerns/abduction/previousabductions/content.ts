@@ -41,7 +41,7 @@ export const cy = () => ({
   otherDetails: 'Darparwch fwy o fanylion',
   errors: {
     c1A_previousAbductionsShortDesc: {
-      required: 'Disgrifiwch yn fyr y digwyddiadau blaenorol o herwgydio',
+      required: 'Disgrifiwch yn fyr y digwyddiadau blaenorol o gipio',
     },
     c1A_policeOrInvestigatorInvolved: {
       required: 'Dewiswch oedd os oedd yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall yn rhan o hyn?',
