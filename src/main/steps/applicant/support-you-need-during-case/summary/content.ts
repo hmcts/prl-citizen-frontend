@@ -26,7 +26,7 @@ export const enContent = {
     attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
     hearingDetails: 'Please provide the details',
     languageRequirements: 'Do you have any language requirements?',
-    // languageDetails: 'Give details of the language you require (including dialect, if applicable)',
+    languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
     safetyArrangements: 'Do you or the children need special safety arrangements at court?',
@@ -99,7 +99,7 @@ const cyContent: typeof enContent = {
     reasonableAdjustments:
       'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
     safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
-    safetyArrangementsDetails: 'Describe what you need',
+    safetyArrangementsDetails: 'Describe what you need -welsh',
   },
   dependencies: {
     languageDetails: {
