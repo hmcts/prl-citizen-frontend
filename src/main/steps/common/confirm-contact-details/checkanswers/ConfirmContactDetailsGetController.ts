@@ -8,10 +8,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController } from '../../../../app/controller/GetController';
 import { APPLICANT_CHECK_ANSWERS, RESPONDENT_CHECK_ANSWERS } from '../../../../steps/urls';
 
-import {
-  //getContactDetails,
-  mapRequest,
-} from './ContactDetailsMapper';
+import { mapConfirmContactDetails } from './ContactDetailsMapper';
 
 @autobind
 export class ConfirmContactDetailsGetController extends GetController {
@@ -25,20 +22,20 @@ export class ConfirmContactDetailsGetController extends GetController {
       if (req.url.includes('respondent')) {
         req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
           if (respondent?.value?.user?.idamId === req.session?.user.id) {
-            Object.assign(req.session.userCase, mapRequest(respondent.value));
+            Object.assign(req.session.userCase, mapConfirmContactDetails(respondent.value));
           }
         });
       } else {
         req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
           if (applicant?.value?.user?.idamId === req.session?.user.id) {
-            Object.assign(req.session.userCase, mapRequest(applicant.value));
+            Object.assign(req.session.userCase, mapConfirmContactDetails(applicant.value));
           }
         });
       }
     } else {
       req.url.includes('respondent')
-        ? Object.assign(req.session.userCase, mapRequest(req.session.userCase.respondentsFL401!))
-        : Object.assign(req.session.userCase, mapRequest(req.session.userCase.applicantsFL401!));
+        ? Object.assign(req.session.userCase, mapConfirmContactDetails(req.session.userCase.respondentsFL401!))
+        : Object.assign(req.session.userCase, mapConfirmContactDetails(req.session.userCase.applicantsFL401!));
     }
 
     const redirectUrl = setRedirectUrl(req);

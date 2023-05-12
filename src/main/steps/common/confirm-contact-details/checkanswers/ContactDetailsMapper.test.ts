@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 
-import { mapRequest, prepareRequest, setTextFields } from './ContactDetailsMapper';
+import { mapConfirmContactDetails, prepareRequest, setTextFields } from './ContactDetailsMapper';
 
 let respondents;
 
@@ -124,7 +124,7 @@ describe('ContactDetailsMapper', () => {
       },
     };
     respondents[0].value = result;
-    req.session.userCase = mapRequest(respondents[0].value);
+    req.session.userCase = mapConfirmContactDetails(respondents[0].value);
 
     expect(req.session.userCase).toEqual(
       expect.objectContaining({
@@ -171,7 +171,7 @@ describe('ContactDetailsMapper', () => {
       previousName: 'Johnny Smith',
     };
     respondents[0].value = result;
-    req.session.userCase = mapRequest(respondents[0].value);
+    req.session.userCase = mapConfirmContactDetails(respondents[0].value);
 
     expect(req.session.userCase).toEqual(
       expect.objectContaining({

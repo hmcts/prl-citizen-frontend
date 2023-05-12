@@ -2,7 +2,7 @@ import { CaseWithId } from '../../app/case/case';
 import { CaseType, PartyDetails, PartyType } from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
 import { mapSupportYouNeedDetails } from '../../steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
-import { mapRequest as mapRequestConfirmContactDetails } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
+import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
 import { mapKeepYourDetailsPrivate } from '../../steps/common/keep-details-private/KeepYourDetailsPrivateMapper';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { mapConsentToApplicationDetails } from '../../steps/respondent/consent-to-application/ConsentMapper';
@@ -39,7 +39,7 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
     }
   }
   if (partyDetails) {
-    Object.assign(userCase, mapRequestConfirmContactDetails(partyDetails));
+    Object.assign(userCase, mapConfirmContactDetails(partyDetails));
   }
   if (partyDetails?.response?.keepDetailsPrivate?.confidentiality) {
     Object.assign(userCase, mapKeepYourDetailsPrivate(partyDetails));
