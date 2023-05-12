@@ -6,6 +6,7 @@ import { RespondentTaskListGetController } from '../main/steps/respondent/task-l
 
 import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
 import { FieldPrefix } from './app/case/case';
+import { EventRoutesContext } from './app/case/definition';
 import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -36,6 +37,7 @@ import RespondentConfirmContactDetailsPostController from './steps/respondent/co
 //import { ConsentGetController } from './steps/respondent/consent-to-application/ConsentGetController';
 import { ConsentPostController } from './steps/respondent/consent-to-application/ConsentPostController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
+import { TasklistresponseCommonGetController } from './steps/tasklistresponse/TasklistResponseCommonGetController';
 import { SafetyConcernsPostController } from './steps/tasklistresponse/allegations-of-harm-and-violence/SafetyConcernsPostController';
 //import { InternationalFactorsGetController } from './steps/tasklistresponse/international-factors/InternationalFactorsGetController';
 import { InternationalFactorsPostController } from './steps/tasklistresponse/international-factors/InternationalFactorsPostController';
@@ -45,7 +47,6 @@ import { MIAMPostController } from './steps/tasklistresponse/miam/MIAMPostContro
 import { ProceedingPostController } from './steps/tasklistresponse/proceedings/ProceedingPostController';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
 import { TimedOutGetController } from './steps/timed-out/get';
-
 import {
   ACCESSIBILITY_STATEMENT,
   ALLEGATION_OF_HARM_VOILENCE,
@@ -118,8 +119,6 @@ import {
   C7_ATTENDING_THE_COURT,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
-import { TasklistresponseCommonGetController } from './steps/tasklistresponse/TasklistResponseCommonGetController';
-import { EventRoutes } from './app/case/definition';
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -163,20 +162,20 @@ export class Routes {
     //Tasklist event common get controller routes
     app.get(
       `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
-      errorHandler(new TasklistresponseCommonGetController(EventRoutes.KEEP_DETAILS_PRIVATE_RESPONDENT).get)
+      errorHandler(new TasklistresponseCommonGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_RESPONDENT).get)
     );
     app.get(
       `${APPLICANT_DETAILS_KNOWN}/:caseId`,
-      errorHandler(new TasklistresponseCommonGetController(EventRoutes.KEEP_DETAILS_PRIVATE_APPLICANT).get)
+      errorHandler(new TasklistresponseCommonGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_APPLICANT).get)
     );
     app.get(
       `${RESPONDENT_CHECK_ANSWERS}/:caseId`,
-      errorHandler(new TasklistresponseCommonGetController(EventRoutes.CONFIRM_CONTACT_DETAILS_RESPONDENT).get)
+      errorHandler(new TasklistresponseCommonGetController(EventRoutesContext.CONFIRM_CONTACT_DETAILS_RESPONDENT).get)
     );
 
     app.get(
       `${APPLICANT_CHECK_ANSWERS}/:caseId`,
-      errorHandler(new TasklistresponseCommonGetController(EventRoutes.CONFIRM_CONTACT_DETAILS_APPLICANT).get)
+      errorHandler(new TasklistresponseCommonGetController(EventRoutesContext.CONFIRM_CONTACT_DETAILS_APPLICANT).get)
     );
     app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
 
@@ -192,31 +191,31 @@ export class Routes {
       `${APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
       errorHandler(new ViewAllDocumentsPostController().setAllDocumentsViewed)
     );
-    
+
     // Common get controller for tasklist response events
     app.get(
-      `${MIAM_START}/:caseId`, 
-      errorHandler(new TasklistresponseCommonGetController(EventRoutes.MIAM_RESPONSE).get)
+      `${MIAM_START}/:caseId`,
+      errorHandler(new TasklistresponseCommonGetController(EventRoutesContext.MIAM_RESPONSE).get)
     );
     app.get(
       `${PROCEEDINGS_START}/:caseId`,
-      errorHandler(new TasklistresponseCommonGetController(EventRoutes.PROCEEDINGS_RESPONSE).get)
+      errorHandler(new TasklistresponseCommonGetController(EventRoutesContext.PROCEEDINGS_RESPONSE).get)
     );
     app.get(
       `${CONSENT_TO_APPLICATION}/:caseId`,
-      errorHandler(new TasklistresponseCommonGetController(EventRoutes.CONSENT_RESPONSE).get)
+      errorHandler(new TasklistresponseCommonGetController(EventRoutesContext.CONSENT_RESPONSE).get)
     );
     app.get(
       `${RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE}/:caseId`,
-      errorHandler(new TasklistresponseCommonGetController(EventRoutes.SAFETY_CONCERNS_RESPONSE).get)
+      errorHandler(new TasklistresponseCommonGetController(EventRoutesContext.SAFETY_CONCERNS_RESPONSE).get)
     );
     app.get(
       `${INTERNATIONAL_FACTORS_START}/:caseId`,
-      errorHandler(new TasklistresponseCommonGetController(EventRoutes.INTERNATIONAL_FACTORS_RESPONSE).get)
+      errorHandler(new TasklistresponseCommonGetController(EventRoutesContext.INTERNATIONAL_FACTORS_RESPONSE).get)
     );
     app.get(
       `${C7_ATTENDING_THE_COURT}/:caseId`,
-      errorHandler(new TasklistresponseCommonGetController(EventRoutes.SUPPORT_DURING_CASE).get)
+      errorHandler(new TasklistresponseCommonGetController(EventRoutesContext.SUPPORT_DURING_CASE).get)
     );
 
     //C100 related routes
@@ -276,7 +275,7 @@ export class Routes {
         app.get(`${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${MANAGE_DOCUMENTS_DOWNLOAD}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT}${RESPONDENT_CA_RESPONSE}/:uid`, errorHandler(documentManagerController.get));
-        
+
         app.get(`${CONSENT_SAVE}`, errorHandler(new ConsentPostController(step.form.fields).post));
         app.get(
           `${RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE}`,
