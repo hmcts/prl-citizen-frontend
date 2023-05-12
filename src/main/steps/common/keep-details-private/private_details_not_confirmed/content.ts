@@ -9,9 +9,9 @@ export const en = {
 };
 
 export const cy: typeof en = {
-  title: 'The court will not keep your contact details private',
+  title: 'Ni fydd y llys yn cadw eich manylion cyswllt yn breifat',
   line1:
-    'You have told us you do not want to keep your contact details private from the other people in this application.',
+    'Rydych wedi dweud wrthym nad ydych eisiau cadw eich manylion cyswllt yn breifat oddi wrth yr unigolyn a wnaeth gais i’r llys (y ceisydd). ',
   continue: 'Continue',
 };
 

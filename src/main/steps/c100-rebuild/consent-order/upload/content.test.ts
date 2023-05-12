@@ -42,7 +42,7 @@ const cy = {
   title: 'Llwytho drafft o’ch gorchymyn cydsynio',
   uploadGuidance1: 'Rhaid i chi (y ceisydd) a’r unigolyn arall (yr atebydd) lofnodi’r drafft o’r gorchymyn cydsynio.',
   uploadGuidance2:
-    'Os ydych yn llwytho’r dogfennau o gyfrifiadur, rhowch enwau eglur ar y ffeiliau. Er enghraifft gorchymyn-cydsynio-drafft.doc.',
+    'Os ydych yn llwytho dogfennau o gyfrifiadur, rhowch enwau eglur ar y ffeiliau. Er enghraifft gorchymyn-cydsynio-drafft.doc.',
   uploadGuidance3: 'Rhaid i ffeiliau derfynu â JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
   uploadHelp: 'Sut i dynnu llun o ddogfen ar eich ffôn a’i lwytho',
   uploadHelpBullet: [

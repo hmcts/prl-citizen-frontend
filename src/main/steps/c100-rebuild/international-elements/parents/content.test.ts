@@ -43,7 +43,7 @@ const cy = {
   errors: {
     ie_internationalParents: {
       required:
-        "Dewiswch 'ie' os yw rhieni’r plant neu unrhyw un sy’n bwysig i’r plant yn byw y tu allan i Gymru neu Loegr",
+        "Dewiswch 'ydynt' os yw rhieni’r plant neu unrhyw un sy’n bwysig i’r plant yn byw y tu allan i Gymru neu Loegr",
     },
     ie_provideDetailsParents: {
       required:

@@ -64,8 +64,8 @@ const cy = {
   hearingWithNext48HrsDetails: 'Beth ydych chi wedi ei wneud i hysbysu’r atebwyr ynglŷn â’ch cais?',
   hearingWithNext48HrsDetailsHint:
     'Os nad ydych wedi dweud wrth yr atebwyr, eglurwch pam. Bydd y llys yn disgwyl ichi roi rheswm da.',
-  one: 'Do',
-  two: 'Naddo',
+  one: 'Oes',
+  two: 'Nac oes',
 
   errors: {
     hu_reasonOfUrgentHearing: {

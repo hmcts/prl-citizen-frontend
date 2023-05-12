@@ -29,7 +29,7 @@ export const en = () => ({
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   title: 'Have the children been impacted by drug, alcohol or substance abuse? - welsh',
   line1: 'This could be abuse that is taking place now, or abuse that occurred in the past. - welsh',
   line2:

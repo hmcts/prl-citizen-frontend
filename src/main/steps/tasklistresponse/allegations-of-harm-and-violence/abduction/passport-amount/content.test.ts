@@ -36,7 +36,7 @@ const en = {
 };
 
 const cy = {
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   title: 'Provide details of the children’s passports - welsh',
   childrenMoreThanOnePassport: 'Do the children have more than one passport? - welsh',
   possessionChildrenPassport: 'Who is in possession of the children’s passports? - welsh',

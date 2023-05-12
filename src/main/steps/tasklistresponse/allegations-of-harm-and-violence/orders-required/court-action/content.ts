@@ -25,7 +25,7 @@ export const en = () => ({
 });
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   title: 'What do you want the court to do to keep you and the children safe? - welsh',
   paragraph:
     'Describe what you want the court to do to keep you and the children safe. The court may be able to make a protective order. - welsh',

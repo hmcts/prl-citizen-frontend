@@ -25,6 +25,7 @@ module.exports = {
   },
   async childrensPostcode() {
     await I.retry(retryCount).waitForText('Where do the children live?');
+    await I.retry(retryCount).waitForSelector(this.fields.childrenPostcodeDetails, 30);
     await I.retry(retryCount).fillField(this.fields.childrenPostcodeDetails, this.fields.childPostcode);
     I.wait('2');
     await I.retry(retryCount).click('Continue');

@@ -34,7 +34,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  section: 'Safety concerns - welsh',
+  section: 'Pryderon diogelwch',
   title: 'Why do you think the children may be abducted or kept outside the UK without your consent? - welsh',
   warningText: {
     text: 'Contact the police or social services if a child you’re responsible for is at risk of being taken out of the UK without your consent. - welsh',

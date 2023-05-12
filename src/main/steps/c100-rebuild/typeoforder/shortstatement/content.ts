@@ -26,7 +26,7 @@ const en = () => ({
 const cy = () => ({
   title: "Disgrifiwch yr hyn rydych chi eisiau i'r llys ei wneud o ran y plant yn y cais hwn",
   subHeading:
-    "Crynhoi'r hyn rydych chi eisiau i'r llys ei wneud. Rhowch eich ateb mewn pwyntiau bwled a pharagraffau byr.",
+    "Rhowch grynodeb o'r hyn rydych chi eisiau i'r llys ei wneud. Rhowch eich ateb mewn pwyntiau bwled a pharagraffau byr.",
   setOut: 'Dylech nodi:',
   listOfsetOut: [
     "unrhyw drefniadau rhianta blaenorol rhyngoch chi a'r bobl eraill yn yr achos",

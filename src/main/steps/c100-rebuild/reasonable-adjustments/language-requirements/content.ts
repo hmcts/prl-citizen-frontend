@@ -47,7 +47,7 @@ export const cy = () => ({
   noLanguageRequirements: 'Nac oes, nid oes gennyf unrhyw ofynion ieithyddol ar hyn o bryd',
   errors: {
     ra_needInterpreterInCertainLanguage_subfield: {
-      required: 'Rhowch fanylion yr iaith mae angen cyfieithydd arnoch ar ei gyfer',
+      required: 'Rhowch fanylion yr iaith mae angen cyfieithydd arnoch ar ei chyfer',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',

@@ -45,10 +45,13 @@ const cy = {
   yes: 'Ydw',
   no: 'Nac ydw',
   errors: {
-    c1A_supervisionAgreementDetails:
-      "Dewiswch a ydych chi’n cytuno i'r plant dreulio amser gyda'r bobl eraill yn y cais hwn",
-    c1A_agreementOtherWaysDetails:
-      "Dewiswch ydw os ydych chi’n cytuno i'r bobl eraill yn y cais hwn fod mewn cysylltiad â'r plant mewn ffyrdd eraill",
+    c1A_supervisionAgreementDetails: {
+      required: "Dewiswch a ydych chi'n cytuno i'r plant dreulio amser gyda'r bobl eraill yn y cais hwn",
+    },
+    c1A_agreementOtherWaysDetails: {
+      required:
+        "Dewiswch a ydych chi'n cytuno i'r bobl eraill yn y cais hwn fod mewn cysylltiad â'r plant mewn ffyrdd eraill",
+    },
   },
 };
 

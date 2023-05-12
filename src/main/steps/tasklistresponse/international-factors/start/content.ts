@@ -9,7 +9,6 @@ const en = {
   one: 'Yes',
   two: 'No',
   hint: 'For example, is their family life mainly based outside of England and Wales?',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     start: {
@@ -28,11 +27,10 @@ const en = {
 
 const cy: typeof en = {
   section: ' ',
-  title: "Are the children's lives mainly based outside of England and Wales?",
-  one: 'Yes',
-  two: 'No',
-  hint: 'For example, is their family life mainly based outside of England and Wales?',
-  summaryText: 'Contacts for help',
+  title: 'Ydy bywyd y plant yn cael ei dreulio’n bennaf y tu allan i Gymru a Lloegr?',
+  one: 'Ydy',
+  two: 'Nac ydy',
+  hint: 'Er enghraifft, a yw eu bywyd teuluol yn bennaf y tu allan i Gymru a Lloegr?',
   continue: 'Continue',
   errors: {
     start: {
