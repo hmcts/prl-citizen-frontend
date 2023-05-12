@@ -89,7 +89,7 @@ describe('ConsentMapper', () => {
     };
     respondents[0].value.response = response;
 
-    req.session.userCase = await mapConsentToApplicationDetails(respondents[0]);
+    req.session.userCase = await mapConsentToApplicationDetails(respondents[0].value);
 
     expect(req.session.userCase.doYouConsent).toEqual('Yes');
     expect(req.session.userCase.reasonForNotConsenting).toEqual('');
@@ -110,7 +110,7 @@ describe('ConsentMapper', () => {
     };
     respondents[0].value.response = response;
 
-    req.session.userCase = await mapConsentToApplicationDetails(respondents[0]);
+    req.session.userCase = await mapConsentToApplicationDetails(respondents[0].value);
 
     expect(req.session.userCase.doYouConsent).toEqual('No');
     expect(req.session.userCase.reasonForNotConsenting).toEqual('test giorgi');

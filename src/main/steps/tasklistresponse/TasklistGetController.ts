@@ -15,11 +15,11 @@ import {
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
-} from '../../steps/urls';
+} from '../urls';
 
 import { mapDataInSession } from './utils';
 @autobind
-export class TasklistresponseCommonGetController {
+export class TasklistGetController {
   constructor(protected readonly context: EventRoutesContext) {}
   public async get(req: AppRequest, res: Response): Promise<void> {
     try {

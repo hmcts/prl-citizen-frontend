@@ -8,7 +8,7 @@ import * as oidc from '../../app/auth/user/oidc';
 import { CosApiClient } from '../../app/case/CosApiClient';
 import { EventRoutesContext } from '../../app/case/definition';
 
-import { TasklistresponseCommonGetController } from './TasklistResponseCommonGetController';
+import { TasklistGetController } from './TasklistGetController';
 
 const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
 
@@ -113,7 +113,7 @@ describe('GetCaseController', () => {
         },
       ],
     };
-    controller = new TasklistresponseCommonGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_RESPONDENT);
+    controller = new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_RESPONDENT);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
@@ -146,7 +146,7 @@ describe('GetCaseController', () => {
         },
       ],
     };
-    controller = new TasklistresponseCommonGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_RESPONDENT);
+    controller = new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_RESPONDENT);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
@@ -193,7 +193,7 @@ describe('GetCaseController', () => {
       },
     ];
     req.url = 'applicant';
-    controller = new TasklistresponseCommonGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_APPLICANT);
+    controller = new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_APPLICANT);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
@@ -231,7 +231,7 @@ describe('GetCaseController', () => {
         },
       ],
     };
-    controller = new TasklistresponseCommonGetController(EventRoutesContext.INTERNATIONAL_FACTORS_RESPONSE);
+    controller = new TasklistGetController(EventRoutesContext.INTERNATIONAL_FACTORS_RESPONSE);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
@@ -263,7 +263,7 @@ describe('GetCaseController', () => {
         },
       ],
     };
-    controller = new TasklistresponseCommonGetController(EventRoutesContext.MIAM_RESPONSE);
+    controller = new TasklistGetController(EventRoutesContext.MIAM_RESPONSE);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
@@ -387,37 +387,37 @@ describe('GetCaseController', () => {
         },
       ],
     };
-    controller = new TasklistresponseCommonGetController(EventRoutesContext.MIAM_RESPONSE);
+    controller = new TasklistGetController(EventRoutesContext.MIAM_RESPONSE);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
   test('C100 case for respondent SAFETY_CONCERNS_RESPONSE', async () => {
-    controller = new TasklistresponseCommonGetController(EventRoutesContext.SAFETY_CONCERNS_RESPONSE);
+    controller = new TasklistGetController(EventRoutesContext.SAFETY_CONCERNS_RESPONSE);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
   test('C100 case for respondent PROCEEDINGS_RESPONSE', async () => {
-    controller = new TasklistresponseCommonGetController(EventRoutesContext.PROCEEDINGS_RESPONSE);
+    controller = new TasklistGetController(EventRoutesContext.PROCEEDINGS_RESPONSE);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
   test('C100 case for respondent CONSENT_RESPONSE', async () => {
-    controller = new TasklistresponseCommonGetController(EventRoutesContext.CONSENT_RESPONSE);
+    controller = new TasklistGetController(EventRoutesContext.CONSENT_RESPONSE);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
   test('C100 case for respondent CONFIRM_CONTACT_DETAILS_APPLICANT', async () => {
-    controller = new TasklistresponseCommonGetController(EventRoutesContext.CONFIRM_CONTACT_DETAILS_APPLICANT);
+    controller = new TasklistGetController(EventRoutesContext.CONFIRM_CONTACT_DETAILS_APPLICANT);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
   test('C100 case for respondent CONFIRM_CONTACT_DETAILS_RESPONDENT', async () => {
-    controller = new TasklistresponseCommonGetController(EventRoutesContext.CONFIRM_CONTACT_DETAILS_RESPONDENT);
+    controller = new TasklistGetController(EventRoutesContext.CONFIRM_CONTACT_DETAILS_RESPONDENT);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
   test('C100 case for respondent SUPPORT_DURING_CASE', async () => {
-    controller = new TasklistresponseCommonGetController(EventRoutesContext.SUPPORT_DURING_CASE);
+    controller = new TasklistGetController(EventRoutesContext.SUPPORT_DURING_CASE);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });

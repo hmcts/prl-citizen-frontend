@@ -1,5 +1,5 @@
 import { CaseDate, CaseWithId } from '../../../app/case/case';
-import { Consent, Respondent, YesOrNo } from '../../../app/case/definition';
+import { Consent, PartyDetails, YesOrNo } from '../../../app/case/definition';
 import { toApiDate } from '../../../app/case/to-api-format';
 
 export const prepareRequest = (req: CaseWithId): Consent => {
@@ -27,11 +27,11 @@ export const prepareRequest = (req: CaseWithId): Consent => {
   return request;
 };
 
-export const mapConsentToApplicationDetails = (respondent: Respondent): Partial<CaseWithId> => {
+export const mapConsentToApplicationDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
   const consentToApplicationDetails = {};
 
   const { consentToTheApplication, permissionFromCourt, noConsentReason, courtOrderDetails, applicationReceivedDate } =
-    respondent?.value?.response?.consent ?? {};
+    partyDetails.response?.consent ?? {};
 
   Object.assign(consentToApplicationDetails, {
     doYouConsent: consentToTheApplication,
