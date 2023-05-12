@@ -23,19 +23,19 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Have you lived at this address for more than 5 years?',
-  one: 'Yes',
-  two: 'No',
+  title: 'Ydych chi wedi byw yn y cyfeiriad hwn am fwy na 5 mlynedd?',
+  one: 'Ydw',
+  two: 'Nac ydw',
   explainNoLabel:
-    'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
-  continue: 'Continue',
+    'Darparwch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf, gan gychwyn gyda’r diweddaraf',
+  continue: 'Parhau',
   errors: {
     isAtAddressLessThan5Years: {
-      required: 'Enter your details known',
+      required: 'Rhowch eich manylion hysbys',
     },
     citizenUserAddressHistory: {
       required:
-        'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
+        'Darparwch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf, gan gychwyn gyda’r diweddaraf',
     },
   },
 };

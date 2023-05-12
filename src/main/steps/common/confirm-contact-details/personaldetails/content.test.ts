@@ -51,7 +51,7 @@ const cyContent: typeof enContent = {
   citizenUserPlaceOfBirth: 'Man geni',
   citizenUserDateOfBirth: 'Eich dyddiad geni',
   hintDateOfBirth: 'Er enghraifft - 31 3 1980',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     citizenUserFirstNames: {
       required: 'Rhowch Eich enw cyntaf',

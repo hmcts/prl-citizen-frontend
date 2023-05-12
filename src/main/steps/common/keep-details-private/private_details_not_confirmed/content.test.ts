@@ -15,7 +15,7 @@ const cyContent = {
   title: 'Ni fydd y llys yn cadw eich manylion cyswllt yn breifat',
   line1:
     'Rydych wedi dweud wrthym nad ydych eisiau cadw eich manylion cyswllt yn breifat oddi wrth yr unigolyn a wnaeth gais i’r llys (y ceisydd). ',
-  continue: 'Continue',
+  continue: 'Parhau',
 };
 
 jest.mock('../../../../app/form/validation');

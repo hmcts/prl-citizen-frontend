@@ -8,7 +8,10 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController } from '../../../../app/controller/GetController';
 import { APPLICANT_CHECK_ANSWERS, RESPONDENT_CHECK_ANSWERS } from '../../../../steps/urls';
 
+
 import { mapConfirmContactDetails } from './ContactDetailsMapper';
+import { cyContent, enContent } from './content';
+
 
 @autobind
 export class ConfirmContactDetailsGetController extends GetController {
@@ -73,7 +76,11 @@ export const validateDataCompletion = (req: AppRequest<Partial<Case>>): void => 
     if (fieldsArray.includes(key)) {
       const value = req.session.userCase[`${key}`];
       if (typeof value === 'string' && (value === null || value === undefined || value.trim() === '')) {
-        req.session.userCase[`${key}`] = '<span class="govuk-error-message">Complete this section</span>';
+        req.session.lang === 'cy'
+          ? (req.session.userCase[`${key}`] =
+              '<span class="govuk-error-message">' + cyContent.completeSection + '</span>')
+          : (req.session.userCase[`${key}`] =
+              '<span class="govuk-error-message">' + enContent.completeSection + '</span>');
       }
     }
   }
@@ -87,24 +94,46 @@ const privateFieldsMap = new Map<string, string>([
 export const getConfidentialData = (req: AppRequest<Partial<Case>>): void => {
   for (const [key, value] of privateFieldsMap) {
     if (!req.session.userCase[`${value}`].includes('span')) {
-      if (
-        req.session.userCase?.detailsKnown &&
-        req.session.userCase?.startAlternative &&
-        req.session.userCase.contactDetailsPrivate?.length !== 0
-      ) {
-        if (req.session.userCase?.contactDetailsPrivate?.includes(key)) {
+      if (req.session.lang === 'cy') {
+        if (
+          req.session.userCase?.detailsKnown &&
+          req.session.userCase?.startAlternative &&
+          req.session.userCase.contactDetailsPrivate?.length !== 0
+        ) {
+          if (req.session.userCase?.contactDetailsPrivate?.includes(key)) {
+            req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
+              '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PRIVATE_CY + '</span>'
+            );
+          } else {
+            req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
+              '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PUBLIC_CY + '</span>'
+            );
+          }
+        } else {
           req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
-            '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PRIVATE + '</span>'
+            '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PUBLIC_CY + '</span>'
           );
+        }
+      } else {
+        if (
+          req.session.userCase?.detailsKnown &&
+          req.session.userCase?.startAlternative &&
+          req.session.userCase.contactDetailsPrivate?.length !== 0
+        ) {
+          if (req.session.userCase?.contactDetailsPrivate?.includes(key)) {
+            req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
+              '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PRIVATE + '</span>'
+            );
+          } else {
+            req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
+              '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PUBLIC + '</span>'
+            );
+          }
         } else {
           req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
             '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PUBLIC + '</span>'
           );
         }
-      } else {
-        req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
-          '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PUBLIC + '</span>'
-        );
       }
     }
   }

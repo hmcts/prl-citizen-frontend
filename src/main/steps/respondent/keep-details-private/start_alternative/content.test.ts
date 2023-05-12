@@ -43,7 +43,7 @@ const cyContent = {
     "Er enghraifft, os ydych chi'n credu bod y bobl eraill yn yr achos yn peri risg i chi, gallwch ofyn i'r llys gadw eich manylion cyswllt yn breifat.",
   one: 'Ydw',
   two: 'Nac ydw',
-  three: "I don't know",
+  three: 'Nid wyf yn gwybod',
   address: 'Cyfeiriad',
   Phone_number: 'Rhif ffôn',
   contact_details_private_hint:
@@ -51,7 +51,7 @@ const cyContent = {
   Email: 'E-bost',
   contact_details_private:
     'Which contact details do you want to keep private from the other people in this application?',
-  continue: 'Save and continue',
+  continue: 'Cadw a pharhau',
   errors: {
     startAlternative: {
       required: 'Enter your start alternative',

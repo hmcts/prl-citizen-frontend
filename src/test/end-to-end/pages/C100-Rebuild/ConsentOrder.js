@@ -6,7 +6,7 @@ module.exports = {
    async uploadDraftConsent() {
     const uploadTime = 5;
     await I.retry(retryCount).waitForText(ConsentOrder.uploadDraftTitle);
-    I.wait('1');
+    await I.retry(retryCount).waitForSelector('//*[@id="document"]', 30);
     await I.retry(retryCount).attachFile('//*[@id="document"]', '../resource/dummy.pdf');
     await I.runAccessibilityTest();
     I.wait('5');
