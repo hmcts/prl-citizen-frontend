@@ -8,10 +8,8 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController } from '../../../../app/controller/GetController';
 import { APPLICANT_CHECK_ANSWERS, RESPONDENT_CHECK_ANSWERS } from '../../../../steps/urls';
 
-
 import { mapConfirmContactDetails } from './ContactDetailsMapper';
 import { cyContent, enContent } from './content';
-
 
 @autobind
 export class ConfirmContactDetailsGetController extends GetController {
