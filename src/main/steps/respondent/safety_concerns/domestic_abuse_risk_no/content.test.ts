@@ -24,21 +24,20 @@ const enContent = {
   line14: 'If you are a man and have concerns for your safety',
   line15: 'National Domestic Violence Helpline',
   line16: 'If you want to change your answer, go back to the previous screen.',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   goBack: 'Go back',
 };
 
 const cyContent = {
-  section: 'Safety concerns',
+  section: 'Pryderon diogelwch',
   title: 'Your safety',
   line1: 'What you told us',
   line2: 'You have not suffered or are not at risk of suffering: ',
-  line3: 'psychological abuse',
-  line4: 'financial abuse',
-  line5: 'emotional abuse',
-  line6: 'physical abuse',
-  line7: 'sexual abuse',
+  line3: 'cam-drin seicolegol',
+  line4: 'cam-drin ariannol',
+  line5: 'cam-drin emosiynol',
+  line6: 'cam-drin corfforol',
+  line7: 'cam-drin rhywiol',
   line8:
     'Based on your answer, we will not ask you any more questions about domestic violence or abuse. You can continue your response.',
   line9: 'Are you unsure about the answer you gave?',
@@ -49,7 +48,6 @@ const cyContent = {
   line14: 'If you are a man and have concerns for your safety',
   line15: 'National Domestic Violence Helpline',
   line16: 'If you want to change your answer, go back to the previous screen.',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   goBack: 'Go back',
 };

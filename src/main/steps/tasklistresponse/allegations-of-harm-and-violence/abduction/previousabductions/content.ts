@@ -30,7 +30,7 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   title: 'Provide details of the previous abductions - welsh',
   line1: 'Give a short description of the previous incidents of abduction. - welsh',
   c1A_previousAbductionsShortDescHint: 'Include any previous attempts to threaten or abduct the children. - welsh',

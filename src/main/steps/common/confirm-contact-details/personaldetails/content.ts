@@ -49,8 +49,8 @@ const en = {
 const cy: typeof en = {
   title: 'Eich enw a dyddiad geni',
   citizenUserFirstNames: 'Eich enw cyntaf',
-  citizenUserLastNames: 'Eich enw olaf',
-  previousName: 'Enw(au) blaenorol, os o gwbl (dewisol)',
+  citizenUserLastNames: 'Eich cyfenw',
+  previousName: 'Enwau blaenorol, os o gwbl (Dewisol)',
   citizenUserPlaceOfBirth: 'Man geni',
   citizenUserDateOfBirth: 'Eich dyddiad geni',
   hintDateOfBirth: 'Er enghraifft - 31 3 1980',

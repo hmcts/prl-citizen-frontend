@@ -10,13 +10,13 @@
   {%if userCase['contactDetailsPrivate'] and userCase['contactDetailsPrivateAlternative']  === undefined %}
       {% for details in userCase['contactDetailsPrivate'] %}
                 {% if details === "address" %}
-                <li>Address</li>
+                <li>{{address}}</li>
                 {% elif details === "homephone"  %}
-                <li>Home phone</li>
+                <li>{{homePhone}}</li>
                 {% elif details === "mobilephone"  %}
-                <li>Mobile phone</li>
+                <li>{{mobilePhone}}</li>
                 {% elif details === "email"%}
-                <li>Email</li>
+                <li>{{email}}</li>
                 {% else %}
               {% endif %}
         {% endfor %}
@@ -26,13 +26,13 @@
   {%if userCase['contactDetailsPrivateAlternative'] and userCase['contactDetailsPrivate'] === undefined  %}
       {% for privateDetails in userCase['contactDetailsPrivateAlternative'] %}
                 {% if  privateDetails === "address" %}
-                <li>Address</li>
+                <li>{{address}}</li>
                 {% elif privateDetails === "homephone" %}
-                <li>Home phone</li>
+                <li>{{homePhone}}</li>
                 {% elif  privateDetails === "mobilephone" %}
-                <li>Mobile phone</li>
+                <li>{{mobilePhone}}</li>
               {% elif privateDetails === "email"%}
-                <li>Email</li>
+                <li>{{email}}</li>
                 {% else %}
               {% endif %}
       {% endfor %}

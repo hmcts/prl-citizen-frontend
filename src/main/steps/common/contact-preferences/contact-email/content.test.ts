@@ -14,6 +14,9 @@ const en = {
   text: 'You have decided to receive updates by email. You will still receive some information by post.',
   continue: 'Submit',
   warningText: 'Make sure that your contact details are up to date.',
+  email: 'Email',
+  change: 'Change',
+  nameText: 'name',
 };
 
 const cy = {
@@ -23,6 +26,9 @@ const cy = {
   text: 'You have decided to receive updates by email. You will still receive some information by post. - welsh',
   continue: 'Submit - welsh',
   warningText: 'Make sure that your contact details are up to date. -welsh',
+  email: 'E-bost',
+  change: 'Change (welsh)',
+  nameText: 'name (welsh)',
 };
 
 describe('contact email common content', () => {

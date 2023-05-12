@@ -8,9 +8,9 @@ import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 
 import { mapSafetyConcernsDetails } from './allegations-of-harm-and-violence/SafetyConcernsMapper';
 import { mapInternationalFactorsDetails } from './international-factors/InternationalFactorsMapper';
-import { mapMIAMRequest } from './miam/MIAMMapper';
 import { mapProceedingDetails } from './proceedings/ProceedingDetailsMapper';
 import { mapRequest } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
+import { mapMIAMDetails } from './miam/MIAMMapper';
 
 export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']): void => {
   const caseType = userCase.caseTypeOfApplication;
@@ -18,21 +18,26 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
   const respondentDetails = getRespondentDetails(userCase, userId);
   if (partyDetails) {
     if (caseType === CaseType.C100) {
-      if (partyDetails.response?.safetyConcerns) {
+      if (partyDetails?.response?.safetyConcerns) {
         Object.assign(userCase, mapSafetyConcernsDetails(partyDetails));
       }
 
-      if (partyDetails.response.citizenInternationalElements) {
+      if (partyDetails?.response?.citizenInternationalElements) {
         Object.assign(userCase, mapInternationalFactorsDetails(partyDetails));
-      }
-      
-      if (partyDetails.response.miam) {
-        Object.assign(userCase, mapMIAMRequest(respondentDetails));
       }
 
       if (partyDetails.response.currentOrPreviousProceedings) {
         Object.assign(userCase, mapProceedingDetails(respondentDetails));
       }
+
+      if (partyDetails?.response?.miam) {
+        Object.assign(userCase, mapMIAMDetails(partyDetails));
+      }
+    }
+
+    if (partyDetails?.response?.supportYouNeed) {
+      Object.assign(userCase, mapSupportYouNeedDetails(partyDetails));
+    }
 
       if (partyDetails.response.consent) {
         Object.assign(userCase, mapConsentToApplicationDetails(respondentDetails));

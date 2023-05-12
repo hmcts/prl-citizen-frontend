@@ -24,10 +24,10 @@ const en = {
 
 const cy: typeof en = {
   title: 'Beth yw eich cyfeiriad?',
-  citizenUserAddress1: 'Building and street (in welsh)',
-  citizenUserAddressTown: 'Town or city (in welsh)',
-  citizenUserAddressCounty: 'County (in welsh)',
-  citizenUserAddressPostcode: 'Postcode (in welsh)',
+  citizenUserAddress1: 'Adeilad a stryd',
+  citizenUserAddressTown: 'Tref neu ddinas',
+  citizenUserAddressCounty: 'Gwlad',
+  citizenUserAddressPostcode: 'Cod post',
   errors: {
     citizenUserAddress1: {
       required: 'Enter the first line of the address (in welsh)',

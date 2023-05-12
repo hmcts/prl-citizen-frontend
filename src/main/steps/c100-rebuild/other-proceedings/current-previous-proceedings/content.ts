@@ -36,7 +36,7 @@ export const cy = () => ({
       required: "Dewiswch do os yw'r plant wedi bod yn rhan o achos llys yn flaenorol",
     },
     op_courtOrderProtection: {
-      required: "Dewiswch do os yw'r plant wedi bod yn rhan o achos llys yn flaenorol",
+      required: 'Dewiswch oes os oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi',
     },
   },
 });
