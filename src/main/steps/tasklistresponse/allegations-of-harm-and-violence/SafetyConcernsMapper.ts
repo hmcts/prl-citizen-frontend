@@ -3,12 +3,11 @@ import {
   PRL_C1AAbuseTypes,
   PRL_C1ASafteyConcernsAbout,
   PRL_C1ASafteyConcerns_total,
-  Respondent,
+  PartyDetails,
   YesOrNo,
 } from '../../../app/case/definition';
-import type { AppRequest } from '../../../app/controller/AppRequest';
 
-export const prepareRequest = (respondent: Respondent, req: AppRequest): PRL_C1ASafteyConcerns_total => {
+export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_total => {
   const {
     PRL_c1A_haveSafetyConcerns,
     PRL_c1A_safetyConernAbout,
@@ -33,7 +32,7 @@ export const prepareRequest = (respondent: Respondent, req: AppRequest): PRL_C1A
     PRL_c1A_policeOrInvestigatorOtherDetails,
     PRL_c1A_childAbductedBefore,
     PRL_c1A_safteyConcerns,
-  } = req.session.userCase;
+  } = userCase;
   let request: PRL_C1ASafteyConcerns_total = {};
 
   if (PRL_c1A_concernAboutChild?.length) {
@@ -44,9 +43,12 @@ export const prepareRequest = (respondent: Respondent, req: AppRequest): PRL_C1A
           ...request.child,
           [abuse]: {
             ...PRL_c1A_safteyConcerns?.child?.[abuse],
-            childrenConcernedAbout: PRL_c1A_safteyConcerns?.child?.[abuse].childrenConcernedAbout.join(','),
+            childrenConcernedAbout: PRL_c1A_safteyConcerns?.child?.[abuse].childrenConcernedAbout?.join(','),
           },
         };
+        if (PRL_c1A_safteyConcerns?.child?.[abuse].seekHelpFromPersonOrAgency === YesOrNo.NO) {
+          delete request.child?.[abuse].seekHelpDetails;
+        }
       }
     });
   }
@@ -59,6 +61,9 @@ export const prepareRequest = (respondent: Respondent, req: AppRequest): PRL_C1A
           ...request.respondent,
           [abuse]: PRL_c1A_safteyConcerns?.respondent?.[abuse],
         };
+        if (PRL_c1A_safteyConcerns?.respondent?.[abuse].seekHelpFromPersonOrAgency === YesOrNo.NO) {
+          delete request.respondent?.[abuse].seekHelpDetails;
+        }
       }
     });
   }
@@ -98,16 +103,25 @@ export const prepareRequest = (respondent: Respondent, req: AppRequest): PRL_C1A
       haveSafetyConcerns: PRL_c1A_haveSafetyConcerns,
     };
   }
-
+  if (PRL_c1A_otherConcernsDrugs === YesOrNo.NO) {
+    delete request.otherconcerns?.c1AotherConcernsDrugsDetails;
+  }
+  if (PRL_c1A_childSafetyConcerns === YesOrNo.NO) {
+    delete request.otherconcerns?.c1AchildSafetyConcernsDetails;
+  }
   if (
     !PRL_c1A_safetyConernAbout?.includes(PRL_C1ASafteyConcernsAbout.RESPONDENT) &&
     !PRL_c1A_concernAboutChild?.includes(PRL_C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE)
   ) {
     delete request.respondent;
+    delete request.concernAboutRespondent;
   }
 
   if (!PRL_c1A_concernAboutChild?.includes(PRL_C1AAbuseTypes.ABDUCTION)) {
     delete request.abductions;
+  }
+  if (!PRL_c1A_possessionChildrenPassport?.includes('otherPerson')) {
+    delete request.abductions?.c1AprovideOtherDetails;
   }
 
   if (PRL_c1A_childAbductedBefore === YesOrNo.NO) {
@@ -125,7 +139,7 @@ export const prepareRequest = (respondent: Respondent, req: AppRequest): PRL_C1A
   return request;
 };
 
-export const mapSafetyConcernsDetails = (respondent: Respondent): Partial<CaseWithId> => {
+export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
   const safetyConcenrs = {};
   const {
     haveSafetyConcerns,
@@ -135,7 +149,7 @@ export const mapSafetyConcernsDetails = (respondent: Respondent): Partial<CaseWi
     otherconcerns,
     abductions,
     ...rest
-  } = respondent?.value?.response?.safetyConcerns ?? {};
+  } = partyDetails?.response?.safetyConcerns ?? {};
 
   if (rest?.child) {
     rest.child = Object.entries(rest.child).reduce((childConcerns, [abuseType, data]) => {

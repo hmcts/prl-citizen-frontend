@@ -9,7 +9,7 @@ import { AnyObject, PostController } from '../../../app/controller/PostControlle
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { RESPOND_TO_APPLICATION } from '../../urls';
 
-import { setConsentDetails } from './ConsentMapper';
+import { prepareRequest } from './ConsentMapper';
 
 @autobind
 export class ConsentPostController extends PostController<AnyObject> {
@@ -27,7 +27,7 @@ export class ConsentPostController extends PostController<AnyObject> {
 
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
-        Object.assign(respondent, setConsentDetails(respondent, req));
+        respondent.value.response.consent = prepareRequest(req.session?.userCase);
       }
     });
 

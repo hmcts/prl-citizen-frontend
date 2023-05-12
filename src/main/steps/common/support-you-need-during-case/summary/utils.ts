@@ -52,8 +52,9 @@ export const summaryList = (
       value: getValue(key, userCase, language),
       changeUrl: url,
     };
-
-    summaryData.push(row);
+    if (row.value !== '') {
+      summaryData.push(row);
+    }
   }
 
   return {
@@ -63,9 +64,15 @@ export const summaryList = (
 };
 
 const getValue = (key: string, userCase: Partial<CaseWithId>, language = 'en') => {
+  //const data=userCase[key];
+  let output;
   const value = userCase[key];
   if (typeof value === 'string') {
-    return SupportYouNeedAllEnum[language][value] as string;
+    output = SupportYouNeedAllEnum[language][value] as string;
+    if (!output) {
+      output = value;
+    }
+    return output;
   }
   let temp = '';
 

@@ -6,7 +6,7 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
 import { CONSENT_TO_APPLICATION } from '../../urls';
 
-import { getConsentDetails } from './ConsentMapper';
+import { mapConsentToApplicationDetails } from './ConsentMapper';
 
 export class ConsentGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
@@ -25,7 +25,7 @@ export class ConsentGetController extends GetController {
         respondent?.value?.response?.consent &&
         respondent?.value?.response?.consent?.consentToTheApplication
       ) {
-        Object.assign(req.session.userCase, getConsentDetails(respondent, req));
+        Object.assign(req.session.userCase, mapConsentToApplicationDetails(respondent));
       }
     });
     req.session.save(() => res.redirect(CONSENT_TO_APPLICATION));
