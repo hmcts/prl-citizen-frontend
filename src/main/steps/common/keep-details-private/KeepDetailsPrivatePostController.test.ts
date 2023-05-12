@@ -20,7 +20,7 @@ describe('KeepDetailsPrivatePostController', () => {
       {
         id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
         value: {
-          firstName: 'Sasank',
+          firstName: 'testuser',
           lastName: 'Citizen',
           email: 'abc@example.net',
           dateOfBirth: '03-20-2023',
