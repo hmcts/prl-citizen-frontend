@@ -2357,6 +2357,8 @@ export interface orderInterface {
 export const enum CONFIDENTIAL_DETAILS {
   PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
   PRIVATE = 'This information will be kept confidential',
+  PUBLIC_CY = 'This information was provided by the applicant so it cannot be kept confidential. (welsh)',
+  PRIVATE_CY = 'This information will be kept confidential (welsh)',
 }
 
 export const enum Gender {

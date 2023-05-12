@@ -6,8 +6,8 @@
             "serviceName": "Select Address"
         },
         "cy": {
-            "continue": "Continue",
-            "section": "Your address (in welsh)",
+            "continue": "Parhau",
+            "section": "Eich cyfeiriad",
             "serviceName": "Select Address (in welsh)"
         }
     },

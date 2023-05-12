@@ -32,7 +32,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  caption: 'Case number - welsh #{caseNumber}',
+  caption: 'Rhif yr achos #{caseNumber}',
   title: 'Dewisiadau cyswllt',
   paragraphs: [
     'Gallwch ddewis cael diweddariadau ynghylch yr achos drwy e-bost neu drwy’r post.',
@@ -46,7 +46,7 @@ export const cy = () => ({
   labelDitigalHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy e-bost.',
   labelPost: 'Drwy’r post',
   labelPostHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy’r post.',
-  continue: 'Save and continue - welsh',
+  continue: 'Cadw a pharhau',
   errors: {
     applicantPreferredContact: {
       required: 'Dewiswch sut hoffech inni gysylltu â chi',

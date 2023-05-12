@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { applyParms } from '../../../steps/common/url-parser';
 import * as URL from '../../urls';
 
-import { document_list_en } from './section-titles';
+import { document_list_cy, document_list_en } from './section-titles';
 import { documents_list_items_cy, documents_list_items_en } from './upload-document-list-items';
 import { generateUploadDocumentList } from './upload-documents-list';
 
@@ -20,8 +20,8 @@ const cy = () => ({
   section: 'Llwytho dogfennau',
   caseNumber: 'Rhif yr achos #',
   title: 'Dewiswch y math o ddogfen',
-  line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
-  sectionTitles: document_list_en,
+  line1: 'Os yw’r llys wedi gofyn i chi gyflwyno tystiolaeth bellach, gallwch lwytho dogfennau yma.',
+  sectionTitles: document_list_cy,
   documentsListItems: documents_list_items_cy,
 });
 

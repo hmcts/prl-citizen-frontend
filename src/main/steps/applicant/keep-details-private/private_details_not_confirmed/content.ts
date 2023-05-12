@@ -11,7 +11,7 @@ const en = {
 const cy = {
   ...welsh,
   section: 'Cadw eich manylion cyswllt yn breifat',
-  continue: 'Save and continue',
+  continue: 'Cadw a pharhau',
 };
 
 const languages = {

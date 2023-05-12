@@ -26,18 +26,18 @@ const cy: typeof en = {
   title: 'Beth yw eich cyfeiriad?',
   citizenUserAddress1: 'Adeilad a stryd',
   citizenUserAddressTown: 'Tref neu ddinas',
-  citizenUserAddressCounty: 'Gwlad',
+  citizenUserAddressCounty: 'Sir',
   citizenUserAddressPostcode: 'Cod post',
   errors: {
     citizenUserAddress1: {
-      required: 'Enter the first line of the address (in welsh)',
+      required: 'Nodwch linell gyntaf y cyfeiriad',
     },
     citizenUserAddressTown: {
-      required: 'Enter the town or city (in welsh)',
+      required: 'Nodwch y dref neu’r ddinas',
     },
     citizenUserAddressPostcode: {
-      required: 'Enter a valid postcode (in welsh)',
-      invalid: 'Enter a valid postcode (in welsh)',
+      required: 'Rhowch god post dilys.',
+      invalid: 'Rhowch god post dilys.',
     },
   },
 };
