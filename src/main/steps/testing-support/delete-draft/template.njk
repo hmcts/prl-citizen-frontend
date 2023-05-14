@@ -1,0 +1,22 @@
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+    <div class="grid-row">
+      <div class="column-two-thirds">
+          <form action="/draft-controller/deleteC100Draft?_csrf={{ csrfToken }}" method="post">
+            <div class="govuk-form-group govuk-!-margin-bottom-3">
+           
+              <label class="govuk-label govuk-label--l" for="event-name">
+               Case ID(s)
+              </label>
+            <p class="govuk-body-m"> Please enter the case references, you want to delete coma separated eg. 123456, 23456, 89687</p>
+
+            <input class="govuk-input govuk-!-width-two-thirds" id="idList" name="ids" type="text">
+            </div>
+            <div>
+            <button class="govuk-button" data-module="govuk-button">{{deleteC100Draft}}</button>
+          </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
