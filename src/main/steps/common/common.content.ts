@@ -5,6 +5,8 @@ import { C100_CASE_TYPE } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 import { C100_URL, DASHBOARD_URL } from '../../steps/urls';
 
+import AppFeedback from './app-feedback';
+
 const en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law',
@@ -13,7 +15,7 @@ const en = {
   c100ServiceName: 'Child arrangements',
   fl401ServiceName: 'Family Injunctions',
   feedback:
-    'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.',
+    'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="{feedbackUrl}" target="{target}">feedback (opens in a new tab)</a> will help us to improve it.',
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
   govUk: 'GOV.UK',
   back: 'Back',
@@ -127,7 +129,7 @@ const cy: typeof en = {
   c100ServiceName: 'Trefniadau plant',
   fl401ServiceName: 'Family injunction (in welsh)',
   feedback:
-    'Mae hwn yn wasanaeth newydd - bydd eich <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">adborth</a> yn ein helpu ni i’w wella.',
+    'Mae hwn yn wasanaeth newydd - bydd eich <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="{feedbackUrl}" target="{target}">adborth (opens in a new tab)</a> yn ein helpu ni i’w wella.',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
   govUk: 'GOV.UK',
   back: 'Yn ôl',
@@ -235,6 +237,11 @@ export const generatePageContent = ({
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(additionalData?.req, commonTranslations);
+  const inPageFeedback = AppFeedback.getInPageFeedbackUrl(
+    userCase?.caseTypeOfApplication as string,
+    additionalData?.req,
+    commonTranslations.feedback
+  );
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -251,6 +258,7 @@ export const generatePageContent = ({
     byApplicant,
     additionalData,
     userId,
+    feedback: inPageFeedback,
   };
 
   if (pageContent !== null && pageContent !== undefined) {
@@ -273,7 +281,7 @@ const getServiceName = (
   return capitalize(serviceName);
 };
 
-type CommonContentAdditionalData = {
+export type CommonContentAdditionalData = {
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   [key: string]: any;
 };
