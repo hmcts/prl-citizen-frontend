@@ -551,6 +551,10 @@ export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orde
 /** @C100 rebuild */
 export const C100_REBUILD_URL: PageLink = '/c100-rebuild';
 
+export const TESTING_SUPPORT: PageLink = '/testing-support';
+export const TESTING_SUPPORT_CREATE_DRAFT: PageLink = '/testing-support/create-Draft';
+export const TESTING_SUPPORT_DELETE_DRAFT: PageLink = '/testing-support/delete-Draft';
+export const CREATE_DRAFT: PageLink = '/draft-controller';
 /* applicant-tasklist-contactpreferences*/
 export const CONTACT_PREFERENCES: PageLink = '/contact-preferences';
 export const APPLICANT_TASKLIST_CONTACT_PREFERENCES: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-preferences`;
