@@ -41,20 +41,20 @@ const en = (content: CommonContent) => {
 };
 
 export const cyContent: typeof enContent = {
-  section: 'Check your answers -welsh',
-  title: 'Your hearing needs and requirments -welsh',
+  section: 'Gwirio eich atebion',
+  title: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
-    aboutYou: 'About you -welsh',
+    aboutYou: 'Amdanoch chi',
   },
   keys: {
-    attendingToCourt: 'Would you be able to take part in hearings by video and phone? -welsh',
+    attendingToCourt: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
     hearingDetails: 'Please provide the details -welsh',
-    languageRequirements: 'Do you have any language requirements? -welsh',
+    languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
     languageDetails: 'Please provide language details -welsh',
-    safetyArrangements: 'Do you or the children need special safety arrangements at court? -welsh',
+    safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
     safetyArrangementsDetails: 'Please describe your need in detail -welsh',
     reasonableAdjustments:
-      'Do you have a physical, mental or learning disability or health condition that means you need support during your case? -welsh',
+      'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
   },
   errors: {},
 };

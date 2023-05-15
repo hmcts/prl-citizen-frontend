@@ -2,34 +2,50 @@ import { CaseWithId } from '../../app/case/case';
 import { CaseType, PartyDetails, PartyType } from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
 import { mapSupportYouNeedDetails } from '../../steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
+import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
 import { mapKeepYourDetailsPrivate } from '../../steps/common/keep-details-private/KeepYourDetailsPrivateMapper';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
+import { mapConsentToApplicationDetails } from '../../steps/respondent/consent-to-application/ConsentMapper';
 
 import { mapSafetyConcernsDetails } from './allegations-of-harm-and-violence/SafetyConcernsMapper';
 import { mapInternationalFactorsDetails } from './international-factors/InternationalFactorsMapper';
+import { mapMIAMDetails } from './miam/MIAMMapper';
+import { mapProceedingDetails } from './proceedings/ProceedingDetailsMapper';
 
 export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']): void => {
   const caseType = userCase.caseTypeOfApplication;
   const partyDetails = getPartyDetails(userCase, userId);
-
   if (partyDetails) {
     if (caseType === CaseType.C100) {
-      if (partyDetails.response?.safetyConcerns) {
+      if (partyDetails?.response?.safetyConcerns) {
         Object.assign(userCase, mapSafetyConcernsDetails(partyDetails));
       }
 
-      if (partyDetails.response.citizenInternationalElements) {
+      if (partyDetails?.response?.citizenInternationalElements) {
         Object.assign(userCase, mapInternationalFactorsDetails(partyDetails));
+      }
+
+      if (partyDetails.response.currentOrPreviousProceedings) {
+        Object.assign(userCase, mapProceedingDetails(partyDetails));
+      }
+
+      if (partyDetails?.response?.miam) {
+        Object.assign(userCase, mapMIAMDetails(partyDetails));
       }
     }
 
-    if (partyDetails.response?.supportYouNeed) {
-      Object.assign(userCase, mapSupportYouNeedDetails(partyDetails));
+    if (partyDetails.response.consent) {
+      Object.assign(userCase, mapConsentToApplicationDetails(partyDetails));
     }
-
-    if (partyDetails.response?.keepDetailsPrivate?.confidentiality) {
-      Object.assign(userCase, mapKeepYourDetailsPrivate(partyDetails));
-    }
+  }
+  if (partyDetails) {
+    Object.assign(userCase, mapConfirmContactDetails(partyDetails));
+  }
+  if (partyDetails?.response?.keepDetailsPrivate?.confidentiality) {
+    Object.assign(userCase, mapKeepYourDetailsPrivate(partyDetails));
+  }
+  if (partyDetails?.response?.supportYouNeed) {
+    Object.assign(userCase, mapSupportYouNeedDetails(partyDetails));
   }
 };
 

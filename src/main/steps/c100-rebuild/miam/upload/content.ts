@@ -45,7 +45,7 @@ const cy = () => ({
     'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
     'Llwythwch y ffeil yma.',
   ],
-  titleForFile: 'Dewiswch ddogfen i’w llwytho',
+  titleForFile: "Dewis dogfennau i'w llwytho",
   uploadButton: 'Llwytho ffeil',
   remove: 'Dileu',
   errors: {

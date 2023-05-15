@@ -76,7 +76,7 @@ const cy = () => ({
     'emosiynol',
     'ymddygiad treisgar neu fygythiol',
     'ymddygiad rheolaethol neu gymhellol',
-    "economaidd, sy'n golygu eu bod yn cyfyngu ar eich gallu i ennill, defnyddio neu gadw arian neu eiddo arall, neu derbyn nwyddau neu wasanaethau",
+    "economaidd, sy'n golygu eu bod yn cyfyngu ar eich gallu i ennill, defnyddio neu gadw arian neu eiddo arall, neu dderbyn nwyddau neu wasanaethau",
   ],
   otherFormsLine: 'Gallai hefyd gymryd ffurfiau eraill, fel cipio plant.',
   abusiveGuidance: 'Os nad ydych yn siŵr a yw eu hymddygiad yn ddifrïol, edrychwch ar y canllawiau ar',
@@ -105,11 +105,11 @@ const cy = () => ({
   cafcassSupportLines: [
     'Mae\'r <a href="https://www.cafcass.gov.uk/" class="govuk-link" target="_blank" aria-label="Children and Family Court Advisory and Support Service (Cafcass)">Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass)</a>, yn Lloegr, a <a href="https://gov.wales/cafcass-cymru" class="govuk-link" target="_blank" aria-label="Cafcass Cymru">Cafcass Cymru</a>yng Nghymru, yn gwarchod a hyrwyddo buddiannau plant sy\'n ymwneud ag achosion llys teulu. Bydd cynghorydd o Cafcass neu Cafcass Cymru yn edrych ar eich atebion fel rhan o\'u gwiriadau diogelu, ac efallai y bydd arnynt angen gofyn cwestiynau pellach i chi.',
     "Fel rhan o'u hymholiadau byddant yn cysylltu gyda sefydliadau fel yr heddlu ac awdurdodau lleol i gael unrhyw wybodaeth berthnasol amdanoch chi, unrhyw unigolyn arall a'r plant.",
-    "Byddan nhw'n cyflwyno gwybodaeth i'r llys cyn eich gwrandawiad cyntaf. Mae eu hasesiad yn helpu'r barnwr i wneud penderfyniad sydd er lles y plant",
+    'Byddwn nawr yn gofyn rhai cwestiynau i chi am yr ymddygiad difrïol.',
   ],
   or: 'neu',
   bottomLines: [
-    "Byddan nhw'n cyflwyno gwybodaeth i'r llys cyn eich gwrandawiad cyntaf. Mae eu hasesiad yn helpu'r barnwr i wneud penderfyniad sydd er lles y plant",
+    'Byddwn nawr yn gofyn rhai cwestiynau i chi am yr ymddygiad difrïol.',
     "Cymerwch eich amser i roi'r wybodaeth ac ysgrifennwch gymaint ag y teimlwch eich bod yn gallu ei wneud.",
   ],
 });

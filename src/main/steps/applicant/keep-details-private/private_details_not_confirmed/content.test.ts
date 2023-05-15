@@ -13,8 +13,8 @@ const enContent = {
 
 const cyContent = {
   ...welsh,
-  section: 'Keeping your contact details private',
-  continue: 'Save and continue',
+  section: 'Cadw eich manylion cyswllt yn breifat',
+  continue: 'Cadw a pharhau',
 };
 
 jest.mock('../../../../app/form/validation');

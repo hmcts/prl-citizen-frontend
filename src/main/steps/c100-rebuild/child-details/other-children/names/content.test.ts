@@ -44,7 +44,7 @@ const cy = {
         'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     c100TempLastName: {
-      required: 'Nodwch yr enw olaf',
+      required: 'Nodwch y cyfenw',
       invalid:
         'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },

@@ -134,7 +134,7 @@ describe('getRemainingTaskList', () => {
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/tasklistresponse/support-you-need-during-case/attending-the-court',
+            href: '/tasklistresponse/support-you-need-during-case/attending-the-court/1234',
             id: 'support_you_need_during_your_case',
             status: 'TO_DO',
             text: 'Support you need during your case',
@@ -162,7 +162,7 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
+            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page/1234',
             id: 'allegations_of_harm_and_violence',
             status: 'TO_DO',
             text: 'Allegations of harm and violence',
@@ -244,7 +244,7 @@ describe('getRemainingTaskList', () => {
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/tasklistresponse/support-you-need-during-case/attending-the-court',
+            href: '/tasklistresponse/support-you-need-during-case/attending-the-court/1234',
             id: 'support_you_need_during_your_case',
             status: 'TO_DO',
             text: 'Support you need during your case',
@@ -272,7 +272,7 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
+            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page/1234',
             id: 'allegations_of_harm_and_violence',
             status: 'TO_DO',
             text: 'Allegations of harm and violence',
@@ -342,7 +342,7 @@ describe('getRemainingTaskList', () => {
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/tasklistresponse/support-you-need-during-case/attending-the-court',
+            href: '/tasklistresponse/support-you-need-during-case/attending-the-court/1234',
             id: 'support_you_need_during_your_case',
             status: 'TO_DO',
             text: 'Support you need during your case',
@@ -370,7 +370,7 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
+            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page/1234',
             id: 'allegations_of_harm_and_violence',
             status: 'TO_DO',
             text: 'Allegations of harm and violence',

@@ -6,13 +6,13 @@ import {
   Document,
   OrderDocumentInfo,
   OtherProceedingDetails,
+  PartyDetails,
   ProceedingDetailsData,
   Proceedings,
   ProceedingsOrderDataInterface,
   ProceedingsOrderInterface,
   ProceedingsOrderTypeInterface,
   ProceedingsOrderTypes,
-  Respondent,
 } from '../../../app/case/definition';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -107,14 +107,14 @@ export const prepareProceedingDetailsRequest = (userCase: CaseWithId): CurrentOr
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const mapProceedingDetails = (respondent: Respondent): Partial<CaseWithId> => {
+export const mapProceedingDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
   const { haveChildrenBeenInvolvedInCourtCase, courtOrderMadeForProtection, proceedingsList } =
-    respondent.value.response.currentOrPreviousProceedings!;
+    partyDetails.response.currentOrPreviousProceedings!;
   const courtProceedingsOrders: ProceedingsOrderTypes[] = [];
   const proceedingOrderTypeInterface: ProceedingsOrderTypeInterface = {};
   let courtProceedingsOrders1;
   let otherProceedings1;
-  if (respondent.value.response.currentOrPreviousProceedings) {
+  if (partyDetails.response.currentOrPreviousProceedings) {
     proceedingsList?.forEach(proceedings => {
       const proceedingOrderInterfaceList: ProceedingsOrderInterface[] = [];
       const orderType = proceedings.value.orderType as ProceedingsOrderTypes;
@@ -172,11 +172,11 @@ export const mapProceedingDetails = (respondent: Respondent): Partial<CaseWithId
 
 export function getLocalDate(orderDate: string): Date {
   if (orderDate['year'] === '' && orderDate['month'] === '' && orderDate['day'] === '') {
-    const formated_Date = new Date(orderDate[''], orderDate[''], orderDate['']);
-    return formated_Date;
+    return new Date(orderDate[''], orderDate[''], orderDate['']);
+  } else if (orderDate) {
+    return new Date(orderDate['year'], orderDate['month'] - 1, orderDate['day']);
   } else {
-    const formated_Date = new Date(orderDate['year'], orderDate['month'] - 1, orderDate['day']);
-    return formated_Date;
+    return new Date(orderDate['year'], orderDate['month'] - 1, orderDate['day']);
   }
 }
 

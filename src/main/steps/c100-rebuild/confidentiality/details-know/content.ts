@@ -18,7 +18,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  caption: 'Cadw eich manylion cyswllt yn breifat',
+  caption: 'Cadw eich manylion cyswllt yn breifat ar gyfer',
   headingTitle: "A yw'r bobl eraill a enwir yn y cais hwn (yr atebwyr) yn gwybod beth yw eich manylion cyswllt?",
   one: 'Ydynt',
   two: 'Nac ydynt',

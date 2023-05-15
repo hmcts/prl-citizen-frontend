@@ -17,9 +17,11 @@
       <li>
         <a class="govuk-link" href="/pin-activation/enter-pin">{{activateAccessCodeLinkText}}</a>
       </li>
-      <li>
-        <a class="govuk-link" href="/task-list/applicant">{{newChildArrangementsLinkText}}</a>
-      </li>
+      {% if c100Rebuild %}
+        <li>
+          <a class="govuk-link" href="/task-list/applicant">{{newChildArrangementsLinkText}}</a>
+        </li>
+      {% endif %}
       <li>
         <a class="govuk-link" href="https://www.gov.uk/injunction-domestic-violence">{{newFamilyInjunctionLinkText}}</a>
       </li>

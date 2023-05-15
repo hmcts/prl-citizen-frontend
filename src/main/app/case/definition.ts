@@ -1628,6 +1628,20 @@ export const enum ApplyingWith {
   WITH_SOME_ONE_ELSE = 'withSomeoneElse',
 }
 
+export const enum EventRoutesContext {
+  KEEP_DETAILS_PRIVATE_RESPONDENT = "KEEP_DETAILS_PRIVATE_RESPONDENT",
+  KEEP_DETAILS_PRIVATE_APPLICANT = "KEEP_DETAILS_PRIVATE_APPLICANT",
+  CONFIRM_CONTACT_DETAILS_RESPONDENT = "CONFIRM_CONTACT_DETAILS_RESPONDENT",
+  CONFIRM_CONTACT_DETAILS_APPLICANT = "CONFIRM_CONTACT_DETAILS_APPLICANT",
+  MIAM_RESPONSE = "MIAM_RESPONSE",
+  CONSENT_RESPONSE = "CONSENT_RESPONSE",
+  PROCEEDINGS_RESPONSE = "PROCEEDINGS_RESPONSE",
+  SAFETY_CONCERNS_RESPONSE = "SAFETY_CONCERNS_RESPONSE",
+  INTERNATIONAL_FACTORS_RESPONSE = "INTERNATIONAL_FACTORS_RESPONSE",
+  SUPPORT_DURING_CASE = "SUPPORT_DURING_CASE",
+  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO"
+}
+
 export const enum ClarificationReason {
   JURISDICTION_DETAILS = 'jurisdictionDetails',
   MARRIAGE_CERTIFICATE_TRANSLATION = 'marriageCertTranslation',
@@ -2005,7 +2019,7 @@ export const enum State {
   CASE_CLOSED = 'ALL_FINAL_ORDERS_ISSUED',
   CASE_SERVED = 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
   CASE_WITHDRAWN = 'CASE_WITHDRAWN',
-  CASE_DELETED = 'DELETED',
+  CASE_DELETED = 'REQUESTED_FOR_DELETION',
 }
 
 export const enum UserRole {
@@ -2357,6 +2371,8 @@ export interface orderInterface {
 export const enum CONFIDENTIAL_DETAILS {
   PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
   PRIVATE = 'This information will be kept confidential',
+  PUBLIC_CY = 'This information was provided by the applicant so it cannot be kept confidential. (welsh)',
+  PRIVATE_CY = 'This information will be kept confidential (welsh)',
 }
 
 export const enum Gender {

@@ -53,12 +53,13 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
   if (!request.response!.safeToCallOption) {
     delete request.response!.safeToCallOption;
   }
+
   if (isAtAddressLessThan5Years === YesOrNo.YES) {
     request.addressLivedLessThan5YearsDetails = '';
   }
   return request;
 };
-export const mapRequest = (partyDetails: PartyDetails): Partial<CaseWithId> => {
+export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
   const contactDetail: Partial<CaseWithId> = {};
   const {
     lastName,
@@ -130,6 +131,7 @@ export function setAddressFields(req: AppRequest): Partial<CaseWithId> {
         req.session.userCase.citizenUserAddressText + req.session.userCase.citizenUserAddressPostcode;
     }
   }
+
   if (req.session.userCase.isAtAddressLessThan5Years === YesOrNo.YES) {
     req.session.userCase.citizenUserAddressHistory = '';
   }

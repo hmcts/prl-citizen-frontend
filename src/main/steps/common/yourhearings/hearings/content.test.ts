@@ -6,6 +6,7 @@ import { generateContent } from './content';
 
 const enContent = {
   section: 'Your court hearings',
+  title: 'Your Hearings',
   goBack: 'Go back',
   caseNumber: 'Case number',
   yourPreviousHearings: 'Your previous hearings',
@@ -21,14 +22,15 @@ const enContent = {
 
 const cyContent: typeof enContent = {
   section: 'Eich gwrandawiadau llys',
+  title: 'Your Hearings (welsh)',
   goBack: 'Mynd yn ôl',
   caseNumber: 'Rhif yr achos',
   yourPreviousHearings: 'Eich gwrandawiadau blaenorol',
-  hearing: 'Clyw',
+  hearing: 'Gwrandawiad cyntaf',
   hearingDate: 'Dyddiad',
   hearingTime: 'Amser',
-  typeOfHearing: 'Math o wrandawiad',
-  courtName: 'Enw llys',
+  typeOfHearing: 'Wyneb yn wyneb',
+  courtName: 'Enw’r llys',
   courtAddress: 'Cyfeiriad y llys',
   hearingOutcome: 'Canlyniad y gwrandawiad',
   usefulDocumentsMap: 'Dogfennau defnyddiol (Map)',

@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { Miam, Respondent, YesOrNo } from '../../../app/case/definition';
+import { Miam, PartyDetails, YesOrNo } from '../../../app/case/definition';
 
 export const prepareMIAMRequest = (userCase: CaseWithId): Miam => {
   const { miamStart, miamWillingness, miamNotWillingExplnation } = userCase;
@@ -13,8 +13,8 @@ export const prepareMIAMRequest = (userCase: CaseWithId): Miam => {
   return miamFromResponsent;
 };
 
-export const mapMIAMRequest = (respondent: Respondent): Partial<CaseWithId> => {
-  const { attendedMiam, willingToAttendMiam, reasonNotAttendingMiam } = respondent.value.response.miam!;
+export const mapMIAMDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
+  const { attendedMiam, willingToAttendMiam, reasonNotAttendingMiam } = partyDetails?.response?.miam || {};
   const miamcontent = {
     miamStart: attendedMiam,
     miamWillingness: willingToAttendMiam,

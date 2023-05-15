@@ -12,15 +12,21 @@ export const en = () => ({
   text: 'You have decided to receive updates by email. You will still receive some information by post.',
   continue: 'Submit',
   warningText: 'Make sure that your contact details are up to date.',
+  email: 'Email',
+  change: 'Change',
+  nameText: 'name',
 });
 
 export const cy = () => ({
-  caption: 'Case number - welsh #{caseNumber}',
-  title: 'Contact Preferences - welsh',
-  subTitle: 'Personal details - welsh',
-  text: 'You have decided to receive updates by email. You will still receive some information by post. - welsh',
-  continue: 'Submit - welsh',
-  warningText: 'Make sure that your contact details are up to date. -welsh',
+  caption: 'Rhif yr achos #{caseNumber}',
+  title: 'Dewisiadau Cyswllt',
+  subTitle: 'Manylion personol',
+  text: 'Rydych wedi penderfynu cael diweddariadau drwy e-bost. Byddwch yn dal i gael rhywfaint o wybodaeth drwy’r post.',
+  continue: 'Cyflwyno',
+  warningText: 'Sicrhewch fod eich manylion cyswllt yn gyfredol.',
+  email: 'E-bost',
+  change: 'Newid',
+  nameText: 'enw',
 });
 
 const languages = {

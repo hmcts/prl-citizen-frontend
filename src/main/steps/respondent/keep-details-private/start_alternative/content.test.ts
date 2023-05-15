@@ -15,8 +15,6 @@ const enContent = {
   one: 'Yes',
   two: 'No',
   three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   address: 'Address',
   Phone_number: 'Phone number',
   contact_details_private_hint:
@@ -36,26 +34,24 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Keeping your contact details private',
+  section: 'Cadw eich manylion cyswllt yn breifat',
   title:
-    'Do you want to keep your contact details private from the other people named in the application (the applicants)?',
+    'A ydych eisiau cadw eich manylion cyswllt yn breifat oddi wrth yr unigolyn wnaeth wneud cais i’r llys (y ceisydd)?',
   line1:
     'The answers you give in your response will be shared with the other people named in this application (the applicants). This will include your contact details.',
   line2:
-    'For example, if you believe the other people in the case pose a risk to you or the children, you can ask the court to keep your contact details private.',
-  one: 'Yes',
-  two: 'No',
-  three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
-  address: 'Address',
-  Phone_number: 'Phone number',
+    "Er enghraifft, os ydych chi'n credu bod y bobl eraill yn yr achos yn peri risg i chi, gallwch ofyn i'r llys gadw eich manylion cyswllt yn breifat.",
+  one: 'Ydw',
+  two: 'Nac ydw',
+  three: 'Nid wyf yn gwybod',
+  address: 'Cyfeiriad',
+  Phone_number: 'Rhif ffôn',
   contact_details_private_hint:
     "You've said that the applicants know some of your contact details. Make sure you select contact details the applicants do not already know.",
-  Email: 'Email',
+  Email: 'E-bost',
   contact_details_private:
     'Which contact details do you want to keep private from the other people in this application?',
-  continue: 'Save and continue',
+  continue: 'Cadw a pharhau',
   errors: {
     startAlternative: {
       required: 'Enter your start alternative',

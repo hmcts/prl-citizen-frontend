@@ -62,7 +62,7 @@ describe('applicant1 > address > lookup > content', () => {
     const commonContent1 = { language: 'cy' } as CommonContent;
 
     const generatedContent1 = generateContent(commonContent1);
-    expect(generatedContent1.section).toBe('Your address (in welsh)');
+    expect(generatedContent1.section).toBe('Eich cyfeiriad');
   });
 
   test('should contain citizenUserAddressPostcode field', () => {

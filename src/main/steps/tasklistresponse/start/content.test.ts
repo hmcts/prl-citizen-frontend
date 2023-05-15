@@ -4,8 +4,8 @@ import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
-import { respondent_en } from './section-titles';
-import { respondent_tasklist_items_en } from './tasklist-items';
+import { respondent_cy, respondent_en } from './section-titles';
+import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
 const enContent = {
   title: 'Respond to the application',
   statuses: {
@@ -17,18 +17,22 @@ const enContent = {
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
+  yourResponse: 'Your response will be shared with the other people in this case.',
+  warning: 'Warning',
 };
 const cyContent = {
   title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
   statuses: {
-    [SectionStatus.COMPLETED]: 'Wedi cwblhau',
+    [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
-    [SectionStatus.READY_TO_VIEW]: 'Ready to view (in Welsh)',
-    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet  (in Welsh)',
+    [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
   },
-  sectionTitles: respondent_en,
-  taskListItems: respondent_tasklist_items_en,
+  sectionTitles: respondent_cy,
+  taskListItems: respondent_tasklist_items_cy,
+  yourResponse: 'Your response will be shared with the other people in this case. -welsh',
+  warning: 'Warning -welsh',
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
@@ -97,7 +101,7 @@ describe('task-list > content', () => {
               text: 'Confirm or edit your contact details',
             },
             {
-              href: '/tasklistresponse/support-you-need-during-case/attending-the-court',
+              href: '/tasklistresponse/support-you-need-during-case/attending-the-court/1234567',
               id: 'support_you_need_during_your_case',
               status: 'TO_DO',
               text: 'Support you need during your case',
@@ -125,7 +129,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
+              href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page/1234567',
               id: 'allegations_of_harm_and_violence',
               status: 'TO_DO',
               text: 'Allegations of harm and violence',

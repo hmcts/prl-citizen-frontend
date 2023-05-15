@@ -31,6 +31,7 @@ import {
   RESPONDENT_PERSONAL_DETAILS,
   START_ALTERNATIVE_RESPONDENT,
 } from '../../../steps/urls';
+import { generateContent as summaryFormGenerateContent } from '../../common/respondent-summary/content';
 import { summaryList } from '../../common/summary/utils';
 import { summaryList as supportList } from '../../common/support-you-need-during-case/summary/utils';
 import {
@@ -128,6 +129,8 @@ export const enContent = {
     },
   },
   continue: 'Submit your response',
+  warning1: 'Warning',
+  yourResponse: 'Your response will be shared with the other people in this case.',
 };
 
 export const enSupportYouNeedContent = {
@@ -1057,7 +1060,9 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const formTranslations = summaryFormGenerateContent(content);
   return {
+    ...formTranslations,
     ...translations,
     form,
   };
