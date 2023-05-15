@@ -24,11 +24,12 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Reasonable adjustments',
-  title: 'I need something to make me feel comfortable during a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
-  optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
+  section: 'Addasiadau rhesymol',
+  title: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad llys',
+  courtcommunication:
+    'Meddyliwch am yr hyn y byddwch ei angen os bydd eich gwrandawiad yn un wyneb yn wyneb, trwy fideo neu dros y ffôn.',
+  optionHint: 'Dogfennau mewn lliw penodol',
+  summaryText: 'Cysylltiadau am gymorth',
   one: 'Yes',
   two: 'No',
   continue: 'Continue',

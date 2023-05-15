@@ -47,7 +47,6 @@ describe('citizen-home content', () => {
       'Does the other person named in your application (the respondent) know any of your contact details?'
     );
     expect(generatedContent.section).toEqual('Keeping your contact details private');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
   });
 
   test('should contain detailsKnown field', () => {

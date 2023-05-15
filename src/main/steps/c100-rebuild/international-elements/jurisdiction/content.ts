@@ -35,11 +35,11 @@ export const cy = () => ({
   errors: {
     ie_internationalJurisdiction: {
       required:
-        'Dewiswch ydynt os oes unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
+        "Dewiswch 'Gallai' os all unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?",
     },
     ie_provideDetailsJurisdiction: {
       required:
-        "Darparwch fanylion am unigolyn arall yn y cais sy'n gwneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?",
+        'Darparwch fanylion am unigolyn arall yn y cais all wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
     },
   },
 });

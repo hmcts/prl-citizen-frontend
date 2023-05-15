@@ -55,7 +55,7 @@ export const cy = () => ({
   addressHistoryDontKnowHintText: 'Gadewch yn wag os nad ydych yn gwybod',
   one: 'Ydynt',
   two: 'Nac ydynt',
-  three: 'DDdim yn gwybod',
+  three: 'Ddim yn gwybod',
   errors: {
     AddressLine1: {
       required: 'Nodwch linell gyntaf y cyfeiriad',

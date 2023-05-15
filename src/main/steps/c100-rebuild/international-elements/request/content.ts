@@ -35,11 +35,11 @@ export const cy = () => ({
   errors: {
     ie_internationalRequest: {
       required:
-        "Dewiswch ydynt os oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant",
+        "Dewiswch 'Oes' os oes gwlad arall wedi gofyn (neu os gofynnwyd i wlad arall) am wybodaeth neu help i'r plant",
     },
     ie_provideDetailsRequest: {
       required:
-        "Darparwch fanylion am wlad arall sy'n gofyn (neu y gofynnir iddo) am wybodaeth neu gymorth ar gyfer y plant",
+        "Darparwch fanylion am wlad arall sy'n gofyn (neu y gofynnwyd iddi) am wybodaeth neu gymorth ar gyfer y plant",
     },
   },
 });

@@ -33,7 +33,7 @@ const cy = {
   one: 'Oes',
   two: 'Nac oes',
   infoDetail: "Gofynnir i chi lwytho'r gorchymyn cydsynio drafft yn nes ymlaen yn y cais.",
-  findOut: 'Find out more about alternative routes of reaching an agreement.',
+  findOut: 'Gwybodaeth am ffyrdd eraill o ddod i gytundeb.',
   errors: {
     sq_writtenAgreement: {
       required:

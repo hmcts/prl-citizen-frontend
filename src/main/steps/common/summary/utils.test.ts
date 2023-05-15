@@ -1,4 +1,5 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
+import { State } from '../../../app/case/definition';
 import { SummaryList } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
 
@@ -123,6 +124,56 @@ describe('common > summary > utils', () => {
               key: { text: 'test' },
               value: {},
               actions: { items: [{ href: '#', text: '1234', visuallyHiddenText: '1234' }] },
+            },
+          ],
+        },
+      },
+    ])('return correct summary list items when %#', ({ userCase, expected }) => {
+      expect(expected).toEqual(summaryCaseList([userCase], '', false));
+    });
+    test.each([
+      {
+        userCase: {
+          ...mockUserCase,
+          caseStatus: { state: State.Draft },
+          applicantCaseName: 'test',
+          caseTypeOfApplication: 'C100',
+        },
+        expected: {
+          title: '',
+          rows: [
+            { key: { text: 'Case Name' }, value: { html: '<h4>Case Status</h4>' } },
+            {
+              key: { text: 'test' },
+              value: {
+                html: 'Draft',
+              },
+              actions: {
+                items: [{ href: '/c100-rebuild/case/1234/retrive', text: '1234', visuallyHiddenText: '1234' }],
+              },
+            },
+          ],
+        },
+      },
+    ])('return correct summary list items when %#', ({ userCase, expected }) => {
+      expect(expected).toEqual(summaryCaseList([userCase], '', false));
+    });
+    test.each([
+      {
+        userCase: {
+          ...mockUserCase,
+          caseStatus: { state: '' },
+          applicantCaseName: 'test',
+          caseTypeOfApplication: 'FL401',
+        },
+        expected: {
+          title: '',
+          rows: [
+            { key: { text: 'Case Name' }, value: { html: '<h4>Case Status</h4>' } },
+            {
+              key: { text: 'test' },
+              value: {},
+              actions: { items: [{ href: '/applicant/task-list/1234', text: '1234', visuallyHiddenText: '1234' }] },
             },
           ],
         },

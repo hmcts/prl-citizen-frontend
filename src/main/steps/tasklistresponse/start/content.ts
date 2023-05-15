@@ -2,9 +2,9 @@ import { SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 
-import { respondent_en } from './section-titles';
+import { respondent_cy, respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
-import { respondent_tasklist_items_en } from './tasklist-items';
+import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
 
 const en = () => ({
   title: 'Respond to the application',
@@ -19,21 +19,25 @@ const en = () => ({
   taskListItems: respondent_tasklist_items_en,
   respondToApplication: 'Review and submit',
   goBack: 'Go back',
+  warning: 'Warning',
+  yourResponse: 'Your response will be shared with the other people in this case.',
 });
 
 const cy = () => ({
   title: 'Gwneud cais i fabwysiadu plentyn a leolwyd dan eich gofal',
   statuses: {
-    [SectionStatus.COMPLETED]: 'Wedi cwblhau',
+    [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
-    [SectionStatus.READY_TO_VIEW]: 'Ready to view (in Welsh)',
-    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet  (in Welsh)',
+    [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
   },
-  sectionTitles: respondent_en,
-  taskListItems: respondent_tasklist_items_en,
-  respondToApplication: 'Review and submit',
-  goBack: 'Go back',
+  sectionTitles: respondent_cy,
+  taskListItems: respondent_tasklist_items_cy,
+  respondToApplication: 'Review and submit -welsh',
+  goBack: 'Go back -welsh',
+  warning: 'Warning -welsh',
+  yourResponse: 'Your response will be shared with the other people in this case. -welsh',
 });
 
 const languages = {

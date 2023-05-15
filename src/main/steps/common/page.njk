@@ -26,7 +26,7 @@
 
 
 {% block pageTitle %}
-  {{ serviceName }} - {{ title }}-Private law- {{ govUk }}
+  {{ serviceName }} - {{ title }} {{appName}}
 {% endblock %}
 
 {% block beforeContent %}
@@ -82,28 +82,57 @@
 {% endblock %}
 
 {% block footer %}
-  {{ govukFooter({
-    meta: {
-      items: [
-        {
-          href: "/cookies",
-          text: cookies
-        },
-        {
-          href: "/privacy-policy",
-          text: privacyPolicy
-        },
-        {
-          href: "/accessibility-statement",
-          text: accessibility
-        },
-        {
-          href: "/terms-and-conditions",
-          text: termsAndConditions
-        }
-      ]
-    }
-  }) }}
+  {% if testingSupport %}
+    {{ govukFooter({
+      meta: {
+        items: [
+          {
+            href: "/cookies",
+            text: cookies
+          },
+          {
+            href: "/privacy-policy",
+            text: privacyPolicy
+          },
+          {
+            href: "/accessibility-statement",
+            text: accessibility
+          },
+          {
+            href: "/terms-and-conditions",
+            text: termsAndConditions
+          },
+          {
+            href: "/testing-support",
+            text: testingSupportLabel
+          }
+        ]
+      }
+    }) }}
+  {% else %}
+    {{ govukFooter({
+      meta: {
+        items: [
+          {
+            href: "/cookies",
+            text: cookies
+          },
+          {
+            href: "/privacy-policy",
+            text: privacyPolicy
+          },
+          {
+            href: "/accessibility-statement",
+            text: accessibility
+          },
+          {
+            href: "/terms-and-conditions",
+            text: termsAndConditions
+          }
+        ]
+      }
+    }) }}
+  {% endif %}
 {% endblock %}
 
 {% block bodyEnd %}

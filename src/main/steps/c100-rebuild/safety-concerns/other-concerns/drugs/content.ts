@@ -39,11 +39,11 @@ export const cy = () => ({
   errors: {
     c1A_otherConcernsDrugs: {
       required:
-        "Dewiswch ydynt os yw'r plant wedi cael eu heffeithio gan rywun a oedd yn camddefnyddio cyffuriau, alcohol neu sylweddau",
+        "Dewiswch do os yw'r plant wedi cael eu heffeithio gan rywun a oedd yn camddefnyddio cyffuriau, alcohol neu sylweddau",
     },
     c1A_otherConcernsDrugsDetails: {
       required:
-        "Dewiswch ydynt os yw'r plant wedi cael eu heffeithio gan rywun a oedd yn camddefnyddio cyffuriau, alcohol neu sylweddau",
+        "Dewiswch do os yw'r plant wedi cael eu heffeithio gan rywun a oedd yn camddefnyddio cyffuriau, alcohol neu sylweddau",
     },
   },
 });

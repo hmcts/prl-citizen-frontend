@@ -14,3 +14,20 @@ export const respondent_tasklist_items_en = {
   what_do_you_want_the_court_to_do: 'What do you want the court to do?',
   international_factors: 'International element',
 };
+
+export const respondent_tasklist_items_cy = {
+  do_you_have_legal_representation: 'Oes gennych chi gynrychiolydd cyfreithiol?',
+  do_you_consent_to_the_application: "Ydych chi'n cydsynio i'r cais?",
+  keep_your_details_private: 'Cadw eich manylion yn breifat',
+  confirm_or_edit_your_contact_details: 'Cadarnhau neu olygu eich manylion cyswllt',
+  support_you_need_during_your_case: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',
+  mediation_miam: 'Cyfryngu (MIAM)',
+  current_or_previous_proceedings: 'Achos cyfredol neu flaenorol',
+  allegations_of_harm_and_violence: 'Allegations of harm and violence -welsh',
+  your_safety: 'Your safety',
+  childrens_safety: "The children's safety",
+  abduction_concerns: 'Abduction concerns',
+  other_concerns: 'Other concerns',
+  what_do_you_want_the_court_to_do: 'What do you want the court to do?',
+  international_factors: 'Elfennau rhyngwladol',
+};

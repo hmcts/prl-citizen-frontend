@@ -34,12 +34,14 @@ module.exports = {
     await I.retry(retryCount).waitForText(ApplicantDetails.applicantDetailsPageTitle);
     await I.retry(retryCount).fillField(this.fields.applicantFirstName, ApplicantDetails.firstName);
     await I.retry(retryCount).fillField(this.fields.applicantLastName, ApplicantDetails.lastName);
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
     async confidentiality() {
     await I.retry(retryCount).waitForText(ApplicantDetails.confidentialityPageTitle);
     await I.retry(retryCount).waitForText(ApplicantDetails.confidentialitySubHeading);
     await I.retry(retryCount).click(this.fields.detailsKnownYes);
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
     async keepingConfidentialContact() {
@@ -50,12 +52,14 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.privateAddress);
     await I.retry(retryCount).click(this.fields.privateTelephoneNumber);
     await I.retry(retryCount).click(this.fields.privateEmail);
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
     async confidentialitySummary() {
     await I.retry(retryCount).waitForText(ApplicantDetails.keepingConfidentialContactPageTitle);
     await I.retry(retryCount).waitForText(ApplicantDetails.confidentialitySummarySubHeading);
     await I.retry(retryCount).waitForText(ApplicantDetails.confidentialitySummarySubHeading2);
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
     async provideDetailsPage() {
@@ -72,12 +76,13 @@ module.exports = {
     await I.retry(retryCount).waitForText(ApplicantDetails.placeOfBirthSubHeading);
     I.wait('1');
     await I.retry(retryCount).fillField(this.fields.applicantPlaceOfBirth, ApplicantDetails.placeOfBirth);
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
    async relationshipToChild() {
     await I.retry(retryCount).waitForText(ApplicantDetails.relationshipToChildPageTitle);
     await I.retry(retryCount).click(this.fields.fatherOption);
-    I.wait('1');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
     async addressDetailsOfApplicant() {
@@ -85,6 +90,7 @@ module.exports = {
     await I.retry(retryCount).waitForText(ApplicantDetails.addressHintText);
     I.wait('1');
     await I.retry(retryCount).fillField(this.fields.addressPostcode, ApplicantDetails.postcode);
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
     async addressLookUp() {

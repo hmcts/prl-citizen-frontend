@@ -33,7 +33,7 @@ const cy = () => ({
   donKnowEmailAddress: 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
   emailAddress: 'Cyfeiriad e-bost',
   telephoneNumber: 'Rhif ffôn',
-  donKnowTelephoneNumber: 'Nid wyf yn gwybod beth yw eu rhif ffônNid wyf yn gwybod beth yw eu rhif ffôn',
+  donKnowTelephoneNumber: 'Nid wyf yn gwybod beth yw eu rhif ffôn',
   errors: {
     emailAddress: {
       required: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com.',
