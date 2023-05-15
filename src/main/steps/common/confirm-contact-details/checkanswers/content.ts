@@ -29,10 +29,10 @@ export const enContent = {
 
 const en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  const dob = userCase.citizenUserDateOfBirth;
-  if (typeof dob !== 'string') {
-    getFormattedDate(dob);
-  }
+  // const dob = userCase.citizenUserDateOfBirth;
+  // if (typeof dob !== 'string') {
+  //   getFormattedDate(dob);
+  // }
   if (!userCase.citizenUserAddressPostcode) {
     urls.citizenUserAddressText = 'address/lookup';
   } else {
@@ -41,7 +41,16 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls, '', fieldType, content.language)],
+    sections: [
+      summaryList(
+        enContent,
+        userCase,
+        urls,
+        '',
+        // fieldType,
+        content.language
+      ),
+    ],
   };
 };
 
@@ -79,16 +88,16 @@ const urls = {
   citizenUserEmailAddressText: 'contactdetails',
   citizenUserSafeToCall: 'contactdetails',
 };
-const fieldType = {
-  citizenUserFullName: 'String',
-  citizenUserDateOfBirthText: 'String',
-  citizenUserPlaceOfBirthText: 'String',
-  citizenUserAddressText: 'String',
-  citizenUserAddressHistory: 'String',
-  citizenUserPhoneNumberText: 'String',
-  citizenUserEmailAddressText: 'String',
-  citizenUserSafeToCall: 'String',
-};
+// const fieldType = {
+//   citizenUserFullName: 'String',
+//   citizenUserDateOfBirthText: 'String',
+//   citizenUserPlaceOfBirthText: 'String',
+//   citizenUserAddressText: 'String',
+//   citizenUserAddressHistory: 'String',
+//   citizenUserPhoneNumberText: 'String',
+//   citizenUserEmailAddressText: 'String',
+//   citizenUserSafeToCall: 'String',
+// };
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
@@ -104,7 +113,16 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language)],
+    sections: [
+      summaryList(
+        cyContent,
+        userCase,
+        urls,
+        '',
+        //fieldType,
+        content.language
+      ),
+    ],
   };
 };
 

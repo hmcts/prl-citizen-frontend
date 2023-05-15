@@ -35,7 +35,7 @@ const en = (content: CommonContent) => {
         userCase,
         urls,
         enContent.sectionTitles.respondentAdditionalInformation,
-        fieldType,
+        //fieldType,
         content.language
       ),
     ],
@@ -55,12 +55,12 @@ const cyContent: typeof enContent = {
 
 let urls;
 
-const fieldType = {
-  start: 'String',
-  parents: 'String',
-  jurisdiction: 'String',
-  request: 'String',
-};
+// const fieldType = {
+//   start: 'String',
+//   parents: 'String',
+//   jurisdiction: 'String',
+//   request: 'String',
+// };
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
@@ -76,7 +76,7 @@ const cy: typeof en = (content: CommonContent) => {
         userCase,
         urls,
         cyContent.sectionTitles.respondentAdditionalInformation,
-        fieldType,
+        // fieldType,
         content.language
       ),
     ],

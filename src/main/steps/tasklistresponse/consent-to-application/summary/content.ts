@@ -10,11 +10,11 @@ const urls = {
   courtPermission: CONSENT_TO_APPLICATION,
 };
 
-const fieldType = {
-  doYouConsent: 'String',
-  applicationReceivedDate: 'Date',
-  courtPermission: 'String',
-};
+// const fieldType = {
+//   doYouConsent: 'String',
+//   applicationReceivedDate: 'Date',
+//   courtPermission: 'String',
+// };
 
 export const enContent = {
   section: 'Check your answers',
@@ -35,7 +35,14 @@ const en = (content: CommonContent) => {
     ...enContent,
     language: content.language,
     sections: [
-      summaryList(enContent, userCase, urls, enContent.sectionTitles.consentDetails, fieldType, content.language),
+      summaryList(
+        enContent,
+        userCase,
+        urls,
+        enContent.sectionTitles.consentDetails,
+        //fieldType,
+        content.language
+      ),
     ],
   };
 };
@@ -59,7 +66,14 @@ const cy: typeof en = (content: CommonContent) => {
     ...cyContent,
     language: content.language,
     sections: [
-      summaryList(enContent, userCase, urls, enContent.sectionTitles.consentDetails, fieldType, content.language),
+      summaryList(
+        enContent,
+        userCase,
+        urls,
+        enContent.sectionTitles.consentDetails,
+        //fieldType,
+        content.language
+      ),
     ],
   };
 };

@@ -29,7 +29,16 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls, '', fieldType, content.language)],
+    sections: [
+      summaryList(
+        enContent,
+        userCase,
+        urls,
+        '',
+        //fieldType,
+        content.language
+      ),
+    ],
   };
 };
 
@@ -49,11 +58,11 @@ const cyContent: typeof enContent = {
 
 export const urls = {};
 
-const fieldType = {
-  miamStart: 'String',
-  miamWillingness: 'String',
-  miamNotWillingExplnation: 'String',
-};
+// const fieldType = {
+//   miamStart: 'String',
+//   miamWillingness: 'String',
+//   miamNotWillingExplnation: 'String',
+// };
 
 const cy: typeof en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -65,7 +74,16 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language)],
+    sections: [
+      summaryList(
+        cyContent,
+        userCase,
+        urls,
+        '',
+        //fieldType,
+        content.language
+      ),
+    ],
   };
 };
 

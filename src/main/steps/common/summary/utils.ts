@@ -52,7 +52,7 @@ export const summaryList = (
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   urls: any,
   sectionTitle?: string,
-  fieldTypes?: any,
+  //fieldTypes?: any,
   language?: string
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
@@ -72,7 +72,13 @@ export const summaryList = (
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : setkey(key)!,
+      // value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : setkey(key)!,
+      value:
+        userCase[key]?.hasOwnProperty('day') &&
+        userCase[key].hasOwnProperty('month') &&
+        userCase[key]?.hasOwnProperty('year')
+          ? getFormattedDate(userCase[key], language)
+          : setkey(key)!,
       changeUrl: url,
     };
     if (row.value || key === 'citizenUserAddressHistory') {

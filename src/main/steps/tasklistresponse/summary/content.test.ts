@@ -4,9 +4,7 @@ import { PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbout, YesOrNo } from '../../..
 import { FormContent, LanguageLookup } from '../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../common/common.content';
 
-
 import { cyContent, enContent, generateContent } from './content';
-
 
 jest.mock('../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */

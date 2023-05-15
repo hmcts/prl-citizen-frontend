@@ -31,7 +31,6 @@ import {
   RESPONDENT_PERSONAL_DETAILS,
   START_ALTERNATIVE_RESPONDENT,
 } from '../../../steps/urls';
-import { generateContent as summaryFormGenerateContent } from '../../common/respondent-summary/content';
 import { summaryList } from '../../common/summary/utils';
 import { summaryList as supportList } from '../../common/support-you-need-during-case/summary/utils';
 import {
@@ -43,14 +42,14 @@ import {
 import { PastAndCurrentProceedings } from '../proceedings/mainUtils';
 
 import { ANYTYPE } from './common/index';
-import {
-  applicationDetailsfieldTypeMiam,
-  confirmYourDetailsfieldType,
-  consentFieldType,
-  inetnationlFactorFieldType,
-  keepYourDetailsfieldType,
-  legalRepresantationFieldType,
-} from './fieldTypeConstant';
+// import {
+//   applicationDetailsfieldTypeMiam,
+//   confirmYourDetailsfieldType,
+//   consentFieldType,
+//   inetnationlFactorFieldType,
+//   keepYourDetailsfieldType,
+//   legalRepresantationFieldType,
+// } from './fieldTypeConstant';
 import { populateSummaryData } from './handler';
 
 export const enlegalRepresntationContent = {
@@ -129,8 +128,6 @@ export const enContent = {
     },
   },
   continue: 'Submit your response',
-  warning1: 'Warning',
-  yourResponse: 'Your response will be shared with the other people in this case.',
 };
 
 export const enSupportYouNeedContent = {
@@ -166,93 +163,6 @@ export const enSupportYouNeedContent = {
     differentChairDetails: 'Please describe different chair details',
     travellingOtherDetails: 'Please describe your need in detail',
   },
-  dependencies: {
-    hearingDetails: {
-      dependentOn: 'attendingToCourt',
-      value: 'no hearings',
-      display: true,
-    },
-    languageDetails: {
-      dependentOn: 'languageRequirements',
-      value: 'I need an interpreter in a certain language',
-      display: true,
-    },
-    safetyArrangementsDetails: {
-      dependentOn: 'safetyArrangements',
-      value: 'other',
-      display: true,
-    },
-    docsDetails: {
-      dependentOn: 'docsSupport',
-      value: 'Documents in colour print',
-      display: true,
-    },
-    largePrintDetails: {
-      dependentOn: 'docsSupport',
-      value: 'Large print documents',
-      display: true,
-    },
-    otherDetails: {
-      dependentOn: 'docsSupport',
-      value: 'other',
-      display: true,
-    },
-    describeSignLanguageDetails: {
-      dependentOn: 'helpCommunication',
-      value: 'sign language interpreter',
-      display: true,
-    },
-    describeOtherNeed: {
-      dependentOn: 'helpCommunication',
-      value: 'Other',
-      display: true,
-    },
-    supportWorkerDetails: {
-      dependentOn: 'courtHearing',
-      value: 'support worker or carer',
-      display: true,
-    },
-    familyProviderDetails: {
-      dependentOn: 'courtHearing',
-      value: 'friend or family member',
-      display: true,
-    },
-    therapyDetails: {
-      dependentOn: 'courtHearing',
-      value: 'animal',
-      display: true,
-    },
-    communicationSupportOther: {
-      dependentOn: 'courtHearing',
-      value: 'other',
-      display: true,
-    },
-    lightingProvideDetails: {
-      dependentOn: 'courtComfort',
-      value: 'appropriate lighting',
-      display: true,
-    },
-    otherProvideDetails: {
-      dependentOn: 'courtComfort',
-      value: 'Other',
-      display: true,
-    },
-    parkingDetails: {
-      dependentOn: 'travellingToCourt',
-      value: 'parking space close to the venue',
-      display: true,
-    },
-    differentChairDetails: {
-      dependentOn: 'travellingToCourt',
-      value: 'a different type of chair',
-      display: true,
-    },
-    travellingOtherDetails: {
-      dependentOn: 'travellingToCourt',
-      value: 'Other',
-      display: true,
-    },
-  },
 };
 
 export const enInternationalContent = {
@@ -270,28 +180,6 @@ export const enInternationalContent = {
     request: 'Has another country asked (or been asked) for information or help for the children?',
     iFactorsRequestProvideDetails: 'Provide details',
   },
-  dependencies: {
-    iFactorsStartProvideDetails: {
-      dependantOn: 'start',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsParentsProvideDetails: {
-      dependantOn: 'parents',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsJurisdictionProvideDetails: {
-      dependantOn: 'jurisdiction',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsRequestProvideDetails: {
-      dependantOn: 'request',
-      value: 'Yes',
-      display: true,
-    },
-  },
 };
 
 export const enDummyContent = {
@@ -301,7 +189,6 @@ export const enDummyContent = {
     title4: '5. Safety Concern',
   },
   keys: {},
-  dependencies: {},
 };
 export const enContentProceding = {
   serviceName: 'Check your answers ',
@@ -573,93 +460,6 @@ export const cySupportYouNeedContent = {
     differentChairDetails: 'Please describe different chair details -welsh',
     travellingOtherDetails: 'Please describe your need in detail -welsh',
   },
-  dependencies: {
-    hearingDetails: {
-      dependentOn: 'attendingToCourt',
-      value: 'no hearings',
-      display: true,
-    },
-    languageDetails: {
-      dependentOn: 'languageRequirements',
-      value: 'I need an interpreter in a certain language',
-      display: true,
-    },
-    safetyArrangementsDetails: {
-      dependentOn: 'safetyArrangements',
-      value: 'other',
-      display: true,
-    },
-    docsDetails: {
-      dependentOn: 'docsSupport',
-      value: 'Documents in colour print',
-      display: true,
-    },
-    largePrintDetails: {
-      dependentOn: 'docsSupport',
-      value: 'Large print documents',
-      display: true,
-    },
-    otherDetails: {
-      dependentOn: 'docsSupport',
-      value: 'other',
-      display: true,
-    },
-    describeSignLanguageDetails: {
-      dependentOn: 'helpCommunication',
-      value: 'sign language interpreter',
-      display: true,
-    },
-    describeOtherNeed: {
-      dependentOn: 'helpCommunication',
-      value: 'Other',
-      display: true,
-    },
-    supportWorkerDetails: {
-      dependentOn: 'courtHearing',
-      value: 'support worker or carer',
-      display: true,
-    },
-    familyProviderDetails: {
-      dependentOn: 'courtHearing',
-      value: 'friend or family member',
-      display: true,
-    },
-    therapyDetails: {
-      dependentOn: 'courtHearing',
-      value: 'animal',
-      display: true,
-    },
-    communicationSupportOther: {
-      dependentOn: 'courtHearing',
-      value: 'other',
-      display: true,
-    },
-    lightingProvideDetails: {
-      dependentOn: 'courtComfort',
-      value: 'appropriate lighting',
-      display: true,
-    },
-    otherProvideDetails: {
-      dependentOn: 'courtComfort',
-      value: 'Other',
-      display: true,
-    },
-    parkingDetails: {
-      dependentOn: 'travellingToCourt',
-      value: 'parking space close to the venue',
-      display: true,
-    },
-    differentChairDetails: {
-      dependentOn: 'travellingToCourt',
-      value: 'a different type of chair',
-      display: true,
-    },
-    travellingOtherDetails: {
-      dependentOn: 'travellingToCourt',
-      value: 'Other',
-      display: true,
-    },
-  },
 };
 
 export const cyInternationalContent = {
@@ -676,28 +476,6 @@ export const cyInternationalContent = {
     iFactorsJurisdictionProvideDetails: 'Provide details -welsh',
     request: 'Has another country asked (or been asked) for information or help for the children? -welsh',
     iFactorsRequestProvideDetails: 'Provide details -welsh',
-  },
-  dependencies: {
-    iFactorsStartProvideDetails: {
-      dependantOn: 'start',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsParentsProvideDetails: {
-      dependantOn: 'parents',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsJurisdictionProvideDetails: {
-      dependantOn: 'jurisdiction',
-      value: 'Yes',
-      display: true,
-    },
-    iFactorsRequestProvideDetails: {
-      dependantOn: 'request',
-      value: 'Yes',
-      display: true,
-    },
   },
 };
 
@@ -781,7 +559,6 @@ export const cyDummyContent = {
     title4: '5. Safety Concern -welsh',
   },
   keys: {},
-  dependencies: {},
 };
 
 const urls = {
@@ -871,7 +648,7 @@ const en = (content: CommonContent) => {
       userCase,
       urls,
       enlegalRepresntationContent.sectionTitles.title,
-      legalRepresantationFieldType,
+      // legalRepresantationFieldType,
       content.language
     ),
     summaryList(
@@ -879,16 +656,23 @@ const en = (content: CommonContent) => {
       userCase,
       urls,
       enConsentContent.sectionTitles.title,
-      consentFieldType,
+      //consentFieldType,
       content.language
     ),
-    summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title2, '', content.language),
+    summaryList(
+      enDummyContent,
+      userCase,
+      '',
+      enDummyContent.sectionTitles.title2,
+      //'',
+      content.language
+    ),
     summaryList(
       enKeepYourDetailsContent,
       userCase,
       urls,
       enKeepYourDetailsContent.sectionTitles.title,
-      keepYourDetailsfieldType,
+      //keepYourDetailsfieldType,
       content.language
     ),
     summaryList(
@@ -896,21 +680,35 @@ const en = (content: CommonContent) => {
       userCase,
       urls,
       enConfirmYourDetailsContent.sectionTitles.title,
-      confirmYourDetailsfieldType,
+      // confirmYourDetailsfieldType,
       content.language
     ),
     supportList(enSupportYouNeedContent, userCase, urls, 'cy', enSupportYouNeedContent.sectionTitles.title),
-    summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title3, '', content.language),
+    summaryList(
+      enDummyContent,
+      userCase,
+      '',
+      enDummyContent.sectionTitles.title3,
+      //'',
+      content.language
+    ),
     summaryList(
       enContentMiam,
       userCase,
       urls,
       enContentMiam.sectionTitles.title,
-      applicationDetailsfieldTypeMiam,
+      //applicationDetailsfieldTypeMiam,
       content.language
     ),
     PastAndCurrentProceedings(enContentProceding, userCase),
-    summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title4, '', content.language),
+    summaryList(
+      enDummyContent,
+      userCase,
+      '',
+      enDummyContent.sectionTitles.title4,
+      //'',
+      content.language
+    ),
     SafetyConcerns(enSaftyConcern, userCase)
   );
 
@@ -928,7 +726,7 @@ const en = (content: CommonContent) => {
       userCase,
       urls,
       enInternationalContent.sectionTitles.title,
-      inetnationlFactorFieldType,
+      // inetnationlFactorFieldType,
       content.language
     )
   );
@@ -950,7 +748,7 @@ const cy: typeof en = (content: CommonContent) => {
       userCase,
       urls,
       cylegalRepresntationContent.sectionTitles.title,
-      legalRepresantationFieldType,
+      //legalRepresantationFieldType,
       content.language
     ),
     summaryList(
@@ -958,16 +756,23 @@ const cy: typeof en = (content: CommonContent) => {
       userCase,
       urls,
       cyConsentContent.sectionTitles.title,
-      consentFieldType,
+      // consentFieldType,
       content.language
     ),
-    summaryList(cyDummyContent, userCase, '', cyDummyContent.sectionTitles.title2, '', content.language),
+    summaryList(
+      cyDummyContent,
+      userCase,
+      '',
+      cyDummyContent.sectionTitles.title2,
+      //'',
+      content.language
+    ),
     summaryList(
       cyKeepYourDetailsContent,
       userCase,
       urls,
       cyKeepYourDetailsContent.sectionTitles.title,
-      keepYourDetailsfieldType,
+      //keepYourDetailsfieldType,
       content.language
     ),
     summaryList(
@@ -975,21 +780,35 @@ const cy: typeof en = (content: CommonContent) => {
       userCase,
       urls,
       cyConfirmYourDetailsContent.sectionTitles.title,
-      confirmYourDetailsfieldType,
+      //confirmYourDetailsfieldType,
       content.language
     ),
     supportList(cySupportYouNeedContent, userCase, urls, 'cy', cySupportYouNeedContent.sectionTitles.title),
-    summaryList(cyDummyContent, userCase, '', cyDummyContent.sectionTitles.title3, '', content.language),
+    summaryList(
+      cyDummyContent,
+      userCase,
+      '',
+      cyDummyContent.sectionTitles.title3,
+      //'',
+      content.language
+    ),
     summaryList(
       cyContentMiam,
       userCase,
       urls,
       cyContentMiam.sectionTitles.title,
-      applicationDetailsfieldTypeMiam,
+      //applicationDetailsfieldTypeMiam,
       content.language
     ),
     PastAndCurrentProceedings(cyContentProceding, userCase),
-    summaryList(cyDummyContent, userCase, '', cyDummyContent.sectionTitles.title4, '', content.language),
+    summaryList(
+      cyDummyContent,
+      userCase,
+      '',
+      cyDummyContent.sectionTitles.title4,
+      //'',
+      content.language
+    ),
     SafetyConcerns(cySaftyConcern, userCase)
   );
 
@@ -1007,7 +826,7 @@ const cy: typeof en = (content: CommonContent) => {
       userCase,
       urls,
       cyInternationalContent.sectionTitles.title,
-      inetnationlFactorFieldType,
+      //inetnationlFactorFieldType,
       content.language
     )
   );
@@ -1060,9 +879,7 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  const formTranslations = summaryFormGenerateContent(content);
   return {
-    ...formTranslations,
     ...translations,
     form,
   };

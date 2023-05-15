@@ -20,7 +20,16 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls, '', fieldType, content.language)],
+    sections: [
+      summaryList(
+        enContent,
+        userCase,
+        urls,
+        '',
+        //fieldType,
+        content.language
+      ),
+    ],
   };
 };
 
@@ -39,16 +48,25 @@ const cyContent: typeof enContent = {
 const urls = {
   PRL_c1A_haveSafetyConcerns: 'your-or-child-safety-concerns',
 };
-const fieldType = {
-  PRL_c1A_haveSafetyConcerns: 'String',
-};
+// const fieldType = {
+//   PRL_c1A_haveSafetyConcerns: 'String',
+// };
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language)],
+    sections: [
+      summaryList(
+        cyContent,
+        userCase,
+        urls,
+        '',
+        //fieldType,
+        content.language
+      ),
+    ],
   };
 };
 
