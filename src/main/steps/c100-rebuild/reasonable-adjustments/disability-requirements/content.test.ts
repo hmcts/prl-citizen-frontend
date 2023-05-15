@@ -58,7 +58,7 @@ const cy = {
   errors: {
     ra_disabilityRequirements: {
       required:
-        "Dewiswch p'un a oes gennych anabledd corfforol, meddyliol neu ddysgu ai peidio neu gyflwr iechyd sy'n golygu eich bod angen cymorth yn ystod eich achos",
+        "Dewiswch p'un a oes gennych anabledd corfforol, meddyliol neu addysgol ai peidio neu gyflwr iechyd sy'n golygu eich bod angen cymorth yn ystod eich achos",
     },
   },
 };

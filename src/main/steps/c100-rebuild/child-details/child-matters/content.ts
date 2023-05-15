@@ -49,7 +49,7 @@ export const cy = () => ({
   orderAppliedFor: 'Gorchmynion y gwnaed cais amdanynt',
   bodyHint: "Dewiswch bob un sy'n berthnasol",
   childArrangementsOrder: {
-    whoChildLiveWith: "Dewiswch bob un sy'n berthnasol",
+    whoChildLiveWith: 'Penderfynu gyda phwy y bydd y plant yn byw a phryd',
     childTimeSpent: 'Penderfynu faint o amser y bydd y plant yn ei dreulio gyda phob unigolyn',
   },
   stepsList: {

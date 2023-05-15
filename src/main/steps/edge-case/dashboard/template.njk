@@ -9,10 +9,10 @@
 
 {% if paymentError === true %}
 {{ govukErrorSummary({
-  titleText: "There is a problem",
+  titleText: errorTitle,
   errorList: [
     {
-      text: "The payment has been unsuccessful",
+      text: paymentErrorText,
       href: "#passport-issued-day"
     }
   ]
@@ -21,16 +21,16 @@
 {% endif %}
 <ul class="govuk-list">
   <li>
-    <a class="govuk-link" href="/applicant/task-list">DA Applicant</a>
+    <a class="govuk-link" href="/applicant/task-list">{{applicant}}</a>
   </li>
   <li>
-    <a class="govuk-link" href="/ca-da-respondent/task-list">CA DA Respondent</a>
+    <a class="govuk-link" href="/ca-da-respondent/task-list">{{respondent}}</a>
   </li>
   <li>
-    <a class="govuk-link" href="/c100-rebuild">C100 Application</a>
+    <a class="govuk-link" href="/c100-rebuild">{{c100}}</a>
   </li>
 </ul>
 
-<a class='govuk-button' href='/payments/gateway'>Pay Now </a>
+<a class='govuk-button' href='/payments/gateway'>{{pay}}</a>
 
 {% endblock %}

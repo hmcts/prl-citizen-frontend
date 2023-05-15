@@ -32,6 +32,7 @@ import {
   RESPONDENT_PERSONAL_DETAILS,
   START_ALTERNATIVE_RESPONDENT,
 } from '../../../steps/urls';
+import { generateContent as summaryFormGenerateContent } from '../../common/respondent-summary/content';
 import { summaryList } from '../../common/summary/utils';
 
 const applicationDetailsfieldType = {
@@ -688,6 +689,8 @@ export const enContent = {
     },
   },
   continue: 'Submit your response',
+  warning1: 'Warning',
+  yourResponse: 'Your response will be shared with the other people in this case.',
 };
 
 export const enSupportYouNeedContent = {
@@ -951,95 +954,95 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
-  title: 'Please review your answers before you complete your response.',
-  title2: 'Current or previous court cases',
+  section: 'Gwirio eich atebion',
+  title: 'Please review your answers before you complete your response. -welsh',
+  title2: 'Current or previous court cases -welsh',
   sectionTitles: {
-    title: '4. Application details',
+    title: '4. Manylion y cais',
   },
-  statementOfTruth: 'Statement of truth',
-  warning: 'Warning',
+  statementOfTruth: 'Statement of truth -welsh',
+  warning: 'Warning -welsh',
   warningText:
-    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth. -welsh',
   errors: {
     declarationCheck: {
-      required: 'Please confirm the declaration',
+      required: 'Please confirm the declaration -welsh',
     },
   },
   keys: {
-    proceedingsStart: 'Have the children been involved in a court case?',
-    proceedingsStartOrder: 'Have you had a court order made for your protection?',
-    emergencyOrderOptions: 'Emergency Protection Order',
+    proceedingsStart: "Ydy'r plant wedi bod yn rhan o achos llys?",
+    proceedingsStartOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
+    emergencyOrderOptions: 'Gorchymyn Diogelu Brys',
     'emergencyOrder.caseNoDetails': 'Case number',
     'emergencyOrder.orderDateDetails': 'What date was it made',
     'emergencyOrder.orderTimeDetails': 'How long was the order for?',
-    'emergencyOrder.currentOrderDetails': 'Is this a current order?',
+    'emergencyOrder.currentOrderDetails': 'Ai gorchymyn cyfredol yw hwn?',
     'emergencyOrder.issueOrderDetails': 'Which court issued this order?',
-    supervisionOrderOption: 'Supervision Order',
+    supervisionOrderOption: 'Gorchymyn Goruchwylio',
     'supervisionOrder.caseNoDetails': 'Case number',
     'supervisionOrder.orderDateDetails': 'What date was it made',
     'supervisionOrder.orderTimeDetails': 'How long was the order for?',
-    'supervisionOrder.currentOrderDetails': 'Is this a current order?',
+    'supervisionOrder.currentOrderDetails': 'Ai gorchymyn cyfredol yw hwn?',
     'supervisionOrder.issueOrderDetails': 'Which court issued this order?',
-    careOrderOptions: 'Care Order',
+    careOrderOptions: 'Gorchymyn Gofal',
     'careOrder.caseNoDetails': 'Case number',
     'careOrder.orderDateDetails': 'What date was it made',
     'careOrder.orderTimeDetails': 'How long was the order for?',
-    'careOrder.currentOrderDetails': 'Is this a current order?',
+    'careOrder.currentOrderDetails': 'Ai gorchymyn cyfredol yw hwn?',
     'careOrder.issueOrderDetails': 'Which court issued this order?',
-    childAbductionOrderOption: 'Child Abduction',
+    childAbductionOrderOption: 'Herwgydio Plant',
     'childAbductionOrder.caseNoDetails': 'Case number',
     'childAbductionOrder.orderDateDetails': 'What date was it made',
     'childAbductionOrder.orderTimeDetails': 'How long was the order for?',
-    'childAbductionOrder.currentOrderDetails': 'Is this a current order?',
+    'childAbductionOrder.currentOrderDetails': 'Ai gorchymyn cyfredol yw hwn?',
     'childAbductionOrder.issueOrderDetails': 'Which court issued this order?',
     caOrderOption: 'Child Arrangements Order',
     'caOrder.caseNoDetails': 'Case number',
     'caOrder.orderDateDetails': 'What date was it made',
     'caOrder.orderTimeDetails': 'How long was the order for?',
-    'caOrder.currentOrderDetails': 'Is this a current order?',
+    'caOrder.currentOrderDetails': 'Ai gorchymyn cyfredol yw hwn?',
     'caOrder.issueOrderDetails': 'Which court issued this order?',
-    financialOrderOption: 'Financial Order under Schedule 1 of the Children Act 1989',
+    financialOrderOption: 'Gorchymyn Ariannol o dan Atodlen 1 Deddf Plant 1989',
     'financialOrder.caseNoDetails': 'Case number',
     'financialOrder.orderDateDetails': 'What date was it made',
     'financialOrder.orderTimeDetails': 'How long was the order for?',
-    'financialOrder.currentOrderDetails': 'Is this a current order?',
+    'financialOrder.currentOrderDetails': 'Ai gorchymyn cyfredol yw hwn?',
     'financialOrder.issueOrderDetails': 'Which court issued this order?',
-    nonmolestationOrderOption: 'Non-molestation Order',
+    nonmolestationOrderOption: 'Gorchymyn Rhag Molestu',
     'nonmolestationOrder.caseNoDetails': 'Case number',
     'nonmolestationOrder.orderDateDetails': 'What date was it made',
     'nonmolestationOrder.orderTimeDetails': 'How long was the order for?',
-    'nonmolestationOrder.currentOrderDetails': 'Is this a current order?',
+    'nonmolestationOrder.currentOrderDetails': 'Ai gorchymyn cyfredol yw hwn?',
     'nonmolestationOrder.issueOrderDetails': 'Which court issued this order?',
-    occupationalOrderOptions: 'Occupation Order',
+    occupationalOrderOptions: 'Gorchymyn Anheddu',
     'occupationOrder.caseNoDetails': 'Case number',
     'occupationOrder.orderDateDetails': 'What date was it made',
     'occupationOrder.orderTimeDetails': 'How long was the order for?',
-    'occupationOrder.currentOrderDetails': 'Is this a current order?',
+    'occupationOrder.currentOrderDetails': 'Ai gorchymyn cyfredol yw hwn?',
     'occupationOrder.issueOrderDetails': 'Which court issued this order?',
-    marraigeOrderOptions: 'Forced Marriage Protection Order',
+    marraigeOrderOptions: 'Gorchymyn Amddiffyn rhag Priodas dan Orfod',
     'marraigeOrder.caseNoDetails': 'Case number',
     'marraigeOrder.orderDateDetails': 'What date was it made',
     'marraigeOrder.orderTimeDetails': 'How long was the order for?',
-    'marraigeOrder.currentOrderDetails': 'Is this a current order?',
+    'marraigeOrder.currentOrderDetails': 'Ai gorchymyn cyfredol yw hwn?',
     'marraigeOrder.issueOrderDetails': 'Which court issued this order?',
-    restrainingOrderOptions: 'Restraining Order',
+    restrainingOrderOptions: 'Gorchymyn Atal',
     'restrainingOrder.caseNoDetails': 'Case number',
     'restrainingOrder.orderDateDetails': 'What date was it made',
     'restrainingOrder.orderTimeDetails': 'How long was the order for?',
-    'restrainingOrder.currentOrderDetails': 'Is this a current order?',
+    'restrainingOrder.currentOrderDetails': 'Ai gorchymyn cyfredol yw hwn?',
     'restrainingOrder.issueOrderDetails': 'Which court issued this order?',
     injuctiveOrderOptions: 'Other Injunctive Order',
     'injuctiveOrder.caseNoDetails': 'Case number',
     'injuctiveOrder.orderDateDetails': 'What date was it made',
     'injuctiveOrder.orderTimeDetails': 'How long was the order for?',
-    'injuctiveOrder.currentOrderDetails': 'Is this a current order?',
+    'injuctiveOrder.currentOrderDetails': 'Ai gorchymyn cyfredol yw hwn?',
     'injuctiveOrder.issueOrderDetails': 'Which court issued this order?',
-    underTakingOrderOptions: 'Undertaking in Place of an Order',
+    underTakingOrderOptions: 'Ymgymeriad yn lle gorchymyn',
     'underTakingOrder.caseNoDetails': 'Case number',
     'underTakingOrder.orderDateDetails': 'What date was it made',
     'underTakingOrder.orderTimeDetails': 'How long was the order for?',
-    'underTakingOrder.currentOrderDetails': 'Is this a current order?',
+    'underTakingOrder.currentOrderDetails': 'Ai gorchymyn cyfredol yw hwn?',
     'underTakingOrder.issueOrderDetails': 'Which court issued this order?',
   },
   dependencies: {
@@ -1345,6 +1348,8 @@ const cyContent: typeof enContent = {
     },
   },
   continue: 'Submit your response',
+  warning1: 'Warning -welsh',
+  yourResponse: 'Your response will be shared with the other people in this case. -welsh',
 };
 
 const urls = {
@@ -1413,28 +1418,28 @@ const urls = {
 
 export const cyConsentContent = {
   section: 'Check your answers',
-  title: 'Please review your answers before you complete your response.',
+  title: 'Please review your answers before you complete your response. -welsh',
   title2: '',
-  statementOfTruth: 'Statement of truth',
-  warning: 'Warning',
+  statementOfTruth: 'Statement of truth -welsh',
+  warning: 'Warning -welsh',
   warningText:
-    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth. -welsh',
   errors: {
     declarationCheck: {
-      required: 'Please confirm the declaration',
+      required: 'Please confirm the declaration -welsh',
     },
   },
   sectionTitles: {
-    consentToTheApplication: 'Consent to the application',
+    consentToTheApplication: 'Consent to the application -welsh',
   },
   keys: {
-    doYouConsent: 'Do you consent to the application?',
-    applicationReceivedDate: 'When did you receive the application?',
-    courtPermission: 'Does the applicant need permission from the court before making applications?',
+    doYouConsent: 'Do you consent to the application? -welsh',
+    applicationReceivedDate: 'When did you receive the application? -welsh',
+    courtPermission: 'Does the applicant need permission from the court before making applications? -welsh',
     courtOrderDetails: 'Details',
   },
   dependencies: {},
-  continue: 'Submit your response',
+  continue: 'Submit your response -welsh',
 };
 
 const cy: typeof en = (content: CommonContent) => {
@@ -1530,7 +1535,9 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
+  const formTranslations = summaryFormGenerateContent(content);
   return {
+    ...formTranslations,
     ...translations,
     form,
   };

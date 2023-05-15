@@ -11,8 +11,6 @@ import { generateApplicantTaskListAllDocuments } from './tasklistalldocuments';
 const en = () => {
   return {
     title: 'All documents',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
     caseNumber: 'Case number',
     continue: 'Go back',
     sectionTitles: applicant_all_docs_en,
@@ -23,9 +21,7 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     title: 'All documents',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
-    caseNumber: 'Case number',
+    caseNumber: 'Rhif yr achos',
     continue: 'Go back',
     sectionTitles: applicant_all_docs_en,
     taskListItems: applicant_tasklist_items_all_docs_en,

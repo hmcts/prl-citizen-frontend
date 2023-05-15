@@ -11,6 +11,7 @@ import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { RespondentSubmitResponseController } from './app/controller/RespondentSubmitResponseController';
 import { DocumentManagerController } from './app/document/DocumentManagementController';
+import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
@@ -44,6 +45,9 @@ import { MIAMPostController } from './steps/tasklistresponse/miam/MIAMPostContro
 import { ProceedingGetController } from './steps/tasklistresponse/proceedings/ProceedingGetController';
 import { ProceedingPostController } from './steps/tasklistresponse/proceedings/ProceedingPostController';
 import { TermsAndConditionsGetController } from './steps/terms-and-conditions/get';
+import { CreateDraftGetController } from './steps/testing-support/create-draft/get';
+import { DeleteDraftGetController } from './steps/testing-support/delete-draft/get';
+import { TestingSupportGetController } from './steps/testing-support/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT,
@@ -111,6 +115,10 @@ import {
   RESPONDENT_CHECK_ANSWERS_NO,
   FETCH_CASE_DETAILS,
   PARTY_TASKLIST,
+  TESTING_SUPPORT,
+  TESTING_SUPPORT_CREATE_DRAFT,
+  CREATE_DRAFT,
+  TESTING_SUPPORT_DELETE_DRAFT,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
   //C100_DOCUMENT_SUBMISSION,
@@ -129,6 +137,9 @@ export class Routes {
     app.get(COOKIES_PAGE, errorHandler(new CookiesGetController().get));
     app.get(PRIVACY_POLICY, errorHandler(new PrivacyPolicyGetController().get));
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
+    app.get(TESTING_SUPPORT, errorHandler(new TestingSupportGetController().get));
+    app.get(TESTING_SUPPORT_CREATE_DRAFT, errorHandler(new CreateDraftGetController().get));
+    app.get(TESTING_SUPPORT_DELETE_DRAFT, errorHandler(new DeleteDraftGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
@@ -154,6 +165,10 @@ export class Routes {
     app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
     app.get(C100_RETRIVE_CASE, errorHandler(new GetCaseController().getC100ApplicantCase));
     app.get(C100_DOWNLOAD_APPLICATION, errorHandler(new ApplicationDownloadController().download));
+
+    app.post(CREATE_DRAFT, errorHandler(TSDraftController.post));
+    app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(TSDraftController.createTSC100Draft));
+    app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(TSDraftController.deleteTSC100Draft));
 
     for (const step of stepsWithContent) {
       const files = fs.readdirSync(`${step.stepDir}`);
@@ -217,6 +232,7 @@ export class Routes {
           this.routeGuard.bind(this, step, 'post'),
           errorHandler(new postController(step.form.fields).post)
         );
+
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
         app.get(

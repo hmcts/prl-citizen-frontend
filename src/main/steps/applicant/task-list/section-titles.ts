@@ -8,3 +8,14 @@ export const applicant_en = {
   yourDocuments: 'Your documents',
   theResponse: 'response',
 };
+
+export const applicant_cy = {
+  applicantYourDetails: 'Amdanoch chi',
+  yourApplication: 'Y cais',
+  applicationDetails: 'Application detail',
+  viewAllDocuments: 'Eich dogfennau',
+  ordersFromTheCourt: 'Gorchmynion gan y llys',
+  courtHearings: 'Eich gwrandawiadau llys',
+  yourDocuments: 'Eich dogfennau',
+  theResponse: 'response',
+};

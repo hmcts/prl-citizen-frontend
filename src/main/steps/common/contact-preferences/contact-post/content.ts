@@ -15,6 +15,9 @@ export const en = () => ({
     'You will no longer receive updates by email. You can still access previous updates through your dashboard.',
   ],
   warningText: 'Make sure that your contact details are up to date.',
+  address: 'Address',
+  change: 'Change',
+  addressLowerCase: 'address',
 });
 
 export const cy = () => ({
@@ -27,6 +30,9 @@ export const cy = () => ({
     'You will no longer receive updates by email. You can still access previous updates through your dashboard. -welsh',
   ],
   warningText: 'Make sure that your contact details are up to date. -welsh',
+  address: 'Cyfeiriad',
+  change: 'Change (welsh)',
+  addressLowerCase: 'cyfeiriad',
 });
 
 const languages = {

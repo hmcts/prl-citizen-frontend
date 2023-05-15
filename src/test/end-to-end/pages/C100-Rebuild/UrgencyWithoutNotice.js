@@ -24,7 +24,8 @@ module.exports = {
         noTimeNoticeDetails: '//*[@id="hwn_doYouRequireAHearingWithReducedNoticeDetails"]',
     },
     async qualifyUrgentHearing() {
-        await I.retry(retryCount).waitForText(UrgencyWithoutNotice.qualifyUrgentHearingPageTitle);  
+        await I.retry(retryCount).waitForText(UrgencyWithoutNotice.qualifyUrgentHearingPageTitle); 
+        await I.retry(retryCount).waitForSelector(this.fields.urgentHearingReasonsYes, 30); 
         await I.retry(retryCount).click(this.fields.urgentHearingReasonsYes);
         I.wait(2);
         await I.retry(retryCount).click('Continue');

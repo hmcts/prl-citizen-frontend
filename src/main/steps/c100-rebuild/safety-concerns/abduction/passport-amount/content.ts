@@ -48,7 +48,7 @@ export const cy = () => ({
       required: 'Dewis oes os oes gan y plant fwy nag un pasbort',
     },
     c1A_possessionChildrenPassport: {
-      required: "Nodwch pwy sydd ym meddiant pasbortau'r plant ",
+      required: "Nodwch ym meddiant pwy y mae pasbortau'r plant? ",
     },
     c1A_provideOtherDetails: {
       required: 'Darparwch fwy o fanylion',
