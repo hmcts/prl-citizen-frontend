@@ -42,6 +42,16 @@ export class CaseApi {
     }
   }
 
+  public async createCaseTestingSupport(): Promise<UpdateCaseResponse> {
+    try {
+      const response = await this.axios.post<UpdateCaseResponse>('/testing-support/create-dummy-citizen-case');
+      return response.data.id;
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be created.');
+    }
+  }
+
   /**
    * This is used to update/submit case based on the case event passed
    * @param caseId

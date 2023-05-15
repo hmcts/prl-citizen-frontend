@@ -63,6 +63,7 @@ module.exports = {
   },
   async miamOtherProceedings(otherProceedingsOption) {
     await I.retry(retryCount).waitForText(MiamContent.otherProceedingsPageTitle);
+    I.wait('2');
     await I.retry(retryCount).click(otherProceedingsOption ? this.fields.miamOtherProceedingsYes : this.fields.miamOtherProceedingsNo);
     I.wait('2');
     await I.retry(retryCount).click('Continue');
@@ -70,18 +71,21 @@ module.exports = {
   async attendingMiam() {
     await I.retry(retryCount).waitForText(MiamContent.attendingMiamPageTitle);
     await I.retry(retryCount).waitForText(MiamContent.attendingMiamSubHeading);
+    I.wait('2');
     await I.retry(retryCount).click(this.fields.iamConsentNo);
     I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async attendedMiam(attendedOption) {
     await I.retry(retryCount).waitForText(MiamContent.attendedMiamPageTitle);
+    I.wait('2');
     await I.retry(retryCount).click(attendedOption ? this.fields.miamAttendanceYes : this.fields.miamAttendanceNo);
     I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async miamDocumentSigned(documentSignedOption) {
     await I.retry(retryCount).waitForText(MiamContent.miamDocumentSignedPageTitle);
+    I.wait('2');
     await I.retry(retryCount).click(documentSignedOption ? this.fields.haveDocSignedYes : this.fields.haveDocSignedNo);
     I.wait('2');
     await I.retry(retryCount).click('Continue');
@@ -105,18 +109,21 @@ module.exports = {
   },
   async medidatorConfirmed() {
     await I.retry(retryCount).waitForText(MiamContent.medidatorConfirmedPageTitle);
+    I.wait('2');
     await I.retry(retryCount).click(this.fields.miamMediatorDocumentNo);
     I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async validReasonsMiam() {
     await I.retry(retryCount).waitForText(MiamContent.validReasonsMiamPageTitle);
+    I.wait('2');
     await I.retry(retryCount).click(this.fields.validReasonYes);
     I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async validReasonWhat() {
     await I.retry(retryCount).waitForText(MiamContent.validReasonWhatPageTitle);
+    I.wait('2');
     await I.retry(retryCount).click(this.fields.validReason1);
     await I.retry(retryCount).click(this.fields.validReason2);
     I.wait('2');
@@ -133,6 +140,7 @@ module.exports = {
   },
   async urgentHearingRisks() {
     await I.retry(retryCount).waitForText(MiamContent.urgentHearingTitle);
+    I.wait('2');
     await I.retry(retryCount).click(this.fields.urgentHearing1);
     await I.retry(retryCount).click(this.fields.urgentHearing2);
     I.wait('2');
@@ -183,6 +191,7 @@ module.exports = {
   },
   async confirmValidReason() {
     await I.retry(retryCount).waitForText(MiamContent.confirmValidReasonPageTitle);
+    await I.retry(retryCount).waitForSelector(this.fields.notAttendingReason1, 30);
     await I.retry(retryCount).click(this.fields.notAttendingReason1);
     await I.retry(retryCount).click(this.fields.notAttendingReason2);
     await I.retry(retryCount).click(this.fields.notAttendingReason3);

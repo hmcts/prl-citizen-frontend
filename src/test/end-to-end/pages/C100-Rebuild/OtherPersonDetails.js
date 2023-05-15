@@ -31,6 +31,7 @@ module.exports = {
   },
    async otherPersonDetailsInfo() {
     await I.retry(retryCount).waitForText(OtherPersonDetails.otherPersonDetailsPageTitle);
+    I.wait('2');
     await I.retry(retryCount).waitForText(OtherPersonDetails.haveTheyChangedTheirNameText);
     await I.retry(retryCount).click(this.fields.hasNameChangedNoButton);
     await I.retry(retryCount).waitForText(OtherPersonDetails.genderText);
@@ -69,6 +70,7 @@ module.exports = {
   },
    async currentlyLiveWith() {
     await I.retry(retryCount).waitForText(OtherPersonDetails.currentlyLiveWithPageTitle);
+    await I.retry(retryCount).waitForSelector(this.fields.liveWithFirstOptionButton, 30);
     await I.retry(retryCount).click(this.fields.liveWithFirstOptionButton);
     I.wait('2');
     await I.retry(retryCount).click('Continue');
