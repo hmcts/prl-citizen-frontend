@@ -26,7 +26,6 @@ services:
     url: 'https://prl-cos-pr-1346.preview.platform.hmcts.net'
   documentManagement:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-1238.preview.platform.hmcts.net'
-
   health:
   timeout: 5000
   deadline: 15000
@@ -41,8 +40,10 @@ e2e:
 appInsights:
   instrumentationKey: false
 featureToggles:
-  c100Rebuild: true
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
+  c100Rebuild: true
+  testingSupport: true
+  
 
 launchDarkly:
   offline: true
