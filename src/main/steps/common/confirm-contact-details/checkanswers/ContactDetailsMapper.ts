@@ -59,7 +59,7 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
   }
   return request;
 };
-export const mapRequest = (partyDetails: PartyDetails): Partial<CaseWithId> => {
+export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
   const contactDetail: Partial<CaseWithId> = {};
   const {
     lastName,

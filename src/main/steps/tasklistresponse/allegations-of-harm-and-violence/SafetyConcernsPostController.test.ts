@@ -26,9 +26,24 @@ describe('SafetyConcernsPostController', () => {
         {
           id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
           value: {
-            firstName: 'TestUser',
+            firstName: 'testuser',
             lastName: 'Citizen',
-            email: 'test@example.net',
+            email: 'abc@example.net',
+            dateOfBirth: '03-20-2023',
+            phoneNumber: '7755664466',
+            placeOfBirth: 'BPP',
+            previousName: 'test',
+            isAtAddressLessThan5Years: 'No',
+            addressLivedLessThan5YearsDetails: 'Hello',
+            address: {
+              AddressLine1: 'string',
+              AddressLine2: 'string',
+              AddressLine3: 'string',
+              PostTown: 'string',
+              County: 'string',
+              PostCode: 'string',
+              Country: 'string',
+            },
             user: {
               idamId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
               email: 'test1234@example.net',
