@@ -38,7 +38,7 @@ export const EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement';
 export const EVENT_RESPONDENT_MIAM = 'respondentMiam';
 export const UPDATE_CASE_YES = '?updateCase=Yes';
 
-export const ordinalNumberMap = new Map<number, string>([
+export const ordinalNumberMapEn = new Map<number, string>([
   [1, 'First'],
   [2, 'Second'],
   [3, 'Third'],
@@ -59,6 +59,29 @@ export const ordinalNumberMap = new Map<number, string>([
   [18, 'Eighteenth'],
   [19, 'Nineteenth'],
   [20, 'Twentieth'],
+]);
+
+export const ordinalNumberMapCy = new Map<number, string>([
+  [1, 'First (welsh)'],
+  [2, 'Second (welsh)'],
+  [3, 'Third (welsh)'],
+  [4, 'Fourth (welsh)'],
+  [5, 'Fifth (welsh)'],
+  [6, 'Sixth (welsh)'],
+  [7, 'Seventh (welsh)'],
+  [8, 'Eighth (welsh)'],
+  [9, 'Ninth (welsh)'],
+  [10, 'Tenth (welsh)'],
+  [11, 'Eleventh (welsh)'],
+  [12, 'Twelfth (welsh)'],
+  [13, 'Thirteenth (welsh)'],
+  [14, 'Fourteenth (welsh)'],
+  [15, 'Fifteenth (welsh)'],
+  [16, 'Sixteenth (welsh)'],
+  [17, 'Seventeenth (welsh)'],
+  [18, 'Eighteenth (welsh)'],
+  [19, 'Nineteenth (welsh)'],
+  [20, 'Twentieth (welsh)'],
 ]);
 
 export const NO_NEED_OF_SUPPORT = 'No, I do not have any language requirements at this time';

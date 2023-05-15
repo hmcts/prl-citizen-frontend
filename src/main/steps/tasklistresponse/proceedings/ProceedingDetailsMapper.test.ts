@@ -363,7 +363,7 @@ describe('ProceedingDetailsMapper', () => {
       proceedingsStart: 'No',
       proceedingsStartOrder: 'Yes',
     };
-    expect(mapProceedingDetails(respondents[0])).toEqual(expected);
+    expect(mapProceedingDetails(respondents[0].value)).toEqual(expected);
   });
 
   test('Should get data from response data to session with ordercopy and current order not populated and along with doc value provided', async () => {
@@ -400,7 +400,7 @@ describe('ProceedingDetailsMapper', () => {
       },
     };
     respondents[0].value.response = response;
-    expect(mapProceedingDetails(respondents[0]).courtProceedingsOrders).toEqual(['contactOrderForAdoption']);
+    expect(mapProceedingDetails(respondents[0].value).courtProceedingsOrders).toEqual(['contactOrderForAdoption']);
   });
 
   test('Should get data from response data to session with ordercopy and current order not populated and along with doc value provided1', async () => {
@@ -437,7 +437,7 @@ describe('ProceedingDetailsMapper', () => {
       },
     };
     respondents[0].value.response = response;
-    expect(mapProceedingDetails(respondents[0]).courtProceedingsOrders).toEqual(['contactOrderForDivorce']);
+    expect(mapProceedingDetails(respondents[0].value).courtProceedingsOrders).toEqual(['contactOrderForDivorce']);
   });
 
   test('Should get proceeding data from response to session', async () => {
@@ -450,7 +450,7 @@ describe('ProceedingDetailsMapper', () => {
       },
     };
     respondents[0].value.response = response;
-    await mapProceedingDetails(respondents[0]);
+    await mapProceedingDetails(respondents[0].value);
 
     expect(req.session.userCase.proceedingsStart).toEqual('No');
     expect(req.session.userCase.proceedingsStartOrder).toEqual('Yes');
