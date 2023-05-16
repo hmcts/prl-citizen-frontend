@@ -140,7 +140,7 @@ export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_tota
 };
 
 export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
-  const safetyConcenrs = {};
+  const safetyConcerns = partyDetails?.response?.safetyConcerns;
   const {
     haveSafetyConcerns,
     safetyConcernAbout,
@@ -149,7 +149,7 @@ export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<Ca
     otherconcerns,
     abductions,
     ...rest
-  } = partyDetails?.response?.safetyConcerns ?? {};
+  } = safetyConcerns ? Object.assign({}, safetyConcerns) : ({} as PRL_C1ASafteyConcerns_total);
 
   if (rest?.child) {
     rest.child = Object.entries(rest.child).reduce((childConcerns, [abuseType, data]) => {
@@ -161,7 +161,7 @@ export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<Ca
     }, {});
   }
 
-  Object.assign(safetyConcenrs, {
+  return {
     PRL_c1A_haveSafetyConcerns: haveSafetyConcerns,
     PRL_c1A_safetyConernAbout: safetyConcernAbout,
     PRL_c1A_concernAboutChild: concernAboutChild,
@@ -185,7 +185,5 @@ export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<Ca
     PRL_c1A_keepingSafeStatement: otherconcerns?.c1AkeepingSafeStatement,
     PRL_c1A_supervisionAgreementDetails: otherconcerns?.c1AsupervisionAgreementDetails,
     PRL_c1A_agreementOtherWaysDetails: otherconcerns?.c1AagreementOtherWaysDetails,
-  });
-
-  return safetyConcenrs;
+  };
 };
