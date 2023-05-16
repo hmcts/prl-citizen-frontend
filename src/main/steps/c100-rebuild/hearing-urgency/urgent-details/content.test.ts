@@ -29,6 +29,9 @@ const en = {
     },
     hu_otherRiskDetails: {
       required: 'Give details of the risk in your case that support your need for an urgent hearing',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     hu_timeOfHearingDetails: {
       required: 'Enter how soon you need the hearing to take place',
@@ -39,6 +42,9 @@ const en = {
     },
     hu_hearingWithNext48HrsMsg: {
       required: 'Provide details of what you have done to inform the respondents of your application',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -67,6 +73,9 @@ const cy = {
     },
     hu_otherRiskDetails: {
       required: "Rhowch fanylion y risg sy'n cefnogi'ch angen am wrandawiad brys",
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     hu_timeOfHearingDetails: {
       required: "Nodwch pa mor fuan y mae angen i'r gwrandawiad gael ei gynnal",
@@ -77,6 +86,9 @@ const cy = {
     },
     hu_hearingWithNext48HrsMsg: {
       required: "Darparwch fanylion yr hyn rydych chi wedi'i wneud i hysbysu’r atebwyr yn eich cais",
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };

@@ -22,6 +22,9 @@ export const en = () => ({
     },
     cd_childrenKnownToSocialServicesDetails: {
       required: 'Enter details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     cd_childrenSubjectOfProtectionPlan: {
       required: 'Select if any of the children are the subject of a child protection plan',
@@ -46,6 +49,9 @@ export const cy = () => ({
     },
     cd_childrenKnownToSocialServicesDetails: {
       required: 'Rhowch fanylion',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     cd_childrenSubjectOfProtectionPlan: {
       required: 'Nodwch a yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn',

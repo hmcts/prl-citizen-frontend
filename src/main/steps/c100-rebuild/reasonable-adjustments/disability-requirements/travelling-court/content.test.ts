@@ -29,12 +29,21 @@ const en = {
   errors: {
     ra_parkingSpace_subfield: {
       required: 'Describe why you need a parking space close to the venue',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     ra_differentTypeChair_subfield: {
       required: 'Describe what type of chair you need',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     ra_travellingCourtOther_subfield: {
       required: 'Describe what help you need if travelling to, or moving around court buildings',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     ra_travellingCourt: {
       required: 'Select what help you need if travelling to, or moving around court buildings',
@@ -64,13 +73,22 @@ const cy = {
   errors: {
     ra_parkingSpace_subfield: {
       required: "Disgrifiwch pam fod arnoch angen lle parcio yn agos i'r lleoliad",
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     ra_differentTypeChair_subfield: {
       required: 'Disgrifiwch pa fath o gadair sydd ei hangen arnoch',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     ra_travellingCourtOther_subfield: {
       required:
         "Disgrifiwch pa help sydd ei angen arnoch os ydych chi'n teithio i adeiladau'r llys, neu symud o gwmpas adeiladau'r llys",
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     ra_travellingCourt: {
       required:
