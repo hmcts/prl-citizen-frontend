@@ -1,6 +1,7 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
+import { documents_list_items_en } from '../../../upload-document/upload-document-list-items';
 
 const en = () => {
   return {
@@ -45,7 +46,10 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
-    if (doc.value.documentType === 'Police reports' && content.byApplicant === doc.value.isApplicant) {
+    if (
+      doc.value.documentType === documents_list_items_en.police_reports &&
+      content.byApplicant === doc.value.isApplicant
+    ) {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );
