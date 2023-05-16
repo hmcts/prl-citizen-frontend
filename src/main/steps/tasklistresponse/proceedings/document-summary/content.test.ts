@@ -16,8 +16,8 @@ const en = {
 const cy = {
   headingTitle:
     'You have uploaded details of your past and current proceedings. These will be reviewed by the court once you submit the application. - welsh',
-  uploadDetail: 'What you have uploaded-welsh',
-  edit: 'Edit-welsh',
+  uploadDetail: 'What you have uploaded -welsh',
+  edit: 'Edit -welsh',
 };
 
 /* eslint-disable @typescript-eslint/ban-types */

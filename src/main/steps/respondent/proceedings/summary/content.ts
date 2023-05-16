@@ -98,16 +98,7 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [
-      summaryList(
-        enContent,
-        userCase,
-        urls,
-        enContent.sectionTitles.applicationDetails,
-        //fieldType,
-        content.language
-      ),
-    ],
+    sections: [summaryList(enContent, userCase, urls, enContent.sectionTitles.applicationDetails, content.language)],
   };
 };
 

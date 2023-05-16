@@ -45,7 +45,7 @@ const urls = {
 
 describe('common > summary > utils', () => {
   describe('SummaryList', () => {
-    test.skip.each([
+    test.each([
       {
         userCase: {
           ...mockUserCase,
@@ -67,6 +67,23 @@ describe('common > summary > utils', () => {
               },
               value: {
                 html: 'Yes',
+              },
+            },
+            {
+              actions: {
+                items: [
+                  {
+                    href: '/tasklistresponse/consent-to-application',
+                    text: 'Edit',
+                    visuallyHiddenText: 'When did you receive the application?',
+                  },
+                ],
+              },
+              key: {
+                text: 'When did you receive the application?',
+              },
+              value: {
+                html: '11 March 2022',
               },
             },
             {

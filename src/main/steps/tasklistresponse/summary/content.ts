@@ -314,16 +314,16 @@ export const enSaftyConcern = {
 };
 
 export const cyContent: typeof enContent = {
-  section: 'Check your answers -welsh',
+  section: 'Gwirio eich atebion',
   title: 'Please review your answers before you complete your response. -welsh',
   title2: 'Current or previous court cases -welsh',
   sectionTitles: {
     title: 'Current or previous proceeding -welsh',
   },
   statementOfTruth: 'Statement of truth -welsh',
-  warning: 'Warning-welsh',
+  warning: 'Warning -welsh',
   warningText:
-    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.-welsh',
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth. -welsh',
   errors: {
     declarationCheck: {
       required: 'Please confirm the declaration -welsh',

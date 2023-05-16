@@ -100,7 +100,7 @@ const cy = () => ({
            Maximum file size allowed is 20MB - welsh`,
     },
   },
-  selectFile: 'Select documents to upload-welsh',
+  selectFile: 'Select documents to upload -welsh',
 });
 
 const languages = {
