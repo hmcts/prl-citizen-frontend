@@ -4,7 +4,7 @@
 {% macro taskName(item) %}
   <span class="app-task-list__task-name">
     {% if item.href %}
-      <a id="{{item.id}}" class="govuk-link" href="{{item.href}}" aria-describedby="{{item.id}}-status">
+      <a id="{{item.id}}" class="govuk-link" href="{{item.href}}" aria-describedby="{{item.id}}-status" target="_blank">
         {{item.text}}
       </a>
     {% else %}
