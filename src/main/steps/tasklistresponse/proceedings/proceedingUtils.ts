@@ -30,7 +30,7 @@ export const IndividualOrderFieldsParser = (keys, order) => {
       question: keys['orderEndDateLabel'],
     },
     ['orderDocument']: {
-      question: 'Copy uploaded?',
+      question: keys['copy'],
     },
   };
   let Val = '';

@@ -13,6 +13,7 @@ const en = {
   courtOrder: 'Have you had a court order made for your protection?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
+  summaryText: 'Contacts for help',
   onlyContinue: 'Continue',
   errors: {
     proceedingsStart: {
@@ -34,7 +35,8 @@ const cy: typeof en = {
   courtOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
-  onlyContinue: 'Continue',
+  summaryText: 'Contacts for help -welsh',
+  onlyContinue: 'Continue -welsh',
   errors: {
     proceedingsStart: {
       required: 'Select yes if the children have been involved in a previous court case',

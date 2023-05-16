@@ -13,6 +13,7 @@ import {
   SummaryListRow,
 } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
+import { cy, en } from '../common.content';
 import { applyParms } from '../url-parser';
 
 export const getSectionSummaryList = (
@@ -20,8 +21,6 @@ export const getSectionSummaryList = (
   content: PageContent,
   language?: string
 ): GovUkNunjucksSummary[] => {
-  console.log(content.title);
-  console.log('lang' + language);
   return rows.map(item => {
     const changeUrl = item.changeUrl;
     return {
@@ -33,7 +32,7 @@ export const getSectionSummaryList = (
               items: [
                 {
                   href: changeUrl,
-                  text: language === 'en' ? 'Edit' : 'Golygu',
+                  text: language === 'en' ? en.edit : cy.edit,
                   visuallyHiddenText: `${item.key}`,
                 },
               ],
@@ -52,7 +51,6 @@ export const summaryList = (
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   urls: any,
   sectionTitle?: string,
-  fieldTypes?: any,
   language?: string
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
@@ -63,17 +61,27 @@ export const summaryList = (
       if (key1 === 'startAlternative' && userCase[key1] !== 'undefined') {
         return getSelectedprivaedet;
       }
+      if (key1 === 'courtProceedingsOrders' && userCase[key1] !== 'undefined') {
+        return getOrdersDetail;
+      }
       return userkey;
     };
     const userkey = userCase[key];
     const url = urls[key];
     const row = {
       key: keyLabel,
-      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : setkey(key)!,
+      value:
+        userCase[key]?.hasOwnProperty('day') &&
+        userCase[key].hasOwnProperty('month') &&
+        userCase[key]?.hasOwnProperty('year')
+          ? getFormattedDate(userCase[key], language)
+          : setkey(key)!,
       changeUrl: url,
     };
-    if (key !== 'citizenUserSafeToCall') {
-      summaryData.push(row);
+    if (row.value || key === 'citizenUserAddressHistory') {
+      if (key !== 'citizenUserSafeToCall') {
+        summaryData.push(row);
+      }
     }
   }
 
@@ -157,7 +165,6 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   let tempDetails = '<br/><br/><ul class="govuk-list govuk-list--bullet">';
   const contact_private_list = userCase['contactDetailsPrivate'];
   for (const key in contact_private_list) {
-    console.log(contact_private_list[key]);
     tempDetails =
       tempDetails +
       '<li>' +
@@ -167,4 +174,18 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   }
   tempDetails = tempDetails + '</ul>';
   return tempDetails;
+};
+export const getOrdersDetail = (userCase: Partial<CaseWithId>): string => {
+  let temp = '';
+  const value = userCase['courtProceedingsOrders'];
+  if (value) {
+    for (const k of value) {
+      const keyLabel = k as string;
+      temp += keyLabel;
+      if (value.indexOf(k) !== value.length - 1) {
+        temp += ', ';
+      }
+    }
+  }
+  return temp;
 };

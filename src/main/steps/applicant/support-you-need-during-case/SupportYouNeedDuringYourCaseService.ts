@@ -61,7 +61,7 @@ export const prepareRequest = (userCase: CaseWithId): ReasonableAdjustmentsSuppo
     describeOtherNeed,
     describeSignLanguageDetails,
     courtComfort,
-    lightingProvideDetails,
+    lightingDetails: lightingProvideDetails,
     otherProvideDetails,
     courtHearing,
     supportWorkerDetails,
@@ -117,7 +117,7 @@ export const prepareRequest = (userCase: CaseWithId): ReasonableAdjustmentsSuppo
     }
 
     if (!reasonableAdjustments.includes(HEARING_COMFORT)) {
-      delete request.lightingProvideDetails;
+      delete request.lightingDetails;
       delete request.otherProvideDetails;
     }
 
@@ -170,7 +170,7 @@ export const prepareRequest = (userCase: CaseWithId): ReasonableAdjustmentsSuppo
   // looping over courtComfort array
   if (Array.isArray(courtComfort)) {
     if (!courtComfort?.includes(APPROPRIATE_LIGHTING)) {
-      delete request.lightingProvideDetails;
+      delete request.lightingDetails;
     }
     if (!courtComfort?.includes(OTHER)) {
       delete request.otherProvideDetails;
@@ -214,7 +214,7 @@ export const mapSupportYouNeedDetails = (partyDetails: PartyDetails): Partial<Ca
     attendingToCourt,
     hearingDetails,
     signLanguageDetails,
-    lightingProvideDetails,
+    lightingDetails,
     supportWorkerDetails,
     familyProviderDetails,
     therapyDetails,
@@ -244,7 +244,7 @@ export const mapSupportYouNeedDetails = (partyDetails: PartyDetails): Partial<Ca
     attendingToCourt,
     hearingDetails,
     signLanguageDetails,
-    lightingProvideDetails,
+    lightingProvideDetails: lightingDetails,
     supportWorkerDetails,
     familyProviderDetails,
     therapyDetails,
