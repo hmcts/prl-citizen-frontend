@@ -1,8 +1,9 @@
-import { CaseDate, CaseWithId } from '../../../app/case/case';
+import { CaseWithId } from '../../../app/case/case';
 import { Consent, PartyDetails, YesOrNo } from '../../../app/case/definition';
+import { fromApiDate } from '../../../app/case/from-api-format';
 import { toApiDate } from '../../../app/case/to-api-format';
 
-export const prepareRequest = (req: CaseWithId): Consent => {
+export const prepareConsentRequest = (req: CaseWithId): Consent => {
   const { doYouConsent, courtPermission, reasonForNotConsenting, courtOrderDetails, applicationReceivedDate } = req;
 
   const request: Consent = {};
@@ -38,7 +39,7 @@ export const mapConsentToApplicationDetails = (partyDetails: PartyDetails): Part
     courtPermission: permissionFromCourt,
     reasonForNotConsenting: noConsentReason,
     courtOrderDetails,
-    applicationReceivedDate: toApiDate(applicationReceivedDate as unknown as CaseDate),
+    applicationReceivedDate: fromApiDate(applicationReceivedDate),
   });
 
   return consentToApplicationDetails;

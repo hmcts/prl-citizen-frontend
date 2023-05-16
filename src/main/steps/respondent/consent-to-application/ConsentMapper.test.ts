@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 
-import { mapConsentToApplicationDetails, prepareRequest } from './ConsentMapper';
+import { mapConsentToApplicationDetails, prepareConsentRequest } from './ConsentMapper';
 
 let respondents;
 
@@ -31,7 +31,7 @@ describe('ConsentMapper', () => {
     req.session.userCase.courtPermission = 'No';
     req.session.userCase.courtOrderDetails = '';
 
-    respondents[0].value.response.consent = await prepareRequest(req.session.userCase);
+    respondents[0].value.response.consent = await prepareConsentRequest(req.session.userCase);
 
     expect(respondents[0].value.response.consent.consentToTheApplication).toEqual('Yes');
     expect(respondents[0].value.response.consent.reasonForNotConsenting).toBeUndefined();
@@ -46,7 +46,7 @@ describe('ConsentMapper', () => {
     req.session.userCase.courtPermission = 'Yes';
     req.session.userCase.courtOrderDetails = 'sample test here';
 
-    respondents[0].value.response.consent = await prepareRequest(req.session.userCase);
+    respondents[0].value.response.consent = await prepareConsentRequest(req.session.userCase);
 
     expect(respondents[0].value.response.consent.consentToTheApplication).toEqual('No');
     expect(respondents[0].value.response.consent.noConsentReason).toEqual('sample test here');
@@ -60,7 +60,7 @@ describe('ConsentMapper', () => {
     req.session.userCase.doYouConsent = 'Yes';
     req.session.userCase.reasonForNotConsenting = 'sample test here';
 
-    respondents[0].value.response.consent = await prepareRequest(req.session.userCase);
+    respondents[0].value.response.consent = await prepareConsentRequest(req.session.userCase);
 
     expect(respondents[0].value.response.consent.consentToTheApplication).toEqual('Yes');
     expect(respondents[0].value.response.consent.noConsentReason).toBeUndefined();
@@ -71,7 +71,7 @@ describe('ConsentMapper', () => {
     req.session.userCase.courtPermission = 'No';
     req.session.userCase.courtOrderDetails = 'sample test here';
 
-    respondents[0].value.response.consent = await prepareRequest(req.session.userCase);
+    respondents[0].value.response.consent = await prepareConsentRequest(req.session.userCase);
 
     expect(respondents[0].value.response.consent.permissionFromCourt).toEqual('No');
     expect(respondents[0].value.response.consent.courtOrderDetails).toBeUndefined();
