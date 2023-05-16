@@ -7,11 +7,9 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../.
 export const en = () => ({
   serviceName: 'Child Arrangements',
   caption: 'Attending the court',
-  headingTitle: `Would you be able to take 
-  part in hearings by video and phone?`,
+  headingTitle: 'Would you be able to take part in hearings by video and phone?',
   paragraph1: 'If your case goes to a hearing, it can take place either:',
-  paragraph2: `Some hearings use a combination of these methods. 
-  The approach taken will be decided by a judge.`,
+  paragraph2: 'Some hearings use a combination of these methods. The approach taken will be decided by a judge.',
   line1: "in person, in a room at a venue ('face-to-face')",
   line2: 'by video (where you can join from a place suitable to you)',
   line3: 'by phone',
@@ -24,6 +22,9 @@ export const en = () => ({
   errors: {
     ra_noVideoAndPhoneHearing_subfield: {
       required: 'Explain why you are unable to take part in neither video or phone hearings',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     ra_typeOfHearing: {
       required: 'Select whether you can take part in a video or phone hearing',
@@ -51,6 +52,9 @@ export const cy = () => ({
   errors: {
     ra_noVideoAndPhoneHearing_subfield: {
       required: 'Esboniwch pam nad ydych yn gallu cymryd rhan mewn gwrandawiad drwy fideo na gwrandawiad dros y ffôn',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     ra_typeOfHearing: {
       required: 'Dewiswch a allwch gymryd rhan mewn naill ai gwrandawiad drwy fideo neu wrandawiad dros y ffôn',
