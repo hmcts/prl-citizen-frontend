@@ -2,12 +2,13 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
-import { Respondent } from '../../../app/case/definition';
-import { toApiFormat } from '../../../app/case/to-api-format';
+import { CaseEvent, CaseType } from '../../../app/case/definition';
 import type { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { getCasePartyType } from '../../prl-cases/dashboard/utils';
 import { RESPOND_TO_APPLICATION } from '../../urls';
+import { getPartyDetails, mapDataInSession } from '../utils';
 
 import { prepareProceedingDetailsRequest } from './ProceedingDetailsMapper';
 
@@ -17,34 +18,27 @@ export class ProceedingPostController extends PostController<AnyObject> {
     super(fields);
   }
   public async post(req: AppRequest, res: Response): Promise<void> {
-    try {
-      const caseworkerUser = req.session.user;
-      const caseReference = req.session.userCase.id;
+    const { user, userCase } = req.session;
+    const partyType = getCasePartyType(userCase, user.id);
+    const partyDetails = getPartyDetails(userCase, user.id);
+    const client = new CosApiClient(user.accessToken, 'https://return-url');
 
-      const client = new CosApiClient(caseworkerUser.accessToken, 'https://return-url');
-
-      const caseDataFromCos = await client.retrieveByCaseId(caseReference, caseworkerUser);
-      Object.assign(req.session.userCase, caseDataFromCos);
-
-      req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-        if (respondent?.value?.user?.idamId === req.session?.user.id) {
-          respondent.value.response['currentOrPreviousProceedings'] = prepareProceedingDetailsRequest(
-            req.session.userCase
-          );
-        }
-      });
-      const caseData = toApiFormat(req?.session?.userCase);
-      caseData.id = caseReference;
-      const updatedCaseDataFromCos = await client.updateCase(
-        caseworkerUser,
-        caseReference,
-        caseData,
-        'citizen-case-update'
-      );
-      Object.assign(req.session.userCase, updatedCaseDataFromCos);
-      req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
-    } catch (err) {
-      throw new Error('ProceedingPostController - Case could not be updated.');
+    if (partyDetails) {
+      Object.assign(partyDetails.response, { currentOrPreviousProceedings: prepareProceedingDetailsRequest(userCase) });
+      try {
+        req.session.userCase = await client.updateCaseData(
+          user,
+          userCase.id,
+          partyDetails,
+          partyType,
+          userCase.caseTypeOfApplication as CaseType,
+          CaseEvent.CITIZEN_CASE_UPDATE
+        );
+        mapDataInSession(req.session.userCase, user.id);
+        req.session.save(() => res.redirect(RESPOND_TO_APPLICATION));
+      } catch (error) {
+        throw new Error('ProceedingPostController - Case could not be updated.');
+      }
     }
   }
 }
