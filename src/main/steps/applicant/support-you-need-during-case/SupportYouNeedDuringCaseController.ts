@@ -35,7 +35,7 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
         );
         mapDataInSession(req.session.userCase, user.id);
 
-        let return_url = RESPONDENT_TASK_LIST_URL;
+        let return_url;
         if (partyType === PartyType.APPLICANT) {
           return_url = APPLICANT_TASK_LIST_URL;
         } else if (partyType === PartyType.RESPONDENT && req.session.userCase.caseTypeOfApplication === 'C100') {
