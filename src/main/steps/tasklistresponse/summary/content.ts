@@ -42,14 +42,6 @@ import {
 import { PastAndCurrentProceedings } from '../proceedings/mainUtils';
 
 import { ANYTYPE } from './common/index';
-// import {
-//   applicationDetailsfieldTypeMiam,
-//   confirmYourDetailsfieldType,
-//   consentFieldType,
-//   inetnationlFactorFieldType,
-//   keepYourDetailsfieldType,
-//   legalRepresantationFieldType,
-// } from './fieldTypeConstant';
 import { populateSummaryData } from './handler';
 
 export const enlegalRepresntationContent = {
@@ -681,31 +673,15 @@ const en = (content: CommonContent) => {
       userCase,
       urls,
       enlegalRepresntationContent.sectionTitles.title,
-      // legalRepresantationFieldType,
       content.language
     ),
-    summaryList(
-      enConsentContent,
-      userCase,
-      urls,
-      enConsentContent.sectionTitles.title,
-      //consentFieldType,
-      content.language
-    ),
-    summaryList(
-      enDummyContent,
-      userCase,
-      '',
-      enDummyContent.sectionTitles.title2,
-      //'',
-      content.language
-    ),
+    summaryList(enConsentContent, userCase, urls, enConsentContent.sectionTitles.title, content.language),
+    summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title2, content.language),
     summaryList(
       enKeepYourDetailsContent,
       userCase,
       urls,
       enKeepYourDetailsContent.sectionTitles.title,
-      //keepYourDetailsfieldType,
       content.language
     ),
     summaryList(
@@ -713,35 +689,13 @@ const en = (content: CommonContent) => {
       userCase,
       urls,
       enConfirmYourDetailsContent.sectionTitles.title,
-      // confirmYourDetailsfieldType,
       content.language
     ),
     supportList(enSupportYouNeedContent, userCase, urls, 'cy', enSupportYouNeedContent.sectionTitles.title),
-    summaryList(
-      enDummyContent,
-      userCase,
-      '',
-      enDummyContent.sectionTitles.title3,
-      //'',
-      content.language
-    ),
-    summaryList(
-      enContentMiam,
-      userCase,
-      urls,
-      enContentMiam.sectionTitles.title,
-      //applicationDetailsfieldTypeMiam,
-      content.language
-    ),
+    summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title3, content.language),
+    summaryList(enContentMiam, userCase, urls, enContentMiam.sectionTitles.title, content.language),
     PastAndCurrentProceedings(enContentProceding, userCase),
-    summaryList(
-      enDummyContent,
-      userCase,
-      '',
-      enDummyContent.sectionTitles.title4,
-      //'',
-      content.language
-    ),
+    summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title4, content.language),
     SafetyConcerns(enSaftyConcern, userCase)
   );
 
@@ -754,16 +708,8 @@ const en = (content: CommonContent) => {
   }
 
   sections.push(
-    summaryList(
-      enInternationalContent,
-      userCase,
-      urls,
-      enInternationalContent.sectionTitles.title,
-      // inetnationlFactorFieldType,
-      content.language
-    )
+    summaryList(enInternationalContent, userCase, urls, enInternationalContent.sectionTitles.title, content.language)
   );
-  // updateContent(enContent, userCase, urls);
   return {
     ...enContent,
     language: content.language,
@@ -781,31 +727,15 @@ const cy: typeof en = (content: CommonContent) => {
       userCase,
       urls,
       cylegalRepresntationContent.sectionTitles.title,
-      //legalRepresantationFieldType,
       content.language
     ),
-    summaryList(
-      cyConsentContent,
-      userCase,
-      urls,
-      cyConsentContent.sectionTitles.title,
-      // consentFieldType,
-      content.language
-    ),
-    summaryList(
-      cyDummyContent,
-      userCase,
-      '',
-      cyDummyContent.sectionTitles.title2,
-      //'',
-      content.language
-    ),
+    summaryList(cyConsentContent, userCase, urls, cyConsentContent.sectionTitles.title, content.language),
+    summaryList(cyDummyContent, userCase, '', cyDummyContent.sectionTitles.title2, content.language),
     summaryList(
       cyKeepYourDetailsContent,
       userCase,
       urls,
       cyKeepYourDetailsContent.sectionTitles.title,
-      //keepYourDetailsfieldType,
       content.language
     ),
     summaryList(
@@ -813,35 +743,13 @@ const cy: typeof en = (content: CommonContent) => {
       userCase,
       urls,
       cyConfirmYourDetailsContent.sectionTitles.title,
-      //confirmYourDetailsfieldType,
       content.language
     ),
     supportList(cySupportYouNeedContent, userCase, urls, 'cy', cySupportYouNeedContent.sectionTitles.title),
-    summaryList(
-      cyDummyContent,
-      userCase,
-      '',
-      cyDummyContent.sectionTitles.title3,
-      //'',
-      content.language
-    ),
-    summaryList(
-      cyContentMiam,
-      userCase,
-      urls,
-      cyContentMiam.sectionTitles.title,
-      //applicationDetailsfieldTypeMiam,
-      content.language
-    ),
+    summaryList(cyDummyContent, userCase, '', cyDummyContent.sectionTitles.title3, content.language),
+    summaryList(cyContentMiam, userCase, urls, cyContentMiam.sectionTitles.title, content.language),
     PastAndCurrentProceedings(cyContentProceding, userCase),
-    summaryList(
-      cyDummyContent,
-      userCase,
-      '',
-      cyDummyContent.sectionTitles.title4,
-      //'',
-      content.language
-    ),
+    summaryList(cyDummyContent, userCase, '', cyDummyContent.sectionTitles.title4, content.language),
     SafetyConcerns(cySaftyConcern, userCase)
   );
 
@@ -854,14 +762,7 @@ const cy: typeof en = (content: CommonContent) => {
   }
 
   sections.push(
-    summaryList(
-      cyInternationalContent,
-      userCase,
-      urls,
-      cyInternationalContent.sectionTitles.title,
-      //inetnationlFactorFieldType,
-      content.language
-    )
+    summaryList(cyInternationalContent, userCase, urls, cyInternationalContent.sectionTitles.title, content.language)
   );
 
   return {

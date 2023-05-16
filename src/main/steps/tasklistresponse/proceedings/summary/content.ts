@@ -36,9 +36,9 @@ const en = (content: CommonContent) => {
 };
 
 export const cyContent: typeof enContent = {
-  serviceName: 'Check your answers -welsh ',
+  serviceName: 'Gwirio eich atebion',
   section: '',
-  title: 'Check your answers -welsh ',
+  title: 'Gwirio eich atebion',
   change: 'Edit -welsh ',
   topWarning: 'Your answers will be shared with the other people in this case. -welsh ',
   makingSure: 'Please review your answers before you finish your application. -welsh ',
@@ -50,8 +50,8 @@ export const cyContent: typeof enContent = {
     otherProceedings: 'Current or previous proceedings -welsh ',
   },
   keys: {
-    proceedingsStart: 'Have the children been involved in a court case? -welsh ',
-    proceedingsStartOrder: 'Have you had a court order made for your protection? -welsh ',
+    proceedingsStart: "Ydy'r plant wedi bod yn rhan o achos llys?",
+    proceedingsStartOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
   },
 };
 
