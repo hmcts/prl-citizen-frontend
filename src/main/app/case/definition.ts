@@ -2973,5 +2973,7 @@ export enum CaseType {
 export enum CaseEvent {
   SAFETY_CONCERNS = 'citizenSafetyConcerns',
   MIAM = 'respondentMiam',
-  PARTY_PERSONAL_DETAILS = 'linkCitizenAccount'
+  PARTY_PERSONAL_DETAILS = 'linkCitizenAccount',
+  EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement',
+  CITIZEN_CASE_UPDATE = 'citizen-case-update',
 }
