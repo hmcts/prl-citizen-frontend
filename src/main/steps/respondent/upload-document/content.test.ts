@@ -6,20 +6,22 @@ import { generateContent } from './content';
 import { document_list_cy, document_list_en } from './section-titles';
 import { documents_list_items_cy, documents_list_items_en } from './upload-document-list-items';
 const enContent = {
-  title: 'Select the type of document',
   section: 'Upload documents',
+  title: 'Select the type of document',
   caseNumber: 'Case Number #',
   line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
   sectionTitles: document_list_en,
   documentsListItems: documents_list_items_en,
+  userName: '',
 };
 const cyContent = {
-  title: 'Dewiswch y math o ddogfen',
   section: 'Llwytho dogfennau',
+  title: 'Dewiswch y math o ddogfen',
   caseNumber: 'Rhif yr achos #',
   line1: 'Os yw’r llys wedi gofyn i chi gyflwyno tystiolaeth bellach, gallwch lwytho dogfennau yma.',
   sectionTitles: document_list_cy,
   documentsListItems: documents_list_items_cy,
+  userName: '',
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;

@@ -1,7 +1,7 @@
 //import { Case } from '../../../../app/case/case';
 import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 const en = {
@@ -18,6 +18,9 @@ const en = {
     citizenUserAddressHistory: {
       required:
         'Provide details of previous addresses you have lived at in the last 5 years, starting with your most recent address',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -36,6 +39,9 @@ const cy: typeof en = {
     citizenUserAddressHistory: {
       required:
         'Darparwch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf, gan gychwyn gyda’r diweddaraf',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -76,7 +82,7 @@ export const addressHistoryFields = (): FormFields => ({
             type: 'textarea',
             label: l => l.explainNoLabel,
             id: 'provideDetailsOfPreviousAddresses',
-            validator: value => isFieldFilledIn(value),
+            validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
           },
         },
       },

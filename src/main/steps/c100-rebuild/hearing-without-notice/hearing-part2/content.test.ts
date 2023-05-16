@@ -23,6 +23,9 @@ const en = {
   errors: {
     hwn_reasonsForApplicationWithoutNotice: {
       required: 'Enter details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     hwn_doYouNeedAWithoutNoticeHearing: {
       required: 'Select yes if the other person may obstruct',
@@ -32,9 +35,15 @@ const en = {
     },
     hwn_doYouNeedAWithoutNoticeHearingDetails: {
       required: 'Enter details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     hwn_doYouRequireAHearingWithReducedNoticeDetails: {
       required: 'Enter details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -55,6 +64,9 @@ const cy = {
   errors: {
     hwn_reasonsForApplicationWithoutNotice: {
       required: 'Rhowch fanylion',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     hwn_doYouNeedAWithoutNoticeHearing: {
       required: 'Dewiswch ‘ydw’ os yw’n bosib y bydd yr unigolyn arall yn gwrthwynebu’r cais',
@@ -64,9 +76,15 @@ const cy = {
     },
     hwn_doYouNeedAWithoutNoticeHearingDetails: {
       required: 'Rhowch fanylion',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     hwn_doYouRequireAHearingWithReducedNoticeDetails: {
       required: 'Rhowch fanylion',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };

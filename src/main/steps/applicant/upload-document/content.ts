@@ -11,6 +11,7 @@ const en = () => ({
   section: 'Upload documents',
   caseNumber: 'Case Number #',
   title: 'Select the type of document',
+  userName: '',
   line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
   sectionTitles: document_list_en,
   documentsListItems: documents_list_items_en,
@@ -22,6 +23,7 @@ const cy = () => ({
   title: 'Dewiswch y math o ddogfen',
   line1: 'Os yw’r llys wedi gofyn i chi gyflwyno tystiolaeth bellach, gallwch lwytho dogfennau yma.',
   sectionTitles: document_list_cy,
+  userName: '',
   documentsListItems: documents_list_items_cy,
 });
 
@@ -34,6 +36,9 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const request = content.additionalData?.req;
   const caseData = request.session?.userCase;
+  if (caseData.caseTypeOfApplication === 'FL401') {
+    translations.userName = caseData.applicantsFL401.partyLevelFlag.partyName;
+  }
 
   return {
     ...translations,

@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -17,6 +17,9 @@ export const en = () => ({
   errors: {
     PRL_c1A_keepingSafeStatement: {
       required: 'Describe what do you want the court to do to keep you and the children safe',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 });
@@ -35,6 +38,9 @@ export const cy = () => ({
   errors: {
     PRL_c1A_keepingSafeStatement: {
       required: 'Describe what do you want the court to do to keep you and the children safe - welsh',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 });
@@ -49,7 +55,7 @@ export const form: FormContent = {
     PRL_c1A_keepingSafeStatement: {
       type: 'textarea',
       attributes: { rows: 10 },
-      validator: value => isFieldFilledIn(value),
+      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
   },
   onlyContinue: {

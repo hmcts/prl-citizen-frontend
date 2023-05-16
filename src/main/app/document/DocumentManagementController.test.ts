@@ -67,6 +67,12 @@ describe('DocumentManagerController', () => {
 
   describe('fetch file FL401-Final-Document for applicant', () => {
     test('fetch an existing file - %o', async () => {
+      mockGet.mockResolvedValue({
+        responseType: 'array',
+        headers: {
+          'content-type': 'application/pdf',
+        },
+      });
       req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
       req.headers.accept = 'application/pdf';
       req.session.userCase.finalDocument = {
@@ -106,6 +112,12 @@ describe('DocumentManagerController', () => {
 
   describe('fetch file witness-statement-Final-Document for applicant', () => {
     test('fetch an existing file - %o', async () => {
+      mockGet.mockResolvedValue({
+        responseType: 'array',
+        headers: {
+          'content-type': 'application/pdf',
+        },
+      });
       req.originalUrl = 'http://localhost:8080/applicant/public/docs/witness-statement-Final-Document.pdf';
       req.headers.accept = 'application/pdf';
       req.session.userCase.fl401UploadWitnessDocuments = [
@@ -212,6 +224,12 @@ describe('DocumentManagerController', () => {
   });
   describe('check Allegation of Harm property saved without Response', () => {
     test('check Allegation of Harm property saved', async () => {
+      mockGet.mockResolvedValue({
+        responseType: 'array',
+        headers: {
+          'content-type': 'application/pdf',
+        },
+      });
       req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
       req.session.userCase.respondents = [
         {
@@ -243,6 +261,12 @@ describe('DocumentManagerController', () => {
 
   describe('check Allegation of Harm property saved with Response', () => {
     test('check Allegation of Harm property saved', async () => {
+      mockGet.mockResolvedValue({
+        responseType: 'array',
+        headers: {
+          'content-type': 'application/pdf',
+        },
+      });
       req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
       req.session.userCase.respondents = [
         {
@@ -279,6 +303,12 @@ describe('DocumentManagerController', () => {
 
   describe('check isApplicationViewed property saved with Response - value is No', () => {
     test('check isApplicationViewed property saved', async () => {
+      mockGet.mockResolvedValue({
+        responseType: 'array',
+        headers: {
+          'content-type': 'application/pdf',
+        },
+      });
       req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
       req.session.userCase.respondents = [
         {
@@ -315,6 +345,12 @@ describe('DocumentManagerController', () => {
 
   describe('check isApplicationViewed property saved with Response - value is null', () => {
     test('check isApplicationViewed property saved', async () => {
+      mockGet.mockResolvedValue({
+        responseType: 'array',
+        headers: {
+          'content-type': 'application/pdf',
+        },
+      });
       req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
       req.session.userCase.respondents = [
         {
