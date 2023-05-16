@@ -11,7 +11,7 @@ import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails, mapDataInSession } from '../../../steps/tasklistresponse/utils';
 import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
 
-import { prepareRequest } from './SupportYouNeedDuringYourCaseService';
+import { prepareSupportYouNeedDuringCaseRequest } from './SupportYouNeedDuringYourCaseService';
 @autobind
 export class SupportYouNeedDuringYourCaseController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
@@ -24,7 +24,7 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
       const partyDetails = getPartyDetails(userCase, user.id);
       const client = new CosApiClient(user.accessToken, 'https://return-url');
       if (partyDetails) {
-        Object.assign(partyDetails.response, { supportYouNeed: prepareRequest(userCase) });
+        Object.assign(partyDetails.response, { supportYouNeed: prepareSupportYouNeedDuringCaseRequest(userCase) });
         req.session.userCase = await client.updateCaseData(
           user,
           userCase.id,
