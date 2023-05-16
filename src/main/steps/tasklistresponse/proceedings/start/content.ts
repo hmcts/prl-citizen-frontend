@@ -13,6 +13,7 @@ const en = {
   courtOrder: 'Have you had a court order made for your protection?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
+  summaryText: 'Contacts for help',
   onlyContinue: 'Continue',
   errors: {
     proceedingsStart: {
@@ -25,15 +26,16 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
+  section: 'Have you or the children ever been involved in court proceedings?',
   title: '',
-  courtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
+  courtCase: 'Have the children been involved in a court case?',
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',
   courtCaseDontKnow: "I don't know",
-  courtOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
+  courtOrder: 'Have you had a court order made for your protection?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
+  summaryText: 'Contacts for help',
   onlyContinue: 'Continue',
   errors: {
     proceedingsStart: {

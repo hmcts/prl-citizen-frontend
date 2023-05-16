@@ -72,11 +72,11 @@ const cyContent: typeof enContent = {
   edit: 'Edit -welsh',
   keys: {
     attendingToCourt: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
-    hearingDetails: 'Please provide the details',
+    hearingDetails: 'Please provide the details -welsh',
     languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
-    languageDetails: 'Please provide language details',
+    languageDetails: 'Please provide language details -welsh',
     safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
-    safetyArrangementsDetails: 'Please describe your need in detail',
+    safetyArrangementsDetails: 'Please describe your need in detail -welsh',
     reasonableAdjustments:
       'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
     docsSupport: 'I need documents in an alternative format -welsh',

@@ -128,6 +128,21 @@ export const enContent = {
     },
   },
   continue: 'Submit your response',
+  warning1: 'Warning',
+  yourResponse: 'Your response will be shared with the other people in this case.',
+  confirm: 'Confirm before continuing',
+  submit:
+    "Once you submit your response, you cannot make any further changes. Please select 'Submit your response' to complete your online response.",
+  download: 'You can download a copy of your submitted response using the link below.',
+  believeFacts: 'I believe that the facts stated in this response are true',
+  statementOfTruthSubmission:
+    'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
+  downloadDraftPDF: 'Download a draft of your response (PDF)',
+  cannotOpen: 'If you cannot open the PDF file on your device, download and install',
+  adobeReader: 'Adobe Acrobat Reader',
+  tryAgain: 'and try again.',
+  forRecords: 'Please note this draft is for your records. Only the completed response will be admitted in court.',
+  downloadDraft: 'Download draft response',
 };
 
 export const enSupportYouNeedContent = {
@@ -214,6 +229,7 @@ export const enContentProceding = {
     orderEndDateLabel: 'How long was the order for? (optional)',
     isCurrentOrderLabel: 'Is this a current order? (optional)',
     copyOfOrderLabel: 'Do you have a copy of the order (optional)',
+    copy: 'Copy uploaded?',
     emergencyProtectionOrderLabel: 'Emergency Protection Order',
     childArrangementOrderLabel: 'Child Arrangements Order',
     supervisionOrderLabel: 'Supervision Order',
@@ -322,6 +338,22 @@ export const cyContent: typeof enContent = {
     },
   },
   continue: 'Submit your response -welsh',
+  warning1: 'Warning -welsh',
+  yourResponse: 'Your response will be shared with the other people in this case. -welsh',
+  confirm: 'Confirm before continuing (welsh)',
+  submit:
+    "Once you submit your response, you cannot make any further changes. Please select 'Submit your response' to complete your online response. (welsh)",
+  download: 'You can download a copy of your submitted response using the link below. (welsh)',
+  believeFacts: 'I believe that the facts stated in this response are true (welsh)',
+  statementOfTruthSubmission:
+    'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’. (welsh)',
+  downloadDraftPDF: 'Download a draft of your response (PDF) (welsh)',
+  cannotOpen: 'If you cannot open the PDF file on your device, download and install (welsh)',
+  adobeReader: 'Adobe Acrobat Reader (welsh)',
+  tryAgain: 'and try again. (welsh)',
+  forRecords:
+    'Please note this draft is for your records. Only the completed response will be admitted in court. (welsh)',
+  downloadDraft: 'Download draft response (welsh)',
 };
 export const cyContentProceding = {
   serviceName: 'Check your answers  -welsh',
@@ -347,6 +379,7 @@ export const cyContentProceding = {
     orderEndDateLabel: 'How long was the order for? (optional) -welsh',
     isCurrentOrderLabel: 'Is this a current order? (optional) -welsh',
     copyOfOrderLabel: 'Do you have a copy of the order (optional) -welsh',
+    copy: 'Copy uploaded?-welsh',
     emergencyProtectionOrderLabel: 'Emergency Protection Order -welsh',
     childArrangementOrderLabel: 'Child Arrangements Order -welsh',
     supervisionOrderLabel: 'Supervision Order -welsh',
@@ -365,6 +398,7 @@ export const cyContentProceding = {
     otherInjuctionOrderLabel: 'Other Injunction Order -welsh',
     undertakingOrderLabel: 'Undertaking Order -welsh',
     otherOrderLabel: 'Other Order -welsh',
+    
   },
 };
 export const cylegalRepresntationContent = {
