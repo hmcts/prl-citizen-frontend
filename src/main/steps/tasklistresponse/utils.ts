@@ -64,5 +64,11 @@ export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id'])
     partyData = partyType === PartyType.RESPONDENT ? userCase.respondentsFL401 : userCase.applicantsFL401;
   }
 
-  return partyData?.value ? partyData.value : partyData;
+  if (partyData?.value) {
+    return Object.assign({}, partyData.value);
+  }
+
+  if (partyData) {
+    return Object.assign({}, partyData);
+  }
 };

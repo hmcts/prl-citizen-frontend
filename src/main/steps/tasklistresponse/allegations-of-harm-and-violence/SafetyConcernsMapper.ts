@@ -140,7 +140,6 @@ export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_tota
 };
 
 export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
-  const safetyConcerns = partyDetails?.response?.safetyConcerns;
   const {
     haveSafetyConcerns,
     safetyConcernAbout,
@@ -149,11 +148,14 @@ export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<Ca
     otherconcerns,
     abductions,
     ...rest
-  } = safetyConcerns ? Object.assign({}, safetyConcerns) : ({} as PRL_C1ASafteyConcerns_total);
+  } = partyDetails?.response?.safetyConcerns || {};
+  const safetyConerns = {
+    child: {},
+  } as Partial<PRL_C1ASafteyConcerns_total>;
 
   if (rest?.child) {
-    rest.child = Object.entries(rest.child).reduce((childConcerns, [abuseType, data]) => {
-      childConcerns[abuseType] = data;
+    safetyConerns.child = Object.entries(rest.child).reduce((childConcerns, [abuseType, data]) => {
+      childConcerns[abuseType] = Object.assign({}, data);
       if (data?.childrenConcernedAbout && !Array.isArray(data?.childrenConcernedAbout)) {
         childConcerns[abuseType].childrenConcernedAbout = (data.childrenConcernedAbout as unknown as string).split(',');
       }
@@ -166,7 +168,10 @@ export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<Ca
     PRL_c1A_safetyConernAbout: safetyConcernAbout,
     PRL_c1A_concernAboutChild: concernAboutChild,
     PRL_c1A_concernAboutRespondent: concernAboutRespondent,
-    PRL_c1A_safteyConcerns: rest,
+    PRL_c1A_safteyConcerns: {
+      ...rest,
+      ...safetyConerns,
+    },
     PRL_c1A_abductionReasonOutsideUk: abductions?.c1AabductionReasonOutsideUk,
     PRL_c1A_childsCurrentLocation: abductions?.c1AchildsCurrentLocation,
     PRL_c1A_passportOffice: abductions?.c1ApassportOffice,
