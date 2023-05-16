@@ -398,7 +398,6 @@ export const cyContentProceding = {
     otherInjuctionOrderLabel: 'Other Injunction Order -welsh',
     undertakingOrderLabel: 'Undertaking Order -welsh',
     otherOrderLabel: 'Other Order -welsh',
-    
   },
 };
 export const cylegalRepresntationContent = {
