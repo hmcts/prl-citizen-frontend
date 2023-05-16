@@ -38,7 +38,7 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
         let return_url;
         if (partyType === PartyType.APPLICANT) {
           return_url = APPLICANT_TASK_LIST_URL;
-        } else if (partyType === PartyType.RESPONDENT && req.session.userCase.caseTypeOfApplication === 'C100') {
+        } else {
           return_url = req.session.applicationSettings?.navfromRespondToApplication
             ? RESPOND_TO_APPLICATION
             : RESPONDENT_TASK_LIST_URL;
