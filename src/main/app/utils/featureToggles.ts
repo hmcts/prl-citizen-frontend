@@ -38,15 +38,22 @@ export class FeatureToggles {
       'c100-rebuild',
       toBoolean(config.get<boolean>('featureToggles.c100Rebuild'))
     );
-    console.log('C100 - Launch Darkly Flag', isC100RebuildEnabled);
     return isC100RebuildEnabled;
+  }
+
+  async isTestingSupportEnabled(): Promise<boolean> {
+    const isTestingSupportEnabled = this.launchDarklyClient.serviceVariation(
+      'testing-support',
+      toBoolean(config.get<boolean>('featureToggles.testingSupport'))
+    );
+    return isTestingSupportEnabled;
   }
 }
 
 let featureToggleObj: FeatureToggles;
 export const initializeFeatureToggle = async (): Promise<FeatureToggles> => {
   featureToggleObj = new FeatureToggles(new LaunchDarklyClient());
-  featureToggleObj.launchDarklyClient.initializeLD();
+  await featureToggleObj.launchDarklyClient.initializeLD();
   return featureToggleObj;
 };
 
