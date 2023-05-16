@@ -34,19 +34,14 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
           CaseEvent.CITIZEN_CASE_UPDATE
         );
         mapDataInSession(req.session.userCase, user.id);
+
         let return_url = RESPONDENT_TASK_LIST_URL;
         if (partyType === PartyType.APPLICANT) {
           return_url = APPLICANT_TASK_LIST_URL;
         } else if (partyType === PartyType.RESPONDENT && req.session.userCase.caseTypeOfApplication === 'C100') {
-          return_url = RESPOND_TO_APPLICATION;
-        }
-
-        if (partyType === PartyType.APPLICANT) {
-          return_url = APPLICANT_TASK_LIST_URL;
-        } else {
-          if (partyType === PartyType.RESPONDENT && userCase.caseTypeOfApplication === CaseType.C100) {
-            return_url = APPLICANT_TASK_LIST_URL;
-          }
+          return_url = req.session.applicationSettings?.navfromRespondToApplication
+            ? RESPOND_TO_APPLICATION
+            : RESPONDENT_TASK_LIST_URL;
         }
 
         req.session.save(() => res.redirect(return_url));
