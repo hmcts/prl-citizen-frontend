@@ -370,8 +370,7 @@ function filterSelectedUrls(userCase: Partial<CaseWithId>) {
   if (userCase?.languageRequirements?.includes(NO_NEED_OF_SUPPORT)) {
     userCase.languageDetails = '';
   }
-
-  if (!userCase?.safetyArrangements?.includes(ReasonableAdjustments.NO_NEED_OF_SUPPORT)) {
+  if (!userCase?.safetyArrangements?.includes('other')) {
     userCase.safetyArrangementsDetails = '';
   }
 
