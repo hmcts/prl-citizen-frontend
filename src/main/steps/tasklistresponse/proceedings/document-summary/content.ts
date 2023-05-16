@@ -10,11 +10,15 @@ export * from './routeGuard';
 const en = () => ({
   headingTitle:
     'You have uploaded details of your past and current proceedings. These will be reviewed by the court once you submit the application.',
+  uploadDetail: 'What you have uploaded',
+  edit: 'Edit',
 });
 
 const cy = () => ({
   headingTitle:
     'You have uploaded details of your past and current proceedings. These will be reviewed by the court once you submit the application. - welsh',
+  uploadDetail: 'What you have uploaded-welsh',
+  edit: 'Edit-welsh',
 });
 
 const languages = {

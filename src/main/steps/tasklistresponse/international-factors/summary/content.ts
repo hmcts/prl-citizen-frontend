@@ -30,14 +30,7 @@ const en = (content: CommonContent) => {
     ...enContent,
     language: content.language,
     sections: [
-      summaryList(
-        enContent,
-        userCase,
-        urls,
-        enContent.sectionTitles.respondentAdditionalInformation,
-        //fieldType,
-        content.language
-      ),
+      summaryList(enContent, userCase, urls, enContent.sectionTitles.respondentAdditionalInformation, content.language),
     ],
   };
 };
@@ -55,13 +48,6 @@ const cyContent: typeof enContent = {
 
 let urls;
 
-// const fieldType = {
-//   start: 'String',
-//   parents: 'String',
-//   jurisdiction: 'String',
-//   request: 'String',
-// };
-
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
 
@@ -71,14 +57,7 @@ const cy: typeof en = (content: CommonContent) => {
     ...cyContent,
     language: content.language,
     sections: [
-      summaryList(
-        cyContent,
-        userCase,
-        urls,
-        cyContent.sectionTitles.respondentAdditionalInformation,
-        // fieldType,
-        content.language
-      ),
+      summaryList(cyContent, userCase, urls, cyContent.sectionTitles.respondentAdditionalInformation, content.language),
     ],
   };
 };

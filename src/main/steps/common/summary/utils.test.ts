@@ -91,21 +91,14 @@ describe('common > summary > utils', () => {
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      const result: SummaryList | undefined = summaryList(
-        enContent,
-        userCase,
-        urls,
-        'applicationDetails',
-        // enContent.fieldType,
-        'en'
-      );
+      const result: SummaryList | undefined = summaryList(enContent, userCase, urls, 'applicationDetails', 'en');
       console.log(result?.rows);
       expect(result).toStrictEqual(expected);
     });
   });
 
   describe('Return correct Summary Case List', () => {
-    test.skip.each([
+    test.each([
       {
         userCase: {
           ...mockUserCase,
