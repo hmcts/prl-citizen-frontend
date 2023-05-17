@@ -82,7 +82,11 @@ export const generateContent: TranslationFn = content => {
   const applicantAddress: string[] = [];
 
   if (content?.userCase?.applicants) {
-    applicantAddressObj = content?.userCase?.applicants![0].value?.address! ?? {};
+    content.userCase.applicants.forEach(applicant => {
+      if (applicant.value.user.idamId === content.userIdamId) {
+        applicantAddressObj = applicant.value.address!;
+      }
+    });
     for (const key in applicantAddressObj) {
       if (applicantAddressObj[key] !== '' || applicantAddressObj[key] !== null) {
         applicantAddress.push(applicantAddressObj[key]);

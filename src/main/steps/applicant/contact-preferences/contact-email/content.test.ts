@@ -35,9 +35,14 @@ describe('contact email common content', () => {
   const commonContent = {
     language: 'en',
     userCase: {
+      userIdamId: '123',
       applicants: [
         {
-          value: 'test@email.com',
+          value: {
+            user: {
+              idamId: '123',
+            },
+          },
         },
       ],
     },

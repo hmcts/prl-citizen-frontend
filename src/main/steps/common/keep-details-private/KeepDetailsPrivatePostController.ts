@@ -15,8 +15,8 @@ import {
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
 } from '../../../steps/urls';
 
-import { mapConfidentialListToFields, prepareKeepDetailsPrivateRequest } from './KeepYourDetailsPrivateMapper';
-
+import { prepareKeepDetailsPrivateRequest } from './KeepYourDetailsPrivateMapper';
+//mapConfidentialListToFields,
 @autobind
 export class KeepDetailsPrivatePostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
@@ -31,9 +31,6 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
 
     if (partyDetails) {
       const request = prepareKeepDetailsPrivateRequest(userCase);
-      if (userCase.caseTypeOfApplication === CaseType.C100 && partyType === PartyType.APPLICANT) {
-        Object.assign(partyDetails, mapConfidentialListToFields(request));
-      }
       Object.assign(partyDetails.response, { keepDetailsPrivate: request });
       try {
         req.session.userCase = await client.updateCaseData(

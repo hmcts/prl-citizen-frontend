@@ -77,7 +77,11 @@ export const generateContent: TranslationFn = content => {
   const { fields } = generateFormFields();
 
   if (content?.userCase?.applicants) {
-    applicantEmail = content?.userCase?.applicants![0].value.email!;
+    content.userCase.applicants.forEach(applicant => {
+      if (applicant.value.user.idamId === content.userIdamId) {
+        applicantEmail = applicant.value.email!;
+      }
+    });
   }
 
   return {
