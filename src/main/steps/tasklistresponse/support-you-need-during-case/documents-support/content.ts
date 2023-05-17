@@ -21,7 +21,7 @@ const en = {
   emailInfo: 'Information emailed to me',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  noSupport: 'No, I do not need any of this support at this time',
+  noSupport: 'I do not need any of this support at this time',
   continue: 'Continue',
   errors: {
     docsSupport: {
