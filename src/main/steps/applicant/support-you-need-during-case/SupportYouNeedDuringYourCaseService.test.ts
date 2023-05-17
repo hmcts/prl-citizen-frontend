@@ -1,6 +1,9 @@
 import { Respondent, State, applicantContactPreferencesEnum } from '../../../app/case/definition';
 
-import { mapSupportYouNeedDetails, prepareRequest } from './SupportYouNeedDuringYourCaseService';
+import {
+  mapSupportYouNeedDetails,
+  prepareSupportYouNeedDuringCaseRequest,
+} from './SupportYouNeedDuringYourCaseService';
 
 describe('prepareRequest', () => {
   test('prepareRequest is a function', () => {
@@ -33,7 +36,7 @@ describe('prepareRequest', () => {
       travellingOtherDetails: 'Details of other travelling need',
     };
 
-    const result = prepareRequest({
+    const result = prepareSupportYouNeedDuringCaseRequest({
       id: '',
       state: State.Holding,
       ...mockCaseWithId,
@@ -41,7 +44,7 @@ describe('prepareRequest', () => {
 
     console.log('result ->', result);
     console.log('casewithID ->', mockCaseWithId);
-    expect(typeof prepareRequest).toBe('function');
+    expect(typeof prepareSupportYouNeedDuringCaseRequest).toBe('function');
     expect(typeof result).toBe('object');
   });
 
@@ -51,7 +54,7 @@ describe('prepareRequest', () => {
       docsDetails: 'Details of documents',
     };
 
-    const result = prepareRequest({
+    const result = prepareSupportYouNeedDuringCaseRequest({
       id: '',
       state: State.Holding,
       ...mockCaseWithId,
@@ -66,7 +69,7 @@ describe('prepareRequest', () => {
       hearingDetails: 'Details of hearing',
     };
 
-    const result = prepareRequest({
+    const result = prepareSupportYouNeedDuringCaseRequest({
       id: '',
       state: State.Holding,
       ...mockCaseWithId,
@@ -81,7 +84,7 @@ describe('prepareRequest', () => {
       describeSignLanguageDetails: 'Details of sign language',
     };
 
-    const result = prepareRequest({
+    const result = prepareSupportYouNeedDuringCaseRequest({
       id: '',
       state: State.Holding,
       ...mockCaseWithId,
@@ -96,7 +99,7 @@ describe('prepareRequest', () => {
       describeOtherNeed: 'Details of other needs',
     };
 
-    const result = prepareRequest({
+    const result = prepareSupportYouNeedDuringCaseRequest({
       id: '',
       state: State.Holding,
       ...mockCaseWithId,
@@ -111,7 +114,7 @@ describe('prepareRequest', () => {
       describeSignLanguageDetails: 'Details of sign language',
     };
 
-    const result = prepareRequest({
+    const result = prepareSupportYouNeedDuringCaseRequest({
       id: '',
       state: State.Holding,
       ...mockCaseWithId,
@@ -126,7 +129,7 @@ describe('prepareRequest', () => {
       languageDetails: 'Details of lip reading need',
     };
 
-    const result = prepareRequest({
+    const result = prepareSupportYouNeedDuringCaseRequest({
       id: '',
       state: State.Holding,
       ...mockCaseWithId,
@@ -141,7 +144,7 @@ describe('prepareRequest', () => {
       safetyArrangementsDetails: 'Details of safety arrangements',
     };
 
-    const result = prepareRequest({
+    const result = prepareSupportYouNeedDuringCaseRequest({
       id: '',
       state: State.Holding,
       ...mockCaseWithId,
@@ -156,7 +159,7 @@ describe('prepareRequest', () => {
       supportWorkerDetails: 'Details of support Worker',
     };
 
-    const result = prepareRequest({
+    const result = prepareSupportYouNeedDuringCaseRequest({
       id: '',
       state: State.Holding,
       ...mockCaseWithId,
@@ -171,7 +174,7 @@ describe('prepareRequest', () => {
       lightingProvideDetails: 'Details of providing lighting',
     };
 
-    const result = prepareRequest({
+    const result = prepareSupportYouNeedDuringCaseRequest({
       id: '',
       state: State.Holding,
       ...mockCaseWithId,
@@ -186,7 +189,7 @@ describe('prepareRequest', () => {
       parkingDetails: 'Details of parking space',
     };
 
-    const result = prepareRequest({
+    const result = prepareSupportYouNeedDuringCaseRequest({
       id: '',
       state: State.Holding,
       ...mockCaseWithId,
@@ -201,7 +204,7 @@ describe('prepareRequest', () => {
       differentChairDetails: 'Details of different chair request',
     };
 
-    const result = prepareRequest({
+    const result = prepareSupportYouNeedDuringCaseRequest({
       id: '',
       state: State.Holding,
       ...mockCaseWithId,
@@ -216,7 +219,7 @@ describe('prepareRequest', () => {
       travellingOtherDetails: 'Details of other travelling request',
     };
 
-    const result = prepareRequest({
+    const result = prepareSupportYouNeedDuringCaseRequest({
       id: '',
       state: State.Holding,
       ...mockCaseWithId,
@@ -233,7 +236,7 @@ describe('prepareRequest', () => {
       otherDetails: 'Details of other document support',
     };
 
-    const result = prepareRequest({
+    const result = prepareSupportYouNeedDuringCaseRequest({
       id: '',
       state: State.Holding,
       ...mockCaseWithId,

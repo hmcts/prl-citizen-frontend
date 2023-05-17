@@ -23,7 +23,7 @@ import {
   TRAVELLING_HELP,
 } from '../../../steps/constants';
 
-export const prepareRequest = (userCase: CaseWithId): ReasonableAdjustmentsSupport => {
+export const prepareSupportYouNeedDuringCaseRequest = (userCase: CaseWithId): ReasonableAdjustmentsSupport => {
   const {
     attendingToCourt,
     hearingDetails,
