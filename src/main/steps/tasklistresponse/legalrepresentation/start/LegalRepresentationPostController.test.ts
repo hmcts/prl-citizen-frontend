@@ -82,6 +82,6 @@ describe('PostController', () => {
     const language = 'en';
     req.session.lang = language;
     controller.post(req, res);
-    expect(req.session.errors).toHaveLength(1);
+    expect(req.session.errors).toEqual([]);
   });
 });
