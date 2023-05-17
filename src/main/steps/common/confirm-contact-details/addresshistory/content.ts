@@ -1,6 +1,6 @@
 //import { Case } from '../../../../app/case/case';
 import { PageContent } from '../../../../app/controller/GetController';
-import { FormContent, FormFields } from '../../../../app/form/Form';
+import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
@@ -52,7 +52,33 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {},
+  fields: {
+    isAtAddressLessThan5Years: {
+      type: 'radios',
+      classes: 'govuk-radios',
+      label: l => l.label,
+      section: l => l.section,
+      values: [
+        {
+          label: l => l.one,
+          value: 'Yes',
+        },
+        {
+          label: l => l.two,
+          value: 'No',
+          subFields: {
+            citizenUserAddressHistory: {
+              type: 'textarea',
+              label: l => l.explainNoLabel,
+              id: 'provideDetailsOfPreviousAddresses',
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+            },
+          },
+        },
+      ],
+      validator: isFieldFilledIn,
+    },
+  },
   submit: {
     text: l => l.continue,
   },
@@ -60,33 +86,5 @@ export const form: FormContent = {
 
 export const generateContent = (content: CommonContent): PageContent => ({
   ...languages[content.language],
-  form: { ...form, fields: addressHistoryFields() },
-});
-
-export const addressHistoryFields = (): FormFields => ({
-  isAtAddressLessThan5Years: {
-    type: 'radios',
-    classes: 'govuk-radios',
-    label: l => l.label,
-    section: l => l.section,
-    values: [
-      {
-        label: l => l.one,
-        value: 'Yes',
-      },
-      {
-        label: l => l.two,
-        value: 'No',
-        subFields: {
-          citizenUserAddressHistory: {
-            type: 'textarea',
-            label: l => l.explainNoLabel,
-            id: 'provideDetailsOfPreviousAddresses',
-            validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
-          },
-        },
-      },
-    ],
-    validator: isFieldFilledIn,
-  },
+  form,
 });
