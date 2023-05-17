@@ -20,7 +20,7 @@ const en = {
   emailInfo: 'Information emailed to me',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  noSupport: 'I do not need any of this support at this time',
+  nosupport: 'I do not need any of this support at this time',
   continue: 'Continue',
   errors: {
     docsSupport: {
@@ -65,7 +65,7 @@ const cy: typeof en = {
   emailInfo: 'Gwybodaeth yn cael ei hanfon ataf drwy e-bost',
   other: 'Arall',
   otherDetails: 'Describe what you need',
-  noSupport: 'Nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
+  nosupport: 'Nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   continue: 'Continue',
   errors: {
     docsSupport: {
