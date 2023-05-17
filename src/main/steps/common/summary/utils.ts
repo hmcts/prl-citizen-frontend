@@ -3,7 +3,7 @@
 import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
-import { State } from '../../../app/case/definition';
+import { State, YesOrNo } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
 import {
@@ -54,19 +54,20 @@ export const summaryList = (
   language?: string
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
+  const setkey = key => {
+    if (key === 'startAlternative' && userCase[key] !== 'undefined') {
+      return userCase[key] + getSelectedPrivateDetails(userCase);
+    }
+    if (key === 'courtProceedingsOrders' && userCase[key] !== 'undefined') {
+      return getOrdersDetail(userCase);
+    }
+    if (key === 'citizenUserAddressHistory' && userCase['isAtAddressLessThan5Years'] === YesOrNo.YES) {
+      return userCase['citizenUserAddressText'];
+    }
+    return userCase[key];
+  };
   for (const key in keys) {
     const keyLabel = keys[key];
-    const getSelectedprivaedet = userCase[key] + getSelectedPrivateDetails(userCase);
-    const setkey = key1 => {
-      if (key1 === 'startAlternative' && userCase[key1] !== 'undefined') {
-        return getSelectedprivaedet;
-      }
-      if (key1 === 'courtProceedingsOrders' && userCase[key1] !== 'undefined') {
-        return getOrdersDetail;
-      }
-      return userkey;
-    };
-    const userkey = userCase[key];
     const url = urls[key];
     const row = {
       key: keyLabel,
