@@ -13,6 +13,10 @@ export const setKeepYourDetailsPrivate = (partyDetails: PartyDetails, req: AppRe
     });
   }
 
+  if (req.session.userCase.startAlternative === YesOrNo.NO) {
+    req.session.userCase.contactDetailsPrivate = [];
+  }
+
   if (partyDetails.response && partyDetails.response?.keepDetailsPrivate) {
     keepDetailsPrivate = partyDetails.response?.keepDetailsPrivate;
     keepDetailsPrivate.otherPeopleKnowYourContactDetails = req.session.userCase.detailsKnown!;
