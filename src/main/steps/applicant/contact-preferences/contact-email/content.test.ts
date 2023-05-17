@@ -34,10 +34,15 @@ const cy = {
 describe('contact email common content', () => {
   const commonContent = {
     language: 'en',
+    userIdamId: '123',
     userCase: {
       applicants: [
         {
-          value: 'test@email.com',
+          value: {
+            user: {
+              idamId: '123',
+            },
+          },
         },
       ],
     },

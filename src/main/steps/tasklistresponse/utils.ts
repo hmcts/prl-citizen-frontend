@@ -71,4 +71,6 @@ export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id'])
   if (partyData) {
     return Object.assign({}, partyData);
   }
+
+  return partyData;
 };

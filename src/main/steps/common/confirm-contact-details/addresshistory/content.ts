@@ -1,4 +1,3 @@
-//import { Case } from '../../../../app/case/case';
 import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
@@ -51,18 +50,6 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
-  fields: {},
-  submit: {
-    text: l => l.continue,
-  },
-};
-
-export const generateContent = (content: CommonContent): PageContent => ({
-  ...languages[content.language],
-  form: { ...form, fields: addressHistoryFields() },
-});
-
 export const addressHistoryFields = (): FormFields => ({
   isAtAddressLessThan5Years: {
     type: 'radios',
@@ -89,4 +76,16 @@ export const addressHistoryFields = (): FormFields => ({
     ],
     validator: isFieldFilledIn,
   },
+});
+
+export const form: FormContent = {
+  fields: addressHistoryFields(),
+  submit: {
+    text: l => l.continue,
+  },
+};
+
+export const generateContent = (content: CommonContent): PageContent => ({
+  ...languages[content.language],
+  form,
 });
