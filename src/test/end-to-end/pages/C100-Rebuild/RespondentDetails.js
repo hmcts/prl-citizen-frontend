@@ -66,7 +66,7 @@ module.exports = {
     await I.retry(retryCount).waitForText(RespondentDetails.addressDetailsPageTitle);
     await I.retry(retryCount).waitForText(RespondentDetails.addressDetailsTextBoxText);
     await I.retry(retryCount).waitForText(RespondentDetails.addressDetailsSubHeading);
-    await I.retry(retryCount).waitForSelector(this.fields.addressHistoryNoButton, 30);
+    // await I.retry(retryCount).waitForSelector(this.fields.addressHistoryNoButton, 30);
     await I.retry(retryCount).click(this.fields.addressHistoryNoButton);
     await I.retry(retryCount).waitForText(RespondentDetails.addressDetailsNoHintText);
     await I.retry(retryCount).fillField(this.fields.provideDetailsOfPreviousAddressesField, RespondentDetails.previousAddressPostCode);

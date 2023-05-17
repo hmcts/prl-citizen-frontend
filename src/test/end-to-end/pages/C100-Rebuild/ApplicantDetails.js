@@ -103,7 +103,7 @@ module.exports = {
     await I.retry(retryCount).waitForText(ApplicantDetails.confirmAddressPageTitle);
     await I.retry(retryCount).waitForText(ApplicantDetails.confirmAddressSubHeading);
     await I.retry(retryCount).click(this.fields.addressHistoryYes);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
     async contactDetails() {
@@ -117,7 +117,7 @@ module.exports = {
     I.wait('1');
     await I.retry(retryCount).waitForText(ApplicantDetails.contactDetailsSubHeading);
     await I.retry(retryCount).click(this.fields.canLeaveVoiceMailButton);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
     async contactPreferences() {
@@ -125,7 +125,7 @@ module.exports = {
     I.wait('1');
     await I.retry(retryCount).click(this.fields.digitalOption);
     await I.retry(retryCount).click(this.fields.postOption);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async applicantDetails() {

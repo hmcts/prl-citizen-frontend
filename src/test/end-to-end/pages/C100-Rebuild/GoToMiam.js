@@ -191,7 +191,7 @@ module.exports = {
   },
   async confirmValidReason() {
     await I.retry(retryCount).waitForText(MiamContent.confirmValidReasonPageTitle);
-    await I.retry(retryCount).waitForSelector(this.fields.notAttendingReason1, 30);
+    // await I.retry(retryCount).waitForSelector(this.fields.notAttendingReason1, 30);
     await I.retry(retryCount).click(this.fields.notAttendingReason1);
     await I.retry(retryCount).click(this.fields.notAttendingReason2);
     await I.retry(retryCount).click(this.fields.notAttendingReason3);

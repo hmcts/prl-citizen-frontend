@@ -19,9 +19,9 @@ module.exports = {
   },
   async typeOfHearing() {
     await I.retry(retryCount).waitForText(ReasonableAdjustments.typeOfHearingPageTitle);
-    await I.retry(retryCount).waitForSelector(this.fields.typeOfHearingVideo, 30);
+    // await I.retry(retryCount).waitForSelector(this.fields.typeOfHearingVideo, 30);
     await I.retry(retryCount).click(this.fields.typeOfHearingVideo);
-    await I.retry(retryCount).waitForSelector(this.fields.typeOfHearingPhone, 30);
+    // await I.retry(retryCount).waitForSelector(this.fields.typeOfHearingPhone, 30);
     await I.retry(retryCount).click(this.fields.typeOfHearingPhone);
     I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');

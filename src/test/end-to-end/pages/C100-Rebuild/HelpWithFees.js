@@ -10,7 +10,7 @@ module.exports = {
     },
     async helpWithFee(){
         await I.retry(retryCount).waitForText(HelpWithFees.helpWithFeesYesNoTitle);
-        await I.retry(retryCount).waitForSelector(this.fields.helpWithFeeYes, 30);
+        // await I.retry(retryCount).waitForSelector(this.fields.helpWithFeeYes, 30);
         I.wait('2');
         await I.retry(retryCount).click(this.fields.helpWithFeeYes);
         I.wait('2');

@@ -27,7 +27,7 @@ module.exports = {
     async childDetailsName() {
         await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsNamePageTitle);
         await I.retry(retryCount).click(this.fields.mainForm);
-        await I.retry(retryCount).waitForSelector(this.fields.tempFirstName, 30);
+        // await I.retry(retryCount).waitForSelector(this.fields.tempFirstName, 30);
         await I.retry(retryCount).fillField(this.fields.tempFirstName, ChildrenDetails.childFirstName);
         await I.retry(retryCount).fillField(this.fields.tempLastName, ChildrenDetails.childLastName);
         await I.retry(retryCount).waitForText('Continue');
