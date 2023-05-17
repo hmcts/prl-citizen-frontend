@@ -3,7 +3,7 @@
 import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
-import { State } from '../../../app/case/definition';
+import { State, YesOrNo } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
 import {
@@ -44,6 +44,22 @@ export const getSectionSummaryList = (
   });
 };
 
+const setkey = (userCase: Partial<CaseWithId>, key: string) => {
+  const userkey = userCase[key];
+
+  if (key === 'startAlternative' && !userCase[key]) {
+    return userCase[key] + getSelectedPrivateDetails(userCase);
+  }
+  if (key === 'courtProceedingsOrders' && !userCase[key]) {
+    return getOrdersDetail(userCase);
+  }
+  if (key === 'citizenUserAddressHistory' && userCase['isAtAddressLessThan5Years'] === YesOrNo.YES) {
+    return userCase['citizenUserAddressText'];
+  }
+
+  return userkey;
+};
+
 /* eslint-disable import/namespace */
 export const summaryList = (
   { sectionTitles, keys, ...content }: SummaryListContent,
@@ -56,18 +72,6 @@ export const summaryList = (
   const summaryData: SummaryListRow[] = [];
   for (const key in keys) {
     const keyLabel = keys[key];
-    const getSelectedprivaedet = userCase[key] + getSelectedPrivateDetails(userCase);
-    const setkey = key1 => {
-      if (key1 === 'startAlternative' && userCase[key1] !== 'undefined') {
-        return getSelectedprivaedet;
-      }
-      if (key1 === 'courtProceedingsOrders' && userCase[key1] !== 'undefined') {
-        return getOrdersDetail;
-      }
-      return userkey;
-    };
-    const userkey = userCase[key];
-    const url = urls[key];
     const row = {
       key: keyLabel,
       value:
@@ -75,8 +79,8 @@ export const summaryList = (
         userCase[key].hasOwnProperty('month') &&
         userCase[key]?.hasOwnProperty('year')
           ? getFormattedDate(userCase[key], language)
-          : setkey(key)!,
-      changeUrl: url,
+          : setkey(userCase, key)!,
+      changeUrl: urls[key],
     };
     if (row.value || key === 'citizenUserAddressHistory') {
       if (key !== 'citizenUserSafeToCall') {
@@ -175,6 +179,7 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   tempDetails = tempDetails + '</ul>';
   return tempDetails;
 };
+
 export const getOrdersDetail = (userCase: Partial<CaseWithId>): string => {
   let temp = '';
   const value = userCase['courtProceedingsOrders'];

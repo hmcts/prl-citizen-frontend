@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+import _ from 'lodash';
+
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { interpolate } from '../../../../steps/common/string-parser';
@@ -81,10 +83,15 @@ export const generateContent: TranslationFn = content => {
   let applicantAddressObj;
   const applicantAddress: string[] = [];
 
-  if (content?.userCase?.applicants) {
-    applicantAddressObj = content?.userCase?.applicants![0].value?.address! ?? {};
+  if (content?.userCase?.applicants?.length) {
+    applicantAddressObj = _.get(
+      content.userCase.applicants.find(applicant => applicant.value.user.idamId === content.userIdamId),
+      'value.address',
+      {}
+    );
+
     for (const key in applicantAddressObj) {
-      if (applicantAddressObj[key] !== '' || applicantAddressObj[key] !== null) {
+      if (applicantAddressObj[key]) {
         applicantAddress.push(applicantAddressObj[key]);
       }
     }

@@ -48,18 +48,25 @@ export const mapKeepYourDetailsPrivate = (partyDetails: PartyDetails): Partial<C
 };
 
 export const mapConfidentialListToFields = (details: KeepDetailsPrivate) => {
-  const request: Partial<PartyDetails> = {};
-  const { confidentialityList } = details;
+  const request: Partial<PartyDetails> = {
+    isAddressConfidential: YesOrNo.NO,
+    isPhoneNumberConfidential: YesOrNo.NO,
+    isEmailAddressConfidential: YesOrNo.NO,
+  };
 
-  const address = confidentailYesOrNo(confidentialityList as string[], ConfidentialityList.address);
-  const phoneNumber = confidentailYesOrNo(confidentialityList as string[], ConfidentialityList.phoneNumber);
-  const email = confidentailYesOrNo(confidentialityList as string[], ConfidentialityList.email);
-
-  Object.assign(request, {
-    isAddressConfidential: address,
-    isPhoneNumberConfidential: phoneNumber,
-    isEmailAddressConfidential: email,
-  });
+  if (details?.confidentialityList) {
+    Object.assign(request, {
+      isAddressConfidential: confidentailYesOrNo(details.confidentialityList as string[], ConfidentialityList.address),
+      isPhoneNumberConfidential: confidentailYesOrNo(
+        details.confidentialityList as string[],
+        ConfidentialityList.phoneNumber
+      ),
+      isEmailAddressConfidential: confidentailYesOrNo(
+        details.confidentialityList as string[],
+        ConfidentialityList.email
+      ),
+    });
+  }
 
   return request;
 };
