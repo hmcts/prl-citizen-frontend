@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { Validator, atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -147,6 +148,37 @@ describe('citizen-home content', () => {
     const helpcommunicationField = fields.helpCommunication as FormOptions;
     expect(helpcommunicationField.type).toBe('checkboxes');
     expect((helpcommunicationField.section as Function)(generatedContent)).toBe(en.section);
+
+    expect((helpcommunicationField.hint as Function)(generatedContent)).toBe(en.optionHint);
+    expect((helpcommunicationField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.hearingLoop);
+    expect((helpcommunicationField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.infraredReceiver);
+    expect((helpcommunicationField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.needSpeakingHelp);
+    expect((helpcommunicationField.values[3].hint as LanguageLookup)(generatedContent)).toBe(en.lipSpeakerHint);
+    expect((helpcommunicationField.values[3].label as LanguageLookup)(generatedContent)).toBe(en.lipSpeaker);
+    expect((helpcommunicationField.values[4].label as LanguageLookup)(generatedContent)).toBe(en.signLanguage);
+    expect((helpcommunicationField.values[5].label as LanguageLookup)(generatedContent)).toBe(en.speechReporter);
+    expect((helpcommunicationField.values[6].label as LanguageLookup)(generatedContent)).toBe(en.extraTime);
+    expect((helpcommunicationField.values[7].label as LanguageLookup)(generatedContent)).toBe(en.courtVisit);
+    expect((helpcommunicationField.values[8].label as LanguageLookup)(generatedContent)).toBe(en.courtHearing);
+    expect((helpcommunicationField.values[9].hint as LanguageLookup)(generatedContent)).toBe(en.intermediaryHint);
+    expect((helpcommunicationField.values[9].label as LanguageLookup)(generatedContent)).toBe(en.intermediary);
+    expect((helpcommunicationField.values[10].label as LanguageLookup)(generatedContent)).toBe(en.other);
+    expect((helpcommunicationField.values[12].label as LanguageLookup)(generatedContent)).toBe(en.noSupport);
+
+    (helpcommunicationField.validator as Validator)('helpCommunication');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('helpCommunication');
+    const describeOtherNeedFieild = helpcommunicationField.values[10].subFields!.describeOtherNeed;
+    expect(describeOtherNeedFieild.type).toBe('textarea');
+    expect((describeOtherNeedFieild.label as LanguageLookup)(generatedContent)).toBe(en.otherDetails);
+    (describeOtherNeedFieild.validator as Validator)('describeOtherNeed');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('describeOtherNeed');
+    expect(isTextAreaValid).toHaveBeenCalledWith('describeOtherNeed');
+    const describeSignLanguageDetailsFieild = helpcommunicationField.values[4].subFields!.describeSignLanguageDetails;
+    expect(describeSignLanguageDetailsFieild.type).toBe('textarea');
+    expect((describeSignLanguageDetailsFieild.label as LanguageLookup)(generatedContent)).toBe(en.signLanguageDetails);
+    (describeSignLanguageDetailsFieild.validator as Validator)('describeSignLanguageDetails');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('describeSignLanguageDetails');
+    expect(isTextAreaValid).toHaveBeenCalledWith('describeSignLanguageDetails');
   });
 
   test('should contain Continue button', () => {

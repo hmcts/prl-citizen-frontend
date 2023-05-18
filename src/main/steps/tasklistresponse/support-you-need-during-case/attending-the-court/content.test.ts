@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { Validator, atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -109,6 +110,24 @@ describe('citizen-home content', () => {
   test('should contain Continue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
-});
 
+  test('should contain attendingToCourt field', () => {
+    const attendingToCourt = fields.attendingToCourt as FormOptions;
+    expect(attendingToCourt.type).toBe('checkboxes');
+    expect((attendingToCourt.section as Function)(generatedContent)).toBe(en.section);
+    expect((attendingToCourt.hint as Function)(generatedContent)).toBe(en.optionHint);
+    expect((attendingToCourt.values[0].label as LanguageLookup)(generatedContent)).toBe(en.videoHearings);
+    expect((attendingToCourt.values[1].label as LanguageLookup)(generatedContent)).toBe(en.phoneHearings);
+    expect((attendingToCourt.values[3].label as LanguageLookup)(generatedContent)).toBe(en.noHearings);
+    expect((attendingToCourt.values[3].hint as LanguageLookup)(generatedContent)).toBe(en.noHearingsHint);
+    (attendingToCourt.validator as Validator)('attendingToCourt');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('attendingToCourt');
+    const hearingDetailsFlieild = attendingToCourt.values[3].subFields!.hearingDetails;
+    expect(hearingDetailsFlieild.type).toBe('textarea');
+    expect((hearingDetailsFlieild.label as LanguageLookup)(generatedContent)).toBe(en.noHearingDetails);
+    (hearingDetailsFlieild.validator as Validator)('hearingDetails');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('hearingDetails');
+    expect(isTextAreaValid).toHaveBeenCalledWith('hearingDetails');
+  });
+});
 /* eslint-enable @typescript-eslint/ban-types */
