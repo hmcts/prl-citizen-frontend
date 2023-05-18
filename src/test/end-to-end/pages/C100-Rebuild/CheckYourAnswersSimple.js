@@ -13,6 +13,7 @@ module.exports = {
         await I.retry(retryCount).waitForText(CYA.confirmStatementTruth);
         I.wait('5');
         await I.retry(retryCount).click(this.fields.statementOfTruthYes);
+        I.waitForText('Submit your application');
         await I.retry(retryCount).click('Submit your application');
     },
     async checkYourAnswersSimpleEvent() {

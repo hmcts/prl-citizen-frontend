@@ -178,6 +178,7 @@ module.exports = {
         I.wait('1');
         await I.retry(retryCount).fillField(this.fields.otherConcernsDetails, SafetyConcerns.testingText);
         I.wait('2');
+        I.waitForText('Continue');
         await I.retry(retryCount).click('Continue');
     },
     async otherConcernsSafety() {
@@ -185,12 +186,14 @@ module.exports = {
         await I.retry(retryCount).click(this.fields.otherConcernsSafetyYes);
         await I.retry(retryCount).fillField(this.fields.otherConcernsSafetyDetails, SafetyConcerns.testingText);
         I.wait('2');
+        I.waitForText('Continue');
         await I.retry(retryCount).click('Continue');
     },
     async courtToDo() {
         await I.retry(retryCount).waitForText(SafetyConcerns.courtToDoTitle);
         await I.retry(retryCount).fillField(this.fields.courtToDoDetails, SafetyConcerns.testingText);
         I.wait('2');
+        I.waitForText('Continue');
         await I.retry(retryCount).click('Continue');
     },
 

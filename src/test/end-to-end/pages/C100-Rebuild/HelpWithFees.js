@@ -14,6 +14,7 @@ module.exports = {
         I.wait('2');
         await I.retry(retryCount).click(this.fields.helpWithFeeYes);
         I.wait('2');
+        I.waitForText('Continue');
         await I.retry(retryCount).click('Continue');
     },
     async alreadyApplied() {
@@ -22,6 +23,7 @@ module.exports = {
         await I.retry(retryCount).waitForText(HelpWithFees.alreadyAppliedEnterRef);
         await I.retry(retryCount).fillField(this.fields.helpWithFeeRef, HelpWithFees.helpWithFeesRefNo);
         I.wait('2');
+        I.waitForText('Continue');
         await I.retry(retryCount).click('Continue');
     },
     async helpWithFeeEvent() {

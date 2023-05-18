@@ -60,6 +60,7 @@ module.exports = {
     await I.retry(retryCount).waitForText(RespondentDetails.addressLookUpSubHeading);
     await I.retry(retryCount).selectOption(this.fields.addressList, RespondentDetails.lookUpOption);
     I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
     async addressDetails() {
@@ -71,6 +72,7 @@ module.exports = {
     await I.retry(retryCount).waitForText(RespondentDetails.addressDetailsNoHintText);
     await I.retry(retryCount).fillField(this.fields.provideDetailsOfPreviousAddressesField, RespondentDetails.previousAddressPostCode);
     I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
     async contactDetailsOfResp() {
@@ -78,6 +80,7 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.donKnowEmailAddressButton);
     await I.retry(retryCount).click(this.fields.donKnowTelephoneNumberButton);
     I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async respondentDetails() {

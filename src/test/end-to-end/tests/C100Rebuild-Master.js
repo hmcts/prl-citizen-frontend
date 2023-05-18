@@ -1,14 +1,14 @@
-Feature('C100 Rebuild - with urgency flow');
+Feature('C100 Rebuild - Basic Flow for Master');
 
-Scenario('C100 Rebuild - urgent hearing flow @nightly',  async ({ I }) => {
+Scenario('C100 Rebuild - basic journey @cross-browser @nightly', async ({ I }) => {
     await I.loginAsCitizen();
     await I.createC100Application();
     await I.startTheApplication();
     await I.addCaseNameAndPostCode();
     await I.screeningQuestions();
-    await I.miamUrgent();
-    await I.urgencyWithoutNotice();
+    await I.goToMiam();
     await I.typeOfOrder();
+    await I.urgencyWithoutNotice();
     await I.childrenDetails();
     await I.applicantDetails();
     await I.respondentDetails();
@@ -18,5 +18,5 @@ Scenario('C100 Rebuild - urgent hearing flow @nightly',  async ({ I }) => {
     await I.internationElements();
     await I.reasonableAdjustments();
     await I.helpWithFeeEvent();
-    await I.checkYourAnswersSimpleEvent();
-}).retry({ retries: 3, minTimeout: 30000 });
+    await I.checkYourAnswersEvent();
+  }).retry({ retries: 3, minTimeout: 30000 });

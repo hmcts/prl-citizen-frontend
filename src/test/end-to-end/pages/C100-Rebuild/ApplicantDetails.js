@@ -96,7 +96,7 @@ module.exports = {
     async addressLookUp() {
     await I.retry(retryCount).waitForText(ApplicantDetails.addressLookUpPageTitle);
     await I.retry(retryCount).selectOption(this.fields.addressList, ApplicantDetails.lookUpOption);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
    },
     async confirmAddress() {

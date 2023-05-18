@@ -13,11 +13,12 @@ module.exports = {
     await I.retry(retryCount).wait(uploadTime);
     await I.retry(retryCount).click('Upload file');
     await I.retry(retryCount).wait(uploadTime);
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async uploadDraftOrderSummary() {
     await I.retry(retryCount).waitForText(ConsentOrder.consentOrderUploaded);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async draftConsentOrder() {

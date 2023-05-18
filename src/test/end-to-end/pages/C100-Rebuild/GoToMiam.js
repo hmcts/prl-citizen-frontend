@@ -65,7 +65,7 @@ module.exports = {
     await I.retry(retryCount).waitForText(MiamContent.otherProceedingsPageTitle);
     I.wait('2');
     await I.retry(retryCount).click(otherProceedingsOption ? this.fields.miamOtherProceedingsYes : this.fields.miamOtherProceedingsNo);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async attendingMiam() {
@@ -73,21 +73,21 @@ module.exports = {
     await I.retry(retryCount).waitForText(MiamContent.attendingMiamSubHeading);
     I.wait('2');
     await I.retry(retryCount).click(this.fields.iamConsentNo);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async attendedMiam(attendedOption) {
     await I.retry(retryCount).waitForText(MiamContent.attendedMiamPageTitle);
     I.wait('2');
     await I.retry(retryCount).click(attendedOption ? this.fields.miamAttendanceYes : this.fields.miamAttendanceNo);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async miamDocumentSigned(documentSignedOption) {
     await I.retry(retryCount).waitForText(MiamContent.miamDocumentSignedPageTitle);
     I.wait('2');
     await I.retry(retryCount).click(documentSignedOption ? this.fields.haveDocSignedYes : this.fields.haveDocSignedNo);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async uploadMiamCertificate() {
@@ -100,11 +100,13 @@ module.exports = {
      await I.retry(retryCount).wait(uploadTime);
      await I.retry(retryCount).click('Upload file');
      await I.retry(retryCount).wait(uploadTime);
+     I.waitForText('Continue');
      await I.retry(retryCount).click('Continue');
   },
   async miamCertificateSummary() {
      await I.retry(retryCount).waitForText(MiamContent.miamCertificateSummaryPageTitle);
      I.wait('2');
+     I.waitForText('Continue');
      await I.retry(retryCount).click('Continue');
   },
   async medidatorConfirmed() {
@@ -129,13 +131,13 @@ module.exports = {
     I.wait('2');
     await I.retry(retryCount).click(this.fields.validReason4);
     await I.retry(retryCount).click(this.fields.validReason5);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async validReasonUrgent() {
     await I.retry(retryCount).waitForText(MiamContent.validReasonWhatPageTitle);
     await I.retry(retryCount).click(this.fields.validReason3);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async urgentHearingRisks() {
@@ -151,7 +153,7 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.urgentHearing7);
     await I.retry(retryCount).click(this.fields.urgentHearing8);
     await I.retry(retryCount).click(this.fields.urgentHearing9);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async evidenceDomesticAbuse() {
@@ -168,14 +170,14 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.letterDAservice1);
     await I.retry(retryCount).click(this.fields.indefiniteLeave);
     await I.retry(retryCount).click(this.fields.evidenceFinancialAbuse);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async evidenceChildProtection() {
     await I.retry(retryCount).waitForText(MiamContent.evidenceChildProtectionPageTitle);
     await I.retry(retryCount).click(this.fields.childProtection1);
     await I.retry(retryCount).click(this.fields.childProtection2);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async previousAttendMiam() {
@@ -186,7 +188,7 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.previousAttendance4);
     await I.retry(retryCount).click(this.fields.previousAttendance5);
     await I.retry(retryCount).click(this.fields.previousAttendance6);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async confirmValidReason() {
@@ -199,17 +201,19 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.notAttendingReason4);
     await I.retry(retryCount).click(this.fields.notAttendingReason5);
     await I.retry(retryCount).click(this.fields.notAttendingReason6);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async dontHaveToAttendMiam() {
     await I.retry(retryCount).waitForText(MiamContent.dontHaveToAttendMiamPageTitle);
     I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async altDontHaveToAttendMiam() {
     await I.retry(retryCount).waitForText(MiamContent.altDontHaveToAttendMiamPageTitle);
     I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   //Basic Flow

@@ -29,7 +29,7 @@ module.exports = {
   async languageNeeds() {
     await I.retry(retryCount).waitForText(ReasonableAdjustments.languageNeedsPageTitle);
     await I.retry(retryCount).click(this.fields.noLanguageRequirementsButton);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async specialArrangements() {
@@ -39,14 +39,14 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.separateToilet);
     I.wait('2');
     await I.retry(retryCount).click(this.fields.visitCourt);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async disabilityRequirements() {
     await I.retry(retryCount).waitForText(ReasonableAdjustments.disabilityRequirementsPageTitle);
     await I.retry(retryCount).click(this.fields.documentAlternateFormat);
     await I.retry(retryCount).click(this.fields.bringSupport);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async documentInformation() {
@@ -54,13 +54,13 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.documentColour);
     await I.retry(retryCount).fillField(this.fields.documentColourDetails, ReasonableAdjustments.documentColourYellow);
     await I.retry(retryCount).click(this.fields.documentReadOut);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async bringSupport(){
     await I.retry(retryCount).waitForText(ReasonableAdjustments.bringSupportTitle);
     await I.retry(retryCount).click(this.fields.guideDog);
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async reasonableAdjustments() {

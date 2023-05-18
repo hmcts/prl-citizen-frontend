@@ -22,6 +22,7 @@ module.exports = {
     await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingBottomSubHeading);
     await I.retry(retryCount).click(this.fields.courtOrderProtectionYesButton);
     I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
    async proceedingDetails() {
@@ -29,6 +30,7 @@ module.exports = {
     I.wait('2');
     await I.retry(retryCount).click(this.fields.courtProceedingsOrdersButton);
     I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
    async provideDetailsOfCourtCases(copyOfOrder) {
@@ -44,7 +46,7 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.currentOrderYes);
     await I.retry(retryCount).click(copyOfOrder ? this.fields.copyOfOrderYes : this.fields.copyOfOrderNo);
     I.wait('2');
-    I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
    async uploadOrder() {
@@ -56,12 +58,14 @@ module.exports = {
     await I.retry(retryCount).wait(uploadTime);
     await I.retry(retryCount).click('Upload file');
     await I.retry(retryCount).wait(uploadTime);
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async uploadOrderSummary() {
     await I.retry(retryCount).waitForText(OtherProceedings.uploadOrderSummaryInfo);
     await I.retry(retryCount).waitForText(OtherProceedings.uploadOrderSummary);
     I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async otherProceedings() {

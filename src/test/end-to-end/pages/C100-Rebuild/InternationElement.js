@@ -17,6 +17,7 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.internationalStartYesButton);
     await I.retry(retryCount).fillField(this.fields.provideDetailsField, InternationElement.testingText);
     I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
    async childParentsBasedInternational() {
@@ -24,6 +25,7 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.internationalParentsYesButton);
     await I.retry(retryCount).fillField(this.fields.rovideDetailsParentsField, InternationElement.testingText);
     I.wait('2');
+    I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
    async internationalJurisdiction() {

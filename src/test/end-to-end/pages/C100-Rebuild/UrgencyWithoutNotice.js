@@ -28,6 +28,7 @@ module.exports = {
         // await I.retry(retryCount).waitForSelector(this.fields.urgentHearingReasonsYes, 30); 
         await I.retry(retryCount).click(this.fields.urgentHearingReasonsYes);
         I.wait(2);
+        I.waitForText('Continue');
         await I.retry(retryCount).click('Continue');
       },
       async aboutSituation() {
@@ -43,24 +44,27 @@ module.exports = {
         I.wait('1');
         await I.retry(retryCount).fillField(this.fields.hearingWithNext48HrsMsgField, this.fields.testingText);
         I.wait(2);
+        I.waitForText('Continue');
         await I.retry(retryCount).click('Continue');
       },
     async withoutNoticeHearing() {
         await I.retry(retryCount).waitForText(UrgencyWithoutNotice.withoutNoticeHearingPageTitle);  
         await I.retry(retryCount).click(this.fields.withoutNoticeYes);
         I.wait('2');
+        I.waitForText('Continue');
         await I.retry(retryCount).click('Continue');
     },
     async withoutNoticeDetails() {
         await I.retry(retryCount).waitForText(UrgencyWithoutNotice.withoutNoticeDetailsPageTitle);
         await I.retry(retryCount).fillField(this.fields.withoutNoticeDetails, this.fields.testingText);
         await I.retry(retryCount).click(this.fields.obstructOrderYes);
-        I.wait('1');
+        I.wait('2');
         await I.retry(retryCount).fillField(this.fields.obstructOrderDetails, this.fields.testingText);
         await I.retry(retryCount).click(this.fields.noTimeNoticeYes);
-        I.wait('1');
+        I.wait('2');
         await I.retry(retryCount).fillField(this.fields.noTimeNoticeDetails, this.fields.testingText);
         I.wait('2');
+        I.waitForText('Continue');
         await I.retry(retryCount).click('Continue');
     },
     async urgencyWithoutNotice() {
