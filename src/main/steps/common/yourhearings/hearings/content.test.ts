@@ -6,6 +6,7 @@ import { generateContent } from './content';
 
 const enContent = {
   section: 'Your court hearings',
+  title: 'Your Hearings',
   goBack: 'Go back',
   caseNumber: 'Case number',
   yourPreviousHearings: 'Your previous hearings',
@@ -21,6 +22,7 @@ const enContent = {
 
 const cyContent: typeof enContent = {
   section: 'Eich gwrandawiadau llys',
+  title: 'Your Hearings (welsh)',
   goBack: 'Mynd yn ôl',
   caseNumber: 'Rhif yr achos',
   yourPreviousHearings: 'Eich gwrandawiadau blaenorol',

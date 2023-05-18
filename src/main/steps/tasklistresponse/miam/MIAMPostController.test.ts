@@ -98,6 +98,8 @@ describe('MIAMPostController', () => {
     req.session.userCase.respondents = respondents;
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     req.session.userCase.miamStart = 'Yes';
+    req.session.userCase.respondents[0].value.user.idamId = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.url = 'miam';
     await miamPostController.post(req, res);
     expect(req.session.userCase.respondents[0].value.response.miam.attendedMiam).toEqual('Yes');
   });

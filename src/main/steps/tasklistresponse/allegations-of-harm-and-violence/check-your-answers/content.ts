@@ -57,7 +57,7 @@ export const cyContent: typeof enContent = {
   keys: {
     details: 'Details',
     //child concern screens
-    detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
+    detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to -welsh',
     concerns: 'concerns',
     againstChild: 'against the child',
     applicantDetails: 'Applicant [^^^] - Your details - welsh',

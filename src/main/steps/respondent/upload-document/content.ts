@@ -19,8 +19,8 @@ const cy = () => ({
   section: 'Llwytho dogfennau',
   caseNumber: 'Rhif yr achos #',
   title: 'Dewiswch y math o ddogfen',
+  line1: 'Os yw’r llys wedi gofyn i chi gyflwyno tystiolaeth bellach, gallwch lwytho dogfennau yma.',
   userName: '',
-  line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
   sectionTitles: document_list_cy,
   documentsListItems: documents_list_items_cy,
 });

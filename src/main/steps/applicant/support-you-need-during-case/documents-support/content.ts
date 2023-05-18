@@ -18,7 +18,7 @@ const en = {
   emailInfo: 'Information emailed to me',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'I do not need any of this support at this time',
+  nosupport: 'No, I do not need any of this support at this time',
   continue: 'Continue',
   largePrintDocsDetails: 'Describe what you need',
   errors: {
