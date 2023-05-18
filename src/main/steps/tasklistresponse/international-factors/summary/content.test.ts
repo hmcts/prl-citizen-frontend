@@ -11,12 +11,16 @@ const en = {
     respondentAdditionalInformation: 'International elements',
   },
   keys: {
-    jurisdiction:
-      'Could another person in the application apply for a similar order in a country outside England or Wales?',
+    start: "Are the children's lives mainly based outside of England and Wales?",
+    iFactorsStartProvideDetails: 'Provide details',
     parents:
       "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+    iFactorsParentsProvideDetails: 'Provide details',
+    jurisdiction:
+      'Could another person in the application apply for a similar order in a country outside England or Wales?',
+    iFactorsJurisdictionProvideDetails: 'Provide details',
     request: 'Has another country asked (or been asked) for information or help for the children?',
-    start: "Are the children's lives mainly based outside of England and Wales?",
+    iFactorsRequestProvideDetails: 'Provide details',
   },
   errors: {},
 };
@@ -28,12 +32,16 @@ const cy: typeof en = {
     respondentAdditionalInformation: 'Elfennau rhyngwladol',
   },
   keys: {
-    jurisdiction:
-      'A allai rhywun arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
+    start: 'Ydy bywyd y plant yn cael ei dreulio’n bennaf y tu allan i Gymru a Lloegr?',
+    iFactorsStartProvideDetails: 'Provide details-welsh',
     parents:
       "A yw rhieni'r plant (neu unrhyw un o bwys i'r plant) wedi'u lleoli y tu allan i Gymru a Lloegr yn bennaf?",
+    iFactorsParentsProvideDetails: 'Provide details-welsh',
     request: "A oes gwlad arall wedi gofyn (neu wedi cael cais) am wybodaeth neu gymorth i'r plant?",
-    start: 'Ydy bywyd y plant yn cael ei dreulio’n bennaf y tu allan i Gymru a Lloegr?',
+    iFactorsJurisdictionProvideDetails: 'Provide details-welsh',
+    jurisdiction:
+      'A allai rhywun arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
+    iFactorsRequestProvideDetails: 'Provide details',
   },
   errors: {},
 };

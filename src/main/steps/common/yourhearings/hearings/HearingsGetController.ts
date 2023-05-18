@@ -5,7 +5,7 @@ import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
-import { ordinalNumberMap } from '../../../../steps/constants';
+import { ordinalNumberMapCy, ordinalNumberMapEn } from '../../../../steps/constants';
 import { Language, generatePageContent } from '../../../common/common.content';
 
 @autobind
@@ -20,6 +20,8 @@ export default class HearingsGetController {
     }
 
     const language = this.parent.getPreferredLanguage(req) as Language;
+
+    const ordinalNumberMap = language === 'cy' ? ordinalNumberMapCy : ordinalNumberMapEn;
 
     const content = generatePageContent({
       language,

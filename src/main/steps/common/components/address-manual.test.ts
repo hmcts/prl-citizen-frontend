@@ -27,21 +27,21 @@ const enContent = {
 };
 
 const cyContent = {
-  addressLine1: 'Building and street (in welsh)',
-  town: 'Town or city (in welsh)',
-  county: 'County (in welsh)',
-  postcode: 'Postcode (in welsh)',
-  enterInternationalAddress: 'Enter an international address (in welsh)',
+  addressLine1: 'Adeilad a stryd',
+  town: 'Tref neu ddinas',
+  county: 'Sir',
+  postcode: 'Cod post',
+  enterInternationalAddress: 'Nodwch gyfeiriad rhyngwladol',
   errors: {
     citizenUserManualAddress1: {
-      required: 'Enter the first line of the address (in welsh)',
+      required: 'Nodwch linell gyntaf y cyfeiriad',
     },
     citizenUserManualAddressTown: {
-      required: 'Enter the town or city (in welsh)',
+      required: 'Nodwch y dref neu’r ddinas',
     },
     citizenUserManualAddressPostcode: {
-      required: 'Enter a valid postcode (in welsh)',
-      invalid: 'Enter a valid postcode (in welsh)',
+      required: 'Rhowch god post dilys.',
+      invalid: 'Rhowch god post dilys.',
     },
   },
 };
