@@ -6,7 +6,7 @@ Scenario('C100 Citizen Basic Flow - Master @cross-browser @master', async ({ I }
     await I.startTheApplication();
     await I.addCaseNameAndPostCode();
     await I.screeningQuestions();
-    await I.goToMiam();
+    await I.miamSignedDocument();
     // await I.typeOfOrder();
     // await I.urgencyWithoutNotice();
     // await I.childrenDetails();
