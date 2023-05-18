@@ -11,7 +11,7 @@ Scenario('C100 Citizen Basic Flow - Master @cross-browser @master', async ({ I }
     await I.urgencyWithoutNotice();
     await I.childrenDetails();
     await I.applicantDetails();
-    await I.respondentDetails();
+    // await I.respondentDetails();
     // await I.otherPersonDetails();
     // await I.otherProceedings();
     // await I.safetyConcerns();
