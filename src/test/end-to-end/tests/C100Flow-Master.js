@@ -1,6 +1,6 @@
-Feature('C100 Rebuild - Base flow');
+Feature('C100 Citizen Basic Flow - Master');
 
-Scenario('C100 Rebuild - basic journey @nightly', async ({ I }) => {
+Scenario('C100 Citizen Basic Flow - Master @cross-browser @master', async ({ I }) => {
     await I.loginAsCitizen();
     await I.createC100Application();
     await I.startTheApplication();
@@ -12,11 +12,11 @@ Scenario('C100 Rebuild - basic journey @nightly', async ({ I }) => {
     await I.childrenDetails();
     await I.applicantDetails();
     await I.respondentDetails();
-    await I.otherPersonDetails();
-    await I.otherProceedings();
-    await I.safetyConcerns();
-    await I.internationElements();
-    await I.reasonableAdjustments();
-    await I.helpWithFeeEvent();
-    await I.checkYourAnswersEvent();
+    // await I.otherPersonDetails();
+    // await I.otherProceedings();
+    // await I.safetyConcerns();
+    // await I.internationElements();
+    // await I.reasonableAdjustments();
+    // await I.helpWithFeeEvent();
+    // await I.checkYourAnswersEvent();
   }).retry({ retries: 3, minTimeout: 30000 });

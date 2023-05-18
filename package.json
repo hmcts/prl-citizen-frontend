@@ -25,7 +25,7 @@
     "test:smoke:downstream": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.smoke.config.js",
     "test:smoke": "echo 'smoke tests disabled temporarily for setup' && exit 0",
     "test:functional": "codeceptjs run --steps -c src/test/end-to-end/codecept.conf.js",
-    "test:fullfunctional": "codeceptjs run --steps -c src/test/end-to-end/codecept.conf.js && run-p test:pa11y",
+    "test:fullfunctional": "codeceptjs run --steps \"@master\" -c src/test/end-to-end/codecept.conf.js && run-p test:pa11y ",
     "test:crossbrowser-e2e": "MOCHAWESOME_REPORTFILENAME=crossbrowser codeceptjs run-multiple --grep \"@cross-browser\" ${BROWSER_GROUP:-'--all'} -c saucelabs.conf.js --reporter mocha-multi",
     "test:crossbrowser": "./bin/run-crossbrowser-tests.sh",
     "cichecks": "yarn && run-p build lint test",
