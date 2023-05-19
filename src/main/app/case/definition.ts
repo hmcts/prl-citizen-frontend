@@ -1573,6 +1573,11 @@ export const enum YesOrNo {
   NO = 'No',
 }
 
+export const enum EnvironmentValue {
+  PRODUCTION = 'production',
+  DEVELOPMENT = 'development',
+}
+
 export const enum YesNoNotsure {
   YES = 'Yes',
   NO = 'No',
