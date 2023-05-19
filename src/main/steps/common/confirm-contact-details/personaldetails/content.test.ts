@@ -29,7 +29,7 @@ const enContent = {
       required: 'Enter Your Place of birth',
       invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
-    previousName: {
+    citizenUserAdditionalName: {
       invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     citizenUserDateOfBirth: {
@@ -67,7 +67,7 @@ const cyContent: typeof enContent = {
       required: 'Rhowch Eich Man Geni',
       invalid: 'You have entered an invalid character. Enter using letters and numbers only.(Welsh)',
     },
-    previousName: {
+    citizenUserAdditionalName: {
       invalid:
         ' Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
