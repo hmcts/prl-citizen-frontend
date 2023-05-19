@@ -46,18 +46,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
         );
         mapDataInSession(req.session.userCase, user.id);
         req.session.save(() => {
-          let redirectUrl;
-          if (partyType === PartyType.RESPONDENT) {
-            redirectUrl =
-              req.session.userCase?.startAlternative === YesOrNo.NO
-                ? RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED
-                : RESPONDENT_PRIVATE_DETAILS_CONFIRMED;
-          } else {
-            redirectUrl =
-              req.session.userCase?.startAlternative === YesOrNo.NO
-                ? APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED
-                : APPLICANT_PRIVATE_DETAILS_CONFIRMED;
-          }
+          const redirectUrl = findUrl(req, partyType);
           res.redirect(redirectUrl);
         });
       } catch (error) {
@@ -65,4 +54,19 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
       }
     }
   }
+}
+function findUrl(req: AppRequest<AnyObject>, partyType: PartyType): string {
+  let redirectUrl;
+  if (partyType === PartyType.RESPONDENT) {
+    redirectUrl =
+      req.session.userCase?.startAlternative === YesOrNo.NO
+        ? RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED
+        : RESPONDENT_PRIVATE_DETAILS_CONFIRMED;
+  } else {
+    redirectUrl =
+      req.session.userCase?.startAlternative === YesOrNo.NO
+        ? APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED
+        : APPLICANT_PRIVATE_DETAILS_CONFIRMED;
+  }
+  return redirectUrl;
 }
