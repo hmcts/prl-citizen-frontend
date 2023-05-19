@@ -340,10 +340,13 @@ export class Routes {
      */
     app.get(PAYMENT_GATEWAY_ENTRY_URL, errorHandler(PaymentHandler));
     app.get(PAYMENT_RETURN_URL_CALLBACK, errorHandler(PaymentValidationHandler));
-
-    app.get('/api/v1/session', (req, res) => res.json(req.session));
+    app.get('/api/v1/session', (req, res) => {
+      console.log(app.locals.ENV);
+      if (app.locals.ENV !== 'production') {
+        res.json(req.session);
+      }
+    });
   }
-
   private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {
     if (typeof step?.routeGuard?.[httpMethod] === 'function') {
       step.routeGuard[httpMethod].call(this, req, res, next);
