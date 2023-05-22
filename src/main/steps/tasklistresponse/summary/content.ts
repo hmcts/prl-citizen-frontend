@@ -774,13 +774,6 @@ const cy: typeof en = (content: CommonContent) => {
 
 export const form: FormContent = {
   fields: () => {
-    // const checkboxes: { id: string; value: string }[] = [];
-
-    // checkboxes.push({
-    //   id: 'sot',
-    //   value: 'StatementOfTruth',
-    // });
-
     return {
       declarationCheck: {
         type: 'checkboxes',
@@ -793,13 +786,6 @@ export const form: FormContent = {
         ],
         validator: atLeastOneFieldIsChecked,
       },
-
-      // consentConfirm: {
-      //   type: 'label',
-      //   classes: 'govuk-label',
-      //   label: l => l.consent,
-      //   labelSize: 'm',
-      // },
     };
   },
   submit: {
