@@ -8,16 +8,7 @@ const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseI
 let partyDetails;
 
 describe('ContactPreferencesGetController', () => {
-  const languages = {
-    en: {
-      text: 'english',
-    },
-    cy: {
-      text: 'welsh',
-    },
-  };
-  const generateContent = content => languages[content.language];
-  const controller = new ContactPreferencesGetController('page', generateContent);
+  const controller = new ContactPreferencesGetController();
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {

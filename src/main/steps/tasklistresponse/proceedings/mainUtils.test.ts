@@ -8,6 +8,23 @@ const userCase = {
   state: undefined,
 } as ANYTYPE;
 
+const userCase1 = {
+  id: 'id',
+  state: undefined,
+  proceedingsStart: 'No',
+  proceedingsStartOrder: 'No',
+} as ANYTYPE;
+
+const userCase2 = {
+  id: 'id',
+  state: undefined,
+  proceedingsStart: 'Yes',
+  proceedingsStartOrder: 'No',
+  courtProceedingsOrders: ['childArrangementOrder'],
+} as ANYTYPE;
+
+['childArrangementOrder'];
+
 const enContent = {
   Yes: 'Yes',
   No: 'No ',
@@ -67,6 +84,18 @@ describe('test cases for main util', () => {
 
   test('PastAndCurrentProceedings - util', () => {
     const CaseName_fun = PastAndCurrentProceedings({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    expect(CaseName_fun?.rows).not.toBe([]);
+    expect(CaseName_fun?.title).toBe(undefined);
+  });
+
+  test('PastAndCurrentProceedings - util2', () => {
+    const CaseName_fun = PastAndCurrentProceedings({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase1);
+    expect(CaseName_fun?.rows).not.toBe([]);
+    expect(CaseName_fun?.title).toBe(undefined);
+  });
+
+  test('PastAndCurrentProceedings - util3', () => {
+    const CaseName_fun = PastAndCurrentProceedings({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase2);
     expect(CaseName_fun?.rows).not.toBe([]);
     expect(CaseName_fun?.title).toBe(undefined);
   });

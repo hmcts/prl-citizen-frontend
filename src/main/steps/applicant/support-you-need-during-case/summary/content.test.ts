@@ -11,7 +11,9 @@ const en = {
     aboutYou: 'About you',
   },
   keys: {
-    // languageDetails: 'Give details of the language you require (including dialect, if applicable)',
+    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
+    hearingDetails: 'Please provide the details',
+    languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     languageRequirements: 'Do you have any language requirements?',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
@@ -65,12 +67,14 @@ const cy: typeof en = {
     aboutYou: 'Amdanoch chi',
   },
   keys: {
-    // languageDetails: 'Give details of the language you require (including dialect, if applicable)',
+    attendingToCourt: 'Would you be able to take part in hearings by video and phone? -welsh',
+    hearingDetails: 'Please provide the details -welsh',
+    languageDetails: 'Give details of the language you require (including dialect, if applicable) -welsh',
     languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
     reasonableAdjustments:
       'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
     safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
-    safetyArrangementsDetails: 'Describe what you need',
+    safetyArrangementsDetails: 'Describe what you need -welsh',
   },
   dependencies: {
     languageDetails: {

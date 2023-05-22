@@ -6,8 +6,8 @@
             "serviceName": "Enter Address"
         },
         "cy": {
-            "continue": "Continue",
-            "section": "Your address (in welsh)",
+            "continue": "Parhau",
+            "section": "Eich cyfeiriad",
             "serviceName": "Enter Address (in welsh)"
         }
     },
@@ -26,14 +26,14 @@
         },
         "cy": {
             "citizenUserManualAddress1": {
-                "required": "Enter the first line of the address (in welsh)"
+                "required": "Nodwch linell gyntaf y cyfeiriad"
             },
             "citizenUserManualAddressTown": {
-                "required": "Enter the town or city (in welsh)"
+                "required": "Nodwch y dref neu’r ddinas"
             },
             "citizenUserManualAddressPostcode": {
-                "required": "Enter a valid postcode (in welsh)",
-                "invalid": "Enter a valid postcode (in welsh)"
+                "required": "Rhowch god post dilys.",
+                "invalid": "Rhowch god post dilys."
             }
         }
     }

@@ -14,7 +14,7 @@ const enContent = {
 const cyContent = {
   ...welsh,
   section: 'Cadw eich manylion cyswllt yn breifat',
-  continue: 'Save and continue',
+  continue: 'Cadw a pharhau',
 };
 
 jest.mock('../../../../app/form/validation');

@@ -5,7 +5,7 @@
             "serviceName": "Address/postcode lookup"
         },
         "cy": {
-            "section": "Your address (in welsh)",
+            "section": "Eich cyfeiriad",
             "serviceName": "Address/postcode lookup (in welsh)"
         }
     },
@@ -18,8 +18,8 @@
         },
         "cy": {
             "citizenUserAddressPostcode": {
-                "required": "Enter a valid postcode (in welsh)",
-                "invalid": "Enter a valid postcode (in welsh)"
+                "required": "Rhowch god post dilys.",
+                "invalid": "Rhowch god post dilys."
             }
         }
     }

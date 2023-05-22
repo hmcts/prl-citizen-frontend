@@ -22,7 +22,7 @@ const en = {
   emailInfo: 'Information emailed to me',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  noSupport: 'I do not need any of this support at this time',
+  noSupport: 'No, I do not need any of this support at this time',
   continue: 'Continue',
   errors: {
     docsSupport: {
@@ -122,7 +122,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.docsReadOut).toEqual('Documents read out to me');
     expect(generatedContent.emailInfo).toEqual('Information emailed to me');
     expect(generatedContent.other).toEqual('Other');
-    expect(generatedContent.noSupport).toEqual('I do not need any of this support at this time');
+    expect(generatedContent.noSupport).toEqual('No, I do not need any of this support at this time');
   });
 
   // eslint-disable-next-line jest/expect-expect

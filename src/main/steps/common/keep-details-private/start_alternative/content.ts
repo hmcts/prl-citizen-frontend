@@ -42,7 +42,7 @@ export const cy: typeof en = {
     "Er enghraifft, os ydych chi'n credu bod y bobl eraill yn yr achos yn peri risg i chi, gallwch ofyn i'r llys gadw eich manylion cyswllt yn breifat.",
   one: 'Ydw',
   two: 'Nac ydw',
-  three: "I don't know",
+  three: 'Nid wyf yn gwybod',
   address: 'Cyfeiriad',
   Phone_number: 'Rhif ffôn',
   Email: 'E-bost',
@@ -50,7 +50,7 @@ export const cy: typeof en = {
     'Which contact details do you want to keep private from the other people in this application?',
   contact_details_private_hint:
     "You've said that the applicants know some of your contact details. Make sure you select contact details the applicants do not already know.",
-  continue: 'Save and continue',
+  continue: 'Cadw a pharhau',
   errors: {
     startAlternative: {
       required: 'Enter your start alternative',
