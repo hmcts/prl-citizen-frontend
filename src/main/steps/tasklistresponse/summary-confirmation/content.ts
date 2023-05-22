@@ -1,5 +1,8 @@
+import { PartyType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import AppSurvey from '../../../steps/common/app-survey/appSurveyController';
+import { appSurveyContents } from '../../../steps/common/app-survey/content';
 
 const en = {
   success: 'Response submitted successfully',
@@ -55,8 +58,12 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  const { exitPageSurveyTitle, exitPageSurveyContent } = appSurveyContents[content.language];
+
   return {
     ...translations,
+    exitPageSurveyTitle,
+    exitPageSurveyContent: AppSurvey.getExitPageSurveyContent(PartyType.RESPONDENT, exitPageSurveyContent),
     form,
   };
 };
