@@ -23,9 +23,9 @@ export function filterSelectedUrls(userCase: Partial<CaseWithId>, urls: object):
     userCase.safetyArrangementsDetails = '';
   }
   //resonable adjustment
-  dataCleanupReasonableadjustment(userCase);
+  processReasonableAdjustmentData(userCase);
 }
-function dataCleanupReasonableadjustment(userCase: Partial<CaseWithId>) {
+function processReasonableAdjustmentData(userCase: Partial<CaseWithId>) {
   if (!userCase?.reasonableAdjustments?.includes('docsformat')) {
     delete userCase.docsSupport;
   }
@@ -42,17 +42,17 @@ function dataCleanupReasonableadjustment(userCase: Partial<CaseWithId>) {
     delete userCase.travellingToCourt;
   }
   //docSupport
-  dataCleanupDocSupport(userCase);
+  processDocSupportData(userCase);
   //comunication help
-  dataCleanupCommunicationHelp(userCase);
+  processCommunicationHelpData(userCase);
   //Hearing Support
-  dataCleanupHearingSupport(userCase);
+  processHearingSupportData(userCase);
   //court comfort
-  dataCleanupCourtComfort(userCase);
+  processCourtComfortData(userCase);
   //travel help
-  dataCleanupTravelHelp(userCase);
+  processTravelHelpData(userCase);
 }
-function dataCleanupCourtComfort(userCase: Partial<CaseWithId>) {
+function processCourtComfortData(userCase: Partial<CaseWithId>) {
   if (!userCase?.courtComfort?.includes('appropriatelighting')) {
     userCase.lightingProvideDetails = '';
   }
@@ -61,7 +61,7 @@ function dataCleanupCourtComfort(userCase: Partial<CaseWithId>) {
   }
 }
 
-function dataCleanupTravelHelp(userCase: Partial<CaseWithId>) {
+function processTravelHelpData(userCase: Partial<CaseWithId>) {
   if (!userCase?.travellingToCourt?.includes('parkingspace')) {
     userCase.parkingDetails = '';
   }
@@ -73,7 +73,7 @@ function dataCleanupTravelHelp(userCase: Partial<CaseWithId>) {
   }
 }
 
-function dataCleanupHearingSupport(userCase: Partial<CaseWithId>) {
+function processHearingSupportData(userCase: Partial<CaseWithId>) {
   if (!userCase?.courtHearing?.includes('supportworker')) {
     userCase.supportWorkerDetails = '';
   }
@@ -87,7 +87,7 @@ function dataCleanupHearingSupport(userCase: Partial<CaseWithId>) {
     userCase.communicationSupportOther = '';
   }
 }
-function dataCleanupCommunicationHelp(userCase: Partial<CaseWithId>) {
+function processCommunicationHelpData(userCase: Partial<CaseWithId>) {
   if (!userCase?.helpCommunication?.includes('signlanguage')) {
     userCase.describeSignLanguageDetails = '';
   }
@@ -95,7 +95,7 @@ function dataCleanupCommunicationHelp(userCase: Partial<CaseWithId>) {
     userCase.describeOtherNeed = '';
   }
 }
-function dataCleanupDocSupport(userCase: Partial<CaseWithId>) {
+function processDocSupportData(userCase: Partial<CaseWithId>) {
   if (!userCase?.docsSupport?.includes('docsprint')) {
     userCase.docsDetails = '';
   }

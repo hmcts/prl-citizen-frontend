@@ -46,7 +46,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
         );
         mapDataInSession(req.session.userCase, user.id);
         req.session.save(() => {
-          const redirectUrl = findUrl(req, partyType);
+          const redirectUrl = getRedirectUrl(req, partyType);
           res.redirect(redirectUrl);
         });
       } catch (error) {
@@ -55,7 +55,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
     }
   }
 }
-function findUrl(req: AppRequest<AnyObject>, partyType: PartyType): string {
+function getRedirectUrl(req: AppRequest<AnyObject>, partyType: PartyType): string {
   let redirectUrl;
   if (partyType === PartyType.RESPONDENT) {
     redirectUrl =

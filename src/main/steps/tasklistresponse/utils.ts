@@ -17,7 +17,7 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
   const partyDetails = getPartyDetails(userCase, userId);
   if (partyDetails) {
     if (caseType === CaseType.C100) {
-      tasklistResponseItems(userCase, partyDetails);
+      setDataInSession(userCase, partyDetails);
     }
 
     if (partyDetails.response.consent) {
@@ -34,7 +34,7 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
     Object.assign(userCase, mapSupportYouNeedDetails(partyDetails));
   }
 };
-function tasklistResponseItems(userCase: CaseWithId, partyDetails: PartyDetails) {
+function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
   if (partyDetails?.response?.safetyConcerns) {
     Object.assign(userCase, mapSafetyConcernsDetails(partyDetails));
   }
