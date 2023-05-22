@@ -1,48 +1,52 @@
+{% from "common/app-survey/survey-banner.macro.njk" import surveyBanner %}
 {% extends "common/template.njk" %}
+
 {% block page_content %}
-<div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-6">
-            <h1 class="govuk-panel__title">
-              {{success}}
-            </h1>
-            <div class="govuk-panel__body">
-              {{caseNumber}}<br><strong>{{userCase.id}}</strong>
-            </div>
-          </div>
+  <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-6">
+    <h1 class="govuk-panel__title">
+      {{success}}
+    </h1>
+    <div class="govuk-panel__body">
+      {{caseNumber}}<br>
+      <strong>{{userCase.id}}</strong>
+    </div>
+  </div>
 
-    <p class="govuk-body">{{line1}}</p>
-          <ul class="govuk-list govuk-list--bullet">
-            <li>{{line2}}</li>
-          </ul>
+  <p class="govuk-body">{{line1}}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{line2}}</li>
+  </ul>
 
-          <h2 class="govuk-heading-m">{{line3}}</h2>
+  <h2 class="govuk-heading-m">{{line3}}</h2>
 
-    <ul class="govuk-list govuk-list--bullet govuk-list--spaced govuk-!-margin-bottom-6">
-            {{list1 |safe}}
-          </ul>
+  <ul class="govuk-list govuk-list--bullet govuk-list--spaced govuk-!-margin-bottom-6">
+    {{list1 |safe}}
+  </ul>
 
-    <p class="govuk-body govuk-!-font-weight-bold">{{line4}}</p>
+  <p class="govuk-body govuk-!-font-weight-bold">{{line4}}</p>
 
-          <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-9">
+  <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-9">
 
-            {{list2 |safe}}
-          </ul>
+    {{list2 |safe}}
+  </ul>
   <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary">
-              <span class="govuk-details__summary-text" data-ga-category="explanations" data-ga-label="cya download draft">
-               {{line5}}
-              </span>
-            </summary>
-            <div class="govuk-details__text">
-              <p class="govuk-body">
-                {{line6 |safe}}
-              </p>
-              <p class="govuk-body">
-                {{line7}}
-              </p>
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text" data-ga-category="explanations" data-ga-label="cya download draft">
+        {{line5}}
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+      <p class="govuk-body">
+        {{line6 |safe}}
+      </p>
+      <p class="govuk-body">
+        {{line7}}
+      </p>
 
-             {{downloadLink |safe}}
-            </div>
-          
-          </details>
-         <div class="govuk-!-padding-bottom-4"></div>
+      {{downloadLink |safe}}
+    </div>
+  </details>
+
+  {{surveyBanner(exitPageSurveyTitle, exitPageSurveyContent)}}
+
 {% endblock %}
