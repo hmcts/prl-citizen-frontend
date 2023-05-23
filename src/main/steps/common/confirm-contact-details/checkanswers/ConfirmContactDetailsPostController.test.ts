@@ -6,8 +6,10 @@ import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import * as oidc from '../../../../app/auth/user/oidc';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import { FormContent } from '../../../../app/form/Form';
 import * as steps from '../../../../steps';
+import { APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS, APPLICANT_TASKLIST_CONTACT_POST_SUCCESS } from '../../../urls';
 
 import { ConfirmContactDetailsPostController } from './ConfirmContactDetailsPostController';
 import { prepareRequest } from './ContactDetailsMapper';
@@ -226,5 +228,31 @@ describe('ConfirmContactDetailsPostController', () => {
     expect(updateCaserMock).toBeCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
     expect(res.redirect).toBeCalled;
+  });
+  test('Should redirect C100 applicant after choosing post preference', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.session.userCase.applicantsFL401 = partyDetails;
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.url = 'applicant';
+    req.session.userCase.applicantPreferredContact = applicantContactPreferencesEnum.POST;
+    req.session.applicationSettings = { navFromContactPreferences: true };
+    await controller.post(req, res);
+    expect(retrieveByCaseIdMock).toBeCalled;
+    expect(updateCaserMock).toBeCalled;
+    expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
+    expect(res.redirect).toHaveBeenLastCalledWith(APPLICANT_TASKLIST_CONTACT_POST_SUCCESS);
+  });
+  test('Should redirect C100 applicant after choosing digital preference', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.session.userCase.applicantsFL401 = partyDetails;
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.url = 'applicant';
+    req.session.userCase.applicantPreferredContact = applicantContactPreferencesEnum.DIGITAL;
+    req.session.applicationSettings = { navFromContactPreferences: true };
+    await controller.post(req, res);
+    expect(retrieveByCaseIdMock).toBeCalled;
+    expect(updateCaserMock).toBeCalled;
+    expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
+    expect(res.redirect).toHaveBeenLastCalledWith(APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS);
   });
 });

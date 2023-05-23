@@ -2,12 +2,14 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { Applicant, CaseType, Respondent } from '../../../../app/case/definition';
+import { Applicant, CaseType, Respondent, applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import { toApiFormat } from '../../../../app/case/to-api-format';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import {
+  APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
+  APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
   APPLICANT_TASK_LIST_URL,
   C100_APPLICANT_TASKLIST,
   RESPONDENT_TASK_LIST_URL,
@@ -137,6 +139,13 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
     } else {
       if (req.session.userCase.caseTypeOfApplication === CaseType.C100) {
         redirectUrl = C100_APPLICANT_TASKLIST;
+        if (req.session.applicationSettings?.navFromContactPreferences) {
+          if (req.session.userCase.applicantPreferredContact === applicantContactPreferencesEnum.POST) {
+            redirectUrl = APPLICANT_TASKLIST_CONTACT_POST_SUCCESS;
+          } else {
+            redirectUrl = APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS;
+          }
+        }
       } else {
         redirectUrl = APPLICANT_TASK_LIST_URL;
       }

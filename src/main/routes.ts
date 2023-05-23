@@ -118,6 +118,8 @@ import {
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   C7_ATTENDING_THE_COURT,
+  APPLICANT_TASKLIST_CONTACT_EMAIL,
+  APPLICANT_TASKLIST_CONTACT_POST,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -332,6 +334,14 @@ export class Routes {
         app.post(
           PIN_ACTIVATION_CASE_ACTIVATED_URL,
           errorHandler(new CaseActivationPostController(step.form.fields).post)
+        );
+        app.post(
+          `${APPLICANT_TASKLIST_CONTACT_EMAIL}`,
+          errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
+        );
+        app.post(
+          `${APPLICANT_TASKLIST_CONTACT_POST}`,
+          errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
         );
       }
     }
