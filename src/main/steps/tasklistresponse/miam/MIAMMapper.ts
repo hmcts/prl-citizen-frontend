@@ -14,7 +14,7 @@ export const prepareMIAMRequest = (userCase: CaseWithId): Miam => {
 };
 
 export const mapMIAMDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
-  const { attendedMiam, willingToAttendMiam, reasonNotAttendingMiam } = partyDetails?.response?.miam || {};
+  const { attendedMiam, willingToAttendMiam, reasonNotAttendingMiam } = partyDetails?.response?.miam ?? {};
   const miamcontent = {
     miamStart: attendedMiam,
     miamWillingness: willingToAttendMiam,
