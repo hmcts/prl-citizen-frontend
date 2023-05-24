@@ -2,13 +2,21 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { CaseEvent, CaseType, PartyDetails, PartyType } from '../../../../app/case/definition';
+import {
+  CaseEvent,
+  CaseType,
+  PartyDetails,
+  PartyType,
+  applicantContactPreferencesEnum,
+} from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails, mapDataInSession } from '../../../../steps/tasklistresponse/utils';
 import {
+  APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
+  APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
   APPLICANT_TASK_LIST_URL,
   C100_APPLICANT_TASKLIST,
   RESPONDENT_TASK_LIST_URL,
@@ -70,6 +78,13 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
               : RESPONDENT_TASK_LIST_URL;
           } else if (userCase.caseTypeOfApplication === CaseType.C100) {
             redirectUrl = C100_APPLICANT_TASKLIST;
+            if (req.session.applicationSettings?.navFromContactPreferences) {
+              if (userCase.applicantPreferredContact === applicantContactPreferencesEnum.POST) {
+                redirectUrl = APPLICANT_TASKLIST_CONTACT_POST_SUCCESS;
+              } else {
+                redirectUrl = APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS;
+              }
+            }
           } else {
             redirectUrl = APPLICANT_TASK_LIST_URL;
           }
