@@ -53,14 +53,14 @@ function dataCleanupConsent(userCase: Partial<CaseWithId>, respondent: Responden
 function dataCleanupMiam(userCase: Partial<CaseWithId>, respondent: Respondent) {
   if (respondent?.value?.response?.miam?.attendedMiam === YesOrNo.YES) {
     userCase.miamStart = YesOrNo.YES;
-    userCase.miamWillingness = YesOrNo.NO;
+    userCase.miamWillingness = '';
     userCase.miamNotWillingExplnation = '';
   } else if (respondent?.value?.response?.miam?.attendedMiam === YesOrNo.NO) {
     if (respondent?.value?.response?.miam?.willingToAttendMiam === YesOrNo.YES) {
       userCase.miamStart = YesOrNo.NO;
       userCase.miamWillingness = YesOrNo.YES;
       userCase.miamNotWillingExplnation = '';
-    } else if (respondent?.value?.response?.miam?.willingToAttendMiam === YesOrNo.NO) {
+    } else {
       userCase.miamStart = YesOrNo.NO;
       userCase.miamWillingness = YesOrNo.NO;
       userCase.miamNotWillingExplnation = respondent?.value?.response?.miam?.reasonNotAttendingMiam;

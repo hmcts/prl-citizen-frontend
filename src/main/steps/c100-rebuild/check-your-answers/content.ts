@@ -336,6 +336,9 @@ export const cyContent = {
     ydyTranslation: {
       Yes: 'Ydy',
       No: 'Nac ydy',
+      yes: 'Ydy',
+      no: 'Nac ydy',
+      dontKnow: 'Nid wyf yn gwybod',
     },
     ydwSpecial: {
       Yes: 'Ydw',
