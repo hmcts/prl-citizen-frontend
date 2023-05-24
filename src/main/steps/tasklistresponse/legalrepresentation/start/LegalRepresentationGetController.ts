@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { Respondent, YesOrNo } from '../../../../app/case/definition';
+import { YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../../app/controller/GetController';
 import { Language, generatePageContent } from '../../../../steps/common/common.content';
@@ -28,13 +28,16 @@ export default class LegalRepresentationGetController extends GetController {
     }
     const sessionErrors = req.session?.errors || [];
     let formaction: YesOrNo | undefined;
-    req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-      if (respondent?.value?.user?.idamId === req.session?.user.id) {
-        formaction =
-          (req.session.userCase.legalRepresentation as YesOrNo) ||
-          (respondent.value.response.legalRepresentation as YesOrNo);
-      }
-    });
+    const respondentUser = req.session.userCase?.respondents?.find(
+      respondent => respondent.value.user.idamId === req.session.user.id
+    );
+
+    if (respondentUser) {
+      formaction =
+        (req.session.userCase.legalRepresentation as YesOrNo) ||
+        (respondentUser.value.response.legalRepresentation as YesOrNo);
+    }
+
     if (formaction) {
       req.session.userCase.legalRepresentation = formaction;
     }
