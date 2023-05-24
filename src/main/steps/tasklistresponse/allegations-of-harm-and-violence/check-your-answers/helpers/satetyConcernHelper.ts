@@ -12,9 +12,7 @@ export const childNameFormatter = (childId, userCase) => {
   } else {
     return (
       HTML.LIST_ITEM +
-      founChildDetails[0]?.value?.['firstName'] +
-      ' ' +
-      founChildDetails[0]?.value?.['lastName'] +
+      `${founChildDetails[0]?.value?.['firstName']} ${founChildDetails[0]?.value?.['lastName']}` +
       HTML.LIST_ITEM_END
     );
   }

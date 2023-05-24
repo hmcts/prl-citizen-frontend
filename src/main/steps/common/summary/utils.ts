@@ -13,6 +13,7 @@ import {
   SummaryListRow,
 } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
+import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
 import { cy, en } from '../common.content';
 import { applyParms } from '../url-parser';
 
@@ -44,17 +45,10 @@ export const getSectionSummaryList = (
   });
 };
 
-const setkey = (userCase: Partial<CaseWithId>, key: string) => {
+const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | undefined) => {
   const userkey = userCase[key];
   if (key === 'detailsKnown' && userCase[key]) {
-    if (userCase[key] === 'yes') {
-      return YesOrNo.YES;
-    } else if (userCase[key] === 'no') {
-      return YesOrNo.NO;
-    } else if (userCase[key] === 'dontKnow') {
-      return "I don't Know";
-      /* needed to change when yes no tranlation will be added */
-    }
+    return getYesNoTranslation(language, userCase[key], 'ydyTranslation');
   }
   if (key === 'startAlternative' && userCase[key]) {
     return userCase[key] + getSelectedPrivateDetails(userCase);
@@ -88,7 +82,7 @@ export const summaryList = (
         userCase[key].hasOwnProperty('month') &&
         userCase[key]?.hasOwnProperty('year')
           ? getFormattedDate(userCase[key], language)
-          : setkey(userCase, key)!,
+          : setkey(userCase, key, language)!,
       changeUrl: urls[key],
     };
     if (row.value || key === 'citizenUserAddressHistory') {

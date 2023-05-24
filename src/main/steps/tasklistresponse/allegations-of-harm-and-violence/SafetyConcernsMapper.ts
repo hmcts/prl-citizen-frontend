@@ -39,7 +39,7 @@ export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_tota
     request.child = {};
     PRL_c1A_concernAboutChild.forEach((abuse: string) => {
       if (PRL_c1A_safteyConcerns?.child?.[abuse]) {
-         const childrenConcern = PRL_c1A_safteyConcerns.child[abuse]?.childrenConcernedAbout
+        const childrenConcern = PRL_c1A_safteyConcerns.child[abuse]?.childrenConcernedAbout;
         request.child = {
           ...request.child,
           [abuse]: {
