@@ -32,7 +32,7 @@ const en = {
       required: 'Enter Your Place of birth',
       invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
-    previousName: {
+    citizenUserAdditionalName: {
       invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     citizenUserDateOfBirth: {
@@ -70,7 +70,7 @@ const cy: typeof en = {
       required: 'Rhowch Eich Man Geni',
       invalid: 'You have entered an invalid character. Enter using letters and numbers only.(Welsh)',
     },
-    previousName: {
+    citizenUserAdditionalName: {
       invalid:
         ' Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
@@ -106,7 +106,7 @@ export const form: FormContent = {
       labelSize: null,
       validator: value => isFieldFilledIn(value) || isFieldLetters(value),
     },
-    previousName: {
+    citizenUserAdditionalName: {
       type: 'text',
       classes: 'govuk-input--width-20',
       label: l => l.previousName,
