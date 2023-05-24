@@ -7,13 +7,17 @@ import { ANYTYPE } from '../common/index';
 export const childNameFormatter = (childId, userCase) => {
   const sessionChildKey = 'children';
   const founChildDetails = userCase[sessionChildKey].filter(child => child.id === childId);
-  return (
-    HTML.LIST_ITEM +
-    founChildDetails[0]?.value?.['firstName'] +
-    ' ' +
-    founChildDetails[0]?.value?.['lastName'] +
-    HTML.LIST_ITEM_END
-  );
+  if (founChildDetails.length === 0) {
+    return '';
+  } else {
+    return (
+      HTML.LIST_ITEM +
+      founChildDetails[0]?.value?.['firstName'] +
+      ' ' +
+      founChildDetails[0]?.value?.['lastName'] +
+      HTML.LIST_ITEM_END
+    );
+  }
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -49,12 +53,16 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
   bodyHtml += HTML.P + FoundElement.hasOwnProperty('behaviourStartDate') && FoundElement['behaviourStartDate'];
   bodyHtml += HTML.RULER;
   bodyHtml += HTML.H4 + keys['isOngoingBehaviourLabel'] + HTML.H4_CLOSE;
-  bodyHtml += FoundElement.hasOwnProperty('isOngoingBehaviour') ? FoundElement['isOngoingBehaviour'] : '';
+  bodyHtml +=
+    FoundElement.hasOwnProperty('isOngoingBehaviour') && FoundElement.isOngoingBehaviour
+      ? FoundElement['isOngoingBehaviour']
+      : '';
   bodyHtml += HTML.RULER;
   bodyHtml += HTML.H4 + keys['seekHelpFromPersonOrAgencyLabel'] + HTML.H4_CLOSE;
-  bodyHtml += FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency')
-    ? HTML.BOTTOM_PADDING_3 + FoundElement?.['seekHelpFromPersonOrAgency'] + HTML.BOTTOM_PADDING_CLOSE
-    : '';
+  bodyHtml +=
+    FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency') && FoundElement.seekHelpFromPersonOrAgency
+      ? HTML.BOTTOM_PADDING_3 + FoundElement?.['seekHelpFromPersonOrAgency'] + HTML.BOTTOM_PADDING_CLOSE
+      : '';
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpDetails') && FoundElement?.['seekHelpFromPersonOrAgency'] === 'Yes'
       ? HTML.BOTTOM_TOP_3 + FoundElement?.['seekHelpDetails'] + HTML.BOTTOM_PADDING_CLOSE

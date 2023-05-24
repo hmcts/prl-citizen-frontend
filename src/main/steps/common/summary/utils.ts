@@ -46,8 +46,17 @@ export const getSectionSummaryList = (
 
 const setkey = (userCase: Partial<CaseWithId>, key: string) => {
   const userkey = userCase[key];
-
-  if (key === 'startAlternative' && !userCase[key]) {
+  if (key === 'detailsKnown' && userCase[key]) {
+    if (userCase[key] === 'yes') {
+      return YesOrNo.YES;
+    } else if (userCase[key] === 'no') {
+      return YesOrNo.NO;
+    } else if (userCase[key] === 'dontKnow') {
+      return "I don't Know";
+      /* needed to change when yes no tranlation will be added */
+    }
+  }
+  if (key === 'startAlternative' && userCase[key]) {
     return userCase[key] + getSelectedPrivateDetails(userCase);
   }
   if (key === 'courtProceedingsOrders' && !userCase[key]) {

@@ -59,6 +59,7 @@ export const enConsentContent = {
   },
   keys: {
     doYouConsent: 'Do you consent to the application?',
+    reasonForNotConsenting: 'Give your reasons for not consenting to the application.',
     applicationReceivedDate: 'When did you receive the application?',
     courtPermission: 'Does the applicant need permission from the court before making applications?',
     courtOrderDetails: 'Details',
@@ -295,6 +296,10 @@ export const enSaftyConcern = {
     childConcerns: 'What type of behaviour have the children experienced or are at risk of experiencing?',
     applicantConcerns: 'What type of behaviour have the children experienced or are at risk of experiencing?',
     abduction: 'Abduction',
+    childrenMoreThanOnePassport: 'Do the children have more than one passport?',
+    possessionChildrenPassport: 'Who is in possession of the children’s passports?',
+    c1A_policeOrInvestigatorInvolved:
+    'Were the police, private investigators or any other organisation involved?',
     childDrugAbuse: 'Have the children been impacted by drug, alcohol or substance abuse?',
     otherWellBeingIssues: 'Do you have any other concerns about the children’s safety and wellbeing?',
     doWantCourtToAction: 'What do you want the court to do to keep you and the children safe?',
@@ -407,6 +412,7 @@ export const cyConsentContent = {
   },
   keys: {
     doYouConsent: 'Do you consent to the application? -welsh',
+    reasonForNotConsenting: 'Give your reasons for not consenting to the application.-welsh',
     applicationReceivedDate: 'When did you receive the application? -welsh',
     courtPermission: 'Does the applicant need permission from the court before making applications? -welsh',
     courtOrderDetails: 'Details -welsh',
@@ -560,6 +566,10 @@ export const cySaftyConcern = {
     childConcerns: 'What type of behaviour have the children experienced or are at risk of experiencing? - welsh',
     applicantConcerns: 'What type of behaviour have the children experienced or are at risk of experiencing? - welsh',
     abduction: 'Abduction - welsh',
+    childrenMoreThanOnePassport: 'Do the children have more than one passport?-welsh',
+    possessionChildrenPassport: 'Who is in possession of the children’s passports?-welsh',
+    c1A_policeOrInvestigatorInvolved:
+    'Were the police, private investigators or any other organisation involved? - welsh',
     childDrugAbuse: 'Have the children been impacted by drug, alcohol or substance abuse? - welsh',
     otherWellBeingIssues: 'Do you have any other concerns about the children’s safety and wellbeing? - welsh',
     doWantCourtToAction: 'What do you want the court to do to keep you and the children safe? - welsh',
@@ -588,8 +598,10 @@ export const cyDummyContent = {
 
 const urls = {
   doYouConsent: CONSENT_TO_APPLICATION,
+  reasonForNotConsenting: CONSENT_TO_APPLICATION,
   applicationReceivedDate: CONSENT_TO_APPLICATION,
   courtPermission: CONSENT_TO_APPLICATION,
+  courtOrderDetails: CONSENT_TO_APPLICATION,
   proceedingsStart: PROCEEDINGS_START,
   proceedingsStartOrder: PROCEEDINGS_START,
   emergencyOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS,
