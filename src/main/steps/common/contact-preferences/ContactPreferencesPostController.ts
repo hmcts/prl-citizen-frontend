@@ -10,6 +10,7 @@ import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails, mapDataInSession } from '../../../steps/tasklistresponse/utils';
 import { APPLICANT_TASKLIST_CONTACT_EMAIL, APPLICANT_TASKLIST_CONTACT_POST } from '../../../steps/urls';
+import { setAddressFields } from '../confirm-contact-details/checkanswers/ContactDetailsMapper';
 
 import { setContactPreferences } from './ContactPreferencesMapper';
 
@@ -39,6 +40,9 @@ export class ContactPreferencesPostController extends PostController<AnyObject> 
         );
         mapDataInSession(req.session.userCase, user.id);
         req.session.userCase.applicantPreferredContact = partyDetails.contactPreferences;
+        if (partyDetails.contactPreferences === applicantContactPreferencesEnum.POST) {
+          req.session.userCase.citizenUserAddressText = setAddressFields(req).citizenUserAddressText;
+        }
         req.session.applicationSettings = {
           ...req.session.applicationSettings,
           navFromContactPreferences: true,
