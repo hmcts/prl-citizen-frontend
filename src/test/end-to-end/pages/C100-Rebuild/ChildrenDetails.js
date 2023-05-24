@@ -58,13 +58,14 @@ module.exports = {
     },
     async furtherInformation() {
         await I.retry(retryCount).waitForText(ChildrenDetails.furtherInformationPageTitle);
+        I.wait('2');
         await I.retry(retryCount).click(this.fields.childrenKnownToSocialServices);
-        I.wait('1');
+        I.wait('3');
         await I.retry(retryCount).fillField(this.fields.childrenKnownToSocialServicesDetail, ChildrenDetails.testingText);
         await I.retry(retryCount).waitForText(ChildrenDetails.furtherInformationSubHeading);
-        I.wait('1');
+        I.wait('3');
         await I.retry(retryCount).click(this.fields.childrenSubjectOfProtectionPlan);
-        I.waitForText('Continue');
+        I.wait('3');
         await I.retry(retryCount).click('Continue');
     },
     async otherChildren() {

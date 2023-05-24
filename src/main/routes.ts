@@ -6,7 +6,7 @@ import { RespondentTaskListGetController } from '../main/steps/respondent/task-l
 
 import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
 import { FieldPrefix } from './app/case/case';
-import { EventRoutesContext } from './app/case/definition';
+import { Environment, EventRoutesContext } from './app/case/definition';
 import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -340,8 +340,11 @@ export class Routes {
      */
     app.get(PAYMENT_GATEWAY_ENTRY_URL, errorHandler(PaymentHandler));
     app.get(PAYMENT_RETURN_URL_CALLBACK, errorHandler(PaymentValidationHandler));
-
-    app.get('/api/v1/session', (req, res) => res.json(req.session));
+    if (app.locals.ENV !== Environment.PRODUCTION) {
+      app.get('/api/v1/session', (req, res) => {
+        res.json(req.session);
+      });
+    }
   }
 
   private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {
