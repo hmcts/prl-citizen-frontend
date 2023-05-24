@@ -2976,5 +2976,6 @@ export enum CaseEvent {
   PARTY_PERSONAL_DETAILS = 'linkCitizenAccount',
   EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement',
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
-  CONSENT_TO_APPLICATION = 'consentToTheApplication'
+  CONSENT_TO_APPLICATION = 'consentToTheApplication',
+  LEGAL_REPRESENTATION = 'legalRepresentation',
 }

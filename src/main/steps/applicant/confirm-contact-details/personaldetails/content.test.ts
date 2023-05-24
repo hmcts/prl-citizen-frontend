@@ -33,7 +33,7 @@ const en = {
       incompleteYear: 'Your date of birth must include a year',
       invalidDateInFuture: 'Your date of birth must be in the past',
     },
-    previousName: {
+    citizenUserAdditionalName: {
       invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
   },
