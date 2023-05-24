@@ -338,7 +338,7 @@ export const cyContent: typeof enContent = {
   download: 'You can download a copy of your submitted response using the link below. (welsh)',
   believeFacts: 'I believe that the facts stated in this response are true (welsh)',
   statementOfTruthSubmission:
-    'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’. (welsh)',
+    'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth. (welsh)',
   downloadDraftPDF: 'Download a draft of your response (PDF) (welsh)',
   cannotOpen: 'If you cannot open the PDF file on your device, download and install (welsh)',
   adobeReader: 'Adobe Acrobat Reader (welsh)',
@@ -691,7 +691,7 @@ const en = (content: CommonContent) => {
       enConfirmYourDetailsContent.sectionTitles.title,
       content.language
     ),
-    supportList(enSupportYouNeedContent, userCase, urls, 'cy', enSupportYouNeedContent.sectionTitles.title),
+    supportList(enSupportYouNeedContent, userCase, urls, 'en', enSupportYouNeedContent.sectionTitles.title),
     summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title3, content.language),
     summaryList(enContentMiam, userCase, urls, enContentMiam.sectionTitles.title, content.language),
     PastAndCurrentProceedings(enContentProceding, userCase),
@@ -774,13 +774,6 @@ const cy: typeof en = (content: CommonContent) => {
 
 export const form: FormContent = {
   fields: () => {
-    const checkboxes: { id: string; value: string }[] = [];
-
-    checkboxes.push({
-      id: 'sot',
-      value: 'StatementOfTruth',
-    });
-
     return {
       declarationCheck: {
         type: 'checkboxes',
@@ -792,12 +785,6 @@ export const form: FormContent = {
           },
         ],
         validator: atLeastOneFieldIsChecked,
-      },
-      consentConfirm: {
-        type: 'label',
-        classes: 'govuk-label',
-        label: l => l.consent,
-        labelSize: 'm',
       },
     };
   },

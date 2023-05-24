@@ -8,8 +8,7 @@ import {
   CA_DA_SPECIAL_ARRANGEMENTS,
 } from '../../../../steps/urls';
 import { CommonContent } from '../../../common/common.content';
-
-import { filterSelectedUrls } from './handler';
+import { filterSelectedUrls } from '../../../common/support-you-need-during-case/summary/handler';
 
 export const enContent = {
   section: 'Check your answers ',
@@ -55,7 +54,7 @@ const en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
 
-  filterSelectedUrls(userCase);
+  filterSelectedUrls(userCase, urls);
   return {
     ...enContent,
     language: content.language,
@@ -115,7 +114,7 @@ export const urls = {
 const cy: typeof en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userCase = content.userCase!;
-
+  filterSelectedUrls(userCase, urls);
   return {
     ...cyContent,
     language: content.language,
