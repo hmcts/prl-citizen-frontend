@@ -14,6 +14,7 @@ import {
   CALLBACK_URL,
   CITIZEN_HOME_URL,
   DASHBOARD_URL,
+  SCREENING_QUESTIONS,
   SIGN_IN_URL,
   SIGN_OUT_URL,
   TESTING_SUPPORT,
@@ -66,6 +67,9 @@ export class OidcMiddleware {
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         if (ANONYMOUS_URLS.some(url => url.includes(req.path))) {
+          if(req.session?.user && SCREENING_QUESTIONS.some(url => url.includes(req.path))) {
+            return res.redirect(DASHBOARD_URL);
+          }
           return next();
         }
 
