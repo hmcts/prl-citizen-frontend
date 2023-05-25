@@ -5,7 +5,6 @@ import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { caseApi } from '../../app/case/C100CaseApi';
 import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
-// import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 import {

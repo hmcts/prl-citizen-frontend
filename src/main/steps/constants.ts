@@ -9,7 +9,7 @@ export enum Sections {
   AboutApplicantCase = 'aboutApplicantCase',
   AboutCaAndDaRespondentCase = 'aboutCaAndDaRespondentCase',
   C100 = 'c100',
-  Forking = 'forking',
+  Screening = 'screening',
 }
 
 export interface Step {
