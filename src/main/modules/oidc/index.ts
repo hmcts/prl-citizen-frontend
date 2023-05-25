@@ -67,7 +67,7 @@ export class OidcMiddleware {
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
         if (ANONYMOUS_URLS.some(url => url.includes(req.path))) {
-          if(req.session?.user && SCREENING_QUESTIONS.some(url => url.includes(req.path))) {
+          if (req.session?.user && SCREENING_QUESTIONS.some(url => url.includes(req.path))) {
             return res.redirect(DASHBOARD_URL);
           }
           return next();
