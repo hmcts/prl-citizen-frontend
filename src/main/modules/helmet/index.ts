@@ -32,9 +32,7 @@ export class Helmet {
       googleAnalyticsDomain,
       analyticsGoogleDomain,
       "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",
-      "'sha256-QaDKKVS699tLGXx2ns8aDZixtTVNJkp3z6DH0aEfBQE='",
-      "'sha256-tevOX8kk/mjYaKfjdPtj1eVYlLfFtaVTWxjzOMmNp7Q='",
-      "'sha256-ZjdUCAt//TDpVjTXX+6bDfZNwte/RfSYJDgtfQtaoXs='",
+      "'sha256-8ctrIyTvZ7de9zUk26J/MrSc7RAEIPzRr2dyC0G7EsM='",
     ];
 
     if (app.locals.developmentMode) {
