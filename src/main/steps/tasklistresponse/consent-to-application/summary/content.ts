@@ -6,8 +6,10 @@ import { summaryList } from '../../../common/summary/utils';
 
 const urls = {
   doYouConsent: CONSENT_TO_APPLICATION,
+  reasonForNotConsenting: CONSENT_TO_APPLICATION,
   applicationReceivedDate: CONSENT_TO_APPLICATION,
   courtPermission: CONSENT_TO_APPLICATION,
+  courtOrderDetails: CONSENT_TO_APPLICATION,
 };
 
 export const enContent = {
@@ -18,8 +20,10 @@ export const enContent = {
   },
   keys: {
     doYouConsent: 'Do you provide your consent to the application?',
+    reasonForNotConsenting: 'Give your reasons for not consenting to the application.',
     applicationReceivedDate: 'When did you receive the application?',
     courtPermission: 'Is the applicant required to seek permission from the court before making applications?',
+    courtOrderDetails: 'Provide details of the court order in place.',
   },
 };
 
@@ -39,9 +43,11 @@ const cyContent: typeof enContent = {
     consentDetails: '',
   },
   keys: {
-    doYouConsent: 'Do you provide your consent to the application?',
+    doYouConsent: 'Do you provide your consent to the application? (welsh)',
+    reasonForNotConsenting: 'Give your reasons for not consenting to the application. (welsh)',
     applicationReceivedDate: "Pryd gawsoch chi'r cais?",
-    courtPermission: 'Is the applicant required to seek permission from the court before making applications?',
+    courtPermission: 'Is the applicant required to seek permission from the court before making applications? (welsh)',
+    courtOrderDetails: 'Provide details of the court order in place. (welsh)',
   },
 };
 
@@ -50,7 +56,7 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls, enContent.sectionTitles.consentDetails, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, cyContent.sectionTitles.consentDetails, content.language)],
   };
 };
 

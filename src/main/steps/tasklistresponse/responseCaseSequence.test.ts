@@ -4,7 +4,7 @@ import { YesOrNo } from '../../app/case/definition';
 import { responseCaseSequence } from './responseCaseSequence';
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(responseCaseSequence).toHaveLength(68);
+    expect(responseCaseSequence).toHaveLength(69);
     expect(responseCaseSequence[0].url).toBe('/tasklistresponse/consent-to-application/consent');
     expect(responseCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[0].getNextStep({})).toBe('/tasklistresponse/consent-to-application/summary');
@@ -215,6 +215,9 @@ describe('respondent1Sequence', () => {
     expect(responseCaseSequence[50].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/child/concerns-about'
     );
+    expect(responseCaseSequence[68].url).toBe('/respondent/keep-details-private/private_details_confirmed');
+    expect(responseCaseSequence[68].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[68].getNextStep({})).toBe('/tasklistresponse/start');
   });
 });
 

@@ -17,7 +17,14 @@ import { citizenSequence } from './prl-cases/citizenSequence';
 import { respondentCaseSequence } from './respondent/respondentcaseSequence';
 import { responseCaseSequence } from './tasklistresponse/responseCaseSequence';
 // eslint-disable-next-line import/no-unresolved
-import { C100_URL, CITIZEN_HOME_URL, PRL_CASE_URL, PageLink } from './urls';
+import {
+  C100_URL,
+  CITIZEN_HOME_URL,
+  PRL_CASE_URL,
+  PageLink,
+  RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
+  RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
+} from './urls';
 
 const stepForms: Record<string, Form> = {};
 
@@ -41,13 +48,19 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     return CITIZEN_HOME_URL;
   }
   const { path, queryString: queryStr } = getPathAndQueryString(req);
-  const nextStep = [
+  let nextStep = [
     ...citizenSequence,
     ...respondentCaseSequence,
     ...applicantCaseSequence,
     ...responseCaseSequence,
     ...C100Sequence,
   ].find(s => s.url === path);
+  if (
+    req.session.applicationSettings?.navfromRespondToApplication &&
+    (path === RESPONDENT_PRIVATE_DETAILS_CONFIRMED || path === RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED)
+  ) {
+    nextStep = responseCaseSequence.find(s => s.url === path);
+  }
   const url = nextStep ? nextStep.getNextStep(data, req) : CITIZEN_HOME_URL;
   const { path: urlPath, queryString: urlQueryStr } = getPathAndQueryStringFromUrl(url);
   let queryString = '';
