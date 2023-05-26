@@ -44,6 +44,7 @@ describe('generateRespondentTaskList', () => {
             text: taskListItems.check_the_application,
             status: 'NOT_AVAILABLE_YET',
             href: '#',
+            openInAnotherTab: true
           },
         ],
       },
@@ -128,6 +129,7 @@ describe('generateRespondentTaskList', () => {
             text: taskListItems.check_the_application,
             status: 'NOT_AVAILABLE_YET',
             href: '#',
+            openInAnotherTab: true
           },
         ],
       },

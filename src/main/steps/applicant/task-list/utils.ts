@@ -56,6 +56,14 @@ export const getConfirmOrEditYourContactDetails = (
   return status;
 };
 
+export const getYourWitnessStatement = (userCase: CaseWithId): SectionStatus => {
+  let witnessStatement;
+  witnessStatement = userCase.citizenUploadedDocumentList?.find(document => document?.value?.documentType === 'Your witness statements');
+  if(!witnessStatement){
+    return SectionStatus.NOT_AVAILABLE_YET
+  }
+  return SectionStatus.DOWNLOAD;
+};
 export const getYourApplication = (): SectionStatus => {
   return SectionStatus.DOWNLOAD;
 };
