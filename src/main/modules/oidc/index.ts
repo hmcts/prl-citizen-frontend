@@ -5,15 +5,15 @@ import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { caseApi } from '../../app/case/C100CaseApi';
 import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
-// import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 import {
+  ANONYMOUS_URLS,
   C100_URL,
   CALLBACK_URL,
   CITIZEN_HOME_URL,
   DASHBOARD_URL,
-  HEALTH_URL,
+  SCREENING_QUESTIONS,
   SIGN_IN_URL,
   SIGN_OUT_URL,
   TESTING_SUPPORT,
@@ -65,11 +65,10 @@ export class OidcMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        if (req.path.startsWith(HEALTH_URL)) {
-          return next();
-        }
-
-        if (req.path.startsWith(CITIZEN_HOME_URL) && !req.session?.user) {
+        if (ANONYMOUS_URLS.some(url => url.includes(req.path))) {
+          if (req.session?.user && SCREENING_QUESTIONS.some(url => url.includes(req.path))) {
+            return res.redirect(DASHBOARD_URL);
+          }
           return next();
         }
 
@@ -137,8 +136,12 @@ export class OidcMiddleware {
           }
           return next();
         } else {
-          const url = encodeURIComponent(req.originalUrl);
-          res.redirect(SIGN_IN_URL + `?callback=${url}`);
+          if (!req.originalUrl.includes('.css')) {
+            const url = encodeURIComponent(req.originalUrl);
+            res.redirect(SIGN_IN_URL + `?callback=${url}`);
+          } else {
+            next();
+          }
         }
       })
     );
