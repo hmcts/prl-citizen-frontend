@@ -5,14 +5,6 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-
-  {% if FileErrors.length > 0 %}
-{{ govukErrorSummary({
-  titleText: "There is a problem",
-  errorList: FileErrors
-}) }}
-{%endif%}
 <div class="govuk-form-group">
 {% block page_content %}
 <div class="govuk-form-group">
@@ -104,11 +96,6 @@
       </dl>
     </ul> 
   </div>
-  {% if userCase.respondentUploadFiles.length===0 %}
- <span class="govuk-error-message" id="co-file-upload-required-error">
-  
-    <span class="govuk-visually-hidden">Error: </span>{{errors['filesUploadedList'].required}}</span>
-{% endif %}
 
  <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
