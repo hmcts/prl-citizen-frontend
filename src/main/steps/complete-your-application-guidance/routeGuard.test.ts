@@ -10,6 +10,8 @@ describe('complete-your-application-guidance RouteGuard', () => {
       session: {
         userCase: {
           applicationPayOnline: YesOrNo.YES,
+          legalRepresentativeForProceedings: YesOrNo.YES,
+          legalRepresentativeForApplication: YesOrNo.NO,
         },
       },
     });
@@ -17,6 +19,8 @@ describe('complete-your-application-guidance RouteGuard', () => {
     const next = jest.fn();
     routeGuard.get(req, res, next);
     expect(req.session.userCase).not.toContain('applicationPayOnline');
+    expect(req.session.userCase).not.toContain('legalRepresentativeForProceedings');
+    expect(req.session.userCase).not.toContain('legalRepresentativeForApplication');
     expect(next).toHaveBeenCalled();
   });
 
