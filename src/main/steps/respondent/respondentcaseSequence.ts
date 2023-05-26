@@ -92,12 +92,14 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: (_caseData, req) =>
+      req?.session.applicationSettings?.navfromRespondToApplication ? RESPOND_TO_APPLICATION : RESPONDENT_TASK_LIST_URL,
   },
   {
     url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: (_caseData, req) =>
+      req?.session.applicationSettings?.navfromRespondToApplication ? RESPOND_TO_APPLICATION : RESPONDENT_TASK_LIST_URL,
   },
   {
     url: MIAM_START,

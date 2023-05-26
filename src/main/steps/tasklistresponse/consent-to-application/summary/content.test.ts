@@ -12,21 +12,25 @@ export const enContent = {
   },
   keys: {
     doYouConsent: 'Do you provide your consent to the application?',
+    reasonForNotConsenting: 'Give your reasons for not consenting to the application.',
     applicationReceivedDate: 'When did you receive the application?',
     courtPermission: 'Is the applicant required to seek permission from the court before making applications?',
+    courtOrderDetails: 'Provide details of the court order in place.',
   },
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
+  section: 'Gwirio eich atebion',
   title: 'Your consent to the application',
   sectionTitles: {
     consentDetails: '',
   },
   keys: {
-    doYouConsent: 'Do you provide your consent to the application?',
-    applicationReceivedDate: 'When did you receive the application?',
-    courtPermission: 'Is the applicant required to seek permission from the court before making applications?',
+    doYouConsent: 'Do you provide your consent to the application? (welsh)',
+    reasonForNotConsenting: 'Give your reasons for not consenting to the application. (welsh)',
+    applicationReceivedDate: "Pryd gawsoch chi'r cais?",
+    courtPermission: 'Is the applicant required to seek permission from the court before making applications? (welsh)',
+    courtOrderDetails: 'Provide details of the court order in place. (welsh)',
   },
 };
 
@@ -34,18 +38,19 @@ describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   commonContent.userCase = mockUserCase;
   let generatedContent;
-  beforeEach(() => {
-    generatedContent = generateContent(commonContent);
-  });
+
   test('should return correct english content', () => {
+    generatedContent = generateContent(commonContent);
     expect(generatedContent.section).toEqual(enContent.section);
     expect(generatedContent.title).toEqual(enContent.title);
     expect(generatedContent.keys).toEqual(enContent.keys);
   });
 
   test('should return correct welsh content', () => {
-    const commonConten = { language: 'cy' } as CommonContent;
-    commonConten.userCase = mockUserCase;
+    generatedContent = generateContent({
+      ...commonContent,
+      language: 'cy',
+    });
     expect(generatedContent.section).toEqual(cyContent.section);
     expect(generatedContent.title).toEqual(cyContent.title);
     expect(generatedContent.keys).toEqual(cyContent.keys);
