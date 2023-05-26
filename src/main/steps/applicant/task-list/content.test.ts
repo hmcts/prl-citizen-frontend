@@ -115,7 +115,7 @@ describe('task-list > content', () => {
             {
               href: '/applicant/witnessstatements',
               id: 'your-application-witness-statment',
-              status: "NOT_AVAILABLE_YET",
+              status: 'NOT_AVAILABLE_YET',
               text: 'Witness statement (PDF)',
             },
           ],
@@ -189,7 +189,7 @@ describe('task-list > content', () => {
             {
               href: '/applicant/witnessstatements',
               id: 'your-application-witness-statment',
-              status: "NOT_AVAILABLE_YET",
+              status: 'NOT_AVAILABLE_YET',
               text: 'Witness statement (PDF)',
             },
           ],

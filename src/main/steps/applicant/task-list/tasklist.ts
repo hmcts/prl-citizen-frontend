@@ -121,7 +121,7 @@ const getTheApplication = (taskListItems, userCase) => {
         text: taskListItems.your_application,
         status: getYourApplication(),
         href: URL.YOUR_APPLICATION_FL401,
-        openInAnotherTab: true
+        openInAnotherTab: true,
       },
       {
         id: 'your-application-witness-statment',
