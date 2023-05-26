@@ -5,7 +5,7 @@ import { isFieldFilledIn } from '../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  title: 'Do you want your representative to complete the application for you?',
+  title: 'Do you want your legal representative to complete the application for you?',
   yes: 'Yes',
   no: 'No',
   cancel: 'Cancel',
@@ -17,7 +17,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Do you want your representative to complete the application for you? - welsh',
+  title: 'Do you want your legal representative to complete the application for you? - welsh',
   yes: 'Yes - welsh',
   no: 'No - welsh',
   cancel: 'Cancel - welsh',
