@@ -65,8 +65,10 @@ export class OidcMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        if (ANONYMOUS_URLS.some(url => url.includes(req.path))) {
-          if (req.session?.user && SCREENING_QUESTIONS.some(url => url.includes(req.path))) {
+        const isAnonymousPage = ANONYMOUS_URLS.some(url => url.includes(req.path));
+        if (isAnonymousPage) {
+          const isScreeningPage = SCREENING_QUESTIONS.some(url => url.includes(req.path));
+          if (req.session?.user && isScreeningPage) {
             return res.redirect(DASHBOARD_URL);
           }
           return next();
@@ -136,12 +138,10 @@ export class OidcMiddleware {
           }
           return next();
         } else {
-          if (!req.originalUrl.includes('.css')) {
-            const url = encodeURIComponent(req.originalUrl);
-            res.redirect(SIGN_IN_URL + `?callback=${url}`);
-          } else {
-            next();
+          if (req.originalUrl.includes('.css')) {
+            return next();
           }
+          res.redirect(SIGN_IN_URL + `?callback=${encodeURIComponent(req.originalUrl)}`);
         }
       })
     );
