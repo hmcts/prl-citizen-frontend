@@ -5,12 +5,11 @@ import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Case } from '../../../app/case/case';
 import { Applicant, CaseType, Respondent } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { GetController } from '../../../app/controller/GetController';
 import { APPLICANT_TASKLIST_CONTACT_PREFERENCES } from '../../../steps/urls';
 
 import { getContactPreferences } from './ContactPreferencesMapper';
 
-export class ContactPreferencesGetController extends GetController {
+export class ContactPreferencesGetController {
   public static async c100Respondent(req: AppRequest): Promise<void> {
     req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
       if (respondent?.value?.user?.idamId === req.session?.user.id && respondent?.value?.response) {

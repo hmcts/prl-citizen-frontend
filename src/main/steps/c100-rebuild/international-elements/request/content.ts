@@ -20,6 +20,9 @@ export const en = () => ({
     ie_provideDetailsRequest: {
       required:
         'Provide details about another country asking (or being asked) for information or help for the children',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 });
@@ -40,6 +43,9 @@ export const cy = () => ({
     ie_provideDetailsRequest: {
       required:
         "Darparwch fanylion am wlad arall sy'n gofyn (neu y gofynnwyd iddi) am wybodaeth neu gymorth ar gyfer y plant",
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 });

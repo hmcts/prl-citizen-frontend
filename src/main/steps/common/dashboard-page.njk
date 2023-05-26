@@ -19,7 +19,7 @@
         text: signOut if isLoggedIn
       }
     ]
-  
+
   }) }}
 {% endblock %}
 
@@ -39,7 +39,7 @@
     tag: {
       text: phase
     },
-    html: feedback + languageToggle
+    html: inPageSurveyContent + languageToggle
   }) }}
 {% endblock %}
 
@@ -54,9 +54,9 @@
         {% if title %}
           <h1 class="govuk-heading-l govuk-!-margin-bottom-5">{{ title }}</h1>
         {% endif %}
-       
+
       {% endblock %}
-      
+
       {% if form %}
         {% block form %}
           {% include "common/form/form.njk"%}
@@ -75,28 +75,57 @@
 {% endblock %}
 
 {% block footer %}
-  {{ govukFooter({
-    meta: {
-      items: [
-        {
-          href: "/cookies",
-          text: cookies
-        },
-        {
-          href: "/privacy-policy",
-          text: privacyPolicy
-        },
-        {
-          href: "/accessibility-statement",
-          text: accessibility
-        },
-        {
-          href: "/terms-and-conditions",
-          text: termsAndConditions
-        }
-      ]
-    }
-  }) }}
+  {% if testingSupport %}
+    {{ govukFooter({
+      meta: {
+        items: [
+          {
+            href: "/cookies",
+            text: cookies
+          },
+          {
+            href: "/privacy-policy",
+            text: privacyPolicy
+          },
+          {
+            href: "/accessibility-statement",
+            text: accessibility
+          },
+          {
+            href: "/terms-and-conditions",
+            text: termsAndConditions
+          },
+          {
+            href: "/testing-support",
+            text: testingSupportLabel
+          }
+        ]
+      }
+    }) }}
+  {% else %}
+    {{ govukFooter({
+      meta: {
+        items: [
+          {
+            href: "/cookies",
+            text: cookies
+          },
+          {
+            href: "/privacy-policy",
+            text: privacyPolicy
+          },
+          {
+            href: "/accessibility-statement",
+            text: accessibility
+          },
+          {
+            href: "/terms-and-conditions",
+            text: termsAndConditions
+          }
+        ]
+      }
+    }) }}
+   {% endif %}
 {% endblock %}
 
 {% block bodyEnd %}

@@ -7,13 +7,17 @@ import {
   getConfidentialData,
   validateDataCompletion,
 } from '../../../../steps/common/confirm-contact-details/checkanswers/ConfirmContactDetailsGetController';
-import { setTextFields } from '../../../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
+import {
+  //mapText,
+  setTextFields,
+} from '../../../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
 
 @autobind
 export default class ConfirmContactDetailsGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const redirect = false;
     Object.assign(req.session.userCase, setTextFields(req));
+    // Object.assign(req.session.userCase, mapText(req));
     validateDataCompletion(req);
     getConfidentialData(req);
     const callback = redirect ? undefined : () => super.get(req, res);

@@ -16,6 +16,7 @@ import {
   HEALTH_URL,
   SIGN_IN_URL,
   SIGN_OUT_URL,
+  TESTING_SUPPORT,
 } from '../../steps/urls';
 
 /**
@@ -74,6 +75,7 @@ export class OidcMiddleware {
 
         if (app.locals.developmentMode) {
           req.session.c100RebuildLdFlag = config.get('launchDarkly.offline');
+          req.session.testingSupport = config.get('launchDarkly.offline');
         }
 
         if (req.session?.user) {
@@ -87,9 +89,21 @@ export class OidcMiddleware {
             req.session.c100RebuildLdFlag !== undefined
               ? req.session.c100RebuildLdFlag
               : (req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled());
+          const testingSupportLdFlag: boolean =
+            req.session.testingSupport !== undefined
+              ? req.session.testingSupport
+              : (req.session.testingSupport = await getFeatureToggle().isTestingSupportEnabled());
           //If C100-Rebuild URL is not part of the path, then we need to redirect user to dashboard even if they click on case
           if (req.path.startsWith(C100_URL)) {
             if (c100RebuildLdFlag) {
+              return next();
+            } else {
+              return res.redirect(DASHBOARD_URL);
+            }
+          }
+          //If testing support URL is not part of the path, then we need to redirect user to dashboard even if they click on link
+          if (req.path.startsWith(TESTING_SUPPORT)) {
+            if (testingSupportLdFlag) {
               return next();
             } else {
               return res.redirect(DASHBOARD_URL);

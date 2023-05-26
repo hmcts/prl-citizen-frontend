@@ -3,7 +3,7 @@ import { CaseWithId } from '../../../../../app/case/case';
 import { C100RebuildPartyDetails, YesNoDontKnow } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 import {
   form as manualAddressForm,
   languages as manualAddressFormLanguages,
@@ -41,6 +41,11 @@ export const en = () => ({
     Country: {
       required: 'Enter the country ',
     },
+    provideDetailsOfPreviousAddresses: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
   },
 });
 
@@ -72,6 +77,11 @@ export const cy = () => ({
     },
     Country: {
       required: 'Nodwch y wlad',
+    },
+    provideDetailsOfPreviousAddresses: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 });
@@ -133,6 +143,7 @@ export const generateFormFields = (caseData: Partial<C100RebuildPartyDetails>): 
                 value: provideDetailsOfPreviousAddresses,
                 labelSize: null,
                 id: 'provideDetailsOfPreviousAddresses',
+                validator: value => isTextAreaValid(value),
               },
             },
           },

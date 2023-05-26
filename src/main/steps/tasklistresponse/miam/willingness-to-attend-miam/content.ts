@@ -1,6 +1,6 @@
 import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import {
@@ -26,6 +26,9 @@ const en = {
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -45,6 +48,9 @@ const cy: typeof en = {
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -86,7 +92,7 @@ export const form: FormContent = {
               type: 'textarea',
               label: l => l.explainWhyLabel,
               id: 'miam-explanation',
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },

@@ -43,9 +43,11 @@ describe('Test cases for safety concerns check answers', () => {
       id: 'id',
       state: undefined,
       PRL_c1A_concernAboutChild: ['physicalAbuse', 'psychologicalAbuse'],
-      /*'c1A_haveSafetyConcerns':'Yes',
-    'c1A_passportOffice':'Yes',
-    'c1A_possessionChildrenPassport':'Father',*/
+      PRL_c1A_haveSafetyConcerns: 'Yes',
+      PRL_c1A_passportOffice: 'Yes',
+      PRL_c1A_possessionChildrenPassport: ['mother', 'Other'],
+      PRL_c1A_provideOtherDetails: 'aunt',
+      PRL_c1A_childAbductedBefore: 'Yes',
     } as ANYTYPE;
     const safetyConcerns_childObj = SafetyConcerns_child(
       { sectionTitles, keys, Yes: 'Yes', No: 'No', content },

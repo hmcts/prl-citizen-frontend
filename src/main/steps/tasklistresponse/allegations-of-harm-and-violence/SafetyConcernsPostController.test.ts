@@ -1,87 +1,95 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../app/case/CosApiClient';
+import { RESPOND_TO_APPLICATION } from '../../urls';
 
 import { SafetyConcernsPostController } from './SafetyConcernsPostController';
 
-const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCase');
-const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
-
-let respondents;
+jest.mock('../../../app/case/CosApiClient');
+const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
 
 describe('SafetyConcernsPostController', () => {
   let fields;
   const safetyConcernsPostController = new SafetyConcernsPostController(fields);
   const req = mockRequest();
   const res = mockResponse();
+
   beforeEach(() => {
-    jest.clearAllMocks;
-    respondents = [
-      {
-        id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
-        value: {
-          firstName: 'TestUser',
-          lastName: 'Citizen',
-          email: 'test@example.net',
-          user: {
-            idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
-            email: 'test1234@example.net',
+    req.session.user = {
+      ...req.session.user,
+      id: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+    };
+    req.session.userCase = {
+      ...req.session.userCase,
+      state: 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
+      respondents: [
+        {
+          id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          value: {
+            firstName: 'testuser',
+            lastName: 'Citizen',
+            email: 'abc@example.net',
+            dateOfBirth: '03-20-2023',
+            phoneNumber: '7755664466',
+            placeOfBirth: 'BPP',
+            previousName: 'test',
+            isAtAddressLessThan5Years: 'No',
+            addressLivedLessThan5YearsDetails: 'Hello',
+            address: {
+              AddressLine1: 'string',
+              AddressLine2: 'string',
+              AddressLine3: 'string',
+              PostTown: 'string',
+              County: 'string',
+              PostCode: 'string',
+              Country: 'string',
+            },
+            user: {
+              idamId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+              email: 'test1234@example.net',
+            },
+            response: {},
           },
-          response: {},
         },
-      },
-    ];
-    retrieveByCaseIdMock.mockResolvedValue(req.session.userCase);
-    updateCaserMock.mockResolvedValue(req.session.userCase);
+      ],
+      caseInvites: [
+        {
+          id: '577695bd-2fb5-4418-a699-79ee352ed5bb',
+          value: {
+            partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+            caseInviteEmail: 'respondent2@example.net',
+            accessCode: '3GYFGJHO',
+            invitedUserId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+            hasLinked: 'Yes',
+            expiryDate: '2023-05-07',
+            isApplicant: 'No',
+          },
+        },
+      ],
+      caseTypeOfApplication: 'C100',
+      PRL_c1A_haveSafetyConcerns: 'No',
+    };
   });
 
   afterEach(() => {
-    retrieveByCaseIdMock.mockClear();
     updateCaserMock.mockClear();
-    jest.clearAllMocks;
   });
 
-  test('Should update the case without safety concerns', async () => {
-    const response = {
-      miam: {
-        attendedMiam: 'No',
-        willingToAttendMiam: 'No',
-        reasonNotAttendingMiam: 'dummy_value',
-      },
-    };
-
-    respondents[0].value.response = response;
-    req.session.userCase.respondents = respondents;
-
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
-
-    req.session.userCase.miamStart = 'No';
-    req.session.userCase.miamWillingness = 'No';
-    req.session.userCase.miamNotWillingExplnation = 'dummy_value';
-
+  test('Should update the userCase for safety concerns when updateCaseData API is success', async () => {
+    updateCaserMock.mockResolvedValue(req.session.userCase);
     await safetyConcernsPostController.post(req, res);
-
-    expect(retrieveByCaseIdMock).toBeCalled;
-    expect(updateCaserMock).toBeCalled;
+    expect(req.session.userCase.respondents[0].value.response.safetyConcerns).toEqual(
+      expect.objectContaining({
+        haveSafetyConcerns: 'No',
+      })
+    );
+    expect(res.redirect).toHaveBeenCalledWith(RESPOND_TO_APPLICATION);
   });
 
-  test.skip('Should update the case with safety concerns', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
-    const response = {
-      miam: {
-        attendedMiam: 'No',
-        willingToAttendMiam: 'Yes',
-      },
-    };
-    req.url = 'allegations-of-harm-and-violence';
-    respondents[0].value.response = response;
-    req.session.userCase.respondents = respondents;
-
-    req.session.userCase.miamStart = 'No';
-    req.session.userCase.miamWillingness = 'Yes';
-
-    await safetyConcernsPostController.post(req, res);
-    expect(retrieveByCaseIdMock).toBeCalled;
-    expect(updateCaserMock).toBeCalled;
+  test('Should not update the userCase for safety concerns when updateCaseData API is throwing error', async () => {
+    updateCaserMock.mockRejectedValue({ message: 'MOCK_ERROR', response: { status: 500, data: 'Error' } });
+    await expect(safetyConcernsPostController.post(req, res)).rejects.toThrow(
+      'SafetyConcernsPostController - Case could not be updated.'
+    );
   });
 });

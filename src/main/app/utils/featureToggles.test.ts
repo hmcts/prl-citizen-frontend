@@ -48,6 +48,15 @@ describe('FeatureToggles', () => {
         .be.false;
     });
   });
+  describe('isTestingSupportEnabled', () => {
+    it('should throw and error if isC100reBuildEnabled does not exist', async () => {
+      new FeatureToggles(new mockedLaunchDarklyClient()).isTestingSupportEnabled().then(data => {
+        expect(data).to.be.undefined;
+      });
+      await expect(await new FeatureToggles(new mockedLaunchDarklyClient()).isTestingSupportEnabled().then(() => false))
+        .to.be.false;
+    });
+  });
 
   describe('initializeFeatureToggle', () => {
     it('when invoked should run LaunchDarklyClient.initializeLD and return featureToggleObject', () => {
