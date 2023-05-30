@@ -7,7 +7,6 @@ cookieManager.on('UserPreferencesLoaded', preferences => {
 
 cookieManager.on('UserPreferencesSaved', preferences => {
   const dataLayer = window.dataLayer || [];
-  console.log('I am saved', dataLayer);
   const dtrum = window.dtrum;
 
   dataLayer.push({ event: 'Cookie Preferences', cookiePreferences: preferences });

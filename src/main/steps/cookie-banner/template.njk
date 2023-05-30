@@ -6,11 +6,11 @@
 {% endset %}
 
     {% set acceptHtml %}
-  <p class="govuk-body">You’ve accepted additional cookies. You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>
+  <p class="govuk-body">{{cookiesAcceptedPart}} <a class="govuk-link" href="/cookies">{{cookiesAcceptorRejectPart2}}</a> {{cookiesAcceptorRejectPart3}}</p>
 {% endset %}
 
 {% set rejectHtml %}
-  <p class="govuk-body">You’ve rejected additional cookies. You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>
+  <p class="govuk-body">{{cookiesRejectedPart}} <a class="govuk-link" href="/cookies">{{cookiesAcceptorRejectPart2}}</a> {{cookiesAcceptorRejectPart3}}</p>
 {% endset %}
 
 {{ govukCookieBanner({
