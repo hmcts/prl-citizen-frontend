@@ -120,7 +120,7 @@ export const mapProceedingDetails = (partyDetails: PartyDetails): Partial<CaseWi
       const orderType = proceedings.value.orderType as ProceedingsOrderTypes;
       courtProceedingsOrders.push(orderType);
       courtProceedingsOrders1 = courtProceedingsOrders;
-      const id = 0;
+      let id = 0;
       proceedings.value.proceedingDetails?.forEach(proceeding => {
         let val, val2;
         if (isNull(proceeding.value?.currentOrder)) {
@@ -133,6 +133,7 @@ export const mapProceedingDetails = (partyDetails: PartyDetails): Partial<CaseWi
         } else {
           val2 = proceeding.value?.orderCopy;
         }
+        console.log(typeof id);
         const proceedingOrderInterface: ProceedingsOrderInterface = {
           id: getNextId(id),
           caseNo: proceeding.value?.caseNo,
@@ -142,6 +143,7 @@ export const mapProceedingDetails = (partyDetails: PartyDetails): Partial<CaseWi
           orderEndDate: getDisplayDate(proceeding.value?.orderEndDate),
           orderDetail: proceeding.value?.orderDetail,
         };
+        id = id + 1;
         if (proceeding.value?.orderDocument) {
           proceedingOrderInterface.orderDocument = getDocumentInfo(proceeding.value?.orderDocument);
         }
@@ -201,7 +203,7 @@ export function getDocumentInfo(
   orderDocument: Document
 ): import('../../../app/case/definition').OrderDocumentInfo | undefined {
   const orderDocumentInfo: OrderDocumentInfo = {
-    id: ' ',
+    id: orderDocument.document_url.split('/')[orderDocument.document_url.split('/').length - 1],
     binaryUrl: orderDocument?.document_binary_url,
     filename: orderDocument?.document_filename,
     url: orderDocument?.document_url,
