@@ -133,7 +133,6 @@ export const mapProceedingDetails = (partyDetails: PartyDetails): Partial<CaseWi
         } else {
           val2 = proceeding.value?.orderCopy;
         }
-        console.log(typeof id);
         const proceedingOrderInterface: ProceedingsOrderInterface = {
           id: getNextId(id),
           caseNo: proceeding.value?.caseNo,
