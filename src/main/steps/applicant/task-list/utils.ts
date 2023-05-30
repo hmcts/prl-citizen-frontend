@@ -57,13 +57,11 @@ export const getConfirmOrEditYourContactDetails = (
 };
 
 export const getYourWitnessStatement = (userCase: CaseWithId): SectionStatus => {
-  const witnessStatement = userCase.citizenUploadedDocumentList?.find(
+  return userCase.citizenUploadedDocumentList?.find(
     document => document?.value?.documentType === 'Your witness statements'
-  );
-  if (!witnessStatement) {
-    return SectionStatus.NOT_AVAILABLE_YET;
-  }
-  return SectionStatus.DOWNLOAD;
+  )
+    ? SectionStatus.DOWNLOAD
+    : SectionStatus.NOT_AVAILABLE_YET;
 };
 export const getYourApplication = (): SectionStatus => {
   return SectionStatus.DOWNLOAD;
