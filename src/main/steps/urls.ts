@@ -581,3 +581,20 @@ export const C100_WITHDRAW_CASE_CONFIRMATION: PageLink = `${C100_URL}/withdraw/c
 /** applicant/tasklist hearing needs */
 export const HEARING_NEEDS: PageLink = '/hearing-needs';
 export const APPLICANT_TASKLIST_HEARING_NEEDS: PageLink = `${APPLICANT}${HEARING_NEEDS}/support-help`;
+
+/** Screening questions */
+export const SCREENING_QUESTION_GUIDANCE: PageLink = '/complete-your-application-guidance';
+export const SCREENING_QUESTION_COURT_FEE: PageLink = '/agree-court-fee';
+export const SCREENING_QUESTION_PROCEEDINGS_LEGAL_REP: PageLink = '/legal-representative-proceedings';
+export const SCREENING_QUESTION_PAPER_FORM: PageLink = '/complete-your-application-paper-form';
+export const SCREENING_QUESTION_COMPLETE_APP_LEGAL_REP: PageLink = '/complete-your-application-legal-representative';
+export const SCREENING_QUESTION_CONTACT_LEGAL_REP: PageLink = '/contact-legal-representative';
+export const SCREENING_QUESTIONS = [
+  SCREENING_QUESTION_GUIDANCE,
+  SCREENING_QUESTION_COURT_FEE,
+  SCREENING_QUESTION_PROCEEDINGS_LEGAL_REP,
+  SCREENING_QUESTION_PAPER_FORM,
+  SCREENING_QUESTION_COMPLETE_APP_LEGAL_REP,
+  SCREENING_QUESTION_CONTACT_LEGAL_REP,
+];
+export const ANONYMOUS_URLS = [HEALTH_URL, CITIZEN_HOME_URL, ...SCREENING_QUESTIONS];

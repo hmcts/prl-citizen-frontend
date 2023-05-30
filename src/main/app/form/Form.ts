@@ -145,6 +145,7 @@ export interface FormContent {
   submit?: {
     text: Label;
     classes?: string;
+    href?: string;
   };
   onlyContinue?: {
     text: Label;
@@ -174,7 +175,11 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
-
+  link?: {
+    text: Label;
+    href: string;
+    classes?: string;
+  };
   fields: FormFields | FormFieldsFn;
 }
 

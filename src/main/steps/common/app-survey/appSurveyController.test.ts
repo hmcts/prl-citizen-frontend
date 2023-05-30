@@ -75,7 +75,7 @@ describe('AppSurvey', () => {
       expect(
         appSurveyController.getExitPageSurveyContent(PartyType.APPLICANT, appSurveyContents.en.exitPageSurveyContent)
       ).toBe(
-        'Complete this short, 5-minute survey to help imrpove our services for you and others.<div><a class="govuk-notification-banner__link" href="https://www.smartsurvey.co.uk/s/SurveyExit/?service=c100&party=app" target="_blank">Please leave your feedback here(opens in a new tab)</a>.</div>'
+        'Complete this short, 5-minute survey to help improve our services for you and others.<div><a class="govuk-notification-banner__link" href="https://www.smartsurvey.co.uk/s/SurveyExit/?service=c100&party=app" target="_blank">Please leave your feedback here(opens in a new tab)</a>.</div>'
       );
     });
 
@@ -83,7 +83,7 @@ describe('AppSurvey', () => {
       expect(
         appSurveyController.getExitPageSurveyContent(PartyType.RESPONDENT, appSurveyContents.en.exitPageSurveyContent)
       ).toBe(
-        'Complete this short, 5-minute survey to help imrpove our services for you and others.<div><a class="govuk-notification-banner__link" href="https://www.smartsurvey.co.uk/s/SurveyExit/?service=c100&party=resp" target="_blank">Please leave your feedback here(opens in a new tab)</a>.</div>'
+        'Complete this short, 5-minute survey to help improve our services for you and others.<div><a class="govuk-notification-banner__link" href="https://www.smartsurvey.co.uk/s/SurveyExit/?service=c100&party=resp" target="_blank">Please leave your feedback here(opens in a new tab)</a>.</div>'
       );
     });
   });
