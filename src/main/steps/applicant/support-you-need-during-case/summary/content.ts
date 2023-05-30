@@ -43,9 +43,14 @@ export const enContent = {
       value: 'other',
       display: true,
     },
+    signLanguageDetails: {
+      dependantOn: 'helpCommunication',
+      value: 'signLanguageDetails',
+      display: true,
+    },
     describeOtherNeed: {
       dependantOn: 'helpCommunication',
-      value: 'Other',
+      value: 'other',
       display: true,
     },
     communicationSupportOther: {
@@ -112,9 +117,14 @@ const cyContent: typeof enContent = {
       value: 'other',
       display: true,
     },
+    signLanguageDetails: {
+      dependantOn: 'helpCommunication',
+      value: 'signLanguageDetails',
+      display: true,
+    },
     describeOtherNeed: {
       dependantOn: 'helpCommunication',
-      value: 'Other',
+      value: 'other',
       display: true,
     },
     communicationSupportOther: {
@@ -205,14 +215,17 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
 
   if (userCase.reasonableAdjustments?.includes('commhelp')) {
     Object.assign(urls, { helpCommunication: COMMUNICATION_HELP });
+    Object.assign(urls, { signLanguageDetails: COMMUNICATION_HELP });
     Object.assign(urls, { describeOtherNeed: COMMUNICATION_HELP });
 
     Object.assign(enContent.keys, {
       helpCommunication: 'I need help communicating and understanding',
+      signLanguageDetails: 'Please provide sign language details',
       describeOtherNeed: 'Describe what you need',
     });
     Object.assign(cyContent.keys, {
       helpCommunication: 'I need help communicating and understanding - welsh',
+      signLanguageDetails: 'Please provide sign language details -welsh',
       describeOtherNeed: 'Describe what you need - welsh',
     });
   }
@@ -336,7 +349,9 @@ function deleteCourtHearingFields(userCase: Partial<CaseWithId>) {
 
 function deleteHelpCommunicationFields(userCase: Partial<CaseWithId>) {
   userCase.describeOtherNeed = '';
+  userCase.signLanguageDetails = '';
 
+  delete urls['signLanguageDetails'];
   delete urls['helpCommunication'];
   delete urls['describeOtherNeed'];
 }

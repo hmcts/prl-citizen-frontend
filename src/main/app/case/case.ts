@@ -466,7 +466,7 @@ export interface Case {
   docsDetails?: string;
   largePrintDetails?: string;
   otherDetails?: string;
-  describeSignLanguageDetails?: string;
+  signLanguageDetails?: string;
   courtHearing?: string[];
   supportWorkerDetails?: string;
   familyProviderDetails?: string;

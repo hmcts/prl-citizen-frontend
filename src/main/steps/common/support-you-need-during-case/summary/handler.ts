@@ -89,7 +89,7 @@ function processHearingSupportData(userCase: Partial<CaseWithId>) {
 }
 function processCommunicationHelpData(userCase: Partial<CaseWithId>) {
   if (!userCase?.helpCommunication?.includes('signlanguage')) {
-    userCase.describeSignLanguageDetails = '';
+    userCase.signLanguageDetails = '';
   }
   if (!userCase?.helpCommunication?.includes('other')) {
     userCase.describeOtherNeed = '';
@@ -117,7 +117,7 @@ function reasonableAdjustment(userCase: Partial<CaseWithId>, urls: object) {
 
   if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.COMMUNICATION_HELP)) {
     Object.assign(urls, { helpCommunication: CA_DA_COMMUNICATION_HELP });
-    Object.assign(urls, { describeSignLanguageDetails: CA_DA_COMMUNICATION_HELP });
+    Object.assign(urls, { signLanguageDetails: CA_DA_COMMUNICATION_HELP });
     Object.assign(urls, { describeOtherNeed: CA_DA_COMMUNICATION_HELP });
   }
 
