@@ -78,10 +78,10 @@ describe('prepareRequest', () => {
     expect(result.hearingDetails).toBeUndefined();
   });
 
-  test('should remove describeSignLanguageDetails field if helpCommunication Array does not include "signlanguage" value', () => {
+  test('should remove signLanguageDetails field if helpCommunication Array does not include "signlanguage" value', () => {
     const mockCaseWithId = {
       helpCommunication: ['test'],
-      describeSignLanguageDetails: 'Details of sign language',
+      signLanguageDetails: 'Details of sign language',
     };
 
     const result = prepareSupportYouNeedDuringCaseRequest({
@@ -90,7 +90,7 @@ describe('prepareRequest', () => {
       ...mockCaseWithId,
     });
 
-    expect(result.describeSignLanguageDetails).toBeUndefined();
+    expect(result.signLanguageDetails).toBeUndefined();
   });
 
   test('should remove describeOtherNeed Array if helpCommunication Array does not include "other" value', () => {
@@ -108,10 +108,10 @@ describe('prepareRequest', () => {
     expect(result.describeOtherNeed).toBeUndefined();
   });
 
-  test('should remove describeSignLanguageDetails field if reasonableAdjustments Array does not include "commhelp" value', () => {
+  test('should remove signLanguageDetails field if reasonableAdjustments Array does not include "commhelp" value', () => {
     const mockCaseWithId = {
       reasonableAdjustments: ['something'],
-      describeSignLanguageDetails: 'Details of sign language',
+      signLanguageDetails: 'Details of sign language',
     };
 
     const result = prepareSupportYouNeedDuringCaseRequest({
@@ -120,7 +120,7 @@ describe('prepareRequest', () => {
       ...mockCaseWithId,
     });
 
-    expect(result.describeSignLanguageDetails).toBeUndefined();
+    expect(result.signLanguageDetails).toBeUndefined();
   });
 
   test('should remove languageDetails field if languageRequirements Array does not include "languageinterpreter" value', () => {
@@ -324,7 +324,7 @@ describe('mapSupportYouNeedDetails', () => {
             docsSupport: ['docsDetails'],
             otherDetails: 'other details',
             languageRequirements: ['languageinterpreter'],
-            describeSignLanguageDetails: 'test description',
+            signLanguageDetails: 'test description',
             reasonableAdjustments: ['docsformat', 'commhelp'],
             safetyArrangements: ['other'],
             safetyArrangementsDetails: 'test description',
@@ -361,11 +361,11 @@ describe('mapSupportYouNeedDetails', () => {
       otherDetails: 'other details',
       languageRequirements: ['languageinterpreter'],
       languageDetails: undefined,
-      describeSignLanguageDetails: 'test description',
+      describeSignLanguageDetails: undefined,
       reasonableAdjustments: ['docsformat', 'commhelp'],
       safetyArrangements: ['other'],
       safetyArrangementsDetails: 'test description',
-      signLanguageDetails: undefined,
+      signLanguageDetails: 'test description',
       travellingToCourt: ['parkingspace', 'other'],
       travellingOtherDetails: 'test details',
       attendingToCourt: ['nohearings'],

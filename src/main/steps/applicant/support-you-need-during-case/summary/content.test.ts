@@ -31,9 +31,14 @@ const en = {
       value: 'other',
       display: true,
     },
+    signLanguageDetails: {
+      dependantOn: 'helpCommunication',
+      value: 'signLanguageDetails',
+      display: true,
+    },
     describeOtherNeed: {
       dependantOn: 'helpCommunication',
-      value: 'Other',
+      value: 'other',
       display: true,
     },
     communicationSupportOther: {
@@ -87,9 +92,14 @@ const cy: typeof en = {
       value: 'other',
       display: true,
     },
+    signLanguageDetails: {
+      dependantOn: 'helpCommunication',
+      value: 'signLanguageDetails',
+      display: true,
+    },
     describeOtherNeed: {
       dependantOn: 'helpCommunication',
-      value: 'Other',
+      value: 'other',
       display: true,
     },
     communicationSupportOther: {

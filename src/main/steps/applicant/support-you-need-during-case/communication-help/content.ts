@@ -37,7 +37,7 @@ const en = {
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
-    describeSignLanguageDetails: {
+    signLanguageDetails: {
       required: 'Please describe sign language details',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
@@ -81,7 +81,7 @@ const cy: typeof en = {
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
-    describeSignLanguageDetails: {
+    signLanguageDetails: {
       required: 'Please describe sign language details',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
@@ -130,7 +130,7 @@ export const form: FormContent = {
           label: l => l.signlanguage,
           value: 'signlanguage',
           subFields: {
-            describeSignLanguageDetails: {
+            signLanguageDetails: {
               type: 'textarea',
               attributes: {
                 rows: 1,
@@ -170,7 +170,7 @@ export const form: FormContent = {
         {
           name: 'helpCommunication',
           label: l => l.other,
-          value: 'Other',
+          value: 'other',
           subFields: {
             describeOtherNeed: {
               type: 'textarea',
