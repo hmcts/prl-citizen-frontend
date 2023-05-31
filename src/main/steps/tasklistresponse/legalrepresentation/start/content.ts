@@ -16,7 +16,7 @@ const en = {
     },
   },
   find: 'Find legal representation',
-  legal: 'Find legal representation',
+  legal: 'Do you need legal aid?',
 };
 
 const cy: typeof en = {
@@ -32,7 +32,7 @@ const cy: typeof en = {
     },
   },
   find: 'Find legal representation -welsh',
-  legal: 'Find legal representation -welsh',
+  legal: 'Do you need legal aid? -welsh',
 };
 
 const languages = {
