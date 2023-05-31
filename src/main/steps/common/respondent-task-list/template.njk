@@ -22,9 +22,15 @@
 {% macro taskName(item) %}
   <span class="app-task-list__task-name">
     {% if item.href %}
+    {% if item.openInAnotherTab %}
+      <a id="{{item.id}}" class="govuk-link" href="{{item.href}}"  target="_blank" aria-describedby="{{item.id}}-status">
+        {{item.text}}
+      </a>
+       {% else %}
       <a id="{{item.id}}" class="govuk-link" href="{{item.href}}" aria-describedby="{{item.id}}-status">
         {{item.text}}
       </a>
+       {% endif %}
     {% else %}
       <p id="{{item.id}}" class="govuk-body govuk-!-margin-bottom-0" aria-describedby="{{item.id}}-status">
         {{item.text}}
