@@ -590,3 +590,19 @@ export const RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM: PageLink = `${RESPO
 
 export const APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START: PageLink = `${APPLICANT}/remove-legal-representative/start`;
 export const APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM: PageLink = `${APPLICANT}/remove-legal-representative/confirm`;
+/** Screening questions */
+export const SCREENING_QUESTION_GUIDANCE: PageLink = '/complete-your-application-guidance';
+export const SCREENING_QUESTION_COURT_FEE: PageLink = '/agree-court-fee';
+export const SCREENING_QUESTION_PROCEEDINGS_LEGAL_REP: PageLink = '/legal-representative-proceedings';
+export const SCREENING_QUESTION_PAPER_FORM: PageLink = '/complete-your-application-paper-form';
+export const SCREENING_QUESTION_COMPLETE_APP_LEGAL_REP: PageLink = '/complete-your-application-legal-representative';
+export const SCREENING_QUESTION_CONTACT_LEGAL_REP: PageLink = '/contact-legal-representative';
+export const SCREENING_QUESTIONS = [
+  SCREENING_QUESTION_GUIDANCE,
+  SCREENING_QUESTION_COURT_FEE,
+  SCREENING_QUESTION_PROCEEDINGS_LEGAL_REP,
+  SCREENING_QUESTION_PAPER_FORM,
+  SCREENING_QUESTION_COMPLETE_APP_LEGAL_REP,
+  SCREENING_QUESTION_CONTACT_LEGAL_REP,
+];
+export const ANONYMOUS_URLS = [HEALTH_URL, CITIZEN_HOME_URL, ...SCREENING_QUESTIONS];

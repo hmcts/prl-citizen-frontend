@@ -1,5 +1,5 @@
 import { CaseType, PartyType } from '../../../app/case/definition';
-import { C100_URL, DASHBOARD_URL, PIN_ACTIVATION_URL, TASK_LIST_APPLICANT_URL } from '../../urls';
+import { C100_URL, DASHBOARD_URL, PIN_ACTIVATION_URL, SCREENING_QUESTIONS, TASK_LIST_APPLICANT_URL } from '../../urls';
 import { CommonContentAdditionalData } from '../common.content';
 import { interpolate } from '../string-parser';
 
@@ -20,6 +20,7 @@ class AppSurvey {
 
     if (reqData) {
       const isCAJourney =
+        SCREENING_QUESTIONS.some(url => url.includes(pageUrl)) ||
         pageUrl.startsWith(C100_URL) ||
         pageUrl.startsWith(DASHBOARD_URL) ||
         pageUrl.startsWith(TASK_LIST_APPLICANT_URL) ||
