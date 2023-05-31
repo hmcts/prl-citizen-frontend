@@ -34,7 +34,7 @@ const en = {
     helpCommunication: {
       required: 'Select what help you need in communicating and understanding',
     },
-    describeSignLanguageDetails: {
+    signLanguageDetails: {
       required: 'Please provide sign language details',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
@@ -78,7 +78,7 @@ const cy: typeof en = {
     helpCommunication: {
       required: 'Select what help you need in communicating and understanding',
     },
-    describeSignLanguageDetails: {
+    signLanguageDetails: {
       required: 'Please provide sign language details',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
@@ -173,12 +173,12 @@ describe('citizen-home content', () => {
     (describeOtherNeedFieild.validator as Validator)('describeOtherNeed');
     expect(isFieldFilledIn).toHaveBeenCalledWith('describeOtherNeed');
     expect(isTextAreaValid).toHaveBeenCalledWith('describeOtherNeed');
-    const describeSignLanguageDetailsFieild = helpcommunicationField.values[4].subFields!.describeSignLanguageDetails;
-    expect(describeSignLanguageDetailsFieild.type).toBe('textarea');
-    expect((describeSignLanguageDetailsFieild.label as LanguageLookup)(generatedContent)).toBe(en.signLanguageDetails);
-    (describeSignLanguageDetailsFieild.validator as Validator)('describeSignLanguageDetails');
-    expect(isFieldFilledIn).toHaveBeenCalledWith('describeSignLanguageDetails');
-    expect(isTextAreaValid).toHaveBeenCalledWith('describeSignLanguageDetails');
+    const signLanguageDetailsFieild = helpcommunicationField.values[4].subFields!.signLanguageDetails;
+    expect(signLanguageDetailsFieild.type).toBe('textarea');
+    expect((signLanguageDetailsFieild.label as LanguageLookup)(generatedContent)).toBe(en.signLanguageDetails);
+    (signLanguageDetailsFieild.validator as Validator)('signLanguageDetails');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('signLanguageDetails');
+    expect(isTextAreaValid).toHaveBeenCalledWith('signLanguageDetails');
   });
 
   test('should contain Continue button', () => {

@@ -31,7 +31,7 @@ const en = {
     helpCommunication: {
       required: 'Select what help you need in communicating and understanding',
     },
-    describeSignLanguageDetails: {
+    signLanguageDetails: {
       required: 'Please provide sign language details',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
@@ -75,7 +75,7 @@ const cy: typeof en = {
     helpCommunication: {
       required: 'Select what help you need in communicating and understanding',
     },
-    describeSignLanguageDetails: {
+    signLanguageDetails: {
       required: 'Please provide sign language details',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
@@ -130,7 +130,7 @@ export const form: FormContent = {
           label: l => l.signLanguage,
           value: 'signlanguage',
           subFields: {
-            describeSignLanguageDetails: {
+            signLanguageDetails: {
               type: 'textarea',
               label: l => l.signLanguageDetails,
               labelSize: null,
@@ -167,7 +167,7 @@ export const form: FormContent = {
         {
           name: 'helpCommunication',
           label: l => l.other,
-          value: 'Other',
+          value: 'other',
           subFields: {
             describeOtherNeed: {
               type: 'textarea',

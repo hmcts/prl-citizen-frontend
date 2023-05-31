@@ -246,7 +246,7 @@ export const getRespondentSupportYourNeedsDetails = (userCase: Partial<CaseWithI
     userCase?.largePrintDetails ||
     userCase?.otherDetails ||
     userCase?.helpCommunication ||
-    userCase?.describeSignLanguageDetails ||
+    userCase?.signLanguageDetails ||
     userCase?.describeOtherNeed ||
     userCase?.courtHearing ||
     userCase?.supportWorkerDetails ||
