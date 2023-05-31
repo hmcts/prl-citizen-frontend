@@ -480,7 +480,7 @@ describe('ProceedingDetailsMapper', () => {
     const expected = {
       binaryUrl: 'string',
       filename: 'string',
-      id: ' ',
+      id: 'string',
       url: 'string',
     };
     expect(getDocumentInfo(doc)).toEqual(expected);
