@@ -118,8 +118,11 @@ import {
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   C7_ATTENDING_THE_COURT,
+  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+  RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
+import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -332,6 +335,14 @@ export class Routes {
         app.post(
           PIN_ACTIVATION_CASE_ACTIVATED_URL,
           errorHandler(new CaseActivationPostController(step.form.fields).post)
+        );
+        app.post(
+          APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          errorHandler(new RemoveLegalRepresentativePostController(step.form.fields).post)
+        );
+        app.post(
+          RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          errorHandler(new RemoveLegalRepresentativePostController(step.form.fields).post)
         );
       }
     }

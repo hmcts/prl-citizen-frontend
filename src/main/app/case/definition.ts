@@ -107,6 +107,7 @@ export interface PartyDetails {
   response: Response;
   user: User;
   contactPreferences?: applicantContactPreferencesEnum;
+  isRemoveLegalRepresentativeRequested?: YesOrNo;
 }
 
 export interface User {
@@ -2982,5 +2983,6 @@ export enum CaseEvent {
   PARTY_PERSONAL_DETAILS = 'linkCitizenAccount',
   EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement',
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
-  CONSENT_TO_APPLICATION = 'consentToTheApplication'
+  CONSENT_TO_APPLICATION = 'consentToTheApplication',
+  CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative'
 }
