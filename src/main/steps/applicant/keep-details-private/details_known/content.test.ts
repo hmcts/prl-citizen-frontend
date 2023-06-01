@@ -17,7 +17,8 @@ const en = {
 
 const cy = {
   ...welsh,
-  title: 'Does the other person named in your application (the respondent) know any of your contact details?',
+  title:
+    'Ydych chi eisiau cadw eich manylion cyswllt yn breifat oddi wrth y bobl eraill a enwir yn y cais (yr atebwyr)?',
   line2:
     'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
 };

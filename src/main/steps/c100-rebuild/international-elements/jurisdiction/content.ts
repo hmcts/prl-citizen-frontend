@@ -20,6 +20,9 @@ export const en = () => ({
     ie_provideDetailsJurisdiction: {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales?',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 });
@@ -39,7 +42,10 @@ export const cy = () => ({
     },
     ie_provideDetailsJurisdiction: {
       required:
-        'Darparwch fanylion am unigolyn arall yn y cais all wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
+        "Darparwch fanylion am unigolyn arall yn y cais sy'n gwneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?",
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 });

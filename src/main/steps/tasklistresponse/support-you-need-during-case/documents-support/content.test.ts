@@ -23,7 +23,7 @@ const en = {
   emailInfo: 'Information emailed to me',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  noSupport: 'I do not need any of this support at this time',
+  noSupport: 'No, I do not need any of this support at this time',
   continue: 'Continue',
   errors: {
     docsSupport: {
@@ -31,12 +31,21 @@ const en = {
     },
     docsDetails: {
       required: 'Please provide the docs details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     largePrintDetails: {
       required: 'Please provide the large print details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     otherDetails: {
       required: 'Please provide the other details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -68,12 +77,21 @@ const cy: typeof en = {
     },
     docsDetails: {
       required: 'Please provide the docs details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     largePrintDetails: {
       required: 'Please provide the large print details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     otherDetails: {
       required: 'Please provide the other details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -107,7 +125,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.docsReadOut).toEqual('Documents read out to me');
     expect(generatedContent.emailInfo).toEqual('Information emailed to me');
     expect(generatedContent.other).toEqual('Other');
-    expect(generatedContent.noSupport).toEqual('I do not need any of this support at this time');
+    expect(generatedContent.noSupport).toEqual('No, I do not need any of this support at this time');
   });
 
   // eslint-disable-next-line jest/expect-expect

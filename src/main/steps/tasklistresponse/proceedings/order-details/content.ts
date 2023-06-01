@@ -40,6 +40,7 @@ export const en = () => ({
   caseNumberHint: 'For example, BS19F99999',
   orderDateLabel: 'What date was it made? (optional)',
   orderEndDateLabel: 'What date did it end? (optional)',
+  copy: 'Copy uploaded?',
   orderDateHint: 'For example, 31 3 2015',
   isCurrentOrderLabel: 'Is this a current order? (optional)',
   copyOfOrderLabel: 'Do you have a copy of the order? (optional)',
@@ -93,6 +94,7 @@ export const cy = () => ({
   orderDateHint: 'For example, 31 3 2015 - welsh',
   isCurrentOrderLabel: 'Is this a current order? (optional) - welsh',
   copyOfOrderLabel: "Oes gennych chi gopi o'r gorchymyn? (dewisol)",
+  copy: 'Copy uploaded?-welsh',
   addOrderLabel: 'Ychwanegu gorchymyn arall',
   onlyContinue: 'Continue',
   errors: {

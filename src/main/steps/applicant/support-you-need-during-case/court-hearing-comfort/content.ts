@@ -22,9 +22,15 @@ const en = {
     },
     otherProvideDetails: {
       required: 'Please describe your need in detail',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     lightingProvideDetails: {
       required: 'Please describe appropriate lighting in detail',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -50,9 +56,15 @@ const cy: typeof en = {
     },
     otherProvideDetails: {
       required: 'Please describe your need in detail',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     lightingProvideDetails: {
       required: 'Please describe appropriate lighting in detail',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -82,7 +94,7 @@ export const form: FormContent = {
               },
               label: l => l.appropriateLightingDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },

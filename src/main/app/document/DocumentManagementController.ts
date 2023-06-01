@@ -353,7 +353,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       if (err) {
         throw err;
       } else if (generatedDocument) {
-        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Type', generatedDocument.headers['content-type']);
         if (cdamUrl && this.getFlagViewed(req, fieldFlag) === true) {
           // download and open the pdf in the same window
           return res.send(generatedDocument.data);
@@ -362,7 +362,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
           if (fieldFlag && req.query?.updateCase && req.query?.updateCase === YesOrNo.YES) {
             this.setFlagViewed(req, caseReference, client, req.session.user, fieldFlag);
           }
-          res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
+          res.setHeader('Content-Disposition', 'inline; filename="' + filename + '";');
           return res.end(generatedDocument.data);
         }
       }

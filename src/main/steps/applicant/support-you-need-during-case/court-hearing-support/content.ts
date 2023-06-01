@@ -25,18 +25,30 @@ const en = {
     },
     communicationSupportOther: {
       required: 'Please provide the details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     supportWorkerDetails: {
       required: 'Please provide the support worker details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     familyProviderDetails: {
       required: 'Please provide the family member details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     animalProvideDetails: {
       required: 'Please provide the therapy animal details',
     },
     therapyDetails: {
       required: 'Please provide therapy animal details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -65,18 +77,30 @@ const cy: typeof en = {
     },
     communicationSupportOther: {
       required: 'Please provide the details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     supportWorkerDetails: {
       required: 'Please provide the support worker details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     familyProviderDetails: {
       required: 'Please provide the family member details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     animalProvideDetails: {
       required: 'Please provide the therapy animal details',
     },
     therapyDetails: {
       required: 'Please provide therapy animal details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -106,7 +130,7 @@ export const form: FormContent = {
                 rows: 1,
               },
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
@@ -122,7 +146,7 @@ export const form: FormContent = {
                 rows: 1,
               },
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
@@ -143,7 +167,7 @@ export const form: FormContent = {
                 rows: 1,
               },
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },

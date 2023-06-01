@@ -25,15 +25,27 @@ const en = {
     },
     supportWorkerDetails: {
       required: 'Please provide support worker details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     familyProviderDetails: {
       required: 'Please provide family member details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     therapyDetails: {
       required: 'Please provide therapy animal details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     communicationSupportOther: {
       required: 'Please provide the details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -62,15 +74,27 @@ const cy: typeof en = {
     },
     supportWorkerDetails: {
       required: 'Please provide support worker details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     familyProviderDetails: {
       required: 'Please provide family member details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     therapyDetails: {
       required: 'Please provide therapy animal details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     communicationSupportOther: {
       required: 'Please provide the details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };

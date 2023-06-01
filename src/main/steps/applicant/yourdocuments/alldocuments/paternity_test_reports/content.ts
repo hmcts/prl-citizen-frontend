@@ -1,7 +1,6 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-
 const en = () => {
   return {
     section: 'All documents',

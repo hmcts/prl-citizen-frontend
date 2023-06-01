@@ -31,7 +31,7 @@ const cy: typeof en = {
   citizenUserEmailAddress: 'Cyfeiriad e-bost',
   citizenUserSafeToCall: 'When it is safe to call you (optional)',
   safeToCallHint: 'Give a time between 9am and 5pm when it is safe to call you',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     citizenUserPhoneNumber: {
       required: 'Rhowch rif ffôn y DU',

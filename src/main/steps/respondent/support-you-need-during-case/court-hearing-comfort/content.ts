@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
@@ -21,9 +21,15 @@ const en = {
     },
     lightingProvideDetails: {
       required: 'Please describe lighting detail',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     otherProvideDetails: {
       required: 'Please describe your need in details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -48,9 +54,15 @@ const cy: typeof en = {
     },
     lightingProvideDetails: {
       required: 'Please describe lighting detail',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     otherProvideDetails: {
       required: 'Please describe your need in details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -80,7 +92,7 @@ export const form: FormContent = {
               },
               label: l => l.lightingDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
@@ -106,7 +118,7 @@ export const form: FormContent = {
               },
               label: l => l.otherDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },

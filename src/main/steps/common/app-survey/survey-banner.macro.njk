@@ -1,0 +1,10 @@
+{% macro surveyBanner(title, body) %}
+  <div class="govuk-notification-banner govuk-!-margin-top-8" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner__content">
+      <h3 class="govuk-notification-banner__heading">
+        {{title}}
+      </h3>
+      <div class="govuk-body">{{body | safe}}</div>
+    </div>
+  </div>
+{% endmacro %}

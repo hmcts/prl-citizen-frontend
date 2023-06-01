@@ -3,17 +3,18 @@ import { capitalize } from 'lodash';
 import { CaseWithId } from '../../app/case/case';
 import { C100_CASE_TYPE } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
-import { C100_URL, DASHBOARD_URL } from '../../steps/urls';
+import { ANONYMOUS_URLS, C100_URL, DASHBOARD_URL } from '../../steps/urls';
 
-const en = {
+import AppSurvey from './app-survey/appSurveyController';
+import { appSurveyContents } from './app-survey/content';
+
+export const en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law',
   applyForDissolution: 'Private Law',
   commonServiceName: 'Child arrangements and family injunctions',
   c100ServiceName: 'Child arrangements',
   fl401ServiceName: 'Family Injunctions',
-  feedback:
-    'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.',
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
   govUk: 'GOV.UK',
   back: 'Back',
@@ -96,13 +97,13 @@ const en = {
   cookiesHeading: 'Cookies on',
   cookiesLine1: 'We use some essential cookies to make this service work.',
   cookiesLine2:
-    'We’d also like to use analytics cookies so we can understand how you use the service and make improvements.',
+    'We’d like to set additional cookies so we can remember your settings, understand how people use the service and to improve government services.',
   acceptAnalyticsCookies: 'Accept analytics cookies',
   rejectAnalyticsCookies: 'Reject analytics cookies',
   viewCookies: 'View cookies',
   hideMessage: 'Hide this message',
   cookiesConfirmationMessage:
-    '<p>You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>',
+    '<p class="govuk-body">You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>',
   changeCookiesHeading: 'Change your cookie settings',
   allowAnalyticsCookies: 'Allow cookies that measure website use?',
   useAnalyticsCookies: 'Use cookies that measure my website use',
@@ -116,10 +117,12 @@ const en = {
   useApmCookies: 'Use cookies that measure website application performance monitoring',
   doNotUseApmCookies: 'Do not use cookies that measure website application performance monitoring',
   divider: 'or',
+  edit: 'Edit',
   appName: '- Private law - GOV.UK',
+  ...appSurveyContents.en,
 };
 
-const cy: typeof en = {
+export const cy: typeof en = {
   ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
   applyForChildArrangements: 'Cyfraith breifat',
@@ -127,13 +130,11 @@ const cy: typeof en = {
   commonServiceName: 'Trefniadau plant a gwaharddebau teulu',
   c100ServiceName: 'Trefniadau plant',
   fl401ServiceName: 'Family injunction (in welsh)',
-  feedback:
-    'Mae hwn yn wasanaeth newydd - bydd eich <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">adborth</a> yn ein helpu ni i’w wella.',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
   govUk: 'GOV.UK',
   back: 'Yn ôl',
-  continue: 'Save and continue (in welsh)',
-  change: 'Change  (in welsh)',
+  continue: 'Cadw a pharhau',
+  change: 'Newid',
   upload: 'Uwchlwytho',
   download: 'Llwytho i lawr',
   delete: 'Dileu',
@@ -203,7 +204,9 @@ const cy: typeof en = {
   onlyContinue: 'Parhau',
   onlycontinue: 'Parhau',
   divider: 'neu',
+  edit: 'Edit -welsh',
   appName: '- Private law - GOV.UK (welsh)',
+  ...appSurveyContents.cy,
 };
 
 export const generatePageContent = ({
@@ -237,6 +240,11 @@ export const generatePageContent = ({
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const serviceName = getServiceName(additionalData?.req, commonTranslations);
+  const inPageSurveyContent = AppSurvey.getInPageSurveyContent(
+    userCase?.caseTypeOfApplication as string,
+    additionalData?.req,
+    commonTranslations.inPageSurveyContent
+  );
 
   const content: CommonContent = {
     ...commonTranslations,
@@ -253,6 +261,7 @@ export const generatePageContent = ({
     byApplicant,
     additionalData,
     userId,
+    inPageSurveyContent,
   };
 
   if (pageContent !== null && pageContent !== undefined) {
@@ -267,15 +276,24 @@ const getServiceName = (
   translations: typeof en | typeof cy
 ): string => {
   const url = reqData?.path;
-  const isDashboard = url?.includes(DASHBOARD_URL);
+  const isCommonServiceName = url?.includes(DASHBOARD_URL) || ANONYMOUS_URLS.some(_url => _url.includes(url));
   const isC100 = url?.startsWith(C100_URL) || reqData?.session?.userCase?.caseTypeOfApplication === C100_CASE_TYPE.C100;
-  const appServicename = isC100 ? translations.c100ServiceName : translations.fl401ServiceName;
-  const serviceName = isDashboard ? translations.commonServiceName : appServicename;
+  let serviceName;
+
+  if (isCommonServiceName) {
+    serviceName = translations.commonServiceName;
+  } else {
+    if (isC100) {
+      serviceName = translations.c100ServiceName;
+    } else {
+      serviceName = translations.fl401ServiceName;
+    }
+  }
 
   return capitalize(serviceName);
 };
 
-type CommonContentAdditionalData = {
+export type CommonContentAdditionalData = {
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   [key: string]: any;
 };
