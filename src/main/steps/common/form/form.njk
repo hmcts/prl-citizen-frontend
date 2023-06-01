@@ -14,7 +14,7 @@
   <div class="govuk-form-group">
     {% block form_actions %}
       <div class="govuk-button-group">
-      {{
+        {{
           govukButton({
             text: getContent(form.accessCodeCheck.text),
             classes: form.submit.classes,
@@ -67,7 +67,7 @@
           }) if getContent(form.saveAsDraft.text)
         }}
 
-         {{
+        {{
           govukButton({
             text: getContent(form.onlycontinue.text),
             classes: form.submit.classes,
@@ -81,7 +81,7 @@
           }) if getContent(form.onlycontinue.text)
         }}
 
-         {{
+        {{
           govukButton({
             text: getContent(form.saveAndComeLater.text),
             classes: form.saveAndComeLater.classes if form.saveAndComeLater.classes !== undefined else "govuk-button--secondary",
@@ -135,6 +135,9 @@
             }
           }) if getContent(form.goBack.text)
         }}
+        {% if form.link.text %}
+          <a class="govuk-link {{form.link.classes}}" href="{{form.link.href}}" >{{getContent(form.link.text)}}</a>
+        {% endif %}
       </div>
     {% endblock %}
     {% block after_form %}{% endblock %}

@@ -86,7 +86,6 @@ withPipeline(type, product, component) {
 
   before('functionalTest:preview') {
     env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
-    yarnBuilder.yarn('test:pa11y')
   }
 
   afterAlways('functionalTest:preview') {
@@ -99,7 +98,6 @@ withPipeline(type, product, component) {
   }
 
   afterAlways('functionalTest:aat') {
-    yarnBuilder.yarn('test:pa11y')
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 }
