@@ -52,7 +52,6 @@ withPipeline(type, product, component) {
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
-  enableFullFunctionalTest(200)
 
   onMaster {
     env.PACT_TAG = 'master'
@@ -99,24 +98,6 @@ withPipeline(type, product, component) {
   }
 
   afterAlways('functionalTest:aat') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  before('fullFunctionalTest:preview') {
-    env.PARALLEL_CHUNKS = params.FUNCTIONAL_TESTS_WORKERS
-  }
-
-  afterAlways('fullFunctionalTest:preview') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/functional/output/**/*'
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  before('fullFunctionalTest:aat') {
-    env.PARALLEL_CHUNKS = params.FUNCTIONAL_TESTS_WORKERS
-  }
-
-  afterAlways('fullFunctionalTest:aat') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/functional/output/**/*'
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 }
