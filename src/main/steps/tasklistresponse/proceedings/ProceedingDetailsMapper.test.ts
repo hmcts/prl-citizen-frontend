@@ -457,8 +457,8 @@ describe('ProceedingDetailsMapper', () => {
   });
 
   test('Should return value for providing a date for getDisplayDate', () => {
-    const retunrn_date = { day: undefined, month: undefined, year: 'June' };
-    expect(getDisplayDate(new Date())).toEqual(retunrn_date);
+    const retunrn_date = { day: '20', month: '03', year: '2023' };
+    expect(retunrn_date).toEqual(getDisplayDate('2023-03-20' as unknown as Date));
   });
 
   test('Should return undefined for providing a date for getDisplayDate', () => {
