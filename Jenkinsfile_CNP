@@ -3,7 +3,7 @@
 @Library("Infrastructure")
 
 import uk.gov.hmcts.contino.AppPipelineConfig
-// import uk.gov.hmcts.contino.AppPipelineDsl
+import uk.gov.hmcts.contino.AppPipelineDsl
 import uk.gov.hmcts.contino.GithubAPI
 
 def type = "nodejs"
@@ -48,7 +48,7 @@ env.TESTING_SUPPORT_FLAG = false
 
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
-  // enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
+  enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
