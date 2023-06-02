@@ -49,6 +49,7 @@ env.TESTING_SUPPORT_FLAG = false
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
   //enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
+  enableFullFunctionalTest(200)
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
@@ -62,6 +63,7 @@ withPipeline(type, product, component) {
 
   onPR() {
     env.ENV = 'preview'
+      enableFullFunctionalTest(200)
     def githubApi = new GithubAPI(this)
     if (!githubApi.getLabelsbyPattern(env.BRANCH_NAME, "keep-helm")) {
         enableCleanupOfHelmReleaseOnSuccess()
