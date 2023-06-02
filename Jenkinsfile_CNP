@@ -3,7 +3,7 @@
 @Library("Infrastructure")
 
 import uk.gov.hmcts.contino.AppPipelineConfig
-import uk.gov.hmcts.contino.AppPipelineDsl
+// import uk.gov.hmcts.contino.AppPipelineDsl
 import uk.gov.hmcts.contino.GithubAPI
 
 def type = "nodejs"
@@ -48,11 +48,11 @@ env.TESTING_SUPPORT_FLAG = false
 
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
-  //enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
-  enableFullFunctionalTest(200)
+  // enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
+  enableFullFunctionalTest(200)
 
   onMaster {
     env.PACT_TAG = 'master'
@@ -63,60 +63,60 @@ withPipeline(type, product, component) {
 
   onPR() {
     env.ENV = 'preview'
-      enableFullFunctionalTest(200)
     def githubApi = new GithubAPI(this)
     if (!githubApi.getLabelsbyPattern(env.BRANCH_NAME, "keep-helm")) {
         enableCleanupOfHelmReleaseOnSuccess()
     }
   }
 
+  before('smoketest:preview') {
+    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
+  }
 
-  afterAlways('fullFunctionalTest:preview') {
+  afterAlways('smoketest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 
-  // afterAlways('smoketest:preview') {
-  //   steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  // }
+  before('smoketest:aat') {
+    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.aat.platform.hmcts.net/"
+  }
 
-  // before('smoketest:aat') {
-  //   env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.aat.platform.hmcts.net/"
-  // }
+  afterAlways('smoketest:aat') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
 
-  // afterAlways('smoketest:aat') {
-  //   steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  // }
+  before('functionalTest:preview') {
+    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
+  }
 
-  // // before('functionalTest:preview') {
-  // //   env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
-  // // }
+  afterAlways('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
 
-  // // afterAlways('functionalTest:preview') {
-  // //   steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  // // }
+  before('functionalTest:aat') {
+    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.aat.platform.hmcts.net/"
+    yarnBuilder.yarn('test:functional:skip')
+  }
 
-  // before('functionalTest:aat') {
-  //   env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.aat.platform.hmcts.net/"
-  //   yarnBuilder.yarn('test:functional:skip')
-  // }
+  afterAlways('functionalTest:aat') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
 
-  // afterAlways('functionalTest:aat') {
-  //   steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  // }
+  before('fullFunctionalTest:preview') {
+    env.PARALLEL_CHUNKS = params.FUNCTIONAL_TESTS_WORKERS
+  }
 
-  afterAlways('smoketest:preview') {
-    loadVaultSecrets(inTestTrue)
-      stage('Accessibility') {
-          yarnBuilder.yarn('tests:a11y')
-          publishHTML([
-              allowMissing         : true,
-              alwaysLinkToLastBuild: true,
-              keepAll              : true,
-              reportDir            : "functional-output/accessibility-report",
-              reportFiles          : 'a11y.html',
-              reportName           : 'Accessibility results'
-        ])
-      }
-      loadVaultSecrets(inTestFalse)
+  afterAlways('fullFunctionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/functional/output/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
+
+  before('fullFunctionalTest:aat') {
+    env.PARALLEL_CHUNKS = params.FUNCTIONAL_TESTS_WORKERS
+  }
+
+  afterAlways('fullFunctionalTest:aat') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test/functional/output/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 }
