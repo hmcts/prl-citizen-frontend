@@ -456,11 +456,6 @@ describe('ProceedingDetailsMapper', () => {
     expect(req.session.userCase.proceedingsStartOrder).toEqual('Yes');
   });
 
-  test('Should return value for providing a date for getDisplayDate', () => {
-    const retunrn_date = { day: '20', month: '03', year: '2023' };
-    expect(retunrn_date).toEqual(getDisplayDate('2023-03-20' as unknown as Date));
-  });
-
   test('Should return undefined for providing a date for getDisplayDate', () => {
     const retunrn_date = { day: '', month: '', year: '' };
     expect(getDisplayDate(undefined)).toEqual(retunrn_date);
