@@ -1,4 +1,3 @@
-import { Case, Checkbox } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
@@ -47,16 +46,16 @@ export const cy: typeof en = {
   Phone_number: 'Rhif ffôn',
   Email: 'E-bost',
   contact_details_private:
-    'Which contact details do you want to keep private from the other people in this application?',
+    'Which contact details do you want to keep private from the other people in this application? - welsh',
   contact_details_private_hint:
-    "You've said that the applicants know some of your contact details. Make sure you select contact details the applicants do not already know.",
+    "You've said that the applicants know some of your contact details. Make sure you select contact details the applicants do not already know. - welsh",
   continue: 'Cadw a pharhau',
   errors: {
     startAlternative: {
-      required: 'Enter your start alternative',
+      required: 'Enter your start alternative - welsh',
     },
     contactDetailsPrivate: {
-      required: 'Select your contact details',
+      required: 'Select your contact details - welsh',
     },
   },
 };
@@ -83,12 +82,7 @@ export const form: FormContent = {
               label: l => l.contact_details_private,
               hint: l => l.contact_details_private_hint,
               // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-              validator: (value, formData: Partial<Case>) => {
-                if (formData.startAlternative === Checkbox.Checked) {
-                  return atLeastOneFieldIsChecked(formData?.contactDetailsPrivate);
-                }
-                return '';
-              },
+              validator: atLeastOneFieldIsChecked,
               values: [
                 {
                   name: 'contactDetailsPrivate',
