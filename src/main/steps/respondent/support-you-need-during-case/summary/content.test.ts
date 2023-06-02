@@ -88,17 +88,47 @@ describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
   beforeEach(() => {
-    commonContent.userCase = {
-      ...mockUserCase,
-      attendingToCourt: [''],
-      hearingDetails: '',
-      languageRequirements: [''],
-      languageDetails: '',
-      safetyArrangements: [''],
-      safetyArrangementsDetails: 'Please describe your need in detail',
-      reasonableAdjustments: ['docsformat', 'commhelp', 'hearingsupport', 'hearingcomfort', 'travellinghelp'],
-      docsSupport: ['docsprint'],
-      docsDetails: 'blue',
+    commonContent.additionalData = {
+      req: {
+        session: {
+          userCase: {
+            ...mockUserCase,
+            attendingToCourt: [''],
+            hearingDetails: '',
+            languageRequirements: [''],
+            languageDetails: '',
+            safetyArrangements: [''],
+            safetyArrangementsDetails: 'Please describe your need in detail',
+            reasonableAdjustments: ['docsformat', 'commhelp', 'hearingsupport', 'hearingcomfort', 'travellinghelp'],
+            docsSupport: ['docsprint'],
+            docsDetails: 'blue',
+            respondentsFL401: {
+              id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+              user: {
+                idamId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+                email: 'test1234@example.net',
+              },
+            },
+            caseInvites: [
+              {
+                id: '577695bd-2fb5-4418-a699-79ee352ed5bb',
+                value: {
+                  partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+                  caseInviteEmail: 'respondent2@example.net',
+                  accessCode: '3GYFGJHO',
+                  invitedUserId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+                  hasLinked: 'Yes',
+                  expiryDate: '2023-05-07',
+                  isApplicant: 'No',
+                },
+              },
+            ],
+          },
+          user: {
+            id: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+          },
+        },
+      },
     };
     generatedContent = generateContent(commonContent);
   });

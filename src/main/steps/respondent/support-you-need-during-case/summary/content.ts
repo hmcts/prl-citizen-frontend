@@ -225,8 +225,8 @@ export const urls = {
 };
 const en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const userCase = content.userCase!;
-  filterSelectedUrls(userCase, urls);
+  const { userCase, user } = content.additionalData?.req.session;
+  filterSelectedUrls(userCase, urls, user.id);
   return {
     ...enContent,
     language: content.language,
@@ -235,8 +235,8 @@ const en = (content: CommonContent) => {
 };
 const cy: typeof en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const userCase = content.userCase!;
-  filterSelectedUrls(userCase, urls);
+  const { userCase, user } = content.additionalData?.req.session;
+  filterSelectedUrls(userCase, urls, user.id);
   return {
     ...cyContent,
     language: content.language,

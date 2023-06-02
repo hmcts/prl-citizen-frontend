@@ -1,16 +1,22 @@
 import { CaseWithId } from '../../../../app/case/case';
-import { ReasonableAdjustments } from '../../../../app/case/definition';
+import { PartyType, ReasonableAdjustments } from '../../../../app/case/definition';
 import { LANGUAGE_INTERPRETER, NO_HEARINGS } from '../../../../steps/constants';
+import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import {
   CA_DA_COMMUNICATION_HELP,
   CA_DA_COURT_HEARING_COMFORT,
   CA_DA_COURT_HEARING_SUPPORT,
   CA_DA_DOCUMENTS_SUPPORT,
   CA_DA_TRAVELLING_TO_COURT,
+  COMMUNICATION_HELP,
+  COURT_HEARING_COMFORT,
+  COURT_HEARING_SUPPORT,
+  DOCUMENTS_SUPPORT,
+  TRAVELLING_TO_COURT,
 } from '../../../../steps/urls';
 
-export function filterSelectedUrls(userCase: Partial<CaseWithId>, urls: object): void {
-  reasonableAdjustment(userCase, urls);
+export function filterSelectedUrls(userCase: CaseWithId, urls: object, userId: string): void {
+  reasonableAdjustment(userCase, urls, userId);
 
   if (!userCase?.attendingToCourt?.includes(NO_HEARINGS)) {
     userCase.hearingDetails = '';
@@ -107,7 +113,16 @@ function processDocSupportData(userCase: Partial<CaseWithId>) {
   }
 }
 
-function reasonableAdjustment(userCase: Partial<CaseWithId>, urls: object) {
+function reasonableAdjustment(userCase: CaseWithId, urls: object, userId: string) {
+  const partyType = getCasePartyType(userCase, userId);
+  if (partyType === PartyType.RESPONDENT) {
+    respondentUrls(urls, userCase);
+  } else if (partyType === PartyType.APPLICANT) {
+    applicantUrls(urls, userCase);
+  }
+}
+
+function respondentUrls(urls: object, userCase: CaseWithId) {
   if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.DOCUMENTS_SUPPORT)) {
     Object.assign(urls, { docsSupport: CA_DA_DOCUMENTS_SUPPORT });
     Object.assign(urls, { docsDetails: CA_DA_DOCUMENTS_SUPPORT });
@@ -140,5 +155,41 @@ function reasonableAdjustment(userCase: Partial<CaseWithId>, urls: object) {
     Object.assign(urls, { parkingDetails: CA_DA_TRAVELLING_TO_COURT });
     Object.assign(urls, { differentChairDetails: CA_DA_TRAVELLING_TO_COURT });
     Object.assign(urls, { travellingOtherDetails: CA_DA_TRAVELLING_TO_COURT });
+  }
+}
+
+function applicantUrls(urls: object, userCase: CaseWithId) {
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.DOCUMENTS_SUPPORT)) {
+    Object.assign(urls, { docsSupport: DOCUMENTS_SUPPORT });
+    Object.assign(urls, { docsDetails: DOCUMENTS_SUPPORT });
+    Object.assign(urls, { largePrintDetails: DOCUMENTS_SUPPORT });
+    Object.assign(urls, { otherDetails: DOCUMENTS_SUPPORT });
+  }
+
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.COMMUNICATION_HELP)) {
+    Object.assign(urls, { helpCommunication: COMMUNICATION_HELP });
+    Object.assign(urls, { signLanguageDetails: COMMUNICATION_HELP });
+    Object.assign(urls, { describeOtherNeed: COMMUNICATION_HELP });
+  }
+
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.COURT_HEARING_SUPPORT)) {
+    Object.assign(urls, { courtHearing: COURT_HEARING_SUPPORT });
+    Object.assign(urls, { supportWorkerDetails: COURT_HEARING_SUPPORT });
+    Object.assign(urls, { familyProviderDetails: COURT_HEARING_SUPPORT });
+    Object.assign(urls, { therapyDetails: COURT_HEARING_SUPPORT });
+    Object.assign(urls, { communicationSupportOther: COURT_HEARING_SUPPORT });
+  }
+
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.COURT_HEARING_COMFORT)) {
+    Object.assign(urls, { courtComfort: COURT_HEARING_COMFORT });
+    Object.assign(urls, { lightingProvideDetails: COURT_HEARING_COMFORT });
+    Object.assign(urls, { otherProvideDetails: COURT_HEARING_COMFORT });
+  }
+
+  if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.TRAVELLING_TO_COURT)) {
+    Object.assign(urls, { travellingToCourt: TRAVELLING_TO_COURT });
+    Object.assign(urls, { parkingDetails: TRAVELLING_TO_COURT });
+    Object.assign(urls, { differentChairDetails: TRAVELLING_TO_COURT });
+    Object.assign(urls, { travellingOtherDetails: TRAVELLING_TO_COURT });
   }
 }

@@ -1,6 +1,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../../test/unit/utils/mockUserCase';
-import { CommonContent } from '../../../common/common.content';
+import { FormContent, LanguageLookup } from '../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -89,17 +90,26 @@ describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
   beforeEach(() => {
-    commonContent.userCase = {
-      ...mockUserCase,
-      attendingToCourt: [''],
-      hearingDetails: '',
-      languageRequirements: [''],
-      languageDetails: '',
-      safetyArrangements: [''],
-      safetyArrangementsDetails: 'Please describe your need in detail',
-      reasonableAdjustments: ['docsformat', 'commhelp', 'hearingsupport', 'hearingcomfort', 'travellinghelp'],
-      docsSupport: ['docsprint'],
-      docsDetails: 'blue',
+    commonContent.additionalData = {
+      req: {
+        session: {
+          userCase: {
+            ...mockUserCase,
+            attendingToCourt: [''],
+            hearingDetails: '',
+            languageRequirements: [''],
+            languageDetails: '',
+            safetyArrangements: [''],
+            safetyArrangementsDetails: 'Please describe your need in detail',
+            reasonableAdjustments: ['docsformat', 'commhelp', 'hearingsupport', 'hearingcomfort', 'travellinghelp'],
+            docsSupport: ['docsprint'],
+            docsDetails: 'blue',
+          },
+          user: {
+            id: '1234',
+          },
+        },
+      },
     };
     generatedContent = generateContent(commonContent);
   });
@@ -121,6 +131,13 @@ describe('citizen-home content', () => {
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+
+  test('should contain Submit button', () => {
+    const form = generatedContent.form as FormContent;
+    expect(
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and continue');
   });
 });
 
