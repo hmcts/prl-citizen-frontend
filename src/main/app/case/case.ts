@@ -613,6 +613,9 @@ export interface CaseWithId extends Case {
     TempFirstName?: string | unknown;
     TempLastName?: string | unknown;
   };
+  applicationPayOnline?: YesOrNo;
+  legalRepresentativeForProceedings?: YesOrNo;
+  legalRepresentativeForApplication?: YesOrNo;
 }
 
 export enum Checkbox {
