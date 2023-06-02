@@ -112,7 +112,11 @@ export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus 
     userCase?.languageRequirements &&
     userCase?.reasonableAdjustments &&
     userCase?.safetyArrangements &&
-    userCase?.attendingToCourt
+    userCase?.attendingToCourt &&
+    userCase?.languageRequirements?.length > 0 &&
+    userCase?.reasonableAdjustments?.length > 0 &&
+    userCase?.safetyArrangements?.length > 0 &&
+    userCase?.attendingToCourt?.length > 0
   ) {
     return SectionStatus.COMPLETED;
   }

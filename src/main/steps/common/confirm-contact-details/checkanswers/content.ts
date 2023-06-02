@@ -112,9 +112,6 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language](content);
-  translations.link = content.byApplicant
-    ? '/applicant/keep-details-private/details_known'
-    : '/respondent/keep-details-private/details_known';
   return {
     ...translations,
     form,
