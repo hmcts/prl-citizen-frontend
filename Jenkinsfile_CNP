@@ -70,44 +70,53 @@ withPipeline(type, product, component) {
     }
   }
 
-  before('fullFunctionalTest:preview') {
-    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
-  }
 
   afterAlways('fullFunctionalTest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 
-  before('smoketest:preview') {
-    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
-  }
-
-  afterAlways('smoketest:preview') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  before('smoketest:aat') {
-    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.aat.platform.hmcts.net/"
-  }
-
-  afterAlways('smoketest:aat') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
-  }
-
-  // before('functionalTest:preview') {
-  //   env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
-  // }
-
-  // afterAlways('functionalTest:preview') {
+  // afterAlways('smoketest:preview') {
   //   steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   // }
 
-  before('functionalTest:aat') {
-    env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.aat.platform.hmcts.net/"
-    yarnBuilder.yarn('test:functional:skip')
-  }
+  // before('smoketest:aat') {
+  //   env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.aat.platform.hmcts.net/"
+  // }
 
-  afterAlways('functionalTest:aat') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  // afterAlways('smoketest:aat') {
+  //   steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  // }
+
+  // // before('functionalTest:preview') {
+  // //   env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
+  // // }
+
+  // // afterAlways('functionalTest:preview') {
+  // //   steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  // // }
+
+  // before('functionalTest:aat') {
+  //   env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-staging.aat.platform.hmcts.net/"
+  //   yarnBuilder.yarn('test:functional:skip')
+  // }
+
+  // afterAlways('functionalTest:aat') {
+  //   steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  // }
+
+  afterAlways('smoketest:preview') {
+    loadVaultSecrets(inTestTrue)
+      stage('Accessibility') {
+          yarnBuilder.yarn('tests:a11y')
+          publishHTML([
+              allowMissing         : true,
+              alwaysLinkToLastBuild: true,
+              keepAll              : true,
+              reportDir            : "functional-output/accessibility-report",
+              reportFiles          : 'a11y.html',
+              reportName           : 'Accessibility results'
+        ])
+      }
+      loadVaultSecrets(inTestFalse)
   }
 }
