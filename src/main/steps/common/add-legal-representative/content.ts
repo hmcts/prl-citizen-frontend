@@ -5,7 +5,7 @@ import { getApplicant, getApplicantName } from '../../applicant/task-list/conten
 import { getRespondent, getRespondentName } from '../../respondent/task-list/content';
 
 const en = {
-  section: 'Adding a legal representative',
+  title: 'Adding a legal representative',
   partyName: '',
   continue: 'Continue',
   legalRepresentativeInformationLine1:
@@ -18,7 +18,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Adding a legal representative-welsh',
+  title: 'Adding a legal representative-welsh',
   partyName: '',
   continue: 'Continue-welsh',
   legalRepresentativeInformationLine1:

@@ -1,1 +1,18 @@
 {% extends "common/template.njk" %}
+
+{% block page_content %}
+ <div class="govuk-form-group">
+    <div class="govuk-form-group">
+      <div class="govuk-panel govuk-panel--confirmation">
+        <h1 class="govuk-panel__title">
+          {{requestSubmitted}}
+        </h1>
+      </div>
+      <h2 class="govuk-heading-m">{{whatHappensText}}</h2>
+    </div>
+    <div class="govuk-!-margin-bottom-4">
+      <p class="govuk-body">{{removeLegalRepresentativeConfirmationLine1}}</p>
+      <p class="govuk-body">{{removeLegalRepresentativeConfirmationLine2}}</p>
+    </div>
+  </div>
+{% endblock %}
