@@ -109,7 +109,20 @@ describe('citizen-home content', () => {
   test('should contain reasonableAdjustments field', () => {
     const reasonableAdjustmentsField = fields.reasonableAdjustments as FormOptions;
     expect(reasonableAdjustmentsField.type).toBe('checkboxes');
+    expect((reasonableAdjustmentsField.hint as Function)(generatedContent)).toBe(en.optionHint);
     expect((reasonableAdjustmentsField.section as Function)(generatedContent)).toBe(en.section);
+    expect((reasonableAdjustmentsField.values[0].label as Function)(generatedContent)).toBe(en.docsFormat);
+    expect((reasonableAdjustmentsField.values[0].hint as Function)(generatedContent)).toBe(en.docsFormatHint);
+    expect((reasonableAdjustmentsField.values[1].label as Function)(generatedContent)).toBe(en.commHelp);
+    expect((reasonableAdjustmentsField.values[1].hint as Function)(generatedContent)).toBe(en.commHelpHint);
+    expect((reasonableAdjustmentsField.values[2].label as Function)(generatedContent)).toBe(en.hearingSupport);
+    expect((reasonableAdjustmentsField.values[2].hint as Function)(generatedContent)).toBe(en.hearingSupportHint);
+    expect((reasonableAdjustmentsField.values[3].label as Function)(generatedContent)).toBe(en.hearingComfort);
+    expect((reasonableAdjustmentsField.values[3].hint as Function)(generatedContent)).toBe(en.hearingComfortHint);
+    expect((reasonableAdjustmentsField.values[4].label as Function)(generatedContent)).toBe(en.travellingHelp);
+    expect((reasonableAdjustmentsField.values[4].hint as Function)(generatedContent)).toBe(en.travellingHelpHint);
+    expect((reasonableAdjustmentsField.values[5].divider as Function)(generatedContent)).toBe(undefined);
+    expect((reasonableAdjustmentsField.values[6].label as Function)(generatedContent)).toBe(en.noSupport);
   });
 
   test('should contain Continue button', () => {

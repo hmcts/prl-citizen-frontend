@@ -13,6 +13,7 @@ const en = {
   speakwelsh: 'I need to speak in Welsh',
   readandwritewelsh: 'I need to read and write in Welsh',
   languageinterpreter: 'I need an interpreter in a certain language',
+  typeoflanguage: 'Give details of the language you require (including dialect, if applicable)',
   nointerpreter: 'No, I do not have any language requirements at this time',
   continue: 'Continue',
   errors: {
@@ -37,6 +38,7 @@ const cy: typeof en = {
   speakwelsh: 'Rwyf eisiau siarad Cymraeg',
   readandwritewelsh: 'Rwyf eisiau siarad ac ysgrifennu yn Gymraeg',
   languageinterpreter: 'Mae arnaf angen cyfieithydd mewn iaith benodol',
+  typeoflanguage: 'Give details of the language you require (including dialect, if applicable)',
   nointerpreter: 'Nac oes, nid oes gennyf unrhyw ofynion o ran iaith ar hyn o bryd',
   continue: 'Continue',
   errors: {
@@ -91,7 +93,15 @@ describe('citizen-home content', () => {
   test('should contain languageRequirementsField field', () => {
     const languageRequirementsField = fields.languageRequirements as FormOptions;
     expect(languageRequirementsField.type).toBe('checkboxes');
+    expect((languageRequirementsField.hint as Function)(generatedContent)).toBe(en.optionHint);
     expect((languageRequirementsField.section as Function)(generatedContent)).toBe(en.section);
+    expect((languageRequirementsField.values[0].label as Function)(generatedContent)).toBe(en.speakwelsh);
+    expect((languageRequirementsField.values[1].label as Function)(generatedContent)).toBe(en.readandwritewelsh);
+    expect((languageRequirementsField.values[2].label as Function)(generatedContent)).toBe(en.languageinterpreter);
+    expect((languageRequirementsField.values[2].subFields?.languageDetails.label as Function)(generatedContent)).toBe(en.typeoflanguage);
+    expect((languageRequirementsField.values[2].subFields?.languageDetails.validator as Function)(generatedContent)).toBe(undefined);
+    expect((languageRequirementsField.values[3].divider as Function)(generatedContent)).toBe(undefined);
+    expect((languageRequirementsField.values[4].label as Function)(generatedContent)).toBe(en.nointerpreter);
   });
 
   test('should contain continue button', () => {

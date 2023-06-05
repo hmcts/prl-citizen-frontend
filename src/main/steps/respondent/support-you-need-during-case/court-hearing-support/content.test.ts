@@ -144,7 +144,26 @@ describe('citizen-home content', () => {
   test('should contain courthearing field', () => {
     const courthearingField = fields.courtHearing as FormOptions;
     expect(courthearingField.type).toBe('checkboxes');
+    expect((courthearingField.hint as Function)(generatedContent)).toBe(en.optionHint);
     expect((courthearingField.section as Function)(generatedContent)).toBe(en.section);
+    expect((courthearingField.values[0].label as Function)(generatedContent)).toBe(en.supportworker);
+    expect((courthearingField.values[0].subFields?.supportWorkerDetails.label as Function)(generatedContent)).toBe(en.supportWorkerDetails);
+    expect((courthearingField.values[0].subFields?.supportWorkerDetails.validator as Function)(generatedContent)).toBe(undefined);
+    
+    expect((courthearingField.values[1].label as Function)(generatedContent)).toBe(en.familymember);
+    expect((courthearingField.values[1].subFields?.familyProviderDetails.label as Function)(generatedContent)).toBe(en.familyMemberDetails);
+    expect((courthearingField.values[1].subFields?.familyProviderDetails.validator as Function)(generatedContent)).toBe(undefined);
+
+    expect((courthearingField.values[2].label as Function)(generatedContent)).toBe(en.assistance);
+    expect((courthearingField.values[3].label as Function)(generatedContent)).toBe(en.animal);
+    expect((courthearingField.values[3].subFields?.therapyDetails.label as Function)(generatedContent)).toBe(en.animalDetails);
+    expect((courthearingField.values[3].subFields?.therapyDetails.validator as Function)(generatedContent)).toBe(undefined);
+
+    expect((courthearingField.values[4].label as Function)(generatedContent)).toBe(en.other);
+    expect((courthearingField.values[4].subFields?.communicationSupportOther.label as Function)(generatedContent)).toBe(en.otherDetails);
+    expect((courthearingField.values[4].subFields?.communicationSupportOther.validator as Function)(generatedContent)).toBe(undefined);
+
+    expect((courthearingField.values[6].label as Function)(generatedContent)).toBe(en.nosupport);
   });
 
   test('should contain Continue button', () => {

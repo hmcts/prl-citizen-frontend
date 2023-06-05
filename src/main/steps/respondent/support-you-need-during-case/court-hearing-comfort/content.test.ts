@@ -109,7 +109,17 @@ describe('citizen-home content', () => {
   test('should contain courthearing field', () => {
     const courtcomfortField = fields.courtComfort as FormOptions;
     expect(courtcomfortField.type).toBe('checkboxes');
+    expect((courtcomfortField.hint as Function)(generatedContent)).toBe(en.optionHint);
     expect((courtcomfortField.section as Function)(generatedContent)).toBe(en.section);
+    expect((courtcomfortField.values[0].label as Function)(generatedContent)).toBe(en.appropriatelighting);
+    expect((courtcomfortField.values[0].subFields?.lightingProvideDetails.label as Function)(generatedContent)).toBe(en.lightingDetails);
+    expect((courtcomfortField.values[0].subFields?.lightingProvideDetails.validator as Function)(generatedContent)).toBe(undefined);
+    expect((courtcomfortField.values[1].label as Function)(generatedContent)).toBe(en.break);
+    expect((courtcomfortField.values[2].label as Function)(generatedContent)).toBe(en.space);
+    expect((courtcomfortField.values[3].label as Function)(generatedContent)).toBe(en.other);
+    expect((courtcomfortField.values[3].subFields?.otherProvideDetails.label as Function)(generatedContent)).toBe(en.otherDetails);
+    expect((courtcomfortField.values[3].subFields?.otherProvideDetails.validator as Function)(generatedContent)).toBe(undefined);
+    expect((courtcomfortField.values[5].label as Function)(generatedContent)).toBe(en.nosupport);
   });
 
   test('should contain Continue button', () => {

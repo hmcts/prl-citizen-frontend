@@ -115,13 +115,17 @@ describe('citizen-home content', () => {
     );
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
     expect(generatedContent.docsColour).toEqual('Documents in a specified colour');
+    expect(generatedContent.docsColourDetails).toEqual('Describe what you need');
     expect(generatedContent.docsReadFormat).toEqual('Documents in an easy read format');
+    expect(generatedContent.docsReadFormatHint).toEqual('information written in simple language with pictures');
     expect(generatedContent.brailleDocs).toEqual('Braille documents');
     expect(generatedContent.largePrintDocs).toEqual('Documents in large print');
+    expect(generatedContent.largePrintDocsDetails).toEqual('Describe what you need');
     expect(generatedContent.audioTranslation).toEqual('Audio translation of documents');
     expect(generatedContent.docsReadOut).toEqual('Documents read out to me');
     expect(generatedContent.emailInfo).toEqual('Information emailed to me');
     expect(generatedContent.other).toEqual('Other');
+    expect(generatedContent.otherDetails).toEqual('Describe what you need');
     expect(generatedContent.noSupport).toEqual('No, I do not need any of this support at this time');
   });
 
@@ -138,7 +142,29 @@ describe('citizen-home content', () => {
   test('should contain docsSupport field', () => {
     const docsSupportField = fields.docsSupport as FormOptions;
     expect(docsSupportField.type).toBe('checkboxes');
+    expect((docsSupportField.hint as Function)(generatedContent)).toBe(en.optionHint);
     expect((docsSupportField.section as Function)(generatedContent)).toBe(en.section);
+    expect((docsSupportField.values[0].label as Function)(generatedContent)).toBe(en.docsColour);
+    expect((docsSupportField.values[0].subFields?.docsDetails.label as Function)(generatedContent)).toBe(en.docsColourDetails);
+    expect((docsSupportField.values[0].subFields?.docsDetails.validator as Function)(generatedContent)).toBe(undefined);
+
+    expect((docsSupportField.values[1].label as Function)(generatedContent)).toBe(en.docsReadFormat);
+    expect((docsSupportField.values[1].hint as Function)(generatedContent)).toBe(en.docsReadFormatHint);
+    expect((docsSupportField.values[2].label as Function)(generatedContent)).toBe(en.brailleDocs);
+
+    expect((docsSupportField.values[3].label as Function)(generatedContent)).toBe(en.largePrintDocs);
+    expect((docsSupportField.values[3].subFields?.largePrintDetails.label as Function)(generatedContent)).toBe(en.largePrintDocsDetails);
+    expect((docsSupportField.values[3].subFields?.largePrintDetails.validator as Function)(generatedContent)).toBe(undefined);
+
+    expect((docsSupportField.values[4].label as Function)(generatedContent)).toBe(en.audioTranslation);
+    expect((docsSupportField.values[5].label as Function)(generatedContent)).toBe(en.docsReadOut);
+    expect((docsSupportField.values[6].label as Function)(generatedContent)).toBe(en.emailInfo);
+
+    expect((docsSupportField.values[7].label as Function)(generatedContent)).toBe(en.other);
+    expect((docsSupportField.values[7].subFields?.otherDetails.label as Function)(generatedContent)).toBe(en.otherDetails);
+    expect((docsSupportField.values[7].subFields?.otherDetails.validator as Function)(generatedContent)).toBe(undefined);
+
+    expect((docsSupportField.values[9].label as Function)(generatedContent)).toBe(en.noSupport);
   });
 
   test('should contain Continue button', () => {
