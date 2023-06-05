@@ -28,9 +28,7 @@ if (process.env.PACT_TAG === 'master') {
     })
     .catch(e => {
       console.log('Pact contract publishing failed: ', e);
-      process.exit(0);
     });
 } else {
   console.log('Not publishing Pact contract on non-master branch');
-  process.exit(0);
 }

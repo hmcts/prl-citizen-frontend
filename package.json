@@ -32,7 +32,7 @@
     "test:functional:skip": "echo 'Not running functional cases in Master' && exit 0",
     "test:local": "codeceptjs run-multiple parallel",
     "test:pact": "jest -c jest.pact.config.js --runInBand",
-    "pact:publish": "NODE_ENV=test NODE_PATH=. PACT_TAG=master LOG_LEVEL=error ts-node src/test/pact/publish/publish.ts",
+    "pact:publish": "NODE_ENV=test NODE_PATH=. LOG_LEVEL=error ts-node src/test/pact/publish/publish.ts",
     "test:pact:run-and-publish": "yarn test:pact && yarn pact:publish",
     "broker": "docker-compose -f broker-compose.yaml up -d",
     "broker:stop": "docker-compose -f broker-compose.yaml down",
