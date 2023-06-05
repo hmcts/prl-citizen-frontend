@@ -26,6 +26,10 @@ services:
     url: 'https://prl-cos-pr-1346.preview.platform.hmcts.net'
   documentManagement:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-1238.preview.platform.hmcts.net'
+  pact:
+    url: 'https://pact-broker.platform.hmcts.net'
+    tag:
+    pactDirectory: 'pact/pacts'
 health:
   timeout: 5000
   deadline: 15000

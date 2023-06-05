@@ -24,6 +24,8 @@ services:
     url: DOCUMENT_MANAGEMENT_URL
   dgs:
     url: DGS_URL
+  pact:
+    tag: PACT_TAG
 port: PORT
 session:
   redis:
