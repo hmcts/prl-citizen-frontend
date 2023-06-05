@@ -138,89 +138,79 @@ const reasonableAdjustment = (userCase: CaseWithId, urls: object, userId: string
 };
 
 const getDocumentSupportUrls = (partyType: PartyType): object => {
-  const urlObject =
-    partyType === PartyType.RESPONDENT
-      ? {
-          docsSupport: CA_DA_DOCUMENTS_SUPPORT,
-          docsDetails: CA_DA_DOCUMENTS_SUPPORT,
-          largePrintDetails: CA_DA_DOCUMENTS_SUPPORT,
-          otherDetails: CA_DA_DOCUMENTS_SUPPORT,
-        }
-      : {
-          docsSupport: DOCUMENTS_SUPPORT,
-          docsDetails: DOCUMENTS_SUPPORT,
-          largePrintDetails: DOCUMENTS_SUPPORT,
-          otherDetails: DOCUMENTS_SUPPORT,
-        };
-  return urlObject;
+  return partyType === PartyType.RESPONDENT
+    ? {
+        docsSupport: CA_DA_DOCUMENTS_SUPPORT,
+        docsDetails: CA_DA_DOCUMENTS_SUPPORT,
+        largePrintDetails: CA_DA_DOCUMENTS_SUPPORT,
+        otherDetails: CA_DA_DOCUMENTS_SUPPORT,
+      }
+    : {
+        docsSupport: DOCUMENTS_SUPPORT,
+        docsDetails: DOCUMENTS_SUPPORT,
+        largePrintDetails: DOCUMENTS_SUPPORT,
+        otherDetails: DOCUMENTS_SUPPORT,
+      };
 };
 
 const getCommunicationHelpUrls = (partyType: PartyType): object => {
-  const urlObject =
-    partyType === PartyType.RESPONDENT
-      ? {
-          helpCommunication: CA_DA_COMMUNICATION_HELP,
-          signLanguageDetails: CA_DA_COMMUNICATION_HELP,
-          describeOtherNeed: CA_DA_COMMUNICATION_HELP,
-        }
-      : {
-          helpCommunication: COMMUNICATION_HELP,
-          signLanguageDetails: COMMUNICATION_HELP,
-          describeOtherNeed: COMMUNICATION_HELP,
-        };
-  return urlObject;
+  return partyType === PartyType.RESPONDENT
+    ? {
+        helpCommunication: CA_DA_COMMUNICATION_HELP,
+        signLanguageDetails: CA_DA_COMMUNICATION_HELP,
+        describeOtherNeed: CA_DA_COMMUNICATION_HELP,
+      }
+    : {
+        helpCommunication: COMMUNICATION_HELP,
+        signLanguageDetails: COMMUNICATION_HELP,
+        describeOtherNeed: COMMUNICATION_HELP,
+      };
 };
 
 const getCourtHearingSupportUrls = (partyType: PartyType): object => {
-  const urlObject =
-    partyType === PartyType.RESPONDENT
-      ? {
-          courtHearing: CA_DA_COURT_HEARING_SUPPORT,
-          supportWorkerDetails: CA_DA_COURT_HEARING_SUPPORT,
-          familyProviderDetails: CA_DA_COURT_HEARING_SUPPORT,
-          therapyDetails: CA_DA_COURT_HEARING_SUPPORT,
-          communicationSupportOther: CA_DA_COURT_HEARING_SUPPORT,
-        }
-      : {
-          courtHearing: COURT_HEARING_SUPPORT,
-          supportWorkerDetails: COURT_HEARING_SUPPORT,
-          familyProviderDetails: COURT_HEARING_SUPPORT,
-          therapyDetails: COURT_HEARING_SUPPORT,
-          communicationSupportOther: COURT_HEARING_SUPPORT,
-        };
-  return urlObject;
+  return partyType === PartyType.RESPONDENT
+    ? {
+        courtHearing: CA_DA_COURT_HEARING_SUPPORT,
+        supportWorkerDetails: CA_DA_COURT_HEARING_SUPPORT,
+        familyProviderDetails: CA_DA_COURT_HEARING_SUPPORT,
+        therapyDetails: CA_DA_COURT_HEARING_SUPPORT,
+        communicationSupportOther: CA_DA_COURT_HEARING_SUPPORT,
+      }
+    : {
+        courtHearing: COURT_HEARING_SUPPORT,
+        supportWorkerDetails: COURT_HEARING_SUPPORT,
+        familyProviderDetails: COURT_HEARING_SUPPORT,
+        therapyDetails: COURT_HEARING_SUPPORT,
+        communicationSupportOther: COURT_HEARING_SUPPORT,
+      };
 };
 
 const getCourtHearingComfortUrls = (partyType: PartyType): object => {
-  const urlObject =
-    partyType === PartyType.RESPONDENT
-      ? {
-          courtComfort: CA_DA_COURT_HEARING_COMFORT,
-          lightingProvideDetails: CA_DA_COURT_HEARING_COMFORT,
-          otherProvideDetails: CA_DA_COURT_HEARING_COMFORT,
-        }
-      : {
-          courtComfort: COURT_HEARING_COMFORT,
-          lightingProvideDetails: COURT_HEARING_COMFORT,
-          otherProvideDetails: COURT_HEARING_COMFORT,
-        };
-  return urlObject;
+  return partyType === PartyType.RESPONDENT
+    ? {
+        courtComfort: CA_DA_COURT_HEARING_COMFORT,
+        lightingProvideDetails: CA_DA_COURT_HEARING_COMFORT,
+        otherProvideDetails: CA_DA_COURT_HEARING_COMFORT,
+      }
+    : {
+        courtComfort: COURT_HEARING_COMFORT,
+        lightingProvideDetails: COURT_HEARING_COMFORT,
+        otherProvideDetails: COURT_HEARING_COMFORT,
+      };
 };
 
 const getTravellingToCourtUrls = (partyType: PartyType): object => {
-  const urlObject =
-    partyType === PartyType.RESPONDENT
-      ? {
-          travellingToCourt: CA_DA_TRAVELLING_TO_COURT,
-          parkingDetails: CA_DA_TRAVELLING_TO_COURT,
-          differentChairDetails: CA_DA_TRAVELLING_TO_COURT,
-          travellingOtherDetails: CA_DA_TRAVELLING_TO_COURT,
-        }
-      : {
-          travellingToCourt: TRAVELLING_TO_COURT,
-          parkingDetails: TRAVELLING_TO_COURT,
-          differentChairDetails: TRAVELLING_TO_COURT,
-          travellingOtherDetails: TRAVELLING_TO_COURT,
-        };
-  return urlObject;
+  return partyType === PartyType.RESPONDENT
+    ? {
+        travellingToCourt: CA_DA_TRAVELLING_TO_COURT,
+        parkingDetails: CA_DA_TRAVELLING_TO_COURT,
+        differentChairDetails: CA_DA_TRAVELLING_TO_COURT,
+        travellingOtherDetails: CA_DA_TRAVELLING_TO_COURT,
+      }
+    : {
+        travellingToCourt: TRAVELLING_TO_COURT,
+        parkingDetails: TRAVELLING_TO_COURT,
+        differentChairDetails: TRAVELLING_TO_COURT,
+        travellingOtherDetails: TRAVELLING_TO_COURT,
+      };
 };
