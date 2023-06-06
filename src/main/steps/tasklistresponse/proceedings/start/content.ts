@@ -4,8 +4,8 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
-  section: 'Have you or the children ever been involved in court proceedings?',
-  title: '',
+  section: '',
+  title: 'Have you or the children ever been involved in court proceedings?',
   courtCase: 'Have the children been involved in a court case?',
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',
@@ -26,8 +26,8 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
-  title: '',
+  section: '',
+  title: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
   courtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',

@@ -47,17 +47,17 @@ const cyContent = {
   address: 'Cyfeiriad',
   Phone_number: 'Rhif ffôn',
   contact_details_private_hint:
-    "You've said that the applicants know some of your contact details. Make sure you select contact details the applicants do not already know.",
+    "You've said that the applicants know some of your contact details. Make sure you select contact details the applicants do not already know. - welsh",
   Email: 'E-bost',
   contact_details_private:
-    'Which contact details do you want to keep private from the other people in this application?',
+    'Which contact details do you want to keep private from the other people in this application? - welsh',
   continue: 'Cadw a pharhau',
   errors: {
     startAlternative: {
-      required: 'Enter your start alternative',
+      required: 'Enter your start alternative - welsh',
     },
     contactDetailsPrivate: {
-      required: 'Select your contact details',
+      required: 'Select your contact details - welsh',
     },
   },
 };

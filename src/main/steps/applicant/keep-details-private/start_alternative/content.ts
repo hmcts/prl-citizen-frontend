@@ -15,7 +15,7 @@ const en = {
       required: 'Please select one among the following',
     },
     contactDetailsPrivate: {
-      required: 'Please select atleast one of the following',
+      required: 'Select your contact details',
     },
   },
 };
@@ -33,7 +33,7 @@ const cy: typeof en = {
       required: 'Please select one among the following-welsh',
     },
     contactDetailsPrivate: {
-      required: 'Please select atleast one of the following-welsh',
+      required: 'Select your contact details - welsh',
     },
   },
 };

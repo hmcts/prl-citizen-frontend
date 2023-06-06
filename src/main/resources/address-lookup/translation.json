@@ -1,11 +1,11 @@
 {
     "translations": {
         "en": {
-            "section": "Your address",
+            "title": "Your address",
             "serviceName": "Address/postcode lookup"
         },
         "cy": {
-            "section": "Eich cyfeiriad",
+            "title": "Eich cyfeiriad",
             "serviceName": "Address/postcode lookup (in welsh)"
         }
     },

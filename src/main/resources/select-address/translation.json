@@ -2,12 +2,12 @@
     "translations": {
         "en": {
             "continue": "Continue",
-            "section": "Your address",
+            "title": "Your address",
             "serviceName": "Select Address"
         },
         "cy": {
             "continue": "Parhau",
-            "section": "Eich cyfeiriad",
+            "title": "Eich cyfeiriad",
             "serviceName": "Select Address (in welsh)"
         }
     },

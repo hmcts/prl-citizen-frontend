@@ -7,7 +7,8 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  section: 'Have you or the children ever been involved in court proceedings?',
+  section: '',
+  title: 'Have you or the children ever been involved in court proceedings?',
   courtCase: 'Have the children been involved in a court case?',
   courtOrder: 'Have you had a court order made for your protection?',
   courtOrderYes: 'Yes',
@@ -23,7 +24,8 @@ const en = {
 };
 
 const cy = {
-  section: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
+  section: '',
+  title: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
   courtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
   courtOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
   courtOrderYes: 'Yes',

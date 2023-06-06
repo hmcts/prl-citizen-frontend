@@ -8,12 +8,12 @@ describe('test cases for otherProceedingsContents', () => {
       en: () => {
         delete en['errors'];
         delete opDetailsEnContents['errors'];
-        return { ...en(), ...opDetailsEnContents(), optitle: opDetailsEnContents().pageTitle };
+        return { ...en(), ...opDetailsEnContents(), optitle: opDetailsEnContents().title };
       },
       cy: () => {
         delete cy['errors'];
         delete opDetailsCyContents['errors'];
-        return { ...cy(), ...opDetailsCyContents(), optitle: opDetailsCyContents().pageTitle };
+        return { ...cy(), ...opDetailsCyContents(), optitle: opDetailsCyContents().title };
       },
     };
     return SystemLanguage === 'en' ? opContents.en() : opContents.cy();

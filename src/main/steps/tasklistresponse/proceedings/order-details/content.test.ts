@@ -10,7 +10,7 @@ import { generateContent, generateFormFields, getOrderSessionDataShape } from '.
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  pageTitle: 'Provide details of court cases you or the children have been involved in',
+  title: 'Provide details of court cases you or the children have been involved in',
   additionalNote:
     'If you do not have the specific details, you can skip this section and proceed with the application.',
   emergencyProtectionOrderLabel: 'Emergency Protection Order',
@@ -59,7 +59,7 @@ const en = {
 };
 
 const cy = {
-  pageTitle: "Darparwch fanylion am achosion llys rydych chi neu'r plant wedi bod yn rhan ohonynt",
+  title: "Darparwch fanylion am achosion llys rydych chi neu'r plant wedi bod yn rhan ohonynt",
   additionalNote: "Os nad oes gennych y manylion penodol, gallwch hepgor yr adran hon a bwrw ymlaen â'r cais.",
   emergencyProtectionOrderLabel: 'Gorchymyn Diogelu Brys',
   childArrangementOrderLabel: 'Child Arrangements Order - welsh',
