@@ -109,10 +109,10 @@ export const getApplicantAllegationsOfHarmAndViolence = (userCase: CaseWithId): 
 
 export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus => {
   if (
-    userCase?.languageRequirements &&
-    userCase?.reasonableAdjustments &&
-    userCase?.safetyArrangements &&
-    userCase?.attendingToCourt
+    userCase?.languageRequirements?.length &&
+    userCase?.reasonableAdjustments?.length &&
+    userCase?.safetyArrangements?.length &&
+    userCase?.attendingToCourt?.length
   ) {
     return SectionStatus.COMPLETED;
   }
