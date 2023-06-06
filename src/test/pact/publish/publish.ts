@@ -14,11 +14,12 @@ if (process.env.PACT_TAG === 'master') {
     pactFilesOrDirs: [path.resolve(process.cwd(), config.services.pact.pactDirectory)],
     pactBroker: config.services.pact.url,
     consumerVersion: git.short(),
-    tags: config.services.pact.tag,
+    tags: [config.services.pact.tag],
   };
-
+  console.log('opts', opts);
   const certPath = path.resolve(__dirname, './ca-bundle.crt');
   process.env.SSL_CERT_FILE = certPath;
+  console.log('certPath', certPath);
 
   pact
     .publishPacts(opts)
