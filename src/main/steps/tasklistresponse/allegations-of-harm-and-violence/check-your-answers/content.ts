@@ -32,7 +32,7 @@ export const enContent = {
     details: 'Details',
     //child concern screens
     detailsOfChildConcern: 'Briefly describe the [***] against the child if you feel able to ',
-    detailsOfOwnConcern: 'Briefly describe the [***] if you feel able to ',
+    detailsOfYourConcern: 'Briefly describe the [***] if you feel able to ',
     concerns: 'concerns',
     applicantDetails: 'Applicant [^^^] - Your details',
   },
@@ -59,7 +59,7 @@ export const cyContent: typeof enContent = {
     //child concern screens
     detailsOfChildConcern:
       "Disgrifiwch yn gryno y [***] yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
-    detailsOfOwnConcern: "Disgrifiwch y [***] yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+    detailsOfYourConcern: "Disgrifiwch y [***] yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
     concerns: 'concerns',
     applicantDetails: 'Applicant [^^^] - Your details - welsh',
   },

@@ -234,7 +234,7 @@ export const SafetyConcerns_yours = (
         element !== PRL_C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE
     )
     ?.map(field => {
-      const keyForFields = field === PRL_C1AAbuseTypes.SOMETHING_ELSE  ? keys['detailsOfOwnConcern'].split('[***]').join(` ${keys['concerns']} `): keys['detailsOfOwnConcern'].split('[***]').join(` ${keys[field]} `);
+      const keyForFields = field === PRL_C1AAbuseTypes.SOMETHING_ELSE  ? keys['detailsOfYourConcern'].split('[***]').join(` ${keys['concerns']} `): keys['detailsOfYourConcern'].split('[***]').join(` ${keys[field]} `);
       return {
         key: keyForFields,
         valueHtml: SafetyConcernsHelper(
