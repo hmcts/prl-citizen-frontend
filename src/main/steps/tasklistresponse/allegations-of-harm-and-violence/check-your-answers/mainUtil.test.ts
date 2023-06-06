@@ -17,6 +17,7 @@ const sectionTitles = {
 
 const keys = {
   detailsOfChildConcern: 'detailsOfChildConcern',
+  detailsOfOwnConcern: 'detailsOfOwnConcern',
 };
 
 const content = {

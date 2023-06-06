@@ -2,6 +2,7 @@
 
 import { PRL_C1ASafteyConcernsAbout, YesOrNo } from '../../../../../app/case/definition';
 import { getYesNoTranslation } from '../../../../c100-rebuild/check-your-answers/mainUtil';
+import { cy } from '../../child/report-abuse/content';
 import { HTML } from '../common/htmlSelectors';
 import { ANYTYPE } from '../common/index';
 
@@ -32,7 +33,7 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
       ) {
         bodyHtml +=
           HTML.LIST_ITEM +
-          (language === 'cy' ? 'Pob plentyn yn y cais' : FoundElement['childrenConcernedAbout'][0]) +
+          (language === 'cy' ? cy().allchildLabel : FoundElement['childrenConcernedAbout'][0]) +
           HTML.LIST_ITEM_END;
       } else {
         if (Array.isArray(FoundElement['childrenConcernedAbout'])) {

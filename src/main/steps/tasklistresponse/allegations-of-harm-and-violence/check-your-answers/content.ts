@@ -31,9 +31,9 @@ export const enContent = {
   keys: {
     details: 'Details',
     //child concern screens
-    detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
+    detailsOfChildConcern: 'Briefly describe the [***] against the child if you feel able to ',
+    detailsOfOwnConcern: 'Briefly describe the [***] if you feel able to ',
     concerns: 'concerns',
-    againstChild: 'against the child',
     applicantDetails: 'Applicant [^^^] - Your details',
   },
 };
@@ -57,9 +57,10 @@ export const cyContent: typeof enContent = {
   keys: {
     details: 'Manylion',
     //child concern screens
-    detailsOfChildConcern: "Disgrifiwch y [***] [^^^] yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+    detailsOfChildConcern:
+      "Disgrifiwch yn gryno y [***] yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+    detailsOfOwnConcern: "Disgrifiwch y [***] yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
     concerns: 'concerns',
-    againstChild: "Disgrifiwch yn gryno y [***] yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
     applicantDetails: 'Applicant [^^^] - Your details - welsh',
   },
 };

@@ -1,11 +1,12 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
 import { CaseWithId } from '../../../../app/case/case';
-import { PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbout, YesOrNo } from '../../../../app/case/definition';
+import { PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbout, YesOrNo, passportPossessionRelative } from '../../../../app/case/definition';
 import { SummaryList, SummaryListContentWithBoolean, getSectionSummaryList } from '../../../c100-rebuild/check-your-answers/lib/lib';
 import { getYesNoTranslation } from '../../../c100-rebuild/check-your-answers/mainUtil';
 import { applyParms } from '../../../common/url-parser';
 import * as Urls from '../../../urls';
+import { cy } from '../abduction/passport-amount/content';
 
 // import { DATE_FORMATTOR } from './common/dateformatter';
 import { HTML } from './common/htmlSelectors';
@@ -71,13 +72,6 @@ export const SafetyConcerns_child = (
       )
     : '';
   let subFields = userCase['PRL_c1A_concernAboutChild'] as ANYTYPE;
-  const childConcernKey = (field) => language === 'cy' ? keys['againstChild']
-  .split('[***]')
-  .join(` ${keys[field]} `) : keys['detailsOfChildConcern']
-  .split('[***]')
-  .join(` ${keys[field]} `)
-  .split('[^^^]')
-  .join(keys['againstChild']);
   subFields = subFields
     ?.filter(
       (element) =>
@@ -86,7 +80,9 @@ export const SafetyConcerns_child = (
         element !== PRL_C1AAbuseTypes.SOMETHING_ELSE
     ).map(field => {
       return {
-        key: childConcernKey(field),
+        key: keys['detailsOfChildConcern']
+        .split('[***]')
+        .join(` ${keys[field]} `),
         value: '',  
         valueHtml: SafetyConcernsHelper(
           userCase,
@@ -124,8 +120,8 @@ export const SafetyConcerns_child = (
     let PRL_c1A_childAbductedBefore = '';
     PRL_c1A_childAbductedBefore += (userCase?.['PRL_c1A_passportOffice'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oesTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oesTranslation'));
     const relativesTranslation = (relative) => {
-      relative = relative === 'mother' && language === 'cy' ? 'mam' : relative;
-      relative = relative === 'father' && language === 'cy' ? 'tad' : relative;
+      relative = relative === passportPossessionRelative.MOTHER && language === 'cy' ? cy().option1 : relative;
+      relative = relative === passportPossessionRelative.FATHER && language === 'cy' ? cy().option2 : relative;
       return relative;
     };
     if (userCase.hasOwnProperty('PRL_c1A_passportOffice') && userCase.PRL_c1A_passportOffice === 'Yes') {
@@ -140,12 +136,12 @@ export const SafetyConcerns_child = (
       PRL_c1A_childAbductedBefore += HTML.H4_CLOSE;
       PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST;
       PRL_c1A_childAbductedBefore += userCase['PRL_c1A_possessionChildrenPassport']!
-      .filter(element => element !== 'otherPerson')
+      .filter(element => element !== passportPossessionRelative.OTHER)
       .map(relatives => HTML.LIST_ITEM + relativesTranslation(relatives) + HTML.LIST_ITEM_END)
       .toString()
       .split(',')
       .join('');
-    if(userCase['PRL_c1A_possessionChildrenPassport']!.some(element => element === 'otherPerson')){
+    if(userCase['PRL_c1A_possessionChildrenPassport']!.some(element => element === passportPossessionRelative.OTHER)){
       PRL_c1A_childAbductedBefore +=  HTML.LIST_ITEM + userCase['PRL_c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
     }  
     PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
@@ -238,7 +234,7 @@ export const SafetyConcerns_yours = (
         element !== PRL_C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE
     )
     ?.map(field => {
-      const keyForFields = field === PRL_C1AAbuseTypes.SOMETHING_ELSE  ? keys['detailsOfChildConcern'].split('[***]').join(` ${keys['concerns']} `).split('[^^^]').join(''): keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field]} `).split('[^^^]').join('');
+      const keyForFields = field === PRL_C1AAbuseTypes.SOMETHING_ELSE  ? keys['detailsOfOwnConcern'].split('[***]').join(` ${keys['concerns']} `): keys['detailsOfOwnConcern'].split('[***]').join(` ${keys[field]} `);
       return {
         key: keyForFields,
         valueHtml: SafetyConcernsHelper(

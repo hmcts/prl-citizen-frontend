@@ -2984,3 +2984,9 @@ export enum CaseEvent {
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   LEGAL_REPRESENTATION = 'legalRepresentation',
 }
+
+export enum passportPossessionRelative {
+  MOTHER = 'mother',
+  FATHER = 'father',
+  OTHER = 'otherPerson'
+}

@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-import { YesOrNo } from '../../../../../app/case/definition';
+import { YesOrNo, passportPossessionRelative } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
@@ -97,17 +97,17 @@ export const form: FormContent = {
         {
           name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option1,
-          value: 'mother',
+          value: passportPossessionRelative.MOTHER,
         },
         {
           name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option2,
-          value: 'father',
+          value: passportPossessionRelative.FATHER,
         },
         {
           name: 'PRL_c1A_possessionChildrenPassport',
           label: l => l.option3,
-          value: 'otherPerson',
+          value: passportPossessionRelative.OTHER,
           subFields: {
             PRL_c1A_provideOtherDetails: {
               type: 'textarea',
