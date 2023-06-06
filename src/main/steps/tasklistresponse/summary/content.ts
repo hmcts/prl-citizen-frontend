@@ -255,11 +255,12 @@ export const enSaftyConcern = {
   keys: {
     details: 'Details',
     //child concern screens
-    detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
+    detailsOfChildConcern: 'Briefly describe the [***] against the child if you feel able to ',
+    detailsOfYourConcern: 'Briefly describe the [***] if you feel able to ',
     concerns: 'concerns',
     againstChild: 'against the child',
     applicantDetails: 'Applicant [^^^] - Your details',
-    childrenConcernedAboutLabel: 'Which children are you concerned about?',
+    childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
     physicalAbuse: 'Physical abuse',
     psychologicalAbuse: 'Psychological abuse',
     emotionalAbuse: 'Emotional abuse',
@@ -520,7 +521,9 @@ export const cySaftyConcern = {
   keys: {
     details: 'Manylion',
     //child concern screens
-    detailsOfChildConcern: "Disgrifiwch y [***] [^^^] yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+    detailsOfChildConcern:
+      "Disgrifiwch yn gryno y [***] yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+    detailsOfYourConcern: "Disgrifiwch y [***] yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
     concerns: 'concerns',
     againstChild: "Disgrifiwch yn gryno y [***] yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
     applicantDetails: 'Applicant [^^^] - Your details',
