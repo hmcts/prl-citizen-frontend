@@ -4,9 +4,9 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
 import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../steps/urls';
 
-import { applicant_en } from './section-titles';
+import { applicant_cy, applicant_en } from './section-titles';
 import { generateApplicantTaskList } from './tasklist';
-import { applicant_tasklist_items_en } from './tasklist-items';
+import { applicant_tasklist_items_cy, applicant_tasklist_items_en } from './tasklist-items';
 import { getApplicantPartyDetails } from './utils';
 
 const en = () => ({
@@ -91,8 +91,8 @@ const cy = () => ({
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
   },
-  sectionTitles: applicant_en,
-  taskListItems: applicant_tasklist_items_en,
+  sectionTitles: applicant_cy,
+  taskListItems: applicant_tasklist_items_cy,
 
   viewDocumentBanner: {
     bannerHeading: 'Mae gennych ddogfen newydd i edrych arni',

@@ -79,7 +79,7 @@ const cy: typeof en = {
     reasonableAdjustments:
       'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
     safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
-    safetyArrangementsDetails: 'Describe what you need -welsh',
+    safetyArrangementsDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   },
   dependencies: {
     languageDetails: {

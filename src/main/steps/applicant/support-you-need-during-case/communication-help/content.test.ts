@@ -62,7 +62,7 @@ const cy: typeof en = {
   lipspeaker: 'Siaradwr gwefusau',
   lipspeakerhint: 'clywed rhywun sydd wedi cael ei hyfforddi i allu darllen gwefusau yn rhwydd',
   signlanguage: 'Cyfieithydd iaith arwyddion',
-  signLanguageDetails: 'Describe what you need',
+  signLanguageDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   speechreporter: 'Cofnodwr iaith lafar i destun (palanteipydd)',
   extratime: 'Amser ychwanegol i feddwl ac egluro fy hun',
   courtvisit: "Ymweld â'r llys cyn y gwrandawiad",
@@ -71,9 +71,9 @@ const cy: typeof en = {
   intermediaryhint:
     'rhywun i’ch helpu os oes gennych anghenion cyfathrebu drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     helpCommunication: {
       required: 'Select what help you need in communicating and understanding',

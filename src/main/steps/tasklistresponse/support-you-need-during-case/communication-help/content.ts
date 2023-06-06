@@ -59,7 +59,7 @@ const cy: typeof en = {
   lipSpeaker: 'Siaradwr gwefusau',
   lipSpeakerHint: 'clywed rhywun sydd wedi cael ei hyfforddi i allu darllen gwefusau yn rhwydd',
   signLanguage: 'Cyfieithydd iaith arwyddion',
-  signLanguageDetails: 'Describe what you need',
+  signLanguageDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   speechReporter: 'Cofnodwr iaith lafar i destun (palanteipydd)',
   extraTime: 'Amser ychwanegol i feddwl ac egluro fy hun',
   courtVisit: "Ymweld â'r llys cyn y gwrandawiad",
@@ -68,9 +68,9 @@ const cy: typeof en = {
   intermediaryHint:
     'rhywun i’ch helpu os oes gennych anghenion cyfathrebu drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   noSupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     helpCommunication: {
       required: 'Select what help you need in communicating and understanding',
@@ -178,7 +178,7 @@ export const form: FormContent = {
           },
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'helpCommunication',

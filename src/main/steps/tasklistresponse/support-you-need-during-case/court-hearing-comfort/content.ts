@@ -40,13 +40,13 @@ const cy: typeof en = {
   optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
   appropriatelighting: 'Goleuadau priodol',
-  lightingDetails: 'Describe what you need',
+  lightingDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   break: 'Seibiannau rheolaidd',
   space: 'Lle i allu codi a symud o gwmpas',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     courtComfort: {
       required: 'Select what you need to feel comfortable during a court hearing',

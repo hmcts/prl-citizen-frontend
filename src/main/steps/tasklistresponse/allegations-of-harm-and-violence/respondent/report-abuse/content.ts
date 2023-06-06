@@ -27,8 +27,10 @@ const en = () => ({
   isOngoingBehaviourLabel: 'Is the behaviour ongoing? (optional)',
   isOngoingBehaviourHint:
     '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, <a href="https://www.gov.uk/report-domestic-abuse" class="govuk-link" rel="external" target="_blank">contact one of the suggested agencies</a> to get help or report the behaviour with <a href="https://www.police.uk/" class="govuk-link" rel="external" target="_blank">your local policing team</a>.</p>',
-  YesOptionLabel: 'Yes',
-  NoOptionLabel: 'No',
+  ongoingBehaviourYesLabel: 'Yes',
+  ongoingBehaviourNoLabel: 'No',
+  professionalHelpYesLabel: 'Yes',
+  professionalHelpNoLabel: 'No',
   seekHelpFromPersonOrAgencyLabel: 'Have you ever asked for help from a professional person or agency? (optional)',
   seekHelpFromPersonOrAgencyHintText: 'For example, speaking to your local GP.',
   seekHelpDetailsYesHint: `<p class="govuk-body">Indicate who you sought help from, and what they did to help (optional). </p>
@@ -56,31 +58,37 @@ const en = () => ({
 
 const cy = () => ({
   caption: 'Pryderon diogelwch',
-  physicalAbusePageTitle: 'Briefly describe the physical abuse if you feel able to - welsh',
-  psychologicalAbusePageTitle: 'Briefly describe the psychological abuse if you feel able to - welsh',
-  emotionalAbusePageTitle: 'Briefly describe the emotional abuse if you feel able to - welsh',
-  sexualAbusePageTitle: 'Briefly describe the sexual abuse if you feel able to - welsh',
-  financialAbusePageTitle: 'Briefly describe the financial abuse if you feel able to - welsh',
-  somethingElsePageTitle: 'Briefly describe the abuse if you feel able to - welsh',
-  introText: `<p class="govuk-body ">Complete this section as best you can. If you don't feel able to discuss the abuse at this stage, you can do so when you speak to Cafcass. - welsh</p>
-  <p class="govuk-body ">The information that you give will be used in the application. It is not a request for a domestic abuse injunction. - welsh</p>
-  <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately. - welsh</p>`,
+  physicalAbusePageTitle:
+    "Disgrifiwch y cam-drin corfforol yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+  psychologicalAbusePageTitle:
+    "Disgrifiwch y cam-drin seicolegol yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+  emotionalAbusePageTitle:
+    "Disgrifiwch y cam-drin emosiynol yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+  sexualAbusePageTitle: "Disgrifiwch y cam-drin rhywiol yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+  financialAbusePageTitle:
+    "Disgrifiwch y cam-drin ariannol yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+  somethingElsePageTitle: 'Disgrifiwch y gamdriniaeth yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny',
+  introText: `<p class="govuk-body ">Llenwch yr adran hon y gorau y gallwch. Os nad ydych chi'n teimlo eich bod chi'n gallu trafod y gamdriniaeth ar hyn o bryd, gallwch wneud hynny wrth siarad efo Cafcass</p>
+  <p class="govuk-body ">Bydd yr wybodaeth y byddwch yn ei rhoi yn cael ei defnyddio yn y cais. Nid yw'n gais am waharddeb cam-drin domestig.</p>
+  <p class="govuk-body ">Gallwch<a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank"> wneud cais am waharddeb cam-drin domestig</a> ar wahân</p>`,
   warningText:
     'We will share the information that you give in this section with the other person in the case (the applicant) so that they can respond to what you have said. - welsh',
   behaviourDetailsLabel: "Disgrifiwch yr ymddygiadau yr hoffech i'r llys fod yn ymwybodol ohonynt.",
   behaviourDetailsHintText:
-    'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings. - welsh',
+    "Cadwch eich ateb yn fyr. Bydd cyfle i chi roi mwy o fanylion i'r llys yn ddiweddarach yn yr achos.",
   behaviourStartDateLabel: 'Pryd ddechreuodd yr ymddygiad hwn a pha mor hir wnaeth hynny barhau?',
-  behaviourStartDateHintText: 'This does not need to be an exact date. - welsh',
-  isOngoingBehaviourLabel: 'Is the behaviour ongoing? - welsh (optional)',
+  behaviourStartDateHintText: 'Nid oes angen i hyn fod yn union ddyddiad.',
+  isOngoingBehaviourLabel: 'Ydy’r ymddygiad yn digwydd ar hyn o bryd?',
   isOngoingBehaviourHint:
     '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, <a href="https://www.gov.uk/report-domestic-abuse" class="govuk-link" rel="external" target="_blank">contact one of the suggested agencies</a> to get help or report the behaviour with <a href="https://www.police.uk/" class="govuk-link" rel="external" target="_blank">your local policing team</a>. - welsh</p>',
-  YesOptionLabel: 'Yes - welsh',
-  NoOptionLabel: 'No - welsh',
+  ongoingBehaviourYesLabel: 'Ydy',
+  ongoingBehaviourNoLabel: 'Nac ydy',
+  professionalHelpYesLabel: 'Do',
+  professionalHelpNoLabel: 'Naddo',
   seekHelpFromPersonOrAgencyLabel: 'Ydych chi erioed wedi gofyn am help gan unigolyn neu asiantaeth broffesiynol?',
-  seekHelpFromPersonOrAgencyHintText: 'For example, speaking to your local GP. - welsh',
-  seekHelpDetailsYesHint: `<p class="govuk-body">Indicate who you sought help from, and what they did to help - welsh (optional). </p>
-  <p class="govuk-body">Do not include personal details such as names and addresses. - welsh</p>`,
+  seekHelpFromPersonOrAgencyHintText: "Er enghraifft, siarad â'ch meddyg teulu lleol.",
+  seekHelpDetailsYesHint:
+    '<p class="govuk-body">Dywedwch wrth bwy wnaethoch chi ofyn am help, a beth wnaethon nhw i helpu (dewisol). </p><p class="govuk-body">Peidiwch â chynnwys manylion personol fel enwau a chyfeiriadau.</p>',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" rel="external" target="_blank">GOV.UK guidance</a> if you are unsure how to get help. - welsh</p>',
   errors: {
@@ -152,12 +160,12 @@ export const generateFormFields = (data: PRL_C1ASafteyConcernsAbuse): GenerateDy
       labelSize: 's',
       values: [
         {
-          label: l => l.YesOptionLabel,
+          label: l => l.ongoingBehaviourYesLabel,
           value: YesNoEmpty.YES,
           conditionalText: l => l.isOngoingBehaviourHint,
         },
         {
-          label: l => l.NoOptionLabel,
+          label: l => l.ongoingBehaviourNoLabel,
           value: YesNoEmpty.NO,
         },
       ],
@@ -170,7 +178,7 @@ export const generateFormFields = (data: PRL_C1ASafteyConcernsAbuse): GenerateDy
       labelSize: 's',
       values: [
         {
-          label: l => l.YesOptionLabel,
+          label: l => l.professionalHelpYesLabel,
           value: YesNoEmpty.YES,
           subFields: {
             seekHelpDetails: {
@@ -182,7 +190,7 @@ export const generateFormFields = (data: PRL_C1ASafteyConcernsAbuse): GenerateDy
           },
         },
         {
-          label: l => l.NoOptionLabel,
+          label: l => l.professionalHelpNoLabel,
           value: YesNoEmpty.NO,
           conditionalText: l => l.seekHelpDetailsNoHint,
         },

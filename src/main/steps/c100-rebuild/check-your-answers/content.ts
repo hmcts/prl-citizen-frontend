@@ -384,6 +384,10 @@ export const cyContent = {
       Yes: 'Ie',
       No: 'Na',
     },
+    byddwnTranslation: {
+      Yes: 'Byddwn',
+      No: 'Na fyddwn',
+    },
   },
 };
 

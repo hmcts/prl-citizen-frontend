@@ -43,10 +43,10 @@ const cyContent: typeof enContent = {
     consentDetails: '',
   },
   keys: {
-    doYouConsent: 'Do you provide your consent to the application? (welsh)',
+    doYouConsent: 'A ydych chi’n cydsynio i’r cais?',
     reasonForNotConsenting: 'Give your reasons for not consenting to the application. (welsh)',
     applicationReceivedDate: "Pryd gawsoch chi'r cais?",
-    courtPermission: 'Is the applicant required to seek permission from the court before making applications? (welsh)',
+    courtPermission: "A oes angen i'r ceisydd ofyn am ganiatâd gan y llys cyn gwneud ceisiadau?",
     courtOrderDetails: 'Provide details of the court order in place. (welsh)',
   },
 };

@@ -259,7 +259,7 @@ export const enSaftyConcern = {
     concerns: 'concerns',
     againstChild: 'against the child',
     applicantDetails: 'Applicant [^^^] - Your details',
-    childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
+    childrenConcernedAboutLabel: 'Which children are you concerned about?',
     physicalAbuse: 'Physical abuse',
     psychologicalAbuse: 'Psychological abuse',
     emotionalAbuse: 'Emotional abuse',
@@ -327,7 +327,7 @@ export const cyContent: typeof enContent = {
   statementOfTruth: 'Statement of truth -welsh',
   warning: 'Warning -welsh',
   warningText:
-    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth. -welsh',
+    'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
   errors: {
     declarationCheck: {
       required: 'Please confirm the declaration -welsh',
@@ -344,9 +344,9 @@ export const cyContent: typeof enContent = {
   statementOfTruthSubmission:
     'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth. (welsh)',
   downloadDraftPDF: 'Download a draft of your response (PDF) (welsh)',
-  cannotOpen: 'If you cannot open the PDF file on your device, download and install (welsh)',
+  cannotOpen: 'Os na allwch agor y ffeil PDF ar eich dyfais, llwythwch a gosodwch',
   adobeReader: 'Adobe Acrobat Reader (welsh)',
-  tryAgain: 'and try again. (welsh)',
+  tryAgain: 'ar eich dyfais a cheisio eto.',
   forRecords:
     'Please note this draft is for your records. Only the completed response will be admitted in court. (welsh)',
   downloadDraft: 'Download draft response (welsh)',
@@ -355,242 +355,245 @@ export const cyContentProceding = {
   serviceName: 'Check your answers  -welsh',
   section: '',
   title: 'Check your answers -welsh',
-  change: 'Edit -welsh',
-  topWarning: 'Your answers will be shared with the other people in this case. -welsh',
-  makingSure: 'Please review your answers before you finish your application. -welsh',
-  continue: 'Save and continue -welsh',
+  change: 'Golygu',
+  topWarning: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
+  makingSure: 'Edrychwch dros eich atebion cyn gorffen gwneud eich cais.',
+  continue: 'Cadw a pharhau',
   Yes: 'Yes -welsh',
   No: 'No  -welsh',
   errors: {},
   sectionTitles: {
-    otherProceedings: 'Current or previous proceedings -welsh',
+    otherProceedings: 'Achos cyfredol neu flaenorol',
   },
   keys: {
-    childrenInvolvedCourtCase: 'Have the children been involved in a court case? -welsh',
-    courtOrderProtection: 'Have you had a court order made for your protection? -welsh',
-    optitle: 'Provide details of court cases you or the children have been involved in -welsh',
-    courtIssuedLabel: 'Which court issued this order? (optional) -welsh',
-    caseNumberLabel: 'Case number (optional) -welsh',
-    orderDateLabel: 'What date was it made (optional) -welsh',
-    orderEndDateLabel: 'How long was the order for? (optional) -welsh',
-    isCurrentOrderLabel: 'Is this a current order? (optional) -welsh',
-    copyOfOrderLabel: 'Do you have a copy of the order (optional) -welsh',
+    childrenInvolvedCourtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
+    courtOrderProtection: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
+    optitle: "Darparwch fanylion am achosion llys rydych chi neu'r plant wedi bod yn rhan ohonynt",
+    courtIssuedLabel: 'Pa lys a gyhoeddodd y gorchymyn hwn?',
+    caseNumberLabel: 'Rhif yr achos (dewisol)',
+    orderDateLabel: 'Pa ddyddiad gafodd ei wneud? (dewisol)',
+    orderEndDateLabel: 'Am ba mor hir gwnaethpwyd y gorchymyn?',
+    isCurrentOrderLabel: 'A yw hwn yn orchymyn cyfredol?',
+    copyOfOrderLabel: "Oes gennych chi gopi o'r gorchymyn? (dewisol)",
     copy: 'Copy uploaded?-welsh',
-    emergencyProtectionOrderLabel: 'Emergency Protection Order -welsh',
-    childArrangementOrderLabel: 'Child Arrangements Order -welsh',
-    supervisionOrderLabel: 'Supervision Order -welsh',
-    careOrderLabel: 'Care Order -welsh',
-    childAbductionOrderLabel: 'Child Abduction Order -welsh',
+    emergencyProtectionOrderLabel: 'Gorchymyn Diogelu Brys',
+    childArrangementOrderLabel: 'Gorchymyn Trefniadau Plant',
+    supervisionOrderLabel: 'Gorchymyn Goruchwylio',
+    careOrderLabel: 'Gorchymyn Gofal',
+    childAbductionOrderLabel: 'Herwgydio Plentyn',
     contactOrderForDivorceLabel:
-      'A contact or residence order (Section 8 Children Act 1989) made within proceedings for a divorce or dissolution of a civil partnership -welsh',
+      'Gorchymyn Cyswllt neu Orchymyn Preswylio (Adran 8 Deddf Plant 1989) a wnaed fel rhan o achos ysgariad neu achos diddymu partneriaeth sifil',
     contactOrderForAdoptionLabel:
-      'A contact or residence order (Section 8 Children Act 1989) made in connection with an Adoption Order -welsh',
-    childMaintenanceOrderLabel: 'Child Maintenance Order -welsh',
-    financialOrderLabel: 'Financial Order -welsh',
-    nonMolestationOrderLabel: 'Non-molestation Order -welsh',
-    occupationOrderLabel: 'Occupation Order -welsh',
-    forcedMarriageProtectionOrderLabel: 'Forced Marriage Protection Order -welsh',
-    restrainingOrderLabel: 'Restraining Order -welsh',
-    otherInjuctionOrderLabel: 'Other Injunction Order -welsh',
-    undertakingOrderLabel: 'Undertaking Order -welsh',
-    otherOrderLabel: 'Other Order -welsh',
+      'Gorchymyn Cyswllt neu Orchymyn Preswylio (Adran 8 Deddf Plant 1989) a wnaed mewn perthynas â Gorchymyn Mabwysiadu',
+    childMaintenanceOrderLabel: 'Gorchymyn Trefniadau Plant',
+    financialOrderLabel: 'Gorchmynion Ariannol',
+    nonMolestationOrderLabel: 'Gorchymyn Rhag Molestu',
+    occupationOrderLabel: 'Gorchymyn Anheddu',
+    forcedMarriageProtectionOrderLabel: 'Gorchymyn Amddiffyn rhag Priodas dan Orfod',
+    restrainingOrderLabel: 'Gorchymyn Atal',
+    otherInjuctionOrderLabel: 'Gorchymyn Gwaharddeb Arall',
+    undertakingOrderLabel: 'Gorchymyn Ymgymeriad',
+    otherOrderLabel: 'Gorchymyn Arall',
   },
 };
 export const cylegalRepresntationContent = {
   sectionTitles: {
-    title: '1. Legal representation -welsh',
+    title: '1. Cynrychiolydd cyfreithiol',
   },
   keys: {
-    legalRepresentation: 'Will you be using a legal representative to respond to the application? -welsh',
+    legalRepresentation: "A fyddwch chi'n defnyddio cynrychiolydd cyfreithiol i ymateb i'r cais?",
   },
 };
 
 export const cyConsentContent = {
   sectionTitles: {
-    title: '2. Consent to the application -welsh',
+    title: '2. Cydsynio i’r cais',
   },
   keys: {
-    doYouConsent: 'Do you consent to the application? -welsh',
+    doYouConsent: 'Ydych chi’n cydsynio i’r cais?',
     reasonForNotConsenting: 'Give your reasons for not consenting to the application.-welsh',
-    applicationReceivedDate: 'When did you receive the application? -welsh',
-    courtPermission: 'Does the applicant need permission from the court before making applications? -welsh',
-    courtOrderDetails: 'Details -welsh',
+    applicationReceivedDate: 'Pryd gawsoch chi’r cais?',
+    courtPermission: 'A yw’r ceisydd angen caniatâd gan y llys cyn gwneud ceisiadau?',
+    courtOrderDetails: 'Manylion',
   },
 };
 
 export const cyKeepYourDetailsContent = {
   sectionTitles: {
-    title: 'Keeping your details private -welsh',
+    title: 'Cadw eich manylion yn breifat',
   },
   keys: {
-    detailsKnown:
-      'Do the other people named in this application (the applicants) know any of your contact details? -welsh',
+    detailsKnown: "A yw'r bobl eraill a enwir yn y cais hwn (y ceiswyr) yn gwybod beth yw eich manylion cyswllt?",
     startAlternative:
-      'Do you want to keep your contact details private from the other people named in the application (the applicants)? -welsh',
+      "Ydych chi eisiau cadw'ch manylion cyswllt yn breifat oddi wrth y bobl eraill a enwir yn y cais (y ceiswyr)?",
   },
 };
 
 export const cyContentMiam = {
   sectionTitles: {
-    title: 'Mediation (MIAM) -welsh',
+    title: 'Cyfryngu (MIAM)',
   },
   keys: {
-    miamStart: 'Have you attended a MIAM? -welsh',
-    miamWillingness: 'Would you be willing to attend a MIAM? -welsh',
-    miamNotWillingExplnation: 'Explain why you are not willing to attend a MIAM? -welsh',
+    miamStart: 'Ydych chi wedi mynychu MIAM?',
+    miamWillingness: "A fyddech chi'n fodlon mynychu MIAM?",
+    miamNotWillingExplnation: "Esboniwch pam nad ydych chi'n fodlon mynychu MIAM?",
   },
 };
 
 export const cyConfirmYourDetailsContent = {
   sectionTitles: {
-    title: 'Confirm or edit your contact details -welsh',
+    title: 'Cadarnhau neu olygu eich manylion cyswllt',
   },
   keys: {
-    citizenUserFullName: 'Name -welsh',
-    citizenUserDateOfBirthText: 'Date of birth -welsh',
-    citizenUserPlaceOfBirthText: 'Place of birth -welsh',
-    citizenUserAddressText: 'Address -welsh',
-    citizenUserAddressHistory: 'Address history -welsh',
-    citizenUserPhoneNumberText: 'Phone number -welsh',
-    citizenUserEmailAddressText: 'Email -welsh',
-    citizenUserSafeToCall: 'When it is safe to call you (optional) -welsh',
+    citizenUserFullName: 'Enw',
+    citizenUserDateOfBirthText: 'Dyddiad geni',
+    citizenUserPlaceOfBirthText: 'Lleoliad geni',
+    citizenUserAddressText: 'Cyfeiriad',
+    citizenUserAddressHistory: 'Hanes cyfeiriad',
+    citizenUserPhoneNumberText: 'Rhif ffôn',
+    citizenUserEmailAddressText: 'E-bost',
+    citizenUserSafeToCall: 'Pa bryd y mae’n ddiogel eich ffonio (dewisol)',
   },
 };
 
 export const cySupportYouNeedContent = {
   sectionTitles: {
-    title: 'Support you need during your case -welsh',
+    title: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',
   },
   keys: {
-    attendingToCourt: 'Would you be able to take part in hearings by video and phone? -welsh',
-    hearingDetails: 'Please provide the details -welsh',
-    languageRequirements: 'Do you have any language requirements? -welsh',
-    languageDetails: 'Please provide language details -welsh',
-    safetyArrangements: 'Do you or the children need special safety arrangements at court? -welsh',
-    safetyArrangementsDetails: 'Please describe your need in detail -welsh',
+    attendingToCourt: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+    hearingDetails: 'Rhowch fanylion',
+    languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+    languageDetails: 'Rhowch fanylion eich gofynion ieithyddol',
+    safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
+    safetyArrangementsDetails: 'Disgrifiwch eich anghenion yn fanwl',
     reasonableAdjustments:
-      'Do you have a physical, mental or learning disability or health condition that means you need support during your case? -welsh',
-    docsSupport: 'I need documents in an alternative format -welsh',
-    docsDetails: 'Please provide the docs details -welsh',
-    largePrintDetails: 'Please provide the large print details -welsh',
-    otherDetails: 'Please provide the other details -welsh',
-    helpCommunication: 'I need help communicating and understanding -welsh',
-    describeSignLanguageDetails: 'Please provide sign language details -welsh',
-    describeOtherNeed: 'Please provide the details -welsh',
-    courtHearing: 'I would need to bring support with me to a court hearing -welsh',
-    supportWorkerDetails: 'Please provide support worker details -welsh',
-    familyProviderDetails: 'Please provide family member details -welsh',
-    therapyDetails: 'Please provide therapy animal details -welsh',
-    communicationSupportOther: 'Please provide the details -welsh',
-    courtComfort: 'I need something to make me feel comfortable during a court hearing -welsh',
-    lightingProvideDetails: 'Please describe appropriate lighting details -welsh',
-    otherProvideDetails: 'Please describe your need in detail -welsh',
-    travellingToCourt: 'I need help travelling to, or moving around court buildings -welsh',
-    parkingDetails: 'Please describe parking space details -welsh',
-    differentChairDetails: 'Please describe different chair details -welsh',
-    travellingOtherDetails: 'Please describe your need in detail -welsh',
+      'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+    docsSupport: 'Rwyf angen dogfennau mewn fformat amgen',
+    docsDetails: 'Rhowch fanylion y dogfennau',
+    largePrintDetails: 'Rhowch fanylion y print bras',
+    otherDetails: 'Rhowch y manylion eraill',
+    helpCommunication: 'Rwyf angen cymorth gyda chyfathrebu a deall pethau',
+    signLanguageDetails: 'Rhowch fanylion yr iaith arwyddion',
+    describeOtherNeed: 'Rhowch fanylion',
+    courtHearing: 'Byddwn i angen dod â rhywun efo fi i fy nghefnogi mewn gwrandawiad llys',
+    supportWorkerDetails: 'Rhowch fanylion eich gweithiwr cymorth',
+    familyProviderDetails: 'Rhowch fanylion aelod o’ch teulu',
+    therapyDetails: 'Rhowch fanylion yr anifail therapi',
+    communicationSupportOther: 'Rhowch fanylion',
+    courtComfort: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad llys',
+    lightingProvideDetails: 'Rhowch fanylion y goleuadau priodol',
+    otherProvideDetails: 'Disgrifiwch eich anghenion yn fanwl',
+    travellingToCourt: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
+    parkingDetails: 'Rhowch fanylion y lle parcio',
+    differentChairDetails: 'Rhowch fanylion y math gwahanol o gadair',
+    travellingOtherDetails: 'Disgrifiwch eich anghenion yn fanwl',
   },
 };
 
 export const cyInternationalContent = {
   sectionTitles: {
-    title: '6. International element -welsh',
+    title: '6. Elfennau rhyngwladol',
   },
   keys: {
-    start: 'Do the children live outside of England or Wales? -welsh',
-    iFactorsStartProvideDetails: 'Provide details -welsh',
-    parents: "Do the childrens' parents or anyone significant to the children live outside of England or Wales? -welsh",
-    iFactorsParentsProvideDetails: 'Provide details -welsh',
+    start: "A yw'r plant yn byw y tu allan i Gymru neu Loegr?",
+    iFactorsStartProvideDetails: 'Darparwch fanylion',
+    parents: "A yw rhieni'r plant neu unrhyw un o bwys i'r plant yn byw y tu allan i Gymru neu Loegr?",
+    iFactorsParentsProvideDetails: 'Darparwch fanylion',
     jurisdiction:
-      'Could another person in the application apply for a similar order in a country outside England or Wales? -welsh',
-    iFactorsJurisdictionProvideDetails: 'Provide details -welsh',
-    request: 'Has another country asked (or been asked) for information or help for the children? -welsh',
-    iFactorsRequestProvideDetails: 'Provide details -welsh',
+      'A allai rhywun arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
+    iFactorsJurisdictionProvideDetails: 'Darparwch fanylion',
+    request: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
+    iFactorsRequestProvideDetails: 'Darparwch fanylion',
   },
 };
 
 export const cySaftyConcern = {
-  change: 'Edit - welsh',
+  change: 'Golygu',
   sectionTitles: {
     title: '5. Safety concerns -welsh',
-    additionationDetailsAboutChildern: 'Additional details about the children',
-    childSafetyConcerns: 'Safety concerns: the children in the application ',
-    yourSafetyConcerns: 'Safety concern: your safety',
-    otherSafetyConcerns: 'Safety concern: other concerns that you have',
+    additionationDetailsAboutChildern: 'Manylion ychwanegol am y plant',
+    childSafetyConcerns: 'Pryderon am ddiogelwch: y plant yn y cais',
+    yourSafetyConcerns: 'Pryderon am ddiogelwch: eich diogelwch chi',
+    otherSafetyConcerns: 'Pryderon am ddiogelwch: pryderon eraill sydd gennych',
   },
   keys: {
-    details: 'Details',
+    details: 'Manylion',
     //child concern screens
-    detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
+    detailsOfChildConcern: "Disgrifiwch y [***] [^^^] yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
     concerns: 'concerns',
-    againstChild: 'against the child',
+    againstChild: "Disgrifiwch yn gryno y [***] yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
     applicantDetails: 'Applicant [^^^] - Your details',
-    childrenConcernedAboutLabel: 'Which children are you concerned about? (optional) - Welsh',
-    physicalAbuse: 'Physical abuse - welsh',
-    psychologicalAbuse: 'Psychological abuse - welsh',
-    emotionalAbuse: 'Emotional abuse - welsh',
-    sexualAbuse: 'Sexual abuse - welsh',
+    childrenConcernedAboutLabel: "Pa blant ydych chi'n pryderu amdanynt? (dewisol)",
+    physicalAbuse: 'cam-drin corfforol',
+    psychologicalAbuse: 'Cam-drin seicolegol',
+    emotionalAbuse: 'cam-drin emosiynol',
+    sexualAbuse: 'Cam-drin rhywiol',
     sexualAbuseHint:
-      'Include being forced or pressured to have sex without consent, being threatened into an unwanted sexual activity, or unwanted touching or groping - welsh',
-    financialAbuse: 'Financial abuse - welsh',
+      'Yn cynnwys cael eich gorfodi neu’ch rhoi dan bwysau i gael rhyw heb gydsyniad, cael eich bygwth i gyflawni gweithred rhywiol digroeso, neu cael eich cyffwrdd neu eich ymbalfalu yn ddi-groeso',
+    financialAbuse: 'Cam-drin ariannol',
     financialAbuseHint:
-      'Examples of financial abuse can be not allowing a person to work, stopping someone saving their own money, or withholding money or credit cards - welsh',
-    somethingElse: 'Something else - welsh',
-    physicalAbusePageTitle: 'Briefly describe the physical abuse if you feel able to - welsh',
-    psychologicalAbusePageTitle: 'Briefly describe the psychological abuse if you feel able to - welsh',
-    emotionalAbusePageTitle: 'Briefly describe the emotional abuse if you feel able to - welsh',
-    sexualAbusePageTitle: 'Briefly describe the sexual abuse if you feel able to - welsh',
-    financialAbusePageTitle: 'Briefly describe the financial abuse if you feel able to - welsh',
-    somethingElsePageTitle: 'Briefly describe the abuse if you feel able to - welsh',
-    behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. - welsh (optional)',
+      'Mae enghreifftiau o gam-drin ariannol yn cynnwys peidio â chaniatau i rywun weithio, atal rhywun rhag cynilio arian ei hun, neu gadw arian neu gardiau credyd oddi wrthynt',
+    somethingElse: 'Rhywbeth Arall',
+    physicalAbusePageTitle:
+      "Disgrifiwch y cam-drin corfforol yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+    psychologicalAbusePageTitle:
+      "Disgrifiwch y cam-drin seicolegol yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+    emotionalAbusePageTitle:
+      "Disgrifiwch y cam-drin emosiynol yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+    sexualAbusePageTitle:
+      "Disgrifiwch y cam-drin rhywiol yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+    financialAbusePageTitle:
+      "Disgrifiwch y cam-drin ariannol yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+    somethingElsePageTitle: 'Disgrifiwch y gamdriniaeth yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny',
+    behaviourDetailsLabel: "Disgrifiwch yr ymddygiadau yr hoffech i'r llys fod yn ymwybodol ohonynt.",
     behaviourDetailsHintText:
       'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings. - welsh',
-    behaviourStartDateLabel: 'When did this behaviour start and how long did it continue? - welsh (optional)',
+    behaviourStartDateLabel: 'Pryd ddechreuodd yr ymddygiad hwn a pha mor hir wnaeth hynny barhau?',
     behaviourStartDateHintText: 'This does not need to be an exact date. - welsh',
-    isOngoingBehaviourLabel: 'Is the behaviour ongoing? - welsh (optional)',
+    isOngoingBehaviourLabel: 'Ydy’r ymddygiad yn digwydd ar hyn o bryd?',
     isOngoingBehaviourHint:
       '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, <a href="https://www.gov.uk/report-domestic-abuse" class="govuk-link" rel="external" target="_blank">contact one of the suggested agencies</a> to get help or report the behaviour with <a href="https://www.police.uk/" class="govuk-link" rel="external" target="_blank">your local policing team</a>. - welsh</p>',
     YesOptionLabel: 'Yes - welsh',
     NoOptionLabel: 'No - welsh',
-    seekHelpFromPersonOrAgencyLabel:
-      'Have you ever asked for help from a professional person or agency? - welsh (optional)',
+    seekHelpFromPersonOrAgencyLabel: 'Ydych chi erioed wedi gofyn am help gan unigolyn neu asiantaeth broffesiynol?',
     seekHelpFromPersonOrAgencyHintText: 'For example, speaking to your local GP. - welsh',
     seekHelpDetailsYesHint: `<p class="govuk-body">Indicate who you sought help from, and what they did to help - welsh (optional). </p>
   <p class="govuk-body">Do not include personal details such as names and addresses. - welsh</p>`,
-    doYouHaveSafetyConcerns: 'Do you have any concerns for your safety or the safety of the children?-welsh',
-    whoAreConcernsAbout: 'Who are you concerned about? - welsh',
+    doYouHaveSafetyConcerns: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+    whoAreConcernsAbout: 'Am bwy ydych chi’n poeni amdano/amdani?',
     select_all_relevant: 'Select all options that are relevant to you. - welsh',
-    children: 'The children in this application -welsh',
-    respondent: 'Yourself - welsh',
-    childConcerns: 'What type of behaviour have the children experienced or are at risk of experiencing? - welsh',
-    applicantConcerns: 'What type of behaviour have the children experienced or are at risk of experiencing? - welsh',
-    abduction: 'Abduction - welsh',
-    childrenMoreThanOnePassport: 'Do the children have more than one passport?-welsh',
-    possessionChildrenPassport: 'Who is in possession of the children’s passports?-welsh',
-    c1A_policeOrInvestigatorInvolved:
-      'Were the police, private investigators or any other organisation involved? - welsh',
-    childDrugAbuse: 'Have the children been impacted by drug, alcohol or substance abuse? - welsh',
-    otherWellBeingIssues: 'Do you have any other concerns about the children’s safety and wellbeing? - welsh',
-    doWantCourtToAction: 'What do you want the court to do to keep you and the children safe? - welsh',
-    selectSupervisionAgreementLabel:
-      'Do you agree to the children spending time with the other people in this application? - welsh',
+    children: 'Y plant yn y cais hwn',
+    respondent: 'Y plant yn y cais hwn',
+    childConcerns: 'Pa fath o ymddygiad ydych chi wedi ei brofi neu mewn perygl o’i brofi?',
+    applicantConcerns: 'Pa fath o ymddygiad ydych chi wedi ei brofi neu mewn perygl o’i brofi?',
+    abduction: 'Herwgydio',
+    childrenMoreThanOnePassport: 'A oes gan y plant fwy nag un pasbort?',
+    possessionChildrenPassport: "Ym meddiant pwy y mae pasbortau'r plant?",
+    c1A_policeOrInvestigatorInvolved: 'A oedd yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall ynghlwm â hyn?',
+    childDrugAbuse:
+      'A yw’r plant wedi cael eu heffeithio o ganlyniad i gamddefnyddio cyffuriau, alcohol neu sylweddau?',
+    otherWellBeingIssues: 'A oes gennych chi unrhyw bryderon eraill am ddiogelwch a lles y plant?',
+    doWantCourtToAction: "Beth ydych chi eisiau i'r llys ei wneud i'ch cadw chi a'r plant yn ddiogel?",
+    selectSupervisionAgreementLabel: "Ydych chi'n cytuno i'r plant dreulio amser gyda'r bobl eraill yn y cais hwn?",
     supervisionAgreementOtherWaysLabel:
-      'Do you agree to the other people in this application being in touch with the children in other ways? - welsh',
-    childLocation: 'Why do you think the children may be abducted or kept outside the UK without your consent? - welsh',
-    childsCurrentLocationText: 'Where are the children now? - welsh',
-    passportOffice: 'Do any of the children have a passport? - welsh',
-    haspassportOfficeNotified: 'Has the passport office been notified? - welsh',
-    abducionThreats: 'Have the children been abducted or kept outside the UK without your consent before? - welsh',
-    previousAbduction: 'Provide details of the previous abductions - welsh',
+      "Ydych chi'n cytuno i'r bobl eraill yn y cais hwn fod mewn cysylltiad â'r plant mewn ffyrdd eraill?",
+    childLocation:
+      "Pam ydych chi'n meddwl y gallai'r plant gael eu herwgydio neu eu cadw y tu allan i'r DU heb eich caniatâd?",
+    childsCurrentLocationText: "Ble mae'r plant nawr?",
+    passportOffice: "A oes gan unrhyw un o'r plant basbort?",
+    haspassportOfficeNotified: "Ydy'r swyddfa basbort wedi cael gwybod?",
+    abducionThreats: "Ydy'r plant wedi cael eu herwgydio neu eu cadw y tu allan i'r DU heb eich caniatâd o'r blaen?",
+    previousAbduction: 'Darparwch fanylion am y digwyddiadau blaenorol o herwgydio',
   },
   Yes: 'Yes',
   No: 'No ',
 };
 export const cyDummyContent = {
   sectionTitles: {
-    title2: '3. Your details -welsh',
-    title3: '4. Application details -welsh',
-    title4: '5. Safety Concern -welsh',
+    title2: '3. Eich manylion',
+    title3: '4. Manylion y cais',
+    title4: '5. Elfen ryngwladol',
   },
   keys: {},
 };
@@ -709,17 +712,17 @@ const en = (content: CommonContent) => {
     supportList(enSupportYouNeedContent, userCase, urls, 'en', enSupportYouNeedContent.sectionTitles.title),
     summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title3, content.language),
     summaryList(enContentMiam, userCase, urls, enContentMiam.sectionTitles.title, content.language),
-    PastAndCurrentProceedings(enContentProceding, userCase),
+    PastAndCurrentProceedings(enContentProceding, userCase, content.language),
     summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title4, content.language),
-    SafetyConcerns(enSaftyConcern, userCase)
+    SafetyConcerns(enSaftyConcern, userCase, content.language)
   );
 
   if (userCase.hasOwnProperty('PRL_c1A_haveSafetyConcerns') && userCase['PRL_c1A_haveSafetyConcerns'] === YesOrNo.YES) {
-    sections.push(SafetyConcerns_child(enSaftyConcern, userCase));
+    sections.push(SafetyConcerns_child(enSaftyConcern, userCase, content.language));
     if (toggleApplicantSafetyConcerns('PRL_c1A_safetyConernAbout', userCase, 'PRL_c1A_concernAboutChild')) {
-      sections.push(SafetyConcerns_yours(enSaftyConcern, userCase));
+      sections.push(SafetyConcerns_yours(enSaftyConcern, userCase, content.language));
     }
-    sections.push(SafetyConcerns_others(enSaftyConcern, userCase));
+    sections.push(SafetyConcerns_others(enSaftyConcern, userCase, content.language));
   }
 
   sections.push(
@@ -763,17 +766,17 @@ const cy: typeof en = (content: CommonContent) => {
     supportList(cySupportYouNeedContent, userCase, urls, 'cy', cySupportYouNeedContent.sectionTitles.title),
     summaryList(cyDummyContent, userCase, '', cyDummyContent.sectionTitles.title3, content.language),
     summaryList(cyContentMiam, userCase, urls, cyContentMiam.sectionTitles.title, content.language),
-    PastAndCurrentProceedings(cyContentProceding, userCase),
+    PastAndCurrentProceedings(cyContentProceding, userCase, content.language),
     summaryList(cyDummyContent, userCase, '', cyDummyContent.sectionTitles.title4, content.language),
-    SafetyConcerns(cySaftyConcern, userCase)
+    SafetyConcerns(cySaftyConcern, userCase, content.language)
   );
 
   if (userCase.hasOwnProperty('PRL_c1A_haveSafetyConcerns') && userCase['PRL_c1A_haveSafetyConcerns'] === YesOrNo.YES) {
-    sections.push(SafetyConcerns_child(cySaftyConcern, userCase));
+    sections.push(SafetyConcerns_child(cySaftyConcern, userCase, content.language));
     if (toggleApplicantSafetyConcerns('PRL_c1A_safetyConernAbout', userCase, 'PRL_c1A_concernAboutChild')) {
-      sections.push(SafetyConcerns_yours(cySaftyConcern, userCase));
+      sections.push(SafetyConcerns_yours(cySaftyConcern, userCase, content.language));
     }
-    sections.push(SafetyConcerns_others(cySaftyConcern, userCase));
+    sections.push(SafetyConcerns_others(cySaftyConcern, userCase, content.language));
   }
 
   sections.push(

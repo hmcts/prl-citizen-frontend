@@ -1,5 +1,7 @@
 /* eslint-disable import/no-unresolved */
-import { PRL_C1ASafteyConcernsAbout } from '../../../../../app/case/definition';
+
+import { PRL_C1ASafteyConcernsAbout, YesOrNo } from '../../../../../app/case/definition';
+import { getYesNoTranslation } from '../../../../c100-rebuild/check-your-answers/mainUtil';
 import { HTML } from '../common/htmlSelectors';
 import { ANYTYPE } from '../common/index';
 
@@ -19,7 +21,7 @@ export const childNameFormatter = (childId, userCase) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, typeOfUser) => {
+export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, typeOfUser, language) => {
   if (typeOfUser === 'child') {
     bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
     if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
@@ -28,7 +30,10 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
         Array.isArray(FoundElement['childrenConcernedAbout']) &&
         FoundElement['childrenConcernedAbout'][0] === 'All the children in application'
       ) {
-        bodyHtml += HTML.LIST_ITEM + FoundElement['childrenConcernedAbout'][0] + HTML.LIST_ITEM_END;
+        bodyHtml +=
+          HTML.LIST_ITEM +
+          (language === 'cy' ? 'Pob plentyn yn y cais' : FoundElement['childrenConcernedAbout'][0]) +
+          HTML.LIST_ITEM_END;
       } else {
         if (Array.isArray(FoundElement['childrenConcernedAbout'])) {
           bodyHtml += FoundElement['childrenConcernedAbout']
@@ -53,13 +58,17 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
   bodyHtml += HTML.H4 + keys['isOngoingBehaviourLabel'] + HTML.H4_CLOSE;
   bodyHtml +=
     FoundElement.hasOwnProperty('isOngoingBehaviour') && FoundElement.isOngoingBehaviour
-      ? FoundElement['isOngoingBehaviour']
+      ? getYesNoTranslation(language, FoundElement['isOngoingBehaviour'], 'ydyTranslation')
       : '';
   bodyHtml += HTML.RULER;
   bodyHtml += HTML.H4 + keys['seekHelpFromPersonOrAgencyLabel'] + HTML.H4_CLOSE;
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency') && FoundElement.seekHelpFromPersonOrAgency
-      ? HTML.BOTTOM_PADDING_3 + FoundElement?.['seekHelpFromPersonOrAgency'] + HTML.BOTTOM_PADDING_CLOSE
+      ? HTML.BOTTOM_PADDING_3 +
+        (FoundElement?.['seekHelpFromPersonOrAgency'] === YesOrNo.YES
+          ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
+          : getYesNoTranslation(language, YesOrNo.NO, 'doTranslation')) +
+        HTML.BOTTOM_PADDING_CLOSE
       : '';
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpDetails') && FoundElement?.['seekHelpFromPersonOrAgency'] === 'Yes'
@@ -69,7 +78,7 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typeOfUser) => {
+export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typeOfUser, language) => {
   const subFieldKey = 'PRL_c1A_safteyConcerns' as string;
   const user = typeOfUser === PRL_C1ASafteyConcernsAbout.CHILDREN ? 'child' : PRL_C1ASafteyConcernsAbout.RESPONDENT;
   let html = '';
@@ -77,7 +86,7 @@ export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typ
     if (userCase.hasOwnProperty(subFieldKey)) {
       const FoundElement = userCase[subFieldKey]?.[user]?.[childField];
       if (FoundElement !== undefined) {
-        html = HTMLParser(keys, FoundElement, html, userCase, user);
+        html = HTMLParser(keys, FoundElement, html, userCase, user, language);
       }
     }
     return html;
