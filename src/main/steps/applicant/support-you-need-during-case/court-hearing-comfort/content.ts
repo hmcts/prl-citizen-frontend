@@ -101,7 +101,7 @@ export const form: FormContent = {
         {
           name: 'courtComfort',
           label: l => l.break,
-          value: 'break',
+          value: 'breaks',
         },
         {
           name: 'courtComfort',
