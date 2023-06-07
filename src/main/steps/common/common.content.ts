@@ -204,7 +204,7 @@ export const cy: typeof en = {
   onlyContinue: 'Parhau',
   onlycontinue: 'Parhau',
   divider: 'neu',
-  edit: 'Edit -welsh',
+  edit: 'Golygu',
   appName: '- Private law - GOV.UK (welsh)',
   ...appSurveyContents.cy,
 };

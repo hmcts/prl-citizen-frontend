@@ -76,7 +76,7 @@ const cy: typeof en = {
     differentChairDetails: 'Please describe different chair details -welsh',
     travellingOtherDetails: 'Please describe your need in detail -welsh',
     safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
-    safetyArrangementsDetails: 'Describe what you need -welsh',
+    safetyArrangementsDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   },
   errors: {},
 };

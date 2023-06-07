@@ -36,12 +36,12 @@ const en = {
 const cy: typeof en = {
   section: 'Mynychu’r llys',
   title: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
-  hearing: 'If your case goes to a hearing, it can take place either: (welsh)',
-  inPerson: "in person, in a room at a venue ('face-to-face') (welsh)",
-  byVideo: 'by video (where you can join from a place suitable to you) (welsh)',
-  byPhone: 'by phone (welsh)',
+  hearing: 'Os bydd eich achos yn mynd i wrandawiad, gellir ei gynnal naill ai:',
+  inPerson: "yn bersonol, mewn ystafell mewn lleoliad penodol ('wyneb yn wyneb')",
+  byVideo: "trwy fideo (lle gallwch chi ymuno o le sy'n addas i chi)",
+  byPhone: 'dros y ffôn',
   combination:
-    'Some hearings use a combination of these methods. The approach taken will be decided by a judge. (welsh)',
+    "Mae rhai gwrandawiadau yn defnyddio cyfuniad o'r dulliau hyn. Barnwr fydd yn penderfynu pa ddull fydd yn cael ei ddefnyddio.",
   courtcommunication:
     'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
   optionHint: "Dewiswch bob un sy'n berthnasol",
@@ -50,7 +50,8 @@ const cy: typeof en = {
   phoneHearings: 'Gallaf, rwyf yn gallu cymryd rhan mewn gwrandawiad fideo',
   noHearings: 'Na allaf, ni allaf gymryd rhan mewn gwrandawiad fideo na gwrandawiad dros y ffôn',
   noHearingsHint: 'Os dewiswch yr opsiwn hwn, dywedwch wrthym pam rhag ofn y gallwn eich cynorthwyo',
-  noHearingDetails: 'Explain why you are unable to take part in video or phone hearings (welsh)',
+  noHearingDetails:
+    'Esboniwch pam nad ydych yn gallu cymryd rhan mewn gwrandawiad drwy fideo na gwrandawiad dros y ffôn',
   continue: 'Parhau',
   errors: {
     attendingToCourt: {
@@ -90,7 +91,7 @@ export const form: FormContent = {
           value: 'phonehearings',
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'attendingToCourt',

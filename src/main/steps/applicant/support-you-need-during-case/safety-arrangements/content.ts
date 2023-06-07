@@ -50,9 +50,9 @@ const cy: typeof en = {
   videolinks: 'Cyswllt fideo',
   videolinkshint: 'Mae angen i farnwr gymeradwyo hyn',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
-  continue: 'Continue',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
+  continue: 'Parhau',
   errors: {
     safetyArrangements: {
       required: 'Please select an answer',
@@ -125,7 +125,7 @@ export const form: FormContent = {
           },
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'safetyArrangements',

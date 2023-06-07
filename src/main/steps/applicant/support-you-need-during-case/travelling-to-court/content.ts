@@ -56,9 +56,9 @@ const cy: typeof en = {
   differentchair: 'Math gwahanol o gadair',
   building: 'Cymorth i fynd o amgylch yr adeilad',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     travellingToCourt: {
       required: 'Please select an answer',
@@ -164,7 +164,7 @@ export const form: FormContent = {
         },
 
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'travellingToCourt',

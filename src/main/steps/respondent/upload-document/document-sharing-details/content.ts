@@ -4,7 +4,7 @@ import { FormContent } from '../../../../app/form/Form';
 const emailId = 'example@test.com';
 
 const en = {
-  section: 'How your documents will be shared',
+  title: 'How your documents will be shared',
   email: emailId,
   continue: 'Continue',
   warning: 'Warning',
@@ -20,7 +20,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'How your documents will be shared',
+  title: 'How your documents will be shared',
   email: emailId,
   continue: 'Continue',
   warning: 'Warning',

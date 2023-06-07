@@ -54,15 +54,15 @@ const cyContent: typeof enContent = {
   },
   keys: {
     start: 'Ydy bywyd y plant yn cael ei dreulio’n bennaf y tu allan i Gymru a Lloegr?',
-    iFactorsStartProvideDetails: 'Provide details-welsh',
+    iFactorsStartProvideDetails: 'Rhowch fanylion',
     parents:
       "A yw rhieni'r plant (neu unrhyw un o bwys i'r plant) wedi'u lleoli y tu allan i Gymru a Lloegr yn bennaf?",
-    iFactorsParentsProvideDetails: 'Provide details-welsh',
+    iFactorsParentsProvideDetails: 'Rhowch fanylion',
     request: "A oes gwlad arall wedi gofyn (neu wedi cael cais) am wybodaeth neu gymorth i'r plant?",
-    iFactorsJurisdictionProvideDetails: 'Provide details-welsh',
+    iFactorsJurisdictionProvideDetails: 'Rhowch fanylion',
     jurisdiction:
       'A allai rhywun arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
-    iFactorsRequestProvideDetails: 'Provide details',
+    iFactorsRequestProvideDetails: 'Rhowch fanylion',
   },
   errors: {},
 };

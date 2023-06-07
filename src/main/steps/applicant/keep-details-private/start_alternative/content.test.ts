@@ -18,7 +18,7 @@ const enContent = {
       required: 'Please select one among the following',
     },
     contactDetailsPrivate: {
-      required: 'Please select atleast one of the following',
+      required: 'Select your contact details',
     },
   },
 };
@@ -33,10 +33,10 @@ const cyContent = {
   continue: 'Cadw a pharhau',
   errors: {
     startAlternative: {
-      required: 'Please select one among the following-welsh',
+      required: "Dewiswch un o'r canlynol",
     },
     contactDetailsPrivate: {
-      required: 'Please select atleast one of the following-welsh',
+      required: "Dewiswch o leiaf un o'r canlynol",
     },
   },
 };
