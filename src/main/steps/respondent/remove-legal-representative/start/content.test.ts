@@ -5,7 +5,7 @@ import { CommonContent } from '../../../common/common.content';
 import { generateContent } from '../../remove-legal-representative/start/content';
 
 const enContent = {
-  section: 'Remove my representative',
+  title: 'Remove my representative',
   continue: 'Continue',
   removeLegalRepresentativeInformationLine1:
     'Removing a legal representative means they will no longer have access to your case. You will be managing this case yourself.',
@@ -23,7 +23,7 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Remove my representative - welsh',
+  title: 'Remove my representative - welsh',
   continue: 'Continue-welsh',
   removeLegalRepresentativeInformationLine1:
     'Removing a legal representative means they will no longer have access to your case. You will be managing this case yourself.-welsh',
@@ -76,7 +76,7 @@ describe('add-legal-representative content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.section).toEqual('Remove my representative');
+    expect(generatedContent.title).toEqual('Remove my representative');
     expect(generatedContent.removeLegalRepresentativeInformationLine1).toEqual(
       'Removing a legal representative means they will no longer have access to your case. You will be managing this case yourself.'
     );

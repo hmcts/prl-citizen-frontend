@@ -1,8 +1,9 @@
-import { AppRequest } from '../../../app/controller/AppRequest';
+import { getCasePartyType } from '../../prl-cases/dashboard/utils';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { getApplicant, getApplicantName } from '../../applicant/task-list/content';
 import { getRespondent, getRespondentName } from '../../respondent/task-list/content';
+import { PartyType } from '../../../app/case/definition';
 
 const en = {
   title: 'Adding a legal representative',
@@ -45,12 +46,12 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const req: AppRequest = content.additionalData?.req;
-  if (req.url && req.url.includes('applicant')) {
-    translations.partyName = getApplicantName(getApplicant(req.session.userCase, req.session.user.id));
-  } else {
-    translations.partyName = getRespondentName(getRespondent(req.session.userCase, req.session.user.id));
-  }
+  const { userCase, user } = content.additionalData?.req.session;
+  const partyType = getCasePartyType(userCase, user.id);
+  partyType === PartyType.APPLICANT
+    ? translations.partyName = getApplicantName(getApplicant(userCase, user.id))
+    : translations.partyName = getRespondentName(getRespondent(userCase, user.id));
+
   return {
     ...translations,
     form,
