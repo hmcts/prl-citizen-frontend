@@ -5,7 +5,7 @@ const DateObject = {
   month: 10,
   day: 15,
 };
-const newDate = DATE_FORMATTOR(DateObject);
+const newDate = DATE_FORMATTOR(DateObject, 'en');
 
 describe('test cases for date formatter', () => {
   test('should run the test and parse date successfully', () => {
@@ -18,6 +18,6 @@ describe('test cases for date formatter', () => {
       month: 10,
       day: 15,
     };
-    expect(DATE_FORMATTOR(newDateObject)).toEqual('10/15');
+    expect(DATE_FORMATTOR(newDateObject, 'en')).toEqual('10/15');
   });
 });

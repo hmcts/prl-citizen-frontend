@@ -26,10 +26,10 @@ const en = {
 
 const cy = {
   section: 'Pryderon diogelwch',
-  title: 'Do you have any other concerns about the children’s safety and wellbeing? - welsh',
+  title: 'A oes gennych chi unrhyw bryderon eraill am ddiogelwch a lles y plant?',
   hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with. - welsh',
-  one: 'Yes - welsh',
-  two: 'No - welsh',
+  one: 'Oes',
+  two: 'Nac oes',
   summaryText: 'Cysylltiadau am gymorth',
   errors: {
     PRL_c1A_childSafetyConcerns: {

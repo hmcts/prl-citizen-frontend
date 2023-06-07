@@ -2376,8 +2376,8 @@ export interface orderInterface {
 export const enum CONFIDENTIAL_DETAILS {
   PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
   PRIVATE = 'This information will be kept confidential',
-  PUBLIC_CY = 'This information was provided by the applicant so it cannot be kept confidential. (welsh)',
-  PRIVATE_CY = 'This information will be kept confidential (welsh)',
+  PUBLIC_CY = "Darparwyd yr wybodaeth hon gan y ceisydd felly ni ellir ei chadw'n gyfrinachol.",
+  PRIVATE_CY = 'Bydd yr wybodaeth hon yn cael ei chadw’n gyfrinachol',
 }
 
 export const enum Gender {
@@ -2983,4 +2983,10 @@ export enum CaseEvent {
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   LEGAL_REPRESENTATION = 'legalRepresentation',
+}
+
+export enum passportPossessionRelative {
+  MOTHER = 'mother',
+  FATHER = 'father',
+  OTHER = 'otherPerson'
 }

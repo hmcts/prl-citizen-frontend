@@ -1,16 +1,22 @@
 import { CaseWithId } from '../../../../app/case/case';
-import { ReasonableAdjustments } from '../../../../app/case/definition';
+import { PartyType, ReasonableAdjustments } from '../../../../app/case/definition';
 import { LANGUAGE_INTERPRETER, NO_HEARINGS } from '../../../../steps/constants';
+import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import {
   CA_DA_COMMUNICATION_HELP,
   CA_DA_COURT_HEARING_COMFORT,
   CA_DA_COURT_HEARING_SUPPORT,
   CA_DA_DOCUMENTS_SUPPORT,
   CA_DA_TRAVELLING_TO_COURT,
+  COMMUNICATION_HELP,
+  COURT_HEARING_COMFORT,
+  COURT_HEARING_SUPPORT,
+  DOCUMENTS_SUPPORT,
+  TRAVELLING_TO_COURT,
 } from '../../../../steps/urls';
 
-export function filterSelectedUrls(userCase: Partial<CaseWithId>, urls: object): void {
-  reasonableAdjustment(userCase, urls);
+export const filterSelectedUrls = (userCase: CaseWithId, urls: object, userId: string): void => {
+  reasonableAdjustment(userCase, urls, userId);
 
   if (!userCase?.attendingToCourt?.includes(NO_HEARINGS)) {
     userCase.hearingDetails = '';
@@ -24,8 +30,9 @@ export function filterSelectedUrls(userCase: Partial<CaseWithId>, urls: object):
   }
   //resonable adjustment
   processReasonableAdjustmentData(userCase);
-}
-function processReasonableAdjustmentData(userCase: Partial<CaseWithId>) {
+};
+
+const processReasonableAdjustmentData = (userCase: Partial<CaseWithId>) => {
   if (!userCase?.reasonableAdjustments?.includes('docsformat')) {
     delete userCase.docsSupport;
   }
@@ -51,17 +58,18 @@ function processReasonableAdjustmentData(userCase: Partial<CaseWithId>) {
   processCourtComfortData(userCase);
   //travel help
   processTravelHelpData(userCase);
-}
-function processCourtComfortData(userCase: Partial<CaseWithId>) {
+};
+
+const processCourtComfortData = (userCase: Partial<CaseWithId>) => {
   if (!userCase?.courtComfort?.includes('appropriatelighting')) {
     userCase.lightingProvideDetails = '';
   }
   if (!userCase?.courtComfort?.includes('other')) {
     userCase.otherProvideDetails = '';
   }
-}
+};
 
-function processTravelHelpData(userCase: Partial<CaseWithId>) {
+const processTravelHelpData = (userCase: Partial<CaseWithId>) => {
   if (!userCase?.travellingToCourt?.includes('parkingspace')) {
     userCase.parkingDetails = '';
   }
@@ -71,9 +79,9 @@ function processTravelHelpData(userCase: Partial<CaseWithId>) {
   if (!userCase?.travellingToCourt?.includes('other')) {
     userCase.travellingOtherDetails = '';
   }
-}
+};
 
-function processHearingSupportData(userCase: Partial<CaseWithId>) {
+const processHearingSupportData = (userCase: Partial<CaseWithId>) => {
   if (!userCase?.courtHearing?.includes('supportworker')) {
     userCase.supportWorkerDetails = '';
   }
@@ -86,16 +94,18 @@ function processHearingSupportData(userCase: Partial<CaseWithId>) {
   if (!userCase?.courtHearing?.includes('other')) {
     userCase.communicationSupportOther = '';
   }
-}
-function processCommunicationHelpData(userCase: Partial<CaseWithId>) {
+};
+
+const processCommunicationHelpData = (userCase: Partial<CaseWithId>) => {
   if (!userCase?.helpCommunication?.includes('signlanguage')) {
     userCase.signLanguageDetails = '';
   }
   if (!userCase?.helpCommunication?.includes('other')) {
     userCase.describeOtherNeed = '';
   }
-}
-function processDocSupportData(userCase: Partial<CaseWithId>) {
+};
+
+const processDocSupportData = (userCase: Partial<CaseWithId>) => {
   if (!userCase?.docsSupport?.includes('docsprint')) {
     userCase.docsDetails = '';
   }
@@ -105,40 +115,102 @@ function processDocSupportData(userCase: Partial<CaseWithId>) {
   if (!userCase?.docsSupport?.includes('other')) {
     userCase.otherDetails = '';
   }
-}
+};
 
-function reasonableAdjustment(userCase: Partial<CaseWithId>, urls: object) {
+const reasonableAdjustment = (userCase: CaseWithId, urls: object, userId: string) => {
+  const partyType = getCasePartyType(userCase, userId);
+
   if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.DOCUMENTS_SUPPORT)) {
-    Object.assign(urls, { docsSupport: CA_DA_DOCUMENTS_SUPPORT });
-    Object.assign(urls, { docsDetails: CA_DA_DOCUMENTS_SUPPORT });
-    Object.assign(urls, { largePrintDetails: CA_DA_DOCUMENTS_SUPPORT });
-    Object.assign(urls, { otherDetails: CA_DA_DOCUMENTS_SUPPORT });
+    Object.assign(urls, getDocumentSupportUrls(partyType));
   }
-
   if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.COMMUNICATION_HELP)) {
-    Object.assign(urls, { helpCommunication: CA_DA_COMMUNICATION_HELP });
-    Object.assign(urls, { signLanguageDetails: CA_DA_COMMUNICATION_HELP });
-    Object.assign(urls, { describeOtherNeed: CA_DA_COMMUNICATION_HELP });
+    Object.assign(urls, getCommunicationHelpUrls(partyType));
   }
-
   if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.COURT_HEARING_SUPPORT)) {
-    Object.assign(urls, { courtHearing: CA_DA_COURT_HEARING_SUPPORT });
-    Object.assign(urls, { supportWorkerDetails: CA_DA_COURT_HEARING_SUPPORT });
-    Object.assign(urls, { familyProviderDetails: CA_DA_COURT_HEARING_SUPPORT });
-    Object.assign(urls, { therapyDetails: CA_DA_COURT_HEARING_SUPPORT });
-    Object.assign(urls, { communicationSupportOther: CA_DA_COURT_HEARING_SUPPORT });
+    Object.assign(urls, getCourtHearingSupportUrls(partyType));
   }
-
   if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.COURT_HEARING_COMFORT)) {
-    Object.assign(urls, { courtComfort: CA_DA_COURT_HEARING_COMFORT });
-    Object.assign(urls, { lightingProvideDetails: CA_DA_COURT_HEARING_COMFORT });
-    Object.assign(urls, { otherProvideDetails: CA_DA_COURT_HEARING_COMFORT });
+    Object.assign(urls, getCourtHearingComfortUrls(partyType));
   }
-
   if (userCase.reasonableAdjustments?.includes(ReasonableAdjustments.TRAVELLING_TO_COURT)) {
-    Object.assign(urls, { travellingToCourt: CA_DA_TRAVELLING_TO_COURT });
-    Object.assign(urls, { parkingDetails: CA_DA_TRAVELLING_TO_COURT });
-    Object.assign(urls, { differentChairDetails: CA_DA_TRAVELLING_TO_COURT });
-    Object.assign(urls, { travellingOtherDetails: CA_DA_TRAVELLING_TO_COURT });
+    Object.assign(urls, getTravellingToCourtUrls(partyType));
   }
-}
+};
+
+const getDocumentSupportUrls = (partyType: PartyType): object => {
+  return partyType === PartyType.RESPONDENT
+    ? {
+        docsSupport: CA_DA_DOCUMENTS_SUPPORT,
+        docsDetails: CA_DA_DOCUMENTS_SUPPORT,
+        largePrintDetails: CA_DA_DOCUMENTS_SUPPORT,
+        otherDetails: CA_DA_DOCUMENTS_SUPPORT,
+      }
+    : {
+        docsSupport: DOCUMENTS_SUPPORT,
+        docsDetails: DOCUMENTS_SUPPORT,
+        largePrintDetails: DOCUMENTS_SUPPORT,
+        otherDetails: DOCUMENTS_SUPPORT,
+      };
+};
+
+const getCommunicationHelpUrls = (partyType: PartyType): object => {
+  return partyType === PartyType.RESPONDENT
+    ? {
+        helpCommunication: CA_DA_COMMUNICATION_HELP,
+        signLanguageDetails: CA_DA_COMMUNICATION_HELP,
+        describeOtherNeed: CA_DA_COMMUNICATION_HELP,
+      }
+    : {
+        helpCommunication: COMMUNICATION_HELP,
+        signLanguageDetails: COMMUNICATION_HELP,
+        describeOtherNeed: COMMUNICATION_HELP,
+      };
+};
+
+const getCourtHearingSupportUrls = (partyType: PartyType): object => {
+  return partyType === PartyType.RESPONDENT
+    ? {
+        courtHearing: CA_DA_COURT_HEARING_SUPPORT,
+        supportWorkerDetails: CA_DA_COURT_HEARING_SUPPORT,
+        familyProviderDetails: CA_DA_COURT_HEARING_SUPPORT,
+        therapyDetails: CA_DA_COURT_HEARING_SUPPORT,
+        communicationSupportOther: CA_DA_COURT_HEARING_SUPPORT,
+      }
+    : {
+        courtHearing: COURT_HEARING_SUPPORT,
+        supportWorkerDetails: COURT_HEARING_SUPPORT,
+        familyProviderDetails: COURT_HEARING_SUPPORT,
+        therapyDetails: COURT_HEARING_SUPPORT,
+        communicationSupportOther: COURT_HEARING_SUPPORT,
+      };
+};
+
+const getCourtHearingComfortUrls = (partyType: PartyType): object => {
+  return partyType === PartyType.RESPONDENT
+    ? {
+        courtComfort: CA_DA_COURT_HEARING_COMFORT,
+        lightingProvideDetails: CA_DA_COURT_HEARING_COMFORT,
+        otherProvideDetails: CA_DA_COURT_HEARING_COMFORT,
+      }
+    : {
+        courtComfort: COURT_HEARING_COMFORT,
+        lightingProvideDetails: COURT_HEARING_COMFORT,
+        otherProvideDetails: COURT_HEARING_COMFORT,
+      };
+};
+
+const getTravellingToCourtUrls = (partyType: PartyType): object => {
+  return partyType === PartyType.RESPONDENT
+    ? {
+        travellingToCourt: CA_DA_TRAVELLING_TO_COURT,
+        parkingDetails: CA_DA_TRAVELLING_TO_COURT,
+        differentChairDetails: CA_DA_TRAVELLING_TO_COURT,
+        travellingOtherDetails: CA_DA_TRAVELLING_TO_COURT,
+      }
+    : {
+        travellingToCourt: TRAVELLING_TO_COURT,
+        parkingDetails: TRAVELLING_TO_COURT,
+        differentChairDetails: TRAVELLING_TO_COURT,
+        travellingOtherDetails: TRAVELLING_TO_COURT,
+      };
+};

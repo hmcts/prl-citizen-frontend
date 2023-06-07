@@ -33,10 +33,10 @@ const cyContent = {
   continue: 'Cadw a pharhau',
   errors: {
     startAlternative: {
-      required: 'Please select one among the following-welsh',
+      required: "Dewiswch un o'r canlynol",
     },
     contactDetailsPrivate: {
-      required: 'Select your contact details - welsh',
+      required: "Dewiswch o leiaf un o'r canlynol",
     },
   },
 };

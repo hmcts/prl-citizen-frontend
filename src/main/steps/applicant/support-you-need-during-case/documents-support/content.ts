@@ -61,10 +61,10 @@ const cy: typeof en = {
   readoutdocs: 'Dogfennau yn cael eu darllen yn uchel i mi',
   emailInfo: 'Gwybodaeth yn cael ei hanfon ataf drwy e-bost',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
-  largePrintDocsDetails: 'Describe what you need',
+  continue: 'Parhau',
+  largePrintDocsDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   errors: {
     docsSupport: {
       required: 'Please select an answer',
@@ -168,7 +168,7 @@ export const form: FormContent = {
           },
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'docsSupport',

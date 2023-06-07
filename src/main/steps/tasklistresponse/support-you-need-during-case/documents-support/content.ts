@@ -56,19 +56,19 @@ const cy: typeof en = {
   optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
   docsColour: 'Dogfennau mewn lliw penodol',
-  docsColourDetails: 'Describe what you need',
+  docsColourDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   docsReadFormat: 'Dogfennau mewn fformat hawdd i’w darllen',
   docsReadFormatHint: "Gwybodaeth wedi'i hysgrifennu mewn iaith syml â lluniau",
   brailleDocs: 'Dogfennau Braille',
   largePrintDocs: 'Dogfennau mewn print bras',
-  largePrintDocsDetails: 'Describe what you need',
+  largePrintDocsDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   audioTranslation: 'Cyfieithiad sain o ddogfennau',
   docsReadOut: 'Dogfennau yn cael eu darllen yn uchel i mi',
   emailInfo: 'Gwybodaeth yn cael ei hanfon ataf drwy e-bost',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   noSupport: 'Nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     docsSupport: {
       required: 'Please select an answer',
@@ -173,7 +173,7 @@ export const form: FormContent = {
           },
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'docsSupport',

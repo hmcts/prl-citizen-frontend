@@ -120,7 +120,7 @@ const cy: typeof en = {
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
   courtOrderDontKnow: "I don't know",
-  saveAndContinue: 'Save and continue',
+  saveAndContinue: 'Cadw a pharhau',
   errors: {
     emergencyOrderOptions: {
       required: 'Please choose an option for emergency protection order',

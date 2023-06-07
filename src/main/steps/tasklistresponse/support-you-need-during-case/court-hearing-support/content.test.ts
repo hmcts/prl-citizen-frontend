@@ -65,11 +65,11 @@ const cy: typeof en = {
   familyMemberDetails: 'Tell us who you will bring',
   assistance: 'Ci cymorth / ci tywys',
   animal: 'Anifail therapi',
-  animalDetails: 'Describe what you need',
+  animalDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     courtHearing: {
       required: 'Select what you need to bring support with you to a court hearing',

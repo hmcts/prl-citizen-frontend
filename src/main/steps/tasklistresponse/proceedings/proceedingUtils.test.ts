@@ -31,7 +31,7 @@ describe('test cases for otherProceedingsContents', () => {
     const keys = {};
     const URLS = {};
     const sessionKey = '';
-    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, URLS, sessionKey)).not.toBe([]);
+    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, URLS, sessionKey, 'en')).not.toBe([]);
   });
 
   test('OPotherProceedingsSessionParserUtil with some content', () => {
@@ -146,6 +146,6 @@ describe('test cases for otherProceedingsContents', () => {
     const keys = {};
     const URLS = Urls;
     const sessionKey = 'op_courtProceedingsOrders';
-    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, URLS, sessionKey)).not.toBe([]);
+    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, URLS, sessionKey, 'en')).not.toBe([]);
   });
 });

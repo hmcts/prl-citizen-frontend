@@ -11,6 +11,7 @@ const en = {
   sectionTitles: {
     aboutYou: 'About you',
   },
+  edit: 'Edit',
   keys: {
     attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
     hearingDetails: 'Please provide the details',
@@ -50,34 +51,35 @@ const cy: typeof en = {
   sectionTitles: {
     aboutYou: 'Amdanoch chi',
   },
+  edit: 'Golygu',
   keys: {
     attendingToCourt: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
-    hearingDetails: 'Please provide the details -welsh',
+    hearingDetails: 'Rhowch fanylion',
     languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
-    languageDetails: 'Please provide language details -welsh',
+    languageDetails: 'Rhowch fanylion eich gofynion ieithyddol',
     safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
-    safetyArrangementsDetails: 'Please describe your need in detail -welsh',
+    safetyArrangementsDetails: 'Disgrifiwch eich anghenion yn fanwl',
     reasonableAdjustments:
       'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
-    docsDetails: 'Please provide the docs details -welsh',
-    docsSupport: 'I need documents in an alternative format -welsh',
-    largePrintDetails: 'Please provide the large print details -welsh',
-    otherDetails: 'Please provide the other details -welsh',
-    communicationSupportOther: 'Please provide the details -welsh',
-    courtComfort: 'I need something to make me feel comfortable during a court hearing -welsh',
-    courtHearing: 'I would need to bring support with me to a court hearing -welsh',
-    describeOtherNeed: 'Please provide the details -welsh',
-    signLanguageDetails: 'Please provide sign language details -welsh',
-    differentChairDetails: 'Please describe different chair details -welsh',
-    familyProviderDetails: 'Please provide family member details -welsh',
-    helpCommunication: 'I need help communicating and understanding -welsh',
-    lightingProvideDetails: 'Please describe appropriate lighting details -welsh',
-    otherProvideDetails: 'Please describe your need in detail -welsh',
-    parkingDetails: 'Please describe parking space details -welsh',
-    supportWorkerDetails: 'Please provide support worker details -welsh',
-    therapyDetails: 'Please provide therapy animal details -welsh',
-    travellingOtherDetails: 'Please describe your need in detail -welsh',
-    travellingToCourt: 'I need help travelling to, or moving around court buildings -welsh',
+    docsSupport: 'Rwyf angen dogfennau mewn fformat amgen',
+    docsDetails: 'Rhowch fanylion y dogfennau',
+    largePrintDetails: 'Rhowch fanylion y print bras',
+    otherDetails: 'Rhowch y manylion eraill',
+    helpCommunication: 'Rwyf angen cymorth gyda chyfathrebu a deall pethau',
+    signLanguageDetails: 'Rhowch fanylion yr iaith arwyddion',
+    describeOtherNeed: 'Rhowch fanylion',
+    courtHearing: 'Byddwn i angen dod â rhywun efo fi i fy nghefnogi mewn gwrandawiad llys',
+    supportWorkerDetails: 'Rhowch fanylion eich gweithiwr cymorth',
+    familyProviderDetails: 'Rhowch fanylion aelod o’ch teulu',
+    therapyDetails: 'Rhowch fanylion yr anifail therapi',
+    communicationSupportOther: 'Rhowch fanylion',
+    courtComfort: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad llys',
+    lightingProvideDetails: 'Rhowch fanylion y goleuadau priodol',
+    otherProvideDetails: 'Disgrifiwch eich anghenion yn fanwl',
+    travellingToCourt: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
+    parkingDetails: 'Rhowch fanylion y lle parcio',
+    differentChairDetails: 'Rhowch fanylion y math gwahanol o gadair',
+    travellingOtherDetails: 'Disgrifiwch eich anghenion yn fanwl',
   },
   errors: {},
 };
@@ -88,17 +90,47 @@ describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
   beforeEach(() => {
-    commonContent.userCase = {
-      ...mockUserCase,
-      attendingToCourt: [''],
-      hearingDetails: '',
-      languageRequirements: [''],
-      languageDetails: '',
-      safetyArrangements: [''],
-      safetyArrangementsDetails: 'Please describe your need in detail',
-      reasonableAdjustments: ['docsformat', 'commhelp', 'hearingsupport', 'hearingcomfort', 'travellinghelp'],
-      docsSupport: ['docsprint'],
-      docsDetails: 'blue',
+    commonContent.additionalData = {
+      req: {
+        session: {
+          userCase: {
+            ...mockUserCase,
+            attendingToCourt: [''],
+            hearingDetails: '',
+            languageRequirements: [''],
+            languageDetails: '',
+            safetyArrangements: [''],
+            safetyArrangementsDetails: 'Please describe your need in detail',
+            reasonableAdjustments: ['docsformat', 'commhelp', 'hearingsupport', 'hearingcomfort', 'travellinghelp'],
+            docsSupport: ['docsprint'],
+            docsDetails: 'blue',
+            respondentsFL401: {
+              id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+              user: {
+                idamId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+                email: 'test1234@example.net',
+              },
+            },
+            caseInvites: [
+              {
+                id: '577695bd-2fb5-4418-a699-79ee352ed5bb',
+                value: {
+                  partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+                  caseInviteEmail: 'respondent2@example.net',
+                  accessCode: '3GYFGJHO',
+                  invitedUserId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+                  hasLinked: 'Yes',
+                  expiryDate: '2023-05-07',
+                  isApplicant: 'No',
+                },
+              },
+            ],
+          },
+          user: {
+            id: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+          },
+        },
+      },
     };
     generatedContent = generateContent(commonContent);
   });

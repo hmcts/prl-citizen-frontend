@@ -8,7 +8,7 @@
         "cy": {
             "continue": "Parhau",
             "title": "Eich cyfeiriad",
-            "serviceName": "Enter Address (in welsh)"
+            "serviceName": "Rhowch fanylion y cyfeiriad"
         }
     },
     "errors":{

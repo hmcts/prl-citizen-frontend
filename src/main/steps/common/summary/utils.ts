@@ -51,13 +51,45 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
     return getYesNoTranslation(language, userCase[key], 'ydyTranslation');
   }
   if (key === 'startAlternative' && userCase[key]) {
-    return userCase[key] + getSelectedPrivateDetails(userCase);
+    return (
+      getYesNoTranslation(language, userCase[key], 'ydyTranslation') + getSelectedPrivateDetails(userCase, language)
+    );
   }
   if (key === 'courtProceedingsOrders' && !userCase[key]) {
     return getOrdersDetail(userCase);
   }
   if (key === 'citizenUserAddressHistory' && userCase['isAtAddressLessThan5Years'] === YesOrNo.YES) {
     return userCase['citizenUserAddressText'];
+  }
+  if (key === 'start' && userCase[key]) {
+    return getYesNoTranslation(language, userCase[key], 'ydyTranslation');
+  }
+  if (key === 'parents' && userCase[key]) {
+    return getYesNoTranslation(language, userCase[key], 'ydyTranslation');
+  }
+  if (key === 'jurisdiction' && userCase[key]) {
+    return getYesNoTranslation(language, userCase[key], 'gallaiTranslation');
+  }
+  if (key === 'request' && userCase[key]) {
+    return getYesNoTranslation(language, userCase[key], 'oesTranslation');
+  }
+  if (key === 'PRL_c1A_haveSafetyConcerns' && userCase[key]) {
+    return getYesNoTranslation(language, userCase[key], 'oesTranslation');
+  }
+  if (key === 'legalRepresentation' && userCase[key]) {
+    return getYesNoTranslation(language, userCase[key], 'byddafTranslation');
+  }
+  if (key === 'doYouConsent' && userCase[key]) {
+    return getYesNoTranslation(language, userCase[key], 'ydwTranslation');
+  }
+  if (key === 'courtPermission' && userCase[key]) {
+    return getYesNoTranslation(language, userCase[key], 'ydwTranslation');
+  }
+  if (key === 'miamStart' && userCase[key]) {
+    return getYesNoTranslation(language, userCase[key], 'doTranslation');
+  }
+  if (key === 'miamWillingness' && userCase[key]) {
+    return getYesNoTranslation(language, userCase[key], 'byddwnTranslation');
   }
 
   return userkey;
@@ -168,16 +200,17 @@ export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): str
     ? dayjs(`${date.day}-${date.month}-${date.year}`, 'D-M-YYYY').locale(locale).format('D MMMM YYYY')
     : '';
 
-export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string => {
+export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>, language): string => {
   let tempDetails = '<br/><br/><ul class="govuk-list govuk-list--bullet">';
   const contact_private_list = userCase['contactDetailsPrivate'];
+  const contact_private_list_cy = ['Cyfeiriad', 'Rhif ffôn', 'E-bost'];
   for (const key in contact_private_list) {
     tempDetails =
       tempDetails +
       '<li>' +
-      contact_private_list[key].charAt(0).toUpperCase() +
-      contact_private_list[key].slice(1) +
-      '</li>';
+      (language === 'cy'
+        ? contact_private_list_cy[key].charAt(0).toUpperCase() + contact_private_list_cy[key].slice(1) + '</li>'
+        : contact_private_list[key].charAt(0).toUpperCase() + contact_private_list[key].slice(1) + '</li>');
   }
   tempDetails = tempDetails + '</ul>';
   return tempDetails;

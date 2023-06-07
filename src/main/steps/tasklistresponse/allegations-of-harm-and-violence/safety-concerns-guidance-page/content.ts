@@ -93,7 +93,7 @@ const cy: typeof en = {
   line3h3: 'Byddwn nawr yn gofyn rhai cwestiynau i chi am yr ymddygiad difrïol.',
   line4h3:
     "Cymerwch eich amser yn llenwi'r wybodaeth ac ysgrifennwch gymaint ag y teimlwch eich bod yn gallu ei wneud.",
-  continue: 'Continue - welsh',
+  continue: 'Parhau',
   Warning: 'warning--welsh',
   or: 'neu',
 };
