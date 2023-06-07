@@ -4,8 +4,8 @@ import { SectionStatus, State } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
-import { applicant_en } from './section-titles';
-import { applicant_tasklist_items_en } from './tasklist-items';
+import { applicant_cy, applicant_en } from './section-titles';
+import { applicant_tasklist_items_cy, applicant_tasklist_items_en } from './tasklist-items';
 
 const enContent = {
   title: 'Applicant tasklist',
@@ -42,8 +42,8 @@ const cyContent = {
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
   },
-  sectionTitles: applicant_en,
-  taskListItems: applicant_tasklist_items_en,
+  sectionTitles: applicant_cy,
+  taskListItems: applicant_tasklist_items_cy,
 };
 describe('task-list > content', () => {
   const commonContent = {

@@ -43,13 +43,13 @@ const cy: typeof en = {
   optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
   appropriatelighting: 'Goleuadau priodol',
-  appropriateLightingDetails: 'Describe what you need',
+  appropriateLightingDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   break: 'Seibiannau rheolaidd',
   space: 'Lle i allu codi a symud o gwmpas',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     courtComfort: {
       required: 'Select what help you need to feel comfortable during a court hearing',
@@ -125,7 +125,7 @@ export const form: FormContent = {
           },
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'courtComfort',

@@ -28,7 +28,7 @@ const en = {
 
 const cy: typeof en = {
   section: 'Gwiriwch eich manylion cyswllt',
-  title: 'Read the information to make sure it is correct, and add any missing details (Welsh)',
+  title: 'Darllenwch yr wybodaeth i wneud yn siŵr ei bod yn gywir, ac ychwanegwch unrhyw fanylion sydd ar goll',
   contactdetailpriv:
     'Os nad ydych eisiau rhannu eich manylion cyswllt gyda’r unigolyn arall yn yr achos, diweddarwch yr adran',
   contactdetailprivlinktext: 'Cadw eich manylion cyswllt yn breifat',
@@ -43,9 +43,9 @@ const cy: typeof en = {
     citizenUserAddressHistory: 'Hanes cyfeiriad',
     citizenUserPhoneNumberText: 'Rhif ffôn',
     citizenUserEmailAddressText: 'Cyfeiriad e-bost',
-    citizenUserSafeToCall: 'When it is safe to call you (optional)',
+    citizenUserSafeToCall: 'Pa bryd y mae’n ddiogel eich ffonio (dewisol)',
   },
-  completeSection: 'Complete this section (welsh)',
+  completeSection: 'Llenwch yr adran hon',
   errors: {},
 };
 

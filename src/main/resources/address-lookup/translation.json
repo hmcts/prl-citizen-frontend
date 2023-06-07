@@ -6,7 +6,7 @@
         },
         "cy": {
             "title": "Eich cyfeiriad",
-            "serviceName": "Address/postcode lookup (in welsh)"
+            "serviceName": "Chwilio am gyfeiriad/cod post"
         }
     },
     "errors":{

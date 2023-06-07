@@ -63,8 +63,8 @@ const cyContent = {
   courtPermission: 'A oes angen caniatâd y llys ar yr ymgeisydd cyn gwneud ceisiadau?',
   one: 'Oes',
   two: 'Nac oes',
-  hint: 'For example, 27 3 2007 (welsh)',
-  continue: 'Save and continue (welsh)',
+  hint: 'Er enghraifft, 27 3 2007',
+  continue: 'Cadw a pharhau',
   reasonNotConsenting: 'Give your reasons for not consenting to the application. (welsh)',
   courtOrderDetails: 'Provide details of the court order in place. (welsh)',
   errors: {

@@ -104,7 +104,7 @@ const cyContent: typeof enContent = {
     reasonableAdjustments:
       'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
     safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
-    safetyArrangementsDetails: 'Describe what you need -welsh',
+    safetyArrangementsDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   },
   dependencies: {
     languageDetails: {
@@ -202,7 +202,7 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     });
     Object.assign(cyContent.keys, {
       docsSupport: 'I need documents in an alternative format - welsh',
-      otherDetails: 'Describe what you need - welsh',
+      otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
     });
   }
 
@@ -226,7 +226,7 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     Object.assign(cyContent.keys, {
       helpCommunication: 'I need help communicating and understanding - welsh',
       signLanguageDetails: 'Please provide sign language details -welsh',
-      describeOtherNeed: 'Describe what you need - welsh',
+      describeOtherNeed: 'Disgrifiwch yr hyn sydd ei angen arnoch',
     });
   }
 
@@ -240,7 +240,7 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     });
     Object.assign(cyContent.keys, {
       courtHearing: 'I would need to bring support with me to a court hearing - welsh',
-      communicationSupportOther: 'Describe what you need - welsh',
+      communicationSupportOther: 'Disgrifiwch yr hyn sydd ei angen arnoch',
     });
   }
 
@@ -254,7 +254,7 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     });
     Object.assign(cyContent.keys, {
       courtComfort: 'I need something to make me feel comfortable during a court hearing - welsh',
-      otherProvideDetails: 'Describe what you need - welsh',
+      otherProvideDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
     });
   }
 
@@ -268,7 +268,7 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     });
     Object.assign(cyContent.keys, {
       travellingToCourt: 'I need help travelling to, or moving around court buildings - welsh',
-      travellingOtherDetails: 'Describe what you need - welsh',
+      travellingOtherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
     });
   }
   if (!userCase?.attendingToCourt?.includes(NO_HEARINGS)) {
