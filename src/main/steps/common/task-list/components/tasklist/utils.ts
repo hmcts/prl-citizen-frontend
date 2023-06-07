@@ -261,26 +261,9 @@ export const getTaskListConfig = (
           tasks: section.tasks
             .map(task => {
               if (!task.hasOwnProperty('show') || (task.show instanceof Function && task.show(caseData, userDetails))) {
-                const stateTag = task.stateTag(caseData, userDetails);
-                const _stateTagConfig = stateTagsConfig?.[stateTag];
+                const config = setConfig(task, caseData, userDetails, _content, language);
 
-                const config = {
-                  id: task.id,
-                  linkText: _content?.tasks[task.id]?.linkText,
-                  href: task.href(caseData, userDetails),
-                  disabled:
-                    task?.disabled && task.disabled instanceof Function ? task.disabled(caseData, userDetails) : false,
-                  stateTag: {
-                    label: _stateTagConfig.label ? _stateTagConfig.label(language) : '',
-                    className: _stateTagConfig.className ? _stateTagConfig.className : '',
-                  },
-                };
-
-                if (task?.showHint && task.showHint instanceof Function && task.showHint(caseData, userDetails)) {
-                  Object.assign(config, {
-                    hintText: _content?.tasks[task.id]?.hintText,
-                  });
-                }
+                isContainShowHint(task, caseData, userDetails, config, _content);
 
                 return config;
               }
@@ -298,3 +281,28 @@ export const getTaskListConfig = (
       return config !== null;
     });
 };
+function setConfig(task: any, caseData: Partial<CaseWithId>, userDetails: UserDetails, _content: any, language: string) {
+  const stateTag = task.stateTag(caseData, userDetails);
+  const _stateTagConfig = stateTagsConfig?.[stateTag];
+
+  const config = {
+    id: task.id,
+    linkText: _content?.tasks[task.id]?.linkText,
+    href: task.href(caseData, userDetails),
+    disabled: task?.disabled && task.disabled instanceof Function ? task.disabled(caseData, userDetails) : false,
+    stateTag: {
+      label: _stateTagConfig.label ? _stateTagConfig.label(language) : '',
+      className: _stateTagConfig.className ? _stateTagConfig.className : '',
+    },
+  };
+  return config;
+}
+
+function isContainShowHint(task: any, caseData: Partial<CaseWithId>, userDetails: UserDetails, config: { id: any; linkText: any; href: any; disabled: any; stateTag: { label: any; className: any; }; }, _content: any) {
+  if (task?.showHint && task.showHint instanceof Function && task.showHint(caseData, userDetails)) {
+    Object.assign(config, {
+      hintText: _content?.tasks[task.id]?.hintText,
+    });
+  }
+}
+

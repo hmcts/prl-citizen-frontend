@@ -95,13 +95,7 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessio
         UserCase['otherProceedings']?.['order'].hasOwnProperty('contactOrdersForAdoption')
       ) {
         let orderDetails;
-        if (order === 'contactOrderForDivorce') {
-          orderDetails = UserCase['otherProceedings']?.['order']['contactOrdersForDivorce'];
-        } else if (order === 'contactOrderForAdoption') {
-          orderDetails = UserCase['otherProceedings']?.['order']['contactOrdersForAdoption'];
-        } else {
-          orderDetails = UserCase['otherProceedings']?.['order'][`${order}s`];
-        }
+        orderDetails = setOrderDetails(order, orderDetails, UserCase);
         orderDetails.forEach((nestedOrder, index) => {
           const IndexNumber = index > 0 ? index + 1 : '';
           orderSessionStorage.push({
@@ -137,3 +131,14 @@ export const otherProceedingsContents = SystemLanguage => {
   };
   return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
 };
+function setOrderDetails(order: any, orderDetails: any, UserCase: any) {
+  if (order === 'contactOrderForDivorce') {
+    orderDetails = UserCase['otherProceedings']?.['order']['contactOrdersForDivorce'];
+  } else if (order === 'contactOrderForAdoption') {
+    orderDetails = UserCase['otherProceedings']?.['order']['contactOrdersForAdoption'];
+  } else {
+    orderDetails = UserCase['otherProceedings']?.['order'][`${order}s`];
+  }
+  return orderDetails;
+}
+

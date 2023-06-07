@@ -237,7 +237,7 @@ export const generateFormFields = (
   // mark the selection for the children checkboxes based on the option chosen
   fields.childrenConcernedAbout.values = fields.childrenConcernedAbout.values.map(config =>
     // Checking if the data.childrenConcernedAbout has been prefilled, if YES, data will be fetched from userCase. If NOT, checkboxes are made fresh and untouched
-    data.childrenConcernedAbout?.includes(config.value as string) ? { ...config, selected: true } : config
+    data.childrenConcernedAbout?.includes(config.value) ? { ...config, selected: true } : config
   );
 
   return { fields, errors };

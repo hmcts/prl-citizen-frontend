@@ -61,15 +61,19 @@ export default class AddApplicantPostController extends PostController<AnyObject
       } else {
         this.errorsAndRedirect(req, res, formData, form);
         if (req.session.errors && !req.session.errors.length) {
-          const { addAnotherApplicant } = req['body'];
-          if (addAnotherApplicant === 'Yes') {
-            this.addAnotherApplicant(req);
-            this.resetSessionTemporaryFormValues(req);
-          }
-          return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+          return this.addButtonWithNoError(req, res);
         }
       }
     }
+  }
+
+  private addButtonWithNoError(req: AppRequest<AnyObject>, res: Response<any, Record<string, any>>) {
+    const { addAnotherApplicant } = req['body'];
+    if (addAnotherApplicant === 'Yes') {
+      this.addAnotherApplicant(req);
+      this.resetSessionTemporaryFormValues(req);
+    }
+    return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
   }
 
   private checkIfApplicantLengthLessAndFormError(
@@ -109,12 +113,16 @@ export default class AddApplicantPostController extends PostController<AnyObject
       this.checkSessionErrors(req, res);
     } else {
       if (checkIfApplicantLengthLessAndFormError) {
-        req.session.errors = form.getErrors(formData);
-        return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
+        return this.redirectToSamePageWithError(req, form, formData, res);
       } else {
         return this.mapEnteriesToValuesAfterContinuing(req, res);
       }
     }
+  }
+
+  private redirectToSamePageWithError(req: any, form: any, formData: any, res: any) {
+    req.session.errors = form.getErrors(formData);
+    return super.redirect(req, res, C100_APPLICANT_ADD_APPLICANTS);
   }
 
   private checkSessionErrors(req, res) {

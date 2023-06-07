@@ -56,22 +56,7 @@ export const summaryCaseList = (
     const id = userCase.id as string;
     const name = userCase.applicantCaseName;
     const state = userCase.caseStatus?.state;
-    let caseUrl = '#';
-    if (userCase.caseTypeOfApplication === 'C100') {
-      if (!isRespondent) {
-        if (state === State.Draft) {
-          caseUrl = applyParms(`${C100_RETRIVE_CASE}`, { caseId: id });
-        }
-      } else {
-        caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
-      }
-    } else if (userCase.caseTypeOfApplication === 'FL401') {
-      if (!isRespondent) {
-        caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
-      } else {
-        caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
-      }
-    }
+    let caseUrl = findUrl(userCase, isRespondent, state, id);
     const row = {
       key: name,
       value: state,
@@ -132,6 +117,26 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   tempDetails = tempDetails + '</ul>';
   return tempDetails;
 };
+function findUrl(userCase: Partial<CaseWithId>, isRespondent: boolean | undefined, state: string | undefined, id: string) {
+  let caseUrl = '#';
+  if (userCase.caseTypeOfApplication === 'C100') {
+    if (!isRespondent) {
+      if (state === State.Draft) {
+        caseUrl = applyParms(`${C100_RETRIVE_CASE}`, { caseId: id });
+      }
+    } else {
+      caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
+    }
+  } else if (userCase.caseTypeOfApplication === 'FL401') {
+    if (!isRespondent) {
+      caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
+    } else {
+      caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
+    }
+  }
+  return caseUrl;
+}
+
 function notDate(key: string, userCase: Partial<CaseWithId>) {
   return key === 'startAlternative' && userCase[key] !== 'undefined'
     ? userCase[key] + getSelectedPrivateDetails(userCase)

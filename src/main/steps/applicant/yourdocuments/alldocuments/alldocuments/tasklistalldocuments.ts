@@ -66,35 +66,9 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
   }
   const applicantItems: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
-    userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantRequestToCA(applicant, taskListItems));
-    });
-    userCase.applicants.forEach((applicant: Applicant) => {
-      if (userCase.c1ADocument) {
-        applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
-      }
-    });
-    /** Uncomment and add condition when Response to AOH document is implemeted for Applicant */
-    userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
-    });
-    userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, url));
-    });
-    userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems, url));
-    });
+    applicantItemsForC100(userCase, applicantItems, taskListItems, url);
   } else {
-    if (!isApplicant) {
-      applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
-      applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
-    } else {
-      applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems));
-      applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
-      applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems));
-      applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
-      applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
-    }
+    applicantItemsForFL401(isApplicant, applicantItems, userCase, taskListItems, url);
   }
 
   applicantItems.push({
@@ -747,3 +721,37 @@ const getApplicantWitnessStatementsDA = (applicant: PartyDetails, taskListItems,
       '&byApplicant=Yes',
   };
 };
+function applicantItemsForC100(userCase: any, applicantItems: object[], taskListItems: any, url: string) {
+  userCase.applicants.forEach((applicant: Applicant) => {
+    applicantItems.push(getApplicantRequestToCA(applicant, taskListItems));
+  });
+  userCase.applicants.forEach((applicant: Applicant) => {
+    if (userCase.c1ADocument) {
+      applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
+    }
+  });
+  /** Uncomment and add condition when Response to AOH document is implemeted for Applicant */
+  userCase.applicants.forEach((applicant: Applicant) => {
+    applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
+  });
+  userCase.applicants.forEach((applicant: Applicant) => {
+    applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, url));
+  });
+  userCase.applicants.forEach((applicant: Applicant) => {
+    applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems, url));
+  });
+}
+
+function applicantItemsForFL401(isApplicant: any, applicantItems: object[], userCase: any, taskListItems: any, url: string) {
+  if (!isApplicant) {
+    applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
+    applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
+  } else {
+    applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems));
+    applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
+    applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems));
+    applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
+    applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
+  }
+}
+

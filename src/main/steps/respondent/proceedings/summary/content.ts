@@ -297,7 +297,6 @@ function addEmergencyOrderSubFields(enContenttemp) {
   Object.assign(enContenttemp.keys, { 'emergencyOrder.orderTimeDetails': 'How long was the order for?' });
   Object.assign(enContenttemp.keys, { 'emergencyOrder.currentOrderDetails': 'Is this a current order?' });
   Object.assign(enContenttemp.keys, { 'emergencyOrder.issueOrderDetails': 'Which court issued this order?' });
-  //Object.assign(urlstemp, {});
 }
 
 function addSuperVisionOrder(enContenttemp, urlstemp, userCaseTemp) {

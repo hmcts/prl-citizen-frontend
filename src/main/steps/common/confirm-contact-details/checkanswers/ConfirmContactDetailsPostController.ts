@@ -28,6 +28,7 @@ import {
   prepareRequest,
   //setContactDetails
 } from './ContactDetailsMapper';
+import { CaseWithId } from 'app/case/case';
 
 @autobind
 export class ConfirmContactDetailsPostController extends PostController<AnyObject> {
@@ -71,28 +72,33 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
         );
         mapDataInSession(req.session.userCase, user.id);
         req.session.save(() => {
-          let redirectUrl;
-          if (partyType === PartyType.RESPONDENT) {
-            redirectUrl = req.session.applicationSettings?.navfromRespondToApplication
-              ? RESPOND_TO_APPLICATION
-              : RESPONDENT_TASK_LIST_URL;
-          } else if (userCase.caseTypeOfApplication === CaseType.C100) {
-            redirectUrl = C100_APPLICANT_TASKLIST;
-            if (req.session.applicationSettings?.navFromContactPreferences) {
-              if (userCase.applicantPreferredContact === applicantContactPreferencesEnum.POST) {
-                redirectUrl = APPLICANT_TASKLIST_CONTACT_POST_SUCCESS;
-              } else {
-                redirectUrl = APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS;
-              }
-            }
-          } else {
-            redirectUrl = APPLICANT_TASK_LIST_URL;
-          }
+          let redirectUrl = this.findUrl(partyType, req, userCase);
           res.redirect(redirectUrl);
         });
       } catch (error) {
         throw new Error('ConfirmContactDetailsPostController - Case could not be updated.');
       }
     }
+  }
+
+  private findUrl(partyType: PartyType, req: AppRequest<AnyObject>, userCase: CaseWithId) {
+    let redirectUrl;
+    if (partyType === PartyType.RESPONDENT) {
+      redirectUrl = req.session.applicationSettings?.navfromRespondToApplication
+        ? RESPOND_TO_APPLICATION
+        : RESPONDENT_TASK_LIST_URL;
+    } else if (userCase.caseTypeOfApplication === CaseType.C100) {
+      redirectUrl = C100_APPLICANT_TASKLIST;
+      if (req.session.applicationSettings?.navFromContactPreferences) {
+        if (userCase.applicantPreferredContact === applicantContactPreferencesEnum.POST) {
+          redirectUrl = APPLICANT_TASKLIST_CONTACT_POST_SUCCESS;
+        } else {
+          redirectUrl = APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS;
+        }
+      }
+    } else {
+      redirectUrl = APPLICANT_TASK_LIST_URL;
+    }
+    return redirectUrl;
   }
 }

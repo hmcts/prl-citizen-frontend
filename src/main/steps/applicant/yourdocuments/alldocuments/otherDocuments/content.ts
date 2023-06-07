@@ -53,7 +53,7 @@ export const generateContent: TranslationFn = content => {
     }
   });
   if (docs) {
-    for (const doc of docs!) {
+    for (const doc of docs) {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );

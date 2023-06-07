@@ -6,8 +6,6 @@ import {
 
 import { respondent_all_docs_cy, respondent_all_docs_en } from './section-titles-all-documents';
 import { generateRespondentTaskListAllDocuments } from './tasklistalldocuments';
-//import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
-
 const en = () => {
   return {
     title: 'All documents',

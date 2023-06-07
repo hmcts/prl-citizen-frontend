@@ -24,31 +24,7 @@ export const childNameFormatter = (childId, userCase) => {
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, typeOfUser, language) => {
   if (typeOfUser === 'child') {
-    bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
-    if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
-      bodyHtml += HTML.UNORDER_LIST;
-      if (
-        Array.isArray(FoundElement['childrenConcernedAbout']) &&
-        FoundElement['childrenConcernedAbout'][0] === 'All the children in application'
-      ) {
-        bodyHtml +=
-          HTML.LIST_ITEM +
-          (language === 'cy' ? cy().allchildLabel : FoundElement['childrenConcernedAbout'][0]) +
-          HTML.LIST_ITEM_END;
-      } else {
-        if (Array.isArray(FoundElement['childrenConcernedAbout'])) {
-          bodyHtml += FoundElement['childrenConcernedAbout']
-            ?.map(childId => childNameFormatter(childId, userCase))
-            .toString()
-            .split(',')
-            .join('');
-        } else {
-          bodyHtml += childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
-        }
-      }
-      bodyHtml += HTML.UNORDER_LIST_END;
-    }
-    bodyHtml += HTML.RULER;
+    bodyHtml = prepapeHTMLForChildren(bodyHtml, keys, FoundElement, language, userCase);
   }
   bodyHtml += HTML.H4 + keys['behaviourDetailsLabel'] + HTML.H4_CLOSE;
   bodyHtml += HTML.P + FoundElement.hasOwnProperty('behaviourDetails') ? FoundElement['behaviourDetails'] : '';
@@ -66,9 +42,7 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency') && FoundElement.seekHelpFromPersonOrAgency
       ? HTML.BOTTOM_PADDING_3 +
-        (FoundElement?.['seekHelpFromPersonOrAgency'] === YesOrNo.YES
-          ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
-          : getYesNoTranslation(language, YesOrNo.NO, 'doTranslation')) +
+      translationForSeekHelpFromPersonOrAgency(FoundElement, language) +
         HTML.BOTTOM_PADDING_CLOSE
       : '';
   bodyHtml +=
@@ -94,3 +68,38 @@ export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typ
   }
   return '';
 };
+
+
+function translationForSeekHelpFromPersonOrAgency(FoundElement: any, language: any) {
+  return FoundElement?.['seekHelpFromPersonOrAgency'] === YesOrNo.YES
+    ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
+    : getYesNoTranslation(language, YesOrNo.NO, 'doTranslation');
+}
+
+function prepapeHTMLForChildren(bodyHtml: any, keys: any, FoundElement: any, language: any, userCase: any) {
+  bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
+  if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
+    bodyHtml += HTML.UNORDER_LIST;
+    if (Array.isArray(FoundElement['childrenConcernedAbout']) &&
+      FoundElement['childrenConcernedAbout'][0] === 'All the children in application') {
+      bodyHtml +=
+        HTML.LIST_ITEM +
+        (language === 'cy' ? cy().allchildLabel : FoundElement['childrenConcernedAbout'][0]) +
+        HTML.LIST_ITEM_END;
+    } else {
+      if (Array.isArray(FoundElement['childrenConcernedAbout'])) {
+        bodyHtml += FoundElement['childrenConcernedAbout']
+          ?.map(childId => childNameFormatter(childId, userCase))
+          .toString()
+          .split(',')
+          .join('');
+      } else {
+        bodyHtml += childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
+      }
+    }
+    bodyHtml += HTML.UNORDER_LIST_END;
+  }
+  bodyHtml += HTML.RULER;
+  return bodyHtml;
+}
+

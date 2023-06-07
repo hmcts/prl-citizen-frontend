@@ -70,17 +70,7 @@ class PreProcessCaseData {
           fieldValues.forEach(valueConfig => {
             const fieldValue = Array.isArray(formFieldValue) ? formFieldValue : [formFieldValue];
 
-            if (fieldValue.includes(valueConfig.value)) {
-              // if form data value matches with the field values config value
-              Object.assign(_caseData, this.removeEmptyValues(formData, valueConfig.subFields));
-            } else {
-              // if the field values config value is not present in form data then clean up other subfield data from caseData for the fields that has subfields
-              if (valueConfig.subFields) {
-                Object.keys(valueConfig.subFields).forEach(subField => {
-                  delete _caseData[subField];
-                });
-              }
-            }
+            this.proceedBasedOnConfigValue(fieldValue, valueConfig, _caseData, formData);
           });
         }
 
@@ -88,6 +78,20 @@ class PreProcessCaseData {
       },
       { ...(caseData ?? {}) }
     ) as CaseWithId;
+  }
+
+  private proceedBasedOnConfigValue(fieldValue: any[], valueConfig: any, _caseData: Partial<CaseWithId>, formData: Partial<Case>) {
+    if (fieldValue.includes(valueConfig.value)) {
+      // if form data value matches with the field values config value
+      Object.assign(_caseData, this.removeEmptyValues(formData, valueConfig.subFields));
+    } else {
+      // if the field values config value is not present in form data then clean up other subfield data from caseData for the fields that has subfields
+      if (valueConfig.subFields) {
+        Object.keys(valueConfig.subFields).forEach(subField => {
+          delete _caseData[subField];
+        });
+      }
+    }
   }
 }
 

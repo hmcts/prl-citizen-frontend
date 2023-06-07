@@ -45,41 +45,7 @@ export const prepareProceedingDetailsRequest = (userCase: CaseWithId): CurrentOr
             document_filename: nestedOrder?.orderDocument?.filename,
             document_binary_url: nestedOrder?.orderDocument?.binaryUrl,
           };
-          if (nestedOrder.orderDocument) {
-            otherDetailsInfo = {
-              orderDetail: nestedOrder?.orderDetail,
-              caseNo: nestedOrder?.caseNo,
-              currentOrder:
-                nestedOrder?.currentOrder === 'Yes' || nestedOrder?.currentOrder === 'No'
-                  ? nestedOrder?.currentOrder
-                  : null,
-              orderCopy:
-                nestedOrder?.orderCopy === 'Yes' || nestedOrder?.orderCopy === 'No' ? nestedOrder?.orderCopy : null,
-              orderDate: getLocalDate(nestedOrder?.orderDate),
-              orderEndDate: getLocalDate(nestedOrder?.orderEndDate),
-              orderDocument: orderDocumentDetails,
-            };
-          } else {
-            let val, val2;
-            if (nestedOrder?.currentOrder === '') {
-              val = null;
-            } else {
-              val = nestedOrder?.currentOrder;
-            }
-            if (nestedOrder?.orderCopy === '') {
-              val2 = null;
-            } else {
-              val2 = nestedOrder?.orderCopy;
-            }
-            otherDetailsInfo = {
-              orderDetail: nestedOrder?.orderDetail,
-              caseNo: nestedOrder?.caseNo,
-              currentOrder: val,
-              orderCopy: val2,
-              orderDate: getLocalDate(nestedOrder?.orderDate),
-              orderEndDate: getLocalDate(nestedOrder?.orderEndDate),
-            };
-          }
+          otherDetailsInfo = prepareOtherDetailsInfo(nestedOrder, otherDetailsInfo, orderDocumentDetails);
           proceedingDetailsInfo = {
             id: '',
             value: otherDetailsInfo,
@@ -121,30 +87,7 @@ export const mapProceedingDetails = (partyDetails: PartyDetails): Partial<CaseWi
       courtProceedingsOrders.push(orderType);
       courtProceedingsOrders1 = courtProceedingsOrders;
       proceedings.value.proceedingDetails?.forEach((proceeding, index) => {
-        let val, val2;
-        if (isNull(proceeding.value?.currentOrder)) {
-          val = '';
-        } else {
-          val = proceeding.value?.currentOrder;
-        }
-        if (isNull(proceeding.value?.orderCopy)) {
-          val2 = '';
-        } else {
-          val2 = proceeding.value?.orderCopy;
-        }
-        const proceedingOrderInterface: ProceedingsOrderInterface = {
-          id: getNextId(index),
-          caseNo: proceeding.value?.caseNo,
-          currentOrder: val,
-          orderCopy: val2,
-          orderDate: getDisplayDate(proceeding.value?.orderDate),
-          orderEndDate: getDisplayDate(proceeding.value?.orderEndDate),
-          orderDetail: proceeding.value?.orderDetail,
-        };
-        if (proceeding.value?.orderDocument) {
-          proceedingOrderInterface.orderDocument = getDocumentInfo(proceeding.value?.orderDocument);
-        }
-        proceedingOrderInterfaceList.push(proceedingOrderInterface);
+        mapEachOrderForParticularProceeding(proceeding, index, proceedingOrderInterfaceList);
       });
 
       proceedingOrderTypeInterface[`${orderType}s`] = proceedingOrderInterfaceList;
@@ -168,6 +111,54 @@ export const mapProceedingDetails = (partyDetails: PartyDetails): Partial<CaseWi
 
   return content;
 };
+
+function prepareOtherDetailsInfo(nestedOrder: any, otherDetailsInfo: OtherProceedingDetails, orderDocumentDetails: Document) {
+  if (nestedOrder.orderDocument) {
+    otherDetailsInfo = {
+      orderDetail: nestedOrder?.orderDetail,
+      caseNo: nestedOrder?.caseNo,
+      currentOrder: nestedOrder?.currentOrder === 'Yes' || nestedOrder?.currentOrder === 'No'
+        ? nestedOrder?.currentOrder
+        : null,
+      orderCopy: nestedOrder?.orderCopy === 'Yes' || nestedOrder?.orderCopy === 'No' ? nestedOrder?.orderCopy : null,
+      orderDate: getLocalDate(nestedOrder?.orderDate),
+      orderEndDate: getLocalDate(nestedOrder?.orderEndDate),
+      orderDocument: orderDocumentDetails,
+    };
+  } else {
+    let val, val2;
+    val = nestedOrder?.currentOrder === '' ? null : nestedOrder?.currentOrder;
+    val2 = nestedOrder?.orderCopy === '' ? null : nestedOrder?.orderCopy;
+    otherDetailsInfo = {
+      orderDetail: nestedOrder?.orderDetail,
+      caseNo: nestedOrder?.caseNo,
+      currentOrder: val,
+      orderCopy: val2,
+      orderDate: getLocalDate(nestedOrder?.orderDate),
+      orderEndDate: getLocalDate(nestedOrder?.orderEndDate),
+    };
+  }
+  return otherDetailsInfo;
+}
+
+function mapEachOrderForParticularProceeding(proceeding: ProceedingsOrderDataInterface, index: number, proceedingOrderInterfaceList: ProceedingsOrderInterface[]) {
+  let val, val2;
+  val = isNull(proceeding.value?.currentOrder) ? "" : proceeding.value?.currentOrder;
+  val2 = isNull(proceeding.value?.orderCopy) ? "" : proceeding.value?.orderCopy;
+  const proceedingOrderInterface: ProceedingsOrderInterface = {
+    id: getNextId(index),
+    caseNo: proceeding.value?.caseNo,
+    currentOrder: val,
+    orderCopy: val2,
+    orderDate: getDisplayDate(proceeding.value?.orderDate),
+    orderEndDate: getDisplayDate(proceeding.value?.orderEndDate),
+    orderDetail: proceeding.value?.orderDetail,
+  };
+  if (proceeding.value?.orderDocument) {
+    proceedingOrderInterface.orderDocument = getDocumentInfo(proceeding.value?.orderDocument);
+  }
+  proceedingOrderInterfaceList.push(proceedingOrderInterface);
+}
 
 export function getLocalDate(orderDate: string): Date {
   if (orderDate['year'] === '' && orderDate['month'] === '' && orderDate['day'] === '') {

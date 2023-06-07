@@ -78,69 +78,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           res.redirect(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
         });
       } else {
-        if (isNull(files) || files === undefined) {
-          this.uploadFileError(req, res, orderType as string, orderId as string, {
-            propertyName: 'document',
-            errorType: 'required',
-          });
-        } else if (!isValidFileFormat(files)) {
-          this.uploadFileError(req, res, orderType as string, orderId as string, {
-            propertyName: 'document',
-            errorType: 'fileFormat',
-          });
-        } else if (isFileSizeGreaterThanMaxAllowed(files)) {
-          this.uploadFileError(req, res, orderType as string, orderId as string, {
-            propertyName: 'document',
-            errorType: 'fileSize',
-          });
-        } else {
-          const { documents }: AnyType = files;
-
-          const formData: FormData = new FormData();
-
-          const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
-          const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
-          const orderTypeName = this.buildOrderTypeName(courtOrderType);
-          let fileName: string;
-          if (orderId === '1') {
-            fileName = `applicant__${orderTypeName}__${dateOfSystem}.${extensionType}`;
-          } else {
-            fileName = `applicant__${orderTypeName}_${orderId}__${dateOfSystem}.${extensionType}`;
-          }
-          formData.append('file', documents.data, {
-            contentType: documents.mimetype,
-            filename: fileName,
-          });
-          try {
-            const userDeatils = req?.session?.user;
-            const responseBody: DocumentUploadResponse = await caseApi(userDeatils, req.locals.logger).uploadDocument(
-              formData
-            );
-            const { document_url, document_filename, document_binary_url } = responseBody['document'];
-            const documentInfo = {
-              id: document_url.split('/')[document_url.split('/').length - 1],
-              url: document_url,
-              filename: document_filename,
-              binaryUrl: document_binary_url,
-            };
-
-            if (
-              req.session.userCase?.otherProceedings?.order?.[ProceedingsOrderTypeKeyMapper[courtOrderType]][
-                courtOrderId - 1
-              ]
-            ) {
-              req.session.userCase.otherProceedings.order[ProceedingsOrderTypeKeyMapper[courtOrderType]][
-                courtOrderId - 1
-              ].orderDocument = documentInfo;
-            }
-
-            req.session.save(() => {
-              res.redirect(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
-            });
-          } catch (error) {
-            res.json(error);
-          }
-        }
+        await this.processNewDocument(files, req, res, orderType, orderId, courtOrderType, courtOrderId);
       }
     }
   }
@@ -151,6 +89,66 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     }
     return false;
   };
+
+  private async processNewDocument(files: { [fieldname: string]: Express.Multer.File[]; } | Express.Multer.File[] | undefined, req: AppRequest<AnyObject>, res: Response<any, Record<string, any>>, orderType: string, orderId: string, courtOrderType: ProceedingsOrderTypes, courtOrderId: any) {
+    if (isNull(files) || files === undefined) {
+      this.uploadFileError(req, res, orderType, orderId, {
+        propertyName: 'document',
+        errorType: 'required',
+      });
+    } else if (!isValidFileFormat(files)) {
+      this.uploadFileError(req, res, orderType, orderId, {
+        propertyName: 'document',
+        errorType: 'fileFormat',
+      });
+    } else if (isFileSizeGreaterThanMaxAllowed(files)) {
+      this.uploadFileError(req, res, orderType, orderId, {
+        propertyName: 'document',
+        errorType: 'fileSize',
+      });
+    } else {
+      const { documents }: AnyType = files;
+
+      const formData: FormData = new FormData();
+
+      const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
+      const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
+      const orderTypeName = this.buildOrderTypeName(courtOrderType);
+      let fileName: string;
+      if (orderId === '1') {
+        fileName = `applicant__${orderTypeName}__${dateOfSystem}.${extensionType}`;
+      } else {
+        fileName = `applicant__${orderTypeName}_${orderId}__${dateOfSystem}.${extensionType}`;
+      }
+      formData.append('file', documents.data, {
+        contentType: documents.mimetype,
+        filename: fileName,
+      });
+      try {
+        const userDeatils = req?.session?.user;
+        const responseBody: DocumentUploadResponse = await caseApi(userDeatils, req.locals.logger).uploadDocument(
+          formData
+        );
+        const { document_url, document_filename, document_binary_url } = responseBody['document'];
+        const documentInfo = {
+          id: document_url.split('/')[document_url.split('/').length - 1],
+          url: document_url,
+          filename: document_filename,
+          binaryUrl: document_binary_url,
+        };
+
+        if (req.session.userCase?.otherProceedings?.order?.[ProceedingsOrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]) {
+          req.session.userCase.otherProceedings.order[ProceedingsOrderTypeKeyMapper[courtOrderType]][courtOrderId - 1].orderDocument = documentInfo;
+        }
+
+        req.session.save(() => {
+          res.redirect(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
+        });
+      } catch (error) {
+        res.json(error);
+      }
+    }
+  }
 
   public buildOrderTypeName(courtOrderType: ProceedingsOrderTypes): string {
     return C100OrderTypeNameMapper[courtOrderType].split(' ').join('_').toLowerCase();

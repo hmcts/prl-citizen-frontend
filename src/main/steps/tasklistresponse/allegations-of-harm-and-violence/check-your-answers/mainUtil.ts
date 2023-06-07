@@ -7,12 +7,9 @@ import { getYesNoTranslation } from '../../../c100-rebuild/check-your-answers/ma
 import { applyParms } from '../../../common/url-parser';
 import * as Urls from '../../../urls';
 import { cy } from '../abduction/passport-amount/content';
-
-// import { DATE_FORMATTOR } from './common/dateformatter';
 import { HTML } from './common/htmlSelectors';
 import { ANYTYPE } from './common/index';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
-// import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
 /* eslint-disable import/namespace */
 
 /**
@@ -109,43 +106,11 @@ export const SafetyConcerns_child = (
   /**
    * @policeOrInvestigatorsOtherDetails session Values
    */
-  let policeOrInvestigatorsOtherDetailsHTML = '';
-  policeOrInvestigatorsOtherDetailsHTML += (userCase['PRL_c1A_policeOrInvestigatorInvolved'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oeddTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oeddTranslation'));
-   policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('PRL_c1A_policeOrInvestigatorOtherDetails')
-    ?  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + userCase['PRL_c1A_policeOrInvestigatorOtherDetails']
-    :  '' ;
+  let policeOrInvestigatorsOtherDetailsHTML = investigationData(userCase, language, keys);
     /**
    * @PRL_c1A_childAbductedBefore session Values
    */
-    let PRL_c1A_childAbductedBefore = '';
-    PRL_c1A_childAbductedBefore += (userCase?.['PRL_c1A_passportOffice'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oesTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oesTranslation'));
-    const relativesTranslation = (relative) => {
-      relative = relative === passportPossessionRelative.MOTHER && language === 'cy' ? cy().option1 : relative;
-      relative = relative === passportPossessionRelative.FATHER && language === 'cy' ? cy().option2 : relative;
-      return relative;
-    };
-    if (userCase.hasOwnProperty('PRL_c1A_passportOffice') && userCase.PRL_c1A_passportOffice === 'Yes') {
-      PRL_c1A_childAbductedBefore += HTML.RULER;
-      PRL_c1A_childAbductedBefore += HTML.H4;
-      PRL_c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
-      PRL_c1A_childAbductedBefore += HTML.H4_CLOSE;
-      PRL_c1A_childAbductedBefore += (userCase['PRL_c1A_childrenMoreThanOnePassport'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oesTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oesTranslation'));
-      PRL_c1A_childAbductedBefore += HTML.RULER;
-      PRL_c1A_childAbductedBefore += HTML.H4;
-      PRL_c1A_childAbductedBefore += keys['possessionChildrenPassport'];
-      PRL_c1A_childAbductedBefore += HTML.H4_CLOSE;
-      PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST;
-      PRL_c1A_childAbductedBefore += userCase['PRL_c1A_possessionChildrenPassport']!
-      .filter(element => element !== passportPossessionRelative.OTHER)
-      .map(relatives => HTML.LIST_ITEM + relativesTranslation(relatives) + HTML.LIST_ITEM_END)
-      .toString()
-      .split(',')
-      .join('');
-    if(userCase['PRL_c1A_possessionChildrenPassport']!.some(element => element === passportPossessionRelative.OTHER)){
-      PRL_c1A_childAbductedBefore +=  HTML.LIST_ITEM + userCase['PRL_c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
-    }  
-    PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
-  }
+    let PRL_c1A_childAbductedBefore = abducteBeforeData(userCase, language, keys);
 
 
   const abdutionScreenData = [
@@ -180,20 +145,7 @@ export const SafetyConcerns_child = (
       changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_THREATS'],
     });
 
-  if(userCase.hasOwnProperty('PRL_c1A_childAbductedBefore') && userCase['PRL_c1A_childAbductedBefore'] === 'Yes'){
-    abdutionScreenData.push(
-      {
-        key: keys['previousAbduction'],
-        valueHtml: userCase['PRL_c1A_previousAbductionsShortDesc']  || '',
-        changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS'],
-      },
-      {
-        key: keys['c1A_policeOrInvestigatorInvolved'],
-        valueHtml: policeOrInvestigatorsOtherDetailsHTML  || '',
-        changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS'],
-      },
-    );
-  }
+  childAbductedBeforeHTML(userCase, abdutionScreenData, keys, policeOrInvestigatorsOtherDetailsHTML);
   /**
    * @StrictChecks whether abduction data is enabled
    */
@@ -328,4 +280,64 @@ export const SafetyConcerns_others = (
 };
 
      
+
+function investigationData(userCase: Partial<CaseWithId>, language: string, keys: Record<string, string>) {
+  let policeOrInvestigatorsOtherDetailsHTML = '';
+  policeOrInvestigatorsOtherDetailsHTML += (userCase['PRL_c1A_policeOrInvestigatorInvolved'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oeddTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oeddTranslation'));
+  policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('PRL_c1A_policeOrInvestigatorOtherDetails')
+    ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + userCase['PRL_c1A_policeOrInvestigatorOtherDetails']
+    : '';
+  return policeOrInvestigatorsOtherDetailsHTML;
+}
+
+function abducteBeforeData(userCase: Partial<CaseWithId>, language: string, keys: Record<string, string>) {
+  let PRL_c1A_childAbductedBefore = '';
+  PRL_c1A_childAbductedBefore += (userCase?.['PRL_c1A_passportOffice'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oesTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oesTranslation'));
+  const relativesTranslation = (relative) => {
+    relative = relative === passportPossessionRelative.MOTHER && language === 'cy' ? cy().option1 : relative;
+    relative = relative === passportPossessionRelative.FATHER && language === 'cy' ? cy().option2 : relative;
+    return relative;
+  };
+  if (userCase.hasOwnProperty('PRL_c1A_passportOffice') && userCase.PRL_c1A_passportOffice === 'Yes') {
+    PRL_c1A_childAbductedBefore += HTML.RULER;
+    PRL_c1A_childAbductedBefore += HTML.H4;
+    PRL_c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
+    PRL_c1A_childAbductedBefore += HTML.H4_CLOSE;
+    PRL_c1A_childAbductedBefore += (userCase['PRL_c1A_childrenMoreThanOnePassport'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oesTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oesTranslation'));
+    PRL_c1A_childAbductedBefore += HTML.RULER;
+    PRL_c1A_childAbductedBefore += HTML.H4;
+    PRL_c1A_childAbductedBefore += keys['possessionChildrenPassport'];
+    PRL_c1A_childAbductedBefore += HTML.H4_CLOSE;
+    PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST;
+    PRL_c1A_childAbductedBefore += userCase['PRL_c1A_possessionChildrenPassport']!
+      .filter(element => element !== passportPossessionRelative.OTHER)
+      .map(relatives => HTML.LIST_ITEM + relativesTranslation(relatives) + HTML.LIST_ITEM_END)
+      .toString()
+      .split(',')
+      .join('');
+    if (userCase['PRL_c1A_possessionChildrenPassport']!.some(element => element === passportPossessionRelative.OTHER)) {
+      PRL_c1A_childAbductedBefore += HTML.LIST_ITEM + userCase['PRL_c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
+    }
+    PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
+  }
+  return PRL_c1A_childAbductedBefore;
+}
+
+function childAbductedBeforeHTML(userCase: Partial<CaseWithId>, abdutionScreenData: { key: string; valueHtml: string; changeUrl: `/${string}`; }[], keys: Record<string, string>, policeOrInvestigatorsOtherDetailsHTML: string) {
+  if (userCase.hasOwnProperty('PRL_c1A_childAbductedBefore') && userCase['PRL_c1A_childAbductedBefore'] === 'Yes') {
+    abdutionScreenData.push(
+      {
+        key: keys['previousAbduction'],
+        valueHtml: userCase['PRL_c1A_previousAbductionsShortDesc'] || '',
+        changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS'],
+      },
+      {
+        key: keys['c1A_policeOrInvestigatorInvolved'],
+        valueHtml: policeOrInvestigatorsOtherDetailsHTML || '',
+        changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS'],
+      }
+    );
+  }
+}
+
 

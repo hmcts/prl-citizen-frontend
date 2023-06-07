@@ -105,7 +105,7 @@ export const generateContent: TranslationFn = content => {
     user => user['id'] === userId
   )[0]?.['contactDetailsPrivateAlternative'] as [];
 
-  let detailKnownFormField = form.fields['startAlternative']?.['values'];
+  let detailKnownFormField
 
   const formFieldValues = [
     {
@@ -163,7 +163,7 @@ export const generateContent: TranslationFn = content => {
               }
               subFieldValueStorage = [
                 ...subFieldValueStorage.filter(item => item.value !== field['value']),
-                field as FieldLabel,
+                field,
               ];
             }
           }

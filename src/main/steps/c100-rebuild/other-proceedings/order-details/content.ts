@@ -11,7 +11,6 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/For
 import { covertToDateObject } from '../../../../app/form/parser';
 import { areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
 export * from './routeGuard';
-//import { v4 as uuid } from 'uuid';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -138,141 +137,7 @@ export const generateFormFields = (
     const count = index + 1;
     const key = `fieldset${count}`;
 
-    fields[key] = {
-      type: 'fieldset',
-      label: l => {
-        return count === 1 ? `${l[`${orderType}Label`]}` : `${l[`${orderType}Label`]} ${count}`;
-      },
-      classes: 'govuk-fieldset__legend--m',
-      subFields: {
-        [`orderDetail-${count}`]: {
-          type: 'text',
-          value: orders[index].orderDetail,
-          label: l => l.courtIssuedLabel,
-          labelSize: 's',
-        },
-        [`caseNo-${count}`]: {
-          type: 'text',
-          label: l => l.caseNumberLabel,
-          value: orders[index].caseNo,
-          classes: 'govuk-!-width-one-half',
-          labelSize: 's',
-          hint: h => h.caseNumberHint,
-        },
-        [`orderDate-${count}`]: {
-          type: 'date',
-          classes: 'govuk-date-input',
-          labelSize: 's',
-          label: l => l.orderDateLabel,
-          hint: l => l.orderDateHint,
-          values: [
-            {
-              label: l => l.dateFormat['day'],
-              name: 'day',
-              value: orders[index].orderDate.day,
-              classes: 'govuk-input--width-2',
-              attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-            {
-              label: l => l.dateFormat['month'],
-              name: 'month',
-              value: orders[index].orderDate.month,
-              classes: 'govuk-input--width-2',
-              attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-            {
-              label: l => l.dateFormat['year'],
-              name: 'year',
-              value: orders[index].orderDate.year,
-              classes: 'govuk-input--width-4',
-              attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-          ],
-          parser: body => covertToDateObject(`orderDate-${count}`, body as Record<string, unknown>),
-          validator: value => {
-            const dateError = areDateFieldsFilledIn(value as CaseDate);
-            return dateError !== 'required'
-              ? dateError || isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate)
-              : '';
-          },
-        },
-        [`currentOrder-${count}`]: {
-          type: 'radios',
-          labelSize: 's',
-          classes: 'govuk-radios--inline',
-          label: l => l.isCurrentOrderLabel,
-          values: [
-            {
-              label: l => l.yes1,
-              value: YesNoEmpty.YES,
-            },
-            {
-              label: l => l.no1,
-              value: YesNoEmpty.NO,
-            },
-            {
-              value: YesNoEmpty.EMPTY,
-            },
-          ],
-        },
-        [`orderEndDate-${count}`]: {
-          type: 'date',
-          classes: 'govuk-date-input',
-          labelSize: 's',
-          label: l => l.orderEndDateLabel,
-          hint: l => l.orderDateHint,
-          values: [
-            {
-              label: l => l.dateFormat['day'],
-              name: 'day',
-              value: orders[index].orderEndDate.day,
-              classes: 'govuk-input--width-2',
-              attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-            {
-              label: l => l.dateFormat['month'],
-              name: 'month',
-              value: orders[index].orderEndDate.month,
-              classes: 'govuk-input--width-2',
-              attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-            {
-              label: l => l.dateFormat['year'],
-              name: 'year',
-              value: orders[index].orderEndDate.year,
-              classes: 'govuk-input--width-4',
-              attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-          ],
-          parser: body => covertToDateObject(`orderEndDate-${count}`, body as Record<string, unknown>),
-          validator: value => {
-            const dateError = areDateFieldsFilledIn(value as CaseDate);
-            return dateError !== 'required'
-              ? dateError || isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate)
-              : '';
-          },
-        },
-        [`orderCopy-${count}`]: {
-          type: 'radios',
-          labelSize: 's',
-          classes: 'govuk-radios--inline',
-          label: l => l.copyOfOrderLabel,
-          values: [
-            {
-              label: l => l.yes2,
-              value: YesNoEmpty.YES,
-            },
-            {
-              label: l => l.no2,
-              value: YesNoEmpty.NO,
-            },
-            {
-              value: YesNoEmpty.EMPTY,
-            },
-          ],
-        },
-      },
-    };
+    setFieldKey(fields, key, count, orderType, orders, index);
 
     // mark the selection for the radio buttons based on the option chosen
     const currentOrder = fields[key].subFields[`currentOrder-${count}`];
@@ -383,3 +248,141 @@ export const generateContent: TranslationFn = content => {
     form: updateFormFields(form, fields),
   };
 };
+function setFieldKey(fields: {}, key: string, count: number, orderType: C100OrderTypes, orders: C100OrderInterface[], index: number) {
+  fields[key] = {
+    type: 'fieldset',
+    label: l => {
+      return count === 1 ? `${l[`${orderType}Label`]}` : `${l[`${orderType}Label`]} ${count}`;
+    },
+    classes: 'govuk-fieldset__legend--m',
+    subFields: {
+      [`orderDetail-${count}`]: {
+        type: 'text',
+        value: orders[index].orderDetail,
+        label: l => l.courtIssuedLabel,
+        labelSize: 's',
+      },
+      [`caseNo-${count}`]: {
+        type: 'text',
+        label: l => l.caseNumberLabel,
+        value: orders[index].caseNo,
+        classes: 'govuk-!-width-one-half',
+        labelSize: 's',
+        hint: h => h.caseNumberHint,
+      },
+      [`orderDate-${count}`]: {
+        type: 'date',
+        classes: 'govuk-date-input',
+        labelSize: 's',
+        label: l => l.orderDateLabel,
+        hint: l => l.orderDateHint,
+        values: [
+          {
+            label: l => l.dateFormat['day'],
+            name: 'day',
+            value: orders[index].orderDate.day,
+            classes: 'govuk-input--width-2',
+            attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+          {
+            label: l => l.dateFormat['month'],
+            name: 'month',
+            value: orders[index].orderDate.month,
+            classes: 'govuk-input--width-2',
+            attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+          {
+            label: l => l.dateFormat['year'],
+            name: 'year',
+            value: orders[index].orderDate.year,
+            classes: 'govuk-input--width-4',
+            attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+        ],
+        parser: body => covertToDateObject(`orderDate-${count}`, body as Record<string, unknown>),
+        validator: value => {
+          const dateError = areDateFieldsFilledIn(value as CaseDate);
+          return dateError !== 'required'
+            ? dateError || isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate)
+            : '';
+        },
+      },
+      [`currentOrder-${count}`]: {
+        type: 'radios',
+        labelSize: 's',
+        classes: 'govuk-radios--inline',
+        label: l => l.isCurrentOrderLabel,
+        values: [
+          {
+            label: l => l.yes1,
+            value: YesNoEmpty.YES,
+          },
+          {
+            label: l => l.no1,
+            value: YesNoEmpty.NO,
+          },
+          {
+            value: YesNoEmpty.EMPTY,
+          },
+        ],
+      },
+      [`orderEndDate-${count}`]: {
+        type: 'date',
+        classes: 'govuk-date-input',
+        labelSize: 's',
+        label: l => l.orderEndDateLabel,
+        hint: l => l.orderDateHint,
+        values: [
+          {
+            label: l => l.dateFormat['day'],
+            name: 'day',
+            value: orders[index].orderEndDate.day,
+            classes: 'govuk-input--width-2',
+            attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+          {
+            label: l => l.dateFormat['month'],
+            name: 'month',
+            value: orders[index].orderEndDate.month,
+            classes: 'govuk-input--width-2',
+            attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+          {
+            label: l => l.dateFormat['year'],
+            name: 'year',
+            value: orders[index].orderEndDate.year,
+            classes: 'govuk-input--width-4',
+            attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+        ],
+        parser: body => covertToDateObject(`orderEndDate-${count}`, body as Record<string, unknown>),
+        validator: value => {
+          const dateError = areDateFieldsFilledIn(value as CaseDate);
+          return dateError !== 'required'
+            ? dateError || isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate)
+            : '';
+        },
+      },
+      [`orderCopy-${count}`]: {
+        type: 'radios',
+        labelSize: 's',
+        classes: 'govuk-radios--inline',
+        label: l => l.copyOfOrderLabel,
+        values: [
+          {
+            label: l => l.yes2,
+            value: YesNoEmpty.YES,
+          },
+          {
+            label: l => l.no2,
+            value: YesNoEmpty.NO,
+          },
+          {
+            value: YesNoEmpty.EMPTY,
+          },
+        ],
+      },
+    },
+  };
+}
+

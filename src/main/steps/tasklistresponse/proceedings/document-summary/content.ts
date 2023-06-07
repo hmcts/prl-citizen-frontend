@@ -36,8 +36,6 @@ interface OrderDocument {
   fileName?: string;
   editUrl?: string;
 }
-[];
-
 const getOrderDocuments = (
   orders: ProceedingsOrderTypeInterface | Record<string, never> = {}
 ): OrderDocument[] | [] => {
