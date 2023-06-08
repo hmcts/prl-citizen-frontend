@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { isFieldFilledIn, isTextAreaValid, Validator } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -80,7 +81,16 @@ describe('citizen-home content', () => {
     const detailsKnownField = fields.start as FormOptions;
     expect(detailsKnownField.type).toBe('radios');
     expect(detailsKnownField.classes).toBe('govuk-radios');
+    expect((detailsKnownField.label as Function)(generatedContent)).toBe(undefined);
     expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
+    expect((detailsKnownField.hint as Function)(generatedContent)).toBe(enContent.hint);
+    expect((detailsKnownField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
+
+    (detailsKnownField.values[0].subFields?.iFactorsStartProvideDetails.validator as Validator)('iFactorsStartProvideDetails');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('iFactorsStartProvideDetails');
+    expect(isTextAreaValid).toHaveBeenCalledWith('iFactorsStartProvideDetails');
+
+    expect((detailsKnownField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
   });
 
   test('should onlyContinue continue button', () => {
