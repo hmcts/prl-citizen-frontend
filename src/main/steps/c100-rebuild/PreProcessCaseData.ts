@@ -79,8 +79,13 @@ class PreProcessCaseData {
       { ...(caseData ?? {}) }
     ) as CaseWithId;
   }
-
-  private proceedBasedOnConfigValue(fieldValue: any[], valueConfig: any, _caseData: Partial<CaseWithId>, formData: Partial<Case>) {
+  /* eslint-disable @typescript-eslint/no-explicit-any*/
+  private proceedBasedOnConfigValue(
+    fieldValue: any[],
+    valueConfig: any,
+    _caseData: Partial<CaseWithId>,
+    formData: Partial<Case>
+  ) {
     if (fieldValue.includes(valueConfig.value)) {
       // if form data value matches with the field values config value
       Object.assign(_caseData, this.removeEmptyValues(formData, valueConfig.subFields));

@@ -94,16 +94,7 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessio
         UserCase['otherProceedings']?.['order'].hasOwnProperty('contactOrdersForDivorce') ||
         UserCase['otherProceedings']?.['order'].hasOwnProperty('contactOrdersForAdoption')
       ) {
-        let orderDetails;
-        orderDetails = setOrderDetails(order, orderDetails, UserCase);
-        orderDetails.forEach((nestedOrder, index) => {
-          const IndexNumber = index > 0 ? index + 1 : '';
-          orderSessionStorage.push({
-            key: `${keys[order + 'Label']} ${IndexNumber}`,
-            valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language),
-            changeUrl: applyParms(URLS['PROCEEDINGS_ORDER_DETAILS'], { orderType: order }),
-          });
-        });
+        prepareOrderDetail(order, UserCase, orderSessionStorage, keys, language, URLS);
       }
     });
     return orderSessionStorage;
@@ -131,7 +122,16 @@ export const otherProceedingsContents = SystemLanguage => {
   };
   return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
 };
-function setOrderDetails(order: any, orderDetails: any, UserCase: any) {
+/* eslint-disable @typescript-eslint/no-explicit-any*/
+function prepareOrderDetail(
+  order: any,
+  UserCase: any,
+  orderSessionStorage: { key: string; valueHtml: string; changeUrl: string }[],
+  keys: any,
+  language: any,
+  URLS: any
+) {
+  let orderDetails;
   if (order === 'contactOrderForDivorce') {
     orderDetails = UserCase['otherProceedings']?.['order']['contactOrdersForDivorce'];
   } else if (order === 'contactOrderForAdoption') {
@@ -139,6 +139,12 @@ function setOrderDetails(order: any, orderDetails: any, UserCase: any) {
   } else {
     orderDetails = UserCase['otherProceedings']?.['order'][`${order}s`];
   }
-  return orderDetails;
+  orderDetails.forEach((nestedOrder, index) => {
+    const IndexNumber = index > 0 ? index + 1 : '';
+    orderSessionStorage.push({
+      key: `${keys[order + 'Label']} ${IndexNumber}`,
+      valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language),
+      changeUrl: applyParms(URLS['PROCEEDINGS_ORDER_DETAILS'], { orderType: order }),
+    });
+  });
 }
-

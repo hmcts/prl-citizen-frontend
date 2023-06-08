@@ -281,7 +281,13 @@ export const getTaskListConfig = (
       return config !== null;
     });
 };
-function setConfig(task: any, caseData: Partial<CaseWithId>, userDetails: UserDetails, _content: any, language: string) {
+function setConfig(
+  task: any,
+  caseData: Partial<CaseWithId>,
+  userDetails: UserDetails,
+  _content: any,
+  language: string
+) {
   const stateTag = task.stateTag(caseData, userDetails);
   const _stateTagConfig = stateTagsConfig?.[stateTag];
 
@@ -298,11 +304,16 @@ function setConfig(task: any, caseData: Partial<CaseWithId>, userDetails: UserDe
   return config;
 }
 
-function isContainShowHint(task: any, caseData: Partial<CaseWithId>, userDetails: UserDetails, config: { id: any; linkText: any; href: any; disabled: any; stateTag: { label: any; className: any; }; }, _content: any) {
+function isContainShowHint(
+  task: any,
+  caseData: Partial<CaseWithId>,
+  userDetails: UserDetails,
+  config: { id: any; linkText: any; href: any; disabled: any; stateTag: { label: any; className: any } },
+  _content: any
+) {
   if (task?.showHint && task.showHint instanceof Function && task.showHint(caseData, userDetails)) {
     Object.assign(config, {
       hintText: _content?.tasks[task.id]?.hintText,
     });
   }
 }
-

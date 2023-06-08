@@ -42,7 +42,7 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency') && FoundElement.seekHelpFromPersonOrAgency
       ? HTML.BOTTOM_PADDING_3 +
-      translationForSeekHelpFromPersonOrAgency(FoundElement, language) +
+        translationForSeekHelpFromPersonOrAgency(FoundElement, language) +
         HTML.BOTTOM_PADDING_CLOSE
       : '';
   bodyHtml +=
@@ -68,8 +68,7 @@ export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typ
   }
   return '';
 };
-
-
+/* eslint-disable @typescript-eslint/no-explicit-any*/
 function translationForSeekHelpFromPersonOrAgency(FoundElement: any, language: any) {
   return FoundElement?.['seekHelpFromPersonOrAgency'] === YesOrNo.YES
     ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
@@ -80,8 +79,10 @@ function prepapeHTMLForChildren(bodyHtml: any, keys: any, FoundElement: any, lan
   bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
   if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
     bodyHtml += HTML.UNORDER_LIST;
-    if (Array.isArray(FoundElement['childrenConcernedAbout']) &&
-      FoundElement['childrenConcernedAbout'][0] === 'All the children in application') {
+    if (
+      Array.isArray(FoundElement['childrenConcernedAbout']) &&
+      FoundElement['childrenConcernedAbout'][0] === 'All the children in application'
+    ) {
       bodyHtml +=
         HTML.LIST_ITEM +
         (language === 'cy' ? cy().allchildLabel : FoundElement['childrenConcernedAbout'][0]) +
@@ -102,4 +103,3 @@ function prepapeHTMLForChildren(bodyHtml: any, keys: any, FoundElement: any, lan
   bodyHtml += HTML.RULER;
   return bodyHtml;
 }
-

@@ -7,6 +7,7 @@ import { getYesNoTranslation } from '../../../c100-rebuild/check-your-answers/ma
 import { applyParms } from '../../../common/url-parser';
 import * as Urls from '../../../urls';
 import { cy } from '../abduction/passport-amount/content';
+
 import { HTML } from './common/htmlSelectors';
 import { ANYTYPE } from './common/index';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
@@ -106,11 +107,11 @@ export const SafetyConcerns_child = (
   /**
    * @policeOrInvestigatorsOtherDetails session Values
    */
-  let policeOrInvestigatorsOtherDetailsHTML = investigationData(userCase, language, keys);
+  const policeOrInvestigatorsOtherDetailsHTML = investigationData(userCase, language, keys);
     /**
    * @PRL_c1A_childAbductedBefore session Values
    */
-    let PRL_c1A_childAbductedBefore = abducteBeforeData(userCase, language, keys);
+    const PRL_c1A_childAbductedBefore = abducteBeforeData(userCase, language, keys);
 
 
   const abdutionScreenData = [

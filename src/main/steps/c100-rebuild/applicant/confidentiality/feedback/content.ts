@@ -77,7 +77,7 @@ export const generateContent: TranslationFn = content => {
     translations['listOfCofidentialInfromations'] = shownToggledConfidentialOptions as [];
   }
   const applicantData = content.userCase?.appl_allApplicants?.filter(user => user['id'] === userId)[0];
-  const applicantName = (applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName']);
+  const applicantName = applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName'];
   translations['applicantName'] = applicantName;
 
   return {
@@ -86,8 +86,7 @@ export const generateContent: TranslationFn = content => {
   };
 };
 function prepareOptions(items: never, subItems: string, shownToggledConfidentialOptions) {
-  if ((items['key'] as string) === (subItems)) {
+  if ((items['key'] as string) === subItems) {
     shownToggledConfidentialOptions.push(items['value']);
   }
 }
-

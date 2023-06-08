@@ -1,4 +1,3 @@
-
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
@@ -79,7 +78,6 @@ const languages = {
 
 export const form: FormContent = {
   fields: () => {
-
     return {
       declarationCheck: {
         type: 'checkboxes',

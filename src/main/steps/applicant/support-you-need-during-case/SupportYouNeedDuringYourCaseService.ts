@@ -276,4 +276,3 @@ function dataCleanupDocSupport(docsSupport: string[] | undefined, request: Reaso
     }
   }
 }
-

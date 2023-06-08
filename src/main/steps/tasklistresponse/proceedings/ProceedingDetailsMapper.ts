@@ -111,24 +111,26 @@ export const mapProceedingDetails = (partyDetails: PartyDetails): Partial<CaseWi
 
   return content;
 };
-
-function prepareOtherDetailsInfo(nestedOrder: any, otherDetailsInfo: OtherProceedingDetails, orderDocumentDetails: Document) {
+/* eslint-disable @typescript-eslint/no-explicit-any*/
+function prepareOtherDetailsInfo(
+  nestedOrder: any,
+  otherDetailsInfo: OtherProceedingDetails,
+  orderDocumentDetails: Document
+) {
   if (nestedOrder.orderDocument) {
     otherDetailsInfo = {
       orderDetail: nestedOrder?.orderDetail,
       caseNo: nestedOrder?.caseNo,
-      currentOrder: nestedOrder?.currentOrder === 'Yes' || nestedOrder?.currentOrder === 'No'
-        ? nestedOrder?.currentOrder
-        : null,
+      currentOrder:
+        nestedOrder?.currentOrder === 'Yes' || nestedOrder?.currentOrder === 'No' ? nestedOrder?.currentOrder : null,
       orderCopy: nestedOrder?.orderCopy === 'Yes' || nestedOrder?.orderCopy === 'No' ? nestedOrder?.orderCopy : null,
       orderDate: getLocalDate(nestedOrder?.orderDate),
       orderEndDate: getLocalDate(nestedOrder?.orderEndDate),
       orderDocument: orderDocumentDetails,
     };
   } else {
-    let val, val2;
-    val = nestedOrder?.currentOrder === '' ? null : nestedOrder?.currentOrder;
-    val2 = nestedOrder?.orderCopy === '' ? null : nestedOrder?.orderCopy;
+    const val = nestedOrder?.currentOrder === '' ? null : nestedOrder?.currentOrder;
+    const val2 = nestedOrder?.orderCopy === '' ? null : nestedOrder?.orderCopy;
     otherDetailsInfo = {
       orderDetail: nestedOrder?.orderDetail,
       caseNo: nestedOrder?.caseNo,
@@ -141,10 +143,22 @@ function prepareOtherDetailsInfo(nestedOrder: any, otherDetailsInfo: OtherProcee
   return otherDetailsInfo;
 }
 
-function mapEachOrderForParticularProceeding(proceeding: ProceedingsOrderDataInterface, index: number, proceedingOrderInterfaceList: ProceedingsOrderInterface[]) {
+function mapEachOrderForParticularProceeding(
+  proceeding: ProceedingsOrderDataInterface,
+  index: number,
+  proceedingOrderInterfaceList: ProceedingsOrderInterface[]
+) {
   let val, val2;
-  val = isNull(proceeding.value?.currentOrder) ? "" : proceeding.value?.currentOrder;
-  val2 = isNull(proceeding.value?.orderCopy) ? "" : proceeding.value?.orderCopy;
+  if (isNull(proceeding.value?.currentOrder)) {
+    val = '';
+  } else {
+    val = proceeding.value?.currentOrder;
+  }
+  if (isNull(proceeding.value?.orderCopy)) {
+    val2 = '';
+  } else {
+    val2 = proceeding.value?.orderCopy;
+  }
   const proceedingOrderInterface: ProceedingsOrderInterface = {
     id: getNextId(index),
     caseNo: proceeding.value?.caseNo,

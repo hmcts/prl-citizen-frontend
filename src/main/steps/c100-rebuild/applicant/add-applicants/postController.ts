@@ -66,7 +66,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
       }
     }
   }
-
+  /* eslint-disable @typescript-eslint/no-explicit-any*/
   private addButtonWithNoError(req: AppRequest<AnyObject>, res: Response<any, Record<string, any>>) {
     const { addAnotherApplicant } = req['body'];
     if (addAnotherApplicant === 'Yes') {

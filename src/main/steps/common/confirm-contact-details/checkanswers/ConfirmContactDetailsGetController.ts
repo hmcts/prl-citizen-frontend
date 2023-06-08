@@ -74,9 +74,10 @@ export const validateDataCompletion = (req: AppRequest<Partial<Case>>): void => 
     if (fieldsArray.includes(key)) {
       const value = req.session.userCase[`${key}`];
       if (typeof value === 'string' && (value === null || value === undefined || value.trim() === '')) {
-        req.session.userCase[`${key}`] = req.session.lang === 'cy'
-          ?'<span class="govuk-error-message">' + cyContent.completeSection + '</span>'
-          :'<span class="govuk-error-message">' + enContent.completeSection + '</span>';
+        req.session.userCase[`${key}`] =
+          req.session.lang === 'cy'
+            ? '<span class="govuk-error-message">' + cyContent.completeSection + '</span>'
+            : '<span class="govuk-error-message">' + enContent.completeSection + '</span>';
       }
     }
   }
@@ -99,9 +100,11 @@ export const getConfidentialData = (req: AppRequest<Partial<Case>>): void => {
   }
 };
 function englishValue(req: AppRequest<Partial<Case>>, key: string, value: string) {
-  if (req.session.userCase?.detailsKnown &&
+  if (
+    req.session.userCase?.detailsKnown &&
     req.session.userCase?.startAlternative &&
-    req.session.userCase.contactDetailsPrivate?.length !== 0) {
+    req.session.userCase.contactDetailsPrivate?.length !== 0
+  ) {
     if (req.session.userCase?.contactDetailsPrivate?.includes(key)) {
       req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
         '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PRIVATE + '</span>'
@@ -119,9 +122,11 @@ function englishValue(req: AppRequest<Partial<Case>>, key: string, value: string
 }
 
 function welshValue(req: AppRequest<Partial<Case>>, key: string, value: string) {
-  if (req.session.userCase?.detailsKnown &&
+  if (
+    req.session.userCase?.detailsKnown &&
     req.session.userCase?.startAlternative &&
-    req.session.userCase.contactDetailsPrivate?.length !== 0) {
+    req.session.userCase.contactDetailsPrivate?.length !== 0
+  ) {
     if (req.session.userCase?.contactDetailsPrivate?.includes(key)) {
       req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
         '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PRIVATE_CY + '</span>'
@@ -137,4 +142,3 @@ function welshValue(req: AppRequest<Partial<Case>>, key: string, value: string) 
     );
   }
 }
-

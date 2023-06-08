@@ -73,8 +73,13 @@ class OtherProceedingsNavigationController {
     }
     return nextUrl;
   }
-
-  private findNextUrlOfProceedingStart(proceedingStart: YesOrNo | undefined, proceedingOrderType: YesOrNo | undefined, nextUrl: any, caseData: Partial<Case>) {
+  /* eslint-disable @typescript-eslint/no-explicit-any*/
+  private findNextUrlOfProceedingStart(
+    proceedingStart: YesOrNo | undefined,
+    proceedingOrderType: YesOrNo | undefined,
+    nextUrl: any,
+    caseData: Partial<Case>
+  ) {
     if (proceedingStart === YesOrNo.YES || proceedingOrderType === YesOrNo.YES) {
       nextUrl = PROCEEDINGS_COURT_PROCEEDINGS;
     } else {
@@ -83,18 +88,20 @@ class OtherProceedingsNavigationController {
     }
     return nextUrl;
   }
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private findNextUrlOfOrderDetails(orderId: string | undefined, nextUrl: any) {
     if (orderId) {
       // if any order has order copy to be uploaded
       nextUrl = applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: this.orderType, orderId });
     } else {
       // none of the orders in the current order type have order copy to be uploaded
-      nextUrl = this.getNextOrderType() ? applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: this.getNextOrderType() }) : PROCEEDINGS_SUMMARY;
+      nextUrl = this.getNextOrderType()
+        ? applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: this.getNextOrderType() })
+        : PROCEEDINGS_SUMMARY;
     }
     return nextUrl;
   }
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private findNextUrlOfDocumentUpload(nextOrderId: string | undefined, nextUrl: any) {
     if (nextOrderId) {
       // if there are any more orders with order copy
@@ -104,7 +111,9 @@ class OtherProceedingsNavigationController {
       });
     } else {
       // none of the orders in the current order type have order copy to be uploaded
-      nextUrl = this.getNextOrderType() ? applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: this.getNextOrderType() }) : COURT_PROCEEDINGS_SUMMARY;
+      nextUrl = this.getNextOrderType()
+        ? applyParms(PROCEEDINGS_ORDER_DETAILS, { orderType: this.getNextOrderType() })
+        : COURT_PROCEEDINGS_SUMMARY;
     }
     return nextUrl;
   }

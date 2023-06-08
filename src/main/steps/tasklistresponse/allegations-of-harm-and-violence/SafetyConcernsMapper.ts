@@ -35,9 +35,9 @@ export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_tota
   } = userCase;
   let request: PRL_C1ASafteyConcerns_total = {};
 
-  concernAboutChild(PRL_c1A_concernAboutChild, request, PRL_c1A_safteyConcerns);
+  concernDetailsAboutChild(PRL_c1A_concernAboutChild, request, PRL_c1A_safteyConcerns);
 
-  concernAboutRespondent(PRL_c1A_concernAboutRespondent, request, PRL_c1A_safteyConcerns);
+  concernDetailsAboutRespondent(PRL_c1A_concernAboutRespondent, request, PRL_c1A_safteyConcerns);
 
   Object.assign(request, {
     haveSafetyConcerns: PRL_c1A_haveSafetyConcerns,
@@ -163,7 +163,13 @@ export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<Ca
     PRL_c1A_agreementOtherWaysDetails: otherconcerns?.c1AagreementOtherWaysDetails,
   };
 };
-function concernAboutRespondent(PRL_c1A_concernAboutRespondent: PRL_C1AAbuseTypes[] | undefined, request: PRL_C1ASafteyConcerns_total, PRL_c1A_safteyConcerns: import("/Users/2209232/Documents/c100-code-base/v2/prl-citizen-frontend/src/main/app/case/definition").PRL_C1ASafteyConcerns | undefined) {
+function concernDetailsAboutRespondent(
+  PRL_c1A_concernAboutRespondent: PRL_C1AAbuseTypes[] | undefined,
+  request: PRL_C1ASafteyConcerns_total,
+  PRL_c1A_safteyConcerns:
+    | import('/Users/2209232/Documents/c100-code-base/v2/prl-citizen-frontend/src/main/app/case/definition').PRL_C1ASafteyConcerns
+    | undefined
+) {
   if (PRL_c1A_concernAboutRespondent) {
     request.respondent = {};
     PRL_c1A_concernAboutRespondent.forEach((abuse: string) => {
@@ -180,7 +186,13 @@ function concernAboutRespondent(PRL_c1A_concernAboutRespondent: PRL_C1AAbuseType
   }
 }
 
-function concernAboutChild(PRL_c1A_concernAboutChild: PRL_C1AAbuseTypes[] | undefined, request: PRL_C1ASafteyConcerns_total, PRL_c1A_safteyConcerns: import("/Users/2209232/Documents/c100-code-base/v2/prl-citizen-frontend/src/main/app/case/definition").PRL_C1ASafteyConcerns | undefined) {
+function concernDetailsAboutChild(
+  PRL_c1A_concernAboutChild: PRL_C1AAbuseTypes[] | undefined,
+  request: PRL_C1ASafteyConcerns_total,
+  PRL_c1A_safteyConcerns:
+    | import('/Users/2209232/Documents/c100-code-base/v2/prl-citizen-frontend/src/main/app/case/definition').PRL_C1ASafteyConcerns
+    | undefined
+) {
   if (PRL_c1A_concernAboutChild?.length) {
     request.child = {};
     PRL_c1A_concernAboutChild.forEach((abuse: string) => {
@@ -200,4 +212,3 @@ function concernAboutChild(PRL_c1A_concernAboutChild: PRL_C1AAbuseTypes[] | unde
     });
   }
 }
-

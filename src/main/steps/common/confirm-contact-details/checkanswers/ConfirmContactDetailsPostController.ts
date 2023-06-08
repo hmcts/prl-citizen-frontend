@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { CaseWithId } from '../../../../app/case/case';
 import {
   CaseEvent,
   CaseType,
@@ -28,7 +29,6 @@ import {
   prepareRequest,
   //setContactDetails
 } from './ContactDetailsMapper';
-import { CaseWithId } from 'app/case/case';
 
 @autobind
 export class ConfirmContactDetailsPostController extends PostController<AnyObject> {
@@ -72,7 +72,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
         );
         mapDataInSession(req.session.userCase, user.id);
         req.session.save(() => {
-          let redirectUrl = this.findUrl(partyType, req, userCase);
+          const redirectUrl = this.findUrl(partyType, req, userCase);
           res.redirect(redirectUrl);
         });
       } catch (error) {

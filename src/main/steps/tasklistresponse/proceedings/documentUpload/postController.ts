@@ -89,8 +89,16 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     }
     return false;
   };
-
-  private async processNewDocument(files: { [fieldname: string]: Express.Multer.File[]; } | Express.Multer.File[] | undefined, req: AppRequest<AnyObject>, res: Response<any, Record<string, any>>, orderType: string, orderId: string, courtOrderType: ProceedingsOrderTypes, courtOrderId: any) {
+  /* eslint-disable @typescript-eslint/no-explicit-any*/
+  private async processNewDocument(
+    files: { [fieldname: string]: Express.Multer.File[] } | Express.Multer.File[] | undefined,
+    req: AppRequest<AnyObject>,
+    res: Response<any, Record<string, any>>,
+    orderType: string,
+    orderId: string,
+    courtOrderType: ProceedingsOrderTypes,
+    courtOrderId: any
+  ) {
     if (isNull(files) || files === undefined) {
       this.uploadFileError(req, res, orderType, orderId, {
         propertyName: 'document',
@@ -137,8 +145,14 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           binaryUrl: document_binary_url,
         };
 
-        if (req.session.userCase?.otherProceedings?.order?.[ProceedingsOrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]) {
-          req.session.userCase.otherProceedings.order[ProceedingsOrderTypeKeyMapper[courtOrderType]][courtOrderId - 1].orderDocument = documentInfo;
+        if (
+          req.session.userCase?.otherProceedings?.order?.[ProceedingsOrderTypeKeyMapper[courtOrderType]][
+            courtOrderId - 1
+          ]
+        ) {
+          req.session.userCase.otherProceedings.order[ProceedingsOrderTypeKeyMapper[courtOrderType]][
+            courtOrderId - 1
+          ].orderDocument = documentInfo;
         }
 
         req.session.save(() => {

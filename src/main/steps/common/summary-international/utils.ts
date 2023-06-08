@@ -56,7 +56,7 @@ export const summaryCaseList = (
     const id = userCase.id as string;
     const name = userCase.applicantCaseName;
     const state = userCase.caseStatus?.state;
-    let caseUrl = findUrl(userCase, isRespondent, state, id);
+    const caseUrl = findUrl(userCase, isRespondent, state, id);
     const row = {
       key: name,
       value: state,
@@ -117,7 +117,12 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   tempDetails = tempDetails + '</ul>';
   return tempDetails;
 };
-function findUrl(userCase: Partial<CaseWithId>, isRespondent: boolean | undefined, state: string | undefined, id: string) {
+function findUrl(
+  userCase: Partial<CaseWithId>,
+  isRespondent: boolean | undefined,
+  state: string | undefined,
+  id: string
+) {
   let caseUrl = '#';
   if (userCase.caseTypeOfApplication === 'C100') {
     if (!isRespondent) {

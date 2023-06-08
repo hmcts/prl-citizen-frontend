@@ -742,7 +742,13 @@ function applicantItemsForC100(userCase: any, applicantItems: object[], taskList
   });
 }
 
-function applicantItemsForFL401(isApplicant: any, applicantItems: object[], userCase: any, taskListItems: any, url: string) {
+function applicantItemsForFL401(
+  isApplicant: any,
+  applicantItems: object[],
+  userCase: any,
+  taskListItems: any,
+  url: string
+) {
   if (!isApplicant) {
     applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
     applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
@@ -754,4 +760,3 @@ function applicantItemsForFL401(isApplicant: any, applicantItems: object[], user
     applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
   }
 }
-

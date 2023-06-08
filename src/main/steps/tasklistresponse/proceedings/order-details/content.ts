@@ -239,7 +239,14 @@ export const generateContent: TranslationFn = content => {
     form: updateFormFields(form, fields),
   };
 };
-function setFieldKey(fields: {}, key: string, count: number, orderType: ProceedingsOrderTypes, orders: ProceedingsOrderInterface[], index: number) {
+function setFieldKey(
+  fields: object,
+  key: string,
+  count: number,
+  orderType: ProceedingsOrderTypes,
+  orders: ProceedingsOrderInterface[],
+  index: number
+) {
   fields[key] = {
     type: 'fieldset',
     label: l => {
@@ -376,4 +383,3 @@ function setFieldKey(fields: {}, key: string, count: number, orderType: Proceedi
     },
   };
 }
-
