@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import {
   PRL_C1AAbuseTypes,
+  PRL_C1ASafteyConcerns,
   PRL_C1ASafteyConcernsAbout,
   PRL_C1ASafteyConcerns_total,
   PartyDetails,
@@ -166,9 +167,7 @@ export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<Ca
 function concernDetailsAboutRespondent(
   PRL_c1A_concernAboutRespondent: PRL_C1AAbuseTypes[] | undefined,
   request: PRL_C1ASafteyConcerns_total,
-  PRL_c1A_safteyConcerns:
-    | import('/Users/2209232/Documents/c100-code-base/v2/prl-citizen-frontend/src/main/app/case/definition').PRL_C1ASafteyConcerns
-    | undefined
+  PRL_c1A_safteyConcerns: PRL_C1ASafteyConcerns | undefined
 ) {
   if (PRL_c1A_concernAboutRespondent) {
     request.respondent = {};
@@ -189,9 +188,7 @@ function concernDetailsAboutRespondent(
 function concernDetailsAboutChild(
   PRL_c1A_concernAboutChild: PRL_C1AAbuseTypes[] | undefined,
   request: PRL_C1ASafteyConcerns_total,
-  PRL_c1A_safteyConcerns:
-    | import('/Users/2209232/Documents/c100-code-base/v2/prl-citizen-frontend/src/main/app/case/definition').PRL_C1ASafteyConcerns
-    | undefined
+  PRL_c1A_safteyConcerns: PRL_C1ASafteyConcerns | undefined
 ) {
   if (PRL_c1A_concernAboutChild?.length) {
     request.child = {};
