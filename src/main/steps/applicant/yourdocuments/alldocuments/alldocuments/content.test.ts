@@ -12,7 +12,7 @@ const enContent = {
   taskListItems: applicant_tasklist_items_all_docs_en,
 };
 const cyContent = {
-  title: 'All documents',
+  title: 'Pob dogfen',
   sectionTitles: applicant_all_docs_en,
   taskListItems: applicant_tasklist_items_all_docs_en,
 };
