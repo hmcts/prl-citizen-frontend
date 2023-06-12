@@ -32,7 +32,7 @@ const cy = {
   title: "Beth ydych chi eisiau i'r llys ei wneud i'ch cadw chi a'r plant yn ddiogel?",
   paragraph:
     'Describe what you want the court to do to keep you and the children safe. The court may be able to make a protective order. - welsh',
-  detailsSummary: 'Actions the court can take - welsh',
+  detailsSummary: 'Camau y gall y llys eu cymryd',
   detailsParagraphs: [
     '<strong>Non-molestation order:</strong> The court may decide to make a non-molestation order. This requires the person served with the order not to be violent, or threaten violence. They must not harass or pester the person who applied for the order in any way. This includes harassing them over messaging apps or social media (Facebook, Twitter and so on). - welsh',
     '<strong>Prohibited Steps:</strong> this order prevents a person from taking certain actions without the permission of the court. - welsh',

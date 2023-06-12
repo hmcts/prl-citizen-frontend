@@ -1,53 +1,63 @@
-import { progressBarC100, progressBarFl401 } from '../../../main/steps/common/models/progressBarItems';
+import {
+  progressBarC100,
+  progressBarCyC100,
+  progressBarCyFl401,
+  progressBarFl401,
+} from '../../../main/steps/common/models/progressBarItems';
 import { CaseWithId } from '../../app/case/case';
 import { SelectTypeOfOrderEnum, State } from '../../app/case/definition';
 
-const buildProgressBarStages = (userCase: Partial<CaseWithId>): object => {
+const buildProgressBarStages = (userCase: Partial<CaseWithId>, lang: string): object => {
+  const isEng = lang === 'en';
   const applicationSubmitted = {
-    title: progressBarC100.applicationSubmitted.title,
-    ariaLabel: progressBarC100.applicationSubmitted.ariaLabel,
+    title: isEng ? progressBarC100.applicationSubmitted.title : progressBarCyC100.applicationSubmitted.title,
+    ariaLabel: isEng
+      ? progressBarC100.applicationSubmitted.ariaLabel
+      : progressBarCyC100.applicationSubmitted.ariaLabel,
     active: true,
     completed: true,
   };
 
   const cafcassSafetyChecks = {
-    title: progressBarC100.cafcassSafetyChecks.title,
-    ariaLabel: progressBarC100.cafcassSafetyChecks.ariaLabel,
+    title: isEng ? progressBarC100.cafcassSafetyChecks.title : progressBarCyC100.cafcassSafetyChecks.title,
+    ariaLabel: isEng ? progressBarC100.cafcassSafetyChecks.ariaLabel : progressBarCyC100.cafcassSafetyChecks.ariaLabel,
     active: false,
     completed: false,
   };
 
   const responseSubmitted = {
-    title: progressBarC100.responseSubmitted.title,
-    ariaLabel: progressBarC100.responseSubmitted.ariaLabel,
+    title: isEng ? progressBarC100.responseSubmitted.title : progressBarCyC100.responseSubmitted.title,
+    ariaLabel: isEng ? progressBarC100.responseSubmitted.ariaLabel : progressBarCyC100.responseSubmitted.ariaLabel,
     active: false,
     completed: false,
   };
 
   const hearingAndCourtOrders = {
-    title: progressBarC100.hearingAndCourtOrders.title,
-    ariaLabel: progressBarC100.hearingAndCourtOrders.ariaLabel,
+    title: isEng ? progressBarC100.hearingAndCourtOrders.title : progressBarCyC100.hearingAndCourtOrders.title,
+    ariaLabel: isEng
+      ? progressBarC100.hearingAndCourtOrders.ariaLabel
+      : progressBarCyC100.hearingAndCourtOrders.ariaLabel,
     active: isHearingOrderActive(userCase),
     completed: isFinalOrderIssued(userCase),
   };
 
   const caseOpened = {
-    title: progressBarFl401.caseOpened.title,
-    ariaLabel: progressBarFl401.caseOpened.ariaLabel,
+    title: isEng ? progressBarFl401.caseOpened.title : progressBarCyFl401.caseOpened.title,
+    ariaLabel: isEng ? progressBarFl401.caseOpened.ariaLabel : progressBarCyFl401.caseOpened.ariaLabel,
     active: false,
     completed: true,
   };
 
   const finalOrder = {
-    title: progressBarFl401.finalOrder.title,
-    ariaLabel: progressBarFl401.finalOrder.ariaLabel,
+    title: isEng ? progressBarFl401.finalOrder.title : progressBarCyFl401.finalOrder.title,
+    ariaLabel: isEng ? progressBarFl401.finalOrder.ariaLabel : progressBarCyFl401.finalOrder.ariaLabel,
     active: false,
     completed: isFinalOrderIssued(userCase),
   };
 
   const caseClosed = {
-    title: progressBarC100.caseClosed.title,
-    ariaLabel: progressBarC100.caseClosed.ariaLabel,
+    title: isEng ? progressBarC100.caseClosed.title : progressBarCyC100.caseClosed.title,
+    ariaLabel: isEng ? progressBarC100.caseClosed.ariaLabel : progressBarCyC100.caseClosed.ariaLabel,
     active: false,
     completed: isFinalOrderIssued(userCase),
   };
