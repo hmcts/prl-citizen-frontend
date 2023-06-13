@@ -27,7 +27,7 @@ services:
   documentManagement:
     url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
 health:
-  timeout: 7000
+  timeout: 5000
   deadline: 15000
 session:
   secret: 'local'
