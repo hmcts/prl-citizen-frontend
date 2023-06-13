@@ -159,7 +159,7 @@ const cy = () => ({
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
-    [SectionStatus.DOWNLOAD]: 'DOWNLOAD (in Welsh)',
+    [SectionStatus.DOWNLOAD]: 'LLWYTHO',
     [SectionStatus.VIEW]: 'VIEW (in Welsh)',
   },
   sectionTitles: respondent_cy,
@@ -282,7 +282,7 @@ export const generateContent: TranslationFn = content => {
       ? getC100Banners(content.userCase, translations, content.userIdamId)
       : getFl401Banners(content.userCase, translations, content.userIdamId);
 
-  const stages = buildProgressBarStages(content.userCase!);
+  const stages = buildProgressBarStages(content.userCase!, content.language);
   const req: AppRequest = content.additionalData?.req;
   if (content.userCase?.caseTypeOfApplication === 'C100') {
     const respondent = getRespondentPartyDetailsCa(content.userCase, req.session.user.id);

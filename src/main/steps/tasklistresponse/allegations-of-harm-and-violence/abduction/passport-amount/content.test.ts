@@ -55,7 +55,7 @@ const cy = {
       required: "Specify who is in possession of the children's passports - welsh",
     },
     PRL_c1A_provideOtherDetails: {
-      required: 'Please provide the details - welsh',
+      required: 'Rhowch fanylion',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
