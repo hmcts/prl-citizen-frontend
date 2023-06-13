@@ -147,6 +147,11 @@ export interface FormContent {
     classes?: string;
     href?: string;
   };
+  startNow?: {
+    text: Label;
+    classes?: string;
+    href?: string;
+  };
   onlyContinue?: {
     text: Label;
     classes?: string;

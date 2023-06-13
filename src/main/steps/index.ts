@@ -10,6 +10,7 @@ import { TranslationFn } from '../app/controller/GetController';
 import { Form, FormContent } from '../app/form/Form';
 
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
+import { applicationWithinProceedingsSequence } from './applicationWithinProceedingsSequence';
 import { C100Sequence } from './c100-rebuild/c100sequence';
 import { parseUrl } from './common/url-parser';
 import { Step } from './constants';
@@ -49,6 +50,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     ...responseCaseSequence,
     ...C100Sequence,
     ...screeningQuestionsSequence,
+    ...applicationWithinProceedingsSequence,
   ].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data, req) : CITIZEN_HOME_URL;
   const { path: urlPath, queryString: urlQueryStr } = getPathAndQueryStringFromUrl(url);
@@ -120,6 +122,7 @@ export const stepsWithContentApplicant = getStepsWithContent(applicantCaseSequen
 export const stepsWithContentC7response = getStepsWithContent(responseCaseSequence);
 export const c100CaseSequence = getStepsWithContent(C100Sequence, C100_URL);
 export const screeningSequence = getStepsWithContent(screeningQuestionsSequence);
+export const awpSequence = getStepsWithContent(applicationWithinProceedingsSequence);
 
 export const stepsWithContent = [
   ...stepsWithContentEdgecase,
@@ -128,6 +131,7 @@ export const stepsWithContent = [
   ...stepsWithContentC7response,
   ...c100CaseSequence,
   ...screeningSequence,
+  ...awpSequence,
 ];
 
 const getPathAndQueryStringFromUrl = (url: PageLink): { path: string; queryString: string } => {
