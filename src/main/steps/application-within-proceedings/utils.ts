@@ -113,6 +113,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
     ],
     applicationFee: {
       C100: '£167',
+      FL401: '£167',
     },
   },
   {
