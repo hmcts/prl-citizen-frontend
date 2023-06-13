@@ -5,7 +5,7 @@ import { CommonContent } from '../../common/common.content';
 import { generateContent } from '../add-legal-representative/content';
 
 const enContent = {
-  section: 'Adding a legal representative',
+  title: 'Adding a legal representative',
   partyName: ' ',
   continue: 'Continue',
   legalRepresentativeInformationLine1:
@@ -18,7 +18,7 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Adding a legal representative-welsh',
+  title: 'Adding a legal representative-welsh',
   partyName: ' ',
   continue: 'Continue-welsh',
   legalRepresentativeInformationLine1:
@@ -66,7 +66,7 @@ describe('add-legal-representative content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.section).toEqual('Adding a legal representative');
+    expect(generatedContent.title).toEqual('Adding a legal representative');
     expect(generatedContent.legalRepresentativeInformationLine1).toEqual(
       'If you have hired a legal representative,  you will need to give them some information so they can access your case.'
     );

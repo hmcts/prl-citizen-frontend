@@ -144,10 +144,10 @@ export const generateContent: TranslationFn = content => {
     isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(applicant);
   }
   translations.hyperlinks.forEach((hyperLink, index) => {
-    if (hyperLink.label.includes('Add a legal representative') && isRepresentedBySolicotor) {
+    if (hyperLink.label.includes(translations.hyperlinks[0].label) && isRepresentedBySolicotor) {
       translations.hyperlinks.splice(index, 1);
     }
-    if (hyperLink.label.includes('Remove a legal representative') && !isRepresentedBySolicotor) {
+    if (hyperLink.label.includes(translations.hyperlinks[1].label) && !isRepresentedBySolicotor) {
       translations.hyperlinks.splice(index, 1);
     }
   });

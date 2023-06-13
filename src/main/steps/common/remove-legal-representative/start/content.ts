@@ -2,7 +2,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 export const en = {
-  section: 'Remove my representative',
+  title: 'Remove my representative',
   continue: 'Continue',
   removeLegalRepresentativeInformationLine1:
     'Removing a legal representative means they will no longer have access to your case. You will be managing this case yourself.',
@@ -20,7 +20,7 @@ export const en = {
 };
 
 export const cy: typeof en = {
-  section: 'Remove my representative - welsh',
+  title: 'Remove my representative - welsh',
   continue: 'Continue-welsh',
   removeLegalRepresentativeInformationLine1:
     'Removing a legal representative means they will no longer have access to your case. You will be managing this case yourself.-welsh',
