@@ -2976,13 +2976,14 @@ export enum CaseType {
 }
 
 export enum CaseEvent {
+  EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement',
+  KEEP_DETAILS_PRIVATE = 'keepYourDetailsPrivate', 
+  LEGAL_REPRESENTATION = 'legalRepresentation',
+  CONSENT_TO_APPLICATION = 'consentToTheApplication',
   SAFETY_CONCERNS = 'citizenSafetyConcerns',
   MIAM = 'respondentMiam',
   PARTY_PERSONAL_DETAILS = 'linkCitizenAccount',
-  EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement',
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
-  CONSENT_TO_APPLICATION = 'consentToTheApplication',
-  LEGAL_REPRESENTATION = 'legalRepresentation',
 }
 
 export enum passportPossessionRelative {
