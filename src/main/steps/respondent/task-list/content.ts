@@ -318,7 +318,7 @@ const getRespondentName = (userCase: Partial<CaseWithId>, userId: string): strin
     const respondent = getRespondentPartyDetailsCa(userCase, userId);
     return respondent ? respondent.value.firstName + ' ' + respondent.value.lastName : '';
   } else {
-    return userCase.respondentsFL401?.firstName + '' + userCase.respondentsFL401?.lastName;
+    return userCase.respondentsFL401?.firstName + ' ' + userCase.respondentsFL401?.lastName;
   }
 };
 
@@ -350,7 +350,7 @@ const getFl401Banners = (userCase, translations, userIdamId) => {
   ) {
     banners.push(translations.viewDocumentBanner);
   }
-  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
+  if (userCase?.orderCollection && userCase.orderCollection.length > 0) {
     if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
       banners.push(translations.newOrderBanner);
     } else {
@@ -358,7 +358,10 @@ const getFl401Banners = (userCase, translations, userIdamId) => {
     }
   }
   // please add all the banners before this if condition, the following banner is added only if no other is present
-  if (banners.length === 0 && userCase.orderWithoutGivingNoticeToRespondent?.orderWithoutGivingNotice === YesOrNo.YES) {
+  if (
+    banners.length === 0 &&
+    userCase?.orderWithoutGivingNoticeToRespondent?.orderWithoutGivingNotice === YesOrNo.YES
+  ) {
     banners.push(translations.daRespondentBanner);
   }
   return banners;
