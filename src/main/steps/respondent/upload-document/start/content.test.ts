@@ -70,6 +70,12 @@ describe('citizen-home content', () => {
     expect(detailsKnownField.type).toBe('radios');
     expect(detailsKnownField.classes).toBe('govuk-radios');
     expect((detailsKnownField.section as Function)(generatedContent)).toBe(en.section);
+    expect((detailsKnownField.values[0].label as Function)(generatedContent)).toBe('Yes');
+    expect((detailsKnownField.values[1].label as Function)(generatedContent)).toBe('No');
+    expect((detailsKnownField.hint as Function)(generatedContent)).toBe(undefined);
+    expect(detailsKnownField.values[1].value).toBe('No');
+    expect((detailsKnownField.label as Function)(generatedContent)).toBe(undefined);
+    expect(detailsKnownField.values[0].value).toBe('Yes');
   });
 
   test('should contain continue button', () => {
