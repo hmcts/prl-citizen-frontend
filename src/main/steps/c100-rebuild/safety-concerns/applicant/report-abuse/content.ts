@@ -2,6 +2,7 @@ import { CaseWithId } from '../../../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbuse, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
+import { isTextAreaValid } from '../../../../../app/form/validation';
 import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
 export * from './routeGuard';
@@ -37,6 +38,23 @@ const en = () => ({
   <p class="govuk-body">Do not include personal details such as names and addresses.</p>`,
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" rel="external" target="_blank">GOV.UK guidance</a> if you are unsure how to get help.</p>',
+  errors: {
+    behaviourDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+    behaviourStartDate: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+    seekHelpDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+  },
 });
 
 const cy = () => ({
@@ -50,8 +68,8 @@ const cy = () => ({
   financialAbusePageTitle: 'Disgrifiwch y cam-drin ariannol yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny',
   somethingElsePageTitle: 'Disgrifiwch y gamdriniaeth yn gryno os ydych yn teimlo eich bod yn gallu gwneud hynny',
   introText: `<p class="govuk-body ">Llenwch yr adran hon y gorau y gallwch. Os nad ydych chi'n teimlo eich bod chi'n gallu trafod y gamdriniaeth ar hyn o bryd, gallwch wneud hynny wrth siarad efo Cafcass</p>
-                <p class="govuk-body ">Bydd yr wybodaeth y byddwch yn ei rhoi yn cael ei defnyddio yn y cais. Nid yw'n gais am waharddeb cam-drin domestig.</p>
-                <p class="govuk-body ">Gallwch wneud <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">cais am waharddeb cam-drin domestig ar </a> wahân</p>`,
+ <p class="govuk-body">Bydd yr wybodaeth y byddwch yn ei rhoi yn cael ei defnyddio yn y cais. Nid yw'n gais am waharddeb cam-drin domestig.</p>
+ <p class="govuk-body"> Gallwch wneud<a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank"> cais am waharddeb cam-drin domestig</a> ar wahân</p>`,
   warningText: {
     text: "Byddwn yn rhannu'r wybodaeth y byddwch yn ei rhoi yn yr adran hon gyda'r unigolyn arall yn yr achos er mwyn iddo allu ymateb i'r hyn rydych chi wedi'i ddweud.",
     iconFallbackText: 'Rhybudd',
@@ -64,8 +82,8 @@ const cy = () => ({
   isOngoingBehaviourLabel: "Ydy'r ymddygiad yn parhau? (dewisol)",
   isOngoingBehaviourHint:
     '<p class="govuk-body" for="respabuseongoing-hint">CFfoniwch 999 os oes argyfwng. Os nad yw\'n argyfwng, ystyriwch gysylltu â\'r <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> neu\'r <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">tîm gofal cymdeithasol yn eich cyngor  lleol</a>.</p>',
-  YesOptionLabel: 'Ydy',
-  NoOptionLabel: 'Nac ydy',
+  YesOptionLabel: 'Do',
+  NoOptionLabel: 'Naddo',
   seekHelpFromPersonOrAgencyLabel:
     'Ydych chi erioed wedi gofyn am help gan unigolyn neu asiantaeth broffesiynol? (dewisol)',
   seekHelpFromPersonOrAgencyHintText: "Er enghraifft, siarad â'ch meddyg teulu lleol.",
@@ -73,6 +91,23 @@ const cy = () => ({
     '<p class="govuk-body">Dywedwch wrth bwy wnaethoch chi ofyn am help, a beth wnaethon nhw i helpu (dewisol). </p><p class="govuk-body">Peidiwch â chynnwys manylion personol fel enwau a chyfeiriadau.</p>',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">Gweler <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" rel="external" target="_blank">cyfarwyddyd GOV.UK </a>os nad ydych yn siŵr sut i gael help.</p>',
+  errors: {
+    behaviourDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+    },
+    behaviourStartDate: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+    },
+    seekHelpDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+    },
+  },
 });
 
 const languages = {
@@ -105,6 +140,7 @@ export const generateFormFields = (data: C1ASafteyConcernsAbuse): GenerateDynami
       attributes: {
         rows: 4,
       },
+      validator: value => isTextAreaValid(value),
     },
     behaviourStartDate: {
       type: 'textarea',
@@ -115,6 +151,7 @@ export const generateFormFields = (data: C1ASafteyConcernsAbuse): GenerateDynami
       attributes: {
         rows: 2,
       },
+      validator: value => isTextAreaValid(value),
     },
     isOngoingBehaviour: {
       type: 'radios',
@@ -148,6 +185,7 @@ export const generateFormFields = (data: C1ASafteyConcernsAbuse): GenerateDynami
               type: 'textarea',
               value: data.seekHelpDetails,
               hint: l => l.seekHelpDetailsYesHint,
+              validator: value => isTextAreaValid(value),
             },
           },
         },

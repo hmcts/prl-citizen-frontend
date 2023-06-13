@@ -6,27 +6,39 @@ import {
   Document,
   OrderDocumentInfo,
   OtherProceedingDetails,
+  PartyDetails,
   ProceedingDetailsData,
   Proceedings,
   ProceedingsOrderDataInterface,
   ProceedingsOrderInterface,
   ProceedingsOrderTypeInterface,
   ProceedingsOrderTypes,
-  Respondent,
 } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const setProceedingDetails = (UserCase, respondent: Respondent, req: AppRequest): Respondent => {
-  const respondentDetails = respondent;
+export const prepareProceedingDetailsRequest = (userCase: CaseWithId): CurrentOrPreviousProceedings => {
   const currentOrPreviousProceedings: CurrentOrPreviousProceedings = {};
   const proceedingDetails: ProceedingDetailsData[] = [];
+  const { proceedingsStart, proceedingsStartOrder, courtProceedingsOrders, otherProceedings } = userCase;
 
-  if (req.session.userCase.courtProceedingsOrders) {
-    UserCase['courtProceedingsOrders'].forEach(order => {
-      if (UserCase['otherProceedings']?.['order'].hasOwnProperty(`${order}s`)) {
+  if (courtProceedingsOrders) {
+    courtProceedingsOrders.forEach(order => {
+      if (
+        otherProceedings?.['order']!.hasOwnProperty(`${order}s`) ||
+        otherProceedings?.['order']!.hasOwnProperty('contactOrdersForDivorce') ||
+        otherProceedings?.['order']!.hasOwnProperty('contactOrdersForAdoption')
+      ) {
         const proceedingDetailsList: ProceedingsOrderDataInterface[] = [];
-        const orderDetails = UserCase['otherProceedings']?.['order'][`${order}s`];
+        let orderDetails;
+        if (order === 'contactOrderForDivorce') {
+          orderDetails = otherProceedings?.['order']!['contactOrdersForDivorce'];
+        } else if (order === 'contactOrderForAdoption') {
+          orderDetails = otherProceedings?.['order']!['contactOrdersForAdoption'];
+        } else {
+          orderDetails = otherProceedings?.['order']![`${order}s`];
+        }
+        let otherDetailsInfo: OtherProceedingDetails;
+        let proceedingDetailsInfo: ProceedingsOrderDataInterface;
         orderDetails.forEach(nestedOrder => {
           const orderDocumentDetails: Document = {
             document_url: nestedOrder?.orderDocument?.url,
@@ -34,44 +46,32 @@ export const setProceedingDetails = (UserCase, respondent: Respondent, req: AppR
             document_binary_url: nestedOrder?.orderDocument?.binaryUrl,
           };
           if (nestedOrder.orderDocument) {
-            let val, val2;
-            if (nestedOrder?.currentOrder.match('')) {
-              val = null;
-            } else {
-              val = nestedOrder?.currentOrder;
-            }
-            if (nestedOrder?.orderCopy.match('')) {
-              val2 = null;
-            } else {
-              val2 = nestedOrder?.orderCopy;
-            }
-            const otherDetailsInfo: OtherProceedingDetails = {
+            otherDetailsInfo = {
               orderDetail: nestedOrder?.orderDetail,
               caseNo: nestedOrder?.caseNo,
-              currentOrder: val,
-              orderCopy: val2,
+              currentOrder:
+                nestedOrder?.currentOrder === 'Yes' || nestedOrder?.currentOrder === 'No'
+                  ? nestedOrder?.currentOrder
+                  : null,
+              orderCopy:
+                nestedOrder?.orderCopy === 'Yes' || nestedOrder?.orderCopy === 'No' ? nestedOrder?.orderCopy : null,
               orderDate: getLocalDate(nestedOrder?.orderDate),
               orderEndDate: getLocalDate(nestedOrder?.orderEndDate),
               orderDocument: orderDocumentDetails,
             };
-            const proceedingDetailsInfo: ProceedingsOrderDataInterface = {
-              id: '',
-              value: otherDetailsInfo,
-            };
-            proceedingDetailsList.push(proceedingDetailsInfo);
           } else {
             let val, val2;
-            if (nestedOrder?.currentOrder.match('')) {
+            if (nestedOrder?.currentOrder === '') {
               val = null;
             } else {
               val = nestedOrder?.currentOrder;
             }
-            if (nestedOrder?.orderCopy.match('')) {
+            if (nestedOrder?.orderCopy === '') {
               val2 = null;
             } else {
               val2 = nestedOrder?.orderCopy;
             }
-            const otherDetailsInfo: OtherProceedingDetails = {
+            otherDetailsInfo = {
               orderDetail: nestedOrder?.orderDetail,
               caseNo: nestedOrder?.caseNo,
               currentOrder: val,
@@ -79,12 +79,12 @@ export const setProceedingDetails = (UserCase, respondent: Respondent, req: AppR
               orderDate: getLocalDate(nestedOrder?.orderDate),
               orderEndDate: getLocalDate(nestedOrder?.orderEndDate),
             };
-            const proceedingDetailsInfo: ProceedingsOrderDataInterface = {
-              id: '',
-              value: otherDetailsInfo,
-            };
-            proceedingDetailsList.push(proceedingDetailsInfo);
           }
+          proceedingDetailsInfo = {
+            id: '',
+            value: otherDetailsInfo,
+          };
+          proceedingDetailsList.push(proceedingDetailsInfo);
         });
         const proceedings: Proceedings = {
           orderType: `${order}`,
@@ -96,31 +96,30 @@ export const setProceedingDetails = (UserCase, respondent: Respondent, req: AppR
         };
         proceedingDetails.push(proceedingData);
       }
-      currentOrPreviousProceedings.proceedingsList = proceedingDetails;
     });
   }
-  currentOrPreviousProceedings.haveChildrenBeenInvolvedInCourtCase = req.session.userCase.proceedingsStart;
-  currentOrPreviousProceedings.courtOrderMadeForProtection = req.session.userCase.proceedingsStartOrder;
-  respondentDetails.value.response.currentOrPreviousProceedings = currentOrPreviousProceedings;
-
-  return respondentDetails;
+  Object.assign(currentOrPreviousProceedings, {
+    proceedingsList: proceedingDetails,
+    haveChildrenBeenInvolvedInCourtCase: proceedingsStart,
+    courtOrderMadeForProtection: proceedingsStartOrder,
+  });
+  return currentOrPreviousProceedings;
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const getProceedingDetails = (respondent: Respondent, req: AppRequest): Partial<CaseWithId> => {
-  const respondentDetails = respondent;
-  const currentProceedings = respondentDetails.value.response.currentOrPreviousProceedings;
+export const mapProceedingDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
+  const { haveChildrenBeenInvolvedInCourtCase, courtOrderMadeForProtection, proceedingsList } =
+    partyDetails.response.currentOrPreviousProceedings!;
   const courtProceedingsOrders: ProceedingsOrderTypes[] = [];
   const proceedingOrderTypeInterface: ProceedingsOrderTypeInterface = {};
-  if (currentProceedings) {
-    req.session.userCase.proceedingsStart = currentProceedings.haveChildrenBeenInvolvedInCourtCase;
-    req.session.userCase.proceedingsStartOrder = currentProceedings.courtOrderMadeForProtection;
-    const proceedingList = currentProceedings.proceedingsList;
-    proceedingList?.forEach(proceedings => {
+  let courtProceedingsOrders1;
+  let otherProceedings1;
+  if (partyDetails.response.currentOrPreviousProceedings) {
+    proceedingsList?.forEach(proceedings => {
       const proceedingOrderInterfaceList: ProceedingsOrderInterface[] = [];
       const orderType = proceedings.value.orderType as ProceedingsOrderTypes;
       courtProceedingsOrders.push(orderType);
-      req.session.userCase.courtProceedingsOrders = courtProceedingsOrders;
+      courtProceedingsOrders1 = courtProceedingsOrders;
       const id = 0;
       proceedings.value.proceedingDetails?.forEach(proceeding => {
         let val, val2;
@@ -150,25 +149,38 @@ export const getProceedingDetails = (respondent: Respondent, req: AppRequest): P
       });
 
       proceedingOrderTypeInterface[`${orderType}s`] = proceedingOrderInterfaceList;
-      req.session.userCase.otherProceedings = {
+      if (proceedings.value.orderType === 'contactOrderForDivorce') {
+        proceedingOrderTypeInterface['contactOrdersForDivorce'] = proceedingOrderInterfaceList;
+      }
+      if (proceedings.value.orderType === 'contactOrderForAdoption') {
+        proceedingOrderTypeInterface['contactOrdersForAdoption'] = proceedingOrderInterfaceList;
+      }
+      otherProceedings1 = {
         order: proceedingOrderTypeInterface,
       };
     });
   }
-  return req.session.userCase;
+  const content = {
+    proceedingsStart: haveChildrenBeenInvolvedInCourtCase,
+    proceedingsStartOrder: courtOrderMadeForProtection,
+    courtProceedingsOrders: courtProceedingsOrders1,
+    otherProceedings: otherProceedings1,
+  };
+
+  return content;
 };
 
-function getLocalDate(orderDate: string): Date {
+export function getLocalDate(orderDate: string): Date {
   if (orderDate['year'] === '' && orderDate['month'] === '' && orderDate['day'] === '') {
-    const formated_Date = new Date(orderDate[''], orderDate[''], orderDate['']);
-    return formated_Date;
+    return new Date(orderDate[''], orderDate[''], orderDate['']);
+  } else if (orderDate) {
+    return new Date(orderDate['year'], orderDate['month'] - 1, orderDate['day']);
   } else {
-    const formated_Date = new Date(orderDate['year'], orderDate['month'] - 1, orderDate['day']);
-    return formated_Date;
+    return new Date(orderDate['year'], orderDate['month'] - 1, orderDate['day']);
   }
 }
 
-function getDisplayDate(orderDate: Date | undefined): CaseDate {
+export function getDisplayDate(orderDate: Date | undefined): CaseDate {
   let formated_Date = {
     year: '',
     month: '',
@@ -185,7 +197,7 @@ function getDisplayDate(orderDate: Date | undefined): CaseDate {
   return formated_Date;
 }
 
-function getDocumentInfo(
+export function getDocumentInfo(
   orderDocument: Document
 ): import('../../../app/case/definition').OrderDocumentInfo | undefined {
   const orderDocumentInfo: OrderDocumentInfo = {
@@ -196,7 +208,7 @@ function getDocumentInfo(
   };
   return orderDocumentInfo;
 }
-function getNextId(id: number): string {
+export function getNextId(id: number): string {
   id = id + 1;
   return id.toString();
 }

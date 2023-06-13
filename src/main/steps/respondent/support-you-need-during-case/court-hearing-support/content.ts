@@ -1,13 +1,12 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
   title: 'I need to bring support with me to a court hearing',
   courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
   supportworker: 'A support worker or carer',
   supportWorkerDetails: 'Tell us who you will bring',
   familymember: 'A friend or family member',
@@ -25,35 +24,47 @@ const en = {
     },
     supportWorkerDetails: {
       required: 'Please provide support worker details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     familyProviderDetails: {
       required: 'Please provide family member details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     therapyDetails: {
       required: 'Please provide therapy animal details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     communicationSupportOther: {
       required: 'Please provide the details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cy: typeof en = {
-  section: 'Reasonable adjustments',
-  title: 'I need to bring support with me to a court hearing',
-  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
-  optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
-  supportworker: 'A support worker or carer',
+  section: 'Addasiadau rhesymol',
+  title: 'Rwyf eisiau dod â rhywun efo fi i fy nghefnogi mewn gwrandawiad llys',
+  courtcommunication:
+    'Meddyliwch am yr hyn y byddwch ei angen os bydd eich gwrandawiad yn un wyneb yn wyneb, trwy fideo neu dros y ffôn.',
+  optionHint: 'Dogfennau mewn lliw penodol',
+  supportworker: 'Gweithiwr cymorth neu ofalwr',
   supportWorkerDetails: 'Tell us who you will bring',
-  familymember: 'A friend or family member',
+  familymember: "ffrind neu aelod o'r teulu",
   familyMemberDetails: 'Tell us who you will bring',
-  assistance: 'Assistance / guide dog',
-  animal: 'Therapy animal',
+  assistance: 'Ci cymorth / ci tywys',
+  animal: 'Anifail therapi',
   animalDetails: 'Describe what you need',
-  other: 'Other',
+  other: 'Arall',
   otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any extra support at this time',
+  nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   continue: 'Continue',
   errors: {
     courtHearing: {
@@ -61,15 +72,27 @@ const cy: typeof en = {
     },
     supportWorkerDetails: {
       required: 'Please provide support worker details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     familyProviderDetails: {
       required: 'Please provide family member details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     therapyDetails: {
       required: 'Please provide therapy animal details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     communicationSupportOther: {
       required: 'Please provide the details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -99,7 +122,7 @@ export const form: FormContent = {
                 rows: 1,
               },
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
@@ -115,7 +138,7 @@ export const form: FormContent = {
                 rows: 1,
               },
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
@@ -136,7 +159,7 @@ export const form: FormContent = {
                 rows: 1,
               },
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
@@ -152,7 +175,7 @@ export const form: FormContent = {
               attributes: {
                 rows: 2,
               },
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },

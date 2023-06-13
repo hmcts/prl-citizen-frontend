@@ -10,7 +10,6 @@ const en = {
   courtcommunication:
     'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
   optionHint: 'Select all that apply',
-  summaryText: 'Contacts for help',
   videoHearings: 'Yes, I can take part in video hearings',
   phoneHearings: 'Yes, I can take part in phone hearings',
   noHearings: 'No, I cannot take part in either video or phone hearings',
@@ -23,21 +22,23 @@ const en = {
     },
     hearingDetails: {
       required: 'Explain why you are unable to take part in either video or phone hearings',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cy: typeof en = {
-  section: 'Reasonable adjustments',
-  title: 'Would you be able to take part in hearings by video and phone?',
+  section: 'Mynychu’r llys',
+  title: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
   courtcommunication:
-    'Think about all communication with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
-  optionHint: 'Select all that apply',
-  summaryText: 'Contacts for help',
-  videoHearings: 'Yes, I can take part in video hearings',
-  phoneHearings: 'Yes, I can take part in phone hearings',
-  noHearings: 'No, I cannot take part in either video or phone hearings',
-  noHearingsHint: 'If you choose this option please tell us why in case we can assist you',
+    'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
+  optionHint: "Dewiswch bob un sy'n berthnasol",
+  videoHearings: 'Gallaf, rwyf yn gallu cymryd rhan mewn gwrandawiad fideos',
+  phoneHearings: 'Gallaf, rwyf yn gallu cymryd rhan mewn gwrandawiad fideos',
+  noHearings: 'Na allaf, ni allaf gymryd rhan mewn gwrandawiad fideo na gwrandawiad dros y ffôn',
+  noHearingsHint: 'Os dewiswch yr opsiwn hwn, dywedwch wrthym pam rhag ofn y gallwn eich cynorthwyo',
   noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
   continue: 'Continue',
   errors: {
@@ -46,6 +47,9 @@ const cy: typeof en = {
     },
     hearingDetails: {
       required: 'Explain why you are unable to take part in either video or phone hearings',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -67,7 +71,6 @@ describe('citizen-home content', () => {
     expect(generatedContent.title).toEqual('Would you be able to take part in hearings by video and phone?');
     expect(generatedContent.section).toEqual('Attending the court');
     expect(generatedContent.optionHint).toEqual('Select all that apply');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.videoHearings).toEqual('Yes, I can take part in video hearings');
     expect(generatedContent.phoneHearings).toEqual('Yes, I can take part in phone hearings');
     expect(generatedContent.noHearings).toEqual('No, I cannot take part in either video or phone hearings');

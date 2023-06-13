@@ -20,13 +20,16 @@ export const en = () => ({
     },
     PRL_c1A_otherConcernsDrugsDetails: {
       required: 'Describe how the children have been impacted by drug, alcohol or substance abuse',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 });
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
   serviceName: 'Child arrangements - welsh',
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   title: 'Have the children been impacted by drug, alcohol or substance abuse? - welsh',
   line1: 'This could be abuse that is taking place now, or abuse that occurred in the past. - welsh',
   line2:
@@ -41,6 +44,9 @@ export const cy = () => ({
     },
     PRL_c1A_otherConcernsDrugsDetails: {
       required: 'Describe how the children have been impacted by drug, alcohol or substance abuse - Welsh',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 });

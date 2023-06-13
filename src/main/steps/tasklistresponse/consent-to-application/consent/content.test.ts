@@ -35,11 +35,15 @@ const enContent = {
     },
     reasonForNotConsenting: {
       required: 'Please provide a reason',
-      invalid: 'Reason must be 500 characters or fewer',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     courtOrderDetails: {
       required: 'Please provide court details',
-      invalid: 'Details must be 500 characters or fewer',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     applicationReceivedDate: {
       required: 'Enter application received date',
@@ -53,12 +57,12 @@ const enContent = {
 };
 
 const cyContent = {
-  title: 'Your understanding of the application (welsh)',
-  consent: 'Do you consent to the application? (welsh)',
-  dateReceived: 'When did you receive the application? (welsh)',
-  courtPermission: 'Does the applicant need permission from the court before making applications? (welsh)',
-  one: 'Yes (welsh)',
-  two: 'No (welsh)',
+  title: "Eich dealltwriaeth o'r cais",
+  consent: "Ydych chi'n cydsynio i'r cais?",
+  dateReceived: "Pryd gawsoch chi'r cais?",
+  courtPermission: 'A oes angen caniatâd y llys ar yr ymgeisydd cyn gwneud ceisiadau?',
+  one: 'Oes',
+  two: 'Nac oes',
   hint: 'For example, 27 3 2007 (welsh)',
   continue: 'Save and continue (welsh)',
   reasonNotConsenting: 'Give your reasons for not consenting to the application. (welsh)',
@@ -72,11 +76,15 @@ const cyContent = {
     },
     reasonForNotConsenting: {
       required: 'Please provide a reason (welsh)',
-      invalid: 'Reason must be 500 characters or fewer (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     courtOrderDetails: {
       required: 'Please provide court details (welsh)',
-      invalid: 'Details must be 500 characters or fewer (welsh)',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     applicationReceivedDate: {
       required: 'Enter application received date (welsh)',

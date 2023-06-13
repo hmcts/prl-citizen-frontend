@@ -21,20 +21,19 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  caption: 'Reasonable adjustments -welsh',
-  title: 'Let the court know if your support needs have changed -welsh',
-  paragraph:
-    'If your support needs have changed, you will need to get in touch with the court that is handling your case. -welsh',
-  bulletHeading: 'You must: -welsh',
+  caption: 'Addasiadau rhesymol',
+  title: 'Gadewch i’r llys wybod os yw’r cymorth rydych ei angen wedi newid',
+  paragraph: 'Os yw’r cymorth rydych ei angen wedi newid, bydd angen ichi gysylltu â’r llys sy’n delio â’ch achos.',
+  bulletHeading: 'Mae’n rhaid i chi:',
   bulletPoints: [
-    'use GOV.UK to find <a  target="_blank" href="https://www.gov.uk/find-court-tribunal">contact details for the court</a>. -welsh',
-    'contact the court by phone or email -welsh',
-    'provide your name and case number -welsh',
-    'explain to the court how your support needs have changed -welsh',
+    'ddefnyddio GOV.UK i ddod o hyd i <a  target="_blank" href="https://www.gov.uk/chwilio-am-lys-neu-dribiwnlys">fanylion cyswllt y llys.</a>',
+    'cysylltu â’r llys dros y ffôn neu drwy e-bost',
+    'rhoi eich enw a rhif yr achos',
+    'egluro i’r llys sut y mae’r cymorth rydych ei angen wedi newid',
   ],
   paragraphs: [
-    'If you are not sure which court is handling your case, see <a  target="_blank" href="/applicant/yourhearings/hearings">your court hearings</a>. -welsh',
-    'The court will make arrangements and will be in touch with any further steps. -welsh',
+    'Os nad ydych yn siŵr pa lys sy’n delio â’ch achos, cyfeiriwch at <a  target=”_blank” href=”/applicant/yourhearings/hearings”>eich gwrandawiadau llys</a>.',
+    'Bydd y llys yn gwneud y trefniadau ac yn cysylltu â chi i drafod unrhyw gamau pellach.',
   ],
 });
 

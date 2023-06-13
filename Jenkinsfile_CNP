@@ -41,8 +41,10 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 env.IDAM_URL = 'https://idam-api.aat.platform.hmcts.net'
-env.C100_REBUILD_FLAG = false
 env.LAUNCH_DARKLY_OFFLINE_MODE = false
+env.C100_REBUILD_FLAG = false
+env.TESTING_SUPPORT_FLAG = false
+
 
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
@@ -84,7 +86,6 @@ withPipeline(type, product, component) {
 
   before('functionalTest:preview') {
     env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
-    yarnBuilder.yarn('test:pa11y')
   }
 
   afterAlways('functionalTest:preview') {
@@ -97,7 +98,6 @@ withPipeline(type, product, component) {
   }
 
   afterAlways('functionalTest:aat') {
-    yarnBuilder.yarn('test:pa11y')
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 }

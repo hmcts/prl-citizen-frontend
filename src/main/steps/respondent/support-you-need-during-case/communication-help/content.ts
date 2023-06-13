@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
@@ -8,7 +8,6 @@ const en = {
   courtCommunication:
     'Think about all communications with the court, as well as what you might need at a hearing. Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
   hearingLoop: 'Hearing loop (hearing enhancement system)',
   infraredReceiver: 'Infrared receiver (hearing enhancement system)',
   needSpeakingHelp: 'Need to be close to who is speaking',
@@ -33,37 +32,42 @@ const en = {
     },
     describeSignLanguageDetails: {
       required: 'Please provide sign language details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     describeOtherNeed: {
       required: 'Please provide the details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cy: typeof en = {
-  section: 'Reasonable adjustments',
-  title: 'I need help communicating and understanding',
+  section: 'Addasiadau rhesymol',
+  title: 'Rwyf angen cymorth gyda chyfathrebu a deall pethau',
   courtCommunication:
-    'Think about all communications with the court, as well as what you might need at a hearing. Consider in-person, phone or video, in case your preferred hearing type is not possible',
-  optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
-  hearingLoop: 'Hearing loop (hearing enhancement system)',
-  infraredReceiver: 'Infrared receiver (hearing enhancement system)',
-  needSpeakingHelp: 'Need to be close to who is speaking',
-  lipSpeaker: 'Lip speaker',
-  lipSpeakerHint: 'hearing person who has been trained to be easily lip read',
-  signLanguage: 'Sign Language interpreter',
+    'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
+  optionHint: 'Dogfennau mewn lliw penodol',
+  hearingLoop: 'Dolen sain (system gwella clyw)',
+  infraredReceiver: 'Derbynnydd isgoch (system gwella clyw)',
+  needSpeakingHelp: "Angen bod yn agos at bwy bynnag sy'n siarad",
+  lipSpeaker: 'Siaradwr gwefusau',
+  lipSpeakerHint: 'clywed rhywun sydd wedi cael ei hyfforddi i allu darllen gwefusau yn rhwydd',
+  signLanguage: 'Cyfieithydd iaith arwyddion',
   signLanguageDetails: 'Describe what you need',
-  speechReporter: 'Speech to text reporter (palantypist)',
-  extraTime: 'Extra time to think and explain myself',
-  courtVisit: 'Visit to court before the hearing',
-  courtHearing: "Explanation of the court and who's in the room at the hearing",
-  intermediary: 'Intermediary',
+  speechReporter: 'Cofnodwr iaith lafar i destun (palanteipydd)',
+  extraTime: 'Amser ychwanegol i feddwl ac egluro fy hun',
+  courtVisit: "Ymweld â'r llys cyn y gwrandawiad",
+  courtHearing: 'Esboniad o osodiad y llys a phwy fydd yn yr ystafell wrandawiadau',
+  intermediary: 'Cyfryngwr',
   intermediaryHint:
-    'a person to help you if you have communication needs by providing professional support to participate in a hearing',
-  other: 'Other',
+    'rhywun i’ch helpu os oes gennych anghenion cyfathrebu drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
+  other: 'Arall',
   otherDetails: 'Describe what you need',
-  noSupport: 'No, I do not need any support at this time',
+  noSupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   continue: 'Continue',
   errors: {
     helpCommunication: {
@@ -71,9 +75,15 @@ const cy: typeof en = {
     },
     describeSignLanguageDetails: {
       required: 'Please provide sign language details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     describeOtherNeed: {
       required: 'Please provide the details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -122,7 +132,7 @@ export const form: FormContent = {
               type: 'textarea',
               label: l => l.signLanguageDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
@@ -161,7 +171,7 @@ export const form: FormContent = {
               type: 'textarea',
               label: l => l.otherDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },

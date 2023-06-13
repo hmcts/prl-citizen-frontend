@@ -18,6 +18,9 @@ export const en = () => ({
     },
     ie_provideDetailsStart: {
       required: 'Provide details about the children living outside of England or Wales',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 });
@@ -31,10 +34,13 @@ export const cy = () => ({
   provideDetails: 'Rhowch fanylion',
   errors: {
     ie_internationalStart: {
-      required: "Dewiswch 'ydy' os yw'r plant yn byw y tu allan i Gymru neu Loegr",
+      required: "Dewiswch 'ydynt' os yw'r plant yn byw y tu allan i Gymru neu Loegr",
     },
     ie_provideDetailsStart: {
       required: "Darparwch fanylion am y plant sy'n byw y tu allan i Gymru neu Loegr",
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 });

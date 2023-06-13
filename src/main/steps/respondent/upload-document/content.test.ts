@@ -3,53 +3,25 @@ import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
+import { document_list_cy, document_list_en } from './section-titles';
+import { documents_list_items_cy, documents_list_items_en } from './upload-document-list-items';
 const enContent = {
+  section: 'Upload documents',
   title: 'Select the type of document',
-  // sectionTitles: {
-  //   witness_statements_and_evidence: 'Witness statements and evidence',
-  //   applications: 'Applications',
-  //   expert_reports: 'Expert reports',
-  //   other_documents: 'Other documents',
-  // },
-  // uploadDocsList: {
-  //   your_position_statements: 'Your position statements',
-  //   your_witness_statements: 'Your witness statements',
-  //   other_witness_statements: "Other people's witness statements",
-  //   mail_screenshots_media_files: 'Emails, screenshots, images and other media files',
-  //   medical_records: 'Medical records',
-  //   letters_from_school: 'Letters from school',
-  //   tenancy_mortgage_agreements: 'Tenancy and mortgage agreements',
-  //   previous_orders_submitted: 'Previous orders submitted with application',
-  //   medical_reports: 'Medical reports',
-  //   paternity_test_reports: 'Paternity test reports',
-  //   drug_and_alcohol_tests: 'Drug and alcohol tests (toxicology)',
-  //   police_reports: 'Police reports',
-  //   other_documents: 'Other documents',
-  // },
+  caseNumber: 'Case Number #',
+  line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
+  sectionTitles: document_list_en,
+  documentsListItems: documents_list_items_en,
+  userName: '',
 };
 const cyContent = {
-  title: 'Select the type of document',
-  // sectionTitles: {
-  //   witness_statements_and_evidence: 'Witness statements and evidence',
-  //   applications: 'Applications',
-  //   expert_reports: 'Expert reports',
-  //   other_documents: 'Other documents',
-  // },
-  // uploadDocsList: {
-  //   your_position_statements: 'Your position statements',
-  //   your_witness_statements: 'Your witness statements',
-  //   other_witness_statements: "Other people's witness statements",
-  //   mail_screenshots_media_files: 'Emails, screenshots, images and other media files',
-  //   medical_records: 'Medical records',
-  //   letters_from_school: 'Letters from school',
-  //   tenancy_mortgage_agreements: 'Tenancy and mortgage agreements',
-  //   previous_orders_submitted: 'Previous orders submitted with application',
-  //   medical_reports: 'Medical reports',
-  //   paternity_test_reports: 'Paternity test reports',
-  //   drug_and_alcohol_tests: 'Drug and alcohol tests (toxicology)',
-  //   police_reports: 'Police reports',
-  //   other_documents: 'Other documents',
-  // },
+  section: 'Llwytho dogfennau',
+  title: 'Dewiswch y math o ddogfen',
+  caseNumber: 'Rhif yr achos #',
+  line1: 'Os yw’r llys wedi gofyn i chi gyflwyno tystiolaeth bellach, gallwch lwytho dogfennau yma.',
+  sectionTitles: document_list_cy,
+  documentsListItems: documents_list_items_cy,
+  userName: '',
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;

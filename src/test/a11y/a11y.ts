@@ -105,11 +105,18 @@ describe('Accessibility', () => {
     await browser.close();
   });
 
-  const urlsNoSignOut = Object.values(urls).filter(url => !IGNORED_URLS.includes(url));
+  const urlsNoSignOut = Object.values(urls).filter(url => !IGNORED_URLS.includes(url as string));
   describe.each(urlsNoSignOut)('Page %s', url => {
+    let page;
     test('should have no accessibility errors', async () => {
-      await ensurePageCallWillSucceed(url);
-      const result = await runPally(url, browser);
+      page = await browser.newPage();
+      await page.goto(config.TEST_URL);
+      await page.setCookie(...cookies);
+
+      const pageUrl = config.TEST_URL + url;
+
+      await ensurePageCallWillSucceed(pageUrl as string);
+      const result = await runPally(pageUrl as string, browser);
       expect(result.issues).toEqual(expect.any(Array));
       expectNoErrors(result.issues);
     });

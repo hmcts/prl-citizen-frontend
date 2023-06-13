@@ -30,7 +30,7 @@ export const IndividualOrderFieldsParser = (keys, order) => {
       question: keys['orderEndDateLabel'],
     },
     ['orderDocument']: {
-      question: 'Copy uploaded?',
+      question: keys['copy'],
     },
   };
   let Val = '';
@@ -80,8 +80,19 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessio
   if (UserCase.hasOwnProperty(sessionKey)) {
     const orderSessionStorage = [] as { key: string; valueHtml: string; changeUrl: string }[];
     UserCase[sessionKey].forEach(order => {
-      if (UserCase['otherProceedings']?.['order'].hasOwnProperty(`${order}s`)) {
-        const orderDetails = UserCase['otherProceedings']?.['order'][`${order}s`];
+      if (
+        UserCase['otherProceedings']?.['order'].hasOwnProperty(`${order}s`) ||
+        UserCase['otherProceedings']?.['order'].hasOwnProperty('contactOrdersForDivorce') ||
+        UserCase['otherProceedings']?.['order'].hasOwnProperty('contactOrdersForAdoption')
+      ) {
+        let orderDetails;
+        if (order === 'contactOrderForDivorce') {
+          orderDetails = UserCase['otherProceedings']?.['order']['contactOrdersForDivorce'];
+        } else if (order === 'contactOrderForAdoption') {
+          orderDetails = UserCase['otherProceedings']?.['order']['contactOrdersForAdoption'];
+        } else {
+          orderDetails = UserCase['otherProceedings']?.['order'][`${order}s`];
+        }
         orderDetails.forEach((nestedOrder, index) => {
           const IndexNumber = index > 0 ? index + 1 : '';
           orderSessionStorage.push({

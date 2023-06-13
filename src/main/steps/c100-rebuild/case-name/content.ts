@@ -17,7 +17,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'Nodwch enw’r achos',
+  title: "Enw'r achos",
   caseNameHint: 'Nodwch enw llawn y plentyn hynaf. Er enghraifft, John Smith',
 
   errors: {

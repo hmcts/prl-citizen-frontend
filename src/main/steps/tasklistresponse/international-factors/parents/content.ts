@@ -10,7 +10,6 @@ const en = {
   hint: 'For example, this could include a grandparent or another close relative. They may have work, property or school arrangements that are mainly based outside of England and Wales.',
   one: 'Yes',
   two: 'No',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     parents: {
@@ -18,18 +17,19 @@ const en = {
     },
     iFactorsParentsProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cy: typeof en = {
   section: ' ',
-  title:
-    "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
-  hint: 'For example, this could include a grandparent or another close relative. They may have work, property or school arrangements that are mainly based outside of England and Wales.',
-  one: 'Yes',
-  two: 'No',
-  summaryText: 'Contacts for help',
+  title: "A yw rhieni'r plant (neu unrhyw un o bwys i'r plant) wedi'u lleoli y tu allan i Gymru a Lloegr yn bennaf?",
+  hint: "Er enghraifft, gallai hyn gynnwys taid a nain neu berthynas agos arall. Mae'n bosib y bydd ganddyn nhw drefniadau gwaith, eiddo neu ysgol sydd wedi'u lleoli'n bennaf y tu allan i Gymru a Lloegr.",
+  one: 'Ydyn',
+  two: 'Nac ydyn',
   continue: 'Continue',
   errors: {
     parents: {
@@ -37,6 +37,9 @@ const cy: typeof en = {
     },
     iFactorsParentsProvideDetails: {
       required: 'Please fill the provide details field before proceeding further',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };

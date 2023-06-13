@@ -4,6 +4,7 @@ import { FormContent } from '../../../../../main/app/form/Form';
 import { CommonContent } from '../../../../../main/steps/common/common.content';
 import { summaryList } from '../../../../../main/steps/common/support-you-need-during-case/summary/utils';
 import {
+  CA_DA_ATTENDING_THE_COURT,
   COMMUNICATION_HELP,
   COURT_HEARING_COMFORT,
   COURT_HEARING_SUPPORT,
@@ -13,6 +14,7 @@ import {
   SAFETY_ARRANGEMENTS,
   TRAVELLING_TO_COURT,
 } from '../../../../../main/steps/urls';
+import { LANGUAGE_INTERPRETER, NO_HEARINGS, NO_INTERPRETER, NO_SUPPORT, OTHER } from '../../../../steps/constants';
 
 export const enContent = {
   section: 'Check your answers',
@@ -21,6 +23,8 @@ export const enContent = {
     aboutYou: 'About you',
   },
   keys: {
+    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
+    hearingDetails: 'Please provide the details',
     languageRequirements: 'Do you have any language requirements?',
     languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     reasonableAdjustments:
@@ -81,19 +85,21 @@ const en = (content: CommonContent) => {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
-  title: 'Your hearing needs and requirements',
+  section: 'Gwirio eich atebion',
+  title: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
-    aboutYou: 'About you',
+    aboutYou: 'Amdanoch chi',
   },
 
   keys: {
-    languageRequirements: 'Do you have any language requirements?',
-    languageDetails: 'Give details of the language you require (including dialect, if applicable)',
+    attendingToCourt: 'Would you be able to take part in hearings by video and phone? -welsh',
+    hearingDetails: 'Please provide the details -welsh',
+    languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+    languageDetails: 'Give details of the language you require (including dialect, if applicable) -welsh',
     reasonableAdjustments:
-      'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-    safetyArrangements: 'Do you or the children need special safety arrangements at court?',
-    safetyArrangementsDetails: 'Describe what you need',
+      'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+    safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
+    safetyArrangementsDetails: 'Describe what you need -welsh',
   },
   dependencies: {
     languageDetails: {
@@ -136,8 +142,10 @@ const cyContent: typeof enContent = {
 };
 
 const urls = {
+  attendingToCourt: CA_DA_ATTENDING_THE_COURT,
+  hearingDetails: CA_DA_ATTENDING_THE_COURT,
   languageRequirements: LANGUAGE_REQUIREMENTS,
-  languageDetails: LANGUAGE_REQUIREMENTS,
+  // languageDetails: LANGUAGE_REQUIREMENTS,
   reasonableAdjustments: REASONABLE_ADJUSTMENTS,
   safetyArrangements: SAFETY_ARRANGEMENTS,
   safetyArrangementsDetails: SAFETY_ARRANGEMENTS,
@@ -185,6 +193,13 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     Object.assign(cyContent.keys, {
       docsSupport: 'I need documents in an alternative format - welsh',
       otherDetails: 'Describe what you need - welsh',
+    });
+  }
+
+  if (userCase.languageRequirements?.includes('languageinterpreter')) {
+    Object.assign(urls, { languageDetails: LANGUAGE_REQUIREMENTS });
+    Object.assign(enContent.keys, {
+      languageDetails: 'Give details of the language you require (including dialect, if applicable)',
     });
   }
 
@@ -243,10 +258,20 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
       travellingOtherDetails: 'Describe what you need - welsh',
     });
   }
+  if (!userCase?.attendingToCourt?.includes(NO_HEARINGS)) {
+    userCase.hearingDetails = '';
+  }
 
-  if (userCase.reasonableAdjustments?.includes('nosupport')) {
+  if (!userCase?.languageRequirements?.includes(LANGUAGE_INTERPRETER)) {
+    userCase.languageDetails = '';
+  }
+  if (!userCase?.safetyArrangements?.includes(OTHER)) {
+    userCase.safetyArrangementsDetails = '';
+  }
+
+  if (userCase.reasonableAdjustments?.includes(NO_SUPPORT)) {
     //delete all fields //
-    deleteLanguageRequirementsFields(userCase);
+    //deleteLanguageRequirementsFields(userCase);
     deleteDocsSupportFields(userCase);
     deleteHelpCommunicationFields(userCase);
     deleteCourtHearingFields(userCase);
@@ -255,31 +280,31 @@ function filterApplicantSelectedUrls(userCase: Partial<CaseWithId>) {
     deleteSafetyArrangementsFields(userCase);
   }
 
-  if (userCase.languageRequirements?.includes('nointerpreter')) {
+  if (userCase.languageRequirements?.includes(NO_INTERPRETER)) {
     deleteLanguageRequirementsFields(userCase);
   }
 
-  if (userCase.docsSupport?.includes('nosupport')) {
+  if (userCase.docsSupport?.includes(NO_SUPPORT)) {
     deleteDocsSupportFields(userCase);
   }
 
-  if (userCase.helpCommunication?.includes('nosupport')) {
+  if (userCase.helpCommunication?.includes(NO_SUPPORT)) {
     deleteHelpCommunicationFields(userCase);
   }
 
-  if (userCase.courtHearing?.includes('nosupport')) {
+  if (userCase.courtHearing?.includes(NO_SUPPORT)) {
     deleteCourtHearingFields(userCase);
   }
 
-  if (userCase.courtComfort?.includes('nosupport')) {
+  if (userCase.courtComfort?.includes(NO_SUPPORT)) {
     deleteCourtComfortFields(userCase);
   }
 
-  if (userCase.travellingToCourt?.includes('nosupport')) {
+  if (userCase.travellingToCourt?.includes(NO_SUPPORT)) {
     deleteTravellingToCourtFields(userCase);
   }
 
-  if (userCase.safetyArrangements?.includes('nosupport')) {
+  if (userCase.safetyArrangements?.includes(NO_SUPPORT)) {
     deleteSafetyArrangementsFields(userCase);
   }
 }

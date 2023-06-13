@@ -35,6 +35,7 @@ module.exports = {
     },
     async otherWaysToReachAnAgreement() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.otherWaysToReachAnAgreementPageTitle);
+        I.wait('2');
         await I.retry(retryCount).click(this.fields.reachingAgreementYes); 
         I.wait('1');     
         await I.retry(retryCount).waitForText(ScreeningQuestions.otherWaysToReachAnAgreementSubHeading);
@@ -51,8 +52,9 @@ module.exports = {
     },
     async permissionFromCourt() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.permissionFromCourtPageTitle);
+        await I.retry(retryCount).waitForSelector(this.fields.permissionFromCourtYes, 30);
         await I.retry(retryCount).click(this.fields.permissionFromCourtYes);
-        I.wait('2');
+        I.wait('4');
         await I.retry(retryCount).click('Continue');
     },
     async permissionFromCourtWhy() {
@@ -68,6 +70,7 @@ module.exports = {
     },
     async whyCourtShouldGrant() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.whyCourtShouldGrantPageTitle);
+        await I.retry(retryCount).waitForSelector(this.fields.explainWhyCourtDetails, 30);
         await I.retry(retryCount).fillField(this.fields.explainWhyCourtDetails, this.fields.testingText);
         I.wait('2');
         await I.retry(retryCount).click('Continue');

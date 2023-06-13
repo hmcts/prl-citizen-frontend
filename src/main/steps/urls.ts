@@ -260,6 +260,8 @@ export const DRUG_ALCOHOL_TESTS: PageLink = `${VIEW_ALL_DOCUMENTS}/drug_alcohol_
 export const POLICE_DISCLOSURE: PageLink = `${VIEW_ALL_DOCUMENTS}/police_disclosures`;
 export const WITNESS_AVAILABILITY: PageLink = `${VIEW_ALL_DOCUMENTS}/witness_availability`;
 export const TENANCY_AND_MORTGAGE_AVAILABILITY: PageLink = `${VIEW_ALL_DOCUMENTS}/tenancy_and_mortgage_availability`;
+export const ALLEGATION_OF_HARM_VOILENCE_DOC: PageLink = `${VIEW_ALL_DOCUMENTS}/allegationofharmandviolence`;
+export const RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC: PageLink = `${VIEW_ALL_DOCUMENTS}/respond_others_allegation_of_harm_and_violence`;
 
 /* Respondent Documents */
 export const RESPONDENT_CA_RESPONSE: PageLink = `${VIEW_ALL_DOCUMENTS}/caresponse`;
@@ -338,7 +340,10 @@ export const C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE: PageLink = `${C7_SUPPORT_YOU_
 /* Banner Links */
 export const FIND_OUT_ABOUT_CAFCASS =
   'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/';
+export const FIND_OUT_ABOUT_CAFCASS_WELSH =
+  'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/';
 export const FIND_OUT_ABOUT_CAFCASS_CYMRU = 'https://gov.wales/cafcass-cymru/what-we-do';
+export const FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH = 'https://llyw.cymru/cafcass-cymru/yr-hyn-yr-ydym-nin-ei-wneud';
 
 /* Respondent respnse */
 export const CA_RESPONDENT_RESPONSE_CONFIRMATION: PageLink = '/tasklistresponse/summary-confirmation';
@@ -546,6 +551,10 @@ export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orde
 /** @C100 rebuild */
 export const C100_REBUILD_URL: PageLink = '/c100-rebuild';
 
+export const TESTING_SUPPORT: PageLink = '/testing-support';
+export const TESTING_SUPPORT_CREATE_DRAFT: PageLink = '/testing-support/create-Draft';
+export const TESTING_SUPPORT_DELETE_DRAFT: PageLink = '/testing-support/delete-Draft';
+export const CREATE_DRAFT: PageLink = '/draft-controller';
 /* applicant-tasklist-contactpreferences*/
 export const CONTACT_PREFERENCES: PageLink = '/contact-preferences';
 export const APPLICANT_TASKLIST_CONTACT_PREFERENCES: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-preferences`;
@@ -572,3 +581,20 @@ export const C100_WITHDRAW_CASE_CONFIRMATION: PageLink = `${C100_URL}/withdraw/c
 /** applicant/tasklist hearing needs */
 export const HEARING_NEEDS: PageLink = '/hearing-needs';
 export const APPLICANT_TASKLIST_HEARING_NEEDS: PageLink = `${APPLICANT}${HEARING_NEEDS}/support-help`;
+
+/** Screening questions */
+export const SCREENING_QUESTION_GUIDANCE: PageLink = '/complete-your-application-guidance';
+export const SCREENING_QUESTION_COURT_FEE: PageLink = '/agree-court-fee';
+export const SCREENING_QUESTION_PROCEEDINGS_LEGAL_REP: PageLink = '/legal-representative-proceedings';
+export const SCREENING_QUESTION_PAPER_FORM: PageLink = '/complete-your-application-paper-form';
+export const SCREENING_QUESTION_COMPLETE_APP_LEGAL_REP: PageLink = '/complete-your-application-legal-representative';
+export const SCREENING_QUESTION_CONTACT_LEGAL_REP: PageLink = '/contact-legal-representative';
+export const SCREENING_QUESTIONS = [
+  SCREENING_QUESTION_GUIDANCE,
+  SCREENING_QUESTION_COURT_FEE,
+  SCREENING_QUESTION_PROCEEDINGS_LEGAL_REP,
+  SCREENING_QUESTION_PAPER_FORM,
+  SCREENING_QUESTION_COMPLETE_APP_LEGAL_REP,
+  SCREENING_QUESTION_CONTACT_LEGAL_REP,
+];
+export const ANONYMOUS_URLS = [HEALTH_URL, CITIZEN_HOME_URL, ...SCREENING_QUESTIONS];

@@ -1,7 +1,7 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-
+import { documents_list_items_en } from '../../../upload-document/upload-document-list-items';
 const en = () => {
   return {
     section: 'All documents',
@@ -15,12 +15,12 @@ const en = () => {
 
 const cy: typeof en = () => {
   return {
-    section: 'All documents',
-    title: 'Drug and alcohol tests (toxicology)',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
-    caseNumber: 'Case number',
-    continue: 'Go back',
+    section: 'Pob dogfen',
+    title: 'Drug and alcohol tests (toxicology) (welsh)',
+    threeHint: 'This is a 8 character code (welsh)',
+    summaryText: 'Cysylltiadau am gymorth',
+    caseNumber: 'Rhif yr achos',
+    continue: 'Go back (welsh)',
   };
 };
 
@@ -50,7 +50,7 @@ export const generateContent: TranslationFn = content => {
   const drugCitizenDocs: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (
-      doc.value.documentType === 'Drug and alcohol tests (toxicology)' &&
+      doc.value.documentType === documents_list_items_en.drug_and_alcohol_tests &&
       doc.value.isApplicant === content.byApplicant
     ) {
       const uid = doc.value.citizenDocument.document_url.substring(

@@ -7,6 +7,9 @@ import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
+import { Environment } from './app/case/definition';
+import { FeatureToggles } from './app/utils/featureToggles';
+import { LaunchDarklyClient } from './common/clients/launchDarklyClient';
 import { AppInsights } from './modules/appinsights';
 import { AuthProvider } from './modules/auth-provider';
 import { AxiosLogger } from './modules/axios-logger';
@@ -30,23 +33,31 @@ const { Logger } = require('@hmcts/nodejs-logging');
 
 const { setupDev } = require('./development');
 
-const env = process.env.NODE_ENV || 'development';
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+const env = process.env.NODE_ENV || Environment.DEVELOPMENT;
 
-const developmentMode = env === 'development';
+if (process.env.NODE_ENV !== Environment.PRODUCTION) {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+}
+
+const developmentMode = env === Environment.DEVELOPMENT;
 const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 app.locals.ENV = env;
 app.enable('trust proxy');
-app.locals.developmentMode = process.env.NODE_ENV !== 'production';
+app.locals.developmentMode = process.env.NODE_ENV !== Environment.PRODUCTION;
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json() as RequestHandler);
 app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
 app.use(express.static(path.join(__dirname, 'public')));
-app.use((req, res, next) => {
+
+app.use(async (req, res, next) => {
+  app.settings.nunjucksEnv.globals.c100Rebuild = await featureToggles.isC100reBuildEnabled();
+  app.settings.nunjucksEnv.globals.testingSupport = await featureToggles.isTestingSupportEnabled();
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
+
   next();
 });
+
 new AxiosLogger().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
@@ -67,7 +78,6 @@ new ErrorHandler().handleNextErrorsFor(app);
 new FeatureToggleProvider().enable(app);
 
 setupDev(app, developmentMode);
-
 const port: number = parseInt(process.env.PORT || '3001', 10);
 if (app.locals.ENV === 'development') {
   const server = app.listen(port, () => {
@@ -83,3 +93,6 @@ if (app.locals.ENV === 'development') {
     logger.info(`Application started: http://localhost:${port}`);
   });
 }
+
+const launchDarklyClient = new LaunchDarklyClient();
+const featureToggles = new FeatureToggles(launchDarklyClient);

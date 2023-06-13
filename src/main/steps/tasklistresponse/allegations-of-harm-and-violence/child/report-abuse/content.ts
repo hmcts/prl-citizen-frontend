@@ -1,6 +1,7 @@
 import { Child, PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbuse, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
+import { isTextAreaValid } from '../../../../../app/form/validation';
 import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
 export * from './routeGuard';
@@ -35,10 +36,27 @@ export const en = () => ({
     '<p class="govuk-body">Indicate who you sought help from, and what they did to help (optional). </p><p class="govuk-body">Do not include personal details such as names and addresses.</p>',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">NSPCC guidance</a> if you are unsure how to get help.</p>',
+  errors: {
+    behaviourDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+    behaviourStartDate: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+    seekHelpDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+  },
 });
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  caption: 'Safety concerns - Welsh',
+  caption: 'Pryderon diogelwch',
   physicalAbusePageTitle: 'Briefly describe the physical abuse against the children if you feel able to - Welsh',
   psychologicalAbusePageTitle:
     'Briefly describe the psychological abuse against the children if you feel able to - Welsh',
@@ -50,25 +68,41 @@ export const cy = () => ({
               <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately. - Welsh</p>`,
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said. - Welsh',
-  childrenConcernedAboutLabel: 'Which children are you concerned about? (optional) - Welsh',
+  childrenConcernedAboutLabel: "Pa blant ydych chi'n poeni amdanyn nhw?",
   allchildLabel: 'All the children in above application - Welsh',
-  behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. - Welsh (optional)',
+  behaviourDetailsLabel: "Disgrifiwch yr ymddygiadau yr hoffech i'r llys fod yn ymwybodol ohonynt.",
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings. - Welsh',
-  behaviourStartDateLabel: 'When did this behaviour start and how long did it continue? - Welsh (optional)',
+  behaviourStartDateLabel: 'Pryd ddechreuodd yr ymddygiad hwn a pha mor hir wnaeth hynny barhau?',
   behaviourStartDateHintText: 'This does not need to be an exact date. - Welsh',
   isOngoingBehaviourLabel: 'Is the behaviour ongoing? - Welsh (optional)',
   isOngoingBehaviourHint:
     '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, consider contacting <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> or <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">the social care team at you local council - Welsh </a>.</p>',
   YesOptionLabel: 'Yes - Welsh',
   NoOptionLabel: 'No - Welsh',
-  seekHelpFromPersonOrAgencyLabel:
-    'Have you ever asked for help from a professional person or agency? - Welsh (optional)',
+  seekHelpFromPersonOrAgencyLabel: 'Ydych chi erioed wedi gofyn am help gan unigolyn neu asiantaeth broffesiynol?',
   seekHelpFromPersonOrAgencyHintText: 'For example, speaking to your local GP. - Welsh',
   seekHelpDetailsYesHint:
     '<p class="govuk-body">Indicate who you sought help from, and what they did to help (optional). </p><p class="govuk-body">Do not include personal details such as names and addresses. - Welsh</p>',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">NSPCC guidance</a> if you are unsure how to get help. - Welsh</p>',
+  errors: {
+    behaviourDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+    },
+    behaviourStartDate: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+    },
+    seekHelpDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+    },
+  },
 });
 
 const languages = {
@@ -128,6 +162,7 @@ export const generateFormFields = (
       attributes: {
         rows: 4,
       },
+      validator: value => isTextAreaValid(value),
     },
     behaviourStartDate: {
       type: 'textarea',
@@ -138,6 +173,7 @@ export const generateFormFields = (
       attributes: {
         rows: 2,
       },
+      validator: value => isTextAreaValid(value),
     },
     isOngoingBehaviour: {
       type: 'radios',
@@ -171,6 +207,7 @@ export const generateFormFields = (
               type: 'textarea',
               value: data.seekHelpDetails,
               hint: l => l.seekHelpDetailsYesHint,
+              validator: value => isTextAreaValid(value),
             },
           },
         },

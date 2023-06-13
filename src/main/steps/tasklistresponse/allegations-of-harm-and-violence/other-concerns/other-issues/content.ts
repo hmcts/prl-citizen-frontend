@@ -16,23 +16,29 @@ export const en = () => ({
     },
     PRL_c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 });
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  section: 'Safety concerns - welsh',
+  section: 'Pryderon diogelwch',
   title: 'Do you have any other concerns about the children’s safety and wellbeing? - welsh',
   hint: 'For example, their basic needs are not being met (known as child neglect) or you’re worried about someone they may have contact with. - welsh',
   one: 'Yes - welsh',
   two: 'No - welsh',
-  summaryText: 'Contacts for help - welsh',
+  summaryText: 'Cysylltiadau am gymorth',
   errors: {
     PRL_c1A_childSafetyConcerns: {
       required: 'Select yes if you have other concerns about the children’s safety and wellbeing - welsh',
     },
     PRL_c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing - welsh',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 });

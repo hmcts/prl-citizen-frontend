@@ -5,17 +5,18 @@ import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { caseApi } from '../../app/case/C100CaseApi';
 import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
-// import { LanguagePreference } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 import {
+  ANONYMOUS_URLS,
   C100_URL,
   CALLBACK_URL,
   CITIZEN_HOME_URL,
   DASHBOARD_URL,
-  HEALTH_URL,
+  SCREENING_QUESTIONS,
   SIGN_IN_URL,
   SIGN_OUT_URL,
+  TESTING_SUPPORT,
 } from '../../steps/urls';
 
 /**
@@ -64,16 +65,18 @@ export class OidcMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        if (req.path.startsWith(HEALTH_URL)) {
-          return next();
-        }
-
-        if (req.path.startsWith(CITIZEN_HOME_URL) && !req.session?.user) {
+        const isAnonymousPage = ANONYMOUS_URLS.some(url => url.includes(req.path));
+        if (isAnonymousPage) {
+          const isScreeningPage = SCREENING_QUESTIONS.some(url => url.includes(req.path));
+          if (req.session?.user && isScreeningPage) {
+            return res.redirect(DASHBOARD_URL);
+          }
           return next();
         }
 
         if (app.locals.developmentMode) {
           req.session.c100RebuildLdFlag = config.get('launchDarkly.offline');
+          req.session.testingSupport = config.get('launchDarkly.offline');
         }
 
         if (req.session?.user) {
@@ -87,9 +90,21 @@ export class OidcMiddleware {
             req.session.c100RebuildLdFlag !== undefined
               ? req.session.c100RebuildLdFlag
               : (req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled());
+          const testingSupportLdFlag: boolean =
+            req.session.testingSupport !== undefined
+              ? req.session.testingSupport
+              : (req.session.testingSupport = await getFeatureToggle().isTestingSupportEnabled());
           //If C100-Rebuild URL is not part of the path, then we need to redirect user to dashboard even if they click on case
           if (req.path.startsWith(C100_URL)) {
             if (c100RebuildLdFlag) {
+              return next();
+            } else {
+              return res.redirect(DASHBOARD_URL);
+            }
+          }
+          //If testing support URL is not part of the path, then we need to redirect user to dashboard even if they click on link
+          if (req.path.startsWith(TESTING_SUPPORT)) {
+            if (testingSupportLdFlag) {
               return next();
             } else {
               return res.redirect(DASHBOARD_URL);
@@ -123,8 +138,10 @@ export class OidcMiddleware {
           }
           return next();
         } else {
-          const url = encodeURIComponent(req.originalUrl);
-          res.redirect(SIGN_IN_URL + `?callback=${url}`);
+          if (req.originalUrl.includes('.css')) {
+            return next();
+          }
+          res.redirect(SIGN_IN_URL + `?callback=${encodeURIComponent(req.originalUrl)}`);
         }
       })
     );

@@ -27,10 +27,10 @@ module.exports = {
     async childDetailsName() {
         await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsNamePageTitle);
         await I.retry(retryCount).click(this.fields.mainForm);
-        I.wait('2');
+        await I.retry(retryCount).waitForSelector(this.fields.tempFirstName, 30);
         await I.retry(retryCount).fillField(this.fields.tempFirstName, ChildrenDetails.childFirstName);
         await I.retry(retryCount).fillField(this.fields.tempLastName, ChildrenDetails.childLastName);
-        I.wait('2');
+        await I.retry(retryCount).waitForText('Continue');
         await I.retry(retryCount).click('Continue');
     },
     async childDetailsDOB() {
@@ -58,13 +58,14 @@ module.exports = {
     },
     async furtherInformation() {
         await I.retry(retryCount).waitForText(ChildrenDetails.furtherInformationPageTitle);
+        I.wait('2');
         await I.retry(retryCount).click(this.fields.childrenKnownToSocialServices);
-        I.wait('1');
+        I.wait('3');
         await I.retry(retryCount).fillField(this.fields.childrenKnownToSocialServicesDetail, ChildrenDetails.testingText);
         await I.retry(retryCount).waitForText(ChildrenDetails.furtherInformationSubHeading);
-        I.wait('1');
+        I.wait('3');
         await I.retry(retryCount).click(this.fields.childrenSubjectOfProtectionPlan);
-        I.wait('2');
+        I.wait('3');
         await I.retry(retryCount).click('Continue');
     },
     async otherChildren() {

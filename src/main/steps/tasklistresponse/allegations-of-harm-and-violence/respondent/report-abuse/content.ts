@@ -1,6 +1,7 @@
 import { PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbuse, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
+import { isTextAreaValid } from '../../../../../app/form/validation';
 import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
 export * from './routeGuard';
@@ -34,10 +35,27 @@ const en = () => ({
   <p class="govuk-body">Do not include personal details such as names and addresses.</p>`,
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" rel="external" target="_blank">GOV.UK guidance</a> if you are unsure how to get help.</p>',
+  errors: {
+    behaviourDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+    behaviourStartDate: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+    seekHelpDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+  },
 });
 
 const cy = () => ({
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   physicalAbusePageTitle: 'Briefly describe the physical abuse if you feel able to - welsh',
   psychologicalAbusePageTitle: 'Briefly describe the psychological abuse if you feel able to - welsh',
   emotionalAbusePageTitle: 'Briefly describe the emotional abuse if you feel able to - welsh',
@@ -49,23 +67,39 @@ const cy = () => ({
   <p class="govuk-body ">You can <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank">apply for a domestic abuse injunction</a> separately. - welsh</p>`,
   warningText:
     'We will share the information that you give in this section with the other person in the case (the applicant) so that they can respond to what you have said. - welsh',
-  behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. - welsh (optional)',
+  behaviourDetailsLabel: "Disgrifiwch yr ymddygiadau yr hoffech i'r llys fod yn ymwybodol ohonynt.",
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings. - welsh',
-  behaviourStartDateLabel: 'When did this behaviour start and how long did it continue? - welsh (optional)',
+  behaviourStartDateLabel: 'Pryd ddechreuodd yr ymddygiad hwn a pha mor hir wnaeth hynny barhau?',
   behaviourStartDateHintText: 'This does not need to be an exact date. - welsh',
   isOngoingBehaviourLabel: 'Is the behaviour ongoing? - welsh (optional)',
   isOngoingBehaviourHint:
     '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, <a href="https://www.gov.uk/report-domestic-abuse" class="govuk-link" rel="external" target="_blank">contact one of the suggested agencies</a> to get help or report the behaviour with <a href="https://www.police.uk/" class="govuk-link" rel="external" target="_blank">your local policing team</a>. - welsh</p>',
   YesOptionLabel: 'Yes - welsh',
   NoOptionLabel: 'No - welsh',
-  seekHelpFromPersonOrAgencyLabel:
-    'Have you ever asked for help from a professional person or agency? - welsh (optional)',
+  seekHelpFromPersonOrAgencyLabel: 'Ydych chi erioed wedi gofyn am help gan unigolyn neu asiantaeth broffesiynol?',
   seekHelpFromPersonOrAgencyHintText: 'For example, speaking to your local GP. - welsh',
   seekHelpDetailsYesHint: `<p class="govuk-body">Indicate who you sought help from, and what they did to help - welsh (optional). </p>
   <p class="govuk-body">Do not include personal details such as names and addresses. - welsh</p>`,
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" rel="external" target="_blank">GOV.UK guidance</a> if you are unsure how to get help. - welsh</p>',
+  errors: {
+    behaviourDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+    },
+    behaviourStartDate: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+    },
+    seekHelpDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+    },
+  },
 });
 
 const languages = {
@@ -98,6 +132,7 @@ export const generateFormFields = (data: PRL_C1ASafteyConcernsAbuse): GenerateDy
       attributes: {
         rows: 4,
       },
+      validator: value => isTextAreaValid(value),
     },
     behaviourStartDate: {
       type: 'textarea',
@@ -108,6 +143,7 @@ export const generateFormFields = (data: PRL_C1ASafteyConcernsAbuse): GenerateDy
       attributes: {
         rows: 2,
       },
+      validator: value => isTextAreaValid(value),
     },
     isOngoingBehaviour: {
       type: 'radios',
@@ -141,6 +177,7 @@ export const generateFormFields = (data: PRL_C1ASafteyConcernsAbuse): GenerateDy
               type: 'textarea',
               value: data.seekHelpDetails,
               hint: l => l.seekHelpDetailsYesHint,
+              validator: value => isTextAreaValid(value),
             },
           },
         },

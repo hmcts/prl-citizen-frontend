@@ -11,8 +11,6 @@ const enContent = {
   two: 'No',
   explainWhyLabel: 'Explain why',
   miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   onlyContinue: 'Continue',
   errors: {
     miamWillingness: {
@@ -20,18 +18,19 @@ const enContent = {
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cyContent = {
-  title: 'Would you be willing to attend a MIAM?',
+  title: "A fyddech chi'n fodlon mynychu MIAM?",
   one: 'Yes',
   two: 'No',
   explainWhyLabel: 'Explain why',
-  miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
+  miamCostExemptionsLabel: 'Help gyda chostau ac esemptiadau MIAM',
   onlyContinue: 'Continue',
   errors: {
     miamWillingness: {
@@ -39,6 +38,9 @@ const cyContent = {
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };

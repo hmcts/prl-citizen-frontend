@@ -10,12 +10,6 @@ const urls = {
   courtPermission: CONSENT_TO_APPLICATION,
 };
 
-const fieldType = {
-  doYouConsent: 'String',
-  applicationReceivedDate: 'Date',
-  courtPermission: 'String',
-};
-
 export const enContent = {
   section: 'Check your answers',
   title: 'Your consent to the application',
@@ -34,21 +28,19 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [
-      summaryList(enContent, userCase, urls, enContent.sectionTitles.consentDetails, fieldType, content.language),
-    ],
+    sections: [summaryList(enContent, userCase, urls, enContent.sectionTitles.consentDetails, content.language)],
   };
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
+  section: 'Gwirio eich atebion',
   title: 'Your consent to the application',
   sectionTitles: {
     consentDetails: '',
   },
   keys: {
     doYouConsent: 'Do you provide your consent to the application?',
-    applicationReceivedDate: 'When did you receive the application?',
+    applicationReceivedDate: "Pryd gawsoch chi'r cais?",
     courtPermission: 'Is the applicant required to seek permission from the court before making applications?',
   },
 };
@@ -58,9 +50,7 @@ const cy: typeof en = (content: CommonContent) => {
   return {
     ...cyContent,
     language: content.language,
-    sections: [
-      summaryList(enContent, userCase, urls, enContent.sectionTitles.consentDetails, fieldType, content.language),
-    ],
+    sections: [summaryList(enContent, userCase, urls, enContent.sectionTitles.consentDetails, content.language)],
   };
 };
 

@@ -11,7 +11,6 @@ const enContent = {
   two: 'No',
   twoHint:
     'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     jurisdiction: {
@@ -21,18 +20,20 @@ const enContent = {
     iFactorsJurisdictionProvideDetails: {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cyContent = {
   section: ' ',
-  title: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
-  one: 'Yes',
-  two: 'No',
+  title: 'A allai rhywun arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
+  one: 'Gallai',
+  two: 'Na allai',
   twoHint:
-    'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
-  summaryText: 'Contacts for help',
+    'Er enghraifft, am fod gan lys mewn gwlad arall y pŵer (awdurdodaeth) i wneud penderfyniadau neu ddyfarniadau.',
   continue: 'Continue',
   errors: {
     jurisdiction: {
@@ -42,6 +43,9 @@ const cyContent = {
     iFactorsJurisdictionProvideDetails: {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -64,7 +68,6 @@ describe('citizen-home content', () => {
       'Could another person in the application apply for a similar order in a country outside England or Wales?'
     );
     expect(generatedContent.section).toEqual(' ');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
   });
 
   // eslint-disable-next-line jest/expect-expect

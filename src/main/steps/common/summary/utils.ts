@@ -3,7 +3,7 @@
 import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
-import { State } from '../../../app/case/definition';
+import { State, YesOrNo } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
 import {
@@ -13,10 +13,14 @@ import {
   SummaryListRow,
 } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
+import { cy, en } from '../common.content';
 import { applyParms } from '../url-parser';
 
-export const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
-  console.log(content.title);
+export const getSectionSummaryList = (
+  rows: SummaryListRow[],
+  content: PageContent,
+  language?: string
+): GovUkNunjucksSummary[] => {
   return rows.map(item => {
     const changeUrl = item.changeUrl;
     return {
@@ -28,7 +32,7 @@ export const getSectionSummaryList = (rows: SummaryListRow[], content: PageConte
               items: [
                 {
                   href: changeUrl,
-                  text: 'Edit',
+                  text: language === 'en' ? en.edit : cy.edit,
                   visuallyHiddenText: `${item.key}`,
                 },
               ],
@@ -40,6 +44,22 @@ export const getSectionSummaryList = (rows: SummaryListRow[], content: PageConte
   });
 };
 
+const setkey = (userCase: Partial<CaseWithId>, key: string) => {
+  const userkey = userCase[key];
+
+  if (key === 'startAlternative' && !userCase[key]) {
+    return userCase[key] + getSelectedPrivateDetails(userCase);
+  }
+  if (key === 'courtProceedingsOrders' && !userCase[key]) {
+    return getOrdersDetail(userCase);
+  }
+  if (key === 'citizenUserAddressHistory' && userCase['isAtAddressLessThan5Years'] === YesOrNo.YES) {
+    return userCase['citizenUserAddressText'];
+  }
+
+  return userkey;
+};
+
 /* eslint-disable import/namespace */
 export const summaryList = (
   { sectionTitles, keys, ...content }: SummaryListContent,
@@ -47,34 +67,31 @@ export const summaryList = (
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   urls: any,
   sectionTitle?: string,
-  fieldTypes?: any,
   language?: string
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
   for (const key in keys) {
     const keyLabel = keys[key];
-    const getSelectedprivaedet = userCase[key] + getSelectedPrivateDetails(userCase);
-    const setkey = key1 => {
-      if (key1 === 'startAlternative' && userCase[key1] !== 'undefined') {
-        return getSelectedprivaedet;
-      }
-      return userkey;
-    };
-    const userkey = userCase[key];
-    const url = urls[key];
     const row = {
       key: keyLabel,
-      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : setkey(key)!,
-      changeUrl: url,
+      value:
+        userCase[key]?.hasOwnProperty('day') &&
+        userCase[key].hasOwnProperty('month') &&
+        userCase[key]?.hasOwnProperty('year')
+          ? getFormattedDate(userCase[key], language)
+          : setkey(userCase, key)!,
+      changeUrl: urls[key],
     };
-    if (key !== 'citizenUserSafeToCall') {
-      summaryData.push(row);
+    if (row.value || key === 'citizenUserAddressHistory') {
+      if (key !== 'citizenUserSafeToCall') {
+        summaryData.push(row);
+      }
     }
   }
 
   return {
     title: sectionTitle || '',
-    rows: getSectionSummaryList(summaryData, content),
+    rows: getSectionSummaryList(summaryData, content, language),
   };
 };
 
@@ -152,7 +169,6 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   let tempDetails = '<br/><br/><ul class="govuk-list govuk-list--bullet">';
   const contact_private_list = userCase['contactDetailsPrivate'];
   for (const key in contact_private_list) {
-    console.log(contact_private_list[key]);
     tempDetails =
       tempDetails +
       '<li>' +
@@ -162,4 +178,19 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   }
   tempDetails = tempDetails + '</ul>';
   return tempDetails;
+};
+
+export const getOrdersDetail = (userCase: Partial<CaseWithId>): string => {
+  let temp = '';
+  const value = userCase['courtProceedingsOrders'];
+  if (value) {
+    for (const k of value) {
+      const keyLabel = k as string;
+      temp += keyLabel;
+      if (value.indexOf(k) !== value.length - 1) {
+        temp += ', ';
+      }
+    }
+  }
+  return temp;
 };

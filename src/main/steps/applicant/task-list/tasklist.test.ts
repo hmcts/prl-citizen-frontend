@@ -172,7 +172,7 @@ describe('applicant tasklist getRemainingTaskList', () => {
             href: '/applicant/yourdocuments/alldocuments/yourwitnessstatements',
             id: 'your_allegations_of_harm',
             status: 'DOWNLOAD',
-            text: 'Your allegations of harm and violence (PDF)',
+            text: 'View allegations of harm and violence (PDF)',
           },
           {
             href: '/applicant/yourdocuments/alldocuments/yourwitnessstatements',

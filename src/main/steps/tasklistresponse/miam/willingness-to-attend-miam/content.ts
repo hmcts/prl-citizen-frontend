@@ -1,6 +1,6 @@
 import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import {
@@ -19,8 +19,6 @@ const en = {
   miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
   miamCostExemptionsInfo: miam_cost_exemption_content_en,
   miamLabel: miam_how_to_arrange_mediation_label_en,
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   onlyContinue: 'Continue',
   errors: {
     miamWillingness: {
@@ -28,20 +26,21 @@ const en = {
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cy: typeof en = {
-  title: 'Would you be willing to attend a MIAM?',
+  title: "A fyddech chi'n fodlon mynychu MIAM?",
   one: 'Yes',
   two: 'No',
   explainWhyLabel: 'Explain why',
-  miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
+  miamCostExemptionsLabel: 'Help gyda chostau ac esemptiadau MIAM',
   miamCostExemptionsInfo: miam_cost_exemption_content_cy,
   miamLabel: miam_how_to_arrange_mediation_label_cy,
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   onlyContinue: 'Continue',
   errors: {
     miamWillingness: {
@@ -49,6 +48,9 @@ const cy: typeof en = {
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -90,7 +92,7 @@ export const form: FormContent = {
               type: 'textarea',
               label: l => l.explainWhyLabel,
               id: 'miam-explanation',
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },

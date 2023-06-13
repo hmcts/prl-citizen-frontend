@@ -23,7 +23,7 @@ const en = {
   emailInfo: 'Information emailed to me',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  noSupport: 'I do not need any of this support at this time',
+  noSupport: 'No, I do not need any of this support at this time',
   continue: 'Continue',
   errors: {
     docsSupport: {
@@ -31,36 +31,45 @@ const en = {
     },
     docsDetails: {
       required: 'Please provide the docs details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     largePrintDetails: {
       required: 'Please provide the large print details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     otherDetails: {
       required: 'Please provide the other details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cy: typeof en = {
-  section: 'Reasonable adjustments',
-  title: 'I need documents in an alternative format',
+  section: 'Addasiadau rhesymol',
+  title: 'Rwyf angen dogfennau mewn fformat amgen',
   courtCommunication:
-    'Think about all communications with the court, as well as what you might need at a hearing. Consider remote and in-person hearings, in case your preferred hearing type is not possible.',
-  optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
-  docsColour: 'Documents in a specified colour',
+    'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
+  optionHint: 'Dogfennau mewn lliw penodol',
+  summaryText: 'Cysylltiadau am gymorth',
+  docsColour: 'Dogfennau mewn lliw penodol',
   docsColourDetails: 'Describe what you need',
-  docsReadFormat: 'Documents in an easy read format',
-  docsReadFormatHint: 'information written in simple language with pictures',
-  brailleDocs: 'Braille documents',
-  largePrintDocs: 'Documents in large print',
+  docsReadFormat: 'Dogfennau mewn fformat hawdd i’w darllen',
+  docsReadFormatHint: "Gwybodaeth wedi'i hysgrifennu mewn iaith syml â lluniau",
+  brailleDocs: 'Dogfennau Braille',
+  largePrintDocs: 'Dogfennau mewn print bras',
   largePrintDocsDetails: 'Describe what you need',
-  audioTranslation: 'Audio translation of documents',
-  docsReadOut: 'Documents read out to me',
-  emailInfo: 'Information emailed to me',
-  other: 'Other',
+  audioTranslation: 'Cyfieithiad sain o ddogfennau',
+  docsReadOut: 'Dogfennau yn cael eu darllen yn uchel i mi',
+  emailInfo: 'Gwybodaeth yn cael ei hanfon ataf drwy e-bost',
+  other: 'Arall',
   otherDetails: 'Describe what you need',
-  noSupport: 'I do not need any of this support at this time',
+  noSupport: 'Nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   continue: 'Continue',
   errors: {
     docsSupport: {
@@ -68,12 +77,21 @@ const cy: typeof en = {
     },
     docsDetails: {
       required: 'Please provide the docs details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     largePrintDetails: {
       required: 'Please provide the large print details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     otherDetails: {
       required: 'Please provide the other details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -107,7 +125,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.docsReadOut).toEqual('Documents read out to me');
     expect(generatedContent.emailInfo).toEqual('Information emailed to me');
     expect(generatedContent.other).toEqual('Other');
-    expect(generatedContent.noSupport).toEqual('I do not need any of this support at this time');
+    expect(generatedContent.noSupport).toEqual('No, I do not need any of this support at this time');
   });
 
   // eslint-disable-next-line jest/expect-expect

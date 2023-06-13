@@ -18,19 +18,25 @@ export const en = () => ({
   errors: {
     PRL_c1A_previousAbductionsShortDesc: {
       required: 'Briefly describe the previous incidents of abduction',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     PRL_c1A_policeOrInvestigatorInvolved: {
       required: 'Select yes if the police, private investigators or any other organisation was involved',
     },
     PRL_c1A_policeOrInvestigatorOtherDetails: {
       required: 'Provide details of the police, private investigators or any other organisation involvement',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 });
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  caption: 'Safety concerns - welsh',
+  caption: 'Pryderon diogelwch',
   title: 'Provide details of the previous abductions - welsh',
   line1: 'Give a short description of the previous incidents of abduction. - welsh',
   c1A_previousAbductionsShortDescHint: 'Include any previous attempts to threaten or abduct the children. - welsh',
@@ -43,12 +49,18 @@ export const cy = () => ({
   errors: {
     PRL_c1A_previousAbductionsShortDesc: {
       required: 'Briefly describe the previous incidents of abduction - welsh',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     PRL_c1A_policeOrInvestigatorInvolved: {
       required: 'Select yes if the police, private investigators or any other organisation was involved - welsh',
     },
     PRL_c1A_policeOrInvestigatorOtherDetails: {
       required: 'Provide details of the police, private investigators or any other organisation involvement - welsh',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 });

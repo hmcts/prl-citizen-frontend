@@ -6,8 +6,6 @@ const en = () => {
   return {
     section: 'All documents',
     title: "'s witness statements",
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
     caseNumber: 'Case number',
     continue: 'Go back',
   };
@@ -15,12 +13,10 @@ const en = () => {
 
 const cy: typeof en = () => {
   return {
-    section: 'All documents',
-    title: "'s witness statements",
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
-    caseNumber: 'Case number',
-    continue: 'Go back',
+    section: 'Pob dogfen',
+    title: "'s witness statements (welsh)",
+    caseNumber: 'Rhif yr achos',
+    continue: 'Go back (welsh)',
   };
 };
 
@@ -49,7 +45,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
-    if (doc.value.documentType === 'Your witness statements') {
+    if (doc.value.documentType === 'Your witness statements' && doc.value.partyName === content.name) {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );
