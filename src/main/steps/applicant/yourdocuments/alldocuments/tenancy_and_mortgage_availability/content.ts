@@ -1,10 +1,7 @@
+import { documents_list_items_cy, documents_list_items_en } from "../../../../applicant/upload-document/upload-document-list-items";
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import {
-  applicant_tasklist_items_all_docs_cy,
-  applicant_tasklist_items_all_docs_en,
-} from '../../../../applicant/yourdocuments/alldocuments/alldocuments/tasklist-items-all-documents';
 const en = () => {
   return {
     section: 'All documents',
@@ -50,8 +47,8 @@ export const generateContent: TranslationFn = content => {
   const docs = content.userCase?.citizenUploadedDocumentList?.filter(doc => {
     if (
       doc.value.uploadedBy === content.userIdamId &&
-      (doc.value.documentType === applicant_tasklist_items_all_docs_en.tenancy_and_mortgage_availability ||
-        doc.value.documentType === applicant_tasklist_items_all_docs_cy.tenancy_and_mortgage_availability)
+      (doc.value.documentType === documents_list_items_en.tenancy_mortgage_agreements ||
+        doc.value.documentType === documents_list_items_cy.tenancy_mortgage_agreements)
     ) {
       return doc;
     }
