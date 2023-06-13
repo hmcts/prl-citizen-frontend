@@ -1,6 +1,5 @@
 const dataLayer = window.dataLayer || [];
 dataLayer.push({ event: 'Site language', language: document.documentElement.lang });
-console.log(dataLayer);
 const errorList: HTMLUListElement | null = document.querySelector('.govuk-error-summary__list');
 if (errorList) {
   const listElements = errorList.getElementsByTagName('li');
