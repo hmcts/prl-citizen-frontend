@@ -39,3 +39,45 @@ export const progressBarFl401 = {
     ariaLabel: 'Case closed stage',
   },
 };
+
+export const progressBarCyC100 = {
+  applicationSubmitted: {
+    title: "Cais wedi'i<br/> gyflwyno",
+    ariaLabel: 'Cam cais wedi’i gyflwyno',
+  },
+  cafcassSafetyChecks: {
+    title: 'Gwiriadau diogelwch<br/> plant Cafcass',
+    ariaLabel: 'Cam gwiriadau diogelwch plant Cafcass',
+  },
+  responseSubmitted: {
+    title: "Ymateb wedi'i<br/> gyflwyno",
+    ariaLabel: 'Cam ymateb wedi’i gyflwyno',
+  },
+  hearingAndCourtOrders: {
+    title: 'Gwrandawiadau <br/>a<br/> gorchmynion llys',
+    ariaLabel: 'Cam gwrandawiadau a gorchmynion llys',
+  },
+  caseClosed: {
+    title: 'Achos wedi’i <br/>gau',
+    ariaLabel: 'Cam achos wedi’i gau',
+  },
+};
+
+export const progressBarCyFl401 = {
+  caseOpened: {
+    title: 'Achos<br/> wedi’i agor',
+    ariaLabel: 'Cam achos wedi’i agor',
+  },
+  hearingAndCourtOrders: {
+    title: 'Gwrandawiadau a<br/> gorchmynion llys',
+    ariaLabel: 'Cam gwrandawiadau a gorchmynion llys',
+  },
+  finalOrder: {
+    title: 'Gorchymyn terfynol',
+    ariaLabel: 'Cam gorchymyn terfynol',
+  },
+  caseClosed: {
+    title: 'Achos wedi’i gau',
+    ariaLabel: 'Cam achos wedi’i gau',
+  },
+};

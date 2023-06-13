@@ -1,4 +1,4 @@
-import { ProceedingsOrderTypeInterface } from '../../../../app/case/definition';
+import { ProceedingsOrderTypeInterface, ProceedingsOrderTypes } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { applyParms } from '../../../../steps/common/url-parser';
@@ -39,6 +39,7 @@ interface OrderDocument {
 [];
 
 const getOrderDocuments = (
+  selectedOrders: ProceedingsOrderTypes[],
   orders: ProceedingsOrderTypeInterface | Record<string, never> = {}
 ): OrderDocument[] | [] => {
   const ordersWithDocument = getAllOrderDocuments(orders);
@@ -46,10 +47,13 @@ const getOrderDocuments = (
 
   if (ordersWithDocument.length) {
     documents = ordersWithDocument.map(order => {
-      return {
-        fileName: order.orderDocument?.filename,
-        editUrl: applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: order.orderType, orderId: order.id }),
-      };
+      if (selectedOrders.length >= 1 && selectedOrders.includes(order.orderType)) {
+        return {
+          fileName: order.orderDocument?.filename,
+          editUrl: applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: order.orderType, orderId: order.id }),
+        };
+      }
+      return {};
     });
   }
 
@@ -59,11 +63,12 @@ const getOrderDocuments = (
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orderSessionData = content.userCase?.otherProceedings?.order ?? {};
+  const OrdersSelected = content.userCase?.courtProceedingsOrders ?? [];
   return {
     ...translations,
     form,
     data: {
-      documents: getOrderDocuments(orderSessionData),
+      documents: getOrderDocuments(OrdersSelected, orderSessionData),
     },
   };
 };

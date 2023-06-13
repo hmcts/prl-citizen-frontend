@@ -29,11 +29,11 @@ const enContent = {
 const cyContent = {
   title: 'Applicant tasklist',
   caseNumber: 'Rhif yr achos ',
-  iWant: 'I want to... (welsh)',
+  iWant: 'Rwyf eisiau...',
   findCourt: 'Find my local court (welsh)',
   legalAdvice: 'Find legal advice (welsh)',
-  childArrangements: 'Know more about child arrangements (welsh)',
-  attendingCourt: 'Know more about attending court (welsh)',
+  childArrangements: 'Gwybod mwy am drefniadau plant',
+  attendingCourt: 'Gwybod mwy am fynychu’r llys',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
