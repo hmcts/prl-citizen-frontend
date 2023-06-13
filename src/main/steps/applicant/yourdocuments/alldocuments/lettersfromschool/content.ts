@@ -1,7 +1,7 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { documents_list_items_en } from '../../../upload-document/upload-document-list-items';
+import { documents_list_items_cy, documents_list_items_en } from '../../../upload-document/upload-document-list-items';
 const en = () => {
   return {
     section: 'All documents',
@@ -46,8 +46,9 @@ export const generateContent: TranslationFn = content => {
   const orders: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (
-      doc.value.documentType === documents_list_items_en.letters_from_school &&
-      doc.value.isApplicant === content.byApplicant
+      doc.value.isApplicant === content.byApplicant &&
+      (doc.value.documentType === documents_list_items_en.letters_from_school ||
+        doc.value.documentType === documents_list_items_cy.letters_from_school)
     ) {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
