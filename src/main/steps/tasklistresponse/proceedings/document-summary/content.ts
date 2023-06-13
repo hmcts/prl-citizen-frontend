@@ -59,9 +59,6 @@ const getOrderDocuments = (
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orderSessionData = content.userCase?.otherProceedings?.order ?? {};
-  const courtProceedingsOrdersData = content.userCase?.courtProceedingsOrders;
-  console.log(courtProceedingsOrdersData);
-  console.log(orderSessionData);
   return {
     ...translations,
     form,
