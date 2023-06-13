@@ -50,7 +50,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
           res.redirect(redirectUrl);
         });
       } catch (error) {
-        throw new Error('SafetyConcernsPostController - Case could not be updated.');
+        throw new Error('KeepDetailsPrivatePostController - Case could not be updated.');
       }
     }
   }

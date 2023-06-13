@@ -81,7 +81,7 @@ const cy = () => ({
   iWant: 'I want to... (welsh)',
   findCourt: 'Find my local court (welsh)',
   legalAdvice: 'Find legal advice (welsh)',
-  childArrangements: 'Know more about child arrangements (welsh)',
+  childArrangements: 'Gwybod mwy am drefniadau plant',
   attendingCourt: 'Know more about attending court (welsh)',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',

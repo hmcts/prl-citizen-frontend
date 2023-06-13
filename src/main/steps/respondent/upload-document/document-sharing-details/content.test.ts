@@ -16,7 +16,7 @@ const en = {
 const cy: typeof en = {
   title: 'How your documents will be shared',
   email: docsEmail,
-  continue: 'Continue',
+  continue: 'Parhau',
 };
 
 jest.mock('../../../../app/form/validation');

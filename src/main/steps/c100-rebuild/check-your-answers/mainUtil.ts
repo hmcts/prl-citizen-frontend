@@ -187,7 +187,7 @@ export const WithoutNoticeHearing = (
     },
     {
       key: keys['askingNoHearing'],
-      value: userCase['hearingPart1'],
+      value: getYesNoTranslation(language, userCase['hwn_hearingPart1'], 'ydwTranslation'),
       valueHtml: hearingDetailsHelper(userCase, keys, 'hwn_reasonsForApplicationWithoutNotice',language),
       changeUrl: Urls['C100_HEARING_WITHOUT_NOTICE_PART1'],
     },
@@ -1153,7 +1153,7 @@ export const RespondentDetails = (
         newRespondentStorage.push(
           {
             key: keys['approxCheckboxLabel'],
-            value: personalDetails['isDateOfBirthUnknown'],
+            value: getYesNoTranslation(language,personalDetails['isDateOfBirthUnknown'],'doTranslation'),
             changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_PERSONAL_DETAILS'], { respondentId: id }),
           },
           {

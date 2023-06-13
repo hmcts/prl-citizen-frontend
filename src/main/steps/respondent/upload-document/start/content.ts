@@ -25,7 +25,7 @@ const cy: typeof en = {
   two: 'No',
   line1:
     'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     start: {
       required: 'Please select one of the options before proceeding further',

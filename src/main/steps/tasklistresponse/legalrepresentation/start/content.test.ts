@@ -44,7 +44,7 @@ const cyContent = {
     },
   },
   find: 'Dod o hyd i gynrychiolydd cyfreithiol',
-  legal: 'Dod o hyd i gynrychiolydd cyfreithiol',
+  legal: 'A oes arnoch chi angen cymorth cyfreithiol?',
 };
 
 describe('consent to the application', () => {
