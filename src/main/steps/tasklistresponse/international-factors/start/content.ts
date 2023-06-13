@@ -10,6 +10,7 @@ const en = {
   two: 'No',
   hint: 'For example, is their family life mainly based outside of England and Wales?',
   continue: 'Continue',
+  provideDetails: 'Provide details',
   errors: {
     start: {
       required:
@@ -31,7 +32,8 @@ const cy: typeof en = {
   one: 'Ydy',
   two: 'Nac ydy',
   hint: 'Er enghraifft, a yw eu bywyd teuluol yn bennaf y tu allan i Gymru a Lloegr?',
-  continue: 'Continue',
+  continue: 'Parhau',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     start: {
       required:
@@ -67,7 +69,7 @@ export const form: FormContent = {
           subFields: {
             iFactorsStartProvideDetails: {
               type: 'textarea',
-              label: 'Provide details',
+              label: l => l.provideDetails,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },

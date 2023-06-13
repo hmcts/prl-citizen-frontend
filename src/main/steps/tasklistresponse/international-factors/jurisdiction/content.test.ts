@@ -13,6 +13,7 @@ const enContent = {
   twoHint:
     'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
   continue: 'Continue',
+  provideDetails: 'Provide details',
   errors: {
     jurisdiction: {
       required:
@@ -35,7 +36,8 @@ const cyContent = {
   two: 'Na allai',
   twoHint:
     'Er enghraifft, am fod gan lys mewn gwlad arall y pŵer (awdurdodaeth) i wneud penderfyniadau neu ddyfarniadau.',
-  continue: 'Continue',
+  continue: 'Parhau',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     jurisdiction: {
       required:

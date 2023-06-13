@@ -43,7 +43,7 @@ const cy: typeof en = {
   languageinterpreter: 'Mae arnaf angen cyfieithydd mewn iaith benodol',
   typeoflanguage: 'Give details of the language you require (including dialect, if applicable)',
   nointerpreter: 'Nac oes, nid oes gennyf unrhyw ofynion o ran iaith ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     languageRequirements: {
       required: 'Please select an answer',

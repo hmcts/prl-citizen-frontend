@@ -26,7 +26,7 @@ export const en = () => ({
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
   caption: 'Pryderon diogelwch',
-  title: 'What do you want the court to do to keep you and the children safe? - welsh',
+  title: "Beth ydych chi eisiau i'r llys ei wneud i'ch cadw chi a'r plant yn ddiogel?",
   paragraph:
     'Describe what you want the court to do to keep you and the children safe. The court may be able to make a protective order. - welsh',
   detailsSummary: 'Actions the court can take - welsh',

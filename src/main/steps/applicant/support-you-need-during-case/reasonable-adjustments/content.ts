@@ -54,7 +54,7 @@ const cy: typeof en = {
   unabletotakecourtproceedingshint:
     'For example, do you have a disability that would prevent you from attending court in person?',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     reasonableAdjustments: {
       required: 'Please select an answer',
@@ -107,7 +107,7 @@ export const form: FormContent = {
           value: 'travellinghelp',
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'reasonableAdjustments',

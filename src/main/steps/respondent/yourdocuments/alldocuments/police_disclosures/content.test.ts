@@ -1,5 +1,4 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-//import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
@@ -21,19 +20,48 @@ const cyContent = {
 jest.mock('../../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('citizen-home content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
-  let generatedContent;
-  //let form;
-  //let fields;
+  const commonContent = {
+    language: 'en',
+    userIdamId: '123',
+    byApplicant: 'Yes',
+    userCase: {
+      citizenUploadedDocumentList: [
+        {
+          id: 'string',
+          value: {
+            parentDocumentType: 'string',
+            documentType: 'Police reports',
+            partyName: 'string',
+            isApplicant: 'Yes',
+            uploadedBy: '123',
+            dateCreated: 'string',
+            documentDetails: {
+              documentName: 'string',
+              documentUploadedDate: 'string',
+            },
+            citizenDocument: {
+              document_url: 'string/123',
+              document_filename: 'string',
+              document_binary_url: 'string',
+            },
+            documentRequestedByCourt: 'Yes',
+          },
+        },
+      ],
+    },
+  } as CommonContent;
+  const commonContent2 = { language: 'en' } as CommonContent;
+  let generatedContent, generatedContent2;
+
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
-    //form = generatedContent.form as FormContent;
-    //fields = form.fields as FormFields;
+    generatedContent2 = generateContent(commonContent2);
   });
 
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('Police reports');
     expect(generatedContent.section).toEqual('All documents');
+    expect(generatedContent2.section).toEqual('All documents');
   });
 
   // eslint-disable-next-line jest/expect-expect

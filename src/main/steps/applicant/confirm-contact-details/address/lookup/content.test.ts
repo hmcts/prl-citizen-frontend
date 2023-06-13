@@ -55,14 +55,14 @@ describe('applicant1 > address > lookup > content', () => {
     const commonContent1 = { language: 'en' } as CommonContent;
 
     const generatedContent1 = generateContent(commonContent1);
-    expect(generatedContent1.section).toBe('Your address');
+    expect(generatedContent1.title).toBe('Your address');
   });
 
   it('should have an citizenUserAddressPostcode label when language: cy and  applyingWith: alone', () => {
     const commonContent1 = { language: 'cy' } as CommonContent;
 
     const generatedContent1 = generateContent(commonContent1);
-    expect(generatedContent1.section).toBe('Eich cyfeiriad');
+    expect(generatedContent1.title).toBe('Eich cyfeiriad');
   });
 
   test('should contain citizenUserAddressPostcode field', () => {

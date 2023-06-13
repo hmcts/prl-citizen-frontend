@@ -22,7 +22,7 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Eich gwrandawiadau llys',
-    title: 'Your Hearings (welsh)',
+    title: 'Eich gwrandawiadau',
     goBack: 'Mynd yn ôl',
     caseNumber: 'Rhif yr achos',
     yourPreviousHearings: 'Eich gwrandawiadau blaenorol',

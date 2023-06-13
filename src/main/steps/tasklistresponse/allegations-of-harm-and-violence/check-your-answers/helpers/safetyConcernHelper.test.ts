@@ -9,6 +9,7 @@ const keys = {
 };
 
 const childField = 'childField';
+const language = 'en';
 
 describe('test cases for SaftyConcern', () => {
   const id = '7483640e-0817-4ddc-b709-6723f7925474';
@@ -47,13 +48,13 @@ describe('test cases for SaftyConcern', () => {
     const sessionKey = 'sessionKey';
     const typeOfUser = 'child';
 
-    expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser)).toBe('');
+    expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser, language)).toBe('');
   });
 
   test('noFoundElement', () => {
     const sessionKey = 'sessionKey';
     const typeOfUser = 'child';
-    expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser)).toBe('');
+    expect(SafetyConcernsHelper(userCase, keys, sessionKey, childField, typeOfUser, language)).toBe('');
   });
 
   test('childNameFormatter', () => {
@@ -66,11 +67,11 @@ describe('test cases for SaftyConcern', () => {
       childrenConcernedAbout: 'test',
       behaviourDetailsLabel: 'test',
       behaviourStartDate: 'test',
-      isOngoingBehaviour: 'test',
+      isOngoingBehaviour: 'Yes',
     };
     const typeOfUser = 'child';
-    expect(HTMLParser(keys, FoundElement, bodyHtml, userCase, typeOfUser)).toBe(
-      '<h4>childrenConcernedAboutLabel</h4><ul></ul><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>test<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4>test<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4>'
+    expect(HTMLParser(keys, FoundElement, bodyHtml, userCase, typeOfUser, language)).toBe(
+      '<h4>childrenConcernedAboutLabel</h4><ul></ul><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>undefined<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>test<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4>Yes<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4>'
     );
   });
 });

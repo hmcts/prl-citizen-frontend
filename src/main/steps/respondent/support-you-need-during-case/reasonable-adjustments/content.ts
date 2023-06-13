@@ -47,7 +47,7 @@ const cy: typeof en = {
   travellingHelpHint:
     'er enghraifft, cymorth gyda mynediad a symudedd os bydd gwrandawiad yn cael ei gynnal wyneb yn wyneb',
   noSupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     reasonableAdjustments: {
       required: 'Please select an answer',

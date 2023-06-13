@@ -35,7 +35,7 @@ export const en = () => ({
 
 export const cy = () => ({
   section: 'Pryderon diogelwch',
-  title: 'Why do you think the children may be abducted or kept outside the UK without your consent? - welsh',
+  title: "Pam ydych chi'n meddwl y gallai'r plant gael eu herwgydio neu eu cadw y tu allan i'r DU heb eich caniatâd?",
   warningText: {
     text: 'Contact the police or social services if a child you’re responsible for is at risk of being taken out of the UK without your consent. - welsh',
     iconFallbackText: 'Warning - welsh',
@@ -43,7 +43,7 @@ export const cy = () => ({
   safetyConcernsText: 'Briefly explain your concerns, including: - welsh',
   safetyConcernsBullet1: 'Who might take them - welsh',
   safetyConcernsBullet2: 'Where they might be taken or kept - welsh',
-  childsCurrentLocationText: 'Where are the children now? - welsh',
+  childsCurrentLocationText: "Ble mae'r plant nawr?",
   childsCurrentLocationHint:
     'If they’re outside England or Wales, include what country they’re in and how long they’ve been there. You don’t need to include any addresses. - welsh',
   errors: {

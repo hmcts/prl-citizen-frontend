@@ -7,7 +7,8 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  section: 'Have you or the children ever been involved in court proceedings?',
+  section: '',
+  title: 'Have you or the children ever been involved in court proceedings?',
   courtCase: 'Have the children been involved in a court case?',
   courtOrder: 'Have you had a court order made for your protection?',
   courtOrderYes: 'Yes',
@@ -23,11 +24,15 @@ const en = {
 };
 
 const cy = {
-  section: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
+  section: '',
+  title: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
   courtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
   courtOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
-  courtOrderYes: 'Yes',
-  courtOrderNo: 'No',
+  courtCaseYes: 'Do',
+  courtCaseNo: 'Naddo',
+  courtOrderYes: 'Oes',
+  courtOrderNo: 'Nac oes',
+  onlyContinue: 'Parhau',
   errors: {
     proceedingsStart: {
       required: 'Select yes if the children have been involved in a previous court case',
@@ -59,12 +64,16 @@ describe('applicant personal details > international elements > start', () => {
     const proceedingsStartField = fields.proceedingsStart as FormOptions;
     expect(proceedingsStartField.type).toBe('radios');
     expect(proceedingsStartField.classes).toBe('govuk-radios');
+    expect((proceedingsStartField.section as LanguageLookup)(generatedContent)).toBe(en.section);
+    expect((proceedingsStartField.label as LanguageLookup)(generatedContent)).toBe(en.courtCase);
     expect((proceedingsStartField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.courtOrderYes);
     expect((proceedingsStartField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.courtOrderNo);
 
     const proceedingsStartOrderField = fields.proceedingsStartOrder as FormOptions;
     expect(proceedingsStartOrderField.type).toBe('radios');
     expect(proceedingsStartOrderField.classes).toBe('govuk-radios');
+    expect((proceedingsStartOrderField.section as LanguageLookup)(generatedContent)).toBe(en.section);
+    expect((proceedingsStartOrderField.label as LanguageLookup)(generatedContent)).toBe(en.courtOrder);
     expect((proceedingsStartOrderField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.courtOrderYes);
     expect((proceedingsStartOrderField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.courtOrderNo);
   });

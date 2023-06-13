@@ -22,6 +22,7 @@ const en = {
   otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any of this support at this time',
   continue: 'Continue',
+  largePrintDocsDetails: 'Describe what you need',
   errors: {
     docsSupport: {
       required: 'Please select an answer',
@@ -62,9 +63,10 @@ const cy: typeof en = {
   readoutdocs: 'Dogfennau yn cael eu darllen yn uchel i mi',
   emailInfo: 'Gwybodaeth yn cael ei hanfon ataf drwy e-bost',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
+  largePrintDocsDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   errors: {
     docsSupport: {
       required: 'Please select an answer',

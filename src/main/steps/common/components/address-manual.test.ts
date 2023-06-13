@@ -21,7 +21,6 @@ const enContent = {
     },
     citizenUserManualAddressPostcode: {
       required: 'Enter a valid postcode',
-      invalid: 'Enter a valid postcode',
     },
   },
 };
@@ -41,7 +40,6 @@ const cyContent = {
     },
     citizenUserManualAddressPostcode: {
       required: 'Rhowch god post dilys.',
-      invalid: 'Rhowch god post dilys.',
     },
   },
 };

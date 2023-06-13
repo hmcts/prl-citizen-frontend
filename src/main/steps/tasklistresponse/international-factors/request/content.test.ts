@@ -13,6 +13,7 @@ const enContent = {
   twoHint:
     'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
   continue: 'Continue',
+  provideDetails: 'Provide details',
   errors: {
     request: {
       required: 'Select yes if another country has asked (or been asked) for information or help for the children',
@@ -34,7 +35,8 @@ const cyContent = {
   two: 'Nac oes',
   twoHint:
     'Gall fod pryderon amddiffyn plant, cymorth ar gyfer llys gyda chais am achos arall, angen gorfodi gorchymyn dramor, neu bod ymdrechion yn cael eu gwneud i ddychwelyd y plant i Gymru neu Loegr.',
-  continue: 'Continue',
+  continue: 'Parhau',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     request: {
       required: 'Select yes if another country has asked (or been asked) for information or help for the children',

@@ -4,6 +4,7 @@ import { CaseWithId } from '../../../app/case/case';
 /* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
 import { SummaryList, SummaryListContentWithBoolean, getSectionSummaryList } from '../../c100-rebuild/check-your-answers/lib/lib';
+import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
 import * as Urls from '../../urls';
 
 import { OPotherProceedingsSessionParserUtil } from './proceedingUtils';
@@ -11,7 +12,8 @@ import { OPotherProceedingsSessionParserUtil } from './proceedingUtils';
 /* eslint-disable import/namespace */
 export const PastAndCurrentProceedings = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
-  userCase: Partial<CaseWithId>
+  userCase: Partial<CaseWithId>, 
+  language?: string
 ): SummaryList | undefined => {
   const courtOrderDetails =
     '<ul>' +
@@ -22,12 +24,12 @@ export const PastAndCurrentProceedings = (
   let SummaryData = [
     {
       key: keys['childrenInvolvedCourtCase'],
-      value: userCase['proceedingsStart'],
+      value: getYesNoTranslation(language, userCase['proceedingsStart'], 'doTranslation'),
       changeUrl: Urls['PROCEEDINGS_START'],
     },
     {
       key: keys['courtOrderProtection'],
-      value: userCase['proceedingsStartOrder'],
+      value: getYesNoTranslation(language, userCase['proceedingsStartOrder'], 'oesTranslation'),
       changeUrl: Urls['PROCEEDINGS_START'],
     },
     {
@@ -35,19 +37,19 @@ export const PastAndCurrentProceedings = (
       valueHtml: userCase.hasOwnProperty('courtProceedingsOrders') ? courtOrderDetails?.split(',').join('') : '',
       changeUrl: Urls['PROCEEDINGS_COURT_PROCEEDINGS'],
     },
-    ...OPotherProceedingsSessionParserUtil(userCase, keys, Urls, 'courtProceedingsOrders'),
+    ...OPotherProceedingsSessionParserUtil(userCase, keys, Urls, 'courtProceedingsOrders', language),
   ];
 
   if(userCase.proceedingsStart === 'No' && userCase.proceedingsStartOrder === 'No'){
     SummaryData = [
       {
         key: keys['childrenInvolvedCourtCase'],
-        value: userCase['proceedingsStart'],
+        value: getYesNoTranslation(language, userCase['proceedingsStart'], 'doTranslation'),
         changeUrl: Urls['PROCEEDINGS_START'],
       },
       {
         key: keys['courtOrderProtection'],
-        value: userCase['proceedingsStartOrder'],
+        value: getYesNoTranslation(language, userCase['proceedingsStartOrder'], 'oesTranslation'),
         changeUrl: Urls['PROCEEDINGS_START'],
       }
     ];

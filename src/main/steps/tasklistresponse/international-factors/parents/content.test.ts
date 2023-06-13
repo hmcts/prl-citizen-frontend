@@ -13,6 +13,7 @@ const enContent = {
   one: 'Yes',
   two: 'No',
   continue: 'Continue',
+  provideDetails: 'Provide details',
   errors: {
     parents: {
       required: 'Please select one of the options before proceeding further',
@@ -32,7 +33,8 @@ const cyContent = {
   hint: "Er enghraifft, gallai hyn gynnwys taid a nain neu berthynas agos arall. Mae'n bosib y bydd ganddyn nhw drefniadau gwaith, eiddo neu ysgol sydd wedi'u lleoli'n bennaf y tu allan i Gymru a Lloegr.",
   one: 'Ydyn',
   two: 'Nac ydyn',
-  continue: 'Continue',
+  continue: 'Parhau',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     parents: {
       required: 'Please select one of the options before proceeding further',

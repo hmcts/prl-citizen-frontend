@@ -50,7 +50,7 @@ const cy: typeof en = {
   travellingHelp: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
   travellingHelpHint: 'access and mobility support if a hearing takes place in person',
   noSupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     reasonableAdjustments: {
       required: 'Please select an answer',

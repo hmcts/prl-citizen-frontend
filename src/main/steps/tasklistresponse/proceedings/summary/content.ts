@@ -39,15 +39,15 @@ export const cyContent: typeof enContent = {
   serviceName: 'Gwirio eich atebion',
   section: '',
   title: 'Gwirio eich atebion',
-  change: 'Edit -welsh ',
-  topWarning: 'Your answers will be shared with the other people in this case. -welsh ',
-  makingSure: 'Please review your answers before you finish your application. -welsh ',
-  continue: 'Save and continue -welsh ',
+  change: 'Golygu',
+  topWarning: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
+  makingSure: 'Edrychwch dros eich atebion cyn gorffen gwneud eich cais.',
+  continue: 'Cadw a pharhau',
   Yes: 'Yes -welsh ',
   No: 'No  -welsh ',
   errors: {},
   sectionTitles: {
-    otherProceedings: 'Current or previous proceedings -welsh ',
+    otherProceedings: 'Achos cyfredol neu flaenorol',
   },
   keys: {
     proceedingsStart: "Ydy'r plant wedi bod yn rhan o achos llys?",
@@ -57,7 +57,7 @@ export const cyContent: typeof enContent = {
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  const sections = [PastAndCurrentProceedings(cyContent, userCase)];
+  const sections = [PastAndCurrentProceedings(cyContent, userCase, content.language)];
   return {
     ...cyContent,
     language: content.language,
