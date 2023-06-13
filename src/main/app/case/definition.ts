@@ -113,8 +113,7 @@ export interface PartyDetails {
 export interface User {
   email: string,
   idamId: string,
-  solicitorRepresented?: string,
-  isRemoveLegalRepresentativeRequested?: YesOrNo
+  solicitorRepresented?: string
 }
 
 export interface Response {
