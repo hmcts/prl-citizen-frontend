@@ -146,7 +146,7 @@ describe('citizen-home content', () => {
     expect(helpcommunicationField.type).toBe('checkboxes');
     expect((helpcommunicationField.hint as Function)(generatedContent)).toBe(en.optionHint);
     expect((helpcommunicationField.section as Function)(generatedContent)).toBe(en.section);
-    
+
     expect((helpcommunicationField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.hearingLoop);
     expect((helpcommunicationField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.infraredReceiver);
     expect((helpcommunicationField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.needSpeakingHelp);

@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
-import { isFieldFilledIn, isTextAreaValid, Validator } from '../../../../app/form/validation';
+import { Validator, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -124,9 +124,13 @@ describe('citizen-home content', () => {
     expect((specialArrangementsField.values[5].label as Function)(generatedContent)).toBe(en.videoLinks);
     expect((specialArrangementsField.values[5].hint as Function)(generatedContent)).toBe(en.videoLinksHint);
     expect((specialArrangementsField.values[6].label as Function)(generatedContent)).toBe(en.other);
-    expect((specialArrangementsField.values[6].subFields?.safetyArrangementsDetails.label as Function)(generatedContent)).toBe(en.otherDetails);
+    expect(
+      (specialArrangementsField.values[6].subFields?.safetyArrangementsDetails.label as Function)(generatedContent)
+    ).toBe(en.otherDetails);
 
-    (specialArrangementsField.values[6].subFields?.safetyArrangementsDetails.validator as Validator)('safetyArrangementsDetails');
+    (specialArrangementsField.values[6].subFields?.safetyArrangementsDetails.validator as Validator)(
+      'safetyArrangementsDetails'
+    );
     expect(isFieldFilledIn).toHaveBeenCalledWith('safetyArrangementsDetails');
     expect(isTextAreaValid).toHaveBeenCalledWith('safetyArrangementsDetails');
 

@@ -100,8 +100,12 @@ describe('citizen-home content', () => {
     expect((attendingToCourtField.values[2].divider as Function)(generatedContent)).toBe(undefined);
     expect((attendingToCourtField.values[3].label as Function)(generatedContent)).toBe(en.noHearings);
     expect((attendingToCourtField.values[3].hint as Function)(generatedContent)).toBe(en.noHearingsHint);
-    expect((attendingToCourtField.values[3].subFields?.hearingDetails.label as Function)(generatedContent)).toBe(en.noHearingDetails);
-    expect((attendingToCourtField.values[3].subFields?.hearingDetails.validator as Function)(generatedContent)).toBe(undefined);
+    expect((attendingToCourtField.values[3].subFields?.hearingDetails.label as Function)(generatedContent)).toBe(
+      en.noHearingDetails
+    );
+    expect((attendingToCourtField.values[3].subFields?.hearingDetails.validator as Function)(generatedContent)).toBe(
+      undefined
+    );
   });
 
   test('should contain Continue button', () => {

@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
-import { isFieldFilledIn, isTextAreaValid, Validator } from '../../../../app/form/validation';
+import { Validator, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -90,7 +90,9 @@ describe('citizen-home content', () => {
     expect((detailsKnownField.hint as Function)(generatedContent)).toBe(enContent.twoHint);
     expect((detailsKnownField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
 
-    (detailsKnownField.values[0].subFields?.iFactorsJurisdictionProvideDetails.validator as Validator)('iFactorsJurisdictionProvideDetails');
+    (detailsKnownField.values[0].subFields?.iFactorsJurisdictionProvideDetails.validator as Validator)(
+      'iFactorsJurisdictionProvideDetails'
+    );
     expect(isFieldFilledIn).toHaveBeenCalledWith('iFactorsJurisdictionProvideDetails');
     expect(isTextAreaValid).toHaveBeenCalledWith('iFactorsJurisdictionProvideDetails');
 

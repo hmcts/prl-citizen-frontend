@@ -71,7 +71,7 @@ describe('citizen-home content', () => {
     const miamDetailsField = fields.miamDetails as FormInput;
 
     expect((miamDetailsField.label as Function)(generatedContent)).toBe(enContent.miamDetailsLabel);
-    expect((miamDetailsField.detailsHtml  as Function)(generatedContent)).toBe(enContent.miamSubFields);
+    expect((miamDetailsField.detailsHtml as Function)(generatedContent)).toBe(enContent.miamSubFields);
 
     expect(miamStartField.type).toBe('radios');
     expect(miamStartField.classes).toBe('govuk-radios');

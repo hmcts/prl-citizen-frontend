@@ -98,8 +98,12 @@ describe('citizen-home content', () => {
     expect((languageRequirementsField.values[0].label as Function)(generatedContent)).toBe(en.speakwelsh);
     expect((languageRequirementsField.values[1].label as Function)(generatedContent)).toBe(en.readandwritewelsh);
     expect((languageRequirementsField.values[2].label as Function)(generatedContent)).toBe(en.languageinterpreter);
-    expect((languageRequirementsField.values[2].subFields?.languageDetails.label as Function)(generatedContent)).toBe(en.typeoflanguage);
-    expect((languageRequirementsField.values[2].subFields?.languageDetails.validator as Function)(generatedContent)).toBe(undefined);
+    expect((languageRequirementsField.values[2].subFields?.languageDetails.label as Function)(generatedContent)).toBe(
+      en.typeoflanguage
+    );
+    expect(
+      (languageRequirementsField.values[2].subFields?.languageDetails.validator as Function)(generatedContent)
+    ).toBe(undefined);
     expect((languageRequirementsField.values[3].divider as Function)(generatedContent)).toBe(undefined);
     expect((languageRequirementsField.values[4].label as Function)(generatedContent)).toBe(en.nointerpreter);
   });

@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid, Validator } from '../../../../app/form/validation';
+import { Validator, atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -106,7 +106,9 @@ describe('citizen-home content', () => {
     expect((languageRequirementsField.values[0].label as Function)(generatedContent)).toBe(en.speakwelsh);
     expect((languageRequirementsField.values[1].label as Function)(generatedContent)).toBe(en.readandwritewelsh);
     expect((languageRequirementsField.values[2].label as Function)(generatedContent)).toBe(en.languageinterpreter);
-    expect((languageRequirementsField.values[2].subFields?.languageDetails.label as Function)(generatedContent)).toBe(en.typeoflanguage);
+    expect((languageRequirementsField.values[2].subFields?.languageDetails.label as Function)(generatedContent)).toBe(
+      en.typeoflanguage
+    );
 
     (languageRequirementsField.values[2].subFields?.languageDetails.validator as Validator)('languageDetails');
     expect(isFieldFilledIn).toHaveBeenCalledWith('languageDetails');

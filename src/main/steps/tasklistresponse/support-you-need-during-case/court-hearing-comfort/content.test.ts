@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
-import { isFieldFilledIn, isTextAreaValid, Validator } from '../../../../app/form/validation';
+import { Validator, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -110,7 +110,9 @@ describe('citizen-home content', () => {
     expect((courtcomfortField.hint as Function)(generatedContent)).toBe(en.optionHint);
     expect((courtcomfortField.section as Function)(generatedContent)).toBe(en.section);
     expect((courtcomfortField.values[0].label as Function)(generatedContent)).toBe(en.appropriatelighting);
-    expect((courtcomfortField.values[0].subFields?.lightingProvideDetails.label as Function)(generatedContent)).toBe(en.lightingDetails);
+    expect((courtcomfortField.values[0].subFields?.lightingProvideDetails.label as Function)(generatedContent)).toBe(
+      en.lightingDetails
+    );
 
     (courtcomfortField.values[0].subFields?.lightingProvideDetails.validator as Validator)('lightingProvideDetails');
     expect(isFieldFilledIn).toHaveBeenCalledWith('lightingProvideDetails');
@@ -119,7 +121,9 @@ describe('citizen-home content', () => {
     expect((courtcomfortField.values[1].label as Function)(generatedContent)).toBe(en.break);
     expect((courtcomfortField.values[2].label as Function)(generatedContent)).toBe(en.space);
     expect((courtcomfortField.values[3].label as Function)(generatedContent)).toBe(en.other);
-    expect((courtcomfortField.values[3].subFields?.otherProvideDetails.label as Function)(generatedContent)).toBe(en.otherDetails);
+    expect((courtcomfortField.values[3].subFields?.otherProvideDetails.label as Function)(generatedContent)).toBe(
+      en.otherDetails
+    );
 
     (courtcomfortField.values[3].subFields?.otherProvideDetails.validator as Validator)('otherProvideDetails');
     expect(isFieldFilledIn).toHaveBeenCalledWith('otherProvideDetails');

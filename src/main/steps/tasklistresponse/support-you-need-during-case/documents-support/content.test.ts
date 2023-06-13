@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
-import { isFieldFilledIn, isTextAreaValid, Validator } from '../../../../app/form/validation';
+import { Validator, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -145,7 +145,9 @@ describe('citizen-home content', () => {
     expect((docsSupportField.hint as Function)(generatedContent)).toBe(en.optionHint);
     expect((docsSupportField.section as Function)(generatedContent)).toBe(en.section);
     expect((docsSupportField.values[0].label as Function)(generatedContent)).toBe(en.docsColour);
-    expect((docsSupportField.values[0].subFields?.docsDetails.label as Function)(generatedContent)).toBe(en.docsColourDetails);
+    expect((docsSupportField.values[0].subFields?.docsDetails.label as Function)(generatedContent)).toBe(
+      en.docsColourDetails
+    );
 
     (docsSupportField.values[0].subFields?.docsDetails.validator as Validator)('docsDetails');
     expect(isFieldFilledIn).toHaveBeenCalledWith('docsDetails');
@@ -155,7 +157,9 @@ describe('citizen-home content', () => {
     expect((docsSupportField.values[1].hint as Function)(generatedContent)).toBe(en.docsReadFormatHint);
     expect((docsSupportField.values[2].label as Function)(generatedContent)).toBe(en.brailleDocs);
     expect((docsSupportField.values[3].label as Function)(generatedContent)).toBe(en.largePrintDocs);
-    expect((docsSupportField.values[3].subFields?.largePrintDetails.label as Function)(generatedContent)).toBe(en.largePrintDocsDetails);
+    expect((docsSupportField.values[3].subFields?.largePrintDetails.label as Function)(generatedContent)).toBe(
+      en.largePrintDocsDetails
+    );
 
     (docsSupportField.values[3].subFields?.largePrintDetails.validator as Validator)('largePrintDetails');
     expect(isFieldFilledIn).toHaveBeenCalledWith('largePrintDetails');
@@ -165,15 +169,15 @@ describe('citizen-home content', () => {
     expect((docsSupportField.values[5].label as Function)(generatedContent)).toBe(en.docsReadOut);
     expect((docsSupportField.values[6].label as Function)(generatedContent)).toBe(en.emailInfo);
     expect((docsSupportField.values[7].label as Function)(generatedContent)).toBe(en.other);
-    expect((docsSupportField.values[7].subFields?.otherDetails.label as Function)(generatedContent)).toBe(en.otherDetails);
+    expect((docsSupportField.values[7].subFields?.otherDetails.label as Function)(generatedContent)).toBe(
+      en.otherDetails
+    );
 
     (docsSupportField.values[7].subFields?.otherDetails.validator as Validator)('otherDetails');
     expect(isFieldFilledIn).toHaveBeenCalledWith('otherDetails');
     expect(isTextAreaValid).toHaveBeenCalledWith('otherDetails');
 
     expect((docsSupportField.values[9].label as Function)(generatedContent)).toBe(en.noSupport);
-
-
   });
 
   test('should contain Continue button', () => {

@@ -1,14 +1,22 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { CaseType, SectionStatus, State } from '../../../app/case/definition';
+import { CaseType, SectionStatus, State, YesOrNo } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
+import {
+  APPLICANT,
+  APPLICANT_CA_DA_REQUEST,
+  FIND_OUT_ABOUT_CAFCASS,
+  FIND_OUT_ABOUT_CAFCASS_CYMRU,
+  FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH,
+  FIND_OUT_ABOUT_CAFCASS_WELSH,
+  RESPONDENT_ORDERS_FROM_THE_COURT,
+  RESPONDENT_VIEW_ALL_DOCUMENTS,
+  RESPOND_TO_APPLICATION,
+} from '../../urls';
 
-import { generateContent } from './content';
+import { generateContent, getC100Banners, getFl401Banners, getRespondentName } from './content';
 import { respondent_cy, respondent_en } from './section-titles';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
-
-import { getRespondentName, getC100Banners, getFl401Banners } from './content';
-import { APPLICANT, APPLICANT_CA_DA_REQUEST, FIND_OUT_ABOUT_CAFCASS, FIND_OUT_ABOUT_CAFCASS_CYMRU, FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH, FIND_OUT_ABOUT_CAFCASS_WELSH, RESPONDENT_ORDERS_FROM_THE_COURT, RESPONDENT_VIEW_ALL_DOCUMENTS, RESPOND_TO_APPLICATION } from '../../urls';
 import { getRespondentPartyDetailsCa } from './utils';
 //import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
 
@@ -92,7 +100,7 @@ const c100Case = {
         response: {
           citizenFlags: {
             isAllDocumentsViewed: 'No',
-            isResponseInitiated: 'Yes'
+            isResponseInitiated: 'Yes',
           },
         },
         user: {
@@ -365,8 +373,8 @@ const cy = () => ({
 
 const languages = {
   en,
-  cy
-}
+  cy,
+};
 
 const enContent = {
   title: 'Respondent tasklist',
@@ -516,7 +524,7 @@ describe('task-list > content', () => {
   });
 
   test('Should return the correct content', () => {
-    const commonContent = {
+    const commonContent2 = {
       language: 'en',
       userCase: c100Case,
       additionalData: {
@@ -532,27 +540,24 @@ describe('task-list > content', () => {
               applicantsFL401: {
                 firstName: '',
                 lastName: '',
-              }
+              },
             },
           },
         },
       },
     } as unknown as CommonContent;
 
-    const common = generateContent(commonContent) as Record<string, any>;
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    const common = generateContent(commonContent2) as Record<string, any>;
     const respondent = getRespondentPartyDetailsCa(c100Case, userDetail.id);
     expect(respondent).toEqual(c100Case.respondents[0]);
     expect(common.stages[2]).toEqual({
-      active:
-        true,
-      ariaLabel:
-        'Response submitted stage',
-      completed:
-        true,
-      title:
-        'Response<br/> submitted'
+      active: true,
+      ariaLabel: 'Response submitted stage',
+      completed: true,
+      title: 'Response<br/> submitted',
     });
-  })
+  });
 
   test('should return respondent firstname and lastname', () => {
     expect(getRespondentName(c100Case, userDetail.id)).toBe('John Smith');
@@ -632,20 +637,20 @@ describe('task-list > content', () => {
   test('should return C100-banners', () => {
     const banner = [
       {
-        bannerHeading: "You have a new document to view",
+        bannerHeading: 'You have a new document to view',
         bannerContent: [
           {
-            line1: "A new document has been added to your case.",
+            line1: 'A new document has been added to your case.',
           },
         ],
         bannerLinks: [
           {
-            href: "/respondent/yourdocuments/alldocuments/alldocuments",
-            text: "See all documents",
+            href: '/respondent/yourdocuments/alldocuments/alldocuments',
+            text: 'See all documents',
           },
         ],
       },
-    ]
+    ];
     expect(getC100Banners(c100Case, languages[commonContent.language](), userDetail.id)).toEqual(banner);
   });
 
@@ -653,279 +658,261 @@ describe('task-list > content', () => {
     const data = {
       id: '12',
       state: State.CASE_SUBMITTED_PAID,
-      respondentsFL401: [
-        {
-          id: '1',
-          value: {
-            email: 'abc',
-            gender: 'male',
-            address: {
-              AddressLine1: '',
-              AddressLine2: '',
-              PostTown: '',
-              County: '',
-              PostCode: '',
-            },
-            dxNumber: '123',
-            landline: '987654321',
-            lastName: 'Smith',
-            firstName: 'John',
-            dateOfBirth: '',
-            otherGender: '',
-            phoneNumber: '',
-            placeOfBirth: '',
-            previousName: '',
-            solicitorOrg: {
-              OrganisationID: '',
-              OrganisationName: '',
-            },
-            sendSignUpLink: '',
-            solicitorEmail: '',
-            isAddressUnknown: '',
-            solicitorAddress: {
-              County: '',
-              Country: '',
-              PostCode: '',
-              PostTown: '',
-              AddressLine1: '',
-              AddressLine2: '',
-              AddressLine3: '',
-            },
-            isDateOfBirthKnown: '',
-            solicitorReference: '',
-            solicitorTelephone: '',
-            isPlaceOfBirthKnown: '',
-            isDateOfBirthUnknown: '',
-            isAddressConfidential: '',
-            isCurrentAddressKnown: '',
-            relationshipToChildren: '',
-            representativeLastName: '',
-            representativeFirstName: '',
-            canYouProvidePhoneNumber: '',
-            canYouProvideEmailAddress: '',
-            isAtAddressLessThan5Years: '',
-            isPhoneNumberConfidential: '',
-            isEmailAddressConfidential: '',
-            respondentLivedWithApplicant: '',
-            doTheyHaveLegalRepresentation: '',
-            addressLivedLessThan5YearsDetails: '',
-            otherPersonRelationshipToChildren: [''],
-            isAtAddressLessThan5YearsWithDontKnow: '',
-            response: {
-              citizenFlags: {
-                isAllDocumentsViewed: 'No',
-                isResponseInitiated: 'Yes'
-              },
-            },
-            user: {
-              email: 'abc',
-              idamId: '12345',
-            },
+      orderWithoutGivingNoticeToRespondent: {
+        orderWithoutGivingNotice: YesOrNo.YES,
+      },
+      respondentsFL401: {
+        email: 'abc',
+        gender: 'male',
+        address: {
+          AddressLine1: '',
+          AddressLine2: '',
+          PostTown: '',
+          County: '',
+          PostCode: '',
+        },
+        dxNumber: '123',
+        landline: '987654321',
+        lastName: 'Smith',
+        firstName: 'John',
+        dateOfBirth: '',
+        otherGender: '',
+        phoneNumber: '',
+        placeOfBirth: '',
+        previousName: '',
+        solicitorOrg: {
+          OrganisationID: '',
+          OrganisationName: '',
+        },
+        sendSignUpLink: '',
+        solicitorEmail: '',
+        isAddressUnknown: '',
+        solicitorAddress: {
+          County: '',
+          Country: '',
+          PostCode: '',
+          PostTown: '',
+          AddressLine1: '',
+          AddressLine2: '',
+          AddressLine3: '',
+        },
+        isDateOfBirthKnown: '',
+        solicitorReference: '',
+        solicitorTelephone: '',
+        isPlaceOfBirthKnown: '',
+        isDateOfBirthUnknown: '',
+        isAddressConfidential: '',
+        isCurrentAddressKnown: '',
+        relationshipToChildren: '',
+        representativeLastName: '',
+        representativeFirstName: '',
+        canYouProvidePhoneNumber: '',
+        canYouProvideEmailAddress: '',
+        isAtAddressLessThan5Years: '',
+        isPhoneNumberConfidential: '',
+        isEmailAddressConfidential: '',
+        respondentLivedWithApplicant: '',
+        doTheyHaveLegalRepresentation: '',
+        addressLivedLessThan5YearsDetails: '',
+        otherPersonRelationshipToChildren: [''],
+        isAtAddressLessThan5YearsWithDontKnow: '',
+        response: {
+          citizenFlags: {
+            isAllDocumentsViewed: 'No',
+            isResponseInitiated: 'Yes',
           },
         },
-      ],
+        user: {
+          email: 'abc',
+          idamId: '12345',
+        },
+      },
       caseTypeOfApplication: CaseType.FL401,
       orderCollection: [
         {
-          id: '1234',
+          id: 'e5b89eae-d6e1-4e15-a672-22a032617ff2',
           value: {
-            dateCreated: 'date',
-            orderType: 'type',
+            dateCreated: '2022-07-18T11:04:34.483637',
+            orderType: 'Special guardianship order (C43A)',
             orderDocument: {
-              document_url: 'string',
-              document_filename: 'string',
-              document_binary_url: 'string',
-              document_hash: 'string',
+              document_url:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4',
+              document_binary_url:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4/binary',
+              document_filename: 'Special_Guardianship_Order_C43A.pdf',
             },
             otherDetails: {
-              createdBy: 'string',
-              orderCreatedDate: 'string',
-              orderMadeDate: 'string',
-              orderRecipients: 'string',
-            },
-          },
-        },
-        {
-          id: '12345',
-          value: {
-            dateCreated: 'date',
-            orderType: 'type',
-            orderDocument: {
-              document_url: 'string',
-              document_filename: 'string',
-              document_binary_url: 'string',
-              document_hash: 'string',
-            },
-            otherDetails: {
-              createdBy: 'string',
-              orderCreatedDate: 'string',
-              orderMadeDate: 'string',
-              orderRecipients: 'string',
+              createdBy: 'qaz',
+              orderCreatedDate: '18 July 2022',
+              orderMadeDate: '11 November 2019',
+              orderRecipients: 'Test Solicitor\n\n',
             },
           },
         },
       ],
-      orderWithoutGivingNoticeToRespondent: {
-        orderWithoutGivingNotice: 'Yes'
-      }
     };
 
     const data2 = {
       id: '12',
       state: State.ALL_FINAL_ORDERS_ISSUED,
-      respondentsFL401: [
-        {
-          id: '1',
-          value: {
-            email: 'abc',
-            gender: 'male',
-            address: {
-              AddressLine1: '',
-              AddressLine2: '',
-              PostTown: '',
-              County: '',
-              PostCode: '',
-            },
-            dxNumber: '123',
-            landline: '987654321',
-            lastName: 'Smith',
-            firstName: 'John',
-            dateOfBirth: '',
-            otherGender: '',
-            phoneNumber: '',
-            placeOfBirth: '',
-            previousName: '',
-            solicitorOrg: {
-              OrganisationID: '',
-              OrganisationName: '',
-            },
-            sendSignUpLink: '',
-            solicitorEmail: '',
-            isAddressUnknown: '',
-            solicitorAddress: {
-              County: '',
-              Country: '',
-              PostCode: '',
-              PostTown: '',
-              AddressLine1: '',
-              AddressLine2: '',
-              AddressLine3: '',
-            },
-            isDateOfBirthKnown: '',
-            solicitorReference: '',
-            solicitorTelephone: '',
-            isPlaceOfBirthKnown: '',
-            isDateOfBirthUnknown: '',
-            isAddressConfidential: '',
-            isCurrentAddressKnown: '',
-            relationshipToChildren: '',
-            representativeLastName: '',
-            representativeFirstName: '',
-            canYouProvidePhoneNumber: '',
-            canYouProvideEmailAddress: '',
-            isAtAddressLessThan5Years: '',
-            isPhoneNumberConfidential: '',
-            isEmailAddressConfidential: '',
-            respondentLivedWithApplicant: '',
-            doTheyHaveLegalRepresentation: '',
-            addressLivedLessThan5YearsDetails: '',
-            otherPersonRelationshipToChildren: [''],
-            isAtAddressLessThan5YearsWithDontKnow: '',
-            response: {
-              citizenFlags: {
-                isAllDocumentsViewed: 'No',
-                isResponseInitiated: 'Yes'
-              },
-            },
-            user: {
-              email: 'abc',
-              idamId: '12345',
-            },
+      orderWithoutGivingNoticeToRespondent: {
+        orderWithoutGivingNotice: YesOrNo.YES,
+      },
+      respondentsFL401: {
+        email: 'abc',
+        gender: 'male',
+        address: {
+          AddressLine1: '',
+          AddressLine2: '',
+          PostTown: '',
+          County: '',
+          PostCode: '',
+        },
+        dxNumber: '123',
+        landline: '987654321',
+        lastName: 'Smith',
+        firstName: 'John',
+        dateOfBirth: '',
+        otherGender: '',
+        phoneNumber: '',
+        placeOfBirth: '',
+        previousName: '',
+        solicitorOrg: {
+          OrganisationID: '',
+          OrganisationName: '',
+        },
+        sendSignUpLink: '',
+        solicitorEmail: '',
+        isAddressUnknown: '',
+        solicitorAddress: {
+          County: '',
+          Country: '',
+          PostCode: '',
+          PostTown: '',
+          AddressLine1: '',
+          AddressLine2: '',
+          AddressLine3: '',
+        },
+        isDateOfBirthKnown: '',
+        solicitorReference: '',
+        solicitorTelephone: '',
+        isPlaceOfBirthKnown: '',
+        isDateOfBirthUnknown: '',
+        isAddressConfidential: '',
+        isCurrentAddressKnown: '',
+        relationshipToChildren: '',
+        representativeLastName: '',
+        representativeFirstName: '',
+        canYouProvidePhoneNumber: '',
+        canYouProvideEmailAddress: '',
+        isAtAddressLessThan5Years: '',
+        isPhoneNumberConfidential: '',
+        isEmailAddressConfidential: '',
+        respondentLivedWithApplicant: '',
+        doTheyHaveLegalRepresentation: '',
+        addressLivedLessThan5YearsDetails: '',
+        otherPersonRelationshipToChildren: [''],
+        isAtAddressLessThan5YearsWithDontKnow: '',
+        response: {
+          citizenFlags: {
+            isAllDocumentsViewed: 'No',
+            isResponseInitiated: 'Yes',
           },
         },
-      ],
+        user: {
+          email: 'abc',
+          idamId: '12345',
+        },
+      },
       caseTypeOfApplication: CaseType.FL401,
       orderCollection: [
         {
-          id: '1234',
+          id: 'e5b89eae-d6e1-4e15-a672-22a032617ff2',
           value: {
-            dateCreated: 'date',
-            orderType: 'type',
+            dateCreated: '2022-07-18T11:04:34.483637',
+            orderType: 'Special guardianship order (C43A)',
             orderDocument: {
-              document_url: 'string',
-              document_filename: 'string',
-              document_binary_url: 'string',
-              document_hash: 'string',
+              document_url:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4',
+              document_binary_url:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4/binary',
+              document_filename: 'Special_Guardianship_Order_C43A.pdf',
             },
             otherDetails: {
-              createdBy: 'string',
-              orderCreatedDate: 'string',
-              orderMadeDate: 'string',
-              orderRecipients: 'string',
-            },
-          },
-        },
-        {
-          id: '12345',
-          value: {
-            dateCreated: 'date',
-            orderType: 'type',
-            orderDocument: {
-              document_url: 'string',
-              document_filename: 'string',
-              document_binary_url: 'string',
-              document_hash: 'string',
-            },
-            otherDetails: {
-              createdBy: 'string',
-              orderCreatedDate: 'string',
-              orderMadeDate: 'string',
-              orderRecipients: 'string',
+              createdBy: 'qaz',
+              orderCreatedDate: '18 July 2022',
+              orderMadeDate: '11 November 2019',
+              orderRecipients: 'Test Solicitor\n\n',
             },
           },
         },
       ],
-      orderWithoutGivingNoticeToRespondent: {
-        orderWithoutGivingNotice: 'Yes'
-      }
     };
 
-    const newOrderBanner =  [
+    const newOrderBanner = [
       {
-        bannerHeading: "You have a new order from the court",
+        bannerHeading: 'You have a new document to view',
         bannerContent: [
           {
-            line1: "The court has made a decision about your case. The order tells you what the court has decided.",
+            line1: 'A new document has been added to your case.',
           },
         ],
         bannerLinks: [
           {
-            href: "/respondent/yourdocuments/alldocuments/orders",
-            text: "View the order (PDF)",
+            href: '/respondent/yourdocuments/alldocuments/alldocuments',
+            text: 'See all documents',
           },
         ],
       },
-    ]
+      {
+        bannerHeading: 'You have a new order from the court',
+        bannerContent: [
+          {
+            line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
+          },
+        ],
+        bannerLinks: [
+          {
+            href: '/respondent/yourdocuments/alldocuments/orders',
+            text: 'View the order (PDF)',
+          },
+        ],
+      },
+    ];
 
     const finalOrderBanner = [
       {
-        bannerHeading: "You have a final order",
+        bannerHeading: 'You have a new document to view',
         bannerContent: [
           {
-            line1: "The court has made a final decision about your case. The order tells you what the court has decided. ",
+            line1: 'A new document has been added to your case.',
           },
         ],
         bannerLinks: [
           {
-            href: "/respondent/yourdocuments/alldocuments/orders",
-            text: "View the order (PDF)",
+            href: '/respondent/yourdocuments/alldocuments/alldocuments',
+            text: 'See all documents',
           },
         ],
       },
-    ]
+      {
+        bannerHeading: 'You have a final order',
+        bannerContent: [
+          {
+            line1:
+              'The court has made a final decision about your case. The order tells you what the court has decided. ',
+          },
+        ],
+        bannerLinks: [
+          {
+            href: '/respondent/yourdocuments/alldocuments/orders',
+            text: 'View the order (PDF)',
+          },
+        ],
+      },
+    ];
 
     expect(getFl401Banners(data, languages[commonContent.language](), userDetail.id)).toEqual(newOrderBanner);
     expect(getFl401Banners(data2, languages[commonContent.language](), userDetail.id)).toEqual(finalOrderBanner);
   });
-
 });

@@ -120,8 +120,12 @@ describe('citizen-home content', () => {
     expect((specialArrangementsField.values[5].label as Function)(generatedContent)).toBe(en.videoLinks);
     expect((specialArrangementsField.values[5].hint as Function)(generatedContent)).toBe(en.videoLinksHint);
     expect((specialArrangementsField.values[6].label as Function)(generatedContent)).toBe(en.other);
-    expect((specialArrangementsField.values[6].subFields?.safetyArrangementsDetails.label as Function)(generatedContent)).toBe(en.otherDetails);
-    expect((specialArrangementsField.values[6].subFields?.safetyArrangementsDetails.validator as Function)(generatedContent)).toBe(undefined);
+    expect(
+      (specialArrangementsField.values[6].subFields?.safetyArrangementsDetails.label as Function)(generatedContent)
+    ).toBe(en.otherDetails);
+    expect(
+      (specialArrangementsField.values[6].subFields?.safetyArrangementsDetails.validator as Function)(generatedContent)
+    ).toBe(undefined);
     expect((specialArrangementsField.values[7].divider as Function)(generatedContent)).toBe(undefined);
     expect((specialArrangementsField.values[8].label as Function)(generatedContent)).toBe(en.noSupport);
   });
