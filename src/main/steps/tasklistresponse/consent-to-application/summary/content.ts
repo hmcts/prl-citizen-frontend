@@ -31,7 +31,7 @@ export const enContent = {
 
 const en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  prepare(userCase);
+  preprocess(userCase);
   return {
     ...enContent,
     language: content.language,
@@ -56,7 +56,7 @@ const cyContent: typeof enContent = {
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  prepare(userCase);
+  preprocess(userCase);
   return {
     ...cyContent,
     language: content.language,
@@ -83,7 +83,7 @@ export const generateContent: TranslationFn = content => {
     form,
   };
 };
-function prepare(userCase: Partial<CaseWithId>) {
+function preprocess(userCase: Partial<CaseWithId>) {
   if (userCase.doYouConsent === YesOrNo.YES) {
     userCase.reasonForNotConsenting = '';
   }

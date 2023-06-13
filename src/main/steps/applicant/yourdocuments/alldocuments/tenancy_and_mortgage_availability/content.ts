@@ -1,7 +1,10 @@
-import { documents_list_items_cy, documents_list_items_en } from "../../../../applicant/upload-document/upload-document-list-items";
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
+import {
+  documents_list_items_cy,
+  documents_list_items_en,
+} from '../../../../applicant/upload-document/upload-document-list-items';
 const en = () => {
   return {
     section: 'All documents',
