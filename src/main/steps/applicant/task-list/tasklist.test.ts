@@ -60,11 +60,12 @@ describe('applicant tasklist getRemainingTaskList', () => {
             id: 'your-application',
             status: 'DOWNLOAD',
             text: 'Application submitted (PDF)',
+            openInAnotherTab: true,
           },
           {
             href: '/applicant/witnessstatements',
             id: 'your-application-witness-statment',
-            status: 'DOWNLOAD',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Witness statement (PDF)',
           },
         ],

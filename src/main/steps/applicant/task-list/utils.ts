@@ -56,6 +56,13 @@ export const getConfirmOrEditYourContactDetails = (
   return status;
 };
 
+export const getYourWitnessStatement = (userCase: CaseWithId): SectionStatus => {
+  return userCase.citizenUploadedDocumentList?.find(
+    document => document?.value?.documentType === 'Your witness statements'
+  )
+    ? SectionStatus.DOWNLOAD
+    : SectionStatus.NOT_AVAILABLE_YET;
+};
 export const getYourApplication = (): SectionStatus => {
   return SectionStatus.DOWNLOAD;
 };
@@ -102,10 +109,10 @@ export const getApplicantAllegationsOfHarmAndViolence = (userCase: CaseWithId): 
 
 export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus => {
   if (
-    userCase?.languageRequirements &&
-    userCase?.reasonableAdjustments &&
-    userCase?.safetyArrangements &&
-    userCase?.attendingToCourt
+    userCase?.languageRequirements?.length &&
+    userCase?.reasonableAdjustments?.length &&
+    userCase?.safetyArrangements?.length &&
+    userCase?.attendingToCourt?.length
   ) {
     return SectionStatus.COMPLETED;
   }

@@ -50,19 +50,19 @@ const cy: typeof en = {
   title: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
   optionHint: 'Dogfennau mewn lliw penodol',
   parkingspace: "Lle parcio yn agos i'r lleoliad",
-  parkingSpaceDetails: 'Describe why you need this',
+  parkingSpaceDetails: 'Disgrifiwch pam fod arnoch angen hyn',
   stepfree: 'Dim grisiau / mynediad ar gyfer cadair olwyn',
   wheelchair: 'Y gallu i ddefnyddio cadair olwyn a geir yn y lleoliad',
   toilet: 'Toiledau hygyrch',
   lift: 'Help i ddefnyddio lifft',
   differentchair: 'Math gwahanol o gadair',
-  differentChairDetails: 'Describe what you need',
-  differentChairDetailsHint: 'For example, a chair with back support',
+  differentChairDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  differentChairDetailsHint: 'Er enghraifft, cadair â chymorth cefn',
   building: 'Cymorth i fynd o amgylch yr adeilad',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     travellingToCourt: {
       required: 'Please select an answer',
@@ -168,7 +168,7 @@ export const form: FormContent = {
         },
 
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'travellingToCourt',

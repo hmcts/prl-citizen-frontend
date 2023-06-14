@@ -23,12 +23,12 @@ const enContent = {
 
 const cyContent = {
   title: 'A ydych chi wedi mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)?',
-  one: 'Yes',
-  two: 'No',
-  three: "I don't know",
+  one: 'Do',
+  two: 'Naddo',
+  three: 'Nid wyf yn gwybod',
   miamDetailsLabel: 'Beth yw Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)?',
   miamSubFields: miam_collapse_content_cy,
-  onlyContinue: 'Continue',
+  onlyContinue: 'Parhau',
   errors: {
     miamStart: {
       required: 'Select yes if you have attended a Mediation Information and Assessment Meeting (MIAM)',

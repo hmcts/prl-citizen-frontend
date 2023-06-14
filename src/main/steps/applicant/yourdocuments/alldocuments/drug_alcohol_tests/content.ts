@@ -1,7 +1,7 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { documents_list_items_en } from '../../../upload-document/upload-document-list-items';
+import { documents_list_items_cy, documents_list_items_en } from '../../../upload-document/upload-document-list-items';
 const en = () => {
   return {
     section: 'All documents',
@@ -47,16 +47,17 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const drugCitizenDocs: object[] = [];
+  const orders: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (
-      doc.value.documentType === documents_list_items_en.drug_and_alcohol_tests &&
-      doc.value.isApplicant === content.byApplicant
+      doc.value.isApplicant === content.byApplicant &&
+      (doc.value.documentType === documents_list_items_en.drug_and_alcohol_tests ||
+        doc.value.documentType === documents_list_items_cy.drug_and_alcohol_tests)
     ) {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );
-      drugCitizenDocs.push({
+      orders.push({
         href: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${uid}`,
         createdDate: doc.value.documentDetails.documentUploadedDate,
         fileName: doc.value.citizenDocument.document_filename,
@@ -66,6 +67,6 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    drugCitizenDocs,
+    orders,
   };
 };

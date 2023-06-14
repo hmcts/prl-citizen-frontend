@@ -31,17 +31,21 @@
           <div class="govuk-!-padding-bottom-2"></div>
         </li>
         <li>
-          <a class="govuk-link" href="#">{{findLegalAdvice}}</a>
+          <a class="govuk-link" href="https://www.gov.uk/find-legal-advice/find-legal-adviser" target="_blank">{{findLegalAdvice}}</a>
           <div class="govuk-!-padding-bottom-2"></div>
         </li>
         <li>
-          <a class="govuk-link" href="#">{{knowMoreAboutChildArrangements}}</a>
+          <a class="govuk-link" href="https://helpwithchildarrangements.service.justice.gov.uk/" target="_blank">{{knowMoreAboutChildArrangements}}</a>
           <div class="govuk-!-padding-bottom-2"></div>
         </li>
         <li>
-          <a class="govuk-link" href="#">{{knowMoreAboutAttendingCourt}}</a>
+          <a class="govuk-link" href="https://helpwithchildarrangements.service.justice.gov.uk/going-to-court" target="_blank">{{knowMoreAboutAttendingCourt}}</a>
           <div class="govuk-!-padding-bottom-2"></div>
         </li>
       </ul>
+      {%if userCase.caseTypeOfApplication === "FL401" %}
         {% include "../../common/contact-us.njk" %}
+        {% else %}
+        {% include "../../common/contact-us-c100.njk" %}
+      {% endif %}
 {% endblock %}

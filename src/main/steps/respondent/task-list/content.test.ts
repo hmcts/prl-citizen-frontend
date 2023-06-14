@@ -8,7 +8,7 @@ import { respondent_cy, respondent_en } from './section-titles';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
 const enContent = {
   title: 'Respondent tasklist',
-  respondentName: '',
+  respondentName: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -23,14 +23,14 @@ const enContent = {
 };
 const cyContent = {
   title: 'Respondent tasklist - welsh',
-  respondentName: '',
+  respondentName: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
-    [SectionStatus.DOWNLOAD]: 'DOWNLOAD (in Welsh)',
+    [SectionStatus.DOWNLOAD]: 'LLWYTHO',
     [SectionStatus.VIEW]: 'VIEW (in Welsh)',
   },
   sectionTitles: respondent_cy,
