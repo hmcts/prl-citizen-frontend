@@ -48,6 +48,7 @@ describe('DocumentUpload Get Controller', () => {
     expect(callback).not.toHaveBeenCalled();
     jest.runAllTimers();
     expect(req.session.userCase.caseId).toEqual('1111');
+    expect((req.session.paymentError = false));
     expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
   });
 
