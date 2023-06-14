@@ -11,9 +11,9 @@ import {
   APPLICANT_VIEW_ALL_DOCUMENTS,
 } from '../../../steps/urls';
 
-import { applicant_en } from './section-titles';
+import { applicant_cy, applicant_en } from './section-titles';
 import { generateApplicantTaskList } from './tasklist';
-import { applicant_tasklist_items_en } from './tasklist-items';
+import { applicant_tasklist_items_cy, applicant_tasklist_items_en } from './tasklist-items';
 import { getApplicantPartyDetails } from './utils';
 
 const en = () => ({
@@ -114,11 +114,11 @@ const cy = () => ({
   title: 'Applicant tasklist',
   applicantName: '',
   caseNumber: 'Rhif yr achos ',
-  iWant: 'I want to... (welsh)',
+  iWant: 'Rwyf eisiau...',
   findCourt: 'Find my local court (welsh)',
   legalAdvice: 'Find legal advice (welsh)',
-  childArrangements: 'Know more about child arrangements (welsh)',
-  attendingCourt: 'Know more about attending court (welsh)',
+  childArrangements: 'Gwybod mwy am drefniadau plant',
+  attendingCourt: 'Gwybod mwy am fynychu’r llys',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -127,8 +127,8 @@ const cy = () => ({
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
   },
-  sectionTitles: applicant_en,
-  taskListItems: applicant_tasklist_items_en,
+  sectionTitles: applicant_cy,
+  taskListItems: applicant_tasklist_items_cy,
 
   viewDocumentBanner: {
     bannerHeading: 'Mae gennych ddogfen newydd i edrych arni',
@@ -216,7 +216,10 @@ export const generateContent: TranslationFn = content => {
     content.userCase?.caseTypeOfApplication === 'C100'
       ? getC100Banners(content.userCase, translations, content.userIdamId)
       : getFl401Banners(content.userCase, translations, content.userIdamId);
-  const stages = content.userCase?.caseTypeOfApplication === 'C100' ? [] : buildProgressBarStages(content.userCase!);
+  const stages =
+    content.userCase?.caseTypeOfApplication === 'C100'
+      ? []
+      : buildProgressBarStages(content.userCase!, content.language);
   const req: AppRequest = content.additionalData?.req;
 
   const applicant = getApplicant(req.session.userCase, req.session.user.id);

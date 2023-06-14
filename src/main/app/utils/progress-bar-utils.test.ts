@@ -52,7 +52,7 @@ describe('progress-bar-utils', () => {
         ],
       },
     ])('should return correct stages %#', ({ data, expected }) => {
-      expect(buildProgressBarStages({ ...userCase, ...data })).toEqual(expected);
+      expect(buildProgressBarStages({ ...userCase, ...data }, 'en')).toEqual(expected);
     });
   });
 
@@ -73,7 +73,7 @@ describe('progress-bar-utils', () => {
         { active: false, ariaLabel: 'Final order stage', completed: false, title: 'Final order' },
         { active: false, ariaLabel: 'Case closed stage', completed: false, title: 'Case closed' },
       ];
-      expect(buildProgressBarStages(data)).toEqual(expected);
+      expect(buildProgressBarStages(data, 'en')).toEqual(expected);
     });
   });
 });

@@ -121,6 +121,8 @@ import {
   C7_ATTENDING_THE_COURT,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+  APPLICANT_TASKLIST_CONTACT_EMAIL,
+  APPLICANT_TASKLIST_CONTACT_POST,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -343,6 +345,14 @@ export class Routes {
         app.post(
           RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
           errorHandler(new RemoveLegalRepresentativePostController(step.form.fields).post)
+        );
+        app.post(
+          `${APPLICANT_TASKLIST_CONTACT_EMAIL}`,
+          errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
+        );
+        app.post(
+          `${APPLICANT_TASKLIST_CONTACT_POST}`,
+          errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
         );
       }
     }

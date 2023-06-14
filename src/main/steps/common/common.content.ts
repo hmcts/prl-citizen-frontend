@@ -122,6 +122,13 @@ export const en = {
   edit: 'Edit',
   appName: '- Private law - GOV.UK',
   ...appSurveyContents.en,
+  contactUs1:
+    'You can <a href="https://www.gov.uk/find-court-tribunal" class="govuk-link" target="blank">contact the relevant court</a> if you need to discuss your case.',
+  contactUs2: 'They cannot give you legal advice or answer questions about applications submitted.',
+  contactUs3:
+    'If you would like to report a problem or have a suggestion to help improve this service, send an email to: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk</a>',
+  contactUs4: 'This email should only be used for feedback on the digital service.',
+  feedback: 'FeedBack',
 };
 
 export const cy: typeof en = {
@@ -213,9 +220,16 @@ export const cy: typeof en = {
   onlyContinue: 'Parhau',
   onlycontinue: 'Parhau',
   divider: 'neu',
-  edit: 'Edit -welsh',
+  edit: 'Golygu',
   appName: '- Private law - GOV.UK (welsh)',
   ...appSurveyContents.cy,
+  contactUs1:
+    'You can <a href="https://www.gov.uk/find-court-tribunal" class="govuk-link" target="blank">contact the relevant court</a> if you need to discuss your case.-welsh',
+  contactUs2: 'They cannot give you legal advice or answer questions about applications submitted.-welsh',
+  contactUs3:
+    'If you would like to report a problem or have a suggestion to help improve this service, send an email to: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk-welsh</a>',
+  contactUs4: 'This email should only be used for feedback on the digital service.-welsh',
+  feedback: 'FeedBack-welsh',
 };
 
 export const generatePageContent = ({

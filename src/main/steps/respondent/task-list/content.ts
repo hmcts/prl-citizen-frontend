@@ -183,7 +183,7 @@ const cy = () => ({
   want: 'Rwyf eisiau ...',
   findMyLocalCourt: 'Find my local court',
   findLegalAdvice: 'Dod o hyd i gyngor cyfreithiol',
-  knowMoreAboutChildArrangements: 'Know more about child arrangements',
+  knowMoreAboutChildArrangements: 'Gwybod mwy am drefniadau plant',
   knowMoreAboutAttendingCourt: 'Gwybod mwy am fynychu’r llys',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
@@ -191,7 +191,7 @@ const cy = () => ({
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
-    [SectionStatus.DOWNLOAD]: 'DOWNLOAD (in Welsh)',
+    [SectionStatus.DOWNLOAD]: 'LLWYTHO',
     [SectionStatus.VIEW]: 'VIEW (in Welsh)',
   },
   sectionTitles: respondent_cy,
@@ -343,7 +343,7 @@ export const generateContent: TranslationFn = content => {
       ? getC100Banners(content.userCase, translations, content.userIdamId)
       : getFl401Banners(content.userCase, translations, content.userIdamId);
 
-  const stages = buildProgressBarStages(content.userCase!);
+  const stages = buildProgressBarStages(content.userCase!, content.language);
   const req: AppRequest = content.additionalData?.req;
   if (content.userCase?.caseTypeOfApplication === 'C100') {
     const respondent = getRespondentPartyDetailsCa(content.userCase, req.session.user.id);
@@ -426,7 +426,7 @@ const getFl401Banners = (userCase, translations, userIdamId) => {
   ) {
     banners.push(translations.viewDocumentBanner);
   }
-  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
+  if (userCase?.orderCollection && userCase.orderCollection.length > 0) {
     if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
       banners.push(translations.newOrderBanner);
     } else {
@@ -434,7 +434,10 @@ const getFl401Banners = (userCase, translations, userIdamId) => {
     }
   }
   // please add all the banners before this if condition, the following banner is added only if no other is present
-  if (banners.length === 0 && userCase.orderWithoutGivingNoticeToRespondent?.orderWithoutGivingNotice === YesOrNo.YES) {
+  if (
+    banners.length === 0 &&
+    userCase?.orderWithoutGivingNoticeToRespondent?.orderWithoutGivingNotice === YesOrNo.YES
+  ) {
     banners.push(translations.daRespondentBanner);
   }
   return banners;

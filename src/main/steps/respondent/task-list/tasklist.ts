@@ -116,6 +116,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
           getFinalApplicationStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
             ? '#'
             : URL.APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES,
+        openInAnotherTab: true,
       },
       {
         id: 'check_allegations_of_harm_and_violence',
@@ -125,6 +126,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
           getCheckAllegationOfHarmStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
             ? '#'
             : URL.ALLEGATION_OF_HARM_VOILENCE + UPDATE_CASE_YES,
+        openInAnotherTab: true,
       }
     );
   } else {
@@ -136,6 +138,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
         getFinalApplicationStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
           ? '#'
           : URL.APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES,
+      openInAnotherTab: true,
     });
   }
 

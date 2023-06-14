@@ -39,14 +39,15 @@ export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_tota
     request.child = {};
     PRL_c1A_concernAboutChild.forEach((abuse: string) => {
       if (PRL_c1A_safteyConcerns?.child?.[abuse]) {
+        const childrenConcern = PRL_c1A_safteyConcerns.child[abuse]?.childrenConcernedAbout;
         request.child = {
           ...request.child,
           [abuse]: {
-            ...PRL_c1A_safteyConcerns?.child?.[abuse],
-            childrenConcernedAbout: PRL_c1A_safteyConcerns?.child?.[abuse].childrenConcernedAbout?.join(','),
+            ...PRL_c1A_safteyConcerns.child[abuse],
+            childrenConcernedAbout: Array.isArray(childrenConcern) ? childrenConcern.join(',') : childrenConcern,
           },
         };
-        if (PRL_c1A_safteyConcerns?.child?.[abuse].seekHelpFromPersonOrAgency === YesOrNo.NO) {
+        if (PRL_c1A_safteyConcerns.child[abuse]?.seekHelpFromPersonOrAgency === YesOrNo.NO) {
           delete request.child?.[abuse].seekHelpDetails;
         }
       }

@@ -58,7 +58,7 @@ describe('common > summary > utils', () => {
                 text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
               },
               value: {
-                text: 'I need documents in an alternative format, I need help communicating and understanding, I need to bring support with me to a hearing, I need something to feel comfortable during a hearing, I need help travelling to, or moving around court buildings',
+                text: 'Rwyf angen dogfennau mewn fformat amgen, I need help communicating and understanding, I need to bring support with me to a hearing, I need something to feel comfortable during a hearing, I need help travelling to, or moving around court buildings',
               },
             },
             {

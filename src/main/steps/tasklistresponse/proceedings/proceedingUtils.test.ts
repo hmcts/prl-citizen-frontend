@@ -8,12 +8,12 @@ describe('test cases for otherProceedingsContents', () => {
       en: () => {
         delete en['errors'];
         delete opDetailsEnContents['errors'];
-        return { ...en(), ...opDetailsEnContents(), optitle: opDetailsEnContents().pageTitle };
+        return { ...en(), ...opDetailsEnContents(), optitle: opDetailsEnContents().title };
       },
       cy: () => {
         delete cy['errors'];
         delete opDetailsCyContents['errors'];
-        return { ...cy(), ...opDetailsCyContents(), optitle: opDetailsCyContents().pageTitle };
+        return { ...cy(), ...opDetailsCyContents(), optitle: opDetailsCyContents().title };
       },
     };
     return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
@@ -31,7 +31,7 @@ describe('test cases for otherProceedingsContents', () => {
     const keys = {};
     const URLS = {};
     const sessionKey = '';
-    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, URLS, sessionKey)).not.toBe([]);
+    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, URLS, sessionKey, 'en')).not.toBe([]);
   });
 
   test('OPotherProceedingsSessionParserUtil with some content', () => {
@@ -146,6 +146,6 @@ describe('test cases for otherProceedingsContents', () => {
     const keys = {};
     const URLS = Urls;
     const sessionKey = 'op_courtProceedingsOrders';
-    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, URLS, sessionKey)).not.toBe([]);
+    expect(OPotherProceedingsSessionParserUtil(UserCase, keys, URLS, sessionKey, 'en')).not.toBe([]);
   });
 });

@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars*/
 /* eslint-disable @typescript-eslint/no-explicit-any*/
-import { applicantContactPreferencesEnum } from '../../../../app/case/definition';
+import { PartyDetails, applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { interpolate } from '../../../../steps/common/string-parser';
+import { getPartyDetails } from '../../../../steps/tasklistresponse/utils';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -73,8 +74,8 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (caseData: any): GenerateDynamicFormFields => {
-  const contactPreferences = caseData?.value?.contactPreferences;
+export const generateFormFields = (partyDetails: PartyDetails): GenerateDynamicFormFields => {
+  const contactPreferences = partyDetails?.contactPreferences;
 
   const errors = {
     en: {},
@@ -121,16 +122,14 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (caseData: any): FormContent => {
-  return updateFormFields(form, generateFormFields(caseData.userCase!.applicants![0]).fields);
-};
-
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
   const caseNumber = content.userCase?.id!;
+  const { user, userCase } = content.additionalData?.req.session;
+  const partyDetails = getPartyDetails(userCase, user.id) as PartyDetails;
   // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-  const { fields } = generateFormFields(content?.userCase?.applicants![0]);
+  const { fields } = generateFormFields(partyDetails);
 
   return {
     ...translations,

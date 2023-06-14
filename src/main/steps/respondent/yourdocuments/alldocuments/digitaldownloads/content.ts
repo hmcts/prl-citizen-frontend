@@ -1,6 +1,9 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
+import {
+  documents_list_items_cy,
+  documents_list_items_en,
+} from '../../../../../steps/respondent/upload-document/upload-document-list-items';
 
 const en = () => {
   return {
@@ -25,28 +28,13 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
-  fields: userCase => {
-    return {
-      caseNumber: {
-        label: l => l.caseNumber + '' + userCase.caseCode,
-        type: 'hidden',
-        labelHidden: true,
-      },
-    };
-  },
-  submit: {
-    text: l => l.continue,
-    classes: 'govuk-button--secondary',
-  },
-};
-
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (
-      doc.value.documentType === 'Emails, screenshots, images and other media files' &&
+      (doc.value.documentType === documents_list_items_en.mail_screenshots_media_files ||
+        doc.value.documentType === documents_list_items_cy.mail_screenshots_media_files) &&
       content.byApplicant === doc.value.isApplicant
     ) {
       const uid = doc.value.citizenDocument.document_url.substring(

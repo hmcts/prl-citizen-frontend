@@ -11,6 +11,7 @@ import {
   getUploadDocuments,
   getViewAllDocuments,
   getYourApplication,
+  getYourWitnessStatement,
 } from './utils';
 
 export const generateApplicantTaskList = (
@@ -130,11 +131,12 @@ const getTheApplication = (taskListItems, userCase) => {
         text: taskListItems.your_application,
         status: getYourApplication(),
         href: URL.YOUR_APPLICATION_FL401,
+        openInAnotherTab: true,
       },
       {
         id: 'your-application-witness-statment',
         text: taskListItems.your_application_witness_statement,
-        status: getYourApplication(),
+        status: getYourWitnessStatement(userCase),
         href: URL.APPLICANT_WITNESS_STATEMENTS_DA,
       },
     ];

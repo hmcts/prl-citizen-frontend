@@ -11,6 +11,7 @@ const en = {
   twoHint:
     'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
   continue: 'Continue',
+  provideDetails: 'Provide details',
   errors: {
     jurisdiction: {
       required:
@@ -33,7 +34,8 @@ const cy: typeof en = {
   two: 'Na allai',
   twoHint:
     'Er enghraifft, am fod gan lys mewn gwlad arall y pŵer (awdurdodaeth) i wneud penderfyniadau neu ddyfarniadau.',
-  continue: 'Continue',
+  continue: 'Parhau',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     jurisdiction: {
       required:
@@ -69,7 +71,7 @@ export const form: FormContent = {
           subFields: {
             iFactorsJurisdictionProvideDetails: {
               type: 'textarea',
-              label: 'Provide details',
+              label: l => l.provideDetails,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },

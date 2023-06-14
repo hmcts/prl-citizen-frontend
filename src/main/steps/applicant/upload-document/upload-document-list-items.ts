@@ -21,7 +21,7 @@ export const documents_list_items_cy = {
   mail_screenshots_media_files: 'Negeseuon e-bost, cipluniau, delweddau a ffeiliau cyfryngau eraill',
   medical_records: 'Cofnodion meddygol',
   letters_from_school: 'Llythyrau gan yr ysgol',
-  tenancy_mortgage_agreements: 'Cytundebau tenantiaeth a morgais',
+  tenancy_mortgage_agreements: 'Tenantiaeth a morgais',
   previous_orders_submitted: "Gorchmynion blaenorol wedi'u cyflwyno gyda'r cais",
   medical_reports: 'Adroddiadau meddygol',
   paternity_test_reports: 'Adroddiadau profion tadolaeth',
