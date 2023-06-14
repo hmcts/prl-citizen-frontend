@@ -52,9 +52,9 @@ const cy: typeof en = {
   videoLinks: 'Cyswllt fideo',
   videoLinksHint: 'Mae angen i farnwr gymeradwyo hyn',
   other: 'Arall',
-  otherDetails: 'Provide details of what you or the children need',
+  otherDetails: 'Darparwch fanylion am yr hyn rydych chi neu’r plant ei angen',
   noSupport: 'Nac oes, nid oes gennyf unrhyw ofynion o ran diogelwch ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     safetyArrangements: {
       required: 'Please select an answer',

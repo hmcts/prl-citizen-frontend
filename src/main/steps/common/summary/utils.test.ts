@@ -3,6 +3,7 @@ import { ProceedingsOrderTypes, State } from '../../../app/case/definition';
 //import { State } from '../../../app/case/definition';
 import { SummaryList } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
+import { language } from '../breadcrumb/content';
 
 import { getOrdersDetail, getSelectedPrivateDetails, summaryCaseList, summaryList } from './utils';
 
@@ -198,7 +199,7 @@ describe('common > summary > utils', () => {
         expected: '<br/><br/><ul class="govuk-list govuk-list--bullet"><li>Address</li><li>PhoneNumber</li></ul>',
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(expected).toEqual(getSelectedPrivateDetails(userCase));
+      expect(expected).toEqual(getSelectedPrivateDetails(userCase, language));
     });
   });
   describe('Return correct getOrdersDetail', () => {

@@ -22,7 +22,7 @@ const enContent = {
 
 const cyContent: typeof enContent = {
   section: 'Eich gwrandawiadau llys',
-  title: 'Your Hearings (welsh)',
+  title: 'Eich gwrandawiadau',
   goBack: 'Mynd yn ôl',
   caseNumber: 'Rhif yr achos',
   yourPreviousHearings: 'Eich gwrandawiadau blaenorol',

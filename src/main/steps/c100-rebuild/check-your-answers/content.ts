@@ -336,6 +336,9 @@ export const cyContent = {
     ydyTranslation: {
       Yes: 'Ydy',
       No: 'Nac ydy',
+      yes: 'Ydy',
+      no: 'Nac ydy',
+      dontKnow: 'Nid wyf yn gwybod',
     },
     ydwSpecial: {
       Yes: 'Ydw',
@@ -380,6 +383,10 @@ export const cyContent = {
     ieTranslation: {
       Yes: 'Ie',
       No: 'Na',
+    },
+    byddwnTranslation: {
+      Yes: 'Byddwn',
+      No: 'Na fyddwn',
     },
   },
 };

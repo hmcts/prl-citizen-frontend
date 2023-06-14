@@ -19,15 +19,15 @@ export const enContent = {
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers -welsh',
+  section: 'Gwirio eich atebion',
   title: 'Mediation Information and Assessment Meeting (MIAM) attendance -welsh',
   sectionTitles: {
     MIAMDetails: '',
   },
   keys: {
-    miamStart: 'Have you attended a MIAM? -welsh',
-    miamWillingness: 'Would you be willing to attend a MIAM? -welsh',
-    miamNotWillingExplnation: 'Explain why you are not willing to attend a MIAM? -welsh',
+    miamStart: 'Ydych chi wedi mynychu MIAM?',
+    miamWillingness: "A fyddech chi'n fodlon mynychu MIAM?",
+    miamNotWillingExplnation: "Esboniwch pam nad ydych chi'n fodlon mynychu MIAM?",
   },
 };
 
