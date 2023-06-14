@@ -585,6 +585,9 @@ export interface Case {
   draftOrderDoc?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
+  awp_need_hwf?: YesOrNo;
+  awp_have_hwfReference?: YesOrNo;
+  awp_hwf_referenceNumber?: string;
 }
 
 export interface CaseWithId extends Case {
