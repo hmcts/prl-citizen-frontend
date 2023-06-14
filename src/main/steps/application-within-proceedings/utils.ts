@@ -1,8 +1,5 @@
 import { AWPApplicationReason, AWPApplicationType, CaseType, PartyType } from '../../app/case/definition';
 import { AppSession } from '../../app/controller/AppRequest';
-import { FormContent } from '../../app/form/Form';
-import { applyParms } from '../../steps/common/url-parser';
-import { PageLink } from '../../steps/urls';
 
 import { languages as applicationReasonTranslation } from './content';
 
@@ -360,19 +357,4 @@ export const getApplicationDetails = (
   }
 
   return appDetails;
-};
-
-export const generateCancelLink = (
-  previousLink: PageLink,
-  applicationType: AWPApplicationType,
-  applicationReason: AWPApplicationReason
-): FormContent['link'] => {
-  return {
-    classes: 'govuk-!-margin-left-3',
-    href: applyParms(previousLink, {
-      applicationType,
-      applicationReason,
-    }) as PageLink,
-    text: l => l.cancel,
-  };
 };

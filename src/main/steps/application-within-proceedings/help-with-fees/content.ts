@@ -3,8 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE } from '../../../steps/urls';
-import { generateCancelLink, getApplicationDetails } from '../utils';
+import { getApplicationDetails } from '../utils';
 
 export const en = {
   title: 'Help with fees',
@@ -68,6 +67,11 @@ export const form: FormContent = {
   onlyContinue: {
     text: l => l.onlyContinue,
   },
+  link: {
+    classes: 'govuk-!-margin-left-3',
+    href: '/',
+    text: l => l.cancel,
+  },
 };
 
 export const generateContent: TranslationFn = content => {
@@ -88,14 +92,7 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    form: {
-      ...form,
-      link: generateCancelLink(
-        APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
-        applicationDetails!.applicationType,
-        applicationDetails!.applicationReason
-      ),
-    },
+    form,
     applicationFee: applicationDetails?.applicationFee,
     caption: applicationDetails?.reasonText,
   };
