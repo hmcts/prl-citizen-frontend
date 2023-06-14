@@ -1,9 +1,6 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import {
-  documents_list_items_cy,
-  documents_list_items_en,
-} from '../../../../../steps/respondent/upload-document/upload-document-list-items';
+import { documents_list_items_en } from '../../../../../steps/respondent/upload-document/upload-document-list-items';
 
 const en = () => {
   return {
@@ -34,8 +31,7 @@ export const generateContent: TranslationFn = content => {
   const docs = content.userCase?.citizenUploadedDocumentList?.filter(doc => {
     if (
       doc.value.uploadedBy === content.userIdamId &&
-      (doc.value.documentType === documents_list_items_en.tenancy_mortgage_agreements ||
-        doc.value.documentType === documents_list_items_cy.tenancy_mortgage_agreements)
+      doc.value.documentType === documents_list_items_en.tenancy_mortgage_agreements
     ) {
       return doc;
     }
