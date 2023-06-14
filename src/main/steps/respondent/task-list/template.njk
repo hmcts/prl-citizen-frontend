@@ -43,5 +43,9 @@
           <div class="govuk-!-padding-bottom-2"></div>
         </li>
       </ul>
+      {%if userCase.caseTypeOfApplication === "FL401" %}
         {% include "../../common/contact-us.njk" %}
+        {% else %}
+        {% include "../../common/contact-us-c100.njk" %}
+      {% endif %}
 {% endblock %}

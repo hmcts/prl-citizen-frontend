@@ -42,7 +42,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
           partyDetails,
           partyType,
           userCase.caseTypeOfApplication as CaseType,
-          CaseEvent.PARTY_PERSONAL_DETAILS
+          CaseEvent.KEEP_DETAILS_PRIVATE
         );
         mapDataInSession(req.session.userCase, user.id);
         req.session.save(() => {
@@ -50,7 +50,7 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
           res.redirect(redirectUrl);
         });
       } catch (error) {
-        throw new Error('SafetyConcernsPostController - Case could not be updated.');
+        throw new Error('KeepDetailsPrivatePostController - Case could not be updated.');
       }
     }
   }

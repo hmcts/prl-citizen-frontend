@@ -135,7 +135,7 @@ export const SupportYouNeedAllEnum = {
     emailInfo: 'Information emailed to me',
     docsprint: 'Documents in a specified colour',
     //Reasonable adjustments
-    docsformat: 'I need documents in an alternative format',
+    docsformat: 'Rwyf angen dogfennau mewn fformat amgen',
     commhelp: 'I need help communicating and understanding',
     hearingsupport: 'I need to bring support with me to a hearing',
     hearingcomfort: 'I need something to feel comfortable during a hearing',

@@ -70,19 +70,19 @@ const cy: typeof en = {
       required: 'Please select an answer',
     },
     otherDetails: {
-      required: 'Please provide the details',
+      required: 'Rhowch fanylion',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     largePrintDetails: {
-      required: 'Please provide the large print details',
+      required: 'Rhowch fanylion y print bras',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     docsDetails: {
-      required: 'Please provide the docs details',
+      required: 'Rhowch fanylion y dogfennau',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',

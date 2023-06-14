@@ -378,7 +378,7 @@ const languages = {
 
 const enContent = {
   title: 'Respondent tasklist',
-  respondentName: '',
+  respondentName: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -394,14 +394,14 @@ const enContent = {
 
 const cyContent = {
   title: 'Respondent tasklist - welsh',
-  respondentName: '',
+  respondentName: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
-    [SectionStatus.DOWNLOAD]: 'DOWNLOAD (in Welsh)',
+    [SectionStatus.DOWNLOAD]: 'LLWYTHO',
     [SectionStatus.VIEW]: 'VIEW (in Welsh)',
   },
   sectionTitles: respondent_cy,

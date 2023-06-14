@@ -102,8 +102,10 @@ export const en = {
   rejectAnalyticsCookies: 'Reject analytics cookies',
   viewCookies: 'View cookies',
   hideMessage: 'Hide this message',
-  cookiesConfirmationMessage:
-    '<p class="govuk-body">You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>',
+  cookiesAcceptedPart: 'You’ve accepted additional cookies. You can',
+  cookiesAcceptorRejectPart2: 'change your cookie settings',
+  cookiesAcceptorRejectPart3: 'at any time.',
+  cookiesRejectedPart: 'You’ve rejected additional cookies. You can',
   changeCookiesHeading: 'Change your cookie settings',
   allowAnalyticsCookies: 'Allow cookies that measure website use?',
   useAnalyticsCookies: 'Use cookies that measure my website use',
@@ -120,6 +122,13 @@ export const en = {
   edit: 'Edit',
   appName: '- Private law - GOV.UK',
   ...appSurveyContents.en,
+  contactUs1:
+    'You can <a href="https://www.gov.uk/find-court-tribunal" class="govuk-link" target="blank">contact the relevant court</a> if you need to discuss your case.',
+  contactUs2: 'They cannot give you legal advice or answer questions about applications submitted.',
+  contactUs3:
+    'If you would like to report a problem or have a suggestion to help improve this service, send an email to: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk</a>',
+  contactUs4: 'This email should only be used for feedback on the digital service.',
+  feedback: 'FeedBack',
 };
 
 export const cy: typeof en = {
@@ -199,6 +208,13 @@ export const cy: typeof en = {
   findOutCharges: 'Gwybodaeth am brisiau galwadau',
   openNewWindow: '(agor mewn ffenestr newydd)',
   telephone: 'Ffôn',
+  cookiesLine1: 'We use some essential cookies to make this service work. - welsh',
+  cookiesLine2:
+    'We’d like to set additional cookies so we can remember your settings, understand how people use the service and to improve government services. - welsh',
+  cookiesAcceptedPart: 'You’ve accepted additional cookies. You can - welsh',
+  cookiesAcceptorRejectPart2: 'change your cookie settings - welsh',
+  cookiesAcceptorRejectPart3: 'at any time. - welsh',
+  cookiesRejectedPart: 'You’ve rejected additional cookies. You can - welsh',
   telephoneNumber: '0300 303 0742',
   telephoneDetails: 'Dydd Llun i ddydd Gwener, 8am i 8pm',
   onlyContinue: 'Parhau',
@@ -207,6 +223,13 @@ export const cy: typeof en = {
   edit: 'Golygu',
   appName: '- Private law - GOV.UK (welsh)',
   ...appSurveyContents.cy,
+  contactUs1:
+    'You can <a href="https://www.gov.uk/find-court-tribunal" class="govuk-link" target="blank">contact the relevant court</a> if you need to discuss your case.-welsh',
+  contactUs2: 'They cannot give you legal advice or answer questions about applications submitted.-welsh',
+  contactUs3:
+    'If you would like to report a problem or have a suggestion to help improve this service, send an email to: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk-welsh</a>',
+  contactUs4: 'This email should only be used for feedback on the digital service.-welsh',
+  feedback: 'FeedBack-welsh',
 };
 
 export const generatePageContent = ({

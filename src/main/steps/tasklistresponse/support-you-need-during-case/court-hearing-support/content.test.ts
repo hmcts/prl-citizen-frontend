@@ -76,25 +76,25 @@ const cy: typeof en = {
       required: 'Select what you need to bring support with you to a court hearing',
     },
     supportWorkerDetails: {
-      required: 'Please provide support worker details',
+      required: 'Rhowch fanylion eich gweithiwr cymorth',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     familyProviderDetails: {
-      required: 'Please provide family member details',
+      required: 'Rhowch fanylion aelod o’ch teulu',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     therapyDetails: {
-      required: 'Please provide therapy animal details',
+      required: 'Rhowch fanylion yr anifail therapi',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     communicationSupportOther: {
-      required: 'Please provide the details',
+      required: 'Rhowch fanylion',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
