@@ -12,8 +12,8 @@ const en = {
   checkGuidance:
     'You can check the help with fees guidance on <a href="https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a" class="govuk-link" rel="external" target="_blank">GOV.UK (opens in a new tab)</a> to find out if you are eligible for support.',
   usingHelpWithFees: 'Will you be using help with fees to pay for this application?',
-  one: 'Yes',
-  two: 'No',
+  yes: 'Yes',
+  no: 'No',
   onlyContinue: 'Continue',
   cancel: 'Cancel',
   errors: {
@@ -29,8 +29,8 @@ const cy: typeof en = {
   checkGuidance:
     'You can check the help with fees guidance on <a href="https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a" class="govuk-link" rel="external" target="_blank">GOV.UK (opens in a new tab)</a> to find out if you are eligible for support. (welsh)',
   usingHelpWithFees: 'Will you be using help with fees to pay for this application? (welsh)',
-  one: 'Yes (welsh)',
-  two: 'No (welsh)',
+  yes: 'Yes (welsh)',
+  no: 'No (welsh)',
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   errors: {
@@ -89,8 +89,8 @@ describe('help with fees content', () => {
 
     expect(helpWithFeesFields.type).toBe('radios');
     expect((helpWithFeesFields.label as Function)(generatedContent)).toBe(en.usingHelpWithFees);
-    expect((helpWithFeesFields.values[0].label as Function)(generatedContent)).toBe(en.one);
-    expect((helpWithFeesFields.values[1].label as Function)(generatedContent)).toBe(en.two);
+    expect((helpWithFeesFields.values[0].label as Function)(generatedContent)).toBe(en.yes);
+    expect((helpWithFeesFields.values[1].label as Function)(generatedContent)).toBe(en.no);
     expect(helpWithFeesFields.validator).toBe(isFieldFilledIn);
   });
 

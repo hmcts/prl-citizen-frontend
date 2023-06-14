@@ -13,8 +13,8 @@ export const en = {
   referenceText:
     'You will have received this number when you applied for Help with Fees. This reference must not have been used for a previous application.',
   hint: 'For example, HWF-A1B-23C',
-  one: 'Yes',
-  two: 'No',
+  yes: 'Yes',
+  no: 'No',
   onlyContinue: 'Continue',
   cancel: 'Cancel',
   errors: {
@@ -34,8 +34,8 @@ export const cy: typeof en = {
   referenceText:
     'You will have received this number when you applied for Help with Fees. This reference must not have been used for a previous application. (welsh)',
   hint: 'For example, HWF-A1B-23C (welsh)',
-  one: 'Yes (welsh)',
-  two: 'No (welsh)',
+  yes: 'Yes (welsh)',
+  no: 'No (welsh)',
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   errors: {
@@ -60,7 +60,7 @@ export const form: FormContent = {
       classes: 'govuk-radios',
       values: [
         {
-          label: l => l.one,
+          label: l => l.yes,
           value: YesOrNo.YES,
           subFields: {
             awp_hwf_referenceLabel: {
@@ -77,7 +77,7 @@ export const form: FormContent = {
           },
         },
         {
-          label: l => l.two,
+          label: l => l.no,
           value: YesOrNo.NO,
         },
       ],

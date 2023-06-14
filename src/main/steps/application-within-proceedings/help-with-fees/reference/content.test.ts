@@ -13,8 +13,8 @@ const en = {
   referenceText:
     'You will have received this number when you applied for Help with Fees. This reference must not have been used for a previous application.',
   hint: 'For example, HWF-A1B-23C',
-  one: 'Yes',
-  two: 'No',
+  yes: 'Yes',
+  no: 'No',
   onlyContinue: 'Continue',
   cancel: 'Cancel',
   errors: {
@@ -34,8 +34,8 @@ const cy: typeof en = {
   referenceText:
     'You will have received this number when you applied for Help with Fees. This reference must not have been used for a previous application. (welsh)',
   hint: 'For example, HWF-A1B-23C (welsh)',
-  one: 'Yes (welsh)',
-  two: 'No (welsh)',
+  yes: 'Yes (welsh)',
+  no: 'No (welsh)',
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   errors: {
@@ -100,7 +100,7 @@ describe('help with fees content', () => {
       ?.awp_hwf_referenceNumber as FormInput;
 
     expect(helpWithFeesReferenceFields.type).toBe('radios');
-    expect((helpWithFeesReferenceFields.values[0].label as Function)(generatedContent)).toBe(en.one);
+    expect((helpWithFeesReferenceFields.values[0].label as Function)(generatedContent)).toBe(en.yes);
 
     expect(referenceSubField?.type).toBe('textAndHtml');
     expect((referenceSubField?.textAndHtml as Function)(generatedContent)).toBe(en.enterReferenceNumber);
@@ -109,7 +109,7 @@ describe('help with fees content', () => {
     expect((referenceNumberSubField?.label as Function)(generatedContent)).toBe(en.referenceText);
     expect((referenceNumberSubField?.hint as Function)(generatedContent)).toBe(en.hint);
 
-    expect((helpWithFeesReferenceFields.values[1].label as Function)(generatedContent)).toBe(en.two);
+    expect((helpWithFeesReferenceFields.values[1].label as Function)(generatedContent)).toBe(en.no);
     expect(helpWithFeesReferenceFields.validator).toBe(isFieldFilledIn);
   });
 
