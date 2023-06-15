@@ -1,10 +1,7 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import {
-  applicant_tasklist_items_all_docs_cy,
-  applicant_tasklist_items_all_docs_en,
-} from '../alldocuments/tasklist-items-all-documents';
+import { applicant_tasklist_items_all_docs_en } from '../alldocuments/tasklist-items-all-documents';
 
 const en = () => {
   return {
@@ -52,8 +49,7 @@ export const generateContent: TranslationFn = content => {
   const docs = content.userCase?.citizenUploadedDocumentList?.filter(doc => {
     if (
       doc.value.uploadedBy === content.userIdamId &&
-      (doc.value.documentType === applicant_tasklist_items_all_docs_en.other_people_witness_statements ||
-        doc.value.documentType === applicant_tasklist_items_all_docs_cy.other_people_witness_statements)
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.other_people_witness_statements
     ) {
       return doc;
     }

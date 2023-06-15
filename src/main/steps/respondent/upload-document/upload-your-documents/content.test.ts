@@ -79,6 +79,14 @@ jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
+  commonContent.additionalData = {
+    req: {
+      query: {
+        parentDocType: 'parent',
+        docType: 'doc',
+      },
+    },
+  };
   let generatedContent;
   let form;
   let fields;

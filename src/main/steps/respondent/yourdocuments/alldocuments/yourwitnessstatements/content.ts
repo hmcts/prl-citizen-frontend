@@ -1,9 +1,6 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import {
-  documents_list_items_cy,
-  documents_list_items_en,
-} from '../../../../../steps/respondent/upload-document/upload-document-list-items';
+import { documents_list_items_en } from '../../../../../steps/respondent/upload-document/upload-document-list-items';
 
 const en = () => {
   return {
@@ -34,8 +31,7 @@ export const generateContent: TranslationFn = content => {
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (
       doc.value.partyName === content.name &&
-      (doc.value.documentType === documents_list_items_en.your_witness_statements ||
-        doc.value.documentType === documents_list_items_cy.your_witness_statements)
+      doc.value.documentType === documents_list_items_en.your_witness_statements
     ) {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
