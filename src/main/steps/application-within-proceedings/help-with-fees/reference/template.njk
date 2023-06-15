@@ -1,0 +1,9 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+  <span class="govuk-caption-l">{{ caption }}</span>
+  {% if title %}
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+  {% endif %}
+
+{% endblock %}
