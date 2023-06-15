@@ -115,9 +115,11 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-
+  const { parentDocType, docType } = content.additionalData!.req.query;
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    parentDocType,
+    docType,
   };
 };
