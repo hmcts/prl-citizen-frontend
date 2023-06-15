@@ -2977,7 +2977,6 @@ export enum CaseType {
 
 export enum CaseEvent {
   EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement',
-  OTHER_PROCEEDINGS = 'otherProceedings',
   KEEP_DETAILS_PRIVATE = 'keepYourDetailsPrivate', 
   CONFIRM_YOUR_DETAILS = 'confirmYourDetails',
   SUPPORT_YOU_DURING_CASE = 'hearingNeeds',
@@ -2985,10 +2984,8 @@ export enum CaseEvent {
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   SAFETY_CONCERNS = 'citizenSafetyConcerns',
   MIAM = 'respondentMiam',
-  CITIZEN_RESPONSE_C7 = 'reviewAndSubmit',
   PARTY_PERSONAL_DETAILS = 'linkCitizenAccount',
   CITIZEN_INTERNAL_CASE_UPDATE = 'citizen-internal-case-update',
-  WITHDRAW_CITIZEN_CASE ='citizenCaseWithdraw',
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
 }
 
