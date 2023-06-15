@@ -67,7 +67,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
           partyDetails,
           partyType,
           userCase.caseTypeOfApplication as CaseType,
-          CaseEvent.PARTY_PERSONAL_DETAILS
+          CaseEvent.CONFIRM_YOUR_DETAILS
         );
         mapDataInSession(req.session.userCase, user.id);
         req.session.save(() => {
