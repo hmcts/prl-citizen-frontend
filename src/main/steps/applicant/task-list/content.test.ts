@@ -67,7 +67,7 @@ const cyContent = {
   },
   sectionTitles: applicant_cy,
   taskListItems: applicant_tasklist_items_cy,
-  iWantTo: 'I want to...-welsh',
+  iWantTo: 'Rwyf eisiau ...',
   hyperlinks: [
     {
       label: 'Add a legal representative-welsh',
@@ -82,7 +82,7 @@ const cyContent = {
       link: '#',
     },
     {
-      label: 'Know more about child arrangements-welsh',
+      label: 'Gwybod mwy am drefniadau plant',
       link: '#',
     },
     {

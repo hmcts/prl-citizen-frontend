@@ -174,7 +174,7 @@ const cy = () => ({
       },
     ],
   },
-  iWantTo: 'I want to...-welsh',
+  iWantTo: 'Rwyf eisiau ...',
   hyperlinks: [
     {
       label: 'Add a legal representative-welsh',
@@ -193,7 +193,7 @@ const cy = () => ({
       link: '#',
     },
     {
-      label: 'Know more about child arrangements-welsh',
+      label: 'Gwybod mwy am drefniadau plant',
       link: '#',
     },
     {

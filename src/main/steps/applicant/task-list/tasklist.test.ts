@@ -59,9 +59,9 @@ describe('applicant tasklist getRemainingTaskList', () => {
           {
             href: '/applicant/public/docs/FL401-Final-Document.pdf',
             id: 'your-application',
+            openInAnotherTab: true,
             status: 'DOWNLOAD',
             text: 'Application submitted (PDF)',
-            openInAnotherTab: true,
           },
           {
             href: '/applicant/witnessstatements',
@@ -263,13 +263,14 @@ describe('applicant tasklist getRemainingTaskList', () => {
           {
             href: '/applicant/public/docs/FL401-Final-Document.pdf',
             id: 'your-application',
+            openInAnotherTab: true,
             status: 'DOWNLOAD',
             text: 'Application submitted (PDF)',
           },
           {
             href: '/applicant/witnessstatements',
             id: 'your-application-witness-statment',
-            status: 'DOWNLOAD',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Witness statement (PDF)',
           },
         ],
