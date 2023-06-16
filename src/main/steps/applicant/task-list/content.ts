@@ -20,11 +20,6 @@ const en = () => ({
   title: 'Applicant tasklist',
   applicantName: '',
   caseNumber: 'Case number  ',
-  iWant: 'I want to...',
-  findCourt: 'Find my local court',
-  legalAdvice: 'Find legal advice',
-  childArrangements: 'Know more about child arrangements',
-  attendingCourt: 'Know more about attending court',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -114,11 +109,6 @@ const cy = () => ({
   title: 'Applicant tasklist',
   applicantName: '',
   caseNumber: 'Rhif yr achos ',
-  iWant: 'Rwyf eisiau...',
-  findCourt: 'Find my local court (welsh)',
-  legalAdvice: 'Find legal advice (welsh)',
-  childArrangements: 'Gwybod mwy am drefniadau plant',
-  attendingCourt: 'Gwybod mwy am fynychu’r llys',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -197,7 +187,7 @@ const cy = () => ({
       link: '#',
     },
     {
-      label: 'Know more about attending court-welsh',
+      label: 'Gwybod mwy am fynychu’r llys',
       link: '#',
     },
   ],
