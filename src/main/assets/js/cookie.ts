@@ -45,7 +45,7 @@ cookieManager.init({
     },
     {
       categoryName: 'apm',
-      cookies: ['dtCookie', 'dtLatC', 'dtPC', 'dtSa', 'dtValidationCookie', 'dtDisabled', 'rxVisitor', 'rxvt'],
+      cookies: ['dtCookie', 'dtLatC', 'dtPC', 'dtSa', 'rxVisitor', 'rxvt'],
     },
   ],
 });
