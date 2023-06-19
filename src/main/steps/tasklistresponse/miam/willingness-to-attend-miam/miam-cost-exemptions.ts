@@ -37,5 +37,7 @@ export const miam_cost_exemption_content_cy = `<div>
 </div>`;
 export const miam_how_to_arrange_mediation_link =
   'https://www.familymediationcouncil.org.uk/i-want-to-try-mediation-what-do-i-do/';
-export const miam_how_to_arrange_mediation_label_en = 'How to arrange a mediation?';
-export const miam_how_to_arrange_mediation_label_cy = 'How to arrange a mediation?';
+export const miam_how_to_arrange_mediation_label_en =
+  '<a href="https://www.familymediationcouncil.org.uk/i-want-to-try-mediation-what-do-i-do/" class="govuk-link" target="_blank" aria-label="How to arrange a mediation?">How to arrange a mediation?</a>';
+export const miam_how_to_arrange_mediation_label_cy =
+  '<a href="https://www.familymediationcouncil.org.uk/i-want-to-try-mediation-what-do-i-do/" class="govuk-link" target="_blank" aria-label="How to arrange a mediation?">How to arrange a mediation?</a>';
