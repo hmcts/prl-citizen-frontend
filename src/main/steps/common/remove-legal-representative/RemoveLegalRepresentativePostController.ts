@@ -20,7 +20,6 @@ export class RemoveLegalRepresentativePostController extends PostController<AnyO
   }
 
   public async post(req: AppRequest, res: Response): Promise<void> {
-    console.log('inside RemoveLegalRepresentativePostController');
     const { user, userCase } = req.session;
     const client = new CosApiClient(user.accessToken, 'https://return-url');
     const partyDetails = getPartyDetails(userCase, user.id);
