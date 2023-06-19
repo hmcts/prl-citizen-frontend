@@ -14,17 +14,11 @@ import {
   getYourWitnessStatement,
 } from './utils';
 
-export const generateApplicantTaskList = (
-  sectionTitles,
-  taskListItems,
-  userCase,
-  userIdamId,
-  isRepresentedBySolicotor
-) => {
+export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   const isCaseClosed = userCase.state === State.ALL_FINAL_ORDERS_ISSUED;
 
   return [
-    !isCaseClosed && !isRepresentedBySolicotor
+    !isCaseClosed
       ? {
           title: sectionTitles.applicantYourDetails,
           items: [
@@ -53,9 +47,7 @@ export const generateApplicantTaskList = (
       title: sectionTitles.yourApplication,
       items: [...getTheApplication(taskListItems, userCase)],
     },
-    ...(!isCaseClosed && !isRepresentedBySolicotor
-      ? getYourResponse(sectionTitles, taskListItems, userCase, userIdamId)
-      : []),
+    ...(!isCaseClosed ? getYourResponse(sectionTitles, taskListItems, userCase, userIdamId) : []),
     {
       title: sectionTitles.courtHearings,
       items: [
@@ -70,14 +62,12 @@ export const generateApplicantTaskList = (
     {
       title: sectionTitles.yourDocuments,
       items: [
-        !isRepresentedBySolicotor
-          ? {
-              id: 'upload-document',
-              text: taskListItems.upload_document,
-              status: getUploadDocuments(),
-              href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-            }
-          : null,
+        {
+          id: 'upload-document',
+          text: taskListItems.upload_document,
+          status: getUploadDocuments(),
+          href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
+        },
         !isCaseClosed
           ? {
               id: 'view-all-documents',

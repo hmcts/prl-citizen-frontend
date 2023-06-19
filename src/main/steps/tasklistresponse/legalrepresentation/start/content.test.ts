@@ -28,7 +28,7 @@ const enContent = {
     },
   },
   find: 'Find legal representation',
-  legal: 'Do you need legal aid?',
+  legal: 'Find legal representation',
 };
 
 const cyContent = {

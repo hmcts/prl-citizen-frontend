@@ -22,18 +22,30 @@
   {% include "../../common/notifyBanner.njk" %}
 {% endblock %}
 {% block oneThird %}
-          <h2 class="govuk-heading-m">{{iWantTo}}</h2>
-          <ul class="govuk-list">
-          {% for hyperlink in hyperlinks %}
-            <li>
-              <a href="{{hyperlink.link}}" class="govuk-link">{{hyperlink.label}}</a>
-              <div class="govuk-!-padding-bottom-2"></div>
-            </li>
-          {% endfor %}
-          </ul class="govuk-list">
-          {%if userCase.caseTypeOfApplication === "FL401" %}
-            {% include "../../common/contact-us.njk" %}
-            {% else %}
-            {% include "../../common/contact-us-c100.njk" %}
-          {% endif %}
+      <h2 class="govuk-heading-m">
+        {{want}}
+      </h2>
+      <ul class="govuk-list">
+        <li>
+          <a class="govuk-link" href="#">{{findMyLocalCourt}}</a>
+          <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+        <li>
+          <a class="govuk-link" href="https://www.gov.uk/find-legal-advice/find-legal-adviser" target="_blank">{{findLegalAdvice}}</a>
+          <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+        <li>
+          <a class="govuk-link" href="https://helpwithchildarrangements.service.justice.gov.uk/" target="_blank">{{knowMoreAboutChildArrangements}}</a>
+          <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+        <li>
+          <a class="govuk-link" href="https://helpwithchildarrangements.service.justice.gov.uk/going-to-court" target="_blank">{{knowMoreAboutAttendingCourt}}</a>
+          <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+      </ul>
+      {%if userCase.caseTypeOfApplication === "FL401" %}
+        {% include "../../common/contact-us.njk" %}
+        {% else %}
+        {% include "../../common/contact-us-c100.njk" %}
+      {% endif %}
 {% endblock %}

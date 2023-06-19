@@ -12,7 +12,6 @@ describe('generateRespondentTaskList', () => {
       userCase: { ...mockUserCase, legalRepresentation: YesOrNo.NO },
       userIdamId: '12345',
     };
-    const isRepresentedBySolicotor = false;
     const expected = [
       {
         title: sectionTitles.aboutYou,
@@ -43,9 +42,9 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'check_the_application',
             text: taskListItems.check_the_application,
-            openInAnotherTab: true,
             status: 'NOT_AVAILABLE_YET',
             href: '#',
+            openInAnotherTab: true,
           },
         ],
       },
@@ -89,9 +88,7 @@ describe('generateRespondentTaskList', () => {
         ],
       },
     ];
-    expect(
-      generateRespondentTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId, isRepresentedBySolicotor)
-    ).toEqual(expected);
+    expect(generateRespondentTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId)).toEqual(expected);
   });
 
   test('generateRespondentTaskList1', () => {
@@ -99,7 +96,7 @@ describe('generateRespondentTaskList', () => {
       userCase: { ...mockUserCase, legalRepresentation: YesOrNo.NO, start: YesOrNo.YES },
       userIdamId: '12345',
     };
-    const isRepresentedBySolicotor = false;
+
     const expected = [
       {
         title: sectionTitles.aboutYou,
@@ -176,9 +173,7 @@ describe('generateRespondentTaskList', () => {
         ],
       },
     ];
-    expect(
-      generateRespondentTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId, isRepresentedBySolicotor)
-    ).toEqual(expected);
+    expect(generateRespondentTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId)).toEqual(expected);
   });
 
   test('generateRespondentTaskListForC100', () => {
@@ -186,7 +181,7 @@ describe('generateRespondentTaskList', () => {
       userCase: { ...mockUserCase, legalRepresentation: YesOrNo.NO, start: YesOrNo.YES, caseTypeOfApplication: 'C100' },
       userIdamId: '12345',
     };
-    const isRepresentedBySolicotor = false;
+
     const expected = [
       {
         title: sectionTitles.aboutYou,
@@ -289,68 +284,6 @@ describe('generateRespondentTaskList', () => {
         ],
       },
     ];
-    expect(
-      generateRespondentTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId, isRepresentedBySolicotor)
-    ).toEqual(expected);
-  });
-
-  test('generateRespondentTaskListWhenRespresentedBySolicitor', () => {
-    const data = {
-      userCase: { ...mockUserCase, legalRepresentation: YesOrNo.NO, start: YesOrNo.YES },
-      userIdamId: '12345',
-    };
-    const isRepresentedBySolicotor = true;
-    const expected = [
-      null,
-      {
-        title: sectionTitles.theApplication,
-        items: [
-          {
-            id: 'check_the_application',
-            text: taskListItems.check_the_application,
-            status: 'NOT_AVAILABLE_YET',
-            href: '#',
-            openInAnotherTab: true,
-          },
-        ],
-      },
-      {
-        title: sectionTitles.yourcourtHearings,
-        items: [
-          {
-            id: 'check_details_of_your_court_hearings',
-            text: taskListItems.check_details_of_your_court_hearings,
-            status: 'TO_DO',
-            href: '/respondent/yourhearings/hearings',
-          },
-        ],
-      },
-      {
-        title: sectionTitles.yourDocuments,
-        items: [
-          {
-            id: 'view-all-documents',
-            text: taskListItems.view_all_documents,
-            status: 'READY_TO_VIEW',
-            href: '/respondent/yourdocuments/alldocuments/alldocuments',
-          },
-          null,
-        ],
-      },
-      {
-        title: sectionTitles.ordersFromTheCourt,
-        items: [
-          {
-            id: 'view-all-orders-from-the-court',
-            text: taskListItems.view_all_orders_from_the_court,
-            status: 'NOT_AVAILABLE_YET',
-            href: '#',
-          },
-        ],
-      },
-    ];
-    expect(
-      generateRespondentTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId, isRepresentedBySolicotor)
-    ).toEqual(expected);
+    expect(generateRespondentTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId)).toEqual(expected);
   });
 });

@@ -240,8 +240,7 @@ export const getTaskListConfig = (
   caseData: Partial<CaseWithId>,
   userDetails: UserDetails,
   partyType: PartyType,
-  language: string,
-  isRepresentedBySolicotor: boolean
+  language: string
 ): Record<string, any>[] => {
   let caseType = caseData?.caseTypeOfApplication;
   if (!caseType && partyType === PartyType.APPLICANT) {
@@ -270,9 +269,7 @@ export const getTaskListConfig = (
                   linkText: _content?.tasks[task.id]?.linkText,
                   href: task.href(caseData, userDetails),
                   disabled:
-                    task?.disabled && task.disabled instanceof Function
-                      ? task.disabled(caseData, userDetails) || isRepresentedBySolicotor
-                      : false,
+                    task?.disabled && task.disabled instanceof Function ? task.disabled(caseData, userDetails) : false,
                   stateTag: {
                     label: _stateTagConfig.label ? _stateTagConfig.label(language) : '',
                     className: _stateTagConfig.className ? _stateTagConfig.className : '',

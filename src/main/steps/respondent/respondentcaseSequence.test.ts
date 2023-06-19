@@ -4,7 +4,7 @@ import { respondentCaseSequence } from './respondentcaseSequence';
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(respondentCaseSequence).toHaveLength(91);
+    expect(respondentCaseSequence).toHaveLength(88);
     expect(respondentCaseSequence[0].url).toBe('/respondent/task-list');
     expect(respondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -404,18 +404,6 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[87].url).toBe('/respondent/yourdocuments/alldocuments/risk_assessment_16a');
     expect(respondentCaseSequence[87].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[87].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[88].url).toBe('/respondent/add-legal-representative');
-    expect(respondentCaseSequence[88].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[88].getNextStep({})).toBe('/respondent/task-list');
-
-    expect(respondentCaseSequence[89].url).toBe('/respondent/remove-legal-representative/start');
-    expect(respondentCaseSequence[89].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[89].getNextStep({})).toBe('/respondent/remove-legal-representative/confirm');
-
-    expect(respondentCaseSequence[90].url).toBe('/respondent/remove-legal-representative/confirm');
-    expect(respondentCaseSequence[90].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[90].getNextStep({})).toBe('/respondent/task-list');
   });
 });
 

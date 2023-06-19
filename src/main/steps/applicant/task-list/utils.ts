@@ -120,11 +120,9 @@ export const getSupportYourNeedsDetails = (userCase: CaseWithId): SectionStatus 
 };
 
 export const getApplicantPartyDetails = (userCase: Partial<CaseWithId>, userId: string): Applicant | undefined => {
-  if (userCase.applicants) {
-    for (const userapplicant of userCase.applicants) {
-      if (userapplicant.value.user.idamId === userId) {
-        return userapplicant;
-      }
+  for (const userapplicant of userCase.applicants!) {
+    if (userapplicant.value.user.idamId === userId) {
+      return userapplicant;
     }
   }
   return undefined;

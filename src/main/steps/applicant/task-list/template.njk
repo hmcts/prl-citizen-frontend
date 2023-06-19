@@ -22,14 +22,26 @@
   {% include "../../common/notifyBanner.njk" %}
 {% endblock %}
 {% block oneThird %}
-      <h2 class="govuk-heading-m">{{iWantTo}}</h2>
-          <ul class="govuk-list">
-          {% for hyperlink in hyperlinks %}
-            <li>
-              <a href="{{hyperlink.link}}" class="govuk-link">{{hyperlink.label}}</a>
-              <div class="govuk-!-padding-bottom-2"></div>
-            </li>
-          {% endfor %}
-          </ul class="govuk-list">
+      <h2 class="govuk-heading-m">
+        {{iWant}}
+      </h2>
+      <ul class="govuk-list">
+        <li>
+          <a class="govuk-link" href="#">{{findCourt}}</a>
+          <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+        <li>
+          <a class="govuk-link" href="#">{{legalAdvice}}</a>
+          <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+        <li>
+          <a class="govuk-link" href="#">{{childArrangements}}</a>
+          <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+        <li>
+          <a class="govuk-link" href="#">{{attendingCourt}}</a>
+          <div class="govuk-!-padding-bottom-2"></div>
+        </li>
+      </ul>
         {% include "../../common/contact-us.njk" %}
 {% endblock %}

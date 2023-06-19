@@ -1,15 +1,8 @@
-import { CaseWithId } from '../../../app/case/case';
-import { Applicant, Banner, CaseType, PartyDetails, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Applicant, Banner, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
-import { checkPartyRepresentedBySolicitor } from '../../../steps/common/task-list/utils';
-import {
-  APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-  APPLICANT_ORDERS_FROM_THE_COURT,
-  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
-  APPLICANT_VIEW_ALL_DOCUMENTS,
-} from '../../../steps/urls';
+import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../steps/urls';
 
 import { applicant_cy, applicant_en } from './section-titles';
 import { generateApplicantTaskList } from './tasklist';
@@ -20,6 +13,11 @@ const en = () => ({
   title: 'Applicant tasklist',
   applicantName: '',
   caseNumber: 'Case number  ',
+  iWant: 'I want to...',
+  findCourt: 'Find my local court',
+  legalAdvice: 'Find legal advice',
+  childArrangements: 'Know more about child arrangements',
+  attendingCourt: 'Know more about attending court',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -74,41 +72,17 @@ const en = () => ({
       },
     ],
   },
-  iWantTo: 'I want to...',
-  hyperlinks: [
-    {
-      label: 'Add a legal representative',
-      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-    },
-    {
-      label: 'Remove a legal representative',
-      link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
-    },
-    {
-      label: 'Find my local court',
-      link: '#',
-    },
-    {
-      label: 'Find legal advice',
-      link: '#',
-    },
-    {
-      label: 'Know more about child arrangements',
-      link: '#',
-    },
-    {
-      label: 'Know more about attending court',
-      link: '#',
-    },
-  ],
-  addLegalRepresentative: 'Add a legal representative',
-  removeLegalRepresentative: 'Remove a legal representative',
 });
 
 const cy = () => ({
   title: 'Applicant tasklist',
   applicantName: '',
   caseNumber: 'Rhif yr achos ',
+  iWant: 'Rwyf eisiau...',
+  findCourt: 'Find my local court (welsh)',
+  legalAdvice: 'Find legal advice (welsh)',
+  childArrangements: 'Gwybod mwy am drefniadau plant',
+  attendingCourt: 'Gwybod mwy am fynychu’r llys',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -164,35 +138,6 @@ const cy = () => ({
       },
     ],
   },
-  iWantTo: 'Rwyf eisiau ...',
-  hyperlinks: [
-    {
-      label: 'Add a legal representative-welsh',
-      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-    },
-    {
-      label: 'Remove a legal representative-welsh',
-      link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
-    },
-    {
-      label: 'Find my local court-welsh',
-      link: '#',
-    },
-    {
-      label: 'Find legal advice-welsh',
-      link: '#',
-    },
-    {
-      label: 'Gwybod mwy am drefniadau plant',
-      link: '#',
-    },
-    {
-      label: 'Gwybod mwy am fynychu’r llys',
-      link: '#',
-    },
-  ],
-  addLegalRepresentative: 'Add a legal representative-welsh',
-  removeLegalRepresentative: 'Remove a legal representative-welsh',
 });
 
 const languages = {
@@ -211,43 +156,30 @@ export const generateContent: TranslationFn = content => {
       ? []
       : buildProgressBarStages(content.userCase!, content.language);
   const req: AppRequest = content.additionalData?.req;
-
-  const applicant = getApplicant(req.session.userCase, req.session.user.id);
-  translations.applicantName = getApplicantName(applicant);
-  const isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(applicant);
-  translations.hyperlinks.forEach((hyperLink, index) => {
-    if (hyperLink.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) {
-      translations.hyperlinks.splice(index, 1);
-    } else if (hyperLink.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor) {
-      translations.hyperlinks.splice(index, 1);
-    }
-  });
-
+  translations.applicantName = getApplicantName(req.session.userCase, req.session.user.id);
   return {
     ...translations,
     sections: generateApplicantTaskList(
       translations.sectionTitles,
       translations.taskListItems,
       content.userCase,
-      content.userIdamId,
-      isRepresentedBySolicotor
+      content.userIdamId
     ),
     banners,
     stages,
   };
 };
 
-export const getApplicant = (userCase: Partial<CaseWithId>, userId: string): PartyDetails | undefined => {
-  if (userCase && userCase.caseTypeOfApplication === CaseType.C100) {
+const getApplicantName = (userCase, userId) => {
+  if (userCase.caseTypeOfApplication === 'C100') {
     const applicant = getApplicantPartyDetails(userCase, userId);
-    return applicant?.value;
+    if (applicant) {
+      return applicant.value.firstName + ' ' + applicant.value.lastName;
+    }
   } else {
-    return userCase?.applicantsFL401;
+    return userCase.applicantsFL401.firstName + ' ' + userCase.applicantsFL401.lastName;
   }
-};
-
-export const getApplicantName = (applicant: PartyDetails | undefined): string => {
-  return applicant ? applicant.firstName + ' ' + applicant.lastName : '';
+  return '';
 };
 
 const getC100Banners = (userCase, translations, userIdamId) => {
