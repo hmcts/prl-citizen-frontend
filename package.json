@@ -172,7 +172,7 @@
     "ts-loader": "^9.4.1",
     "uglifyjs-webpack-plugin": "^1.1.2",
     "webdriverio": "^7.19.7",
-    "webpack": "^5.76.0",
+    "webpack": "^5.72.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-middleware": "^5.3.1",
     "webpack-node-externals": "^3.0.0"
@@ -186,13 +186,15 @@
     "flat": "^5.0.1",
     "serialize-javascript": "^3.1.0",
     "json5": "^2.2.2",
-    "engine.io": "^6.2.1",
+    "engine.io": "^6.4.2",
     "moment": "2.29.4",
     "validator": "13.7.0",
     "glob-parent": ">=6.0.1",
     "ssri": ">=6.0.2",
     "debug": ">=3.1.0",
-    "ua-parser-js": ">=1.0.33"
+    "ua-parser-js": ">=1.0.33",
+    "socket.io-parser": ">=4.2.3",
+    "xml2js": ">=0.5.0"
   },
   "packageManager": "yarn@3.5.0"
 }
