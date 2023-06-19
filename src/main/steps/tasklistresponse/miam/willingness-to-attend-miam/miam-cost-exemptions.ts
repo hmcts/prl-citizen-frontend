@@ -36,6 +36,6 @@ export const miam_cost_exemption_content_cy = `<div>
 <p>Rhagor o wybodaeth am <a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" rel="external" target="_blank">y rhesymau dros esemptiad rhag mynychu MIAM</a>.</p>
 </div>`;
 export const miam_how_to_arrange_mediation_link =
-  'https://www.familymediationcouncil.org.uk/i-want-to-try-mediation-what-do-i-do';
+  'https://www.familymediationcouncil.org.uk/i-want-to-try-mediation-what-do-i-do/';
 export const miam_how_to_arrange_mediation_label_en = 'How to arrange a mediation?';
 export const miam_how_to_arrange_mediation_label_cy = 'How to arrange a mediation?';

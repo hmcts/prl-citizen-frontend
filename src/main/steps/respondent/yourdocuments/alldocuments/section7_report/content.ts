@@ -12,7 +12,7 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
-    title: 'Section 7 report (welsh)',
+    title: 'Adroddiad Adran 7',
     caseNumber: 'Rhif yr achos',
     continue: 'Go back (welsh)',
   };

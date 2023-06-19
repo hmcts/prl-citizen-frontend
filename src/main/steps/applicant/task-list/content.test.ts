@@ -31,7 +31,7 @@ const cyContent = {
   caseNumber: 'Rhif yr achos ',
   iWant: 'Rwyf eisiau...',
   findCourt: 'Find my local court (welsh)',
-  legalAdvice: 'Find legal advice (welsh)',
+  legalAdvice: 'Dod o hyd i gyngor cyfreithiol',
   childArrangements: 'Gwybod mwy am drefniadau plant',
   attendingCourt: 'Gwybod mwy am fynychu’r llys',
   statuses: {

@@ -16,7 +16,7 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
-    title: 'Drug and alcohol tests (toxicology) (welsh)',
+    title: 'Profion cyffuriau ac alcohol (tocsicoleg)',
     threeHint: 'This is a 8 character code (welsh)',
     summaryText: 'Cysylltiadau am gymorth',
     caseNumber: 'Rhif yr achos',

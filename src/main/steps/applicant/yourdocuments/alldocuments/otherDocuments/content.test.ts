@@ -13,7 +13,7 @@ const enContent = {
 
 const cyContent = {
   section: 'Pob dogfen',
-  title: 'Other documents (welsh)',
+  title: 'Dogfennau eraill',
   caseNumber: 'Rhif yr achos',
   continue: 'Go back (welsh)',
 };

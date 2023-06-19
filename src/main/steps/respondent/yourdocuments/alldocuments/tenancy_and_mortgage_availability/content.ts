@@ -14,7 +14,7 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
-    title: 'Tenancy and mortgage (welsh)',
+    title: 'Tenantiaeth a morgais',
     caseNumber: 'Rhif yr achos',
     continue: 'Go back (welsh)',
   };

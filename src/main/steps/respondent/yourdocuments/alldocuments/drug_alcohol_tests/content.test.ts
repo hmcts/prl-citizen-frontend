@@ -12,7 +12,7 @@ const enContent = {
 
 const cyContent = {
   section: 'Pob dogfen',
-  title: 'Drug and alcohol tests (toxicology) (welsh)',
+  title: 'Profion cyffuriau ac alcohol (tocsicoleg)',
   caseNumber: 'Rhif yr achos',
   continue: 'Go back (welsh)',
 };

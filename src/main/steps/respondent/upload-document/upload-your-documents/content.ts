@@ -41,7 +41,7 @@ const cy: typeof en = {
   title: 'Provide the documents (welsh)',
   declaration: 'I believe that the facts stated in these documents are true (welsh)',
   consent:
-    'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. (welsh)',
+    'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
   continue: 'Parhau',
   add: 'Cyflwyno',
   uploadFiles: 'Eich dogfennau',
