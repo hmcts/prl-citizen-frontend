@@ -45,7 +45,7 @@ const cy: typeof en = {
   line14: 'If you are a man and have concerns for your safety',
   line15: 'Llinell Gymorth Genedlaethol Trais Domestig',
   line16: 'If you want to change your answer, go back to the previous screen.',
-  continue: 'Continue',
+  continue: 'Parhau',
   goBack: 'Go back',
 };
 

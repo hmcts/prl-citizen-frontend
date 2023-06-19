@@ -41,7 +41,7 @@ const cy: typeof en = {
   line7: 'A copy of your submitted application will be in your personal dashboard. -welsh',
   downloadLink:
     ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-final">Download your response -welsh</a>',
-  saveAndContinue: 'Continue -welsh',
+  saveAndContinue: 'Parhau',
 };
 
 const languages = {

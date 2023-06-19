@@ -61,7 +61,7 @@ const cy: typeof en = {
   line12:
     'The information you provide in this section will also be shared with the applicant, so they can respond to what you have said. -welsh',
 
-  continue: 'Continue -welsh',
+  continue: 'Parhau',
   findOut:
     'Find out about the <a href="https://www.nspcc.org.uk/preventing-abuse/child-abuse-and-neglect/" class="govuk-link" rel="external" target="_blank">signs of child abuse</a> and <a href="https://www.refuge.org.uk/get-help-now/help-for-women/recognising-abuse/" class="govuk-link" rel="external" target="_blank">domestic abuse</a>. -welsh',
   cafcass:
