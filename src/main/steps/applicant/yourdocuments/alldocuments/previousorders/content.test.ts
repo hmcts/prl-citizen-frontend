@@ -13,7 +13,7 @@ const enContent = {
 
 const cyContent = {
   section: 'Pob dogfen',
-  title: "Gorchmynion blaenorol wedi'u cyflwyno gyda'r cais",
+  title: 'Gorchmynion blaenorol a gyflwynwyd gyda’r cais',
   caseNumber: 'Rhif yr achos',
   continue: 'Go back (welsh)',
 };

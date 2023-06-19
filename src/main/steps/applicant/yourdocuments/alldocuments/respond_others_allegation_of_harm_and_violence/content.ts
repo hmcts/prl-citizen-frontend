@@ -17,7 +17,7 @@ const cy: typeof en = () => {
     title: "Your response to other's allegation of harm and violence - welsh",
     threeHint: 'This is a 8 character code - welsh',
     summaryText: 'Contacts for help - welsh',
-    caseNumber: 'Case number - welsh',
+    caseNumber: 'Rhif yr achos',
     continue: 'Go back - welsh',
   };
 };

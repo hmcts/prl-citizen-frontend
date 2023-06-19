@@ -26,7 +26,7 @@ const en = {
 
 const cy: typeof en = {
   success: 'Response submitted successfully -welsh',
-  caseNumber: 'Case number  -welsh',
+  caseNumber: 'Rhif yr achos',
   line1: 'By submitting this response you have completed the following: -welsh',
   line2: 'Your response to the application -welsh',
   line3: 'What happens next -welsh',

@@ -15,7 +15,7 @@ const en = {
 };
 
 const cy = {
-  caption: `Case number -welsh #${caseNumber}`,
+  caption: `Rhif yr achos #${caseNumber}`,
   title: 'Case added to your account -welsh',
   text: 'The case can now be seen on your child arrangements and family injunction account. -welsh',
   continue: 'Parhau',
