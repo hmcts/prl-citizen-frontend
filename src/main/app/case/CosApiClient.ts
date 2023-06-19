@@ -146,6 +146,25 @@ export class CosApiClient {
     }
   }
 
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  public async getAllHearingsForCitizenCase(user: UserDetails, caseId: string): Promise<any> {
+    try {
+      const response = await Axios.post(config.get('services.cos.url') + `/hearing/${caseId}`, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + user.accessToken,
+          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          accessCode: 'Dummy accessCode',
+        },
+      });
+
+      return response;
+    } catch (err) {
+      throw new Error('Case could not be updated.');
+    }
+  }
+
   /**  submit respondent response*/
   public async submitRespondentResponse(
     user: UserDetails,

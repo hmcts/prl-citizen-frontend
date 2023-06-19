@@ -120,8 +120,10 @@ import {
   C7_ATTENDING_THE_COURT,
   APPLICANT_TASKLIST_CONTACT_EMAIL,
   APPLICANT_TASKLIST_CONTACT_POST,
+  // APPLICANT_YOURHEARINGS_HEARINGS,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
+//import { HearingsGetController } from './steps/applicant/yourhearings/hearings/HearingsGetController';
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -170,6 +172,10 @@ export class Routes {
       `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_RESPONDENT).get)
     );
+    // app.get(
+    //   `${APPLICANT_YOURHEARINGS_HEARINGS}/:caseId`,
+    //   errorHandler(new HearingsGetController().get)
+    // );
     app.get(
       `${APPLICANT_DETAILS_KNOWN}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_APPLICANT).get)

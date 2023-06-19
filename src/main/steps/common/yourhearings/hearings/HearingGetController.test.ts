@@ -5,6 +5,7 @@ import { CosApiClient } from '../../../../app/case/CosApiClient';
 import HearingsGetController from './HearingsGetController';
 
 const retrieveCaseHearingsByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveCaseHearingsByCaseId');
+const getHearings = jest.spyOn(CosApiClient.prototype, 'getAllHearingsForCitizenCase');
 
 describe('HearingsGetController', () => {
   const languages = {
@@ -21,10 +22,12 @@ describe('HearingsGetController', () => {
   const res = mockResponse();
   beforeEach(() => {
     retrieveCaseHearingsByCaseIdMock.mockResolvedValue(req.session.userCase);
+    getHearings.mockResolvedValue(req.session.userCase);
   });
 
   afterEach(() => {
     retrieveCaseHearingsByCaseIdMock.mockClear();
+    getHearings.mockClear();
   });
 
   test('Should get the details of previous hearings', async () => {

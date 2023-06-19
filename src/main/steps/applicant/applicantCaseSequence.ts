@@ -551,4 +551,9 @@ export const applicantCaseSequence: Step[] = [
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASKLIST_HEARING_NEEDS,
   },
+  {
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_YOURHEARINGS_HEARINGS,
+  },
 ];
