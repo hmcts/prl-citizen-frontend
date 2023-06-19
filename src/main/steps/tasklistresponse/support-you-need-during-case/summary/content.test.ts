@@ -51,7 +51,7 @@ const cy: typeof en = {
   sectionTitles: {
     aboutYou: 'Amdanoch chi',
   },
-  edit: 'Edit -welsh',
+  edit: 'Golygu',
   keys: {
     attendingToCourt: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
     hearingDetails: 'Rhowch fanylion',
