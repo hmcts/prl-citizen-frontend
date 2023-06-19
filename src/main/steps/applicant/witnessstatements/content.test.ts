@@ -15,7 +15,7 @@ const cyContent = {
   section: 'Pob dogfen',
   title: 'Eich datganiadau tyst',
   caseNumber: 'Rhif yr achos',
-  continue: 'Go back (welsh)',
+  continue: 'Yn ôl',
 };
 
 jest.mock('../../../app/form/validation');

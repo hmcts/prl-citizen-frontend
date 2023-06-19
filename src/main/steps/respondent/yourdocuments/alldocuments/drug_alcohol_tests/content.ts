@@ -16,7 +16,7 @@ const cy: typeof en = () => {
     section: 'Pob dogfen',
     title: 'Profion cyffuriau ac alcohol (tocsicoleg)',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 

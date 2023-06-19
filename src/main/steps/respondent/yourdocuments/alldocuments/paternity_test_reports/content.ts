@@ -15,7 +15,7 @@ const cy: typeof en = () => {
     section: 'Pob dogfen',
     title: 'Adroddiadau prawf tadolaeth',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 

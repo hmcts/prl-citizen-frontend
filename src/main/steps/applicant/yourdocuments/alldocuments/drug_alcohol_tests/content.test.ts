@@ -19,7 +19,7 @@ const cyContent = {
   threeHint: 'This is a 8 character code (welsh)',
   summaryText: 'Cysylltiadau am gymorth',
   caseNumber: 'Rhif yr achos',
-  continue: 'Go back (welsh)',
+  continue: 'Yn ôl',
 };
 
 jest.mock('../../../../../app/form/validation');

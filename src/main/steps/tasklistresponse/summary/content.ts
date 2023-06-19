@@ -325,7 +325,7 @@ export const cyContent: typeof enContent = {
   sectionTitles: {
     title: 'Current or previous proceeding -welsh',
   },
-  statementOfTruth: 'Statement of truth -welsh',
+  statementOfTruth: 'Datganiad gwirionedd',
   warning: 'Warning -welsh',
   warningText:
     'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',

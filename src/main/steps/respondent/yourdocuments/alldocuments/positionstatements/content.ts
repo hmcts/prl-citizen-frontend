@@ -16,7 +16,7 @@ const cy: typeof en = () => {
     section: 'Pob dogfen',
     title: "'s position statements (welsh)",
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 

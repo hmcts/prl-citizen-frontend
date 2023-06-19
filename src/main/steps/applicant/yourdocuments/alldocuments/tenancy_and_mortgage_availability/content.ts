@@ -19,7 +19,7 @@ const cy: typeof en = () => {
     section: 'Pob dogfen',
     title: 'Tenantiaeth a morgais',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 
