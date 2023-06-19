@@ -186,15 +186,13 @@
     "flat": "^5.0.1",
     "serialize-javascript": "^3.1.0",
     "json5": "^2.2.2",
-    "engine.io": "^6.4.2",
+    "engine.io": "^6.2.1",
     "moment": "2.29.4",
     "validator": "13.7.0",
     "glob-parent": ">=6.0.1",
     "ssri": ">=6.0.2",
     "debug": ">=3.1.0",
-    "ua-parser-js": ">=1.0.33",
-    "socket.io-parser": ">=4.2.3",
-    "xml2js": ">=0.5.0"
+    "ua-parser-js": ">=1.0.33"
   },
   "packageManager": "yarn@3.5.0"
 }
