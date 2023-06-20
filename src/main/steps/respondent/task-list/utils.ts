@@ -276,32 +276,32 @@ export const getRespondentPartyDetailsCa = (userCase: Partial<CaseWithId>, userI
 };
 
 export const getResponseStatus = (userCase: Partial<CaseWithId> | undefined, userId: string): SectionStatus => {
-  const respondent1 = userCase?.respondents?.find(respondent => {
-    if (respondent.value.user.idamId === userId) {
-      return respondent;
+  const respondent = userCase?.respondents?.find(_respondent => {
+    if (_respondent.value.user.idamId === userId) {
+      return _respondent;
     }
   });
   if (
-    respondent1?.value.response.citizenInternationalElements &&
-    respondent1?.value.response.consent &&
-    respondent1?.value.response.currentOrPreviousProceedings &&
-    respondent1?.value.response.keepDetailsPrivate &&
-    respondent1?.value.response.miam &&
-    respondent1?.value.response.legalRepresentation &&
-    respondent1?.value.response.safetyConcerns &&
-    respondent1?.value.response.supportYouNeed
+    respondent?.value.response.citizenInternationalElements &&
+    respondent?.value.response.consent &&
+    respondent?.value.response.currentOrPreviousProceedings &&
+    respondent?.value.response.keepDetailsPrivate &&
+    respondent?.value.response.miam &&
+    respondent?.value.response.legalRepresentation &&
+    respondent?.value.response.safetyConcerns &&
+    respondent?.value.response.supportYouNeed
   ) {
     return SectionStatus.COMPLETED;
   }
   if (
-    respondent1?.value.response.citizenInternationalElements ||
-    respondent1?.value.response.consent ||
-    respondent1?.value.response.currentOrPreviousProceedings ||
-    respondent1?.value.response.keepDetailsPrivate ||
-    respondent1?.value.response.miam ||
-    respondent1?.value.response.legalRepresentation ||
-    respondent1?.value.response.safetyConcerns ||
-    respondent1?.value.response.supportYouNeed
+    respondent?.value.response.citizenInternationalElements ||
+    respondent?.value.response.consent ||
+    respondent?.value.response.currentOrPreviousProceedings ||
+    respondent?.value.response.keepDetailsPrivate ||
+    respondent?.value.response.miam ||
+    respondent?.value.response.legalRepresentation ||
+    respondent?.value.response.safetyConcerns ||
+    respondent?.value.response.supportYouNeed
   ) {
     return SectionStatus.IN_PROGRESS;
   }
