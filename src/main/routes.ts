@@ -23,6 +23,7 @@ import { ContactPreferencesGetController } from './steps/common/contact-preferen
 import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
+import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
 import { ContactUsGetController } from './steps/contact-us/get';
@@ -118,6 +119,8 @@ import {
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   C7_ATTENDING_THE_COURT,
+  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+  RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_TASKLIST_CONTACT_EMAIL,
   APPLICANT_TASKLIST_CONTACT_POST,
   //C100_DOCUMENT_SUBMISSION,
@@ -334,6 +337,14 @@ export class Routes {
         app.post(
           PIN_ACTIVATION_CASE_ACTIVATED_URL,
           errorHandler(new CaseActivationPostController(step.form.fields).post)
+        );
+        app.post(
+          APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          errorHandler(new RemoveLegalRepresentativePostController(step.form.fields).post)
+        );
+        app.post(
+          RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          errorHandler(new RemoveLegalRepresentativePostController(step.form.fields).post)
         );
         app.post(
           `${APPLICANT_TASKLIST_CONTACT_EMAIL}`,

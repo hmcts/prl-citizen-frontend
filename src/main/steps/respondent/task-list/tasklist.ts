@@ -20,11 +20,16 @@ import {
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
+export const generateRespondentTaskList = (
+  sectionTitles,
+  taskListItems,
+  userCase,
+  userIdamId,
+  isRepresentedBySolicotor
+) => {
   const isCaseClosed = userCase.state === 'ALL_FINAL_ORDERS_ISSUED';
-
   return [
-    !isCaseClosed
+    !isCaseClosed && !isRepresentedBySolicotor
       ? {
           title: sectionTitles.aboutYou,
           items: [
@@ -53,7 +58,9 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
       title: sectionTitles.theApplication,
       items: [...getTheApplicationSection(taskListItems, userCase, userIdamId)],
     },
-    ...(!isCaseClosed ? getYourResponseSection(sectionTitles, taskListItems, userCase, userIdamId) : []),
+    ...(!isCaseClosed && !isRepresentedBySolicotor
+      ? getYourResponseSection(sectionTitles, taskListItems, userCase, userIdamId)
+      : []),
     {
       title: sectionTitles.yourcourtHearings,
       items: [
@@ -74,7 +81,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           status: getViewAllDocuments(),
           href: getViewAllDocuments() === 'READY_TO_VIEW' ? URL.RESPONDENT_VIEW_ALL_DOCUMENTS : '#',
         },
-        !isCaseClosed
+        !isCaseClosed && !isRepresentedBySolicotor
           ? {
               id: 'upload-document',
               text: taskListItems.upload_document,
