@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
+import { Validator, isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
@@ -77,7 +78,19 @@ describe('safety_concerns > other_concerns > content', () => {
     const childSafetyConcerns = fields.PRL_c1A_childSafetyConcerns as FormOptions;
     expect(childSafetyConcerns.type).toBe('radios');
     expect(childSafetyConcerns.classes).toBe('govuk-radios');
+    expect((childSafetyConcerns.label as Function)(generatedContent)).toBe(undefined);
+    expect((childSafetyConcerns.hint as Function)(generatedContent)).toBe(en.hint);
     expect((childSafetyConcerns.section as Function)(generatedContent)).toBe(en.section);
+
+    expect((childSafetyConcerns.values[0].label as Function)(generatedContent)).toBe(en.one);
+
+    (childSafetyConcerns.values[0].subFields?.PRL_c1A_childSafetyConcernsDetails.validator as Validator)(
+      'PRL_c1A_childSafetyConcernsDetails'
+    );
+    expect(isFieldFilledIn).toHaveBeenCalledWith('PRL_c1A_childSafetyConcernsDetails');
+    expect(isTextAreaValid).toHaveBeenCalledWith('PRL_c1A_childSafetyConcernsDetails');
+
+    expect((childSafetyConcerns.values[1].label as Function)(generatedContent)).toBe(en.two);
   });
 
   test('should contain continue button', () => {

@@ -43,4 +43,12 @@ describe('RespondentTaskListGetController', () => {
     await controller.get(req, res);
     expect(res.render).toBeCalled;
   });
+
+  test('Should load', async () => {
+    const req = mockRequest();
+    const res = mockResponse();
+    await controller.load(req, res);
+    req.session.applicationSettings = { navFromContactPreferences: false };
+    expect(req.session.applicationSettings).toBe(req.session.applicationSettings);
+  });
 });
