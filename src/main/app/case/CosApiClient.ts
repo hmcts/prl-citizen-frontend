@@ -1,6 +1,7 @@
 import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
+import type { LoggerInstance } from 'winston';
 
 import { DeleteDocumentRequest } from '../../app/document/DeleteDocumentRequest';
 import { DocumentDetail } from '../../app/document/DocumentDetail';
@@ -20,6 +21,9 @@ import {
   YesOrNo,
 } from './definition';
 import { fromApiFormat } from './from-api-format';
+
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger: LoggerInstance = Logger.getLogger('server');
 
 export class CosApiClient {
   client: AxiosInstance;
@@ -139,6 +143,11 @@ export class CosApiClient {
           accessCode: 'Dummy accessCode',
         },
       });
+      const serviceauth = getServiceAuthToken();
+      logger.info(`Auth Token ****** ${user.accessToken} *******`);
+      logger.info(`service Token ****** ${serviceauth} *******`);
+      console.log(`Auth Token ****** ${user.accessToken} *******`);
+      console.log(`Auth Token ****** ${serviceauth} *******`);
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
