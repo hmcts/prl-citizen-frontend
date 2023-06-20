@@ -631,7 +631,7 @@ describe('task-list > content', () => {
       caseTypeOfApplication: CaseType.FL401,
     };
 
-    expect(getRespondentName(data, userDetail.id)).toBe('JohnSmith');
+    expect(getRespondentName(data, userDetail.id)).toBe('John Smith');
   });
 
   test('should return C100-banners', () => {
