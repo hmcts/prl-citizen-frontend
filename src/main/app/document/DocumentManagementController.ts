@@ -544,6 +544,16 @@ export class DocumentManagerController extends PostController<AnyObject> {
       caseId: req.session.userCase.id,
       documentId: documentIdToDelete,
     };
+    // const uploadDocumentDetails = {
+    //   documentRequestedByCourt: req.session.userCase.start,
+    //   caseId: req.session.userCase.id,
+    //   freeTextUploadStatements: req.body.freeTextAreaForUpload,
+    //   parentDocumentType: req.query.parentDocumentType,
+    //   documentType: req.query.documentType,
+    //   partyName,
+    //   partyId: req.session.user.id,
+    //   isApplicant,
+    // }
     const deleteDocumentRequest = new DeleteDocumentRequest(deleteDocumentDetails);
     const client = new CosApiClient(loggedInCitizen.accessToken, 'http://localhost:3001');
     const deleteCitizenDocFromCos = await client.deleteCitizenStatementDocument(loggedInCitizen, deleteDocumentRequest);
@@ -574,25 +584,34 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   private setRedirectUrl(isApplicant, req: AppRequest<Partial<CaseWithId>>) {
-    let redirectUrl = '';
-    if (YesOrNo.YES === isApplicant) {
-      redirectUrl =
-        APPLICANT_UPLOAD_DOCUMENT +
-        '?' +
-        'caption=' +
-        req.query.parentDocumentType +
-        '&document_type=' +
-        req.query.documentType;
-    } else {
-      redirectUrl =
-        RESPONDENT_UPLOAD_DOCUMENT +
-        '?' +
-        'caption=' +
-        req.query.parentDocumentType +
-        '&document_type=' +
-        req.query.documentType;
-    }
-    return redirectUrl;
+    // let redirectUrl = '';
+    // if (YesOrNo.YES === isApplicant) {
+    //   redirectUrl =
+    //     APPLICANT_UPLOAD_DOCUMENT +
+    //     '?' +
+    //     'caption=' +
+    //     req.query.parentDocumentType +
+    //     '&document_type=' +
+    //     req.query.documentType;
+    // } else {
+    //   redirectUrl =
+    //     RESPONDENT_UPLOAD_DOCUMENT +
+    //     '?' +
+    //     'caption=' +
+    //     req.query.parentDocumentType +
+    //     '&doc_type=' +
+    //     req.query.documentType+
+    //     '&document_type=' +
+    //     req.query.documentType+
+    //     '&parentDocType=' +
+    //     req.query.parentDocumentType ;
+    // }
+    // return redirectUrl;
+    const { caption = '', document_type = '', parentDocumentType = '', documentType = '' } = req.query;
+
+    return `${
+      isApplicant === YesOrNo.YES ? APPLICANT_UPLOAD_DOCUMENT : RESPONDENT_UPLOAD_DOCUMENT
+    }?caption=${caption}&document_type=${document_type}&parentDocType=${parentDocumentType}&docType=${documentType}`;
   }
 
   public async undefiendUploadFiles(req: AppRequest): Promise<void> {
