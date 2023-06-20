@@ -19,10 +19,10 @@ const en = {
 };
 
 const cy = {
-  title: 'Do you want your legal representative to complete the application for you? - welsh',
-  yes: 'Yes - welsh',
-  no: 'No - welsh',
-  cancel: 'Cancel - welsh',
+  title: "Ydych chi eisiau i’ch cynrychiolydd cyfreithiol gwblhau'r cais ar eich rhan?",
+  yes: 'Ydw',
+  no: 'Nac ydw',
+  cancel: 'Canslo',
   errors: {
     legalRepresentativeForApplication: {
       required: 'Please select an answer to the below question - welsh',

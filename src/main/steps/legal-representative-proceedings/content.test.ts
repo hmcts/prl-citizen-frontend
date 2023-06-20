@@ -19,10 +19,10 @@ const en = {
 };
 
 const cy = {
-  title: 'Will you be using a legal representative in these proceedings? - welsh',
-  yes: 'Yes - welsh',
-  no: 'No - welsh',
-  cancel: 'Cancel - welsh',
+  title: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
+  yes: 'Byddaf',
+  no: 'Na fyddaf',
+  cancel: 'Canslo',
   errors: {
     legalRepresentativeForProceedings: {
       required: 'Please select an answer to the below question - welsh',

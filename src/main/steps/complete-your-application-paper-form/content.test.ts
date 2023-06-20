@@ -16,12 +16,12 @@ const en = {
 };
 
 const cy = {
-  section: 'What to do next -welsh',
-  title: 'Complete your application using a paper form -welsh',
-  subtitle: "you can do this using a child arrangements application form (also known as 'Form C100'). -welsh",
+  section: 'Beth i’w wneud nesaf',
+  title: 'Cwblhau eich cais gan ddefnyddio ffurflen bapur',
+  subtitle: 'Gallwch wneud hyn gan ddefnyddio ffurflen gais trefniadau plant (a elwir hefyd yn ‘Ffurflen C100’).',
   giveDetails:
     "See <a href='https://www.gov.uk/government/publications/form-c100-application-under-the-children-act-1989-for-a-child-arrangements-prohibited-steps-specific-issue-section-8-order-or-to-vary-or-discharge' class='govuk-link' rel='external' target='_blank'>Form C100 on GOV.UK</a>. Download the from and fill in your details. -welsh",
-  returnToGOVUK: 'Return to GOV.UK -welsh',
+  returnToGOVUK: 'Dychwelyd i GOV.UK',
 };
 
 describe('complete-your-application-paper-form > content', () => {
