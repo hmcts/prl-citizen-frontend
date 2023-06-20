@@ -736,9 +736,9 @@ describe('task-list > content', () => {
             orderType: 'Special guardianship order (C43A)',
             orderDocument: {
               document_url:
-                'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4',
+                'string',
               document_binary_url:
-                'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4/binary',
+                'string',
               document_filename: 'Special_Guardianship_Order_C43A.pdf',
             },
             otherDetails: {
@@ -833,9 +833,9 @@ describe('task-list > content', () => {
             orderType: 'Special guardianship order (C43A)',
             orderDocument: {
               document_url:
-                'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4',
+                'string',
               document_binary_url:
-                'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4/binary',
+                'string',
               document_filename: 'Special_Guardianship_Order_C43A.pdf',
             },
             otherDetails: {
