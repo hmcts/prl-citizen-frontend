@@ -735,10 +735,8 @@ describe('task-list > content', () => {
             dateCreated: '2022-07-18T11:04:34.483637',
             orderType: 'Special guardianship order (C43A)',
             orderDocument: {
-              document_url:
-                'string',
-              document_binary_url:
-                'string',
+              document_url: 'string',
+              document_binary_url: 'string',
               document_filename: 'Special_Guardianship_Order_C43A.pdf',
             },
             otherDetails: {
@@ -832,10 +830,8 @@ describe('task-list > content', () => {
             dateCreated: '2022-07-18T11:04:34.483637',
             orderType: 'Special guardianship order (C43A)',
             orderDocument: {
-              document_url:
-                'string',
-              document_binary_url:
-                'string',
+              document_url: 'string',
+              document_binary_url: 'string',
               document_filename: 'Special_Guardianship_Order_C43A.pdf',
             },
             otherDetails: {
