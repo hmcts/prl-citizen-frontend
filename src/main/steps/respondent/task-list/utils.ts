@@ -275,6 +275,40 @@ export const getRespondentPartyDetailsCa = (userCase: Partial<CaseWithId>, userI
   return undefined;
 };
 
+export const getResponseStatus = (userCase: Partial<CaseWithId> | undefined, userId: string): SectionStatus => {
+  const respondent = userCase?.respondents?.find(_respondent => {
+    if (_respondent.value.user.idamId === userId) {
+      return _respondent;
+    }
+  });
+  if (
+    respondent?.value.response.citizenInternationalElements &&
+    respondent?.value.response.consent &&
+    respondent?.value.response.currentOrPreviousProceedings &&
+    respondent?.value.response.keepDetailsPrivate &&
+    respondent?.value.response.miam &&
+    respondent?.value.response.legalRepresentation &&
+    respondent?.value.response.safetyConcerns &&
+    respondent?.value.response.supportYouNeed
+  ) {
+    return SectionStatus.COMPLETED;
+  }
+  if (
+    respondent?.value.response.citizenInternationalElements ||
+    respondent?.value.response.consent ||
+    respondent?.value.response.currentOrPreviousProceedings ||
+    respondent?.value.response.keepDetailsPrivate ||
+    respondent?.value.response.miam ||
+    respondent?.value.response.legalRepresentation ||
+    respondent?.value.response.safetyConcerns ||
+    respondent?.value.response.supportYouNeed
+  ) {
+    return SectionStatus.IN_PROGRESS;
+  }
+
+  return SectionStatus.TO_DO;
+};
+
 export const isApplicationResponded = (userCase: Partial<CaseWithId>, userId: string): boolean => {
   if (userCase?.citizenResponseC7DocumentList?.length) {
     return !!userCase.respondents?.find(respondent => {

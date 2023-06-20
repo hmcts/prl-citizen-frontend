@@ -41,19 +41,19 @@ const en = {
 
 const cy: typeof en = {
   section: 'Provide the document (welsh)',
-  title: 'Provide the documents (welsh)',
-  declaration: 'I believe that the facts stated in these documents are true (welsh)',
+  title: 'Darparwch y dogfennau',
+  declaration: 'Credaf fod y ffeithiau a nodir yn y dogfennau hyn yn wir',
   consent:
-    'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. (welsh)',
+    'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
   continue: 'Parhau',
   add: 'Cyflwyno',
   uploadFiles: 'Eich dogfennau',
   remove: 'Dileu',
-  textAreaDocUploadText1: 'You can use this box to: (welsh)',
-  textAreaDocUploadText2: 'write a statement if you do not want to upload a document (welsh)',
-  textAreaDocUploadText3: 'give the court more information about the documents you are uploading (welsh)',
+  textAreaDocUploadText1: 'Gallwch ddefnyddio’r blwch hwn i:',
+  textAreaDocUploadText2: 'ysgrifennu datganiad os nad ydych eisiau cyflwyno dogfen',
+  textAreaDocUploadText3: 'rhoi mwy o wybodaeth i’r llys am y dogfennau rydych yn eu cyflwyno',
   uplodFileText1:
-    'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc. (welsh)',
+    'Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, llythyr-gan-yr-ysgol.doc.',
   uplodFileText2: 'Rhaid i ffeiliau derfynu â JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
   uplodFileText3: 'Sut i dynnu llun o ddogfen ar eich ffôn a’i lwytho',
   uplodFileText4:
@@ -62,7 +62,7 @@ const cy: typeof en = {
   uplodFileText6: 'Gwiriwch eich bod yn gallu gweld yr ysgrifen i gyd, gan gynnwys y llawysgrifen.',
   uplodFileText7: 'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
   uplodFileText8: 'Llwythwch y ffeil yma.',
-  uploadFileHeading: 'Upload a file (welsh)',
+  uploadFileHeading: 'Llwytho ffeil',
   uploadFile: 'Llwytho ffeil i fyny',
   statementOfTruth: 'Datganiad Gwirionedd',
   warning: 'Rhybudd',

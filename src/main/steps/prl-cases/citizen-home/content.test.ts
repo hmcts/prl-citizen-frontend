@@ -41,7 +41,7 @@ const cyContent = {
   accessCodeLabel: 'Your access code',
   accessCodeLabelHint: 'This is a 8 character code',
   contactDetails: contact_cy,
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     caseCode: {
       required: 'Enter your case code',

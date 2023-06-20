@@ -25,7 +25,7 @@ const cy: typeof en = () => {
   return {
     title: 'Pob dogfen',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back',
+    continue: 'Yn ôl',
     sectionTitles: applicant_all_docs_cy,
     taskListItems: applicant_tasklist_items_all_docs_cy,
   };
