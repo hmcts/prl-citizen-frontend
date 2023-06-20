@@ -159,6 +159,7 @@ export class CosApiClient {
   public async getAllHearingsForCitizenCase(user: UserDetails, caseId: string): Promise<any> {
     const path = config.get('services.cos.url') + `/hearing/${caseId}`;
     logger.info(`Path ****** ${path} *******`);
+    console.log(`Path ****** ${path} *******`);
     try {
       const response = await Axios.post(config.get('services.cos.url') + `/hearing/${caseId}`, {
         headers: {
