@@ -606,3 +606,8 @@ export const SCREENING_QUESTIONS = [
   SCREENING_QUESTION_CONTACT_LEGAL_REP,
 ];
 export const ANONYMOUS_URLS = [HEALTH_URL, CITIZEN_HOME_URL, ...SCREENING_QUESTIONS];
+
+export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
+  isNonProd
+    ? 'https://c100-application-staging.apps.live-1.cloud-platform.service.justice.gov.uk/'
+    : 'https://apply-to-court-about-child-arrangements.service.justice.gov.uk';

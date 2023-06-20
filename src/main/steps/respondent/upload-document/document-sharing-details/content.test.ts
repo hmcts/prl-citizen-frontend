@@ -14,7 +14,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'How your documents will be shared',
+  title: 'Sut fydd eich dogfennau’n cael eu rhannu',
   email: docsEmail,
   continue: 'Parhau',
 };

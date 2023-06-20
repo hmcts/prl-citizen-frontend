@@ -34,7 +34,7 @@ const cy: typeof en = {
     'The following questions will ask whether you have suffered, or are at risk of suffering, any form of harm. -welsh',
   line3: 'Find out about the signs of domestic violence or abuse -welsh',
 
-  continue: 'Continue -welsh',
+  continue: 'Parhau',
   summery1: 'Why do we need this information and what will we do with it? -welsh',
   summery2:
     'The court needs to know if any of the other people in this application, or anyone connected to them who has contact with the children, poses a risk to the safety of the children. -welsh',

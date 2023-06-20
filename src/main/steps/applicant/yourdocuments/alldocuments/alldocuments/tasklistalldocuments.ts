@@ -628,6 +628,7 @@ const getApplicantRequestToCA = (applicant: Applicant, taskListItems) => {
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
     href: URL.APPLICANT + URL.APPLICANT_CA_DA_REQUEST,
+    openInAnotherTab: true,
   };
 };
 
@@ -641,6 +642,7 @@ const getApplicantAohAndViolence = (applicant: Applicant, taskListItems, userCas
     href: getApplicantAllegationsOfHarmAndViolence(userCase)
       ? URL.ALLEGATION_OF_HARM_VOILENCE
       : URL.ALLEGATION_OF_HARM_VOILENCE_DOC,
+    openInAnotherTab: true,
   };
 };
 export const getApplicantResponseToAohAndViolence = (applicant: Applicant, taskListItems) => {

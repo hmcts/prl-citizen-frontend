@@ -47,33 +47,33 @@ describe('task-list > content', () => {
               text: 'Your position statements',
             },
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your position statements&parentDocType=Witness statements and evidence&docType=Your witness statements',
+              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your witness statements&parentDocType=Witness statements and evidence&docType=Your witness statements',
               id: 'your-witness-statements',
               text: 'Your witness statements',
             },
             {
-              href: "/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your position statements&parentDocType=Witness statements and evidence&docType=Other people's witness statements",
+              href: "/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Other people's witness statements&parentDocType=Witness statements and evidence&docType=Other people's witness statements",
               id: 'other-witness-statements',
               text: "Other people's witness statements",
             },
 
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your position statements&parentDocType=Witness statements and evidence&docType=Emails, screenshots, images and other media files',
+              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Emails, screenshots, images and other media files&parentDocType=Witness statements and evidence&docType=Emails, screenshots, images and other media files',
               id: 'mail-screenshots-media-files',
               text: 'Emails, screenshots, images and other media files',
             },
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your position statements&parentDocType=Witness statements and evidence&docType=Medical records',
+              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Medical records&parentDocType=Witness statements and evidence&docType=Medical records',
               id: 'medical-records',
               text: 'Medical records',
             },
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your position statements&parentDocType=Witness statements and evidence&docType=Letters from school',
+              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Letters from school&parentDocType=Witness statements and evidence&docType=Letters from school',
               id: 'letters-from-school',
               text: 'Letters from school',
             },
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your position statements&parentDocType=Witness statements and evidence&docType=Tenancy and mortgage agreements',
+              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Tenancy and mortgage agreements&parentDocType=Witness statements and evidence&docType=Tenancy and mortgage agreements',
               id: 'tenancy-mortgage-agreements',
               text: 'Tenancy and mortgage agreements',
             },
@@ -83,7 +83,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your position statements&parentDocType=Applications&docType=Previous orders submitted with application',
+              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Previous orders submitted with application&parentDocType=Applications&docType=Previous orders submitted with application',
               id: 'previous-orders-submitted',
               text: 'Previous orders submitted with application',
             },
@@ -93,22 +93,22 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your position statements&parentDocType=Expert reports&docType=Medical reports',
+              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Medical reports&parentDocType=Expert reports&docType=Medical reports',
               id: 'medical-reports',
               text: 'Medical reports',
             },
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your position statements&parentDocType=Expert reports&docType=Drug and alcohol tests (toxicology)',
+              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Paternity test reports&parentDocType=Expert reports&docType=Paternity test reports',
               id: 'paternity-test-reports',
               text: 'Paternity test reports',
             },
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your position statements&parentDocType=Expert reports&docType=Paternity test reports',
+              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Drug and alcohol tests (toxicology)&parentDocType=Expert reports&docType=Drug and alcohol tests (toxicology)',
               id: 'drug-and-alcohol-tests',
               text: 'Drug and alcohol tests (toxicology)',
             },
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your position statements&parentDocType=Expert reports&docType=Police reports',
+              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Police reports&parentDocType=Expert reports&docType=Police reports',
               id: 'police-reports',
               text: 'Police reports',
             },
@@ -118,7 +118,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your position statements&parentDocType=Other documents&docType=Other documents',
+              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Other documents&parentDocType=Other documents&docType=Other documents',
               id: 'other-documents',
               text: 'Other documents',
             },
