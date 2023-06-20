@@ -5,7 +5,7 @@ import { FormContent } from '../../app/form/Form';
 const en = () => ({
   section: 'What to do next',
   title: 'Complete your application using a paper form',
-  subtitle: "you can do this using a child arrangements application form (also known as 'Form C100').",
+  subtitle: "You can do this using a child arrangements application form (also known as 'Form C100').",
   giveDetails:
     "See <a href='https://www.gov.uk/government/publications/form-c100-application-under-the-children-act-1989-for-a-child-arrangements-prohibited-steps-specific-issue-section-8-order-or-to-vary-or-discharge' class='govuk-link' rel='external' target='_blank'>Form C100 on GOV.UK</a>. Download the from and fill in your details.",
   returnToGOVUK: 'Return to GOV.UK',

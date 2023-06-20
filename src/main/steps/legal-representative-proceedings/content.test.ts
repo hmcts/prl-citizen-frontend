@@ -66,8 +66,6 @@ describe('legal-representative-proceedings > content', () => {
 
   test('should contain cancel button', () => {
     expect(form.link.text(generatedContent)).toBe('Cancel');
-    expect(form.link.href).toBe(
-      'https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a'
-    );
+    expect(form.link.href).toBe('#');
   });
 });

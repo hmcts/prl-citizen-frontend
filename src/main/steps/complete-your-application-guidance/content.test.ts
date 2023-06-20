@@ -17,8 +17,9 @@ const en = {
   courtFeesParagraphs: [
     'You may be able to get help with some or all of your court fees depending on your savings, income and benefits.',
     'If you apply for help with fees a payment will not be taken when you submit the application.',
-    "<p class='govuk-body'> Check the <a href='https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a' class='govuk-link' rel='external' target='_blank'>help with fees guidance on GOV.UK</a> to find out if you meet the criteria and apply for support.</p>",
+    "<p class='govuk-body'> Check the <a href='https://www.gov.uk/get-help-with-court-fees' class='govuk-link' rel='external' target='_blank'>help with fees guidance on GOV.UK</a> to find out if you meet the criteria and apply for support.</p>",
   ],
+  cancel: 'Cancel',
 };
 
 const cy = {
@@ -32,8 +33,9 @@ const cy = {
   courtFeesParagraphs: [
     'Efallai y gallwch gael help gyda rhywfaint o’ch ffioedd llys neu’r holl ffioedd yn dibynnu ar eich cynilion, eich incwm a’ch budd-daliadau.',
     'Os byddwch yn gwneud cais am help i dalu ffioedd ni chymerir y taliad pan fyddwch yn cyflwyno’r cais.',
-    "<p class='govuk-body'> Cyfeiriwch at y cyfarwyddyd ar <a href='https://get.adobe.com/uk/reader/' class='govuk-link' rel='external' target='_blank'>help i dalu ffioedd ar GOV.UK</a> i weld os ydych yn bodloni’r meini prawf ac i wneud cais am gymorth. </p>",
+    "<p class='govuk-body'> Cyfeiriwch at y cyfarwyddyd ar <a href='https://www.gov.uk/get-help-with-court-fees' class='govuk-link' rel='external' target='_blank'>help i dalu ffioedd ar GOV.UK</a> i weld os ydych yn bodloni’r meini prawf ac i wneud cais am gymorth. </p>",
   ],
+  cancel: 'Cancel -welsh',
 };
 
 describe('complete-your-application-guidance > content', () => {
