@@ -202,7 +202,7 @@ export const getCheckAllegationOfHarmStatus = (
   userCase: Partial<CaseWithId> | undefined,
   userIdamId: string
 ): SectionStatus => {
-  let status = SectionStatus.DOWNLOAD;
+  let status = SectionStatus.READY_TO_VIEW;
 
   if (!userCase?.c1ADocument?.document_binary_url) {
     return SectionStatus.NOT_AVAILABLE_YET;
