@@ -145,7 +145,9 @@ describe('citizen-home content', () => {
     expect((docsSupportField.hint as Function)(generatedContent)).toBe(en.optionHint);
     expect((docsSupportField.section as Function)(generatedContent)).toBe(en.section);
     expect((docsSupportField.values[0].label as Function)(generatedContent)).toBe(en.docsColour);
-    expect((docsSupportField.values[0].subFields?.docsDetails.label as Function)(generatedContent)).toBe(en.docsColourDetails);
+    expect((docsSupportField.values[0].subFields?.docsDetails.label as Function)(generatedContent)).toBe(
+      en.docsColourDetails
+    );
     expect((docsSupportField.values[0].subFields?.docsDetails.validator as Function)(generatedContent)).toBe(undefined);
 
     expect((docsSupportField.values[1].label as Function)(generatedContent)).toBe(en.docsReadFormat);
@@ -153,16 +155,24 @@ describe('citizen-home content', () => {
     expect((docsSupportField.values[2].label as Function)(generatedContent)).toBe(en.brailleDocs);
 
     expect((docsSupportField.values[3].label as Function)(generatedContent)).toBe(en.largePrintDocs);
-    expect((docsSupportField.values[3].subFields?.largePrintDetails.label as Function)(generatedContent)).toBe(en.largePrintDocsDetails);
-    expect((docsSupportField.values[3].subFields?.largePrintDetails.validator as Function)(generatedContent)).toBe(undefined);
+    expect((docsSupportField.values[3].subFields?.largePrintDetails.label as Function)(generatedContent)).toBe(
+      en.largePrintDocsDetails
+    );
+    expect((docsSupportField.values[3].subFields?.largePrintDetails.validator as Function)(generatedContent)).toBe(
+      undefined
+    );
 
     expect((docsSupportField.values[4].label as Function)(generatedContent)).toBe(en.audioTranslation);
     expect((docsSupportField.values[5].label as Function)(generatedContent)).toBe(en.docsReadOut);
     expect((docsSupportField.values[6].label as Function)(generatedContent)).toBe(en.emailInfo);
 
     expect((docsSupportField.values[7].label as Function)(generatedContent)).toBe(en.other);
-    expect((docsSupportField.values[7].subFields?.otherDetails.label as Function)(generatedContent)).toBe(en.otherDetails);
-    expect((docsSupportField.values[7].subFields?.otherDetails.validator as Function)(generatedContent)).toBe(undefined);
+    expect((docsSupportField.values[7].subFields?.otherDetails.label as Function)(generatedContent)).toBe(
+      en.otherDetails
+    );
+    expect((docsSupportField.values[7].subFields?.otherDetails.validator as Function)(generatedContent)).toBe(
+      undefined
+    );
 
     expect((docsSupportField.values[9].label as Function)(generatedContent)).toBe(en.noSupport);
   });

@@ -322,7 +322,70 @@ export const getRespondentName = (userCase: Partial<CaseWithId>, userId: string)
   }
 };
 
-export const getC100Banners = (userCase, translations, userIdamId) => {
+/* eslint-disable  @typescript-eslint/explicit-module-boundary-types */
+export const getC100Banners = (
+  userCase: Partial<CaseWithId>,
+  translations: {
+    title?: string;
+    caseNumber?: string;
+    respondentName?: string;
+    want?: string;
+    findMyLocalCourt?: string;
+    findLegalAdvice?: string;
+    knowMoreAboutChildArrangements?: string;
+    knowMoreAboutAttendingCourt?: string;
+    statuses?: {
+      COMPLETED: string;
+      IN_PROGRESS: string;
+      TO_DO: string;
+      READY_TO_VIEW: string;
+      NOT_AVAILABLE_YET: string;
+      DOWNLOAD: string;
+      VIEW: string;
+    };
+    sectionTitles?: {
+      yourDocuments: string;
+      ordersFromTheCourt: string;
+      yourResponse: string;
+      yourcourtHearings: string;
+      theApplication: string;
+      aboutYou: string;
+    };
+    taskListItems?: {
+      keep_your_details_private: string;
+      confirm_or_edit_your_contact_details: string;
+      support_you_need_during_your_case: string;
+      check_the_application: string;
+      check_allegations_of_harm_and_violence: string;
+      respond_to_application: string;
+      respond_to_allegations_of_harm_and_violence: string;
+      check_details_of_your_court_hearings: string;
+      upload_document: string;
+      view_all_orders_from_the_court: string;
+      view_all_documents: string;
+      respond_to_application_hint: string;
+    };
+    newOrderBanner: object;
+    finalOrderBanner: object;
+    caRespondentServedBanner?: {
+      bannerHeading: string;
+      bannerContent: { line1: string; line2: string }[];
+      bannerLinks: { href: string; text: string }[];
+    };
+    cafcassBanner?: {
+      bannerHeading: string;
+      bannerContent: { line1: string }[];
+      bannerLinks: { href: string; text: string }[];
+    };
+    daRespondentBanner?: {
+      bannerHeading: string;
+      bannerContent: { line1: string; line2: string }[];
+      bannerLinks: { href: string; text: string }[];
+    };
+    viewDocumentBanner: object;
+  },
+  userIdamId: string | undefined
+) => {
   const banners: Banner[] = [];
   userCase?.respondents?.forEach((respondent: Respondent) => {
     if (
@@ -342,7 +405,66 @@ export const getC100Banners = (userCase, translations, userIdamId) => {
   return banners;
 };
 
-export const getFl401Banners = (userCase, translations, userIdamId) => {
+/* eslint-disable  @typescript-eslint/explicit-module-boundary-types */
+export const getFl401Banners = (
+  userCase: Partial<CaseWithId> | undefined,
+  translations: {
+    title?: string;
+    caseNumber?: string;
+    respondentName?: string;
+    want?: string;
+    findMyLocalCourt?: string;
+    findLegalAdvice?: string;
+    knowMoreAboutChildArrangements?: string;
+    knowMoreAboutAttendingCourt?: string;
+    statuses?: {
+      COMPLETED: string;
+      IN_PROGRESS: string;
+      TO_DO: string;
+      READY_TO_VIEW: string;
+      NOT_AVAILABLE_YET: string;
+      DOWNLOAD: string;
+      VIEW: string;
+    };
+    sectionTitles?: {
+      yourDocuments: string;
+      ordersFromTheCourt: string;
+      yourResponse: string;
+      yourcourtHearings: string;
+      theApplication: string;
+      aboutYou: string;
+    };
+    taskListItems?: {
+      keep_your_details_private: string;
+      confirm_or_edit_your_contact_details: string;
+      support_you_need_during_your_case: string;
+      check_the_application: string;
+      check_allegations_of_harm_and_violence: string;
+      respond_to_application: string;
+      respond_to_allegations_of_harm_and_violence: string;
+      check_details_of_your_court_hearings: string;
+      upload_document: string;
+      view_all_orders_from_the_court: string;
+      view_all_documents: string;
+      respond_to_application_hint: string;
+    };
+    newOrderBanner: object;
+    finalOrderBanner: object;
+    caRespondentServedBanner?: {
+      bannerHeading: string;
+      bannerContent: { line1: string; line2: string }[];
+      bannerLinks: { href: string; text: string }[];
+    };
+    cafcassBanner?: {
+      bannerHeading: string;
+      bannerContent: { line1: string }[];
+      bannerLinks: { href: string; text: string }[];
+    };
+    daRespondentBanner: object;
+    viewDocumentBanner: object;
+  },
+  userIdamId: string | undefined
+) => {
   const banners: Banner[] = [];
   if (
     userCase?.respondentsFL401?.user?.idamId === userIdamId &&
