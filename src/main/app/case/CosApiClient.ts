@@ -157,6 +157,8 @@ export class CosApiClient {
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   public async getAllHearingsForCitizenCase(user: UserDetails, caseId: string): Promise<any> {
+    const path = config.get('services.cos.url') + `/hearing/${caseId}`;
+    logger.info(`Path ****** ${path} *******`);
     try {
       const response = await Axios.post(config.get('services.cos.url') + `/hearing/${caseId}`, {
         headers: {
@@ -164,10 +166,9 @@ export class CosApiClient {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + user.accessToken,
           ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-          accessCode: 'Dummy accessCode',
         },
       });
-
+      logger.info(`response ****** ${response} *******`);
       return response;
     } catch (err) {
       throw new Error('Case could not be updated.');
