@@ -107,11 +107,13 @@ export interface PartyDetails {
   response: Response;
   user: User;
   contactPreferences?: applicantContactPreferencesEnum;
+  isRemoveLegalRepresentativeRequested?: YesOrNo;
 }
 
 export interface User {
   email: string,
-  idamId: string
+  idamId: string,
+  solicitorRepresented?: string
 }
 
 export interface Response {
@@ -2977,16 +2979,17 @@ export enum CaseType {
 
 export enum CaseEvent {
   EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement',
-  KEEP_DETAILS_PRIVATE = 'keepYourDetailsPrivate', 
+  KEEP_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
   CONFIRM_YOUR_DETAILS = 'confirmYourDetails',
   SUPPORT_YOU_DURING_CASE = 'hearingNeeds',
   LEGAL_REPRESENTATION = 'legalRepresentation',
-  CONSENT_TO_APPLICATION = 'consentToTheApplication',
   SAFETY_CONCERNS = 'citizenSafetyConcerns',
   MIAM = 'respondentMiam',
   PARTY_PERSONAL_DETAILS = 'linkCitizenAccount',
   CITIZEN_INTERNAL_CASE_UPDATE = 'citizen-internal-case-update',
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
+  CONSENT_TO_APPLICATION = 'consentToTheApplication',
+  CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative'
 }
 
 export enum passportPossessionRelative {
