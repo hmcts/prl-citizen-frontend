@@ -3,6 +3,7 @@ import { AWPApplicationReason, AWPApplicationType, YesOrNo } from '../app/case/d
 import { applyParms } from './common/url-parser';
 import { Sections, Step } from './constants';
 import {
+  APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
   APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_REFERENCE,
@@ -15,6 +16,11 @@ export const applicationWithinProceedingsSequence: Step[] = [
     url: APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: () => APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
+  },
+  {
+    url: APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: () => APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
   },
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
