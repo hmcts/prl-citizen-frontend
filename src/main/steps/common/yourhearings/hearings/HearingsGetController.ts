@@ -37,13 +37,8 @@ export default class HearingsGetController {
     //make a call to the cosclient to get the hearings
     const citizenUser = req.session.user;
     const cosApiClient = new CosApiClient(citizenUser.accessToken, 'https://return-url');
-    const caseHearingDataFromCos = await cosApiClient.retrieveCaseHearingsByCaseId(req.session.userCase, citizenUser);
-    const caseHearingDataFromCos1 = await cosApiClient.getAllHearingsForCitizenCase(
-      req.session.user,
-      req.session.userCase.id
-    );
-    console.log('retrieved caseHEARINGdata for case : ' + JSON.stringify(caseHearingDataFromCos1));
-    req.session.userCase.hearingCollection = caseHearingDataFromCos.hearingCollection;
+    const caseHearings = await cosApiClient.getAllHearingsForCitizenCase(req.session.user, req.session.userCase.id);
+    console.log('retrieved caseHEARINGdata for case : ' + JSON.stringify(caseHearings));
     const userCase = req.session.userCase;
 
     res.render(this.view, {

@@ -161,16 +161,18 @@ export class CosApiClient {
     logger.info(`Path ****** ${path} *******`);
     console.log(`Path ****** ${path} *******`);
     try {
-      const response = await Axios.post(config.get('services.cos.url') + `/hearing/${caseId}`, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + user.accessToken,
-          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-        },
-      }).then(resp => {
-        return resp;
-      });
+      const response = await Axios.post(
+        config.get('services.cos.url') + `/hearing/${caseId}`,
+        {},
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + user.accessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          },
+        }
+      );
       logger.info(`Path ****** ${response} *******`);
       console.log(`Path ****** ${response} *******`);
       return response;
