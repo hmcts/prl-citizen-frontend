@@ -90,7 +90,7 @@ export const sectionCountFormatter = sections => {
   });
   return sections;
 };
-const en = (content: CommonContent) => {
+export const en = (content: CommonContent) => {
   const userCase = content.userCase!;
   let sections = [] as ANYTYPE;
 
@@ -113,7 +113,7 @@ const en = (content: CommonContent) => {
   };
 };
 
-const cy: typeof en = (content: CommonContent) => {
+export const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
   let sections = [] as ANYTYPE;
 

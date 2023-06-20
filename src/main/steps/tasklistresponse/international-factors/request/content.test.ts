@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
-import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
+import { Validator, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -82,20 +82,21 @@ describe('citizen-home content', () => {
   });
 
   test('should contain detailsKnown field', () => {
-    const requestKnownField = fields.request as FormOptions;
-    expect(requestKnownField.type).toBe('radios');
-    expect(requestKnownField.classes).toBe('govuk-radios');
-    expect((requestKnownField.section as Function)(generatedContent)).toBe(enContent.section);
-    expect((requestKnownField.hint as Function)(generatedContent)).toBe(enContent.twoHint);
-    expect(requestKnownField.validator).toBe(isFieldFilledIn);
+    const detailsKnownField = fields.request as FormOptions;
+    expect(detailsKnownField.type).toBe('radios');
+    expect(detailsKnownField.classes).toBe('govuk-radios');
+    expect((detailsKnownField.label as Function)(generatedContent)).toBe(undefined);
+    expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
+    expect((detailsKnownField.hint as Function)(generatedContent)).toBe(enContent.twoHint);
+    expect((detailsKnownField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
 
-    expect((requestKnownField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
-    expect(
-      (requestKnownField.values[0].subFields?.iFactorsRequestProvideDetails.label as Function)(generatedContent)
-    ).toBe(enContent.provideDetails);
-    (requestKnownField.values[0].subFields?.iFactorsRequestProvideDetails.validator as Validator)('test value');
-    expect(isFieldFilledIn).toHaveBeenCalledWith('test value');
-    expect((requestKnownField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
+    (detailsKnownField.values[0].subFields?.iFactorsRequestProvideDetails.validator as Validator)(
+      'iFactorsRequestProvideDetails'
+    );
+    expect(isFieldFilledIn).toHaveBeenCalledWith('iFactorsRequestProvideDetails');
+    expect(isTextAreaValid).toHaveBeenCalledWith('iFactorsRequestProvideDetails');
+
+    expect((detailsKnownField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
   });
 
   test('should onlyContinue continue button', () => {

@@ -93,7 +93,16 @@ describe('citizen-home content', () => {
   test('should contain Attending the court field', () => {
     const attendingToCourtField = fields.attendingToCourt as FormOptions;
     expect(attendingToCourtField.type).toBe('checkboxes');
+    expect((attendingToCourtField.hint as Function)(generatedContent)).toBe(en.optionHint);
     expect((attendingToCourtField.section as Function)(generatedContent)).toBe(en.section);
+    expect((attendingToCourtField.validator as Function)(generatedContent)).toBe(undefined);
+    expect((attendingToCourtField.values[0].label as Function)(generatedContent)).toBe(en.videoHearings);
+    expect((attendingToCourtField.values[1].label as Function)(generatedContent)).toBe(en.phoneHearings);
+    expect((attendingToCourtField.values[2].divider as Function)(generatedContent)).toBe(undefined);
+    expect((attendingToCourtField.values[3].label as Function)(generatedContent)).toBe(en.noHearings);
+    expect((attendingToCourtField.values[3].hint as Function)(generatedContent)).toBe(en.noHearingsHint);
+    expect((attendingToCourtField.values[3].subFields?.hearingDetails.label as Function)(generatedContent)).toBe(en.noHearingDetails);
+    expect((attendingToCourtField.values[3].subFields?.hearingDetails.validator as Function)(generatedContent)).toBe(undefined);
   });
 
   test('should contain Continue button', () => {

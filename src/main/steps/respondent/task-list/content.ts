@@ -313,7 +313,7 @@ export const generateContent: TranslationFn = content => {
   };
 };
 
-const getRespondentName = (userCase: Partial<CaseWithId>, userId: string): string => {
+export const getRespondentName = (userCase: Partial<CaseWithId>, userId: string): string => {
   if (userCase.caseTypeOfApplication === 'C100') {
     const respondent = getRespondentPartyDetailsCa(userCase, userId);
     return respondent ? respondent.value.firstName + ' ' + respondent.value.lastName : '';
@@ -322,7 +322,7 @@ const getRespondentName = (userCase: Partial<CaseWithId>, userId: string): strin
   }
 };
 
-const getC100Banners = (userCase, translations, userIdamId) => {
+export const getC100Banners = (userCase, translations, userIdamId) => {
   const banners: Banner[] = [];
   userCase?.respondents?.forEach((respondent: Respondent) => {
     if (
@@ -342,7 +342,7 @@ const getC100Banners = (userCase, translations, userIdamId) => {
   return banners;
 };
 
-const getFl401Banners = (userCase, translations, userIdamId) => {
+export const getFl401Banners = (userCase, translations, userIdamId) => {
   const banners: Banner[] = [];
   if (
     userCase?.respondentsFL401?.user?.idamId === userIdamId &&
