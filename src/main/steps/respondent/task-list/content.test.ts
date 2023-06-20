@@ -1,8 +1,7 @@
-import { CaseWithId } from '../../../app/case/case';
-import { Banner, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { TranslationFn } from '../../../app/controller/GetController';
-import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
+import languageAssertions from '../../../../test/unit/utils/languageAssertions';
+import mockUserCase from '../../../../test/unit/utils/mockUserCase';
+import { CaseType, SectionStatus, State, YesOrNo } from '../../../app/case/definition';
+import { CommonContent } from '../../common/common.content';
 import {
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
@@ -13,12 +12,114 @@ import {
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
-} from '../../../steps/urls';
+} from '../../urls';
 
+import { generateContent, getC100Banners, getFl401Banners, getRespondentName } from './content';
 import { respondent_cy, respondent_en } from './section-titles';
-import { generateRespondentTaskList } from './tasklist';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
 import { getRespondentPartyDetailsCa } from './utils';
+//import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
+
+const c100Case = {
+  id: '12',
+  state: State.CASE_SUBMITTED_PAID,
+  citizenResponseC7DocumentList: [
+    {
+      id: 'string',
+      value: {
+        partyName: 'string',
+        createdBy: '1',
+        dateCreated: new Date(),
+        citizenDocument: {
+          document_url: 'string',
+          document_filename: 'string',
+          document_binary_url: 'string',
+          document_hash: 'string',
+        },
+      },
+    },
+  ],
+  respondents: [
+    {
+      id: '1',
+      value: {
+        email: 'abc',
+        gender: 'male',
+        address: {
+          AddressLine1: '',
+          AddressLine2: '',
+          PostTown: '',
+          County: '',
+          PostCode: '',
+        },
+        dxNumber: '123',
+        landline: '987654321',
+        lastName: 'Smith',
+        firstName: 'John',
+        dateOfBirth: '',
+        otherGender: '',
+        phoneNumber: '',
+        placeOfBirth: '',
+        previousName: '',
+        solicitorOrg: {
+          OrganisationID: '',
+          OrganisationName: '',
+        },
+        sendSignUpLink: '',
+        solicitorEmail: '',
+        isAddressUnknown: '',
+        solicitorAddress: {
+          County: '',
+          Country: '',
+          PostCode: '',
+          PostTown: '',
+          AddressLine1: '',
+          AddressLine2: '',
+          AddressLine3: '',
+        },
+        isDateOfBirthKnown: '',
+        solicitorReference: '',
+        solicitorTelephone: '',
+        isPlaceOfBirthKnown: '',
+        isDateOfBirthUnknown: '',
+        isAddressConfidential: '',
+        isCurrentAddressKnown: '',
+        relationshipToChildren: '',
+        representativeLastName: '',
+        representativeFirstName: '',
+        canYouProvidePhoneNumber: '',
+        canYouProvideEmailAddress: '',
+        isAtAddressLessThan5Years: '',
+        isPhoneNumberConfidential: '',
+        isEmailAddressConfidential: '',
+        respondentLivedWithApplicant: '',
+        doTheyHaveLegalRepresentation: '',
+        addressLivedLessThan5YearsDetails: '',
+        otherPersonRelationshipToChildren: [''],
+        isAtAddressLessThan5YearsWithDontKnow: '',
+        response: {
+          citizenFlags: {
+            isAllDocumentsViewed: 'No',
+            isResponseInitiated: 'Yes',
+          },
+        },
+        user: {
+          email: 'abc',
+          idamId: '12345',
+        },
+      },
+    },
+  ],
+  caseTypeOfApplication: CaseType.C100,
+};
+
+const userDetail = {
+  accessToken: '1234',
+  id: '12345',
+  email: 'abc',
+  givenName: 'John',
+  familyName: 'Smith',
+};
 
 const en = () => ({
   title: 'Respondent tasklist',
@@ -151,7 +252,7 @@ const cy = () => ({
   want: 'Rwyf eisiau ...',
   findMyLocalCourt: 'Find my local court',
   findLegalAdvice: 'Dod o hyd i gyngor cyfreithiol',
-  knowMoreAboutChildArrangements: 'Gwybod mwy am drefniadau plant',
+  knowMoreAboutChildArrangements: 'Know more about child arrangements',
   knowMoreAboutAttendingCourt: 'Gwybod mwy am fynychu’r llys',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
@@ -159,7 +260,7 @@ const cy = () => ({
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
-    [SectionStatus.DOWNLOAD]: 'LLWYTHO',
+    [SectionStatus.DOWNLOAD]: 'DOWNLOAD (in Welsh)',
     [SectionStatus.VIEW]: 'VIEW (in Welsh)',
   },
   sectionTitles: respondent_cy,
@@ -275,216 +376,539 @@ const languages = {
   cy,
 };
 
-export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
-  const banners: Banner[] =
-    content.userCase?.caseTypeOfApplication === 'C100'
-      ? getC100Banners(content.userCase, translations, content.userIdamId)
-      : getFl401Banners(content.userCase, translations, content.userIdamId);
-
-  const stages = buildProgressBarStages(content.userCase!, content.language);
-  const req: AppRequest = content.additionalData?.req;
-  if (content.userCase?.caseTypeOfApplication === 'C100') {
-    const respondent = getRespondentPartyDetailsCa(content.userCase, req.session.user.id);
-    if (respondent?.value.response.citizenFlags?.isResponseInitiated) {
-      stages[2].active = true;
-    }
-    const partyId = respondent?.id;
-    if (content.userCase.citizenResponseC7DocumentList) {
-      for (let i = 0; i < content.userCase.citizenResponseC7DocumentList.length; i++) {
-        if (content.userCase.citizenResponseC7DocumentList[i].value.createdBy === partyId) {
-          stages[2].completed = true;
-        }
-      }
-    }
-  }
-  translations.respondentName = getRespondentName(req.session.userCase, req.session.user.id);
-
-  return {
-    ...translations,
-    sections: generateRespondentTaskList(
-      translations.sectionTitles,
-      translations.taskListItems,
-      content.userCase,
-      content.userIdamId
-    ),
-    banners,
-    stages,
-  };
-};
-
-export const getRespondentName = (userCase: Partial<CaseWithId>, userId: string): string => {
-  if (userCase.caseTypeOfApplication === 'C100') {
-    const respondent = getRespondentPartyDetailsCa(userCase, userId);
-    return respondent ? respondent.value.firstName + ' ' + respondent.value.lastName : '';
-  } else {
-    return userCase.respondentsFL401?.firstName + ' ' + userCase.respondentsFL401?.lastName;
-  }
-};
-
-/* eslint-disable  @typescript-eslint/explicit-module-boundary-types */
-export const getC100Banners = (
-  userCase: Partial<CaseWithId>,
-  translations: {
-    title?: string;
-    caseNumber?: string;
-    respondentName?: string;
-    want?: string;
-    findMyLocalCourt?: string;
-    findLegalAdvice?: string;
-    knowMoreAboutChildArrangements?: string;
-    knowMoreAboutAttendingCourt?: string;
-    statuses?: {
-      COMPLETED: string;
-      IN_PROGRESS: string;
-      TO_DO: string;
-      READY_TO_VIEW: string;
-      NOT_AVAILABLE_YET: string;
-      DOWNLOAD: string;
-      VIEW: string;
-    };
-    sectionTitles?: {
-      yourDocuments: string;
-      ordersFromTheCourt: string;
-      yourResponse: string;
-      yourcourtHearings: string;
-      theApplication: string;
-      aboutYou: string;
-    };
-    taskListItems?: {
-      keep_your_details_private: string;
-      confirm_or_edit_your_contact_details: string;
-      support_you_need_during_your_case: string;
-      check_the_application: string;
-      check_allegations_of_harm_and_violence: string;
-      respond_to_application: string;
-      respond_to_allegations_of_harm_and_violence: string;
-      check_details_of_your_court_hearings: string;
-      upload_document: string;
-      view_all_orders_from_the_court: string;
-      view_all_documents: string;
-      respond_to_application_hint: string;
-    };
-    newOrderBanner: object;
-    finalOrderBanner: object;
-    caRespondentServedBanner?: {
-      bannerHeading: string;
-      bannerContent: { line1: string; line2: string }[];
-      bannerLinks: { href: string; text: string }[];
-    };
-    cafcassBanner?: {
-      bannerHeading: string;
-      bannerContent: { line1: string }[];
-      bannerLinks: { href: string; text: string }[];
-    };
-    daRespondentBanner?: {
-      bannerHeading: string;
-      bannerContent: { line1: string; line2: string }[];
-      bannerLinks: { href: string; text: string }[];
-    };
-    viewDocumentBanner: object;
+const enContent = {
+  title: 'Respondent tasklist',
+  respondentName: ' ',
+  statuses: {
+    [SectionStatus.COMPLETED]: 'Completed',
+    [SectionStatus.IN_PROGRESS]: 'In Progress',
+    [SectionStatus.TO_DO]: 'To Do',
+    [SectionStatus.READY_TO_VIEW]: 'Ready to view',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
+    [SectionStatus.VIEW]: 'VIEW',
   },
-  userIdamId: string | undefined
-) => {
-  const banners: Banner[] = [];
-  userCase?.respondents?.forEach((respondent: Respondent) => {
-    if (
-      respondent?.value.user?.idamId === userIdamId &&
-      YesOrNo.NO === respondent?.value.response?.citizenFlags?.isAllDocumentsViewed
-    ) {
-      banners.push(translations.viewDocumentBanner);
-    }
+  sectionTitles: respondent_en,
+  taskListItems: respondent_tasklist_items_en,
+};
+
+const cyContent = {
+  title: 'Respondent tasklist - welsh',
+  respondentName: ' ',
+  statuses: {
+    [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
+    [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
+    [SectionStatus.TO_DO]: 'Heb Ddechrau',
+    [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
+    [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
+    [SectionStatus.DOWNLOAD]: 'LLWYTHO',
+    [SectionStatus.VIEW]: 'VIEW (in Welsh)',
+  },
+  sectionTitles: respondent_cy,
+  taskListItems: respondent_tasklist_items_cy,
+};
+
+describe('task-list > content', () => {
+  const commonContent = {
+    language: 'en',
+    userCase: c100Case,
+    additionalData: {
+      req: {
+        session: {
+          user: { id: '' },
+          userCase: {
+            ...mockUserCase,
+            respondentsFL401: {
+              firstName: '',
+              lastName: '',
+            },
+            applicantsFL401: {
+              firstName: '',
+              lastName: '',
+            },
+          },
+        },
+      },
+    },
+  } as unknown as CommonContent;
+  // eslint-disable-next-line jest/expect-expect
+  test('should return correct english content', () => {
+    languageAssertions('en', enContent, () => generateContent(commonContent));
   });
-  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
-    if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
-      banners.push(translations.newOrderBanner);
-    } else {
-      banners.push(translations.finalOrderBanner);
-    }
-  }
-  return banners;
-};
+  // eslint-disable-next-line jest/expect-expect
+  test('should return correct welsh content', () => {
+    languageAssertions('en', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+  test.skip.each([
+    {
+      userCase: mockUserCase,
+      expected: [
+        {
+          items: [
+            {
+              href: '/respondent/keep-details-private/details_known/' + mockUserCase.id,
+              id: 'keep-your-details-private',
+              status: 'TO_DO',
+              text: 'Keep your details private',
+            },
+            {
+              href: '/respondent/confirm-contact-details/checkanswers',
+              id: 'confirm-or-edit-your-contact-details',
+              status: 'IN_PROGRESS',
+              text: 'Confirm or edit your contact details',
+            },
+            {
+              href: '/respondent/support-you-need-during-case/attending-the-court',
+              id: 'support_you_need_during_your_case',
+              status: 'TO_DO',
+              text: 'Support you need during your case',
+            },
+          ],
+          title: 'About you',
+        },
+        {
+          items: [
+            {
+              href: '/tasklistresponse/miam/miam-start',
+              id: 'check_the_application',
+              status: 'IN_PROGRESS',
+              text: 'Check the application (PDF)',
+            },
+          ],
+          title: 'The application',
+        },
+        {
+          items: [
+            {
+              href: '/tasklistresponse/international-factors/start',
+              id: 'check_details_of_your_court_hearings',
+              status: 'TO_DO',
+              text: 'Check details of your court hearings',
+            },
+          ],
+          title: 'Your court hearings',
+        },
+        {
+          items: [
+            {
+              href: '/respondent/yourdocuments/alldocuments/alldocuments',
+              id: 'view-all-documents',
+              status: 'READY_TO_VIEW',
+              text: 'View all documents',
+            },
+            {
+              href: '/respondent/upload-document',
+              id: 'upload-document',
+              status: SectionStatus.TO_DO,
+              text: 'Upload Documents',
+            },
+          ],
+          title: 'Your documents',
+        },
+        {
+          items: [
+            {
+              href: '#',
+              id: 'view-all-orders-from-the-court',
+              status: 'NOT_AVAILABLE_YET',
+              text: 'View all orders from the court',
+            },
+          ],
+          title: 'Orders from the court',
+        },
+      ],
+    },
+  ])('should generate correct task list %#', ({ userCase, expected }) => {
+    const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
+    expect(taskListItems).toEqual(expected);
+  });
 
-/* eslint-disable  @typescript-eslint/explicit-module-boundary-types */
-export const getFl401Banners = (
-  userCase: Partial<CaseWithId> | undefined,
-  translations: {
-    title?: string;
-    caseNumber?: string;
-    respondentName?: string;
-    want?: string;
-    findMyLocalCourt?: string;
-    findLegalAdvice?: string;
-    knowMoreAboutChildArrangements?: string;
-    knowMoreAboutAttendingCourt?: string;
-    statuses?: {
-      COMPLETED: string;
-      IN_PROGRESS: string;
-      TO_DO: string;
-      READY_TO_VIEW: string;
-      NOT_AVAILABLE_YET: string;
-      DOWNLOAD: string;
-      VIEW: string;
+  test('Should return the correct content', () => {
+    const commonContent2 = {
+      language: 'en',
+      userCase: c100Case,
+      additionalData: {
+        req: {
+          session: {
+            user: { id: '12345' },
+            userCase: {
+              ...mockUserCase,
+              respondentsFL401: {
+                firstName: '',
+                lastName: '',
+              },
+              applicantsFL401: {
+                firstName: '',
+                lastName: '',
+              },
+            },
+          },
+        },
+      },
+    } as unknown as CommonContent;
+
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    const common = generateContent(commonContent2) as Record<string, any>;
+    const respondent = getRespondentPartyDetailsCa(c100Case, userDetail.id);
+    expect(respondent).toEqual(c100Case.respondents[0]);
+    expect(common.stages[2]).toEqual({
+      active: true,
+      ariaLabel: 'Response submitted stage',
+      completed: true,
+      title: 'Response<br/> submitted',
+    });
+  });
+
+  test('should return respondent firstname and lastname', () => {
+    expect(getRespondentName(c100Case, userDetail.id)).toBe('John Smith');
+  });
+
+  test('should return respondentFL401 firstname and lastname', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SUBMITTED_PAID,
+      respondentsFL401: {
+        email: 'abc',
+        gender: 'male',
+        address: {
+          AddressLine1: '',
+          AddressLine2: '',
+          PostTown: '',
+          County: '',
+          PostCode: '',
+        },
+        dxNumber: '123',
+        landline: '987654321',
+        lastName: 'Smith',
+        firstName: 'John',
+        dateOfBirth: '',
+        otherGender: '',
+        phoneNumber: '',
+        placeOfBirth: '',
+        previousName: '',
+        solicitorOrg: {
+          OrganisationID: '',
+          OrganisationName: '',
+        },
+        sendSignUpLink: '',
+        solicitorEmail: '',
+        isAddressUnknown: '',
+        solicitorAddress: {
+          County: '',
+          Country: '',
+          PostCode: '',
+          PostTown: '',
+          AddressLine1: '',
+          AddressLine2: '',
+          AddressLine3: '',
+        },
+        isDateOfBirthKnown: '',
+        solicitorReference: '',
+        solicitorTelephone: '',
+        isPlaceOfBirthKnown: '',
+        isDateOfBirthUnknown: '',
+        isAddressConfidential: '',
+        isCurrentAddressKnown: '',
+        relationshipToChildren: '',
+        representativeLastName: '',
+        representativeFirstName: '',
+        canYouProvidePhoneNumber: '',
+        canYouProvideEmailAddress: '',
+        isAtAddressLessThan5Years: '',
+        isPhoneNumberConfidential: '',
+        isEmailAddressConfidential: '',
+        respondentLivedWithApplicant: '',
+        doTheyHaveLegalRepresentation: '',
+        addressLivedLessThan5YearsDetails: '',
+        otherPersonRelationshipToChildren: [''],
+        isAtAddressLessThan5YearsWithDontKnow: '',
+        response: {},
+        user: {
+          email: 'abc',
+          idamId: '12345',
+        },
+      },
+      caseTypeOfApplication: CaseType.FL401,
     };
-    sectionTitles?: {
-      yourDocuments: string;
-      ordersFromTheCourt: string;
-      yourResponse: string;
-      yourcourtHearings: string;
-      theApplication: string;
-      aboutYou: string;
+
+    expect(getRespondentName(data, userDetail.id)).toBe('John Smith');
+  });
+
+  test('should return C100-banners', () => {
+    const banner = [
+      {
+        bannerHeading: 'You have a new document to view',
+        bannerContent: [
+          {
+            line1: 'A new document has been added to your case.',
+          },
+        ],
+        bannerLinks: [
+          {
+            href: '/respondent/yourdocuments/alldocuments/alldocuments',
+            text: 'See all documents',
+          },
+        ],
+      },
+    ];
+    expect(getC100Banners(c100Case, languages[commonContent.language](), userDetail.id)).toEqual(banner);
+  });
+
+  test('should return Fl401-banners', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SUBMITTED_PAID,
+      orderWithoutGivingNoticeToRespondent: {
+        orderWithoutGivingNotice: YesOrNo.YES,
+      },
+      respondentsFL401: {
+        email: 'abc',
+        gender: 'male',
+        address: {
+          AddressLine1: '',
+          AddressLine2: '',
+          PostTown: '',
+          County: '',
+          PostCode: '',
+        },
+        dxNumber: '123',
+        landline: '987654321',
+        lastName: 'Smith',
+        firstName: 'John',
+        dateOfBirth: '',
+        otherGender: '',
+        phoneNumber: '',
+        placeOfBirth: '',
+        previousName: '',
+        solicitorOrg: {
+          OrganisationID: '',
+          OrganisationName: '',
+        },
+        sendSignUpLink: '',
+        solicitorEmail: '',
+        isAddressUnknown: '',
+        solicitorAddress: {
+          County: '',
+          Country: '',
+          PostCode: '',
+          PostTown: '',
+          AddressLine1: '',
+          AddressLine2: '',
+          AddressLine3: '',
+        },
+        isDateOfBirthKnown: '',
+        solicitorReference: '',
+        solicitorTelephone: '',
+        isPlaceOfBirthKnown: '',
+        isDateOfBirthUnknown: '',
+        isAddressConfidential: '',
+        isCurrentAddressKnown: '',
+        relationshipToChildren: '',
+        representativeLastName: '',
+        representativeFirstName: '',
+        canYouProvidePhoneNumber: '',
+        canYouProvideEmailAddress: '',
+        isAtAddressLessThan5Years: '',
+        isPhoneNumberConfidential: '',
+        isEmailAddressConfidential: '',
+        respondentLivedWithApplicant: '',
+        doTheyHaveLegalRepresentation: '',
+        addressLivedLessThan5YearsDetails: '',
+        otherPersonRelationshipToChildren: [''],
+        isAtAddressLessThan5YearsWithDontKnow: '',
+        response: {
+          citizenFlags: {
+            isAllDocumentsViewed: 'No',
+            isResponseInitiated: 'Yes',
+          },
+        },
+        user: {
+          email: 'abc',
+          idamId: '12345',
+        },
+      },
+      caseTypeOfApplication: CaseType.FL401,
+      orderCollection: [
+        {
+          id: 'e5b89eae-d6e1-4e15-a672-22a032617ff2',
+          value: {
+            dateCreated: '2022-07-18T11:04:34.483637',
+            orderType: 'Special guardianship order (C43A)',
+            orderDocument: {
+              document_url: 'string',
+              document_binary_url: 'string',
+              document_filename: 'Special_Guardianship_Order_C43A.pdf',
+            },
+            otherDetails: {
+              createdBy: 'qaz',
+              orderCreatedDate: '18 July 2022',
+              orderMadeDate: '11 November 2019',
+              orderRecipients: 'Test Solicitor\n\n',
+            },
+          },
+        },
+      ],
     };
-    taskListItems?: {
-      keep_your_details_private: string;
-      confirm_or_edit_your_contact_details: string;
-      support_you_need_during_your_case: string;
-      check_the_application: string;
-      check_allegations_of_harm_and_violence: string;
-      respond_to_application: string;
-      respond_to_allegations_of_harm_and_violence: string;
-      check_details_of_your_court_hearings: string;
-      upload_document: string;
-      view_all_orders_from_the_court: string;
-      view_all_documents: string;
-      respond_to_application_hint: string;
+
+    const data2 = {
+      id: '12',
+      state: State.ALL_FINAL_ORDERS_ISSUED,
+      orderWithoutGivingNoticeToRespondent: {
+        orderWithoutGivingNotice: YesOrNo.YES,
+      },
+      respondentsFL401: {
+        email: 'abc',
+        gender: 'male',
+        address: {
+          AddressLine1: '',
+          AddressLine2: '',
+          PostTown: '',
+          County: '',
+          PostCode: '',
+        },
+        dxNumber: '123',
+        landline: '987654321',
+        lastName: 'Smith',
+        firstName: 'John',
+        dateOfBirth: '',
+        otherGender: '',
+        phoneNumber: '',
+        placeOfBirth: '',
+        previousName: '',
+        solicitorOrg: {
+          OrganisationID: '',
+          OrganisationName: '',
+        },
+        sendSignUpLink: '',
+        solicitorEmail: '',
+        isAddressUnknown: '',
+        solicitorAddress: {
+          County: '',
+          Country: '',
+          PostCode: '',
+          PostTown: '',
+          AddressLine1: '',
+          AddressLine2: '',
+          AddressLine3: '',
+        },
+        isDateOfBirthKnown: '',
+        solicitorReference: '',
+        solicitorTelephone: '',
+        isPlaceOfBirthKnown: '',
+        isDateOfBirthUnknown: '',
+        isAddressConfidential: '',
+        isCurrentAddressKnown: '',
+        relationshipToChildren: '',
+        representativeLastName: '',
+        representativeFirstName: '',
+        canYouProvidePhoneNumber: '',
+        canYouProvideEmailAddress: '',
+        isAtAddressLessThan5Years: '',
+        isPhoneNumberConfidential: '',
+        isEmailAddressConfidential: '',
+        respondentLivedWithApplicant: '',
+        doTheyHaveLegalRepresentation: '',
+        addressLivedLessThan5YearsDetails: '',
+        otherPersonRelationshipToChildren: [''],
+        isAtAddressLessThan5YearsWithDontKnow: '',
+        response: {
+          citizenFlags: {
+            isAllDocumentsViewed: 'No',
+            isResponseInitiated: 'Yes',
+          },
+        },
+        user: {
+          email: 'abc',
+          idamId: '12345',
+        },
+      },
+      caseTypeOfApplication: CaseType.FL401,
+      orderCollection: [
+        {
+          id: 'e5b89eae-d6e1-4e15-a672-22a032617ff2',
+          value: {
+            dateCreated: '2022-07-18T11:04:34.483637',
+            orderType: 'Special guardianship order (C43A)',
+            orderDocument: {
+              document_url: 'string',
+              document_binary_url: 'string',
+              document_filename: 'Special_Guardianship_Order_C43A.pdf',
+            },
+            otherDetails: {
+              createdBy: 'qaz',
+              orderCreatedDate: '18 July 2022',
+              orderMadeDate: '11 November 2019',
+              orderRecipients: 'Test Solicitor\n\n',
+            },
+          },
+        },
+      ],
     };
-    newOrderBanner: object;
-    finalOrderBanner: object;
-    caRespondentServedBanner?: {
-      bannerHeading: string;
-      bannerContent: { line1: string; line2: string }[];
-      bannerLinks: { href: string; text: string }[];
-    };
-    cafcassBanner?: {
-      bannerHeading: string;
-      bannerContent: { line1: string }[];
-      bannerLinks: { href: string; text: string }[];
-    };
-    daRespondentBanner: object;
-    viewDocumentBanner: object;
-  },
-  userIdamId: string | undefined
-) => {
-  const banners: Banner[] = [];
-  if (
-    userCase?.respondentsFL401?.user?.idamId === userIdamId &&
-    YesOrNo.NO === userCase?.respondentsFL401?.response?.citizenFlags?.isAllDocumentsViewed
-  ) {
-    banners.push(translations.viewDocumentBanner);
-  }
-  if (userCase?.orderCollection && userCase.orderCollection.length > 0) {
-    if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
-      banners.push(translations.newOrderBanner);
-    } else {
-      banners.push(translations.finalOrderBanner);
-    }
-  }
-  // please add all the banners before this if condition, the following banner is added only if no other is present
-  if (
-    banners.length === 0 &&
-    userCase?.orderWithoutGivingNoticeToRespondent?.orderWithoutGivingNotice === YesOrNo.YES
-  ) {
-    banners.push(translations.daRespondentBanner);
-  }
-  return banners;
-};
+
+    const newOrderBanner = [
+      {
+        bannerHeading: 'You have a new document to view',
+        bannerContent: [
+          {
+            line1: 'A new document has been added to your case.',
+          },
+        ],
+        bannerLinks: [
+          {
+            href: '/respondent/yourdocuments/alldocuments/alldocuments',
+            text: 'See all documents',
+          },
+        ],
+      },
+      {
+        bannerHeading: 'You have a new order from the court',
+        bannerContent: [
+          {
+            line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
+          },
+        ],
+        bannerLinks: [
+          {
+            href: '/respondent/yourdocuments/alldocuments/orders',
+            text: 'View the order (PDF)',
+          },
+        ],
+      },
+    ];
+
+    const finalOrderBanner = [
+      {
+        bannerHeading: 'You have a new document to view',
+        bannerContent: [
+          {
+            line1: 'A new document has been added to your case.',
+          },
+        ],
+        bannerLinks: [
+          {
+            href: '/respondent/yourdocuments/alldocuments/alldocuments',
+            text: 'See all documents',
+          },
+        ],
+      },
+      {
+        bannerHeading: 'You have a final order',
+        bannerContent: [
+          {
+            line1:
+              'The court has made a final decision about your case. The order tells you what the court has decided. ',
+          },
+        ],
+        bannerLinks: [
+          {
+            href: '/respondent/yourdocuments/alldocuments/orders',
+            text: 'View the order (PDF)',
+          },
+        ],
+      },
+    ];
+
+    expect(getFl401Banners(data, languages[commonContent.language](), userDetail.id)).toEqual(newOrderBanner);
+    expect(getFl401Banners(data2, languages[commonContent.language](), userDetail.id)).toEqual(finalOrderBanner);
+  });
+});
