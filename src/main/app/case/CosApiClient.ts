@@ -168,11 +168,14 @@ export class CosApiClient {
           Authorization: 'Bearer ' + user.accessToken,
           ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
         },
+      }).then(resp => {
+        return resp;
       });
-      logger.info(`response ****** ${response} *******`);
+      logger.info(`Path ****** ${response} *******`);
+      console.log(`Path ****** ${response} *******`);
       return response;
     } catch (err) {
-      throw new Error('Case could not be updated.');
+      throw new Error('Case could not be updated.' + err);
     }
   }
 
