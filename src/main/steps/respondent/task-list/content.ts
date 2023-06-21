@@ -387,9 +387,9 @@ export const getRespondent = (userCase: Partial<CaseWithId>, userId: string): Pa
 export const getRespondentName = (respondent: PartyDetails | undefined): string => {
   return respondent ? respondent.firstName + ' ' + respondent.lastName : '';
 };
-  
+
 /* eslint-disable  @typescript-eslint/explicit-module-boundary-types */
-const getC100Banners = (userCase, translations, userIdamId) => {
+export const getC100Banners = (userCase, translations, userIdamId) => {
   const banners: Banner[] = [];
   userCase?.respondents?.forEach((respondent: Respondent) => {
     if (

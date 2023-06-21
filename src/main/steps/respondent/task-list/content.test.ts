@@ -14,7 +14,7 @@ import {
   RESPOND_TO_APPLICATION,
 } from '../../urls';
 
-import { generateContent, getC100Banners, getFl401Banners, getRespondentName } from './content';
+import { generateContent, getC100Banners, getFl401Banners, getRespondent, getRespondentName } from './content';
 import { respondent_cy, respondent_en } from './section-titles';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
 import { getRespondentPartyDetailsCa } from './utils';
@@ -607,7 +607,7 @@ describe('task-list > content', () => {
   });
 
   test('should return respondent firstname and lastname', () => {
-    expect(getRespondentName(c100Case, userDetail.id)).toBe('John Smith');
+    expect(getRespondentName(getRespondent(c100Case, '12345'))).toBe('John Smith');
   });
 
   test('should return respondentFL401 firstname and lastname', () => {
@@ -678,7 +678,7 @@ describe('task-list > content', () => {
       caseTypeOfApplication: CaseType.FL401,
     };
 
-    expect(getRespondentName(data, userDetail.id)).toBe('John Smith');
+    expect(getRespondentName(getRespondent(data, '12345'))).toBe('John Smith');
   });
 
   test('should return C100-banners', () => {
