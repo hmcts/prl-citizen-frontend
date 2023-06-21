@@ -5,18 +5,21 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 
 import { generateContent } from './content';
 
+const applicationType = 'C2';
+const enReasonText = 'ask to delay or cancel a hearing date';
+const cyReasonText = 'ask to delay or cancel a hearing date - welsh';
+
 const en = {
   title: 'Apply for help with fees',
   applyBefore: 'You must apply for help with fees before submitting your application.',
   nextSteps: 'Next steps',
-  line1:
+  bulletPoints: [
     'Go to <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" rel="external" target="_blank">apply for help with fees (opens in a new tab)</a>',
-  line2: 'Enter',
-  enterCourtNumber: 'when you are asked to enter a court or tribunal number',
-  line3: 'Complete the help with fees application',
-  line4: 'Return to complete your',
-  applicationTo: 'application to',
-  line5: 'Enter your help with fees reference number',
+    `Enter ${applicationType} when you are asked to enter a court or tribunal number`,
+    'Complete the help with fees application',
+    `Return to complete your ${applicationType} application to ${enReasonText}`,
+    'Enter your help with fees reference number',
+  ],
   onlyContinue: 'Continue',
   cancel: 'Cancel',
 };
@@ -25,14 +28,13 @@ const cy: typeof en = {
   title: 'Apply for help with fees (welsh)',
   applyBefore: 'You must apply for help with fees before submitting your application. (welsh)',
   nextSteps: 'Next steps (welsh)',
-  line1:
+  bulletPoints: [
     'Go to <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" rel="external" target="_blank">apply for help with fees (opens in a new tab)</a> (welsh)',
-  line2: 'Enter (welsh)',
-  enterCourtNumber: 'when you are asked to enter a court or tribunal number (welsh)',
-  line3: 'Complete the help with fees application (welsh)',
-  line4: 'Return to complete your (welsh)',
-  applicationTo: 'application to (welsh)',
-  line5: 'Enter your help with fees reference number (welsh)',
+    `Enter ${applicationType} when you are asked to enter a court or tribunal number (welsh)`,
+    'Complete the help with fees application (welsh)',
+    `Return to complete your ${applicationType} application to ${cyReasonText} (welsh)`,
+    'Enter your help with fees reference number (welsh)',
+  ],
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
 };

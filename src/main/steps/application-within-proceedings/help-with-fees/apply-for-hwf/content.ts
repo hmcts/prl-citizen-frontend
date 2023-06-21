@@ -1,20 +1,20 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { getApplicationDetails } from '../../../../steps/application-within-proceedings/utils';
+import { interpolate } from '../../../../steps/common/string-parser';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 
 export const en = {
   title: 'Apply for help with fees',
   applyBefore: 'You must apply for help with fees before submitting your application.',
   nextSteps: 'Next steps',
-  line1:
+  bulletPoints: [
     'Go to <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" rel="external" target="_blank">apply for help with fees (opens in a new tab)</a>',
-  line2: 'Enter',
-  enterCourtNumber: 'when you are asked to enter a court or tribunal number',
-  line3: 'Complete the help with fees application',
-  line4: 'Return to complete your',
-  applicationTo: 'application to',
-  line5: 'Enter your help with fees reference number',
+    'Enter {applicationType} when you are asked to enter a court or tribunal number',
+    'Complete the help with fees application',
+    'Return to complete your {applicationType} application to {reasonText}',
+    'Enter your help with fees reference number',
+  ],
   onlyContinue: 'Continue',
   cancel: 'Cancel',
 };
@@ -23,14 +23,13 @@ export const cy: typeof en = {
   title: 'Apply for help with fees (welsh)',
   applyBefore: 'You must apply for help with fees before submitting your application. (welsh)',
   nextSteps: 'Next steps (welsh)',
-  line1:
+  bulletPoints: [
     'Go to <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" rel="external" target="_blank">apply for help with fees (opens in a new tab)</a> (welsh)',
-  line2: 'Enter (welsh)',
-  enterCourtNumber: 'when you are asked to enter a court or tribunal number (welsh)',
-  line3: 'Complete the help with fees application (welsh)',
-  line4: 'Return to complete your (welsh)',
-  applicationTo: 'application to (welsh)',
-  line5: 'Enter your help with fees reference number (welsh)',
+    'Enter {applicationType} when you are asked to enter a court or tribunal number (welsh)',
+    'Complete the help with fees application (welsh)',
+    'Return to complete your {applicationType} application to {reasonText} (welsh)',
+    'Enter your help with fees reference number (welsh)',
+  ],
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
 };
@@ -52,6 +51,21 @@ export const form: FormContent = {
   },
 };
 
+const generateBulletPoints = (translations, applicationDetails) => {
+  const bulletPoints: string[] = [];
+
+  translations.bulletPoints.forEach(bulletPoint => {
+    bulletPoints.push(
+      interpolate(bulletPoint, {
+        applicationType: applicationDetails!.applicationType,
+        reasonText: applicationDetails!.reasonText.toLowerCase(),
+      })
+    );
+  });
+
+  return bulletPoints;
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const request = content.additionalData!.req;
@@ -71,7 +85,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     form,
-    applicationType: applicationDetails?.applicationType,
+    bulletPoints: generateBulletPoints(translations, applicationDetails),
     caption: applicationDetails?.reasonText,
   };
 };
