@@ -59,7 +59,7 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>, lang: string): ob
     title: isEng ? progressBarC100.caseClosed.title : progressBarCyC100.caseClosed.title,
     ariaLabel: isEng ? progressBarC100.caseClosed.ariaLabel : progressBarCyC100.caseClosed.ariaLabel,
     active: false,
-    completed: isFinalOrderIssued(userCase),
+    completed: isAllFinalOrderIssued(userCase),
   };
 
   const progressBarC100Stages = [
@@ -78,6 +78,12 @@ const buildProgressBarStages = (userCase: Partial<CaseWithId>, lang: string): ob
 
 const isFinalOrderIssued = (userCase: Partial<CaseWithId>) => {
   if (userCase.selectTypeOfOrder === SelectTypeOfOrderEnum.finl) {
+    return true;
+  }
+  return false;
+};
+const isAllFinalOrderIssued = (userCase: Partial<CaseWithId>) => {
+  if (userCase.state === State.ALL_FINAL_ORDERS_ISSUED) {
     return true;
   }
   return false;

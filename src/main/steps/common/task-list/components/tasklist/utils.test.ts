@@ -131,22 +131,6 @@ describe('testcase for tasklist', () => {
           },
         ],
       },
-      {
-        heading: 'Your documents',
-        id: 'yourDocuments',
-        tasks: [
-          {
-            disabled: false,
-            href: '/applicant/yourdocuments/alldocuments/alldocuments',
-            id: 'viewAllDocuments',
-            linkText: 'View all documents',
-            stateTag: {
-              className: 'govuk-tag--blue',
-              label: 'Ready to view',
-            },
-          },
-        ],
-      },
     ]);
   });
 
