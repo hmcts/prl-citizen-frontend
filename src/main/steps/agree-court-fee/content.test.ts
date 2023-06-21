@@ -21,12 +21,12 @@ const en = {
 };
 
 const cy = {
-  title: 'Do you agree to pay the court fee online using a debit or credit card? -welsh',
+  title: 'Ydych chi’n cytuno i dalu ffi’r llys ar-lein gan ddefnyddio cerdyn debyd neu gredyd?',
   paragraph:
-    "If you've applied for help with paying court fees, you'll be given a reference number. You can provide this at the end of the process instead of making a payment. -welsh",
-  yes: 'Yes -welsh',
-  no: 'No -welsh',
-  cancel: 'Cancel -welsh',
+    'Os ydych wedi gwneud cais am help i dalu ffioedd llys, fe roddir cyfeirnod i chi.Gallwch ei nodi ar ddiwedd y broses yn hytrach na gwneud taliad.',
+  yes: 'Ydw',
+  no: 'Nac ydw',
+  cancel: 'Canslo',
   errors: {
     applicationPayOnline: {
       required: 'Please select an answer to the below question - welsh',
@@ -70,8 +70,6 @@ describe('agree-court-fee > content', () => {
 
   test('should contain cancel button', () => {
     expect(form.link.text(generatedContent)).toBe('Cancel');
-    expect(form.link.href).toBe(
-      'https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a'
-    );
+    expect(form.link.href).toBe('#');
   });
 });

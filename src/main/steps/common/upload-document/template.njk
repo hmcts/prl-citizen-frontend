@@ -65,7 +65,11 @@
       </ol>
     </div>
     <div class="govuk-grid-column-one-third">
-           {% include "../contact-us.njk" %}
+        {%if userCase.caseTypeOfApplication === "FL401" %}
+        {% include "../contact-us.njk" %}
+        {% else %}
+        {% include "../contact-us-c100.njk" %}
+        {% endif %}
     </div>
 
   </div>

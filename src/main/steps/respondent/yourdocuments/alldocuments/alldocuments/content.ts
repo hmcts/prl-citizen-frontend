@@ -25,7 +25,7 @@ const cy: typeof en = () => {
     summaryText: 'Cysylltiadau am gymorth',
 
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back',
+    continue: 'Yn ôl',
     sectionTitles: respondent_all_docs_cy,
     taskListItems: applicant_tasklist_items_all_docs_cy,
   };
