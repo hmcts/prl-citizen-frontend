@@ -47,51 +47,58 @@ export const getSectionSummaryList = (
 
 const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | undefined) => {
   const userkey = userCase[key];
-  let welshtranslation;
-  if (key === 'detailsKnown' && userCase[key]) {
-    return getYesNoTranslation(language, userCase[key], 'ydyTranslation');
-  }
-  if (key === 'startAlternative' && userCase[key]) {
-    return (
-      getYesNoTranslation(language, userCase[key], 'ydyTranslation') + getSelectedPrivateDetails(userCase, language)
-    );
-  }
-  if (key === 'courtProceedingsOrders' && !userCase[key]) {
-    return getOrdersDetail(userCase);
-  }
-  if (key === 'citizenUserAddressHistory' && userCase['isAtAddressLessThan5Years'] === YesOrNo.YES) {
-    return userCase['citizenUserAddressText'];
-  }
+  // if (key === 'citizenUserAddressHistory' && userCase['isAtAddressLessThan5Years'] === YesOrNo.YES) {
+  //   return userCase['citizenUserAddressText'];
+  // }
+  let yesOrNoWelshLabel;
   switch (key) {
     case 'start':
     case 'parents':
-      welshtranslation = 'ydyTranslation';
+    case 'detailsKnown':
+      yesOrNoWelshLabel = 'ydyTranslation';
       break;
     case 'jurisdiction':
-      welshtranslation = 'gallaiTranslation';
+      yesOrNoWelshLabel = 'gallaiTranslation';
       break;
     case 'request':
     case 'PRL_c1A_haveSafetyConcerns':
-      welshtranslation = 'oesTranslation';
+      yesOrNoWelshLabel = 'oesTranslation';
       break;
     case 'legalRepresentation':
-      welshtranslation = 'byddafTranslation';
+      yesOrNoWelshLabel = 'byddafTranslation';
       break;
     case 'doYouConsent':
     case 'courtPermission':
-      welshtranslation = 'ydwTranslation';
+      yesOrNoWelshLabel = 'ydwTranslation';
       break;
     case 'miamStart':
-      welshtranslation = 'doTranslation';
+      yesOrNoWelshLabel = 'doTranslation';
       break;
     case 'miamWillingness':
-      welshtranslation = 'byddwnTranslation';
+      yesOrNoWelshLabel = 'byddwnTranslation';
       break;
+    case 'courtProceedingsOrders':
+      if (!userCase[key]) {
+        return getOrdersDetail(userCase);
+      }
+      break;
+    case 'citizenUserAddressHistory':
+      console.log(userCase['citizenUserAddressText']);
+      if (userCase['isAtAddressLessThan5Years'] === YesOrNo.YES) {
+        return userCase['citizenUserAddressText'];
+      }
+      return userCase['citizenUserAddressHistory'];
+    case 'startAlternative':
+      if (!userCase[key]) {
+        return (
+          getYesNoTranslation(language, userCase[key], 'ydyTranslation') + getSelectedPrivateDetails(userCase, language)
+        );
+      }
+      break;
+    default:
+      return userkey;
   }
-  if (welshtranslation) {
-    return getYesNoTranslation(language, userCase[key], welshtranslation);
-  }
-  return userkey;
+  return getYesNoTranslation(language, userCase[key], yesOrNoWelshLabel);
 };
 
 /* eslint-disable import/namespace */
