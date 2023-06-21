@@ -83,7 +83,6 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
       }
       break;
     case 'citizenUserAddressHistory':
-      console.log(userCase['citizenUserAddressText']);
       if (userCase['isAtAddressLessThan5Years'] === YesOrNo.YES) {
         return userCase['citizenUserAddressText'];
       }
