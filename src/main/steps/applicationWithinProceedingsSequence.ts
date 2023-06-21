@@ -15,7 +15,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
     showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: (_userCase, req) =>
+    getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
@@ -24,7 +24,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
     showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: (_userCase, req) =>
+    getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,

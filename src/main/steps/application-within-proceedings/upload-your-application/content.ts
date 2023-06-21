@@ -1,41 +1,40 @@
-import { AWPApplicationType, YesOrNo } from '../../../app/case/definition';
+import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
+import { interpolate } from '../../../steps/common/string-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { getApplicationDetails } from '../utils';
 
-export const en = (applicationType?: AWPApplicationType): object => ({
+export const en = {
   title: 'Upload your application',
-  fillForm: 'You will need to fill in the form',
-  uploadIt: 'and upload it when submitting this request.',
-  alreadyCompleted: 'Have you already completed the ' + applicationType + ' form?',
+  fillForm: 'You will need to fill in the form {applicationType} and upload it when submitting this request.',
+  alreadyCompleted: 'Have you already completed the {applicationType} form?',
   yes: 'Yes',
   no: 'No',
   onlyContinue: 'Continue',
   cancel: 'Cancel',
   errors: {
     awp_completedForm: {
-      required: 'You must select if you have the form ' + applicationType + ' ready to upload',
+      required: 'You must select if you have the form {applicationType} ready to upload',
     },
   },
-});
+};
 
-export const cy: typeof en = (applicationType?: AWPApplicationType) => ({
+export const cy: typeof en = {
   title: 'Upload your application (welsh)',
-  fillForm: 'You will need to fill in the form (welsh)',
-  uploadIt: 'and upload it when submitting this request. (welsh)',
-  alreadyCompleted: 'Have you already completed the ' + applicationType + ' form? (welsh)',
+  fillForm: 'You will need to fill in the form {applicationType} and upload it when submitting this request. (welsh)',
+  alreadyCompleted: 'Have you already completed the {applicationType} form? (welsh)',
   yes: 'Yes (welsh)',
   no: 'No (welsh)',
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   errors: {
     awp_completedForm: {
-      required: 'You must select if you have the form ' + applicationType + ' ready to upload (welsh)',
+      required: 'You must select if you have the form {applicationType} ready to upload (welsh)',
     },
   },
-});
+};
 
 const languages = {
   en,
@@ -73,6 +72,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language];
   const request = content.additionalData!.req;
   const caseData = request.session.userCase;
   const { applicationType, applicationReason } = request.params;
@@ -87,12 +87,20 @@ export const generateContent: TranslationFn = content => {
     request.session.applicationSettings
   );
 
-  const translations = languages[content.language](applicationDetails?.applicationType);
-
   return {
     ...translations,
     form,
-    applicationType: applicationDetails?.applicationType,
+    fillForm: interpolate(translations.fillForm, { applicationType: applicationDetails!.applicationType }),
+    alreadyCompleted: interpolate(translations.alreadyCompleted, {
+      applicationType: applicationDetails!.applicationType,
+    }),
     caption: applicationDetails?.reasonText,
+    errors: {
+      awp_completedForm: {
+        required: interpolate(translations.errors.awp_completedForm.required, {
+          applicationType: applicationDetails!.applicationType,
+        }),
+      },
+    },
   };
 };
