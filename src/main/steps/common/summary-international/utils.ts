@@ -16,7 +16,7 @@ import { getSectionSummaryList } from '../summary/utils';
 import { applyParms } from '../url-parser';
 
 /* eslint-disable import/namespace */
-export const summaryList = (
+export const summaryListIntElement = (
   { sectionTitles, keys, ...content }: SummaryListContent,
   userCase: Partial<CaseWithId>,
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
