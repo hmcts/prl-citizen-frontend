@@ -47,6 +47,7 @@ export const getSectionSummaryList = (
 
 const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | undefined) => {
   const userkey = userCase[key];
+  let welshtranslation;
   if (key === 'detailsKnown' && userCase[key]) {
     return getYesNoTranslation(language, userCase[key], 'ydyTranslation');
   }
@@ -61,37 +62,35 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
   if (key === 'citizenUserAddressHistory' && userCase['isAtAddressLessThan5Years'] === YesOrNo.YES) {
     return userCase['citizenUserAddressText'];
   }
-  if (key === 'start' && userCase[key]) {
-    return getYesNoTranslation(language, userCase[key], 'ydyTranslation');
+  switch (key) {
+    case 'start':
+    case 'parents':
+      welshtranslation = 'ydyTranslation';
+      break;
+    case 'jurisdiction':
+      welshtranslation = 'gallaiTranslation';
+      break;
+    case 'request':
+    case 'PRL_c1A_haveSafetyConcerns':
+      welshtranslation = 'oesTranslation';
+      break;
+    case 'legalRepresentation':
+      welshtranslation = 'byddafTranslation';
+      break;
+    case 'doYouConsent':
+    case 'courtPermission':
+      welshtranslation = 'ydwTranslation';
+      break;
+    case 'miamStart':
+      welshtranslation = 'doTranslation';
+      break;
+    case 'miamWillingness':
+      welshtranslation = 'byddwnTranslation';
+      break;
   }
-  if (key === 'parents' && userCase[key]) {
-    return getYesNoTranslation(language, userCase[key], 'ydyTranslation');
+  if (welshtranslation) {
+    return getYesNoTranslation(language, userCase[key], welshtranslation);
   }
-  if (key === 'jurisdiction' && userCase[key]) {
-    return getYesNoTranslation(language, userCase[key], 'gallaiTranslation');
-  }
-  if (key === 'request' && userCase[key]) {
-    return getYesNoTranslation(language, userCase[key], 'oesTranslation');
-  }
-  if (key === 'PRL_c1A_haveSafetyConcerns' && userCase[key]) {
-    return getYesNoTranslation(language, userCase[key], 'oesTranslation');
-  }
-  if (key === 'legalRepresentation' && userCase[key]) {
-    return getYesNoTranslation(language, userCase[key], 'byddafTranslation');
-  }
-  if (key === 'doYouConsent' && userCase[key]) {
-    return getYesNoTranslation(language, userCase[key], 'ydwTranslation');
-  }
-  if (key === 'courtPermission' && userCase[key]) {
-    return getYesNoTranslation(language, userCase[key], 'ydwTranslation');
-  }
-  if (key === 'miamStart' && userCase[key]) {
-    return getYesNoTranslation(language, userCase[key], 'doTranslation');
-  }
-  if (key === 'miamWillingness' && userCase[key]) {
-    return getYesNoTranslation(language, userCase[key], 'byddwnTranslation');
-  }
-
   return userkey;
 };
 
@@ -125,7 +124,7 @@ export const summaryList = (
   }
 
   return {
-    title: sectionTitle || '',
+    title: sectionTitle ?? '',
     rows: getSectionSummaryList(summaryData, content, language),
   };
 };
