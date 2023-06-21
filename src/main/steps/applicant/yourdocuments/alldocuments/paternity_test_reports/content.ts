@@ -14,9 +14,9 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
-    title: 'Paternity test reports (welsh)',
+    title: 'Adroddiadau prawf tadolaeth',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 

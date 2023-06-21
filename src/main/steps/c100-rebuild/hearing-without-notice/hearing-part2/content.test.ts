@@ -51,7 +51,7 @@ const en = {
 const cy = {
   title: 'Manylion y gwrandawiad heb rybudd',
   subTitle: 'Rhowch fanylion pam rydych yn gofyn am wrandawiad heb rybudd',
-  hint: "Bydd angen i farnwr fod yn sicr bod rheswm da pam na ddylid dweud wrth y bobl 36eraill sydd ynghlwm â’r cais am y cais cyn i'r gwrandawiad ddigwydd.",
+  hint: "Bydd angen i farnwr fod yn sicr bod rheswm da pam na ddylid dweud wrth y bobl eraill sydd ynghlwm â’r cais am y cais cyn i'r gwrandawiad ddigwydd.",
   doYouNeedAWithoutNoticeHearingLabel:
     "Ydych chi'n gofyn am wrandawiad heb rybudd am gall yr unigolyn neu unigolion arall / eraill wneud rhywbeth a fyddai'n rhwystro'r gorchymyn rydych chi'n gofyn amdano pe bydden nhw yn gwybod am y cais?",
   doYouRequireAHearingWithReducedNoticeLabel:

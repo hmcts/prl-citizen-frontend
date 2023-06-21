@@ -8,7 +8,6 @@ import {
   miam_cost_exemption_content_en,
   miam_how_to_arrange_mediation_label_cy,
   miam_how_to_arrange_mediation_label_en,
-  miam_how_to_arrange_mediation_link,
 } from './miam-cost-exemptions';
 
 const en = {
@@ -78,9 +77,8 @@ export const form: FormContent = {
           value: 'Yes',
           subFields: {
             miamHowToArrangeMediation: {
-              type: 'link',
-              link: miam_how_to_arrange_mediation_link,
-              label: l => l.miamLabel,
+              type: 'textAndHtml',
+              textAndHtml: l => l.miamLabel,
             },
           },
         },

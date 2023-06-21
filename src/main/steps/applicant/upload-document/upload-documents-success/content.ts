@@ -13,7 +13,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'How your documents will be shared (welsh)',
+  section: 'Sut fydd eich dogfennau’n cael eu rhannu',
   status: 'Your documents have been uploaded (welsh)',
   title: 'Your documents have been uploaded (welsh)',
   uploadAgain: 'Upload another document (welsh)',

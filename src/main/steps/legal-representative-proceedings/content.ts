@@ -2,6 +2,7 @@ import { YesOrNo } from '../../app/case/definition';
 import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
+import { getMOJForkingScreenUrl } from '../../steps/urls';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -17,10 +18,10 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Will you be using a legal representative in these proceedings? - welsh',
-  yes: 'Yes - welsh',
-  no: 'No - welsh',
-  cancel: 'Cancel - welsh',
+  title: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
+  yes: 'Byddaf',
+  no: 'Na fyddaf',
+  cancel: 'Canslo',
   errors: {
     legalRepresentativeForProceedings: {
       required: 'Please select an answer to the below question - welsh',
@@ -56,15 +57,21 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: 'https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a',
+    href: '#',
     text: l => l.cancel,
   },
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const testingSupport = content.additionalData?.req?.session?.testingSupport;
+
   return {
     ...translations,
     form,
+    link: {
+      ...form.link,
+      href: getMOJForkingScreenUrl(testingSupport),
+    },
   };
 };

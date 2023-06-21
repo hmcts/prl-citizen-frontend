@@ -574,25 +574,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   private setRedirectUrl(isApplicant, req: AppRequest<Partial<CaseWithId>>) {
-    let redirectUrl = '';
-    if (YesOrNo.YES === isApplicant) {
-      redirectUrl =
-        APPLICANT_UPLOAD_DOCUMENT +
-        '?' +
-        'caption=' +
-        req.query.parentDocumentType +
-        '&document_type=' +
-        req.query.documentType;
-    } else {
-      redirectUrl =
-        RESPONDENT_UPLOAD_DOCUMENT +
-        '?' +
-        'caption=' +
-        req.query.parentDocumentType +
-        '&document_type=' +
-        req.query.documentType;
-    }
-    return redirectUrl;
+    const { caption = '', document_type = '', parentDocumentType = '', documentType = '' } = req.query;
+
+    return `${
+      isApplicant === YesOrNo.YES ? APPLICANT_UPLOAD_DOCUMENT : RESPONDENT_UPLOAD_DOCUMENT
+    }?caption=${caption}&document_type=${document_type}&parentDocType=${parentDocumentType}&docType=${documentType}`;
   }
 
   public async undefiendUploadFiles(req: AppRequest): Promise<void> {
