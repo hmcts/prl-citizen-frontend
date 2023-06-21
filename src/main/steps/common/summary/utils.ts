@@ -47,35 +47,32 @@ export const getSectionSummaryList = (
 
 const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | undefined) => {
   const userkey = userCase[key];
-  // if (key === 'citizenUserAddressHistory' && userCase['isAtAddressLessThan5Years'] === YesOrNo.YES) {
-  //   return userCase['citizenUserAddressText'];
-  // }
-  let yesOrNoWelshLabel;
+  let translationLabel;
   switch (key) {
     case 'start':
     case 'parents':
     case 'detailsKnown':
-      yesOrNoWelshLabel = 'ydyTranslation';
+      translationLabel = 'ydyTranslation';
       break;
     case 'jurisdiction':
-      yesOrNoWelshLabel = 'gallaiTranslation';
+      translationLabel = 'gallaiTranslation';
       break;
     case 'request':
     case 'PRL_c1A_haveSafetyConcerns':
-      yesOrNoWelshLabel = 'oesTranslation';
+      translationLabel = 'oesTranslation';
       break;
     case 'legalRepresentation':
-      yesOrNoWelshLabel = 'byddafTranslation';
+      translationLabel = 'byddafTranslation';
       break;
     case 'doYouConsent':
     case 'courtPermission':
-      yesOrNoWelshLabel = 'ydwTranslation';
+      translationLabel = 'ydwTranslation';
       break;
     case 'miamStart':
-      yesOrNoWelshLabel = 'doTranslation';
+      translationLabel = 'doTranslation';
       break;
     case 'miamWillingness':
-      yesOrNoWelshLabel = 'byddwnTranslation';
+      translationLabel = 'byddwnTranslation';
       break;
     case 'courtProceedingsOrders':
       if (!userCase[key]) {
@@ -97,7 +94,7 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
     default:
       return userkey;
   }
-  return getYesNoTranslation(language, userCase[key], yesOrNoWelshLabel);
+  return getYesNoTranslation(language, userCase[key], translationLabel);
 };
 
 /* eslint-disable import/namespace */
