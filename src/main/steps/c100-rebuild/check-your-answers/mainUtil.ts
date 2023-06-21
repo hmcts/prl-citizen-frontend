@@ -3,10 +3,10 @@
 /* eslint-disable prettier/prettier */
 import { CaseWithId } from '../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
+import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
 
-import { DATE_FORMATTOR } from './common/dateformatter';
 import { HTML } from './common/htmlSelectors';
 import { ANYTYPE } from './common/index';
 import { cyContent, enContent } from './content';

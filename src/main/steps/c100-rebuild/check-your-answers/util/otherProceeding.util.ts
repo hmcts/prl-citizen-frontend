@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import { DATE_FORMATTOR } from '../../../common/dateformatter';
 import { applyParms } from '../../../common/url-parser';
 import { cy, en } from '../../other-proceedings/current-previous-proceedings/content';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from '../../other-proceedings/order-details/content';
-import { DATE_FORMATTOR } from '../common/dateformatter';
 import { HTML } from '../common/htmlSelectors';
 import { getYesNoTranslation } from '../mainUtil';
 
