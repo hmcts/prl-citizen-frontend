@@ -474,6 +474,12 @@ export const respondentCaseSequence: Step[] = [
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
   },
+  // {
+  //   url: RESPONDENT_TASK_LIST_URL,
+  //   showInSection: Sections.AboutRespondentCase,
+  //   getController: HearingsGetController,
+  //   getNextStep: () => RESPONDENT_YOURHEARINGS_HEARINGS,
+  // },
   {
     url: RESPONDENT_YOURHEARINGS_HEARINGS,
     showInSection: Sections.AboutRespondentCase,
