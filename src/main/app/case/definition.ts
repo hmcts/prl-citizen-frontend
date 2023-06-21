@@ -973,6 +973,7 @@ export interface CaseData {
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+  respondentDocsList?: RespondentDocs[];
   draftOrderDoc?: Document;
 }
 
@@ -1759,6 +1760,27 @@ export interface OtherProceedingEmptyTable {
 // // eslint-disable-next-line @typescript-eslint/no-empty-interface
 
 export interface ResponseDocumentList {
+  id: string;
+  value: ResponseDocuments;
+}
+
+export interface ResponseDocuments {
+  partyName: string;
+  createdBy: string;
+  dateCreated: Date;
+  citizenDocument: Document;
+}
+
+export interface RespondentDocs {
+  id: string;
+  value: {
+    c1aDocument: ResponseDocuments;
+    c7Document: ResponseDocuments;
+    otherDocuments: ResponseDocs[];
+  }
+}
+
+export interface ResponseDocs {
   id: string;
   value: ResponseDocuments;
 }

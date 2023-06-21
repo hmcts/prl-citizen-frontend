@@ -261,6 +261,9 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
       if (userCase.citizenResponseC7DocumentList) {
         respondentItems.push(getResponseToCA(respondent, taskListItems, userCase.citizenResponseC7DocumentList));
       }
+      if(userCase.respondentDocsList) {
+        respondentItems.push(getResponseFromSolicitors(respondent, taskListItems, userCase.respondentDocsList));
+      }
       respondentItems2.push(getRespondentPositionStatements(respondent, taskListItems, url));
       respondentItems2.push(getRespondentWitnessStatements(respondent, taskListItems, userCase, url));
     });
@@ -528,6 +531,33 @@ export const getResponseToCA = (respondent: Respondent, taskListItems, citizenRe
   }
   return {};
 };
+
+export const getResponseFromSolicitors = (respondent: Respondent, taskListItems, respondentDocsList) => {
+  for (const doc of respondentDocsList) {
+    if (doc.value.c1aDocument.partyName === respondent.value.firstName + ' ' + respondent.value.lastName) {
+      return {
+        id: 'respondent_allegations_of_harm_from_solicitor',
+        text: taskListItems.respondent_allegations_of_harm_from_solicitor_for_child_arrangements.replace(
+          '<namerespondentxxxxx>',
+          doc.value.c1aDocument.partyName
+        ),
+        href: URL.RESPONDENT_C1A_RESPONSE_FROM_SOLICITOR,
+      };
+    }
+    if (doc.value.c7Document.partyName === respondent.value.firstName + ' ' + respondent.value.lastName) {
+      return {
+        id: 'respondent_response_from_solicitor_to_request_for_child_arrangements',
+        text: taskListItems.respondent_response_to_request_for_child_arrangements.replace(
+          '<namerespondentxxxxx>',
+          respondent.value.firstName + ' ' + respondent.value.lastName
+        ),
+        href: URL.RESPONDENT_C7_RESPONSE_FROM_SOLICITOR,
+      };
+    }
+  }
+  return {};
+};
+
 
 const getAohAndViolence = (respondent: Respondent, taskListItems) => {
   return {

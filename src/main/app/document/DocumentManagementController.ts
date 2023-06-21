@@ -62,6 +62,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
         elements: ['citizenUploadedDocumentList', 'citizenDocument'],
       });
       this.fileNameElementMap.set('orders', { elements: ['orderCollection', 'orderDocument'] });
+      this.fileNameElementMap.set('c7responsefromsolicitor', { elements: ['respondentDocsList', 'citizenDocument'] });
+      this.fileNameElementMap.set('c1aresponsefromsolicitor', { elements: ['respondentDocsList', 'citizenDocument'] });
+
       this.fileNameElementMap.set('applicationmade', { elements: ['existingProceedings', 'uploadRelevantOrder'] });
       this.fileNameElementMap.set('downloadManageDocument', { elements: ['otherDocuments', 'documentOther'] });
     }
@@ -287,7 +290,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         }
       });
     }
-
+   
     if (endPoint === 'caresponse') {
       req.session.userCase.citizenResponseC7DocumentList?.forEach(document => {
         if (document.value.createdBy === filename) {

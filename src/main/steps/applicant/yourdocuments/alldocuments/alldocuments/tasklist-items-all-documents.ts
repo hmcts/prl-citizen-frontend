@@ -20,6 +20,10 @@ export const applicant_tasklist_items_all_docs_en = {
   police_disclosures: 'Police reports',
   witness_availability: 'Witness availability',
   tenancy_and_mortgage_availability: 'Tenancy and mortgage agreements',
+  respondent_allegations_of_harm_from_solicitor_for_child_arrangements:
+    "<namerespondentxxxxx>'s response to the allegations of harm from solicitor for child arrangements",
+  respondent_response_from_solicitor_for_child_arrangements:
+    "<namerespondentxxxxx>'s response to the request from solicitor for child arrangements",
   respondent_response_to_request_for_child_arrangements:
     "<namerespondentxxxxx>'s response to the request for child arrangements",
   respondent_response_for_domestic_abuse: "<namerespondentxxxxx>'s response to the request for domestic abuse",
@@ -74,6 +78,10 @@ export const applicant_tasklist_items_all_docs_cy = {
   police_disclosures: 'Adroddiadau gan yr heddlu',
   witness_availability: 'Pryd fydd tystion ar gael',
   tenancy_and_mortgage_availability: 'Tenantiaeth a morgais',
+  respondent_allegations_of_harm_from_solicitor_for_child_arrangements:
+  "<namerespondentxxxxx>'s ymateb i honiadau o niwed gan gyfreithiwr dros drefniadau plant",
+  respondent_response_from_solicitor_for_child_arrangements:
+    "<namerespondentxxxxx>'s response to the request from solicitor for child arrangements",
   respondent_response_to_request_for_child_arrangements: 'Ymateb  <namerespondentxxxxx> i’r cais am drefniadau plant',
   respondent_response_for_domestic_abuse: "<namerespondentxxxxx>'s response to the request for domestic abuse",
   respondent_response_to_allegations_of_harm_and_violence:

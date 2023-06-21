@@ -42,6 +42,7 @@ import {
   RESPONDENT_ADDRESS_LOOKUP,
   RESPONDENT_ADDRESS_MANUAL,
   RESPONDENT_ADDRESS_SELECT,
+  RESPONDENT_C7_RESPONSE_FROM_SOLICITOR,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_CONTACT_DETAILS_SAVE,
@@ -178,6 +179,16 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_TASK_LIST_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: RESPONDENT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_C7_RESPONSE_FROM_SOLICITOR,
+  },
+  {
+    url: RESPONDENT_C7_RESPONSE_FROM_SOLICITOR,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },

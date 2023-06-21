@@ -172,6 +172,8 @@ export const CONSENT_SAVE: PageLink = `${CONSENT}/save`;
 
 /* consent-to-the-application */
 export const RESPONDENT_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/orders`;
+export const RESPONDENT_C7_RESPONSE_FROM_SOLICITOR: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/c7responsefromsolicitor`;
+export const RESPONDENT_C1A_RESPONSE_FROM_SOLICITOR: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/c1aresponsefromsolicitor`;
 
 export const RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE_LINK: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence';

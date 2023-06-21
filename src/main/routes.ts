@@ -120,6 +120,8 @@ import {
   C7_ATTENDING_THE_COURT,
   APPLICANT_TASKLIST_CONTACT_EMAIL,
   APPLICANT_TASKLIST_CONTACT_POST,
+  RESPONDENT_C7_RESPONSE_FROM_SOLICITOR,
+  RESPONDENT_C1A_RESPONSE_FROM_SOLICITOR,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -274,6 +276,8 @@ export class Routes {
         app.get(APPLICANT_CA_DA_REQUEST, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${RESPONDENT_C7_RESPONSE_FROM_SOLICITOR}/:uid`, errorHandler(documentManagerController.get));
+        app.get(`${RESPONDENT_C1A_RESPONSE_FROM_SOLICITOR}/:uid`, errorHandler(documentManagerController.get));
 
         app.get(`${APPLICANT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT}${APPLICANT_MIAM_CERTIFICATE}`, errorHandler(documentManagerController.get));
