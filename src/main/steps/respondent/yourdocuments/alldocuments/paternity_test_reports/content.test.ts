@@ -12,9 +12,9 @@ const enContent = {
 
 const cyContent = {
   section: 'Pob dogfen',
-  title: 'Paternity test reports (welsh)',
+  title: 'Adroddiadau prawf tadolaeth',
   caseNumber: 'Rhif yr achos',
-  continue: 'Go back (welsh)',
+  continue: 'Yn ôl',
 };
 
 jest.mock('../../../../../app/form/validation');

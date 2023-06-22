@@ -27,7 +27,7 @@ export const generateUploadDocumentList = (sectionTitles, taskListItems, url) =>
           text: taskListItems.your_witness_statements,
           href: `${generateHref(
             sectionTitles.witness_statements_and_evidence,
-            taskListItems.your_position_statements
+            taskListItems.your_witness_statements
           )}&parentDocType=${document_list_en.witness_statements_and_evidence}&docType=${
             documents_list_items_en.your_witness_statements
           }`,
@@ -37,7 +37,7 @@ export const generateUploadDocumentList = (sectionTitles, taskListItems, url) =>
           text: taskListItems.other_witness_statements,
           href: `${generateHref(
             sectionTitles.witness_statements_and_evidence,
-            taskListItems.your_position_statements
+            taskListItems.other_witness_statements
           )}&parentDocType=${document_list_en.witness_statements_and_evidence}&docType=${
             documents_list_items_en.other_witness_statements
           }`,
@@ -47,7 +47,7 @@ export const generateUploadDocumentList = (sectionTitles, taskListItems, url) =>
           text: taskListItems.mail_screenshots_media_files,
           href: `${generateHref(
             sectionTitles.witness_statements_and_evidence,
-            taskListItems.your_position_statements
+            taskListItems.mail_screenshots_media_files
           )}&parentDocType=${document_list_en.witness_statements_and_evidence}&docType=${
             documents_list_items_en.mail_screenshots_media_files
           }`,
@@ -57,7 +57,7 @@ export const generateUploadDocumentList = (sectionTitles, taskListItems, url) =>
           text: taskListItems.medical_records,
           href: `${generateHref(
             sectionTitles.witness_statements_and_evidence,
-            taskListItems.your_position_statements
+            taskListItems.medical_records
           )}&parentDocType=${document_list_en.witness_statements_and_evidence}&docType=${
             documents_list_items_en.medical_records
           }`,
@@ -67,7 +67,7 @@ export const generateUploadDocumentList = (sectionTitles, taskListItems, url) =>
           text: taskListItems.letters_from_school,
           href: `${generateHref(
             sectionTitles.witness_statements_and_evidence,
-            taskListItems.your_position_statements
+            taskListItems.letters_from_school
           )}&parentDocType=${document_list_en.witness_statements_and_evidence}&docType=${
             documents_list_items_en.letters_from_school
           }`,
@@ -77,7 +77,7 @@ export const generateUploadDocumentList = (sectionTitles, taskListItems, url) =>
           text: taskListItems.tenancy_mortgage_agreements,
           href: `${generateHref(
             sectionTitles.witness_statements_and_evidence,
-            taskListItems.your_position_statements
+            taskListItems.tenancy_mortgage_agreements
           )}&parentDocType=${document_list_en.witness_statements_and_evidence}&docType=${
             documents_list_items_en.tenancy_mortgage_agreements
           }`,
@@ -92,7 +92,7 @@ export const generateUploadDocumentList = (sectionTitles, taskListItems, url) =>
           text: taskListItems.previous_orders_submitted,
           href: `${generateHref(
             sectionTitles.witness_statements_and_evidence,
-            taskListItems.your_position_statements
+            taskListItems.previous_orders_submitted
           )}&parentDocType=${document_list_en.applications}&docType=${
             documents_list_items_en.previous_orders_submitted
           }`,
@@ -107,7 +107,7 @@ export const generateUploadDocumentList = (sectionTitles, taskListItems, url) =>
           text: taskListItems.medical_reports,
           href: `${generateHref(
             sectionTitles.witness_statements_and_evidence,
-            taskListItems.your_position_statements
+            taskListItems.medical_reports
           )}&parentDocType=${document_list_en.expert_reports}&docType=${documents_list_items_en.medical_reports}`,
         },
         {
@@ -115,9 +115,9 @@ export const generateUploadDocumentList = (sectionTitles, taskListItems, url) =>
           text: taskListItems.paternity_test_reports,
           href: `${generateHref(
             sectionTitles.witness_statements_and_evidence,
-            taskListItems.your_position_statements
+            taskListItems.paternity_test_reports
           )}&parentDocType=${document_list_en.expert_reports}&docType=${
-            documents_list_items_en.drug_and_alcohol_tests
+            documents_list_items_en.paternity_test_reports
           }`,
         },
         {
@@ -125,9 +125,9 @@ export const generateUploadDocumentList = (sectionTitles, taskListItems, url) =>
           text: taskListItems.drug_and_alcohol_tests,
           href: `${generateHref(
             sectionTitles.witness_statements_and_evidence,
-            taskListItems.your_position_statements
+            taskListItems.drug_and_alcohol_tests
           )}&parentDocType=${document_list_en.expert_reports}&docType=${
-            documents_list_items_en.paternity_test_reports
+            documents_list_items_en.drug_and_alcohol_tests
           }`,
         },
         {
@@ -135,7 +135,7 @@ export const generateUploadDocumentList = (sectionTitles, taskListItems, url) =>
           text: taskListItems.police_reports,
           href: `${generateHref(
             sectionTitles.witness_statements_and_evidence,
-            taskListItems.your_position_statements
+            taskListItems.police_reports
           )}&parentDocType=${document_list_en.expert_reports}&docType=${documents_list_items_en.police_reports}`,
         },
       ],
@@ -148,7 +148,7 @@ export const generateUploadDocumentList = (sectionTitles, taskListItems, url) =>
           text: taskListItems.other_documents,
           href: `${generateHref(
             sectionTitles.witness_statements_and_evidence,
-            taskListItems.your_position_statements
+            taskListItems.other_documents
           )}&parentDocType=${document_list_en.other_documents}&docType=${documents_list_items_en.other_documents}`,
         },
       ],

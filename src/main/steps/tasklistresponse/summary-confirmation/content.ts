@@ -26,7 +26,7 @@ const en = {
 
 const cy: typeof en = {
   success: 'Response submitted successfully -welsh',
-  caseNumber: 'Case number  -welsh',
+  caseNumber: 'Rhif yr achos',
   line1: 'By submitting this response you have completed the following: -welsh',
   line2: 'Your response to the application -welsh',
   line3: 'What happens next -welsh',
@@ -41,7 +41,7 @@ const cy: typeof en = {
   line7: 'A copy of your submitted application will be in your personal dashboard. -welsh',
   downloadLink:
     ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-final">Download your response -welsh</a>',
-  saveAndContinue: 'Continue -welsh',
+  saveAndContinue: 'Parhau',
 };
 
 const languages = {

@@ -35,7 +35,7 @@ const cy: typeof en = {
   summaryText: 'Cysylltiadau am gymorth',
   one: 'Yes',
   two: 'No',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     unableForCourtProceedings: {
       required: 'Please select an answer',

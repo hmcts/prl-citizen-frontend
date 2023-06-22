@@ -55,7 +55,7 @@ const cy: typeof en = {
       required: 'Please describe lighting detail',
     },
     otherProvideDetails: {
-      required: 'Please describe your need in details',
+      required: 'Disgrifiwch eich anghenion yn fanwl',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',

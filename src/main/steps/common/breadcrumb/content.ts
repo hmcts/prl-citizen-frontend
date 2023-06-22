@@ -5,7 +5,7 @@ const en = {
 
 const cy: typeof en = {
   home: 'Hafan',
-  caseView: 'CaseView - welsh',
+  caseView: 'Gweld yr achos',
 };
 
 export const language = {
