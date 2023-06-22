@@ -47,6 +47,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (this.fileNameSearchPatternElementMap.size === 0) {
       this.fileNameSearchPatternElementMap = new Map<string, FileProperties>();
       this.fileNameSearchPatternElementMap.set('miamcertificate', { elements: ['miamCertificationDocumentUpload'] });
+      this.fileNameSearchPatternElementMap.set('responsetoca', { elements: ['respondentDocsList', 'citizenDocument'] });
       this.fileNameSearchPatternElementMap.set('cadafinaldocumentrequest', {
         elements: ['finalDocument'],
         downloadFileFieldFlag: DownloadFileFieldFlag.IS_APPLICATION_VIEWED,
@@ -308,6 +309,22 @@ export class DocumentManagerController extends PostController<AnyObject> {
       documentToGet = req.session.userCase.finalDocument?.document_binary_url;
       uid = this.getUID(documentToGet);
     }
+    if (filename === DocumentType.CITIZEN_DOCUMENT) {
+      for (const document of req.session.userCase.respondentDocsList!) {
+        if (document.value?.c1aDocument?.partyName === req.query?.name) {
+          filename = document.value.c1aDocument.citizenDocument.document_filename;
+          documentToGet = document.value.c1aDocument.citizenDocument.document_binary_url;
+          uid = this.getUID(documentToGet);
+          break;
+        }
+        if (document.value?.c7Document?.partyName === req.query?.name) {
+          filename = document.value.c7Document.citizenDocument.document_filename;
+          documentToGet = document.value.c7Document.citizenDocument.document_binary_url;
+          uid = this.getUID(documentToGet);
+          break;
+        }
+      }
+    }
 
     if (filename === DocumentType.WITNESS_STATEMENT) {
       if (!req.session.userCase.fl401UploadWitnessDocuments?.[0].value?.document_binary_url) {
@@ -321,8 +338,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const fileNameSearchPattern = entry[0];
       if (filename.includes(fileNameSearchPattern) || filename === fileNameSearchPattern) {
         const obj = this.getDocumentUIDWithOutFlag(req, entry[1].elements, entry[1].downloadFileFieldFlag);
-        uid = obj.uid;
-        filename = obj.filename;
+        uid = obj!.uid;
+        filename = obj!.filename;
         if (uid.trim() !== '') {
           if (entry[1]?.downloadFileFieldFlag) {
             fieldFlag = entry[1]?.downloadFileFieldFlag;
@@ -420,21 +437,36 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let uid = '';
     let documentToGet = '';
     let ele = '';
-    const document_filename = req.session.userCase[`${element}`]?.document_filename;
+    let document_filename = req.session.userCase[`${element}`]?.document_filename;
 
     if (element !== null && element !== undefined) {
       ele = element[0];
-      if (!req.session.userCase[`${ele}`]?.document_binary_url) {
-        throw new Error('binary url is not found for ' + document_filename);
-      }
-      documentToGet = req.session.userCase[`${ele}`]?.document_binary_url;
-      uid = this.getUID(documentToGet);
+      if (ele !== 'respondentDocsList') {
+        if (!req.session.userCase[`${ele}`]?.document_binary_url) {
+          throw new Error('binary url is not found for ' + document_filename);
+        }
+        documentToGet = req.session.userCase[`${ele}`]?.document_binary_url;
+        uid = this.getUID(documentToGet);
 
-      if (flag !== null || flag !== undefined) {
-        flag = YesOrNo.YES;
+        if (flag !== null || flag !== undefined) {
+          flag = YesOrNo.YES;
+        }
+      } else {
+        for (const document of req.session.userCase.respondentDocsList!) {
+          if (document.value?.c1aDocument?.partyName === req.query?.name) {
+            document_filename = document.value.c1aDocument.citizenDocument.document_filename;
+            documentToGet = document.value.c1aDocument.citizenDocument.document_binary_url;
+            uid = this.getUID(documentToGet);
+          }
+          if (document.value?.c7Document?.partyName === req.query?.name) {
+            document_filename = document.value.c7Document.citizenDocument.document_filename;
+            documentToGet = document.value.c7Document.citizenDocument.document_binary_url;
+            uid = this.getUID(documentToGet);
+          }
+        }
       }
+      return { uid, filename: document_filename };
     }
-    return { uid, filename: document_filename };
   }
 
   private async setFlagViewed(
