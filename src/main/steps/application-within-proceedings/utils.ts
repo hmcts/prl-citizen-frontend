@@ -7,7 +7,7 @@ interface AWPApplicationTypesConfig {
   applicationType: AWPApplicationType;
   applicationReasons: ApplicationReason[];
   applicationFee: Partial<Record<CaseType, string>>;
-  applicationDownloadUrl: string;
+  applicationFormUrl: string;
 }
 
 interface ApplicationReason {
@@ -21,7 +21,7 @@ interface ApplicationDetails {
   applicationReason: AWPApplicationReason;
   applicationFee: string;
   reasonText: string;
-  applicationDownloadUrl: string;
+  applicationFormUrl: string;
 }
 
 const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
@@ -117,7 +117,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
       C100: '£167',
       FL401: '£167',
     },
-    applicationDownloadUrl:
+    applicationFormUrl:
       'https://www.gov.uk/government/publications/form-c2-application-for-permission-to-start-proceedings-for-an-order-or-directions-in-existing-proceedings-to-be-joined-as-or-cease-to-be-a-part',
   },
   {
@@ -141,7 +141,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
     applicationFee: {
       C100: '£232',
     },
-    applicationDownloadUrl: 'https://www.gov.uk/government/publications/form-c1-application-for-an-order',
+    applicationFormUrl: 'https://www.gov.uk/government/publications/form-c1-application-for-an-order',
   },
   {
     applicationType: AWPApplicationType.C3,
@@ -157,7 +157,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
     applicationFee: {
       C100: '£245',
     },
-    applicationDownloadUrl:
+    applicationFormUrl:
       'https://www.gov.uk/government/publications/form-c3-application-for-an-order-authorising-search-for-taking-charge-of-and-delivery-of-a-child',
   },
   {
@@ -174,7 +174,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
     applicationFee: {
       C100: '£232',
     },
-    applicationDownloadUrl:
+    applicationFormUrl:
       'https://www.gov.uk/government/publications/form-c4-application-for-an-order-for-disclosure-of-a-childs-whereabouts',
   },
   {
@@ -191,7 +191,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
     applicationFee: {
       C100: '£232',
     },
-    applicationDownloadUrl:
+    applicationFormUrl:
       'https://www.gov.uk/government/publications/form-c79-application-related-to-enforcement-of-a-child-arrangement-order',
   },
   {
@@ -210,7 +210,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
       C100: '£45',
       FL401: '£0',
     },
-    applicationDownloadUrl:
+    applicationFormUrl:
       'https://www.gov.uk/government/publications/form-d89-request-personal-service-of-papers-by-a-court-bailiff',
   },
   {
@@ -229,7 +229,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
       C100: '£0',
       FL401: '£0',
     },
-    applicationDownloadUrl:
+    applicationFormUrl:
       'https://www.gov.uk/government/publications/accuser-apply-to-the-court-to-consider-whether-to-prevent-prohibit-questioning-cross-examination-in-person-form-ex740',
   },
   {
@@ -248,7 +248,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
       C100: '£0',
       FL401: '£0',
     },
-    applicationDownloadUrl:
+    applicationFormUrl:
       'https://www.gov.uk/government/publications/accused-apply-to-the-court-to-consider-whether-to-prevent-prohibit-questioning-cross-examination-in-person-form-ex741',
   },
   {
@@ -267,7 +267,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
       C100: '£53',
       FL401: '£53',
     },
-    applicationDownloadUrl: 'https://www.gov.uk/government/publications/form-fp25-witness-summons',
+    applicationFormUrl: 'https://www.gov.uk/government/publications/form-fp25-witness-summons',
   },
   {
     applicationType: AWPApplicationType.FC600,
@@ -285,7 +285,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
       C100: '£167',
       FL401: '£167',
     },
-    applicationDownloadUrl:
+    applicationFormUrl:
       'https://www.gov.uk/government/publications/ask-the-court-to-consider-an-allegation-of-contempt-of-court-form-fc600',
   },
   {
@@ -304,7 +304,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
       C100: '£215',
       FL401: '£125',
     },
-    applicationDownloadUrl:
+    applicationFormUrl:
       'https://www.gov.uk/government/publications/form-n161-appellants-notice-all-appeals-except-small-claims-track-appeals-and-appeals-to-the-family-division-of-the-high-court',
   },
   {
@@ -322,7 +322,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
       C100: '£0',
       FL401: '£0',
     },
-    applicationDownloadUrl:
+    applicationFormUrl:
       'https://www.gov.uk/government/publications/form-fl403-application-to-vary-extend-or-discharge-an-order-in-existing-proceedings',
   },
   {
@@ -340,7 +340,7 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
       C100: '£0',
       FL401: '£0',
     },
-    applicationDownloadUrl:
+    applicationFormUrl:
       'https://www.gov.uk/government/publications/form-fl407a-application-for-a-warrant-of-arrest-forced-marriage-protection-order',
   },
 ];
@@ -378,7 +378,7 @@ export const getApplicationDetails = (
         applicationReason: reason.reason,
         reasonText: applicationReasonTranslation[language][reason.reason]['reasonText'],
         applicationFee: application.applicationFee[caseType],
-        applicationDownloadUrl: application.applicationDownloadUrl,
+        applicationFormUrl: application.applicationFormUrl,
       };
     }
   }

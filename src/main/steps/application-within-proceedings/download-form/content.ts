@@ -8,7 +8,7 @@ export const en = {
   title: 'Download the form',
   explainRequest: 'You can explain your request by completing and uploading the form',
   nextSteps: 'Next steps',
-  bulletPoints: [
+  listItems: [
     'Download the form {applicationType} from <a href="{downloadUrl}" target="_blank" class="govuk-link">GOV.UK (opens in a new tab)</a>',
     'Complete the application form',
     'Save the application form onto your device',
@@ -24,7 +24,7 @@ export const cy: typeof en = {
   title: 'Download the form (welsh)',
   explainRequest: 'You can explain your request by completing and uploading the form (welsh)',
   nextSteps: 'Next steps (welsh)',
-  bulletPoints: [
+  listItems: [
     'Download the form {applicationType} from <a href="{downloadUrl}" target="_blank" class="govuk-link">GOV.UK (opens in a new tab)</a> (welsh)',
     'Complete the application form (welsh)',
     'Save the application form onto your device (welsh)',
@@ -74,10 +74,10 @@ export const generateContent: TranslationFn = content => {
     form,
     applicationType: applicationDetails?.applicationType,
     caption: applicationDetails?.reasonText,
-    bulletPoints: translations.bulletPoints.map(bulletPoint =>
-      interpolate(bulletPoint, {
+    listItems: translations.listItems.map(listItem =>
+      interpolate(listItem, {
         applicationType: applicationDetails!.applicationType,
-        downloadUrl: applicationDetails!.applicationDownloadUrl,
+        downloadUrl: applicationDetails!.applicationFormUrl,
       })
     ),
   };
