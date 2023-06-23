@@ -549,7 +549,6 @@ export const getOthersResponseToCA = (doc, taskListItems) => {
     ),
     href: `${URL.RESPONSE_TO_CA}?name=${doc?.value?.c7Document?.partyName}`,
   };
-
 };
 export const getOthersResponseToAoh = (doc, taskListItems) => {
   return {
@@ -560,7 +559,6 @@ export const getOthersResponseToAoh = (doc, taskListItems) => {
       doc?.value?.c1aDocument?.partyName
     ),
     href: `${URL.RESPONSE_TO_CA}?name=${doc?.value?.c1aDocument?.partyName}`,
-
   };
 };
 
