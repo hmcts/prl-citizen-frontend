@@ -13,7 +13,7 @@ const en = {
   title: 'Apply for help with fees',
   applyBefore: 'You must apply for help with fees before submitting your application.',
   nextSteps: 'Next steps',
-  bulletPoints: [
+  listItems: [
     'Go to <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" rel="external" target="_blank">apply for help with fees (opens in a new tab)</a>',
     `Enter ${applicationType} when you are asked to enter a court or tribunal number`,
     'Complete the help with fees application',
@@ -28,7 +28,7 @@ const cy: typeof en = {
   title: 'Apply for help with fees (welsh)',
   applyBefore: 'You must apply for help with fees before submitting your application. (welsh)',
   nextSteps: 'Next steps (welsh)',
-  bulletPoints: [
+  listItems: [
     'Go to <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" rel="external" target="_blank">apply for help with fees (opens in a new tab)</a> (welsh)',
     `Enter ${applicationType} when you are asked to enter a court or tribunal number (welsh)`,
     'Complete the help with fees application (welsh)',

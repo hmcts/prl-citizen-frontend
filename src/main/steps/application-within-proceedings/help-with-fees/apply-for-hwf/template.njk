@@ -10,8 +10,8 @@
   <p class="govuk-body govuk-!-margin-bottom-2">{{ applyBefore }}</p>
   <h3 class="govuk-heading-m govuk-!-margin-bottom-4">{{ nextSteps }}</h3>
   <ol class="govuk-list govuk-list--number govuk-!-margin-bottom-8">
-    {% for bulletPoint in bulletPoints %}
-      <li>{{bulletPoint | safe}}</li>
+    {% for item in listItems %}
+      <li>{{item | safe}}</li>
     {% endfor %}
   </ol>
 

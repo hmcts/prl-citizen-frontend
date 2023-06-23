@@ -8,7 +8,7 @@ export const en = {
   title: 'Apply for help with fees',
   applyBefore: 'You must apply for help with fees before submitting your application.',
   nextSteps: 'Next steps',
-  bulletPoints: [
+  listItems: [
     'Go to <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" rel="external" target="_blank">apply for help with fees (opens in a new tab)</a>',
     'Enter {applicationType} when you are asked to enter a court or tribunal number',
     'Complete the help with fees application',
@@ -23,7 +23,7 @@ export const cy: typeof en = {
   title: 'Apply for help with fees (welsh)',
   applyBefore: 'You must apply for help with fees before submitting your application. (welsh)',
   nextSteps: 'Next steps (welsh)',
-  bulletPoints: [
+  listItems: [
     'Go to <a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" rel="external" target="_blank">apply for help with fees (opens in a new tab)</a> (welsh)',
     'Enter {applicationType} when you are asked to enter a court or tribunal number (welsh)',
     'Complete the help with fees application (welsh)',
@@ -51,21 +51,6 @@ export const form: FormContent = {
   },
 };
 
-const generateBulletPoints = (translations, applicationDetails) => {
-  const bulletPoints: string[] = [];
-
-  translations.bulletPoints.forEach(bulletPoint => {
-    bulletPoints.push(
-      interpolate(bulletPoint, {
-        applicationType: applicationDetails!.applicationType,
-        reasonText: applicationDetails!.reasonText.toLowerCase(),
-      })
-    );
-  });
-
-  return bulletPoints;
-};
-
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const request = content.additionalData!.req;
@@ -85,7 +70,12 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     form,
-    bulletPoints: generateBulletPoints(translations, applicationDetails),
+    listItems: translations.listItems.map(item =>
+      interpolate(item, {
+        applicationType: applicationDetails!.applicationType,
+        reasonText: applicationDetails!.reasonText.toLowerCase(),
+      })
+    ),
     caption: applicationDetails?.reasonText,
   };
 };
