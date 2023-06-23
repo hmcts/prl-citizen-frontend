@@ -5,16 +5,20 @@ import { CommonContent, generatePageContent } from '../../common/common.content'
 
 import { generateContent } from './content';
 
+const applicationType = 'C2';
+const downloadUrl =
+  'https://www.gov.uk/government/publications/form-c2-application-for-permission-to-start-proceedings-for-an-order-or-directions-in-existing-proceedings-to-be-joined-as-or-cease-to-be-a-part';
+
 const en = {
   title: 'Download the form',
   explainRequest: 'You can explain your request by completing and uploading the form',
   nextSteps: 'Next steps',
-  line1: 'Download the form',
-  from: 'from',
-  govUk: 'GOV.UK (opens in a new tab)',
-  line2: 'Complete the application form',
-  line3: 'Save the application form onto your device',
-  line4: 'Return to upload your application form',
+  bulletPoints: [
+    `Download the form ${applicationType} from <a href="${downloadUrl}" target="_blank" class="govuk-link">GOV.UK (opens in a new tab)</a>`,
+    'Complete the application form',
+    'Save the application form onto your device',
+    'Return to upload your application form',
+  ],
   warning: 'Warning',
   warningText: 'You need to return to upload your application form for your request to be completed.',
   onlyContinue: 'Continue',
@@ -25,12 +29,12 @@ const cy: typeof en = {
   title: 'Download the form (welsh)',
   explainRequest: 'You can explain your request by completing and uploading the form (welsh)',
   nextSteps: 'Next steps (welsh)',
-  line1: 'Download the form (welsh)',
-  from: 'from (welsh)',
-  govUk: 'GOV.UK (opens in a new tab) (welsh)',
-  line2: 'Complete the application form (welsh)',
-  line3: 'Save the application form onto your device (welsh)',
-  line4: 'Return to upload your application form (welsh)',
+  bulletPoints: [
+    `Download the form ${applicationType} from <a href="${downloadUrl}" target="_blank" class="govuk-link">GOV.UK (opens in a new tab)</a> (welsh)`,
+    'Complete the application form (welsh)',
+    'Save the application form onto your device (welsh)',
+    'Return to upload your application form (welsh)',
+  ],
   warning: 'Warning (welsh)',
   warningText: 'You need to return to upload your application form for your request to be completed. (welsh)',
   onlyContinue: 'Parhau',
