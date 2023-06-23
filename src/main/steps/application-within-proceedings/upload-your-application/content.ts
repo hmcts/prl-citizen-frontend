@@ -96,7 +96,9 @@ export const generateContent: TranslationFn = content => {
     }),
     caption: applicationDetails?.reasonText,
     errors: {
+      ...translations.errors,
       awp_completedForm: {
+        ...translations.errors.awp_completedForm,
         required: interpolate(translations.errors.awp_completedForm.required, {
           applicationType: applicationDetails!.applicationType,
         }),
