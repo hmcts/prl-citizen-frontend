@@ -10,78 +10,116 @@
   <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
   <h3 class="govuk-heading-l">{{ yourPreviousHearings }}</h3>
 
-  <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9">
+  <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9"></dl>
 
     {% for item in userCase.hearingCollection %}
 
-      {% for previousHearing in item.prev %}
         <div>
-          <h4 class="govuk-heading-m govuk-!-margin-left-9">{{ ordinalNumberMap.get(loop.revindex) }} {{ hearing }}</h4>
+          <h4 class="govuk-heading-m govuk-!-margin-left-9">{{ hearing }}</h4>
         </div>
 
         <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9">
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{ hearingDate }}
+              {{ hearingid }}
             </dt>
             <dd class="govuk-summary-list__value">
-              {{previousHearing.date}}
+              {{item.hearingID}}
             </dd>
           </div>  
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              {{ hearingTime }}
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{previousHearing.time}}
-            </dd>
-
-          </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ typeOfHearing }}
             </dt>
             <dd class="govuk-summary-list__value">
-              {{previousHearing.typeOfHearing}}
+              {{item.hearingType}}
             </dd>
 
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{ courtName }}
+              {{ hearingRequestDate }}
             </dt>
             <dd class="govuk-summary-list__value">
-              {{previousHearing.courtName}}
+              {{item.hearingRequestDateTime}}
             </dd>
 
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{ courtAddress }}
+              {{ lastResponseDate }}
             </dt>
             <dd class="govuk-summary-list__value">
-              {{previousHearing.courtAddress}}
-              <br><a href="#">{{ usefulDocumentsMap }}</a>
+              {{item.lastResponseReceivedDateTime}}
             </dd>
 
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{ hearingOutcome }}
+              {{ hearingListingStatus }}
             </dt>
             <dd class="govuk-summary-list__value">
-              <a href="#">{{previousHearing.hearingOutcome}}</a>
+              {{item.hearingListingStatus}}
             </dd>
+
           </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ listAssistStatus }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{item.listAssistCaseStatus}}
+            </dd>
+
+          </div>
+         {% for scheduler in item.hearingDaySchedule %}
+          <div>
+          <h4 class="govuk-heading-m govuk-!-margin-left-2">{{ schedule }}</h4>
+          </div>
+          <dl class="govuk-!-margin-left-2">
+            <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ hearingStartDateTime }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{scheduler.hearingStartDateTime}}
+            </dd>
+
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ hearingEndDateTime }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{scheduler.hearingEndDateTime}}
+            </dd>
+
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ hearingRoomId }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{scheduler.hearingRoomId}}
+            </dd>
+
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ noOfAttendees }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{scheduler.attendees.length}}
+            </dd>
+
+          </div>
+          </dl>
+          {% endfor %} 
+          
         </dl>
 
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-      {% endfor %}
 
     {% endfor %}
-
-  </dl>
-
-  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
 {% endblock %}

@@ -175,7 +175,7 @@ export class CosApiClient {
       );
       logger.info(`Response ****** ${response} *******`);
       console.log(`Response ****** ${response} *******`);
-      console.log(`Test Data ****** ${response.data.caseRef} *******`);
+      // console.log(`Test Data ****** ${response.data.caseRef} *******`);
       return response.data;
     } catch (err) {
       throw new Error('Case could not be updated.' + err);

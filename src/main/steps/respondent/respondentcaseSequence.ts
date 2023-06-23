@@ -1,4 +1,3 @@
-import HearingsGetController from '../../../main/steps/common/yourhearings/hearings/HearingsGetController';
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
@@ -474,16 +473,9 @@ export const respondentCaseSequence: Step[] = [
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPOND_TO_APPLICATION,
   },
-  // {
-  //   url: RESPONDENT_TASK_LIST_URL,
-  //   showInSection: Sections.AboutRespondentCase,
-  //   getController: HearingsGetController,
-  //   getNextStep: () => RESPONDENT_YOURHEARINGS_HEARINGS,
-  // },
   {
     url: RESPONDENT_YOURHEARINGS_HEARINGS,
     showInSection: Sections.AboutRespondentCase,
-    getController: HearingsGetController,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
@@ -525,5 +517,10 @@ export const respondentCaseSequence: Step[] = [
     url: `${RESPONDENT}${RESPONDENT_RISK_ASSESSMENT}`,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: RESPONDENT_TASK_LIST_URL,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_YOURHEARINGS_HEARINGS,
   },
 ];

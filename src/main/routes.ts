@@ -25,6 +25,7 @@ import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAl
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
+import { HearingsGetController } from './steps/common/yourhearings/hearings/HearingsGetController';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
@@ -120,10 +121,10 @@ import {
   C7_ATTENDING_THE_COURT,
   APPLICANT_TASKLIST_CONTACT_EMAIL,
   APPLICANT_TASKLIST_CONTACT_POST,
+  RESPONDENT_YOURHEARINGS_HEARINGS,
   // APPLICANT_YOURHEARINGS_HEARINGS,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
-//import { HearingsGetController } from './steps/applicant/yourhearings/hearings/HearingsGetController';
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -172,6 +173,7 @@ export class Routes {
       `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_RESPONDENT).get)
     );
+    app.get(`${RESPONDENT_YOURHEARINGS_HEARINGS}/:caseId`, errorHandler(new HearingsGetController().get));
     // app.get(
     //   `${APPLICANT_YOURHEARINGS_HEARINGS}/:caseId`,
     //   errorHandler(new HearingsGetController().get)
