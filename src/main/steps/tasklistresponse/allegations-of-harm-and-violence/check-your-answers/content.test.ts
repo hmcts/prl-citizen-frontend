@@ -33,7 +33,7 @@ const keys = {
   children: 'The children in this application',
   childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
   childrenMoreThanOnePassport: 'Do the children have more than one passport?',
-  childsCurrentLocationText: "Lle mae'r plant nawr?",
+  childsCurrentLocationText: 'Where are the children now?',
   concerns: 'concerns',
   details: 'Details',
   detailsOfChildConcern: 'Briefly describe the [***] against the child if you feel able to ',
