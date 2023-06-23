@@ -1,5 +1,4 @@
 /* eslint-disable no-fallthrough */
-//import config from 'config';
 import {
   Applicant,
   CaseType,
@@ -541,9 +540,6 @@ export const getResponseToCA = (respondent: Respondent, taskListItems, citizenRe
 };
 
 export const getOthersResponseToCA = (doc, taskListItems) => {
-  //for (const doc of respondentDocsList) {
-  // if (doc.value.partyName === respondent.value.firstName + ' ' + respondent.value.lastName) {
-  // const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
   return {
     id: 'respondent_response_to_request_for_child_arrangements',
     text: taskListItems.respondent_response_to_request_for_child_arrangements.replace(
@@ -552,17 +548,10 @@ export const getOthersResponseToCA = (doc, taskListItems) => {
       doc?.value?.c7Document?.partyName
     ),
     href: `${URL.RESPONSE_TO_CA}?name=${doc?.value?.c7Document?.partyName}`,
-    //doc?.value?.c1aDocument?.citizenDocument.document_binary_url
-    //href:"",
   };
-  //   }
-  // }
-  // return {};
+
 };
 export const getOthersResponseToAoh = (doc, taskListItems) => {
-  //for (const doc of respondentDocsList) {
-  // if (doc.value.partyName === respondent.value.firstName + ' ' + respondent.value.lastName) {
-  // const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
   return {
     id: 'respondent_allegation_of_harm_and_violence',
     text: taskListItems.respondent_allegation_of_harm_and_violence.replace(
@@ -571,12 +560,8 @@ export const getOthersResponseToAoh = (doc, taskListItems) => {
       doc?.value?.c1aDocument?.partyName
     ),
     href: `${URL.RESPONSE_TO_CA}?name=${doc?.value?.c1aDocument?.partyName}`,
-    //doc?.value?.c1aDocument?.citizenDocument.document_binary_url
-    //href:"",
+
   };
-  //   }
-  // }
-  // return {};
 };
 
 const getAohAndViolence = (respondent: Respondent, taskListItems) => {
