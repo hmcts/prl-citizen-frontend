@@ -3,6 +3,7 @@ import { AWPApplicationReason, AWPApplicationType, YesOrNo } from '../app/case/d
 import { applyParms } from './common/url-parser';
 import { Sections, Step } from './constants';
 import {
+  APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
   APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_APPLY_FOR_HWF,
@@ -24,6 +25,20 @@ export const applicationWithinProceedingsSequence: Step[] = [
   },
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (caseData, req) =>
+      caseData.awp_completedForm === YesOrNo.NO
+        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM, {
+            applicationType: req?.params.applicationType as AWPApplicationType,
+            applicationReason: req?.params.applicationReason as AWPApplicationReason,
+          }) as PageLink)
+        : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
+            applicationType: req?.params.applicationType as AWPApplicationType,
+            applicationReason: req?.params.applicationReason as AWPApplicationReason,
+          }) as PageLink),
+  },
+  {
+    url: APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {

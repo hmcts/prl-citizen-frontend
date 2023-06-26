@@ -38,6 +38,8 @@ describe('AWP utils', () => {
       applicationReason: 'delay-or-cancel-hearing-date',
       reasonText: 'Ask to delay or cancel a hearing date',
       applicationFee: '£167',
+      applicationFormUrl:
+        'https://www.gov.uk/government/publications/form-c2-application-for-permission-to-start-proceedings-for-an-order-or-directions-in-existing-proceedings-to-be-joined-as-or-cease-to-be-a-part',
     });
   });
 
@@ -113,6 +115,8 @@ describe('AWP utils', () => {
       applicationReason: 'delay-or-cancel-hearing-date',
       reasonText: 'Ask to delay or cancel a hearing date',
       applicationFee: '£167',
+      applicationFormUrl:
+        'https://www.gov.uk/government/publications/form-c2-application-for-permission-to-start-proceedings-for-an-order-or-directions-in-existing-proceedings-to-be-joined-as-or-cease-to-be-a-part',
     });
   });
 });
