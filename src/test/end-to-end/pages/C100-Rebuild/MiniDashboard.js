@@ -6,8 +6,7 @@ module.exports = {
   async clickStartTheApplication() {
     await I.retry(retryCount).see('Start the application');
     await I.retry(retryCount).click('Start the application');
-    await I.retry(retryCount).waitForNavigation();
-    I.wait('2');
+    I.wait('4');
   },
 
   async createStartTheApplication() {
