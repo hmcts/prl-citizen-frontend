@@ -13,7 +13,7 @@ describe('applicationWithinProceedingsSequence', () => {
   const userCase = {};
 
   test('should contain 1 entries in applicationWithinProceedingsSequence 1 screen sequence', () => {
-    expect(applicationWithinProceedingsSequence).toHaveLength(4);
+    expect(applicationWithinProceedingsSequence).toHaveLength(5);
     expect(applicationWithinProceedingsSequence[0].url).toBe(
       '/application-within-proceedings/:applicationType/:applicationReason/guidance'
     );
@@ -43,6 +43,19 @@ describe('applicationWithinProceedingsSequence', () => {
       '/application-within-proceedings/:applicationType/:applicationReason/help-with-fees/reference'
     );
     expect(applicationWithinProceedingsSequence[3].showInSection).toBe('applicationWithinProceedings');
-    expect(applicationWithinProceedingsSequence[3].getNextStep(userCase, req)).toBe('/dashboard');
+    expect(applicationWithinProceedingsSequence[3].getNextStep({ awp_have_hwfReference: YesOrNo.YES }, req)).toBe(
+      '/dashboard'
+    );
+    expect(applicationWithinProceedingsSequence[3].getNextStep({ awp_have_hwfReference: YesOrNo.NO }, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/help-with-fees/apply-for-hwf'
+    );
+
+    expect(applicationWithinProceedingsSequence[4].url).toBe(
+      '/application-within-proceedings/:applicationType/:applicationReason/help-with-fees/apply-for-hwf'
+    );
+    expect(applicationWithinProceedingsSequence[4].showInSection).toBe('applicationWithinProceedings');
+    expect(applicationWithinProceedingsSequence[4].getNextStep(userCase, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/help-with-fees/reference'
+    );
   });
 });
