@@ -6,7 +6,9 @@ import {
   APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
   APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
+  APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_APPLY_FOR_HWF,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_REFERENCE,
+  APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
   DASHBOARD_URL,
   PageLink,
 } from './urls';
@@ -15,12 +17,34 @@ export const applicationWithinProceedingsSequence: Step[] = [
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
     showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: () => APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
+    getNextStep: (caseData, req) =>
+      applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
+        applicationType: req?.params.applicationType as AWPApplicationType,
+        applicationReason: req?.params.applicationReason as AWPApplicationReason,
+      }) as PageLink,
+  },
+  {
+    url: APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (caseData, req) =>
+      caseData.awp_completedForm === YesOrNo.NO
+        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM, {
+            applicationType: req?.params.applicationType as AWPApplicationType,
+            applicationReason: req?.params.applicationReason as AWPApplicationReason,
+          }) as PageLink)
+        : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
+            applicationType: req?.params.applicationType as AWPApplicationType,
+            applicationReason: req?.params.applicationReason as AWPApplicationReason,
+          }) as PageLink),
   },
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
     showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: () => APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
+    getNextStep: (caseData, req) =>
+      applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
+        applicationType: req?.params.applicationType as AWPApplicationType,
+        applicationReason: req?.params.applicationReason as AWPApplicationReason,
+      }) as PageLink,
   },
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
@@ -36,6 +60,21 @@ export const applicationWithinProceedingsSequence: Step[] = [
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_REFERENCE,
     showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: () => DASHBOARD_URL,
+    getNextStep: (userCase, req) =>
+      userCase.awp_have_hwfReference === YesOrNo.NO
+        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_APPLY_FOR_HWF, {
+            applicationType: req?.params.applicationType as AWPApplicationType,
+            applicationReason: req?.params.applicationReason as AWPApplicationReason,
+          }) as PageLink)
+        : DASHBOARD_URL,
+  },
+  {
+    url: APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_APPLY_FOR_HWF,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (_userCase, req) =>
+      applyParms(APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_REFERENCE, {
+        applicationType: req?.params.applicationType as AWPApplicationType,
+        applicationReason: req?.params.applicationReason as AWPApplicationReason,
+      }) as PageLink,
   },
 ];

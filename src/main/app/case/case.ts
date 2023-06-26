@@ -588,6 +588,7 @@ export interface Case {
   awp_need_hwf?: YesOrNo;
   awp_have_hwfReference?: YesOrNo;
   awp_hwf_referenceNumber?: string;
+  awp_completedForm?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
