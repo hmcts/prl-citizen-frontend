@@ -65,11 +65,11 @@ let updatedForm: FormContent;
 
 const updateFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
   updatedForm = {
+    ...form,
     fields: {
       ...formFields,
       ...(form.fields ?? {}),
     },
-    ...form.onlyContinue,
   };
 
   return updatedForm;
