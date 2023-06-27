@@ -3,6 +3,7 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
+import { applyParms } from '../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
@@ -12,6 +13,7 @@ import {
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_YOURHEARINGS_HEARINGS,
+  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
 } from '../../../../urls';
@@ -31,6 +33,7 @@ enum TaskListSection {
 enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
   YOUR_APPLICATION_PDF = 'yourApplicationPDF',
+  MAKE_REQUEST_TO_COURT_ABOUT_CASE = 'requestToCourtAboutYourCase',
   VIEW_ALL_DOCUMENTS = 'viewAllDocuments',
   UPLOAD_DOCUMENTS = 'uploadDocuments',
   VIEW_HEARING_DETAILS = 'viewHearingDetails',
@@ -167,6 +170,11 @@ const taskListConfig = {
             href: () => C100_DOWNLOAD_APPLICATION,
             stateTag: () => StateTags.SUBMITTED,
             show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
+          },
+          {
+            id: Tasks.MAKE_REQUEST_TO_COURT_ABOUT_CASE,
+            href: () => applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
+            stateTag: () => StateTags.OPTIONAL,
           },
         ],
       },

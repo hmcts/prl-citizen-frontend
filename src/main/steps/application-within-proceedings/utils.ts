@@ -385,3 +385,27 @@ export const getApplicationDetails = (
 
   return appDetails;
 };
+
+export const isValidApplicationReason = (
+  applicationType: AWPApplicationType,
+  reason: AWPApplicationReason,
+  caseType: CaseType,
+  partyType: PartyType
+): boolean => {
+  const application = applicationTypesConfiguration.find(
+    _application => _application.applicationType === applicationType
+  );
+
+  if (application) {
+    const applicationReason = application.applicationReasons.find(appReason => appReason.reason === reason);
+
+    if (
+      applicationReason?.applicableCaseTypes.includes(caseType) &&
+      applicationReason?.applicablePartyType?.[caseType]?.includes(partyType)
+    ) {
+      return true;
+    }
+  }
+
+  return false;
+};

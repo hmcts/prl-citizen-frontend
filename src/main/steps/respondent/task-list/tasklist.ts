@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import { SectionStatus } from '../../../app/case/definition';
 import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
+import { applyParms } from '../../../steps/common/url-parser';
 import { UPDATE_CASE_YES } from '../../../steps/constants';
 import * as URL from '../../urls';
 
@@ -155,6 +156,12 @@ const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWith
             status: getInternationalFactorsStatus(userCase),
             href: '#',
             hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
+          },
+          {
+            id: 'request_court_about_your_case',
+            text: taskListItems.request_court_about_your_case,
+            status: SectionStatus.OPTIONAL,
+            href: applyParms(URL.APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
           },
         ],
       },

@@ -1,0 +1,56 @@
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
+{% extends "common/template.njk" %}
+{% extends "common/breadcrumb/template.njk" %}
+
+{% block page_content %}
+
+  <h1 class="govuk-heading-l">
+    {{title}}
+  </h1>
+
+  <p class="govuk-body">{{accordionTitle}}</h1>
+
+  {% set accordionItems = [] %}
+  {% for application in applications %}
+
+    {% set accordionContent %}
+    {% for content in application.contents %}
+      <p class='govuk-body'>{{content | safe}}</p>
+    {% endfor %}
+
+    {% if application.links.length %}
+      <ul class="govuk-list">
+        {% for link in application.links %}
+          <li>
+            <a class="govuk-link" href="{{link.url}}">{{link.text}}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% endset %}
+
+    {% set accordionItems = (accordionItems.push({
+      heading: {
+        text: application.sectionTitle
+      },
+      content: {
+        html: accordionContent
+      },
+      expanded: true
+    }), accordionItems) %}
+  {% endfor %}
+
+  {{ govukAccordion({
+      id: "accordion-default",
+      showAllSectionsText: 'ssfdf',
+      items: accordionItems
+    }) 
+  }}
+
+  {% if pagination.show %}
+    {{ govukPagination(pagination) }}
+  {% endif %}
+
+{% endblock %}

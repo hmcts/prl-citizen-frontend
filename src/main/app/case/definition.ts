@@ -1606,7 +1606,8 @@ export const enum SectionStatus {
   VIEW = 'VIEW',
   NOT_STARTED = 'NOT_STARTED',
   READY_TO_VIEW = "READY_TO_VIEW",
-  NOT_AVAILABLE_YET = "NOT_AVAILABLE_YET"
+  NOT_AVAILABLE_YET = "NOT_AVAILABLE_YET",
+  OPTIONAL = 'OPTIONAL'
 }
 
 export const enum AlternativeServiceMediumType {
