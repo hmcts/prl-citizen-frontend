@@ -4,7 +4,7 @@ import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { interpolate } from '../../../string-parser';
-import { isCaseLinked, isCaseWithdrawn } from '../../utils';
+import { isCaseLinked, isCaseServed, isCaseWithdrawn } from '../../utils';
 
 import { CaseType, PartyType, State, YesOrNo } from './../../../../../app/case/definition';
 import { C100_WITHDRAW_CASE } from './../../../../urls';
@@ -22,6 +22,7 @@ enum BannerNotification {
   APPLICATION_CLOSED = 'applicationClosed',
   NEW_ORDER = 'newOrder',
   NEW_DOCUMENT = 'newDocument',
+  SOA_SERVED = 'soaServedBanner',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string) => {
@@ -87,6 +88,11 @@ const notificationBanner = {
   [BannerNotification.NEW_DOCUMENT]: {
     id: BannerNotification.NEW_DOCUMENT,
     content: getContent.bind(null, BannerNotification.NEW_DOCUMENT),
+    show: () => false,
+  },
+  [BannerNotification.SOA_SERVED]: {
+    id: BannerNotification.SOA_SERVED,
+    content: getContent.bind(null, BannerNotification.SOA_SERVED),
     show: () => false,
   },
 };
@@ -168,6 +174,12 @@ const notificationBannerConfig = {
         ...notificationBanner[BannerNotification.NEW_ORDER],
         show: (caseData: Partial<CaseWithId>): boolean => {
           return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
+        },
+      },
+      {
+        ...notificationBanner[BannerNotification.SOA_SERVED],
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return isCaseServed(caseData);
         },
       },
     ],

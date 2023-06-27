@@ -1,5 +1,5 @@
 import { CaseType } from '../../../../../app/case/definition';
-import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../../../steps/urls';
+import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_STATEMENT_OF_SERVICE, APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../../../steps/urls';
 
 const en = {
   title: 'Important',
@@ -135,6 +135,38 @@ const en = {
           {
             text: 'See all documents',
             href: APPLICANT_VIEW_ALL_DOCUMENTS,
+          },
+        ],
+      },
+      soaServedBanner: {
+        heading: 'Serve the application',
+        contents: [
+          {
+            text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+          },
+          {
+            text: 'You must refer to correspondence from the court about serving the application on the respondent',
+          },
+          {
+            text: 'You must not give any court documents to the respondent yourself.',
+          },
+        ],
+        links: [
+          {
+            href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+            text: 'View the final order (PDF)',
+          },
+        ],
+        heading2: 'Tell us once the application has been served',
+        contents2: [
+          {
+            text: 'You must tell the court once the respondent has been served. Do this by completing the statement of service (form FL415).',
+          },
+        ],
+        links2: [
+          {
+            href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+            text: 'Send Statement of service (form FL415) to the court',
           },
         ],
       },
@@ -276,6 +308,38 @@ const cy: typeof en = {
           {
             text: 'See all documents - welsh',
             href: APPLICANT_VIEW_ALL_DOCUMENTS,
+          },
+        ],
+      },
+      soaServedBanner: {
+        heading: 'Serve the application',
+        contents: [
+          {
+            text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+          },
+          {
+            text: 'You must refer to correspondence from the court about serving the application on the respondent',
+          },
+          {
+            text: 'You must not give any court documents to the respondent yourself.',
+          },
+        ],
+        links: [
+          {
+            href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+            text: 'View the final order (PDF)',
+          },
+        ],
+        heading2: 'Tell us once the application has been served',
+        contents2: [
+          {
+            text: 'You must tell the court once the respondent has been served. Do this by completing the statement of service (form FL415).',
+          },
+        ],
+        links2: [
+          {
+            href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+            text: 'Send Statement of service (form FL415) to the court',
           },
         ],
       },

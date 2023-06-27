@@ -1,0 +1,15 @@
+{% extends "common/template.njk" %}
+<div class="govuk-form-group">
+{% block page_content %}
+<div class="govuk-form-group">
+      {% if title %}
+        <h1 class="govuk-heading-l">
+          <span class="govuk-caption-l">{{caption}} #{{userCase.id}}</span>
+          {{ title }}</h1>
+      {% endif %}
+          <p class="govuk-body">{{ courtwillcontactlabel }}</p>
+    <p class="govuk-body">{{ cafcassinvolvedlabel }}</p>
+
+</div>
+{% endblock %}
+ </div>

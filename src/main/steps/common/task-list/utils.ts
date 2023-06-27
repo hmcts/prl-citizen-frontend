@@ -3,7 +3,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import { UserDetails } from '../../../app/controller/AppRequest';
 
-import { CaseType, PartyDetails, PartyType, State, YesOrNo } from './../../../app/case/definition';
+import { Applicant, CaseType, PartyDetails, PartyType, State, YesOrNo } from './../../../app/case/definition';
 
 export const getPartyName = (
   caseData: Partial<CaseWithId> | undefined,
@@ -57,4 +57,18 @@ export const isDraftCase = (caseData: Partial<CaseWithId>): boolean => {
 
 export const checkPartyRepresentedBySolicitor = (partyDetails: PartyDetails | undefined): boolean => {
   return partyDetails?.user?.solicitorRepresented === YesOrNo.YES;
+};
+
+export const isCaseServed = (caseData: Partial<CaseWithId>): boolean => {
+  let applicants: Applicant[] = [];
+  if (!caseData) {
+    return true;
+  }
+  if (caseData.applicants) {
+    applicants = caseData.applicants;
+  }
+  return (
+    applicants[0].value.response.citizenFlags?.isApplicationServed === 'Yes' &&
+    !!applicants[0].value.response.citizenFlags?.isStatementOfTruthProvided
+  );
 };

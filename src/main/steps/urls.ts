@@ -611,3 +611,9 @@ export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
   isNonProd
     ? 'https://c100-application-staging.apps.live-1.cloud-platform.service.justice.gov.uk/'
     : 'https://apply-to-court-about-child-arrangements.service.justice.gov.uk';
+
+export const RESPONDENT_STATEMENT_OF_SERVICE: PageLink = `${RESPONDENT}/statement-of-service/choose-parties`;
+export const APPLICANT_STATEMENT_OF_SERVICE: PageLink = `${APPLICANT}/statement-of-service/choose-parties`;
+
+export const RESPONDENT_STATEMENT_OF_SERVICE_NEXT: PageLink = `${RESPONDENT}/statement-of-service/what-happens-next`;
+export const APPLICANT_STATEMENT_OF_SERVICE_NEXT: PageLink = `${APPLICANT}/statement-of-service/what-happens-next`;

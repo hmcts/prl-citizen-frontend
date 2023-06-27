@@ -12,6 +12,7 @@ export class Form {
    */
   public getParsedBody(body: AnyObject, checkFields?: FormContent['fields']): Partial<CaseWithFormData> {
     const fields = checkFields || this.fields;
+    console.log('*** fields *** : ' + JSON.stringify(fields));
 
     const parsedBody = Object.entries(fields)
       .reduce((_fields: [string, FormField][], [key, field]) => {

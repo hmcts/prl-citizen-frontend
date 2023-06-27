@@ -28,6 +28,31 @@
         </p>
       {% endfor %}
     {% endif %}
+    {% if notification.heading2 %}
+      <p class="govuk-notification-banner__heading">
+        {{ notification.heading2 }}
+      </p>
+    {% endif %}
+
+    {% for content in notification.contents2 %}
+      {% if content.html %}
+        <p class="govuk-body govuk-!-margin-bottom-2">{{ content.html | safe }}</p>
+        {%else%}
+        <p class="govuk-body govuk-!-margin-bottom-2">{{ content.text }}</p>
+      {% endif %}
+    {% endfor %}
+
+    {% if notification.links2 and notification.links2.length > 0%}
+      {% for link in notification.links2 %}
+        <p class="govuk-notification-banner__heading">
+          {% if link.external and link.external === true %}
+            <a class="govuk-notification-banner__link" href={{ link.href }} target="_blank">{{link.text}}</a>
+            {%else%}
+            <a class="govuk-notification-banner__link" href={{ link.href }}>{{link.text}}</a>
+          {% endif %}
+        </p>
+      {% endfor %}
+    {% endif %}
     {% endset %}
 
     {{ govukNotificationBanner({

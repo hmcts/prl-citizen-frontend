@@ -1,0 +1,66 @@
+
+{% extends "common/template.njk" %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+<div class="govuk-form-group">
+{% block page_content %}
+<div class="govuk-form-group">
+      {% if title %}
+        <h1 class="govuk-heading-l">
+          <span class="govuk-caption-l">{{caption}} #{{userCase.id}}</span>
+          {{ title }}</h1>
+      {% endif %}
+</div>
+
+ <div id="uploadGroup" tabindex="0" class="uploadGroup">
+    <div class=" govuk-!-margin-bottom-3">
+            <div class="govuk-form-group govuk-inset-text">
+              <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
+                {{uploadFileHeading}}
+                <span class="govuk-caption-l">{{uplodFileText1}}</span>
+              </label>
+      <form action="/document-manager?_csrf={{ csrfToken }}&caption={{caption}}&document_type={{document_type}}&parentDocumentType={{parentDocType}}&documentType={{docType}}&isApplicant=Yes" method="post" enctype="multipart/form-data">
+        {{ govukFileUpload({
+          name: "files[]",
+          attributes: {
+            multiple: true,
+            accept: "image/jpeg,image/tiff,image/jpg,image/bmp,image/png,image/tif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          },
+          label: {
+            text: chooseFilePhoto
+          },
+          classes: "govuk-!-margin-bottom-4"
+        }) }}
+        {{ govukButton({
+          text: upload,
+          type: "submit",
+          classes: "govuk-button--secondary govuk-!-margin-bottom-0"
+        }) }}
+      </form>
+      </div>
+    </div>
+
+    <h2 class="govuk-heading-s{% if userCase.applicantUploadFiles.length==0 %} hidden{% endif %}">{{ uploadFiles }}</h2>
+    <ul id="filesUploadedList" class="govuk-list">
+    <dl class="govuk-summary-list">
+      {% for file in userCase.applicantUploadFiles %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__value">
+                {{ file.name }}
+              </dt>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="/document-manager/deleteDocument/{{file.id}}?_csrf={{ csrfToken }}&caption={{caption}}&document_type={{document_type}}&parentDocumentType={{parentDocType}}&documentType={{docType}}&isApplicant=Yes">
+                  {{remove}}</span>
+                </a>
+              </dd>
+            </div>
+          {% endfor %}
+      </dl>
+    </ul>
+  </div>
+{% endblock %}
+
+ </div>

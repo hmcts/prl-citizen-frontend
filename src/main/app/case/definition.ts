@@ -196,6 +196,8 @@ export interface CitizenFlags {
   isAllegationOfHarmViewed?: string
   isAllDocumentsViewed?: string
   isResponseInitiated?: string
+  isApplicationServed?: string
+  isStatementOfTruthProvided?: string
 }
 
 export const enum DownloadFileFieldFlag {
@@ -1334,21 +1336,6 @@ export interface LabelContent {
   UnionType: string;
   UnionTypeUC: string;
   ApplicationType: ApplicationType;
-}
-
-export interface MarriageDetails {
-  Applicant1Name: string;
-  Applicant2Name: string;
-  MarriedInUk: YesOrNo;
-  CertificateInEnglish: YesOrNo;
-  CertifiedTranslation: YesOrNo;
-  CountryOfMarriage: string;
-  PlaceOfMarriage: string;
-  Date: DateAsString;
-  IsSameSexCouple: YesOrNo;
-  CertifyMarriageCertificateIsCorrect: YesOrNo;
-  MarriageCertificateIsIncorrectDetails: string;
-  IssueApplicationWithoutMarriageCertificate: YesOrNo;
 }
 
 export interface RejectReason {
@@ -2997,3 +2984,6 @@ export enum passportPossessionRelative {
   FATHER = 'father',
   OTHER = 'otherPerson'
 }
+
+export interface test
+{ id: string; value: string }
