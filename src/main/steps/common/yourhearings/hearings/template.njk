@@ -11,7 +11,7 @@
   <h3 class="govuk-heading-l">{{ yourPreviousHearings }}</h3>
 
   <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9"></dl>
-
+   {% if userCase.hearingCollection.length>=1 %}
     {% for item in userCase.hearingCollection %}
 
         <div>
@@ -72,11 +72,12 @@
             </dd>
 
           </div>
-         {% for scheduler in item.hearingDaySchedule %}
+       {# {% if item.hearingDaySchedule>=1 %} #}
+        {% for scheduler in item.hearingDaySchedule %}
           <div>
           <h4 class="govuk-heading-m govuk-!-margin-left-2">{{ schedule }}</h4>
           </div>
-          <dl class="govuk-!-margin-left-2">
+        <dl class="govuk-!-margin-left-2">
             <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ hearingStartDateTime }}
@@ -113,13 +114,13 @@
             </dd>
 
           </div>
-          </dl>
-          {% endfor %} 
-          
+        </dl>
+        {% endfor %} 
+        {# {% endif %} #}
         </dl>
 
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
     {% endfor %}
-
+   {% endif %}
 {% endblock %}

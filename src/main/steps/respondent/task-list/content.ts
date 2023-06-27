@@ -1,3 +1,4 @@
+//import { CosApiClient } from '../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../app/case/case';
 import { Banner, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
@@ -298,6 +299,7 @@ export const generateContent: TranslationFn = content => {
       }
     }
   }
+  //req.session.userCase.hearingCollection = getHearings(req);
   translations.respondentName = getRespondentName(req.session.userCase, req.session.user.id);
 
   return {
@@ -312,6 +314,14 @@ export const generateContent: TranslationFn = content => {
     stages,
   };
 };
+
+// const async getHearings(req:AppRequest):Promise<any>{
+//   const citizenUser = req.session.user;
+//   const caseId = req.session.userCase.id;
+//   const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
+//   const hearings = await client.getAllHearingsForCitizenCase(citizenUser, caseId);
+//   return hearings.caseHearings;
+// }
 
 const getRespondentName = (userCase: Partial<CaseWithId>, userId: string): string => {
   if (userCase.caseTypeOfApplication === 'C100') {

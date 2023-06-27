@@ -2399,31 +2399,31 @@ export interface PRLDocument {
 
 export interface HearingsList {
   hearingID?: Number,
-  hearingRequestDateTime?: string,
-  hearingType?: string,
-  hmcStatus?: string,
-  lastResponseReceivedDateTime?: string,
-  requestVersion?: Number,
-  hearingListingStatus?: string,
-  listAssistCaseStatus?: string,
-  hearingDaySchedule?:Schedules[],
-  hearingGroupRequestId?: string,
-  hearingIsLinkedFlag?: boolean
+  hearingRequestDateTime?: string | null,
+  hearingType?: string | null,
+  hmcStatus?: string | null,
+  lastResponseReceivedDateTime?: string | null,
+  requestVersion?: Number | null,
+  hearingListingStatus?: string | null,
+  listAssistCaseStatus?: string | null,
+  hearingDaySchedule?:Schedules[] | null,
+  hearingGroupRequestId?: string | null,
+  hearingIsLinkedFlag?: boolean | null
 }
 
 export interface Schedules {
-  hearingStartDateTime?: string,
-  hearingEndDateTime?: string,
-  listAssistSessionId?: Number | string,
-  hearingVenueId?: string,
-  hearingVenueName?: string,
-  hearingVenueLocationCode?: Number | string,
-  hearingVenueAddress?: string,
-  hearingRoomId?: string,
-  hearingJudgeId?: string,
-  hearingJudgeName?: string,
-  panelMemberIds?: string[] | Number[],
-  attendees?: Attendee[],
+  hearingStartDateTime?: string | null,
+  hearingEndDateTime?: string | null,
+  listAssistSessionId?: Number | string | null,
+  hearingVenueId?: string | null,
+  hearingVenueName?: string | null,
+  hearingVenueLocationCode?: Number | string | null,
+  hearingVenueAddress?: string | null,
+  hearingRoomId?: string | null,
+  hearingJudgeId?: string | null,
+  hearingJudgeName?: string | null,
+  panelMemberIds?: string[] | Number[] | null,
+  attendees?: Attendee[] | null,
 
 }
 

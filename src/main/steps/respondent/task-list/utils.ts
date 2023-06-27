@@ -113,7 +113,7 @@ export const getViewAllHearingsFromTheCourt = (userCase: CaseWithId): SectionSta
   if (userCase && userCase.hearingCollection && userCase.hearingCollection.length > 0) {
     return SectionStatus.READY_TO_VIEW;
   }
-  return SectionStatus.TO_DO;
+  return SectionStatus.NOT_AVAILABLE_YET;
 };
 
 export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatus => {

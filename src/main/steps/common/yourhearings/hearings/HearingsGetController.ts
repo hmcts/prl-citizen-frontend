@@ -9,6 +9,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 // import { Language, generatePageContent } from '../../../common/common.content';
 import { RESPONDENT_YOURHEARINGS_HEARINGS } from '../../../urls';
 
+
 @autobind
 export class HearingsGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
@@ -20,84 +21,7 @@ export class HearingsGetController {
       const hearings = await client.getAllHearingsForCitizenCase(citizenUser, caseId);
       // console.log("I am 1");
       console.log(JSON.stringify(hearings));
-      // req.session.userCase.hearingCollection = hearings.caseHearings;
-      req.session.userCase.hearingCollection = [
-        {
-          hearingID: 2000005761,
-          hearingRequestDateTime: '2023-06-19T14:14:22.608675',
-          hearingType: 'ABA5-FOF',
-          hmcStatus: 'AWAITING_ACTUALS',
-          lastResponseReceivedDateTime: '2023-06-19T14:43:10',
-          requestVersion: 1,
-          hearingListingStatus: 'FIXED',
-          listAssistCaseStatus: 'LISTED',
-          hearingDaySchedule: [
-            {
-              hearingStartDateTime: '2023-06-20T09:00:00',
-              hearingEndDateTime: '2023-06-20T10:00:00',
-              listAssistSessionId: 'null',
-              hearingVenueId: '234946',
-              hearingVenueName: 'null',
-              hearingVenueLocationCode: 'null',
-              hearingVenueAddress: 'null',
-              hearingRoomId: 'Swansea CJC Courtroom 03',
-              hearingJudgeId: '',
-              hearingJudgeName: 'null',
-              panelMemberIds: [],
-              attendees: [
-                {
-                  partyID: 'b87ba2eb-7a03-4596-a071-5969c93a61cb',
-                  hearingSubChannel: 'INTER',
-                },
-                {
-                  partyID: 'c7a15ca6-c0e1-4a09-aff1-d7096fdd38ac',
-                  hearingSubChannel: 'null',
-                },
-              ],
-            },
-          ],
-          hearingGroupRequestId: 'null',
-          hearingIsLinkedFlag: false,
-        },
-        {
-          hearingID: 2000005761,
-          hearingRequestDateTime: '2023-06-19T14:14:22.608675',
-          hearingType: 'ABA5-FOF',
-          hmcStatus: 'AWAITING_ACTUALS',
-          lastResponseReceivedDateTime: '2023-06-19T14:43:10',
-          requestVersion: 1,
-          hearingListingStatus: 'FIXED',
-          listAssistCaseStatus: 'LISTED',
-          hearingDaySchedule: [
-            {
-              hearingStartDateTime: '2023-06-20T09:00:00',
-              hearingEndDateTime: '2023-06-20T10:00:00',
-              listAssistSessionId: 'null',
-              hearingVenueId: '234946',
-              hearingVenueName: 'null',
-              hearingVenueLocationCode: 'null',
-              hearingVenueAddress: 'null',
-              hearingRoomId: 'Swansea CJC Courtroom 03',
-              hearingJudgeId: '',
-              hearingJudgeName: 'null',
-              panelMemberIds: [],
-              attendees: [
-                {
-                  partyID: 'b87ba2eb-7a03-4596-a071-5969c93a61cb',
-                  hearingSubChannel: 'INTER',
-                },
-                {
-                  partyID: 'c7a15ca6-c0e1-4a09-aff1-d7096fdd38ac',
-                  hearingSubChannel: 'null',
-                },
-              ],
-            },
-          ],
-          hearingGroupRequestId: 'null',
-          hearingIsLinkedFlag: false,
-        },
-      ];
-
+      req.session.userCase.hearingCollection = hearings.caseHearings;
       console.log('$$$$$$$   ', req.session.userCase.hearingCollection);
       // console.log("I am 2");
       req.session.save(() => res.redirect(RESPONDENT_YOURHEARINGS_HEARINGS));
