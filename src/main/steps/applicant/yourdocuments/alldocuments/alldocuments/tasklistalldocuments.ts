@@ -558,7 +558,7 @@ export const getOthersResponse = (doc, taskListItems, type) => {
       type === 'c7Document'
         ? `${URL.RESPONSE_TO_CA}?name=${doc?.value?.c7Document?.partyName}`
         : `${URL.AOH_TO_CA}?name=${doc?.value?.c1aDocument?.partyName}`,
-    openInAnotherTab: true
+    openInAnotherTab: true,
   };
 };
 
