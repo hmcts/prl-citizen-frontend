@@ -262,8 +262,6 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
         if (doc?.value?.c7Document?.partyName) {
           respondentItems.push(getOthersResponse(doc, taskListItems, 'c7Document'));
         }
-      }
-      for (const doc of userCase.respondentDocsList) {
         if (doc?.value?.c1aDocument?.partyName) {
           respondentItems.push(getOthersResponse(doc, taskListItems, 'c1aDocument'));
         }
@@ -560,6 +558,7 @@ export const getOthersResponse = (doc, taskListItems, type) => {
       type === 'c7Document'
         ? `${URL.RESPONSE_TO_CA}?name=${doc?.value?.c7Document?.partyName}`
         : `${URL.AOH_TO_CA}?name=${doc?.value?.c1aDocument?.partyName}`,
+    openInAnotherTab: true
   };
 };
 
