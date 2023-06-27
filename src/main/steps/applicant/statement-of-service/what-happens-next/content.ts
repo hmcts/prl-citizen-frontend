@@ -1,4 +1,5 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { FormContent } from '../../../../app/form/Form';
 
 export const en = {
   caption: 'Case number ',
@@ -23,9 +24,18 @@ const languages = {
   cy,
 };
 
+export const form: FormContent = {
+  fields: {},
+
+  onlyContinue: {
+    text: l => l.continue,
+  },
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   return {
     ...translations,
+    form,
   };
 };

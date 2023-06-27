@@ -3,7 +3,7 @@
 import { CaseDate } from '../../../../app/case/case';
 import { test } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent, FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
 import {
   areDateFieldsFilledIn,
@@ -61,7 +61,25 @@ const languages = {
   cy,
 };
 
-export const form = (parties: test[]): FormContent => {
+let updatedForm: FormContent;
+
+const updateFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
+  updatedForm = {
+    fields: {
+      ...formFields,
+      ...(form.fields ?? {}),
+    },
+    ...form.onlyContinue,
+  };
+
+  return updatedForm;
+};
+
+export const generateFormFields = (parties: test[]): GenerateDynamicFormFields => {
+  const errors = {
+    en: {},
+    cy: {},
+  };
   const checkboxes: { name: string; label: string; value: string }[] = [];
   parties.forEach(p => {
     checkboxes.push({
@@ -70,56 +88,58 @@ export const form = (parties: test[]): FormContent => {
       value: p.id,
     });
   });
-  const formContent: FormContent = {
-    fields: () => {
-      const formFields: FormFields = {
-        partiesServedDate: {
-          type: 'date',
-          classes: 'govuk-date-input',
-          label: l => l.servedDate,
-          hint: l => l.servedDateHint,
-          values: [
-            {
-              label: l => l.dateFormat['day'],
-              name: 'day',
-              classes: 'govuk-input--width-2',
-              attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-            {
-              label: l => l.dateFormat['month'],
-              name: 'month',
-              classes: 'govuk-input--width-2',
-              attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-            {
-              label: l => l.dateFormat['year'],
-              name: 'year',
-              classes: 'govuk-input--width-4',
-              attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-          ],
-          parser: body => covertToDateObject('citizenUserDateOfBirth', body as Record<string, unknown>),
-          validator: value =>
-            areDateFieldsFilledIn(value as CaseDate) ||
-            isDateInputInvalid(value as CaseDate) ||
-            isFutureDate(value as CaseDate),
+  const fields = {
+    partiesServedDate: {
+      type: 'date',
+      classes: 'govuk-date-input',
+      label: l => l.servedDate,
+      labelSize: 's',
+      hint: l => l.servedDateHint,
+      values: [
+        {
+          label: l => l.dateFormat['day'],
+          name: 'day',
+          classes: 'govuk-input--width-2',
+          attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
         },
-        partiesServed: {
-          type: 'checkboxes',
-          label: l => l.whowasserved,
-          values: [...checkboxes],
-          validator: atLeastOneFieldIsChecked,
+        {
+          label: l => l.dateFormat['month'],
+          name: 'month',
+          classes: 'govuk-input--width-2',
+          attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
         },
-      };
-      console.log('** form fields **' + JSON.stringify(formFields));
-      return formFields;
+        {
+          label: l => l.dateFormat['year'],
+          name: 'year',
+          classes: 'govuk-input--width-4',
+          attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+        },
+      ],
+      parser: body => covertToDateObject('citizenUserDateOfBirth', body as Record<string, unknown>),
+      validator: value =>
+        areDateFieldsFilledIn(value as CaseDate) ||
+        isDateInputInvalid(value as CaseDate) ||
+        isFutureDate(value as CaseDate),
     },
-    onlyContinue: {
-      text: l => l.continue,
+    partiesServed: {
+      type: 'checkboxes',
+      label: l => l.whowasserved,
+      values: [...checkboxes],
+      validator: atLeastOneFieldIsChecked,
     },
   };
-  console.log('** form content **' + JSON.stringify(formContent.fields));
-  return formContent;
+
+  return { fields, errors };
+};
+
+export const form: FormContent = {
+  fields: {},
+  onlycontinue: {
+    text: l => l.onlycontinue,
+  },
+  saveAndComeLater: {
+    text: l => l.saveAndComeLater,
+  },
 };
 
 export const generateContent: TranslationFn = content => {
@@ -132,12 +152,10 @@ export const generateContent: TranslationFn = content => {
       value: respondent.value.firstName + ' ' + respondent.value.lastName,
     })
   );
-  const formData: FormContent = form(parties);
-  console.log(JSON.stringify(formData));
 
   return {
-    form: { ...formData, fields: (formData.fields as FormFieldsFn)(content.userCase || {}) },
     ...translations,
+    form: updateFormFields(form, generateFormFields(parties).fields),
     parentDocType,
     docType,
   };
