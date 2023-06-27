@@ -123,6 +123,7 @@ import {
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_TASKLIST_CONTACT_EMAIL,
   APPLICANT_TASKLIST_CONTACT_POST,
+  YOUR_APPLICATION_FL401_WELSH,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -272,6 +273,7 @@ export class Routes {
           errorHandler(documentManagerController.clearUploadDocumentFormData)
         );
         app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
+        app.get(YOUR_APPLICATION_FL401_WELSH, errorHandler(documentManagerController.get));
         app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT}${APPLICANT_CA_DA_REQUEST}`, errorHandler(documentManagerController.get));
         app.get(APPLICANT_CA_DA_REQUEST, errorHandler(documentManagerController.get));

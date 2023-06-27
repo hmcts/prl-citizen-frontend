@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { State } from '../../../app/case/definition';
+import { languagePreffered } from '../../../steps/common/common.content';
 import { getViewAllOrdersFromTheCourt } from '../../../steps/respondent/task-list/utils';
 import * as URL from '../../urls';
 
@@ -109,7 +110,7 @@ const getTheApplication = (taskListItems, userCase) => {
         id: 'your_application_ca',
         text: taskListItems.your_application_ca,
         status: getYourApplication(),
-        href: URL.YOUR_APPLICATION_FL401,
+        href: languagePreffered(userCase) ? URL.YOUR_APPLICATION_FL401 : URL.YOUR_APPLICATION_FL401_WELSH,
       },
       {
         id: 'your_allegations_of_harm',
@@ -130,7 +131,7 @@ const getTheApplication = (taskListItems, userCase) => {
         id: 'your-application',
         text: taskListItems.your_application,
         status: getYourApplication(),
-        href: URL.YOUR_APPLICATION_FL401,
+        href: languagePreffered(userCase) ? URL.YOUR_APPLICATION_FL401_WELSH : URL.YOUR_APPLICATION_FL401,
         openInAnotherTab: true,
       },
       {

@@ -224,7 +224,9 @@ export const C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/check-your-answers/save';
 
 export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
+export const APPLICATION_FL401_WELSH: PageLink = '/public/docs/FL401-Final-Document-Welsh.pdf';
 export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;
+export const YOUR_APPLICATION_FL401_WELSH: PageLink = `${APPLICANT}${APPLICATION_FL401_WELSH}`;
 export const APPLICATION_WITNESS_STATEMENT: PageLink = '/public/docs/witness-statement-Final-Document.pdf';
 export const YOUR_APPLICATION_WITNESS_STATEMENT: PageLink = `${APPLICANT}${APPLICATION_WITNESS_STATEMENT}`;
 

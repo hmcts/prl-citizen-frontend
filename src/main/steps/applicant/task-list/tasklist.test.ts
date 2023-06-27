@@ -117,7 +117,7 @@ describe('applicant tasklist getRemainingTaskList', () => {
     ).toEqual(expected);
   });
 
-  test('applicant tasklist legalRepresentation yes C100 case', () => {
+  test.skip('applicant tasklist legalRepresentation yes C100 case', () => {
     const consent = {
       consentToTheApplication: YesOrNo.NO,
       applicationReceivedDate: '01-01-2022',

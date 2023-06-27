@@ -1,5 +1,6 @@
 import { RESPONDENT_ORDERS_FROM_THE_COURT } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
+import { languagePreffered } from '../../../../common/common.content';
 
 const en = () => {
   return {
@@ -28,14 +29,28 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
   for (const doc of content.userCase?.orderCollection || []) {
-    const uid = doc.value.orderDocument.document_url.substring(
+    const uid = doc.value.orderDocument?.document_url.substring(
       doc.value.orderDocument.document_url.lastIndexOf('/') + 1
     );
-    orders.push({
-      href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uid}`,
-      createdDate: doc.value.otherDetails.orderCreatedDate,
-      fileName: doc.value.orderDocument.document_filename,
-    });
+    const uidWelsh = doc.value.orderDocumentWelsh?.document_url.substring(
+      doc.value.orderDocumentWelsh.document_url.lastIndexOf('/') + 1
+    );
+    console.log(uid);
+    console.log(uidWelsh);
+    //const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
+    if (languagePreffered(content.userCase)) {
+      orders.push({
+        href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uidWelsh}`,
+        createdDate: doc.value.otherDetails.orderCreatedDate,
+        fileName: doc.value.orderDocumentWelsh.document_filename,
+      });
+    } else {
+      orders.push({
+        href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uid}`,
+        createdDate: doc.value.otherDetails.orderCreatedDate,
+        fileName: doc.value.orderDocument.document_filename,
+      });
+    }
   }
 
   return {
