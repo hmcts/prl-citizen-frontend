@@ -1,5 +1,6 @@
 //import { isObject } from 'lodash';
 
+import { CommonContent } from '../../../../../main/steps/common/common.content';
 import { CaseDate } from '../../../../app/case/case';
 import { test } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
@@ -144,8 +145,7 @@ export const form: FormContent = {
   },
 };
 
-export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language];
+const getParties = (content: CommonContent) => {
   const parties: { id: string; value: string }[] = [];
   content.userCase?.respondents?.forEach(respondent =>
     parties.push({
@@ -153,6 +153,18 @@ export const generateContent: TranslationFn = content => {
       value: respondent.value.firstName + ' ' + respondent.value.lastName,
     })
   );
+  content.userCase?.applicants?.forEach(applicant =>
+    parties.push({
+      id: applicant.id,
+      value: applicant.value.firstName + ' ' + applicant.value.lastName,
+    })
+  );
+  return parties;
+};
+
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language];
+  const parties: { id: string; value: string }[] = getParties(content);
   return {
     ...translations,
     form: updateFormFields(form, generateFormFields(parties).fields),

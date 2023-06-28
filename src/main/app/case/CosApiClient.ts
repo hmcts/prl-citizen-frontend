@@ -248,13 +248,16 @@ export class CosApiClient {
         formData.append('files', file.data, file.name);
       }
 
-      formData.append('documentRequestedByCourt', request.documentRequestedByCourt);
+      formData.append(
+        'documentRequestedByCourt',
+        request.documentRequestedByCourt ? request.documentRequestedByCourt : ''
+      );
       formData.append('caseId', request.caseId);
-      formData.append('parentDocumentType', request.parentDocumentType);
-      formData.append('documentType', request.documentType);
-      formData.append('partyId', request.partyId);
-      formData.append('partyName', request.partyName);
-      formData.append('isApplicant', request.isApplicant);
+      formData.append('parentDocumentType', request.parentDocumentType ? request.parentDocumentType : '');
+      formData.append('documentType', request.documentType ? request.documentType : '');
+      formData.append('partyId', request.partyId ? request.partyId : '');
+      formData.append('partyName', request.partyName ? request.partyName : '');
+      formData.append('isApplicant', request.isApplicant ? request.isApplicant : '');
 
       const response = await Axios.post(
         config.get('services.cos.url') + '/upload-citizen-statement-document',

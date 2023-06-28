@@ -5,6 +5,7 @@ import type { Response } from 'express';
 import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
 import {
   APPLICANT,
+  APPLICANT_STATEMENT_OF_SERVICE,
   APPLICANT_TASK_LIST_URL,
   APPLICANT_UPLOAD_DOCUMENT,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
@@ -638,6 +639,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (req.query && req.query.isSos === 'Yes') {
       documentType = 'Statement of service';
       parentDocumentType = 'Statement of service';
+      documentRequestedByCourt = 'Yes';
     }
     const partyId = req.session.user.id;
 
@@ -681,8 +683,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
       Object.assign(req.session.userCase, caseDataFromCos);
       req.session.errors = [];
     }
-
-    this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
+    if (req.query && req.query.isSos === 'Yes') {
+      this.redirect(req, res, APPLICANT_STATEMENT_OF_SERVICE);
+    } else {
+      this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
+    }
   }
 
   public async clearUploadDocumentFormData(req: AppRequest<AnyObject>, res: Response): Promise<void> {
