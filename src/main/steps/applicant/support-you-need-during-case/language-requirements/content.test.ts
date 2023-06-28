@@ -14,6 +14,7 @@ const en = {
   speakwelsh: 'I need to speak in Welsh',
   readandwritewelsh: 'I need to read and write in Welsh',
   languageinterpreter: 'I need an interpreter in a certain language',
+  typeoflanguage: 'Give details of the language you require (including dialect, if applicable)',
   nointerpreter: 'No, I do not have any language requirements at this time',
   continue: 'Continue',
   errors: {
@@ -39,6 +40,7 @@ const cy: typeof en = {
   speakwelsh: 'Rwyf eisiau siarad Cymraeg',
   readandwritewelsh: 'Rwyf eisiau siarad ac ysgrifennu yn Gymraeg',
   languageinterpreter: 'Mae arnaf angen cyfieithydd mewn iaith benodol',
+  typeoflanguage: 'Rhowch fanylion yr iaith sydd ei hangen arnoch (gan gynnwys tafodiaith, os yw’n berthnasol)',
   nointerpreter: 'Nac oes, nid oes gennyf unrhyw ofynion o ran iaith ar hyn o bryd',
   continue: 'Parhau',
   errors: {

@@ -53,7 +53,7 @@ const cy: typeof en = {
   continue: 'Parhau',
   errors: {
     attendingToCourt: {
-      required: 'Select whether you can take part in a video or phone hearing',
+      required: 'Dewiswch a allwch chi gymryd rhan mewn gwrandawiad fideo neu wrandawiad dros y ffôn ',
     },
     hearingDetails: {
       required: 'Explain why you are unable to take part in either video or phone hearings',

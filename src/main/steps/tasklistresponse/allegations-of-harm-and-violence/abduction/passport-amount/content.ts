@@ -48,10 +48,10 @@ export const cy = () => ({
   otherDetails: 'Darparwch fwy o fanylion',
   errors: {
     PRL_c1A_childrenMoreThanOnePassport: {
-      required: 'Select yes if the children have more than one passport - welsh',
+      required: 'Dewiswch oes os oes gan y plant fwy nag un pasbort',
     },
     PRL_c1A_possessionChildrenPassport: {
-      required: "Specify who is in possession of the children's passports - welsh",
+      required: "Nodwch ym meddiant pwy y mae pasbortau'r plant",
     },
     PRL_c1A_provideOtherDetails: {
       required: 'Rhowch fanylion',

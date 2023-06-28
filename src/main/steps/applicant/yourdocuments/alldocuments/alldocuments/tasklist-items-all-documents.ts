@@ -55,7 +55,7 @@ export const applicant_tasklist_items_all_docs_en = {
 export const applicant_tasklist_items_all_docs_cy = {
   view_all_orders_from_the_court_all_docs: 'Gweld yr holl orchmynion gan y llys',
   applicant_request_for_child_arrangements: 'Cais <nameapplicantxxxxx> am drefniadau plant',
-  applicant_request_for_domestic_abuse: "<nameapplicantxxxxx>'s request for domestic abuse",
+  applicant_request_for_domestic_abuse: 'Cais <nameapplicantxxxxx> ynghylch camdriniaeth ddomestig',
   applicant_allegations_of_harm_and_violence: 'Honiadau <nameapplicantxxxxx> o niwed a thrais',
   applicant_response_to_other_side_allegation_of_harm:
     'Ymateb <nameapplicantxxxxx> i honiadau’r ochr arall o niwed a thrais',

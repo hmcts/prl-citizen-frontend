@@ -37,10 +37,10 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Safety requirements',
+  section: 'Gofynion diogelwch',
   title: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
   courtcommunication:
-    'Not every court has the facilities listed here, and some need to be agreed by a judge, for example the use of protective screens.The court will contact you to discuss safety arrangements before your hearing.',
+    'Nid oes gan bob llys y cyfleusterau a restrir yma, ac mae’n rhaid i farnwr gytuno i rai, er enghraifft defnyddio sgriniau. Bydd y llys yn cysylltu â chi i drafod y trefniadau diogelwch cyn eich gwrandawiad.',
   optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
   waitingroom: 'Ystafell aros ar wahân',

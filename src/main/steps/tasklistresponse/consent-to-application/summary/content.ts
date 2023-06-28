@@ -41,7 +41,7 @@ const en = (content: CommonContent) => {
 
 const cyContent: typeof enContent = {
   section: 'Gwirio eich atebion',
-  title: 'Your consent to the application',
+  title: 'Cydsynio i’r cais',
   sectionTitles: {
     consentDetails: '',
   },

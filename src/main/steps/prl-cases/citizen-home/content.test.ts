@@ -34,12 +34,12 @@ const enContent = {
 };
 
 const cyContent = {
-  title: 'Enter your access details',
-  line1: 'Enter the case number from the email or letter we sent you.',
-  caseCodeLabel: 'Your case code',
-  caseCodeLabelHint: 'You will find this on the email or letter we sent you',
-  accessCodeLabel: 'Your access code',
-  accessCodeLabelHint: 'This is a 8 character code',
+  title: 'Nodwch eich manylion mynediad',
+  line1: 'Rhowch y rhif achos o’r e-bost neu’r llythyr a anfonwyd atoch',
+  caseCodeLabel: 'Cod yr achos',
+  caseCodeLabelHint: 'Gellir ei weld yn yr e-bost neu’r llythyr a anfonwyd atoch',
+  accessCodeLabel: 'Eich cod mynediad',
+  accessCodeLabelHint: 'Mae hwn yn god 8 nod',
   contactDetails: contact_cy,
   continue: 'Parhau',
   errors: {

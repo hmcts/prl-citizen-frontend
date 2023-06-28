@@ -17,7 +17,7 @@ const cy = () => ({
   applicant: 'DA Applicant (welsh)',
   respondent: 'CA DA Respondent (welsh)',
   c100: 'C100 Application (welsh)',
-  pay: 'Pay Now  (welsh)',
+  pay: 'Talu Nawr',
   errorTitle: 'There is a problem (welsh)',
   paymentErrorText: 'The payment has been unsuccessful (welsh)',
 });

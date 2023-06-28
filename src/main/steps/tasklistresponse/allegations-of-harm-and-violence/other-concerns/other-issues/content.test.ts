@@ -11,6 +11,8 @@ const en = {
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
+  description:
+    'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing.',
   errors: {
     PRL_c1A_childSafetyConcerns: {
       required: 'Select yes if you have other concerns about the children’s safety and wellbeing',
@@ -31,12 +33,14 @@ const cy = {
   one: 'Oes',
   two: 'Nac oes',
   summaryText: 'Cysylltiadau am gymorth',
+  description:
+    "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
   errors: {
     PRL_c1A_childSafetyConcerns: {
-      required: 'Select yes if you have other concerns about the children’s safety and wellbeing - welsh',
+      required: 'Dewiswch oes os oes gennych bryderon eraill am ddiogelwch a lles y plant',
     },
     PRL_c1A_childSafetyConcernsDetails: {
-      required: 'Describe what concerns you have about the children’s safety and wellbeing - welsh',
+      required: 'Disgrifiwch y pryderon sydd gennych am ddiogelwch a lles y plant',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',

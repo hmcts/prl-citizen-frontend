@@ -138,7 +138,7 @@ export const cy: typeof en = {
   applyForDissolution: 'Cyfraith breifat',
   commonServiceName: 'Trefniadau plant a gwaharddebau teulu',
   c100ServiceName: 'Trefniadau plant',
-  fl401ServiceName: 'Family injunction (in welsh)',
+  fl401ServiceName: 'Gwaharddeb Teulu',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
   govUk: 'GOV.UK',
   back: 'Yn ôl',

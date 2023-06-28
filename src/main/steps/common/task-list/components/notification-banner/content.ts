@@ -192,7 +192,7 @@ const cy: typeof en = {
         heading: 'Mae’r achos wedi cael ei dynnu’n ôl.',
         contents: [
           {
-            text: 'You can still access all documents related to the case - welsh',
+            text: 'Gallwch dal gael mynediad at yr holl ddogfennau sy’n gysylltiedig â’r achos hwn',
           },
         ],
       },
@@ -247,7 +247,7 @@ const cy: typeof en = {
         heading: 'Mae gennych orchymyn terfynol',
         contents: [
           {
-            text: 'Your case is closed. The court has made a final decision about your case. The order tells you what the court has decided. - welsh',
+            text: 'Mae eich achos wedi cau. Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchymyn yn dweud wrthych beth mae’r llys wedi penderfynu',
           },
         ],
       },

@@ -91,6 +91,11 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
         );
       }
       break;
+    case 'citizenUserDateOfBirthText':
+      if (userkey === 'Invalid Date' && language === 'cy') {
+        return 'Dyddiad Annilys';
+      }
+      return userkey;
     default:
       return userkey;
   }

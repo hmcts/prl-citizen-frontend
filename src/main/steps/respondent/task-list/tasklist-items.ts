@@ -25,6 +25,6 @@ export const respondent_tasklist_items_cy = {
   upload_document: 'Llwytho dogfennau Dewisol',
   view_all_orders_from_the_court: 'Gweld yr holl orchmynion gan y llys',
   view_all_documents: 'Gweld yr holl ddogfennau',
-  your_safety: 'Your safety - welsh',
-  respond_to_application_hint: 'Go to view all documents to check the response. - welsh',
+  your_safety: 'Eich diogelwch',
+  respond_to_application_hint: 'Ewch i gweld yr holl ddogfennau i wirio’r ymateb',
 };

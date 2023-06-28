@@ -19,16 +19,16 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Adding a legal representative-welsh',
+  title: 'Ychwanegu cynrychiolydd cyfreithiol',
   partyName: '',
-  continue: 'Continue-welsh',
+  continue: 'Parhau',
   legalRepresentativeInformationLine1:
-    'If you have hired a legal representative,  you will need to give them some information so they can access your case.-welsh',
-  legalRepresentativeInformationLine2: 'Give your legal representative the following information:-welsh',
-  legalRepresentativeInformationLine3: 'Your case reference number-welsh: ',
-  legalRepresentativeInformationLine4: 'Your name-welsh: ',
+    'Os oes gennych gynrychiolydd cyfreithiol, bydd angen ichi roi rhywfaint o wybodaeth iddynt fel y gallant gael mynediad i’ch achos.',
+  legalRepresentativeInformationLine2: 'Rhowch yr wybodaeth ganlynol i’ch cynrychiolydd cyfreithiol:',
+  legalRepresentativeInformationLine3: 'Cyfeirnod eich achos: ',
+  legalRepresentativeInformationLine4: 'Eich enw: ',
   legalRepresentativeInformationLine5:
-    'They will use this information to tell the court that they are now representing you in this claim.-welsh',
+    'Byddant yn defnyddio’r wybodaeth hon i ddweud wrth y llys eu bod yn eich cynrychioli yn yr hawliad hwn.',
 };
 
 const languages = {

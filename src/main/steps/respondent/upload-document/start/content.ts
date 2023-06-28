@@ -21,8 +21,8 @@ const en = {
 const cy: typeof en = {
   section: ' ',
   title: 'A yw’r llys wedi gofyn am y ddogfen hon?',
-  one: 'Yes',
-  two: 'No',
+  one: 'Ydy',
+  two: 'Nac ydy',
   line1:
     'Bydd y gorchymyn llys yn dweud wrthych pa ddogfennau y mae angen i chi eu cyflwyno. Os byddwch yn cyflwyno dogfen nad yw’r llys wedi gofyn amdani, mae’n bosib y bydd y llys yn penderfynu peidio â’i hystyried.',
   continue: 'Parhau',

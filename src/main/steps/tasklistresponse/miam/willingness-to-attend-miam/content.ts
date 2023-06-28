@@ -36,7 +36,7 @@ const cy: typeof en = {
   title: "A fyddech chi'n fodlon mynychu MIAM?",
   one: 'Byddwn',
   two: 'Na fyddwn',
-  explainWhyLabel: 'Explain why',
+  explainWhyLabel: 'Eglurwch pam',
   miamCostExemptionsLabel: 'Help gyda chostau ac esemptiadau MIAM',
   miamCostExemptionsInfo: miam_cost_exemption_content_cy,
   miamLabel: miam_how_to_arrange_mediation_label_cy,
@@ -46,7 +46,7 @@ const cy: typeof en = {
       required: 'Select yes if you are willing to attend a MIAM',
     },
     miamNotWillingExplnation: {
-      required: 'Explain why',
+      required: 'Eglurwch pam',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',

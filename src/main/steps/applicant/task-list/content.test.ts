@@ -45,7 +45,7 @@ const enContent = {
   ],
 };
 const cyContent = {
-  title: 'Applicant tasklist',
+  title: 'Rhestr Tasgau’r Ceisydd',
   caseNumber: 'Rhif yr achos ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
@@ -60,15 +60,19 @@ const cyContent = {
   iWantTo: 'Rwyf eisiau ...',
   hyperlinks: [
     {
-      label: 'Add a legal representative-welsh',
+      label: 'Ychwanegu cynrychiolydd cyfreithiol',
       link: '/applicant/add-legal-representative',
     },
     {
-      label: 'Find my local court-welsh',
+      label: 'Dileu cynrychiolydd cyfreithiol',
+      link: '/applicant/remove-legal-representative/start',
+    },
+    {
+      label: 'Dod o hyd i fy llys lleol',
       link: '#',
     },
     {
-      label: 'Find legal advice-welsh',
+      label: 'Dod o hyd i gyngor cyfreithiol',
       link: '#',
     },
     {
