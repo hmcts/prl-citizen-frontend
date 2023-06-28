@@ -2,6 +2,7 @@ import fs from 'fs';
 
 import { Application } from 'express';
 
+//import UploadStatementOfServiceGetController from '../main/steps/applicant/statement-of-service/get';
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
 import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
@@ -123,6 +124,7 @@ import {
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_TASKLIST_CONTACT_EMAIL,
   APPLICANT_TASKLIST_CONTACT_POST,
+  //APPLICANT_STATEMENT_OF_SERVICE,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -162,6 +164,8 @@ export class Routes {
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().load));
+    //app.get(`${APPLICANT_STATEMENT_OF_SERVICE}`, errorHandler(new UploadStatementOfServiceGetController().load));
+
     //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
     app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
@@ -260,6 +264,7 @@ export class Routes {
         );
 
         const documentManagerController = new DocumentManagerController(step.form.fields);
+
         app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
         app.get(
           `${DOCUMENT_MANAGER}/deleteDocument/:documentId`,
@@ -267,6 +272,7 @@ export class Routes {
         );
         app.post(`${DOCUMENT_MANAGER}/generatePdf`, errorHandler(documentManagerController.generatePdf));
         app.get(`${CA_RESPONDENT_GENERATE_C7_Final}`, errorHandler(documentManagerController.get));
+
         app.post(
           `${DOCUMENT_MANAGER}/clearUploadDocumentFormData`,
           errorHandler(documentManagerController.clearUploadDocumentFormData)

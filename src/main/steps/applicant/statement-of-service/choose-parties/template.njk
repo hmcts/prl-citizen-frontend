@@ -15,13 +15,17 @@
           {{ title }}</h1>
       {% endif %}
 </div>
-
+<label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
+                {{uploadFileHeading}}
+                <span class="govuk-caption-l">{{uplodFileText1}}</span>
+              </label>
 {{ fileUpload(
         {
           uploadButtonText: upload,
-          fileuploadTitle: uploadFileHeading ,
+          fileuploadTitle: '',
           fileuploadTitleClass: "govuk-!-font-weight-bold",
-          formPostURL: "/document-manager?_csrf={{ csrfToken }}&caption={{caption}}&document_type={{document_type}}&parentDocumentType={{parentDocType}}&documentType={{docType}}&isApplicant=Yes",
+          formPostURL: "/document-manager?_csrf={{ csrfToken }}&isApplicant=Yes",
+          fileUploadedHint: uplodFileText1,
           sessionFilesArray: false,
           sessionFiles: userCase.co_certificate,
           uploadFileHeading: "hello",
@@ -30,7 +34,6 @@
           csrfToken: csrfToken
         }
       ) }}
-
  <div id="uploadGroup" tabindex="0" class="uploadGroup">
     <div class=" govuk-!-margin-bottom-3">
             <div class="govuk-form-group govuk-inset-text">
@@ -38,7 +41,8 @@
                 {{uploadFileHeading}}
                 <span class="govuk-caption-l">{{uplodFileText1}}</span>
               </label>
-      <form action="/document-manager?_csrf={{ csrfToken }}&caption={{caption}}&document_type={{document_type}}&parentDocumentType={{parentDocType}}&documentType={{docType}}&isApplicant=Yes" method="post" enctype="multipart/form-data">
+              {{ csrfToken }}
+      <form action="/document-manager?_csrf={{ csrfToken }}&isApplicant=Yes" method="post" enctype="multipart/form-data">
         {{ govukFileUpload({
           name: "files[]",
           attributes: {

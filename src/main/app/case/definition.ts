@@ -978,6 +978,8 @@ export interface CaseData {
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
   draftOrderDoc?: Document;
+  partiesServed?: string[];
+  partiesServedDate?: string;
 }
 
 export const enum SelectTypeOfOrderEnum {

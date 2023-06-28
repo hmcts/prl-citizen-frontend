@@ -15,8 +15,6 @@ import {
 export const en = {
   caption: 'Case number ',
   title: 'Add a statement of service',
-  declaration: 'I believe that the facts stated in these documents are true',
-  consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   whowasserved: 'Who was served?',
   continue: 'Continue',
   add: 'Submit',
@@ -28,8 +26,11 @@ export const en = {
     'when uploading documents, name the files clearly. For example, position-statement.doc. Files must end with JPG,BMP,PNG,TIF,PDF,DOC,or DOCX.',
   uploadFileHeading: 'Upload a document',
   errors: {
-    declarationCheck: {
-      required: 'Please confirm the declaration',
+    partiesServedDate: {
+      required: 'Please select the date on which the party/parties is/are served',
+    },
+    partiesServed: {
+      required: 'Please select the party/parties that is/are served',
     },
   },
 };
@@ -37,8 +38,6 @@ export const en = {
 export const cy = {
   caption: 'Case number ',
   title: 'Add a statement of service',
-  declaration: 'I believe that the facts stated in these documents are true',
-  consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   continue: 'Continue',
   whowasserved: 'Who was served?',
   add: 'Submit',
@@ -50,8 +49,11 @@ export const cy = {
     'when uploading documents, name the files clearly. For example, position-statement.doc. Files must end with JPG,BMP,PNG,TIF,PDF,DOC,or DOCX.',
   uploadFileHeading: 'Upload a document',
   errors: {
-    declarationCheck: {
-      required: 'Please confirm the declaration',
+    partiesServedDate: {
+      required: 'Please select the date on which the party/parties is/are served',
+    },
+    partiesServed: {
+      required: 'Please select the party/parties that is/are served',
     },
   },
 };
@@ -144,7 +146,6 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const { parentDocType, docType } = content.additionalData!.req.query;
   const parties: { id: string; value: string }[] = [];
   content.userCase?.respondents?.forEach(respondent =>
     parties.push({
@@ -152,11 +153,8 @@ export const generateContent: TranslationFn = content => {
       value: respondent.value.firstName + ' ' + respondent.value.lastName,
     })
   );
-
   return {
     ...translations,
     form: updateFormFields(form, generateFormFields(parties).fields),
-    parentDocType,
-    docType,
   };
 };
