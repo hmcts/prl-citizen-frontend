@@ -238,6 +238,12 @@ describe('generateRespondentTaskList', () => {
             text: 'Respond to the allegations of harm and violence',
             hint: null,
           },
+          {
+            href: '/application-within-proceedings/list-of-applications/1',
+            id: 'request_court_about_your_case',
+            status: 'OPTIONAL',
+            text: 'Make a request to the court about your case',
+          },
         ],
       },
       {

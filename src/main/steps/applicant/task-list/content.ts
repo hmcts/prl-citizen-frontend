@@ -2,7 +2,7 @@ import { Applicant, Banner, SectionStatus, YesOrNo } from '../../../app/case/def
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
-import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../steps/urls';
+import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS, DASHBOARD_URL } from '../../../steps/urls';
 
 import { applicant_en } from './section-titles';
 import { generateApplicantTaskList } from './tasklist';
@@ -25,6 +25,7 @@ const en = () => ({
     [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.OPTIONAL]: 'Optional',
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
@@ -90,6 +91,7 @@ const cy = () => ({
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
+    [SectionStatus.OPTIONAL]: 'Optional-welsh',
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
@@ -156,6 +158,10 @@ export const generateContent: TranslationFn = content => {
   translations.applicantName = getApplicantName(req.session.userCase, req.session.user.id);
   return {
     ...translations,
+    breadcrumb: {
+      id: 'home',
+      href: DASHBOARD_URL,
+    },
     sections: generateApplicantTaskList(
       translations.sectionTitles,
       translations.taskListItems,

@@ -2,7 +2,9 @@ import { AWPApplicationReason } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { interpolate } from '../../../steps/common/string-parser';
+import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
+import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS } from '../../../steps/urls';
 import { getApplicationDetails } from '../utils';
 export * from './routeGuard';
 
@@ -313,6 +315,10 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
+    breadcrumb: {
+      id: 'requestTheCourtForChange',
+      href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
+    },
     caption: interpolate(translations.caption, { applicationType: applicationDetails!.applicationType }),
     title: applicationDetails!.reasonText,
     contents: translations[applicationDetails!.applicationReason].contents.map(_content =>

@@ -6,6 +6,7 @@ import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
 import {
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
+  DASHBOARD_URL,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
   FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH,
@@ -37,6 +38,7 @@ const en = () => ({
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
     [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
     [SectionStatus.VIEW]: 'VIEW',
+    [SectionStatus.OPTIONAL]: 'Optional',
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
@@ -161,6 +163,7 @@ const cy = () => ({
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
     [SectionStatus.DOWNLOAD]: 'DOWNLOAD (in Welsh)',
     [SectionStatus.VIEW]: 'VIEW (in Welsh)',
+    [SectionStatus.OPTIONAL]: 'Optional - welsh',
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
@@ -302,6 +305,10 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
+    breadcrumb: {
+      id: 'home',
+      href: DASHBOARD_URL,
+    },
     sections: generateRespondentTaskList(
       translations.sectionTitles,
       translations.taskListItems,

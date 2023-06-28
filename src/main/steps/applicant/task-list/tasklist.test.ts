@@ -67,6 +67,12 @@ describe('applicant tasklist getRemainingTaskList', () => {
             status: 'DOWNLOAD',
             text: 'Witness statement (PDF)',
           },
+          {
+            href: '/application-within-proceedings/list-of-applications/1',
+            id: 'request_court_about_your_case',
+            status: 'OPTIONAL',
+            text: 'Make a request to the court about your case',
+          },
         ],
         title: 'Your application',
       },

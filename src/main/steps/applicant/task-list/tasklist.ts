@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { State } from '../../../app/case/definition';
+import { SectionStatus, State } from '../../../app/case/definition';
+import { applyParms } from '../../../steps/common/url-parser';
 import { getViewAllOrdersFromTheCourt } from '../../../steps/respondent/task-list/utils';
 import * as URL from '../../urls';
 
@@ -126,6 +127,12 @@ const getTheApplication = (taskListItems, userCase) => {
         text: taskListItems.your_application_witness_statement,
         status: getYourApplication(),
         href: URL.APPLICANT_WITNESS_STATEMENTS_DA,
+      },
+      {
+        id: 'request_court_about_your_case',
+        text: taskListItems.request_court_about_your_case,
+        status: SectionStatus.OPTIONAL,
+        href: applyParms(URL.APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
       },
     ];
   }
