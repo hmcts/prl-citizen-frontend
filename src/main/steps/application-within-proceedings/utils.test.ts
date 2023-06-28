@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { AWPApplicationReason, AWPApplicationType, CaseType, PartyType } from '../../app/case/definition';
 
-import { getApplicationDetails } from './utils';
+import { getApplicationDetails, isValidApplicationReason } from './utils';
 
 describe('AWP utils', () => {
   const req = mockRequest({
@@ -118,5 +118,21 @@ describe('AWP utils', () => {
       applicationFormUrl:
         'https://www.gov.uk/government/publications/form-c2-application-for-permission-to-start-proceedings-for-an-order-or-directions-in-existing-proceedings-to-be-joined-as-or-cease-to-be-a-part',
     });
+  });
+
+  test('Should return true for valid values', async () => {
+    expect(
+      isValidApplicationReason(
+        req.params.applicationType,
+        req.params.applicationReason,
+        CaseType.C100,
+        PartyType.APPLICANT
+      )
+    ).toBe(true);
+  });
+  test('Should return false for invalid values', async () => {
+    expect(
+      isValidApplicationReason(AWPApplicationType.C1, req.params.applicationReason, CaseType.FL401, PartyType.APPLICANT)
+    ).toBe(false);
   });
 });
