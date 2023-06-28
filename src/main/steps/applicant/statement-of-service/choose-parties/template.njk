@@ -42,7 +42,7 @@
                 <span class="govuk-caption-l">{{uplodFileText1}}</span>
               </label>
               {{ csrfToken }}
-      <form action="/document-manager?_csrf={{ csrfToken }}&isApplicant=Yes" method="post" enctype="multipart/form-data">
+      <form action="/document-manager?_csrf={{ csrfToken }}&isApplicant=Yes&isSos=Yes" method="post" enctype="multipart/form-data">
         {{ govukFileUpload({
           name: "files[]",
           attributes: {

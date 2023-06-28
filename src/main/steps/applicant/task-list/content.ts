@@ -3,12 +3,15 @@ import { Applicant, Banner, CaseType, PartyDetails, SectionStatus, YesOrNo } fro
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
-import { checkPartyRepresentedBySolicitor } from '../../../steps/common/task-list/utils';
+import { checkPartyRepresentedBySolicitor, isCaseServed } from '../../../steps/common/task-list/utils';
 import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+  APPLICANT_STATEMENT_OF_SERVICE,
   APPLICANT_VIEW_ALL_DOCUMENTS,
+  C9_DOWNLOAD_LINK,
+  FL415_DOWNLOAD_LINK,
 } from '../../../steps/urls';
 
 import { applicant_cy, applicant_en } from './section-titles';
@@ -71,6 +74,76 @@ const en = () => ({
       {
         href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
         text: 'View the final order (PDF)',
+      },
+    ],
+  },
+  soaServedBannerDa: {
+    bannerHeading: 'Serve the application',
+    bannerContent: [
+      {
+        line1:
+          'Your application and other documents are ready to give to other person named in the case (the respondent).',
+      },
+      {
+        line1: 'You must refer to correspondence from the court about serving the application on the respondent',
+      },
+      {
+        line1: 'You must not give any court documents to the respondent yourself.',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+        text: 'View the final order (PDF)',
+      },
+    ],
+    bannerHeading2: 'Tell us once the application has been served',
+    bannerContent2: [
+      {
+        line1: 'You must tell the court once the respondent has been served. Do this by completing the',
+        href1: `${FL415_DOWNLOAD_LINK}`,
+        href1text: 'statement of service (form FL415)',
+      },
+    ],
+    bannerLinks2: [
+      {
+        href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+        text: 'Send Statement of service (form FL415) to the court',
+      },
+    ],
+  },
+  soaServedBannerCa: {
+    bannerHeading: 'Serve the application',
+    bannerContent: [
+      {
+        line1:
+          'Your application and other documents are ready to give to other person named in the case (the respondent).',
+      },
+      {
+        line1: 'You must refer to correspondence from the court about serving the application on the respondent',
+      },
+      {
+        line1: 'You must not give any court documents to the respondent yourself.',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+        text: 'View the final order (PDF)',
+      },
+    ],
+    bannerHeading2: 'Tell us once the application has been served',
+    bannerContent2: [
+      {
+        line1: 'You must tell the court once the respondent has been served. Do this by completing the',
+        href1: `${C9_DOWNLOAD_LINK}`,
+        href1text: 'statement of service (form C9)',
+      },
+    ],
+    bannerLinks2: [
+      {
+        href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+        text: 'Send Statement of service (form C9) to the court',
       },
     ],
   },
@@ -161,6 +234,76 @@ const cy = () => ({
       {
         href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
         text: 'Gweld y gorchymyn terfynol (PDF)',
+      },
+    ],
+  },
+  soaServedBannerDa: {
+    bannerHeading: 'Serve the application',
+    bannerContent: [
+      {
+        line1:
+          'Your application and other documents are ready to give to other person named in the case (the respondent).',
+      },
+      {
+        line1: 'You must refer to correspondence from the court about serving the application on the respondent',
+      },
+      {
+        line1: 'You must not give any court documents to the respondent yourself.',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+        text: 'View the final order (PDF)',
+      },
+    ],
+    bannerHeading2: 'Tell us once the application has been served',
+    bannerContent2: [
+      {
+        line1: 'You must tell the court once the respondent has been served. Do this by completing the',
+        href1: `${FL415_DOWNLOAD_LINK}`,
+        href1text: 'statement of service (form FL415)',
+      },
+    ],
+    bannerLinks2: [
+      {
+        href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+        text: 'Send Statement of service (form FL415) to the court',
+      },
+    ],
+  },
+  soaServedBannerCa: {
+    bannerHeading: 'Serve the application',
+    bannerContent: [
+      {
+        line1:
+          'Your application and other documents are ready to give to other person named in the case (the respondent).',
+      },
+      {
+        line1: 'You must refer to correspondence from the court about serving the application on the respondent',
+      },
+      {
+        line1: 'You must not give any court documents to the respondent yourself.',
+      },
+    ],
+    bannerLinks: [
+      {
+        href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+        text: 'View the final order (PDF)',
+      },
+    ],
+    bannerHeading2: 'Tell us once the application has been served',
+    bannerContent2: [
+      {
+        line1: 'You must tell the court once the respondent has been served. Do this by completing the',
+        href1: `${C9_DOWNLOAD_LINK}`,
+        href1text: 'statement of service (form C9)',
+      },
+    ],
+    bannerLinks2: [
+      {
+        href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+        text: 'Send Statement of service (form C9) to the court',
       },
     ],
   },
@@ -260,6 +403,9 @@ const getC100Banners = (userCase, translations, userIdamId) => {
       banners.push(translations.viewDocumentBanner);
     }
   });
+  if (isCaseServed(userCase)) {
+    banners.push(translations.soaServedBannerCa);
+  }
   if (userCase.orderCollection && userCase.orderCollection.length > 0) {
     if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
       banners.push(translations.newOrderBanner);
@@ -277,6 +423,9 @@ const getFl401Banners = (userCase, translations, userIdamId) => {
     YesOrNo.NO === userCase?.applicantsFL401?.response?.citizenFlags?.isAllDocumentsViewed
   ) {
     banners.push(translations.viewDocumentBanner);
+  }
+  if (isCaseServed(userCase)) {
+    banners.push(translations.soaServedBannerDa);
   }
   // please add all the banners before this if condition, the following banner is added only if no other is present
   if (userCase.orderCollection && userCase.orderCollection.length > 0) {

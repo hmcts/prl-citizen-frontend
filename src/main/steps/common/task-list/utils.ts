@@ -66,9 +66,12 @@ export const isCaseServed = (caseData: Partial<CaseWithId>): boolean => {
   }
   if (caseData.applicants) {
     applicants = caseData.applicants;
+    if (
+      applicants[0].value.response.citizenFlags?.isApplicationServed === 'Yes' &&
+      applicants[0].value.response.citizenFlags?.isStatementOfTruthProvided !== 'Yes'
+    ) {
+      return true;
+    }
   }
-  return (
-    applicants[0].value.response.citizenFlags?.isApplicationServed === 'Yes' &&
-    !!applicants[0].value.response.citizenFlags?.isStatementOfTruthProvided
-  );
+  return false;
 };

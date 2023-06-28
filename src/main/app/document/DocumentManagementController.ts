@@ -635,6 +635,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (req.query && req.query.documentType) {
       documentType = req.query.documentType;
     }
+    if (req.query && req.query.isSos === 'Yes') {
+      documentType = 'Statement of service';
+      parentDocumentType = 'Statement of service';
+    }
     const partyId = req.session.user.id;
 
     const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
@@ -650,6 +654,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
       files,
       documentRequestedByCourt,
     };
+    console.log('*** jo jo ***' + JSON.stringify(uploadRequest.partyName));
+
     const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(uploadRequest);
     if (citizenDocumentListFromCos.status !== 200) {
       req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });

@@ -612,8 +612,8 @@ export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
     ? 'https://c100-application-staging.apps.live-1.cloud-platform.service.justice.gov.uk/'
     : 'https://apply-to-court-about-child-arrangements.service.justice.gov.uk';
 
-export const RESPONDENT_STATEMENT_OF_SERVICE: PageLink = `${RESPONDENT}/statement-of-service/choose-parties`;
 export const APPLICANT_STATEMENT_OF_SERVICE: PageLink = `${APPLICANT}/statement-of-service/choose-parties`;
-
-export const RESPONDENT_STATEMENT_OF_SERVICE_NEXT: PageLink = `${RESPONDENT}/statement-of-service/what-happens-next`;
 export const APPLICANT_STATEMENT_OF_SERVICE_NEXT: PageLink = `${APPLICANT}/statement-of-service/what-happens-next`;
+
+export const FL415_DOWNLOAD_LINK = 'https://www.gov.uk/government/publications/form-fl415-statement-of-service';
+export const C9_DOWNLOAD_LINK = 'https://www.gov.uk/government/publications/form-c9-statement-of-service';
