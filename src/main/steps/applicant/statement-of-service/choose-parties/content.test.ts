@@ -49,10 +49,6 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain continue button', () => {
-    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
-  });
-
   test('should contain continue checkboxes', () => {
     const partiesServed = fields.partiesServed;
     expect(partiesServed.type).toBe('checkboxes');

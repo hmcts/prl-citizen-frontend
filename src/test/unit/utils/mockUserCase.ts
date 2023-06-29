@@ -150,6 +150,9 @@ export default {
     {
       id: '1234',
       value: {
+        user: {
+          idamId: '0000-0000-0000-0000',
+        },
         response: {
           citizenFlags: {},
         },
