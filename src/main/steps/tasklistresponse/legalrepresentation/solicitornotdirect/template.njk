@@ -7,13 +7,10 @@
     <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
 
     <form action="/redirect/tasklistresponse" method="post">
-    <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">         
+    <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
       <h1 class="govuk-heading-xl">{{title}}</h1>
         <p class="govuk-body">{{line1}}</p>
         <p class="govuk-body">{{line2}}</p>
-        <h3 class="govuk-heading-m">{{medheading}}</h3>
-        <p class="govuk-body">{{line3}}</p>
-        <p class="govuk-body">{{line4}}</p>
         <ul class="govuk-list govuk-list--bullet">
           <li>{{listItem}}{{caseId}}</li>
         </ul>
