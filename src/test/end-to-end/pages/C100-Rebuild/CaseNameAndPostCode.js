@@ -16,6 +16,7 @@ module.exports = {
     await I.retry(retryCount).waitForText('What you’ll need to complete your application');
     I.wait('2');
     await I.retry(retryCount).click('Continue');
+    I.wait('4');
   },
   async enterCaseName() {
     await I.retry(retryCount).waitForText('Enter Case Name');
@@ -25,6 +26,7 @@ module.exports = {
   },
   async childrensPostcode() {
     await I.retry(retryCount).waitForText('Where do the children live?');
+    I.wait('2');
     await I.retry(retryCount).fillField(this.fields.childrenPostcodeDetails, this.fields.childPostcode);
     I.wait('2');
     await I.retry(retryCount).click('Continue');

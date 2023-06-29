@@ -353,7 +353,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       if (err) {
         throw err;
       } else if (generatedDocument) {
-        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Type', generatedDocument.headers['content-type']);
         if (cdamUrl && this.getFlagViewed(req, fieldFlag) === true) {
           // download and open the pdf in the same window
           return res.send(generatedDocument.data);
@@ -362,7 +362,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
           if (fieldFlag && req.query?.updateCase && req.query?.updateCase === YesOrNo.YES) {
             this.setFlagViewed(req, caseReference, client, req.session.user, fieldFlag);
           }
-          res.setHeader('Content-Disposition', 'attachment; filename=' + filename);
+          res.setHeader('Content-Disposition', 'inline; filename="' + filename + '";');
           return res.end(generatedDocument.data);
         }
       }
@@ -574,25 +574,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   private setRedirectUrl(isApplicant, req: AppRequest<Partial<CaseWithId>>) {
-    let redirectUrl = '';
-    if (YesOrNo.YES === isApplicant) {
-      redirectUrl =
-        APPLICANT_UPLOAD_DOCUMENT +
-        '?' +
-        'caption=' +
-        req.query.parentDocumentType +
-        '&document_type=' +
-        req.query.documentType;
-    } else {
-      redirectUrl =
-        RESPONDENT_UPLOAD_DOCUMENT +
-        '?' +
-        'caption=' +
-        req.query.parentDocumentType +
-        '&document_type=' +
-        req.query.documentType;
-    }
-    return redirectUrl;
+    const { caption = '', document_type = '', parentDocumentType = '', documentType = '' } = req.query;
+
+    return `${
+      isApplicant === YesOrNo.YES ? APPLICANT_UPLOAD_DOCUMENT : RESPONDENT_UPLOAD_DOCUMENT
+    }?caption=${caption}&document_type=${document_type}&parentDocType=${parentDocumentType}&docType=${documentType}`;
   }
 
   public async undefiendUploadFiles(req: AppRequest): Promise<void> {

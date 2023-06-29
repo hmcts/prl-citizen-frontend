@@ -17,18 +17,22 @@ const enContent = {
       invalid: 'Enter a valid postcode',
     },
   },
+  manualAddressUrl: '#',
+  onlyContinue: 'Continue',
 };
 
 const cyContent = {
-  citizenUserAddressPostcode: 'Your current postcode (in welsh)',
+  citizenUserAddressPostcode: 'Eich cod post cyfredol',
   findAddress: 'Find address (in welsh)',
-  enterAddressManually: 'I live outisde the UK (in welsh)',
+  enterAddressManually: 'Rwy’n byw y tu allan i’r DU',
   errors: {
     citizenUserAddressPostcode: {
-      required: 'Enter a valid postcode (in welsh)',
-      invalid: 'Enter a valid postcode (in welsh)',
+      required: 'Rhowch god post dilys.',
+      invalid: 'Rhowch god post dilys.',
     },
   },
+  manualAddressUrl: '#',
+  onlyContinue: 'Parhau',
 };
 
 /* eslint-disable @typescript-eslint/ban-types */
@@ -69,7 +73,7 @@ describe('common > components > address-lookup > content', () => {
     expect(addressPostcodeField.labelSize).toBe('m');
     expect(addressPostcodeField.attributes!.maxLength).toBe(14);
     expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
-    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
+    expect((form.submit?.text as Function)(generatedContent)).toBe(enContent.onlyContinue);
   });
 
   test('should contain citizenUserAddressPostcode field with welsh', () => {
@@ -83,7 +87,7 @@ describe('common > components > address-lookup > content', () => {
     expect(addressPostcodeField.labelSize).toBe('m');
     expect(addressPostcodeField.attributes!.maxLength).toBe(14);
     expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
-    expect((form.submit?.text as Function)(generatedContentcy)).toBe('Continue (in welsh)');
+    expect((form.submit?.text as Function)(generatedContentcy)).toBe(cyContent.onlyContinue);
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

@@ -42,7 +42,7 @@ const cy = () => ({
   caseNumberHintText: 'This is a 16-digit number -welsh',
   accessCodeLabel: 'Enter your access code -welsh',
   accessCodeHintText: 'This has 8 characters -welsh',
-  saveAndContinue: 'Save and continue -welsh',
+  saveAndContinue: 'Cadw a pharhau',
   errors: {
     caseCode: {
       required: 'Enter your case code -welsh',

@@ -56,7 +56,7 @@ export const SafetyConcernContentElements = SystemLanguage => {
     },
     cy: () => {
       return {
-        ...concernForChildSafetyEn(),
+        ...concernForChildSafetyCy(),
         ...reportAbuseCy(),
         ...previousAbductionCy(),
         ...passportAmountCy(),

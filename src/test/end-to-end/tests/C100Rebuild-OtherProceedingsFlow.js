@@ -1,6 +1,6 @@
 Feature('C100 Rebuild - other proceedings flow');
 
-Scenario('C100 Rebuild - other proceedings flow',  async ({ I }) => {
+Scenario('C100 Rebuild - other proceedings flow @master @nightly',  async ({ I }) => {
   await I.loginAsCitizen();
   await I.createC100Application();
   await I.startTheApplication();

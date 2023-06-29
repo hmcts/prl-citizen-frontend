@@ -1,14 +1,19 @@
 import { CaseWithId } from '../../../app/case/case';
-import { Banner, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Banner, CaseType, PartyDetails, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
+import { checkPartyRepresentedBySolicitor } from '../../../steps/common/task-list/utils';
 import {
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
+  FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH,
+  FIND_OUT_ABOUT_CAFCASS_WELSH,
+  RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
+  RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
 } from '../../../steps/urls';
@@ -20,6 +25,7 @@ import { getRespondentPartyDetailsCa } from './utils';
 
 const en = () => ({
   title: 'Respondent tasklist',
+  caseNumber: 'Case number #',
   respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
@@ -134,115 +140,147 @@ const en = () => ({
       },
     ],
   },
+  iWantTo: 'I want to...',
+  hyperlinks: [
+    {
+      label: 'Add a legal representative',
+      link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
+    },
+    {
+      label: 'Remove a legal representative',
+      link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+    },
+    {
+      label: 'Find my local court',
+      link: '#',
+    },
+    {
+      label: 'Find legal advice',
+      link: '#',
+    },
+    {
+      label: 'Know more about child arrangements',
+      link: '#',
+    },
+    {
+      label: 'Know more about attending court',
+      link: '#',
+    },
+  ],
+  addLegalRepresentative: 'Add a legal representative',
+  removeLegalRepresentative: 'Remove a legal representative',
 });
 
 const cy = () => ({
   title: 'Respondent tasklist - welsh',
+  caseNumber: 'Rhif yr achos #',
   respondentName: '',
   statuses: {
-    [SectionStatus.COMPLETED]: 'Wedi cwblhau',
+    [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
-    [SectionStatus.READY_TO_VIEW]: "barod i'w weld",
+    [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
-    [SectionStatus.DOWNLOAD]: 'DOWNLOAD (in Welsh)',
+    [SectionStatus.DOWNLOAD]: 'LLWYTHO',
     [SectionStatus.VIEW]: 'VIEW (in Welsh)',
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
   newOrderBanner: {
-    bannerHeading: 'You have a new order from the court',
+    bannerHeading: 'Mae gennych orchymyn newydd gan y llys',
     bannerContent: [
       {
-        line1: 'The court has made a decision about your case. The order tells you what the court has decided.',
+        line1:
+          'Mae’r llys wedi gwneud penderfyniad ynghylch eich achos. Mae’r gorchymyn yn dweud wrthych beth y mae’r llys wedi penderfynu. ',
       },
     ],
     bannerLinks: [
       {
         href: `${RESPONDENT_ORDERS_FROM_THE_COURT}`,
-        text: 'View the order (PDF)',
+        text: 'Gweld y gorchymyn (PDF)',
       },
     ],
   },
   finalOrderBanner: {
-    bannerHeading: 'You have a final order',
+    bannerHeading: 'Mae gennych orchymyn terfynol',
     bannerContent: [
       {
-        line1: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+        line1:
+          'Mae’r llys wedi gwneud penderfyniad terfynol ynghylch eich achos. Mae’r gorchymyn yn dweud wrthych beth y mae’r llys wedi penderfynu.  ',
       },
     ],
     bannerLinks: [
       {
         href: `${RESPONDENT_ORDERS_FROM_THE_COURT}`,
-        text: 'View the order (PDF)',
+        text: 'Gweld y gorchymyn (PDF)',
       },
     ],
   },
   caRespondentServedBanner: {
-    bannerHeading: 'Respond to an application about a child',
+    bannerHeading: 'Ymateb i gais ynghylch plentyn',
     bannerContent: [
       {
-        line1: 'Another person (the applicant) has applied to the court to make a decision about a child.',
-        line2:
-          'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
+        line1: 'Mae person arall (y ceisydd) wedi gwneud cais i’r llys wneud penderfyniad ynghylch plentyn.',
+        line2: 'Dylech ymateb o fewn 14 diwrnod o dderbyn y cais oni bai bod y llys wedi gofyn i chi ymateb yn gynt.',
       },
     ],
     bannerLinks: [
       {
         href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
-        text: 'Check the application (PDF)',
+        text: 'Gwirio’r cais (PDF)',
       },
       {
         href: RESPOND_TO_APPLICATION + '/updateFlag',
-        text: 'Respond to the application',
+        text: "Ymateb i'r cais",
       },
     ],
   },
   cafcassBanner: {
-    bannerHeading: 'Cafcass will contact you **',
+    bannerHeading: 'Bydd Cafcass yn cysylltu â chi **',
     bannerContent: [
       {
         line1:
-          'The Children and Family Court advisory and Support Service (Cafcass or Cafcass Cymru) will contact you to consider the needs of the children.',
+          'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass neu Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.',
       },
     ],
     bannerLinks: [
       {
-        href: FIND_OUT_ABOUT_CAFCASS,
-        text: 'Find out about Cafcass',
+        href: FIND_OUT_ABOUT_CAFCASS_WELSH,
+        text: 'Gwybodaeth am Cafcass',
       },
       {
-        href: FIND_OUT_ABOUT_CAFCASS_CYMRU,
-        text: 'Find out about Cafcass Cymru ',
+        href: FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH,
+        text: 'Gwybodaeth am Cafcass Cymru ',
       },
     ],
   },
   daRespondentBanner: {
     bannerHeading:
-      'You have been named as the respondent in a domestic abuse application and have an order from the court',
+      'Rydych wedi cael eich enwi fel yr atebydd mewn cais cam-drin domestig ac mae gennych orchymyn gan y llys',
     bannerContent: [
       {
         line1:
-          'This means that another person (the applicant) has applied to a court for protection from domestic abuse.',
-        line2: 'The court has considered their concerns. The order tells you what the court has decided.',
+          'Mae hyn yn golygu bod unigolyn arall (y ceisydd) wedi gwneud cais i’r llys am orchymyn amddiffyn rhag cam-drin domestig.',
+        line2:
+          'Mae’r llys wedi ystyried eu pryderon. Mae’r gorchymyn hwn yn dweud wrthych beth mae’r llys wedi penderfynu.',
       },
     ],
     bannerLinks: [
       {
         href: RESPONDENT_ORDERS_FROM_THE_COURT,
-        text: 'Read the order (PDF)',
+        text: 'Darllen y gorchymyn (PDF)',
       },
       {
         href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
-        text: 'Read the application (PDF)',
+        text: 'Darllen y gorchymyn (PDF)',
       },
     ],
   },
   viewDocumentBanner: {
-    bannerHeading: 'You have a new document to view (in Welsh)',
+    bannerHeading: 'Mae gennych ddogfen newydd i edrych arni',
     bannerContent: [
       {
-        line1: 'A new document has been added to your case. (in Welsh)',
+        line1: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
       },
     ],
     bannerLinks: [
@@ -252,6 +290,35 @@ const cy = () => ({
       },
     ],
   },
+  iWantTo: 'Rwyf eisiau ...',
+  hyperlinks: [
+    {
+      label: 'Add a legal representative-welsh',
+      link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
+    },
+    {
+      label: 'Remove a legal representative-welsh',
+      link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+    },
+    {
+      label: 'Find my local court-welsh',
+      link: '#',
+    },
+    {
+      label: 'Dod o hyd i gyngor cyfreithiol',
+      link: '#',
+    },
+    {
+      label: 'Gwybod mwy am drefniadau plant',
+      link: '#',
+    },
+    {
+      label: 'Gwybod mwy am fynychu’r llys',
+      link: '#',
+    },
+  ],
+  addLegalRepresentative: 'Add a legal representative-welsh',
+  removeLegalRepresentative: 'Remove a legal representative-welsh',
 });
 
 const languages = {
@@ -266,7 +333,7 @@ export const generateContent: TranslationFn = content => {
       ? getC100Banners(content.userCase, translations, content.userIdamId)
       : getFl401Banners(content.userCase, translations, content.userIdamId);
 
-  const stages = buildProgressBarStages(content.userCase!);
+  const stages = buildProgressBarStages(content.userCase!, content.language);
   const req: AppRequest = content.additionalData?.req;
   if (content.userCase?.caseTypeOfApplication === 'C100') {
     const respondent = getRespondentPartyDetailsCa(content.userCase, req.session.user.id);
@@ -282,7 +349,17 @@ export const generateContent: TranslationFn = content => {
       }
     }
   }
-  translations.respondentName = getRespondentName(req.session.userCase, req.session.user.id);
+
+  const respondent = getRespondent(req.session.userCase, req.session.user.id);
+  translations.respondentName = getRespondentName(respondent);
+  const isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(respondent);
+  translations.hyperlinks.forEach((hyperLink, index) => {
+    if (hyperLink.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) {
+      translations.hyperlinks.splice(index, 1);
+    } else if (hyperLink.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor) {
+      translations.hyperlinks.splice(index, 1);
+    }
+  });
 
   return {
     ...translations,
@@ -290,20 +367,25 @@ export const generateContent: TranslationFn = content => {
       translations.sectionTitles,
       translations.taskListItems,
       content.userCase,
-      content.userIdamId
+      content.userIdamId,
+      isRepresentedBySolicotor
     ),
     banners,
     stages,
   };
 };
 
-const getRespondentName = (userCase: Partial<CaseWithId>, userId: string): string => {
-  if (userCase.caseTypeOfApplication === 'C100') {
+export const getRespondent = (userCase: Partial<CaseWithId>, userId: string): PartyDetails | undefined => {
+  if (userCase && userCase.caseTypeOfApplication === CaseType.C100) {
     const respondent = getRespondentPartyDetailsCa(userCase, userId);
-    return respondent ? respondent.value.firstName + ' ' + respondent.value.lastName : '';
+    return respondent?.value;
   } else {
-    return userCase.respondentsFL401?.firstName + '' + userCase.respondentsFL401?.lastName;
+    return userCase?.respondentsFL401;
   }
+};
+
+export const getRespondentName = (respondent: PartyDetails | undefined): string => {
+  return respondent ? respondent.firstName + ' ' + respondent.lastName : '';
 };
 
 const getC100Banners = (userCase, translations, userIdamId) => {
@@ -334,7 +416,7 @@ const getFl401Banners = (userCase, translations, userIdamId) => {
   ) {
     banners.push(translations.viewDocumentBanner);
   }
-  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
+  if (userCase?.orderCollection && userCase.orderCollection.length > 0) {
     if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
       banners.push(translations.newOrderBanner);
     } else {
@@ -342,7 +424,10 @@ const getFl401Banners = (userCase, translations, userIdamId) => {
     }
   }
   // please add all the banners before this if condition, the following banner is added only if no other is present
-  if (banners.length === 0 && userCase.orderWithoutGivingNoticeToRespondent?.orderWithoutGivingNotice === YesOrNo.YES) {
+  if (
+    banners.length === 0 &&
+    userCase?.orderWithoutGivingNoticeToRespondent?.orderWithoutGivingNotice === YesOrNo.YES
+  ) {
     banners.push(translations.daRespondentBanner);
   }
   return banners;

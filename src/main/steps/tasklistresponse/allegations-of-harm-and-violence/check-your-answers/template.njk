@@ -3,6 +3,10 @@
 
 
 {% block content %}
+  {% block backLink %}
+    <a href="#" class="govuk-back-link">{{ back }}</a>
+  {% endblock %}
+  
 {% block page_content %}
       {% block error_summary %}
         {% include "common/error/summary.njk" %}
@@ -22,7 +26,4 @@
   {% include "./form.njk"%}
 {% endblock %}
 
-
-{% block page_contact_us %}
- {% endblock %}
   {% endblock %}

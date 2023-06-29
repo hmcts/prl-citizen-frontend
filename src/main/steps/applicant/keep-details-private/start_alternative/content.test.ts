@@ -13,16 +13,32 @@ const enContent = {
     'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
   contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
   continue: 'Save and continue',
+  errors: {
+    startAlternative: {
+      required: 'Please select one among the following',
+    },
+    contactDetailsPrivate: {
+      required: 'Select your contact details',
+    },
+  },
 };
 
 const cyContent = {
   ...welsh,
-  title:
-    'Do you want to keep your contact details private from the other person named in the application (the respondent)?',
+  title: 'A yw’r unigolyn a wnaeth gais i’r llys (y ceisydd) yn gwybod unrhyw rai o’ch manylion cyswllt?',
   line2:
-    'Your application will be shared with the other person in the case (the respondent). This includes your contact details, unless you ask the court not to share these details.',
-  contact_details_private_hint: 'Make sure you only select details the respondent does not already know.',
-  continue: 'Save and continue',
+    'Bydd eich manylion cyswllt yn cael eu rhannu gyda’r ceisydd, oni bai eich bod yn gofyn i’r llys beidio â rhannu’r wybodaeth hon.',
+  contact_details_private_hint:
+    'Gwnewch yn siŵr eich bod ond yn dewis manylion nad yw’r ceisydd eisoes yn gwybod amdanynt.',
+  continue: 'Cadw a pharhau',
+  errors: {
+    startAlternative: {
+      required: "Dewiswch un o'r canlynol",
+    },
+    contactDetailsPrivate: {
+      required: "Dewiswch o leiaf un o'r canlynol",
+    },
+  },
 };
 
 jest.mock('../../../../app/form/validation');

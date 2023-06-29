@@ -72,20 +72,20 @@ const en = {
 
 const cy: typeof en = {
   stateTags: {
-    notStartedYet: 'Not started yet - welsh',
-    inProgress: 'In progress - welsh',
-    notAvailableYet: 'Not available yet - welsh',
-    readyToView: 'Ready to view - welsh',
+    notStartedYet: 'Heb gychwyn eto',
+    inProgress: 'Ar y gweill',
+    notAvailableYet: 'Ddim ar gael eto',
+    readyToView: 'Yn barod i’w gweld',
     submitted: 'Wedi’i gyflwyno',
     optional: ' Dewisol',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
       yourApplication: {
-        heading: 'Your application - welsh',
+        heading: 'Eich cais',
         tasks: {
           childArrangementApplication: {
-            linkText: 'Your child arrangements application - welsh',
+            linkText: 'Eich cais trefniadau plant',
           },
           yourApplicationPDF: {
             linkText: 'Eich cais (PDF)',
@@ -93,13 +93,13 @@ const cy: typeof en = {
         },
       },
       yourDocuments: {
-        heading: 'Your documents - welsh',
+        heading: 'Eich dogfennau',
         tasks: {
           uploadDocuments: {
             linkText: 'Llwytho dogfennau',
           },
           viewAllDocuments: {
-            linkText: 'View all documents - welsh',
+            linkText: 'Gweld yr holl ddogfennau',
           },
         },
       },
@@ -126,7 +126,7 @@ const cy: typeof en = {
             linkText: 'Cadw eich manylion yn breifat',
           },
           supportDuringCase: {
-            linkText: 'Support you need during your case -welsh',
+            linkText: 'Cefnogaeth y mae arnoch angen yn ystod eich achos',
           },
         },
       },

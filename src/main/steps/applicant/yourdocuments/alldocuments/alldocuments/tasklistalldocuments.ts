@@ -76,9 +76,7 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     });
     /** Uncomment and add condition when Response to AOH document is implemeted for Applicant */
     userCase.applicants.forEach((applicant: Applicant) => {
-      if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
-        applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
-      }
+      applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
     });
     userCase.applicants.forEach((applicant: Applicant) => {
       applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, url));
@@ -262,12 +260,14 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
     userCase.respondents.forEach((respondent: Respondent) => {
       if (userCase.citizenResponseC7DocumentList) {
         respondentItems.push(getResponseToCA(respondent, taskListItems, userCase.citizenResponseC7DocumentList));
-      } else if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
-        respondentItems.push(getResponseToAohAndViolence(respondent, taskListItems, userCase));
-        respondentItems.push(getAohAndViolence(respondent, taskListItems));
       }
       respondentItems2.push(getRespondentPositionStatements(respondent, taskListItems, url));
       respondentItems2.push(getRespondentWitnessStatements(respondent, taskListItems, userCase, url));
+    });
+  } else if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
+    userCase.respondents.forEach((respondent: Respondent) => {
+      respondentItems.push(getResponseToAohAndViolence(respondent, taskListItems, userCase));
+      respondentItems.push(getAohAndViolence(respondent, taskListItems));
     });
   } else {
     respondentItems2.push(getRespondentPositionStatementsDA(userCase.respondentsFL401, taskListItems, url));
@@ -406,7 +406,7 @@ export const isDrugDocUploadedRespondent = (taskListItems, url, isDrugDocUploade
   }
 };
 
-const getUpdatedFlags = (doc, flags) => {
+export const getUpdatedFlags = (doc, flags) => {
   switch (doc.value.documentType) {
     case applicant_tasklist_items_all_docs_en.drug_alcohol_tests:
       flags.isDrugDocUploaded = true;
@@ -472,13 +472,18 @@ export const getCafcassDocuments = (sectionTitles, taskListItems, userCase, url)
 };
 
 export const getOtherDocuments = (sectionTitles, taskListItems, userCase, url) => {
+  if (url.includes(URL.APPLICANT)) {
+    url = url + URL.OTHER_DOCUMENTS + '?byApplicant=Yes';
+  } else {
+    url = url + URL.OTHER_DOCUMENTS + '?byApplicant=No';
+  }
   return {
     title: sectionTitles.otherDocuments,
     items: [
       {
         id: 'other_documents',
         text: taskListItems.other_documents,
-        href: url + URL.OTHER_DOCUMENTS,
+        href: url,
       },
     ],
   };
@@ -508,7 +513,7 @@ export const getAttendingTheHearingDocs = (sectionTitles, taskListItems, url, ca
   return config;
 };
 
-const getResponseToCA = (respondent: Respondent, taskListItems, citizenResponseC7DocumentList) => {
+export const getResponseToCA = (respondent: Respondent, taskListItems, citizenResponseC7DocumentList) => {
   for (const doc of citizenResponseC7DocumentList) {
     if (doc.value.partyName === respondent.value.firstName + ' ' + respondent.value.lastName) {
       return {
@@ -535,7 +540,7 @@ const getAohAndViolence = (respondent: Respondent, taskListItems) => {
   };
 };
 
-const getResponseToAohAndViolence = (respondent: Respondent, taskListItems, userCase) => {
+export const getResponseToAohAndViolence = (respondent: Respondent, taskListItems, userCase) => {
   return {
     id: 'respondent_response_to_allegations_of_harm_and_violence',
     text: taskListItems.respondent_response_to_allegations_of_harm_and_violence.replace(
@@ -623,6 +628,7 @@ const getApplicantRequestToCA = (applicant: Applicant, taskListItems) => {
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
     href: URL.APPLICANT + URL.APPLICANT_CA_DA_REQUEST,
+    openInAnotherTab: true,
   };
 };
 
@@ -633,17 +639,20 @@ const getApplicantAohAndViolence = (applicant: Applicant, taskListItems, userCas
       '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
-    href: getApplicantAllegationsOfHarmAndViolence(userCase) === true ? URL.ALLEGATION_OF_HARM_VOILENCE : '#',
+    href: getApplicantAllegationsOfHarmAndViolence(userCase)
+      ? URL.ALLEGATION_OF_HARM_VOILENCE
+      : URL.ALLEGATION_OF_HARM_VOILENCE_DOC,
+    openInAnotherTab: true,
   };
 };
-const getApplicantResponseToAohAndViolence = (applicant: Applicant, taskListItems) => {
+export const getApplicantResponseToAohAndViolence = (applicant: Applicant, taskListItems) => {
   return {
     id: 'applicant_response_to_other_side_allegation_of_harm',
     text: taskListItems.applicant_response_to_other_side_allegation_of_harm.replace(
       '<nameapplicantxxxxx>',
-      applicant.value.firstName + ' ' + applicant.value.lastName
+      `${applicant.value.firstName} ${applicant.value.lastName}`
     ),
-    href: URL.APPLICANT + URL.APPLICANT_RESPONSE_TO_AOH_VIOLENCE,
+    href: URL.APPLICANT + URL.RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC,
   };
 };
 const getApplicantPositionStatements = (applicant: Applicant, taskListItems, url) => {
@@ -698,7 +707,9 @@ const getApplicantAohAndViolenceDA = (applicant: PartyDetails, taskListItems, us
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href: getApplicantAllegationsOfHarmAndViolence(userCase) === true ? URL.ALLEGATION_OF_HARM_VOILENCE : '#',
+    href: getApplicantAllegationsOfHarmAndViolence(userCase)
+      ? URL.ALLEGATION_OF_HARM_VOILENCE
+      : URL.APPLICANT + URL.ALLEGATION_OF_HARM_VOILENCE_DOC,
   };
 };
 const getApplicantResponseToAohAndViolenceDA = (applicant: PartyDetails, taskListItems) => {
@@ -708,7 +719,7 @@ const getApplicantResponseToAohAndViolenceDA = (applicant: PartyDetails, taskLis
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href: URL.APPLICANT + URL.APPLICANT_RESPONSE_TO_AOH_VIOLENCE,
+    href: URL.APPLICANT + URL.RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC,
   };
 };
 const getApplicantPositionStatementsDA = (applicant: PartyDetails, taskListItems, url) => {
@@ -718,10 +729,10 @@ const getApplicantPositionStatementsDA = (applicant: PartyDetails, taskListItems
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href:
-      url + URL.POSITION_STATEMENTS + '?name=' + applicant.firstName + ' ' + applicant.lastName + '&byApplicant=Yes',
+    href: `${url}${URL.POSITION_STATEMENTS}?name=${applicant.firstName} ${applicant.lastName}&byApplicant=Yes`,
   };
 };
+
 const getApplicantWitnessStatementsDA = (applicant: PartyDetails, taskListItems, url) => {
   return {
     id: 'applicant_witness_statements',

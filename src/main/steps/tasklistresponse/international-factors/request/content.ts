@@ -10,8 +10,8 @@ const en = {
   two: 'No',
   twoHint:
     'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
+  provideDetails: 'Provide details',
   errors: {
     request: {
       required: 'Select yes if another country has asked (or been asked) for information or help for the children',
@@ -19,19 +19,22 @@ const en = {
     iFactorsRequestProvideDetails: {
       required:
         'Provide details about another country asking (or being asked) for information or help for the children',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cy: typeof en = {
   section: ' ',
-  title: 'Has another country asked (or been asked) for information or help for the children?',
-  one: 'Yes',
-  two: 'No',
+  title: "A oes gwlad arall wedi gofyn (neu wedi cael cais) am wybodaeth neu gymorth i'r plant?",
+  one: 'Oes',
+  two: 'Nac oes',
   twoHint:
-    'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
-  summaryText: 'Contacts for help',
-  continue: 'Continue',
+    'Gall fod pryderon amddiffyn plant, cymorth ar gyfer llys gyda chais am achos arall, angen gorfodi gorchymyn dramor, neu bod ymdrechion yn cael eu gwneud i ddychwelyd y plant i Gymru neu Loegr.',
+  continue: 'Parhau',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     request: {
       required: 'Select yes if another country has asked (or been asked) for information or help for the children',
@@ -39,6 +42,9 @@ const cy: typeof en = {
     iFactorsRequestProvideDetails: {
       required:
         'Provide details about another country asking (or being asked) for information or help for the children',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -63,7 +69,7 @@ export const form: FormContent = {
           subFields: {
             iFactorsRequestProvideDetails: {
               type: 'textarea',
-              label: 'Provide details',
+              label: l => l.provideDetails,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },

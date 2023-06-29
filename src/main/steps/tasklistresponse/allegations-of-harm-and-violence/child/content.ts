@@ -20,21 +20,20 @@ const en = () => ({
 
 const cy = () => ({
   applyForAnInjunctionHyperLink: 'https://www.gov.uk/injunction-domestic-violence - welsh',
-  applyForAnInjunctionLabel: 'Apply for an injunction - welsh',
+  applyForAnInjunctionLabel: 'Gwneud cais am waharddeb',
   howToReportChildAbuseHyperLink: 'https://www.gov.uk/report-child-abuse - welsh',
-  howToReportChildAbuseLabel: 'How to report child abuse - welsh',
+  howToReportChildAbuseLabel: 'Sut i riportio achos o gam-drin plant',
   nationalSocietyPreventionCrueltyHyperLink: 'https://www.nspcc.org.uk - welsh',
-  nationalSocietyPreventionCrueltyChildrenLabel:
-    'NSPCC: National Society for the Prevention of Cruelty to Children - welsh',
+  nationalSocietyPreventionCrueltyChildrenLabel: 'NSPCC: Cymdeithas Genedlaethol er Atal Creulondeb i Blant',
   childlineHyperLink: 'https://www.childline.org.uk - welsh',
   childlineLabel: 'Childline - welsh',
   supportDirectoryHyperLink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help - welsh',
-  supportDirectoryLabel: 'GOV.UK Support directory - welsh',
+  supportDirectoryLabel: 'GOV.UK - Cyfeiriadur cymorth',
   supportNavHyperLink: 'https://supportnav.org.uk - welsh',
   supportNavLabel: 'SupportNav - welsh',
-  reportIncident: 'Report an incident - welsh',
-  emergencyCall: 'Always call 999 if there’s an emergency or if you think a child’s in danger. - welsh',
-  support: 'Get support - welsh',
+  reportIncident: 'Riportio digwyddiad',
+  emergencyCall: "Ffoniwch 999 bob amser os oes argyfwng neu os ydych chi'n meddwl bod plentyn mewn perygl.",
+  support: 'Cael cefnogaeth',
 });
 
 const languages = {

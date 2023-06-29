@@ -3,8 +3,6 @@ import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './address-manual';
 
-jest.mock('../../../../../app/form/validation');
-
 const enContent = {
   addressLine1: 'Building and street',
   town: 'Town or city',
@@ -19,19 +17,21 @@ const enContent = {
 };
 
 const cyContent = {
-  addressLine1: 'Adeilad a stryds',
+  addressLine1: 'Adeilad a stryd',
   town: 'Tref neu ddinas',
   county: 'Sir',
+  country: 'Gwlad',
   postcode: 'Cod post',
   enterInternationalAddress: 'Nodwch gyfeiriad rhyngwladol',
   addressHistoryLabel: 'A ydych wedi byw yn y cyfeiriad hwn am fwy na 5 mlynedd?',
   one: 'Do',
-  two: 'Naddoo',
+  two: 'Naddo',
   explainNoLabel: 'Darparwch fanylion cyfeiriadau blaenorol rydych wedi byw ynddynt yn y 5 mlynedd diwethaf',
-  explainNoHint: 'Cychwynnwch gyda’r un mwyaf diwedda',
+  explainNoHint: 'Cychwynnwch gyda’r un mwyaf diweddar',
 };
 
 /* eslint-disable @typescript-eslint/ban-types */
+jest.mock('../../../../../app/form/validation');
 describe('common > components > manual-address > content', () => {
   const commonContent = { language: 'en', userCase: {} } as CommonContent;
 

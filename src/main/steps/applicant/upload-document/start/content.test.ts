@@ -11,7 +11,6 @@ const en = {
   two: 'No',
   line1:
     'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     start: {
@@ -22,13 +21,12 @@ const en = {
 
 const cy: typeof en = {
   section: ' ',
-  title: 'Has the court asked for this document?',
-  one: 'Yes',
-  two: 'No',
+  title: 'A yw’r llys wedi gofyn am y ddogfen hon?',
+  one: 'Ydy',
+  two: 'Nac ydy',
   line1:
-    'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
-  summaryText: 'Contacts for help',
-  continue: 'Continue',
+    'Bydd y gorchymyn llys yn dweud wrthych pa ddogfennau y mae angen i chi eu cyflwyno. Os byddwch yn cyflwyno dogfen nad yw’r llys wedi gofyn amdani, mae’n bosib y bydd y llys yn penderfynu peidio â’i hystyried.',
+  continue: 'Parhau',
   errors: {
     start: {
       required: 'Please select one of the options before proceeding further',
@@ -52,7 +50,6 @@ describe('citizen-home content', () => {
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('Has the court asked for this document?');
     expect(generatedContent.section).toEqual(' ');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.line1).toEqual(
       'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.'
     );

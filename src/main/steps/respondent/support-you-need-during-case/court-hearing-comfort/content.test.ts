@@ -9,7 +9,6 @@ const en = {
   title: 'I need something to feel comfortable during a court hearing',
   courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
   optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
   appropriatelighting: 'Appropriate lighting',
   lightingDetails: 'Describe what you need',
   break: 'Regular breaks',
@@ -24,36 +23,48 @@ const en = {
     },
     lightingProvideDetails: {
       required: 'Please describe lighting detail',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     otherProvideDetails: {
       required: 'Please describe your need in details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cy: typeof en = {
-  section: 'Reasonable adjustments',
-  title: 'I need something to feel comfortable during a court hearing',
-  courtcommunication: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
-  optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
-  appropriatelighting: 'Appropriate lighting',
-  lightingDetails: 'Describe what you need',
-  break: 'Regular breaks',
-  space: 'Space to be able to get up and move around',
-  other: 'Other',
-  otherDetails: 'Describe what you need',
-  nosupport: 'No, I do not need any support at this time',
-  continue: 'Continue',
+  section: 'Addasiadau rhesymol',
+  title: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad llys',
+  courtcommunication:
+    'Meddyliwch am yr hyn y byddwch ei angen os bydd eich gwrandawiad yn un wyneb yn wyneb, trwy fideo neu dros y ffôn.',
+  optionHint: 'Dogfennau mewn lliw penodol',
+  appropriatelighting: 'Goleuadau priodol',
+  lightingDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  break: 'Seibiannau rheolaidd',
+  space: 'Lle i allu codi a symud o gwmpas',
+  other: 'Arall',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
+  continue: 'Parhau',
   errors: {
     courtComfort: {
       required: 'Select what help you need to feel comfortable during a court hearing',
     },
     lightingProvideDetails: {
       required: 'Please describe lighting detail',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     otherProvideDetails: {
-      required: 'Please describe your need in details',
+      required: 'Disgrifiwch eich anghenion yn fanwl',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -78,7 +89,6 @@ describe('citizen-home content', () => {
       'Consider in-person, phone or video, in case your preferred hearing type is not possible'
     );
     expect(generatedContent.optionHint).toEqual('Select all that apply to you');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.appropriatelighting).toEqual('Appropriate lighting');
     expect(generatedContent.break).toEqual('Regular breaks');
     expect(generatedContent.space).toEqual('Space to be able to get up and move around');

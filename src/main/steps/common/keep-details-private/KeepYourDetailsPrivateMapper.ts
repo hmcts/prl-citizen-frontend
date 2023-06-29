@@ -1,65 +1,74 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../app/case/case';
 import { ConfidentialityList, KeepDetailsPrivate, PartyDetails, YesOrNo } from '../../../app/case/definition';
-import type { AppRequest } from '../../../app/controller/AppRequest';
 
-export const setKeepYourDetailsPrivate = (partyDetails: PartyDetails, req: AppRequest): PartyDetails => {
-  let keepDetailsPrivate: KeepDetailsPrivate;
+export const prepareKeepDetailsPrivateRequest = (req: CaseWithId): KeepDetailsPrivate => {
+  const { startAlternative, contactDetailsPrivate, detailsKnown } = req;
+  const request: KeepDetailsPrivate = {};
+
   const confidentialityList: ConfidentialityList[] = [];
 
-  if (req.session.userCase.startAlternative === YesOrNo.YES && req?.session?.userCase?.contactDetailsPrivate) {
-    req.session.userCase.contactDetailsPrivate.forEach(element => {
+  if (startAlternative === YesOrNo.YES && contactDetailsPrivate) {
+    contactDetailsPrivate.forEach(element => {
       confidentialityList.push(ConfidentialityList[element]);
     });
   }
 
-  if (partyDetails.response && partyDetails.response?.keepDetailsPrivate) {
-    keepDetailsPrivate = partyDetails.response?.keepDetailsPrivate;
-    keepDetailsPrivate.otherPeopleKnowYourContactDetails = req.session.userCase.detailsKnown!;
-    keepDetailsPrivate.confidentiality = req.session.userCase.startAlternative!;
-    keepDetailsPrivate.confidentialityList = confidentialityList;
-  } else {
-    partyDetails.response = {
-      keepDetailsPrivate: {
-        otherPeopleKnowYourContactDetails: req.session.userCase.detailsKnown!,
-        confidentiality: req.session.userCase.startAlternative!,
-        confidentialityList,
-      },
-    };
+  Object.assign(request, {
+    otherPeopleKnowYourContactDetails: detailsKnown,
+    confidentiality: startAlternative,
+    confidentialityList,
+  });
+
+  if (startAlternative === YesOrNo.NO) {
+    delete request?.confidentialityList;
   }
-  return partyDetails;
+
+  return request;
 };
-export const getKeepYourDetailsPrivate = (partyDetails: PartyDetails, req: AppRequest): Partial<CaseWithId> => {
-  req.session.userCase.detailsKnown = partyDetails.response.keepDetailsPrivate?.otherPeopleKnowYourContactDetails;
-  req.session.userCase.startAlternative = partyDetails.response.keepDetailsPrivate?.confidentiality;
+
+export const mapKeepYourDetailsPrivate = (partyDetails: PartyDetails): Partial<CaseWithId> => {
+  const privateDetails = {};
+  const { keepDetailsPrivate } = partyDetails.response ?? {};
+
   const confidentialityList: string[] = [];
-  if (
-    partyDetails.response.keepDetailsPrivate?.confidentiality === YesOrNo.YES &&
-    partyDetails.response.keepDetailsPrivate.confidentialityList
-  ) {
-    partyDetails.response.keepDetailsPrivate.confidentialityList.forEach(element => {
-      confidentialityList.push(ConfidentialityList[element]);
+  if (keepDetailsPrivate?.confidentiality === YesOrNo.YES && keepDetailsPrivate.confidentialityList) {
+    keepDetailsPrivate.confidentialityList.forEach(element => {
+      confidentialityList?.push(ConfidentialityList[element]);
     });
-    req.session.userCase.contactDetailsPrivate = confidentialityList;
   }
 
-  return req.session.userCase;
+  Object.assign(privateDetails, {
+    detailsKnown: keepDetailsPrivate?.otherPeopleKnowYourContactDetails,
+    startAlternative: keepDetailsPrivate?.confidentiality,
+    contactDetailsPrivate: confidentialityList,
+  });
+
+  return privateDetails;
 };
 
-export const mapConfidentialListToFields = (partyDetails: PartyDetails) => {
-  partyDetails.isAddressConfidential = confidentailYesOrNo(
-    partyDetails.response.keepDetailsPrivate?.confidentialityList as string[],
-    ConfidentialityList.address
-  );
-  partyDetails.isPhoneNumberConfidential = confidentailYesOrNo(
-    partyDetails.response.keepDetailsPrivate?.confidentialityList as string[],
-    ConfidentialityList.phoneNumber
-  );
-  partyDetails.isEmailAddressConfidential = confidentailYesOrNo(
-    partyDetails.response.keepDetailsPrivate?.confidentialityList as string[],
-    ConfidentialityList.email
-  );
-  return partyDetails;
+export const mapConfidentialListToFields = (details: KeepDetailsPrivate) => {
+  const request: Partial<PartyDetails> = {
+    isAddressConfidential: YesOrNo.NO,
+    isPhoneNumberConfidential: YesOrNo.NO,
+    isEmailAddressConfidential: YesOrNo.NO,
+  };
+
+  if (details?.confidentialityList) {
+    Object.assign(request, {
+      isAddressConfidential: confidentailYesOrNo(details.confidentialityList as string[], ConfidentialityList.address),
+      isPhoneNumberConfidential: confidentailYesOrNo(
+        details.confidentialityList as string[],
+        ConfidentialityList.phoneNumber
+      ),
+      isEmailAddressConfidential: confidentailYesOrNo(
+        details.confidentialityList as string[],
+        ConfidentialityList.email
+      ),
+    });
+  }
+
+  return request;
 };
 
 export const confidentailYesOrNo = (list: string[], field: string): YesOrNo => {

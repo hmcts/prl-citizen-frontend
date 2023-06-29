@@ -11,8 +11,6 @@ const en = {
   three: "I don't know",
   miamDetailsLabel: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
   miamSubFields: miam_collapse_content_en,
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   onlyContinue: 'Continue',
   errors: {
     miamStart: {
@@ -22,15 +20,13 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
-  one: 'Yes',
-  two: 'No',
-  three: "I don't know",
-  miamDetailsLabel: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
+  title: 'A ydych chi wedi mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)?',
+  one: 'Do',
+  two: 'Naddo',
+  three: 'Nid wyf yn gwybod',
+  miamDetailsLabel: 'Beth yw Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)?',
   miamSubFields: miam_collapse_content_cy,
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
-  onlyContinue: 'Continue',
+  onlyContinue: 'Parhau',
   errors: {
     miamStart: {
       required: 'Select yes if you have attended a Mediation Information and Assessment Meeting (MIAM)',

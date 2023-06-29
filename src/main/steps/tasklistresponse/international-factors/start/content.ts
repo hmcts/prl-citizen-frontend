@@ -9,8 +9,8 @@ const en = {
   one: 'Yes',
   two: 'No',
   hint: 'For example, is their family life mainly based outside of England and Wales?',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
+  provideDetails: 'Provide details',
   errors: {
     start: {
       required:
@@ -19,18 +19,21 @@ const en = {
     iFactorsStartProvideDetails: {
       required:
         "Provide details about the children's parents (or anyone significant to the children) lives outside of England and Wales",
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cy: typeof en = {
   section: ' ',
-  title: "Are the children's lives mainly based outside of England and Wales?",
-  one: 'Yes',
-  two: 'No',
-  hint: 'For example, is their family life mainly based outside of England and Wales?',
-  summaryText: 'Contacts for help',
-  continue: 'Continue',
+  title: 'Ydy bywyd y plant yn cael ei dreulio’n bennaf y tu allan i Gymru a Lloegr?',
+  one: 'Ydy',
+  two: 'Nac ydy',
+  hint: 'Er enghraifft, a yw eu bywyd teuluol yn bennaf y tu allan i Gymru a Lloegr?',
+  continue: 'Parhau',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     start: {
       required:
@@ -39,6 +42,9 @@ const cy: typeof en = {
     iFactorsStartProvideDetails: {
       required:
         "Provide details about the children's parents (or anyone significant to the children) lives outside of England and Wales",
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };
@@ -63,7 +69,7 @@ export const form: FormContent = {
           subFields: {
             iFactorsStartProvideDetails: {
               type: 'textarea',
-              label: 'Provide details',
+              label: l => l.provideDetails,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },

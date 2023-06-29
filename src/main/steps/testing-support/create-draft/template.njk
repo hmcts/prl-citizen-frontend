@@ -1,0 +1,20 @@
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+    <div class="grid-row">
+      <div class="column-two-thirds">
+        <div>
+          <form action="/draft-controller/createC100Draft?_csrf={{ csrfToken }}" method="post">
+            <button class="govuk-button" data-module="govuk-button">{{createC100Draft}}</button>
+          </form>
+        </div>
+        <div>
+          <form action="/testing-support/response-draft">
+            <button class="govuk-button" data-module="govuk-button">{{createC100ResponseDraft}}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </h1>
+{% endblock %}

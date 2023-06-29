@@ -17,11 +17,14 @@ const sectionTitles = {
 
 const keys = {
   detailsOfChildConcern: 'detailsOfChildConcern',
+  detailsOfYourConcern: 'detailsOfYourConcern',
 };
 
 const content = {
   x: 'aaa',
 };
+
+const language = 'en';
 
 describe('Test cases for safety concerns check answers', () => {
   //SafetyConcerns
@@ -32,7 +35,11 @@ describe('Test cases for safety concerns check answers', () => {
       PRL_c1A_safetyConernAbout: ['applicant'],
       PRL_c1A_haveSafetyConcerns: 'Yes',
     } as ANYTYPE;
-    const SafetyConcernsObj = SafetyConcerns({ sectionTitles, keys, Yes: 'Yes', No: 'No', content }, userCase);
+    const SafetyConcernsObj = SafetyConcerns(
+      { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
+      userCase,
+      language
+    );
     expect(SafetyConcernsObj?.rows).not.toBe([]);
     expect(SafetyConcernsObj?.title).toBe(undefined);
   });
@@ -43,13 +50,16 @@ describe('Test cases for safety concerns check answers', () => {
       id: 'id',
       state: undefined,
       PRL_c1A_concernAboutChild: ['physicalAbuse', 'psychologicalAbuse'],
-      /*'c1A_haveSafetyConcerns':'Yes',
-    'c1A_passportOffice':'Yes',
-    'c1A_possessionChildrenPassport':'Father',*/
+      PRL_c1A_haveSafetyConcerns: 'Yes',
+      PRL_c1A_passportOffice: 'Yes',
+      PRL_c1A_possessionChildrenPassport: ['mother', 'Other'],
+      PRL_c1A_provideOtherDetails: 'aunt',
+      PRL_c1A_childAbductedBefore: 'Yes',
     } as ANYTYPE;
     const safetyConcerns_childObj = SafetyConcerns_child(
       { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
-      userCase
+      userCase,
+      language
     );
     expect(safetyConcerns_childObj?.rows).not.toBe([]);
     expect(safetyConcerns_childObj?.title).toBe(undefined);
@@ -64,7 +74,8 @@ describe('Test cases for safety concerns check answers', () => {
     } as ANYTYPE;
     const safetyConcerns_yoursObj = SafetyConcerns_yours(
       { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
-      userCase
+      userCase,
+      language
     );
     expect(safetyConcerns_yoursObj?.rows).not.toBe([]);
     expect(safetyConcerns_yoursObj?.title).toBe(undefined);
@@ -79,7 +90,8 @@ describe('Test cases for safety concerns check answers', () => {
     } as ANYTYPE;
     const safetyConcerns_yoursObj = SafetyConcerns_others(
       { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
-      userCase
+      userCase,
+      language
     );
     expect(safetyConcerns_yoursObj?.rows).not.toBe([]);
     expect(safetyConcerns_yoursObj?.title).toBe(undefined);

@@ -5,7 +5,8 @@ import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(applicantCaseSequence).toHaveLength(88);
+    expect(applicantCaseSequence).toHaveLength(95);
+
     expect(applicantCaseSequence[0].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[0].getNextStep({})).toBe('/applicant/task-list');
@@ -130,6 +131,20 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[24].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
       '/applicant/support-you-need-during-case/safety-arrangements'
     );
+    expect(applicantCaseSequence[25].url).toBe(
+      '/applicant/support-you-need-during-case/unable-to-take-court-proceedings'
+    );
+    expect(applicantCaseSequence[25].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[25].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
+      '/applicant/support-you-need-during-case/safety-arrangements'
+    );
+
+    expect(applicantCaseSequence[24].url).toBe('/applicant/support-you-need-during-case/travelling-to-court');
+    expect(applicantCaseSequence[24].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[24].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
+      '/applicant/support-you-need-during-case/safety-arrangements'
+    );
+
     expect(applicantCaseSequence[25].url).toBe(
       '/applicant/support-you-need-during-case/unable-to-take-court-proceedings'
     );
@@ -394,35 +409,55 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[80].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[80].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
 
-    expect(applicantCaseSequence[81].url).toBe('/applicant/contact-preferences/contact-preferences');
+    expect(applicantCaseSequence[81].url).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
     expect(applicantCaseSequence[81].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[81].getNextStep(contactPreferencesMockData.session.userCase)).toBe(
-      '/applicant/contact-preferences/contact-preferences'
+      '/applicant/yourdocuments/alldocuments/allegationofharmandviolence'
     );
 
-    expect(applicantCaseSequence[82].url).toBe('/applicant/contact-preferences/contact-preferences');
+    expect(applicantCaseSequence[82].url).toBe('/applicant/yourdocuments/alldocuments/allegationofharmandviolence');
     expect(applicantCaseSequence[82].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[82].getNextStep({})).toBe('/applicant/contact-preferences/contact-preferences/save');
+    expect(applicantCaseSequence[82].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
 
-    expect(applicantCaseSequence[83].url).toBe('/applicant/contact-preferences/contact-email');
+    expect(applicantCaseSequence[83].url).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
     expect(applicantCaseSequence[83].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[83].getNextStep({})).toBe('/applicant/contact-preferences/contact-email-success');
+    expect(applicantCaseSequence[83].getNextStep({})).toBe(
+      '/applicant/yourdocuments/alldocuments/respond_others_allegation_of_harm_and_violence'
+    );
 
-    expect(applicantCaseSequence[84].url).toBe('/applicant/contact-preferences/contact-post');
+    expect(applicantCaseSequence[84].url).toBe(
+      '/applicant/yourdocuments/alldocuments/respond_others_allegation_of_harm_and_violence'
+    );
     expect(applicantCaseSequence[84].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[84].getNextStep({})).toBe('/applicant/contact-preferences/contact-post-success');
+    expect(applicantCaseSequence[84].getNextStep({})).toBe('/applicant/yourdocuments/alldocuments/alldocuments');
 
-    expect(applicantCaseSequence[85].url).toBe('/applicant/contact-preferences/contact-email-success');
+    expect(applicantCaseSequence[85].url).toBe('/applicant/contact-preferences/contact-preferences');
     expect(applicantCaseSequence[85].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[85].getNextStep({})).toBe('/task-list/applicant');
+    expect(applicantCaseSequence[85].getNextStep({})).toBe('/applicant/contact-preferences/contact-preferences');
 
-    expect(applicantCaseSequence[86].url).toBe('/applicant/contact-preferences/contact-post-success');
+    expect(applicantCaseSequence[86].url).toBe('/applicant/contact-preferences/contact-preferences');
     expect(applicantCaseSequence[86].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[86].getNextStep({})).toBe('/task-list/applicant');
+    expect(applicantCaseSequence[86].getNextStep({})).toBe('/applicant/contact-preferences/contact-preferences/save');
 
-    expect(applicantCaseSequence[87].url).toBe('/applicant/hearing-needs/support-help');
+    expect(applicantCaseSequence[87].url).toBe('/applicant/contact-preferences/contact-email');
     expect(applicantCaseSequence[87].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[87].getNextStep({})).toBe('/applicant/hearing-needs/support-help');
+    expect(applicantCaseSequence[87].getNextStep({})).toBe('/applicant/contact-preferences/contact-email-success');
+
+    expect(applicantCaseSequence[88].url).toBe('/applicant/contact-preferences/contact-post');
+    expect(applicantCaseSequence[88].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[88].getNextStep({})).toBe('/applicant/contact-preferences/contact-post-success');
+
+    expect(applicantCaseSequence[92].url).toBe('/applicant/add-legal-representative');
+    expect(applicantCaseSequence[92].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[92].getNextStep({})).toBe('/applicant/task-list');
+
+    expect(applicantCaseSequence[93].url).toBe('/applicant/remove-legal-representative/start');
+    expect(applicantCaseSequence[93].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[93].getNextStep({})).toBe('/applicant/remove-legal-representative/confirm');
+
+    expect(applicantCaseSequence[94].url).toBe('/applicant/remove-legal-representative/confirm');
+    expect(applicantCaseSequence[94].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[94].getNextStep({})).toBe('/applicant/task-list');
   });
 });
 

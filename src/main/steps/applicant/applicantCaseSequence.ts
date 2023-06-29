@@ -3,6 +3,7 @@ import { CaseType } from '../../app/case/definition';
 import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
 import {
+  ALLEGATION_OF_HARM_VOILENCE_DOC,
   APPLICANT,
   APPLICANT_ADDRESS_CONFIRMATION,
   APPLICANT_ADDRESS_DETAILS,
@@ -61,6 +62,7 @@ import {
   RESPONDENT_SAFEGUARDING_LETTER,
   RESPONDENT_SECTION37_REPORT,
   RESPONDENT_SECTION7_REPORT,
+  RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC,
   SAFETY_ARRANGEMENTS,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
@@ -73,6 +75,9 @@ import {
   // eslint-disable-next-line sort-imports
   C100_APPLICANT_TASKLIST,
   APPLICANT_TASKLIST_HEARING_NEEDS,
+  APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -495,6 +500,26 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
   {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${ALLEGATION_OF_HARM_VOILENCE_DOC}`,
+  },
+  {
+    url: `${APPLICANT}${ALLEGATION_OF_HARM_VOILENCE_DOC}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_VIEW_ALL_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => `${APPLICANT}${RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC}`,
+  },
+  {
+    url: `${APPLICANT}${RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+  },
+  {
     url: APPLICANT_TASKLIST_CONTACT_PREFERENCES,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASKLIST_CONTACT_PREFERENCES,
@@ -528,5 +553,22 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_TASKLIST_HEARING_NEEDS,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASKLIST_HEARING_NEEDS,
+  },
+  {
+    url: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: (data: Partial<Case>) =>
+      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+  },
+  {
+    url: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: (data: Partial<Case>) =>
+      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
   },
 ];

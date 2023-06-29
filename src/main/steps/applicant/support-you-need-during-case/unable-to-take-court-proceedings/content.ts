@@ -18,25 +18,32 @@ const en = {
     },
     courtProceedingProvideDetails: {
       required: 'Please provide the details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cy: typeof en = {
-  section: 'Reasonable adjustments',
-  title: 'I need something to make me feel comfortable during a court hearing',
-  courtcommunication: 'Think about what you would need if the hearing was in person, by phone or video.',
-  optionHint: 'Select all that apply to you',
-  summaryText: 'Contacts for help',
+  section: 'Addasiadau rhesymol',
+  title: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad llys',
+  courtcommunication:
+    'Meddyliwch am yr hyn y byddwch ei angen os bydd eich gwrandawiad yn un wyneb yn wyneb, trwy fideo neu dros y ffôn.',
+  optionHint: 'Dogfennau mewn lliw penodol',
+  summaryText: 'Cysylltiadau am gymorth',
   one: 'Yes',
   two: 'No',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     unableForCourtProceedings: {
       required: 'Please select an answer',
     },
     courtProceedingProvideDetails: {
-      required: 'Please provide the details',
+      required: 'Rhowch fanylion',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
   },
 };

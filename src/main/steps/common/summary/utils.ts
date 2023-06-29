@@ -3,7 +3,7 @@
 import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
-import { State } from '../../../app/case/definition';
+import { State, YesOrNo } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
 import {
@@ -13,10 +13,15 @@ import {
   SummaryListRow,
 } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
+import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
+import { cy, en } from '../common.content';
 import { applyParms } from '../url-parser';
 
-export const getSectionSummaryList = (rows: SummaryListRow[], content: PageContent): GovUkNunjucksSummary[] => {
-  console.log(content.title);
+export const getSectionSummaryList = (
+  rows: SummaryListRow[],
+  content: PageContent,
+  language?: string
+): GovUkNunjucksSummary[] => {
   return rows.map(item => {
     const changeUrl = item.changeUrl;
     return {
@@ -28,7 +33,7 @@ export const getSectionSummaryList = (rows: SummaryListRow[], content: PageConte
               items: [
                 {
                   href: changeUrl,
-                  text: 'Edit',
+                  text: language === 'en' ? en.edit : cy.edit,
                   visuallyHiddenText: `${item.key}`,
                 },
               ],
@@ -40,6 +45,58 @@ export const getSectionSummaryList = (rows: SummaryListRow[], content: PageConte
   });
 };
 
+const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | undefined) => {
+  const userkey = userCase[key];
+  let translationLabel;
+  switch (key) {
+    case 'start':
+    case 'parents':
+    case 'detailsKnown':
+      translationLabel = 'ydyTranslation';
+      break;
+    case 'jurisdiction':
+      translationLabel = 'gallaiTranslation';
+      break;
+    case 'request':
+    case 'PRL_c1A_haveSafetyConcerns':
+      translationLabel = 'oesTranslation';
+      break;
+    case 'legalRepresentation':
+      translationLabel = 'byddafTranslation';
+      break;
+    case 'doYouConsent':
+    case 'courtPermission':
+      translationLabel = 'ydwTranslation';
+      break;
+    case 'miamStart':
+      translationLabel = 'doTranslation';
+      break;
+    case 'miamWillingness':
+      translationLabel = 'byddwnTranslation';
+      break;
+    case 'courtProceedingsOrders':
+      if (!userCase[key]) {
+        return getOrdersDetail(userCase);
+      }
+      break;
+    case 'citizenUserAddressHistory':
+      if (userCase['isAtAddressLessThan5Years'] === YesOrNo.YES) {
+        return userCase['citizenUserAddressText'];
+      }
+      return userCase['citizenUserAddressHistory'];
+    case 'startAlternative':
+      if (!userCase[key]) {
+        return (
+          getYesNoTranslation(language, userCase[key], 'ydyTranslation') + getSelectedPrivateDetails(userCase, language)
+        );
+      }
+      break;
+    default:
+      return userkey;
+  }
+  return getYesNoTranslation(language, userCase[key], translationLabel);
+};
+
 /* eslint-disable import/namespace */
 export const summaryList = (
   { sectionTitles, keys, ...content }: SummaryListContent,
@@ -47,34 +104,31 @@ export const summaryList = (
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   urls: any,
   sectionTitle?: string,
-  fieldTypes?: any,
   language?: string
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
   for (const key in keys) {
     const keyLabel = keys[key];
-    const getSelectedprivaedet = userCase[key] + getSelectedPrivateDetails(userCase);
-    const setkey = key1 => {
-      if (key1 === 'startAlternative' && userCase[key1] !== 'undefined') {
-        return getSelectedprivaedet;
-      }
-      return userkey;
-    };
-    const userkey = userCase[key];
-    const url = urls[key];
     const row = {
       key: keyLabel,
-      value: fieldTypes[key] === 'Date' ? getFormattedDate(userCase[key], language) : setkey(key)!,
-      changeUrl: url,
+      value:
+        userCase[key]?.hasOwnProperty('day') &&
+        userCase[key].hasOwnProperty('month') &&
+        userCase[key]?.hasOwnProperty('year')
+          ? getFormattedDate(userCase[key], language)
+          : setkey(userCase, key, language)!,
+      changeUrl: urls[key],
     };
-    if (key !== 'citizenUserSafeToCall') {
-      summaryData.push(row);
+    if (row.value || key === 'citizenUserAddressHistory') {
+      if (key !== 'citizenUserSafeToCall') {
+        summaryData.push(row);
+      }
     }
   }
 
   return {
-    title: sectionTitle || '',
-    rows: getSectionSummaryList(summaryData, content),
+    title: sectionTitle ?? '',
+    rows: getSectionSummaryList(summaryData, content, language),
   };
 };
 
@@ -148,18 +202,33 @@ export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): str
     ? dayjs(`${date.day}-${date.month}-${date.year}`, 'D-M-YYYY').locale(locale).format('D MMMM YYYY')
     : '';
 
-export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string => {
+export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>, language): string => {
   let tempDetails = '<br/><br/><ul class="govuk-list govuk-list--bullet">';
   const contact_private_list = userCase['contactDetailsPrivate'];
+  const contact_private_list_cy = ['Cyfeiriad', 'Rhif ffôn', 'E-bost'];
   for (const key in contact_private_list) {
-    console.log(contact_private_list[key]);
     tempDetails =
       tempDetails +
       '<li>' +
-      contact_private_list[key].charAt(0).toUpperCase() +
-      contact_private_list[key].slice(1) +
-      '</li>';
+      (language === 'cy'
+        ? contact_private_list_cy[key].charAt(0).toUpperCase() + contact_private_list_cy[key].slice(1) + '</li>'
+        : contact_private_list[key].charAt(0).toUpperCase() + contact_private_list[key].slice(1) + '</li>');
   }
   tempDetails = tempDetails + '</ul>';
   return tempDetails;
+};
+
+export const getOrdersDetail = (userCase: Partial<CaseWithId>): string => {
+  let temp = '';
+  const value = userCase['courtProceedingsOrders'];
+  if (value) {
+    for (const k of value) {
+      const keyLabel = k as string;
+      temp += keyLabel;
+      if (value.indexOf(k) !== value.length - 1) {
+        temp += ', ';
+      }
+    }
+  }
+  return temp;
 };

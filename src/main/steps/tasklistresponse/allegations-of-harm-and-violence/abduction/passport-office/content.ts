@@ -18,11 +18,11 @@ export const en = () => ({
 });
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  serviceName: 'Child arrangements - welsh',
-  title: 'Do any of the children have a passport? - welsh',
-  caption: 'Safety concerns - welsh',
-  one: 'Yes - Welsh',
-  two: 'No - Welsh',
+  serviceName: 'Trefniadau plant',
+  title: "A oes gan unrhyw un o'r plant basbort?",
+  caption: 'Pryderon diogelwch',
+  one: 'Oes',
+  two: 'Nac oes',
   errors: {
     PRL_c1A_passportOffice: {
       required: 'Select yes if any of the children have a passport - welsh',

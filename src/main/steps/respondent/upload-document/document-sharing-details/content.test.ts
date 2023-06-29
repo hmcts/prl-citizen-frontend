@@ -8,15 +8,15 @@ const docsEmail = 'example@test.com';
 //const docsEmail = 'citizen-upload-docs-email';
 
 const en = {
-  section: 'How your documents will be shared',
+  title: 'How your documents will be shared',
   email: docsEmail,
   continue: 'Continue',
 };
 
 const cy: typeof en = {
-  section: 'How your documents will be shared',
+  title: 'Sut fydd eich dogfennau’n cael eu rhannu',
   email: docsEmail,
-  continue: 'Continue',
+  continue: 'Parhau',
 };
 
 jest.mock('../../../../app/form/validation');
@@ -33,7 +33,7 @@ describe('citizen-home content', () => {
   test('should return correct english content', () => {
     expect(generatedContent.continue).toEqual('Continue');
     expect(generatedContent.email).toEqual(docsEmail);
-    expect(generatedContent.section).toEqual('How your documents will be shared');
+    expect(generatedContent.title).toEqual('How your documents will be shared');
   });
 
   // eslint-disable-next-line jest/expect-expect

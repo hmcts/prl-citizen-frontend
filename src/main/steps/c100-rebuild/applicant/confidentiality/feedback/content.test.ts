@@ -29,7 +29,7 @@ const dummyApplicantData = [
 ];
 
 const enLanguageContent = {
-  caption: 'Keeping your contact details private',
+  caption: 'Keeping your contact details private for',
   headingTitle: 'The court will keep your contact details private',
   p1: 'You have told us you want to keep these contact details private',
   heading3: 'What the court will do',
@@ -42,14 +42,14 @@ const enLanguageContent = {
 };
 
 const cyLanguageContent = {
-  caption: 'Cadw eich manylion cyswllt yn breifat',
-  headingTitle: 'Bydd y llys yn cadw eich manylion cyswllt yn breifat.',
+  caption: 'Cadw eich manylion cyswllt yn breifat ar gyfer',
+  headingTitle: 'Bydd y llys yn cadw eich manylion cyswllt yn breifat ar gyfer.',
   p1: "Rydych wedi dweud wrthym eich bod eisiau cadw'r manylion cyswllt yma yn breifat:",
   heading3: 'Beth fydd y llys yn ei wneud',
-  p2: "Bydd y llys yn cadw'r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass (Children and Family Court Advisory and Support Service) neu Cafcass CYMRU oni bai ei fod trwy orchymyn y llys.",
+  p2: "Bydd y llys yn cadw'r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass (Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd) neu Cafcass CYMRU oni bai ei fod trwy orchymyn y llys.",
   listOfCofidentialInfromations: [
     { key: 'address', value: 'Cyfeiriad' },
-    { key: 'telephone', value: 'Rhif ffôn' },
+    { key: 'telephone', value: 'Ffôn' },
     { key: 'email', value: 'E-bost' },
   ],
 };

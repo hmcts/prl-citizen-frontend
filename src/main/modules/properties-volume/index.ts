@@ -29,6 +29,7 @@ export class PropertiesVolume {
       this.setLocalSecret('system-update-user-password', 'services.idam.systemPassword');
       this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
       this.setLocalSecret('citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
+      this.setLocalSecret('launchDarkly-sdk-key', 'featureToggles.launchDarklyKey');
     }
   }
 

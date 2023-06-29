@@ -31,35 +31,36 @@ export const enContent = {
   keys: {
     details: 'Details',
     //child concern screens
-    detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
+    detailsOfChildConcern: 'Briefly describe the [***] against the child if you feel able to ',
+    detailsOfYourConcern: 'Briefly describe the [***] if you feel able to ',
     concerns: 'concerns',
-    againstChild: 'against the child',
     applicantDetails: 'Applicant [^^^] - Your details',
   },
 };
 export const cyContent: typeof enContent = {
-  serviceName: 'Check your answers - welsh ',
+  serviceName: 'Gwirio eich atebion',
   section: '',
-  title: 'Check your Answers -welsh',
-  change: 'change - welsh',
-  topWarning: 'Your answers will be shared with the other people in this case. - welsh',
-  makingSure: 'Please review your answers before you finish your application.- welsh',
+  title: 'Gwirio eich atebion',
+  change: 'Golygu',
+  topWarning: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
+  makingSure: 'Edrychwch dros eich atebion cyn gorffen gwneud eich cais.',
   continue: 'Save and submit - welsh',
   Yes: 'Yes - welsh',
   No: 'No - welsh',
   sectionTitles: {
-    safetyConcerns: '[^^sectionNo^^]. Safety concerns - welsh', //section 10
-    additionationDetailsAboutChildern: 'Additional details about the children - welsh',
-    childSafetyConcerns: 'Safety concerns: the children in the application ',
-    yourSafetyConcerns: 'Safety concern: your safety',
-    otherSafetyConcerns: 'Safety concern: other concerns that you have',
+    safetyConcerns: '[^^sectionNo^^]. Pryderon diogelwch', //section 10
+    additionationDetailsAboutChildern: 'Manylion ychwanegol am y plant',
+    childSafetyConcerns: 'Pryderon am ddiogelwch: y plant yn y cais',
+    yourSafetyConcerns: 'Pryderon am ddiogelwch: eich diogelwch chi',
+    otherSafetyConcerns: 'Pryderon am ddiogelwch: pryderon eraill sydd gennych',
   },
   keys: {
-    details: 'Details',
+    details: 'Manylion',
     //child concern screens
-    detailsOfChildConcern: 'Briefly describe the [***] [^^^] if you feel able to ',
+    detailsOfChildConcern:
+      "Disgrifiwch yn gryno y [***] yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
+    detailsOfYourConcern: "Disgrifiwch y [***] yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
     concerns: 'concerns',
-    againstChild: 'against the child',
     applicantDetails: 'Applicant [^^^] - Your details - welsh',
   },
 };
@@ -93,15 +94,15 @@ const en = (content: CommonContent) => {
   const userCase = content.userCase!;
   let sections = [] as ANYTYPE;
 
-  sections.push(SafetyConcerns(enContent, userCase));
+  sections.push(SafetyConcerns(enContent, userCase, content.language));
 
   /** if user selects safty concerns as Yes then these section will display until line 352 */
   if (userCase.hasOwnProperty('PRL_c1A_haveSafetyConcerns') && userCase['PRL_c1A_haveSafetyConcerns'] === YesOrNo.YES) {
-    sections.push(SafetyConcerns_child(enContent, userCase));
+    sections.push(SafetyConcerns_child(enContent, userCase, content.language));
     if (toggleApplicantSafetyConcerns('PRL_c1A_safetyConernAbout', userCase, 'PRL_c1A_concernAboutChild')) {
-      sections.push(SafetyConcerns_yours(enContent, userCase));
+      sections.push(SafetyConcerns_yours(enContent, userCase, content.language));
     }
-    sections.push(SafetyConcerns_others(enContent, userCase));
+    sections.push(SafetyConcerns_others(enContent, userCase, content.language));
   }
 
   sections = sectionCountFormatter(sections);
@@ -116,14 +117,14 @@ const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
   let sections = [] as ANYTYPE;
 
-  sections.push(SafetyConcerns(cyContent, userCase));
+  sections.push(SafetyConcerns(cyContent, userCase, content.language));
   /** if user selects safty concerns as Yes then these section will display until line 352 */
   if (userCase.hasOwnProperty('PRL_c1A_haveSafetyConcerns') && userCase['PRL_c1A_haveSafetyConcerns'] === YesOrNo.YES) {
-    sections.push(SafetyConcerns_child(cyContent, userCase));
+    sections.push(SafetyConcerns_child(cyContent, userCase, content.language));
     if (toggleApplicantSafetyConcerns('PRL_c1A_safetyConernAbout', userCase, 'PRL_c1A_concernAboutChild')) {
-      sections.push(SafetyConcerns_yours(cyContent, userCase));
+      sections.push(SafetyConcerns_yours(cyContent, userCase, content.language));
     }
-    sections.push(SafetyConcerns_others(cyContent, userCase));
+    sections.push(SafetyConcerns_others(cyContent, userCase, content.language));
   }
 
   sections = sectionCountFormatter(sections);

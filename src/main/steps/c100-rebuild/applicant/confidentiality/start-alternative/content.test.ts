@@ -24,9 +24,9 @@ const en = {
 };
 
 const cy = {
-  caption: 'Cadw eich manylion cyswllt yn breifat',
+  caption: 'Cadw eich manylion cyswllt yn breifat ar gyfer',
   headingTitle:
-    'Ydych chi eisiau cadw eich manylion cyswllt yn breifat oddi wrth y bobl eraill a enwir yn y cais (yr atebwyr)?',
+    'Ydych chi eisiau cadw eich manylion cyswllt yn breifat ar gyfer oddi wrth y bobl eraill a enwir yn y cais (yr atebwyr)?',
   paragraph1:
     "Bydd yr wybodaeth a roddwch i ni yn cael ei rhannu gyda'r atebwyr. Mae hyn yn cynnwys eich manylion cyswllt.",
   paragraph2:

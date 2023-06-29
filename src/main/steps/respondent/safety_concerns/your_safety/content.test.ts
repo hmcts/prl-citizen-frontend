@@ -16,14 +16,14 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Safety concerns',
+  section: 'Pryderon diogelwch',
   title: 'Your safety',
   line1:
     'The court needs to know if you have suffered, or are at risk of suffering, any form of domestic violence or abuse.',
   line2: 'The following questions will ask whether you have suffered, or are at risk of suffering, any form of harm.',
   line3: 'Find out about the signs of domestic violence or abuse',
 
-  continue: 'Continue',
+  continue: 'Parhau',
 };
 
 jest.mock('../../../../app/form/validation');

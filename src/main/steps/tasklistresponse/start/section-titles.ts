@@ -6,3 +6,12 @@ export const respondent_en = {
   safetyConcerns: '5. Safety concerns',
   additionalInformation: '6. Additional information',
 };
+
+export const respondent_cy = {
+  legalrepresentation: '1. Cynrychiolaeth gyfreithiol',
+  consentToTheApplication: "2. Cydsynio i'r cais",
+  yourDetails: '3. Eich manylion',
+  applicationDetails: '4. Manylion y cais',
+  safetyConcerns: '5. Pryderon diogelwch',
+  additionalInformation: '6. Gwybodaeth ychwanegol',
+};

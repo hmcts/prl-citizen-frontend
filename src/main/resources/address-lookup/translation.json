@@ -1,12 +1,12 @@
 {
     "translations": {
         "en": {
-            "section": "Your address",
+            "title": "Your address",
             "serviceName": "Address/postcode lookup"
         },
         "cy": {
-            "section": "Your address (in welsh)",
-            "serviceName": "Address/postcode lookup (in welsh)"
+            "title": "Eich cyfeiriad",
+            "serviceName": "Chwilio am gyfeiriad/cod post"
         }
     },
     "errors":{
@@ -18,8 +18,8 @@
         },
         "cy": {
             "citizenUserAddressPostcode": {
-                "required": "Enter a valid postcode (in welsh)",
-                "invalid": "Enter a valid postcode (in welsh)"
+                "required": "Rhowch god post dilys.",
+                "invalid": "Rhowch god post dilys."
             }
         }
     }

@@ -22,22 +22,22 @@ const en = () => ({
 
 const cy = () => ({
   applyForAnInjunctionHyperLink: 'https://www.gov.uk/injunction-domestic-violence - welsh',
-  applyForAnInjunctionLabel: 'Apply for an injunction - welsh',
+  applyForAnInjunctionLabel: 'Gwneud cais am waharddeb',
   guidanceHelpHyperLink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help - welsh',
-  guidanceHelpLabel: 'Guidance to get help - welsh',
+  guidanceHelpLabel: 'Canllawiau i gael help',
   reportDomesticAbuseHyperLink: 'https://www.gov.uk/report-domestic-abuse - welsh',
-  reportDomesticAbuseLabel: 'How to report domestic abuse - welsh',
+  reportDomesticAbuseLabel: 'Sut i riportio achos o gam-drin domestig',
   legalOptionsWomenHyperLink: 'https://www.flows.org.uk - welsh',
   legalOptionsWomenLabel: 'FLOWS: Finding Legal Options for Women Survivors - welsh',
   womensAidHyperLink: 'https://www.womensaid.org.uk - welsh',
-  womensAidLabel: "Women's Aid - welsh",
+  womensAidLabel: 'Cymorth i Fenywod',
   nationalDomesticViolenceHyperLink: 'https://www.nationaldahelpline.org.uk - welsh',
-  nationalDomesticViolenceLabel: 'National Domestic Violence Helpline - welsh',
+  nationalDomesticViolenceLabel: 'Llinell Gymorth Genedlaethol Trais Domestig',
   mensAdviceLineHyperLink: 'https://mensadviceline.org.uk - welsh',
-  mensAdviceLineLabel: "Men's Advice Line - welsh",
-  reportIncident: 'Report an incident - welsh',
-  emergencyCall: 'Always call 999 if there’s an emergency or if you think a child’s in danger.- welsh',
-  support: 'Get support - welsh',
+  mensAdviceLineLabel: 'Llinell Gyngor i Ddynion',
+  reportIncident: 'Riportio digwyddiad',
+  emergencyCall: "Ffoniwch 999 bob amser os oes argyfwng neu os ydych chi'n meddwl bod plentyn mewn perygl.",
+  support: 'Cael cefnogaeth',
 });
 
 const languages = {

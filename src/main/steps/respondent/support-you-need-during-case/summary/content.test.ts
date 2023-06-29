@@ -1,6 +1,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../../test/unit/utils/mockUserCase';
-import { CommonContent } from '../../../common/common.content';
+import { FormContent, LanguageLookup } from '../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -10,6 +11,7 @@ const en = {
   sectionTitles: {
     aboutYou: 'About you',
   },
+  edit: 'Edit',
   keys: {
     attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
     hearingDetails: 'Please provide the details',
@@ -19,199 +21,65 @@ const en = {
     safetyArrangementsDetails: 'Please describe your need in detail',
     reasonableAdjustments:
       'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+    docsDetails: 'Please provide the docs details',
+    docsSupport: 'I need documents in an alternative format',
+    largePrintDetails: 'Please provide the large print details',
+    otherDetails: 'Please provide the other details',
+    communicationSupportOther: 'Please provide the details',
+    courtComfort: 'I need something to make me feel comfortable during a court hearing',
+    courtHearing: 'I would need to bring support with me to a court hearing',
+    describeOtherNeed: 'Please provide the details',
+    signLanguageDetails: 'Please provide sign language details',
+    differentChairDetails: 'Please describe different chair details',
+    familyProviderDetails: 'Please provide family member details',
+    helpCommunication: 'I need help communicating and understanding',
+    lightingProvideDetails: 'Please describe appropriate lighting details',
+    otherProvideDetails: 'Please describe your need in detail',
+    parkingDetails: 'Please describe parking space details',
+    supportWorkerDetails: 'Please provide support worker details',
+    therapyDetails: 'Please provide therapy animal details',
+    travellingOtherDetails: 'Please describe your need in detail',
+    travellingToCourt: 'I need help travelling to, or moving around court buildings',
   },
-  dependencies: {
-    hearingDetails: {
-      dependentOn: 'attendingToCourt',
-      value: 'no hearings',
-      display: true,
-    },
-    languageDetails: {
-      dependentOn: 'languageRequirements',
-      value: 'I need an interpreter in a certain language',
-      display: true,
-    },
-    safetyArrangementsDetails: {
-      dependentOn: 'safetyArrangements',
-      value: 'other',
-      display: true,
-    },
-    docsDetails: {
-      dependentOn: 'docsSupport',
-      value: 'Documents in colour print',
-      display: true,
-    },
-    largePrintDetails: {
-      dependentOn: 'docsSupport',
-      value: 'Large print documents',
-      display: true,
-    },
-    otherDetails: {
-      dependentOn: 'docsSupport',
-      value: 'other',
-      display: true,
-    },
-    describeSignLanguageDetails: {
-      dependentOn: 'helpCommunication',
-      value: 'sign language interpreter',
-      display: true,
-    },
-    describeOtherNeed: {
-      dependentOn: 'helpCommunication',
-      value: 'Other',
-      display: true,
-    },
-    supportWorkerDetails: {
-      dependentOn: 'courtHearing',
-      value: 'support worker or carer',
-      display: true,
-    },
-    familyProviderDetails: {
-      dependentOn: 'courtHearing',
-      value: 'friend or family member',
-      display: true,
-    },
-    therapyDetails: {
-      dependentOn: 'courtHearing',
-      value: 'animal',
-      display: true,
-    },
-    communicationSupportOther: {
-      dependentOn: 'courtHearing',
-      value: 'other',
-      display: true,
-    },
-    lightingProvideDetails: {
-      dependentOn: 'courtComfort',
-      value: 'appropriate lighting',
-      display: true,
-    },
-    otherProvideDetails: {
-      dependentOn: 'courtComfort',
-      value: 'Other',
-      display: true,
-    },
-    parkingDetails: {
-      dependentOn: 'travellingToCourt',
-      value: 'parking space close to the venue',
-      display: true,
-    },
-    differentChairDetails: {
-      dependentOn: 'travellingToCourt',
-      value: 'a different type of chair',
-      display: true,
-    },
-    travellingOtherDetails: {
-      dependentOn: 'travellingToCourt',
-      value: 'Other',
-      display: true,
-    },
-  },
+
   errors: {},
 };
 
 const cy: typeof en = {
-  section: 'Check your answers ',
-  title: 'Your hearing needs and requirments',
+  section: 'Gwirio eich atebion',
+  title: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
-    aboutYou: 'About you',
+    aboutYou: 'Amdanoch chi',
   },
+  edit: 'Golygu',
   keys: {
-    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
-    hearingDetails: 'Please provide the details',
-    languageRequirements: 'Do you have any language requirements?',
-    languageDetails: 'Please provide language details',
-    safetyArrangements: 'Do you or the children need special safety arrangements at court?',
-    safetyArrangementsDetails: 'Please describe your need in detail',
+    attendingToCourt: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+    hearingDetails: 'Rhowch fanylion',
+    languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+    languageDetails: 'Rhowch fanylion eich gofynion ieithyddol',
+    safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
+    safetyArrangementsDetails: 'Disgrifiwch eich anghenion yn fanwl',
     reasonableAdjustments:
-      'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-  },
-  dependencies: {
-    hearingDetails: {
-      dependentOn: 'attendingToCourt',
-      value: 'no hearings',
-      display: true,
-    },
-    languageDetails: {
-      dependentOn: 'languageRequirements',
-      value: 'I need an interpreter in a certain language',
-      display: true,
-    },
-    safetyArrangementsDetails: {
-      dependentOn: 'safetyArrangements',
-      value: 'other',
-      display: true,
-    },
-    docsDetails: {
-      dependentOn: 'docsSupport',
-      value: 'Documents in colour print',
-      display: true,
-    },
-    largePrintDetails: {
-      dependentOn: 'docsSupport',
-      value: 'Large print documents',
-      display: true,
-    },
-    otherDetails: {
-      dependentOn: 'docsSupport',
-      value: 'other',
-      display: true,
-    },
-    describeSignLanguageDetails: {
-      dependentOn: 'helpCommunication',
-      value: 'sign language interpreter',
-      display: true,
-    },
-    describeOtherNeed: {
-      dependentOn: 'helpCommunication',
-      value: 'Other',
-      display: true,
-    },
-    supportWorkerDetails: {
-      dependentOn: 'courtHearing',
-      value: 'support worker or carer',
-      display: true,
-    },
-    familyProviderDetails: {
-      dependentOn: 'courtHearing',
-      value: 'friend or family member',
-      display: true,
-    },
-    therapyDetails: {
-      dependentOn: 'courtHearing',
-      value: 'animal',
-      display: true,
-    },
-    communicationSupportOther: {
-      dependentOn: 'courtHearing',
-      value: 'other',
-      display: true,
-    },
-    lightingProvideDetails: {
-      dependentOn: 'courtComfort',
-      value: 'appropriate lighting',
-      display: true,
-    },
-    otherProvideDetails: {
-      dependentOn: 'courtComfort',
-      value: 'Other',
-      display: true,
-    },
-    parkingDetails: {
-      dependentOn: 'travellingToCourt',
-      value: 'parking space close to the venue',
-      display: true,
-    },
-    differentChairDetails: {
-      dependentOn: 'travellingToCourt',
-      value: 'a different type of chair',
-      display: true,
-    },
-    travellingOtherDetails: {
-      dependentOn: 'travellingToCourt',
-      value: 'Other',
-      display: true,
-    },
+      'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+    docsSupport: 'Rwyf angen dogfennau mewn fformat amgen',
+    docsDetails: 'Rhowch fanylion y dogfennau',
+    largePrintDetails: 'Rhowch fanylion y print bras',
+    otherDetails: 'Rhowch y manylion eraill',
+    helpCommunication: 'Rwyf angen cymorth gyda chyfathrebu a deall pethau',
+    signLanguageDetails: 'Rhowch fanylion yr iaith arwyddion',
+    describeOtherNeed: 'Rhowch fanylion',
+    courtHearing: 'Byddwn i angen dod â rhywun efo fi i fy nghefnogi mewn gwrandawiad llys',
+    supportWorkerDetails: 'Rhowch fanylion eich gweithiwr cymorth',
+    familyProviderDetails: 'Rhowch fanylion aelod o’ch teulu',
+    therapyDetails: 'Rhowch fanylion yr anifail therapi',
+    communicationSupportOther: 'Rhowch fanylion',
+    courtComfort: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad llys',
+    lightingProvideDetails: 'Rhowch fanylion y goleuadau priodol',
+    otherProvideDetails: 'Disgrifiwch eich anghenion yn fanwl',
+    travellingToCourt: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
+    parkingDetails: 'Rhowch fanylion y lle parcio',
+    differentChairDetails: 'Rhowch fanylion y math gwahanol o gadair',
+    travellingOtherDetails: 'Disgrifiwch eich anghenion yn fanwl',
   },
   errors: {},
 };
@@ -222,15 +90,47 @@ describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
   beforeEach(() => {
-    commonContent.userCase = {
-      ...mockUserCase,
-      attendingToCourt: [''],
-      hearingDetails: '',
-      languageRequirements: [''],
-      languageDetails: '',
-      safetyArrangements: [''],
-      safetyArrangementsDetails: 'Please describe your need in detail',
-      reasonableAdjustments: [''],
+    commonContent.additionalData = {
+      req: {
+        session: {
+          userCase: {
+            ...mockUserCase,
+            attendingToCourt: [''],
+            hearingDetails: '',
+            languageRequirements: [''],
+            languageDetails: '',
+            safetyArrangements: [''],
+            safetyArrangementsDetails: 'Please describe your need in detail',
+            reasonableAdjustments: ['docsformat', 'commhelp', 'hearingsupport', 'hearingcomfort', 'travellinghelp'],
+            docsSupport: ['docsprint'],
+            docsDetails: 'blue',
+            respondentsFL401: {
+              id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+              user: {
+                idamId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+                email: 'test1234@example.net',
+              },
+            },
+            caseInvites: [
+              {
+                id: '577695bd-2fb5-4418-a699-79ee352ed5bb',
+                value: {
+                  partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+                  caseInviteEmail: 'respondent2@example.net',
+                  accessCode: '3GYFGJHO',
+                  invitedUserId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+                  hasLinked: 'Yes',
+                  expiryDate: '2023-05-07',
+                  isApplicant: 'No',
+                },
+              },
+            ],
+          },
+          user: {
+            id: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
+          },
+        },
+      },
     };
     generatedContent = generateContent(commonContent);
   });
@@ -242,7 +142,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.keys.attendingToCourt).toEqual(
       'Would you be able to take part in hearings by video and phone?'
     );
-    expect(generatedContent.dependencies.hearingDetails.value).toEqual('no hearings');
+    expect(generatedContent.keys.docsSupport).toEqual('I need documents in an alternative format');
   });
 
   // eslint-disable-next-line jest/expect-expect
@@ -253,6 +153,12 @@ describe('citizen-home content', () => {
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+  test('should contain Submit button', () => {
+    const form = generatedContent.form as FormContent;
+    expect(
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and continue');
   });
 });
 

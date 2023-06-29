@@ -7,19 +7,15 @@ import { generateContent } from './content';
 const enContent = {
   section: 'All documents',
   title: 'Medical reports',
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   caseNumber: 'Case number',
   continue: 'Go back',
 };
 
 const cyContent = {
-  section: 'All documents',
-  title: 'Medical reports',
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
-  caseNumber: 'Case number',
-  continue: 'Go back',
+  section: 'Pob dogfen',
+  title: 'Adroddiadau meddygol',
+  caseNumber: 'Rhif yr achos',
+  continue: 'Yn ôl',
 };
 
 jest.mock('../../../../../app/form/validation');
@@ -38,7 +34,8 @@ describe('citizen-home content', () => {
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('Medical reports');
     expect(generatedContent.section).toEqual('All documents');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
+    expect(generatedContent.caseNumber).toEqual('Case number');
+    expect(generatedContent.continue).toEqual('Go back');
   });
 
   // eslint-disable-next-line jest/expect-expect

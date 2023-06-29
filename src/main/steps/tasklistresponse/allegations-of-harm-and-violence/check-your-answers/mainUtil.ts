@@ -1,10 +1,12 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
 import { CaseWithId } from '../../../../app/case/case';
-import { PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbout, YesOrNo } from '../../../../app/case/definition';
+import { PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbout, YesOrNo, passportPossessionRelative } from '../../../../app/case/definition';
 import { SummaryList, SummaryListContentWithBoolean, getSectionSummaryList } from '../../../c100-rebuild/check-your-answers/lib/lib';
+import { getYesNoTranslation } from '../../../c100-rebuild/check-your-answers/mainUtil';
 import { applyParms } from '../../../common/url-parser';
 import * as Urls from '../../../urls';
+import { cy } from '../abduction/passport-amount/content';
 
 // import { DATE_FORMATTOR } from './common/dateformatter';
 import { HTML } from './common/htmlSelectors';
@@ -21,7 +23,8 @@ import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
  */
 export const SafetyConcerns = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
-  userCase: Partial<CaseWithId>
+  userCase: Partial<CaseWithId>,
+  language: string,
 ): SummaryList | undefined => {
   const dataForConcerns = userCase.hasOwnProperty('PRL_c1A_safetyConernAbout')
     ? userCase['PRL_c1A_safetyConernAbout']?.map(
@@ -31,7 +34,7 @@ export const SafetyConcerns = (
   const SummaryData = [
     {
       key: keys['doYouHaveSafetyConcerns'],
-      value: userCase['PRL_c1A_haveSafetyConcerns'],
+      value: userCase['PRL_c1A_haveSafetyConcerns'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oesTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oesTranslation'),
       changeUrl: Urls['RESPONDENT_YOUR_CHILD_CONCERNS'],
     },
   ] as ANYTYPE;
@@ -60,7 +63,8 @@ export const SafetyConcerns = (
  */
 export const SafetyConcerns_child = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
-  userCase: Partial<CaseWithId>
+  userCase: Partial<CaseWithId>,
+  language: string
 ): SummaryList | undefined => {
   const childSafetyConcerns = userCase.hasOwnProperty('PRL_c1A_concernAboutChild')
     ? userCase['PRL_c1A_concernAboutChild']?.map(
@@ -77,17 +81,16 @@ export const SafetyConcerns_child = (
     ).map(field => {
       return {
         key: keys['detailsOfChildConcern']
-          .split('[***]')
-          .join(` ${keys[field]} `)
-          .split('[^^^]')
-          .join(keys['againstChild']),
+        .split('[***]')
+        .join(` ${keys[field]} `),
         value: '',  
         valueHtml: SafetyConcernsHelper(
           userCase,
           keys,
           'PRL_c1A_concernAboutChild',
           field,
-          PRL_C1ASafteyConcernsAbout.CHILDREN
+          PRL_C1ASafteyConcernsAbout.CHILDREN,
+          language
         ),
         changeUrl: applyParms(Urls['PRL_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE'], { abuseType: field }),
       };
@@ -107,33 +110,38 @@ export const SafetyConcerns_child = (
    * @policeOrInvestigatorsOtherDetails session Values
    */
   let policeOrInvestigatorsOtherDetailsHTML = '';
-  policeOrInvestigatorsOtherDetailsHTML += userCase['PRL_c1A_policeOrInvestigatorInvolved'];
+  policeOrInvestigatorsOtherDetailsHTML += (userCase['PRL_c1A_policeOrInvestigatorInvolved'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oeddTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oeddTranslation'));
    policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('PRL_c1A_policeOrInvestigatorOtherDetails')
     ?  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + userCase['PRL_c1A_policeOrInvestigatorOtherDetails']
     :  '' ;
-  /**
+    /**
    * @PRL_c1A_childAbductedBefore session Values
    */
-  let PRL_c1A_childAbductedBefore = '';
-  PRL_c1A_childAbductedBefore += userCase?.['PRL_c1A_passportOffice'];
-  if (userCase.hasOwnProperty('PRL_c1A_passportOffice') && userCase.PRL_c1A_passportOffice === 'Yes') {
-    PRL_c1A_childAbductedBefore += HTML.RULER;
-    PRL_c1A_childAbductedBefore += HTML.H4;
-    PRL_c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
-    PRL_c1A_childAbductedBefore += HTML.H4_CLOSE;
-    PRL_c1A_childAbductedBefore += userCase['PRL_c1A_childrenMoreThanOnePassport'];
-    PRL_c1A_childAbductedBefore += HTML.RULER;
-    PRL_c1A_childAbductedBefore += HTML.H4;
-    PRL_c1A_childAbductedBefore += keys['possessionChildrenPassport'];
-    PRL_c1A_childAbductedBefore += HTML.H4_CLOSE;
-    PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST;
-    PRL_c1A_childAbductedBefore += userCase['PRL_c1A_possessionChildrenPassport']!
-      .filter(element => element !== 'Other')
-      .map(relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END)
+    let PRL_c1A_childAbductedBefore = '';
+    PRL_c1A_childAbductedBefore += (userCase?.['PRL_c1A_passportOffice'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oesTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oesTranslation'));
+    const relativesTranslation = (relative) => {
+      relative = relative === passportPossessionRelative.MOTHER && language === 'cy' ? cy().option1 : relative;
+      relative = relative === passportPossessionRelative.FATHER && language === 'cy' ? cy().option2 : relative;
+      return relative;
+    };
+    if (userCase.hasOwnProperty('PRL_c1A_passportOffice') && userCase.PRL_c1A_passportOffice === 'Yes') {
+      PRL_c1A_childAbductedBefore += HTML.RULER;
+      PRL_c1A_childAbductedBefore += HTML.H4;
+      PRL_c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
+      PRL_c1A_childAbductedBefore += HTML.H4_CLOSE;
+      PRL_c1A_childAbductedBefore += (userCase['PRL_c1A_childrenMoreThanOnePassport'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oesTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oesTranslation'));
+      PRL_c1A_childAbductedBefore += HTML.RULER;
+      PRL_c1A_childAbductedBefore += HTML.H4;
+      PRL_c1A_childAbductedBefore += keys['possessionChildrenPassport'];
+      PRL_c1A_childAbductedBefore += HTML.H4_CLOSE;
+      PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST;
+      PRL_c1A_childAbductedBefore += userCase['PRL_c1A_possessionChildrenPassport']!
+      .filter(element => element !== passportPossessionRelative.OTHER)
+      .map(relatives => HTML.LIST_ITEM + relativesTranslation(relatives) + HTML.LIST_ITEM_END)
       .toString()
       .split(',')
       .join('');
-    if(userCase['PRL_c1A_possessionChildrenPassport']!.some(element => element === 'Other')){
+    if(userCase['PRL_c1A_possessionChildrenPassport']!.some(element => element === passportPossessionRelative.OTHER)){
       PRL_c1A_childAbductedBefore +=  HTML.LIST_ITEM + userCase['PRL_c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
     }  
     PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
@@ -156,18 +164,22 @@ export const SafetyConcerns_child = (
       valueHtml: PRL_c1A_childAbductedBefore  || '',
       changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE'],
     },
-    {
-      key: keys['haspassportOfficeNotified'],
-      valueHtml: userCase['PRL_c1A_abductionPassportOfficeNotified'] || '',
-      changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED'],
-    },
+  ];
+  if(userCase.hasOwnProperty('PRL_c1A_passportOffice') && userCase['PRL_c1A_passportOffice'] === 'Yes'){
+    abdutionScreenData.push(
+      {
+           key: keys['haspassportOfficeNotified'],
+           valueHtml: (userCase['PRL_c1A_abductionPassportOfficeNotified'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oesTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oesTranslation')) || '',
+           changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED'],
+      });
+  }
+  abdutionScreenData.push(
     {
       key: keys['abducionThreats'],
-      valueHtml: userCase['PRL_c1A_childAbductedBefore'] as string  || '',
+      valueHtml: (userCase['PRL_c1A_childAbductedBefore'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'ydynTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'ydynTranslation')) || '',
       changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_THREATS'],
-    },
-    
-  ];
+    });
+
   if(userCase.hasOwnProperty('PRL_c1A_childAbductedBefore') && userCase['PRL_c1A_childAbductedBefore'] === 'Yes'){
     abdutionScreenData.push(
       {
@@ -206,7 +218,8 @@ export const SafetyConcerns_child = (
  */
 export const SafetyConcerns_yours = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
-  userCase: Partial<CaseWithId>
+  userCase: Partial<CaseWithId>,
+  language: string
 ): SummaryList | undefined => {
   const childSafetyConcerns = userCase.hasOwnProperty('PRL_c1A_concernAboutRespondent')
     ? userCase['PRL_c1A_concernAboutRespondent']?.map(
@@ -221,7 +234,7 @@ export const SafetyConcerns_yours = (
         element !== PRL_C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE
     )
     ?.map(field => {
-      const keyForFields = field === PRL_C1AAbuseTypes.SOMETHING_ELSE  ? keys['detailsOfChildConcern'].split('[***]').join(` ${keys['concerns']} `).split('[^^^]').join(''): keys['detailsOfChildConcern'].split('[***]').join(` ${keys[field]} `).split('[^^^]').join('');
+      const keyForFields = field === PRL_C1AAbuseTypes.SOMETHING_ELSE  ? keys['detailsOfYourConcern'].split('[***]').join(` ${keys['concerns']} `): keys['detailsOfYourConcern'].split('[***]').join(` ${keys[field]} `);
       return {
         key: keyForFields,
         valueHtml: SafetyConcernsHelper(
@@ -229,7 +242,8 @@ export const SafetyConcerns_yours = (
           keys,
           'PRL_c1A_concernAboutRespondent',
           field,
-          PRL_C1ASafteyConcernsAbout.RESPONDENT
+          PRL_C1ASafteyConcernsAbout.RESPONDENT,
+          language
         ),
         changeUrl: applyParms(Urls['PRL_C1A_SAFETY_CONCERNS_REPORT_RESPONDENT_ABUSE'], { abuseType: field }),
       };
@@ -260,14 +274,15 @@ export const SafetyConcerns_yours = (
  */
 export const SafetyConcerns_others = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
-  userCase: Partial<CaseWithId>
+  userCase: Partial<CaseWithId>, 
+  language: string
 ): SummaryList | undefined => {
   const fieldParser = (field, fieldDescription?) => {
     let html = '';
     if (field !== undefined) {
       html += field;
     }
-    if (fieldDescription !== undefined) {
+    if (fieldDescription !== undefined && field!== YesOrNo.NO){
       html += HTML.RULER;
       html += HTML.H4;
       html += keys['details'];
@@ -282,12 +297,12 @@ export const SafetyConcerns_others = (
   const SummaryData = [
     {
       key: keys['childDrugAbuse'],
-      valueHtml: fieldParser(userCase['PRL_c1A_otherConcernsDrugs'], userCase['PRL_c1A_otherConcernsDrugsDetails']),
+      valueHtml: fieldParser(userCase['PRL_c1A_otherConcernsDrugs'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'doTranslation'), userCase['PRL_c1A_otherConcernsDrugsDetails']),
       changeUrl: Urls['PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS'],
     },
     {
       key: keys['otherWellBeingIssues'],
-      valueHtml: fieldParser(userCase['PRL_c1A_childSafetyConcerns'], userCase['PRL_c1A_childSafetyConcernsDetails']),
+      valueHtml: fieldParser(userCase['PRL_c1A_childSafetyConcerns'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oesTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oesTranslation'), userCase['PRL_c1A_childSafetyConcernsDetails']),
       changeUrl: Urls['PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_OTHER'],
     },
     {
@@ -297,12 +312,12 @@ export const SafetyConcerns_others = (
     },
     {
       key: keys['selectSupervisionAgreementLabel'],
-      value: userCase['PRL_c1A_supervisionAgreementDetails'],
+      value: getYesNoTranslation(language,userCase['PRL_c1A_supervisionAgreementDetails'], 'ydwSpecial') ,
       changeUrl: Urls['PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED'],
     },
     {
       key: keys['supervisionAgreementOtherWaysLabel'],
-      value: userCase['PRL_c1A_agreementOtherWaysDetails'],
+      value: userCase['PRL_c1A_agreementOtherWaysDetails'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'ydwTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'ydwTranslation'),
       changeUrl: Urls['PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED'],
     },
   ];
