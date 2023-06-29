@@ -65,84 +65,85 @@ export class OidcMiddleware {
 
     app.use(
       errorHandler(async (req: AppRequest, res: Response, next: NextFunction) => {
-        const isAnonymousPage = ANONYMOUS_URLS.some(url => url.includes(req.path));
-        if (isAnonymousPage) {
-          const isScreeningPage = SCREENING_QUESTIONS.some(url => url.includes(req.path));
-          if (req.session?.user && isScreeningPage) {
-            return res.redirect(DASHBOARD_URL);
-          }
-          return next();
-        }
-
         if (app.locals.developmentMode) {
           req.session.c100RebuildLdFlag = config.get('launchDarkly.offline');
           req.session.testingSupport = config.get('launchDarkly.offline');
         }
 
-        if (req.session?.user) {
-          res.locals.isLoggedIn = true;
-          req.locals.api = getCaseApi(req.session.user, req.locals.logger);
+        req.session.testingSupport = req.session.testingSupport ?? (await getFeatureToggle().isTestingSupportEnabled());
 
-          if (!req.locals.C100Api) {
-            req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
-          }
-          const c100RebuildLdFlag: boolean =
-            req.session.c100RebuildLdFlag !== undefined
-              ? req.session.c100RebuildLdFlag
-              : (req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled());
-          const testingSupportLdFlag: boolean =
-            req.session.testingSupport !== undefined
-              ? req.session.testingSupport
-              : (req.session.testingSupport = await getFeatureToggle().isTestingSupportEnabled());
-          //If C100-Rebuild URL is not part of the path, then we need to redirect user to dashboard even if they click on case
-          if (req.path.startsWith(C100_URL)) {
-            if (c100RebuildLdFlag) {
-              return next();
-            } else {
+        req.session.save(async () => {
+          const isAnonymousPage = ANONYMOUS_URLS.some(url => url.includes(req.path));
+
+          if (isAnonymousPage) {
+            const isScreeningPage = SCREENING_QUESTIONS.some(url => url.includes(req.path));
+            if (req.session?.user && isScreeningPage) {
               return res.redirect(DASHBOARD_URL);
             }
-          }
-          //If testing support URL is not part of the path, then we need to redirect user to dashboard even if they click on link
-          if (req.path.startsWith(TESTING_SUPPORT)) {
-            if (testingSupportLdFlag) {
-              return next();
-            } else {
-              return res.redirect(DASHBOARD_URL);
-            }
-          }
-
-          if (req.session.userCase) {
-            if (req.session.accessCodeLoginIn) {
-              try {
-                const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
-                if (req.session.userCase.caseCode && req.session.userCase.accessCode) {
-                  const caseReference = req.session.userCase.caseCode;
-                  const accessCode = req.session.userCase.accessCode;
-                  const data = { applicantCaseName: 'DUMMY CASE DATA' };
-
-                  const linkCaseToCitizenData = await client.linkCaseToCitizen(
-                    req.session.user,
-                    caseReference as string,
-                    req,
-                    accessCode as string,
-                    data
-                  );
-                  req.session.userCase = linkCaseToCitizenData.data;
-                  req.session.accessCodeLoginIn = false;
-                }
-              } catch (err) {
-                req.session.accessCodeLoginIn = false;
-              }
-              return req.session.save(next);
-            }
-          }
-          return next();
-        } else {
-          if (req.originalUrl.includes('.css')) {
             return next();
           }
-          res.redirect(SIGN_IN_URL + `?callback=${encodeURIComponent(req.originalUrl)}`);
-        }
+
+          if (req.session?.user) {
+            res.locals.isLoggedIn = true;
+            req.locals.api = getCaseApi(req.session.user, req.locals.logger);
+
+            if (!req.locals.C100Api) {
+              req.locals.C100Api = caseApi(req.session.user, req.locals.logger);
+            }
+            const c100RebuildLdFlag: boolean =
+              req.session.c100RebuildLdFlag !== undefined
+                ? req.session.c100RebuildLdFlag
+                : (req.session.c100RebuildLdFlag = await getFeatureToggle().isC100reBuildEnabled());
+            //If C100-Rebuild URL is not part of the path, then we need to redirect user to dashboard even if they click on case
+            if (req.path.startsWith(C100_URL)) {
+              if (c100RebuildLdFlag) {
+                return next();
+              } else {
+                return res.redirect(DASHBOARD_URL);
+              }
+            }
+            //If testing support URL is not part of the path, then we need to redirect user to dashboard even if they click on link
+            if (req.path.startsWith(TESTING_SUPPORT)) {
+              if (req.session.testingSupport) {
+                return next();
+              } else {
+                return res.redirect(DASHBOARD_URL);
+              }
+            }
+
+            if (req.session.userCase) {
+              if (req.session.accessCodeLoginIn) {
+                try {
+                  const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+                  if (req.session.userCase.caseCode && req.session.userCase.accessCode) {
+                    const caseReference = req.session.userCase.caseCode;
+                    const accessCode = req.session.userCase.accessCode;
+                    const data = { applicantCaseName: 'DUMMY CASE DATA' };
+
+                    const linkCaseToCitizenData = await client.linkCaseToCitizen(
+                      req.session.user,
+                      caseReference as string,
+                      req,
+                      accessCode as string,
+                      data
+                    );
+                    req.session.userCase = linkCaseToCitizenData.data;
+                    req.session.accessCodeLoginIn = false;
+                  }
+                } catch (err) {
+                  req.session.accessCodeLoginIn = false;
+                }
+                return req.session.save(next);
+              }
+            }
+            return next();
+          } else {
+            if (req.originalUrl.includes('.css')) {
+              return next();
+            }
+            res.redirect(SIGN_IN_URL + `?callback=${encodeURIComponent(req.originalUrl)}`);
+          }
+        });
       })
     );
   }
