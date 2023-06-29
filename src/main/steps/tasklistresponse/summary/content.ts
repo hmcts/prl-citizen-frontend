@@ -331,7 +331,7 @@ export const cyContent: typeof enContent = {
     'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
   errors: {
     declarationCheck: {
-      required: 'Please confirm the declaration -welsh',
+      required: 'Cadarnhewch y datganiad',
     },
   },
   continue: 'Cyflwyno eich ymateb',
@@ -411,7 +411,7 @@ export const cyConsentContent = {
   },
   keys: {
     doYouConsent: 'Ydych chi’n cydsynio i’r cais?',
-    reasonForNotConsenting: 'Give your reasons for not consenting to the application.-welsh',
+    reasonForNotConsenting: 'Rhowch eich rhesymau dros beidio â chydsynio i’r cais.',
     applicationReceivedDate: 'Pryd gawsoch chi’r cais?',
     courtPermission: 'A yw’r ceisydd angen caniatâd gan y llys cyn gwneud ceisiadau?',
     courtOrderDetails: 'Manylion',

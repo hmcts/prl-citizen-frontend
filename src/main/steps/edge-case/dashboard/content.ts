@@ -12,14 +12,14 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Welcome to Citizen dashboard(welsh)',
+  title: 'Croeso i’r dangosfwrdd i ddinasyddion',
   paymentError: '',
   applicant: 'DA Applicant (welsh)',
   respondent: 'CA DA Respondent (welsh)',
   c100: 'C100 Application (welsh)',
   pay: 'Talu Nawr',
-  errorTitle: 'There is a problem (welsh)',
-  paymentErrorText: 'The payment has been unsuccessful (welsh)',
+  errorTitle: 'Mae yna broblem',
+  paymentErrorText: 'Mae’r taliad wedi bod yn aflwyddiannus',
 });
 
 const languages = {

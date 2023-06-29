@@ -50,17 +50,17 @@ const cy: typeof en = {
   continue: 'Parhau',
   errors: {
     courtComfort: {
-      required: 'Select what help you need to feel comfortable during a court hearing',
+      required: 'Dewiswch pa gymorth sydd ei angen arnoch i deimlo’n gyfforddus yn ystod gwrandawiad llys',
     },
     lightingProvideDetails: {
-      required: 'Please describe lighting detail',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      required: 'Disgrifiwch fanylion y goleuadau',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     otherProvideDetails: {
       required: 'Disgrifiwch eich anghenion yn fanwl',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },

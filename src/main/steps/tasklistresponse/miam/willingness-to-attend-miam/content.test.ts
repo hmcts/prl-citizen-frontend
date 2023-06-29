@@ -34,11 +34,11 @@ const cyContent = {
   onlyContinue: 'Parhau',
   errors: {
     miamWillingness: {
-      required: 'Select yes if you are willing to attend a MIAM',
+      required: 'Dewiswch ydw os ydych chi’n fodlon mynychu MIAM',
     },
     miamNotWillingExplnation: {
       required: 'Eglurwch pam',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },

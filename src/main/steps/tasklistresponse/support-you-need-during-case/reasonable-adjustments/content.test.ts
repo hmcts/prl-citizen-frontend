@@ -53,7 +53,7 @@ const cy: typeof en = {
   continue: 'Parhau',
   errors: {
     reasonableAdjustments: {
-      required: 'Please select an answer',
+      required: 'Dewiswch ateb, os gwelwch yn dda',
     },
   },
 };

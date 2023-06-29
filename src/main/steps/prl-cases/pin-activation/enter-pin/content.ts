@@ -45,16 +45,16 @@ const cy = () => ({
   saveAndContinue: 'Cadw a pharhau',
   errors: {
     caseCode: {
-      required: 'Enter your case code -welsh',
-      invalid: 'The case code must be made up of 16 digits -welsh',
-      notNumeric: 'Case code must be numeric -welsh',
-      invalidCaseCode: 'Enter your case code -welsh',
+      required: 'Rhowch eich cod achos',
+      invalid: 'Mae’n rhaid i god yr achos gynnwys 16 digid',
+      notNumeric: 'Rhaid i’ch cod achos fod yn rhif',
+      invalidCaseCode: 'Rhowch eich cod achos',
     },
     accessCode: {
-      required: 'Enter your access code -welsh',
-      invalid: 'The access code must be made up of 8 characters and must be alphanumeric -welsh',
-      accesscodeAlreadyLinked: 'Provided access code is already linked to the case. -welsh',
-      invalidAccessCode: 'Enter your access code -welsh',
+      required: 'Nodwch eich cod mynediad',
+      invalid: 'Mae’n rhaid i’r cod mynediad gynnwys 8 nod a bod yn gyfuniad o rifau a llythrennau',
+      accesscodeAlreadyLinked: 'Mae’r cod mynediad a ddarparwyd eisoes yn gysylltiedig â’r achos.',
+      invalidAccessCode: 'Nodwch eich cod mynediad',
     },
   },
 });

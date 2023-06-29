@@ -28,7 +28,7 @@ const cy: typeof en = {
   continue: 'Parhau',
   errors: {
     start: {
-      required: 'Please select one of the options before proceeding further',
+      required: 'Dewiswch un o’r opsiynau cyn parhau ymhellach',
     },
   },
 };

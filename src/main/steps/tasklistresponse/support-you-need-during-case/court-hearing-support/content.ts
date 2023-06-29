@@ -70,29 +70,29 @@ const cy: typeof en = {
   continue: 'Parhau',
   errors: {
     courtHearing: {
-      required: 'Select what you need to bring support with you to a court hearing',
+      required: 'Dewiswch pa gymorth sydd ei angen arnoch i ddod â rhywun efo chi i’ch cefnogi mewn gwrandawiad llys',
     },
     supportWorkerDetails: {
       required: 'Rhowch fanylion eich gweithiwr cymorth',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     familyProviderDetails: {
       required: 'Rhowch fanylion aelod o’ch teulu',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     therapyDetails: {
       required: 'Rhowch fanylion yr anifail therapi',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     communicationSupportOther: {
       required: 'Rhowch fanylion',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },

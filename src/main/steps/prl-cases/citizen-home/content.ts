@@ -42,18 +42,18 @@ const cy: typeof en = {
   continue: 'Parhau',
   errors: {
     caseCode: {
-      required: 'Enter your case code',
+      required: 'Rhowch eich cod achos',
       invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com',
-      notNumeric: 'Case code must be numeric',
+      notNumeric: 'Rhaid i’ch cod achos fod yn rhif',
       invalidReference:
-        'You have entered the wrong reference number. Check your email and enter it again before continuing.',
+        'Rydych wedi rhoi cyfeirnod annilys. Gwiriwch eich e-bost a mewnbynnwch y cyfeirnod eto cyn parhau.',
     },
     accessCode: {
-      required: 'Enter your access code',
+      required: 'Nodwch eich cod mynediad',
       invalid: 'Rhowch rif ffôn dilys yn y DU',
       invalidAccessCode:
-        'You have entered the wrong access code. Check your email and enter it again before continuing.',
-      accesscodeAlreadyLinked: 'Provided access code is already linked to the case.',
+        'Rydych wedi rhoi cod mynediad sy’n anghywir. Gwiriwch eich e-bost a mewnbynnwch y cod eto cyn parhau.',
+      accesscodeAlreadyLinked: 'Mae’r cod mynediad a ddarparwyd eisoes yn gysylltiedig â’r achos.',
     },
   },
 };

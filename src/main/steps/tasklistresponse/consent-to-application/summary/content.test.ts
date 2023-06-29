@@ -27,10 +27,10 @@ const cyContent: typeof enContent = {
   },
   keys: {
     doYouConsent: 'A ydych chi’n cydsynio i’r cais?',
-    reasonForNotConsenting: 'Give your reasons for not consenting to the application. (welsh)',
+    reasonForNotConsenting: 'Rhowch eich rhesymau dros beidio â chydsynio i’r cais.',
     applicationReceivedDate: "Pryd gawsoch chi'r cais?",
     courtPermission: "A oes angen i'r ceisydd ofyn am ganiatâd gan y llys cyn gwneud ceisiadau?",
-    courtOrderDetails: 'Provide details of the court order in place. (welsh)',
+    courtOrderDetails: 'Rhowch fanylion y gorchymyn llys sydd mewn grym',
   },
 };
 

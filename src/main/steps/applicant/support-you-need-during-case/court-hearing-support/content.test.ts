@@ -75,32 +75,32 @@ const cy: typeof en = {
   continue: 'Parhau',
   errors: {
     courtHearing: {
-      required: 'Select what help you need to bring support with you to a court hearing',
+      required: 'Dewiswch pa gymorth sydd ei angen arnoch i ddod â rhywun efo chi i’ch cefnogi mewn gwrandawiad llys',
     },
     communicationSupportOther: {
       required: 'Rhowch fanylion',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     supportWorkerDetails: {
       required: 'Please provide the support worker details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     familyProviderDetails: {
       required: 'Please provide the family member details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     animalProvideDetails: {
-      required: 'Please provide the therapy animal details',
+      required: 'Rhowch fanylion yr anifail therapi',
     },
     therapyDetails: {
       required: 'Rhowch fanylion yr anifail therapi',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },

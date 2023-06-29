@@ -233,7 +233,7 @@ export const cy: typeof en = {
   onlycontinue: 'Parhau',
   divider: 'neu',
   edit: 'Golygu',
-  appName: '- Private law - GOV.UK (welsh)',
+  appName: '- Cyfraith Breifat - GOV.UK',
   ...appSurveyContents.cy,
   contactUs1:
     'Gallwch <a href="https://www.gov.uk/find-court-tribunal" class="govuk-link" target="blank">gysylltu â’r llys perthnasol</a> os ydych angen trafod eich achos.',

@@ -73,20 +73,20 @@ const cy = {
     },
     hu_otherRiskDetails: {
       required: "Rhowch fanylion y risg sy'n cefnogi'ch angen am wrandawiad brys",
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     hu_timeOfHearingDetails: {
       required: "Nodwch pa mor fuan y mae angen i'r gwrandawiad gael ei gynnal",
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.(Welsh)',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
     hu_hearingWithNext48HrsDetails: {
       required: 'Dewiswch oes os oes angen gwrandawiad arnoch o fewn y 48 awr nesaf',
     },
     hu_hearingWithNext48HrsMsg: {
       required: "Darparwch fanylion yr hyn rydych chi wedi'i wneud i hysbysu’r atebwyr yn eich cais",
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },

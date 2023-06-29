@@ -78,7 +78,7 @@ export const cy = () => ({
     },
     canNotProvideTelephoneNumberReason: {
       required: 'Dywedwch wrthym pam na allwch ddarparu rhif ffôn',
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
     canLeaveVoiceMail: {
       required: 'Dewiswch opsiwn ar gyfer neges llais',

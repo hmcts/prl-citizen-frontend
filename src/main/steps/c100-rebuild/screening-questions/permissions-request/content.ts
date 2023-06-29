@@ -23,7 +23,7 @@ export const cy = () => ({
   errors: {
     sq_permissionsRequest: {
       required: "Esboniwch pam y dylai'r llys roi caniatâd i chi gyflwyno'r cais hwn",
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
