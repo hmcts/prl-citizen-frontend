@@ -1,7 +1,7 @@
 //import { isObject } from 'lodash';
 
-import { CaseDate, CaseWithId } from '../../../../app/case/case';
-import { test } from '../../../../app/case/definition';
+import { Case, CaseDate, CaseWithId } from '../../../../app/case/case';
+import { DynamicMultiSelectListElement, test } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { AnyObject } from '../../../../app/controller/PostController';
@@ -160,16 +160,46 @@ const getParties = (userCase: Partial<CaseWithId>) => {
   return parties;
 };
 
-export const prepateStatementOfServiceRequest = (req: AppRequest<AnyObject>): Partial<CaseWithId> => {
+export const prepateStatementOfServiceRequest = (
+  req: AppRequest<AnyObject>,
+  formData: Partial<Case>
+): Partial<CaseWithId> => {
   const userCase = req.session.userCase;
-  userCase.partiesServed = req.body.partiesServed as string[];
+  userCase.partiesServed = formData.partiesServed as string[];
   userCase.partiesServed = userCase.partiesServed.filter(party => party !== '');
-  userCase.partiesServedDate = typeof req.body.partiesServedDate === 'string' ? req.body.partiesServedDate : '';
-  userCase.partiesServedDate = req.body.partiesServedDate as string;
+
   if (userCase && userCase.applicants && userCase.applicants[0].value.response) {
     userCase.applicants[0].value.response.citizenFlags!.isStatementOfTruthProvided = 'Yes';
+    const response = userCase.applicants[0].value.response;
+    if (formData.partiesServedDate) {
+      const date = formData.partiesServedDate as unknown;
+      const date2 = date as { day: string; month: string; year: string };
+      response.partiesServedDate = date2.day + '-' + date2.month + '-' + date2.year;
+    }
+    if (userCase.partiesServed) {
+      response.partiesServed = {
+        list_items: [],
+        value: [...getPartiesById(userCase.partiesServed, userCase)],
+      };
+    }
+    userCase.applicants[0].value.response = response;
   }
   return userCase;
+};
+
+export const getPartiesById = (parties: string[], userCase: Partial<CaseWithId>): DynamicMultiSelectListElement[] => {
+  const partyList = getParties(userCase);
+  const elements: DynamicMultiSelectListElement[] = [];
+  partyList.forEach(party => {
+    if (parties.includes(party.id)) {
+      const dynamicListElement: DynamicMultiSelectListElement = {
+        code: party.id,
+        label: party.value,
+      };
+      elements.push(dynamicListElement);
+    }
+  });
+  return elements;
 };
 
 export const generateContent: TranslationFn = content => {
@@ -182,4 +212,12 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     form: updateFormFields(form, generateFormFields(parties).fields),
   };
+};
+
+export const getFormFields = (userCase: Partial<CaseWithId>): FormContent => {
+  let parties: { id: string; value: string }[] = [];
+  if (userCase) {
+    parties = getParties(userCase);
+  }
+  return updateFormFields(form, generateFormFields(parties).fields);
 };

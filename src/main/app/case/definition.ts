@@ -127,6 +127,18 @@ export interface Response {
   supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
+  partiesServed?: DynamicMultiSelectList;
+  partiesServedDate?: string;
+}
+
+export interface DynamicMultiSelectList {
+  list_items: DynamicMultiSelectListElement[];
+  value: DynamicMultiSelectListElement[];
+}
+
+export interface DynamicMultiSelectListElement {
+  code: string;
+  label: string;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -978,8 +990,6 @@ export interface CaseData {
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
   draftOrderDoc?: Document;
-  partiesServed?: string[];
-  partiesServedDate?: string;
 }
 
 export const enum SelectTypeOfOrderEnum {
