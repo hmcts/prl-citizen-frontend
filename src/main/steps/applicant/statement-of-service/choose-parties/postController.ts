@@ -37,7 +37,10 @@ export default class StatementOfServicePostController extends PostController<Any
     const partyDetails = getPartyDetails(userCase, user.id);
     const client = new CosApiClient(user.accessToken, 'https://return-url');
     if (partyDetails) {
-      Object.assign(partyDetails, prepateStatementOfServiceRequest(req, formData));
+      const userData = prepateStatementOfServiceRequest(req, formData);
+      if (userData && userData.applicants) {
+        Object.assign(partyDetails, userData.applicants[0]);
+      }
       try {
         req.session.userCase = await client.updateCaseData(
           user,
