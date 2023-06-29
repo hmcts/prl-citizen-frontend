@@ -1,6 +1,6 @@
 import { capitalize } from 'lodash';
 
-import { CaseWithId } from '../../app/case/case';
+import { CaseWithId, LanguagePreference } from '../../app/case/case';
 import { C100_CASE_TYPE, YesNoEmpty } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
 import { ANONYMOUS_URLS, C100_URL, DASHBOARD_URL } from '../../steps/urls';
@@ -354,13 +354,13 @@ export type CommonContent = typeof en & {
 
 export type Language = 'en' | 'cy';
 //eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function languagePreffered(userCase) {
+export function getDocDownloadLangPrefrence(userCase) {
   if (
     userCase?.welshLanguageRequirement === YesNoEmpty.YES &&
-    userCase?.welshLanguageRequirementApplication === 'welsh'
+    userCase?.welshLanguageRequirementApplication === LanguagePreference.Welsh
   ) {
-    return true;
+    return LanguagePreference.Welsh;
   } else {
-    false;
+    LanguagePreference.English;
   }
 }

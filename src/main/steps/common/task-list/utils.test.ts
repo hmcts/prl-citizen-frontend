@@ -299,6 +299,11 @@ describe('testcase for isCaseWithdrawn', () => {
               document_filename: '',
               document_binary_url: '',
             },
+            orderDocumentWelsh: {
+              document_url: '',
+              document_binary_url: '',
+              document_filename: '',
+            },
             otherDetails: {
               createdBy: '',
               orderCreatedDate: '',

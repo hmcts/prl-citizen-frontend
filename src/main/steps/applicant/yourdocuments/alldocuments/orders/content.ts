@@ -1,7 +1,8 @@
 import { APPLICANT_ORDERS_FROM_THE_COURT } from '../../../../../../main/steps/urls';
+import { LanguagePreference } from '../../../../../app/case/case';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { languagePreffered } from '../../../../common/common.content';
+import { getDocDownloadLangPrefrence } from '../../../../common/common.content';
 
 const en = () => {
   return {
@@ -46,29 +47,40 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
   for (const doc of content.userCase?.orderCollection || []) {
-    const uid = doc.value.orderDocument.document_url.substring(
-      doc.value.orderDocument.document_url.lastIndexOf('/') + 1
-    );
-    const uidWelsh = doc.value.orderDocumentWelsh.document_url.substring(
-      doc.value.orderDocumentWelsh.document_url.lastIndexOf('/') + 1
-    );
-    console.log(uid);
-    console.log(uidWelsh);
-    //const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
-    // console.log(content.userCase?.welshLanguageRequirementApplication)
-    if (languagePreffered(content.userCase)) {
-      orders.push({
-        href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uidWelsh}`,
-        createdDate: doc.value.otherDetails.orderCreatedDate,
-        fileName: doc.value.orderDocumentWelsh.document_filename,
-      });
-    } else {
-      orders.push({
-        href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
-        createdDate: doc.value.otherDetails.orderCreatedDate,
-        fileName: doc.value.orderDocument.document_filename,
-      });
-    }
+    // const uid = doc.value.orderDocument.document_url.substring(
+    //   doc.value.orderDocument.document_url.lastIndexOf('/') + 1
+    // );
+    // const uidWelsh = doc.value.orderDocumentWelsh.document_url.substring(
+    //   doc.value.orderDocumentWelsh.document_url.lastIndexOf('/') + 1
+    // );
+    // if (getDocDownloadLangPrefrence(content.userCase) === LanguagePreference.Welsh) {
+    //   orders.push({
+    //     href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uidWelsh}`,
+    //     createdDate: doc.value.otherDetails.orderCreatedDate,
+    //     fileName: doc.value.orderDocumentWelsh.document_filename,
+    //   });
+    // } else {
+    //   orders.push({
+    //     href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
+    //     createdDate: doc.value.otherDetails.orderCreatedDate,
+    //     fileName: doc.value.orderDocument.document_filename,
+    //   });
+    // }
+    const uid =
+      getDocDownloadLangPrefrence(content.userCase) === LanguagePreference.Welsh
+        ? doc.value.orderDocumentWelsh.document_url.substring(
+            doc.value.orderDocumentWelsh.document_url.lastIndexOf('/') + 1
+          )
+        : doc.value.orderDocument.document_url.substring(doc.value.orderDocument.document_url.lastIndexOf('/') + 1);
+    const element =
+      getDocDownloadLangPrefrence(content.userCase) === LanguagePreference.Welsh
+        ? 'orderDocumentWelsh'
+        : 'orderDocument';
+    orders.push({
+      href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
+      createdDate: doc.value.otherDetails.orderCreatedDate,
+      fileName: doc.value[`${element}`].document_filename,
+    });
   }
 
   return {

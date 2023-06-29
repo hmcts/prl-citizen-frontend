@@ -2394,10 +2394,10 @@ export const enum Gender {
 }
 
 export interface PRLDocument {
-  [x: string]: any;
   dateCreated: DateAsString;
   orderType: string;
   orderDocument: Document;
+  orderDocumentWelsh:Document;
   otherDetails: OtherDetails;
   orderTypeId?: string;
   isWithdrawnRequestApproved?: YesOrNo

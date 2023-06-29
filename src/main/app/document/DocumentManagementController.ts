@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import type { Response } from 'express';
 
-import { languagePreffered } from '../../steps/common/common.content';
+import { getDocDownloadLangPrefrence } from '../../steps/common/common.content';
 import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
 import {
   APPLICANT,
@@ -17,7 +17,7 @@ import {
 } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CosApiClient, UploadDocumentRequest } from '../case/CosApiClient';
-import { CaseWithId } from '../case/case';
+import { CaseWithId, LanguagePreference } from '../case/case';
 import {
   Applicant,
   CaseType,
@@ -259,7 +259,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     try {
       const originalUrl = req.originalUrl;
-
       if (originalUrl !== null && originalUrl !== undefined && originalUrl.length > 0) {
         filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
         const itemlist = originalUrl.toString().split('/');
@@ -402,30 +401,14 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
       if (endPoint.includes(endPoint_input) && req.session.userCase[`${element}`]) {
         for (const doc of req.session.userCase[`${element}`]) {
-          if (languagePreffered(req.session.userCase)) {
-            if (
-              doc.value[`${childElement1}`]?.document_url?.substring(
-                doc.value[`${childElement1}`]?.document_url?.lastIndexOf('/') + 1
-              ) === filename
-            ) {
-              if (!doc.value[`${childElement1}`].document_binary_url) {
-                throw new Error('Binary URL is not found for ' + element + ':' + childElement1);
-              }
-              documentToGet = doc.value[`${childElement1}`].document_binary_url;
-              filename = doc.value[`${childElement1}`].document_filename;
+          if (getDocDownloadLangPrefrence(req.session.userCase) === LanguagePreference.Welsh) {
+            if (matchFilename(doc, childElement1)) {
+              updateValue(doc, childElement1, element);
               break;
             }
           } else {
-            if (
-              doc.value[`${childElement}`]?.document_url?.substring(
-                doc.value[`${childElement}`]?.document_url?.lastIndexOf('/') + 1
-              ) === filename
-            ) {
-              if (!doc.value[`${childElement}`].document_binary_url) {
-                throw new Error('Binary URL is not found for ' + element + ':' + childElement);
-              }
-              documentToGet = doc.value[`${childElement}`].document_binary_url;
-              filename = doc.value[`${childElement}`].document_filename;
+            if (matchFilename(doc, childElement)) {
+              updateValue(doc, childElement, element);
               break;
             }
           }
@@ -434,6 +417,25 @@ export class DocumentManagerController extends PostController<AnyObject> {
       }
     }
     return { uid, filename };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function updateValue(doc: any, childEle: string, element: string) {
+      if (!doc.value[`${childEle}`].document_binary_url) {
+        throw new Error('Binary URL is not found for ' + element + ':' + childEle);
+      }
+      documentToGet = doc.value[`${childEle}`].document_binary_url;
+      filename = doc.value[`${childEle}`].document_filename;
+      console.log(filename);
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function matchFilename(doc: any, childEle: string) {
+      return (
+        doc.value[`${childEle}`]?.document_url?.substring(
+          doc.value[`${childEle}`]?.document_url?.lastIndexOf('/') + 1
+        ) === filename
+      );
+    }
   }
 
   private getDocumentUIDWithOutFlag(
@@ -445,34 +447,28 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let documentToGet = '';
     let ele = '';
     let ele1 = '';
-    const document_filename = req.session.userCase[`${element}`]?.document_filename;
-
+    let document_filename = '';
     if (element !== null && element !== undefined) {
       ele = element[0];
       ele1 = element[1];
-      if (ele1 && languagePreffered(req.session.userCase)) {
-        if (!req.session.userCase[`${ele1}`]?.document_binary_url) {
-          throw new Error('binary url is not found for ' + document_filename);
-        }
-        documentToGet = req.session.userCase[`${ele1}`]?.document_binary_url;
-        uid = this.getUID(documentToGet);
-
-        if (flag !== null || flag !== undefined) {
-          flag = YesOrNo.YES;
-        }
-      } else {
-        if (!req.session.userCase[`${ele}`]?.document_binary_url) {
-          throw new Error('binary url is not found for ' + document_filename);
-        }
-        documentToGet = req.session.userCase[`${ele}`]?.document_binary_url;
-        uid = this.getUID(documentToGet);
-
-        if (flag !== null || flag !== undefined) {
-          flag = YesOrNo.YES;
-        }
-      }
+      ele1 && getDocDownloadLangPrefrence(req.session.userCase) === LanguagePreference.Welsh
+        ? updateUidAndFileName(ele1)
+        : updateUidAndFileName(ele);
     }
     return { uid, filename: document_filename };
+
+    function updateUidAndFileName(elem: string) {
+      document_filename = req.session.userCase[`${elem}`]?.document_filename;
+      if (!req.session.userCase[`${elem}`]?.document_binary_url) {
+        throw new Error('binary url is not found for ' + document_filename);
+      }
+      documentToGet = req.session.userCase[`${elem}`]?.document_binary_url;
+      uid = documentToGet.replace('/binary', '').substring(documentToGet.replace('/binary', '').length - UID_LENGTH);
+
+      if (flag !== null || flag !== undefined) {
+        flag = YesOrNo.YES;
+      }
+    }
   }
 
   private async setFlagViewed(
