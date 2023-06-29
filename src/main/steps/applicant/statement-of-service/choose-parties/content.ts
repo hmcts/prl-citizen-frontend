@@ -1,9 +1,10 @@
 //import { isObject } from 'lodash';
 
-import { CommonContent } from '../../../../../main/steps/common/common.content';
-import { CaseDate } from '../../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../../app/case/case';
 import { test } from '../../../../app/case/definition';
+import { AppRequest } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { AnyObject } from '../../../../app/controller/PostController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
 import {
@@ -118,7 +119,7 @@ export const generateFormFields = (parties: test[]): GenerateDynamicFormFields =
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
         },
       ],
-      parser: body => covertToDateObject('citizenUserDateOfBirth', body as Record<string, unknown>),
+      parser: body => covertToDateObject('partiesServedDate', body as Record<string, unknown>),
       validator: value =>
         areDateFieldsFilledIn(value as CaseDate) ||
         isDateInputInvalid(value as CaseDate) ||
@@ -137,23 +138,20 @@ export const generateFormFields = (parties: test[]): GenerateDynamicFormFields =
 
 export const form: FormContent = {
   fields: {},
-  onlycontinue: {
+  onlyContinue: {
     text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
   },
 };
 
-const getParties = (content: CommonContent) => {
+const getParties = (userCase: Partial<CaseWithId>) => {
   const parties: { id: string; value: string }[] = [];
-  content.userCase?.respondents?.forEach(respondent =>
+  userCase?.respondents?.forEach(respondent =>
     parties.push({
       id: respondent.id,
       value: respondent.value.firstName + ' ' + respondent.value.lastName,
     })
   );
-  content.userCase?.applicants?.forEach(applicant =>
+  userCase?.applicants?.forEach(applicant =>
     parties.push({
       id: applicant.id,
       value: applicant.value.firstName + ' ' + applicant.value.lastName,
@@ -162,9 +160,24 @@ const getParties = (content: CommonContent) => {
   return parties;
 };
 
+export const prepateStatementOfServiceRequest = (req: AppRequest<AnyObject>): Partial<CaseWithId> => {
+  const userCase = req.session.userCase;
+  userCase.partiesServed = req.body.partiesServed as string[];
+  userCase.partiesServed = userCase.partiesServed.filter(party => party !== '');
+  userCase.partiesServedDate = typeof req.body.partiesServedDate === 'string' ? req.body.partiesServedDate : '';
+  userCase.partiesServedDate = req.body.partiesServedDate as string;
+  if (userCase && userCase.applicants && userCase.applicants[0].value.response) {
+    userCase.applicants[0].value.response.citizenFlags!.isStatementOfTruthProvided = 'Yes';
+  }
+  return userCase;
+};
+
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const parties: { id: string; value: string }[] = getParties(content);
+  let parties: { id: string; value: string }[] = [];
+  if (content.userCase) {
+    parties = getParties(content.userCase);
+  }
   return {
     ...translations,
     form: updateFormFields(form, generateFormFields(parties).fields),

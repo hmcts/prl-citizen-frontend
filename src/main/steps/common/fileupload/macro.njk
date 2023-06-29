@@ -34,7 +34,10 @@
 <form action="{{params.formPostURL}}?_csrf={{ params.csrfToken }}" method="post" enctype="multipart/form-data">
 <input type="hidden" name="_csrf" id="csrfToken" value="{{ params.csrfToken }}">
 {% set selectedFileType = "image/jpeg,image/tiff,image/png,application/pdf,image/jpg,image/bmp,image/tif,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"%}
-
+<label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
+  {{params.uploadFileHeader}}
+  <span class="govuk-caption-l">{{params.fileUploadedHint}}</span>
+</label>
 {{ govukFileUpload({
   id: "document",
   name: "documents",

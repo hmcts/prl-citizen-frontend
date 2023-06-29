@@ -146,6 +146,15 @@ export default {
     firstName: 'test',
     lastName: 'test',
   },
-  applicants: [],
+  applicants: [
+    {
+      id: '1234',
+      value: {
+        response: {
+          citizenFlags: {},
+        },
+      },
+    },
+  ],
   id: '1234',
 } as unknown as CaseWithId;

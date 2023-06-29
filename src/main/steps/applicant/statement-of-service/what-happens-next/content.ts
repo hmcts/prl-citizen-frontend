@@ -6,7 +6,6 @@ export const en = {
   title: 'What happens next',
   courtwillcontactlabel: 'The court will contact you with details of what happens next',
   cafcassinvolvedlabel: 'If Cafcass are involved in this case, they will provide the court with a safeguarding letter',
-  whowasserved: 'Who was served?',
   continue: 'Continue',
 };
 
@@ -15,7 +14,6 @@ export const cy = {
   title: 'What happens next',
   courtwillcontactlabel: 'The court will contact you with details of what happens next',
   cafcassinvolvedlabel: 'If Cafcass are involved in this case, they will provide the court with a safeguarding letter',
-  whowasserved: 'Who was served?',
   continue: 'Continue',
 };
 

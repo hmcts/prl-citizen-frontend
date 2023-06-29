@@ -5,7 +5,7 @@ import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(applicantCaseSequence).toHaveLength(95);
+    expect(applicantCaseSequence).toHaveLength(98);
 
     expect(applicantCaseSequence[0].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');
@@ -458,6 +458,18 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[94].url).toBe('/applicant/remove-legal-representative/confirm');
     expect(applicantCaseSequence[94].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[94].getNextStep({})).toBe('/applicant/task-list');
+
+    expect(applicantCaseSequence[95].url).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[95].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[95].getNextStep({})).toBe('/applicant/statement-of-service/choose-parties');
+
+    expect(applicantCaseSequence[96].url).toBe('/applicant/statement-of-service/choose-parties');
+    expect(applicantCaseSequence[96].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[96].getNextStep({})).toBe('/applicant/statement-of-service/what-happens-next');
+
+    expect(applicantCaseSequence[97].url).toBe('/applicant/statement-of-service/what-happens-next');
+    expect(applicantCaseSequence[97].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[97].getNextStep({})).toBe('/applicant/task-list');
   });
 });
 

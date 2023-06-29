@@ -683,7 +683,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       Object.assign(req.session.userCase, caseDataFromCos);
       req.session.errors = [];
     }
-    if (req.query && req.query.isSos === 'Yes') {
+    if (req.query && req.query.isSos) {
       this.redirect(req, res, APPLICANT_STATEMENT_OF_SERVICE);
     } else {
       this.redirect(req, res, this.setRedirectUrl(isApplicant, req));

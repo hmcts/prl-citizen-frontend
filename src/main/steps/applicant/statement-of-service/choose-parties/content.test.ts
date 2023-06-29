@@ -27,43 +27,15 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.section).toEqual('Provide the document');
-    expect(generatedContent.title).toEqual('Provide the documents');
-    expect(generatedContent.declaration).toEqual('I believe that the facts stated in these documents are true');
-    expect(generatedContent.consent).toEqual(
-      'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.'
-    );
+    expect(generatedContent.caption).toEqual('Case number ');
+    expect(generatedContent.title).toEqual('Add a statement of service');
+    expect(generatedContent.whowasserved).toEqual('Who was served?');
     expect(generatedContent.continue).toEqual('Continue');
     expect(generatedContent.add).toEqual('Submit');
     expect(generatedContent.uploadFiles).toEqual('Your documents');
     expect(generatedContent.remove).toEqual('Remove');
-    expect(generatedContent.textAreaDocUploadText1).toEqual('You can use this box to:');
-    expect(generatedContent.textAreaDocUploadText2).toEqual(
-      'write a statement if you do not want to upload a document'
-    );
-    expect(generatedContent.textAreaDocUploadText3).toEqual(
-      'give the court more information about the documents you are uploading'
-    );
     expect(generatedContent.uplodFileText1).toEqual(
-      'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.'
-    );
-    expect(generatedContent.uplodFileText2).toEqual('Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.');
-    expect(generatedContent.uplodFileText3).toEqual('How to take a picture of a document on your phone and upload it');
-    expect(generatedContent.uplodFileText4).toEqual(
-      'Place your document on a flat service in a well-lit room. Use a flash if you need to.'
-    );
-    expect(generatedContent.uplodFileText5).toEqual(
-      'Take a picture of the whole document. You should be able to see its edges.'
-    );
-    expect(generatedContent.uplodFileText6).toEqual('Check you can read all the writing, including the handwriting.');
-    expect(generatedContent.uplodFileText7).toEqual('Email or send the photo or scan to the device you are using now.');
-    expect(generatedContent.uplodFileText8).toEqual('Upload it here.');
-    expect(generatedContent.uploadFileHeading).toEqual('Upload a file');
-    expect(generatedContent.uploadFile).toEqual('Upload file');
-    expect(generatedContent.statementOfTruth).toEqual('Statement of truth');
-    expect(generatedContent.warning).toEqual('Warning');
-    expect(generatedContent.warningText).toEqual(
-      'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.'
+      'when uploading documents, name the files clearly. For example, position-statement.doc. Files must end with JPG,BMP,PNG,TIF,PDF,DOC,or DOCX.'
     );
   });
 
@@ -82,15 +54,13 @@ describe('citizen-home content', () => {
   });
 
   test('should contain continue checkboxes', () => {
-    const declarationCheckFields = fields.declarationCheck;
-    expect(declarationCheckFields.type).toBe('checkboxes');
-    expect(declarationCheckFields.values[0].value).toBe('declaration');
-    expect((declarationCheckFields.values[0].label as Function)(generatedContent)).toBe(en.declaration);
-    expect(declarationCheckFields.validator).toBe(atLeastOneFieldIsChecked);
+    const partiesServed = fields.partiesServed;
+    expect(partiesServed.type).toBe('checkboxes');
+    expect(partiesServed.validator).toBe(atLeastOneFieldIsChecked);
 
-    const consentConfirmFields = fields.consentConfirm;
-    expect(consentConfirmFields.type).toBe('label');
-    expect((consentConfirmFields.label as Function)(generatedContent)).toBe(en.consent);
+    const partiesServedDate = fields.partiesServedDate;
+    expect(partiesServedDate.type).toBe('date');
+    expect((partiesServedDate.label as Function)(generatedContent)).toBe(en.servedDate);
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
