@@ -1,5 +1,9 @@
 import { CaseType } from '../../../../../app/case/definition';
-import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_STATEMENT_OF_SERVICE, APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../../../steps/urls';
+import {
+  APPLICANT_ORDERS_FROM_THE_COURT,
+  APPLICANT_STATEMENT_OF_SERVICE,
+  APPLICANT_VIEW_ALL_DOCUMENTS,
+} from '../../../../../steps/urls';
 
 const en = {
   title: 'Important',
