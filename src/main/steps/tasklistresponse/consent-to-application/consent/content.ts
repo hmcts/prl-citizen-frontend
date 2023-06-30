@@ -73,13 +73,13 @@ const cy: typeof en = {
       required: 'Rhowch reswm, os gwelwch yn dda',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Special characters <,>,{,} are not allowed.',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     courtOrderDetails: {
       required: 'Rhowch fanylion y llys',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Special characters <,>,{,} are not allowed.',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     applicationReceivedDate: {
       required: 'Rhowch ddyddiad derbyn y cais',

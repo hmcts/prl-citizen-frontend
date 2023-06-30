@@ -74,25 +74,25 @@ const cy: typeof en = {
       required: 'Rhowch fanylion eich gweithiwr cymorth',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     familyProviderDetails: {
       required: 'Rhowch fanylion aelod o’ch teulu',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     therapyDetails: {
       required: 'Rhowch fanylion yr anifail therapi',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     communicationSupportOther: {
       required: 'Rhowch fanylion',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };

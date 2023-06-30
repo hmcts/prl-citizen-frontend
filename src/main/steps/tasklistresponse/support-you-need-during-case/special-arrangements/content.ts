@@ -61,7 +61,7 @@ const cy: typeof en = {
       required: 'Disgrifiwch eich anghenion yn fanwl',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };
