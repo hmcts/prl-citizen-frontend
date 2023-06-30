@@ -13,12 +13,14 @@ module.exports = {
 
   },
   async gettingStarted() {
+    I.wait('4');
     await I.retry(retryCount).waitForText('What you’ll need to complete your application' , 30);
     I.wait('2');
     await I.retry(retryCount).click('Continue');
     I.wait('4');
   },
   async enterCaseName() {
+    I.wait('4');
     await I.retry(retryCount).waitForText('Enter Case Name' , 60);
     I.wait('2');
     await I.retry(retryCount).fillField(this.fields.caseName, this.fields.caseNameDetails);
@@ -26,6 +28,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
   async childrensPostcode() {
+    I.wait('4');
     await I.retry(retryCount).waitForText('Where do the children live?' , 30);
     I.wait('2');
     await I.retry(retryCount).fillField(this.fields.childrenPostcodeDetails, this.fields.childPostcode);

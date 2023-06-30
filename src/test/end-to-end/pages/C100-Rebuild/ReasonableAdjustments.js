@@ -18,6 +18,7 @@ module.exports = {
     
   },
   async typeOfHearing() {
+    I.wait('4');
     await I.retry(retryCount).waitForText(ReasonableAdjustments.typeOfHearingPageTitle , 30);
     await I.retry(retryCount).waitForSelector(this.fields.typeOfHearingVideo, 30);
     await I.retry(retryCount).click(this.fields.typeOfHearingVideo);
@@ -27,12 +28,14 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
   async languageNeeds() {
+    I.wait('4');
     await I.retry(retryCount).waitForText(ReasonableAdjustments.languageNeedsPageTitle , 30);
     await I.retry(retryCount).click(this.fields.noLanguageRequirementsButton);
     I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async specialArrangements() {
+    I.wait('4');
     await I.retry(retryCount).waitForText(ReasonableAdjustments.specialArrangementsPageTitle , 30);
     await I.retry(retryCount).click(this.fields.separateWaitingRoom);
     I.wait('2');
@@ -43,6 +46,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
   async disabilityRequirements() {
+    I.wait('4');
     await I.retry(retryCount).waitForText(ReasonableAdjustments.disabilityRequirementsPageTitle , 30);
     await I.retry(retryCount).click(this.fields.documentAlternateFormat);
     await I.retry(retryCount).click(this.fields.bringSupport);
@@ -50,6 +54,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
   async documentInformation() {
+    I.wait('4');
     await I.retry(retryCount).waitForText(ReasonableAdjustments.documentInformationPageTitle , 30);
     await I.retry(retryCount).click(this.fields.documentColour);
     await I.retry(retryCount).fillField(this.fields.documentColourDetails, ReasonableAdjustments.documentColourYellow);
@@ -58,6 +63,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
   async bringSupport(){
+    I.wait('4');
     await I.retry(retryCount).waitForText(ReasonableAdjustments.bringSupportTitle , 30);
     await I.retry(retryCount).click(this.fields.guideDog);
     I.wait('2');

@@ -7,6 +7,7 @@ module.exports = {
         statementOfTruthYes: '//*[@id="statementOfTruth"]',    
     },
     async checkYourAnswersSimple() {
+        I.wait('4');
         await I.retry(retryCount).waitForText(CYA.cyaTitle , 30);
         await I.retry(retryCount).waitForText(CYA.caseName , 30);
         await I.retry(retryCount).waitForText(CYA.statementOfTruth , 30);
