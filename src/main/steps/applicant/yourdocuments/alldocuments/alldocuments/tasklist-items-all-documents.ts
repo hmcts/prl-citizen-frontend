@@ -76,8 +76,7 @@ export const applicant_tasklist_items_all_docs_cy = {
   tenancy_and_mortgage_availability: 'Tenantiaeth a morgais',
   respondent_response_to_request_for_child_arrangements: 'Ymateb  <namerespondentxxxxx> i’r cais am drefniadau plant',
   respondent_response_for_domestic_abuse: "<namerespondentxxxxx>'s response to the request for domestic abuse -welsh",
-  respondent_response_to_allegations_of_harm_and_violence:
-    "<namerespondentxxxxx>'s response to the allegations of harm and violence -welsh",
+  respondent_response_to_allegations_of_harm_and_violence: 'Ymateb <namerespondentxxxxx>i’r honiadau o niwed a thrais',
   respondent_allegation_of_harm_and_violence: 'Honiadau <namerespondentxxxxx> o niwed a thrais',
   applications_made_in_these_proceedings_respondent: 'Ceisiadau a wnaed yn yr achos hwn',
   previous_orders_submitted_respondent: 'Gorchmynion blaenorol a gyflwynwyd gyda’r cais',
