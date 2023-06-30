@@ -425,7 +425,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
       }
       documentToGet = doc.value[`${childEle}`].document_binary_url;
       filename = doc.value[`${childEle}`].document_filename;
-      console.log(filename);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

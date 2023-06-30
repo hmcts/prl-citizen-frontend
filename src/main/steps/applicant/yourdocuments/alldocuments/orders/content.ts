@@ -47,25 +47,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
   for (const doc of content.userCase?.orderCollection || []) {
-    // const uid = doc.value.orderDocument.document_url.substring(
-    //   doc.value.orderDocument.document_url.lastIndexOf('/') + 1
-    // );
-    // const uidWelsh = doc.value.orderDocumentWelsh.document_url.substring(
-    //   doc.value.orderDocumentWelsh.document_url.lastIndexOf('/') + 1
-    // );
-    // if (getDocDownloadLangPrefrence(content.userCase) === LanguagePreference.Welsh) {
-    //   orders.push({
-    //     href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uidWelsh}`,
-    //     createdDate: doc.value.otherDetails.orderCreatedDate,
-    //     fileName: doc.value.orderDocumentWelsh.document_filename,
-    //   });
-    // } else {
-    //   orders.push({
-    //     href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
-    //     createdDate: doc.value.otherDetails.orderCreatedDate,
-    //     fileName: doc.value.orderDocument.document_filename,
-    //   });
-    // }
     const uid =
       getDocDownloadLangPrefrence(content.userCase) === LanguagePreference.Welsh
         ? doc.value.orderDocumentWelsh.document_url.substring(
