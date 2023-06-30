@@ -3,6 +3,7 @@ import { AWPApplicationReason, AWPApplicationType, YesOrNo } from '../app/case/d
 import { applyParms } from './common/url-parser';
 import { Sections, Step } from './constants';
 import {
+  APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
   APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
   APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
@@ -32,16 +33,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
     showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: (caseData, req) =>
-      caseData.awp_completedForm === YesOrNo.NO
-        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM, {
-            applicationType: req?.params.applicationType as AWPApplicationType,
-            applicationReason: req?.params.applicationReason as AWPApplicationReason,
-          }) as PageLink)
-        : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
-            applicationType: req?.params.applicationType as AWPApplicationType,
-            applicationReason: req?.params.applicationReason as AWPApplicationReason,
-          }) as PageLink),
+    getNextStep: (caseData, req) => getUploadApplicationNextStep(caseData, req),
   },
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
@@ -51,6 +43,11 @@ export const applicationWithinProceedingsSequence: Step[] = [
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
+  },
+  {
+    url: APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (caseData, req) => getAgreementForRequestNextStep(caseData, req),
   },
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
@@ -84,3 +81,69 @@ export const applicationWithinProceedingsSequence: Step[] = [
       }) as PageLink,
   },
 ];
+
+const getUploadApplicationNextStep = (caseData, req) => {
+  const applicationType = req?.params.applicationType as AWPApplicationType;
+  const applicationReason = req?.params.applicationReason as AWPApplicationReason;
+  const applicationFee = req?.session.applicationSettings.awpSelectedApplicationDetails.applicationFee;
+
+  const c2ApplicationNextStep =
+    applicationReason === AWPApplicationReason.DELAY_CANCEL_HEARING_DATE
+      ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
+          applicationType,
+          applicationReason,
+        }) as PageLink)
+      : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST, {
+          applicationType,
+          applicationReason,
+        }) as PageLink);
+
+  const otherApplicationNextStep =
+    applicationFee === '£0'
+      ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
+          applicationType,
+          applicationReason,
+        }) as PageLink)
+      : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES, {
+          applicationType,
+          applicationReason,
+        }) as PageLink);
+
+  const yesNextStep = applicationType === AWPApplicationType.C2 ? c2ApplicationNextStep : otherApplicationNextStep;
+  const noNextStep = applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM, {
+    applicationType: req?.params.applicationType as AWPApplicationType,
+    applicationReason: req?.params.applicationReason as AWPApplicationReason,
+  }) as PageLink;
+
+  return caseData.awp_completedForm === YesOrNo.NO ? noNextStep : yesNextStep;
+};
+
+const getAgreementForRequestNextStep = (caseData, req) => {
+  const applicationType = req?.params.applicationType as AWPApplicationType;
+  const applicationReason = req?.params.applicationReason as AWPApplicationReason;
+  const applicationFee = req?.session.applicationSettings.awpSelectedApplicationDetails.applicationFee;
+
+  const delayOrCancelStep =
+    applicationFee === '£0'
+      ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST, {
+          applicationType,
+          applicationReason,
+        }) as PageLink)
+      : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES, {
+          applicationType,
+          applicationReason,
+        }) as PageLink);
+
+  const otherC2NextStep =
+    caseData.awp_agreementForRequest === YesOrNo.YES
+      ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES, {
+          applicationType,
+          applicationReason,
+        }) as PageLink)
+      : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST, {
+          applicationType,
+          applicationReason,
+        }) as PageLink);
+
+  return applicationReason === AWPApplicationReason.DELAY_CANCEL_HEARING_DATE ? delayOrCancelStep : otherC2NextStep;
+};
