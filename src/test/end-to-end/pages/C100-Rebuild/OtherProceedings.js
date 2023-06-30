@@ -16,31 +16,32 @@ module.exports = {
     copyOfOrderNo: '//*[@id="orderCopy-1-2"]',
   },
    async otherProceedingPage() {
-    await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingPageTitle);
-    await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingTopSubHeading);
+    await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingPageTitle , 30);
+    await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingTopSubHeading , 30);
     await I.retry(retryCount).click(this.fields.childrenInvolvedCourtCaseYesButton);
-    await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingBottomSubHeading);
+    await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingBottomSubHeading , 30);
+    I.wait('2');
     await I.retry(retryCount).click(this.fields.courtOrderProtectionYesButton);
     I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async proceedingDetails() {
-    await I.retry(retryCount).waitForText(OtherProceedings.proceedingDetailsPageTitle);
+    await I.retry(retryCount).waitForText(OtherProceedings.proceedingDetailsPageTitle , 30);
     I.wait('2');
     await I.retry(retryCount).click(this.fields.courtProceedingsOrdersButton);
     I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async provideDetailsOfCourtCases(copyOfOrder) {
-    await I.retry(retryCount).waitForText(OtherProceedings.provideDetailsOfCourtCasesPageTitle);
-    await I.retry(retryCount).waitForText(OtherProceedings.provideDetailsOfCourtCasesSubHeading);
+    await I.retry(retryCount).waitForText(OtherProceedings.provideDetailsOfCourtCasesPageTitle , 30);
+    await I.retry(retryCount).waitForText(OtherProceedings.provideDetailsOfCourtCasesSubHeading , 30);
     await I.retry(retryCount).waitForSelector(this.fields.courtIssued, 30);
     await I.retry(retryCount).fillField(this.fields.courtIssued, OtherProceedings.testingText);
     await I.retry(retryCount).fillField(this.fields.caseNo, OtherProceedings.caseNumber);
     await I.retry(retryCount).fillField(this.fields.dateMadeDay, OtherProceedings.day);
     await I.retry(retryCount).fillField(this.fields.dateMadeMonth, OtherProceedings.month);
     await I.retry(retryCount).fillField(this.fields.dateMadeYear, OtherProceedings.year);
-    I.wait('1');
+    I.wait('2');
     await I.retry(retryCount).click(this.fields.currentOrderYes);
     await I.retry(retryCount).click(copyOfOrder ? this.fields.copyOfOrderYes : this.fields.copyOfOrderNo);
     I.wait('2');
@@ -49,7 +50,7 @@ module.exports = {
   },
    async uploadOrder() {
     const uploadTime = 5;
-    I.wait('1');
+    I.wait('5');
     await I.retry(retryCount).attachFile('//*[@id="document"]', '../resource/dummy.pdf');
     await I.runAccessibilityTest();
     I.wait('5');
