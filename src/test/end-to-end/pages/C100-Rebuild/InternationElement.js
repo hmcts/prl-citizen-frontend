@@ -13,7 +13,6 @@ module.exports = {
     provideDetailsRequestField: '//*[@id="ie_provideDetailsRequest"]', 
   },
    async childrenBasedInternational() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(InternationElement.childrenBasedInternationalPageTitle , 30);
     await I.retry(retryCount).click(this.fields.internationalStartYesButton);
     await I.retry(retryCount).fillField(this.fields.provideDetailsField, InternationElement.testingText);
@@ -21,7 +20,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
    async childParentsBasedInternational() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(InternationElement.childParentsBasedInternationalPageTitle , 30);
     await I.retry(retryCount).click(this.fields.internationalParentsYesButton);
     await I.retry(retryCount).fillField(this.fields.rovideDetailsParentsField, InternationElement.testingText);
@@ -29,7 +27,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
    async internationalJurisdiction() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(InternationElement.internationalJurisdictionPageTitle , 30);
     await I.retry(retryCount).click(this.fields.internationalJurisdictionYesButton);
     I.wait('2');
@@ -38,7 +35,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
    async internationalRequest() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(InternationElement.internationalRequestPageTitle , 30);
     await I.retry(retryCount).click(this.fields.internationalRequestYesButton);
     await I.retry(retryCount).fillField(this.fields.provideDetailsRequestField, InternationElement.testingText);

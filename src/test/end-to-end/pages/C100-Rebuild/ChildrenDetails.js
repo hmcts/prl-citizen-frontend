@@ -25,7 +25,6 @@ module.exports = {
         otherChildrenYes: '//*[@id="ocd_hasOtherChildren"]',
     },
     async childDetailsName() {
-        I.wait('2');
         await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsNamePageTitle , 30);
         await I.retry(retryCount).click(this.fields.mainForm);
         await I.retry(retryCount).waitForSelector(this.fields.tempFirstName, 30);
@@ -35,7 +34,6 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async childDetailsDOB() {
-        I.wait('2');
         await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsDOBPageTitle , 30);
         await I.retry(retryCount).fillField(this.fields.dayDOB, ChildrenDetails.day);
         await I.retry(retryCount).fillField(this.fields.monthDOB, ChildrenDetails.month);
@@ -46,7 +44,6 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async decisionsCourtToResolve() {
-        I.wait('2');
         await I.retry(retryCount).waitForText(ChildrenDetails.decisionsCourtToResolvePageTitle , 30);
         await I.retry(retryCount).click(this.fields.needsResolution);
         await I.retry(retryCount).click(this.fields.needsResolution2);
@@ -55,14 +52,12 @@ module.exports = {
         I.wait('2');
     },
     async parentalResponsibility() {
-        I.wait('2');
         await I.retry(retryCount).waitForText(ChildrenDetails.parentalResponsibilityPageTitle , 30);
         await I.retry(retryCount).fillField(this.fields.statement, ChildrenDetails.testingText);
         I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async furtherInformation() {
-        I.wait('2');
         await I.retry(retryCount).waitForText(ChildrenDetails.furtherInformationPageTitle , 30);
         I.wait('2');
         await I.retry(retryCount).click(this.fields.childrenKnownToSocialServices);
@@ -75,14 +70,12 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async otherChildren() {
-        I.wait('2');
         await I.retry(retryCount).waitForText(ChildrenDetails.otherChildrenPageTitle , 30);
         await I.retry(retryCount).click(this.fields.otherChildrenYes);
         I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async otherChildrenName() {
-        I.wait('2');
         await I.retry(retryCount).waitForText(ChildrenDetails.otherChildrenNamePageTitle , 30);
         I.wait('2');
         await I.retry(retryCount).fillField(this.fields.tempFirstName, ChildrenDetails.firstName , 30);

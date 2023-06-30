@@ -5,7 +5,6 @@ module.exports = {
 
    async uploadDraftConsent() {
     const uploadTime = 5;
-    I.wait('2');
     await I.retry(retryCount).waitForText(ConsentOrder.uploadDraftTitle , 30);
     I.wait('2');
     await I.retry(retryCount).waitForSelector('//*[@id="document"]', 30);

@@ -17,7 +17,6 @@ module.exports = {
     liveWithFirstOptionButton: '//*[@id="liveWith"]', 
   },
    async otherPerson() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(OtherPersonDetails.otherPersonPageTitle , 30);
     I.wait('2');
     await I.retry(retryCount).click(this.fields.otherPersonCheckYesButton);
@@ -25,7 +24,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
    async otherPersonName() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(OtherPersonDetails.otherPersonNamePageTitle , 30);
     I.wait('2');
     await I.retry(retryCount).fillField(this.fields.firstNameField, OtherPersonDetails.firstName);
@@ -35,7 +33,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
    async otherPersonDetailsInfo() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(OtherPersonDetails.otherPersonDetailsPageTitle , 30);
     I.wait('2');
     await I.retry(retryCount).waitForText(OtherPersonDetails.haveTheyChangedTheirNameText , 30);
@@ -53,7 +50,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
    async otherPersonRelationship() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(OtherPersonDetails.otherPersonRelationshipPageTitle , 30);
     I.wait('2');
     await I.retry(retryCount).click(this.fields.grandparentOptionButton);
@@ -61,7 +57,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async addressOfOtherPerson() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(OtherPersonDetails.addressOfOtherPersonPageTitle , 30);
     await I.retry(retryCount).waitForText(OtherPersonDetails.addressOfOtherPersonSubHeading , 30);
     I.wait('2');
@@ -70,7 +65,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async addressLookUpPage() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(OtherPersonDetails.addressLookUpPageTitle , 30);
     await I.retry(retryCount).waitForText(OtherPersonDetails.addressLookUpSubHeading , 30);
     I.wait('2');
@@ -79,13 +73,11 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async confirmAddress() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(OtherPersonDetails.confirmAddressPageTitle , 30);
     I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async currentlyLiveWith() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(OtherPersonDetails.currentlyLiveWithPageTitle , 30);
     await I.retry(retryCount).waitForSelector(this.fields.liveWithFirstOptionButton, 30);
     I.wait('2');

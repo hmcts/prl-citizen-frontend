@@ -31,7 +31,6 @@ module.exports = {
     postOption: '//*[@id="applicantContactPreferences-2"]', 
   },
    async fillApplicantDetails() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(ApplicantDetails.applicantDetailsPageTitle , 30);
     await I.retry(retryCount).fillField(this.fields.applicantFirstName, ApplicantDetails.firstName);
     await I.retry(retryCount).fillField(this.fields.applicantLastName, ApplicantDetails.lastName);
@@ -39,7 +38,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async confidentiality() {
-      I.wait('2');
     await I.retry(retryCount).waitForText(ApplicantDetails.confidentialityPageTitle , 30);
     await I.retry(retryCount).waitForText(ApplicantDetails.confidentialitySubHeading , 30);
     I.wait('2');
@@ -48,7 +46,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async keepingConfidentialContact() {
-      I.wait('2');
     await I.retry(retryCount).waitForText(ApplicantDetails.keepingConfidentialContactPageTitle , 30);
     await I.retry(retryCount).waitForText(ApplicantDetails.keepingConfidentialContactSubHeading , 30);
     I.wait('2');
@@ -63,7 +60,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async confidentialitySummary() {
-      I.wait('2');
     await I.retry(retryCount).waitForText(ApplicantDetails.keepingConfidentialContactPageTitle, 30);
     await I.retry(retryCount).waitForText(ApplicantDetails.confidentialitySummarySubHeading , 30);
     await I.retry(retryCount).waitForText(ApplicantDetails.confidentialitySummarySubHeading2 , 30);
@@ -71,7 +67,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async provideDetailsPage() {
-      I.wait('2');
     await I.retry(retryCount).waitForText(ApplicantDetails.provideDetailsPageTitle , 30);
     await I.retry(retryCount).waitForText(ApplicantDetails.provideDetailsPageTitleSubHeading , 30);
     I.wait('2');
@@ -91,7 +86,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
    async relationshipToChild() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(ApplicantDetails.relationshipToChildPageTitle , 30);
     I.wait('2');
     await I.retry(retryCount).click(this.fields.fatherOption);
@@ -99,7 +93,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async addressDetailsOfApplicant() {
-      I.wait('2');
     await I.retry(retryCount).waitForText(ApplicantDetails.addressDetailsOfApplicantPageTitle , 30);
     await I.retry(retryCount).waitForText(ApplicantDetails.addressHintText , 30);
     I.wait('2');
@@ -108,7 +101,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async addressLookUp() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(ApplicantDetails.addressLookUpPageTitle , 30);
     I.wait('2');
     await I.retry(retryCount).selectOption(this.fields.addressList, ApplicantDetails.lookUpOption);
@@ -116,7 +108,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
    },
     async confirmAddress() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(ApplicantDetails.confirmAddressPageTitle , 30);
     await I.retry(retryCount).waitForText(ApplicantDetails.confirmAddressSubHeading , 30);
     I.wait('2');
@@ -125,28 +116,21 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async contactDetails() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(ApplicantDetails.contactDetailsPageTitle , 30);
     I.wait('2');
     await I.retry(retryCount).click(this.fields.canProvideEmailButton);
-    I.wait('2');
     await I.retry(retryCount).fillField(this.fields.emailAddressField, ApplicantDetails.email);
     I.wait('2');
     await I.retry(retryCount).click(this.fields.canProvideTelNumButton);
-    I.wait('2');
     await I.retry(retryCount).fillField(this.fields.telephoneNumberField, ApplicantDetails.phoneNumber);
-    I.wait('2');
     await I.retry(retryCount).waitForText(ApplicantDetails.contactDetailsSubHeading , 30);
     await I.retry(retryCount).click(this.fields.canLeaveVoiceMailButton);
     I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
     async contactPreferences() {
-    I.wait('2');
     await I.retry(retryCount).waitForText(ApplicantDetails.contactPreferencesPageTitle , 30);
-    I.wait('2');
     await I.retry(retryCount).click(this.fields.digitalOption);
-    I.wait('2');
     await I.retry(retryCount).click(this.fields.postOption);
     I.wait('2');
     await I.retry(retryCount).click('Continue');

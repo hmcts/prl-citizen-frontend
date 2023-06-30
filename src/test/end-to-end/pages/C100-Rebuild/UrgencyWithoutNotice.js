@@ -24,7 +24,6 @@ module.exports = {
         noTimeNoticeDetails: '//*[@id="hwn_doYouRequireAHearingWithReducedNoticeDetails"]',
     },
     async qualifyUrgentHearing() {
-        I.wait('2');
         await I.retry(retryCount).waitForText(UrgencyWithoutNotice.qualifyUrgentHearingPageTitle , 30); 
         await I.retry(retryCount).waitForSelector(this.fields.urgentHearingReasonsYes, 30); 
         await I.retry(retryCount).click(this.fields.urgentHearingReasonsYes);
@@ -32,7 +31,6 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
       },
       async aboutSituation() {
-        I.wait('2');
         await I.retry(retryCount).waitForText(UrgencyWithoutNotice.aboutSituationPageTitle , 30);    
         I.wait('2');
         await I.retry(retryCount).click(this.fields.reasonOfUrgentHearing);
@@ -49,14 +47,12 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
       },
     async withoutNoticeHearing() {
-        I.wait('2');
         await I.retry(retryCount).waitForText(UrgencyWithoutNotice.withoutNoticeHearingPageTitle , 30);  
         await I.retry(retryCount).click(this.fields.withoutNoticeYes);
         I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async withoutNoticeDetails() {
-        I.wait('2');
         await I.retry(retryCount).waitForText(UrgencyWithoutNotice.withoutNoticeDetailsPageTitle , 30);
         await I.retry(retryCount).fillField(this.fields.withoutNoticeDetails, this.fields.testingText);
         await I.retry(retryCount).click(this.fields.obstructOrderYes);
