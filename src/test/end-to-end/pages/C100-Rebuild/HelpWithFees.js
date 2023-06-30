@@ -9,7 +9,7 @@ module.exports = {
         helpWithFeeRef: '//*[@id="helpWithFeesReferenceNumber"]',
     },
     async helpWithFee(){
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(HelpWithFees.helpWithFeesYesNoTitle , 30);
         await I.retry(retryCount).waitForSelector(this.fields.helpWithFeeYes, 30);
         I.wait('2');
@@ -18,9 +18,9 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async alreadyApplied() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(HelpWithFees.alreadyAppliedHelpWithFee , 60);
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).click(this.fields.alreadyAppliedYes);
         await I.retry(retryCount).waitForText(HelpWithFees.alreadyAppliedEnterRef , 60);
         I.wait('2');

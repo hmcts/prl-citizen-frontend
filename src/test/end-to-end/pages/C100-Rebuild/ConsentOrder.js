@@ -5,7 +5,7 @@ module.exports = {
 
    async uploadDraftConsent() {
     const uploadTime = 5;
-    I.wait('4');
+    I.wait('2');
     await I.retry(retryCount).waitForText(ConsentOrder.uploadDraftTitle , 30);
     I.wait('2');
     await I.retry(retryCount).waitForSelector('//*[@id="document"]', 30);
@@ -20,7 +20,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
   async uploadDraftOrderSummary() {
-    I.wait('4');
+    I.wait('2');
     await I.retry(retryCount).waitForText(ConsentOrder.consentOrderUploaded , 30);
     I.wait('2');
     await I.retry(retryCount).click('Continue');

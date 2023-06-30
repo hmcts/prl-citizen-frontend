@@ -16,18 +16,18 @@ module.exports = {
     copyOfOrderNo: '//*[@id="orderCopy-1-2"]',
   },
    async otherProceedingPage() {
-    I.wait('4');
+    I.wait('2');
     await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingPageTitle , 30);
     await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingTopSubHeading , 30);
     await I.retry(retryCount).click(this.fields.childrenInvolvedCourtCaseYesButton);
     await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingBottomSubHeading , 30);
-    I.wait('4');
+    I.wait('2');
     await I.retry(retryCount).click(this.fields.courtOrderProtectionYesButton);
-    I.wait('4');
+    I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async proceedingDetails() {
-    I.wait('4');
+    I.wait('2');
     await I.retry(retryCount).waitForText(OtherProceedings.proceedingDetailsPageTitle , 30);
     I.wait('2');
     await I.retry(retryCount).click(this.fields.courtProceedingsOrdersButton);
@@ -35,7 +35,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
    async provideDetailsOfCourtCases(copyOfOrder) {
-    I.wait('4');
+    I.wait('2');
     await I.retry(retryCount).waitForText(OtherProceedings.provideDetailsOfCourtCasesPageTitle , 30);
     await I.retry(retryCount).waitForText(OtherProceedings.provideDetailsOfCourtCasesSubHeading , 30);
     await I.retry(retryCount).waitForSelector(this.fields.courtIssued, 30);
@@ -63,7 +63,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
   async uploadOrderSummary() {
-    I.wait('4');
+    I.wait('2');
     await I.retry(retryCount).waitForText(OtherProceedings.uploadOrderSummaryInfo);
     await I.retry(retryCount).waitForText(OtherProceedings.uploadOrderSummary);
     I.wait('2');

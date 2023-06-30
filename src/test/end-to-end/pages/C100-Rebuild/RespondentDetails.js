@@ -20,7 +20,7 @@ module.exports = {
     donKnowTelephoneNumberButton: '//*[@id="donKnowTelephoneNumber"]', 
   },
    async enterRespondentDetails() {
-    I.wait('4');
+    I.wait('2');
     await I.retry(retryCount).waitForText(RespondentDetails.enterRespondentDetailsPageTitle , 30);
     await I.retry(retryCount).fillField(this.fields.firstNameField, RespondentDetails.firstName);
     await I.retry(retryCount).fillField(this.fields.lastNameField, RespondentDetails.lastName);
@@ -28,7 +28,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
    async provideDetailsForRespondent() {
-    I.wait('4');
+    I.wait('2');
     await I.retry(retryCount).waitForText(RespondentDetails.provideDetailsForRespondentPageTitle , 30);
     await I.retry(retryCount).waitForText(RespondentDetails.provideDetailsForRespondentSubHeading , 30);
     I.wait('2');
@@ -48,7 +48,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async respondentRelationship() {
-      I.wait('4');
+      I.wait('2');
     await I.retry(retryCount).waitForText(RespondentDetails.respondentRelationshipPageTitle , 30);
     I.wait('2');
     await I.retry(retryCount).click(this.fields.fatherOption);
@@ -56,7 +56,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async addressOfRespondent() {
-      I.wait('4');
+      I.wait('2');
     await I.retry(retryCount).waitForText(RespondentDetails.addressOfRespondentPageTitle , 30);
     await I.retry(retryCount).waitForText(RespondentDetails.addressOfRespondentSubHeading , 30);
     I.wait('2');
@@ -65,7 +65,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async addressLookUpPage() {
-      I.wait('4');
+      I.wait('2');
     await I.retry(retryCount).waitForText(RespondentDetails.addressLookUpPageTitle , 30);
     await I.retry(retryCount).waitForText(RespondentDetails.addressLookUpSubHeading , 30);
     I.wait('2');
@@ -74,7 +74,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async addressDetails() {
-      I.wait('4');
+      I.wait('2');
     await I.retry(retryCount).waitForText(RespondentDetails.addressDetailsPageTitle , 30);
     await I.retry(retryCount).waitForText(RespondentDetails.addressDetailsTextBoxText , 30);
     await I.retry(retryCount).waitForText(RespondentDetails.addressDetailsSubHeading , 30);
@@ -88,7 +88,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async contactDetailsOfResp() {
-      I.wait('4');
+      I.wait('2');
     await I.retry(retryCount).waitForText(RespondentDetails.contactDetailsOfRespPageTitle , 30);
     I.wait('2');
     await I.retry(retryCount).click(this.fields.donKnowEmailAddressButton);

@@ -51,13 +51,13 @@ module.exports = {
         otherWaysContactYes: '//*[@id="c1A_agreementOtherWaysDetails"]',
     },
     async safetyConcernsLandingPage() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.safetyConcernsPageTitle , 30);
         I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async concernsSafety() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.concernsSafety , 30);
         await I.retry(retryCount).click(this.fields.concernsSafetyYes);
         I.wait('1');
@@ -66,7 +66,7 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async concernAboutWhoChildApplicant() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.concernAboutWho , 30);
         I.wait('2');
         await I.retry(retryCount).click(this.fields.concernAboutChildren);
@@ -76,7 +76,7 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async behaviourChildrenExperienced() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.whatBehaviourChildren , 30);
         I.wait('2');
         await I.retry(retryCount).click(this.fields.physicalAbuse);
@@ -86,7 +86,7 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async describePhysicalAbuseChild() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.describePhysicalAbuseTitle , 30);
         await I.retry(retryCount).waitForText(SafetyConcerns.whichChildren , 30);
         I.wait('2');
@@ -107,7 +107,7 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async whyChildAbducted() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.whyChildAbduction , 30);
         I.wait('2');
         await I.retry(retryCount).fillField(this.fields.explainConcernsDetails, SafetyConcerns.testingText);
@@ -116,14 +116,14 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async childrenPassport() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.doChildrenHavePassport , 30);
         await I.retry(retryCount).click(this.fields.childrenPassportYes);
         I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async childrenPassportDetails() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.childrenPassportDetails , 30);
         I.wait('2');
         await I.retry(retryCount).click(this.fields.childMoreThanOnePassport);
@@ -132,21 +132,21 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async passportOfficeNotified() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.passportOfficeNotified , 30);
         await I.retry(retryCount).click(this.fields.passportOfficeNotifiedYes);
         I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async childAbductedBefore() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.childAbductedBefore , 30);
         await I.retry(retryCount).click(this.fields.childAbductedBeforeYes);
         I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async previousAbductionDetails() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.previousAbductionDetailsTitle , 30);
         I.wait('2');
         await I.retry(retryCount).fillField(this.fields.previousAbductionDetails, SafetyConcerns.testingText);
@@ -158,7 +158,7 @@ module.exports = {
 
     //Safety Concerns for Applicant
     async behaviourApplicantExperienced() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.whatBehaviourApplicantTitle , 30);
         await I.retry(retryCount).click(this.fields.physicalAbuseApplicant);
         I.wait('2');
@@ -167,7 +167,7 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async describePhysicalAbuseApplicant() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.describePhysicalAbuseApplicantTitle , 30);
         await I.retry(retryCount).fillField(this.fields.behaviourDetails, SafetyConcerns.testingText);
         await I.retry(retryCount).fillField(this.fields.behaviourStartDate, SafetyConcerns.testingText);
@@ -179,7 +179,7 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async describeEmotionalAbuseApplicant() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.describeEmotionalAbuseApplicantTitle , 30);
         await I.retry(retryCount).fillField(this.fields.behaviourDetails, SafetyConcerns.testingText);
         await I.retry(retryCount).fillField(this.fields.behaviourStartDate, SafetyConcerns.testingText);
@@ -193,7 +193,7 @@ module.exports = {
 
     //Other Concerns
     async otherConcerns() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.childImpactedDrugAlcohol , 30);
         await I.retry(retryCount).waitForSelector(this.fields.otherConcernsYes, 30);
         await I.retry(retryCount).click(this.fields.otherConcernsYes);
@@ -203,7 +203,7 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async otherConcernsSafety() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.otherConcernsSafetyTitle , 30);
         await I.retry(retryCount).click(this.fields.otherConcernsSafetyYes);
         await I.retry(retryCount).fillField(this.fields.otherConcernsSafetyDetails, SafetyConcerns.testingText);
@@ -211,7 +211,7 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async courtToDo() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.courtToDoTitle , 30);
         await I.retry(retryCount).fillField(this.fields.courtToDoDetails, SafetyConcerns.testingText);
         I.wait('2');
@@ -220,7 +220,7 @@ module.exports = {
 
     //Contact with child
     async contactWithChildAndOtherPeople() {
-        I.wait('4');
+        I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.contactWithChildTitle , 30);
         await I.retry(retryCount).waitForText(SafetyConcerns.childSpendingTimeSubtitle , 30);
         await I.retry(retryCount).click(this.fields.supervisedYes);
