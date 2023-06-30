@@ -86,6 +86,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
    async relationshipToChild() {
+    I.wait('4');
     await I.retry(retryCount).waitForText(ApplicantDetails.relationshipToChildPageTitle , 30);
     I.wait('2');
     await I.retry(retryCount).click(this.fields.fatherOption);
@@ -93,6 +94,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async addressDetailsOfApplicant() {
+      I.wait('2');
     await I.retry(retryCount).waitForText(ApplicantDetails.addressDetailsOfApplicantPageTitle , 30);
     await I.retry(retryCount).waitForText(ApplicantDetails.addressHintText , 30);
     I.wait('2');
@@ -116,6 +118,7 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
   },
     async contactDetails() {
+    I.wait('4');
     await I.retry(retryCount).waitForText(ApplicantDetails.contactDetailsPageTitle , 30);
     I.wait('2');
     await I.retry(retryCount).click(this.fields.canProvideEmailButton);

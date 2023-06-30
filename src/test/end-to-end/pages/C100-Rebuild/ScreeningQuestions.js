@@ -22,6 +22,7 @@ module.exports = {
         explainWhyCourtDetails: '//*[@id="sq_permissionsRequest"]',
     },
     async writtenAgreementButton(agreementOption) {
+        I.wait('4');
         await I.retry(retryCount).waitForText(ScreeningQuestions.writtenAgreementButtonPageTitle , 30);
         await I.retry(retryCount).click(agreementOption ? this.fields.writtenAgreementYes : this.fields.writtenAgreementNo);
         I.wait('2');
