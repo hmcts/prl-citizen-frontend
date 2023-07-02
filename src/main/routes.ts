@@ -124,7 +124,8 @@ import {
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_TASKLIST_CONTACT_EMAIL,
   APPLICANT_TASKLIST_CONTACT_POST,
-  //APPLICANT_STATEMENT_OF_SERVICE,
+  RESPONSE_TO_CA,
+  AOH_TO_CA,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -164,8 +165,6 @@ export class Routes {
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().load));
-    //app.get(`${APPLICANT_STATEMENT_OF_SERVICE}`, errorHandler(new UploadStatementOfServiceGetController().load));
-
     //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
     app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
@@ -281,6 +280,8 @@ export class Routes {
         app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT}${APPLICANT_CA_DA_REQUEST}`, errorHandler(documentManagerController.get));
         app.get(APPLICANT_CA_DA_REQUEST, errorHandler(documentManagerController.get));
+        app.get(RESPONSE_TO_CA, errorHandler(documentManagerController.get));
+        app.get(AOH_TO_CA, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
 

@@ -989,6 +989,7 @@ export interface CaseData {
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+  respondentDocsList?:RespondentDocs[];
   draftOrderDoc?: Document;
 }
 
@@ -1758,6 +1759,20 @@ export interface OtherProceedingEmptyTable {
 }
 
 // // eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RespondentDocs {
+  id: string;
+  value: {
+    c1aDocument: ResponseDocuments;
+    c7Document: ResponseDocuments;
+    otherDocuments: ResponseDocs[];
+  }
+}
+
+export interface ResponseDocs {
+  id: string;
+  value: ResponseDocuments;
+}
+
 
 export interface ResponseDocumentList {
   id: string;
@@ -2130,6 +2145,7 @@ export const enum DocumentType {
   APPLICATION_SUMMARY = 'applicationSummary',
   FL401_FINAL_DOCUMENT = 'FL401-Final-Document.pdf',
   WITNESS_STATEMENT = 'witness-statement-Final-Document.pdf',
+  CITIZEN_DOCUMENT ='citizenDocument'
 }
 
 export const enum PaymentStatus {
