@@ -40,14 +40,14 @@ module.exports = {
         await I.retry(retryCount).waitForText(CYA.helpWithFees , 60);
         await I.retry(retryCount).waitForText(CYA.statementOfTruth , 60);
         await I.retry(retryCount).waitForText(CYA.confirmStatementTruth , 60);
-        I.wait('5');
+        await I.wait('5');
         await I.retry(retryCount).click(this.fields.statementOfTruthYes);
         await I.retry(retryCount).click('Submit your application');
     }, 
     async applicationSubmitted() {
         await I.retry(retryCount).waitForText(CYA.applicationSubmittedSuccess , 60);
         await I.retry(retryCount).waitForText(CYA.applicationCaseNo , 60);
-        I.wait('5');
+        await I.wait('5');
     },
     async checkYourAnswersEvent() {
         await this.checkYourAnswers();
