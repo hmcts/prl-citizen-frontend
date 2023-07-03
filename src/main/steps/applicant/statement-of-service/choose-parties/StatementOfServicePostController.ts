@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-//import { CaseWithId } from 'app/case/case';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
@@ -29,7 +28,6 @@ export default class StatementOfServicePostController extends PostController<Any
       req.session.errors = form.getErrors(formData);
       if (req.session.errors && req.session.errors.length > 0) {
         return super.redirect(req, res);
-        //return res.redirect(APPLICANT_STATEMENT_OF_SERVICE);
       }
     }
     const { user, userCase } = req.session;

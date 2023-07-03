@@ -106,6 +106,27 @@ describe('CosApiClient', () => {
     expect(actual).toEqual(response);
   });
 
+  test('UploadDocumentListFromCitizenWithoutTypes', async () => {
+    const response = { documentId: '123456', documentName: 'test' };
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    const files = [];
+    const request: UploadDocumentRequest = {
+      user: req.session.user,
+      caseId: '123456',
+      partyId: '12345',
+      partyName: undefined,
+      isApplicant: 'Yes',
+      files,
+      parentDocumentType: undefined,
+      documentType: undefined,
+      documentRequestedByCourt: undefined,
+    };
+    const actual = await client.UploadDocumentListFromCitizen(request);
+    expect(actual).toEqual(response);
+  });
+
   test('deleteCitizenStatementDocument', async () => {
     const response = { documentId: '123456', documentName: 'test' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);

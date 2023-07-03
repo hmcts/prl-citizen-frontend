@@ -62,7 +62,7 @@ export const checkPartyRepresentedBySolicitor = (partyDetails: PartyDetails | un
 export const isCaseServed = (caseData: Partial<CaseWithId>): boolean => {
   let applicants: Applicant[] = [];
   if (!caseData) {
-    return true;
+    return false;
   }
   if (caseData.applicants) {
     applicants = caseData.applicants;

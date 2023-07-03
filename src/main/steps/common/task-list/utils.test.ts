@@ -1,6 +1,6 @@
 import { CaseType, PartyType, State, YesOrNo } from '../../../app/case/definition';
 
-import { getPartyName, isCaseWithdrawn } from './utils';
+import { getPartyName, isCaseServed, isCaseWithdrawn } from './utils';
 
 describe('testcase for partyname', () => {
   test('when party type c100-respondent', () => {
@@ -317,5 +317,23 @@ describe('testcase for isCaseWithdrawn', () => {
   test('when no case data', () => {
     const data = {};
     expect(isCaseWithdrawn(data)).toBe(false);
+  });
+});
+
+describe('testcase for isCaseServed', () => {
+  test('no case data', () => {
+    const data = undefined;
+    expect(isCaseServed(data)).toBe(false);
+  });
+  test('case without applicant data', () => {
+    const data = {
+      id: '12',
+      state: State.GATEKEEPING,
+    };
+    expect(isCaseServed(data)).toBe(false);
+  });
+  test('when no case data', () => {
+    const data = {};
+    expect(isCaseServed(data)).toBe(false);
   });
 });
