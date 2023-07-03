@@ -589,6 +589,7 @@ export interface Case {
   awp_have_hwfReference?: YesOrNo;
   awp_hwf_referenceNumber?: string;
   awp_completedForm?: YesOrNo;
+  awp_agreementForRequest?: YesOrNo;
   awp_informOtherParties?: YesOrNo;
   awp_reasonCantBeInformed?: string;
 }
