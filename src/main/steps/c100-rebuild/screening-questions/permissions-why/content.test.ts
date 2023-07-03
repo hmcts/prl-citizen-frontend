@@ -43,7 +43,7 @@ const en = {
 
 const cy = {
   title: 'Pam bod angen caniatâd gan y llys i wneud y cais hwn? (dewisol)',
-  line: 'Edrychwch ar<a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">ganllawiau CB1</a> os nad ydych yn siŵr a oes angen caniatâd arnoch i wneud cais',
+  line: 'Edrychwch <a href="https://www.gov.uk/government/publications/family-court-applications-that-involve-children-cb1" class="govuk-link" target="_blank" aria-label="the CB1 guidance">arganllawiau CB1</a> os nad ydych yn siŵr a oes angen caniatâd arnoch i wneud cais',
   select_all_apply: "Dewiswch bob un sy'n berthnasol",
   doNotHaveParentalResponsibility: 'Does gen i ddim cyfrifoldeb rhiant dros y plant',
   doNotHaveParentalResponsibilityHintText: 'Rhowch fanylion',

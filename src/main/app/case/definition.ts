@@ -107,11 +107,13 @@ export interface PartyDetails {
   response: Response;
   user: User;
   contactPreferences?: applicantContactPreferencesEnum;
+  isRemoveLegalRepresentativeRequested?: YesOrNo;
 }
 
 export interface User {
   email: string,
-  idamId: string
+  idamId: string,
+  solicitorRepresented?: string
 }
 
 export interface Response {
@@ -973,6 +975,7 @@ export interface CaseData {
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+  respondentDocsList?:RespondentDocs[];
   draftOrderDoc?: Document;
 }
 
@@ -1758,6 +1761,20 @@ export interface OtherProceedingEmptyTable {
 }
 
 // // eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RespondentDocs {
+  id: string;
+  value: {
+    c1aDocument: ResponseDocuments;
+    c7Document: ResponseDocuments;
+    otherDocuments: ResponseDocs[];
+  }
+}
+
+export interface ResponseDocs {
+  id: string;
+  value: ResponseDocuments;
+}
+
 
 export interface ResponseDocumentList {
   id: string;
@@ -2130,6 +2147,7 @@ export const enum DocumentType {
   APPLICATION_SUMMARY = 'applicationSummary',
   FL401_FINAL_DOCUMENT = 'FL401-Final-Document.pdf',
   WITNESS_STATEMENT = 'witness-statement-Final-Document.pdf',
+  CITIZEN_DOCUMENT ='citizenDocument'
 }
 
 export const enum PaymentStatus {
@@ -2377,8 +2395,8 @@ export interface orderInterface {
 export const enum CONFIDENTIAL_DETAILS {
   PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
   PRIVATE = 'This information will be kept confidential',
-  PUBLIC_CY = 'This information was provided by the applicant so it cannot be kept confidential. (welsh)',
-  PRIVATE_CY = 'This information will be kept confidential (welsh)',
+  PUBLIC_CY = "Darparwyd yr wybodaeth hon gan y ceisydd felly ni ellir ei chadw'n gyfrinachol.",
+  PRIVATE_CY = 'Bydd yr wybodaeth hon yn cael ei chadw’n gyfrinachol',
 }
 
 export const enum Gender {
@@ -2977,12 +2995,18 @@ export enum CaseType {
 }
 
 export enum CaseEvent {
+  EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement',
+  KEEP_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
+  CONFIRM_YOUR_DETAILS = 'confirmYourDetails',
+  SUPPORT_YOU_DURING_CASE = 'hearingNeeds',
+  LEGAL_REPRESENTATION = 'legalRepresentation',
   SAFETY_CONCERNS = 'citizenSafetyConcerns',
   MIAM = 'respondentMiam',
   PARTY_PERSONAL_DETAILS = 'linkCitizenAccount',
-  EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement',
+  CITIZEN_INTERNAL_CASE_UPDATE = 'citizen-internal-case-update',
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
-  CONSENT_TO_APPLICATION = 'consentToTheApplication'
+  CONSENT_TO_APPLICATION = 'consentToTheApplication',
+  CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative'
 }
 
 export enum AWPApplicationType {
@@ -3039,4 +3063,10 @@ export enum AWPApplicationReason{
 
   REQUEST_FOR_ARREST_WARRENT = 'request-the-court-issues-an-arrest-warrant',
 
+}
+
+export enum passportPossessionRelative {
+  MOTHER = 'mother',
+  FATHER = 'father',
+  OTHER = 'otherPerson'
 }

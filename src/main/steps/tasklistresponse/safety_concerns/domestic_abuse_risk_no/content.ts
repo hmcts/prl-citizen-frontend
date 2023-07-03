@@ -43,9 +43,9 @@ const cy: typeof en = {
   line12: 'Find out about the signs of domestic violence or abuse',
   line13: 'Lorem ipsum about Womens aid',
   line14: 'If you are a man and have concerns for your safety',
-  line15: 'National Domestic Violence Helpline',
+  line15: 'Llinell Gymorth Genedlaethol Trais Domestig',
   line16: 'If you want to change your answer, go back to the previous screen.',
-  continue: 'Continue',
+  continue: 'Parhau',
   goBack: 'Go back',
 };
 

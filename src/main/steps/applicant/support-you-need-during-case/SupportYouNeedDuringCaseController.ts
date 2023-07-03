@@ -3,7 +3,6 @@ import type { Response } from 'express';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { CaseEvent, CaseType, PartyType } from '../../../app/case/definition';
-//import { toApiFormat } from '../../../app/case/to-api-format';
 import type { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
@@ -31,7 +30,7 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
           partyDetails,
           partyType,
           userCase.caseTypeOfApplication as CaseType,
-          CaseEvent.CITIZEN_CASE_UPDATE
+          CaseEvent.SUPPORT_YOU_DURING_CASE
         );
         mapDataInSession(req.session.userCase, user.id);
 

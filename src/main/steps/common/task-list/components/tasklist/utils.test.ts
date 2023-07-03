@@ -84,8 +84,9 @@ describe('testcase for tasklist', () => {
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
+    const isRepresentedBySolicotor = false;
 
-    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([
       {
         heading: 'Your application',
         id: 'yourApplication',
@@ -121,8 +122,9 @@ describe('testcase for tasklist', () => {
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
+    const isRepresentedBySolicotor = false;
 
-    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([
       {
         heading: 'Your application',
         id: 'yourApplication',
@@ -145,22 +147,6 @@ describe('testcase for tasklist', () => {
             stateTag: {
               className: 'govuk-tag--blue',
               label: 'Optional',
-            },
-          },
-        ],
-      },
-      {
-        heading: 'Your documents',
-        id: 'yourDocuments',
-        tasks: [
-          {
-            disabled: false,
-            href: '/applicant/yourdocuments/alldocuments/alldocuments',
-            id: 'viewAllDocuments',
-            linkText: 'View all documents',
-            stateTag: {
-              className: 'govuk-tag--blue',
-              label: 'Ready to view',
             },
           },
         ],
@@ -205,8 +191,9 @@ describe('testcase for tasklist', () => {
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
+    const isRepresentedBySolicotor = false;
 
-    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([
       {
         heading: 'About you',
         id: 'aboutYou',
@@ -348,8 +335,9 @@ describe('testcase for tasklist', () => {
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
+    const isRepresentedBySolicotor = false;
 
-    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([
       {
         heading: 'About you',
         id: 'aboutYou',
@@ -490,8 +478,9 @@ describe('testcase for tasklist', () => {
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
+    const isRepresentedBySolicotor = false;
 
-    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([]);
+    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([]);
   });
   test('FL401 respondent', () => {
     const data = {
@@ -501,7 +490,8 @@ describe('testcase for tasklist', () => {
     };
     const party = PartyType.RESPONDENT;
     const language = 'en';
+    const isRepresentedBySolicotor = false;
 
-    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([]);
+    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([]);
   });
 });

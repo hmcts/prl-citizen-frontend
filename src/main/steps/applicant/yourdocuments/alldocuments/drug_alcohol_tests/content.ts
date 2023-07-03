@@ -16,11 +16,11 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
-    title: 'Drug and alcohol tests (toxicology) (welsh)',
+    title: 'Profion cyffuriau ac alcohol (tocsicoleg)',
     threeHint: 'This is a 8 character code (welsh)',
     summaryText: 'Cysylltiadau am gymorth',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 
@@ -47,16 +47,16 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const drugCitizenDocs: object[] = [];
+  const orders: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (
-      doc.value.documentType === documents_list_items_en.drug_and_alcohol_tests &&
-      doc.value.isApplicant === content.byApplicant
+      doc.value.isApplicant === content.byApplicant &&
+      doc.value.documentType === documents_list_items_en.drug_and_alcohol_tests
     ) {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );
-      drugCitizenDocs.push({
+      orders.push({
         href: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${uid}`,
         createdDate: doc.value.documentDetails.documentUploadedDate,
         fileName: doc.value.citizenDocument.document_filename,
@@ -66,6 +66,6 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    drugCitizenDocs,
+    orders,
   };
 };

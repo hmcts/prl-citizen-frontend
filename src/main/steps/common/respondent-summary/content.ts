@@ -27,9 +27,9 @@ const cy = () => ({
   statementOfTruthSubmission:
     'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’. (welsh)',
   downloadDraftPDF: 'Download a draft of your response (PDF) (welsh)',
-  cannotOpen: 'If you cannot open the PDF file on your device, download and install (welsh)',
+  cannotOpen: 'Os na allwch agor y ffeil PDF ar eich dyfais, llwythwch a gosodwch',
   adobeReader: 'Adobe Acrobat Reader (welsh)',
-  tryAgain: 'and try again. (welsh)',
+  tryAgain: 'ar eich dyfais a cheisio eto.',
   forRecords:
     'Please note this draft is for your records. Only the completed response will be admitted in court. (welsh)',
   downloadDraft: 'Download draft response (welsh)',

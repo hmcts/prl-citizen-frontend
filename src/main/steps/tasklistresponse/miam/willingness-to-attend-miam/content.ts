@@ -8,7 +8,6 @@ import {
   miam_cost_exemption_content_en,
   miam_how_to_arrange_mediation_label_cy,
   miam_how_to_arrange_mediation_label_en,
-  miam_how_to_arrange_mediation_link,
 } from './miam-cost-exemptions';
 
 const en = {
@@ -35,13 +34,13 @@ const en = {
 
 const cy: typeof en = {
   title: "A fyddech chi'n fodlon mynychu MIAM?",
-  one: 'Yes',
-  two: 'No',
+  one: 'Byddwn',
+  two: 'Na fyddwn',
   explainWhyLabel: 'Explain why',
   miamCostExemptionsLabel: 'Help gyda chostau ac esemptiadau MIAM',
   miamCostExemptionsInfo: miam_cost_exemption_content_cy,
   miamLabel: miam_how_to_arrange_mediation_label_cy,
-  onlyContinue: 'Continue',
+  onlyContinue: 'Parhau',
   errors: {
     miamWillingness: {
       required: 'Select yes if you are willing to attend a MIAM',
@@ -78,9 +77,8 @@ export const form: FormContent = {
           value: 'Yes',
           subFields: {
             miamHowToArrangeMediation: {
-              type: 'link',
-              link: miam_how_to_arrange_mediation_link,
-              label: l => l.miamLabel,
+              type: 'textAndHtml',
+              textAndHtml: l => l.miamLabel,
             },
           },
         },

@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -12,6 +13,7 @@ const enContent = {
   twoHint:
     'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
   continue: 'Continue',
+  provideDetails: 'Provide details',
   errors: {
     jurisdiction: {
       required:
@@ -34,7 +36,8 @@ const cyContent = {
   two: 'Na allai',
   twoHint:
     'Er enghraifft, am fod gan lys mewn gwlad arall y pŵer (awdurdodaeth) i wneud penderfyniadau neu ddyfarniadau.',
-  continue: 'Continue',
+  continue: 'Parhau',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     jurisdiction: {
       required:
@@ -85,6 +88,20 @@ describe('citizen-home content', () => {
     expect(detailsKnownField.type).toBe('radios');
     expect(detailsKnownField.classes).toBe('govuk-radios');
     expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
+
+    const jurisdictionField = fields.jurisdiction as FormOptions;
+    expect(jurisdictionField.type).toBe('radios');
+    expect(jurisdictionField.classes).toBe('govuk-radios');
+    expect((jurisdictionField.section as Function)(generatedContent)).toBe(enContent.section);
+    expect((jurisdictionField.hint as Function)(generatedContent)).toBe(enContent.twoHint);
+    expect(jurisdictionField.validator).toBe(isFieldFilledIn);
+    expect((jurisdictionField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
+    expect(
+      (jurisdictionField.values[0].subFields?.iFactorsJurisdictionProvideDetails.label as Function)(generatedContent)
+    ).toBe(enContent.provideDetails);
+    (jurisdictionField.values[0].subFields?.iFactorsJurisdictionProvideDetails.validator as Validator)('test value');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test value');
+    expect((jurisdictionField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
   });
 
   test('should contain onlyContinue button', () => {

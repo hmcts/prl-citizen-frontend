@@ -38,19 +38,19 @@ const en = () => ({
 });
 
 const cy = () => ({
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   title: 'Pa fath o ymddygiad ydych chi wedi ei brofi neu mewn perygl o’i brofi?',
   paragraph1:
-    'Disgrifiwch yr ymddygiad ddifrïol rydych yn bryderus amdano. Os ydych yn ansicr a yw’r ymddygiad yn ymddygiad ddifrïol, darllennwch y canllawiau.',
+    'Disgrifiwch yr ymddygiad ddifrïol rydych yn bryderus amdano. Os ydych yn ansicr a yw’r ymddygiad yn ymddygiad ddifrïol, darllennwch y canllawiau,',
   seeGuidanceHyperLink: 'https://supportnav.org.uk/what-is-domestic-abuse',
-  seeGuidanceLabel: ' see the guidance. - welsh',
+  seeGuidanceLabel: ' gweler y canllawiau.',
   select_all_relevant: "Dewiswch bob opsiwn sy'n berthnasol i'ch sefyllfa.",
   physicalAbuse: 'cam-drin corfforol',
   physicalAbuseHint: 'Ymddygiad megis dyrnu, tagu, cicio neu daro gyda gwrthrych',
   psychologicalAbuse: 'Cam-drin seicolegol',
   psychologicalAbuseHint:
-    'Being subjected to a situation that leads to anxiety, depression, or post-traumatic stress disorder - welsh',
+    "Cael eich rhoi mewn sefyllfa sy'n arwain at or-bryder, iselder, neu anhwylder straen ar ôl trawma",
   emotionalAbuse: 'cam-drin emosiynol',
   emotionalAbuseHint:
     'Gall cam-drin emosiynol fod ar lafar (geiriol) neu ddim yn ymwneud â geiriau neu siarad (di-eiriau). Gall enghreifftiau o hyn gynnwys galw enwau, beirniadaeth gyson, ymddygiad rheolaethol, a pheidio â chaniatau i chi roi barn',
@@ -62,7 +62,7 @@ const cy = () => ({
     'Mae enghreifftiau o gam-drin ariannol yn cynnwys peidio â chaniatau i rywun weithio, atal rhywun rhag cynilio arian ei hun, neu gadw arian neu gardiau credyd oddi wrthynt',
   somethingElse: 'Rhywbeth Arall',
   somethingElseHint: "Unrhyw bryderon sydd gennych nad ydynt yn ffitio i'r categorïau uchod",
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     PRL_c1A_concernAboutRespondent: {
       required: 'Specify the type of behaviour you have experienced or are at risk of experiencing - welsh',

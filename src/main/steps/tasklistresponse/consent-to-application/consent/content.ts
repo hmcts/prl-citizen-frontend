@@ -58,8 +58,8 @@ const cy: typeof en = {
   courtPermission: 'A oes angen caniatâd y llys ar yr ymgeisydd cyn gwneud ceisiadau?',
   one: 'Oes',
   two: 'Nac oes',
-  hint: 'For example, 27 3 2007 (welsh)',
-  continue: 'Save and continue (welsh)',
+  hint: 'Er enghraifft, 27 3 2007',
+  continue: 'Cadw a pharhau',
   reasonNotConsenting: 'Give your reasons for not consenting to the application. (welsh)',
   courtOrderDetails: 'Provide details of the court order in place. (welsh)',
   errors: {
@@ -71,13 +71,13 @@ const cy: typeof en = {
     },
     reasonForNotConsenting: {
       required: 'Please provide a reason (welsh)',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     courtOrderDetails: {
       required: 'Please provide court details (welsh)',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
