@@ -19,7 +19,7 @@ export const en = () => ({
   contactPreferenceHintText: 'Select one of these options.',
   labelDigital: 'Digital',
   labelDitigalHintText: 'All communication from the court will be sent by email.',
-  labelPost: 'post',
+  labelPost: 'Post',
   labelPostHintText: 'All communication from the court will be sent by post.',
   errors: {
     applicantContactPreferences: {

@@ -15,9 +15,9 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
-    title: 'Police reports (welsh)',
+    title: 'Adroddiadau gan yr heddlu',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 
@@ -47,8 +47,8 @@ export const generateContent: TranslationFn = content => {
   const orders: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (
-      doc.value.documentType === documents_list_items_en.police_reports &&
-      content.byApplicant === doc.value.isApplicant
+      content.byApplicant === doc.value.isApplicant &&
+      doc.value.documentType === documents_list_items_en.police_reports
     ) {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1

@@ -244,7 +244,7 @@ describe('handler', () => {
     };
     populateSummaryData(data, '123');
     expect(data.miamStart).toEqual('Yes');
-    expect(data.miamWillingness).toEqual('No');
+    expect(data.miamWillingness).toEqual('');
     expect(data.miamNotWillingExplnation).toEqual('');
   });
   test('Miam all NO-yes', () => {

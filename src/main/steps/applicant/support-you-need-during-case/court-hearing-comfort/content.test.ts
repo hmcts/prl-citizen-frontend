@@ -15,6 +15,7 @@ const en = {
   break: 'Regular breaks',
   space: 'Space to be able to get up and move around',
   other: 'Other',
+  otherDetails: 'Describe what you need',
   nosupport: 'No, I do not need any support at this time',
   continue: 'Continue',
   errors: {
@@ -44,18 +45,19 @@ const cy: typeof en = {
   optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
   appropriatelighting: 'Goleuadau priodol',
-  appropriateLightingDetails: 'Describe what you need',
+  appropriateLightingDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   break: 'Seibiannau rheolaidd',
   space: 'Lle i allu codi a symud o gwmpas',
   other: 'Arall',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     courtComfort: {
       required: 'Select what help you need to feel comfortable during a court hearing',
     },
     otherProvideDetails: {
-      required: 'Please describe your need in detail',
+      required: 'Disgrifiwch eich anghenion yn fanwl',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',

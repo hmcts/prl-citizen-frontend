@@ -54,37 +54,37 @@ const cy: typeof en = {
   optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
   parkingspace: "Lle parcio yn agos i'r lleoliad",
-  parkingSpaceDetails: 'Describe why you need this',
+  parkingSpaceDetails: 'Disgrifiwch pam fod arnoch angen hyn',
   stepfree: 'Dim grisiau / mynediad ar gyfer cadair olwyn',
   wheelchair: 'Y gallu i ddefnyddio cadair olwyn a geir yn y lleoliad',
   toilet: 'Toiledau hygyrch',
   lift: 'Help i ddefnyddio lifft',
   differentchair: 'Math gwahanol o gadair',
-  differentChairDetails: 'Describe what you need',
-  differentChairDetailsHint: 'For example, a chair with back support',
+  differentChairDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
+  differentChairDetailsHint: 'Er enghraifft, cadair â chymorth cefn',
   building: 'Cymorth i fynd o amgylch yr adeilad',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     travellingToCourt: {
       required: 'Please select an answer',
     },
     parkingDetails: {
-      required: 'Please describe parking space details',
+      required: 'Rhowch fanylion y lle parcio',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     differentChairDetails: {
-      required: 'Please describe different chair details',
+      required: 'Rhowch fanylion y math gwahanol o gadair',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     travellingOtherDetails: {
-      required: 'Please describe your need in detail',
+      required: 'Disgrifiwch eich anghenion yn fanwl',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',

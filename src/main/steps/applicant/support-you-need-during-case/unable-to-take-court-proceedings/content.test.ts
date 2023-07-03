@@ -35,13 +35,13 @@ const cy: typeof en = {
   summaryText: 'Cysylltiadau am gymorth',
   one: 'Yes',
   two: 'No',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     unableForCourtProceedings: {
       required: 'Please select an answer',
     },
     courtProceedingProvideDetails: {
-      required: 'Please provide the details',
+      required: 'Rhowch fanylion',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',

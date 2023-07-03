@@ -22,7 +22,7 @@ export const applicant_tasklist_items_cy = {
   keep_your_details_private: 'Cadw eich manylion yn breifat',
   confirm_or_edit_your_contact_details: 'Cadarnhau neu olygu eich manylion cyswllt',
   your_application: 'Cais wedi’i gyflwyno (PDF)',
-  your_application_ca: 'Your application (PDF)',
+  your_application_ca: 'Eich cais (PDF)',
   your_allegations_of_harm: 'Gweld honiadau o niwed a thrais (PDF)',
   respond_to_other_side_aoh_violence: "Respond to the other side's allegations of harm and violence",
   your_application_witness_statement: 'Datganiad tyst (PDF)',

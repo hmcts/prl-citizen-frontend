@@ -10,6 +10,7 @@ import {
   getFinalApplicationStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
+  getResponseStatus,
   getUploadDocuments,
   getViewAllDocuments,
   getViewAllHearingsFromTheCourt,
@@ -19,11 +20,16 @@ import {
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
+export const generateRespondentTaskList = (
+  sectionTitles,
+  taskListItems,
+  userCase,
+  userIdamId,
+  isRepresentedBySolicotor
+) => {
   const isCaseClosed = userCase.state === 'ALL_FINAL_ORDERS_ISSUED';
-
   return [
-    !isCaseClosed
+    !isCaseClosed && !isRepresentedBySolicotor
       ? {
           title: sectionTitles.aboutYou,
           items: [
@@ -52,7 +58,9 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
       title: sectionTitles.theApplication,
       items: [...getTheApplicationSection(taskListItems, userCase, userIdamId)],
     },
-    ...(!isCaseClosed ? getYourResponseSection(sectionTitles, taskListItems, userCase, userIdamId) : []),
+    ...(!isCaseClosed && !isRepresentedBySolicotor
+      ? getYourResponseSection(sectionTitles, taskListItems, userCase, userIdamId)
+      : []),
     {
       title: sectionTitles.yourcourtHearings,
       items: [
@@ -73,7 +81,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           status: getViewAllDocuments(),
           href: getViewAllDocuments() === 'READY_TO_VIEW' ? URL.RESPONDENT_VIEW_ALL_DOCUMENTS : '#',
         },
-        !isCaseClosed
+        !isCaseClosed && !isRepresentedBySolicotor
           ? {
               id: 'upload-document',
               text: taskListItems.upload_document,
@@ -109,6 +117,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
           getFinalApplicationStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
             ? '#'
             : URL.APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES,
+        openInAnotherTab: true,
       },
       {
         id: 'check_allegations_of_harm_and_violence',
@@ -118,6 +127,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
           getCheckAllegationOfHarmStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
             ? '#'
             : URL.ALLEGATION_OF_HARM_VOILENCE + UPDATE_CASE_YES,
+        openInAnotherTab: true,
       }
     );
   } else {
@@ -129,6 +139,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
         getFinalApplicationStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
           ? '#'
           : URL.APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES,
+      openInAnotherTab: true,
     });
   }
 
@@ -145,7 +156,7 @@ const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWith
           {
             id: 'respond_to_application',
             text: taskListItems.respond_to_application,
-            status: getInternationalFactorsStatus(userCase),
+            status: getResponseStatus(userCase, userId),
             href: !hasCitizenResponse ? `${URL.RESPOND_TO_APPLICATION}/flag/updateFlag` : null,
             hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
           },

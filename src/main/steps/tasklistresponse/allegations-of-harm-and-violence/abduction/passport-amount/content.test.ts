@@ -37,16 +37,16 @@ const en = {
 
 const cy = {
   caption: 'Pryderon diogelwch',
-  title: 'Provide details of the children’s passports - welsh',
-  childrenMoreThanOnePassport: 'Do the children have more than one passport? - welsh',
-  possessionChildrenPassport: 'Who is in possession of the children’s passports? - welsh',
-  select_all_relevant: 'Select all that apply - welsh',
-  one: 'Yes - welsh',
-  two: 'No - welsh',
-  option1: 'Mother - welsh',
-  option2: 'Father - welsh',
-  option3: 'Other - welsh',
-  otherDetails: 'Provide more details - welsh',
+  title: 'Darparu manylion pasbortau y plant',
+  childrenMoreThanOnePassport: 'A oes gan y plant fwy nag un pasbort?',
+  possessionChildrenPassport: "Ym meddiant pwy y mae pasbortau'r plant?",
+  select_all_relevant: "Dewiswch bob un sy'n berthnasol",
+  one: 'Oes',
+  two: 'Nac oes',
+  option1: 'Mam',
+  option2: 'Tad',
+  option3: 'Arall',
+  otherDetails: 'Darparwch fwy o fanylion',
   errors: {
     PRL_c1A_childrenMoreThanOnePassport: {
       required: 'Select yes if the children have more than one passport - welsh',
@@ -55,7 +55,7 @@ const cy = {
       required: "Specify who is in possession of the children's passports - welsh",
     },
     PRL_c1A_provideOtherDetails: {
-      required: 'Please provide the details - welsh',
+      required: 'Rhowch fanylion',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',

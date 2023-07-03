@@ -96,7 +96,7 @@ const cy: typeof en = {
   section: 'Achos cyfredol neu flaenorol',
   title: "Darparwch fanylion am achosion llys rydych chi neu'r plant wedi bod yn rhan ohonynt",
   emergencyOrder: 'Gorchymyn Diogelu Brys',
-  caseno: 'Case number',
+  caseno: 'Rhif yr achos',
   casenohint: 'Er enghraifft, BS19F99999',
   orderdate: 'Pa ddyddiad gafodd ei wneud?',
   orderDateHint: 'For example, 31 3 2015',
@@ -120,7 +120,7 @@ const cy: typeof en = {
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
   courtOrderDontKnow: "I don't know",
-  saveAndContinue: 'Save and continue',
+  saveAndContinue: 'Cadw a pharhau',
   errors: {
     emergencyOrderOptions: {
       required: 'Please choose an option for emergency protection order',

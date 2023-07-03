@@ -29,7 +29,7 @@ export const prepareSupportYouNeedDuringCaseRequest = (userCase: CaseWithId): Re
     hearingDetails,
     helpCommunication,
     describeOtherNeed,
-    describeSignLanguageDetails,
+    signLanguageDetails,
     courtComfort,
     lightingProvideDetails,
     otherProvideDetails,
@@ -59,7 +59,7 @@ export const prepareSupportYouNeedDuringCaseRequest = (userCase: CaseWithId): Re
     hearingDetails,
     helpCommunication,
     describeOtherNeed,
-    describeSignLanguageDetails,
+    signLanguageDetails,
     courtComfort,
     lightingDetails: lightingProvideDetails,
     otherProvideDetails,
@@ -105,7 +105,7 @@ export const prepareSupportYouNeedDuringCaseRequest = (userCase: CaseWithId): Re
     }
 
     if (!reasonableAdjustments.includes(COMM_HELP)) {
-      delete request.describeSignLanguageDetails;
+      delete request.signLanguageDetails;
       delete request.describeOtherNeed;
     }
 
@@ -144,7 +144,7 @@ export const prepareSupportYouNeedDuringCaseRequest = (userCase: CaseWithId): Re
   // looping over helpCommunication array
   if (Array.isArray(helpCommunication)) {
     if (!helpCommunication?.includes(SIGN_LANGUAGE)) {
-      delete request.describeSignLanguageDetails;
+      delete request.signLanguageDetails;
     }
     if (!helpCommunication?.includes(OTHER)) {
       delete request.describeOtherNeed;

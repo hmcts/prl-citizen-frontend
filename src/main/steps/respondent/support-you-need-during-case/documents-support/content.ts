@@ -54,37 +54,37 @@ const cy: typeof en = {
     'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad. Ystyriwch wrandawiadau o bell a rhai wyneb yn wyneb, rhag ofn bod y math o wrandawiad o’ch dewis ddim yn bosibl.',
   optionHint: 'Dogfennau mewn lliw penodol',
   docsColour: 'Dogfennau mewn lliw penodol',
-  docsColourDetails: 'Describe what you need',
+  docsColourDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   docsReadFormat: 'Dogfennau mewn fformat hawdd i’w darllen',
   docsReadFormatHint: "Gwybodaeth wedi'i hysgrifennu mewn iaith syml â lluniau",
   brailleDocs: 'Dogfennau Braille',
   largePrintDocs: 'Dogfennau mewn print bras',
-  largePrintDocsDetails: 'Describe what you need',
+  largePrintDocsDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   audioTranslation: 'Cyfieithiad sain o ddogfennau',
   docsReadOut: 'Dogfennau yn cael eu darllen yn uchel i mi',
   emailInfo: 'Gwybodaeth yn cael ei hanfon ataf drwy e-bost',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   noSupport: 'Nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     docsSupport: {
       required: 'Please select an answer',
     },
     docsDetails: {
-      required: 'Please provide the docs details',
+      required: 'Rhowch fanylion y dogfennau',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     largePrintDetails: {
-      required: 'Please provide the large print details',
+      required: 'Rhowch fanylion y print bras',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
     },
     otherDetails: {
-      required: 'Please provide the other details',
+      required: 'Rhowch fanylion y print bras',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
@@ -171,7 +171,7 @@ export const form: FormContent = {
           },
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'docsSupport',

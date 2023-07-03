@@ -27,11 +27,11 @@ const enContent = {
 
 const cyContent = {
   title: "A fyddech chi'n fodlon mynychu MIAM?",
-  one: 'Yes',
-  two: 'No',
+  one: 'Byddwn',
+  two: 'Na fyddwn',
   explainWhyLabel: 'Explain why',
   miamCostExemptionsLabel: 'Help gyda chostau ac esemptiadau MIAM',
-  onlyContinue: 'Continue',
+  onlyContinue: 'Parhau',
   errors: {
     miamWillingness: {
       required: 'Select yes if you are willing to attend a MIAM',

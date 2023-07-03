@@ -102,8 +102,10 @@ export const en = {
   rejectAnalyticsCookies: 'Reject analytics cookies',
   viewCookies: 'View cookies',
   hideMessage: 'Hide this message',
-  cookiesConfirmationMessage:
-    '<p class="govuk-body">You can <a class="govuk-link" href="/cookies">change your cookie settings</a> at any time.</p>',
+  cookiesAcceptedPart: 'You’ve accepted additional cookies. You can',
+  cookiesAcceptorRejectPart2: 'change your cookie settings',
+  cookiesAcceptorRejectPart3: 'at any time.',
+  cookiesRejectedPart: 'You’ve rejected additional cookies. You can',
   changeCookiesHeading: 'Change your cookie settings',
   allowAnalyticsCookies: 'Allow cookies that measure website use?',
   useAnalyticsCookies: 'Use cookies that measure my website use',
@@ -120,6 +122,13 @@ export const en = {
   edit: 'Edit',
   appName: '- Private law - GOV.UK',
   ...appSurveyContents.en,
+  contactUs1:
+    'You can <a href="https://www.gov.uk/find-court-tribunal" class="govuk-link" target="blank">contact the relevant court</a> if you need to discuss your case.',
+  contactUs2: 'They cannot give you legal advice or answer questions about applications submitted.',
+  contactUs3:
+    'If you would like to report a problem or have a suggestion to help improve this service, send an email to: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk</a>',
+  contactUs4: 'This email should only be used for feedback on the digital service.',
+  feedback: 'FeedBack',
 };
 
 export const cy: typeof en = {
@@ -199,14 +208,40 @@ export const cy: typeof en = {
   findOutCharges: 'Gwybodaeth am brisiau galwadau',
   openNewWindow: '(agor mewn ffenestr newydd)',
   telephone: 'Ffôn',
+  cookiesLine1: 'Rydym yn defnyddio rhai cwcis hanfodol i wneud i’r gwasanaeth hwn weithio',
+  cookiesLine2:
+    'Hoffwn osod cwcis ychwanegol ar eich cyfrifiadur fel y gallwn gofio eich gosodiadau, deall sut mae pobl yn defnyddio’r gwasanaeth a gwella gwasanaethau’r llywodraeth',
+  cookiesAcceptedPart: 'Rydych wedi derbyn cwcis ychwanegol. Gallwch',
+  cookiesAcceptorRejectPart2: 'newid eich gosodiadau cwcis ',
+  cookiesAcceptorRejectPart3: ' ar unrhyw bryd',
+  cookiesRejectedPart: 'Rydych wedi gwrthod cwcis ychwanegol. Gallwch',
+  changeCookiesHeading: 'Newid eich gosodiadau cwcis',
+  allowAnalyticsCookies: "Caniatáu cwcis sy’n mesur defnydd o'r wefan?",
+  useAnalyticsCookies: "Defnyddio cwcis sy’n mesur fy nefnydd o'r wefan",
+  doNotUseAnalyticsCookies: "Peidio â defnyddio cwcis sy'n mesur fy nefnydd o'r wefan",
+  apmCookiesHeadings: "Caniatáu cwcis sy'n mesur y broses o fonitro perfformiad gwefannau?",
+  useApmCookies: 'Defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
+  doNotUseApmCookies: 'Peidio â defnyddio cwcis sy’n mesur y broses o fonitro perfformiad gwefannau',
+  cookiesHeading: 'Cwcis y gwasanaeth',
+  acceptAnalyticsCookies: 'Derbyn cwcis dadansoddol',
+  rejectAnalyticsCookies: 'Gwrthod cwcis dadansoddol',
+  viewCookies: 'Gweld cwcis',
+  hideMessage: 'Cuddio’r neges hon',
   telephoneNumber: '0300 303 0742',
   telephoneDetails: 'Dydd Llun i ddydd Gwener, 8am i 8pm',
   onlyContinue: 'Parhau',
   onlycontinue: 'Parhau',
   divider: 'neu',
-  edit: 'Edit -welsh',
+  edit: 'Golygu',
   appName: '- Private law - GOV.UK (welsh)',
   ...appSurveyContents.cy,
+  contactUs1:
+    'Gallwch <a href="https://www.gov.uk/find-court-tribunal" class="govuk-link" target="blank">gysylltu â’r llys perthnasol</a> os ydych angen trafod eich achos.',
+  contactUs2: 'Ni allant roi cyngor cyfreithiol i chi nac ateb cwestiynau am geisiadau a gyflwynwyd.',
+  contactUs3:
+    'Os hoffech roi gwybod inni am broblem neu os oes gennych awgrym i’n helpu ni i wella’r gwasanaeth hwn, anfonwch neges e-bost i: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk-welsh</a>',
+  contactUs4: "Dim ond i roi adborth ar y gwasanaeth digidol y dylid defnyddio'r cyfeiriad e-bost hwn.",
+  feedback: 'Adborth',
 };
 
 export const generatePageContent = ({

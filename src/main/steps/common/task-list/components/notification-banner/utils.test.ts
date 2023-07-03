@@ -97,6 +97,7 @@ describe('testcase for notification Banner', () => {
           {
             href: '/c100-rebuild/12/withdraw',
             text: 'Withdraw your application',
+            external: undefined,
           },
         ],
         title: 'Important',
@@ -132,6 +133,7 @@ describe('testcase for notification Banner', () => {
           {
             href: '#',
             text: 'Continue your application',
+            external: undefined,
           },
         ],
         title: 'Important',
@@ -213,6 +215,7 @@ describe('testcase for notification Banner', () => {
           {
             href: '/applicant/yourdocuments/alldocuments/orders',
             text: 'View the order (PDF)',
+            external: undefined,
           },
         ],
         title: 'Important',
@@ -289,10 +292,12 @@ describe('testcase for notification Banner', () => {
           {
             href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
             text: 'Find out about Cafcass',
+            external: true,
           },
           {
             href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
             text: 'Find out about Cafcass Cymru',
+            external: true,
           },
         ],
         title: 'Important',

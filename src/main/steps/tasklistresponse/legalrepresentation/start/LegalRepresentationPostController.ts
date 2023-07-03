@@ -2,16 +2,16 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { Respondent, YesOrNo } from '../../../../app/case/definition';
-import { toApiFormat } from '../../../../app/case/to-api-format';
+import { CaseEvent, CaseType, YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
+import { getPartyDetails, mapDataInSession } from '../../../../steps/tasklistresponse/utils';
 import {
   LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
   LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
   LEGAL_REPRESENTATION_START,
-  //RESPOND_TO_APPLICATION,
 } from '../../../urls';
 
 @autobind
@@ -33,25 +33,32 @@ export default class LegalRepresentationPostController extends PostController<An
       });
       super.redirect(req, res, redirectUrl);
     } else if (formData.legalRepresentation) {
-      req.session.userCase.legalRepresentation = formData.legalRepresentation;
-      let returnUrl = LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT;
-      if (formData.legalRepresentation === YesOrNo.YES) {
-        returnUrl = LEGAL_REPRESENTATION_SOLICITOR_DIRECT;
-      }
-      super.redirect(req, res, returnUrl);
-      req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-        if (respondent?.value?.user?.idamId === req.session?.user.id) {
-          respondent.value.response.legalRepresentation = formData.legalRepresentation;
+      const { user, userCase } = req.session;
+      const partyType = getCasePartyType(userCase, user.id);
+      const partyDetails = getPartyDetails(userCase, user.id);
+      const client = new CosApiClient(user.accessToken, 'https://return-url');
+
+      if (partyDetails) {
+        Object.assign(partyDetails.response, { legalRepresentation: formData.legalRepresentation });
+        try {
+          req.session.userCase = await client.updateCaseData(
+            user,
+            userCase.id,
+            partyDetails,
+            partyType,
+            userCase.caseTypeOfApplication as CaseType,
+            CaseEvent.LEGAL_REPRESENTATION
+          );
+          mapDataInSession(req.session.userCase, user.id);
+          let returnUrl = LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT;
+          if (formData.legalRepresentation === YesOrNo.YES) {
+            returnUrl = LEGAL_REPRESENTATION_SOLICITOR_DIRECT;
+          }
+          req.session.save(() => res.redirect(returnUrl));
+        } catch (error) {
+          throw new Error('LegalRepresentationPostController - Case could not be updated.');
         }
-      });
-      req.session.errors = [];
-      const eventId = 'legalRepresentation';
-      const caseReference = req.session.userCase.id;
-      const caseData = toApiFormat(req?.session?.userCase);
-      caseData.id = req.session.userCase?.id;
-      const client = new CosApiClient(req.session.user.accessToken, 'https://return-url');
-      const updatedCaseDataFromCos = await client.updateCase(req.session.user, caseReference, caseData, eventId);
-      Object.assign(req.session.userCase, updatedCaseDataFromCos);
+      }
     }
   }
 }

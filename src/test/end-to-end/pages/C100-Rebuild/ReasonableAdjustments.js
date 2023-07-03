@@ -18,47 +18,48 @@ module.exports = {
     
   },
   async typeOfHearing() {
-    await I.retry(retryCount).waitForText(ReasonableAdjustments.typeOfHearingPageTitle);
+    await I.retry(retryCount).waitForText(ReasonableAdjustments.typeOfHearingPageTitle , 30);
+    await I.retry(retryCount).waitForSelector(this.fields.typeOfHearingVideo, 30);
     await I.retry(retryCount).click(this.fields.typeOfHearingVideo);
     await I.retry(retryCount).click(this.fields.typeOfHearingPhone);
-    I.wait('2');
+    await I.waitForText('Continue');
     await I.retry(retryCount).click('Continue');
   },
   async languageNeeds() {
-    await I.retry(retryCount).waitForText(ReasonableAdjustments.languageNeedsPageTitle);
+    await I.retry(retryCount).waitForText(ReasonableAdjustments.languageNeedsPageTitle , 30);
     await I.retry(retryCount).click(this.fields.noLanguageRequirementsButton);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async specialArrangements() {
-    await I.retry(retryCount).waitForText(ReasonableAdjustments.specialArrangementsPageTitle);
+    await I.retry(retryCount).waitForText(ReasonableAdjustments.specialArrangementsPageTitle , 30);
     await I.retry(retryCount).click(this.fields.separateWaitingRoom);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click(this.fields.separateToilet);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click(this.fields.visitCourt);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async disabilityRequirements() {
-    await I.retry(retryCount).waitForText(ReasonableAdjustments.disabilityRequirementsPageTitle);
+    await I.retry(retryCount).waitForText(ReasonableAdjustments.disabilityRequirementsPageTitle , 30);
     await I.retry(retryCount).click(this.fields.documentAlternateFormat);
     await I.retry(retryCount).click(this.fields.bringSupport);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async documentInformation() {
-    await I.retry(retryCount).waitForText(ReasonableAdjustments.documentInformationPageTitle);
+    await I.retry(retryCount).waitForText(ReasonableAdjustments.documentInformationPageTitle , 30);
     await I.retry(retryCount).click(this.fields.documentColour);
     await I.retry(retryCount).fillField(this.fields.documentColourDetails, ReasonableAdjustments.documentColourYellow);
     await I.retry(retryCount).click(this.fields.documentReadOut);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async bringSupport(){
-    await I.retry(retryCount).waitForText(ReasonableAdjustments.bringSupportTitle);
+    await I.retry(retryCount).waitForText(ReasonableAdjustments.bringSupportTitle , 30);
     await I.retry(retryCount).click(this.fields.guideDog);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async reasonableAdjustments() {

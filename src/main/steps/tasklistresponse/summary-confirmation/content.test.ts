@@ -27,7 +27,7 @@ const en = {
 
 const cy: typeof en = {
   success: 'Response submitted successfully -welsh',
-  caseNumber: 'Case number  -welsh',
+  caseNumber: 'Rhif yr achos',
   line1: 'By submitting this response you have completed the following: -welsh',
   line2: 'Your response to the application -welsh',
   line3: 'What happens next -welsh',
@@ -37,12 +37,12 @@ const cy: typeof en = {
   list2: `<li><a href="https://helpwithchildarrangements.service.justice.gov.uk/going-to-court-other-parent" class="govuk-link" target="_blank">Read more about child arrangements</a></li>
   <li><a href="https://www.gov.uk/find-legal-advice/find-legal-adviser" class="govuk-link" target="_blank">Find an organisation that will help you with your case</a></li> -welsh`,
   line5: ' Download your response (PDF) -welsh',
-  line6: `If you cannot open the PDF file on your device, download and install
-  <a href="https://get.adobe.com/uk/reader/" class="govuk-link" rel="external" target="_blank">Adobe Acrobat Reader</a> and try again. -welsh`,
+  line6: `Os na allwch agor y ffeil PDF ar eich dyfais, llwythwch a gosodwch
+  <a href="https://get.adobe.com/uk/reader/" class="govuk-link" rel="external" target="_blank">Adobe Acrobat Reader</a> ar eich dyfais a cheisio eto.`,
   line7: 'A copy of your submitted application will be in your personal dashboard. -welsh',
   downloadLink:
     ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-final">Download your response -welsh</a>',
-  saveAndContinue: 'Continue -welsh',
+  saveAndContinue: 'Parhau',
 };
 
 jest.mock('../../../app/form/validation');

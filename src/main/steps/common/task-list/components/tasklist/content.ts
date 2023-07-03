@@ -126,7 +126,7 @@ const cy: typeof en = {
             linkText: 'Cadw eich manylion yn breifat',
           },
           supportDuringCase: {
-            linkText: 'Support you need during your case -welsh',
+            linkText: 'Cefnogaeth y mae arnoch angen yn ystod eich achos',
           },
         },
       },
