@@ -93,7 +93,6 @@ const notificationBanner = {
   [BannerNotification.SOA_SERVED]: {
     id: BannerNotification.SOA_SERVED,
     content: getContent.bind(null, BannerNotification.SOA_SERVED),
-    show: () => false,
   },
 };
 

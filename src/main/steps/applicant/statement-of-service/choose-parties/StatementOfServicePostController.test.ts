@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { APPLICANT_STATEMENT_OF_SERVICE_NEXT } from '../../../urls';
+import { APPLICANT_STATEMENT_OF_SERVICE, APPLICANT_STATEMENT_OF_SERVICE_NEXT } from '../../../urls';
 
 import StatementOfServicePostController from './StatementOfServicePostController';
 
@@ -117,5 +117,31 @@ describe('StatementOfServicePostController', () => {
     req.url = 'applicant';
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(APPLICANT_STATEMENT_OF_SERVICE_NEXT);
+  });
+
+  test('Should redirect to same page', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.userCase.applicants = partyDetails;
+    req.body = {
+      onlyContinue: {},
+    };
+    req.params.caseId = '123';
+    req.session.userCase.caseInvites = [
+      {
+        id: 'string',
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          caseInviteEmail: 'string',
+          accessCode: 'string',
+          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          expiryDate: 'string',
+          isApplicant: 'Yes',
+        },
+      },
+    ];
+    req.url = APPLICANT_STATEMENT_OF_SERVICE;
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(APPLICANT_STATEMENT_OF_SERVICE);
   });
 });
