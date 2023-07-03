@@ -61,6 +61,22 @@ describe('contact preferences common content', () => {
   let form;
   let fields;
   beforeEach(() => {
+    commonContent.additionalData = {
+      req: {
+        session: {
+          user: {
+            id: '1234',
+          },
+          userCase: {
+            applicants: [
+              {
+                contactPreferences: applicantContactPreferencesEnum.POST,
+              },
+            ],
+          },
+        },
+      },
+    };
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;
     fields = form.fields as FormFields;

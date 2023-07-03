@@ -35,7 +35,7 @@ const cyContent = {
   courtOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
-  saveAndContinue: 'Save and continue',
+  saveAndContinue: 'Cadw a pharhau',
   errors: {
     proceedingsStart: {
       required: 'Select yes if the children have been involved in a previous court case',

@@ -17,7 +17,7 @@ const cy: typeof en = () => {
     section: 'Pob dogfen',
     title: "'s witness statements (welsh)",
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 
@@ -47,8 +47,8 @@ export const generateContent: TranslationFn = content => {
   const orders: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (
-      doc.value.documentType === documents_list_items_en.your_witness_statements &&
-      doc.value.partyName === content.name
+      doc.value.partyName === content.name &&
+      doc.value.documentType === documents_list_items_en.your_witness_statements
     ) {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1

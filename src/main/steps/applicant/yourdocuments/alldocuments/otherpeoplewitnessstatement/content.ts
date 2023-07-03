@@ -1,6 +1,7 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
+import { applicant_tasklist_items_all_docs_en } from '../alldocuments/tasklist-items-all-documents';
 
 const en = () => {
   return {
@@ -16,7 +17,7 @@ const cy: typeof en = () => {
     section: 'Pob dogfen',
     title: 'Datganiadau tyst pobl eraill',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 
@@ -46,7 +47,10 @@ export const generateContent: TranslationFn = content => {
 
   const orders: object[] = [];
   const docs = content.userCase?.citizenUploadedDocumentList?.filter(doc => {
-    if (doc.value.uploadedBy === content.userIdamId && doc.value.documentType === "Other people's witness statements") {
+    if (
+      doc.value.uploadedBy === content.userIdamId &&
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.other_people_witness_statements
+    ) {
       return doc;
     }
   });

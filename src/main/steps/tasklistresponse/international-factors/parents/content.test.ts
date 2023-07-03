@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -12,6 +13,7 @@ const enContent = {
   one: 'Yes',
   two: 'No',
   continue: 'Continue',
+  provideDetails: 'Provide details',
   errors: {
     parents: {
       required: 'Please select one of the options before proceeding further',
@@ -31,7 +33,8 @@ const cyContent = {
   hint: "Er enghraifft, gallai hyn gynnwys taid a nain neu berthynas agos arall. Mae'n bosib y bydd ganddyn nhw drefniadau gwaith, eiddo neu ysgol sydd wedi'u lleoli'n bennaf y tu allan i Gymru a Lloegr.",
   one: 'Ydyn',
   two: 'Nac ydyn',
-  continue: 'Continue',
+  continue: 'Parhau',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     parents: {
       required: 'Please select one of the options before proceeding further',
@@ -75,11 +78,20 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain detailsKnown field', () => {
-    const detailsKnownField = fields.parents as FormOptions;
-    expect(detailsKnownField.type).toBe('radios');
-    expect(detailsKnownField.classes).toBe('govuk-radios');
-    expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
+  test('should contain parents field', () => {
+    const parentsField = fields.parents as FormOptions;
+    expect(parentsField.type).toBe('radios');
+    expect(parentsField.classes).toBe('govuk-radios');
+    expect((parentsField.section as Function)(generatedContent)).toBe(enContent.section);
+    expect((parentsField.hint as Function)(generatedContent)).toBe(enContent.hint);
+    expect(parentsField.validator).toBe(isFieldFilledIn);
+    expect((parentsField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
+    expect((parentsField.values[0].subFields?.iFactorsParentsProvideDetails.label as Function)(generatedContent)).toBe(
+      enContent.provideDetails
+    );
+    (parentsField.values[0].subFields?.iFactorsParentsProvideDetails.validator as Validator)('test value');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test value');
+    expect((parentsField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
   });
 
   test('should contain onlyContinue button', () => {

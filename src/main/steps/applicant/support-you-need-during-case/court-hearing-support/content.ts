@@ -66,17 +66,17 @@ const cy: typeof en = {
   familyMemberDetails: 'Tell us who you will bring',
   assistance: 'Ci cymorth / ci tywys',
   animal: 'Anifail therapi',
-  animalDetails: 'Describe what you need',
+  animalDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     courtHearing: {
       required: 'Select what help you need to bring support with you to a court hearing',
     },
     communicationSupportOther: {
-      required: 'Please provide the details',
+      required: 'Rhowch fanylion',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
@@ -97,7 +97,7 @@ const cy: typeof en = {
       required: 'Please provide the therapy animal details',
     },
     therapyDetails: {
-      required: 'Please provide therapy animal details',
+      required: 'Rhowch fanylion yr anifail therapi',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
       invalid:
         'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
@@ -188,7 +188,7 @@ export const form: FormContent = {
           },
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'courtHearing',

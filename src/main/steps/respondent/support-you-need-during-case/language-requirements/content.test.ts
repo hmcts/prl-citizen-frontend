@@ -38,7 +38,7 @@ const cy: typeof en = {
   readandwritewelsh: 'Rwyf eisiau siarad ac ysgrifennu yn Gymraeg',
   languageinterpreter: 'Mae arnaf angen cyfieithydd mewn iaith benodol',
   nointerpreter: 'Nac oes, nid oes gennyf unrhyw ofynion o ran iaith ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     languageRequirements: {
       required: 'Please select an answer',

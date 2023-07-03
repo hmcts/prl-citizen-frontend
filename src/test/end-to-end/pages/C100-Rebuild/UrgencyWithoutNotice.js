@@ -24,42 +24,44 @@ module.exports = {
         noTimeNoticeDetails: '//*[@id="hwn_doYouRequireAHearingWithReducedNoticeDetails"]',
     },
     async qualifyUrgentHearing() {
-        await I.retry(retryCount).waitForText(UrgencyWithoutNotice.qualifyUrgentHearingPageTitle);  
+        await I.retry(retryCount).waitForText(UrgencyWithoutNotice.qualifyUrgentHearingPageTitle , 30); 
+        await I.retry(retryCount).waitForSelector(this.fields.urgentHearingReasonsYes, 30); 
         await I.retry(retryCount).click(this.fields.urgentHearingReasonsYes);
-        I.wait(2);
+        await I.wait('2');
         await I.retry(retryCount).click('Continue');
       },
       async aboutSituation() {
-        await I.retry(retryCount).waitForText(UrgencyWithoutNotice.aboutSituationPageTitle);    
+        await I.retry(retryCount).waitForText(UrgencyWithoutNotice.aboutSituationPageTitle , 30);    
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.reasonOfUrgentHearing);
         await I.retry(retryCount).click(this.fields.reasonOfUrgentHearing2);
         await I.retry(retryCount).click(this.fields.reasonOfUrgentHearing3);
         await I.retry(retryCount).click(this.fields.reasonOfUrgentHearing4);
-        I.wait('1');
+        await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.otherRiskDetailsField, this.fields.testingText);
         await I.retry(retryCount).fillField(this.fields.timeOfHearingDetailsField, this.fields.testingText);
         await I.retry(retryCount).click(this.fields.earingWithNext48HrsDetails);
-        I.wait('1');
+        await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.hearingWithNext48HrsMsgField, this.fields.testingText);
         I.wait(2);
         await I.retry(retryCount).click('Continue');
       },
     async withoutNoticeHearing() {
-        await I.retry(retryCount).waitForText(UrgencyWithoutNotice.withoutNoticeHearingPageTitle);  
+        await I.retry(retryCount).waitForText(UrgencyWithoutNotice.withoutNoticeHearingPageTitle , 30);  
         await I.retry(retryCount).click(this.fields.withoutNoticeYes);
-        I.wait('2');
+        await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async withoutNoticeDetails() {
-        await I.retry(retryCount).waitForText(UrgencyWithoutNotice.withoutNoticeDetailsPageTitle);
+        await I.retry(retryCount).waitForText(UrgencyWithoutNotice.withoutNoticeDetailsPageTitle , 30);
         await I.retry(retryCount).fillField(this.fields.withoutNoticeDetails, this.fields.testingText);
         await I.retry(retryCount).click(this.fields.obstructOrderYes);
-        I.wait('1');
+        await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.obstructOrderDetails, this.fields.testingText);
         await I.retry(retryCount).click(this.fields.noTimeNoticeYes);
-        I.wait('1');
+        await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.noTimeNoticeDetails, this.fields.testingText);
-        I.wait('2');
+        await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async urgencyWithoutNotice() {
