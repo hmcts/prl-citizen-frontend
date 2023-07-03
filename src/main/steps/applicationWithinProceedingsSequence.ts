@@ -8,6 +8,7 @@ import {
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_APPLY_FOR_HWF,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_REFERENCE,
+  APPLICATION_WITHIN_PROCEEDINGS_INFORM_OTHER_PARTIES,
   APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
   APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
   DASHBOARD_URL,
@@ -48,6 +49,15 @@ export const applicationWithinProceedingsSequence: Step[] = [
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
+        applicationType: req?.params.applicationType as AWPApplicationType,
+        applicationReason: req?.params.applicationReason as AWPApplicationReason,
+      }) as PageLink,
+  },
+  {
+    url: APPLICATION_WITHIN_PROCEEDINGS_INFORM_OTHER_PARTIES,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (caseData, req) =>
+      applyParms(APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES, {
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
