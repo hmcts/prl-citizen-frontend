@@ -241,7 +241,7 @@ describe('generateRespondentTaskList', () => {
             hint: null,
           },
           {
-            href: '#',
+            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
             id: 'respond_to_allegations_of_harm_and_violence',
             status: 'IN_PROGRESS',
             text: 'Respond to the allegations of harm and violence',

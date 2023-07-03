@@ -164,7 +164,7 @@ const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWith
             id: 'respond_to_allegations_of_harm_and_violence',
             text: taskListItems.respond_to_allegations_of_harm_and_violence,
             status: getInternationalFactorsStatus(userCase),
-            href: '#',
+            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
             hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
           },
         ],
