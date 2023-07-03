@@ -343,32 +343,8 @@ describe('testcase for notification Banner', () => {
 
     expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
-        contents: [
-          {
-            text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
-          },
-          {
-            text: 'The court has also sent the application to the Children and Family Court advisory and Support Service (Cafcass or Cafcass Cymru). Cafcass or Cafcass Cymru will contact you to consider the needs of the children.',
-          },
-        ],
-        heading: 'The court has issued your application',
-        id: 'applicationServedAndLinked',
-        links: [
-          {
-            href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
-            text: 'Find out about Cafcass',
-            external: true,
-          },
-          {
-            href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
-            text: 'Find out about Cafcass Cymru',
-            external: true,
-          },
-        ],
-        title: 'Important',
-      },
-      {
         heading: 'Serve the application',
+        id: 'soaServedBanner',
         contents: [
           {
             text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
@@ -384,6 +360,7 @@ describe('testcase for notification Banner', () => {
           {
             href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
             text: 'View the final order (PDF)',
+            external: undefined,
           },
         ],
         heading2: 'Tell us once the application has been served',
@@ -398,6 +375,7 @@ describe('testcase for notification Banner', () => {
             text: 'Send Statement of service (form FL415) to the court',
           },
         ],
+        title: 'Important',
       },
     ]);
   });

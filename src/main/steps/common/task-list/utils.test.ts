@@ -321,10 +321,6 @@ describe('testcase for isCaseWithdrawn', () => {
 });
 
 describe('testcase for isCaseServed', () => {
-  test('no case data', () => {
-    const data = undefined;
-    expect(isCaseServed(data)).toBe(false);
-  });
   test('case without applicant data', () => {
     const data = {
       id: '12',

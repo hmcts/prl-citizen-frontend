@@ -116,7 +116,7 @@ describe('CosApiClient', () => {
       user: req.session.user,
       caseId: '123456',
       partyId: '12345',
-      partyName: undefined,
+      partyName: '',
       isApplicant: 'Yes',
       files,
       parentDocumentType: undefined,
