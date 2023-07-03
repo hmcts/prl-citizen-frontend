@@ -6,6 +6,7 @@ import {
   APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
   APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
+  APPLICATION_WITHIN_PROCEEDINGS_INFORM_OTHER_PARTIES,
   APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
   PageLink,
 } from '../../steps/urls';
@@ -91,7 +92,7 @@ class ApplicationWithinProceedingsNavigationController {
             applicationType,
             applicationReason,
           }) as PageLink)
-        : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST, {
+        : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_INFORM_OTHER_PARTIES, {
             applicationType,
             applicationReason,
           }) as PageLink);

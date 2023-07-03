@@ -120,7 +120,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         { awp_agreementForRequest: YesOrNo.NO },
         req
       )
-    ).toBe('/application-within-proceedings/C2/request-more-time/agreement-for-request');
+    ).toBe('/application-within-proceedings/C2/request-more-time/inform-other-parties');
   });
 
   test('redirects to same page in other cases', () => {
