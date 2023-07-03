@@ -68,10 +68,12 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    form,
-    link: {
-      ...form.link,
-      href: getMOJForkingScreenUrl(testingSupport),
+    form: {
+      ...form,
+      link: {
+        ...form.link,
+        href: getMOJForkingScreenUrl(testingSupport),
+      },
     },
   };
 };

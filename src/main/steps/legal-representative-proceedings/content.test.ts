@@ -66,6 +66,6 @@ describe('legal-representative-proceedings > content', () => {
 
   test('should contain cancel button', () => {
     expect(form.link.text(generatedContent)).toBe('Cancel');
-    expect(form.link.href).toBe('#');
+    expect(form.link.href).toBe('https://apply-to-court-about-child-arrangements.service.justice.gov.uk');
   });
 });
