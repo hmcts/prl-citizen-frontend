@@ -1,8 +1,10 @@
 import { AWPApplicationReason, AWPApplicationType, YesOrNo } from '../app/case/definition';
 
+import ApplicationWithinProceedingsNavigationController from './application-within-proceedings/navigationController';
 import { applyParms } from './common/url-parser';
 import { Sections, Step } from './constants';
 import {
+  APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
   APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
   APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
@@ -33,15 +35,11 @@ export const applicationWithinProceedingsSequence: Step[] = [
     url: APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
-      caseData.awp_completedForm === YesOrNo.NO
-        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM, {
-            applicationType: req?.params.applicationType as AWPApplicationType,
-            applicationReason: req?.params.applicationReason as AWPApplicationReason,
-          }) as PageLink)
-        : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
-            applicationType: req?.params.applicationType as AWPApplicationType,
-            applicationReason: req?.params.applicationReason as AWPApplicationReason,
-          }) as PageLink),
+      ApplicationWithinProceedingsNavigationController.getNextUrl(
+        APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
+        caseData,
+        req!
+      ),
   },
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
@@ -51,6 +49,16 @@ export const applicationWithinProceedingsSequence: Step[] = [
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
+  },
+  {
+    url: APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (caseData, req) =>
+      ApplicationWithinProceedingsNavigationController.getNextUrl(
+        APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
+        caseData,
+        req!
+      ),
   },
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
