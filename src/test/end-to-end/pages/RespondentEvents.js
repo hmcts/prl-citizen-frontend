@@ -22,7 +22,7 @@ module.exports = {
  
     await I.retry(retryCount).click('#tab_active-cases');
     await I.wait('5');
-    //await I.retry(retryCount).click('#activI.wait('2');e-cases > table > tbody > tr:nth-child(2) > td:nth-child(1) > a');
+    
     let numOfRows;
     try {
       numOfRows = await I.grabNumberOfVisibleElements(locate('tr').withChild(locate('td').withText('C100')));
@@ -35,14 +35,13 @@ module.exports = {
       try {
         await within(locate('tr').withChild(locate('td').withText('C100')).at(i + 16), async () => {
        
-          await I.click('a'); // click the first link in the row
+          await I.click('a'); // click the first C100 Active case link in the row
         });
-        break; // exit loop once link is clicked successfully
+        break; // exit loop once C100 Active case link is clicked successfully
       } catch (error) {
         console.log(`Error in row ${i + 1}, but the click action might have been performed correctly:`, error);
       }
     }
-    
     I.wait('2');
   },
 
