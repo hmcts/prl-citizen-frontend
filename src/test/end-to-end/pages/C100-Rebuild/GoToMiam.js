@@ -63,89 +63,89 @@ module.exports = {
   },
   async miamOtherProceedings(otherProceedingsOption) {
     await I.retry(retryCount).waitForText(MiamContent.otherProceedingsPageTitle , 30);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click(otherProceedingsOption ? this.fields.miamOtherProceedingsYes : this.fields.miamOtherProceedingsNo);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async attendingMiam() {
     await I.retry(retryCount).waitForText(MiamContent.attendingMiamPageTitle , 30);
     await I.retry(retryCount).waitForText(MiamContent.attendingMiamSubHeading , 30);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click(this.fields.iamConsentNo);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async attendedMiam(attendedOption) {
     await I.retry(retryCount).waitForText(MiamContent.attendedMiamPageTitle , 30);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click(attendedOption ? this.fields.miamAttendanceYes : this.fields.miamAttendanceNo);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async miamDocumentSigned(documentSignedOption) {
     await I.retry(retryCount).waitForText(MiamContent.miamDocumentSignedPageTitle , 30);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click(documentSignedOption ? this.fields.haveDocSignedYes : this.fields.haveDocSignedNo);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async uploadMiamCertificate() {
      const uploadTime = 5;
-     I.wait('2');
+     await I.wait('2');
      await I.retry(retryCount).waitForText(MiamContent.uploadMiamCertificatePageTitle , 30);
-     I.wait('1');
+     await I.wait('1');
      await I.retry(retryCount).attachFile('//*[@id="document"]', '../resource/dummy.pdf');
      await I.runAccessibilityTest();
-     I.wait('5');
+     await I.wait('5');
      await I.retry(retryCount).wait(uploadTime);
      await I.retry(retryCount).click('Upload file');
      await I.retry(retryCount).wait(uploadTime);
      await I.retry(retryCount).click('Continue');
   },
   async miamCertificateSummary() {
-     I.wait('2');
+     await I.wait('2');
      await I.retry(retryCount).waitForText(MiamContent.miamCertificateSummaryPageTitle , 30);
-     I.wait('2');
+     await I.wait('2');
      await I.retry(retryCount).click('Continue');
   },
   async medidatorConfirmed() {
     await I.retry(retryCount).waitForText(MiamContent.medidatorConfirmedPageTitle , 30);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click(this.fields.miamMediatorDocumentNo);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async validReasonsMiam() {
     await I.retry(retryCount).waitForText(MiamContent.validReasonsMiamPageTitle , 30);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click(this.fields.validReasonYes);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async validReasonWhat() {
     await I.retry(retryCount).waitForText(MiamContent.validReasonWhatPageTitle , 30);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click(this.fields.validReason1);
     await I.retry(retryCount).click(this.fields.validReason2);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click(this.fields.validReason4);
     await I.retry(retryCount).click(this.fields.validReason5);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async validReasonUrgent() {
     await I.retry(retryCount).waitForText(MiamContent.validReasonWhatPageTitle , 30);
     await I.retry(retryCount).click(this.fields.validReason3);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async urgentHearingRisks() {
     await I.retry(retryCount).waitForText(MiamContent.urgentHearingTitle , 30);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click(this.fields.urgentHearing1);
     await I.retry(retryCount).click(this.fields.urgentHearing2);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click(this.fields.urgentHearing3);
     await I.retry(retryCount).click(this.fields.urgentHearing4);
     await I.retry(retryCount).click(this.fields.urgentHearing5);
@@ -153,7 +153,7 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.urgentHearing7);
     await I.retry(retryCount).click(this.fields.urgentHearing8);
     await I.retry(retryCount).click(this.fields.urgentHearing9);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async evidenceDomesticAbuse() {
@@ -170,14 +170,14 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.letterDAservice1);
     await I.retry(retryCount).click(this.fields.indefiniteLeave);
     await I.retry(retryCount).click(this.fields.evidenceFinancialAbuse);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async evidenceChildProtection() {
     await I.retry(retryCount).waitForText(MiamContent.evidenceChildProtectionPageTitle , 30);
     await I.retry(retryCount).click(this.fields.childProtection1);
     await I.retry(retryCount).click(this.fields.childProtection2);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async previousAttendMiam() {
@@ -188,7 +188,7 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.previousAttendance4);
     await I.retry(retryCount).click(this.fields.previousAttendance5);
     await I.retry(retryCount).click(this.fields.previousAttendance6);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async confirmValidReason() {
@@ -201,17 +201,17 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.notAttendingReason4);
     await I.retry(retryCount).click(this.fields.notAttendingReason5);
     await I.retry(retryCount).click(this.fields.notAttendingReason6);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async dontHaveToAttendMiam() {
     await I.retry(retryCount).waitForText(MiamContent.dontHaveToAttendMiamPageTitle , 30);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async altDontHaveToAttendMiam() {
     await I.retry(retryCount).waitForText(MiamContent.altDontHaveToAttendMiamPageTitle , 30);
-    I.wait('2');
+    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
 
