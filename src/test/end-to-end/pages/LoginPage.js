@@ -31,4 +31,22 @@ module.exports = {
     I.wait('2');
     await I.retry(retryCount).click('#authorizeCommand > div.grid-row > div.column-one-half.column--bordered > div > div.login-list > input.button');
   }
+
+  async loginAsPRLCitizen() {
+    try {
+      I.wait('2');
+      await I.retry(retryCount).amOnPage(baseUrl);
+      await I.retry(retryCount).waitForText('Sign in or create an account');
+      await I.retry(retryCount).click('Accept additional cookies');
+      await I.retry(retryCount).click('#cookie-accept-all-success-banner-hide');
+      await I.runAccessibilityTest();
+      await I.retry(retryCount).fillField(this.fields.email, config.citizenFrontEnd.PRLCitizenEmail);
+      await I.retry(retryCount).fillField(this.fields.password, config.citizenFrontEnd.PRLCitizenPassword);
+    } catch {
+      await I.retry(retryCount).fillField(this.fields.email, config.citizenFrontEnd.PRLCitizenEmail);
+      await I.retry(retryCount).fillField(this.fields.password, config.citizenFrontEnd.PRLCitizenPassword);
+    }
+    I.wait('2');
+    await I.retry(retryCount).click('#authorizeCommand > div.grid-row > div.column-one-half.column--bordered > div > div.login-list > input.button');
+  }
 };
