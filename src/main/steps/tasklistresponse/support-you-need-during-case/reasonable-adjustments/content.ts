@@ -46,7 +46,8 @@ const cy: typeof en = {
   hearingComfort: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad',
   hearingComfortHint: 'er enghraifft, seibiannau ychwanegol neu fannau ychwanegol',
   travellingHelp: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
-  travellingHelpHint: 'access and mobility support if a hearing takes place in person',
+  travellingHelpHint:
+    'er enghraifft, cymorth gyda mynediad a symudedd os bydd gwrandawiad yn cael ei gynnal wyneb yn wyneb',
   noSupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   continue: 'Parhau',
   errors: {

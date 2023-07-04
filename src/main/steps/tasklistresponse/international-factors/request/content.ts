@@ -37,11 +37,12 @@ const cy: typeof en = {
   provideDetails: 'Rhowch fanylion',
   errors: {
     request: {
-      required: 'Select yes if another country has asked (or been asked) for information or help for the children',
+      required:
+        "Dewiswch 'Oes' os oes gwlad arall wedi gofyn (neu os gofynnwyd i wlad arall) am wybodaeth neu help i'r plant",
     },
     iFactorsRequestProvideDetails: {
       required:
-        'Provide details about another country asking (or being asked) for information or help for the children',
+        "Darparwch fanylion am wlad arall sy'n gofyn (neu y gofynnwyd iddi) am wybodaeth neu gymorth ar gyfer y plant",
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',

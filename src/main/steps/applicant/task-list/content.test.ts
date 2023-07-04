@@ -64,10 +64,6 @@ const cyContent = {
       link: '/applicant/add-legal-representative',
     },
     {
-      label: 'Dileu cynrychiolydd cyfreithiol',
-      link: '/applicant/remove-legal-representative/start',
-    },
-    {
       label: 'Dod o hyd i fy llys lleol',
       link: '#',
     },

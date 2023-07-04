@@ -317,8 +317,8 @@ const cy = () => ({
       link: '#',
     },
   ],
-  addLegalRepresentative: 'Add a legal representative-welsh',
-  removeLegalRepresentative: 'Remove a legal representative-welsh',
+  addLegalRepresentative: 'Ychwanegu cynrychiolydd cyfreithiol',
+  removeLegalRepresentative: 'Dileu cynrychiolydd cyfreithiol',
 });
 
 const languages = {

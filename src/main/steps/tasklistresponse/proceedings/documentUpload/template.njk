@@ -11,7 +11,7 @@
 
 {% if FileErrors.length > 0 %}
 {{ govukErrorSummary({
-  titleText: {{problem}},
+  titleText: problem,
   errorList: FileErrors
 }) }}
 {%endif%}

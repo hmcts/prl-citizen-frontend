@@ -39,7 +39,7 @@ const cy: typeof en = {
   errors: {
     jurisdiction: {
       required:
-        'Select yes if another person in the application could apply for a similar order in a country outside England or Wales',
+        "Dewiswch 'Gallai' os all unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?",
     },
     iFactorsJurisdictionProvideDetails: {
       required:

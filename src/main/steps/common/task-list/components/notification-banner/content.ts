@@ -274,7 +274,7 @@ const cy: typeof en = {
         ],
         links: [
           {
-            text: 'See all documents - welsh',
+            text: 'Gweld yr holl ddogfennau',
             href: APPLICANT_VIEW_ALL_DOCUMENTS,
           },
         ],

@@ -40,10 +40,12 @@ export const cy = () => ({
     "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
   errors: {
     PRL_c1A_otherConcernsDrugs: {
-      required: 'Select yes if the children have been impacted by drug, alcohol or substance abuse - Welsh',
+      required:
+        "Dewiswch do os yw'r plant wedi cael eu heffeithio gan rywun a oedd yn camddefnyddio cyffuriau, alcohol neu sylweddau",
     },
     PRL_c1A_otherConcernsDrugsDetails: {
-      required: 'Describe how the children have been impacted by drug, alcohol or substance abuse - Welsh',
+      required:
+        "Dewiswch do os yw'r plant wedi cael eu heffeithio gan rywun a oedd yn camddefnyddio cyffuriau, alcohol neu sylweddau",
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',

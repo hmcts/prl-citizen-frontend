@@ -51,7 +51,7 @@ const cy: typeof en = {
   continue: 'Parhau',
   errors: {
     courtComfort: {
-      required: 'Select what you need to feel comfortable during a court hearing',
+      required: "Dewiswch beth sydd angen arnoch i deimlo'n gyfforddus yn ystod y gwrandawiad llys",
     },
     lightingProvideDetails: {
       required: 'Disgrifiwch fanylion y goleuadau',

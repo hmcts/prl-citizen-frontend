@@ -99,8 +99,8 @@ const cyContent = {
   caseno: 'Rhif yr achos',
   casenohint: 'Er enghraifft, BS19F99999',
   orderdate: 'Pa ddyddiad gafodd ei wneud?',
-  orderDateHint: 'For example, 31 3 2015',
-  ordertime: 'How long was the order for?',
+  orderDateHint: 'er enghraifft, 31 3 2015',
+  ordertime: 'Am ba mor hir gwnaethpwyd y gorchymyn?',
   currentorder: 'Ai gorchymyn cyfredol yw hwn?',
   currentOrderYes: 'Yes',
   currentOrderNo: 'No',
@@ -108,7 +108,7 @@ const cyContent = {
   supervisionOrder: 'Gorchymyn Goruchwylio',
   careOrder: 'Gorchymyn Gofal',
   childAbductionOrder: 'Herwgydio Plant',
-  caOrder: 'Child Arrangements Order',
+  caOrder: 'Gorchymyn Trefniadau Plant',
   financialOrder: 'Gorchymyn Ariannol o dan Atodlen 1 Deddf Plant 1989',
   nonmolestationOrder: 'Gorchymyn Rhag Molestu',
   occupationOrder: 'Gorchymyn Anheddu',
@@ -119,7 +119,7 @@ const cyContent = {
   underTakingOrder: 'Ymgymeriad yn lle gorchymyn',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
-  courtOrderDontKnow: "I don't know",
+  courtOrderDontKnow: 'Nid wyf yn gwybod',
   saveAndContinue: 'Cadw a pharhau',
   errors: {
     emergencyOrderOptions: {
