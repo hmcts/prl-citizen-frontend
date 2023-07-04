@@ -90,6 +90,12 @@ module.exports = () => {
     childrenDetails() {
       return ChildrenDetails.childrenDetails();
     },
+    otherChildrenDetails() {
+      return ChildrenDetails.otherChildrenDetails();
+    },
+    noOtherChild() {
+      return ChildrenDetails.noOtherChild();
+    },
     applicantDetails() {
       return ApplicantDetails.applicantDetails();
     },
@@ -98,6 +104,9 @@ module.exports = () => {
     },
     otherPersonDetails() {
       return OtherPersonDetails.otherPersonDetails();
+    },
+    withoutOtherPerson(){
+      return OtherPersonDetails.withoutOtherPerson();
     },
     otherProceedings() {
       return OtherProceedings.otherProceedings();

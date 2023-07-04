@@ -23,7 +23,8 @@ module.exports = {
         childrenSubjectOfProtectionPlan: '//*[@id="cd_childrenSubjectOfProtectionPlan"]',
         //Other Children
         otherChildrenYes: '//*[@id="ocd_hasOtherChildren"]',
-    },
+        otherChildrenNo: '//*[@id="ocd_hasOtherChildren-2"]'
+        },
     async childDetailsName() {
         await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsNamePageTitle , 30);
         await I.retry(retryCount).click(this.fields.mainForm);
@@ -35,10 +36,12 @@ module.exports = {
     },
     async childDetailsDOB() {
         await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsDOBPageTitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.dayDOB, ChildrenDetails.day);
         await I.retry(retryCount).fillField(this.fields.monthDOB, ChildrenDetails.month);
         await I.retry(retryCount).fillField(this.fields.yearDOB, ChildrenDetails.year);
         await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsDOBSubHeading , 30);
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.femaleGender);
         await I.wait('2');
         await I.retry(retryCount).click('Continue');
@@ -69,9 +72,9 @@ module.exports = {
         await I.wait('3');
         await I.retry(retryCount).click('Continue');
     },
-    async otherChildren() {
+    async otherChildren(otherChildOption) {
         await I.retry(retryCount).waitForText(ChildrenDetails.otherChildrenPageTitle , 30);
-        await I.retry(retryCount).click(this.fields.otherChildrenYes);
+        await I.retry(retryCount).click(otherChildOption ? this.fields.otherChildrenYes : this.fields.otherChildrenNo);
         await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
@@ -89,7 +92,14 @@ module.exports = {
         await this.decisionsCourtToResolve();
         await this.parentalResponsibility();
         await this.furtherInformation();
-        await this.otherChildren();
+    },
+
+    async noOtherChild() {
+        await this.otherChildren(false);
+    },
+
+    async otherChildrenDetails() {
+        await this.otherChildren(true);
         await this.otherChildrenName();
         await this.childDetailsDOB();
     },
