@@ -42,27 +42,31 @@ export class KeepDetailsPrivatePostController extends PostController<AnyObject> 
           partyDetails,
           partyType,
           userCase.caseTypeOfApplication as CaseType,
-          CaseEvent.PARTY_PERSONAL_DETAILS
+          CaseEvent.KEEP_DETAILS_PRIVATE
         );
         mapDataInSession(req.session.userCase, user.id);
         req.session.save(() => {
-          let redirectUrl;
-          if (partyType === PartyType.RESPONDENT) {
-            redirectUrl =
-              req.session.userCase?.startAlternative === YesOrNo.NO
-                ? RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED
-                : RESPONDENT_PRIVATE_DETAILS_CONFIRMED;
-          } else {
-            redirectUrl =
-              req.session.userCase?.startAlternative === YesOrNo.NO
-                ? APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED
-                : APPLICANT_PRIVATE_DETAILS_CONFIRMED;
-          }
+          const redirectUrl = getRedirectUrl(req, partyType);
           res.redirect(redirectUrl);
         });
       } catch (error) {
-        throw new Error('SafetyConcernsPostController - Case could not be updated.');
+        throw new Error('KeepDetailsPrivatePostController - Case could not be updated.');
       }
     }
   }
+}
+function getRedirectUrl(req: AppRequest<AnyObject>, partyType: PartyType): string {
+  let redirectUrl;
+  if (partyType === PartyType.RESPONDENT) {
+    redirectUrl =
+      req.session.userCase?.startAlternative === YesOrNo.NO
+        ? RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED
+        : RESPONDENT_PRIVATE_DETAILS_CONFIRMED;
+  } else {
+    redirectUrl =
+      req.session.userCase?.startAlternative === YesOrNo.NO
+        ? APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED
+        : APPLICANT_PRIVATE_DETAILS_CONFIRMED;
+  }
+  return redirectUrl;
 }

@@ -48,8 +48,9 @@ const cy: typeof en = {
   phoneHearings: 'Gallaf, rwyf yn gallu cymryd rhan mewn gwrandawiad fideos',
   noHearings: 'Na allaf, ni allaf gymryd rhan mewn gwrandawiad fideo na gwrandawiad dros y ffôn',
   noHearingsHint: 'Os dewiswch yr opsiwn hwn, dywedwch wrthym pam rhag ofn y gallwn eich cynorthwyo',
-  noHearingDetails: 'Explain why you are unable to take part in video or phone hearings',
-  continue: 'Continue',
+  noHearingDetails:
+    'Esboniwch pam nad ydych yn gallu cymryd rhan mewn gwrandawiad drwy fideo na gwrandawiad dros y ffôn',
+  continue: 'Parhau',
   errors: {
     attendingToCourt: {
       required: 'Select whether you can take part in a video or phone hearing',

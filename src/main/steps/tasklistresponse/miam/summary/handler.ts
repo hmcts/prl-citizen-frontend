@@ -17,13 +17,10 @@ export function updateContent(userCase: Partial<CaseWithId>): void {
     Object.assign(urls, { miamNotWillingExplnation: MIAM_ATTEND_WILLINGNESS });
   }
   if (userCase.miamStart === YesOrNo.YES) {
-    // delete userCase.miamWillingness;
-    // delete userCase.miamNotWillingExplnation;
     userCase.miamWillingness = '';
     userCase.miamNotWillingExplnation = '';
   }
   if (userCase.miamWillingness === YesOrNo.YES) {
-    //delete userCase.miamNotWillingExplnation;
     userCase.miamNotWillingExplnation = '';
   }
 }

@@ -4,17 +4,12 @@ import { SectionStatus, State } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
-import { applicant_en } from './section-titles';
-import { applicant_tasklist_items_en } from './tasklist-items';
+import { applicant_cy, applicant_en } from './section-titles';
+import { applicant_tasklist_items_cy, applicant_tasklist_items_en } from './tasklist-items';
 
 const enContent = {
   title: 'Applicant tasklist',
   caseNumber: 'Case number  ',
-  iWant: 'I want to...',
-  findCourt: 'Find my local court',
-  legalAdvice: 'Find legal advice',
-  childArrangements: 'Know more about child arrangements',
-  attendingCourt: 'Know more about attending court',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -26,15 +21,33 @@ const enContent = {
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
+  iWantTo: 'I want to...',
+  hyperlinks: [
+    {
+      label: 'Add a legal representative',
+      link: '/applicant/add-legal-representative',
+    },
+    {
+      label: 'Find my local court',
+      link: '#',
+    },
+    {
+      label: 'Find legal advice',
+      link: '#',
+    },
+    {
+      label: 'Know more about child arrangements',
+      link: '#',
+    },
+    {
+      label: 'Know more about attending court',
+      link: '#',
+    },
+  ],
 };
 const cyContent = {
   title: 'Applicant tasklist',
   caseNumber: 'Rhif yr achos ',
-  iWant: 'I want to... (welsh)',
-  findCourt: 'Find my local court (welsh)',
-  legalAdvice: 'Find legal advice (welsh)',
-  childArrangements: 'Know more about child arrangements (welsh)',
-  attendingCourt: 'Know more about attending court (welsh)',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -44,8 +57,31 @@ const cyContent = {
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
     [SectionStatus.OPTIONAL]: 'Optional-welsh',
   },
-  sectionTitles: applicant_en,
-  taskListItems: applicant_tasklist_items_en,
+  sectionTitles: applicant_cy,
+  taskListItems: applicant_tasklist_items_cy,
+  iWantTo: 'Rwyf eisiau ...',
+  hyperlinks: [
+    {
+      label: 'Add a legal representative-welsh',
+      link: '/applicant/add-legal-representative',
+    },
+    {
+      label: 'Find my local court-welsh',
+      link: '#',
+    },
+    {
+      label: 'Find legal advice-welsh',
+      link: '#',
+    },
+    {
+      label: 'Gwybod mwy am drefniadau plant',
+      link: '#',
+    },
+    {
+      label: 'Gwybod mwy am fynychu’r llys',
+      link: '#',
+    },
+  ],
 };
 describe('task-list > content', () => {
   const commonContent = {
@@ -112,11 +148,12 @@ describe('task-list > content', () => {
               id: 'your-application',
               status: 'DOWNLOAD',
               text: 'Application submitted (PDF)',
+              openInAnotherTab: true,
             },
             {
               href: '/applicant/witnessstatements',
               id: 'your-application-witness-statment',
-              status: 'DOWNLOAD',
+              status: 'NOT_AVAILABLE_YET',
               text: 'Witness statement (PDF)',
             },
             {
@@ -191,11 +228,12 @@ describe('task-list > content', () => {
               id: 'your-application',
               status: 'DOWNLOAD',
               text: 'Application submitted (PDF)',
+              openInAnotherTab: true,
             },
             {
               href: '/applicant/witnessstatements',
               id: 'your-application-witness-statment',
-              status: 'DOWNLOAD',
+              status: 'NOT_AVAILABLE_YET',
               text: 'Witness statement (PDF)',
             },
             {

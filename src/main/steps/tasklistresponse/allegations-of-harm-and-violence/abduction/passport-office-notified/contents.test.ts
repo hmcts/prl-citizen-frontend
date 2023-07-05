@@ -21,11 +21,11 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
-  title: 'Has the passport office been notified? - welsh',
-  Yes: 'Yes - welsh',
-  No: 'No - welsh',
+  title: "Ydy'r swyddfa basbort wedi cael gwybod?",
+  Yes: 'Oes',
+  No: 'Nac oes',
   errors: {
     PRL_c1A_abductionPassportOfficeNotified: {
       required: 'Select yes if the passport office has been notified - welsh',

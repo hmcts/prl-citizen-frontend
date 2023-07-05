@@ -2,7 +2,7 @@ import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { SummaryList } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
 
-import { getSelectedPrivateDetails, summaryCaseList, summaryList } from './utils';
+import { getSelectedPrivateDetails, summaryCaseList, summaryListIntElement } from './utils';
 const enContent = {
   section: 'Check your details',
   title: 'Read the information to make sure it is correct, and add any missing details',
@@ -90,7 +90,7 @@ describe('common > summary > utils', () => {
         },
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      const result: SummaryList | undefined = summaryList(
+      const result: SummaryList | undefined = summaryListIntElement(
         enContent,
         userCase,
         urls,
@@ -99,9 +99,9 @@ describe('common > summary > utils', () => {
         'en'
       );
       console.log(result);
-      expect(summaryList(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en')).toStrictEqual(
-        expected
-      );
+      expect(
+        summaryListIntElement(enContent, userCase, urls, 'applicationDetails', enContent.fieldType, 'en')
+      ).toStrictEqual(expected);
     });
   });
 

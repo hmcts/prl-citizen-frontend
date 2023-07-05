@@ -7,7 +7,6 @@ cookieManager.on('UserPreferencesLoaded', preferences => {
 
 cookieManager.on('UserPreferencesSaved', preferences => {
   const dataLayer = window.dataLayer || [];
-  console.log('I am saved', dataLayer);
   const dtrum = window.dtrum;
 
   dataLayer.push({ event: 'Cookie Preferences', cookiePreferences: preferences });
@@ -32,19 +31,13 @@ cookieManager.on('PreferenceFormSubmitted', () => {
 
 cookieManager.init({
   userPreferences: {
-    cookieName: 'private-law-web-cookie-preferences',
+    cookieName: 'prl-cookie-preferences',
   },
   cookieManifest: [
     {
       categoryName: 'essential',
       optional: false,
-      cookies: [
-        'private-law-web-cookie-preferences',
-        '_oauth2_proxy',
-        'ajs_user_id',
-        'ajs_group_id',
-        'ajs_anonymous_id',
-      ],
+      cookies: ['prl-cookie-preferences'],
     },
     {
       categoryName: 'analytics',
@@ -52,7 +45,7 @@ cookieManager.init({
     },
     {
       categoryName: 'apm',
-      cookies: ['dtCookie', 'dtLatC', 'dtPC', 'dtSa', 'rxVisitor', 'rxvt'],
+      cookies: ['dtCookie', 'dtLatC', 'dtPC', 'dtSa', 'dtValidationCookie', 'dtDisabled', 'rxVisitor', 'rxvt'],
     },
   ],
 });

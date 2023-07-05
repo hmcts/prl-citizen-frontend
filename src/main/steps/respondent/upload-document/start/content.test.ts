@@ -21,12 +21,12 @@ const en = {
 
 const cy: typeof en = {
   section: ' ',
-  title: 'Has the court asked for this document?',
+  title: 'A yw’r llys wedi gofyn am y ddogfen hon?',
   one: 'Yes',
   two: 'No',
   line1:
-    'The court order will tell you which documents you need to submit. If you upload a document that has not been requested by the court, the court may decide not to consider it.',
-  continue: 'Continue',
+    'Bydd y gorchymyn llys yn dweud wrthych pa ddogfennau y mae angen i chi eu cyflwyno. Os byddwch yn cyflwyno dogfen nad yw’r llys wedi gofyn amdani, mae’n bosib y bydd y llys yn penderfynu peidio â’i hystyried.',
+  continue: 'Parhau',
   errors: {
     start: {
       required: 'Please select one of the options before proceeding further',
@@ -70,6 +70,12 @@ describe('citizen-home content', () => {
     expect(detailsKnownField.type).toBe('radios');
     expect(detailsKnownField.classes).toBe('govuk-radios');
     expect((detailsKnownField.section as Function)(generatedContent)).toBe(en.section);
+    expect((detailsKnownField.values[0].label as Function)(generatedContent)).toBe('Yes');
+    expect((detailsKnownField.values[1].label as Function)(generatedContent)).toBe('No');
+    expect((detailsKnownField.hint as Function)(generatedContent)).toBe(undefined);
+    expect(detailsKnownField.values[1].value).toBe('No');
+    expect((detailsKnownField.label as Function)(generatedContent)).toBe(undefined);
+    expect(detailsKnownField.values[0].value).toBe('Yes');
   });
 
   test('should contain continue button', () => {

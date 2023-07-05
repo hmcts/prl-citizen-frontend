@@ -12,13 +12,20 @@ import {
   getUploadDocuments,
   getViewAllDocuments,
   getYourApplication,
+  getYourWitnessStatement,
 } from './utils';
 
-export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
+export const generateApplicantTaskList = (
+  sectionTitles,
+  taskListItems,
+  userCase,
+  userIdamId,
+  isRepresentedBySolicotor
+) => {
   const isCaseClosed = userCase.state === State.ALL_FINAL_ORDERS_ISSUED;
 
   return [
-    !isCaseClosed
+    !isCaseClosed && !isRepresentedBySolicotor
       ? {
           title: sectionTitles.applicantYourDetails,
           items: [
@@ -47,7 +54,9 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
       title: sectionTitles.yourApplication,
       items: [...getTheApplication(taskListItems, userCase)],
     },
-    ...(!isCaseClosed ? getYourResponse(sectionTitles, taskListItems, userCase, userIdamId) : []),
+    ...(!isCaseClosed && !isRepresentedBySolicotor
+      ? getYourResponse(sectionTitles, taskListItems, userCase, userIdamId)
+      : []),
     {
       title: sectionTitles.courtHearings,
       items: [
@@ -62,12 +71,14 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
     {
       title: sectionTitles.yourDocuments,
       items: [
-        {
-          id: 'upload-document',
-          text: taskListItems.upload_document,
-          status: getUploadDocuments(),
-          href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-        },
+        !isRepresentedBySolicotor
+          ? {
+              id: 'upload-document',
+              text: taskListItems.upload_document,
+              status: getUploadDocuments(),
+              href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
+            }
+          : null,
         !isCaseClosed
           ? {
               id: 'view-all-documents',
@@ -121,11 +132,12 @@ const getTheApplication = (taskListItems, userCase) => {
         text: taskListItems.your_application,
         status: getYourApplication(),
         href: URL.YOUR_APPLICATION_FL401,
+        openInAnotherTab: true,
       },
       {
         id: 'your-application-witness-statment',
         text: taskListItems.your_application_witness_statement,
-        status: getYourApplication(),
+        status: getYourWitnessStatement(userCase),
         href: URL.APPLICANT_WITNESS_STATEMENTS_DA,
       },
       {

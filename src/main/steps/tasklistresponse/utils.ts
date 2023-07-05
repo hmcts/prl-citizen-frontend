@@ -17,21 +17,7 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
   const partyDetails = getPartyDetails(userCase, userId);
   if (partyDetails) {
     if (caseType === CaseType.C100) {
-      if (partyDetails?.response?.safetyConcerns) {
-        Object.assign(userCase, mapSafetyConcernsDetails(partyDetails));
-      }
-
-      if (partyDetails?.response?.citizenInternationalElements) {
-        Object.assign(userCase, mapInternationalFactorsDetails(partyDetails));
-      }
-
-      if (partyDetails.response.currentOrPreviousProceedings) {
-        Object.assign(userCase, mapProceedingDetails(partyDetails));
-      }
-
-      if (partyDetails?.response?.miam) {
-        Object.assign(userCase, mapMIAMDetails(partyDetails));
-      }
+      setDataInSession(userCase, partyDetails);
     }
 
     if (partyDetails.response.consent) {
@@ -48,6 +34,23 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
     Object.assign(userCase, mapSupportYouNeedDetails(partyDetails));
   }
 };
+function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
+  if (partyDetails?.response?.safetyConcerns) {
+    Object.assign(userCase, mapSafetyConcernsDetails(partyDetails));
+  }
+
+  if (partyDetails?.response?.citizenInternationalElements) {
+    Object.assign(userCase, mapInternationalFactorsDetails(partyDetails));
+  }
+
+  if (partyDetails?.response.currentOrPreviousProceedings) {
+    Object.assign(userCase, mapProceedingDetails(partyDetails));
+  }
+
+  if (partyDetails?.response?.miam) {
+    Object.assign(userCase, mapMIAMDetails(partyDetails));
+  }
+}
 
 export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id']): PartyDetails | undefined => {
   const partyType = getCasePartyType(userCase, userId);

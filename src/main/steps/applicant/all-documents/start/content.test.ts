@@ -24,7 +24,7 @@ const cyContent = {
   one: 'Ydy',
   two: 'Nac ydy',
   three: 'Nid wyf yn gwybod',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     detailsKnown: {
       required: 'Enter your details known',

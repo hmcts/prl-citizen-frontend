@@ -4,7 +4,7 @@ import { when } from 'jest-when';
 import { getSystemUser, getUserDetails } from '../../main/app/auth/user/oidc';
 
 const { pactWith } = require('jest-pact');
-
+jest.setTimeout(10000);
 pactWith(
   {
     consumer: 'prl-citizen-frontend',

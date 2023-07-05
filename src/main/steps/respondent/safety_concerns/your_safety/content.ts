@@ -20,7 +20,7 @@ const cy: typeof en = {
   line2: 'The following questions will ask whether you have suffered, or are at risk of suffering, any form of harm.',
   line3: 'Find out about the signs of domestic violence or abuse',
 
-  continue: 'Continue',
+  continue: 'Parhau',
 };
 
 const languages = {

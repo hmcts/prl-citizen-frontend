@@ -83,12 +83,6 @@ function validateFields(req: AppRequest<AnyObject>) {
       errorType: 'required',
     });
     errorOnPage = true;
-  } else if (!(req.body.citizenUserManualAddressPostcode as string).match(/^[A-Z]{1,2}\d[A-Z0-9]? ?\d[A-Z]{2}$/i)) {
-    req.session.errors?.push({
-      propertyName: 'citizenUserManualAddressPostcode',
-      errorType: 'invalid',
-    });
-    errorOnPage = true;
   }
   return errorOnPage;
 }
