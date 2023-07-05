@@ -47,6 +47,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (this.fileNameSearchPatternElementMap.size === 0) {
       this.fileNameSearchPatternElementMap = new Map<string, FileProperties>();
       this.fileNameSearchPatternElementMap.set('miamcertificate', { elements: ['miamCertificationDocumentUpload'] });
+      this.fileNameSearchPatternElementMap.set('responsetoca', { elements: ['respondentDocsList', 'c7'] });
+      this.fileNameSearchPatternElementMap.set('aohtoca', { elements: ['respondentDocsList', 'c1a'] });
+      this.fileNameSearchPatternElementMap.set('othtoca', { elements: ['respondentDocsList', 'other'] });
       this.fileNameSearchPatternElementMap.set('cadafinaldocumentrequest', {
         elements: ['finalDocument'],
         downloadFileFieldFlag: DownloadFileFieldFlag.IS_APPLICATION_VIEWED,
@@ -321,8 +324,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const fileNameSearchPattern = entry[0];
       if (filename.includes(fileNameSearchPattern) || filename === fileNameSearchPattern) {
         const obj = this.getDocumentUIDWithOutFlag(req, entry[1].elements, entry[1].downloadFileFieldFlag);
-        uid = obj.uid;
-        filename = obj.filename;
+        uid = obj!.uid;
+        filename = obj!.filename;
         if (uid.trim() !== '') {
           if (entry[1]?.downloadFileFieldFlag) {
             fieldFlag = entry[1]?.downloadFileFieldFlag;
@@ -420,21 +423,43 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let uid = '';
     let documentToGet = '';
     let ele = '';
-    const document_filename = req.session.userCase[`${element}`]?.document_filename;
+    let ele1 = '';
+    let document_filename = req.session.userCase[`${element}`]?.document_filename;
 
     if (element !== null && element !== undefined) {
       ele = element[0];
-      if (!req.session.userCase[`${ele}`]?.document_binary_url) {
-        throw new Error('binary url is not found for ' + document_filename);
-      }
-      documentToGet = req.session.userCase[`${ele}`]?.document_binary_url;
-      uid = this.getUID(documentToGet);
+      ele1 = element[1];
+      if (ele !== 'respondentDocsList') {
+        if (!req.session.userCase[`${ele}`]?.document_binary_url) {
+          throw new Error('binary url is not found for ' + document_filename);
+        }
+        documentToGet = req.session.userCase[`${ele}`]?.document_binary_url;
+        uid = this.getUID(documentToGet);
 
-      if (flag !== null || flag !== undefined) {
-        flag = YesOrNo.YES;
+        if (flag !== null || flag !== undefined) {
+          flag = YesOrNo.YES;
+        }
+      } else {
+        {
+          for (const document of req.session.userCase.respondentDocsList!) {
+            if (ele1 === 'c1a' && document.value?.c1aDocument?.partyName === req.query?.name) {
+              document_filename = document.value.c1aDocument.citizenDocument.document_filename;
+              documentToGet = document.value.c1aDocument.citizenDocument.document_binary_url;
+              uid = this.getUID(documentToGet);
+              break;
+            } else {
+              if (ele1 === 'c7' && document.value?.c7Document?.partyName === req.query?.name) {
+                document_filename = document.value.c7Document.citizenDocument.document_filename;
+                documentToGet = document.value.c7Document.citizenDocument.document_binary_url;
+                uid = this.getUID(documentToGet);
+                break;
+              }
+            }
+          }
+        }
       }
+      return { uid, filename: document_filename };
     }
-    return { uid, filename: document_filename };
   }
 
   private async setFlagViewed(
