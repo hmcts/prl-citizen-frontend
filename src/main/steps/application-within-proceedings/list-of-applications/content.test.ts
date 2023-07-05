@@ -135,28 +135,6 @@ describe('help with fees content', () => {
           ],
           sectionTitle: 'Ask the court to deliver papers to the other party',
         },
-        {
-          contents: [
-            'You can appeal or ask for permission to appeal a court order by completing and submitting and completing form N161.',
-          ],
-          id: 'appealCourtOrder',
-          links: [
-            {
-              text: 'Apply to the court using form N161',
-              url: '/application-within-proceedings/N161/appeal-a-order-or-ask-permission-to-appeal/guidance',
-            },
-          ],
-          sectionTitle: 'Appeal a court order or ask for permission to appeal',
-        },
-        {
-          contents: [
-            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
-            'If someone has accused you,  <a href="/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
-          ],
-          id: 'courtToPreventAccusations',
-          links: [],
-          sectionTitle: 'Ask the court to prevent questioning in person when accusations of abuse have been made',
-        },
       ],
       breadcrumb: {
         href: '/applicant/task-list/1234',
@@ -183,6 +161,28 @@ describe('help with fees content', () => {
     expect(generateContent(commonContent)).toEqual({
       accordionTitle: 'Select a form to make an application in your court proceedings.',
       applications: [
+        {
+          contents: [
+            'You can appeal or ask for permission to appeal a court order by completing and submitting and completing form N161.',
+          ],
+          id: 'appealCourtOrder',
+          links: [
+            {
+              text: 'Apply to the court using form N161',
+              url: '/application-within-proceedings/N161/appeal-a-order-or-ask-permission-to-appeal/guidance',
+            },
+          ],
+          sectionTitle: 'Appeal a court order or ask for permission to appeal',
+        },
+        {
+          contents: [
+            'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
+            'If someone has accused you,  <a href="/application-within-proceedings/EX741/prevent-questioning-in-person-someone-accusing-you/guidance" class="govuk-link" aria-label="complete and submit form EX471">complete and submit form EX471</a>.',
+          ],
+          id: 'courtToPreventAccusations',
+          links: [],
+          sectionTitle: 'Ask the court to prevent questioning in person when accusations of abuse have been made',
+        },
         {
           contents: [
             'You can ask the court to order a witness to attend or bring in documents by completing and submitting the form FP25.',
@@ -341,19 +341,6 @@ describe('help with fees content', () => {
           links: [],
           sectionTitle: 'Ask the court to prevent questioning in person when accusations of abuse have been made',
         },
-        {
-          contents: [
-            'You can ask the court to order a witness to attend or bring in documents by completing and submitting the form FP25.',
-          ],
-          id: 'requestForOrderWitness',
-          links: [
-            {
-              text: ' Apply to the court using form FP25',
-              url: '/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/guidance',
-            },
-          ],
-          sectionTitle: 'Make a request to order a witness to attend court',
-        },
       ],
       breadcrumb: {
         href: '/respondent/task-list/1234',
@@ -363,9 +350,13 @@ describe('help with fees content', () => {
         fields: {},
       },
       pagination: {
+        next: {
+          href: '/application-within-proceedings/list-of-applications/2',
+          labelText: '2 of 2',
+        },
         pageNumber: 1,
-        show: false,
-        totalPages: 1,
+        show: true,
+        totalPages: 2,
       },
       title: 'Make a request to the court about your case',
     });
@@ -396,7 +387,21 @@ describe('help with fees content', () => {
     commonContent.additionalData!.req.params = { pageNumber: 2 };
     expect(generateContent(commonContent)).toEqual({
       accordionTitle: 'Select a form to make an application in your court proceedings.',
-      applications: [],
+      applications: [
+        {
+          contents: [
+            'You can ask the court to order a witness to attend or bring in documents by completing and submitting the form FP25.',
+          ],
+          id: 'requestForOrderWitness',
+          links: [
+            {
+              text: ' Apply to the court using form FP25',
+              url: '/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/guidance',
+            },
+          ],
+          sectionTitle: 'Make a request to order a witness to attend court',
+        },
+      ],
       breadcrumb: {
         href: '/respondent/task-list/1234',
         id: 'caseView',
@@ -405,17 +410,13 @@ describe('help with fees content', () => {
         fields: {},
       },
       pagination: {
-        next: {
-          href: '/application-within-proceedings/list-of-applications/3',
-          labelText: '3 of 1',
-        },
         pageNumber: 2,
         previous: {
           href: '/application-within-proceedings/list-of-applications/1',
-          labelText: '1 of 1',
+          labelText: '1 of 2',
         },
-        show: false,
-        totalPages: 1,
+        show: true,
+        totalPages: 2,
       },
       title: 'Make a request to the court about your case',
     });
@@ -518,6 +519,36 @@ describe('help with fees content', () => {
           ],
           sectionTitle: 'Other requests to the court where you need to complete a form C2',
         },
+      ],
+      breadcrumb: {
+        href: '/case/1234',
+        id: 'caseView',
+      },
+      form: {
+        fields: {},
+      },
+      pagination: {
+        next: {
+          href: '/application-within-proceedings/list-of-applications/2',
+          labelText: '2 of 3',
+        },
+        pageNumber: 1,
+        show: true,
+        totalPages: 3,
+      },
+      title: 'Make a request to the court about your case',
+    });
+  });
+
+  test('should contain forms for C100 applicant page 2', () => {
+    commonContent.additionalData!.req.session.userCase = {
+      ...commonContent.additionalData!.req.session.userCase,
+      caseTypeOfApplication: 'C100',
+    };
+    commonContent.additionalData!.req.params = { pageNumber: 2 };
+    expect(generateContent(commonContent)).toEqual({
+      accordionTitle: 'Select a form to make an application in your court proceedings.',
+      applications: [
         {
           contents: ['You can apply for a parental responsibility order by completing and submitting the form C1.'],
           id: 'requestParentalResponsibility',
@@ -542,36 +573,6 @@ describe('help with fees content', () => {
           ],
           sectionTitle: 'Request the court appoints a guardian for the child',
         },
-      ],
-      breadcrumb: {
-        href: '/case/1234',
-        id: 'caseView',
-      },
-      form: {
-        fields: {},
-      },
-      pagination: {
-        next: {
-          href: '/application-within-proceedings/list-of-applications/2',
-          labelText: '2 of 2',
-        },
-        pageNumber: 1,
-        show: true,
-        totalPages: 2,
-      },
-      title: 'Make a request to the court about your case',
-    });
-  });
-
-  test('should contain forms for C100 applicant page 2', () => {
-    commonContent.additionalData!.req.session.userCase = {
-      ...commonContent.additionalData!.req.session.userCase,
-      caseTypeOfApplication: 'C100',
-    };
-    commonContent.additionalData!.req.params = { pageNumber: 2 };
-    expect(generateContent(commonContent)).toEqual({
-      accordionTitle: 'Select a form to make an application in your court proceedings.',
-      applications: [
         {
           contents: [
             'You can ask for a court official to hand court papers to the other person in the case by completing and submitting form D89.',
@@ -612,6 +613,40 @@ describe('help with fees content', () => {
           ],
           sectionTitle: 'Appeal a court order or ask for permission to appeal',
         },
+      ],
+      breadcrumb: {
+        href: '/case/1234',
+        id: 'caseView',
+      },
+      form: {
+        fields: {},
+      },
+      pagination: {
+        pageNumber: 2,
+        next: {
+          href: '/application-within-proceedings/list-of-applications/3',
+          labelText: '3 of 3',
+        },
+        previous: {
+          href: '/application-within-proceedings/list-of-applications/1',
+          labelText: '1 of 3',
+        },
+        show: true,
+        totalPages: 3,
+      },
+      title: 'Make a request to the court about your case',
+    });
+  });
+
+  test('should contain forms for C100 applicant page 3', () => {
+    commonContent.additionalData!.req.session.userCase = {
+      ...commonContent.additionalData!.req.session.userCase,
+      caseTypeOfApplication: 'C100',
+    };
+    commonContent.additionalData!.req.params = { pageNumber: 3 };
+    expect(generateContent(commonContent)).toEqual({
+      accordionTitle: 'Select a form to make an application in your court proceedings.',
+      applications: [
         {
           contents: [
             'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
@@ -669,13 +704,13 @@ describe('help with fees content', () => {
         fields: {},
       },
       pagination: {
-        pageNumber: 2,
+        pageNumber: 3,
         previous: {
-          href: '/application-within-proceedings/list-of-applications/1',
-          labelText: '1 of 2',
+          href: '/application-within-proceedings/list-of-applications/2',
+          labelText: '2 of 3',
         },
         show: true,
-        totalPages: 2,
+        totalPages: 3,
       },
       title: 'Make a request to the court about your case',
     });
@@ -798,30 +833,6 @@ describe('help with fees content', () => {
           ],
           sectionTitle: 'Other requests to the court where you need to complete a form C2',
         },
-        {
-          contents: ['You can apply for a parental responsibility order by completing and submitting the form C1.'],
-          id: 'requestParentalResponsibility',
-          links: [
-            {
-              text: 'Apply to the court using form C1',
-              url: '/application-within-proceedings/C1/request-grant-for-parental-responsibility/guidance',
-            },
-          ],
-          sectionTitle: 'Request the court grants you parental responsibility',
-        },
-        {
-          contents: [
-            'You can ask the court to appoint a guardian for a child or end the guardian appointment by completing and submitting the form C1.',
-          ],
-          id: 'requestGuardian',
-          links: [
-            {
-              text: 'Apply to the court using form C1',
-              url: '/application-within-proceedings/C1/request-appoint-a-guardian-for-child/guidance',
-            },
-          ],
-          sectionTitle: 'Request the court appoints a guardian for the child',
-        },
       ],
       breadcrumb: {
         href: '/case/1234',
@@ -833,11 +844,11 @@ describe('help with fees content', () => {
       pagination: {
         next: {
           href: '/application-within-proceedings/list-of-applications/2',
-          labelText: '2 of 2',
+          labelText: '2 of 3',
         },
         pageNumber: 1,
         show: true,
-        totalPages: 2,
+        totalPages: 3,
       },
       title: 'Make a request to the court about your case',
     });
@@ -872,6 +883,30 @@ describe('help with fees content', () => {
     expect(generateContent(commonContent)).toEqual({
       accordionTitle: 'Select a form to make an application in your court proceedings.',
       applications: [
+        {
+          contents: ['You can apply for a parental responsibility order by completing and submitting the form C1.'],
+          id: 'requestParentalResponsibility',
+          links: [
+            {
+              text: 'Apply to the court using form C1',
+              url: '/application-within-proceedings/C1/request-grant-for-parental-responsibility/guidance',
+            },
+          ],
+          sectionTitle: 'Request the court grants you parental responsibility',
+        },
+        {
+          contents: [
+            'You can ask the court to appoint a guardian for a child or end the guardian appointment by completing and submitting the form C1.',
+          ],
+          id: 'requestGuardian',
+          links: [
+            {
+              text: 'Apply to the court using form C1',
+              url: '/application-within-proceedings/C1/request-appoint-a-guardian-for-child/guidance',
+            },
+          ],
+          sectionTitle: 'Request the court appoints a guardian for the child',
+        },
         {
           contents: [
             'You can ask for a court official to hand court papers to the other person in the case by completing and submitting form D89.',
@@ -912,6 +947,60 @@ describe('help with fees content', () => {
           ],
           sectionTitle: 'Appeal a court order or ask for permission to appeal',
         },
+      ],
+      breadcrumb: {
+        href: '/case/1234',
+        id: 'caseView',
+      },
+      form: {
+        fields: {},
+      },
+      pagination: {
+        pageNumber: 2,
+        next: {
+          href: '/application-within-proceedings/list-of-applications/3',
+          labelText: '3 of 3',
+        },
+        previous: {
+          href: '/application-within-proceedings/list-of-applications/1',
+          labelText: '1 of 3',
+        },
+        show: true,
+        totalPages: 3,
+      },
+      title: 'Make a request to the court about your case',
+    });
+  });
+
+  test('should contain forms for C100 respondent page 3', () => {
+    commonContent.additionalData!.req.session.userCase = {
+      ...commonContent.additionalData!.req.session.userCase,
+      caseTypeOfApplication: 'C100',
+      caseInvites: [
+        {
+          id: 'string',
+          value: {
+            partyId: '1234',
+            caseInviteEmail: 'string',
+            accessCode: 'string',
+            invitedUserId: '1234',
+            expiryDate: 'string',
+            isApplicant: 'No',
+          },
+        },
+      ],
+      respondents: [
+        {
+          user: {
+            idamId: '1234',
+          },
+        },
+      ],
+    };
+    commonContent.additionalData!.req.params = { pageNumber: 3 };
+    expect(generateContent(commonContent)).toEqual({
+      accordionTitle: 'Select a form to make an application in your court proceedings.',
+      applications: [
         {
           contents: [
             'If you have accused someone in the case of abuse and want the court to prevent in-person questioning, <a href="/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/guidance" class="govuk-link" aria-label="complete and submit form EX47">complete and submit form EX470</a>.',
@@ -969,13 +1058,13 @@ describe('help with fees content', () => {
         fields: {},
       },
       pagination: {
-        pageNumber: 2,
+        pageNumber: 3,
         previous: {
-          href: '/application-within-proceedings/list-of-applications/1',
-          labelText: '1 of 2',
+          href: '/application-within-proceedings/list-of-applications/2',
+          labelText: '2 of 3',
         },
         show: true,
-        totalPages: 2,
+        totalPages: 3,
       },
       title: 'Make a request to the court about your case',
     });
