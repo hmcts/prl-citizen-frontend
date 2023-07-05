@@ -16,11 +16,11 @@ module.exports = {
     await I.retry(retryCount).waitForText('What you’ll need to complete your application' , 30);
     await I.wait('2');
     await I.retry(retryCount).click('Continue');
-    await I.wait('2');
+    await I.wait('4');
   },
   async enterCaseName() {
     await I.retry(retryCount).waitForText('Enter Case Name' , 60);
-    await I.wait('2');
+    await I.wait('4');
     await I.retry(retryCount).fillField(this.fields.caseName, this.fields.caseNameDetails);
     await I.wait('2');
     await I.retry(retryCount).click('Continue');
