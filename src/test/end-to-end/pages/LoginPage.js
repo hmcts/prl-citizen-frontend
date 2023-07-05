@@ -30,7 +30,7 @@ module.exports = {
     }
     I.wait('2');
     await I.retry(retryCount).click('#authorizeCommand > div.grid-row > div.column-one-half.column--bordered > div > div.login-list > input.button');
-  }
+  },
 
   async loginAsPRLCitizen() {
     try {
