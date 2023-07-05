@@ -355,10 +355,7 @@ export type CommonContent = typeof en & {
 export type Language = 'en' | 'cy';
 //eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function getDocDownloadLangPrefrence(userCase) {
-  if (
-    userCase?.welshLanguageRequirement === YesNoEmpty.YES &&
-    userCase?.welshLanguageRequirementApplication === LanguagePreference.Welsh
-  ) {
+  if (userCase?.welshLanguageRequirement === YesNoEmpty.YES) {
     return LanguagePreference.Welsh;
   } else {
     LanguagePreference.English;
