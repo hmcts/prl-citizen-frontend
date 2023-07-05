@@ -311,7 +311,7 @@ const getCaseViewUrl = (partyType: PartyType, caseData: Partial<CaseWithId>): st
 
 export const generateContent: TranslationFn = content => {
   const request = content.additionalData!.req;
-  const pageSize = 7;
+  const pageSize = 5;
   let totalPages = 1;
   const { pageNumber = 1 } = request.params;
   const translations = languages[content.language];

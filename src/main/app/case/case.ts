@@ -593,6 +593,8 @@ export interface Case {
   awp_hwf_referenceNumber?: string;
   awp_completedForm?: YesOrNo;
   awp_agreementForRequest?: YesOrNo;
+  awp_informOtherParties?: YesOrNo;
+  awp_reasonCantBeInformed?: string;
 }
 
 export interface CaseWithId extends Case {
