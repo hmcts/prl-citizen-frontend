@@ -117,7 +117,7 @@ const cy = {
       invalidDateInFuture: 'Rhaid i’r dyddiad geni bras fod yn y gorffennol',
     },
     otherGenderDetails: {
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.- Welsh',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
   },
 };
