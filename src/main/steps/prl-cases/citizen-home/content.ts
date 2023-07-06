@@ -32,28 +32,28 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Enter your access details',
-  line1: 'Enter the case number from the email or letter we sent you.',
-  caseCodeLabel: 'Your case code',
-  caseCodeLabelHint: 'You will find this on the email or letter we sent you',
-  accessCodeLabel: 'Your access code',
-  accessCodeLabelHint: 'This is a 8 character code',
+  title: 'Nodwch eich manylion mynediad',
+  line1: 'Rhowch y rhif achos o’r e-bost neu’r llythyr a anfonwyd atoch',
+  caseCodeLabel: 'Cod yr achos',
+  caseCodeLabelHint: 'Gellir ei weld yn yr e-bost neu’r llythyr a anfonwyd atoch',
+  accessCodeLabel: 'Eich cod mynediad',
+  accessCodeLabelHint: 'Mae hwn yn god 8 nod',
   contactDetails: contact_cy,
   continue: 'Parhau',
   errors: {
     caseCode: {
-      required: 'Enter your case code',
+      required: 'Rhowch eich cod achos',
       invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, er enghraifft enw@enghraifft.com',
-      notNumeric: 'Case code must be numeric',
+      notNumeric: 'Rhaid i’ch cod achos fod yn rhif',
       invalidReference:
-        'You have entered the wrong reference number. Check your email and enter it again before continuing.',
+        'Rydych wedi rhoi cyfeirnod annilys. Gwiriwch eich e-bost a mewnbynnwch y cyfeirnod eto cyn parhau.',
     },
     accessCode: {
-      required: 'Enter your access code',
+      required: 'Nodwch eich cod mynediad',
       invalid: 'Rhowch rif ffôn dilys yn y DU',
       invalidAccessCode:
-        'You have entered the wrong access code. Check your email and enter it again before continuing.',
-      accesscodeAlreadyLinked: 'Provided access code is already linked to the case.',
+        'Rydych wedi rhoi cod mynediad sy’n anghywir. Gwiriwch eich e-bost a mewnbynnwch y cod eto cyn parhau.',
+      accesscodeAlreadyLinked: 'Mae’r cod mynediad a ddarparwyd eisoes yn gysylltiedig â’r achos.',
     },
   },
 };

@@ -26,7 +26,7 @@ export const cy = () => ({
   No: 'Nac oes',
   errors: {
     PRL_c1A_abductionPassportOfficeNotified: {
-      required: 'Select yes if the passport office has been notified - welsh',
+      required: 'Dewiswch ydy os yw’r swyddfa basbort wedi’i hysbysu',
     },
   },
 });

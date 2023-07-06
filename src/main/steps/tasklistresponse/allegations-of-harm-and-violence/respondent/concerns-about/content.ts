@@ -65,7 +65,7 @@ const cy = () => ({
   continue: 'Parhau',
   errors: {
     PRL_c1A_concernAboutRespondent: {
-      required: 'Specify the type of behaviour you have experienced or are at risk of experiencing - welsh',
+      required: 'Nodwch y math o ymddygiad rydych wedi’i brofi neu mewn risg o’i brofi',
     },
   },
 });
