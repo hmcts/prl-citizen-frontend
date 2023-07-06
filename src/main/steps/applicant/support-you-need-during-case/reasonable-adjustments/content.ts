@@ -49,15 +49,15 @@ const cy: typeof en = {
   hearingcomfort: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad',
   hearingcomforthint: 'er enghraifft, seibiannau ychwanegol neu fannau ychwanegol',
   travellinghelp: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
-  travellinghelphint: 'access and mobility support if a hearing takes place in person',
-  unabletotakecourtproceedings: 'Is there a reason you are unable to take part in the court proceedings?',
+  travellinghelphint: 'cymorth gyda mynediad a symudedd os bydd gwrandawiad yn cael ei gynnal wyneb yn wyneb',
+  unabletotakecourtproceedings: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad llys?',
   unabletotakecourtproceedingshint:
-    'For example, do you have a disability that would prevent you from attending court in person?',
+    'Meddyliwch am yr hyn y byddwch ei angen os bydd eich gwrandawiad yn un wyneb yn wyneb, trwy fideo neu dros y ffôn.',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   continue: 'Parhau',
   errors: {
     reasonableAdjustments: {
-      required: 'Please select an answer',
+      required: 'Dewiswch ateb, os gwelwch yn dda',
     },
   },
 };

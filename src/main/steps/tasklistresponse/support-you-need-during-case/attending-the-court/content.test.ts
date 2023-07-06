@@ -56,13 +56,13 @@ const cy: typeof en = {
   continue: 'Parhau',
   errors: {
     attendingToCourt: {
-      required: 'Select whether you can take part in a video or phone hearing -welsh',
+      required: 'Dewiswch a allwch chi gymryd rhan mewn gwrandawiad fideo neu wrandawiad dros y ffôn ',
     },
     hearingDetails: {
-      required: 'Explain why you are unable to take part in either video or phone hearings -welsh',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      required: 'Eglurwch pam na allwch gymryd rhan mewn naill ai gwrandawiadau fideo neu wrandawiadau dros y ffôn',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };

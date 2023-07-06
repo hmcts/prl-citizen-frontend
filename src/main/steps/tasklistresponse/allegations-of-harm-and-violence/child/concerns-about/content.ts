@@ -47,7 +47,7 @@ export const cy = () => ({
   paragraph1: "Gweler canllawiau'r Gymdeithas Genedlaethol er Atal Creulondeb i Blant (NSPCC) ar",
   spottingSignsOfChildHyperLink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse - welsh',
   spottingSignsOfChildAbuseLabel: ' adnabod arwyddion o gam-drin plant.',
-  supportNavLabel: 'SupportNav - welsh',
+  supportNavLabel: 'SupportNav',
   select_all_relevant: "Dewiswch bob opsiwn sy'n berthnasol i'ch sefyllfa.",
   physicalAbuse: 'cam-drin corfforol',
   physicalAbuseHint: 'Ymddygiad megis dyrnu, tagu, cicio neu daro gyda gwrthrych',

@@ -71,7 +71,7 @@ const cyContent: typeof enContent = {
     attendingToCourt: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
     hearingDetails: 'Rhowch fanylion',
     languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
-    languageDetails: 'Give details of the language you require (including dialect, if applicable) -welsh',
+    languageDetails: 'Rhowch fanylion yr iaith sydd ei hangen arnoch (gan gynnwys tafodiaith, os yw’n berthnasol)',
     reasonableAdjustments:
       'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
     docsSupport: 'Rwyf angen dogfennau mewn fformat amgen',

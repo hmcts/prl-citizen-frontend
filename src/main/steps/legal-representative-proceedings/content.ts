@@ -24,7 +24,7 @@ const cy = () => ({
   cancel: 'Canslo',
   errors: {
     legalRepresentativeForProceedings: {
-      required: 'Please select an answer to the below question - welsh',
+      required: 'Dewiswch ateb i’r cwestiwn isod',
     },
   },
 });
