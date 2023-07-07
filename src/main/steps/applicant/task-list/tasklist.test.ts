@@ -117,7 +117,7 @@ describe('applicant tasklist getRemainingTaskList', () => {
     ).toEqual(expected);
   });
 
-  test.skip('applicant tasklist legalRepresentation yes C100 case', () => {
+  test('applicant tasklist legalRepresentation yes C100 case', () => {
     const consent = {
       consentToTheApplication: YesOrNo.NO,
       applicationReceivedDate: '01-01-2022',
@@ -168,7 +168,7 @@ describe('applicant tasklist getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/applicant/public/docs/FL401-Final-Document.pdf',
+            href: '/applicant/public/docs/FL401-Final-Document-Welsh.pdf',
             id: 'your_application_ca',
             status: 'DOWNLOAD',
             text: 'Your application (PDF)',
