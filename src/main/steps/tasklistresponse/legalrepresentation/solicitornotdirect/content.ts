@@ -16,7 +16,7 @@ const cy: typeof en = {
   line1: 'Cwblhau eich ymateb i gais yr ymgeisydd am drefniadau plant.',
   line2: "Ar ôl i chi  gwblhau'r holl brif adrannau, byddwch yn gallu adolygu a chyflwyno eich atebion.",
   listItem: 'Rhif eich achos yw:',
-  warning: 'Warning - welsh',
+  warning: 'Rhybudd',
   respond:
     "Peidiwch ag ymateb i'r cais hwn eich hun os ydych yn bwriadu cael cynrychiolydd cyfreithiol i gwblhau'r ymateb.",
   continue: 'Parhau',

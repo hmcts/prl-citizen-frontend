@@ -20,7 +20,7 @@ export const enContent = {
 
 const cyContent: typeof enContent = {
   section: 'Gwirio eich atebion',
-  title: 'Mediation Information and Assessment Meeting (MIAM) attendance -welsh',
+  title: 'Presenoldeb mewn Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
   sectionTitles: {
     MIAMDetails: '',
   },
