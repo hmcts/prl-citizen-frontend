@@ -16,9 +16,9 @@ const cy = () => ({
   successMessage: 'Application withdrawn -welsh',
   subContent: 'Your application has been withdrawn. -welsh',
   secondaryContent: 'If you want to take further action, you will need to start a new application. -welsh',
-  secondaryBtnLabel: 'Close and return to case overview - welsh',
-  whatHappensNext: 'What happens next - welsh',
-  childArrangementContent: 'Your child arrangements application will not be issued to the other parties. - welsh',
+  secondaryBtnLabel: 'Cau a dychwelyd i drosolwg o’r achos',
+  whatHappensNext: 'Beth fydd yn digwydd nesaf',
+  childArrangementContent: 'Ni fydd eich cais trefniadau plant yn cael ei gyhoeddi i’r partïon eraill',
 });
 
 const languages = {

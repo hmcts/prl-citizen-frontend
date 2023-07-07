@@ -60,34 +60,34 @@ const cy: typeof en = {
   two: 'Nac oes',
   hint: 'Er enghraifft, 27 3 2007',
   continue: 'Cadw a pharhau',
-  reasonNotConsenting: 'Give your reasons for not consenting to the application. (welsh)',
-  courtOrderDetails: 'Provide details of the court order in place. (welsh)',
+  reasonNotConsenting: 'Rhowch eich rhesymau dros beidio â chydsynio i’r cais.',
+  courtOrderDetails: 'Rhowch fanylion y gorchymyn llys sydd mewn grym',
   errors: {
     doYouConsent: {
-      required: 'Please select an answer (welsh)',
+      required: 'Dewiswch ateb, os gwelwch yn dda',
     },
     courtPermission: {
-      required: 'Please select an answer (welsh)',
+      required: 'Dewiswch ateb, os gwelwch yn dda',
     },
     reasonForNotConsenting: {
-      required: 'Please provide a reason (welsh)',
-      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Special characters <,>,{,} are not allowed. (welsh)',
+      required: 'Rhowch reswm, os gwelwch yn dda',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Special characters <,>,{,} are not allowed.',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     courtOrderDetails: {
-      required: 'Please provide court details (welsh)',
-      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Special characters <,>,{,} are not allowed. (welsh)',
+      required: 'Rhowch fanylion y llys',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Special characters <,>,{,} are not allowed.',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     applicationReceivedDate: {
-      required: 'Enter application received date (welsh)',
-      invalidDate: 'Application received date must be a real date (welsh)',
-      incompleteDay: 'Application received date must include a day (welsh)',
-      incompleteMonth: 'Application received date must include a month (welsh)',
-      incompleteYear: 'Application received date must include a year (welsh)',
-      invalidDateInFuture: 'Application received date must be in the past (welsh)',
+      required: 'Rhowch ddyddiad derbyn y cais',
+      invalidDate: 'Rhaid i ddyddiad derbyn y cais fod yn ddyddiad go iawn',
+      incompleteDay: 'Rhaid i ddyddiad derbyn y cais gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i ddyddiad derbyn y cais gynnwys mis',
+      incompleteYear: 'Rhaid i ddyddiad derbyn y cais gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i ddyddiad derbyn y cais fod yn y gorffennol',
     },
   },
 };

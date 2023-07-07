@@ -14,6 +14,7 @@ const en = {
   speakwelsh: 'I need to speak in Welsh',
   readandwritewelsh: 'I need to read and write in Welsh',
   languageinterpreter: 'I need an interpreter in a certain language',
+  typeoflanguage: 'Give details of the language you require (including dialect, if applicable)',
   nointerpreter: 'No, I do not have any language requirements at this time',
   continue: 'Continue',
   errors: {
@@ -39,17 +40,18 @@ const cy: typeof en = {
   speakwelsh: 'Rwyf eisiau siarad Cymraeg',
   readandwritewelsh: 'Rwyf eisiau siarad ac ysgrifennu yn Gymraeg',
   languageinterpreter: 'Mae arnaf angen cyfieithydd mewn iaith benodol',
+  typeoflanguage: 'Rhowch fanylion yr iaith sydd ei hangen arnoch (gan gynnwys tafodiaith, os yw’n berthnasol)',
   nointerpreter: 'Nac oes, nid oes gennyf unrhyw ofynion o ran iaith ar hyn o bryd',
   continue: 'Parhau',
   errors: {
     languageRequirements: {
-      required: 'Please select an answer',
+      required: 'Dewiswch ateb, os gwelwch yn dda',
     },
     languageDetails: {
-      required: 'Please provide language details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      required: 'Rhowch fanylion eich gofynion ieithyddol',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };
