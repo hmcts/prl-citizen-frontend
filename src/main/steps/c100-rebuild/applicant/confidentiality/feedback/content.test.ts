@@ -33,7 +33,7 @@ const enLanguageContent = {
   headingTitle: 'The court will keep your contact details private',
   p1: 'You have told us you want to keep these contact details private',
   heading3: 'What the court will do',
-  p2: 'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
+  p2: 'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass Cymru unless it is by order of the court.',
   listOfCofidentialInfromations: [
     { key: 'address', value: 'Address' },
     { key: 'telephone', value: 'Telephone number' },
@@ -46,7 +46,7 @@ const cyLanguageContent = {
   headingTitle: 'Bydd y llys yn cadw eich manylion cyswllt yn breifat ar gyfer.',
   p1: "Rydych wedi dweud wrthym eich bod eisiau cadw'r manylion cyswllt yma yn breifat:",
   heading3: 'Beth fydd y llys yn ei wneud',
-  p2: "Bydd y llys yn cadw'r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass (Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd) neu Cafcass CYMRU oni bai ei fod trwy orchymyn y llys.",
+  p2: "Bydd y llys yn cadw'r wybodaeth hon yn ddiogel ac ni fydd yn ei rhannu ag unrhyw un ac eithrio Cafcass (Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd) neu Cafcass Cymru oni bai ei fod trwy orchymyn y llys.",
   listOfCofidentialInfromations: [
     { key: 'address', value: 'Cyfeiriad' },
     { key: 'telephone', value: 'Ffôn' },
