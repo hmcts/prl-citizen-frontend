@@ -24,6 +24,7 @@ module.exports = {
     async writtenAgreementButton(agreementOption) {
         await I.wait('4');
         await I.retry(retryCount).waitForText(ScreeningQuestions.writtenAgreementButtonPageTitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).click(agreementOption ? this.fields.writtenAgreementYes : this.fields.writtenAgreementNo);
         await I.wait('2');
         await I.retry(retryCount).click('Continue');
@@ -76,6 +77,7 @@ module.exports = {
     },
     async whyCourtShouldGrant() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.whyCourtShouldGrantPageTitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).waitForSelector(this.fields.explainWhyCourtDetails, 30);
         await I.retry(retryCount).fillField(this.fields.explainWhyCourtDetails, this.fields.testingText , 30);
         await I.wait('2');

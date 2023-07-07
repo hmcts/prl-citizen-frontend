@@ -57,6 +57,7 @@ module.exports = {
     },
     async concernsSafety() {
         await I.retry(retryCount).waitForText(SafetyConcerns.concernsSafety , 30);
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.concernsSafetyYes);
         await I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.concernsSafetyYesInfo , 30);
@@ -126,12 +127,14 @@ module.exports = {
     },
     async passportOfficeNotified() {
         await I.retry(retryCount).waitForText(SafetyConcerns.passportOfficeNotified , 30);
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.passportOfficeNotifiedYes);
         await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async childAbductedBefore() {
         await I.retry(retryCount).waitForText(SafetyConcerns.childAbductedBefore , 30);
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.childAbductedBeforeYes);
         await I.wait('2');
         await I.retry(retryCount).click('Continue');
