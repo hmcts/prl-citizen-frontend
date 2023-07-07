@@ -19,6 +19,7 @@ module.exports = {
     await I.wait('4');
   },
   async enterCaseName() {
+    await I.wait('4');
     await I.retry(retryCount).waitForText('Enter Case Name' , 60);
     await I.wait('4');
     await I.retry(retryCount).fillField(this.fields.caseName, this.fields.caseNameDetails);
