@@ -1,0 +1,67 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "../../common/fileupload/macro.njk" import fileUpload %}
+
+
+
+{% block page_content %}
+
+  {% if FileErrors.length > 0 %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: FileErrors
+    }) }}
+  {% endif %}
+
+  <span class="govuk-caption-l">{{ caption }}</span>
+  {% if title %}
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+  {% endif %}
+
+  <p class="govuk-body">{{ uploadYourApplication }}</p>
+
+
+  <div class="">
+    {% for error in sessionErrors %}
+      {%- if  error.propertyName === 'document'  %}
+      <div class="govuk-form-group--error">
+        <span class="govuk-error-message" id="steps-children-parental-responsibility-form-parental-responsibility-error">
+        <span class="govuk-visually-hidden">{{ errorText }} </span>{{ errors['document'][error.errorType]}}</span>
+      {% endif %}
+    {% endfor %}
+    {{ fileUpload(
+        {
+          uploadButtonText: uploadButton,
+          fileuploadTitle: "Upload a file",
+          formPostURL: fileUploadUrl,
+          sessionFilesArray: true,
+          sessionFiles: document,
+          uploadFileHeading: '',
+          sessionNullFilesMessage: noFilesUploaded,
+          removeText: remove,
+          csrfToken: csrfToken,
+          fileremoveURL : fileRemoveUrl
+        }
+      ) }}
+      {% for error in sessionErrors %}
+        {%- if  error.propertyName === 'document'  %}</div>  {% endif %}
+      {% endfor %}
+  </div>
+
+  {% set uploadReqTest %}
+    <ol class="govuk-list govuk-list--number">
+      {% for listItem in uploadRequirements %}
+        <li>{{ listItem | safe}}</li>
+      {% endfor %}
+    </ol>
+  {% endset %}
+
+  {{ govukDetails({
+    summaryText: uploadDescription,
+    text: uploadReqTest | safe
+  }) }}
+
+{% endblock %}

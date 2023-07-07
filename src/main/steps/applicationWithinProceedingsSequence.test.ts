@@ -25,7 +25,7 @@ describe('applicationWithinProceedingsSequence', () => {
   });
 
   test('should contain 1 entries in applicationWithinProceedingsSequence 1 screen sequence', () => {
-    expect(applicationWithinProceedingsSequence).toHaveLength(9);
+    expect(applicationWithinProceedingsSequence).toHaveLength(10);
     expect(applicationWithinProceedingsSequence[0].url).toBe(
       '/application-within-proceedings/list-of-applications/:pageNumber'
     );
@@ -64,7 +64,7 @@ describe('applicationWithinProceedingsSequence', () => {
     );
     expect(applicationWithinProceedingsSequence[4].showInSection).toBe('applicationWithinProceedings');
     expect(applicationWithinProceedingsSequence[4].getNextStep(userCase, req)).toBe(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/agreement-for-request'
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
     );
 
     expect(applicationWithinProceedingsSequence[5].url).toBe(
@@ -82,14 +82,16 @@ describe('applicationWithinProceedingsSequence', () => {
     expect(applicationWithinProceedingsSequence[6].getNextStep({ awp_need_hwf: YesOrNo.YES }, req)).toBe(
       '/application-within-proceedings/C2/delay-or-cancel-hearing-date/help-with-fees/reference'
     );
-    expect(applicationWithinProceedingsSequence[6].getNextStep({ awp_need_hwf: YesOrNo.NO }, req)).toBe('/dashboard');
+    expect(applicationWithinProceedingsSequence[6].getNextStep({ awp_need_hwf: YesOrNo.NO }, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
+    );
 
     expect(applicationWithinProceedingsSequence[7].url).toBe(
       '/application-within-proceedings/:applicationType/:applicationReason/help-with-fees/reference'
     );
     expect(applicationWithinProceedingsSequence[7].showInSection).toBe('applicationWithinProceedings');
     expect(applicationWithinProceedingsSequence[7].getNextStep({ awp_have_hwfReference: YesOrNo.YES }, req)).toBe(
-      '/dashboard'
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
     );
     expect(applicationWithinProceedingsSequence[7].getNextStep({ awp_have_hwfReference: YesOrNo.NO }, req)).toBe(
       '/application-within-proceedings/C2/delay-or-cancel-hearing-date/help-with-fees/apply-for-hwf'
@@ -101,6 +103,14 @@ describe('applicationWithinProceedingsSequence', () => {
     expect(applicationWithinProceedingsSequence[8].showInSection).toBe('applicationWithinProceedings');
     expect(applicationWithinProceedingsSequence[8].getNextStep(userCase, req)).toBe(
       '/application-within-proceedings/C2/delay-or-cancel-hearing-date/help-with-fees/reference'
+    );
+
+    expect(applicationWithinProceedingsSequence[9].url).toBe(
+      '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?'
+    );
+    expect(applicationWithinProceedingsSequence[9].showInSection).toBe('applicationWithinProceedings');
+    expect(applicationWithinProceedingsSequence[9].getNextStep(userCase, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
     );
   });
 });

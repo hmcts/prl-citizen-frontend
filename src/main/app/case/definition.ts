@@ -3070,3 +3070,7 @@ export enum passportPossessionRelative {
   FATHER = 'father',
   OTHER = 'otherPerson'
 }
+
+export interface AwpApplicationDocument extends DocumentInfo {
+  id: string,
+} 

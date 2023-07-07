@@ -4,6 +4,7 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { applyParms } from '../../steps/common/url-parser';
 import {
   APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
+  APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
   APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
   APPLICATION_WITHIN_PROCEEDINGS_INFORM_OTHER_PARTIES,
@@ -52,7 +53,7 @@ class ApplicationWithinProceedingsNavigationController {
 
     const otherApplicationNextStep =
       applicationFee === '£0'
-        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
+        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
             applicationType,
             applicationReason,
           }) as PageLink)
@@ -77,7 +78,7 @@ class ApplicationWithinProceedingsNavigationController {
 
     const delayOrCancelStep =
       applicationFee === '£0'
-        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST, {
+        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
             applicationType,
             applicationReason,
           }) as PageLink)
