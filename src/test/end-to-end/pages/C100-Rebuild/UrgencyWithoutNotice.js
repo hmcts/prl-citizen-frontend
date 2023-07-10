@@ -25,6 +25,7 @@ module.exports = {
     },
     async qualifyUrgentHearing() {
         await I.retry(retryCount).waitForText(UrgencyWithoutNotice.qualifyUrgentHearingPageTitle , 30); 
+        await I.wait('2');
         await I.retry(retryCount).waitForSelector(this.fields.urgentHearingReasonsYes, 30); 
         await I.retry(retryCount).click(this.fields.urgentHearingReasonsYes);
         await I.wait('2');
@@ -48,12 +49,14 @@ module.exports = {
       },
     async withoutNoticeHearing() {
         await I.retry(retryCount).waitForText(UrgencyWithoutNotice.withoutNoticeHearingPageTitle , 30);  
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.withoutNoticeYes);
         await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async withoutNoticeDetails() {
         await I.retry(retryCount).waitForText(UrgencyWithoutNotice.withoutNoticeDetailsPageTitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.withoutNoticeDetails, this.fields.testingText);
         await I.retry(retryCount).click(this.fields.obstructOrderYes);
         await I.wait('2');

@@ -4,6 +4,7 @@ const retryCount = 3;
 module.exports = {
   fields: {
     otherPersonCheckYesButton: '//*[@id="oprs_otherPersonCheck"]', 
+    otherPersonCheckNoButton: '//*[@id="oprs_otherPersonCheck-2"]',
     firstNameField: '//*[@id="c100TempFirstName"]', 
     lastNameField: '//*[@id="c100TempLastName"]', 
     hasNameChangedNoButton: '//*[@id="hasNameChanged-2"]', 
@@ -16,10 +17,10 @@ module.exports = {
     addressList: '//*[@id="selectAddress"]',
     liveWithFirstOptionButton: '//*[@id="liveWith"]', 
   },
-   async otherPerson() {
+   async otherPerson(otherPersonOption) {
     await I.retry(retryCount).waitForText(OtherPersonDetails.otherPersonPageTitle , 30);
     await I.wait('2');
-    await I.retry(retryCount).click(this.fields.otherPersonCheckYesButton);
+    await I.retry(retryCount).click(otherPersonOption ? this.fields.otherPersonCheckYesButton : this.fields.otherPersonCheckNoButton);
     await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
@@ -85,8 +86,10 @@ module.exports = {
     await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
+
+  //With Other Person
   async otherPersonDetails() {
-    await this.otherPerson();
+    await this.otherPerson(true);
     await this.otherPersonName();
     await this.otherPersonDetailsInfo();
     await this.otherPersonRelationship();
@@ -95,4 +98,11 @@ module.exports = {
     await this.confirmAddress();
     await this.currentlyLiveWith();
   },
+
+  //Without Other Person 
+  async withoutOtherPerson(){
+    await this.otherPerson(false);
+    await this.currentlyLiveWith();
+  }
+
 };
