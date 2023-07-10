@@ -11,19 +11,19 @@ module.exports = {
     async helpWithFee(){
         await I.retry(retryCount).waitForText(HelpWithFees.helpWithFeesYesNoTitle , 30);
         await I.retry(retryCount).waitForSelector(this.fields.helpWithFeeYes, 30);
-        I.wait('2');
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.helpWithFeeYes);
-        I.wait('2');
+        await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async alreadyApplied() {
         await I.retry(retryCount).waitForText(HelpWithFees.alreadyAppliedHelpWithFee , 60);
-        I.wait('2');
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.alreadyAppliedYes);
         await I.retry(retryCount).waitForText(HelpWithFees.alreadyAppliedEnterRef , 60);
-        I.wait('2');
+        await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.helpWithFeeRef, HelpWithFees.helpWithFeesRefNo);
-        I.wait('2');
+        await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async helpWithFeeEvent() {

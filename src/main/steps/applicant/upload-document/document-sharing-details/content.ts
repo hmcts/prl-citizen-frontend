@@ -23,10 +23,10 @@ const cy: typeof en = {
   section: 'Sut fydd eich dogfennau’n cael eu rhannu',
   email: emailId,
   continue: 'Parhau',
-  warning: 'Warning',
+  warning: 'Rhybudd',
   warningTxt: 'Pan fyddwch yn cyflwyno dogfen, bydd yn cael ei rhannu gyda’r bobl eraill yn yr achos.',
   documentSharedLine1:
-    'Instead, you can ask  the court to restrict who can see the documentOs yw’n cynnwys gwybodaeth na ddylid ei rhannu, dilëwch yr wybodaeth berthnasol o’r ddogfen. Os nad yw hyn yn bosibl, peidiwch â chyflwyno’r ddogfen. Yn hytrach, gallwch ofyn i’r llys atal rhai pobl rhag gallu gweld y ddogfen.',
+    'Os yw’n cynnwys gwybodaeth na ddylid ei rhannu, dilëwch yr wybodaeth berthnasol o’r ddogfen. Os nad yw hyn yn bosibl, peidiwch â chyflwyno’r ddogfen. Yn hytrach, gallwch ofyn i’r llys atal rhai pobl rhag gallu gweld y ddogfen.',
   documentSharedLine2: 'Bydd y llys ond yn atal rhai pobl rhag gallu gweld y ddogfen:',
   documentSharedLine3: 'os oes rheswm da dros beidio â rhannu’r ddogfen, er enghraifft pryderon diogelwch',
   documentSharedLine4: 'nid yw’r ddogfen yn rhywbeth y mae’r barnwr angen ei gweld',

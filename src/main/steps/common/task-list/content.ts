@@ -76,12 +76,12 @@ const cy = {
   iWantTo: 'Rwyf eisiau...',
   hyperlinks: [
     {
-      label: 'Add a legal representative - welsh',
+      label: 'Ychwanegu cynrychiolydd cyfreithiol',
       link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
       target: '',
     },
     {
-      label: 'Remove a legal representative - welsh',
+      label: 'Dileu cynrychiolydd cyfreithiol',
       link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
       target: '',
     },
