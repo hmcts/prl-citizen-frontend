@@ -8,6 +8,7 @@ module.exports = {
     await I.retry(retryCount).waitForText('Start the application' , 60);
     await I.wait('2');
     await I.retry(retryCount).click('Start the application');
+    await I.waitForNavigation(); 
     await I.wait('2');
   },
 
