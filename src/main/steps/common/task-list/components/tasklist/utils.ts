@@ -261,7 +261,7 @@ export const getTaskListConfig = (
           tasks: section.tasks
             .map(task => {
               if (!task.hasOwnProperty('show') || (task.show instanceof Function && task.show(caseData, userDetails))) {
-                const config = setConfig(task, caseData, userDetails, _content, language,isRepresentedBySolicotor);
+                const config = setConfig(task, caseData, userDetails, _content, language, isRepresentedBySolicotor);
 
                 isContainShowHint(task, caseData, userDetails, config, _content);
                 return config;
@@ -295,7 +295,10 @@ function setConfig(
     id: task.id,
     linkText: _content?.tasks[task.id]?.linkText,
     href: task.href(caseData, userDetails),
-    disabled: task?.disabled && task.disabled instanceof Function ? task.disabled(caseData, userDetails)|| isRepresentedBySolicotor : false,
+    disabled:
+      task?.disabled && task.disabled instanceof Function
+        ? task.disabled(caseData, userDetails) || isRepresentedBySolicotor
+        : false,
     stateTag: {
       label: _stateTagConfig.label ? _stateTagConfig.label(language) : '',
       className: _stateTagConfig.className ? _stateTagConfig.className : '',
