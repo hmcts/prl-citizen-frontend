@@ -27,7 +27,7 @@ const cyContent = {
   continue: 'Parhau',
   errors: {
     detailsKnown: {
-      required: 'Enter your details known',
+      required: 'Rhowch eich manylion hysbys',
     },
   },
 };

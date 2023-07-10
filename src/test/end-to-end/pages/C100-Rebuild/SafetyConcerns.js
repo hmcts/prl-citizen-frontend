@@ -57,6 +57,7 @@ module.exports = {
     },
     async concernsSafety() {
         await I.retry(retryCount).waitForText(SafetyConcerns.concernsSafety , 30);
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.concernsSafetyYes);
         await I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.concernsSafetyYesInfo , 30);
@@ -111,6 +112,7 @@ module.exports = {
     },
     async childrenPassport() {
         await I.retry(retryCount).waitForText(SafetyConcerns.doChildrenHavePassport , 30);
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.childrenPassportYes);
         await I.wait('2');
         await I.retry(retryCount).click('Continue');
@@ -125,12 +127,14 @@ module.exports = {
     },
     async passportOfficeNotified() {
         await I.retry(retryCount).waitForText(SafetyConcerns.passportOfficeNotified , 30);
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.passportOfficeNotifiedYes);
         await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async childAbductedBefore() {
         await I.retry(retryCount).waitForText(SafetyConcerns.childAbductedBefore , 30);
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.childAbductedBeforeYes);
         await I.wait('2');
         await I.retry(retryCount).click('Continue');
@@ -156,6 +160,7 @@ module.exports = {
     },
     async describePhysicalAbuseApplicant() {
         await I.retry(retryCount).waitForText(SafetyConcerns.describePhysicalAbuseApplicantTitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.behaviourDetails, SafetyConcerns.testingText);
         await I.retry(retryCount).fillField(this.fields.behaviourStartDate, SafetyConcerns.testingText);
         await I.retry(retryCount).click(this.fields.ongoingBehaviourYes);
@@ -167,6 +172,7 @@ module.exports = {
     },
     async describeEmotionalAbuseApplicant() {
         await I.retry(retryCount).waitForText(SafetyConcerns.describeEmotionalAbuseApplicantTitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.behaviourDetails, SafetyConcerns.testingText);
         await I.retry(retryCount).fillField(this.fields.behaviourStartDate, SafetyConcerns.testingText);
         await I.retry(retryCount).click(this.fields.ongoingBehaviourYes);
@@ -180,7 +186,9 @@ module.exports = {
     //Other Concerns
     async otherConcerns() {
         await I.retry(retryCount).waitForText(SafetyConcerns.childImpactedDrugAlcohol , 30);
+        await I.wait('2');
         await I.retry(retryCount).waitForSelector(this.fields.otherConcernsYes, 30);
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.otherConcernsYes);
         await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.otherConcernsDetails, SafetyConcerns.testingText);
@@ -189,6 +197,7 @@ module.exports = {
     },
     async otherConcernsSafety() {
         await I.retry(retryCount).waitForText(SafetyConcerns.otherConcernsSafetyTitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.otherConcernsSafetyYes);
         await I.retry(retryCount).fillField(this.fields.otherConcernsSafetyDetails, SafetyConcerns.testingText);
         await I.wait('2');
@@ -196,6 +205,7 @@ module.exports = {
     },
     async courtToDo() {
         await I.retry(retryCount).waitForText(SafetyConcerns.courtToDoTitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.courtToDoDetails, SafetyConcerns.testingText);
         await I.wait('2');
         await I.retry(retryCount).click('Continue');
@@ -205,6 +215,7 @@ module.exports = {
     async contactWithChildAndOtherPeople() {
         await I.retry(retryCount).waitForText(SafetyConcerns.contactWithChildTitle , 30);
         await I.retry(retryCount).waitForText(SafetyConcerns.childSpendingTimeSubtitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.supervisedYes);
         await I.wait('2');
         await I.retry(retryCount).waitForText(SafetyConcerns.contactOtherWaysSubtitle , 30);
