@@ -905,6 +905,9 @@ export interface CaseData {
   welshLanguageRequirementApplicationNeedEnglish: string;
   orderCollection: ListValue<PRLDocument>[];
   hearingCollection?: HearingsList[];
+  futureHearings?: HearingsList[];
+  completedHearings?: HearingsList[];
+  completedHearings1?: HearingsList1[];
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
   finalDocument?: Document;
@@ -2397,6 +2400,12 @@ export interface PRLDocument {
   withdrawnRequestType?: string;
 }
 
+export interface HearingsList1 {
+  dates?: string,
+  lengthOfHearing?: string,
+  hearingMethod?: string
+}
+
 export interface HearingsList {
   hearingID?: Number,
   hearingRequestDateTime?: string | null,
@@ -2408,7 +2417,10 @@ export interface HearingsList {
   listAssistCaseStatus?: string | null,
   hearingDaySchedule?:Schedules[] | null,
   hearingGroupRequestId?: string | null,
-  hearingIsLinkedFlag?: boolean | null
+  hearingIsLinkedFlag?: boolean | null,
+  hearingTypeValue?: string,
+  nextHearingDate?: string | null ,
+  urgentFlag?: boolean | null,
 }
 
 export interface Schedules {
@@ -2427,9 +2439,27 @@ export interface Schedules {
 
 }
 
+export interface futureHearing{
+    Dates?: string,
+    hearingLength?: string,
+    hearingMethod?: string,
+    schedules?: futSchedule[]
+}
+
+export interface futSchedule{
+  hearingDate?:string,
+  startTime?:string,
+  hearingDuration?:string,
+  judgeName?:string | null,
+  venue?:string | null,
+  address?:string | null,
+  room?:string | null,
+  hearingLink?:string
+}
+
 export interface Attendee {
   partyID?: string,
-  hearingSubChannel?: string,
+  hearingSubChannel?: string | null,
 }
 
 export interface Hearings {

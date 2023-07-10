@@ -77,6 +77,7 @@ import {
   PRL_C1ASafteyConcerns,
   PRL_C1AAbuseTypes,
   applicantContactPreferencesEnum,
+  HearingsList1,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -368,6 +369,11 @@ export interface Case {
   caseInvites?: CaseInvite[];
   orderCollection?: ListValue<PRLDocument>[];
   hearingCollection?: HearingsList[];
+  nextHearing?: HearingsList[];
+  futureHearings?: HearingsList[];
+  completedHearings?: HearingsList[];
+  completedHearings1?: HearingsList1[];
+  hearingOrders?: object[];
   documentsGenerated?: ListValue<PRLDocument>[];
   yourchildconcernsstart?: YesOrNo;
   cameoutofallegationsharmwithNo?: boolean;

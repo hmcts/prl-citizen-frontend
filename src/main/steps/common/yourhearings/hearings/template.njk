@@ -8,119 +8,279 @@
 
   <p class="govuk-body">{{ caseNumber }} #{{ userCase.id }}</p>
   <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-  <h3 class="govuk-heading-l">{{ yourPreviousHearings }}</h3>
-
-  <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9"></dl>
-   {% if userCase.hearingCollection.length>=1 %}
-    {% for item in userCase.hearingCollection %}
-
-        <div>
-          <h4 class="govuk-heading-m govuk-!-margin-left-9">{{ hearing }}</h4>
-        </div>
-
-        <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9">
-          <div class="govuk-summary-list__row">
+  {# <h3 class="govuk-heading-l">{{ yourPreviousHearings }}</h3> #}
+  {% if userCase.nextHearing.length>=1 %}
+   <h3 class="govuk-heading-l">{{ yourFutureHearings }}</h3>
+   <p class="govuk-body"><a href={{linkforsupport}}>{{supportDuringCaselinktext}} </a></p>
+   <p class="govuk-body"><a href={{linkfordelayorcancel}}>{{delayorcancellinktext}} </a></p>
+   {% for item in userCase.nextHearing %}
+    <h1 class="govuk-heading-m">{{ nextHearing }}</h1>
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+      <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{ hearingid }}
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{item.hearingID}}
-            </dd>
-          </div>  
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              {{ typeOfHearing }}
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{item.hearingType}}
-            </dd>
-
-          </div>
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              {{ hearingRequestDate }}
+              {{ dates }}
             </dt>
             <dd class="govuk-summary-list__value">
               {{item.hearingRequestDateTime}}
             </dd>
-
-          </div>
-          <div class="govuk-summary-list__row">
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{ lastResponseDate }}
+              {{ hearingLength }}
             </dt>
             <dd class="govuk-summary-list__value">
               {{item.lastResponseReceivedDateTime}}
             </dd>
-
-          </div>
-          <div class="govuk-summary-list__row">
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{ hearingListingStatus }}
+              {{ hearingMethod }}
             </dt>
             <dd class="govuk-summary-list__value">
-              {{item.hearingListingStatus}}
+              {{item.hearingType}}
             </dd>
-
-          </div>
-          <div class="govuk-summary-list__row">
+      </div>
+    </dl>
+    {% for schedule in item.hearingDaySchedule %}
+    <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+    <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9">
+      <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{ listAssistStatus }}
+              {{ day }}
+            </dt>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ hearingDate }}
             </dt>
             <dd class="govuk-summary-list__value">
-              {{item.listAssistCaseStatus}}
+              {{schedule.hearingStartDateTime}}
             </dd>
-
-          </div>
-       {# {% if item.hearingDaySchedule>=1 %} #}
-        {% for scheduler in item.hearingDaySchedule %}
-          <div>
-          <h4 class="govuk-heading-m govuk-!-margin-left-2">{{ schedule }}</h4>
-          </div>
-        <dl class="govuk-!-margin-left-2">
-            <div class="govuk-summary-list__row">
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{ hearingStartDateTime }}
+              {{ startTime }}
             </dt>
             <dd class="govuk-summary-list__value">
-              {{scheduler.hearingStartDateTime}}
+              {{schedule.hearingEndDateTime}}
             </dd>
-
-          </div>
-          <div class="govuk-summary-list__row">
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{ hearingEndDateTime }}
+              {{ hearingDuration }}
             </dt>
             <dd class="govuk-summary-list__value">
-              {{scheduler.hearingEndDateTime}}
+              {{schedule.listAssistSessionId}}
             </dd>
-
-          </div>
-          <div class="govuk-summary-list__row">
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{ hearingRoomId }}
+              {{ judgeName }}
             </dt>
             <dd class="govuk-summary-list__value">
-              {{scheduler.hearingRoomId}}
+              {{schedule.hearingJudgeName}}
             </dd>
-
-          </div>
-          <div class="govuk-summary-list__row">
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{ noOfAttendees }}
+              {{ venue }}
             </dt>
             <dd class="govuk-summary-list__value">
-              {{scheduler.attendees.length}}
+              {{schedule.hearingVenueName}}
             </dd>
-
-          </div>
-        </dl>
-        {% endfor %} 
-        {# {% endif %} #}
-        </dl>
-
-        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ address }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{schedule.hearingVenueAddress}}
+            </dd>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ roomId }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{schedule.hearingRoomId}}
+            </dd>
+      </div>
+    </dl>
+    {% endfor %} 
+   {% endfor %}
+   <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+  {% endif %}
+  {% if userCase.futureHearings.length>=1 %}
+   {% for item in userCase.futureHearings %}
+    <h2 class="govuk-heading-m">{{ upcomingHearing }}</h2>
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ dates }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{item.hearingRequestDateTime}}
+            </dd>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ hearingLength }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{item.lastResponseReceivedDateTime}}
+            </dd>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ hearingMethod }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{item.hearingType}}
+            </dd>
+      </div>
+    </dl>
+    {% for schedule in item.hearingDaySchedule %}
+    <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+    <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ day }}
+            </dt>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ hearingDate }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{schedule.hearingStartDateTime}}
+            </dd>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ startTime }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{schedule.hearingEndDateTime}}
+            </dd>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ hearingDuration }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{schedule.listAssistSessionId}}
+            </dd>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ judgeName }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{schedule.hearingJudgeName}}
+            </dd>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ venue }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{schedule.hearingVenueName}}
+            </dd>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ address }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{schedule.hearingVenueAddress}}
+            </dd>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ roomId }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{schedule.hearingRoomId}}
+            </dd>
+      </div>
+    </dl>
     {% endfor %}
-   {% endif %}
+    
+   {% endfor %}
+   <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+  {% endif %}
+  {% if userCase.completedHearings.length>=1 %}
+   {% for item in userCase.completedHearings %}
+    <h3 class="govuk-heading-l">{{ previousHearings }}</h2>
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ dates }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{item.hearingRequestDateTime}}
+            </dd>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ hearingLength }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{item.lastResponseReceivedDateTime}}
+            </dd>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ hearingMethod }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{item.hearingType}}
+            </dd>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+      <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{ hearingOutcome }}
+            </dt>
+            <dd class="govuk-summary-list__value">
+                {% for doc in userCase.hearingOrders %} 
+                  <a href={{doc.href}} target="_blank">{{ doc.fileName }}</a><br>
+                {% endfor %}
+            </dd>
+      </div>
+        {# {% for doc in userCase.hearingOrders %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{doc.createdDate}}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <a href={{doc.href}} target="_blank">{{ doc.fileName }}</a>
+            </dd>
+          </div>
+        {% endfor %} #}
+      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
+    </dl>
+    
+   {% endfor %}
+  {% endif %}
 {% endblock %}
