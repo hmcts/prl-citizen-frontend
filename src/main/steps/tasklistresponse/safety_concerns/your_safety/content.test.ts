@@ -30,12 +30,12 @@ const enContent = {
 
 const cyContent = {
   section: 'Pryderon diogelwch',
-  title: 'Your safety -welsh',
+  title: 'Eich diogelwch',
   line1:
     'The court needs to know if you have suffered, or are at risk of suffering, any form of domestic violence or abuse. -welsh',
   line2:
     'The following questions will ask whether you have suffered, or are at risk of suffering, any form of harm. -welsh',
-  line3: 'Find out about the signs of domestic violence or abuse -welsh',
+  line3: 'Rhagor o wybodaeth am arwyddion o drais neu gamdriniaeth ddomestig',
 
   continue: 'Parhau',
   summery1: 'Why do we need this information and what will we do with it? -welsh',

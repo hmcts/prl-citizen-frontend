@@ -3,6 +3,7 @@ import { FormContent } from '../../../../app/form/Form';
 
 const en = () => ({
   serviceName: 'Application upload',
+  problem: 'There is a problem',
   titleList: {
     childArrangementOrder: 'Upload Child Arrangements Order',
     emergencyProtectionOrder: 'Upload Emergency Protection Order',
@@ -54,6 +55,7 @@ const en = () => ({
 
 const cy = () => ({
   serviceName: 'Cais wedi’i lwytho',
+  problem: 'Mae yna broblem',
   titleList: {
     childArrangementOrder: 'Llwytho Gorchymyn Trefniadau Plant',
     emergencyProtectionOrder: 'Llwytho Gorchymyn Diogelu Brys',

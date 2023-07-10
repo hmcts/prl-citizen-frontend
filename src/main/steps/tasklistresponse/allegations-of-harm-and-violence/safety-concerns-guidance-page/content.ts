@@ -94,7 +94,7 @@ const cy: typeof en = {
   line4h3:
     "Cymerwch eich amser yn llenwi'r wybodaeth ac ysgrifennwch gymaint ag y teimlwch eich bod yn gallu ei wneud.",
   continue: 'Parhau',
-  Warning: 'warning--welsh',
+  Warning: 'Rhybudd',
   or: 'neu',
 };
 

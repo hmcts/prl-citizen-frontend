@@ -257,6 +257,16 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
   const respondentItems: object[] = [];
   const respondentItems2: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
+    if (userCase.respondentDocsList) {
+      for (const doc of userCase.respondentDocsList) {
+        if (doc?.value?.c7Document?.partyName) {
+          respondentItems.push(getOthersResponse(doc, taskListItems, 'c7Document'));
+        }
+        if (doc?.value?.c1aDocument?.partyName) {
+          respondentItems.push(getOthersResponse(doc, taskListItems, 'c1aDocument'));
+        }
+      }
+    }
     userCase.respondents.forEach((respondent: Respondent) => {
       if (userCase.citizenResponseC7DocumentList) {
         respondentItems.push(getResponseToCA(respondent, taskListItems, userCase.citizenResponseC7DocumentList));
@@ -527,6 +537,29 @@ export const getResponseToCA = (respondent: Respondent, taskListItems, citizenRe
     }
   }
   return {};
+};
+export const getOthersResponse = (doc, taskListItems, type) => {
+  return {
+    id:
+      type === 'c7Document'
+        ? 'respondent_response_to_request_for_child_arrangements'
+        : 'respondent_allegation_of_harm_and_violence',
+    text:
+      type === 'c7Document'
+        ? taskListItems.respondent_response_to_request_for_child_arrangements.replace(
+            '<namerespondentxxxxx>',
+            doc?.value?.c7Document?.partyName
+          )
+        : taskListItems.respondent_allegation_of_harm_and_violence.replace(
+            '<namerespondentxxxxx>',
+            doc?.value?.c1aDocument?.partyName
+          ),
+    href:
+      type === 'c7Document'
+        ? `${URL.RESPONSE_TO_CA}?name=${doc?.value?.c7Document?.partyName}`
+        : `${URL.AOH_TO_CA}?name=${doc?.value?.c1aDocument?.partyName}`,
+    openInAnotherTab: true,
+  };
 };
 
 const getAohAndViolence = (respondent: Respondent, taskListItems) => {
