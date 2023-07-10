@@ -14,9 +14,9 @@ cookieManager.on('UserPreferencesSaved', preferences => {
   if (dtrum !== undefined) {
     if (preferences.apm === 'on') {
       dtrum.enable();
-      dtrum.enableSessionReplay();
+      dtrum.enableSessionReplay(ignoreCostControl=false);
     } else {
-      dtrum.disableSessionReplay();
+      dtrum.disableSessionReplay(ignoreCostControl=false);
       dtrum.disable();
     }
   }
