@@ -2,10 +2,10 @@
 
 import { YesOrNo } from '../../../app/case/definition';
 import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
+import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 
 import { cy, en } from './courtproceedings/content';
-import { DATE_FORMATTOR } from './dateformatter';
 import { HTML } from './htmlSelectors';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from './order-details/content';
 

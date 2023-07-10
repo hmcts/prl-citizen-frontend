@@ -15,7 +15,7 @@
       {% if title %}
     <h1 class="govuk-heading-l">{{ title }}</h1>
   {% endif %}
-      <form action="/document-manager/generatePdf?_csrf={{ csrfToken }}&parentDocumentType={{caption}}&documentType={{document_type}}&isApplicant=Yes" method="post" novalidate="">
+      <form action="/document-manager/generatePdf?_csrf={{ csrfToken }}&caption={{caption}}&document_type={{document_type}}&parentDocumentType={{parentDocType}}&documentType={{docType}}&isApplicant=Yes" method="post" novalidate="">
       <div class="govuk-form-group">
         <div class="govuk-label-wrapper"><label class="govuk-label" for="more-detail">
            {{textAreaDocUploadText1}}
@@ -57,7 +57,7 @@
               <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
                 {{uploadFileHeading}}
               </label>
-      <form action="/document-manager?_csrf={{ csrfToken }}&parentDocumentType={{caption}}&documentType={{document_type}}&isApplicant=Yes" method="post" enctype="multipart/form-data">
+      <form action="/document-manager?_csrf={{ csrfToken }}&caption={{caption}}&document_type={{document_type}}&parentDocumentType={{parentDocType}}&documentType={{docType}}&isApplicant=Yes" method="post" enctype="multipart/form-data">
         {{ govukFileUpload({
           name: "files[]",
           attributes: {
@@ -87,7 +87,7 @@
                 {{ file.name }}
               </dt>
               <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="/document-manager/deleteDocument/{{file.id}}?_csrf={{ csrfToken }}&parentDocumentType={{caption}}&documentType={{document_type}}&isApplicant=Yes">
+                <a class="govuk-link" href="/document-manager/deleteDocument/{{file.id}}?_csrf={{ csrfToken }}&caption={{caption}}&document_type={{document_type}}&parentDocumentType={{parentDocType}}&documentType={{docType}}&isApplicant=Yes">
                   {{remove}}</span>
                 </a>
               </dd>

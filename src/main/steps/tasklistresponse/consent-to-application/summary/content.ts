@@ -1,3 +1,5 @@
+import { CaseWithId } from '../../../../app/case/case';
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../../steps/common/common.content';
@@ -29,6 +31,7 @@ export const enContent = {
 
 const en = (content: CommonContent) => {
   const userCase = content.userCase!;
+  preprocess(userCase);
   return {
     ...enContent,
     language: content.language,
@@ -38,21 +41,22 @@ const en = (content: CommonContent) => {
 
 const cyContent: typeof enContent = {
   section: 'Gwirio eich atebion',
-  title: 'Your consent to the application',
+  title: 'Cydsynio i’r cais',
   sectionTitles: {
     consentDetails: '',
   },
   keys: {
     doYouConsent: 'A ydych chi’n cydsynio i’r cais?',
-    reasonForNotConsenting: 'Give your reasons for not consenting to the application. (welsh)',
+    reasonForNotConsenting: 'Rhowch eich rhesymau dros beidio â chydsynio i’r cais.',
     applicationReceivedDate: "Pryd gawsoch chi'r cais?",
     courtPermission: "A oes angen i'r ceisydd ofyn am ganiatâd gan y llys cyn gwneud ceisiadau?",
-    courtOrderDetails: 'Provide details of the court order in place. (welsh)',
+    courtOrderDetails: 'Rhowch fanylion y gorchymyn llys sydd mewn grym',
   },
 };
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
+  preprocess(userCase);
   return {
     ...cyContent,
     language: content.language,
@@ -79,3 +83,11 @@ export const generateContent: TranslationFn = content => {
     form,
   };
 };
+function preprocess(userCase: Partial<CaseWithId>) {
+  if (userCase.doYouConsent === YesOrNo.YES) {
+    userCase.reasonForNotConsenting = '';
+  }
+  if (userCase.courtPermission === YesOrNo.NO) {
+    userCase.courtOrderDetails = '';
+  }
+}

@@ -107,11 +107,13 @@ export interface PartyDetails {
   response: Response;
   user: User;
   contactPreferences?: applicantContactPreferencesEnum;
+  isRemoveLegalRepresentativeRequested?: YesOrNo;
 }
 
 export interface User {
   email: string,
-  idamId: string
+  idamId: string,
+  solicitorRepresented?: string
 }
 
 export interface Response {
@@ -973,6 +975,7 @@ export interface CaseData {
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+  respondentDocsList?:RespondentDocs[];
   draftOrderDoc?: Document;
 }
 
@@ -1757,6 +1760,20 @@ export interface OtherProceedingEmptyTable {
 }
 
 // // eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RespondentDocs {
+  id: string;
+  value: {
+    c1aDocument: ResponseDocuments;
+    c7Document: ResponseDocuments;
+    otherDocuments: ResponseDocs[];
+  }
+}
+
+export interface ResponseDocs {
+  id: string;
+  value: ResponseDocuments;
+}
+
 
 export interface ResponseDocumentList {
   id: string;
@@ -2129,6 +2146,7 @@ export const enum DocumentType {
   APPLICATION_SUMMARY = 'applicationSummary',
   FL401_FINAL_DOCUMENT = 'FL401-Final-Document.pdf',
   WITNESS_STATEMENT = 'witness-statement-Final-Document.pdf',
+  CITIZEN_DOCUMENT ='citizenDocument'
 }
 
 export const enum PaymentStatus {
@@ -2976,13 +2994,18 @@ export enum CaseType {
 }
 
 export enum CaseEvent {
+  EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement',
+  KEEP_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
+  CONFIRM_YOUR_DETAILS = 'confirmYourDetails',
+  SUPPORT_YOU_DURING_CASE = 'hearingNeeds',
+  LEGAL_REPRESENTATION = 'legalRepresentation',
   SAFETY_CONCERNS = 'citizenSafetyConcerns',
   MIAM = 'respondentMiam',
   PARTY_PERSONAL_DETAILS = 'linkCitizenAccount',
-  EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement',
+  CITIZEN_INTERNAL_CASE_UPDATE = 'citizen-internal-case-update',
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
-  LEGAL_REPRESENTATION = 'legalRepresentation',
+  CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative'
 }
 
 export enum passportPossessionRelative {

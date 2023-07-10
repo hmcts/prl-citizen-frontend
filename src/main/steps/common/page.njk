@@ -91,7 +91,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="govuk-grid-column-one-third">
        {% block page_contact_us %}
-             {% include "./contact-us.njk" %}
+        {%if userCase.caseTypeOfApplication === "FL401" %}
+          {% include "./contact-us.njk" %}
+        {% else %}
+          {% include "./contact-us-c100.njk" %}
+        {% endif %}
         {% endblock %}
     </div>
   </div>

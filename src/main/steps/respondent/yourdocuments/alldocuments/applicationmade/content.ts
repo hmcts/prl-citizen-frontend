@@ -1,6 +1,5 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
 
 const en = () => {
   return {
@@ -14,31 +13,15 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
-    title: 'Applications made in these proceedings (welsh)',
+    title: 'Ceisiadau a wnaed yn yr achos hwn',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 
 const languages = {
   en,
   cy,
-};
-
-export const form: FormContent = {
-  fields: userCase => {
-    return {
-      caseNumber: {
-        label: l => l.caseNumber + '' + userCase.caseCode,
-        type: 'hidden',
-        labelHidden: true,
-      },
-    };
-  },
-  submit: {
-    text: l => l.continue,
-    classes: 'govuk-button--secondary',
-  },
 };
 
 export const generateContent: TranslationFn = content => {

@@ -1,8 +1,15 @@
-import { Applicant, Banner, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { CaseWithId } from '../../../app/case/case';
+import { Applicant, Banner, CaseType, PartyDetails, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
-import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../steps/urls';
+import { checkPartyRepresentedBySolicitor } from '../../../steps/common/task-list/utils';
+import {
+  APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+  APPLICANT_ORDERS_FROM_THE_COURT,
+  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+  APPLICANT_VIEW_ALL_DOCUMENTS,
+} from '../../../steps/urls';
 
 import { applicant_cy, applicant_en } from './section-titles';
 import { generateApplicantTaskList } from './tasklist';
@@ -13,11 +20,6 @@ const en = () => ({
   title: 'Applicant tasklist',
   applicantName: '',
   caseNumber: 'Case number  ',
-  iWant: 'I want to...',
-  findCourt: 'Find my local court',
-  legalAdvice: 'Find legal advice',
-  childArrangements: 'Know more about child arrangements',
-  attendingCourt: 'Know more about attending court',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -72,17 +74,41 @@ const en = () => ({
       },
     ],
   },
+  iWantTo: 'I want to...',
+  hyperlinks: [
+    {
+      label: 'Add a legal representative',
+      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+    },
+    {
+      label: 'Remove a legal representative',
+      link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+    },
+    {
+      label: 'Find my local court',
+      link: '#',
+    },
+    {
+      label: 'Find legal advice',
+      link: '#',
+    },
+    {
+      label: 'Know more about child arrangements',
+      link: '#',
+    },
+    {
+      label: 'Know more about attending court',
+      link: '#',
+    },
+  ],
+  addLegalRepresentative: 'Add a legal representative',
+  removeLegalRepresentative: 'Remove a legal representative',
 });
 
 const cy = () => ({
-  title: 'Applicant tasklist',
+  title: 'Rhestr Tasgau’r Ceisydd',
   applicantName: '',
   caseNumber: 'Rhif yr achos ',
-  iWant: 'I want to... (welsh)',
-  findCourt: 'Find my local court (welsh)',
-  legalAdvice: 'Find legal advice (welsh)',
-  childArrangements: 'Know more about child arrangements (welsh)',
-  attendingCourt: 'Know more about attending court (welsh)',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -104,7 +130,7 @@ const cy = () => ({
     bannerLinks: [
       {
         href: APPLICANT_VIEW_ALL_DOCUMENTS,
-        text: 'See all documents',
+        text: 'Gweld yr holl ddogfennau',
       },
     ],
   },
@@ -138,6 +164,35 @@ const cy = () => ({
       },
     ],
   },
+  iWantTo: 'Rwyf eisiau ...',
+  hyperlinks: [
+    {
+      label: 'Ychwanegu cynrychiolydd cyfreithiol',
+      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+    },
+    {
+      label: 'Dileu cynrychiolydd cyfreithiol',
+      link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+    },
+    {
+      label: 'Dod o hyd i fy llys lleol',
+      link: '#',
+    },
+    {
+      label: 'Dod o hyd i gyngor cyfreithiol',
+      link: '#',
+    },
+    {
+      label: 'Gwybod mwy am drefniadau plant',
+      link: '#',
+    },
+    {
+      label: 'Gwybod mwy am fynychu’r llys',
+      link: '#',
+    },
+  ],
+  addLegalRepresentative: 'Ychwanegu cynrychiolydd cyfreithiol',
+  removeLegalRepresentative: 'Dileu cynrychiolydd cyfreithiol',
 });
 
 const languages = {
@@ -151,32 +206,48 @@ export const generateContent: TranslationFn = content => {
     content.userCase?.caseTypeOfApplication === 'C100'
       ? getC100Banners(content.userCase, translations, content.userIdamId)
       : getFl401Banners(content.userCase, translations, content.userIdamId);
-  const stages = content.userCase?.caseTypeOfApplication === 'C100' ? [] : buildProgressBarStages(content.userCase!);
+  const stages =
+    content.userCase?.caseTypeOfApplication === 'C100'
+      ? []
+      : buildProgressBarStages(content.userCase!, content.language);
   const req: AppRequest = content.additionalData?.req;
-  translations.applicantName = getApplicantName(req.session.userCase, req.session.user.id);
+
+  const applicant = getApplicant(req.session.userCase, req.session.user.id);
+  translations.applicantName = getApplicantName(applicant);
+  const isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(applicant);
+  translations.hyperlinks.forEach((hyperLink, index) => {
+    if (hyperLink.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) {
+      translations.hyperlinks.splice(index, 1);
+    } else if (hyperLink.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor) {
+      translations.hyperlinks.splice(index, 1);
+    }
+  });
+
   return {
     ...translations,
     sections: generateApplicantTaskList(
       translations.sectionTitles,
       translations.taskListItems,
       content.userCase,
-      content.userIdamId
+      content.userIdamId,
+      isRepresentedBySolicotor
     ),
     banners,
     stages,
   };
 };
 
-const getApplicantName = (userCase, userId) => {
-  if (userCase.caseTypeOfApplication === 'C100') {
+export const getApplicant = (userCase: Partial<CaseWithId>, userId: string): PartyDetails | undefined => {
+  if (userCase && userCase.caseTypeOfApplication === CaseType.C100) {
     const applicant = getApplicantPartyDetails(userCase, userId);
-    if (applicant) {
-      return applicant.value.firstName + ' ' + applicant.value.lastName;
-    }
+    return applicant?.value;
   } else {
-    return userCase.applicantsFL401.firstName + ' ' + userCase.applicantsFL401.lastName;
+    return userCase?.applicantsFL401;
   }
-  return '';
+};
+
+export const getApplicantName = (applicant: PartyDetails | undefined): string => {
+  return applicant ? applicant.firstName + ' ' + applicant.lastName : '';
 };
 
 const getC100Banners = (userCase, translations, userIdamId) => {

@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export type ANYTYPE = any;
+/* eslint-disable import/no-unresolved */
+import { ANYTYPE } from '../c100-rebuild/check-your-answers/common/index';
 /**
  * It takes a date object and returns a string
  * @param date - The date object that you want to format.

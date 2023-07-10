@@ -17,23 +17,25 @@ const en = {
   courtFeesParagraphs: [
     'You may be able to get help with some or all of your court fees depending on your savings, income and benefits.',
     'If you apply for help with fees a payment will not be taken when you submit the application.',
-    "<p class='govuk-body'> Check the <a href='https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a' class='govuk-link' rel='external' target='_blank'>help with fees guidance on GOV.UK</a> to find out if you meet the criteria and apply for support.</p>",
+    "<p class='govuk-body'> Check the <a href='https://www.gov.uk/get-help-with-court-fees' class='govuk-link' rel='external' target='_blank'>help with fees guidance on GOV.UK</a> to find out if you meet the criteria and apply for support.</p>",
   ],
+  cancel: 'Cancel',
 };
 
 const cy = {
-  title: 'Completing your application -welsh',
+  title: 'Cwblhau eich cais',
   paragraphs: [
-    'You can complete this application online or by post. -welsh',
-    'At the end of the application process you will need to pay a court fee of £232. -welsh',
-    'The payment will be taken at the end of the process, when you submit your application. -welsh',
+    'Gallwch gwblhau’r cais hwn ar-lein neu ei anfon drwy’r post.',
+    'Ar ddiwedd y broses gwneud cais bydd angen ichi dalu ffi’r llys o £232.',
+    'Fe gymerir y taliad ar ddiwedd y broses, pan fyddwch yn cyflwyno eich cais.',
   ],
-  helpPayingCourtFeesSubHeading: 'Get help paying court fees -welsh',
+  helpPayingCourtFeesSubHeading: 'Help i dalu ffioedd llys',
   courtFeesParagraphs: [
-    'You may be able to get help with some or all of your court fees depending on your savings, income and benefits. -welsh',
-    'If you apply for help with fees a payment will not be taken when you submit the application. -welsh',
-    "<p class='govuk-body'> Check the <a href='https://get.adobe.com/uk/reader/' class='govuk-link' rel='external' target='_blank'>help with fees guidance on GOV.UK</a> to find out if you meet the criteria and apply for support. -welsh </p>",
+    'Efallai y gallwch gael help gyda rhywfaint o’ch ffioedd llys neu’r holl ffioedd yn dibynnu ar eich cynilion, eich incwm a’ch budd-daliadau.',
+    'Os byddwch yn gwneud cais am help i dalu ffioedd ni chymerir y taliad pan fyddwch yn cyflwyno’r cais.',
+    "<p class='govuk-body'> Cyfeiriwch at y cyfarwyddyd ar <a href='https://www.gov.uk/get-help-with-court-fees' class='govuk-link' rel='external' target='_blank'>help i dalu ffioedd ar GOV.UK</a> i weld os ydych yn bodloni’r meini prawf ac i wneud cais am gymorth. </p>",
   ],
+  cancel: 'Canslo',
 };
 
 describe('complete-your-application-guidance > content', () => {

@@ -63,9 +63,9 @@ const cy: typeof en = {
   optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
   supportworker: 'Gweithiwr cymorth neu ofalwr',
-  supportWorkerDetails: 'Tell us who you will bring',
+  supportWorkerDetails: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',
   familymember: "ffrind neu aelod o'r teulu",
-  familyMemberDetails: 'Tell us who you will bring',
+  familyMemberDetails: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',
   assistance: 'Ci cymorth / ci tywys',
   animal: 'Anifail therapi',
   animalDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
@@ -75,34 +75,34 @@ const cy: typeof en = {
   continue: 'Parhau',
   errors: {
     courtHearing: {
-      required: 'Select what help you need to bring support with you to a court hearing',
+      required: 'Dewiswch pa gymorth sydd ei angen arnoch i ddod â rhywun efo chi i’ch cefnogi mewn gwrandawiad llys',
     },
     communicationSupportOther: {
-      required: 'Please provide the details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      required: 'Rhowch fanylion',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     supportWorkerDetails: {
-      required: 'Please provide the support worker details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      required: 'Rhowch fanylion eich gweithiwr cymorth',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     familyProviderDetails: {
-      required: 'Please provide the family member details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      required: 'Rhowch fanylion aelod o’ch teulu',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     animalProvideDetails: {
-      required: 'Please provide the therapy animal details',
+      required: 'Rhowch fanylion yr anifail therapi',
     },
     therapyDetails: {
-      required: 'Please provide therapy animal details',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      required: 'Rhowch fanylion yr anifail therapi',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };

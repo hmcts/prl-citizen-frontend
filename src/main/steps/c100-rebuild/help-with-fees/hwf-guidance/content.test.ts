@@ -30,7 +30,7 @@ const cy = {
   hwfApplyLinkHint1: 'Mae angen ichi',
   hwfApplyLinkHint2: 'cyn ichi fwrw ymlaen â’r cais trefniadau plant hwn.',
   applyForHwfLink:
-    '<a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank" aria-label="apply for help with fees (opens in a new tab)">wneud cais am help i dalu ffioedd (mae\'n agor mewn tab newydd)</a>',
+    '<a href="https://www.gov.uk/get-help-with-court-fees" class="govuk-link" target="_blank" aria-label="apply for help with fees (agor mewn tab newydd)">wneud cais am help i dalu ffioedd (mae\'n agor mewn tab newydd)</a>',
   hwfGuidanceC100Hint: 'Nodwch ‘C100’ pan ofynnir wrthych am rif ffurflen llys neu dribiwnlys.',
   hwfGuidanceHint2: `Wedi ichi wneud cais am help i dalu ffioedd, byddwch yn cael cyfeirnod.
   Nodwch y cyfeirnod hwnnw isod i fwrw ymlaen â’r cais trefniadau plant.`,

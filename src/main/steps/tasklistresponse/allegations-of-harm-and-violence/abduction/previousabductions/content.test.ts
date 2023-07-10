@@ -39,8 +39,8 @@ const en = {
 const cy = {
   caption: 'Pryderon diogelwch',
   title: 'Darparwch fanylion am y digwyddiadau blaenorol o herwgydio',
-  line1: 'Give a short description of the previous incidents of abduction. - welsh',
-  c1A_previousAbductionsShortDescHint: 'Include any previous attempts to threaten or abduct the children. - welsh',
+  line1: "Rhowch ddisgrifiad byr o'r digwyddiadau blaenorol o gipio.",
+  c1A_previousAbductionsShortDescHint: "Dylech gynnwys unrhyw ymdrechion blaenorol i fygwth neu gipio'r plant.",
   c1A_policeOrInvestigatorInvolved: 'A oedd yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall ynghlwm â hyn?',
   c1A_policeOrInvestigatorInvolvedHint: 'Gan gynnwys yn y DU neu dramor.',
   one: 'Oedd',
@@ -48,19 +48,19 @@ const cy = {
   otherDetails: 'Darparwch fwy o fanylion',
   errors: {
     PRL_c1A_previousAbductionsShortDesc: {
-      required: 'Briefly describe the previous incidents of abduction - welsh',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      required: 'Disgrifiwch yn fyr y digwyddiadau blaenorol o herwgydio',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     PRL_c1A_policeOrInvestigatorInvolved: {
-      required: 'Select yes if the police, private investigators or any other organisation was involved - welsh',
+      required: 'Dewiswch oedd os oedd yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall ynghlwm â hyn',
     },
     PRL_c1A_policeOrInvestigatorOtherDetails: {
-      required: 'Provide details of the police, private investigators or any other organisation involvement - welsh',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      required: 'Rhowch fanylion yr heddlu, ymchwilwyr preifat neu unrhyw sefydliad arall oedd ynghlwm â hyn',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };

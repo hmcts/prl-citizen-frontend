@@ -1,6 +1,6 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
+import { documents_list_items_en } from '../../../../../steps/respondent/upload-document/upload-document-list-items';
 
 const en = () => {
   return {
@@ -14,9 +14,9 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
-    title: 'Previous orders submitted with application (welsh)',
+    title: 'Gorchmynion blaenorol a gyflwynwyd gyda’r cais',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 
@@ -25,29 +25,13 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
-  fields: userCase => {
-    return {
-      caseNumber: {
-        label: l => l.caseNumber + '' + userCase.caseCode,
-        type: 'hidden',
-        labelHidden: true,
-      },
-    };
-  },
-  submit: {
-    text: l => l.continue,
-    classes: 'govuk-button--secondary',
-  },
-};
-
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const orders: object[] = [];
   for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
     if (
       doc.value.isApplicant === content.byApplicant &&
-      doc.value.documentType === 'Previous orders submitted with application'
+      doc.value.documentType === documents_list_items_en.previous_orders_submitted
     ) {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1

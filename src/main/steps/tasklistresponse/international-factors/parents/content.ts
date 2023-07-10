@@ -35,13 +35,13 @@ const cy: typeof en = {
   provideDetails: 'Rhowch fanylion',
   errors: {
     parents: {
-      required: 'Please select one of the options before proceeding further',
+      required: 'Dewiswch un o’r opsiynau cyn parhau ymhellach',
     },
     iFactorsParentsProvideDetails: {
-      required: 'Please fill the provide details field before proceeding further',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      required: 'Llenwch y blwch ar gyfer rhoi manylion cyn parhau ymhellach',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };

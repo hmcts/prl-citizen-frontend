@@ -103,14 +103,14 @@ const en = {
 const cy: typeof en = {
   title: 'Cwcis',
   paragraph1:
-    'A cookie is a small piece of data that&rsquo;n cael ei storio ar eich cyfrifiadur, eich tabled neu eich ffôn symudol pan fyddwch yn ymweld â gwefan yw cwci. Mae angen cwcis ar y rhan fwyaf o wefannau i weithio&rsquo;n iawn.',
+    'Darn bach o ddata sy’n&rsquo;n cael ei storio ar eich cyfrifiadur, eich tabled neu eich ffôn symudol pan fyddwch yn ymweld â gwefan yw cwci. Mae angen cwcis ar y rhan fwyaf o wefannau i weithio&rsquo;n iawn.',
   howAreCookiesUsedParagraph1: 'Sut ydym yn defnyddio cwcis yn y gwasanaeth hwn:',
   howAreCookiesUsedItem1: 'mesur sut ydych yn defnyddio’r gwasanaeth fel y gallwn ei wella',
   howAreCookiesUsedItem2: 'cofio&rsquo;r hysbysiadau rydych wedi&rsquo;u gweld fel na fyddwch yn eu gweld eto',
   howAreCookiesUsedItem3: 'storio’r atebion a roddwch dros dro',
   howAreCookiesUsedParagraph2:
     'Darganfod mwy am <a class="govuk-link" href="http://www.aboutcookies.org/">sut i reoli cwcis.</a>.',
-  howAreCookiesUsedHeading2: 'How cookies are used in this service {in welsh}',
+  howAreCookiesUsedHeading2: 'Sut ydym yn defnyddio cwcis yn y gwasanaeth hwn',
   websiteUsageCookiesHeading3: 'Cwcis a ddefnyddir i fesur faint o bobl sy’n defnyddio ein gwefan',
   websiteUsageCookiesParagraph1:
     'Rydym yn defnyddio meddalwedd Google Analytics i gasglu gwybodaeth am sut rydych yn defnyddio&rsquo;r gwasanaeth hwn. Rydym yn gwneud hyn i helpu i sicrhau bod y gwasanaeth yn diwallu anghenion defnyddwyr ac i&rsquo;n helpu i wneud gwelliannau, er enghraifft gwella’r cyfleuster chwilio.',
@@ -122,8 +122,8 @@ const cy: typeof en = {
   websiteUsageCookiesParagraph3:
     'Rydym yn caniatáu i Google ddefnyddio neu rannu ein data dadansoddi. Gallwch ddarganfod mwy am sut mae Google yn defnyddio’r wybodaeth hon yn eu <a class="govuk-link" href="https://www.google.com/policies/privacy/partners/">Polisi Preifatrwydd.</a>',
   websiteUsageCookiesParagraph4:
-    'You can opt <a class="govuk-link" href="https://tools.google.com/dlpage/gaoptout">out of Google Analytics</a> if you do not want Google to have access to your information. {in welsh}',
-  websiteUsageCookiesParagraph5: 'List of google analytics cookies used.',
+    'Gallwch optio allan <a class="govuk-link" href="https://tools.google.com/dlpage/gaoptout">o Google Analytics</a> os nad ydych eisiau i Google gael mynediad at eich gwybodaeth',
+  websiteUsageCookiesParagraph5: 'Rhestr o’r cwcis Google Analytics a ddefnyddir.',
   websiteUsageCookiesAriaDescribedby: 'os nad ydych eisiau i Google gael mynediad at eich gwybodaeth',
   cookieNameHeader: 'Enw’r cwci',
   cookiePurposeHeader: 'Pwrpas y cwci',

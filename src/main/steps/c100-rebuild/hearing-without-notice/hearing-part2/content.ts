@@ -49,7 +49,7 @@ export const en = () => ({
 export const cy = () => ({
   title: 'Manylion y gwrandawiad heb rybudd',
   subTitle: 'Rhowch fanylion pam rydych yn gofyn am wrandawiad heb rybudd',
-  hint: "Bydd angen i farnwr fod yn sicr bod rheswm da pam na ddylid dweud wrth y bobl 36eraill sydd ynghlwm â’r cais am y cais cyn i'r gwrandawiad ddigwydd.",
+  hint: "Bydd angen i farnwr fod yn sicr bod rheswm da pam na ddylid dweud wrth y bobl eraill sydd ynghlwm â’r cais am y cais cyn i'r gwrandawiad ddigwydd.",
   doYouNeedAWithoutNoticeHearingLabel:
     "Ydych chi'n gofyn am wrandawiad heb rybudd am gall yr unigolyn neu unigolion arall / eraill wneud rhywbeth a fyddai'n rhwystro'r gorchymyn rydych chi'n gofyn amdano pe bydden nhw yn gwybod am y cais?",
   doYouRequireAHearingWithReducedNoticeLabel:
@@ -62,9 +62,9 @@ export const cy = () => ({
   errors: {
     hwn_reasonsForApplicationWithoutNotice: {
       required: 'Rhowch fanylion',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     hwn_doYouNeedAWithoutNoticeHearing: {
       required: 'Dewiswch ‘ydw’ os yw’n bosib y bydd yr unigolyn arall yn gwrthwynebu’r cais',
@@ -74,15 +74,15 @@ export const cy = () => ({
     },
     hwn_doYouNeedAWithoutNoticeHearingDetails: {
       required: 'Rhowch fanylion',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     hwn_doYouRequireAHearingWithReducedNoticeDetails: {
       required: 'Rhowch fanylion',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 });

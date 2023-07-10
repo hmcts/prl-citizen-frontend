@@ -39,6 +39,10 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
       : '';
   bodyHtml += HTML.RULER;
   bodyHtml += HTML.H4 + keys['seekHelpFromPersonOrAgencyLabel'] + HTML.H4_CLOSE;
+  const seekHelpTranslation =
+    FoundElement?.['seekHelpFromPersonOrAgency'] === YesOrNo.YES
+      ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
+      : getYesNoTranslation(language, YesOrNo.NO, 'doTranslation');
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency') && FoundElement.seekHelpFromPersonOrAgency
       ? HTML.BOTTOM_PADDING_3 +

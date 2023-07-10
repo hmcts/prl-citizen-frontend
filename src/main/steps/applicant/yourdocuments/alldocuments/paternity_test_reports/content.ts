@@ -1,6 +1,7 @@
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
+import { applicant_tasklist_items_all_docs_en } from '../alldocuments/tasklist-items-all-documents';
 const en = () => {
   return {
     section: 'All documents',
@@ -13,9 +14,9 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
-    title: 'Paternity test reports (welsh)',
+    title: 'Adroddiadau prawf tadolaeth',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 
@@ -42,9 +43,12 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const paternityCitizenDocs: object[] = [];
+  const orders: object[] = [];
   const docs = content.userCase?.citizenUploadedDocumentList?.filter(doc => {
-    if (doc.value.uploadedBy === content.userIdamId && doc.value.documentType === 'Paternity test reports') {
+    if (
+      doc.value.uploadedBy === content.userIdamId &&
+      doc.value.documentType === applicant_tasklist_items_all_docs_en.paternity_test_reports
+    ) {
       return doc;
     }
   });
@@ -53,7 +57,7 @@ export const generateContent: TranslationFn = content => {
       const uid = doc.value.citizenDocument.document_url.substring(
         doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
       );
-      paternityCitizenDocs.push({
+      orders.push({
         href: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${uid}`,
         createdDate: doc.value.documentDetails.documentUploadedDate,
         fileName: doc.value.citizenDocument.document_filename,
@@ -63,6 +67,6 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    paternityCitizenDocs,
+    orders,
   };
 };

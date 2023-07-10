@@ -18,28 +18,29 @@ module.exports = {
         shortStatement: '//*[@id="too_shortStatement"]',
     },
     async askingCourt() {
-        await I.retry(retryCount).waitForText(TypeOfOrder.askingCourtPageTitle);
-        I.wait('1');
+        await I.retry(retryCount).waitForText(TypeOfOrder.askingCourtPageTitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.courtToDo1);
         await I.retry(retryCount).click(this.fields.courtToDo2);
         await I.retry(retryCount).click(this.fields.courtToDo3);
-        I.wait('1');
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.courtToDo3Nested);
         await I.retry(retryCount).click(this.fields.courtToDo4);
-        I.wait('1');
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.courtToDo4Nested);
-        I.wait('2');
+        await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async askingCourtSummary() {
-        await I.retry(retryCount).waitForText(TypeOfOrder.askingCourtSummaryPageTitle);
-        I.wait('2');
+        await I.retry(retryCount).waitForText(TypeOfOrder.askingCourtSummaryPageTitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async courtShortStatement() {
-        await I.retry(retryCount).waitForText(TypeOfOrder.courtShortStatementPageTitle);
+        await I.retry(retryCount).waitForText(TypeOfOrder.courtShortStatementPageTitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.shortStatement, this.fields.testingText);
-        I.wait('2');
+        await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async typeOfOrder() {

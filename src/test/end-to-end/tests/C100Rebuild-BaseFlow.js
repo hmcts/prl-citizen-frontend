@@ -10,6 +10,7 @@ Scenario('C100 Rebuild - basic journey @master @nightly', async ({ I }) => {
     await I.typeOfOrder();
     await I.urgencyWithoutNotice();
     await I.childrenDetails();
+    await I.otherChildrenDetails();
     await I.applicantDetails();
     await I.respondentDetails();
     await I.otherPersonDetails();

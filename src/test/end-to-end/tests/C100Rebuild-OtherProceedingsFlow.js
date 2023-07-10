@@ -11,9 +11,10 @@ Scenario('C100 Rebuild - other proceedings flow @master @nightly',  async ({ I }
   await I.typeOfOrder();
   await I.urgencyWithoutNotice();
   await I.childrenDetails();
+  await I.noOtherChild();
   await I.applicantDetails();
   await I.respondentDetails();
-  await I.otherPersonDetails();
+  await I.withoutOtherPerson();
   await I.safetyConcerns();
   await I.internationElements();
   await I.reasonableAdjustments();

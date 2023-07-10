@@ -65,7 +65,7 @@ export const cy = () => ({
   courtOrderProtection: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
   errors: {
     courtProceedingsOrders: {
-      required: 'Specify which court cases you or the children have been involved in - welsh',
+      required: "Nodwch pa achosion llys yr ydych chi neu'r plant wedi bod yn rhan ohonynt",
     },
   },
 });

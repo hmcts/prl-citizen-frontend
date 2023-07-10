@@ -30,7 +30,7 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
           partyDetails,
           partyType,
           userCase.caseTypeOfApplication as CaseType,
-          CaseEvent.CITIZEN_CASE_UPDATE
+          CaseEvent.SUPPORT_YOU_DURING_CASE
         );
         mapDataInSession(req.session.userCase, user.id);
 

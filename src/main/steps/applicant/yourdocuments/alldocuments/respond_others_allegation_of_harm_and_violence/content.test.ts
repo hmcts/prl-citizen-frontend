@@ -14,12 +14,12 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'All documents - welsh',
-  title: "Your response to other's allegation of harm and violence - welsh",
-  threeHint: 'This is a 8 character code - welsh',
-  summaryText: 'Contacts for help - welsh',
-  caseNumber: 'Case number - welsh',
-  continue: 'Go back - welsh',
+  section: 'Pob dogfen',
+  title: 'Eich ymateb i honiad yr ochr arall o niwed a thrais ',
+  threeHint: 'Mae hwn yn god 8 nod',
+  summaryText: 'Cysylltiadau cymorth',
+  caseNumber: 'Rhif yr achos',
+  continue: 'Yn ôl',
 };
 
 jest.mock('../../../../../app/form/validation');

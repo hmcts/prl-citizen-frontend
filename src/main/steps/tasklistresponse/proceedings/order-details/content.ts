@@ -93,7 +93,7 @@ export const cy = () => ({
   orderDateHint: 'Er enghraifft, 31 3 2015',
   isCurrentOrderLabel: 'A yw hwn yn orchymyn cyfredol?',
   copyOfOrderLabel: "Oes gennych chi gopi o'r gorchymyn? (dewisol)",
-  copy: 'Copy uploaded?-welsh',
+  copy: 'Copi wedi’i lwytho?',
   addOrderLabel: 'Ychwanegu gorchymyn arall',
   onlyContinue: 'Parhau',
   errors: {

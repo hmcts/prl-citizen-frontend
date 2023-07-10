@@ -86,6 +86,7 @@ export const validateDataCompletion = (req: AppRequest<Partial<Case>>): void => 
 const privateFieldsMap = new Map<string, string>([
   ['email', 'citizenUserEmailAddressText'],
   ['phoneNumber', 'citizenUserPhoneNumberText'],
+  ['address', 'citizenUserAddressText'],
 ]);
 
 export const getConfidentialData = (req: AppRequest<Partial<Case>>): void => {

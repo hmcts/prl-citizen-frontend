@@ -31,26 +31,26 @@ const en = {
 };
 
 const cy = {
-  title: 'Access your case - welsh',
+  title: 'Cael mynediad i’ch achos',
   paragraph:
-    'Access and manage your case using your case number and access code. These will be in the letter, email or pack sent by the court. -welsh',
-  caseNumberLabel: 'Enter your case number -welsh ',
-  caseNumberHintText: 'This is a 16-digit number -welsh',
-  accessCodeLabel: 'Enter your access code -welsh',
-  accessCodeHintText: 'This has 8 characters -welsh',
-  saveAndContinue: 'Save and continue -welsh',
+    'Defnyddiwch eich rhif achos a’ch cod mynediad i gael mynediad i’ch achos a’i reoli. Bydd y rhain wedi’u nodi yn y llythyr, yr e-bost neu’r pecyn a anfonwyd gan y llys',
+  caseNumberLabel: 'Nodwch eich rhif achos ',
+  caseNumberHintText: 'Mae’r rhif hwn yn cynnwys 16 digid',
+  accessCodeLabel: 'Nodwch eich cod mynediad',
+  accessCodeHintText: 'Mae hwn yn cynnwys 8 nod',
+  saveAndContinue: 'Cadw a pharhau',
   errors: {
     caseCode: {
-      required: 'Enter your case code -welsh',
-      invalid: 'The case code must be made up of 16 digits -welsh',
-      notNumeric: 'Case code must be numeric -welsh',
-      invalidCaseCode: 'Enter your case code -welsh',
+      required: 'Rhowch eich cod achos',
+      invalid: 'Mae’n rhaid i god yr achos gynnwys 16 digid',
+      notNumeric: 'Rhaid i’ch cod achos fod yn rhif',
+      invalidCaseCode: 'Rhowch eich cod achos',
     },
     accessCode: {
-      required: 'Enter your access code -welsh',
-      invalid: 'The access code must be made up of 8 characters and must be alphanumeric -welsh',
-      accesscodeAlreadyLinked: 'Provided access code is already linked to the case. -welsh',
-      invalidAccessCode: 'Enter your access code -welsh',
+      required: 'Nodwch eich cod mynediad',
+      invalid: 'Mae’n rhaid i’r cod mynediad gynnwys 8 nod a bod yn gyfuniad o rifau a llythrennau',
+      accesscodeAlreadyLinked: 'Mae’r cod mynediad a ddarparwyd eisoes yn gysylltiedig â’r achos.',
+      invalidAccessCode: 'Nodwch eich cod mynediad',
     },
   },
 };
