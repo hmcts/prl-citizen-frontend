@@ -687,6 +687,13 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (citizenDocumentListFromCos.status !== 200) {
       req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } else {
+      if (req.query.isSos === 'Yes') {
+        if (req.session.userCase.docIdList) {
+          req.session.userCase.docIdList.push(citizenDocumentListFromCos.documentId as string);
+        } else {
+          req.session.userCase.docIdList = [citizenDocumentListFromCos.documentId as string];
+        }
+      }
       const obj = {
         id: citizenDocumentListFromCos.documentId as string,
         name: citizenDocumentListFromCos.documentName as string,

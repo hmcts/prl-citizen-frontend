@@ -84,7 +84,7 @@ describe('StatementOfServicePostController', () => {
     ];
     req.url = 'respondent';
     await controller.post(req, res);
-    expect(req.session.userCase.respondents[0].value.response.citizenFlags.isStatementOfTruthProvided).toEqual('Yes');
+    expect(req.session.userCase.respondents[0].value.response.citizenFlags.isStatementOfServiceProvided).toEqual('Yes');
   });
 
   test('Should not update the is sos provided flag if no party details', async () => {

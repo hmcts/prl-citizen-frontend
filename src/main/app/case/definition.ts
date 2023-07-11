@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
-import { CaseDate, FieldPrefix } from './case';
+import { CaseDate, CitizenSos, FieldPrefix } from './case';
 
 export interface ChildDetails {
   gender: string;
@@ -108,6 +108,7 @@ export interface PartyDetails {
   user: User;
   contactPreferences?: applicantContactPreferencesEnum;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
+  citizenSosObject?: CitizenSos;
 }
 
 export interface User {
@@ -127,8 +128,6 @@ export interface Response {
   supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
-  partiesServed?: DynamicMultiSelectList;
-  partiesServedDate?: string;
 }
 
 export interface DynamicMultiSelectList {
@@ -209,7 +208,7 @@ export interface CitizenFlags {
   isAllDocumentsViewed?: string
   isResponseInitiated?: string
   isApplicationServed?: string
-  isStatementOfTruthProvided?: string
+  isStatementOfServiceProvided?: string
 }
 
 export const enum DownloadFileFieldFlag {
@@ -968,7 +967,7 @@ export interface CaseData {
   detailsKnown?: string;
   startAlternative?: string;
   citizenRole?: FieldPrefix;
-  fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
+  fl401UploadWitnessDocuments: DocumentCollection[];
   doYouConsent?: YesOrNo;
   applicationReceivedDate?: CaseDate;
   courtPermission?: YesOrNo;
@@ -2454,7 +2453,7 @@ export interface Document {
   document_binary_url: string;
   document_hash?: string | undefined | null;
 }
-export interface Fl401UploadWitnessDocuments {
+export interface DocumentCollection {
   id: string;
   value: Document;
 }
@@ -3004,7 +3003,8 @@ export enum CaseEvent {
   CITIZEN_INTERNAL_CASE_UPDATE = 'citizen-internal-case-update',
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
-  CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative'
+  CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
+  STATEMENT_OF_SERVICE = 'citizenStatementOfService',
 }
 
 export enum passportPossessionRelative {

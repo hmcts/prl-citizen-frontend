@@ -1,7 +1,7 @@
 //import { isObject } from 'lodash';
 
 import { Case, CaseDate, CaseWithId } from '../../../../app/case/case';
-import { DynamicMultiSelectListElement, test } from '../../../../app/case/definition';
+import { test } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { AnyObject } from '../../../../app/controller/PostController';
@@ -145,18 +145,22 @@ export const form: FormContent = {
 
 const getParties = (userCase: Partial<CaseWithId>) => {
   const parties: { id: string; value: string }[] = [];
-  userCase?.respondents?.forEach(respondent =>
-    parties.push({
-      id: respondent.id,
-      value: respondent.value.firstName + ' ' + respondent.value.lastName,
-    })
-  );
-  userCase?.applicants?.forEach(applicant =>
-    parties.push({
-      id: applicant.id,
-      value: applicant.value.firstName + ' ' + applicant.value.lastName,
-    })
-  );
+  userCase?.respondents?.forEach(respondent => {
+    if (respondent.value.response.citizenFlags?.isApplicationServed !== 'Yes') {
+      parties.push({
+        id: respondent.id,
+        value: respondent.value.firstName + ' ' + respondent.value.lastName,
+      });
+    }
+  });
+  userCase?.applicants?.forEach(applicant => {
+    if (applicant.value.response.citizenFlags?.isApplicationServed !== 'Yes') {
+      parties.push({
+        id: applicant.id,
+        value: applicant.value.firstName + ' ' + applicant.value.lastName,
+      });
+    }
+  });
   return parties;
 };
 
@@ -166,40 +170,60 @@ export const prepateStatementOfServiceRequest = (
 ): Partial<CaseWithId> => {
   const userCase = req.session.userCase;
   userCase.partiesServed = formData.partiesServed as string[];
-  userCase.partiesServed = userCase.partiesServed.filter(party => party !== '');
+  if (userCase.partiesServed && formData.partiesServedDate) {
+    const date = formData.partiesServedDate as unknown;
+    const date2 = date as { day: string; month: string; year: string };
+    userCase.partiesServed = userCase.partiesServed.filter(party => party !== '');
 
-  if (userCase && userCase.applicants && userCase.applicants[0].value.response) {
-    userCase.applicants[0].value.response.citizenFlags!.isStatementOfTruthProvided = 'Yes';
-    const response = userCase.applicants[0].value.response;
-    if (formData.partiesServedDate) {
-      const date = formData.partiesServedDate as unknown;
-      const date2 = date as { day: string; month: string; year: string };
-      response.partiesServedDate = date2.day + '-' + date2.month + '-' + date2.year;
-    }
-    if (userCase.partiesServed) {
-      response.partiesServed = {
-        list_items: [],
-        value: [...getPartiesById(userCase.partiesServed, userCase)],
+    userCase.partiesServed.forEach(partyId => markSosFlag(userCase, partyId));
+    if (userCase.applicants && userCase.applicants[0]) {
+      const partyNames = getPartiesSelected(userCase.partiesServed, userCase);
+      if (getParties(userCase).length === 0) {
+        if (userCase.applicants[0].value.response.citizenFlags) {
+          userCase.applicants[0].value.response.citizenFlags.isStatementOfServiceProvided = 'Yes';
+        } else {
+          userCase.applicants[0].value.response.citizenFlags = {
+            isStatementOfServiceProvided: 'Yes',
+          };
+        }
+      }
+      userCase.applicants[0].value.citizenSosObject = {
+        partiesServed: partyNames,
+        partiesServedDate: date2.year + '-' + date2.month + '-' + date2.day,
+        citizenSosDocs: userCase.docIdList,
       };
+      userCase.docIdList = [];
     }
-    userCase.applicants[0].value.response = response;
   }
   return userCase;
 };
 
-export const getPartiesById = (parties: string[], userCase: Partial<CaseWithId>): DynamicMultiSelectListElement[] => {
-  const partyList = getParties(userCase);
-  const elements: DynamicMultiSelectListElement[] = [];
-  partyList.forEach(party => {
-    if (parties.includes(party.id)) {
-      const dynamicListElement: DynamicMultiSelectListElement = {
-        code: party.id,
-        label: party.value,
-      };
-      elements.push(dynamicListElement);
+const markSosFlag = (userCase: Partial<CaseWithId>, partyId: string) => {
+  userCase?.applicants?.forEach(party => {
+    if (partyId === party.id && party.value.response && party.value.response.citizenFlags) {
+      party.value.response.citizenFlags.isStatementOfServiceProvided = 'Yes';
     }
   });
-  return elements;
+
+  userCase?.respondents?.forEach(party => {
+    if (partyId === party.id && party.value.response && party.value.response.citizenFlags) {
+      party.value.response.citizenFlags.isStatementOfServiceProvided = 'Yes';
+    }
+  });
+  return userCase;
+};
+
+export const getPartiesSelected = (parties: string[], userCase: Partial<CaseWithId>): string => {
+  const partyList = getParties(userCase);
+  let partyNames = '';
+  partyList.forEach(party => {
+    if (parties.includes(party.id)) {
+      partyNames += party.value + ', ';
+    }
+  });
+  partyNames = partyNames.slice(0, -2);
+  partyNames += '.';
+  return partyNames;
 };
 
 export const generateContent: TranslationFn = content => {
