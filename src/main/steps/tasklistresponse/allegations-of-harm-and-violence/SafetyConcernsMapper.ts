@@ -185,11 +185,11 @@ function concernDetailsAboutRespondent(
   }
 }
 
-function concernDetailsAboutChild(
+const concernDetailsAboutChild = (
   PRL_c1A_concernAboutChild: PRL_C1AAbuseTypes[] | undefined,
   request: PRL_C1ASafteyConcerns_total,
   PRL_c1A_safteyConcerns: PRL_C1ASafteyConcerns | undefined
-) {
+) => {
   if (PRL_c1A_concernAboutChild?.length) {
     request.child = {};
     PRL_c1A_concernAboutChild.forEach((abuse: string) => {
@@ -208,4 +208,4 @@ function concernDetailsAboutChild(
       }
     });
   }
-}
+};

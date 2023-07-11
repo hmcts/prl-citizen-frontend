@@ -137,7 +137,7 @@ export const generateFormFields = (
     const count = index + 1;
     const key = `fieldset${count}`;
 
-    setFieldKey(fields, key, count, orderType, orders, index);
+    createFormFileds(fields, key, count, orderType, orders, index);
 
     // mark the selection for the radio buttons based on the option chosen
     const currentOrder = fields[key].subFields[`currentOrder-${count}`];
@@ -248,14 +248,14 @@ export const generateContent: TranslationFn = content => {
     form: updateFormFields(form, fields),
   };
 };
-function setFieldKey(
+const createFormFileds = (
   fields: object,
   key: string,
   count: number,
   orderType: C100OrderTypes,
   orders: C100OrderInterface[],
   index: number
-) {
+) => {
   fields[key] = {
     type: 'fieldset',
     label: l => {
@@ -391,4 +391,4 @@ function setFieldKey(
       },
     },
   };
-}
+};

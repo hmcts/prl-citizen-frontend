@@ -756,7 +756,7 @@ const getApplicantWitnessStatementsDA = (applicant: PartyDetails, taskListItems,
       '&byApplicant=Yes',
   };
 };
-function applicantItemsForC100(userCase: any, applicantItems: object[], taskListItems: any, url: string) {
+const applicantItemsForC100 = (userCase: any, applicantItems: object[], taskListItems: any, url: string) => {
   userCase.applicants.forEach((applicant: Applicant) => {
     applicantItems.push(getApplicantRequestToCA(applicant, taskListItems));
   });
@@ -775,15 +775,15 @@ function applicantItemsForC100(userCase: any, applicantItems: object[], taskList
   userCase.applicants.forEach((applicant: Applicant) => {
     applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems, url));
   });
-}
+};
 
-function applicantItemsForFL401(
+const applicantItemsForFL401 = (
   isApplicant: any,
   applicantItems: object[],
   userCase: any,
   taskListItems: any,
   url: string
-) {
+) => {
   if (!isApplicant) {
     applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
     applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
@@ -794,4 +794,4 @@ function applicantItemsForFL401(
     applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
     applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
   }
-}
+};

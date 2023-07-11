@@ -3,7 +3,13 @@ import { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { Case } from '../../../../app/case/case';
-import { Applicant, CONFIDENTIAL_DETAILS, CaseType, Respondent } from '../../../../app/case/definition';
+import {
+  Applicant,
+  CONFIDENTIAL_DETAILS,
+  CaseType,
+  Respondent,
+  SessionLanguage,
+} from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController } from '../../../../app/controller/GetController';
 import { APPLICANT_CHECK_ANSWERS, RESPONDENT_CHECK_ANSWERS } from '../../../../steps/urls';
@@ -92,15 +98,13 @@ const privateFieldsMap = new Map<string, string>([
 export const getConfidentialData = (req: AppRequest<Partial<Case>>): void => {
   for (const [key, value] of privateFieldsMap) {
     if (!req.session.userCase[`${value}`].includes('span')) {
-      if (req.session.lang === 'cy') {
-        welshValue(req, key, value);
-      } else {
-        englishValue(req, key, value);
-      }
+      req.session.lang === SessionLanguage.WELSH
+        ? prepareHtml(req, key, value, SessionLanguage.WELSH)
+        : prepareHtml(req, key, value, SessionLanguage.ENGLISH);
     }
   }
 };
-function englishValue(req: AppRequest<Partial<Case>>, key: string, value: string) {
+const prepareHtml = (req: AppRequest<Partial<Case>>, key: string, value: string, language: string) => {
   if (
     req.session.userCase?.detailsKnown &&
     req.session.userCase?.startAlternative &&
@@ -108,38 +112,22 @@ function englishValue(req: AppRequest<Partial<Case>>, key: string, value: string
   ) {
     if (req.session.userCase?.contactDetailsPrivate?.includes(key)) {
       req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
-        '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PRIVATE + '</span>'
+        '<br/><span class="govuk-hint govuk-!-margin-top-1">' +
+          (language === SessionLanguage.WELSH ? CONFIDENTIAL_DETAILS.PRIVATE_CY : CONFIDENTIAL_DETAILS.PRIVATE) +
+          '</span>'
       );
     } else {
       req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
-        '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PUBLIC + '</span>'
+        '<br/><span class="govuk-hint govuk-!-margin-top-1">' +
+          (language === SessionLanguage.WELSH ? CONFIDENTIAL_DETAILS.PUBLIC_CY : CONFIDENTIAL_DETAILS.PUBLIC) +
+          '</span>'
       );
     }
   } else {
     req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
-      '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PUBLIC + '</span>'
+      '<br/><span class="govuk-hint govuk-!-margin-top-1">' +
+        (language === SessionLanguage.WELSH ? CONFIDENTIAL_DETAILS.PUBLIC_CY : CONFIDENTIAL_DETAILS.PUBLIC) +
+        '</span>'
     );
   }
-}
-
-function welshValue(req: AppRequest<Partial<Case>>, key: string, value: string) {
-  if (
-    req.session.userCase?.detailsKnown &&
-    req.session.userCase?.startAlternative &&
-    req.session.userCase.contactDetailsPrivate?.length !== 0
-  ) {
-    if (req.session.userCase?.contactDetailsPrivate?.includes(key)) {
-      req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
-        '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PRIVATE_CY + '</span>'
-      );
-    } else {
-      req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
-        '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PUBLIC_CY + '</span>'
-      );
-    }
-  } else {
-    req.session.userCase[`${value}`] = req.session.userCase[`${value}`]?.concat(
-      '<br/><span class="govuk-hint govuk-!-margin-top-1">' + CONFIDENTIAL_DETAILS.PUBLIC_CY + '</span>'
-    );
-  }
-}
+};

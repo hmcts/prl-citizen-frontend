@@ -210,7 +210,7 @@ export const mapSupportYouNeedDetails = (partyDetails: PartyDetails): Partial<Ca
 
   return supportYouNeed;
 };
-function dataCleanupTravel(travellingToCourt: string[] | undefined, request: ReasonableAdjustmentsSupport) {
+const dataCleanupTravel = (travellingToCourt: string[] | undefined, request: ReasonableAdjustmentsSupport) => {
   if (Array.isArray(travellingToCourt)) {
     if (!travellingToCourt?.includes(PARKING_SPACE)) {
       delete request.parkingDetails;
@@ -222,9 +222,9 @@ function dataCleanupTravel(travellingToCourt: string[] | undefined, request: Rea
       delete request.travellingOtherDetails;
     }
   }
-}
+};
 
-function dataCleanupComfort(courtComfort: string[] | undefined, request: ReasonableAdjustmentsSupport) {
+const dataCleanupComfort = (courtComfort: string[] | undefined, request: ReasonableAdjustmentsSupport) => {
   if (Array.isArray(courtComfort)) {
     if (!courtComfort?.includes(APPROPRIATE_LIGHTING)) {
       delete request.lightingDetails;
@@ -233,9 +233,9 @@ function dataCleanupComfort(courtComfort: string[] | undefined, request: Reasona
       delete request.otherProvideDetails;
     }
   }
-}
+};
 
-function dataCleanupHearing(courtHearing: string[] | undefined, request: ReasonableAdjustmentsSupport) {
+const dataCleanupHearing = (courtHearing: string[] | undefined, request: ReasonableAdjustmentsSupport) => {
   if (Array.isArray(courtHearing)) {
     if (!courtHearing?.includes(SUPPORT_WORKER)) {
       delete request.supportWorkerDetails;
@@ -250,9 +250,9 @@ function dataCleanupHearing(courtHearing: string[] | undefined, request: Reasona
       delete request.communicationSupportOther;
     }
   }
-}
+};
 
-function dataCleanupCommunication(helpCommunication: string[] | undefined, request: ReasonableAdjustmentsSupport) {
+const dataCleanupCommunication = (helpCommunication: string[] | undefined, request: ReasonableAdjustmentsSupport) => {
   if (Array.isArray(helpCommunication)) {
     if (!helpCommunication?.includes(SIGN_LANGUAGE)) {
       delete request.signLanguageDetails;
@@ -261,9 +261,9 @@ function dataCleanupCommunication(helpCommunication: string[] | undefined, reque
       delete request.describeOtherNeed;
     }
   }
-}
+};
 
-function dataCleanupDocSupport(docsSupport: string[] | undefined, request: ReasonableAdjustmentsSupport) {
+const dataCleanupDocSupport = (docsSupport: string[] | undefined, request: ReasonableAdjustmentsSupport) => {
   if (Array.isArray(docsSupport)) {
     if (!docsSupport?.includes(DOCS_PRINT)) {
       delete request.docsDetails;
@@ -275,4 +275,4 @@ function dataCleanupDocSupport(docsSupport: string[] | undefined, request: Reaso
       delete request.otherDetails;
     }
   }
-}
+};

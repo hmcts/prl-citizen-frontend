@@ -69,13 +69,13 @@ export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typ
   return '';
 };
 /* eslint-disable @typescript-eslint/no-explicit-any*/
-function translationForSeekHelpFromPersonOrAgency(FoundElement: any, language: any) {
+const translationForSeekHelpFromPersonOrAgency = (FoundElement: any, language: any) => {
   return FoundElement?.['seekHelpFromPersonOrAgency'] === YesOrNo.YES
     ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
     : getYesNoTranslation(language, YesOrNo.NO, 'doTranslation');
-}
+};
 
-function prepapeHTMLForChildren(bodyHtml: any, keys: any, FoundElement: any, language: any, userCase: any) {
+const prepapeHTMLForChildren = (bodyHtml: any, keys: any, FoundElement: any, language: any, userCase: any) => {
   bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
   if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
     bodyHtml += HTML.UNORDER_LIST;
@@ -102,4 +102,4 @@ function prepapeHTMLForChildren(bodyHtml: any, keys: any, FoundElement: any, lan
   }
   bodyHtml += HTML.RULER;
   return bodyHtml;
-}
+};

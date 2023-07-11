@@ -72,7 +72,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
         );
         mapDataInSession(req.session.userCase, user.id);
         req.session.save(() => {
-          const redirectUrl = this.findUrl(partyType, req, userCase);
+          const redirectUrl = this.getRedirectUrl(partyType, req, userCase);
           res.redirect(redirectUrl);
         });
       } catch (error) {
@@ -81,7 +81,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
     }
   }
 
-  private findUrl(partyType: PartyType, req: AppRequest<AnyObject>, userCase: CaseWithId) {
+  private getRedirectUrl(partyType: PartyType, req: AppRequest<AnyObject>, userCase: CaseWithId) {
     let redirectUrl;
     if (partyType === PartyType.RESPONDENT) {
       redirectUrl = req.session.applicationSettings?.navfromRespondToApplication

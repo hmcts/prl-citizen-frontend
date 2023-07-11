@@ -107,11 +107,11 @@ export const SafetyConcerns_child = (
   /**
    * @policeOrInvestigatorsOtherDetails session Values
    */
-  const policeOrInvestigatorsOtherDetailsHTML = investigationData(userCase, language, keys);
+  const policeOrInvestigatorsOtherDetailsHTML = preparePoliceInvesitigationData(userCase, language, keys);
     /**
    * @PRL_c1A_childAbductedBefore session Values
    */
-    const PRL_c1A_childAbductedBefore = abducteBeforeData(userCase, language, keys);
+    const PRL_c1A_childAbductedBefore = prepareChildAbductionData(userCase, language, keys);
 
 
   const abdutionScreenData = [
@@ -282,16 +282,16 @@ export const SafetyConcerns_others = (
 
      
 
-function investigationData(userCase: Partial<CaseWithId>, language: string, keys: Record<string, string>) {
+const preparePoliceInvesitigationData=(userCase: Partial<CaseWithId>, language: string, keys: Record<string, string>)=> {
   let policeOrInvestigatorsOtherDetailsHTML = '';
   policeOrInvestigatorsOtherDetailsHTML += (userCase['PRL_c1A_policeOrInvestigatorInvolved'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oeddTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oeddTranslation'));
   policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('PRL_c1A_policeOrInvestigatorOtherDetails')
     ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + userCase['PRL_c1A_policeOrInvestigatorOtherDetails']
     : '';
   return policeOrInvestigatorsOtherDetailsHTML;
-}
+};
 
-function abducteBeforeData(userCase: Partial<CaseWithId>, language: string, keys: Record<string, string>) {
+const prepareChildAbductionData=(userCase: Partial<CaseWithId>, language: string, keys: Record<string, string>)=> {
   let PRL_c1A_childAbductedBefore = '';
   PRL_c1A_childAbductedBefore += (userCase?.['PRL_c1A_passportOffice'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oesTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oesTranslation'));
   const relativesTranslation = (relative) => {
@@ -322,7 +322,7 @@ function abducteBeforeData(userCase: Partial<CaseWithId>, language: string, keys
     PRL_c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
   }
   return PRL_c1A_childAbductedBefore;
-}
+};
 
 function childAbductedBeforeHTML(userCase: Partial<CaseWithId>, abdutionScreenData: { key: string; valueHtml: string; changeUrl: `/${string}`; }[], keys: Record<string, string>, policeOrInvestigatorsOtherDetailsHTML: string) {
   if (userCase.hasOwnProperty('PRL_c1A_childAbductedBefore') && userCase['PRL_c1A_childAbductedBefore'] === 'Yes') {

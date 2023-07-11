@@ -85,8 +85,8 @@ export const generateContent: TranslationFn = content => {
     form,
   };
 };
-function prepareOptions(items: never, subItems: string, shownToggledConfidentialOptions) {
+const prepareOptions = (items: never, subItems: string, shownToggledConfidentialOptions) => {
   if ((items['key'] as string) === subItems) {
     shownToggledConfidentialOptions.push(items['value']);
   }
-}
+};

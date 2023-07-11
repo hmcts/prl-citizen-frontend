@@ -112,11 +112,11 @@ export const mapProceedingDetails = (partyDetails: PartyDetails): Partial<CaseWi
   return content;
 };
 /* eslint-disable @typescript-eslint/no-explicit-any*/
-function prepareOtherDetailsInfo(
+const prepareOtherDetailsInfo = (
   nestedOrder: any,
   otherDetailsInfo: OtherProceedingDetails,
   orderDocumentDetails: Document
-) {
+) => {
   if (nestedOrder.orderDocument) {
     otherDetailsInfo = {
       orderDetail: nestedOrder?.orderDetail,
@@ -141,13 +141,13 @@ function prepareOtherDetailsInfo(
     };
   }
   return otherDetailsInfo;
-}
+};
 
-function mapEachOrderForParticularProceeding(
+const mapEachOrderForParticularProceeding = (
   proceeding: ProceedingsOrderDataInterface,
   index: number,
   proceedingOrderInterfaceList: ProceedingsOrderInterface[]
-) {
+) => {
   let val, val2;
   if (isNull(proceeding.value?.currentOrder)) {
     val = '';
@@ -172,7 +172,7 @@ function mapEachOrderForParticularProceeding(
     proceedingOrderInterface.orderDocument = getDocumentInfo(proceeding.value?.orderDocument);
   }
   proceedingOrderInterfaceList.push(proceedingOrderInterface);
-}
+};
 
 export function getLocalDate(orderDate: string): Date {
   if (orderDate['year'] === '' && orderDate['month'] === '' && orderDate['day'] === '') {
