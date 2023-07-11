@@ -1,6 +1,6 @@
 import { Case } from '../../app/case/case';
 import { CaseType } from '../../app/case/definition';
-import { HearingsGetController } from '../../steps/common/yourhearings/hearings/HearingsGetController';
+//import { HearingsGetController } from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
 import {
   ALLEGATION_OF_HARM_VOILENCE_DOC,
@@ -442,7 +442,7 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_YOURHEARINGS_HEARINGS,
     showInSection: Sections.AboutApplicantCase,
-    getController: HearingsGetController,
+    // getController: HearingsGetController,
     getNextStep: (data: Partial<Case>) =>
       data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
   },

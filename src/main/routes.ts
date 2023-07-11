@@ -44,6 +44,7 @@ import { TermsAndConditionsGetController } from './steps/terms-and-conditions/ge
 import { CreateDraftGetController } from './steps/testing-support/create-draft/get';
 import { DeleteDraftGetController } from './steps/testing-support/delete-draft/get';
 import { TestingSupportGetController } from './steps/testing-support/get';
+import ApplicantTaskListGetController from './steps/applicant/task-list/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT,
@@ -122,9 +123,11 @@ import {
   APPLICANT_TASKLIST_CONTACT_EMAIL,
   APPLICANT_TASKLIST_CONTACT_POST,
   RESPONDENT_YOURHEARINGS_HEARINGS,
+  APPLICANT_YOURHEARINGS_HEARINGS,
   // APPLICANT_YOURHEARINGS_HEARINGS,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
+
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -162,6 +165,7 @@ export class Routes {
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().load));
+    app.get(APPLICANT_TASK_LIST_URL, errorHandler(new ApplicantTaskListGetController().load));
     //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
     app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
@@ -174,10 +178,10 @@ export class Routes {
       errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_RESPONDENT).get)
     );
     app.get(`${RESPONDENT_YOURHEARINGS_HEARINGS}/:caseId`, errorHandler(new HearingsGetController().get));
-    // app.get(
-    //   `${APPLICANT_YOURHEARINGS_HEARINGS}/:caseId`,
-    //   errorHandler(new HearingsGetController().get)
-    // );
+    app.get(
+      `${APPLICANT_YOURHEARINGS_HEARINGS}/:caseId`,
+      errorHandler(new HearingsGetController().get)
+    );
     app.get(
       `${APPLICANT_DETAILS_KNOWN}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_APPLICANT).get)

@@ -10,8 +10,6 @@ import { CITIZEN_UPDATE } from '../case/definition';
 
 import { AppRequest } from './AppRequest';
 
-
-
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;
 
@@ -32,8 +30,8 @@ export class GetController {
     const document_type = this.getDocumentType(req);
     const byApplicant = req.query['byApplicant'] as string;
     const addresses = req.session?.addresses;
-    
-    console.log("I am here at get controller");
+
+    console.log('I am here at get controller');
     const content = generatePageContent({
       language,
       pageContent: this.content,
@@ -128,26 +126,6 @@ export class GetController {
       }
     }
   }
-
-  // public async getHearings(req: AppRequest):Promise<any>{
-  //   try {
-  //     const citizenUser = req.session.user;
-  //     const caseId = req.session.userCase.id;
-  //     const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
-  //     console.log("I am here at getHearings");
-  //     const hearings = await client.getAllHearingsForCitizenCase(citizenUser, caseId);
-  //     // console.log("I am 1");
-  //     // console.log(JSON.stringify(hearings));
-  //     req.session.userCase.hearingCollection = hearings.caseHearings;
-  //     // console.log('$$$$$$$   ', req.session.userCase.hearingCollection);
-  //     // console.log("I am 2");
-  //     // req.session.save(() => res.redirect(RESPONDENT_YOURHEARINGS_HEARINGS));
-  //     // res.redirect(RESPONDENT_YOURHEARINGS_HEARINGS);
-  //     // return;
-  //   } catch (err) {
-  //     throw new Error('Case Data could not be retrieved.');
-  //   }
-  // }
 
   //eslint-disable-next-line @typescript-eslint/ban-types
   public saveSessionAndRedirect(req: AppRequest, res: Response, callback?: Function): void {

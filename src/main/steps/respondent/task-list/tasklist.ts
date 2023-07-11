@@ -60,7 +60,8 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
           id: 'check_details_of_your_court_hearings',
           text: taskListItems.check_details_of_your_court_hearings,
           status: getViewAllHearingsFromTheCourt(userCase),
-          href: getViewAllHearingsFromTheCourt(userCase) === 'READY_TO_VIEW' ? URL.RESPONDENT_YOURHEARINGS_HEARINGS : '#',
+          href:
+            getViewAllHearingsFromTheCourt(userCase) === 'READY_TO_VIEW' ? (URL.RESPONDENT_YOURHEARINGS_HEARINGS+ '/' + userCase.id) : '#',
         },
       ],
     },
