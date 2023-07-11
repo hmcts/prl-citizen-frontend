@@ -10,13 +10,14 @@ Scenario('C100 Rebuild - urgent hearing flow @master @nightly',  async ({ I }) =
     await I.urgencyWithoutNotice();
     await I.typeOfOrder();
     await I.childrenDetails();
+    await I.noOtherChild();
     await I.applicantDetails();
     await I.respondentDetails();
-    await I.otherPersonDetails();
+    await I.withoutOtherPerson();
     await I.otherProceedings();
     await I.safetyConcerns();
     await I.internationElements();
     await I.reasonableAdjustments();
     await I.helpWithFeeEvent();
     await I.checkYourAnswersSimpleEvent();
-}).retry({ retries: 3, minTimeout: 30000 });
+}).retry({ retries: 3, minTimeout: 60000 });
