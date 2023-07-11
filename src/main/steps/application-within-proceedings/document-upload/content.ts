@@ -105,14 +105,13 @@ export const generateContent: TranslationFn = content => {
   );
 
   const applicationSessionData = request.session.userCase.awp_uploadedApplicationForms;
-  const sessionErrors = request.session?.errors || [];
 
   return {
     ...translations,
     form,
     applicationType: applicationDetails?.applicationType,
     caption: applicationDetails?.reasonText,
-    sessionErrors,
+    sessionErrors: request.session?.errors || [],
     htmlLang: content.language,
     applicationReason,
     document: applicationSessionData,

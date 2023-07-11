@@ -8,24 +8,31 @@ export const routeGuard = {
   get: (req: AppRequest, res: Response, next: NextFunction) => {
     const { removeId } = req.query;
 
-    let documentToDelete;
-    if (req.session.userCase.awp_uploadedApplicationForms) {
-      documentToDelete = req.session.userCase.awp_uploadedApplicationForms.find(
-        document => document.url.split('/')[document.url.split('/').length - 1] === removeId
-      );
+    if (removeId) {
+      let documentToDelete;
+
+      if (req.session.userCase.awp_uploadedApplicationForms) {
+        documentToDelete = req.session.userCase.awp_uploadedApplicationForms.find(
+          document => document.url.split('/')[document.url.split('/').length - 1] === removeId
+        );
+      }
+
+      if (documentToDelete) {
+        try {
+          const userDetails = req?.session?.user;
+          caseApi(userDetails, req.locals.logger).deleteDocument(removeId.toString());
+        } catch (error) {
+          res.json(error);
+        }
+
+        req.session.userCase.awp_uploadedApplicationForms = req.session.userCase?.awp_uploadedApplicationForms?.filter(
+          application => application.url.split('/')[application.url.split('/').length - 1] !== removeId
+        );
+
+        return req.session.save(next);
+      }
     }
 
-    if (removeId && documentToDelete) {
-      try {
-        const userDetails = req?.session?.user;
-        caseApi(userDetails, req.locals.logger).deleteDocument(removeId.toString());
-      } catch (error) {
-        res.json(error);
-      }
-      req.session.userCase.awp_uploadedApplicationForms = req.session.userCase?.awp_uploadedApplicationForms?.filter(
-        application => application.url.split('/')[application.url.split('/').length - 1] !== removeId
-      );
-    }
-    return req.session.save(next);
+    next();
   },
 };
