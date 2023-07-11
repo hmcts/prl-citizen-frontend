@@ -4,6 +4,7 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { applyParms } from '../../steps/common/url-parser';
 import {
   APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
+  APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
   APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
   APPLICATION_WITHIN_PROCEEDINGS_INFORM_OTHER_PARTIES,
@@ -17,14 +18,27 @@ class ApplicationWithinProceedingsNavigationController {
 
   public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>, req: AppRequest): PageLink {
     let url: PageLink;
+    const applicationType = req?.params.applicationType as AWPApplicationType;
+    const applicationReason = req?.params.applicationReason as AWPApplicationReason;
+    const applicationFee = req?.session.applicationSettings?.awpSelectedApplicationDetails.applicationFee;
 
     switch (currentPageUrl) {
       case APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION: {
-        url = this.getUploadApplicationNextStep(caseData, req);
+        url = this.getUploadApplicationNextStep(
+          caseData.awp_completedForm,
+          applicationType,
+          applicationReason,
+          applicationFee
+        );
         break;
       }
       case APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST: {
-        url = this.getAgreementForRequestNextStep(caseData, req);
+        url = this.getAgreementForRequestNextStep(
+          caseData.awp_agreementForRequest,
+          applicationType,
+          applicationReason,
+          applicationFee
+        );
         break;
       }
       default:
@@ -34,11 +48,7 @@ class ApplicationWithinProceedingsNavigationController {
     return url;
   }
 
-  private getUploadApplicationNextStep = (caseData, req) => {
-    const applicationType = req?.params.applicationType as AWPApplicationType;
-    const applicationReason = req?.params.applicationReason as AWPApplicationReason;
-    const applicationFee = req?.session.applicationSettings.awpSelectedApplicationDetails.applicationFee;
-
+  private getUploadApplicationNextStep = (completedForm, applicationType, applicationReason, applicationFee) => {
     const c2ApplicationNextStep =
       applicationReason === AWPApplicationReason.DELAY_CANCEL_HEARING_DATE
         ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
@@ -52,7 +62,7 @@ class ApplicationWithinProceedingsNavigationController {
 
     const otherApplicationNextStep =
       applicationFee === '£0'
-        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
+        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
             applicationType,
             applicationReason,
           }) as PageLink)
@@ -63,21 +73,22 @@ class ApplicationWithinProceedingsNavigationController {
 
     const yesNextStep = applicationType === AWPApplicationType.C2 ? c2ApplicationNextStep : otherApplicationNextStep;
     const noNextStep = applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM, {
-      applicationType: req?.params.applicationType as AWPApplicationType,
-      applicationReason: req?.params.applicationReason as AWPApplicationReason,
+      applicationType,
+      applicationReason,
     }) as PageLink;
 
-    return caseData.awp_completedForm === YesOrNo.NO ? noNextStep : yesNextStep;
+    return completedForm === YesOrNo.NO ? noNextStep : yesNextStep;
   };
 
-  private getAgreementForRequestNextStep = (caseData, req) => {
-    const applicationType = req?.params.applicationType as AWPApplicationType;
-    const applicationReason = req?.params.applicationReason as AWPApplicationReason;
-    const applicationFee = req?.session.applicationSettings.awpSelectedApplicationDetails.applicationFee;
-
+  private getAgreementForRequestNextStep = (
+    agreementForRequest,
+    applicationType,
+    applicationReason,
+    applicationFee
+  ) => {
     const delayOrCancelStep =
       applicationFee === '£0'
-        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST, {
+        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
             applicationType,
             applicationReason,
           }) as PageLink)
@@ -87,7 +98,7 @@ class ApplicationWithinProceedingsNavigationController {
           }) as PageLink);
 
     const otherC2NextStep =
-      caseData.awp_agreementForRequest === YesOrNo.YES
+      agreementForRequest === YesOrNo.YES
         ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES, {
             applicationType,
             applicationReason,

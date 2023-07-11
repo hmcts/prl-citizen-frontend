@@ -65,9 +65,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         userCase,
         req
       )
-    ).toBe(
-      '/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/upload-your-application'
-    );
+    ).toBe('/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/document-upload');
   });
   test('should get correct url for upload application for paid application', () => {
     req.params.applicationType = AWPApplicationType.FP25;
@@ -89,7 +87,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         userCase,
         req
       )
-    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/agreement-for-request');
+    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload');
   });
   test('should get correct url for agreement for request for paid delay or cancel hearing application', () => {
     req.session.applicationSettings.awpSelectedApplicationDetails.applicationFee = '£53';
