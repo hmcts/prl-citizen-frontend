@@ -1,11 +1,15 @@
-import { caseApi } from '../../../app/case/CaseApi';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { interpolate } from '../../../steps/common/string-parser';
 import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../steps/urls';
+import {
+  APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
+  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
+} from '../../../steps/urls';
 import { getApplicationDetails } from '../utils';
+
+export * from '../guidance/routeGuard';
 
 export const en = {
   title: 'Upload your application',
@@ -80,18 +84,9 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: '/application-within-proceedings/list-of-applications/1',
+    href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
     text: l => l.cancel,
   },
-};
-
-const removeDocument = async (req, removeId) => {
-  try {
-    const userDetails = req?.session?.user;
-    await caseApi(userDetails, req.locals.logger).deleteDocument(removeId);
-  } catch (error) {
-    console.log(error);
-  }
 };
 
 export const generateContent: TranslationFn = content => {
@@ -99,7 +94,6 @@ export const generateContent: TranslationFn = content => {
   const request = content.additionalData!.req;
   const caseData = request.session.userCase;
   const { applicationType, applicationReason } = request.params;
-  const { removeId } = request.query;
   const partyType = getCasePartyType(caseData, request.session.user.id);
   const applicationDetails = getApplicationDetails(
     applicationType,
@@ -109,17 +103,6 @@ export const generateContent: TranslationFn = content => {
     content.language,
     request.session.applicationSettings
   );
-
-  let documentToDelete;
-  if (request.session.userCase.awp_uploadedApplicationForms) {
-    documentToDelete = request.session.userCase.awp_uploadedApplicationForms.find(document => document.id === removeId);
-  }
-
-  if (removeId && documentToDelete) {
-    removeDocument(request, removeId);
-    request.session.userCase.awp_uploadedApplicationForms =
-      request.session.userCase?.awp_uploadedApplicationForms?.filter(application => application.id !== removeId);
-  }
 
   const applicationSessionData = request.session.userCase.awp_uploadedApplicationForms;
   const sessionErrors = request.session?.errors || [];

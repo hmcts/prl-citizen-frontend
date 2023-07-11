@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import axios from 'axios';
 
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import { FormContent } from '../../../app/form/Form';
@@ -8,10 +7,6 @@ import { CommonContent, generatePageContent } from '../../common/common.content'
 import { generateContent } from './content';
 
 const applicationType = 'C2';
-
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-mockedAxios.create = jest.fn(() => mockedAxios);
 
 const en = {
   title: 'Upload your application',
@@ -127,32 +122,5 @@ describe('help with fees content', () => {
 
   test('should contain cancel link', () => {
     expect(form?.link?.text(generatePageContent({ language: 'en' }))).toBe(en.cancel);
-  });
-
-  test('should remove document when removedId is passed', async () => {
-    const req = commonContent.additionalData?.req;
-    req.files = { documents: { name: 'test.rtf', data: '', mimetype: 'text' } };
-    req.query = {
-      removeId: '544ff7c4-5e3e-4f61-9d47-423321208d77',
-    };
-
-    commonContent.additionalData = {
-      req,
-    };
-
-    mockedAxios.post.mockImplementation(url => {
-      switch (url) {
-        case 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/testing-support/lease':
-          return Promise.resolve({ data: 'Test S2S Token' });
-        case '/544ff7c4-5e3e-4f61-9d47-423321208d77/delete':
-          return Promise.resolve();
-        default:
-          return Promise.reject(new Error('not found'));
-      }
-    });
-
-    generateContent(commonContent);
-
-    expect(commonContent.additionalData?.req.session.userCase.awp_uploadedApplicationForms).toEqual([]);
   });
 });

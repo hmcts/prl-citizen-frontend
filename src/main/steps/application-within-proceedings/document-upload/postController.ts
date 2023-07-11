@@ -22,58 +22,69 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const { files }: AppRequest<AnyObject> = req;
     const { applicationType, applicationReason } = req.params;
 
-    if (isNull(files) || files === undefined) {
-      this.uploadFileError(req, res, applicationType, applicationReason, {
-        propertyName: 'document',
-        errorType: 'required',
-      });
-    } else if (!isValidFileFormat(files)) {
-      this.uploadFileError(req, res, applicationType, applicationReason, {
-        propertyName: 'document',
-        errorType: 'fileFormat',
-      });
-    } else if (isFileSizeGreaterThanMaxAllowed(files)) {
-      this.uploadFileError(req, res, applicationType, applicationReason, {
-        propertyName: 'document',
-        errorType: 'fileSize',
-      });
+    if (
+      req.body.onlyContinue &&
+      req.session.userCase.awp_uploadedApplicationForms &&
+      req.session.userCase.awp_uploadedApplicationForms.length > 0
+    ) {
+      super.redirect(req, res, '');
     } else {
-      req.session.errors = [];
-      const { documents }: AnyType = files;
-
-      const formData: FormData = new FormData();
-
-      formData.append('file', documents.data, {
-        contentType: documents.mimetype,
-        filename: documents.name,
-      });
-
-      try {
-        const userDetails = req?.session?.user;
-        const responseBody: DocumentUploadResponse = await caseApi(userDetails, req.locals.logger).uploadDocument(
-          formData
-        );
-        const { document_url, document_filename, document_binary_url } = responseBody['document'];
-        const documentInfo = {
-          id: document_url.split('/')[document_url.split('/').length - 1],
-          url: document_url,
-          filename: document_filename,
-          binaryUrl: document_binary_url,
-        };
-
-        if (req.session.userCase.awp_uploadedApplicationForms) {
-          req.session.userCase.awp_uploadedApplicationForms.push(documentInfo);
-        } else {
-          req.session.userCase.awp_uploadedApplicationForms = [documentInfo];
-        }
-
-        req.session.save(() => {
-          res.redirect(
-            applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, { applicationType, applicationReason })
-          );
+      if (isNull(files) || files === undefined) {
+        this.uploadFileError(req, res, applicationType, applicationReason, {
+          propertyName: 'document',
+          errorType: 'required',
         });
-      } catch (error) {
-        res.json(error);
+      } else if (!isValidFileFormat(files)) {
+        this.uploadFileError(req, res, applicationType, applicationReason, {
+          propertyName: 'document',
+          errorType: 'fileFormat',
+        });
+      } else if (isFileSizeGreaterThanMaxAllowed(files)) {
+        this.uploadFileError(req, res, applicationType, applicationReason, {
+          propertyName: 'document',
+          errorType: 'fileSize',
+        });
+      } else {
+        req.session.errors = [];
+        const { documents }: AnyType = files;
+
+        const formData: FormData = new FormData();
+
+        formData.append('file', documents.data, {
+          contentType: documents.mimetype,
+          filename: documents.name,
+        });
+
+        try {
+          const userDetails = req?.session?.user;
+          const responseBody: DocumentUploadResponse = await caseApi(userDetails, req.locals.logger).uploadDocument(
+            formData
+          );
+          const { document_url, document_filename, document_binary_url } = responseBody['document'];
+          const documentInfo = {
+            id: document_url.split('/')[document_url.split('/').length - 1],
+            url: document_url,
+            filename: document_filename,
+            binaryUrl: document_binary_url,
+          };
+
+          if (
+            req.session.userCase.awp_uploadedApplicationForms &&
+            req.session.userCase.awp_uploadedApplicationForms.length > 0
+          ) {
+            req.session.userCase.awp_uploadedApplicationForms.push(documentInfo);
+          } else {
+            req.session.userCase.awp_uploadedApplicationForms = [documentInfo];
+          }
+
+          req.session.save(() => {
+            res.redirect(
+              applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, { applicationType, applicationReason })
+            );
+          });
+        } catch (error) {
+          res.json(error);
+        }
       }
     }
   }

@@ -78,7 +78,7 @@ import {
   PRL_C1AAbuseTypes,
   applicantContactPreferencesEnum,
   RespondentDocs,
-  AwpApplicationDocument,
+  DocumentInfo,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -596,7 +596,7 @@ export interface Case {
   awp_agreementForRequest?: YesOrNo;
   awp_informOtherParties?: YesOrNo;
   awp_reasonCantBeInformed?: string;
-  awp_uploadedApplicationForms?: AwpApplicationDocument[];
+  awp_uploadedApplicationForms?: DocumentInfo[];
 }
 
 export interface CaseWithId extends Case {

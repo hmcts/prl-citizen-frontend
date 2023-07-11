@@ -294,6 +294,47 @@ describe('Document upload controller', () => {
     expect(req.session.errors).toEqual(errors);
   });
 
+  test('should redirect to correct page when continue pressed and file uploaded', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+
+    const req = mockRequest({
+      body: {
+        onlyContinue: 'true',
+      },
+      params: {
+        applicationType: 'C2',
+        applicationReason: 'delay-or-cancel-hearing-date',
+      },
+      session: {
+        userCase: {
+          awp_uploadedApplicationForms: [
+            {
+              id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+              url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+              filename: 'file_example_TIFF.tiff',
+              binaryUrl:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+            },
+          ],
+        },
+      },
+    });
+
+    const controller = new UploadDocumentController(mockForm.fields);
+    const res = mockResponse();
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith('/citizen-home');
+  });
+
   describe('when there is an error in saving session', () => {
     test('should throw an error', async () => {
       const controller = new UploadDocumentController({});
