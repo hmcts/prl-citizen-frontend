@@ -110,7 +110,7 @@ describe('applicationWithinProceedingsSequence', () => {
     );
     expect(applicationWithinProceedingsSequence[9].showInSection).toBe('applicationWithinProceedings');
     expect(applicationWithinProceedingsSequence[9].getNextStep(userCase, req)).toBe(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
     );
   });
 });

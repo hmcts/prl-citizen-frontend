@@ -111,7 +111,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
     url: APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (_userCase, req) =>
-      applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
+      applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,

@@ -9,7 +9,7 @@ import {
 } from '../../../steps/urls';
 import { getApplicationDetails } from '../utils';
 
-export * from '../guidance/routeGuard';
+export * from './routeGuard';
 
 export const en = {
   title: 'Upload your application',
