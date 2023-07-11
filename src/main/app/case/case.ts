@@ -592,13 +592,6 @@ export interface Case {
   partiesServedDate?: string;
   docIdList?: string[];
 }
-
-export interface CitizenSos {
-  partiesServedDate?: string;
-  partiesServed?: string;
-  citizenSosDocs?: string[];
-}
-
 export interface CaseWithId extends Case {
   paymentSuccessDetails?: {
     amount: string;
