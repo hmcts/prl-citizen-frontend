@@ -9,6 +9,11 @@ const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
 const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
 let partyDetails;
 
+const mockGetPartyDetails = jest.fn();
+jest.mock('../../../../../main/steps/tasklistresponse/utils', () => {
+  return { getPartyDetails: mockGetPartyDetails };
+});
+
 describe('StatementOfServicePostController', () => {
   let fields;
   const controller = new StatementOfServicePostController(fields);
@@ -56,37 +61,6 @@ describe('StatementOfServicePostController', () => {
     updateCaserMock.mockClear();
   });
 
-  test.skip('Should update the Statement of service details if user id matches with applicant for CA', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
-    req.session.userCase.applicants = partyDetails;
-    req.session.userCase.startAlternative = 'Yes';
-    req.body.formFields = {
-      partiesServed: ['0c09b130-2eba-4ca8-a910-1f001bac01e6'],
-      partiesServedDate: '2022-11-22',
-    };
-    req.session.userCase.partiesServed = ['0c09b130-2eba-4ca8-a910-1f001bac01e6'];
-    req.session.userCase.caseTypeOfApplication = 'C100';
-    req.params.caseId = '123';
-    req.session.userCase.contactDetailsPrivate = ['phoneNumber', 'email', 'address'];
-    req.session.userCase.detailsKnown = 'details';
-    req.session.userCase.caseInvites = [
-      {
-        id: 'string',
-        value: {
-          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
-          caseInviteEmail: 'string',
-          accessCode: 'string',
-          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
-          expiryDate: 'string',
-          isApplicant: 'Yes',
-        },
-      },
-    ];
-    req.url = 'respondent';
-    await controller.post(req, res);
-    expect(req.session.userCase.respondents[0].value.response.citizenFlags.isStatementOfServiceProvided).toEqual('Yes');
-  });
-
   test('Should not update the is sos provided flag if no party details', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     req.session.userCase.caseTypeOfApplication = 'fl401';
@@ -95,7 +69,7 @@ describe('StatementOfServicePostController', () => {
     expect(req.session.userCase.applicantsFL401).toEqual(undefined);
   });
 
-  test('Should perform correct redirect for respondent when startAlternative is No', async () => {
+  test('Should perform correct redirect to what happens next', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     req.session.userCase.caseTypeOfApplication = 'C100';
     req.session.userCase.applicants = partyDetails;

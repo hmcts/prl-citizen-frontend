@@ -26,10 +26,11 @@ export default class StatementOfServicePostController extends PostController<Any
 
     if (onlyContinue) {
       req.session.errors = form.getErrors(formData);
-      if (req.session.errors && req.session.errors.length > 0) {
-        return super.redirect(req, res);
-      }
-      if (!req.session.userCase.docIdList || req.session.userCase.docIdList.length === 0) {
+      if (
+        (req.session.errors && req.session.errors.length > 0) ||
+        !req.session.userCase.docIdList ||
+        req.session.userCase.docIdList.length === 0
+      ) {
         return super.redirect(req, res);
       }
     }
