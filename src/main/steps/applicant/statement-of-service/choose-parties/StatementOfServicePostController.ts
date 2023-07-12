@@ -2,11 +2,11 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { getCasePartyType } from '../../../../../main/steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../../../../main/steps/tasklistresponse/utils';
 import { APPLICANT_STATEMENT_OF_SERVICE_NEXT } from '../../../../../main/steps/urls';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { CaseEvent } from '../../../../app/case/definition';
-import { toApiFormat } from '../../../../app/case/to-api-format';
+import { CaseEvent, CaseType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -35,18 +35,23 @@ export default class StatementOfServicePostController extends PostController<Any
       }
     }
     const { user, userCase } = req.session;
+    const partyType = getCasePartyType(userCase, user.id);
     const partyDetails = getPartyDetails(userCase, user.id);
     const client = new CosApiClient(user.accessToken, 'https://return-url');
     if (partyDetails) {
       const userData = prepateStatementOfServiceRequest(req, formData);
-      let data;
       if (userData && userData.applicants) {
-        Object.assign(userCase, userData);
-        data = toApiFormat(req?.session?.userCase);
+        Object.assign(partyDetails, userData.applicants[0]);
       }
       try {
-        req.session.userCase = await client.updateCase(user, userCase.id, data, CaseEvent.STATEMENT_OF_SERVICE);
-
+        req.session.userCase = await client.updateCaseData(
+          user,
+          userCase.id,
+          partyDetails,
+          partyType,
+          userCase.caseTypeOfApplication as CaseType,
+          CaseEvent.CITIZEN_CASE_UPDATE
+        );
         req.session.save(() => res.redirect(APPLICANT_STATEMENT_OF_SERVICE_NEXT));
       } catch (error) {
         throw new Error('SOS - Case could not be updated.');

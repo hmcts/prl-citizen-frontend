@@ -17,13 +17,13 @@ export const getKeepYourDetailsPrivateStatus = (
     keepDetailsPrivate = userCase?.respondentsFL401?.response?.keepDetailsPrivate;
   }
   if (
-    keepDetailsPrivate?.confidentiality === 'Yes' &&
+    keepDetailsPrivate?.confidentiality === YesOrNo.YES &&
     keepDetailsPrivate?.otherPeopleKnowYourContactDetails &&
     keepDetailsPrivate?.confidentialityList.length >= 1
   ) {
     status = SectionStatus.COMPLETED;
   } else if (
-    keepDetailsPrivate?.confidentiality === 'Yes' &&
+    keepDetailsPrivate?.confidentiality === YesOrNo.YES &&
     keepDetailsPrivate?.otherPeopleKnowYourContactDetails &&
     keepDetailsPrivate?.confidentialityList.length === 0
   ) {

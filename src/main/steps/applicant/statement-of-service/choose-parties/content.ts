@@ -1,7 +1,7 @@
 //import { isObject } from 'lodash';
 
 import { Case, CaseDate, CaseWithId } from '../../../../app/case/case';
-import { test } from '../../../../app/case/definition';
+import { YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { AnyObject } from '../../../../app/controller/PostController';
@@ -79,7 +79,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (parties: test[]): GenerateDynamicFormFields => {
+export const generateFormFields = (parties: { id: string; value: string }[]): GenerateDynamicFormFields => {
   const errors = {
     en: {},
     cy: {},
@@ -146,7 +146,7 @@ export const form: FormContent = {
 const getParties = (userCase: Partial<CaseWithId>) => {
   const parties: { id: string; value: string }[] = [];
   userCase?.respondents?.forEach(respondent => {
-    if (respondent.value.response.citizenFlags?.isApplicationToBeServed !== 'Yes') {
+    if (respondent.value.response.citizenFlags?.isApplicationToBeServed !== YesOrNo.YES) {
       parties.push({
         id: respondent.id,
         value: respondent.value.firstName + ' ' + respondent.value.lastName,
@@ -154,7 +154,7 @@ const getParties = (userCase: Partial<CaseWithId>) => {
     }
   });
   userCase?.applicants?.forEach(applicant => {
-    if (applicant.value.response.citizenFlags?.isApplicationToBeServed !== 'Yes') {
+    if (applicant.value.response.citizenFlags?.isApplicationToBeServed !== YesOrNo.YES) {
       parties.push({
         id: applicant.id,
         value: applicant.value.firstName + ' ' + applicant.value.lastName,
@@ -175,9 +175,12 @@ export const prepateStatementOfServiceRequest = (
     const date2 = date as { day: string; month: string; year: string };
     userCase.partiesServed = userCase.partiesServed.filter(party => party !== '');
 
-    userCase.partiesServed.forEach(partyId => markSosFlag(userCase, partyId));
+    for (const partyId of userCase.partiesServed) {
+      markSosFlag(userCase, partyId);
+    }
+
     if (userCase.applicants && userCase.applicants[0]) {
-      const partyNames = getPartiesSelected(userCase.partiesServed, userCase);
+      const partyNames = userCase.partiesServed.toString();
       if (getParties(userCase).length === 0) {
         if (userCase.applicants[0].value.response.citizenFlags) {
           userCase.applicants[0].value.response.citizenFlags.isStatementOfServiceProvided = 'Yes';
@@ -199,31 +202,34 @@ export const prepateStatementOfServiceRequest = (
 };
 
 const markSosFlag = (userCase: Partial<CaseWithId>, partyId: string) => {
-  userCase?.applicants?.forEach(party => {
-    if (partyId === party.id && party.value.response && party.value.response.citizenFlags) {
-      party.value.response.citizenFlags.isStatementOfServiceProvided = 'Yes';
+  if (userCase.applicants) {
+    for (const party of userCase.applicants) {
+      if (partyId === party.id && party.value.response) {
+        if (party.value.response.citizenFlags) {
+          party.value.response.citizenFlags.isStatementOfServiceProvided = 'Yes';
+        } else {
+          party.value.response.citizenFlags = {
+            isStatementOfServiceProvided: 'Yes',
+          };
+        }
+      }
     }
-  });
+  }
 
-  userCase?.respondents?.forEach(party => {
-    if (partyId === party.id && party.value.response && party.value.response.citizenFlags) {
-      party.value.response.citizenFlags.isStatementOfServiceProvided = 'Yes';
+  if (userCase.respondents) {
+    for (const party of userCase.respondents) {
+      if (partyId === party.id && party.value.response) {
+        if (party.value.response.citizenFlags) {
+          party.value.response.citizenFlags.isStatementOfServiceProvided = 'Yes';
+        } else {
+          party.value.response.citizenFlags = {
+            isStatementOfServiceProvided: 'Yes',
+          };
+        }
+      }
     }
-  });
+  }
   return userCase;
-};
-
-export const getPartiesSelected = (parties: string[], userCase: Partial<CaseWithId>): string => {
-  const partyList = getParties(userCase);
-  let partyNames = '';
-  partyList.forEach(party => {
-    if (parties.includes(party.id)) {
-      partyNames += party.value + ', ';
-    }
-  });
-  partyNames = partyNames.slice(0, -2);
-  partyNames += '.';
-  return partyNames;
 };
 
 export const generateContent: TranslationFn = content => {

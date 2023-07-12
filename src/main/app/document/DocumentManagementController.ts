@@ -681,7 +681,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
       files,
       documentRequestedByCourt,
     };
-    console.log('*** jo jo ***' + JSON.stringify(uploadRequest.partyName));
 
     const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(uploadRequest);
     if (citizenDocumentListFromCos.status !== 200) {

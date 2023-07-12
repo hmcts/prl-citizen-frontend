@@ -3018,6 +3018,3 @@ export enum passportPossessionRelative {
   FATHER = 'father',
   OTHER = 'otherPerson'
 }
-
-export interface test
-{ id: string; value: string }
