@@ -329,7 +329,7 @@ describe('testcase for notification Banner', () => {
   test('when case is served to unrepresented applicant to serve', () => {
     applicant[0].value.response = {
       citizenFlags: {
-        isApplicationServed: 'Yes',
+        isApplicationToBeServed: 'Yes',
       },
     };
     const data = {

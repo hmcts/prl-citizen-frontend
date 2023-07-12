@@ -213,7 +213,7 @@ export interface CitizenFlags {
   isAllegationOfHarmViewed?: string
   isAllDocumentsViewed?: string
   isResponseInitiated?: string
-  isApplicationServed?: string
+  isApplicationToBeServed?: string
   isStatementOfServiceProvided?: string
 }
 

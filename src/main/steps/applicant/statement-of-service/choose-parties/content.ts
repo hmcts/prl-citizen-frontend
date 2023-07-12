@@ -146,7 +146,7 @@ export const form: FormContent = {
 const getParties = (userCase: Partial<CaseWithId>) => {
   const parties: { id: string; value: string }[] = [];
   userCase?.respondents?.forEach(respondent => {
-    if (respondent.value.response.citizenFlags?.isApplicationServed !== 'Yes') {
+    if (respondent.value.response.citizenFlags?.isApplicationToBeServed !== 'Yes') {
       parties.push({
         id: respondent.id,
         value: respondent.value.firstName + ' ' + respondent.value.lastName,
@@ -154,7 +154,7 @@ const getParties = (userCase: Partial<CaseWithId>) => {
     }
   });
   userCase?.applicants?.forEach(applicant => {
-    if (applicant.value.response.citizenFlags?.isApplicationServed !== 'Yes') {
+    if (applicant.value.response.citizenFlags?.isApplicationToBeServed !== 'Yes') {
       parties.push({
         id: applicant.id,
         value: applicant.value.firstName + ' ' + applicant.value.lastName,
