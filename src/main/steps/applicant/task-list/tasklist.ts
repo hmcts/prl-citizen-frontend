@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { State } from '../../../app/case/definition';
-import { getViewAllHearingsFromTheCourt, getViewAllOrdersFromTheCourt } from '../../../steps/respondent/task-list/utils';
+import {
+  getViewAllHearingsFromTheCourt,
+  getViewAllOrdersFromTheCourt,
+} from '../../../steps/respondent/task-list/utils';
 import * as URL from '../../urls';
 
 import {
@@ -55,7 +58,9 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           text: taskListItems.details_of_court_hearings,
           status: getViewAllHearingsFromTheCourt(userCase),
           href:
-            getViewAllHearingsFromTheCourt(userCase) === 'READY_TO_VIEW' ? (URL.APPLICANT_YOURHEARINGS_HEARINGS + '/' + userCase.id) : '#',
+            getViewAllHearingsFromTheCourt(userCase) === 'READY_TO_VIEW'
+              ? URL.APPLICANT_YOURHEARINGS_HEARINGS + '/' + userCase.id
+              : '#',
         },
       ],
     },
@@ -85,7 +90,10 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           id: 'view-all-orders-from-the-court',
           text: taskListItems.view_all_orders_from_the_court,
           status: getViewAllOrdersFromTheCourt(userCase),
-          href: getViewAllOrdersFromTheCourt(userCase) === 'READY_TO_VIEW' ? (URL.APPLICANT_ORDERS_FROM_THE_COURT + '/' + userCase.id) : '#',
+          href:
+            getViewAllOrdersFromTheCourt(userCase) === 'READY_TO_VIEW'
+              ? URL.APPLICANT_ORDERS_FROM_THE_COURT + '/' + userCase.id
+              : '#',
         },
       ],
     },

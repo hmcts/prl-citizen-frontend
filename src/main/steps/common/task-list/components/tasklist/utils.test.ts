@@ -148,168 +148,199 @@ describe('testcase for tasklist', () => {
     ]);
   });
 
-  // test.skip('case is in linked state with order and hearing', () => {
-  //   const data = {
-  //     id: '12',
-  //     state: State.CASE_SERVED,
-  //     applicants: applicant,
-  //     orderCollection: [
-  //       {
-  //         id: '1234',
-  //         value: {
-  //           dateCreated: 'date',
-  //           orderType: 'type',
-  //           orderDocument: {
-  //             document_url: 'string',
-  //             document_filename: 'string',
-  //             document_binary_url: 'string',
-  //             document_hash: 'string',
-  //           },
-  //           otherDetails: {
-  //             createdBy: 'string',
-  //             orderCreatedDate: 'string',
-  //             orderMadeDate: 'string',
-  //             orderRecipients: 'string',
-  //           },
-  //         },
-  //       },
-  //     ],
+  test('case is in linked state with order and hearing', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      applicants: applicant,
+      orderCollection: [
+        {
+          id: '1234',
+          value: {
+            dateCreated: 'date',
+            orderType: 'type',
+            orderDocument: {
+              document_url: 'string',
+              document_filename: 'string',
+              document_binary_url: 'string',
+              document_hash: 'string',
+            },
+            otherDetails: {
+              createdBy: 'string',
+              orderCreatedDate: 'string',
+              orderMadeDate: 'string',
+              orderRecipients: 'string',
+            },
+          },
+        },
+      ],
 
-  //     hearingCollection: [
-  //       {
-  //         next: {
-  //           courtName: 'Swansea',
-  //         },
-  //       },
-  //     ],
-  //   };
-  //const party = PartyType.APPLICANT;
-  //const language = 'en';
+      hearingCollection: [
+        {
+            hearingID: 2000006135,
+            hearingRequestDateTime: "2023-07-11T16:07:21.253071",
+            hearingType: "ABA5-FOF",
+            hmcStatus: "LISTED",
+            lastResponseReceivedDateTime: "2023-07-11T16:41:37",
+            requestVersion: 1,
+            hearingListingStatus: "FIXED",
+            listAssistCaseStatus: "LISTED",
+            hearingDaySchedule: [
+                {
+                    hearingStartDateTime: "2023-08-03T09:00:00",
+                    hearingEndDateTime: "2023-08-03T12:00:00",
+                    listAssistSessionId: null,
+                    hearingVenueId: "234946",
+                    hearingVenueName: "Swansea Civil And Family Justice Centre",
+                    hearingVenueLocationCode: "344",
+                    hearingVenueAddress: "Quay West, Quay Parade",
+                    hearingRoomId: "Courtroom 01",
+                    hearingJudgeId: "",
+                    hearingJudgeName: null,
+                    panelMemberIds: [],
+                    attendees: [
+                        {
+                            partyID: "f2847b15-dbb8-4df0-868a-420d9de11d29",
+                            hearingSubChannel: "VID"
+                        },
+                    ]
+                },
+            ],
+            hearingGroupRequestId: null,
+            hearingIsLinkedFlag: false,
+            hearingTypeValue: "Finding of Fact",
+            nextHearingDate: "2023-08-02T09:00:00",
+            urgentFlag: false
+          }
+      ],
+    };
+  const party = PartyType.APPLICANT;
+  const language = 'en';
 
-  // expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
-  //   {
-  //     heading: 'About you',
-  //     id: 'aboutYou',
-  //     tasks: [
-  //       {
-  //         disabled: false,
-  //         href: '/applicant/confirm-contact-details/checkanswers/12',
-  //         id: 'editYouContactDetails',
-  //         linkText: 'Confirm or edit your contact details',
-  //         stateTag: {
-  //           className: 'govuk-tag--turquoise',
-  //           label: 'Submitted',
-  //         },
-  //       },
-  //       {
-  //         disabled: false,
-  //         href: '/applicant/contact-preferences/contact-preferences/12',
-  //         id: 'contactPreferences',
-  //         linkText: 'Contact preferences',
-  //         stateTag: {
-  //           className: 'govuk-tag--turquoise',
-  //           label: 'Submitted',
-  //         },
-  //       },
-  //       {
-  //         disabled: false,
-  //         href: '/applicant/keep-details-private/details_known/12',
-  //         id: 'keepYourDetailsPrivate',
-  //         linkText: 'Keep your details private',
-  //         stateTag: {
-  //           className: 'govuk-tag--turquoise',
-  //           label: 'Submitted',
-  //         },
-  //       },
-  //       {
-  //         disabled: false,
-  //         href: '/applicant/hearing-needs/support-help',
-  //         id: 'supportDuringCase',
-  //         linkText: 'Support you need during your case',
-  //         stateTag: {
-  //           className: 'govuk-tag--turquoise',
-  //           label: 'Submitted',
-  //         },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     heading: 'Your application',
-  //     id: 'yourApplication',
-  //     tasks: [
-  //       {
-  //         disabled: false,
-  //         href: '/c100-rebuild/application-copy/download',
-  //         id: 'yourApplicationPDF',
-  //         linkText: 'Your application (PDF)',
-  //         stateTag: {
-  //           className: 'govuk-tag--turquoise',
-  //           label: 'Submitted',
-  //         },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     heading: 'Your documents',
-  //     id: 'yourDocuments',
-  //     tasks: [
-  //       {
-  //         disabled: false,
-  //         href: '/applicant/upload-document',
-  //         id: 'uploadDocuments',
-  //         linkText: ' Upload documents',
-  //         stateTag: {
-  //           className: 'govuk-tag--blue',
-  //           label: 'Optional',
-  //         },
-  //       },
-  //       {
-  //         disabled: false,
-  //         href: '/applicant/yourdocuments/alldocuments/alldocuments',
-  //         id: 'viewAllDocuments',
-  //         linkText: 'View all documents',
-  //         stateTag: {
-  //           className: 'govuk-tag--blue',
-  //           label: 'Ready to view',
-  //         },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     heading: 'Orders from the court',
-  //     id: 'ordersFromTheCourt',
+  expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
+    {
+      heading: 'About you',
+      id: 'aboutYou',
+      tasks: [
+        {
+          disabled: false,
+          href: '/applicant/confirm-contact-details/checkanswers/12',
+          id: 'editYouContactDetails',
+          linkText: 'Confirm or edit your contact details',
+          stateTag: {
+            className: 'govuk-tag--turquoise',
+            label: 'Submitted',
+          },
+        },
+        {
+          disabled: false,
+          href: '/applicant/contact-preferences/contact-preferences/12',
+          id: 'contactPreferences',
+          linkText: 'Contact preferences',
+          stateTag: {
+            className: 'govuk-tag--turquoise',
+            label: 'Submitted',
+          },
+        },
+        {
+          disabled: false,
+          href: '/applicant/keep-details-private/details_known/12',
+          id: 'keepYourDetailsPrivate',
+          linkText: 'Keep your details private',
+          stateTag: {
+            className: 'govuk-tag--turquoise',
+            label: 'Submitted',
+          },
+        },
+        {
+          disabled: false,
+          href: '/applicant/hearing-needs/support-help',
+          id: 'supportDuringCase',
+          linkText: 'Support you need during your case',
+          stateTag: {
+            className: 'govuk-tag--turquoise',
+            label: 'Submitted',
+          },
+        },
+      ],
+    },
+    {
+      heading: 'Your application',
+      id: 'yourApplication',
+      tasks: [
+        {
+          disabled: false,
+          href: '/c100-rebuild/application-copy/download',
+          id: 'yourApplicationPDF',
+          linkText: 'Your application (PDF)',
+          stateTag: {
+            className: 'govuk-tag--turquoise',
+            label: 'Submitted',
+          },
+        },
+      ],
+    },
+    {
+      heading: 'Your documents',
+      id: 'yourDocuments',
+      tasks: [
+        {
+          disabled: false,
+          href: '/applicant/upload-document',
+          id: 'uploadDocuments',
+          linkText: ' Upload documents',
+          stateTag: {
+            className: 'govuk-tag--blue',
+            label: 'Optional',
+          },
+        },
+        {
+          disabled: false,
+          href: '/applicant/yourdocuments/alldocuments/alldocuments',
+          id: 'viewAllDocuments',
+          linkText: 'View all documents',
+          stateTag: {
+            className: 'govuk-tag--blue',
+            label: 'Ready to view',
+          },
+        },
+      ],
+    },
+    {
+      heading: 'Orders from the court',
+      id: 'ordersFromTheCourt',
 
-  //     tasks: [
-  //       {
-  //         disabled: false,
-  //         href: '/applicant/yourdocuments/alldocuments/orders',
-  //         id: 'viewOrders',
-  //         linkText: 'View all orders from the court',
-  //         stateTag: {
-  //           className: 'govuk-tag--blue',
-  //           label: 'Ready to view',
-  //         },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     heading: 'Your court hearings',
-  //     id: 'yourHearing',
-  //     tasks: [
-  //       {
-  //         disabled: false,
-  //         href: '/applicant/yourhearings/hearings',
-  //         id: 'viewHearingDetails',
-  //         linkText: 'Check details of your court hearings',
-  //         stateTag: {
-  //           className: 'govuk-tag--blue',
-  //           label: 'Ready to view',
-  //         },
-  //       },
-  //     ],
-  //   },
-  // ]);
-  // });
+      tasks: [
+        {
+          disabled: false,
+          href: '/applicant/yourdocuments/alldocuments/orders',
+          id: 'viewOrders',
+          linkText: 'View all orders from the court',
+          stateTag: {
+            className: 'govuk-tag--blue',
+            label: 'Ready to view',
+          },
+        },
+      ],
+    },
+    {
+      heading: 'Your court hearings',
+      id: 'yourHearing',
+      tasks: [
+        {
+          disabled: false,
+          href: '/applicant/yourhearings/hearings/12',
+          id: 'viewHearingDetails',
+          linkText: 'Check details of your court hearings',
+          stateTag: {
+            className: 'govuk-tag--blue',
+            label: 'Ready to view',
+          },
+        },
+      ],
+    },
+  ]);
+  });
   test('case is in linked state with out order and hearing', () => {
     const data = {
       id: '12',
@@ -429,13 +460,13 @@ describe('testcase for tasklist', () => {
         id: 'yourHearing',
         tasks: [
           {
-            disabled: false,
-            href: '/applicant/yourhearings/hearings',
+            disabled: true,
+            href: '/applicant/yourhearings/hearings/12',
             id: 'viewHearingDetails',
             linkText: 'Check details of your court hearings',
             stateTag: {
-              className: 'govuk-tag--blue',
-              label: 'Ready to view',
+              className: 'govuk-tag--grey',
+              label: 'Not available yet',
             },
           },
         ],

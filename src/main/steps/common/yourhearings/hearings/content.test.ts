@@ -15,7 +15,7 @@ const enContent = {
   dates: 'Dates',
   hearingLength: 'Length of hearing',
   hearingMethod: 'Hearing method',
-  day: 'Day',
+  day: 'Day ',
   judgeName: 'Judge name',
   venue: 'Venue',
   address: 'Address',

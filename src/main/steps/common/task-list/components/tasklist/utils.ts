@@ -53,7 +53,7 @@ enum StateTags {
 
 const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
 
-const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => !!caseData;
+const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => ((caseData?.hearingCollection && caseData?.hearingCollection?.length >=1) ? true : false);
 
 interface TaskList {
   id: TaskList;
@@ -216,7 +216,7 @@ const taskListConfig = {
         tasks: [
           {
             id: Tasks.VIEW_HEARING_DETAILS,
-            href: () => APPLICANT_YOURHEARINGS_HEARINGS,
+            href: (caseData: Partial<CaseWithId>) => `${APPLICANT_YOURHEARINGS_HEARINGS}/${caseData.id}`,
             stateTag: (caseData: Partial<CaseWithId>) => {
               if (hasAnyHearing(caseData)) {
                 return StateTags.READY_TO_VIEW;

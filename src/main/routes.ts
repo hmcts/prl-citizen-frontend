@@ -18,6 +18,7 @@ import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
+import ApplicantTaskListGetController from './steps/applicant/task-list/get';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
 import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
@@ -44,7 +45,6 @@ import { TermsAndConditionsGetController } from './steps/terms-and-conditions/ge
 import { CreateDraftGetController } from './steps/testing-support/create-draft/get';
 import { DeleteDraftGetController } from './steps/testing-support/delete-draft/get';
 import { TestingSupportGetController } from './steps/testing-support/get';
-import ApplicantTaskListGetController from './steps/applicant/task-list/get';
 import { TimedOutGetController } from './steps/timed-out/get';
 import {
   ACCESSIBILITY_STATEMENT,
@@ -128,7 +128,6 @@ import {
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
-
 export class Routes {
   public enableFor(app: Application): void {
     const { errorHandler } = app.locals;
@@ -178,10 +177,7 @@ export class Routes {
       errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_RESPONDENT).get)
     );
     app.get(`${RESPONDENT_YOURHEARINGS_HEARINGS}/:caseId`, errorHandler(new HearingsGetController().get));
-    app.get(
-      `${APPLICANT_YOURHEARINGS_HEARINGS}/:caseId`,
-      errorHandler(new HearingsGetController().get)
-    );
+    app.get(`${APPLICANT_YOURHEARINGS_HEARINGS}/:caseId`, errorHandler(new HearingsGetController().get));
     app.get(
       `${APPLICANT_DETAILS_KNOWN}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_APPLICANT).get)

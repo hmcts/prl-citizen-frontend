@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
-//import { CosApiClient } from '../../../app/case/CosApiClient';
+import { CosApiClient } from '../../../app/case/CosApiClient';
 //import { RESPONDENT_ORDERS_FROM_THE_COURT } from '../../../steps/urls';
 
 import { generateContent } from './content';
@@ -14,177 +14,329 @@ export class RespondentTaskListGetController extends GetController {
   }
 
   public async load(req: AppRequest, res: Response): Promise<void> {
-    // const citizenUser = req.session.user;
-    // const caseId = req.session.userCase.id;
-    // const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
-    // const hearings = await client.getAllHearingsForCitizenCase(citizenUser, caseId);
-    req.session.userCase.hearingCollection = [
-      {
-        hearingID: 2000005907,
-        hearingRequestDateTime: '2023-06-26T13:57:45.060337',
-        hearingType: 'ABA5-FOF',
-        hmcStatus: 'LISTED',
-        lastResponseReceivedDateTime: '2023-06-26T14:03:32',
-        requestVersion: 1,
-        hearingListingStatus: 'FIXED',
-        listAssistCaseStatus: 'LISTED',
-        hearingDaySchedule: [
-          {
-            hearingStartDateTime: '2023-07-12T12:00:00',
-            hearingEndDateTime: '2023-07-12T15:00:00',
-            listAssistSessionId: null,
-            hearingVenueId: '20262',
-            hearingVenueName: 'Royal Courts of Justice - Queens Building (And West Green Building)',
-            hearingVenueLocationCode: '',
-            hearingVenueAddress: 'Strand, London',
-            hearingRoomId: 'RCJ  Chambers 51',
-            hearingJudgeId: '4925295',
-            hearingJudgeName: 'Joe Lockett',
-            panelMemberIds: [],
-            attendees: [
-              {
-                partyID: 'b87ba2eb-7a03-4596-a071-5969c93a61cb',
-                hearingSubChannel: 'INTER',
-              },
-            ],
-          },
-          {
-            hearingStartDateTime: '2023-07-13T09:00:00',
-            hearingEndDateTime: '2023-07-13T15:00:00',
-            listAssistSessionId: null,
-            hearingVenueId: '20262',
-            hearingVenueName: 'Royal Courts of Justice - Queens Building (And West Green Building)',
-            hearingVenueLocationCode: '',
-            hearingVenueAddress: 'Strand, London',
-            hearingRoomId: 'RCJ  Chambers 51',
-            hearingJudgeId: '4925295',
-            hearingJudgeName: 'Joe Lockett',
-            panelMemberIds: [],
-            attendees: [
-              {
-                partyID: 'b87ba2eb-7a03-4596-a071-5969c93a61cb',
-                hearingSubChannel: 'INTER',
-              },
-            ],
-          },
-        ],
-        hearingGroupRequestId: null,
-        hearingIsLinkedFlag: false,
-        hearingTypeValue: 'Finding of Fact',
-        nextHearingDate: null,
-        urgentFlag: false,
-      },
-      {
-        hearingID: 2000005907,
-        hearingRequestDateTime: '2023-06-26T13:57:45.060337',
-        hearingType: 'ABA5-FOF',
-        hmcStatus: 'LISTED',
-        lastResponseReceivedDateTime: '2023-06-26T14:03:32',
-        requestVersion: 1,
-        hearingListingStatus: 'FIXED',
-        listAssistCaseStatus: 'LISTED',
-        hearingDaySchedule: [
-          {
-            hearingStartDateTime: '2023-07-14T12:00:00',
-            hearingEndDateTime: '2023-07-14T15:00:00',
-            listAssistSessionId: null,
-            hearingVenueId: '20262',
-            hearingVenueName: 'Royal Courts of Justice - Queens Building (And West Green Building)',
-            hearingVenueLocationCode: '',
-            hearingVenueAddress: 'Strand, London',
-            hearingRoomId: 'RCJ  Chambers 51',
-            hearingJudgeId: '4925295',
-            hearingJudgeName: 'Joe Lockett',
-            panelMemberIds: [],
-            attendees: [
-              {
-                partyID: 'b87ba2eb-7a03-4596-a071-5969c93a61cb',
-                hearingSubChannel: 'INTER',
-              },
-            ],
-          },
-          {
-            hearingStartDateTime: '2023-07-15T09:00:00',
-            hearingEndDateTime: '2023-07-15T15:00:00',
-            listAssistSessionId: null,
-            hearingVenueId: '20262',
-            hearingVenueName: 'Royal Courts of Justice - Queens Building (And West Green Building)',
-            hearingVenueLocationCode: '',
-            hearingVenueAddress: 'Strand, London',
-            hearingRoomId: 'RCJ  Chambers 51',
-            hearingJudgeId: '4925295',
-            hearingJudgeName: 'Joe Lockett',
-            panelMemberIds: [],
-            attendees: [
-              {
-                partyID: 'b87ba2eb-7a03-4596-a071-5969c93a61cb',
-                hearingSubChannel: 'INTER',
-              },
-            ],
-          },
-        ],
-        hearingGroupRequestId: null,
-        hearingIsLinkedFlag: false,
-        hearingTypeValue: 'Finding of Fact',
-        nextHearingDate: null,
-        urgentFlag: false,
-      },
-      {
-        hearingID: 2000005907,
-        hearingRequestDateTime: '2023-06-26T13:57:45.060337',
-        hearingType: 'ABA5-FOF',
-        hmcStatus: 'COMPLETED',
-        lastResponseReceivedDateTime: '2023-06-26T14:03:32',
-        requestVersion: 1,
-        hearingListingStatus: 'FIXED',
-        listAssistCaseStatus: 'LISTED',
-        hearingDaySchedule: [
-          {
-            hearingStartDateTime: '2023-07-08T12:00:00',
-            hearingEndDateTime: '2023-07-08T15:00:00',
-            listAssistSessionId: null,
-            hearingVenueId: '20262',
-            hearingVenueName: 'Royal Courts of Justice - Queens Building (And West Green Building)',
-            hearingVenueLocationCode: '',
-            hearingVenueAddress: 'Strand, London',
-            hearingRoomId: 'RCJ  Chambers 51',
-            hearingJudgeId: '4925295',
-            hearingJudgeName: 'Joe Lockett',
-            panelMemberIds: [],
-            attendees: [
-              {
-                partyID: 'b87ba2eb-7a03-4596-a071-5969c93a61cb',
-                hearingSubChannel: 'INTER',
-              },
-            ],
-          },
-          {
-            hearingStartDateTime: '2023-07-09T09:00:00',
-            hearingEndDateTime: '2023-07-09T15:00:00',
-            listAssistSessionId: null,
-            hearingVenueId: '20262',
-            hearingVenueName: 'Royal Courts of Justice - Queens Building (And West Green Building)',
-            hearingVenueLocationCode: '',
-            hearingVenueAddress: 'Strand, London',
-            hearingRoomId: 'RCJ  Chambers 51',
-            hearingJudgeId: '4925295',
-            hearingJudgeName: 'Joe Lockett',
-            panelMemberIds: [],
-            attendees: [
-              {
-                partyID: 'b87ba2eb-7a03-4596-a071-5969c93a61cb',
-                hearingSubChannel: 'INTER',
-              },
-            ],
-          },
-        ],
-        hearingGroupRequestId: null,
-        hearingIsLinkedFlag: false,
-        hearingTypeValue: 'Finding of Fact',
-        nextHearingDate: null,
-        urgentFlag: false,
-      },
-    ];
+    const citizenUser = req.session.user;
+    const caseId = req.session.userCase.id;
+    const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
+    const hearings = await client.getAllHearingsForCitizenCase(citizenUser, caseId);
+    req.session.userCase.hearingCollection = hearings.caseHearings;
+    // [
+    //   {
+    //     hearingID: 2000005907,
+    //     hearingRequestDateTime: '2023-06-26T13:57:45.060337',
+    //     hearingType: 'ABA5-FOF',
+    //     hmcStatus: 'LISTED',
+    //     lastResponseReceivedDateTime: '2023-06-26T14:03:32',
+    //     requestVersion: 1,
+    //     hearingListingStatus: 'FIXED',
+    //     listAssistCaseStatus: 'LISTED',
+    //     hearingDaySchedule: [
+    //       {
+    //         hearingStartDateTime: '2023-07-12T12:00:00',
+    //         hearingEndDateTime: '2023-07-12T15:00:00',
+    //         listAssistSessionId: null,
+    //         hearingVenueId: '20262',
+    //         hearingVenueName: 'Royal Courts of Justice - Queens Building (And West Green Building)',
+    //         hearingVenueLocationCode: '',
+    //         hearingVenueAddress: 'Strand, London',
+    //         hearingRoomId: 'RCJ  Chambers 51',
+    //         hearingJudgeId: '4925295',
+    //         hearingJudgeName: 'Joe Lockett',
+    //         panelMemberIds: [],
+    //         attendees: [
+    //           {
+    //             partyID: 'f2847b15-dbb8-4df0-868a-420d9de11d29',
+    //             hearingSubChannel: 'VID',
+    //           },
+    //           {
+    //             partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
+    //             hearingSubChannel: 'VID',
+    //           },
+    //           {
+    //             partyID: 'e406332c-7a46-4340-8ed5-75ed48223e34',
+    //             hearingSubChannel: 'VID',
+    //           },
+    //           {
+    //             partyID: '98ffefe7-ad04-4139-87e1-fffdb2bf4c99',
+    //             hearingSubChannel: 'VID',
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         hearingStartDateTime: '2023-07-13T09:00:00',
+    //         hearingEndDateTime: '2023-07-13T15:00:00',
+    //         listAssistSessionId: null,
+    //         hearingVenueId: '20262',
+    //         hearingVenueName: 'Royal Courts of Justice - Queens Building (And West Green Building)',
+    //         hearingVenueLocationCode: '',
+    //         hearingVenueAddress: 'Strand, London',
+    //         hearingRoomId: 'RCJ  Chambers 51',
+    //         hearingJudgeId: '4925295',
+    //         hearingJudgeName: 'Joe Lockett',
+    //         panelMemberIds: [],
+    //         attendees: [
+    //           {
+    //             partyID: 'f2847b15-dbb8-4df0-868a-420d9de11d29',
+    //             hearingSubChannel: 'TEL',
+    //           },
+    //           {
+    //             partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
+    //             hearingSubChannel: 'TEL',
+    //           },
+    //           {
+    //             partyID: 'e406332c-7a46-4340-8ed5-75ed48223e34',
+    //             hearingSubChannel: 'TEL',
+    //           },
+    //           {
+    //             partyID: '98ffefe7-ad04-4139-87e1-fffdb2bf4c99',
+    //             hearingSubChannel: 'TEl',
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //     hearingGroupRequestId: null,
+    //     hearingIsLinkedFlag: false,
+    //     hearingTypeValue: 'Finding of Fact',
+    //     nextHearingDate: null,
+    //     urgentFlag: false,
+    //   },
+    //   {
+    //     hearingID: 2000005907,
+    //     hearingRequestDateTime: '2023-06-26T13:57:45.060337',
+    //     hearingType: 'ABA5-FOF',
+    //     hmcStatus: 'LISTED',
+    //     lastResponseReceivedDateTime: '2023-06-26T14:03:32',
+    //     requestVersion: 1,
+    //     hearingListingStatus: 'FIXED',
+    //     listAssistCaseStatus: 'LISTED',
+    //     hearingDaySchedule: [
+    //       {
+    //         hearingStartDateTime: '2023-07-14T12:00:00',
+    //         hearingEndDateTime: '2023-07-14T15:00:00',
+    //         listAssistSessionId: null,
+    //         hearingVenueId: '20262',
+    //         hearingVenueName: 'Royal Courts of Justice - Queens Building (And West Green Building)',
+    //         hearingVenueLocationCode: '',
+    //         hearingVenueAddress: 'Strand, London',
+    //         hearingRoomId: 'RCJ  Chambers 51',
+    //         hearingJudgeId: '4925295',
+    //         hearingJudgeName: 'Joe Lockett',
+    //         panelMemberIds: [],
+    //         attendees: [
+    //           {
+    //             partyID: 'f2847b15-dbb8-4df0-868a-420d9de11d29',
+    //             hearingSubChannel: 'NA',
+    //           },
+    //           {
+    //             partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
+    //             hearingSubChannel: 'NA',
+    //           },
+    //           {
+    //             partyID: 'e406332c-7a46-4340-8ed5-75ed48223e34',
+    //             hearingSubChannel: 'NA',
+    //           },
+    //           {
+    //             partyID: '98ffefe7-ad04-4139-87e1-fffdb2bf4c99',
+    //             hearingSubChannel: 'NA',
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         hearingStartDateTime: '2023-07-15T09:00:00',
+    //         hearingEndDateTime: '2023-07-15T15:00:00',
+    //         listAssistSessionId: null,
+    //         hearingVenueId: '20262',
+    //         hearingVenueName: 'Royal Courts of Justice - Queens Building (And West Green Building)',
+    //         hearingVenueLocationCode: '',
+    //         hearingVenueAddress: 'Strand, London',
+    //         hearingRoomId: 'RCJ  Chambers 51',
+    //         hearingJudgeId: '4925295',
+    //         hearingJudgeName: 'Joe Lockett',
+    //         panelMemberIds: [],
+    //         attendees: [
+    //           {
+    //             partyID: 'f2847b15-dbb8-4df0-868a-420d9de11d29',
+    //             hearingSubChannel: 'NA',
+    //           },
+    //           {
+    //             partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
+    //             hearingSubChannel: 'NA',
+    //           },
+    //           {
+    //             partyID: 'e406332c-7a46-4340-8ed5-75ed48223e34',
+    //             hearingSubChannel: 'NA',
+    //           },
+    //           {
+    //             partyID: '98ffefe7-ad04-4139-87e1-fffdb2bf4c99',
+    //             hearingSubChannel: 'NA',
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //     hearingGroupRequestId: null,
+    //     hearingIsLinkedFlag: false,
+    //     hearingTypeValue: 'Finding of Fact',
+    //     nextHearingDate: null,
+    //     urgentFlag: false,
+    //   },
+    //   {
+    //     hearingID: 2000005761,
+    //     hearingRequestDateTime: '2023-06-26T13:57:45.060337',
+    //     hearingType: 'ABA5-FOF',
+    //     hmcStatus: 'COMPLETED',
+    //     lastResponseReceivedDateTime: '2023-06-26T14:03:32',
+    //     requestVersion: 1,
+    //     hearingListingStatus: 'FIXED',
+    //     listAssistCaseStatus: 'LISTED',
+    //     hearingDaySchedule: [
+    //       {
+    //         hearingStartDateTime: '2023-07-08T12:00:00',
+    //         hearingEndDateTime: '2023-07-08T15:00:00',
+    //         listAssistSessionId: null,
+    //         hearingVenueId: '20262',
+    //         hearingVenueName: 'Royal Courts of Justice - Queens Building (And West Green Building)',
+    //         hearingVenueLocationCode: '',
+    //         hearingVenueAddress: 'Strand, London',
+    //         hearingRoomId: 'RCJ  Chambers 51',
+    //         hearingJudgeId: '4925295',
+    //         hearingJudgeName: 'Joe Lockett',
+    //         panelMemberIds: [],
+    //         attendees: [
+    //           {
+    //             partyID: 'f2847b15-dbb8-4df0-868a-420d9de11d29',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //           {
+    //             partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //           {
+    //             partyID: 'e406332c-7a46-4340-8ed5-75ed48223e34',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //           {
+    //             partyID: '98ffefe7-ad04-4139-87e1-fffdb2bf4c99',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         hearingStartDateTime: '2023-07-09T09:00:00',
+    //         hearingEndDateTime: '2023-07-09T15:00:00',
+    //         listAssistSessionId: null,
+    //         hearingVenueId: '20262',
+    //         hearingVenueName: 'Royal Courts of Justice - Queens Building (And West Green Building)',
+    //         hearingVenueLocationCode: '',
+    //         hearingVenueAddress: 'Strand, London',
+    //         hearingRoomId: 'RCJ  Chambers 51',
+    //         hearingJudgeId: '4925295',
+    //         hearingJudgeName: 'Joe Lockett',
+    //         panelMemberIds: [],
+    //         attendees: [
+    //           {
+    //             partyID: 'f2847b15-dbb8-4df0-868a-420d9de11d29',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //           {
+    //             partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //           {
+    //             partyID: 'e406332c-7a46-4340-8ed5-75ed48223e34',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //           {
+    //             partyID: '98ffefe7-ad04-4139-87e1-fffdb2bf4c99',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //     hearingGroupRequestId: null,
+    //     hearingIsLinkedFlag: false,
+    //     hearingTypeValue: 'Finding of Fact',
+    //     nextHearingDate: null,
+    //     urgentFlag: false,
+    //   },
+    //   {
+    //     hearingID: 2000005905,
+    //     hearingRequestDateTime: '2023-06-26T13:57:45.060337',
+    //     hearingType: 'ABA5-FOF',
+    //     hmcStatus: 'COMPLETED',
+    //     lastResponseReceivedDateTime: '2023-06-26T14:03:32',
+    //     requestVersion: 1,
+    //     hearingListingStatus: 'FIXED',
+    //     listAssistCaseStatus: 'LISTED',
+    //     hearingDaySchedule: [
+    //       {
+    //         hearingStartDateTime: '2023-07-08T12:00:00',
+    //         hearingEndDateTime: '2023-07-08T15:00:00',
+    //         listAssistSessionId: null,
+    //         hearingVenueId: '20262',
+    //         hearingVenueName: 'Royal Courts of Justice - Queens Building (And West Green Building)',
+    //         hearingVenueLocationCode: '',
+    //         hearingVenueAddress: 'Strand, London',
+    //         hearingRoomId: 'RCJ  Chambers 51',
+    //         hearingJudgeId: '4925295',
+    //         hearingJudgeName: 'Joe Lockett',
+    //         panelMemberIds: [],
+    //         attendees: [
+    //           {
+    //             partyID: 'f2847b15-dbb8-4df0-868a-420d9de11d29',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //           {
+    //             partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //           {
+    //             partyID: 'e406332c-7a46-4340-8ed5-75ed48223e34',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //           {
+    //             partyID: '98ffefe7-ad04-4139-87e1-fffdb2bf4c99',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //         ],
+    //       },
+    //       {
+    //         hearingStartDateTime: '2023-07-09T09:00:00',
+    //         hearingEndDateTime: '2023-07-09T15:00:00',
+    //         listAssistSessionId: null,
+    //         hearingVenueId: '20262',
+    //         hearingVenueName: 'Royal Courts of Justice - Queens Building (And West Green Building)',
+    //         hearingVenueLocationCode: '',
+    //         hearingVenueAddress: 'Strand, London',
+    //         hearingRoomId: 'RCJ  Chambers 51',
+    //         hearingJudgeId: '4925295',
+    //         hearingJudgeName: 'Joe Lockett',
+    //         panelMemberIds: [],
+    //         attendees: [
+    //           {
+    //             partyID: 'f2847b15-dbb8-4df0-868a-420d9de11d29',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //           {
+    //             partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //           {
+    //             partyID: 'e406332c-7a46-4340-8ed5-75ed48223e34',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //           {
+    //             partyID: '98ffefe7-ad04-4139-87e1-fffdb2bf4c99',
+    //             hearingSubChannel: 'INTER',
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //     hearingGroupRequestId: null,
+    //     hearingIsLinkedFlag: false,
+    //     hearingTypeValue: 'Finding of Fact',
+    //     nextHearingDate: null,
+    //     urgentFlag: false,
+    //   },
+    // ];
     // req.session.userCase.nextHearing = [];
     // req.session.userCase.futureHearings = [];
     // req.session.userCase.completedHearings = [];

@@ -41,7 +41,11 @@ export default class CaseDetailsGetController {
               panelMemberIds: [],
               attendees: [
                 {
-                  partyID: 'b87ba2eb-7a03-4596-a071-5969c93a61cb',
+                  partyID: '73f9997a-a245-460f-8ead-f53e2c3008a7',
+                  hearingSubChannel: 'INTER',
+                },
+                {
+                  partyID: '1fa548dd-b7fd-4e10-a24e-595e01c744f2',
                   hearingSubChannel: 'INTER',
                 },
               ],
@@ -60,7 +64,11 @@ export default class CaseDetailsGetController {
               panelMemberIds: [],
               attendees: [
                 {
-                  partyID: 'b87ba2eb-7a03-4596-a071-5969c93a61cb',
+                  partyID: '73f9997a-a245-460f-8ead-f53e2c3008a7',
+                  hearingSubChannel: 'INTER',
+                },
+                {
+                  partyID: '1fa548dd-b7fd-4e10-a24e-595e01c744f2',
                   hearingSubChannel: 'INTER',
                 },
               ],
@@ -96,7 +104,11 @@ export default class CaseDetailsGetController {
               panelMemberIds: [],
               attendees: [
                 {
-                  partyID: 'b87ba2eb-7a03-4596-a071-5969c93a61cb',
+                  partyID: '73f9997a-a245-460f-8ead-f53e2c3008a7',
+                  hearingSubChannel: 'INTER',
+                },
+                {
+                  partyID: '1fa548dd-b7fd-4e10-a24e-595e01c744f2',
                   hearingSubChannel: 'INTER',
                 },
               ],
@@ -115,7 +127,7 @@ export default class CaseDetailsGetController {
               panelMemberIds: [],
               attendees: [
                 {
-                  partyID: 'b87ba2eb-7a03-4596-a071-5969c93a61cb',
+                  partyID: '73f9997a-a245-460f-8ead-f53e2c3008a7',
                   hearingSubChannel: 'INTER',
                 },
               ],
@@ -151,7 +163,11 @@ export default class CaseDetailsGetController {
               panelMemberIds: [],
               attendees: [
                 {
-                  partyID: 'b87ba2eb-7a03-4596-a071-5969c93a61cb',
+                  partyID: '73f9997a-a245-460f-8ead-f53e2c3008a7',
+                  hearingSubChannel: 'INTER',
+                },
+                {
+                  partyID: '1fa548dd-b7fd-4e10-a24e-595e01c744f2',
                   hearingSubChannel: 'INTER',
                 },
               ],
@@ -170,7 +186,11 @@ export default class CaseDetailsGetController {
               panelMemberIds: [],
               attendees: [
                 {
-                  partyID: 'b87ba2eb-7a03-4596-a071-5969c93a61cb',
+                  partyID: '73f9997a-a245-460f-8ead-f53e2c3008a7',
+                  hearingSubChannel: 'INTER',
+                },
+                {
+                  partyID: '1fa548dd-b7fd-4e10-a24e-595e01c744f2',
                   hearingSubChannel: 'INTER',
                 },
               ],
@@ -194,7 +214,7 @@ export default class CaseDetailsGetController {
       // const hearings = await client.getAllHearingsForCitizenCase(citizenUser, caseId);
       req.session.userCase.hearingCollection = data;
       console.log(req.session.userCase.hearingCollection);
-      console.log("Hello I am at tasklist applicant");
+      console.log('Hello I am at tasklist applicant');
       req.session.save(() => {
         res.redirect(applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData, req.session.user.id) }));
       });
