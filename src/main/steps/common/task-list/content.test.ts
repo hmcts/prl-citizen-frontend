@@ -120,7 +120,7 @@ describe('testcase for tasklist', () => {
     iWantTo: 'Rwyf eisiau...',
     hyperlinks: [
       {
-        label: 'Add a legal representative - welsh',
+        label: 'Ychwanegu cynrychiolydd cyfreithiol',
         link: '/applicant/add-legal-representative',
         target: '',
       },

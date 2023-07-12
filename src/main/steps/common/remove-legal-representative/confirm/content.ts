@@ -11,13 +11,13 @@ const en = {
 };
 
 const cy: typeof en = {
-  continue: 'Close and return to case overview-welsh',
-  requestSubmitted: 'Request submitted-welsh',
-  whatHappensText: 'What happens next-welsh',
+  continue: 'Cau a dychwelyd i drosolwg o’r achos',
+  requestSubmitted: 'Cais wedi’i gyflwyno',
+  whatHappensText: 'Beth fydd yn digwydd nesaf',
   removeLegalRepresentativeConfirmationLine1:
-    'A case administrator from HM Courts and Tribunals will review this request.-welsh',
+    'Bydd gweinyddwr achosion o Wasanaeth Llysoedd a Thribiwnlysoedd EF yn adolygu’r cais hwn.',
   removeLegalRepresentativeConfirmationLine2:
-    'You will receive an email when your representative has been removed from this case.-welsh',
+    'Fe gewch neges e-bost pan fydd eich cynrychiolydd wedi’i ddileu o’r achos hwn',
 };
 
 const languages = {

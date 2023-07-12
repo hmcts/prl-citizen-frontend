@@ -29,18 +29,18 @@ const cyContent = {
   title: "A fyddech chi'n fodlon mynychu MIAM?",
   one: 'Byddwn',
   two: 'Na fyddwn',
-  explainWhyLabel: 'Explain why',
+  explainWhyLabel: 'Eglurwch pam',
   miamCostExemptionsLabel: 'Help gyda chostau ac esemptiadau MIAM',
   onlyContinue: 'Parhau',
   errors: {
     miamWillingness: {
-      required: 'Select yes if you are willing to attend a MIAM',
+      required: 'Dewiswch ydw os ydych chi’n fodlon mynychu MIAM',
     },
     miamNotWillingExplnation: {
-      required: 'Explain why',
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed. (welsh)',
+      required: 'Eglurwch pam',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less. - welsh',
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };

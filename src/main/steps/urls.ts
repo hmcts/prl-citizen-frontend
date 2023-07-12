@@ -245,6 +245,8 @@ export const MANAGE_DOCUMENTS_DOWNLOAD: PageLink = `${VIEW_ALL_DOCUMENTS}/downlo
 
 /* Applicant Documents */
 export const APPLICANT_CA_DA_REQUEST: PageLink = `${VIEW_ALL_DOCUMENTS}/cadafinaldocumentrequest`;
+export const RESPONSE_TO_CA: PageLink = `${VIEW_ALL_DOCUMENTS}/responsetoca`;
+export const AOH_TO_CA: PageLink = `${VIEW_ALL_DOCUMENTS}/aohtoca`;
 export const ALLEGATION_OF_HARM_VOILENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolence`;
 export const APPLICANT_RESPONSE_TO_AOH_VIOLENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolenceresponse`;
 export const POSITION_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/positionstatements`;

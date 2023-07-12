@@ -18,7 +18,7 @@ const cy: typeof en = {
   line2:
     "Ar ôl i'ch achos gael ei drosglwyddo i'ch cynrychiolydd, ni fyddwch yn gallu golygu eich ymateb. Bydd yn trin eich achos ac yn derbyn unrhyw ddiweddariadau gan y llys.",
   listItem: 'Rhif eich achos yw:',
-  warning: 'Warning - welsh',
+  warning: 'Rhybudd',
   line3:
     "Peidiwch ag ymateb i'r cais hwn eich hun os ydych yn bwriadu cael cynrychiolydd cyfreithiol i gwblhau'r ymateb.",
   continue: 'Parhau',

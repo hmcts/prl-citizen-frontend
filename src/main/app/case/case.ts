@@ -77,6 +77,7 @@ import {
   PRL_C1ASafteyConcerns,
   PRL_C1AAbuseTypes,
   applicantContactPreferencesEnum,
+  RespondentDocs,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -223,6 +224,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   doesOrderClosesCase: 'doesOrderClosesCase',
   selectTypeOfOrder: 'selectTypeOfOrder',
   citizenResponseC7DocumentList: 'citizenResponseC7DocumentList',
+  respondentDocsList: 'respondentDocsList',
   caseInvites: 'caseInvites',
   draftOrderDoc: 'draftOrderDoc',
   draftOrderDocWelsh: 'draftOrderDocWelsh',
@@ -496,6 +498,7 @@ export interface Case {
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+  respondentDocsList?: RespondentDocs[];
   reasonableAdjustmentsPages?: ReasonableAdjustments[];
   respondentDocsSupportPage?: string[];
   respondentHelpCommunicationPage?: string[];

@@ -52,7 +52,7 @@ const cy: typeof en = {
   keys: {
     attendingToCourt: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
     hearingDetails: 'Rhowch fanylion',
-    languageDetails: 'Give details of the language you require (including dialect, if applicable) -welsh',
+    languageDetails: 'Rhowch fanylion yr iaith sydd ei hangen arnoch (gan gynnwys tafodiaith, os yw’n berthnasol)',
     languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
     reasonableAdjustments:
       'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',

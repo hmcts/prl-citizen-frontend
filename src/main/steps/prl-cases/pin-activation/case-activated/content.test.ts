@@ -16,8 +16,8 @@ const en = {
 
 const cy = {
   caption: `Rhif yr achos #${caseNumber}`,
-  title: 'Case added to your account -welsh',
-  text: 'The case can now be seen on your child arrangements and family injunction account. -welsh',
+  title: 'Achos wedi’i ychwanegu i’ch cyfrif',
+  text: 'Gallwch nawr weld yr achos yn eich cyfrif trefniadau plant a gwaharddeb teulu.',
   continue: 'Parhau',
 };
 

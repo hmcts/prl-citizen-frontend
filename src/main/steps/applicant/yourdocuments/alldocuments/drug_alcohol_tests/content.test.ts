@@ -16,7 +16,7 @@ const enContent = {
 const cyContent = {
   section: 'Pob dogfen',
   title: 'Profion cyffuriau ac alcohol (tocsicoleg)',
-  threeHint: 'This is a 8 character code (welsh)',
+  threeHint: 'Mae hwn yn god 8 nod',
   summaryText: 'Cysylltiadau am gymorth',
   caseNumber: 'Rhif yr achos',
   continue: 'Yn ôl',

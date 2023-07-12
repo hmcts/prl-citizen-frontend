@@ -33,7 +33,7 @@ const cy = () => ({
     'Os byddwch yn gwneud cais am help i dalu ffioedd ni chymerir y taliad pan fyddwch yn cyflwyno’r cais.',
     "<p class='govuk-body'> Cyfeiriwch at y cyfarwyddyd ar <a href='https://www.gov.uk/get-help-with-court-fees' class='govuk-link' rel='external' target='_blank'>help i dalu ffioedd ar GOV.UK</a> i weld os ydych yn bodloni’r meini prawf ac i wneud cais am gymorth. </p>",
   ],
-  cancel: 'Cancel -welsh',
+  cancel: 'Canslo',
 });
 
 const languages = {

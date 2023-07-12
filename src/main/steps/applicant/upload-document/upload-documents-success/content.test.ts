@@ -18,13 +18,13 @@ const en = {
 
 const cy: typeof en = {
   section: 'Sut fydd eich dogfennau’n cael eu rhannu',
-  status: 'Your documents have been uploaded (welsh)',
-  title: 'Your documents have been uploaded (welsh)',
-  uploadAgain: 'Upload another document (welsh)',
+  status: 'Mae eich dogfennau wedi’u llwytho',
+  title: 'Mae eich dogfennau wedi’u llwytho',
+  uploadAgain: 'Llwytho dogfen arall',
   continue: 'Parhau',
   remove: 'Dileu',
-  sucess: 'Success (welsh)',
-  documentDetails: 'Your documents for (welsh)',
+  sucess: 'Llwyddiant',
+  documentDetails: 'Eich dogfennau ar gyfer',
 };
 
 jest.mock('../../../../app/form/validation');

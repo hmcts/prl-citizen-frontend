@@ -51,7 +51,7 @@ const cy = {
     },
     otherRelationshipTypeDetails: {
       required: 'Nodwch y berthynas',
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only. - (in Welsh)',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
   },
 };
