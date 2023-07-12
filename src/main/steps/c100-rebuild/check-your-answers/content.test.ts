@@ -2,7 +2,6 @@
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { YesOrNo } from '../../../app/case/definition';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
-import { cy as caseNameCyContent, en as caseNameEnContent } from '../case-name/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 
@@ -112,7 +111,6 @@ const enTestContent = {
       'There is a court order preventing me from making an application without first getting the permission of the court',
     anotherReason: 'Another reason',
     dontKnow: "Don't know",
-    enterCaseName: caseNameEnContent().title,
     child: 'Child',
   },
 };
@@ -214,7 +212,6 @@ const cyTestContent = {
     courtOrderPrevent: 'Mae gorchymyn llys sy’n fy rhwystro rhag gwneud cais heb gael caniatâd gan y llys yn gyntaf',
     anotherReason: 'Rheswm arall',
     dontKnow: 'Ddim yn gwybod',
-    enterCaseName: caseNameCyContent().title,
     child: 'Plant',
   },
 };

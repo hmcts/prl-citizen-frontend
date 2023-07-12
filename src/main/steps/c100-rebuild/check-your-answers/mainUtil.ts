@@ -22,28 +22,6 @@ import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
 import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
 import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
 
-
-
-/* eslint-disable import/namespace */
-export const CaseName = (
-  { sectionTitles, keys, ...content }: SummaryListContent,
-  userCase: Partial<CaseWithId>
-): SummaryList | undefined => {
-  const SummaryData = [
-    {
-      key: keys['enterCaseName'],
-      value: userCase['applicantCaseName'],
-      changeUrl: Urls['C100_CASE_NAME'],
-    },
-  ];
-  return {
-    title: sectionTitles['caseName'],
-    rows: getSectionSummaryList(SummaryData, content),
-  };
-};
-
-
-
 /* eslint-disable import/namespace */
 export const LocationDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
