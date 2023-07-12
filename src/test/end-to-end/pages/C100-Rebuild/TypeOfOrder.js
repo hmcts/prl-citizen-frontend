@@ -38,6 +38,7 @@ module.exports = {
     },
     async courtShortStatement() {
         await I.retry(retryCount).waitForText(TypeOfOrder.courtShortStatementPageTitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.shortStatement, this.fields.testingText);
         await I.wait('2');
         await I.retry(retryCount).click('Continue');
