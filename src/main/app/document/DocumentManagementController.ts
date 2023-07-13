@@ -467,9 +467,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
       documentToGet = req.session.userCase[`${elem}`]?.document_binary_url;
       uid = documentToGet.replace('/binary', '').substring(documentToGet.replace('/binary', '').length - UID_LENGTH);
 
-        if (flag !== null || flag !== undefined) {
-          flag = YesOrNo.YES;
-        }
+      if (flag !== null || flag !== undefined) {
+        flag = YesOrNo.YES;
       } else {
         {
           for (const document of req.session.userCase.respondentDocsList!) {
