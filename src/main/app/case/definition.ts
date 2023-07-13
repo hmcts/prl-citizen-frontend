@@ -2417,8 +2417,39 @@ export interface PRLDocument {
 }
 
 export interface HearingsList {
-  prev?: Hearings[],
-  next?: Hearings,
+  hearingID?: Number,
+  hearingRequestDateTime?: string | null,
+  hearingType?: string | null,
+  hmcStatus?: string | null,
+  lastResponseReceivedDateTime?: string | null,
+  requestVersion?: Number | null,
+  hearingListingStatus?: string | null,
+  listAssistCaseStatus?: string | null,
+  hearingDaySchedule?:Schedules[] | null,
+  hearingGroupRequestId?: string | null,
+  hearingIsLinkedFlag?: boolean | null,
+  nextHearingDate?: string | null,
+  hearingTypeValue?: string,
+  urgentFlag?: boolean,
+}
+interface Schedules {
+  hearingStartDateTime?: string | null,
+  hearingEndDateTime?: string | null,
+  listAssistSessionId?: Number | string | null,
+  hearingVenueId?: string | null,
+  hearingVenueName?: string | null,
+  hearingVenueLocationCode?: Number | string | null,
+  hearingVenueAddress?: string | null,
+  hearingRoomId?: string | null,
+  hearingJudgeId?: string | null,
+  hearingJudgeName?: string | null,
+  panelMemberIds?: string[] | Number[] | null,
+  attendees?: Attendee[] | null,
+
+}
+ interface Attendee {
+  partyID?: string,
+  hearingSubChannel?: string,
 }
 export interface Hearings {
   date?: string;

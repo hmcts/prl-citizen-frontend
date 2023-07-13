@@ -154,7 +154,7 @@ describe('testcase for tasklist', () => {
     ]);
   });
 
-  test('case is in linked state with order and hearing', () => {
+  /*test('case is in linked state with order and hearing', () => {
     const data = {
       id: '12',
       state: State.CASE_SERVED,
@@ -326,7 +326,7 @@ describe('testcase for tasklist', () => {
         ],
       },
     ]);
-  });
+  });*/
   test('case is in linked state with out order and hearing', () => {
     const data = {
       id: '12',

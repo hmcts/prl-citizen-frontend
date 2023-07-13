@@ -597,6 +597,8 @@ export interface Case {
   awp_informOtherParties?: YesOrNo;
   awp_reasonCantBeInformed?: string;
   awp_uploadedApplicationForms?: DocumentInfo[];
+  awpFeeDetails?: Record<string, any>;
+  awp_cancelDelayHearing?: string;
 }
 
 export interface CaseWithId extends Case {

@@ -4,6 +4,7 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { applyParms } from '../../steps/common/url-parser';
 import {
   APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
+  APPLICATION_WITHIN_PROCEEDINGS_DELAY_CANCEL_SELECT_HEARING,
   APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
   APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
@@ -51,7 +52,7 @@ class ApplicationWithinProceedingsNavigationController {
   private getUploadApplicationNextStep = (completedForm, applicationType, applicationReason, applicationFee) => {
     const c2ApplicationNextStep =
       applicationReason === AWPApplicationReason.DELAY_CANCEL_HEARING_DATE
-        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION, {
+        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_DELAY_CANCEL_SELECT_HEARING, {
             applicationType,
             applicationReason,
           }) as PageLink)

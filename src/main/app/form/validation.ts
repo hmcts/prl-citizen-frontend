@@ -253,3 +253,9 @@ export const isValidFileFormat = (files: any): boolean => {
   const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
   return AllowedFileExtentionList.indexOf(extension) > -1;
 };
+
+export const isValidOption: Validator = value => {
+  if ((value as string)?.trim() === '') {
+    return ValidationError.NOT_SELECTED;
+  }
+};
