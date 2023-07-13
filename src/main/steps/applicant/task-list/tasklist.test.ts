@@ -117,6 +117,251 @@ describe('applicant tasklist getRemainingTaskList', () => {
     ).toEqual(expected);
   });
 
+  test('applicant tasklist with welsh documents', () => {
+    const consent = {
+      consentToTheApplication: YesOrNo.YES,
+      applicationReceivedDate: '01-01-2022',
+      permissionFromCourt: 'string',
+    };
+
+    const data = {
+      userCase: {
+        ...mockUserCase,
+        legalRepresentation: YesOrNo.NO,
+        welshLanguageRequirement: 'Yes',
+        applicants: [
+          {
+            id: '',
+            value: {
+              response: { consent },
+            },
+          },
+        ],
+      },
+      userIdamId: '12345',
+    };
+    const isRepresentedBySolicotor = false;
+    const expected = [
+      {
+        items: [
+          {
+            href: '/applicant/keep-details-private/details_known/1234',
+            id: 'keep-your-details-private',
+            status: 'TO_DO',
+            text: 'Keep your details private',
+          },
+          {
+            href: '/applicant/confirm-contact-details/checkanswers/1234',
+            id: 'confirm-or-edit-your-contact-details',
+            status: 'IN_PROGRESS',
+            text: 'Confirm or edit your contact details',
+          },
+          {
+            href: '/applicant/support-you-need-during-case/attending-the-court',
+            id: 'support-you-need-during-your-case',
+            status: 'TO_DO',
+            text: 'Support you need during your case',
+          },
+        ],
+        title: 'About you',
+      },
+
+      {
+        items: [
+          {
+            href: '/applicant/public/docs/FL401-Final-Document-Welsh.pdf',
+            id: 'your-application',
+            openInAnotherTab: true,
+            status: 'DOWNLOAD',
+            text: 'Application submitted (PDF)',
+          },
+          {
+            href: '/applicant/witnessstatements',
+            id: 'your-application-witness-statment',
+            status: 'NOT_AVAILABLE_YET',
+            text: 'Witness statement (PDF)',
+          },
+        ],
+        title: 'Your application',
+      },
+      {
+        items: [
+          {
+            href: '/applicant/yourhearings/hearings',
+            id: 'check-details-of-your-court-hearings',
+            status: 'TO_DO',
+            text: 'Check details of your court hearings',
+          },
+        ],
+        title: 'Your court hearings',
+      },
+      {
+        items: [
+          {
+            href: '/applicant/upload-document',
+            id: 'upload-document',
+            status: 'TO_DO',
+            text: 'Upload documents',
+          },
+          {
+            href: '/applicant/yourdocuments/alldocuments/alldocuments',
+            id: 'view-all-documents',
+            status: 'READY_TO_VIEW',
+            text: 'View all documents',
+          },
+        ],
+        title: 'Your documents',
+      },
+      {
+        items: [
+          {
+            href: '#',
+            id: 'view-all-orders-from-the-court',
+            status: 'NOT_AVAILABLE_YET',
+            text: 'View all orders from the court',
+          },
+        ],
+        title: 'Orders from the court',
+      },
+    ];
+    expect(
+      generateApplicantTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId, isRepresentedBySolicotor)
+    ).toEqual(expected);
+  });
+
+  test('applicant tasklist legalRepresentation yes C100 case welsh', () => {
+    const consent = {
+      consentToTheApplication: YesOrNo.NO,
+      applicationReceivedDate: '01-01-2022',
+      permissionFromCourt: 'string',
+    };
+
+    const data = {
+      userCase: {
+        ...mockUserCase,
+        caseTypeOfApplication: 'C100',
+        legalRepresentation: YesOrNo.YES,
+        welshLanguageRequirement: 'Yes',
+        applicants: [
+          {
+            id: '',
+            value: {
+              response: { consent },
+            },
+          },
+        ],
+      },
+      userIdamId: '12345',
+    };
+    const isRepresentedBySolicotor = false;
+    const expected = [
+      {
+        items: [
+          {
+            href: '/applicant/keep-details-private/details_known/1234',
+            id: 'keep-your-details-private',
+            status: 'TO_DO',
+            text: 'Keep your details private',
+          },
+          {
+            href: '/applicant/confirm-contact-details/checkanswers/1234',
+            id: 'confirm-or-edit-your-contact-details',
+            status: 'TO_DO',
+            text: 'Confirm or edit your contact details',
+          },
+          {
+            href: '/applicant/support-you-need-during-case/attending-the-court',
+            id: 'support-you-need-during-your-case',
+            status: 'TO_DO',
+            text: 'Support you need during your case',
+          },
+        ],
+        title: 'About you',
+      },
+      {
+        items: [
+          {
+            href: '/applicant/public/docs/FL401-Final-Document.pdf',
+            id: 'your_application_ca',
+            status: 'DOWNLOAD',
+            text: 'Your application (PDF)',
+          },
+          {
+            href: '/applicant/yourdocuments/alldocuments/yourwitnessstatements',
+            id: 'your_allegations_of_harm',
+            status: 'DOWNLOAD',
+            text: 'View allegations of harm and violence (PDF)',
+          },
+          {
+            href: '/applicant/yourdocuments/alldocuments/yourwitnessstatements',
+            id: 'respond_to_other_side_aoh_violence',
+            status: 'DOWNLOAD',
+            text: "Respond to the other side's allegations of harm and violence",
+          },
+        ],
+        title: 'Your application',
+      },
+      {
+        items: [
+          {
+            href: '/applicant/upload-document',
+            id: 'response_to_your_application',
+            status: 'TO_DO',
+            text: 'The response to your application (PDF)',
+          },
+          {
+            href: '/applicant/yourdocuments/alldocuments/alldocuments',
+            id: 'check_other_side_aoh_and_violence',
+            status: 'READY_TO_VIEW',
+            text: "Check the other side's allegations of harm and violence",
+          },
+        ],
+        title: 'response',
+      },
+      {
+        items: [
+          {
+            href: '/applicant/yourhearings/hearings',
+            id: 'check-details-of-your-court-hearings',
+            status: 'TO_DO',
+            text: 'Check details of your court hearings',
+          },
+        ],
+        title: 'Your court hearings',
+      },
+      {
+        items: [
+          {
+            href: '/applicant/upload-document',
+            id: 'upload-document',
+            status: 'TO_DO',
+            text: 'Upload documents',
+          },
+          {
+            href: '/applicant/yourdocuments/alldocuments/alldocuments',
+            id: 'view-all-documents',
+            status: 'READY_TO_VIEW',
+            text: 'View all documents',
+          },
+        ],
+        title: 'Your documents',
+      },
+      {
+        items: [
+          {
+            href: '#',
+            id: 'view-all-orders-from-the-court',
+            status: 'NOT_AVAILABLE_YET',
+            text: 'View all orders from the court',
+          },
+        ],
+        title: 'Orders from the court',
+      },
+    ];
+    expect(
+      generateApplicantTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId, isRepresentedBySolicotor)
+    ).toEqual(expected);
+  });
   test('applicant tasklist legalRepresentation yes C100 case', () => {
     const consent = {
       consentToTheApplication: YesOrNo.NO,

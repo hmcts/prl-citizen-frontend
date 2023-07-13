@@ -58,6 +58,90 @@ describe('Document upload controller', () => {
     );
     expect(res.end).toHaveBeenCalledWith(document.data);
   });
+  test('ApplicationDownloadController Should download welsh document', async () => {
+    const controller = new ApplicationDownloadController();
+    const req = mockRequest({
+      session: {
+        userCase: {
+          welshLanguageRequirement: 'Yes',
+          finalWelshDocument: {
+            document_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+            document_filename: 'final_document_order10_12092022.rtf',
+            document_binary_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+          },
+        },
+      },
+    });
+    const res = mockResponse();
+
+    const document = {
+      data: {
+        status: 'Success',
+        document: {
+          document_url:
+            'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+          document_filename: 'final_document_order10_12092022.rtf',
+          document_binary_url:
+            'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+        },
+      },
+    };
+    mockedAxios.get.mockResolvedValue(document);
+    req.locals.C100Api.downloadDraftApplication.mockResolvedValue({ ...document.data });
+
+    await controller.download(req, res);
+
+    expect(res.setHeader).toHaveBeenNthCalledWith(1, 'Content-Type', 'application/pdf');
+    expect(res.setHeader).toHaveBeenLastCalledWith(
+      'Content-Disposition',
+      'attachment; filename=final_document_order10_12092022.rtf'
+    );
+    expect(res.end).toHaveBeenCalledWith(document.data);
+  });
+  test('ApplicationDownloadController Should download welsh order', async () => {
+    const controller = new ApplicationDownloadController();
+    const req = mockRequest({
+      session: {
+        userCase: {
+          welshLanguageRequirement: 'Yes',
+          draftOrderDocWelsh: {
+            document_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+            document_filename: 'final_document_order10_12092022.rtf',
+            document_binary_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+          },
+        },
+      },
+    });
+    const res = mockResponse();
+
+    const document = {
+      data: {
+        status: 'Success',
+        document: {
+          document_url:
+            'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+          document_filename: 'final_document_order10_12092022.rtf',
+          document_binary_url:
+            'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+        },
+      },
+    };
+    mockedAxios.get.mockResolvedValue(document);
+    req.locals.C100Api.downloadDraftApplication.mockResolvedValue({ ...document.data });
+
+    await controller.download(req, res);
+
+    expect(res.setHeader).toHaveBeenNthCalledWith(1, 'Content-Type', 'application/pdf');
+    expect(res.setHeader).toHaveBeenLastCalledWith(
+      'Content-Disposition',
+      'attachment; filename=final_document_order10_12092022.rtf'
+    );
+    expect(res.end).toHaveBeenCalledWith(document.data);
+  });
 
   test('ApplicationDownloadController Should throw error when document cannot be downloaded', async () => {
     const controller = new ApplicationDownloadController();
