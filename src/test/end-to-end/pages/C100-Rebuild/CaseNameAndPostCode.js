@@ -18,13 +18,6 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
     await I.wait('4');
   },
-  async enterCaseName() {
-    await I.wait('4');
-    await I.retry(retryCount).fillField(this.fields.caseName, this.fields.caseNameDetails);
-    await I.wait('2');
-    await I.retry(retryCount).click('Continue');
-    await I.wait('4');
-  },
   async childrensPostcode() {
     await I.retry(retryCount).waitForText('Where do the children live?' , 30);
     await I.wait('2');
