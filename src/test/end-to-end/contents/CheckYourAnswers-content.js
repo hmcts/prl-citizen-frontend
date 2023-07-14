@@ -1,6 +1,5 @@
 module.exports = {
     cyaTitle: 'Check your Answers',
-    caseName: 'Case name',
     locationDetails: 'Location details',
     typeOfApplication: 'Type of application',
     legalRepDetails: 'Legal representative details',
