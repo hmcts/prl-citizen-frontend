@@ -28,7 +28,6 @@ module.exports = {
   },
   async addCaseNameAndPostCode() {
     await this.gettingStarted();
-    await this.enterCaseName();
     await this.childrensPostcode();
   },
 };
