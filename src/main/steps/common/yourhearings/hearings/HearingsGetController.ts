@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
-import { CaseType, PartyType } from '../../../../app/case/definition';
+import { CaseType, HearingsList, PartyType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import {
@@ -9,71 +9,104 @@ import {
   RESPONDENT_YOURHEARINGS_HEARINGS,
 } from '../../../urls';
 
+
 @autobind
 export class HearingsGetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const partyType = getCasePartyType(req.session.userCase, req.session.user.id);
-    req.session.userCase.nextHearing = [];
-    req.session.userCase.futureHearings = [];
-    req.session.userCase.completedHearings = [];
+    req.session.userCase.nextHearing1 = [];
+    req.session.userCase.futureHearings1 = [];
+    req.session.userCase.completedHearings1 = [];
+    let HearingsFuture:HearingsList[] = [];
+    let HearingsCompleted:HearingsList[] = [];
     if (req.session.userCase.hearingCollection && req.session.userCase.hearingCollection!.length >= 1) {
       for (const hearing of req.session.userCase.hearingCollection) {
-        if (hearing.hearingDaySchedule && hearing.hearingDaySchedule!.length >= 1) {
           if (hearing.hmcStatus === 'COMPLETED') {
-            req.session.userCase.completedHearings?.push(hearing);
-          } else {
-            if (new Date() <= new Date(hearing.hearingDaySchedule![0].hearingEndDateTime!)) {
-              req.session.userCase.futureHearings?.push(hearing);
-            }
+            HearingsCompleted.push(hearing);
+          } 
+          else if(hearing.nextHearingDate && new Date() <= new Date(hearing.nextHearingDate))
+          {
+              HearingsFuture?.push(hearing);
           }
-        }
       }
     }
-    console.log(req.session.userCase.futureHearings);
-    if (req.session.userCase?.futureHearings && req.session.userCase?.futureHearings!.length >= 1) {
-      for (const hearing of req.session.userCase.futureHearings) {
-        let day = new Date(hearing.hearingDaySchedule![0].hearingStartDateTime!).getDate();
-        let month = new Date(hearing.hearingDaySchedule![0].hearingStartDateTime!).getMonth();
-        let year = new Date(hearing.hearingDaySchedule![0].hearingStartDateTime!).getFullYear();
-        hearing.hearingRequestDateTime = day + ' ' + getMonthName(month,req.session.lang!) + ' ' + year;
+    // console.log(req.session.userCase.futureHearings);
+    if (HearingsFuture && HearingsFuture.length >= 1) {
+      for (const hearing of HearingsFuture) {
+        let date = new Date(hearing.hearingDaySchedule![0].hearingStartDateTime!)
+        let day = date.getDate();
+        let month = date.getMonth();
+        let year = date.getFullYear();
+        let dates = day + ' ' + getMonthName(month,req.session.lang!) + ' ' + year;
         if (hearing.hearingDaySchedule!.length >= 2) {
           const len = hearing.hearingDaySchedule!.length;
-          day = new Date(hearing.hearingDaySchedule![len - 1].hearingStartDateTime!).getDate();
-          month = new Date(hearing.hearingDaySchedule![len - 1].hearingStartDateTime!).getMonth();
-          year = new Date(hearing.hearingDaySchedule![len - 1].hearingStartDateTime!).getFullYear();
-          hearing.hearingRequestDateTime =
-            hearing.hearingRequestDateTime + ' - ' + day + ' ' + getMonthName(month,req.session.lang!) + ' ' + year;
+          let endDate = new Date(hearing.hearingDaySchedule![len - 1].hearingStartDateTime!);
+          day = endDate.getDate();
+          month = endDate.getMonth();
+          year = endDate.getFullYear();
+          dates =
+          dates + ' - ' + day + ' ' + getMonthName(month,req.session.lang!) + ' ' + year;
         }
-        hearing.lastResponseReceivedDateTime = hearing.hearingDaySchedule?.length + ' days';
-        hearing.hearingType = getHearingMethod(req, hearing.hearingDaySchedule![0].attendees);
-        for (const schedule of hearing.hearingDaySchedule!) {
-          schedule.listAssistSessionId = getDuration((new Date(schedule.hearingEndDateTime!).getHours() - new Date(schedule.hearingStartDateTime!).getHours()));
-          const day1 = new Date(schedule.hearingStartDateTime!).getDate();
-          const month1 = new Date(schedule.hearingStartDateTime!).getMonth();
-          const year1 = new Date(schedule.hearingStartDateTime!).getFullYear();
-          const weekDay1 = new Date(schedule.hearingStartDateTime!).getDay();
-          schedule.hearingEndDateTime = getProperTime(new Date(schedule.hearingStartDateTime!));
-          schedule.hearingStartDateTime = getDayName(weekDay1,req.session.lang!) + ', ' + day1 + ' ' + getMonthName(month1,req.session.lang!) + ' ' + year1;
+        let lengthOfHearing = hearing.hearingDaySchedule?.length;
+        let hearingMethod = getHearingMethod(req, hearing.hearingDaySchedule![0].attendees);
+        let hearingDays : Object[] = [];
+         for (const schedule of hearing.hearingDaySchedule!) {
+          let date = new Date(schedule.hearingStartDateTime!);
+          let amPm = date.getHours()<12 ? 'am' : 'pm';
+          let endDate = new Date(schedule.hearingEndDateTime!);
+          let day1 = date.getDate();
+          let month1 = date.getMonth();
+          let year1 = date.getFullYear();
+          let weekDay1 = date.getDay();
+          let hearingDate = getDayName(weekDay1,req.session.lang!) + ', ' + day1 + ' ' + getMonthName(month1,req.session.lang!) + ' ' + year1;
+          let startTime = getProperTime(date);
+          let diff = Math.abs(date.valueOf() - endDate.valueOf()) / 1000;
+          let durationInDayOrHours = Math.floor(diff / 3600) % 24;
+          let minutes = Math.floor(diff / 60) % 60; 
+          let judgeName = schedule.hearingJudgeName;
+          let venue = schedule.hearingVenueName;
+          let address = schedule.hearingVenueAddress;
+          let roomId = schedule.hearingRoomId;
+          hearingDays.push({
+            hearingDate,
+            startTime,
+            amPm,
+            durationInDayOrHours,
+            minutes,
+            judgeName,
+            venue,
+            address,
+            roomId
+          })
         }
+        req.session.userCase.futureHearings1.push({
+          dates:dates,
+          lengthOfHearing:lengthOfHearing,
+          hearingMethod:hearingMethod,
+          hearingDaySchedule:hearingDays
+        })
       }
-      const next = req.session.userCase.futureHearings.shift();
-      req.session.userCase.nextHearing.push(next!);
+      const next = req.session.userCase.futureHearings1.shift();
+      req.session.userCase.nextHearing1.push(next!);
     }
-    if (req.session.userCase?.completedHearings && req.session.userCase?.completedHearings!.length >= 1) {
-      for (const hearing of req.session.userCase.completedHearings) {
-        let day = new Date(hearing.hearingDaySchedule![0].hearingStartDateTime!).getDate();
-        let month = new Date(hearing.hearingDaySchedule![0].hearingStartDateTime!).getMonth();
-        let year = new Date(hearing.hearingDaySchedule![0].hearingStartDateTime!).getFullYear();
-        let weekDay = new Date(hearing.hearingDaySchedule![0].hearingStartDateTime!).getDay();
-        hearing.hearingRequestDateTime = getDayName(weekDay,req.session.lang!) + ', ' + day + ' ' + getMonthName(month,req.session.lang!) + ' ' + year;
+    console.log(req.session.userCase.futureHearings1);
+    if (HearingsCompleted && HearingsCompleted.length >= 1) {
+      for (const hearing of HearingsCompleted) {
+        let date = new Date(hearing.hearingDaySchedule![0].hearingStartDateTime!);
+        let day = date.getDate();
+        let month = date.getMonth();
+        let year = date.getFullYear();
+        let weekDay = date.getDay();
+        let dates = getDayName(weekDay,req.session.lang!) + ', ' + day + ' ' + getMonthName(month,req.session.lang!) + ' ' + year;
         if (hearing.hearingDaySchedule!.length >= 2) {
           const len = hearing.hearingDaySchedule!.length;
-          day = new Date(hearing.hearingDaySchedule![len - 1].hearingStartDateTime!).getDate();
-          month = new Date(hearing.hearingDaySchedule![len - 1].hearingStartDateTime!).getMonth();
-          year = new Date(hearing.hearingDaySchedule![len - 1].hearingStartDateTime!).getFullYear();
-          weekDay = new Date(hearing.hearingDaySchedule![len - 1].hearingStartDateTime!).getDay();
-          hearing.hearingRequestDateTime =
-            hearing.hearingRequestDateTime +
+          let endDate = new Date(hearing.hearingDaySchedule![len - 1].hearingStartDateTime!)
+          day = endDate.getDate();
+          month = endDate.getMonth();
+          year = endDate.getFullYear();
+          weekDay = endDate.getDay();
+          dates =
+            dates +
             ' - ' +
             getDayName(weekDay,req.session.lang!) +
             ', ' +
@@ -83,8 +116,13 @@ export class HearingsGetController {
             ' ' +
             year;
         }
-        hearing.lastResponseReceivedDateTime = hearing.hearingDaySchedule?.length + ' days';
-        hearing.hearingType = getHearingMethod(req, hearing.hearingDaySchedule![0].attendees);
+        let hearingLength = hearing.hearingDaySchedule?.length;
+        let hearingMethod = getHearingMethod(req, hearing.hearingDaySchedule![0].attendees);
+        req.session.userCase.completedHearings1.push({
+          dates:dates,
+          lengthOfHearing:hearingLength,
+          hearingMethod:hearingMethod
+        });
       }
     }
     req.session.userCase.hearingOrders = [];
@@ -258,10 +296,10 @@ export function getHearingMethod(req: AppRequest, attendees: any): string {
   } else {
     partyData =
       partyType === PartyType.RESPONDENT ? req.session.userCase.respondentsFL401 : req.session.userCase.applicantsFL401;
-      console.log(partyData);
+      // console.log(partyData);
     hearingMethod = attendees.find(attendee => attendee.partyID === partyData.partyId).hearingSubChannel;
   }
-  console.log("8***********" , partyData);
+  // console.log("8***********" , partyData);
   if (hearingMethod !== null) {
     return hearingMethod;
   }
@@ -270,12 +308,13 @@ export function getHearingMethod(req: AppRequest, attendees: any): string {
 
 export function getProperTime(date: Date): string {
   let dateString;
-  if (date.getHours() > 12) {
-    dateString = date.getHours() - 12 + ':' + date.getMinutes() + 'pm';
-  } else if (date.getHours() === 12) {
-    dateString = 12 + ':' + date.getMinutes() + 'pm';
-  } else {
-    dateString = date.getHours() + ':' + date.getMinutes() + 'am';
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  if (hours > 12) {
+    dateString = hours - 12 + ':' + (minutes <10 ? '0'+minutes : minutes);
+  } 
+  else {
+    dateString = hours + ':' + (minutes <10 ? '0'+minutes : minutes);
   }
   return dateString;
 }

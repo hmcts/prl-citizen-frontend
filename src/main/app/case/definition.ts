@@ -907,7 +907,7 @@ export interface CaseData {
   hearingCollection?: HearingsList[];
   futureHearings?: HearingsList[];
   completedHearings?: HearingsList[];
-  completedHearings1?: HearingsList1[];
+  completedHearings1?: Object[];
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
   finalDocument?: Document;
@@ -2399,12 +2399,6 @@ export interface PRLDocument {
   isWithdrawnRequestApproved?: YesOrNo
   withdrawnRequestType?: string;
   selectedHearingType?: string | null;
-}
-
-export interface HearingsList1 {
-  dates?: string,
-  lengthOfHearing?: string,
-  hearingMethod?: string
 }
 
 export interface HearingsList {
