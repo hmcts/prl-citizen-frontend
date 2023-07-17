@@ -154,7 +154,7 @@ describe('testcase for tasklist', () => {
     ]);
   });
 
-  /*test('case is in linked state with order and hearing', () => {
+  test('case is in linked state with order and hearing', () => {
     const data = {
       id: '12',
       state: State.CASE_SERVED,
@@ -183,9 +183,10 @@ describe('testcase for tasklist', () => {
 
       hearingCollection: [
         {
-          next: {
-            courtName: 'Swansea',
-          },
+          hearingType: 'ABA5-FOF',
+          hearingTypeValue: 'Finding of Fact',
+          nextHearingDate: '2023-07-13T10:55:47.329703',
+          urgentFlag: true,
         },
       ],
     };
@@ -326,7 +327,7 @@ describe('testcase for tasklist', () => {
         ],
       },
     ]);
-  });*/
+  });
   test('case is in linked state with out order and hearing', () => {
     const data = {
       id: '12',

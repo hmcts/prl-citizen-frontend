@@ -11,6 +11,7 @@ import {
   getMiamStatus,
   getUploadDocuments,
   getViewAllDocuments,
+  getViewAllHearingsFromTheCourt,
   getYourSafetyStatus,
 } from './utils';
 
@@ -237,36 +238,28 @@ describe('utils', () => {
   });
 });
 
-/*test('should return correct status of court hearings', () => {
+test('should return correct status of court hearings', () => {
   expect(
     getViewAllHearingsFromTheCourt({
       ...mockUserCase,
       hearingCollection: [
         {
-          prev: [
-            {
-              date: 'string',
-              time: 'string',
-              typeOfHearing: 'string',
-              courtName: 'string',
-              courtAddress: 'string',
-              hearingOutcome: 'string',
-            },
-          ],
-          next: {
-            date: 'string',
-            time: 'string',
-            typeOfHearing: 'string',
-            courtName: 'string',
-            courtAddress: 'string',
-            hearingOutcome: 'string',
-          },
+          hearingType: 'ABA5-FOF',
+          hearingTypeValue: 'Finding of Fact',
+          nextHearingDate: '2023-07-13T10:55:47.329703',
+          urgentFlag: true,
+        },
+        {
+          hearingType: 'ABA5-FOF',
+          hearingTypeValue: 'Finding of Fact',
+          nextHearingDate: '2023-07-14T10:55:47.329703',
+          urgentFlag: true,
         },
       ],
     })
   ).toBe(SectionStatus.READY_TO_VIEW);
   expect(getViewAllHearingsFromTheCourt({ ...mockUserCase, hearingCollection: [] })).toBe(SectionStatus.TO_DO);
-});*/
+});
 
 test('should return correct status of get view all docs', () => {
   expect(getViewAllDocuments()).toBe(SectionStatus.READY_TO_VIEW);

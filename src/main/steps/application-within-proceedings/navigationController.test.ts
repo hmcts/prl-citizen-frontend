@@ -37,14 +37,14 @@ describe('applicationWithinProceedingsNavigationController', () => {
       )
     ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/download-form');
   });
-  test.skip('should get correct url for upload application when c2 and delay cancel hearing date', () => {
+  test('should get correct url for upload application when c2 and delay cancel hearing date', () => {
     expect(
       ApplicationWithinProceedingsNavigationController.getNextUrl(
         APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
         userCase,
         req
       )
-    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/upload-your-application');
+    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/select-hearing');
   });
   test('should get correct url for upload application when c2 and not delay cancel hearing date', () => {
     req.params.applicationReason = AWPApplicationReason.REQUEST_MORE_TIME;

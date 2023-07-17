@@ -6,7 +6,7 @@ import HearingsGetController from './HearingsGetController';
 
 const retrieveCaseHearingsByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveCaseHearingsByCaseId');
 
-describe.skip('HearingsGetController', () => {
+describe('HearingsGetController', () => {
   const languages = {
     en: {
       text: 'english',
