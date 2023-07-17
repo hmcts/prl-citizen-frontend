@@ -7,12 +7,12 @@ services:
     url: 'https://api.os.uk/search/places/v1'
     token: POSTCODE_TOKEN
   authProvider:
-    url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
+    url: 'http://rpe-service-auth-provider-demo.service.core-compute-demo.internal'
     microservice: 'prl_citizen_frontend'
     secret: 'NEED TO INSERT SECRET'
   idam:
-    authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
-    tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
+    authorizationURL: 'https://idam-web-public.demo.platform.hmcts.net/login'
+    tokenURL: 'https://idam-api.demo.platform.hmcts.net/o/token'
     clientID: 'prl-citizen-frontend'
     citizenClientSecret: 'NEED TO INSERT SECRET'
     cosApiClientSecret: 'NEED TO INSERT SECRET'
@@ -21,11 +21,11 @@ services:
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
-    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
+    url: 'http://ccd-data-store-api-demo.service.core-compute-demo.internal'
   cos:
-    url: 'http://prl-cos-aat.service.core-compute-aat.internal'
+    url: 'http://prl-cos-demo.service.core-compute-demo.internal'
   documentManagement:
-    url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
+    url: 'http://ccd-case-document-am-api-demo.service.core-compute-demo.internal'
   health:
   timeout: 5000
   deadline: 15000

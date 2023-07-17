@@ -64,6 +64,7 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
             getViewAllHearingsFromTheCourt(userCase) === 'READY_TO_VIEW'
               ? URL.RESPONDENT_YOURHEARINGS_HEARINGS + '/' + userCase.id
               : '#',
+          disabled: !hasAnyHearing(userCase),
         },
       ],
     },
@@ -99,6 +100,8 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
     },
   ];
 };
+
+export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => ((caseData?.hearingCollection && caseData?.hearingCollection?.length >=1) ? true : false);
 
 const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamId) => {
   const itemList: object[] = [];

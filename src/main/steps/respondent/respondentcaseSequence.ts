@@ -518,9 +518,4 @@ export const respondentCaseSequence: Step[] = [
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
   },
-  {
-    url: RESPONDENT_TASK_LIST_URL,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_YOURHEARINGS_HEARINGS,
-  },
 ];

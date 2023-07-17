@@ -15,7 +15,7 @@
    <p class="govuk-body"><a href={{linkfordelayorcancel}}>{{delayorcancellinktext}} </a></p>
    {% for item in userCase.nextHearing1 %}
     <h1 class="govuk-heading-m">{{ nextHearing }}</h1>
-    <dl class="govuk-summary-list govuk-summary-list--no-border">
+    <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ dates }}
@@ -24,7 +24,6 @@
               {{item.dates}}
             </dd>
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ hearingLength }}
@@ -33,7 +32,6 @@
               {{item.lengthOfHearing}}
             </dd>
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ hearingMethod }}
@@ -68,14 +66,12 @@
     {% set count = 0%}
     {% for schedule in item.hearingDaySchedule %}
     {% set count = count+1 %}
-    <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
-    <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9">
+    <dl class="govuk-summary-list govuk-!-margin-left-9">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ day }}{{ count}}
             </dt>
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ hearingDate }}
@@ -84,7 +80,6 @@
               {{schedule.hearingDate}}
             </dd>
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       {% if item.hearingMethod === 'INTER' %}
         <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -116,7 +111,6 @@
             {% endif %}
         </div>
       {% endif %}
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ hearingDuration }}
@@ -143,7 +137,6 @@
               {% endif %}
             {% endif %}
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ judgeName }}
@@ -152,7 +145,6 @@
               {{schedule.judgeName}}
             </dd>
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       {% if item.hearingMethod === 'INTER' %}
         <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -162,7 +154,6 @@
               {{schedule.venue}}
             </dd>
         </div>
-        <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
         <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ address }}
@@ -171,7 +162,6 @@
               {{schedule.address}}
             </dd>
         </div>
-        <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
         <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ roomId }}
@@ -210,7 +200,7 @@
   {% if userCase.futureHearings1.length>=1 %}
    {% for item in userCase.futureHearings1 %}
     <h2 class="govuk-heading-m">{{ upcomingHearing }}</h2>
-    <dl class="govuk-summary-list govuk-summary-list--no-border">
+    <dl class="govuk-summary-list ">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ dates }}
@@ -219,7 +209,6 @@
               {{item.dates}}
             </dd>
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ hearingLength }}
@@ -228,7 +217,6 @@
               {{item.lengthOfHearing}}
             </dd>
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ hearingMethod }}
@@ -263,14 +251,13 @@
     {% set count = 0%}
     {% for schedule in item.hearingDaySchedule %}
     {% set count = count+1 %}
-    <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
-    <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-left-9">
+    {# <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible"> #}
+    <dl class="govuk-summary-list govuk-!-margin-left-9">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ day }}{{count}}
             </dt>
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ hearingDate }}
@@ -279,7 +266,6 @@
               {{schedule.hearingDate}}
             </dd>
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       {% if item.hearingMethod === 'INTER' %}
         <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -311,7 +297,6 @@
             {% endif %}
         </div>
       {% endif %}
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ hearingDuration }}
@@ -338,7 +323,6 @@
               {% endif %}
             {% endif %}
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ judgeName }}
@@ -347,7 +331,6 @@
               {{schedule.judgeName}}
             </dd>
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       {% if item.hearingMethod === 'INTER' %}
         <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -357,7 +340,6 @@
               {{schedule.venue}}
             </dd>
         </div>
-        <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
         <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ address }}
@@ -366,7 +348,6 @@
               {{schedule.address}}
             </dd>
         </div>
-        <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
         <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ roomId }}
@@ -397,15 +378,16 @@
         </div>
       {% endif %}
     </dl>
+    
     {% endfor %}
     {% set count = 0%}
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
    {% endfor %}
-   <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
   {% endif %}
   {% if userCase.completedHearings1.length>=1 %}
    {% for item in userCase.completedHearings1 %}
     <h3 class="govuk-heading-l">{{ previousHearings }}</h2>
-    <dl class="govuk-summary-list govuk-summary-list--no-border">
+    <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ dates }}
@@ -414,7 +396,6 @@
               {{item.dates}}
             </dd>
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ hearingLength }}
@@ -423,7 +404,6 @@
               {{item.lengthOfHearing}} {{days}}
             </dd>
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ hearingMethod }}
@@ -454,7 +434,6 @@
             </dd>
             {% endif %}
       </div>
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ hearingOutcome }}
@@ -467,17 +446,6 @@
                 {% endfor %}
             </dd>
       </div>
-        {# {% for doc in userCase.hearingOrders %}
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              {{doc.createdDate}}
-            </dt>
-            <dd class="govuk-summary-list__value">
-              <a href={{doc.href}} target="_blank">{{ doc.fileName }}</a>
-            </dd>
-          </div>
-        {% endfor %} #}
-      <hr class="govuk-section-break govuk-section-break--sm govuk-section-break--visible">
     </dl>
     
    {% endfor %}

@@ -15,6 +15,7 @@ import {
   getYourApplication,
   getYourWitnessStatement,
 } from './utils';
+import { hasAnyHearing } from '../../../steps/respondent/task-list/tasklist';
 
 export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   const isCaseClosed = userCase.state === State.ALL_FINAL_ORDERS_ISSUED;
@@ -59,8 +60,9 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           status: getViewAllHearingsFromTheCourt(userCase),
           href:
             getViewAllHearingsFromTheCourt(userCase) === 'READY_TO_VIEW'
-              ? URL.APPLICANT_YOURHEARINGS_HEARINGS + '/' + userCase.id
+              ? `${URL.APPLICANT_YOURHEARINGS_HEARINGS}/${userCase.id}`
               : '#',
+              disabled: !hasAnyHearing(userCase),    
         },
       ],
     },
@@ -92,7 +94,7 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           status: getViewAllOrdersFromTheCourt(userCase),
           href:
             getViewAllOrdersFromTheCourt(userCase) === 'READY_TO_VIEW'
-              ? URL.APPLICANT_ORDERS_FROM_THE_COURT + '/' + userCase.id
+              ? `${URL.APPLICANT_ORDERS_FROM_THE_COURT}+${userCase.id}`
               : '#',
         },
       ],

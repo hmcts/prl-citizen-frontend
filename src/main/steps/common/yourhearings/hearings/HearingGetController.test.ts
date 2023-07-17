@@ -4,7 +4,7 @@ import { CosApiClient } from '../../../../app/case/CosApiClient';
 
 //import { HearingsGetController } from './HearingsGetController';
 
-const getHearings = jest.spyOn(CosApiClient.prototype, 'getAllHearingsForCitizenCase');
+const getHearings = jest.spyOn(CosApiClient.prototype, 'retrieveCaseHearingsByCaseId');
 
 describe('HearingsGetController', () => {
   // const languages = {

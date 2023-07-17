@@ -31,7 +31,6 @@ export class GetController {
     const byApplicant = req.query['byApplicant'] as string;
     const addresses = req.session?.addresses;
 
-    console.log('I am here at get controller');
     const content = generatePageContent({
       language,
       pageContent: this.content,

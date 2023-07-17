@@ -2434,23 +2434,6 @@ export interface Schedules {
 
 }
 
-export interface futureHearing{
-    Dates?: string,
-    hearingLength?: string,
-    hearingMethod?: string,
-    schedules?: futSchedule[]
-}
-
-export interface futSchedule{
-  hearingDate?:string,
-  startTime?:string,
-  hearingDuration?:string,
-  judgeName?:string | null,
-  venue?:string | null,
-  address?:string | null,
-  room?:string | null,
-  hearingLink?:string
-}
 
 export interface Attendee {
   partyID?: string,
