@@ -38,6 +38,9 @@
       {% if content.html %}
         <p class="govuk-body govuk-!-margin-bottom-2">{{ content.html | safe }}</p>
         {%else%}
+        {%if content.type === "Complex"%}
+        <p class="govuk-body govuk-!-margin-bottom-2">{{ content.text }} <a class="govuk-notification-banner__link" href={{ content.href1 }} target="_blank">{{content.href1text}}</a></p>
+        {% endif %}
         <p class="govuk-body govuk-!-margin-bottom-2">{{ content.text }}</p>
       {% endif %}
     {% endfor %}

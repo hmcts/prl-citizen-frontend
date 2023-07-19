@@ -2,7 +2,6 @@ import fs from 'fs';
 
 import { Application } from 'express';
 
-//import UploadStatementOfServiceGetController from '../main/steps/applicant/statement-of-service/get';
 import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
 
 import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
@@ -263,7 +262,6 @@ export class Routes {
         );
 
         const documentManagerController = new DocumentManagerController(step.form.fields);
-
         app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
         app.get(
           `${DOCUMENT_MANAGER}/deleteDocument/:documentId`,
@@ -271,7 +269,6 @@ export class Routes {
         );
         app.post(`${DOCUMENT_MANAGER}/generatePdf`, errorHandler(documentManagerController.generatePdf));
         app.get(`${CA_RESPONDENT_GENERATE_C7_Final}`, errorHandler(documentManagerController.get));
-
         app.post(
           `${DOCUMENT_MANAGER}/clearUploadDocumentFormData`,
           errorHandler(documentManagerController.clearUploadDocumentFormData)

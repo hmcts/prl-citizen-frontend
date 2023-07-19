@@ -22,7 +22,8 @@ enum BannerNotification {
   APPLICATION_CLOSED = 'applicationClosed',
   NEW_ORDER = 'newOrder',
   NEW_DOCUMENT = 'newDocument',
-  SOA_SERVED = 'soaServedBanner',
+  SOA_SERVED_CA = 'soaServedBannerCa',
+  SOA_SERVED_DA = 'soaServedBannerDa',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string) => {
@@ -90,9 +91,13 @@ const notificationBanner = {
     content: getContent.bind(null, BannerNotification.NEW_DOCUMENT),
     show: () => false,
   },
-  [BannerNotification.SOA_SERVED]: {
-    id: BannerNotification.SOA_SERVED,
-    content: getContent.bind(null, BannerNotification.SOA_SERVED),
+  [BannerNotification.SOA_SERVED_CA]: {
+    id: BannerNotification.SOA_SERVED_CA,
+    content: getContent.bind(null, BannerNotification.SOA_SERVED_CA),
+  },
+  [BannerNotification.SOA_SERVED_DA]: {
+    id: BannerNotification.SOA_SERVED_DA,
+    content: getContent.bind(null, BannerNotification.SOA_SERVED_DA),
   },
 };
 
@@ -176,9 +181,15 @@ const notificationBannerConfig = {
         },
       },
       {
-        ...notificationBanner[BannerNotification.SOA_SERVED],
+        ...notificationBanner[BannerNotification.SOA_SERVED_CA],
         show: (caseData: Partial<CaseWithId>): boolean => {
-          return isCaseServed(caseData);
+          return isCaseServed(caseData) && caseData.caseTypeOfApplication === CaseType.C100;
+        },
+      },
+      {
+        ...notificationBanner[BannerNotification.SOA_SERVED_DA],
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return isCaseServed(caseData) && caseData.caseTypeOfApplication === CaseType.FL401;
         },
       },
     ],

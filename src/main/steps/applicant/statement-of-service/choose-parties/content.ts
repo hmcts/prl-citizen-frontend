@@ -241,7 +241,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     form: updateFormFields(form, generateFormFields(parties).fields),
-    userCase: content.userCase,
+    uploadedFiles: content.userCase?.applicantUploadFiles,
   };
 };
 

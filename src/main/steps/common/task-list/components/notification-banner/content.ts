@@ -3,6 +3,8 @@ import {
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_STATEMENT_OF_SERVICE,
   APPLICANT_VIEW_ALL_DOCUMENTS,
+  C9_DOWNLOAD_LINK,
+  FL415_DOWNLOAD_LINK,
 } from '../../../../../steps/urls';
 
 const en = {
@@ -142,7 +144,7 @@ const en = {
           },
         ],
       },
-      soaServedBanner: {
+      soaServedBannerCa: {
         heading: 'Serve the application',
         contents: [
           {
@@ -164,7 +166,45 @@ const en = {
         heading2: 'Tell us once the application has been served',
         contents2: [
           {
-            text: 'You must tell the court once the respondent has been served. Do this by completing the statement of service (form FL415).',
+            type: 'Complex',
+            text: 'You must tell the court once the respondent has been served. Do this by completing the',
+            href1: `${C9_DOWNLOAD_LINK}`,
+            href1text: 'statement of service (form C9)',
+          },
+        ],
+        links2: [
+          {
+            href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+            text: 'Send Statement of service (form C9) to the court',
+          },
+        ],
+      },
+      soaServedBannerDa: {
+        heading: 'Serve the application',
+        contents: [
+          {
+            text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+          },
+          {
+            text: 'You must refer to correspondence from the court about serving the application on the respondent',
+          },
+          {
+            text: 'You must not give any court documents to the respondent yourself.',
+          },
+        ],
+        links: [
+          {
+            href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+            text: 'View the final order (PDF)',
+          },
+        ],
+        heading2: 'Tell us once the application has been served',
+        contents2: [
+          {
+            type: 'Complex',
+            text: 'You must tell the court once the respondent has been served. Do this by completing the',
+            href1: `${FL415_DOWNLOAD_LINK}`,
+            href1text: 'statement of service (form FL415)',
           },
         ],
         links2: [
@@ -315,7 +355,7 @@ const cy: typeof en = {
           },
         ],
       },
-      soaServedBanner: {
+      soaServedBannerCa: {
         heading: 'Serve the application',
         contents: [
           {
@@ -337,12 +377,50 @@ const cy: typeof en = {
         heading2: 'Tell us once the application has been served',
         contents2: [
           {
-            text: 'You must tell the court once the respondent has been served. Do this by completing the statement of service (form FL415).',
+            type: 'Complex',
+            text: 'You must tell the court once the respondent has been served. Do this by completing the',
+            href1: `${C9_DOWNLOAD_LINK}`,
+            href1text: 'statement of service (form C9)',
           },
         ],
         links2: [
           {
+            href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+            text: 'Send Statement of service (form C9) to the court',
+          },
+        ],
+      },
+      soaServedBannerDa: {
+        heading: 'Serve the application',
+        contents: [
+          {
+            text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+          },
+          {
+            text: 'You must refer to correspondence from the court about serving the application on the respondent',
+          },
+          {
+            text: 'You must not give any court documents to the respondent yourself.',
+          },
+        ],
+        links: [
+          {
             href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+            text: 'View the final order (PDF)',
+          },
+        ],
+        heading2: 'Tell us once the application has been served',
+        contents2: [
+          {
+            type: 'Complex',
+            text: 'You must tell the court once the respondent has been served. Do this by completing the',
+            href1: `${FL415_DOWNLOAD_LINK}`,
+            href1text: 'statement of service (form FL415)',
+          },
+        ],
+        links2: [
+          {
+            href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
             text: 'Send Statement of service (form FL415) to the court',
           },
         ],
