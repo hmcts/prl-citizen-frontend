@@ -66,8 +66,7 @@ export class CaseApi {
     returnUrl: string,
     caseEvent: C100_CASE_EVENT
   ): Promise<UpdateCaseResponse> {
-    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, ...rest } =
-      caseData;
+    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, ...rest } = caseData;
     const data: UpdateCaseRequest = {
       ...transformCaseData(rest),
       caseTypeOfApplication: caseTypeOfApplication as string,
