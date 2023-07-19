@@ -1,5 +1,10 @@
 import { CaseType, PartyType, State, YesOrNo } from '../../../../../app/case/definition';
-import { APPLICANT_ORDERS_FROM_THE_COURT, APPLICANT_STATEMENT_OF_SERVICE } from '../../../../urls';
+import {
+  APPLICANT_ORDERS_FROM_THE_COURT,
+  APPLICANT_STATEMENT_OF_SERVICE,
+  C9_DOWNLOAD_LINK,
+  FL415_DOWNLOAD_LINK,
+} from '../../../../urls';
 
 import { getNotificationBannerConfig } from './utils';
 const userDetails = {
@@ -326,7 +331,7 @@ describe('testcase for notification Banner', () => {
     ]);
   });
 
-  test('when case is served to unrepresented applicant to serve', () => {
+  test('when case is served to unrepresented applicant to serve Ca case', () => {
     applicant[0].value.response = {
       citizenFlags: {
         isApplicationToBeServed: 'Yes',
@@ -344,7 +349,7 @@ describe('testcase for notification Banner', () => {
     expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'Serve the application',
-        id: 'soaServedBanner',
+        id: 'soaServedBannerCa',
         contents: [
           {
             text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
@@ -366,7 +371,67 @@ describe('testcase for notification Banner', () => {
         heading2: 'Tell us once the application has been served',
         contents2: [
           {
-            text: 'You must tell the court once the respondent has been served. Do this by completing the statement of service (form FL415).',
+            type: 'Complex',
+            text: 'You must tell the court once the respondent has been served. Do this by completing the',
+            href1: `${C9_DOWNLOAD_LINK}`,
+            href1text: 'statement of service (form C9)',
+          },
+        ],
+        links2: [
+          {
+            href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+            text: 'Send Statement of service (form C9) to the court',
+          },
+        ],
+        title: 'Important',
+      },
+    ]);
+  });
+
+  test('when case is served to unrepresented applicant to serve Da case', () => {
+    applicant[0].value.response = {
+      citizenFlags: {
+        isApplicationToBeServed: 'Yes',
+      },
+    };
+    const data = {
+      id: '12',
+      state: State.GATEKEEPING,
+      caseTypeOfApplication: CaseType.FL401,
+      applicants: applicant,
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+      {
+        heading: 'Serve the application',
+        id: 'soaServedBannerDa',
+        contents: [
+          {
+            text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+          },
+          {
+            text: 'You must refer to correspondence from the court about serving the application on the respondent',
+          },
+          {
+            text: 'You must not give any court documents to the respondent yourself.',
+          },
+        ],
+        links: [
+          {
+            href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+            text: 'View the final order (PDF)',
+            external: undefined,
+          },
+        ],
+        heading2: 'Tell us once the application has been served',
+        contents2: [
+          {
+            type: 'Complex',
+            text: 'You must tell the court once the respondent has been served. Do this by completing the',
+            href1: `${FL415_DOWNLOAD_LINK}`,
+            href1text: 'statement of service (form FL415)',
           },
         ],
         links2: [

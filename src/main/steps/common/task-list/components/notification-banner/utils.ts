@@ -186,6 +186,11 @@ const notificationBannerConfig = {
           return isCaseServed(caseData) && caseData.caseTypeOfApplication === CaseType.C100;
         },
       },
+    ],
+    [PartyType.RESPONDENT]: [],
+  },
+  [CaseType.FL401]: {
+    [PartyType.APPLICANT]: [
       {
         ...notificationBanner[BannerNotification.SOA_SERVED_DA],
         show: (caseData: Partial<CaseWithId>): boolean => {
@@ -193,10 +198,6 @@ const notificationBannerConfig = {
         },
       },
     ],
-    [PartyType.RESPONDENT]: [],
-  },
-  [CaseType.FL401]: {
-    [PartyType.APPLICANT]: [],
     [PartyType.RESPONDENT]: [],
   },
 };

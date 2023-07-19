@@ -179,6 +179,10 @@ const en = {
           },
         ],
       },
+    },
+  },
+  [CaseType.FL401]: {
+    notifications: {
       soaServedBannerDa: {
         heading: 'Serve the application',
         contents: [
@@ -390,6 +394,10 @@ const cy: typeof en = {
           },
         ],
       },
+    },
+  },
+  [CaseType.FL401]: {
+    notifications: {
       soaServedBannerDa: {
         heading: 'Serve the application',
         contents: [
