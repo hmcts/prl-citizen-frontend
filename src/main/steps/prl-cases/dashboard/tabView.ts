@@ -32,9 +32,8 @@ const caseStatusTranslation = {
   [State.CASE_SUBMITTED_NOT_PAID]: 'submittedCaseStatus',
   [State.CASE_SUBMITTED_PAID]: 'submittedCaseStatus',
   [State.CASE_ISSUED_TO_LOCAL_COURT]: 'caseIssued',
-  [State.CASE_GATE_KEEPING]: 'caseGatekeeping',
-  [State.CASE_SERVED]: 'caseServed',
   [State.JUDICIAL_REVIEW]: 'caseGatekeeping',
+  [State.CASE_SERVED]: 'caseServed',
 };
 interface CaseDetails {
   caseNumber: string;
