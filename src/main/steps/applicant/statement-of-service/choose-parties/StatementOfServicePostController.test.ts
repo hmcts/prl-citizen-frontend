@@ -9,11 +9,6 @@ const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
 const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
 let partyDetails;
 
-const mockGetPartyDetails = jest.fn();
-jest.mock('../../../../../main/steps/tasklistresponse/utils', () => {
-  return { getPartyDetails: mockGetPartyDetails };
-});
-
 describe('StatementOfServicePostController', () => {
   let fields;
   const controller = new StatementOfServicePostController(fields);
