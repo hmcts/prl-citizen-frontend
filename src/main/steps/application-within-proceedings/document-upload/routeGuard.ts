@@ -5,8 +5,8 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  get: (req: AppRequest, res: Response, next: NextFunction) => {
-    const { removeId } = req.query;
+  get: async (req: AppRequest, res: Response, next: NextFunction) => {
+    const { removeId } = req.params;
 
     if (removeId) {
       let documentToDelete;
@@ -19,8 +19,9 @@ export const routeGuard = {
 
       if (documentToDelete) {
         try {
+          req.session.errors = [];
           const userDetails = req?.session?.user;
-          caseApi(userDetails, req.locals.logger).deleteDocument(removeId.toString());
+          await caseApi(userDetails, req.locals.logger).deleteDocument(removeId.toString());
         } catch (error) {
           res.json(error);
         }

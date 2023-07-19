@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import FormData from 'form-data';
@@ -19,7 +20,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { files }: AppRequest<AnyObject> = req;
+    const { awp_application_form } = (req?.files as Record<string, any>) ?? {};
     const { applicationType, applicationReason } = req.params;
 
     if (
@@ -27,32 +28,30 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       req.session.userCase.awp_uploadedApplicationForms &&
       req.session.userCase.awp_uploadedApplicationForms.length > 0
     ) {
-      super.redirect(req, res, '');
+      super.redirect(req, res);
     } else {
-      if (isNull(files) || files === undefined) {
-        this.uploadFileError(req, res, applicationType, applicationReason, {
-          propertyName: 'document',
+      if (isNull(awp_application_form) || awp_application_form === undefined) {
+        this.handleError(req, res, {
+          propertyName: 'awpUploadApplicationForm',
           errorType: 'required',
         });
-      } else if (!isValidFileFormat(files)) {
-        this.uploadFileError(req, res, applicationType, applicationReason, {
-          propertyName: 'document',
+      } else if (!isValidFileFormat({ documents: awp_application_form })) {
+        this.handleError(req, res, {
+          propertyName: 'awpUploadApplicationForm',
           errorType: 'fileFormat',
         });
-      } else if (isFileSizeGreaterThanMaxAllowed(files)) {
-        this.uploadFileError(req, res, applicationType, applicationReason, {
-          propertyName: 'document',
+      } else if (isFileSizeGreaterThanMaxAllowed({ documents: awp_application_form })) {
+        this.handleError(req, res, {
+          propertyName: 'awpUploadApplicationForm',
           errorType: 'fileSize',
         });
       } else {
         req.session.errors = [];
-        const { documents }: AnyType = files;
-
         const formData: FormData = new FormData();
 
-        formData.append('file', documents.data, {
-          contentType: documents.mimetype,
-          filename: documents.name,
+        formData.append('file', awp_application_form.data, {
+          contentType: awp_application_form.mimetype,
+          filename: awp_application_form.name,
         });
 
         try {
@@ -89,11 +88,9 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     }
   }
 
-  private uploadFileError(
+  private handleError(
     req: AppRequest<AnyObject>,
     res: Response<AnyType, Record<string, AnyType>>,
-    applicationType: string,
-    applicationReason: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     errObj: any
   ) {
@@ -102,7 +99,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       if (err) {
         throw err;
       }
-      res.redirect(applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, { applicationType, applicationReason }));
+      super.redirect(req, res);
     });
   }
 }

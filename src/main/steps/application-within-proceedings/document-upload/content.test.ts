@@ -10,8 +10,9 @@ const applicationType = 'C2';
 
 const en = {
   title: 'Upload your application',
-  uploadYourApplication:
-    'Upload your application to the case. If you are uploading a paper copy of the application, make sure this has been scanned in clearly, and saved in a suitable file format such  as PDF.',
+  fileUploadLabel: 'Upload your application form',
+  uploadYourApplicationHint:
+    'Give each document a file name that makes it clear what it is about. For example position-statement.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
   uploadDescription: 'Take a picture of a document on your phone and upload it',
   uploadRequirements: [
     'Place your document on a flat service in a well-lit room. Use a flash if you need to.',
@@ -23,11 +24,11 @@ const en = {
   onlyContinue: 'Continue',
   cancel: 'Cancel',
   uploadButton: 'Upload file',
-  remove: 'Remove',
+  removeFileText: 'Remove',
   errorText: 'Error:',
   noFilesText: 'No files uploaded',
   errors: {
-    document: {
+    awpUploadApplicationForm: {
       required: `Upload your ${applicationType} application form`,
       fileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
       fileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
@@ -37,8 +38,9 @@ const en = {
 
 const cy: typeof en = {
   title: 'Upload your application (welsh)',
-  uploadYourApplication:
-    'Upload your application to the case. If you are uploading a paper copy of the application, make sure this has been scanned in clearly, and saved in a suitable file format such  as PDF. (welsh)',
+  fileUploadLabel: 'Upload your application form - welsh',
+  uploadYourApplicationHint:
+    'Give each document a file name that makes it clear what it is about. For example position-statement.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX. -  welsh',
   uploadDescription: 'Take a picture of a document on your phone and upload it (welsh)',
   uploadRequirements: [
     'Rhowch eich dogfen ar rywbeth gwastad mewn ystafell sydd â digon o olau. Defnyddiwch fflach y camera os bydd angen.',
@@ -50,11 +52,11 @@ const cy: typeof en = {
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   uploadButton: 'Llwytho ffeil',
-  remove: 'Dileu',
+  removeFileText: 'Dileu',
   errorText: 'Error: (welsh)',
   noFilesText: 'No files uploaded (welsh)',
   errors: {
-    document: {
+    awpUploadApplicationForm: {
       required: `Upload your ${applicationType} application form (welsh)`,
       fileFormat: "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
       fileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr",
