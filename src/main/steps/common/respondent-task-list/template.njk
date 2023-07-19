@@ -128,7 +128,11 @@
       </form>
     <div class="govuk-grid-column-one-third">
       {% block oneThird %}
-           {% include "../contact-us.njk" %}
+        {%if userCase.caseTypeOfApplication === "FL401" %}
+        {% include "../contact-us.njk" %}
+        {% else %}
+        {% include "../contact-us-c100.njk" %}
+        {% endif %}
       {% endblock %}
     </div>
 

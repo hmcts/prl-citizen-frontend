@@ -36,7 +36,7 @@ const en = {
   line2h3: 'It will not harm your application if you give details of the abuse later in the process.',
   dropdown: 'How Cafcass can support you in your case',
   dropdown_content1:
-    'The <a href="https://www.cafcass.gov.uk/" class="govuk-link" rel="external" target="_blank">Children and Family Court Advisory and Support Service (Cafcass)</a>, in England, and <a href="https://cafcass.gov.wales/" class="govuk-link" rel="external" target="_blank">Cafcass Cymru</a>, in Wales, protect and promote the interests of children involved in family court cases. An advisor from Cafcass or Cafcass Cymru will look at your answers as part of their safeguarding checks, and may need to ask you further questions.',
+    'The <a href="https://www.cafcass.gov.uk/" class="govuk-link" rel="external" target="_blank">Children and Family Court Advisory and Support Service (Cafcass)</a>, in England, and <a href="https://www.gov.wales/cafcass-cymru" class="govuk-link" rel="external" target="_blank">Cafcass Cymru</a>, in Wales, protect and promote the interests of children involved in family court cases. An advisor from Cafcass or Cafcass Cymru will look at your answers as part of their safeguarding checks, and may need to ask you further questions.',
   dropdown_content2:
     'As part of their enquiries they will contact organisations such as the police and local authorities for any relevant information about you, any other person and the children.',
   dropdown_content3:
@@ -85,7 +85,7 @@ const cy: typeof en = {
   line2h3: 'Ni fydd yn effeithio ar eich cais os byddwch yn rhoi manylion am y cam-drin yn hwyrach yn y broses.',
   dropdown: 'Sut gall Cafcass eich cefnogi yn eich achos chi',
   dropdown_content1:
-    'Mae’r <a href="https://www.cafcass.gov.uk/" class="govuk-link" rel="external" target="_blank">Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass)</a>, yn Lloegr, a,<a href="https://cafcass.gov.wales/" class="govuk-link" rel="external" target="_blank">Cafcass Cymru</a>, yng Nghymru, yn gwarchod a hyrwyddo buddiannau plant sy’n ymwneud ag achosion llys teulu. Bydd cynghorydd o Cafcass neu Cafcass Cymru yn edrych ar eich atebion fel rhan o\'u gwiriadau diogelu, ac efallai y bydd arnynt angen gofyn cwestiynau pellach i chi.',
+    'Mae’r <a href="https://www.cafcass.gov.uk/" class="govuk-link" rel="external" target="_blank">Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass)</a>, yn Lloegr, a,<a href="https://www.gov.wales/cafcass-cymru" class="govuk-link" rel="external" target="_blank">Cafcass Cymru</a>, yng Nghymru, yn gwarchod a hyrwyddo buddiannau plant sy’n ymwneud ag achosion llys teulu. Bydd cynghorydd o Cafcass neu Cafcass Cymru yn edrych ar eich atebion fel rhan o\'u gwiriadau diogelu, ac efallai y bydd arnynt angen gofyn cwestiynau pellach i chi.',
   dropdown_content2:
     "Fel rhan o'u hymholiadau byddant yn cysylltu gyda sefydliadau fel yr heddlu ac awdurdodau lleol i gael unrhyw wybodaeth berthnasol amdanoch chi, unrhyw unigolyn arall a'r plant.",
   dropdown_content3:
@@ -94,7 +94,7 @@ const cy: typeof en = {
   line4h3:
     "Cymerwch eich amser yn llenwi'r wybodaeth ac ysgrifennwch gymaint ag y teimlwch eich bod yn gallu ei wneud.",
   continue: 'Parhau',
-  Warning: 'warning--welsh',
+  Warning: 'Rhybudd',
   or: 'neu',
 };
 

@@ -20,9 +20,32 @@ const enContent = {
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
+  iWantTo: 'I want to...',
+  hyperlinks: [
+    {
+      label: 'Add a legal representative',
+      link: '/respondent/add-legal-representative',
+    },
+    {
+      label: 'Find my local court',
+      link: '#',
+    },
+    {
+      label: 'Find legal advice',
+      link: '#',
+    },
+    {
+      label: 'Know more about child arrangements',
+      link: '#',
+    },
+    {
+      label: 'Know more about attending court',
+      link: '#',
+    },
+  ],
 };
 const cyContent = {
-  title: 'Respondent tasklist - welsh',
+  title: 'Rhestr Tasgau’r Atebydd',
   respondentName: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
@@ -31,10 +54,33 @@ const cyContent = {
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
-    [SectionStatus.VIEW]: 'VIEW (in Welsh)',
+    [SectionStatus.VIEW]: 'GWELD',
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
+  iWantTo: 'Rwyf eisiau ...',
+  hyperlinks: [
+    {
+      label: 'Ychwanegu cynrychiolydd cyfreithiol',
+      link: '/respondent/add-legal-representative',
+    },
+    {
+      label: 'Dod o hyd i fy llys lleol',
+      link: '#',
+    },
+    {
+      label: 'Dod o hyd i gyngor cyfreithiol',
+      link: '#',
+    },
+    {
+      label: 'Gwybod mwy am drefniadau plant',
+      link: '#',
+    },
+    {
+      label: 'Gwybod mwy am fynychu’r llys',
+      link: '#',
+    },
+  ],
 };
 describe('task-list > content', () => {
   const commonContent = {
@@ -54,6 +100,7 @@ describe('task-list > content', () => {
               firstName: '',
               lastName: '',
             },
+            caseTypeOfApplication: 'FL401',
           },
         },
       },

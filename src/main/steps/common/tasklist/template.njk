@@ -107,7 +107,11 @@
   <div class="govuk-grid-column-one-third">
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!">
     {% block oneThird %}
-          {% include "../contact-us.njk" %}
+        {%if userCase.caseTypeOfApplication === "FL401" %}
+        {% include "../contact-us.njk" %}
+        {% else %}
+        {% include "../contact-us-c100.njk" %}
+        {% endif %}
     {% endblock %}
     </div>
   </div>

@@ -34,10 +34,10 @@ const cy = () => ({
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
-  respondToApplication: 'Review and submit -welsh',
-  goBack: 'Go back -welsh',
-  warning: 'Warning -welsh',
-  yourResponse: 'Your response will be shared with the other people in this case. -welsh',
+  respondToApplication: 'Adolygu a chyflwyno',
+  goBack: 'Yn ôl',
+  warning: 'Rhybudd',
+  yourResponse: 'Bydd eich ymateb yn cael ei rannu gyda’r bobl eraill yn yr achos hwn',
 });
 
 const languages = {

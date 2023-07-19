@@ -54,8 +54,8 @@ export const applicant_tasklist_items_all_docs_en = {
 
 export const applicant_tasklist_items_all_docs_cy = {
   view_all_orders_from_the_court_all_docs: 'Gweld yr holl orchmynion gan y llys',
-  applicant_request_for_child_arrangements: 'Ymateb  <nameapplicantxxxxx> i’r cais am drefniadau plant',
-  applicant_request_for_domestic_abuse: "<nameapplicantxxxxx>'s request for domestic abuse",
+  applicant_request_for_child_arrangements: 'Cais <nameapplicantxxxxx> am drefniadau plant',
+  applicant_request_for_domestic_abuse: 'Cais <nameapplicantxxxxx> ynghylch camdriniaeth ddomestig',
   applicant_allegations_of_harm_and_violence: 'Honiadau <nameapplicantxxxxx> o niwed a thrais',
   applicant_response_to_other_side_allegation_of_harm:
     'Ymateb <nameapplicantxxxxx> i honiadau’r ochr arall o niwed a thrais',
@@ -75,9 +75,8 @@ export const applicant_tasklist_items_all_docs_cy = {
   witness_availability: 'Pryd fydd tystion ar gael',
   tenancy_and_mortgage_availability: 'Tenantiaeth a morgais',
   respondent_response_to_request_for_child_arrangements: 'Ymateb  <namerespondentxxxxx> i’r cais am drefniadau plant',
-  respondent_response_for_domestic_abuse: "<namerespondentxxxxx>'s response to the request for domestic abuse",
-  respondent_response_to_allegations_of_harm_and_violence:
-    "<namerespondentxxxxx>'s response to the allegations of harm and violence",
+  respondent_response_for_domestic_abuse: "<namerespondentxxxxx>'s response to the request for domestic abuse -welsh",
+  respondent_response_to_allegations_of_harm_and_violence: 'Ymateb <namerespondentxxxxx>i’r honiadau o niwed a thrais',
   respondent_allegation_of_harm_and_violence: 'Honiadau <namerespondentxxxxx> o niwed a thrais',
   applications_made_in_these_proceedings_respondent: 'Ceisiadau a wnaed yn yr achos hwn',
   previous_orders_submitted_respondent: 'Gorchmynion blaenorol a gyflwynwyd gyda’r cais',

@@ -74,6 +74,10 @@ import {
   YOUR_WITNESS_STATEMENTS,
   // eslint-disable-next-line sort-imports
   C100_APPLICANT_TASKLIST,
+  APPLICANT_TASKLIST_HEARING_NEEDS,
+  APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -549,5 +553,22 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_TASK_LIST_URL,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_YOURHEARINGS_HEARINGS,
+  },
+  {
+    url: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: (data: Partial<Case>) =>
+      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+  },
+  {
+    url: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: (data: Partial<Case>) =>
+      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
   },
 ];

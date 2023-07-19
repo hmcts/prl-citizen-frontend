@@ -56,7 +56,7 @@ const cy: typeof en = {
   line12:
     'The information you provide in this section will also be shared with the applicant, so they can respond to what you have said.',
 
-  continue: 'Continue',
+  continue: 'Parhau',
 };
 
 const languages = {

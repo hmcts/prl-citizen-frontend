@@ -15,7 +15,7 @@ const cyContent = {
   section: 'Pob dogfen',
   title: "'s position statements (welsh)",
   caseNumber: 'Rhif yr achos',
-  continue: 'Go back (welsh)',
+  continue: 'Yn ôl',
 };
 
 jest.mock('../../../../../app/form/validation');

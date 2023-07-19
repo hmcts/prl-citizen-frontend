@@ -1,9 +1,10 @@
 //import { CosApiClient } from '../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../app/case/case';
-import { Banner, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Banner, CaseType, PartyDetails, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
+import { checkPartyRepresentedBySolicitor } from '../../../steps/common/task-list/utils';
 import {
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
@@ -11,7 +12,9 @@ import {
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
   FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH,
   FIND_OUT_ABOUT_CAFCASS_WELSH,
+  RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
+  RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
 } from '../../../steps/urls';
@@ -25,11 +28,6 @@ const en = () => ({
   title: 'Respondent tasklist',
   caseNumber: 'Case number #',
   respondentName: '',
-  want: 'I want to...',
-  findMyLocalCourt: 'Find my local court',
-  findLegalAdvice: 'Find legal advice',
-  knowMoreAboutChildArrangements: 'Know more about child arrangements',
-  knowMoreAboutAttendingCourt: 'Know more about attending court',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -143,17 +141,41 @@ const en = () => ({
       },
     ],
   },
+  iWantTo: 'I want to...',
+  hyperlinks: [
+    {
+      label: 'Add a legal representative',
+      link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
+    },
+    {
+      label: 'Remove a legal representative',
+      link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+    },
+    {
+      label: 'Find my local court',
+      link: '#',
+    },
+    {
+      label: 'Find legal advice',
+      link: '#',
+    },
+    {
+      label: 'Know more about child arrangements',
+      link: '#',
+    },
+    {
+      label: 'Know more about attending court',
+      link: '#',
+    },
+  ],
+  addLegalRepresentative: 'Add a legal representative',
+  removeLegalRepresentative: 'Remove a legal representative',
 });
 
 const cy = () => ({
-  title: 'Respondent tasklist - welsh',
+  title: 'Rhestr Tasgau’r Atebydd',
   caseNumber: 'Rhif yr achos #',
   respondentName: '',
-  want: 'Rwyf eisiau ...',
-  findMyLocalCourt: 'Find my local court',
-  findLegalAdvice: 'Dod o hyd i gyngor cyfreithiol',
-  knowMoreAboutChildArrangements: 'Gwybod mwy am drefniadau plant',
-  knowMoreAboutAttendingCourt: 'Gwybod mwy am fynychu’r llys',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -161,7 +183,7 @@ const cy = () => ({
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
-    [SectionStatus.VIEW]: 'VIEW (in Welsh)',
+    [SectionStatus.VIEW]: 'GWELD',
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
@@ -265,10 +287,39 @@ const cy = () => ({
     bannerLinks: [
       {
         href: RESPONDENT_VIEW_ALL_DOCUMENTS,
-        text: 'See all documents',
+        text: 'Gweld yr holl ddogfennau',
       },
     ],
   },
+  iWantTo: 'Rwyf eisiau ...',
+  hyperlinks: [
+    {
+      label: 'Ychwanegu cynrychiolydd cyfreithiol',
+      link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
+    },
+    {
+      label: 'Dileu cynrychiolydd cyfreithiol',
+      link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+    },
+    {
+      label: 'Dod o hyd i fy llys lleol',
+      link: '#',
+    },
+    {
+      label: 'Dod o hyd i gyngor cyfreithiol',
+      link: '#',
+    },
+    {
+      label: 'Gwybod mwy am drefniadau plant',
+      link: '#',
+    },
+    {
+      label: 'Gwybod mwy am fynychu’r llys',
+      link: '#',
+    },
+  ],
+  addLegalRepresentative: 'Ychwanegu cynrychiolydd cyfreithiol',
+  removeLegalRepresentative: 'Dileu cynrychiolydd cyfreithiol',
 });
 
 const languages = {
@@ -299,8 +350,18 @@ export const generateContent: TranslationFn = content => {
       }
     }
   }
-  //req.session.userCase.hearingCollection = getHearings(req);
-  translations.respondentName = getRespondentName(req.session.userCase, req.session.user.id);
+  
+  const respondent = getRespondent(req.session.userCase, req.session.user.id);
+  translations.respondentName = getRespondentName(respondent);
+  const isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(respondent);
+  translations.hyperlinks.forEach((hyperLink, index) => {
+    if (hyperLink.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) {
+      translations.hyperlinks.splice(index, 1);
+    } else if (hyperLink.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor) {
+      translations.hyperlinks.splice(index, 1);
+    }
+  });
+
 
   return {
     ...translations,
@@ -308,28 +369,26 @@ export const generateContent: TranslationFn = content => {
       translations.sectionTitles,
       translations.taskListItems,
       content.userCase,
-      content.userIdamId
+      content.userIdamId,
+      isRepresentedBySolicotor
     ),
     banners,
     stages,
   };
 };
 
-// const async getHearings(req:AppRequest):Promise<any>{
-//   const citizenUser = req.session.user;
-//   const caseId = req.session.userCase.id;
-//   const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
-//   const hearings = await client.getAllHearingsForCitizenCase(citizenUser, caseId);
-//   return hearings.caseHearings;
-// }
 
-const getRespondentName = (userCase: Partial<CaseWithId>, userId: string): string => {
-  if (userCase.caseTypeOfApplication === 'C100') {
+export const getRespondent = (userCase: Partial<CaseWithId>, userId: string): PartyDetails | undefined => {
+  if (userCase && userCase.caseTypeOfApplication === CaseType.C100) {
     const respondent = getRespondentPartyDetailsCa(userCase, userId);
-    return respondent ? respondent.value.firstName + ' ' + respondent.value.lastName : '';
+    return respondent?.value;
   } else {
-    return userCase.respondentsFL401?.firstName + ' ' + userCase.respondentsFL401?.lastName;
+    return userCase?.respondentsFL401;
   }
+};
+
+export const getRespondentName = (respondent: PartyDetails | undefined): string => {
+  return respondent ? respondent.firstName + ' ' + respondent.lastName : '';
 };
 
 const getC100Banners = (userCase, translations, userIdamId) => {

@@ -17,14 +17,14 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'How your documents will be shared (welsh)',
-  title: 'Your document has been uploaded successfully (welsh)',
-  status: 'Your documents have been uploaded (welsh)',
+  section: 'Sut fydd eich dogfennau’n cael eu rhannu',
+  title: 'Mae eich dogfen wedi’i llwytho’n llwyddiannus',
+  status: 'Mae eich dogfennau wedi’u llwytho',
   continue: 'Parhau',
   remove: 'Dileu',
-  sucess: 'Success (welsh)',
-  documentDetails: 'Your documents for (welsh)',
-  uploadAgain: 'Upload another document (welsh)',
+  sucess: 'Llwyddiant',
+  documentDetails: 'Eich dogfennau ar gyfer',
+  uploadAgain: 'Llwytho dogfen arall',
 };
 
 jest.mock('../../../../app/form/validation');

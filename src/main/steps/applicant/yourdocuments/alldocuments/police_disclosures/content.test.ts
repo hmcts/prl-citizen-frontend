@@ -13,9 +13,9 @@ const enContent = {
 
 const cyContent = {
   section: 'Pob dogfen',
-  title: 'Police reports (welsh)',
+  title: 'Adroddiadau gan yr heddlu',
   caseNumber: 'Rhif yr achos',
-  continue: 'Go back (welsh)',
+  continue: 'Yn ôl',
 };
 
 jest.mock('../../../../../app/form/validation');

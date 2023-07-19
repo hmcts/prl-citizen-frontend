@@ -24,6 +24,7 @@ import { ContactPreferencesGetController } from './steps/common/contact-preferen
 import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
+import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
 import { HearingsGetController } from './steps/common/yourhearings/hearings/HearingsGetController';
@@ -120,11 +121,14 @@ import {
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   C7_ATTENDING_THE_COURT,
+  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+  RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_TASKLIST_CONTACT_EMAIL,
   APPLICANT_TASKLIST_CONTACT_POST,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   APPLICANT_YOURHEARINGS_HEARINGS,
-  // APPLICANT_YOURHEARINGS_HEARINGS,
+  RESPONSE_TO_CA,
+  AOH_TO_CA,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -280,6 +284,8 @@ export class Routes {
         app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT}${APPLICANT_CA_DA_REQUEST}`, errorHandler(documentManagerController.get));
         app.get(APPLICANT_CA_DA_REQUEST, errorHandler(documentManagerController.get));
+        app.get(RESPONSE_TO_CA, errorHandler(documentManagerController.get));
+        app.get(AOH_TO_CA, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
 
@@ -342,6 +348,14 @@ export class Routes {
         app.post(
           PIN_ACTIVATION_CASE_ACTIVATED_URL,
           errorHandler(new CaseActivationPostController(step.form.fields).post)
+        );
+        app.post(
+          APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          errorHandler(new RemoveLegalRepresentativePostController(step.form.fields).post)
+        );
+        app.post(
+          RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          errorHandler(new RemoveLegalRepresentativePostController(step.form.fields).post)
         );
         app.post(
           `${APPLICANT_TASKLIST_CONTACT_EMAIL}`,

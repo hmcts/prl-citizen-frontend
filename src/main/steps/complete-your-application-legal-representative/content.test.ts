@@ -19,13 +19,13 @@ const en = {
 };
 
 const cy = {
-  title: 'Do you want your legal representative to complete the application for you? - welsh',
-  yes: 'Yes - welsh',
-  no: 'No - welsh',
-  cancel: 'Cancel - welsh',
+  title: "Ydych chi eisiau i’ch cynrychiolydd cyfreithiol gwblhau'r cais ar eich rhan?",
+  yes: 'Ydw',
+  no: 'Nac ydw',
+  cancel: 'Canslo',
   errors: {
     legalRepresentativeForApplication: {
-      required: 'Please select an answer to the below question - welsh',
+      required: 'Dewiswch ateb i’r cwestiwn isod',
     },
   },
 };
@@ -66,8 +66,6 @@ describe('complete-your-application-legal-representative > content', () => {
 
   test('should contain cancel button', () => {
     expect(form.link.text(generatedContent)).toBe('Cancel');
-    expect(form.link.href).toBe(
-      'https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a'
-    );
+    expect(form.link.href).toBe('https://apply-to-court-about-child-arrangements.service.justice.gov.uk');
   });
 });

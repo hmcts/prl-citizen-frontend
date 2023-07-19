@@ -25,29 +25,7 @@ export const childNameFormatter = (childId, userCase) => {
 export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, typeOfUser, language) => {
   if (typeOfUser === 'child') {
     bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
-    if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
-      bodyHtml += HTML.UNORDER_LIST;
-      if (
-        Array.isArray(FoundElement['childrenConcernedAbout']) &&
-        FoundElement['childrenConcernedAbout'][0] === 'All the children in application'
-      ) {
-        bodyHtml +=
-          HTML.LIST_ITEM +
-          (language === 'cy' ? cy().allchildLabel : FoundElement['childrenConcernedAbout'][0]) +
-          HTML.LIST_ITEM_END;
-      } else {
-        if (Array.isArray(FoundElement['childrenConcernedAbout'])) {
-          bodyHtml += FoundElement['childrenConcernedAbout']
-            ?.map(childId => childNameFormatter(childId, userCase))
-            .toString()
-            .split(',')
-            .join('');
-        } else {
-          bodyHtml += childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
-        }
-      }
-      bodyHtml += HTML.UNORDER_LIST_END;
-    }
+    bodyHtml = createChildBodyHtml(FoundElement, bodyHtml, userCase, language);
     bodyHtml += HTML.RULER;
   }
   bodyHtml += HTML.H4 + keys['behaviourDetailsLabel'] + HTML.H4_CLOSE;
@@ -63,13 +41,13 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
       : '';
   bodyHtml += HTML.RULER;
   bodyHtml += HTML.H4 + keys['seekHelpFromPersonOrAgencyLabel'] + HTML.H4_CLOSE;
+  const seekHelpTranslation =
+    FoundElement?.['seekHelpFromPersonOrAgency'] === YesOrNo.YES
+      ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
+      : getYesNoTranslation(language, YesOrNo.NO, 'doTranslation');
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency') && FoundElement.seekHelpFromPersonOrAgency
-      ? HTML.BOTTOM_PADDING_3 +
-        (FoundElement?.['seekHelpFromPersonOrAgency'] === YesOrNo.YES
-          ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
-          : getYesNoTranslation(language, YesOrNo.NO, 'doTranslation')) +
-        HTML.BOTTOM_PADDING_CLOSE
+      ? HTML.BOTTOM_PADDING_3 + seekHelpTranslation + HTML.BOTTOM_PADDING_CLOSE
       : '';
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpDetails') && FoundElement?.['seekHelpFromPersonOrAgency'] === 'Yes'
@@ -93,4 +71,31 @@ export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typ
     return html;
   }
   return '';
+};
+
+const createChildBodyHtml = (FoundElement: ANYTYPE, bodyHtml, userCase, language) => {
+  if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
+    bodyHtml += HTML.UNORDER_LIST;
+    if (
+      Array.isArray(FoundElement['childrenConcernedAbout']) &&
+      FoundElement['childrenConcernedAbout'][0] === 'All the children in application'
+    ) {
+      bodyHtml +=
+        HTML.LIST_ITEM +
+        (language === 'cy' ? cy().allchildLabel : FoundElement['childrenConcernedAbout'][0]) +
+        HTML.LIST_ITEM_END;
+    } else {
+      if (Array.isArray(FoundElement['childrenConcernedAbout'])) {
+        bodyHtml += FoundElement['childrenConcernedAbout']
+          ?.map(childId => childNameFormatter(childId, userCase))
+          .toString()
+          .split(',')
+          .join('');
+      } else {
+        bodyHtml += childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
+      }
+    }
+    bodyHtml += HTML.UNORDER_LIST_END;
+  }
+  return bodyHtml;
 };

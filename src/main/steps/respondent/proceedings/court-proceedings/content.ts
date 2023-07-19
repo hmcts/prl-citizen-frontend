@@ -96,11 +96,11 @@ const cy: typeof en = {
   section: 'Achos cyfredol neu flaenorol',
   title: "Darparwch fanylion am achosion llys rydych chi neu'r plant wedi bod yn rhan ohonynt",
   emergencyOrder: 'Gorchymyn Diogelu Brys',
-  caseno: 'Case number',
+  caseno: 'Rhif yr achos',
   casenohint: 'Er enghraifft, BS19F99999',
   orderdate: 'Pa ddyddiad gafodd ei wneud?',
-  orderDateHint: 'For example, 31 3 2015',
-  ordertime: 'How long was the order for?',
+  orderDateHint: 'er enghraifft, 31 3 2015',
+  ordertime: 'Am ba mor hir gwnaethpwyd y gorchymyn?',
   currentorder: 'Ai gorchymyn cyfredol yw hwn?',
   currentOrderYes: 'Yes',
   currentOrderNo: 'No',
@@ -108,7 +108,7 @@ const cy: typeof en = {
   supervisionOrder: 'Gorchymyn Goruchwylio',
   careOrder: 'Gorchymyn Gofal',
   childAbductionOrder: 'Herwgydio Plant',
-  caOrder: 'Child Arrangements Order',
+  caOrder: 'Gorchymyn Trefniadau Plant',
   financialOrder: 'Gorchymyn Ariannol o dan Atodlen 1 Deddf Plant 1989',
   nonmolestationOrder: 'Gorchymyn Rhag Molestu',
   occupationOrder: 'Gorchymyn Anheddu',
@@ -119,63 +119,63 @@ const cy: typeof en = {
   underTakingOrder: 'Ymgymeriad yn lle gorchymyn',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
-  courtOrderDontKnow: "I don't know",
+  courtOrderDontKnow: 'Nid wyf yn gwybod',
   saveAndContinue: 'Cadw a pharhau',
   errors: {
     emergencyOrderOptions: {
-      required: 'Please choose an option for emergency protection order',
+      required: 'Dewiswch opsiwn ar gyfer y gorchymyn diogelu brys',
     },
 
     'emergencyOrder.orderDateDetails': {
-      invalidDate: 'emergency protection order date must be a real date',
-      incompleteDay: 'emergency protection order date must include a day',
-      incompleteMonth: 'emergency protection order date must include a month',
-      incompleteYear: 'emergency protection order date must include a year',
-      invalidDateInFuture: 'emergency protection order date must be in the past',
+      invalidDate: 'rhaid i ddyddiad y gorchymyn diogelu brys fod yn ddyddiad go iawn',
+      incompleteDay: 'rhaid i ddyddiad y gorchymyn diogelu brys gynnwys diwrnod',
+      incompleteMonth: 'rhaid i ddyddiad y gorchymyn diogelu brys gynnwys mis',
+      incompleteYear: 'rhaid i ddyddiad y gorchymyn diogelu brys gynnwys blwyddyn',
+      invalidDateInFuture: 'rhaid i ddyddiad y gorchymyn diogelu brys fod yn y gorffennol',
     },
 
     supervisionOrderOption: {
-      required: 'Please choose an option for supervision order',
+      required: 'Dewiswch opsiwn ar gyfer y gorchymyn goruchwylio',
     },
 
     careOrderOptions: {
-      required: 'Please choose an option for care order',
+      required: 'Dewiswch opsiwn ar gyfer y gorchymyn gofal',
     },
 
     childAbductionOrderOption: {
-      required: 'Please choose an option for child abduction order',
+      required: 'Dewiswch opsiwn ar gyfer y gorchymyn herwgydio plentyn',
     },
 
     caOrderOption: {
-      required: 'Please choose an option for child arrangements order',
+      required: 'Dewiswch opsiwn ar gyfer y gorchymyn trefniadau plant',
     },
 
     financialOrderOption: {
-      required: 'Please choose an option for financial order',
+      required: 'Dewiswch opsiwn ar gyfer y gorchymyn ariannol',
     },
 
     nonmolestationOrderOption: {
-      required: 'Please choose an option for non molestation order',
+      required: 'Dewiswch opsiwn ar gyfer y gorchymyn rhag molestu',
     },
 
     occupationalOrderOptions: {
-      required: 'Please choose an option for occupation order',
+      required: 'Dewiswch opsiwn ar gyfer y gorchymyn anheddu',
     },
 
     marraigeOrderOptions: {
-      required: 'Please choose an option for forced marriage protection order',
+      required: 'Dewiswch opsiwn ar gyfer y gorchymyn amddiffyn priodi dan orfod',
     },
 
     restrainingOrderOptions: {
-      required: 'Please choose an option for restraining order',
+      required: 'Dewiswch opsiwn ar gyfer y gorchymyn atal',
     },
 
     injuctiveOrderOptions: {
-      required: 'Please choose an option for injunctive order',
+      required: 'Dewiswch opsiwn ar gyfer y gorchymyn gwahardd',
     },
 
     underTakingOrderOptions: {
-      required: 'Please choose an option for undertaking order',
+      required: 'Dewiswch opsiwn ar gyfer y gorchymyn ymgymeriad',
     },
   },
 };

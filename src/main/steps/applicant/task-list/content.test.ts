@@ -10,11 +10,6 @@ import { applicant_tasklist_items_cy, applicant_tasklist_items_en } from './task
 const enContent = {
   title: 'Applicant tasklist',
   caseNumber: 'Case number  ',
-  iWant: 'I want to...',
-  findCourt: 'Find my local court',
-  legalAdvice: 'Find legal advice',
-  childArrangements: 'Know more about child arrangements',
-  attendingCourt: 'Know more about attending court',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
     [SectionStatus.IN_PROGRESS]: 'In Progress',
@@ -25,15 +20,33 @@ const enContent = {
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
+  iWantTo: 'I want to...',
+  hyperlinks: [
+    {
+      label: 'Add a legal representative',
+      link: '/applicant/add-legal-representative',
+    },
+    {
+      label: 'Find my local court',
+      link: '#',
+    },
+    {
+      label: 'Find legal advice',
+      link: '#',
+    },
+    {
+      label: 'Know more about child arrangements',
+      link: '#',
+    },
+    {
+      label: 'Know more about attending court',
+      link: '#',
+    },
+  ],
 };
 const cyContent = {
-  title: 'Applicant tasklist',
+  title: 'Rhestr Tasgau’r Ceisydd',
   caseNumber: 'Rhif yr achos ',
-  iWant: 'Rwyf eisiau...',
-  findCourt: 'Find my local court (welsh)',
-  legalAdvice: 'Find legal advice (welsh)',
-  childArrangements: 'Gwybod mwy am drefniadau plant',
-  attendingCourt: 'Gwybod mwy am fynychu’r llys',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
     [SectionStatus.IN_PROGRESS]: 'Yn mynd rhagddo',
@@ -44,6 +57,29 @@ const cyContent = {
   },
   sectionTitles: applicant_cy,
   taskListItems: applicant_tasklist_items_cy,
+  iWantTo: 'Rwyf eisiau ...',
+  hyperlinks: [
+    {
+      label: 'Ychwanegu cynrychiolydd cyfreithiol',
+      link: '/applicant/add-legal-representative',
+    },
+    {
+      label: 'Dod o hyd i fy llys lleol',
+      link: '#',
+    },
+    {
+      label: 'Dod o hyd i gyngor cyfreithiol',
+      link: '#',
+    },
+    {
+      label: 'Gwybod mwy am drefniadau plant',
+      link: '#',
+    },
+    {
+      label: 'Gwybod mwy am fynychu’r llys',
+      link: '#',
+    },
+  ],
 };
 describe('task-list > content', () => {
   const commonContent = {

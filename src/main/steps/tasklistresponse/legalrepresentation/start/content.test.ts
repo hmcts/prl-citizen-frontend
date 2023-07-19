@@ -28,7 +28,7 @@ const enContent = {
     },
   },
   find: 'Find legal representation',
-  legal: 'Find legal representation',
+  legal: 'Do you need legal aid?',
 };
 
 const cyContent = {
@@ -40,7 +40,7 @@ const cyContent = {
   continue: 'Cadw a pharhau',
   errors: {
     legalRepresentation: {
-      required: 'Select yes if you are using a legal representative to respond to the application -welsh',
+      required: 'Dewiswch ydw os ydych chi’n defnyddio cynrychiolydd cyfreithiol i ymateb i’r cais',
     },
   },
   find: 'Dod o hyd i gynrychiolydd cyfreithiol',

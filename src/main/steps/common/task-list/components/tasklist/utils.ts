@@ -174,9 +174,7 @@ const taskListConfig = {
       {
         id: TaskListSection.YOUR_DOCUMENTS,
         content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-        show: (caseData: Partial<CaseWithId>) => {
-          return caseData && !isDraftCase(caseData);
-        },
+        show: isCaseLinked,
         tasks: [
           {
             id: Tasks.UPLOAD_DOCUMENTS,
@@ -189,6 +187,7 @@ const taskListConfig = {
             id: Tasks.VIEW_ALL_DOCUMENTS,
             href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
             stateTag: () => StateTags.READY_TO_VIEW,
+            show: isCaseLinked,
           },
         ],
       },
@@ -241,7 +240,8 @@ export const getTaskListConfig = (
   caseData: Partial<CaseWithId>,
   userDetails: UserDetails,
   partyType: PartyType,
-  language: string
+  language: string,
+  isRepresentedBySolicotor: boolean
 ): Record<string, any>[] => {
   let caseType = caseData?.caseTypeOfApplication;
   if (!caseType && partyType === PartyType.APPLICANT) {
@@ -270,7 +270,9 @@ export const getTaskListConfig = (
                   linkText: _content?.tasks[task.id]?.linkText,
                   href: task.href(caseData, userDetails),
                   disabled:
-                    task?.disabled && task.disabled instanceof Function ? task.disabled(caseData, userDetails) : false,
+                    task?.disabled && task.disabled instanceof Function
+                      ? task.disabled(caseData, userDetails) || isRepresentedBySolicotor
+                      : false,
                   stateTag: {
                     label: _stateTagConfig.label ? _stateTagConfig.label(language) : '',
                     className: _stateTagConfig.className ? _stateTagConfig.className : '',

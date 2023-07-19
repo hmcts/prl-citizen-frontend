@@ -12,6 +12,7 @@ const en = () => ({
     'You have uploaded details of your past and current proceedings. These will be reviewed by the court once you submit the application.',
   uploadDetail: 'What you have uploaded',
   edit: 'Edit',
+  success: 'Success',
 });
 
 const cy = () => ({
@@ -19,6 +20,7 @@ const cy = () => ({
     "Rydych wedi llwytho manylion eich achosion yn y gorffennol a'ch achosion presennol. Bydd y rhain yn cael eu hadolygu gan y llys ar ôl i chi gyflwyno’r cais.",
   edit: 'Golygu',
   uploadDetail: 'Yr hyn yr ydych wedi ei lwytho',
+  success: 'Llwyddiant',
 });
 
 const languages = {

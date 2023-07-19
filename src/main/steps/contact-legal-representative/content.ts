@@ -19,17 +19,17 @@ const en = () => ({
 });
 
 const cy = () => ({
-  section: 'What to do next - welsh',
+  section: 'Beth i’w wneud nesaf',
   title: "Cysylltwch â'ch cynrychiolydd cyfreithiol",
   paragraph: "Os oes gennych chi gynrychiolydd cyfreithiol a bod arnoch eisiau iddynt gwblhau'r cais ar eich rhan:",
-  returnToGOVUK: 'Return to GOV.UK - welsh',
+  returnToGOVUK: 'Dychwelyd i GOV.UK',
   bulletPoints: [
     "Cysylltu â'ch cynrychiolydd cyfreithiol",
     "Gofynnwch iddynt pa wybodaeth sydd ei hangen arnynt i gwblhau'r cais",
     "Gofynnwch iddynt egluro'r camau nesaf",
   ],
   warningText: {
-    text: "Cau'r cais",
+    text: "Peidiwch â llenwi'r cais eich hun os ydych chi'n bwriadu gofyn i gynrychiolydd cyfreithiol ei lenwi.",
     iconFallbackText: 'Rhybudd',
   },
 });
