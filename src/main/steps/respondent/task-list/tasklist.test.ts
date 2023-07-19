@@ -323,8 +323,9 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'check_details_of_your_court_hearings',
             text: taskListItems.check_details_of_your_court_hearings,
-            status: 'TO_DO',
-            href: '/respondent/yourhearings/hearings',
+            status: 'NOT_AVAILABLE_YET',
+            href: '#',
+            disabled: true,
           },
         ],
       },

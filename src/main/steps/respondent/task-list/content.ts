@@ -350,7 +350,7 @@ export const generateContent: TranslationFn = content => {
       }
     }
   }
-  
+
   const respondent = getRespondent(req.session.userCase, req.session.user.id);
   translations.respondentName = getRespondentName(respondent);
   const isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(respondent);
@@ -361,7 +361,6 @@ export const generateContent: TranslationFn = content => {
       translations.hyperlinks.splice(index, 1);
     }
   });
-
 
   return {
     ...translations,
@@ -376,7 +375,6 @@ export const generateContent: TranslationFn = content => {
     stages,
   };
 };
-
 
 export const getRespondent = (userCase: Partial<CaseWithId>, userId: string): PartyDetails | undefined => {
   if (userCase && userCase.caseTypeOfApplication === CaseType.C100) {
