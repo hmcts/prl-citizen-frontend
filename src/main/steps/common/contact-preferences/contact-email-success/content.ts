@@ -7,7 +7,7 @@ import { interpolate } from '../../../../steps/common/string-parser';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  caption: 'Case number #{caseNumber}',
+  caption: 'Case number {caseNumber}',
   title: 'Contact preferences updated',
   text: 'You will receive digital updates about the case.',
   continue: 'Continue',
@@ -15,7 +15,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  caption: 'Rhif yr achos #{caseNumber}',
+  caption: 'Rhif yr achos {caseNumber}',
   title: 'Dewisiadau cyswllt wedi’u diweddaru',
   text: 'Byddwch yn cael diweddariadau digidol am yr achos',
   continue: 'Parhau',

@@ -14,7 +14,7 @@ import { checkPartyRepresentedBySolicitor, getPartyName } from './utils';
 
 const en = {
   title: 'Child arrangements and family injunction cases',
-  caseNumber: 'Case number #',
+  caseNumber: 'Case number ',
   iWantTo: 'I want to...',
   hyperlinks: [
     {
@@ -72,7 +72,7 @@ const en = {
 
 const cy = {
   title: 'Trefniadau plant a gwaharddebau teulu',
-  caseNumber: 'Rhif yr achos #',
+  caseNumber: 'Rhif yr achos ',
   iWantTo: 'Rwyf eisiau...',
   hyperlinks: [
     {

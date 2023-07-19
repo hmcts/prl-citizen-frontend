@@ -34,6 +34,7 @@ const caseStatusTranslation = {
   [State.CASE_ISSUED_TO_LOCAL_COURT]: 'caseIssued',
   [State.CASE_GATE_KEEPING]: 'caseGatekeeping',
   [State.CASE_SERVED]: 'caseServed',
+  [State.JUDICIAL_REVIEW]: 'caseGatekeeping',
 };
 interface CaseDetails {
   caseNumber: string;
