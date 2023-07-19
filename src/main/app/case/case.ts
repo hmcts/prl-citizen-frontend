@@ -369,11 +369,11 @@ export interface Case {
   orderCollection?: ListValue<PRLDocument>[];
   hearingCollection?: HearingsList[];
   nextHearing?: HearingsList[];
-  nextHearing1?: Object[];
+  nextHearing1?: object[];
   futureHearings?: HearingsList[];
-  futureHearings1?: Object[];
+  futureHearings1?: object[];
   completedHearings?: HearingsList[];
-  completedHearings1?: Object[];
+  completedHearings1?: object[];
   hearingOrders?: object[];
   documentsGenerated?: ListValue<PRLDocument>[];
   yourchildconcernsstart?: YesOrNo;

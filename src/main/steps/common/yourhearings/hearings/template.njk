@@ -26,10 +26,10 @@
       </div>
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{ hearingLength }}
+              {{ hearingLength }} 
             </dt>
             <dd class="govuk-summary-list__value">
-              {{item.lengthOfHearing}}
+              {{item.lengthOfHearing}} {{days}}
             </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -85,13 +85,13 @@
             <dt class="govuk-summary-list__key">
               {{ startTime }}
             </dt>
-            {% if item.amPm === 'am' %}
+            {% if schedule.amPm === 'am' %}
               <dd class="govuk-summary-list__value">
-              {{schedule.startTime}}{{am}}<br>{{inPersonTime}}
+              {{schedule.startTime}} {{am}}<br>{{inPersonTime}}
               </dd>
             {% else %}
               <dd class="govuk-summary-list__value">
-              {{schedule.startTime}}{{pm}}<br>{{inPersonTime}}
+              {{schedule.startTime}} {{pm}}<br>{{inPersonTime}}
               </dd>
             {% endif %}
         </div>
@@ -100,13 +100,13 @@
             <dt class="govuk-summary-list__key">
               {{ startTime }}
             </dt>
-            {% if item.amPm === 'am' %}
+            {% if schedule.amPm === 'am' %}
               <dd class="govuk-summary-list__value">
-              {{schedule.startTime}}{{am}}
+              {{schedule.startTime}} {{am}}
               </dd>
             {% else %}
               <dd class="govuk-summary-list__value">
-              {{schedule.startTime}}{{pm}}
+              {{schedule.startTime}} {{pm}}
               </dd>
             {% endif %}
         </div>
@@ -211,10 +211,10 @@
       </div>
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{ hearingLength }}
+              {{ hearingLength }} 
             </dt>
             <dd class="govuk-summary-list__value">
-              {{item.lengthOfHearing}}
+              {{item.lengthOfHearing}} {{days}}
             </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -271,13 +271,13 @@
             <dt class="govuk-summary-list__key">
               {{ startTime }}
             </dt>
-            {% if item.amPm === 'am' %}
+            {% if schedule.amPm === 'am' %}
               <dd class="govuk-summary-list__value">
-              {{schedule.startTime}}{{am}}<br>{{inPersonTime}}
+              {{schedule.startTime}} {{am}}<br>{{inPersonTime}}
               </dd>
             {% else %}
               <dd class="govuk-summary-list__value">
-              {{schedule.startTime}}{{pm}}<br>{{inPersonTime}}
+              {{schedule.startTime}} {{pm}}<br>{{inPersonTime}}
               </dd>
             {% endif %}
         </div>
@@ -286,13 +286,13 @@
             <dt class="govuk-summary-list__key">
               {{ startTime }}
             </dt>
-            {% if item.amPm === 'am' %}
+            {% if schedule.amPm === 'am' %}
               <dd class="govuk-summary-list__value">
-              {{schedule.startTime}}{{am}}
+              {{schedule.startTime}} {{am}}
               </dd>
             {% else %}
               <dd class="govuk-summary-list__value">
-              {{schedule.startTime}}{{pm}}
+              {{schedule.startTime}} {{pm}}
               </dd>
             {% endif %}
         </div>

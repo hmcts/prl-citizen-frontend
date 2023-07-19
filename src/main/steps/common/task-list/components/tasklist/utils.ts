@@ -53,7 +53,8 @@ enum StateTags {
 
 const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
 
-const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => ((caseData?.hearingCollection && caseData?.hearingCollection?.length >=1) ? true : false);
+const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean =>
+  !!(caseData?.hearingCollection && caseData?.hearingCollection?.length >= 1);
 
 interface TaskList {
   id: TaskList;

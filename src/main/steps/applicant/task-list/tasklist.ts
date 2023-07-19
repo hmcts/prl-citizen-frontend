@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { State } from '../../../app/case/definition';
+import { hasAnyHearing } from '../../../steps/respondent/task-list/tasklist';
 import {
   getViewAllHearingsFromTheCourt,
   getViewAllOrdersFromTheCourt,
@@ -15,7 +16,6 @@ import {
   getYourApplication,
   getYourWitnessStatement,
 } from './utils';
-import { hasAnyHearing } from '../../../steps/respondent/task-list/tasklist';
 
 export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   const isCaseClosed = userCase.state === State.ALL_FINAL_ORDERS_ISSUED;
@@ -62,7 +62,7 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
             getViewAllHearingsFromTheCourt(userCase) === 'READY_TO_VIEW'
               ? `${URL.APPLICANT_YOURHEARINGS_HEARINGS}/${userCase.id}`
               : '#',
-              disabled: !hasAnyHearing(userCase),    
+          disabled: !hasAnyHearing(userCase),
         },
       ],
     },

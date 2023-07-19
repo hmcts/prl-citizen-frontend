@@ -394,9 +394,6 @@ export class CosApiClient {
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   public async retrieveCaseHearingsByCaseId(user: UserDetails, caseId: string): Promise<any> {
-    const path = config.get('services.cos.url') + `/hearing/${caseId}`;
-    logger.info(`Path ****** ${path} *******`);
-    console.log(`Path ****** ${path} *******`);
     try {
       const response = await Axios.post(
         config.get('services.cos.url') + `/hearing/${caseId}`,
@@ -410,9 +407,6 @@ export class CosApiClient {
           },
         }
       );
-      logger.info(`Response ****** ${response} *******`);
-      console.log(`Response ****** ${response} *******`);
-      // console.log(`Test Data ****** ${response.data.caseRef} *******`);
       return response.data;
     } catch (err) {
       throw new Error('Case could not be updated.' + err);

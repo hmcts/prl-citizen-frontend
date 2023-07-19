@@ -101,7 +101,8 @@ export const generateRespondentTaskList = (sectionTitles, taskListItems, userCas
   ];
 };
 
-export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => ((caseData?.hearingCollection && caseData?.hearingCollection?.length >=1) ? true : false);
+export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean =>
+  !!(caseData?.hearingCollection && caseData?.hearingCollection?.length >= 1);
 
 const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamId) => {
   const itemList: object[] = [];

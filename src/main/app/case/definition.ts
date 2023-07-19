@@ -907,7 +907,6 @@ export interface CaseData {
   hearingCollection?: HearingsList[];
   futureHearings?: HearingsList[];
   completedHearings?: HearingsList[];
-  completedHearings1?: Object[];
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
   finalDocument?: Document;
@@ -2394,6 +2393,7 @@ export interface PRLDocument {
   dateCreated: DateAsString;
   orderType: string;
   orderDocument: Document;
+  orderDocumentWelsh: Document;
   otherDetails: OtherDetails;
   orderTypeId?: string;
   isWithdrawnRequestApproved?: YesOrNo
@@ -3027,6 +3027,10 @@ export enum CaseEvent {
   CITIZEN_INTERNAL_CASE_UPDATE = 'citizen-internal-case-update',
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
 }
+
+export enum hearingStatus {
+  COMPLETED = 'COMPLETED',
+} 
 
 export enum passportPossessionRelative {
   MOTHER = 'mother',

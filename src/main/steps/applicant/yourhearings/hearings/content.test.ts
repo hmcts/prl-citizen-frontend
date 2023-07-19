@@ -1,4 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { PartyType } from '../../../../app/case/definition';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 
@@ -15,7 +16,7 @@ const enContent = {
   dates: 'Dates',
   hearingLength: 'Length of hearing',
   hearingMethod: 'Hearing method',
-  day: 'Day',
+  day: 'Day ',
   judgeName: 'Judge name',
   venue: 'Venue',
   address: 'Address',
@@ -27,7 +28,7 @@ const enContent = {
   previousHearings: 'Previous hearings',
   supportDuringCaselinktext: 'Support you need during your case',
   delayorcancellinktext: 'Ask to delay or cancel a hearing date',
-  linkforsupport: '/applicant/support-you-need-during-case/attending-the-court',
+  linkforsupport: '/applicant/hearing-needs/support-help',
   linkfordelayorcancel: '#',
   hearingOutcome: 'Hearing outcome',
   hearing: 'Hearing',
@@ -67,7 +68,7 @@ const cyContent: typeof enContent = {
   previousHearings: 'Previous hearings - welsh',
   supportDuringCaselinktext: 'Support you need during your case - welsh',
   delayorcancellinktext: 'Ask to delay or cancel a hearing date - welsh',
-  linkforsupport: '/applicant/support-you-need-during-case/attending-the-court',
+  linkforsupport: '/applicant/hearing-needs/support-help',
   linkfordelayorcancel: '#',
   hearingOutcome: 'Hearing outcome - welsh',
   hearing: 'Hearing - welsh',
@@ -87,7 +88,151 @@ const cyContent: typeof enContent = {
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('citizen-home yourhearings hearings content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        originalUrl: PartyType.APPLICANT,
+        session: {
+          user: {
+            id: '123',
+          },
+          userCase: {
+            caseTypeOfApplication: 'C100',
+            caseInvites: [
+              {
+                id: 'string',
+                value: {
+                  partyId: '123',
+                  caseInviteEmail: 'string',
+                  accessCode: 'string',
+                  invitedUserId: '123',
+                  expiryDate: 'string',
+                  isApplicant: 'Yes',
+                },
+              },
+            ],
+            applicants: [
+              {
+                id: '123',
+                value: {
+                  user: {
+                    idamId: '123',
+                  },
+                },
+              },
+            ],
+            hearingCollection: [],
+          },
+        },
+      },
+    },
+  } as unknown as CommonContent;
+  commonContent.additionalData!.req.session.userCase.hearingCollection = [
+    {
+      hearingID: 2000006135,
+      hearingRequestDateTime: '2023-07-11T16:07:21.253071',
+      hearingType: 'ABA5-FOF',
+      hmcStatus: 'LISTED',
+      lastResponseReceivedDateTime: '2023-07-11T16:41:37',
+      requestVersion: 1,
+      hearingListingStatus: 'FIXED',
+      listAssistCaseStatus: 'LISTED',
+      hearingDaySchedule: [
+        {
+          hearingStartDateTime: '2023-08-03T09:00:00',
+          hearingEndDateTime: '2023-08-03T12:00:00',
+          listAssistSessionId: null,
+          hearingVenueId: '234946',
+          hearingVenueName: 'Swansea Civil And Family Justice Centre',
+          hearingVenueLocationCode: '344',
+          hearingVenueAddress: 'Quay West, Quay Parade',
+          hearingRoomId: 'Courtroom 01',
+          hearingJudgeId: '',
+          hearingJudgeName: null,
+          panelMemberIds: [],
+          attendees: [
+            {
+              partyID: '123',
+              hearingSubChannel: 'VID',
+            },
+            {
+              partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
+              hearingSubChannel: 'INTER',
+            },
+          ],
+        },
+        {
+          hearingStartDateTime: '2023-08-02T09:00:00',
+          hearingEndDateTime: '2023-08-02T15:00:00',
+          listAssistSessionId: null,
+          hearingVenueId: '234946',
+          hearingVenueName: 'Swansea Civil And Family Justice Centre',
+          hearingVenueLocationCode: '344',
+          hearingVenueAddress: 'Quay West, Quay Parade',
+          hearingRoomId: 'Courtroom 01',
+          hearingJudgeId: '',
+          hearingJudgeName: null,
+          panelMemberIds: [],
+          attendees: [
+            {
+              partyID: '123',
+              hearingSubChannel: 'VID',
+            },
+            {
+              partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
+              hearingSubChannel: 'INTER',
+            },
+          ],
+        },
+      ],
+      hearingGroupRequestId: null,
+      hearingIsLinkedFlag: false,
+      hearingTypeValue: 'Finding of Fact',
+      nextHearingDate: '2023-08-02T09:00:00',
+      urgentFlag: false,
+    },
+    {
+      hearingID: 2000006134,
+      hearingRequestDateTime: '2023-07-11T16:05:38.761289',
+      hearingType: 'ABA5-FOF',
+      hmcStatus: 'LISTED',
+      lastResponseReceivedDateTime: '2023-07-11T16:20:38',
+      requestVersion: 1,
+      hearingListingStatus: 'FIXED',
+      listAssistCaseStatus: 'LISTED',
+      hearingDaySchedule: [
+        {
+          hearingStartDateTime: '2023-07-12T09:00:00',
+          hearingEndDateTime: '2023-07-12T15:00:00',
+          listAssistSessionId: null,
+          hearingVenueId: '234946',
+          hearingVenueName: 'Swansea Civil And Family Justice Centre',
+          hearingVenueLocationCode: '344',
+          hearingVenueAddress: 'Quay West, Quay Parade',
+          hearingRoomId: 'Courtroom 01',
+          hearingJudgeId: '',
+          hearingJudgeName: null,
+          panelMemberIds: [],
+          attendees: [
+            {
+              partyID: '123',
+              hearingSubChannel: 'INTER',
+            },
+            {
+              partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
+              hearingSubChannel: 'TELOTHER',
+            },
+          ],
+        },
+      ],
+      hearingGroupRequestId: null,
+      hearingIsLinkedFlag: false,
+      hearingTypeValue: 'Finding of Fact',
+      nextHearingDate: '2023-07-12T09:00:00',
+      urgentFlag: true,
+    },
+  ];
   let generatedContent;
   let form;
 
