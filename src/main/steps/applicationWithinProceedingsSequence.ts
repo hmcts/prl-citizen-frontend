@@ -5,6 +5,7 @@ import { applyParms } from './common/url-parser';
 import { Sections, Step } from './constants';
 import {
   APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
+  APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED,
   APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
   APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
   APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
@@ -13,6 +14,7 @@ import {
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_REFERENCE,
   APPLICATION_WITHIN_PROCEEDINGS_INFORM_OTHER_PARTIES,
   APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
+  APPLICATION_WITHIN_PROCEEDINGS_PAY_AND_SUBMIT,
   APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
   PageLink,
 } from './urls';
@@ -111,6 +113,24 @@ export const applicationWithinProceedingsSequence: Step[] = [
     url: APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (_userCase, req) =>
+      applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
+        applicationType: req?.params.applicationType as AWPApplicationType,
+        applicationReason: req?.params.applicationReason as AWPApplicationReason,
+      }) as PageLink,
+  },
+  {
+    url: APPLICATION_WITHIN_PROCEEDINGS_PAY_AND_SUBMIT,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (caseData, req) =>
+      applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
+        applicationType: req?.params.applicationType as AWPApplicationType,
+        applicationReason: req?.params.applicationReason as AWPApplicationReason,
+      }) as PageLink,
+  },
+  {
+    url: APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
