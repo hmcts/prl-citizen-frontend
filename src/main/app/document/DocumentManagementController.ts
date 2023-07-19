@@ -661,7 +661,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (req.query && req.query.documentType) {
       documentType = req.query.documentType;
     }
-    if (req.query && req.query.isSos === 'Yes') {
+    if (req.query && req.query.isSos?.toString().includes('Yes')) {
       documentType = 'Statement of service';
       parentDocumentType = 'Statement of service';
       documentRequestedByCourt = 'Yes';
@@ -686,7 +686,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (citizenDocumentListFromCos.status !== 200) {
       req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } else {
-      if (req.query.isSos === 'Yes') {
+      if (req.query.isSos?.toString().includes('Yes')) {
         if (req.session.userCase.docIdList) {
           req.session.userCase.docIdList.push(citizenDocumentListFromCos.documentId as string);
         } else {

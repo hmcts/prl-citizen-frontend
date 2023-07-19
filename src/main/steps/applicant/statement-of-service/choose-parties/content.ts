@@ -93,6 +93,12 @@ export const generateFormFields = (parties: { id: string; value: string }[]): Ge
     });
   });
   const fields = {
+    partiesServed: {
+      type: 'checkboxes',
+      label: l => l.whowasserved,
+      values: [...checkboxes],
+      validator: atLeastOneFieldIsChecked,
+    },
     partiesServedDate: {
       type: 'date',
       classes: 'govuk-date-input',
@@ -124,12 +130,6 @@ export const generateFormFields = (parties: { id: string; value: string }[]): Ge
         areDateFieldsFilledIn(value as CaseDate) ||
         isDateInputInvalid(value as CaseDate) ||
         isFutureDate(value as CaseDate),
-    },
-    partiesServed: {
-      type: 'checkboxes',
-      label: l => l.whowasserved,
-      values: [...checkboxes],
-      validator: atLeastOneFieldIsChecked,
     },
   };
 
@@ -241,6 +241,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     form: updateFormFields(form, generateFormFields(parties).fields),
+    userCase: content.userCase,
   };
 };
 
