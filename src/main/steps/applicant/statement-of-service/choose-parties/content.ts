@@ -174,59 +174,14 @@ export const prepateStatementOfServiceRequest = (
     const date = formData.partiesServedDate as unknown;
     const date2 = date as { day: string; month: string; year: string };
     userCase.partiesServed = userCase.partiesServed.filter(party => party !== '');
-
-    for (const partyId of userCase.partiesServed) {
-      markSosFlag(userCase, partyId);
-    }
-
     if (userCase.applicants && userCase.applicants[0]) {
       const partyNames = userCase.partiesServed.toString();
-      if (getParties(userCase).length === 0) {
-        if (userCase.applicants[0].value.response.citizenFlags) {
-          userCase.applicants[0].value.response.citizenFlags.isStatementOfServiceProvided = 'Yes';
-        } else {
-          userCase.applicants[0].value.response.citizenFlags = {
-            isStatementOfServiceProvided: 'Yes',
-          };
-        }
-      }
       userCase.applicants[0].value.citizenSosObject = {
         partiesServed: partyNames,
         partiesServedDate: date2.year + '-' + date2.month + '-' + date2.day,
         citizenSosDocs: userCase.docIdList,
       };
       userCase.docIdList = [];
-    }
-  }
-  return userCase;
-};
-
-const markSosFlag = (userCase: Partial<CaseWithId>, partyId: string) => {
-  if (userCase.applicants) {
-    for (const party of userCase.applicants) {
-      if (partyId === party.id && party.value.response) {
-        if (party.value.response.citizenFlags) {
-          party.value.response.citizenFlags.isStatementOfServiceProvided = 'Yes';
-        } else {
-          party.value.response.citizenFlags = {
-            isStatementOfServiceProvided: 'Yes',
-          };
-        }
-      }
-    }
-  }
-
-  if (userCase.respondents) {
-    for (const party of userCase.respondents) {
-      if (partyId === party.id && party.value.response) {
-        if (party.value.response.citizenFlags) {
-          party.value.response.citizenFlags.isStatementOfServiceProvided = 'Yes';
-        } else {
-          party.value.response.citizenFlags = {
-            isStatementOfServiceProvided: 'Yes',
-          };
-        }
-      }
     }
   }
   return userCase;
