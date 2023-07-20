@@ -1,6 +1,5 @@
 import { Case } from '../../app/case/case';
 import { CaseType } from '../../app/case/definition';
-//import { HearingsGetController } from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
 import {
   ALLEGATION_OF_HARM_VOILENCE_DOC,

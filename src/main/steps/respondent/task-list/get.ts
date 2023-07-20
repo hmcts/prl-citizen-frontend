@@ -4,7 +4,6 @@ import { Response } from 'express';
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
-//import { RESPONDENT_ORDERS_FROM_THE_COURT } from '../../../steps/urls';
 
 import { generateContent } from './content';
 @autobind
