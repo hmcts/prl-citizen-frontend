@@ -14,25 +14,17 @@ export default class ApplicantTaskListGetController extends GetController {
   }
   public async load(req: AppRequest, res: Response): Promise<void> {
     try {
-      const citizenUser = req.session.user;
-      const caseId = req.session.userCase.id;
-      const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
-      const hearings = await client.retrieveCaseHearingsByCaseId(citizenUser, caseId);
-      req.session.userCase = {
-        ...req.session.userCase,
-        hearingCollection: hearings.caseHearings,
-      };
-    } catch (error) {
-      throw new Error(error);
-    } finally {
-      req.session.applicationSettings = {
-        ...req.session.applicationSettings,
-        navfromRespondToApplication: false,
-      };
+      const User = req.session.user;
+      const caseID = req.session.userCase.id;
+      const cosClient = new CosApiClient(User.accessToken, 'https://return-url');
+      const hearings = await cosClient.retrieveCaseHearingsByCaseId(User, caseID);
+      req.session.userCase.hearingCollection = hearings.caseHearings;
 
       req.session.save(() => {
         super.get(req, res);
       });
+    } catch (error) {
+      throw new Error(error);
     }
   }
 }
