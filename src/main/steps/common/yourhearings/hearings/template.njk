@@ -223,7 +223,7 @@
             </dt>
             {% if item.hearingMethod === 'INTER' %}
              <dd class="govuk-summary-list__value">
-              {{inter}}<br>{{inPersonTime}}
+              {{inter}}
             </dd>
             {% endif %}
             {% if item.hearingMethod === 'TEL' %}
@@ -440,7 +440,7 @@
             </dt>
             <dd class="govuk-summary-list__value">
                 {% for doc in userCase.hearingOrders %} 
-                  {% if doc.id === item.hearingID %}
+                  {% if doc.id === item.hearingId %}
                     <a href={{doc.href}} target="_blank">{{ doc.fileName }}</a><br>
                   {% endif %}
                 {% endfor %}

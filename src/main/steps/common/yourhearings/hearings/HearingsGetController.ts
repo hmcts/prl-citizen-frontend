@@ -18,6 +18,5 @@ export class HearingsGetController {
     }
 
     req.session.save(() => res.redirect(redirectUrl));
-    console.log('I am in common hearings get controller');
   }
 }

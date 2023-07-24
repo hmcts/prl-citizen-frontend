@@ -35,7 +35,7 @@ const en = () => {
     am: 'am',
     pm: 'pm',
     previousHearings: 'Previous hearings',
-    supportDuringCaselinktext: 'Support you need during your case',
+    supportDuringCaselinktext: 'Support you need during your hearing',
     delayorcancellinktext: 'Ask to delay or cancel a hearing date',
     linkforsupport: '',
     linkfordelayorcancel: '#',
@@ -91,7 +91,7 @@ const cy: typeof en = () => {
     am: 'am - welsh',
     pm: 'pm - welsh',
     previousHearings: 'Previous hearings - welsh',
-    supportDuringCaselinktext: 'Support you need during your case - welsh',
+    supportDuringCaselinktext: 'Support you need during your hearing - welsh',
     delayorcancellinktext: 'Ask to delay or cancel a hearing date - welsh',
     linkforsupport: '',
     linkfordelayorcancel: '#',
@@ -234,9 +234,10 @@ const updateCaseDataForHearings = (req: AppRequest<Partial<Case>>): void => {
       const next = req.session.userCase.futureHearings1.shift();
       req.session.userCase.nextHearing1.push(next!);
     }
-    console.log(req.session.userCase.futureHearings1);
+
     if (hearingsCompleted && hearingsCompleted.length >= 1) {
       for (const hearing of hearingsCompleted) {
+        const hearingId = hearing.hearingID;
         const date = hearing.hearingDaySchedule![0].hearingStartDateTime!;
         let dates =
           req.session.lang === 'cy'
@@ -254,6 +255,7 @@ const updateCaseDataForHearings = (req: AppRequest<Partial<Case>>): void => {
         const hearingLength = hearing.hearingDaySchedule?.length;
         const hearingMethod = getHearingMethod(req, hearing.hearingDaySchedule![0].attendees!);
         req.session.userCase.completedHearings1.push({
+          hearingId,
           dates,
           lengthOfHearing: hearingLength,
           hearingMethod,
