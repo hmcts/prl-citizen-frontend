@@ -401,6 +401,13 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const element = elements[0];
       const childElement = elements[1];
       const childElement1 = elements[2];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const isSameFileName = (doc: any, childEle: string)=> {
+      return (
+        doc.value[childEle]?.document_url?.substring(doc.value[childEle]?.document_url?.lastIndexOf('/') + 1) ===
+        filename
+      );
+    }
 
       if (endPoint.includes(endPoint_input) && req.session.userCase[`${element}`]) {
         for (const doc of req.session.userCase[`${element}`]) {
@@ -418,13 +425,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
     return { uid, filename };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function isSameFileName(doc: any, childEle: string) {
-      return (
-        doc.value[childEle]?.document_url?.substring(doc.value[childEle]?.document_url?.lastIndexOf('/') + 1) ===
-        filename
-      );
-    }
+    
   }
 
   private getDocumentUIDWithOutFlag(
