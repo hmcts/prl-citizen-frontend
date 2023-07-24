@@ -404,15 +404,12 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
       if (endPoint.includes(endPoint_input) && req.session.userCase[`${element}`]) {
         for (const doc of req.session.userCase[`${element}`]) {
-          if (getDocDownloadLangPrefrence(req.session.userCase) === LanguagePreference.Welsh) {
-            if (matchFilename(doc, childElement1)) {
-              updateValue(doc, childElement1, element);
-              break;
-            }
-          } else {
-            if (matchFilename(doc, childElement)) {
-              updateValue(doc, childElement, element);
-              break;
+          const ifDocPrefWelsh = getDocDownloadLangPrefrence(req.session.userCase) === LanguagePreference.Welsh;
+          const childElem = ifDocPrefWelsh ? childElement1 : childElement;
+          if (matchFilename(doc, childElem)) {
+            if (doc.value[childElem].document_binary_url) {
+              documentToGet = doc.value[childElem].document_binary_url;
+              filename = doc.value[childElem].document_filename;
             }
           }
         }
@@ -422,20 +419,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return { uid, filename };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function updateValue(doc: any, childEle: string, element: string) {
-      if (!doc.value[`${childEle}`].document_binary_url) {
-        throw new Error('Binary URL is not found for ' + element + ':' + childEle);
-      }
-      documentToGet = doc.value[`${childEle}`].document_binary_url;
-      filename = doc.value[`${childEle}`].document_filename;
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function matchFilename(doc: any, childEle: string) {
       return (
-        doc.value[`${childEle}`]?.document_url?.substring(
-          doc.value[`${childEle}`]?.document_url?.lastIndexOf('/') + 1
-        ) === filename
+        doc.value[childEle]?.document_url?.substring(doc.value[childEle]?.document_url?.lastIndexOf('/') + 1) ===
+        filename
       );
     }
   }
@@ -460,11 +447,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return { uid, filename: document_filename };
 
     function updateUidAndFileName(elem: string) {
-      document_filename = req.session.userCase[`${elem}`]?.document_filename;
-      if (!req.session.userCase[`${elem}`]?.document_binary_url) {
+      document_filename = req.session.userCase[elem]?.document_filename;
+      if (!req.session.userCase[elem]?.document_binary_url) {
         throw new Error('binary url is not found for ' + document_filename);
       }
-      documentToGet = req.session.userCase[`${elem}`]?.document_binary_url;
+      documentToGet = req.session.userCase[elem]?.document_binary_url;
       uid = documentToGet.replace('/binary', '').substring(documentToGet.replace('/binary', '').length - UID_LENGTH);
 
       if (flag !== null || flag !== undefined) {

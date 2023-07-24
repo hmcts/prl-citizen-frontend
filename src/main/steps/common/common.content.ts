@@ -359,7 +359,5 @@ export type Language = 'en' | 'cy';
 export function getDocDownloadLangPrefrence(userCase) {
   if (userCase?.welshLanguageRequirement === YesNoEmpty.YES) {
     return LanguagePreference.Welsh;
-  } else {
-    LanguagePreference.English;
   }
 }

@@ -43,7 +43,7 @@ export const generateContent: TranslationFn = content => {
     orders.push({
       href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uid}`,
       createdDate: doc.value.otherDetails.orderCreatedDate,
-      fileName: doc.value[`${element}`].document_filename,
+      fileName: doc.value[element].document_filename,
     });
   }
 
