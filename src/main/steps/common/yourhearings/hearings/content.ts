@@ -147,6 +147,7 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.goBack,
+    classes: 'govuk-button ga-pageLink govuk-button--secondary',
   },
 };
 
