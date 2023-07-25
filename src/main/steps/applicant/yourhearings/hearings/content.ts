@@ -1,4 +1,4 @@
-import { CaseType, PartyType } from '../../../../app/case/definition';
+import { CaseType, HearingOrders, PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { applyParms } from '../../../../steps/common/url-parser';
 import {
@@ -19,7 +19,7 @@ export const generateContent: TranslationFn = content => {
   } else {
     hearingsContent.linkforsupport = APPLICANT_ATTENDING_THE_COURT;
   }
-  const hearingOrders: object[] = [];
+  const hearingOrders: HearingOrders[] = [];
   for (const doc of request.session.userCase?.orderCollection || []) {
     if (doc.value.selectedHearingType) {
       const uid = doc.value.orderDocument.document_url.substring(

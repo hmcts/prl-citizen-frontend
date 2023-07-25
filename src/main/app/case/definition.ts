@@ -2462,6 +2462,13 @@ export interface CompletedHearings{
   hearingMethod: string,
 }
 
+export interface HearingOrders{
+  href: string,
+  createdDate: string,
+  fileName: string,
+  id: Number,
+}
+
 export interface Schedules {
   hearingStartDateTime?: string | null,
   hearingEndDateTime?: string | null,
