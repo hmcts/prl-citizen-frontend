@@ -1,5 +1,6 @@
 {% extends "common/template.njk" %}
 {% extends "common/breadcrumb/template.njk" %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
 {% block page_content %}
 
   {% if section %}
@@ -9,13 +10,14 @@
   <p class="govuk-body">{{ caseNumber }} #{{ userCase.id }}</p>
   <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
   {# <h3 class="govuk-heading-l">{{ yourPreviousHearings }}</h3> #}
-  {% if userCase.nextHearing1.length>=1 %}
+  {% if nextHearing.length>=1 %}
    <h3 class="govuk-heading-l">{{ yourFutureHearings }}</h3>
    <p class="govuk-body"><a href={{linkforsupport}}>{{supportDuringCaselinktext}} </a></p>
    <p class="govuk-body"><a href={{linkfordelayorcancel}}>{{delayorcancellinktext}} </a></p>
-   {% for item in userCase.nextHearing1 %}
-    <h1 class="govuk-heading-m">{{ nextHearing }}</h1>
-    <dl class="govuk-summary-list">
+   {% for item in nextHearing %}
+    <h1 class="govuk-heading-m">{{ nextHearingHeading }}</h1>
+  
+    <dl class="govuk-summary-list"> 
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               {{ dates }}
@@ -197,8 +199,8 @@
    {% endfor %}
    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
   {% endif %}
-  {% if userCase.futureHearings1.length>=1 %}
-   {% for item in userCase.futureHearings1 %}
+  {% if futureHearings.length>=1 %}
+   {% for item in futureHearings %}
     <h2 class="govuk-heading-m">{{ upcomingHearing }}</h2>
     <dl class="govuk-summary-list ">
       <div class="govuk-summary-list__row">
@@ -384,8 +386,8 @@
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
    {% endfor %}
   {% endif %}
-  {% if userCase.completedHearings1.length>=1 %}
-   {% for item in userCase.completedHearings1 %}
+  {% if completedHearings.length>=1 %}
+   {% for item in completedHearings %}
     <h3 class="govuk-heading-l">{{ previousHearings }}</h2>
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
@@ -439,7 +441,7 @@
               {{ hearingOutcome }}
             </dt>
             <dd class="govuk-summary-list__value">
-                {% for doc in userCase.hearingOrders %} 
+                {% for doc in hearingOrders %} 
                   {% if doc.id === item.hearingId %}
                     <a href={{doc.href}} target="_blank">{{ doc.fileName }}</a><br>
                   {% endif %}

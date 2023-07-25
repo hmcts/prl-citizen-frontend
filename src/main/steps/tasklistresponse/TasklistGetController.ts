@@ -29,7 +29,7 @@ export class TasklistGetController {
 
       req.session.userCase = await client.retrieveByCaseId(caseId, citizenUser);
       mapDataInSession(req.session.userCase, citizenUser.id);
-      req.session.userCase.hearingCollection = [];
+
       req.session.save(() => res.redirect(this.getRedirectUrl()));
     } catch (err) {
       throw new Error('Case Data could not be retrieved.');

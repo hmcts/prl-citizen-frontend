@@ -19,13 +19,13 @@ export const generateContent: TranslationFn = content => {
   } else {
     hearingsContent.linkforsupport = APPLICANT_ATTENDING_THE_COURT;
   }
-  request.session.userCase.hearingOrders = [];
+  const hearingOrders: object[] = [];
   for (const doc of request.session.userCase?.orderCollection || []) {
     if (doc.value.selectedHearingType) {
       const uid = doc.value.orderDocument.document_url.substring(
         doc.value.orderDocument.document_url.lastIndexOf('/') + 1
       );
-      request.session.userCase.hearingOrders?.push({
+      hearingOrders?.push({
         href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
         createdDate: doc.value.otherDetails.orderCreatedDate,
         fileName: doc.value.orderDocument.document_filename,
@@ -36,10 +36,11 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...hearingsContent,
+    hearingOrders,
     breadcrumb:
       request.originalUrl.includes(PartyType.APPLICANT) && caseData.caseTypeOfApplication === CaseType.C100
         ? {
-            id: 'caseView',
+            id: 'caseOverView',
             href: applyParms(`${APPLICANT_TASK_LIST_URL}`, { caseId: caseData.id }),
           }
         : null,

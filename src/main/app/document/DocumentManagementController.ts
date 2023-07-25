@@ -64,7 +64,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       this.fileNameElementMap.set('downloadCitizenDocument', {
         elements: ['citizenUploadedDocumentList', 'citizenDocument'],
       });
-      this.fileNameElementMap.set('orders', { elements: ['orderCollection', 'orderDocument', 'orderDocumentWelsh'] });
+      this.fileNameElementMap.set('orders', { elements: ['orderCollection', 'orderDocument'] });
       this.fileNameElementMap.set('applicationmade', { elements: ['existingProceedings', 'uploadRelevantOrder'] });
       this.fileNameElementMap.set('downloadManageDocument', { elements: ['otherDocuments', 'documentOther'] });
     }

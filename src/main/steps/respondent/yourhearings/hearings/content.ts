@@ -7,13 +7,13 @@ export const generateContent: TranslationFn = content => {
   const hearingsContent = yourhearingshearingscontent(content);
   hearingsContent.linkforsupport = CA_DA_ATTENDING_THE_COURT;
   const request = content.additionalData?.req;
-  request.session.userCase.hearingOrders = [];
+  const hearingOrders: object[] = [];
   for (const doc of request.session.userCase?.orderCollection || []) {
     if (doc.value.selectedHearingType) {
       const uid = doc.value.orderDocument.document_url.substring(
         doc.value.orderDocument.document_url.lastIndexOf('/') + 1
       );
-      request.session.userCase.hearingOrders?.push({
+      hearingOrders?.push({
         href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uid}`,
         createdDate: doc.value.otherDetails.orderCreatedDate,
         fileName: doc.value.orderDocument.document_filename,
@@ -24,5 +24,6 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...hearingsContent,
+    hearingOrders,
   };
 };

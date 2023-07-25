@@ -370,13 +370,6 @@ export interface Case {
   caseInvites?: CaseInvite[];
   orderCollection?: ListValue<PRLDocument>[];
   hearingCollection?: HearingsList[];
-  nextHearing?: HearingsList[];
-  nextHearing1?: object[];
-  futureHearings?: HearingsList[];
-  futureHearings1?: object[];
-  completedHearings?: HearingsList[];
-  completedHearings1?: object[];
-  hearingOrders?: object[];
   documentsGenerated?: ListValue<PRLDocument>[];
   yourchildconcernsstart?: YesOrNo;
   cameoutofallegationsharmwithNo?: boolean;

@@ -2436,6 +2436,32 @@ export interface HearingsList {
   urgentFlag?: boolean | null,
 }
 
+export interface Hearing{
+  dates : string,
+  lengthOfHearing : number | undefined,
+  hearingMethod: string ,
+  hearingDaySchedule: hearingDay[],
+}
+
+export interface hearingDay{
+  hearingDate: string,
+  startTime: string,
+  amPm:string,
+  durationInDayOrHours:number,
+  minutes:number,
+  judgeName:string | null | undefined,
+  venue:string | null | undefined,
+  address:string | null | undefined,
+  roomId:string | null | undefined,
+}
+
+export interface CompletedHearings{
+  hearingId: Number | undefined,
+  dates: string,
+  lengthOfHearing: number | undefined,
+  hearingMethod: string,
+}
+
 export interface Schedules {
   hearingStartDateTime?: string | null,
   hearingEndDateTime?: string | null,

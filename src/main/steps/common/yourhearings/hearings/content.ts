@@ -1,7 +1,16 @@
 import dayjs from 'dayjs';
 
 import { Case } from '../../../../app/case/case';
-import { Attendee, CaseType, HearingsList, PartyType, hearingStatus } from '../../../../app/case/definition';
+import {
+  Attendee,
+  CaseType,
+  CompletedHearings,
+  Hearing,
+  HearingsList,
+  PartyType,
+  hearingDay,
+  hearingStatus,
+} from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
@@ -27,7 +36,7 @@ const en = () => {
     venue: 'Venue',
     address: 'Address',
     roomId: 'Room',
-    nextHearing: 'Your next hearing',
+    nextHearingHeading: 'Your next hearing',
     hearingDate: 'Hearing date',
     startTime: 'Start time',
     hearingDuration: 'Hearing duration',
@@ -83,7 +92,7 @@ const cy: typeof en = () => {
     venue: 'Venue - welsh',
     address: 'Address - welsh',
     roomId: 'Room - welsh',
-    nextHearing: 'Your next hearing - welsh',
+    nextHearingHeading: 'Your next hearing - welsh',
     hearingDate: 'Hearing date - welsh',
     startTime: 'Start time - welsh',
     hearingDuration: 'Hearing duration - welsh',
@@ -143,19 +152,24 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  updateCaseDataForHearings(content.additionalData?.req);
+  const { nextHearing, futureHearings, completedHearings } = prepareHearingData(content.additionalData?.req);
   return {
     ...translations,
+    nextHearing,
+    futureHearings,
+    completedHearings,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
   };
 };
 
-const updateCaseDataForHearings = (req: AppRequest<Partial<Case>>): void => {
-  req.session.userCase.nextHearing1 = [];
-  req.session.userCase.futureHearings1 = [];
-  req.session.userCase.completedHearings1 = [];
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const prepareHearingData = (req: AppRequest<Partial<Case>>): any => {
+  const nextHearing: Hearing[] = [];
+  const futureHearings: Hearing[] = [];
+  const completedHearings: CompletedHearings[] = [];
   let hearingsFuture: HearingsList[] = [];
   const hearingsCompleted: HearingsList[] = [];
+  //Here we are sorting the hearing based on completed or future dated..
   if (req.session.userCase.hearingCollection && req.session.userCase.hearingCollection.length >= 1) {
     for (const hearing of req.session.userCase.hearingCollection) {
       if (hearing.hmcStatus === hearingStatus.COMPLETED) {
@@ -165,9 +179,11 @@ const updateCaseDataForHearings = (req: AppRequest<Partial<Case>>): void => {
       }
     }
   }
+  //sorting future hearings based on their next hearing dates
   hearingsFuture = hearingsFuture.sort(
     (a, b) => new Date(a.nextHearingDate!).valueOf() - new Date(b.nextHearingDate!).valueOf()
   );
+  //sorting shddules of particular hearing
   if (hearingsFuture && hearingsFuture.length >= 1) {
     for (const hearing of hearingsFuture) {
       if (hearing.hearingDaySchedule!.length >= 2) {
@@ -190,11 +206,12 @@ const updateCaseDataForHearings = (req: AppRequest<Partial<Case>>): void => {
             req.session.lang === 'cy'
               ? dayjs(endDate).locale('cy').format('DD MMMM YYYY').toString()
               : dayjs(endDate).locale('en').format('DD MMMM YYYY').toString();
-          dates = dates + ' - ' + endDateFormatted;
+          dates = `${dates} - ${endDateFormatted}`;
         }
         const lengthOfHearing = hearing.hearingDaySchedule?.length;
         const hearingMethod = getHearingMethod(req, hearing.hearingDaySchedule![0].attendees!);
-        const hearingDays: object[] = [];
+        const hearingDays: hearingDay[] = [];
+        //Generating the schedule related data to be displayed for a paricular hearing
         for (const schedule of hearing.hearingDaySchedule!) {
           const startDate = schedule.hearingStartDateTime!;
           const formattedDate = new Date(startDate);
@@ -224,17 +241,17 @@ const updateCaseDataForHearings = (req: AppRequest<Partial<Case>>): void => {
             roomId,
           });
         }
-        req.session.userCase.futureHearings1.push({
+        futureHearings.push({
           dates,
           lengthOfHearing,
           hearingMethod,
           hearingDaySchedule: hearingDays,
         });
       }
-      const next = req.session.userCase.futureHearings1.shift();
-      req.session.userCase.nextHearing1.push(next!);
+      const next = futureHearings.shift();
+      nextHearing.push(next!);
     }
-
+    //Generating completed hearing data
     if (hearingsCompleted && hearingsCompleted.length >= 1) {
       for (const hearing of hearingsCompleted) {
         const hearingId = hearing.hearingID;
@@ -254,7 +271,7 @@ const updateCaseDataForHearings = (req: AppRequest<Partial<Case>>): void => {
         }
         const hearingLength = hearing.hearingDaySchedule?.length;
         const hearingMethod = getHearingMethod(req, hearing.hearingDaySchedule![0].attendees!);
-        req.session.userCase.completedHearings1.push({
+        completedHearings.push({
           hearingId,
           dates,
           lengthOfHearing: hearingLength,
@@ -263,6 +280,11 @@ const updateCaseDataForHearings = (req: AppRequest<Partial<Case>>): void => {
       }
     }
   }
+  return {
+    nextHearing,
+    futureHearings,
+    completedHearings,
+  };
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */

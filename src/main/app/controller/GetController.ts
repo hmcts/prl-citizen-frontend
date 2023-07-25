@@ -30,7 +30,6 @@ export class GetController {
     const document_type = this.getDocumentType(req);
     const byApplicant = req.query['byApplicant'] as string;
     const addresses = req.session?.addresses;
-
     const content = generatePageContent({
       language,
       pageContent: this.content,
