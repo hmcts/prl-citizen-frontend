@@ -132,9 +132,7 @@ export const generateFormFields = (
   for (let index = 0; index < orders.length; index++) {
     const count = index + 1;
     const key = `fieldset${count}`;
-
-    createFormFileds(fields, key, count, orderType, orders, index);
-
+    fields[key] = createFormFileds(count, orderType, orders, index);
     // mark the selection for the radio buttons based on the option chosen
     const currentOrder = fields[key].subFields[`currentOrder-${count}`];
     const orderCopy = fields[key].subFields[`orderCopy-${count}`];
@@ -239,18 +237,17 @@ export const generateContent: TranslationFn = content => {
     form: updateFormFields(form, fields),
   };
 };
+
 const createFormFileds = (
-  fields: object,
-  key: string,
   count: number,
   orderType: ProceedingsOrderTypes,
   orders: ProceedingsOrderInterface[],
   index: number
 ) => {
-  fields[key] = {
+  return {
     type: 'fieldset',
     label: l => {
-      return count === 1 ? `${l[`${orderType}Label`]}` : `${l[`${orderType}Label`]} ${count}`;
+      return l[`${orderType}Label`] + (count !== 1 ? ' ' + count : '');
     },
     classes: 'govuk-fieldset__legend--m',
     subFields: {
