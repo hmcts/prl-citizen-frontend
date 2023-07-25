@@ -1,59 +1,72 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent } from '../../../../app/form/Form';
+import { CaseType } from '../../../../app/case/definition';
+import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
-const docsEmail = 'example@test.com';
-//const docsEmail = 'citizen-upload-docs-email';
-
 const en = {
   section: 'How your documents will be shared',
-  email: docsEmail,
+  removingDetails: 'Removing details you want kept private',
   continue: 'Continue',
-  warning: 'Warning',
-  warningTxt: 'When you upload a document, it will  be shared with the other people in the case.',
+  restrictDocument: 'Restrict a document',
   documentSharedLine1:
-    'If there is information that should not be shared, remove it from the document. If this is not possible, do not upload the document. Instead, you can ask  the court to restrict who can see the document. ',
-  documentSharedLine2: 'The court will only agree to restrict who can see the document if:',
-  documentSharedLine3: 'there is a good reason not to share the document, for example safety concerns',
-  documentSharedLine4: 'the document is not something the judge needs to see',
-  documentSharedLine5: 'an address that needs to be kept private is included in the document',
-  documentSharedLine6: 'If you want the court to restrict who can see a document, email: ',
-  documentSharedLine7: 'You must say why the document should be restricted.',
+    'If there are personal details, such as your address, which you do not want to be shared in the documents then you should remove them. ',
+  documentSharedLine2:
+    'To remove the details you should get a copy of the document, then,cross out the details you want to keep private, so that they are no longer visible.',
+  documentSharedLine3:
+    'The court must treat each person in the case fairly. This includes making a decision on whether the other people in the case can see this document. The court will only restrict access if:',
+  restrictItems: [
+    'there is a good reason not to share the document, for example safety concerns',
+    'the document is not something the judge needs to see',
+    'an address that needs to be kept private is included in the document',
+  ],
+  explainWhy: 'Explain why this document should not be shared with the other people in the case (optional).',
+  cancel: 'Cancel',
 };
 
 const cy: typeof en = {
   section: 'Sut fydd eich dogfennau’n cael eu rhannu',
-  email: docsEmail,
+  removingDetails: 'Removing details you want kept private (welsh)',
   continue: 'Parhau',
-  warning: 'Rhybudd',
-  warningTxt: 'Pan fyddwch yn cyflwyno dogfen, bydd yn cael ei rhannu gyda’r bobl eraill yn yr achos.',
+  restrictDocument: 'Restrict a document (welsh)',
   documentSharedLine1:
-    'Os yw’n cynnwys gwybodaeth na ddylid ei rhannu, dilëwch yr wybodaeth berthnasol o’r ddogfen. Os nad yw hyn yn bosibl, peidiwch â chyflwyno’r ddogfen. Yn hytrach, gallwch ofyn i’r llys atal rhai pobl rhag gallu gweld y ddogfen.',
-  documentSharedLine2: 'Bydd y llys ond yn atal rhai pobl rhag gallu gweld y ddogfen:',
-  documentSharedLine3: 'os oes rheswm da dros beidio â rhannu’r ddogfen, er enghraifft pryderon diogelwch',
-  documentSharedLine4: 'nid yw’r ddogfen yn rhywbeth y mae’r barnwr angen ei gweld',
-  documentSharedLine5: 'mae cyfeiriad sydd angen ei gadw’n breifat wedi’i gynnwys yn y ddogfen',
-  documentSharedLine6: 'Os ydych eisiau i’r llys atal rhai pobl rhag gallu gweld dogfen, anfonwch neges e-bost i:',
-  documentSharedLine7: 'Mae’n rhaid ichi ddweud pam na ddylai rhai pobl weld y ddogfen.',
+    'If there are personal details, such as your address, which you do not want to be shared in the documents then you should remove them. (welsh)',
+  documentSharedLine2:
+    'To remove the details you should get a copy of the document, then,cross out the details you want to keep private, so that they are no longer visible. (welsh)',
+  documentSharedLine3:
+    'The court must treat each person in the case fairly. This includes making a decision on whether the other people in the case can see this document. The court will only restrict access if: (welsh)',
+  restrictItems: [
+    'there is a good reason not to share the document, for example safety concerns (welsh)',
+    'the document is not something the judge needs to see (welsh)',
+    'an address that needs to be kept private is included in the document (welsh)',
+  ],
+  explainWhy: 'Explain why this document should not be shared with the other people in the case (optional). (welsh)',
+  cancel: 'Canslo',
 };
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
-describe('citizen-home content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+describe('applicant document sharing details content', () => {
+  const commonContent = {
+    language: 'en',
+    additionalData: { req: { session: { userCase: { id: '1234' } } } },
+  } as unknown as CommonContent;
   let generatedContent;
   let form;
+  let fields;
+
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
   });
 
   test('should return correct english content', () => {
+    const reasonDocumentCantBeSharedFields = fields.reasonDocumentCantBeShared as FormOptions;
     expect(generatedContent.continue).toEqual('Continue');
-    expect(generatedContent.email).toEqual(docsEmail);
     expect(generatedContent.section).toEqual('How your documents will be shared');
+    expect((reasonDocumentCantBeSharedFields.label as Function)(generatedContent)).toBe(en.explainWhy);
   });
 
   // eslint-disable-next-line jest/expect-expect
@@ -68,6 +81,19 @@ describe('citizen-home content', () => {
 
   test('should contain continue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
+  });
+
+  test('should contain correct cancel link for fl401', () => {
+    expect((form.link?.text as Function)(generatedContent)).toBe('Cancel');
+    expect(form.link?.href).toBe('/applicant/task-list/1234');
+  });
+
+  test('should contain correct cancel link for c100', () => {
+    commonContent.additionalData!.req.session.userCase.caseTypeOfApplication = CaseType.C100;
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+    expect((form.link?.text as Function)(generatedContent)).toBe('Cancel');
+    expect(form.link?.href).toBe('/case/1234');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
