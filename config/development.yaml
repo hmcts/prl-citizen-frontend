@@ -44,7 +44,5 @@ featureToggles:
   c100Rebuild: true
   testingSupport: true
 
-
-
 launchDarkly:
   offline: true
