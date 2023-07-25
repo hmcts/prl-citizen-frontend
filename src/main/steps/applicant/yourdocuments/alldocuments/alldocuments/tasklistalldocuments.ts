@@ -66,9 +66,9 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
   }
   const applicantItems: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
-    applicantItemsForC100(userCase, applicantItems, taskListItems, url);
+    Object.assign(applicantItems, applicantItemsForC100(userCase, taskListItems, url));
   } else {
-    applicantItemsForFL401(isApplicant, applicantItems, userCase, taskListItems, url);
+    Object.assign(applicantItems, applicantItemsForFL401(isApplicant, userCase, taskListItems, url));
   }
 
   applicantItems.push({
@@ -231,16 +231,7 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
   const respondentItems: object[] = [];
   const respondentItems2: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
-    if (userCase.respondentDocsList) {
-      for (const doc of userCase.respondentDocsList) {
-        if (doc?.value?.c7Document?.partyName) {
-          respondentItems.push(getOthersResponse(doc, taskListItems, 'c7Document'));
-        }
-        if (doc?.value?.c1aDocument?.partyName) {
-          respondentItems.push(getOthersResponse(doc, taskListItems, 'c1aDocument'));
-        }
-      }
-    }
+    Object.assign(respondentItems, responseFromOtherPeople(userCase, taskListItems));
     userCase.respondents.forEach((respondent: Respondent) => {
       if (userCase.citizenResponseC7DocumentList) {
         respondentItems.push(getResponseToCA(respondent, taskListItems, userCase.citizenResponseC7DocumentList));
@@ -284,28 +275,11 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
   respondentItems2.push(isPaternityDocUploadedRespondent(taskListItems, url, flags.isPaternityDocUploaded));
 
   respondentItems2.push(isDrugDocUploadedRespondent(taskListItems, url, flags.isDrugDocUploaded));
-
-  if (flags.isPoliceReportUploaded) {
-    respondentItems2.push({
-      id: 'police_disclosures_respondent',
-      text: taskListItems.police_disclosures_respondent,
-      href: url + URL.POLICE_DISCLOSURE + '?byApplicant=No',
-    });
-  }
-  if (flags.isWitnessAvailabilityUploaded) {
-    respondentItems2.push({
-      id: 'witness_availability_respondent',
-      text: taskListItems.witness_availability_respondent,
-      href: url + URL.WITNESS_AVAILABILITY + '?byApplicant=No',
-    });
-  }
-  if (flags.isTenancyUploaded) {
-    respondentItems2.push({
-      id: 'tenancy_and_mortgage_availability',
-      text: taskListItems.tenancy_and_mortgage_availability,
-      href: url + URL.TENANCY_AND_MORTGAGE_AVAILABILITY + '?byApplicant=No',
-    });
-  }
+  respondentItems2.push(isPoliceReportUploadedRespondent(taskListItems, url, flags.isDrugDocUploaded));
+  respondentItems2.push(
+    isWitnessAvailabilityUploadedRespondent(taskListItems, url, flags.isWitnessAvailabilityUploaded)
+  );
+  respondentItems2.push(isTenancyUploadedRespondent(taskListItems, url, flags.isTenancyUploaded));
 
   return {
     title: sectionTitles.respondentsDocuments,
@@ -389,7 +363,33 @@ export const isDrugDocUploadedRespondent = (taskListItems, url, isDrugDocUploade
     };
   }
 };
-
+export const isPoliceReportUploadedRespondent = (taskListItems, url, isPoliceReportUploaded): any => {
+  if (isPoliceReportUploaded) {
+    return {
+      id: 'police_disclosures_respondent',
+      text: taskListItems.police_disclosures_respondent,
+      href: url + URL.POLICE_DISCLOSURE + '?byApplicant=No',
+    };
+  }
+};
+export const isWitnessAvailabilityUploadedRespondent = (taskListItems, url, isWitnessAvailabilityUploaded): any => {
+  if (isWitnessAvailabilityUploaded) {
+    return {
+      id: 'witness_availability_respondent',
+      text: taskListItems.witness_availability_respondent,
+      href: url + URL.WITNESS_AVAILABILITY + '?byApplicant=No',
+    };
+  }
+};
+export const isTenancyUploadedRespondent = (taskListItems, url, isTenancyUploaded): any => {
+  if (isTenancyUploaded) {
+    return {
+      id: 'tenancy_and_mortgage_availability',
+      text: taskListItems.tenancy_and_mortgage_availability,
+      href: url + URL.TENANCY_AND_MORTGAGE_AVAILABILITY + '?byApplicant=No',
+    };
+  }
+};
 export const getUpdatedFlags = (doc, flags) => {
   switch (doc.value.documentType) {
     case applicant_tasklist_items_all_docs_en.drug_alcohol_tests:
@@ -756,34 +756,22 @@ const getApplicantWitnessStatementsDA = (applicant: PartyDetails, taskListItems,
       '&byApplicant=Yes',
   };
 };
-const applicantItemsForC100 = (userCase: any, applicantItems: object[], taskListItems: any, url: string) => {
+const applicantItemsForC100 = (userCase: any, taskListItems: any, url: string) => {
+  const applicantItems: object[] = [];
   userCase.applicants.forEach((applicant: Applicant) => {
     applicantItems.push(getApplicantRequestToCA(applicant, taskListItems));
-  });
-  userCase.applicants.forEach((applicant: Applicant) => {
     if (userCase.c1ADocument) {
       applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
     }
-  });
-  /** Uncomment and add condition when Response to AOH document is implemeted for Applicant */
-  userCase.applicants.forEach((applicant: Applicant) => {
     applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
-  });
-  userCase.applicants.forEach((applicant: Applicant) => {
     applicantItems.push(getApplicantPositionStatements(applicant, taskListItems, url));
-  });
-  userCase.applicants.forEach((applicant: Applicant) => {
     applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems, url));
   });
+  return applicantItems;
 };
 
-const applicantItemsForFL401 = (
-  isApplicant: any,
-  applicantItems: object[],
-  userCase: any,
-  taskListItems: any,
-  url: string
-) => {
+const applicantItemsForFL401 = (isApplicant: any, userCase: any, taskListItems: any, url: string) => {
+  const applicantItems: object[] = [];
   if (!isApplicant) {
     applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
     applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
@@ -794,4 +782,19 @@ const applicantItemsForFL401 = (
     applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems, url));
     applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems, url));
   }
+  return applicantItems;
+};
+const responseFromOtherPeople = (userCase: any, taskListItems: any) => {
+  const respondentItems: object[] = [];
+  if (userCase.respondentDocsList) {
+    for (const doc of userCase.respondentDocsList) {
+      if (doc?.value?.c7Document?.partyName) {
+        respondentItems.push(getOthersResponse(doc, taskListItems, 'c7Document'));
+      }
+      if (doc?.value?.c1aDocument?.partyName) {
+        respondentItems.push(getOthersResponse(doc, taskListItems, 'c1aDocument'));
+      }
+    }
+  }
+  return respondentItems;
 };
