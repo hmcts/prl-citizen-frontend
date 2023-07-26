@@ -29,17 +29,17 @@ const cy: typeof en = {
   courtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',
-  courtCaseDontKnow: "I don't know",
+  courtCaseDontKnow: 'Nid wyf yn gwybod',
   courtOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
   saveAndContinue: 'Cadw a pharhau',
   errors: {
     proceedingsStart: {
-      required: 'Select yes if the children have been involved in a previous court case',
+      required: "Dewiswch do os yw'r plant wedi bod yn rhan o achos llys yn flaenorol",
     },
     proceedingsStartOrder: {
-      required: 'Select yes if you have had a court order made for your protection',
+      required: 'Dewiswch oes os oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi',
     },
   },
 };

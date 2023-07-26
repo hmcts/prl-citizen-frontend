@@ -68,6 +68,8 @@ const en = {
       target: '_blank',
     },
   ],
+  addLegalRepresentative: 'Add a legal representative',
+  removeLegalRepresentative: 'Remove a legal representative',
 };
 
 const cy = {
@@ -76,12 +78,12 @@ const cy = {
   iWantTo: 'Rwyf eisiau...',
   hyperlinks: [
     {
-      label: 'Add a legal representative - welsh',
+      label: 'Ychwanegu cynrychiolydd cyfreithiol',
       link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
       target: '',
     },
     {
-      label: 'Remove a legal representative - welsh',
+      label: 'Dileu cynrychiolydd cyfreithiol',
       link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
       target: '',
     },
@@ -126,6 +128,8 @@ const cy = {
       target: '_blank',
     },
   ],
+  addLegalRepresentative: 'Ychwanegu cynrychiolydd cyfreithiol',
+  removeLegalRepresentative: 'Dileu cynrychiolydd cyfreithiol',
 };
 
 export const languages = {
@@ -144,10 +148,10 @@ export const generateContent: TranslationFn = content => {
     isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(applicant);
   }
   translations.hyperlinks.forEach((hyperLink, index) => {
-    if (hyperLink.label.includes(translations.hyperlinks[0].label) && isRepresentedBySolicotor) {
-      translations.hyperlinks.splice(index, 1);
-    }
-    if (hyperLink.label.includes(translations.hyperlinks[1].label) && !isRepresentedBySolicotor) {
+    if (
+      (hyperLink.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) ||
+      (hyperLink.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor)
+    ) {
       translations.hyperlinks.splice(index, 1);
     }
   });

@@ -25,6 +25,7 @@ const HelpWithFees = require('./pages/C100-Rebuild/HelpWithFees');
 const CheckYourAnswers = require('./pages/C100-Rebuild/CheckYourAnswers');
 const ConsentOrder = require('./pages/C100-Rebuild/ConsentOrder');
 const CheckYourAnswersSimple = require('./pages/C100-Rebuild/CheckYourAnswersSimple');
+const RespondentEvents = require('./pages/RespondentEvents');
 
 
 module.exports = () => {
@@ -35,6 +36,9 @@ module.exports = () => {
     },
     loginAsCitizen() {
       return Login.loginAsCitizen();
+    },
+    loginAsPRLCitizen() {
+      return Login.loginAsPRLCitizen();
     },
     internationalElement() {
       return InternationalElement.clickInternationalElementHappyPath();
@@ -90,6 +94,12 @@ module.exports = () => {
     childrenDetails() {
       return ChildrenDetails.childrenDetails();
     },
+    otherChildrenDetails() {
+      return ChildrenDetails.otherChildrenDetails();
+    },
+    noOtherChild() {
+      return ChildrenDetails.noOtherChild();
+    },
     applicantDetails() {
       return ApplicantDetails.applicantDetails();
     },
@@ -98,6 +108,9 @@ module.exports = () => {
     },
     otherPersonDetails() {
       return OtherPersonDetails.otherPersonDetails();
+    },
+    withoutOtherPerson(){
+      return OtherPersonDetails.withoutOtherPerson();
     },
     otherProceedings() {
       return OtherProceedings.otherProceedings();
@@ -122,6 +135,12 @@ module.exports = () => {
     },
     draftConsentOrder() {
       return ConsentOrder.draftConsentOrder();
+    },
+    respondentTaskList(){
+      return RespondentEvents.respondentTaskList();
+    },
+    respondentAboutYou(){
+      return RespondentEvents.respondentAboutYou();
     }
   });
 };
