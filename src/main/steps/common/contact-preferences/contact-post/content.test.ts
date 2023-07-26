@@ -8,7 +8,7 @@ jest.mock('../../../../app/form/validation');
 let caseNumber;
 
 const en = {
-  caption: `Case number #${caseNumber}`,
+  caption: `Case number ${caseNumber}`,
   title: 'Contact Preferences',
   subTitle: 'Personal details',
   continue: 'Submit',
@@ -23,7 +23,7 @@ const en = {
 };
 
 const cy = {
-  caption: `Rhif yr achos #${caseNumber}`,
+  caption: `Rhif yr achos ${caseNumber}`,
   title: 'Dewisiadau Cyswllt',
   subTitle: 'Manylion personol',
   continue: 'Cyflwyno',
