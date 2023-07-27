@@ -17,7 +17,7 @@ const commonContent = {
 
 const enContent = {
   title: 'Your understanding of the application',
-  consent: 'Do you consent to the application?',
+  consent: 'Do you agree to the application?',
   dateReceived: 'When did you receive the application?',
   courtPermission: 'Does the applicant need permission from the court before making applications?',
   one: 'Yes',
@@ -58,7 +58,7 @@ const enContent = {
 
 const cyContent = {
   title: "Eich dealltwriaeth o'r cais",
-  consent: "Ydych chi'n cydsynio i'r cais?",
+  consent: 'Do you agree to the application? - welsh',
   dateReceived: "Pryd gawsoch chi'r cais?",
   courtPermission: 'A oes angen caniatâd y llys ar yr ymgeisydd cyn gwneud ceisiadau?',
   one: 'Oes',
