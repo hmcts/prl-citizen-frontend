@@ -25,7 +25,7 @@ import { getRespondentPartyDetailsCa } from './utils';
 
 const en = () => ({
   title: 'Respondent tasklist',
-  caseNumber: 'Case number #',
+  caseNumber: 'Case number ',
   respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
@@ -173,7 +173,7 @@ const en = () => ({
 
 const cy = () => ({
   title: 'Rhestr Tasgau’r Atebydd',
-  caseNumber: 'Rhif yr achos #',
+  caseNumber: 'Rhif yr achos ',
   respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',

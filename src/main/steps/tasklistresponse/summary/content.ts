@@ -58,7 +58,7 @@ export const enConsentContent = {
     title: '2. Consent to the application',
   },
   keys: {
-    doYouConsent: 'Do you consent to the application?',
+    doYouConsent: 'Do you agree to the application?',
     reasonForNotConsenting: 'Give your reasons for not consenting to the application.',
     applicationReceivedDate: 'When did you receive the application?',
     courtPermission: 'Does the applicant need permission from the court before making applications?',
@@ -410,7 +410,7 @@ export const cyConsentContent = {
     title: '2. Cydsynio i’r cais',
   },
   keys: {
-    doYouConsent: 'Ydych chi’n cydsynio i’r cais?',
+    doYouConsent: 'Do you agree to the application? - welsh',
     reasonForNotConsenting: 'Rhowch eich rhesymau dros beidio â chydsynio i’r cais.',
     applicationReceivedDate: 'Pryd gawsoch chi’r cais?',
     courtPermission: 'A yw’r ceisydd angen caniatâd gan y llys cyn gwneud ceisiadau?',
