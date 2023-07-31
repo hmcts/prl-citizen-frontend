@@ -7,6 +7,7 @@ import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
+import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   ANONYMOUS_URLS,
   C100_URL,
@@ -112,6 +113,10 @@ export class OidcMiddleware {
             }
 
             if (req.session.userCase) {
+              const partyType = getCasePartyType(req.session.userCase, req.session.user.id);
+              if (!req.path.startsWith(DASHBOARD_URL) && !req.path.split('/').includes(partyType)) {
+                return res.redirect(DASHBOARD_URL);
+              }
               if (req.session.accessCodeLoginIn) {
                 try {
                   const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
