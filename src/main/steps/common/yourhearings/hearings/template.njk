@@ -6,7 +6,7 @@
     <h1 class="govuk-heading-xl govuk-!-margin-top-6">{{ section }}</h1>
   {% endif %}
 
-  <p class="govuk-body">{{ caseNumber }} #{{ userCase.id }}</p>
+  <p class="govuk-body">{{ caseNumber }} {{ userCase.id }}</p>
   <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
   {# <h3 class="govuk-heading-l">{{ yourPreviousHearings }}</h3> #}
   {% if nextHearing.length>=1 %}
