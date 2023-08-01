@@ -2,7 +2,12 @@ import { DocCategory, DocType } from "../../../app/case/definition";
 import { document_list_en, document_list_cy } from '../../../steps/applicant/upload-document/section-titles';
 import { documents_list_items_en, documents_list_items_cy } from '../../../steps/applicant/upload-document/upload-document-list-items';
 
-export const getDocumentMeta = (category: DocCategory, type: DocType, language: string) => {
+interface DocumentMeta {
+  category: string;
+  type: string;
+}
+
+export const getDocumentMeta = (category: DocCategory, type: DocType, language: string): DocumentMeta => {
   const meta = {
     category: '',
     type: ''
@@ -105,7 +110,7 @@ export const getDocumentMeta = (category: DocCategory, type: DocType, language: 
             category: documentCategory.other_documents,
             type: documentType.other_documents
           })
-        }  else {
+        } else {
           Object.assign(meta, {
             category: documentCategory.other_documents,
           })

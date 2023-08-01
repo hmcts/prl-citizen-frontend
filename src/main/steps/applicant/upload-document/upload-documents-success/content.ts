@@ -1,4 +1,4 @@
-import { getDocumentMeta } from 'steps/common/upload-document/util';
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
