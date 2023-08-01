@@ -1,23 +1,18 @@
-import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { documents_list_items_en } from '../../../upload-document/upload-document-list-items';
-const en = () => {
-  return {
-    section: 'All documents',
-    title: "'s position statements",
-    caseNumber: 'Case number',
-    continue: 'Go back',
-  };
+import { getDocumentList } from '../alldocuments/utils';
+const en = {
+  section: 'All documents',
+  title: "'s position statements",
+  caseNumber: 'Case number',
+  continue: 'Go back',
 };
 
-const cy: typeof en = () => {
-  return {
-    section: 'Pob dogfen',
-    title: "'s position statements (welsh)",
-    caseNumber: 'Rhif yr achos',
-    continue: 'Yn ôl',
-  };
+const cy: typeof en = {
+  section: 'Pob dogfen',
+  title: "'s position statements (welsh)",
+  caseNumber: 'Rhif yr achos',
+  continue: 'Yn ôl',
 };
 
 const languages = {
@@ -42,27 +37,16 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
-  const orders: object[] = [];
-  for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
-    if (
-      doc.value.partyName === content.additionalData?.req?.query?.name &&
-      doc.value.isApplicant === content.byApplicant &&
-      doc.value.documentType === documents_list_items_en.your_position_statements
-    ) {
-      const uid = doc.value.citizenDocument.document_url.substring(
-        doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
-      );
-      orders.push({
-        href: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${uid}`,
-        createdDate: doc.value.documentDetails.documentUploadedDate,
-        fileName: doc.value.citizenDocument.document_filename,
-      });
-    }
-  }
+  const translations = languages[content.language];
+
+  const uploadedBy = content.additionalData?.req.session.applicationSettings.docToView.uploadedBy;
+  const partyName = content.additionalData?.req.session.applicationSettings.docToView.partyName;
+  const docType = content.additionalData?.req.session.applicationSettings.docType;
+  const citizenUploadedDocumentList = content.userCase?.citizenUploadedDocumentList;
 
   return {
     ...translations,
-    orders,
+    orders: getDocumentList(citizenUploadedDocumentList, docType, uploadedBy, partyName),
+    partyName,
   };
 };

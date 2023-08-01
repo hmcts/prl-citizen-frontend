@@ -497,12 +497,7 @@ describe('respondent-tasklistalldocuments', () => {
   test('testing getOtherDocuments for url not as applicant', async () => {
     req.url = '';
     req.session.userCase.previousOrOngoingProceedingsForChildren = YesNoDontKnow.yes;
-    const actual = getOtherDocuments(
-      applicant_all_docs_en,
-      applicant_tasklist_items_all_docs_en,
-      req.session.userCase,
-      'Hello'
-    );
+    const actual = getOtherDocuments(applicant_all_docs_en, applicant_tasklist_items_all_docs_en, 'Hello');
     expect(actual.title).toEqual(applicant_all_docs_en.otherDocuments);
   });
 
@@ -524,80 +519,77 @@ describe('respondent-tasklistalldocuments', () => {
 
 describe('testing all the additional function created as a part of applicant and respondent docs', () => {
   test('testing as a part of applicant docs', () => {
-    const urlapplicant = '/applicant';
-    expect(isMedicalReportsUploadedd(applicant_tasklist_items_all_docs_en, urlapplicant, true)).toEqual({
+    expect(isMedicalReportsUploadedd(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'medical_reports',
       text: applicant_tasklist_items_all_docs_en.medical_reports,
-      href: urlapplicant + '/yourdocuments/alldocuments/medicalreports' + '?byApplicant=Yes',
+      href: '/doc/medicalreports/applicant',
     });
-    expect(isPreviousOrdersSubmittedd(applicant_tasklist_items_all_docs_en, urlapplicant, true)).toEqual({
+    expect(isPreviousOrdersSubmittedd(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'previous_orders_submitted',
       text: applicant_tasklist_items_all_docs_en.previous_orders_submitted,
-      href: urlapplicant + '/yourdocuments/alldocuments/previousorders' + '?byApplicant=Yes',
+      href: '/doc/previousorders/applicant',
     });
-    expect(isLettersFromSchoold(applicant_tasklist_items_all_docs_en, urlapplicant, true)).toEqual({
+    expect(isLettersFromSchoold(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'letters_from_school',
       text: applicant_tasklist_items_all_docs_en.letters_from_school,
-
-      href: urlapplicant + '/yourdocuments/alldocuments/lettersfromschool' + '?byApplicant=Yes',
+      href: '/doc/lettersfromschool/applicant',
     });
-    expect(isDigitalDownloadsUploadedd(applicant_tasklist_items_all_docs_en, urlapplicant, true)).toEqual({
+    expect(isDigitalDownloadsUploadedd(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'digital_downloads',
       text: applicant_tasklist_items_all_docs_en.digital_downloads,
-      href: urlapplicant + '/yourdocuments/alldocuments/digitaldownloads' + '?byApplicant=Yes',
+      href: '/doc/digitaldownloads/applicant',
     });
-    expect(isMedicalRecordsUploadd(applicant_tasklist_items_all_docs_en, urlapplicant, true)).toEqual({
+    expect(isMedicalRecordsUploadd(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'medical_records',
       text: applicant_tasklist_items_all_docs_en.medical_records,
-      href: urlapplicant + '/yourdocuments/alldocuments/medicalrecords' + '?byApplicant=Yes',
+      href: '/doc/medicalrecords/applicant',
     });
-    expect(isPaternityDocUploadedd(applicant_tasklist_items_all_docs_en, urlapplicant, true)).toEqual({
+    expect(isPaternityDocUploadedd(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'paternity_test_reports',
       text: applicant_tasklist_items_all_docs_en.paternity_test_reports,
-      href: urlapplicant + '/yourdocuments/alldocuments/paternity_test_reports' + '?byApplicant=Yes',
+      href: '/doc/paternity_test_reports/applicant',
     });
-    expect(isDrugDocUploadedd(applicant_tasklist_items_all_docs_en, urlapplicant, true)).toEqual({
+    expect(isDrugDocUploadedd(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'drug_alcohol_tests',
       text: applicant_tasklist_items_all_docs_en.drug_alcohol_tests,
-      href: urlapplicant + '/yourdocuments/alldocuments/drug_alcohol_tests' + '?byApplicant=Yes',
+      href: '/doc/drug_alcohol_tests/applicant',
     });
   });
   test('testing as a part of respondent docs', () => {
-    const urlrespondent = '/respondent';
-    expect(isPreviousOrdersSubmittedRespondent(applicant_tasklist_items_all_docs_en, urlrespondent, true)).toEqual({
+    expect(isPreviousOrdersSubmittedRespondent(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'previous_orders_submitted_respondent',
       text: applicant_tasklist_items_all_docs_en.previous_orders_submitted_respondent,
-      href: urlrespondent + '/yourdocuments/alldocuments/previousorders' + '?byApplicant=No',
+      href: '/doc/previousorders/respondent',
     });
-    expect(isLettersFromSchoolRespondent(applicant_tasklist_items_all_docs_en, urlrespondent, true)).toEqual({
+    expect(isLettersFromSchoolRespondent(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'letters_from_school_respondent',
       text: applicant_tasklist_items_all_docs_en.letters_from_school_respondent,
-      href: urlrespondent + '/yourdocuments/alldocuments/lettersfromschool' + '?byApplicant=No',
+      href: '/doc/lettersfromschool/respondent',
     });
-    expect(isDigitalDownloadsUploadedRespondent(applicant_tasklist_items_all_docs_en, urlrespondent, true)).toEqual({
+    expect(isDigitalDownloadsUploadedRespondent(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'digital_downloads_respondent',
       text: applicant_tasklist_items_all_docs_en.digital_downloads_respondent,
-      href: urlrespondent + '/yourdocuments/alldocuments/digitaldownloads' + '?byApplicant=No',
+      href: '/doc/digitaldownloads/respondent',
     });
-    expect(isMedicalRecordsUploadRespondent(applicant_tasklist_items_all_docs_en, urlrespondent, true)).toEqual({
+    expect(isMedicalRecordsUploadRespondent(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'medical_records_respondent',
       text: applicant_tasklist_items_all_docs_en.medical_records_respondent,
-      href: urlrespondent + '/yourdocuments/alldocuments/medicalrecords' + '?byApplicant=No',
+      href: '/doc/medicalrecords/respondent',
     });
-    expect(isMedicalReportsUploadedRespondent(applicant_tasklist_items_all_docs_en, urlrespondent, true)).toEqual({
+    expect(isMedicalReportsUploadedRespondent(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'medical_reports_respondent',
       text: applicant_tasklist_items_all_docs_en.medical_reports_respondent,
-      href: urlrespondent + '/yourdocuments/alldocuments/medicalreports' + '?byApplicant=No',
+      href: '/doc/medicalreports/respondent',
     });
-    expect(isPaternityDocUploadedRespondent(applicant_tasklist_items_all_docs_en, urlrespondent, true)).toEqual({
+    expect(isPaternityDocUploadedRespondent(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'paternity_test_reports_respondent',
       text: applicant_tasklist_items_all_docs_en.paternity_test_reports_respondent,
-      href: urlrespondent + '/yourdocuments/alldocuments/paternity_test_reports' + '?byApplicant=No',
+      href: '/doc/paternity_test_reports/respondent',
     });
-    expect(isDrugDocUploadedRespondent(applicant_tasklist_items_all_docs_en, urlrespondent, true)).toEqual({
+    expect(isDrugDocUploadedRespondent(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'drug_alcohol_tests_respondent',
       text: applicant_tasklist_items_all_docs_en.drug_alcohol_tests_respondent,
-      href: urlrespondent + '/yourdocuments/alldocuments/drug_alcohol_tests' + '?byApplicant=No',
+      href: '/doc/drug_alcohol_tests/respondent',
     });
   });
 

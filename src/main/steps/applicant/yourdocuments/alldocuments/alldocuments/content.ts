@@ -41,6 +41,8 @@ export const generateContent: TranslationFn = content => {
   const request = content.additionalData?.req;
   const caseData = request.session?.userCase;
 
+  request.session.applicationSettings = {};
+
   return {
     ...translations,
     breadcrumb:

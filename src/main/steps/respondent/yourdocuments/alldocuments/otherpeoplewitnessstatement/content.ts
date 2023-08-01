@@ -1,6 +1,5 @@
-import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { applicant_tasklist_items_all_docs_en } from '../../../../../steps/applicant/yourdocuments/alldocuments/alldocuments/tasklist-items-all-documents';
+import { getDocumentList } from '../../../../../steps/applicant/yourdocuments/alldocuments/alldocuments/utils';
 
 const en = () => {
   return {
@@ -27,26 +26,12 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-
-  const orders: object[] = [];
-  for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
-    if (
-      doc.value.uploadedBy === content.userIdamId &&
-      doc.value.documentType === applicant_tasklist_items_all_docs_en.other_people_witness_statements
-    ) {
-      const uid = doc.value.citizenDocument.document_url.substring(
-        doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
-      );
-      orders.push({
-        href: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${uid}`,
-        createdDate: doc.value.documentDetails.documentUploadedDate,
-        fileName: doc.value.citizenDocument.document_filename,
-      });
-    }
-  }
+  const uploadedBy = content.additionalData?.req.session.applicationSettings.docToView.uploadedBy;
+  const docType = content.additionalData?.req.session.applicationSettings.docType;
+  const citizenUploadedDocumentList = content.userCase?.citizenUploadedDocumentList;
 
   return {
     ...translations,
-    orders,
+    orders: getDocumentList(citizenUploadedDocumentList, docType, uploadedBy),
   };
 };
