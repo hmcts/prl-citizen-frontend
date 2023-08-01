@@ -1,4 +1,4 @@
-import { applyParms } from 'steps/common/url-parser';
+import { applyParms } from '../../steps/common/url-parser';
 import HearingsGetController from '../../../main/steps/common/yourhearings/hearings/HearingsGetController';
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
