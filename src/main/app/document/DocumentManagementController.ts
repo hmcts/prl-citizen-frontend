@@ -92,8 +92,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
       documentRequestedByCourt: req.session.userCase.start,
       caseId: req.session.userCase.id,
       freeTextUploadStatements: req.body.freeTextAreaForUpload,
-      parentDocumentType: documentMeta.caption,
-      documentType: documentMeta.title,
+      parentDocumentType: documentMeta.category,
+      documentType: documentMeta.type,
       partyName,
       partyId: req.session.user.id,
       isApplicant,
@@ -656,8 +656,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let documentType;
     if (req.query && req.query.documentCategory && req.query.documentType) {
       const documentMeta = getDocumentMeta(req.query.documentCategory, req.query.documentType, 'en');
-      parentDocumentType = documentMeta.caption;
-      documentType = documentMeta.title;
+      parentDocumentType = documentMeta.category;
+      documentType = documentMeta.type;
     }
 
     const caseId = req.session.userCase.id;

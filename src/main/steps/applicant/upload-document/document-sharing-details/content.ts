@@ -74,6 +74,7 @@ export const generateContent: TranslationFn = content => {
   const caseType = userCase.caseTypeOfApplication;
   const translations = languages[content.language];
   const { docCategory, docType } = content.additionalData!.req.params;
+  const { category: caption, type: title } = getDocumentMeta(docCategory, docType, content.language);
 
   return {
     ...translations,
@@ -87,6 +88,7 @@ export const generateContent: TranslationFn = content => {
             : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
       },
     },
-    ...getDocumentMeta(docCategory, docType, content.language)
+    caption,
+    title
   };
 };
