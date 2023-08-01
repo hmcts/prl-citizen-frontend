@@ -48,6 +48,10 @@ export const getDocumentMeta = (category: DocCategory, type: DocType, language: 
             caption: documentCategory.witness_statements_and_evidence,
             title: documentType.tenancy_mortgage_agreements
           })
+        } else {
+          Object.assign(meta, {
+            caption: documentCategory.witness_statements_and_evidence,
+          })
         }
         break;
       }
@@ -57,6 +61,10 @@ export const getDocumentMeta = (category: DocCategory, type: DocType, language: 
           Object.assign(meta, {
             caption: documentCategory.applications,
             title: documentType.previous_orders_submitted
+          })
+        } else {
+          Object.assign(meta, {
+            caption: documentCategory.applications,
           })
         }
         break;
@@ -83,6 +91,10 @@ export const getDocumentMeta = (category: DocCategory, type: DocType, language: 
             caption: documentCategory.expert_reports,
             title: documentType.police_reports
           })
+        } else {
+          Object.assign(meta, {
+            caption: documentCategory.expert_reports,
+          })
         }
         break;
       }
@@ -92,6 +104,10 @@ export const getDocumentMeta = (category: DocCategory, type: DocType, language: 
           Object.assign(meta, {
             caption: documentCategory.other_documents,
             title: documentType.other_documents
+          })
+        }  else {
+          Object.assign(meta, {
+            caption: documentCategory.other_documents,
           })
         }
         break;
