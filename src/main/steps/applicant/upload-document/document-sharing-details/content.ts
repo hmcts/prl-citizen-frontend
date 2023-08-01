@@ -52,10 +52,12 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const { docCategory, docType } = content.additionalData!.req.params;
+  const { category: caption, type: title } = getDocumentMeta(docCategory, docType, content.language);
 
   return {
     ...translations,
     form,
-    ...getDocumentMeta(docCategory, docType, content.language)
+    caption,
+    title
   };
 };
