@@ -34,7 +34,7 @@ import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { DeleteDocumentRequest } from './DeleteDocumentRequest';
 import { DocumentManagementClient } from './DocumentManagementClient';
 import { GenerateAndUploadDocumentRequest } from './GenerateAndUploadDocumentRequest';
-
+import { applyParms } from '../../steps/common/url-parser';
 const UID_LENGTH = 36;
 @autobind
 export class DocumentManagerController extends PostController<AnyObject> {
@@ -90,7 +90,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       documentRequestedByCourt: req.session.userCase.start,
       caseId: req.session.userCase.id,
       freeTextUploadStatements: req.body.freeTextAreaForUpload,
-      parentDocumentType: req.query.parentDocumentType,
+      parentDocumentType: req.query.documentCategory,
       documentType: req.query.documentType,
       partyName,
       partyId: req.session.user.id,
@@ -599,11 +599,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   private setRedirectUrl(isApplicant, req: AppRequest<Partial<CaseWithId>>) {
-    const { caption = '', document_type = '', parentDocumentType = '', documentType = '' } = req.query;
+    const { documentCategory = '', documentType = '' } = req.query;
 
-    return `${
-      isApplicant === YesOrNo.YES ? APPLICANT_UPLOAD_DOCUMENT : RESPONDENT_UPLOAD_DOCUMENT
-    }?caption=${caption}&document_type=${document_type}&parentDocType=${parentDocumentType}&docType=${documentType}`;
+    return applyParms(isApplicant === YesOrNo.YES ? APPLICANT_UPLOAD_DOCUMENT: RESPONDENT_UPLOAD_DOCUMENT, {docCategory: documentCategory, doctype: documentType});
   }
 
   public async undefiendUploadFiles(req: AppRequest): Promise<void> {
@@ -650,12 +648,13 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (req.session.userCase && req.session.userCase.start) {
       documentRequestedByCourt = req.session.userCase.start;
     }
+    
 
     let parentDocumentType;
     let documentType;
     const caseId = req.session.userCase.id;
-    if (req.query && req.query.parentDocumentType) {
-      parentDocumentType = req.query.parentDocumentType;
+    if (req.query && req.query.documentCategory) {
+      parentDocumentType = req.query.documentCategory;
     }
     if (req.query && req.query.documentType) {
       documentType = req.query.documentType;

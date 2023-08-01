@@ -1,3 +1,4 @@
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { RESPONDENT_TASK_LIST_URL } from '../../../../steps/urls';
@@ -69,11 +70,14 @@ export const generateContent: TranslationFn = content => {
   const userCase = content.additionalData?.req.session.userCase;
   const caseId = userCase.id as string;
   const translations = languages[content.language];
+  const { docCategory, docType } = content.additionalData!.req.params;
+
   return {
     ...translations,
     form: {
       ...form,
       link: { ...form.link, href: `${RESPONDENT_TASK_LIST_URL}/${caseId}` },
     },
+    ...getDocumentMeta(docCategory, docType, content.language)
   };
 };

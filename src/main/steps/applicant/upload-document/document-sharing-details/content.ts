@@ -1,4 +1,5 @@
 import { CaseType } from '../../../../app/case/definition';
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { applyParms } from '../../../../steps/common/url-parser';
@@ -72,6 +73,8 @@ export const generateContent: TranslationFn = content => {
   const caseId = userCase.id as string;
   const caseType = userCase.caseTypeOfApplication;
   const translations = languages[content.language];
+  const { docCategory, docType } = content.additionalData!.req.params;
+
   return {
     ...translations,
     form: {
@@ -84,5 +87,6 @@ export const generateContent: TranslationFn = content => {
             : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
       },
     },
+    ...getDocumentMeta(docCategory, docType, content.language)
   };
 };

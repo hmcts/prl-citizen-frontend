@@ -28,7 +28,7 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.section).toEqual('Provide the document');
-    expect(generatedContent.title).toEqual('Provide the documents');
+    expect(generatedContent.subTitle).toEqual('Provide the documents');
     expect(generatedContent.declaration).toEqual('I believe that the facts stated in these documents are true');
     expect(generatedContent.consent).toEqual(
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.'

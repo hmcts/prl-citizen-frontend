@@ -7,7 +7,7 @@ import { generateContent } from './content';
 
 const en = {
   section: 'Provide the document',
-  title: 'Provide the documents',
+  subTitle: 'Provide the documents',
   declaration: 'I believe that the facts stated in these documents are true',
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   continue: 'Continue',
@@ -41,7 +41,7 @@ const en = {
 
 const cy: typeof en = {
   section: 'Provide the document (welsh)',
-  title: 'Darparwch y dogfennau',
+  subTitle: 'Darparwch y dogfennau',
   declaration: 'Credaf fod y ffeithiau a nodir yn y dogfennau hyn yn wir',
   consent:
     'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
@@ -98,7 +98,7 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.section).toEqual('Provide the document');
-    expect(generatedContent.title).toEqual('Provide the documents');
+    expect(generatedContent.subTitle).toEqual('Provide the documents');
     expect(generatedContent.declaration).toEqual('I believe that the facts stated in these documents are true');
     expect(generatedContent.consent).toEqual(
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.'
