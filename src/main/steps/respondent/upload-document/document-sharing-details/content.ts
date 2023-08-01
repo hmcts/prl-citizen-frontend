@@ -1,7 +1,7 @@
-import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { RESPONDENT_TASK_LIST_URL } from '../../../../steps/urls';
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 
 const en = {
   section: 'How your documents will be shared',
@@ -80,6 +80,6 @@ export const generateContent: TranslationFn = content => {
       link: { ...form.link, href: `${RESPONDENT_TASK_LIST_URL}/${caseId}` },
     },
     caption,
-    title
+    title,
   };
 };

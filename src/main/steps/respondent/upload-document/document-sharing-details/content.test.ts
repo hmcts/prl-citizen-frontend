@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { DocCategory, DocType } from '../../../../app/case/definition';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -49,42 +50,55 @@ jest.mock('../../../../app/form/validation');
 describe('respondent document sharing details content', () => {
   const commonContent = {
     language: 'en',
-    additionalData: { req: { session: { userCase: { id: '1234' } } } },
-  } as unknown as CommonContent;
-  let generatedContent;
-  let form;
-  let fields;
+    additionalData: { req: { session: { userCase: { id: '1234' } } } }
+  };
+  describe('citizen-home content', () => {
+    const commonContent = {
+      language: 'en',
+      additionalData: {
+        req: {
+          params: {
+            documentCategory: DocCategory.WITNESS_STATEMENT,
+            docType: DocType.YOUR_WITNESS_STATEMENTS,
+          },
+        },
+      },
+    } as unknown as CommonContent;
+    let generatedContent;
+    let form;
+    let fields;
 
-  beforeEach(() => {
-    generatedContent = generateContent(commonContent);
-    form = generatedContent.form as FormContent;
-    fields = form.fields as FormFields;
-  });
+    beforeEach(() => {
+      generatedContent = generateContent(commonContent);
+      form = generatedContent.form as FormContent;
+      fields = form.fields as FormFields;
+    });
 
-  test('should return correct english content', () => {
-    const reasonDocumentCantBeSharedFields = fields.reasonDocumentCantBeShared as FormOptions;
-    expect(generatedContent.continue).toEqual('Continue');
-    expect(generatedContent.section).toEqual('How your documents will be shared');
-    expect((reasonDocumentCantBeSharedFields.label as Function)(generatedContent)).toBe(en.explainWhy);
-  });
+    test('should return correct english content', () => {
+      const reasonDocumentCantBeSharedFields = fields.reasonDocumentCantBeShared as FormOptions;
+      expect(generatedContent.continue).toEqual('Continue');
+      expect(generatedContent.section).toEqual('How your documents will be shared');
+      expect((reasonDocumentCantBeSharedFields.label as Function)(generatedContent)).toBe(en.explainWhy);
+    });
 
-  // eslint-disable-next-line jest/expect-expect
-  test('should return correct english content Data', () => {
-    languageAssertions('en', en, () => generateContent(commonContent));
-  });
+    // eslint-disable-next-line jest/expect-expect
+    test('should return correct english content Data', () => {
+      languageAssertions('en', en, () => generateContent(commonContent));
+    });
 
-  // eslint-disable-next-line jest/expect-expect
-  test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
-  });
+    // eslint-disable-next-line jest/expect-expect
+    test('should return correct welsh content', () => {
+      languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+    });
 
-  test('should contain continue button', () => {
-    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
-  });
+    test('should contain continue button', () => {
+      expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
+    });
 
-  test('should contain correct cancel link for fl401', () => {
-    expect((form.link?.text as Function)(generatedContent)).toBe('Cancel');
-    expect(form.link?.href).toBe('/respondent/task-list/1234');
+    test('should contain correct cancel link for fl401', () => {
+      expect((form.link?.text as Function)(generatedContent)).toBe('Cancel');
+      expect(form.link?.href).toBe('/respondent/task-list/1234');
+    });
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

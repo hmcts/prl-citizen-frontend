@@ -1,8 +1,8 @@
-import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 
 const en = {
   section: ' ',
@@ -75,6 +75,6 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     form,
     caption,
-    title
+    title,
   };
 };
