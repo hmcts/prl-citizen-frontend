@@ -275,38 +275,27 @@ export const getRespondentPartyDetailsCa = (userCase: Partial<CaseWithId>, userI
   return undefined;
 };
 
-export const getResponseStatus = (userCase: Partial<CaseWithId> | undefined, userId: string): SectionStatus => {
+export const getResponseStatus = (userCase: Partial<CaseWithId>, userId: string): SectionStatus => {
   const respondent = userCase?.respondents?.find(_respondent => {
     if (_respondent.value.user.idamId === userId) {
       return _respondent;
     }
   });
-  if (
-    respondent?.value.response.citizenInternationalElements &&
-    respondent?.value.response.consent &&
-    respondent?.value.response.currentOrPreviousProceedings &&
-    respondent?.value.response.keepDetailsPrivate &&
-    respondent?.value.response.miam &&
-    respondent?.value.response.legalRepresentation &&
-    respondent?.value.response.safetyConcerns &&
-    respondent?.value.response.supportYouNeed
-  ) {
-    return SectionStatus.COMPLETED;
-  }
-  if (
-    respondent?.value.response.citizenInternationalElements ||
-    respondent?.value.response.consent ||
-    respondent?.value.response.currentOrPreviousProceedings ||
-    respondent?.value.response.keepDetailsPrivate ||
-    respondent?.value.response.miam ||
-    respondent?.value.response.legalRepresentation ||
-    respondent?.value.response.safetyConcerns ||
-    respondent?.value.response.supportYouNeed
-  ) {
-    return SectionStatus.IN_PROGRESS;
-  }
-
-  return SectionStatus.TO_DO;
+  return isResponded(userCase, userId)
+    ? SectionStatus.COMPLETED
+    : respondent?.value.response.legalRepresentation
+    ? SectionStatus.IN_PROGRESS
+    : SectionStatus.TO_DO;
+};
+export const isResponded = (userCase: Partial<CaseWithId>, userId: string): boolean => {
+  const respondent = userCase?.respondents?.find(_respondent => {
+    if (_respondent.value.user.idamId === userId) {
+      return _respondent;
+    }
+  });
+  return !!userCase.respondentDocsList?.find(
+    doc => doc?.value?.c7Document?.partyName === respondent?.value.firstName + ' ' + respondent?.value.lastName
+  );
 };
 
 export const isApplicationResponded = (userCase: Partial<CaseWithId>, userId: string): boolean => {

@@ -152,19 +152,19 @@ const en = () => ({
     },
     {
       label: 'Find my local court',
-      link: '#',
+      link: 'https://www.gov.uk/find-court-tribunal',
     },
     {
       label: 'Find legal advice',
-      link: '#',
+      link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
     },
     {
       label: 'Know more about child arrangements',
-      link: '#',
+      link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court-other-parent',
     },
     {
       label: 'Know more about attending court',
-      link: '#',
+      link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
     },
   ],
   addLegalRepresentative: 'Add a legal representative',
@@ -302,19 +302,19 @@ const cy = () => ({
     },
     {
       label: 'Dod o hyd i fy llys lleol',
-      link: '#',
+      link: 'https://www.gov.uk/find-court-tribunal',
     },
     {
       label: 'Dod o hyd i gyngor cyfreithiol',
-      link: '#',
+      link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
     },
     {
       label: 'Gwybod mwy am drefniadau plant',
-      link: '#',
+      link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court-other-parent',
     },
     {
       label: 'Gwybod mwy am fynychu’r llys',
-      link: '#',
+      link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
     },
   ],
   addLegalRepresentative: 'Ychwanegu cynrychiolydd cyfreithiol',

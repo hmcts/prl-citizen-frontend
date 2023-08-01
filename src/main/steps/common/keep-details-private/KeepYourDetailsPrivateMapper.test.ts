@@ -120,7 +120,7 @@ describe('KeepYourDetailsPrivateMapper', () => {
     respondents[0].value.response.keepDetailsPrivate = await prepareKeepDetailsPrivateRequest(req.session.userCase);
     expect(respondents[0].value.response.keepDetailsPrivate.otherPeopleKnowYourContactDetails).toEqual('Yes');
     expect(respondents[0].value.response.keepDetailsPrivate.confidentiality).toEqual('No');
-    expect(respondents[0].value.response.keepDetailsPrivate.confidentialityList).toEqual(undefined);
+    expect(respondents[0].value.response.keepDetailsPrivate.confidentialityList).toEqual([]);
   });
 
   test('Should map keepDetailsPrivate data when otherPeopleKnowYourContactDetails is Yes', async () => {

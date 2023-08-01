@@ -240,13 +240,15 @@ describe('generateRespondentTaskList', () => {
             text: 'Respond to the application',
             hint: null,
           },
+          /* DO NOT DELETE this code will be in action when people feature will be in live
           {
             href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
             id: 'respond_to_allegations_of_harm_and_violence',
-            status: 'IN_PROGRESS',
+            status: 'TO_DO',
             text: 'Respond to the allegations of harm and violence',
             hint: null,
           },
+          */
         ],
       },
       {

@@ -92,11 +92,19 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
         );
       }
       break;
-    case 'citizenUserDateOfBirthText':
-      if (userkey === INVALID_DATE && language === 'cy') {
-        return cy.invalidDate;
+    case 'citizenUserDateOfBirthText': {
+      if (userkey) {
+        if (userkey === INVALID_DATE) {
+          return language === 'cy' ? cy.invalidDate : en.invalidDate;
+        } else {
+          const arr = userkey.split(' ');
+          const index = en.months.indexOf(arr[1]);
+          arr[1] = language === 'cy' ? cy.months[index] : arr[1];
+          return arr[0] + ' ' + arr[1] + ' ' + arr[2];
+        }
       }
-      return userkey;
+      break;
+    }
     default:
       return userkey;
   }
@@ -203,9 +211,11 @@ const getSectionCaseList = (rows: SummaryListRow[]): GovUkNunjucksSummary[] => {
   });
 };
 
-export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): string =>
+export const getFormattedDate = (date: CaseDate | undefined, locale?): string =>
   date && !isDateInputInvalid(date)
-    ? dayjs(`${date.day}-${date.month}-${date.year}`, 'D-M-YYYY').locale(locale).format('D MMMM YYYY')
+    ? dayjs(`${date.day}-${date.month}-${date.year}`, 'D-M-YYYY')
+        .locale(locale || 'en')
+        .format('D MMMM YYYY')
     : '';
 
 export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>, language): string => {
