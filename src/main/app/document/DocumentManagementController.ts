@@ -20,6 +20,8 @@ import { CaseWithId } from '../case/case';
 import {
   Applicant,
   CaseType,
+  DocCategory,
+  DocType,
   DocumentType,
   DownloadFileFieldFlag,
   FileProperties,
@@ -86,7 +88,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     const isApplicant = req.query.isApplicant;
     const partyName = this.getPartyName(isApplicant, req);
-    const documentMeta = getDocumentMeta(req.query.documentCategory, req.query.documentType, 'en');
+    const documentMeta = getDocumentMeta(req.query.documentCategory as DocCategory, req.query.documentType as DocType, 'en');
 
     const uploadDocumentDetails = {
       documentRequestedByCourt: req.session.userCase.start,
@@ -655,7 +657,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let parentDocumentType;
     let documentType;
     if (req.query && req.query.documentCategory && req.query.documentType) {
-      const documentMeta = getDocumentMeta(req.query.documentCategory, req.query.documentType, 'en');
+      const documentMeta = getDocumentMeta(req.query.documentCategory as DocCategory, req.query.documentType as DocType, 'en');
       parentDocumentType = documentMeta.category;
       documentType = documentMeta.type;
     }
