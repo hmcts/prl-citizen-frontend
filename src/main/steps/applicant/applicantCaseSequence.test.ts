@@ -299,21 +299,31 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[57].url).toBe('/applicant/upload-document');
     expect(applicantCaseSequence[57].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[57].getNextStep({})).toBe('/applicant/upload-document/start');
+    expect(applicantCaseSequence[57].getNextStep({})).toBe('/applicant/upload-document/start/:docCategory/:docType');
 
-    expect(applicantCaseSequence[58].url).toBe('/applicant/upload-document/start');
+    expect(applicantCaseSequence[58].url).toBe('/applicant/upload-document/start/:docCategory/:docType');
     expect(applicantCaseSequence[58].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[58].getNextStep({})).toBe('/applicant/upload-document/document-sharing-details');
+    expect(applicantCaseSequence[58].getNextStep({})).toBe(
+      '/applicant/upload-document/document-sharing-details/undefined/undefined'
+    );
 
-    expect(applicantCaseSequence[59].url).toBe('/applicant/upload-document/document-sharing-details');
+    expect(applicantCaseSequence[59].url).toBe(
+      '/applicant/upload-document/document-sharing-details/:docCategory/:docType'
+    );
     expect(applicantCaseSequence[59].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[59].getNextStep({})).toBe('/applicant/upload-document/upload-your-documents');
+    expect(applicantCaseSequence[59].getNextStep({})).toBe(
+      '/applicant/upload-document/upload-your-documents/undefined/undefined'
+    );
 
-    expect(applicantCaseSequence[60].url).toBe('/applicant/upload-document/upload-your-documents');
+    expect(applicantCaseSequence[60].url).toBe(
+      '/applicant/upload-document/upload-your-documents/:docCategory/:docType'
+    );
     expect(applicantCaseSequence[60].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[60].getNextStep({})).toBe('/applicant/upload-document/upload-documents-success');
+    expect(applicantCaseSequence[60].getNextStep({})).toBe(
+      '/applicant/upload-document/upload-documents-success/undefined'
+    );
 
-    expect(applicantCaseSequence[61].url).toBe('/applicant/upload-document/upload-documents-success');
+    expect(applicantCaseSequence[61].url).toBe('/applicant/upload-document/upload-documents-success/:docCategory');
     expect(applicantCaseSequence[61].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[61].getNextStep({})).toBe('/applicant/task-list');
 

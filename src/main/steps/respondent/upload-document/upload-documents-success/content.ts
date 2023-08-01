@@ -1,6 +1,6 @@
-import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 
 const en = {
   section: 'How your documents will be shared',
@@ -39,6 +39,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     form,
-    caption
+    caption,
   };
 };

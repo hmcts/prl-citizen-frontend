@@ -2,6 +2,8 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import type { Response } from 'express';
 
+import { getDocumentMeta } from '../../steps/common/upload-document/util';
+import { applyParms } from '../../steps/common/url-parser';
 import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
 import {
   APPLICANT,
@@ -36,8 +38,6 @@ import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { DeleteDocumentRequest } from './DeleteDocumentRequest';
 import { DocumentManagementClient } from './DocumentManagementClient';
 import { GenerateAndUploadDocumentRequest } from './GenerateAndUploadDocumentRequest';
-import { applyParms } from '../../steps/common/url-parser';
-import { getDocumentMeta } from '../../steps/common/upload-document/util';
 const UID_LENGTH = 36;
 @autobind
 export class DocumentManagerController extends PostController<AnyObject> {
@@ -88,7 +88,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     const isApplicant = req.query.isApplicant;
     const partyName = this.getPartyName(isApplicant, req);
-    const documentMeta = getDocumentMeta(req.query.documentCategory as DocCategory, req.query.documentType as DocType, 'en');
+    const documentMeta = getDocumentMeta(
+      req.query.documentCategory as DocCategory,
+      req.query.documentType as DocType,
+      'en'
+    );
 
     const uploadDocumentDetails = {
       documentRequestedByCourt: req.session.userCase.start,
@@ -605,7 +609,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
   private setRedirectUrl(isApplicant, req: AppRequest<Partial<CaseWithId>>) {
     const { documentCategory = '', documentType = '' } = req.query;
 
-    return applyParms(isApplicant === YesOrNo.YES ? APPLICANT_UPLOAD_DOCUMENT : RESPONDENT_UPLOAD_DOCUMENT, { docCategory: documentCategory, doctype: documentType });
+    return applyParms(isApplicant === YesOrNo.YES ? APPLICANT_UPLOAD_DOCUMENT : RESPONDENT_UPLOAD_DOCUMENT, {
+      docCategory: documentCategory,
+      doctype: documentType,
+    });
   }
 
   public async undefiendUploadFiles(req: AppRequest): Promise<void> {
@@ -653,11 +660,14 @@ export class DocumentManagerController extends PostController<AnyObject> {
       documentRequestedByCourt = req.session.userCase.start;
     }
 
-
     let parentDocumentType;
     let documentType;
     if (req.query && req.query.documentCategory && req.query.documentType) {
-      const documentMeta = getDocumentMeta(req.query.documentCategory as DocCategory, req.query.documentType as DocType, 'en');
+      const documentMeta = getDocumentMeta(
+        req.query.documentCategory as DocCategory,
+        req.query.documentType as DocType,
+        'en'
+      );
       parentDocumentType = documentMeta.category;
       documentType = documentMeta.type;
     }

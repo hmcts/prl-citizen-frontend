@@ -1,6 +1,6 @@
-import { applyParms } from '../../steps/common/url-parser';
 import HearingsGetController from '../../../main/steps/common/yourhearings/hearings/HearingsGetController';
 import { YesOrNo } from '../../app/case/definition';
+import { applyParms } from '../../steps/common/url-parser';
 import { Sections, Step } from '../constants';
 import {
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
@@ -35,6 +35,7 @@ import {
   POLICE_DISCLOSURE,
   POSITION_STATEMENTS,
   PREVIOUS_ORDERS_SUBMITTED,
+  PageLink,
   RESPNDT_TO_APPLICATION_SUMMARY,
   RESPONDENT,
   RESPONDENT_ADDRESS_CONFIRMATION,
@@ -198,17 +199,29 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: (caseData, req) => applyParms(RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {docCategory: req?.params?.docCategory, docType: req?.params?.docType})  as PageLink,
+    getNextStep: (caseData, req) =>
+      applyParms(RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {
+        docCategory: req?.params?.docCategory,
+        docType: req?.params?.docType,
+      }) as PageLink,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: (caseData, req) => applyParms(RESPONDENT_UPLOAD_DOCUMENT, {docCategory: req?.params?.docCategory, docType: req?.params?.docType})  as PageLink,
+    getNextStep: (caseData, req) =>
+      applyParms(RESPONDENT_UPLOAD_DOCUMENT, {
+        docCategory: req?.params?.docCategory,
+        docType: req?.params?.docType,
+      }) as PageLink,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: (caseData, req) => applyParms(RESPONDENT_UPLOAD_DOCUMENT_SUCCESS, {docCategory: req?.params?.docCategory, docType: req?.params?.docType})  as PageLink,
+    getNextStep: (caseData, req) =>
+      applyParms(RESPONDENT_UPLOAD_DOCUMENT_SUCCESS, {
+        docCategory: req?.params?.docCategory,
+        docType: req?.params?.docType,
+      }) as PageLink,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,

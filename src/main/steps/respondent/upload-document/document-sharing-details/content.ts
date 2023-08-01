@@ -1,6 +1,6 @@
-import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 
 const emailId = 'example@test.com';
 
@@ -58,6 +58,6 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     form,
     caption,
-    title
+    title,
   };
 };

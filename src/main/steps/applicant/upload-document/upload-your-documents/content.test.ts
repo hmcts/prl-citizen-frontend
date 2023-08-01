@@ -1,4 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { DocCategory, DocType } from '../../../../app/case/definition';
 import { FormContent, FormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
@@ -11,9 +12,9 @@ describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   commonContent.additionalData = {
     req: {
-      query: {
-        parentDocType: 'parent',
-        docType: 'doc',
+      params: {
+        docCategory: DocCategory.WITNESS_STATEMENT,
+        docType: DocType.POSITION_STATEMENTS,
       },
     },
   };

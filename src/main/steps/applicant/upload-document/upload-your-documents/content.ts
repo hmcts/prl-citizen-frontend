@@ -1,9 +1,9 @@
 //import { isObject } from 'lodash';
 
-import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 
 export const en = {
   section: 'Provide the document',
