@@ -1,10 +1,11 @@
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 const en = {
   section: 'Provide the document',
-  title: 'Provide the documents',
+  subTitle: 'Provide the documents',
   declaration: 'I believe that the facts stated in these documents are true',
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   continue: 'Continue',
@@ -38,7 +39,7 @@ const en = {
 
 const cy: typeof en = {
   section: 'Provide the document (welsh)',
-  title: 'Darparwch y dogfennau',
+  subTitle: 'Darparwch y dogfennau',
   declaration: 'Credaf fod y ffeithiau a nodir yn y dogfennau hyn yn wir',
   consent:
     'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
@@ -113,11 +114,13 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const { parentDocType, docType } = content.additionalData!.req.query;
+  const { docCategory, docType } = content.additionalData!.req.params;
+
   return {
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
-    parentDocType,
+    ...getDocumentMeta(docCategory, docType, content.language),
+    docCategory,
     docType,
   };
 };

@@ -1,10 +1,11 @@
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
 const emailId = 'example@test.com';
 
 const en = {
-  title: 'How your documents will be shared',
+  section: 'How your documents will be shared',
   email: emailId,
   continue: 'Continue',
   warning: 'Warning',
@@ -20,7 +21,7 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Sut fydd eich dogfennau’n cael eu rhannu',
+  section: 'Sut fydd eich dogfennau’n cael eu rhannu',
   email: emailId,
   continue: 'Parhau',
   warning: 'Rhybudd',
@@ -50,8 +51,11 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  const { docCategory, docType } = content.additionalData!.req.params;
+
   return {
     ...translations,
     form,
+    ...getDocumentMeta(docCategory, docType, content.language)
   };
 };

@@ -8,7 +8,6 @@ import { generateContent } from './content';
 const en = {
   section: 'How your documents will be shared',
   status: 'Your documents have been uploaded',
-  title: 'Your documents have been uploaded',
   uploadAgain: 'Upload another document',
   continue: 'Continue',
   remove: 'Remove',
@@ -19,7 +18,6 @@ const en = {
 const cy: typeof en = {
   section: 'Sut fydd eich dogfennau’n cael eu rhannu',
   status: 'Mae eich dogfennau wedi’u llwytho',
-  title: 'Mae eich dogfennau wedi’u llwytho',
   uploadAgain: 'Llwytho dogfen arall',
   continue: 'Parhau',
   remove: 'Dileu',
@@ -38,7 +36,6 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.status).toEqual('Your documents have been uploaded');
-    expect(generatedContent.title).toEqual('Your documents have been uploaded');
     expect(generatedContent.uploadAgain).toEqual('Upload another document');
     expect(generatedContent.continue).toEqual('Continue');
     expect(generatedContent.remove).toEqual('Remove');

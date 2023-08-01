@@ -1,3 +1,4 @@
+import { applyParms } from '../../steps/common/url-parser';
 import { Case } from '../../app/case/case';
 import { CaseType } from '../../app/case/definition';
 import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
@@ -78,6 +79,7 @@ import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+  PageLink,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -385,17 +387,17 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+    getNextStep: (caseData, req) => applyParms(APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {docCategory: req?.params?.docCategory, docType: req?.params?.docType})  as PageLink,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT,
+    getNextStep: (caseData, req) => applyParms(APPLICANT_UPLOAD_DOCUMENT, {docCategory: req?.params?.docCategory, docType: req?.params?.docType})  as PageLink,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
+    getNextStep: (caseData, req) => applyParms(APPLICANT_UPLOAD_DOCUMENT_SUCCESS, {docCategory: req?.params?.docCategory})  as PageLink,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_SUCCESS,

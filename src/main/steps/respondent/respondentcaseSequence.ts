@@ -1,3 +1,4 @@
+import { applyParms } from 'steps/common/url-parser';
 import HearingsGetController from '../../../main/steps/common/yourhearings/hearings/HearingsGetController';
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
@@ -197,17 +198,17 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+    getNextStep: (caseData, req) => applyParms(RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {docCategory: req?.params?.docCategory, docType: req?.params?.docType})  as PageLink,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT,
+    getNextStep: (caseData, req) => applyParms(RESPONDENT_UPLOAD_DOCUMENT, {docCategory: req?.params?.docCategory, docType: req?.params?.docType})  as PageLink,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
+    getNextStep: (caseData, req) => applyParms(RESPONDENT_UPLOAD_DOCUMENT_SUCCESS, {docCategory: req?.params?.docCategory, docType: req?.params?.docType})  as PageLink,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,

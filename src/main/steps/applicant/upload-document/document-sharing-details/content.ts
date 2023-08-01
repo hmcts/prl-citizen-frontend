@@ -1,3 +1,4 @@
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
@@ -50,8 +51,11 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  const { docCategory, docType } = content.additionalData!.req.params;
+
   return {
     ...translations,
     form,
+    ...getDocumentMeta(docCategory, docType, content.language)
   };
 };
