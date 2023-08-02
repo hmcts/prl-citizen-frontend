@@ -182,7 +182,7 @@ export const getFinalApplicationStatus = (
 ): SectionStatus => {
   let result = SectionStatus.READY_TO_VIEW;
 
-  if (!userCase?.finalDocument?.document_binary_url) {
+  if (!userCase?.finalDocument?.document_binary_url && !userCase?.finalWelshDocument?.document_binary_url) {
     return SectionStatus.NOT_AVAILABLE_YET;
   }
 
@@ -204,7 +204,7 @@ export const getCheckAllegationOfHarmStatus = (
 ): SectionStatus => {
   let status = SectionStatus.READY_TO_VIEW;
 
-  if (!userCase?.c1ADocument?.document_binary_url) {
+  if (!userCase?.c1ADocument?.document_binary_url && !userCase?.c1AWelshDocument?.document_binary_url) {
     return SectionStatus.NOT_AVAILABLE_YET;
   }
 

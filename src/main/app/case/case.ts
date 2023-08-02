@@ -121,6 +121,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   allocatedJudgeDetails: 'allocatedJudgeDetails',
   miamCertificationDocumentUpload: 'miamCertificationDocumentUpload',
   c1ADocument: 'c1ADocument',
+  c1AWelshDocument: 'c1AWelshDocument',
   applicantAttendedMiam: 'applicantAttendedMiam',
   caseTypeOfApplication: 'caseTypeOfApplication',
   claimingExemptionMiam: 'claimingExemptionMiam',
@@ -181,6 +182,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentName: 'respondentName',
   respondentFirstName: 'respondentFirstName',
   finalDocument: 'finalDocument',
+  finalWelshDocument: 'finalWelshDocument',
   fl401UploadWitnessDocuments: 'fl401UploadWitnessDocuments',
   citizenUploadedDocumentList: 'citizenUploadedDocumentList',
   serviceType: 'serviceType',
@@ -225,6 +227,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentDocsList: 'respondentDocsList',
   caseInvites: 'caseInvites',
   draftOrderDoc: 'draftOrderDoc',
+  draftOrderDocWelsh: 'draftOrderDocWelsh',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -287,6 +290,7 @@ export interface Case {
   claimingExemptionMiam?: string;
   miamCertificationDocumentUpload?: Document;
   c1ADocument?: Document;
+  c1AWelshDocument?: Document;
   draftConsentOrderFile?: DraftConsentOrderFile;
   otherProceedingsTable?: OtherProceedingsTable;
   allegationsOfHarmYesNo?: string;
@@ -378,6 +382,7 @@ export interface Case {
   applicantUploadFiles?: UploadedFile[];
   declarationCheck?: string;
   finalDocument?: Document;
+  finalWelshDocument?: Document;
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   citizenUploadedDocumentList?: UploadDocumentList[];
   /*** Document upload */
@@ -586,6 +591,7 @@ export interface Case {
   noOfDaysRemainingToSubmitCase?: string;
   applicantPreferredContact?: applicantContactPreferencesEnum;
   draftOrderDoc?: Document;
+  draftOrderDocWelsh?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
 }

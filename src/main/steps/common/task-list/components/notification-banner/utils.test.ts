@@ -177,6 +177,11 @@ describe('testcase for notification Banner', () => {
               document_filename: '',
               document_binary_url: '',
             },
+            orderDocumentWelsh: {
+              document_url: '',
+              document_binary_url: '',
+              document_filename: '',
+            },
             otherDetails: {
               createdBy: '',
               orderCreatedDate: '',

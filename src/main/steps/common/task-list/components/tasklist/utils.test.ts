@@ -151,6 +151,11 @@ describe('testcase for tasklist', () => {
               document_binary_url: 'string',
               document_hash: 'string',
             },
+            orderDocumentWelsh: {
+              document_url: '',
+              document_binary_url: '',
+              document_filename: '',
+            },
             otherDetails: {
               createdBy: 'string',
               orderCreatedDate: 'string',

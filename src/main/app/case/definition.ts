@@ -850,6 +850,7 @@ export interface CaseData {
   allocatedJudgeDetails: AllocatedJudgeDetails;
   miamCertificationDocumentUpload: Document;
   c1ADocument: Document;
+  c1AWelshDocument: Document;
   applicantAttendedMiam: string;
   caseTypeOfApplication: string;
   claimingExemptionMiam: string;
@@ -910,6 +911,7 @@ export interface CaseData {
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
   finalDocument?: Document;
+  finalWelshDocument?:Document;
   serviceType: string;
   claimNumber: string;
   applicantCaseName: string;
@@ -977,6 +979,7 @@ export interface CaseData {
   citizenResponseC7DocumentList?: ResponseDocumentList[];
   respondentDocsList?:RespondentDocs[];
   draftOrderDoc?: Document;
+  draftOrderDocWelsh?: Document;
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -2145,6 +2148,7 @@ export const enum DocumentType {
   DEATH_CERTIFICATE = 'deathCertificate',
   APPLICATION_SUMMARY = 'applicationSummary',
   FL401_FINAL_DOCUMENT = 'FL401-Final-Document.pdf',
+  FL401_FINAL_DOCUMENT_WELSH = 'FL401-Final-Document-Welsh.pdf',
   WITNESS_STATEMENT = 'witness-statement-Final-Document.pdf',
   CITIZEN_DOCUMENT ='citizenDocument'
 }
@@ -2409,6 +2413,7 @@ export interface PRLDocument {
   dateCreated: DateAsString;
   orderType: string;
   orderDocument: Document;
+  orderDocumentWelsh:Document;
   otherDetails: OtherDetails;
   orderTypeId?: string;
   isWithdrawnRequestApproved?: YesOrNo
