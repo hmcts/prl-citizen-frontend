@@ -9,6 +9,10 @@ import {
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_VIEW_ALL_DOCUMENTS,
+  FIND_LEGAL_ADVISE,
+  FIND_MY_LOCAL_COURT,
+  KNOW_MORE_ABOUT_ATTENDING_COURT,
+  KNOW_MORE_ABOUT_CA,
 } from '../../../steps/urls';
 
 import { applicant_cy, applicant_en } from './section-titles';
@@ -79,26 +83,32 @@ const en = () => ({
     {
       label: 'Add a legal representative',
       link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+      target: '',
     },
     {
       label: 'Remove a legal representative',
       link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+      target: '',
     },
     {
       label: 'Find my local court',
-      link: 'https://www.gov.uk/find-court-tribunal',
+      link: FIND_MY_LOCAL_COURT,
+      target: '_blank',
     },
     {
       label: 'Find legal advice',
-      link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+      link: FIND_LEGAL_ADVISE,
+      target: '_blank',
     },
     {
       label: 'Know more about child arrangements',
-      link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court-other-parent',
+      link: KNOW_MORE_ABOUT_CA,
+      target: '_blank',
     },
     {
       label: 'Know more about attending court',
-      link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+      link: KNOW_MORE_ABOUT_ATTENDING_COURT,
+      target: '_blank',
     },
   ],
   addLegalRepresentative: 'Add a legal representative',
@@ -169,26 +179,32 @@ const cy = () => ({
     {
       label: 'Ychwanegu cynrychiolydd cyfreithiol',
       link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+      target: '',
     },
     {
       label: 'Dileu cynrychiolydd cyfreithiol',
       link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+      target: '',
     },
     {
       label: 'Dod o hyd i fy llys lleol',
-      link: 'https://www.gov.uk/find-court-tribunal',
+      link: FIND_MY_LOCAL_COURT,
+      target: '_blank',
     },
     {
       label: 'Dod o hyd i gyngor cyfreithiol',
-      link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+      link: FIND_LEGAL_ADVISE,
+      target: '_blank',
     },
     {
       label: 'Gwybod mwy am drefniadau plant',
-      link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court-other-parent',
+      link: KNOW_MORE_ABOUT_CA,
+      target: '_blank',
     },
     {
       label: 'Gwybod mwy am fynychu’r llys',
-      link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+      link: KNOW_MORE_ABOUT_ATTENDING_COURT,
+      target: '_blank',
     },
   ],
   addLegalRepresentative: 'Ychwanegu cynrychiolydd cyfreithiol',

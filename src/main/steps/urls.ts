@@ -613,3 +613,10 @@ export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
   isNonProd
     ? 'https://c100-application-staging.apps.live-1.cloud-platform.service.justice.gov.uk/'
     : 'https://apply-to-court-about-child-arrangements.service.justice.gov.uk';
+
+export const FIND_MY_LOCAL_COURT = 'https://www.gov.uk/find-court-tribunal';
+export const FIND_LEGAL_ADVISE = 'https://www.gov.uk/find-legal-advice/find-legal-adviser';
+export const KNOW_MORE_ABOUT_CA =
+  'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court-other-parent';
+export const KNOW_MORE_ABOUT_ATTENDING_COURT =
+  'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court';

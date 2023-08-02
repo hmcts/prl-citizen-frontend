@@ -281,13 +281,13 @@ export const getResponseStatus = (userCase: Partial<CaseWithId>, userId: string)
       return _respondent;
     }
   });
-  return isResponded(userCase, userId)
+  return isC7ResponseSubmitted(userCase, userId)
     ? SectionStatus.COMPLETED
     : respondent?.value.response.legalRepresentation
     ? SectionStatus.IN_PROGRESS
     : SectionStatus.TO_DO;
 };
-export const isResponded = (userCase: Partial<CaseWithId>, userId: string): boolean => {
+export const isC7ResponseSubmitted = (userCase: Partial<CaseWithId>, userId: string): boolean => {
   const respondent = userCase?.respondents?.find(_respondent => {
     if (_respondent.value.user.idamId === userId) {
       return _respondent;

@@ -2,6 +2,12 @@ import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { SectionStatus } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
+import {
+  FIND_LEGAL_ADVISE,
+  FIND_MY_LOCAL_COURT,
+  KNOW_MORE_ABOUT_ATTENDING_COURT,
+  KNOW_MORE_ABOUT_CA,
+} from '../../urls';
 
 import { generateContent } from './content';
 import { respondent_cy, respondent_en } from './section-titles';
@@ -25,22 +31,27 @@ const enContent = {
     {
       label: 'Add a legal representative',
       link: '/respondent/add-legal-representative',
+      target: '',
     },
     {
       label: 'Find my local court',
-      link: 'https://www.gov.uk/find-court-tribunal',
+      link: FIND_MY_LOCAL_COURT,
+      target: '_blank',
     },
     {
       label: 'Find legal advice',
-      link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+      link: FIND_LEGAL_ADVISE,
+      target: '_blank',
     },
     {
       label: 'Know more about child arrangements',
-      link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court-other-parent',
+      link: KNOW_MORE_ABOUT_CA,
+      target: '_blank',
     },
     {
       label: 'Know more about attending court',
-      link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+      link: KNOW_MORE_ABOUT_ATTENDING_COURT,
+      target: '_blank',
     },
   ],
 };
@@ -63,22 +74,27 @@ const cyContent = {
     {
       label: 'Ychwanegu cynrychiolydd cyfreithiol',
       link: '/respondent/add-legal-representative',
+      target: '',
     },
     {
       label: 'Dod o hyd i fy llys lleol',
-      link: 'https://www.gov.uk/find-court-tribunal',
+      link: FIND_MY_LOCAL_COURT,
+      target: '_blank',
     },
     {
       label: 'Dod o hyd i gyngor cyfreithiol',
-      link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+      link: FIND_LEGAL_ADVISE,
+      target: '_blank',
     },
     {
       label: 'Gwybod mwy am drefniadau plant',
-      link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court-other-parent',
+      link: KNOW_MORE_ABOUT_CA,
+      target: '_blank',
     },
     {
       label: 'Gwybod mwy am fynychu’r llys',
-      link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+      link: KNOW_MORE_ABOUT_ATTENDING_COURT,
+      target: '_blank',
     },
   ],
 };

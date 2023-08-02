@@ -100,7 +100,7 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
           const arr = userkey.split(' ');
           const index = en.months.indexOf(arr[1]);
           arr[1] = language === 'cy' ? cy.months[index] : arr[1];
-          return arr[0] + ' ' + arr[1] + ' ' + arr[2];
+          return `${arr[0]} ${arr[1]} ${arr[2]}`;
         }
       }
       break;

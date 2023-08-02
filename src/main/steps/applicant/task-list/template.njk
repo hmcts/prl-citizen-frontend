@@ -26,7 +26,7 @@
           <ul class="govuk-list">
           {% for hyperlink in hyperlinks %}
             <li>
-              <a href="{{hyperlink.link}}" class="govuk-link">{{hyperlink.label}}</a>
+              <a href="{{hyperlink.link}}" target="{{hyperlink.target}}" class="govuk-link">{{hyperlink.label}}</a>
               <div class="govuk-!-padding-bottom-2"></div>
             </li>
           {% endfor %}

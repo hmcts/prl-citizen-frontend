@@ -14,7 +14,7 @@ import {
   getViewAllDocuments,
   getViewAllHearingsFromTheCourt,
   getViewAllOrdersFromTheCourt,
-  isResponded,
+  isC7ResponseSubmitted,
 } from './utils';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -147,7 +147,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
 
 const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWithId, userId: string) => {
   if (userCase?.caseTypeOfApplication === 'C100') {
-    const hasCitizenResponse = isResponded(userCase, userId);
+    const hasCitizenResponse = isC7ResponseSubmitted(userCase, userId);
     return [
       {
         title: sectionTitles.yourResponse,
