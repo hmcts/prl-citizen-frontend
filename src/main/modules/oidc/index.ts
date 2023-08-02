@@ -12,7 +12,6 @@ import {
   ANONYMOUS_URLS,
   C100_URL,
   CALLBACK_URL,
-  CITIZEN_HOME_URL,
   DASHBOARD_URL,
   SCREENING_QUESTIONS,
   SIGN_IN_URL,
@@ -55,11 +54,7 @@ export class OidcMiddleware {
             req.session.save(() => res.redirect(DASHBOARD_URL));
           }
         } else {
-          if (!req.session?.accessCodeLoginIn) {
-            res.redirect(CITIZEN_HOME_URL);
-          } else {
-            res.redirect(SIGN_IN_URL);
-          }
+          res.redirect(SIGN_IN_URL);
         }
       })
     );
