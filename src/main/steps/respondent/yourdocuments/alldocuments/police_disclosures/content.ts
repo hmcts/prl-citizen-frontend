@@ -26,12 +26,11 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const uploadedBy = content.additionalData?.req.session.applicationSettings.docToView.uploadedBy;
-  const docType = content.additionalData?.req.session.applicationSettings.docType;
+  const documentToView = content.additionalData?.req.session.applicationSettings.docToView;
   const citizenUploadedDocumentList = content.userCase?.citizenUploadedDocumentList;
 
   return {
     ...translations,
-    orders: getDocumentList(citizenUploadedDocumentList, docType, uploadedBy),
+    orders: getDocumentList(citizenUploadedDocumentList, documentToView.docType, documentToView.uploadedBy),
   };
 };

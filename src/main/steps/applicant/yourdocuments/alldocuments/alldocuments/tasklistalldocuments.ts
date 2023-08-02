@@ -2,6 +2,7 @@
 import {
   Applicant,
   CaseType,
+  DocType,
   PartyDetails,
   PartyType,
   Respondent,
@@ -102,7 +103,10 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
   applicantItems.push({
     id: 'other_people_witness_statements',
     text: taskListItems.other_people_witness_statements,
-    href: url + URL.OTHER_PEOPLE_WITNESS_STATEMENTS,
+    href: applyParms(URL.VIEW_DOCUMENT_URL, {
+      docType: DocType.OTHER_PEOPLE_WITNESS_STATEMENTS,
+      uploadedBy: PartyType.APPLICANT,
+    }),
   });
 
   applicantItems.push(isMedicalReportsUploadedd(taskListItems, flags.isMedicalReportsUploaded));
@@ -111,7 +115,10 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     applicantItems.push({
       id: 'miam_certificate',
       text: taskListItems.miam_certificate,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'miamcertificate', uploadedBy: PartyType.APPLICANT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.MIAM_CERTIFICATE,
+        uploadedBy: PartyType.APPLICANT,
+      }),
     });
   }
   if (userCase?.previousOrOngoingProceedingsForChildren === YesNoDontKnow.yes) {
@@ -138,14 +145,20 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
     applicantItems.push({
       id: 'police_disclosures',
       text: taskListItems.police_disclosures,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'police_disclosures', uploadedBy: PartyType.APPLICANT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.POLICE_REPORTS,
+        uploadedBy: PartyType.APPLICANT,
+      }),
     });
   }
   if (flags.isWitnessAvailabilityUploaded) {
     applicantItems.push({
       id: 'witness_availability',
       text: taskListItems.witness_availability,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'witness_availability', uploadedBy: PartyType.APPLICANT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.WITNESS_AVAILABILITY,
+        uploadedBy: PartyType.APPLICANT,
+      }),
     });
   }
   if (flags.isTenancyUploaded) {
@@ -153,7 +166,7 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
       id: 'tenancy_and_mortgage_availability',
       text: taskListItems.tenancy_and_mortgage_availability,
       href: applyParms(URL.VIEW_DOCUMENT_URL, {
-        docType: 'tenancy_and_mortgage_availability',
+        docType: DocType.TENANCY_AND_MORTGAGE_AVAILABILITY,
         uploadedBy: PartyType.APPLICANT,
       }),
     });
@@ -171,7 +184,10 @@ export const isMedicalReportsUploadedd = (taskListItems, isMedicalReportsUploade
     return {
       id: 'medical_reports',
       text: taskListItems.medical_reports,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'medicalreports', uploadedBy: PartyType.APPLICANT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.MEDICAL_REPORTS,
+        uploadedBy: PartyType.APPLICANT,
+      }),
     };
   }
 };
@@ -181,7 +197,10 @@ export const isPreviousOrdersSubmittedd = (taskListItems, isPreviousOrdersSubmit
     return {
       id: 'previous_orders_submitted',
       text: taskListItems.previous_orders_submitted,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'previousorders', uploadedBy: PartyType.APPLICANT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.PREVIOUS_ORDERS,
+        uploadedBy: PartyType.APPLICANT,
+      }),
     };
   }
 };
@@ -191,7 +210,10 @@ export const isLettersFromSchoold = (taskListItems, isLettersFromSchool): any =>
     return {
       id: 'letters_from_school',
       text: taskListItems.letters_from_school,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'lettersfromschool', uploadedBy: PartyType.APPLICANT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.LETTERS_FROM_SCHOOL,
+        uploadedBy: PartyType.APPLICANT,
+      }),
     };
   }
 };
@@ -201,7 +223,10 @@ export const isDigitalDownloadsUploadedd = (taskListItems, isDigitalDownloadsUpl
     return {
       id: 'digital_downloads',
       text: taskListItems.digital_downloads,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'digitaldownloads', uploadedBy: PartyType.APPLICANT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.DIGITAL_DOWNLOADS,
+        uploadedBy: PartyType.APPLICANT,
+      }),
     };
   }
 };
@@ -211,7 +236,10 @@ export const isMedicalRecordsUploadd = (taskListItems, isMedicalRecordsUpload): 
     return {
       id: 'medical_records',
       text: taskListItems.medical_records,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'medicalrecords', uploadedBy: PartyType.APPLICANT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.MEDICAL_RECORDS,
+        uploadedBy: PartyType.APPLICANT,
+      }),
     };
   }
 };
@@ -221,7 +249,10 @@ export const isPaternityDocUploadedd = (taskListItems, isPaternityDocUploaded): 
     return {
       id: 'paternity_test_reports',
       text: taskListItems.paternity_test_reports,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'paternity_test_reports', uploadedBy: PartyType.APPLICANT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.PATERNITY_TEST_REPORTS,
+        uploadedBy: PartyType.APPLICANT,
+      }),
     };
   }
 };
@@ -231,7 +262,10 @@ export const isDrugDocUploadedd = (taskListItems, isDrugDocUploaded): any => {
     return {
       id: 'drug_alcohol_tests',
       text: taskListItems.drug_alcohol_tests,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'drug_alcohol_tests', uploadedBy: PartyType.APPLICANT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.DRUG_ALCOHOL_TESTS,
+        uploadedBy: PartyType.APPLICANT,
+      }),
     };
   }
 };
@@ -303,7 +337,10 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
   respondentItems2.push({
     id: 'other_people_witness_statements_respondent',
     text: taskListItems.other_people_witness_statements_respondent,
-    href: url + URL.OTHER_PEOPLE_WITNESS_STATEMENTS + '?byApplicant=No',
+    href: applyParms(URL.VIEW_DOCUMENT_URL, {
+      docType: DocType.OTHER_PEOPLE_WITNESS_STATEMENTS,
+      uploadedBy: PartyType.RESPONDENT,
+    }),
   });
 
   respondentItems2.push(isDigitalDownloadsUploadedRespondent(taskListItems, flags.isDigitalDownloadsUploaded));
@@ -320,14 +357,20 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
     respondentItems2.push({
       id: 'police_disclosures_respondent',
       text: taskListItems.police_disclosures_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'police_disclosures', uploadedBy: PartyType.RESPONDENT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.POLICE_REPORTS,
+        uploadedBy: PartyType.RESPONDENT,
+      }),
     });
   }
   if (flags.isWitnessAvailabilityUploaded) {
     respondentItems2.push({
       id: 'witness_availability_respondent',
       text: taskListItems.witness_availability_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'witness_availability', uploadedBy: PartyType.RESPONDENT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.WITNESS_AVAILABILITY,
+        uploadedBy: PartyType.RESPONDENT,
+      }),
     });
   }
   if (flags.isTenancyUploaded) {
@@ -335,7 +378,7 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
       id: 'tenancy_and_mortgage_availability',
       text: taskListItems.tenancy_and_mortgage_availability,
       href: applyParms(URL.VIEW_DOCUMENT_URL, {
-        docType: 'tenancy_and_mortgage_availability',
+        docType: DocType.TENANCY_AND_MORTGAGE_AVAILABILITY,
         uploadedBy: PartyType.RESPONDENT,
       }),
     });
@@ -353,7 +396,10 @@ export const isPreviousOrdersSubmittedRespondent = (taskListItems, isPreviousOrd
     return {
       id: 'previous_orders_submitted_respondent',
       text: taskListItems.previous_orders_submitted_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'previousorders', uploadedBy: PartyType.RESPONDENT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.PREVIOUS_ORDERS,
+        uploadedBy: PartyType.RESPONDENT,
+      }),
     };
   }
 };
@@ -364,7 +410,10 @@ export const isLettersFromSchoolRespondent = (taskListItems, isLettersFromSchool
     return {
       id: 'letters_from_school_respondent',
       text: taskListItems.letters_from_school_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'lettersfromschool', uploadedBy: PartyType.RESPONDENT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.LETTERS_FROM_SCHOOL,
+        uploadedBy: PartyType.RESPONDENT,
+      }),
     };
   }
 };
@@ -375,7 +424,10 @@ export const isDigitalDownloadsUploadedRespondent = (taskListItems, isDigitalDow
     return {
       id: 'digital_downloads_respondent',
       text: taskListItems.digital_downloads_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'digitaldownloads', uploadedBy: PartyType.RESPONDENT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.DIGITAL_DOWNLOADS,
+        uploadedBy: PartyType.RESPONDENT,
+      }),
     };
   }
 };
@@ -386,7 +438,10 @@ export const isMedicalRecordsUploadRespondent = (taskListItems, isMedicalRecords
     return {
       id: 'medical_records_respondent',
       text: taskListItems.medical_records_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'medicalrecords', uploadedBy: PartyType.RESPONDENT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.MEDICAL_RECORDS,
+        uploadedBy: PartyType.RESPONDENT,
+      }),
     };
   }
 };
@@ -397,7 +452,10 @@ export const isMedicalReportsUploadedRespondent = (taskListItems, isMedicalRepor
     return {
       id: 'medical_reports_respondent',
       text: taskListItems.medical_reports_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'medicalreports', uploadedBy: PartyType.RESPONDENT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.MEDICAL_REPORTS,
+        uploadedBy: PartyType.RESPONDENT,
+      }),
     };
   }
 };
@@ -408,7 +466,10 @@ export const isPaternityDocUploadedRespondent = (taskListItems, isPaternityDocUp
     return {
       id: 'paternity_test_reports_respondent',
       text: taskListItems.paternity_test_reports_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'paternity_test_reports', uploadedBy: PartyType.RESPONDENT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.PATERNITY_TEST_REPORTS,
+        uploadedBy: PartyType.RESPONDENT,
+      }),
     };
   }
 };
@@ -419,7 +480,10 @@ export const isDrugDocUploadedRespondent = (taskListItems, isDrugDocUploaded): a
     return {
       id: 'drug_alcohol_tests_respondent',
       text: taskListItems.drug_alcohol_tests_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, { docType: 'drug_alcohol_tests', uploadedBy: PartyType.RESPONDENT }),
+      href: applyParms(URL.VIEW_DOCUMENT_URL, {
+        docType: DocType.DRUG_ALCOHOL_TESTS,
+        uploadedBy: PartyType.RESPONDENT,
+      }),
     };
   }
 };
@@ -492,12 +556,12 @@ export const getCafcassDocuments = (sectionTitles, taskListItems, userCase, url)
 export const getOtherDocuments = (sectionTitles, taskListItems, url) => {
   if (url.includes(URL.APPLICANT)) {
     url = applyParms(URL.VIEW_DOCUMENT_URL, {
-      docType: 'otherDocuments',
+      docType: DocType.OTHER_DOCUMENTS,
       uploadedBy: PartyType.APPLICANT,
     });
   } else {
     url = applyParms(URL.VIEW_DOCUMENT_URL, {
-      docType: 'otherDocuments',
+      docType: DocType.OTHER_DOCUMENTS,
       uploadedBy: PartyType.RESPONDENT,
     });
   }
@@ -609,7 +673,7 @@ const getRespondentPositionStatements = (respondent: Respondent, taskListItems) 
       respondent.value.firstName + ' ' + respondent.value.lastName
     ),
     href: applyParms(URL.VIEW_DOCUMENT_URL, {
-      docType: 'positionstatements',
+      docType: DocType.POSITION_STATEMENTS,
       uploadedBy: PartyType.RESPONDENT,
       partyName: `${respondent.value.firstName} ${respondent.value.lastName}`,
     }),
@@ -624,7 +688,7 @@ const getRespondentWitnessStatements = (respondent: Respondent, taskListItems) =
       respondent.value.firstName + ' ' + respondent.value.lastName
     ),
     href: applyParms(URL.VIEW_DOCUMENT_URL, {
-      docType: 'yourwitnessstatements',
+      docType: DocType.YOUR_WITNESS_STATEMENTS,
       uploadedBy: PartyType.RESPONDENT,
       partyName: `${respondent.value.firstName} ${respondent.value.lastName}`,
     }),
@@ -639,7 +703,7 @@ const getRespondentPositionStatementsDA = (respondent: PartyDetails, taskListIte
       respondent.firstName + ' ' + respondent.lastName
     ),
     href: applyParms(URL.VIEW_DOCUMENT_URL, {
-      docType: 'positionstatements',
+      docType: DocType.POSITION_STATEMENTS,
       uploadedBy: PartyType.RESPONDENT,
       partyName: `${respondent.firstName} ${respondent.lastName}`,
     }),
@@ -654,7 +718,7 @@ const getRespondentWitnessStatementsDA = (respondent: PartyDetails, taskListItem
       respondent.firstName + ' ' + respondent.lastName
     ),
     href: applyParms(URL.VIEW_DOCUMENT_URL, {
-      docType: 'yourwitnessstatements',
+      docType: DocType.YOUR_WITNESS_STATEMENTS,
       uploadedBy: PartyType.RESPONDENT,
       partyName: `${respondent.firstName} ${respondent.lastName}`,
     }),
@@ -704,7 +768,7 @@ const getApplicantPositionStatements = (applicant: Applicant, taskListItems) => 
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
     href: applyParms(URL.VIEW_DOCUMENT_URL, {
-      docType: 'positionstatements',
+      docType: DocType.POSITION_STATEMENTS,
       uploadedBy: PartyType.APPLICANT,
       partyName: `${applicant.value.firstName} ${applicant.value.lastName}`,
     }),
@@ -718,7 +782,7 @@ const getApplicantWitnessStatements = (applicant: Applicant, taskListItems) => {
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
     href: applyParms(URL.VIEW_DOCUMENT_URL, {
-      docType: 'yourwitnessstatements',
+      docType: DocType.YOUR_WITNESS_STATEMENTS,
       uploadedBy: PartyType.APPLICANT,
       partyName: `${applicant.value.firstName} ${applicant.value.lastName}`,
     }),
@@ -766,7 +830,7 @@ const getApplicantPositionStatementsDA = (applicant: PartyDetails, taskListItems
       applicant.firstName + ' ' + applicant.lastName
     ),
     href: applyParms(URL.VIEW_DOCUMENT_URL, {
-      docType: 'positionstatements',
+      docType: DocType.POSITION_STATEMENTS,
       uploadedBy: PartyType.APPLICANT,
       partyName: `${applicant.firstName} ${applicant.lastName}`,
     }),
@@ -781,7 +845,7 @@ const getApplicantWitnessStatementsDA = (applicant: PartyDetails, taskListItems)
       applicant.firstName + ' ' + applicant.lastName
     ),
     href: applyParms(URL.VIEW_DOCUMENT_URL, {
-      docType: 'yourwitnessstatements',
+      docType: DocType.YOUR_WITNESS_STATEMENTS,
       uploadedBy: PartyType.APPLICANT,
       partyName: `${applicant.firstName} ${applicant.lastName}`,
     }),

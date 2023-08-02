@@ -1,6 +1,6 @@
 import { YesOrNo } from '../../../../../app/case/definition';
 
-import { getDocumentList, getDocumentListItemCy, getDocumentListItemEn } from './utils';
+import { getDocumentList, getDocumentListItem } from './utils';
 
 describe('all documents utils', () => {
   test.each([
@@ -9,36 +9,18 @@ describe('all documents utils', () => {
     { value: 'lettersfromschool', expected: 'Letters from school' },
     { value: 'digitaldownloads', expected: 'Emails, screenshots, images and other media files' },
     { value: 'medicalrecords', expected: 'Medical records' },
-    { value: 'paternity_test_reports', expected: 'Paternity test reports' },
-    { value: 'drug_alcohol_tests', expected: 'Drug and alcohol tests (toxicology)' },
-    { value: 'witness_availability', expected: 'Witness availability' },
-    { value: 'tenancy_and_mortgage_availability', expected: 'Tenancy and mortgage agreements' },
+    { value: 'paternitytestreports', expected: 'Paternity test reports' },
+    { value: 'drugalcoholtests', expected: 'Drug and alcohol tests (toxicology)' },
+    { value: 'witnessavailability', expected: 'Witness availability' },
+    { value: 'tenancyandmortgageavailability', expected: 'Tenancy and mortgage agreements' },
     { value: 'medicalreports', expected: 'Medical reports' },
     { value: 'otherDocuments', expected: 'Other documents' },
     { value: 'previousorders', expected: 'Previous orders submitted with application' },
     { value: 'otherpeoplewitnessstatement', expected: "Other people's witness statements" },
-    { value: 'police_disclosures', expected: 'Police reports' },
+    { value: 'policedisclosures', expected: 'Police reports' },
+    { value: 'miamcertificate', expected: 'MIAM certificate' },
   ])('get english document list item text', ({ value, expected }) => {
-    expect(getDocumentListItemEn(value)).toBe(expected);
-  });
-
-  test.each([
-    { value: 'positionstatements', expected: 'Eich datganiadau safbwynt' },
-    { value: 'yourwitnessstatements', expected: 'Eich datganiadau tyst' },
-    { value: 'lettersfromschool', expected: 'Llythyrau gan yr ysgol' },
-    { value: 'digitaldownloads', expected: 'Negeseuon e-bost, cipluniau, delweddau a ffeiliau cyfryngau eraill' },
-    { value: 'medicalrecords', expected: 'Cofnodion meddygol' },
-    { value: 'paternity_test_reports', expected: 'Adroddiadau profion tadolaeth' },
-    { value: 'drug_alcohol_tests', expected: 'Profion cyffuriau ac alcohol (tocsicoleg)' },
-    { value: 'witness_availability', expected: 'Pryd fydd tystion ar gael' },
-    { value: 'tenancy_and_mortgage_availability', expected: 'Tenantiaeth a morgais' },
-    { value: 'medicalreports', expected: 'Adroddiadau meddygol' },
-    { value: 'otherDocuments', expected: 'Dogfennau eraill' },
-    { value: 'previousorders', expected: "Gorchmynion blaenorol wedi'u cyflwyno gyda'r cais" },
-    { value: 'otherpeoplewitnessstatement', expected: 'Datganiadau tyst pobl eraill' },
-    { value: 'police_disclosures', expected: "Adroddiadau'r heddlu" },
-  ])('get welsh document list item text', ({ value, expected }) => {
-    expect(getDocumentListItemCy(value)).toBe(expected);
+    expect(getDocumentListItem(value)).toBe(expected);
   });
 
   test('getDocumentList for letters from school', () => {

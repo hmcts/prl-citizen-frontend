@@ -9,7 +9,8 @@ import {
   applicant_tasklist_items_all_docs_en,
 } from './tasklist-items-all-documents';
 import { generateApplicantTaskListAllDocuments } from './tasklistalldocuments';
-//import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
+
+export * from './routeGuard';
 
 const en = () => {
   return {
@@ -40,8 +41,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const request = content.additionalData?.req;
   const caseData = request.session?.userCase;
-
-  request.session.applicationSettings = {};
 
   return {
     ...translations,

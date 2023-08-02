@@ -547,12 +547,12 @@ describe('testing all the additional function created as a part of applicant and
     expect(isPaternityDocUploadedd(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'paternity_test_reports',
       text: applicant_tasklist_items_all_docs_en.paternity_test_reports,
-      href: '/doc/paternity_test_reports/applicant',
+      href: '/doc/paternitytestreports/applicant',
     });
     expect(isDrugDocUploadedd(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'drug_alcohol_tests',
       text: applicant_tasklist_items_all_docs_en.drug_alcohol_tests,
-      href: '/doc/drug_alcohol_tests/applicant',
+      href: '/doc/drugalcoholtests/applicant',
     });
   });
   test('testing as a part of respondent docs', () => {
@@ -584,12 +584,12 @@ describe('testing all the additional function created as a part of applicant and
     expect(isPaternityDocUploadedRespondent(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'paternity_test_reports_respondent',
       text: applicant_tasklist_items_all_docs_en.paternity_test_reports_respondent,
-      href: '/doc/paternity_test_reports/respondent',
+      href: '/doc/paternitytestreports/respondent',
     });
     expect(isDrugDocUploadedRespondent(applicant_tasklist_items_all_docs_en, true)).toEqual({
       id: 'drug_alcohol_tests_respondent',
       text: applicant_tasklist_items_all_docs_en.drug_alcohol_tests_respondent,
-      href: '/doc/drug_alcohol_tests/respondent',
+      href: '/doc/drugalcoholtests/respondent',
     });
   });
 
