@@ -58,9 +58,7 @@ export const generateContent: TranslationFn = content => {
 
     for (const items of translations['listOfCofidentialInfromations'] as []) {
       for (const subItems of selectedOptionsContactDetailPrivate as unknown as string) {
-        if ((items['key'] as string) === (subItems as string)) {
-          shownToggledConfidentialOptions.push(items['value'] as never);
-        }
+        prepareOptions(items, subItems, shownToggledConfidentialOptions);
       }
     }
     translations['listOfCofidentialInfromations'] = shownToggledConfidentialOptions as [];
@@ -73,19 +71,22 @@ export const generateContent: TranslationFn = content => {
     const shownToggledConfidentialOptions = [] as [];
     for (const items of translations['listOfCofidentialInfromations'] as []) {
       for (const subItems of selectedOptionsContactDetailPrivateAlterative as unknown as string) {
-        if ((items['key'] as string) === (subItems as string)) {
-          shownToggledConfidentialOptions.push(items['value']);
-        }
+        prepareOptions(items, subItems, shownToggledConfidentialOptions);
       }
     }
     translations['listOfCofidentialInfromations'] = shownToggledConfidentialOptions as [];
   }
   const applicantData = content.userCase?.appl_allApplicants?.filter(user => user['id'] === userId)[0];
-  const applicantName = (applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName']) as string;
+  const applicantName = applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName'];
   translations['applicantName'] = applicantName;
 
   return {
     ...translations,
     form,
   };
+};
+const prepareOptions = (items: never, subItems: string, shownToggledConfidentialOptions) => {
+  if ((items['key'] as string) === subItems) {
+    shownToggledConfidentialOptions.push(items['value']);
+  }
 };
