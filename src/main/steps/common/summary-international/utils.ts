@@ -3,7 +3,7 @@
 import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
-import { State } from '../../../app/case/definition';
+import { CaseType, State } from '../../../app/case/definition';
 import { isDateInputInvalid } from '../../../app/form/validation';
 import {
   GovUkNunjucksSummary,
@@ -56,22 +56,7 @@ export const summaryCaseList = (
     const id = userCase.id as string;
     const name = userCase.applicantCaseName;
     const state = userCase.caseStatus?.state;
-    let caseUrl = '#';
-    if (userCase.caseTypeOfApplication === 'C100') {
-      if (!isRespondent) {
-        if (state === State.Draft) {
-          caseUrl = applyParms(`${C100_RETRIVE_CASE}`, { caseId: id });
-        }
-      } else {
-        caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
-      }
-    } else if (userCase.caseTypeOfApplication === 'FL401') {
-      if (!isRespondent) {
-        caseUrl = APPLICANT_TASK_LIST_URL + '/' + id;
-      } else {
-        caseUrl = RESPONDENT_TASK_LIST_URL + '/' + id;
-      }
-    }
+    const caseUrl = getRedirectUrl(userCase, isRespondent, state, id);
     const row = {
       key: name,
       value: state,
@@ -132,8 +117,21 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   tempDetails = tempDetails + '</ul>';
   return tempDetails;
 };
-function notDate(key: string, userCase: Partial<CaseWithId>) {
+const getRedirectUrl = (
+  userCase: Partial<CaseWithId>,
+  isRespondent: boolean | undefined,
+  state: string | undefined,
+  id: string
+) => {
+  const applicantUrl = state === State.Draft ? applyParms(`${C100_RETRIVE_CASE}`, { caseId: id }) : '#';
+  const C100_Url = isRespondent ? RESPONDENT_TASK_LIST_URL + '/' + id : applicantUrl;
+  const FL401_Url = (!isRespondent ? APPLICANT_TASK_LIST_URL : RESPONDENT_TASK_LIST_URL) + '/' + id;
+  const caseUrl = userCase.caseTypeOfApplication === CaseType.C100 ? C100_Url : FL401_Url;
+  return caseUrl;
+};
+
+const notDate = (key: string, userCase: Partial<CaseWithId>) => {
   return key === 'startAlternative' && userCase[key] !== 'undefined'
     ? userCase[key] + getSelectedPrivateDetails(userCase)
     : userCase[key];
-}
+};

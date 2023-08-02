@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import {
   PRL_C1AAbuseTypes,
+  PRL_C1ASafteyConcerns,
   PRL_C1ASafteyConcernsAbout,
   PRL_C1ASafteyConcerns_total,
   PartyDetails,
@@ -35,39 +36,9 @@ export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_tota
   } = userCase;
   let request: PRL_C1ASafteyConcerns_total = {};
 
-  if (PRL_c1A_concernAboutChild?.length) {
-    request.child = {};
-    PRL_c1A_concernAboutChild.forEach((abuse: string) => {
-      if (PRL_c1A_safteyConcerns?.child?.[abuse]) {
-        const childrenConcern = PRL_c1A_safteyConcerns.child[abuse]?.childrenConcernedAbout;
-        request.child = {
-          ...request.child,
-          [abuse]: {
-            ...PRL_c1A_safteyConcerns.child[abuse],
-            childrenConcernedAbout: Array.isArray(childrenConcern) ? childrenConcern.join(',') : childrenConcern,
-          },
-        };
-        if (PRL_c1A_safteyConcerns.child[abuse]?.seekHelpFromPersonOrAgency === YesOrNo.NO) {
-          delete request.child?.[abuse].seekHelpDetails;
-        }
-      }
-    });
-  }
+  concernDetailsAboutChild(PRL_c1A_concernAboutChild, request, PRL_c1A_safteyConcerns);
 
-  if (PRL_c1A_concernAboutRespondent) {
-    request.respondent = {};
-    PRL_c1A_concernAboutRespondent.forEach((abuse: string) => {
-      if (PRL_c1A_safteyConcerns?.respondent?.[abuse]) {
-        request.respondent = {
-          ...request.respondent,
-          [abuse]: PRL_c1A_safteyConcerns?.respondent?.[abuse],
-        };
-        if (PRL_c1A_safteyConcerns?.respondent?.[abuse].seekHelpFromPersonOrAgency === YesOrNo.NO) {
-          delete request.respondent?.[abuse].seekHelpDetails;
-        }
-      }
-    });
-  }
+  concernDetailsAboutRespondent(PRL_c1A_concernAboutRespondent, request, PRL_c1A_safteyConcerns);
 
   Object.assign(request, {
     haveSafetyConcerns: PRL_c1A_haveSafetyConcerns,
@@ -192,4 +163,49 @@ export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<Ca
     PRL_c1A_supervisionAgreementDetails: otherconcerns?.c1AsupervisionAgreementDetails,
     PRL_c1A_agreementOtherWaysDetails: otherconcerns?.c1AagreementOtherWaysDetails,
   };
+};
+function concernDetailsAboutRespondent(
+  PRL_c1A_concernAboutRespondent: PRL_C1AAbuseTypes[] | undefined,
+  request: PRL_C1ASafteyConcerns_total,
+  PRL_c1A_safteyConcerns: PRL_C1ASafteyConcerns | undefined
+) {
+  if (PRL_c1A_concernAboutRespondent) {
+    request.respondent = {};
+    PRL_c1A_concernAboutRespondent.forEach((abuse: string) => {
+      if (PRL_c1A_safteyConcerns?.respondent?.[abuse]) {
+        request.respondent = {
+          ...request.respondent,
+          [abuse]: PRL_c1A_safteyConcerns?.respondent?.[abuse],
+        };
+        if (PRL_c1A_safteyConcerns?.respondent?.[abuse].seekHelpFromPersonOrAgency === YesOrNo.NO) {
+          delete request.respondent?.[abuse].seekHelpDetails;
+        }
+      }
+    });
+  }
+}
+
+const concernDetailsAboutChild = (
+  PRL_c1A_concernAboutChild: PRL_C1AAbuseTypes[] | undefined,
+  request: PRL_C1ASafteyConcerns_total,
+  PRL_c1A_safteyConcerns: PRL_C1ASafteyConcerns | undefined
+) => {
+  if (PRL_c1A_concernAboutChild?.length) {
+    request.child = {};
+    PRL_c1A_concernAboutChild.forEach((abuse: string) => {
+      if (PRL_c1A_safteyConcerns?.child?.[abuse]) {
+        const childrenConcern = PRL_c1A_safteyConcerns.child[abuse]?.childrenConcernedAbout;
+        request.child = {
+          ...request.child,
+          [abuse]: {
+            ...PRL_c1A_safteyConcerns.child[abuse],
+            childrenConcernedAbout: Array.isArray(childrenConcern) ? childrenConcern.join(',') : childrenConcern,
+          },
+        };
+        if (PRL_c1A_safteyConcerns.child[abuse]?.seekHelpFromPersonOrAgency === YesOrNo.NO) {
+          delete request.child?.[abuse].seekHelpDetails;
+        }
+      }
+    });
+  }
 };

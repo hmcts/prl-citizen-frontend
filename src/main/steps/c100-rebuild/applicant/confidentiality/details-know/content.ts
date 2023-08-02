@@ -66,7 +66,7 @@ export const generateContent: TranslationFn = content => {
   const applicantData = content.userCase?.appl_allApplicants?.filter(user => user['id'] === userId)[0];
   const selectedUser = applicantData?.['detailsKnown'];
   const applicantName = applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName'];
-  let detailKnownFormField = form.fields['detailsKnown']?.['values'];
+  let detailKnownFormField;
   const checkedFormField = [
     {
       label: l => l.one,
