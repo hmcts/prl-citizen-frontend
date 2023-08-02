@@ -6,6 +6,8 @@ import {
 
 import { respondent_all_docs_cy, respondent_all_docs_en } from './section-titles-all-documents';
 import { generateRespondentTaskListAllDocuments } from './tasklistalldocuments';
+export * from '../../../../../steps/applicant/yourdocuments/alldocuments/alldocuments/routeGuard';
+
 const en = () => {
   return {
     title: 'All documents',
