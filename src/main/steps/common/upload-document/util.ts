@@ -10,6 +10,117 @@ interface DocumentMeta {
   type: string;
 }
 
+
+const getPositionStatementsDocInfo = (type: DocType, documentCategory: Record<string, string>, documentType: Record<string, string>): DocumentMeta => {
+  const docInfo = {
+    category: '',
+    type: ''
+  };
+
+  switch (type) {
+    case DocType.POSITION_STATEMENTS: {
+      Object.assign(docInfo, {
+        category: documentCategory.witness_statements_and_evidence,
+        type: documentType.your_position_statements
+      })
+      break;
+    }
+    case DocType.YOUR_WITNESS_STATEMENTS: {
+      Object.assign(docInfo, {
+        category: documentCategory.witness_statements_and_evidence,
+        type: documentType.your_witness_statements
+      })
+      break;
+    }
+    case DocType.OTHER_PEOPLE_WITNESS_STATEMENTS: {
+      Object.assign(docInfo, {
+        category: documentCategory.witness_statements_and_evidence,
+        type: documentType.other_witness_statements
+      })
+      break;
+    }
+    case DocType.MEDIA_FILES: {
+      Object.assign(docInfo, {
+        category: documentCategory.witness_statements_and_evidence,
+        type: documentType.mail_screenshots_media_files
+      })
+      break;
+    } case DocType.MEDICAL_RECORDS: {
+      Object.assign(docInfo, {
+        category: documentCategory.witness_statements_and_evidence,
+        type: documentType.medical_records
+      })
+      break;
+    } case DocType.LETTERS_FROM_SCHOOL: {
+      Object.assign(docInfo, {
+        category: documentCategory.witness_statements_and_evidence,
+        type: documentType.letters_from_school
+      })
+      break;
+    } case DocType.TENANCY_AND_MORTGAGE_AVAILABILITY: {
+      Object.assign(docInfo, {
+        category: documentCategory.witness_statements_and_evidence,
+        type: documentType.tenancy_mortgage_agreements
+      })
+      break;
+    }
+    default: {
+      Object.assign(docInfo, {
+        category: documentCategory.witness_statements_and_evidence,
+      })
+      break;
+    }
+  }
+
+  return docInfo;
+}
+
+const getExpertReportsDocInfo = (type: DocType, documentCategory: Record<string, string>, documentType: Record<string, string>): DocumentMeta => {
+  const docInfo = {
+    category: '',
+    type: ''
+  };
+
+  switch (type) {
+    case DocType.MEDICAL_REPORTS: {
+      Object.assign(docInfo, {
+        category: documentCategory.expert_reports,
+        type: documentType.medical_reports
+      })
+      break;
+    }
+    case DocType.PATERNITY_TEST_REPORTS: {
+      Object.assign(docInfo, {
+        category: documentCategory.expert_reports,
+        type: documentType.paternity_test_reports
+      })
+      break;
+    }
+    case DocType.DRUG_ALCOHOL_TESTS: {
+      Object.assign(docInfo, {
+        category: documentCategory.expert_reports,
+        type: documentType.drug_and_alcohol_tests
+      })
+      break;
+    }
+    case DocType.POLICE_REPORTS: {
+      Object.assign(docInfo, {
+        category: documentCategory.expert_reports,
+        type: documentType.police_reports
+      })
+      break;
+    }
+    default: {
+      Object.assign(docInfo, {
+        category: documentCategory.expert_reports,
+      })
+      break;
+    }
+  }
+
+  return docInfo;
+}
+
 export const getDocumentMeta = (category: DocCategory, type: DocType, language: string): DocumentMeta => {
   const meta = {
     category: '',
@@ -19,49 +130,11 @@ export const getDocumentMeta = (category: DocCategory, type: DocType, language: 
   const documentType = language === 'en' ? documents_list_items_en : documents_list_items_cy;
 
   switch (category) {
-    case DocCategory.WITNESS_STATEMENT: {
-      if (type === DocType.POSITION_STATEMENTS) {
-        Object.assign(meta, {
-          category: documentCategory.witness_statements_and_evidence,
-          type: documentType.your_position_statements,
-        });
-      } else if (type === DocType.YOUR_WITNESS_STATEMENTS) {
-        Object.assign(meta, {
-          category: documentCategory.witness_statements_and_evidence,
-          type: documentType.your_witness_statements,
-        });
-      } else if (type === DocType.OTHER_PEOPLE_WITNESS_STATEMENTS) {
-        Object.assign(meta, {
-          category: documentCategory.witness_statements_and_evidence,
-          type: documentType.other_witness_statements,
-        });
-      } else if (type === DocType.MEDIA_FILES) {
-        Object.assign(meta, {
-          category: documentCategory.witness_statements_and_evidence,
-          type: documentType.mail_screenshots_media_files,
-        });
-      } else if (type === DocType.MEDICAL_RECORDS) {
-        Object.assign(meta, {
-          category: documentCategory.witness_statements_and_evidence,
-          type: documentType.medical_records,
-        });
-      } else if (type === DocType.LETTERS_FROM_SCHOOL) {
-        Object.assign(meta, {
-          category: documentCategory.witness_statements_and_evidence,
-          type: documentType.letters_from_school,
-        });
-      } else if (type === DocType.TENANCY_AND_MORTGAGE_AVAILABILITY) {
-        Object.assign(meta, {
-          category: documentCategory.witness_statements_and_evidence,
-          type: documentType.tenancy_mortgage_agreements,
-        });
-      } else {
-        Object.assign(meta, {
-          category: documentCategory.witness_statements_and_evidence,
-        });
+    case DocCategory.WITNESS_STATEMENT:
+      {
+        Object.assign(meta, { ...getPositionStatementsDocInfo(type, documentCategory, documentType) });
+        break;
       }
-      break;
-    }
     case DocCategory.APPLICATIONS: {
       if (type === DocType.PREVIOUS_ORDERS) {
         Object.assign(meta, {
@@ -76,31 +149,7 @@ export const getDocumentMeta = (category: DocCategory, type: DocType, language: 
       break;
     }
     case DocCategory.EXPERT_REPORTS: {
-      if (type === DocType.MEDICAL_REPORTS) {
-        Object.assign(meta, {
-          category: documentCategory.expert_reports,
-          type: documentType.medical_reports,
-        });
-      } else if (type === DocType.PATERNITY_TEST_REPORTS) {
-        Object.assign(meta, {
-          category: documentCategory.expert_reports,
-          type: documentType.paternity_test_reports,
-        });
-      } else if (type === DocType.DRUG_ALCOHOL_TESTS) {
-        Object.assign(meta, {
-          category: documentCategory.expert_reports,
-          type: documentType.drug_and_alcohol_tests,
-        });
-      } else if (type === DocType.POLICE_REPORTS) {
-        Object.assign(meta, {
-          category: documentCategory.expert_reports,
-          type: documentType.police_reports,
-        });
-      } else {
-        Object.assign(meta, {
-          category: documentCategory.expert_reports,
-        });
-      }
+      Object.assign(meta, { ...getExpertReportsDocInfo(type, documentCategory, documentType) });
       break;
     }
     case DocCategory.OTHER_DOCUMENTS: {
