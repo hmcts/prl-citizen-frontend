@@ -10,6 +10,8 @@ import {
 } from './tasklist-items-all-documents';
 import { generateApplicantTaskListAllDocuments } from './tasklistalldocuments';
 
+export * from './routeGuard';
+
 const en = () => {
   return {
     title: 'All documents',

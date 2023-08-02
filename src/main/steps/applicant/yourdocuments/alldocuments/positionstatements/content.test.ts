@@ -21,7 +21,22 @@ const cyContent = {
 jest.mock('../../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('citizen-home content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        session: {
+          applicationSettings: {
+            docToView: {
+              docType: 'positionstatements',
+              uploadedBy: 'applicant',
+              partyName: 'John Smith',
+            },
+          },
+        },
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   //let form;
   //let fields;
