@@ -257,40 +257,39 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
   }
 
   if (flags.isPreviousOrdersSubmitted) {
-    respondentItems.push(ifPreviousOrdersSubmittedByRespondent(taskListItems, url));
+    respondentItems.push(previousOrdersSubmittedByRespondent(taskListItems, url));
   }
   if (flags.isLettersFromSchool) {
-    respondentItems.push(ifLettersFromSchoolByRespondent(taskListItems, url));
+    respondentItems.push(lettersFromSchoolByRespondent(taskListItems, url));
   }
-
   respondentItems2.push({
     id: 'other_people_witness_statements_respondent',
     text: taskListItems.other_people_witness_statements_respondent,
     href: url + URL.OTHER_PEOPLE_WITNESS_STATEMENTS + '?byApplicant=No',
   });
   if (flags.isDigitalDownloadsUploaded) {
-    respondentItems2.push(ifDigitalDownloadsUploadedByRespondent(taskListItems, url));
+    respondentItems2.push(digitalDownloadsUploadedByRespondent(taskListItems, url));
   }
   if (flags.isMedicalRecordsUpload) {
-    respondentItems2.push(ifMedicalRecordsUploadByRespondent(taskListItems, url));
+    respondentItems2.push(medicalRecordsUploadByRespondent(taskListItems, url));
   }
   if (flags.isMedicalReportsUploaded) {
-    respondentItems2.push(ifMedicalReportsUploadedByRespondent(taskListItems, url));
+    respondentItems2.push(medicalReportsUploadedByRespondent(taskListItems, url));
   }
   if (flags.isPaternityDocUploaded) {
-    respondentItems2.push(ifPaternityDocUploadedByRespondent(taskListItems, url));
+    respondentItems2.push(paternityDocUploadedByRespondent(taskListItems, url));
   }
   if (flags.isDrugDocUploaded) {
-    respondentItems2.push(ifDrugDocUploadedByRespondent(taskListItems, url));
+    respondentItems2.push(drugDocUploadedByRespondent(taskListItems, url));
   }
   if (flags.isPoliceReportUploaded) {
-    respondentItems2.push(ifPoliceReportUploadedByRespondent(taskListItems, url));
+    respondentItems2.push(policeReportUploadedByRespondent(taskListItems, url));
   }
   if (flags.isWitnessAvailabilityUploaded) {
-    respondentItems2.push(ifWitnessAvailabilityUploadedByRespondent(taskListItems, url));
+    respondentItems2.push(witnessAvailabilityUploadedByRespondent(taskListItems, url));
   }
   if (flags.isTenancyUploaded) {
-    respondentItems2.push(ifTenancyUploadedByRespondent(taskListItems, url));
+    respondentItems2.push(tenancyUploadedByRespondent(taskListItems, url));
   }
 
   return {
@@ -300,7 +299,7 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const ifPreviousOrdersSubmittedByRespondent = (taskListItems, url): any => {
+export const previousOrdersSubmittedByRespondent = (taskListItems, url): any => {
   return {
     id: 'previous_orders_submitted_respondent',
     text: taskListItems.previous_orders_submitted_respondent,
@@ -309,7 +308,7 @@ export const ifPreviousOrdersSubmittedByRespondent = (taskListItems, url): any =
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const ifLettersFromSchoolByRespondent = (taskListItems, url): any => {
+export const lettersFromSchoolByRespondent = (taskListItems, url): any => {
   return {
     id: 'letters_from_school_respondent',
     text: taskListItems.letters_from_school_respondent,
@@ -318,7 +317,7 @@ export const ifLettersFromSchoolByRespondent = (taskListItems, url): any => {
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const ifDigitalDownloadsUploadedByRespondent = (taskListItems, url): any => {
+export const digitalDownloadsUploadedByRespondent = (taskListItems, url): any => {
   return {
     id: 'digital_downloads_respondent',
     text: taskListItems.digital_downloads_respondent,
@@ -327,7 +326,7 @@ export const ifDigitalDownloadsUploadedByRespondent = (taskListItems, url): any 
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const ifMedicalRecordsUploadByRespondent = (taskListItems, url): any => {
+export const medicalRecordsUploadByRespondent = (taskListItems, url): any => {
   return {
     id: 'medical_records_respondent',
     text: taskListItems.medical_records_respondent,
@@ -336,7 +335,7 @@ export const ifMedicalRecordsUploadByRespondent = (taskListItems, url): any => {
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const ifMedicalReportsUploadedByRespondent = (taskListItems, url): any => {
+export const medicalReportsUploadedByRespondent = (taskListItems, url): any => {
   return {
     id: 'medical_reports_respondent',
     text: taskListItems.medical_reports_respondent,
@@ -345,7 +344,7 @@ export const ifMedicalReportsUploadedByRespondent = (taskListItems, url): any =>
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const ifPaternityDocUploadedByRespondent = (taskListItems, url): any => {
+export const paternityDocUploadedByRespondent = (taskListItems, url): any => {
   return {
     id: 'paternity_test_reports_respondent',
     text: taskListItems.paternity_test_reports_respondent,
@@ -354,28 +353,28 @@ export const ifPaternityDocUploadedByRespondent = (taskListItems, url): any => {
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const ifDrugDocUploadedByRespondent = (taskListItems, url): any => {
+export const drugDocUploadedByRespondent = (taskListItems, url): any => {
   return {
     id: 'drug_alcohol_tests_respondent',
     text: taskListItems.drug_alcohol_tests_respondent,
     href: url + URL.DRUG_ALCOHOL_TESTS + '?byApplicant=No',
   };
 };
-export const ifPoliceReportUploadedByRespondent = (taskListItems, url): any => {
+export const policeReportUploadedByRespondent = (taskListItems, url): any => {
   return {
     id: 'police_disclosures_respondent',
     text: taskListItems.police_disclosures_respondent,
     href: url + URL.POLICE_DISCLOSURE + '?byApplicant=No',
   };
 };
-export const ifWitnessAvailabilityUploadedByRespondent = (taskListItems, url): any => {
+export const witnessAvailabilityUploadedByRespondent = (taskListItems, url): any => {
   return {
     id: 'witness_availability_respondent',
     text: taskListItems.witness_availability_respondent,
     href: url + URL.WITNESS_AVAILABILITY + '?byApplicant=No',
   };
 };
-export const ifTenancyUploadedByRespondent = (taskListItems, url): any => {
+export const tenancyUploadedByRespondent = (taskListItems, url): any => {
   return {
     id: 'tenancy_and_mortgage_availability',
     text: taskListItems.tenancy_and_mortgage_availability,

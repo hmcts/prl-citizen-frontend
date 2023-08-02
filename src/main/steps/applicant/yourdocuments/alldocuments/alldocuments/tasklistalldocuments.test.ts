@@ -4,6 +4,8 @@ import { YesNoDontKnow } from '../../../../../app/case/definition';
 import { applicant_all_docs_en } from './section-titles-all-documents';
 import { applicant_tasklist_items_all_docs_en } from './tasklist-items-all-documents';
 import {
+  digitalDownloadsUploadedByRespondent,
+  drugDocUploadedByRespondent,
   generateApplicantTaskListAllDocuments,
   getApplicantDocuments,
   getApplicantResponseToAohAndViolence,
@@ -12,13 +14,6 @@ import {
   getResponseToAohAndViolence,
   getResponseToCA,
   getUpdatedFlags,
-  ifDigitalDownloadsUploadedByRespondent,
-  ifDrugDocUploadedByRespondent,
-  ifLettersFromSchoolByRespondent,
-  ifMedicalRecordsUploadByRespondent,
-  ifMedicalReportsUploadedByRespondent,
-  ifPaternityDocUploadedByRespondent,
-  ifPreviousOrdersSubmittedByRespondent,
   isDigitalDownloadsUploadedd,
   isDrugDocUploadedd,
   isLettersFromSchoold,
@@ -26,6 +21,11 @@ import {
   isMedicalReportsUploadedd,
   isPaternityDocUploadedd,
   isPreviousOrdersSubmittedd,
+  lettersFromSchoolByRespondent,
+  medicalRecordsUploadByRespondent,
+  medicalReportsUploadedByRespondent,
+  paternityDocUploadedByRespondent,
+  previousOrdersSubmittedByRespondent,
   // getApplicantResponseToAohAndViolence,
 } from './tasklistalldocuments';
 
@@ -564,37 +564,37 @@ describe('testing all the additional function created as a part of applicant and
   });
   test('testing as a part of respondent docs', () => {
     const urlrespondent = '/respondent';
-    expect(ifPreviousOrdersSubmittedByRespondent(applicant_tasklist_items_all_docs_en, urlrespondent)).toEqual({
+    expect(previousOrdersSubmittedByRespondent(applicant_tasklist_items_all_docs_en, urlrespondent)).toEqual({
       id: 'previous_orders_submitted_respondent',
       text: applicant_tasklist_items_all_docs_en.previous_orders_submitted_respondent,
       href: urlrespondent + '/yourdocuments/alldocuments/previousorders' + '?byApplicant=No',
     });
-    expect(ifLettersFromSchoolByRespondent(applicant_tasklist_items_all_docs_en, urlrespondent)).toEqual({
+    expect(lettersFromSchoolByRespondent(applicant_tasklist_items_all_docs_en, urlrespondent)).toEqual({
       id: 'letters_from_school_respondent',
       text: applicant_tasklist_items_all_docs_en.letters_from_school_respondent,
       href: urlrespondent + '/yourdocuments/alldocuments/lettersfromschool' + '?byApplicant=No',
     });
-    expect(ifDigitalDownloadsUploadedByRespondent(applicant_tasklist_items_all_docs_en, urlrespondent)).toEqual({
+    expect(digitalDownloadsUploadedByRespondent(applicant_tasklist_items_all_docs_en, urlrespondent)).toEqual({
       id: 'digital_downloads_respondent',
       text: applicant_tasklist_items_all_docs_en.digital_downloads_respondent,
       href: urlrespondent + '/yourdocuments/alldocuments/digitaldownloads' + '?byApplicant=No',
     });
-    expect(ifMedicalRecordsUploadByRespondent(applicant_tasklist_items_all_docs_en, urlrespondent)).toEqual({
+    expect(medicalRecordsUploadByRespondent(applicant_tasklist_items_all_docs_en, urlrespondent)).toEqual({
       id: 'medical_records_respondent',
       text: applicant_tasklist_items_all_docs_en.medical_records_respondent,
       href: urlrespondent + '/yourdocuments/alldocuments/medicalrecords' + '?byApplicant=No',
     });
-    expect(ifMedicalReportsUploadedByRespondent(applicant_tasklist_items_all_docs_en, urlrespondent)).toEqual({
+    expect(medicalReportsUploadedByRespondent(applicant_tasklist_items_all_docs_en, urlrespondent)).toEqual({
       id: 'medical_reports_respondent',
       text: applicant_tasklist_items_all_docs_en.medical_reports_respondent,
       href: urlrespondent + '/yourdocuments/alldocuments/medicalreports' + '?byApplicant=No',
     });
-    expect(ifPaternityDocUploadedByRespondent(applicant_tasklist_items_all_docs_en, urlrespondent)).toEqual({
+    expect(paternityDocUploadedByRespondent(applicant_tasklist_items_all_docs_en, urlrespondent)).toEqual({
       id: 'paternity_test_reports_respondent',
       text: applicant_tasklist_items_all_docs_en.paternity_test_reports_respondent,
       href: urlrespondent + '/yourdocuments/alldocuments/paternity_test_reports' + '?byApplicant=No',
     });
-    expect(ifDrugDocUploadedByRespondent(applicant_tasklist_items_all_docs_en, urlrespondent)).toEqual({
+    expect(drugDocUploadedByRespondent(applicant_tasklist_items_all_docs_en, urlrespondent)).toEqual({
       id: 'drug_alcohol_tests_respondent',
       text: applicant_tasklist_items_all_docs_en.drug_alcohol_tests_respondent,
       href: urlrespondent + '/yourdocuments/alldocuments/drug_alcohol_tests' + '?byApplicant=No',
