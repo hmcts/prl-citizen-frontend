@@ -31,7 +31,7 @@ const cyContent = {
   onlyContinue: 'Parhau',
   errors: {
     miamStart: {
-      required: 'Select yes if you have attended a Mediation Information and Assessment Meeting (MIAM)',
+      required: 'Dewiswch do os ydych chi wedi mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
     },
   },
 };

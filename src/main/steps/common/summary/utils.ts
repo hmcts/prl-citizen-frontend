@@ -12,6 +12,7 @@ import {
   SummaryListContent,
   SummaryListRow,
 } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
+import { INVALID_DATE } from '../../../steps/constants';
 import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
 import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
 import { cy, en } from '../common.content';
@@ -91,6 +92,11 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
         );
       }
       break;
+    case 'citizenUserDateOfBirthText':
+      if (userkey === INVALID_DATE && language === 'cy') {
+        return cy.invalidDate;
+      }
+      return userkey;
     default:
       return userkey;
   }

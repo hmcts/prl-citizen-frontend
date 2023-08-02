@@ -25,7 +25,7 @@ import { getRespondentPartyDetailsCa } from './utils';
 
 const en = () => ({
   title: 'Respondent tasklist',
-  caseNumber: 'Case number #',
+  caseNumber: 'Case number ',
   respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Completed',
@@ -172,8 +172,8 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Respondent tasklist - welsh',
-  caseNumber: 'Rhif yr achos #',
+  title: 'Rhestr Tasgau’r Atebydd',
+  caseNumber: 'Rhif yr achos ',
   respondentName: '',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
@@ -182,7 +182,7 @@ const cy = () => ({
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
-    [SectionStatus.VIEW]: 'VIEW (in Welsh)',
+    [SectionStatus.VIEW]: 'GWELD',
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
@@ -286,22 +286,22 @@ const cy = () => ({
     bannerLinks: [
       {
         href: RESPONDENT_VIEW_ALL_DOCUMENTS,
-        text: 'See all documents',
+        text: 'Gweld yr holl ddogfennau',
       },
     ],
   },
   iWantTo: 'Rwyf eisiau ...',
   hyperlinks: [
     {
-      label: 'Add a legal representative-welsh',
+      label: 'Ychwanegu cynrychiolydd cyfreithiol',
       link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
     },
     {
-      label: 'Remove a legal representative-welsh',
+      label: 'Dileu cynrychiolydd cyfreithiol',
       link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
     },
     {
-      label: 'Find my local court-welsh',
+      label: 'Dod o hyd i fy llys lleol',
       link: '#',
     },
     {
@@ -317,8 +317,8 @@ const cy = () => ({
       link: '#',
     },
   ],
-  addLegalRepresentative: 'Add a legal representative-welsh',
-  removeLegalRepresentative: 'Remove a legal representative-welsh',
+  addLegalRepresentative: 'Ychwanegu cynrychiolydd cyfreithiol',
+  removeLegalRepresentative: 'Dileu cynrychiolydd cyfreithiol',
 });
 
 const languages = {

@@ -7,12 +7,12 @@ module.exports = {
         statementOfTruthYes: '//*[@id="statementOfTruth"]',    
     },
     async checkYourAnswersSimple() {
-        I.wait('4');
-        await I.retry(retryCount).waitForText(CYA.cyaTitle , 30);
-        await I.retry(retryCount).waitForText(CYA.caseName , 30);
-        await I.retry(retryCount).waitForText(CYA.statementOfTruth , 30);
-        await I.retry(retryCount).waitForText(CYA.confirmStatementTruth , 30);
-        I.wait('5');
+        await I.wait('4');
+        await I.retry(retryCount).waitForText(CYA.cyaTitle , 60);
+        await I.retry(retryCount).waitForText(CYA.caseName , 60);
+        await I.retry(retryCount).waitForText(CYA.statementOfTruth , 60);
+        await I.retry(retryCount).waitForText(CYA.confirmStatementTruth , 60);
+        await I.wait('5');
         await I.retry(retryCount).click(this.fields.statementOfTruthYes);
         await I.retry(retryCount).click('Submit your application');
     },

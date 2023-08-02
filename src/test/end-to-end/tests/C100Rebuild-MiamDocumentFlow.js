@@ -10,13 +10,14 @@ Scenario('C100 Rebuild - basic miam document journey @master @nightly', async ({
   await I.typeOfOrder();
   await I.urgencyWithoutNotice();
   await I.childrenDetails();
+  await I.noOtherChild();
   await I.applicantDetails();
   await I.respondentDetails();
-  await I.otherPersonDetails();
+  await I.withoutOtherPerson();
   await I.otherProceedings();
   await I.safetyConcerns();
   await I.internationElements();
   await I.reasonableAdjustments();
   await I.helpWithFeeEvent();
-  await I.checkYourAnswersEvent();
-  }).retry({ retries: 3, minTimeout: 30000 });
+  await I.checkYourAnswersSimpleEvent();
+}).retry({ retries: 3, minTimeout: 30000 });
