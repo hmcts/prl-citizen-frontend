@@ -69,35 +69,9 @@ export const getApplicantDocuments = (sectionTitles, taskListItems, userCase, is
   }
   const applicantItems: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
-    userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantRequestToCA(applicant, taskListItems));
-    });
-    userCase.applicants.forEach((applicant: Applicant) => {
-      if (userCase.c1ADocument) {
-        applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
-      }
-    });
-    /** Uncomment and add condition when Response to AOH document is implemeted for Applicant */
-    userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
-    });
-    userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantPositionStatements(applicant, taskListItems));
-    });
-    userCase.applicants.forEach((applicant: Applicant) => {
-      applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems));
-    });
+    Object.assign(applicantItems, applicantItemsForC100(userCase, taskListItems));
   } else {
-    if (!isApplicant) {
-      applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems));
-      applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems));
-    } else {
-      applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems));
-      applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
-      applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems));
-      applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems));
-      applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems));
-    }
+    Object.assign(applicantItems, applicantItemsForFL401(isApplicant, userCase, taskListItems));
   }
 
   applicantItems.push({
@@ -296,16 +270,7 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
   const respondentItems: object[] = [];
   const respondentItems2: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
-    if (userCase.respondentDocsList) {
-      for (const doc of userCase.respondentDocsList) {
-        if (doc?.value?.c7Document?.partyName) {
-          respondentItems.push(getOthersResponse(doc, taskListItems, 'c7Document'));
-        }
-        if (doc?.value?.c1aDocument?.partyName) {
-          respondentItems.push(getOthersResponse(doc, taskListItems, 'c1aDocument'));
-        }
-      }
-    }
+    Object.assign(respondentItems, responseFromOtherPeople(userCase, taskListItems));
     userCase.respondents.forEach((respondent: Respondent) => {
       if (userCase.citizenResponseC7DocumentList) {
         respondentItems.push(getResponseToCA(respondent, taskListItems, userCase.citizenResponseC7DocumentList));
@@ -330,10 +295,12 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
     });
   }
 
-  respondentItems.push(isPreviousOrdersSubmittedRespondent(taskListItems, flags.isPreviousOrdersSubmitted));
-
-  respondentItems.push(isLettersFromSchoolRespondent(taskListItems, flags.isLettersFromSchool));
-
+  if (flags.isPreviousOrdersSubmitted) {
+    respondentItems.push(previousOrdersSubmittedByRespondent(taskListItems));
+  }
+  if (flags.isLettersFromSchool) {
+    respondentItems.push(lettersFromSchoolByRespondent(taskListItems));
+  }
   respondentItems2.push({
     id: 'other_people_witness_statements_respondent',
     text: taskListItems.other_people_witness_statements_respondent,
@@ -342,46 +309,29 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
       uploadedBy: PartyType.RESPONDENT,
     }),
   });
-
-  respondentItems2.push(isDigitalDownloadsUploadedRespondent(taskListItems, flags.isDigitalDownloadsUploaded));
-
-  respondentItems2.push(isMedicalRecordsUploadRespondent(taskListItems, flags.isMedicalRecordsUpload));
-
-  respondentItems2.push(isMedicalReportsUploadedRespondent(taskListItems, flags.isMedicalReportsUploaded));
-
-  respondentItems2.push(isPaternityDocUploadedRespondent(taskListItems, flags.isPaternityDocUploaded));
-
-  respondentItems2.push(isDrugDocUploadedRespondent(taskListItems, flags.isDrugDocUploaded));
-
+  if (flags.isDigitalDownloadsUploaded) {
+    respondentItems2.push(digitalDownloadsUploadedByRespondent(taskListItems));
+  }
+  if (flags.isMedicalRecordsUpload) {
+    respondentItems2.push(medicalRecordsUploadByRespondent(taskListItems));
+  }
+  if (flags.isMedicalReportsUploaded) {
+    respondentItems2.push(medicalReportsUploadedByRespondent(taskListItems));
+  }
+  if (flags.isPaternityDocUploaded) {
+    respondentItems2.push(paternityDocUploadedByRespondent(taskListItems));
+  }
+  if (flags.isDrugDocUploaded) {
+    respondentItems2.push(drugDocUploadedByRespondent(taskListItems));
+  }
   if (flags.isPoliceReportUploaded) {
-    respondentItems2.push({
-      id: 'police_disclosures_respondent',
-      text: taskListItems.police_disclosures_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, {
-        docType: DocType.POLICE_REPORTS,
-        uploadedBy: PartyType.RESPONDENT,
-      }),
-    });
+    respondentItems2.push(policeReportUploadedByRespondent(taskListItems));
   }
   if (flags.isWitnessAvailabilityUploaded) {
-    respondentItems2.push({
-      id: 'witness_availability_respondent',
-      text: taskListItems.witness_availability_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, {
-        docType: DocType.WITNESS_AVAILABILITY,
-        uploadedBy: PartyType.RESPONDENT,
-      }),
-    });
+    respondentItems2.push(witnessAvailabilityUploadedByRespondent(taskListItems));
   }
   if (flags.isTenancyUploaded) {
-    respondentItems2.push({
-      id: 'tenancy_and_mortgage_availability',
-      text: taskListItems.tenancy_and_mortgage_availability,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, {
-        docType: DocType.TENANCY_AND_MORTGAGE_AVAILABILITY,
-        uploadedBy: PartyType.RESPONDENT,
-      }),
-    });
+    respondentItems2.push(tenancyUploadedByRespondent(taskListItems));
   }
 
   return {
@@ -391,103 +341,118 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const isPreviousOrdersSubmittedRespondent = (taskListItems, isPreviousOrdersSubmitted): any => {
-  if (isPreviousOrdersSubmitted) {
-    return {
-      id: 'previous_orders_submitted_respondent',
-      text: taskListItems.previous_orders_submitted_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, {
-        docType: DocType.PREVIOUS_ORDERS,
-        uploadedBy: PartyType.RESPONDENT,
-      }),
-    };
-  }
+export const previousOrdersSubmittedByRespondent = (taskListItems): any => {
+  return {
+    id: 'previous_orders_submitted_respondent',
+    text: taskListItems.previous_orders_submitted_respondent,
+    href: applyParms(URL.VIEW_DOCUMENT_URL, {
+      docType: DocType.PREVIOUS_ORDERS,
+      uploadedBy: PartyType.RESPONDENT,
+    }),
+  };
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const isLettersFromSchoolRespondent = (taskListItems, isLettersFromSchool): any => {
-  if (isLettersFromSchool) {
-    return {
-      id: 'letters_from_school_respondent',
-      text: taskListItems.letters_from_school_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, {
-        docType: DocType.LETTERS_FROM_SCHOOL,
-        uploadedBy: PartyType.RESPONDENT,
-      }),
-    };
-  }
+export const lettersFromSchoolByRespondent = (taskListItems): any => {
+  return {
+    id: 'letters_from_school_respondent',
+    text: taskListItems.letters_from_school_respondent,
+    href: applyParms(URL.VIEW_DOCUMENT_URL, {
+      docType: DocType.LETTERS_FROM_SCHOOL,
+      uploadedBy: PartyType.RESPONDENT,
+    }),
+  };
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const isDigitalDownloadsUploadedRespondent = (taskListItems, isDigitalDownloadsUploaded): any => {
-  if (isDigitalDownloadsUploaded) {
-    return {
-      id: 'digital_downloads_respondent',
-      text: taskListItems.digital_downloads_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, {
-        docType: DocType.DIGITAL_DOWNLOADS,
-        uploadedBy: PartyType.RESPONDENT,
-      }),
-    };
-  }
+export const digitalDownloadsUploadedByRespondent = (taskListItems): any => {
+  return {
+    id: 'digital_downloads_respondent',
+    text: taskListItems.digital_downloads_respondent,
+    href: applyParms(URL.VIEW_DOCUMENT_URL, {
+      docType: DocType.DIGITAL_DOWNLOADS,
+      uploadedBy: PartyType.RESPONDENT,
+    }),
+  };
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const isMedicalRecordsUploadRespondent = (taskListItems, isMedicalRecordsUpload): any => {
-  if (isMedicalRecordsUpload) {
-    return {
-      id: 'medical_records_respondent',
-      text: taskListItems.medical_records_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, {
-        docType: DocType.MEDICAL_RECORDS,
-        uploadedBy: PartyType.RESPONDENT,
-      }),
-    };
-  }
+export const medicalRecordsUploadByRespondent = (taskListItems): any => {
+  return {
+    id: 'medical_records_respondent',
+    text: taskListItems.medical_records_respondent,
+    href: applyParms(URL.VIEW_DOCUMENT_URL, {
+      docType: DocType.MEDICAL_RECORDS,
+      uploadedBy: PartyType.RESPONDENT,
+    }),
+  };
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const isMedicalReportsUploadedRespondent = (taskListItems, isMedicalReportsUploaded): any => {
-  if (isMedicalReportsUploaded) {
-    return {
-      id: 'medical_reports_respondent',
-      text: taskListItems.medical_reports_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, {
-        docType: DocType.MEDICAL_REPORTS,
-        uploadedBy: PartyType.RESPONDENT,
-      }),
-    };
-  }
+export const medicalReportsUploadedByRespondent = (taskListItems): any => {
+  return {
+    id: 'medical_reports_respondent',
+    text: taskListItems.medical_reports_respondent,
+    href: applyParms(URL.VIEW_DOCUMENT_URL, {
+      docType: DocType.MEDICAL_REPORTS,
+      uploadedBy: PartyType.RESPONDENT,
+    }),
+  };
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const isPaternityDocUploadedRespondent = (taskListItems, isPaternityDocUploaded): any => {
-  if (isPaternityDocUploaded) {
-    return {
-      id: 'paternity_test_reports_respondent',
-      text: taskListItems.paternity_test_reports_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, {
-        docType: DocType.PATERNITY_TEST_REPORTS,
-        uploadedBy: PartyType.RESPONDENT,
-      }),
-    };
-  }
+export const paternityDocUploadedByRespondent = (taskListItems): any => {
+  return {
+    id: 'paternity_test_reports_respondent',
+    text: taskListItems.paternity_test_reports_respondent,
+    href: applyParms(URL.VIEW_DOCUMENT_URL, {
+      docType: DocType.PATERNITY_TEST_REPORTS,
+      uploadedBy: PartyType.RESPONDENT,
+    }),
+  };
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const isDrugDocUploadedRespondent = (taskListItems, isDrugDocUploaded): any => {
-  if (isDrugDocUploaded) {
-    return {
-      id: 'drug_alcohol_tests_respondent',
-      text: taskListItems.drug_alcohol_tests_respondent,
-      href: applyParms(URL.VIEW_DOCUMENT_URL, {
-        docType: DocType.DRUG_ALCOHOL_TESTS,
-        uploadedBy: PartyType.RESPONDENT,
-      }),
-    };
-  }
+export const drugDocUploadedByRespondent = (taskListItems): any => {
+  return {
+    id: 'drug_alcohol_tests_respondent',
+    text: taskListItems.drug_alcohol_tests_respondent,
+    href: applyParms(URL.VIEW_DOCUMENT_URL, {
+      docType: DocType.DRUG_ALCOHOL_TESTS,
+      uploadedBy: PartyType.RESPONDENT,
+    }),
+  };
 };
-
+export const policeReportUploadedByRespondent = (taskListItems): any => {
+  return {
+    id: 'police_disclosures_respondent',
+    text: taskListItems.police_disclosures_respondent,
+    href: applyParms(URL.VIEW_DOCUMENT_URL, {
+      docType: DocType.POLICE_REPORTS,
+      uploadedBy: PartyType.RESPONDENT,
+    }),
+  };
+};
+export const witnessAvailabilityUploadedByRespondent = (taskListItems): any => {
+  return {
+    id: 'witness_availability_respondent',
+    text: taskListItems.witness_availability_respondent,
+    href: applyParms(URL.VIEW_DOCUMENT_URL, {
+      docType: DocType.WITNESS_AVAILABILITY,
+      uploadedBy: PartyType.RESPONDENT,
+    }),
+  };
+};
+export const tenancyUploadedByRespondent = (taskListItems): any => {
+  return {
+    id: 'tenancy_and_mortgage_availability',
+    text: taskListItems.tenancy_and_mortgage_availability,
+    href: applyParms(URL.VIEW_DOCUMENT_URL, {
+      docType: DocType.TENANCY_AND_MORTGAGE_AVAILABILITY,
+      uploadedBy: PartyType.RESPONDENT,
+    }),
+  };
+};
 export const getUpdatedFlags = (doc, flags) => {
   switch (doc.value.documentType) {
     case applicant_tasklist_items_all_docs_en.drug_alcohol_tests:
@@ -850,4 +815,46 @@ const getApplicantWitnessStatementsDA = (applicant: PartyDetails, taskListItems)
       partyName: `${applicant.firstName} ${applicant.lastName}`,
     }),
   };
+};
+const applicantItemsForC100 = (userCase: any, taskListItems: any) => {
+  const applicantItems: object[] = [];
+  userCase.applicants.forEach((applicant: Applicant) => {
+    applicantItems.push(getApplicantRequestToCA(applicant, taskListItems));
+    if (userCase.c1ADocument) {
+      applicantItems.push(getApplicantAohAndViolence(applicant, taskListItems, userCase));
+    }
+    applicantItems.push(getApplicantResponseToAohAndViolence(applicant, taskListItems));
+    applicantItems.push(getApplicantPositionStatements(applicant, taskListItems));
+    applicantItems.push(getApplicantWitnessStatements(applicant, taskListItems));
+  });
+  return applicantItems;
+};
+
+const applicantItemsForFL401 = (isApplicant: any, userCase: any, taskListItems: any) => {
+  const applicantItems: object[] = [];
+  if (!isApplicant) {
+    applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems));
+    applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems));
+  } else {
+    applicantItems.push(getApplicantRequestToDA(userCase.applicantsFL401, taskListItems));
+    applicantItems.push(getApplicantAohAndViolenceDA(userCase.applicantsFL401, taskListItems, userCase));
+    applicantItems.push(getApplicantResponseToAohAndViolenceDA(userCase.applicantsFL401, taskListItems));
+    applicantItems.push(getApplicantPositionStatementsDA(userCase.applicantsFL401, taskListItems));
+    applicantItems.push(getApplicantWitnessStatementsDA(userCase.applicantsFL401, taskListItems));
+  }
+  return applicantItems;
+};
+const responseFromOtherPeople = (userCase: any, taskListItems: any) => {
+  const respondentItems: object[] = [];
+  if (userCase.respondentDocsList) {
+    for (const doc of userCase.respondentDocsList) {
+      if (doc?.value?.c7Document?.partyName) {
+        respondentItems.push(getOthersResponse(doc, taskListItems, 'c7Document'));
+      }
+      if (doc?.value?.c1aDocument?.partyName) {
+        respondentItems.push(getOthersResponse(doc, taskListItems, 'c1aDocument'));
+      }
+    }
+  }
+  return respondentItems;
 };

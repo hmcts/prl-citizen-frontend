@@ -39,7 +39,6 @@ interface OrderDocument {
   fileName?: string;
   editUrl?: string;
 }
-[];
 
 const getOrderDocuments = (orders: C100OrderTypeInterface | Record<string, never> = {}): OrderDocument[] | [] => {
   const ordersWithDocument = getAllOrderDocuments(orders);

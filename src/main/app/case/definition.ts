@@ -2335,6 +2335,10 @@ export const enum LanguagePreference {
   ENGLISH = 'ENGLISH',
   WELSH = 'WELSH',
 }
+export const enum SessionLanguage {
+  ENGLISH = 'en',
+  WELSH = 'cy',
+}
 
 export interface OtherName {
   id?: string;

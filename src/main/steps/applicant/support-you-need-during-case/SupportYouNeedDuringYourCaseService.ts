@@ -129,66 +129,19 @@ export const prepareSupportYouNeedDuringCaseRequest = (userCase: CaseWithId): Re
   }
 
   // looping over docsSupport array
-  if (Array.isArray(docsSupport)) {
-    if (!docsSupport?.includes(DOCS_PRINT)) {
-      delete request.docsDetails;
-    }
-    if (!docsSupport?.includes(LARGE_PRINT_DOCS)) {
-      delete request.largePrintDetails;
-    }
-    if (!docsSupport?.includes(OTHER)) {
-      delete request.otherDetails;
-    }
-  }
+  dataCleanupDocSupport(docsSupport, request);
 
   // looping over helpCommunication array
-  if (Array.isArray(helpCommunication)) {
-    if (!helpCommunication?.includes(SIGN_LANGUAGE)) {
-      delete request.signLanguageDetails;
-    }
-    if (!helpCommunication?.includes(OTHER)) {
-      delete request.describeOtherNeed;
-    }
-  }
+  dataCleanupCommunication(helpCommunication, request);
 
   // looping over courtHearing array
-  if (Array.isArray(courtHearing)) {
-    if (!courtHearing?.includes(SUPPORT_WORKER)) {
-      delete request.supportWorkerDetails;
-    }
-    if (!courtHearing?.includes(FAMILY_MEMBER)) {
-      delete request.familyProviderDetails;
-    }
-    if (!courtHearing?.includes(ANIMAL)) {
-      delete request.therapyDetails;
-    }
-    if (!courtHearing?.includes(OTHER)) {
-      delete request.communicationSupportOther;
-    }
-  }
+  dataCleanupHearing(courtHearing, request);
 
   // looping over courtComfort array
-  if (Array.isArray(courtComfort)) {
-    if (!courtComfort?.includes(APPROPRIATE_LIGHTING)) {
-      delete request.lightingDetails;
-    }
-    if (!courtComfort?.includes(OTHER)) {
-      delete request.otherProvideDetails;
-    }
-  }
+  dataCleanupComfort(courtComfort, request);
 
   // looping over travellingToCourt array
-  if (Array.isArray(travellingToCourt)) {
-    if (!travellingToCourt?.includes(PARKING_SPACE)) {
-      delete request.parkingDetails;
-    }
-    if (!travellingToCourt?.includes(DIFFERENT_CHAIR)) {
-      delete request.differentChairDetails;
-    }
-    if (!travellingToCourt?.includes(OTHER)) {
-      delete request.travellingOtherDetails;
-    }
-  }
+  dataCleanupTravel(travellingToCourt, request);
 
   return request;
 };
@@ -256,4 +209,70 @@ export const mapSupportYouNeedDetails = (partyDetails: PartyDetails): Partial<Ca
   });
 
   return supportYouNeed;
+};
+const dataCleanupTravel = (travellingToCourt: string[] | undefined, request: ReasonableAdjustmentsSupport) => {
+  if (Array.isArray(travellingToCourt)) {
+    if (!travellingToCourt?.includes(PARKING_SPACE)) {
+      delete request.parkingDetails;
+    }
+    if (!travellingToCourt?.includes(DIFFERENT_CHAIR)) {
+      delete request.differentChairDetails;
+    }
+    if (!travellingToCourt?.includes(OTHER)) {
+      delete request.travellingOtherDetails;
+    }
+  }
+};
+
+const dataCleanupComfort = (courtComfort: string[] | undefined, request: ReasonableAdjustmentsSupport) => {
+  if (Array.isArray(courtComfort)) {
+    if (!courtComfort?.includes(APPROPRIATE_LIGHTING)) {
+      delete request.lightingDetails;
+    }
+    if (!courtComfort?.includes(OTHER)) {
+      delete request.otherProvideDetails;
+    }
+  }
+};
+
+const dataCleanupHearing = (courtHearing: string[] | undefined, request: ReasonableAdjustmentsSupport) => {
+  if (Array.isArray(courtHearing)) {
+    if (!courtHearing?.includes(SUPPORT_WORKER)) {
+      delete request.supportWorkerDetails;
+    }
+    if (!courtHearing?.includes(FAMILY_MEMBER)) {
+      delete request.familyProviderDetails;
+    }
+    if (!courtHearing?.includes(ANIMAL)) {
+      delete request.therapyDetails;
+    }
+    if (!courtHearing?.includes(OTHER)) {
+      delete request.communicationSupportOther;
+    }
+  }
+};
+
+const dataCleanupCommunication = (helpCommunication: string[] | undefined, request: ReasonableAdjustmentsSupport) => {
+  if (Array.isArray(helpCommunication)) {
+    if (!helpCommunication?.includes(SIGN_LANGUAGE)) {
+      delete request.signLanguageDetails;
+    }
+    if (!helpCommunication?.includes(OTHER)) {
+      delete request.describeOtherNeed;
+    }
+  }
+};
+
+const dataCleanupDocSupport = (docsSupport: string[] | undefined, request: ReasonableAdjustmentsSupport) => {
+  if (Array.isArray(docsSupport)) {
+    if (!docsSupport?.includes(DOCS_PRINT)) {
+      delete request.docsDetails;
+    }
+    if (!docsSupport?.includes(LARGE_PRINT_DOCS)) {
+      delete request.largePrintDetails;
+    }
+    if (!docsSupport?.includes(OTHER)) {
+      delete request.otherDetails;
+    }
+  }
 };
