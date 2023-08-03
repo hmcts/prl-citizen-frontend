@@ -112,7 +112,7 @@ describe('PostController', () => {
     generateContent(dummyData);
     await controller.post(req, res);
     expect(req.session.userCase).toEqual({ ...dummyData.userCase, id: '1234' });
-    expect(res.redirect).toHaveBeenCalledWith('/citizen-home');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('Should add relationship if there is an existing child relationship and index >= 0', async () => {
@@ -167,7 +167,7 @@ describe('PostController', () => {
     generateContent(dummyData);
     await controller.post(req, res);
     expect(req.session.userCase).toEqual({ ...testData.userCase, id: '1234' });
-    expect(res.redirect).toHaveBeenCalledWith('/citizen-home');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('Should add relationship if there is an existing child relationship', async () => {
@@ -216,7 +216,7 @@ describe('PostController', () => {
     generateContent(dummyData);
     await controller.post(req, res);
     expect(req.session.userCase).toEqual({ ...testData.userCase, id: '1234' });
-    expect(res.redirect).toHaveBeenCalledWith('/citizen-home');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('Should call saveAndComeLater when saveAndComeLater is called', async () => {

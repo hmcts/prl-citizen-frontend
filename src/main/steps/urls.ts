@@ -9,7 +9,6 @@ export const SAVE_AND_SIGN_OUT: PageLink = '/save-and-sign-out';
 export const TIMED_OUT_URL: PageLink = '/timed-out';
 export const KEEP_ALIVE_URL: PageLink = '/keep-alive';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
-export const CITIZEN_HOME_URL: PageLink = '/citizen-home';
 export const SERVICE_TYPE: PageLink = '/service-type';
 export const DASHBOARD_URL: PageLink = '/dashboard';
 export const DASHBOARD_URL_NEW: PageLink = '/dashboard/new';
@@ -233,6 +232,7 @@ export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_
 export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
 export const RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER: PageLink = `${RESPONDENT_VIEW_ALL_DOCUMENTS}/allDocumentsViewed`;
 export const APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER: PageLink = `${APPLICANT_VIEW_ALL_DOCUMENTS}/allDocumentsViewed`;
+export const VIEW_DOCUMENT_URL = '/doc/:docType/:uploadedBy/:partyName?';
 
 export const RESPNDT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 
@@ -607,7 +607,7 @@ export const SCREENING_QUESTIONS = [
   SCREENING_QUESTION_COMPLETE_APP_LEGAL_REP,
   SCREENING_QUESTION_CONTACT_LEGAL_REP,
 ];
-export const ANONYMOUS_URLS = [HEALTH_URL, CITIZEN_HOME_URL, ...SCREENING_QUESTIONS];
+export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
   isNonProd
