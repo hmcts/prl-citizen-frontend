@@ -1,6 +1,6 @@
 Feature('C100 Rebuild - draft consent flow');
 
-Scenario('C100 Rebuild - draft consent flow @master @nightly',  async ({ I }) => {
+Scenario('C100 Rebuild - draft consent flow  @nightly',  async ({ I }) => {
    await I.loginAsCitizen();
    await I.createC100Application();
    await I.startTheApplication();
