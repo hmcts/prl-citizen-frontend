@@ -1,13 +1,12 @@
 {% extends "common/template.njk" %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% block page_content %}
-{% from "govuk/components/panel/macro.njk" import govukPanel %}
-
 {{ govukPanel({
   titleText: section,
   html: ""
 }) }}
-{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% set html %}
   <h2 class="govuk-notification-banner__heading">{{text}}</h2>
   <p class="govuk-body govuk-!-margin-bottom-2">{{ para1 }}</p>
