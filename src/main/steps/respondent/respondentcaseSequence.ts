@@ -62,6 +62,7 @@ import {
   RESPONDENT_START_ALTERNATIVE,
   RESPONDENT_TASK_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT,
+  RESPONDENT_UPLOAD_DOCUMENT_LIST_NEED_PERMISSION_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
@@ -197,7 +198,10 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+    getNextStep: caseData =>
+      caseData.start === YesOrNo.NO
+        ? RESPONDENT_UPLOAD_DOCUMENT_LIST_NEED_PERMISSION_URL
+        : RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
@@ -535,6 +539,11 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: RESPONDENT_UPLOAD_DOCUMENT_LIST_NEED_PERMISSION_URL,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

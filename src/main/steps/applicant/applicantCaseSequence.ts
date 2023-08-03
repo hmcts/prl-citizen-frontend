@@ -1,5 +1,5 @@
 import { Case } from '../../app/case/case';
-import { CaseType } from '../../app/case/definition';
+import { CaseType, YesOrNo } from '../../app/case/definition';
 import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
 import {
@@ -78,6 +78,7 @@ import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+  APPLICANT_UPLOAD_DOCUMENT_LIST_NEED_PERMISSION_URL,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -385,7 +386,15 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+    getNextStep: caseData =>
+      caseData.start === YesOrNo.NO
+        ? APPLICANT_UPLOAD_DOCUMENT_LIST_NEED_PERMISSION_URL
+        : APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT_LIST_NEED_PERMISSION_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,

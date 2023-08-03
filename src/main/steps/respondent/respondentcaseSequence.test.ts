@@ -4,7 +4,7 @@ import { respondentCaseSequence } from './respondentcaseSequence';
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(respondentCaseSequence).toHaveLength(91);
+    expect(respondentCaseSequence).toHaveLength(92);
     expect(respondentCaseSequence[0].url).toBe('/respondent/task-list');
     expect(respondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -416,6 +416,10 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[90].url).toBe('/respondent/remove-legal-representative/confirm');
     expect(respondentCaseSequence[90].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[90].getNextStep({})).toBe('/respondent/task-list');
+
+    expect(respondentCaseSequence[91].url).toBe('/respondent/upload-document/need-permission');
+    expect(respondentCaseSequence[91].showInSection).toBe('aboutRespondentCase');
+    expect(respondentCaseSequence[91].getNextStep({})).toBe('/respondent/task-list');
   });
 });
 
