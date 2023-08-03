@@ -6,24 +6,34 @@ import { generateContent } from './content';
 //const docsEmail = 'test';
 
 const en = {
-  section: 'How your documents will be shared',
-  title: 'Your document has been uploaded successfully',
+  section: 'Document submitted',
+  title: 'Important',
+  text: 'Serve the documents',
   status: 'Your documents have been uploaded',
-  continue: 'Continue',
-  remove: 'Remove',
-  sucess: 'Success',
-  documentDetails: 'Your documents for ',
+  para1:
+    "If you haven't requested this document is restricted, it is your responsibility to share it with the other people in the case.",
+  para2:
+    "You can do this by sending to the party's legal representative if they have one or otherwise the party themselves by post or email.",
+  restrictedHeading: 'If you have requested this document to be restricted',
+  restrictedBody:
+    'If you have requested this document is restricted, the court will review your request and let you know what happens next.',
+  continue: 'Close and return to case overview',
   uploadAgain: 'Upload another document',
 };
 
 const cy: typeof en = {
-  section: 'Sut fydd eich dogfennau’n cael eu rhannu',
-  title: 'Mae eich dogfen wedi’i llwytho’n llwyddiannus',
-  status: 'Mae eich dogfennau wedi’u llwytho',
-  continue: 'Parhau',
-  remove: 'Dileu',
-  sucess: 'Llwyddiant',
-  documentDetails: 'Eich dogfennau ar gyfer',
+  section: 'Document submitted -welsh',
+  title: 'Important -welsh',
+  text: 'Serve the documents -welsh',
+  status: 'Your documents have been uploaded -welsh',
+  para1:
+    "If you haven't requested this document is restricted, it is your responsibility to share it with the other people in the case. -welsh",
+  para2:
+    "You can do this by sending to the party's legal representative if they have one or otherwise the party themselves by post or email. -welsh",
+  restrictedHeading: 'If you have requested this document to be restricted -welsh',
+  restrictedBody:
+    'If you have requested this document is restricted, the court will review your request and let you know what happens next. -welsh',
+  continue: 'Close and return to case overview -welsh',
   uploadAgain: 'Llwytho dogfen arall',
 };
 
@@ -38,12 +48,8 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.status).toEqual('Your documents have been uploaded');
-    expect(generatedContent.section).toEqual('How your documents will be shared');
     expect(generatedContent.uploadAgain).toEqual('Upload another document');
-    expect(generatedContent.continue).toEqual('Continue');
-    expect(generatedContent.remove).toEqual('Remove');
-    expect(generatedContent.sucess).toEqual('Success');
-    expect(generatedContent.documentDetails).toEqual('Your documents for ');
+    expect(generatedContent.continue).toEqual('Close and return to case overview');
   });
 
   // eslint-disable-next-line jest/expect-expect
