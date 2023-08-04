@@ -83,12 +83,10 @@ const en = () => ({
     {
       label: 'Add a legal representative',
       link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-      target: '',
     },
     {
       label: 'Remove a legal representative',
       link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
-      target: '',
     },
     {
       label: 'Find my local court',
@@ -179,12 +177,10 @@ const cy = () => ({
     {
       label: 'Ychwanegu cynrychiolydd cyfreithiol',
       link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-      target: '',
     },
     {
       label: 'Dileu cynrychiolydd cyfreithiol',
       link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
-      target: '',
     },
     {
       label: 'Dod o hyd i fy llys lleol',

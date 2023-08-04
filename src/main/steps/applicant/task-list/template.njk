@@ -26,7 +26,11 @@
           <ul class="govuk-list">
           {% for hyperlink in hyperlinks %}
             <li>
+            {% if hyperlink.target %}
               <a href="{{hyperlink.link}}" target="{{hyperlink.target}}" class="govuk-link">{{hyperlink.label}}</a>
+            {% else %}
+              <a href="{{hyperlink.link}}" target="_self" class="govuk-link">{{hyperlink.label}}</a>
+            {% endif %}
               <div class="govuk-!-padding-bottom-2"></div>
             </li>
           {% endfor %}

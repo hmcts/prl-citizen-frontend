@@ -31,7 +31,6 @@ const enContent = {
     {
       label: 'Add a legal representative',
       link: '/applicant/add-legal-representative',
-      target: '',
     },
     {
       label: 'Find my local court',
@@ -73,7 +72,6 @@ const cyContent = {
     {
       label: 'Ychwanegu cynrychiolydd cyfreithiol',
       link: '/applicant/add-legal-representative',
-      target: '',
     },
     {
       label: 'Dod o hyd i fy llys lleol',
