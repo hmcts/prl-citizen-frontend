@@ -4,21 +4,22 @@
 
 {% block page_content %}
 {{ govukPanel({
-  titleText: section,
+    titleText: pageTitle,
   html: ""
 }) }}
 {% set html %}
-  <h2 class="govuk-notification-banner__heading">{{text}}</h2>
-  <p class="govuk-body govuk-!-margin-bottom-2">{{ para1 }}</p>
-  <p class="govuk-body govuk-!-margin-bottom-2">{{ para2 }}</p>
+  <h2 class="govuk-notification-banner__heading">{{bannerTitle}}</h2>
+  {% for paragraph in paragraphs %}
+        <p class="govuk-body">{{paragraph | safe}}</p>
+{% endfor %}
 {% endset %}
 {{ govukNotificationBanner({
-  titleText: title,
+  titleText: bannerHeading,
   html:html
 }) }}
   <div>
-    <h2 class="govuk-notification-banner__heading">{{restrictedHeading}}</h2>
-    <p class="govuk-body govuk-!-margin-bottom-9">{{ restrictedBody }}</p>
+    <h2 class="govuk-notification-banner__heading">{{pageCaption}}</h2>
+    <p class="govuk-body govuk-!-margin-bottom-9">{{ pageContent }}</p>
   </div>
   <br>
   <br>
