@@ -417,7 +417,7 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[90].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[90].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[91].url).toBe('/respondent/upload-document/need-permission');
+    expect(respondentCaseSequence[91].url).toBe('/respondent/upload-document/submit-extra-evidence');
     expect(respondentCaseSequence[91].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[91].getNextStep({})).toBe('/respondent/task-list');
   });
