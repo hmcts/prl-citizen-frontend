@@ -78,7 +78,7 @@ import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
-  APPLICANT_UPLOAD_DOCUMENT_LIST_NEED_PERMISSION_URL,
+  APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -388,11 +388,11 @@ export const applicantCaseSequence: Step[] = [
     showInSection: Sections.AboutApplicantCase,
     getNextStep: caseData =>
       caseData.start === YesOrNo.NO
-        ? APPLICANT_UPLOAD_DOCUMENT_LIST_NEED_PERMISSION_URL
+        ? APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE
         : APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   },
   {
-    url: APPLICANT_UPLOAD_DOCUMENT_LIST_NEED_PERMISSION_URL,
+    url: APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },

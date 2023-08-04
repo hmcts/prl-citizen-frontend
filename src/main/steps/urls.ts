@@ -63,7 +63,7 @@ export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
 /* Applicant Upload document start */
 export const APPLICANT_UPLOAD_DOCUMENT_LIST_URL: PageLink = '/applicant/upload-document';
 export const APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/start`;
-export const APPLICANT_UPLOAD_DOCUMENT_LIST_NEED_PERMISSION_URL: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/need-permission`;
+export const APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/submit-extra-evidence`;
 export const APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details`;
 export const APPLICANT_UPLOAD_DOCUMENT: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/upload-your-documents`;
 export const APPLICANT_UPLOAD_DOCUMENT_SUCCESS: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success`;
@@ -71,7 +71,7 @@ export const APPLICANT_UPLOAD_DOCUMENT_SUCCESS: PageLink = `${APPLICANT_UPLOAD_D
 /* Respondent Upload document start */
 export const RESPONDENT_UPLOAD_DOCUMENT_LIST_URL: PageLink = '/respondent/upload-document';
 export const RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/start`;
-export const RESPONDENT_UPLOAD_DOCUMENT_LIST_NEED_PERMISSION_URL: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/need-permission`;
+export const RESPONDENT_UPLOAD_DOCUMENT__PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/submit-extra-evidence`;
 export const RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details`;
 export const RESPONDENT_UPLOAD_DOCUMENT: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/upload-your-documents`;
 export const RESPONDENT_UPLOAD_DOCUMENT_SUCCESS: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success`;

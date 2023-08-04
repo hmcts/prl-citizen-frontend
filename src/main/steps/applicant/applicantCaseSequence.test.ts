@@ -305,7 +305,7 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[58].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[58].getNextStep({})).toBe('/applicant/upload-document/document-sharing-details');
 
-    expect(applicantCaseSequence[59].url).toBe('/applicant/upload-document/need-permission');
+    expect(applicantCaseSequence[59].url).toBe('/applicant/upload-document/submit-extra-evidence');
     expect(applicantCaseSequence[59].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[59].getNextStep({})).toBe('/applicant/task-list');
 
