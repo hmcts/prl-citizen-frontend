@@ -10,13 +10,12 @@ const en = {
   title: 'Provide the documents',
   declaration: 'I believe that the facts stated in these documents are true',
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
-  continue: 'Continue',
+  continue: 'Submit',
   add: 'Submit',
   uploadFiles: 'Your documents',
   remove: 'Remove',
-  textAreaDocUploadText1: 'You can use this box to:',
-  textAreaDocUploadText2: 'write a statement if you do not want to upload a document',
-  textAreaDocUploadText3: 'give the court more information about the documents you are uploading',
+  textAreaDocUploadText1: 'You can write your statement in the text box or upload it.',
+  textAreaDocUploadText2: 'Write your statement(optional)',
   uplodFileText1:
     'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.',
   uplodFileText2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
@@ -45,13 +44,12 @@ const cy: typeof en = {
   declaration: 'Credaf fod y ffeithiau a nodir yn y dogfennau hyn yn wir',
   consent:
     'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
-  continue: 'Parhau',
+  continue: 'Submit - welsh',
   add: 'Cyflwyno',
   uploadFiles: 'Eich dogfennau',
   remove: 'Dileu',
-  textAreaDocUploadText1: 'Gallwch ddefnyddio’r blwch hwn i:',
-  textAreaDocUploadText2: 'ysgrifennu datganiad os nad ydych eisiau cyflwyno dogfen',
-  textAreaDocUploadText3: 'rhoi mwy o wybodaeth i’r llys am y dogfennau rydych yn eu cyflwyno',
+  textAreaDocUploadText1: 'You can write your statement in the text box or upload it. - welsh',
+  textAreaDocUploadText2: 'Write your statement(optional) - welsh',
   uplodFileText1:
     'Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, llythyr-gan-yr-ysgol.doc.',
   uplodFileText2: 'Rhaid i ffeiliau derfynu â JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
@@ -81,6 +79,12 @@ describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   commonContent.additionalData = {
     req: {
+      session: {
+        userCase: {
+          id: '123',
+          caseTypeOfApplication: 'C100',
+        },
+      },
       query: {
         parentDocType: 'parent',
         docType: 'doc',
@@ -103,17 +107,14 @@ describe('citizen-home content', () => {
     expect(generatedContent.consent).toEqual(
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.'
     );
-    expect(generatedContent.continue).toEqual('Continue');
+    expect(generatedContent.continue).toEqual('Submit');
     expect(generatedContent.add).toEqual('Submit');
     expect(generatedContent.uploadFiles).toEqual('Your documents');
     expect(generatedContent.remove).toEqual('Remove');
-    expect(generatedContent.textAreaDocUploadText1).toEqual('You can use this box to:');
-    expect(generatedContent.textAreaDocUploadText2).toEqual(
-      'write a statement if you do not want to upload a document'
+    expect(generatedContent.textAreaDocUploadText1).toEqual(
+      'You can write your statement in the text box or upload it.'
     );
-    expect(generatedContent.textAreaDocUploadText3).toEqual(
-      'give the court more information about the documents you are uploading'
-    );
+    expect(generatedContent.textAreaDocUploadText2).toEqual('Write your statement(optional)');
     expect(generatedContent.uplodFileText1).toEqual(
       'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.'
     );
@@ -148,7 +149,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain continue button', () => {
-    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Submit');
   });
 
   test('should contain continue checkboxes', () => {

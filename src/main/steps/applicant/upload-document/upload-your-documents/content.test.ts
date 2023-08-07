@@ -11,6 +11,12 @@ describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   commonContent.additionalData = {
     req: {
+      session: {
+        userCase: {
+          id: '123',
+          caseTypeOfApplication: 'C100',
+        },
+      },
       query: {
         parentDocType: 'parent',
         docType: 'doc',
@@ -33,17 +39,14 @@ describe('citizen-home content', () => {
     expect(generatedContent.consent).toEqual(
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.'
     );
-    expect(generatedContent.continue).toEqual('Continue');
+    expect(generatedContent.continue).toEqual('Submit');
     expect(generatedContent.add).toEqual('Submit');
     expect(generatedContent.uploadFiles).toEqual('Your documents');
     expect(generatedContent.remove).toEqual('Remove');
-    expect(generatedContent.textAreaDocUploadText1).toEqual('You can use this box to:');
-    expect(generatedContent.textAreaDocUploadText2).toEqual(
-      'write a statement if you do not want to upload a document'
+    expect(generatedContent.textAreaDocUploadText1).toEqual(
+      'You can write your statement in the text box or upload it.'
     );
-    expect(generatedContent.textAreaDocUploadText3).toEqual(
-      'give the court more information about the documents you are uploading'
-    );
+    expect(generatedContent.textAreaDocUploadText2).toEqual('Write your statement(optional)');
     expect(generatedContent.uplodFileText1).toEqual(
       'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.'
     );
@@ -78,7 +81,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain continue button', () => {
-    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Submit');
   });
 
   test('should contain continue checkboxes', () => {
