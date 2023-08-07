@@ -47,9 +47,10 @@ export const generateContent: TranslationFn = content => {
   const userCase = request.session.userCase;
   const caseId = userCase.id as string;
   const caseType = userCase.caseTypeOfApplication;
-  const cancelLink =
-    caseType === CaseType.C100 ? applyParms(FETCH_CASE_DETAILS, { caseId }) : `${APPLICANT_TASK_LIST_URL}/${caseId}`;
-  Object.assign(form.link!, { href: cancelLink });
+  Object.assign(form.link!, {
+    href:
+      caseType === CaseType.C100 ? applyParms(FETCH_CASE_DETAILS, { caseId }) : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
+  });
   return {
     ...translations,
     form,
