@@ -44,8 +44,7 @@ export const generateContent: TranslationFn = content => {
   const request = content.additionalData?.req;
   const userCase = request.session.userCase;
   const caseId = userCase.id as string;
-  const cancelLink = `${RESPONDENT_TASK_LIST_URL}/${caseId}`;
-  Object.assign(form.link!, { href: cancelLink });
+  Object.assign(form.link!, { href: `${RESPONDENT_TASK_LIST_URL}/${caseId}` });
   return {
     ...translations,
     form,
