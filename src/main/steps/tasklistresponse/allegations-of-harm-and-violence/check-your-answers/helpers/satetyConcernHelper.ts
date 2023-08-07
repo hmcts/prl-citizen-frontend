@@ -24,9 +24,7 @@ export const childNameFormatter = (childId, userCase) => {
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, typeOfUser, language) => {
   if (typeOfUser === 'child') {
-    bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
-    bodyHtml = createChildBodyHtml(FoundElement, bodyHtml, userCase, language);
-    bodyHtml += HTML.RULER;
+    bodyHtml = prepapeHTMLForChildren(bodyHtml, keys, FoundElement, language, userCase);
   }
   bodyHtml += HTML.H4 + keys['behaviourDetailsLabel'] + HTML.H4_CLOSE;
   bodyHtml += HTML.P + FoundElement.hasOwnProperty('behaviourDetails') ? FoundElement['behaviourDetails'] : '';
@@ -41,13 +39,11 @@ export const HTMLParser = (keys, FoundElement: ANYTYPE, bodyHtml, userCase, type
       : '';
   bodyHtml += HTML.RULER;
   bodyHtml += HTML.H4 + keys['seekHelpFromPersonOrAgencyLabel'] + HTML.H4_CLOSE;
-  const seekHelpTranslation =
-    FoundElement?.['seekHelpFromPersonOrAgency'] === YesOrNo.YES
-      ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
-      : getYesNoTranslation(language, YesOrNo.NO, 'doTranslation');
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpFromPersonOrAgency') && FoundElement.seekHelpFromPersonOrAgency
-      ? HTML.BOTTOM_PADDING_3 + seekHelpTranslation + HTML.BOTTOM_PADDING_CLOSE
+      ? HTML.BOTTOM_PADDING_3 +
+        translationForSeekHelpFromPersonOrAgency(FoundElement, language) +
+        HTML.BOTTOM_PADDING_CLOSE
       : '';
   bodyHtml +=
     FoundElement.hasOwnProperty('seekHelpDetails') && FoundElement?.['seekHelpFromPersonOrAgency'] === 'Yes'
@@ -72,8 +68,15 @@ export const SafetyConcernsHelper = (userCase, keys, sessionKey, childField, typ
   }
   return '';
 };
+/* eslint-disable @typescript-eslint/no-explicit-any*/
+const translationForSeekHelpFromPersonOrAgency = (FoundElement: any, language: any) => {
+  return FoundElement?.['seekHelpFromPersonOrAgency'] === YesOrNo.YES
+    ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
+    : getYesNoTranslation(language, YesOrNo.NO, 'doTranslation');
+};
 
-const createChildBodyHtml = (FoundElement: ANYTYPE, bodyHtml, userCase, language) => {
+const prepapeHTMLForChildren = (bodyHtml: any, keys: any, FoundElement: any, language: any, userCase: any) => {
+  bodyHtml += HTML.H4 + keys['childrenConcernedAboutLabel'] + HTML.H4_CLOSE;
   if (FoundElement.hasOwnProperty('childrenConcernedAbout')) {
     bodyHtml += HTML.UNORDER_LIST;
     if (
@@ -97,5 +100,6 @@ const createChildBodyHtml = (FoundElement: ANYTYPE, bodyHtml, userCase, language
     }
     bodyHtml += HTML.UNORDER_LIST_END;
   }
+  bodyHtml += HTML.RULER;
   return bodyHtml;
 };

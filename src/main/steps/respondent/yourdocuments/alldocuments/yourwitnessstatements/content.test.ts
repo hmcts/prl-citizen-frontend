@@ -50,8 +50,36 @@ describe('citizen-home content', () => {
         },
       ],
     },
-  } as CommonContent;
-  const commonContent2 = { language: 'en' } as CommonContent;
+    additionalData: {
+      req: {
+        session: {
+          applicationSettings: {
+            docToView: {
+              docType: 'yourwitnessstatements',
+              uploadedBy: 'respondent',
+              partyName: 'John Smith',
+            },
+          },
+        },
+      },
+    },
+  } as unknown as CommonContent;
+  const commonContent2 = {
+    language: 'en',
+    additionalData: {
+      req: {
+        session: {
+          applicationSettings: {
+            docToView: {
+              docType: 'yourwitnessstatements',
+              uploadedBy: 'respondent',
+              partyName: 'John Smith',
+            },
+          },
+        },
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent, generatedContent2;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
