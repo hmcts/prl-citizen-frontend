@@ -112,5 +112,21 @@ describe('applicationWithinProceedingsSequence', () => {
     expect(applicationWithinProceedingsSequence[9].getNextStep(userCase, req)).toBe(
       '/application-within-proceedings/C2/delay-or-cancel-hearing-date/help-with-fees/reference'
     );
+
+    expect(applicationWithinProceedingsSequence[10].url).toBe(
+      '/application-within-proceedings/:applicationType/:applicationReason/pay-and-submit'
+    );
+    expect(applicationWithinProceedingsSequence[10].showInSection).toBe('applicationWithinProceedings');
+    expect(applicationWithinProceedingsSequence[10].getNextStep(userCase, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
+    );
+
+    expect(applicationWithinProceedingsSequence[11].url).toBe(
+      '/application-within-proceedings/:applicationType/:applicationReason/application-submitted'
+    );
+    expect(applicationWithinProceedingsSequence[11].showInSection).toBe('applicationWithinProceedings');
+    expect(applicationWithinProceedingsSequence[11].getNextStep(userCase, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
+    );
   });
 });

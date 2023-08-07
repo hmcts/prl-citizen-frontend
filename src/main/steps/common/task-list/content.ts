@@ -68,6 +68,8 @@ const en = {
       target: '_blank',
     },
   ],
+  addLegalRepresentative: 'Add a legal representative',
+  removeLegalRepresentative: 'Remove a legal representative',
 };
 
 const cy = {
@@ -126,6 +128,8 @@ const cy = {
       target: '_blank',
     },
   ],
+  addLegalRepresentative: 'Add a legal representative-welsh',
+  removeLegalRepresentative: 'Remove a legal representative-welsh',
 };
 
 export const languages = {
@@ -144,10 +148,10 @@ export const generateContent: TranslationFn = content => {
     isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(applicant);
   }
   translations.hyperlinks.forEach((hyperLink, index) => {
-    if (hyperLink.label.includes(translations.hyperlinks[0].label) && isRepresentedBySolicotor) {
-      translations.hyperlinks.splice(index, 1);
-    }
-    if (hyperLink.label.includes(translations.hyperlinks[1].label) && !isRepresentedBySolicotor) {
+    if (
+      (hyperLink.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) ||
+      (hyperLink.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor)
+    ) {
       translations.hyperlinks.splice(index, 1);
     }
   });

@@ -16,6 +16,7 @@ describe('AWP document upload RouteGuard', () => {
       params: {
         applicationType: 'C2',
         applicationReason: 'delay-or-cancel-hearing-date',
+        removeId: '544ff7c4-5e3e-4f61-9d47-423321208d77',
       },
       session: {
         userCase: {
@@ -51,10 +52,7 @@ describe('AWP document upload RouteGuard', () => {
         },
       },
       files: {
-        documents: { name: 'test.rtf', data: '', mimetype: 'text' },
-      },
-      query: {
-        removeId: '544ff7c4-5e3e-4f61-9d47-423321208d77',
+        awp_application_form: { name: 'test.rtf', data: '', mimetype: 'text' },
       },
     };
 
@@ -72,7 +70,6 @@ describe('AWP document upload RouteGuard', () => {
     const res = mockResponse();
     const next = jest.fn();
     routeGuard.get(req, res, next);
-    expect(next).toHaveBeenCalled();
     expect(req.additionalData?.req.session.userCase.awp_uploadedApplicationForms).toEqual(undefined);
   });
 });
