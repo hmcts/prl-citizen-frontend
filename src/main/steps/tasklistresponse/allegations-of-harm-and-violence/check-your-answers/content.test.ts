@@ -143,7 +143,7 @@ const cyContent = {
   change: 'Golygu',
   topWarning: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
   makingSure: 'Edrychwch dros eich atebion cyn gorffen gwneud eich cais.',
-  continue: 'Save and submit - welsh',
+  continue: 'Cadw a chyflwyno',
   Yes: 'Yes - welsh',
   No: 'No - welsh',
   sectionTitles: {
@@ -160,7 +160,7 @@ const cyContent = {
       "Disgrifiwch yn gryno y [***] yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
     detailsOfYourConcern: "Disgrifiwch y [***] yn gryno os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
     concerns: 'concerns',
-    applicantDetails: 'Applicant [^^^] - Your details - welsh',
+    applicantDetails: 'Ceisydd [^^^] - Eich manylion',
   },
 };
 
