@@ -5,6 +5,8 @@ import { applyParms } from './common/url-parser';
 import { Sections, Step } from './constants';
 import {
   APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
+  APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED,
+  APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER,
   APPLICATION_WITHIN_PROCEEDINGS_DELAY_CANCEL_SELECT_HEARING,
   APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
   APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
@@ -130,5 +132,14 @@ export const applicationWithinProceedingsSequence: Step[] = [
     url: APPLICATION_WITHIN_PROCEEDINGS_DELAY_CANCEL_SELECT_HEARING,
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: () => '/',
+  },
+  {
+    url: APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (caseData, req) =>
+      applyParms(APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED, {
+        applicationType: req?.params.applicationType as AWPApplicationType,
+        applicationReason: req?.params.applicationReason as AWPApplicationReason,
+      }) as PageLink,
   },
 ];

@@ -25,7 +25,7 @@ describe('applicationWithinProceedingsSequence', () => {
   });
 
   test('should contain 1 entries in applicationWithinProceedingsSequence 1 screen sequence', () => {
-    expect(applicationWithinProceedingsSequence).toHaveLength(12);
+    expect(applicationWithinProceedingsSequence).toHaveLength(13);
     expect(applicationWithinProceedingsSequence[0].url).toBe(
       '/application-within-proceedings/list-of-applications/:pageNumber'
     );
