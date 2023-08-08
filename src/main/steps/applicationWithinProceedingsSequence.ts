@@ -17,6 +17,7 @@ import {
   APPLICATION_WITHIN_PROCEEDINGS_INFORM_OTHER_PARTIES,
   APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
   APPLICATION_WITHIN_PROCEEDINGS_PAY_AND_SUBMIT,
+  APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS,
   APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
   PageLink,
 } from './urls';
@@ -123,8 +124,8 @@ export const applicationWithinProceedingsSequence: Step[] = [
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
     showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: (caseData, req) =>
-      applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
+    getNextStep: (_userCase, req) =>
+      applyParms(APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS, {
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
@@ -142,6 +143,16 @@ export const applicationWithinProceedingsSequence: Step[] = [
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
+  },
+  {
+    url: APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (caseData, req) =>
+      ApplicationWithinProceedingsNavigationController.getNextUrl(
+        APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS,
+        caseData,
+        req!
+      ),
   },
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_PAY_AND_SUBMIT,
