@@ -73,7 +73,6 @@ describe('respondent document sharing details content', () => {
       form = generatedContent.form as FormContent;
       fields = form.fields as FormFields;
     });
-
     test('should return correct english content', () => {
       const reasonDocumentCantBeSharedFields = fields.reasonDocumentCantBeShared as FormOptions;
       expect(generatedContent.continue).toEqual('Continue');
@@ -99,6 +98,11 @@ describe('respondent document sharing details content', () => {
       expect((form.link?.text as Function)(generatedContent)).toBe('Cancel');
       expect(form.link?.href).toBe('/respondent/task-list/1234');
     });
+  });
+
+  test('should contain correct cancel link for fl401', () => {
+    expect((form.link?.text as Function)(generatedContent)).toBe('Cancel');
+    expect(form.link?.href).toBe('/respondent/task-list/1234');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

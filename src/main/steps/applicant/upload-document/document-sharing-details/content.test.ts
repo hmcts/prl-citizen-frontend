@@ -109,5 +109,18 @@ describe('applicant document sharing details content', () => {
       expect(form.link?.href).toBe('/case/1234');
     });
   });
+
+  test('should contain correct cancel link for fl401', () => {
+    expect((form.link?.text as Function)(generatedContent)).toBe('Cancel');
+    expect(form.link?.href).toBe('/applicant/task-list/1234');
+  });
+
+  test('should contain correct cancel link for c100', () => {
+    commonContent.additionalData!.req.session.userCase.caseTypeOfApplication = CaseType.C100;
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+    expect((form.link?.text as Function)(generatedContent)).toBe('Cancel');
+    expect(form.link?.href).toBe('/case/1234');
+  });
 });
 /* eslint-enable @typescript-eslint/ban-types */
