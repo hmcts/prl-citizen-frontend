@@ -6,7 +6,7 @@ import { generateContent } from '../task-list/content';
 
 describe('testcase for tasklist', () => {
   const en = {
-    caseNumber: 'Case number #',
+    caseNumber: 'Case number ',
     hyperlinks: [
       {
         label: 'Add a legal representative',
@@ -118,7 +118,7 @@ describe('testcase for tasklist', () => {
   };
   const cy = {
     title: 'Trefniadau plant a gwaharddebau teulu',
-    caseNumber: 'Rhif yr achos #',
+    caseNumber: 'Rhif yr achos ',
     iWantTo: 'Rwyf eisiau...',
     hyperlinks: [
       {

@@ -1,5 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 
 const en = {
   pageTitle: 'Document submitted',
@@ -44,8 +45,12 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  const { docCategory, docType } = content.additionalData!.req.params;
+  const { category: caption } = getDocumentMeta(docCategory, docType, content.language);
+
   return {
     ...translations,
     form,
+    caption,
   };
 };

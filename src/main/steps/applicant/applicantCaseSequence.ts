@@ -1,5 +1,6 @@
 import { Case } from '../../app/case/case';
-import { CaseType } from '../../app/case/definition';
+import { CaseType, YesOrNo } from '../../app/case/definition';
+import { applyParms } from '../../steps/common/url-parser';
 import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
 import {
@@ -78,6 +79,8 @@ import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+  APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,
+  PageLink,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -385,17 +388,30 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+    getNextStep: (caseData, req)  =>
+      caseData.start === YesOrNo.NO
+        ? APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE
+        : applyParms(APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {docCategory: req?.params?.docCategory, docType: req?.params?.docType})  as PageLink,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT,
+    getNextStep: (caseData, req) =>
+      applyParms(APPLICANT_UPLOAD_DOCUMENT, {
+        docCategory: req?.params?.docCategory,
+        docType: req?.params?.docType,
+      }) as PageLink,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
+    getNextStep: (caseData, req) =>
+      applyParms(APPLICANT_UPLOAD_DOCUMENT_SUCCESS, { docCategory: req?.params?.docCategory }) as PageLink,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_SUCCESS,

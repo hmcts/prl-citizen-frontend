@@ -9,7 +9,8 @@ import {
   applicant_tasklist_items_all_docs_en,
 } from './tasklist-items-all-documents';
 import { generateApplicantTaskListAllDocuments } from './tasklistalldocuments';
-//import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
+
+export * from './routeGuard';
 
 const en = () => {
   return {

@@ -1,4 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { DocCategory, DocType } from '../../../../app/case/definition';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -40,7 +41,17 @@ const cy: typeof en = {
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('citizen-home content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        params: {
+          docCategory: DocCategory.WITNESS_STATEMENT,
+          docType: DocType.YOUR_WITNESS_STATEMENTS,
+        },
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);

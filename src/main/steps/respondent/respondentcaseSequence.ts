@@ -1,5 +1,6 @@
 import HearingsGetController from '../../../main/steps/common/yourhearings/hearings/HearingsGetController';
 import { YesOrNo } from '../../app/case/definition';
+import { applyParms } from '../../steps/common/url-parser';
 import { Sections, Step } from '../constants';
 import {
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
@@ -34,6 +35,7 @@ import {
   POLICE_DISCLOSURE,
   POSITION_STATEMENTS,
   PREVIOUS_ORDERS_SUBMITTED,
+  PageLink,
   RESPNDT_TO_APPLICATION_SUMMARY,
   RESPONDENT,
   RESPONDENT_ADDRESS_CONFIRMATION,
@@ -65,6 +67,7 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
+  RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,
   RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_YOURHEARINGS_HEARINGS,
@@ -197,17 +200,31 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+    getNextStep: (caseData, req) =>
+      caseData.start === YesOrNo.NO
+        ? RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE :
+      applyParms(RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {
+        docCategory: req?.params?.docCategory,
+        docType: req?.params?.docType,
+      }) as PageLink,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT,
+    getNextStep: (caseData, req) =>
+      applyParms(RESPONDENT_UPLOAD_DOCUMENT, {
+        docCategory: req?.params?.docCategory,
+        docType: req?.params?.docType,
+      }) as PageLink,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
+    getNextStep: (caseData, req) =>
+      applyParms(RESPONDENT_UPLOAD_DOCUMENT_SUCCESS, {
+        docCategory: req?.params?.docCategory,
+        docType: req?.params?.docType,
+      }) as PageLink,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
@@ -535,6 +552,11 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },

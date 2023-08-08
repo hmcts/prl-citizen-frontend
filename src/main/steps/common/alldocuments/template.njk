@@ -1,16 +1,16 @@
 {% extends "common/template.njk" %}
 
 {% block pageTitle %}
-  {{name}}{{title}} - Private law - GOV.UK
+  {{partyName}}{{title}} - Private law - GOV.UK
 {% endblock %}
 {% block page_content %}
   <h1 class="govuk-heading-xl">
     <span class="govuk-caption-l">{{section}}</span>
-    {{name}}{{title}}
+    {{partyName}}{{title}}
   </h1>
   <div class="govuk-form-group">
     <fieldset class="govuk-fieldset">
-      <p class="govuk-body">{{caseNumber}} #{{userCase.id}}</p>
+      <p class="govuk-body">{{caseNumber}} {{userCase.id}}</p>
     </fieldset>
     <hr class="govuk-section-break govuk-section-break govuk-section-break--visible">
   </div>

@@ -74,7 +74,6 @@ export const summaryList = (
 };
 
 const getValue = (key: string, userCase: Partial<CaseWithId>, language = 'en') => {
-  //const data=userCase[key];
   let output;
   const value = userCase[key];
   if (typeof value === 'string') {
@@ -95,5 +94,5 @@ const getValue = (key: string, userCase: Partial<CaseWithId>, language = 'en') =
       }
     }
   }
-  return temp as string;
+  return temp;
 };

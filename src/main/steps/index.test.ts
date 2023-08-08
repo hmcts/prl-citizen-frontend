@@ -1,7 +1,7 @@
 import { mockRequest } from '../../test/unit/utils/mockRequest';
 import { AppRequest } from '../app/controller/AppRequest';
 
-import { CITIZEN_HOME_URL } from './urls';
+import { DASHBOARD_URL } from './urls';
 
 import { getNextStepUrl } from './index';
 
@@ -13,17 +13,10 @@ describe('Steps', () => {
     });
 
     it('returns the next step when correct details a passed', () => {
-      mockReq.originalUrl = CITIZEN_HOME_URL;
-      mockReq.route.path = CITIZEN_HOME_URL;
+      mockReq.originalUrl = DASHBOARD_URL;
+      mockReq.route.path = DASHBOARD_URL;
       const data = {};
       expect(getNextStepUrl(mockReq, data)).toBe('/dashboard');
     });
-
-    // it('step with content', () => {
-    //   mockReq.originalUrl = CITIZEN_HOME_URL;
-    //   const data = {};
-    //   stepsWithContentEdgecase
-    //   expect(getNextStepUrl(mockReq, data)).toBe('/service-type');
-    // });
   });
 });
