@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { RESPONDENT_TASK_LIST_URL } from '../../../../steps/urls';
 import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
+import { RESPONDENT_TASK_LIST_URL } from '../../../../steps/urls';
 
 const en = {
   section: 'How your documents will be shared',

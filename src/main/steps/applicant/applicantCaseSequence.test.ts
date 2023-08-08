@@ -307,27 +307,27 @@ describe('applicant1Sequence', () => {
       '/applicant/upload-document/document-sharing-details/undefined/undefined'
     );
 
-    expect(applicantCaseSequence[59].url).toBe(
-      '/applicant/upload-document/document-sharing-details/:docCategory/:docType'
-    );
+    expect(applicantCaseSequence[59].url).toBe('/applicant/upload-document/submit-extra-evidence');
     expect(applicantCaseSequence[59].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[59].getNextStep({})).toBe(
-      '/applicant/upload-document/upload-your-documents/undefined/undefined'
-    );
+    expect(applicantCaseSequence[59].getNextStep({})).toBe('/applicant/task-list');
 
     expect(applicantCaseSequence[60].url).toBe(
-      '/applicant/upload-document/upload-your-documents/:docCategory/:docType'
+      '/applicant/upload-document/document-sharing-details/:docCategory/:docType'
     );
     expect(applicantCaseSequence[60].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[60].getNextStep({})).toBe(
+      '/applicant/upload-document/upload-your-documents/undefined/undefined'
+    );
+
+    expect(applicantCaseSequence[61].url).toBe(
+      '/applicant/upload-document/upload-your-documents/:docCategory/:docType'
+    );
+    expect(applicantCaseSequence[61].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[61].getNextStep({})).toBe(
       '/applicant/upload-document/upload-documents-success/undefined'
     );
 
-    expect(applicantCaseSequence[61].url).toBe('/applicant/upload-document/upload-documents-success/:docCategory');
-    expect(applicantCaseSequence[61].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[61].getNextStep({})).toBe('/applicant/upload-document/upload-documents-success');
-
-    expect(applicantCaseSequence[62].url).toBe('/applicant/upload-document/upload-documents-success');
+    expect(applicantCaseSequence[62].url).toBe('/applicant/upload-document/upload-documents-success/:docCategory');
     expect(applicantCaseSequence[62].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[62].getNextStep({})).toBe('/applicant/task-list');
 

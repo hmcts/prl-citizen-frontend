@@ -388,10 +388,13 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: (caseData, req)  =>
+    getNextStep: (caseData, req) =>
       caseData.start === YesOrNo.NO
         ? APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE
-        : applyParms(APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {docCategory: req?.params?.docCategory, docType: req?.params?.docType})  as PageLink,
+        : (applyParms(APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {
+            docCategory: req?.params?.docCategory,
+            docType: req?.params?.docType,
+          }) as PageLink),
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,

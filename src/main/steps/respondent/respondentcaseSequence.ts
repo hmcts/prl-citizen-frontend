@@ -202,11 +202,11 @@ export const respondentCaseSequence: Step[] = [
     showInSection: Sections.AboutRespondentCase,
     getNextStep: (caseData, req) =>
       caseData.start === YesOrNo.NO
-        ? RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE :
-      applyParms(RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {
-        docCategory: req?.params?.docCategory,
-        docType: req?.params?.docType,
-      }) as PageLink,
+        ? RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE
+        : (applyParms(RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {
+            docCategory: req?.params?.docCategory,
+            docType: req?.params?.docType,
+          }) as PageLink),
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
