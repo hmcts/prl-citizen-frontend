@@ -1,7 +1,7 @@
 import { CaseType } from '../../../../app/case/definition';
-import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { APPLICANT_TASK_LIST_URL, FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
