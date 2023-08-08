@@ -130,18 +130,26 @@ describe('respondent1Sequence', () => {
     expect(responseCaseSequence[31].url).toBe('/respondent/upload-document');
     expect(responseCaseSequence[31].showInSection).toBe('aboutRespondentCase');
 
-    expect(responseCaseSequence[32].url).toBe('/respondent/upload-document/start');
+    expect(responseCaseSequence[32].url).toBe('/respondent/upload-document/start/:docCategory/:docType');
     expect(responseCaseSequence[32].showInSection).toBe('aboutRespondentCase');
 
-    expect(responseCaseSequence[33].url).toBe('/respondent/upload-document/document-sharing-details');
+    expect(responseCaseSequence[33].url).toBe(
+      '/respondent/upload-document/document-sharing-details/:docCategory/:docType'
+    );
     expect(responseCaseSequence[33].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[33].getNextStep({})).toBe('/respondent/upload-document/upload-your-documents');
+    expect(responseCaseSequence[33].getNextStep({})).toBe(
+      '/respondent/upload-document/upload-your-documents/:docCategory/:docType'
+    );
 
-    expect(responseCaseSequence[34].url).toBe('/respondent/upload-document/upload-your-documents');
+    expect(responseCaseSequence[34].url).toBe(
+      '/respondent/upload-document/upload-your-documents/:docCategory/:docType'
+    );
     expect(responseCaseSequence[34].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[34].getNextStep({})).toBe('/respondent/upload-document/upload-documents-success');
+    expect(responseCaseSequence[34].getNextStep({})).toBe(
+      '/respondent/upload-document/upload-documents-success/:docCategory'
+    );
 
-    expect(responseCaseSequence[35].url).toBe('/respondent/upload-document/upload-documents-success');
+    expect(responseCaseSequence[35].url).toBe('/respondent/upload-document/upload-documents-success/:docCategory');
     expect(responseCaseSequence[35].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[35].getNextStep({})).toBe('/tasklistresponse/start');
 

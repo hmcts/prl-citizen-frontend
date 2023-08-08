@@ -1,8 +1,10 @@
 import { CaseType } from '../../../../app/case/definition';
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { APPLICANT_TASK_LIST_URL, FETCH_CASE_DETAILS } from '../../../../steps/urls';
+
 
 const en = {
   section: 'How your documents will be shared',
@@ -72,6 +74,9 @@ export const generateContent: TranslationFn = content => {
   const caseId = userCase.id as string;
   const caseType = userCase.caseTypeOfApplication;
   const translations = languages[content.language];
+  const { docCategory, docType } = content.additionalData!.req.params;
+  const { category: caption, type: title } = getDocumentMeta(docCategory, docType, content.language);
+
   return {
     ...translations,
     form: {
@@ -84,5 +89,7 @@ export const generateContent: TranslationFn = content => {
             : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
       },
     },
+    caption,
+    title,
   };
 };

@@ -1,6 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { RESPONDENT_TASK_LIST_URL } from '../../../../steps/urls';
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 
 const en = {
   section: 'How your documents will be shared',
@@ -69,11 +70,16 @@ export const generateContent: TranslationFn = content => {
   const userCase = content.additionalData?.req.session.userCase;
   const caseId = userCase.id as string;
   const translations = languages[content.language];
+  const { docCategory, docType } = content.additionalData!.req.params;
+  const { category: caption, type: title } = getDocumentMeta(docCategory, docType, content.language);
+
   return {
     ...translations,
     form: {
       ...form,
       link: { ...form.link, href: `${RESPONDENT_TASK_LIST_URL}/${caseId}` },
     },
+    caption,
+    title,
   };
 };

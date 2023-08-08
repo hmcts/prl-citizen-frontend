@@ -2,6 +2,8 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import type { Response } from 'express';
 
+import { getDocumentMeta } from '../../steps/common/upload-document/util';
+import { applyParms } from '../../steps/common/url-parser';
 import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
 import {
   APPLICANT,
@@ -20,6 +22,8 @@ import { CaseWithId } from '../case/case';
 import {
   Applicant,
   CaseType,
+  DocCategory,
+  DocType,
   DocumentType,
   DownloadFileFieldFlag,
   FileProperties,
@@ -34,7 +38,6 @@ import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { DeleteDocumentRequest } from './DeleteDocumentRequest';
 import { DocumentManagementClient } from './DocumentManagementClient';
 import { GenerateAndUploadDocumentRequest } from './GenerateAndUploadDocumentRequest';
-
 const UID_LENGTH = 36;
 @autobind
 export class DocumentManagerController extends PostController<AnyObject> {
@@ -85,13 +88,18 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     const isApplicant = req.query.isApplicant;
     const partyName = this.getPartyName(isApplicant, req);
+    const documentMeta = getDocumentMeta(
+      req.query.documentCategory as DocCategory,
+      req.query.documentType as DocType,
+      'en'
+    );
 
     const uploadDocumentDetails = {
       documentRequestedByCourt: req.session.userCase.start,
       caseId: req.session.userCase.id,
       freeTextUploadStatements: req.body.freeTextAreaForUpload,
-      parentDocumentType: req.query.parentDocumentType,
-      documentType: req.query.documentType,
+      parentDocumentType: documentMeta.category,
+      documentType: documentMeta.type,
       partyName,
       partyId: req.session.user.id,
       isApplicant,
@@ -599,11 +607,12 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   private setRedirectUrl(isApplicant, req: AppRequest<Partial<CaseWithId>>) {
-    const { caption = '', document_type = '', parentDocumentType = '', documentType = '' } = req.query;
+    const { documentCategory = '', documentType = '' } = req.query;
 
-    return `${
-      isApplicant === YesOrNo.YES ? APPLICANT_UPLOAD_DOCUMENT : RESPONDENT_UPLOAD_DOCUMENT
-    }?caption=${caption}&document_type=${document_type}&parentDocType=${parentDocumentType}&docType=${documentType}`;
+    return applyParms(isApplicant === YesOrNo.YES ? APPLICANT_UPLOAD_DOCUMENT : RESPONDENT_UPLOAD_DOCUMENT, {
+      docCategory: documentCategory,
+      doctype: documentType,
+    });
   }
 
   public async undefiendUploadFiles(req: AppRequest): Promise<void> {
@@ -653,13 +662,17 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     let parentDocumentType;
     let documentType;
+    if (req.query && req.query.documentCategory && req.query.documentType) {
+      const documentMeta = getDocumentMeta(
+        req.query.documentCategory as DocCategory,
+        req.query.documentType as DocType,
+        'en'
+      );
+      parentDocumentType = documentMeta.category;
+      documentType = documentMeta.type;
+    }
+
     const caseId = req.session.userCase.id;
-    if (req.query && req.query.parentDocumentType) {
-      parentDocumentType = req.query.parentDocumentType;
-    }
-    if (req.query && req.query.documentType) {
-      documentType = req.query.documentType;
-    }
     const partyId = req.session.user.id;
 
     const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');

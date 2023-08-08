@@ -3018,20 +3018,28 @@ export enum passportPossessionRelative {
   OTHER = 'otherPerson'
 }
 
+export enum DocCategory{
+WITNESS_STATEMENT = 'witnessstatements',
+APPLICATIONS = 'applications',
+EXPERT_REPORTS = 'expertreports',
+OTHER_DOCUMENTS = 'otherdocuments',
+}
+
 export enum DocType {
-  POSITION_STATEMENTS = 'positionstatements',
-  YOUR_WITNESS_STATEMENTS = 'yourwitnessstatements',
-  LETTERS_FROM_SCHOOL = 'lettersfromschool',
-  DIGITAL_DOWNLOADS = 'digitaldownloads',
-  MEDICAL_RECORDS = 'medicalrecords',
-  PATERNITY_TEST_REPORTS = 'paternitytestreports',
-  DRUG_ALCOHOL_TESTS = 'drugalcoholtests',
-  POLICE_REPORTS = 'policedisclosures',
-  WITNESS_AVAILABILITY = 'witnessavailability',
-  TENANCY_AND_MORTGAGE_AVAILABILITY = 'tenancyandmortgageavailability',
-  MEDICAL_REPORTS = 'medicalreports',
-  OTHER_DOCUMENTS = 'otherDocuments',
-  PREVIOUS_ORDERS = 'previousorders',
-  OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
-  MIAM_CERTIFICATE = 'miamcertificate',
+POSITION_STATEMENTS ='positionstatements',
+YOUR_WITNESS_STATEMENTS = 'yourwitnessstatements',
+LETTERS_FROM_SCHOOL = 'lettersfromschool',
+DIGITAL_DOWNLOADS = 'digitaldownloads',
+MEDIA_FILES = 'mediafiles',
+MEDICAL_RECORDS = 'medicalrecords',
+PATERNITY_TEST_REPORTS = 'paternitytestreports',
+DRUG_ALCOHOL_TESTS = 'drugalcoholtests',
+POLICE_REPORTS = 'policedisclosures',
+WITNESS_AVAILABILITY = 'witnessavailability',
+TENANCY_AND_MORTGAGE_AVAILABILITY = 'tenancyandmortgageavailability',
+MEDICAL_REPORTS = 'medicalreports',
+OTHER_DOCUMENTS = 'otherDocuments',
+PREVIOUS_ORDERS = 'previousorders',
+OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
+MIAM_CERTIFICATE = 'miamcertificate',
 }

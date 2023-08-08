@@ -1,9 +1,9 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 
 const en = {
   section: 'How your documents will be shared',
-  title: 'Your document has been uploaded successfully',
   status: 'Your documents have been uploaded',
   continue: 'Continue',
   remove: 'Remove',
@@ -14,7 +14,6 @@ const en = {
 
 const cy: typeof en = {
   section: 'Sut fydd eich dogfennau’n cael eu rhannu',
-  title: 'Mae eich dogfen wedi’i llwytho’n llwyddiannus',
   status: 'Mae eich dogfennau wedi’u llwytho',
   continue: 'Parhau',
   remove: 'Dileu',
@@ -34,8 +33,12 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  const { docCategory, docType } = content.additionalData!.req.params;
+  const { category: caption } = getDocumentMeta(docCategory, docType, content.language);
+
   return {
     ...translations,
     form,
+    caption,
   };
 };
