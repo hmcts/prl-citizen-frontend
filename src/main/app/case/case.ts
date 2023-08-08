@@ -597,6 +597,7 @@ export interface Case {
   awp_informOtherParties?: YesOrNo;
   awp_reasonCantBeInformed?: string;
   awp_uploadedApplicationForms?: DocumentInfo[];
+  awp_hasSupportingDocuments?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {
