@@ -45,7 +45,7 @@ class ApplicationWithinProceedingsNavigationController {
       }
       case APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS: {
         url = this.getSupportingDocumentsNextStep(
-          caseData.awp_have_supportingDocuments,
+          caseData.awp_hasSupportingDocuments,
           applicationType,
           applicationReason
         );

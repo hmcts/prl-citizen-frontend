@@ -15,7 +15,7 @@ const en = {
   onlyContinue: 'Continue',
   cancel: 'Cancel',
   errors: {
-    awp_have_supportingDocuments: {
+    awp_hasSupportingDocuments: {
       required: 'Select whether you have supporting documents to upload',
     },
   },
@@ -30,7 +30,7 @@ const cy: typeof en = {
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   errors: {
-    awp_have_supportingDocuments: {
+    awp_hasSupportingDocuments: {
       required: 'Select whether you have supporting documents to upload (welsh)',
     },
   },
@@ -81,7 +81,7 @@ describe('supporting documents content', () => {
   });
 
   test('should contain help with fees form fields', () => {
-    const supportingDocumentsField = fields.awp_have_supportingDocuments as FormOptions;
+    const supportingDocumentsField = fields.awp_hasSupportingDocuments as FormOptions;
 
     expect(supportingDocumentsField.type).toBe('radios');
     expect((supportingDocumentsField.label as Function)(generatedContent)).toBe(en.canShowProof);

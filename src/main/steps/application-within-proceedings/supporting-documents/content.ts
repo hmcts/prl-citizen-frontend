@@ -16,7 +16,7 @@ export const en = {
   onlyContinue: 'Continue',
   cancel: 'Cancel',
   errors: {
-    awp_have_supportingDocuments: {
+    awp_hasSupportingDocuments: {
       required: 'Select whether you have supporting documents to upload',
     },
   },
@@ -31,7 +31,7 @@ export const cy: typeof en = {
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   errors: {
-    awp_have_supportingDocuments: {
+    awp_hasSupportingDocuments: {
       required: 'Select whether you have supporting documents to upload (welsh)',
     },
   },
@@ -44,7 +44,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    awp_have_supportingDocuments: {
+    awp_hasSupportingDocuments: {
       type: 'radios',
       classes: 'govuk-radios--inline',
       label: l => l.canShowProof,

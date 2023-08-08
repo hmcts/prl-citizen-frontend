@@ -138,7 +138,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
       expect(
         ApplicationWithinProceedingsNavigationController.getNextUrl(
           APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS,
-          { awp_have_supportingDocuments: YesOrNo.YES },
+          { awp_hasSupportingDocuments: YesOrNo.YES },
           req
         )
       ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload');
@@ -148,7 +148,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
       expect(
         ApplicationWithinProceedingsNavigationController.getNextUrl(
           APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS,
-          { awp_have_supportingDocuments: YesOrNo.NO },
+          { awp_hasSupportingDocuments: YesOrNo.NO },
           req
         )
       ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents');
@@ -159,7 +159,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
       expect(
         ApplicationWithinProceedingsNavigationController.getNextUrl(
           APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS,
-          { awp_have_supportingDocuments: YesOrNo.YES },
+          { awp_hasSupportingDocuments: YesOrNo.YES },
           req
         )
       ).toBe('/application-within-proceedings/C2/request-more-time/document-upload');
@@ -170,7 +170,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
       expect(
         ApplicationWithinProceedingsNavigationController.getNextUrl(
           APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS,
-          { awp_have_supportingDocuments: YesOrNo.NO },
+          { awp_hasSupportingDocuments: YesOrNo.NO },
           req
         )
       ).toBe('/application-within-proceedings/C2/request-more-time/guidance');

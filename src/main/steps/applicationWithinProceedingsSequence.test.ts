@@ -117,12 +117,12 @@ describe('applicationWithinProceedingsSequence', () => {
       '/application-within-proceedings/:applicationType/:applicationReason/supporting-documents'
     );
     expect(applicationWithinProceedingsSequence[10].showInSection).toBe('applicationWithinProceedings');
-    expect(
-      applicationWithinProceedingsSequence[10].getNextStep({ awp_have_supportingDocuments: YesOrNo.YES }, req)
-    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload');
-    expect(
-      applicationWithinProceedingsSequence[10].getNextStep({ awp_have_supportingDocuments: YesOrNo.NO }, req)
-    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents');
+    expect(applicationWithinProceedingsSequence[10].getNextStep({ awp_hasSupportingDocuments: YesOrNo.YES }, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
+    );
+    expect(applicationWithinProceedingsSequence[10].getNextStep({ awp_hasSupportingDocuments: YesOrNo.NO }, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents'
+    );
 
     expect(applicationWithinProceedingsSequence[11].url).toBe(
       '/application-within-proceedings/:applicationType/:applicationReason/pay-and-submit'
