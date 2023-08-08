@@ -12,7 +12,7 @@ import {
 } from '../../urls';
 import { getApplicationDetails } from '../utils';
 
-import { summaryList } from './mainUtil';
+import { populateUserCase, summaryList } from './mainUtil';
 
 export const enContent = {
   section: 'Check your answers',
@@ -24,7 +24,7 @@ export const enContent = {
     awp_cancelDelayHearing: 'Which hearing are you applying to delay or cancel?',
     awp_agreementForRequest: 'Does the other person in the case agree with the date change?',
     awp_uploadedApplicationForms: 'Document uploaded',
-    //Do you have supporting documents to upload?
+    awp_hasSupportingDocuments: 'Do you have supporting documents to upload?',
     awp_need_hwf: 'Will you be using help with fees to pay for this application?',
     awp_hwf_referenceNumber: 'Help with fees reference number',
   },
@@ -43,7 +43,7 @@ export const cyContent: typeof enContent = {
     awp_cancelDelayHearing: 'Which hearing are you applying to delay or cancel?',
     awp_agreementForRequest: 'Does the other person in the case agree with the date change?',
     awp_uploadedApplicationForms: 'Document uploaded',
-    //Do you have supporting documents to upload?
+    awp_hasSupportingDocuments: 'Do you have supporting documents to upload?',
     awp_need_hwf: 'Will you be using help with fees to pay for this application?',
     awp_hwf_referenceNumber: 'Help with fees reference number',
   },
@@ -54,14 +54,15 @@ export const cyContent: typeof enContent = {
 
 const urls = {
   awp_applicationList: APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
-  awp_uploadedApplicationForms: APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
   awp_cancelDelayHearing: APPLICATION_WITHIN_PROCEEDINGS_DELAY_CANCEL_SELECT_HEARING,
   awp_agreementForRequest: APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
+  awp_uploadedApplicationForms: APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
+  awp_hasSupportingDocuments: '',
   awp_need_hwf: APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
   awp_hwf_referenceNumber: APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_REFERENCE,
 };
 const en = (content: CommonContent) => {
-  const userCase = content.userCase!;
+  const userCase = populateUserCase(content.userCase!);
   const request = content.additionalData!.req;
   const caseData = request.session.userCase;
   const { applicationType, applicationReason } = request.params;
@@ -83,7 +84,7 @@ const en = (content: CommonContent) => {
 };
 
 const cy: typeof en = (content: CommonContent) => {
-  const userCase = content.userCase!;
+  const userCase = populateUserCase(content.userCase!);
   const request = content.additionalData!.req;
   const caseData = request.session.userCase;
   const { applicationType, applicationReason } = request.params;

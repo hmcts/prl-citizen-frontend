@@ -125,8 +125,6 @@ describe('applicationWithinProceedingsSequence', () => {
       '/application-within-proceedings/:applicationType/:applicationReason/select-hearing'
     );
     expect(applicationWithinProceedingsSequence[11].showInSection).toBe('applicationWithinProceedings');
-    expect(applicationWithinProceedingsSequence[11].getNextStep(userCase, req)).toBe(
-      '/'
-    );
+    expect(applicationWithinProceedingsSequence[11].getNextStep(userCase, req)).toBe('/');
   });
 });

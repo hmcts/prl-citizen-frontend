@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { CaseWithId } from '../../../app/case/case';
+import { YesOrNo } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import {
   GovUkNunjucksSummary,
@@ -105,3 +106,13 @@ export const summaryList = (
     rows: getSectionSummaryList(summaryData, content, applicationDetails, language),
   };
 };
+export function populateUserCase(userCase: Partial<CaseWithId>) {
+  if (userCase.awp_need_hwf === YesOrNo.NO) {
+    delete userCase.awp_have_hwfReference;
+    delete userCase.awp_hwf_referenceNumber;
+  }
+  if (userCase.awp_have_hwfReference === YesOrNo.NO) {
+    delete userCase.awp_hwf_referenceNumber;
+  }
+  return userCase;
+}
