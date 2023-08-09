@@ -489,6 +489,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const { query, session, body } = req;
     const { user, userCase: caseData } = session;
     const partyType = getCasePartyType(caseData, user.id);
+    const redirectUrl= this.setRedirectUrl(partyType, req);
+    
+    req.url = redirectUrl;
     this.initializeData(caseData);
 
     const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
@@ -522,14 +525,13 @@ export class DocumentManagerController extends PostController<AnyObject> {
         );
         Object.assign(req.session.userCase, caseDataFromCos);
         req.session.errors = [];
-
       } else {
         this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
       }
     } catch (e) {
       this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } finally {
-      return this.redirect(req, res, this.setRedirectUrl(partyType, req));
+      return this.redirect(req, res, redirectUrl);
     }
   }
 
@@ -538,7 +540,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const { user, userCase: caseData } = session;
     const partyType = getCasePartyType(caseData, user.id);
     const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
+    const redirectUrl= this.setRedirectUrl(partyType, req);
 
+    req.url = redirectUrl;
     this.initializeData(caseData);
 
     if (!files?.length) {
@@ -584,7 +588,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     } catch (e) {
       this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } finally {
-      return this.redirect(req, res, this.setRedirectUrl(partyType, req));
+      return this.redirect(req, res, redirectUrl);
     }
   }
 
@@ -593,6 +597,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const { user, userCase: caseData } = session;
     const partyType = getCasePartyType(caseData, user.id);
     const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
+    const redirectUrl= this.setRedirectUrl(partyType, req);
+
+    req.url = redirectUrl;
     try {
       const response = await client.deleteCitizenStatementDocument(user, new DeleteDocumentRequest({
         caseId: caseData.id,
@@ -610,7 +617,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     } catch (e) {
       this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } finally {
-      this.redirect(req, res, this.setRedirectUrl(partyType, req));
+      this.redirect(req, res, redirectUrl);
     }
   }
 
