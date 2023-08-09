@@ -1,6 +1,6 @@
-import DocumentUploadPostController from '../../steps/common/upload-document/DocumentUploadPostController';
 import HearingsGetController from '../../../main/steps/common/yourhearings/hearings/HearingsGetController';
 import { YesOrNo } from '../../app/case/definition';
+import DocumentUploadPostController from '../../steps/common/upload-document/DocumentUploadPostController';
 import { applyParms } from '../../steps/common/url-parser';
 import { Sections, Step } from '../constants';
 import {

@@ -1,6 +1,6 @@
-import DocumentUploadPostController from '../../steps/common/upload-document/DocumentUploadPostController';
 import { Case } from '../../app/case/case';
 import { CaseType, YesOrNo } from '../../app/case/definition';
+import DocumentUploadPostController from '../../steps/common/upload-document/DocumentUploadPostController';
 import { applyParms } from '../../steps/common/url-parser';
 import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';

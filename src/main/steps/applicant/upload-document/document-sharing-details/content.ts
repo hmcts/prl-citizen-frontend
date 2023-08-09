@@ -76,10 +76,9 @@ export const generateContent: TranslationFn = content => {
   const { docCategory, docType } = content.additionalData!.req.params;
   const { category: caption, type: title } = getDocumentMeta(docCategory, docType, content.language);
 
-  Object.assign(form.link, {
-    href: caseType === CaseType.C100
-    ? applyParms(FETCH_CASE_DETAILS, { caseId })
-    : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
+  Object.assign(form.link!, {
+    href:
+      caseType === CaseType.C100 ? applyParms(FETCH_CASE_DETAILS, { caseId }) : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
   });
 
   return {

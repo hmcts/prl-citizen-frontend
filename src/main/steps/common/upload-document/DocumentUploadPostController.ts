@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
-import { AppRequest, AppSession } from '../../../app/controller/AppRequest';
+
+import { CosApiClient } from '../../../app/case/CosApiClient';
+import { DocType, PartyType } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormError, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { DocType, PartyType } from '../../../app/case/definition';
-import { CosApiClient } from '../../../app/case/CosApiClient';
-import { getDocumentType } from './util';
 import { getPartyName } from '../task-list/utils';
+
+import { getDocumentType } from './util';
 
 @autobind
 export default class DocumentUploadPostController {
@@ -20,14 +22,15 @@ export default class DocumentUploadPostController {
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { user, userCase: caseData } = req.session;
-    const { _ctx, onlycontinue, ...formFields } = req.body;
+    const { _ctx, onlyContinue, ...formFields } = req.body;
     const fields = typeof this.fields === 'function' ? this.fields(caseData) : this.fields;
     const form = new Form(fields);
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const partyType = getCasePartyType(caseData, user.id);
-    const uploadedDocuments = caseData?.[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'] ?? []
+    const uploadedDocuments =
+      caseData?.[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'] ?? [];
 
-    if (onlycontinue) {
+    if (onlyContinue) {
       req.session.errors = form.getErrors(formData);
 
       if (req.session.errors.length || !uploadedDocuments?.length) {
@@ -42,16 +45,19 @@ export default class DocumentUploadPostController {
           partyId: user.id,
           partyName: getPartyName(caseData, partyType, user),
           partyType,
-          documents: uploadedDocuments
+          documents: uploadedDocuments,
         });
         req.session.errors = [];
-        
+
         if (response.status !== '200') {
-          this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' })
+          this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
         }
       } catch (error) {
-        this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' })
+        this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
       } finally {
+        // } catch (error) {
+        //   this.handleError(req.session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+        // }
         this.parent.redirect(req, res);
       }
     }
@@ -59,7 +65,7 @@ export default class DocumentUploadPostController {
 
   private handleError(req: AppRequest, error: FormError) {
     if (!req.session?.errors) {
-      req.session.errors = []
+      req.session.errors = [];
     }
     req.session.errors.push({ errorType: error.errorType, propertyName: error.propertyName });
   }

@@ -116,7 +116,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/respondent/upload-document/start/otherdocuments/otherDocuments',
+              href: '/respondent/upload-document/start/otherdocuments/otherdocuments',
               id: 'other-documents',
               text: 'Other documents',
             },

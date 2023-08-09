@@ -84,7 +84,7 @@ describe('testcase for partyname', () => {
       familyName: 'Smith',
     };
 
-    expect(getPartyName(data, party, userDetail)).toBe('undefined undefined');
+    expect(getPartyName(data, party, userDetail)).toBe('John Smith');
   });
   test('when party type c100-applicant', () => {
     const data = {

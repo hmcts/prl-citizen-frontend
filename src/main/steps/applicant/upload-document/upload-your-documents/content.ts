@@ -115,9 +115,9 @@ export const generateContent: TranslationFn = content => {
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     caption,
     title,
-    filesUploaded: content.userCase?.applicantUploadFiles?.map(file=>({
+    filesUploaded: content.userCase?.applicantUploadFiles?.map(file => ({
       id: file.document_url.substring(file.document_url.lastIndexOf('/') + 1),
-      ...file
+      ...file,
     })),
     docCategory,
     docType,

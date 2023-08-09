@@ -78,7 +78,7 @@ import {
   PRL_C1AAbuseTypes,
   applicantContactPreferencesEnum,
   RespondentDocs,
-  DocumentUploadResponse
+  DocumentUploadResponse,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {

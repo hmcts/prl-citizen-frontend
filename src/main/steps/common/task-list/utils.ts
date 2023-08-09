@@ -15,7 +15,10 @@ export const getPartyName = (
   if (caseData) {
     if (caseData.caseTypeOfApplication === CaseType.C100) {
       if (partyType === PartyType.APPLICANT) {
-        partyDetails = caseData?.applicants?.find(party => party.value.user.idamId === userDetails.id) ?? { firstName: userDetails.givenName, lastName: userDetails.familyName };
+        partyDetails = caseData?.applicants?.find(party => party.value.user.idamId === userDetails.id) ?? {
+          firstName: userDetails.givenName,
+          lastName: userDetails.familyName,
+        };
       } else {
         partyDetails = caseData?.respondents?.find(party => party.value.user.idamId === userDetails.id);
       }
@@ -26,7 +29,7 @@ export const getPartyName = (
     partyDetails = { firstName: userDetails.givenName, lastName: userDetails.familyName };
   }
 
-  if(partyDetails?.value) {
+  if (partyDetails?.value) {
     partyDetails = partyDetails.value;
   }
 

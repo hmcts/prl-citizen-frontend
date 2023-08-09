@@ -78,7 +78,7 @@ const getPositionStatementsDocInfo = (
     }
   }
 
-  return docInfo;
+  return docInfo as DocumentMeta;
 };
 
 const getExpertReportsDocInfo = (
@@ -128,7 +128,7 @@ const getExpertReportsDocInfo = (
     }
   }
 
-  return docInfo;
+  return docInfo as DocumentMeta;
 };
 
 export const getDocumentMeta = (category: DocCategory, type: DocType, language: string): DocumentMeta => {
@@ -176,7 +176,7 @@ export const getDocumentMeta = (category: DocCategory, type: DocType, language: 
     }
   }
 
-  return meta;
+  return meta as DocumentMeta;
 };
 
 export const getDocumentType = (type: DocType, partyType: PartyType): string => {
@@ -187,7 +187,8 @@ export const getDocumentType = (type: DocType, partyType: PartyType): string => 
       documentType = 'POSITION_STATEMENTS';
       break;
     case DocType.YOUR_WITNESS_STATEMENTS:
-      documentType = partyType === PartyType.APPLICANT ? 'WITNESS_STATEMENTS_APPLICANT' : 'WITNESS_STATEMENTS_RESPONDENT';
+      documentType =
+        partyType === PartyType.APPLICANT ? 'WITNESS_STATEMENTS_APPLICANT' : 'WITNESS_STATEMENTS_RESPONDENT';
       break;
     case DocType.OTHER_PEOPLE_WITNESS_STATEMENTS:
       documentType = 'OTHER_WITNESS_STATEMENTS';
@@ -208,7 +209,10 @@ export const getDocumentType = (type: DocType, partyType: PartyType): string => 
       documentType = 'TENANCY_MORTGAGE_AGREEMENTS';
       break;
     case DocType.PREVIOUS_ORDERS:
-      documentType = partyType === PartyType.APPLICANT ? 'PREVIOUS_ORDERS_SUBMITTED_APPLICANT' : 'PREVIOUS_ORDERS_SUBMITTED_RESPONDENT';
+      documentType =
+        partyType === PartyType.APPLICANT
+          ? 'PREVIOUS_ORDERS_SUBMITTED_APPLICANT'
+          : 'PREVIOUS_ORDERS_SUBMITTED_RESPONDENT';
       break;
     case DocType.PATERNITY_TEST_REPORTS:
       documentType = 'PATERNITY_TEST_REPORTS';
@@ -225,4 +229,4 @@ export const getDocumentType = (type: DocType, partyType: PartyType): string => 
   }
 
   return documentType;
-}
+};
