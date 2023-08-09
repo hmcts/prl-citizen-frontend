@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import type { Response } from 'express';
 
-import { getDocumentMeta, getDocumentType } from '../../steps/common/upload-document/util';
+import { getDocumentType } from '../../steps/common/upload-document/util';
 import { applyParms } from '../../steps/common/url-parser';
 import {
   APPLICANT,
@@ -21,8 +21,6 @@ import { CaseWithId } from '../case/case';
 import {
   Applicant,
   CaseType,
-  DocCategory,
-  DocType,
   DocumentType,
   DownloadFileFieldFlag,
   FileProperties,
@@ -491,11 +489,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const { query, session, body } = req;
     const { user, userCase: caseData } = session;
     const partyType = getCasePartyType(caseData, user.id);
-    const documentMeta = getDocumentMeta(
-      query.documentCategory as DocCategory,
-      query.documentType as DocType,
-      'en'
-    );
     this.initializeData(caseData);
 
     const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
@@ -506,7 +499,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         {
           typeOfUpload: DocumentUploadContext.GENERATE_DOCUMENT,
           caseId: caseData.id,
-          categoryId: getDocumentType(documentMeta.type, partyType),
+          categoryId: getDocumentType(query.documentType, partyType),
           partyId: user.id,
           partyName: getPartyName(caseData, partyType, user),
           partyType,
@@ -544,11 +537,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const { query, body, session, files = [] } = req;
     const { user, userCase: caseData } = session;
     const partyType = getCasePartyType(caseData, user.id);
-    const documentMeta = getDocumentMeta(
-      query.documentCategory as DocCategory,
-      query.documentType as DocType,
-      'en'
-    );
     const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
 
     this.initializeData(caseData);
@@ -568,7 +556,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const response = await client.uploadStatementDocument(user, {
         typeOfUpload: DocumentUploadContext.UPLOAD_DOCUMENT,
         caseId: caseData.id,
-        categoryId: getDocumentType(documentMeta.type, partyType),
+        categoryId: getDocumentType(query.documentType, partyType),
         partyId: user.id,
         partyName: getPartyName(caseData, partyType, user),
         partyType,

@@ -5,9 +5,9 @@ import { AppRequest, AppSession } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormError, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { DocCategory, DocType, PartyType } from '../../../app/case/definition';
+import { DocType, PartyType } from '../../../app/case/definition';
 import { CosApiClient } from '../../../app/case/CosApiClient';
-import { getDocumentMeta, getDocumentType } from './util';
+import { getDocumentType } from './util';
 import { getPartyName } from '../task-list/utils';
 
 @autobind
@@ -35,15 +35,10 @@ export default class DocumentUploadPostController {
       }
 
       try {
-        const documentMeta = getDocumentMeta(
-          req.params.documentCategory as DocCategory,
-          req.params.documentType as DocType,
-          'en'
-        );
         const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
         const response = await client.submitUploadedDocuments(user, {
           caseId: caseData.id,
-          categoryId: getDocumentType(documentMeta.type, partyType),
+          categoryId: getDocumentType(req.params.documentType as DocType, partyType),
           partyId: user.id,
           partyName: getPartyName(caseData, partyType, user),
           partyType,
