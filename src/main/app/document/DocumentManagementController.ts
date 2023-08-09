@@ -500,7 +500,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const response = await client.generateStatementDocument(
         user,
         {
-          typeOfUpload: DocumentUploadContext.GENERATE_DOCUMENT,
           caseId: caseData.id,
           categoryId: getDocumentType(query.documentType, partyType),
           partyId: user.id,
@@ -536,7 +535,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   public async uploadDocument(req: AppRequest, res: Response): Promise<void> {
-    const { query, body, session, files = [] } = req;
+    const { query, body, session, files } = req;
     const { user, userCase: caseData } = session;
     const partyType = getCasePartyType(caseData, user.id);
     const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
@@ -545,9 +544,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
     req.url = redirectUrl;
     this.initializeData(caseData);
 
-    if (!files?.length) {
+    if (!files) {
       this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
-      return this.redirect(req, res, this.setRedirectUrl(partyType, req));
+      return this.redirect(req, res, redirectUrl);
     }
 
     const fields = typeof this.fields === 'function' ? this.fields(caseData) : this.fields;
@@ -558,14 +557,13 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     try {
       const response = await client.uploadStatementDocument(user, {
-        typeOfUpload: DocumentUploadContext.UPLOAD_DOCUMENT,
         caseId: caseData.id,
         categoryId: getDocumentType(query.documentType, partyType),
         partyId: user.id,
         partyName: getPartyName(caseData, partyType, user),
         partyType,
         restrictDocumentDetails: caseData.reasonForDocumentCantBeShared ?? '' as string,
-        files
+        files: [files['files[]']]
       });
 
       if (response.status === '200') {
@@ -656,9 +654,4 @@ export class DocumentManagerController extends PostController<AnyObject> {
     this.resetUploadSessionData(req.session);
     this.redirect(req, res, partyType === PartyType.APPLICANT ? APPLICANT_UPLOAD_DOCUMENT_LIST_URL : RESPONDENT_UPLOAD_DOCUMENT_LIST_URL);
   }
-}
-
-export enum DocumentUploadContext {
-  GENERATE_DOCUMENT = 'GENERATE',
-  UPLOAD_DOCUMENT = 'UPLOAD',
 }

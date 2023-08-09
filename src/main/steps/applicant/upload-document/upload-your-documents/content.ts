@@ -101,7 +101,7 @@ export const form: FormContent = {
     };
   },
   onlyContinue: {
-    text: l => l.continue,
+    text: l => l.add,
   },
 };
 

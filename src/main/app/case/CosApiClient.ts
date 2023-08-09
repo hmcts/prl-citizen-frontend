@@ -214,7 +214,7 @@ export class CosApiClient {
   ): Promise<DocumentUploadResponse> {
     try {
       const response = await Axios.post(
-        config.get('services.cos.url') + '/citizen-upload-document',
+        config.get('services.cos.url') + '/citizen-generate-document',
         request,
         {
           headers: {
@@ -245,7 +245,6 @@ export class CosApiClient {
         formData.append('files', file.data, file.name);
       }
 
-      formData.append('typeOfUpload', request.typeOfUpload);
       formData.append('caseId', request.caseId);
       formData.append('categoryId', request.categoryId);
       formData.append('partyType', request.partyType);
@@ -460,7 +459,6 @@ export class CosApiClient {
 }
 
 export interface DocumentUploadRequest {
-  typeOfUpload?: DocumentUploadContext;
   caseId: string;
   categoryId: string;
   partyId: string;
