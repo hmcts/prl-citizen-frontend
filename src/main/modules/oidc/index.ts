@@ -13,6 +13,7 @@ import {
   C100_URL,
   CALLBACK_URL,
   DASHBOARD_URL,
+  SAFEGAURD_EXCLUDE_URLS,
   SCREENING_QUESTIONS,
   SIGN_IN_URL,
   SIGN_OUT_URL,
@@ -109,7 +110,10 @@ export class OidcMiddleware {
 
             if (req.session.userCase) {
               const partyType = getCasePartyType(req.session.userCase, req.session.user.id);
-              if (!req.path.startsWith(DASHBOARD_URL) && !req.path.split('/').includes(partyType)) {
+              if (
+                !SAFEGAURD_EXCLUDE_URLS.some(_url => req.path.startsWith(_url)) &&
+                !req.path.split('/').includes(partyType)
+              ) {
                 return res.redirect(DASHBOARD_URL);
               }
               if (req.session.accessCodeLoginIn) {
