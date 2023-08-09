@@ -489,8 +489,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const { query, session, body } = req;
     const { user, userCase: caseData } = session;
     const partyType = getCasePartyType(caseData, user.id);
-    const redirectUrl= this.setRedirectUrl(partyType, req);
-    
+    const redirectUrl = this.setRedirectUrl(partyType, req);
+
     req.url = redirectUrl;
     this.initializeData(caseData);
 
@@ -539,7 +539,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const { user, userCase: caseData } = session;
     const partyType = getCasePartyType(caseData, user.id);
     const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
-    const redirectUrl= this.setRedirectUrl(partyType, req);
+    const redirectUrl = this.setRedirectUrl(partyType, req);
 
     req.url = redirectUrl;
     this.initializeData(caseData);
@@ -595,16 +595,17 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const { user, userCase: caseData } = session;
     const partyType = getCasePartyType(caseData, user.id);
     const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
-    const redirectUrl= this.setRedirectUrl(partyType, req);
+    const redirectUrl = this.setRedirectUrl(partyType, req);
 
     req.url = redirectUrl;
     try {
       const response = await client.deleteCitizenStatementDocument(user params.documentId);
+      const uploadedFiles = req.session.userCase?.[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles']
 
-        req.session.userCase?.[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles']?.filter(document => params.documentId !== document.document_binary_url.substring(document.document_binary_url.lastIndexOf('/') + 1))
-        const caseDataFromCos = await client.retrieveByCaseId(caseData.id, user);
-        req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
-        req.session.errors = [];
+      req.session.userCase[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'] = uploadedFiles?.filter(document => params.documentId !== document.document_binary_url.substring(document.document_binary_url.lastIndexOf('/') + 1))
+      const caseDataFromCos = await client.retrieveByCaseId(caseData.id, user);
+      req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
+      req.session.errors = [];
     } catch (e) {
       this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } finally {
