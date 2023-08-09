@@ -599,19 +599,12 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     req.url = redirectUrl;
     try {
-      const response = await client.deleteCitizenStatementDocument(user, new DeleteDocumentRequest({
-        caseId: caseData.id,
-        documentId: params.documentId,
-      }));
+      const response = await client.deleteCitizenStatementDocument(user params.documentId);
 
-      if (response === 'SUCCESS') {
         req.session.userCase?.[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles']?.filter(document => params.documentId !== document.document_binary_url.substring(document.document_binary_url.lastIndexOf('/') + 1))
         const caseDataFromCos = await client.retrieveByCaseId(caseData.id, user);
         req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
         req.session.errors = [];
-      } else {
-        this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
-      }
     } catch (e) {
       this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } finally {

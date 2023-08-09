@@ -242,7 +242,7 @@ export class CosApiClient {
       const formData = new FormData();
 
       for (const [, file] of Object.entries(request.files)) {
-        formData.append('files', file.data, file.name);
+        formData.append('file', file.data, file.name);
       }
 
       formData.append('caseId', request.caseId);
@@ -277,7 +277,7 @@ export class CosApiClient {
 
   public async deleteCitizenStatementDocument(
     user: UserDetails,
-    deleteDocumentRequest: DeleteDocumentRequest
+    docId: string
   ): Promise<string> {
     try {
       const headers = {
@@ -288,8 +288,7 @@ export class CosApiClient {
       };
 
       const response = await Axios.post(
-        config.get('services.cos.url') + '/delete-citizen-statement-document',
-        deleteDocumentRequest,
+        config.get('services.cos.url') + `/${docId}/delete`,
         { headers }
       );
       return response.data;
