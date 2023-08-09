@@ -1,3 +1,4 @@
+import DocumentUploadPostController from '../../steps/common/upload-document/DocumentUploadPostController';
 import { Case } from '../../app/case/case';
 import { CaseType, YesOrNo } from '../../app/case/definition';
 import { applyParms } from '../../steps/common/url-parser';
@@ -413,6 +414,7 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_UPLOAD_DOCUMENT,
     showInSection: Sections.AboutApplicantCase,
+    postController: DocumentUploadPostController,
     getNextStep: (caseData, req) =>
       applyParms(APPLICANT_UPLOAD_DOCUMENT_SUCCESS, { docCategory: req?.params?.docCategory }) as PageLink,
   },

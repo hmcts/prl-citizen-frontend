@@ -50,7 +50,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    reasonDocumentCantBeShared: {
+    reasonForDocumentCantBeShared: {
       type: 'textarea',
       labelSize: 's',
       label: l => l.explainWhy,

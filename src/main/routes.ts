@@ -264,17 +264,13 @@ export class Routes {
         );
 
         const documentManagerController = new DocumentManagerController(step.form.fields);
-        app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
+        app.post(`${DOCUMENT_MANAGER}/upload-document`, errorHandler(documentManagerController.uploadDocument));
         app.get(
-          `${DOCUMENT_MANAGER}/deleteDocument/:documentId`,
+          `${DOCUMENT_MANAGER}/delete-document/:documentId`,
           errorHandler(documentManagerController.deleteDocument)
         );
-        app.post(`${DOCUMENT_MANAGER}/generatePdf`, errorHandler(documentManagerController.generatePdf));
+        app.post(`${DOCUMENT_MANAGER}/generate-document`, errorHandler(documentManagerController.generateDocument));
         app.get(`${CA_RESPONDENT_GENERATE_C7_Final}`, errorHandler(documentManagerController.get));
-        app.post(
-          `${DOCUMENT_MANAGER}/clearUploadDocumentFormData`,
-          errorHandler(documentManagerController.clearUploadDocumentFormData)
-        );
         app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
         app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT}${APPLICANT_CA_DA_REQUEST}`, errorHandler(documentManagerController.get));

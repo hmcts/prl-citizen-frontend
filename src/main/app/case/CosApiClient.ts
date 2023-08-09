@@ -13,6 +13,7 @@ import {
   CaseData,
   CaseEvent,
   CaseType,
+  DocumentUploadResponse,
   PartyDetails,
   PartyType,
   RespondentCaseData,
@@ -20,6 +21,7 @@ import {
   YesOrNo,
 } from './definition';
 import { fromApiFormat } from './from-api-format';
+import { DocumentUploadContext } from '../../app/document/DocumentManagementController';
 
 export class CosApiClient {
   client: AxiosInstance;
@@ -206,65 +208,67 @@ export class CosApiClient {
     }
   }
 
-  public async generateUserUploadedStatementDocument(
+  public async generateStatementDocument(
     user: UserDetails,
-    generateAndUploadDocumentRequest: GenerateAndUploadDocumentRequest
-  ): Promise<DocumentDetail> {
+    request: DocumentUploadRequest
+  ): Promise<DocumentUploadResponse> {
     try {
-      const headers = {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + user.accessToken,
-        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-      };
-
-      console.log('Generated document request: ', generateAndUploadDocumentRequest);
       const response = await Axios.post(
-        config.get('services.cos.url') + '/generate-citizen-statement-document',
-        generateAndUploadDocumentRequest,
-        { headers }
+        config.get('services.cos.url') + '/citizen-upload-document',
+        request,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + user.accessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          }
+        }
       );
+
       return {
-        status: response.status,
-        documentId: response.data?.documentId,
-        documentName: response.data?.documentName,
+        status: response.data.status,
+        document: response.data.document
       };
     } catch (err) {
+      console.log('Error: ', err);
       throw new Error('Generate citizen statement document failed.');
     }
   }
 
-  public async UploadDocumentListFromCitizen(request: UploadDocumentRequest): Promise<DocumentDetail> {
+  public async uploadStatementDocument(user: UserDetails,
+    request: DocumentUploadRequest): Promise<DocumentUploadResponse> {
     try {
-      const headers = {
-        Accept: '*/*',
-        'Content-Type': '*',
-        Authorization: 'Bearer ' + request.user.accessToken,
-        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-      };
       const formData = new FormData();
 
       for (const [, file] of Object.entries(request.files)) {
         formData.append('files', file.data, file.name);
       }
 
-      formData.append('documentRequestedByCourt', request.documentRequestedByCourt);
+      formData.append('typeOfUpload', request.typeOfUpload);
       formData.append('caseId', request.caseId);
-      formData.append('parentDocumentType', request.parentDocumentType);
-      formData.append('documentType', request.documentType);
+      formData.append('categoryId', request.categoryId);
+      formData.append('partyType', request.partyType);
       formData.append('partyId', request.partyId);
       formData.append('partyName', request.partyName);
-      formData.append('isApplicant', request.isApplicant);
+      formData.append('restrictDocumentDetails', request.restrictDocumentDetails);
 
       const response = await Axios.post(
-        config.get('services.cos.url') + '/upload-citizen-statement-document',
+        config.get('services.cos.url') + '/citizen-upload-document',
         formData,
-        { headers }
+        {
+          headers: {
+            Accept: '*/*',
+            'Content-Type': '*',
+            Authorization: 'Bearer ' + user.accessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          }
+        }
       );
+
       return {
-        status: response.status,
-        documentId: response.data?.documentId,
-        documentName: response.data?.documentName,
+        status: response.data.status,
+        document: response.data.document
       };
     } catch (err) {
       console.log('Error: ', err);
@@ -292,6 +296,33 @@ export class CosApiClient {
       return response.data;
     } catch (err) {
       throw new Error('Document could not be deleted.');
+    }
+  }
+
+  public async submitUploadedDocuments(
+    user: UserDetails,
+    request: DocumentUploadRequest
+  ): Promise<Partial<DocumentUploadResponse>> {
+    try {
+      const response = await Axios.post(
+        config.get('services.cos.url') + '/citizen-submit-documents',
+        request,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + user.accessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          }
+        }
+      );
+
+      return {
+        status: response.data.status,
+      };
+    } catch (err) {
+      console.log('Error: ', err);
+      throw new Error('submit citizen uploaded documents failed.');
     }
   }
 
@@ -428,20 +459,21 @@ export class CosApiClient {
   }
 }
 
-export interface UploadDocumentRequest {
-  user: UserDetails;
+export interface DocumentUploadRequest {
+  typeOfUpload?: DocumentUploadContext;
   caseId: string;
-  parentDocumentType: string;
-  documentType: string;
+  categoryId: string;
   partyId: string;
   partyName: string;
-  isApplicant: string;
-  files: UploadedFiles;
-  documentRequestedByCourt: YesOrNo;
+  partyType: PartyType;
+  restrictDocumentDetails?: string;
+  freeTextStatements?: string;
+  files?: UploadedFiles;
+  documents?: DocumentUploadResponse['document'][];
 }
 
 export type UploadedFiles =
   | {
-      [fieldname: string]: Express.Multer.File[];
-    }
+    [fieldname: string]: Express.Multer.File[];
+  }
   | Express.Multer.File[];

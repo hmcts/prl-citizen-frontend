@@ -1,3 +1,4 @@
+import DocumentUploadPostController from '../../steps/common/upload-document/DocumentUploadPostController';
 import HearingsGetController from '../../../main/steps/common/yourhearings/hearings/HearingsGetController';
 import { YesOrNo } from '../../app/case/definition';
 import { applyParms } from '../../steps/common/url-parser';
@@ -220,6 +221,7 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_UPLOAD_DOCUMENT,
     showInSection: Sections.AboutRespondentCase,
+    postController: DocumentUploadPostController,
     getNextStep: (caseData, req) =>
       applyParms(RESPONDENT_UPLOAD_DOCUMENT_SUCCESS, {
         docCategory: req?.params?.docCategory,

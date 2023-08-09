@@ -1,4 +1,4 @@
-import { DocCategory, DocType } from '../../../app/case/definition';
+import { DocCategory, DocType, PartyType } from '../../../app/case/definition';
 import { document_list_cy, document_list_en } from '../../../steps/applicant/upload-document/section-titles';
 import {
   documents_list_items_cy,
@@ -6,8 +6,8 @@ import {
 } from '../../../steps/applicant/upload-document/upload-document-list-items';
 
 interface DocumentMeta {
-  category: string;
-  type: string;
+  category: DocCategory;
+  type: DocType;
 }
 
 const getPositionStatementsDocInfo = (
@@ -178,3 +178,51 @@ export const getDocumentMeta = (category: DocCategory, type: DocType, language: 
 
   return meta;
 };
+
+export const getDocumentType = (type: DocType, partyType: PartyType): string => {
+  let documentType;
+
+  switch (type) {
+    case DocType.POSITION_STATEMENTS:
+      documentType = 'POSITION_STATEMENTS';
+      break;
+    case DocType.YOUR_WITNESS_STATEMENTS:
+      documentType = partyType === PartyType.APPLICANT ? 'WITNESS_STATEMENTS_APPLICANT' : 'WITNESS_STATEMENTS_RESPONDENT';
+      break;
+    case DocType.OTHER_PEOPLE_WITNESS_STATEMENTS:
+      documentType = 'OTHER_WITNESS_STATEMENTS';
+      break;
+    case DocType.MEDICAL_RECORDS:
+      documentType = 'MEDICAL_RECORDS';
+      break;
+    case DocType.MEDICAL_REPORTS:
+      documentType = 'MEDICAL_REPORTS';
+      break;
+    case DocType.MEDIA_FILES:
+      documentType = 'MAIL_SCREENSHOTS_MEDIA_FILES';
+      break;
+    case DocType.LETTERS_FROM_SCHOOL:
+      documentType = 'LETTERS_FROM_SCHOOL';
+      break;
+    case DocType.TENANCY_AND_MORTGAGE_AVAILABILITY:
+      documentType = 'TENANCY_MORTGAGE_AGREEMENTS';
+      break;
+    case DocType.PREVIOUS_ORDERS:
+      documentType = partyType === PartyType.APPLICANT ? 'PREVIOUS_ORDERS_SUBMITTED_APPLICANT' : 'PREVIOUS_ORDERS_SUBMITTED_RESPONDENT';
+      break;
+    case DocType.PATERNITY_TEST_REPORTS:
+      documentType = 'PATERNITY_TEST_REPORTS';
+      break;
+    case DocType.DRUG_ALCOHOL_TESTS:
+      documentType = 'DRUG_AND_ALCOHOL_TESTS';
+      break;
+    case DocType.POLICE_REPORTS:
+      documentType = 'POLICE_REPORTS';
+      break;
+    case DocType.OTHER_DOCUMENTS:
+      documentType = 'OTHER_DOCUMENTS';
+      break;
+  }
+
+  return documentType;
+}

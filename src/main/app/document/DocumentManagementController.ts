@@ -2,9 +2,8 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import type { Response } from 'express';
 
-import { getDocumentMeta } from '../../steps/common/upload-document/util';
+import { getDocumentMeta, getDocumentType } from '../../steps/common/upload-document/util';
 import { applyParms } from '../../steps/common/url-parser';
-import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
 import {
   APPLICANT,
   APPLICANT_TASK_LIST_URL,
@@ -17,7 +16,7 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
 } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import { CosApiClient, UploadDocumentRequest } from '../case/CosApiClient';
+import { CosApiClient } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
 import {
   Applicant,
@@ -27,17 +26,19 @@ import {
   DocumentType,
   DownloadFileFieldFlag,
   FileProperties,
+  PartyType,
   Respondent,
   YesOrNo,
 } from '../case/definition';
 import { toApiFormat } from '../case/to-api-format';
-import type { AppRequest, UserDetails } from '../controller/AppRequest';
+import type { AppRequest, AppSession, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
-import { Form, FormFields, FormFieldsFn } from '../form/Form';
+import { Form, FormError, FormFields, FormFieldsFn } from '../form/Form';
 
 import { DeleteDocumentRequest } from './DeleteDocumentRequest';
 import { DocumentManagementClient } from './DocumentManagementClient';
-import { GenerateAndUploadDocumentRequest } from './GenerateAndUploadDocumentRequest';
+import { getPartyName } from '../../steps/common/task-list/utils';
+import { getCasePartyType } from 'steps/prl-cases/dashboard/utils';
 const UID_LENGTH = 36;
 @autobind
 export class DocumentManagerController extends PostController<AnyObject> {
@@ -74,71 +75,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
   private getDocumentManagementClient(user: UserDetails) {
     return new DocumentManagementClient(config.get('services.documentManagement.url'), getServiceAuthToken(), user);
-  }
-
-  public async generatePdf(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    if (req?.session?.userCase?.applicantUploadFiles === undefined) {
-      req.session.userCase[ApplicantUploadFiles] = [];
-    }
-
-    if (req?.session?.userCase?.respondentUploadFiles === undefined) {
-      req.session.userCase[RespondentUploadFiles] = [];
-    }
-    const loggedInCitizen = req.session.user;
-
-    const isApplicant = req.query.isApplicant;
-    const partyName = this.getPartyName(isApplicant, req);
-    const documentMeta = getDocumentMeta(
-      req.query.documentCategory as DocCategory,
-      req.query.documentType as DocType,
-      'en'
-    );
-
-    const uploadDocumentDetails = {
-      documentRequestedByCourt: req.session.userCase.start,
-      caseId: req.session.userCase.id,
-      freeTextUploadStatements: req.body.freeTextAreaForUpload,
-      parentDocumentType: documentMeta.category,
-      documentType: documentMeta.type,
-      partyName,
-      partyId: req.session.user.id,
-      isApplicant,
-    };
-    const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
-
-    const client = new CosApiClient(loggedInCitizen.accessToken, 'http://localhost:3001');
-    const uploadCitizenDocFromCos = await client.generateUserUploadedStatementDocument(
-      loggedInCitizen,
-      generateAndUploadDocumentRequest
-    );
-    if (uploadCitizenDocFromCos.status !== 200) {
-      if (!req.session.errors) {
-        req.session.errors = [];
-      }
-      req.session.errors?.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
-    } else {
-      const obj = {
-        id: uploadCitizenDocFromCos.documentId as string,
-        name: uploadCitizenDocFromCos.documentName as string,
-      };
-      if (YesOrNo.YES === isApplicant) {
-        req.session.userCase.applicantUploadFiles?.push(obj);
-      } else {
-        req.session.userCase.respondentUploadFiles?.push(obj);
-      }
-      const caseDetailsFromCos = await client.retrieveByCaseId(req.session.userCase.id, loggedInCitizen);
-
-      Object.assign(req.session.userCase, caseDetailsFromCos);
-      const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
-      Object.assign(req.session.userCase, caseDataFromCos);
-      req.session.errors = [];
-    }
-    this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
   }
 
   public async notifyBannerForNewDcoumentC100Respondent(req: AppRequest<Partial<CaseWithId>>): Promise<void> {
@@ -214,50 +150,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     data.id = caseReference;
     const updatedCaseDataFromCos = await client.updateCase(loggedInCitizen, caseReference, data, 'citizen-case-update');
     return updatedCaseDataFromCos;
-  }
-
-  private getC100ApplicantName(req: AppRequest<AnyObject>, partyName: string) {
-    req.session.userCase?.applicants?.forEach(applicant => {
-      if (applicant.value?.user?.idamId === req.session.user.id) {
-        partyName += applicant.value?.firstName + ' ' + applicant.value?.lastName;
-      }
-    });
-
-    return partyName;
-  }
-
-  private getFL401ApplicantName(req: AppRequest<AnyObject>, partyName: string) {
-    if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session.user.id) {
-      partyName +=
-        req.session.userCase.applicantsFL401?.firstName + ' ' + req.session.userCase.applicantsFL401?.lastName;
-    }
-
-    return partyName;
-  }
-
-  private getPartyName(isApplicant, req: AppRequest<AnyObject>) {
-    let partyName = '';
-    if (YesOrNo.YES === isApplicant) {
-      if (req.session.userCase?.caseTypeOfApplication === 'C100') {
-        partyName = this.getC100ApplicantName(req, partyName);
-      } else {
-        partyName = this.getFL401ApplicantName(req, partyName);
-      }
-    } else {
-      if (req.session.userCase?.caseTypeOfApplication === 'C100') {
-        req.session.userCase?.respondents?.forEach(respondent => {
-          if (respondent.value?.user?.idamId === req.session.user.id) {
-            partyName = respondent.value?.firstName + ' ' + respondent.value?.lastName;
-          }
-        });
-      } else {
-        if (req.session.userCase?.respondentsFL401?.user?.idamId === req.session.user.id) {
-          partyName =
-            req.session.userCase.respondentsFL401?.firstName + ' ' + req.session.userCase.respondentsFL401?.lastName;
-        }
-      }
-    }
-    return partyName;
   }
 
   public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
@@ -569,196 +461,188 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return refinedUrl.substring(refinedUrl.length - UID_LENGTH);
   }
 
-  public async deleteDocument(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
-    const isApplicant = req.query.isApplicant;
-    const loggedInCitizen = req.session.user;
-    const documentIdToDelete = req.params.documentId;
-    const deleteDocumentDetails = {
-      caseId: req.session.userCase.id,
-      documentId: documentIdToDelete,
-    };
-    const deleteDocumentRequest = new DeleteDocumentRequest(deleteDocumentDetails);
-    const client = new CosApiClient(loggedInCitizen.accessToken, 'http://localhost:3001');
-    const deleteCitizenDocFromCos = await client.deleteCitizenStatementDocument(loggedInCitizen, deleteDocumentRequest);
-    if ('SUCCESS' === deleteCitizenDocFromCos) {
-      if (isApplicant === YesOrNo.YES) {
-        req.session.userCase.applicantUploadFiles?.forEach((document, index) => {
-          if (document.id === documentIdToDelete) {
-            req.session.userCase.applicantUploadFiles?.splice(index, 1);
-          }
-        });
-      } else {
-        req.session.userCase.respondentUploadFiles?.forEach((document, index) => {
-          if (document.id === documentIdToDelete) {
-            req.session.userCase.respondentUploadFiles?.splice(index, 1);
-          }
-        });
-      }
-      const caseDataFromCos = await client.retrieveByCaseId(req.session.userCase.id, loggedInCitizen);
-      req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
-      req.session.errors = [];
-    } else {
-      if (!req.session.errors) {
-        req.session.errors = [];
-      }
-      req.session.errors?.push({ errorType: 'Document could not be deleted', propertyName: 'uploadFiles' });
-    }
-    this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
-  }
-
-  private setRedirectUrl(isApplicant, req: AppRequest<Partial<CaseWithId>>) {
+  private setRedirectUrl(partyType: PartyType, req: AppRequest<Partial<CaseWithId>>) {
     const { documentCategory = '', documentType = '' } = req.query;
 
-    return applyParms(isApplicant === YesOrNo.YES ? APPLICANT_UPLOAD_DOCUMENT : RESPONDENT_UPLOAD_DOCUMENT, {
+    return applyParms(partyType === PartyType.APPLICANT ? APPLICANT_UPLOAD_DOCUMENT : RESPONDENT_UPLOAD_DOCUMENT, {
       docCategory: documentCategory,
       doctype: documentType,
     });
   }
 
-  public async undefiendUploadFiles(req: AppRequest): Promise<void> {
-    if (req?.session?.userCase?.applicantUploadFiles === undefined) {
-      req.session.userCase[ApplicantUploadFiles] = [];
+  private async initializeData(caseData: Partial<CaseWithId>): Promise<void> {
+    if (!caseData?.applicantUploadFiles) {
+      caseData['applicantUploadFiles'] = [];
     }
 
-    if (req?.session?.userCase?.respondentUploadFiles === undefined) {
-      req.session.userCase[RespondentUploadFiles] = [];
+    if (!caseData.respondentUploadFiles) {
+      caseData['respondentUploadFiles'] = [];
     }
   }
 
-  public async fileData(req: AppRequest): Promise<void> {
-    if (!req.files?.length) {
-      if (req.headers.accept?.includes('application/json')) {
-        throw new Error('No files were uploaded');
+  private handleError(session: AppSession, error: FormError) {
+    if (!session.errors) {
+      session.errors = []
+    }
+    session.errors.push({ errorType: error.errorType, propertyName: error.propertyName });
+  }
+
+  public async generateDocument(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    const { query, session, body } = req;
+    const { user, userCase: caseData } = session;
+    const partyType = getCasePartyType(caseData, user.id);
+    const documentMeta = getDocumentMeta(
+      query.documentCategory as DocCategory,
+      query.documentType as DocType,
+      'en'
+    );
+    this.initializeData(caseData);
+
+    const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
+    try {
+
+      const response = await client.generateStatementDocument(
+        user,
+        {
+          typeOfUpload: DocumentUploadContext.GENERATE_DOCUMENT,
+          caseId: caseData.id,
+          categoryId: getDocumentType(documentMeta.type, partyType),
+          partyId: user.id,
+          partyName: getPartyName(caseData, partyType, user),
+          partyType,
+          restrictDocumentDetails: caseData.reasonForDocumentCantBeShared as string,
+          freeTextStatements: body.textStatement as string,
+        }
+      );
+
+      if (response.status === '200') {
+        req.session.userCase?.[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles']?.push(response.document);
+
+        const caseDetailsFromCos = await client.retrieveByCaseId(caseData.id, user);
+
+        Object.assign(req.session.userCase, caseDetailsFromCos);
+        const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(
+          req,
+          caseData.id,
+          client,
+          user
+        );
+        Object.assign(req.session.userCase, caseDataFromCos);
+        req.session.errors = [];
+
+      } else {
+        this.handleError(session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
       }
+    } catch (e) {
+      this.handleError(session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+    } finally {
+      this.redirect(req, res, this.setRedirectUrl(partyType, req));
     }
   }
 
-  public async post(req: AppRequest, res: Response): Promise<void> {
-    let isApplicant;
-    if (req.query && req.query.isApplicant) {
-      isApplicant = req.query.isApplicant;
+  public async uploadDocument(req: AppRequest, res: Response): Promise<void> {
+    const { query, body, session, files = [] } = req;
+    const { user, userCase: caseData } = session;
+    const partyType = getCasePartyType(caseData, user.id);
+    const documentMeta = getDocumentMeta(
+      query.documentCategory as DocCategory,
+      query.documentType as DocType,
+      'en'
+    );
+    const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
+
+    this.initializeData(caseData);
+
+    if (!files?.length) {
+      this.handleError(session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+      return this.redirect(req, res, this.setRedirectUrl(partyType, req));
     }
 
-    this.undefiendUploadFiles(req);
-
-    this.fileData(req);
-
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const fields = typeof this.fields === 'function' ? this.fields(caseData) : this.fields;
     const form = new Form(fields);
 
-    const { _csrf, ...formData } = form.getParsedBody(req.body);
-    const caseworkerUser = req.session.user;
+    const { _csrf, ...formData } = form.getParsedBody(body);
     req.session.errors = form.getErrors(formData);
 
-    const partyName = this.getPartyName(isApplicant, req);
+    try {
+      const response = await client.uploadStatementDocument(user, {
+        typeOfUpload: DocumentUploadContext.UPLOAD_DOCUMENT,
+        caseId: caseData.id,
+        categoryId: getDocumentType(documentMeta.type, partyType),
+        partyId: user.id,
+        partyName: getPartyName(caseData, partyType, user),
+        partyType,
+        restrictDocumentDetails: caseData.reasonForDocumentCantBeShared as string,
+        files
+      });
 
-    const files = req.files || [];
+      if (response.status === '200') {
+        req.session.userCase?.[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles']?.push(response.document);
 
-    let documentRequestedByCourt;
+        const caseDetailsFromCos = await client.retrieveByCaseId(caseData.id, user);
 
-    if (req.session.userCase && req.session.userCase.start) {
-      documentRequestedByCourt = req.session.userCase.start;
-    }
-
-    let parentDocumentType;
-    let documentType;
-    if (req.query && req.query.documentCategory && req.query.documentType) {
-      const documentMeta = getDocumentMeta(
-        req.query.documentCategory as DocCategory,
-        req.query.documentType as DocType,
-        'en'
-      );
-      parentDocumentType = documentMeta.category;
-      documentType = documentMeta.type;
-    }
-
-    const caseId = req.session.userCase.id;
-    const partyId = req.session.user.id;
-
-    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
-
-    const uploadRequest: UploadDocumentRequest = {
-      user: caseworkerUser,
-      caseId,
-      parentDocumentType,
-      documentType,
-      partyId,
-      partyName,
-      isApplicant,
-      files,
-      documentRequestedByCourt,
-    };
-    const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(uploadRequest);
-    if (citizenDocumentListFromCos.status !== 200) {
-      req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
-    } else {
-      const obj = {
-        id: citizenDocumentListFromCos.documentId as string,
-        name: citizenDocumentListFromCos.documentName as string,
-      };
-      if (YesOrNo.YES === isApplicant) {
-        req.session.userCase.applicantUploadFiles?.push(obj);
+        Object.assign(req.session.userCase, caseDetailsFromCos);
+        const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(
+          req,
+          caseData.id,
+          client,
+          user
+        );
+        Object.assign(req.session.userCase, caseDataFromCos);
+        req.session.errors = [];
       } else {
-        req.session.userCase.respondentUploadFiles?.push(obj);
+        this.handleError(session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
       }
-      const caseDetailsFromCos = await client.retrieveByCaseId(req.session.userCase.id, caseworkerUser);
-
-      Object.assign(req.session.userCase, caseDetailsFromCos);
-      const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
-      Object.assign(req.session.userCase, caseDataFromCos);
-      req.session.errors = [];
-    }
-
-    this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
-  }
-
-  public async clearUploadDocumentFormData(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    let isApplicant;
-    let isContinue;
-    if (req.query && req.query.isApplicant) {
-      isApplicant = req.query.isApplicant;
-    }
-
-    if (req.query && req.query.isContinue) {
-      isContinue = req.query.isContinue;
-    }
-
-    if (YesOrNo.YES === isApplicant) {
-      req.session.userCase.start = undefined;
-      req.session.userCase.applicantUploadFiles = undefined;
-      req.session.userCase.declarationCheck = undefined;
-    } else {
-      req.session.userCase.start = undefined;
-      req.session.userCase.respondentUploadFiles = undefined;
-      req.session.userCase.declarationCheck = undefined;
-    }
-
-    if (YesOrNo.YES === isContinue) {
-      this.redirect(req, res, this.setTaskListURL(isApplicant, isContinue, req));
-    } else {
-      this.redirect(req, res, this.setUploadDocumentListURL(isApplicant));
+    } catch (e) {
+      this.handleError(session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+    } finally {
+      this.redirect(req, res, this.setRedirectUrl(partyType, req));
     }
   }
 
-  private setUploadDocumentListURL(isApplicant) {
-    let redirectUrl = '';
-    if (YesOrNo.YES === isApplicant) {
-      redirectUrl = APPLICANT_UPLOAD_DOCUMENT_LIST_URL;
-    } else {
-      redirectUrl = RESPONDENT_UPLOAD_DOCUMENT_LIST_URL;
+  public async deleteDocument(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
+    const { params, session } = req;
+    const { user, userCase: caseData } = session;
+    const partyType = getCasePartyType(caseData, user.id);
+    const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
+    try {
+      const response = await client.deleteCitizenStatementDocument(user, new DeleteDocumentRequest({
+        caseId: caseData.id,
+        documentId: params.documentId,
+      }));
+
+      if (response === 'SUCCESS') {
+        req.session.userCase?.[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles']?.filter(document => params.documentId !== document.document_binary_url.substring(document.document_binary_url.lastIndexOf('/') + 1))
+        const caseDataFromCos = await client.retrieveByCaseId(caseData.id, user);
+        req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
+        req.session.errors = [];
+      } else {
+        this.handleError(session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+      }
+    } catch (e) {
+      this.handleError(session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+    } finally {
+      this.redirect(req, res, this.setRedirectUrl(partyType, req));
     }
-    return redirectUrl;
   }
 
-  private setTaskListURL(isApplicant, isContinue, req: AppRequest<AnyObject>) {
-    let redirectUrl = '';
-    if (YesOrNo.YES === isApplicant && YesOrNo.YES === isContinue) {
-      if (req.session.userCase.caseTypeOfApplication === CaseType.C100) {
+  private resetUploadSessionData(session: AppSession): void {
+    delete session.userCase.start;
+    session.userCase.applicantUploadFiles = [];
+    session.userCase.respondentUploadFiles = [];
+    delete session.userCase.reasonForDocumentCantBeShared;
+    delete session.userCase.declarationCheck;
+  }
+
+  public redirectToCaseView(req: AppRequest<AnyObject>, res: Response): void {
+    const { user, userCase: caseData } = req.session;
+    const partyType = getCasePartyType(caseData, user.id);
+    let redirectUrl;
+
+    this.resetUploadSessionData(req.session);
+
+    if (partyType === PartyType.APPLICANT) {
+      if (caseData.caseTypeOfApplication === CaseType.C100) {
         redirectUrl = C100_APPLICANT_TASKLIST;
       } else {
         redirectUrl = APPLICANT_TASK_LIST_URL;
@@ -766,6 +650,20 @@ export class DocumentManagerController extends PostController<AnyObject> {
     } else {
       redirectUrl = RESPONDENT_TASK_LIST_URL;
     }
-    return redirectUrl;
+
+    this.redirect(req, res, redirectUrl)
   }
+
+  public redirectToUploadDocument(req: AppRequest<AnyObject>, res: Response): void {
+    const { user, userCase: caseData } = req.session;
+    const partyType = getCasePartyType(caseData, user.id);
+
+    this.resetUploadSessionData(req.session);
+    this.redirect(req, res, partyType === PartyType.APPLICANT ? APPLICANT_UPLOAD_DOCUMENT_LIST_URL : RESPONDENT_UPLOAD_DOCUMENT_LIST_URL);
+  }
+}
+
+export enum DocumentUploadContext {
+  GENERATE_DOCUMENT = 'GENERATE',
+  UPLOAD_DOCUMENT = 'UPLOAD',
 }
