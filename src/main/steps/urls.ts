@@ -430,7 +430,7 @@ export const C100_CHILDERN_LIVE_WITH: PageLink = `${C100_CHILDERN_DETAILS}/:chil
 /** @C100  Payment Handler*/
 export const PAYMENT_GATEWAY_ENTRY_URL: PageLink = '/payments/gateway';
 export const PAYMENT_RETURN_URL: PageLink = '/payment/reciever/callback';
-export const PAYMENT_RETURN_URL_CALLBACK: PageLink = '/payment/reciever/callback/:paymentId/:status';
+export const PAYMENT_RETURN_URL_CALLBACK: PageLink = `${PAYMENT_RETURN_URL}/:paymentId/:status`;
 
 /** @C100 Rebuild C1A Safety Concerns */
 export const C100_C1A_SAFETY_CONCERNS: PageLink = `${C100_URL}/safety-concerns`;
@@ -608,6 +608,9 @@ export const SCREENING_QUESTIONS = [
   SCREENING_QUESTION_CONTACT_LEGAL_REP,
 ];
 export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
+
+export const LOCAL_API_SESSION = '/api/v1/session';
+export const SAFEGAURD_EXCLUDE_URLS = [C100_URL, DASHBOARD_URL, LOCAL_API_SESSION, PAYMENT_RETURN_URL];
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
   isNonProd
