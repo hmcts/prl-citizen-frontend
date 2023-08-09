@@ -478,11 +478,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
   }
 
-  private handleError(session: AppSession, error: FormError) {
-    if (!session.errors) {
-      session.errors = []
+  private handleError(req: AppRequest, error: FormError) {
+    if (!req.session?.errors) {
+      req.session.errors = []
     }
-    session.errors.push({ errorType: error.errorType, propertyName: error.propertyName });
+    req.session.errors.push({ errorType: error.errorType, propertyName: error.propertyName });
   }
 
   public async generateDocument(req: AppRequest<AnyObject>, res: Response): Promise<void> {
@@ -524,12 +524,12 @@ export class DocumentManagerController extends PostController<AnyObject> {
         req.session.errors = [];
 
       } else {
-        this.handleError(session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+        this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
       }
     } catch (e) {
-      this.handleError(session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+      this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } finally {
-      this.redirect(req, res, this.setRedirectUrl(partyType, req));
+      return this.redirect(req, res, this.setRedirectUrl(partyType, req));
     }
   }
 
@@ -542,7 +542,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     this.initializeData(caseData);
 
     if (!files?.length) {
-      this.handleError(session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+      this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
       return this.redirect(req, res, this.setRedirectUrl(partyType, req));
     }
 
@@ -579,12 +579,12 @@ export class DocumentManagerController extends PostController<AnyObject> {
         Object.assign(req.session.userCase, caseDataFromCos);
         req.session.errors = [];
       } else {
-        this.handleError(session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+        this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
       }
     } catch (e) {
-      this.handleError(session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+      this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } finally {
-      this.redirect(req, res, this.setRedirectUrl(partyType, req));
+      return this.redirect(req, res, this.setRedirectUrl(partyType, req));
     }
   }
 
@@ -605,10 +605,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
         req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
         req.session.errors = [];
       } else {
-        this.handleError(session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+        this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
       }
     } catch (e) {
-      this.handleError(session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+      this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } finally {
       this.redirect(req, res, this.setRedirectUrl(partyType, req));
     }

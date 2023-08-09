@@ -47,20 +47,20 @@ export default class DocumentUploadPostController {
         req.session.errors = [];
         
         if (response.status !== '200') {
-          this.handleError(req.session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' })
+          this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' })
         }
       } catch (error) {
-        this.handleError(req.session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' })
+        this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' })
       } finally {
         this.parent.redirect(req, res);
       }
     }
   }
 
-  private handleError(session: AppSession, error: FormError) {
-    if (!session.errors) {
-      session.errors = []
+  private handleError(req: AppRequest, error: FormError) {
+    if (!req.session?.errors) {
+      req.session.errors = []
     }
-    session.errors.push({ errorType: error.errorType, propertyName: error.propertyName });
+    req.session.errors.push({ errorType: error.errorType, propertyName: error.propertyName });
   }
 }
