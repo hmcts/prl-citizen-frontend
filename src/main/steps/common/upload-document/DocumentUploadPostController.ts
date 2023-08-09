@@ -19,10 +19,11 @@ export default class DocumentUploadPostController {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { _ctx, onlycontinue, ...formFields } = req.body;
-    const form = new Form(this.fields);
-    const { _csrf, ...formData } = form.getParsedBody(formFields);
     const { user, userCase: caseData } = req.session;
+    const { _ctx, onlycontinue, ...formFields } = req.body;
+    const fields = typeof this.fields === 'function' ? this.fields(caseData) : this.fields;
+    const form = new Form(fields);
+    const { _csrf, ...formData } = form.getParsedBody(formFields);
     const partyType = getCasePartyType(caseData, user.id);
     const uploadedDocuments = caseData?.[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'] ?? []
 
