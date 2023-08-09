@@ -510,7 +510,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         }
       );
 
-      if (response.status === '200') {
+      if (response.status === 'Success') {
         req.session.userCase?.[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles']?.push(response.document);
 
         const caseDetailsFromCos = await client.retrieveByCaseId(caseData.id, user);
@@ -566,7 +566,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         files: [files['files[]']]
       });
 
-      if (response.status === '200') {
+      if (response.status === 'Success') {
         req.session.userCase?.[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles']?.push(response.document);
 
         const caseDetailsFromCos = await client.retrieveByCaseId(caseData.id, user);
