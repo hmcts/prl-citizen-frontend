@@ -503,7 +503,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
           partyId: user.id,
           partyName: getPartyName(caseData, partyType, user),
           partyType,
-          restrictDocumentDetails: caseData.reasonForDocumentCantBeShared as string,
+          restrictDocumentDetails: caseData.reasonForDocumentCantBeShared ?? '' as string,
           freeTextStatements: body.textStatement as string,
         }
       );
@@ -560,7 +560,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         partyId: user.id,
         partyName: getPartyName(caseData, partyType, user),
         partyType,
-        restrictDocumentDetails: caseData.reasonForDocumentCantBeShared as string,
+        restrictDocumentDetails: caseData.reasonForDocumentCantBeShared ?? '' as string,
         files
       });
 
