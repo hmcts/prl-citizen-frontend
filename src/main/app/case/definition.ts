@@ -2037,7 +2037,7 @@ export const enum State {
   CASE_SUBMITTED_PAID = 'SUBMITTED_PAID',
   CASE_SUBMITTED_NOT_PAID = 'SUBMITTED_NOT_PAID',
   CASE_ISSUED_TO_LOCAL_COURT = 'CASE_ISSUE',
-  CASE_GATE_KEEPING = 'GATE_KEEPING',
+  CASE_GATE_KEEPING = 'JUDICIAL_REVIEW',
   CASE_CLOSED = 'ALL_FINAL_ORDERS_ISSUED',
   CASE_SERVED = 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
   CASE_WITHDRAWN = 'CASE_WITHDRAWN',
@@ -2334,6 +2334,10 @@ export const JURISDICTION = 'PRIVATELAW';
 export const enum LanguagePreference {
   ENGLISH = 'ENGLISH',
   WELSH = 'WELSH',
+}
+export const enum SessionLanguage {
+  ENGLISH = 'en',
+  WELSH = 'cy',
 }
 
 export interface OtherName {
@@ -3012,4 +3016,22 @@ export enum passportPossessionRelative {
   MOTHER = 'mother',
   FATHER = 'father',
   OTHER = 'otherPerson'
+}
+
+export enum DocType {
+  POSITION_STATEMENTS = 'positionstatements',
+  YOUR_WITNESS_STATEMENTS = 'yourwitnessstatements',
+  LETTERS_FROM_SCHOOL = 'lettersfromschool',
+  DIGITAL_DOWNLOADS = 'digitaldownloads',
+  MEDICAL_RECORDS = 'medicalrecords',
+  PATERNITY_TEST_REPORTS = 'paternitytestreports',
+  DRUG_ALCOHOL_TESTS = 'drugalcoholtests',
+  POLICE_REPORTS = 'policedisclosures',
+  WITNESS_AVAILABILITY = 'witnessavailability',
+  TENANCY_AND_MORTGAGE_AVAILABILITY = 'tenancyandmortgageavailability',
+  MEDICAL_REPORTS = 'medicalreports',
+  OTHER_DOCUMENTS = 'otherDocuments',
+  PREVIOUS_ORDERS = 'previousorders',
+  OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
+  MIAM_CERTIFICATE = 'miamcertificate',
 }

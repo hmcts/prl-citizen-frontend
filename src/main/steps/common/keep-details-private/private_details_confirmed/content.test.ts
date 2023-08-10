@@ -12,7 +12,7 @@ const enContent = {
   phoneNumber: 'Phone Number',
   line2: 'What the court will do',
   line3:
-    'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.',
+    'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass Cymru unless it is by order of the court.',
   continue: 'Continue',
 };
 
@@ -44,7 +44,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.line1).toEqual('You have told us you want to keep these contact details private');
     expect(generatedContent.line2).toEqual('What the court will do');
     expect(generatedContent.line3).toEqual(
-      'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass CYMRU unless it is by order of the court.'
+      'The court will hold this information securely and will not share it with anyone except Cafcass (Children and Family Court Advisory and Support Service) or Cafcass Cymru unless it is by order of the court.'
     );
   });
 

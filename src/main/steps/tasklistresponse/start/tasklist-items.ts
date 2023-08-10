@@ -1,6 +1,6 @@
 export const respondent_tasklist_items_en = {
   do_you_have_legal_representation: 'Do you have a legal representative?',
-  do_you_consent_to_the_application: 'Do you consent to the application?',
+  do_you_consent_to_the_application: 'Do you agree to the application?',
   keep_your_details_private: 'Keep your details private',
   confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
   support_you_need_during_your_case: 'Support you need during your case',
@@ -17,7 +17,7 @@ export const respondent_tasklist_items_en = {
 
 export const respondent_tasklist_items_cy = {
   do_you_have_legal_representation: 'Oes gennych chi gynrychiolydd cyfreithiol?',
-  do_you_consent_to_the_application: "Ydych chi'n cydsynio i'r cais?",
+  do_you_consent_to_the_application: 'Do you agree to the application? - welsh',
   keep_your_details_private: 'Cadw eich manylion yn breifat',
   confirm_or_edit_your_contact_details: 'Cadarnhau neu olygu eich manylion cyswllt',
   support_you_need_during_your_case: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',

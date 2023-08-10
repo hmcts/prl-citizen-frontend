@@ -15,7 +15,7 @@ export const generateRespondentTaskListAllDocuments = (sectionTitles, taskListIt
     getRespondentDocuments(sectionTitles, taskListItems, userCase, false),
     getApplicantDocuments(sectionTitles, taskListItems, userCase, false),
     getCafcassDocuments(sectionTitles, taskListItems, userCase, URL.RESPONDENT),
-    getOtherDocuments(sectionTitles, taskListItems, userCase, URL.RESPONDENT),
+    getOtherDocuments(sectionTitles, taskListItems, URL.RESPONDENT),
     getAttendingTheHearingDocs(sectionTitles, taskListItems, URL.RESPONDENT, userCase),
   ];
 };
