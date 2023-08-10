@@ -239,14 +239,14 @@ export class CosApiClient {
         formData.append('file', file.data, file.name);
       }
 
-      formData.append('caseId', request.caseId);
-      formData.append('categoryId', request.categoryId);
-      formData.append('partyType', request.partyType);
-      formData.append('partyId', request.partyId);
-      formData.append('partyName', request.partyName);
-      formData.append('restrictDocumentDetails', request.restrictDocumentDetails);
+      // formData.append('caseId', request.caseId);
+      // formData.append('categoryId', request.categoryId);
+      // formData.append('partyType', request.partyType);
+      // formData.append('partyId', request.partyId);
+      // formData.append('partyName', request.partyName);
+      // formData.append('restrictDocumentDetails', request.restrictDocumentDetails);
 
-      const response = await Axios.post(config.get('services.cos.url') + '/citizen-upload-document', formData, {
+      const response = await Axios.post(config.get('services.cos.url') + '/upload-citizen-document', formData, {
         headers: {
           Accept: '*/*',
           'Content-Type': 'multipart/form-data',
@@ -284,7 +284,7 @@ export class CosApiClient {
   public async submitUploadedDocuments(
     user: UserDetails,
     request: DocumentUploadRequest
-  ): Promise<Partial<DocumentUploadResponse>> {
+  ): Promise<any> {
     try {
       const response = await Axios.post(config.get('services.cos.url') + '/citizen-submit-documents', request, {
         headers: {
@@ -296,7 +296,7 @@ export class CosApiClient {
       });
 
       return {
-        status: response.data.status,
+         response,
       };
     } catch (err) {
       console.log('Error: ', err);

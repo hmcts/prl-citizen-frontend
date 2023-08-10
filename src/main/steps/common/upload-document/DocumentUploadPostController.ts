@@ -41,7 +41,7 @@ export default class DocumentUploadPostController {
         const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
         const response = await client.submitUploadedDocuments(user, {
           caseId: caseData.id,
-          categoryId: getDocumentType(req.params.documentType as DocType, partyType),
+          categoryId: getDocumentType(req.params.docType as DocType, partyType),
           partyId: user.id,
           partyName: getPartyName(caseData, partyType, user),
           partyType,
@@ -49,7 +49,7 @@ export default class DocumentUploadPostController {
         });
         req.session.errors = [];
 
-        if (response.status !== '200') {
+        if (response.response.status !== 200) {
           this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
         }
       } catch (error) {
