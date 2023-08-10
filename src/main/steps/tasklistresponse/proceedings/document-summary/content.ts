@@ -38,8 +38,6 @@ interface OrderDocument {
   fileName?: string;
   editUrl?: string;
 }
-[];
-
 const getOrderDocuments = (
   selectedOrders: ProceedingsOrderTypes[],
   orders: ProceedingsOrderTypeInterface | Record<string, never> = {}

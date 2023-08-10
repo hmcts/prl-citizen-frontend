@@ -1,5 +1,3 @@
-//import { isObject } from 'lodash';
-
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
@@ -81,13 +79,6 @@ const languages = {
 
 export const form: FormContent = {
   fields: () => {
-    const checkboxes: { id: string; value: string }[] = [];
-
-    checkboxes.push({
-      id: 'sot',
-      value: 'StatementOfTruth',
-    });
-
     return {
       declarationCheck: {
         type: 'checkboxes',
