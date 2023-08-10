@@ -255,6 +255,11 @@ const prepareHearingData = (req: AppRequest<Partial<Case>>): any => {
     //Generating completed hearing data
     if (hearingsCompleted && hearingsCompleted.length >= 1) {
       for (const hearing of hearingsCompleted) {
+        if (hearing.hearingDaySchedule!.length >= 2) {
+          hearing.hearingDaySchedule = hearing.hearingDaySchedule!.sort(
+            (a, b) => new Date(a.hearingStartDateTime!).valueOf() - new Date(b.hearingStartDateTime!).valueOf()
+          );
+        }
         const hearingId = hearing.hearingID;
         const date = hearing.hearingDaySchedule![0].hearingStartDateTime!;
         let dates =
@@ -266,8 +271,8 @@ const prepareHearingData = (req: AppRequest<Partial<Case>>): any => {
           const endDate = hearing.hearingDaySchedule![len - 1].hearingStartDateTime!;
           const endDateFormatted =
             req.session.lang === 'cy'
-              ? dayjs(endDate).locale('cy').format('DD MMMM YYYY').toString()
-              : dayjs(endDate).locale('en').format('DD MMMM YYYY').toString();
+              ? dayjs(endDate).locale('cy').format('dddd, D MMMM YYYY').toString()
+              : dayjs(endDate).locale('en').format('dddd, D MMMM YYYY').toString();
           dates = dates + ' - ' + endDateFormatted;
         }
         const hearingLength = hearing.hearingDaySchedule?.length;
