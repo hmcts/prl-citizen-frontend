@@ -177,7 +177,7 @@ describe('Document upload controller', () => {
       orderId: '1',
     });
 
-    expect(res.redirect).toHaveBeenCalledWith('/citizen-home');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('Should redirect to dashboard when document already exists while clicking save and come back later and original path starts with /c100-rebuild', async () => {

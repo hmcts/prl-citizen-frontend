@@ -75,7 +75,7 @@ export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<Ca
     address,
     ...rest
   } = partyDetails;
-  let fullName = ' ';
+  let fullName;
   if (!firstName || !lastName) {
     fullName = '';
   } else {
@@ -167,68 +167,3 @@ export const setTextFields = (req: AppRequest): Partial<CaseWithId> => {
   setAddressFields(req);
   return req.session.userCase;
 };
-
-//mapText to replace setTextFeilds//
-// export const mapText = (req: AppRequest):Partial<CaseWithId> => {
-//   let detail = {};
-//   let {
-//     citizenUserFirstNames,
-//     citizenUserLastNames,
-//     citizenUserDateOfBirth,
-//     citizenUserPlaceOfBirth,
-//     citizenUserPhoneNumber,
-//     citizenUserEmailAddress,
-//     citizenUserAddress1,
-//     citizenUserAddress2,
-//     citizenUserAddressTown,
-//     citizenUserAddressPostcode,
-//     isAtAddressLessThan5Years,
-//     citizenUserAddressHistory,
-//     ...rest
-//   } = req.session.userCase;
-//   let fullName= "" ;
-//   if (!citizenUserFirstNames || !citizenUserLastNames) {
-//     fullName = '';
-//   } else {
-//     fullName =citizenUserLastNames+ " "+citizenUserLastNames
-
-//   }
-//   let citizenUserAddressText=""
-//   if(!req.session.userCase.citizenUserAddress1 &&
-//     !req.session.userCase.citizenUserAddressTown &&
-//     !req.session.userCase.citizenUserAddressPostcode){
-//       citizenUserAddressText=""
-//     }else{
-//      citizenUserAddressText = citizenUserAddress1 + ' ';
-//     if (citizenUserAddress2) {
-//       citizenUserAddressText =
-//         citizenUserAddressText + citizenUserAddress2 + ' ';
-//     }
-//     if (citizenUserAddressTown) {
-//       citizenUserAddressText =
-//         citizenUserAddressText + citizenUserAddressTown + ' ';
-//     }
-//     if (citizenUserAddressPostcode) {
-//       citizenUserAddressText =
-//         citizenUserAddressText + citizenUserAddressPostcode;
-//     }
-//   }
-//   if (YesOrNo.YES === isAtAddressLessThan5Years) {
-//     citizenUserAddressHistory = '';
-//   }
-
-//   Object.assign(detail,
-//     {
-//    citizenUserFullName: fullName,
-//    citizenUserDateOfBirth:(!citizenUserDateOfBirth?"":getFormattedDate(citizenUserDateOfBirth)),
-//    citizenUserPhoneNumber:(!citizenUserPhoneNumber?"":citizenUserPhoneNumber),
-//    citizenUserPlaceOfBirth:(!citizenUserPlaceOfBirth?"":citizenUserPlaceOfBirth),
-//    citizenUserEmailAddress:(!citizenUserEmailAddress?"":citizenUserEmailAddress),
-//    citizenUserAddressText:citizenUserAddressText,
-//    isAtAddressLessThan5Years:isAtAddressLessThan5Years,
-//    citizenUserAddressHistory:citizenUserAddressHistory,
-//    ...rest
-//   });
-
-//   return detail;
-// }

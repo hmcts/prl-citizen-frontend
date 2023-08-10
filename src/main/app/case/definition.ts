@@ -2337,6 +2337,10 @@ export const enum LanguagePreference {
   ENGLISH = 'ENGLISH',
   WELSH = 'WELSH',
 }
+export const enum SessionLanguage {
+  ENGLISH = 'en',
+  WELSH = 'cy',
+}
 
 export interface OtherName {
   id?: string;
@@ -3088,4 +3092,22 @@ export enum passportPossessionRelative {
   MOTHER = 'mother',
   FATHER = 'father',
   OTHER = 'otherPerson'
+}
+
+export enum DocType {
+  POSITION_STATEMENTS = 'positionstatements',
+  YOUR_WITNESS_STATEMENTS = 'yourwitnessstatements',
+  LETTERS_FROM_SCHOOL = 'lettersfromschool',
+  DIGITAL_DOWNLOADS = 'digitaldownloads',
+  MEDICAL_RECORDS = 'medicalrecords',
+  PATERNITY_TEST_REPORTS = 'paternitytestreports',
+  DRUG_ALCOHOL_TESTS = 'drugalcoholtests',
+  POLICE_REPORTS = 'policedisclosures',
+  WITNESS_AVAILABILITY = 'witnessavailability',
+  TENANCY_AND_MORTGAGE_AVAILABILITY = 'tenancyandmortgageavailability',
+  MEDICAL_REPORTS = 'medicalreports',
+  OTHER_DOCUMENTS = 'otherDocuments',
+  PREVIOUS_ORDERS = 'previousorders',
+  OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
+  MIAM_CERTIFICATE = 'miamcertificate',
 }

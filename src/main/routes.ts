@@ -19,6 +19,7 @@ import { AccessibilityStatementGetController } from './steps/accessibility-state
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import ApplicantTaskListGetController from './steps/applicant/task-list/get';
+import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
 import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
@@ -129,6 +130,7 @@ import {
   APPLICANT_YOURHEARINGS_HEARINGS,
   RESPONSE_TO_CA,
   AOH_TO_CA,
+  VIEW_DOCUMENT_URL,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -174,7 +176,7 @@ export class Routes {
     app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
     app.get(C100_RETRIVE_CASE, errorHandler(new GetCaseController().getC100ApplicantCase));
     app.get(C100_DOWNLOAD_APPLICATION, errorHandler(new ApplicationDownloadController().download));
-
+    app.get(VIEW_DOCUMENT_URL, errorHandler(new AllDocumentsGetController().get));
     //Tasklist event common get controller routes
     app.get(
       `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
