@@ -1,20 +1,22 @@
+import { CaseType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
+import { applyParms } from '../../../../steps/common/url-parser';
+import { APPLICANT_TASK_LIST_URL, FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
 export const en = {
   section: 'Provide the document',
   subTitle: 'Provide the documents',
   declaration: 'I believe that the facts stated in these documents are true',
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
-  continue: 'Continue',
+  continue: 'Submit',
   add: 'Submit',
   uploadFiles: 'Your documents',
   remove: 'Remove',
-  textAreaDocUploadText1: 'You can use this box to:',
-  textAreaDocUploadText2: 'write a statement if you do not want to upload a document',
-  textAreaDocUploadText3: 'give the court more information about the documents you are uploading',
+  textAreaDocUploadText1: 'You can write your statement in the text box or upload it.',
+  textAreaDocUploadText2: 'Write your statement(optional)',
   uplodFileText1:
     'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.',
   uplodFileText2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
@@ -43,13 +45,12 @@ export const cy = {
   declaration: 'Credaf fod y ffeithiau a nodir yn y dogfennau hyn yn wir',
   consent:
     'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
-  continue: 'Parhau',
+  continue: 'Submit - welsh',
   add: 'Cyflwyno',
   uploadFiles: 'Eich dogfennau',
   remove: 'Dileu',
-  textAreaDocUploadText1: 'Gallwch ddefnyddio’r blwch hwn i:',
-  textAreaDocUploadText2: 'ysgrifennu datganiad os nad ydych eisiau cyflwyno dogfen',
-  textAreaDocUploadText3: 'rhoi mwy o wybodaeth i’r llys am y dogfennau rydych yn eu cyflwyno',
+  textAreaDocUploadText1: 'You can write your statement in the text box or upload it. - welsh',
+  textAreaDocUploadText2: 'Write your statement(optional) - welsh',
   uplodFileText1:
     'Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, llythyr-gan-yr-ysgol.doc.',
   uplodFileText2: 'Rhaid i ffeiliau derfynu â JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
@@ -103,12 +104,26 @@ export const form: FormContent = {
   onlyContinue: {
     text: l => l.continue,
   },
+  link: {
+    classes: 'govuk-!-margin-left-3',
+    href: '',
+    text: l => l.cancel,
+  },
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const { docCategory, docType } = content.additionalData!.req.params;
   const { category: caption, type: title } = getDocumentMeta(docCategory, docType, content.language);
+  const isDocWitnessOrPosition = docType === 'positionstatements' || docType === 'yourwitnessstatements';
+  const request = content.additionalData?.req;
+  const userCase = request.session.userCase;
+  const caseId = userCase.id as string;
+  const caseType = userCase.caseTypeOfApplication;
+  Object.assign(form.link!, {
+    href:
+      caseType === CaseType.C100 ? applyParms(FETCH_CASE_DETAILS, { caseId }) : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
+  });
 
   return {
     ...translations,
@@ -117,5 +132,6 @@ export const generateContent: TranslationFn = content => {
     title,
     docCategory,
     docType,
+    isDocWitnessOrPosition,
   };
 };

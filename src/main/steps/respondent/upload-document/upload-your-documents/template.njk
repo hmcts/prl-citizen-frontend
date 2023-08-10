@@ -8,28 +8,27 @@
 <div class="govuk-form-group">
 {% block page_content %}
 <div class="govuk-form-group">
-    <h1 class="govuk-heading-xl">
+    <h1 class="govuk-heading-l">
         <span class="govuk-caption-l">{{caption}}</span>
-        {{document_type}}
+            {{title}}
     </h1>
-      {% if title %}
-    <h1 class="govuk-heading-l">{{ title }}</h1>
-  {% endif %}
-      <form action="/document-manager/generatePdf?_csrf={{ csrfToken }}&documentCategory={{docCategory}}&documentType={{docType}}&isApplicant=No" method="post" novalidate="">
+    {% if isDocWitnessOrPosition %}
+     <form action="/document-manager/generatePdf?_csrf={{ csrfToken }}&documentCategory={{docCategory}}&documentType={{docType}}&isApplicant=Yes" method="post" novalidate="">
       <div class="govuk-form-group">
-        <div class="govuk-label-wrapper"><label class="govuk-label" for="more-detail">
+        <div class="govuk-label-wrapper">
+         <label class="govuk-label" for="more-detail">
            {{textAreaDocUploadText1}}
-           <li>{{textAreaDocUploadText2}}</li>
-           <li>{{textAreaDocUploadText3}}</li>
          </label>
         </div>
+      <br>
+      <h1 class="govuk-heading-s">{{textAreaDocUploadText2}}</h1>
       <textarea class="govuk-textarea" id="freeTextAreaForUpload" name="freeTextAreaForUpload" rows="5" aria-describedby="more-detail-hint"></textarea>
       </div>
       <button class="govuk-button upload-addnew govuk-button--secondary" data-module="govuk-button">
         {{add}}
       </button>
-
-    </form>
+     </form>
+    {% endif %}
 
 </div>
 <p class="govuk-body">{{uplodFileText1}}</p>
