@@ -9,7 +9,6 @@ export const SAVE_AND_SIGN_OUT: PageLink = '/save-and-sign-out';
 export const TIMED_OUT_URL: PageLink = '/timed-out';
 export const KEEP_ALIVE_URL: PageLink = '/keep-alive';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
-export const CITIZEN_HOME_URL: PageLink = '/citizen-home';
 export const SERVICE_TYPE: PageLink = '/service-type';
 export const DASHBOARD_URL: PageLink = '/dashboard';
 export const DASHBOARD_URL_NEW: PageLink = '/dashboard/new';
@@ -233,6 +232,7 @@ export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_
 export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
 export const RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER: PageLink = `${RESPONDENT_VIEW_ALL_DOCUMENTS}/allDocumentsViewed`;
 export const APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER: PageLink = `${APPLICANT_VIEW_ALL_DOCUMENTS}/allDocumentsViewed`;
+export const VIEW_DOCUMENT_URL = '/doc/:docType/:uploadedBy/:partyName?';
 
 export const RESPNDT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 
@@ -430,7 +430,7 @@ export const C100_CHILDERN_LIVE_WITH: PageLink = `${C100_CHILDERN_DETAILS}/:chil
 /** @C100  Payment Handler*/
 export const PAYMENT_GATEWAY_ENTRY_URL: PageLink = '/payments/gateway';
 export const PAYMENT_RETURN_URL: PageLink = '/payment/reciever/callback';
-export const PAYMENT_RETURN_URL_CALLBACK: PageLink = '/payment/reciever/callback/:paymentId/:status';
+export const PAYMENT_RETURN_URL_CALLBACK: PageLink = `${PAYMENT_RETURN_URL}/:paymentId/:status`;
 
 /** @C100 Rebuild C1A Safety Concerns */
 export const C100_C1A_SAFETY_CONCERNS: PageLink = `${C100_URL}/safety-concerns`;
@@ -606,7 +606,10 @@ export const SCREENING_QUESTIONS = [
   SCREENING_QUESTION_COMPLETE_APP_LEGAL_REP,
   SCREENING_QUESTION_CONTACT_LEGAL_REP,
 ];
-export const ANONYMOUS_URLS = [HEALTH_URL, CITIZEN_HOME_URL, ...SCREENING_QUESTIONS];
+export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
+
+export const LOCAL_API_SESSION = '/api/v1/session';
+export const SAFEGAURD_EXCLUDE_URLS = [C100_URL, DASHBOARD_URL, LOCAL_API_SESSION, PAYMENT_RETURN_URL];
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
   isNonProd

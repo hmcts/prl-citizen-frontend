@@ -1,8 +1,5 @@
-//import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-//import { isFieldFilledIn } from '../../../../app/form/validation';
-
 const en = {
   title: 'Will you be using a legal representative to respond to the application?',
   insetText:
