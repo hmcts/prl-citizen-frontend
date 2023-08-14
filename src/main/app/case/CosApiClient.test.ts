@@ -4,15 +4,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 
 import { CosApiClient } from './CosApiClient';
 import { CaseWithId } from './case';
-import {
-  CaseData,
-  CaseEvent,
-  CaseType,
-  //CaseData,
-  PartyType,
-  State,
-  //State
-} from './definition';
+import { CaseData, CaseEvent, CaseType, PartyType, State } from './definition';
 import { toApiFormat } from './to-api-format';
 
 jest.mock('axios');
