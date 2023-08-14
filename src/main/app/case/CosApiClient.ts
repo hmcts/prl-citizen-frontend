@@ -239,13 +239,6 @@ export class CosApiClient {
         formData.append('file', file.data, file.name);
       }
 
-      // formData.append('caseId', request.caseId);
-      // formData.append('categoryId', request.categoryId);
-      // formData.append('partyType', request.partyType);
-      // formData.append('partyId', request.partyId);
-      // formData.append('partyName', request.partyName);
-      // formData.append('restrictDocumentDetails', request.restrictDocumentDetails);
-
       const response = await Axios.post(config.get('services.cos.url') + '/upload-citizen-document', formData, {
         headers: {
           Accept: '*/*',
@@ -280,11 +273,8 @@ export class CosApiClient {
       throw new Error('Document could not be deleted.');
     }
   }
-
-  public async submitUploadedDocuments(
-    user: UserDetails,
-    request: DocumentUploadRequest
-  ): Promise<any> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public async submitUploadedDocuments(user: UserDetails, request: DocumentUploadRequest): Promise<any> {
     try {
       const response = await Axios.post(config.get('services.cos.url') + '/citizen-submit-documents', request, {
         headers: {
@@ -296,7 +286,7 @@ export class CosApiClient {
       });
 
       return {
-         response,
+        response,
       };
     } catch (err) {
       console.log('Error: ', err);

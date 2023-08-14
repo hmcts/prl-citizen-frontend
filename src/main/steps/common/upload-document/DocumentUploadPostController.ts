@@ -55,9 +55,6 @@ export default class DocumentUploadPostController {
       } catch (error) {
         this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
       } finally {
-        // } catch (error) {
-        //   this.handleError(req.session, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
-        // }
         this.parent.redirect(req, res);
       }
     }
