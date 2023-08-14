@@ -273,7 +273,8 @@ export class CosApiClient {
       throw new Error('Document could not be deleted.');
     }
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   public async submitUploadedDocuments(user: UserDetails, request: DocumentUploadRequest): Promise<any> {
     try {
       const response = await Axios.post(config.get('services.cos.url') + '/citizen-submit-documents', request, {
