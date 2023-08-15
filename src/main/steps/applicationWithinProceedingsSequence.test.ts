@@ -110,30 +110,33 @@ describe('applicationWithinProceedingsSequence', () => {
     );
     expect(applicationWithinProceedingsSequence[9].showInSection).toBe('applicationWithinProceedings');
     expect(applicationWithinProceedingsSequence[9].getNextStep(userCase, req)).toBe(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents'
     );
 
     expect(applicationWithinProceedingsSequence[10].url).toBe(
       '/application-within-proceedings/:applicationType/:applicationReason/urgent-request'
     );
     expect(applicationWithinProceedingsSequence[10].showInSection).toBe('applicationWithinProceedings');
-    expect(applicationWithinProceedingsSequence[10].getNextStep(userCase, req)).toBe(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
+    expect(applicationWithinProceedingsSequence[10].getNextStep({ awp_hasSupportingDocuments: YesOrNo.YES }, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
     );
-
-    expect(applicationWithinProceedingsSequence[11].url).toBe(
-      '/application-within-proceedings/:applicationType/:applicationReason/pay-and-submit'
-    );
-    expect(applicationWithinProceedingsSequence[11].showInSection).toBe('applicationWithinProceedings');
-    expect(applicationWithinProceedingsSequence[11].getNextStep(userCase, req)).toBe(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
+    expect(applicationWithinProceedingsSequence[10].getNextStep({ awp_hasSupportingDocuments: YesOrNo.NO }, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents'
     );
 
     expect(applicationWithinProceedingsSequence[12].url).toBe(
-      '/application-within-proceedings/:applicationType/:applicationReason/application-submitted'
+      '/application-within-proceedings/:applicationType/:applicationReason/pay-and-submit'
     );
     expect(applicationWithinProceedingsSequence[12].showInSection).toBe('applicationWithinProceedings');
     expect(applicationWithinProceedingsSequence[12].getNextStep(userCase, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
+    );
+
+    expect(applicationWithinProceedingsSequence[13].url).toBe(
+      '/application-within-proceedings/:applicationType/:applicationReason/application-submitted'
+    );
+    expect(applicationWithinProceedingsSequence[13].showInSection).toBe('applicationWithinProceedings');
+    expect(applicationWithinProceedingsSequence[13].getNextStep(userCase, req)).toBe(
       '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
     );
   });

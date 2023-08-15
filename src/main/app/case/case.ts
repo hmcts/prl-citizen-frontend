@@ -599,6 +599,7 @@ export interface Case {
   awp_uploadedApplicationForms?: DocumentInfo[];
   awp_isThereReasonForUrgentRequest?: YesOrNo;
   awp_urgentRequestReason?: string;
+  awp_hasSupportingDocuments?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

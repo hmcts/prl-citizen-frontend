@@ -6,8 +6,10 @@ import {
   APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
   APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
   APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
+  APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
   APPLICATION_WITHIN_PROCEEDINGS_INFORM_OTHER_PARTIES,
+  APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS,
   APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
   PageLink,
 } from '../../steps/urls';
@@ -38,6 +40,14 @@ class ApplicationWithinProceedingsNavigationController {
           applicationType,
           applicationReason,
           applicationFee
+        );
+        break;
+      }
+      case APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS: {
+        url = this.getSupportingDocumentsNextStep(
+          caseData.awp_hasSupportingDocuments,
+          applicationType,
+          applicationReason
         );
         break;
       }
@@ -109,6 +119,26 @@ class ApplicationWithinProceedingsNavigationController {
           }) as PageLink);
 
     return applicationReason === AWPApplicationReason.DELAY_CANCEL_HEARING_DATE ? delayOrCancelStep : otherC2NextStep;
+  };
+
+  private getSupportingDocumentsNextStep = (supportingDocuments, applicationType, applicationReason) => {
+    const noNextStep =
+      applicationReason === AWPApplicationReason.DELAY_CANCEL_HEARING_DATE
+        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS, {
+            applicationType,
+            applicationReason,
+          }) as PageLink)
+        : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
+            applicationType,
+            applicationReason,
+          }) as PageLink);
+
+    const yesNextStep = applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
+      applicationType,
+      applicationReason,
+    }) as PageLink;
+
+    return supportingDocuments === YesOrNo.YES ? yesNextStep : noNextStep;
   };
 }
 
