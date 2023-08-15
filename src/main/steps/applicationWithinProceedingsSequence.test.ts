@@ -25,7 +25,7 @@ describe('applicationWithinProceedingsSequence', () => {
   });
 
   test('should contain 1 entries in applicationWithinProceedingsSequence 1 screen sequence', () => {
-    expect(applicationWithinProceedingsSequence).toHaveLength(12);
+    expect(applicationWithinProceedingsSequence).toHaveLength(14);
     expect(applicationWithinProceedingsSequence[0].url).toBe(
       '/application-within-proceedings/list-of-applications/:pageNumber'
     );
@@ -110,7 +110,34 @@ describe('applicationWithinProceedingsSequence', () => {
     );
     expect(applicationWithinProceedingsSequence[9].showInSection).toBe('applicationWithinProceedings');
     expect(applicationWithinProceedingsSequence[9].getNextStep(userCase, req)).toBe(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/help-with-fees/reference'
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents'
+    );
+
+    expect(applicationWithinProceedingsSequence[10].url).toBe(
+      '/application-within-proceedings/:applicationType/:applicationReason/supporting-documents'
+    );
+    expect(applicationWithinProceedingsSequence[10].showInSection).toBe('applicationWithinProceedings');
+    expect(applicationWithinProceedingsSequence[10].getNextStep({ awp_hasSupportingDocuments: YesOrNo.YES }, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
+    );
+    expect(applicationWithinProceedingsSequence[10].getNextStep({ awp_hasSupportingDocuments: YesOrNo.NO }, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents'
+    );
+
+    expect(applicationWithinProceedingsSequence[11].url).toBe(
+      '/application-within-proceedings/:applicationType/:applicationReason/pay-and-submit'
+    );
+    expect(applicationWithinProceedingsSequence[11].showInSection).toBe('applicationWithinProceedings');
+    expect(applicationWithinProceedingsSequence[11].getNextStep(userCase, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
+    );
+
+    expect(applicationWithinProceedingsSequence[12].url).toBe(
+      '/application-within-proceedings/:applicationType/:applicationReason/application-submitted'
+    );
+    expect(applicationWithinProceedingsSequence[12].showInSection).toBe('applicationWithinProceedings');
+    expect(applicationWithinProceedingsSequence[12].getNextStep(userCase, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
     );
   });
 });

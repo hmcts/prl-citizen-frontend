@@ -599,6 +599,7 @@ export interface Case {
   awp_uploadedApplicationForms?: DocumentInfo[];
   awpFeeDetails?: Record<string, any>;
   awp_cancelDelayHearing?: string;
+  awp_hasSupportingDocuments?: YesOrNo;
 }
 
 export interface CaseWithId extends Case {

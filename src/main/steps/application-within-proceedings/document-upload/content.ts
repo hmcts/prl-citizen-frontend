@@ -13,8 +13,9 @@ export * from './routeGuard';
 
 export const en = {
   title: 'Upload your application',
-  uploadYourApplication:
-    'Upload your application to the case. If you are uploading a paper copy of the application, make sure this has been scanned in clearly, and saved in a suitable file format such  as PDF.',
+  fileUploadLabel: 'Upload your application form',
+  uploadYourApplicationHint:
+    'Give each document a file name that makes it clear what it is about. For example position-statement.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
   uploadDescription: 'Take a picture of a document on your phone and upload it',
   uploadRequirements: [
     'Place your document on a flat service in a well-lit room. Use a flash if you need to.',
@@ -26,11 +27,11 @@ export const en = {
   onlyContinue: 'Continue',
   cancel: 'Cancel',
   uploadButton: 'Upload file',
-  remove: 'Remove',
+  removeFileText: 'Remove',
   errorText: 'Error:',
   noFilesText: 'No files uploaded',
   errors: {
-    document: {
+    awpUploadApplicationForm: {
       required: 'Upload your {applicationType} application form',
       fileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
       fileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
@@ -40,8 +41,9 @@ export const en = {
 
 export const cy: typeof en = {
   title: 'Upload your application (welsh)',
-  uploadYourApplication:
-    'Upload your application to the case. If you are uploading a paper copy of the application, make sure this has been scanned in clearly, and saved in a suitable file format such  as PDF. (welsh)',
+  fileUploadLabel: 'Upload your application form - welsh',
+  uploadYourApplicationHint:
+    'Give each document a file name that makes it clear what it is about. For example position-statement.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX. -  welsh',
   uploadDescription: 'Take a picture of a document on your phone and upload it (welsh)',
   uploadRequirements: [
     'Rhowch eich dogfen ar rywbeth gwastad mewn ystafell sydd â digon o olau. Defnyddiwch fflach y camera os bydd angen.',
@@ -53,11 +55,11 @@ export const cy: typeof en = {
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   uploadButton: 'Llwytho ffeil',
-  remove: 'Dileu',
+  removeFileText: 'Dileu',
   errorText: 'Error: (welsh)',
   noFilesText: 'No files uploaded (welsh)',
   errors: {
-    document: {
+    awpUploadApplicationForm: {
       required: 'Upload your {applicationType} application form (welsh)',
       fileFormat: "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
       fileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr",
@@ -71,14 +73,7 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-    awp_documentUpload: {
-      type: 'hidden',
-      label: l => l.uploadFiles,
-      labelHidden: true,
-      value: 'true',
-    },
-  },
+  fields: {},
   onlyContinue: {
     text: l => l.onlyContinue,
   },
@@ -103,30 +98,44 @@ export const generateContent: TranslationFn = content => {
     content.language,
     request.session.applicationSettings
   );
-
-  const applicationSessionData = request.session.userCase.awp_uploadedApplicationForms;
+  translations.errors = {
+    ...translations.errors,
+    awpUploadApplicationForm: {
+      ...translations.errors.awpUploadApplicationForm,
+      required: interpolate(translations.errors.awpUploadApplicationForm.required, {
+        applicationType: applicationDetails!.applicationType,
+      }),
+    },
+  };
+  const uploadDocError =
+    request.session?.errors?.find(error => error.propertyName === 'awpUploadApplicationForm') ?? null;
 
   return {
     ...translations,
     form,
     applicationType: applicationDetails?.applicationType,
     caption: applicationDetails?.reasonText,
-    sessionErrors: request.session?.errors || [],
-    htmlLang: content.language,
     applicationReason,
-    document: applicationSessionData,
-    fileUploadUrl: applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
-      applicationType,
-      applicationReason,
-    }),
-    errors: {
-      ...translations.errors,
-      document: {
-        ...translations.errors.document,
-        required: interpolate(translations.errors.document.required, {
-          applicationType: applicationDetails!.applicationType,
-        }),
-      },
+    fileUploadConfig: {
+      labelText: translations.fileUploadLabel,
+      uploadUrl: applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
+        applicationType,
+        applicationReason,
+      }),
+      hintText: translations.uploadYourApplicationHint,
+      noFilesText: translations.noFilesText,
+      removeFileText: translations.removeFileText,
+      uploadFileButtonText: translations.uploadButton,
+      errorMessage: uploadDocError ? translations.errors.awpUploadApplicationForm?.[uploadDocError.errorType] : null,
+      uploadedFiles:
+        caseData?.awp_uploadedApplicationForms?.map(applicationForm => ({
+          filename: applicationForm.filename,
+          fileremoveUrl: applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
+            applicationType,
+            applicationReason,
+            removeId: applicationForm.id,
+          }),
+        })) ?? [],
     },
   };
 };

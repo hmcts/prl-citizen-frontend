@@ -120,6 +120,8 @@ describe('testcase for tasklist', () => {
       },
     ],
     title: 'Child arrangements and family injunction cases',
+    addLegalRepresentative: 'Add a legal representative',
+    removeLegalRepresentative: 'Remove a legal representative',
   };
   const cy = {
     title: 'Trefniadau plant a gwaharddebau teulu',
@@ -129,6 +131,11 @@ describe('testcase for tasklist', () => {
       {
         label: 'Add a legal representative - welsh',
         link: '/applicant/add-legal-representative',
+        target: '',
+      },
+      {
+        label: 'Remove a legal representative - welsh',
+        link: '/applicant/remove-legal-representative/start',
         target: '',
       },
       {
@@ -240,6 +247,8 @@ describe('testcase for tasklist', () => {
         ],
       },
     ],
+    addLegalRepresentative: 'Add a legal representative-welsh',
+    removeLegalRepresentative: 'Remove a legal representative-welsh',
   };
   const commonContent = {
     language: 'en',
