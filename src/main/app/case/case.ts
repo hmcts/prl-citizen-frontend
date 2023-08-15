@@ -597,6 +597,8 @@ export interface Case {
   awp_informOtherParties?: YesOrNo;
   awp_reasonCantBeInformed?: string;
   awp_uploadedApplicationForms?: DocumentInfo[];
+  awp_isThereReasonForUrgentRequest?: YesOrNo;
+  awp_urgentRequestReason?: string;
   awp_hasSupportingDocuments?: YesOrNo;
 }
 

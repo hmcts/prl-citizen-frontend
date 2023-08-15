@@ -173,7 +173,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
           { awp_hasSupportingDocuments: YesOrNo.NO },
           req
         )
-      ).toBe('/application-within-proceedings/C2/request-more-time/guidance');
+      ).toBe('/application-within-proceedings/C2/request-more-time/urgent-request');
     });
   });
 

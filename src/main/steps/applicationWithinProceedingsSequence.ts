@@ -17,6 +17,7 @@ import {
   APPLICATION_WITHIN_PROCEEDINGS_PAY_AND_SUBMIT,
   APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS,
   APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
+  APPLICATION_WITHIN_PROCEEDINGS_URGENT_REQUEST,
   PageLink,
 } from './urls';
 
@@ -115,6 +116,15 @@ export const applicationWithinProceedingsSequence: Step[] = [
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (_userCase, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS, {
+        applicationType: req?.params.applicationType as AWPApplicationType,
+        applicationReason: req?.params.applicationReason as AWPApplicationReason,
+      }) as PageLink,
+  },
+  {
+    url: APPLICATION_WITHIN_PROCEEDINGS_URGENT_REQUEST,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (_userCase, req) =>
+      applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
