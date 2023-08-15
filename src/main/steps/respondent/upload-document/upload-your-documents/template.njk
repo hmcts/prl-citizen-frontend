@@ -1,10 +1,8 @@
-
 {% extends "common/template.njk" %}
 {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-
 <div class="govuk-form-group">
 {% block page_content %}
 <div class="govuk-form-group">
@@ -13,8 +11,11 @@
             {{title}}
     </h1>
     {% if isDocWitnessOrPosition %}
-     <form action="/document-manager/generatePdf?_csrf={{ csrfToken }}&documentCategory={{docCategory}}&documentType={{docType}}&isApplicant=Yes" method="post" novalidate="">
-      <div class="govuk-form-group">
+     <form
+        action="/document-manager/generate-document?_csrf={{ csrfToken }}&documentCategory={{ docCategory }}&documentType={{ docType }}"
+        method="post"
+        novalidate="">
+        <div class="govuk-form-group">
         <div class="govuk-label-wrapper">
          <label class="govuk-label" for="more-detail">
            {{textAreaDocUploadText1}}
@@ -56,11 +57,13 @@
               <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
                 {{uploadFileHeading}}
               </label>
-      <form action="/document-manager?_csrf={{ csrfToken }}&documentCategory={{docCategory}}&documentType={{docType}}&isApplicant=No" method="post" enctype="multipart/form-data">
-        {{ govukFileUpload({
+       <form
+            action="/document-manager/upload-document?_csrf={{ csrfToken }}&documentCategory={{ docCategory }}&documentType={{ docType }}"
+            method="post"
+            enctype="multipart/form-data">
+            {{ govukFileUpload({
           name: "files[]",
           attributes: {
-            multiple: true,
             accept: "image/jpeg,image/tiff,image/jpg,image/bmp,image/png,image/tif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           },
           label: {
@@ -68,54 +71,48 @@
           },
           classes: "govuk-!-margin-bottom-4"
         }) }}
-        {{ govukButton({
+            {{ govukButton({
           text: upload,
           type: "submit", 
           classes: "govuk-button--secondary govuk-!-margin-bottom-0"
         }) }}
-      </form>
+          </form>
+        </div>
       </div>
-    </div>
-
-    <h2 class="govuk-heading-s{% if userCase.respondentUploadFiles.length==0 %} hidden{% endif %}">{{ uploadFiles }}</h2>
-    <ul id="filesUploadedList" class="govuk-list">
-    <dl class="govuk-summary-list">
-      {% for file in userCase.respondentUploadFiles %}  
+      <h2 class="govuk-heading-s{% if filesUploaded.length==0 %} hidden{% endif %}">{{ uploadFiles }}</h2>
+      <ul id="filesUploadedList" class="govuk-list">
+        <dl class="govuk-summary-list">
+          {% for file in filesUploaded %}
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__value">
-                {{ file.name }} 
+                {{ file.document_filename }}
               </dt>
               <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="/document-manager/deleteDocument/{{file.id}}?_csrf={{ csrfToken }}&documentCategory={{docCategory}}&documentType={{docType}}&isApplicant=No">
-                  {{remove}}</span>
-                </a>
-              </dd>
-            </div>
-          {% endfor %}
-      </dl>
-    </ul> 
-  </div>
-
- <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-              <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                <h3 class="govuk-heading-m">
-                  {{statementOfTruth}}
-                </h3>
-              </legend>
-              <div class="govuk-warning-text">
-                 <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                 <strong class="govuk-warning-text__text">
-                   <span class="govuk-warning-text__assistive">{{warning}}</span>
-                   {{warningText}}
-
-                 </strong>
-               </div>
-              
-
-            </fieldset>
+                <a
+                  class="govuk-link"
+                  href="/document-manager/delete-document/{{ file.id }}?_csrf={{ csrfToken }}&documentCategory={{ docCategory }}&documentType={{ docType }}">
+                  {{ remove }}</span>
+              </a>
+            </dd>
           </div>
-
-{% endblock %}
-
- </div>  
+        {% endfor %}
+      </dl>
+    </ul>
+  </div>
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h3 class="govuk-heading-m">
+          {{ statementOfTruth }}
+        </h3>
+      </legend>
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-warning-text__assistive">{{ warning }}</span>
+          {{ warningText }}
+        </strong>
+      </div>
+    </fieldset>
+  </div>
+{% endblock %}</div>

@@ -52,7 +52,7 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    reasonDocumentCantBeShared: {
+    reasonForDocumentCantBeShared: {
       type: 'textarea',
       labelSize: 's',
       label: l => l.explainWhy,
@@ -76,18 +76,14 @@ export const generateContent: TranslationFn = content => {
   const { docCategory, docType } = content.additionalData!.req.params;
   const { category: caption, type: title } = getDocumentMeta(docCategory, docType, content.language);
 
+  Object.assign(form.link!, {
+    href:
+      caseType === CaseType.C100 ? applyParms(FETCH_CASE_DETAILS, { caseId }) : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
+  });
+
   return {
     ...translations,
-    form: {
-      ...form,
-      link: {
-        ...form.link,
-        href:
-          caseType === CaseType.C100
-            ? applyParms(FETCH_CASE_DETAILS, { caseId })
-            : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
-      },
-    },
+    form,
     caption,
     title,
   };

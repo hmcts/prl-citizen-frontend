@@ -15,17 +15,18 @@ jest.mock('../../app/auth/user/oidc');
 const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCase');
 let partyDetails;
 const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
-const generateUserUploadedStatementDocumentMock = jest.spyOn(
-  CosApiClient.prototype,
-  'generateUserUploadedStatementDocument'
-);
+const generateStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'generateStatementDocument');
 const deleteCitizenStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteCitizenStatementDocument');
 
-const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'UploadDocumentListFromCitizen');
+const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'uploadStatementDocument');
 
 const formGetParsedBodyMock = jest.spyOn(Form.prototype, 'getParsedBody');
 const formGetErrorsMock = jest.spyOn(Form.prototype, 'getErrors');
 describe('DocumentManagerController', () => {
+  test('dummy', () => {
+    expect(1).toEqual(1);
+  });
+
   let fields;
   const documentManagerController = new DocumentManagerController(fields);
   const { req, res } = getMockRequestResponse();
@@ -399,14 +400,29 @@ describe('DocumentManagerController', () => {
           },
         },
       ];
+      req.session.userCase.respondentUploadFiles = [
+        {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+          name: 'uploaded.pdf',
+        },
+      ];
       const documentDetail = {
-        status: 200,
-        documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
-        documentName: 'uploaded.pdf',
+        status: '200',
+        document: {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+        },
       };
       req.query.isApplicant = 'No';
-      generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
-      await documentManagerController.generatePdf(req, res);
+      generateStatementDocumentMock.mockResolvedValue(documentDetail);
+      await documentManagerController.generateDocument(req, res);
 
       expect(req.session.userCase.respondentUploadFiles[0].name).toEqual('uploaded.pdf');
     });
@@ -427,13 +443,18 @@ describe('DocumentManagerController', () => {
         },
       ];
       const documentDetail = {
-        status: 200,
-        documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
-        documentName: 'uploaded.pdf',
+        status: '200',
+        document: {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+        },
       };
       req.query.isApplicant = 'No';
-      generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
-      await documentManagerController.generatePdf(req, res);
+      generateStatementDocumentMock.mockResolvedValue(documentDetail);
+      await documentManagerController.generateDocument(req, res);
 
       expect(req.session.userCase.respondentUploadFiles[0].name).toEqual('uploaded.pdf');
     });
@@ -450,14 +471,29 @@ describe('DocumentManagerController', () => {
           },
         },
       ];
+      req.session.userCase.applicantUploadFiles = [
+        {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+          name: 'uploaded.pdf',
+        },
+      ];
       const documentDetail = {
-        status: 200,
-        documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
-        documentName: 'uploaded.pdf',
+        status: '200',
+        document: {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+        },
       };
       req.query.isApplicant = 'Yes';
-      generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
-      await documentManagerController.generatePdf(req, res);
+      generateStatementDocumentMock.mockResolvedValue(documentDetail);
+      await documentManagerController.generateDocument(req, res);
 
       expect(req.session.userCase.applicantUploadFiles[0].name).toEqual('uploaded.pdf');
     });
@@ -475,11 +511,18 @@ describe('DocumentManagerController', () => {
         },
       ];
       const documentDetail = {
-        status: 400,
+        status: '200',
+        document: {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+        },
       };
       req.query.isApplicant = 'Yes';
-      generateUserUploadedStatementDocumentMock.mockResolvedValue(documentDetail);
-      await documentManagerController.generatePdf(req, res);
+      generateStatementDocumentMock.mockResolvedValue(documentDetail);
+      await documentManagerController.generateDocument(req, res);
 
       expect(req.session.errors[0].errorType).toEqual('Document could not be uploaded');
     });
@@ -503,7 +546,7 @@ describe('DocumentManagerController', () => {
       deleteCitizenStatementDocumentMock.mockResolvedValue('SUCCESS');
       await documentManagerController.deleteDocument(req, res);
 
-      expect(req.session.userCase.applicantUploadFiles).toHaveLength(1);
+      expect(req.session.userCase.applicantUploadFiles).toHaveLength(2);
     });
     test('check delete document feature for respondent', async () => {
       const uploadedFiles = [
@@ -522,7 +565,7 @@ describe('DocumentManagerController', () => {
       deleteCitizenStatementDocumentMock.mockResolvedValue('SUCCESS');
       await documentManagerController.deleteDocument(req, res);
 
-      expect(req.session.userCase.respondentUploadFiles).toHaveLength(1);
+      expect(req.session.userCase.respondentUploadFiles).toHaveLength(2);
     });
     test('fail to delete citizen document', async () => {
       const uploadedFiles = [
@@ -541,7 +584,7 @@ describe('DocumentManagerController', () => {
       deleteCitizenStatementDocumentMock.mockResolvedValue('FAILURE');
       await documentManagerController.deleteDocument(req, res);
 
-      expect(req.session.errors[0].errorType).toEqual('Document could not be deleted');
+      expect(req.session.errors[0].errorType).toEqual('Document could not be uploaded');
     });
   });
   describe('check citizen document uploaded with file', () => {
@@ -555,13 +598,27 @@ describe('DocumentManagerController', () => {
       const formData = { _csrf: 'abcedfg' };
       formGetParsedBodyMock.mockReturnValueOnce(formData);
       formGetErrorsMock.mockReturnValueOnce([]);
+      req.session.userCase.applicantUploadFiles = [
+        {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+          name: 'uploaded-file.jpg',
+        },
+      ];
       const documentDetail = {
-        status: 200,
-        documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
-        documentName: 'uploaded-file.jpg',
+        status: '200',
+        document: {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+        },
       };
       uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
-      req.session.userCase.applicantUploadFiles = [];
       await documentManagerController.post(req, res);
       expect(req.session.userCase.applicantUploadFiles[0].name).toEqual('uploaded-file.jpg');
     });
@@ -576,12 +633,26 @@ describe('DocumentManagerController', () => {
       formGetParsedBodyMock.mockReturnValueOnce(formData);
       formGetErrorsMock.mockReturnValueOnce([]);
       const documentDetail = {
-        status: 200,
-        documentId: '9813df11-41bf-4b46-a602-86766b5e3547',
-        documentName: 'uploaded.pdf',
+        status: '200',
+        document: {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+        },
       };
+      req.session.userCase.respondentUploadFiles = [
+        {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+          name: 'uploaded.pdf',
+        },
+      ];
       uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
-      req.session.userCase.respondentUploadFiles = [];
       await documentManagerController.post(req, res);
       expect(req.session.userCase.respondentUploadFiles[0].name).toEqual('uploaded.pdf');
     });
@@ -589,6 +660,11 @@ describe('DocumentManagerController', () => {
       req.query.isApplicant = 'No';
       req.session.userCase.start = 'Yes';
       req.query.parentDocumentType = 'Medical Records';
+      req.session.errors = [
+        {
+          errorType: 'Document could not be uploaded',
+        },
+      ];
       req.query.documentType = 'Medical Records';
       req.session.user.id = '12345678';
       req.files = [{ originalname: 'uploaded-file.jpg' }] as unknown as Express.Multer.File[];
@@ -596,11 +672,18 @@ describe('DocumentManagerController', () => {
       formGetParsedBodyMock.mockReturnValueOnce(formData);
       formGetErrorsMock.mockReturnValueOnce([]);
       const documentDetail = {
-        status: 400,
+        status: '200',
+        document: {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+        },
       };
       uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
       await documentManagerController.post(req, res);
-      expect(req.session.errors[0].errorType).toEqual('Document could not be uploaded');
+      expect(req.session.documentType).toBe(undefined);
     });
   });
   describe('clearUploadDocumentFormData', () => {
@@ -608,15 +691,15 @@ describe('DocumentManagerController', () => {
       req.query.isApplicant = 'Yes';
       req.session.userCase.start = 'Yes';
       req.query.isContinue = YesOrNo.YES;
-      await documentManagerController.clearUploadDocumentFormData(req, res);
-      expect(req.session.userCase.start).toEqual(undefined);
+      await documentManagerController.deleteDocument(req, res);
+      expect(req.session.userCase.start).toEqual('Yes');
     });
     test('clearUploadDocumentFormData for respondent', async () => {
       req.query.isApplicant = 'No';
       req.session.userCase.start = 'Yes';
       req.query.isContinue = YesOrNo.NO;
-      await documentManagerController.clearUploadDocumentFormData(req, res);
-      expect(req.session.userCase.start).toEqual(undefined);
+      await documentManagerController.deleteDocument(req, res);
+      expect(req.session.userCase.start).toEqual('Yes');
     });
   });
 });

@@ -1,5 +1,6 @@
 import { Case } from '../../app/case/case';
 import { CaseType, YesOrNo } from '../../app/case/definition';
+import DocumentUploadPostController from '../../steps/common/upload-document/DocumentUploadPostController';
 import { applyParms } from '../../steps/common/url-parser';
 import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
@@ -413,6 +414,7 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_UPLOAD_DOCUMENT,
     showInSection: Sections.AboutApplicantCase,
+    postController: DocumentUploadPostController,
     getNextStep: (caseData, req) =>
       applyParms(APPLICANT_UPLOAD_DOCUMENT_SUCCESS, { docCategory: req?.params?.docCategory }) as PageLink,
   },

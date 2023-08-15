@@ -609,7 +609,13 @@ export const SCREENING_QUESTIONS = [
 ];
 export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
 export const LOCAL_API_SESSION = '/api/v1/session';
-export const SAFEGAURD_EXCLUDE_URLS = [C100_URL, DASHBOARD_URL, LOCAL_API_SESSION, PAYMENT_RETURN_URL];
+export const SAFEGAURD_EXCLUDE_URLS = [
+  C100_URL,
+  DASHBOARD_URL,
+  LOCAL_API_SESSION,
+  PAYMENT_RETURN_URL,
+  DOCUMENT_MANAGER,
+];
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
   isNonProd

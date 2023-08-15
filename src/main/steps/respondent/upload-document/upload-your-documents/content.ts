@@ -107,7 +107,7 @@ export const form: FormContent = {
     };
   },
   onlyContinue: {
-    text: l => l.continue,
+    text: l => l.add,
   },
   link: {
     classes: 'govuk-!-margin-left-3',
@@ -133,6 +133,10 @@ export const generateContent: TranslationFn = content => {
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
     caption,
     title,
+    filesUploaded: content.userCase?.respondentUploadFiles?.map(file => ({
+      id: file.document_url.substring(file.document_url.lastIndexOf('/') + 1),
+      ...file,
+    })),
     docCategory,
     docType,
     isDocWitnessOrPosition,
