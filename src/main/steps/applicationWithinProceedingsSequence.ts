@@ -121,7 +121,6 @@ export const applicationWithinProceedingsSequence: Step[] = [
       }) as PageLink,
   },
   {
-
     url: APPLICATION_WITHIN_PROCEEDINGS_URGENT_REQUEST,
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (_userCase, req) =>

@@ -25,7 +25,7 @@ describe('applicationWithinProceedingsSequence', () => {
   });
 
   test('should contain 1 entries in applicationWithinProceedingsSequence 1 screen sequence', () => {
-    expect(applicationWithinProceedingsSequence).toHaveLength(13);
+    expect(applicationWithinProceedingsSequence).toHaveLength(14);
     expect(applicationWithinProceedingsSequence[0].url).toBe(
       '/application-within-proceedings/list-of-applications/:pageNumber'
     );
@@ -118,9 +118,17 @@ describe('applicationWithinProceedingsSequence', () => {
     );
     expect(applicationWithinProceedingsSequence[10].showInSection).toBe('applicationWithinProceedings');
     expect(applicationWithinProceedingsSequence[10].getNextStep({ awp_hasSupportingDocuments: YesOrNo.YES }, req)).toBe(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
     );
     expect(applicationWithinProceedingsSequence[10].getNextStep({ awp_hasSupportingDocuments: YesOrNo.NO }, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
+    );
+
+    expect(applicationWithinProceedingsSequence[11].url).toBe(
+      '/application-within-proceedings/:applicationType/:applicationReason/supporting-documents'
+    );
+    expect(applicationWithinProceedingsSequence[11].showInSection).toBe('applicationWithinProceedings');
+    expect(applicationWithinProceedingsSequence[11].getNextStep(userCase, req)).toBe(
       '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents'
     );
 
