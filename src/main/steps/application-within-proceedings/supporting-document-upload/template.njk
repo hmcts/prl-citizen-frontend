@@ -1,0 +1,41 @@
+{% extends "common/template.njk" %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "../../common/fileupload/macro-v1.njk" import fileUpload with context %}
+
+{% block page_content %}
+  <span class="govuk-caption-l">{{ caption }}</span>
+  {% if title %}
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+  {% endif %}
+
+  <p class="govuk-body">{{ uploadYourSupportingDocuments }}</p>
+  {{ fileUpload({
+      id: "awp-doc-form-upload",
+      name: "awp_application_form",
+      uploadButtonText: fileUploadConfig.uploadFileButtonText,
+      labelText: fileUploadConfig.labelText,
+      hintText: fileUploadConfig.hintText,
+      allowedFileTypes: "image/jpg,image/jpeg,image/bmp,image/png,image/tiff,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      uploadUrl: fileUploadConfig.uploadUrl,
+      uploadedFiles: fileUploadConfig.uploadedFiles,
+      errorMessage: fileUploadConfig.errorMessage,
+      noFilesText: fileUploadConfig.noFilesText,
+      removeFileText: fileUploadConfig.removeFileText,
+      token: csrfToken
+    }) }}
+
+  {% set uploadReqSteps %}
+  <ol class="govuk-list govuk-list--number">
+    {% for item in uploadRequirements %}
+      <li>{{ item | safe}}</li>
+    {% endfor %}
+  </ol>
+  {% endset %}
+
+  {{ govukDetails({
+    summaryText: uploadDescription,
+    html: uploadReqSteps
+  }) }}
+
+{% endblock %}

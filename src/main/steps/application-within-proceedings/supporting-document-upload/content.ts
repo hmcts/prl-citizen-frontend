@@ -4,19 +4,19 @@ import { interpolate } from '../../../steps/common/string-parser';
 import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import {
-  APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
   APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
+  APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD,
 } from '../../../steps/urls';
 import { getApplicationDetails } from '../utils';
 
 export * from './routeGuard';
 
 export const en = {
-  title: 'Upload your application',
-  fileUploadLabel: 'Upload your application form',
-  uploadYourApplication:
-    'Upload your application to the case. If you are uploading a paper copy of the application, make sure this has been scanned in clearly and saved in a suitable format such as PDF.',
-  uploadYourApplicationHint:
+  title: 'Upload your supporting documents',
+  fileUploadLabel: 'Upload documents',
+  uploadYourSupportingDocuments:
+    'If you are uploading a paper copy of the document, make sure this has been scanned in clearly and saved in a suitable format such as PDF.',
+  uploadYourSupportingDocumentsHint:
     'Give each document a file name that makes it clear what it is about. For example position-statement.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
   uploadDescription: 'Take a picture of a document on your phone and upload it',
   uploadRequirements: [
@@ -33,8 +33,8 @@ export const en = {
   errorText: 'Error:',
   noFilesText: 'No files uploaded',
   errors: {
-    awpUploadApplicationForm: {
-      required: 'Upload your {applicationType} application form',
+    awpUploadSupportingDocuments: {
+      required: 'Upload a file',
       fileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
       fileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
     },
@@ -42,11 +42,11 @@ export const en = {
 };
 
 export const cy: typeof en = {
-  title: 'Upload your application (welsh)',
-  fileUploadLabel: 'Upload your application form - welsh',
-  uploadYourApplication:
-    'Upload your application to the case. If you are uploading a paper copy of the application, make sure this has been scanned in clearly and saved in a suitable format such as PDF. (welsh)',
-  uploadYourApplicationHint:
+  title: 'Upload your supporting documents (welsh)',
+  fileUploadLabel: 'Upload documents - welsh',
+  uploadYourSupportingDocuments:
+    'If you are uploading a paper copy of the document, make sure this has been scanned in clearly and saved in a suitable format such as PDF. (welsh)',
+  uploadYourSupportingDocumentsHint:
     'Give each document a file name that makes it clear what it is about. For example position-statement.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX. -  welsh',
   uploadDescription: 'Take a picture of a document on your phone and upload it (welsh)',
   uploadRequirements: [
@@ -63,8 +63,8 @@ export const cy: typeof en = {
   errorText: 'Error: (welsh)',
   noFilesText: 'No files uploaded (welsh)',
   errors: {
-    awpUploadApplicationForm: {
-      required: 'Upload your {applicationType} application form (welsh)',
+    awpUploadSupportingDocuments: {
+      required: 'Upload a file (welsh)',
       fileFormat: "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
       fileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr",
     },
@@ -104,15 +104,15 @@ export const generateContent: TranslationFn = content => {
   );
   translations.errors = {
     ...translations.errors,
-    awpUploadApplicationForm: {
-      ...translations.errors.awpUploadApplicationForm,
-      required: interpolate(translations.errors.awpUploadApplicationForm.required, {
+    awpUploadSupportingDocuments: {
+      ...translations.errors.awpUploadSupportingDocuments,
+      required: interpolate(translations.errors.awpUploadSupportingDocuments.required, {
         applicationType: applicationDetails!.applicationType,
       }),
     },
   };
   const uploadDocError =
-    request.session?.errors?.find(error => error.propertyName === 'awpUploadApplicationForm') ?? null;
+    request.session?.errors?.find(error => error.propertyName === 'awpUploadSupportingDocuments') ?? null;
 
   return {
     ...translations,
@@ -122,22 +122,24 @@ export const generateContent: TranslationFn = content => {
     applicationReason,
     fileUploadConfig: {
       labelText: translations.fileUploadLabel,
-      uploadUrl: applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
+      uploadUrl: applyParms(APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD, {
         applicationType,
         applicationReason,
       }),
-      hintText: translations.uploadYourApplicationHint,
+      hintText: translations.uploadYourSupportingDocumentsHint,
       noFilesText: translations.noFilesText,
       removeFileText: translations.removeFileText,
       uploadFileButtonText: translations.uploadButton,
-      errorMessage: uploadDocError ? translations.errors.awpUploadApplicationForm?.[uploadDocError.errorType] : null,
+      errorMessage: uploadDocError
+        ? translations.errors.awpUploadSupportingDocuments?.[uploadDocError.errorType]
+        : null,
       uploadedFiles:
-        caseData?.awp_uploadedApplicationForms?.map(applicationForm => ({
-          filename: applicationForm.filename,
-          fileremoveUrl: applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
+        caseData?.awp_uploadedSupportingDocuments?.map(supportingDocument => ({
+          filename: supportingDocument.filename,
+          fileremoveUrl: applyParms(APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD, {
             applicationType,
             applicationReason,
-            removeId: applicationForm.id,
+            removeId: supportingDocument.id,
           }),
         })) ?? [],
     },

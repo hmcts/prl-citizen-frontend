@@ -10,6 +10,7 @@ import {
   APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
   APPLICATION_WITHIN_PROCEEDINGS_INFORM_OTHER_PARTIES,
   APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS,
+  APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD,
   APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
   PageLink,
 } from '../../steps/urls';
@@ -133,7 +134,7 @@ class ApplicationWithinProceedingsNavigationController {
             applicationReason,
           }) as PageLink);
 
-    const yesNextStep = applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
+    const yesNextStep = applyParms(APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD, {
       applicationType,
       applicationReason,
     }) as PageLink;

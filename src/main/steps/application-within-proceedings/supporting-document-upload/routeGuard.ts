@@ -11,8 +11,8 @@ export const routeGuard = {
     if (removeId) {
       let documentToDelete;
 
-      if (req.session.userCase.awp_uploadedApplicationForms) {
-        documentToDelete = req.session.userCase.awp_uploadedApplicationForms.find(
+      if (req.session.userCase.awp_uploadedSupportingDocuments) {
+        documentToDelete = req.session.userCase.awp_uploadedSupportingDocuments.find(
           document => document.url.split('/')[document.url.split('/').length - 1] === removeId
         );
       }
@@ -27,9 +27,10 @@ export const routeGuard = {
           return next();
         }
 
-        req.session.userCase.awp_uploadedApplicationForms = req.session.userCase?.awp_uploadedApplicationForms?.filter(
-          application => application.url.split('/')[application.url.split('/').length - 1] !== removeId
-        );
+        req.session.userCase.awp_uploadedSupportingDocuments =
+          req.session.userCase?.awp_uploadedSupportingDocuments?.filter(
+            application => application.url.split('/')[application.url.split('/').length - 1] !== removeId
+          );
 
         return req.session.save(next);
       }

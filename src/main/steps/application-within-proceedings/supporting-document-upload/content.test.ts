@@ -6,14 +6,12 @@ import { CommonContent, generatePageContent } from '../../common/common.content'
 
 import { generateContent } from './content';
 
-const applicationType = 'C2';
-
 const en = {
-  title: 'Upload your application',
-  fileUploadLabel: 'Upload your application form',
-  uploadYourApplication:
-    'Upload your application to the case. If you are uploading a paper copy of the application, make sure this has been scanned in clearly and saved in a suitable format such as PDF.',
-  uploadYourApplicationHint:
+  title: 'Upload your supporting documents',
+  fileUploadLabel: 'Upload documents',
+  uploadYourSupportingDocuments:
+    'If you are uploading a paper copy of the document, make sure this has been scanned in clearly and saved in a suitable format such as PDF.',
+  uploadYourSupportingDocumentsHint:
     'Give each document a file name that makes it clear what it is about. For example position-statement.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
   uploadDescription: 'Take a picture of a document on your phone and upload it',
   uploadRequirements: [
@@ -30,8 +28,8 @@ const en = {
   errorText: 'Error:',
   noFilesText: 'No files uploaded',
   errors: {
-    awpUploadApplicationForm: {
-      required: `Upload your ${applicationType} application form`,
+    awpUploadSupportingDocuments: {
+      required: 'Upload a file',
       fileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
       fileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
     },
@@ -39,11 +37,11 @@ const en = {
 };
 
 const cy: typeof en = {
-  title: 'Upload your application (welsh)',
-  fileUploadLabel: 'Upload your application form - welsh',
-  uploadYourApplication:
-    'Upload your application to the case. If you are uploading a paper copy of the application, make sure this has been scanned in clearly and saved in a suitable format such as PDF. (welsh)',
-  uploadYourApplicationHint:
+  title: 'Upload your supporting documents (welsh)',
+  fileUploadLabel: 'Upload documents - welsh',
+  uploadYourSupportingDocuments:
+    'If you are uploading a paper copy of the document, make sure this has been scanned in clearly and saved in a suitable format such as PDF. (welsh)',
+  uploadYourSupportingDocumentsHint:
     'Give each document a file name that makes it clear what it is about. For example position-statement.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX. -  welsh',
   uploadDescription: 'Take a picture of a document on your phone and upload it (welsh)',
   uploadRequirements: [
@@ -60,8 +58,8 @@ const cy: typeof en = {
   errorText: 'Error: (welsh)',
   noFilesText: 'No files uploaded (welsh)',
   errors: {
-    awpUploadApplicationForm: {
-      required: `Upload your ${applicationType} application form (welsh)`,
+    awpUploadSupportingDocuments: {
+      required: 'Upload a file (welsh)',
       fileFormat: "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
       fileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr",
     },
@@ -84,7 +82,7 @@ describe('help with fees content', () => {
             caseInvites: [],
             respondents: '',
             respondentsFL401: '',
-            awp_uploadedApplicationForms: [
+            awp_uploadedSupportingDocuments: [
               {
                 id: '544ff7c4-5e3e-4f61-9d47-423321208d77',
                 url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/544ff7c4-5e3e-4f61-9d47-423321208d77',
@@ -135,9 +133,10 @@ describe('help with fees content', () => {
   test('should return correct content when errors present', () => {
     commonContent.additionalData!.req.session = {
       ...commonContent.additionalData?.req.session,
-      errors: [{ propertyName: 'awpUploadApplicationForm', errorType: 'required' }],
+      errors: [{ propertyName: 'awpUploadSupportingDocuments', errorType: 'required' }],
     };
-    languageAssertions('en', en, () => generateContent(commonContent));
+    const fileUploadContent = generateContent(commonContent).fileUploadConfig as testFileUploadConfig;
+    expect(fileUploadContent.errorMessage).toBe(en.errors.awpUploadSupportingDocuments.required);
   });
 
   // eslint-disable-next-line jest/expect-expect
@@ -146,9 +145,21 @@ describe('help with fees content', () => {
       ...commonContent.additionalData?.req.session,
       userCase: {
         ...commonContent.additionalData?.req.session.userCase,
-        awp_uploadedApplicationForms: undefined,
+        awp_uploadedSupportingDocuments: undefined,
       },
     };
-    languageAssertions('en', en, () => generateContent(commonContent));
+    const fileUploadContent = generateContent(commonContent).fileUploadConfig as testFileUploadConfig;
+    expect(fileUploadContent.uploadedFiles).toEqual([]);
   });
 });
+
+interface testFileUploadConfig {
+  labelText: string;
+  uploadUrl: string;
+  hintText: string;
+  noFilesText: string;
+  removeFileText: string;
+  uploadFileButtonText: string;
+  errorMessage: string | null;
+  uploadedFiles: [];
+}
