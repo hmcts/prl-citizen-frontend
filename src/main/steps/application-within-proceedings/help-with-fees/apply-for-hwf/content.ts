@@ -1,10 +1,11 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { getApplicationDetails } from '../../../../steps/application-within-proceedings/utils';
+import {
+  AWP_APPLICATION_LIST_FIRST_PAGE,
+  getApplicationDetails,
+} from '../../../../steps/application-within-proceedings/utils';
 import { interpolate } from '../../../../steps/common/string-parser';
-import { applyParms } from '../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
-import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS } from '../../../../steps/urls';
 
 export const en = {
   title: 'Apply for help with fees',
@@ -48,7 +49,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
+    href: AWP_APPLICATION_LIST_FIRST_PAGE,
     text: l => l.cancel,
   },
 };

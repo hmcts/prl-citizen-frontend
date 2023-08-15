@@ -11,8 +11,8 @@ export const routeGuard = {
     if (removeId) {
       let documentToDelete;
 
-      if (req.session.userCase.awp_uploadedSupportingDocuments) {
-        documentToDelete = req.session.userCase.awp_uploadedSupportingDocuments.find(
+      if (req.session.userCase.supportingDocuments) {
+        documentToDelete = req.session.userCase.supportingDocuments.find(
           document => document.url.split('/')[document.url.split('/').length - 1] === removeId
         );
       }
@@ -23,14 +23,12 @@ export const routeGuard = {
           const userDetails = req?.session?.user;
           await caseApi(userDetails, req.locals.logger).deleteDocument(removeId.toString());
         } catch (error) {
-          res.json(error);
           return next();
         }
 
-        req.session.userCase.awp_uploadedSupportingDocuments =
-          req.session.userCase?.awp_uploadedSupportingDocuments?.filter(
-            application => application.url.split('/')[application.url.split('/').length - 1] !== removeId
-          );
+        req.session.userCase.supportingDocuments = req.session.userCase?.supportingDocuments?.filter(
+          application => application.url.split('/')[application.url.split('/').length - 1] !== removeId
+        );
 
         return req.session.save(next);
       }

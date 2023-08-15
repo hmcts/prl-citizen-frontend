@@ -3,11 +3,8 @@ import { FormContent } from '../../../app/form/Form';
 import { interpolate } from '../../../steps/common/string-parser';
 import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import {
-  APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
-  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
-} from '../../../steps/urls';
-import { getApplicationDetails } from '../utils';
+import { APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../steps/urls';
+import { AWP_APPLICATION_LIST_FIRST_PAGE, getApplicationDetails } from '../utils';
 
 export * from './routeGuard';
 
@@ -83,7 +80,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
+    href: AWP_APPLICATION_LIST_FIRST_PAGE,
     text: l => l.cancel,
   },
 };

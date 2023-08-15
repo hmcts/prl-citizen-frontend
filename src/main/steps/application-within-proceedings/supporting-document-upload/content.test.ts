@@ -82,7 +82,7 @@ describe('help with fees content', () => {
             caseInvites: [],
             respondents: '',
             respondentsFL401: '',
-            awp_uploadedSupportingDocuments: [
+            supportingDocuments: [
               {
                 id: '544ff7c4-5e3e-4f61-9d47-423321208d77',
                 url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/544ff7c4-5e3e-4f61-9d47-423321208d77',
@@ -145,7 +145,7 @@ describe('help with fees content', () => {
       ...commonContent.additionalData?.req.session,
       userCase: {
         ...commonContent.additionalData?.req.session.userCase,
-        awp_uploadedSupportingDocuments: undefined,
+        supportingDocuments: undefined,
       },
     };
     const fileUploadContent = generateContent(commonContent).fileUploadConfig as testFileUploadConfig;

@@ -111,7 +111,6 @@ describe('AWP document upload RouteGuard', () => {
     const res = mockResponse();
     const next = jest.fn();
     await routeGuard.get(req, res, next);
-    expect(res.json).toHaveBeenCalled();
     expect(next).toHaveBeenCalled();
     expect(req.session.userCase.awp_uploadedApplicationForms).toEqual([
       {

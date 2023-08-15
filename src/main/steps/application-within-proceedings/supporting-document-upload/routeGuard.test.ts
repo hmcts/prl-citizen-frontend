@@ -40,7 +40,7 @@ describe('AWP supporting document upload RouteGuard', () => {
         ...req.session,
         userCase: {
           ...req.session.userCase,
-          awp_uploadedSupportingDocuments: [
+          supportingDocuments: [
             {
               id: '544ff7c4-5e3e-4f61-9d47-423321208d77',
               url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/544ff7c4-5e3e-4f61-9d47-423321208d77',
@@ -70,7 +70,7 @@ describe('AWP supporting document upload RouteGuard', () => {
     const res = mockResponse();
     const next = jest.fn();
     await routeGuard.get(req, res, next);
-    expect(req.session.userCase.awp_uploadedSupportingDocuments).toEqual([]);
+    expect(req.session.userCase.supportingDocuments).toEqual([]);
   });
 
   test('should catch error if problem with deleting document', async () => {
@@ -80,7 +80,7 @@ describe('AWP supporting document upload RouteGuard', () => {
         ...req.session,
         userCase: {
           ...req.session.userCase,
-          awp_uploadedSupportingDocuments: [
+          supportingDocuments: [
             {
               id: '544ff7c4-5e3e-4f61-9d47-423321208d77',
               url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/544ff7c4-5e3e-4f61-9d47-423321208d77',
@@ -111,9 +111,8 @@ describe('AWP supporting document upload RouteGuard', () => {
     const res = mockResponse();
     const next = jest.fn();
     await routeGuard.get(req, res, next);
-    expect(res.json).toHaveBeenCalled();
     expect(next).toHaveBeenCalled();
-    expect(req.session.userCase.awp_uploadedSupportingDocuments).toEqual([
+    expect(req.session.userCase.supportingDocuments).toEqual([
       {
         id: '544ff7c4-5e3e-4f61-9d47-423321208d77',
         url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/544ff7c4-5e3e-4f61-9d47-423321208d77',

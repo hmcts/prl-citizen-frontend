@@ -1,7 +1,6 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { applyParms } from '../../../steps/common/url-parser';
-import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS } from '../../../steps/urls';
+import { AWP_APPLICATION_LIST_FIRST_PAGE } from '../utils';
 
 const en = {
   title: 'Pay and submit',
@@ -37,7 +36,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
+    href: AWP_APPLICATION_LIST_FIRST_PAGE,
     text: l => l.cancel,
   },
 };

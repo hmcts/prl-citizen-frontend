@@ -23,7 +23,6 @@ export const routeGuard = {
           const userDetails = req?.session?.user;
           await caseApi(userDetails, req.locals.logger).deleteDocument(removeId.toString());
         } catch (error) {
-          res.json(error);
           return next();
         }
 

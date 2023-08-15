@@ -2,10 +2,8 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS } from '../../../steps/urls';
-import { getApplicationDetails } from '../utils';
+import { AWP_APPLICATION_LIST_FIRST_PAGE, getApplicationDetails } from '../utils';
 
 export const en = {
   title: 'Help with fees',
@@ -71,7 +69,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
+    href: AWP_APPLICATION_LIST_FIRST_PAGE,
     text: l => l.cancel,
   },
 };

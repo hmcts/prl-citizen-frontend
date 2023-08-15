@@ -25,10 +25,8 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
     const isSupportingDocuments = req.route.path === APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD;
     const areFilesUploaded = isSupportingDocuments
-      ? req.session.userCase.awp_uploadedSupportingDocuments &&
-        req.session.userCase.awp_uploadedSupportingDocuments.length > 0
-      : req.session.userCase.awp_uploadedApplicationForms &&
-        req.session.userCase.awp_uploadedApplicationForms.length > 0;
+      ? (req.session.userCase.supportingDocuments?.length ?? 0) > 0
+      : (req.session.userCase.awp_uploadedApplicationForms?.length ?? 0) > 0;
 
     if (req.body.onlyContinue && areFilesUploaded) {
       super.redirect(req, res);
@@ -69,8 +67,8 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
   private addDocsToSession(isSupportingDocuments, req, documentInfo) {
     if (isSupportingDocuments) {
-      req.session.userCase.awp_uploadedSupportingDocuments = this.addDocument(
-        req.session.userCase.awp_uploadedSupportingDocuments,
+      req.session.userCase.supportingDocuments = this.addDocument(
+        req.session.userCase.supportingDocuments,
         documentInfo
       );
     } else {
