@@ -183,9 +183,10 @@ describe('testcase for tasklist', () => {
 
       hearingCollection: [
         {
-          next: {
-            courtName: 'Swansea',
-          },
+          hearingType: 'ABA5-FOF',
+          hearingTypeValue: 'Finding of Fact',
+          nextHearingDate: '2023-07-13T10:55:47.329703',
+          urgentFlag: true,
         },
       ],
     };

@@ -6,6 +6,7 @@ import { Sections, Step } from './constants';
 import {
   APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
   APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED,
+  APPLICATION_WITHIN_PROCEEDINGS_DELAY_CANCEL_SELECT_HEARING,
   APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
   APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
   APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE,
@@ -57,6 +58,15 @@ export const applicationWithinProceedingsSequence: Step[] = [
       }) as PageLink,
   },
   {
+    url: APPLICATION_WITHIN_PROCEEDINGS_DELAY_CANCEL_SELECT_HEARING,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (caseData, req) =>
+      applyParms(APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST, {
+        applicationType: req?.params.applicationType as AWPApplicationType,
+        applicationReason: req?.params.applicationReason as AWPApplicationReason,
+      }) as PageLink,
+  },
+  {
     url: APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
@@ -78,8 +88,8 @@ export const applicationWithinProceedingsSequence: Step[] = [
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES,
     showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: (userCase, req) =>
-      userCase.awp_need_hwf === YesOrNo.YES
+    getNextStep: (caseData, req) =>
+      caseData.awp_need_hwf === YesOrNo.YES
         ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_REFERENCE, {
             applicationType: req?.params.applicationType as AWPApplicationType,
             applicationReason: req?.params.applicationReason as AWPApplicationReason,
@@ -92,8 +102,8 @@ export const applicationWithinProceedingsSequence: Step[] = [
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_REFERENCE,
     showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: (userCase, req) =>
-      userCase.awp_have_hwfReference === YesOrNo.NO
+    getNextStep: (caseData, req) =>
+      caseData.awp_have_hwfReference === YesOrNo.NO
         ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_APPLY_FOR_HWF, {
             applicationType: req?.params.applicationType as AWPApplicationType,
             applicationReason: req?.params.applicationReason as AWPApplicationReason,
@@ -106,7 +116,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_APPLY_FOR_HWF,
     showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: (_userCase, req) =>
+    getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_HELP_WITH_FEES_REFERENCE, {
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
@@ -171,5 +181,10 @@ export const applicationWithinProceedingsSequence: Step[] = [
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
+  },
+  {
+    url: APPLICATION_WITHIN_PROCEEDINGS_DELAY_CANCEL_SELECT_HEARING,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: () => '/',
   },
 ];

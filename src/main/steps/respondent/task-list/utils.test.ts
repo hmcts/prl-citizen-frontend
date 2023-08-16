@@ -244,24 +244,16 @@ test('should return correct status of court hearings', () => {
       ...mockUserCase,
       hearingCollection: [
         {
-          prev: [
-            {
-              date: 'string',
-              time: 'string',
-              typeOfHearing: 'string',
-              courtName: 'string',
-              courtAddress: 'string',
-              hearingOutcome: 'string',
-            },
-          ],
-          next: {
-            date: 'string',
-            time: 'string',
-            typeOfHearing: 'string',
-            courtName: 'string',
-            courtAddress: 'string',
-            hearingOutcome: 'string',
-          },
+          hearingType: 'ABA5-FOF',
+          hearingTypeValue: 'Finding of Fact',
+          nextHearingDate: '2023-07-13T10:55:47.329703',
+          urgentFlag: true,
+        },
+        {
+          hearingType: 'ABA5-FOF',
+          hearingTypeValue: 'Finding of Fact',
+          nextHearingDate: '2023-07-14T10:55:47.329703',
+          urgentFlag: true,
         },
       ],
     })

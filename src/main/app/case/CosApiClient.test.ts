@@ -335,16 +335,33 @@ describe('CosApiClientWithError', () => {
 
 describe('RetrieveCaseHearingsByCaseId', () => {
   test('retrieveCaseHearingsByCaseId', async () => {
-    const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
     const userCase: CaseWithId = {
       id: '123445566',
       state: State.AWAITING_SUBMISSION_TO_HMCTS,
     };
 
-    const response = await client.retrieveCaseHearingsByCaseId(userCase, req.session.user);
+    const response = {
+      id: '200',
+      state: 'SUCCESS',
+      data: [
+        {
+          caseData: { id: '123445566' },
+          stateName: 'Draft',
+        },
+      ],
+    };
+    mockedAxios.post.mockReturnValueOnce(response as unknown as Promise<CaseWithId>);
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
 
-    expect(response.state).toEqual(State.AWAITING_SUBMISSION_TO_HMCTS);
+    const actual = await client.retrieveCaseHearingsByCaseId(userCase.id, req.session.user);
+
+    expect(actual).toEqual([
+      {
+        caseData: { id: '123445566' },
+        stateName: 'Draft',
+      },
+    ]);
   });
 
   test('retrieveCaseHearingsByCaseId_Error', async () => {
@@ -357,7 +374,7 @@ describe('RetrieveCaseHearingsByCaseId', () => {
     req.session.user = {};
     let flag = true;
     try {
-      await client.retrieveCaseHearingsByCaseId(userCase, req.session.user);
+      await client.retrieveCaseHearingsByCaseId(userCase.id, req.session.user);
     } catch {
       flag = false;
     }
