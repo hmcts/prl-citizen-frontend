@@ -304,7 +304,7 @@ export class CosApiClient {
   ): Promise<AxiosResponse> {
     try {
       data.applicantCaseName = 'Tom Jerry - updated';
-      const eventId = 'linkCase';
+      const eventId = CaseEvent.PARTY_PERSONAL_DETAILS;
       const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
