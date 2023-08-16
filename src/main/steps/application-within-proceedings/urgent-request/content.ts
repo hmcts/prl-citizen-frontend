@@ -5,36 +5,41 @@ import { isFieldFilledIn } from '../../../app/form/validation';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { APPLICATION_SIGNPOSTING_URL, getApplicationDetails } from '../utils';
 
-export const en = {
-  title: 'Help with fees',
-  applicationCost: 'The cost of this application is ',
-  checkGuidance:
-    'You can check the help with fees guidance on <a href="https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a" class="govuk-link" rel="external" target="_blank">GOV.UK (opens in a new tab)</a> to find out if you are eligible for support.',
-  usingHelpWithFees: 'Will you be using help with fees to pay for this application?',
+const en = {
+  title: 'Is there a reason why your request needs to be considered in the next five days?',
+  serviceName: 'Child arrangements and family injunction',
+  reasonText: 'Give a reason why the court should consider your request urgently',
+  hintText: 'For example, if there is an upcoming hearing or deadline set by the court.',
   yes: 'Yes',
   no: 'No',
   onlyContinue: 'Continue',
   cancel: 'Cancel',
   errors: {
-    awp_need_hwf: {
-      required: 'Select whether you will be using help with fees for this application',
+    awp_isThereReasonForUrgentRequest: {
+      required: 'Select whether there is a reason why your request needs to be considered in the next five days',
+    },
+    awp_urgentRequestReason: {
+      required: 'Enter the reason why the court should consider this application as a matter of urgency',
     },
   },
 };
 
-export const cy: typeof en = {
-  title: 'Help with fees (welsh)',
-  applicationCost: 'The cost of this application is (welsh)',
-  checkGuidance:
-    'You can check the help with fees guidance on <a href="https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees/how-to-apply-for-help-with-fees-ex160a" class="govuk-link" rel="external" target="_blank">GOV.UK (opens in a new tab)</a> to find out if you are eligible for support. (welsh)',
-  usingHelpWithFees: 'Will you be using help with fees to pay for this application? (welsh)',
+const cy: typeof en = {
+  title: 'Is there a reason why your request needs to be considered in the next five days? (welsh)',
+  serviceName: 'Child arrangements and family injunction',
+  reasonText: 'Give a reason why the court should consider your request urgently (welsh)',
+  hintText: 'For example, if there is an upcoming hearing or deadline set by the court. (welsh)',
   yes: 'Yes (welsh)',
   no: 'No (welsh)',
   onlyContinue: 'Parhau',
   cancel: 'Canslo',
   errors: {
-    awp_need_hwf: {
-      required: 'Select whether you will be using help with fees for this application (welsh)',
+    awp_isThereReasonForUrgentRequest: {
+      required:
+        'Select whether there is a reason why your request needs to be considered in the next five days (welsh)',
+    },
+    awp_urgentRequestReason: {
+      required: 'Enter the reason why the court should consider this application as a matter of urgency (welsh)',
     },
   },
 };
@@ -46,15 +51,22 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    awp_need_hwf: {
+    awp_isThereReasonForUrgentRequest: {
       type: 'radios',
-      classes: 'govuk-radios--inline',
-      label: l => l.usingHelpWithFees,
-      labelSize: 's',
+      classes: 'govuk-radios',
       values: [
         {
           label: l => l.yes,
           value: YesOrNo.YES,
+          subFields: {
+            awp_urgentRequestReason: {
+              type: 'textarea',
+              label: l => l.reasonText,
+              labelSize: null,
+              hint: l => l.hintText,
+              validator: isFieldFilledIn,
+            },
+          },
         },
         {
           label: l => l.no,
@@ -93,7 +105,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     form,
-    applicationFee: applicationDetails?.applicationFee,
     caption: applicationDetails?.reasonText,
   };
 };

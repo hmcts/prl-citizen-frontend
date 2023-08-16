@@ -18,6 +18,7 @@ import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
+import UploadDocumentController from './steps/application-within-proceedings/document-upload/postController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
 import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
@@ -125,6 +126,7 @@ import {
   APPLICANT_TASKLIST_CONTACT_POST,
   RESPONSE_TO_CA,
   AOH_TO_CA,
+  APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -272,6 +274,10 @@ export class Routes {
         app.post(
           `${DOCUMENT_MANAGER}/clearUploadDocumentFormData`,
           errorHandler(documentManagerController.clearUploadDocumentFormData)
+        );
+        app.post(
+          APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD,
+          errorHandler(new UploadDocumentController(step.form.fields).post)
         );
         app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
         app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));

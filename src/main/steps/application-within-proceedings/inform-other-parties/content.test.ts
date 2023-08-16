@@ -117,5 +117,6 @@ describe('help with fees content', () => {
 
   test('should contain cancel link', () => {
     expect(form?.link?.text(generatePageContent({ language: 'en' }))).toBe(en.cancel);
+    expect(form?.link?.href).toBe('/application-within-proceedings/list-of-applications/1');
   });
 });

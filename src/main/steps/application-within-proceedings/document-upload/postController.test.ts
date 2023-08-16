@@ -39,11 +39,11 @@ describe('Document upload controller', () => {
         userCase: {
           awp_uploadedApplicationForms: [
             {
-              id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
-              url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
-              filename: 'file_example_TIFF_1MB.tiff',
+              id: 'c9f56483-6e2d-43ce-9de8-72661755b87c2',
+              url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2',
+              filename: 'file_example_TIFF_1MB_V1.tiff',
               binaryUrl:
-                'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2/binary',
             },
           ],
         },
@@ -52,6 +52,7 @@ describe('Document upload controller', () => {
     req.files = {
       awp_application_form: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
     };
+    req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
     const res = mockResponse();
 
     mockedAxios.post.mockImplementation(url => {
@@ -79,6 +80,22 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith(
       '/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
     );
+    expect(req.session.userCase.awp_uploadedApplicationForms).toStrictEqual([
+      {
+        id: 'c9f56483-6e2d-43ce-9de8-72661755b87c2',
+        url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2',
+        filename: 'file_example_TIFF_1MB_V1.tiff',
+        binaryUrl:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2/binary',
+      },
+      {
+        id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+        url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+        filename: 'file_example_TIFF_1MB.tiff',
+        binaryUrl:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+      },
+    ]);
   });
 
   test('Should validate, upload and redirect when awp_uploadedApplicationForms is undefined', async () => {
@@ -103,6 +120,8 @@ describe('Document upload controller', () => {
     req.files = {
       awp_application_form: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
     };
+    req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+
     const res = mockResponse();
 
     mockedAxios.post.mockImplementation(url => {
@@ -131,6 +150,151 @@ describe('Document upload controller', () => {
       '/application-within-proceedings/C2/delay-or-cancel-hearing-date/document-upload'
     );
     expect(req.session.userCase.awp_uploadedApplicationForms).toEqual([
+      {
+        id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+        url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+        filename: 'file_example_TIFF_1MB.tiff',
+        binaryUrl:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+      },
+    ]);
+  });
+
+  test('Should validate file, upload it and redirect for supporting documents', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({
+      params: {
+        applicationType: 'C2',
+        applicationReason: 'delay-or-cancel-hearing-date',
+      },
+      session: {
+        userCase: {
+          awp_supportingDocuments: [
+            {
+              id: 'c9f56483-6e2d-43ce-9de8-72661755b87c2',
+              url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2',
+              filename: 'file_example_TIFF_1MB_V1.tiff',
+              binaryUrl:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2/binary',
+            },
+          ],
+        },
+      },
+    });
+    req.files = {
+      awp_application_form: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+    };
+    req.route.path =
+      '/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
+    const res = mockResponse();
+
+    mockedAxios.post.mockImplementation(url => {
+      switch (url) {
+        case '/upload-citizen-document':
+          return Promise.resolve({
+            data: {
+              status: 'Success',
+              document: {
+                document_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+                document_filename: 'file_example_TIFF_1MB.tiff',
+                document_binary_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+              },
+            },
+          });
+        default:
+          return Promise.reject(new Error('not found'));
+      }
+    });
+
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-document-upload'
+    );
+    expect(req.session.userCase.awp_supportingDocuments).toStrictEqual([
+      {
+        id: 'c9f56483-6e2d-43ce-9de8-72661755b87c2',
+        url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2',
+        filename: 'file_example_TIFF_1MB_V1.tiff',
+        binaryUrl:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2/binary',
+      },
+      {
+        id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+        url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+        filename: 'file_example_TIFF_1MB.tiff',
+        binaryUrl:
+          'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+      },
+    ]);
+  });
+
+  test('Should validate, upload and redirect when awp_uploadedApplicationForms is undefined for supporting documents', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({
+      params: {
+        applicationType: 'C2',
+        applicationReason: 'delay-or-cancel-hearing-date',
+      },
+    });
+    req.files = {
+      awp_application_form: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+    };
+    req.route.path =
+      '/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
+
+    const res = mockResponse();
+
+    mockedAxios.post.mockImplementation(url => {
+      switch (url) {
+        case '/upload-citizen-document':
+          return Promise.resolve({
+            data: {
+              status: 'Success',
+              document: {
+                document_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+                document_filename: 'file_example_TIFF_1MB.tiff',
+                document_binary_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+              },
+            },
+          });
+        default:
+          return Promise.reject(new Error('not found'));
+      }
+    });
+
+    await controller.post(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-document-upload'
+    );
+    expect(req.session.userCase.awp_supportingDocuments).toEqual([
       {
         id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
         url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
@@ -174,6 +338,7 @@ describe('Document upload controller', () => {
         },
       },
     });
+    req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
     const res = mockResponse();
 
     await controller.post(req, res);
@@ -222,6 +387,7 @@ describe('Document upload controller', () => {
         },
       },
     });
+    req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
     req.files = { awp_application_form: { name: 'test.spf', size: '812300', data: '', mimetype: 'text' } };
     const res = mockResponse();
 
@@ -274,6 +440,7 @@ describe('Document upload controller', () => {
     req.files = {
       awp_application_form: { name: 'file_example_TIFF.tiff', size: '999999999', data: '', mimetype: 'text' },
     };
+    req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
     const res = mockResponse();
 
     await controller.post(req, res);
@@ -289,7 +456,161 @@ describe('Document upload controller', () => {
     expect(req.session.errors).toEqual(errors);
   });
 
-  test('should redirect to correct page when continue pressed and file uploaded', async () => {
+  test('Should throw error if files undefined for supporting documents', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const errors = [{ errorType: 'required', propertyName: 'awpUploadSupportingDocuments' }];
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({
+      params: {
+        applicationType: 'C2',
+        applicationReason: 'delay-or-cancel-hearing-date',
+      },
+      session: {
+        userCase: {
+          awp_uploadedApplicationForms: [
+            {
+              id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+              url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+              filename: 'file_example_TIFF_1MB.tiff',
+              binaryUrl:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+            },
+          ],
+        },
+      },
+    });
+    req.route.path =
+      '/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
+    const res = mockResponse();
+
+    await controller.post(req, res);
+
+    try {
+      await controller.post(req, res);
+    } catch (err) {
+      //eslint-disable-next-line jest/no-conditional-expect
+      expect(err).toBe('MOCK_ERROR');
+    }
+
+    expect(res.redirect).toHaveBeenCalledWith('/request');
+    expect(req.session.errors).toEqual(errors);
+  });
+
+  test('Should throw error if invalid file format for supporting documents', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const errors = [{ errorType: 'fileFormat', propertyName: 'awpUploadSupportingDocuments' }];
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({
+      params: {
+        applicationType: 'C2',
+        applicationReason: 'delay-or-cancel-hearing-date',
+      },
+      session: {
+        userCase: {
+          awp_uploadedApplicationForms: [
+            {
+              id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+              url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+              filename: 'file_example_TIFF_1MB.tiff',
+              binaryUrl:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+            },
+          ],
+        },
+      },
+    });
+    req.route.path =
+      '/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
+    req.files = { awp_application_form: { name: 'test.spf', size: '812300', data: '', mimetype: 'text' } };
+    const res = mockResponse();
+
+    await controller.post(req, res);
+
+    try {
+      await controller.post(req, res);
+    } catch (err) {
+      //eslint-disable-next-line jest/no-conditional-expect
+      expect(err).toBe('MOCK_ERROR');
+    }
+
+    expect(res.redirect).toHaveBeenCalledWith('/request');
+    expect(req.session.errors).toEqual(errors);
+  });
+
+  test('Should throw error if invalid file size for supporting documents', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+    const errors = [{ errorType: 'fileSize', propertyName: 'awpUploadSupportingDocuments' }];
+    const controller = new UploadDocumentController(mockForm.fields);
+
+    const req = mockRequest({
+      params: {
+        applicationType: 'C2',
+        applicationReason: 'delay-or-cancel-hearing-date',
+      },
+      session: {
+        userCase: {
+          awp_uploadedApplicationForms: [
+            {
+              id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+              url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+              filename: 'file_example_TIFF.tiff',
+              binaryUrl:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+            },
+          ],
+        },
+      },
+    });
+    req.files = {
+      awp_application_form: { name: 'file_example_TIFF.tiff', size: '999999999', data: '', mimetype: 'text' },
+    };
+    req.route.path =
+      '/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
+    const res = mockResponse();
+
+    await controller.post(req, res);
+
+    try {
+      await controller.post(req, res);
+    } catch (err) {
+      //eslint-disable-next-line jest/no-conditional-expect
+      expect(err).toBe('MOCK_ERROR');
+    }
+
+    expect(res.redirect).toHaveBeenCalledWith('/request');
+    expect(req.session.errors).toEqual(errors);
+  });
+
+  test('should redirect to correct page when continue pressed and file already uploaded', async () => {
     const mockForm = {
       fields: {
         field: {
@@ -323,11 +644,102 @@ describe('Document upload controller', () => {
         },
       },
     });
+    req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
 
     const controller = new UploadDocumentController(mockForm.fields);
     const res = mockResponse();
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/citizen-home');
+    expect(res.redirect).toHaveBeenCalledWith(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents'
+    );
+  });
+
+  test('should redirect to correct page when continue pressed and file already uploaded for supporting documents', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+
+    const req = mockRequest({
+      body: {
+        onlyContinue: 'true',
+      },
+      params: {
+        applicationType: 'C2',
+        applicationReason: 'delay-or-cancel-hearing-date',
+      },
+      session: {
+        userCase: {
+          awp_supportingDocuments: [
+            {
+              id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+              url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+              filename: 'file_example_TIFF.tiff',
+              binaryUrl:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+            },
+          ],
+        },
+      },
+    });
+    req.route.path =
+      '/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?';
+
+    const controller = new UploadDocumentController(mockForm.fields);
+    const res = mockResponse();
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-document-upload'
+    );
+  });
+
+  test('should catch errors with uploading document', async () => {
+    const mockForm = {
+      fields: {
+        field: {
+          type: 'file',
+        },
+      },
+      submit: {
+        text: l => l.continue,
+      },
+    };
+
+    const req = mockRequest({
+      params: {
+        applicationType: 'C2',
+        applicationReason: 'delay-or-cancel-hearing-date',
+      },
+      session: {
+        userCase: {
+          awp_uploadedApplicationForms: [
+            {
+              id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+              url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+              filename: 'file_example_TIFF.tiff',
+              binaryUrl:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+            },
+          ],
+        },
+        user: undefined,
+      },
+    });
+    req.files = {
+      awp_application_form: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+    };
+    req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
+
+    const controller = new UploadDocumentController(mockForm.fields);
+    const res = mockResponse();
+    await controller.post(req, res);
+    expect(res.json).toHaveBeenCalled();
   });
 
   describe('when there is an error in saving session', () => {
@@ -355,6 +767,7 @@ describe('Document upload controller', () => {
           save: jest.fn(done => done('MOCK_ERROR')),
         },
       });
+      req.route.path = '/application-within-proceedings/:applicationType/:applicationReason/document-upload/:removeId?';
 
       try {
         await controller.post(req, res);

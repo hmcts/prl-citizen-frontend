@@ -17,7 +17,9 @@ import {
   APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
   APPLICATION_WITHIN_PROCEEDINGS_PAY_AND_SUBMIT,
   APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS,
+  APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD,
   APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
+  APPLICATION_WITHIN_PROCEEDINGS_URGENT_REQUEST,
   PageLink,
 } from './urls';
 
@@ -130,6 +132,15 @@ export const applicationWithinProceedingsSequence: Step[] = [
       }) as PageLink,
   },
   {
+    url: APPLICATION_WITHIN_PROCEEDINGS_URGENT_REQUEST,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (_userCase, req) =>
+      applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
+        applicationType: req?.params.applicationType as AWPApplicationType,
+        applicationReason: req?.params.applicationReason as AWPApplicationReason,
+      }) as PageLink,
+  },
+  {
     url: APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENTS,
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
@@ -138,6 +149,20 @@ export const applicationWithinProceedingsSequence: Step[] = [
         caseData,
         req!
       ),
+  },
+  {
+    url: APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (_userCase, req) =>
+      req?.params.applicationReason === AWPApplicationReason.DELAY_CANCEL_HEARING_DATE
+        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD, {
+            applicationType: req?.params.applicationType as AWPApplicationType,
+            applicationReason: req?.params.applicationReason as AWPApplicationReason,
+          }) as PageLink)
+        : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_URGENT_REQUEST, {
+            applicationType: req?.params.applicationType as AWPApplicationType,
+            applicationReason: req?.params.applicationReason as AWPApplicationReason,
+          }) as PageLink),
   },
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_PAY_AND_SUBMIT,
