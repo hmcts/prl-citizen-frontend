@@ -180,7 +180,7 @@ describe('Document upload controller', () => {
       },
       session: {
         userCase: {
-          supportingDocuments: [
+          awp_supportingDocuments: [
             {
               id: 'c9f56483-6e2d-43ce-9de8-72661755b87c2',
               url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2',
@@ -224,7 +224,7 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith(
       '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-document-upload'
     );
-    expect(req.session.userCase.supportingDocuments).toStrictEqual([
+    expect(req.session.userCase.awp_supportingDocuments).toStrictEqual([
       {
         id: 'c9f56483-6e2d-43ce-9de8-72661755b87c2',
         url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2',
@@ -294,7 +294,7 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith(
       '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-document-upload'
     );
-    expect(req.session.userCase.supportingDocuments).toEqual([
+    expect(req.session.userCase.awp_supportingDocuments).toEqual([
       {
         id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
         url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
@@ -676,7 +676,7 @@ describe('Document upload controller', () => {
       },
       session: {
         userCase: {
-          supportingDocuments: [
+          awp_supportingDocuments: [
             {
               id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
               url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',

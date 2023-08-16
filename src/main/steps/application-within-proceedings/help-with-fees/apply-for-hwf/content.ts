@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import {
-  AWP_APPLICATION_LIST_FIRST_PAGE,
+  APPLICATION_SIGNPOSTING_URL,
   getApplicationDetails,
 } from '../../../../steps/application-within-proceedings/utils';
 import { interpolate } from '../../../../steps/common/string-parser';
@@ -49,7 +49,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: AWP_APPLICATION_LIST_FIRST_PAGE,
+    href: APPLICATION_SIGNPOSTING_URL,
     text: l => l.cancel,
   },
 };

@@ -2,10 +2,8 @@ import { YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
-import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS } from '../../../steps/urls';
-import { getApplicationDetails } from '../utils';
+import { APPLICATION_SIGNPOSTING_URL, getApplicationDetails } from '../utils';
 
 const en = {
   title: 'Is there a reason why your request needs to be considered in the next five days?',
@@ -83,7 +81,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
+    href: APPLICATION_SIGNPOSTING_URL,
     text: l => l.cancel,
   },
 };

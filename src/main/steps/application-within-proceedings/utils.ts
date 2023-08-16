@@ -412,6 +412,6 @@ export const isValidApplicationReason = (
   return false;
 };
 
-export const AWP_APPLICATION_LIST_FIRST_PAGE = applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+export const APPLICATION_SIGNPOSTING_URL = applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
   pageNumber: '1',
 });

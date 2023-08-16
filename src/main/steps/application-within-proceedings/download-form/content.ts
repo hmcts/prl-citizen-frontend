@@ -2,7 +2,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { interpolate } from '../../../steps/common/string-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { AWP_APPLICATION_LIST_FIRST_PAGE, getApplicationDetails } from '../utils';
+import { APPLICATION_SIGNPOSTING_URL, getApplicationDetails } from '../utils';
 
 export const en = {
   title: 'Download the form',
@@ -48,7 +48,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: AWP_APPLICATION_LIST_FIRST_PAGE,
+    href: APPLICATION_SIGNPOSTING_URL,
     text: l => l.cancel,
   },
 };

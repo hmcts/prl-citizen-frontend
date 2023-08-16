@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { AWP_APPLICATION_LIST_FIRST_PAGE } from '../utils';
+import { APPLICATION_SIGNPOSTING_URL } from '../utils';
 
 const en = {
   title: 'Pay and submit',
@@ -36,7 +36,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: AWP_APPLICATION_LIST_FIRST_PAGE,
+    href: APPLICATION_SIGNPOSTING_URL,
     text: l => l.cancel,
   },
 };

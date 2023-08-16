@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
-import { AWP_APPLICATION_LIST_FIRST_PAGE, getApplicationDetails } from '../../utils';
+import { APPLICATION_SIGNPOSTING_URL, getApplicationDetails } from '../../utils';
 
 export const en = {
   title: 'Do you have a help with fees reference number?',
@@ -88,7 +88,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: AWP_APPLICATION_LIST_FIRST_PAGE,
+    href: APPLICATION_SIGNPOSTING_URL,
     text: l => l.cancel,
   },
 };
