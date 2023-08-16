@@ -98,7 +98,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
           userCase,
           req
         )
-      ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/upload-your-application');
+      ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/select-hearing');
     });
 
     test('should get correct url for upload application when c2 and not delay cancel hearing date', () => {

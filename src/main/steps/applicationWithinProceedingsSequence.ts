@@ -142,10 +142,11 @@ export const applicationWithinProceedingsSequence: Step[] = [
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (caseData, req) =>
       applyParms(APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED, {
-      applicationType: req?.params.applicationType as AWPApplicationType,
+        applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
-   },
+  },
+  {
     url: APPLICATION_WITHIN_PROCEEDINGS_URGENT_REQUEST,
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (_userCase, req) =>
