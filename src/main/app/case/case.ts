@@ -600,6 +600,7 @@ export interface Case {
   awp_isThereReasonForUrgentRequest?: YesOrNo;
   awp_urgentRequestReason?: string;
   awp_hasSupportingDocuments?: YesOrNo;
+  awp_supportingDocuments?: DocumentInfo[];
 }
 
 export interface CaseWithId extends Case {

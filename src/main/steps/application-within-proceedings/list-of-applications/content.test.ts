@@ -15,7 +15,7 @@ const cy: typeof en = {
   accordionTitle: 'Select a form to make an application in your court proceedings. - welsh',
 };
 
-describe('help with fees content', () => {
+describe('list of applications content', () => {
   let commonContent;
 
   beforeEach(() => {
@@ -1065,6 +1065,110 @@ describe('help with fees content', () => {
         },
         show: true,
         totalPages: 3,
+      },
+      title: 'Make a request to the court about your case',
+    });
+  });
+
+  test('should return first page by default when pageNumber is undefined', () => {
+    commonContent.additionalData!.req.params = { pageNumber: undefined };
+    expect(generateContent(commonContent)).toEqual({
+      accordionTitle: 'Select a form to make an application in your court proceedings.',
+      applications: [
+        {
+          contents: ['You can apply to delay or cancel a hearing by completing and submitting the form C2.'],
+          id: 'delayOrCancelHearing',
+          links: [
+            {
+              text: 'Apply to the court using form C2',
+              url: '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance',
+            },
+          ],
+          sectionTitle: 'Ask to delay or cancel a hearing date',
+        },
+        {
+          contents: [
+            'You can ask for more time to take the actions set out by a court order by completing and submitting the form C2.',
+          ],
+          id: 'requestMoreTime',
+          links: [
+            {
+              text: 'Apply to the court using form C2',
+              url: '/application-within-proceedings/C2/request-more-time/guidance',
+            },
+          ],
+          sectionTitle: 'Request more time to do what is required by a court order',
+        },
+        {
+          contents: [
+            'Changes, extensions or cancelling an order can be requested by completing and submitting the form FL403.',
+          ],
+          id: 'extendCancelNonMolestationOccupationOrder',
+          links: [
+            {
+              text: 'Apply to the court using form FL403',
+              url: '/application-within-proceedings/FL403/change-extend-or-cancel-non-molestation-order-or-occupation-order/guidance',
+            },
+          ],
+          sectionTitle: 'Apply to change, extend or cancel a non-molestation order or occupation order',
+        },
+        {
+          contents: ['You can complete form C2 to request the following:'],
+          id: 'otherRequestsToCourt',
+          links: [
+            {
+              text: 'Ask to submit evidence the court has not requested',
+              url: '/application-within-proceedings/C2/submit-evidence-the-court-has-not-requested/guidance',
+            },
+            {
+              text: 'Ask to share documents with someone else',
+              url: '/application-within-proceedings/C2/share-documents-with-someone-else/guidance',
+            },
+            {
+              text: 'Ask to join or leave a case',
+              url: '/application-within-proceedings/C2/ask-to-join-or-leave-a-case/guidance',
+            },
+            {
+              text: 'Request to withdraw an application',
+              url: '/application-within-proceedings/C2/request-to-withdraw-an-application/guidance',
+            },
+            {
+              text: 'Ask the court to appoint an expert (such as a medical professional or a child psychologist)',
+              url: '/application-within-proceedings/C2/request-to-appoint-an-expert/guidance',
+            },
+          ],
+          sectionTitle: 'Other requests to the court where you need to complete a form C2',
+        },
+        {
+          contents: [
+            'You can ask for a court official to hand court papers to the other person in the case by completing and submitting form D89.',
+            'You can ask for this when it may not be safe for you to deliver the court papers to the other person in a domestic abuse case.',
+          ],
+          id: 'deliverPapersToOtherParty',
+          links: [
+            {
+              text: 'Apply to the court using form D89',
+              url: '/application-within-proceedings/D89/ask-to-deliver-paper-to-other-party/guidance',
+            },
+          ],
+          sectionTitle: 'Ask the court to deliver papers to the other party',
+        },
+      ],
+      breadcrumb: {
+        href: '/applicant/task-list/1234',
+        id: 'caseView',
+      },
+      form: {
+        fields: {},
+      },
+      pagination: {
+        next: {
+          href: '/application-within-proceedings/list-of-applications/2',
+          labelText: '2 of 2',
+        },
+        pageNumber: 1,
+        show: true,
+        totalPages: 2,
       },
       title: 'Make a request to the court about your case',
     });

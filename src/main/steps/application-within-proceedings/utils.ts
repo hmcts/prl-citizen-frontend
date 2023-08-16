@@ -1,5 +1,7 @@
 import { AWPApplicationReason, AWPApplicationType, CaseType, PartyType } from '../../app/case/definition';
 import { AppSession } from '../../app/controller/AppRequest';
+import { applyParms } from '../../steps/common/url-parser';
+import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS } from '../../steps/urls';
 
 import { languages as applicationReasonTranslation } from './content';
 
@@ -409,3 +411,7 @@ export const isValidApplicationReason = (
 
   return false;
 };
+
+export const APPLICATION_SIGNPOSTING_URL = applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
+  pageNumber: '1',
+});

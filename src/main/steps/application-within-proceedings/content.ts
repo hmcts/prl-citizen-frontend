@@ -42,10 +42,10 @@ const en = {
     reasonText: 'Get permission for an application if the court previously stopped you',
   },
   [AWPApplicationReason.REQUEST_PARENTAL_RESPONSIBILITY]: {
-    reasonText: 'Request an order relating to a child',
+    reasonText: 'Request the court grants you parental responsibility',
   },
   [AWPApplicationReason.REQUEST_GUARDIAN_FOR_CHILD]: {
-    reasonText: 'Request an order relating to a child',
+    reasonText: 'Request the court appoints a guardian for the child',
   },
   [AWPApplicationReason.DELIVER_PAPER_TO_OTHER_PARTY]: {
     reasonText: 'Ask the court to deliver papers to the other party',

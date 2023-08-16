@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { getApplicationDetails } from '../utils';
+import { APPLICATION_SIGNPOSTING_URL, getApplicationDetails } from '../utils';
 
 export const en = {
   title: 'Help with fees',
@@ -69,7 +69,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: '/',
+    href: APPLICATION_SIGNPOSTING_URL,
     text: l => l.cancel,
   },
 };

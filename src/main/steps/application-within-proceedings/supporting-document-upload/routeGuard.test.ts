@@ -9,7 +9,7 @@ jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
 
-describe('AWP document upload RouteGuard', () => {
+describe('AWP supporting document upload RouteGuard', () => {
   let req;
   beforeEach(() => {
     req = mockRequest({
@@ -40,7 +40,7 @@ describe('AWP document upload RouteGuard', () => {
         ...req.session,
         userCase: {
           ...req.session.userCase,
-          awp_uploadedApplicationForms: [
+          awp_supportingDocuments: [
             {
               id: '544ff7c4-5e3e-4f61-9d47-423321208d77',
               url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/544ff7c4-5e3e-4f61-9d47-423321208d77',
@@ -52,7 +52,7 @@ describe('AWP document upload RouteGuard', () => {
         },
       },
       files: {
-        awp_application_form: { name: 'test.rtf', data: '', mimetype: 'text' },
+        awp_supporting_documents: { name: 'test.rtf', data: '', mimetype: 'text' },
       },
     };
 
@@ -70,7 +70,7 @@ describe('AWP document upload RouteGuard', () => {
     const res = mockResponse();
     const next = jest.fn();
     await routeGuard.get(req, res, next);
-    expect(req.session.userCase.awp_uploadedApplicationForms).toEqual([]);
+    expect(req.session.userCase.awp_supportingDocuments).toEqual([]);
   });
 
   test('should catch error if problem with deleting document', async () => {
@@ -80,7 +80,7 @@ describe('AWP document upload RouteGuard', () => {
         ...req.session,
         userCase: {
           ...req.session.userCase,
-          awp_uploadedApplicationForms: [
+          awp_supportingDocuments: [
             {
               id: '544ff7c4-5e3e-4f61-9d47-423321208d77',
               url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/544ff7c4-5e3e-4f61-9d47-423321208d77',
@@ -93,7 +93,7 @@ describe('AWP document upload RouteGuard', () => {
         user: undefined,
       },
       files: {
-        awp_application_form: { name: 'test.rtf', data: '', mimetype: 'text' },
+        awp_supporting_documents: { name: 'test.rtf', data: '', mimetype: 'text' },
       },
     };
 
@@ -112,7 +112,7 @@ describe('AWP document upload RouteGuard', () => {
     const next = jest.fn();
     await routeGuard.get(req, res, next);
     expect(next).toHaveBeenCalled();
-    expect(req.session.userCase.awp_uploadedApplicationForms).toEqual([
+    expect(req.session.userCase.awp_supportingDocuments).toEqual([
       {
         id: '544ff7c4-5e3e-4f61-9d47-423321208d77',
         url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/544ff7c4-5e3e-4f61-9d47-423321208d77',

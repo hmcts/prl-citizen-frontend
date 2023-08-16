@@ -1,6 +1,9 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { getApplicationDetails } from '../../../../steps/application-within-proceedings/utils';
+import {
+  APPLICATION_SIGNPOSTING_URL,
+  getApplicationDetails,
+} from '../../../../steps/application-within-proceedings/utils';
 import { interpolate } from '../../../../steps/common/string-parser';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 
@@ -46,7 +49,7 @@ export const form: FormContent = {
   },
   link: {
     classes: 'govuk-!-margin-left-3',
-    href: '/',
+    href: APPLICATION_SIGNPOSTING_URL,
     text: l => l.cancel,
   },
 };

@@ -11,7 +11,7 @@ import { AnyObject, PostController } from '../../../app/controller/PostControlle
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { AnyType, isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../app/form/validation';
 import { applyParms } from '../../../steps/common/url-parser';
-import { APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../steps/urls';
+import { APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD } from '../../../steps/urls';
 
 @autobind
 export default class UploadDocumentController extends PostController<AnyObject> {
@@ -23,29 +23,15 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const { awp_application_form } = (req?.files as Record<string, any>) ?? {};
     const { applicationType, applicationReason } = req.params;
 
-    if (
-      req.body.onlyContinue &&
-      req.session.userCase.awp_uploadedApplicationForms &&
-      req.session.userCase.awp_uploadedApplicationForms.length > 0
-    ) {
+    const isSupportingDocuments = req.route.path === APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD;
+    const areFilesUploaded = isSupportingDocuments
+      ? (req.session.userCase.awp_supportingDocuments?.length ?? 0) > 0
+      : (req.session.userCase.awp_uploadedApplicationForms?.length ?? 0) > 0;
+
+    if (req.body.onlyContinue && areFilesUploaded) {
       super.redirect(req, res);
     } else {
-      if (isNull(awp_application_form) || awp_application_form === undefined) {
-        this.handleError(req, res, {
-          propertyName: 'awpUploadApplicationForm',
-          errorType: 'required',
-        });
-      } else if (!isValidFileFormat({ documents: awp_application_form })) {
-        this.handleError(req, res, {
-          propertyName: 'awpUploadApplicationForm',
-          errorType: 'fileFormat',
-        });
-      } else if (isFileSizeGreaterThanMaxAllowed({ documents: awp_application_form })) {
-        this.handleError(req, res, {
-          propertyName: 'awpUploadApplicationForm',
-          errorType: 'fileSize',
-        });
-      } else {
+      if (!this.isError(awp_application_form, req, res, isSupportingDocuments)) {
         req.session.errors = [];
         const formData: FormData = new FormData();
 
@@ -67,25 +53,62 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             binaryUrl: document_binary_url,
           };
 
-          if (
-            req.session.userCase.awp_uploadedApplicationForms &&
-            req.session.userCase.awp_uploadedApplicationForms.length > 0
-          ) {
-            req.session.userCase.awp_uploadedApplicationForms.push(documentInfo);
-          } else {
-            req.session.userCase.awp_uploadedApplicationForms = [documentInfo];
-          }
+          this.addDocsToSession(isSupportingDocuments, req, documentInfo);
 
           req.session.save(() => {
-            res.redirect(
-              applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, { applicationType, applicationReason })
-            );
+            res.redirect(applyParms(req.route.path, { applicationType, applicationReason }));
           });
         } catch (error) {
           res.json(error);
         }
       }
     }
+  }
+
+  private addDocsToSession(isSupportingDocuments, req, documentInfo) {
+    if (isSupportingDocuments) {
+      req.session.userCase.awp_supportingDocuments = this.addDocument(
+        req.session.userCase.awp_supportingDocuments,
+        documentInfo
+      );
+    } else {
+      req.session.userCase.awp_uploadedApplicationForms = this.addDocument(
+        req.session.userCase.awp_uploadedApplicationForms,
+        documentInfo
+      );
+    }
+  }
+
+  private addDocument = (sessionDocs, document) => {
+    if (sessionDocs && sessionDocs.length > 0) {
+      sessionDocs.push(document);
+    } else {
+      sessionDocs = [document];
+    }
+
+    return sessionDocs;
+  };
+
+  private isError(uploadedDocuments, req, res, isSupportingDocuments) {
+    if (isNull(uploadedDocuments) || uploadedDocuments === undefined) {
+      this.handleError(req, res, {
+        propertyName: isSupportingDocuments ? 'awpUploadSupportingDocuments' : 'awpUploadApplicationForm',
+        errorType: 'required',
+      });
+    } else if (!isValidFileFormat({ documents: uploadedDocuments })) {
+      this.handleError(req, res, {
+        propertyName: isSupportingDocuments ? 'awpUploadSupportingDocuments' : 'awpUploadApplicationForm',
+        errorType: 'fileFormat',
+      });
+    } else if (isFileSizeGreaterThanMaxAllowed({ documents: uploadedDocuments })) {
+      this.handleError(req, res, {
+        propertyName: isSupportingDocuments ? 'awpUploadSupportingDocuments' : 'awpUploadApplicationForm',
+        errorType: 'fileSize',
+      });
+    } else {
+      return false;
+    }
+    return true;
   }
 
   private handleError(

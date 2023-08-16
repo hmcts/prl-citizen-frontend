@@ -292,7 +292,7 @@ const getPaginationConfig = (pageNumber, totalPages) => {
 };
 
 const getCaseViewUrl = (partyType: PartyType, caseData: Partial<CaseWithId>): string => {
-  let caseDashboardUrl = '#';
+  let caseDashboardUrl;
   const caseType = caseData?.caseTypeOfApplication;
   const caseId = caseData.id as string;
 
@@ -307,6 +307,31 @@ const getCaseViewUrl = (partyType: PartyType, caseData: Partial<CaseWithId>): st
   }
 
   return caseDashboardUrl;
+};
+
+const generateApplicationList = (applicationIndex, applicationList, rest, application, link) => {
+  if (applicationIndex < 0) {
+    applicationList.push({
+      id: application.contentMappingKey,
+      sectionTitle: rest?.[application.contentMappingKey]?.sectionTitle,
+      contents: rest?.[application.contentMappingKey]?.contents,
+      links: [],
+    });
+
+    if (link.url && link.textMappingKey) {
+      applicationList[applicationList.length - 1].links.push({
+        text: rest?.[application.contentMappingKey]?.[link.textMappingKey],
+        url: applyParms(link.url, { applicationType: link.applicationType, applicationReason: link.reason }),
+      });
+    }
+  } else {
+    if (link.url && link.textMappingKey) {
+      applicationList[applicationIndex].links.push({
+        text: rest?.[application.contentMappingKey]?.[link.textMappingKey],
+        url: applyParms(link.url, { applicationType: link.applicationType, applicationReason: link.reason }),
+      });
+    }
+  }
 };
 
 export const generateContent: TranslationFn = content => {
@@ -327,28 +352,7 @@ export const generateContent: TranslationFn = content => {
           _application => _application.id === application.contentMappingKey
         );
 
-        if (applicationIndex < 0) {
-          applications.push({
-            id: application.contentMappingKey,
-            sectionTitle: rest?.[application.contentMappingKey]?.sectionTitle,
-            contents: rest?.[application.contentMappingKey]?.contents,
-            links: [],
-          });
-
-          if (link.url && link.textMappingKey) {
-            applications[applications.length - 1].links.push({
-              text: rest?.[application.contentMappingKey]?.[link.textMappingKey],
-              url: applyParms(link.url, { applicationType: link.applicationType, applicationReason: link.reason }),
-            });
-          }
-        } else {
-          if (link.url && link.textMappingKey) {
-            applications[applicationIndex].links.push({
-              text: rest?.[application.contentMappingKey]?.[link.textMappingKey],
-              url: applyParms(link.url, { applicationType: link.applicationType, applicationReason: link.reason }),
-            });
-          }
-        }
+        generateApplicationList(applicationIndex, applications, rest, application, link);
       }
     });
   });
