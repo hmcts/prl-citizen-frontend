@@ -1,5 +1,12 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import {
+  APPLICANT_TASK_LIST_URL,
+  APPLICANT_VIEW_ALL_DOCUMENTS,
+  RESPONDENT_TASK_LIST_URL,
+  RESPONDENT_VIEW_ALL_DOCUMENTS,
+  RESPOND_TO_APPLICATION,
+} from '../../steps/urls';
 import { CosApiClient } from '../case/CosApiClient';
 
 import { GetCaseController } from './GetCaseController';
@@ -47,4 +54,51 @@ describe('GetCaseController', () => {
     await controller.fetchAndRedirectToTasklist(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
+
+  test('fetchAndRedirectToTasklist redirect to RESPONDENT_TASK_LIST_URL', async () => {
+    req.originalUrl = RESPONDENT_TASK_LIST_URL + '/' + req.params.caseId;
+    await controller.fetchAndRedirectToTasklist(req, res);
+    expect(mockMyFunction).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/respondent/task-list');
+  });
+
+  test('fetchAndRedirectToTasklist redirect to RESPONDENT_VIEW_ALL_DOCUMENTS', async () => {
+    req.originalUrl = RESPONDENT_VIEW_ALL_DOCUMENTS + '/' + req.params.caseId;
+    await controller.fetchAndRedirectToTasklist(req, res);
+    expect(mockMyFunction).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/respondent/yourdocuments/alldocuments/alldocuments');
+  });
+
+  test('fetchAndRedirectToTasklist redirect to APPLICANT_TASK_LIST_URL', async () => {
+    req.originalUrl = APPLICANT_TASK_LIST_URL + '/' + req.params.caseId;
+    await controller.fetchAndRedirectToTasklist(req, res);
+    expect(mockMyFunction).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/task-list');
+  });
+
+  test('fetchAndRedirectToTasklist redirect to APPLICANT_VIEW_ALL_DOCUMENTS', async () => {
+    req.originalUrl = APPLICANT_VIEW_ALL_DOCUMENTS + '/' + req.params.caseId;
+    await controller.fetchAndRedirectToTasklist(req, res);
+    expect(mockMyFunction).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/yourdocuments/alldocuments/alldocuments');
+  });
+
+  test('fetchAndRedirectToTasklist redirect to RESPOND_TO_APPLICATION', async () => {
+    req.originalUrl = RESPOND_TO_APPLICATION + '/' + req.params.caseId;
+    await controller.fetchAndRedirectToTasklist(req, res);
+    expect(mockMyFunction).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/start');
+  });
+
+  // test('createC100ApplicantCase', async () => {
+  //   req.session.userCase = {
+  //     id: '1234',
+  //     caseTypeOfApplication: 'C100',
+  //     state: 'Holding',
+  //     noOfDaysRemainingToSubmitCase: '3'
+  //   };
+  //   await controller.createC100ApplicantCase(req, res);
+  //   expect(mockMyFunction).toHaveBeenCalled();
+  //   expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/start');
+  // });
 });

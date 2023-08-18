@@ -10,6 +10,7 @@ describe('RespondentSubmitResponseController', () => {
   const req = mockRequest();
   const res = mockResponse();
   const submitRespondentResponseMock = jest.spyOn(CosApiClient.prototype, 'submitRespondentResponse');
+  let partyDetails;
   beforeEach(() => {
     submitRespondentResponseMock.mockResolvedValue(req.session.userCase);
   });
@@ -18,6 +19,21 @@ describe('RespondentSubmitResponseController', () => {
   });
   test('Save', async () => {
     req.session.userCase.id = '12234567890';
+    partyDetails = [
+      {
+        id: '1',
+        value: {
+          firstName: '',
+          lastName: '',
+          email: '',
+          user: {
+            idamId: '12234567890',
+            email: '',
+          },
+        },
+      },
+    ];
+    req.session.userCase.respondents = partyDetails;
     await controller.save(req, res);
     expect(res.redirect).toHaveBeenCalledWith(CA_RESPONDENT_RESPONSE_CONFIRMATION);
   });

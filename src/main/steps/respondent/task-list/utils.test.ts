@@ -17,7 +17,6 @@ import {
   getRespondentSupportYourNeedsDetails,
   getUploadDocuments,
   getViewAllDocuments,
-  getViewAllHearingsFromTheCourt,
   getViewAllOrdersFromTheCourt,
   getViewAllOrdersFromTheCourtAllDocuments,
   getYourApplication,
@@ -138,6 +137,11 @@ const data = {
         dateCreated: 'string',
         orderType: 'string',
         orderDocument: {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+        },
+        orderDocumentWelsh: {
           document_url: 'string',
           document_binary_url: 'string',
           document_filename: 'string',
