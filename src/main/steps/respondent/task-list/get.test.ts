@@ -1,9 +1,12 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
+import { CosApiClient } from '../../../app/case/CosApiClient';
 import { Applicant, PartyDetails, Respondent } from '../../../app/case/definition';
 
 import { RespondentTaskListGetController } from './get';
+
+const getHearings = jest.spyOn(CosApiClient.prototype, 'retrieveCaseHearingsByCaseId');
 
 describe('RespondentTaskListGetController', () => {
   const controller = new RespondentTaskListGetController();
@@ -17,6 +20,7 @@ describe('RespondentTaskListGetController', () => {
         userCase: {
           ...mockUserCase,
           caseTypeOfApplication: 'C100',
+          hearingCollection: [],
           applicants: [
             {
               id: '',
@@ -39,8 +43,10 @@ describe('RespondentTaskListGetController', () => {
         },
       },
     });
+    getHearings.mockResolvedValue(req.session.userCase);
     const res = mockResponse();
     await controller.get(req, res);
+    await controller.load(req, res);
     expect(res.render).toBeCalled;
   });
 

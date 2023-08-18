@@ -6,6 +6,9 @@ import { State } from '../../../../app/case/definition';
 //import { SIGN_IN_URL } from "../../../urls";
 import CaseDetailsGetController from './CaseDetailsGetController';
 
+const getHearings = jest.spyOn(CosApiClient.prototype, 'retrieveCaseHearingsByCaseId');
+const caseData = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
+
 jest.mock('../../../../app/case/CosApiClient');
 const mockMyFunction = CosApiClient as jest.Mock;
 describe('GetCaseController', () => {
@@ -32,6 +35,7 @@ describe('GetCaseController', () => {
         userCase: {
           id: '1234',
           state: State.AWAITING_SUBMISSION_TO_HMCTS,
+          hearingCollection: [],
         },
         userCaseList: [
           {
@@ -45,6 +49,8 @@ describe('GetCaseController', () => {
     });
     res = mockResponse();
     mockMyFunction.mockReturnValue('hello');
+    getHearings.mockResolvedValue(req.session.userCase);
+    caseData.mockResolvedValue(req.session.userCase);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
