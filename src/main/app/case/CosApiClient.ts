@@ -383,48 +383,25 @@ export class CosApiClient {
     }
   }
 
-  public async retrieveCaseHearingsByCaseId(userCase: CaseWithId, user: UserDetails): Promise<CaseWithId> {
-    if (!userCase.id || !user) {
-      return Promise.reject(new Error('retrieveCaseHearingsByCaseId - Case id must be set and user must be set'));
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  public async retrieveCaseHearingsByCaseId(user: UserDetails, caseId: string): Promise<any> {
+    try {
+      const response = await Axios.post(
+        config.get('services.cos.url') + `/hearing/${caseId}`,
+        {},
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + user.accessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      throw new Error('Case could not be updated.' + err);
     }
-
-    const hearingCollectionMockedData = [
-      {
-        prev: [
-          {
-            date: 'Monday 28 June 2021',
-            time: '9am',
-            typeOfHearing: 'In person',
-            courtName: 'Bristol family court',
-            courtAddress: 'Bristol Avenue, Bristol, BL1 2A3',
-            hearingOutcome: 'HearingOutcome.pdf',
-          },
-          {
-            date: 'Friday 25 June 2021',
-            time: '11am',
-            typeOfHearing: 'Video',
-            courtName: 'Bristol family court',
-            courtAddress: 'Bristol Avenue, Bristol, BL1 2A3',
-            hearingOutcome: 'HearingOutcome.pdf',
-          },
-        ],
-        next: {
-          date: 'Wednesday 29 June 2021',
-          time: '10am',
-        },
-      },
-    ];
-
-    //here we are directly returning the mocked response of hearing api in the hearingCollection key
-    //once the integration part is done with hearing mgmt api we can modify this code.
-    //Example: Object.assign(req.session.userCase.hearingCollection, hearingAPIResponse);
-    // OR
-    //req.session.userCase.hearingCollection = hearingAPIResponse;
-    return {
-      id: userCase.id,
-      state: userCase.state,
-      hearingCollection: hearingCollectionMockedData,
-    };
   }
 }
 

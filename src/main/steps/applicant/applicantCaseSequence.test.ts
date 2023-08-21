@@ -5,7 +5,7 @@ import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(applicantCaseSequence).toHaveLength(96);
+    expect(applicantCaseSequence).toHaveLength(98);
 
     expect(applicantCaseSequence[0].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');
@@ -461,6 +461,18 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[89].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[89].getNextStep({})).toBe('/applicant/contact-preferences/contact-post-success');
 
+    expect(applicantCaseSequence[90].url).toBe('/applicant/contact-preferences/contact-email-success');
+    expect(applicantCaseSequence[90].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[90].getNextStep({})).toBe('/task-list/applicant');
+
+    expect(applicantCaseSequence[91].url).toBe('/applicant/contact-preferences/contact-post-success');
+    expect(applicantCaseSequence[91].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[91].getNextStep({})).toBe('/task-list/applicant');
+
+    expect(applicantCaseSequence[92].url).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[92].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[92].getNextStep({})).toBe('/applicant/yourhearings/hearings');
+
     expect(applicantCaseSequence[93].url).toBe('/applicant/add-legal-representative');
     expect(applicantCaseSequence[93].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[93].getNextStep({})).toBe('/applicant/task-list');
@@ -472,6 +484,14 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[95].url).toBe('/applicant/remove-legal-representative/confirm');
     expect(applicantCaseSequence[95].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[95].getNextStep({})).toBe('/applicant/task-list');
+
+    expect(applicantCaseSequence[96].url).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[96].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[96].getNextStep({})).toBe('/applicant/hearing-needs/support-help');
+
+    expect(applicantCaseSequence[97].url).toBe('/applicant/hearing-needs/support-help');
+    expect(applicantCaseSequence[97].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[97].getNextStep({})).toBe('/applicant/task-list');
   });
 });
 

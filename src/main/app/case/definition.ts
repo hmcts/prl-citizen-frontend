@@ -907,6 +907,8 @@ export interface CaseData {
   welshLanguageRequirementApplicationNeedEnglish: string;
   orderCollection: ListValue<PRLDocument>[];
   hearingCollection?: HearingsList[];
+  futureHearings?: HearingsList[];
+  completedHearings?: HearingsList[];
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
   finalDocument?: Document;
@@ -2413,16 +2415,86 @@ export interface PRLDocument {
   dateCreated: DateAsString;
   orderType: string;
   orderDocument: Document;
+  orderDocumentWelsh: Document;
   otherDetails: OtherDetails;
   orderTypeId?: string;
   isWithdrawnRequestApproved?: YesOrNo
   withdrawnRequestType?: string;
+  selectedHearingType?: string | null;
 }
 
 export interface HearingsList {
-  prev?: Hearings[],
-  next?: Hearings,
+  hearingID?: Number,
+  hearingRequestDateTime?: string | null,
+  hearingType?: string | null,
+  hmcStatus?: string | null,
+  lastResponseReceivedDateTime?: string | null,
+  requestVersion?: Number | null,
+  hearingListingStatus?: string | null,
+  listAssistCaseStatus?: string | null,
+  hearingDaySchedule?:Schedules[] | null,
+  hearingGroupRequestId?: string | null,
+  hearingIsLinkedFlag?: boolean | null,
+  hearingTypeValue?: string,
+  nextHearingDate?: string | null ,
+  urgentFlag?: boolean | null,
 }
+
+export interface Hearing{
+  dates : string,
+  lengthOfHearing : number | undefined,
+  hearingMethod: string ,
+  hearingDaySchedule: hearingDay[],
+}
+
+export interface hearingDay{
+  hearingDate: string,
+  startTime: string,
+  amPm:string,
+  durationInDayOrHours:number,
+  minutes:number,
+  judgeName:string | null | undefined,
+  venue:string | null | undefined,
+  address:string | null | undefined,
+  roomId:string | null | undefined,
+}
+
+export interface CompletedHearings{
+  hearingId: Number | undefined,
+  dates: string,
+  lengthOfHearing: number | undefined,
+  hearingMethod: string,
+}
+
+export interface HearingOrders{
+  href: string,
+  createdDate: string,
+  fileName: string,
+  id: Number,
+}
+
+export interface Schedules {
+  hearingStartDateTime?: string | null,
+  hearingEndDateTime?: string | null,
+  listAssistSessionId?: Number | string | null,
+  hearingVenueId?: string | null,
+  hearingVenueName?: string | null,
+  hearingVenueLocationCode?: Number | string | null,
+  hearingVenueAddress?: string | null,
+  hearingRoomId?: string | null,
+  hearingJudgeId?: string | null,
+  hearingJudgeName?: string | null,
+  panelMemberIds?: string[] | Number[] | null,
+  attendees?: Attendee[] | null,
+
+}
+
+
+export interface Attendee {
+  partyID?: string,
+  hearingSubChannel?: string | null,
+}
+
 export interface Hearings {
   date?: string;
   time?: string;
@@ -3011,6 +3083,10 @@ export enum CaseEvent {
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative'
 }
+
+export enum hearingStatus {
+  COMPLETED = 'COMPLETED',
+} 
 
 export enum passportPossessionRelative {
   MOTHER = 'mother',
