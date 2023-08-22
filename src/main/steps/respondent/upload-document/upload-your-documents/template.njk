@@ -79,7 +79,9 @@
           </form>
         </div>
       </div>
-      <h2 class="govuk-heading-s{% if filesUploaded.length==0 %} hidden{% endif %}">{{ uploadFiles }}</h2>
+    {% if userCase.respondentUploadFiles.length>0 %}
+      <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
+      {% endif %}
       <ul id="filesUploadedList" class="govuk-list">
         <dl class="govuk-summary-list">
           {% for file in filesUploaded %}

@@ -41,6 +41,7 @@ export const en = {
     },
     uploadFiles: {
       uploadError: 'Document could not be uploaded',
+      noFile:"Please choose a file to upload"
     },
   },
 };
@@ -82,6 +83,7 @@ export const cy = {
     },
     uploadFiles: {
       uploadError: 'Document could not be uploaded -welsh',
+      noFile:"Please choose a file to upload -welsh"
     },
   },
 };
