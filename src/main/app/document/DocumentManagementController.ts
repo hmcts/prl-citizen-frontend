@@ -517,10 +517,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
         Object.assign(req.session.userCase, caseDataFromCos);
         req.session.errors = [];
       } else {
-        this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+        this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });
       }
     } catch (e) {
-      this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+      this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });
     } finally {
       this.redirect(req, res, redirectUrl);
     }
@@ -537,7 +537,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     this.initializeData(caseData);
 
     if (!files) {
-      this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+      this.handleError(req, { errorType: 'noFile', propertyName: 'uploadFiles' });
       return this.redirect(req, res, redirectUrl);
     }
 
@@ -570,10 +570,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
         Object.assign(req.session.userCase, caseDataFromCos);
         req.session.errors = [];
       } else {
-        this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+        this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });
       }
     } catch (e) {
-      this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+      this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });
     } finally {
       this.redirect(req, res, redirectUrl);
     }
@@ -596,13 +596,20 @@ export class DocumentManagerController extends PostController<AnyObject> {
         uploadedFiles?.filter(
           document => params.documentId !== document.document_url.substring(document.document_url.lastIndexOf('/') + 1)
         );
-
+      if (
+        req.session.userCase[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles']
+          ?.length === 0
+      ) {
+        delete req.session.userCase[
+          partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'
+        ];
+      }
       // const caseDataFromCos =
       // await client.retrieveByCaseId(caseData.id, user);
       //req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
       req.session.errors = [];
     } catch (e) {
-      this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+      this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });
     } finally {
       this.redirect(req, res, redirectUrl);
     }
