@@ -2,6 +2,9 @@
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% block page_content %}
+ {% block backLink %}
+    
+    {% endblock %}
   {{ govukPanel({
   titleText: pageTitle,
   html: ""

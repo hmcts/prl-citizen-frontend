@@ -34,6 +34,12 @@ const en = {
     declarationCheck: {
       required: 'Please confirm the declaration',
     },
+    uploadedFiles: {
+      not_uploaded: 'No document found',
+    },
+    uploadFiles: {
+      uploadError: 'Document could not be uploaded',
+    },
   },
 };
 
@@ -68,6 +74,12 @@ const cy: typeof en = {
   errors: {
     declarationCheck: {
       required: 'Cadarnhewch y datganiad',
+    },
+    uploadedFiles: {
+      not_uploaded: 'No document found -welsh',
+    },
+    uploadFiles: {
+      uploadError: 'Document could not be uploaded -welsh',
     },
   },
 };

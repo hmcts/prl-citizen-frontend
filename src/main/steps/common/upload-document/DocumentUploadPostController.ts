@@ -33,10 +33,12 @@ export default class DocumentUploadPostController {
     if (onlyContinue) {
       req.session.errors = form.getErrors(formData);
 
-      if (req.session.errors.length || !uploadedDocuments?.length) {
+      if (uploadedDocuments?.length <= 0) {
+        this.handleError(req, { errorType: 'not_uploaded', propertyName: 'uploadedFiles' });
+      }
+      if (req.session.errors.length) {
         return this.parent.redirect(req, res);
       }
-
       try {
         const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
         const response = await client.submitUploadedDocuments(user, {
@@ -50,10 +52,10 @@ export default class DocumentUploadPostController {
         req.session.errors = [];
 
         if (response.response.status !== 200) {
-          this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+          this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });
         }
       } catch (error) {
-        this.handleError(req, { errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+        this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });
       } finally {
         this.parent.redirect(req, res);
       }
