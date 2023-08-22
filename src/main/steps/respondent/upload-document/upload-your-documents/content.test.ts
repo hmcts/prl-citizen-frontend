@@ -41,7 +41,7 @@ const en = {
     },
     uploadFiles: {
       uploadError: 'Document could not be uploaded',
-      noFile:"Please choose a file to upload"
+      noFile: 'Please choose a file to upload',
     },
   },
 };
@@ -83,7 +83,7 @@ const cy: typeof en = {
     },
     uploadFiles: {
       uploadError: 'Document could not be uploaded -welsh',
-      noFile:"Please choose a file to upload -welsh"
+      noFile: 'Please choose a file to upload -welsh',
     },
   },
 };

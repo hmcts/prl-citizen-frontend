@@ -596,8 +596,13 @@ export class DocumentManagerController extends PostController<AnyObject> {
         uploadedFiles?.filter(
           document => params.documentId !== document.document_url.substring(document.document_url.lastIndexOf('/') + 1)
         );
-      if(req.session.userCase[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles']?.length===0 ){
-        delete req.session.userCase[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'] 
+      if (
+        req.session.userCase[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles']
+          ?.length === 0
+      ) {
+        delete req.session.userCase[
+          partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'
+        ];
       }
       // const caseDataFromCos =
       // await client.retrieveByCaseId(caseData.id, user);
