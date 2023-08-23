@@ -524,7 +524,7 @@ describe('DocumentManagerController', () => {
       generateStatementDocumentMock.mockResolvedValue(documentDetail);
       await documentManagerController.generateDocument(req, res);
 
-      expect(req.session.errors[0].errorType).toEqual('Document could not be uploaded');
+      expect(req.session.errors[0].errorType).toEqual('uploadError');
     });
   });
 
@@ -584,7 +584,7 @@ describe('DocumentManagerController', () => {
       deleteCitizenStatementDocumentMock.mockResolvedValue('FAILURE');
       await documentManagerController.deleteDocument(req, res);
 
-      expect(req.session.errors[0].errorType).toEqual('Document could not be uploaded');
+      expect(req.session.errors[0].errorType).toEqual('uploadError');
     });
   });
   describe('check citizen document uploaded with file', () => {
