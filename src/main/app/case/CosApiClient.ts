@@ -10,9 +10,11 @@ import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
 import {
+  AWPFeeDetailsRequest,
   CaseData,
   CaseEvent,
   CaseType,
+  FeeDetailsResponse,
   HearingsList,
   PartyDetails,
   PartyType,
@@ -401,6 +403,29 @@ export class CosApiClient {
       return response.data;
     } catch (err) {
       throw new Error('Case hearings could not be retrieved.' + err);
+    }
+  }
+
+  public async fetchAWPFeeCodeDetails(
+    applicationDetails: AWPFeeDetailsRequest,
+    userDetails: UserDetails
+  ): Promise<FeeDetailsResponse> {
+    try {
+      const response = await Axios.post<FeeDetailsResponse>(
+        `${config.get('services.cos.url')}/fees-and-payment-apis/getFeeCode`,
+        applicationDetails,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + userDetails.accessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error('AWP Fee code details could not be retrieved.' + error);
     }
   }
 }

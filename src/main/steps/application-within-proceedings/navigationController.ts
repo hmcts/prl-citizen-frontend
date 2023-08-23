@@ -24,7 +24,7 @@ class ApplicationWithinProceedingsNavigationController {
     let url: PageLink;
     const applicationType = req?.params.applicationType as AWPApplicationType;
     const applicationReason = req?.params.applicationReason as AWPApplicationReason;
-    const applicationFee = req?.session.applicationSettings?.awpSelectedApplicationDetails.applicationFee;
+    const applicationFee = req?.session.applicationSettings?.awpSelectedApplicationDetails.applicationFeeAmount;
 
     switch (currentPageUrl) {
       case APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION: {
@@ -73,7 +73,7 @@ class ApplicationWithinProceedingsNavigationController {
           }) as PageLink);
 
     const otherApplicationNextStep =
-      applicationFee === '£0'
+      parseInt(applicationFee) === 0
         ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
             applicationType,
             applicationReason,
@@ -99,7 +99,7 @@ class ApplicationWithinProceedingsNavigationController {
     applicationFee
   ) => {
     const delayOrCancelStep =
-      applicationFee === '£0'
+      parseInt(applicationFee) === 0
         ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD, {
             applicationType,
             applicationReason,

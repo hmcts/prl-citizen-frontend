@@ -1,5 +1,6 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { AWPApplicationReason, AWPApplicationType, CaseType, PartyType } from '../../app/case/definition';
+import { AppSession } from '../../app/controller/AppRequest';
 
 import { getApplicationDetails, isValidApplicationReason } from './utils';
 
@@ -70,13 +71,15 @@ describe('AWP utils', () => {
   });
 
   test('Should return appSettings details if correct values present', async () => {
-    const appSettings = {
-      awpSelectedApplicationDetails: {
-        language: 'en',
-        applicationType: 'C3',
-        applicationReason: 'order-authorising-search-for-taking-charge-of-and-delivery-of-a-child',
+    const session = {
+      applicationSettings: {
+        awpSelectedApplicationDetails: {
+          language: 'en',
+          applicationType: 'C3',
+          applicationReason: 'order-authorising-search-for-taking-charge-of-and-delivery-of-a-child',
+        },
       },
-    };
+    } as unknown as AppSession;
     expect(
       getApplicationDetails(
         'C3' as AWPApplicationType,
@@ -84,7 +87,7 @@ describe('AWP utils', () => {
         CaseType.C100,
         PartyType.APPLICANT,
         'en',
-        appSettings
+        session
       )
     ).toStrictEqual({
       language: 'en',
@@ -94,13 +97,15 @@ describe('AWP utils', () => {
   });
 
   test('Should not return appSettings details if wrong values present', async () => {
-    const appSettings = {
-      awpSelectedApplicationDetails: {
-        language: 'en',
-        applicationType: 'C3',
-        applicationReason: 'order-authorising-search-for-taking-charge-of-and-delivery-of-a-child',
+    const session = {
+      applicationSettings: {
+        awpSelectedApplicationDetails: {
+          language: 'en',
+          applicationType: 'C3',
+          applicationReason: 'order-authorising-search-for-taking-charge-of-and-delivery-of-a-child',
+        },
       },
-    };
+    } as unknown as AppSession;
     expect(
       getApplicationDetails(
         req.params.applicationType,
@@ -108,7 +113,7 @@ describe('AWP utils', () => {
         CaseType.C100,
         PartyType.APPLICANT,
         'en',
-        appSettings
+        session
       )
     ).toStrictEqual({
       applicationType: 'C2',

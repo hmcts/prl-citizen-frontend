@@ -1,5 +1,12 @@
-import { AWPApplicationReason, AWPApplicationType, CaseType, PartyType } from '../../app/case/definition';
-import { AppSession } from '../../app/controller/AppRequest';
+import { CosApiClient } from '../../app/case/CosApiClient';
+import {
+  AWPApplicationReason,
+  AWPApplicationType,
+  AWPFeeDetailsRequest,
+  CaseType,
+  PartyType,
+} from '../../app/case/definition';
+import { AppRequest, AppSession, UserDetails } from '../../app/controller/AppRequest';
 import { applyParms } from '../../steps/common/url-parser';
 import { APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS } from '../../steps/urls';
 
@@ -8,7 +15,7 @@ import { languages as applicationReasonTranslation } from './content';
 interface AWPApplicationTypesConfig {
   applicationType: AWPApplicationType;
   applicationReasons: ApplicationReason[];
-  applicationFee: Partial<Record<CaseType, string>>;
+  applicationFee?: Partial<Record<CaseType, string>>;
   applicationFormUrl: string;
 }
 
@@ -115,10 +122,6 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         },
       },
     ],
-    applicationFee: {
-      C100: '£167',
-      FL401: '£167',
-    },
     applicationFormUrl:
       'https://www.gov.uk/government/publications/form-c2-application-for-permission-to-start-proceedings-for-an-order-or-directions-in-existing-proceedings-to-be-joined-as-or-cease-to-be-a-part',
   },
@@ -140,9 +143,6 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         },
       },
     ],
-    applicationFee: {
-      C100: '£232',
-    },
     applicationFormUrl: 'https://www.gov.uk/government/publications/form-c1-application-for-an-order',
   },
   {
@@ -156,9 +156,6 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         },
       },
     ],
-    applicationFee: {
-      C100: '£245',
-    },
     applicationFormUrl:
       'https://www.gov.uk/government/publications/form-c3-application-for-an-order-authorising-search-for-taking-charge-of-and-delivery-of-a-child',
   },
@@ -173,9 +170,6 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         },
       },
     ],
-    applicationFee: {
-      C100: '£232',
-    },
     applicationFormUrl:
       'https://www.gov.uk/government/publications/form-c4-application-for-an-order-for-disclosure-of-a-childs-whereabouts',
   },
@@ -190,9 +184,6 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         },
       },
     ],
-    applicationFee: {
-      C100: '£232',
-    },
     applicationFormUrl:
       'https://www.gov.uk/government/publications/form-c79-application-related-to-enforcement-of-a-child-arrangement-order',
   },
@@ -208,10 +199,6 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         },
       },
     ],
-    applicationFee: {
-      C100: '£45',
-      FL401: '£0',
-    },
     applicationFormUrl:
       'https://www.gov.uk/government/publications/form-d89-request-personal-service-of-papers-by-a-court-bailiff',
   },
@@ -227,10 +214,6 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         },
       },
     ],
-    applicationFee: {
-      C100: '£0',
-      FL401: '£0',
-    },
     applicationFormUrl:
       'https://www.gov.uk/government/publications/accuser-apply-to-the-court-to-consider-whether-to-prevent-prohibit-questioning-cross-examination-in-person-form-ex740',
   },
@@ -246,10 +229,6 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         },
       },
     ],
-    applicationFee: {
-      C100: '£0',
-      FL401: '£0',
-    },
     applicationFormUrl:
       'https://www.gov.uk/government/publications/accused-apply-to-the-court-to-consider-whether-to-prevent-prohibit-questioning-cross-examination-in-person-form-ex741',
   },
@@ -265,10 +244,6 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         },
       },
     ],
-    applicationFee: {
-      C100: '£53',
-      FL401: '£53',
-    },
     applicationFormUrl: 'https://www.gov.uk/government/publications/form-fp25-witness-summons',
   },
   {
@@ -283,10 +258,6 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         },
       },
     ],
-    applicationFee: {
-      C100: '£167',
-      FL401: '£167',
-    },
     applicationFormUrl:
       'https://www.gov.uk/government/publications/ask-the-court-to-consider-an-allegation-of-contempt-of-court-form-fc600',
   },
@@ -302,10 +273,6 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         },
       },
     ],
-    applicationFee: {
-      C100: '£215',
-      FL401: '£125',
-    },
     applicationFormUrl:
       'https://www.gov.uk/government/publications/form-n161-appellants-notice-all-appeals-except-small-claims-track-appeals-and-appeals-to-the-family-division-of-the-high-court',
   },
@@ -320,10 +287,6 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         },
       },
     ],
-    applicationFee: {
-      C100: '£0',
-      FL401: '£0',
-    },
     applicationFormUrl:
       'https://www.gov.uk/government/publications/form-fl403-application-to-vary-extend-or-discharge-an-order-in-existing-proceedings',
   },
@@ -338,10 +301,6 @@ const applicationTypesConfiguration: AWPApplicationTypesConfig[] = [
         },
       },
     ],
-    applicationFee: {
-      C100: '£0',
-      FL401: '£0',
-    },
     applicationFormUrl:
       'https://www.gov.uk/government/publications/form-fl407a-application-for-a-warrant-of-arrest-forced-marriage-protection-order',
   },
@@ -353,16 +312,17 @@ export const getApplicationDetails = (
   caseType: CaseType,
   partyType: PartyType,
   language: string,
-  appSettings: AppSession['applicationSettings'] | undefined
+  session: AppSession | undefined
 ): ApplicationDetails | undefined => {
-  const awpDetails = appSettings?.awpSelectedApplicationDetails;
+  const awpDetails = session?.applicationSettings?.awpSelectedApplicationDetails;
 
   if (
     awpDetails?.language === language &&
     awpDetails?.applicationType === applicationType &&
-    awpDetails?.applicationReason === applicationReason
+    awpDetails?.applicationReason === applicationReason &&
+    awpDetails?.applicationFeeAmount === session?.userCase?.awpFeeDetails?.feeAmount
   ) {
-    return appSettings!.awpSelectedApplicationDetails;
+    return session?.applicationSettings?.awpSelectedApplicationDetails;
   }
 
   let appDetails;
@@ -379,7 +339,8 @@ export const getApplicationDetails = (
         applicationType: application.applicationType,
         applicationReason: reason.reason,
         reasonText: applicationReasonTranslation[language][reason.reason]['reasonText'],
-        applicationFee: application.applicationFee[caseType],
+        applicationFee: session?.userCase?.awpFeeDetails?.feeAmountText,
+        applicationFeeAmount: session?.userCase?.awpFeeDetails?.feeAmount,
         applicationFormUrl: application.applicationFormUrl,
       };
     }
@@ -415,3 +376,52 @@ export const isValidApplicationReason = (
 export const APPLICATION_SIGNPOSTING_URL = applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, {
   pageNumber: '1',
 });
+
+export const fetchAndSaveFeeCodeDetails = async (
+  req: AppRequest,
+  userDetails: UserDetails,
+  applicationDetails: AWPFeeDetailsRequest
+): Promise<string | object | undefined> => {
+  return new Promise((resolve, reject) => {
+    delete req.session.userCase.awpFeeDetails;
+
+    const client = new CosApiClient(userDetails.accessToken, 'https://return-url');
+    client
+      .fetchAWPFeeCodeDetails(applicationDetails, userDetails)
+      .then(feeDetails => {
+        if (feeDetails?.errorRetrievingResponse) {
+          return req.session.save(() => {
+            reject(feeDetails.errorRetrievingResponse);
+          });
+        }
+
+        req.session.userCase.awpFeeDetails = {
+          ...feeDetails,
+          feeAmountText: `£${feeDetails.feeAmount}`,
+        };
+        req.session.save(resolve);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const resetAWPApplicationData = (req: AppRequest): void => {
+  delete req.session?.applicationSettings?.awpSelectedApplicationDetails;
+  delete req.session?.userCase?.awpFeeDetails;
+  delete req.session?.userCase?.awp_need_hwf;
+  delete req.session?.userCase?.awp_have_hwfReference;
+  delete req.session?.userCase?.awp_hwf_referenceNumber;
+  delete req.session?.userCase?.awp_completedForm;
+  delete req.session?.userCase?.awp_agreementForRequest;
+  delete req.session?.userCase?.awp_informOtherParties;
+  delete req.session?.userCase?.awp_reasonCantBeInformed;
+  delete req.session?.userCase?.awp_uploadedApplicationForms;
+  delete req.session?.userCase?.awpFeeDetails;
+  delete req.session?.userCase?.awp_cancelDelayHearing;
+  delete req.session?.userCase?.awp_isThereReasonForUrgentRequest;
+  delete req.session?.userCase?.awp_urgentRequestReason;
+  delete req.session?.userCase?.awp_hasSupportingDocuments;
+  delete req.session?.userCase?.awp_supportingDocuments;
+};

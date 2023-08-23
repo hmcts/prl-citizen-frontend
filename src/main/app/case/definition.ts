@@ -3101,3 +3101,19 @@ export enum passportPossessionRelative {
   FATHER = 'father',
   OTHER = 'otherPerson'
 }
+export interface AWPFeeDetailsRequest {
+  caseId: CaseData['id'];
+  applicationType: AWPApplicationType;
+  applicationReason: AWPApplicationReason;
+  caseType: CaseType;
+  partyType: PartyType;
+  otherPartyConsent?: YesOrNo;
+  hearingDate?: string;
+  notice?: YesOrNo;
+}
+export interface FeeDetailsResponse {
+  feeAmount: string;
+  feeAmountText: string;
+  feeType: string;
+  errorRetrievingResponse?: string;
+}

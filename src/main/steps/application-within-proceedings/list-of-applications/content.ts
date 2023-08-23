@@ -7,6 +7,7 @@ import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../prl-cases/dashboard/utils';
 import * as URL from '../../urls';
 import { isValidApplicationReason } from '../utils';
+export * from './routeGuard';
 
 import {
   APPLICANT_TASK_LIST_URL,

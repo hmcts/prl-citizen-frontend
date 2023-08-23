@@ -4,6 +4,7 @@ import { FormContent } from '../../../app/form/Form';
 import { isFieldFilledIn } from '../../../app/form/validation';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { APPLICATION_SIGNPOSTING_URL, getApplicationDetails } from '../utils';
+export * from './routeGuard';
 
 export const en = {
   title: 'Help with fees',
@@ -87,7 +88,7 @@ export const generateContent: TranslationFn = content => {
     caseData.caseTypeOfApplication,
     partyType,
     content.language,
-    request.session.applicationSettings
+    request.session
   );
 
   return {
