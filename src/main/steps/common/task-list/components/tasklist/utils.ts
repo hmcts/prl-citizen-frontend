@@ -174,12 +174,12 @@ const taskListConfig = {
       {
         id: TaskListSection.YOUR_DOCUMENTS,
         content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-        show: isCaseLinked,
+        show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
         tasks: [
           {
             id: Tasks.UPLOAD_DOCUMENTS,
             href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-            show: isCaseLinked,
+            show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
             disabled: isCaseClosed,
             stateTag: () => StateTags.OPTIONAL,
           },
@@ -187,7 +187,7 @@ const taskListConfig = {
             id: Tasks.VIEW_ALL_DOCUMENTS,
             href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
             stateTag: () => StateTags.READY_TO_VIEW,
-            show: isCaseLinked,
+            show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
           },
         ],
       },
