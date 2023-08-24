@@ -32,6 +32,19 @@ export const routeGuard = {
         language,
         req.session.applicationSettings
       );
+      if(req.session.userCase.awpFeeDetails?.applicationType!==awpApplicationDetails?.applicationType
+        &&req.session.userCase.awpFeeDetails?.applicationType!==awpApplicationDetails?.applicationType){
+          delete req.session.userCase?.awp_agreementForRequest
+          delete req.session.userCase?.awp_completedForm
+          delete req.session.userCase?.awp_need_hwf
+          delete req.session.userCase?.awp_have_hwfReference
+          delete req.session.userCase?.awp_hwf_referenceNumber
+          delete req.session.userCase?.awp_hasSupportingDocuments
+          delete req.session.userCase?.awp_supportingDocuments
+          delete req.session.userCase?.awp_uploadedApplicationForms
+          delete req.session.userCase?.awp_isThereReasonForUrgentRequest
+          delete req.session.userCase?.awp_urgentRequestReason
+        }
 
       if (awpApplicationDetails) {
         req.session.applicationSettings = {
