@@ -78,7 +78,7 @@ import {
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_STATEMENT_OF_SERVICE,
   APPLICANT_STATEMENT_OF_SERVICE_NEXT,
-  APPLICANT_TASKLIST_HEARING_NEEDS
+  APPLICANT_TASKLIST_HEARING_NEEDS,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
