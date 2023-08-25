@@ -240,7 +240,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         { awp_hasSupportingDocuments: YesOrNo.NO },
         req
       )
-    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents');
+    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/checkanswers');
   });
 
   test('should get correct url for supporting documents for other application reason when yes selected', () => {

@@ -129,14 +129,14 @@ describe('applicationWithinProceedingsSequence', () => {
     );
     expect(applicationWithinProceedingsSequence[11].showInSection).toBe('applicationWithinProceedings');
     expect(applicationWithinProceedingsSequence[11].getNextStep(userCase, req)).toBe(
-      '/application-within-proceedings/:applicationType/:applicationReason/checkanswers'
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/pay-and-submit'
     );
     expect(
       applicationWithinProceedingsSequence[11].getNextStep(userCase, {
         ...req,
         params: { ...req.params, applicationReason: AWPApplicationReason.PROHIBITED_STEPS_ORDER },
       })
-    ).toBe('/application-within-proceedings/C2/prohibited-steps-order/application-submitted');
+    ).toBe('/application-within-proceedings/C2/prohibited-steps-order/pay-and-submit');
 
     expect(applicationWithinProceedingsSequence[12].url).toBe(
       '/application-within-proceedings/:applicationType/:applicationReason/urgent-request'
@@ -151,7 +151,7 @@ describe('applicationWithinProceedingsSequence', () => {
     );
     expect(applicationWithinProceedingsSequence[13].showInSection).toBe('applicationWithinProceedings');
     expect(applicationWithinProceedingsSequence[13].getNextStep(userCase, req)).toBe(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents'
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/checkanswers'
     );
     expect(
       applicationWithinProceedingsSequence[13].getNextStep(userCase, {
@@ -165,7 +165,7 @@ describe('applicationWithinProceedingsSequence', () => {
     );
     expect(applicationWithinProceedingsSequence[14].showInSection).toBe('applicationWithinProceedings');
     expect(applicationWithinProceedingsSequence[14].getNextStep(userCase, req)).toBe(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-document-upload'
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/checkanswers'
     );
 
     expect(applicationWithinProceedingsSequence[15].url).toBe(
@@ -173,6 +173,21 @@ describe('applicationWithinProceedingsSequence', () => {
     );
     expect(applicationWithinProceedingsSequence[15].showInSection).toBe('applicationWithinProceedings');
     expect(applicationWithinProceedingsSequence[15].getNextStep(userCase, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
+    );
+
+    expect(applicationWithinProceedingsSequence[16].url).toBe(
+      '/application-within-proceedings/:applicationType/:applicationReason/pay-and-submit'
+    );
+    expect(applicationWithinProceedingsSequence[16].showInSection).toBe('applicationWithinProceedings');
+    expect(applicationWithinProceedingsSequence[16].getNextStep(userCase, req)).toBe(
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
+    );
+    expect(applicationWithinProceedingsSequence[17].url).toBe(
+      '/application-within-proceedings/:applicationType/:applicationReason/pay-and-submit'
+    );
+    expect(applicationWithinProceedingsSequence[17].showInSection).toBe('applicationWithinProceedings');
+    expect(applicationWithinProceedingsSequence[17].getNextStep(userCase, req)).toBe(
       '/application-within-proceedings/C2/delay-or-cancel-hearing-date/guidance'
     );
   });
