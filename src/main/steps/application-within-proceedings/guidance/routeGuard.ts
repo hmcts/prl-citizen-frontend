@@ -20,19 +20,7 @@ export const routeGuard = {
     ) {
       return next();
     }
-    if(!(req.session.applicationSettings?.awpSelectedApplicationDetails?.applicationType === applicationType) ||
-      !(req.session.applicationSettings?.awpSelectedApplicationDetails?.applicationReason === applicationReason)){
-      delete req.session.userCase?.awp_agreementForRequest
-      delete req.session.userCase?.awp_completedForm
-      delete req.session.userCase?.awp_need_hwf
-      delete req.session.userCase?.awp_have_hwfReference
-      delete req.session.userCase?.awp_hwf_referenceNumber
-      delete req.session.userCase?.awp_hasSupportingDocuments
-      delete req.session.userCase?.awp_supportingDocuments
-      delete req.session.userCase?.awp_uploadedApplicationForms
-      delete req.session.userCase?.awp_isThereReasonForUrgentRequest
-      delete req.session.userCase?.awp_urgentRequestReason
-    }
+
     if (req.session.userCase) {
       const caseTypeOfApplication = req.session.userCase.caseTypeOfApplication as CaseType;
       const partyType = getCasePartyType(req.session.userCase, req.session.user.id);
@@ -44,7 +32,6 @@ export const routeGuard = {
         language,
         req.session.applicationSettings
       );
-      
 
       if (awpApplicationDetails) {
         req.session.applicationSettings = {

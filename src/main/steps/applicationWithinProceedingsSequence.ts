@@ -135,15 +135,19 @@ export const applicationWithinProceedingsSequence: Step[] = [
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER,
     showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: (caseData, req) =>(caseData.awp_need_hwf===YesOrNo.YES && caseData.awp_have_hwfReference===YesOrNo.YES && caseData.awp_hwf_referenceNumber)?
-      applyParms(APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED, {
-        applicationType: req?.params.applicationType as AWPApplicationType,
-        applicationReason: req?.params.applicationReason as AWPApplicationReason,
-      }) as PageLink
-      :applyParms(APPLICATION_WITHIN_PROCEEDINGS_PAY_AND_SUBMIT, {
-        applicationType: req?.params.applicationType as AWPApplicationType,
-        applicationReason: req?.params.applicationReason as AWPApplicationReason,
-      }) as PageLink,
+    getNextStep: (caseData, req) =>
+      req?.session.applicationSettings?.awpSelectedApplicationDetails.applicationFee === '£0' ||
+      (caseData.awp_need_hwf === YesOrNo.YES &&
+        caseData.awp_have_hwfReference === YesOrNo.YES &&
+        caseData.awp_hwf_referenceNumber)
+        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED, {
+            applicationType: req?.params.applicationType as AWPApplicationType,
+            applicationReason: req?.params.applicationReason as AWPApplicationReason,
+          }) as PageLink)
+        : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_PAY_AND_SUBMIT, {
+            applicationType: req?.params.applicationType as AWPApplicationType,
+            applicationReason: req?.params.applicationReason as AWPApplicationReason,
+          }) as PageLink),
   },
   {
     url: APPLICATION_WITHIN_PROCEEDINGS_URGENT_REQUEST,
