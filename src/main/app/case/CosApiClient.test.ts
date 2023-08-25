@@ -6,7 +6,17 @@ import { GenerateAndUploadDocumentRequest } from '../document/GenerateAndUploadD
 
 import { CosApiClient, UploadDocumentRequest } from './CosApiClient';
 import { CaseWithId } from './case';
-import { CaseData, State, YesOrNo } from './definition';
+import {
+  AWPApplicationReason,
+  AWPApplicationType,
+  AWPFeeDetailsRequest,
+  CaseData,
+  CaseType,
+  FeeDetailsResponse,
+  PartyType,
+  State,
+  YesOrNo,
+} from './definition';
 import { toApiFormat } from './to-api-format';
 
 jest.mock('axios');
@@ -205,7 +215,56 @@ describe('CosApiClient', () => {
     }
     expect(flag).toEqual(true);
   });
+
+  test('fetchAWPFeeCodeDetails', async () => {
+    const applicationDetails = {
+      caseId: '1234567' as CaseData['id'],
+      applicationType: 'C2' as AWPApplicationType,
+      applicationReason: 'delay-or-cancel-hearing' as AWPApplicationReason,
+      caseType: 'FL401' as CaseType,
+      partyType: 'applicant' as PartyType,
+    } as AWPFeeDetailsRequest;
+    const response = {
+      id: '200',
+      state: 'SUCCESS',
+      feeDetails: {
+        feeAmount: 167,
+        feeAmountText: '167',
+        feeType: 'MOCK_FEE_TYPE',
+      },
+    };
+
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<FeeDetailsResponse>);
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    const actual = await client.fetchAWPFeeCodeDetails(applicationDetails, req.session.user);
+    expect(actual).toEqual(response);
+  });
+
+  test('fetchAWPFeeCodeDetails throws error', async () => {
+    const applicationDetails = {
+      caseId: '1234567' as CaseData['id'],
+      applicationType: 'C2' as AWPApplicationType,
+      applicationReason: 'delay-or-cancel-hearing' as AWPApplicationReason,
+      caseType: 'FL401' as CaseType,
+      partyType: 'applicant' as PartyType,
+    } as AWPFeeDetailsRequest;
+
+    mockedAxios.post.mockRejectedValueOnce;
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+
+    let flag = false;
+    try {
+      await client.fetchAWPFeeCodeDetails(applicationDetails, req.session.user);
+    } catch (error) {
+      flag = true;
+    }
+
+    expect(flag).toEqual(true);
+  });
 });
+
 describe('CosApiClientWithError', () => {
   test('retrieveByCaseIdWithError', async () => {
     const response = { id: '200', state: 'SUCCESS' };
