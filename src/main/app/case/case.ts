@@ -79,6 +79,7 @@ import {
   applicantContactPreferencesEnum,
   RespondentDocs,
   DocumentInfo,
+  FeeDetailsResponse,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -597,7 +598,7 @@ export interface Case {
   awp_informOtherParties?: YesOrNo;
   awp_reasonCantBeInformed?: string;
   awp_uploadedApplicationForms?: DocumentInfo[];
-  awpFeeDetails?: Record<string, any>;
+  awpFeeDetails?: FeeDetailsResponse;
   awp_cancelDelayHearing?: string;
   awp_isThereReasonForUrgentRequest?: YesOrNo;
   awp_urgentRequestReason?: string;
