@@ -6,6 +6,7 @@ import { Sections, Step } from './constants';
 import {
   APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
   APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED,
+  APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER,
   APPLICATION_WITHIN_PROCEEDINGS_DELAY_CANCEL_SELECT_HEARING,
   APPLICATION_WITHIN_PROCEEDINGS_DOCUMENT_UPLOAD,
   APPLICATION_WITHIN_PROCEEDINGS_DOWNLOAD_FORM,
@@ -132,10 +133,27 @@ export const applicationWithinProceedingsSequence: Step[] = [
       }) as PageLink,
   },
   {
+    url: APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER,
+    showInSection: Sections.ApplicationWithinProceedings,
+    getNextStep: (caseData, req) =>
+      req?.session.applicationSettings?.awpSelectedApplicationDetails.applicationFee === '£0' ||
+      (caseData.awp_need_hwf === YesOrNo.YES &&
+        caseData.awp_have_hwfReference === YesOrNo.YES &&
+        caseData.awp_hwf_referenceNumber)
+        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED, {
+            applicationType: req?.params.applicationType as AWPApplicationType,
+            applicationReason: req?.params.applicationReason as AWPApplicationReason,
+          }) as PageLink)
+        : (applyParms(APPLICATION_WITHIN_PROCEEDINGS_PAY_AND_SUBMIT, {
+            applicationType: req?.params.applicationType as AWPApplicationType,
+            applicationReason: req?.params.applicationReason as AWPApplicationReason,
+          }) as PageLink),
+  },
+  {
     url: APPLICATION_WITHIN_PROCEEDINGS_URGENT_REQUEST,
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (_userCase, req) =>
-      applyParms(APPLICATION_WITHIN_PROCEEDINGS_GUIDANCE, {
+      applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, {
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
@@ -155,7 +173,7 @@ export const applicationWithinProceedingsSequence: Step[] = [
     showInSection: Sections.ApplicationWithinProceedings,
     getNextStep: (_userCase, req) =>
       req?.params.applicationReason === AWPApplicationReason.DELAY_CANCEL_HEARING_DATE
-        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD, {
+        ? (applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, {
             applicationType: req?.params.applicationType as AWPApplicationType,
             applicationReason: req?.params.applicationReason as AWPApplicationReason,
           }) as PageLink)
@@ -181,10 +199,5 @@ export const applicationWithinProceedingsSequence: Step[] = [
         applicationType: req?.params.applicationType as AWPApplicationType,
         applicationReason: req?.params.applicationReason as AWPApplicationReason,
       }) as PageLink,
-  },
-  {
-    url: APPLICATION_WITHIN_PROCEEDINGS_DELAY_CANCEL_SELECT_HEARING,
-    showInSection: Sections.ApplicationWithinProceedings,
-    getNextStep: () => '/',
   },
 ];

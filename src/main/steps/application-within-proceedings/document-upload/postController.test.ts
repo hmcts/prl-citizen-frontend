@@ -695,7 +695,7 @@ describe('Document upload controller', () => {
     const res = mockResponse();
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalledWith(
-      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-document-upload'
+      '/application-within-proceedings/C2/delay-or-cancel-hearing-date/checkanswers'
     );
   });
 

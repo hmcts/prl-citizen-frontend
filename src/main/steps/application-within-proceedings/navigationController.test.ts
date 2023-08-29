@@ -80,6 +80,63 @@ describe('applicationWithinProceedingsNavigationController', () => {
       )
     ).toBe('/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/help-with-fees');
   });
+  describe('getUploadApplicationNextStep', () => {
+    test('should get correct url for upload application when no selected', () => {
+      expect(
+        ApplicationWithinProceedingsNavigationController.getNextUrl(
+          APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
+          { awp_completedForm: YesOrNo.NO },
+          req
+        )
+      ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/download-form');
+    });
+
+    test('should get correct url for upload application when c2 and delay cancel hearing date', () => {
+      expect(
+        ApplicationWithinProceedingsNavigationController.getNextUrl(
+          APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
+          userCase,
+          req
+        )
+      ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/select-hearing');
+    });
+
+    test('should get correct url for upload application when c2 and not delay cancel hearing date', () => {
+      req.params.applicationReason = AWPApplicationReason.REQUEST_MORE_TIME;
+      expect(
+        ApplicationWithinProceedingsNavigationController.getNextUrl(
+          APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
+          userCase,
+          req
+        )
+      ).toBe('/application-within-proceedings/C2/request-more-time/agreement-for-request');
+    });
+
+    test('should get correct url for upload application for free application', () => {
+      req.params.applicationType = AWPApplicationType.EX740;
+      req.params.applicationReason = AWPApplicationReason.YOU_ACCUSED_SOMEONE;
+      expect(
+        ApplicationWithinProceedingsNavigationController.getNextUrl(
+          APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
+          userCase,
+          req
+        )
+      ).toBe('/application-within-proceedings/EX740/prevent-questioning-in-person-accusing-someone/document-upload');
+    });
+
+    test('should get correct url for upload application for paid application', () => {
+      req.params.applicationType = AWPApplicationType.FP25;
+      req.params.applicationReason = AWPApplicationReason.REQUEST_FOR_ORDER_WITNESS;
+      req.session.applicationSettings.awpSelectedApplicationDetails.applicationFeeAmount = '£53';
+      expect(
+        ApplicationWithinProceedingsNavigationController.getNextUrl(
+          APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
+          userCase,
+          req
+        )
+      ).toBe('/application-within-proceedings/FP25/request-to-order-a-witness-to-attend-court/help-with-fees');
+    });
+  });
 
   test('should get correct url for upload application when c2 and delay cancel hearing date1', () => {
     expect(
@@ -183,7 +240,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
         { awp_hasSupportingDocuments: YesOrNo.NO },
         req
       )
-    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/supporting-documents');
+    ).toBe('/application-within-proceedings/C2/delay-or-cancel-hearing-date/checkanswers');
   });
 
   test('should get correct url for supporting documents for other application reason when yes selected', () => {

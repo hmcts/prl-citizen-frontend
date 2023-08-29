@@ -1,0 +1,16 @@
+{% extends "common/summary/template.njk" %}
+{% block page_content %}
+{% if section %}
+    <span class="govuk-heading-xl govuk-!-margin-bottom-50px">{{ section }}</span>
+  {% endif %}
+  {% if title %}
+    <h1 class="govuk-hint">{{ title }}</h1>
+  {% endif %}
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <p class="govuk-body">{{caseNumber}} #{{userCase.id}}</p>
+    </fieldset>
+  </div>
+  {% block page_contact_us %}
+ {% endblock %}
+{% endblock %}
