@@ -52,6 +52,12 @@ export const getDocumentListItem = (docType: string): string => {
     case DocType.MIAM_CERTIFICATE:
       documentListItem = applicant_tasklist_items_all_docs_en.miam_certificate;
       break;
+    case DocType.RESPONSE_TO_CA:
+      documentListItem = applicant_tasklist_items_all_docs_en.respondent_response_to_request_for_child_arrangements;
+      break;
+    case DocType.AOH_TO_CA:
+      documentListItem = applicant_tasklist_items_all_docs_en.respondent_allegation_of_harm_and_violence;
+      break;
   }
 
   return documentListItem;
@@ -75,13 +81,19 @@ export const getDocumentList = (
       }
     }
 
-    if (idamId) {
-      if (doc.value.uploadedBy === idamId && doc.value.documentType === getDocumentListItem(docType)) {
-        documents = appendDocument(documents, doc);
-      }
-    } else if (uploadedBy === docPartyType && doc.value.documentType === getDocumentListItem(docType)) {
+    documents = updateDocuments(idamId, documents, doc, uploadedBy, docPartyType, docType);
+  }
+
+  return documents;
+};
+
+const updateDocuments = (idamId, documents, doc, uploadedBy, docPartyType, docType) => {
+  if (idamId) {
+    if (doc.value.uploadedBy === idamId && doc.value.documentType === getDocumentListItem(docType)) {
       documents = appendDocument(documents, doc);
     }
+  } else if (uploadedBy === docPartyType && doc.value.documentType === getDocumentListItem(docType)) {
+    documents = appendDocument(documents, doc);
   }
 
   return documents;

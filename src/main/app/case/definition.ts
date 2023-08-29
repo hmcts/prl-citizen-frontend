@@ -3118,4 +3118,6 @@ OTHER_DOCUMENTS = 'otherdocuments',
 PREVIOUS_ORDERS = 'previousorders',
 OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
 MIAM_CERTIFICATE = 'miamcertificate',
+RESPONSE_TO_CA = 'responsetoca',
+AOH_TO_CA = 'aohtoca'
 }
