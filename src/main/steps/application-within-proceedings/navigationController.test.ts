@@ -127,7 +127,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
     test('should get correct url for upload application for paid application', () => {
       req.params.applicationType = AWPApplicationType.FP25;
       req.params.applicationReason = AWPApplicationReason.REQUEST_FOR_ORDER_WITNESS;
-      req.session.applicationSettings.awpSelectedApplicationDetails.applicationFee = '£53';
+      req.session.applicationSettings.awpSelectedApplicationDetails.applicationFeeAmount='£53';
       expect(
         ApplicationWithinProceedingsNavigationController.getNextUrl(
           APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
