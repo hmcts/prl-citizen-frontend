@@ -99,7 +99,7 @@ export const generateContent: TranslationFn = content => {
     content.language,
     request.session
   );
-  translations.errors = {
+  const interpolatedErrors = {
     ...translations.errors,
     awpUploadApplicationForm: {
       ...translations.errors.awpUploadApplicationForm,
@@ -113,6 +113,7 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
+    errors: interpolatedErrors,
     form,
     applicationType: applicationDetails?.applicationType,
     caption: applicationDetails?.reasonText,
@@ -127,7 +128,7 @@ export const generateContent: TranslationFn = content => {
       noFilesText: translations.noFilesText,
       removeFileText: translations.removeFileText,
       uploadFileButtonText: translations.uploadButton,
-      errorMessage: uploadDocError ? translations.errors.awpUploadApplicationForm?.[uploadDocError.errorType] : null,
+      errorMessage: uploadDocError ? interpolatedErrors.awpUploadApplicationForm?.[uploadDocError.errorType] : null,
       uploadedFiles:
         caseData?.awp_uploadedApplicationForms?.map(applicationForm => ({
           filename: applicationForm.filename,
