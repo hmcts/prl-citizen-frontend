@@ -599,8 +599,16 @@ export const getOthersResponse = (doc, taskListItems, type) => {
           ),
     href:
       type === 'c7Document'
-        ? `${URL.RESPONSE_TO_CA}?name=${doc?.value?.c7Document?.partyName}`
-        : `${URL.AOH_TO_CA}?name=${doc?.value?.c1aDocument?.partyName}`,
+        ? applyParms(URL.VIEW_DOCUMENT_URL, {
+            docType: DocType.RESPONSE_TO_CA,
+            uploadedBy: PartyType.RESPONDENT,
+            partyName: doc?.value?.c1aDocument?.partyName,
+          })
+        : applyParms(URL.VIEW_DOCUMENT_URL, {
+            docType: DocType.AOH_TO_CA,
+            uploadedBy: PartyType.RESPONDENT,
+            partyName: doc?.value?.c1aDocument?.partyName,
+          }),
     openInAnotherTab: true,
   };
 };
@@ -697,7 +705,7 @@ const getApplicantRequestToCA = (applicant: Applicant, taskListItems) => {
       '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
-    href: URL.APPLICANT + URL.APPLICANT_CA_DA_REQUEST,
+    href: URL.APPLICANT + applyParms(URL.APPLICANT_CA_DA_REQUEST, { updateCase: YesOrNo.NO }),
     openInAnotherTab: true,
   };
 };
@@ -710,7 +718,7 @@ const getApplicantAohAndViolence = (applicant: Applicant, taskListItems, userCas
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
     href: getApplicantAllegationsOfHarmAndViolence(userCase)
-      ? URL.ALLEGATION_OF_HARM_VOILENCE
+      ? applyParms(URL.ALLEGATION_OF_HARM_VOILENCE, { updateCase: YesOrNo.NO })
       : URL.ALLEGATION_OF_HARM_VOILENCE_DOC,
     openInAnotherTab: true,
   };
@@ -761,7 +769,7 @@ const getApplicantRequestToDA = (applicant: PartyDetails, taskListItems) => {
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href: URL.APPLICANT + URL.APPLICANT_CA_DA_REQUEST,
+    href: URL.APPLICANT + applyParms(URL.APPLICANT_CA_DA_REQUEST, { updateCase: YesOrNo.NO }),
   };
 };
 
@@ -773,7 +781,7 @@ const getApplicantAohAndViolenceDA = (applicant: PartyDetails, taskListItems, us
       applicant.firstName + ' ' + applicant.lastName
     ),
     href: getApplicantAllegationsOfHarmAndViolence(userCase)
-      ? URL.ALLEGATION_OF_HARM_VOILENCE
+      ? applyParms(URL.ALLEGATION_OF_HARM_VOILENCE, { updateCase: YesOrNo.NO })
       : URL.APPLICANT + URL.ALLEGATION_OF_HARM_VOILENCE_DOC,
   };
 };

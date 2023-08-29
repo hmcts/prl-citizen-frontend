@@ -4,6 +4,7 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
 import { checkPartyRepresentedBySolicitor } from '../../../steps/common/task-list/utils';
+import { applyParms } from '../../../steps/common/url-parser';
 import {
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
@@ -77,7 +78,7 @@ const en = () => ({
     ],
     bannerLinks: [
       {
-        href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
+        href: APPLICANT + applyParms(APPLICANT_CA_DA_REQUEST, { updateCase: YesOrNo.NO }),
         text: 'Check the application (PDF)',
       },
       {
@@ -121,7 +122,7 @@ const en = () => ({
         text: 'Read the order (PDF)',
       },
       {
-        href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
+        href: APPLICANT + applyParms(APPLICANT_CA_DA_REQUEST, { updateCase: YesOrNo.NO }),
         text: 'Read the application (PDF)',
       },
     ],
@@ -226,7 +227,7 @@ const cy = () => ({
     ],
     bannerLinks: [
       {
-        href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
+        href: APPLICANT + applyParms(APPLICANT_CA_DA_REQUEST, { updateCase: YesOrNo.NO }),
         text: 'Gwirio’r cais (PDF)',
       },
       {
@@ -271,7 +272,7 @@ const cy = () => ({
         text: 'Darllen y gorchymyn (PDF)',
       },
       {
-        href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
+        href: APPLICANT + applyParms(APPLICANT_CA_DA_REQUEST, { updateCase: YesOrNo.NO }),
         text: 'Darllen y gorchymyn (PDF)',
       },
     ],

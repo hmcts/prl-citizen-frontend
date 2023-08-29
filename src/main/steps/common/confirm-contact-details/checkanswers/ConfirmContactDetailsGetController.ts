@@ -66,11 +66,7 @@ function setRedirectUrl(req: AppRequest<Partial<Case>>) {
   if (req.url.includes('respondent')) {
     redirectUrl = RESPONDENT_CHECK_ANSWERS;
   } else {
-    if (req.session.userCase.caseTypeOfApplication === CaseType.C100) {
-      redirectUrl = APPLICANT_CHECK_ANSWERS + '?byApplicant=applicant';
-    } else {
-      redirectUrl = APPLICANT_CHECK_ANSWERS;
-    }
+    redirectUrl = APPLICANT_CHECK_ANSWERS;
   }
   return redirectUrl;
 }

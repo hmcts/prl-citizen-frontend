@@ -1,27 +1,29 @@
 import { YesOrNo } from '../../../../../app/case/definition';
 
-import { getDocumentList } from './utils';
+import { getDocumentList, getDocumentListItem } from './utils';
 
 describe('all documents utils', () => {
-  // test.each([
-  //   { value: 'positionstatements', expected: 'Your position statements' },
-  //   { value: 'yourwitnessstatements', expected: 'Your witness statements' },
-  //   { value: 'lettersfromschool', expected: 'Letters from school' },
-  //   { value: 'digitaldownloads', expected: 'Emails, screenshots, images and other media files' },
-  //   { value: 'medicalrecords', expected: 'Medical records' },
-  //   { value: 'paternitytestreports', expected: 'Paternity test reports' },
-  //   { value: 'drugalcoholtests', expected: 'Drug and alcohol tests (toxicology)' },
-  //   { value: 'witnessavailability', expected: 'Witness availability' },
-  //   { value: 'tenancyandmortgageavailability', expected: 'Tenancy and mortgage agreements' },
-  //   { value: 'medicalreports', expected: 'Medical reports' },
-  //   { value: 'otherDocuments', expected: 'Other documents' },
-  //   { value: 'previousorders', expected: 'Previous orders submitted with application' },
-  //   { value: 'otherpeoplewitnessstatement', expected: "Other people's witness statements" },
-  //   { value: 'policedisclosures', expected: 'Police reports' },
-  //   { value: 'miamcertificate', expected: 'MIAM certificate' },
-  // ])('get english document list item text', ({ value, expected }) => {
-  //   expect(getDocumentListItem(value)).toBe(expected);
-  // });
+  test.each([
+    { value: 'positionstatements', expected: 'Your position statements' },
+    { value: 'yourwitnessstatements', expected: 'Your witness statements' },
+    { value: 'lettersfromschool', expected: 'Letters from school' },
+    { value: 'digitaldownloads', expected: 'Emails, screenshots, images and other media files' },
+    { value: 'medicalrecords', expected: 'Medical records' },
+    { value: 'paternitytestreports', expected: 'Paternity test reports' },
+    { value: 'drugalcoholtests', expected: 'Drug and alcohol tests (toxicology)' },
+    { value: 'witnessavailability', expected: 'Witness availability' },
+    { value: 'tenancyandmortgageavailability', expected: 'Tenancy and mortgage agreements' },
+    { value: 'medicalreports', expected: 'Medical reports' },
+    { value: 'otherdocuments', expected: 'Other documents' },
+    { value: 'previousorders', expected: 'Previous orders submitted with application' },
+    { value: 'otherpeoplewitnessstatement', expected: "Other people's witness statements" },
+    { value: 'policedisclosures', expected: 'Police reports' },
+    { value: 'miamcertificate', expected: 'MIAM certificate' },
+    { value: 'responsetoca', expected: "<namerespondentxxxxx>'s response to the request for child arrangements" },
+    { value: 'aohtoca', expected: "<namerespondentxxxxx>'s allegations of harm and violence" },
+  ])('get english document list item text', ({ value, expected }) => {
+    expect(getDocumentListItem(value)).toBe(expected);
+  });
 
   test('getDocumentList for letters from school', () => {
     const documentList = [

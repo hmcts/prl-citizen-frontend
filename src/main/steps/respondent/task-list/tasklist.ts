@@ -1,7 +1,7 @@
 import { CaseWithId } from '../../../app/case/case';
-import { SectionStatus } from '../../../app/case/definition';
+import { SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
-import { UPDATE_CASE_YES } from '../../../steps/constants';
+import { applyParms } from '../../../steps/common/url-parser';
 import * as URL from '../../urls';
 
 import {
@@ -123,7 +123,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
         href:
           getFinalApplicationStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
             ? '#'
-            : URL.APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES,
+            : applyParms(URL.APPLICANT_CA_DA_REQUEST, { updateCase: YesOrNo.YES }),
         openInAnotherTab: true,
       },
       {
@@ -133,7 +133,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
         href:
           getCheckAllegationOfHarmStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
             ? '#'
-            : URL.ALLEGATION_OF_HARM_VOILENCE + UPDATE_CASE_YES,
+            : applyParms(URL.ALLEGATION_OF_HARM_VOILENCE, { updateCase: YesOrNo.YES }),
         openInAnotherTab: true,
       }
     );
@@ -145,7 +145,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
       href:
         getFinalApplicationStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
           ? '#'
-          : URL.APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES,
+          : applyParms(URL.APPLICANT_CA_DA_REQUEST, { updateCase: YesOrNo.YES }),
       openInAnotherTab: true,
     });
   }

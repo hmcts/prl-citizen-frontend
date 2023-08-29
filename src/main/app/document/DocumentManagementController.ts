@@ -158,9 +158,12 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let loggedInCitizen: UserDetails;
 
     try {
-      const originalUrl = req.originalUrl;
+      let originalUrl = req.originalUrl;
 
       if (originalUrl !== null && originalUrl !== undefined && originalUrl.length > 0) {
+        if (req.params.updateCase) {
+          originalUrl = originalUrl.slice(0, originalUrl.lastIndexOf('/'));
+        }
         filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
         const itemlist = originalUrl.toString().split('/');
         endPoint = itemlist[itemlist.length - 2];
@@ -257,10 +260,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
         res.setHeader('Content-Type', generatedDocument.headers['content-type']);
         if (cdamUrl && this.getFlagViewed(req, fieldFlag) === true) {
           // download and open the pdf in the same window
+          res.setHeader('Content-Disposition', 'inline; filename="' + filename + '";');
           return res.send(generatedDocument.data);
         } else {
           // set the flag from "Download" to "View" and only download the pdf
-          if (fieldFlag && req.query?.updateCase && req.query?.updateCase === YesOrNo.YES) {
+          if (fieldFlag && req.params?.updateCase === YesOrNo.YES) {
             this.setFlagViewed(req, caseReference, client, req.session.user, fieldFlag);
           }
           res.setHeader('Content-Disposition', 'inline; filename="' + filename + '";');
@@ -340,13 +344,19 @@ export class DocumentManagerController extends PostController<AnyObject> {
       } else {
         {
           for (const document of req.session.userCase.respondentDocsList!) {
-            if (ele1 === 'c1a' && document.value?.c1aDocument?.partyName === req.query?.name) {
+            if (
+              ele1 === 'c1a' &&
+              document.value?.c1aDocument?.partyName === req.session.applicationSettings?.docToView.partyName
+            ) {
               document_filename = document.value.c1aDocument.citizenDocument.document_filename;
               documentToGet = document.value.c1aDocument.citizenDocument.document_binary_url;
               uid = this.getUID(documentToGet);
               break;
             } else {
-              if (ele1 === 'c7' && document.value?.c7Document?.partyName === req.query?.name) {
+              if (
+                ele1 === 'c7' &&
+                document.value?.c7Document?.partyName === req.session.applicationSettings?.docToView.partyName
+              ) {
                 document_filename = document.value.c7Document.citizenDocument.document_filename;
                 documentToGet = document.value.c7Document.citizenDocument.document_binary_url;
                 uid = this.getUID(documentToGet);

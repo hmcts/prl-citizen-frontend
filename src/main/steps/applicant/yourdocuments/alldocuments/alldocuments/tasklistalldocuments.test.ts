@@ -420,6 +420,38 @@ describe('respondent-tasklistalldocuments', () => {
         },
       },
     ];
+    req.session.userCase.respondentDocsList = [
+      {
+        id: '1234',
+        value: {
+          c1aDocument: {
+            partyName: 'MOCK_NAME',
+            createdBy: 'MOCK_VALUE',
+            dateCreated: new Date(),
+            citizenDocument: {
+              document_url: 'MOCK_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_binary_url: 'MOCK_BINARY_URL',
+            },
+          },
+        },
+      },
+      {
+        id: '1234',
+        value: {
+          c7Document: {
+            partyName: 'MOCK_NAME',
+            createdBy: 'MOCK_VALUE',
+            dateCreated: new Date(),
+            citizenDocument: {
+              document_url: 'MOCK_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_binary_url: 'MOCK_BINARY_URL',
+            },
+          },
+        },
+      },
+    ];
     req.session.userCase.respondents = [
       {
         id: '310f3f16-7425-4680-8054-92f3a01ab923',
@@ -442,7 +474,7 @@ describe('respondent-tasklistalldocuments', () => {
       false
     );
     expect(actual.title).toEqual(applicant_all_docs_en.respondentsDocuments);
-    expect(actual.items).toHaveLength(15);
+    expect(actual.items).toHaveLength(17);
   });
 
   test('getApplicantDocuments for respondent, DO_NOT_SHOW', async () => {
