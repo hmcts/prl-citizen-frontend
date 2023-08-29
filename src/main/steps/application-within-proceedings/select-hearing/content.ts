@@ -19,7 +19,7 @@ const en = {
   urgentFlag: 'Urgent',
   errors: {
     awp_cancelDelayHearing: {
-      notSelected: 'You must select the hearing you are applying to delay or cancel',
+      notSelected: 'Select the hearing you want to delay or cancel',
     },
   },
 };
@@ -33,7 +33,7 @@ const cy: typeof en = {
   urgentFlag: 'Urgent - welsh',
   errors: {
     awp_cancelDelayHearing: {
-      notSelected: 'You must select the hearing you are applying to delay or cancel - welsh',
+      notSelected: 'Select the hearing you want to delay or cancel - welsh',
     },
   },
 };
