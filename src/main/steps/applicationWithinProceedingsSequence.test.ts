@@ -171,7 +171,7 @@ describe('applicationWithinProceedingsSequence', () => {
     expect(applicationWithinProceedingsSequence[12].showInSection).toBe('applicationWithinProceedings');
     expect(applicationWithinProceedingsSequence[12].getNextStep(userCase, req)).toBe(
       '/application-within-proceedings/C2/delay-or-cancel-hearing-date/checkanswers'
-    )
+    );
 
     expect(applicationWithinProceedingsSequence[13].url).toBe(
       '/application-within-proceedings/:applicationType/:applicationReason/supporting-documents'
