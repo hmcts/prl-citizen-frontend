@@ -15,7 +15,7 @@ const en = {
   urgentFlag: 'Urgent',
   errors: {
     awp_cancelDelayHearing: {
-      notSelected: 'You must select the hearing you are applying to delay or cancel',
+      notSelected: 'Select the hearing you want to delay or cancel',
     },
   },
 };
@@ -29,7 +29,7 @@ const cy: typeof en = {
   urgentFlag: 'Urgent - welsh',
   errors: {
     awp_cancelDelayHearing: {
-      notSelected: 'You must select the hearing you are applying to delay or cancel - welsh',
+      notSelected: 'Select the hearing you want to delay or cancel - welsh',
     },
   },
 };
@@ -127,5 +127,19 @@ describe('select hearing content', () => {
 
   test('should contain cancel link', () => {
     expect(form?.link?.text(generatePageContent({ language: 'en' }))).toBe(en.cancel);
+  });
+
+  test('should return correct hearing options when hearingCollection is undefined', () => {
+    commonContent.additionalData!.req.session.userCase.hearingCollection = undefined;
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
+    expect((fields.awp_cancelDelayHearing.options as Function)(generatedContent)).toStrictEqual([
+      {
+        selected: true,
+        text: '-- Select a value --',
+        value: '',
+      },
+    ]);
   });
 });

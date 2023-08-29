@@ -19,7 +19,7 @@ const en = {
   cancel: 'Cancel',
   errors: {
     awp_agreementForRequest: {
-      required: 'You must select whether the other person in the case agrees with your request',
+      required: 'Select whether the other person in the case agrees with your request',
     },
   },
 };
@@ -37,7 +37,7 @@ const cy: typeof en = {
   cancel: 'Canslo',
   errors: {
     awp_agreementForRequest: {
-      required: 'You must select whether the other person in the case agrees with your request (welsh)',
+      required: 'Select whether the other person in the case agrees with your request (welsh)',
     },
   },
 };

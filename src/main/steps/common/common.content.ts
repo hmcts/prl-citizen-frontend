@@ -130,6 +130,8 @@ export const en = {
   contactUs4: 'This email should only be used for feedback on the digital service.',
   feedback: 'FeedBack',
   youMust: 'You must ',
+  awpErrorSummaryHeading: 'There is a problem',
+  awpSelectHearingHeadingError: 'select the hearing you are applying to delay or cancel',
 };
 
 export const cy: typeof en = {
@@ -243,7 +245,9 @@ export const cy: typeof en = {
     'Os hoffech roi gwybod inni am broblem neu os oes gennych awgrym i’n helpu ni i wella’r gwasanaeth hwn, anfonwch neges e-bost i: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk-welsh</a>',
   contactUs4: "Dim ond i roi adborth ar y gwasanaeth digidol y dylid defnyddio'r cyfeiriad e-bost hwn.",
   feedback: 'Adborth',
-  youMust: 'You must (welsh)',
+  youMust: 'You must (welsh) ',
+  awpErrorSummaryHeading: 'There is a problem (welsh)',
+  awpSelectHearingHeadingError: 'select the hearing you are applying to delay or cancel (welsh)',
 };
 
 export const generatePageContent = ({
