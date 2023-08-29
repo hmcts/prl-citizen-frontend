@@ -342,14 +342,14 @@ describe('generateRespondentTaskList', () => {
         title: sectionTitles.theApplication,
         items: [
           {
-            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest/Yes?',
+            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest/update-case?',
             id: 'check_the_application',
             status: 'READY_TO_VIEW',
             text: 'Check the application (PDF)',
             openInAnotherTab: true,
           },
           {
-            href: '/yourdocuments/alldocuments/aohviolence/Yes?',
+            href: '/yourdocuments/alldocuments/aohviolence/update-case?',
             id: 'check_allegations_of_harm_and_violence',
             status: 'READY_TO_VIEW',
             text: 'Check the allegations of harm and violence (PDF)',
@@ -466,7 +466,7 @@ describe('generateRespondentTaskList', () => {
             text: taskListItems.check_the_application,
             openInAnotherTab: true,
             status: 'READY_TO_VIEW',
-            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest/Yes?',
+            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest/update-case?',
           },
         ],
       },

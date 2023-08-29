@@ -705,7 +705,7 @@ const getApplicantRequestToCA = (applicant: Applicant, taskListItems) => {
       '<nameapplicantxxxxx>',
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
-    href: URL.APPLICANT + applyParms(URL.APPLICANT_CA_DA_REQUEST, { updateCase: YesOrNo.NO }),
+    href: URL.APPLICANT + applyParms(URL.APPLICANT_CA_DA_REQUEST, {}),
     openInAnotherTab: true,
   };
 };
@@ -718,7 +718,7 @@ const getApplicantAohAndViolence = (applicant: Applicant, taskListItems, userCas
       applicant.value.firstName + ' ' + applicant.value.lastName
     ),
     href: getApplicantAllegationsOfHarmAndViolence(userCase)
-      ? applyParms(URL.ALLEGATION_OF_HARM_VOILENCE, { updateCase: YesOrNo.NO })
+      ? applyParms(URL.ALLEGATION_OF_HARM_VOILENCE, {})
       : URL.ALLEGATION_OF_HARM_VOILENCE_DOC,
     openInAnotherTab: true,
   };
@@ -769,7 +769,7 @@ const getApplicantRequestToDA = (applicant: PartyDetails, taskListItems) => {
       '<nameapplicantxxxxx>',
       applicant.firstName + ' ' + applicant.lastName
     ),
-    href: URL.APPLICANT + applyParms(URL.APPLICANT_CA_DA_REQUEST, { updateCase: YesOrNo.NO }),
+    href: URL.APPLICANT + applyParms(URL.APPLICANT_CA_DA_REQUEST, {}),
   };
 };
 
@@ -781,7 +781,7 @@ const getApplicantAohAndViolenceDA = (applicant: PartyDetails, taskListItems, us
       applicant.firstName + ' ' + applicant.lastName
     ),
     href: getApplicantAllegationsOfHarmAndViolence(userCase)
-      ? applyParms(URL.ALLEGATION_OF_HARM_VOILENCE, { updateCase: YesOrNo.NO })
+      ? applyParms(URL.ALLEGATION_OF_HARM_VOILENCE, {})
       : URL.APPLICANT + URL.ALLEGATION_OF_HARM_VOILENCE_DOC,
   };
 };

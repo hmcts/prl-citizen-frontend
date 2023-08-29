@@ -78,7 +78,7 @@ const en = () => ({
     ],
     bannerLinks: [
       {
-        href: APPLICANT + applyParms(APPLICANT_CA_DA_REQUEST, { updateCase: YesOrNo.NO }),
+        href: APPLICANT + applyParms(APPLICANT_CA_DA_REQUEST, {}),
         text: 'Check the application (PDF)',
       },
       {
@@ -122,7 +122,7 @@ const en = () => ({
         text: 'Read the order (PDF)',
       },
       {
-        href: APPLICANT + applyParms(APPLICANT_CA_DA_REQUEST, { updateCase: YesOrNo.NO }),
+        href: APPLICANT + applyParms(APPLICANT_CA_DA_REQUEST, {}),
         text: 'Read the application (PDF)',
       },
     ],
@@ -227,7 +227,7 @@ const cy = () => ({
     ],
     bannerLinks: [
       {
-        href: APPLICANT + applyParms(APPLICANT_CA_DA_REQUEST, { updateCase: YesOrNo.NO }),
+        href: APPLICANT + applyParms(APPLICANT_CA_DA_REQUEST, {}),
         text: 'Gwirio’r cais (PDF)',
       },
       {
@@ -272,7 +272,7 @@ const cy = () => ({
         text: 'Darllen y gorchymyn (PDF)',
       },
       {
-        href: APPLICANT + applyParms(APPLICANT_CA_DA_REQUEST, { updateCase: YesOrNo.NO }),
+        href: APPLICANT + applyParms(APPLICANT_CA_DA_REQUEST, {}),
         text: 'Darllen y gorchymyn (PDF)',
       },
     ],

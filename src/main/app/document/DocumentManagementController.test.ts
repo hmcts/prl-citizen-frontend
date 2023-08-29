@@ -34,7 +34,7 @@ describe('DocumentManagerController', () => {
     updateCaserMock.mockResolvedValue(req.session.userCase);
     retrieveByCaseIdMock.mockResolvedValue(req.session.userCase);
     mockGet.mockResolvedValue('true');
-    req.params.updateCase = undefined;
+    req.params.docContext = undefined;
     //jest.mock('getSystemUser', () => jest.fn());
   });
   afterEach(() => {
@@ -288,7 +288,7 @@ describe('DocumentManagerController', () => {
       ];
       req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf/Yes?';
       req.headers.accept = 'application/pdf';
-      req.params.updateCase = 'Yes';
+      req.params.docContext = 'update-case';
       req.session.userCase.c1ADocument = {
         document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
         document_binary_url:
@@ -328,7 +328,7 @@ describe('DocumentManagerController', () => {
       ];
       req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf/Yes?';
       req.headers.accept = 'application/pdf';
-      req.params.updateCase = 'Yes';
+      req.params.docContext = 'update-case';
       req.session.userCase.finalDocument = {
         document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
         document_binary_url:
@@ -375,7 +375,7 @@ describe('DocumentManagerController', () => {
       ];
       req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest/Yes?';
       req.headers.accept = 'application/pdf';
-      req.params.updateCase = 'Yes';
+      req.params.docContext = 'update-case';
       req.session.userCase.finalDocument = {
         document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
         document_binary_url:
@@ -417,7 +417,7 @@ describe('DocumentManagerController', () => {
       ];
       req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf/Yes?';
       req.headers.accept = 'application/pdf';
-      req.params.updateCase = 'Yes';
+      req.params.docContext = 'update-case';
       req.session.userCase.finalDocument = {
         document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
         document_binary_url:

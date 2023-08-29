@@ -5,6 +5,7 @@ import type { Response } from 'express';
 import { getPartyName } from '../../steps/common/task-list/utils';
 import { getDocumentType } from '../../steps/common/upload-document/util';
 import { applyParms } from '../../steps/common/url-parser';
+import { UPDATE_CASE } from '../../steps/constants';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   APPLICANT,
@@ -161,7 +162,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       let originalUrl = req.originalUrl;
 
       if (originalUrl !== null && originalUrl !== undefined && originalUrl.length > 0) {
-        if (req.params.updateCase) {
+        if (req.params.docContext) {
           originalUrl = originalUrl.slice(0, originalUrl.lastIndexOf('/'));
         }
         filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
@@ -264,7 +265,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
           return res.send(generatedDocument.data);
         } else {
           // set the flag from "Download" to "View" and only download the pdf
-          if (fieldFlag && req.params?.updateCase === YesOrNo.YES) {
+          if (fieldFlag && req.params?.docContext === UPDATE_CASE) {
             this.setFlagViewed(req, caseReference, client, req.session.user, fieldFlag);
           }
           res.setHeader('Content-Disposition', 'inline; filename="' + filename + '";');
