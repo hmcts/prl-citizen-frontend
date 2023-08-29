@@ -21,7 +21,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
       session: {
         applicationSettings: {
           awpSelectedApplicationDetails: {
-            applicationFee: '£0',
+            applicationFeeAmount: '0',
           },
         },
       },
@@ -71,7 +71,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
   test('should get correct url for upload application for paid application', () => {
     req.params.applicationType = AWPApplicationType.FP25;
     req.params.applicationReason = AWPApplicationReason.REQUEST_FOR_ORDER_WITNESS;
-    req.session.applicationSettings.awpSelectedApplicationDetails.applicationFee = '£53';
+    req.session.applicationSettings.awpSelectedApplicationDetails.applicationFeeAmount = '£53';
     expect(
       ApplicationWithinProceedingsNavigationController.getNextUrl(
         APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
@@ -174,7 +174,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
   test('should get correct url for upload application for paid application1', () => {
     req.params.applicationType = AWPApplicationType.FP25;
     req.params.applicationReason = AWPApplicationReason.REQUEST_FOR_ORDER_WITNESS;
-    req.session.applicationSettings.awpSelectedApplicationDetails.applicationFee = '£53';
+    req.session.applicationSettings.awpSelectedApplicationDetails.applicationFeeAmount = '£53';
     expect(
       ApplicationWithinProceedingsNavigationController.getNextUrl(
         APPLICATION_WITHIN_PROCEEDINGS_UPLOAD_YOUR_APPLICATION,
@@ -194,7 +194,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
   });
 
   test('should get correct url for agreement for request for paid delay or cancel hearing application', () => {
-    req.session.applicationSettings.awpSelectedApplicationDetails.applicationFee = '£53';
+    req.session.applicationSettings.awpSelectedApplicationDetails.applicationFeeAmount = '£53';
     expect(
       ApplicationWithinProceedingsNavigationController.getNextUrl(
         APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,
@@ -205,7 +205,7 @@ describe('applicationWithinProceedingsNavigationController', () => {
   });
   test('should get correct url for agreement for request for other C2 application when yes selected', () => {
     req.params.applicationReason = AWPApplicationReason.REQUEST_MORE_TIME;
-    req.session.applicationSettings.awpSelectedApplicationDetails.applicationFee = '£53';
+    req.session.applicationSettings.awpSelectedApplicationDetails.applicationFeeAmount = '£53';
     expect(
       ApplicationWithinProceedingsNavigationController.getNextUrl(
         APPLICATION_WITHIN_PROCEEDINGS_AGREEMENT_FOR_REQUEST,

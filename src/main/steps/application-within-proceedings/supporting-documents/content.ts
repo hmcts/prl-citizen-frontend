@@ -83,7 +83,7 @@ export const generateContent: TranslationFn = content => {
     caseData.caseTypeOfApplication,
     partyType,
     content.language,
-    request.session.applicationSettings
+    request.session
   );
 
   return {
