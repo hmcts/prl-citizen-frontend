@@ -21,7 +21,7 @@ services:
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
-    url: 'http://ccd-definitions-pr-1488.preview.platform.hmcts.net'
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-1488.preview.platform.hmcts.net'
   cos:
     url: 'https://prl-cos-pr-1649.preview.platform.hmcts.net'
   documentManagement:

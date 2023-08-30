@@ -27,7 +27,8 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
       caseId,
       returnUrL,
       applicantCaseName as string,
-      hwfRefNumber as string
+      hwfRefNumber as string,
+      'C100_SUBMISSION_FEE'
     );
     const response = await paymentCreator.getPaymentCredentails();
 
