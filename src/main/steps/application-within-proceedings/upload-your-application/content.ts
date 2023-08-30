@@ -16,7 +16,7 @@ export const en = {
   cancel: 'Cancel',
   errors: {
     awp_completedForm: {
-      required: 'You must select if you have the form {applicationType} ready to upload',
+      required: 'Select if you have the form {applicationType} ready to upload',
     },
   },
 };
@@ -31,7 +31,7 @@ export const cy: typeof en = {
   cancel: 'Canslo',
   errors: {
     awp_completedForm: {
-      required: 'You must select if you have the form {applicationType} ready to upload (welsh)',
+      required: 'Select if you have the form {applicationType} ready to upload (welsh)',
     },
   },
 };

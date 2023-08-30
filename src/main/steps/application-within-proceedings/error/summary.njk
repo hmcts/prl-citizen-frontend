@@ -7,20 +7,10 @@
       {% set errorList = (errorList.push({
         text: errorSaving
       }), errorList) %}
-    {% elif item.errorType == 'fileFormat' or item.errorType == 'fileSize' or item.propertyName == 'awp_completedForm' %}
-      {% set errorList = (errorList.push({
-        href: '#' + item.propertyName,
-        text: errors[item.propertyName][item.errorType]
-      }), errorList) %}
-    {% elif item.propertyName == 'awp_cancelDelayHearing' %}
-      {% set errorList = (errorList.push({
-        href: '#' + item.propertyName,
-        text: youMust + awpSelectHearingHeadingError
-      }), errorList) %}
     {% else %}
       {% set errorList = (errorList.push({
         href: '#' + item.propertyName,
-        text: youMust + errors[item.propertyName][item.errorType].slice(0, 1) | lower + errors[item.propertyName][item.errorType].slice(1)
+        text: errors[item.propertyName][item.errorType]
       }), errorList) %}
     {% endif %}
   {% endfor %}
