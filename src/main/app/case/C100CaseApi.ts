@@ -74,6 +74,7 @@ export class CaseApi {
       helpWithFeesReferenceNumber,
       c100RebuildReturnUrl: returnUrl,
       id: caseId,
+      applicantCaseName: caseData.applicantCaseName,
       paymentServiceRequestReferenceNumber: caseData.paymentDetails?.serviceRequestReference,
       paymentReferenceNumber: caseData.paymentDetails?.payment_reference,
     };

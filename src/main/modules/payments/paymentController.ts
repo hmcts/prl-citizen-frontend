@@ -32,6 +32,7 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
     const response = await paymentCreator.getPaymentCredentails();
 
     req.session.userCase.paymentDetails = response;
+    req.session.userCase.applicantCaseName = response.applicantCaseName;
     //if previous payment is success then invoke submit case else redirect gov.uk
     //if help with fees opted then submit case & redirect to confirmation page
     if (hwfRefNumber && response?.serviceRequestReference) {

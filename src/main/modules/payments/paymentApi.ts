@@ -7,6 +7,7 @@ type PaymentRetrivalDataType = {
   next_url: string;
   status: string;
   serviceRequestReference: string;
+  applicantCaseName: string;
 };
 
 interface PaymentApi {
@@ -97,6 +98,7 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
         next_url,
         status,
         serviceRequestReference,
+        applicantCaseName,
       }: PaymentRetrivalDataType = requestPaymentUpdate['data'];
 
       return {
@@ -106,6 +108,7 @@ export class PaymentTaskResolver extends PaymentSystemAPIInstance implements Pay
         next_url,
         status,
         serviceRequestReference,
+        applicantCaseName,
       };
     } catch (error) {
       return error;
