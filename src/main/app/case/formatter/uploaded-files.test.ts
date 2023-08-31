@@ -16,6 +16,13 @@ describe('uploadedFilesFromApiApplicant1', () => {
                 'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4/binary',
               document_filename: 'Special_Guardianship_Order_C43A.pdf',
             },
+            orderDocumentWelsh: {
+              document_url:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4',
+              document_binary_url:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4/binary',
+              document_filename: 'Special_Guardianship_Order_C43A.pdf',
+            },
             otherDetails: {
               createdBy: 'qaz',
               orderCreatedDate: '18 July 2022',
@@ -36,6 +43,13 @@ describe('uploadedFilesFromApiApplicant1', () => {
                 'http://dm-store-aat.service.core-compute-aat.internal/documents/2ede5e2a-fe74-4d52-83b3-9f41bcebfdda/binary',
               document_filename: 'N117CreateOrder.pdf',
               document_hash: null,
+            },
+            orderDocumentWelsh: {
+              document_url:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4',
+              document_binary_url:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4/binary',
+              document_filename: 'Special_Guardianship_Order_C43A.pdf',
             },
             otherDetails: {
               createdBy: 'Datta',
