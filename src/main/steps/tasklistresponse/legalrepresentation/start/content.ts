@@ -1,8 +1,5 @@
-//import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-//import { isFieldFilledIn } from '../../../../app/form/validation';
-
 const en = {
   title: 'Will you be using a legal representative to respond to the application?',
   insetText:
@@ -16,7 +13,7 @@ const en = {
     },
   },
   find: 'Find legal representation',
-  legal: 'Find legal representation',
+  legal: 'Do you need legal aid?',
 };
 
 const cy: typeof en = {
@@ -25,14 +22,14 @@ const cy: typeof en = {
     "Gallwch ymateb i gais y ceisydd eich hun ac yna ailgyfeirio eich achos i'ch cynrychiolydd cyfreithiol am weddill yr achos.",
   one: 'Byddaf',
   two: 'Na fyddaf',
-  continue: 'Save and continue -welsh',
+  continue: 'Cadw a pharhau',
   errors: {
     legalRepresentation: {
-      required: 'Select yes if you are using a legal representative to respond to the application -welsh',
+      required: 'Dewiswch ydw os ydych chi’n defnyddio cynrychiolydd cyfreithiol i ymateb i’r cais',
     },
   },
-  find: 'Find legal representation -welsh',
-  legal: 'Find legal representation -welsh',
+  find: 'Dod o hyd i gynrychiolydd cyfreithiol',
+  legal: 'A oes arnoch chi angen cymorth cyfreithiol?',
 };
 
 const languages = {

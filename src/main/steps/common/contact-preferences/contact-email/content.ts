@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+import _ from 'lodash';
+
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { interpolate } from '../../../../steps/common/string-parser';
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  caption: 'Case number #{caseNumber}',
+  caption: 'Case number {caseNumber}',
   title: 'Contact Preferences',
   subTitle: 'Personal details',
   text: 'You have decided to receive updates by email. You will still receive some information by post.',
@@ -18,15 +19,15 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  caption: 'Case number - welsh #{caseNumber}',
-  title: 'Contact Preferences - welsh',
-  subTitle: 'Personal details - welsh',
-  text: 'You have decided to receive updates by email. You will still receive some information by post. - welsh',
-  continue: 'Submit - welsh',
-  warningText: 'Make sure that your contact details are up to date. -welsh',
+  caption: 'Rhif yr achos {caseNumber}',
+  title: 'Dewisiadau Cyswllt',
+  subTitle: 'Manylion personol',
+  text: 'Rydych wedi penderfynu cael diweddariadau drwy e-bost. Byddwch yn dal i gael rhywfaint o wybodaeth drwy’r post.',
+  continue: 'Cyflwyno',
+  warningText: 'Sicrhewch fod eich manylion cyswllt yn gyfredol.',
   email: 'E-bost',
-  change: 'Change (welsh)',
-  nameText: 'name (welsh)',
+  change: 'Newid',
+  nameText: 'enw',
 });
 
 const languages = {
@@ -71,13 +72,17 @@ export const getFormFields = (): FormContent => {
 };
 
 export const generateContent: TranslationFn = content => {
-  let applicantEmail;
+  let applicantEmail = '';
   const caseNumber = content.userCase?.id!;
   const translations = languages[content.language]();
   const { fields } = generateFormFields();
 
-  if (content?.userCase?.applicants) {
-    applicantEmail = content?.userCase?.applicants![0].value.email!;
+  if (content?.userCase?.applicants?.length) {
+    applicantEmail = _.get(
+      content.userCase.applicants.find(applicant => applicant.value.user.idamId === content.userIdamId),
+      'value.email',
+      ''
+    );
   }
 
   return {

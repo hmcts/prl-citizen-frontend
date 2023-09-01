@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { Validator, atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -27,6 +28,9 @@ const en = {
     },
     hearingDetails: {
       required: 'Explain why you are unable to take part in either video or phone hearings',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -42,18 +46,23 @@ const cy: typeof en = {
   phoneHearings: 'Gallaf, rwyf yn gallu cymryd rhan mewn gwrandawiad fideo',
   noHearings: 'Na allaf, ni allaf gymryd rhan mewn gwrandawiad fideo na gwrandawiad dros y ffôn',
   noHearingsHint: 'Os dewiswch yr opsiwn hwn, dywedwch wrthym pam rhag ofn y gallwn eich cynorthwyo',
-  noHearingDetails: 'Explain why you are unable to take part in video or phone hearings -welsh',
-  line1: 'If your case goes to a hearing, it can take place either:  -welsh',
+  noHearingDetails:
+    'Esboniwch pam nad ydych yn gallu cymryd rhan mewn gwrandawiad drwy fideo na gwrandawiad dros y ffôn',
+  line1: 'Os bydd eich achos yn mynd i wrandawiad, gellir ei gynnal naill ai:',
   list1:
     "<li>yn bersonol, mewn ystafell mewn lleoliad penodol ('wyneb yn wyneb')</li><li>trwy fideo (lle gallwch chi ymuno o le sy'n addas i chi)</li><li>dros y ffôn</li>",
-  line2: 'Some hearings use a combination of these methods. The approach taken will be decided by a judge. -welsh',
-  continue: 'Continue -welsh',
+  line2:
+    "Mae rhai gwrandawiadau yn defnyddio cyfuniad o'r dulliau hyn. Barnwr fydd yn penderfynu pa ddull fydd yn cael ei ddefnyddio.",
+  continue: 'Parhau',
   errors: {
     attendingToCourt: {
-      required: 'Select whether you can take part in a video or phone hearing -welsh',
+      required: 'Dewiswch a allwch chi gymryd rhan mewn gwrandawiad fideo neu wrandawiad dros y ffôn ',
     },
     hearingDetails: {
-      required: 'Explain why you are unable to take part in either video or phone hearings -welsh',
+      required: 'Eglurwch pam na allwch gymryd rhan mewn naill ai gwrandawiadau fideo neu wrandawiadau dros y ffôn',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };
@@ -103,6 +112,24 @@ describe('citizen-home content', () => {
   test('should contain Continue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
-});
 
+  test('should contain attendingToCourt field', () => {
+    const attendingToCourt = fields.attendingToCourt as FormOptions;
+    expect(attendingToCourt.type).toBe('checkboxes');
+    expect((attendingToCourt.section as Function)(generatedContent)).toBe(en.section);
+    expect((attendingToCourt.hint as Function)(generatedContent)).toBe(en.optionHint);
+    expect((attendingToCourt.values[0].label as LanguageLookup)(generatedContent)).toBe(en.videoHearings);
+    expect((attendingToCourt.values[1].label as LanguageLookup)(generatedContent)).toBe(en.phoneHearings);
+    expect((attendingToCourt.values[3].label as LanguageLookup)(generatedContent)).toBe(en.noHearings);
+    expect((attendingToCourt.values[3].hint as LanguageLookup)(generatedContent)).toBe(en.noHearingsHint);
+    (attendingToCourt.validator as Validator)('attendingToCourt');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('attendingToCourt');
+    const hearingDetailsFlieild = attendingToCourt.values[3].subFields!.hearingDetails;
+    expect(hearingDetailsFlieild.type).toBe('textarea');
+    expect((hearingDetailsFlieild.label as LanguageLookup)(generatedContent)).toBe(en.noHearingDetails);
+    (hearingDetailsFlieild.validator as Validator)('hearingDetails');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('hearingDetails');
+    expect(isTextAreaValid).toHaveBeenCalledWith('hearingDetails');
+  });
+});
 /* eslint-enable @typescript-eslint/ban-types */

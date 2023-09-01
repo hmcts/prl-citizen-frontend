@@ -17,15 +17,15 @@ const en = () => ({
 
 const cy = () => ({
   citizenUserAddressPostcode: 'Eich cod post cyfredol',
-  enterAddressManually: 'I live outisde the UK (in welsh)',
+  enterAddressManually: 'Rwy’n byw y tu allan i’r DU',
   errors: {
     citizenUserAddressPostcode: {
-      required: 'Enter a valid postcode (in welsh)',
-      invalid: 'Enter a valid postcode (in welsh)',
+      required: 'Rhowch god post dilys.',
+      invalid: 'Rhowch god post dilys.',
     },
   },
   manualAddressUrl: '#',
-  onlyContinue: 'Continue (in welsh)',
+  onlyContinue: 'Parhau',
 });
 
 export const form: FormContent = {

@@ -3,7 +3,6 @@
 @Library("Infrastructure")
 
 import uk.gov.hmcts.contino.AppPipelineConfig
-import uk.gov.hmcts.contino.AppPipelineDsl
 import uk.gov.hmcts.contino.GithubAPI
 
 def type = "nodejs"
@@ -48,14 +47,10 @@ env.TESTING_SUPPORT_FLAG = false
 
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
-  enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
   enableAksStagingDeployment()
   disableLegacyDeployment()
   enableSlackNotifications('#prl-tech-notifications')
 
-  onMaster {
-    env.PACT_TAG = 'master'
-  }
   afterAlways('build') {
     yarnBuilder.yarn('build')
   }
@@ -86,7 +81,6 @@ withPipeline(type, product, component) {
 
   before('functionalTest:preview') {
     env.PRL_CITIZEN_URL = "https://prl-citizen-frontend-pr-${CHANGE_ID}.preview.platform.hmcts.net/"
-    yarnBuilder.yarn('test:pa11y')
   }
 
   afterAlways('functionalTest:preview') {
@@ -99,7 +93,6 @@ withPipeline(type, product, component) {
   }
 
   afterAlways('functionalTest:aat') {
-    yarnBuilder.yarn('test:pa11y')
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
   }
 }

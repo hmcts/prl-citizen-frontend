@@ -20,6 +20,9 @@ const en = {
   errors: {
     too_shortStatement: {
       required: 'Describe what you want the court to do regarding the children in this application',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -38,6 +41,9 @@ const cy = {
   errors: {
     too_shortStatement: {
       required: "Disgrifiwch yr hyn rydych chi eisiau i'r llys ei wneud ynglŷn â'r plant yn y cais hwn",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };

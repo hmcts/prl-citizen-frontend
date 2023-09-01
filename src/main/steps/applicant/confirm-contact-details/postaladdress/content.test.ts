@@ -23,7 +23,7 @@ const cy: typeof en = {
   town: 'Tref neu ddinas',
   country: 'Gwlad',
   postcode: 'Cod post',
-  continue: 'Save and continue',
+  continue: 'Cadw a pharhau',
   errors: {},
 };
 

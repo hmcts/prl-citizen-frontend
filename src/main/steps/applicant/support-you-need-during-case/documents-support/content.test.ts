@@ -20,20 +20,30 @@ const en = {
   emailInfo: 'Information emailed to me',
   other: 'Other',
   otherDetails: 'Describe what you need',
-  nosupport: 'I do not need any of this support at this time',
+  nosupport: 'No, I do not need any of this support at this time',
   continue: 'Continue',
+  largePrintDocsDetails: 'Describe what you need',
   errors: {
     docsSupport: {
       required: 'Please select an answer',
     },
     otherDetails: {
       required: 'Please provide the details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     largePrintDetails: {
       required: 'Please provide the large print details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     docsDetails: {
       required: 'Please provide the docs details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -53,21 +63,31 @@ const cy: typeof en = {
   readoutdocs: 'Dogfennau yn cael eu darllen yn uchel i mi',
   emailInfo: 'Gwybodaeth yn cael ei hanfon ataf drwy e-bost',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
+  largePrintDocsDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   errors: {
     docsSupport: {
-      required: 'Please select an answer',
+      required: 'Dewiswch ateb, os gwelwch yn dda',
     },
     otherDetails: {
-      required: 'Please provide the details',
+      required: 'Rhowch fanylion',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     largePrintDetails: {
-      required: 'Please provide the large print details',
+      required: 'Rhowch fanylion y print bras',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     docsDetails: {
-      required: 'Please provide the docs details',
+      required: 'Rhowch fanylion y dogfennau',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };
@@ -101,7 +121,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.readoutdocs).toEqual('Documents read out to me');
     expect(generatedContent.emailInfo).toEqual('Information emailed to me');
     expect(generatedContent.other).toEqual('Other');
-    expect(generatedContent.nosupport).toEqual('I do not need any of this support at this time');
+    expect(generatedContent.nosupport).toEqual('No, I do not need any of this support at this time');
   });
 
   // eslint-disable-next-line jest/expect-expect

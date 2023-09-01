@@ -18,7 +18,7 @@ const enContent = {
       required: 'Please select one among the following',
     },
     contactDetailsPrivate: {
-      required: 'Please select atleast one of the following',
+      required: 'Select your contact details',
     },
   },
 };
@@ -30,13 +30,13 @@ const cyContent = {
     'Bydd eich manylion cyswllt yn cael eu rhannu gyda’r ceisydd, oni bai eich bod yn gofyn i’r llys beidio â rhannu’r wybodaeth hon.',
   contact_details_private_hint:
     'Gwnewch yn siŵr eich bod ond yn dewis manylion nad yw’r ceisydd eisoes yn gwybod amdanynt.',
-  continue: 'Save and continue-welsh',
+  continue: 'Cadw a pharhau',
   errors: {
     startAlternative: {
-      required: 'Please select one among the following-welsh',
+      required: "Dewiswch un o'r canlynol",
     },
     contactDetailsPrivate: {
-      required: 'Please select atleast one of the following-welsh',
+      required: "Dewiswch o leiaf un o'r canlynol",
     },
   },
 };

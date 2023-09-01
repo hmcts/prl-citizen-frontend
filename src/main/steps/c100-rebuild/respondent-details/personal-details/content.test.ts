@@ -132,10 +132,10 @@ const cy = {
     },
     respondentPlaceOfBirth: {
       required: 'Nodwch y lleoliad geni',
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
     otherGenderDetails: {
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
   },
 };

@@ -31,11 +31,17 @@ const en = {
     helpCommunication: {
       required: 'Select what help you need in communicating and understanding',
     },
-    describeSignLanguageDetails: {
+    signLanguageDetails: {
       required: 'Please provide sign language details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     describeOtherNeed: {
       required: 'Please provide the details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -53,7 +59,7 @@ const cy: typeof en = {
   lipSpeaker: 'Siaradwr gwefusau',
   lipSpeakerHint: 'clywed rhywun sydd wedi cael ei hyfforddi i allu darllen gwefusau yn rhwydd',
   signLanguage: 'Cyfieithydd iaith arwyddion',
-  signLanguageDetails: 'Describe what you need',
+  signLanguageDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   speechReporter: 'Cofnodwr iaith lafar i destun (palanteipydd)',
   extraTime: 'Amser ychwanegol i feddwl ac egluro fy hun',
   courtVisit: "Ymweld â'r llys cyn y gwrandawiad",
@@ -62,18 +68,24 @@ const cy: typeof en = {
   intermediaryHint:
     'rhywun i’ch helpu os oes gennych anghenion cyfathrebu drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   noSupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     helpCommunication: {
-      required: 'Select what help you need in communicating and understanding',
+      required: 'Dewiswch pa gymorth sydd ei angen arnoch wrth gyfathrebu a deall',
     },
-    describeSignLanguageDetails: {
-      required: 'Please provide sign language details',
+    signLanguageDetails: {
+      required: 'Rhowch fanylion yr iaith arwyddion',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     describeOtherNeed: {
-      required: 'Please provide the details',
+      required: 'Rhowch fanylion',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };
@@ -118,7 +130,7 @@ export const form: FormContent = {
           label: l => l.signLanguage,
           value: 'signlanguage',
           subFields: {
-            describeSignLanguageDetails: {
+            signLanguageDetails: {
               type: 'textarea',
               label: l => l.signLanguageDetails,
               labelSize: null,
@@ -155,7 +167,7 @@ export const form: FormContent = {
         {
           name: 'helpCommunication',
           label: l => l.other,
-          value: 'Other',
+          value: 'other',
           subFields: {
             describeOtherNeed: {
               type: 'textarea',
@@ -166,7 +178,7 @@ export const form: FormContent = {
           },
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'helpCommunication',

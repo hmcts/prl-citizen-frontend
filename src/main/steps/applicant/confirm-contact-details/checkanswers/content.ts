@@ -39,6 +39,7 @@ export const generateContent: TranslationFn = content => {
   const checkAnswersContent = checkAnswersGenerateContent(content) as Record<string, any>;
   const request = content.additionalData?.req;
   const caseData = request.session.userCase;
+  checkAnswersContent.link = '/applicant/keep-details-private/details_known';
 
   return {
     ...checkAnswersContent,

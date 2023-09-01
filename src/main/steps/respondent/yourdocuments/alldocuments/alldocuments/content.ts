@@ -6,7 +6,7 @@ import {
 
 import { respondent_all_docs_cy, respondent_all_docs_en } from './section-titles-all-documents';
 import { generateRespondentTaskListAllDocuments } from './tasklistalldocuments';
-//import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
+export * from '../../../../../steps/applicant/yourdocuments/alldocuments/alldocuments/routeGuard';
 
 const en = () => {
   return {
@@ -21,11 +21,11 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     title: 'Pob dogfen',
-    threeHint: 'This is a 8 character code',
+    threeHint: 'Mae hwn yn god 8 nod',
     summaryText: 'Cysylltiadau am gymorth',
 
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back',
+    continue: 'Yn ôl',
     sectionTitles: respondent_all_docs_cy,
     taskListItems: applicant_tasklist_items_all_docs_cy,
   };

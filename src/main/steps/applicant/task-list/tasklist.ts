@@ -1,23 +1,33 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { State } from '../../../app/case/definition';
-import { getViewAllOrdersFromTheCourt } from '../../../steps/respondent/task-list/utils';
+import { hasAnyHearing } from '../../../steps/respondent/task-list/tasklist';
+import {
+  getViewAllHearingsFromTheCourt,
+  getViewAllOrdersFromTheCourt,
+} from '../../../steps/respondent/task-list/utils';
 import * as URL from '../../urls';
 
 import {
-  getApplicantViewAllHearingsFromTheCourt,
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
   getSupportYourNeedsDetails,
   getUploadDocuments,
   getViewAllDocuments,
   getYourApplication,
+  getYourWitnessStatement,
 } from './utils';
 
-export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
+export const generateApplicantTaskList = (
+  sectionTitles,
+  taskListItems,
+  userCase,
+  userIdamId,
+  isRepresentedBySolicotor
+) => {
   const isCaseClosed = userCase.state === State.ALL_FINAL_ORDERS_ISSUED;
 
   return [
-    !isCaseClosed
+    !isCaseClosed && !isRepresentedBySolicotor
       ? {
           title: sectionTitles.applicantYourDetails,
           items: [
@@ -46,27 +56,35 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
       title: sectionTitles.yourApplication,
       items: [...getTheApplication(taskListItems, userCase)],
     },
-    ...(!isCaseClosed ? getYourResponse(sectionTitles, taskListItems, userCase, userIdamId) : []),
+    ...(!isCaseClosed && !isRepresentedBySolicotor
+      ? getYourResponse(sectionTitles, taskListItems, userCase, userIdamId)
+      : []),
     {
       title: sectionTitles.courtHearings,
       items: [
         {
           id: 'check-details-of-your-court-hearings',
           text: taskListItems.details_of_court_hearings,
-          status: getApplicantViewAllHearingsFromTheCourt(userCase),
-          href: URL.APPLICANT_YOURHEARINGS_HEARINGS,
+          status: getViewAllHearingsFromTheCourt(userCase),
+          href:
+            getViewAllHearingsFromTheCourt(userCase) === 'READY_TO_VIEW'
+              ? `${URL.APPLICANT_YOURHEARINGS_HEARINGS}/${userCase.id}`
+              : '#',
+          disabled: !hasAnyHearing(userCase),
         },
       ],
     },
     {
       title: sectionTitles.yourDocuments,
       items: [
-        {
-          id: 'upload-document',
-          text: taskListItems.upload_document,
-          status: getUploadDocuments(),
-          href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-        },
+        !isRepresentedBySolicotor
+          ? {
+              id: 'upload-document',
+              text: taskListItems.upload_document,
+              status: getUploadDocuments(),
+              href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
+            }
+          : null,
         !isCaseClosed
           ? {
               id: 'view-all-documents',
@@ -84,7 +102,8 @@ export const generateApplicantTaskList = (sectionTitles, taskListItems, userCase
           id: 'view-all-orders-from-the-court',
           text: taskListItems.view_all_orders_from_the_court,
           status: getViewAllOrdersFromTheCourt(userCase),
-          href: getViewAllOrdersFromTheCourt(userCase) === 'READY_TO_VIEW' ? URL.APPLICANT_ORDERS_FROM_THE_COURT : '#',
+          href:
+            getViewAllOrdersFromTheCourt(userCase) === 'READY_TO_VIEW' ? `${URL.APPLICANT_ORDERS_FROM_THE_COURT}` : '#',
         },
       ],
     },
@@ -120,11 +139,12 @@ const getTheApplication = (taskListItems, userCase) => {
         text: taskListItems.your_application,
         status: getYourApplication(),
         href: URL.YOUR_APPLICATION_FL401,
+        openInAnotherTab: true,
       },
       {
         id: 'your-application-witness-statment',
         text: taskListItems.your_application_witness_statement,
-        status: getYourApplication(),
+        status: getYourWitnessStatement(userCase),
         href: URL.APPLICANT_WITNESS_STATEMENTS_DA,
       },
     ];

@@ -14,7 +14,6 @@ import {
   isFutureDate,
 } from '../../../../app/form/validation';
 import { getPartyDetails } from '../../people/util';
-//export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -134,10 +133,10 @@ export const cy = () => ({
     },
     respondentPlaceOfBirth: {
       required: 'Nodwch y lleoliad geni',
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
     otherGenderDetails: {
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
   },
 });

@@ -28,6 +28,9 @@ const en = {
   errors: {
     ra_specialArrangementsOther_subfield: {
       required: 'Give details of the special arrangements you or the children need',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     ra_specialArrangements: {
       required: 'Select whether you or the children need special arrangements at court',
@@ -56,6 +59,9 @@ const cy = {
   errors: {
     ra_specialArrangementsOther_subfield: {
       required: "Rhowch fanylion y trefniadau arbennig sydd eu hangen arnoch chi neu'r plant",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     ra_specialArrangements: {
       required: "Dewiswch p'un a oes angen trefniadau arbennig arnoch chi neu'r plant yn y llys",

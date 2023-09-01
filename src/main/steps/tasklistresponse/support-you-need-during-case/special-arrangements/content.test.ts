@@ -29,6 +29,9 @@ const en = {
     },
     safetyArrangementsDetails: {
       required: 'Please describe your need in detail',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -49,15 +52,18 @@ const cy: typeof en = {
   videoLinks: 'Cyswllt fideo',
   videoLinksHint: 'Mae angen i farnwr gymeradwyo hyn',
   other: 'Arall',
-  otherDetails: 'Provide details of what you or the children need',
+  otherDetails: 'Darparwch fanylion am yr hyn rydych chi neu’r plant ei angen',
   noSupport: 'Nac oes, nid oes gennyf unrhyw ofynion o ran diogelwch ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     safetyArrangements: {
-      required: 'Please select an answer',
+      required: 'Dewiswch ateb, os gwelwch yn dda',
     },
     safetyArrangementsDetails: {
-      required: 'Please describe your need in details',
+      required: 'Disgrifiwch eich anghenion yn fanwl',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };

@@ -8,7 +8,7 @@ jest.mock('../../../../app/form/validation');
 let caseNumber;
 
 const en = {
-  caption: `Case number #${caseNumber}`,
+  caption: `Case number ${caseNumber}`,
   title: 'Contact Preferences',
   subTitle: 'Personal details',
   text: 'You have decided to receive updates by email. You will still receive some information by post.',
@@ -20,24 +20,29 @@ const en = {
 };
 
 const cy = {
-  caption: `Case number - welsh #${caseNumber}`,
-  title: 'Contact Preferences - welsh',
-  subTitle: 'Personal details - welsh',
-  text: 'You have decided to receive updates by email. You will still receive some information by post. - welsh',
-  continue: 'Submit - welsh',
-  warningText: 'Make sure that your contact details are up to date. -welsh',
+  caption: `Rhif yr achos ${caseNumber}`,
+  title: 'Dewisiadau Cyswllt',
+  subTitle: 'Manylion personol',
+  text: 'Rydych wedi penderfynu cael diweddariadau drwy e-bost. Byddwch yn dal i gael rhywfaint o wybodaeth drwy’r post.',
+  continue: 'Cyflwyno',
+  warningText: 'Sicrhewch fod eich manylion cyswllt yn gyfredol.',
   email: 'E-bost',
-  change: 'Change (welsh)',
-  nameText: 'name (welsh)',
+  change: 'Newid',
+  nameText: 'enw',
 };
 
 describe('contact email common content', () => {
   const commonContent = {
     language: 'en',
+    userIdamId: '123',
     userCase: {
       applicants: [
         {
-          value: 'test@email.com',
+          value: {
+            user: {
+              idamId: '123',
+            },
+          },
         },
       ],
     },

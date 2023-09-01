@@ -1,6 +1,5 @@
 import { RESPONDENT_ORDERS_FROM_THE_COURT } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
 
 const en = () => {
   return {
@@ -16,29 +15,13 @@ const cy: typeof en = () => {
     section: 'Pob dogfen',
     title: 'Gorchmynion gan y llys',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 
 const languages = {
   en,
   cy,
-};
-
-export const form: FormContent = {
-  fields: userCase => {
-    return {
-      caseNumber: {
-        label: l => l.caseNumber + '' + userCase.caseCode,
-        type: 'hidden',
-        labelHidden: true,
-      },
-    };
-  },
-  submit: {
-    text: l => l.continue,
-    classes: 'govuk-button--secondary',
-  },
 };
 
 export const generateContent: TranslationFn = content => {
@@ -48,7 +31,6 @@ export const generateContent: TranslationFn = content => {
     const uid = doc.value.orderDocument.document_url.substring(
       doc.value.orderDocument.document_url.lastIndexOf('/') + 1
     );
-    //const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
     orders.push({
       href: `${RESPONDENT_ORDERS_FROM_THE_COURT}/${uid}`,
       createdDate: doc.value.otherDetails.orderCreatedDate,

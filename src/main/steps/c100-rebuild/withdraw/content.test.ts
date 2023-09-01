@@ -25,19 +25,22 @@ const en = {
     },
     withdrawApplicationReason: {
       required: 'Provide details about withdrawing this application.',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cy = {
-  title: 'Are you sure you want to withdraw your application? - welsh',
+  title: 'Ydych chi’n siŵr eich bod eisiau tynnu eich cais yn ôl?',
   paragraphs: [
     'The court will consider your reasons, and decide whether or not you can withdraw the application. -welsh',
     'If you have paid a court fee, you may not receive a refund. -welsh',
   ],
   warningText: {
     text: 'If you withdraw this application, you cannot resubmit it. -welsh',
-    iconFallbackText: 'Warning',
+    iconFallbackText: 'Rhybudd',
   },
   one: 'Yes -welsh',
   two: 'No -welsh',
@@ -47,7 +50,10 @@ const cy = {
       required: 'Select yes if you want to withdraw else select no. -welsh',
     },
     withdrawApplicationReason: {
-      required: 'Provide details about withdrawing this application. - welsh',
+      required: 'Rhowch ragor o fanylion ynghylch tynnu’r cais hwn yn ôl',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };

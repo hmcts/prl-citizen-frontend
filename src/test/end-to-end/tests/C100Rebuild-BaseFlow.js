@@ -1,6 +1,6 @@
 Feature('C100 Rebuild - Base flow');
 
-Scenario('C100 Rebuild - basic journey @cross-browser', async ({ I }) => {
+Scenario('C100 Rebuild - basic journey @master @nightly', async ({ I }) => {
     await I.loginAsCitizen();
     await I.createC100Application();
     await I.startTheApplication();
@@ -10,6 +10,7 @@ Scenario('C100 Rebuild - basic journey @cross-browser', async ({ I }) => {
     await I.typeOfOrder();
     await I.urgencyWithoutNotice();
     await I.childrenDetails();
+    await I.otherChildrenDetails();
     await I.applicantDetails();
     await I.respondentDetails();
     await I.otherPersonDetails();

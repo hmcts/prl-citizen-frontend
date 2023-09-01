@@ -25,7 +25,7 @@ const cy: typeof en = {
   line4:
     'Bydd angen i chi ddarparu eich rhif achos iddo. Unwaith y bydd yr achos yn cael ei drosglwyddo, ni fyddwch yn gallu golygu eich ymateb.',
   listItem: 'Rhif eich achos yw:',
-  warning: 'Warning - welsh',
+  warning: 'Rhybudd',
   respond:
     "Peidiwch ag ymateb i'r cais hwn eich hun os ydych yn bwriadu cael cynrychiolydd cyfreithiol i gwblhau'r ymateb.",
   continue: 'Parhau',

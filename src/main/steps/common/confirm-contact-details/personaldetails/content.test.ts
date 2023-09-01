@@ -29,7 +29,7 @@ const enContent = {
       required: 'Enter Your Place of birth',
       invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
-    previousName: {
+    citizenUserAdditionalName: {
       invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     citizenUserDateOfBirth: {
@@ -51,7 +51,7 @@ const cyContent: typeof enContent = {
   citizenUserPlaceOfBirth: 'Man geni',
   citizenUserDateOfBirth: 'Eich dyddiad geni',
   hintDateOfBirth: 'Er enghraifft - 31 3 1980',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     citizenUserFirstNames: {
       required: 'Rhowch Eich enw cyntaf',
@@ -65,19 +65,19 @@ const cyContent: typeof enContent = {
     },
     citizenUserPlaceOfBirth: {
       required: 'Rhowch Eich Man Geni',
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.(Welsh)',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
-    previousName: {
+    citizenUserAdditionalName: {
       invalid:
         ' Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     citizenUserDateOfBirth: {
-      required: 'Enter your date of birth',
-      invalidDate: 'Date of birth must be a real date',
-      incompleteDay: 'Your date of birth must include a day',
-      incompleteMonth: 'Your date of birth must include a month',
-      incompleteYear: 'Your date of birth must include a year',
-      invalidDateInFuture: 'Your date of birth must be in the past',
+      required: 'Rhowch eich dyddiad geni',
+      invalidDate: 'Rhaid i’r dyddiad geni fod yn ddyddiad go iawn',
+      incompleteDay: 'Rhaid i’ch dyddiad geni gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i’ch dyddiad geni gynnwys mis',
+      incompleteYear: 'Rhaid i’ch dyddiad geni gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i’ch dyddiad geni fod yn y gorffennol',
     },
   },
 };

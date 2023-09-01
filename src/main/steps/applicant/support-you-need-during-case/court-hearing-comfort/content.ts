@@ -22,9 +22,15 @@ const en = {
     },
     otherProvideDetails: {
       required: 'Please describe your need in detail',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     lightingProvideDetails: {
       required: 'Please describe appropriate lighting in detail',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -37,22 +43,28 @@ const cy: typeof en = {
   optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
   appropriatelighting: 'Goleuadau priodol',
-  appropriateLightingDetails: 'Describe what you need',
+  appropriateLightingDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   break: 'Seibiannau rheolaidd',
   space: 'Lle i allu codi a symud o gwmpas',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     courtComfort: {
-      required: 'Select what help you need to feel comfortable during a court hearing',
+      required: 'Dewiswch pa gymorth sydd ei angen arnoch i deimlo’n gyfforddus yn ystod gwrandawiad llys',
     },
     otherProvideDetails: {
-      required: 'Please describe your need in detail',
+      required: 'Disgrifiwch eich anghenion yn fanwl',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     lightingProvideDetails: {
-      required: 'Please describe appropriate lighting in detail',
+      required: 'Rhowch fanylion y goleuadau priodol',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };
@@ -82,14 +94,14 @@ export const form: FormContent = {
               },
               label: l => l.appropriateLightingDetails,
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
         {
           name: 'courtComfort',
           label: l => l.break,
-          value: 'break',
+          value: 'breaks',
         },
         {
           name: 'courtComfort',
@@ -113,7 +125,7 @@ export const form: FormContent = {
           },
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'courtComfort',

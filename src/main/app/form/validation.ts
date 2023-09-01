@@ -211,7 +211,12 @@ export const isAddressSelected: Validator = value => {
 };
 
 export const isTextAreaValid: Validator = value => {
-  if (value && (value as string).trim?.().length > 500) {
+  const matcher = new RegExp(/[<>{}]/);
+  if (matcher.test(value as string)) {
+    return 'invalidCharacters';
+  }
+
+  if (value && (value as string).trim?.().length > 5000) {
     return ValidationError.INVALID;
   }
 };

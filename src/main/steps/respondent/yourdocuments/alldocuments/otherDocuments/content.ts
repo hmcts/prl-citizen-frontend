@@ -1,6 +1,5 @@
-import { MANAGE_DOCUMENTS_DOWNLOAD } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
+import { getDocumentList } from '../../../../../steps/applicant/yourdocuments/alldocuments/alldocuments/utils';
 
 const en = () => {
   return {
@@ -14,9 +13,9 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
-    title: 'Other documents (welsh)',
+    title: 'Dogfennau eraill',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 
@@ -25,40 +24,19 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
-  fields: userCase => {
-    return {
-      caseNumber: {
-        label: l => l.caseNumber + '' + userCase.caseCode,
-        type: 'hidden',
-        labelHidden: true,
-      },
-    };
-  },
-  submit: {
-    text: l => l.continue,
-    classes: 'govuk-button--secondary',
-  },
-};
-
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const orders: object[] = [];
-  for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
-    if (doc.value?.documentType === 'Other documents') {
-      const uid = doc.value.citizenDocument?.document_url.substring(
-        doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
-      );
-      orders.push({
-        href: `${MANAGE_DOCUMENTS_DOWNLOAD}/${uid}`,
-        createdDate: doc.value.documentDetails.documentUploadedDate,
-        fileName: doc.value.citizenDocument?.document_filename,
-      });
-    }
-  }
+  const documentToView = content.additionalData?.req.session.applicationSettings.docToView;
+  const citizenUploadedDocumentList = content.userCase?.citizenUploadedDocumentList;
 
   return {
     ...translations,
-    orders,
+    orders: getDocumentList(
+      citizenUploadedDocumentList,
+      documentToView.docType,
+      documentToView.uploadedBy,
+      '',
+      content.userIdamId
+    ),
   };
 };

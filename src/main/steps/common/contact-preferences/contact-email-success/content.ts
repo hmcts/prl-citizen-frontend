@@ -7,7 +7,7 @@ import { interpolate } from '../../../../steps/common/string-parser';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  caption: 'Case number #{caseNumber}',
+  caption: 'Case number {caseNumber}',
   title: 'Contact preferences updated',
   text: 'You will receive digital updates about the case.',
   continue: 'Continue',
@@ -15,11 +15,11 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  caption: 'Case number - welsh #{caseNumber}',
-  title: 'Contact preferences updated- welsh',
-  text: 'You will receive digital updates about the case. - welsh',
-  continue: 'Continue - welsh',
-  warningText: "If you cannot find the emails in your inbox, check your 'spam' folder. -welsh",
+  caption: 'Rhif yr achos {caseNumber}',
+  title: 'Dewisiadau cyswllt wedi’u diweddaru',
+  text: 'Byddwch yn cael diweddariadau digidol am yr achos',
+  continue: 'Parhau',
+  warningText: "Os na allwch weld y negeseuon e-bost yn eich mewnflwch, gwiriwch eich ffolder 'spam'.",
 });
 
 const languages = {

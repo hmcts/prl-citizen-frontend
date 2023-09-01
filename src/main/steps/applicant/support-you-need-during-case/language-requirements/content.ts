@@ -21,6 +21,9 @@ const en = {
     },
     languageDetails: {
       required: 'Please provide language details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -35,15 +38,18 @@ const cy: typeof en = {
   speakwelsh: 'Rwyf eisiau siarad Cymraeg',
   readandwritewelsh: 'Rwyf eisiau siarad ac ysgrifennu yn Gymraeg',
   languageinterpreter: 'Mae arnaf angen cyfieithydd mewn iaith benodol',
-  typeoflanguage: 'Give details of the language you require (including dialect, if applicable)',
+  typeoflanguage: 'Rhowch fanylion yr iaith sydd ei hangen arnoch (gan gynnwys tafodiaith, os yw’n berthnasol)',
   nointerpreter: 'Nac oes, nid oes gennyf unrhyw ofynion o ran iaith ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     languageRequirements: {
-      required: 'Please select an answer',
+      required: 'Dewiswch ateb, os gwelwch yn dda',
     },
     languageDetails: {
-      required: 'Please provide language details',
+      required: 'Rhowch fanylion eich gofynion ieithyddol',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };
@@ -86,7 +92,7 @@ export const form: FormContent = {
           },
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'languageRequirements',

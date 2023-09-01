@@ -1,14 +1,14 @@
 import { CaseWithId } from '../../../app/case/case';
 import {
   PRL_C1AAbuseTypes,
+  PRL_C1ASafteyConcerns,
   PRL_C1ASafteyConcernsAbout,
   PRL_C1ASafteyConcerns_total,
-  Respondent,
+  PartyDetails,
   YesOrNo,
 } from '../../../app/case/definition';
-import type { AppRequest } from '../../../app/controller/AppRequest';
 
-export const prepareRequest = (respondent: Respondent, req: AppRequest): PRL_C1ASafteyConcerns_total => {
+export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_total => {
   const {
     PRL_c1A_haveSafetyConcerns,
     PRL_c1A_safetyConernAbout,
@@ -33,35 +33,12 @@ export const prepareRequest = (respondent: Respondent, req: AppRequest): PRL_C1A
     PRL_c1A_policeOrInvestigatorOtherDetails,
     PRL_c1A_childAbductedBefore,
     PRL_c1A_safteyConcerns,
-  } = req.session.userCase;
+  } = userCase;
   let request: PRL_C1ASafteyConcerns_total = {};
 
-  if (PRL_c1A_concernAboutChild?.length) {
-    request.child = {};
-    PRL_c1A_concernAboutChild.forEach((abuse: string) => {
-      if (PRL_c1A_safteyConcerns?.child?.[abuse]) {
-        request.child = {
-          ...request.child,
-          [abuse]: {
-            ...PRL_c1A_safteyConcerns?.child?.[abuse],
-            childrenConcernedAbout: PRL_c1A_safteyConcerns?.child?.[abuse].childrenConcernedAbout.join(','),
-          },
-        };
-      }
-    });
-  }
+  concernDetailsAboutChild(PRL_c1A_concernAboutChild, request, PRL_c1A_safteyConcerns);
 
-  if (PRL_c1A_concernAboutRespondent) {
-    request.respondent = {};
-    PRL_c1A_concernAboutRespondent.forEach((abuse: string) => {
-      if (PRL_c1A_safteyConcerns?.respondent?.[abuse]) {
-        request.respondent = {
-          ...request.respondent,
-          [abuse]: PRL_c1A_safteyConcerns?.respondent?.[abuse],
-        };
-      }
-    });
-  }
+  concernDetailsAboutRespondent(PRL_c1A_concernAboutRespondent, request, PRL_c1A_safteyConcerns);
 
   Object.assign(request, {
     haveSafetyConcerns: PRL_c1A_haveSafetyConcerns,
@@ -98,16 +75,25 @@ export const prepareRequest = (respondent: Respondent, req: AppRequest): PRL_C1A
       haveSafetyConcerns: PRL_c1A_haveSafetyConcerns,
     };
   }
-
+  if (PRL_c1A_otherConcernsDrugs === YesOrNo.NO) {
+    delete request.otherconcerns?.c1AotherConcernsDrugsDetails;
+  }
+  if (PRL_c1A_childSafetyConcerns === YesOrNo.NO) {
+    delete request.otherconcerns?.c1AchildSafetyConcernsDetails;
+  }
   if (
     !PRL_c1A_safetyConernAbout?.includes(PRL_C1ASafteyConcernsAbout.RESPONDENT) &&
     !PRL_c1A_concernAboutChild?.includes(PRL_C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE)
   ) {
     delete request.respondent;
+    delete request.concernAboutRespondent;
   }
 
   if (!PRL_c1A_concernAboutChild?.includes(PRL_C1AAbuseTypes.ABDUCTION)) {
     delete request.abductions;
+  }
+  if (!PRL_c1A_possessionChildrenPassport?.includes('otherPerson')) {
+    delete request.abductions?.c1AprovideOtherDetails;
   }
 
   if (PRL_c1A_childAbductedBefore === YesOrNo.NO) {
@@ -125,8 +111,7 @@ export const prepareRequest = (respondent: Respondent, req: AppRequest): PRL_C1A
   return request;
 };
 
-export const mapSafetyConcernsDetails = (respondent: Respondent): Partial<CaseWithId> => {
-  const safetyConcenrs = {};
+export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
   const {
     haveSafetyConcerns,
     safetyConcernAbout,
@@ -135,11 +120,14 @@ export const mapSafetyConcernsDetails = (respondent: Respondent): Partial<CaseWi
     otherconcerns,
     abductions,
     ...rest
-  } = respondent?.value?.response?.safetyConcerns ?? {};
+  } = partyDetails?.response?.safetyConcerns || {};
+  const safetyConerns = {
+    child: {},
+  } as Partial<PRL_C1ASafteyConcerns_total>;
 
   if (rest?.child) {
-    rest.child = Object.entries(rest.child).reduce((childConcerns, [abuseType, data]) => {
-      childConcerns[abuseType] = data;
+    safetyConerns.child = Object.entries(rest.child).reduce((childConcerns, [abuseType, data]) => {
+      childConcerns[abuseType] = Object.assign({}, data);
       if (data?.childrenConcernedAbout && !Array.isArray(data?.childrenConcernedAbout)) {
         childConcerns[abuseType].childrenConcernedAbout = (data.childrenConcernedAbout as unknown as string).split(',');
       }
@@ -147,12 +135,15 @@ export const mapSafetyConcernsDetails = (respondent: Respondent): Partial<CaseWi
     }, {});
   }
 
-  Object.assign(safetyConcenrs, {
+  return {
     PRL_c1A_haveSafetyConcerns: haveSafetyConcerns,
     PRL_c1A_safetyConernAbout: safetyConcernAbout,
     PRL_c1A_concernAboutChild: concernAboutChild,
     PRL_c1A_concernAboutRespondent: concernAboutRespondent,
-    PRL_c1A_safteyConcerns: rest,
+    PRL_c1A_safteyConcerns: {
+      ...rest,
+      ...safetyConerns,
+    },
     PRL_c1A_abductionReasonOutsideUk: abductions?.c1AabductionReasonOutsideUk,
     PRL_c1A_childsCurrentLocation: abductions?.c1AchildsCurrentLocation,
     PRL_c1A_passportOffice: abductions?.c1ApassportOffice,
@@ -171,7 +162,50 @@ export const mapSafetyConcernsDetails = (respondent: Respondent): Partial<CaseWi
     PRL_c1A_keepingSafeStatement: otherconcerns?.c1AkeepingSafeStatement,
     PRL_c1A_supervisionAgreementDetails: otherconcerns?.c1AsupervisionAgreementDetails,
     PRL_c1A_agreementOtherWaysDetails: otherconcerns?.c1AagreementOtherWaysDetails,
-  });
+  };
+};
+function concernDetailsAboutRespondent(
+  PRL_c1A_concernAboutRespondent: PRL_C1AAbuseTypes[] | undefined,
+  request: PRL_C1ASafteyConcerns_total,
+  PRL_c1A_safteyConcerns: PRL_C1ASafteyConcerns | undefined
+) {
+  if (PRL_c1A_concernAboutRespondent) {
+    request.respondent = {};
+    PRL_c1A_concernAboutRespondent.forEach((abuse: string) => {
+      if (PRL_c1A_safteyConcerns?.respondent?.[abuse]) {
+        request.respondent = {
+          ...request.respondent,
+          [abuse]: PRL_c1A_safteyConcerns?.respondent?.[abuse],
+        };
+        if (PRL_c1A_safteyConcerns?.respondent?.[abuse].seekHelpFromPersonOrAgency === YesOrNo.NO) {
+          delete request.respondent?.[abuse].seekHelpDetails;
+        }
+      }
+    });
+  }
+}
 
-  return safetyConcenrs;
+const concernDetailsAboutChild = (
+  PRL_c1A_concernAboutChild: PRL_C1AAbuseTypes[] | undefined,
+  request: PRL_C1ASafteyConcerns_total,
+  PRL_c1A_safteyConcerns: PRL_C1ASafteyConcerns | undefined
+) => {
+  if (PRL_c1A_concernAboutChild?.length) {
+    request.child = {};
+    PRL_c1A_concernAboutChild.forEach((abuse: string) => {
+      if (PRL_c1A_safteyConcerns?.child?.[abuse]) {
+        const childrenConcern = PRL_c1A_safteyConcerns.child[abuse]?.childrenConcernedAbout;
+        request.child = {
+          ...request.child,
+          [abuse]: {
+            ...PRL_c1A_safteyConcerns.child[abuse],
+            childrenConcernedAbout: Array.isArray(childrenConcern) ? childrenConcern.join(',') : childrenConcern,
+          },
+        };
+        if (PRL_c1A_safteyConcerns.child[abuse]?.seekHelpFromPersonOrAgency === YesOrNo.NO) {
+          delete request.child?.[abuse].seekHelpDetails;
+        }
+      }
+    });
+  }
 };

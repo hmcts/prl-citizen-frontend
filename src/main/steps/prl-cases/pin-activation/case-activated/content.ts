@@ -6,17 +6,17 @@ import { interpolate } from '../../../../steps/common/string-parser';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  caption: 'Case number #{caseNumber}',
+  caption: 'Case number {caseNumber}',
   title: 'Case added to your account',
   text: 'The case can now be seen on your child arrangements and family injunction account.',
   continue: 'Continue',
 });
 
 export const cy = () => ({
-  caption: 'Case number -welsh #{caseNumber}',
-  title: 'Case added to your account -welsh',
-  text: 'The case can now be seen on your child arrangements and family injunction account. -welsh',
-  continue: 'Continue -welsh',
+  caption: 'Rhif yr achos {caseNumber}',
+  title: 'Achos wedi’i ychwanegu i’ch cyfrif',
+  text: 'Gallwch nawr weld yr achos yn eich cyfrif trefniadau plant a gwaharddeb teulu.',
+  continue: 'Parhau',
 });
 
 const languages = {

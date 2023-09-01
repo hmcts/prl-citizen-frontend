@@ -19,6 +19,9 @@ const en = {
     },
     courtProceedingProvideDetails: {
       required: 'Please provide the details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -32,13 +35,16 @@ const cy: typeof en = {
   summaryText: 'Cysylltiadau am gymorth',
   one: 'Yes',
   two: 'No',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     unableForCourtProceedings: {
-      required: 'Please select an answer',
+      required: 'Dewiswch ateb, os gwelwch yn dda',
     },
     courtProceedingProvideDetails: {
-      required: 'Please provide the details',
+      required: 'Rhowch fanylion',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };

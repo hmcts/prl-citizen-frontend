@@ -31,8 +31,8 @@ const cyContent = {
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
-  yourResponse: 'Your response will be shared with the other people in this case. -welsh',
-  warning: 'Warning -welsh',
+  yourResponse: 'Bydd eich ymateb yn cael ei rannu gyda’r bobl eraill yn yr achos hwn',
+  warning: 'Rhybudd',
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
@@ -80,7 +80,7 @@ describe('task-list > content', () => {
           items: [
             {
               id: 'consent-to-the-application',
-              text: 'Do you consent to the application?',
+              text: 'Do you agree to the application?',
               status: 'TO_DO',
               href: '/tasklistresponse/consent-to-application/consent/1234567',
             },
@@ -101,7 +101,7 @@ describe('task-list > content', () => {
               text: 'Confirm or edit your contact details',
             },
             {
-              href: '/tasklistresponse/support-you-need-during-case/attending-the-court',
+              href: '/tasklistresponse/support-you-need-during-case/attending-the-court/1234567',
               id: 'support_you_need_during_your_case',
               status: 'TO_DO',
               text: 'Support you need during your case',
@@ -129,7 +129,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
+              href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page/1234567',
               id: 'allegations_of_harm_and_violence',
               status: 'TO_DO',
               text: 'Allegations of harm and violence',

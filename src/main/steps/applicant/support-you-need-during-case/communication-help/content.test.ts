@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { Validator, atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -35,9 +36,15 @@ const en = {
     },
     describeOtherNeed: {
       required: 'Please provide the details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
-    describeSignLanguageDetails: {
+    signLanguageDetails: {
       required: 'Please describe sign language details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -55,7 +62,7 @@ const cy: typeof en = {
   lipspeaker: 'Siaradwr gwefusau',
   lipspeakerhint: 'clywed rhywun sydd wedi cael ei hyfforddi i allu darllen gwefusau yn rhwydd',
   signlanguage: 'Cyfieithydd iaith arwyddion',
-  signLanguageDetails: 'Describe what you need',
+  signLanguageDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   speechreporter: 'Cofnodwr iaith lafar i destun (palanteipydd)',
   extratime: 'Amser ychwanegol i feddwl ac egluro fy hun',
   courtvisit: "Ymweld â'r llys cyn y gwrandawiad",
@@ -64,18 +71,24 @@ const cy: typeof en = {
   intermediaryhint:
     'rhywun i’ch helpu os oes gennych anghenion cyfathrebu drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     helpCommunication: {
-      required: 'Select what help you need in communicating and understanding',
+      required: 'Dewiswch pa gymorth sydd ei angen arnoch wrth gyfathrebu a deall',
     },
     describeOtherNeed: {
-      required: 'Please provide the details',
+      required: 'Rhowch fanylion',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
-    describeSignLanguageDetails: {
-      required: 'Please describe sign language details',
+    signLanguageDetails: {
+      required: 'Rhowch fanylion yr iaith arwyddion',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };
@@ -133,6 +146,37 @@ describe('citizen-home content', () => {
     const helpcommunicationField = fields.helpCommunication as FormOptions;
     expect(helpcommunicationField.type).toBe('checkboxes');
     expect((helpcommunicationField.section as Function)(generatedContent)).toBe(en.section);
+
+    expect((helpcommunicationField.hint as Function)(generatedContent)).toBe(en.optionHint);
+    expect((helpcommunicationField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.hearingloop);
+    expect((helpcommunicationField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.infraredreceiver);
+    expect((helpcommunicationField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.needspeakinghelp);
+    expect((helpcommunicationField.values[3].hint as LanguageLookup)(generatedContent)).toBe(en.lipspeakerhint);
+    expect((helpcommunicationField.values[3].label as LanguageLookup)(generatedContent)).toBe(en.lipspeaker);
+    expect((helpcommunicationField.values[4].label as LanguageLookup)(generatedContent)).toBe(en.signlanguage);
+    expect((helpcommunicationField.values[5].label as LanguageLookup)(generatedContent)).toBe(en.speechreporter);
+    expect((helpcommunicationField.values[6].label as LanguageLookup)(generatedContent)).toBe(en.extratime);
+    expect((helpcommunicationField.values[7].label as LanguageLookup)(generatedContent)).toBe(en.courtvisit);
+    expect((helpcommunicationField.values[8].label as LanguageLookup)(generatedContent)).toBe(en.courthearing);
+    expect((helpcommunicationField.values[9].hint as LanguageLookup)(generatedContent)).toBe(en.intermediaryhint);
+    expect((helpcommunicationField.values[9].label as LanguageLookup)(generatedContent)).toBe(en.intermediary);
+    expect((helpcommunicationField.values[10].label as LanguageLookup)(generatedContent)).toBe(en.other);
+    expect((helpcommunicationField.values[12].label as LanguageLookup)(generatedContent)).toBe(en.nosupport);
+
+    (helpcommunicationField.validator as Validator)('helpCommunication');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('helpCommunication');
+    const describeOtherNeedFieild = helpcommunicationField.values[10].subFields!.describeOtherNeed;
+    expect(describeOtherNeedFieild.type).toBe('textarea');
+    expect((describeOtherNeedFieild.label as LanguageLookup)(generatedContent)).toBe(en.otherDetails);
+    (describeOtherNeedFieild.validator as Validator)('describeOtherNeed');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('describeOtherNeed');
+    expect(isTextAreaValid).toHaveBeenCalledWith('describeOtherNeed');
+    const signLanguageDetailsFieild = helpcommunicationField.values[4].subFields!.signLanguageDetails;
+    expect(signLanguageDetailsFieild.type).toBe('textarea');
+    expect((signLanguageDetailsFieild.label as LanguageLookup)(generatedContent)).toBe(en.signLanguageDetails);
+    (signLanguageDetailsFieild.validator as Validator)('signLanguageDetails');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('signLanguageDetails');
+    expect(isTextAreaValid).toHaveBeenCalledWith('signLanguageDetails');
   });
 
   test('should contain Continue button', () => {

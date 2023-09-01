@@ -53,7 +53,8 @@ enum StateTags {
 
 const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
 
-const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => !!caseData;
+const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean =>
+  !!(caseData?.hearingCollection && caseData?.hearingCollection?.length >= 1);
 
 interface TaskList {
   id: TaskList;
@@ -173,9 +174,7 @@ const taskListConfig = {
       {
         id: TaskListSection.YOUR_DOCUMENTS,
         content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-        show: (caseData: Partial<CaseWithId>) => {
-          return caseData && !isDraftCase(caseData);
-        },
+        show: isCaseLinked,
         tasks: [
           {
             id: Tasks.UPLOAD_DOCUMENTS,
@@ -188,6 +187,7 @@ const taskListConfig = {
             id: Tasks.VIEW_ALL_DOCUMENTS,
             href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
             stateTag: () => StateTags.READY_TO_VIEW,
+            show: isCaseLinked,
           },
         ],
       },
@@ -216,7 +216,7 @@ const taskListConfig = {
         tasks: [
           {
             id: Tasks.VIEW_HEARING_DETAILS,
-            href: () => APPLICANT_YOURHEARINGS_HEARINGS,
+            href: (caseData: Partial<CaseWithId>) => `${APPLICANT_YOURHEARINGS_HEARINGS}/${caseData.id}`,
             stateTag: (caseData: Partial<CaseWithId>) => {
               if (hasAnyHearing(caseData)) {
                 return StateTags.READY_TO_VIEW;
@@ -240,7 +240,8 @@ export const getTaskListConfig = (
   caseData: Partial<CaseWithId>,
   userDetails: UserDetails,
   partyType: PartyType,
-  language: string
+  language: string,
+  isRepresentedBySolicotor: boolean
 ): Record<string, any>[] => {
   let caseType = caseData?.caseTypeOfApplication;
   if (!caseType && partyType === PartyType.APPLICANT) {
@@ -261,27 +262,16 @@ export const getTaskListConfig = (
           tasks: section.tasks
             .map(task => {
               if (!task.hasOwnProperty('show') || (task.show instanceof Function && task.show(caseData, userDetails))) {
-                const stateTag = task.stateTag(caseData, userDetails);
-                const _stateTagConfig = stateTagsConfig?.[stateTag];
+                const config = prepareTaskListConfig(
+                  task,
+                  caseData,
+                  userDetails,
+                  _content,
+                  language,
+                  isRepresentedBySolicotor
+                );
 
-                const config = {
-                  id: task.id,
-                  linkText: _content?.tasks[task.id]?.linkText,
-                  href: task.href(caseData, userDetails),
-                  disabled:
-                    task?.disabled && task.disabled instanceof Function ? task.disabled(caseData, userDetails) : false,
-                  stateTag: {
-                    label: _stateTagConfig.label ? _stateTagConfig.label(language) : '',
-                    className: _stateTagConfig.className ? _stateTagConfig.className : '',
-                  },
-                };
-
-                if (task?.showHint && task.showHint instanceof Function && task.showHint(caseData, userDetails)) {
-                  Object.assign(config, {
-                    hintText: _content?.tasks[task.id]?.hintText,
-                  });
-                }
-
+                prepareHintConfig(task, caseData, userDetails, config, _content);
                 return config;
               }
               return null;
@@ -297,4 +287,44 @@ export const getTaskListConfig = (
     .filter(config => {
       return config !== null;
     });
+};
+const prepareTaskListConfig = (
+  task: any,
+  caseData: Partial<CaseWithId>,
+  userDetails: UserDetails,
+  _content: any,
+  language: string,
+  isRepresentedBySolicotor: boolean
+) => {
+  const stateTag = task.stateTag(caseData, userDetails);
+  const _stateTagConfig = stateTagsConfig?.[stateTag];
+
+  const config = {
+    id: task.id,
+    linkText: _content?.tasks[task.id]?.linkText,
+    href: task.href(caseData, userDetails),
+    disabled:
+      task?.disabled && task.disabled instanceof Function
+        ? task.disabled(caseData, userDetails) || isRepresentedBySolicotor
+        : false,
+    stateTag: {
+      label: _stateTagConfig.label ? _stateTagConfig.label(language) : '',
+      className: _stateTagConfig.className ? _stateTagConfig.className : '',
+    },
+  };
+  return config;
+};
+
+const prepareHintConfig = (
+  task: any,
+  caseData: Partial<CaseWithId>,
+  userDetails: UserDetails,
+  config: { id: any; linkText: any; href: any; disabled: any; stateTag: { label: any; className: any } },
+  _content: any
+) => {
+  if (task?.showHint && task.showHint instanceof Function && task.showHint(caseData, userDetails)) {
+    Object.assign(config, {
+      hintText: _content?.tasks[task.id]?.hintText,
+    });
+  }
 };

@@ -40,7 +40,7 @@ export interface Miam {
   attendedMiam?: string;
   willingToAttendMiam?: string;
   reasonNotAttendingMiam?: string;
- }
+}
 export interface Address {
   AddressLine1: string;
   AddressLine2: string;
@@ -107,11 +107,13 @@ export interface PartyDetails {
   response: Response;
   user: User;
   contactPreferences?: applicantContactPreferencesEnum;
+  isRemoveLegalRepresentativeRequested?: YesOrNo;
 }
 
 export interface User {
   email: string,
-  idamId: string
+  idamId: string,
+  solicitorRepresented?: string
 }
 
 export interface Response {
@@ -155,6 +157,8 @@ export interface ReasonableAdjustmentsSupport {
   largePrintDetails?: string,
   parkingDetails?: string,
   differentChairDetails?: string,
+  describeSignLanguageDetails?: string;
+  lightingProvideDetails?: string;
 }
 
 export interface CurrentOrPreviousProceedings {
@@ -768,7 +772,7 @@ export type C100Applicant = {
   country?: string,
   applicantAddressHistory?: YesOrNo,
   applicantProvideDetailsOfPreviousAddresses?: string;
-  personalDetails:{
+  personalDetails: {
     haveYouChangeName?: YesNoEmpty;
     applPreviousName?: string,
     dateOfBirth?: CaseDate;
@@ -903,6 +907,8 @@ export interface CaseData {
   welshLanguageRequirementApplicationNeedEnglish: string;
   orderCollection: ListValue<PRLDocument>[];
   hearingCollection?: HearingsList[];
+  futureHearings?: HearingsList[];
+  completedHearings?: HearingsList[];
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
   finalDocument?: Document;
@@ -944,7 +950,7 @@ export interface CaseData {
   citizenUserManualAddressTown?: string;
   citizenUserManualAddressCounty?: string;
   c100Applicants?: C100Applicant;
-citizenUserManualAddressPostcode?: string;
+  citizenUserManualAddressPostcode?: string;
   accessCode: string;
   caseInvites: CaseInvite[]
   detailsKnown?: string;
@@ -971,6 +977,7 @@ citizenUserManualAddressPostcode?: string;
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
+  respondentDocsList?:RespondentDocs[];
   draftOrderDoc?: Document;
 }
 
@@ -1571,6 +1578,11 @@ export const enum YesOrNo {
   NO = 'No',
 }
 
+export const enum Environment {
+  PRODUCTION = 'production',
+  DEVELOPMENT = 'development',
+}
+
 export const enum YesNoNotsure {
   YES = 'Yes',
   NO = 'No',
@@ -1624,6 +1636,20 @@ export const enum ApplyingWith {
   ALONE = 'alone',
   WITH_SPOUSE_OR_CIVIL_PARTNER = 'withSpouseOrCivilPartner',
   WITH_SOME_ONE_ELSE = 'withSomeoneElse',
+}
+
+export const enum EventRoutesContext {
+  KEEP_DETAILS_PRIVATE_RESPONDENT = "KEEP_DETAILS_PRIVATE_RESPONDENT",
+  KEEP_DETAILS_PRIVATE_APPLICANT = "KEEP_DETAILS_PRIVATE_APPLICANT",
+  CONFIRM_CONTACT_DETAILS_RESPONDENT = "CONFIRM_CONTACT_DETAILS_RESPONDENT",
+  CONFIRM_CONTACT_DETAILS_APPLICANT = "CONFIRM_CONTACT_DETAILS_APPLICANT",
+  MIAM_RESPONSE = "MIAM_RESPONSE",
+  CONSENT_RESPONSE = "CONSENT_RESPONSE",
+  PROCEEDINGS_RESPONSE = "PROCEEDINGS_RESPONSE",
+  SAFETY_CONCERNS_RESPONSE = "SAFETY_CONCERNS_RESPONSE",
+  INTERNATIONAL_FACTORS_RESPONSE = "INTERNATIONAL_FACTORS_RESPONSE",
+  SUPPORT_DURING_CASE = "SUPPORT_DURING_CASE",
+  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO"
 }
 
 export const enum ClarificationReason {
@@ -1736,6 +1762,20 @@ export interface OtherProceedingEmptyTable {
 }
 
 // // eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RespondentDocs {
+  id: string;
+  value: {
+    c1aDocument: ResponseDocuments;
+    c7Document: ResponseDocuments;
+    otherDocuments: ResponseDocs[];
+  }
+}
+
+export interface ResponseDocs {
+  id: string;
+  value: ResponseDocuments;
+}
+
 
 export interface ResponseDocumentList {
   id: string;
@@ -1999,7 +2039,7 @@ export const enum State {
   CASE_SUBMITTED_PAID = 'SUBMITTED_PAID',
   CASE_SUBMITTED_NOT_PAID = 'SUBMITTED_NOT_PAID',
   CASE_ISSUED_TO_LOCAL_COURT = 'CASE_ISSUE',
-  CASE_GATE_KEEPING = 'GATE_KEEPING',
+  CASE_GATE_KEEPING = 'JUDICIAL_REVIEW',
   CASE_CLOSED = 'ALL_FINAL_ORDERS_ISSUED',
   CASE_SERVED = 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
   CASE_WITHDRAWN = 'CASE_WITHDRAWN',
@@ -2108,6 +2148,7 @@ export const enum DocumentType {
   APPLICATION_SUMMARY = 'applicationSummary',
   FL401_FINAL_DOCUMENT = 'FL401-Final-Document.pdf',
   WITNESS_STATEMENT = 'witness-statement-Final-Document.pdf',
+  CITIZEN_DOCUMENT ='citizenDocument'
 }
 
 export const enum PaymentStatus {
@@ -2296,6 +2337,10 @@ export const enum LanguagePreference {
   ENGLISH = 'ENGLISH',
   WELSH = 'WELSH',
 }
+export const enum SessionLanguage {
+  ENGLISH = 'en',
+  WELSH = 'cy',
+}
 
 export interface OtherName {
   id?: string;
@@ -2355,6 +2400,8 @@ export interface orderInterface {
 export const enum CONFIDENTIAL_DETAILS {
   PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
   PRIVATE = 'This information will be kept confidential',
+  PUBLIC_CY = "Darparwyd yr wybodaeth hon gan y ceisydd felly ni ellir ei chadw'n gyfrinachol.",
+  PRIVATE_CY = 'Bydd yr wybodaeth hon yn cael ei chadw’n gyfrinachol',
 }
 
 export const enum Gender {
@@ -2368,16 +2415,86 @@ export interface PRLDocument {
   dateCreated: DateAsString;
   orderType: string;
   orderDocument: Document;
+  orderDocumentWelsh: Document;
   otherDetails: OtherDetails;
   orderTypeId?: string;
   isWithdrawnRequestApproved?: YesOrNo
   withdrawnRequestType?: string;
+  selectedHearingType?: string | null;
 }
 
 export interface HearingsList {
-  prev?: Hearings[],
-  next?: Hearings,
+  hearingID?: Number,
+  hearingRequestDateTime?: string | null,
+  hearingType?: string | null,
+  hmcStatus?: string | null,
+  lastResponseReceivedDateTime?: string | null,
+  requestVersion?: Number | null,
+  hearingListingStatus?: string | null,
+  listAssistCaseStatus?: string | null,
+  hearingDaySchedule?:Schedules[] | null,
+  hearingGroupRequestId?: string | null,
+  hearingIsLinkedFlag?: boolean | null,
+  hearingTypeValue?: string,
+  nextHearingDate?: string | null ,
+  urgentFlag?: boolean | null,
 }
+
+export interface Hearing{
+  dates : string,
+  lengthOfHearing : number | undefined,
+  hearingMethod: string ,
+  hearingDaySchedule: hearingDay[],
+}
+
+export interface hearingDay{
+  hearingDate: string,
+  startTime: string,
+  amPm:string,
+  durationInDayOrHours:number,
+  minutes:number,
+  judgeName:string | null | undefined,
+  venue:string | null | undefined,
+  address:string | null | undefined,
+  roomId:string | null | undefined,
+}
+
+export interface CompletedHearings{
+  hearingId: Number | undefined,
+  dates: string,
+  lengthOfHearing: number | undefined,
+  hearingMethod: string,
+}
+
+export interface HearingOrders{
+  href: string,
+  createdDate: string,
+  fileName: string,
+  id: Number,
+}
+
+export interface Schedules {
+  hearingStartDateTime?: string | null,
+  hearingEndDateTime?: string | null,
+  listAssistSessionId?: Number | string | null,
+  hearingVenueId?: string | null,
+  hearingVenueName?: string | null,
+  hearingVenueLocationCode?: Number | string | null,
+  hearingVenueAddress?: string | null,
+  hearingRoomId?: string | null,
+  hearingJudgeId?: string | null,
+  hearingJudgeName?: string | null,
+  panelMemberIds?: string[] | Number[] | null,
+  attendees?: Attendee[] | null,
+
+}
+
+
+export interface Attendee {
+  partyID?: string,
+  hearingSubChannel?: string | null,
+}
+
 export interface Hearings {
   date?: string;
   time?: string;
@@ -2485,7 +2602,7 @@ export interface WithoutNoticeOrderDetails {
   orderWithoutGivingNotice?: YesOrNo;
 }
 
-export interface OrderDocumentInfo extends DocumentInfo{
+export interface OrderDocumentInfo extends DocumentInfo {
   id: string;
 }
 
@@ -2503,10 +2620,10 @@ export interface ProceedingsOrderInterface {
 
 export const ProceedingsOrderTypeKeyMapper = {
   childArrangementOrder: 'childArrangementOrders',
-  emergencyProtectionOrder:'emergencyProtectionOrders',
-  supervisionOrder:'supervisionOrders',
+  emergencyProtectionOrder: 'emergencyProtectionOrders',
+  supervisionOrder: 'supervisionOrders',
   careOrder: 'careOrders',
-  childAbductionOrder:'childAbductionOrders',
+  childAbductionOrder: 'childAbductionOrders',
   contactOrderForDivorce: 'contactOrdersForDivorce',
   contactOrderForAdoption: 'contactOrdersForAdoption',
   childMaintenanceOrder: 'childMaintenanceOrders',
@@ -2527,16 +2644,16 @@ export enum ProceedingsOrderTypes {
   CARE_ORDER = 'careOrder',
   CHILD_ABDUCTION_ORDER = 'childAbductionOrder',
   CONTACT_ORDER_FOR_DIVORCE = 'contactOrderForDivorce',
-  CONTACT_ORDER_FOR_ADOPTION='contactOrderForAdoption',
-  CHILD_MAINTENANCE_ORDER='childMaintenanceOrder',
-  FINANCIAL_ORDER='financialOrder',
-  NON_MOLESTATION_ORDER='nonMolestationOrder',
-  OCCUPATION_ORDER='occupationOrder',
-  FORCED_MARRIAGE_PROTECTION_ORDER='forcedMarriageProtectionOrder',
-  RESTRANING_ORDER='restrainingOrder',
-  OTHER_INJUCTION_ORDER='otherInjuctionOrder',
-  UNDERTAKING_ORDER='undertakingOrder',
-  OTHER_ORDER='otherOrder',
+  CONTACT_ORDER_FOR_ADOPTION = 'contactOrderForAdoption',
+  CHILD_MAINTENANCE_ORDER = 'childMaintenanceOrder',
+  FINANCIAL_ORDER = 'financialOrder',
+  NON_MOLESTATION_ORDER = 'nonMolestationOrder',
+  OCCUPATION_ORDER = 'occupationOrder',
+  FORCED_MARRIAGE_PROTECTION_ORDER = 'forcedMarriageProtectionOrder',
+  RESTRANING_ORDER = 'restrainingOrder',
+  OTHER_INJUCTION_ORDER = 'otherInjuctionOrder',
+  UNDERTAKING_ORDER = 'undertakingOrder',
+  OTHER_ORDER = 'otherOrder',
 }
 
 export interface OtherProceedings {
@@ -2545,10 +2662,10 @@ export interface OtherProceedings {
 
 export interface ProceedingsOrderTypeInterface {
   childArrangementOrders?: ProceedingsOrderInterface[],
-  emergencyProtectionOrders?:ProceedingsOrderInterface[],
-  supervisionOrders?:ProceedingsOrderInterface[],
+  emergencyProtectionOrders?: ProceedingsOrderInterface[],
+  supervisionOrders?: ProceedingsOrderInterface[],
   careOrders?: ProceedingsOrderInterface[],
-  childAbductionOrders?:ProceedingsOrderInterface[],
+  childAbductionOrders?: ProceedingsOrderInterface[],
   contactOrdersForDivorce?: ProceedingsOrderInterface[],
   contactOrdersForAdoption?: ProceedingsOrderInterface[],
   childMaintenanceOrders?: ProceedingsOrderInterface[],
@@ -2568,7 +2685,7 @@ export interface DocumentInfo {
   binaryUrl: string;
 }
 
-export interface OtherProceedingsDocumentInfo extends DocumentInfo{
+export interface OtherProceedingsDocumentInfo extends DocumentInfo {
   id: string;
 }
 
@@ -2583,14 +2700,14 @@ export interface DocumentUploadResponse {
   };
 }
 
- export enum ReasonableAdjustments {
+export enum ReasonableAdjustments {
   DOCUMENTS_SUPPORT = 'docsformat',
   COMMUNICATION_HELP = 'commhelp',
   COURT_HEARING_SUPPORT = 'hearingsupport',
   COURT_HEARING_COMFORT = 'hearingcomfort',
   TRAVELLING_TO_COURT = 'travellinghelp',
   NO_NEED_OF_SUPPORT = 'nosupport',
- }
+}
 
 export const enum C100_CASE_TYPE {
   C100 = 'C100',
@@ -2610,16 +2727,16 @@ export enum C100OrderTypes {
   CARE_ORDER = 'careOrder',
   CHILD_ABDUCTION_ORDER = 'childAbductionOrder',
   CONTACT_ORDER_FOR_DIVORCE = 'contactOrderForDivorce',
-  CONTACT_ORDER_FOR_ADOPTION='contactOrderForAdoption',
-  CHILD_MAINTENANCE_ORDER='childMaintenanceOrder',
-  FINANCIAL_ORDER='financialOrder',
-  NON_MOLESTATION_ORDER='nonMolestationOrder',
-  OCCUPATION_ORDER='occupationOrder',
-  FORCED_MARRIAGE_PROTECTION_ORDER='forcedMarriageProtectionOrder',
-  RESTRANING_ORDER='restrainingOrder',
-  OTHER_INJUCTION_ORDER='otherInjuctionOrder',
-  UNDERTAKING_ORDER='undertakingOrder',
-  OTHER_ORDER='otherOrder',
+  CONTACT_ORDER_FOR_ADOPTION = 'contactOrderForAdoption',
+  CHILD_MAINTENANCE_ORDER = 'childMaintenanceOrder',
+  FINANCIAL_ORDER = 'financialOrder',
+  NON_MOLESTATION_ORDER = 'nonMolestationOrder',
+  OCCUPATION_ORDER = 'occupationOrder',
+  FORCED_MARRIAGE_PROTECTION_ORDER = 'forcedMarriageProtectionOrder',
+  RESTRANING_ORDER = 'restrainingOrder',
+  OTHER_INJUCTION_ORDER = 'otherInjuctionOrder',
+  UNDERTAKING_ORDER = 'undertakingOrder',
+  OTHER_ORDER = 'otherOrder',
 }
 
 export const enum YesNoEmpty {
@@ -2628,7 +2745,7 @@ export const enum YesNoEmpty {
   EMPTY = '',
 }
 
-export interface C100DocumentInfo extends DocumentInfo{
+export interface C100DocumentInfo extends DocumentInfo {
   id: string;
 }
 export interface C100OrderInterface {
@@ -2644,10 +2761,10 @@ export interface C100OrderInterface {
 
 export const C100OrderTypeKeyMapper = {
   childArrangementOrder: 'childArrangementOrders',
-  emergencyProtectionOrder:'emergencyProtectionOrders',
-  supervisionOrder:'supervisionOrders',
+  emergencyProtectionOrder: 'emergencyProtectionOrders',
+  supervisionOrder: 'supervisionOrders',
   careOrder: 'careOrders',
-  childAbductionOrder:'childAbductionOrders',
+  childAbductionOrder: 'childAbductionOrders',
   contactOrderForDivorce: 'contactOrdersForDivorce',
   contactOrderForAdoption: 'contactOrdersForAdoption',
   childMaintenanceOrder: 'childMaintenanceOrders',
@@ -2660,14 +2777,14 @@ export const C100OrderTypeKeyMapper = {
   undertakingOrder: 'undertakingOrders',
   otherOrder: 'otherOrders'
 }
-export const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png' , 'tif', 'tiff', 'pdf', 'doc', 'docx']
+export const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png', 'tif', 'tiff', 'pdf', 'doc', 'docx']
 export const C100MaxFileSize = '20000000'
 export interface C100OrderTypeInterface {
   childArrangementOrders?: C100OrderInterface[],
-  emergencyProtectionOrders?:C100OrderInterface[],
-  supervisionOrders?:C100OrderInterface[],
+  emergencyProtectionOrders?: C100OrderInterface[],
+  supervisionOrders?: C100OrderInterface[],
   careOrders?: C100OrderInterface[],
-  childAbductionOrders?:C100OrderInterface[],
+  childAbductionOrders?: C100OrderInterface[],
   contactOrdersForDivorce?: C100OrderInterface[],
   contactOrdersForAdoption?: C100OrderInterface[],
   childMaintenanceOrders?: C100OrderInterface[],
@@ -2686,14 +2803,14 @@ export interface OtherProceedings {
 }
 
 
-export enum C1ASafteyConcernsAbout{
+export enum C1ASafteyConcernsAbout {
   CHILDREN = 'children',
   APPLICANT = 'applicant',
   OTHER = 'otherConcerns',
   RESPONDENT = 'respondent',
 }
 
-export enum PRL_C1ASafteyConcernsAbout{
+export enum PRL_C1ASafteyConcernsAbout {
   CHILDREN = 'children',
   RESPONDENT = 'respondent',
   APPLICANT = 'applicant',
@@ -2701,19 +2818,19 @@ export enum PRL_C1ASafteyConcernsAbout{
 
 }
 
-export interface C1ASafteyConcernsAbuse{
+export interface C1ASafteyConcernsAbuse {
   behaviourDetails?: string;
   behaviourStartDate?: string;
-  isOngoingBehaviour?:YesNoEmpty;
+  isOngoingBehaviour?: YesNoEmpty;
   seekHelpFromPersonOrAgency?: YesNoEmpty;
   seekHelpDetails?: string;
   childrenConcernedAbout?: string[];
 }
 
-export interface PRL_C1ASafteyConcernsAbuse{
+export interface PRL_C1ASafteyConcernsAbuse {
   behaviourDetails?: string;
   behaviourStartDate?: string;
-  isOngoingBehaviour?:YesNoEmpty;
+  isOngoingBehaviour?: YesNoEmpty;
   seekHelpFromPersonOrAgency?: YesNoEmpty;
   seekHelpDetails?: string;
   childrenConcernedAbout?: string[];
@@ -2721,117 +2838,120 @@ export interface PRL_C1ASafteyConcernsAbuse{
 
 export interface C1ASafteyConcerns {
   child?: {
-    physicalAbuse?:C1ASafteyConcernsAbuse;
-    psychologicalAbuse?:C1ASafteyConcernsAbuse;
-    emotionalAbuse?:C1ASafteyConcernsAbuse;
-    sexualAbuse?:C1ASafteyConcernsAbuse;
-    financialAbuse?: C1ASafteyConcernsAbuse;
-  },
-  applicant?:{
-    physicalAbuse?:C1ASafteyConcernsAbuse;
-    psychologicalAbuse?:C1ASafteyConcernsAbuse;
-    emotionalAbuse?:C1ASafteyConcernsAbuse;
-    sexualAbuse?:C1ASafteyConcernsAbuse;
+    physicalAbuse?: C1ASafteyConcernsAbuse;
+    psychologicalAbuse?: C1ASafteyConcernsAbuse;
+    emotionalAbuse?: C1ASafteyConcernsAbuse;
+    sexualAbuse?: C1ASafteyConcernsAbuse;
     financialAbuse?: C1ASafteyConcernsAbuse;
     somethingElse?: C1ASafteyConcernsAbuse;
   },
-  respondent?:{
-    physicalAbuse?:C1ASafteyConcernsAbuse;
-    psychologicalAbuse?:C1ASafteyConcernsAbuse;
-    emotionalAbuse?:C1ASafteyConcernsAbuse;
-    sexualAbuse?:C1ASafteyConcernsAbuse;
+  applicant?: {
+    physicalAbuse?: C1ASafteyConcernsAbuse;
+    psychologicalAbuse?: C1ASafteyConcernsAbuse;
+    emotionalAbuse?: C1ASafteyConcernsAbuse;
+    sexualAbuse?: C1ASafteyConcernsAbuse;
     financialAbuse?: C1ASafteyConcernsAbuse;
     somethingElse?: C1ASafteyConcernsAbuse;
   },
+  respondent?: {
+    physicalAbuse?: C1ASafteyConcernsAbuse;
+    psychologicalAbuse?: C1ASafteyConcernsAbuse;
+    emotionalAbuse?: C1ASafteyConcernsAbuse;
+    sexualAbuse?: C1ASafteyConcernsAbuse;
+    financialAbuse?: C1ASafteyConcernsAbuse;
+    somethingElse?: C1ASafteyConcernsAbuse;
+  },
+}
+
+export interface PRL_C1ASafteyConcerns {
+  child?: {
+    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
+    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+    somethingElse?: PRL_C1ASafteyConcernsAbuse;
+  },
+  applicant?: {
+    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
+    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+    somethingElse?: PRL_C1ASafteyConcernsAbuse;
+  },
+  respondent?: {
+    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
+    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+    somethingElse?: PRL_C1ASafteyConcernsAbuse;
+  },
+}
+
+export interface PRL_C1ASafteyConcerns_total {
+  haveSafetyConcerns?: YesOrNo;
+  safetyConcernAbout?: PRL_C1ASafteyConcernsAbout[];
+  concernAboutChild?: PRL_C1AAbuseTypes[];
+  concernAboutRespondent?: PRL_C1AAbuseTypes[];
+  child?: {
+    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
+    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+    somethingElse?: PRL_C1ASafteyConcernsAbuse;
+  },
+  applicant?: {
+    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
+    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+    somethingElse?: PRL_C1ASafteyConcernsAbuse;
+  },
+  respondent?: {
+    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
+    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
+    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
+    somethingElse?: PRL_C1ASafteyConcernsAbuse;
+  },
+  otherconcerns?: {
+    c1AkeepingSafeStatement?: string;
+    c1AsupervisionAgreementDetails?: string;
+    c1AagreementOtherWaysDetails?: YesOrNo;
+    c1AotherConcernsDrugs?: YesOrNo;
+    c1AotherConcernsDrugsDetails?: string;
+    c1AchildSafetyConcerns?: YesOrNo;
+    c1AchildSafetyConcernsDetails?: string;
+  },
+  abductions?: {
+    c1AabductionReasonOutsideUk?: string;
+    c1AchildsCurrentLocation?: string;
+    c1AchildrenMoreThanOnePassport?: YesOrNo;
+    c1ApossessionChildrenPassport?: string[];
+    c1AprovideOtherDetails?: string;
+    c1ApassportOffice?: YesOrNo;
+    c1AabductionPassportOfficeNotified?: YesOrNo;
+    c1ApreviousAbductionsShortDesc?: string;
+    c1ApoliceOrInvestigatorInvolved?: YesOrNo;
+    c1ApoliceOrInvestigatorOtherDetails?: string;
+    c1AchildAbductedBefore?: YesOrNo;
   }
+}
 
-  export interface PRL_C1ASafteyConcerns {
-    child?: {
-      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
-      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-    },
-    applicant?:{
-      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
-      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-      somethingElse?: PRL_C1ASafteyConcernsAbuse;
-    },
-    respondent?:{
-      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
-      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-      somethingElse?: PRL_C1ASafteyConcernsAbuse;
-    },
-    }
-
-    export interface PRL_C1ASafteyConcerns_total {
-     haveSafetyConcerns?: YesOrNo;
-     safetyConcernAbout?: PRL_C1ASafteyConcernsAbout[];
-     concernAboutChild?: PRL_C1AAbuseTypes[];
-     concernAboutRespondent?: PRL_C1AAbuseTypes[];
-     child?: {
-      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
-      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-    },
-    applicant?:{
-      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
-      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-      somethingElse?: PRL_C1ASafteyConcernsAbuse;
-    },
-    respondent?:{
-      physicalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      psychologicalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      emotionalAbuse?:PRL_C1ASafteyConcernsAbuse;
-      sexualAbuse?:PRL_C1ASafteyConcernsAbuse;
-      financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-      somethingElse?: PRL_C1ASafteyConcernsAbuse;
-    },
-     otherconcerns?:{
-        c1AkeepingSafeStatement?:string;
-        c1AsupervisionAgreementDetails?:string;
-        c1AagreementOtherWaysDetails?:YesOrNo;
-        c1AotherConcernsDrugs?:YesOrNo;
-        c1AotherConcernsDrugsDetails?:string;
-        c1AchildSafetyConcerns?:YesOrNo;
-        c1AchildSafetyConcernsDetails?:string;
-      },
-      abductions?:{
-        c1AabductionReasonOutsideUk?:string;
-        c1AchildsCurrentLocation?:string;
-        c1AchildrenMoreThanOnePassport?:YesOrNo;
-        c1ApossessionChildrenPassport?:string[];
-        c1AprovideOtherDetails?:string;
-        c1ApassportOffice?:YesOrNo;
-        c1AabductionPassportOfficeNotified?:YesOrNo;
-        c1ApreviousAbductionsShortDesc?:string;
-        c1ApoliceOrInvestigatorInvolved?:YesOrNo;
-        c1ApoliceOrInvestigatorOtherDetails?:string;
-        c1AchildAbductedBefore?:YesOrNo;
-      }
-      }
-
-  export enum C1AAbuseTypes {
-    PHYSICAL_ABUSE = 'physicalAbuse',
-    PSYCHOLOGICAL_ABUSE = 'psychologicalAbuse',
-    EMOTIONAL_ABUSE = 'emotionalAbuse',
-    SEXUAL_ABUSE = 'sexualAbuse',
-    FINANCIAL_ABUSE = 'financialAbuse',
-    ABDUCTION = 'abduction',
-    WITNESSING_DOMESTIC_ABUSE='witnessingDomesticAbuse',
-    SOMETHING_ELSE='somethingElse',
+export enum C1AAbuseTypes {
+  PHYSICAL_ABUSE = 'physicalAbuse',
+  PSYCHOLOGICAL_ABUSE = 'psychologicalAbuse',
+  EMOTIONAL_ABUSE = 'emotionalAbuse',
+  SEXUAL_ABUSE = 'sexualAbuse',
+  FINANCIAL_ABUSE = 'financialAbuse',
+  ABDUCTION = 'abduction',
+  WITNESSING_DOMESTIC_ABUSE = 'witnessingDomesticAbuse',
+  SOMETHING_ELSE = 'somethingElse',
 }
 
 export enum PRL_C1AAbuseTypes {
@@ -2841,110 +2961,153 @@ export enum PRL_C1AAbuseTypes {
   SEXUAL_ABUSE = 'sexualAbuse',
   FINANCIAL_ABUSE = 'financialAbuse',
   ABDUCTION = 'abduction',
-  WITNESSING_DOMESTIC_ABUSE='witnessingDomesticAbuse',
-  SOMETHING_ELSE='somethingElse',
+  WITNESSING_DOMESTIC_ABUSE = 'witnessingDomesticAbuse',
+  SOMETHING_ELSE = 'somethingElse',
 }
 
 export type ChildrenDetails = {
-    id: string;
-    firstName: string;
-    lastName: string;
-    personalDetails: {
-      dateOfBirth?: CaseDate;
-      isDateOfBirthUnknown?: YesNoEmpty;
-      approxDateOfBirth?: CaseDate;
-      gender: Gender;
-      otherGenderDetails?: string;
-    };
-    childMatters: {
-      needsResolution: string[];
-    };
-    parentialResponsibility: {
-      statement: string;
-    };
-    liveWith?: People[]
+  id: string;
+  firstName: string;
+  lastName: string;
+  personalDetails: {
+    dateOfBirth?: CaseDate;
+    isDateOfBirthUnknown?: YesNoEmpty;
+    approxDateOfBirth?: CaseDate;
+    gender: Gender;
+    otherGenderDetails?: string;
   };
-
-  export type OtherChildrenDetails = {
-    id: string;
-    firstName: string;
-    lastName: string;
-    personalDetails: {
-      dateOfBirth?: CaseDate;
-      isDateOfBirthUnknown?: YesNoEmpty;
-      approxDateOfBirth?: CaseDate;
-      gender: Gender;
-      otherGenderDetails?: string;
-    };
+  childMatters: {
+    needsResolution: string[];
   };
-
-  export type C100RebuildPartyDetails = {
-    id: string;
-    firstName: string;
-    lastName: string;
-    personalDetails: {
-      hasNameChanged?: YesNoDontKnow;
-      previousFullName?: string;
-      dateOfBirth?: CaseDate;
-      isDateOfBirthUnknown?: YesNoEmpty;
-      approxDateOfBirth?: CaseDate;
-      gender: Gender;
-      otherGenderDetails?: string;
-      respondentPlaceOfBirth?: string;
-      respondentPlaceOfBirthUnknown?: YesOrNo;
-    };
-    relationshipDetails: {
-      relationshipToChildren: RelationshipToChildren[];
-    };
-    address: C100Address;
-    contactDetails?: {
-      donKnowEmailAddress?: YesOrNo
-      emailAddress?: string
-      telephoneNumber?: string
-      donKnowTelephoneNumber?: YesOrNo
-    }
-    addressUnknown?: YesOrNo;
+  parentialResponsibility: {
+    statement: string;
   };
+  liveWith?: People[]
+};
 
-  export interface RelationshipToChildren {
-    relationshipType: RelationshipType;
-    otherRelationshipTypeDetails?: string;
-    childId: string;
+export type OtherChildrenDetails = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  personalDetails: {
+    dateOfBirth?: CaseDate;
+    isDateOfBirthUnknown?: YesNoEmpty;
+    approxDateOfBirth?: CaseDate;
+    gender: Gender;
+    otherGenderDetails?: string;
+  };
+};
+
+export type C100RebuildPartyDetails = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  personalDetails: {
+    hasNameChanged?: YesNoDontKnow;
+    previousFullName?: string;
+    dateOfBirth?: CaseDate;
+    isDateOfBirthUnknown?: YesNoEmpty;
+    approxDateOfBirth?: CaseDate;
+    gender: Gender;
+    otherGenderDetails?: string;
+    respondentPlaceOfBirth?: string;
+    respondentPlaceOfBirthUnknown?: YesOrNo;
+  };
+  relationshipDetails: {
+    relationshipToChildren: RelationshipToChildren[];
+  };
+  address: C100Address;
+  contactDetails?: {
+    donKnowEmailAddress?: YesOrNo
+    emailAddress?: string
+    telephoneNumber?: string
+    donKnowTelephoneNumber?: YesOrNo
   }
+  addressUnknown?: YesOrNo;
+};
 
-  export const enum RelationshipType {
-    MOTHER = 'Mother',
-    FATHER = 'Father',
-    GUARDIAN = 'Guardian',
-    SPECIAL_GUARDIAN = 'Special Guardian',
-    GRAND_PARENT = 'Grandparent',
-    OTHER = 'Other',
-    EMPTY = ''
-  }
+export interface RelationshipToChildren {
+  relationshipType: RelationshipType;
+  otherRelationshipTypeDetails?: string;
+  childId: string;
+}
 
-  export interface C100Address extends Address {
-    selectedAddress?: number,
-    addressHistory?: YesNoDontKnow,
-    provideDetailsOfPreviousAddresses?: string
-  }
+export const enum RelationshipType {
+  MOTHER = 'Mother',
+  FATHER = 'Father',
+  GUARDIAN = 'Guardian',
+  SPECIAL_GUARDIAN = 'Special Guardian',
+  GRAND_PARENT = 'Grandparent',
+  OTHER = 'Other',
+  EMPTY = ''
+}
+
+export interface C100Address extends Address {
+  selectedAddress?: number,
+  addressHistory?: YesNoDontKnow,
+  provideDetailsOfPreviousAddresses?: string
+}
 
 
-  export enum PartyType {
-    CHILDREN = 'children',
-    APPLICANT = 'applicant',
-    OTHER_CHILDREN = 'otherChildren',
-    RESPONDENT = 'respondent',
-    OTHER_PERSON = 'otherPerson',
-  }
+export enum PartyType {
+  CHILDREN = 'children',
+  APPLICANT = 'applicant',
+  OTHER_CHILDREN = 'otherChildren',
+  RESPONDENT = 'respondent',
+  OTHER_PERSON = 'otherPerson',
+}
 
-  export type People = {
-      id: string;
-      firstName: string;
-      lastName: string;
-      partyType: PartyType;
-  }
+export type People = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  partyType: PartyType;
+}
 
-  export enum CaseType {
-    C100 = 'C100',
-    FL401 = 'FL401',
+export enum CaseType {
+  C100 = 'C100',
+  FL401 = 'FL401',
+}
+
+export enum CaseEvent {
+  EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement',
+  KEEP_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
+  CONFIRM_YOUR_DETAILS = 'confirmYourDetails',
+  SUPPORT_YOU_DURING_CASE = 'hearingNeeds',
+  LEGAL_REPRESENTATION = 'legalRepresentation',
+  SAFETY_CONCERNS = 'citizenSafetyConcerns',
+  MIAM = 'respondentMiam',
+  PARTY_PERSONAL_DETAILS = 'linkCitizenAccount',
+  CITIZEN_INTERNAL_CASE_UPDATE = 'citizen-internal-case-update',
+  CITIZEN_CASE_UPDATE = 'citizen-case-update',
+  CONSENT_TO_APPLICATION = 'consentToTheApplication',
+  CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative'
+}
+
+export enum hearingStatus {
+  COMPLETED = 'COMPLETED',
+} 
+
+export enum passportPossessionRelative {
+  MOTHER = 'mother',
+  FATHER = 'father',
+  OTHER = 'otherPerson'
+}
+
+export enum DocType {
+  POSITION_STATEMENTS = 'positionstatements',
+  YOUR_WITNESS_STATEMENTS = 'yourwitnessstatements',
+  LETTERS_FROM_SCHOOL = 'lettersfromschool',
+  DIGITAL_DOWNLOADS = 'digitaldownloads',
+  MEDICAL_RECORDS = 'medicalrecords',
+  PATERNITY_TEST_REPORTS = 'paternitytestreports',
+  DRUG_ALCOHOL_TESTS = 'drugalcoholtests',
+  POLICE_REPORTS = 'policedisclosures',
+  WITNESS_AVAILABILITY = 'witnessavailability',
+  TENANCY_AND_MORTGAGE_AVAILABILITY = 'tenancyandmortgageavailability',
+  MEDICAL_REPORTS = 'medicalreports',
+  OTHER_DOCUMENTS = 'otherDocuments',
+  PREVIOUS_ORDERS = 'previousorders',
+  OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
+  MIAM_CERTIFICATE = 'miamcertificate',
 }

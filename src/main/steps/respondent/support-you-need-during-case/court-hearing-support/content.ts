@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
 const en = {
   section: 'Reasonable adjustments',
@@ -24,15 +24,27 @@ const en = {
     },
     supportWorkerDetails: {
       required: 'Please provide support worker details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     familyProviderDetails: {
       required: 'Please provide family member details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     therapyDetails: {
       required: 'Please provide therapy animal details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     communicationSupportOther: {
       required: 'Please provide the details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -44,31 +56,43 @@ const cy: typeof en = {
     'Meddyliwch am yr hyn y byddwch ei angen os bydd eich gwrandawiad yn un wyneb yn wyneb, trwy fideo neu dros y ffôn.',
   optionHint: 'Dogfennau mewn lliw penodol',
   supportworker: 'Gweithiwr cymorth neu ofalwr',
-  supportWorkerDetails: 'Tell us who you will bring',
+  supportWorkerDetails: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',
   familymember: "ffrind neu aelod o'r teulu",
-  familyMemberDetails: 'Tell us who you will bring',
+  familyMemberDetails: 'Dywedwch wrthym pwy fyddwch yn dod efo chi',
   assistance: 'Ci cymorth / ci tywys',
   animal: 'Anifail therapi',
-  animalDetails: 'Describe what you need',
+  animalDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     courtHearing: {
-      required: 'Select what help you need to bring support with you to a court hearing',
+      required: 'Dewiswch pa gymorth sydd ei angen arnoch i ddod â rhywun efo chi i’ch cefnogi mewn gwrandawiad llys',
     },
     supportWorkerDetails: {
-      required: 'Please provide support worker details',
+      required: 'Rhowch fanylion eich gweithiwr cymorth',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     familyProviderDetails: {
-      required: 'Please provide family member details',
+      required: 'Rhowch fanylion aelod o’ch teulu',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     therapyDetails: {
-      required: 'Please provide therapy animal details',
+      required: 'Rhowch fanylion yr anifail therapi',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     communicationSupportOther: {
-      required: 'Please provide the details',
+      required: 'Rhowch fanylion',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };
@@ -98,7 +122,7 @@ export const form: FormContent = {
                 rows: 1,
               },
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
@@ -114,7 +138,7 @@ export const form: FormContent = {
                 rows: 1,
               },
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
@@ -135,7 +159,7 @@ export const form: FormContent = {
                 rows: 1,
               },
               labelSize: null,
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
@@ -151,12 +175,12 @@ export const form: FormContent = {
               attributes: {
                 rows: 2,
               },
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           name: 'courtHearing',

@@ -15,13 +15,27 @@ const cyContent = {
   section: 'Pob dogfen',
   title: 'Negeseuon e-bost, cipluniau, delweddau a ffeiliau cyfryngau eraill',
   caseNumber: 'Rhif yr achos',
-  continue: 'Go back (welsh)',
+  continue: 'Yn ôl',
 };
 
 jest.mock('../../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('citizen-home content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        session: {
+          applicationSettings: {
+            docToView: {
+              docType: 'digitaldownloads',
+              uploadedBy: 'applicant',
+            },
+          },
+        },
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   //let form;
   //let fields;

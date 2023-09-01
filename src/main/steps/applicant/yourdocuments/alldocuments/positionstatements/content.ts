@@ -1,23 +1,18 @@
-import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-
-const en = () => {
-  return {
-    section: 'All documents',
-    title: "'s position statements",
-    caseNumber: 'Case number',
-    continue: 'Go back',
-  };
+import { getDocumentList } from '../alldocuments/utils';
+const en = {
+  section: 'All documents',
+  title: "'s position statements",
+  caseNumber: 'Case number',
+  continue: 'Go back',
 };
 
-const cy: typeof en = () => {
-  return {
-    section: 'Pob dogfen',
-    title: "'s position statements (welsh)",
-    caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
-  };
+const cy: typeof en = {
+  section: 'Pob dogfen',
+  title: "'s position statements (welsh)",
+  caseNumber: 'Rhif yr achos',
+  continue: 'Yn ôl',
 };
 
 const languages = {
@@ -42,23 +37,19 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
-  const orders: object[] = [];
-  for (const doc of content.userCase?.citizenUploadedDocumentList || []) {
-    if (doc.value.isApplicant === content.byApplicant && doc.value.documentType === 'Your position statements') {
-      const uid = doc.value.citizenDocument.document_url.substring(
-        doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
-      );
-      orders.push({
-        href: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${uid}`,
-        createdDate: doc.value.documentDetails.documentUploadedDate,
-        fileName: doc.value.citizenDocument.document_filename,
-      });
-    }
-  }
+  const translations = languages[content.language];
+
+  const documentToView = content.additionalData?.req.session.applicationSettings.docToView;
+  const citizenUploadedDocumentList = content.userCase?.citizenUploadedDocumentList;
 
   return {
     ...translations,
-    orders,
+    orders: getDocumentList(
+      citizenUploadedDocumentList,
+      documentToView.docType,
+      documentToView.uploadedBy,
+      documentToView.partyName
+    ),
+    partyName: documentToView.partyName,
   };
 };

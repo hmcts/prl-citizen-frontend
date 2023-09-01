@@ -13,15 +13,29 @@ const enContent = {
 
 const cyContent = {
   section: 'Pob dogfen',
-  title: 'Police reports (welsh)',
+  title: 'Adroddiadau gan yr heddlu',
   caseNumber: 'Rhif yr achos',
-  continue: 'Go back (welsh)',
+  continue: 'Yn ôl',
 };
 
 jest.mock('../../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('citizen-home content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        session: {
+          applicationSettings: {
+            docToView: {
+              docType: 'policedisclosures',
+              uploadedBy: 'applicant',
+            },
+          },
+        },
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   //let form;
   //let fields;

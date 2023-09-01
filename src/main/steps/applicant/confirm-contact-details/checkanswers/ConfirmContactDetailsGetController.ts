@@ -17,6 +17,10 @@ export default class ConfirmContactDetailsGetController extends GetController {
     getConfidentialData(req);
     validateDataCompletion(req);
     const callback = redirect ? undefined : () => super.get(req, res);
+    req.session.applicationSettings = {
+      ...req.session.applicationSettings,
+      navFromContactPreferences: false,
+    };
     super.saveSessionAndRedirect(req, res, callback);
   }
 }

@@ -4,8 +4,8 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 const en = {
-  section: 'Have you or the children ever been involved in court proceedings?',
-  title: '',
+  section: '',
+  title: 'Have you or the children ever been involved in court proceedings?',
   courtCase: 'Have the children been involved in a court case?',
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',
@@ -13,6 +13,7 @@ const en = {
   courtOrder: 'Have you had a court order made for your protection?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
+  summaryText: 'Contacts for help',
   onlyContinue: 'Continue',
   errors: {
     proceedingsStart: {
@@ -25,22 +26,23 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
-  title: '',
+  section: '',
+  title: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
   courtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
-  courtCaseYes: 'Yes',
-  courtCaseNo: 'No',
-  courtCaseDontKnow: "I don't know",
+  courtCaseYes: 'Do',
+  courtCaseNo: 'Naddo',
+  courtCaseDontKnow: 'Nid wyf yn gwybod',
   courtOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
-  courtOrderYes: 'Yes',
-  courtOrderNo: 'No',
-  onlyContinue: 'Continue',
+  courtOrderYes: 'Oes',
+  courtOrderNo: 'Nac oes',
+  summaryText: 'Cysylltiadau am gymorth',
+  onlyContinue: 'Parhau',
   errors: {
     proceedingsStart: {
-      required: 'Select yes if the children have been involved in a previous court case',
+      required: "Dewiswch do os yw'r plant wedi bod yn rhan o achos llys yn flaenorol",
     },
     proceedingsStartOrder: {
-      required: 'Select yes if you have had a court order made for your protection',
+      required: 'Dewiswch oes os oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi',
     },
   },
 };

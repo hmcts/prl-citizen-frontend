@@ -11,6 +11,7 @@ const en = {
   twoHint:
     'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
   continue: 'Continue',
+  provideDetails: 'Provide details',
   errors: {
     request: {
       required: 'Select yes if another country has asked (or been asked) for information or help for the children',
@@ -18,6 +19,9 @@ const en = {
     iFactorsRequestProvideDetails: {
       required:
         'Provide details about another country asking (or being asked) for information or help for the children',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -29,14 +33,19 @@ const cy: typeof en = {
   two: 'Nac oes',
   twoHint:
     'Gall fod pryderon amddiffyn plant, cymorth ar gyfer llys gyda chais am achos arall, angen gorfodi gorchymyn dramor, neu bod ymdrechion yn cael eu gwneud i ddychwelyd y plant i Gymru neu Loegr.',
-  continue: 'Continue',
+  continue: 'Parhau',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     request: {
-      required: 'Select yes if another country has asked (or been asked) for information or help for the children',
+      required:
+        "Dewiswch 'Oes' os oes gwlad arall wedi gofyn (neu os gofynnwyd i wlad arall) am wybodaeth neu help i'r plant",
     },
     iFactorsRequestProvideDetails: {
       required:
-        'Provide details about another country asking (or being asked) for information or help for the children',
+        "Darparwch fanylion am wlad arall sy'n gofyn (neu y gofynnwyd iddi) am wybodaeth neu gymorth ar gyfer y plant",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };
@@ -61,7 +70,7 @@ export const form: FormContent = {
           subFields: {
             iFactorsRequestProvideDetails: {
               type: 'textarea',
-              label: 'Provide details',
+              label: l => l.provideDetails,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },

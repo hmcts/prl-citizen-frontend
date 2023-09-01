@@ -1,6 +1,6 @@
 import { PageContent } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import {
@@ -8,7 +8,6 @@ import {
   miam_cost_exemption_content_en,
   miam_how_to_arrange_mediation_label_cy,
   miam_how_to_arrange_mediation_label_en,
-  miam_how_to_arrange_mediation_link,
 } from './miam-cost-exemptions';
 
 const en = {
@@ -26,25 +25,31 @@ const en = {
     },
     miamNotWillingExplnation: {
       required: 'Explain why',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cy: typeof en = {
   title: "A fyddech chi'n fodlon mynychu MIAM?",
-  one: 'Yes',
-  two: 'No',
-  explainWhyLabel: 'Explain why',
+  one: 'Byddwn',
+  two: 'Na fyddwn',
+  explainWhyLabel: 'Eglurwch pam',
   miamCostExemptionsLabel: 'Help gyda chostau ac esemptiadau MIAM',
   miamCostExemptionsInfo: miam_cost_exemption_content_cy,
   miamLabel: miam_how_to_arrange_mediation_label_cy,
-  onlyContinue: 'Continue',
+  onlyContinue: 'Parhau',
   errors: {
     miamWillingness: {
-      required: 'Select yes if you are willing to attend a MIAM',
+      required: 'Dewiswch ydw os ydych chi’n fodlon mynychu MIAM',
     },
     miamNotWillingExplnation: {
-      required: 'Explain why',
+      required: 'Eglurwch pam',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };
@@ -72,9 +77,8 @@ export const form: FormContent = {
           value: 'Yes',
           subFields: {
             miamHowToArrangeMediation: {
-              type: 'link',
-              link: miam_how_to_arrange_mediation_link,
-              label: l => l.miamLabel,
+              type: 'textAndHtml',
+              textAndHtml: l => l.miamLabel,
             },
           },
         },
@@ -86,7 +90,7 @@ export const form: FormContent = {
               type: 'textarea',
               label: l => l.explainWhyLabel,
               id: 'miam-explanation',
-              validator: value => isFieldFilledIn(value),
+              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
           },
         },

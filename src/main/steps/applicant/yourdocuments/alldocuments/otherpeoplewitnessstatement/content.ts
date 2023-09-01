@@ -1,6 +1,6 @@
-import { CITIZEN_DOWNLOAD_UPLOADED_DOCS } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
+import { getDocumentList } from '../alldocuments/utils';
 
 const en = () => {
   return {
@@ -16,7 +16,7 @@ const cy: typeof en = () => {
     section: 'Pob dogfen',
     title: 'Datganiadau tyst pobl eraill',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 
@@ -43,28 +43,18 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const documentToView = content.additionalData?.req.session.applicationSettings.docToView;
 
-  const orders: object[] = [];
-  const docs = content.userCase?.citizenUploadedDocumentList?.filter(doc => {
-    if (doc.value.uploadedBy === content.userIdamId && doc.value.documentType === "Other people's witness statements") {
-      return doc;
-    }
-  });
-  if (docs) {
-    for (const doc of docs) {
-      const uid = doc.value.citizenDocument.document_url.substring(
-        doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
-      );
-      orders.push({
-        href: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${uid}`,
-        createdDate: doc.value.documentDetails.documentUploadedDate,
-        fileName: doc.value.citizenDocument.document_filename,
-      });
-    }
-  }
+  const citizenUploadedDocumentList = content.userCase?.citizenUploadedDocumentList;
 
   return {
     ...translations,
-    orders,
+    orders: getDocumentList(
+      citizenUploadedDocumentList,
+      documentToView.docType,
+      documentToView.uploadedBy,
+      '',
+      content.userIdamId
+    ),
   };
 };

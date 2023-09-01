@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -11,6 +12,7 @@ const enContent = {
   two: 'No',
   hint: 'For example, is their family life mainly based outside of England and Wales?',
   continue: 'Continue',
+  provideDetails: 'Provide details',
   errors: {
     start: {
       required:
@@ -19,6 +21,9 @@ const enContent = {
     iFactorsStartProvideDetails: {
       required:
         "Provide details about the children's parents (or anyone significant to the children) lives outside of England and Wales",
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -29,15 +34,19 @@ const cyContent = {
   one: 'Ydy',
   two: 'Nac ydy',
   hint: 'Er enghraifft, a yw eu bywyd teuluol yn bennaf y tu allan i Gymru a Lloegr?',
-  continue: 'Continue',
+  continue: 'Parhau',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     start: {
       required:
-        "Select yes if the children's parents (or anyone significant to the children) are mainly based outside of England and Wales",
+        "Dewiswch ydy os yw rhieni’r plant (neu unrhyw un sy’n bwysig i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr",
     },
     iFactorsStartProvideDetails: {
       required:
-        "Provide details about the children's parents (or anyone significant to the children) lives outside of England and Wales",
+        'Rhowch fanylion am rieni’r plant (neu unrhyw un sy’n bwysig i’r plant) sy’n byw y tu allan i Gymru a Lloegr',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };
@@ -71,10 +80,19 @@ describe('citizen-home content', () => {
   });
 
   test('should contain detailsKnown field', () => {
-    const detailsKnownField = fields.start as FormOptions;
-    expect(detailsKnownField.type).toBe('radios');
-    expect(detailsKnownField.classes).toBe('govuk-radios');
-    expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
+    const startField = fields.start as FormOptions;
+    expect(startField.type).toBe('radios');
+    expect(startField.classes).toBe('govuk-radios');
+    expect((startField.section as Function)(generatedContent)).toBe(enContent.section);
+    expect((startField.hint as Function)(generatedContent)).toBe(enContent.hint);
+    expect(startField.validator).toBe(isFieldFilledIn);
+    expect((startField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
+    expect((startField.values[0].subFields?.iFactorsStartProvideDetails.label as Function)(generatedContent)).toBe(
+      enContent.provideDetails
+    );
+    (startField.values[0].subFields?.iFactorsStartProvideDetails.validator as Validator)('test value');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test value');
+    expect((startField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
   });
 
   test('should onlyContinue continue button', () => {

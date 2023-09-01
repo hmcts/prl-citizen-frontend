@@ -23,9 +23,10 @@ module.exports = {
         childrenSubjectOfProtectionPlan: '//*[@id="cd_childrenSubjectOfProtectionPlan"]',
         //Other Children
         otherChildrenYes: '//*[@id="ocd_hasOtherChildren"]',
-    },
+        otherChildrenNo: '//*[@id="ocd_hasOtherChildren-2"]'
+        },
     async childDetailsName() {
-        await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsNamePageTitle);
+        await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsNamePageTitle , 30);
         await I.retry(retryCount).click(this.fields.mainForm);
         await I.retry(retryCount).waitForSelector(this.fields.tempFirstName, 30);
         await I.retry(retryCount).fillField(this.fields.tempFirstName, ChildrenDetails.childFirstName);
@@ -34,51 +35,55 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async childDetailsDOB() {
-        await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsDOBPageTitle);
+        await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsDOBPageTitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.dayDOB, ChildrenDetails.day);
         await I.retry(retryCount).fillField(this.fields.monthDOB, ChildrenDetails.month);
         await I.retry(retryCount).fillField(this.fields.yearDOB, ChildrenDetails.year);
-        await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsDOBSubHeading)
+        await I.retry(retryCount).waitForText(ChildrenDetails.childDetailsDOBSubHeading , 30);
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.femaleGender);
-        I.wait('2');
+        await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async decisionsCourtToResolve() {
-        await I.retry(retryCount).waitForText(ChildrenDetails.decisionsCourtToResolvePageTitle);
+        await I.retry(retryCount).waitForText(ChildrenDetails.decisionsCourtToResolvePageTitle , 30);
         await I.retry(retryCount).click(this.fields.needsResolution);
         await I.retry(retryCount).click(this.fields.needsResolution2);
-        I.wait('2');
+        await I.wait('2');
         await I.retry(retryCount).click('Continue');
+        await I.wait('2');
     },
     async parentalResponsibility() {
-        await I.retry(retryCount).waitForText(ChildrenDetails.parentalResponsibilityPageTitle);
+        await I.retry(retryCount).waitForText(ChildrenDetails.parentalResponsibilityPageTitle , 30);
         await I.retry(retryCount).fillField(this.fields.statement, ChildrenDetails.testingText);
-        I.wait('2');
+        await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async furtherInformation() {
-        await I.retry(retryCount).waitForText(ChildrenDetails.furtherInformationPageTitle);
+        await I.retry(retryCount).waitForText(ChildrenDetails.furtherInformationPageTitle , 30);
+        await I.wait('2');
         await I.retry(retryCount).click(this.fields.childrenKnownToSocialServices);
-        I.wait('1');
+        await I.wait('3');
         await I.retry(retryCount).fillField(this.fields.childrenKnownToSocialServicesDetail, ChildrenDetails.testingText);
-        await I.retry(retryCount).waitForText(ChildrenDetails.furtherInformationSubHeading);
-        I.wait('1');
+        await I.retry(retryCount).waitForText(ChildrenDetails.furtherInformationSubHeading , 30);
+        await I.wait('3');
         await I.retry(retryCount).click(this.fields.childrenSubjectOfProtectionPlan);
-        I.wait('2');
+        await I.wait('3');
         await I.retry(retryCount).click('Continue');
     },
-    async otherChildren() {
-        await I.retry(retryCount).waitForText(ChildrenDetails.otherChildrenPageTitle);
-        await I.retry(retryCount).click(this.fields.otherChildrenYes);
-        I.wait('2');
+    async otherChildren(otherChildOption) {
+        await I.retry(retryCount).waitForText(ChildrenDetails.otherChildrenPageTitle , 30);
+        await I.retry(retryCount).click(otherChildOption ? this.fields.otherChildrenYes : this.fields.otherChildrenNo);
+        await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async otherChildrenName() {
-        await I.retry(retryCount).waitForText(ChildrenDetails.otherChildrenNamePageTitle);
-        I.wait('1');
-        await I.retry(retryCount).fillField(this.fields.tempFirstName, ChildrenDetails.firstName);
-        await I.retry(retryCount).fillField(this.fields.tempLastName, ChildrenDetails.surname);
-        I.wait('2');
+        await I.retry(retryCount).waitForText(ChildrenDetails.otherChildrenNamePageTitle , 30);
+        await I.wait('2');
+        await I.retry(retryCount).fillField(this.fields.tempFirstName, ChildrenDetails.firstName , 30);
+        await I.retry(retryCount).fillField(this.fields.tempLastName, ChildrenDetails.surname , 30);
+        await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async childrenDetails() {
@@ -87,7 +92,14 @@ module.exports = {
         await this.decisionsCourtToResolve();
         await this.parentalResponsibility();
         await this.furtherInformation();
-        await this.otherChildren();
+    },
+
+    async noOtherChild() {
+        await this.otherChildren(false);
+    },
+
+    async otherChildrenDetails() {
+        await this.otherChildren(true);
         await this.otherChildrenName();
         await this.childDetailsDOB();
     },

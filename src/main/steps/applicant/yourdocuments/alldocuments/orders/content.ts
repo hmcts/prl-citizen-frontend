@@ -16,7 +16,7 @@ const cy: typeof en = () => {
     section: 'Pob dogfen',
     title: 'Gorchmynion gan y llys',
     caseNumber: 'Rhif yr achos',
-    continue: 'Go back (welsh)',
+    continue: 'Yn ôl',
   };
 };
 
@@ -48,7 +48,6 @@ export const generateContent: TranslationFn = content => {
     const uid = doc.value.orderDocument.document_url.substring(
       doc.value.orderDocument.document_url.lastIndexOf('/') + 1
     );
-    //const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
     orders.push({
       href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
       createdDate: doc.value.otherDetails.orderCreatedDate,

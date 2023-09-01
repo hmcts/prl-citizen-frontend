@@ -23,9 +23,15 @@ const en = {
     },
     lightingProvideDetails: {
       required: 'Please describe lighting detail',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     otherProvideDetails: {
       required: 'Please describe your need in details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -37,22 +43,28 @@ const cy: typeof en = {
     'Meddyliwch am yr hyn y byddwch ei angen os bydd eich gwrandawiad yn un wyneb yn wyneb, trwy fideo neu dros y ffôn.',
   optionHint: 'Dogfennau mewn lliw penodol',
   appropriatelighting: 'Goleuadau priodol',
-  lightingDetails: 'Describe what you need',
+  lightingDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   break: 'Seibiannau rheolaidd',
   space: 'Lle i allu codi a symud o gwmpas',
   other: 'Arall',
-  otherDetails: 'Describe what you need',
+  otherDetails: 'Disgrifiwch yr hyn sydd ei angen arnoch',
   nosupport: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
-  continue: 'Continue',
+  continue: 'Parhau',
   errors: {
     courtComfort: {
-      required: 'Select what help you need to feel comfortable during a court hearing',
+      required: 'Dewiswch pa gymorth sydd ei angen arnoch i deimlo’n gyfforddus yn ystod gwrandawiad llys',
     },
     lightingProvideDetails: {
-      required: 'Please describe lighting detail',
+      required: 'Disgrifiwch fanylion y goleuadau',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     otherProvideDetails: {
-      required: 'Please describe your need in details',
+      required: 'Disgrifiwch eich anghenion yn fanwl',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };
