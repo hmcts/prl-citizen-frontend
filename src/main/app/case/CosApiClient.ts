@@ -10,6 +10,8 @@ import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
 import {
+  AWPApplicationReason,
+  AWPApplicationType,
   AWPFeeDetailsRequest,
   CaseData,
   CaseEvent,
@@ -146,6 +148,80 @@ export class CosApiClient {
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
       throw new Error('Case could not be updated.');
+    }
+  }
+
+  public async createAWPApplication(
+    user: UserDetails,
+    caseData: CaseWithId,
+    applicationType: AWPApplicationType,
+    applicationReason: AWPApplicationReason,
+    partyType: PartyType,
+    partyDetails: Partial<PartyDetails>
+  ): Promise<CaseWithId> {
+    try {
+      const {
+        id: caseId,
+        awp_need_hwf,
+        awp_have_hwfReference,
+        awp_hwf_referenceNumber,
+        awp_completedForm,
+        awp_agreementForRequest,
+        awp_informOtherParties,
+        awp_reasonCantBeInformed,
+        awp_uploadedApplicationForms,
+        awp_cancelDelayHearing,
+        awp_isThereReasonForUrgentRequest,
+        awp_urgentRequestReason,
+        awp_hasSupportingDocuments,
+        awp_supportingDocuments,
+      } = caseData;
+      const data = {
+        awpType: applicationType,
+        awpReason: applicationReason,
+        partyId: user.id,
+        partyName: `${partyDetails.firstName} ${partyDetails.lastName}`,
+        partyType,
+        awp_completedForm,
+        awp_agreementForRequest,
+        awp_informOtherParties,
+        awp_reasonCantBeInformed,
+        awp_need_hwf,
+        awp_have_hwfReference,
+        awp_hwf_referenceNumber,
+        awp_uploadedApplicationForms: awp_uploadedApplicationForms?.map(document => ({
+          document_url: document.url,
+          document_filename: document.filename,
+          document_binary_url: document.binaryUrl,
+          document_hash: document.hash,
+          category_id: document.categoryId,
+          document_creation_date: document.createdDate,
+        })),
+        awp_cancelDelayHearing,
+        awp_isThereReasonForUrgentRequest,
+        awp_urgentRequestReason,
+        awp_hasSupportingDocuments,
+        awp_supportingDocuments: awp_supportingDocuments?.map(document => ({
+          document_url: document.url,
+          document_filename: document.filename,
+          document_binary_url: document.binaryUrl,
+          document_hash: document.hash,
+          category_id: document.categoryId,
+          document_creation_date: document.createdDate,
+        })),
+      };
+      const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/update-citizen-awp`, data, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + user.accessToken,
+          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+        },
+      });
+
+      return response.data;
+    } catch (err) {
+      throw new Error('AWP application could not be created.');
     }
   }
 
