@@ -36,9 +36,15 @@ const en = {
     },
     ra_signLanguageInterpreter_subfield: {
       required: 'Describe which Sign Language interpreter you need',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     ra_communicationHelpOther_subfield: {
       required: 'Describe what you need to help with communicating and understanding',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -62,7 +68,7 @@ const cy = {
   explanationOfCourt: 'Esboniad o osodiad y llys a phwy fydd yn yr ystafell wrandawiadau',
   intermediary: 'Cyfryngwr',
   intermediaryHint:
-    'Rhywun i’ch helpu os oes gennych anghenion cyfathreby drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
+    'Rhywun i’ch helpu os oes gennych anghenion cyfathrebu drwy ddarparu cymorth proffesiynol i gymryd rhan mewn gwrandawiad',
   communicationHelpOther: 'Arall',
   noSupportRequired: 'Nac oes, nid oes arnaf angen unrhyw gymorth ar hyn o bryd',
   describeWhatNeeded: 'Disgrifiwch yr hyn sydd ei angen arnoch',
@@ -72,9 +78,15 @@ const cy = {
     },
     ra_signLanguageInterpreter_subfield: {
       required: 'Disgrifiwch pa gyfieithydd Iaith Arwyddion sydd ei angen arnoch',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     ra_communicationHelpOther_subfield: {
       required: 'Disgrifiwch yr hyn sydd ei angen arnoch i helpu gyda chyfathrebu a deall pethau',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };

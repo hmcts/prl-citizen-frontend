@@ -68,7 +68,7 @@ const cy = {
   // year: 'Blwyddyn',
   errors: {
     dateOfBirth: {
-      required: 'Nodwch ei ddyddiad geni',
+      required: 'Nodwch y dyddiad geni',
       invalidDate: 'Nid yw’r dyddiad geni yn ddilys',
       incompleteDay: 'DRhaid i’r dyddiad geni gynnwys diwrnod',
       incompleteMonth: 'Rhaid i’r dyddiad geni gynnwys mis',
@@ -90,7 +90,7 @@ const cy = {
       required: 'Nodwch y rhywedd',
     },
     otherGenderDetails: {
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.- Welsh',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
   },
 };

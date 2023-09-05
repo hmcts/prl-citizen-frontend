@@ -52,8 +52,8 @@
   <div class="govuk-form-group">
   
     <fieldset class="govuk-fieldset">
-      <p class="govuk-body">{{userCase.respondentName}}</p>
-      <p class="govuk-body">Case number #{{userCase.id}}</p>
+      <p class="govuk-body">{{userName}}</p>
+      <p class="govuk-body">{{caseNumber}}{{userCase.id}}</p>
     </fieldset>
     
   </div>
@@ -65,7 +65,11 @@
       </ol>
     </div>
     <div class="govuk-grid-column-one-third">
-           {% include "../contact-us.njk" %}
+        {%if userCase.caseTypeOfApplication === "FL401" %}
+        {% include "../contact-us.njk" %}
+        {% else %}
+        {% include "../contact-us-c100.njk" %}
+        {% endif %}
     </div>
 
   </div>

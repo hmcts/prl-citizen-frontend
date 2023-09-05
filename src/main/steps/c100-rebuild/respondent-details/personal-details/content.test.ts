@@ -96,14 +96,14 @@ const cy = {
   male: 'Gwryw',
   female: 'Benyw',
   other: 'Maen nhw’n uniaethu mewn ffordd arall',
-  respondentPlaceOfBirthUnknown: 'Nid wyf yn gwybod beth yw eu man genih',
+  respondentPlaceOfBirthUnknown: 'Nid wyf yn gwybod beth yw eu man geni',
   otherGenderDetailsLabel: 'Rhywedd yr atebydd (Dewisol)',
   // day: 'Diwrnod',
   // month: 'Mis',
   // year: 'Blwyddyn',
   errors: {
     hasNameChanged: {
-      required: 'Nodwch os ydyw wedi newid ei enw',
+      required: 'Nodwch a ydynt wedi newid eu henw',
     },
     previousFullName: {
       required: 'Nodwch eu henw blaenorol',
@@ -111,7 +111,7 @@ const cy = {
         'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     dateOfBirth: {
-      required: 'Nodwch ei ddyddiad geni',
+      required: 'Nodwch y dyddiad geni',
       invalidDate: 'Nid yw’r dyddiad geni yn ddilys',
       incompleteDay: 'DRhaid i’r dyddiad geni gynnwys diwrnod',
       incompleteMonth: 'Rhaid i’r dyddiad geni gynnwys mis',
@@ -131,11 +131,11 @@ const cy = {
       required: 'Nodwch y rhywedd',
     },
     respondentPlaceOfBirth: {
-      required: 'Nodwch y man geni',
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
+      required: 'Nodwch y lleoliad geni',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
     otherGenderDetails: {
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.-Welsh',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
   },
 };

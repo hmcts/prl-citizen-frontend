@@ -1,4 +1,7 @@
+import { PartyType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
+import AppSurvey from '../../../steps/common/app-survey/appSurveyController';
+import { appSurveyContents } from '../../../steps/common/app-survey/content';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -14,7 +17,7 @@ const en = () => ({
   copyRightsTxt: 'A copy of your submitted application will be in your personal dashboard.',
   list: [
     `<a href="https://www.cafcass.gov.uk/" class="govuk-link govuk-link" rel="external" target="_blank">Cafcass</a> or
-     <a href="https://gov.wales/cafcass-cymru" class="govuk-link govuk-link" rel="external" target="_blank">Cafcass Cymru</a>
+    <a href="https://gov.wales/cafcass-cymru" class="govuk-link govuk-link" rel="external" target="_blank"> Cafcass Cymru</a>
       will be in touch with you to conduct the necessary safeguarding checks`,
     'the respondent will receive a copy of your application, and will have the chance to respond to it',
     'the court will be in touch with you to explain what will happen next and what you will need to do',
@@ -44,14 +47,13 @@ const cy = () => ({
   ar eich dyfais a cheisio eto.`,
   copyRightsTxt: 'Bydd copi o’r cais a gyflwynwyd ar eich dangosfwrdd personol.',
   list: [
-    `<a href="https://www.cafcass.gov.uk/" class="govuk-link govuk-link" rel="external" target="_blank">Cafcass</a> or
+    `bydd <a href="https://www.cafcass.gov.uk/" class="govuk-link govuk-link" rel="external" target="_blank">Cafcass</a> neu
      <a href="https://gov.wales/cafcass-cymru" class="govuk-link govuk-link" rel="external" target="_blank">Cafcass Cymru</a>
      yn cysylltu â chi i wneud y gwiriadau diogelu angenrheidiol`,
     'bydd yr atebydd yn cael copi o’ch cais, a bydd yn cael cyfle i ymateb iddo',
     'bydd y llys yn cysylltu â chi i egluro beth fydd yn digwydd nesaf a beth fydd angen ichi ei wneud',
-    'os ydych wedi rhoi gwybod i’r llys fod arnoch angen addasiadau penodol er mwyn cymryd rhan yn yr achos',
-    `bydd y llys yn cysylltu â chi i gadarnhau’r trefniadau. Os na fyddwch wedi clywed oddi wrth y llys o fewn 3 diwrnod i’r gwrandawiad, 
-    ffoniwch 0300 123 711 neu e-bostiwch <a href="#" class="govuk-link">customer.service@justice.gov.uk</a>.`,
+    "os ydych wedi rhoi gwybod i’r llys fod arnoch angen addasiadau penodol er mwyn cymryd rhan yn yr achos, bydd y llys yn cysylltu â chi i gadarnhau'r trefniadau. Os na fyddwch wedi clywed oddi wrth y llys o fewn 3 diwrnod i'r gwrandawiad, ffoniwch 0300 123 711 neu e-bostiwch customer.service.justice.gov.uk",
+    'bydd y llys yn cysylltu â chi i gadarnhau’r trefniadau. Os na fyddwch wedi clywed oddi wrth y llys o fewn 3 diwrnod i’r gwrandawiad, ffoniwch 0300 123 711 neu e-bostiwch<a href="#" class="govuk-link"> customer.service@justice.gov.uk</a>.',
   ],
   secondList: [
     `<a href='https://helpwithchildarrangements.service.justice.gov.uk/' class='govuk-link' 
@@ -70,7 +72,11 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const { exitPageSurveyTitle, exitPageSurveyContent } = appSurveyContents[content.language];
+
   return {
     ...translations,
+    exitPageSurveyTitle,
+    exitPageSurveyContent: AppSurvey.getExitPageSurveyContent(PartyType.APPLICANT, exitPageSurveyContent),
   };
 };

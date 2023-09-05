@@ -4,7 +4,22 @@
 {% extends "govuk/template.njk" %}
 
 {% block head %}
+<!-- Google Tag Manager -->
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NJCKLVT');</script>
+<!-- End Google Tag Manager -->
   {% include "./webpack/css.njk" %}
+{% endblock %}
+
+{% block bodyStart %}
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJCKLVT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 {% endblock %}
 
 {% block header %}
@@ -19,7 +34,7 @@
         text: signOut if isLoggedIn
       }
     ]
-  
+
   }) }}
 {% endblock %}
 
@@ -31,7 +46,7 @@
     {% set realtitle = headingTitle%}
 {% endif %}
 {% block pageTitle %}
-  {{realtitle }} - Private law - GOV.UK
+  {{realtitle }} {{appName}}
 {% endblock %}
 
 {% block beforeContent %}
@@ -39,7 +54,7 @@
     tag: {
       text: phase
     },
-    html: feedback + languageToggle
+    html: inPageSurveyContent + languageToggle
   }) }}
 {% endblock %}
 
@@ -54,9 +69,9 @@
         {% if title %}
           <h1 class="govuk-heading-l govuk-!-margin-bottom-5">{{ title }}</h1>
         {% endif %}
-       
+
       {% endblock %}
-      
+
       {% if form %}
         {% block form %}
           {% include "common/form/form.njk"%}
@@ -75,28 +90,57 @@
 {% endblock %}
 
 {% block footer %}
-  {{ govukFooter({
-    meta: {
-      items: [
-        {
-          href: "/cookies",
-          text: cookies
-        },
-        {
-          href: "/privacy-policy",
-          text: privacyPolicy
-        },
-        {
-          href: "/accessibility-statement",
-          text: accessibility
-        },
-        {
-          href: "/terms-and-conditions",
-          text: termsAndConditions
-        }
-      ]
-    }
-  }) }}
+  {% if testingSupport %}
+    {{ govukFooter({
+      meta: {
+        items: [
+          {
+            href: "/cookies",
+            text: cookies
+          },
+          {
+            href: "/privacy-policy",
+            text: privacyPolicy
+          },
+          {
+            href: "/accessibility-statement",
+            text: accessibility
+          },
+          {
+            href: "/terms-and-conditions",
+            text: termsAndConditions
+          },
+          {
+            href: "/testing-support",
+            text: testingSupportLabel
+          }
+        ]
+      }
+    }) }}
+  {% else %}
+    {{ govukFooter({
+      meta: {
+        items: [
+          {
+            href: "/cookies",
+            text: cookies
+          },
+          {
+            href: "/privacy-policy",
+            text: privacyPolicy
+          },
+          {
+            href: "/accessibility-statement",
+            text: accessibility
+          },
+          {
+            href: "/terms-and-conditions",
+            text: termsAndConditions
+          }
+        ]
+      }
+    }) }}
+   {% endif %}
 {% endblock %}
 
 {% block bodyEnd %}

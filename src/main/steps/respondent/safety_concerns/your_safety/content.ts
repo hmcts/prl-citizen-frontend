@@ -13,14 +13,14 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Safety concerns',
-  title: 'Your safety',
+  section: 'Pryderon diogelwch',
+  title: 'Eich diogelwch',
   line1:
     'The court needs to know if you have suffered, or are at risk of suffering, any form of domestic violence or abuse.',
   line2: 'The following questions will ask whether you have suffered, or are at risk of suffering, any form of harm.',
-  line3: 'Find out about the signs of domestic violence or abuse',
+  line3: 'Rhagor o wybodaeth am arwyddion o drais neu gamdriniaeth ddomestig',
 
-  continue: 'Continue',
+  continue: 'Parhau',
 };
 
 const languages = {

@@ -25,7 +25,7 @@ const en = {
       required: 'Enter Your Place of birth',
       invalid: 'You have entered an invalid character. Enter using letters and numbers only.',
     },
-    previousName: {
+    citizenUserAdditionalName: {
       invalid: 'You have entered an invalid character, like a number. Enter your name using letters only.',
     },
     citizenUserDateOfBirth: {

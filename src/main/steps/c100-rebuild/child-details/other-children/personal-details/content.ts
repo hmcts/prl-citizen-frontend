@@ -14,11 +14,6 @@ import {
 import { getPartyDetails } from '../../../people/util';
 export * from '../routeGuard';
 
-// const getChildsName = (userCase: Partial<CaseWithId>) => {
-//   const sibling = userCase.ocd_otherChildren?.find(item => item.siblingId === userCase.selectedSiblingId);
-//   return `${sibling?.siblingFirstName || ''} ${sibling?.siblingLastNames || ''}`;
-// };
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Provide details for',
@@ -31,9 +26,6 @@ const en = () => ({
   female: 'Female',
   other: 'They identify in another way',
   otherGenderDetailsLabel: "Child's gender (Optional)",
-  // day: 'Day',
-  // month: 'Month',
-  // year: 'Year',
   errors: {
     dateOfBirth: {
       required: 'Enter the date of birth',
@@ -74,12 +66,9 @@ const cy = () => ({
   female: 'Benyw',
   other: 'Maen nhw’n uniaethu mewn ffordd arall',
   otherGenderDetailsLabel: 'Rhyw y plentyn (Dewisol)',
-  // day: 'Diwrnod',
-  // month: 'Mis',
-  // year: 'Blwyddyn',
   errors: {
     dateOfBirth: {
-      required: 'Nodwch ei ddyddiad geni',
+      required: 'Nodwch y dyddiad geni',
       invalidDate: 'Nid yw’r dyddiad geni yn ddilys',
       incompleteDay: 'DRhaid i’r dyddiad geni gynnwys diwrnod',
       incompleteMonth: 'Rhaid i’r dyddiad geni gynnwys mis',
@@ -101,7 +90,7 @@ const cy = () => ({
       required: 'Nodwch y rhywedd',
     },
     otherGenderDetails: {
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only. - Welsh',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
   },
 });

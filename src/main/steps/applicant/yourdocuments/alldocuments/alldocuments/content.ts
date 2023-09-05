@@ -3,16 +3,18 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../../../steps/urls';
 
-import { applicant_all_docs_en } from './section-titles-all-documents';
-import { applicant_tasklist_items_all_docs_en } from './tasklist-items-all-documents';
+import { applicant_all_docs_cy, applicant_all_docs_en } from './section-titles-all-documents';
+import {
+  applicant_tasklist_items_all_docs_cy,
+  applicant_tasklist_items_all_docs_en,
+} from './tasklist-items-all-documents';
 import { generateApplicantTaskListAllDocuments } from './tasklistalldocuments';
-//import { FormContent, FormFieldsFn } from '../../../../../app/form/Form';
+
+export * from './routeGuard';
 
 const en = () => {
   return {
     title: 'All documents',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
     caseNumber: 'Case number',
     continue: 'Go back',
     sectionTitles: applicant_all_docs_en,
@@ -22,13 +24,11 @@ const en = () => {
 
 const cy: typeof en = () => {
   return {
-    title: 'All documents',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
-    caseNumber: 'Case number',
-    continue: 'Go back',
-    sectionTitles: applicant_all_docs_en,
-    taskListItems: applicant_tasklist_items_all_docs_en,
+    title: 'Pob dogfen',
+    caseNumber: 'Rhif yr achos',
+    continue: 'Yn ôl',
+    sectionTitles: applicant_all_docs_cy,
+    taskListItems: applicant_tasklist_items_all_docs_cy,
   };
 };
 

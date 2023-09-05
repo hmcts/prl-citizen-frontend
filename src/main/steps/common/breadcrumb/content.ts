@@ -1,11 +1,13 @@
 const en = {
   home: 'Home',
   caseView: 'CaseView',
+  caseOverView: 'Case overview',
 };
 
 const cy: typeof en = {
   home: 'Hafan',
-  caseView: 'CaseView - welsh',
+  caseView: 'Gweld yr achos',
+  caseOverView: 'Case overview - welsh',
 };
 
 export const language = {

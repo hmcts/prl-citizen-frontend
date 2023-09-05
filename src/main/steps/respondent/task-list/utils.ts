@@ -113,7 +113,7 @@ export const getViewAllHearingsFromTheCourt = (userCase: CaseWithId): SectionSta
   if (userCase && userCase.hearingCollection && userCase.hearingCollection.length > 0) {
     return SectionStatus.READY_TO_VIEW;
   }
-  return SectionStatus.TO_DO;
+  return SectionStatus.NOT_AVAILABLE_YET;
 };
 
 export const getViewAllOrdersFromTheCourt = (userCase: CaseWithId): SectionStatus => {
@@ -202,7 +202,7 @@ export const getCheckAllegationOfHarmStatus = (
   userCase: Partial<CaseWithId> | undefined,
   userIdamId: string
 ): SectionStatus => {
-  let status = SectionStatus.DOWNLOAD;
+  let status = SectionStatus.READY_TO_VIEW;
 
   if (!userCase?.c1ADocument?.document_binary_url) {
     return SectionStatus.NOT_AVAILABLE_YET;
@@ -246,7 +246,7 @@ export const getRespondentSupportYourNeedsDetails = (userCase: Partial<CaseWithI
     userCase?.largePrintDetails ||
     userCase?.otherDetails ||
     userCase?.helpCommunication ||
-    userCase?.describeSignLanguageDetails ||
+    userCase?.signLanguageDetails ||
     userCase?.describeOtherNeed ||
     userCase?.courtHearing ||
     userCase?.supportWorkerDetails ||
@@ -273,6 +273,40 @@ export const getRespondentPartyDetailsCa = (userCase: Partial<CaseWithId>, userI
     }
   }
   return undefined;
+};
+
+export const getResponseStatus = (userCase: Partial<CaseWithId> | undefined, userId: string): SectionStatus => {
+  const respondent = userCase?.respondents?.find(_respondent => {
+    if (_respondent.value.user.idamId === userId) {
+      return _respondent;
+    }
+  });
+  if (
+    respondent?.value.response.citizenInternationalElements &&
+    respondent?.value.response.consent &&
+    respondent?.value.response.currentOrPreviousProceedings &&
+    respondent?.value.response.keepDetailsPrivate &&
+    respondent?.value.response.miam &&
+    respondent?.value.response.legalRepresentation &&
+    respondent?.value.response.safetyConcerns &&
+    respondent?.value.response.supportYouNeed
+  ) {
+    return SectionStatus.COMPLETED;
+  }
+  if (
+    respondent?.value.response.citizenInternationalElements ||
+    respondent?.value.response.consent ||
+    respondent?.value.response.currentOrPreviousProceedings ||
+    respondent?.value.response.keepDetailsPrivate ||
+    respondent?.value.response.miam ||
+    respondent?.value.response.legalRepresentation ||
+    respondent?.value.response.safetyConcerns ||
+    respondent?.value.response.supportYouNeed
+  ) {
+    return SectionStatus.IN_PROGRESS;
+  }
+
+  return SectionStatus.TO_DO;
 };
 
 export const isApplicationResponded = (userCase: Partial<CaseWithId>, userId: string): boolean => {

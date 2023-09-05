@@ -20,9 +20,15 @@ export const en = () => ({
   errors: {
     ra_appropriateLighting_subfield: {
       required: 'Describe the appropriate lighting you need',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     ra_feelComportableOther_subfield: {
       required: 'Describe what you need to feel comfortable during a court hearing',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     ra_feelComportable: {
       required: 'Select what you need to feel comfortable during a court hearing',
@@ -47,9 +53,15 @@ export const cy = () => ({
   errors: {
     ra_appropriateLighting_subfield: {
       required: 'Disgrifiwch y goleuadau priodol sydd ei angen arnoch',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
-    feelComportableSubField: {
+    ra_feelComportableOther_subfield: {
       required: "Disgrifiwch yr hyn sydd angen arnoch i deimlo'n gyfforddus yn ystod y gwrandawiad llys",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     ra_feelComportable: {
       required: "Dewiswch beth sydd angen arnoch i deimlo'n gyfforddus yn ystod y gwrandawiad llys",

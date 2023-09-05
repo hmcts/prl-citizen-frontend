@@ -217,6 +217,7 @@ export const getNotificationBannerConfig = (
                 c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#',
                 withdrawCase: applyParms(C100_WITHDRAW_CASE, { caseId: caseData?.id ?? '' }),
               }),
+              external: link.external,
             })),
           };
         }

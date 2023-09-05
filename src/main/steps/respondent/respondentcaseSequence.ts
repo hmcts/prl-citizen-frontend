@@ -1,4 +1,3 @@
-import HearingsGetController from '../../../main/steps/common/yourhearings/hearings/HearingsGetController';
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
@@ -42,6 +41,7 @@ import {
   RESPONDENT_ADDRESS_LOOKUP,
   RESPONDENT_ADDRESS_MANUAL,
   RESPONDENT_ADDRESS_SELECT,
+  RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_CONTACT_DETAILS_SAVE,
@@ -52,6 +52,8 @@ import {
   RESPONDENT_PERSONAL_DETAILS,
   RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
+  RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+  RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_RISK_ASSESSMENT,
   RESPONDENT_SAFEGUARDING_LETTER,
   RESPONDENT_SECTION37_REPORT,
@@ -92,12 +94,14 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: (_caseData, req) =>
+      req?.session.applicationSettings?.navfromRespondToApplication ? RESPOND_TO_APPLICATION : RESPONDENT_TASK_LIST_URL,
   },
   {
     url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: (_caseData, req) =>
+      req?.session.applicationSettings?.navfromRespondToApplication ? RESPOND_TO_APPLICATION : RESPONDENT_TASK_LIST_URL,
   },
   {
     url: MIAM_START,
@@ -475,7 +479,6 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_YOURHEARINGS_HEARINGS,
     showInSection: Sections.AboutRespondentCase,
-    getController: HearingsGetController,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
@@ -517,5 +520,20 @@ export const respondentCaseSequence: Step[] = [
     url: `${RESPONDENT}${RESPONDENT_RISK_ASSESSMENT}`,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
+  },
+  {
+    url: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+  },
+  {
+    url: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
 ];

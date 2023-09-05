@@ -11,11 +11,11 @@ const enContent = {
   },
   keys: {
     languageRequirements: 'Do you have any language requirements?',
-    languageDetails: 'Give details of the language you require (including dialect, if applicable)',
-  },
-  fieldType: {
-    languageRequirements: 'String',
-    languageDetails: 'String',
+    languageDetails: 'Please provide language details',
+    reasonableAdjustments:
+      'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+    docsDetails: 'Please provide the docs details',
+    docsSupport: 'I need documents in an alternative format',
   },
   errors: {},
 };
@@ -33,6 +33,9 @@ describe('common > summary > utils', () => {
           ...mockUserCase,
           languageRequirements: ['nointerpreter'],
           languageDetails: '',
+          reasonableAdjustments: ['docsformat', 'commhelp', 'hearingsupport', 'hearingcomfort', 'travellinghelp'],
+          docsSupport: ['docsprint'],
+          docsDetails: 'blue',
         },
         expected: {
           title: 'About you',
@@ -51,17 +54,28 @@ describe('common > summary > utils', () => {
               value: { text: 'No, I do not have any language requirements at this time' },
             },
             {
-              actions: {
-                items: [
-                  {
-                    href: '/respondent/support-you-need-during-case/language-requirements',
-                    text: 'Edit',
-                    visuallyHiddenText: 'Give details of the language you require (including dialect, if applicable)',
-                  },
-                ],
+              key: {
+                text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
               },
-              key: { text: 'Give details of the language you require (including dialect, if applicable)' },
-              value: {},
+              value: {
+                text: 'I need documents in an alternative format, I need help communicating and understanding, I need to bring support with me to a hearing, I need something to feel comfortable during a hearing, I need help travelling to, or moving around court buildings',
+              },
+            },
+            {
+              key: {
+                text: 'Please provide the docs details',
+              },
+              value: {
+                text: 'blue',
+              },
+            },
+            {
+              key: {
+                text: 'I need documents in an alternative format',
+              },
+              value: {
+                text: 'Documents in a specified colour',
+              },
             },
           ],
         },

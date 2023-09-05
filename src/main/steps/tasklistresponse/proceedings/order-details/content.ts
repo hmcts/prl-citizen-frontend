@@ -10,11 +10,10 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/For
 import { covertToDateObject } from '../../../../app/form/parser';
 import { areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
 export * from './routeGuard';
-//import { v4 as uuid } from 'uuid';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  pageTitle: 'Provide details of court cases you or the children have been involved in',
+  title: 'Provide details of court cases you or the children have been involved in',
   additionalNote:
     'If you do not have the specific details, you can skip this section and proceed with the application.',
   emergencyProtectionOrderLabel: 'Emergency Protection Order',
@@ -40,6 +39,7 @@ export const en = () => ({
   caseNumberHint: 'For example, BS19F99999',
   orderDateLabel: 'What date was it made? (optional)',
   orderEndDateLabel: 'What date did it end? (optional)',
+  copy: 'Copy uploaded?',
   orderDateHint: 'For example, 31 3 2015',
   isCurrentOrderLabel: 'Is this a current order? (optional)',
   copyOfOrderLabel: 'Do you have a copy of the order? (optional)',
@@ -65,51 +65,51 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  pageTitle: 'Provide details of court cases you or the children have been involved in - welsh',
-  additionalNote:
-    'If you do not have the specific details, you can skip this section and proceed with the application. - welsh',
-  emergencyProtectionOrderLabel: 'Emergency Protection Order - welsh',
-  childArrangementOrderLabel: 'Child Arrangements Order - welsh',
-  supervisionOrderLabel: 'Supervision Order - welsh',
-  careOrderLabel: 'Care Order - welsh',
-  childAbductionOrderLabel: 'Child Abduction Order - welsh',
+  title: "Darparwch fanylion am achosion llys rydych chi neu'r plant wedi bod yn rhan ohonynt",
+  additionalNote: "Os nad oes gennych y manylion penodol, gallwch hepgor yr adran hon a bwrw ymlaen â'r cais.",
+  emergencyProtectionOrderLabel: 'Gorchymyn Diogelu Brys',
+  childArrangementOrderLabel: 'Gorchymyn Trefniadau Plant',
+  supervisionOrderLabel: 'Gorchymyn Goruchwylio',
+  careOrderLabel: 'Gorchymyn Gofal',
+  childAbductionOrderLabel: 'Herwgydio Plentyn',
   contactOrderForDivorceLabel:
-    'A contact or residence order (Section 8 Children Act 1989) made within proceedings for a divorce or dissolution of a civil partnership - welsh',
+    'Gorchymyn Cyswllt neu Orchymyn Preswylio (Adran 8 Deddf Plant 1989) a wnaed fel rhan o achos ysgariad neu achos diddymu partneriaeth sifil',
   contactOrderForAdoptionLabel:
-    'A contact or residence order (Section 8 Children Act 1989) made in connection with an Adoption Order - welsh',
-  childMaintenanceOrderLabel: 'Child Maintenance Order - welsh',
-  financialOrderLabel: 'Financial Order - welsh',
-  nonMolestationOrderLabel: 'Non-molestation Order - welsh',
-  occupationOrderLabel: 'Occupation Order - welsh',
-  forcedMarriageProtectionOrderLabel: 'Forced Marriage Protection Order - welsh',
-  restrainingOrderLabel: 'Restraining Order - welsh',
-  otherInjuctionOrderLabel: 'Other Injunction Order - welsh',
-  undertakingOrderLabel: 'Undertaking Order - welsh',
-  otherOrderLabel: 'Other Order - welsh',
-  courtIssuedLabel: 'Which court issued the order? (optional) - welsh',
-  caseNumberLabel: 'Case number (optional) - welsh',
-  caseNumberHint: 'For example, BS19F99999 - welsh',
-  orderDateLabel: 'What date was it made? (optional) - welsh',
-  orderEndDateLabel: 'What date did it end? (optional) - welsh',
-  orderDateHint: 'For example, 31 3 2015 - welsh',
-  isCurrentOrderLabel: 'Is this a current order? (optional) - welsh',
-  copyOfOrderLabel: 'Do you have a copy of the order? (optional) - welsh',
-  addOrderLabel: 'Add another order - welsh',
-  onlyContinue: 'Continue',
+    'Gorchymyn Cyswllt neu Orchymyn Preswylio (Adran 8 Deddf Plant 1989) a wnaed mewn perthynas â Gorchymyn Mabwysiadu',
+  childMaintenanceOrderLabel: 'Gorchymyn Trefniadau Plant',
+  financialOrderLabel: 'Gorchmynion Ariannol',
+  nonMolestationOrderLabel: 'Gorchymyn Rhag Molestu',
+  occupationOrderLabel: 'Gorchymyn Anheddu',
+  forcedMarriageProtectionOrderLabel: 'Gorchymyn Amddiffyn rhag Priodas dan Orfod',
+  restrainingOrderLabel: 'Gorchymyn Atal',
+  otherInjuctionOrderLabel: 'Gorchymyn Gwaharddeb Arall',
+  undertakingOrderLabel: 'Gorchymyn Ymgymeriad',
+  otherOrderLabel: 'Gorchymyn Arall',
+  courtIssuedLabel: 'Pa lys a gyhoeddodd y gorchymyn? (dewisol)',
+  caseNumberLabel: 'Rhif yr achos (dewisol)',
+  caseNumberHint: 'Er enghraifft, BS19F99999',
+  orderDateLabel: 'Pa ddyddiad gafodd ei wneud? (dewisol)',
+  orderEndDateLabel: 'Ar ba ddyddiad ddaeth i ben? (dewisol)',
+  orderDateHint: 'Er enghraifft, 31 3 2015',
+  isCurrentOrderLabel: 'A yw hwn yn orchymyn cyfredol?',
+  copyOfOrderLabel: "Oes gennych chi gopi o'r gorchymyn? (dewisol)",
+  copy: 'Copi wedi’i lwytho?',
+  addOrderLabel: 'Ychwanegu gorchymyn arall',
+  onlyContinue: 'Parhau',
   errors: {
     orderDate: {
-      invalidDate: 'Order date must be a real date - welsh',
-      incompleteDay: 'Order date must include a day - welsh',
-      incompleteMonth: 'Order date must include a month - welsh',
-      incompleteYear: 'Order date must include a year - welsh',
-      invalidDateInFuture: 'Order date must be in the past - welsh',
+      invalidDate: 'Rhaid i ddyddiad y gorchymyn fod yn ddyddiad go iawn',
+      incompleteDay: 'Rhaid i ddyddiad y gorchymyn gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i ddyddiad y gorchymyn gynnwys mis',
+      incompleteYear: 'Rhaid i ddyddiad y gorchymyn gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i ddyddiad y gorchymyn gynnwys blwyddyn',
     },
     orderEndDate: {
-      invalidDate: 'Order end date must be a real date - welsh',
-      incompleteDay: 'Order end date must include a day - welsh',
-      incompleteMonth: 'Order end date must include a month - welsh',
-      incompleteYear: 'Order end date must include a year - welsh',
-      invalidDateInFuture: 'Order end date must be in the past - welsh',
+      invalidDate: 'Rhaid i ddyddiad dod i ben y gorchymyn fod yn ddyddiad go iawn',
+      incompleteDay: 'Rhaid i ddyddiad dod i ben y gorchymyn gynnwys diwrnod',
+      incompleteMonth: 'Rhaid i ddyddiad dod i ben y gorchymyn gynnwys mis',
+      incompleteYear: 'Rhaid i ddyddiad dod i ben y gorchymyn gynnwys blwyddyn',
+      invalidDateInFuture: 'Rhaid i ddyddiad dod i ben y gorchymyn fod yn y gorffennol',
     },
   },
 });
@@ -132,143 +132,7 @@ export const generateFormFields = (
   for (let index = 0; index < orders.length; index++) {
     const count = index + 1;
     const key = `fieldset${count}`;
-
-    fields[key] = {
-      type: 'fieldset',
-      label: l => {
-        return count === 1 ? `${l[`${orderType}Label`]}` : `${l[`${orderType}Label`]} ${count}`;
-      },
-      classes: 'govuk-fieldset__legend--m',
-      subFields: {
-        [`orderDetail-${count}`]: {
-          type: 'text',
-          value: orders[index].orderDetail,
-          label: l => l.courtIssuedLabel,
-          labelSize: 's',
-        },
-        [`caseNo-${count}`]: {
-          type: 'text',
-          label: l => l.caseNumberLabel,
-          value: orders[index].caseNo,
-          classes: 'govuk-!-width-one-half',
-          labelSize: 's',
-          hint: h => h.caseNumberHint,
-        },
-        [`orderDate-${count}`]: {
-          type: 'date',
-          classes: 'govuk-date-input',
-          labelSize: 's',
-          label: l => l.orderDateLabel,
-          hint: l => l.orderDateHint,
-          values: [
-            {
-              label: l => l.dateFormat['day'],
-              name: 'day',
-              value: orders[index].orderDate.day,
-              classes: 'govuk-input--width-2',
-              attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-            {
-              label: l => l.dateFormat['month'],
-              name: 'month',
-              value: orders[index].orderDate.month,
-              classes: 'govuk-input--width-2',
-              attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-            {
-              label: l => l.dateFormat['year'],
-              name: 'year',
-              value: orders[index].orderDate.year,
-              classes: 'govuk-input--width-4',
-              attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-          ],
-          parser: body => covertToDateObject(`orderDate-${count}`, body as Record<string, unknown>),
-          validator: value => {
-            const dateError = areDateFieldsFilledIn(value as CaseDate);
-            return dateError !== 'required'
-              ? dateError || isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate)
-              : '';
-          },
-        },
-        [`currentOrder-${count}`]: {
-          type: 'radios',
-          labelSize: 's',
-          classes: 'govuk-radios--inline',
-          label: l => l.isCurrentOrderLabel,
-          values: [
-            {
-              label: l => l.yes,
-              value: YesNoEmpty.YES,
-            },
-            {
-              label: l => l.no,
-              value: YesNoEmpty.NO,
-            },
-            {
-              value: YesNoEmpty.EMPTY,
-            },
-          ],
-        },
-        [`orderEndDate-${count}`]: {
-          type: 'date',
-          classes: 'govuk-date-input',
-          labelSize: 's',
-          label: l => l.orderEndDateLabel,
-          hint: l => l.orderDateHint,
-          values: [
-            {
-              label: l => l.dateFormat['day'],
-              name: 'day',
-              value: orders[index].orderEndDate.day,
-              classes: 'govuk-input--width-2',
-              attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-            {
-              label: l => l.dateFormat['month'],
-              name: 'month',
-              value: orders[index].orderEndDate.month,
-              classes: 'govuk-input--width-2',
-              attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-            {
-              label: l => l.dateFormat['year'],
-              name: 'year',
-              value: orders[index].orderEndDate.year,
-              classes: 'govuk-input--width-4',
-              attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
-            },
-          ],
-          parser: body => covertToDateObject(`orderEndDate-${count}`, body as Record<string, unknown>),
-          validator: value => {
-            const dateError = areDateFieldsFilledIn(value as CaseDate);
-            return dateError !== 'required'
-              ? dateError || isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate)
-              : '';
-          },
-        },
-        [`orderCopy-${count}`]: {
-          type: 'radios',
-          labelSize: 's',
-          classes: 'govuk-radios--inline',
-          label: l => l.copyOfOrderLabel,
-          values: [
-            {
-              label: l => l.yes,
-              value: YesNoEmpty.YES,
-            },
-            {
-              label: l => l.no,
-              value: YesNoEmpty.NO,
-            },
-            {
-              value: YesNoEmpty.EMPTY,
-            },
-          ],
-        },
-      },
-    };
-
+    fields[key] = createFormFileds(count, orderType, orders, index);
     // mark the selection for the radio buttons based on the option chosen
     const currentOrder = fields[key].subFields[`currentOrder-${count}`];
     const orderCopy = fields[key].subFields[`orderCopy-${count}`];
@@ -371,5 +235,148 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     form: updateFormFields(form, fields),
+  };
+};
+
+const createFormFileds = (
+  count: number,
+  orderType: ProceedingsOrderTypes,
+  orders: ProceedingsOrderInterface[],
+  index: number
+) => {
+  return {
+    type: 'fieldset',
+    label: l => {
+      return l[`${orderType}Label`] + (count !== 1 ? ' ' + count : '');
+    },
+    classes: 'govuk-fieldset__legend--m',
+    subFields: {
+      [`orderDetail-${count}`]: {
+        type: 'text',
+        value: orders[index].orderDetail,
+        label: l => l.courtIssuedLabel,
+        labelSize: 's',
+      },
+      [`caseNo-${count}`]: {
+        type: 'text',
+        label: l => l.caseNumberLabel,
+        value: orders[index].caseNo,
+        classes: 'govuk-!-width-one-half',
+        labelSize: 's',
+        hint: h => h.caseNumberHint,
+      },
+      [`orderDate-${count}`]: {
+        type: 'date',
+        classes: 'govuk-date-input',
+        labelSize: 's',
+        label: l => l.orderDateLabel,
+        hint: l => l.orderDateHint,
+        values: [
+          {
+            label: l => l.dateFormat['day'],
+            name: 'day',
+            value: orders[index].orderDate.day,
+            classes: 'govuk-input--width-2',
+            attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+          {
+            label: l => l.dateFormat['month'],
+            name: 'month',
+            value: orders[index].orderDate.month,
+            classes: 'govuk-input--width-2',
+            attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+          {
+            label: l => l.dateFormat['year'],
+            name: 'year',
+            value: orders[index].orderDate.year,
+            classes: 'govuk-input--width-4',
+            attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+        ],
+        parser: body => covertToDateObject(`orderDate-${count}`, body as Record<string, unknown>),
+        validator: value => {
+          const dateError = areDateFieldsFilledIn(value as CaseDate);
+          return dateError !== 'required'
+            ? dateError || isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate)
+            : '';
+        },
+      },
+      [`currentOrder-${count}`]: {
+        type: 'radios',
+        labelSize: 's',
+        classes: 'govuk-radios--inline',
+        label: l => l.isCurrentOrderLabel,
+        values: [
+          {
+            label: l => l.yes,
+            value: YesNoEmpty.YES,
+          },
+          {
+            label: l => l.no,
+            value: YesNoEmpty.NO,
+          },
+          {
+            value: YesNoEmpty.EMPTY,
+          },
+        ],
+      },
+      [`orderEndDate-${count}`]: {
+        type: 'date',
+        classes: 'govuk-date-input',
+        labelSize: 's',
+        label: l => l.orderEndDateLabel,
+        hint: l => l.orderDateHint,
+        values: [
+          {
+            label: l => l.dateFormat['day'],
+            name: 'day',
+            value: orders[index].orderEndDate.day,
+            classes: 'govuk-input--width-2',
+            attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+          {
+            label: l => l.dateFormat['month'],
+            name: 'month',
+            value: orders[index].orderEndDate.month,
+            classes: 'govuk-input--width-2',
+            attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+          {
+            label: l => l.dateFormat['year'],
+            name: 'year',
+            value: orders[index].orderEndDate.year,
+            classes: 'govuk-input--width-4',
+            attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+          },
+        ],
+        parser: body => covertToDateObject(`orderEndDate-${count}`, body as Record<string, unknown>),
+        validator: value => {
+          const dateError = areDateFieldsFilledIn(value as CaseDate);
+          return dateError !== 'required'
+            ? dateError || isDateInputInvalid(value as CaseDate) || isFutureDate(value as CaseDate)
+            : '';
+        },
+      },
+      [`orderCopy-${count}`]: {
+        type: 'radios',
+        labelSize: 's',
+        classes: 'govuk-radios--inline',
+        label: l => l.copyOfOrderLabel,
+        values: [
+          {
+            label: l => l.yes,
+            value: YesNoEmpty.YES,
+          },
+          {
+            label: l => l.no,
+            value: YesNoEmpty.NO,
+          },
+          {
+            value: YesNoEmpty.EMPTY,
+          },
+        ],
+      },
+    },
   };
 };

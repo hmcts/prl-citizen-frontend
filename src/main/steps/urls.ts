@@ -9,7 +9,6 @@ export const SAVE_AND_SIGN_OUT: PageLink = '/save-and-sign-out';
 export const TIMED_OUT_URL: PageLink = '/timed-out';
 export const KEEP_ALIVE_URL: PageLink = '/keep-alive';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
-export const CITIZEN_HOME_URL: PageLink = '/citizen-home';
 export const SERVICE_TYPE: PageLink = '/service-type';
 export const DASHBOARD_URL: PageLink = '/dashboard';
 export const DASHBOARD_URL_NEW: PageLink = '/dashboard/new';
@@ -233,6 +232,7 @@ export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_
 export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
 export const RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER: PageLink = `${RESPONDENT_VIEW_ALL_DOCUMENTS}/allDocumentsViewed`;
 export const APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER: PageLink = `${APPLICANT_VIEW_ALL_DOCUMENTS}/allDocumentsViewed`;
+export const VIEW_DOCUMENT_URL = '/doc/:docType/:uploadedBy/:partyName?';
 
 export const RESPNDT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 
@@ -243,6 +243,8 @@ export const MANAGE_DOCUMENTS_DOWNLOAD: PageLink = `${VIEW_ALL_DOCUMENTS}/downlo
 
 /* Applicant Documents */
 export const APPLICANT_CA_DA_REQUEST: PageLink = `${VIEW_ALL_DOCUMENTS}/cadafinaldocumentrequest`;
+export const RESPONSE_TO_CA: PageLink = `${VIEW_ALL_DOCUMENTS}/responsetoca`;
+export const AOH_TO_CA: PageLink = `${VIEW_ALL_DOCUMENTS}/aohtoca`;
 export const ALLEGATION_OF_HARM_VOILENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolence`;
 export const APPLICANT_RESPONSE_TO_AOH_VIOLENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolenceresponse`;
 export const POSITION_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/positionstatements`;
@@ -340,7 +342,10 @@ export const C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE: PageLink = `${C7_SUPPORT_YOU_
 /* Banner Links */
 export const FIND_OUT_ABOUT_CAFCASS =
   'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/';
+export const FIND_OUT_ABOUT_CAFCASS_WELSH =
+  'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/';
 export const FIND_OUT_ABOUT_CAFCASS_CYMRU = 'https://gov.wales/cafcass-cymru/what-we-do';
+export const FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH = 'https://llyw.cymru/cafcass-cymru/yr-hyn-yr-ydym-nin-ei-wneud';
 
 /* Respondent respnse */
 export const CA_RESPONDENT_RESPONSE_CONFIRMATION: PageLink = '/tasklistresponse/summary-confirmation';
@@ -425,7 +430,7 @@ export const C100_CHILDERN_LIVE_WITH: PageLink = `${C100_CHILDERN_DETAILS}/:chil
 /** @C100  Payment Handler*/
 export const PAYMENT_GATEWAY_ENTRY_URL: PageLink = '/payments/gateway';
 export const PAYMENT_RETURN_URL: PageLink = '/payment/reciever/callback';
-export const PAYMENT_RETURN_URL_CALLBACK: PageLink = '/payment/reciever/callback/:paymentId/:status';
+export const PAYMENT_RETURN_URL_CALLBACK: PageLink = `${PAYMENT_RETURN_URL}/:paymentId/:status`;
 
 /** @C100 Rebuild C1A Safety Concerns */
 export const C100_C1A_SAFETY_CONCERNS: PageLink = `${C100_URL}/safety-concerns`;
@@ -548,6 +553,10 @@ export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orde
 /** @C100 rebuild */
 export const C100_REBUILD_URL: PageLink = '/c100-rebuild';
 
+export const TESTING_SUPPORT: PageLink = '/testing-support';
+export const TESTING_SUPPORT_CREATE_DRAFT: PageLink = '/testing-support/create-Draft';
+export const TESTING_SUPPORT_DELETE_DRAFT: PageLink = '/testing-support/delete-Draft';
+export const CREATE_DRAFT: PageLink = '/draft-controller';
 /* applicant-tasklist-contactpreferences*/
 export const CONTACT_PREFERENCES: PageLink = '/contact-preferences';
 export const APPLICANT_TASKLIST_CONTACT_PREFERENCES: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-preferences`;
@@ -574,3 +583,36 @@ export const C100_WITHDRAW_CASE_CONFIRMATION: PageLink = `${C100_URL}/withdraw/c
 /** applicant/tasklist hearing needs */
 export const HEARING_NEEDS: PageLink = '/hearing-needs';
 export const APPLICANT_TASKLIST_HEARING_NEEDS: PageLink = `${APPLICANT}${HEARING_NEEDS}/support-help`;
+
+export const RESPONDENT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${RESPONDENT}/add-legal-representative`;
+export const APPLICANT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${APPLICANT}/add-legal-representative`;
+
+export const RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START: PageLink = `${RESPONDENT}/remove-legal-representative/start`;
+export const RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM: PageLink = `${RESPONDENT}/remove-legal-representative/confirm`;
+
+export const APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START: PageLink = `${APPLICANT}/remove-legal-representative/start`;
+export const APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM: PageLink = `${APPLICANT}/remove-legal-representative/confirm`;
+/** Screening questions */
+export const SCREENING_QUESTION_GUIDANCE: PageLink = '/complete-your-application-guidance';
+export const SCREENING_QUESTION_COURT_FEE: PageLink = '/agree-court-fee';
+export const SCREENING_QUESTION_PROCEEDINGS_LEGAL_REP: PageLink = '/legal-representative-proceedings';
+export const SCREENING_QUESTION_PAPER_FORM: PageLink = '/complete-your-application-paper-form';
+export const SCREENING_QUESTION_COMPLETE_APP_LEGAL_REP: PageLink = '/complete-your-application-legal-representative';
+export const SCREENING_QUESTION_CONTACT_LEGAL_REP: PageLink = '/contact-legal-representative';
+export const SCREENING_QUESTIONS = [
+  SCREENING_QUESTION_GUIDANCE,
+  SCREENING_QUESTION_COURT_FEE,
+  SCREENING_QUESTION_PROCEEDINGS_LEGAL_REP,
+  SCREENING_QUESTION_PAPER_FORM,
+  SCREENING_QUESTION_COMPLETE_APP_LEGAL_REP,
+  SCREENING_QUESTION_CONTACT_LEGAL_REP,
+];
+export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
+
+export const LOCAL_API_SESSION = '/api/v1/session';
+export const SAFEGAURD_EXCLUDE_URLS = [C100_URL, DASHBOARD_URL, LOCAL_API_SESSION, PAYMENT_RETURN_URL];
+
+export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
+  isNonProd
+    ? 'https://c100-application-staging.apps.live-1.cloud-platform.service.justice.gov.uk/'
+    : 'https://apply-to-court-about-child-arrangements.service.justice.gov.uk';

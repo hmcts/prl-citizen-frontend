@@ -1,0 +1,20 @@
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+    <p class="govuk-body-l">{{userCase.id}}</p>
+    </fieldset>
+    <hr class="govuk-section-break govuk-section-break govuk-section-break--visible">
+  </div>
+  <div class="govuk-!-margin-bottom-4">
+    <p class="govuk-body">{{removeLegalRepresentativeInformationLine1}}</p>
+
+    <p class="govuk-body">{{removeLegalRepresentativeInformationLine2}}</p>
+
+    <p class="govuk-body">{{removeLegalRepresentativeInformationLine3}}</p>
+
+    <p class="govuk-body">{{removelLegalRepresentativeInformationLine4}}</p>
+  </div>
+{% endblock %}

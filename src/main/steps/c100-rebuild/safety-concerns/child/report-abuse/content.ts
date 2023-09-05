@@ -3,6 +3,7 @@ import { CaseWithId } from '../../../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbuse, ChildrenDetails, YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
+import { isTextAreaValid } from '../../../../../app/form/validation';
 import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
 export * from './routeGuard';
@@ -38,6 +39,23 @@ export const en = () => ({
     '<p class="govuk-body">Indicate who you sought help from, and what they did to help (optional). </p><p class="govuk-body">Do not include personal details such as names and addresses.</p>',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">NSPCC guidance</a> if you are unsure how to get help.</p>',
+  errors: {
+    behaviourDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+    behaviourStartDate: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+    seekHelpDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+  },
 });
 
 export const cy = () => ({
@@ -66,8 +84,8 @@ export const cy = () => ({
   isOngoingBehaviourLabel: "Ydy'r ymddygiad yn parhau? (dewisol)",
   isOngoingBehaviourHint:
     '<p class="govuk-body" for="respabuseongoing-hint">Ffoniwch 999 os oes argyfwng. Os nad yw\'n argyfwng, ystyriwch gysylltu â\'r <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> neu\'r <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">tîm gofal cymdeithasol yn eich cyngor  lleol</a>.</p>',
-  YesOptionLabel: 'Ydy',
-  NoOptionLabel: 'Nac ydy',
+  YesOptionLabel: 'Do',
+  NoOptionLabel: 'Naddo',
   YesOptionLabel1: 'Do',
   NoOptionLabel1: 'Naddo',
   seekHelpFromPersonOrAgencyLabel:
@@ -77,6 +95,23 @@ export const cy = () => ({
     '<p class="govuk-body">Dywedwch wrth bwy wnaethoch chi ofyn am help, a beth wnaethon nhw i helpu (dewisol). </p><p class="govuk-body">Peidiwch â chynnwys manylion personol fel enwau a chyfeiriadau.</p>',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">Gweler <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">cyfarwyddyd NSPCC</a>os nad ydych yn siŵr sut i gael help.</p>',
+  errors: {
+    behaviourDetails: {
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
+    },
+    behaviourStartDate: {
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
+    },
+    seekHelpDetails: {
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
+    },
+  },
 });
 
 const languages = {
@@ -127,6 +162,7 @@ export const generateFormFields = (
       attributes: {
         rows: 4,
       },
+      validator: value => isTextAreaValid(value),
     },
     behaviourStartDate: {
       type: 'textarea',
@@ -137,6 +173,7 @@ export const generateFormFields = (
       attributes: {
         rows: 2,
       },
+      validator: value => isTextAreaValid(value),
     },
     isOngoingBehaviour: {
       type: 'radios',
@@ -170,6 +207,7 @@ export const generateFormFields = (
               type: 'textarea',
               value: data.seekHelpDetails,
               hint: l => l.seekHelpDetailsYesHint,
+              validator: value => isTextAreaValid(value),
             },
           },
         },
@@ -199,7 +237,7 @@ export const generateFormFields = (
   // mark the selection for the children checkboxes based on the option chosen
   fields.childrenConcernedAbout.values = fields.childrenConcernedAbout.values.map(config =>
     // Checking if the data.childrenConcernedAbout has been prefilled, if YES, data will be fetched from userCase. If NOT, checkboxes are made fresh and untouched
-    data.childrenConcernedAbout?.includes(config.value as string) ? { ...config, selected: true } : config
+    data.childrenConcernedAbout?.includes(config.value) ? { ...config, selected: true } : config
   );
 
   return { fields, errors };

@@ -21,7 +21,7 @@ const en = {
   contactPreferenceHintText: 'Select one of these options.',
   labelDigital: 'Digital',
   labelDitigalHintText: 'All communication from the court will be sent by email.',
-  labelPost: 'post',
+  labelPost: 'Post',
   labelPostHintText: 'All communication from the court will be sent by post.',
   errors: {
     applicantContactPreferences: {
@@ -36,7 +36,7 @@ const cy = () => ({
   paragraphs: [
     'Gallwch ddewis cael diweddariadau ynghylch yr achos drwy e-bost neu drwy’r post.',
     'Os byddwch yn dewis cael diweddariadau drwy e-bost, byddwch hefyd yn gallu gweld y diweddariadau yn eich dangosfwrdd.',
-    'Mae hyn yn cynnwys diweddariadau ar:',
+    'Mae hyn yn cynnwys diweddariadau ynghylch:',
   ],
   listOfBullets: ['gorchmynion llys', 'gwrandawiadau', 'penderfyniadau ynghylch eich achos'],
   contactPreferenceLabel: 'Sut hoffech inni gysylltu â chi?',

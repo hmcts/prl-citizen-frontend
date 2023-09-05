@@ -6,6 +6,9 @@ import { generateContent } from './content';
 const en = {
   section: 'Check your details',
   title: 'Read the information to make sure it is correct, and add any missing details',
+  contactdetailpriv:
+    'if you do not want to share your contact details with the other person in the case,update the section',
+  contactdetailprivlinktext: 'keeping your contact details private',
   sectionTitles: {
     applicationDetails: 'Application details',
   },
@@ -19,6 +22,30 @@ const en = {
     citizenUserEmailAddressText: 'Email',
     citizenUserSafeToCall: 'When it is safe to call you (optional)',
   },
+  completeSection: 'Complete this section',
+  errors: {},
+};
+
+const cy: typeof en = {
+  section: 'Gwiriwch eich manylion cyswllt',
+  title: 'Darllenwch yr wybodaeth i wneud yn siŵr ei bod yn gywir, ac ychwanegwch unrhyw fanylion sydd ar goll',
+  contactdetailpriv:
+    'Os nad ydych eisiau rhannu eich manylion cyswllt gyda’r unigolyn arall yn yr achos, diweddarwch yr adran',
+  contactdetailprivlinktext: 'Cadw eich manylion cyswllt yn breifat',
+  sectionTitles: {
+    applicationDetails: 'Manylion y cais',
+  },
+  keys: {
+    citizenUserFullName: 'Enw',
+    citizenUserDateOfBirthText: 'Dyddiad geni',
+    citizenUserPlaceOfBirthText: 'Lleoliad geni',
+    citizenUserAddressText: 'Cyfeiriad',
+    citizenUserAddressHistory: 'Hanes cyfeiriad',
+    citizenUserPhoneNumberText: 'Rhif ffôn',
+    citizenUserEmailAddressText: 'Cyfeiriad e-bost',
+    citizenUserSafeToCall: 'Pa bryd y mae’n ddiogel eich ffonio (dewisol)',
+  },
+  completeSection: 'Llenwch yr adran hon',
   errors: {},
 };
 
@@ -30,5 +57,9 @@ describe('address confirmation > content', () => {
 
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
+  });
+
+  test('should return correct welsh content', () => {
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 });

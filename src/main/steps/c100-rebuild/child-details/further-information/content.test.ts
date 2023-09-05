@@ -24,6 +24,9 @@ const en = {
     },
     cd_childrenKnownToSocialServicesDetails: {
       required: 'Enter details',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     cd_childrenSubjectOfProtectionPlan: {
       required: 'Select if any of the children are the subject of a child protection plan',
@@ -36,7 +39,7 @@ const cy = {
   childrenKnownToSocialServicesLabel: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
   childrenKnownToSocialServicesHint:
     'Nodwch pa blentyn ac enw’r awdurdod lleol a’r gweithiwr cymdeithasol, os ydynt yn hysbys',
-  childrenSubjectOfProtectionPlanLabel: 'A yw unrhyw un o’r plant yn destun cynllun amnddiffyn plentyn?',
+  childrenSubjectOfProtectionPlanLabel: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
   childrenProtectionPlanHint:
     'Mae cynllun amddiffyn plentyn yn cael ei baratoi gan yr awdurdod lleol lle ystyrir bod risg y bydd plentyn yn dioddef niwed sylweddol. Mae’n nodi’r camau i’w cymryd i amddiffyn y plentyn a chefnogi’r teulu.',
   one: 'Ydyn',
@@ -48,9 +51,12 @@ const cy = {
     },
     cd_childrenKnownToSocialServicesDetails: {
       required: 'Rhowch fanylion',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     cd_childrenSubjectOfProtectionPlan: {
-      required: 'Nodwch a oes unrhyw un o’r plant yn destun cynllun amddiffyn plentyn - cymraeg',
+      required: 'Nodwch a yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn',
     },
   },
 };

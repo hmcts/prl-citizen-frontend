@@ -37,10 +37,10 @@
           <h2 class="govuk-heading-m">{{iWantTo}}</h2>
           <ul class="govuk-list">
           {% for hyperlink in hyperlinks %}
-            <li><a href="{{hyperlink.link}}" target="_blank" class="govuk-link">{{hyperlink.label}}</a></li>
+            <li><a href="{{hyperlink.link}}" target="{{hyperlink.target}}" class="govuk-link">{{hyperlink.label}}</a></li>
           {% endfor %}
           </ul class="govuk-list">
-          {% include "../contact-us.njk" %}
+          {% include "../contact-us-c100.njk" %}
         {% endblock %}
       </div>
     </div>

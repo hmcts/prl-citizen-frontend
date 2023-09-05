@@ -16,6 +16,56 @@ describe('applicant tasklist getRemainingTaskList', () => {
     const data = {
       userCase: {
         ...mockUserCase,
+        hearingCollection: [
+          {
+            hearingID: 2000006134,
+            hearingRequestDateTime: '2023-07-11T16:05:38.761289',
+            hearingType: 'ABA5-FOF',
+            hmcStatus: 'LISTED',
+            lastResponseReceivedDateTime: '2023-07-11T16:20:38',
+            requestVersion: 1,
+            hearingListingStatus: 'FIXED',
+            listAssistCaseStatus: 'LISTED',
+            hearingDaySchedule: [
+              {
+                hearingStartDateTime: '2023-07-12T09:00:00',
+                hearingEndDateTime: '2023-07-12T15:00:00',
+                listAssistSessionId: null,
+                hearingVenueId: '234946',
+                hearingVenueName: 'Swansea Civil And Family Justice Centre',
+                hearingVenueLocationCode: '344',
+                hearingVenueAddress: 'Quay West, Quay Parade',
+                hearingRoomId: 'Courtroom 01',
+                hearingJudgeId: '',
+                hearingJudgeName: null,
+                panelMemberIds: [],
+                attendees: [
+                  {
+                    partyID: 'f2847b15-dbb8-4df0-868a-420d9de11d29',
+                    hearingSubChannel: 'INTER',
+                  },
+                  {
+                    partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
+                    hearingSubChannel: 'TELOTHER',
+                  },
+                  {
+                    partyID: '0d730a9e-74bf-468c-ac27-2f6cc9c9acef',
+                    hearingSubChannel: 'VIDTEAMS',
+                  },
+                  {
+                    partyID: 'c90440e6-22a4-4625-baa7-76a6fcb8309b',
+                    hearingSubChannel: null,
+                  },
+                ],
+              },
+            ],
+            hearingGroupRequestId: null,
+            hearingIsLinkedFlag: false,
+            hearingTypeValue: 'Finding of Fact',
+            nextHearingDate: '2023-07-12T09:00:00',
+            urgentFlag: true,
+          },
+        ],
         legalRepresentation: YesOrNo.NO,
         applicants: [
           {
@@ -28,6 +78,7 @@ describe('applicant tasklist getRemainingTaskList', () => {
       },
       userIdamId: '12345',
     };
+    const isRepresentedBySolicotor = false;
     const expected = [
       {
         items: [
@@ -58,13 +109,14 @@ describe('applicant tasklist getRemainingTaskList', () => {
           {
             href: '/applicant/public/docs/FL401-Final-Document.pdf',
             id: 'your-application',
+            openInAnotherTab: true,
             status: 'DOWNLOAD',
             text: 'Application submitted (PDF)',
           },
           {
             href: '/applicant/witnessstatements',
             id: 'your-application-witness-statment',
-            status: 'DOWNLOAD',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Witness statement (PDF)',
           },
         ],
@@ -73,10 +125,11 @@ describe('applicant tasklist getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/applicant/yourhearings/hearings',
+            href: '/applicant/yourhearings/hearings/1234',
             id: 'check-details-of-your-court-hearings',
-            status: 'TO_DO',
+            status: 'READY_TO_VIEW',
             text: 'Check details of your court hearings',
+            disabled: false,
           },
         ],
         title: 'Your court hearings',
@@ -110,7 +163,9 @@ describe('applicant tasklist getRemainingTaskList', () => {
         title: 'Orders from the court',
       },
     ];
-    expect(generateApplicantTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId)).toEqual(expected);
+    expect(
+      generateApplicantTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId, isRepresentedBySolicotor)
+    ).toEqual(expected);
   });
 
   test('applicant tasklist legalRepresentation yes C100 case', () => {
@@ -136,6 +191,7 @@ describe('applicant tasklist getRemainingTaskList', () => {
       },
       userIdamId: '12345',
     };
+    const isRepresentedBySolicotor = false;
     const expected = [
       {
         items: [
@@ -172,7 +228,7 @@ describe('applicant tasklist getRemainingTaskList', () => {
             href: '/applicant/yourdocuments/alldocuments/yourwitnessstatements',
             id: 'your_allegations_of_harm',
             status: 'DOWNLOAD',
-            text: 'Your allegations of harm and violence (PDF)',
+            text: 'View allegations of harm and violence (PDF)',
           },
           {
             href: '/applicant/yourdocuments/alldocuments/yourwitnessstatements',
@@ -203,10 +259,11 @@ describe('applicant tasklist getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/applicant/yourhearings/hearings',
+            href: '#',
             id: 'check-details-of-your-court-hearings',
-            status: 'TO_DO',
+            status: 'NOT_AVAILABLE_YET',
             text: 'Check details of your court hearings',
+            disabled: true,
           },
         ],
         title: 'Your court hearings',
@@ -240,6 +297,75 @@ describe('applicant tasklist getRemainingTaskList', () => {
         title: 'Orders from the court',
       },
     ];
-    expect(generateApplicantTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId)).toEqual(expected);
+    expect(
+      generateApplicantTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId, isRepresentedBySolicotor)
+    ).toEqual(expected);
+  });
+
+  test('generateApplicentTaskListWhenRespresentedBySolicitor', () => {
+    const data = {
+      userCase: { ...mockUserCase, legalRepresentation: YesOrNo.NO, start: YesOrNo.YES },
+      userIdamId: '12345',
+    };
+    const isRepresentedBySolicotor = true;
+    const expected = [
+      null,
+      {
+        items: [
+          {
+            href: '/applicant/public/docs/FL401-Final-Document.pdf',
+            id: 'your-application',
+            openInAnotherTab: true,
+            status: 'DOWNLOAD',
+            text: 'Application submitted (PDF)',
+          },
+          {
+            href: '/applicant/witnessstatements',
+            id: 'your-application-witness-statment',
+            status: 'NOT_AVAILABLE_YET',
+            text: 'Witness statement (PDF)',
+          },
+        ],
+        title: 'Your application',
+      },
+      {
+        items: [
+          {
+            href: '#',
+            id: 'check-details-of-your-court-hearings',
+            status: 'NOT_AVAILABLE_YET',
+            text: 'Check details of your court hearings',
+            disabled: true,
+          },
+        ],
+        title: 'Your court hearings',
+      },
+      {
+        items: [
+          null,
+          {
+            href: '/applicant/yourdocuments/alldocuments/alldocuments',
+            id: 'view-all-documents',
+            status: 'READY_TO_VIEW',
+            text: 'View all documents',
+          },
+        ],
+        title: 'Your documents',
+      },
+      {
+        items: [
+          {
+            href: '#',
+            id: 'view-all-orders-from-the-court',
+            status: 'NOT_AVAILABLE_YET',
+            text: 'View all orders from the court',
+          },
+        ],
+        title: 'Orders from the court',
+      },
+    ];
+    expect(
+      generateApplicantTaskList(sectionTitles, taskListItems, data.userCase, data.userIdamId, isRepresentedBySolicotor)
+    ).toEqual(expected);
   });
 });

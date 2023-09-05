@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -11,8 +12,8 @@ const enContent = {
   two: 'No',
   twoHint:
     'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
+  provideDetails: 'Provide details',
   errors: {
     jurisdiction: {
       required:
@@ -21,27 +22,33 @@ const enContent = {
     iFactorsJurisdictionProvideDetails: {
       required:
         'Provide details about another person in the application applying for a similar order in a country outside England or Wales',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
 
 const cyContent = {
   section: ' ',
-  title: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
-  one: 'Yes',
-  two: 'No',
+  title: 'A allai rhywun arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
+  one: 'Gallai',
+  two: 'Na allai',
   twoHint:
-    'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
-  summaryText: 'Contacts for help',
-  continue: 'Continue',
+    'Er enghraifft, am fod gan lys mewn gwlad arall y pŵer (awdurdodaeth) i wneud penderfyniadau neu ddyfarniadau.',
+  continue: 'Parhau',
+  provideDetails: 'Rhowch fanylion',
   errors: {
     jurisdiction: {
       required:
-        'Select yes if another person in the application could apply for a similar order in a country outside England or Wales',
+        "Dewiswch 'Gallai' os all unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?",
     },
     iFactorsJurisdictionProvideDetails: {
       required:
-        'Provide details about another person in the application applying for a similar order in a country outside England or Wales',
+        'Rhowch fanylion am rywun arall yn y cais sy’n gwneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };
@@ -64,7 +71,6 @@ describe('citizen-home content', () => {
       'Could another person in the application apply for a similar order in a country outside England or Wales?'
     );
     expect(generatedContent.section).toEqual(' ');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
   });
 
   // eslint-disable-next-line jest/expect-expect
@@ -82,6 +88,20 @@ describe('citizen-home content', () => {
     expect(detailsKnownField.type).toBe('radios');
     expect(detailsKnownField.classes).toBe('govuk-radios');
     expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
+
+    const jurisdictionField = fields.jurisdiction as FormOptions;
+    expect(jurisdictionField.type).toBe('radios');
+    expect(jurisdictionField.classes).toBe('govuk-radios');
+    expect((jurisdictionField.section as Function)(generatedContent)).toBe(enContent.section);
+    expect((jurisdictionField.hint as Function)(generatedContent)).toBe(enContent.twoHint);
+    expect(jurisdictionField.validator).toBe(isFieldFilledIn);
+    expect((jurisdictionField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
+    expect(
+      (jurisdictionField.values[0].subFields?.iFactorsJurisdictionProvideDetails.label as Function)(generatedContent)
+    ).toBe(enContent.provideDetails);
+    (jurisdictionField.values[0].subFields?.iFactorsJurisdictionProvideDetails.validator as Validator)('test value');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test value');
+    expect((jurisdictionField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
   });
 
   test('should contain onlyContinue button', () => {

@@ -26,15 +26,27 @@ const en = {
   errors: {
     ra_supportWorkerCarer_subfield: {
       required: 'Enter the name of the support worker or carer you will bring',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     ra_friendFamilyMember_subfield: {
       required: 'Enter the name of a friend or family member you will bring',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     ra_therapyAnimal_subfield: {
       required: 'Describe which therapy animal you will bring',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     ra_supportCourtOther_subfield: {
       required: 'Describe which support you need to bring with you to a hearing ',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     ra_supportCourt: {
       required: 'Select which support you need to bring with you to a hearing',
@@ -62,15 +74,27 @@ const cy = {
   errors: {
     ra_supportWorkerCarer_subfield: {
       required: "Rhowch enw'r gweithiwr cymorth neu'r gofalwr y byddwch yn dod efo chi",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     ra_friendFamilyMember_subfield: {
       required: "Rhowch enw ffrind neu aelod o'r teulu byddwch yn dod efo chi",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     ra_therapyAnimal_subfield: {
       required: 'Disgrifiwch pa anifail therapi y byddwch yn dod efo chi',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     ra_supportCourtOther_subfield: {
       required: 'Disgrifiwch pa gefnogaeth sydd angen arnoch i chi ddod efo chi i’r gwrandawiad',
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     ra_supportCourt: {
       required: 'Dewiswch pa gefnogaeth rydych angen dod efo chi i’r gwrandawiad',

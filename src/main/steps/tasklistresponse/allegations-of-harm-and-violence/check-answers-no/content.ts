@@ -20,18 +20,18 @@ const en = (content: CommonContent) => {
   return {
     ...enContent,
     language: content.language,
-    sections: [summaryList(enContent, userCase, urls, '', fieldType, content.language)],
+    sections: [summaryList(enContent, userCase, urls, '', content.language)],
   };
 };
 
 const cyContent: typeof enContent = {
-  section: 'Check your answers',
-  title: 'Safety concerns',
+  section: 'Gwirio eich atebion',
+  title: 'Pryderon diogelwch',
   sectionTitles: {
-    applicationDetails: 'Application details',
+    applicationDetails: 'Manylion y cais',
   },
   keys: {
-    PRL_c1A_haveSafetyConcerns: 'Do you have any concerns for your safety or the safety of the children?',
+    PRL_c1A_haveSafetyConcerns: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
   },
   errors: {},
 };
@@ -39,16 +39,13 @@ const cyContent: typeof enContent = {
 const urls = {
   PRL_c1A_haveSafetyConcerns: 'your-or-child-safety-concerns',
 };
-const fieldType = {
-  PRL_c1A_haveSafetyConcerns: 'String',
-};
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
   return {
     ...cyContent,
     language: content.language,
-    sections: [summaryList(cyContent, userCase, urls, '', fieldType, content.language)],
+    sections: [summaryList(cyContent, userCase, urls, '', content.language)],
   };
 };
 

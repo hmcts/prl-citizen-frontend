@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -18,6 +18,9 @@ export const en = () => ({
   errors: {
     c1A_keepingSafeStatement: {
       required: 'Describe what do you want the court to do to keep you and the children safe',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 });
@@ -36,6 +39,9 @@ export const cy = () => ({
   errors: {
     c1A_keepingSafeStatement: {
       required: "Disgrifiwch beth ydych chi eisiau i'r llys ei wneud i'ch cadw chi a'r plant yn ddiogel",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 });
@@ -50,7 +56,7 @@ export const form: FormContent = {
     c1A_keepingSafeStatement: {
       type: 'textarea',
       attributes: { rows: 10 },
-      validator: value => isFieldFilledIn(value),
+      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
   },
   submit: {

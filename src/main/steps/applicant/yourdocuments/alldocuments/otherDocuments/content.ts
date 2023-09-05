@@ -1,13 +1,10 @@
-import { MANAGE_DOCUMENTS_DOWNLOAD } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { applicant_tasklist_items_all_docs_en } from '../../../../applicant/yourdocuments/alldocuments/alldocuments/tasklist-items-all-documents';
+import { getDocumentList } from '../alldocuments/utils';
 const en = () => {
   return {
     section: 'All documents',
     title: 'Other documents',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
     caseNumber: 'Case number',
     continue: 'Go back',
   };
@@ -15,12 +12,10 @@ const en = () => {
 
 const cy: typeof en = () => {
   return {
-    section: 'All documents',
-    title: 'Other documents',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
-    caseNumber: 'Case number',
-    continue: 'Go back',
+    section: 'Pob dogfen',
+    title: 'Dogfennau eraill',
+    caseNumber: 'Rhif yr achos',
+    continue: 'Yn ôl',
   };
 };
 
@@ -47,30 +42,18 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const orders: object[] = [];
-  const docs = content.userCase?.citizenUploadedDocumentList?.filter(doc => {
-    if (
-      doc.value.uploadedBy === content.userIdamId &&
-      doc.value.documentType === applicant_tasklist_items_all_docs_en.other_documents
-    ) {
-      return doc;
-    }
-  });
-  if (docs) {
-    for (const doc of docs!) {
-      const uid = doc.value.citizenDocument.document_url.substring(
-        doc.value.citizenDocument.document_url.lastIndexOf('/') + 1
-      );
-      orders.push({
-        href: `${MANAGE_DOCUMENTS_DOWNLOAD}/${uid}`,
-        createdDate: doc.value.documentDetails.documentUploadedDate,
-        fileName: doc.value.citizenDocument.document_filename,
-      });
-    }
-  }
+  const documentToView = content.additionalData?.req.session.applicationSettings.docToView;
+
+  const citizenUploadedDocumentList = content.userCase?.citizenUploadedDocumentList;
 
   return {
     ...translations,
-    orders,
+    orders: getDocumentList(
+      citizenUploadedDocumentList,
+      documentToView.docType,
+      documentToView.uploadedBy,
+      '',
+      content.userIdamId
+    ),
   };
 };

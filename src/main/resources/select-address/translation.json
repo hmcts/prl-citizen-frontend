@@ -2,13 +2,13 @@
     "translations": {
         "en": {
             "continue": "Continue",
-            "section": "Your address",
+            "title": "Your address",
             "serviceName": "Select Address"
         },
         "cy": {
-            "continue": "Continue",
-            "section": "Your address (in welsh)",
-            "serviceName": "Select Address (in welsh)"
+            "continue": "Parhau",
+            "title": "Eich cyfeiriad",
+            "serviceName": "Dewiswch gyfeiriad"
         }
     },
     "errors":{
@@ -19,7 +19,7 @@
         },
         "cy": {
             "citizenUserSelectAddress": {
-                "notSelected": "Select an address (in welsh)"
+                "notSelected": "Dewiswch gyfeiriad"
             }
         }
     }

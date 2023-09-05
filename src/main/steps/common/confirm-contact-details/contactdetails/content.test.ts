@@ -27,11 +27,11 @@ const en = {
 
 const cy: typeof en = {
   title: 'Eich manylion cyswllt',
-  citizenUserPhoneNumber: 'Rhif ffôn y DU',
-  citizenUserEmailAddress: 'Cyfeiriad ebost',
-  citizenUserSafeToCall: 'When it is safe to call you (optional)',
-  safeToCallHint: 'Give a time between 9am and 5pm when it is safe to call you',
-  continue: 'Continue',
+  citizenUserPhoneNumber: 'Rhif ffôn yn y DU',
+  citizenUserEmailAddress: 'Cyfeiriad e-bost',
+  citizenUserSafeToCall: 'Pa bryd y mae’n ddiogel eich ffonio (dewisol)',
+  safeToCallHint: "Rhowch amser rhwng 9am a 5pm pan fydd yn ddiogel i'ch ffonio",
+  continue: 'Parhau',
   errors: {
     citizenUserPhoneNumber: {
       required: 'Rhowch rif ffôn y DU',
@@ -42,7 +42,7 @@ const cy: typeof en = {
       invalid: 'Rhowch gyfeiriad e-bost yn y fformat cywir, fel name@example.com',
     },
     citizenUserSafeToCall: {
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.(in Welsh)',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
   },
 };

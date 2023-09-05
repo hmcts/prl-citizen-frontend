@@ -2,19 +2,33 @@ import autobind from 'autobind-decorator';
 import type { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { Applicant, CaseType, Respondent } from '../../../../app/case/definition';
-import { toApiFormat } from '../../../../app/case/to-api-format';
+import { CaseWithId } from '../../../../app/case/case';
+import {
+  CaseEvent,
+  CaseType,
+  PartyDetails,
+  PartyType,
+  applicantContactPreferencesEnum,
+} from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
+import { getPartyDetails, mapDataInSession } from '../../../../steps/tasklistresponse/utils';
 import {
+  APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
+  APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
   APPLICANT_TASK_LIST_URL,
   C100_APPLICANT_TASKLIST,
   RESPONDENT_TASK_LIST_URL,
   RESPOND_TO_APPLICATION,
 } from '../../../../steps/urls';
 
-import { setContactDetails } from './ContactDetailsMapper';
+import {
+  mapConfirmContactDetails,
+  prepareRequest,
+  //setContactDetails
+} from './ContactDetailsMapper';
 
 @autobind
 export class ConfirmContactDetailsPostController extends PostController<AnyObject> {
@@ -22,79 +36,69 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
     super(fields);
   }
 
-  public async c100Respondent(req: AppRequest<AnyObject>): Promise<void> {
-    req.session.userCase?.respondents?.forEach((respondent: Respondent) => {
-      if (respondent?.value?.user?.idamId === req.session?.user.id) {
-        Object.assign(respondent.value, setContactDetails(respondent.value, req));
-      }
-    });
-  }
-
-  public async c100Apllicant(req: AppRequest<AnyObject>): Promise<void> {
-    req.session.userCase?.applicants?.forEach((applicant: Applicant) => {
-      if (applicant?.value?.user?.idamId === req.session?.user.id) {
-        Object.assign(applicant.value, setContactDetails(applicant.value, req));
-      }
-    });
-  }
-
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const loggedInCitizen = req.session.user;
-    const caseReference = req.session.userCase.id;
+    const { user, userCase } = req.session;
+    const partyType = getCasePartyType(userCase, user.id);
+    const partyDetails = getPartyDetails(userCase, user.id);
+    const client = new CosApiClient(user.accessToken, 'https://return-url');
 
-    const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
-
-    const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
-    Object.assign(req.session.userCase, caseDataFromCos);
-    if (req.session.userCase.caseTypeOfApplication === 'C100') {
-      if (req.url.includes('respondent')) {
-        this.c100Respondent(req);
-      } else {
-        this.c100Apllicant(req);
+    if (partyDetails) {
+      const request = prepareRequest(userCase) as PartyDetails;
+      if (userCase.caseTypeOfApplication === CaseType.C100 && partyType === PartyType.APPLICANT) {
+        Object.assign(partyDetails, mapConfirmContactDetails(request));
       }
-    } else {
-      if (
-        req.url.includes('respondent') &&
-        req.session.userCase?.respondentsFL401?.user?.idamId === req.session?.user.id
-      ) {
-        Object.assign(
-          req.session.userCase.respondentsFL401,
-          setContactDetails(req.session.userCase.respondentsFL401, req)
+      const { response, address, ...rest } = request;
+      Object.assign(partyDetails, {
+        ...partyDetails,
+        ...rest,
+        address: {
+          ...partyDetails.address,
+          ...address,
+        },
+        response: {
+          ...partyDetails.response,
+          ...response,
+        },
+      });
+
+      try {
+        req.session.userCase = await client.updateCaseData(
+          user,
+          userCase.id,
+          partyDetails,
+          partyType,
+          userCase.caseTypeOfApplication as CaseType,
+          CaseEvent.CONFIRM_YOUR_DETAILS
         );
-      } else {
-        if (req.session.userCase?.applicantsFL401?.user?.idamId === req.session?.user.id) {
-          Object.assign(
-            req.session.userCase.applicantsFL401,
-            setContactDetails(req.session.userCase.applicantsFL401, req)
-          );
-        }
+        mapDataInSession(req.session.userCase, user.id);
+        req.session.save(() => {
+          const redirectUrl = this.getRedirectUrl(partyType, req, userCase);
+          res.redirect(redirectUrl);
+        });
+      } catch (error) {
+        throw new Error('ConfirmContactDetailsPostController - Case could not be updated.');
       }
     }
+  }
 
-    const caseData = toApiFormat(req?.session?.userCase);
-    caseData.id = caseReference;
-    const updatedCaseDataFromCos = await client.updateCase(
-      loggedInCitizen,
-      caseReference,
-      caseData,
-      'linkCitizenAccount'
-    );
-    Object.assign(req.session.userCase, updatedCaseDataFromCos);
-
+  private getRedirectUrl(partyType: PartyType, req: AppRequest<AnyObject>, userCase: CaseWithId) {
     let redirectUrl;
-
-    if (req.url.includes('respondent')) {
+    if (partyType === PartyType.RESPONDENT) {
       redirectUrl = req.session.applicationSettings?.navfromRespondToApplication
         ? RESPOND_TO_APPLICATION
         : RESPONDENT_TASK_LIST_URL;
-    } else {
-      if (req.session.userCase.caseTypeOfApplication === CaseType.C100) {
-        redirectUrl = C100_APPLICANT_TASKLIST;
-      } else {
-        redirectUrl = APPLICANT_TASK_LIST_URL;
+    } else if (userCase.caseTypeOfApplication === CaseType.C100) {
+      redirectUrl = C100_APPLICANT_TASKLIST;
+      if (req.session.applicationSettings?.navFromContactPreferences) {
+        if (userCase.applicantPreferredContact === applicantContactPreferencesEnum.POST) {
+          redirectUrl = APPLICANT_TASKLIST_CONTACT_POST_SUCCESS;
+        } else {
+          redirectUrl = APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS;
+        }
       }
+    } else {
+      redirectUrl = APPLICANT_TASK_LIST_URL;
     }
-
-    req.session.save(() => res.redirect(redirectUrl));
+    return redirectUrl;
   }
 }

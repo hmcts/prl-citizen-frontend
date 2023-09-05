@@ -15,6 +15,7 @@ const en = {
   firstNameLabel: 'First name(s)',
   firstNameHint: 'Include all middle names here',
   lastNameLabel: 'Last name(s)',
+  Respondent: 'Respondent',
   addRespondentLabel: 'Add another respondent',
   removeRespondentLabel: 'Remove respondent',
   newNameLabel: 'Enter a new name',
@@ -36,6 +37,7 @@ const cy = {
   firstNameLabel: 'Enw(au) cyntaf',
   firstNameHint: 'Rhowch bob enw canol yma',
   lastNameLabel: 'Cyfenw(au)',
+  Respondent: 'Atebydd',
   addRespondentLabel: 'Ychwanegu atebydd arall',
   removeRespondentLabel: 'Tynnu atebydd',
   newNameLabel: 'Nodwch enw newydd',
@@ -46,7 +48,7 @@ const cy = {
         'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },
     c100TempLastName: {
-      required: 'Nodwch yr enw olaf',
+      required: 'Nodwch y cyfenw',
       invalid:
         'Rydych wedi defnyddio nod annillys, er enghraifft rhif. Nodwch eich enw gan ddefnyddio llythrennau yn unig.',
     },

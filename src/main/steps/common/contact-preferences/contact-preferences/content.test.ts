@@ -10,7 +10,7 @@ jest.mock('../../../../app/form/validation');
 let caseNumber;
 
 const en = {
-  caption: `Case number #${caseNumber}`,
+  caption: `Case number ${caseNumber}`,
   title: 'Contact Preferences',
   paragraphs: [
     'You can choose to receive case updates by email or post.',
@@ -32,7 +32,7 @@ const en = {
 };
 
 const cy = {
-  caption: `Case number - welsh #${caseNumber}`,
+  caption: `Rhif yr achos ${caseNumber}`,
   title: 'Dewisiadau cyswllt',
   paragraphs: [
     'Gallwch ddewis cael diweddariadau ynghylch yr achos drwy e-bost neu drwy’r post.',
@@ -46,6 +46,7 @@ const cy = {
   labelDitigalHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy e-bost.',
   labelPost: 'Drwy’r post',
   labelPostHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy’r post.',
+  continue: 'Cadw a pharhau',
   errors: {
     applicantPreferredContact: {
       required: 'Dewiswch sut hoffech inni gysylltu â chi',
@@ -60,6 +61,22 @@ describe('contact preferences common content', () => {
   let form;
   let fields;
   beforeEach(() => {
+    commonContent.additionalData = {
+      req: {
+        session: {
+          user: {
+            id: '1234',
+          },
+          userCase: {
+            applicants: [
+              {
+                contactPreferences: applicantContactPreferencesEnum.POST,
+              },
+            ],
+          },
+        },
+      },
+    };
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;
     fields = form.fields as FormFields;

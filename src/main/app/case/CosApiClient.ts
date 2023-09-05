@@ -9,7 +9,16 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
-import { CaseData, RespondentCaseData, RespondentCaseId, YesOrNo } from './definition';
+import {
+  CaseData,
+  CaseEvent,
+  CaseType,
+  PartyDetails,
+  PartyType,
+  RespondentCaseData,
+  RespondentCaseId,
+  YesOrNo,
+} from './definition';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -99,6 +108,36 @@ export class CosApiClient {
       };
       const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
         headers,
+      });
+
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
+    } catch (err) {
+      throw new Error('Case could not be updated.');
+    }
+  }
+
+  public async updateCaseData(
+    user: UserDetails,
+    caseId: string,
+    partyDetails: Partial<PartyDetails>,
+    partyType: PartyType,
+    caseType: CaseType,
+    eventName: CaseEvent
+  ): Promise<CaseWithId> {
+    try {
+      const data = {
+        partyDetails,
+        partyType,
+        caseType,
+      };
+      const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventName}/case-update`, data, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + user.accessToken,
+          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          accessCode: 'Dummy accessCode',
+        },
       });
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
@@ -344,48 +383,25 @@ export class CosApiClient {
     }
   }
 
-  public async retrieveCaseHearingsByCaseId(userCase: CaseWithId, user: UserDetails): Promise<CaseWithId> {
-    if (!userCase.id || !user) {
-      return Promise.reject(new Error('retrieveCaseHearingsByCaseId - Case id must be set and user must be set'));
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  public async retrieveCaseHearingsByCaseId(user: UserDetails, caseId: string): Promise<any> {
+    try {
+      const response = await Axios.post(
+        config.get('services.cos.url') + `/hearing/${caseId}`,
+        {},
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + user.accessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      throw new Error('Case could not be updated.' + err);
     }
-
-    const hearingCollectionMockedData = [
-      {
-        prev: [
-          {
-            date: 'Monday 28 June 2021',
-            time: '9am',
-            typeOfHearing: 'In person',
-            courtName: 'Bristol family court',
-            courtAddress: 'Bristol Avenue, Bristol, BL1 2A3',
-            hearingOutcome: 'HearingOutcome.pdf',
-          },
-          {
-            date: 'Friday 25 June 2021',
-            time: '11am',
-            typeOfHearing: 'Video',
-            courtName: 'Bristol family court',
-            courtAddress: 'Bristol Avenue, Bristol, BL1 2A3',
-            hearingOutcome: 'HearingOutcome.pdf',
-          },
-        ],
-        next: {
-          date: 'Wednesday 29 June 2021',
-          time: '10am',
-        },
-      },
-    ];
-
-    //here we are directly returning the mocked response of hearing api in the hearingCollection key
-    //once the integration part is done with hearing mgmt api we can modify this code.
-    //Example: Object.assign(req.session.userCase.hearingCollection, hearingAPIResponse);
-    // OR
-    //req.session.userCase.hearingCollection = hearingAPIResponse;
-    return {
-      id: userCase.id,
-      state: userCase.state,
-      hearingCollection: hearingCollectionMockedData,
-    };
   }
 }
 

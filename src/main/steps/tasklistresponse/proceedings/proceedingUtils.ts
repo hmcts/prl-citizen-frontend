@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import { YesOrNo } from '../../../app/case/definition';
+import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
+import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 
 import { cy, en } from './courtproceedings/content';
-import { DATE_FORMATTOR } from './dateformatter';
 import { HTML } from './htmlSelectors';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from './order-details/content';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const IndividualOrderFieldsParser = (keys, order) => {
+export const IndividualOrderFieldsParser = (keys, order, language) => {
   const newOrders = order;
   const Mapper = {
     ['orderDetail']: {
@@ -30,7 +32,7 @@ export const IndividualOrderFieldsParser = (keys, order) => {
       question: keys['orderEndDateLabel'],
     },
     ['orderDocument']: {
-      question: 'Copy uploaded?',
+      question: keys['copy'],
     },
   };
   let Val = '';
@@ -41,21 +43,28 @@ export const IndividualOrderFieldsParser = (keys, order) => {
     if (key !== 'id' && key !== 'orderDocument') {
       if (typeof entry[1] === 'object' && entry[1] !== null) {
         const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
-        const valueDetails = HTML.P + DATE_FORMATTOR(value) + HTML.P_CLOSE;
+        const valueDetails = HTML.P + DATE_FORMATTOR(value, language) + HTML.P_CLOSE;
         Val += keyDetails + valueDetails + rulerForLastElement;
       } else {
         const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
-        const valueDetails = HTML.P + value + HTML.P_CLOSE;
+        const valueDetails =
+          HTML.P +
+          (value === YesOrNo.YES
+            ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
+            : value === YesOrNo.NO
+            ? getYesNoTranslation(language, YesOrNo.NO, 'doTranslation')
+            : value) +
+          HTML.P_CLOSE;
         Val += keyDetails + valueDetails + rulerForLastElement;
       }
     } else if (key === 'orderDocument') {
       if (value !== 'undefined') {
         const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
-        const valueDetails = HTML.P + 'Yes' + HTML.P_CLOSE;
+        const valueDetails = HTML.P + getYesNoTranslation(language, YesOrNo.YES, 'doTranslation') + HTML.P_CLOSE;
         Val += keyDetails + valueDetails + rulerForLastElement;
       } else {
         const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
-        const valueDetails = HTML.P + 'No' + HTML.P_CLOSE;
+        const valueDetails = HTML.P + getYesNoTranslation(language, YesOrNo.NO, 'doTranslation') + HTML.P_CLOSE;
         Val += keyDetails + valueDetails + rulerForLastElement;
       }
     }
@@ -76,20 +85,16 @@ export const IndividualOrderFieldsParser = (keys, order) => {
  *   changeUrl: string
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessionKey) => {
+export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessionKey, language) => {
   if (UserCase.hasOwnProperty(sessionKey)) {
     const orderSessionStorage = [] as { key: string; valueHtml: string; changeUrl: string }[];
     UserCase[sessionKey].forEach(order => {
-      if (UserCase['otherProceedings']?.['order'].hasOwnProperty(`${order}s`)) {
-        const orderDetails = UserCase['otherProceedings']?.['order'][`${order}s`];
-        orderDetails.forEach((nestedOrder, index) => {
-          const IndexNumber = index > 0 ? index + 1 : '';
-          orderSessionStorage.push({
-            key: `${keys[order + 'Label']} ${IndexNumber}`,
-            valueHtml: IndividualOrderFieldsParser(keys, nestedOrder),
-            changeUrl: applyParms(URLS['PROCEEDINGS_ORDER_DETAILS'], { orderType: order }),
-          });
-        });
+      if (
+        UserCase['otherProceedings']?.['order'].hasOwnProperty(`${order}s`) ||
+        UserCase['otherProceedings']?.['order'].hasOwnProperty('contactOrdersForDivorce') ||
+        UserCase['otherProceedings']?.['order'].hasOwnProperty('contactOrdersForAdoption')
+      ) {
+        prepareOrderDetail(order, UserCase, orderSessionStorage, keys, language, URLS);
       }
     });
     return orderSessionStorage;
@@ -107,13 +112,39 @@ export const otherProceedingsContents = SystemLanguage => {
     en: () => {
       delete en['errors'];
       delete opDetailsEnContents['errors'];
-      return { ...en(), ...opDetailsEnContents(), optitle: opDetailsEnContents().pageTitle };
+      return { ...en(), ...opDetailsEnContents(), optitle: opDetailsEnContents().title };
     },
     cy: () => {
       delete cy['errors'];
       delete opDetailsCyContents['errors'];
-      return { ...cy(), ...opDetailsCyContents(), optitle: opDetailsCyContents().pageTitle };
+      return { ...cy(), ...opDetailsCyContents(), optitle: opDetailsCyContents().title };
     },
   };
   return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
 };
+/* eslint-disable @typescript-eslint/no-explicit-any*/
+function prepareOrderDetail(
+  order: any,
+  UserCase: any,
+  orderSessionStorage: { key: string; valueHtml: string; changeUrl: string }[],
+  keys: any,
+  language: any,
+  URLS: any
+) {
+  let orderDetails;
+  if (order === 'contactOrderForDivorce') {
+    orderDetails = UserCase['otherProceedings']?.['order']['contactOrdersForDivorce'];
+  } else if (order === 'contactOrderForAdoption') {
+    orderDetails = UserCase['otherProceedings']?.['order']['contactOrdersForAdoption'];
+  } else {
+    orderDetails = UserCase['otherProceedings']?.['order'][`${order}s`];
+  }
+  orderDetails.forEach((nestedOrder, index) => {
+    const IndexNumber = index > 0 ? index + 1 : '';
+    orderSessionStorage.push({
+      key: `${keys[order + 'Label']} ${IndexNumber}`,
+      valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language),
+      changeUrl: applyParms(URLS['PROCEEDINGS_ORDER_DETAILS'], { orderType: order }),
+    });
+  });
+}

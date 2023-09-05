@@ -9,6 +9,7 @@ export enum Sections {
   AboutApplicantCase = 'aboutApplicantCase',
   AboutCaAndDaRespondentCase = 'aboutCaAndDaRespondentCase',
   C100 = 'c100',
+  Screening = 'screening',
 }
 
 export interface Step {
@@ -38,7 +39,7 @@ export const EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement';
 export const EVENT_RESPONDENT_MIAM = 'respondentMiam';
 export const UPDATE_CASE_YES = '?updateCase=Yes';
 
-export const ordinalNumberMap = new Map<number, string>([
+export const ordinalNumberMapEn = new Map<number, string>([
   [1, 'First'],
   [2, 'Second'],
   [3, 'Third'],
@@ -61,7 +62,51 @@ export const ordinalNumberMap = new Map<number, string>([
   [20, 'Twentieth'],
 ]);
 
+export const ordinalNumberMapCy = new Map<number, string>([
+  [1, 'Cyntaf'],
+  [2, 'Ail'],
+  [3, 'Trydydd'],
+  [4, 'Pedwerydd'],
+  [5, 'Pumed'],
+  [6, 'Chweched'],
+  [7, 'Seithfed'],
+  [8, 'Wythfed'],
+  [9, 'Nawfed'],
+  [10, 'Degfed'],
+  [11, 'Unfed ar ddeg'],
+  [12, 'Deuddegfed'],
+  [13, 'Trydydd ar ddeg'],
+  [14, 'Pedwerydd ar ddeg'],
+  [15, 'Pymthegfed'],
+  [16, 'Unfed ar bymtheg'],
+  [17, 'Ail ar bymtheg'],
+  [18, 'Deunawfed'],
+  [19, 'Pedwerydd ar bymtheg'],
+  [20, 'Ugeinfed'],
+]);
+
 export const NO_NEED_OF_SUPPORT = 'No, I do not have any language requirements at this time';
 export const NO_NEED_OF_SUPPORT_AT_THIS_TIME = 'No, I do not need any extra support at this time';
 export const NO_I_DO_NOT_NEED_OF_SUPPORT_AT_THIS_TIME = 'I do not need any of this support at this time';
 export const NO_HEARINGS = 'nohearings';
+
+// CONSTANTS for SupportYouNeedDuringYourCaseService.ts file
+export const LANGUAGE_INTERPRETER = 'languageinterpreter';
+export const OTHER = 'other';
+export const DOCS_FORMAT = 'docsformat';
+export const COMM_HELP = 'commhelp';
+export const HEARING_SUPPORT = 'hearingsupport';
+export const HEARING_COMFORT = 'hearingcomfort';
+export const TRAVELLING_HELP = 'travellinghelp';
+export const DOCS_PRINT = 'docsprint';
+export const LARGE_PRINT_DOCS = 'largeprintdocs';
+export const SIGN_LANGUAGE = 'signlanguage';
+export const SUPPORT_WORKER = 'supportworker';
+export const FAMILY_MEMBER = 'familymember';
+export const ANIMAL = 'animal';
+export const APPROPRIATE_LIGHTING = 'appropriatelighting';
+export const PARKING_SPACE = 'parkingspace';
+export const DIFFERENT_CHAIR = 'differentchair';
+export const NO_SUPPORT = 'nosupport';
+export const NO_INTERPRETER = 'nointerpreter';
+export const INVALID_DATE = 'Invalid Date';

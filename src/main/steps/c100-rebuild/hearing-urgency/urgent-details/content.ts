@@ -33,6 +33,9 @@ export const en = () => ({
     },
     hu_otherRiskDetails: {
       required: 'Give details of the risk in your case that support your need for an urgent hearing',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     hu_timeOfHearingDetails: {
       required: 'Enter how soon you need the hearing to take place',
@@ -43,6 +46,9 @@ export const en = () => ({
     },
     hu_hearingWithNext48HrsMsg: {
       required: 'Provide details of what you have done to inform the respondents of your application',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 });
@@ -62,8 +68,8 @@ export const cy = () => ({
   hearingWithNext48HrsDetails: 'Beth ydych chi wedi ei wneud i hysbysu’r atebwyr ynglŷn â’ch cais?',
   hearingWithNext48HrsDetailsHint:
     'Os nad ydych wedi dweud wrth yr atebwyr, eglurwch pam. Bydd y llys yn disgwyl ichi roi rheswm da.',
-  one: 'Do',
-  two: 'Naddo',
+  one: 'Oes',
+  two: 'Nac oes',
 
   errors: {
     hu_reasonOfUrgentHearing: {
@@ -71,16 +77,22 @@ export const cy = () => ({
     },
     hu_otherRiskDetails: {
       required: "Rhowch fanylion y risg sy'n cefnogi'ch angen am wrandawiad brys",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     hu_timeOfHearingDetails: {
       required: "Nodwch pa mor fuan y mae angen i'r gwrandawiad gael ei gynnal",
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.(Welsh)',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
     hu_hearingWithNext48HrsDetails: {
       required: 'Dewiswch oes os oes angen gwrandawiad arnoch o fewn y 48 awr nesaf',
     },
     hu_hearingWithNext48HrsMsg: {
       required: "Darparwch fanylion yr hyn rydych chi wedi'i wneud i hysbysu’r atebwyr yn eich cais",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 });

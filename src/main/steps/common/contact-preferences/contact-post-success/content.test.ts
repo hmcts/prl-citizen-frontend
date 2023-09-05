@@ -9,17 +9,17 @@ jest.mock('../../../../app/form/validation');
 let caseNumber;
 
 const en = {
-  caption: `Case number #${caseNumber}`,
+  caption: `Case number ${caseNumber}`,
   title: 'Contact preferences updated',
   text: 'You will receive updates on the case by post.',
   continue: 'Continue',
 };
 
 const cy = {
-  caption: `Case number - welsh #${caseNumber}`,
-  title: 'Contact preferences updated -welsh',
-  text: 'You will receive updates on the case by post. - welsh',
-  continue: 'Continue - welsh',
+  caption: `Rhif yr achos ${caseNumber}`,
+  title: 'Dewisiadau cyswllt wedi’u diweddaru',
+  text: 'Byddwch yn cael diweddariadau am yr achos drwy’r post.',
+  continue: 'Parhau',
 };
 
 describe('contact email common content', () => {

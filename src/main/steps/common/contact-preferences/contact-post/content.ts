@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+import _ from 'lodash';
+
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { interpolate } from '../../../../steps/common/string-parser';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  caption: 'Case number #{caseNumber}',
+  caption: 'Case number {caseNumber}',
   title: 'Contact Preferences',
   subTitle: 'Personal details',
   continue: 'Submit',
@@ -15,18 +17,24 @@ export const en = () => ({
     'You will no longer receive updates by email. You can still access previous updates through your dashboard.',
   ],
   warningText: 'Make sure that your contact details are up to date.',
+  address: 'Address',
+  change: 'Change',
+  addressLowerCase: 'address',
 });
 
 export const cy = () => ({
-  caption: 'Case number - welsh #{caseNumber}',
-  title: 'Contact Preferences -welsh',
-  subTitle: 'Personal details -welsh',
-  continue: 'Submit - welsh',
+  caption: 'Rhif yr achos {caseNumber}',
+  title: 'Dewisiadau Cyswllt',
+  subTitle: 'Manylion personol',
+  continue: 'Cyflwyno',
   textList: [
-    'You have decided to receive updates by post. -welsh',
-    'You will no longer receive updates by email. You can still access previous updates through your dashboard. -welsh',
+    'Rydych wedi penderfynu cael diweddariadau drwy’r post.',
+    'Ni fyddwch yn cael diweddariadau drwy e-bost o hyn ymlaen. Gallwch dal weld diweddariadau blaenorol yn eich dangosfwrdd',
   ],
-  warningText: 'Make sure that your contact details are up to date. -welsh',
+  warningText: 'Sicrhewch fod eich manylion cyswllt yn gyfredol.',
+  address: 'Cyfeiriad',
+  change: 'Newid',
+  addressLowerCase: 'cyfeiriad',
 });
 
 const languages = {
@@ -75,10 +83,15 @@ export const generateContent: TranslationFn = content => {
   let applicantAddressObj;
   const applicantAddress: string[] = [];
 
-  if (content?.userCase?.applicants) {
-    applicantAddressObj = content?.userCase?.applicants![0].value?.address! ?? {};
+  if (content?.userCase?.applicants?.length) {
+    applicantAddressObj = _.get(
+      content.userCase.applicants.find(applicant => applicant.value.user.idamId === content.userIdamId),
+      'value.address',
+      {}
+    );
+
     for (const key in applicantAddressObj) {
-      if (applicantAddressObj[key] !== '' || applicantAddressObj[key] !== null) {
+      if (applicantAddressObj[key]) {
         applicantAddress.push(applicantAddressObj[key]);
       }
     }

@@ -10,7 +10,7 @@ const enContent = {
   section: 'Keeping your contact details private',
   title: 'The court will keep your contact details private',
   line1: 'You have told us you want to keep these contact details private:',
-  address: 'Home address',
+  address: 'Address',
   email: 'Email',
   phoneNumber: 'Telephone number',
   line2: 'What the court will do',
@@ -21,16 +21,16 @@ const enContent = {
 
 const cyContent = {
   ...welsh,
-  section: 'Keeping your contact details private-welsh',
-  title: 'The court will keep your contact details private-welsh',
-  line1: 'You have told us you want to keep these contact details private:-welsh',
-  address: 'Home address-welsh',
-  email: 'Email-welsh',
-  phoneNumber: 'Telephone number-welsh',
-  line2: 'What the court will do-welsh',
+  section: 'Cadw eich manylion cyswllt yn breifat',
+  title: 'TBydd y llys yn cadw eich manylion cyswllt yn breifat',
+  line1: 'Rydych wedi dweud wrthym eich bod eisiau cadw’r manylion cyswllt canlynol yn breifat:',
+  address: 'Cyfeiriad',
+  email: 'E-bost',
+  phoneNumber: 'Rhif ffôn',
+  line2: 'Beth fydd y llys yn ei wneud',
   line3:
-    'The court will hold this information securely. These contact details will only be shared if there is a court order to do so.-welsh',
-  continue: 'Save and continue-welsh',
+    'Bydd y llys yn cadw’r wybodaeth hon yn ddiogel. Bydd y manylion cyswllt hyn ond yn cael eu rhannu os bydd gorchymyn llys i wneud hynny.',
+  continue: 'Cadw a pharhau',
 };
 
 jest.mock('../../../../app/form/validation');

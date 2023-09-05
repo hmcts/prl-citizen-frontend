@@ -89,7 +89,7 @@ const cy = {
   // year: 'Blwyddyn',
   errors: {
     hasNameChanged: {
-      required: 'Nodwch os ydyw wedi newid ei enw',
+      required: 'Nodwch a ydynt wedi newid eu henw',
     },
     previousFullName: {
       required: 'Nodwch eu henw blaenorol',
@@ -100,7 +100,7 @@ const cy = {
       required: 'Dewiswch y rhywedd',
     },
     dateOfBirth: {
-      required: 'Nodwch ei ddyddiad geni',
+      required: 'Nodwch y dyddiad geni',
       invalidDate: 'Nid yw’r dyddiad geni yn ddilys',
       incompleteDay: 'DRhaid i’r dyddiad geni gynnwys diwrnod',
       incompleteMonth: 'Rhaid i’r dyddiad geni gynnwys mis',
@@ -117,7 +117,7 @@ const cy = {
       invalidDateInFuture: 'Rhaid i’r dyddiad geni bras fod yn y gorffennol',
     },
     otherGenderDetails: {
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.- Welsh',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
   },
 };

@@ -1,6 +1,6 @@
 Feature('C100 Rebuild - draft consent flow');
 
-Scenario('C100 Rebuild - draft consent flow',  async ({ I }) => {
+Scenario('C100 Rebuild - draft consent flow @master @nightly',  async ({ I }) => {
    await I.loginAsCitizen();
    await I.createC100Application();
    await I.startTheApplication();
@@ -10,9 +10,10 @@ Scenario('C100 Rebuild - draft consent flow',  async ({ I }) => {
    await I.draftConsentOrder();
    await I.urgencyWithoutNotice();
    await I.childrenDetails();
+   await I.noOtherChild();
    await I.applicantDetails();
    await I.respondentDetails();
-   await I.otherPersonDetails();
+   await I.withoutOtherPerson();
    await I.otherProceedings();
    await I.safetyConcerns();
    await I.internationElements();

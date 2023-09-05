@@ -29,27 +29,27 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Child Arrangements - Welsh',
-  title: 'Safety Concerns - Welsh',
-  headingTitle: 'Do you have any concerns for your safety or the safety of the children? - Welsh',
-  paragraph1: '<p> You may have concerns about current, or future safety. </p> - Welsh',
+  serviceName: 'Trefniadau plant',
+  title: 'Pryderon diogelwch',
+  headingTitle: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+  paragraph1: '<p> Efallai bod gennych bryderon am eich diogelwch ar hyn o bryd, neu eich diogelwch yn y dyfodol. </p>',
   paragraph2:
-    '<p> If you or the children have experienced abuse or feel unsafe, support is available. <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" target="_blank" aria-label="See a list of organisations that can help">See a list of organisations that can help</a>. </p> - Welsh',
-  listOfOrganisationsHyperlink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help - Welsh',
+    '<p> Os ydych chi neu\'r plant wedi profi camdriniaeth neu\'n teimlo\'n anniogel, mae cymorth ar gael. <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" target="_blank" aria-label="See a list of organisations that can help">Gweler rhestr o sefydliadau a all helpu.</a>. </p>',
+  listOfOrganisationsHyperlink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help',
   listOfOrganisationLabel: 'See a list of organisations that can help. - Welsh',
-  identifySignsOfChildAbuseHyperlink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse/ - Welsh',
-  identifySignsOfChildAbuseLabel: 'Identify signs of child abuse - Welsh',
-  identifySignsOfDomesticAbuseHyperlink: 'https://supportnav.org.uk/what-is-domestic-abuse - Welsh',
-  identifySignsOfDomesticAbuseLabel: 'Identify signs of domestic abuse - Welsh',
+  identifySignsOfChildAbuseHyperlink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse/',
+  identifySignsOfChildAbuseLabel: 'Adnabod arwyddion o gam-drin plant',
+  identifySignsOfDomesticAbuseHyperlink: 'https://supportnav.org.uk/what-is-domestic-abuse',
+  identifySignsOfDomesticAbuseLabel: 'Adnabod arwyddion o gam-drin domestig',
   infoSafetyConcernsYes:
-    'The information you give will be considered as part of your application. If you need to make <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link" target="_blank" aria-label="an application for a domestic abuse injunction">an application for a domestic abuse injunction</a>. you can do this separately. - Welsh',
+    'Bydd y wybodaeth y byddwch yn ei rhoi yn cael ei hystyried fel rhan o\'ch cais. Os oes angen i chi wneud <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link" target="_blank" aria-label="an application for a domestic abuse injunction">cais am waharddeb cam-drin domestig</a>. gallwch wneud hyn ar wahân.',
   warningMessage:
-    'You may find some of these questions difficult or upsetting to answer. Take your time and complete them as best you can. - Welsh',
-  yesHaveSafetyConcerns: 'Yes - Welsh',
-  noHaveSafetyConcerns: 'No - Welsh',
+    "Efallai y byddwch chi'n ystyried rhai o'r cwestiynau hyn yn peri gofid neu'n anodd i'w hateb. Cymerwch eich amser a cheisiwch eu hateb y gorau y gallwch.",
+  yesHaveSafetyConcerns: 'Oes',
+  noHaveSafetyConcerns: 'Nac oes',
   errors: {
     PRL_c1A_haveSafetyConcerns: {
-      required: 'Select yes if you have any concerns for your safety or the safety of the children - Welsh',
+      required: 'Dewiswch oes os oes gennych bryderon eraill am ddiogelwch a lles y plant',
     },
   },
 });

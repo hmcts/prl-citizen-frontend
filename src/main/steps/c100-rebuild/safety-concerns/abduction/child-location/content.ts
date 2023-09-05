@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../../app/form/validation';
+import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 import { generateContent as parentContent } from '../content';
 
 export const en = () => ({
@@ -20,9 +20,15 @@ export const en = () => ({
   errors: {
     c1A_abductionReasonOutsideUk: {
       required: 'Explain why you think the children may be abducted or kept outside of the UK without your consent',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
     c1A_childsCurrentLocation: {
       required: 'Describe where the children are now',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 });
@@ -32,7 +38,7 @@ export const cy = () => ({
   title: "Pam rydych chi'n meddwl y gallai'r plant gael eu cipio neu eu cadw y tu allan i'r DU heb eich caniatâd?",
   warningText: {
     text: " Cysylltwch â'r heddlu neu'r gwasanaethau cymdeithasol os yw plentyn yr ydych yn gyfrifol amdano/amdani mewn perygl o gael ei dynnu/thynnu allan o'r DU heb eich caniatâd.",
-    iconFallbackText: 'Warning',
+    iconFallbackText: 'Rhybudd',
   },
   safetyConcernsText: 'Esboniwch eich pryderon yn gryno, gan gynnwys:',
   safetyConcernsBullet1: 'pwy allai eu cymryd',
@@ -44,9 +50,15 @@ export const cy = () => ({
     c1A_abductionReasonOutsideUk: {
       required:
         "Esboniwch pam rydych chi'n meddwl y gallai'r plant gael eu herwgydio neu eu cadw y tu allan i'r DU heb eich caniatâd",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
     c1A_childsCurrentLocation: {
       required: "Disgrifiwch lle mae'r plant erbyn hyn",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 });
@@ -64,7 +76,7 @@ export const form: FormContent = {
       attributes: {
         rows: 4,
       },
-      validator: isFieldFilledIn,
+      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
     c1A_childsCurrentLocation: {
       type: 'textarea',
@@ -74,7 +86,7 @@ export const form: FormContent = {
       attributes: {
         rows: 4,
       },
-      validator: isFieldFilledIn,
+      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
   },
   onlycontinue: {

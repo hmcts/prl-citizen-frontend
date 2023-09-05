@@ -1,6 +1,5 @@
 import { Case } from '../../app/case/case';
 import { CaseType } from '../../app/case/definition';
-import HearingsGetController from '../../steps/common/yourhearings/hearings/HearingsGetController';
 import { Sections, Step } from '../constants';
 import {
   ALLEGATION_OF_HARM_VOILENCE_DOC,
@@ -74,6 +73,9 @@ import {
   YOUR_WITNESS_STATEMENTS,
   // eslint-disable-next-line sort-imports
   C100_APPLICANT_TASKLIST,
+  APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_TASKLIST_HEARING_NEEDS,
 } from '../urls';
 
@@ -442,7 +444,7 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_YOURHEARINGS_HEARINGS,
     showInSection: Sections.AboutApplicantCase,
-    getController: HearingsGetController,
+    // getController: HearingsGetController,
     getNextStep: (data: Partial<Case>) =>
       data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
   },
@@ -547,8 +549,35 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => TASK_LIST_APPLICANT_URL,
   },
   {
-    url: APPLICANT_TASKLIST_HEARING_NEEDS,
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_YOURHEARINGS_HEARINGS,
+  },
+  {
+    url: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: (data: Partial<Case>) =>
+      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+  },
+  {
+    url: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: (data: Partial<Case>) =>
+      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_TASK_LIST_URL,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASKLIST_HEARING_NEEDS,
+  },
+  {
+    url: APPLICANT_TASKLIST_HEARING_NEEDS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
 ];

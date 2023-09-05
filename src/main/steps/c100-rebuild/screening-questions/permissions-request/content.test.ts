@@ -13,6 +13,9 @@ const en = {
   errors: {
     sq_permissionsRequest: {
       required: 'Explain why the court should grant you permission to submit this application',
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
     },
   },
 };
@@ -23,6 +26,9 @@ const cy = {
   errors: {
     sq_permissionsRequest: {
       required: "Esboniwch pam y dylai'r llys roi caniatâd i chi gyflwyno'r cais hwn",
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
     },
   },
 };

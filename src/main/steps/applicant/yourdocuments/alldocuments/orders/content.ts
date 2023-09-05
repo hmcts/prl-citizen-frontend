@@ -6,8 +6,6 @@ const en = () => {
   return {
     section: 'All documents',
     title: 'Orders from the court',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
     caseNumber: 'Case number',
     continue: 'Go back',
   };
@@ -15,12 +13,10 @@ const en = () => {
 
 const cy: typeof en = () => {
   return {
-    section: 'All documents',
-    title: 'Orders from the court',
-    threeHint: 'This is a 8 character code',
-    summaryText: 'Contacts for help',
-    caseNumber: 'Case number',
-    continue: 'Go back',
+    section: 'Pob dogfen',
+    title: 'Gorchmynion gan y llys',
+    caseNumber: 'Rhif yr achos',
+    continue: 'Yn ôl',
   };
 };
 
@@ -52,7 +48,6 @@ export const generateContent: TranslationFn = content => {
     const uid = doc.value.orderDocument.document_url.substring(
       doc.value.orderDocument.document_url.lastIndexOf('/') + 1
     );
-    //const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
     orders.push({
       href: `${APPLICANT_ORDERS_FROM_THE_COURT}/${uid}`,
       createdDate: doc.value.otherDetails.orderCreatedDate,

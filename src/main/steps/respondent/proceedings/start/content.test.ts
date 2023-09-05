@@ -14,7 +14,6 @@ const enContent = {
   courtOrder: 'Have you had a court order made for your protection?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
-  summaryText: 'Contacts for help',
   saveAndContinue: 'Save and continue',
   errors: {
     proceedingsStart: {
@@ -27,23 +26,22 @@ const enContent = {
 };
 
 const cyContent = {
-  section: 'Current or previous proceedings',
-  title: 'Have you or the children ever been involved in court proceedings?',
-  courtCase: 'Have the children been involved in a court case?',
+  section: 'Achos cyfredol neu flaenorol',
+  title: "Ydych chi neu'r plant erioed wedi bod yn rhan o achosion llys?",
+  courtCase: "Ydy'r plant wedi bod yn rhan o achos llys?",
   courtCaseYes: 'Yes',
   courtCaseNo: 'No',
-  courtCaseDontKnow: "I don't know",
-  courtOrder: 'Have you had a court order made for your protection?',
+  courtCaseDontKnow: 'Nid wyf yn gwybod',
+  courtOrder: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer i’ch amddiffyn?',
   courtOrderYes: 'Yes',
   courtOrderNo: 'No',
-  summaryText: 'Contacts for help',
-  saveAndContinue: 'Save and continue',
+  saveAndContinue: 'Cadw a pharhau',
   errors: {
     proceedingsStart: {
-      required: 'Select yes if the children have been involved in a previous court case',
+      required: "Dewiswch do os yw'r plant wedi bod yn rhan o achos llys yn flaenorol",
     },
     proceedingsStartOrder: {
-      required: 'Select yes if you have had a court order made for your protection',
+      required: 'Dewiswch oes os oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi',
     },
   },
 };

@@ -5,6 +5,7 @@ const en = {
   section: 'How your documents will be shared',
   status: 'Your documents have been uploaded',
   title: 'Your documents have been uploaded',
+  uploadAgain: 'Upload another document',
   continue: 'Continue',
   remove: 'Remove',
   sucess: 'Success',
@@ -12,13 +13,14 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'How your documents will be shared',
-  status: 'Your documents have been uploaded',
-  title: 'Your documents have been uploaded',
-  continue: 'Continue',
-  remove: 'Remove',
-  sucess: 'Success',
-  documentDetails: 'Your documents for ',
+  section: 'Sut fydd eich dogfennau’n cael eu rhannu',
+  status: 'Mae eich dogfennau wedi’u llwytho',
+  title: 'Mae eich dogfennau wedi’u llwytho',
+  uploadAgain: 'Llwytho dogfen arall',
+  continue: 'Parhau',
+  remove: 'Dileu',
+  sucess: 'Llwyddiant',
+  documentDetails: 'Eich dogfennau ar gyfer',
 };
 
 const languages = {

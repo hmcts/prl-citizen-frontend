@@ -17,10 +17,6 @@ const en = {
   grandparent: 'Grandparent',
   other: 'Other',
   otherRelationshipDetails: 'Please specify',
-  guardianHintText:
-    'Someone who represents the rights of a child, may be appointed by a parent, special guardian or the court',
-  specialGuardianHintText: 'Someone who represents the rights of a child, appointed by the court',
-
   errors: {
     relationshipType: {
       required: 'Enter the relationship',
@@ -33,8 +29,8 @@ const en = {
 };
 
 const cy = {
-  title: 'Beth yw',
-  title1: ' Perthynas efo',
+  title: 'Beth yw perthynas',
+  title1: ' â',
   mother: 'Mam',
   father: 'Tad',
   guardian: 'Gwarcheidwad',
@@ -42,16 +38,13 @@ const cy = {
   grandparent: 'Nain/Taid',
   other: 'Arall',
   otherRelationshipDetails: 'Rhowch fanylion',
-  guardianHintText:
-    'Rhywun sy’n cynrychioli hawliau plentyn, gall fod wedi’i benodi gan riant, gwarcheidwad arbennig neu’r llys',
-  specialGuardianHintText: 'Rhywun sy’n cynrychioli hawliau plentyn, wedi’i benodi gan y llys',
   errors: {
     relationshipType: {
       required: 'Nodwch y berthynas',
     },
     otherRelationshipTypeDetails: {
       required: 'Nodwch y berthynas',
-      invalid: 'You have entered an invalid character. Enter using letters and numbers only.- (Welsh)',
+      invalid: 'Rydych wedi defnyddio nod annilys. Defnyddiwch lythrennau a rhifau yn unig.',
     },
   },
 };

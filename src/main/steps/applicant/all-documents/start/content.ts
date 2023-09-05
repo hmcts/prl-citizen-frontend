@@ -8,8 +8,6 @@ const en = {
   one: 'Yes',
   two: 'No',
   three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   continue: 'Continue',
   errors: {
     detailsKnown: {
@@ -19,17 +17,15 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Keeping your contact details private',
-  title: 'Do the other people named in this application (the applicants) know any of your contact details?',
-  one: 'Yes',
-  two: 'No',
-  three: "I don't know",
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
-  continue: 'Continue',
+  section: 'Cadw eich manylion cyswllt yn breifat',
+  title: 'A yw’r unigolyn a wnaeth gais i’r llys (y ceisydd) yn gwybod unrhyw rai o’ch manylion cyswllt?',
+  one: 'Ydy',
+  two: 'Nac ydy',
+  three: 'Nid wyf yn gwybod',
+  continue: 'Parhau',
   errors: {
     detailsKnown: {
-      required: 'Enter your details known',
+      required: 'Rhowch eich manylion hysbys',
     },
   },
 };

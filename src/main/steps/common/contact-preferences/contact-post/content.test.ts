@@ -8,7 +8,7 @@ jest.mock('../../../../app/form/validation');
 let caseNumber;
 
 const en = {
-  caption: `Case number #${caseNumber}`,
+  caption: `Case number ${caseNumber}`,
   title: 'Contact Preferences',
   subTitle: 'Personal details',
   continue: 'Submit',
@@ -17,27 +17,37 @@ const en = {
     'You will no longer receive updates by email. You can still access previous updates through your dashboard.',
   ],
   warningText: 'Make sure that your contact details are up to date.',
+  address: 'Address',
+  change: 'Change',
+  addressLowerCase: 'address',
 };
 
 const cy = {
-  caption: `Case number - welsh #${caseNumber}`,
-  title: 'Contact Preferences -welsh',
-  subTitle: 'Personal details -welsh',
-  continue: 'Submit - welsh',
+  caption: `Rhif yr achos ${caseNumber}`,
+  title: 'Dewisiadau Cyswllt',
+  subTitle: 'Manylion personol',
+  continue: 'Cyflwyno',
   textList: [
-    'You have decided to receive updates by post. -welsh',
-    'You will no longer receive updates by email. You can still access previous updates through your dashboard. -welsh',
+    'Rydych wedi penderfynu cael diweddariadau drwy’r post.',
+    'Ni fyddwch yn cael diweddariadau drwy e-bost o hyn ymlaen. Gallwch dal weld diweddariadau blaenorol yn eich dangosfwrdd',
   ],
-  warningText: 'Make sure that your contact details are up to date. -welsh',
+  warningText: 'Sicrhewch fod eich manylion cyswllt yn gyfredol.',
+  address: 'Cyfeiriad',
+  change: 'Newid',
+  addressLowerCase: 'cyfeiriad',
 };
 
 describe('contact email common content', () => {
   const commonContent = {
     language: 'en',
+    userIdamId: '123',
     userCase: {
       applicants: [
         {
           value: {
+            user: {
+              idamId: '123',
+            },
             address: {
               AddressLine1: 'test',
               AddressLine2: 'test line 2',

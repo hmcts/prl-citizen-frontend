@@ -68,6 +68,8 @@ export const enContent = {
   continue: 'Accept and continue',
   Yes: 'Yes',
   No: 'No',
+  yes: 'Yes',
+  no: 'No',
   'Dont know': 'Dont know',
   'I dont know': 'I dont know',
   'Yes, but I prefer that it is supervised': 'Yes, but I prefer that it is supervised',
@@ -94,9 +96,9 @@ export const enContent = {
       'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
     inset: '',
     insetTextPayAndSubmit:
-      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Pay and submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
+      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Pay and submit your application' to complete your online application.</p>",
     insetTextSubmit:
-      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Submit your application' to complete your online application.</p><p>You can download a copy of your submitted application in PDF format using the link provided.</p>",
+      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Submit your application' to complete your online application.</p>",
     check: 'I believe that the facts stated in this application are true',
     lastPara:
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
@@ -205,7 +207,7 @@ export const cyContent = {
   digital: 'Digidol',
   post: 'Drwy’r post',
   address: 'Cyfeiriad',
-  telephone: 'Rhif ffôn',
+  telephone: 'Ffôn',
   email: 'E-bost',
   Male: 'Gwryw',
   Female: 'Benyw',
@@ -216,9 +218,9 @@ export const cyContent = {
       'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
     inset: '',
     insetTextPayAndSubmit:
-      ' <p>Unwaith y byddwch yn cyflwyno’ch cais, ni allwch wneud unrhyw newidiadau pellach. Dewiswch cadw a dychwelyd yn nes ymlaen i gadw eich cais, neu dewiswch Talu a chyflwyno eich cais i gwblhau eich cais ar-lein.</p><p>Gallwch lwytho copi o’r cais i lawr mewn fformat PDF gan ddefnyddio’r ddolen.</p>',
+      ' <p>Unwaith y byddwch yn cyflwyno’ch cais, ni allwch wneud unrhyw newidiadau pellach. Dewiswch cadw a dychwelyd yn nes ymlaen i gadw eich cais, neu dewiswch Talu a chyflwyno eich cais i gwblhau eich cais ar-lein.</p>',
     insetTextSubmit:
-      '<p>Unwaith y byddwch yn cyflwyno’ch cais, ni allwch wneud unrhyw newidiadau pellach. Dewiswch ‘Cadw a dychwelyd yn hwyrach ymlaen’ i gadw eich cais, neu dewiswch ‘Cyflwyno eich cais’ i gwblhau eich cais ar-lein.</p><p>Gallwch ddefnyddio’r ddolen a ddarparwyd i chi i lawrlwytho copi PDF o’r cais yr ydych wedi’i gyflwyno.</p>',
+      "<p>Unwaith y byddwch yn cyflwyno’ch cais, ni allwch wneud unrhyw newidiadau pellach. Dewiswch ‘Cadw'r cais a dychwelyd ato yn hwyrach ymlaen’ i gadw eich cais, neu dewiswch ‘Cyflwyno eich cais’ i gwblhau eich cais ar-lein.</p>",
     check: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir',
     lastPara:
       'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
@@ -319,6 +321,8 @@ export const cyContent = {
     doTranslation: {
       Yes: 'Do',
       No: 'Naddo',
+      yes: 'Do',
+      no: 'Naddo',
     },
     ydwTranslation: {
       Yes: 'Ydw',
@@ -332,6 +336,9 @@ export const cyContent = {
     ydyTranslation: {
       Yes: 'Ydy',
       No: 'Nac ydy',
+      yes: 'Ydy',
+      no: 'Nac ydy',
+      dontKnow: 'Nid wyf yn gwybod',
     },
     ydwSpecial: {
       Yes: 'Ydw',
@@ -343,15 +350,43 @@ export const cyContent = {
       Yes: 'Gallai',
       No: 'Na allai',
     },
+    gallaiTranslation1: {
+      Yes: 'Gallai',
+      No: 'Na allai',
+    },
     oesSpecial: {
       Yes: 'Oes',
       No: 'Nac oes',
       'Yes, I need help with paying the fee': 'Oes, rwyf eisiau help i dalu’r ffi',
-      'No, I do not need help': 'Nac oes, ni wyf eisiau help',
+      'No, I do not need help': 'Nac oes, nid wyf eisiau help',
+    },
+    oeddTranslation: {
+      Yes: 'Oedd',
+      No: 'Nac oedd',
+    },
+    parentalTranslation: {
+      Mother: 'Mam',
+      Father: 'Tad',
+      Other: 'Arall',
+    },
+    personalDetails: {
+      Email: 'E-bost',
+      'Telephone number': 'Rhif ffôn',
+      'I dont know their email address': 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
+      'I dont know their telephone number': 'Nid wyf yn gwybod beth yw eu rhif ffôn',
+    },
+    ydyntTranslationResp: {
+      yes: 'Ydynt',
+      no: 'Nac ydynt',
+      dontKnow: 'Ddim yn gwybod',
     },
     ieTranslation: {
       Yes: 'Ie',
       No: 'Na',
+    },
+    byddwnTranslation: {
+      Yes: 'Byddwn',
+      No: 'Na fyddwn',
     },
   },
 };

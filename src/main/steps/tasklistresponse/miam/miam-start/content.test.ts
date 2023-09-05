@@ -13,8 +13,6 @@ const enContent = {
   three: "I don't know",
   miamDetailsLabel: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
   miamSubFields: miam_collapse_content_en,
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
   onlyContinue: 'Continue',
   errors: {
     miamStart: {
@@ -24,18 +22,16 @@ const enContent = {
 };
 
 const cyContent = {
-  title: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
-  one: 'Yes',
-  two: 'No',
-  three: "I don't know",
-  miamDetailsLabel: 'What is a Mediation Information and Assessment Meeting (MIAM)?',
+  title: 'A ydych chi wedi mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)?',
+  one: 'Do',
+  two: 'Naddo',
+  three: 'Nid wyf yn gwybod',
+  miamDetailsLabel: 'Beth yw Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)?',
   miamSubFields: miam_collapse_content_cy,
-  threeHint: 'This is a 8 character code',
-  summaryText: 'Contacts for help',
-  onlyContinue: 'Continue',
+  onlyContinue: 'Parhau',
   errors: {
     miamStart: {
-      required: 'Select yes if you have attended a Mediation Information and Assessment Meeting (MIAM)',
+      required: 'Dewiswch do os ydych chi wedi mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
     },
   },
 };
@@ -56,7 +52,6 @@ describe('citizen-home content', () => {
   test('should return correct english content', () => {
     expect(generatedContent.title).toEqual('Have you attended a Mediation Information and Assessment Meeting (MIAM)?');
     expect(generatedContent.miamDetailsLabel).toEqual('What is a Mediation Information and Assessment Meeting (MIAM)?');
-    expect(generatedContent.summaryText).toEqual('Contacts for help');
     expect(generatedContent.one).toEqual('Yes');
     expect(generatedContent.two).toEqual('No');
   });
