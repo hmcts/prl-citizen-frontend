@@ -21,6 +21,7 @@ module.exports = {
   },
    async enterRespondentDetails() {
     await I.retry(retryCount).waitForText(RespondentDetails.enterRespondentDetailsPageTitle , 30);
+    await I.wait('2');
     await I.retry(retryCount).fillField(this.fields.firstNameField, RespondentDetails.firstName);
     await I.retry(retryCount).fillField(this.fields.lastNameField, RespondentDetails.lastName);
     await I.wait('2');

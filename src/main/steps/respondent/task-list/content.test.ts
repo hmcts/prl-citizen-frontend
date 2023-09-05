@@ -46,7 +46,7 @@ const enContent = {
   ],
 };
 const cyContent = {
-  title: 'Respondent tasklist - welsh',
+  title: 'Rhestr Tasgau’r Atebydd',
   respondentName: ' ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
@@ -55,7 +55,7 @@ const cyContent = {
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
-    [SectionStatus.VIEW]: 'VIEW (in Welsh)',
+    [SectionStatus.VIEW]: 'GWELD',
     [SectionStatus.OPTIONAL]: 'Optional - welsh',
   },
   sectionTitles: respondent_cy,
@@ -63,11 +63,11 @@ const cyContent = {
   iWantTo: 'Rwyf eisiau ...',
   hyperlinks: [
     {
-      label: 'Add a legal representative-welsh',
+      label: 'Ychwanegu cynrychiolydd cyfreithiol',
       link: '/respondent/add-legal-representative',
     },
     {
-      label: 'Find my local court-welsh',
+      label: 'Dod o hyd i fy llys lleol',
       link: '#',
     },
     {

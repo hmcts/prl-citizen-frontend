@@ -6,7 +6,7 @@ import { generateContent } from '../task-list/content';
 
 describe('testcase for tasklist', () => {
   const en = {
-    caseNumber: 'Case number #',
+    caseNumber: 'Case number ',
     hyperlinks: [
       {
         label: 'Add a legal representative',
@@ -118,17 +118,12 @@ describe('testcase for tasklist', () => {
   };
   const cy = {
     title: 'Trefniadau plant a gwaharddebau teulu',
-    caseNumber: 'Rhif yr achos #',
+    caseNumber: 'Rhif yr achos ',
     iWantTo: 'Rwyf eisiau...',
     hyperlinks: [
       {
-        label: 'Add a legal representative - welsh',
+        label: 'Ychwanegu cynrychiolydd cyfreithiol',
         link: '/applicant/add-legal-representative',
-        target: '',
-      },
-      {
-        label: 'Remove a legal representative - welsh',
-        link: '/applicant/remove-legal-representative/start',
         target: '',
       },
       {
@@ -233,8 +228,8 @@ describe('testcase for tasklist', () => {
         ],
       },
     ],
-    addLegalRepresentative: 'Add a legal representative-welsh',
-    removeLegalRepresentative: 'Remove a legal representative-welsh',
+    addLegalRepresentative: 'Ychwanegu cynrychiolydd cyfreithiol',
+    removeLegalRepresentative: 'Dileu cynrychiolydd cyfreithiol',
   };
   const commonContent = {
     language: 'en',

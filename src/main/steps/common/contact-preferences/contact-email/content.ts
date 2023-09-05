@@ -7,7 +7,7 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/For
 import { interpolate } from '../../../../steps/common/string-parser';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  caption: 'Case number #{caseNumber}',
+  caption: 'Case number {caseNumber}',
   title: 'Contact Preferences',
   subTitle: 'Personal details',
   text: 'You have decided to receive updates by email. You will still receive some information by post.',
@@ -19,7 +19,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  caption: 'Rhif yr achos #{caseNumber}',
+  caption: 'Rhif yr achos {caseNumber}',
   title: 'Dewisiadau Cyswllt',
   subTitle: 'Manylion personol',
   text: 'Rydych wedi penderfynu cael diweddariadau drwy e-bost. Byddwch yn dal i gael rhywfaint o wybodaeth drwy’r post.',

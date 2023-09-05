@@ -7,7 +7,7 @@ import { document_list_cy, document_list_en } from './section-titles';
 import { documents_list_items_cy, documents_list_items_en } from './upload-document-list-items';
 const enContent = {
   section: 'Upload documents',
-  caseNumber: 'Case Number #',
+  caseNumber: 'Case Number ',
   title: 'Select the type of document',
   line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
   sectionTitles: document_list_en,
@@ -15,7 +15,7 @@ const enContent = {
 };
 const cyContent = {
   section: 'Llwytho dogfennau',
-  caseNumber: 'Rhif yr achos #',
+  caseNumber: 'Rhif yr achos ',
   title: 'Dewiswch y math o ddogfen',
   line1: 'Os yw’r llys wedi gofyn i chi gyflwyno tystiolaeth bellach, gallwch lwytho dogfennau yma.',
   sectionTitles: document_list_cy,

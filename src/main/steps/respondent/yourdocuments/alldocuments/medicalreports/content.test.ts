@@ -13,7 +13,7 @@ const enContent = {
 const cyContent = {
   section: 'Pob dogfen',
   title: 'Adroddiadau meddygol',
-  threeHint: 'This is a 8 character code (welsh)',
+  threeHint: 'Mae hwn yn god 8 nod',
   summaryText: 'Cysylltiadau am gymorth',
   caseNumber: 'Rhif yr achos',
   continue: 'Yn ôl',
@@ -51,8 +51,34 @@ describe('citizen-home content', () => {
         },
       ],
     },
-  } as CommonContent;
-  const commonContent2 = { language: 'en' } as CommonContent;
+    additionalData: {
+      req: {
+        session: {
+          applicationSettings: {
+            docToView: {
+              docType: 'medicalreports',
+              uploadedBy: 'respondent',
+            },
+          },
+        },
+      },
+    },
+  } as unknown as CommonContent;
+  const commonContent2 = {
+    language: 'en',
+    additionalData: {
+      req: {
+        session: {
+          applicationSettings: {
+            docToView: {
+              docType: 'medicalreports',
+              uploadedBy: 'respondent',
+            },
+          },
+        },
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent, generatedContent2;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);

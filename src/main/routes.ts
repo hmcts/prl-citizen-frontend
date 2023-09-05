@@ -18,6 +18,8 @@ import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
+import ApplicantTaskListGetController from './steps/applicant/task-list/get';
+import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
 import UploadDocumentController from './steps/application-within-proceedings/document-upload/postController';
 import { processAWPApplication } from './steps/application-within-proceedings/utils';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
@@ -28,6 +30,7 @@ import { KeepDetailsPrivatePostController } from './steps/common/keep-details-pr
 import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
+import { HearingsGetController } from './steps/common/yourhearings/hearings/HearingsGetController';
 import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
@@ -125,11 +128,13 @@ import {
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_TASKLIST_CONTACT_EMAIL,
   APPLICANT_TASKLIST_CONTACT_POST,
+  RESPONDENT_YOURHEARINGS_HEARINGS,
+  APPLICANT_YOURHEARINGS_HEARINGS,
   RESPONSE_TO_CA,
   AOH_TO_CA,
   APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD,
   APPLICATION_WITHIN_PROCEEDINGS_PAYMENT_CALLBACK,
-  //C100_DOCUMENT_SUBMISSION,
+  VIEW_DOCUMENT_URL,
 } from './steps/urls';
 
 export class Routes {
@@ -168,17 +173,20 @@ export class Routes {
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().load));
+    app.get(APPLICANT_TASK_LIST_URL, errorHandler(new ApplicantTaskListGetController().load));
     //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
     app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
     app.get(C100_RETRIVE_CASE, errorHandler(new GetCaseController().getC100ApplicantCase));
     app.get(C100_DOWNLOAD_APPLICATION, errorHandler(new ApplicationDownloadController().download));
-
+    app.get(VIEW_DOCUMENT_URL, errorHandler(new AllDocumentsGetController().get));
     //Tasklist event common get controller routes
     app.get(
       `${RESPONDENT_DETAILS_KNOWN}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_RESPONDENT).get)
     );
+    app.get(`${RESPONDENT_YOURHEARINGS_HEARINGS}/:caseId`, errorHandler(new HearingsGetController().get));
+    app.get(`${APPLICANT_YOURHEARINGS_HEARINGS}/:caseId`, errorHandler(new HearingsGetController().get));
     app.get(
       `${APPLICANT_DETAILS_KNOWN}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.KEEP_DETAILS_PRIVATE_APPLICANT).get)

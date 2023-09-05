@@ -56,7 +56,7 @@ describe('Document upload controller', () => {
     const res = mockResponse();
     await controller.post(req, res);
 
-    expect(res.redirect).toHaveBeenCalledWith('/citizen-home');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('Should not call redirect if no onlycontinue', async () => {
