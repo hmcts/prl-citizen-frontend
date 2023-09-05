@@ -635,7 +635,7 @@ export const APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER: PageLink = `${APP
 export const APPLICATION_WITHIN_PROCEEDINGS_PAYMENT_CALLBACK: PageLink =
   '/payment-callback/awp/:type/:reason/:paymentId/:status';
 
-export const ANONYMOUS_URLS = [HEALTH_URL, CITIZEN_HOME_URL, ...SCREENING_QUESTIONS];
+export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
 export const LOCAL_API_SESSION = '/api/v1/session';
 export const SAFEGAURD_EXCLUDE_URLS = [
   C100_URL,
