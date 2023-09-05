@@ -13,6 +13,7 @@ import {
   CaseData,
   CaseType,
   FeeDetailsResponse,
+  PartyDetails,
   PartyType,
   State,
   YesOrNo,
@@ -434,6 +435,104 @@ describe('RetrieveCaseHearingsByCaseId', () => {
     let flag = true;
     try {
       await client.retrieveCaseHearingsByCaseId(userCase.id, req.session.user);
+    } catch {
+      flag = false;
+    }
+    expect(flag).toEqual(false);
+  });
+});
+
+describe('createAWPApplication', () => {
+  test('createAWPApplication', async () => {
+    const userCase: CaseWithId = {
+      id: '123445566',
+      awp_need_hwf: YesOrNo.YES,
+      awp_have_hwfReference: YesOrNo.YES,
+      awp_hwf_referenceNumber: 'MOCK_HWF_REFERENCE',
+      awp_completedForm: YesOrNo.YES,
+      awp_agreementForRequest: YesOrNo.NO,
+      awp_informOtherParties: YesOrNo.YES,
+      awp_reasonCantBeInformed: 'MOCK_REASON',
+      awp_uploadedApplicationForms: [
+        {
+          url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2',
+          filename: 'file_example_TIFF_1MB_V1.tiff',
+          binaryUrl:
+            'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2/binary',
+          hash: 'MOCK_HASH',
+          categoryId: '1',
+          createdDate: 'MOCK_DATE',
+        },
+      ],
+      awp_cancelDelayHearing: undefined,
+      awp_isThereReasonForUrgentRequest: YesOrNo.YES,
+      awp_urgentRequestReason: 'MOCK_REASON',
+      awp_hasSupportingDocuments: YesOrNo.YES,
+      awp_supportingDocuments: [
+        {
+          url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2',
+          filename: 'file_example_TIFF_1MB_V1.tiff',
+          binaryUrl:
+            'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2/binary',
+          hash: 'MOCK_HASH',
+          categoryId: '1',
+          createdDate: 'MOCK_DATE',
+        },
+      ],
+      state: State.AWAITING_SUBMISSION_TO_HMCTS,
+    };
+
+    const response = {
+      id: '200',
+      state: 'SUCCESS',
+      data: [
+        {
+          caseData: { id: '123445566' },
+          stateName: 'Draft',
+        },
+      ],
+    };
+    mockedAxios.post.mockReturnValueOnce(response as unknown as Promise<CaseWithId>);
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+
+    const partyDetails = { firstName: 'MOCK_FIRST_NAME', lastName: 'MOCK_LAST_NAME' } as PartyDetails;
+
+    const actual = await client.createAWPApplication(
+      req.session.user,
+      userCase,
+      'C2' as AWPApplicationType,
+      'request-more-time' as AWPApplicationReason,
+      'FL401' as PartyType,
+      partyDetails
+    );
+
+    expect(actual).toEqual([
+      {
+        caseData: { id: '123445566' },
+        stateName: 'Draft',
+      },
+    ]);
+  });
+
+  test('createAWPApplication throws error', async () => {
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    const userCase: CaseWithId = {
+      id: '',
+      state: State.AWAITING_SUBMISSION_TO_HMCTS,
+    };
+    req.session.user = {};
+    let flag = true;
+    try {
+      await client.createAWPApplication(
+        req.session.user,
+        userCase,
+        'C2' as AWPApplicationType,
+        'request-more-time' as AWPApplicationReason,
+        'FL401' as PartyType,
+        { firstName: undefined, lastName: 'MOCK_LAST_NAME' }
+      );
     } catch {
       flag = false;
     }

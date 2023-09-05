@@ -101,16 +101,6 @@ describe('testcase for tasklist', () => {
               label: 'In progress',
             },
           },
-          {
-            disabled: false,
-            href: '/application-within-proceedings/list-of-applications/1',
-            id: 'requestToCourtAboutYourCase',
-            linkText: 'Make a request to the court about your case',
-            stateTag: {
-              className: 'govuk-tag--blue',
-              label: 'Optional',
-            },
-          },
         ],
       },
     ]);
@@ -137,16 +127,6 @@ describe('testcase for tasklist', () => {
             stateTag: {
               className: 'govuk-tag--turquoise',
               label: 'Submitted',
-            },
-          },
-          {
-            disabled: false,
-            href: '/application-within-proceedings/list-of-applications/1',
-            id: 'requestToCourtAboutYourCase',
-            linkText: 'Make a request to the court about your case',
-            stateTag: {
-              className: 'govuk-tag--blue',
-              label: 'Optional',
             },
           },
         ],
