@@ -94,22 +94,7 @@ export const OPotherProceedingsSessionParserUtil = (UserCase, keys, URLS, sessio
         UserCase['otherProceedings']?.['order'].hasOwnProperty('contactOrdersForDivorce') ||
         UserCase['otherProceedings']?.['order'].hasOwnProperty('contactOrdersForAdoption')
       ) {
-        let orderDetails;
-        if (order === 'contactOrderForDivorce') {
-          orderDetails = UserCase['otherProceedings']?.['order']['contactOrdersForDivorce'];
-        } else if (order === 'contactOrderForAdoption') {
-          orderDetails = UserCase['otherProceedings']?.['order']['contactOrdersForAdoption'];
-        } else {
-          orderDetails = UserCase['otherProceedings']?.['order'][`${order}s`];
-        }
-        orderDetails.forEach((nestedOrder, index) => {
-          const IndexNumber = index > 0 ? index + 1 : '';
-          orderSessionStorage.push({
-            key: `${keys[order + 'Label']} ${IndexNumber}`,
-            valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language),
-            changeUrl: applyParms(URLS['PROCEEDINGS_ORDER_DETAILS'], { orderType: order }),
-          });
-        });
+        prepareOrderDetail(order, UserCase, orderSessionStorage, keys, language, URLS);
       }
     });
     return orderSessionStorage;
@@ -137,3 +122,29 @@ export const otherProceedingsContents = SystemLanguage => {
   };
   return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
 };
+/* eslint-disable @typescript-eslint/no-explicit-any*/
+function prepareOrderDetail(
+  order: any,
+  UserCase: any,
+  orderSessionStorage: { key: string; valueHtml: string; changeUrl: string }[],
+  keys: any,
+  language: any,
+  URLS: any
+) {
+  let orderDetails;
+  if (order === 'contactOrderForDivorce') {
+    orderDetails = UserCase['otherProceedings']?.['order']['contactOrdersForDivorce'];
+  } else if (order === 'contactOrderForAdoption') {
+    orderDetails = UserCase['otherProceedings']?.['order']['contactOrdersForAdoption'];
+  } else {
+    orderDetails = UserCase['otherProceedings']?.['order'][`${order}s`];
+  }
+  orderDetails.forEach((nestedOrder, index) => {
+    const IndexNumber = index > 0 ? index + 1 : '';
+    orderSessionStorage.push({
+      key: `${keys[order + 'Label']} ${IndexNumber}`,
+      valueHtml: IndividualOrderFieldsParser(keys, nestedOrder, language),
+      changeUrl: applyParms(URLS['PROCEEDINGS_ORDER_DETAILS'], { orderType: order }),
+    });
+  });
+}

@@ -33,8 +33,8 @@ const cyContent = {
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
-  yourResponse: 'Your response will be shared with the other people in this case. -welsh',
-  warning: 'Warning -welsh',
+  yourResponse: 'Bydd eich ymateb yn cael ei rannu gyda’r bobl eraill yn yr achos hwn',
+  warning: 'Rhybudd',
 };
 describe('task-list > content', () => {
   const commonContent = { language: 'en', userCase: mockUserCase } as CommonContent;
@@ -82,7 +82,7 @@ describe('task-list > content', () => {
           items: [
             {
               id: 'consent-to-the-application',
-              text: 'Do you consent to the application?',
+              text: 'Do you agree to the application?',
               status: 'TO_DO',
               href: '/tasklistresponse/consent-to-application/consent/1234567',
             },

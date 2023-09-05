@@ -1,9 +1,12 @@
 const defaultPassword = 'Nagoya0102';
+const defaultPassword2 = 'Password12';
 
 module.exports = {
   citizenFrontEnd: {
     email: 'prlcitizenfrontend-e2e@mailinator.com',
+    PRLCitizenEmail: 'familyprivatelaw@gmail.com',
     password: defaultPassword,
+    PRLCitizenPassword: defaultPassword2,
     caseCode: '1234567812345678',
     accessCode: '1234567y'
   },

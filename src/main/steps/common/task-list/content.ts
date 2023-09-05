@@ -14,7 +14,7 @@ import { checkPartyRepresentedBySolicitor, getPartyName } from './utils';
 
 const en = {
   title: 'Child arrangements and family injunction cases',
-  caseNumber: 'Case number #',
+  caseNumber: 'Case number ',
   iWantTo: 'I want to...',
   hyperlinks: [
     {
@@ -74,16 +74,16 @@ const en = {
 
 const cy = {
   title: 'Trefniadau plant a gwaharddebau teulu',
-  caseNumber: 'Rhif yr achos #',
+  caseNumber: 'Rhif yr achos ',
   iWantTo: 'Rwyf eisiau...',
   hyperlinks: [
     {
-      label: 'Add a legal representative - welsh',
+      label: 'Ychwanegu cynrychiolydd cyfreithiol',
       link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
       target: '',
     },
     {
-      label: 'Remove a legal representative - welsh',
+      label: 'Dileu cynrychiolydd cyfreithiol',
       link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
       target: '',
     },
@@ -128,8 +128,8 @@ const cy = {
       target: '_blank',
     },
   ],
-  addLegalRepresentative: 'Add a legal representative-welsh',
-  removeLegalRepresentative: 'Remove a legal representative-welsh',
+  addLegalRepresentative: 'Ychwanegu cynrychiolydd cyfreithiol',
+  removeLegalRepresentative: 'Dileu cynrychiolydd cyfreithiol',
 };
 
 export const languages = {

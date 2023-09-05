@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { SectionStatus, State } from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
-import { getViewAllOrdersFromTheCourt } from '../../../steps/respondent/task-list/utils';
+import { hasAnyHearing } from '../../../steps/respondent/task-list/tasklist';
+import {
+  getViewAllHearingsFromTheCourt,
+  getViewAllOrdersFromTheCourt,
+} from '../../../steps/respondent/task-list/utils';
 import * as URL from '../../urls';
 
 import {
-  getApplicantViewAllHearingsFromTheCourt,
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
   getSupportYourNeedsDetails,
@@ -63,8 +66,12 @@ export const generateApplicantTaskList = (
         {
           id: 'check-details-of-your-court-hearings',
           text: taskListItems.details_of_court_hearings,
-          status: getApplicantViewAllHearingsFromTheCourt(userCase),
-          href: URL.APPLICANT_YOURHEARINGS_HEARINGS,
+          status: getViewAllHearingsFromTheCourt(userCase),
+          href:
+            getViewAllHearingsFromTheCourt(userCase) === 'READY_TO_VIEW'
+              ? `${URL.APPLICANT_YOURHEARINGS_HEARINGS}/${userCase.id}`
+              : '#',
+          disabled: !hasAnyHearing(userCase),
         },
       ],
     },
@@ -96,7 +103,8 @@ export const generateApplicantTaskList = (
           id: 'view-all-orders-from-the-court',
           text: taskListItems.view_all_orders_from_the_court,
           status: getViewAllOrdersFromTheCourt(userCase),
-          href: getViewAllOrdersFromTheCourt(userCase) === 'READY_TO_VIEW' ? URL.APPLICANT_ORDERS_FROM_THE_COURT : '#',
+          href:
+            getViewAllOrdersFromTheCourt(userCase) === 'READY_TO_VIEW' ? `${URL.APPLICANT_ORDERS_FROM_THE_COURT}` : '#',
         },
       ],
     },

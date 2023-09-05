@@ -16,7 +16,7 @@ const enContent = {
 const cyContent = {
   section: 'Pob dogfen',
   title: 'Profion cyffuriau ac alcohol (tocsicoleg)',
-  threeHint: 'This is a 8 character code (welsh)',
+  threeHint: 'Mae hwn yn god 8 nod',
   summaryText: 'Cysylltiadau am gymorth',
   caseNumber: 'Rhif yr achos',
   continue: 'Yn ôl',
@@ -25,7 +25,21 @@ const cyContent = {
 jest.mock('../../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('citizen-home content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        session: {
+          applicationSettings: {
+            docToView: {
+              docType: 'drugalcoholtests',
+              uploadedBy: 'applicant',
+            },
+          },
+        },
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   //let form;
   //let fields;

@@ -10,9 +10,10 @@ Scenario('C100 Rebuild - draft consent flow @master @nightly',  async ({ I }) =>
    await I.draftConsentOrder();
    await I.urgencyWithoutNotice();
    await I.childrenDetails();
+   await I.noOtherChild();
    await I.applicantDetails();
    await I.respondentDetails();
-   await I.otherPersonDetails();
+   await I.withoutOtherPerson();
    await I.otherProceedings();
    await I.safetyConcerns();
    await I.internationElements();

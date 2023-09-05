@@ -110,3 +110,4 @@ export const PARKING_SPACE = 'parkingspace';
 export const DIFFERENT_CHAIR = 'differentchair';
 export const NO_SUPPORT = 'nosupport';
 export const NO_INTERPRETER = 'nointerpreter';
+export const INVALID_DATE = 'Invalid Date';

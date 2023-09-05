@@ -17,5 +17,5 @@ export const applicant_cy = {
   ordersFromTheCourt: 'Gorchmynion gan y llys',
   courtHearings: 'Eich gwrandawiadau llys',
   yourDocuments: 'Eich dogfennau',
-  theResponse: 'response',
+  theResponse: 'ymateb',
 };

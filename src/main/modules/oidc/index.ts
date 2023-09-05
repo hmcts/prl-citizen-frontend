@@ -7,12 +7,13 @@ import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
+import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   ANONYMOUS_URLS,
   C100_URL,
   CALLBACK_URL,
-  CITIZEN_HOME_URL,
   DASHBOARD_URL,
+  SAFEGAURD_EXCLUDE_URLS,
   SCREENING_QUESTIONS,
   SIGN_IN_URL,
   SIGN_OUT_URL,
@@ -54,11 +55,7 @@ export class OidcMiddleware {
             req.session.save(() => res.redirect(DASHBOARD_URL));
           }
         } else {
-          if (!req.session?.accessCodeLoginIn) {
-            res.redirect(CITIZEN_HOME_URL);
-          } else {
-            res.redirect(SIGN_IN_URL);
-          }
+          res.redirect(SIGN_IN_URL);
         }
       })
     );
@@ -112,6 +109,13 @@ export class OidcMiddleware {
             }
 
             if (req.session.userCase) {
+              const partyType = getCasePartyType(req.session.userCase, req.session.user.id);
+              if (
+                !SAFEGAURD_EXCLUDE_URLS.some(_url => req.path.startsWith(_url)) &&
+                !req.path.split('/').includes(partyType)
+              ) {
+                return res.redirect(DASHBOARD_URL);
+              }
               if (req.session.accessCodeLoginIn) {
                 try {
                   const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');

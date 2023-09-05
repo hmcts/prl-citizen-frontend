@@ -171,6 +171,12 @@ describe('testcase for tasklist', () => {
               document_binary_url: 'string',
               document_hash: 'string',
             },
+            orderDocumentWelsh: {
+              document_url: 'string',
+              document_filename: 'string',
+              document_binary_url: 'string',
+              document_hash: 'string',
+            },
             otherDetails: {
               createdBy: 'string',
               orderCreatedDate: 'string',
@@ -187,6 +193,40 @@ describe('testcase for tasklist', () => {
           hearingTypeValue: 'Finding of Fact',
           nextHearingDate: '2023-07-13T10:55:47.329703',
           urgentFlag: true,
+          hearingID: 2000006135,
+          hearingRequestDateTime: '2023-07-11T16:07:21.253071',
+          hearingType: 'ABA5-FOF',
+          hmcStatus: 'LISTED',
+          lastResponseReceivedDateTime: '2023-07-11T16:41:37',
+          requestVersion: 1,
+          hearingListingStatus: 'FIXED',
+          listAssistCaseStatus: 'LISTED',
+          hearingDaySchedule: [
+            {
+              hearingStartDateTime: '2023-08-03T09:00:00',
+              hearingEndDateTime: '2023-08-03T12:00:00',
+              listAssistSessionId: null,
+              hearingVenueId: '234946',
+              hearingVenueName: 'Swansea Civil And Family Justice Centre',
+              hearingVenueLocationCode: '344',
+              hearingVenueAddress: 'Quay West, Quay Parade',
+              hearingRoomId: 'Courtroom 01',
+              hearingJudgeId: '',
+              hearingJudgeName: null,
+              panelMemberIds: [],
+              attendees: [
+                {
+                  partyID: 'f2847b15-dbb8-4df0-868a-420d9de11d29',
+                  hearingSubChannel: 'VID',
+                },
+              ],
+            },
+          ],
+          hearingGroupRequestId: null,
+          hearingIsLinkedFlag: false,
+          hearingTypeValue: 'Finding of Fact',
+          nextHearingDate: '2023-08-02T09:00:00',
+          urgentFlag: false,
         },
       ],
     };
@@ -316,7 +356,7 @@ describe('testcase for tasklist', () => {
         tasks: [
           {
             disabled: false,
-            href: '/applicant/yourhearings/hearings',
+            href: '/applicant/yourhearings/hearings/12',
             id: 'viewHearingDetails',
             linkText: 'Check details of your court hearings',
             stateTag: {
@@ -458,13 +498,13 @@ describe('testcase for tasklist', () => {
         id: 'yourHearing',
         tasks: [
           {
-            disabled: false,
-            href: '/applicant/yourhearings/hearings',
+            disabled: true,
+            href: '/applicant/yourhearings/hearings/12',
             id: 'viewHearingDetails',
             linkText: 'Check details of your court hearings',
             stateTag: {
-              className: 'govuk-tag--blue',
-              label: 'Ready to view',
+              className: 'govuk-tag--grey',
+              label: 'Not available yet',
             },
           },
         ],

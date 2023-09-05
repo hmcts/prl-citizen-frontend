@@ -62,6 +62,16 @@ describe('CosApiClient', () => {
     expect(actual).toEqual(response);
   });
 
+  test('getHearingsByCaseID', async () => {
+    const response = { id: '200', state: 'SUCCESS' };
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<any>);
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    const actual = await client.retrieveCaseHearingsByCaseId(req.session.user, '123456');
+    expect(actual).toEqual(response);
+  });
+
   test('submitRespondentResponse', async () => {
     const response = { id: '200', state: 'SUCCESS' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
