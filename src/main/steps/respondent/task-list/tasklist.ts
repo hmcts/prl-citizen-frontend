@@ -69,7 +69,11 @@ export const generateRespondentTaskList = (
           id: 'check_details_of_your_court_hearings',
           text: taskListItems.check_details_of_your_court_hearings,
           status: getViewAllHearingsFromTheCourt(userCase),
-          href: URL.RESPONDENT_YOURHEARINGS_HEARINGS,
+          href:
+            getViewAllHearingsFromTheCourt(userCase) === 'READY_TO_VIEW'
+              ? URL.RESPONDENT_YOURHEARINGS_HEARINGS + '/' + userCase.id
+              : '#',
+          disabled: !hasAnyHearing(userCase),
         },
       ],
     },
@@ -105,6 +109,9 @@ export const generateRespondentTaskList = (
     },
   ];
 };
+
+export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean =>
+  !!(caseData?.hearingCollection && caseData?.hearingCollection?.length >= 1);
 
 const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamId) => {
   const itemList: object[] = [];

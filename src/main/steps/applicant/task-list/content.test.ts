@@ -46,7 +46,7 @@ const enContent = {
   ],
 };
 const cyContent = {
-  title: 'Applicant tasklist',
+  title: 'Rhestr Tasgau’r Ceisydd',
   caseNumber: 'Rhif yr achos ',
   statuses: {
     [SectionStatus.COMPLETED]: 'Wedi’i gwblhau',
@@ -62,15 +62,15 @@ const cyContent = {
   iWantTo: 'Rwyf eisiau ...',
   hyperlinks: [
     {
-      label: 'Add a legal representative-welsh',
+      label: 'Ychwanegu cynrychiolydd cyfreithiol',
       link: '/applicant/add-legal-representative',
     },
     {
-      label: 'Find my local court-welsh',
+      label: 'Dod o hyd i fy llys lleol',
       link: '#',
     },
     {
-      label: 'Find legal advice-welsh',
+      label: 'Dod o hyd i gyngor cyfreithiol',
       link: '#',
     },
     {
@@ -168,10 +168,11 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/yourhearings/hearings',
+              href: '#',
               id: 'check-details-of-your-court-hearings',
-              status: SectionStatus.TO_DO,
+              status: SectionStatus.NOT_AVAILABLE_YET,
               text: 'Check details of your court hearings',
+              disabled: true,
             },
           ],
           title: 'Your court hearings',
@@ -247,10 +248,11 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/yourhearings/hearings',
+              href: '#',
               id: 'check-details-of-your-court-hearings',
-              status: SectionStatus.TO_DO,
+              status: SectionStatus.NOT_AVAILABLE_YET,
               text: 'Check details of your court hearings',
+              disabled: true,
             },
           ],
           title: 'Your court hearings',

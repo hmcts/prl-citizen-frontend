@@ -26,6 +26,7 @@ describe('RespondentTaskListGetController', () => {
         userCase: {
           ...mockUserCase,
           caseTypeOfApplication: 'C100',
+          hearingCollection: [],
           applicants: [
             {
               id: '',

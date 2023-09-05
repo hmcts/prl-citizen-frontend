@@ -907,6 +907,8 @@ export interface CaseData {
   welshLanguageRequirementApplicationNeedEnglish: string;
   orderCollection: ListValue<PRLDocument>[];
   hearingCollection?: HearingsList[];
+  futureHearings?: HearingsList[];
+  completedHearings?: HearingsList[];
   documentsGenerated: ListValue<PRLDocument>[];
   respondentName: string;
   finalDocument?: Document;
@@ -2038,7 +2040,7 @@ export const enum State {
   CASE_SUBMITTED_PAID = 'SUBMITTED_PAID',
   CASE_SUBMITTED_NOT_PAID = 'SUBMITTED_NOT_PAID',
   CASE_ISSUED_TO_LOCAL_COURT = 'CASE_ISSUE',
-  CASE_GATE_KEEPING = 'GATE_KEEPING',
+  CASE_GATE_KEEPING = 'JUDICIAL_REVIEW',
   CASE_CLOSED = 'ALL_FINAL_ORDERS_ISSUED',
   CASE_SERVED = 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
   CASE_WITHDRAWN = 'CASE_WITHDRAWN',
@@ -2336,6 +2338,10 @@ export const enum LanguagePreference {
   ENGLISH = 'ENGLISH',
   WELSH = 'WELSH',
 }
+export const enum SessionLanguage {
+  ENGLISH = 'en',
+  WELSH = 'cy',
+}
 
 export interface OtherName {
   id?: string;
@@ -2410,10 +2416,12 @@ export interface PRLDocument {
   dateCreated: DateAsString;
   orderType: string;
   orderDocument: Document;
+  orderDocumentWelsh: Document;
   otherDetails: OtherDetails;
   orderTypeId?: string;
   isWithdrawnRequestApproved?: YesOrNo
   withdrawnRequestType?: string;
+  selectedHearingType?: string | null;
 }
 
 export interface HearingsList {
@@ -2432,7 +2440,41 @@ export interface HearingsList {
   hearingTypeValue?: string,
   urgentFlag?: boolean,
 }
-interface Schedules {
+
+export interface Hearing{
+  dates : string,
+  lengthOfHearing : number | undefined,
+  hearingMethod: string ,
+  hearingDaySchedule: hearingDay[],
+}
+
+export interface hearingDay{
+  hearingDate: string,
+  startTime: string,
+  amPm:string,
+  durationInDayOrHours:number,
+  minutes:number,
+  judgeName:string | null | undefined,
+  venue:string | null | undefined,
+  address:string | null | undefined,
+  roomId:string | null | undefined,
+}
+
+export interface CompletedHearings{
+  hearingId: Number | undefined,
+  dates: string,
+  lengthOfHearing: number | undefined,
+  hearingMethod: string,
+}
+
+export interface HearingOrders{
+  href: string,
+  createdDate: string,
+  fileName: string,
+  id: Number,
+}
+
+export interface Schedules {
   hearingStartDateTime?: string | null,
   hearingEndDateTime?: string | null,
   listAssistSessionId?: Number | string | null,
@@ -2445,12 +2487,15 @@ interface Schedules {
   hearingJudgeName?: string | null,
   panelMemberIds?: string[] | Number[] | null,
   attendees?: Attendee[] | null,
+  hearingTypeValue?: string,
+  nextHearingDate?: string | null ,
 
 }
- interface Attendee {
+export interface Attendee {
   partyID?: string,
-  hearingSubChannel?: string,
+  hearingSubChannel?: string | null,
 }
+
 export interface Hearings {
   date?: string;
   time?: string;
@@ -3095,6 +3140,9 @@ export enum AWPApplicationReason{
   REQUEST_FOR_ARREST_WARRENT = 'request-the-court-issues-an-arrest-warrant',
 
 }
+export enum hearingStatus {
+  COMPLETED = 'COMPLETED',
+} 
 
 export enum passportPossessionRelative {
   MOTHER = 'mother',
@@ -3116,4 +3164,21 @@ export interface FeeDetailsResponse {
   feeAmountText: string;
   feeType: string;
   errorRetrievingResponse?: string;
+}
+export enum DocType {
+  POSITION_STATEMENTS = 'positionstatements',
+  YOUR_WITNESS_STATEMENTS = 'yourwitnessstatements',
+  LETTERS_FROM_SCHOOL = 'lettersfromschool',
+  DIGITAL_DOWNLOADS = 'digitaldownloads',
+  MEDICAL_RECORDS = 'medicalrecords',
+  PATERNITY_TEST_REPORTS = 'paternitytestreports',
+  DRUG_ALCOHOL_TESTS = 'drugalcoholtests',
+  POLICE_REPORTS = 'policedisclosures',
+  WITNESS_AVAILABILITY = 'witnessavailability',
+  TENANCY_AND_MORTGAGE_AVAILABILITY = 'tenancyandmortgageavailability',
+  MEDICAL_REPORTS = 'medicalreports',
+  OTHER_DOCUMENTS = 'otherDocuments',
+  PREVIOUS_ORDERS = 'previousorders',
+  OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
+  MIAM_CERTIFICATE = 'miamcertificate',
 }

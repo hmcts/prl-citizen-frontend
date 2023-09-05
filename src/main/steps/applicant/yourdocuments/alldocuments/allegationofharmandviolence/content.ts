@@ -14,8 +14,8 @@ const en = () => {
 const cy: typeof en = () => {
   return {
     section: 'Pob dogfen',
-    title: 'Allegation of harm and violence-welsh',
-    threeHint: 'This is a 8 character code-welsh',
+    title: 'Honiad o niwed a thrais',
+    threeHint: 'Mae hwn yn god 8 nod',
     summaryText: 'Cysylltiadau cymorth',
     caseNumber: 'Rhif yr achos',
     continue: 'Yn ôl',

@@ -22,7 +22,7 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Child arrangements - welsh',
+  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   headingTitle: 'Am bwy ydych chi’n poeni amdano/amdani?',
   select_all_relevant: "Dewiswch bob opsiwn sy'n berthnasol i'ch sefyllfa.",
@@ -30,7 +30,7 @@ const cy = {
   yourself: 'Chi eich hun',
   errors: {
     PRL_c1A_safetyConernAbout: {
-      required: 'Specify who you are concerned about - welsh',
+      required: 'Nodwch am bwy ydych chi’n pryderu amdano/i',
     },
   },
 };
