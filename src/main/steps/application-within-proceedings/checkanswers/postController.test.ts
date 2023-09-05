@@ -173,6 +173,6 @@ describe('AWPCheckAnswersPostController controller', () => {
     await controller.post(awpRequest, res);
 
     expect(awpRequest.session.save).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith('/citizen-home');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 });
