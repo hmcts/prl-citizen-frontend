@@ -186,6 +186,7 @@ describe('applicationWithinProceedingsSequence', () => {
         params: { ...req.params, applicationReason: AWPApplicationReason.PROHIBITED_STEPS_ORDER },
       })
     ).toBe('/application-within-proceedings/C2/prohibited-steps-order/urgent-request');
+
     expect(applicationWithinProceedingsSequence[14].url).toBe(
       '/application-within-proceedings/:applicationType/:applicationReason/supporting-document-upload/:removeId?'
     );
@@ -194,7 +195,7 @@ describe('applicationWithinProceedingsSequence', () => {
       '/application-within-proceedings/C2/delay-or-cancel-hearing-date/checkanswers'
     );
     expect(
-      applicationWithinProceedingsSequence[13].getNextStep(userCase, {
+      applicationWithinProceedingsSequence[14].getNextStep(userCase, {
         ...req,
         params: { ...req.params, applicationReason: AWPApplicationReason.PROHIBITED_STEPS_ORDER },
       })

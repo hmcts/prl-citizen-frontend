@@ -28,6 +28,7 @@ describe('awp> checkAnswer > utils', () => {
         respondentsFL401: '',
 
         awp_cancelDelayHearing: 'asfd',
+        awp_agreementForRequest: YesOrNo.YES,
         awp_informOtherParties: YesOrNo.YES,
         awp_uploadedApplicationForms: [
           {
@@ -91,6 +92,23 @@ describe('awp> checkAnswer > utils', () => {
             },
             value: {
               html: 'asfd',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/application-within-proceedings/C2/delay-or-cancel-hearing-date/agreement-for-request',
+                  text: 'Change',
+                  visuallyHiddenText: 'Does the other person in the case agree with the date change?',
+                },
+              ],
+            },
+            key: {
+              text: 'Does the other person in the case agree with the date change?',
+            },
+            value: {
+              html: 'Yes',
             },
           },
           {

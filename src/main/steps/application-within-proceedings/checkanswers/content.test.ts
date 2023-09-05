@@ -100,6 +100,10 @@ describe('checkYourAnwers', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
+  test('should contain continue button', () => {
+    expect(form?.submit?.text(generateContent({ ...commonContent, language: 'en' }))).toBe(en.continue);
+  });
+
   test('should contain cancel link', () => {
     expect(form?.link?.text(generatePageContent({ language: 'en' }))).toBe(en.cancel);
     expect(form?.link?.href).toBe('/application-within-proceedings/list-of-applications/1');
