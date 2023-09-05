@@ -11,6 +11,7 @@ type ISystemCredentailsToApiData = {
   caseId: string;
   applicantCaseName: CaseWithId['applicantCaseName'];
   hwfRefNumber: CaseWithId['helpWithFeesReferenceNumber'];
+  feeType: string;
 };
 
 /* The class is used to get the data needed to make a payment to the api */
@@ -35,6 +36,7 @@ export class PaymentHelper {
       caseId,
       applicantCaseName,
       hwfRefNumber: helpWithFeesReferenceNumber,
+      feeType: 'C100_SUBMISSION_FEE',
     };
   };
 }

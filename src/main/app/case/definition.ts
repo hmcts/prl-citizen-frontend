@@ -1452,6 +1452,9 @@ export interface DocumentInfo {
   url: string;
   filename: string;
   binaryUrl: string;
+  hash?:string;
+  categoryId?:string;
+  createdDate?:string;
 }
 export interface Letter {
   divorceDocument: DivorceDocument;
@@ -2698,6 +2701,7 @@ export interface DocumentUploadResponse {
     document_filename: string;
     document_hash: string;
     document_creation_date: string;
+    category_id?:string;
   };
 }
 

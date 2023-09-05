@@ -21,6 +21,7 @@ import { SupportYouNeedDuringYourCaseController } from './steps/applicant/suppor
 import ApplicantTaskListGetController from './steps/applicant/task-list/get';
 import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
 import UploadDocumentController from './steps/application-within-proceedings/document-upload/postController';
+import { processAWPApplication } from './steps/application-within-proceedings/utils';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
 import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
@@ -132,8 +133,8 @@ import {
   RESPONSE_TO_CA,
   AOH_TO_CA,
   APPLICATION_WITHIN_PROCEEDINGS_SUPPORTING_DOCUMENT_UPLOAD,
+  APPLICATION_WITHIN_PROCEEDINGS_PAYMENT_CALLBACK,
   VIEW_DOCUMENT_URL,
-  //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
 export class Routes {
@@ -380,6 +381,8 @@ export class Routes {
      */
     app.get(PAYMENT_GATEWAY_ENTRY_URL, errorHandler(PaymentHandler));
     app.get(PAYMENT_RETURN_URL_CALLBACK, errorHandler(PaymentValidationHandler));
+    app.get(APPLICATION_WITHIN_PROCEEDINGS_PAYMENT_CALLBACK, errorHandler(processAWPApplication));
+
     if (app.locals.ENV !== Environment.PRODUCTION) {
       app.get('/api/v1/session', (req, res) => {
         res.json(req.session);

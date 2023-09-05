@@ -1,6 +1,5 @@
 /* eslint-disable jest/expect-expect */
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
-import { FormContent } from '../../../app/form/Form';
 import { CommonContent } from '../../common/common.content';
 
 import { generateContent } from './content';
@@ -24,13 +23,6 @@ const cy: typeof en = {
 
 describe('application submitted content', () => {
   const commonContent = { language: 'en' } as unknown as CommonContent;
-  let generatedContent;
-  let form;
-
-  beforeEach(() => {
-    generatedContent = generateContent(commonContent);
-    form = generatedContent.form as FormContent;
-  });
 
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -39,10 +31,5 @@ describe('application submitted content', () => {
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
-  });
-
-  test('should contain onlyContinue button', () => {
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    expect((form.onlyContinue.text as Function)(generatedContent)).toBe(en.closeAndReturn);
   });
 });

@@ -22,7 +22,12 @@ export const en = {
   change: 'Change',
   cancel: 'Cancel',
   continue: 'Submit Application',
-  errors: {},
+  errors: {
+    paymentError: {
+      title: 'There is a problem',
+      content: 'Your application is not submitted. Please try again',
+    },
+  },
 };
 
 export const cy = {
@@ -41,7 +46,12 @@ export const cy = {
   change: 'Change -welsh',
   cancel: 'Cancel -welsh',
   continue: 'Submit Application -welsh',
-  errors: {},
+  errors: {
+    paymentError: {
+      title: 'Mae yna broblem',
+      content: 'Nid yw eich cais wedi’i gyflwyno. Rhowch gynnig arall arni',
+    },
+  },
 };
 
 export const form: FormContent = {

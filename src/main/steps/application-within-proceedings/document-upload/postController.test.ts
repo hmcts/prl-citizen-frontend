@@ -44,6 +44,9 @@ describe('Document upload controller', () => {
               filename: 'file_example_TIFF_1MB_V1.tiff',
               binaryUrl:
                 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2/binary',
+              hash: 'MOCK_HASH',
+              categoryId: '1',
+              createdDate: 'MOCK_DATE',
             },
           ],
         },
@@ -67,6 +70,9 @@ describe('Document upload controller', () => {
                 document_filename: 'file_example_TIFF_1MB.tiff',
                 document_binary_url:
                   'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+                document_hash: 'MOCK_HASH',
+                category_id: '1',
+                document_creation_date: 'MOCK_DATE',
               },
             },
           });
@@ -84,14 +90,20 @@ describe('Document upload controller', () => {
       {
         id: 'c9f56483-6e2d-43ce-9de8-72661755b87c2',
         url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2',
+        categoryId: '1',
+        createdDate: 'MOCK_DATE',
         filename: 'file_example_TIFF_1MB_V1.tiff',
+        hash: 'MOCK_HASH',
         binaryUrl:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2/binary',
       },
       {
         id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
         url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+        categoryId: '1',
+        createdDate: 'MOCK_DATE',
         filename: 'file_example_TIFF_1MB.tiff',
+        hash: 'MOCK_HASH',
         binaryUrl:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
       },
@@ -187,6 +199,9 @@ describe('Document upload controller', () => {
               filename: 'file_example_TIFF_1MB_V1.tiff',
               binaryUrl:
                 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2/binary',
+              hash: 'MOCK_HASH',
+              categoryId: '1',
+              createdDate: 'MOCK_DATE',
             },
           ],
         },
@@ -211,6 +226,9 @@ describe('Document upload controller', () => {
                 document_filename: 'file_example_TIFF_1MB.tiff',
                 document_binary_url:
                   'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+                document_hash: 'MOCK_HASH',
+                category_id: '1',
+                document_creation_date: 'MOCK_DATE',
               },
             },
           });
@@ -228,14 +246,20 @@ describe('Document upload controller', () => {
       {
         id: 'c9f56483-6e2d-43ce-9de8-72661755b87c2',
         url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2',
+        categoryId: '1',
+        createdDate: 'MOCK_DATE',
         filename: 'file_example_TIFF_1MB_V1.tiff',
+        hash: 'MOCK_HASH',
         binaryUrl:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c2/binary',
       },
       {
         id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
         url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+        categoryId: '1',
+        createdDate: 'MOCK_DATE',
         filename: 'file_example_TIFF_1MB.tiff',
+        hash: 'MOCK_HASH',
         binaryUrl:
           'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
       },
