@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { CaseWithId } from '../../app/case/case';
 import {
   AWPApplicationReason,
   AWPApplicationType,
@@ -10,12 +12,13 @@ import {
   FeeDetailsResponse,
   PartyType,
 } from '../../app/case/definition';
-import { AppRequest, AppSession } from '../../app/controller/AppRequest';
+import { AppSession, UserDetails } from '../../app/controller/AppRequest';
 
 import {
   fetchAndSaveFeeCodeDetails,
   getApplicationDetails,
   isValidApplicationReason,
+  processAWPApplication,
   resetAWPApplicationData,
 } from './utils';
 
@@ -25,6 +28,8 @@ mockedAxios.create = jest.fn(() => mockedAxios);
 
 describe('AWP utils', () => {
   let req;
+  let awpRequest;
+
   beforeEach(() => {
     req = mockRequest({
       params: {
@@ -49,6 +54,55 @@ describe('AWP utils', () => {
         },
       },
     });
+
+    awpRequest = mockRequest({
+      session: {
+        applicationSettings: {
+          awpSelectedApplicationDetails: {
+            language: 'en',
+            applicationType: 'C3',
+            applicationReason: 'order-authorising-search-for-taking-charge-of-and-delivery-of-a-child',
+          },
+        },
+        userCase: {
+          awpFeeDetails: {
+            feeAmount: 167,
+            feeAmountText: '167',
+            feeType: 'MOCK_TYPE',
+            errorRetrievingResponse: 'MOCK_ERROR',
+          },
+          awp_need_hwf: 'Yes',
+          awp_have_hwfReference: 'Yes',
+          awp_hwf_referenceNumber: 'MOCK_VALUE',
+          awp_completedForm: 'Yes',
+          awp_agreementForRequest: 'Yes',
+          awp_informOtherParties: 'Yes',
+          awp_reasonCantBeInformed: 'MOCK_VALUE',
+          awp_uploadedApplicationForms: [
+            {
+              id: 'MOCK_ID',
+              url: 'MOCK_URL',
+              filename: 'MOCK_FILE_NAME',
+              binaryUrl: 'MOCK_BINARY_URL',
+            },
+          ],
+          awp_cancelDelayHearing: 'MOCK_VALUE',
+          awp_isThereReasonForUrgentRequest: 'Yes',
+          awp_urgentRequestReason: 'MOCK_VALUE',
+          awp_hasSupportingDocuments: 'Yes',
+          awp_supportingDocuments: [
+            {
+              id: 'MOCK_ID',
+              url: 'MOCK_URL',
+              filename: 'MOCK_FILE_NAME',
+              binaryUrl: 'MOCK_BINARY_URL',
+            },
+          ],
+        },
+      },
+    });
+
+    jest.clearAllMocks();
   });
 
   test('Should return correct details for C100 applicant', async () => {
@@ -173,52 +227,6 @@ describe('AWP utils', () => {
   });
 
   test('should reset AWP app data', () => {
-    const awpRequest = {
-      session: {
-        applicationSettings: {
-          awpSelectedApplicationDetails: {
-            language: 'en',
-            applicationType: 'C3',
-            applicationReason: 'order-authorising-search-for-taking-charge-of-and-delivery-of-a-child',
-          },
-        },
-        userCase: {
-          awpFeeDetails: {
-            feeAmount: 167,
-            feeAmountText: '167',
-            feeType: 'MOCK_TYPE',
-            errorRetrievingResponse: 'MOCK_ERROR',
-          },
-          awp_need_hwf: 'Yes',
-          awp_have_hwfReference: 'Yes',
-          awp_hwf_referenceNumber: 'MOCK_VALUE',
-          awp_completedForm: 'Yes',
-          awp_agreementForRequest: 'Yes',
-          awp_informOtherParties: 'Yes',
-          awp_reasonCantBeInformed: 'MOCK_VALUE',
-          awp_uploadedApplicationForms: [
-            {
-              id: 'MOCK_ID',
-              url: 'MOCK_URL',
-              filename: 'MOCK_FILE_NAME',
-              binaryUrl: 'MOCK_BINARY_URL',
-            },
-          ],
-          awp_cancelDelayHearing: 'MOCK_VALUE',
-          awp_isThereReasonForUrgentRequest: 'Yes',
-          awp_urgentRequestReason: 'MOCK_VALUE',
-          awp_hasSupportingDocuments: 'Yes',
-          awp_supportingDocuments: [
-            {
-              id: 'MOCK_ID',
-              url: 'MOCK_URL',
-              filename: 'MOCK_FILE_NAME',
-              binaryUrl: 'MOCK_BINARY_URL',
-            },
-          ],
-        },
-      },
-    } as unknown as AppRequest;
     resetAWPApplicationData(awpRequest);
     expect(awpRequest.session.applicationSettings).toStrictEqual({});
     expect(awpRequest.session.userCase).toStrictEqual({});
@@ -299,5 +307,199 @@ describe('AWP utils', () => {
       flag = false;
     }
     expect(flag).toEqual(false);
+  });
+
+  describe('saveAWPApplication', () => {
+    const res = mockResponse();
+    const userDetails: UserDetails = {
+      accessToken: '123',
+      email: 'billy@bob.com',
+      givenName: 'billy',
+      familyName: 'bob',
+      id: '1234',
+    };
+
+    test('should create application and redirect if hwf reference exists', async () => {
+      awpRequest = {
+        ...awpRequest,
+        params: { type: 'C2', reason: 'request-more-time' },
+        session: {
+          ...awpRequest.session,
+          user: userDetails,
+          userCase: {
+            ...awpRequest.session.userCase,
+            paymentData: {
+              paymentReference: 'MOCK_REFERENCE',
+              paymentDate: 'MOCK_DATE',
+              externalReference: 'MOCK_REFERENCE',
+              nextActionUrl: 'MOCK_URL',
+              paymentStatus: 'Success',
+              paymentServiceRequestReference: 'MOCK_REFERENCE',
+            },
+          },
+        },
+      };
+      const response = {
+        id: '200',
+        state: 'SUCCESS',
+        data: [
+          {
+            caseData: { id: '123445566' },
+            stateName: 'Draft',
+          },
+        ],
+      };
+
+      mockedAxios.post.mockResolvedValue(response as unknown as Promise<CaseWithId>);
+
+      await processAWPApplication(awpRequest, res);
+
+      expect(res.redirect).toHaveBeenCalledWith(
+        '/application-within-proceedings/C2/request-more-time/application-submitted'
+      );
+      expect(awpRequest.session.paymentError).toBe(false);
+      expect(awpRequest.session.save).toHaveBeenCalled();
+      expect(awpRequest.session.userCase.paymentData).toBe(undefined);
+      expect(awpRequest.session.userCase.awp_applicationType).toBe(undefined);
+      expect(awpRequest.session.userCase.awp_applicationReason).toBe(undefined);
+    });
+
+    test('should catch error with create awp application and redirect when hwf reference exists', async () => {
+      awpRequest = {
+        ...awpRequest,
+        params: { type: 'C2', reason: 'request-more-time' },
+        session: {
+          ...awpRequest.session,
+          user: userDetails,
+          userCase: {
+            ...awpRequest.session.userCase,
+            paymentData: {
+              paymentReference: 'MOCK_REFERENCE',
+              paymentDate: 'MOCK_DATE',
+              externalReference: 'MOCK_REFERENCE',
+              nextActionUrl: 'MOCK_URL',
+              paymentStatus: 'Success',
+              paymentServiceRequestReference: 'MOCK_REFERENCE',
+            },
+          },
+        },
+      };
+
+      mockedAxios.post.mockResolvedValue(undefined);
+
+      await processAWPApplication(awpRequest, res);
+
+      expect(awpRequest.session.paymentError).toBe(true);
+      expect(awpRequest.session.save).toHaveBeenCalled();
+      expect(res.redirect).toHaveBeenCalledWith('/application-within-proceedings/C2/request-more-time/checkanswers');
+      expect(awpRequest.session.userCase.paymentData).toBe(undefined);
+      expect(awpRequest.session.userCase.awp_applicationType).toBe(undefined);
+      expect(awpRequest.session.userCase.awp_applicationReason).toBe(undefined);
+    });
+
+    test('should create application and redirect if hwf reference does not exist', async () => {
+      awpRequest = {
+        ...awpRequest,
+        params: { type: 'C2', reason: 'request-more-time' },
+        session: {
+          ...awpRequest.session,
+          user: userDetails,
+          userCase: {
+            ...awpRequest.session.userCase,
+            paymentData: {
+              paymentReference: 'MOCK_REFERENCE',
+              paymentDate: 'MOCK_DATE',
+              externalReference: 'MOCK_REFERENCE',
+              nextActionUrl: 'MOCK_URL',
+              paymentStatus: 'Success',
+              paymentServiceRequestReference: 'MOCK_REFERENCE',
+            },
+          },
+        },
+      };
+      delete awpRequest.session.userCase.awp_hwf_referenceNumber;
+      const response = {
+        id: '200',
+        state: 'SUCCESS',
+        data: [
+          {
+            caseData: { id: '123445566' },
+            stateName: 'Draft',
+          },
+        ],
+      };
+
+      mockedAxios.get.mockResolvedValueOnce({ data: { status: 'Success' } });
+      mockedAxios.post.mockResolvedValue(response as unknown as Promise<CaseWithId>);
+
+      await processAWPApplication(awpRequest, res);
+
+      expect(res.redirect).toHaveBeenCalledWith(
+        '/application-within-proceedings/C2/request-more-time/application-submitted'
+      );
+      expect(awpRequest.session.paymentError).toBe(false);
+      expect(awpRequest.session.save).toHaveBeenCalled();
+      expect(awpRequest.session.userCase.paymentData).toBe(undefined);
+      expect(awpRequest.session.userCase.awp_applicationType).toBe(undefined);
+      expect(awpRequest.session.userCase.awp_applicationReason).toBe(undefined);
+    });
+
+    test('should catch rejected promise from payment status and redirect', async () => {
+      awpRequest = {
+        ...awpRequest,
+        params: { type: 'C2', reason: 'request-more-time' },
+        session: {
+          ...awpRequest.session,
+          user: userDetails,
+          userCase: {
+            ...awpRequest.session.userCase,
+            paymentData: {
+              paymentReference: 'MOCK_REFERENCE',
+              paymentDate: 'MOCK_DATE',
+              externalReference: 'MOCK_REFERENCE',
+              nextActionUrl: 'MOCK_URL',
+              paymentStatus: 'Success',
+              paymentServiceRequestReference: 'MOCK_REFERENCE',
+            },
+          },
+        },
+      };
+      delete awpRequest.session.userCase.awp_hwf_referenceNumber;
+
+      mockedAxios.get.mockResolvedValueOnce({ data: { status: 'reject' } });
+
+      await processAWPApplication(awpRequest, res);
+
+      expect(awpRequest.session.paymentError).toBe(true);
+      expect(awpRequest.session.save).toHaveBeenCalled();
+      expect(res.redirect).toHaveBeenCalledWith('/application-within-proceedings/C2/request-more-time/checkanswers');
+      expect(awpRequest.session.userCase.paymentData).toBe(undefined);
+      expect(awpRequest.session.userCase.awp_applicationType).toBe(undefined);
+      expect(awpRequest.session.userCase.awp_applicationReason).toBe(undefined);
+    });
+
+    test('should catch error with payment status and redirect', async () => {
+      awpRequest = {
+        ...awpRequest,
+        params: { type: 'C2', reason: 'request-more-time' },
+        session: {
+          ...awpRequest.session,
+          user: undefined,
+          userCase: {
+            ...awpRequest.session.userCase,
+            paymentData: undefined,
+          },
+        },
+      };
+
+      await processAWPApplication(awpRequest, res);
+
+      expect(awpRequest.session.paymentError).toBe(true);
+      expect(awpRequest.session.save).toHaveBeenCalled();
+      expect(res.redirect).toHaveBeenCalledWith('/application-within-proceedings/C2/request-more-time/checkanswers');
+      expect(awpRequest.session.userCase.paymentData).toBe(undefined);
+      expect(awpRequest.session.userCase.awp_applicationType).toBe(undefined);
+      expect(awpRequest.session.userCase.awp_applicationReason).toBe(undefined);
+    });
   });
 });

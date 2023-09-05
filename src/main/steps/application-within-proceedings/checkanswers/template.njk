@@ -1,5 +1,18 @@
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% extends "common/summary/template.njk" %}
 {% block page_content %}
+
+{% if paymentError === true %}
+  {{ govukErrorSummary({
+    titleText: errors.paymentError.title,
+    errorList: [
+      {
+        html: "<div class='govuk-heading-s hmcts-badge--red'>"+errors.paymentError.content+"</div>"
+      }
+    ]
+  }) }}
+{% endif %}
+
 {% if section %}
     <span class="govuk-heading-xl govuk-!-margin-bottom-50px">{{ section }}</span>
   {% endif %}
@@ -8,7 +21,7 @@
   {% endif %}
   <div class="govuk-form-group">
     <fieldset class="govuk-fieldset">
-      <p class="govuk-body">{{caseNumber}} #{{userCase.id}}</p>
+      <p class="govuk-body">{{caseNumber}} {{userCase.id}}</p>
     </fieldset>
   </div>
   {% block page_contact_us %}

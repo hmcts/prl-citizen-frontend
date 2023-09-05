@@ -25,9 +25,6 @@ const languages = {
 
 export const form: FormContent = {
   fields: {},
-  onlyContinue: {
-    text: l => l.closeAndReturn,
-  },
 };
 
 export const generateContent: TranslationFn = content => {

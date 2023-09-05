@@ -45,12 +45,22 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           const responseBody: DocumentUploadResponse = await caseApi(userDetails, req.locals.logger).uploadDocument(
             formData
           );
-          const { document_url, document_filename, document_binary_url } = responseBody['document'];
+          const {
+            document_url,
+            document_filename,
+            document_binary_url,
+            document_hash,
+            category_id,
+            document_creation_date,
+          } = responseBody['document'];
           const documentInfo = {
             id: document_url.split('/')[document_url.split('/').length - 1],
             url: document_url,
             filename: document_filename,
             binaryUrl: document_binary_url,
+            hash: document_hash,
+            categoryId: category_id,
+            createdDate: document_creation_date,
           };
 
           this.addDocsToSession(isSupportingDocuments, req, documentInfo);
