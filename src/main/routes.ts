@@ -19,7 +19,7 @@ import { AccessibilityStatementGetController } from './steps/accessibility-state
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import UploadDocumentController from './steps/application-within-proceedings/document-upload/postController';
-import { saveAWPApplication } from './steps/application-within-proceedings/utils';
+import { processAWPApplication } from './steps/application-within-proceedings/utils';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
 import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
@@ -373,7 +373,7 @@ export class Routes {
      */
     app.get(PAYMENT_GATEWAY_ENTRY_URL, errorHandler(PaymentHandler));
     app.get(PAYMENT_RETURN_URL_CALLBACK, errorHandler(PaymentValidationHandler));
-    app.get(APPLICATION_WITHIN_PROCEEDINGS_PAYMENT_CALLBACK, errorHandler(saveAWPApplication));
+    app.get(APPLICATION_WITHIN_PROCEEDINGS_PAYMENT_CALLBACK, errorHandler(processAWPApplication));
 
     if (app.locals.ENV !== Environment.PRODUCTION) {
       app.get('/api/v1/session', (req, res) => {

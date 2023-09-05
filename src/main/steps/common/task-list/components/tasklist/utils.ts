@@ -175,7 +175,7 @@ const taskListConfig = {
             id: Tasks.MAKE_REQUEST_TO_COURT_ABOUT_CASE,
             href: () => applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
             stateTag: () => StateTags.OPTIONAL,
-            //show: isCaseLinked,
+            show: isCaseLinked,
           },
         ],
       },

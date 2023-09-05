@@ -157,7 +157,7 @@ export class CosApiClient {
     applicationType: AWPApplicationType,
     applicationReason: AWPApplicationReason,
     partyType: PartyType,
-    partyDetails: Partial<PartyDetails>
+    partyDetails: Partial<PartyDetails> | undefined
   ): Promise<CaseWithId> {
     try {
       const {
@@ -180,7 +180,7 @@ export class CosApiClient {
         awpType: applicationType,
         awpReason: applicationReason,
         partyId: user.id,
-        partyName: `${partyDetails.firstName} ${partyDetails.lastName}`,
+        partyName: `${partyDetails?.firstName} ${partyDetails?.lastName}`,
         partyType,
         awp_completedForm,
         awp_agreementForRequest,

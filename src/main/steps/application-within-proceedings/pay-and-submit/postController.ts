@@ -11,7 +11,7 @@ import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
 import { APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER } from '../../../steps/urls';
-import { saveAWPApplication } from '../utils';
+import { processAWPApplication } from '../utils';
 
 @autobind
 export default class AWPPayAndSubmitPostController extends PostController<AnyObject> {
@@ -35,35 +35,52 @@ export default class AWPPayAndSubmitPostController extends PostController<AnyObj
         .initiatePayment({
           caseId,
           returnUrl: `${appRequest.protocol}://${appRequest.headers.host}/payment-callback/awp/${applicationType}/${applicationReason}`,
-          applicantCaseName: `${partyName!}-${applicationType}`,
+          applicantCaseName: `${partyName?.firstName} ${partyName?.lastName}-${applicationType}`,
           feeType: awpFeeDetails!.feeType,
           awpType: applicationType,
           partyType: getCasePartyType(caseData, userDetails.id),
         })
         .then(
           ({ response, redirectUrl }) => {
-            appRequest.session.userCase.paymentData = response as PaymentResponse;
+            appRequest.session.userCase = {
+              ...appRequest.session.userCase,
+              paymentData: response as PaymentResponse,
+              awp_applicationType: applicationType,
+              awp_applicationReason: applicationReason,
+            };
             appRequest.session.save(() => {
               if (redirectUrl) {
                 appResponse.redirect(redirectUrl);
               } else {
-                saveAWPApplication(appRequest, appResponse);
+                processAWPApplication(appRequest, appResponse);
               }
             });
           },
           () => {
-            appRequest.session.paymentError = true;
-            appRequest.session.save(() => {
-              appResponse.redirect(
-                applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, { applicationType, applicationReason })
-              );
-            });
+            this.handleErrorAndRedirect(applicationType, applicationReason, appRequest, appResponse);
           }
         );
     } catch (error) {
+      this.handleErrorAndRedirect(applicationType, applicationReason, appRequest, appResponse);
+    }
+  }
+
+  private handleErrorAndRedirect(
+    applicationType: AWPApplicationType,
+    applicationReason: AWPApplicationReason,
+    appRequest: AppRequest<AnyObject>,
+    appResponse: Response
+  ) {
+    appRequest.session.paymentError = true;
+    delete appRequest.session.userCase.paymentData;
+    appRequest.session.save(() => {
+      setTimeout(() => {
+        appRequest.session.paymentError = false;
+        appRequest.session.save();
+      }, 1000);
       appResponse.redirect(
         applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, { applicationType, applicationReason })
       );
-    }
+    });
   }
 }

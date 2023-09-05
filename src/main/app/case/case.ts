@@ -81,6 +81,8 @@ import {
   RespondentDocs,
   DocumentInfo,
   FeeDetailsResponse,
+  AWPApplicationReason,
+  AWPApplicationType,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -605,6 +607,8 @@ export interface Case {
   awp_urgentRequestReason?: string;
   awp_hasSupportingDocuments?: YesOrNo;
   awp_supportingDocuments?: DocumentInfo[];
+  awp_applicationType?: AWPApplicationType;
+  awp_applicationReason?: AWPApplicationReason;
 }
 
 export interface CaseWithId extends Case {

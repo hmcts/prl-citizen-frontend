@@ -1,6 +1,7 @@
 import { Response } from 'express';
 
 import { CosApiClient } from '../../app/case/CosApiClient';
+import { CaseWithId } from '../../app/case/case';
 import {
   AWPApplicationReason,
   AWPApplicationType,
@@ -12,6 +13,7 @@ import { AppRequest, AppSession, UserDetails } from '../../app/controller/AppReq
 import { PaymentController, PaymentResponse } from '../../modules/payments/paymentController';
 import { applyParms } from '../../steps/common/url-parser';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
+import { getPartyDetails } from '../../steps/tasklistresponse/utils';
 import {
   APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED,
   APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER,
@@ -19,7 +21,6 @@ import {
 } from '../../steps/urls';
 
 import { languages as applicationReasonTranslation } from './content';
-//import { getPartyDetails } from '../../steps/tasklistresponse/utils';
 
 interface AWPApplicationTypesConfig {
   applicationType: AWPApplicationType;
@@ -435,15 +436,45 @@ export const resetAWPApplicationData = (req: AppRequest): void => {
   delete req.session?.userCase?.awp_supportingDocuments;
 };
 
-export const saveAWPApplication = async (appRequest: AppRequest, appResponse: Response): Promise<void> => {
-  const applicationType = appRequest.params.type as AWPApplicationType;
-  const applicationReason = appRequest.params.reason as AWPApplicationReason;
+const createAWPApplication = async (
+  userDetails: UserDetails,
+  caseData: CaseWithId,
+  applicationType: AWPApplicationType,
+  applicationReason: AWPApplicationReason,
+  appRequest: AppRequest,
+  appResponse: Response
+): Promise<void> => {
+  try {
+    await new CosApiClient(userDetails.accessToken, 'return_url').createAWPApplication(
+      userDetails,
+      caseData,
+      applicationType,
+      applicationReason,
+      getCasePartyType(caseData, userDetails.id),
+      getPartyDetails(caseData, userDetails.id)
+    );
+    handlePageRedirection('success', applicationType, applicationReason, appRequest, appResponse);
+  } catch (error) {
+    handlePageRedirection('error', applicationType, applicationReason, appRequest, appResponse);
+  }
+};
+
+export const processAWPApplication = async (appRequest: AppRequest, appResponse: Response): Promise<void> => {
+  const applicationType =
+    (appRequest.params.type as AWPApplicationType) ?? appRequest.session.userCase.awp_applicationType;
+  const applicationReason =
+    (appRequest.params.reason as AWPApplicationReason) ?? appRequest.session.userCase.awp_applicationReason;
 
   try {
     const userDetails = appRequest.session.user;
     const caseData = appRequest.session.userCase;
     const caseId = caseData?.id ?? caseData?.caseId;
     const paymentReference = caseData?.paymentData!.paymentReference;
+
+    if (caseData?.awp_hwf_referenceNumber && caseData.paymentData?.paymentServiceRequestReference) {
+      return createAWPApplication(userDetails, caseData, applicationType, applicationReason, appRequest, appResponse);
+    }
+
     await PaymentController.getPaymentStatus(userDetails, caseId, paymentReference).then(
       async ({ response }) => {
         appRequest.session.userCase.paymentData = {
@@ -451,42 +482,40 @@ export const saveAWPApplication = async (appRequest: AppRequest, appResponse: Re
           ...response,
         } as PaymentResponse;
 
-        try {
-          await new CosApiClient(userDetails.accessToken, 'return_url').createAWPApplication(
-            userDetails,
-            caseData,
-            applicationType,
-            applicationReason,
-            getCasePartyType(caseData, userDetails.id),
-            { firstName: 'abc', lastName: 'xyz' }
-          );
-          appResponse.redirect(
-            applyParms(APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED, { applicationType, applicationReason })
-          );
-        } catch (error) {
-          appRequest.session.paymentError = true;
-          appRequest.session.save(() => {
-            appResponse.redirect(
-              applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, { applicationType, applicationReason })
-            );
-          });
-        }
+        createAWPApplication(userDetails, caseData, applicationType, applicationReason, appRequest, appResponse);
       },
       () => {
-        appRequest.session.paymentError = true;
-        appRequest.session.save(() => {
-          appResponse.redirect(
-            applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, { applicationType, applicationReason })
-          );
-        });
+        handlePageRedirection('error', applicationType, applicationReason, appRequest, appResponse);
       }
     );
   } catch (error) {
-    appRequest.session.paymentError = true;
-    appRequest.session.save(() => {
-      appResponse.redirect(
-        applyParms(APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER, { applicationType, applicationReason })
-      );
-    });
+    handlePageRedirection('error', applicationType, applicationReason, appRequest, appResponse);
   }
+};
+
+const handlePageRedirection = (
+  errorType: string,
+  applicationType: AWPApplicationType,
+  applicationReason: AWPApplicationReason,
+  appRequest: AppRequest,
+  appResponse: Response
+) => {
+  appRequest.session.paymentError = errorType !== 'success';
+  delete appRequest.session.userCase?.paymentData;
+  delete appRequest.session.userCase?.awp_applicationType;
+  delete appRequest.session.userCase?.awp_applicationReason;
+  appRequest.session.save(() => {
+    setTimeout(() => {
+      appRequest.session.paymentError = false;
+      appRequest.session.save();
+    }, 1000);
+    appResponse.redirect(
+      applyParms(
+        errorType === 'success'
+          ? APPLICATION_WITHIN_PROCEEDINGS_APPLICATION_SUBMITTED
+          : APPLICATION_WITHIN_PROCEEDINGS_CHECK_YOUR_ANSWER,
+        { applicationType, applicationReason }
+      )
+    );
+  });
 };
