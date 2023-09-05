@@ -134,11 +134,6 @@ describe('testcase for tasklist', () => {
         target: '',
       },
       {
-        label: 'Remove a legal representative - welsh',
-        link: '/applicant/remove-legal-representative/start',
-        target: '',
-      },
-      {
         label: 'Gwybod mwy am drefniadau plant',
         link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
         target: '_blank',

@@ -68,7 +68,7 @@ describe('CosApiClient', () => {
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<any>);
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
-    const actual = await client.retrieveCaseHearingsByCaseId(req.session.user, '123456');
+    const actual = await client.retrieveCaseHearingsByCaseId('123456', req.session.user);
     expect(actual).toEqual(response);
   });
 

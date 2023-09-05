@@ -3164,7 +3164,7 @@ export interface FeeDetailsResponse {
   feeAmountText: string;
   feeType: string;
   errorRetrievingResponse?: string;
-
+}
 export enum DocType {
   POSITION_STATEMENTS = 'positionstatements',
   YOUR_WITNESS_STATEMENTS = 'yourwitnessstatements',
