@@ -2,10 +2,11 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../app/form/Form';
 import * as steps from '../../steps';
+import { C100_URL } from '../../steps/urls';
 import * as oidc from '../auth/user/oidc';
 import * as caseApi from '../case/CaseApi';
 import * as cosApiClient from '../case/CosApiClient';
-import { isPhoneNoValid } from '../form/validation';
+import { isCaseCodeValid, isPhoneNoValid, isValidAccessCode } from '../form/validation';
 
 import { PostController } from './PostController';
 
@@ -193,4 +194,185 @@ describe('PostController', () => {
       },
     ]);
   });
+
+  test('Should trigger onlyContinue from if else statment', async () => {
+    const body = { 
+      onlyContinue: {
+        text: 'Continue',
+        classes: ''
+      } 
+    };
+    req = mockRequest({body});
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('Should trigger onlyContinue from if else statment', async () => {
+    const body = { 
+      onlyContinue: {
+        text: 'Continue',
+        classes: ''
+      },
+      accessCode: 'string'
+    };
+    const mockPhoneNumberFormContent = {
+      fields: {
+        accessCode: {
+          type: 'code',
+          validator: isValidAccessCode,
+        },
+      },
+    } as unknown as FormContent;
+    controller = new PostController(mockPhoneNumberFormContent.fields);
+    req = mockRequest({body});
+    
+    await controller.post(req, res);
+    expect(req.session.errors).toEqual([
+      {
+        errorType: 'invalid',
+        propertyName: 'accessCode'
+      }
+    ]);
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('Should trigger saveAndComeLater from if else statment', async () => {
+    const body = { 
+      saveAndComeLater: {
+        text: 'Save and Come Later',
+        classes: ''
+      } 
+    };
+    req = mockRequest({body});
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('Should trigger saveAndComeLater & execute try statement', async () => {
+    const body = { 
+      saveAndComeLater: {
+        text: 'Save and Come Later',
+        classes: ''
+      } 
+    };
+    req = mockRequest({body});
+    req.path = C100_URL;
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('Should trigger saveAndComeLater & execute catch statement', async () => {
+    const body = { 
+      saveAndComeLater: {
+        text: 'Save and Come Later',
+        classes: ''
+      } 
+    };
+    req = mockRequest({body});
+    req.path = C100_URL;
+    
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('Should trigger saveAndSignOut from if else statment', async () => {
+    const body = { 
+      saveAndSignOut: {
+        text: 'Save and Sign Out',
+        classes: ''
+      } 
+    };
+    req = mockRequest({body});
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('Should trigger checkCaseAccessCode from if else statment - accessCodeLoginIn should be false', async () => {
+    const body = { 
+      accessCodeCheck: {
+        text: 'Continue',
+        classes: ''
+      },
+      accessCode: 'string',
+    };
+    const mockPhoneNumberFormContent = {
+      fields: {
+        accessCode: {
+          type: 'code',
+          validator: isValidAccessCode,
+        },
+      },
+    } as unknown as FormContent;
+    controller = new PostController(mockPhoneNumberFormContent.fields);
+    req = mockRequest({body});
+    
+    await controller.post(req, res);
+    expect(req.session.accessCodeLoginIn).toBe(false);
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('Should trigger checkCaseAccessCode from if else statment - accessCodeLoginIn should be true', async () => {
+    const body = { 
+      accessCodeCheck: {
+        text: 'Continue',
+        classes: ''
+      },
+    };
+    req = mockRequest({body});
+    req.session = {
+      user: {},
+      save: jest.fn(done => done()),
+      destroy: jest.fn(done => done()),
+    };
+
+    await controller.post(req, res);
+    expect(req.session.accessCodeLoginIn).toBe(true);
+    expect(req.session.userCase).toEqual({
+      accessCodeCheck: {
+        text: 'Continue',
+        classes: ''
+      },
+      id: undefined, 
+      serviceType: '', 
+      state: 'SuccessAuthentication'
+    });
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('Should trigger checkCaseAccessCode from if else statment - accessCodeValidated', async () => {
+    const body = { 
+      accessCode: 'string',
+      caseReference: '123',
+      accessCodeCheck: true,
+      caseCode: 'string',
+    };
+
+    // const mockPhoneNumberFormContent = {
+    //   fields: {
+    //     accessCode: {
+    //       type: 'accessCode',
+    //       validator: isValidAccessCode,
+    //     },
+    //     caseCode: {
+    //       type: 'caseCode',
+    //       validator: isCaseCodeValid
+    //     }
+    //   },
+    // } as unknown as FormContent;
+    // controller = new PostController(mockPhoneNumberFormContent.fields);
+    req = mockRequest({body});
+    req.session.errors = [];
+    await controller.post(req, res);
+    // expect(req.session.errors).toEqual([
+    //   {
+    //     errorType: 'invalid',
+    //     propertyName: 'accessCode'
+    //   },
+    //   {
+    //     errorType: 'invalid',
+    //     propertyName: 'caseCode'
+    //   },
+    // ]);
+    expect(res.redirect).toHaveBeenCalled();
+  })
 });

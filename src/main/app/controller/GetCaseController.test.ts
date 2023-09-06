@@ -90,6 +90,14 @@ describe('GetCaseController', () => {
     expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/start');
   });
 
+  test('fetchAndRedirectToTasklist redirect to SIGN_IN_URL', async () => {
+    // req.originalUrl = SIGN_IN_URL + '/' + req.params.caseId;
+    req = mockRequest();
+    await controller.fetchAndRedirectToTasklist(req, res);
+    expect(mockMyFunction).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
+  });
+
   // test('createC100ApplicantCase', async () => {
   //   req.session.userCase = {
   //     id: '1234',

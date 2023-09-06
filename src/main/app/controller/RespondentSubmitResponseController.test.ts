@@ -37,4 +37,26 @@ describe('RespondentSubmitResponseController', () => {
     await controller.save(req, res);
     expect(res.redirect).toHaveBeenCalledWith(CA_RESPONDENT_RESPONSE_CONFIRMATION);
   });
+
+  // test('getDraftDocument', async () => {
+  //   req.session.userCase.id = '12234567890';
+  //   req.session.user.id = '12234567890';
+  //   partyDetails = [
+  //     {
+  //       id: '1',
+  //       value: {
+  //         firstName: '',
+  //         lastName: '',
+  //         email: '',
+  //         user: {
+  //           idamId: '12234567890',
+  //           email: '',
+  //         },
+  //       },
+  //     },
+  //   ];
+  //   req.session.userCase.respondents = partyDetails;
+  //   await controller.getDraftDocument(req, res);
+  //   expect(res.redirect).toHaveBeenCalledWith('#');
+  // });
 });
