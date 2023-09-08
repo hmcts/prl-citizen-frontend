@@ -1,9 +1,9 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { SectionStatus, State } from '../../../app/case/definition';
+import { SectionStatus, State, YesOrNo } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
 
-import { generateContent } from './content';
+import { generateContent, getApplicant } from './content';
 import { applicant_cy, applicant_en } from './section-titles';
 import { applicant_tasklist_items_cy, applicant_tasklist_items_en } from './tasklist-items';
 
@@ -43,6 +43,8 @@ const enContent = {
       link: '#',
     },
   ],
+  addLegalRepresentative: 'Add a legal representative',
+  removeLegalRepresentative: 'Remove a legal representative',
 };
 const cyContent = {
   title: 'Rhestr Tasgau’r Ceisydd',
@@ -80,11 +82,154 @@ const cyContent = {
       link: '#',
     },
   ],
+  addLegalRepresentative: 'Ychwanegu cynrychiolydd cyfreithiol',
+  removeLegalRepresentative: 'Dileu cynrychiolydd cyfreithiol',
 };
 describe('task-list > content', () => {
+  const applicantFL401 = {
+    email: 'test',
+    gender: 'test',
+    address: {
+      AddressLine1: 'test',
+      AddressLine2: 'test',
+      AddressLine3: 'test',
+      PostTown: 'test',
+      County: 'test',
+      PostCode: 'test',
+      Country: 'test',
+    },
+    dxNumber: 'test',
+    landline: 'test',
+    lastName: 'test',
+    firstName: 'test',
+    dateOfBirth: 'test',
+    otherGender: 'test',
+    phoneNumber: 'test',
+    placeOfBirth: 'test',
+    previousName: 'test',
+    solicitorOrg: {
+      OrganisationID: 'test',
+      OrganisationName: 'test',
+    },
+    sendSignUpLink: 'test',
+    solicitorEmail: 'test',
+    isAddressUnknown: 'test',
+    solicitorAddress: {
+      AddressLine1: 'test',
+      AddressLine2: 'test',
+      AddressLine3: 'test',
+      PostTown: 'test',
+      County: 'test',
+      PostCode: 'test',
+      Country: 'test',
+    },
+    isDateOfBirthKnown: 'test',
+    solicitorReference: 'test',
+    solicitorTelephone: 'test',
+    isPlaceOfBirthKnown: 'test',
+    isDateOfBirthUnknown: 'test',
+    isAddressConfidential: 'test',
+    isCurrentAddressKnown: 'test',
+    relationshipToChildren: 'test',
+    representativeLastName: 'test',
+    representativeFirstName: 'test',
+    canYouProvidePhoneNumber: 'test',
+    canYouProvideEmailAddress: 'test',
+    isAtAddressLessThan5Years: 'test',
+    isPhoneNumberConfidential: 'test',
+    isEmailAddressConfidential: 'test',
+    respondentLivedWithApplicant: 'test',
+    doTheyHaveLegalRepresentation: 'test',
+    addressLivedLessThan5YearsDetails: 'test',
+    otherPersonRelationshipToChildren: [],
+    isAtAddressLessThan5YearsWithDontKnow: 'test',
+    user: { idamId: '123', email: 'test' },
+    response: {
+      citizenFlags: {
+        isAllDocumentsViewed: 'No',
+      },
+    },
+  };
   const commonContent = {
     language: 'en',
-    userCase: mockUserCase,
+    userCase: {
+      ...mockUserCase,
+      orderCollection: [
+        {
+          id: '',
+          value: {
+            dateCreated: '',
+            orderType: '',
+            orderDocument: {
+              document_url: '',
+              document_filename: '',
+              document_binary_url: '',
+            },
+            orderDocumentWelsh: {
+              document_url: '',
+              document_filename: '',
+              document_binary_url: '',
+            },
+            otherDetails: {
+              createdBy: '',
+              orderCreatedDate: '',
+              orderMadeDate: '',
+              orderRecipients: '',
+            },
+            orderTypeId: 'blankOrderOrDirectionsWithdraw',
+            isWithdrawnRequestApproved: 'No',
+            withdrawnRequestType: 'Withdrawn application',
+          },
+        },
+      ],
+      applicants: [
+        {
+          id: '123',
+          value: {
+            email: 'test',
+            gender: 'test',
+            dxNumber: 'test',
+            landline: 'test',
+            lastName: 'test',
+            firstName: 'test',
+            dateOfBirth: 'test',
+            otherGender: 'test',
+            phoneNumber: 'test',
+            placeOfBirth: 'test',
+            previousName: 'test',
+            sendSignUpLink: 'test',
+            solicitorEmail: 'test',
+            isAddressUnknown: 'test',
+            isDateOfBirthKnown: 'test',
+            solicitorReference: 'test',
+            solicitorTelephone: 'test',
+            isPlaceOfBirthKnown: 'test',
+            isDateOfBirthUnknown: 'test',
+            isAddressConfidential: 'test',
+            isCurrentAddressKnown: 'test',
+            relationshipToChildren: 'test',
+            representativeLastName: 'test',
+            representativeFirstName: 'test',
+            canYouProvidePhoneNumber: 'test',
+            canYouProvideEmailAddress: 'test',
+            isAtAddressLessThan5Years: 'test',
+            isPhoneNumberConfidential: 'test',
+            isEmailAddressConfidential: 'test',
+            respondentLivedWithApplicant: 'test',
+            doTheyHaveLegalRepresentation: 'test',
+            addressLivedLessThan5YearsDetails: 'test',
+            isAtAddressLessThan5YearsWithDontKnow: 'test',
+            user: { idamId: '123' },
+            response: {
+              citizenFlags: {
+                isAllDocumentsViewed: 'No',
+              },
+            },
+          },
+        },
+      ],
+    },
+    userIdamId: '123',
     additionalData: {
       req: {
         session: {
@@ -272,5 +417,378 @@ describe('task-list > content', () => {
     userCase.id = '1234567';
     const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
     expect(taskListItems).toEqual(expected);
+  });
+
+  test.each([
+    {
+      userCase: {
+        ...commonContent.userCase,
+        caseTypeOfApplication: 'C100',
+      },
+      expected: [
+        {
+          items: [
+            {
+              href: '/applicant/keep-details-private/details_known/1234567',
+              id: 'keep-your-details-private',
+              status: 'TO_DO',
+              text: 'Keep your details private',
+            },
+            {
+              href: '/applicant/confirm-contact-details/checkanswers/1234567',
+              id: 'confirm-or-edit-your-contact-details',
+              status: 'TO_DO',
+              text: 'Confirm or edit your contact details',
+            },
+            {
+              href: '/applicant/support-you-need-during-case/attending-the-court',
+              id: 'support-you-need-during-your-case',
+              text: 'Support you need during your case',
+              status: 'TO_DO',
+            },
+          ],
+          title: 'About you',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/public/docs/FL401-Final-Document.pdf',
+              id: 'your_application_ca',
+              status: 'DOWNLOAD',
+              text: 'Your application (PDF)',
+            },
+            {
+              href: '/applicant/yourdocuments/alldocuments/yourwitnessstatements',
+              id: 'your_allegations_of_harm',
+              status: 'DOWNLOAD',
+              text: 'View allegations of harm and violence (PDF)',
+            },
+            {
+              href: '/applicant/yourdocuments/alldocuments/yourwitnessstatements',
+              id: 'respond_to_other_side_aoh_violence',
+              status: 'DOWNLOAD',
+              text: "Respond to the other side's allegations of harm and violence",
+            },
+          ],
+          title: applicant_en.yourApplication,
+        },
+        {
+          items: [
+            {
+              href: '/applicant/upload-document',
+              id: 'response_to_your_application',
+              status: 'TO_DO',
+              text: 'The response to your application (PDF)',
+            },
+            {
+              href: '/applicant/yourdocuments/alldocuments/alldocuments',
+              id: 'check_other_side_aoh_and_violence',
+              status: 'READY_TO_VIEW',
+              text: "Check the other side's allegations of harm and violence",
+            },
+          ],
+          title: 'response',
+        },
+        {
+          items: [
+            {
+              href: '#',
+              id: 'check-details-of-your-court-hearings',
+              status: SectionStatus.NOT_AVAILABLE_YET,
+              text: 'Check details of your court hearings',
+              disabled: true,
+            },
+          ],
+          title: 'Your court hearings',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/upload-document',
+              id: 'upload-document',
+              status: SectionStatus.TO_DO,
+              text: 'Upload documents',
+            },
+            {
+              href: '/applicant/yourdocuments/alldocuments/alldocuments',
+              id: 'view-all-documents',
+              status: 'READY_TO_VIEW',
+              text: 'View all documents',
+            },
+          ],
+          title: 'Your documents',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/yourdocuments/alldocuments/orders',
+              id: 'view-all-orders-from-the-court',
+              status: SectionStatus.READY_TO_VIEW,
+              text: 'View all orders from the court',
+            },
+          ],
+          title: applicant_en.ordersFromTheCourt,
+        },
+      ],
+    },
+  ])('should generate correct c100 banners when state not ALL_FINAL_ORDERS_ISSUED', ({ userCase, expected }) => {
+    userCase.id = '1234567';
+    const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
+    expect(taskListItems).toEqual(expected);
+  });
+
+  test.each([
+    {
+      userCase: {
+        ...commonContent.userCase,
+        caseTypeOfApplication: 'C100',
+        state: State.ALL_FINAL_ORDERS_ISSUED,
+      },
+      expected: [
+        null,
+        {
+          items: [
+            {
+              href: '/applicant/public/docs/FL401-Final-Document.pdf',
+              id: 'your_application_ca',
+              status: 'DOWNLOAD',
+              text: 'Your application (PDF)',
+            },
+            {
+              href: '/applicant/yourdocuments/alldocuments/yourwitnessstatements',
+              id: 'your_allegations_of_harm',
+              status: 'DOWNLOAD',
+              text: 'View allegations of harm and violence (PDF)',
+            },
+            {
+              href: '/applicant/yourdocuments/alldocuments/yourwitnessstatements',
+              id: 'respond_to_other_side_aoh_violence',
+              status: 'DOWNLOAD',
+              text: "Respond to the other side's allegations of harm and violence",
+            },
+          ],
+          title: applicant_en.yourApplication,
+        },
+        {
+          items: [
+            {
+              href: '#',
+              id: 'check-details-of-your-court-hearings',
+              status: SectionStatus.NOT_AVAILABLE_YET,
+              text: 'Check details of your court hearings',
+              disabled: true,
+            },
+          ],
+          title: 'Your court hearings',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/upload-document',
+              id: 'upload-document',
+              status: SectionStatus.TO_DO,
+              text: 'Upload documents',
+            },
+            null,
+          ],
+          title: 'Your documents',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/yourdocuments/alldocuments/orders',
+              id: 'view-all-orders-from-the-court',
+              status: SectionStatus.READY_TO_VIEW,
+              text: 'View all orders from the court',
+            },
+          ],
+          title: applicant_en.ordersFromTheCourt,
+        },
+      ],
+    },
+  ])('should generate correct c100 banners when state is ALL_FINAL_ORDERS_ISSUED', ({ userCase, expected }) => {
+    userCase.id = '1234567';
+    const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
+    expect(taskListItems).toEqual(expected);
+  });
+
+  test.each([
+    {
+      userCase: {
+        ...mockUserCase,
+        state: State.ALL_FINAL_ORDERS_ISSUED,
+        orderCollection: [
+          {
+            id: '',
+            value: {
+              dateCreated: '',
+              orderType: '',
+              orderDocument: {
+                document_url: '',
+                document_filename: '',
+                document_binary_url: '',
+              },
+              orderDocumentWelsh: {
+                document_url: '',
+                document_filename: '',
+                document_binary_url: '',
+              },
+              otherDetails: {
+                createdBy: '',
+                orderCreatedDate: '',
+                orderMadeDate: '',
+                orderRecipients: '',
+              },
+              orderTypeId: 'blankOrderOrDirectionsWithdraw',
+              isWithdrawnRequestApproved: 'No' as YesOrNo,
+              withdrawnRequestType: 'Withdrawn application',
+            },
+          },
+        ],
+        applicantsFL401: applicantFL401,
+      },
+      expected: [
+        null,
+        {
+          items: [
+            {
+              href: '/applicant/public/docs/FL401-Final-Document.pdf',
+              id: 'your-application',
+              status: 'DOWNLOAD',
+              text: 'Application submitted (PDF)',
+              openInAnotherTab: true,
+            },
+            {
+              href: '/applicant/witnessstatements',
+              id: 'your-application-witness-statment',
+              status: 'NOT_AVAILABLE_YET',
+              text: 'Witness statement (PDF)',
+            },
+          ],
+          title: applicant_en.yourApplication,
+        },
+        {
+          items: [
+            {
+              href: '#',
+              id: 'check-details-of-your-court-hearings',
+              status: SectionStatus.NOT_AVAILABLE_YET,
+              text: 'Check details of your court hearings',
+              disabled: true,
+            },
+          ],
+          title: 'Your court hearings',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/upload-document',
+              id: 'upload-document',
+              status: SectionStatus.TO_DO,
+              text: 'Upload documents',
+            },
+            null,
+          ],
+          title: 'Your documents',
+        },
+        {
+          items: [
+            {
+              href: '/applicant/yourdocuments/alldocuments/orders',
+              id: 'view-all-orders-from-the-court',
+              status: SectionStatus.READY_TO_VIEW,
+              text: 'View all orders from the court',
+            },
+          ],
+          title: applicant_en.ordersFromTheCourt,
+        },
+      ],
+    },
+  ])('should generate tasklist with correct banners for FL401', ({ userCase, expected }) => {
+    userCase.id = '1234567';
+    const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
+    expect(taskListItems).toEqual(expected);
+  });
+
+  test.each([
+    {
+      userCase: mockUserCase,
+      expected: [
+        null,
+        {
+          items: [
+            {
+              href: '/applicant/public/docs/FL401-Final-Document.pdf',
+              id: 'your-application',
+              status: 'DOWNLOAD',
+              text: 'Application submitted (PDF)',
+              openInAnotherTab: true,
+            },
+            {
+              href: '/applicant/witnessstatements',
+              id: 'your-application-witness-statment',
+              status: 'NOT_AVAILABLE_YET',
+              text: 'Witness statement (PDF)',
+            },
+          ],
+          title: applicant_en.yourApplication,
+        },
+        {
+          items: [
+            {
+              href: '#',
+              id: 'check-details-of-your-court-hearings',
+              status: SectionStatus.NOT_AVAILABLE_YET,
+              text: 'Check details of your court hearings',
+              disabled: true,
+            },
+          ],
+          title: 'Your court hearings',
+        },
+        {
+          items: [
+            null,
+            {
+              href: '/applicant/yourdocuments/alldocuments/alldocuments',
+              id: 'view-all-documents',
+              status: 'READY_TO_VIEW',
+              text: 'View all documents',
+            },
+          ],
+          title: 'Your documents',
+        },
+        {
+          items: [
+            {
+              href: '#',
+              id: 'view-all-orders-from-the-court',
+              status: SectionStatus.NOT_AVAILABLE_YET,
+              text: 'View all orders from the court',
+            },
+          ],
+          title: applicant_en.ordersFromTheCourt,
+        },
+      ],
+    },
+  ])('should generate correct task when applicant is represented by solicitor', ({ userCase, expected }) => {
+    userCase.id = '1234567';
+    commonContent.additionalData!.req.session.userCase.applicantsFL401.user = {
+      ...commonContent.additionalData!.req.session.userCase.applicantsFL401.user,
+      solicitorRepresented: 'Yes',
+    };
+    const { sections: taskListItems } = generateContent({ ...commonContent, userCase });
+    expect(taskListItems).toEqual(expected);
+  });
+
+  test('get applicant should return correct value for c100 case', () => {
+    expect(getApplicant({ ...commonContent.userCase, caseTypeOfApplication: 'C100' }, '123')).toBe(
+      commonContent.userCase?.applicants![0].value
+    );
+  });
+
+  test('get applicant should return correct value for FL401 case', () => {
+    expect(getApplicant({ ...commonContent.userCase, caseTypeOfApplication: 'FL401' }, '123')).toBe(
+      commonContent.userCase?.applicantsFL401
+    );
   });
 });
