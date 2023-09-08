@@ -1,8 +1,9 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormOptions } from '../../../../../app/form/Form';
 //import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 
-import { generateContent } from './content';
+import { form, generateContent } from './content';
 
 const enContent = {
   section: 'All documents',
@@ -23,6 +24,8 @@ jest.mock('../../../../../app/form/validation');
 describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
+  const forms = form as FormContent;
+  let field;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
   });
@@ -42,6 +45,20 @@ describe('citizen-home content', () => {
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+
+  test('should contain fields', () => {
+    field = forms.fields as FormFields;
+    const fields = field({ caseNumber: '1233' }).caseNumber as FormOptions;
+    expect((fields.label as Function)(generatedContent)).toBe(enContent.caseNumber + 'undefined');
+    expect((forms.submit?.text as Function)(generatedContent)).toBe(enContent.continue);
+  });
+
+  test('generateContent', () => {
+    expect(generateContent({ ...commonContent })).toEqual({
+      ...enContent,
+      orders: [],
+    });
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

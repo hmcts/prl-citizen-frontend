@@ -1,8 +1,10 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormOptions } from '../../../../../app/form/Form';
+// import { FormContent } from '../../../../../app/form/Form';
 //import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 
-import { generateContent } from './content';
+import { form, generateContent } from './content';
 
 const enContent = {
   section: 'All documents',
@@ -23,12 +25,10 @@ jest.mock('../../../../../app/form/validation');
 describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
-  //let form;
-  //let fields;
+  const forms = form as FormContent;
+  let field;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
-    //form = generatedContent.form as FormContent;
-    //fields = form.fields as FormFields;
   });
 
   test('should return correct english content', () => {
@@ -54,5 +54,12 @@ describe('citizen-home content', () => {
   //   expect(detailsKnownField.classes).toBe('govuk-radios');
   //   expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
   // });
+
+  test('should contain detailsKnown field', () => {
+    field = forms.fields as FormFields;
+    const detailsKnownField = field({ caseNumber: '1233' }).caseNumber as FormOptions;
+    expect((detailsKnownField.label as Function)(generatedContent)).toBe(enContent.caseNumber + 'undefined');
+    expect((forms.submit?.text as Function)(generatedContent)).toBe(enContent.continue);
+  });
 });
 /* eslint-enable @typescript-eslint/ban-types */
