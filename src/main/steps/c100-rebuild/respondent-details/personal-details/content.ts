@@ -178,6 +178,13 @@ export const generateFormFields = (
     en: {},
     cy: {},
   };
+  const dobUnknown = formData => {
+    const isExactDobDataPresent =
+      formData.dateOfBirth.day !== '' || formData.dateOfBirth.month !== '' || formData.dateOfBirth.year !== ''
+        ? 'cannotHaveBothApproxAndExact'
+        : '';
+    return formData?.isDateOfBirthUnknown === YesNoEmpty.YES ? isExactDobDataPresent : '';
+  };
   const fields = {
     hasNameChanged: {
       type: 'radios',
@@ -284,11 +291,7 @@ export const generateFormFields = (
           ? areDateFieldsFilledIn(value as CaseDate) ||
             isDateInputInvalid(value as CaseDate) ||
             isFutureDate(value as CaseDate)
-          : formData?.isDateOfBirthUnknown === YesNoEmpty.YES
-          ? formData.dateOfBirth.day !== '' || formData.dateOfBirth.month !== '' || formData.dateOfBirth.year !== ''
-            ? 'cannotHaveBothApproxAndExact'
-            : ''
-          : '',
+          : dobUnknown(formData),
     },
     isDateOfBirthUnknown: {
       type: 'checkboxes',

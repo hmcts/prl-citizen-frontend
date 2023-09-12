@@ -127,6 +127,13 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
     en: {},
     cy: {},
   };
+  const dobUnknown = formData => {
+    const isExactDobDataPresent =
+      formData.dateOfBirth.day !== '' || formData.dateOfBirth.month !== '' || formData.dateOfBirth.year !== ''
+        ? 'cannotHaveBothApproxAndExact'
+        : '';
+    return formData?.isDateOfBirthUnknown === YesNoEmpty.YES ? isExactDobDataPresent : '';
+  };
   const fields = {
     dateOfBirth: {
       type: 'date',
@@ -167,11 +174,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
             isDateInputInvalid(value as CaseDate) ||
             isMoreThan18Years(value as CaseDate) ||
             isFutureDate(value as CaseDate)
-          : formData?.isDateOfBirthUnknown === YesNoEmpty.YES
-          ? formData.dateOfBirth.day !== '' || formData.dateOfBirth.month !== '' || formData.dateOfBirth.year !== ''
-            ? 'cannotHaveBothApproxAndExact'
-            : ''
-          : '',
+          : dobUnknown(formData),
     },
     isDateOfBirthUnknown: {
       type: 'checkboxes',

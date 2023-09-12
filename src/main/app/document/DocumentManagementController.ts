@@ -159,16 +159,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let loggedInCitizen: UserDetails;
 
     try {
-      let originalUrl = req.originalUrl;
-
-      if (originalUrl !== null && originalUrl !== undefined && originalUrl.length > 0) {
-        if (req.params.docContext) {
-          originalUrl = originalUrl.slice(0, originalUrl.lastIndexOf('/'));
-        }
-        filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
-        const itemlist = originalUrl.toString().split('/');
-        endPoint = itemlist[itemlist.length - 2];
-      }
+      const fileDetails = this.getFileDetails(req);
+      filename = fileDetails.filename;
+      endPoint = fileDetails.endPoint;
 
       loggedInCitizen = req.session.user;
       caseReference = req.session.userCase.id;
@@ -181,61 +174,16 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
 
     let fieldFlag = '';
-    let documentToGet;
     let uid = '';
 
-    if (filename === 'generate-c7-final') {
-      endPoint = 'caresponse';
-      req.session.userCase.respondents?.forEach(respondent => {
-        if (respondent.value.user.idamId === req.session.user.id) {
-          filename = respondent.id;
-        }
-      });
-    }
+    const c7Details = this.generateC7Details(filename, endPoint, req);
+    filename = c7Details.filename;
+    endPoint = c7Details.endPoint;
 
-    if (endPoint === 'caresponse') {
-      req.session.userCase.citizenResponseC7DocumentList?.forEach(document => {
-        if (document.value.createdBy === filename) {
-          if (!document.value.citizenDocument.document_binary_url) {
-            throw new Error('CA_RESPONSE binary url is not found');
-          }
-          filename = 'C7_Document.pdf';
-          documentToGet = document.value.citizenDocument.document_binary_url;
-          uid = this.getUID(documentToGet);
-        }
-      });
-    }
-
-    if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
-      if (!req.session.userCase.finalDocument?.document_binary_url) {
-        throw new Error('FL401_FINAL_DOCUMENT binary url is not found');
-      }
-      documentToGet = req.session.userCase.finalDocument?.document_binary_url;
-      uid = this.getUID(documentToGet);
-    }
-
-    if (filename === DocumentType.WITNESS_STATEMENT) {
-      if (!req.session.userCase.fl401UploadWitnessDocuments?.[0].value?.document_binary_url) {
-        throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
-      }
-      documentToGet = req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url;
-      uid = this.getUID(documentToGet);
-    }
-
-    for (const entry of this.fileNameSearchPatternElementMap.entries()) {
-      const fileNameSearchPattern = entry[0];
-      if (filename.includes(fileNameSearchPattern) || filename === fileNameSearchPattern) {
-        const obj = this.getDocumentUIDWithOutFlag(req, entry[1].elements, entry[1].downloadFileFieldFlag);
-        uid = obj!.uid;
-        filename = obj!.filename;
-        if (uid.trim() !== '') {
-          if (entry[1]?.downloadFileFieldFlag) {
-            fieldFlag = entry[1]?.downloadFileFieldFlag;
-          }
-          break;
-        }
-      }
-    }
+    const documentDetails = this.getDocumentDetails(filename, req, endPoint);
+    uid = documentDetails.uid;
+    fieldFlag = documentDetails.fieldFlag;
+    filename = documentDetails.filename;
 
     if (uid.trim() === '') {
       for (const entry of this.fileNameElementMap.entries()) {
@@ -259,18 +207,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
         throw err;
       } else if (generatedDocument) {
         res.setHeader('Content-Type', generatedDocument.headers['content-type']);
-        if (cdamUrl && this.getFlagViewed(req, fieldFlag) === true) {
-          // download and open the pdf in the same window
-          res.setHeader('Content-Disposition', 'inline; filename="' + filename + '";');
-          return res.send(generatedDocument.data);
-        } else {
-          // set the flag from "Download" to "View" and only download the pdf
-          if (fieldFlag && req.params?.docContext === UPDATE_CASE) {
-            this.setFlagViewed(req, caseReference, client, req.session.user, fieldFlag);
-          }
-          res.setHeader('Content-Disposition', 'inline; filename="' + filename + '";');
-          return res.end(generatedDocument.data);
-        }
+        res.setHeader('Content-Disposition', 'inline; filename="' + filename + '";');
+        return this.returnDocumentData(req, res, cdamUrl, fieldFlag, generatedDocument, client, caseReference);
       }
 
       let redirectUrl = '';
@@ -283,6 +221,117 @@ export class DocumentManagerController extends PostController<AnyObject> {
     });
   }
 
+  private getFileDetails(req) {
+    let filename = '';
+    let endPoint = '';
+    let originalUrl = req.originalUrl;
+
+    if (originalUrl !== null && originalUrl !== undefined && originalUrl.length > 0) {
+      if (req.params.docContext) {
+        originalUrl = originalUrl.slice(0, originalUrl.lastIndexOf('/'));
+      }
+      filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
+      const itemlist = originalUrl.toString().split('/');
+      endPoint = itemlist[itemlist.length - 2];
+    }
+
+    return { filename, endPoint };
+  }
+
+  private generateC7Details(filename, endPoint, req) {
+    if (filename === 'generate-c7-final') {
+      endPoint = 'caresponse';
+      req.session.userCase.respondents?.forEach(respondent => {
+        if (respondent.value.user.idamId === req.session.user.id) {
+          filename = respondent.id;
+        }
+      });
+    }
+
+    return { filename, endPoint };
+  }
+
+  private getC7Document(filename, req) {
+    let documentToGet;
+    let uid = '';
+
+    req.session.userCase.citizenResponseC7DocumentList?.forEach(document => {
+      if (document.value.createdBy === filename) {
+        if (!document.value.citizenDocument.document_binary_url) {
+          throw new Error('CA_RESPONSE binary url is not found');
+        }
+        filename = 'C7_Document.pdf';
+        documentToGet = document.value.citizenDocument.document_binary_url;
+        uid = this.getUID(documentToGet);
+      }
+    });
+
+    return { uid, filename };
+  }
+
+  private getDocumentDetails(filename, req, endPoint) {
+    let documentToGet;
+    let uid = '';
+
+    if (endPoint === 'caresponse') {
+      const c7Document = this.getC7Document(filename, req);
+      uid = c7Document.uid;
+      filename = c7Document.filename;
+    }
+
+    if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
+      if (!req.session.userCase.finalDocument?.document_binary_url) {
+        throw new Error('FL401_FINAL_DOCUMENT binary url is not found');
+      }
+      documentToGet = req.session.userCase.finalDocument?.document_binary_url;
+      uid = this.getUID(documentToGet);
+    }
+
+    if (filename === DocumentType.WITNESS_STATEMENT) {
+      if (!req.session.userCase.fl401UploadWitnessDocuments?.[0].value?.document_binary_url) {
+        throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
+      }
+      documentToGet = req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url;
+      uid = this.getUID(documentToGet);
+    }
+
+    return this.searchFileNameMap(filename, req, uid);
+  }
+
+  private searchFileNameMap(filename, req, uid) {
+    let fieldFlag = '';
+
+    for (const entry of this.fileNameSearchPatternElementMap.entries()) {
+      const fileNameSearchPattern = entry[0];
+      if (filename.includes(fileNameSearchPattern) || filename === fileNameSearchPattern) {
+        const obj = this.getDocumentUIDWithOutFlag(req, entry[1].elements);
+        uid = obj!.uid;
+        filename = obj!.filename;
+        if (uid.trim() !== '') {
+          if (entry[1]?.downloadFileFieldFlag) {
+            fieldFlag = entry[1]?.downloadFileFieldFlag;
+          }
+          break;
+        }
+      }
+    }
+
+    return { fieldFlag, uid, filename };
+  }
+
+  private returnDocumentData(req, res, cdamUrl, fieldFlag, generatedDocument, client, caseReference) {
+    if (cdamUrl && this.getFlagViewed(req, fieldFlag) === true) {
+      // download and open the pdf in the same window
+      return res.send(generatedDocument.data);
+    } else {
+      // set the flag from "Download" to "View" and only download the pdf
+      if (fieldFlag && req.params?.docContext === UPDATE_CASE) {
+        this.setFlagViewed(req, caseReference, client, req.session.user, fieldFlag);
+      }
+      return res.end(generatedDocument.data);
+    }
+  }
+
   private getDocumentUIDWithMultipleElements(
     endPoint: string,
     req: AppRequest<Partial<CaseWithId>>,
@@ -292,6 +341,12 @@ export class DocumentManagerController extends PostController<AnyObject> {
   ) {
     let documentToGet = '';
     let uid = '';
+
+    const handleMissingBinaryUrl = (doc, childElement, element) => {
+      if (!doc.value[`${childElement}`].document_binary_url) {
+        throw new Error('Binary URL is not found for ' + element + ':' + childElement);
+      }
+    };
 
     if (elements !== null && elements?.length && elements?.length > 0) {
       const element = elements[0];
@@ -304,9 +359,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
               doc.value[`${childElement}`]?.document_url?.lastIndexOf('/') + 1
             ) === filename
           ) {
-            if (!doc.value[`${childElement}`].document_binary_url) {
-              throw new Error('Binary URL is not found for ' + element + ':' + childElement);
-            }
+            handleMissingBinaryUrl(doc, childElement, element);
             documentToGet = doc.value[`${childElement}`].document_binary_url;
             filename = doc.value[`${childElement}`].document_filename;
             break;
@@ -318,11 +371,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return { uid, filename };
   }
 
-  private getDocumentUIDWithOutFlag(
-    req: AppRequest<Partial<CaseWithId>>,
-    element: string[] | undefined,
-    flag: string | undefined
-  ) {
+  private getDocumentUIDWithOutFlag(req: AppRequest<Partial<CaseWithId>>, element: string[] | undefined) {
     let uid = '';
     let documentToGet = '';
     let ele = '';
@@ -338,37 +387,40 @@ export class DocumentManagerController extends PostController<AnyObject> {
         }
         documentToGet = req.session.userCase[`${ele}`]?.document_binary_url;
         uid = this.getUID(documentToGet);
-
-        if (flag !== null || flag !== undefined) {
-          flag = YesOrNo.YES;
-        }
       } else {
         {
-          for (const document of req.session.userCase.respondentDocsList!) {
-            if (
-              ele1 === 'c1a' &&
-              document.value?.c1aDocument?.partyName === req.session.applicationSettings?.docToView.partyName
-            ) {
-              document_filename = document.value.c1aDocument.citizenDocument.document_filename;
-              documentToGet = document.value.c1aDocument.citizenDocument.document_binary_url;
-              uid = this.getUID(documentToGet);
-              break;
-            } else {
-              if (
-                ele1 === 'c7' &&
-                document.value?.c7Document?.partyName === req.session.applicationSettings?.docToView.partyName
-              ) {
-                document_filename = document.value.c7Document.citizenDocument.document_filename;
-                documentToGet = document.value.c7Document.citizenDocument.document_binary_url;
-                uid = this.getUID(documentToGet);
-                break;
-              }
-            }
-          }
+          const docValues = this.getC1aOrC7Documents(ele1, document_filename, documentToGet, uid, req);
+          uid = docValues.uid;
+          document_filename = docValues.document_filename;
         }
       }
       return { uid, filename: document_filename };
     }
+  }
+
+  private getC1aOrC7Documents(element, document_filename, documentToGet, uid, req) {
+    for (const document of req.session.userCase.respondentDocsList!) {
+      if (
+        element === 'c1a' &&
+        document.value?.c1aDocument?.partyName === req.session.applicationSettings?.docToView.partyName
+      ) {
+        document_filename = document.value.c1aDocument.citizenDocument.document_filename;
+        documentToGet = document.value.c1aDocument.citizenDocument.document_binary_url;
+        uid = this.getUID(documentToGet);
+        break;
+      } else {
+        if (
+          element === 'c7' &&
+          document.value?.c7Document?.partyName === req.session.applicationSettings?.docToView.partyName
+        ) {
+          document_filename = document.value.c7Document.citizenDocument.document_filename;
+          documentToGet = document.value.c7Document.citizenDocument.document_binary_url;
+          uid = this.getUID(documentToGet);
+          break;
+        }
+      }
+    }
+    return { uid, document_filename };
   }
 
   private async setFlagViewed(
@@ -385,11 +437,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const cvIsAllegationOfHarmViewed = respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed;
 
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
-        if (flag === DownloadFileFieldFlag.IS_APPLICATION_VIEWED && cvIsApplicationViewed === YesOrNo.YES) {
-          skipCallToSaveState = true;
-        } else if (
-          flag === DownloadFileFieldFlag.IS_ALLEGATION_OF_HARM_VIEWED &&
-          cvIsAllegationOfHarmViewed === YesOrNo.YES
+        if (
+          (flag === DownloadFileFieldFlag.IS_APPLICATION_VIEWED && cvIsApplicationViewed === YesOrNo.YES) ||
+          (flag === DownloadFileFieldFlag.IS_ALLEGATION_OF_HARM_VIEWED && cvIsAllegationOfHarmViewed === YesOrNo.YES)
         ) {
           skipCallToSaveState = true;
         }
@@ -420,11 +470,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const cvIsAllegationOfHarmViewed = respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed;
 
       if (respondent?.value?.user?.idamId === req.session?.user.id) {
-        if (flag === DownloadFileFieldFlag.IS_APPLICATION_VIEWED && cvIsApplicationViewed === YesOrNo.YES) {
-          flagViewed = true;
-        } else if (
-          flag === DownloadFileFieldFlag.IS_ALLEGATION_OF_HARM_VIEWED &&
-          cvIsAllegationOfHarmViewed === YesOrNo.YES
+        if (
+          (flag === DownloadFileFieldFlag.IS_APPLICATION_VIEWED && cvIsApplicationViewed === YesOrNo.YES) ||
+          (flag === DownloadFileFieldFlag.IS_ALLEGATION_OF_HARM_VIEWED && cvIsAllegationOfHarmViewed === YesOrNo.YES)
         ) {
           flagViewed = true;
         }
@@ -442,7 +490,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const temp = {};
     if (respondent?.value?.response?.citizenFlags) {
       if (flag === DownloadFileFieldFlag.IS_APPLICATION_VIEWED) {
-        //Object.assign(respondent?.value?.response?.citizenFlags, {isApplicationViewed: 'Yes'});
         Object.assign(temp, { isApplicationViewed: 'Yes' });
 
         if (cvIsAllegationOfHarmViewed === 'Yes') {
@@ -615,9 +662,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
           partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'
         ];
       }
-      // const caseDataFromCos =
-      // await client.retrieveByCaseId(caseData.id, user);
-      //req.session.userCase.citizenUploadedDocumentList = caseDataFromCos.citizenUploadedDocumentList;
       req.session.errors = [];
     } catch (e) {
       this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });

@@ -216,9 +216,10 @@ export const generateContent: TranslationFn = content => {
   translations.applicantName = getApplicantName(applicant);
   const isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(applicant);
   translations.hyperlinks.forEach((hyperLink, index) => {
-    if (hyperLink.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) {
-      translations.hyperlinks.splice(index, 1);
-    } else if (hyperLink.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor) {
+    if (
+      (hyperLink.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) ||
+      (hyperLink.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor)
+    ) {
       translations.hyperlinks.splice(index, 1);
     }
   });
