@@ -18,6 +18,6 @@ Scenario('C100 Rebuild - urgent hearing flow @nightly',  async ({ I }) => {
     await I.safetyConcerns();
     await I.internationElements();
     await I.reasonableAdjustments();
-    await I.helpWithFeeEvent();
+    await I.withHelpWithFeeEvent();
     await I.checkYourAnswersSimpleEvent();
 }).retry({ retries: 3, minTimeout: 60000 });
