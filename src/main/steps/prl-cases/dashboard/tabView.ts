@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 
 import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../app/case/definition';
-//import { isCaseLinked } from '../../../steps/common/task-list/utils';
+import { isCaseLinked } from '../../../steps/common/task-list/utils';
 import { applyParms } from '../../common/url-parser';
 import {
   APPLICANT_TASK_LIST_URL,
@@ -18,13 +18,12 @@ import { getCasePartyType } from './utils';
 
 const tabGroup = {
   [State.CASE_DRAFT]: 'draft',
-  // [State.CASE_SUBMITTED_NOT_PAID]: 'draft',
-  // [State.CASE_SUBMITTED_PAID]: 'draft',
+  [State.CASE_SUBMITTED_NOT_PAID]: 'draft',
+  [State.CASE_SUBMITTED_PAID]: 'draft',
   [State.CASE_ISSUED_TO_LOCAL_COURT]: 'draft',
   [State.CASE_GATE_KEEPING]: 'draft',
   [State.CASE_CLOSED]: 'closed',
   [State.CASE_WITHDRAWN]: 'closed',
-  [State.PREPARE_FOR_HEARING_CONDUCT_HEARING]: 'active',
   '*': 'active',
 };
 
@@ -244,7 +243,6 @@ export const prepareCaseView = (
 
   return tabs;
 };
-/* eslint-disable @typescript-eslint/no-unused-vars*/
 const getCaseTabGrouping = (
   caseData: Partial<CaseWithId>,
   userDetails: UserDetails,
@@ -254,12 +252,9 @@ const getCaseTabGrouping = (
   const tab = tabGroup[state as string] ?? tabGroup['*'];
   if (
     tab === 'active' &&
-    caseTypeOfApplication !== CaseType.C100
-
-    //&&
-    //casePartyType === PartyType.APPLICANT
-    //&&
-    //!isCaseLinked(caseData, userDetails)
+    caseTypeOfApplication === CaseType.C100 &&
+    casePartyType === PartyType.APPLICANT &&
+    !isCaseLinked(caseData, userDetails)
   ) {
     return 'draft';
   }

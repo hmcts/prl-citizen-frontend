@@ -105,7 +105,7 @@ describe('testcase for tasklist', () => {
       },
     ]);
   });
-  test.skip('when case state is submitted', () => {
+  test('when case state is submitted', () => {
     const data = {
       id: '12',
       state: State.CASE_SUBMITTED_PAID,
