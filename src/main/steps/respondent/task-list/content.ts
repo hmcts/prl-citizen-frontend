@@ -342,22 +342,17 @@ export const generateContent: TranslationFn = content => {
       stages[2].active = true;
     }
     const partyId = respondent?.id;
-    if (content.userCase.citizenResponseC7DocumentList) {
-      for (let i = 0; i < content.userCase.citizenResponseC7DocumentList.length; i++) {
-        if (content.userCase.citizenResponseC7DocumentList[i].value.createdBy === partyId) {
-          stages[2].completed = true;
-        }
-      }
-    }
+    updateStagesForC7Docs(content, partyId, stages);
   }
 
   const respondent = getRespondent(req.session.userCase, req.session.user.id);
   translations.respondentName = getRespondentName(respondent);
   const isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(respondent);
   translations.hyperlinks.forEach((hyperLink, index) => {
-    if (hyperLink.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) {
-      translations.hyperlinks.splice(index, 1);
-    } else if (hyperLink.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor) {
+    if (
+      (hyperLink.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) ||
+      (hyperLink.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor)
+    ) {
       translations.hyperlinks.splice(index, 1);
     }
   });
@@ -374,6 +369,16 @@ export const generateContent: TranslationFn = content => {
     banners,
     stages,
   };
+};
+
+const updateStagesForC7Docs = (content, partyId, stages) => {
+  if (content.userCase.citizenResponseC7DocumentList) {
+    for (const document of content.userCase.citizenResponseC7DocumentList) {
+      if (document.value.createdBy === partyId) {
+        stages[2].completed = true;
+      }
+    }
+  }
 };
 
 export const getRespondent = (userCase: Partial<CaseWithId>, userId: string): PartyDetails | undefined => {
