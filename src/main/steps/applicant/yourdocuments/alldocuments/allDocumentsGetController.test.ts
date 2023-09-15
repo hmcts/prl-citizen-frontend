@@ -1,8 +1,7 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 
-import AllDocumentsGetController from './allDocumentsGetController';
-//import AllDocumentsGetController, { getViewDocumentUrl } from './allDocumentsGetController';
+import AllDocumentsGetController, { getViewDocumentUrl } from './allDocumentsGetController';
 
 describe('allDocumentsGetController', () => {
   const req = mockRequest();
@@ -58,6 +57,48 @@ describe('allDocumentsGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith('/respondent/yourdocuments/alldocuments/lettersfromschool');
   });
 
+  test('Should redirect correctly for responsetoca', async () => {
+    req.session = {
+      ...req.session,
+      userCase: {
+        caseType: 'FL401',
+        caseInvites: [],
+        respondents: undefined,
+        respondentsFL401: undefined,
+      },
+      user: { id: '1234' },
+    };
+    req.params = {
+      docType: 'responsetoca',
+      uploadedBy: 'applicant',
+    };
+
+    await controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith('/yourdocuments/alldocuments/responsetoca');
+  });
+
+  test('Should redirect correctly for aohtoca', async () => {
+    req.session = {
+      ...req.session,
+      userCase: {
+        caseType: 'FL401',
+        caseInvites: [],
+        respondents: undefined,
+        respondentsFL401: undefined,
+      },
+      user: { id: '1234' },
+    };
+    req.params = {
+      docType: 'aohtoca',
+      uploadedBy: 'applicant',
+    };
+
+    await controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith('/yourdocuments/alldocuments/aohtoca');
+  });
+
   test('should throw an error', async () => {
     req.session = {
       ...req.session,
@@ -83,26 +124,28 @@ describe('allDocumentsGetController', () => {
     }
   });
 
-  // test.each([
-  //   { value: 'positionstatements', expected: '/yourdocuments/alldocuments/positionstatements' },
-  //   { value: 'yourwitnessstatements', expected: '/yourdocuments/alldocuments/yourwitnessstatements' },
-  //   { value: 'lettersfromschool', expected: '/yourdocuments/alldocuments/lettersfromschool' },
-  //   { value: 'digitaldownloads', expected: '/yourdocuments/alldocuments/digitaldownloads' },
-  //   { value: 'medicalrecords', expected: '/yourdocuments/alldocuments/medicalrecords' },
-  //   { value: 'paternitytestreports', expected: '/yourdocuments/alldocuments/paternity_test_reports' },
-  //   { value: 'drugalcoholtests', expected: '/yourdocuments/alldocuments/drug_alcohol_tests' },
-  //   { value: 'witnessavailability', expected: '/yourdocuments/alldocuments/witness_availability' },
-  //   {
-  //     value: 'tenancyandmortgageavailability',
-  //     expected: '/yourdocuments/alldocuments/tenancy_and_mortgage_availability',
-  //   },
-  //   { value: 'medicalreports', expected: '/yourdocuments/alldocuments/medicalreports' },
-  //   { value: 'otherDocuments', expected: '/yourdocuments/alldocuments/otherDocuments' },
-  //   { value: 'previousorders', expected: '/yourdocuments/alldocuments/previousorders' },
-  //   { value: 'otherpeoplewitnessstatement', expected: '/yourdocuments/alldocuments/otherpeoplewitnessstatement' },
-  //   { value: 'policedisclosures', expected: '/yourdocuments/alldocuments/police_disclosures' },
-  //   { value: 'miamcertificate', expected: '/yourdocuments/alldocuments/miamcertificate' },
-  // ])('get english document list item text', ({ value, expected }) => {
-  //   expect(getViewDocumentUrl(value)).toBe(expected);
-  // });
+  test.each([
+    { value: 'positionstatements', expected: '/yourdocuments/alldocuments/positionstatements' },
+    { value: 'yourwitnessstatements', expected: '/yourdocuments/alldocuments/yourwitnessstatements' },
+    { value: 'lettersfromschool', expected: '/yourdocuments/alldocuments/lettersfromschool' },
+    { value: 'digitaldownloads', expected: '/yourdocuments/alldocuments/digitaldownloads' },
+    { value: 'medicalrecords', expected: '/yourdocuments/alldocuments/medicalrecords' },
+    { value: 'paternitytestreports', expected: '/yourdocuments/alldocuments/paternity_test_reports' },
+    { value: 'drugalcoholtests', expected: '/yourdocuments/alldocuments/drug_alcohol_tests' },
+    { value: 'witnessavailability', expected: '/yourdocuments/alldocuments/witness_availability' },
+    {
+      value: 'tenancyandmortgageavailability',
+      expected: '/yourdocuments/alldocuments/tenancy_and_mortgage_availability',
+    },
+    { value: 'medicalreports', expected: '/yourdocuments/alldocuments/medicalreports' },
+    { value: 'otherdocuments', expected: '/yourdocuments/alldocuments/otherDocuments' },
+    { value: 'previousorders', expected: '/yourdocuments/alldocuments/previousorders' },
+    { value: 'otherpeoplewitnessstatement', expected: '/yourdocuments/alldocuments/otherpeoplewitnessstatement' },
+    { value: 'policedisclosures', expected: '/yourdocuments/alldocuments/police_disclosures' },
+    { value: 'miamcertificate', expected: '/yourdocuments/alldocuments/miamcertificate' },
+    { value: 'responsetoca', expected: '/yourdocuments/alldocuments/responsetoca' },
+    { value: 'aohtoca', expected: '/yourdocuments/alldocuments/aohtoca' },
+  ])('get correct urls for each document type', ({ value, expected }) => {
+    expect(getViewDocumentUrl(value)).toBe(expected);
+  });
 });

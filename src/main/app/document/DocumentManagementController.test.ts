@@ -34,6 +34,7 @@ describe('DocumentManagerController', () => {
     updateCaserMock.mockResolvedValue(req.session.userCase);
     retrieveByCaseIdMock.mockResolvedValue(req.session.userCase);
     mockGet.mockResolvedValue('true');
+    req.params.docContext = undefined;
     //jest.mock('getSystemUser', () => jest.fn());
   });
   afterEach(() => {
@@ -279,15 +280,15 @@ describe('DocumentManagerController', () => {
             },
             response: {
               citizenFlags: {
-                isApplicationViewed: 'Yes',
+                isAllegationOfHarmViewed: 'Yes',
               },
             },
           },
         },
       ];
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf';
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf/Yes?';
       req.headers.accept = 'application/pdf';
-      req.query.updateCase = 'Yes';
+      req.params.docContext = 'update-case';
       req.session.userCase.c1ADocument = {
         document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
         document_binary_url:
@@ -299,6 +300,51 @@ describe('DocumentManagerController', () => {
       await documentManagerController.get(req, res);
 
       expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllegationOfHarmViewed).toEqual('Yes');
+    });
+
+    test('check file downloaded when flag viewed for cadafinaldocumentrequest', async () => {
+      mockGet.mockResolvedValue({
+        responseType: 'array',
+        headers: {
+          'content-type': 'application/pdf',
+        },
+      });
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+            response: {
+              citizenFlags: {
+                isApplicationViewed: 'Yes',
+              },
+            },
+          },
+        },
+      ];
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf/Yes?';
+      req.headers.accept = 'application/pdf';
+      req.params.docContext = 'update-case';
+      req.session.userCase.finalDocument = {
+        document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_binary_url:
+          config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+        document_filename: 'finalDocument.pdf',
+        document_hash: null,
+      };
+
+      await documentManagerController.get(req, res);
+
+      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isApplicationViewed).toEqual('Yes');
+      expect(mockGet).toHaveBeenCalledWith({
+        url:
+          config.get('services.documentManagement.url') +
+          '/cases/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+      });
     });
   });
 
@@ -327,9 +373,9 @@ describe('DocumentManagerController', () => {
           },
         },
       ];
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest?updatecase=Yes';
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest/Yes?';
       req.headers.accept = 'application/pdf';
-      req.query.updateCase = 'Yes';
+      req.params.docContext = 'update-case';
       req.session.userCase.finalDocument = {
         document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
         document_binary_url:
@@ -369,9 +415,9 @@ describe('DocumentManagerController', () => {
           },
         },
       ];
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf/Yes?';
       req.headers.accept = 'application/pdf';
-      req.query.updateCase = 'Yes';
+      req.params.docContext = 'update-case';
       req.session.userCase.finalDocument = {
         document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
         document_binary_url:
@@ -700,6 +746,89 @@ describe('DocumentManagerController', () => {
       req.query.isContinue = YesOrNo.NO;
       await documentManagerController.deleteDocument(req, res);
       expect(req.session.userCase.start).toEqual('Yes');
+    });
+  });
+
+  describe('fetch respondentDocsList documents', () => {
+    test('fetch c7 document', async () => {
+      mockGet.mockResolvedValue({
+        responseType: 'array',
+        headers: {
+          'content-type': 'application/pdf',
+        },
+      });
+      req.originalUrl = 'http://localhost:8080/yourdocuments/alldocuments/responsetoca';
+      req.headers.accept = 'application/pdf';
+      req.session.userCase.finalDocument = {
+        document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
+        document_filename: 'finalDocument.pdf',
+        document_binary_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+      };
+      req.session.userCase.respondentDocsList = [
+        {
+          id: '1234',
+          value: {
+            c7Document: {
+              partyName: 'MOCK_NAME',
+              createdBy: 'MOCK_VALUE',
+              dateCreated: new Date(),
+              citizenDocument: {
+                document_url: '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/',
+                document_filename: 'C7_document',
+                document_binary_url: '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+              },
+            },
+          },
+        },
+      ];
+      req.session.applicationSettings = { docToView: { partyName: 'MOCK_NAME' } };
+
+      await documentManagerController.get(req, res);
+      expect(mockGet).toHaveBeenCalledWith({
+        url:
+          config.get('services.documentManagement.url') +
+          '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+      });
+    });
+  });
+
+  test('fetch c1a document', async () => {
+    mockGet.mockResolvedValue({
+      responseType: 'array',
+      headers: {
+        'content-type': 'application/pdf',
+      },
+    });
+    req.originalUrl = 'http://localhost:8080/yourdocuments/alldocuments/aohtoca';
+    req.headers.accept = 'application/pdf';
+    req.session.userCase.finalDocument = {
+      document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
+      document_filename: 'finalDocument.pdf',
+      document_binary_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+    };
+    req.session.userCase.respondentDocsList = [
+      {
+        id: '1234',
+        value: {
+          c1aDocument: {
+            partyName: 'MOCK_NAME',
+            createdBy: 'MOCK_VALUE',
+            dateCreated: new Date(),
+            citizenDocument: {
+              document_url: '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/',
+              document_filename: 'C1a_document',
+              document_binary_url: '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+            },
+          },
+        },
+      },
+    ];
+    req.session.applicationSettings = { docToView: { partyName: 'MOCK_NAME' } };
+
+    await documentManagerController.get(req, res);
+    expect(mockGet).toHaveBeenCalledWith({
+      url:
+        config.get('services.documentManagement.url') + '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
     });
   });
 });
