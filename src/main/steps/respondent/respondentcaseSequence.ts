@@ -1,4 +1,3 @@
-import HearingsGetController from '../../../main/steps/common/yourhearings/hearings/HearingsGetController';
 import { YesOrNo } from '../../app/case/definition';
 import { Sections, Step } from '../constants';
 import {
@@ -480,7 +479,6 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_YOURHEARINGS_HEARINGS,
     showInSection: Sections.AboutRespondentCase,
-    getController: HearingsGetController,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
