@@ -70,10 +70,11 @@ export const enContent = {
   No: 'No',
   yes: 'Yes',
   no: 'No',
-  dont_know: 'Dont know',
-  i_dont_know: 'I dont know',
-  yes_but_supervised: 'Yes, but I prefer that it is supervised',
-  no_dont_spend_time_with_children: 'No, I would prefer the other people do not spend time with the children',
+  'Dont know': 'Dont know',
+  'I dont know': 'I dont know',
+  'Yes, but I prefer that it is supervised': 'Yes, but I prefer that it is supervised',
+  'No, I would prefer the other people do not spend time with the children':
+    'No, I would prefer the other people do not spend time with the children',
   Mother: 'Mother',
   Father: 'Father',
   Guardian: 'Guardian',
@@ -310,7 +311,7 @@ export const cyContent = {
     ydynTranslation: {
       Yes: 'Ydyn',
       No: 'Nac Ydyn',
-      dont_know: 'Ddim yn gwybod',
+      'Dont know': 'Ddim yn gwybod',
     },
     oesTranslation: {
       Yes: 'Oes',
@@ -333,7 +334,7 @@ export const cyContent = {
     ydyntTranslation: {
       Yes: 'Ydynt',
       No: 'Nac ydynt',
-      i_dont_know: 'Nid wyf yn gwybod ',
+      'I dont know': 'Nid wyf yn gwybod ',
     },
     ydyTranslation: {
       Yes: 'Ydy',
@@ -344,8 +345,8 @@ export const cyContent = {
     },
     ydwSpecial: {
       Yes: 'Ydw',
-      yes_but_supervised: 'Ydw, ond byddai’n well gennyf i’r cyswllt gael ei oruchwylio',
-      no_dont_spend_time_with_children:
+      'Yes, but I prefer that it is supervised': 'Ydw, ond byddai’n well gennyf i’r cyswllt gael ei oruchwylio',
+      'No, I would prefer the other people do not spend time with the children':
         "Nac ydw, byddai'n well gennyf pe na bai’r bobl eraill yn treulio amser gyda'r plant",
     },
     gallaiTranslation: {
@@ -359,8 +360,8 @@ export const cyContent = {
     oesSpecial: {
       Yes: 'Oes',
       No: 'Nac oes',
-      yes_need_help_paying_fee: 'Oes, rwyf eisiau help i dalu’r ffi',
-      no_dont_need_help: 'Nac oes, nid wyf eisiau help',
+      'Yes, I need help with paying the fee': 'Oes, rwyf eisiau help i dalu’r ffi',
+      'No, I do not need help': 'Nac oes, nid wyf eisiau help',
     },
     oeddTranslation: {
       Yes: 'Oedd',

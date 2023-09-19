@@ -74,11 +74,11 @@ export const form: FormContent = {
         },
         {
           label: l => l.two,
-          value: 'yes_but_supervised',
+          value: 'Yes, but I prefer that it is supervised',
         },
         {
           label: l => l.three,
-          value: 'no_dont_spend_time_with_children',
+          value: 'No, I would prefer the other people do not spend time with the children',
         },
       ],
       validator: isFieldFilledIn,
