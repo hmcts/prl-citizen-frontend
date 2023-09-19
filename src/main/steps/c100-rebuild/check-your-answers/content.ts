@@ -70,11 +70,10 @@ export const enContent = {
   No: 'No',
   yes: 'Yes',
   no: 'No',
-  'Dont know': 'Dont know',
-  'I dont know': 'I dont know',
-  'Yes, but I prefer that it is supervised': 'Yes, but I prefer that it is supervised',
-  'No, I would prefer the other people do not spend time with the children':
-    'No, I would prefer the other people do not spend time with the children',
+  dont_know: 'Dont know',
+  i_dont_know: 'I dont know',
+  yes_but_supervised: 'Yes, but I prefer that it is supervised',
+  no_dont_spend_time_with_children: 'No, I would prefer the other people do not spend time with the children',
   Mother: 'Mother',
   Father: 'Father',
   Guardian: 'Guardian',
@@ -89,6 +88,9 @@ export const enContent = {
   email: 'E-mail',
   Male: 'Male',
   Female: 'Female',
+  telephone_number: 'Telephone number',
+  dont_know_email_address: 'I dont know their email address',
+  dont_know_telephone: 'I dont know their telephone number',
   StatementOfTruth: {
     title: 'Statement of Truth',
     heading: 'Confirm before you submit the application',
@@ -308,7 +310,7 @@ export const cyContent = {
     ydynTranslation: {
       Yes: 'Ydyn',
       No: 'Nac Ydyn',
-      'Dont know': 'Ddim yn gwybod',
+      dont_know: 'Ddim yn gwybod',
     },
     oesTranslation: {
       Yes: 'Oes',
@@ -331,7 +333,7 @@ export const cyContent = {
     ydyntTranslation: {
       Yes: 'Ydynt',
       No: 'Nac ydynt',
-      'I dont know': 'Nid wyf yn gwybod ',
+      i_dont_know: 'Nid wyf yn gwybod ',
     },
     ydyTranslation: {
       Yes: 'Ydy',
@@ -342,8 +344,8 @@ export const cyContent = {
     },
     ydwSpecial: {
       Yes: 'Ydw',
-      'Yes, but I prefer that it is supervised': 'Ydw, ond byddai’n well gennyf i’r cyswllt gael ei oruchwylio',
-      'No, I would prefer the other people do not spend time with the children':
+      yes_but_supervised: 'Ydw, ond byddai’n well gennyf i’r cyswllt gael ei oruchwylio',
+      no_dont_spend_time_with_children:
         "Nac ydw, byddai'n well gennyf pe na bai’r bobl eraill yn treulio amser gyda'r plant",
     },
     gallaiTranslation: {
@@ -357,8 +359,8 @@ export const cyContent = {
     oesSpecial: {
       Yes: 'Oes',
       No: 'Nac oes',
-      'Yes, I need help with paying the fee': 'Oes, rwyf eisiau help i dalu’r ffi',
-      'No, I do not need help': 'Nac oes, nid wyf eisiau help',
+      yes_need_help_paying_fee: 'Oes, rwyf eisiau help i dalu’r ffi',
+      no_dont_need_help: 'Nac oes, nid wyf eisiau help',
     },
     oeddTranslation: {
       Yes: 'Oedd',
@@ -370,10 +372,10 @@ export const cyContent = {
       Other: 'Arall',
     },
     personalDetails: {
-      Email: 'E-bost',
-      'Telephone number': 'Rhif ffôn',
-      'I dont know their email address': 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
-      'I dont know their telephone number': 'Nid wyf yn gwybod beth yw eu rhif ffôn',
+      email: 'E-bost',
+      telephone_number: 'Rhif ffôn',
+      dont_know_email_address: 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
+      dont_know_telephone: 'Nid wyf yn gwybod beth yw eu rhif ffôn',
     },
     ydyntTranslationResp: {
       yes: 'Ydynt',

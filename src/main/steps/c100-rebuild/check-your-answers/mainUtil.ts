@@ -1078,15 +1078,13 @@ const respondentEmailDetails = (contactDetails, id, language) => {
   if (contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes') {
     return {
       key:
-        language === 'en'
-          ? 'I dont know their email address'
-          : getYesNoTranslation(language, 'I dont know their email address', 'personalDetails'),
+        getYesNoTranslation(language, 'dont_know_email_address', 'personalDetails'),
       value: getYesNoTranslation(language, contactDetails?.['donKnowEmailAddress'], 'doTranslation'),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
     };
   } else {
     return {
-      key: language === 'en' ? 'Email' : getYesNoTranslation(language, 'Email', 'personalDetails'),
+      key: getYesNoTranslation(language, 'email', 'personalDetails'),
       value: contactDetails?.['emailAddress'],
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
     };
@@ -1097,16 +1095,14 @@ const respondentTelephoneDetails = (contactDetails, id, language) => {
   if (contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes') {
     return {
       key:
-        language === 'en'
-          ? 'I dont know their telephone number'
-          : getYesNoTranslation(language, 'I dont know their telephone number', 'personalDetails'),
+        getYesNoTranslation(language, 'dont_know_telephone', 'personalDetails'),
       value: getYesNoTranslation(language, contactDetails?.['donKnowTelephoneNumber'], 'doTranslation'),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
     };
   } else {
     return {
       key:
-        language === 'en' ? 'Telephone number' : getYesNoTranslation(language, 'Telephone number', 'personalDetails'),
+        getYesNoTranslation(language, 'telephone_number', 'personalDetails'),
       value: contactDetails?.['telephoneNumber'],
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
     };

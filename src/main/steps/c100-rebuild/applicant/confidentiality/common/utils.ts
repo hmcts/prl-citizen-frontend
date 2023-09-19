@@ -12,7 +12,8 @@ export type FieldLabel = {
 
 type FieldLabelArray = FieldLabel[];
 
-export const generateDetailsKnownYesField = (fieldSet, contactDetailsList, isAlternative) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const generateDetailsKnownYesField = (fieldSet, contactDetailsList, isAlternative): Record<string, any> => {
   let subFieldValueStorage: FieldLabelArray = [];
   const { value } = fieldSet;
 

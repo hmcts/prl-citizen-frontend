@@ -12,7 +12,7 @@ import {
   isFutureDate,
   isMoreThan18Years,
 } from '../../../../app/form/validation';
-import { getPartyDetails } from '../../people/util';
+import { dobUnknown, getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -126,13 +126,6 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
   const errors = {
     en: {},
     cy: {},
-  };
-  const dobUnknown = formData => {
-    const isExactDobDataPresent =
-      formData.dateOfBirth.day !== '' || formData.dateOfBirth.month !== '' || formData.dateOfBirth.year !== ''
-        ? 'cannotHaveBothApproxAndExact'
-        : '';
-    return formData?.isDateOfBirthUnknown === YesNoEmpty.YES ? isExactDobDataPresent : '';
   };
   const fields = {
     dateOfBirth: {

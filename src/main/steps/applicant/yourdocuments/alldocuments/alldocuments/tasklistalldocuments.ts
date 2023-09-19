@@ -334,7 +334,7 @@ export const addPreviousOrdersSubmittedByRespondent = (
   taskListItems,
   isPreviousOrdersSubmitted,
   respondentItems
-): any => {
+): void => {
   if (isPreviousOrdersSubmitted) {
     respondentItems.push({
       id: 'previous_orders_submitted_respondent',
@@ -348,7 +348,7 @@ export const addPreviousOrdersSubmittedByRespondent = (
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const addLettersFromSchoolByRespondent = (taskListItems, isLettersFromSchool, respondentItems): any => {
+export const addLettersFromSchoolByRespondent = (taskListItems, isLettersFromSchool, respondentItems): void => {
   if (isLettersFromSchool) {
     respondentItems.push({
       id: 'letters_from_school_respondent',
@@ -366,7 +366,7 @@ export const addDigitalDownloadsUploadedByRespondent = (
   taskListItems,
   isDigitalDownloadsUploaded,
   respondentItems
-): any => {
+): void => {
   if (isDigitalDownloadsUploaded) {
     respondentItems.push({
       id: 'digital_downloads_respondent',
@@ -380,7 +380,7 @@ export const addDigitalDownloadsUploadedByRespondent = (
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const addMedicalRecordsUploadByRespondent = (taskListItems, isMedicalRecordsUpload, respondentItems): any => {
+export const addMedicalRecordsUploadByRespondent = (taskListItems, isMedicalRecordsUpload, respondentItems): void => {
   if (isMedicalRecordsUpload) {
     respondentItems.push({
       id: 'medical_records_respondent',
@@ -398,7 +398,7 @@ export const addMedicalReportsUploadedByRespondent = (
   taskListItems,
   isMedicalReportsUploaded,
   respondentItems
-): any => {
+): void => {
   if (isMedicalReportsUploaded) {
     respondentItems.push({
       id: 'medical_reports_respondent',
@@ -412,7 +412,7 @@ export const addMedicalReportsUploadedByRespondent = (
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const addPaternityDocUploadedByRespondent = (taskListItems, isPaternityDocUploaded, respondentItems): any => {
+export const addPaternityDocUploadedByRespondent = (taskListItems, isPaternityDocUploaded, respondentItems): void => {
   if (isPaternityDocUploaded) {
     respondentItems.push({
       id: 'paternity_test_reports_respondent',
@@ -426,7 +426,7 @@ export const addPaternityDocUploadedByRespondent = (taskListItems, isPaternityDo
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const addDrugDocUploadedByRespondent = (taskListItems, isDrugDocUploaded, respondentItems): any => {
+export const addDrugDocUploadedByRespondent = (taskListItems, isDrugDocUploaded, respondentItems): void => {
   if (isDrugDocUploaded) {
     respondentItems.push({
       id: 'drug_alcohol_tests_respondent',
@@ -438,7 +438,7 @@ export const addDrugDocUploadedByRespondent = (taskListItems, isDrugDocUploaded,
     });
   }
 };
-export const addPoliceReportUploadedByRespondent = (taskListItems, isPoliceReportUploaded, respondentItems): any => {
+export const addPoliceReportUploadedByRespondent = (taskListItems, isPoliceReportUploaded, respondentItems): void => {
   if (isPoliceReportUploaded) {
     respondentItems.push({
       id: 'police_disclosures_respondent',
@@ -454,7 +454,7 @@ export const addWitnessAvailabilityUploadedByRespondent = (
   taskListItems,
   isWitnessAvailabilityUploaded,
   respondentItems
-): any => {
+): void => {
   if (isWitnessAvailabilityUploaded) {
     respondentItems.push({
       id: 'witness_availability_respondent',
@@ -466,7 +466,7 @@ export const addWitnessAvailabilityUploadedByRespondent = (
     });
   }
 };
-export const addTenancyUploadedByRespondent = (taskListItems, isTenancyUploaded, respondentItems): any => {
+export const addTenancyUploadedByRespondent = (taskListItems, isTenancyUploaded, respondentItems): void => {
   if (isTenancyUploaded) {
     respondentItems.push({
       id: 'tenancy_and_mortgage_availability',

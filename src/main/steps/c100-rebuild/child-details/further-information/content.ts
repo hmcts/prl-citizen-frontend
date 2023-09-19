@@ -90,7 +90,7 @@ export const form: FormContent = {
         },
         {
           label: l => l.three,
-          value: 'Dont know',
+          value: 'dont_know',
         },
       ],
       validator: isFieldFilledIn,
@@ -112,7 +112,7 @@ export const form: FormContent = {
         },
         {
           label: l => l.three,
-          value: 'Dont know',
+          value: 'dont_know',
         },
       ],
       validator: isFieldFilledIn,

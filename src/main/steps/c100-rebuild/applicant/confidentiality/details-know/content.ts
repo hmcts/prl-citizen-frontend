@@ -78,7 +78,7 @@ export const generateContent: TranslationFn = content => {
     },
     {
       label: l => l.three,
-      value: 'I dont know',
+      value: 'i_dont_know',
     },
   ];
   switch (selectedUser) {
@@ -100,10 +100,10 @@ export const generateContent: TranslationFn = content => {
         return fieldSet;
       });
       break;
-    case 'I dont know':
+    case 'i_dont_know':
       detailKnownFormField = checkedFormField.map(fieldSet => {
         const { value } = fieldSet;
-        if (value === 'I dont know') {
+        if (value === 'i_dont_know') {
           fieldSet['attributes'] = { checked: true };
         }
         return fieldSet;
