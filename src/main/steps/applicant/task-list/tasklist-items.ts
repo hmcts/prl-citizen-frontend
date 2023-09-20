@@ -15,7 +15,7 @@ export const applicant_tasklist_items_en = {
   witness_statement: 'Witness statement (PDF)',
   details_of_court_hearings: 'Check details of your court hearings',
   orders: 'View all orders from the court',
-  upload_document: 'Upload documents',
+  upload_document: 'Upload documents, applications and statements',
 };
 
 export const applicant_tasklist_items_cy = {

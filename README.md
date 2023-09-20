@@ -135,7 +135,7 @@ Make sure you have those values set correctly for your application.
 #### Troubleshooting
 
 ### Managing Preview environment PODs
-Make sure you have added the label 'keep-helm' while creating the PR. Otherwise, add the label and re-trigger the build.
+Make sure you have added the label 'enable_keep_helm' while creating the PR. Otherwise, add the label and re-trigger the build.
 
 ### Healthcheck
 

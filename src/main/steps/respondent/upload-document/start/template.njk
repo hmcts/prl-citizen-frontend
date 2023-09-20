@@ -1,11 +1,8 @@
 {% extends "common/template.njk" %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% block page_content %}
-    <div class="govuk-form-group">
-        <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l">{{ caption }}</span>
-            {{ title }}
-        </h1>
-        <p class="govuk-body">{{ content }}</p>
-    </div>
+    <h1 class="govuk-heading-xl">
+        <span class="govuk-caption-l">{{ caption }}</span>
+        {{ title }}
+    </h1>
 {% endblock %}

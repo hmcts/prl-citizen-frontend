@@ -9,7 +9,7 @@ const enContent = {
   section: 'Upload documents',
   caseNumber: 'Case Number ',
   title: 'Select the type of document',
-  line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
+  note: 'The court will tell you in a letter or email which documents or materials you need to submit.',
   sectionTitles: document_list_en,
   documentsListItems: documents_list_items_en,
 };
@@ -17,7 +17,7 @@ const cyContent = {
   section: 'Llwytho dogfennau',
   caseNumber: 'Rhif yr achos ',
   title: 'Dewiswch y math o ddogfen',
-  line1: 'Os yw’r llys wedi gofyn i chi gyflwyno tystiolaeth bellach, gallwch lwytho dogfennau yma.',
+  note: 'The court will tell you in a letter or email which documents or materials you need to submit. - welsh',
   sectionTitles: document_list_cy,
   documentsListItems: documents_list_items_cy,
 };
