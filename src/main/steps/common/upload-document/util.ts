@@ -24,14 +24,14 @@ const getPositionStatementsDocInfo = (
     case DocType.POSITION_STATEMENTS: {
       Object.assign(docInfo, {
         category: documentCategory.witness_statements_and_evidence,
-        type: documentType.position_statement,
+        type: documentType.your_position_statements,
       });
       break;
     }
     case DocType.YOUR_WITNESS_STATEMENTS: {
       Object.assign(docInfo, {
         category: documentCategory.witness_statements_and_evidence,
-        type: documentType.witness_statements,
+        type: documentType.your_witness_statements,
       });
       break;
     }

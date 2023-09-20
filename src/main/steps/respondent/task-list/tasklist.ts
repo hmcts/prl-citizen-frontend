@@ -12,7 +12,6 @@ import {
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getResponseStatus,
-  getUploadDocuments,
   getViewAllDocuments,
   getViewAllHearingsFromTheCourt,
   getViewAllOrdersFromTheCourt,
@@ -90,7 +89,7 @@ export const generateRespondentTaskList = (
           ? {
               id: 'upload-document',
               text: taskListItems.upload_document,
-              status: getUploadDocuments(),
+              status: SectionStatus.OPTIONAL,
               href: URL.RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
             }
           : null,
