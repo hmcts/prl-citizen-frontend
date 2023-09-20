@@ -281,7 +281,7 @@ describe('testcase for tasklist', () => {
             disabled: false,
             href: '/applicant/upload-document',
             id: 'uploadDocuments',
-            linkText: ' Upload documents',
+            linkText: 'Upload documents, applications and statements',
             stateTag: {
               className: 'govuk-tag--blue',
               label: 'Optional',
@@ -415,7 +415,7 @@ describe('testcase for tasklist', () => {
             disabled: false,
             href: '/applicant/upload-document',
             id: 'uploadDocuments',
-            linkText: ' Upload documents',
+            linkText: 'Upload documents, applications and statements',
             stateTag: {
               className: 'govuk-tag--blue',
               label: 'Optional',
