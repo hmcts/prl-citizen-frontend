@@ -7,6 +7,8 @@ import { document_list_cy, document_list_en } from './section-titles';
 import { documents_list_items_cy, documents_list_items_en } from './upload-document-list-items';
 import { generateUploadDocumentList } from './upload-documents-list';
 
+export * from './routeGuard';
+
 const en = () => ({
   section: 'Upload documents',
   caseNumber: 'Case Number ',
