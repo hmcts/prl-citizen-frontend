@@ -1,5 +1,5 @@
 import { DocCategory, DocType, PartyType } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
+import { AppSession } from '../../../app/controller/AppRequest';
 import { document_list_cy, document_list_en } from '../../../steps/applicant/upload-document/section-titles';
 import {
   documents_list_items_cy,
@@ -232,11 +232,10 @@ export const getDocumentType = (type: DocType, partyType: PartyType): string => 
   return documentType;
 };
 
-export const clearSessionData = (req: AppRequest): void => {
-  delete req.session.userCase.start;
-  req.session.userCase.applicantUploadFiles = [];
-  req.session.userCase.respondentUploadFiles = [];
-  delete req.session.userCase.reasonForDocumentCantBeShared;
-  delete req.session.userCase.declarationCheck;
-  req.session.save();
+export const resetUploadDocumentSessionData = (session: AppSession): void => {
+  delete session.userCase.start;
+  session.userCase.applicantUploadFiles = [];
+  session.userCase.respondentUploadFiles = [];
+  delete session.userCase.reasonForDocumentCantBeShared;
+  delete session.userCase.declarationCheck;
 };

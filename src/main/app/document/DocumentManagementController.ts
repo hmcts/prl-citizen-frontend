@@ -3,7 +3,7 @@ import config from 'config';
 import type { Response } from 'express';
 
 import { getPartyName } from '../../steps/common/task-list/utils';
-import { getDocumentType } from '../../steps/common/upload-document/util';
+import { getDocumentType, resetUploadDocumentSessionData } from '../../steps/common/upload-document/util';
 import { applyParms } from '../../steps/common/url-parser';
 import { UPDATE_CASE } from '../../steps/constants';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
@@ -33,7 +33,7 @@ import {
   YesOrNo,
 } from '../case/definition';
 import { toApiFormat } from '../case/to-api-format';
-import type { AppRequest, AppSession, UserDetails } from '../controller/AppRequest';
+import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
 import { Form, FormError, FormFields, FormFieldsFn } from '../form/Form';
 
@@ -670,20 +670,12 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
   }
 
-  private resetUploadSessionData(session: AppSession): void {
-    delete session.userCase.start;
-    session.userCase.applicantUploadFiles = [];
-    session.userCase.respondentUploadFiles = [];
-    delete session.userCase.reasonForDocumentCantBeShared;
-    delete session.userCase.declarationCheck;
-  }
-
   public redirectToCaseView(req: AppRequest<AnyObject>, res: Response): void {
     const { user, userCase: caseData } = req.session;
     const partyType = getCasePartyType(caseData, user.id);
     let redirectUrl;
 
-    this.resetUploadSessionData(req.session);
+    resetUploadDocumentSessionData(req.session);
 
     if (partyType === PartyType.APPLICANT) {
       if (caseData.caseTypeOfApplication === CaseType.C100) {
@@ -702,7 +694,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const { user, userCase: caseData } = req.session;
     const partyType = getCasePartyType(caseData, user.id);
 
-    this.resetUploadSessionData(req.session);
+    resetUploadDocumentSessionData(req.session);
     this.redirect(
       req,
       res,
