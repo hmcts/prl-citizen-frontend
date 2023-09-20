@@ -7,7 +7,7 @@ export const respondent_tasklist_items_en = {
   respond_to_application: 'Respond to the application',
   respond_to_allegations_of_harm_and_violence: 'Respond to the allegations of harm and violence',
   check_details_of_your_court_hearings: 'Check details of your court hearings',
-  upload_document: 'Upload Documents',
+  upload_document: 'Upload documents, applications and statements',
   view_all_orders_from_the_court: 'View all orders from the court',
   view_all_documents: 'View all documents',
   respond_to_application_hint: 'Go to view all documents to check the response.',

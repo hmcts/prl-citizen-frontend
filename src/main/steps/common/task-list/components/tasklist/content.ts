@@ -26,7 +26,7 @@ const en = {
         heading: 'Your documents',
         tasks: {
           uploadDocuments: {
-            linkText: ' Upload documents',
+            linkText: 'Upload documents, applications and statements',
           },
           viewAllDocuments: {
             linkText: 'View all documents',

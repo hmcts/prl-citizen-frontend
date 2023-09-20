@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { State } from '../../../app/case/definition';
+import { SectionStatus, State } from '../../../app/case/definition';
 import { hasAnyHearing } from '../../../steps/respondent/task-list/tasklist';
 import {
   getViewAllHearingsFromTheCourt,
@@ -11,7 +11,6 @@ import {
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
   getSupportYourNeedsDetails,
-  getUploadDocuments,
   getViewAllDocuments,
   getYourApplication,
   getYourWitnessStatement,
@@ -81,7 +80,7 @@ export const generateApplicantTaskList = (
           ? {
               id: 'upload-document',
               text: taskListItems.upload_document,
-              status: getUploadDocuments(),
+              status: SectionStatus.OPTIONAL,
               href: URL.APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
             }
           : null,
