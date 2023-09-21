@@ -73,7 +73,7 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'upload-document',
             text: taskListItems.upload_document,
-            status: 'TO_DO',
+            status: 'OPTIONAL',
             href: URL.RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
           },
         ],
@@ -161,7 +161,7 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'upload-document',
             text: taskListItems.upload_document,
-            status: 'TO_DO',
+            status: 'OPTIONAL',
             href: URL.RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
           },
         ],
@@ -275,8 +275,8 @@ describe('generateRespondentTaskList', () => {
           {
             href: '/respondent/upload-document',
             id: 'upload-document',
-            status: 'TO_DO',
-            text: 'Upload Documents',
+            status: 'OPTIONAL',
+            text: 'Upload documents, applications and statements',
           },
         ],
       },
@@ -400,8 +400,8 @@ describe('generateRespondentTaskList', () => {
           {
             href: '/respondent/upload-document',
             id: 'upload-document',
-            status: 'TO_DO',
-            text: 'Upload Documents',
+            status: 'OPTIONAL',
+            text: 'Upload documents, applications and statements',
           },
         ],
       },
@@ -494,7 +494,7 @@ describe('generateRespondentTaskList', () => {
           {
             id: 'upload-document',
             text: taskListItems.upload_document,
-            status: 'TO_DO',
+            status: 'OPTIONAL',
             href: URL.RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
           },
         ],

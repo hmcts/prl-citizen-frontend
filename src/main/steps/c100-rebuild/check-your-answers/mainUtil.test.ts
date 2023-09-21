@@ -765,6 +765,8 @@ describe('test cases for main util', () => {
           contactDetails: {
             emailAddress: 'abc@gmail.com',
             telephoneNumber: '+447205308786',
+            donKnowEmailAddress: 'Yes',
+            donKnowTelephoneNumber: 'Yes',
           },
         },
       ],

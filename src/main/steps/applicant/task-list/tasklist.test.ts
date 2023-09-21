@@ -139,8 +139,8 @@ describe('applicant tasklist getRemainingTaskList', () => {
           {
             href: '/applicant/upload-document',
             id: 'upload-document',
-            status: 'TO_DO',
-            text: 'Upload documents',
+            status: 'OPTIONAL',
+            text: 'Upload documents, applications and statements',
           },
           {
             href: '/applicant/yourdocuments/alldocuments/alldocuments',
@@ -273,8 +273,8 @@ describe('applicant tasklist getRemainingTaskList', () => {
           {
             href: '/applicant/upload-document',
             id: 'upload-document',
-            status: 'TO_DO',
-            text: 'Upload documents',
+            status: 'OPTIONAL',
+            text: 'Upload documents, applications and statements',
           },
           {
             href: '/applicant/yourdocuments/alldocuments/alldocuments',

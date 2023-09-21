@@ -2,7 +2,7 @@ import languageAssertions from '../../../../../test/unit/utils/languageAssertion
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 
-import { generateContent } from './content';
+import { generateContent, getHearingMethod, getProperTime } from './content';
 
 const enContent = {
   section: 'Your court hearings',
@@ -128,36 +128,123 @@ describe('citizen-home yourhearings hearings content', () => {
   } as unknown as CommonContent;
   commonContent.additionalData!.req.session.userCase.hearingCollection = [
     {
-      hearingID: 2000006135,
-      hearingRequestDateTime: '2023-07-11T16:07:21.253071',
-      hearingType: 'ABA5-FOF',
-      hmcStatus: 'LISTED',
-      lastResponseReceivedDateTime: '2023-07-11T16:41:37',
+      hearingID: 2000006634,
+      hearingRequestDateTime: '2023-09-12T09:55:00.283658',
+      hearingType: 'ABA5-DRA',
+      hmcStatus: 'AWAITING_ACTUALS',
+      lastResponseReceivedDateTime: '2023-09-12T10:02:03',
       requestVersion: 1,
       hearingListingStatus: 'FIXED',
       listAssistCaseStatus: 'LISTED',
       hearingDaySchedule: [
         {
-          hearingStartDateTime: '2023-08-03T09:00:00',
-          hearingEndDateTime: '2023-08-03T12:00:00',
+          hearingStartDateTime: '2023-09-15T09:00:00',
+          hearingEndDateTime: '2023-09-16T10:00:00',
           listAssistSessionId: null,
           hearingVenueId: '234946',
           hearingVenueName: 'Swansea Civil And Family Justice Centre',
           hearingVenueLocationCode: '344',
           hearingVenueAddress: 'Quay West, Quay Parade',
           hearingRoomId: 'Courtroom 01',
-          hearingJudgeId: '',
+          hearingJudgeId: null,
           hearingJudgeName: null,
-          panelMemberIds: [],
+          panelMemberIds: null,
           attendees: [
-            {
-              partyID: '123',
-              hearingSubChannel: 'VID',
-            },
-            {
-              partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
-              hearingSubChannel: 'INTER',
-            },
+            { partyID: '123', hearingSubChannel: 'TEL' },
+            { partyID: 'a7caf318-82e7-46c8-975a-b34b49c5376c', hearingSubChannel: 'TEL' },
+            { partyID: '57a6bac4-f78d-475f-b9ac-98d63dee8de5', hearingSubChannel: 'TEL' },
+            { partyID: 'fa9051fe-e2bd-47f6-a7fc-fc592ddd7af0', hearingSubChannel: 'TEL' },
+          ],
+        },
+      ],
+      hearingGroupRequestId: null,
+      hearingIsLinkedFlag: false,
+      hearingTypeValue: 'Dispute Resolution Appointment',
+      nextHearingDate: '2023-09-29',
+      urgentFlag: false,
+    },
+    {
+      hearingID: 2000006289,
+      hearingRequestDateTime: '2023-07-31T14:40:20.877578',
+      hearingType: 'ABA5-FOF',
+      hmcStatus: 'AWAITING_ACTUALS',
+      lastResponseReceivedDateTime: '2023-08-01T09:10:49',
+      requestVersion: 1,
+      hearingListingStatus: 'FIXED',
+      listAssistCaseStatus: 'LISTED',
+      hearingDaySchedule: [
+        {
+          hearingStartDateTime: '2023-08-09T09:00:00',
+          hearingEndDateTime: '2023-08-09T10:00:00',
+          listAssistSessionId: null,
+          hearingVenueId: '234946',
+          hearingVenueName: null,
+          hearingVenueLocationCode: null,
+          hearingVenueAddress: null,
+          hearingRoomId: 'Courtroom 05',
+          hearingJudgeId: null,
+          hearingJudgeName: null,
+          panelMemberIds: null,
+          attendees: [
+            { partyID: '123', hearingSubChannel: 'VID' },
+            { partyID: 'a7caf318-82e7-46c8-975a-b34b49c5376c', hearingSubChannel: 'VID' },
+            { partyID: '57a6bac4-f78d-475f-b9ac-98d63dee8de5', hearingSubChannel: 'VID' },
+            { partyID: 'fa9051fe-e2bd-47f6-a7fc-fc592ddd7af0', hearingSubChannel: 'VID' },
+          ],
+        },
+        {
+          hearingStartDateTime: '2023-08-08T09:00:00',
+          hearingEndDateTime: '2023-08-08T15:00:00',
+          listAssistSessionId: null,
+          hearingVenueId: '234946',
+          hearingVenueName: null,
+          hearingVenueLocationCode: null,
+          hearingVenueAddress: null,
+          hearingRoomId: 'Courtroom 05',
+          hearingJudgeId: null,
+          hearingJudgeName: null,
+          panelMemberIds: null,
+          attendees: [
+            { partyID: '123', hearingSubChannel: 'VID' },
+            { partyID: 'a7caf318-82e7-46c8-975a-b34b49c5376c', hearingSubChannel: 'VID' },
+            { partyID: '57a6bac4-f78d-475f-b9ac-98d63dee8de5', hearingSubChannel: 'VID' },
+            { partyID: 'fa9051fe-e2bd-47f6-a7fc-fc592ddd7af0', hearingSubChannel: 'VID' },
+          ],
+        },
+      ],
+      hearingGroupRequestId: null,
+      hearingIsLinkedFlag: false,
+      hearingTypeValue: 'Finding of Fact',
+      nextHearingDate: '2023-09-29',
+      urgentFlag: false,
+    },
+    {
+      hearingID: 2000006288,
+      hearingRequestDateTime: '2023-07-31T14:38:52.403673',
+      hearingType: 'ABA5-FOF',
+      hmcStatus: 'COMPLETED',
+      lastResponseReceivedDateTime: '2023-08-01T09:13:46',
+      requestVersion: 1,
+      hearingListingStatus: 'FIXED',
+      listAssistCaseStatus: 'LISTED',
+      hearingDaySchedule: [
+        {
+          hearingStartDateTime: '2023-08-03T09:00:00',
+          hearingEndDateTime: '2023-08-03T10:00:00',
+          listAssistSessionId: null,
+          hearingVenueId: '234946',
+          hearingVenueName: null,
+          hearingVenueLocationCode: null,
+          hearingVenueAddress: null,
+          hearingRoomId: 'Courtroom 09',
+          hearingJudgeId: null,
+          hearingJudgeName: null,
+          panelMemberIds: null,
+          attendees: [
+            { partyID: '123', hearingSubChannel: 'INTER' },
+            { partyID: 'a7caf318-82e7-46c8-975a-b34b49c5376c', hearingSubChannel: 'INTER' },
+            { partyID: '57a6bac4-f78d-475f-b9ac-98d63dee8de5', hearingSubChannel: 'INTER' },
+            { partyID: 'fa9051fe-e2bd-47f6-a7fc-fc592ddd7af0', hearingSubChannel: 'INTER' },
           ],
         },
         {
@@ -165,70 +252,26 @@ describe('citizen-home yourhearings hearings content', () => {
           hearingEndDateTime: '2023-08-02T15:00:00',
           listAssistSessionId: null,
           hearingVenueId: '234946',
-          hearingVenueName: 'Swansea Civil And Family Justice Centre',
-          hearingVenueLocationCode: '344',
-          hearingVenueAddress: 'Quay West, Quay Parade',
-          hearingRoomId: 'Courtroom 01',
-          hearingJudgeId: '',
+          hearingVenueName: null,
+          hearingVenueLocationCode: null,
+          hearingVenueAddress: null,
+          hearingRoomId: 'Courtroom 09',
+          hearingJudgeId: null,
           hearingJudgeName: null,
-          panelMemberIds: [],
+          panelMemberIds: null,
           attendees: [
-            {
-              partyID: '123',
-              hearingSubChannel: 'VID',
-            },
-            {
-              partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
-              hearingSubChannel: 'INTER',
-            },
+            { partyID: '123', hearingSubChannel: 'INTER' },
+            { partyID: 'a7caf318-82e7-46c8-975a-b34b49c5376c', hearingSubChannel: 'INTER' },
+            { partyID: '57a6bac4-f78d-475f-b9ac-98d63dee8de5', hearingSubChannel: 'INTER' },
+            { partyID: 'fa9051fe-e2bd-47f6-a7fc-fc592ddd7af0', hearingSubChannel: 'INTER' },
           ],
         },
       ],
       hearingGroupRequestId: null,
       hearingIsLinkedFlag: false,
       hearingTypeValue: 'Finding of Fact',
-      nextHearingDate: '2023-08-02T09:00:00',
+      nextHearingDate: '2023-09-29',
       urgentFlag: false,
-    },
-    {
-      hearingID: 2000006134,
-      hearingRequestDateTime: '2023-07-11T16:05:38.761289',
-      hearingType: 'ABA5-FOF',
-      hmcStatus: 'LISTED',
-      lastResponseReceivedDateTime: '2023-07-11T16:20:38',
-      requestVersion: 1,
-      hearingListingStatus: 'FIXED',
-      listAssistCaseStatus: 'LISTED',
-      hearingDaySchedule: [
-        {
-          hearingStartDateTime: '2023-07-12T09:00:00',
-          hearingEndDateTime: '2023-07-12T15:00:00',
-          listAssistSessionId: null,
-          hearingVenueId: '234946',
-          hearingVenueName: 'Swansea Civil And Family Justice Centre',
-          hearingVenueLocationCode: '344',
-          hearingVenueAddress: 'Quay West, Quay Parade',
-          hearingRoomId: 'Courtroom 01',
-          hearingJudgeId: '',
-          hearingJudgeName: null,
-          panelMemberIds: [],
-          attendees: [
-            {
-              partyID: '123',
-              hearingSubChannel: 'INTER',
-            },
-            {
-              partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
-              hearingSubChannel: 'TELOTHER',
-            },
-          ],
-        },
-      ],
-      hearingGroupRequestId: null,
-      hearingIsLinkedFlag: false,
-      hearingTypeValue: 'Finding of Fact',
-      nextHearingDate: '2023-07-12T09:00:00',
-      urgentFlag: true,
     },
   ];
   let generatedContent;
@@ -255,6 +298,89 @@ describe('citizen-home yourhearings hearings content', () => {
 
   test('should contain go back button', () => {
     expect((form.submit?.text as Function)(generatedContent)).toBe('Close and return to case overview');
+  });
+
+  test('getHearingMethod for c100 respondent', () => {
+    const attendees = [{ partyID: '123', hearingSubChannel: 'VID' }];
+    const req = commonContent.additionalData?.req;
+    req.session.userCase = {
+      ...req.session.userCase,
+      respondents: [
+        {
+          id: '123',
+          value: {
+            user: {
+              idamId: '123',
+            },
+          },
+        },
+      ],
+    };
+    expect(getHearingMethod(req, attendees)).toBe('VID');
+  });
+
+  test('getHearingMethod for FL401 applicant', () => {
+    const attendees = [{ partyID: '123', hearingSubChannel: 'VID' }];
+    const req = commonContent.additionalData?.req;
+    req.session.userCase = {
+      ...req.session.userCase,
+      caseTypeOfApplication: 'FL401',
+      caseInvites: [
+        {
+          id: 'string',
+          value: {
+            partyId: '123',
+            caseInviteEmail: 'string',
+            accessCode: 'string',
+            invitedUserId: '123',
+            expiryDate: 'string',
+            isApplicant: 'No',
+          },
+        },
+      ],
+      applicantsFL401: {
+        id: '123',
+        partyId: '123',
+        user: {
+          idamId: '123',
+        },
+      },
+    };
+    expect(getHearingMethod(req, attendees)).toBe('VID');
+  });
+
+  test('getHearingMethod for FL401 respondent', () => {
+    const attendees = [{ partyID: '123', hearingSubChannel: 'VID' }];
+    const req = commonContent.additionalData?.req;
+    req.session.userCase = {
+      ...req.session.userCase,
+      caseTypeOfApplication: 'FL401',
+      caseInvites: [
+        {
+          id: 'string',
+          value: {
+            partyId: '123',
+            caseInviteEmail: 'string',
+            accessCode: 'string',
+            invitedUserId: '123',
+            expiryDate: 'string',
+            isApplicant: 'No',
+          },
+        },
+      ],
+      respondentsFL401: {
+        id: '123',
+        partyId: '123',
+        user: {
+          idamId: '123',
+        },
+      },
+    };
+    expect(getHearingMethod(req, attendees)).toBe('VID');
+  });
+
+  test('getProperTime should convert 24 hour time to 12 hour', () => {
+    expect(getProperTime(new Date('December 17, 1995 22:24:00'))).toBe('10:24');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

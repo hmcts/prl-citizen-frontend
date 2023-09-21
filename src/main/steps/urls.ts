@@ -618,6 +618,8 @@ export const SAFEGAURD_EXCLUDE_URLS = [
   ALLEGATION_OF_HARM_VOILENCE_DOC,
   RESPONSE_TO_CA,
   AOH_TO_CA,
+  CITIZEN_DOWNLOAD_UPLOADED_DOCS,
+  TASK_LIST_RESPONSE,
 ];
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>

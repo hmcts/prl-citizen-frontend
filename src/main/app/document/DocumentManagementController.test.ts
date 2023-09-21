@@ -75,7 +75,7 @@ describe('DocumentManagerController', () => {
           'content-type': 'application/pdf',
         },
       });
-      req.originalUrl = 'http://localhost:8080/applicant/public/docs/cadafinaldocumentrequest.pdf';
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/FL401-Final-Document.pdf';
       req.headers.accept = 'application/pdf';
       req.session.userCase.finalDocument = {
         document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
@@ -789,6 +789,135 @@ describe('DocumentManagerController', () => {
           config.get('services.documentManagement.url') +
           '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
       });
+    });
+
+    test('fetch c7 final document', async () => {
+      mockGet.mockResolvedValue({
+        responseType: 'array',
+        headers: {
+          'content-type': 'application/pdf',
+        },
+      });
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.originalUrl = 'http://localhost:8080/yourdocuments/doc/generate-c7-final';
+      req.headers.accept = 'application/pdf';
+      req.session.userCase.finalDocument = {
+        document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
+        document_filename: 'finalDocument.pdf',
+        document_binary_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+      };
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+          },
+        },
+      ];
+      req.session.userCase.citizenResponseC7DocumentList = [
+        {
+          id: '1234',
+          value: {
+            partyName: 'MOCK_NAME',
+            createdBy: '9813df99-41bf-4b46-a602-86676b5e3547',
+            dateCreated: new Date(),
+            citizenDocument: {
+              document_url: '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/',
+              document_filename: '9813df99-41bf-4b46-a602-86676b5e3547',
+              document_binary_url: '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+            },
+          },
+        },
+      ];
+      req.session.applicationSettings = { docToView: { partyName: 'MOCK_NAME' } };
+
+      await documentManagerController.get(req, res);
+      expect(mockGet).toHaveBeenCalledWith({
+        url:
+          config.get('services.documentManagement.url') +
+          '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+      });
+    });
+
+    test('error when c7 final document binary url not present', async () => {
+      req.originalUrl = 'http://localhost:8080/yourdocuments/doc/generate-c7-final';
+      req.headers.accept = 'application/pdf';
+      req.session.userCase.citizenResponseC7DocumentList = [
+        {
+          id: '1234',
+          value: {
+            partyName: 'MOCK_NAME',
+            createdBy: '9813df99-41bf-4b46-a602-86676b5e3547',
+            dateCreated: new Date(),
+            citizenDocument: {
+              document_url: '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/',
+              document_filename: '9813df99-41bf-4b46-a602-86676b5e3547',
+              document_binary_url: undefined,
+            },
+          },
+        },
+      ];
+
+      let flag = false;
+      try {
+        await documentManagerController.get(req, res);
+      } catch (err) {
+        flag = true;
+      }
+      expect(flag).toBe(true);
+    });
+  });
+
+  test('fetch citizen uploaded document', async () => {
+    mockGet.mockResolvedValue({
+      responseType: 'array',
+      headers: {
+        'content-type': 'application/pdf',
+      },
+    });
+    req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+    req.originalUrl = 'http://localhost:8080/alldocuments/downloadCitizenDocument/6bb61ec7-df31-4c14-b11d-48379307aa8c';
+    req.headers.accept = 'application/pdf';
+    req.session.userCase.finalDocument = {
+      document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
+      document_filename: 'finalDocument.pdf',
+      document_binary_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+    };
+    req.session.userCase.respondents = [
+      {
+        id: '9813df99-41bf-4b46-a602-86676b5e3547',
+        value: {
+          user: {
+            idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+            email: 'test@example.net',
+          },
+        },
+      },
+    ];
+    req.session.userCase.citizenUploadedDocumentList = [
+      {
+        id: '1234',
+        value: {
+          partyName: 'MOCK_NAME',
+          createdBy: 'MOCK_VALUE',
+          dateCreated: new Date(),
+          citizenDocument: {
+            document_url: '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
+            document_filename: '6bb61ec7-df31-4c14-b11d-48379307aa8c',
+            document_binary_url: '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+          },
+        },
+      },
+    ];
+    req.session.applicationSettings = { docToView: { partyName: 'MOCK_NAME' } };
+
+    await documentManagerController.get(req, res);
+    expect(mockGet).toHaveBeenCalledWith({
+      url:
+        config.get('services.documentManagement.url') + '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
     });
   });
 

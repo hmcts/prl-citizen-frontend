@@ -17,6 +17,7 @@ const enContent = {
     [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.OPTIONAL]: 'Optional',
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
@@ -54,6 +55,7 @@ const cyContent = {
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
+    [SectionStatus.OPTIONAL]: 'Dewisol',
   },
   sectionTitles: applicant_cy,
   taskListItems: applicant_tasklist_items_cy,
@@ -174,8 +176,8 @@ describe('task-list > content', () => {
             {
               href: '/applicant/upload-document',
               id: 'upload-document',
-              status: SectionStatus.TO_DO,
-              text: 'Upload documents',
+              status: SectionStatus.OPTIONAL,
+              text: 'Upload documents, applications and statements',
             },
             {
               href: '/applicant/yourdocuments/alldocuments/alldocuments',
@@ -248,8 +250,8 @@ describe('task-list > content', () => {
             {
               href: '/applicant/upload-document',
               id: 'upload-document',
-              status: SectionStatus.TO_DO,
-              text: 'Upload documents',
+              status: SectionStatus.OPTIONAL,
+              text: 'Upload documents, applications and statements',
             },
             null,
           ],

@@ -171,6 +171,37 @@ const prepareHearingData = (req: AppRequest<Partial<Case>>): any => {
   let hearingsFuture: HearingsList[] = [];
   const hearingsCompleted: HearingsList[] = [];
   //Here we are sorting the hearing based on completed or future dated..
+  addHearings(req, hearingsCompleted, hearingsFuture);
+
+  //sorting future hearings based on their next hearing dates
+  hearingsFuture = hearingsFuture.sort(
+    (a, b) => new Date(a.nextHearingDate!).valueOf() - new Date(b.nextHearingDate!).valueOf()
+  );
+
+  //sorting schedules of particular hearing
+  if (hearingsFuture && hearingsFuture.length >= 1) {
+    sortSchedules(hearingsFuture);
+
+    if (hearingsFuture.length >= 1) {
+      addFutureHearings(req, hearingsFuture, futureHearings);
+      const next = futureHearings.shift();
+      nextHearing.push(next!);
+    }
+
+    //Generating completed hearing data
+    if (hearingsCompleted && hearingsCompleted.length >= 1) {
+      addCompletedHearings(req, hearingsCompleted, completedHearings);
+    }
+  }
+
+  return {
+    nextHearing,
+    futureHearings,
+    completedHearings,
+  };
+};
+
+const addHearings = (req, hearingsCompleted, hearingsFuture) => {
   if (req.session.userCase.hearingCollection && req.session.userCase.hearingCollection.length >= 1) {
     for (const hearing of req.session.userCase.hearingCollection) {
       if (hearing.hmcStatus === hearingStatus.COMPLETED) {
@@ -180,117 +211,108 @@ const prepareHearingData = (req: AppRequest<Partial<Case>>): any => {
       }
     }
   }
-  //sorting future hearings based on their next hearing dates
-  hearingsFuture = hearingsFuture.sort(
-    (a, b) => new Date(a.nextHearingDate!).valueOf() - new Date(b.nextHearingDate!).valueOf()
-  );
-  //sorting shddules of particular hearing
-  if (hearingsFuture && hearingsFuture.length >= 1) {
-    for (const hearing of hearingsFuture) {
-      if (hearing.hearingDaySchedule!.length >= 2) {
-        hearing.hearingDaySchedule = hearing.hearingDaySchedule!.sort(
-          (a, b) => new Date(a.hearingStartDateTime!).valueOf() - new Date(b.hearingStartDateTime!).valueOf()
-        );
-      }
-    }
-    if (hearingsFuture.length >= 1) {
-      for (const hearing of hearingsFuture) {
-        const date = hearing.hearingDaySchedule![0].hearingStartDateTime!;
-        let dates =
-          req.session.lang === 'cy'
-            ? dayjs(date).locale('cy').format('DD MMMM YYYY')
-            : dayjs(date).locale('en').format('DD MMMM YYYY');
-        if (hearing.hearingDaySchedule!.length >= 2) {
-          const len = hearing.hearingDaySchedule!.length;
-          const endDate = hearing.hearingDaySchedule![len - 1].hearingStartDateTime!;
-          const endDateFormatted =
-            req.session.lang === 'cy'
-              ? dayjs(endDate).locale('cy').format('DD MMMM YYYY').toString()
-              : dayjs(endDate).locale('en').format('DD MMMM YYYY').toString();
-          dates = `${dates} - ${endDateFormatted}`;
-        }
-        const lengthOfHearing = hearing.hearingDaySchedule?.length;
-        const hearingMethod = getHearingMethod(req, hearing.hearingDaySchedule![0].attendees!);
-        const hearingDays: hearingDay[] = [];
-        //Generating the schedule related data to be displayed for a paricular hearing
-        for (const schedule of hearing.hearingDaySchedule!) {
-          const startDate = schedule.hearingStartDateTime!;
-          const formattedDate = new Date(startDate);
-          const amPm = formattedDate.getHours() < 12 ? 'am' : 'pm';
-          const endDate = new Date(schedule.hearingEndDateTime!);
-          const hearingDate =
-            req.session.lang === 'cy'
-              ? dayjs(startDate).locale('cy').format('dddd, D MMMM YYYY')
-              : dayjs(startDate).locale('en').format('dddd, D MMMM YYYY');
-          const startTime = getProperTime(formattedDate);
-          const diff = Math.abs(formattedDate.valueOf() - endDate.valueOf()) / 1000;
-          const durationInDayOrHours = Math.floor(diff / 3600) % 24;
-          const minutes = Math.floor(diff / 60) % 60;
-          const judgeName = schedule.hearingJudgeName;
-          const venue = schedule.hearingVenueName;
-          const address = schedule.hearingVenueAddress;
-          const roomId = schedule.hearingRoomId;
-          hearingDays.push({
-            hearingDate,
-            startTime,
-            amPm,
-            durationInDayOrHours,
-            minutes,
-            judgeName,
-            venue,
-            address,
-            roomId,
-          });
-        }
-        futureHearings.push({
-          dates,
-          lengthOfHearing,
-          hearingMethod,
-          hearingDaySchedule: hearingDays,
-        });
-      }
-      const next = futureHearings.shift();
-      nextHearing.push(next!);
-    }
-    //Generating completed hearing data
-    if (hearingsCompleted && hearingsCompleted.length >= 1) {
-      for (const hearing of hearingsCompleted) {
-        if (hearing.hearingDaySchedule!.length >= 2) {
-          hearing.hearingDaySchedule = hearing.hearingDaySchedule!.sort(
-            (a, b) => new Date(a.hearingStartDateTime!).valueOf() - new Date(b.hearingStartDateTime!).valueOf()
-          );
-        }
-        const hearingId = hearing.hearingID;
-        const date = hearing.hearingDaySchedule![0].hearingStartDateTime!;
-        let dates =
-          req.session.lang === 'cy'
-            ? dayjs(date).locale('cy').format('dddd, D MMMM YYYY')
-            : dayjs(date).locale('en').format('dddd, D MMMM YYYY');
-        if (hearing.hearingDaySchedule!.length >= 2) {
-          const len = hearing.hearingDaySchedule!.length;
-          const endDate = hearing.hearingDaySchedule![len - 1].hearingStartDateTime!;
-          const endDateFormatted =
-            req.session.lang === 'cy'
-              ? dayjs(endDate).locale('cy').format('dddd, D MMMM YYYY').toString()
-              : dayjs(endDate).locale('en').format('dddd, D MMMM YYYY').toString();
-          dates = dates + ' - ' + endDateFormatted;
-        }
-        const hearingLength = hearing.hearingDaySchedule?.length;
-        const hearingMethod = getHearingMethod(req, hearing.hearingDaySchedule![0].attendees!);
-        completedHearings.push({
-          hearingId,
-          dates,
-          lengthOfHearing: hearingLength,
-          hearingMethod,
-        });
-      }
+};
+
+const sortSchedules = hearingsFuture => {
+  for (const hearing of hearingsFuture) {
+    if (hearing.hearingDaySchedule!.length >= 2) {
+      hearing.hearingDaySchedule = hearing.hearingDaySchedule!.sort(
+        (a, b) => new Date(a.hearingStartDateTime!).valueOf() - new Date(b.hearingStartDateTime!).valueOf()
+      );
     }
   }
-  return {
-    nextHearing,
-    futureHearings,
-    completedHearings,
-  };
+};
+
+const addFutureHearings = (req, hearingsFuture, futureHearings) => {
+  for (const hearing of hearingsFuture) {
+    const date = hearing.hearingDaySchedule![0].hearingStartDateTime!;
+    let dates =
+      req.session.lang === 'cy'
+        ? dayjs(date).locale('cy').format('DD MMMM YYYY')
+        : dayjs(date).locale('en').format('DD MMMM YYYY');
+    dates = changeEndDatesForMultipleDaySchedule(req, hearing, dates, 'DD MMMM YYYY');
+    const lengthOfHearing = hearing.hearingDaySchedule?.length;
+    const hearingMethod = getHearingMethod(req, hearing.hearingDaySchedule![0].attendees!);
+    const hearingDays: hearingDay[] = [];
+
+    //Generating the schedule related data to be displayed for a paricular hearing
+    for (const schedule of hearing.hearingDaySchedule!) {
+      const startDate = schedule.hearingStartDateTime!;
+      const formattedDate = new Date(startDate);
+      const amPm = formattedDate.getHours() < 12 ? 'am' : 'pm';
+      const endDate = new Date(schedule.hearingEndDateTime!);
+      const hearingDate =
+        req.session.lang === 'cy'
+          ? dayjs(startDate).locale('cy').format('dddd, D MMMM YYYY')
+          : dayjs(startDate).locale('en').format('dddd, D MMMM YYYY');
+      const startTime = getProperTime(formattedDate);
+      const diff = Math.abs(formattedDate.valueOf() - endDate.valueOf()) / 1000;
+      const durationInDayOrHours = Math.floor(diff / 3600) % 24;
+      const minutes = Math.floor(diff / 60) % 60;
+      const judgeName = schedule.hearingJudgeName;
+      const venue = schedule.hearingVenueName;
+      const address = schedule.hearingVenueAddress;
+      const roomId = schedule.hearingRoomId;
+      hearingDays.push({
+        hearingDate,
+        startTime,
+        amPm,
+        durationInDayOrHours,
+        minutes,
+        judgeName,
+        venue,
+        address,
+        roomId,
+      });
+    }
+
+    futureHearings.push({
+      dates,
+      lengthOfHearing,
+      hearingMethod,
+      hearingDaySchedule: hearingDays,
+    });
+  }
+};
+
+const changeEndDatesForMultipleDaySchedule = (req, hearing, dates, format) => {
+  if (hearing.hearingDaySchedule!.length >= 2) {
+    const len = hearing.hearingDaySchedule!.length;
+    const endDate = hearing.hearingDaySchedule![len - 1].hearingStartDateTime!;
+    const endDateFormatted =
+      req.session.lang === 'cy'
+        ? dayjs(endDate).locale('cy').format(format).toString()
+        : dayjs(endDate).locale('en').format(format).toString();
+    dates = `${dates} - ${endDateFormatted}`;
+  }
+
+  return dates;
+};
+
+const addCompletedHearings = (req, hearingsCompleted, completedHearings) => {
+  for (const hearing of hearingsCompleted) {
+    if (hearing.hearingDaySchedule!.length >= 2) {
+      hearing.hearingDaySchedule = hearing.hearingDaySchedule!.sort(
+        (a, b) => new Date(a.hearingStartDateTime!).valueOf() - new Date(b.hearingStartDateTime!).valueOf()
+      );
+    }
+
+    const hearingId = hearing.hearingID;
+    const date = hearing.hearingDaySchedule![0].hearingStartDateTime!;
+    let dates =
+      req.session.lang === 'cy'
+        ? dayjs(date).locale('cy').format('dddd, D MMMM YYYY')
+        : dayjs(date).locale('en').format('dddd, D MMMM YYYY');
+    dates = changeEndDatesForMultipleDaySchedule(req, hearing, dates, 'dddd, D MMMM YYYY');
+    const hearingLength = hearing.hearingDaySchedule?.length;
+    const hearingMethod = getHearingMethod(req, hearing.hearingDaySchedule![0].attendees!);
+    completedHearings.push({
+      hearingId,
+      dates,
+      lengthOfHearing: hearingLength,
+      hearingMethod,
+    });
+  }
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
