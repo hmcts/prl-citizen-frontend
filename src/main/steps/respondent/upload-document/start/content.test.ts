@@ -38,6 +38,7 @@ describe('citizen-home content', () => {
     language: 'en',
     additionalData: {
       req: {
+        session: { userCase: { id: '1234' } },
         params: {
           documentCategory: DocCategory.WITNESS_STATEMENT,
           docType: DocType.YOUR_WITNESS_STATEMENTS,

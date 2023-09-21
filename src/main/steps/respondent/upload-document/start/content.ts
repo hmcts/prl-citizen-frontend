@@ -3,6 +3,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
+import { RESPONDENT_TASK_LIST_URL } from '../../../../steps/urls';
 
 const en = {
   section: ' ',
@@ -57,7 +58,11 @@ export const form: FormContent = {
       ],
     },
   },
-
+  link: {
+    classes: 'govuk-!-margin-left-3',
+    href: '',
+    text: l => l.cancel,
+  },
   onlyContinue: {
     text: l => l.continue,
   },
@@ -67,6 +72,12 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const { docCategory, docType } = content.additionalData!.req.params;
   const { category: caption, type: title } = getDocumentMeta(docCategory, docType, content.language);
+  const request = content.additionalData?.req;
+  const userCase = request.session.userCase;
+  const caseId = userCase.id as string;
+  Object.assign(form.link!, {
+    href: `${RESPONDENT_TASK_LIST_URL}/${caseId}`,
+  });
 
   return {
     ...translations,

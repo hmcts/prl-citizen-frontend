@@ -38,6 +38,7 @@ describe('citizen-home content', () => {
     language: 'en',
     additionalData: {
       req: {
+        session: { userCase: { id: '1234' } },
         params: {
           documentCategory: DocCategory.WITNESS_STATEMENT,
           docType: DocType.POSITION_STATEMENTS,
@@ -70,6 +71,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.WITNESS_STATEMENT,
             docType: DocType.OTHER_PEOPLE_WITNESS_STATEMENTS,
@@ -86,6 +88,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.WITNESS_STATEMENT,
             docType: DocType.MEDIA_FILES,
@@ -102,6 +105,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.WITNESS_STATEMENT,
             docType: DocType.MEDICAL_RECORDS,
@@ -118,6 +122,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.WITNESS_STATEMENT,
             docType: DocType.LETTERS_FROM_SCHOOL,
@@ -134,6 +139,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.WITNESS_STATEMENT,
             docType: DocType.TENANCY_AND_MORTGAGE_AVAILABILITY,
@@ -150,6 +156,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.WITNESS_STATEMENT,
           },
@@ -165,6 +172,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.APPLICATIONS,
             docType: DocType.PREVIOUS_ORDERS,
@@ -181,6 +189,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.APPLICATIONS,
           },
@@ -196,6 +205,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.OTHER_DOCUMENTS,
             docType: DocType.OTHER_DOCUMENTS,
@@ -212,6 +222,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.OTHER_DOCUMENTS,
           },
@@ -227,6 +238,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.EXPERT_REPORTS,
             docType: DocType.MEDICAL_REPORTS,
@@ -243,6 +255,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.EXPERT_REPORTS,
             docType: DocType.PATERNITY_TEST_REPORTS,
@@ -259,6 +272,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.EXPERT_REPORTS,
             docType: DocType.DRUG_ALCOHOL_TESTS,
@@ -275,6 +289,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.EXPERT_REPORTS,
             docType: DocType.POLICE_REPORTS,
@@ -291,6 +306,7 @@ describe('citizen-home content', () => {
       language: 'en',
       additionalData: {
         req: {
+          session: { userCase: { id: '1234' } },
           params: {
             documentCategory: DocCategory.EXPERT_REPORTS,
           },

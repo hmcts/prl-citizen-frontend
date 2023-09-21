@@ -15,6 +15,7 @@ const en = () => ({
   title: 'Select the type of document',
   userName: '',
   note: 'The court will tell you in a letter or email which documents or materials you need to submit.',
+  continue: 'Close and return to case overview',
   sectionTitles: document_list_en,
   documentsListItems: documents_list_items_en,
 });
@@ -24,6 +25,7 @@ const cy = () => ({
   caseNumber: 'Rhif yr achos ',
   title: 'Dewiswch y math o ddogfen',
   note: 'The court will tell you in a letter or email which documents or materials you need to submit. - welsh',
+  continue: 'Close and return to case overview -welsh',
   sectionTitles: document_list_cy,
   userName: '',
   documentsListItems: documents_list_items_cy,

@@ -13,6 +13,7 @@ const en = () => ({
   title: 'Select the type of document',
   note: 'The court will tell you in a letter or email which documents or materials you need to submit.',
   userName: '',
+  continue: 'Close and return to case overview',
   sectionTitles: document_list_en,
   documentsListItems: documents_list_items_en,
 });
@@ -23,6 +24,7 @@ const cy = () => ({
   title: 'Dewiswch y math o ddogfen',
   note: 'The court will tell you in a letter or email which documents or materials you need to submit. - welsh',
   userName: '',
+  continue: 'Close and return to case overview -welsh',
   sectionTitles: document_list_cy,
   documentsListItems: documents_list_items_cy,
 });

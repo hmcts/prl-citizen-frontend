@@ -34,7 +34,7 @@ export default class DocumentUploadPostController {
       req.session.errors = form.getErrors(formData);
 
       if (!uploadedDocuments?.length) {
-        this.handleError(req, { errorType: 'not_uploaded', propertyName: 'uploadedFiles' });
+        this.handleError(req, { errorType: 'empty', propertyName: 'uploadFiles' });
       }
       if (req.session.errors.length) {
         return this.parent.redirect(req, res);

@@ -58,6 +58,13 @@
           {{ taskListSection(section, loop.index) }}
         {% endfor %}
       </ol>
+      <div class="govuk-button-group">
+        <form action="/document-manager/redirectToCaseView?_csrf={{ csrfToken }}" method="post" novalidate="">
+          <button class="govuk-button" data-module="govuk-button" value="Continue">
+            {{ continue }}
+          </button>
+        </form>
+      </div>
     </div>
     <div class="govuk-grid-column-one-third">
         {%if userCase.caseTypeOfApplication === "FL401" %}

@@ -34,12 +34,10 @@ const en = {
     declarationCheck: {
       required: 'Please confirm the declaration',
     },
-    uploadedFiles: {
-      not_uploaded: 'No document found',
-    },
     uploadFiles: {
       uploadError: 'Document could not be uploaded',
       noFile: 'Please choose a file to upload',
+      empty: 'No document found',
     },
   },
 };
@@ -76,12 +74,10 @@ const cy: typeof en = {
     declarationCheck: {
       required: 'Cadarnhewch y datganiad',
     },
-    uploadedFiles: {
-      not_uploaded: 'No document found -welsh',
-    },
     uploadFiles: {
       uploadError: 'Document could not be uploaded -welsh',
       noFile: 'Please choose a file to upload -welsh',
+      empty: 'No document found -welsh',
     },
   },
 };
@@ -147,5 +143,9 @@ export const generateContent: TranslationFn = content => {
     docCategory,
     docType,
     isDocWitnessOrPosition,
+    errorMessage:
+      translations.errors.uploadFiles?.[
+        request.session?.errors?.find(error => error.propertyName === 'uploadFiles')?.errorType
+      ] ?? null,
   };
 };
