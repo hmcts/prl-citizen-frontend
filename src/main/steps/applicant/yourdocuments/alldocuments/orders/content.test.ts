@@ -1,8 +1,9 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-//import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../../app/form/Form';
-import { CommonContent } from '../../../../common/common.content';
+import mockUserCase from '../../../../../../test/unit/utils/mockUserCase';
+import { LanguageLookup } from '../../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
-import { generateContent } from './content';
+import { form, generateContent } from './content';
 
 const enContent = {
   section: 'All documents',
@@ -21,14 +22,42 @@ const cyContent = {
 jest.mock('../../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('citizen-home content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const userCase = {
+    ...mockUserCase,
+    orderCollection: [
+      {
+        id: 'e5b89eae-d6e1-4e15-a672-22a032617ff2',
+        value: {
+          dateCreated: '2022-07-18T11:04:34.483637',
+          orderType: 'Special guardianship order (C43A)',
+          orderDocument: {
+            document_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4',
+            document_binary_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4/binary',
+            document_filename: 'Special_Guardianship_Order_C43A.pdf',
+          },
+          orderDocumentWelsh: {
+            document_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4',
+            document_binary_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/f696d5ce-737f-47c3-9a93-d4662d1f82c4/binary',
+            document_filename: 'Special_Guardianship_Order_C43A.pdf',
+          },
+          otherDetails: {
+            createdBy: 'qaz',
+            orderCreatedDate: '18 July 2022',
+            orderMadeDate: '11 November 2019',
+            orderRecipients: 'Test Solicitor\n\n',
+          },
+        },
+      },
+    ],
+  };
+  const commonContent = { language: 'en', userCase } as CommonContent;
   let generatedContent;
-  //let form;
-  //let fields;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
-    //form = generatedContent.form as FormContent;
-    //fields = form.fields as FormFields;
   });
 
   test('should return correct english content', () => {
@@ -48,11 +77,11 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  // test('should contain detailsKnown field', () => {
-  //   const detailsKnownField = fields.detailsKnown as FormOptions;
-  //   expect(detailsKnownField.type).toBe('radios');
-  //   expect(detailsKnownField.classes).toBe('govuk-radios');
-  //   expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
-  // });
+  test('should contain submit button', () => {
+    expect(form?.submit?.classes).toBe('govuk-button--secondary');
+    expect(
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and continue');
+  });
 });
 /* eslint-enable @typescript-eslint/ban-types */

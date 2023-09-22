@@ -1,4 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -54,9 +56,17 @@ const cy = {
     },
   },
 };
-
+/* eslint-disable @typescript-eslint/ban-types */
 describe('Enter pin content', () => {
   const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+  let generatedContent;
+  let form;
+  let fields;
+  beforeEach(() => {
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
+  });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -65,5 +75,24 @@ describe('Enter pin content', () => {
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+  test('should contain  field', () => {
+    const caseCodeField = fields.caseCode as FormOptions;
+    expect(caseCodeField.type).toBe('text');
+    expect((caseCodeField.label as Function)(generatedContent)).toBe(en.caseNumberLabel);
+    expect((caseCodeField.hint as Function)(generatedContent)).toBe(en.caseNumberHintText);
+    //expect(caseCodeField.labelSize as string).toBe('s');
+    (caseCodeField.validator as Validator)('caseCode');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('caseCode');
+    const accessCodeField = fields.accessCode as FormOptions;
+    expect(accessCodeField.type).toBe('text');
+    expect((accessCodeField.label as Function)(generatedContent)).toBe(en.accessCodeLabel);
+    expect((accessCodeField.hint as Function)(generatedContent)).toBe(en.accessCodeHintText);
+    //expect(accessCodeField.labelSize as string).toBe('s');
+    (accessCodeField.validator as Validator)('accessCodeField');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('accessCodeField');
+  });
+  test('should contain submit button', () => {
+    expect((form.accessCodeCheck.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });

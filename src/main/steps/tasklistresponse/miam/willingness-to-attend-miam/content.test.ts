@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -86,6 +86,29 @@ describe('citizen-home content', () => {
 
   test('should contain Continue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
+  });
+  test('should contain  field', () => {
+    const miamDetailsField = fields.miamDetails as FormOptions;
+    expect(miamDetailsField.type).toBe('detailsHtml');
+    expect((miamDetailsField.label as Function)(generatedContent)).toBe(enContent.miamCostExemptionsLabel);
+
+    const miamWillingnessField = fields.miamWillingness as FormOptions;
+    expect(miamWillingnessField.type).toBe('radios');
+    expect(miamWillingnessField.classes).toBe('govuk-radios');
+    expect((miamWillingnessField.label as Function)(generatedContent)).toBe(undefined);
+    expect((miamWillingnessField.section as Function)(generatedContent)).toBe(undefined);
+    expect((miamWillingnessField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
+    expect(miamWillingnessField.values[0].value).toBe('Yes');
+    expect(miamWillingnessField.values[0].subFields?.miamHowToArrangeMediation.type).toBe('textAndHtml');
+    expect((miamWillingnessField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
+    expect(miamWillingnessField.values[1].value).toBe('No');
+    expect(miamWillingnessField.values[1].subFields?.miamNotWillingExplnation.type).toBe('textarea');
+    expect(
+      (miamWillingnessField.values[1].subFields?.miamNotWillingExplnation.label as Function)(generatedContent)
+    ).toBe(enContent.explainWhyLabel);
+    expect(miamWillingnessField.values[1].subFields?.miamNotWillingExplnation.id).toBe('miam-explanation');
+    (miamWillingnessField.values[1].subFields?.miamNotWillingExplnation.validator as Validator)('test value');
+    expect(miamWillingnessField.validator).toBe(isFieldFilledIn);
   });
 });
 
