@@ -70,16 +70,17 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain detailsKnown field', () => {
-    const detailsKnownField = fields.start as FormOptions;
-    expect(detailsKnownField.type).toBe('radios');
-    expect(detailsKnownField.classes).toBe('govuk-radios');
-    expect((detailsKnownField.section as Function)(generatedContent)).toBe(en.section);
-    expect((detailsKnownField.values[0].label as Function)(generatedContent)).toBe('Yes');
-    expect((detailsKnownField.values[1].label as Function)(generatedContent)).toBe('No');
-    expect((detailsKnownField.hint as Function)(generatedContent)).toBe(undefined);
-    expect(detailsKnownField.values[1].value).toBe('No');
-    expect(detailsKnownField.values[0].value).toBe('Yes');
+  test('should contain start field', () => {
+    const startField = fields.start as FormOptions;
+    expect(startField.type).toBe('radios');
+    expect(startField.classes).toBe('govuk-radios');
+    expect((startField.section as Function)(generatedContent)).toBe(en.section);
+    expect((startField.label as Function)(generatedContent)).toBe(en.label);
+    expect((startField.values[0].label as Function)(generatedContent)).toBe('Yes');
+    expect((startField.values[1].label as Function)(generatedContent)).toBe('No');
+    expect((startField.hint as Function)(generatedContent)).toBe(undefined);
+    expect(startField.values[1].value).toBe('No');
+    expect(startField.values[0].value).toBe('Yes');
   });
 
   test('should contain continue button', () => {

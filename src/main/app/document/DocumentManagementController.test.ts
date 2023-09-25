@@ -1,4 +1,5 @@
 import config from 'config';
+import { LoggerInstance } from 'winston';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
@@ -11,6 +12,11 @@ import { DocumentManagerController } from './DocumentManagementController';
 const { mockCreate, mockDelete, mockGet } = require('./DocumentManagementClient');
 jest.mock('../document/DocumentManagementClient');
 jest.mock('../../app/auth/user/oidc');
+
+const mockLogger = {
+  error: jest.fn().mockImplementation((message: string) => message),
+  info: jest.fn().mockImplementation((message: string) => message),
+} as unknown as LoggerInstance;
 
 const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCase');
 let partyDetails;
@@ -184,9 +190,63 @@ describe('DocumentManagerController', () => {
       );
       expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
+    test('notifyBannerForNewDcoumentUploaded for CA respondent when citizenFlags not present', async () => {
+      req.session.userCase.caseTypeOfApplication = 'C100';
+      req.session.userCase.respondents = [
+        {
+          id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          value: {
+            firstName: 'Sonali',
+            lastName: 'Citizen',
+            email: 'abc@example.net',
+            user: {
+              idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+              email: 'test@example.net',
+            },
+            response: {},
+          },
+        },
+      ];
+      updateCaserMock.mockResolvedValue(req.session.userCase);
+      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+      documentManagerController.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
+    });
     test('notifyBannerForNewDcoumentUploaded for CA applicant', async () => {
       req.session.userCase.caseTypeOfApplication = 'C100';
       req.session.userCase.applicants = partyDetails;
+      updateCaserMock.mockResolvedValue(req.session.userCase);
+      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+      documentManagerController.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      expect(req.session.userCase.applicants[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
+    });
+    test('notifyBannerForNewDcoumentUploaded for CA applicant when citizenFlags not present', async () => {
+      req.session.userCase.caseTypeOfApplication = 'C100';
+      req.session.userCase.applicants = [
+        {
+          id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          value: {
+            firstName: 'Sonali',
+            lastName: 'Citizen',
+            email: 'abc@example.net',
+            user: {
+              idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+              email: 'test@example.net',
+            },
+            response: {},
+          },
+        },
+      ];
       updateCaserMock.mockResolvedValue(req.session.userCase);
       const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
       documentManagerController.notifyBannerForNewDcoumentUploaded(
@@ -210,9 +270,37 @@ describe('DocumentManagerController', () => {
       );
       expect(req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
+    test('notifyBannerForNewDcoumentUploaded for DA respondent when citizenFlags not present', async () => {
+      req.session.userCase.caseTypeOfApplication = 'fl401';
+      req.session.userCase.respondentsFL401 = partyDetails[0].value;
+      req.session.userCase.respondentsFL401.response = {};
+      updateCaserMock.mockResolvedValue(req.session.userCase);
+      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+      documentManagerController.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      expect(req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
+    });
     test('notifyBannerForNewDcoumentUploaded for DA applicant', async () => {
       req.session.userCase.caseTypeOfApplication = 'fl401';
       req.session.userCase.applicantsFL401 = partyDetails[0].value;
+      updateCaserMock.mockResolvedValue(req.session.userCase);
+      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+      documentManagerController.notifyBannerForNewDcoumentUploaded(
+        req,
+        req.session.userCase.id,
+        client,
+        req.session.user
+      );
+      expect(req.session.userCase.applicantsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
+    });
+    test('notifyBannerForNewDcoumentUploaded for DA applicant when citizenFlags not present', async () => {
+      req.session.userCase.caseTypeOfApplication = 'fl401';
+      req.session.userCase.applicantsFL401 = partyDetails[0].value;
+      req.session.userCase.applicantsFL401.response = {};
       updateCaserMock.mockResolvedValue(req.session.userCase);
       const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
       documentManagerController.notifyBannerForNewDcoumentUploaded(
@@ -302,6 +390,94 @@ describe('DocumentManagerController', () => {
       expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllegationOfHarmViewed).toEqual('Yes');
     });
 
+    test('check isAllegationOfHarmViewed property works when set as no', async () => {
+      mockGet.mockResolvedValue({
+        responseType: 'array',
+        headers: {
+          'content-type': 'application/pdf',
+        },
+      });
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+            response: {
+              citizenFlags: {
+                isAllegationOfHarmViewed: 'No',
+              },
+            },
+          },
+        },
+      ];
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf/Yes?';
+      req.headers.accept = 'application/pdf';
+      req.params.docContext = 'update-case';
+      req.session.userCase.finalDocument = {
+        document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_binary_url:
+          config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+        document_filename: 'C100.pdf',
+        document_hash: null,
+      };
+
+      await documentManagerController.get(req, res);
+
+      expect(mockGet).toBeCalled;
+      expect(req.session.userCase.respondents[0].value.response.citizenFlags).toStrictEqual({
+        isAllegationOfHarmViewed: 'Yes',
+        isApplicationViewed: 'No',
+      });
+    });
+
+    test('check isApplicationViewed property functions properly for aohviolence file', async () => {
+      mockGet.mockResolvedValue({
+        responseType: 'array',
+        headers: {
+          'content-type': 'application/pdf',
+        },
+      });
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+            response: {
+              citizenFlags: {
+                isApplicationViewed: 'Yes',
+              },
+            },
+          },
+        },
+      ];
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf/Yes?';
+      req.headers.accept = 'application/pdf';
+      req.params.docContext = 'update-case';
+      req.session.userCase.finalDocument = {
+        document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_binary_url:
+          config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+        document_filename: 'C100.pdf',
+        document_hash: null,
+      };
+
+      await documentManagerController.get(req, res);
+
+      expect(mockGet).toBeCalled;
+      expect(req.session.userCase.respondents[0].value.response.citizenFlags).toStrictEqual({
+        isAllegationOfHarmViewed: 'Yes',
+        isApplicationViewed: 'Yes',
+      });
+    });
+
     test('check file downloaded when flag viewed for cadafinaldocumentrequest', async () => {
       mockGet.mockResolvedValue({
         responseType: 'array',
@@ -387,6 +563,50 @@ describe('DocumentManagerController', () => {
       await documentManagerController.get(req, res);
 
       expect(mockGet).toBeCalled;
+    });
+
+    test('check isApplicationViewed property works when set as no', async () => {
+      mockGet.mockResolvedValue({
+        responseType: 'array',
+        headers: {
+          'content-type': 'application/pdf',
+        },
+      });
+      req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+      req.session.userCase.respondents = [
+        {
+          id: '9813df99-41bf-4b46-a602-86676b5e3547',
+          value: {
+            user: {
+              idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+              email: 'test@example.net',
+            },
+            response: {
+              citizenFlags: {
+                isApplicationViewed: 'No',
+              },
+            },
+          },
+        },
+      ];
+      req.originalUrl = 'http://localhost:8080/applicant/public/docs/aohviolence.pdf/Yes?';
+      req.headers.accept = 'application/pdf';
+      req.params.docContext = 'update-case';
+      req.session.userCase.finalDocument = {
+        document_url: config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e',
+        document_binary_url:
+          config.get('services.documentManagement.url') + '/documents/2db656fc-2c9e-494a-a1ca-1605e1ac8d5e/binary',
+        document_filename: 'C100.pdf',
+        document_hash: null,
+      };
+
+      await documentManagerController.get(req, res);
+
+      expect(mockGet).toBeCalled;
+      expect(req.session.userCase.respondents[0].value.response.citizenFlags).toStrictEqual({
+        isAllegationOfHarmViewed: 'Yes',
+        isApplicationViewed: 'No',
+      });
     });
   });
 
@@ -606,6 +826,21 @@ describe('DocumentManagerController', () => {
         },
       ];
       req.query.isApplicant = 'No';
+      req.session.userCase.respondentsFL401 = partyDetails[0].value;
+      req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+      req.session.userCase.caseInvites = [
+        {
+          id: '1234',
+          value: {
+            partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+            caseInviteEmail: 'MOCK_EMAIL',
+            accessCode: '1234',
+            invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+            expiryDate: 'MOCK_DATE',
+            isApplicant: 'No',
+          },
+        },
+      ];
       req.session.userCase.respondentUploadFiles = uploadedFiles;
       req.params.documentId = '9813df11-41bf-4b46-a602-86766b5e3547';
       deleteCitizenStatementDocumentMock.mockResolvedValue('SUCCESS');
@@ -921,6 +1156,102 @@ describe('DocumentManagerController', () => {
     });
   });
 
+  test('fetch citizen uploaded document should fail when missing binary url', async () => {
+    mockGet.mockResolvedValue({
+      responseType: 'array',
+      headers: {
+        'content-type': 'application/pdf',
+      },
+    });
+    req.session.user.id = '9813df99-41bf-4b46-a602-86676b5e3547';
+    req.originalUrl = 'http://localhost:8080/alldocuments/downloadCitizenDocument/6bb61ec7-df31-4c14-b11d-48379307aa8c';
+    req.headers.accept = 'application/pdf';
+    req.session.userCase.finalDocument = {
+      document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
+      document_filename: 'finalDocument.pdf',
+    };
+    req.session.userCase.respondents = [
+      {
+        id: '9813df99-41bf-4b46-a602-86676b5e3547',
+        value: {
+          user: {
+            idamId: '9813df99-41bf-4b46-a602-86676b5e3547',
+            email: 'test@example.net',
+          },
+        },
+      },
+    ];
+    req.session.userCase.citizenUploadedDocumentList = [
+      {
+        id: '1234',
+        value: {
+          partyName: 'MOCK_NAME',
+          createdBy: 'MOCK_VALUE',
+          dateCreated: new Date(),
+          citizenDocument: {
+            document_url: '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
+            document_filename: '6bb61ec7-df31-4c14-b11d-48379307aa8c',
+          },
+        },
+      },
+    ];
+    req.session.applicationSettings = { docToView: { partyName: 'MOCK_NAME' } };
+
+    let flag = false;
+    let error;
+    try {
+      await documentManagerController.get(req, res);
+    } catch (err) {
+      flag = true;
+      error = err;
+    }
+    expect(error.message).toBe('Binary URL is not found for citizenUploadedDocumentList:citizenDocument');
+    expect(flag).toBe(true);
+  });
+
+  test('fetch finalDocument should fail when missing binary url', async () => {
+    mockGet.mockResolvedValue({
+      responseType: 'array',
+      headers: {
+        'content-type': 'application/pdf',
+      },
+    });
+    req.originalUrl = 'http://localhost:8080/yourdocuments/alldocuments/cadafinaldocumentrequest';
+    req.headers.accept = 'application/pdf';
+    req.session.userCase.finalDocument = {
+      document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
+      document_filename: 'finalDocument.pdf',
+    };
+    req.session.userCase.citizenResponseC7DocumentList = [
+      {
+        id: '1234',
+        value: {
+          c1aDocument: {
+            partyName: 'MOCK_NAME',
+            createdBy: 'MOCK_VALUE',
+            dateCreated: new Date(),
+            citizenDocument: {
+              document_url: '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/',
+              document_filename: 'C1a_document',
+            },
+          },
+        },
+      },
+    ];
+    req.session.applicationSettings = { docToView: { partyName: 'MOCK_NAME' } };
+
+    let flag = false;
+    let error;
+    try {
+      await documentManagerController.get(req, res);
+    } catch (err) {
+      flag = true;
+      error = err;
+    }
+    expect(error.message).toBe('binary url is not found for finalDocument.pdf');
+    expect(flag).toBe(true);
+  });
+
   test('fetch c1a document', async () => {
     mockGet.mockResolvedValue({
       responseType: 'array',
@@ -959,6 +1290,318 @@ describe('DocumentManagerController', () => {
       url:
         config.get('services.documentManagement.url') + '/cases/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
     });
+  });
+
+  test('should redirect to applicant task list if generated document not found for applicant', async () => {
+    mockGet.mockResolvedValue(undefined);
+    req.originalUrl = 'http://localhost:8080/applicant/public/docs/FL401-Final-Document.pdf';
+    req.headers.accept = 'application/pdf';
+    req.session.userCase.finalDocument = {
+      document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
+      document_filename: 'finalDocument.pdf',
+      document_binary_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+    };
+
+    await documentManagerController.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/task-list');
+  });
+
+  test('should redirect to respondent task list if generated document not found for respondent', async () => {
+    mockGet.mockResolvedValue(undefined);
+    req.originalUrl = 'http://localhost:8080/respondent/public/docs/FL401-Final-Document.pdf';
+    req.headers.accept = 'application/pdf';
+    req.session.userCase.finalDocument = {
+      document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
+      document_filename: 'finalDocument.pdf',
+      document_binary_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+    };
+
+    await documentManagerController.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith('/respondent/task-list');
+  });
+
+  test('should throw error if error when saving session', async () => {
+    mockGet.mockResolvedValueOnce(undefined);
+    req.originalUrl = 'http://localhost:8080/respondent/public/docs/FL401-Final-Document.pdf';
+    req.headers.accept = 'application/pdf';
+    req.session.userCase.finalDocument = {
+      document_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c',
+      document_filename: 'finalDocument.pdf',
+      document_binary_url: 'http://dm-store:8080/documents/6bb61ec7-df31-4c14-b11d-48379307aa8c/binary',
+    };
+    req.session.save = jest.fn(done => done('MOCK_ERROR'));
+
+    let flag = false;
+    let error;
+    try {
+      await documentManagerController.get(req, res);
+    } catch (err) {
+      flag = true;
+      error = err;
+    }
+    expect(flag).toBe(true);
+    expect(error).toBe('MOCK_ERROR');
+  });
+
+  test('check delete document feature when no documents uploaded', async () => {
+    const uploadedFiles = [];
+    req.query.isApplicant = 'Yes';
+    req.session.userCase.applicantUploadFiles = uploadedFiles;
+    req.params.documentId = '9813df11-41bf-4b46-a602-86766b5e3547';
+    req.session.save = jest.fn(done => done());
+    req.session.user = {
+      accessToken: 'mock-user-access-token',
+      name: 'test',
+      givenName: 'First name',
+      familyName: 'Last name',
+      email: 'test@example.com',
+    };
+    deleteCitizenStatementDocumentMock.mockResolvedValue('SUCCESS');
+    await documentManagerController.deleteDocument(req, res);
+
+    expect(req.session.userCase.applicantUploadFiles).toBeUndefined();
+  });
+
+  describe('generate document function', () => {
+    let request;
+    let response;
+    fields = '';
+    const generateDocumentManagerController = new DocumentManagerController(fields);
+
+    beforeEach(() => {
+      request = mockRequest({
+        query: { documentCategory: 'witnessstatements', documentType: 'positionstatements' },
+      });
+      response = mockResponse();
+    });
+
+    test('should generate document', async () => {
+      request.files = {
+        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+      };
+      generateStatementDocumentMock.mockResolvedValue({
+        status: 'Success',
+        document: {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+        },
+      });
+
+      await generateDocumentManagerController.generateDocument(request, response);
+      expect(request.session.userCase.applicantUploadFiles).toStrictEqual([
+        {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+        },
+      ]);
+      expect(request.session.errors).toStrictEqual([]);
+      expect(response.redirect).toHaveBeenCalledWith(
+        '/applicant/upload-document/upload-your-documents/witnessstatements/positionstatements'
+      );
+    });
+
+    test('should handle error when generateStatementDocument throws error', async () => {
+      request.files = {
+        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+      };
+      generateStatementDocumentMock.mockRejectedValueOnce({
+        status: 'Failure',
+      });
+
+      await generateDocumentManagerController.generateDocument(request, response);
+      expect(request.session.errors).toStrictEqual([{ errorType: 'uploadError', propertyName: 'uploadFiles' }]);
+      expect(response.redirect).toHaveBeenCalledWith(
+        '/applicant/upload-document/upload-your-documents/witnessstatements/positionstatements'
+      );
+    });
+  });
+
+  describe('upload document function', () => {
+    let request;
+    let response;
+    fields = '';
+    const uploadDocumentManagerController = new DocumentManagerController(fields);
+
+    beforeEach(() => {
+      request = mockRequest({
+        query: { documentCategory: 'witnessstatements', documentType: 'positionstatements' },
+      });
+      response = mockResponse();
+    });
+
+    test('should upload document', async () => {
+      request.files = {
+        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+      };
+      uploadDocumentListFromCitizenMock.mockResolvedValue({
+        status: 'Success',
+        document: {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+        },
+      });
+
+      await uploadDocumentManagerController.uploadDocument(request, response);
+      expect(request.session.userCase.applicantUploadFiles).toStrictEqual([
+        {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+        },
+      ]);
+      expect(request.session.errors).toStrictEqual([]);
+      expect(response.redirect).toHaveBeenCalledWith(
+        '/applicant/upload-document/upload-your-documents/witnessstatements/positionstatements'
+      );
+    });
+
+    test('should handle error when response status not success', async () => {
+      request.files = {
+        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+      };
+      uploadDocumentListFromCitizenMock.mockResolvedValue({
+        status: 'Failure',
+        document: {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+        },
+      });
+
+      await uploadDocumentManagerController.uploadDocument(request, response);
+      expect(request.session.errors).toStrictEqual([]);
+      expect(response.redirect).toHaveBeenCalledWith(
+        '/applicant/upload-document/upload-your-documents/witnessstatements/positionstatements'
+      );
+    });
+
+    test('should handle error when uploadStatementDocument throws error', async () => {
+      request.files = {
+        statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
+      };
+      uploadDocumentListFromCitizenMock.mockRejectedValueOnce({
+        status: 'Failure',
+      });
+
+      await uploadDocumentManagerController.uploadDocument(request, response);
+      expect(request.session.errors).toStrictEqual([]);
+      expect(response.redirect).toHaveBeenCalledWith(
+        '/applicant/upload-document/upload-your-documents/witnessstatements/positionstatements'
+      );
+    });
+
+    test('should redirect correctly when no files present', async () => {
+      await documentManagerController.uploadDocument(request, response);
+      expect(response.redirect).toHaveBeenCalledWith(
+        '/applicant/upload-document/upload-your-documents/witnessstatements/positionstatements'
+      );
+    });
+  });
+
+  describe('redirect functions', () => {
+    let request;
+    let response;
+
+    beforeEach(() => {
+      request = mockRequest();
+      response = mockResponse();
+    });
+
+    test('redirectToCaseView for fl401 applicant', async () => {
+      await documentManagerController.redirectToCaseView(request, response);
+      expect(response.redirect).toHaveBeenCalledWith('/applicant/task-list');
+    });
+
+    test('redirectToCaseView for c100 applicant', async () => {
+      request.session.userCase.caseTypeOfApplication = 'C100';
+      await documentManagerController.redirectToCaseView(request, response);
+      expect(response.redirect).toHaveBeenCalledWith('/task-list/applicant');
+    });
+
+    test('redirectToCaseView for respondent', async () => {
+      request.session.userCase.respondentsFL401 = partyDetails[0].value;
+      request.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+      request.session.userCase.caseInvites = [
+        {
+          id: '1234',
+          value: {
+            partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+            caseInviteEmail: 'MOCK_EMAIL',
+            accessCode: '1234',
+            invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+            expiryDate: 'MOCK_DATE',
+            isApplicant: 'No',
+          },
+        },
+      ];
+
+      await documentManagerController.redirectToCaseView(request, response);
+      expect(response.redirect).toHaveBeenCalledWith('/respondent/task-list');
+    });
+
+    test('redirectToUploadDocument for applicant', async () => {
+      await documentManagerController.redirectToUploadDocument(request, response);
+      expect(response.redirect).toHaveBeenCalledWith('/applicant/upload-document');
+    });
+
+    test('redirectToUploadDocument for respondent', async () => {
+      request.session.userCase.respondentsFL401 = partyDetails[0].value;
+      request.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+      request.session.userCase.caseInvites = [
+        {
+          id: '1234',
+          value: {
+            partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+            caseInviteEmail: 'MOCK_EMAIL',
+            accessCode: '1234',
+            invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+            expiryDate: 'MOCK_DATE',
+            isApplicant: 'No',
+          },
+        },
+      ];
+
+      await documentManagerController.redirectToUploadDocument(request, response);
+      expect(response.redirect).toHaveBeenCalledWith('/respondent/upload-document');
+    });
+  });
+});
+
+describe('error logger', () => {
+  test('should log error when getting file details', async () => {
+    retrieveByCaseIdMock.mockClear();
+    const req = mockRequest();
+    const res = mockResponse();
+    req.locals.logger = mockLogger;
+    req.session.save = jest.fn(done => done('MOCK_SAVE_ERROR'));
+
+    let fields;
+    const documentManagerController = new DocumentManagerController(fields);
+    retrieveByCaseIdMock.mockRejectedValue('MOCK_RETRIEVE_ERROR');
+
+    let flag = false;
+    try {
+      await documentManagerController.get(req, res);
+    } catch (err) {
+      flag = true;
+    }
+    expect(flag).toBe(true);
+    expect(mockLogger.error).toHaveBeenCalledWith('MOCK_RETRIEVE_ERROR');
   });
 });
 

@@ -2,7 +2,7 @@ import languageAssertions from '../../../../../test/unit/utils/languageAssertion
 import { DocCategory, DocType } from '../../../../app/case/definition';
 import { FormContent, FormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-import { CommonContent } from '../../../common/common.content';
+import { CommonContent, en as commonEnContent } from '../../../common/common.content';
 
 import { cy, en, generateContent } from './content';
 
@@ -81,6 +81,11 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
+  test('should contain cancel button', () => {
+    expect((form.link?.text as Function)(commonEnContent)).toBe('Cancel');
+    expect(form.link?.href).toBe('/case/123');
+  });
+
   test('should contain continue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Submit');
   });
@@ -95,6 +100,76 @@ describe('citizen-home content', () => {
     const consentConfirmFields = fields.consentConfirm;
     expect(consentConfirmFields.type).toBe('label');
     expect((consentConfirmFields.label as Function)(generatedContent)).toBe(en.consent);
+  });
+
+  test('generateContent should return correct details', () => {
+    commonContent.additionalData!.req.session = {
+      ...commonContent.additionalData!.req.session,
+      errors: [{ errorType: 'uploadError', propertyName: 'uploadFiles' }],
+    };
+    commonContent.userCase = {
+      ...commonContent.userCase,
+      applicantUploadFiles: [
+        {
+          document_url: 'MOCK_URL',
+          document_binary_url: 'MOCK_BINARY_URL',
+          document_filename: 'MOCK_FILENAME',
+          document_hash: 'MOCK_HASH',
+          document_creation_date: 'MOCK_DATE',
+        },
+        {
+          document_url: 'MOCK_URL2',
+          document_binary_url: 'MOCK_BINARY_URL2',
+          document_filename: 'MOCK_FILENAME2',
+          document_hash: 'MOCK_HASH2',
+          document_creation_date: 'MOCK_DATE2',
+        },
+      ],
+    };
+    const content = generateContent(commonContent);
+    expect(content.filesUploaded).toStrictEqual([
+      {
+        document_binary_url: 'MOCK_BINARY_URL',
+        document_creation_date: 'MOCK_DATE',
+        document_filename: 'MOCK_FILENAME',
+        document_hash: 'MOCK_HASH',
+        document_url: 'MOCK_URL',
+        id: 'MOCK_URL',
+      },
+      {
+        document_binary_url: 'MOCK_BINARY_URL2',
+        document_creation_date: 'MOCK_DATE2',
+        document_filename: 'MOCK_FILENAME2',
+        document_hash: 'MOCK_HASH2',
+        document_url: 'MOCK_URL2',
+        id: 'MOCK_URL2',
+      },
+    ]);
+    expect(content.errorMessage).toBe('Document could not be uploaded');
+    expect(content.docCategory).toBe('witnessstatements');
+    expect(content.docType).toBe('positionstatements');
+  });
+
+  test('generateContent should return correct details for FL401', () => {
+    commonContent.additionalData!.req = {
+      ...commonContent.additionalData!.req,
+      session: {
+        ...commonContent.additionalData!.req.session,
+        userCase: {
+          ...commonContent.additionalData!.req.session.userCase,
+          caseTypeOfApplication: 'Fl401',
+        },
+      },
+      params: {
+        docCategory: DocCategory.WITNESS_STATEMENT,
+        docType: DocType.YOUR_WITNESS_STATEMENTS,
+      },
+    };
+
+    const content = generateContent(commonContent);
+    expect(content.isDocWitnessOrPosition).toBe(true);
+    form = content.form as FormContent;
+    expect(form.link.href).toBe('/applicant/task-list/123');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

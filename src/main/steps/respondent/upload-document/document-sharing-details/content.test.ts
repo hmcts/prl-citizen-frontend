@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { DocCategory, DocType } from '../../../../app/case/definition';
-import { FormContent } from '../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -62,21 +62,26 @@ describe('citizen-home content', () => {
   } as unknown as CommonContent;
   let generatedContent;
   let form;
+  let fields;
 
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;
-    // fields = form.fields as FormFields;
+    fields = form.fields as FormFields;
   });
   test('should return correct english content', () => {
     expect(generatedContent.continue).toEqual('Continue');
     expect(generatedContent.section).toEqual('How your documents will be shared');
-    //expect((reasonDocumentCantBeSharedFields.label as Function)(generatedContent)).toBe(en.explainWhy);
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+
+  test('should contain correct fields', () => {
+    const reasonDocumentCantBeSharedFields = fields.reasonForDocumentCantBeShared as FormOptions;
+    expect((reasonDocumentCantBeSharedFields.label as Function)(generatedContent)).toBe(en.explainWhy);
   });
 
   test('should contain continue button', () => {

@@ -1,10 +1,11 @@
 import axios, { AxiosInstance } from 'axios';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { UserDetails } from '../controller/AppRequest';
 
-import { CosApiClient } from './CosApiClient';
+import { CosApiClient, DocumentUploadRequest, UploadedFiles } from './CosApiClient';
 import { CaseWithId } from './case';
-import { CaseData, CaseEvent, CaseType, PartyType } from './definition';
+import { CaseData, CaseEvent, CaseType, DocumentUploadResponse, PartyType } from './definition';
 import { toApiFormat } from './to-api-format';
 
 jest.mock('axios');
@@ -56,6 +57,13 @@ describe('CosApiClient', () => {
     response: {
       legalRepresentation: 'No',
     },
+  };
+  const userDetails: UserDetails = {
+    accessToken: '123',
+    email: 'billy@bob.com',
+    givenName: 'billy',
+    familyName: 'bob',
+    id: '1234',
   };
   test('connect cos api', async () => {
     const mockGet = jest.fn().mockResolvedValueOnce({ data: { mockPayment: 'data' } });
@@ -170,6 +178,34 @@ describe('CosApiClient', () => {
     expect(actual).toEqual(response);
   });
 
+  test('uploadStatementDocument should return correct response data', async () => {
+    const response = {
+      status: 200,
+      document: {
+        document_url: 'abc',
+        document_binary_url: 'bcd',
+        document_filename: 'test',
+        document_hash: 'test',
+        document_creation_date: 'testDate',
+      },
+    };
+    const req = {
+      caseId: '1234',
+      categoryId: '1',
+      partyId: '1234',
+      partyName: 'party name',
+      partyType: 'applicant',
+      files: [
+        { originalname: 'uploaded-file.jpg', data: 'mock data', name: 'uploaded-file.jpg' },
+      ] as unknown as UploadedFiles,
+    } as DocumentUploadRequest;
+
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<DocumentUploadResponse>);
+    const client = new CosApiClient('abc', 'http://return-url');
+    const result = await client.uploadStatementDocument(userDetails, req);
+    expect(result).toStrictEqual(response);
+  });
+
   test('uploadStatementDocument-with api error', async () => {
     mockedAxios.post.mockRejectedValueOnce;
     const req = mockRequest();
@@ -230,6 +266,23 @@ describe('CosApiClient', () => {
     expect(actual).toEqual(response);
     //await expect(client.submitUploadedDocuments(req.session.user, req.session.userCase.applicantUploadFiles[0])).toBe({});
   });
+
+  test('submitUploadedDocuments-should fail with api error', async () => {
+    mockedAxios.post.mockRejectedValueOnce({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'POST',
+      },
+    });
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    await expect(client.submitUploadedDocuments(req.session.user, DocumentUploadReq)).rejects.toThrow(
+      'submit citizen uploaded documents failed.'
+    );
+  });
+
   test('linkCaseToCitizen', async () => {
     const response = { id: '1234567' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
@@ -245,6 +298,22 @@ describe('CosApiClient', () => {
     expect(flag).toBe(false);
   });
 
+  test('linkCaseToCitizen-should fail with api error', async () => {
+    mockedAxios.post.mockRejectedValueOnce({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'POST',
+      },
+    });
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    await expect(
+      client.linkCaseToCitizen(req.session.user, '1234567', req, '123456789', req.session.userCase)
+    ).rejects.toThrow('Failed to link case to citizen.');
+  });
+
   test('updateRespondentCase', async () => {
     const response = { id: '1234567' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
@@ -258,6 +327,22 @@ describe('CosApiClient', () => {
       flag = true;
     }
     expect(flag).toBe(false);
+  });
+
+  test('updateRespondentCase-should fail with api error', async () => {
+    mockedAxios.post.mockRejectedValueOnce({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'POST',
+      },
+    });
+    const req = mockRequest();
+    const client = new CosApiClient('abc', 'http://return-url');
+    await expect(client.updateRespondentCase(req.session.user, '1234567', req, req.session.userCase)).rejects.toThrow(
+      'Case could not be updated - updateRespondentCase'
+    );
   });
 
   test('retrieveCasesByUserId', async () => {
@@ -284,6 +369,21 @@ describe('CosApiClient', () => {
         },
       },
     ]);
+  });
+
+  test('retrieveCasesByUserId-should fail with api error', async () => {
+    mockedAxios.get.mockRejectedValueOnce({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'GET',
+      },
+    });
+    const client = new CosApiClient('abc', 'http://return-url');
+    await expect(client.retrieveCasesByUserId(userDetails)).rejects.toThrow(
+      'Could not retrive cases - retrieveCasesByUserId'
+    );
   });
 
   test('generateC7Document', async () => {
@@ -448,34 +548,31 @@ describe('CosApiClientWithError', () => {
   });
 });
 
-// describe('RetrieveCaseHearingsByCaseId', () => {
-//   test('retrieveCaseHearingsByCaseId', async () => {
-//     const req = mockRequest();
-//     const client = new CosApiClient('abc', 'http://return-url');
-//     const userCase: CaseWithId = {
-//       id: '123445566',
-//       state: State.AWAITING_SUBMISSION_TO_HMCTS,
-//     };
+describe('RetrieveCaseHearingsByCaseId', () => {
+  test('retrieveCaseHearingsByCaseId', async () => {
+    const req = mockRequest();
+    const response = { id: '1234567' };
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const client = new CosApiClient('abc', 'http://return-url');
 
-//     const response = await client.retrieveCaseHearingsByCaseId(userCase, req.session.user);
+    const result = await client.retrieveCaseHearingsByCaseId(req.session.userCase, req.session.user);
 
-//     expect(response.state).toEqual(State.AWAITING_SUBMISSION_TO_HMCTS);
-//   });
+    expect(result).toEqual(response);
+  });
 
-//   test('retrieveCaseHearingsByCaseId_Error', async () => {
-//     const req = mockRequest();
-//     const client = new CosApiClient('abc', 'http://return-url');
-//     const userCase: CaseWithId = {
-//       id: '',
-//       state: State.AWAITING_SUBMISSION_TO_HMCTS,
-//     };
-//     req.session.user = {};
-//     let flag = true;
-//     try {
-//       await client.retrieveCaseHearingsByCaseId(userCase, req.session.user);
-//     } catch {
-//       flag = false;
-//     }
-//     expect(flag).toEqual(false);
-//   });
-// });
+  test('retrieveCaseHearingsByCaseId_Error', async () => {
+    const req = mockRequest();
+    mockedAxios.get.mockRejectedValueOnce({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'GET',
+      },
+    });
+    const client = new CosApiClient('abc', 'http://return-url');
+    await expect(client.retrieveCaseHearingsByCaseId(req.session.userCase, req.session.user)).rejects.toThrow(
+      'Case could not be updated.'
+    );
+  });
+});
