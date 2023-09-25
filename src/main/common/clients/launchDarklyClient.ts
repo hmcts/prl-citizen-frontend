@@ -12,7 +12,6 @@ export class LaunchDarklyClient {
     if (!LaunchDarklyClient.client) {
       const sdkKey: string = config.get<string>('featureToggles.launchDarklyKey');
       LaunchDarklyClient.client = init(sdkKey, ldConfig);
-      console.log(LaunchDarklyClient.client);
     }
   }
 
