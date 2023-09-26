@@ -3,6 +3,7 @@ import { CaseType, PartyDetails, PartyType } from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
 import { mapSupportYouNeedDetails } from '../../steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
 import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
+import { mapContactPreference } from '../../steps/common/contact-preferences/ContactPreferencesMapper';
 import { mapKeepYourDetailsPrivate } from '../../steps/common/keep-details-private/KeepYourDetailsPrivateMapper';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { mapConsentToApplicationDetails } from '../../steps/respondent/consent-to-application/ConsentMapper';
@@ -20,21 +21,27 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
       setDataInSession(userCase, partyDetails);
     }
 
-    if (partyDetails.response.consent) {
-      Object.assign(userCase, mapConsentToApplicationDetails(partyDetails));
-    }
-  }
-  if (partyDetails) {
     Object.assign(userCase, mapConfirmContactDetails(partyDetails));
   }
+
+  if (partyDetails?.response?.consent) {
+    Object.assign(userCase, mapConsentToApplicationDetails(partyDetails));
+  }
+
   if (partyDetails?.response?.keepDetailsPrivate?.confidentiality) {
     Object.assign(userCase, mapKeepYourDetailsPrivate(partyDetails));
   }
+
   if (partyDetails?.response?.supportYouNeed) {
     Object.assign(userCase, mapSupportYouNeedDetails(partyDetails));
   }
+
+  if (partyDetails?.contactPreferences) {
+    Object.assign(userCase, mapContactPreference(partyDetails));
+  }
 };
-function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
+
+const setDataInSession = (userCase: CaseWithId, partyDetails: PartyDetails): void => {
   if (partyDetails?.response?.safetyConcerns) {
     Object.assign(userCase, mapSafetyConcernsDetails(partyDetails));
   }
@@ -50,7 +57,7 @@ function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
   if (partyDetails?.response?.miam) {
     Object.assign(userCase, mapMIAMDetails(partyDetails));
   }
-}
+};
 
 export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id']): PartyDetails | undefined => {
   const partyType = getCasePartyType(userCase, userId);

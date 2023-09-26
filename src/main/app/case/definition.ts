@@ -106,7 +106,7 @@ export interface PartyDetails {
   isAtAddressLessThan5YearsWithDontKnow: string;
   response: Response;
   user: User;
-  contactPreferences?: applicantContactPreferencesEnum;
+  contactPreferences?: ContactPreference;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
 }
 
@@ -803,6 +803,11 @@ export interface ContactDetail {
 }
 
 export enum applicantContactPreferencesEnum {
+  DIGITAL = 'digital',
+  POST = 'post',
+}
+
+export enum ContactPreference {
   DIGITAL = 'digital',
   POST = 'post',
 }
@@ -1649,7 +1654,8 @@ export const enum EventRoutesContext {
   SAFETY_CONCERNS_RESPONSE = "SAFETY_CONCERNS_RESPONSE",
   INTERNATIONAL_FACTORS_RESPONSE = "INTERNATIONAL_FACTORS_RESPONSE",
   SUPPORT_DURING_CASE = "SUPPORT_DURING_CASE",
-  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO"
+  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO",
+  CONTACT_PREFERENCE = "CONTACT_PREFERENCE",
 }
 
 export const enum ClarificationReason {

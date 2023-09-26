@@ -1,6 +1,7 @@
 export const applicant_tasklist_items_en = {
   keep_your_details_private: 'Keep your details private',
   confirm_or_edit_your_contact_details: 'Confirm or edit your contact details',
+  contact_preference: 'Contact preferences',
   your_application: 'Application submitted (PDF)',
   your_application_ca: 'Your application (PDF)',
   your_allegations_of_harm: 'View allegations of harm and violence (PDF)',
@@ -21,6 +22,7 @@ export const applicant_tasklist_items_en = {
 export const applicant_tasklist_items_cy = {
   keep_your_details_private: 'Cadw eich manylion yn breifat',
   confirm_or_edit_your_contact_details: 'Cadarnhau neu olygu eich manylion cyswllt',
+  contact_preference: 'Dewisiadau cyswllt',
   your_application: 'Cais wedi’i gyflwyno (PDF)',
   your_application_ca: 'Eich cais (PDF)',
   your_allegations_of_harm: 'Gweld honiadau o niwed a thrais (PDF)',

@@ -557,14 +557,24 @@ export const TESTING_SUPPORT: PageLink = '/testing-support';
 export const TESTING_SUPPORT_CREATE_DRAFT: PageLink = '/testing-support/create-Draft';
 export const TESTING_SUPPORT_DELETE_DRAFT: PageLink = '/testing-support/delete-Draft';
 export const CREATE_DRAFT: PageLink = '/draft-controller';
-/* applicant-tasklist-contactpreferences*/
+/* tasklist-contactpreferences*/
 export const CONTACT_PREFERENCES: PageLink = '/contact-preferences';
-export const APPLICANT_TASKLIST_CONTACT_PREFERENCES: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-preferences`;
-export const APPLICANT_TASKLIST_CONTACT_PREFERENCES_SAVE: PageLink = `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/save`;
+export const FETCH_CONTACT_PREFERENCES: PageLink = `${CONTACT_PREFERENCES}/fetch`;
+
+export const APPLICANT_CHOOSE_CONTACT_PREFERENCE: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/choose-a-contact-preference`;
+export const RESPONDENT_CHOOSE_CONTACT_PREFERENCE: PageLink = `${RESPONDENT}${CONTACT_PREFERENCES}/choose-a-contact-preference`;
+
 export const APPLICANT_TASKLIST_CONTACT_EMAIL: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-email`;
-export const APPLICANT_TASKLIST_CONTACT_POST: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-post`;
 export const APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-email-success`;
+
+export const RESPONDENT_TASKLIST_CONTACT_EMAIL: PageLink = `${RESPONDENT}${CONTACT_PREFERENCES}/contact-email`;
+export const RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS: PageLink = `${RESPONDENT}${CONTACT_PREFERENCES}/contact-email-success`;
+
+export const APPLICANT_TASKLIST_CONTACT_POST: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-post`;
 export const APPLICANT_TASKLIST_CONTACT_POST_SUCCESS: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-post-success`;
+
+export const RESPONDENT_TASKLIST_CONTACT_POST: PageLink = `${RESPONDENT}${CONTACT_PREFERENCES}/contact-post`;
+export const RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS: PageLink = `${RESPONDENT}${CONTACT_PREFERENCES}/contact-post-success`;
 /*temporary task-list/applicant URL for applicant dashboard */
 export const TASK_LIST_APPLICANT_URL: PageLink = '/task-list/applicant';
 /*temporary task-list/applicant URL for applicant dashboard end/*
@@ -610,7 +620,21 @@ export const SCREENING_QUESTIONS = [
 export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
 
 export const LOCAL_API_SESSION = '/api/v1/session';
-export const SAFEGAURD_EXCLUDE_URLS = [C100_URL, DASHBOARD_URL, LOCAL_API_SESSION, PAYMENT_RETURN_URL];
+export const SAFEGAURD_EXCLUDE_URLS = [
+  DASHBOARD_URL,
+  PIN_ACTIVATION_URL,
+  C100_URL,
+  '/case/',
+  LOCAL_API_SESSION,
+  PAYMENT_RETURN_URL,
+  DOCUMENT_MANAGER,
+  ALLEGATION_OF_HARM_VOILENCE_DOC,
+  RESPONSE_TO_CA,
+  AOH_TO_CA,
+  CITIZEN_DOWNLOAD_UPLOADED_DOCS,
+  TASK_LIST_RESPONSE,
+  CONTACT_PREFERENCES,
+];
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
   isNonProd

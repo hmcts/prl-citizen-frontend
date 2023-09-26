@@ -6,7 +6,7 @@ import { RespondentTaskListGetController } from '../main/steps/respondent/task-l
 
 import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
 import { FieldPrefix } from './app/case/case';
-import { Environment, EventRoutesContext } from './app/case/definition';
+import { EventRoutesContext } from './app/case/definition';
 import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -21,8 +21,6 @@ import { SupportYouNeedDuringYourCaseController } from './steps/applicant/suppor
 import ApplicantTaskListGetController from './steps/applicant/task-list/get';
 import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
-import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
-import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
@@ -118,7 +116,6 @@ import {
   TESTING_SUPPORT_CREATE_DRAFT,
   CREATE_DRAFT,
   TESTING_SUPPORT_DELETE_DRAFT,
-  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   C7_ATTENDING_THE_COURT,
@@ -131,6 +128,8 @@ import {
   RESPONSE_TO_CA,
   AOH_TO_CA,
   VIEW_DOCUMENT_URL,
+  LOCAL_API_SESSION,
+  FETCH_CONTACT_PREFERENCES,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -235,11 +234,12 @@ export class Routes {
       errorHandler(new TasklistGetController(EventRoutesContext.SUPPORT_DURING_CASE).get)
     );
 
-    //C100 related routes
     app.get(
-      `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/:caseId`,
-      errorHandler(new ContactPreferencesGetController().get)
+      `${FETCH_CONTACT_PREFERENCES}/:caseId`,
+      errorHandler(new TasklistGetController(EventRoutesContext.CONTACT_PREFERENCE).get)
     );
+
+    //C100 related routes
     app.post(CREATE_DRAFT, errorHandler(TSDraftController.post));
     app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(TSDraftController.createTSC100Draft));
     app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(TSDraftController.deleteTSC100Draft));
@@ -344,10 +344,6 @@ export class Routes {
         );
         app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
         app.post(
-          `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}`,
-          errorHandler(new ContactPreferencesPostController(step.form.fields).post)
-        );
-        app.post(
           PIN_ACTIVATION_CASE_ACTIVATED_URL,
           errorHandler(new CaseActivationPostController(step.form.fields).post)
         );
@@ -374,11 +370,9 @@ export class Routes {
      */
     app.get(PAYMENT_GATEWAY_ENTRY_URL, errorHandler(PaymentHandler));
     app.get(PAYMENT_RETURN_URL_CALLBACK, errorHandler(PaymentValidationHandler));
-    if (app.locals.ENV !== Environment.PRODUCTION) {
-      app.get('/api/v1/session', (req, res) => {
-        res.json(req.session);
-      });
-    }
+    app.get(LOCAL_API_SESSION, (req, res) => {
+      res.json(req.session);
+    });
   }
 
   private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {

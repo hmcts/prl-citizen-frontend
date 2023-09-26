@@ -1,4 +1,5 @@
 import { YesOrNo } from '../../app/case/definition';
+import { ContactPreferencesPostController } from '../../steps/common/contact-preferences/ContactPreferencesPostController';
 import { Sections, Step } from '../constants';
 import {
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
@@ -43,6 +44,7 @@ import {
   RESPONDENT_ADDRESS_SELECT,
   RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
   RESPONDENT_CHECK_ANSWERS,
+  RESPONDENT_CHOOSE_CONTACT_PREFERENCE,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_CONTACT_DETAILS_SAVE,
   RESPONDENT_DETAILS_KNOWN,
@@ -59,6 +61,10 @@ import {
   RESPONDENT_SECTION37_REPORT,
   RESPONDENT_SECTION7_REPORT,
   RESPONDENT_START_ALTERNATIVE,
+  RESPONDENT_TASKLIST_CONTACT_EMAIL,
+  RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS,
+  RESPONDENT_TASKLIST_CONTACT_POST,
+  RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS,
   RESPONDENT_TASK_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
@@ -534,6 +540,32 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
     showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: RESPONDENT_CHOOSE_CONTACT_PREFERENCE,
+    showInSection: Sections.AboutApplicantCase,
+    postController: ContactPreferencesPostController,
+    getNextStep: () => '/',
+  },
+  {
+    url: RESPONDENT_TASKLIST_CONTACT_EMAIL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS,
+  },
+  {
+    url: RESPONDENT_TASKLIST_CONTACT_POST,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS,
+  },
+  {
+    url: RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS,
+    showInSection: Sections.AboutApplicantCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
 ];

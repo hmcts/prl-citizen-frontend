@@ -7,13 +7,13 @@ import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_ORDERS_FROM_THE_COURT,
-  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   APPLICANT_TASKLIST_HEARING_NEEDS,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_YOURHEARINGS_HEARINGS,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
+  FETCH_CONTACT_PREFERENCES,
 } from '../../../../urls';
 import { isCaseClosed, isCaseLinked, isDraftCase } from '../../utils';
 
@@ -123,7 +123,7 @@ const taskListConfig = {
           },
           {
             id: Tasks.CONTACT_PREFERENCES,
-            href: (caseData: Partial<CaseWithId>) => `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/${caseData.id}`,
+            href: (caseData: Partial<CaseWithId>) => `${FETCH_CONTACT_PREFERENCES}/${caseData.id}`,
             disabled: isCaseClosed,
             stateTag: () => StateTags.SUBMITTED,
           },

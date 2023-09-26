@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import _ from 'lodash';
 
+import { CaseWithId } from '../../../../app/case/case';
+import { PartyType } from '../../../../app/case/definition';
+import { UserDetails } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { interpolate } from '../../../../steps/common/string-parser';
+import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
+import { getPartyDetails } from '../../../../steps/tasklistresponse/utils';
+import { APPLICANT_ADDRESS_DETAILS, RESPONDENT_ADDRESS_DETAILS } from '../../../../steps/urls';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -80,23 +85,7 @@ export const getFormFields = (): FormContent => {
 
 export const generateContent: TranslationFn = content => {
   const caseNumber: string = content.userCase?.id!;
-  let applicantAddressObj;
-  const applicantAddress: string[] = [];
-
-  if (content?.userCase?.applicants?.length) {
-    applicantAddressObj = _.get(
-      content.userCase.applicants.find(applicant => applicant.value.user.idamId === content.userIdamId),
-      'value.address',
-      {}
-    );
-
-    for (const key in applicantAddressObj) {
-      if (applicantAddressObj[key]) {
-        applicantAddress.push(applicantAddressObj[key]);
-      }
-    }
-  }
-
+  const partyDetails = getPartyDetails(content.userCase as CaseWithId, content.userIdamId as UserDetails['id']);
   const translations = languages[content.language]();
   const { fields } = generateFormFields();
 
@@ -104,6 +93,14 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     caption: interpolate(translations.caption, { caseNumber }),
     form: updateFormFields(form, fields),
-    addresses: applicantAddress.filter(item => item),
+    addresses: Object.values(partyDetails?.address!).filter(address => {
+      if (address && address.trim()) {
+        return address;
+      }
+    }),
+    changeAddressLink:
+      getCasePartyType(content.userCase as CaseWithId, content.userIdamId as UserDetails['id']) === PartyType.APPLICANT
+        ? APPLICANT_ADDRESS_DETAILS
+        : RESPONDENT_ADDRESS_DETAILS,
   };
 };

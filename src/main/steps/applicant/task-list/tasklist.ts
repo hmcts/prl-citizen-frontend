@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { State } from '../../../app/case/definition';
+import { SectionStatus, State } from '../../../app/case/definition';
+import { hasContactPreference } from '../../../steps/common/contact-preferences/util';
 import { hasAnyHearing } from '../../../steps/respondent/task-list/tasklist';
 import {
   getViewAllHearingsFromTheCourt,
@@ -36,6 +37,12 @@ export const generateApplicantTaskList = (
               text: taskListItems.keep_your_details_private,
               status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
               href: URL.APPLICANT_DETAILS_KNOWN + '/' + userCase.id,
+            },
+            {
+              id: 'contact-preference',
+              text: taskListItems.contact_preference,
+              status: !hasContactPreference(userCase, userIdamId) ? SectionStatus.TO_DO : SectionStatus.COMPLETED,
+              href: URL.FETCH_CONTACT_PREFERENCES + '/' + userCase.id,
             },
             {
               id: 'confirm-or-edit-your-contact-details',

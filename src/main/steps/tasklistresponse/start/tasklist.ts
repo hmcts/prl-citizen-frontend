@@ -1,5 +1,6 @@
-import { Respondent, YesOrNo } from '../../../app/case/definition';
+import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
+import { hasContactPreference } from '../../../steps/common/contact-preferences/util';
 import * as URL from '../../urls';
 
 import {
@@ -62,6 +63,12 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
             text: taskListItems.keep_your_details_private,
             status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
             href: URL.RESPONDENT_DETAILS_KNOWN + '/' + userCase.id,
+          },
+          {
+            id: 'contact-preference',
+            text: taskListItems.contact_preference,
+            status: !hasContactPreference(userCase, userIdamId) ? SectionStatus.TO_DO : SectionStatus.COMPLETED,
+            href: URL.FETCH_CONTACT_PREFERENCES + '/' + userCase.id,
           },
           {
             id: 'confirm-or-edit-your-contact-details',

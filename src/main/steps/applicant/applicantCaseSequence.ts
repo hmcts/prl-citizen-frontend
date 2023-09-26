@@ -1,5 +1,6 @@
 import { Case } from '../../app/case/case';
 import { CaseType } from '../../app/case/definition';
+import { ContactPreferencesPostController } from '../../steps/common/contact-preferences/ContactPreferencesPostController';
 import { Sections, Step } from '../constants';
 import {
   ALLEGATION_OF_HARM_VOILENCE_DOC,
@@ -27,8 +28,6 @@ import {
   APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
   APPLICANT_TASKLIST_CONTACT_POST,
   APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
-  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-  APPLICANT_TASKLIST_CONTACT_PREFERENCES_SAVE,
   APPLICANT_TASK_LIST_URL,
   APPLICANT_UPLOAD_DOCUMENT,
   APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
@@ -77,6 +76,7 @@ import {
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_TASKLIST_HEARING_NEEDS,
+  APPLICANT_CHOOSE_CONTACT_PREFERENCE,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -519,14 +519,10 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: APPLICANT_TASKLIST_CONTACT_PREFERENCES,
+    url: APPLICANT_CHOOSE_CONTACT_PREFERENCE,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-  },
-  {
-    url: APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASKLIST_CONTACT_PREFERENCES_SAVE,
+    postController: ContactPreferencesPostController,
+    getNextStep: () => '/',
   },
   {
     url: APPLICANT_TASKLIST_CONTACT_EMAIL,

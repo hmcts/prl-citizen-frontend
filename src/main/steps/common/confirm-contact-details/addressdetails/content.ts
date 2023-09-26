@@ -42,6 +42,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   return {
     ...translations,
+    citizenUserAddressText: content.userCase?.citizenUserAddressText,
     form,
   };
 };

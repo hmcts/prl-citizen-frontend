@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import { SectionStatus } from '../../../app/case/definition';
 import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
+import { hasContactPreference } from '../../../steps/common/contact-preferences/util';
 import { UPDATE_CASE_YES } from '../../../steps/constants';
 import * as URL from '../../urls';
 
@@ -28,6 +29,7 @@ export const generateRespondentTaskList = (
   isRepresentedBySolicotor
 ) => {
   const isCaseClosed = userCase.state === 'ALL_FINAL_ORDERS_ISSUED';
+
   return [
     !isCaseClosed && !isRepresentedBySolicotor
       ? {
@@ -38,6 +40,12 @@ export const generateRespondentTaskList = (
               text: taskListItems.keep_your_details_private,
               status: getKeepYourDetailsPrivateStatus(userCase, userIdamId),
               href: URL.RESPONDENT_DETAILS_KNOWN + '/' + userCase.id,
+            },
+            {
+              id: 'contact-preference',
+              text: taskListItems.contact_preference,
+              status: !hasContactPreference(userCase, userIdamId) ? SectionStatus.TO_DO : SectionStatus.COMPLETED,
+              href: URL.FETCH_CONTACT_PREFERENCES + '/' + userCase.id,
             },
             {
               id: 'confirm-or-edit-your-contact-details',

@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars*/
 import { CaseWithId } from '../../../app/case/case';
 import { PartyDetails } from '../../../app/case/definition';
-import type { AppRequest } from '../../../app/controller/AppRequest';
 
-export const setContactPreferences = (partyDetails: PartyDetails, req: AppRequest): PartyDetails => {
-  if (partyDetails?.response && partyDetails?.contactPreferences) {
-    partyDetails.contactPreferences = req.body.applicantPreferredContact!;
-  }
-  return partyDetails;
+export const prepareContactPreferenceRequest = (
+  userCase: CaseWithId
+): Record<string, PartyDetails['contactPreferences']> => {
+  return {
+    contactPreferences: userCase.preferredModeOfContact,
+  };
 };
 
-export const getContactPreferences = (partyDetails: PartyDetails, req: AppRequest): Partial<CaseWithId> => {
-  req.session.userCase.applicantPreferredContact = partyDetails.contactPreferences;
-
-  return partyDetails;
+export const mapContactPreference = (partyDetails: PartyDetails): Partial<CaseWithId> => {
+  return {
+    preferredModeOfContact: partyDetails?.contactPreferences,
+  };
 };
