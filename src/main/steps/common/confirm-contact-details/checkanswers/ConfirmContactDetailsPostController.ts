@@ -21,6 +21,7 @@ import {
 import {
   mapConfirmContactDetails,
   prepareRequest,
+  setAddressFields,
   //setContactDetails
 } from './ContactDetailsMapper';
 
@@ -65,6 +66,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
           CaseEvent.CONFIRM_YOUR_DETAILS
         );
         mapDataInSession(req.session.userCase, user.id);
+        req.session.userCase.citizenUserAddressText = setAddressFields(req).citizenUserAddressText;
         req.session.save(() => {
           const redirectUrl = this.getRedirectUrl(partyType, req, userCase);
           res.redirect(redirectUrl);
