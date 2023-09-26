@@ -227,7 +227,7 @@ describe('testcase for tasklist', () => {
           },
           {
             disabled: false,
-            href: '/applicant/contact-preferences/contact-preferences/12',
+            href: '/contact-preferences/fetch/12',
             id: 'contactPreferences',
             linkText: 'Contact preferences',
             stateTag: {
@@ -361,7 +361,7 @@ describe('testcase for tasklist', () => {
           },
           {
             disabled: false,
-            href: '/applicant/contact-preferences/contact-preferences/12',
+            href: '/contact-preferences/fetch/12',
             id: 'contactPreferences',
             linkText: 'Contact preferences',
             stateTag: {

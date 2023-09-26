@@ -89,6 +89,12 @@ describe('applicant tasklist getRemainingTaskList', () => {
             text: 'Keep your details private',
           },
           {
+            href: '/contact-preferences/fetch/1234',
+            id: 'contact-preference',
+            status: 'TO_DO',
+            text: 'Contact preferences',
+          },
+          {
             href: '/applicant/confirm-contact-details/checkanswers/1234',
             id: 'confirm-or-edit-your-contact-details',
             status: 'IN_PROGRESS',
@@ -200,6 +206,12 @@ describe('applicant tasklist getRemainingTaskList', () => {
             id: 'keep-your-details-private',
             status: 'TO_DO',
             text: 'Keep your details private',
+          },
+          {
+            href: '/contact-preferences/fetch/1234',
+            id: 'contact-preference',
+            status: 'TO_DO',
+            text: 'Contact preferences',
           },
           {
             href: '/applicant/confirm-contact-details/checkanswers/1234',

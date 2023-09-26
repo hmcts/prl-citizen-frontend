@@ -221,7 +221,7 @@ describe('ConfirmContactDetailsPostController', () => {
     req.session.userCase.applicantsFL401 = partyDetails;
     req.session.userCase.caseTypeOfApplication = 'C100';
     req.url = 'applicant';
-    req.session.userCase.applicantPreferredContact = applicantContactPreferencesEnum.POST;
+    req.session.userCase.preferredModeOfContact = applicantContactPreferencesEnum.POST;
     req.session.applicationSettings = { navFromContactPreferences: true };
     await controller.post(req, res);
     expect(retrieveByCaseIdMock).toBeCalled;
@@ -234,7 +234,7 @@ describe('ConfirmContactDetailsPostController', () => {
     req.session.userCase.applicantsFL401 = partyDetails;
     req.session.userCase.caseTypeOfApplication = 'C100';
     req.url = 'applicant';
-    req.session.userCase.applicantPreferredContact = applicantContactPreferencesEnum.DIGITAL;
+    req.session.userCase.preferredModeOfContact = applicantContactPreferencesEnum.DIGITAL;
     req.session.applicationSettings = { navFromContactPreferences: true };
     await controller.post(req, res);
     expect(retrieveByCaseIdMock).toBeCalled;

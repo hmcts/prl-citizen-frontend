@@ -125,6 +125,12 @@ describe('task-list > content', () => {
               text: 'Keep your details private',
             },
             {
+              href: '/contact-preferences/fetch/1234567',
+              id: 'contact-preference',
+              status: 'TO_DO',
+              text: 'Contact preferences',
+            },
+            {
               href: '/applicant/confirm-contact-details/checkanswers/1234567',
               id: 'confirm-or-edit-your-contact-details',
               status: 'IN_PROGRESS',

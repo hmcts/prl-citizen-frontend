@@ -24,8 +24,8 @@ const cyContent: typeof enContent = {
 };
 
 describe('address details', () => {
-  const commonContent = { language: 'en', userCase: {} } as CommonContent;
-  const commonContentcy = { language: 'cy', userCase: {} } as CommonContent;
+  const commonContent = { language: 'en', userCase: { citizenUserAddressText: 'address' } } as CommonContent;
+  const commonContentcy = { language: 'cy', userCase: { citizenUserAddressText: 'cyfeiriad' } } as CommonContent;
   let generatedContent;
   let generatedContentcy;
 
@@ -53,7 +53,7 @@ describe('address details', () => {
   });
 
   test('should return correct welsh content using language assertions', () => {
-    languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
+    languageAssertions('cy', cyContent, () => generateContent({ ...commonContentcy, language: 'cy' }));
   });
 
   // test('should contain citizenUserAddressPostcode field', () => {

@@ -42,22 +42,21 @@ describe('contact email common content', () => {
     language: 'en',
     userIdamId: '123',
     userCase: {
-      applicants: [
-        {
-          value: {
-            user: {
-              idamId: '123',
-            },
-            address: {
-              AddressLine1: 'test',
-              AddressLine2: 'test line 2',
-              PostTown: 'London',
-              County: 'Islington',
-              PostCode: 'EC1 EC11',
-            },
+      caseTypeOfApplication: 'FL401',
+      applicantsFL401: {
+        value: {
+          user: {
+            idamId: '123',
+          },
+          address: {
+            AddressLine1: 'test',
+            AddressLine2: 'test line 2',
+            PostTown: 'London',
+            County: 'Islington',
+            PostCode: 'EC1 EC11',
           },
         },
-      ],
+      },
     },
   } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect

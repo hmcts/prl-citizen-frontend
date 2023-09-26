@@ -26,7 +26,7 @@ const en = {
   labelPostHintText: 'All communication from the court will be sent by post.',
   continue: 'Save and continue',
   errors: {
-    applicantPreferredContact: {
+    preferredModeOfContact: {
       required: 'Please select a contact preference',
     },
   },
@@ -49,7 +49,7 @@ const cy = {
   labelPostHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy’r post.',
   continue: 'Cadw a pharhau',
   errors: {
-    applicantPreferredContact: {
+    preferredModeOfContact: {
       required: 'Dewiswch sut hoffech inni gysylltu â chi',
     },
   },
@@ -78,6 +78,10 @@ describe('contact preferences common content', () => {
         },
       },
     };
+    commonContent.userCase = {
+      ...commonContent.userCase,
+      caseTypeOfApplication: 'FL401',
+    };
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;
     fields = form.fields as FormFields;
@@ -93,19 +97,19 @@ describe('contact preferences common content', () => {
   });
 
   test('should contain contact-preference details form fields', () => {
-    const { applicantPreferredContact } = fields as Record<string, FormFields>;
+    const { preferredModeOfContact } = fields as Record<string, FormFields>;
 
-    expect(applicantPreferredContact.type).toBe('radios');
-    expect(applicantPreferredContact.values[0].label(generatedContent)).toBe(en.labelDigital);
-    expect((applicantPreferredContact.label as Function)(generatedContent)).toBe(en.contactPreferenceLabel);
-    expect((applicantPreferredContact.hint as Function)(generatedContent)).toBe(en.contactPreferenceHintText);
-    expect(applicantPreferredContact.values[0].value).toBe('digital');
-    expect((applicantPreferredContact.values[0].hint as Function)(generatedContent)).toBe(en.labelDitigalHintText);
-    expect(applicantPreferredContact.values[1].label(generatedContent)).toBe(en.labelPost);
-    expect((applicantPreferredContact.values[1].hint as Function)(generatedContent)).toBe(en.labelPostHintText);
-    expect(applicantPreferredContact.values[1].value).toBe('post');
+    expect(preferredModeOfContact.type).toBe('radios');
+    expect(preferredModeOfContact.values[0].label(generatedContent)).toBe(en.labelDigital);
+    expect((preferredModeOfContact.label as Function)(generatedContent)).toBe(en.contactPreferenceLabel);
+    expect((preferredModeOfContact.hint as Function)(generatedContent)).toBe(en.contactPreferenceHintText);
+    expect(preferredModeOfContact.values[0].value).toBe('digital');
+    expect((preferredModeOfContact.values[0].hint as Function)(generatedContent)).toBe(en.labelDitigalHintText);
+    expect(preferredModeOfContact.values[1].label(generatedContent)).toBe(en.labelPost);
+    expect((preferredModeOfContact.values[1].hint as Function)(generatedContent)).toBe(en.labelPostHintText);
+    expect(preferredModeOfContact.values[1].value).toBe('post');
 
-    (applicantPreferredContact.validator as Function)(applicantContactPreferencesEnum.DIGITAL);
+    (preferredModeOfContact.validator as Function)(applicantContactPreferencesEnum.DIGITAL);
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith(applicantContactPreferencesEnum.DIGITAL);
   });
 

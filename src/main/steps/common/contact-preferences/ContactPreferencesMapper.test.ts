@@ -1,9 +1,9 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 
-import { mapContactPreference } from './ContactPreferencesMapper';
+import { mapContactPreference, prepareContactPreferenceRequest } from './ContactPreferencesMapper';
 
 let applicants;
-//let partyDetails;
+let partyDetails;
 
 describe('ContactPreferencesMapper', () => {
   const req = mockRequest();
@@ -26,7 +26,7 @@ describe('ContactPreferencesMapper', () => {
         },
       },
     ];
-    /*partyDetails = [
+    partyDetails = [
       {
         id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
         value: {
@@ -43,32 +43,18 @@ describe('ContactPreferencesMapper', () => {
           contactPreferences: 'Digital',
         },
       },
-    ];*/
+    ];
   });
 
-  /*test('Should setContactPreferences with response as Digital', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-    req.session.userCase.applicantPreferredContact = 'Digital';
-    req.body.applicantPreferredContact = 'Digital';
-    const response = {
-      applicantPreferredContact: 'Digital',
-    };
-    applicants[0].value.response = response;
-    await setContactPreferences(partyDetails, req);
-    const result = setContactPreferences(partyDetails, req);
-    expect(applicants[0].value.response.applicantPreferredContact).toEqual('Digital');
-    expect(result).toEqual(partyDetails);
+  test('Should setContactPreferences with response as Digital', async () => {
+    const result = prepareContactPreferenceRequest({ ...partyDetails, preferredModeOfContact: 'Digital' });
+    expect(result.contactPreferences).toEqual('Digital');
   });
 
   test('Should setContactPreferences with response as Post', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-    partyDetails.response = 'Digital';
-    partyDetails.contactPreferences = 'Digital';
-    req.body.applicantPreferredContact = 'Post';
-    prepareContactPreferenceRequest(partyDetails, req);
-    Object.assign(partyDetails, prepareContactPreferenceRequest(caseData));
-    expect(partyDetails.contactPreferences).toEqual('Post');
-  });*/
+    const result = prepareContactPreferenceRequest({ ...partyDetails, preferredModeOfContact: 'Post' });
+    expect(result.contactPreferences).toEqual('Post');
+  });
 
   test('Should getContactPreferences with applicant contact preference indicated as Post', () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';

@@ -24,6 +24,12 @@ describe('generateRespondentTaskList', () => {
             href: URL.RESPONDENT_DETAILS_KNOWN + '/' + '1234',
           },
           {
+            href: '/contact-preferences/fetch/1234',
+            id: 'contact-preference',
+            status: 'TO_DO',
+            text: 'Contact preferences',
+          },
+          {
             id: 'confirm-or-edit-your-contact-details',
             text: taskListItems.confirm_or_edit_your_contact_details,
             status: 'IN_PROGRESS',
@@ -112,6 +118,12 @@ describe('generateRespondentTaskList', () => {
             href: URL.RESPONDENT_DETAILS_KNOWN + '/' + '1234',
           },
           {
+            href: '/contact-preferences/fetch/1234',
+            id: 'contact-preference',
+            status: 'TO_DO',
+            text: 'Contact preferences',
+          },
+          {
             id: 'confirm-or-edit-your-contact-details',
             text: taskListItems.confirm_or_edit_your_contact_details,
             status: 'IN_PROGRESS',
@@ -198,6 +210,12 @@ describe('generateRespondentTaskList', () => {
             id: 'keep-your-details-private',
             status: 'TO_DO',
             text: 'Keep your details private',
+          },
+          {
+            href: '/contact-preferences/fetch/1234',
+            id: 'contact-preference',
+            status: 'TO_DO',
+            text: 'Contact preferences',
           },
           {
             href: '/respondent/confirm-contact-details/checkanswers/1234',
