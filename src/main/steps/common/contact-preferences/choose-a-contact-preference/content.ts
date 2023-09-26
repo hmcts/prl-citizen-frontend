@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars*/
 /* eslint-disable @typescript-eslint/no-explicit-any*/
+import { CaseWithId } from '../../../../app/case/case';
 import { ContactPreference } from '../../../../app/case/definition';
+import { UserDetails } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import { getPartyDetails } from '../../../../steps/tasklistresponse/utils';
 import { interpolate } from '../../string-parser';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -59,59 +62,6 @@ const languages = {
   cy,
 };
 
-//let updatedForm: FormContent;
-
-/*const updateFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
-  updatedForm = {
-    ...form,
-    fields: {
-      ...formFields,
-      ...(form.fields ?? {}),
-    },
-  };
-
-  return updatedForm;
-};*/
-
-/*export const generateFormFields = (partyDetails: PartyDetails): GenerateDynamicFormFields => {
-  const {contactPreferences} = partyDetails ?? {};
-
-  const errors = {
-    en: {},
-    cy: {},
-  };
-
-  const fields = {
-    preferredModeOfContact: {
-      id: 'preferredModeOfContact',
-      type: 'radios',
-      classes: 'govuk-radios',
-      validator: atLeastOneFieldIsChecked,
-      label: l => l.contactPreferenceLabel,
-      labelSize: 'm',
-      hint: l => l.contactPreferenceHintText,
-      values: [
-        {
-          label: l => l.labelDigital,
-          name: 'preferredModeOfContact',
-          value: ContactPreference.DIGITAL,
-          selected: contactPreferences === ContactPreference.DIGITAL,
-          hint: l => l.labelDitigalHintText,
-        },
-        {
-          label: l => l.labelPost,
-          name: 'preferredModeOfContact',
-          value: ContactPreference.POST,
-          selected: contactPreferences === ContactPreference.POST,
-          hint: l => l.labelPostHintText,
-        },
-      ],
-    },
-  };
-
-  return { fields, errors };
-};*/
-
 export const form: FormContent = {
   fields: {
     preferredModeOfContact: {
@@ -145,16 +95,18 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-  const caseNumber = content.userCase?.id!;
-  //const { user, userCase } = content.additionalData?.req.session;
-  //const partyDetails = getPartyDetails(userCase, user.id) as PartyDetails;
-  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-  //const { fields } = generateFormFields(partyDetails);
+  const caseData = content.userCase as CaseWithId;
+  const partyDetails = getPartyDetails(caseData, content.userIdamId as UserDetails['id']);
+
+  if (!partyDetails?.email) {
+    form.fields['preferredModeOfContact'].values[0].disabled = true;
+  } else {
+    delete form.fields['preferredModeOfContact'].values[0].disabled;
+  }
 
   return {
     ...translations,
     form,
-    caption: interpolate(translations.caption, { caseNumber }),
+    caption: interpolate(translations.caption, { caseNumber: caseData.id! }),
   };
 };
