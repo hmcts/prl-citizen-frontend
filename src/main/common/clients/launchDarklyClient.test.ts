@@ -1,6 +1,7 @@
 import config from 'config';
 import { when } from 'jest-when';
 import launchdarkly, { LDFlagValue } from 'launchdarkly-node-server-sdk';
+
 import { LaunchDarklyClient } from './launchDarklyClient';
 
 describe('LaunchDarkly', function () {
@@ -47,9 +48,9 @@ describe('LaunchDarkly', function () {
     test('Should call async functions', async function () {
       when(config.get).calledWith('featureToggles.launchDarklyKey').mockReturnValue('TEST_KEY');
       const launchC = new LaunchDarklyClient();
-  
+
       expect(launchC.initializeLD).toHaveBeenCalled;
       expect(launchC.serviceVariation('a', 'b')).toHaveBeenCalled;
     });
-  })
+  });
 });

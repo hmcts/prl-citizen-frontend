@@ -2,9 +2,9 @@ import axios from 'axios';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { CaseApi as C100Api } from '../../app/case/C100CaseApi';
 
 import { PaymentHandler, PaymentValidationHandler } from './paymentController';
-import { CaseApi as C100Api } from '../../app/case/C100CaseApi';
 
 const mockToken = 'authToken';
 
@@ -27,12 +27,12 @@ describe('PaymentHandler', () => {
   test('Should render the page', async () => {
     updateCaserMock.mockResolvedValue(req.session.userCase);
     const paymentDetailsRequestBody = {
-      payment_reference:"a",
-        date_created:"b",
-        external_reference:"c",
-        next_url:"d",
-        status:"Success",
-        serviceRequestReference:"e"
+      payment_reference: 'a',
+      date_created: 'b',
+      external_reference: 'c',
+      next_url: 'd',
+      status: 'Success',
+      serviceRequestReference: 'e',
     };
     mockedAxios.post.mockResolvedValue({
       data: {
@@ -49,14 +49,14 @@ describe('PaymentHandler', () => {
   });
   test('Should render the page in case of HWF', async () => {
     updateCaserMock.mockResolvedValue(req.session.userCase);
-    req.session.userCase.helpWithFeesReferenceNumber="12345"
+    req.session.userCase.helpWithFeesReferenceNumber = '12345';
     const paymentDetailsRequestBody = {
-      payment_reference:"a",
-        date_created:"b",
-        external_reference:"c",
-        next_url:"d",
-        status:"Success",
-        serviceRequestReference:"e"
+      payment_reference: 'a',
+      date_created: 'b',
+      external_reference: 'c',
+      next_url: 'd',
+      status: 'Success',
+      serviceRequestReference: 'e',
     };
     mockedAxios.post.mockResolvedValue({
       data: {
@@ -74,12 +74,12 @@ describe('PaymentHandler', () => {
   test('Should render the page in case next url', async () => {
     updateCaserMock.mockResolvedValue(req.session.userCase);
     const paymentDetailsRequestBody = {
-      payment_reference:"",
-        date_created:"",
-        external_reference:"",
-        next_url:"d",
-        status:"",
-        serviceRequestReference:""
+      payment_reference: '',
+      date_created: '',
+      external_reference: '',
+      next_url: 'd',
+      status: '',
+      serviceRequestReference: '',
     };
     mockedAxios.post.mockResolvedValue({
       data: {
@@ -97,12 +97,12 @@ describe('PaymentHandler', () => {
   test('Should render the page in case error', async () => {
     updateCaserMock.mockResolvedValue(req.session.userCase);
     const paymentDetailsRequestBody = {
-      payment_reference:"",
-        date_created:"",
-        external_reference:"",
-        next_url:"",
-        status:"",
-        serviceRequestReference:""
+      payment_reference: '',
+      date_created: '',
+      external_reference: '',
+      next_url: '',
+      status: '',
+      serviceRequestReference: '',
     };
     mockedAxios.post.mockResolvedValue({
       data: {
@@ -117,12 +117,9 @@ describe('PaymentHandler', () => {
     expect(req.host).toBe('localhost:3001');
     expect(updateCaserMock).toHaveBeenCalled;
   });
-  
 });
 
 describe('PaymentValidationHandler', () => {
-  
- 
   const paymentDetails = {
     payment_reference: 'RF32-123',
     date_created: '9-10-2022',
@@ -146,14 +143,14 @@ describe('PaymentValidationHandler', () => {
     expect(res.send.mock.calls).toHaveLength(0);
   });
   test('expecting res 500', async () => {
-    delete req.params.status
-    delete req.params.paymentId
+    delete req.params.status;
+    delete req.params.paymentId;
     mockedAxios.post.mockResolvedValue({
       data: {
         ...paymentDetails,
       },
     });
-  const result= await PaymentValidationHandler(req, res)
-  expect(result).toBe(undefined);
+    const result = await PaymentValidationHandler(req, res);
+    expect(result).toBe(undefined);
   });
 });

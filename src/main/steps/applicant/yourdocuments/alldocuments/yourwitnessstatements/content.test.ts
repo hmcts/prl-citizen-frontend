@@ -2,7 +2,7 @@ import languageAssertions from '../../../../../../test/unit/utils/languageAssert
 //import { FormContent /*, FormFields,  FormOptions*/ } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 
-import { generateContent } from './content';
+import { form, generateContent } from './content';
 
 const enContent = {
   section: 'All documents',
@@ -61,6 +61,13 @@ describe('citizen-home content', () => {
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+  test('should contain continue button', () => {
+    expect((form.submit?.text as Function)(generateContent)).toBe(undefined);
+  });
+  test('should contain  field', () => {
+    const field = form.fields;
+    expect((field as Function)(generateContent)).toBeCalled;
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
