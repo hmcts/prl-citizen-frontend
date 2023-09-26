@@ -68,6 +68,7 @@ module.exports = {
     await I.retry(retryCount).click(this.fields.guideDog);
     await I.wait('2');
     await I.retry(retryCount).click('Continue');
+    await I.wait('2');
   },
   async reasonableAdjustments() {
     await this.typeOfHearing();
