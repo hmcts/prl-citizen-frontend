@@ -32,7 +32,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.cafcassinvolvedlabel).toEqual(
       'If Cafcass are involved in the case, they will provide the court with a safeguarding letter'
     );
-    expect(generatedContent.continue).toEqual('Continue');
+    expect(generatedContent.continue).toEqual('Close and return to the case overview');
   });
 
   // eslint-disable-next-line jest/expect-expect
@@ -46,7 +46,7 @@ describe('citizen-home content', () => {
   });
 
   test('should contain continue button', () => {
-    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Close and return to the case overview');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
