@@ -30,7 +30,7 @@ describe('citizen-home content', () => {
       'The court will contact you with details of what happens next'
     );
     expect(generatedContent.cafcassinvolvedlabel).toEqual(
-      'If Cafcass are involved in this case, they will provide the court with a safeguarding letter'
+      'If Cafcass are involved in the case, they will provide the court with a safeguarding letter'
     );
     expect(generatedContent.continue).toEqual('Continue');
   });
