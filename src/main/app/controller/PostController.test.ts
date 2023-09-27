@@ -6,7 +6,7 @@ import { C100_URL } from '../../steps/urls';
 import * as oidc from '../auth/user/oidc';
 import * as caseApi from '../case/CaseApi';
 import * as cosApiClient from '../case/CosApiClient';
-import { isPhoneNoValid, isValidAccessCode } from '../form/validation';
+import { isCaseCodeValid, isPhoneNoValid, isValidAccessCode } from '../form/validation';
 
 import { PostController } from './PostController';
 
@@ -347,32 +347,32 @@ describe('PostController', () => {
       caseCode: 'string',
     };
 
-    // const mockPhoneNumberFormContent = {
-    //   fields: {
-    //     accessCode: {
-    //       type: 'accessCode',
-    //       validator: isValidAccessCode,
-    //     },
-    //     caseCode: {
-    //       type: 'caseCode',
-    //       validator: isCaseCodeValid
-    //     }
-    //   },
-    // } as unknown as FormContent;
-    // controller = new PostController(mockPhoneNumberFormContent.fields);
+    const mockPhoneNumberFormContent = {
+      fields: {
+        accessCode: {
+          type: 'accessCode',
+          validator: isValidAccessCode,
+        },
+        caseCode: {
+          type: 'caseCode',
+          validator: isCaseCodeValid
+        }
+      },
+    } as unknown as FormContent;
+    controller = new PostController(mockPhoneNumberFormContent.fields);
     req = mockRequest({ body });
     req.session.errors = [];
     await controller.post(req, res);
-    // expect(req.session.errors).toEqual([
-    //   {
-    //     errorType: 'invalid',
-    //     propertyName: 'accessCode'
-    //   },
-    //   {
-    //     errorType: 'invalid',
-    //     propertyName: 'caseCode'
-    //   },
-    // ]);
+    expect(req.session.errors).toEqual([
+      {
+        errorType: 'invalid',
+        propertyName: 'accessCode'
+      },
+      {
+        errorType: 'invalid',
+        propertyName: 'caseCode'
+      },
+    ]);
     expect(res.redirect).toHaveBeenCalled();
   });
 });
