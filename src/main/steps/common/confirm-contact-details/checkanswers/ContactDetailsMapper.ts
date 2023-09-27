@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../app/case/case';
-import { PartyDetails, YesOrNo } from '../../../../app/case/definition';
+import { ContactPreference, PartyDetails, YesOrNo } from '../../../../app/case/definition';
 import { fromApiDate } from '../../../../app/case/from-api-format';
 import { toApiDate } from '../../../../app/case/to-api-format';
 import type { AppRequest } from '../../../../app/controller/AppRequest';
@@ -57,6 +57,19 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
   if (isAtAddressLessThan5Years === YesOrNo.YES) {
     request.addressLivedLessThan5YearsDetails = '';
   }
+
+  if (userCase.preferredModeOfContact) {
+    if (userCase.preferredModeOfContact === ContactPreference.DIGITAL && (!request?.email || !request?.email?.trim())) {
+      request.contactPreferences = null;
+    }
+    if (
+      userCase.preferredModeOfContact === ContactPreference.POST &&
+      (!request?.address || !request?.address?.AddressLine1?.trim())
+    ) {
+      request.contactPreferences = null;
+    }
+  }
+
   return request;
 };
 export const mapConfirmContactDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
