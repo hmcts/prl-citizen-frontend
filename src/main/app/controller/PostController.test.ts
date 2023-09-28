@@ -1,12 +1,15 @@
+import { error } from 'console';
+
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../app/form/Form';
 import * as steps from '../../steps';
+import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
 import { C100_URL } from '../../steps/urls';
 import * as oidc from '../auth/user/oidc';
 import * as caseApi from '../case/CaseApi';
 import * as cosApiClient from '../case/CosApiClient';
-import { isCaseCodeValid, isPhoneNoValid, isValidAccessCode } from '../form/validation';
+import { ValidationError, isCaseCodeValid, isPhoneNoValid, isValidAccessCode } from '../form/validation';
 
 import { PostController } from './PostController';
 
@@ -339,12 +342,96 @@ describe('PostController', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
-  test('Should trigger checkCaseAccessCode from if else statment - accessCodeValidated', async () => {
+  test('Should trigger checkCaseAccessCode for already linked case', async () => {
     const body = {
       accessCode: 'string',
       caseReference: '123',
       accessCodeCheck: true,
       caseCode: 'string',
+    };
+    controller = new PostController(mockFormContent.fields);
+    req = mockRequest({ body });
+    req.session.errors = [];
+    (getCosApiClientMock as jest.Mock).mockReturnValue({
+      retrieveCasesByUserId: jest.fn(() => {
+        return {};
+      }),
+      validateAccessCode: jest.fn(() => {
+        return 'Linked';
+      }),
+    });
+    await controller.post(req, res);
+    expect(req.session.errors).toEqual([{ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' }]);
+    expect(res.redirect).toHaveBeenCalled();
+  });
+  test('Should trigger checkCaseAccessCode for not valid case', async () => {
+    const body = {
+      accessCode: 'string',
+      caseReference: '123',
+      accessCodeCheck: true,
+      caseCode: 'string',
+    };
+    controller = new PostController(mockFormContent.fields);
+    req = mockRequest({ body });
+    req.session.errors = [];
+    (getCosApiClientMock as jest.Mock).mockReturnValue({
+      retrieveCasesByUserId: jest.fn(() => {
+        return {};
+      }),
+      validateAccessCode: jest.fn(() => {
+        return 'Not Valid';
+      }),
+    });
+    await controller.post(req, res);
+    expect(req.session.errors).toEqual([
+      { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
+      { errorType: 'invalidAccessCode', propertyName: 'accessCode' },
+    ]);
+    expect(res.redirect).toHaveBeenCalled();
+  });
+  test('Should log error if failed to execute checkCaseAccessCode', async () => {
+    const body = {
+      accessCode: 'string',
+      caseReference: '123',
+      accessCodeCheck: true,
+      caseCode: 'string',
+    };
+    controller = new PostController(mockFormContent.fields);
+    req = mockRequest({ body });
+    req.session.errors = [];
+    (getCosApiClientMock as jest.Mock).mockReturnValue({
+      retrieveCasesByUserId: jest.fn(() => {
+        return {};
+      }),
+      validateAccessCode: jest.fn(() => {
+        throw error;
+      }),
+    });
+    await controller.post(req, res);
+    expect(req.session.errors).toEqual([
+      { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
+      { errorType: 'invalidAccessCode', propertyName: 'accessCode' },
+    ]);
+    expect(res.redirect).toHaveBeenCalled();
+  });
+  test('Should log error in fail to trigger event', async () => {
+    const body = {
+      saveBeforeSessionTimeout: 'yes',
+    };
+    (getCaseApiMock as jest.Mock).mockReturnValue({
+      triggerEvent: jest.fn(() => {
+        throw error;
+      }),
+    });
+    controller = new PostController(mockFormContent.fields);
+    req = mockRequest({ body });
+    req.session.errors = [];
+    await controller.post(req, res);
+    expect(req.session.errors).toEqual([{ errorType: 'errorSaving', propertyName: '*' }]);
+  });
+  test('Should trigger saveBeforeSessionTimeout', async () => {
+    const body = {
+      saveBeforeSessionTimeout: 'yes',
     };
 
     const mockPhoneNumberFormContent = {
@@ -355,24 +442,86 @@ describe('PostController', () => {
         },
         caseCode: {
           type: 'caseCode',
-          validator: isCaseCodeValid
-        }
+          validator: isCaseCodeValid,
+        },
       },
     } as unknown as FormContent;
     controller = new PostController(mockPhoneNumberFormContent.fields);
     req = mockRequest({ body });
     req.session.errors = [];
     await controller.post(req, res);
-    expect(req.session.errors).toEqual([
+    expect(res.end).toHaveBeenCalled;
+  });
+  test('Should trigger saveAndContinue', async () => {
+    const body = {};
+    req.session.errors = [];
+    const mockPhoneNumberFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    controller = new PostController(mockPhoneNumberFormContent.fields);
+    req = mockRequest({ body });
+    req.originalUrl = 'upload-documents-success';
+    req.session.userCase.applicantUploadFiles = [
       {
-        errorType: 'invalid',
-        propertyName: 'accessCode'
+        id: '9813df11-41bf-4b46-a602-86766b5e3547',
+        documentName: 'uploaded1.pdf',
       },
       {
-        errorType: 'invalid',
-        propertyName: 'caseCode'
+        id: '9813df11-41bf-4aaa-a602-86766b5e3547',
+        documentName: 'uploaded2.pdf',
       },
-    ]);
+    ];
+    req.session.userCase.respondentUploadFiles = [
+      {
+        id: '9813df11-41bf-4b46-a602-86766b5e3547',
+        documentName: 'uploaded1.pdf',
+      },
+      {
+        id: '9813df11-41bf-4aaa-a602-86766b5e3547',
+        documentName: 'uploaded2.pdf',
+      },
+    ];
+    await controller.post(req, res);
+    expect(req.session.userCase[ApplicantUploadFiles]).toStrictEqual([]);
+    expect(req.session.userCase[RespondentUploadFiles]).toStrictEqual([]);
+  });
+  test('Should call filterErrorsForSaveAsDraft', async () => {
+    const body = {
+      saveAsDraft: 'yes',
+    };
+    req.session.errors = [
+      {
+        errorType: ValidationError.LESS,
+        propertyName: 'accessCode',
+      },
+      {
+        errorType: ValidationError.LESS,
+        propertyName: 'accesssCode',
+      },
+    ];
+    const mockPhoneNumberFormContent = {
+      fields: {},
+    } as unknown as FormContent;
+    controller = new PostController(mockPhoneNumberFormContent.fields);
+    req = mockRequest({ body });
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalled();
+    expect(req.session.errors).toEqual([]);
+  });
+  test('Should log error when fail to trigger saveAndComeLater', async () => {
+    const body = {
+      saveAndComeLater: {
+        text: 'Save and Come Later',
+        classes: '',
+      },
+    };
+    req = mockRequest({ body });
+    req.path = C100_URL;
+    req.locals.C100Api.updateCase.mockRejectedValue({
+      message: 'MOCK_ERROR',
+      response: { status: 500, data: 'Error' },
+    });
+    await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalled();
   });
 });

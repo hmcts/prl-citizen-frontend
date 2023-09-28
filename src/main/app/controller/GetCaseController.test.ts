@@ -8,6 +8,7 @@ import {
   RESPOND_TO_APPLICATION,
 } from '../../steps/urls';
 import { CosApiClient } from '../case/CosApiClient';
+import { State } from '../case/definition';
 
 import { GetCaseController } from './GetCaseController';
 
@@ -25,6 +26,9 @@ describe('GetCaseController', () => {
   beforeEach(() => {
     controller = new GetCaseController();
     req = mockRequest({
+      locals: {
+        api: jest.fn(),
+      },
       session: {
         userCase: {},
         userCaseList: [
@@ -60,6 +64,12 @@ describe('GetCaseController', () => {
     await controller.fetchAndRedirectToTasklist(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith('/respondent/task-list');
+  });
+  test('fetchAndRedirectToTasklist redirect to dashboard', async () => {
+    req.session.user = undefined;
+    await controller.fetchAndRedirectToTasklist(req, res);
+    expect(mockMyFunction).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenCalledWith('/login?callback=/request');
   });
 
   test('fetchAndRedirectToTasklist redirect to RESPONDENT_VIEW_ALL_DOCUMENTS', async () => {
@@ -98,15 +108,32 @@ describe('GetCaseController', () => {
     expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
-  // test('createC100ApplicantCase', async () => {
-  //   req.session.userCase = {
-  //     id: '1234',
-  //     caseTypeOfApplication: 'C100',
-  //     state: 'Holding',
-  //     noOfDaysRemainingToSubmitCase: '3'
-  //   };
-  //   await controller.createC100ApplicantCase(req, res);
-  //   expect(mockMyFunction).toHaveBeenCalled();
-  //   expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/start');
-  // });
+  test('createC100ApplicantCase with error', async () => {
+    req.session.userCase = {
+      id: '1234',
+      caseTypeOfApplication: 'C100',
+      state: State.Draft,
+      noOfDaysRemainingToSubmitCase: '3',
+    };
+    await expect(controller.createC100ApplicantCase(req, res)).rejects.toThrow(
+      'case could not be created-createC100ApplicantCase'
+    );
+  });
+  test('createC100ApplicantCase', async () => {
+    req.session.userCase = {
+      id: '1234',
+      caseTypeOfApplication: 'C100',
+      state: State.Draft,
+      noOfDaysRemainingToSubmitCase: '3',
+    };
+    req.locals.C100Api.createCase.mockResolvedValueOnce(req.session.userCase);
+    await controller.createC100ApplicantCase(req, res);
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/case-name');
+  });
+  test('getC100ApplicantCase', async () => {
+    req.params.caseId = '123';
+    await expect(controller.getC100ApplicantCase(req, res)).rejects.toThrow(
+      'Error in retriving the case - getC100ApplicantCase'
+    );
+  });
 });
