@@ -12354,6 +12354,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minipass@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "minipass@npm:7.0.3"
+  checksum: 6f1614f5b5b55568a46bca5fec0e7c46dac027691db27d0e1923a8192866903144cd962ac772c0e9f89b608ea818b702709c042bce98e190d258847d85461531
+  languageName: node
+  linkType: hard
+
 "minizlib@npm:^2.0.0, minizlib@npm:^2.1.1, minizlib@npm:^2.1.2":
   version: 2.1.2
   resolution: "minizlib@npm:2.1.2"
@@ -16189,11 +16196,11 @@ __metadata:
   linkType: hard
 
 "ssri@npm:>=6.0.2":
-  version: 10.0.1
-  resolution: "ssri@npm:10.0.1"
+  version: 10.0.5
+  resolution: "ssri@npm:10.0.5"
   dependencies:
-    minipass: ^4.0.0
-  checksum: f35b147e5e16a3e1c8e3f71a4aaf5b1f7a9eb5559acbba21213c8171827921cecf56d3570118da7ade124776d25ed17d5e4c80eccbb2a083b17ce36dd24c3e5e
+    minipass: ^7.0.3
+  checksum: 0a31b65f21872dea1ed3f7c200d7bc1c1b91c15e419deca14f282508ba917cbb342c08a6814c7f68ca4ca4116dd1a85da2bbf39227480e50125a1ceffeecb750
   languageName: node
   linkType: hard
 
