@@ -295,24 +295,17 @@ export class CosApiClient {
     }
   }
 
-  public async linkCaseToCitizen(
-    user: UserDetails,
-    caseId: string,
-    req: AppRequest,
-    accessCode: string,
-    data: Partial<CaseData>
-  ): Promise<AxiosResponse> {
+  public async linkCaseToCitizen(user: UserDetails, caseId: string, accessCode: string): Promise<AxiosResponse> {
     try {
-      data.applicantCaseName = 'Tom Jerry - updated';
-      const eventId = 'linkCase';
       const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
         ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+        caseId,
         accessCode,
       };
-      const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventId}/update-case`, data, {
+      const response = await Axios.post(config.get('services.cos.url') + '/citizen/link', {
         headers,
       });
       return response;
