@@ -124,11 +124,17 @@ module.exports = () => {
     reasonableAdjustments() {
       return ReasonableAdjustments.reasonableAdjustments();
     },
-    helpWithFeeEvent() {
-      return HelpWithFees.helpWithFeeEvent();
+    withHelpWithFeeEvent() {
+      return HelpWithFees.withHelpWithFeeEvent();
+    },
+    withoutHelpWithFees() {
+      return HelpWithFees.withoutHelpWithFees();
     },
     checkYourAnswersEvent() {
       return CheckYourAnswers.checkYourAnswersEvent();
+    },
+    checkAnswersAndPay() {
+      return CheckYourAnswers.checkAnswersAndPay();
     },
     checkYourAnswersSimpleEvent() {
       return CheckYourAnswersSimple.checkYourAnswersSimple();
