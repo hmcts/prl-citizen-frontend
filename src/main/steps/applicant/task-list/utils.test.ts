@@ -5,6 +5,7 @@ import { SectionStatus, State, YesOrNo } from '../../../app/case/definition';
 import {
   getApplicantAllegationsOfHarmAndViolence,
   getApplicantResponseToRequestForChildArrangements,
+  getApplicantViewAllHearingsFromTheCourt,
   getApplicantViewAllOrdersFromTheCourtAllDocuments,
   getConfirmOrEditYourContactDetails,
   getKeepYourDetailsPrivateStatus,
@@ -12,6 +13,7 @@ import {
   getSupportYourNeedsDetails,
   getViewAllDocuments,
   getYourApplication,
+  getYourWitnessStatement,
 } from './utils';
 
 const userCase: CaseWithId = {
@@ -48,16 +50,37 @@ describe('utils', () => {
         },
         expected: SectionStatus.TO_DO,
       },
-      // {
-      //   data: {
-      //     ...mockUserCase,
-      //     detailsKnown: 'undefined',
-      //     startAlternative: undefined,
-      //     confidentialDetails:'string',
-
-      //   },
-      //   expected: SectionStatus.IN_PROGRESS,
-      // },
+      {
+        data: {
+          ...mockUserCase,
+          applicantsFL401: {
+            ...mockUserCase.applicantsFL401,
+            response: {
+              ...mockUserCase.applicantsFL401!.response,
+              keepDetailsPrivate: {
+                confidentiality: ['address'],
+                otherPeopleKnowYourContactDetails: 'Yes',
+              },
+            },
+          },
+        } as unknown as CaseWithId,
+        expected: SectionStatus.COMPLETED,
+      },
+      {
+        data: {
+          ...mockUserCase,
+          applicantsFL401: {
+            ...mockUserCase.applicantsFL401,
+            response: {
+              ...mockUserCase.applicantsFL401!.response,
+              keepDetailsPrivate: {
+                otherPeopleKnowYourContactDetails: 'Yes',
+              },
+            },
+          },
+        } as unknown as CaseWithId,
+        expected: SectionStatus.IN_PROGRESS,
+      },
     ])('should return correct status %#', async ({ data, expected }) => {
       expect(getKeepYourDetailsPrivateStatus({ ...userCase, ...data }, '123456')).toBe(expected);
     });
@@ -79,19 +102,17 @@ describe('utils', () => {
         },
         expected: SectionStatus.IN_PROGRESS,
       },
-      // {
-      //   data: {
-      //     ...mockUserCase,
-      //     citizenUserFullName:'Test',
-      //     citizenUserDateOfBirth: {
-      //       year: 'string',
-      //       month: 'string',
-      //       day: 'string',
-      //     },
-      //     citizenUserPlaceOfBirth: 'string',
-      //   },
-      //   expected: SectionStatus.COMPLETED,
-      // },
+      {
+        data: {
+          ...mockUserCase,
+          applicantsFL401: {
+            ...mockUserCase.applicantsFL401,
+            dateOfBirth: '1/1/2022',
+            placeOfBirth: 'London',
+          },
+        } as unknown as CaseWithId,
+        expected: SectionStatus.COMPLETED,
+      },
       {
         data: {
           citizenUserFullName: 'Test',
@@ -103,6 +124,28 @@ describe('utils', () => {
           citizenUserPlaceOfBirth: 'string',
         },
         expected: SectionStatus.IN_PROGRESS,
+      },
+      {
+        data: {
+          ...mockUserCase,
+          caseTypeOfApplication: 'C100',
+          respondents: [
+            {
+              id: '123456',
+              value: {
+                user: {
+                  idamId: '123456',
+                  email: 'test@example.net',
+                },
+                dateOfBirth: '1/1/2022',
+                placeOfBirth: 'London',
+                firstName: 'firstname',
+                lastName: 'lastName',
+              },
+            },
+          ],
+        } as unknown as CaseWithId,
+        expected: SectionStatus.COMPLETED,
       },
     ])('should return correct status %#', async ({ data, expected }) => {
       expect(getConfirmOrEditYourContactDetails({ ...userCase, ...data }, '123456')).toBe(expected);
@@ -316,6 +359,53 @@ describe('utils', () => {
       },
     ])('should return correct status %#', async ({ data, expected }) => {
       expect(getSupportYourNeedsDetails(data)).toBe(expected);
+    });
+  });
+
+  describe('getApplicantViewAllHearingsFromTheCourt', () => {
+    test.each([
+      {
+        data: {
+          ...mockUserCase,
+          hearingCollection: [{ hearingID: 123 }],
+        },
+        expected: 'READY_TO_VIEW',
+      },
+      {
+        data: {
+          ...mockUserCase,
+        },
+        expected: 'TO_DO',
+      },
+    ])('should return correct status %#', async ({ data, expected }) => {
+      expect(getApplicantViewAllHearingsFromTheCourt(data)).toBe(expected);
+    });
+  });
+
+  describe('getYourWitnessStatement', () => {
+    test.each([
+      {
+        data: {
+          ...mockUserCase,
+          citizenUploadedDocumentList: [
+            {
+              id: '',
+              value: {
+                documentType: 'Your witness statements',
+              },
+            },
+          ],
+        } as unknown as CaseWithId,
+        expected: 'DOWNLOAD',
+      },
+      {
+        data: {
+          ...mockUserCase,
+        } as unknown as CaseWithId,
+        expected: 'NOT_AVAILABLE_YET',
+      },
+    ])('should return correct status %#', async ({ data, expected }) => {
+      expect(getYourWitnessStatement(data)).toBe(expected);
     });
   });
 });

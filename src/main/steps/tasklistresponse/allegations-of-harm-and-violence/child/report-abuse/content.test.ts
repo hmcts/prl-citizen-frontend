@@ -1,9 +1,12 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { YesNoEmpty } from '../../../../../app/case/definition';
 import { FormContent, FormFields, FormInput, FormOptions } from '../../../../../app/form/Form';
-import { CommonContent } from '../../../../common/common.content';
+import { Validator, isTextAreaValid } from '../../../../../app/form/validation';
+import { CommonContent, en as enContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
+
+jest.mock('../../../../../app/form/validation');
 
 const en = {
   caption: 'Safety concerns',
@@ -18,6 +21,7 @@ const en = {
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said.',
   childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
+  allchildLabel: 'All the children in above application',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings.',
@@ -36,6 +40,23 @@ const en = {
     '<p class="govuk-body">Indicate who you sought help from, and what they did to help (optional). </p><p class="govuk-body">Do not include personal details such as names and addresses.</p>',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">NSPCC guidance</a> if you are unsure how to get help.</p>',
+  errors: {
+    behaviourDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+    behaviourStartDate: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+    seekHelpDetails: {
+      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
+      invalid:
+        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
+    },
+  },
 };
 
 const cy = {
@@ -75,6 +96,23 @@ const cy = {
     '<p class="govuk-body">Dywedwch wrth bwy wnaethoch chi ofyn am help, a beth wnaethon nhw i helpu (dewisol). </p><p class="govuk-body">Peidiwch â chynnwys manylion personol fel enwau a chyfeiriadau.</p>',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">Gweler <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">cyfarwyddyd NSPCC</a>os nad ydych yn siŵr sut i gael help.</p>',
+  errors: {
+    behaviourDetails: {
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
+    },
+    behaviourStartDate: {
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
+    },
+    seekHelpDetails: {
+      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
+      invalid:
+        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
+    },
+  },
 };
 /* eslint-disable @typescript-eslint/ban-types */
 describe('C1A safetyconcerns > child > report abuse > content', () => {
@@ -93,6 +131,35 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
           },
         },
       },
+      children: [
+        {
+          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          value: {
+            firstName: 'Bob',
+            lastName: 'Silly',
+            personalDetails: {
+              dateOfBirth: {
+                year: '',
+                month: '',
+                day: '',
+              },
+              isDateOfBirthUnknown: 'Yes',
+              approxDateOfBirth: {
+                year: '1987',
+                month: '12',
+                day: '12',
+              },
+              sex: 'Male',
+            },
+            childMatters: {
+              needsResolution: [],
+            },
+            parentialResponsibility: {
+              statement: 'lorem ipsum dolor sit am',
+            },
+          },
+        },
+      ],
     },
     additionalData: {
       req: {
@@ -142,14 +209,23 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
 
     expect(childrenConcernedAboutDetails.type).toBe('checkboxes');
     expect((childrenConcernedAboutDetails.label as Function)(generatedContent)).toBe(en.childrenConcernedAboutLabel);
+    expect((childrenConcernedAboutDetails.values[0].label as Function)(generatedContent)).toBe(en.allchildLabel);
+    expect((childrenConcernedAboutDetails.values[1].divider as Function)(enContent)).toBe('or');
+    expect(childrenConcernedAboutDetails.values[2].name).toBe('childrenConcernedAbout');
+    expect(childrenConcernedAboutDetails.values[2].label).toBe('Bob Silly');
+    expect(childrenConcernedAboutDetails.values[2].value).toBe('7483640e-0817-4ddc-b709-6723f7925474');
 
     expect(behaviourDetails.type).toBe('textarea');
     expect((behaviourDetails.label as Function)(generatedContent)).toBe(en.behaviourDetailsLabel);
     expect((behaviourDetails.hint as Function)(generatedContent)).toBe(en.behaviourDetailsHintText);
+    (behaviourDetails.validator as Validator)('test value');
+    expect(isTextAreaValid).toHaveBeenCalledWith('test value');
 
     expect(behaviourStartDate.type).toBe('textarea');
     expect((behaviourStartDate.label as Function)(generatedContent)).toBe(en.behaviourStartDateLabel);
     expect((behaviourStartDate.hint as Function)(generatedContent)).toBe(en.behaviourStartDateHintText);
+    (behaviourStartDate.validator as Validator)('test value');
+    expect(isTextAreaValid).toHaveBeenCalledWith('test value');
 
     expect(isOngoingBehaviour.type).toBe('radios');
     expect((isOngoingBehaviour.label as Function)(generatedContent)).toBe(en.isOngoingBehaviourLabel);
@@ -172,5 +248,11 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
 
     expect(seekHelpDetails.type).toBe('textarea');
     expect((seekHelpDetails.hint as Function)(generatedContent)).toBe(en.seekHelpDetailsYesHint);
+    (seekHelpDetails.validator as Validator)('test value');
+    expect(isTextAreaValid).toHaveBeenCalledWith('test value');
+  });
+
+  test('should contain continue button', () => {
+    expect((form.onlyContinue?.text as Function)(enContent)).toBe('Continue');
   });
 });

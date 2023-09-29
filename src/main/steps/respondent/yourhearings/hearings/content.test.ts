@@ -128,109 +128,37 @@ describe('citizen-home yourhearings hearings content', () => {
       },
     },
   } as unknown as CommonContent;
-  commonContent.additionalData!.req.session.userCase.hearingCollection = [
+  commonContent.additionalData!.req.session.userCase.orderCollection = [
     {
-      hearingID: 2000006135,
-      hearingRequestDateTime: '2023-07-11T16:07:21.253071',
-      hearingType: 'ABA5-FOF',
-      hmcStatus: 'LISTED',
-      lastResponseReceivedDateTime: '2023-07-11T16:41:37',
-      requestVersion: 1,
-      hearingListingStatus: 'FIXED',
-      listAssistCaseStatus: 'LISTED',
-      hearingDaySchedule: [
-        {
-          hearingStartDateTime: '2023-08-03T09:00:00',
-          hearingEndDateTime: '2023-08-03T12:00:00',
-          listAssistSessionId: null,
-          hearingVenueId: '234946',
-          hearingVenueName: 'Swansea Civil And Family Justice Centre',
-          hearingVenueLocationCode: '344',
-          hearingVenueAddress: 'Quay West, Quay Parade',
-          hearingRoomId: 'Courtroom 01',
-          hearingJudgeId: '',
-          hearingJudgeName: null,
-          panelMemberIds: [],
-          attendees: [
-            {
-              partyID: '123',
-              hearingSubChannel: 'VID',
-            },
-            {
-              partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
-              hearingSubChannel: 'INTER',
-            },
-          ],
+      id: '123',
+      value: {
+        selectedHearingType: '1 hearing',
+        dateCreated: '2/2/2020',
+        orderType: '',
+        orderDocument: {
+          document_url:
+            'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+          document_filename: 'finalDocument.pdf',
+          document_binary_url:
+            'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
         },
-        {
-          hearingStartDateTime: '2023-08-02T09:00:00',
-          hearingEndDateTime: '2023-08-02T15:00:00',
-          listAssistSessionId: null,
-          hearingVenueId: '234946',
-          hearingVenueName: 'Swansea Civil And Family Justice Centre',
-          hearingVenueLocationCode: '344',
-          hearingVenueAddress: 'Quay West, Quay Parade',
-          hearingRoomId: 'Courtroom 01',
-          hearingJudgeId: '',
-          hearingJudgeName: null,
-          panelMemberIds: [],
-          attendees: [
-            {
-              partyID: '123',
-              hearingSubChannel: 'VID',
-            },
-            {
-              partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
-              hearingSubChannel: 'INTER',
-            },
-          ],
+        orderDocumentWelsh: {
+          document_url:
+            'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+          document_filename: 'finalDocument_cy.pdf',
+          document_binary_url:
+            'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
         },
-      ],
-      hearingGroupRequestId: null,
-      hearingIsLinkedFlag: false,
-      hearingTypeValue: 'Finding of Fact',
-      nextHearingDate: '2023-08-02T09:00:00',
-      urgentFlag: false,
-    },
-    {
-      hearingID: 2000006134,
-      hearingRequestDateTime: '2023-07-11T16:05:38.761289',
-      hearingType: 'ABA5-FOF',
-      hmcStatus: 'LISTED',
-      lastResponseReceivedDateTime: '2023-07-11T16:20:38',
-      requestVersion: 1,
-      hearingListingStatus: 'FIXED',
-      listAssistCaseStatus: 'LISTED',
-      hearingDaySchedule: [
-        {
-          hearingStartDateTime: '2023-07-12T09:00:00',
-          hearingEndDateTime: '2023-07-12T15:00:00',
-          listAssistSessionId: null,
-          hearingVenueId: '234946',
-          hearingVenueName: 'Swansea Civil And Family Justice Centre',
-          hearingVenueLocationCode: '344',
-          hearingVenueAddress: 'Quay West, Quay Parade',
-          hearingRoomId: 'Courtroom 01',
-          hearingJudgeId: '',
-          hearingJudgeName: null,
-          panelMemberIds: [],
-          attendees: [
-            {
-              partyID: '123',
-              hearingSubChannel: 'INTER',
-            },
-            {
-              partyID: 'a2b211f4-6072-4970-9c34-08a47ff6ec9c',
-              hearingSubChannel: 'TELOTHER',
-            },
-          ],
+        otherDetails: {
+          createdBy: '',
+          orderCreatedDate: '1/1/2020',
+          orderMadeDate: '',
+          orderRecipients: '',
         },
-      ],
-      hearingGroupRequestId: null,
-      hearingIsLinkedFlag: false,
-      hearingTypeValue: 'Finding of Fact',
-      nextHearingDate: '2023-07-12T09:00:00',
-      urgentFlag: true,
+        orderTypeId: 'blankOrderOrDirectionsWithdraw',
+        isWithdrawnRequestApproved: 'No',
+        withdrawnRequestType: 'Withdrawn application',
+      },
     },
   ];
   let generatedContent;
@@ -257,6 +185,17 @@ describe('citizen-home yourhearings hearings content', () => {
 
   test('should contain go back button', () => {
     expect((form.submit?.text as Function)(generatedContent)).toBe('Close and return to case overview');
+  });
+
+  test('orders should be added to hearing orders', () => {
+    expect(generatedContent.hearingOrders).toStrictEqual([
+      {
+        href: '/respondent/yourdocuments/alldocuments/orders/c9f56483-6e2d-43ce-9de8-72661755b87c',
+        createdDate: '1/1/2020',
+        fileName: 'finalDocument.pdf',
+        id: 1,
+      },
+    ]);
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
