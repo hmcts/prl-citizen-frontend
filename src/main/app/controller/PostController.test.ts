@@ -9,7 +9,7 @@ import { C100_URL } from '../../steps/urls';
 import * as oidc from '../auth/user/oidc';
 import * as caseApi from '../case/CaseApi';
 import * as cosApiClient from '../case/CosApiClient';
-import { ValidationError, isCaseCodeValid, isPhoneNoValid, isValidAccessCode } from '../form/validation';
+import { isCaseCodeValid, isPhoneNoValid, isValidAccessCode } from '../form/validation';
 
 import { PostController } from './PostController';
 
@@ -488,25 +488,32 @@ describe('PostController', () => {
   test('Should call filterErrorsForSaveAsDraft', async () => {
     const body = {
       saveAsDraft: 'yes',
+      accessCode: '123',
+      errors: [
+        {
+          errorType: 'invalid',
+          propertyName: 'accessCode',
+        },
+      ],
     };
-    req.session.errors = [
-      {
-        errorType: ValidationError.LESS,
-        propertyName: 'accessCode',
-      },
-      {
-        errorType: ValidationError.LESS,
-        propertyName: 'accesssCode',
-      },
-    ];
     const mockPhoneNumberFormContent = {
-      fields: {},
+      fields: {
+        accessCode: {
+          type: 'code',
+          validator: isValidAccessCode,
+        },
+      },
     } as unknown as FormContent;
     controller = new PostController(mockPhoneNumberFormContent.fields);
     req = mockRequest({ body });
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalled();
-    expect(req.session.errors).toEqual([]);
+    expect(req.session.errors).toEqual([
+      {
+        errorType: 'invalid',
+        propertyName: 'accessCode',
+      },
+    ]);
   });
   test('Should log error when fail to trigger saveAndComeLater', async () => {
     const body = {
@@ -523,5 +530,23 @@ describe('PostController', () => {
     });
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('redirect should throw error with saving session', async () => {
+    controller = new PostController({});
+    req = mockRequest();
+    req.session.save = jest.fn(done => done('MOCK_ERROR'));
+
+    let flag = false;
+    let redirectError;
+    try {
+      await controller.redirect(req, res);
+    } catch (err) {
+      flag = true;
+      redirectError = err;
+    }
+
+    expect(flag).toBe(true);
+    expect(redirectError).toBe('MOCK_ERROR');
   });
 });
