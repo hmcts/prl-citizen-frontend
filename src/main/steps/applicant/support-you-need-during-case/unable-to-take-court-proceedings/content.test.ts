@@ -88,7 +88,9 @@ describe('citizen-home content', () => {
     const unableforcourtproceedingsField = fields.unableForCourtProceedings as FormOptions;
     expect(unableforcourtproceedingsField.type).toBe('radios');
     expect(unableforcourtproceedingsField.classes).toBe('govuk-radios');
+    expect((unableforcourtproceedingsField.label as Function)(generatedContent)).toBe(undefined);
     expect((unableforcourtproceedingsField.section as Function)(generatedContent)).toBe(en.section);
+    expect((unableforcourtproceedingsField.hint as Function)(generatedContent)).toBe(undefined);
     expect((unableforcourtproceedingsField.values[0].label as Function)(generatedContent)).toBe(en.one);
     expect(unableforcourtproceedingsField.values[0].value).toBe('Yes');
 
