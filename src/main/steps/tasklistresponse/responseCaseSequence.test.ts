@@ -107,6 +107,12 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[25].url).toBe('/tasklistresponse/proceedings/start');
     expect(responseCaseSequence[25].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[25].getNextStep({ proceedingsStart: 'Yes' as YesOrNo })).toBe(
+      '/tasklistresponse/proceedings/courtproceedings'
+    );
+    expect(responseCaseSequence[25].getNextStep({ proceedingsStart: 'No' as YesOrNo })).toBe(
+      '/tasklistresponse/proceedings/summary'
+    );
 
     expect(responseCaseSequence[26].url).toBe('/tasklistresponse/proceedings/courtproceedings');
     expect(responseCaseSequence[26].showInSection).toBe('aboutRespondentCase');
@@ -138,12 +144,15 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[30].url).toBe('/tasklistresponse/proceedings/summary');
     expect(responseCaseSequence[30].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[30].getNextStep({})).toBe('/tasklistresponse/proceedings/save');
 
     expect(responseCaseSequence[31].url).toBe('/respondent/upload-document');
     expect(responseCaseSequence[31].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[31].getNextStep({})).toBe('/respondent/upload-document/start');
 
     expect(responseCaseSequence[32].url).toBe('/respondent/upload-document/start');
     expect(responseCaseSequence[32].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[32].getNextStep({})).toBe('/respondent/upload-document/document-sharing-details');
 
     expect(responseCaseSequence[33].url).toBe('/respondent/upload-document/document-sharing-details');
     expect(responseCaseSequence[33].showInSection).toBe('aboutRespondentCase');
@@ -197,6 +206,30 @@ describe('respondent1Sequence', () => {
     expect(responseCaseSequence[42].showInSection).toBe('aboutCaAndDaRespondentCase');
     expect(responseCaseSequence[42].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
       '/tasklistresponse/support-you-need-during-case/court-hearing-comfort'
+    );
+
+    expect(responseCaseSequence[43].url).toBe('/tasklistresponse/support-you-need-during-case/court-hearing-comfort');
+    expect(responseCaseSequence[43].showInSection).toBe('aboutCaAndDaRespondentCase');
+    expect(responseCaseSequence[43].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+      '/tasklistresponse/support-you-need-during-case/travelling-to-court'
+    );
+
+    expect(responseCaseSequence[44].url).toBe('/tasklistresponse/support-you-need-during-case/travelling-to-court');
+    expect(responseCaseSequence[44].showInSection).toBe('aboutCaAndDaRespondentCase');
+    expect(responseCaseSequence[44].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+      '/tasklistresponse/support-you-need-during-case/summary'
+    );
+
+    expect(responseCaseSequence[45].url).toBe('/tasklistresponse/support-you-need-during-case/travelling-to-court');
+    expect(responseCaseSequence[45].showInSection).toBe('aboutCaAndDaRespondentCase');
+    expect(responseCaseSequence[45].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+      '/tasklistresponse/support-you-need-during-case/summary'
+    );
+
+    expect(responseCaseSequence[46].url).toBe('/tasklistresponse/support-you-need-during-case/summary');
+    expect(responseCaseSequence[46].showInSection).toBe('aboutCaAndDaRespondentCase');
+    expect(responseCaseSequence[46].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+      '/tasklistresponse/support-you-need-during-case/save'
     );
 
     expect(responseCaseSequence[47].url).toBe('/tasklistresponse/start');

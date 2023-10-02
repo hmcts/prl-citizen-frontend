@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../../../test/unit/utils/mockUserCase';
-import { LanguageLookup } from '../../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { form, generateContent } from './content';
@@ -56,6 +56,8 @@ describe('citizen-home content', () => {
   };
   const commonContent = { language: 'en', userCase } as CommonContent;
   let generatedContent;
+  const formContent = form as FormContent;
+  let fields;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
   });
@@ -82,6 +84,13 @@ describe('citizen-home content', () => {
     expect(
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and continue');
+  });
+
+  test('should contain caseNumber field', () => {
+    fields = formContent.fields as FormFields;
+    const caseNumberField = fields({ caseCode: '1234' }).caseNumber as FormOptions;
+    expect(caseNumberField.type).toBe('hidden');
+    expect((caseNumberField.label as Function)(generatedContent)).toBe(enContent.caseNumber + '1234');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

@@ -1,6 +1,6 @@
 import config from 'config';
 import { when } from 'jest-when';
-import launchdarkly, { LDFlagValue } from 'launchdarkly-node-server-sdk';
+import launchdarkly, { LDClient, LDFlagValue, LDOptions, LDUser } from 'launchdarkly-node-server-sdk';
 
 import { LaunchDarklyClient } from './launchDarklyClient';
 
@@ -46,9 +46,23 @@ describe('LaunchDarkly', function () {
 
   describe('LaunchDarkly1', function () {
     test('Should call async functions', async function () {
+      launchdarkly.init = jest.fn((key: string, options: LDOptions | undefined) => {
+        return {
+          key,
+          options,
+          waitForInitialization: jest.fn(() => true),
+          variation: jest.fn((featureKey: string, ldUser: LDUser, offlineDefault) => {
+            return { featureKey, ldUser, offlineDefault };
+          }),
+        } as unknown as LDClient;
+      });
       when(config.get).calledWith('featureToggles.launchDarklyKey').mockReturnValue('TEST_KEY');
       const launchC = new LaunchDarklyClient();
+      launchC.initializeLD();
 
+      expect(launchdarkly.init).toHaveBeenCalledWith('TEST_KEY', {
+        offline: false,
+      });
       expect(launchC.initializeLD).toHaveBeenCalled;
       expect(launchC.serviceVariation('a', 'b')).toHaveBeenCalled;
     });

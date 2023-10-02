@@ -73,6 +73,8 @@ describe('address history > content', () => {
     const isAtAddressLessThan5YearsField = fields.isAtAddressLessThan5Years as FormOptions;
     expect(isAtAddressLessThan5YearsField.type).toBe('radios');
     expect(isAtAddressLessThan5YearsField.classes).toBe('govuk-radios');
+    expect((isAtAddressLessThan5YearsField.label as Function)(generatedContent)).toBe(undefined);
+    expect((isAtAddressLessThan5YearsField.section as Function)(generatedContent)).toBe(undefined);
     expect((isAtAddressLessThan5YearsField.values[0].label as Function)(generatedContent)).toBe(en.one);
     expect(isAtAddressLessThan5YearsField.values[0].value).toBe('Yes');
     expect((isAtAddressLessThan5YearsField.values[1].label as Function)(generatedContent)).toBe(en.two);

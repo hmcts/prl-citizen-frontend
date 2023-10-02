@@ -1,9 +1,15 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { FormContent, FormFields, FormInput, FormOptions } from '../../../../app/form/Form';
 import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
+import {
+  miam_cost_exemption_content_cy,
+  miam_cost_exemption_content_en,
+  miam_how_to_arrange_mediation_label_cy,
+  miam_how_to_arrange_mediation_label_en,
+} from './miam-cost-exemptions';
 
 const enContent = {
   title: 'Would you be willing to attend a MIAM?',
@@ -11,6 +17,8 @@ const enContent = {
   two: 'No',
   explainWhyLabel: 'Explain why',
   miamCostExemptionsLabel: 'Help with MIAM costs and exemptions',
+  miamCostExemptionsInfo: miam_cost_exemption_content_en,
+  miamLabel: miam_how_to_arrange_mediation_label_en,
   onlyContinue: 'Continue',
   errors: {
     miamWillingness: {
@@ -31,6 +39,8 @@ const cyContent = {
   two: 'Na fyddwn',
   explainWhyLabel: 'Eglurwch pam',
   miamCostExemptionsLabel: 'Help gyda chostau ac esemptiadau MIAM',
+  miamCostExemptionsInfo: miam_cost_exemption_content_cy,
+  miamLabel: miam_how_to_arrange_mediation_label_cy,
   onlyContinue: 'Parhau',
   errors: {
     miamWillingness: {
@@ -88,9 +98,10 @@ describe('citizen-home content', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
   });
   test('should contain  field', () => {
-    const miamDetailsField = fields.miamDetails as FormOptions;
+    const miamDetailsField = fields.miamDetails as FormInput;
     expect(miamDetailsField.type).toBe('detailsHtml');
     expect((miamDetailsField.label as Function)(generatedContent)).toBe(enContent.miamCostExemptionsLabel);
+    expect((miamDetailsField.detailsHtml as Function)(generatedContent)).toBe(enContent.miamCostExemptionsInfo);
 
     const miamWillingnessField = fields.miamWillingness as FormOptions;
     expect(miamWillingnessField.type).toBe('radios');
@@ -99,7 +110,11 @@ describe('citizen-home content', () => {
     expect((miamWillingnessField.section as Function)(generatedContent)).toBe(undefined);
     expect((miamWillingnessField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
     expect(miamWillingnessField.values[0].value).toBe('Yes');
-    expect(miamWillingnessField.values[0].subFields?.miamHowToArrangeMediation.type).toBe('textAndHtml');
+
+    const miamMediationField = miamWillingnessField.values[0].subFields?.miamHowToArrangeMediation as FormInput;
+    expect(miamMediationField.type).toBe('textAndHtml');
+    expect((miamMediationField.textAndHtml as Function)(generatedContent)).toBe(enContent.miamLabel);
+
     expect((miamWillingnessField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
     expect(miamWillingnessField.values[1].value).toBe('No');
     expect(miamWillingnessField.values[1].subFields?.miamNotWillingExplnation.type).toBe('textarea');
