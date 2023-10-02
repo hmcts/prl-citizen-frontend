@@ -2649,15 +2649,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/connect-redis@npm:^0.0.18":
-  version: 0.0.18
-  resolution: "@types/connect-redis@npm:0.0.18"
+"@types/connect-redis@npm:^0.0.21":
+  version: 0.0.21
+  resolution: "@types/connect-redis@npm:0.0.21"
   dependencies:
     "@types/express": "*"
     "@types/express-session": "*"
-    "@types/ioredis": "*"
     "@types/redis": ^2.8.0
-  checksum: d65f0e4686cf482c3d580ebaba49817102578ed7cec1dd754132b097b320c7d1baae6b0e47a653b282b177d96807306fd59bb3b1af0a3875e6177fe4fb6d161b
+    ioredis: ^5.3.0
+  checksum: edd9158f37b2e6aed30946b6e166a311cb7c4bd12dcdd3b41b9a9e1176bf48a59d601be980d11c0e04aab817dd71172a57a49b0d3a95cd0f1cdbdd474c2eabb1
   languageName: node
   linkType: hard
 
@@ -2836,15 +2836,6 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: 7a6746d00729b2a9fe9f9dd3453430b099931df879ec8f7a7b5f07b1795f6d99b0512640c45a67390b1e4bacb9401e36824952aeeaf089feba8627a063cf8e00
-  languageName: node
-  linkType: hard
-
-"@types/ioredis@npm:*":
-  version: 5.0.0
-  resolution: "@types/ioredis@npm:5.0.0"
-  dependencies:
-    ioredis: "*"
-  checksum: 0d0c020c88076ad3626ca3b98eecf2893b919953c43c3a2006d0f98af0edb2806ad6f21ece68283dec8c6bb2c23de2f8ff76211acbeb3bb2358e3e4cda9a78c1
   languageName: node
   linkType: hard
 
@@ -9771,9 +9762,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:*":
-  version: 5.3.1
-  resolution: "ioredis@npm:5.3.1"
+"ioredis@npm:^5.3.0":
+  version: 5.3.2
+  resolution: "ioredis@npm:5.3.2"
   dependencies:
     "@ioredis/commands": ^1.1.1
     cluster-key-slot: ^1.1.0
@@ -9784,7 +9775,7 @@ __metadata:
     redis-errors: ^1.2.0
     redis-parser: ^3.0.0
     standard-as-callback: ^2.1.0
-  checksum: 6c98cb8f8772ad4bb2b6b7a0a224e4a63f4759f9a28e84205f18788552f08221d51f391c10892dca01a1b10b2804d0a7e6082b0b7decd65538a5fb6b0f4f1f82
+  checksum: 9a23559133e862a768778301efb68ae8c2af3c33562174b54a4c2d6574b976e85c75a4c34857991af733e35c48faf4c356e7daa8fb0a3543d85ff1768c8754bc
   languageName: node
   linkType: hard
 
@@ -14142,7 +14133,7 @@ __metadata:
     "@stryker-mutator/jest-runner": ^5.3.0
     "@types/autobind-decorator": ^2.1.0
     "@types/config": ^0.0.41
-    "@types/connect-redis": ^0.0.18
+    "@types/connect-redis": ^0.0.21
     "@types/cookie-parser": ^1.4.2
     "@types/copy-webpack-plugin": ^8.0.1
     "@types/csurf": ^1.11.2
