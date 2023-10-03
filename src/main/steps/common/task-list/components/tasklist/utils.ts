@@ -238,7 +238,6 @@ const taskListConfig = {
   },
   [CaseType.FL401]: {
     [PartyType.APPLICANT]: [
-      [
         {
           id: TaskListSection.ABOUT_YOU,
           content: getContents.bind(null, TaskListSection.ABOUT_YOU),
@@ -348,8 +347,6 @@ const taskListConfig = {
             },
           ],
         },
-        
-      ]
     ],
     [PartyType.RESPONDENT]: [],
   },
