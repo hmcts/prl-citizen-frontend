@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
@@ -49,6 +48,8 @@ enum StateTags {
   READY_TO_VIEW = 'readyToView',
   SUBMITTED = 'submitted',
   OPTIONAL = 'optional',
+  COMPLETED = "Completed",
+  TO_DO = "TO DO"
 }
 
 const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
@@ -231,7 +232,128 @@ const taskListConfig = {
     [PartyType.RESPONDENT]: [],
   },
   [CaseType.FL401]: {
-    [PartyType.APPLICANT]: [],
+    [PartyType.APPLICANT]: [
+      [
+        {
+          id: TaskListSection.ABOUT_YOU,
+          content: getContents.bind(null, TaskListSection.ABOUT_YOU),
+          show: isCaseLinked,
+          tasks: [
+            {
+              id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
+              href: (caseData: Partial<CaseWithId>) => `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`,
+              disabled: isCaseClosed,
+              stateTag: (caseData) => getKeepYourDetailsPrivateStatus(caseData?.applicantsFL401?.response?.keepDetailsPrivate),
+            },
+            {
+              id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
+              href: (caseData: Partial<CaseWithId>) => `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`,
+              disabled: isCaseClosed,
+              stateTag: (caseData) => getConfirmOrEditYourContactDetails(caseData?.applicantsFL401),
+            },
+            // {
+            //   id: Tasks.CONTACT_PREFERENCES,
+            //   href: (caseData: Partial<CaseWithId>) => `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/${caseData.id}`,
+            //   disabled: isCaseClosed,
+            //   stateTag: () => StateTags.SUBMITTED,
+            // },
+            {
+              id: Tasks.SUPPORT_DURING_CASE,
+              href: () => {
+                return `${APPLICANT_TASKLIST_HEARING_NEEDS}`;
+              },
+              disabled: isCaseClosed,
+              stateTag: () => StateTags.SUBMITTED,
+            },
+          ],
+        },
+        {
+          id: TaskListSection.YOUR_APPLICATION,
+          content: getContents.bind(null, TaskListSection.YOUR_APPLICATION),
+          tasks: [
+            {
+              id: Tasks.CHILD_ARRANGEMENT_APPLICATION,
+              href: (caseData: Partial<CaseWithId>) => {
+                if (!caseData) {
+                  return C100_START;
+                }
+                return caseData.c100RebuildReturnUrl;
+              },
+              stateTag: (caseData: Partial<CaseWithId>) => {
+                if (!caseData) {
+                  return StateTags.NOT_STARTED_YET;
+                }
+                return StateTags.IN_PROGRESS;
+              },
+              show: (caseData: Partial<CaseWithId>) => !caseData || isDraftCase(caseData),
+            },
+            {
+              id: Tasks.YOUR_APPLICATION_PDF,
+              href: () => C100_DOWNLOAD_APPLICATION,
+              stateTag: () => StateTags.SUBMITTED,
+              show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
+            },
+          ],
+        },
+        {
+          id: TaskListSection.YOUR_HEARING,
+          content: getContents.bind(null, TaskListSection.YOUR_HEARING),
+          show: isCaseLinked,
+          tasks: [
+            {
+              id: Tasks.VIEW_HEARING_DETAILS,
+              href: (caseData: Partial<CaseWithId>) => `${APPLICANT_YOURHEARINGS_HEARINGS}/${caseData.id}`,
+              stateTag: (caseData: Partial<CaseWithId>) => {
+                if (hasAnyHearing(caseData)) {
+                  return StateTags.READY_TO_VIEW;
+                }
+                return StateTags.NOT_AVAILABLE_YET;
+              },
+              disabled: (caseData: Partial<CaseWithId>) => !hasAnyHearing(caseData),
+            },
+          ],
+        },
+        {
+          id: TaskListSection.YOUR_DOCUMENTS,
+          content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
+          show: isCaseLinked,
+          tasks: [
+            {
+              id: Tasks.UPLOAD_DOCUMENTS,
+              href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
+              show: isCaseLinked,
+              disabled: isCaseClosed,
+              stateTag: () => StateTags.OPTIONAL,
+            },
+            {
+              id: Tasks.VIEW_ALL_DOCUMENTS,
+              href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+              stateTag: () => StateTags.READY_TO_VIEW,
+              show: isCaseLinked,
+            },
+          ],
+        },
+        {
+          id: TaskListSection.YOUR_ORDERS,
+          content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
+          show: isCaseLinked,
+          tasks: [
+            {
+              id: Tasks.VIEW_ORDERS,
+              href: () => APPLICANT_ORDERS_FROM_THE_COURT,
+              stateTag: (caseData: Partial<CaseWithId>) => {
+                if (hasAnyOrder(caseData)) {
+                  return StateTags.READY_TO_VIEW;
+                }
+                return StateTags.NOT_AVAILABLE_YET;
+              },
+              disabled: (caseData: Partial<CaseWithId>) => !hasAnyOrder(caseData),
+            },
+          ],
+        },
+        
+      ]
+    ],
     [PartyType.RESPONDENT]: [],
   },
 };
@@ -328,3 +450,25 @@ const prepareHintConfig = (
     });
   }
 };
+const getKeepYourDetailsPrivateStatus=(keepDetailsPrivate)=> {
+  let status = StateTags.TO_DO;
+  if (keepDetailsPrivate?.confidentiality && keepDetailsPrivate?.otherPeopleKnowYourContactDetails) {
+    status = StateTags.COMPLETED;
+  } else if (keepDetailsPrivate?.confidentiality || keepDetailsPrivate?.otherPeopleKnowYourContactDetails) {
+    status = StateTags.IN_PROGRESS;
+  }
+  return status;
+}
+const getConfirmOrEditYourContactDetails = (
+  party
+) => {
+  const status = StateTags.TO_DO;
+  if (party.firstName && party.lastName && party.dateOfBirth && party.applicantsFL401?.placeOfBirth) {
+    return StateTags.COMPLETED;
+  }
+  if (party.firstName || party.lastName || party.dateOfBirth || party.placeOfBirth) {
+    return StateTags.IN_PROGRESS;
+  }
+  return status;
+}
+
