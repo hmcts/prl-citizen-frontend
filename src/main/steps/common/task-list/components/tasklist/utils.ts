@@ -3,6 +3,7 @@ import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 import {
+  APPLICANT_ATTENDING_THE_COURT,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_ORDERS_FROM_THE_COURT,
@@ -10,9 +11,11 @@ import {
   APPLICANT_TASKLIST_HEARING_NEEDS,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS,
+  APPLICANT_WITNESS_STATEMENTS_DA,
   APPLICANT_YOURHEARINGS_HEARINGS,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
+  YOUR_APPLICATION_FL401,
 } from '../../../../urls';
 import { isCaseClosed, isCaseLinked, isDraftCase } from '../../utils';
 
@@ -39,6 +42,7 @@ enum Tasks {
   KEEP_YOUR_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
   SUPPORT_DURING_CASE = 'supportDuringCase',
   VIEW_ORDERS = 'viewOrders',
+  YOUR_APPLICATION_WITNESS_STATEMENT = "yourAapplicationWitnessStatment"
 }
 
 enum StateTags {
@@ -48,8 +52,9 @@ enum StateTags {
   READY_TO_VIEW = 'readyToView',
   SUBMITTED = 'submitted',
   OPTIONAL = 'optional',
-  COMPLETED = "Completed",
-  TO_DO = "TO DO"
+  COMPLETED = "completed",
+  TO_DO = "toDo",
+  DOWNLOAD = "download"
 }
 
 const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
@@ -260,10 +265,10 @@ const taskListConfig = {
             {
               id: Tasks.SUPPORT_DURING_CASE,
               href: () => {
-                return `${APPLICANT_TASKLIST_HEARING_NEEDS}`;
+                return `${APPLICANT_ATTENDING_THE_COURT}`;
               },
               disabled: isCaseClosed,
-              stateTag: () => StateTags.SUBMITTED,
+              stateTag: (caseData) => getSupportYourNeedsDetails(caseData),
             },
           ],
         },
@@ -272,25 +277,15 @@ const taskListConfig = {
           content: getContents.bind(null, TaskListSection.YOUR_APPLICATION),
           tasks: [
             {
-              id: Tasks.CHILD_ARRANGEMENT_APPLICATION,
-              href: (caseData: Partial<CaseWithId>) => {
-                if (!caseData) {
-                  return C100_START;
-                }
-                return caseData.c100RebuildReturnUrl;
-              },
-              stateTag: (caseData: Partial<CaseWithId>) => {
-                if (!caseData) {
-                  return StateTags.NOT_STARTED_YET;
-                }
-                return StateTags.IN_PROGRESS;
-              },
-              show: (caseData: Partial<CaseWithId>) => !caseData || isDraftCase(caseData),
+              id: Tasks.YOUR_APPLICATION_PDF,
+              href: () => YOUR_APPLICATION_FL401,
+              stateTag: () => StateTags.SUBMITTED,
+              show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
             },
             {
-              id: Tasks.YOUR_APPLICATION_PDF,
-              href: () => C100_DOWNLOAD_APPLICATION,
-              stateTag: () => StateTags.SUBMITTED,
+              id: Tasks.YOUR_APPLICATION_WITNESS_STATEMENT,
+              href: () => APPLICANT_WITNESS_STATEMENTS_DA,
+              stateTag: (caseData) => getYourWitnessStatement(caseData),
               show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
             },
           ],
@@ -302,7 +297,9 @@ const taskListConfig = {
           tasks: [
             {
               id: Tasks.VIEW_HEARING_DETAILS,
-              href: (caseData: Partial<CaseWithId>) => `${APPLICANT_YOURHEARINGS_HEARINGS}/${caseData.id}`,
+              href: (caseData: Partial<CaseWithId>) => hasAnyHearing(caseData)
+              ? `${APPLICANT_YOURHEARINGS_HEARINGS}/${caseData.id}`
+              : '#',
               stateTag: (caseData: Partial<CaseWithId>) => {
                 if (hasAnyHearing(caseData)) {
                   return StateTags.READY_TO_VIEW;
@@ -323,7 +320,7 @@ const taskListConfig = {
               href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
               show: isCaseLinked,
               disabled: isCaseClosed,
-              stateTag: () => StateTags.OPTIONAL,
+              stateTag: () => StateTags.TO_DO,
             },
             {
               id: Tasks.VIEW_ALL_DOCUMENTS,
@@ -340,7 +337,7 @@ const taskListConfig = {
           tasks: [
             {
               id: Tasks.VIEW_ORDERS,
-              href: () => APPLICANT_ORDERS_FROM_THE_COURT,
+              href: (caseData) => hasAnyOrder(caseData)?APPLICANT_ORDERS_FROM_THE_COURT:'#',
               stateTag: (caseData: Partial<CaseWithId>) => {
                 if (hasAnyOrder(caseData)) {
                   return StateTags.READY_TO_VIEW;
@@ -471,4 +468,21 @@ const getConfirmOrEditYourContactDetails = (
   }
   return status;
 }
-
+ const getSupportYourNeedsDetails = (userCase: CaseWithId): StateTags => {
+  if (
+    userCase?.languageRequirements?.length &&
+    userCase?.reasonableAdjustments?.length &&
+    userCase?.safetyArrangements?.length &&
+    userCase?.attendingToCourt?.length
+  ) {
+    return StateTags.COMPLETED;
+  }
+  return StateTags.TO_DO;
+};
+ const getYourWitnessStatement = (userCase: CaseWithId): StateTags => {
+  return userCase.citizenUploadedDocumentList?.find(
+    document => document?.value?.documentType === 'Your witness statements'
+  )
+    ? StateTags.DOWNLOAD
+    : StateTags.NOT_AVAILABLE_YET;
+};
