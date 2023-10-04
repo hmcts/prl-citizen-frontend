@@ -1,4 +1,7 @@
-import { PartyType } from '../../../app/case/definition';
+import {
+  //CaseType,
+  PartyType,
+} from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { getApplicant } from '../../../steps/applicant/task-list/content';
 
@@ -68,6 +71,32 @@ const en = {
       target: '_blank',
     },
   ],
+  hyperlinksFL401: [
+    {
+      label: 'Add a legal representative',
+      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+    },
+    {
+      label: 'Remove a legal representative',
+      link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+    },
+    {
+      label: 'Find my local court',
+      link: '#',
+    },
+    {
+      label: 'Find legal advice',
+      link: '#',
+    },
+    {
+      label: 'Know more about child arrangements',
+      link: '#',
+    },
+    {
+      label: 'Know more about attending court',
+      link: '#',
+    },
+  ],
   addLegalRepresentative: 'Add a legal representative',
   removeLegalRepresentative: 'Remove a legal representative',
 };
@@ -128,6 +157,32 @@ const cy = {
       target: '_blank',
     },
   ],
+  hyperlinksFL401: [
+    {
+      label: 'Ychwanegu cynrychiolydd cyfreithiol',
+      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+    },
+    {
+      label: 'Dileu cynrychiolydd cyfreithiol',
+      link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+    },
+    {
+      label: 'Dod o hyd i fy llys lleol',
+      link: '#',
+    },
+    {
+      label: 'Dod o hyd i gyngor cyfreithiol',
+      link: '#',
+    },
+    {
+      label: 'Gwybod mwy am drefniadau plant',
+      link: '#',
+    },
+    {
+      label: 'Gwybod mwy am fynychu’r llys',
+      link: '#',
+    },
+  ],
   addLegalRepresentative: 'Ychwanegu cynrychiolydd cyfreithiol',
   removeLegalRepresentative: 'Dileu cynrychiolydd cyfreithiol',
 };
@@ -153,6 +208,14 @@ export const generateContent: TranslationFn = content => {
       (hyperLink.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor)
     ) {
       translations.hyperlinks.splice(index, 1);
+    }
+  });
+  translations.hyperlinksFL401.forEach((hyperlinksFL401, index) => {
+    if (
+      (hyperlinksFL401.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) ||
+      (hyperlinksFL401.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor)
+    ) {
+      translations.hyperlinksFL401.splice(index, 1);
     }
   });
 
