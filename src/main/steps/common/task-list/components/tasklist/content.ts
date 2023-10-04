@@ -8,9 +8,9 @@ const en = {
     readyToView: 'Ready to view',
     submitted: 'Submitted',
     optional: 'Optional',
-    completed:'Completed',
-    toDo:'TO Do',
-    download:'DOWNLOAD'
+    completed: 'Completed',
+    toDo: 'TO Do',
+    download: 'DOWNLOAD',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
@@ -79,9 +79,9 @@ const en = {
           yourApplicationPDF: {
             linkText: 'Your application (PDF)',
           },
-          yourAapplicationWitnessStatment:{
+          yourAapplicationWitnessStatment: {
             linkText: 'Witness statement (PDF)',
-          }
+          },
         },
       },
       yourDocuments: {
@@ -140,9 +140,9 @@ const cy: typeof en = {
     readyToView: 'Yn barod i’w gweld',
     submitted: 'Wedi’i gyflwyno',
     optional: ' Dewisol',
-    completed:'Wedi’i gwblhau',
-    toDo:'I WNEUD',
-    download:'LLWYTHO'
+    completed: 'Wedi’i gwblhau',
+    toDo: 'I WNEUD',
+    download: 'LLWYTHO',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
@@ -213,9 +213,9 @@ const cy: typeof en = {
           yourApplicationPDF: {
             linkText: 'Eich cais (PDF)',
           },
-          yourAapplicationWitnessStatment:{
+          yourAapplicationWitnessStatment: {
             linkText: 'Datganiad tyst (PDF)',
-          }
+          },
         },
       },
       yourDocuments: {
