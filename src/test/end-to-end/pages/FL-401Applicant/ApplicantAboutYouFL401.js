@@ -14,13 +14,13 @@ module.exports = {
         saveAndContinue : '#main-form-submit',
         startAlternative: '#startAlternative',
         contactDetailsPrivate:  '#contactDetailsPrivate',
-        contactDetailsPrivate-2:  '#contactDetailsPrivate-2',
-        contactDetailsPrivate-3: '#contactDetailsPrivate-3',
+        contactDetailsPrivate2:  '#contactDetailsPrivate-2',
+        contactDetailsPrivate3: '#contactDetailsPrivate-3',
         attendingToCourt: '#attendingToCourt',
-       languageRequirements: '#languageRequirements',
-       reasonableAdjustments-2: '#reasonableAdjustments-2',
-       helpCommunication-2: '#helpCommunication-2',
-       safetyArrangements-2: '#safetyArrangements-2'
+        languageRequirements: '#languageRequirements',
+        reasonableAdjustments2: '#reasonableAdjustments-2',
+        helpCommunication2: '#helpCommunication-2',
+        safetyArrangements2: '#safetyArrangements-2'
       
     },
   async clickFL401Link() {
@@ -72,8 +72,8 @@ module.exports = {
     await I.retry(retryCount).waitForText('Do you want to keep your contact details private from the other person named in the application (the'); 
     await I.retry(retryCount).click(this.fields.startAlternative);
     await I.seeCheckboxIsChecked(this.fields.contactDetailsPrivate) || await I.checkOption(this.fields.contactDetailsPrivate);
-    await I.seeCheckboxIsChecked (this.fields.contactDetailsPrivate-2) || await I.checkOption(this.fields.contactDetailsPrivate-2);
-    await I.seeCheckboxIsChecked (this.fields.contactDetailsPrivate-3) || await I.checkOption(this.fields.contactDetailsPrivate-3);
+    await I.seeCheckboxIsChecked (this.fields.contactDetailsPrivate2) || await I.checkOption(this.fields.contactDetailsPrivate2);
+    await I.seeCheckboxIsChecked (this.fields.contactDetailsPrivate3) || await I.checkOption(this.fields.contactDetailsPrivate3);
     await I.wait('5');
     await I.retry(retryCount).click(this.fields.saveAndContinue);
     await I.wait('5');
@@ -108,15 +108,15 @@ module.exports = {
     await I.retry(retryCount).click('Continue');
     await I.wait('2');
     await I.retry(retryCount).waitForText('Do you have a physical, mental or learning disability or health condition that means you need suppor');  
-    await I.seeCheckboxIsChecked (this.fields.reasonableAdjustments-2) || await I.checkOption(this.fields.reasonableAdjustments-2);
+    await I.seeCheckboxIsChecked (this.fields.reasonableAdjustments2) || await I.checkOption(this.fields.reasonableAdjustments2);
     await I.retry(retryCount).click('Continue');
     await I.wait('2');
     await I.retry(retryCount).waitForText('I need help communicating and understanding');    
-    await I.seeCheckboxIsChecked (this.fields.helpCommunication-2) || await I.checkOption(this.fields.helpCommunication-2);
+    await I.seeCheckboxIsChecked (this.fields.helpCommunication2) || await I.checkOption(this.fields.helpCommunication2);
     await I.retry(retryCount).click('Continue');
     await I.wait('2');
     await I.retry(retryCount).waitForText('Do you or the children need special safety arrangements at court?');     
-    await I.seeCheckboxIsChecked (this.fields.safetyArrangements-2) || await I.checkOption(this.fields.safetyArrangements-2);
+    await I.seeCheckboxIsChecked (this.fields.safetyArrangements2) || await I.checkOption(this.fields.safetyArrangements2);
     await I.retry(retryCount).click('Continue');
     await I.wait('2');
 
