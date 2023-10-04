@@ -9,7 +9,7 @@ const en = {
     submitted: 'Submitted',
     optional: 'Optional',
     completed:'Completed',
-    todo:'TO Do',
+    toDo:'TO Do',
     download:'DOWNLOAD'
   },
   [CaseType.C100]: {
@@ -141,7 +141,7 @@ const cy: typeof en = {
     submitted: 'Wedi’i gyflwyno',
     optional: ' Dewisol',
     completed:'Wedi’i gwblhau',
-    todo:'I WNEUD',
+    toDo:'I WNEUD',
     download:'LLWYTHO'
   },
   [CaseType.C100]: {

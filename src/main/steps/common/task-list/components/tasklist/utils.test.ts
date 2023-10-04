@@ -477,7 +477,11 @@ describe('testcase for tasklist', () => {
     const language = 'en';
     const isRepresentedBySolicotor = false;
 
-    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([]);
+    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([{
+    heading: "Your application",
+    id: "yourApplication",
+    tasks: [],
+    }]);
   });
   test('FL401 respondent', () => {
     const data = {

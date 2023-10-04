@@ -111,6 +111,18 @@ const stateTagsConfig = {
     label: getStateTagLabel.bind(null, StateTags.SUBMITTED),
     className: 'govuk-tag--turquoise',
   },
+  [StateTags.COMPLETED]: {
+    label: getStateTagLabel.bind(null, StateTags.COMPLETED),
+    className: 'govuk-tag--turquoise',
+  },
+  [StateTags.TO_DO]: {
+    label: getStateTagLabel.bind(null, StateTags.TO_DO),
+    className: 'govuk-tag--turquoise',
+  },
+  [StateTags.DOWNLOAD]: {
+    label: getStateTagLabel.bind(null, StateTags.DOWNLOAD),
+    className: 'govuk-tag--turquoise',
+  },
 };
 
 const taskListConfig = {
@@ -241,7 +253,7 @@ const taskListConfig = {
         {
           id: TaskListSection.ABOUT_YOU,
           content: getContents.bind(null, TaskListSection.ABOUT_YOU),
-          show: isCaseLinked,
+          show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
           tasks: [
             {
               id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
@@ -292,7 +304,7 @@ const taskListConfig = {
         {
           id: TaskListSection.YOUR_HEARING,
           content: getContents.bind(null, TaskListSection.YOUR_HEARING),
-          show: isCaseLinked,
+          show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
           tasks: [
             {
               id: Tasks.VIEW_HEARING_DETAILS,
@@ -312,7 +324,7 @@ const taskListConfig = {
         {
           id: TaskListSection.YOUR_DOCUMENTS,
           content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-          show: isCaseLinked,
+          show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
           tasks: [
             {
               id: Tasks.UPLOAD_DOCUMENTS,
@@ -332,7 +344,7 @@ const taskListConfig = {
         {
           id: TaskListSection.YOUR_ORDERS,
           content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
-          show: isCaseLinked,
+          show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
           tasks: [
             {
               id: Tasks.VIEW_ORDERS,
