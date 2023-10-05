@@ -117,7 +117,7 @@ const stateTagsConfig = {
   },
   [StateTags.TO_DO]: {
     label: getStateTagLabel.bind(null, StateTags.TO_DO),
-    className: 'govuk-tag--turquoise',
+    className: 'govuk-tag--grey',
   },
   [StateTags.DOWNLOAD]: {
     label: getStateTagLabel.bind(null, StateTags.DOWNLOAD),
@@ -329,7 +329,7 @@ const taskListConfig = {
           {
             id: Tasks.UPLOAD_DOCUMENTS,
             href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-            show: isCaseLinked,
+            show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
             disabled: isCaseClosed,
             stateTag: () => StateTags.TO_DO,
           },
@@ -337,7 +337,7 @@ const taskListConfig = {
             id: Tasks.VIEW_ALL_DOCUMENTS,
             href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
             stateTag: () => StateTags.READY_TO_VIEW,
-            show: isCaseLinked,
+            show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
           },
         ],
       },
@@ -467,7 +467,7 @@ const getKeepYourDetailsPrivateStatus = keepDetailsPrivate => {
 };
 const getConfirmOrEditYourContactDetails = party => {
   const status = StateTags.TO_DO;
-  if (party.firstName && party.lastName && party.dateOfBirth && party.applicantsFL401?.placeOfBirth) {
+  if (party.firstName && party.lastName && party.dateOfBirth && party.placeOfBirth) {
     return StateTags.COMPLETED;
   }
   if (party.firstName || party.lastName || party.dateOfBirth || party.placeOfBirth) {
