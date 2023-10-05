@@ -1643,13 +1643,13 @@ __metadata:
   linkType: hard
 
 "@hmcts/nodejs-healthcheck@npm:^1.8.0":
-  version: 1.8.0
-  resolution: "@hmcts/nodejs-healthcheck@npm:1.8.0"
+  version: 1.8.3
+  resolution: "@hmcts/nodejs-healthcheck@npm:1.8.3"
   dependencies:
     "@hmcts/nodejs-logging": ^4.0.4
     js-yaml: ^3.8.4
     superagent: 7
-  checksum: 8412f6a36b2a16a6be25d98c9cb083650bc55ba8b490aa5bc438cca3d1f5e2d17a936cd5ae5f0aa577b1e7de41ac647d0b4866dd89d7ab68b37518a72eef97b9
+  checksum: 76f87a5a6707e76ab407f041991ac10139390290c40267401349e4af4f95490f4b3f542cbe4f59eb392655e71e28a1ec782a0522189257327f39c1fbb5d965bc
   languageName: node
   linkType: hard
 
@@ -2649,15 +2649,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/connect-redis@npm:^0.0.18":
-  version: 0.0.18
-  resolution: "@types/connect-redis@npm:0.0.18"
+"@types/connect-redis@npm:^0.0.21":
+  version: 0.0.21
+  resolution: "@types/connect-redis@npm:0.0.21"
   dependencies:
     "@types/express": "*"
     "@types/express-session": "*"
-    "@types/ioredis": "*"
     "@types/redis": ^2.8.0
-  checksum: d65f0e4686cf482c3d580ebaba49817102578ed7cec1dd754132b097b320c7d1baae6b0e47a653b282b177d96807306fd59bb3b1af0a3875e6177fe4fb6d161b
+    ioredis: ^5.3.0
+  checksum: edd9158f37b2e6aed30946b6e166a311cb7c4bd12dcdd3b41b9a9e1176bf48a59d601be980d11c0e04aab817dd71172a57a49b0d3a95cd0f1cdbdd474c2eabb1
   languageName: node
   linkType: hard
 
@@ -2671,11 +2671,11 @@ __metadata:
   linkType: hard
 
 "@types/cookie-parser@npm:^1.4.2":
-  version: 1.4.3
-  resolution: "@types/cookie-parser@npm:1.4.3"
+  version: 1.4.4
+  resolution: "@types/cookie-parser@npm:1.4.4"
   dependencies:
     "@types/express": "*"
-  checksum: f390f3af1b1711190dee2c2ecd9af33af81fbde8d81ee820dadb6fe1e0d80c3faba40af37c6ed36fb88b04b64870f6a021f7e9edceecd17c42fe22abe0af5005
+  checksum: 5c81ac4b7d90a567e0c7a904ecbc09c82c43e30c6b5b507aee5147bc06bc8c6418e6719d63fcf68e6a83c71870485ab3fc579a30891b56a0be05d64753e3f74a
   languageName: node
   linkType: hard
 
@@ -2707,11 +2707,11 @@ __metadata:
   linkType: hard
 
 "@types/csurf@npm:^1.11.2":
-  version: 1.11.2
-  resolution: "@types/csurf@npm:1.11.2"
+  version: 1.11.3
+  resolution: "@types/csurf@npm:1.11.3"
   dependencies:
     "@types/express-serve-static-core": "*"
-  checksum: 1827f6760d43ae12390f0308289f2c40537bbcb19ec854d0c654e3129074edf6108ddab99a06986813b6cf31d4fc9fa34eaa3d418f647edf607d8af4c69d62e7
+  checksum: 5db4b4f4adabc592846d2efe7c1c95de541adf6b536a7d6f523f1583e480a381418d3841ae2f159d81a863cc1c047559c311a0853e915e301cc717c7d0ff08f7
   languageName: node
   linkType: hard
 
@@ -2725,9 +2725,9 @@ __metadata:
   linkType: hard
 
 "@types/es6-promisify@npm:^6.0.1":
-  version: 6.0.1
-  resolution: "@types/es6-promisify@npm:6.0.1"
-  checksum: a717113805ed9d35f02f3fdf9a4c00b0589ca32e8a66bd22b950418e21900fda060a5578fa9ad37bd7c62f17ed327bd7570cea5dac522254d720cc1a861ecf12
+  version: 6.0.2
+  resolution: "@types/es6-promisify@npm:6.0.2"
+  checksum: c75e0e642da4c69376c4003322bf89aaabd7ba0921c9bb04a918838e2aca639ab4fa5377fc231764d8fef52925ba19c6a4116e8e6202ae8018e95af9ff21bf92
   languageName: node
   linkType: hard
 
@@ -2777,23 +2777,23 @@ __metadata:
   linkType: hard
 
 "@types/express-session@npm:*, @types/express-session@npm:^1.17.4":
-  version: 1.17.6
-  resolution: "@types/express-session@npm:1.17.6"
+  version: 1.17.8
+  resolution: "@types/express-session@npm:1.17.8"
   dependencies:
     "@types/express": "*"
-  checksum: f5f2201d6b9568d8b9319735a4f6806b5ca144cee450274965aec54bc0a0331ba8bfffc1ad5addadf2e625769e13813a48cb5aea5b166fa05f474a12302dbb38
+  checksum: e1af8797b321ce05e0732c58aa982f00ab34b6edb337c289092e66c789ae1bbb4ca14d2caa0e0ff02522047402bcff828873b035e2785fb92f2381a0eb34240c
   languageName: node
   linkType: hard
 
 "@types/express@npm:*, @types/express@npm:^4.17.11, @types/express@npm:^4.17.14":
-  version: 4.17.17
-  resolution: "@types/express@npm:4.17.17"
+  version: 4.17.18
+  resolution: "@types/express@npm:4.17.18"
   dependencies:
     "@types/body-parser": "*"
     "@types/express-serve-static-core": ^4.17.33
     "@types/qs": "*"
     "@types/serve-static": "*"
-  checksum: 0196dacc275ac3ce89d7364885cb08e7fb61f53ca101f65886dbf1daf9b7eb05c0943e2e4bbd01b0cc5e50f37e0eea7e4cbe97d0304094411ac73e1b7998f4da
+  checksum: 8c178da4f0edff1f006d871fbdc3f849620986ff10bad252f3dfd45b57554e26aaa28c602285df028930d5216e257a06fbaf795070f8bb42f7d87e3b689cba50
   languageName: node
   linkType: hard
 
@@ -2836,15 +2836,6 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: 7a6746d00729b2a9fe9f9dd3453430b099931df879ec8f7a7b5f07b1795f6d99b0512640c45a67390b1e4bacb9401e36824952aeeaf089feba8627a063cf8e00
-  languageName: node
-  linkType: hard
-
-"@types/ioredis@npm:*":
-  version: 5.0.0
-  resolution: "@types/ioredis@npm:5.0.0"
-  dependencies:
-    ioredis: "*"
-  checksum: 0d0c020c88076ad3626ca3b98eecf2893b919953c43c3a2006d0f98af0edb2806ad6f21ece68283dec8c6bb2c23de2f8ff76211acbeb3bb2358e3e4cda9a78c1
   languageName: node
   linkType: hard
 
@@ -2907,9 +2898,9 @@ __metadata:
   linkType: hard
 
 "@types/lodash@npm:^4.14.186":
-  version: 4.14.191
-  resolution: "@types/lodash@npm:4.14.191"
-  checksum: ba0d5434e10690869f32d5ea49095250157cae502f10d57de0a723fd72229ce6c6a4979576f0f13e0aa9fbe3ce2457bfb9fa7d4ec3d6daba56730a51906d1491
+  version: 4.14.199
+  resolution: "@types/lodash@npm:4.14.199"
+  checksum: e68d1fcbbfce953ed87b296a628573f62939227bcda0c934954e862b421e8a34c5e71cad6fea27b9980567909e6a4698f09025692958e36d64ea9ed99ec6fb2e
   languageName: node
   linkType: hard
 
@@ -2951,11 +2942,11 @@ __metadata:
   linkType: hard
 
 "@types/multer@npm:^1.4.7":
-  version: 1.4.7
-  resolution: "@types/multer@npm:1.4.7"
+  version: 1.4.8
+  resolution: "@types/multer@npm:1.4.8"
   dependencies:
     "@types/express": "*"
-  checksum: 680cb0710aa25264d20cdcdaf34c212b636b55ea141310f06c25354ab1401193c7aa6839f9d22abf64a223fab1f2b8287f2512b0bef7e1628c4e9ffe54b4aeb2
+  checksum: bdc4e367d8f228303b987f8ecd4189d069990b97007308e3f1f80c009aae620eea7720484a39ef265e1ba915481e405631bc2113d148b4461e1d12d14dc38dac
   languageName: node
   linkType: hard
 
@@ -2990,9 +2981,9 @@ __metadata:
   linkType: hard
 
 "@types/nunjucks@npm:^3.2.1":
-  version: 3.2.2
-  resolution: "@types/nunjucks@npm:3.2.2"
-  checksum: e0fdc68f01635b34ea6f5e8845ed6d2e8d11be6347b2f28c8093636454e2401f02c26a2ad6aa459da56f2459f2d59bf72914b6e4774bcd058fa12e2ae5f0f6ef
+  version: 3.2.4
+  resolution: "@types/nunjucks@npm:3.2.4"
+  checksum: d154c6cc98320b6b9f48892eb4238f961b0196e24eb98252f9dceaa0b17bf70cd480a11d4ffda9f419d2570abf6d96524ebd3193b101f0fcf73c65af3e56d064
   languageName: node
   linkType: hard
 
@@ -3086,11 +3077,11 @@ __metadata:
   linkType: hard
 
 "@types/require-directory@npm:^2.1.2":
-  version: 2.1.2
-  resolution: "@types/require-directory@npm:2.1.2"
+  version: 2.1.3
+  resolution: "@types/require-directory@npm:2.1.3"
   dependencies:
     "@types/node": "*"
-  checksum: fa68f3f68457966d99095cf295af6128ec57b1738c6824f73c0b96ffbc2c39214064ac73dbd02beb661368c0f0066fd3af57ceb6f94a18b3414f3b58a1e35701
+  checksum: 409842c47940ba56c0cda6937ab36e7696458476b10967fed0af984b18ab12ac983e4161a6e279dbb28f5eca825505058af28f99827c93df9ef22781b685b849
   languageName: node
   linkType: hard
 
@@ -3111,11 +3102,11 @@ __metadata:
   linkType: hard
 
 "@types/serve-favicon@npm:^2.5.3":
-  version: 2.5.3
-  resolution: "@types/serve-favicon@npm:2.5.3"
+  version: 2.5.5
+  resolution: "@types/serve-favicon@npm:2.5.5"
   dependencies:
     "@types/express": "*"
-  checksum: 14818c9e22c4d14ab89d70884f07964263563d5803c2c6f1f1e5d7d8c81e04c1770d75f5aaaac16f1786640fca921b95693cdf13999cb9746838643bf9a7a348
+  checksum: 7e0b85c1a7f19b1b724d5346cc8eee6d5af33801b67b8c8c824fdf387e89564f9a52c9802d1c4704af4d347e3a26c854c0e467effc44743c627c1786840c810b
   languageName: node
   linkType: hard
 
@@ -3130,12 +3121,12 @@ __metadata:
   linkType: hard
 
 "@types/session-file-store@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "@types/session-file-store@npm:1.2.2"
+  version: 1.2.3
+  resolution: "@types/session-file-store@npm:1.2.3"
   dependencies:
     "@types/express": "*"
     "@types/express-session": "*"
-  checksum: 363c7add3f9f472a4271a56d7de113ac82fb33ab6ca6d4edce0b6eaf75ff46dbf7adb072cf557fbcbd298bff44ab88f473858ef7f445ac757c673e057bf19673
+  checksum: b7d57206da8abd74f7dd8e5e47673cec0c0bf25446c3c3981aaa80b03bb1a8d92402f7dbba2631aa7a23dda79b0786bdbaa9a7daaa734880c883234f1c0bc838
   languageName: node
   linkType: hard
 
@@ -5276,17 +5267,17 @@ __metadata:
   linkType: hard
 
 "chai@npm:^4.3.5, chai@npm:^4.3.6":
-  version: 4.3.9
-  resolution: "chai@npm:4.3.9"
+  version: 4.3.10
+  resolution: "chai@npm:4.3.10"
   dependencies:
     assertion-error: ^1.1.0
     check-error: ^1.0.3
-    deep-eql: ^4.1.2
-    get-func-name: ^2.0.0
-    loupe: ^2.3.1
+    deep-eql: ^4.1.3
+    get-func-name: ^2.0.2
+    loupe: ^2.3.6
     pathval: ^1.1.1
-    type-detect: ^4.0.5
-  checksum: 0bcc79b8829bf9e567375be4427d8efe148fca4f5d29c82b05fcd8502f3a151fc80d3a9531e519c053d4c11d7dca68d7f81555073bbdea9dedf0fae2e6a80e42
+    type-detect: ^4.0.8
+  checksum: 536668c60a0d985a0fbd94418028e388d243a925d7c5e858c7443e334753511614a3b6a124bac9ca077dfc4c37acc367d62f8c294960f440749536dc181dfc6d
   languageName: node
   linkType: hard
 
@@ -6412,9 +6403,9 @@ __metadata:
   linkType: hard
 
 "dayjs@npm:^1.10.7":
-  version: 1.11.7
-  resolution: "dayjs@npm:1.11.7"
-  checksum: 5003a7c1dd9ed51385beb658231c3548700b82d3548c0cfbe549d85f2d08e90e972510282b7506941452c58d32136d6362f009c77ca55381a09c704e9f177ebb
+  version: 1.11.10
+  resolution: "dayjs@npm:1.11.10"
+  checksum: a6b5a3813b8884f5cd557e2e6b7fa569f4c5d0c97aca9558e38534af4f2d60daafd3ff8c2000fed3435cfcec9e805bcebd99f90130c6d1c5ef524084ced588c4
   languageName: node
   linkType: hard
 
@@ -6554,7 +6545,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deep-eql@npm:^4.1.2":
+"deep-eql@npm:^4.1.3":
   version: 4.1.3
   resolution: "deep-eql@npm:4.1.3"
   dependencies:
@@ -9771,9 +9762,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:*":
-  version: 5.3.1
-  resolution: "ioredis@npm:5.3.1"
+"ioredis@npm:^5.3.0":
+  version: 5.3.2
+  resolution: "ioredis@npm:5.3.2"
   dependencies:
     "@ioredis/commands": ^1.1.1
     cluster-key-slot: ^1.1.0
@@ -9784,7 +9775,7 @@ __metadata:
     redis-errors: ^1.2.0
     redis-parser: ^3.0.0
     standard-as-callback: ^2.1.0
-  checksum: 6c98cb8f8772ad4bb2b6b7a0a224e4a63f4759f9a28e84205f18788552f08221d51f391c10892dca01a1b10b2804d0a7e6082b0b7decd65538a5fb6b0f4f1f82
+  checksum: 9a23559133e862a768778301efb68ae8c2af3c33562174b54a4c2d6574b976e85c75a4c34857991af733e35c48faf4c356e7daa8fb0a3543d85ff1768c8754bc
   languageName: node
   linkType: hard
 
@@ -11839,7 +11830,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loupe@npm:^2.3.1":
+"loupe@npm:^2.3.6":
   version: 2.3.6
   resolution: "loupe@npm:2.3.6"
   dependencies:
@@ -14142,7 +14133,7 @@ __metadata:
     "@stryker-mutator/jest-runner": ^5.3.0
     "@types/autobind-decorator": ^2.1.0
     "@types/config": ^0.0.41
-    "@types/connect-redis": ^0.0.18
+    "@types/connect-redis": ^0.0.21
     "@types/cookie-parser": ^1.4.2
     "@types/copy-webpack-plugin": ^8.0.1
     "@types/csurf": ^1.11.2
@@ -17220,7 +17211,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-detect@npm:4.0.8, type-detect@npm:^4.0.0, type-detect@npm:^4.0.5, type-detect@npm:^4.0.8":
+"type-detect@npm:4.0.8, type-detect@npm:^4.0.0, type-detect@npm:^4.0.8":
   version: 4.0.8
   resolution: "type-detect@npm:4.0.8"
   checksum: 62b5628bff67c0eb0b66afa371bd73e230399a8d2ad30d852716efcc4656a7516904570cd8631a49a3ce57c10225adf5d0cbdcb47f6b0255fe6557c453925a15
@@ -17359,9 +17350,9 @@ __metadata:
   linkType: hard
 
 "ua-parser-js@npm:>=1.0.33":
-  version: 1.0.33
-  resolution: "ua-parser-js@npm:1.0.33"
-  checksum: 460adef51235267345b221842979b6b167543725d03f7c9c4f9ca6af4da835a71d016390da139d2b32828063c4730dcfae6e53b9dce815f4000be4e1fe1c7737
+  version: 1.0.36
+  resolution: "ua-parser-js@npm:1.0.36"
+  checksum: 5b2c8a5e3443dfbba7624421805de946457c26ae167cb2275781a2729d1518f7067c9d5c74c3b0acac4b9ff3278cae4eace08ca6eecb63848bc3b2f6a63cc975
   languageName: node
   linkType: hard
 
