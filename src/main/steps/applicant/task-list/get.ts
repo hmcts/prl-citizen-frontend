@@ -17,7 +17,7 @@ export default class ApplicantTaskListGetController extends GetController {
       const User = req.session.user;
       const caseID = req.session.userCase.id;
       const cosClient = new CosApiClient(User.accessToken, 'https://return-url');
-      const hearings = await cosClient.retrieveCaseHearingsByCaseId(User, caseID);
+      const hearings = await cosClient.retrieveCaseHearingsByCaseId(caseID, User);
       req.session.userCase.hearingCollection = hearings.caseHearings;
 
       req.session.save(() => {

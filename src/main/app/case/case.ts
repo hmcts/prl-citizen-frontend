@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { PaymentResponse } from '../../modules/payments/paymentController';
 import { AnyObject } from '../controller/PostController';
 
 import {
@@ -78,6 +79,10 @@ import {
   PRL_C1AAbuseTypes,
   applicantContactPreferencesEnum,
   RespondentDocs,
+  DocumentInfo,
+  FeeDetailsResponse,
+  AWPApplicationReason,
+  AWPApplicationType,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -588,6 +593,22 @@ export interface Case {
   draftOrderDoc?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
+  awp_need_hwf?: YesOrNo;
+  awp_have_hwfReference?: YesOrNo;
+  awp_hwf_referenceNumber?: string;
+  awp_completedForm?: YesOrNo;
+  awp_agreementForRequest?: YesOrNo;
+  awp_informOtherParties?: YesOrNo;
+  awp_reasonCantBeInformed?: string;
+  awp_uploadedApplicationForms?: DocumentInfo[];
+  awpFeeDetails?: FeeDetailsResponse;
+  awp_cancelDelayHearing?: string;
+  awp_isThereReasonForUrgentRequest?: YesOrNo;
+  awp_urgentRequestReason?: string;
+  awp_hasSupportingDocuments?: YesOrNo;
+  awp_supportingDocuments?: DocumentInfo[];
+  awp_applicationType?: AWPApplicationType;
+  awp_applicationReason?: AWPApplicationReason;
 }
 
 export interface CaseWithId extends Case {
@@ -619,6 +640,7 @@ export interface CaseWithId extends Case {
   applicationPayOnline?: YesOrNo;
   legalRepresentativeForProceedings?: YesOrNo;
   legalRepresentativeForApplication?: YesOrNo;
+  paymentData?: PaymentResponse;
 }
 
 export enum Checkbox {

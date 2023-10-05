@@ -1452,6 +1452,9 @@ export interface DocumentInfo {
   url: string;
   filename: string;
   binaryUrl: string;
+  hash?:string;
+  categoryId?:string;
+  createdDate?:string;
 }
 export interface Letter {
   divorceDocument: DivorceDocument;
@@ -1611,7 +1614,8 @@ export const enum SectionStatus {
   VIEW = 'VIEW',
   NOT_STARTED = 'NOT_STARTED',
   READY_TO_VIEW = "READY_TO_VIEW",
-  NOT_AVAILABLE_YET = "NOT_AVAILABLE_YET"
+  NOT_AVAILABLE_YET = "NOT_AVAILABLE_YET",
+  OPTIONAL = 'OPTIONAL'
 }
 
 export const enum AlternativeServiceMediumType {
@@ -2435,9 +2439,9 @@ export interface HearingsList {
   hearingDaySchedule?:Schedules[] | null,
   hearingGroupRequestId?: string | null,
   hearingIsLinkedFlag?: boolean | null,
+  nextHearingDate?: string | null,
   hearingTypeValue?: string,
-  nextHearingDate?: string | null ,
-  urgentFlag?: boolean | null,
+  urgentFlag?: boolean,
 }
 
 export interface Hearing{
@@ -2486,10 +2490,10 @@ export interface Schedules {
   hearingJudgeName?: string | null,
   panelMemberIds?: string[] | Number[] | null,
   attendees?: Attendee[] | null,
+  hearingTypeValue?: string,
+  nextHearingDate?: string | null ,
 
 }
-
-
 export interface Attendee {
   partyID?: string,
   hearingSubChannel?: string | null,
@@ -2697,6 +2701,7 @@ export interface DocumentUploadResponse {
     document_filename: string;
     document_hash: string;
     document_creation_date: string;
+    category_id?:string;
   };
 }
 
@@ -3084,6 +3089,61 @@ export enum CaseEvent {
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative'
 }
 
+export enum AWPApplicationType {
+  C1 = 'C1',
+  C2 = 'C2',
+  C3 = 'C3',
+  C4 = 'C4',
+  C79 = 'C79',
+  D89 = 'D89',
+  EX740 = 'EX740',
+  EX741 = 'EX741',
+  FP25 = 'FP25',
+  FC600 = 'FC600',
+  N161 = 'N161',
+  FL403 = 'FL403',
+  FL407 = 'FL407',
+}
+
+export enum AWPApplicationReason{
+  REQUEST_PARENTAL_RESPONSIBILITY = 'request-grant-for-parental-responsibility',
+  REQUEST_GUARDIAN_FOR_CHILD = 'request-appoint-a-guardian-for-child',
+
+  DELAY_CANCEL_HEARING_DATE = 'delay-or-cancel-hearing-date',
+  REQUEST_MORE_TIME = 'request-more-time',
+  CHILD_ARRANGEMENTS_ORDER_TO_LIVE_SPEND_TIME = 'child-arrangements-order-to-live-with-or-spend-time',
+  PROHIBITED_STEPS_ORDER = 'prohibited-steps-order',
+  SPECIFIC_ISSUE_ORCDER = 'specfic-issue-order',
+  SUBMIT_EVIDENCE_COURT_NOT_REQUESTED = 'submit-evidence-the-court-has-not-requested',
+  SHARE_DOCUMENTS_WITH_SOMEONE_ELSE = 'share-documents-with-someone-else',
+  JOIN_OR_LEAVE_CASE = 'ask-to-join-or-leave-a-case',
+  REQUEST_TO_WITHDRAW_APPLICATION = 'request-to-withdraw-an-application',
+  ASK_COURT_FOR_APPOINTING_EXPERT = 'request-to-appoint-an-expert',
+  PERMISSION_FOR_APPLICATION = 'permission-for-an-application-if-court-previously-stopped-you',
+
+  ORDER_AUTHORISING_SEARCH = 'order-authorising-search-for-taking-charge-of-and-delivery-of-a-child',
+
+  ORDER_TO_KNOW_ABOUT_CHILD = 'ask-court-to-order-someone-to-provide-child-information',
+
+  ENFORCE_CHILD_ARRANGEMENTS_ORDER = 'enforce-a-child-arrangements-order',
+
+  DELIVER_PAPER_TO_OTHER_PARTY = 'ask-to-deliver-paper-to-other-party',
+
+  YOU_ACCUSED_SOMEONE = 'prevent-questioning-in-person-accusing-someone',
+
+  ACCUSED_BY_SOMEONE = 'prevent-questioning-in-person-someone-accusing-you',
+
+  REQUEST_FOR_ORDER_WITNESS = 'request-to-order-a-witness-to-attend-court',
+
+  REQUEST_COURT_TO_ACT_DURING_DISOBEY = 'request-court-to-act-when-someone-in-the-case-is-disobeying-court-order',
+
+  APPEAL_COURT_ORDER = 'appeal-a-order-or-ask-permission-to-appeal',
+
+  CHANGE_EXTEND_CANCEL_NON_MOLESTATION_OR_OCCUPATION_ORDER = 'change-extend-or-cancel-non-molestation-order-or-occupation-order',
+
+  REQUEST_FOR_ARREST_WARRENT = 'request-the-court-issues-an-arrest-warrant',
+
+}
 export enum hearingStatus {
   COMPLETED = 'COMPLETED',
 } 
@@ -3093,7 +3153,22 @@ export enum passportPossessionRelative {
   FATHER = 'father',
   OTHER = 'otherPerson'
 }
-
+export interface AWPFeeDetailsRequest {
+  caseId: CaseData['id'];
+  applicationType: AWPApplicationType;
+  applicationReason: AWPApplicationReason;
+  caseType: CaseType;
+  partyType: PartyType;
+  otherPartyConsent?: YesOrNo;
+  hearingDate?: string;
+  notice?: YesOrNo;
+}
+export interface FeeDetailsResponse {
+  feeAmount: string;
+  feeAmountText: string;
+  feeType: string;
+  errorRetrievingResponse?: string;
+}
 export enum DocType {
   POSITION_STATEMENTS = 'positionstatements',
   YOUR_WITNESS_STATEMENTS = 'yourwitnessstatements',

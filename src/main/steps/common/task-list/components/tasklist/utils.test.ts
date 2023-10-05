@@ -169,9 +169,12 @@ describe('testcase for tasklist', () => {
 
       hearingCollection: [
         {
+          hearingType: 'ABA5-FOF',
+          hearingTypeValue: 'Finding of Fact',
+          nextHearingDate: '2023-07-13T10:55:47.329703',
+          urgentFlag: true,
           hearingID: 2000006135,
           hearingRequestDateTime: '2023-07-11T16:07:21.253071',
-          hearingType: 'ABA5-FOF',
           hmcStatus: 'LISTED',
           lastResponseReceivedDateTime: '2023-07-11T16:41:37',
           requestVersion: 1,
@@ -200,9 +203,6 @@ describe('testcase for tasklist', () => {
           ],
           hearingGroupRequestId: null,
           hearingIsLinkedFlag: false,
-          hearingTypeValue: 'Finding of Fact',
-          nextHearingDate: '2023-08-02T09:00:00',
-          urgentFlag: false,
         },
       ],
     };
@@ -269,6 +269,16 @@ describe('testcase for tasklist', () => {
             stateTag: {
               className: 'govuk-tag--turquoise',
               label: 'Submitted',
+            },
+          },
+          {
+            disabled: false,
+            href: '/application-within-proceedings/list-of-applications/1',
+            id: 'requestToCourtAboutYourCase',
+            linkText: 'Make a request to the court about your case',
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Optional',
             },
           },
         ],
@@ -403,6 +413,16 @@ describe('testcase for tasklist', () => {
             stateTag: {
               className: 'govuk-tag--turquoise',
               label: 'Submitted',
+            },
+          },
+          {
+            disabled: false,
+            href: '/application-within-proceedings/list-of-applications/1',
+            id: 'requestToCourtAboutYourCase',
+            linkText: 'Make a request to the court about your case',
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Optional',
             },
           },
         ],

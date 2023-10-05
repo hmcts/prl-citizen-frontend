@@ -9,6 +9,7 @@ import {
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_VIEW_ALL_DOCUMENTS,
+  DASHBOARD_URL,
 } from '../../../steps/urls';
 
 import { applicant_cy, applicant_en } from './section-titles';
@@ -27,6 +28,7 @@ const en = () => ({
     [SectionStatus.DOWNLOAD]: 'DOWNLOAD',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.OPTIONAL]: 'Optional',
   },
   sectionTitles: applicant_en,
   taskListItems: applicant_tasklist_items_en,
@@ -116,6 +118,7 @@ const cy = () => ({
     [SectionStatus.DOWNLOAD]: 'LLWYTHO',
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
+    [SectionStatus.OPTIONAL]: 'Optional-welsh',
   },
   sectionTitles: applicant_cy,
   taskListItems: applicant_tasklist_items_cy,
@@ -225,6 +228,10 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
+    breadcrumb: {
+      id: 'home',
+      href: DASHBOARD_URL,
+    },
     sections: generateApplicantTaskList(
       translations.sectionTitles,
       translations.taskListItems,

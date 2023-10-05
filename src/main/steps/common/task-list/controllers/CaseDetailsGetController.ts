@@ -24,7 +24,7 @@ export default class CaseDetailsGetController {
       const citizenUser = req.session.user;
       const caseId = req.session.userCase.id;
       const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
-      const hearings = await client.retrieveCaseHearingsByCaseId(citizenUser, caseId);
+      const hearings = await client.retrieveCaseHearingsByCaseId(caseId, citizenUser);
       req.session.userCase.hearingCollection = hearings.caseHearings;
 
       req.session.save(() => {

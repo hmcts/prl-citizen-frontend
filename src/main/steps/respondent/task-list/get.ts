@@ -16,8 +16,11 @@ export class RespondentTaskListGetController extends GetController {
     try {
       const citizenUser = req.session.user;
       const caseId = req.session.userCase.id;
-      const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
-      const hearings = await client.retrieveCaseHearingsByCaseId(citizenUser, caseId);
+      const hearings = await new CosApiClient(
+        citizenUser.accessToken,
+        'https://return-url'
+      ).retrieveCaseHearingsByCaseId(caseId, citizenUser);
+
       req.session.userCase = {
         ...req.session.userCase,
         hearingCollection: hearings.caseHearings,

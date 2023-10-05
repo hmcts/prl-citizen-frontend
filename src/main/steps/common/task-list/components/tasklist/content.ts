@@ -20,6 +20,9 @@ const en = {
           yourApplicationPDF: {
             linkText: 'Your application (PDF)',
           },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case',
+          },
         },
       },
       yourDocuments: {
@@ -89,6 +92,9 @@ const cy: typeof en = {
           },
           yourApplicationPDF: {
             linkText: 'Eich cais (PDF)',
+          },
+          requestToCourtAboutYourCase: {
+            linkText: 'Make a request to the court about your case -  welsh',
           },
         },
       },
