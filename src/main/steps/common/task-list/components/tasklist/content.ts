@@ -56,8 +56,8 @@ const en = {
           keepYourDetailsPrivate: {
             linkText: 'Keep your details private',
           },
-          supportDuringCase: {
-            linkText: 'Support you need during your case',
+          yourSupport: {
+            linkText: 'Your Support',
           },
         },
       },
@@ -115,8 +115,8 @@ const en = {
           keepYourDetailsPrivate: {
             linkText: 'Keep your details private',
           },
-          supportDuringCase: {
-            linkText: 'Support you need during your case',
+          yourSupport: {
+            linkText: 'Your Support',
           },
         },
       },
@@ -190,8 +190,8 @@ const cy: typeof en = {
           keepYourDetailsPrivate: {
             linkText: 'Cadw eich manylion yn breifat',
           },
-          supportDuringCase: {
-            linkText: 'Cefnogaeth y mae arnoch angen yn ystod eich achos',
+          yourSupport: {
+            linkText: 'Your Support -welsh',
           },
         },
       },
@@ -251,8 +251,8 @@ const cy: typeof en = {
           keepYourDetailsPrivate: {
             linkText: 'Cadw eich manylion yn breifat',
           },
-          supportDuringCase: {
-            linkText: 'Cefnogaeth y mae arnoch angen yn ystod eich achos',
+          yourSupport: {
+            linkText: 'Your Support -welsh',
           },
         },
       },

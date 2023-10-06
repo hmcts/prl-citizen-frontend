@@ -12,7 +12,7 @@ import {
 } from './../../urls';
 import { getNotificationBannerConfig } from './components/notification-banner/utils';
 import { getProgressBarConfig } from './components/progress-bar/utils';
-import { getTaskListConfig } from './components/tasklist/utils';
+import { getTaskListConfig } from './components/tasklist/index';
 import { checkPartyRepresentedBySolicitor, getPartyName } from './utils';
 
 const en = {

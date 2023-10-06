@@ -111,9 +111,7 @@ const progressBarConfig = {
   },
   [CaseType.FL401]: {
     [PartyType.APPLICANT]: [
-      {...progressBarStage.caseOpened,
-        isComplete: () => true,
-      },
+      { ...progressBarStage.caseOpened, isComplete: () => true },
       progressBarStage.hearingAndCourtOrders,
       progressBarStage.finalOrder,
       {

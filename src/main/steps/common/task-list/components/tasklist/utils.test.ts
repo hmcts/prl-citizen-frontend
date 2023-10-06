@@ -1,6 +1,6 @@
 import { CaseType, PartyType, State } from '../../../../../app/case/definition';
 
-import { getTaskListConfig } from './utils';
+import { getTaskListConfig } from './index';
 
 describe('testcase for tasklist', () => {
   const userDetails = {
@@ -248,8 +248,8 @@ describe('testcase for tasklist', () => {
           {
             disabled: false,
             href: '/applicant/hearing-needs/support-help',
-            id: 'supportDuringCase',
-            linkText: 'Support you need during your case',
+            id: 'yourSupport',
+            linkText: 'Your Support',
             stateTag: {
               className: 'govuk-tag--turquoise',
               label: 'Submitted',
@@ -382,8 +382,8 @@ describe('testcase for tasklist', () => {
           {
             disabled: false,
             href: '/applicant/hearing-needs/support-help',
-            id: 'supportDuringCase',
-            linkText: 'Support you need during your case',
+            id: 'yourSupport',
+            linkText: 'Your Support',
             stateTag: {
               className: 'govuk-tag--turquoise',
               label: 'Submitted',
