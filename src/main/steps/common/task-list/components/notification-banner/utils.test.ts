@@ -1,4 +1,5 @@
 import { CaseType, PartyType, State, YesOrNo } from '../../../../../app/case/definition';
+import {  APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../../urls';
 
 import { getNotificationBannerConfig } from './utils';
 const userDetails = {
@@ -328,5 +329,98 @@ describe('testcase for notification Banner', () => {
         title: 'Important',
       },
     ]);
+  });
+  test('when case is in served and linked', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.FL401,
+      applicantsFL401: {
+        email: 'abc',
+        gender: 'male',
+        address: {
+          AddressLine1: '',
+          AddressLine2: '',
+          PostTown: '',
+          County: '',
+          PostCode: '',
+        },
+        dxNumber: '123',
+        landline: '987654321',
+        lastName: 'Smith',
+        firstName: 'John',
+        dateOfBirth: '',
+        otherGender: '',
+        phoneNumber: '',
+        placeOfBirth: '',
+        previousName: '',
+        solicitorOrg: {
+          OrganisationID: '',
+          OrganisationName: '',
+        },
+        sendSignUpLink: '',
+        solicitorEmail: '',
+        isAddressUnknown: '',
+        solicitorAddress: {
+          County: '',
+          Country: '',
+          PostCode: '',
+          PostTown: '',
+          AddressLine1: '',
+          AddressLine2: '',
+          AddressLine3: '',
+        },
+        isDateOfBirthKnown: '',
+        solicitorReference: '',
+        solicitorTelephone: '',
+        isPlaceOfBirthKnown: '',
+        isDateOfBirthUnknown: '',
+        isAddressConfidential: '',
+        isCurrentAddressKnown: '',
+        relationshipToChildren: '',
+        representativeLastName: '',
+        representativeFirstName: '',
+        canYouProvidePhoneNumber: '',
+        canYouProvideEmailAddress: '',
+        isAtAddressLessThan5Years: '',
+        isPhoneNumberConfidential: '',
+        isEmailAddressConfidential: '',
+        respondentLivedWithApplicant: '',
+        doTheyHaveLegalRepresentation: '',
+        addressLivedLessThan5YearsDetails: '',
+        otherPersonRelationshipToChildren: [''],
+        isAtAddressLessThan5YearsWithDontKnow: '',
+        response: {
+          citizenFlags:{
+            isAllDocumentsViewed:"No",
+          }
+        },
+        user: {
+          email: 'abc',
+          idamId: '123',
+        },
+      },
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+      {
+        heading: 'You have a new document to view',
+        id: "newDocument",
+        contents: [
+          {
+            text: 'A new document has been added to your case.',
+          },
+        ],
+        links: [
+          {
+            external: undefined,
+            text: 'See all documents',
+            href: APPLICANT_VIEW_ALL_DOCUMENTS,
+          },
+        ],
+        title: "Important"
+      },]);
   });
 });
