@@ -89,7 +89,7 @@ export const getConfirmOrEditYourContactDetailsStatus = party => {
   }
   return status;
 };
-export const getSupportYourNeedsDetailsStatus = (userCase: CaseWithId): StateTags => {
+export const getSupportYourNeedsDetailsStatus = (userCase: Partial<CaseWithId>): StateTags => {
   if (
     userCase?.languageRequirements?.length &&
     userCase?.reasonableAdjustments?.length &&
@@ -100,7 +100,7 @@ export const getSupportYourNeedsDetailsStatus = (userCase: CaseWithId): StateTag
   }
   return StateTags.TO_DO;
 };
-export const getYourWitnessStatementStatus = (userCase: CaseWithId): StateTags => {
+export const getYourWitnessStatementStatus = (userCase: Partial<CaseWithId>): StateTags => {
   return userCase.citizenUploadedDocumentList?.find(
     document => document?.value?.documentType === 'Your witness statements'
   )

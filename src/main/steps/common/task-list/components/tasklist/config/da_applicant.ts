@@ -35,13 +35,13 @@ export const DA_APPLICANT = [
         id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`,
         disabled: isCaseClosed,
-        stateTag: caseData => getKeepYourDetailsPrivateStatus(caseData?.applicantsFL401?.response?.keepDetailsPrivate),
+        stateTag: (caseData: Partial<CaseWithId>) => getKeepYourDetailsPrivateStatus(caseData?.applicantsFL401?.response?.keepDetailsPrivate),
       },
       {
         id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`,
         disabled: isCaseClosed,
-        stateTag: caseData => getConfirmOrEditYourContactDetailsStatus(caseData?.applicantsFL401),
+        stateTag: (caseData: Partial<CaseWithId>) => getConfirmOrEditYourContactDetailsStatus(caseData?.applicantsFL401),
       },
       // {
       //   id: Tasks.CONTACT_PREFERENCES,
@@ -55,7 +55,7 @@ export const DA_APPLICANT = [
           return `${APPLICANT_ATTENDING_THE_COURT}`;
         },
         disabled: isCaseClosed,
-        stateTag: caseData => getSupportYourNeedsDetailsStatus(caseData),
+        stateTag: (caseData: Partial<CaseWithId>) => getSupportYourNeedsDetailsStatus(caseData),
       },
     ],
   },
@@ -66,7 +66,7 @@ export const DA_APPLICANT = [
       {
         id: Tasks.YOUR_APPLICATION_PDF,
         href: () => YOUR_APPLICATION_FL401,
-        stateTag: () => StateTags.SUBMITTED,
+        stateTag: () => StateTags.DOWNLOAD,
         show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
       },
       {

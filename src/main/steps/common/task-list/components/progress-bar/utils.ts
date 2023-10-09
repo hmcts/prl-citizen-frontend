@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CaseWithId } from '../../../../../app/case/case';
-
-import { CaseType, PartyType, State } from './../../../../../app/case/definition';
+import { CaseType, PartyType, SelectTypeOfOrderEnum, State } from './../../../../../app/case/definition';
 import { isCaseClosed } from './../../utils';
 import { languages as content } from './content';
 
@@ -112,8 +111,12 @@ const progressBarConfig = {
   [CaseType.FL401]: {
     [PartyType.APPLICANT]: [
       { ...progressBarStage.caseOpened, isComplete: () => true },
-      progressBarStage.hearingAndCourtOrders,
-      progressBarStage.finalOrder,
+      {...progressBarStage.hearingAndCourtOrders,
+        isInProgress: (userCase: Partial<CaseWithId>)=>userCase && (userCase.orderCollection ||
+        [State.DECISION_OUTCOME,
+        State.PREPARE_FOR_HEARING_CONDUCT_HEARING].includes(userCase.state!)),
+        isComplete: (userCase: Partial<CaseWithId>)=>(userCase.selectTypeOfOrder === SelectTypeOfOrderEnum.finl)?true:false},
+      {...progressBarStage.finalOrder,isComplete: (userCase: Partial<CaseWithId>)=>(userCase.selectTypeOfOrder === SelectTypeOfOrderEnum.finl)?true:false},
       {
         ...progressBarStage.caseClosed,
         isComplete: isCaseClosed,

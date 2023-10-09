@@ -1,4 +1,8 @@
-import { CaseType, PartyType, State } from '../../../../../app/case/definition';
+import { CaseType, PartyType, 
+  SelectTypeOfOrderEnum, 
+  State, 
+  YesOrNo
+} from '../../../../../app/case/definition';
 
 import { getProgressBarConfig } from './utils';
 
@@ -95,6 +99,127 @@ describe('testcase for progress-bar', () => {
         ariaLabel: 'Hearings and court orders stage is not yet started',
         label: 'Hearings and<br/> court orders',
         statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Final order stage is not yet started',
+        label: 'Final order',
+        statusBarClassName: '',
+      },
+      {
+        ariaLabel: 'Case closed stage is not yet started',
+        label: 'Case closed',
+        statusBarClassName: '',
+      },
+    ]);
+  });
+  test('when FL401 applicant with hearing and final order completed', () => {
+    const data = {
+      id: '12',
+      state: State.DECISION_OUTCOME,
+      caseTypeOfApplication: CaseType.FL401,
+      orderCollection: [
+        {
+          id: '',
+          value: {
+            dateCreated: '',
+            orderType: '',
+            orderDocument: {
+              document_url: '',
+              document_filename: '',
+              document_binary_url: '',
+            },
+            orderDocumentWelsh: {
+              document_url: '',
+              document_filename: '',
+              document_binary_url: '',
+            },
+            otherDetails: {
+              createdBy: '',
+              orderCreatedDate: '',
+              orderMadeDate: '',
+              orderRecipients: '',
+            },
+            orderTypeId: 'blankOrderOrDirectionsWithdraw',
+            isWithdrawnRequestApproved: YesOrNo.NO,
+            withdrawnRequestType: 'application',
+          },
+        },
+      ],
+      selectTypeOfOrder:SelectTypeOfOrderEnum.finl,
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+
+    expect(getProgressBarConfig(data, party, language)).toStrictEqual([
+      {
+        ariaLabel: 'Case opened stage is completed',
+        label: 'Case<br/> opened',
+        statusBarClassName: 'stage--completed',
+      },
+      {
+        ariaLabel: 'Hearings and court orders stage is completed',
+        label: 'Hearings and<br/> court orders',
+        statusBarClassName: 'stage--completed',
+      },
+      {
+        ariaLabel: 'Final order stage is completed',
+        label: 'Final order',
+        statusBarClassName: 'stage--completed',
+      },
+      {
+        ariaLabel: 'Case closed stage is not yet started',
+        label: 'Case closed',
+        statusBarClassName: '',
+      },
+    ]);
+  });
+  test('when FL401 applicant with out hearing and order', () => {
+    const data = {
+      id: '12',
+      state: State.DECISION_OUTCOME,
+      caseTypeOfApplication: CaseType.FL401,
+      orderCollection: [
+        {
+          id: '',
+          value: {
+            dateCreated: '',
+            orderType: '',
+            orderDocument: {
+              document_url: '',
+              document_filename: '',
+              document_binary_url: '',
+            },
+            orderDocumentWelsh: {
+              document_url: '',
+              document_filename: '',
+              document_binary_url: '',
+            },
+            otherDetails: {
+              createdBy: '',
+              orderCreatedDate: '',
+              orderMadeDate: '',
+              orderRecipients: '',
+            },
+            orderTypeId: 'blankOrderOrDirectionsWithdraw',
+            isWithdrawnRequestApproved: YesOrNo.NO,
+            withdrawnRequestType: 'application',
+          },
+        },
+      ],
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+
+    expect(getProgressBarConfig(data, party, language)).toStrictEqual([
+      {
+        ariaLabel: 'Case opened stage is completed',
+        label: 'Case<br/> opened',
+        statusBarClassName: 'stage--completed',
+      },
+      {
+        ariaLabel: 'Hearings and court orders stage is in progress',
+        label: 'Hearings and<br/> court orders',
+        statusBarClassName: 'stage--active',
       },
       {
         ariaLabel: 'Final order stage is not yet started',

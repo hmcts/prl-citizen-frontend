@@ -14,6 +14,7 @@ const stateTagsConfig = {
   [StateTags.IN_PROGRESS]: {
     label: getStateTagLabel.bind(null, StateTags.IN_PROGRESS),
     className: 'govuk-tag--yellow',
+    //"govuk-tag--blue"
   },
   [StateTags.NOT_AVAILABLE_YET]: {
     label: getStateTagLabel.bind(null, StateTags.NOT_AVAILABLE_YET),
@@ -33,7 +34,7 @@ const stateTagsConfig = {
   },
   [StateTags.COMPLETED]: {
     label: getStateTagLabel.bind(null, StateTags.COMPLETED),
-    className: 'govuk-tag--turquoise',
+    className: 'govuk-tag--green',
   },
   [StateTags.TO_DO]: {
     label: getStateTagLabel.bind(null, StateTags.TO_DO),
@@ -41,7 +42,7 @@ const stateTagsConfig = {
   },
   [StateTags.DOWNLOAD]: {
     label: getStateTagLabel.bind(null, StateTags.DOWNLOAD),
-    className: 'govuk-tag--turquoise',
+    className: 'govuk-tag--green',
   },
 };
 

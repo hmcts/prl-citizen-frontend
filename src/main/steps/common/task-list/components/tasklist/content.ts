@@ -9,7 +9,7 @@ const en = {
     submitted: 'Submitted',
     optional: 'Optional',
     completed: 'Completed',
-    toDo: 'TO Do',
+    toDo: 'TO DO',
     download: 'DOWNLOAD',
   },
   [CaseType.C100]: {
