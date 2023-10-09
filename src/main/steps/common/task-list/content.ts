@@ -12,6 +12,7 @@ import {
 } from './../../urls';
 import { getNotificationBannerConfig } from './components/notification-banner/utils';
 import { getProgressBarConfig } from './components/progress-bar/utils';
+import { languages as sideLinks } from './components/side-links/content';
 import { getTaskListConfig } from './components/tasklist/index';
 import { checkPartyRepresentedBySolicitor, getPartyName } from './utils';
 
@@ -69,32 +70,6 @@ const en = {
       label: 'Read how to represent myself in court',
       link: 'https://www.gov.uk/represent-yourself-in-court',
       target: '_blank',
-    },
-  ],
-  hyperlinksFL401: [
-    {
-      label: 'Add a legal representative',
-      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-    },
-    {
-      label: 'Remove a legal representative',
-      link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
-    },
-    {
-      label: 'Find my local court',
-      link: '#',
-    },
-    {
-      label: 'Find legal advice',
-      link: '#',
-    },
-    {
-      label: 'Know more about child arrangements',
-      link: '#',
-    },
-    {
-      label: 'Know more about attending court',
-      link: '#',
     },
   ],
   addLegalRepresentative: 'Add a legal representative',
@@ -157,32 +132,6 @@ const cy = {
       target: '_blank',
     },
   ],
-  hyperlinksFL401: [
-    {
-      label: 'Ychwanegu cynrychiolydd cyfreithiol',
-      link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
-    },
-    {
-      label: 'Dileu cynrychiolydd cyfreithiol',
-      link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
-    },
-    {
-      label: 'Dod o hyd i fy llys lleol',
-      link: '#',
-    },
-    {
-      label: 'Dod o hyd i gyngor cyfreithiol',
-      link: '#',
-    },
-    {
-      label: 'Gwybod mwy am drefniadau plant',
-      link: '#',
-    },
-    {
-      label: 'Gwybod mwy am fynychu’r llys',
-      link: '#',
-    },
-  ],
   addLegalRepresentative: 'Ychwanegu cynrychiolydd cyfreithiol',
   removeLegalRepresentative: 'Dileu cynrychiolydd cyfreithiol',
 };
@@ -202,20 +151,15 @@ export const generateContent: TranslationFn = content => {
     const applicant = getApplicant(request.session.userCase, request.session.user.id);
     isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(applicant);
   }
+
+  translations.hyperlinks = sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType].hyperlinks;
+
   translations.hyperlinks.forEach((hyperLink, index) => {
     if (
       (hyperLink.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) ||
       (hyperLink.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor)
     ) {
       translations.hyperlinks.splice(index, 1);
-    }
-  });
-  translations.hyperlinksFL401.forEach((hyperlinksFL401, index) => {
-    if (
-      (hyperlinksFL401.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) ||
-      (hyperlinksFL401.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor)
-    ) {
-      translations.hyperlinksFL401.splice(index, 1);
     }
   });
 
@@ -226,7 +170,7 @@ export const generateContent: TranslationFn = content => {
       href: DASHBOARD_URL,
     },
     partyName: getPartyName(caseData, partyType, request.session.user),
-    progressBar: getProgressBarConfig(caseData, partyType, content.language),
+    progressBar: getProgressBarConfig(caseData, partyType, content.language, request.session.user),
     notifications: getNotificationBannerConfig(caseData, request.session.user, partyType, content.language),
     taskLists: getTaskListConfig(caseData, request.session.user, partyType, content.language, isRepresentedBySolicotor),
   };

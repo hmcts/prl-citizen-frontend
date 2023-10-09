@@ -1,6 +1,7 @@
+import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType, State, YesOrNo } from '../../../app/case/definition';
 
-import { getPartyName, isCaseWithdrawn } from './utils';
+import { getPartyName, isApplicationResponded, isCaseWithdrawn } from './utils';
 
 describe('testcase for partyname', () => {
   test('when party type c100-respondent', () => {
@@ -84,7 +85,7 @@ describe('testcase for partyname', () => {
       familyName: 'Smith',
     };
 
-    expect(getPartyName(data, party, userDetail)).toBe('undefined undefined');
+    expect(getPartyName(data, party, userDetail)).toBe('John Smith');
   });
   test('when party type c100-applicant', () => {
     const data = {
@@ -322,5 +323,85 @@ describe('testcase for isCaseWithdrawn', () => {
   test('when no case data', () => {
     const data = {};
     expect(isCaseWithdrawn(data)).toBe(false);
+  });
+});
+
+describe('isApplicationRespondent', () => {
+  test('should return true when C7 document created by respondent', () => {
+    const userCase = {
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+          },
+        },
+      ],
+      citizenResponseC7DocumentList: [
+        {
+          id: '1234',
+          value: {
+            partyName: 'MOCK_NAME',
+            createdBy: '1234',
+            dateCreated: '1/1/2020',
+            citizenDocument: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+          },
+        },
+      ],
+    } as unknown as CaseWithId;
+    expect(isApplicationResponded(userCase, '1234')).toBe(true);
+  });
+
+  test('should return false when C7 document created by other respondent', () => {
+    const userCase = {
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+          },
+        },
+      ],
+      citizenResponseC7DocumentList: [
+        {
+          id: '1234',
+          value: {
+            partyName: 'MOCK_NAME',
+            createdBy: '12345',
+            dateCreated: '1/1/2020',
+            citizenDocument: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+          },
+        },
+      ],
+    } as unknown as CaseWithId;
+    expect(isApplicationResponded(userCase, '1234')).toBe(false);
+  });
+
+  test('should return false when no C7 document list present', () => {
+    const userCase = {
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+          },
+        },
+      ],
+    } as unknown as CaseWithId;
+    expect(isApplicationResponded(userCase, '1234')).toBe(false);
   });
 });

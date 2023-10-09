@@ -1,93 +1,297 @@
-import { CaseType } from '../../../../../app/case/definition';
+import { CaseType, PartyType } from '../../../../../app/case/definition';
+import {
+  APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+  RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
+  RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+} from '../../../../../steps/urls';
 
 const en = {
-  complete: 'is completed',
-  inProgress: 'is in progress',
-  notStarted: 'is not yet started',
   [CaseType.C100]: {
-    applicationSubmitted: {
-      label: 'Application<br/> submitted',
-      ariaLabel: 'Application submitted stage',
+    [PartyType.APPLICANT]: {
+      hyperlinks: [
+        {
+          label: 'Add a legal representative',
+          link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+          target: '',
+        },
+        {
+          label: 'Remove a legal representative',
+          link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          target: '',
+        },
+        {
+          label: 'Know more about child arrangements',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
+          target: '_blank',
+        },
+        {
+          label: 'Know more about attending court',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+          target: '_blank',
+        },
+        {
+          label: 'Understand what a Mediation Information & Assessment Meeting (MIAM) is',
+          link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
+          target: '_blank',
+        },
+        {
+          label: 'Check if I am eligible for Legal Aid',
+          link: 'https://www.gov.uk/check-legal-aid',
+          target: '_blank',
+        },
+        {
+          label: 'Check if I am eligible for Help with Fees',
+          link: 'https://www.gov.uk/get-help-with-court-fees',
+          target: '_blank',
+        },
+        {
+          label: 'Find out about The Family Mediation Voucher scheme',
+          link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
+          target: '_blank',
+        },
+        {
+          label: 'Find legal advice',
+          link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+          target: '_blank',
+        },
+        {
+          label: 'Read how to represent myself in court',
+          link: 'https://www.gov.uk/represent-yourself-in-court',
+          target: '_blank',
+        },
+      ],
     },
-    cafcassSafetyChecks: {
-      label: 'Cafcass child<br/> safety checks',
-      ariaLabel: 'Cafcass child safety checks stage',
-    },
-    responseSubmitted: {
-      label: 'Response<br/> submitted',
-      ariaLabel: 'Response submitted stage',
-    },
-    hearingAndCourtOrders: {
-      label: 'Hearings and<br/> court orders',
-      ariaLabel: 'Hearings and court orders stage',
-    },
-    caseClosed: {
-      label: 'Case closed',
-      ariaLabel: 'Case closed stage',
+    [PartyType.RESPONDENT]: {
+      hyperlinks: [
+        {
+          label: 'Add a legal representative',
+          link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
+        },
+        {
+          label: 'Remove a legal representative',
+          link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+        },
+        {
+          label: 'Find my local court',
+          link: '#',
+        },
+        {
+          label: 'Find legal advice',
+          link: '#',
+        },
+        {
+          label: 'Know more about child arrangements',
+          link: '#',
+        },
+        {
+          label: 'Know more about attending court',
+          link: '#',
+        },
+      ],
     },
   },
   [CaseType.FL401]: {
-    caseOpened: {
-      label: 'Case<br/> opened',
-      ariaLabel: 'Case opened stage',
+    [PartyType.APPLICANT]: {
+      hyperlinks: [
+        {
+          label: 'Add a legal representative',
+          link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+        },
+        {
+          label: 'Remove a legal representative',
+          link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+        },
+        {
+          label: 'Find my local court',
+          link: '#',
+        },
+        {
+          label: 'Find legal advice',
+          link: '#',
+        },
+        {
+          label: 'Know more about child arrangements',
+          link: '#',
+        },
+        {
+          label: 'Know more about attending court',
+          link: '#',
+        },
+      ],
     },
-    hearingAndCourtOrders: {
-      label: 'Hearings and<br/> court orders',
-      ariaLabel: 'Hearings and court orders stage',
-    },
-    finalOrder: {
-      label: 'Final order',
-      ariaLabel: 'Final order stage',
-    },
-    caseClosed: {
-      label: 'Case closed',
-      ariaLabel: 'Case closed stage',
+    [PartyType.RESPONDENT]: {
+      hyperlinks: [
+        {
+          label: 'Add a legal representative',
+          link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
+        },
+        {
+          label: 'Remove a legal representative',
+          link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+        },
+        {
+          label: 'Find my local court',
+          link: '#',
+        },
+        {
+          label: 'Find legal advice',
+          link: '#',
+        },
+        {
+          label: 'Know more about child arrangements',
+          link: '#',
+        },
+        {
+          label: 'Know more about attending court',
+          link: '#',
+        },
+      ],
     },
   },
 };
 
 const cy: typeof en = {
-  complete: 'wedi’i gwblhau',
-  inProgress: 'ar y gweill',
-  notStarted: 'heb ddechrau eto',
   [CaseType.C100]: {
-    applicationSubmitted: {
-      label: "Cais wedi'i<br/> gyflwyno",
-      ariaLabel: 'Cam cais wedi’i gyflwyno',
+    [PartyType.APPLICANT]: {
+      hyperlinks: [
+        {
+          label: 'Ychwanegu cynrychiolydd cyfreithiol',
+          link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+          target: '',
+        },
+        {
+          label: 'Dileu cynrychiolydd cyfreithiol',
+          link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+          target: '',
+        },
+        {
+          label: 'Gwybod mwy am drefniadau plant',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/',
+          target: '_blank',
+        },
+        {
+          label: 'Gwybod mwy am fynychu’r llys',
+          link: 'https://helpwithchildarrangements.service.justice.gov.uk/going-to-court',
+          target: '_blank',
+        },
+        {
+          label: 'Deall beth yw Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
+          link: 'https://www.familymediationcouncil.org.uk/family-mediation/assessment-meeting-miam/',
+          target: '_blank',
+        },
+        {
+          label: 'Gwirio os wyf yn gymwys i gael Cymorth Cyfreithiol',
+          link: 'https://www.gov.uk/check-legal-aid',
+          target: '_blank',
+        },
+        {
+          label: 'Gwirio os wyf yn gymwys i gael Help i Dalu Ffioedd',
+          link: 'https://www.gov.uk/get-help-with-court-fees',
+          target: '_blank',
+        },
+        {
+          label: 'Rhagor o wybodaeth am y Cynllun Talebau Cyfryngu Teuluol',
+          link: 'https://www.gov.uk/guidance/family-mediation-voucher-scheme',
+          target: '_blank',
+        },
+        {
+          label: 'Dod o hyd i gyngor cyfreithiol',
+          link: 'https://www.gov.uk/find-legal-advice/find-legal-adviser',
+          target: '_blank',
+        },
+        {
+          label: 'Darllen mwy am sut i gynrychioli fy hun yn y llys',
+          link: 'https://www.gov.uk/represent-yourself-in-court',
+          target: '_blank',
+        },
+      ],
     },
-    cafcassSafetyChecks: {
-      label: 'Gwiriadau diogelwch<br/> plant Cafcass',
-      ariaLabel: 'Cam gwiriadau diogelwch plant Cafcass',
-    },
-    responseSubmitted: {
-      label: "Ymateb wedi'i<br/> gyflwyno",
-      ariaLabel: 'Cam ymateb wedi’i gyflwyno',
-    },
-    hearingAndCourtOrders: {
-      label: 'Gwrandawiadau <br/>a<br/> gorchmynion llys',
-      ariaLabel: 'Cam gwrandawiadau a gorchmynion llys',
-    },
-    caseClosed: {
-      label: 'Achos wedi’i <br/>gau',
-      ariaLabel: 'Cam achos wedi’i gau',
+    [PartyType.RESPONDENT]: {
+      hyperlinks: [
+        {
+          label: 'Ychwanegu cynrychiolydd cyfreithiol',
+          link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
+        },
+        {
+          label: 'Dileu cynrychiolydd cyfreithiol',
+          link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+        },
+        {
+          label: 'Dod o hyd i fy llys lleol',
+          link: '#',
+        },
+        {
+          label: 'Dod o hyd i gyngor cyfreithiol',
+          link: '#',
+        },
+        {
+          label: 'Gwybod mwy am drefniadau plant',
+          link: '#',
+        },
+        {
+          label: 'Gwybod mwy am fynychu’r llys',
+          link: '#',
+        },
+      ],
     },
   },
   [CaseType.FL401]: {
-    caseOpened: {
-      label: 'Achos<br/> wedi’i agor',
-      ariaLabel: 'Cam achos wedi’i agor',
+    [PartyType.APPLICANT]: {
+      hyperlinks: [
+        {
+          label: 'Ychwanegu cynrychiolydd cyfreithiol',
+          link: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
+        },
+        {
+          label: 'Dileu cynrychiolydd cyfreithiol',
+          link: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+        },
+        {
+          label: 'Dod o hyd i fy llys lleol',
+          link: '#',
+        },
+        {
+          label: 'Dod o hyd i gyngor cyfreithiol',
+          link: '#',
+        },
+        {
+          label: 'Gwybod mwy am drefniadau plant',
+          link: '#',
+        },
+        {
+          label: 'Gwybod mwy am fynychu’r llys',
+          link: '#',
+        },
+      ],
     },
-    hearingAndCourtOrders: {
-      label: 'Gwrandawiadau a<br/> gorchmynion llys',
-      ariaLabel: 'Cam gwrandawiadau a gorchmynion llys',
-    },
-    finalOrder: {
-      label: 'Gorchymyn terfynol',
-      ariaLabel: 'Cam gorchymyn terfynol',
-    },
-    caseClosed: {
-      label: 'Achos wedi’i gau',
-      ariaLabel: 'Cam achos wedi’i gau',
+    [PartyType.RESPONDENT]: {
+      hyperlinks: [
+        {
+          label: 'Ychwanegu cynrychiolydd cyfreithiol',
+          link: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
+        },
+        {
+          label: 'Dileu cynrychiolydd cyfreithiol',
+          link: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
+        },
+        {
+          label: 'Dod o hyd i fy llys lleol',
+          link: '#',
+        },
+        {
+          label: 'Dod o hyd i gyngor cyfreithiol',
+          link: '#',
+        },
+        {
+          label: 'Gwybod mwy am drefniadau plant',
+          link: '#',
+        },
+        {
+          label: 'Gwybod mwy am fynychu’r llys',
+          link: '#',
+        },
+      ],
     },
   },
 };

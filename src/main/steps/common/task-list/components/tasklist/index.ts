@@ -44,12 +44,15 @@ const stateTagsConfig = {
     label: getStateTagLabel.bind(null, StateTags.DOWNLOAD),
     className: 'govuk-tag--green',
   },
+  [StateTags.VIEW]: {
+    label: getStateTagLabel.bind(null, StateTags.VIEW),
+  },
 };
 
 const taskListConfig = {
   [CaseType.C100]: {
     [PartyType.APPLICANT]: tasklistConfig.CA_APPLICANT,
-    [PartyType.RESPONDENT]: [],
+    [PartyType.RESPONDENT]: tasklistConfig.CA_RESPONDENT,
   },
   [CaseType.FL401]: {
     [PartyType.APPLICANT]: tasklistConfig.DA_APPLICANT,
@@ -89,7 +92,8 @@ export const getTaskListConfig = (
                   userDetails,
                   _content,
                   language,
-                  isRepresentedBySolicotor
+                  isRepresentedBySolicotor,
+                  partyType
                 );
 
                 prepareHintConfig(task, caseData, userDetails, config, _content);
@@ -115,10 +119,18 @@ const prepareTaskListConfig = (
   userDetails: UserDetails,
   _content: any,
   language: string,
-  isRepresentedBySolicotor: boolean
+  isRepresentedBySolicotor: boolean,
+  partyType: PartyType
 ) => {
   const stateTag = task.stateTag(caseData, userDetails);
   const _stateTagConfig = stateTagsConfig?.[stateTag];
+
+  if (
+    stateTag === StateTags.IN_PROGRESS &&
+    (caseData.caseTypeOfApplication !== 'C100' || partyType === PartyType.RESPONDENT)
+  ) {
+    _stateTagConfig.className = 'govuk-tag--blue';
+  }
 
   const config = {
     id: task.id,

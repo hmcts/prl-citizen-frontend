@@ -273,7 +273,11 @@ const getTaskListUrl = (
   let url;
 
   if (linkPartyType === PartyType.RESPONDENT) {
-    url = `${RESPONDENT_TASK_LIST_URL}/${caseNumber}`;
+    if (caseType === CaseType.C100) {
+      url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
+    } else {
+      url = `${RESPONDENT_TASK_LIST_URL}/${caseNumber}`;
+    }
   } else {
     if (caseType === CaseType.C100) {
       if (State.AWAITING_SUBMISSION_TO_HMCTS === caseStatus) {

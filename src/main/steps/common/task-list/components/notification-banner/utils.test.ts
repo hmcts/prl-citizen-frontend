@@ -1,4 +1,5 @@
-import { CaseType, PartyType, State, YesOrNo } from '../../../../../app/case/definition';
+import { CaseWithId } from '../../../../../app/case/case';
+import { CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
 import { APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../../urls';
 
 import { getNotificationBannerConfig } from './utils';
@@ -330,6 +331,7 @@ describe('testcase for notification Banner', () => {
       },
     ]);
   });
+
   test('when FL401 case is in served and linked and have new document', () => {
     const data = {
       id: '12',
@@ -423,5 +425,182 @@ describe('testcase for notification Banner', () => {
         title: 'Important',
       },
     ]);
+  });
+
+  describe('c100 respondent banners', () => {
+    const data = {
+      id: '123',
+      state: State.CASE_DRAFT,
+      caseTypeOfApplication: CaseType.C100,
+      respondents: [],
+      caseInvites: [
+        {
+          value: {
+            partyId: '123',
+            invitedUserId: '123',
+          },
+        },
+      ],
+    } as unknown as CaseWithId;
+
+    test('banners should be added when new order added', () => {
+      data.respondents = [
+        {
+          id: '123',
+          value: {
+            user: {
+              idamId: '123',
+            },
+            response: {
+              citizenFlags: {
+                isAllDocumentsViewed: 'No',
+              },
+            },
+          },
+        } as unknown as Respondent,
+      ];
+      data.state = State.Draft;
+      data.orderCollection = [
+        {
+          id: '1234',
+          value: {
+            dateCreated: 'MOCK_DATE',
+            orderType: 'ORDER',
+            orderDocument: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+            orderDocumentWelsh: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+            otherDetails: {
+              createdBy: '1234',
+              orderCreatedDate: 'MOCK_DATE',
+              orderMadeDate: 'MOCK_DATE',
+              orderRecipients: 'RECIPIENTS',
+            },
+          },
+        },
+      ];
+      expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
+        {
+          contents: [
+            {
+              text: 'A new document has been added to your case.',
+            },
+          ],
+          heading: 'You have a new document to view',
+          id: 'newDocument',
+          links: [
+            {
+              external: undefined,
+              href: '/respondent/yourdocuments/alldocuments/alldocuments',
+              text: 'See all documents',
+            },
+          ],
+          title: 'Important',
+        },
+        {
+          contents: [
+            {
+              text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+            },
+          ],
+          heading: 'You have a new order from the court',
+          id: 'newOrder',
+          links: [
+            {
+              external: undefined,
+              href: '/respondent/yourdocuments/alldocuments/orders',
+              text: 'View the order (PDF)',
+            },
+          ],
+          title: 'Important',
+        },
+      ]);
+    });
+
+    test('banners should be added when final order document added', () => {
+      data.respondents = [
+        {
+          id: '123',
+          value: {
+            user: {
+              idamId: '123',
+            },
+            response: {
+              citizenFlags: {
+                isAllDocumentsViewed: 'No',
+              },
+            },
+          },
+        } as unknown as Respondent,
+      ];
+      data.state = State.ALL_FINAL_ORDERS_ISSUED;
+      data.orderCollection = [
+        {
+          id: '1234',
+          value: {
+            dateCreated: 'MOCK_DATE',
+            orderType: 'ORDER',
+            orderDocument: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+            orderDocumentWelsh: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+            otherDetails: {
+              createdBy: '1234',
+              orderCreatedDate: 'MOCK_DATE',
+              orderMadeDate: 'MOCK_DATE',
+              orderRecipients: 'RECIPIENTS',
+            },
+          },
+        },
+      ];
+      expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
+        {
+          contents: [
+            {
+              text: 'A new document has been added to your case.',
+            },
+          ],
+          heading: 'You have a new document to view',
+          id: 'newDocument',
+          links: [
+            {
+              external: undefined,
+              href: '/respondent/yourdocuments/alldocuments/alldocuments',
+              text: 'See all documents',
+            },
+          ],
+          title: 'Important',
+        },
+        {
+          contents: [
+            {
+              text: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+            },
+          ],
+          heading: 'You have a final order',
+          id: 'finalOrder',
+          links: [
+            {
+              external: undefined,
+              href: '/respondent/yourdocuments/alldocuments/orders',
+              text: 'View the order (PDF)',
+            },
+          ],
+          title: 'Important',
+        },
+      ]);
+    });
   });
 });

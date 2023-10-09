@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, PartyType } from '../../../../../app/case/definition';
+import { CaseType, CitizenInternationalElements, PartyType, YesOrNo } from '../../../../../app/case/definition';
+import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 
 import { languages as content } from './content';
 
@@ -13,6 +14,8 @@ export enum TaskListSection {
 
   ABOUT_YOU = 'aboutYou',
   YOUR_ORDERS = 'ordersFromTheCourt',
+  THE_APPLICATION = 'theApplication',
+  YOUR_RESPONSE = 'yourResponse',
 }
 export enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
@@ -27,6 +30,10 @@ export enum Tasks {
   YOUR_SUPPORT = 'yourSupport',
   VIEW_ORDERS = 'viewOrders',
   YOUR_APPLICATION_WITNESS_STATEMENT = 'yourAapplicationWitnessStatment',
+  CHECK_THE_APPLICATION = 'checkTheApplication',
+  CHECK_AOH_AND_VIOLENCE = 'checkAllegationsOfHarmAndViolence',
+  RESPOND_TO_THE_APPLICATION = 'respondToTheApplication',
+  RESPOND_TO_AOH_AND_VIOLENCE = 'respondToAOHAndViolence',
 }
 
 export enum StateTags {
@@ -39,6 +46,7 @@ export enum StateTags {
   COMPLETED = 'completed',
   TO_DO = 'toDo',
   DOWNLOAD = 'download',
+  VIEW = 'view',
 }
 
 export interface TaskList {
@@ -53,6 +61,7 @@ export interface Task {
   stateTag: StateTags;
   disabled?: boolean;
   showHint?: boolean;
+  openInAnotherTab?: boolean;
 }
 
 export const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
@@ -106,4 +115,92 @@ export const getYourWitnessStatementStatus = (userCase: Partial<CaseWithId>): St
   )
     ? StateTags.DOWNLOAD
     : StateTags.NOT_AVAILABLE_YET;
+};
+
+export const getCheckAllegationOfHarmStatus = (caseData, userDetails): StateTags => {
+  let status = StateTags.READY_TO_VIEW;
+
+  if (!caseData?.c1ADocument?.document_binary_url) {
+    return StateTags.NOT_AVAILABLE_YET;
+  }
+
+  const respondent = getPartyDetails(caseData, userDetails.id);
+  if (respondent?.response?.citizenFlags?.isAllegationOfHarmViewed === YesOrNo.YES) {
+    status = StateTags.VIEW;
+  }
+  return status;
+};
+
+export const getResponseStatus = (respondent): StateTags => {
+  if (
+    respondent.response.citizenInternationalElements &&
+    respondent.response.consent &&
+    respondent.response.currentOrPreviousProceedings &&
+    respondent.response.keepDetailsPrivate &&
+    respondent.response.miam &&
+    respondent.response.legalRepresentation &&
+    respondent.response.safetyConcerns &&
+    respondent.response.supportYouNeed
+  ) {
+    return StateTags.COMPLETED;
+  }
+  if (
+    respondent.response.citizenInternationalElements ||
+    respondent.response.consent ||
+    respondent.response.currentOrPreviousProceedings ||
+    respondent.response.keepDetailsPrivate ||
+    respondent.response.miam ||
+    respondent.response.legalRepresentation ||
+    respondent.response.safetyConcerns ||
+    respondent.response.supportYouNeed
+  ) {
+    return StateTags.IN_PROGRESS;
+  }
+
+  return StateTags.TO_DO;
+};
+
+export const getInternationalFactorsStatus = (
+  internationalFactors: CitizenInternationalElements | undefined
+): StateTags => {
+  if (
+    ((internationalFactors?.childrenLiveOutsideOfEnWl === YesOrNo.YES &&
+      internationalFactors?.childrenLiveOutsideOfEnWlDetails) ||
+      internationalFactors?.childrenLiveOutsideOfEnWl === YesOrNo.NO) &&
+    ((internationalFactors?.parentsAnyOneLiveOutsideEnWl === YesOrNo.YES &&
+      internationalFactors?.parentsAnyOneLiveOutsideEnWlDetails) ||
+      internationalFactors?.parentsAnyOneLiveOutsideEnWl === YesOrNo.NO) &&
+    ((internationalFactors?.anotherPersonOrderOutsideEnWl === YesOrNo.YES &&
+      internationalFactors?.anotherPersonOrderOutsideEnWlDetails) ||
+      internationalFactors?.anotherPersonOrderOutsideEnWl === YesOrNo.NO) &&
+    ((internationalFactors?.anotherCountryAskedInformation === YesOrNo.YES &&
+      internationalFactors?.anotherCountryAskedInformationDetaails) ||
+      internationalFactors?.anotherCountryAskedInformation === YesOrNo.NO)
+  ) {
+    return StateTags.COMPLETED;
+  }
+
+  if (
+    internationalFactors?.childrenLiveOutsideOfEnWl ||
+    internationalFactors?.parentsAnyOneLiveOutsideEnWl ||
+    internationalFactors?.anotherPersonOrderOutsideEnWl ||
+    internationalFactors?.anotherCountryAskedInformation
+  ) {
+    return StateTags.IN_PROGRESS;
+  }
+  return StateTags.TO_DO;
+};
+
+export const getFinalApplicationStatus = (caseData, userDetails): StateTags => {
+  let result = StateTags.READY_TO_VIEW;
+
+  if (!caseData?.finalDocument?.document_binary_url) {
+    return StateTags.NOT_AVAILABLE_YET;
+  }
+
+  const respondent = getPartyDetails(caseData, userDetails.id);
+  if (respondent?.response?.citizenFlags?.isApplicationViewed === YesOrNo.YES) {
+    result = StateTags.VIEW;
+  }
+  return result;
 };

@@ -1,4 +1,12 @@
-import { CaseType, PartyType, State } from '../../../../../app/case/definition';
+import { CaseWithId } from '../../../../../app/case/case';
+import { CaseType, CitizenInternationalElements, PartyType, State } from '../../../../../app/case/definition';
+
+import {
+  getCheckAllegationOfHarmStatus,
+  getFinalApplicationStatus,
+  getInternationalFactorsStatus,
+  getResponseStatus,
+} from './utils';
 
 import { getTaskListConfig } from './index';
 
@@ -142,6 +150,7 @@ describe('testcase for tasklist', () => {
     const data = {
       id: '12',
       state: State.CASE_DRAFT,
+      caseTypeOfApplication: 'C100',
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -875,5 +884,961 @@ describe('testcase for tasklist', () => {
     const isRepresentedBySolicotor = false;
 
     expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([]);
+  });
+});
+
+describe('c100 respondent', () => {
+  const userDetails = {
+    id: '1234',
+    accessToken: 'mock-user-access-token',
+    name: 'test',
+    givenName: 'First name',
+    familyName: 'Last name',
+    email: 'test@example.com',
+  };
+
+  test('should return correct task list when case not updated yet', () => {
+    const data = {
+      id: '1234',
+      state: State.CASE_DRAFT,
+      caseTypeOfApplication: CaseType.C100,
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+            response: {
+              citizenFlags: {
+                isAllegationOfHarmViewed: 'Yes',
+              },
+            },
+          },
+        },
+      ],
+      caseInvites: [
+        {
+          value: {
+            partyId: '1234',
+            invitedUserId: '1234',
+          },
+        },
+      ],
+    } as unknown as CaseWithId;
+    expect(getTaskListConfig(data, userDetails, PartyType.RESPONDENT, 'en', false)).toStrictEqual([
+      {
+        heading: 'About you',
+        id: 'aboutYou',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/keep-details-private/details_known/1234',
+            id: 'keepYourDetailsPrivate',
+            linkText: 'Keep your details private',
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            href: '/respondent/confirm-contact-details/checkanswers/1234',
+            id: 'editYouContactDetails',
+            linkText: 'Confirm or edit your contact details',
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            href: '/respondent/support-you-need-during-case/attending-the-court',
+            id: 'yourSupport',
+            linkText: 'Your Support',
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+        ],
+      },
+      {
+        heading: 'The application',
+        id: 'theApplication',
+        tasks: [
+          {
+            disabled: false,
+            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
+            id: 'checkTheApplication',
+            linkText: 'Check the application (PDF)',
+            stateTag: { className: 'govuk-tag--grey', label: 'Not available yet' },
+          },
+          {
+            disabled: false,
+            href: '#',
+            id: 'checkAllegationsOfHarmAndViolence',
+            linkText: 'Check the allegations of harm and violence (PDF)',
+            stateTag: { className: 'govuk-tag--grey', label: 'Not available yet' },
+          },
+        ],
+      },
+      {
+        heading: 'Your response',
+        id: 'yourResponse',
+        tasks: [
+          {
+            disabled: false,
+            href: '/tasklistresponse/start/flag/updateFlag',
+            id: 'respondToTheApplication',
+            linkText: 'Respond to the application',
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            href: '#',
+            id: 'respondToAOHAndViolence',
+            linkText: 'Respond to the allegations of harm and violence',
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+        ],
+      },
+      {
+        heading: 'Your court hearings',
+        id: 'yourHearing',
+        tasks: [
+          {
+            disabled: true,
+            href: '#',
+            id: 'viewHearingDetails',
+            linkText: 'Check details of your court hearings',
+            stateTag: { className: 'govuk-tag--grey', label: 'Not available yet' },
+          },
+        ],
+      },
+      {
+        heading: 'Your documents',
+        id: 'yourDocuments',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/yourdocuments/alldocuments/alldocuments',
+            id: 'viewAllDocuments',
+            linkText: 'View all documents',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+          {
+            disabled: false,
+            href: '/respondent/upload-document',
+            id: 'uploadDocuments',
+            linkText: 'Upload Documents',
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+        ],
+      },
+      {
+        heading: 'Orders from the court',
+        id: 'ordersFromTheCourt',
+        tasks: [
+          {
+            disabled: false,
+            href: '#',
+            id: 'viewOrders',
+            linkText: 'View all orders from the court',
+            stateTag: { className: 'govuk-tag--grey', label: 'Not available yet' },
+          },
+        ],
+      },
+    ]);
+  });
+
+  test('should return correct task list when case in progress', () => {
+    const caseData = {
+      id: '1234',
+      state: State.CASE_DRAFT,
+      caseTypeOfApplication: CaseType.C100,
+      finalDocument: {
+        document_url: 'DOC_URL',
+        document_filename: 'DOC_FILENAME',
+        document_binary_url: 'DOC_BINARY_URL',
+      },
+      c1ADocument: {
+        document_url: 'DOC_URL',
+        document_filename: 'DOC_FILENAME',
+        document_binary_url: 'DOC_BINARY_URL',
+      },
+      hearingCollection: [
+        {
+          hearingID: 1234,
+        },
+      ],
+      orderCollection: [
+        {
+          id: '1234',
+          value: {
+            dateCreated: 'MOCK_DATE',
+            orderType: 'ORDER',
+            orderDocument: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+            orderDocumentWelsh: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+            otherDetails: {
+              createdBy: '1234',
+              orderCreatedDate: 'MOCK_DATE',
+              orderMadeDate: 'MOCK_DATE',
+              orderRecipients: 'RECIPIENTS',
+            },
+          },
+        },
+      ],
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+            firstName: 'FirstName',
+            response: {
+              citizenFlags: {
+                isAllegationOfHarmViewed: 'No',
+              },
+              keepDetailsPrivate: {
+                otherPeopleKnowYourContactDetails: 'Yes',
+              },
+              languageRequirements: ['No'],
+              citizenInternationalElements: {
+                childrenLiveOutsideOfEnWl: 'No',
+                parentsAnyOneLiveOutsideEnWl: 'No',
+              },
+            },
+          },
+        },
+      ],
+      caseInvites: [
+        {
+          value: {
+            partyId: '1234',
+            invitedUserId: '1234',
+          },
+        },
+      ],
+    } as unknown as CaseWithId;
+    expect(getTaskListConfig(caseData, userDetails, PartyType.RESPONDENT, 'en', false)).toStrictEqual([
+      {
+        heading: 'About you',
+        id: 'aboutYou',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/keep-details-private/details_known/1234',
+            id: 'keepYourDetailsPrivate',
+            linkText: 'Keep your details private',
+            stateTag: { className: 'govuk-tag--blue', label: 'In progress' },
+          },
+          {
+            disabled: false,
+            href: '/respondent/confirm-contact-details/checkanswers/1234',
+            id: 'editYouContactDetails',
+            linkText: 'Confirm or edit your contact details',
+            stateTag: { className: 'govuk-tag--blue', label: 'In progress' },
+          },
+          {
+            disabled: false,
+            href: '/respondent/support-you-need-during-case/attending-the-court',
+            id: 'yourSupport',
+            linkText: 'Your Support',
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+        ],
+      },
+      {
+        heading: 'The application',
+        id: 'theApplication',
+        tasks: [
+          {
+            disabled: false,
+            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
+            id: 'checkTheApplication',
+            linkText: 'Check the application (PDF)',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+          {
+            disabled: false,
+            href: '/yourdocuments/alldocuments/aohviolence?updateCase=Yes',
+            id: 'checkAllegationsOfHarmAndViolence',
+            linkText: 'Check the allegations of harm and violence (PDF)',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+        ],
+      },
+      {
+        heading: 'Your response',
+        id: 'yourResponse',
+        tasks: [
+          {
+            disabled: false,
+            href: '/tasklistresponse/start/flag/updateFlag',
+            id: 'respondToTheApplication',
+            linkText: 'Respond to the application',
+            stateTag: { className: 'govuk-tag--blue', label: 'In progress' },
+          },
+          {
+            disabled: false,
+            href: '#',
+            id: 'respondToAOHAndViolence',
+            linkText: 'Respond to the allegations of harm and violence',
+            stateTag: { className: 'govuk-tag--blue', label: 'In progress' },
+          },
+        ],
+      },
+      {
+        heading: 'Your court hearings',
+        id: 'yourHearing',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/yourhearings/hearings/1234',
+            id: 'viewHearingDetails',
+            linkText: 'Check details of your court hearings',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+        ],
+      },
+      {
+        heading: 'Your documents',
+        id: 'yourDocuments',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/yourdocuments/alldocuments/alldocuments',
+            id: 'viewAllDocuments',
+            linkText: 'View all documents',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+          {
+            disabled: false,
+            href: '/respondent/upload-document',
+            id: 'uploadDocuments',
+            linkText: 'Upload Documents',
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+        ],
+      },
+      {
+        heading: 'Orders from the court',
+        id: 'ordersFromTheCourt',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/yourdocuments/alldocuments/orders',
+            id: 'viewOrders',
+            linkText: 'View all orders from the court',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+        ],
+      },
+    ]);
+  });
+
+  test('should return correct task list when case completed', () => {
+    const caseData = {
+      id: '1234',
+      state: State.CASE_DRAFT,
+      caseTypeOfApplication: CaseType.C100,
+      finalDocument: {
+        document_url: 'DOC_URL',
+        document_filename: 'DOC_FILENAME',
+        document_binary_url: 'DOC_BINARY_URL',
+      },
+      c1ADocument: {
+        document_url: 'DOC_URL',
+        document_filename: 'DOC_FILENAME',
+        document_binary_url: 'DOC_BINARY_URL',
+      },
+      hearingCollection: [
+        {
+          hearingID: 1234,
+        },
+      ],
+      orderCollection: [
+        {
+          dateCreated: 'MOCK_DATE',
+          orderType: 'ORDER',
+          orderDocument: {
+            document_url: 'DOC_URL',
+            document_filename: 'DOC_FILENAME',
+            document_binary_url: 'DOC_BINARY_URL',
+          },
+          orderDocumentWelsh: {
+            document_url: 'DOC_URL',
+            document_filename: 'DOC_FILENAME',
+            document_binary_url: 'DOC_BINARY_URL',
+          },
+          otherDetails: {
+            createdBy: '1234',
+            orderCreatedDate: 'MOCK_DATE',
+            orderMadeDate: 'MOCK_DATE',
+            orderRecipients: 'RECIPIENTS',
+          },
+        },
+      ],
+      citizenResponseC7DocumentList: [
+        {
+          id: '1234',
+          value: {
+            partyName: 'NAME',
+            createdBy: '1234',
+            dateCreated: '1/1/2020',
+            citizenDocument: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+          },
+        },
+      ],
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+            firstName: 'FirstName',
+            lastName: 'LastName',
+            dateOfBirth: '1/1/2020',
+            placeOfBirth: 'London',
+            response: {
+              citizenFlags: {
+                isAllegationOfHarmViewed: 'Yes',
+                isApplicationViewed: 'Yes',
+              },
+              keepDetailsPrivate: {
+                confidentiality: ['address'],
+                otherPeopleKnowYourContactDetails: 'Yes',
+              },
+              citizenInternationalElements: {
+                childrenLiveOutsideOfEnWl: 'No',
+                parentsAnyOneLiveOutsideEnWl: 'No',
+                anotherPersonOrderOutsideEnWl: 'No',
+                anotherCountryAskedInformation: 'No',
+              },
+              consent: {},
+              currentOrPreviousProceedings: {},
+              miam: {},
+              legalRepresentation: {},
+              safetyConcerns: {},
+              supportYouNeed: {
+                languageRequirements: ['No'],
+                reasonableAdjustments: ['No'],
+                safetyArrangements: ['No'],
+                attendingToCourt: ['No'],
+              },
+            },
+          },
+        },
+      ],
+      caseInvites: [
+        {
+          value: {
+            partyId: '1234',
+            invitedUserId: '1234',
+          },
+        },
+      ],
+    } as unknown as CaseWithId;
+    expect(getTaskListConfig(caseData, userDetails, PartyType.RESPONDENT, 'en', false)).toStrictEqual([
+      {
+        heading: 'About you',
+        id: 'aboutYou',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/keep-details-private/details_known/1234',
+            id: 'keepYourDetailsPrivate',
+            linkText: 'Keep your details private',
+            stateTag: { className: 'govuk-tag--green', label: 'Completed' },
+          },
+          {
+            disabled: false,
+            href: '/respondent/confirm-contact-details/checkanswers/1234',
+            id: 'editYouContactDetails',
+            linkText: 'Confirm or edit your contact details',
+            stateTag: { className: 'govuk-tag--green', label: 'Completed' },
+          },
+          {
+            disabled: false,
+            href: '/respondent/support-you-need-during-case/attending-the-court',
+            id: 'yourSupport',
+            linkText: 'Your Support',
+            stateTag: { className: 'govuk-tag--green', label: 'Completed' },
+          },
+        ],
+      },
+      {
+        heading: 'The application',
+        id: 'theApplication',
+        tasks: [
+          {
+            disabled: false,
+            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
+            id: 'checkTheApplication',
+            linkText: 'Check the application (PDF)',
+            stateTag: { className: '', label: 'VIEW' },
+          },
+          {
+            disabled: false,
+            href: '/yourdocuments/alldocuments/aohviolence?updateCase=Yes',
+            id: 'checkAllegationsOfHarmAndViolence',
+            linkText: 'Check the allegations of harm and violence (PDF)',
+            stateTag: { className: '', label: 'VIEW' },
+          },
+        ],
+      },
+      {
+        heading: 'Your response',
+        id: 'yourResponse',
+        tasks: [
+          {
+            disabled: false,
+            href: null,
+            id: 'respondToTheApplication',
+            hintText: 'Go to view all documents to check the response.',
+            linkText: 'Respond to the application',
+            stateTag: { className: 'govuk-tag--green', label: 'Completed' },
+          },
+          {
+            disabled: false,
+            href: '#',
+            id: 'respondToAOHAndViolence',
+            hintText: 'Go to view all documents to check the response.',
+            linkText: 'Respond to the allegations of harm and violence',
+            stateTag: { className: 'govuk-tag--green', label: 'Completed' },
+          },
+        ],
+      },
+      {
+        heading: 'Your court hearings',
+        id: 'yourHearing',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/yourhearings/hearings/1234',
+            id: 'viewHearingDetails',
+            linkText: 'Check details of your court hearings',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+        ],
+      },
+      {
+        heading: 'Your documents',
+        id: 'yourDocuments',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/yourdocuments/alldocuments/alldocuments',
+            id: 'viewAllDocuments',
+            linkText: 'View all documents',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+          {
+            disabled: false,
+            href: '/respondent/upload-document',
+            id: 'uploadDocuments',
+            linkText: 'Upload Documents',
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+        ],
+      },
+      {
+        heading: 'Orders from the court',
+        id: 'ordersFromTheCourt',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/yourdocuments/alldocuments/orders',
+            id: 'viewOrders',
+            linkText: 'View all orders from the court',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+        ],
+      },
+    ]);
+  });
+
+  test('should return correct task list when case is closed', () => {
+    const caseData = {
+      id: '1234',
+      state: State.CASE_CLOSED,
+      caseTypeOfApplication: CaseType.C100,
+      finalDocument: {
+        document_url: 'DOC_URL',
+        document_filename: 'DOC_FILENAME',
+        document_binary_url: 'DOC_BINARY_URL',
+      },
+      c1ADocument: {
+        document_url: 'DOC_URL',
+        document_filename: 'DOC_FILENAME',
+        document_binary_url: 'DOC_BINARY_URL',
+      },
+      hearingCollection: [
+        {
+          hearingID: 1234,
+        },
+      ],
+      orderCollection: [
+        {
+          dateCreated: 'MOCK_DATE',
+          orderType: 'ORDER',
+          orderDocument: {
+            document_url: 'DOC_URL',
+            document_filename: 'DOC_FILENAME',
+            document_binary_url: 'DOC_BINARY_URL',
+          },
+          orderDocumentWelsh: {
+            document_url: 'DOC_URL',
+            document_filename: 'DOC_FILENAME',
+            document_binary_url: 'DOC_BINARY_URL',
+          },
+          otherDetails: {
+            createdBy: '1234',
+            orderCreatedDate: 'MOCK_DATE',
+            orderMadeDate: 'MOCK_DATE',
+            orderRecipients: 'RECIPIENTS',
+          },
+        },
+      ],
+      citizenResponseC7DocumentList: [
+        {
+          id: '1234',
+          value: {
+            partyName: 'NAME',
+            createdBy: '1234',
+            dateCreated: '1/1/2020',
+            citizenDocument: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+          },
+        },
+      ],
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+            firstName: 'FirstName',
+            lastName: 'LastName',
+            dateOfBirth: '1/1/2020',
+            placeOfBirth: 'London',
+            response: {
+              citizenFlags: {
+                isAllegationOfHarmViewed: 'Yes',
+                isApplicationViewed: 'Yes',
+              },
+              keepDetailsPrivate: {
+                confidentiality: ['address'],
+                otherPeopleKnowYourContactDetails: 'Yes',
+              },
+              citizenInternationalElements: {
+                childrenLiveOutsideOfEnWl: 'No',
+                parentsAnyOneLiveOutsideEnWl: 'No',
+                anotherPersonOrderOutsideEnWl: 'No',
+                anotherCountryAskedInformation: 'No',
+              },
+              consent: {},
+              currentOrPreviousProceedings: {},
+              miam: {},
+              legalRepresentation: {},
+              safetyConcerns: {},
+              supportYouNeed: {
+                languageRequirements: ['No'],
+                reasonableAdjustments: ['No'],
+                safetyArrangements: ['No'],
+                attendingToCourt: ['No'],
+              },
+            },
+          },
+        },
+      ],
+      caseInvites: [
+        {
+          value: {
+            partyId: '1234',
+            invitedUserId: '1234',
+          },
+        },
+      ],
+    } as unknown as CaseWithId;
+    expect(getTaskListConfig(caseData, userDetails, PartyType.RESPONDENT, 'en', false)).toStrictEqual([
+      {
+        heading: 'The application',
+        id: 'theApplication',
+        tasks: [
+          {
+            disabled: false,
+            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
+            id: 'checkTheApplication',
+            linkText: 'Check the application (PDF)',
+            stateTag: { className: '', label: 'VIEW' },
+          },
+          {
+            disabled: false,
+            href: '/yourdocuments/alldocuments/aohviolence?updateCase=Yes',
+            id: 'checkAllegationsOfHarmAndViolence',
+            linkText: 'Check the allegations of harm and violence (PDF)',
+            stateTag: { className: '', label: 'VIEW' },
+          },
+        ],
+      },
+      {
+        heading: 'Your court hearings',
+        id: 'yourHearing',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/yourhearings/hearings/1234',
+            id: 'viewHearingDetails',
+            linkText: 'Check details of your court hearings',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+        ],
+      },
+      {
+        heading: 'Your documents',
+        id: 'yourDocuments',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/yourdocuments/alldocuments/alldocuments',
+            id: 'viewAllDocuments',
+            linkText: 'View all documents',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+        ],
+      },
+      {
+        heading: 'Orders from the court',
+        id: 'ordersFromTheCourt',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/yourdocuments/alldocuments/orders',
+            id: 'viewOrders',
+            linkText: 'View all orders from the court',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+        ],
+      },
+    ]);
+  });
+
+  describe('getCheckAllegationOfHarmStatus', () => {
+    test('should return correct status when c1a document present', () => {
+      const data = {
+        id: '12',
+        state: State.CASE_DRAFT,
+        caseTypeOfApplication: CaseType.FL401,
+        c1ADocument: {
+          document_url: 'DOC_URL',
+          document_filename: 'DOC_FILENAME',
+          document_binary_url: 'DOC_BINARY_URL',
+        },
+      };
+      expect(getCheckAllegationOfHarmStatus(data, { id: '1234' })).toBe('readyToView');
+    });
+
+    test('should return correct status when c1a document not present', () => {
+      const data = {
+        id: '12',
+        state: State.CASE_DRAFT,
+        caseTypeOfApplication: CaseType.FL401,
+      };
+      expect(getCheckAllegationOfHarmStatus(data, { id: '1234' })).toBe('notAvailableYet');
+    });
+
+    test('should return correct status when isAllegationOfHarmViewed is yes', () => {
+      const data = {
+        id: '1234',
+        state: State.CASE_DRAFT,
+        caseTypeOfApplication: CaseType.C100,
+        c1ADocument: {
+          document_url: 'DOC_URL',
+          document_filename: 'DOC_FILENAME',
+          document_binary_url: 'DOC_BINARY_URL',
+        },
+        respondents: [
+          {
+            id: '1234',
+            value: {
+              user: {
+                idamId: '1234',
+              },
+              response: {
+                citizenFlags: {
+                  isAllegationOfHarmViewed: 'Yes',
+                },
+              },
+            },
+          },
+        ],
+        caseInvites: [
+          {
+            value: {
+              partyId: '1234',
+              invitedUserId: '1234',
+            },
+          },
+        ],
+      };
+      expect(getCheckAllegationOfHarmStatus(data, { id: '1234' })).toBe('view');
+    });
+  });
+
+  describe('getResponseStatus', () => {
+    test('should return completed when all response items present', () => {
+      const data = {
+        response: {
+          citizenInternationalElements: {},
+          consent: {},
+          currentOrPreviousProceedings: {},
+          keepDetailsPrivate: {},
+          miam: {},
+          safetyConcerns: {},
+          legalRepresentation: {},
+          supportYouNeed: {},
+        },
+      };
+
+      expect(getResponseStatus(data)).toBe('completed');
+    });
+
+    test('should return inProgress when some response items present', () => {
+      const data = {
+        response: {
+          keepDetailsPrivate: {},
+          miam: {},
+          safetyConcerns: {},
+          legalRepresentation: {},
+          supportYouNeed: {},
+        },
+      };
+
+      expect(getResponseStatus(data)).toBe('inProgress');
+    });
+
+    test('should return todo when no response items present', () => {
+      const data = {
+        response: {},
+      };
+
+      expect(getResponseStatus(data)).toBe('toDo');
+    });
+  });
+
+  describe('getInternationalFactorsStatus', () => {
+    test('should return completed when all internationalFactors completed as no', () => {
+      const data = {
+        childrenLiveOutsideOfEnWl: 'No',
+        parentsAnyOneLiveOutsideEnWl: 'No',
+        anotherPersonOrderOutsideEnWl: 'No',
+        anotherCountryAskedInformation: 'No',
+      } as CitizenInternationalElements;
+
+      expect(getInternationalFactorsStatus(data)).toBe('completed');
+    });
+
+    test('should return completed when all internationalFactors completed as yes', () => {
+      const data = {
+        childrenLiveOutsideOfEnWl: 'Yes',
+        childrenLiveOutsideOfEnWlDetails: 'text',
+        parentsAnyOneLiveOutsideEnWl: 'Yes',
+        parentsAnyOneLiveOutsideEnWlDetails: 'text',
+        anotherPersonOrderOutsideEnWl: 'Yes',
+        anotherPersonOrderOutsideEnWlDetails: 'text',
+        anotherCountryAskedInformation: 'Yes',
+        anotherCountryAskedInformationDetaails: 'text',
+      } as CitizenInternationalElements;
+
+      expect(getInternationalFactorsStatus(data)).toBe('completed');
+    });
+
+    test('should return inProgress when some internationalFactors completed', () => {
+      const data = {
+        childrenLiveOutsideOfEnWl: 'No',
+        parentsAnyOneLiveOutsideEnWl: 'No',
+      } as CitizenInternationalElements;
+
+      expect(getInternationalFactorsStatus(data)).toBe('inProgress');
+    });
+
+    test('should return todo when no internationalFactors completed', () => {
+      const data = {} as CitizenInternationalElements;
+
+      expect(getInternationalFactorsStatus(data)).toBe('toDo');
+    });
+  });
+
+  describe('getFinalApplicationStatus', () => {
+    test('should return correct status when finalDocument document present', () => {
+      const data = {
+        id: '12',
+        state: State.CASE_DRAFT,
+        caseTypeOfApplication: CaseType.FL401,
+        finalDocument: {
+          document_url: 'DOC_URL',
+          document_filename: 'DOC_FILENAME',
+          document_binary_url: 'DOC_BINARY_URL',
+        },
+      };
+      expect(getFinalApplicationStatus(data, { id: '1234' })).toBe('readyToView');
+    });
+
+    test('should return correct status when finalDocument document not present', () => {
+      const data = {
+        id: '12',
+        state: State.CASE_DRAFT,
+        caseTypeOfApplication: CaseType.FL401,
+      };
+      expect(getFinalApplicationStatus(data, { id: '1234' })).toBe('notAvailableYet');
+    });
+
+    test('should return correct status when isApplicationViewed is yes', () => {
+      const data = {
+        id: '1234',
+        state: State.CASE_DRAFT,
+        caseTypeOfApplication: CaseType.C100,
+        finalDocument: {
+          document_url: 'DOC_URL',
+          document_filename: 'DOC_FILENAME',
+          document_binary_url: 'DOC_BINARY_URL',
+        },
+        respondents: [
+          {
+            id: '1234',
+            value: {
+              user: {
+                idamId: '1234',
+              },
+              response: {
+                citizenFlags: {
+                  isApplicationViewed: 'Yes',
+                },
+              },
+            },
+          },
+        ],
+        caseInvites: [
+          {
+            value: {
+              partyId: '1234',
+              invitedUserId: '1234',
+            },
+          },
+        ],
+      };
+      expect(getFinalApplicationStatus(data, { id: '1234' })).toBe('view');
+    });
   });
 });

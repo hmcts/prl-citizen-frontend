@@ -159,6 +159,6 @@ describe('CaseActivationPostController', () => {
     const res = mockResponse();
 
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/respondent/task-list');
+    expect(res.redirect).toHaveBeenCalledWith('/task-list/respondent');
   });
 });
