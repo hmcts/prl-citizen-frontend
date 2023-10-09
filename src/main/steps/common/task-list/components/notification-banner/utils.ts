@@ -22,6 +22,7 @@ enum BannerNotification {
   APPLICATION_CLOSED = 'applicationClosed',
   NEW_ORDER = 'newOrder',
   NEW_DOCUMENT = 'newDocument',
+  FINAL_ORDER = 'finalOrder',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string) => {
@@ -87,6 +88,11 @@ const notificationBanner = {
   [BannerNotification.NEW_DOCUMENT]: {
     id: BannerNotification.NEW_DOCUMENT,
     content: getContent.bind(null, BannerNotification.NEW_DOCUMENT),
+    show: () => false,
+  },
+  [BannerNotification.FINAL_ORDER]: {
+    id: BannerNotification.FINAL_ORDER,
+    content: getContent.bind(null, BannerNotification.FINAL_ORDER),
     show: () => false,
   },
 };
@@ -174,7 +180,29 @@ const notificationBannerConfig = {
     [PartyType.RESPONDENT]: [],
   },
   [CaseType.FL401]: {
-    [PartyType.APPLICANT]: [],
+    [PartyType.APPLICANT]: [
+      {
+        ...notificationBanner[BannerNotification.NEW_DOCUMENT],
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+            return (caseData &&
+            caseData?.applicantsFL401?.user?.idamId === userDetails.id &&
+            caseData?.applicantsFL401?.response?.citizenFlags?.isAllDocumentsViewed === YesOrNo.NO)?true:false
+
+        },
+      },
+      {
+      ...notificationBanner[BannerNotification.NEW_ORDER],
+      show: (caseData: Partial<CaseWithId>): boolean => {
+        return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
+      },
+    },
+    {
+      ...notificationBanner[BannerNotification.FINAL_ORDER],
+      show: (caseData: Partial<CaseWithId>): boolean => {
+        return caseData?.state === State.CASE_CLOSED ;
+      },
+    },
+  ],
     [PartyType.RESPONDENT]: [],
   },
 };

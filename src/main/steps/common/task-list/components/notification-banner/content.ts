@@ -140,6 +140,53 @@ const en = {
       },
     },
   },
+  [CaseType.FL401]: {
+    notifications: {
+      newOrder: {
+        heading: 'You have a new order from the court',
+        contents: [
+          {
+            text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+          },
+        ],
+        links: [
+          {
+            text: 'View the order (PDF)',
+            href: APPLICANT_ORDERS_FROM_THE_COURT,
+          },
+        ],
+      },
+      newDocument: {
+        heading: 'You have a new document to view',
+        contents: [
+          {
+            text: 'A new document has been added to your case.',
+          },
+        ],
+        links: [
+          {
+            text: 'See all documents',
+            href: APPLICANT_VIEW_ALL_DOCUMENTS,
+          },
+        ],
+      },
+      finalOrder: {
+        heading: 'You have a final order',
+        contents: [
+          {
+            text: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+          },
+        ],
+        links: [
+          {
+            text: 'View the final order (PDF)',
+            href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+          },
+        ],
+      },
+    
+    },
+  },
 };
 
 const cy: typeof en = {
@@ -276,6 +323,53 @@ const cy: typeof en = {
           {
             text: 'Gweld yr holl ddogfennau',
             href: APPLICANT_VIEW_ALL_DOCUMENTS,
+          },
+        ],
+      },
+    },
+  },
+  [CaseType.FL401]: {
+    notifications: {
+      newOrder: {
+        heading: 'Mae gennych orchymyn newydd gan y llys',
+        contents: [
+          {
+            text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchymyn hwn yn dweud wrthych beth mae’r llys wedi penderfynu.',
+          },
+        ],
+        links: [
+          {
+            text: 'Gweld y gorchymyn (PDF)',
+            href: APPLICANT_ORDERS_FROM_THE_COURT,
+          },
+        ],
+      },
+      newDocument: {
+        heading: 'Mae gennych ddogfen newydd i edrych arni',
+        contents: [
+          {
+            text: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
+          },
+        ],
+        links: [
+          {
+            text: 'Gweld yr holl ddogfennau',
+            href: APPLICANT_VIEW_ALL_DOCUMENTS,
+          },
+        ],
+      },
+      finalOrder: {
+        heading: 'Mae gennych orchymyn terfynol',
+        contents: [
+          {
+            text:
+              'Mae’r llys wedi gwneud penderfyniad terfynol ynghylch eich achos. Mae’r gorchymyn yn dweud wrthych beth y mae’r llys wedi penderfynu. ',
+          },
+        ],
+        links: [
+          {
+            text: 'Gweld y gorchymyn terfynol (PDF)',
+            href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
           },
         ],
       },
