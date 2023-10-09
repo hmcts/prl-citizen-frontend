@@ -77,67 +77,67 @@ describe('testcase for tasklist', () => {
       },
     },
   ];
-  const applicantFL401={
-  email: "string",
-  gender: "string",
-  address: {
-    AddressLine1: 'string',
-    AddressLine2: 'string',
-    PostTown: 'string',
-    County: 'string',
-    PostCode: 'string',
-  },
-  dxNumber: "string",
-  landline: "string",
-  lastName: "string",
-  firstName: "string",
-  dateOfBirth: "string",
-  otherGender: "string",
-  phoneNumber: "string",
-  placeOfBirth: "string",
-  previousName: "string",
-  solicitorOrg: {
-    OrganisationID: 'string',
-    OrganisationName: 'string',
-  },
-  sendSignUpLink: "string",
-  solicitorEmail: "string",
-  isAddressUnknown: "string",
-  solicitorAddress: {
-    County: '',
-    Country: '',
-    PostCode: '',
-    PostTown: '',
-    AddressLine1: '',
-    AddressLine2: '',
-    AddressLine3: '',
-  },
-  isDateOfBirthKnown: "string",
-  solicitorReference: "string",
-  solicitorTelephone: "string",
-  isPlaceOfBirthKnown: "string",
-  isDateOfBirthUnknown: "string",
-  isAddressConfidential: "string",
-  isCurrentAddressKnown: "string",
-  relationshipToChildren: "string",
-  representativeLastName: "string",
-  representativeFirstName: "string",
-  canYouProvidePhoneNumber: "string",
-  canYouProvideEmailAddress: "string",
-  isAtAddressLessThan5Years: "string",
-  isPhoneNumberConfidential: "string",
-  isEmailAddressConfidential: "string",
-  respondentLivedWithApplicant: "string",
-  doTheyHaveLegalRepresentation: "string",
-  addressLivedLessThan5YearsDetails: "string",
-  otherPersonRelationshipToChildren: [],
-  isAtAddressLessThan5YearsWithDontKnow: "string",
-  response: {},
-  user: {
+  const applicantFL401 = {
     email: 'string',
-    idamId: '123',
-  }
-  }
+    gender: 'string',
+    address: {
+      AddressLine1: 'string',
+      AddressLine2: 'string',
+      PostTown: 'string',
+      County: 'string',
+      PostCode: 'string',
+    },
+    dxNumber: 'string',
+    landline: 'string',
+    lastName: 'string',
+    firstName: 'string',
+    dateOfBirth: 'string',
+    otherGender: 'string',
+    phoneNumber: 'string',
+    placeOfBirth: 'string',
+    previousName: 'string',
+    solicitorOrg: {
+      OrganisationID: 'string',
+      OrganisationName: 'string',
+    },
+    sendSignUpLink: 'string',
+    solicitorEmail: 'string',
+    isAddressUnknown: 'string',
+    solicitorAddress: {
+      County: '',
+      Country: '',
+      PostCode: '',
+      PostTown: '',
+      AddressLine1: '',
+      AddressLine2: '',
+      AddressLine3: '',
+    },
+    isDateOfBirthKnown: 'string',
+    solicitorReference: 'string',
+    solicitorTelephone: 'string',
+    isPlaceOfBirthKnown: 'string',
+    isDateOfBirthUnknown: 'string',
+    isAddressConfidential: 'string',
+    isCurrentAddressKnown: 'string',
+    relationshipToChildren: 'string',
+    representativeLastName: 'string',
+    representativeFirstName: 'string',
+    canYouProvidePhoneNumber: 'string',
+    canYouProvideEmailAddress: 'string',
+    isAtAddressLessThan5Years: 'string',
+    isPhoneNumberConfidential: 'string',
+    isEmailAddressConfidential: 'string',
+    respondentLivedWithApplicant: 'string',
+    doTheyHaveLegalRepresentation: 'string',
+    addressLivedLessThan5YearsDetails: 'string',
+    otherPersonRelationshipToChildren: [],
+    isAtAddressLessThan5YearsWithDontKnow: 'string',
+    response: {},
+    user: {
+      email: 'string',
+      idamId: '123',
+    },
+  };
   test('when case state is draft', () => {
     const data = {
       id: '12',
@@ -533,7 +533,7 @@ describe('testcase for tasklist', () => {
       id: '12',
       state: State.CASE_SERVED,
       caseTypeOfApplication: CaseType.FL401,
-      applicantsFL401:applicantFL401,
+      applicantsFL401: applicantFL401,
       orderCollection: [
         {
           id: '1234',
@@ -612,14 +612,14 @@ describe('testcase for tasklist', () => {
         tasks: [
           {
             disabled: false,
-            href: "/applicant/keep-details-private/details_known/12",
-             id: "keepYourDetailsPrivate",
-             linkText: "Keep your details private",
-             stateTag: {
-               "className": "govuk-tag--grey",
-               "label": "TO DO",
-             },
-           },
+            href: '/applicant/keep-details-private/details_known/12',
+            id: 'keepYourDetailsPrivate',
+            linkText: 'Keep your details private',
+            stateTag: {
+              className: 'govuk-tag--grey',
+              label: 'TO DO',
+            },
+          },
           {
             disabled: false,
             href: '/applicant/confirm-contact-details/checkanswers/12',
@@ -663,7 +663,7 @@ describe('testcase for tasklist', () => {
             linkText: 'Witness statement (PDF)',
             stateTag: {
               className: 'govuk-tag--grey',
-              label: "Not available yet",
+              label: 'Not available yet',
             },
           },
         ],
@@ -727,7 +727,6 @@ describe('testcase for tasklist', () => {
           },
         ],
       },
-     
     ]);
   });
   test('FL401 Applicant with out hearing and order', () => {
@@ -735,8 +734,7 @@ describe('testcase for tasklist', () => {
       id: '12',
       state: State.CASE_SERVED,
       caseTypeOfApplication: CaseType.FL401,
-      applicantsFL401:applicantFL401,
-      
+      applicantsFL401: applicantFL401,
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -749,14 +747,14 @@ describe('testcase for tasklist', () => {
         tasks: [
           {
             disabled: false,
-            href: "/applicant/keep-details-private/details_known/12",
-             id: "keepYourDetailsPrivate",
-             linkText: "Keep your details private",
-             stateTag: {
-               "className": "govuk-tag--grey",
-               "label": "TO DO",
-             },
-           },
+            href: '/applicant/keep-details-private/details_known/12',
+            id: 'keepYourDetailsPrivate',
+            linkText: 'Keep your details private',
+            stateTag: {
+              className: 'govuk-tag--grey',
+              label: 'TO DO',
+            },
+          },
           {
             disabled: false,
             href: '/applicant/confirm-contact-details/checkanswers/12',
@@ -800,7 +798,7 @@ describe('testcase for tasklist', () => {
             linkText: 'Witness statement (PDF)',
             stateTag: {
               className: 'govuk-tag--grey',
-              label: "Not available yet",
+              label: 'Not available yet',
             },
           },
         ],
@@ -864,7 +862,6 @@ describe('testcase for tasklist', () => {
           },
         ],
       },
-     
     ]);
   });
   test('FL401 respondent', () => {

@@ -184,25 +184,26 @@ const notificationBannerConfig = {
       {
         ...notificationBanner[BannerNotification.NEW_DOCUMENT],
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-            return (caseData &&
+          return !!(
+            caseData &&
             caseData?.applicantsFL401?.user?.idamId === userDetails.id &&
-            caseData?.applicantsFL401?.response?.citizenFlags?.isAllDocumentsViewed === YesOrNo.NO)?true:false
-
+            caseData?.applicantsFL401?.response?.citizenFlags?.isAllDocumentsViewed === YesOrNo.NO
+          );
         },
       },
       {
-      ...notificationBanner[BannerNotification.NEW_ORDER],
-      show: (caseData: Partial<CaseWithId>): boolean => {
-        return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
+        ...notificationBanner[BannerNotification.NEW_ORDER],
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
+        },
       },
-    },
-    {
-      ...notificationBanner[BannerNotification.FINAL_ORDER],
-      show: (caseData: Partial<CaseWithId>): boolean => {
-        return caseData?.state === State.CASE_CLOSED ;
+      {
+        ...notificationBanner[BannerNotification.FINAL_ORDER],
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return caseData?.state === State.CASE_CLOSED;
+        },
       },
-    },
-  ],
+    ],
     [PartyType.RESPONDENT]: [],
   },
 };

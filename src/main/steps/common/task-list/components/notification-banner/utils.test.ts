@@ -1,5 +1,5 @@
 import { CaseType, PartyType, State, YesOrNo } from '../../../../../app/case/definition';
-import {  APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../../urls';
+import { APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../../urls';
 
 import { getNotificationBannerConfig } from './utils';
 const userDetails = {
@@ -330,7 +330,7 @@ describe('testcase for notification Banner', () => {
       },
     ]);
   });
-  test('when case is in served and linked', () => {
+  test('when FL401 case is in served and linked and have new document', () => {
     const data = {
       id: '12',
       state: State.CASE_SERVED,
@@ -391,9 +391,9 @@ describe('testcase for notification Banner', () => {
         otherPersonRelationshipToChildren: [''],
         isAtAddressLessThan5YearsWithDontKnow: '',
         response: {
-          citizenFlags:{
-            isAllDocumentsViewed:"No",
-          }
+          citizenFlags: {
+            isAllDocumentsViewed: 'No',
+          },
         },
         user: {
           email: 'abc',
@@ -407,7 +407,7 @@ describe('testcase for notification Banner', () => {
     expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'You have a new document to view',
-        id: "newDocument",
+        id: 'newDocument',
         contents: [
           {
             text: 'A new document has been added to your case.',
@@ -420,7 +420,8 @@ describe('testcase for notification Banner', () => {
             href: APPLICANT_VIEW_ALL_DOCUMENTS,
           },
         ],
-        title: "Important"
-      },]);
+        title: 'Important',
+      },
+    ]);
   });
 });

@@ -1,8 +1,4 @@
-import { CaseType, PartyType, 
-  SelectTypeOfOrderEnum, 
-  State, 
-  YesOrNo
-} from '../../../../../app/case/definition';
+import { CaseType, PartyType, SelectTypeOfOrderEnum, State, YesOrNo } from '../../../../../app/case/definition';
 
 import { getProgressBarConfig } from './utils';
 
@@ -145,7 +141,7 @@ describe('testcase for progress-bar', () => {
           },
         },
       ],
-      selectTypeOfOrder:SelectTypeOfOrderEnum.finl,
+      selectTypeOfOrder: SelectTypeOfOrderEnum.finl,
     };
     const party = PartyType.APPLICANT;
     const language = 'en';

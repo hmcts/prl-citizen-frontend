@@ -35,13 +35,15 @@ export const DA_APPLICANT = [
         id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`,
         disabled: isCaseClosed,
-        stateTag: (caseData: Partial<CaseWithId>) => getKeepYourDetailsPrivateStatus(caseData?.applicantsFL401?.response?.keepDetailsPrivate),
+        stateTag: (caseData: Partial<CaseWithId>) =>
+          getKeepYourDetailsPrivateStatus(caseData?.applicantsFL401?.response?.keepDetailsPrivate),
       },
       {
         id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`,
         disabled: isCaseClosed,
-        stateTag: (caseData: Partial<CaseWithId>) => getConfirmOrEditYourContactDetailsStatus(caseData?.applicantsFL401),
+        stateTag: (caseData: Partial<CaseWithId>) =>
+          getConfirmOrEditYourContactDetailsStatus(caseData?.applicantsFL401),
       },
       // {
       //   id: Tasks.CONTACT_PREFERENCES,

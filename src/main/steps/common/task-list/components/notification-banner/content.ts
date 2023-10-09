@@ -184,7 +184,6 @@ const en = {
           },
         ],
       },
-    
     },
   },
 };
@@ -362,8 +361,7 @@ const cy: typeof en = {
         heading: 'Mae gennych orchymyn terfynol',
         contents: [
           {
-            text:
-              'Mae’r llys wedi gwneud penderfyniad terfynol ynghylch eich achos. Mae’r gorchymyn yn dweud wrthych beth y mae’r llys wedi penderfynu. ',
+            text: 'Mae’r llys wedi gwneud penderfyniad terfynol ynghylch eich achos. Mae’r gorchymyn yn dweud wrthych beth y mae’r llys wedi penderfynu. ',
           },
         ],
         links: [
