@@ -152,7 +152,9 @@ export const generateContent: TranslationFn = content => {
     isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(applicant);
   }
 
-  translations.hyperlinks = sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType].hyperlinks;
+  if (caseData?.caseTypeOfApplication) {
+    translations.hyperlinks = sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType].hyperlinks;
+  }
 
   translations.hyperlinks.forEach((hyperLink, index) => {
     if (
