@@ -77,9 +77,9 @@ export const isApplicationResponded = (userCase: Partial<CaseWithId>, userId: st
 
 // temporary, remove after fl401 tasklist refactored
 export const keepDetailsPrivateNav = (caseData: Partial<CaseWithId>, req: AppRequest): PageLink => {
-  return req?.session.applicationSettings?.navfromRespondToApplication
-    ? RESPOND_TO_APPLICATION
-    : caseData.caseTypeOfApplication === CaseType.C100
-    ? (applyParms(`${PARTY_TASKLIST}`, { partyType: PartyType.RESPONDENT }) as PageLink)
-    : RESPONDENT_TASK_LIST_URL;
+  const respondentTaskListUrl =
+    caseData.caseTypeOfApplication === CaseType.C100
+      ? (applyParms(`${PARTY_TASKLIST}`, { partyType: PartyType.RESPONDENT }) as PageLink)
+      : RESPONDENT_TASK_LIST_URL;
+  return req?.session.applicationSettings?.navfromRespondToApplication ? RESPOND_TO_APPLICATION : respondentTaskListUrl;
 };

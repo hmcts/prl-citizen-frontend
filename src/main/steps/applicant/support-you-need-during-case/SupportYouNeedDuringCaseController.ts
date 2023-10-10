@@ -44,16 +44,7 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
         if (partyType === PartyType.APPLICANT) {
           return_url = APPLICANT_TASK_LIST_URL;
         } else {
-          // temporary until FL401 respondent tasklist refactored
-          if (req.session.userCase.caseTypeOfApplication === 'C100') {
-            return_url = req.session.applicationSettings?.navfromRespondToApplication
-              ? RESPOND_TO_APPLICATION
-              : applyParms(`${PARTY_TASKLIST}`, { partyType: PartyType.RESPONDENT });
-          } else {
-            return_url = req.session.applicationSettings?.navfromRespondToApplication
-              ? RESPOND_TO_APPLICATION
-              : RESPONDENT_TASK_LIST_URL;
-          }
+          return_url = this.getReturnUrl(req);
         }
 
         req.session.save(() => res.redirect(return_url));
@@ -62,4 +53,16 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
       throw new Error('SupportDuringCase - Case could not be updated.');
     }
   }
+
+  private getReturnUrl = (req: AppRequest) => {
+    if (req.session.userCase.caseTypeOfApplication === 'C100') {
+      return req.session.applicationSettings?.navfromRespondToApplication
+        ? RESPOND_TO_APPLICATION
+        : applyParms(`${PARTY_TASKLIST}`, { partyType: PartyType.RESPONDENT });
+    } else {
+      return req.session.applicationSettings?.navfromRespondToApplication
+        ? RESPOND_TO_APPLICATION
+        : RESPONDENT_TASK_LIST_URL;
+    }
+  };
 }
