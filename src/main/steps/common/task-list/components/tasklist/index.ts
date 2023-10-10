@@ -97,6 +97,11 @@ export const getTaskListConfig = (
                 );
 
                 prepareHintConfig(task, caseData, userDetails, config, _content);
+                if (task.openInAnotherTab) {
+                  Object.assign(config, {
+                    openInAnotherTab: task.openInAnotherTab,
+                  });
+                }
                 return config;
               }
               return null;
