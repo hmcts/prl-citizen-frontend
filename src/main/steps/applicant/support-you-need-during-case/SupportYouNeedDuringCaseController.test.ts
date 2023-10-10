@@ -213,4 +213,27 @@ describe('SupportYouNeedDuringYourCaseController', () => {
     await controller.post(req, res);
     expect(req.session.userCase.applicantsFL401.response.keepDetailsPrivate).toEqual(undefined);
   });
+
+  test('Should update the SupportYouNeedDuringYourCase details if user id matches with respondent for DA', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.session.userCase.respondentsFL401= partyDetails[0].value;
+    req.session.userCase.startAlternative = 'Yes';
+    req.session.userCase.caseTypeOfApplication = 'fl401';
+    req.url = 'respondent';
+    req.session.userCase.caseInvites = [
+      {
+        id: 'string',
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          caseInviteEmail: 'string',
+          accessCode: 'string',
+          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          expiryDate: 'string',
+          isApplicant: 'Yes',
+        },
+      },
+    ];
+    await controller.post(req, res);
+    expect(req.session.userCase.respondentsFL401.response).not.toBeUndefined;
+  });
 });

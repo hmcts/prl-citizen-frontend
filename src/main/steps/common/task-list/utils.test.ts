@@ -1,7 +1,8 @@
+import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType, State, YesOrNo } from '../../../app/case/definition';
 
-import { getPartyName, isApplicationResponded, isCaseWithdrawn } from './utils';
+import { getPartyName, isApplicationResponded, isCaseWithdrawn, keepDetailsPrivateNav } from './utils';
 
 describe('testcase for partyname', () => {
   test('when party type c100-respondent', () => {
@@ -403,5 +404,22 @@ describe('isApplicationRespondent', () => {
       ],
     } as unknown as CaseWithId;
     expect(isApplicationResponded(userCase, '1234')).toBe(false);
+  });
+  test('should return false when no C7 document list present', () => {
+    
+    const userCase = {
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+          },
+        },
+      ],
+    } as unknown as CaseWithId;
+    const req=mockRequest({ session: { ...userCase}})
+    expect(keepDetailsPrivateNav(userCase, req)).toBe("/respondent/task-list");
   });
 });
