@@ -405,8 +405,7 @@ describe('isApplicationRespondent', () => {
     } as unknown as CaseWithId;
     expect(isApplicationResponded(userCase, '1234')).toBe(false);
   });
-  test('should return false when no C7 document list present', () => {
-    
+  test('keepDetailsPrivateNav', () => {
     const userCase = {
       respondents: [
         {
@@ -419,7 +418,7 @@ describe('isApplicationRespondent', () => {
         },
       ],
     } as unknown as CaseWithId;
-    const req=mockRequest({ session: { ...userCase}})
-    expect(keepDetailsPrivateNav(userCase, req)).toBe("/respondent/task-list");
+    const req = mockRequest({ session: { ...userCase } });
+    expect(keepDetailsPrivateNav(userCase, req)).toBe('/respondent/task-list');
   });
 });

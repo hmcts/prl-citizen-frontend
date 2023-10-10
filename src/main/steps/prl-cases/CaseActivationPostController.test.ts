@@ -188,8 +188,7 @@ describe('CaseActivationPostController', () => {
               },
             },
           ],
-          respondentsFL401: 
-          {
+          respondentsFL401: {
             email: 'abc',
             gender: 'male',
             address: {
@@ -256,6 +255,6 @@ describe('CaseActivationPostController', () => {
     const res = mockResponse();
 
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/case/undefined');
+    expect(res.redirect).toHaveBeenCalledWith('/respondent/task-list');
   });
 });
