@@ -964,6 +964,7 @@ describe('c100 respondent', () => {
             id: 'checkTheApplication',
             linkText: 'Check the application (PDF)',
             stateTag: { className: 'govuk-tag--grey', label: 'Not available yet' },
+            openInAnotherTab: true,
           },
           {
             disabled: false,
@@ -971,6 +972,7 @@ describe('c100 respondent', () => {
             id: 'checkAllegationsOfHarmAndViolence',
             linkText: 'Check the allegations of harm and violence (PDF)',
             stateTag: { className: 'govuk-tag--grey', label: 'Not available yet' },
+            openInAnotherTab: true,
           },
         ],
       },
@@ -1159,6 +1161,7 @@ describe('c100 respondent', () => {
             id: 'checkTheApplication',
             linkText: 'Check the application (PDF)',
             stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+            openInAnotherTab: true,
           },
           {
             disabled: false,
@@ -1166,6 +1169,7 @@ describe('c100 respondent', () => {
             id: 'checkAllegationsOfHarmAndViolence',
             linkText: 'Check the allegations of harm and violence (PDF)',
             stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+            openInAnotherTab: true,
           },
         ],
       },
@@ -1383,6 +1387,7 @@ describe('c100 respondent', () => {
             id: 'checkTheApplication',
             linkText: 'Check the application (PDF)',
             stateTag: { className: '', label: 'VIEW' },
+            openInAnotherTab: true,
           },
           {
             disabled: false,
@@ -1390,6 +1395,7 @@ describe('c100 respondent', () => {
             id: 'checkAllegationsOfHarmAndViolence',
             linkText: 'Check the allegations of harm and violence (PDF)',
             stateTag: { className: '', label: 'VIEW' },
+            openInAnotherTab: true,
           },
         ],
       },
@@ -1582,6 +1588,7 @@ describe('c100 respondent', () => {
             id: 'checkTheApplication',
             linkText: 'Check the application (PDF)',
             stateTag: { className: '', label: 'VIEW' },
+            openInAnotherTab: true,
           },
           {
             disabled: false,
@@ -1589,6 +1596,7 @@ describe('c100 respondent', () => {
             id: 'checkAllegationsOfHarmAndViolence',
             linkText: 'Check the allegations of harm and violence (PDF)',
             stateTag: { className: '', label: 'VIEW' },
+            openInAnotherTab: true,
           },
         ],
       },
