@@ -3,7 +3,7 @@ import {
   PartyType,
 } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { getApplicant } from '../../../steps/applicant/task-list/content';
+import { getApplicant } from '../../applicant/task-list';
 
 import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
