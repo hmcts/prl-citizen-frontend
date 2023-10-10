@@ -660,6 +660,7 @@ describe('testcase for tasklist', () => {
             href: '/applicant/public/docs/FL401-Final-Document.pdf',
             id: 'yourApplicationPDF',
             linkText: 'Your application (PDF)',
+            openInAnotherTab: true,
             stateTag: {
               className: 'govuk-tag--green',
               label: 'DOWNLOAD',
@@ -670,6 +671,7 @@ describe('testcase for tasklist', () => {
             href: '/applicant/witnessstatements',
             id: 'yourAapplicationWitnessStatment',
             linkText: 'Witness statement (PDF)',
+            openInAnotherTab: true,
             stateTag: {
               className: 'govuk-tag--grey',
               label: 'Not available yet',
@@ -795,6 +797,7 @@ describe('testcase for tasklist', () => {
             href: '/applicant/public/docs/FL401-Final-Document.pdf',
             id: 'yourApplicationPDF',
             linkText: 'Your application (PDF)',
+            openInAnotherTab: true,
             stateTag: {
               className: 'govuk-tag--green',
               label: 'DOWNLOAD',
@@ -805,6 +808,7 @@ describe('testcase for tasklist', () => {
             href: '/applicant/witnessstatements',
             id: 'yourAapplicationWitnessStatment',
             linkText: 'Witness statement (PDF)',
+            openInAnotherTab: true,
             stateTag: {
               className: 'govuk-tag--grey',
               label: 'Not available yet',
