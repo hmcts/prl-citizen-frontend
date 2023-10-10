@@ -621,6 +621,7 @@ export const SAFEGAURD_EXCLUDE_URLS = [
   RESPONSE_TO_CA,
   APPLICANT_CA_DA_REQUEST,
   FETCH_CASE_DETAILS,
+  PIN_ACTIVATION_CASE_ACTIVATED_URL,
 ];
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
