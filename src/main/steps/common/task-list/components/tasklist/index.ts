@@ -97,11 +97,7 @@ export const getTaskListConfig = (
                 );
 
                 prepareHintConfig(task, caseData, userDetails, config, _content);
-                if (task.openInAnotherTab) {
-                  Object.assign(config, {
-                    openInAnotherTab: task.openInAnotherTab,
-                  });
-                }
+                prepareOpenInAnotherTabConfig(task, config);
                 return config;
               }
               return null;
@@ -163,6 +159,17 @@ const prepareHintConfig = (
   if (task?.showHint && task.showHint instanceof Function && task.showHint(caseData, userDetails)) {
     Object.assign(config, {
       hintText: _content?.tasks[task.id]?.hintText,
+    });
+  }
+};
+
+const prepareOpenInAnotherTabConfig = (
+  task: any,
+  config: { id: any; linkText: any; href: any; disabled: any; stateTag: { label: any; className: any } }
+) => {
+  if (task.openInAnotherTab) {
+    Object.assign(config, {
+      openInAnotherTab: task.openInAnotherTab,
     });
   }
 };
