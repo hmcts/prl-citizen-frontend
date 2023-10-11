@@ -5,17 +5,13 @@ import { UPDATE_CASE_YES } from '../../../steps/constants';
 import * as URL from '../../urls';
 
 import {
-  getCheckAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
   getFinalApplicationStatus,
-  getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
-  getResponseStatus,
   getUploadDocuments,
   getViewAllDocuments,
   getViewAllHearingsFromTheCourt,
   getViewAllOrdersFromTheCourt,
-  isApplicationResponded,
 } from './utils';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -58,9 +54,6 @@ export const generateRespondentTaskList = (
       title: sectionTitles.theApplication,
       items: [...getTheApplicationSection(taskListItems, userCase, userIdamId)],
     },
-    ...(!isCaseClosed && !isRepresentedBySolicotor
-      ? getYourResponseSection(sectionTitles, taskListItems, userCase, userIdamId)
-      : []),
     {
       title: sectionTitles.yourcourtHearings,
       items: [
@@ -114,69 +107,16 @@ export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean =>
 
 const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamId) => {
   const itemList: object[] = [];
-  if (userCase?.caseTypeOfApplication === 'C100') {
-    itemList.push(
-      {
-        id: 'check_the_application',
-        text: taskListItems.check_the_application,
-        status: getFinalApplicationStatus(userCase, userIdamId),
-        href:
-          getFinalApplicationStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
-            ? '#'
-            : URL.APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES,
-        openInAnotherTab: true,
-      },
-      {
-        id: 'check_allegations_of_harm_and_violence',
-        text: taskListItems.check_allegations_of_harm_and_violence,
-        status: getCheckAllegationOfHarmStatus(userCase, userIdamId),
-        href:
-          getCheckAllegationOfHarmStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
-            ? '#'
-            : URL.ALLEGATION_OF_HARM_VOILENCE + UPDATE_CASE_YES,
-        openInAnotherTab: true,
-      }
-    );
-  } else {
-    itemList.push({
-      id: 'check_the_application',
-      text: taskListItems.check_the_application,
-      status: getFinalApplicationStatus(userCase, userIdamId),
-      href:
-        getFinalApplicationStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
-          ? '#'
-          : URL.APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES,
-      openInAnotherTab: true,
-    });
-  }
+  itemList.push({
+    id: 'check_the_application',
+    text: taskListItems.check_the_application,
+    status: getFinalApplicationStatus(userCase, userIdamId),
+    href:
+      getFinalApplicationStatus(userCase, userIdamId) === SectionStatus.NOT_AVAILABLE_YET
+        ? '#'
+        : URL.APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES,
+    openInAnotherTab: true,
+  });
 
   return itemList;
-};
-
-const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWithId, userId: string) => {
-  if (userCase?.caseTypeOfApplication === 'C100') {
-    const hasCitizenResponse = isApplicationResponded(userCase, userId);
-    return [
-      {
-        title: sectionTitles.yourResponse,
-        items: [
-          {
-            id: 'respond_to_application',
-            text: taskListItems.respond_to_application,
-            status: getResponseStatus(userCase, userId),
-            href: !hasCitizenResponse ? `${URL.RESPOND_TO_APPLICATION}/flag/updateFlag` : null,
-            hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
-          },
-          {
-            id: 'respond_to_allegations_of_harm_and_violence',
-            text: taskListItems.respond_to_allegations_of_harm_and_violence,
-            status: getInternationalFactorsStatus(userCase),
-            href: '#',
-            hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
-          },
-        ],
-      },
-    ];
-  }
-  return [];
 };

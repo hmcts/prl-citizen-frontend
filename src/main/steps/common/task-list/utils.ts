@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { CaseWithId } from '../../../app/case/case';
-import { UserDetails } from '../../../app/controller/AppRequest';
+import { AppRequest, UserDetails } from '../../../app/controller/AppRequest';
+import { PARTY_TASKLIST, PageLink, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
+import { applyParms } from '../url-parser';
 
 import { CaseType, PartyDetails, PartyType, State, YesOrNo } from './../../../app/case/definition';
 
@@ -17,7 +19,7 @@ export const getPartyName = (
       if (partyType === PartyType.APPLICANT) {
         partyDetails = { firstName: userDetails.givenName, lastName: userDetails.familyName };
       } else {
-        partyDetails = caseData?.respondents?.find(party => party.value.user.idamId === userDetails.id);
+        partyDetails = caseData?.respondents?.find(party => party.value.user.idamId === userDetails.id)?.value;
       }
     } else {
       partyDetails = caseData?.[partyType === PartyType.APPLICANT ? 'applicantsFL401' : 'respondentsFL401'];
@@ -57,4 +59,27 @@ export const isDraftCase = (caseData: Partial<CaseWithId>): boolean => {
 
 export const checkPartyRepresentedBySolicitor = (partyDetails: PartyDetails | undefined): boolean => {
   return partyDetails?.user?.solicitorRepresented === YesOrNo.YES;
+};
+
+export const isApplicationResponded = (userCase: Partial<CaseWithId>, userId: string): boolean => {
+  if (userCase?.citizenResponseC7DocumentList?.length) {
+    return !!userCase.respondents?.find(respondent => {
+      if (respondent.value.user.idamId === userId) {
+        return userCase.citizenResponseC7DocumentList!.find(
+          responseDocument => responseDocument.value.createdBy === respondent.id
+        );
+      }
+    });
+  }
+
+  return false;
+};
+
+// temporary, remove after fl401 tasklist refactored
+export const keepDetailsPrivateNav = (caseData: Partial<CaseWithId>, req: AppRequest): PageLink => {
+  const respondentTaskListUrl =
+    caseData.caseTypeOfApplication === CaseType.C100
+      ? (applyParms(`${PARTY_TASKLIST}`, { partyType: PartyType.RESPONDENT }) as PageLink)
+      : RESPONDENT_TASK_LIST_URL;
+  return req?.session.applicationSettings?.navfromRespondToApplication ? RESPOND_TO_APPLICATION : respondentTaskListUrl;
 };
