@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
-import { getFormattedDate, summaryList } from '../../../common/summary/utils';
+import { summaryList } from '../../../common/summary/utils';
 
 export const enContent = {
   section: 'Check your details',
@@ -29,10 +29,6 @@ export const enContent = {
 
 const en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  const dob = userCase.citizenUserDateOfBirth;
-  if (typeof dob !== 'string') {
-    getFormattedDate(dob);
-  }
   if (!userCase.citizenUserAddressPostcode) {
     urls.citizenUserAddressText = 'address/lookup';
   } else {
@@ -82,10 +78,7 @@ const urls = {
 
 const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
-  const dob = userCase.citizenUserDateOfBirth;
-  if (dob !== null && dob !== undefined && typeof dob !== 'string') {
-    getFormattedDate(dob);
-  }
+
   if (!userCase.citizenUserAddressPostcode) {
     urls.citizenUserAddressText = 'address/lookup';
   } else {

@@ -21,7 +21,7 @@ export const prepareKeepDetailsPrivateRequest = (req: CaseWithId): KeepDetailsPr
   });
 
   if (startAlternative === YesOrNo.NO) {
-    delete request?.confidentialityList;
+    request.confidentialityList = [];
   }
 
   return request;

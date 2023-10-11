@@ -2,6 +2,12 @@ import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { SectionStatus, State } from '../../../app/case/definition';
 import { CommonContent } from '../../common/common.content';
+import {
+  FIND_LEGAL_ADVISE,
+  FIND_MY_LOCAL_COURT,
+  KNOW_MORE_ABOUT_ATTENDING_COURT,
+  KNOW_MORE_ABOUT_CA,
+} from '../../urls';
 
 import { generateContent } from './content';
 import { applicant_cy, applicant_en } from './section-titles';
@@ -28,19 +34,23 @@ const enContent = {
     },
     {
       label: 'Find my local court',
-      link: '#',
+      link: FIND_MY_LOCAL_COURT,
+      target: '_blank',
     },
     {
       label: 'Find legal advice',
-      link: '#',
+      link: FIND_LEGAL_ADVISE,
+      target: '_blank',
     },
     {
       label: 'Know more about child arrangements',
-      link: '#',
+      link: KNOW_MORE_ABOUT_CA,
+      target: '_blank',
     },
     {
       label: 'Know more about attending court',
-      link: '#',
+      link: KNOW_MORE_ABOUT_ATTENDING_COURT,
+      target: '_blank',
     },
   ],
 };
@@ -65,19 +75,23 @@ const cyContent = {
     },
     {
       label: 'Dod o hyd i fy llys lleol',
-      link: '#',
+      link: FIND_MY_LOCAL_COURT,
+      target: '_blank',
     },
     {
       label: 'Dod o hyd i gyngor cyfreithiol',
-      link: '#',
+      link: FIND_LEGAL_ADVISE,
+      target: '_blank',
     },
     {
       label: 'Gwybod mwy am drefniadau plant',
-      link: '#',
+      link: KNOW_MORE_ABOUT_CA,
+      target: '_blank',
     },
     {
       label: 'Gwybod mwy am fynychu’r llys',
-      link: '#',
+      link: KNOW_MORE_ABOUT_ATTENDING_COURT,
+      target: '_blank',
     },
   ],
 };

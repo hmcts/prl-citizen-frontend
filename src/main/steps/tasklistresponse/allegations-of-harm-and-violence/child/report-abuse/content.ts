@@ -156,7 +156,7 @@ export const generateFormFields = (
           return {
             name: 'childrenConcernedAbout',
             label: `${childObj.value.firstName} ${childObj.value.lastName}`,
-            value: `${childObj.id}`,
+            value: `${childObj.value.firstName} ${childObj.value.lastName}`,
           };
         }),
       ],

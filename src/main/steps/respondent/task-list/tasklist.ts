@@ -8,14 +8,13 @@ import {
   getCheckAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
   getFinalApplicationStatus,
-  getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getResponseStatus,
   getUploadDocuments,
   getViewAllDocuments,
   getViewAllHearingsFromTheCourt,
   getViewAllOrdersFromTheCourt,
-  isApplicationResponded,
+  isC7ResponseSubmitted,
 } from './utils';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -155,7 +154,7 @@ const getTheApplicationSection = (taskListItems, userCase: CaseWithId, userIdamI
 
 const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWithId, userId: string) => {
   if (userCase?.caseTypeOfApplication === 'C100') {
-    const hasCitizenResponse = isApplicationResponded(userCase, userId);
+    const hasCitizenResponse = isC7ResponseSubmitted(userCase, userId);
     return [
       {
         title: sectionTitles.yourResponse,
@@ -167,13 +166,15 @@ const getYourResponseSection = (sectionTitles, taskListItems, userCase: CaseWith
             href: !hasCitizenResponse ? `${URL.RESPOND_TO_APPLICATION}/flag/updateFlag` : null,
             hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
           },
+          /* DO NOT DELETE this code will be in action when people feature will be in live
           {
             id: 'respond_to_allegations_of_harm_and_violence',
             text: taskListItems.respond_to_allegations_of_harm_and_violence,
-            status: getInternationalFactorsStatus(userCase),
-            href: '#',
+            status: getAllegationOfHarmStatus(userCase),
+            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page',
             hint: hasCitizenResponse ? taskListItems.respond_to_application_hint : null,
           },
+          */
         ],
       },
     ];
