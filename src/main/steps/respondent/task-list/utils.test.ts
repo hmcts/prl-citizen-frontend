@@ -6,7 +6,6 @@ import {
   getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
   getCurrentOrOtherProceedingsStatus,
-  getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
   getUploadDocuments,
@@ -106,54 +105,6 @@ describe('utils', () => {
       },
     ])('should return correct status %#', async ({ data, expected }) => {
       expect(getCurrentOrOtherProceedingsStatus({ ...userCase, ...data })).toBe(expected);
-    });
-  });
-  describe('getInternationalFactorsStatus', () => {
-    test.each([
-      {
-        data: {
-          ...mockUserCase,
-          start: undefined,
-          parents: undefined,
-          jurisdiction: undefined,
-          request: undefined,
-          iFactorsJurisdictionProvideDetails: undefined,
-          iFactorsParentsProvideDetails: undefined,
-          iFactorsRequestProvideDetails: undefined,
-          iFactorsStartProvideDetails: undefined,
-        },
-        expected: SectionStatus.TO_DO,
-      },
-      {
-        data: {
-          ...mockUserCase,
-          start: YesOrNo.NO,
-          parents: YesOrNo.NO,
-          jurisdiction: YesOrNo.NO,
-          request: YesOrNo.NO,
-          iFactorsJurisdictionProvideDetails: undefined,
-          iFactorsParentsProvideDetails: undefined,
-          iFactorsRequestProvideDetails: undefined,
-          iFactorsStartProvideDetails: undefined,
-        },
-        expected: SectionStatus.COMPLETED,
-      },
-      {
-        data: {
-          ...mockUserCase,
-          start: undefined,
-          parents: YesOrNo.NO,
-          jurisdiction: undefined,
-          request: YesOrNo.NO,
-          iFactorsJurisdictionProvideDetails: undefined,
-          iFactorsParentsProvideDetails: undefined,
-          iFactorsRequestProvideDetails: undefined,
-          iFactorsStartProvideDetails: undefined,
-        },
-        expected: SectionStatus.IN_PROGRESS,
-      },
-    ])('should return correct status %#', async ({ data, expected }) => {
-      expect(getInternationalFactorsStatus({ ...userCase, ...data })).toBe(expected);
     });
   });
   describe('getKeepYourDetailsPrivateStatus', () => {

@@ -1,6 +1,9 @@
-import { PartyType } from '../../../app/case/definition';
+import {
+  //CaseType,
+  PartyType,
+} from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { getApplicant } from '../../../steps/applicant/task-list/content';
+import { getApplicant } from '../../applicant/task-list';
 
 import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
@@ -9,7 +12,8 @@ import {
 } from './../../urls';
 import { getNotificationBannerConfig } from './components/notification-banner/utils';
 import { getProgressBarConfig } from './components/progress-bar/utils';
-import { getTaskListConfig } from './components/tasklist/utils';
+import { languages as sideLinks } from './components/side-links/content';
+import { getTaskListConfig } from './components/tasklist/index';
 import { checkPartyRepresentedBySolicitor, getPartyName } from './utils';
 
 const en = {
@@ -147,6 +151,11 @@ export const generateContent: TranslationFn = content => {
     const applicant = getApplicant(request.session.userCase, request.session.user.id);
     isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(applicant);
   }
+
+  if (caseData?.caseTypeOfApplication) {
+    translations.hyperlinks = sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType].hyperlinks;
+  }
+
   translations.hyperlinks.forEach((hyperLink, index) => {
     if (
       (hyperLink.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) ||
@@ -163,7 +172,7 @@ export const generateContent: TranslationFn = content => {
       href: DASHBOARD_URL,
     },
     partyName: getPartyName(caseData, partyType, request.session.user),
-    progressBar: getProgressBarConfig(caseData, partyType, content.language),
+    progressBar: getProgressBarConfig(caseData, partyType, content.language, request.session.user),
     notifications: getNotificationBannerConfig(caseData, request.session.user, partyType, content.language),
     taskLists: getTaskListConfig(caseData, request.session.user, partyType, content.language, isRepresentedBySolicotor),
   };
