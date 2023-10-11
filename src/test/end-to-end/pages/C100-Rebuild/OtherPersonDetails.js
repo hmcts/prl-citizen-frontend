@@ -68,7 +68,7 @@ module.exports = {
     async addressLookUpPage() {
     await I.retry(retryCount).waitForText(OtherPersonDetails.addressLookUpPageTitle , 30);
     await I.retry(retryCount).waitForText(OtherPersonDetails.addressLookUpSubHeading , 30);
-    await I.wait('2');
+    await I.wait('4');
     await I.retry(retryCount).selectOption(this.fields.addressList, OtherPersonDetails.lookUpOption);
     await I.wait('4');
     await I.retry(retryCount).click('Continue');
