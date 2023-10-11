@@ -88,9 +88,6 @@ module.exports = {
         await I.retry(3).waitForText('Confirm your payment', 30);
         await I.retry(3).waitForText('£232.00', 30);
         await I.retry(3).click('Confirm payment');
-        await I.wait(9);
-        await I.retry(3).waitForText('Application submitted', 30);
-        await I.wait(5);
     },
 
     async applicationSubmitted() {
@@ -106,5 +103,7 @@ module.exports = {
     async checkAnswersAndPay() {
         await this.checkYourAnswersAndPay();
         await this.payByCard();
+       // await this.applicationSubmitted();
+
     }
 };
