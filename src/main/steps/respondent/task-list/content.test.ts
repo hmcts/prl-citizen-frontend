@@ -14,10 +14,9 @@ import {
   RESPOND_TO_APPLICATION,
 } from '../../urls';
 
-import { generateContent, getC100Banners, getFl401Banners, getRespondent, getRespondentName } from './content';
+import { generateContent, getFl401Banners, getRespondent, getRespondentName } from './content';
 import { respondent_cy, respondent_en } from './section-titles';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
-import { getRespondentPartyDetailsCa } from './utils';
 //import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
 
 const c100Case = {
@@ -570,42 +569,6 @@ describe('task-list > content', () => {
     expect(taskListItems).toEqual(expected);
   });
 
-  test('Should return the correct content', () => {
-    const commonContent2 = {
-      language: 'en',
-      userCase: c100Case,
-      additionalData: {
-        req: {
-          session: {
-            user: { id: '12345' },
-            userCase: {
-              ...mockUserCase,
-              respondentsFL401: {
-                firstName: '',
-                lastName: '',
-              },
-              applicantsFL401: {
-                firstName: '',
-                lastName: '',
-              },
-            },
-          },
-        },
-      },
-    } as unknown as CommonContent;
-
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-    const common = generateContent(commonContent2) as Record<string, any>;
-    const respondent = getRespondentPartyDetailsCa(c100Case, userDetail.id);
-    expect(respondent).toEqual(c100Case.respondents[0]);
-    expect(common.stages[2]).toEqual({
-      active: true,
-      ariaLabel: 'Response submitted stage',
-      completed: true,
-      title: 'Response<br/> submitted',
-    });
-  });
-
   test('should return respondent firstname and lastname', () => {
     expect(getRespondentName(getRespondent(c100Case, '12345'))).toBe('John Smith');
   });
@@ -679,26 +642,6 @@ describe('task-list > content', () => {
     };
 
     expect(getRespondentName(getRespondent(data, '12345'))).toBe('John Smith');
-  });
-
-  test('should return C100-banners', () => {
-    const banner = [
-      {
-        bannerHeading: 'You have a new document to view',
-        bannerContent: [
-          {
-            line1: 'A new document has been added to your case.',
-          },
-        ],
-        bannerLinks: [
-          {
-            href: '/respondent/yourdocuments/alldocuments/alldocuments',
-            text: 'See all documents',
-          },
-        ],
-      },
-    ];
-    expect(getC100Banners(c100Case, languages[commonContent.language](), userDetail.id)).toEqual(banner);
   });
 
   test('should return Fl401-banners', () => {

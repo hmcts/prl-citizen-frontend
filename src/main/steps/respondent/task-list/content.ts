@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../app/case/case';
-import { Banner, CaseType, PartyDetails, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { Banner, CaseType, PartyDetails, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { buildProgressBarStages } from '../../../app/utils/progress-bar-utils';
@@ -328,27 +328,10 @@ const languages = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const banners: Banner[] =
-    content.userCase?.caseTypeOfApplication === 'C100'
-      ? getC100Banners(content.userCase, translations, content.userIdamId)
-      : getFl401Banners(content.userCase, translations, content.userIdamId);
+  const banners: Banner[] = getFl401Banners(content.userCase, translations, content.userIdamId);
 
   const stages = buildProgressBarStages(content.userCase!, content.language);
   const req: AppRequest = content.additionalData?.req;
-  if (content.userCase?.caseTypeOfApplication === 'C100') {
-    const respondent = getRespondentPartyDetailsCa(content.userCase, req.session.user.id);
-    if (respondent?.value.response.citizenFlags?.isResponseInitiated) {
-      stages[2].active = true;
-    }
-    const partyId = respondent?.id;
-    if (content.userCase.citizenResponseC7DocumentList) {
-      for (let i = 0; i < content.userCase.citizenResponseC7DocumentList.length; i++) {
-        if (content.userCase.citizenResponseC7DocumentList[i].value.createdBy === partyId) {
-          stages[2].completed = true;
-        }
-      }
-    }
-  }
 
   const respondent = getRespondent(req.session.userCase, req.session.user.id);
   translations.respondentName = getRespondentName(respondent);
@@ -388,28 +371,7 @@ export const getRespondentName = (respondent: PartyDetails | undefined): string 
   return respondent ? respondent.firstName + ' ' + respondent.lastName : '';
 };
 
-/* eslint-disable  @typescript-eslint/explicit-module-boundary-types */
-export const getC100Banners = (userCase, translations, userIdamId) => {
-  const banners: Banner[] = [];
-  userCase?.respondents?.forEach((respondent: Respondent) => {
-    if (
-      respondent?.value.user?.idamId === userIdamId &&
-      YesOrNo.NO === respondent?.value.response?.citizenFlags?.isAllDocumentsViewed
-    ) {
-      banners.push(translations.viewDocumentBanner);
-    }
-  });
-  if (userCase.orderCollection && userCase.orderCollection.length > 0) {
-    if (userCase.state !== 'ALL_FINAL_ORDERS_ISSUED') {
-      banners.push(translations.newOrderBanner);
-    } else {
-      banners.push(translations.finalOrderBanner);
-    }
-  }
-  return banners;
-};
-
-/* eslint-disable  @typescript-eslint/explicit-module-boundary-types */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getFl401Banners = (userCase, translations, userIdamId) => {
   const banners: Banner[] = [];
   if (

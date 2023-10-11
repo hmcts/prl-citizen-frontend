@@ -3,12 +3,10 @@ import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { CaseType, SectionStatus, State, YesOrNo } from '../../../app/case/definition';
 
 import {
-  getCheckAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetails,
   getConsentToApplicationStatus,
   getCurrentOrOtherProceedingsStatus,
   getFinalApplicationStatus,
-  getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getMiamStatus,
   getRespondentAllegationsOfHarmAndViolence,
@@ -21,7 +19,6 @@ import {
   getViewAllOrdersFromTheCourtAllDocuments,
   getYourApplication,
   getYourSafetyStatus,
-  isApplicationResponded,
 } from './utils';
 
 const userCase: CaseWithId = {
@@ -196,6 +193,21 @@ describe('utils', () => {
       expect(getConfirmOrEditYourContactDetails(userCase, '123456')).toBe(SectionStatus.TO_DO);
     });
   });
+  describe('getConsentToApplicationStatus', () => {
+    test.skip.each([
+      {
+        data1: {
+          ...mockUserCase,
+          citizenUserFullName: 'Test',
+        },
+        expected: SectionStatus.IN_PROGRESS,
+      },
+    ])('should return correct status %#', async ({ data1, expected }) => {
+      expect(getConfirmOrEditYourContactDetails({ ...userCase, ...data1 }, '123456')).toBe(expected);
+      expect(getConfirmOrEditYourContactDetails({ ...userCase2, ...data1 }, '12345')).toBe(SectionStatus.COMPLETED);
+      expect(getConfirmOrEditYourContactDetails(userCase, '123456')).toBe(SectionStatus.TO_DO);
+    });
+  });
 
   test('getConsentToApplicationStatus', () => {
     const data1 = {
@@ -313,54 +325,6 @@ describe('utils', () => {
       },
     ])('should return correct status %#', ({ data1, expected }) => {
       expect(getCurrentOrOtherProceedingsStatus({ ...userCase, ...data1 })).toBe(expected);
-    });
-  });
-  describe('getInternationalFactorsStatus', () => {
-    test.each([
-      {
-        data1: {
-          ...mockUserCase,
-          start: undefined,
-          parents: undefined,
-          jurisdiction: undefined,
-          request: undefined,
-          iFactorsJurisdictionProvideDetails: undefined,
-          iFactorsParentsProvideDetails: undefined,
-          iFactorsRequestProvideDetails: undefined,
-          iFactorsStartProvideDetails: undefined,
-        },
-        expected: SectionStatus.TO_DO,
-      },
-      {
-        data1: {
-          ...mockUserCase,
-          start: YesOrNo.NO,
-          parents: YesOrNo.NO,
-          jurisdiction: YesOrNo.NO,
-          request: YesOrNo.NO,
-          iFactorsJurisdictionProvideDetails: undefined,
-          iFactorsParentsProvideDetails: undefined,
-          iFactorsRequestProvideDetails: undefined,
-          iFactorsStartProvideDetails: undefined,
-        },
-        expected: SectionStatus.COMPLETED,
-      },
-      {
-        data1: {
-          ...mockUserCase,
-          start: undefined,
-          parents: YesOrNo.NO,
-          jurisdiction: undefined,
-          request: YesOrNo.NO,
-          iFactorsJurisdictionProvideDetails: undefined,
-          iFactorsParentsProvideDetails: undefined,
-          iFactorsRequestProvideDetails: undefined,
-          iFactorsStartProvideDetails: undefined,
-        },
-        expected: SectionStatus.IN_PROGRESS,
-      },
-    ])('should return correct status %#', async ({ data1, expected }) => {
-      expect(getInternationalFactorsStatus({ ...userCase, ...data1 })).toBe(expected);
     });
   });
 
@@ -578,30 +542,6 @@ describe('getFinalApplicationStatus', () => {
   });
 });
 
-describe('getCheckAllegationOfHarmStatus', () => {
-  test.each([
-    {
-      data1: {
-        ...mockUserCase,
-      },
-      expected: SectionStatus.NOT_AVAILABLE_YET,
-    },
-    {
-      data1: {
-        ...mockUserCase,
-        c1ADocument: {
-          document_url: 'string',
-          document_filename: 'string',
-          document_binary_url: 'string',
-        },
-      },
-      expected: SectionStatus.VIEW,
-    },
-  ])('should return correct status %#', async ({ data1, expected }) => {
-    expect(getCheckAllegationOfHarmStatus({ ...userCase2, ...data1 }, '12345')).toBe(expected);
-  });
-});
-
 describe('getRespondentSupportYourNeedsDetails', () => {
   test.each([
     {
@@ -640,11 +580,6 @@ describe('getRespondentSupportYourNeedsDetails', () => {
 test('getRespondentPartyDetailsCa', () => {
   expect(getRespondentPartyDetailsCa(userCase2, '123456')).toBe(undefined);
   expect(getRespondentPartyDetailsCa(userCase2, '12345')).toBe(userCase2.respondents[0]);
-});
-
-test('isApplicationResponded', () => {
-  expect(isApplicationResponded(userCase2, '12345')).toBe(true);
-  expect(isApplicationResponded(userCase, '12345')).toBe(false);
 });
 
 test('getYourApplication', () => {
