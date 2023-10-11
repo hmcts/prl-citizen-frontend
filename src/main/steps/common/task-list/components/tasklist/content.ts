@@ -8,6 +8,10 @@ const en = {
     readyToView: 'Ready to view',
     submitted: 'Submitted',
     optional: 'Optional',
+    completed: 'Completed',
+    toDo: 'TO DO',
+    download: 'DOWNLOAD',
+    view: 'VIEW',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
@@ -53,8 +57,134 @@ const en = {
           keepYourDetailsPrivate: {
             linkText: 'Keep your details private',
           },
-          supportDuringCase: {
-            linkText: 'Support you need during your case',
+          yourSupport: {
+            linkText: 'Your Support',
+          },
+        },
+      },
+      ordersFromTheCourt: {
+        heading: 'Orders from the court',
+        tasks: {
+          viewOrders: {
+            linkText: 'View all orders from the court',
+          },
+        },
+      },
+    },
+    [PartyType.RESPONDENT]: {
+      aboutYou: {
+        heading: 'About you',
+        tasks: {
+          keepYourDetailsPrivate: {
+            linkText: 'Keep your details private',
+          },
+          editYouContactDetails: {
+            linkText: 'Confirm or edit your contact details',
+          },
+          yourSupport: {
+            linkText: 'Your Support',
+          },
+        },
+      },
+      theApplication: {
+        heading: 'The application',
+        tasks: {
+          checkTheApplication: {
+            linkText: 'Check the application (PDF)',
+          },
+          checkAllegationsOfHarmAndViolence: {
+            linkText: 'Check the allegations of harm and violence (PDF)',
+          },
+        },
+      },
+      yourResponse: {
+        heading: 'Your response',
+        tasks: {
+          respondToTheApplication: {
+            linkText: 'Respond to the application',
+            hintText: 'Go to view all documents to check the response.',
+          },
+          respondToAOHAndViolence: {
+            linkText: 'Respond to the allegations of harm and violence',
+            hintText: 'Go to view all documents to check the response.',
+          },
+        },
+      },
+      yourHearing: {
+        heading: 'Your court hearings',
+        tasks: {
+          viewHearingDetails: {
+            linkText: 'Check details of your court hearings',
+          },
+        },
+      },
+      yourDocuments: {
+        heading: 'Your documents',
+        tasks: {
+          uploadDocuments: {
+            linkText: 'Upload Documents',
+          },
+          viewAllDocuments: {
+            linkText: 'View all documents',
+          },
+        },
+      },
+      ordersFromTheCourt: {
+        heading: 'Orders from the court',
+        tasks: {
+          viewOrders: {
+            linkText: 'View all orders from the court',
+          },
+        },
+      },
+    },
+  },
+  [CaseType.FL401]: {
+    [PartyType.APPLICANT]: {
+      yourApplication: {
+        heading: 'Your application',
+        tasks: {
+          yourApplicationPDF: {
+            linkText: 'Your application (PDF)',
+          },
+          yourAapplicationWitnessStatment: {
+            linkText: 'Witness statement (PDF)',
+          },
+        },
+      },
+      yourDocuments: {
+        heading: 'Your documents',
+        tasks: {
+          uploadDocuments: {
+            linkText: ' Upload documents',
+          },
+          viewAllDocuments: {
+            linkText: 'View all documents',
+          },
+        },
+      },
+      yourHearing: {
+        heading: 'Your court hearings',
+        tasks: {
+          viewHearingDetails: {
+            linkText: 'Check details of your court hearings',
+          },
+        },
+      },
+      aboutYou: {
+        heading: 'About you',
+        tasks: {
+          editYouContactDetails: {
+            linkText: 'Confirm or edit your contact details',
+          },
+          contactPreferences: {
+            linkText: 'Contact preferences',
+          },
+          keepYourDetailsPrivate: {
+            linkText: 'Keep your details private',
+          },
+          yourSupport: {
+            linkText: 'Your Support',
           },
         },
       },
@@ -78,6 +208,10 @@ const cy: typeof en = {
     readyToView: 'Yn barod i’w gweld',
     submitted: 'Wedi’i gyflwyno',
     optional: ' Dewisol',
+    completed: 'Wedi’i gwblhau',
+    toDo: 'I WNEUD',
+    download: 'LLWYTHO',
+    view: 'GWELD',
   },
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
@@ -125,8 +259,136 @@ const cy: typeof en = {
           keepYourDetailsPrivate: {
             linkText: 'Cadw eich manylion yn breifat',
           },
-          supportDuringCase: {
-            linkText: 'Cefnogaeth y mae arnoch angen yn ystod eich achos',
+          yourSupport: {
+            linkText: 'Your Support -welsh',
+          },
+        },
+      },
+      ordersFromTheCourt: {
+        heading: 'Cadw eich manylion yn breifat',
+        tasks: {
+          viewOrders: {
+            linkText: 'Gweld yr holl orchmynion gan y llys',
+          },
+        },
+      },
+    },
+    [PartyType.RESPONDENT]: {
+      aboutYou: {
+        heading: 'Amdanoch chi',
+        tasks: {
+          keepYourDetailsPrivate: {
+            linkText: 'Cadw eich manylion yn breifat',
+          },
+          editYouContactDetails: {
+            linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
+          },
+          yourSupport: {
+            linkText: 'Your Support -welsh',
+          },
+        },
+      },
+      theApplication: {
+        heading: 'Y cais',
+        tasks: {
+          checkTheApplication: {
+            linkText: 'Gwirio’r cais (PDF)',
+          },
+          checkAllegationsOfHarmAndViolence: {
+            linkText: 'Gwirio’r honiadau o niwed a thrais (PDF)',
+          },
+        },
+      },
+      yourResponse: {
+        heading: 'Eich ymateb',
+        tasks: {
+          respondToTheApplication: {
+            linkText: "Ymateb i'r cais",
+            hintText: 'Ewch i gweld yr holl ddogfennau i wirio’r ymateb',
+          },
+          respondToAOHAndViolence: {
+            linkText: "Ymateb i'r honiadau o niwed a thrais",
+            hintText: 'Ewch i gweld yr holl ddogfennau i wirio’r ymateb',
+          },
+        },
+      },
+      yourHearing: {
+        heading: 'Eich gwrandawiadau llys',
+        tasks: {
+          viewHearingDetails: {
+            linkText: 'Gwiriwch fanylion eich gwrandawiadau llys',
+          },
+        },
+      },
+      yourDocuments: {
+        heading: 'Eich dogfennau',
+        tasks: {
+          uploadDocuments: {
+            linkText: 'Llwytho dogfennau Dewisol',
+          },
+          viewAllDocuments: {
+            linkText: 'Eich diogelwch',
+          },
+        },
+      },
+      ordersFromTheCourt: {
+        heading: 'Gorchmynion gan y llys',
+        tasks: {
+          viewOrders: {
+            linkText: 'Gweld yr holl orchmynion gan y llys',
+          },
+        },
+      },
+    },
+  },
+  [CaseType.FL401]: {
+    [PartyType.APPLICANT]: {
+      yourApplication: {
+        heading: 'Eich cais',
+        tasks: {
+          yourApplicationPDF: {
+            linkText: 'Eich cais (PDF)',
+          },
+          yourAapplicationWitnessStatment: {
+            linkText: 'Datganiad tyst (PDF)',
+          },
+        },
+      },
+      yourDocuments: {
+        heading: 'Eich dogfennau',
+        tasks: {
+          uploadDocuments: {
+            linkText: 'Llwytho dogfennau',
+          },
+          viewAllDocuments: {
+            linkText: 'Gweld yr holl ddogfennau',
+          },
+        },
+      },
+
+      yourHearing: {
+        heading: 'Eich gwrandawiadau llys',
+        tasks: {
+          viewHearingDetails: {
+            linkText: 'Gwirio manylion eich gwrandawiadau llys',
+          },
+        },
+      },
+
+      aboutYou: {
+        heading: 'Amdanoch chi',
+        tasks: {
+          editYouContactDetails: {
+            linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
+          },
+          contactPreferences: {
+            linkText: 'Dewisiadau cyswllt',
+          },
+          keepYourDetailsPrivate: {
+            linkText: 'Cadw eich manylion yn breifat',
+          },
+          yourSupport: {
+            linkText: 'Your Support -welsh',
           },
         },
       },
