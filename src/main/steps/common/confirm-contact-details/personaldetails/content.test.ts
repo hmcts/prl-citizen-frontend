@@ -1,6 +1,8 @@
 //import { FormContent , FormFields , FormOptions } from "../../../../app/form/Form";
 
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { Validator } from '../../../../app/form/validation';
 import { CommonContent } from '../../common.content';
 
 import { generateContent } from './content';
@@ -81,7 +83,7 @@ const cyContent: typeof enContent = {
     },
   },
 };
-
+/* eslint-disable @typescript-eslint/ban-types */
 describe('address details', () => {
   const commonContent = { language: 'en', userCase: {} } as CommonContent;
   const commonContentcy = { language: 'cy', userCase: {} } as CommonContent;
@@ -171,31 +173,80 @@ describe('address details', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  // test('should contain citizenUserAddressPostcode field', () => {
-  //   const form = generatedContent.form as FormContent;
-  //   const fields = form.fields as FormFields;
-  //   const addressPostcodeField = fields.citizenUserAddressPostcode as FormOptions;
+  test('should contain field', () => {
+    const form = generatedContent.form as FormContent;
+    const fields = form.fields as FormFields;
+    const citizenUserFirstNamesField = fields.citizenUserFirstNames as FormOptions;
 
-  //   expect(addressPostcodeField.type).toBe('text');
-  //   expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');
-  //   expect((addressPostcodeField.label as Function)(generatedContent)).toBe(enContent.citizenUserAddressPostcode);
-  //   expect(addressPostcodeField.labelSize).toBe('m');
-  //   expect(addressPostcodeField.attributes!.maxLength).toBe(14);
-  //   expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
-  //   expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
-  // });
+    expect(citizenUserFirstNamesField.type).toBe('text');
+    expect(citizenUserFirstNamesField.classes).toBe('govuk-input--width-20');
+    expect((citizenUserFirstNamesField.label as Function)(generatedContent)).toBe(enContent.citizenUserFirstNames);
+    (citizenUserFirstNamesField.validator as Validator)('test value');
 
-  // test('should contain citizenUserAddressPostcode field with welsh', () => {
-  //   const form = generatedContent.form as FormContent;
-  //   const fields = form.fields as FormFields;
-  //   const addressPostcodeField = fields.citizenUserAddressPostcode as FormOptions;
+    const citizenUserLastNamesField = fields.citizenUserLastNames as FormOptions;
+    expect(citizenUserLastNamesField.type).toBe('text');
+    expect(citizenUserLastNamesField.classes).toBe('govuk-input--width-20');
+    expect((citizenUserLastNamesField.label as Function)(generatedContent)).toBe(enContent.citizenUserLastNames);
+    (citizenUserLastNamesField.validator as Validator)('test value');
 
-  //   expect(addressPostcodeField.type).toBe('text');
-  //   expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');
-  //   expect((addressPostcodeField.label as Function)(generatedContentcy)).toBe(cyContent.citizenUserAddressPostcode);
-  //   expect(addressPostcodeField.labelSize).toBe('m');
-  //   expect(addressPostcodeField.attributes!.maxLength).toBe(14);
-  //   expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
-  //   expect((form.submit?.text as Function)(generatedContentcy)).toBe('Continue (in welsh)');
-  // });
+    const citizenUserAdditionalNameField = fields.citizenUserAdditionalName as FormOptions;
+    expect(citizenUserAdditionalNameField.type).toBe('text');
+    expect(citizenUserAdditionalNameField.classes).toBe('govuk-input--width-20');
+    expect((citizenUserAdditionalNameField.label as Function)(generatedContent)).toBe(enContent.previousName);
+    (citizenUserAdditionalNameField.validator as Validator)('test value');
+
+    const citizenUserPlaceOfBirthField = fields.citizenUserPlaceOfBirth as FormOptions;
+    expect(citizenUserPlaceOfBirthField.type).toBe('text');
+    expect(citizenUserPlaceOfBirthField.classes).toBe('govuk-input--width-20');
+    expect((citizenUserPlaceOfBirthField.label as Function)(generatedContent)).toBe(enContent.citizenUserPlaceOfBirth);
+    (citizenUserPlaceOfBirthField.validator as Validator)('test value');
+
+    const citizenUserDateOfBirthField = fields.citizenUserDateOfBirth as FormOptions;
+    expect(citizenUserDateOfBirthField.type).toBe('date');
+    expect(citizenUserDateOfBirthField.classes).toBe('govuk-date-input');
+    expect((citizenUserDateOfBirthField.label as Function)(generatedContent)).toBe(enContent.citizenUserDateOfBirth);
+    expect((citizenUserDateOfBirthField.hint as Function)(generatedContent)).toBe(enContent.hintDateOfBirth);
+    (citizenUserDateOfBirthField.validator as Validator)('test value');
+
+    expect(citizenUserDateOfBirthField.values[0].name).toBe('day');
+    expect(
+      (citizenUserDateOfBirthField.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(citizenUserDateOfBirthField.values[0].classes).toBe('govuk-input--width-2');
+
+    expect(citizenUserDateOfBirthField.values[1].name).toBe('month');
+    expect(
+      (citizenUserDateOfBirthField.values[1].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Month');
+    expect(citizenUserDateOfBirthField.values[1].classes).toBe('govuk-input--width-2');
+
+    expect(citizenUserDateOfBirthField.values[2].name).toBe('year');
+    expect(
+      (citizenUserDateOfBirthField.values[2].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Year');
+    expect(citizenUserDateOfBirthField.values[2].classes).toBe('govuk-input--width-4');
+    (citizenUserDateOfBirthField.validator as Validator)('test value');
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
+  });
 });

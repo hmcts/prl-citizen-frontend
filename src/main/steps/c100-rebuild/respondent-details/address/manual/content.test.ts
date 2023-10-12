@@ -1,13 +1,26 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, LanguageLookup } from '../../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
+import { isTextAreaValid } from '../../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 
+jest.mock('../../../../../app/form/validation');
+
+const name = 'Dummy  Test1';
+
 const en = {
-  title: 'Address details of Dummy  Test1',
+  title: `Address details of ${name}`,
   subtitle:
     "Include as much detail as you can. If there's information missing, your application may take longer to process.",
+  addressLine1Hint: 'Court documents will be sent here',
+  addressHistoryLabel: 'Have they lived at this address for more than 5 years?',
+  provideDetailsOfPreviousAddressLabel:
+    'Please provide details of all previous addresses for the last 5 years below, including the dates and starting with the most recent',
+  addressHistoryDontKnowHintText: "Leave blank if you don't know",
+  one: 'Yes',
+  two: 'No',
+  three: "Don't know",
   errors: {
     AddressLine1: {
       required: 'Enter the first line of the address',
@@ -33,9 +46,17 @@ const en = {
 };
 
 const cy = {
-  title: 'Cyfeiriad Dummy  Test1',
+  title: `Cyfeiriad ${name}`,
   subtitle:
     'Dylech gynnwys cymaint o fanylion ag y gallwch. Os oes gwybodaeth ar goll, gall eich cais gymryd yn hirach i’w brosesu.',
+  addressLine1Hint: 'Bydd dogfennau’r llys yn cael eu hanfon yma',
+  addressHistoryLabel: 'A ydynt wedi byw yn y cyfeiriad hwn am 5 mlynedd neu fwy?',
+  provideDetailsOfPreviousAddressLabel:
+    'Os nad ydynt, rhowch fanylion yr holl gyfeiriadau blaenorol am y 5 mlynedd diwethaf, os yn hysbys, gan gynnwys y dyddiadau, gan ddechrau gyda’r diweddaraf',
+  addressHistoryDontKnowHintText: 'Gadewch yn wag os nad ydych yn gwybod',
+  one: 'Ydynt',
+  two: 'Nac ydynt',
+  three: 'Ddim yn gwybod',
   errors: {
     AddressLine1: {
       required: 'Nodwch linell gyntaf y cyfeiriad',
@@ -111,48 +132,29 @@ describe('respondent > address > manual > content', () => {
     ).toBe('Continue');
   });
   test('should contain address1 field', () => {
-    const { AddressLine1 } = fields as Record<string, FormFields>;
-    const { AddressLine2 } = fields as Record<string, FormFields>;
-    const { PostTown } = fields as Record<string, FormFields>;
-    // const { County } = fields as Record<string, FormFields>;
-    const { Country } = fields as Record<string, FormFields>;
-    const { PostCode } = fields as Record<string, FormFields>;
-    const { addressUnknown } = fields as Record<string, FormFields>;
+    const addressHistoryFields = fields.addressHistory as FormOptions;
 
-    expect(AddressLine1.type).toBe('text');
-    expect(AddressLine1.classes).toBe('govuk-label');
-    expect(AddressLine1.labelSize).toBe(null);
-    expect((AddressLine1.label as LanguageLookup)(generatedContent)).toBe('Building and street');
+    expect(addressHistoryFields.type).toBe('radios');
+    expect(addressHistoryFields.classes).toBe('govuk-radios');
+    expect((addressHistoryFields.label as Function)(generatedContent)).toBe(en.addressHistoryLabel);
 
-    expect(AddressLine2.type).toBe('text');
-    expect(AddressLine2.classes).toBe('govuk-label');
-    expect(AddressLine2.labelSize).toBe(null);
+    expect((addressHistoryFields.values[0].label as Function)(generatedContent)).toBe(en.one);
+    expect(addressHistoryFields.values[0].value).toBe('yes');
 
-    expect(PostTown.type).toBe('text');
-    expect(PostTown.classes).toBe('govuk-label govuk-!-width-two-thirds');
-    expect(PostTown.labelSize).toBe(null);
-    expect((PostTown.label as LanguageLookup)(generatedContent)).toBe('Town or city');
+    expect((addressHistoryFields.values[1].label as Function)(generatedContent)).toBe(en.two);
+    expect(addressHistoryFields.values[1].value).toBe('no');
 
-    // expect(County.type).toBe('text');
-    // expect(County.classes).toBe('govuk-label govuk-!-width-two-thirds');
-    // expect((County.label as LanguageLookup)(generatedContent)).toBe('County');
-    // expect(County.labelSize).toBe(null);
+    expect(
+      (addressHistoryFields.values[1].subFields?.provideDetailsOfPreviousAddresses.label as Function)(generatedContent)
+    ).toBe(en.provideDetailsOfPreviousAddressLabel);
+    expect(
+      (addressHistoryFields.values[1].subFields?.provideDetailsOfPreviousAddresses.hint as Function)(generatedContent)
+    ).toBe(en.addressHistoryDontKnowHintText);
+    (addressHistoryFields.values[1].subFields?.provideDetailsOfPreviousAddresses.validator as Function)('MOCK_VALUE');
+    expect(isTextAreaValid).toHaveBeenCalledWith('MOCK_VALUE');
 
-    expect(Country.type).toBe('text');
-    expect(Country.classes).toBe('govuk-label govuk-!-width-two-thirds');
-    expect((Country.label as LanguageLookup)(generatedContent)).toBe('Country');
-    expect(Country.labelSize).toBe(null);
-
-    expect(PostCode.type).toBe('text');
-    expect(PostCode.classes).toBe('govuk-label govuk-input--width-10');
-    expect((PostCode.label as LanguageLookup)(generatedContent)).toBe('Postcode');
-    expect(PostCode.labelSize).toBe(null);
-
-    expect(addressUnknown.type).toBe('checkboxes');
-    expect(addressUnknown.classes).toBe('govuk-checkboxes');
-    expect((addressUnknown.values[0].label as LanguageLookup)(generatedContent)).toBe(
-      'I dont know where they currently live'
-    );
+    expect((addressHistoryFields.values[2].label as Function)(generatedContent)).toBe(en.three);
+    expect(addressHistoryFields.values[2].value).toBe('dontKnow');
   });
 
   test('should contain saveAndComeLater button', () => {

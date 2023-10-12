@@ -1,4 +1,6 @@
-import { fromApiApplicant1 } from './uploaded-files';
+import { YesOrNo } from '../definition';
+
+import { fromApiApplicant1, getFilename } from './uploaded-files';
 
 describe('uploadedFilesFromApiApplicant1', () => {
   it('converts documents', async () => {
@@ -71,5 +73,32 @@ describe('uploadedFilesFromApiApplicant1', () => {
     expect(result.orderCollection?.[0].value.otherDetails.orderCreatedDate).toBe('18 July 2022');
     expect(result.orderCollection?.[1].value.orderDocument.document_filename).toBe('N117CreateOrder.pdf');
     expect(result.orderCollection?.[1].value.otherDetails.orderCreatedDate).toBe('13 July 2022');
+  });
+  test('getFilename', async () => {
+    const document = {
+      id: '1',
+      value: {
+        parentDocumentType: 'string',
+        documentType: 'string',
+        partyName: 'string',
+        isApplicant: 'string',
+        uploadedBy: 'string',
+        dateCreated: 'string',
+        documentDetails: {
+          documentName: '',
+          documentUploadedDate: '',
+        },
+        citizenDocument: {
+          document_url:
+            'http://dm-store-aat.service.core-compute-aat.internal/documents/2ede5e2a-fe74-4d52-83b3-9f41bcebfdda',
+          document_filename: 'N117CreateOrder.pdf',
+          document_binary_url:
+            'http://dm-store-aat.service.core-compute-aat.internal/documents/2ede5e2a-fe74-4d52-83b3-9f41bcebfdda/binary',
+        },
+        documentRequestedByCourt: YesOrNo.YES,
+      },
+    };
+
+    expect(getFilename(document)).toStrictEqual('N117CreateOrder.pdf');
   });
 });
