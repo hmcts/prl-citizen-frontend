@@ -22,7 +22,6 @@ module.exports = {
     },
     async checkYourAnswersHWF(){
         await I.retry(retryCount).waitForText(CYA.cyaTitle , 60);
-        await I.retry(retryCount).waitForText(CYA.caseName , 60);
         await I.retry(retryCount).waitForText(CYA.locationDetails , 60);
         await I.retry(retryCount).waitForText(CYA.typeOfApplication , 60);
         await I.retry(retryCount).waitForText(CYA.legalRepDetails , 60);

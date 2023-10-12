@@ -22,7 +22,6 @@ const mockData = {
   c100RebuildChildPostCode: 'AB2 3BV',
   helpWithFeesReferenceNumber: 'HWF-1234',
   c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
-  applicantCaseName: 'C100 test case',
   id: '1234',
 };
 
@@ -51,7 +50,7 @@ describe('CaseApi', () => {
   test('Should create a case', async () => {
     const request = {
       caseTypeOfApplication: C100_CASE_TYPE.C100,
-      c100RebuildReturnUrl: '/c100-rebuild/case-name',
+      c100RebuildReturnUrl: '/c100-rebuild/childaddress',
     };
 
     mockedAxios.post.mockResolvedValueOnce({
@@ -111,7 +110,6 @@ describe('CaseApi', () => {
         helpWithFeesReferenceNumber: 'HWF-1234',
         c100RebuildMaim: '{"miam":"c100RebuildMaim"}',
         c100RebuildReturnUrl: '{"miam":"c100RebuildMaim"}',
-        applicantCaseName: 'C100 test case',
         id: '1234',
       },
       {

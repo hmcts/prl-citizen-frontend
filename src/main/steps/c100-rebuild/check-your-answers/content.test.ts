@@ -2,7 +2,6 @@
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
 import { YesOrNo } from '../../../app/case/definition';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
-import { cy as caseNameCyContent, en as caseNameEnContent } from '../case-name/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 
@@ -74,7 +73,6 @@ const enTestContent = {
     whereTheChildrenLive: 'Where the children live',
     detailofOtherPeople: 'Details of the other people in the application',
     reasonAbleAdjustment: '[^^sectionNo^^]. Support you need during your case', //section 12
-    caseName: '[^^sectionNo^^]. Case name',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application',
@@ -112,7 +110,6 @@ const enTestContent = {
       'There is a court order preventing me from making an application without first getting the permission of the court',
     anotherReason: 'Another reason',
     dontKnow: "Don't know",
-    enterCaseName: caseNameEnContent().title,
     child: 'Child',
   },
 };
@@ -177,7 +174,6 @@ const cyTestContent = {
     whereTheChildrenLive: 'Ble mae’r plant yn byw',
     detailofOtherPeople: 'Manylion y bobl eraill yn y cais',
     reasonAbleAdjustment: '[^^sectionNo^^]. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos', //section 12
-    caseName: '[^^sectionNo^^]. Enw’r Achos',
   },
   keys: {
     wantingCourtToDo: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
@@ -214,7 +210,6 @@ const cyTestContent = {
     courtOrderPrevent: 'Mae gorchymyn llys sy’n fy rhwystro rhag gwneud cais heb gael caniatâd gan y llys yn gyntaf',
     anotherReason: 'Rheswm arall',
     dontKnow: 'Ddim yn gwybod',
-    enterCaseName: caseNameCyContent().title,
     child: 'Plant',
   },
 };
