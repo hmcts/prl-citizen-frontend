@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -70,6 +71,14 @@ describe('citizen-home content', () => {
     expect(detailsKnownField.type).toBe('radios');
     expect(detailsKnownField.classes).toBe('govuk-radios');
     expect((detailsKnownField.section as Function)(generatedContent)).toBe(en.section);
+    expect((detailsKnownField.label as Function)(generatedContent)).toBe(undefined);
+    expect((detailsKnownField.hint as Function)(generatedContent)).toBe(undefined);
+
+    (detailsKnownField.validator as Validator)(generatedContent);
+    expect(isFieldFilledIn).toHaveBeenCalled();
+
+    expect((detailsKnownField.values[0].label as Function)(generatedContent)).toBe(en.one);
+    expect((detailsKnownField.values[1].label as Function)(generatedContent)).toBe(en.two);
   });
 
   test('should contain continue button', () => {

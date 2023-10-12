@@ -371,7 +371,8 @@ export const getRespondentName = (respondent: PartyDetails | undefined): string 
   return respondent ? respondent.firstName + ' ' + respondent.lastName : '';
 };
 
-const getFl401Banners = (userCase, translations, userIdamId) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const getFl401Banners = (userCase, translations, userIdamId) => {
   const banners: Banner[] = [];
   if (
     userCase?.respondentsFL401?.user?.idamId === userIdamId &&
