@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -10,6 +11,7 @@ const en = {
   courtcommunication: 'For example, do you have a disability that would prevent you from attending court in person?',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
+  provideDetails: 'Provide details',
   one: 'Yes',
   two: 'No',
   continue: 'Continue',
@@ -33,6 +35,7 @@ const cy: typeof en = {
     'Meddyliwch am yr hyn y byddwch ei angen os bydd eich gwrandawiad yn un wyneb yn wyneb, trwy fideo neu dros y ffôn.',
   optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
+  provideDetails: 'Rhowch fanylion',
   one: 'Yes',
   two: 'No',
   continue: 'Parhau',
@@ -85,7 +88,28 @@ describe('citizen-home content', () => {
     const unableforcourtproceedingsField = fields.unableForCourtProceedings as FormOptions;
     expect(unableforcourtproceedingsField.type).toBe('radios');
     expect(unableforcourtproceedingsField.classes).toBe('govuk-radios');
+    expect((unableforcourtproceedingsField.label as Function)(generatedContent)).toBe(undefined);
     expect((unableforcourtproceedingsField.section as Function)(generatedContent)).toBe(en.section);
+    expect((unableforcourtproceedingsField.hint as Function)(generatedContent)).toBe(undefined);
+    expect((unableforcourtproceedingsField.values[0].label as Function)(generatedContent)).toBe(en.one);
+    expect(unableforcourtproceedingsField.values[0].value).toBe('Yes');
+
+    expect(unableforcourtproceedingsField.values[0].subFields?.courtProceedingProvideDetails.type).toBe('textarea');
+    expect(unableforcourtproceedingsField.values[0].subFields?.courtProceedingProvideDetails.type).toBe('textarea');
+    expect(
+      (unableforcourtproceedingsField.values[0].subFields?.courtProceedingProvideDetails.label as Function)(
+        generatedContent
+      )
+    ).toBe(en.provideDetails);
+    (unableforcourtproceedingsField.values[0].subFields?.courtProceedingProvideDetails.validator as Validator)(
+      'test value'
+    );
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test value');
+
+    expect((unableforcourtproceedingsField.values[1].label as Function)(generatedContent)).toBe(en.two);
+    expect(unableforcourtproceedingsField.values[1].value).toBe('No');
+
+    expect(unableforcourtproceedingsField.validator).toBe(isFieldFilledIn);
   });
 
   test('should contain continue button', () => {

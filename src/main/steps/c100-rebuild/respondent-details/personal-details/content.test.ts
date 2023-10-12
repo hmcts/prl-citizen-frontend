@@ -7,7 +7,15 @@ import {
   YesOrNo,
 } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
-import { Validator, areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
+import {
+  Validator,
+  areDateFieldsFilledIn,
+  isAlphaNumeric,
+  isDateInputInvalid,
+  isFieldFilledIn,
+  isFieldLetters,
+  isFutureDate,
+} from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 import { getDataShape } from '../../people/util';
 
@@ -253,6 +261,9 @@ describe('respondent details > personal details', () => {
     expect((hasNameChanged.values[0].subFields.previousFullName.label as Function)(generatedContent)).toBe(
       en.previousName
     );
+    (hasNameChanged.values[0].subFields.previousFullName.validator as Function)('previous name');
+    expect(isFieldFilledIn).toHaveBeenCalled();
+    expect(isFieldLetters).toHaveBeenCalled();
 
     expect((hasNameChanged.values[1].label as Function)(generatedContent)).toBe(en.two);
     expect((hasNameChanged.values[2].label as Function)(generatedContent)).toBe(en.dontKnow);
@@ -276,6 +287,44 @@ describe('respondent details > personal details', () => {
       month: '12',
       year: '1987',
     });
+    expect(dateOfBirth.values[0].name).toBe('day');
+    expect(
+      (dateOfBirth.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(dateOfBirth.values[0].classes).toBe('govuk-input--width-2');
+
+    expect(dateOfBirth.values[1].name).toBe('month');
+    expect(
+      (dateOfBirth.values[1].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Month');
+    expect(dateOfBirth.values[1].classes).toBe('govuk-input--width-2');
+
+    expect(dateOfBirth.values[2].name).toBe('year');
+    expect(
+      (dateOfBirth.values[2].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Year');
+    expect(dateOfBirth.values[2].classes).toBe('govuk-input--width-4');
 
     expect(isDateOfBirthUnknown.type).toBe('checkboxes');
     expect(isDateOfBirthUnknown.values[0].name).toBe('isDateOfBirthUnknown');
@@ -303,6 +352,44 @@ describe('respondent details > personal details', () => {
       month: '12',
       year: '1987',
     });
+    expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[0].name).toBe('day');
+    expect(
+      (isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[0].classes).toBe('govuk-input--width-2');
+
+    expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[1].name).toBe('month');
+    expect(
+      (isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[1].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Month');
+    expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[1].classes).toBe('govuk-input--width-2');
+
+    expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[2].name).toBe('year');
+    expect(
+      (isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[2].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Year');
+    expect(isDateOfBirthUnknown.values[0].subFields.approxDateOfBirth.values[2].classes).toBe('govuk-input--width-4');
 
     expect(gender.type).toBe('radios');
     expect(gender.classes).toBe('govuk-radios');
@@ -317,6 +404,9 @@ describe('respondent details > personal details', () => {
     expect((gender.values[2].subFields.otherGenderDetails.label as Function)(generatedContent)).toBe(
       en.otherGenderDetailsLabel
     );
+    (gender.values[2].subFields.otherGenderDetails.validator as Function)('123');
+    expect(isAlphaNumeric).toHaveBeenCalled();
+
     expect(respondentPlaceOfBirth.type).toBe('text');
     expect(respondentPlaceOfBirth.classes).toBe('govuk-input--width-20');
     expect((respondentPlaceOfBirth.label as Function)(generatedContent)).toBe(en.respondentPlaceOfBirth);

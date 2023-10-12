@@ -1,6 +1,7 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
-import { CommonContent } from '../../../common/common.content';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { isFieldFilledIn } from '../../../../app/form/validation';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -135,6 +136,40 @@ describe('citizen-home content', () => {
     const travellingtoCourtField = fields.travellingToCourt as FormOptions;
     expect(travellingtoCourtField.type).toBe('checkboxes');
     expect((travellingtoCourtField.section as Function)(generatedContent)).toBe(en.section);
+    expect((travellingtoCourtField.hint as Function)(generatedContent)).toBe(en.optionHint);
+    expect((travellingtoCourtField.section as Function)(generatedContent)).toBe(en.section);
+    expect((travellingtoCourtField.values[0].label as Function)(generatedContent)).toBe(en.parkingspace);
+    expect((travellingtoCourtField.values[0].subFields?.parkingDetails.label as Function)(generatedContent)).toBe(
+      en.parkingSpaceDetails
+    );
+    (travellingtoCourtField.values[0].subFields?.parkingDetails.validator as Function)('test');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test');
+    expect((travellingtoCourtField.values[1].label as Function)(generatedContent)).toBe(en.stepfree);
+    expect((travellingtoCourtField.values[2].label as Function)(generatedContent)).toBe(en.wheelchair);
+    expect((travellingtoCourtField.values[3].label as Function)(generatedContent)).toBe(en.toilet);
+    expect((travellingtoCourtField.values[4].label as Function)(generatedContent)).toBe(en.lift);
+    expect((travellingtoCourtField.values[5].label as Function)(generatedContent)).toBe(en.differentchair);
+    expect(
+      (travellingtoCourtField.values[5].subFields?.differentChairDetails.label as Function)(generatedContent)
+    ).toBe(en.differentChairDetails);
+    expect((travellingtoCourtField.values[5].subFields?.differentChairDetails.hint as Function)(generatedContent)).toBe(
+      en.differentChairDetailsHint
+    );
+    (travellingtoCourtField.values[5].subFields?.differentChairDetails.validator as Function)('test');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test');
+    expect((travellingtoCourtField.values[6].label as Function)(generatedContent)).toBe(en.building);
+    expect((travellingtoCourtField.values[7].label as Function)(generatedContent)).toBe(en.other);
+    expect(
+      (travellingtoCourtField.values[7].subFields?.travellingOtherDetails.label as Function)(generatedContent)
+    ).toBe(en.otherDetails);
+    (travellingtoCourtField.values[7].subFields?.travellingOtherDetails.validator as Function)('test');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test');
+    expect(
+      (travellingtoCourtField.values[8].divider as LanguageLookup)(
+        generatePageContent({ language: 'en' }) as Record<string, never>
+      )
+    ).toBe('or');
+    expect((travellingtoCourtField.values[9].label as Function)(generatedContent)).toBe(en.nosupport);
   });
 
   test('should contain Continue button', () => {

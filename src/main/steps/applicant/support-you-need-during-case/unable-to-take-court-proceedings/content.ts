@@ -9,6 +9,7 @@ const en = {
   courtcommunication: 'For example, do you have a disability that would prevent you from attending court in person?',
   optionHint: 'Select all that apply to you',
   summaryText: 'Contacts for help',
+  provideDetails: 'Provide details',
   one: 'Yes',
   two: 'No',
   continue: 'Continue',
@@ -32,6 +33,7 @@ const cy: typeof en = {
     'Meddyliwch am yr hyn y byddwch ei angen os bydd eich gwrandawiad yn un wyneb yn wyneb, trwy fideo neu dros y ffôn.',
   optionHint: 'Dogfennau mewn lliw penodol',
   summaryText: 'Cysylltiadau am gymorth',
+  provideDetails: 'Rhowch fanylion',
   one: 'Yes',
   two: 'No',
   continue: 'Parhau',
@@ -68,7 +70,7 @@ export const form: FormContent = {
           subFields: {
             courtProceedingProvideDetails: {
               type: 'textarea',
-              label: 'Provide details',
+              label: l => l.provideDetails,
               labelSize: null,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },

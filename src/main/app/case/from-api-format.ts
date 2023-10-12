@@ -10,7 +10,7 @@ dayjs.extend(advancedFormat);
 
 type FromApiConverters = Partial<Record<keyof CaseData, string | ((data: Partial<CaseData>) => Partial<Case>)>>;
 
-const checkboxConverter = (value: string | undefined) => {
+export const checkboxConverter = (value: string | undefined): string | undefined => {
   if (!value) {
     return undefined;
   }

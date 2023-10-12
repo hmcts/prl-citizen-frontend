@@ -104,7 +104,7 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
   }
 };
 
-async function submitCase(
+export async function submitCase(
   req: AppRequest,
   res: Response,
   caseId: string,
