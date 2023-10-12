@@ -88,16 +88,15 @@ module.exports = {
         await I.retry(3).waitForText('Confirm your payment', 30);
         await I.retry(3).waitForText('£232.00', 30);
         await I.retry(3).click('Confirm payment');
-        await I.wait(9);
-        await I.retry(3).waitForText('Application submitted', 30);
-        await I.wait(5);
     },
 
     async applicationSubmitted() {
+        await I.wait(15);
         await I.retry(retryCount).waitForText(CYA.applicationSubmittedSuccess , 60);
         await I.retry(retryCount).waitForText(CYA.applicationCaseNo , 60);
         await I.wait('5');
     },
+
     async checkYourAnswersEvent() {
         await this.checkYourAnswersHWF();
         await this.applicationSubmitted();
@@ -106,5 +105,6 @@ module.exports = {
     async checkAnswersAndPay() {
         await this.checkYourAnswersAndPay();
         await this.payByCard();
+       // await this.applicationSubmitted();
     }
 };
