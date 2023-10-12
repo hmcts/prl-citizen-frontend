@@ -1,4 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -33,6 +34,14 @@ describe('address history > content', () => {
     language: 'en',
     userCase: {},
   }) as CommonContent;
+  let generatedContent;
+  let form;
+  let fields;
+  beforeEach(() => {
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
+  });
 
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -40,5 +49,16 @@ describe('address history > content', () => {
 
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+
+  test('should contain postal address fields', () => {
+    expect((fields.addressLine1.label as Function)(generatedContent)).toBe(en.addressLine1);
+    expect((fields.town.label as Function)(generatedContent)).toBe(en.town);
+    expect((fields.country.label as Function)(generatedContent)).toBe(en.country);
+    expect((fields.postcode.label as Function)(generatedContent)).toBe(en.postcode);
+  });
+
+  test('should contain continue button', () => {
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
   });
 });

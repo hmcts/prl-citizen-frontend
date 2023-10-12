@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 import { en as english, cy as welsh } from '../../../common/keep-details-private/start_alternative/content';
 
@@ -83,9 +84,28 @@ describe('citizen-home content', () => {
 
   test('should contain startAlternative field', () => {
     const startAlternativeField = fields.startAlternative as FormOptions;
+    const subFields = startAlternativeField.values[0].subFields?.contactDetailsPrivate as FormOptions;
+
     expect(startAlternativeField.type).toBe('radios');
     expect(startAlternativeField.classes).toBe('govuk-radios');
     expect((startAlternativeField.section as Function)(generatedContent)).toBe(enContent.section);
+    expect((startAlternativeField.label as Function)(generatedContent)).toBe(undefined);
+    expect((startAlternativeField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
+    expect((startAlternativeField.values[0].subFields?.contactDetailsPrivate.label as Function)(generatedContent)).toBe(
+      enContent.contact_details_private
+    );
+    expect((startAlternativeField.values[0].subFields?.contactDetailsPrivate.hint as Function)(generatedContent)).toBe(
+      enContent.contact_details_private_hint
+    );
+
+    (startAlternativeField.values[0].subFields?.contactDetailsPrivate.validator as Function)('contactDetailsPrivate');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('contactDetailsPrivate');
+
+    expect((subFields.values[0].label as Function)(generatedContent)).toBe(enContent.address);
+    expect((subFields.values[1].label as Function)(generatedContent)).toBe(enContent.Phone_number);
+    expect((subFields.values[2].label as Function)(generatedContent)).toBe(enContent.Email);
+
+    expect((startAlternativeField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
   });
 
   test('should contain Save and continue button', () => {

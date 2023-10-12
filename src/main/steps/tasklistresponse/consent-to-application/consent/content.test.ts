@@ -1,4 +1,6 @@
-import { CommonContent } from '../../../../steps/common/common.content';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
+import { CommonContent, generatePageContent } from '../../../../steps/common/common.content';
 
 import { generateContent } from './content';
 
@@ -96,7 +98,7 @@ const cyContent = {
     },
   },
 };
-
+/* eslint-disable @typescript-eslint/ban-types */
 describe('consent to the application', () => {
   test('should return correct english content', () => {
     const generatedContent = generateContent({ ...commonContent });
@@ -127,5 +129,72 @@ describe('consent to the application', () => {
     expect(generatedContent.courtOrderDetails).toEqual(cyContent.courtOrderDetails);
     expect(generatedContent.continue).toEqual(cyContent.continue);
     expect(generatedContent.errors).toEqual(cyContent.errors);
+  });
+  test('should contain form', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent;
+    const fields = form.fields as FormFields;
+
+    const doYouConsentField = fields.doYouConsent as FormOptions;
+    expect(doYouConsentField.type).toBe('radios');
+    expect(doYouConsentField.classes).toBe('govuk-radios');
+    expect((doYouConsentField.label as Function)(generatedContent)).toBe(enContent.consent);
+    expect((doYouConsentField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
+    expect(doYouConsentField.values[0].value).toBe('Yes');
+    expect((doYouConsentField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
+    expect(doYouConsentField.values[1].value).toBe('No');
+    expect(doYouConsentField.values[1].subFields?.reasonForNotConsenting.type).toBe('textarea');
+    expect((doYouConsentField.values[1].subFields?.reasonForNotConsenting.label as Function)(generatedContent)).toBe(
+      enContent.reasonNotConsenting
+    );
+    (doYouConsentField.values[1].subFields?.reasonForNotConsenting.validator as Validator)('test value');
+    expect(doYouConsentField.validator).toBe(isFieldFilledIn);
+
+    const applicationReceivedDateField = fields.applicationReceivedDate as FormOptions;
+    expect(applicationReceivedDateField.type).toBe('date');
+    expect(applicationReceivedDateField.classes).toBe('govuk-date-input');
+    expect((applicationReceivedDateField.label as Function)(generatedContent)).toBe(enContent.dateReceived);
+    expect((applicationReceivedDateField.hint as Function)(generatedContent)).toBe(enContent.hint);
+    expect(
+      (applicationReceivedDateField.values[0].label as LanguageLookup)(
+        generatePageContent({ language: 'en' }) as Record<string, never>
+      )
+    ).toBe('Day');
+    expect(applicationReceivedDateField.values[0].name).toBe('day');
+    expect(applicationReceivedDateField.values[0].classes).toBe('govuk-input--width-2');
+    expect(
+      (applicationReceivedDateField.values[1].label as LanguageLookup)(
+        generatePageContent({ language: 'en' }) as Record<string, never>
+      )
+    ).toBe('Month');
+    expect(applicationReceivedDateField.values[1].name).toBe('month');
+    expect(applicationReceivedDateField.values[1].classes).toBe('govuk-input--width-2');
+    expect(
+      (applicationReceivedDateField.values[2].label as LanguageLookup)(
+        generatePageContent({ language: 'en' }) as Record<string, never>
+      )
+    ).toBe('Year');
+    expect(applicationReceivedDateField.values[2].name).toBe('year');
+    expect(applicationReceivedDateField.values[2].classes).toBe('govuk-input--width-4');
+    (applicationReceivedDateField.validator as Validator)('test value');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test value');
+
+    const courtPermissionField = fields.courtPermission as FormOptions;
+    expect(courtPermissionField.type).toBe('radios');
+    expect(courtPermissionField.classes).toBe('govuk-radios');
+    expect((courtPermissionField.label as Function)(generatedContent)).toBe(enContent.courtPermission);
+    expect((courtPermissionField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
+    expect(courtPermissionField.values[0].value).toBe('Yes');
+    expect(courtPermissionField.values[0].subFields?.courtOrderDetails.type).toBe('textarea');
+    expect((courtPermissionField.values[0].subFields?.courtOrderDetails.label as Function)(generatedContent)).toBe(
+      enContent.courtOrderDetails
+    );
+    (courtPermissionField.values[0].subFields?.courtOrderDetails.validator as Validator)('test value');
+    expect((courtPermissionField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
+    expect(courtPermissionField.values[1].value).toBe('No');
+
+    expect(courtPermissionField.validator).toBe(isFieldFilledIn);
+
+    expect((form.onlyContinue?.text as Function)(generatedContent)).toBe(undefined);
   });
 });

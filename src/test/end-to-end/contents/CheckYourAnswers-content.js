@@ -37,12 +37,12 @@ module.exports = {
 
     //PAYMENT DETAILS
     paymentCardNumber: '4444333322221111',
-    paymentCardExpiryMonth: '05',
-    paymentCardExpiryYear: '2029',
+    paymentCardExpiryMonth: '10',
+    paymentCardExpiryYear: '25',
     paymentCardCVVNumber: '123',
     cardHolderAddressLine1: '1',
-    cardHolderAddressLine2: 'Chruch road',
+    cardHolderAddressLine2: 'Church road',
     cardHolderAddressCity: 'Uxbridge',
     cardHolderPostCode: 'UB8 3NA',
-    cardHolderEmailAddress: 'simulate-delivered@notifications.service.gov.uk',
+    cardHolderEmailAddress: 'prlcitizenfrontend-e2e@mailinator.com',
 }

@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -112,7 +113,29 @@ describe('citizen-home content', () => {
   test('should contain courthearing field', () => {
     const specialArrangementsField = fields.safetyArrangements as FormOptions;
     expect(specialArrangementsField.type).toBe('checkboxes');
+    expect((specialArrangementsField.hint as Function)(generatedContent)).toBe(en.optionHint);
     expect((specialArrangementsField.section as Function)(generatedContent)).toBe(en.section);
+    expect((specialArrangementsField.values[0].label as Function)(generatedContent)).toBe(en.waitingRoom);
+    expect((specialArrangementsField.values[1].label as Function)(generatedContent)).toBe(en.separateExitEntry);
+    expect((specialArrangementsField.values[2].label as Function)(generatedContent)).toBe(en.screens);
+    expect((specialArrangementsField.values[2].hint as Function)(generatedContent)).toBe(en.screensHint);
+    expect((specialArrangementsField.values[3].label as Function)(generatedContent)).toBe(en.toilet);
+    expect((specialArrangementsField.values[4].label as Function)(generatedContent)).toBe(en.visitToCourt);
+    expect((specialArrangementsField.values[5].label as Function)(generatedContent)).toBe(en.videoLinks);
+    expect((specialArrangementsField.values[5].hint as Function)(generatedContent)).toBe(en.videoLinksHint);
+    expect((specialArrangementsField.values[6].label as Function)(generatedContent)).toBe(en.other);
+    expect(
+      (specialArrangementsField.values[6].subFields?.safetyArrangementsDetails.label as Function)(generatedContent)
+    ).toBe(en.otherDetails);
+
+    (specialArrangementsField.values[6].subFields?.safetyArrangementsDetails.validator as Validator)(
+      'safetyArrangementsDetails'
+    );
+    expect(isFieldFilledIn).toHaveBeenCalledWith('safetyArrangementsDetails');
+    expect(isTextAreaValid).toHaveBeenCalledWith('safetyArrangementsDetails');
+
+    expect((specialArrangementsField.values[7].divider as Function)(generatedContent)).toBe(undefined);
+    expect((specialArrangementsField.values[8].label as Function)(generatedContent)).toBe(en.noSupport);
   });
 
   test('should contain Continue button', () => {

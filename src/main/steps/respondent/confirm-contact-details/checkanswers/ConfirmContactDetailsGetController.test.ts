@@ -7,6 +7,9 @@
 // import { AppRequest } from '../../../../app/controller/AppRequest';
 // import { CommonContent } from '../../../../steps/common/common.content';
 // import ConfirmContactDetailsGetController from '../../../../steps/common/confirm-contact-details/checkanswers/ConfirmContactDetailsGetController';
+import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
+
 import ConfirmContactDetailsGetController from './ConfirmContactDetailsGetController';
 jest.mock('autobind-decorator');
 jest.mock('express');
@@ -28,11 +31,18 @@ describe('ConfirmContactDetailsGetController', () => {
       },
     };
     //const userEmail = 'test@example.com';
+
     const generateContent = content => languages[content.language];
     controller = new ConfirmContactDetailsGetController('page', generateContent);
   });
 
   test('should extend ConfirmContactDetailsGetController', async () => {
     expect(controller).toBeInstanceOf(ConfirmContactDetailsGetController);
+  });
+  test('should', async () => {
+    const req = mockRequest({ session: { userCase: { email: 'test@example.com' } } });
+    const res = mockResponse();
+    await controller.get(req, res);
+    expect(res.redirect).toBeCalled;
   });
 });

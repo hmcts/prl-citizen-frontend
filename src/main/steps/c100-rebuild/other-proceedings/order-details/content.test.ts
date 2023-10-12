@@ -167,13 +167,10 @@ describe('other proceedings > order-details > content', () => {
 
   test('should contain orderDetails form fields', () => {
     const { fieldset1: fieldset, addOrder } = fields as Record<string, FormFields>;
-    const {
-      'orderDetail-1': orderDetail,
-      'caseNo-1': caseNo,
-      'currentOrder-1': currentOrder,
-      'orderCopy-1': orderCopy,
-    } = fieldset.subFields as FormFields;
+    const { 'orderDetail-1': orderDetail, 'caseNo-1': caseNo } = fieldset.subFields as FormFields;
 
+    const currentOrder = fieldset.subFields['currentOrder-1'] as FormOptions;
+    const orderCopy = fieldset.subFields['orderCopy-1'] as FormOptions;
     const orderDate = fieldset.subFields['orderDate-1'] as FormOptions;
     const orderEndDate = fieldset.subFields['orderEndDate-1'] as FormOptions;
 
@@ -193,6 +190,44 @@ describe('other proceedings > order-details > content', () => {
     expect(orderDate.classes).toBe('govuk-date-input');
     expect((orderDate.label as Function)(generatedContent)).toBe(en.orderDateLabel);
     expect((orderDate.hint as Function)(generatedContent)).toBe(en.orderDateHint);
+    expect(orderDate.values[0].name).toBe('day');
+    expect(
+      (orderDate.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(orderDate.values[0].classes).toBe('govuk-input--width-2');
+
+    expect(orderDate.values[1].name).toBe('month');
+    expect(
+      (orderDate.values[1].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Month');
+    expect(orderDate.values[1].classes).toBe('govuk-input--width-2');
+
+    expect(orderDate.values[2].name).toBe('year');
+    expect(
+      (orderDate.values[2].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Year');
+    expect(orderDate.values[2].classes).toBe('govuk-input--width-4');
 
     (orderDate.validator as Validator)('localAuthority');
     expect(areDateFieldsFilledIn).toHaveBeenCalledWith('localAuthority');
@@ -205,11 +240,54 @@ describe('other proceedings > order-details > content', () => {
 
     expect(currentOrder.type).toBe('radios');
     expect((currentOrder.label as Function)(generatedContent)).toBe(en.isCurrentOrderLabel);
+    expect((currentOrder.values[0].label as Function)(generatedContent)).toBe(en.yes1);
+    expect(currentOrder.values[0].value).toBe('Yes');
+    expect((currentOrder.values[1].label as Function)(generatedContent)).toBe(en.no1);
+    expect(currentOrder.values[1].value).toBe('No');
+    expect(currentOrder.values[2].value).toBe('');
 
     expect(orderEndDate.type).toBe('date');
     expect(orderEndDate.classes).toBe('govuk-date-input');
     expect((orderEndDate.label as Function)(generatedContent)).toBe(en.orderEndDateLabel);
     expect((orderEndDate.hint as Function)(generatedContent)).toBe(en.orderDateHint);
+    expect(orderDate.values[0].name).toBe('day');
+    expect(
+      (orderEndDate.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(orderEndDate.values[0].classes).toBe('govuk-input--width-2');
+
+    expect(orderEndDate.values[1].name).toBe('month');
+    expect(
+      (orderEndDate.values[1].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Month');
+    expect(orderEndDate.values[1].classes).toBe('govuk-input--width-2');
+
+    expect(orderEndDate.values[2].name).toBe('year');
+    expect(
+      (orderEndDate.values[2].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Year');
+    expect(orderEndDate.values[2].classes).toBe('govuk-input--width-4');
 
     (orderEndDate.validator as Validator)('check');
     expect(isDateInputInvalid).toHaveBeenCalledWith('check');
@@ -220,6 +298,11 @@ describe('other proceedings > order-details > content', () => {
     expect((orderCopy.label as Function)(generatedContent)).toBe(en.copyOfOrderLabel);
     expect(orderCopy.classes).toBe('govuk-radios--inline');
     expect(orderCopy.labelSize).toBe('s');
+    expect((orderCopy.values[0].label as Function)(generatedContent)).toBe(en.yes2);
+    expect(orderCopy.values[0].value).toBe('Yes');
+    expect((orderCopy.values[1].label as Function)(generatedContent)).toBe(en.no2);
+    expect(orderCopy.values[1].value).toBe('No');
+    expect(orderCopy.values[2].value).toBe('');
 
     expect(addOrder.type).toBe('button');
     expect((addOrder.label as Function)(generatedContent)).toBe(en.addOrderLabel);

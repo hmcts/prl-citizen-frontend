@@ -20,5 +20,4 @@ Scenario('C100 Rebuild - basic journey @nightly @wip', async ({ I }) => {
     await I.reasonableAdjustments();
     await I.withoutHelpWithFees();
     await I.checkAnswersAndPay();
-    await I.checkYourAnswersEvent();
   }).retry({ retries: 3, minTimeout: 30000 });

@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { FormContent, FormFields, FormInput, FormOptions } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
@@ -68,10 +68,18 @@ describe('citizen-home content', () => {
 
   test('should contain startAlternative field', () => {
     const miamStartField = fields.miamStart as FormOptions;
+    const miamDetailsField = fields.miamDetails as FormInput;
+
+    expect((miamDetailsField.label as Function)(generatedContent)).toBe(enContent.miamDetailsLabel);
+    expect((miamDetailsField.detailsHtml as Function)(generatedContent)).toBe(enContent.miamSubFields);
+
     expect(miamStartField.type).toBe('radios');
     expect(miamStartField.classes).toBe('govuk-radios');
     (miamStartField.validator as Function)('Yes');
     expect(isFieldFilledIn).toHaveBeenCalledWith('Yes');
+
+    expect((miamStartField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
+    expect((miamStartField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
   });
 
   test('should contain Continue button', () => {

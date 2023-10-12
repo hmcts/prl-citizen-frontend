@@ -12,6 +12,10 @@
                 <p id="{{task.id}}" class="govuk-body govuk-!-margin-bottom-0" aria-describedby="{{task.id}}-status">
                   {{task.linkText}}
                 </p>
+              {% elif task.openInAnotherTab %}
+                <a id="{{task.id}}" class="govuk-link" href="{{task.href}}" aria-describedby="{{task.id}}-status" target="_blank">
+                  {{task.linkText}}
+                </a>
               {% else %}
                 <a id="{{task.id}}" class="govuk-link" href="{{task.href}}" aria-describedby="{{task.id}}-status">
                   {{task.linkText}}
