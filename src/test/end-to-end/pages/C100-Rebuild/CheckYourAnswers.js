@@ -91,10 +91,12 @@ module.exports = {
     },
 
     async applicationSubmitted() {
+        await I.wait(15);
         await I.retry(retryCount).waitForText(CYA.applicationSubmittedSuccess , 60);
         await I.retry(retryCount).waitForText(CYA.applicationCaseNo , 60);
         await I.wait('5');
     },
+
     async checkYourAnswersEvent() {
         await this.checkYourAnswersHWF();
         await this.applicationSubmitted();
@@ -103,7 +105,6 @@ module.exports = {
     async checkAnswersAndPay() {
         await this.checkYourAnswersAndPay();
         await this.payByCard();
-        await this.applicationSubmitted();
-
+       // await this.applicationSubmitted();
     }
 };

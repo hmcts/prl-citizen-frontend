@@ -41,8 +41,8 @@ module.exports = {
     paymentCardExpiryYear: '25',
     paymentCardCVVNumber: '123',
     cardHolderAddressLine1: '1',
-    cardHolderAddressLine2: 'Chruch road',
+    cardHolderAddressLine2: 'Church road',
     cardHolderAddressCity: 'Uxbridge',
     cardHolderPostCode: 'UB8 3NA',
-    cardHolderEmailAddress: 'simulate-delivered@notifications.service.gov.uk',
+    cardHolderEmailAddress: 'prlcitizenfrontend-e2e@mailinator.com',
 }
