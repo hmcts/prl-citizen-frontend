@@ -42,8 +42,10 @@ describe('test cases for otherProceedingsContents', () => {
         'supervisionOrder',
         'careOrder',
         'childAbductionOrder',
+        'contactOrderForDivorce',
+        'contactOrderForAdoption',
       ],
-      op_otherProceedings: {
+      otherProceedings: {
         order: {
           childArrangementOrders: [
             {
@@ -62,6 +64,7 @@ describe('test cases for otherProceedingsContents', () => {
                 day: '',
               },
               orderCopy: '',
+              orderDocument: undefined,
             },
           ],
           emergencyProtectionOrders: [
@@ -122,6 +125,44 @@ describe('test cases for otherProceedingsContents', () => {
             },
           ],
           childAbductionOrders: [
+            {
+              id: '1',
+              orderDetail: '',
+              caseNo: '',
+              orderDate: {
+                year: '',
+                month: '',
+                day: '',
+              },
+              currentOrder: '',
+              orderEndDate: {
+                year: '',
+                month: '',
+                day: '',
+              },
+              orderCopy: '',
+            },
+          ],
+          contactOrdersForDivorce: [
+            {
+              id: '1',
+              orderDetail: '',
+              caseNo: '',
+              orderDate: {
+                year: '',
+                month: '',
+                day: '',
+              },
+              currentOrder: '',
+              orderEndDate: {
+                year: '',
+                month: '',
+                day: '',
+              },
+              orderCopy: '',
+            },
+          ],
+          contactOrdersForAdoption: [
             {
               id: '1',
               orderDetail: '',

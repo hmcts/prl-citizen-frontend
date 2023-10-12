@@ -189,6 +189,45 @@ describe('other proceedings > order-details > content', () => {
     expect(orderDate.classes).toBe('govuk-date-input');
     expect((orderDate.label as Function)(generatedContent)).toBe(en.orderDateLabel);
     expect((orderDate.hint as Function)(generatedContent)).toBe(en.orderDateHint);
+    expect(orderDate.values[0].name).toBe('day');
+    expect(
+      (orderDate.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(orderDate.values[0].classes).toBe('govuk-input--width-2');
+
+    expect(orderDate.values[1].name).toBe('month');
+    expect(
+      (orderDate.values[1].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Month');
+    expect(orderDate.values[1].classes).toBe('govuk-input--width-2');
+
+    expect(orderDate.values[2].name).toBe('year');
+    expect(
+      (orderDate.values[2].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Year');
+    expect(orderDate.values[2].classes).toBe('govuk-input--width-4');
+    (orderDate.validator as Validator)('test value');
 
     (orderDate.validator as Validator)('localAuthority');
     expect(areDateFieldsFilledIn).toHaveBeenCalledWith('localAuthority');
@@ -201,11 +240,49 @@ describe('other proceedings > order-details > content', () => {
 
     expect(currentOrder.type).toBe('radios');
     expect((currentOrder.label as Function)(generatedContent)).toBe(en.isCurrentOrderLabel);
-
     expect(orderEndDate.type).toBe('date');
     expect(orderEndDate.classes).toBe('govuk-date-input');
     expect((orderEndDate.label as Function)(generatedContent)).toBe(en.orderEndDateLabel);
     expect((orderEndDate.hint as Function)(generatedContent)).toBe(en.orderDateHint);
+    expect(orderEndDate.values[0].name).toBe('day');
+    expect(
+      (orderEndDate.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(orderEndDate.values[0].classes).toBe('govuk-input--width-2');
+
+    expect(orderEndDate.values[1].name).toBe('month');
+    expect(
+      (orderEndDate.values[1].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Month');
+    expect(orderEndDate.values[1].classes).toBe('govuk-input--width-2');
+
+    expect(orderEndDate.values[2].name).toBe('year');
+    expect(
+      (orderEndDate.values[2].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Year');
+    expect(orderEndDate.values[2].classes).toBe('govuk-input--width-4');
+    (orderEndDate.validator as Validator)('test value');
 
     (orderEndDate.validator as Validator)('check');
     expect(isDateInputInvalid).toHaveBeenCalledWith('check');
