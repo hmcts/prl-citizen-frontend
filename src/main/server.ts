@@ -24,6 +24,7 @@ import { Nunjucks } from './modules/nunjucks';
 import { OidcMiddleware } from './modules/oidc';
 //import { StateRedirectMiddleware } from './modules/state-redirect';
 import { PropertiesVolume } from './modules/properties-volume';
+import { RAProvider } from './modules/reasonable-adjustements';
 import { SessionStorage } from './modules/session';
 import { TooBusy } from './modules/too-busy';
 import { Webpack } from './modules/webpack';
@@ -76,6 +77,7 @@ new LanguageToggle().enableFor(app);
 new Routes().enableFor(app);
 new ErrorHandler().handleNextErrorsFor(app);
 new FeatureToggleProvider().enable(app);
+RAProvider.enable(app);
 
 setupDev(app, developmentMode);
 const port: number = parseInt(process.env.PORT || '3001', 10);
