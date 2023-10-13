@@ -58,6 +58,15 @@ describe('citizen-home content', () => {
     expect(generatedContent.title).toEqual('Mediation Information and Assessment Meeting (MIAM) attendance');
     expect(generatedContent.section).toEqual('Check your answers');
   });
+  test('should return correct english data content3', () => {
+    commonContent.userCase = {
+      ...mockUserCase,
+      miamStart: 'Yes',
+    };
+    generatedContent = generateContent(commonContent);
+    expect(generatedContent.title).toEqual('Mediation Information and Assessment Meeting (MIAM) attendance');
+    expect(generatedContent.section).toEqual('Check your answers');
+  });
   test('should return correct english content', () => {
     expect(generatedContent.section).toEqual(enContent.section);
     expect(generatedContent.title).toEqual(enContent.title);

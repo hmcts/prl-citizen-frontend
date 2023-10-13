@@ -258,5 +258,56 @@ describe('citizen-home yourhearings hearings content', () => {
   test('should contain go back button', () => {
     expect((form.submit?.text as Function)(generatedContent)).toBe('Close and return to case overview');
   });
+
+  test('should generate correct link for FL401 case', () => {
+    commonContent.additionalData!.req.session.userCase.caseTypeOfApplication = 'FL401';
+    expect(generateContent(commonContent).linkforsupport).toBe(
+      '/applicant/support-you-need-during-case/attending-the-court'
+    );
+  });
+
+  test('should generate hearingOrders correctly', () => {
+    commonContent.additionalData!.req.session.userCase.orderCollection = [
+      {
+        id: '123',
+        value: {
+          selectedHearingType: '1 hearing',
+          dateCreated: '2/2/2020',
+          orderType: '',
+          orderDocument: {
+            document_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+            document_filename: 'finalDocument.pdf',
+            document_binary_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+          },
+          orderDocumentWelsh: {
+            document_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+            document_filename: 'finalDocument_cy.pdf',
+            document_binary_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
+          },
+          otherDetails: {
+            createdBy: '',
+            orderCreatedDate: '1/1/2020',
+            orderMadeDate: '',
+            orderRecipients: '',
+          },
+          orderTypeId: 'blankOrderOrDirectionsWithdraw',
+          isWithdrawnRequestApproved: 'No',
+          withdrawnRequestType: 'Withdrawn application',
+        },
+      },
+    ];
+    expect(generateContent(commonContent).hearingOrders).toStrictEqual([
+      {
+        href: '/applicant/yourdocuments/alldocuments/orders/c9f56483-6e2d-43ce-9de8-72661755b87c',
+        createdDate: '1/1/2020',
+        fileName: 'finalDocument.pdf',
+        id: 1,
+      },
+    ]);
+  });
 });
 /* eslint-enable @typescript-eslint/ban-types */

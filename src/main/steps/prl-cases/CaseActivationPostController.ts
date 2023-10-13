@@ -5,7 +5,12 @@ import { CaseType, PartyType } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../app/form/Form';
-import { APPLICANT_TASK_LIST_URL, C100_APPLICANT_TASKLIST, RESPONDENT_TASK_LIST_URL } from '../../steps/urls';
+import {
+  APPLICANT_TASK_LIST_URL,
+  C100_APPLICANT_TASKLIST,
+  RESPONDENT_TASK_LIST_URL,
+  TASKLIST_RESPONDENT,
+} from '../../steps/urls';
 
 import { getCasePartyType } from './dashboard/utils';
 
@@ -27,7 +32,8 @@ export class CaseActivationPostController extends PostController<AnyObject> {
           redirectUrl = APPLICANT_TASK_LIST_URL;
         }
       } else {
-        redirectUrl = RESPONDENT_TASK_LIST_URL;
+        redirectUrl =
+          req.session.userCase.caseTypeOfApplication === CaseType.C100 ? TASKLIST_RESPONDENT : RESPONDENT_TASK_LIST_URL;
       }
       req.session.save(() => res.redirect(redirectUrl));
     } catch (err) {

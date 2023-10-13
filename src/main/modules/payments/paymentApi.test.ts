@@ -11,7 +11,17 @@ const paymentURL: string = config.get('services.cos.url');
 describe('CheckPaymentStatusApi class testing', () => {
   test('Should be an Instance of Axios', async () => {
     const InstanceOfCheckPaymentStatusApi = new CheckPaymentStatusApi('', mockToken, mockServiceToken);
+    // const checkPayment = await new CheckPaymentStatusApi('', mockToken, mockServiceToken)
+    //     .PaymentStatusInstance()
+    //     .get('');
+    // const paymentStatus = checkPayment['data']['status'];
     expect(InstanceOfCheckPaymentStatusApi).toBeInstanceOf(CheckPaymentStatusApi);
+
+    const InstanceOfCheckPaymentStatusApi2 = jest.spyOn(
+      new CheckPaymentStatusApi('', mockToken, mockServiceToken),
+      'PaymentStatusInstance'
+    );
+    expect(InstanceOfCheckPaymentStatusApi2).toHaveBeenCalledTimes(0);
   });
 });
 
@@ -46,5 +56,6 @@ describe('PaymentTaskResolver class testing', () => {
     expect(fetchData.external_reference).toEqual(undefined);
     expect(fetchData.payment_reference).toEqual(undefined);
     expect(fetchData.status).toEqual(undefined);
+    expect(fetchData.serviceRequestReference).toEqual(undefined);
   });
 });
