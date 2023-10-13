@@ -51,6 +51,9 @@ const en = {
           editYouContactDetails: {
             linkText: 'Confirm or edit your contact details',
           },
+          yourSupport: {
+            linkText: 'Your support',
+          },
           contactPreferences: {
             linkText: 'Contact preferences',
           },
@@ -303,6 +306,9 @@ const cy: typeof en = {
         tasks: {
           editYouContactDetails: {
             linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
+          },
+          yourSupport: {
+            linkText: 'Your support - welsh',
           },
           contactPreferences: {
             linkText: 'Dewisiadau cyswllt',

@@ -608,6 +608,17 @@ export const SCREENING_QUESTIONS = [
   SCREENING_QUESTION_COMPLETE_APP_LEGAL_REP,
   SCREENING_QUESTION_CONTACT_LEGAL_REP,
 ];
+
+export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE: PageLink =
+  '/:partyType/reasonable-adjustments/guidance';
+export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH: PageLink = '/reasonable-adjustments/launch';
+export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_POST_URL = ':baseUrl/api/payload';
+export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_FETCH_DATA_URL = ':baseUrl/api/payload/:id';
+export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CALLBACK_URL = ':baseUrl/reasonable-adjustments/callback/:id';
+export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_SIGN_OUT_URl = `:baseUrl${SIGN_OUT_URL}`;
+export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE: PageLink =
+  '/:partyType/reasonable-adjustments/confirmation';
+
 export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
 
 export const LOCAL_API_SESSION = '/api/v1/session';

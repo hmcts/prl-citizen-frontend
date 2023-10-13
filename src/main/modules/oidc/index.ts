@@ -19,6 +19,7 @@ import {
   SIGN_OUT_URL,
   TESTING_SUPPORT,
 } from '../../steps/urls';
+import { RAProvider } from '../reasonable-adjustements';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -37,13 +38,18 @@ export class OidcMiddleware {
       res.redirect(url);
     });
 
-    app.get(SIGN_OUT_URL, (req, res) => req.session.destroy(() => res.redirect('/')));
+    app.get(SIGN_OUT_URL, (req, res) => {
+      RAProvider.destroy();
+      req.session.destroy(() => res.redirect('/'));
+    });
 
     app.get(
       CALLBACK_URL,
       errorHandler(async (req, res) => {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
+          RAProvider.init(req);
+
           if (req.session.cookie.path) {
             const caseId = req.session.cookie.path.split('/').pop();
             if (parseInt(caseId)) {
@@ -55,6 +61,7 @@ export class OidcMiddleware {
             req.session.save(() => res.redirect(DASHBOARD_URL));
           }
         } else {
+          RAProvider.destroy();
           res.redirect(SIGN_IN_URL);
         }
       })
@@ -81,6 +88,7 @@ export class OidcMiddleware {
           }
 
           if (req.session?.user) {
+            RAProvider.init(req);
             res.locals.isLoggedIn = true;
             req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
@@ -145,6 +153,7 @@ export class OidcMiddleware {
             if (req.originalUrl.includes('.css')) {
               return next();
             }
+            RAProvider.destroy();
             res.redirect(SIGN_IN_URL + `?callback=${encodeURIComponent(req.originalUrl)}`);
           }
         });

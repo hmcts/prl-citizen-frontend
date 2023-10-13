@@ -22,6 +22,8 @@ services:
     url: COS_URL
   documentManagement:
     url: DOCUMENT_MANAGEMENT_URL
+  reasonableAdjustments:
+    url: REASONABLE_ADJUSTMENTS
   dgs:
     url: DGS_URL
 port: PORT
@@ -38,6 +40,7 @@ featureToggles:
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
   c100Rebuild: C100_REBUILD_FLAG
   testingSupport: TESTING_SUPPORT_FLAG
+  enableRAComponent: ENABLE_RA_COMPONENT
 
 launchDarkly:
   offline: LAUNCH_DARKLY_OFFLINE_MODE
