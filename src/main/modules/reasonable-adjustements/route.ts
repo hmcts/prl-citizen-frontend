@@ -13,14 +13,12 @@ import {
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH,
 } from '../../steps/urls';
 
-import { ReasonableAdjustementsController } from './controller';
+import { RAProvider } from './index';
 
 class ReasonableAdjustmentsRoute {
-  private controller: ReasonableAdjustementsController;
   private templateRoot: string;
 
   constructor() {
-    this.controller = new ReasonableAdjustementsController();
     this.templateRoot = path.join(__dirname, '../../steps/common/reasonable-adjustements');
   }
 
@@ -32,11 +30,11 @@ class ReasonableAdjustmentsRoute {
       errorHandler(new GetController(`${this.templateRoot}/guidance/template`, guidanceContent).get)
     );
 
-    app.get(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH, errorHandler(this.controller.launch));
+    app.get(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH, errorHandler(RAProvider.controller.launch));
 
     app.get(
       applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CALLBACK_URL, { baseUrl: '' }),
-      errorHandler(this.controller.fetchData)
+      errorHandler(RAProvider.controller.fetchData)
     );
 
     app.get(

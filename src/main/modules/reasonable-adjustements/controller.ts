@@ -71,3 +71,5 @@ export class ReasonableAdjustementsController {
     }
   }
 }
+
+export const RAController = new ReasonableAdjustementsController();

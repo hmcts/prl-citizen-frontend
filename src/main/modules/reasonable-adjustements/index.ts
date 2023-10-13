@@ -13,6 +13,7 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 import { Language } from '../../steps/common/common.content';
 
+import { RAController, ReasonableAdjustementsController } from './controller';
 import { RAData, RARequestPayload } from './interface';
 import { RARoute } from './route';
 import { RAService, ReasonableAdjustmentsService } from './service';
@@ -24,9 +25,11 @@ class ReasonableAdjustmentsProvider {
   private logger: LoggerInstance | Record<string, never> = {};
   private correlationId: string | null = null;
   service: ReasonableAdjustmentsService;
+  controller: ReasonableAdjustementsController;
 
   constructor() {
     this.service = RAService;
+    this.controller = RAController;
   }
 
   async enable(app: Application): Promise<void> {

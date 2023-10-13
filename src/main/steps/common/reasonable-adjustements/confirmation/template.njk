@@ -2,8 +2,11 @@
 {% extends "common/template.njk" %}
 
 {% block page_content %}
- <h1 class="govuk-heading-xl">{{title}}</h1>
- <pre>
-  {{userCase.ra_cc}}
- </pre>
+    <h1 class="govuk-heading-xl">{{title}}</h1>
+
+    <p>
+        <pre>
+            {{data}}
+        </pre>
+    </p>
 {% endblock %}
