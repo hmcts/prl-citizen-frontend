@@ -22,65 +22,47 @@ module.exports = {
         explainWhyCourtDetails: '//*[@id="sq_permissionsRequest"]',
     },
     async writtenAgreementButton(agreementOption) {
-        // await I.wait('4');
         await I.retry(retryCount).waitForText(ScreeningQuestions.writtenAgreementButtonPageTitle , 30);
-        // await I.wait('2');
         await I.retry(retryCount).click(agreementOption ? this.fields.writtenAgreementYes : this.fields.writtenAgreementNo);
-        // await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async beforeYouGoToCourt() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.beforeYouGoToCourtPageTitle , 30);
         await I.retry(retryCount).waitForText(ScreeningQuestions.beforeYouGoToCourtSubHeading , 30);
-        // await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async otherWaysToReachAnAgreement() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.otherWaysToReachAnAgreementPageTitle , 30);
-        // await I.wait('2');
-        await I.retry(retryCount).click(this.fields.reachingAgreementYes); 
-        // await I.wait('1');     
+        await I.retry(retryCount).click(this.fields.reachingAgreementYes);     
         await I.retry(retryCount).waitForText(ScreeningQuestions.otherWaysToReachAnAgreementSubHeading , 30);
         await I.retry(retryCount).fillField(this.fields.alternativeOptionTextBox, this.fields.testingText);
-        // await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async usingLegalRepresentative() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.usingLegalRepresentativePageTitle , 30);
-        // await I.wait('2');
         await I.retry(retryCount).click(this.fields.legalRepresentativeNo);
-        // await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async permissionFromCourt() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.permissionFromCourtPageTitle , 30);
-        // await I.wait('2');
         await I.retry(retryCount).waitForSelector(this.fields.permissionFromCourtYes, 60);
-        // await I.wait('2');
         await I.retry(retryCount).click(this.fields.permissionFromCourtYes);
-        // await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async permissionFromCourtWhy() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.permissionFromCourtWhyPageTitle , 30);
-        // await I.wait('2');
         await I.retry(retryCount).click(this.fields.permissionReasonWhy1);
         await I.retry(retryCount).fillField(this.fields.reasonWhy1, this.fields.testingText);
-        // await I.wait('2');
         await I.retry(retryCount).click(this.fields.permissionReasonWhy2);
         await I.retry(retryCount).fillField(this.fields.reasonWhy2, this.fields.testingText);
-        // await I.wait('2');
         await I.retry(retryCount).click(this.fields.permissionReasonWhy3);
         await I.retry(retryCount).fillField(this.fields.reasonWhy3, this.fields.testingText);
-        // await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async whyCourtShouldGrant() {
         await I.retry(retryCount).waitForText(ScreeningQuestions.whyCourtShouldGrantPageTitle , 30);
-        // await I.wait('2');
         await I.retry(retryCount).waitForSelector(this.fields.explainWhyCourtDetails, 30);
         await I.retry(retryCount).fillField(this.fields.explainWhyCourtDetails, this.fields.testingText , 30);
-        // await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async screeningQuestions() {

@@ -63,24 +63,18 @@ module.exports = {
   },
   async miamOtherProceedings(otherProceedingsOption) {
     await I.retry(retryCount).waitForText(MiamContent.otherProceedingsPageTitle , 30);
-    // await I.wait('2');
     await I.retry(retryCount).click(otherProceedingsOption ? this.fields.miamOtherProceedingsYes : this.fields.miamOtherProceedingsNo);
-    // await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async attendingMiam() {
     await I.retry(retryCount).waitForText(MiamContent.attendingMiamPageTitle , 30);
     await I.retry(retryCount).waitForText(MiamContent.attendingMiamSubHeading , 30);
-    // await I.wait('2');
     await I.retry(retryCount).click(this.fields.iamConsentNo);
-    // await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async attendedMiam(attendedOption) {
     await I.retry(retryCount).waitForText(MiamContent.attendedMiamPageTitle , 30);
-    // await I.wait('2');
     await I.retry(retryCount).click(attendedOption ? this.fields.miamAttendanceYes : this.fields.miamAttendanceNo);
-    // await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async miamDocumentSigned(documentSignedOption) {
@@ -111,27 +105,20 @@ module.exports = {
   },
   async medidatorConfirmed() {
     await I.retry(retryCount).waitForText(MiamContent.medidatorConfirmedPageTitle , 30);
-    // await I.wait('2');
     await I.retry(retryCount).click(this.fields.miamMediatorDocumentNo);
-    // await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async validReasonsMiam() {
     await I.retry(retryCount).waitForText(MiamContent.validReasonsMiamPageTitle , 30);
-    // await I.wait('2');
     await I.retry(retryCount).click(this.fields.validReasonYes);
-    // await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async validReasonWhat() {
     await I.retry(retryCount).waitForText(MiamContent.validReasonWhatPageTitle , 30);
-    // await I.wait('2');
     await I.retry(retryCount).click(this.fields.validReason1);
     await I.retry(retryCount).click(this.fields.validReason2);
-    // await I.wait('2');
     await I.retry(retryCount).click(this.fields.validReason4);
     await I.retry(retryCount).click(this.fields.validReason5);
-    // await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async validReasonUrgent() {

@@ -8,7 +8,8 @@ module.exports = {
         dateofBirthDay: '11',
         dateofBirthMonth: '12',
         dateofBirthYear: '2019',
-        permissionFromCourt: 'test'
+        permissionFromCourt: 'test',
+        activeCases: '//*[@id="active-cases"]/table/tbody/tr'
     },
   async clickRespondentLink() {
     try {
@@ -25,29 +26,28 @@ module.exports = {
     
     let numOfRows;
     try {
-      numOfRows = await I.grabNumberOfVisibleElements(locate('tr').withChild(locate('td').withText('C100')));
+      numOfRows = await I.grabNumberOfVisibleElements(this.fields.activeCases);
     } catch (error) {
       console.log('Could not grab number of rows:', error);
       return;
     }
     
-    for(let i = 0; i < numOfRows; i++){
+    for(let i = 1; i <= numOfRows; i++){
       try {
-        await within(locate('tr').withChild(locate('td').withText('C100')).at(i + 16), async () => {
-       
-          await I.click('a'); // click the first C100 Active case link in the row
-        });
-        break; // exit loop once C100 Active case link is clicked successfully
+        let caseType = await I.grabTextFrom(`//*[@id="active-cases"]/table/tbody/tr[${i}]/td[2]`);
+        if(caseType == 'C100') {
+          await I.click(`//*[@id="active-cases"]/table/tbody/tr[${i}]/td[1]/a`);
+          break;
+        }
       } catch (error) {
         console.log(`Error in row ${i + 1}, but the click action might have been performed correctly:`, error);
       }
     }
-    I.wait('2');
   },
 
   async clickRespondToApplication() {
     I.wait('2');
-    await I.retry(retryCount).click('#respond_to_application');
+    await I.retry(retryCount).click('#respondToTheApplication');
     I.wait('2');
    },
 

@@ -14320,15 +14320,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.39.0":
-  version: 1.39.0
-  resolution: "playwright-core@npm:1.39.0"
-  bin:
-    playwright-core: cli.js
-  checksum: 556e78dee4f9890facf2af8249972e0d6e01a5ae98737b0f6b0166c660a95ffee4cb79350335b1ef96430a0ef01d3669daae9099fa46c8d403d11c623988238b
-  languageName: node
-  linkType: hard
-
 "playwright-core@npm:1.37.0":
   version: 1.37.0
   resolution: "playwright-core@npm:1.37.0"
@@ -14338,18 +14329,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright@npm:^1.22.0":
-  version: 1.39.0
-  resolution: "playwright@npm:1.39.0"
+"playwright@npm:1.37.0":
+  version: 1.37.0
+  resolution: "playwright@npm:1.37.0"
   dependencies:
-    fsevents: 2.3.2
-    playwright-core: 1.39.0
-  dependenciesMeta:
-    fsevents:
-      optional: true
+    playwright-core: 1.37.0
   bin:
     playwright: cli.js
-  checksum: 96d8ca5aa25465c1c5d554d0d6071981d55e22477800ff8f5d47a53ca75193d60ece2df538a01b7165b3277dd5493c67603a5acda713029df7fbd95ce2417bc9
+  checksum: f07d1d69e4a13db428cb45af0e2cd5697cb490c7139e399adfc5702b547f741b6411b6442a9c91c0b39f374e0cb466b742de0b15490872a771ab8bdc68e767c5
   languageName: node
   linkType: hard
 
@@ -14629,7 +14616,7 @@ __metadata:
     otplib: ^12.0.1
     pa11y: ^6.2.3
     pcf-start: ^1.18.4
-    playwright: ^1.22.0
+    playwright: 1.37.0
     prettier: ^2.7.1
     query-string: ^7.1.1
     redis: ^3.1.2

@@ -11,9 +11,7 @@ module.exports = {
     },
     async helpWithFee(hwfOption){
         await I.retry(retryCount).waitForText(HelpWithFees.helpWithFeesYesNoTitle , 30);
-        // await I.wait('2');
         await I.retry(retryCount).click(hwfOption ? this.fields.helpWithFeeYes : this.fields.helpWithFeesNo);
-        // await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async alreadyApplied() {

@@ -6,6 +6,7 @@ const retryCount = 3;
 module.exports = {
     fields: {
         statementOfTruthYes: '//*[@id="statementOfTruth"]', 
+        submitApplication: '#main-form-submit',
         
         //PAYMENT
         paymentTypeCard: '//*[@id="paymentType"]',
@@ -67,7 +68,8 @@ module.exports = {
         await I.retry(retryCount).waitForText(CYA.confirmStatementTruth , 60);
         await I.wait('5');
         await I.retry(retryCount).click(this.fields.statementOfTruthYes);
-        await I.retry(retryCount).click('Pay and submit your application');
+        await I.wait('3');
+        await I.retry(retryCount).click(this.fields.submitApplication);
     },
 
     async payByCard() {
