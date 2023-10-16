@@ -23,11 +23,6 @@ const mockLogger = {
 } as unknown as LoggerInstance;
 
 describe('ReasonableAdjustementsController', () => {
-  //  const req = mockRequest({session: {
-  //     user: {
-  //       accessToken: 'testUser',
-  //     },
-  //   },});
   const res = mockResponse();
 
   let appMock;
@@ -87,7 +82,6 @@ describe('ReasonableAdjustementsController', () => {
     expect(RARoute.enable(appMock)).toBeCalled;
   });
   test('launch', async () => {
-    //when(RAProvider.canProcessRequest).thenReturn(true)
     (RAProvider as any).correlationId = '1212';
     const mockcreate = jest.fn().mockResolvedValueOnce({ data: { mockPayment: 'data' } });
     jest.spyOn(RAProvider, 'canProcessRequest').mockReturnValueOnce({ create: mockcreate } as unknown as AxiosInstance);
@@ -107,7 +101,6 @@ describe('ReasonableAdjustementsController', () => {
     ).rejects.toThrowError;
   });
   test('launch return blank url', async () => {
-    //when(RAProvider.canProcessRequest).thenReturn(true)
     (RAProvider as any).correlationId = '1212';
     const mockcreate = jest.fn().mockResolvedValueOnce({ data: { mockPayment: 'data' } });
     jest.spyOn(RAProvider, 'canProcessRequest').mockReturnValueOnce({ create: mockcreate } as unknown as AxiosInstance);
