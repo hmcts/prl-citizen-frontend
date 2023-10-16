@@ -23,7 +23,7 @@
     "sonar-scan": "sonar-scanner",
     "test:smoke:e2e": "MOCHAWESOME_REPORTFILENAME=smoke codeceptjs run --grep \"${SMOKE_TESTS_SELECTOR:=@smoke-tests}\" --reporter mocha-multi",
     "test:smoke:downstream": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest -c jest.smoke.config.js",
-    "test:smoke": "echo 'smoke tests disabled temporarily for setup' && exit 0",
+    "test:smoke": "yarn install && codeceptjs run --steps --grep \"@smoke\" -c src/test/end-to-end/codecept.smoke.conf.js",
     "test:functional": "yarn install && codeceptjs run --steps --grep \"@master\" -c src/test/end-to-end/codecept.conf.js",
     "test:fullfunctional": "yarn install && codeceptjs run-multiple parallel --all --steps --grep \"@nightly\" -c src/test/end-to-end/codecept.conf.js",
     "test:crossbrowser-e2e": "MOCHAWESOME_REPORTFILENAME=crossbrowser codeceptjs run-multiple --grep \"@cross-browser\" ${BROWSER_GROUP:-'--all'} -c saucelabs.conf.js --reporter mocha-multi",
@@ -195,5 +195,5 @@
     "debug": ">=3.1.0",
     "ua-parser-js": ">=1.0.33"
   },
-  "packageManager": "yarn@3.5.0"
+  "packageManager": "yarn@3.6.4"
 }
