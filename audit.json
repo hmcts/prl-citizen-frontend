@@ -36,8 +36,20 @@
   "10096_Timestamp Disclosure - Unix_https://privatelaw.aat.platform.hmcts.net/_GET": "ignore",
   "90033_Loosely Scoped Cookie_https://privatelaw.aat.platform.hmcts.net/_GET": "ignore",
   "90033_Loosely Scoped Cookie_https://privatelaw.aat.platform.hmcts.net/robots.txt_GET": "ignore",
-  "10038_Content Security Policy (CSP) Header Not Set_https://idam-web-public.aat.platform.hmcts.net/login?client_id=prl-citizen-frontend&response_type=code&redirect_uri=https://privatelaw.aat.platform.hmcts.net/receiver_GET": "ignore",
   "10010_Cookie No HttpOnly Flag_https://privatelaw.aat.platform.hmcts.net/dashboard_GET": "ignore",
   "10011_Cookie Without Secure Flag_https://privatelaw.aat.platform.hmcts.net/dashboard_GET": "ignore",
-  "10054_Cookie without SameSite Attribute_https://privatelaw.aat.platform.hmcts.net/dashboard_GET": "ignore"
+  "10054_Cookie without SameSite Attribute_https://privatelaw.aat.platform.hmcts.net/dashboard_GET": "ignore",
+  "40025_Proxy Disclosure_https://privatelaw.aat.platform.hmcts.net/dashboard_GET" : "ignore",
+  "40025_Proxy Disclosure_https://privatelaw.aat.platform.hmcts.net/robots.txt_GET" : "ignore",
+  "90027_Cookie Slack Detector_https://privatelaw.aat.platform.hmcts.net/dashboard_GET" : "ignore",
+  "10049_Non-Storable Content_https://privatelaw.aat.platform.hmcts.net/_GET" : "ignore",
+  "10049_Non-Storable Content_https://privatelaw.aat.platform.hmcts.net/dashboard_GET" : "ignore",
+  "10049_Non-Storable Content_https://privatelaw.aat.platform.hmcts.net/robots.txt_GET" : "ignore",
+  "10049_Non-Storable Content_https://privatelaw.aat.platform.hmcts.net/sitemap.xml_GET" : "ignore",
+  "10112_Session Management Response Identified_https://privatelaw.aat.platform.hmcts.net/robots.txt_GET" : "ignore",
+  "10112_Session Management Response Identified_https://privatelaw.aat.platform.hmcts.net/sitemap.xml_GET" : "ignore",
+  "10112_Session Management Response Identified_https://privatelaw.aat.platform.hmcts.net/_GET" : "ignore",
+  "10112_Session Management Response Identified_https://privatelaw.aat.platform.hmcts.net/dashboard_GET" : "ignore",
+  "10104_User Agent Fuzzer_https://privatelaw.aat.platform.hmcts.net/dashboard_GET" : "ignore",
+  "10096_Timestamp Disclosure - Unix_https://privatelaw.aat.platform.hmcts.net/dashboard_GET" : "ignore"
 }

@@ -19,7 +19,23 @@ const cy = {
 };
 
 describe('applicant personal details > confidentiality > feedback', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+  const commonContent = {
+    language: 'en',
+    userCase: {
+      applyingWith: 'alone',
+      appl_allApplicants: [{ id: '1234', applicantFirstName: 'firstName', applicantLastName: 'lastName' }],
+    },
+    additionalData: {
+      req: {
+        params: {
+          applicantId: '1234',
+        },
+      },
+    },
+  } as unknown as CommonContent;
+  const generatedContent = generateContent(commonContent) as Record<string, never>;
+  const form = generatedContent.form as FormContent;
+  const fields = form.fields as FormFields;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -31,17 +47,23 @@ describe('applicant personal details > confidentiality > feedback', () => {
   });
 
   test('should contain applyingWith field', () => {
-    const generatedContent = generateContent(commonContent) as Record<string, never>;
-    const form = generatedContent.form as FormContent;
-    const fields = form.fields as FormFields;
     const applyingWithField = fields.fields as FormOptions;
     expect(applyingWithField?.type).not.toBe('radios');
   });
+
+  test('should add correct applicant name to translations', () => {
+    expect(generatedContent.applicantName).toBe('firstName lastName');
+  });
+
   test('should contain SaveAndComeLater button', () => {
-    const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent | undefined;
     expect(
       (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and come back later');
+  });
+
+  test('should contain continue button', () => {
+    expect(
+      (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
   });
 });

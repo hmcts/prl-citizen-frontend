@@ -22,16 +22,17 @@ enum BannerNotification {
   APPLICATION_CLOSED = 'applicationClosed',
   NEW_ORDER = 'newOrder',
   NEW_DOCUMENT = 'newDocument',
+  FINAL_ORDER = 'finalOrder',
   SOA_SERVED_CA = 'soaServedBannerCa',
   SOA_SERVED_DA = 'soaServedBannerDa',
 }
 
-const getContent = (notfication: BannerNotification, caseType: CaseType, language: string) => {
+const getContent = (notfication: BannerNotification, caseType: CaseType, language: string, partyType: PartyType) => {
   const translation = content[language];
 
   return {
     title: translation.title,
-    ...translation?.[caseType]?.['notifications']?.[notfication],
+    ...translation?.[caseType]?.[partyType]?.['notifications']?.[notfication],
   };
 };
 
@@ -89,6 +90,11 @@ const notificationBanner = {
   [BannerNotification.NEW_DOCUMENT]: {
     id: BannerNotification.NEW_DOCUMENT,
     content: getContent.bind(null, BannerNotification.NEW_DOCUMENT),
+    show: () => false,
+  },
+  [BannerNotification.FINAL_ORDER]: {
+    id: BannerNotification.FINAL_ORDER,
+    content: getContent.bind(null, BannerNotification.FINAL_ORDER),
     show: () => false,
   },
   [BannerNotification.SOA_SERVED_CA]: {
@@ -187,10 +193,58 @@ const notificationBannerConfig = {
         },
       },
     ],
-    [PartyType.RESPONDENT]: [],
+    [PartyType.RESPONDENT]: [
+      {
+        ...notificationBanner[BannerNotification.NEW_DOCUMENT],
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+          return (
+            caseData &&
+            !!caseData?.respondents?.find(
+              respondent =>
+                respondent?.value?.user?.idamId === userDetails.id &&
+                respondent?.value.response?.citizenFlags?.isAllDocumentsViewed === YesOrNo.NO
+            )
+          );
+        },
+      },
+      {
+        ...notificationBanner[BannerNotification.NEW_ORDER],
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
+        },
+      },
+      {
+        ...notificationBanner[BannerNotification.FINAL_ORDER],
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return !!caseData?.orderCollection?.length && caseData.state === State.ALL_FINAL_ORDERS_ISSUED;
+        },
+      },
+    ],
   },
   [CaseType.FL401]: {
     [PartyType.APPLICANT]: [
+      {
+        ...notificationBanner[BannerNotification.NEW_DOCUMENT],
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+          return !!(
+            caseData &&
+            caseData?.applicantsFL401?.user?.idamId === userDetails.id &&
+            caseData?.applicantsFL401?.response?.citizenFlags?.isAllDocumentsViewed === YesOrNo.NO
+          );
+        },
+      },
+      {
+        ...notificationBanner[BannerNotification.NEW_ORDER],
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
+        },
+      },
+      {
+        ...notificationBanner[BannerNotification.FINAL_ORDER],
+        show: (caseData: Partial<CaseWithId>): boolean => {
+          return caseData?.state === State.CASE_CLOSED;
+        },
+      },
       {
         ...notificationBanner[BannerNotification.SOA_SERVED_DA],
         show: (caseData: Partial<CaseWithId>): boolean => {
@@ -219,7 +273,7 @@ export const getNotificationBannerConfig = (
       const { id, show } = config;
 
       if (show(caseData, userDetails)) {
-        const _content = config.content(caseType, language);
+        const _content = config.content(caseType, language, partyType);
         let _config = {
           id,
           ..._content,

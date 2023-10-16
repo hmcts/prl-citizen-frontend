@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { Validator } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -113,6 +114,23 @@ describe('citizen-home content', () => {
     expect(startAlternativeField.type).toBe('radios');
     expect(startAlternativeField.classes).toBe('govuk-radios');
     expect((startAlternativeField.section as Function)(generatedContent)).toBe(enContent.section);
+    expect((startAlternativeField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
+    expect(startAlternativeField.values[0].value).toBe('Yes');
+    expect(startAlternativeField.values[0].subFields?.contactDetailsPrivate.type).toBe('checkboxes');
+    expect((startAlternativeField.values[0].subFields?.contactDetailsPrivate.label as Function)(generatedContent)).toBe(
+      enContent.contact_details_private
+    );
+    expect((startAlternativeField.values[0].subFields?.contactDetailsPrivate.hint as Function)(generatedContent)).toBe(
+      enContent.contact_details_private_hint
+    );
+
+    (startAlternativeField.values[0].subFields?.contactDetailsPrivate.validator as Validator)('test value');
+    expect((startAlternativeField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
+    expect(startAlternativeField.values[1].value).toBe('No');
+    const contactDetailsPrivateField = startAlternativeField.values[0].subFields?.contactDetailsPrivate as FormOptions;
+    expect((contactDetailsPrivateField.values[0].label as Function)(generatedContent)).toBe(enContent.address);
+    expect((contactDetailsPrivateField.values[1].label as Function)(generatedContent)).toBe(enContent.Phone_number);
+    expect((contactDetailsPrivateField.values[2].label as Function)(generatedContent)).toBe(enContent.Email);
   });
 
   test('should contain Save and continue button', () => {

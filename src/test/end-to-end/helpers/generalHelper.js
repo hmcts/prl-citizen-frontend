@@ -8,90 +8,90 @@ const fields = {
 
 class GeneralHelper extends Helper {
   async addNewDocument(field) {
-    const { Puppeteer } = this.helpers;
-    await Puppeteer.click('Add new', { css: `#${field}>div>button` });
-    await Puppeteer.attachFile(`input[id="${field}_value"]`, '../resource/dummy.pdf');
+    const { Playwright } = this.helpers;
+    await Playwright.click('Add new', { css: `#${field}>div>button` });
+    await Playwright.attachFile(`input[id="${field}_value"]`, '../resource/dummy.pdf');
   }
 
   async attachDocument(field) {
-    const { Puppeteer } = this.helpers;
-    await Puppeteer.attachFile(`input[id="${field}"]`, '../resource/dummy.pdf');
+    const { Playwright } = this.helpers;
+    await Playwright.attachFile(`input[id="${field}"]`, '../resource/dummy.pdf');
   }
 
   async amOnHistoryPageWithSuccessNotification() {
     const historyResponseTime = 6;
-    const { Puppeteer } = this.helpers;
-    await Puppeteer.wait(historyResponseTime);
-    await Puppeteer.waitForText('History');
+    const { Playwright } = this.helpers;
+    await Playwright.wait(historyResponseTime);
+    await Playwright.waitForText('History');
     // console.log(await Puppeteer.grabTextFrom('div.alert-message'));
     // await Puppeteer.waitForElement('i.icon-tick');
     await Puppeteer.wait(historyResponseTime);
   }
 
   async selectFromList(list, value) {
-    const { Puppeteer } = this.helpers;
-    await Puppeteer.waitForElement(list);
-    await Puppeteer.wait('5');
-    await Puppeteer.selectOption(list, value);
+    const { Playwright } = this.helpers;
+    await Playwright.waitForElement(list);
+    await Playwright.wait('5');
+    await Playwright.selectOption(list, value);
   }
 
   async selectPostCodeLookupAddress(locator, postcode) {
     const searchResponseTime = 3;
-    const { Puppeteer } = this.helpers;
+    const { Playwright } = this.helpers;
     const postcodeInputLocator = `//input[@id="${locator}_postcodeInput"]`;
     const addressListLocator = `select[id="${locator}_addressList"]`;
     const findAddressBtn = `#${locator}_postcodeLookup > button`;
 
-    await Puppeteer.wait(searchResponseTime);
-    await Puppeteer.waitForElement(postcodeInputLocator);
-    await Puppeteer.fillField(postcodeInputLocator, postcode);
-    await Puppeteer.click(findAddressBtn);
-    await Puppeteer.wait(searchResponseTime);
-    await Puppeteer.waitForElement(addressListLocator);
-    await Puppeteer.wait(searchResponseTime);
-    await Puppeteer.selectOption(addressListLocator, '1: Object');
+    await Playwright.wait(searchResponseTime);
+    await Playwright.waitForElement(postcodeInputLocator);
+    await Playwright.fillField(postcodeInputLocator, postcode);
+    await Playwright.click(findAddressBtn);
+    await Playwright.wait(searchResponseTime);
+    await Playwright.waitForElement(addressListLocator);
+    await Playwright.wait(searchResponseTime);
+    await Playwright.selectOption(addressListLocator, '1: Object');
   }
 
   async submitEvent() {
-    const { Puppeteer } = this.helpers;
+    const { Playwright } = this.helpers;
     const saveResponseTime = 5;
     try {
-      await Puppeteer.waitForText('Check your answers', '30');
-      await Puppeteer.click('Save and continue');
-      await Puppeteer.wait(saveResponseTime);
+      await Playwright.waitForText('Check your answers', '30');
+      await Playwright.click('Save and continue');
+      await Playwright.wait(saveResponseTime);
     } catch {
-      await Puppeteer.click('Continue');
-      await Puppeteer.waitForText('Check your answers', '30');
-      await Puppeteer.click('Save and continue');
-      await Puppeteer.wait(saveResponseTime);
+      await Playwright.click('Continue');
+      await Playwright.waitForText('Check your answers', '30');
+      await Playwright.click('Save and continue');
+      await Playwright.wait(saveResponseTime);
     }
   }
 
   async triggerEvent(eventName) {
-    const { Puppeteer } = this.helpers;
-    await Puppeteer.waitForElement(fields.eventList);
-    await Puppeteer.selectOption(fields.eventList, eventName);
-    await Puppeteer.click(fields.submit);
+    const { Playwright } = this.helpers;
+    await Playwright.waitForElement(fields.eventList);
+    await Playwright.selectOption(fields.eventList, eventName);
+    await Playwright.click(fields.submit);
   }
 
   async waitForPage(header, headerText) {
-    const { Puppeteer } = this.helpers;
+    const { Playwright } = this.helpers;
 
     try {
       // eslint-disable-next-line no-undefined
       if (headerText === undefined) {
-        await Puppeteer.waitForElement(header, '90');
+        await Playwright.waitForElement(header, '90');
       } else {
-        await Puppeteer.waitForText(headerText, '90', header);
+        await Playwright.waitForText(headerText, '90', header);
       }
     } catch (error) {
       throw error;
     }
   }
   async seeDocuments(title, documentName) {
-    const { Puppeteer } = this.helpers;
-    await Puppeteer.see(title);
-    await Puppeteer.see(documentName);
+    const { Playwright } = this.helpers;
+    await Playwright.see(title);
+    await Playwright.see(documentName);
   }
 }
 

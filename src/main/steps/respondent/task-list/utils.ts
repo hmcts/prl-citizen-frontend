@@ -91,24 +91,6 @@ export const getMiamStatus = (userCase: Partial<CaseWithId> | undefined): Sectio
   return SectionStatus.TO_DO;
 };
 
-export const getInternationalFactorsStatus = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
-  if (
-    ((userCase?.start === YesOrNo.YES && userCase?.iFactorsStartProvideDetails) || userCase?.start === YesOrNo.NO) &&
-    ((userCase?.parents === YesOrNo.YES && userCase?.iFactorsParentsProvideDetails) ||
-      userCase?.parents === YesOrNo.NO) &&
-    ((userCase?.jurisdiction === YesOrNo.YES && userCase?.iFactorsJurisdictionProvideDetails) ||
-      userCase?.jurisdiction === YesOrNo.NO) &&
-    ((userCase?.request === YesOrNo.YES && userCase?.iFactorsRequestProvideDetails) || userCase?.request === YesOrNo.NO)
-  ) {
-    return SectionStatus.COMPLETED;
-  }
-
-  if (userCase?.start || userCase?.parents || userCase?.request || userCase?.jurisdiction) {
-    return SectionStatus.IN_PROGRESS;
-  }
-  return SectionStatus.TO_DO;
-};
-
 export const getViewAllHearingsFromTheCourt = (userCase: CaseWithId): SectionStatus => {
   if (userCase && userCase.hearingCollection && userCase.hearingCollection.length > 0) {
     return SectionStatus.READY_TO_VIEW;
@@ -198,27 +180,6 @@ export const getFinalApplicationStatus = (
   return result;
 };
 
-export const getCheckAllegationOfHarmStatus = (
-  userCase: Partial<CaseWithId> | undefined,
-  userIdamId: string
-): SectionStatus => {
-  let status = SectionStatus.READY_TO_VIEW;
-
-  if (!userCase?.c1ADocument?.document_binary_url) {
-    return SectionStatus.NOT_AVAILABLE_YET;
-  }
-
-  userCase?.respondents?.forEach((respondent: Respondent) => {
-    if (
-      respondent?.value.user?.idamId === userIdamId &&
-      respondent?.value?.response?.citizenFlags?.isAllegationOfHarmViewed === YesOrNo.YES
-    ) {
-      status = SectionStatus.VIEW;
-    }
-  });
-  return status;
-};
-
 export const getRespondentSupportYourNeedsDetails = (userCase: Partial<CaseWithId> | undefined): SectionStatus => {
   if (
     userCase?.attendingToCourt &&
@@ -273,52 +234,4 @@ export const getRespondentPartyDetailsCa = (userCase: Partial<CaseWithId>, userI
     }
   }
   return undefined;
-};
-
-export const getResponseStatus = (userCase: Partial<CaseWithId> | undefined, userId: string): SectionStatus => {
-  const respondent = userCase?.respondents?.find(_respondent => {
-    if (_respondent.value.user.idamId === userId) {
-      return _respondent;
-    }
-  });
-  if (
-    respondent?.value.response.citizenInternationalElements &&
-    respondent?.value.response.consent &&
-    respondent?.value.response.currentOrPreviousProceedings &&
-    respondent?.value.response.keepDetailsPrivate &&
-    respondent?.value.response.miam &&
-    respondent?.value.response.legalRepresentation &&
-    respondent?.value.response.safetyConcerns &&
-    respondent?.value.response.supportYouNeed
-  ) {
-    return SectionStatus.COMPLETED;
-  }
-  if (
-    respondent?.value.response.citizenInternationalElements ||
-    respondent?.value.response.consent ||
-    respondent?.value.response.currentOrPreviousProceedings ||
-    respondent?.value.response.keepDetailsPrivate ||
-    respondent?.value.response.miam ||
-    respondent?.value.response.legalRepresentation ||
-    respondent?.value.response.safetyConcerns ||
-    respondent?.value.response.supportYouNeed
-  ) {
-    return SectionStatus.IN_PROGRESS;
-  }
-
-  return SectionStatus.TO_DO;
-};
-
-export const isApplicationResponded = (userCase: Partial<CaseWithId>, userId: string): boolean => {
-  if (userCase?.citizenResponseC7DocumentList?.length) {
-    return !!userCase.respondents?.find(respondent => {
-      if (respondent.value.user.idamId === userId) {
-        return userCase.citizenResponseC7DocumentList!.find(
-          responseDocument => responseDocument.value.createdBy === respondent.id
-        );
-      }
-    });
-  }
-
-  return false;
 };

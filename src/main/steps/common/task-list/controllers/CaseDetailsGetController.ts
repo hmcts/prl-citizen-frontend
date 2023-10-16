@@ -3,6 +3,7 @@ import { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { AppRequest } from '../../../../app/controller/AppRequest';
+import { mapDataInSession } from '../../../../steps/tasklistresponse/utils';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
 import { DASHBOARD_URL, PARTY_TASKLIST, SIGN_IN_URL } from '../../../urls';
 import { applyParms } from '../../url-parser';
@@ -21,6 +22,13 @@ export default class CaseDetailsGetController {
         req.session.user
       );
       req.session.userCase = caseData;
+
+      if (req.session?.userCase) {
+        if (req.session?.userCase.caseTypeOfApplication !== 'C100') {
+          req.session.userCaseList = [];
+        }
+        mapDataInSession(req.session.userCase, req.session.user.id);
+      }
       const citizenUser = req.session.user;
       const caseId = req.session.userCase.id;
       const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
@@ -32,6 +40,22 @@ export default class CaseDetailsGetController {
       });
     } catch (e) {
       res.redirect(DASHBOARD_URL);
+    }
+  }
+  public async load(req: AppRequest, res: Response): Promise<void> {
+    try {
+      const User = req.session.user;
+      const caseID = req.session.userCase.id;
+      const caseData = req.session.userCase;
+      const cosClient = new CosApiClient(User.accessToken, 'https://return-url');
+      const hearings = await cosClient.retrieveCaseHearingsByCaseId(User, caseID);
+      req.session.userCase.hearingCollection = hearings.caseHearings;
+
+      req.session.save(() => {
+        res.redirect(applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData, req.session.user.id) }));
+      });
+    } catch (error) {
+      throw new Error(error);
     }
   }
 }

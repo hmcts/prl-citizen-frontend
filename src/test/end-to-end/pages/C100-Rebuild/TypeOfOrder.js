@@ -19,28 +19,21 @@ module.exports = {
     },
     async askingCourt() {
         await I.retry(retryCount).waitForText(TypeOfOrder.askingCourtPageTitle , 30);
-        await I.wait('2');
         await I.retry(retryCount).click(this.fields.courtToDo1);
         await I.retry(retryCount).click(this.fields.courtToDo2);
         await I.retry(retryCount).click(this.fields.courtToDo3);
-        await I.wait('2');
         await I.retry(retryCount).click(this.fields.courtToDo3Nested);
         await I.retry(retryCount).click(this.fields.courtToDo4);
-        await I.wait('2');
         await I.retry(retryCount).click(this.fields.courtToDo4Nested);
-        await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async askingCourtSummary() {
         await I.retry(retryCount).waitForText(TypeOfOrder.askingCourtSummaryPageTitle , 30);
-        await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async courtShortStatement() {
         await I.retry(retryCount).waitForText(TypeOfOrder.courtShortStatementPageTitle , 30);
-        await I.wait('2');
         await I.retry(retryCount).fillField(this.fields.shortStatement, this.fields.testingText);
-        await I.wait('2');
         await I.retry(retryCount).click('Continue');
     },
     async typeOfOrder() {

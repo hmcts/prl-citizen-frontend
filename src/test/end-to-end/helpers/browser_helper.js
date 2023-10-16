@@ -1,16 +1,16 @@
 module.exports = class BrowserHelpers extends Helper {
 
     getHelper() {
-      return this.helpers['Puppeteer'] || this.helpers['WebDriver'];
+      return this.helpers['Playwright'] || this.helpers['WebDriver'];
     }
   
-    isPuppeteer() {
-      return this.helpers['Puppeteer'];
+    isPlaywright() {
+      return this.helpers['Playwright'];
     }
   
     async getBrowser() {
       const helper = this.getHelper();
-      if (this.isPuppeteer()) {
+      if (this.isPlaywright()) {
         return (await helper.options.browser);
       }
       return (await helper.config.browser);
@@ -18,7 +18,7 @@ module.exports = class BrowserHelpers extends Helper {
   
     clickBrowserBack() {
       const helper = this.getHelper();
-      if (this.isPuppeteer()) {
+      if (this.isPlaywright()) {
         return helper.page.goBack();
       } else {
         return helper.browser.back();
@@ -59,7 +59,7 @@ module.exports = class BrowserHelpers extends Helper {
       const helper = this.getHelper();
   
       try {
-        if (this.isPuppeteer()) {
+        if (this.isPlaywright()) {
           const waitTimeout = sec ? sec * 1000 : helper.options.waitForTimeout;
           const context = await helper._getContext();
           return await context.waitForSelector(locator, {timeout: waitTimeout});
@@ -110,7 +110,7 @@ module.exports = class BrowserHelpers extends Helper {
   
       let getAttribute;
   
-      if(this.isPuppeteer()){
+      if(this.isPlaywright()){
         getAttribute = async (element, attr) =>  (await element.getProperty(attr)).jsonValue();
       } else {
         getAttribute = async (element, attr) => await element.getAttribute(attr);
@@ -150,7 +150,7 @@ module.exports = class BrowserHelpers extends Helper {
       if(elements.length === 0){
         throw new Error(`No element found for locator ${selector}`);
       }
-      if(this.isPuppeteer()){
+      if(this.isPlaywright()){
         await helper.page.evaluate(selectorArg => document.querySelector(selectorArg).scrollIntoView(), selector);
       } else {
         await helper.executeScript('arguments[0].scrollIntoView()', elements[0]);
