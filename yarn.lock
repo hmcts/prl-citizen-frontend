@@ -2995,17 +2995,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/glob@npm:^8.0.0":
-  version: 8.0.1
-  resolution: "@types/glob@npm:8.0.1"
-  dependencies:
-    "@types/minimatch": ^5.1.2
-    "@types/node": "*"
-  checksum: 98f3d0403c09638348a2f3b30aac2a3d6bdc306bce3ceb868f4794fef4f02727ccdf0dab0c7b7d65fd38a1afa1e48f02de56d29d2babe94ee9b204ca54acb31f
-  languageName: node
-  linkType: hard
-
-"@types/glob@npm:^8.1.0":
+"@types/glob@npm:^8.0.0, @types/glob@npm:^8.1.0":
   version: 8.1.0
   resolution: "@types/glob@npm:8.1.0"
   dependencies:
@@ -9934,10 +9924,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:4.3.1":
-  version: 4.3.1
-  resolution: "govuk-frontend@npm:4.3.1"
-  checksum: ea2d658f666481ffcac8c5ba2433f1cfe5087c281b8db1157567628f1db094734c64eb0879f57f87e75944adb06459487e735a4cd184a960de6ab1249f75b6d3
+"govuk-frontend@npm:4.7.0":
+  version: 4.7.0
+  resolution: "govuk-frontend@npm:4.7.0"
+  checksum: 0e246dd2c724e51fd14dd40fc31c66627df7d07ebe89e1a19b1e7da7e7a5eb86bc6560229e18a13e40651e6c953a67422d54e77e240d82efff7b2cbefaa8b88d
   languageName: node
   linkType: hard
 
@@ -15386,7 +15376,7 @@ __metadata:
     express-session: ^1.17.2
     form-data: ^4.0.0
     glob: ^8.0.3
-    govuk-frontend: 4.3.1
+    govuk-frontend: 4.7.0
     helmet: ^4.6.0
     html-webpack-plugin: ^5.5.0
     http-status-codes: ^2.2.0
