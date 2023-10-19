@@ -217,7 +217,7 @@ const en = {
         tasks: {
           checkTheApplication: {
             linkText: 'Check the application (PDF)',
-          }
+          },
         },
       },
       yourHearing: {
@@ -231,7 +231,6 @@ const en = {
       yourDocuments: {
         heading: 'Your documents',
         tasks: {
-         
           viewAllDocuments: {
             linkText: 'View all documents',
           },

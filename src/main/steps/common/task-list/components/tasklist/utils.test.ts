@@ -878,7 +878,7 @@ describe('testcase for tasklist', () => {
     ]);
   });
   test('FL401 respondent', () => {
-    const userDetails = {
+    const userDetails1 = {
       id: '1234',
       accessToken: 'mock-user-access-token',
       name: 'test',
@@ -890,29 +890,27 @@ describe('testcase for tasklist', () => {
       id: '1234',
       state: State.CASE_DRAFT,
       caseTypeOfApplication: CaseType.FL401,
-      respondentsFL401: 
-        {
-            user: {
-              idamId: '1234',
-            },
-            response: {
-              citizenFlags: {
-                isAllegationOfHarmViewed: 'Yes',
-              },
-            },
+      respondentsFL401: {
+        user: {
+          idamId: '1234',
         },
+        response: {
+          citizenFlags: {
+            isAllegationOfHarmViewed: 'Yes',
+          },
+        },
+      },
       caseInvites: [
         {
           value: {
             partyId: '1234',
             invitedUserId: '1234',
             isApplicant: YesOrNo.NO,
-
           },
         },
       ],
     } as unknown as CaseWithId;
-    expect(getTaskListConfig(data, userDetails, PartyType.RESPONDENT, 'en', false)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails1, PartyType.RESPONDENT, 'en', false)).toStrictEqual([
       {
         heading: 'About you',
         id: 'aboutYou',

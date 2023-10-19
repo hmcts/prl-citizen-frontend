@@ -286,12 +286,12 @@ const en = {
         daRespondentBanner: {
           heading:
             'You have been named as the respondent in a domestic abuse application and have an order from the court',
-            contents: [
+          contents: [
             {
-              text:
-                'This means that another person (the applicant) has applied to a court for protection from domestic abuse.',
-            },{
-                text: 'The court has considered their concerns. The order tells you what the court has decided.',
+              text: 'This means that another person (the applicant) has applied to a court for protection from domestic abuse.',
+            },
+            {
+              text: 'The court has considered their concerns. The order tells you what the court has decided.',
             },
           ],
           links: [
@@ -304,9 +304,9 @@ const en = {
               text: 'Read the application (PDF)',
             },
           ],
+        },
       },
     },
-  },
     [PartyType.APPLICANT]: {
       notifications: {
         newOrder: {
@@ -633,12 +633,10 @@ const cy: typeof en = {
             'Rydych wedi cael eich enwi fel yr atebydd mewn cais cam-drin domestig ac mae gennych orchymyn gan y llys',
           contents: [
             {
-              text:
-                'Mae hyn yn golygu bod unigolyn arall (y ceisydd) wedi gwneud cais i’r llys am orchymyn amddiffyn rhag cam-drin domestig.',
+              text: 'Mae hyn yn golygu bod unigolyn arall (y ceisydd) wedi gwneud cais i’r llys am orchymyn amddiffyn rhag cam-drin domestig.',
             },
             {
-              text:
-                'Mae’r llys wedi ystyried eu pryderon. Mae’r gorchymyn hwn yn dweud wrthych beth mae’r llys wedi penderfynu.',
+              text: 'Mae’r llys wedi ystyried eu pryderon. Mae’r gorchymyn hwn yn dweud wrthych beth mae’r llys wedi penderfynu.',
             },
           ],
           links: [

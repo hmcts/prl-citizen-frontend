@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { interpolate } from '../../../string-parser';
+
+import { CaseType, PartyType } from './../../../../../app/case/definition';
 import { C100_WITHDRAW_CASE } from './../../../../urls';
 import notifConfig from './config/index';
-import { CaseType, PartyType } from './../../../../../app/case/definition';
 const notificationBannerConfig = {
   [CaseType.C100]: {
     [PartyType.APPLICANT]: notifConfig.CA_APPLICANT,

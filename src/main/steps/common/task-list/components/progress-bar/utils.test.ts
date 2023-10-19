@@ -1,7 +1,8 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, SelectTypeOfOrderEnum, State, YesOrNo } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
-import {getProgressBarConfig} from './utils'
+
+import { getProgressBarConfig } from './index';
 
 describe('testcase for progress-bar', () => {
   test('when not started yet', () => {

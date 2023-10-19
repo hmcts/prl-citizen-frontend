@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { CaseType, PartyType } from './../../../../../app/case/definition';
-
 import { languages as content } from './content';
-
 
 export enum BannerNotification {
   APPLICATION_NOT_STARTED = 'applicationNotStarted',
@@ -20,7 +17,7 @@ export enum BannerNotification {
   NEW_ORDER = 'newOrder',
   NEW_DOCUMENT = 'newDocument',
   FINAL_ORDER = 'finalOrder',
-  DA_RESPONDENT_BANNER='daRespondentBanner',
+  DA_RESPONDENT_BANNER = 'daRespondentBanner',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string, partyType: PartyType) => {
@@ -94,5 +91,3 @@ export const notificationBanner = {
     show: () => false,
   },
 };
-
-

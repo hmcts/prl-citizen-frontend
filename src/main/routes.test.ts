@@ -1,13 +1,7 @@
 import { Application } from 'express';
 
 import { Routes } from './routes';
-import {
-  ACCESSIBILITY_STATEMENT,
-  CONTACT_US,
-  COOKIES_PAGE,
-  PRIVACY_POLICY,
-  TERMS_AND_CONDITIONS,
-} from './steps/urls';
+import { ACCESSIBILITY_STATEMENT, CONTACT_US, COOKIES_PAGE, PRIVACY_POLICY, TERMS_AND_CONDITIONS } from './steps/urls';
 
 const mockCSRFTokenError = jest.fn();
 const mockNotFound = jest.fn();
@@ -81,7 +75,6 @@ jest.mock('./steps/timed-out/get', () => {
     }),
   };
 });
-
 
 describe('Routes', () => {
   let appMock;

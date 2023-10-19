@@ -432,47 +432,45 @@ describe('testcase for tasklist', () => {
     };
     commonContent.additionalData!.req.session.userCase.caseTypeOfApplication = 'FL401';
     commonContent.additionalData!.req.session.userCase.respondentsFL401 = {
-            user: {
-              idamId: '1234',
-            },
-            response: {
-              citizenFlags: {
-                isAllegationOfHarmViewed: 'Yes',
-              },
-            }
-          }
-commonContent.additionalData!.req.session.userCase.caseInvites= [
-              {
-                value: {
-                  partyId: '1234',
-                  invitedUserId: '1234',
-                  isApplicant: YesOrNo.NO,
-      
-                },
-              },
-            ],
-
-    expect(generateContent(commonContent).hyperlinks).toStrictEqual([
-      {
-        label: 'Add a legal representative',
-        link: '/respondent/add-legal-representative',
+      user: {
+        idamId: '1234',
       },
-      {
-        label: 'Find my local court',
-        link: '#',
+      response: {
+        citizenFlags: {
+          isAllegationOfHarmViewed: 'Yes',
+        },
       },
+    };
+    (commonContent.additionalData!.req.session.userCase.caseInvites = [
       {
-        label: 'Find legal advice',
-        link: '#',
+        value: {
+          partyId: '1234',
+          invitedUserId: '1234',
+          isApplicant: YesOrNo.NO,
+        },
       },
-      {
-        label: 'Know more about child arrangements',
-        link: '#',
-      },
-      {
-        label: 'Know more about attending court',
-        link: '#',
-      },
-    ]);
+    ]),
+      expect(generateContent(commonContent).hyperlinks).toStrictEqual([
+        {
+          label: 'Add a legal representative',
+          link: '/respondent/add-legal-representative',
+        },
+        {
+          label: 'Find my local court',
+          link: '#',
+        },
+        {
+          label: 'Find legal advice',
+          link: '#',
+        },
+        {
+          label: 'Know more about child arrangements',
+          link: '#',
+        },
+        {
+          label: 'Know more about attending court',
+          link: '#',
+        },
+      ]);
   });
 });

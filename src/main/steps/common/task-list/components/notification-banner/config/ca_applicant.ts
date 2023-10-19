@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { CaseWithId } from '../../../../../../app/case/case';
-import { BannerNotification, notificationBanner } from '../utils';
-import { State, YesOrNo } from 'app/case/definition';
+import { State, YesOrNo } from '../../../../../../app/case/definition';
+import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { isCaseLinked, isCaseWithdrawn } from '../../../../../../steps/common/task-list/utils';
-
+import { BannerNotification, notificationBanner } from '../utils';
 
 export const CA_APPLICANT = [
   {
@@ -83,4 +82,4 @@ export const CA_APPLICANT = [
       return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
     },
   },
-]
+];

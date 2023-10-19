@@ -1,8 +1,7 @@
-import { CaseWithId } from "../../../../../../app/case/case";
-import { BannerNotification, notificationBanner } from "../utils";
-import { UserDetails } from "../../../../../../app/controller/AppRequest";
-import { State, YesOrNo } from "../../../../../../app/case/definition";
-
+import { CaseWithId } from '../../../../../../app/case/case';
+import { State, YesOrNo } from '../../../../../../app/case/definition';
+import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { BannerNotification, notificationBanner } from '../utils';
 
 export const DA_RESPONDENT = [
   {
@@ -29,9 +28,9 @@ export const DA_RESPONDENT = [
   },
   {
     ...notificationBanner[BannerNotification.DA_RESPONDENT_BANNER],
-    show:  (caseData: Partial<CaseWithId>):boolean=>{
+    show: (caseData: Partial<CaseWithId>): boolean => {
       // banners.length === 0 && (revisit latter)
-      return caseData.orderWithoutGivingNoticeToRespondent?.orderWithoutGivingNotice === YesOrNo.YES
+      return caseData.orderWithoutGivingNoticeToRespondent?.orderWithoutGivingNotice === YesOrNo.YES;
     },
   },
-]
+];

@@ -1,8 +1,7 @@
-import { CaseWithId } from "../../../../../../app/case/case";
-import { BannerNotification, notificationBanner } from "../utils";
-import { UserDetails } from "../../../../../../app/controller/AppRequest";
-import { State, YesOrNo } from "../../../../../../app/case/definition";
-
+import { CaseWithId } from '../../../../../../app/case/case';
+import { State, YesOrNo } from '../../../../../../app/case/definition';
+import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { BannerNotification, notificationBanner } from '../utils';
 
 export const CA_RESPONDENT = [
   {
@@ -30,4 +29,4 @@ export const CA_RESPONDENT = [
       return !!caseData?.orderCollection?.length && caseData.state === State.ALL_FINAL_ORDERS_ISSUED;
     },
   },
-]
+];
