@@ -154,10 +154,23 @@ const progressBarConfig = {
       },
     ],
     [PartyType.RESPONDENT]: [
-      progressBarStage.caseOpened,
-      progressBarStage.hearingAndCourtOrders,
-      progressBarStage.finalOrder,
-      progressBarStage.caseClosed,
+      { ...progressBarStage.caseOpened, isComplete: () => true },
+      {
+        ...progressBarStage.hearingAndCourtOrders,
+        isInProgress: (userCase: Partial<CaseWithId>) =>
+          userCase &&
+          (userCase.orderCollection ||
+            [State.DECISION_OUTCOME, State.PREPARE_FOR_HEARING_CONDUCT_HEARING].includes(userCase.state!)),
+        isComplete: (userCase: Partial<CaseWithId>) => userCase.selectTypeOfOrder === SelectTypeOfOrderEnum.finl,
+      },
+      {
+        ...progressBarStage.finalOrder,
+        isComplete: (userCase: Partial<CaseWithId>) => userCase.selectTypeOfOrder === SelectTypeOfOrderEnum.finl,
+      },
+      {
+        ...progressBarStage.caseClosed,
+        isComplete: isCaseClosed,
+      },
     ],
   },
 };

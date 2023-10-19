@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, CitizenInternationalElements, PartyType, State } from '../../../../../app/case/definition';
+import { CaseType, CitizenInternationalElements, PartyType, State, YesOrNo } from '../../../../../app/case/definition';
 
 import {
   getCheckAllegationOfHarmStatus,
@@ -878,16 +878,129 @@ describe('testcase for tasklist', () => {
     ]);
   });
   test('FL401 respondent', () => {
+    const userDetails = {
+      id: '1234',
+      accessToken: 'mock-user-access-token',
+      name: 'test',
+      givenName: 'First name',
+      familyName: 'Last name',
+      email: 'test@example.com',
+    };
     const data = {
-      id: '12',
+      id: '1234',
       state: State.CASE_DRAFT,
       caseTypeOfApplication: CaseType.FL401,
-    };
-    const party = PartyType.RESPONDENT;
-    const language = 'en';
-    const isRepresentedBySolicotor = false;
+      respondentsFL401: 
+        {
+            user: {
+              idamId: '1234',
+            },
+            response: {
+              citizenFlags: {
+                isAllegationOfHarmViewed: 'Yes',
+              },
+            },
+        },
+      caseInvites: [
+        {
+          value: {
+            partyId: '1234',
+            invitedUserId: '1234',
+            isApplicant: YesOrNo.NO,
 
-    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([]);
+          },
+        },
+      ],
+    } as unknown as CaseWithId;
+    expect(getTaskListConfig(data, userDetails, PartyType.RESPONDENT, 'en', false)).toStrictEqual([
+      {
+        heading: 'About you',
+        id: 'aboutYou',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/keep-details-private/details_known/1234',
+            id: 'keepYourDetailsPrivate',
+            linkText: 'Keep your details private',
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            href: '/respondent/confirm-contact-details/checkanswers/1234',
+            id: 'editYouContactDetails',
+            linkText: 'Confirm or edit your contact details',
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            href: '/respondent/support-you-need-during-case/attending-the-court',
+            id: 'yourSupport',
+            linkText: 'Your Support',
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+        ],
+      },
+      {
+        heading: 'The application',
+        id: 'theApplication',
+        tasks: [
+          {
+            disabled: false,
+            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
+            id: 'checkTheApplication',
+            linkText: 'Check the application (PDF)',
+            stateTag: { className: 'govuk-tag--grey', label: 'Not available yet' },
+            openInAnotherTab: true,
+          },
+        ],
+      },
+      {
+        heading: 'Your court hearings',
+        id: 'yourHearing',
+        tasks: [
+          {
+            disabled: true,
+            href: '#',
+            id: 'viewHearingDetails',
+            linkText: 'Check details of your court hearings',
+            stateTag: { className: 'govuk-tag--grey', label: 'Not available yet' },
+          },
+        ],
+      },
+      {
+        heading: 'Your documents',
+        id: 'yourDocuments',
+        tasks: [
+          {
+            disabled: false,
+            href: '/respondent/yourdocuments/alldocuments/alldocuments',
+            id: 'viewAllDocuments',
+            linkText: 'View all documents',
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+          {
+            disabled: false,
+            href: '/respondent/upload-document',
+            id: 'uploadDocuments',
+            linkText: 'Upload Documents',
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+        ],
+      },
+      {
+        heading: 'Orders from the court',
+        id: 'ordersFromTheCourt',
+        tasks: [
+          {
+            disabled: false,
+            href: '#',
+            id: 'viewOrders',
+            linkText: 'View all orders from the court',
+            stateTag: { className: 'govuk-tag--grey', label: 'Not available yet' },
+          },
+        ],
+      },
+    ]);
   });
 });
 

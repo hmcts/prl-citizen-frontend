@@ -5,12 +5,9 @@ import { CaseType, PartyType, State } from '../../../app/case/definition';
 import { isCaseLinked } from '../../../steps/common/task-list/utils';
 import { applyParms } from '../../common/url-parser';
 import {
-  APPLICANT_TASK_LIST_URL,
   C100_RETRIVE_CASE,
   FETCH_CASE_DETAILS,
-  //FETCH_CASE_DETAILS,
   PageLink,
-  RESPONDENT_TASK_LIST_URL,
 } from '../../urls';
 
 import { UserDetails } from './../../../app/controller/AppRequest';
@@ -273,11 +270,7 @@ const getTaskListUrl = (
   let url;
 
   if (linkPartyType === PartyType.RESPONDENT) {
-    if (caseType === CaseType.C100) {
       url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
-    } else {
-      url = `${RESPONDENT_TASK_LIST_URL}/${caseNumber}`;
-    }
   } else {
     if (caseType === CaseType.C100) {
       if (State.AWAITING_SUBMISSION_TO_HMCTS === caseStatus) {
@@ -286,7 +279,7 @@ const getTaskListUrl = (
         url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
       }
     } else {
-      url = `${APPLICANT_TASK_LIST_URL}/${caseNumber}`;
+      url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });;
     }
   }
 
