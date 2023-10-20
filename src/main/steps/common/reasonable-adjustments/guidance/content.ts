@@ -1,11 +1,12 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH } from '../../../urls';
 
 const en = {
-  title: 'Your support - Confirmation',
+  title: 'Your support - Guidelines',
 };
 
 const cy = {
-  title: 'Your support - Confirmation -  welsh',
+  title: 'Your support - Guidelines -  welsh',
 };
 
 export const languages = {
@@ -18,6 +19,6 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    data: JSON.stringify(content.userCase?.ra_cc, null, 4),
+    reasonableAdjustmentsLaunchUrl: REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH,
   };
 };

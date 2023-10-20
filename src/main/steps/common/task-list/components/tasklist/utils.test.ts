@@ -318,8 +318,8 @@ describe('testcase for tasklist', () => {
           {
             disabled: false,
             href: '/applicant/hearing-needs/support-help',
-            id: 'yourSupport',
-            linkText: 'Your Support',
+            id: 'supportYouNeed',
+            linkText: 'Support you need during your case',
             stateTag: {
               className: 'govuk-tag--turquoise',
               label: 'Submitted',
@@ -452,8 +452,8 @@ describe('testcase for tasklist', () => {
           {
             disabled: false,
             href: '/applicant/hearing-needs/support-help',
-            id: 'yourSupport',
-            linkText: 'Your Support',
+            id: 'supportYouNeed',
+            linkText: 'Support you need during your case',
             stateTag: {
               className: 'govuk-tag--turquoise',
               label: 'Submitted',
@@ -642,8 +642,8 @@ describe('testcase for tasklist', () => {
           {
             disabled: false,
             href: '/applicant/support-you-need-during-case/attending-the-court',
-            id: 'yourSupport',
-            linkText: 'Your Support',
+            id: "supportYouNeed",
+            linkText: "Support you need during your case",
             stateTag: {
               className: 'govuk-tag--grey',
               label: 'TO DO',
@@ -779,8 +779,8 @@ describe('testcase for tasklist', () => {
           {
             disabled: false,
             href: '/applicant/support-you-need-during-case/attending-the-court',
-            id: 'yourSupport',
-            linkText: 'Your Support',
+            id: 'supportYouNeed',
+            linkText: 'Support you need during your case',
             stateTag: {
               className: 'govuk-tag--grey',
               label: 'TO DO',
@@ -951,10 +951,10 @@ describe('c100 respondent', () => {
           },
           {
             disabled: false,
-            href: '/respondent/support-you-need-during-case/attending-the-court',
-            id: 'yourSupport',
-            linkText: 'Your Support',
-            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+            href: '/respondent/reasonable-adjustments/guidance',
+            id: 'supportYouNeed',
+            linkText: 'Support you need during your case',
+            stateTag: { className: 'govuk-tag--blue', label: 'Optional' },
           },
         ],
       },
@@ -1148,10 +1148,10 @@ describe('c100 respondent', () => {
           },
           {
             disabled: false,
-            href: '/respondent/support-you-need-during-case/attending-the-court',
-            id: 'yourSupport',
-            linkText: 'Your Support',
-            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+            href: '/respondent/reasonable-adjustments/guidance',
+            id: 'supportYouNeed',
+            linkText: 'Support you need during your case',
+            stateTag: { className: 'govuk-tag--blue', label: 'Optional' },
           },
         ],
       },
@@ -1374,10 +1374,10 @@ describe('c100 respondent', () => {
           },
           {
             disabled: false,
-            href: '/respondent/support-you-need-during-case/attending-the-court',
-            id: 'yourSupport',
-            linkText: 'Your Support',
-            stateTag: { className: 'govuk-tag--green', label: 'Completed' },
+            href: '/respondent/reasonable-adjustments/guidance',
+            id: 'supportYouNeed',
+            linkText: 'Support you need during your case',
+            stateTag: { className: 'govuk-tag--blue', label: 'Optional' },
           },
         ],
       },

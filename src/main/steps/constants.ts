@@ -10,6 +10,7 @@ export enum Sections {
   AboutCaAndDaRespondentCase = 'aboutCaAndDaRespondentCase',
   C100 = 'c100',
   Screening = 'screening',
+  RA = 'cuira',
 }
 
 export interface Step {

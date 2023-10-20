@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../../app/case/case';
+import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { applyParms } from '../../../../../../steps/common/url-parser';
 import { UPDATE_CASE_YES } from '../../../../../../steps/constants';
+import { getCasePartyType } from '../../../../../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils';
 import {
   ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT_CA_DA_REQUEST,
-  CA_DA_ATTENDING_THE_COURT,
+  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -26,7 +29,6 @@ import {
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getResponseStatus,
-  getSupportYourNeedsDetailsStatus,
   hasAnyHearing,
   hasAnyOrder,
 } from '../utils';
@@ -42,8 +44,8 @@ export const CA_RESPONDENT = [
         href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_DETAILS_KNOWN}/${caseData.id}`,
         disabled: isCaseClosed,
         stateTag: (caseData, userDetails) => {
-          const respondent = getPartyDetails(caseData, userDetails.id);
-          return getKeepYourDetailsPrivateStatus(respondent?.response.keepDetailsPrivate);
+          const partyDetails = getPartyDetails(caseData, userDetails.id);
+          return getKeepYourDetailsPrivateStatus(partyDetails?.response.keepDetailsPrivate);
         },
       },
       {
@@ -51,20 +53,18 @@ export const CA_RESPONDENT = [
         href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_CHECK_ANSWERS}/${caseData.id}`,
         disabled: isCaseClosed,
         stateTag: (caseData, userDetails) => {
-          const respondent = getPartyDetails(caseData, userDetails.id);
-          return getConfirmOrEditYourContactDetailsStatus(respondent);
+          return getConfirmOrEditYourContactDetailsStatus(getPartyDetails(caseData, userDetails.id));
         },
       },
       {
-        id: Tasks.YOUR_SUPPORT,
-        href: () => {
-          return `${CA_DA_ATTENDING_THE_COURT}`;
+        id: Tasks.SUPPORT_YOU_NEED,
+        href: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+          return applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
+            partyType: getCasePartyType(caseData, userDetails.id),
+          });
         },
         disabled: isCaseClosed,
-        stateTag: (caseData, userDetails) => {
-          const respondent = getPartyDetails(caseData, userDetails.id);
-          return getSupportYourNeedsDetailsStatus(respondent?.response.supportYouNeed as CaseWithId);
-        },
+        stateTag: () => StateTags.OPTIONAL,
       },
     ],
   },

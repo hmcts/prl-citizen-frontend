@@ -52,7 +52,7 @@ export const DA_APPLICANT = [
       //   stateTag: () => StateTags.SUBMITTED,
       // },
       {
-        id: Tasks.YOUR_SUPPORT,
+        id: Tasks.SUPPORT_YOU_NEED,
         href: () => {
           return `${APPLICANT_ATTENDING_THE_COURT}`;
         },
