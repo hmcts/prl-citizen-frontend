@@ -12,8 +12,8 @@ export const progressBarConfig = {
     [PartyType.RESPONDENT]: progressConfig.CA_RESPONDENT,
   },
   [CaseType.FL401]: {
-    [PartyType.APPLICANT]: progressConfig.DA_APPLICANT,
-    [PartyType.RESPONDENT]: progressConfig.DA_RESPONDENT,
+    [PartyType.APPLICANT]: progressConfig.DA_APPLICANT_RESPONDENT,
+    [PartyType.RESPONDENT]: progressConfig.DA_APPLICANT_RESPONDENT,
   },
 };
 export const getProgressBarConfig = (
