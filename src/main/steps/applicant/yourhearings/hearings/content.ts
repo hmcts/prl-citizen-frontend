@@ -6,7 +6,6 @@ import {
   APPLICANT_ATTENDING_THE_COURT,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASKLIST_HEARING_NEEDS,
-  //APPLICANT_TASK_LIST_URL,
   PARTY_TASKLIST,
 } from '../../../../steps/urls';
 import { generateContent as yourhearingshearingscontent } from '../../../common/yourhearings/hearings/content';
