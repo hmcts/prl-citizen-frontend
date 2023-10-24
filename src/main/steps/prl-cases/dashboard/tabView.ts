@@ -265,19 +265,10 @@ const getTaskListUrl = (
 ): PageLink => {
   let url;
 
-  if (linkPartyType === PartyType.RESPONDENT) {
-    url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
+  if (caseType === CaseType.C100 && State.AWAITING_SUBMISSION_TO_HMCTS === caseStatus) {
+    url = applyParms(`${C100_RETRIVE_CASE}`, { caseId: caseNumber });
   } else {
-    if (caseType === CaseType.C100) {
-      if (State.AWAITING_SUBMISSION_TO_HMCTS === caseStatus) {
-        url = applyParms(`${C100_RETRIVE_CASE}`, { caseId: caseNumber });
-      } else {
-        url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
-      }
-    } else {
-      url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
-    }
+    url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
   }
-
   return url;
 };

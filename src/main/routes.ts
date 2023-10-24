@@ -152,7 +152,7 @@ export class Routes {
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
     //app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
-    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new CaseDetailsGetController().get));
+    //app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new CaseDetailsGetController().get));
     app.get(`${RESPOND_TO_APPLICATION}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
     app.get(
       `${APPLICANT_VIEW_ALL_DOCUMENTS}/:caseId`,
