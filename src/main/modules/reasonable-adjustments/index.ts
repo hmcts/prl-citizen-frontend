@@ -157,10 +157,12 @@ class ReasonableAdjustmentsProvider {
   }
 
   private resetData(): void {
+    console.info('**** RA-resetData ****');
     this.correlationId = null;
   }
 
   destroy(): void {
+    console.info('**** RA-destroy ****');
     this.resetData();
     this.appBaseUrl = '';
     this.client = null;
