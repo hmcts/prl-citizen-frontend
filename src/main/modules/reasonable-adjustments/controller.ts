@@ -67,7 +67,7 @@ export class ReasonableAdjustementsController {
     try {
       if (externalRefId) {
         const response = await RAProvider.service.getRAData(externalRefId);
-        console.info('**** response ****', JSON.stringify(response, null, 4))
+        console.info('**** response ****', JSON.stringify(response, null, 4));
         RAProvider.trySettlingRequest(response.correlationId, response.action).then(
           () => {
             // saving the data temp, will be revisited during story implementation

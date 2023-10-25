@@ -118,7 +118,7 @@ class ReasonableAdjustmentsProvider {
 
   trySettlingRequest(correlationId: string, action: RAData['action']): Promise<void> {
     return new Promise((resolve, reject) => {
-      console.info('**** this.correlationId ****', this.correlationId)
+      console.info('**** this.correlationId ****', this.correlationId);
       if (this.correlationId === correlationId) {
         if (action === CommonComponentUserAction.SUBMIT) {
           resolve();
