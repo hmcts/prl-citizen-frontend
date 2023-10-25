@@ -642,8 +642,8 @@ describe('testcase for tasklist', () => {
           {
             disabled: false,
             href: '/applicant/support-you-need-during-case/attending-the-court',
-            id: "supportYouNeed",
-            linkText: "Support you need during your case",
+            id: 'supportYouNeed',
+            linkText: 'Support you need during your case',
             stateTag: {
               className: 'govuk-tag--grey',
               label: 'TO DO',
