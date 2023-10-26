@@ -1,4 +1,4 @@
-import testConfig from '../config';
+const testConfig = require('../config');
 
 Feature('C100 Citizen Basic Flow - Master');
 
