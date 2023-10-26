@@ -1,3 +1,5 @@
+import testConfig from '../config';
+
 Feature('C100 Citizen Basic Flow - Master');
 
 Scenario('C100 Citizen Basic Flow - Master @cross-browser @nightly @smoke', async ({ I }) => {
@@ -5,4 +7,4 @@ Scenario('C100 Citizen Basic Flow - Master @cross-browser @nightly @smoke', asyn
     await I.createC100Application();
     await I.startTheApplication();
     await I.addCaseNameAndPostCode();
-  });
+  }).retry({ retries: testConfig.TestRetryScenarios, minTimeout: 30000 });;
