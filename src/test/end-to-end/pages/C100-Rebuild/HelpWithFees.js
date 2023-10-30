@@ -29,6 +29,10 @@ module.exports = {
         await this.alreadyApplied();
     },
     async withoutHelpWithFees() {
-        await this.helpWithFee(false);
+        await I.waitForText(HelpWithFees.helpWithFeesYesNoTitle , 30);
+        await I.click(this.fields.helpWithFeesNo);
+        await I.usePlaywrightTo('force click on continue', async({ page }) => {
+            await page.locator('//button[@id="main-form-submit"]').dispatchEvent('click');
+          });
     },
 };
