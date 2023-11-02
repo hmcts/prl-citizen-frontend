@@ -3159,9 +3159,9 @@ __metadata:
   linkType: hard
 
 "@types/negotiator@npm:^0.6.1":
-  version: 0.6.1
-  resolution: "@types/negotiator@npm:0.6.1"
-  checksum: e39f985874a30bd13186249eaaede0c5eec107178f55f2bd719c2c9d1397de329a5e0869a25dd5e7c702cdd311bd5e4153e25963900b4353545842354a2d1bc4
+  version: 0.6.2
+  resolution: "@types/negotiator@npm:0.6.2"
+  checksum: ca82552df0001b1298d74b5e1c9fe07ba736d751ae5fcaa8aa234ea2ad4ad917a21257331a035fb3a8db1efc505973bcdce91f8fae53131013e8b32389d34571
   languageName: node
   linkType: hard
 
