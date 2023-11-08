@@ -2847,16 +2847,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/connect-redis@npm:^0.0.22":
-  version: 0.0.22
-  resolution: "@types/connect-redis@npm:0.0.22"
+"@types/connect-redis@npm:^0.0.23":
+  version: 0.0.23
+  resolution: "@types/connect-redis@npm:0.0.23"
   dependencies:
     "@types/express": "*"
     "@types/express-session": "*"
     "@types/node": "*"
     "@types/redis": ^2.8.0
     ioredis: ^5.3.0
-  checksum: 605be511ce56b97b1c73ccd6e6cd179d10b21912c70b43263e8ecb39c7e2dce14719d5b3f8532e6fe3244a0cfacb8c4a43c35e859bc166dab014afff39f00345
+  checksum: 56ae04700217e579e47b14711f3d7ffd21c54ced77ab0ebf3feb8d8903a0c854c6a63bb2f7d27f0eaec3224a7b725b14e52ebfbecd529e38c05b6e6e5947c1dd
   languageName: node
   linkType: hard
 
@@ -15271,7 +15271,7 @@ __metadata:
     "@stryker-mutator/jest-runner": ^5.3.0
     "@types/autobind-decorator": ^2.1.0
     "@types/config": ^0.0.41
-    "@types/connect-redis": ^0.0.22
+    "@types/connect-redis": ^0.0.23
     "@types/cookie-parser": ^1.4.2
     "@types/copy-webpack-plugin": ^8.0.1
     "@types/csurf": ^1.11.2
