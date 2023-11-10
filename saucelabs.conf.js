@@ -105,6 +105,7 @@ const setupConfig = {
     },
   },
   multiple: {
+    //Codeceptjs does not support Microsoft browser with playwright helper
     // microsoft: {
     //   browsers: getBrowserConfig('microsoft'),
     // },
@@ -114,9 +115,12 @@ const setupConfig = {
     firefox: {
       browsers: getBrowserConfig('firefox'),
     },
-    safari: {
-      browsers: getBrowserConfig('safari'),
+    webkit: {
+      browsers: getBrowserConfig('webkit'),
     },
+    // safari: {
+    //   browsers: getBrowserConfig('safari'),
+    // },
   },
   name: 'PRL Citizen FE Cross-Browser Tests',
 };
