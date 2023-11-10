@@ -43,7 +43,7 @@ const setupConfig = {
   //teardown: testUserConfig.teardown,
   output: `${process.cwd()}/${testConfig.TestOutputDir}`,
   helpers: {
-    WebDriver: {
+    Playwright: {
       url: process.env.PRL_CITIZEN_URL,
       keepCookies: true,
       browser,
@@ -105,9 +105,9 @@ const setupConfig = {
     },
   },
   multiple: {
-    microsoft: {
-      browsers: getBrowserConfig('microsoft'),
-    },
+    // microsoft: {
+    //   browsers: getBrowserConfig('microsoft'),
+    // },
     chrome: {
       browsers: getBrowserConfig('chrome'),
     },

@@ -38,7 +38,7 @@ const supportedBrowsers = {
   },
   chrome: {
     chrome_win_latest: {
-      browserName: 'chrome',
+      browserName: 'chromium',
       platformName: LATEST_WINDOWS,
       browserVersion: 'latest',
       'sauce:options': {
@@ -47,7 +47,7 @@ const supportedBrowsers = {
       },
     },
     chrome_mac_latest: {
-      browserName: 'chrome',
+      browserName: 'chromium',
       platformName: LATEST_MAC,
       browserVersion: 'latest',
       'sauce:options': {
