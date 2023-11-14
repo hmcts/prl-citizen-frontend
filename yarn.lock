@@ -8379,11 +8379,11 @@ __metadata:
   linkType: hard
 
 "express-fileupload@npm:^1.4.0":
-  version: 1.4.1
-  resolution: "express-fileupload@npm:1.4.1"
+  version: 1.4.2
+  resolution: "express-fileupload@npm:1.4.2"
   dependencies:
     busboy: ^1.6.0
-  checksum: ac7a64689b8fad51790c9b53cc108fc3d21c559459b158ac5d7b9b351492ea853a14298616a006847f2d2fc54fca7fc399d21a8595ddcfe6eb8d855ed36dd1e6
+  checksum: 4a15e255f2af109f277412aa71453ea433650aedcea590673b96e3377f01751b05168a729c8f890ef01eff3eb83ce26e09660d86a76f5b66f4e7a1d40a409bb6
   languageName: node
   linkType: hard
 
