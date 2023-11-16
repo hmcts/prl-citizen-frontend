@@ -23,7 +23,7 @@ module.exports = function() {
 
   // Setting overall test result on SauceLabs
   event.dispatcher.on(event.all.after, () => {
-    const sessionId = container.helpers('WebDriver').browser.sessionId;
+    const sessionId = container.helpers('Playwright').browser.sessionId;
     const overallResult = failedTests.size === 0;
     console.log(`Updating Saucelabs with overall result: ${overallResult ? 'PASS' : 'FAIL'}`);
     if (!overallResult) {
