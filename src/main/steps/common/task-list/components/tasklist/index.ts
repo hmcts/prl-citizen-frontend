@@ -56,7 +56,7 @@ const taskListConfig = {
   },
   [CaseType.FL401]: {
     [PartyType.APPLICANT]: tasklistConfig.DA_APPLICANT,
-    [PartyType.RESPONDENT]: [],
+    [PartyType.RESPONDENT]: tasklistConfig.DA_RESPONDENT,
   },
 };
 

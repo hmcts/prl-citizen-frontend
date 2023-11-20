@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { PartyType, State } from '../../../app/case/definition';
+import { PartyType, State, YesOrNo } from '../../../app/case/definition';
 import { CommonContent } from '../common.content';
 import { generateContent } from '../task-list/content';
 
@@ -240,7 +240,7 @@ describe('testcase for tasklist', () => {
     additionalData: {
       req: {
         session: {
-          user: { id: '' },
+          user: { id: '1234' },
           userCase: {
             ...mockUserCase,
             caseTypeOfApplication: 'C100',
@@ -338,6 +338,7 @@ describe('testcase for tasklist', () => {
   });
 
   test('should return correct sidebar hyperlinks for c100 respondent', () => {
+    commonContent.additionalData!.req.session.userCase.caseTypeOfApplication = 'C100';
     commonContent.additionalData!.req = {
       ...commonContent.additionalData?.req,
       params: { partyType: 'respondent' },
@@ -430,27 +431,46 @@ describe('testcase for tasklist', () => {
       params: { partyType: 'respondent' },
     };
     commonContent.additionalData!.req.session.userCase.caseTypeOfApplication = 'FL401';
-    expect(generateContent(commonContent).hyperlinks).toStrictEqual([
-      {
-        label: 'Add a legal representative',
-        link: '/respondent/add-legal-representative',
+    commonContent.additionalData!.req.session.userCase.respondentsFL401 = {
+      user: {
+        idamId: '1234',
       },
-      {
-        label: 'Find my local court',
-        link: '#',
+      response: {
+        citizenFlags: {
+          isAllegationOfHarmViewed: 'Yes',
+        },
       },
+    };
+    (commonContent.additionalData!.req.session.userCase.caseInvites = [
       {
-        label: 'Find legal advice',
-        link: '#',
+        value: {
+          partyId: '1234',
+          invitedUserId: '1234',
+          isApplicant: YesOrNo.NO,
+        },
       },
-      {
-        label: 'Know more about child arrangements',
-        link: '#',
-      },
-      {
-        label: 'Know more about attending court',
-        link: '#',
-      },
-    ]);
+    ]),
+      expect(generateContent(commonContent).hyperlinks).toStrictEqual([
+        {
+          label: 'Add a legal representative',
+          link: '/respondent/add-legal-representative',
+        },
+        {
+          label: 'Find my local court',
+          link: '#',
+        },
+        {
+          label: 'Find legal advice',
+          link: '#',
+        },
+        {
+          label: 'Know more about child arrangements',
+          link: '#',
+        },
+        {
+          label: 'Know more about attending court',
+          link: '#',
+        },
+      ]);
   });
 });

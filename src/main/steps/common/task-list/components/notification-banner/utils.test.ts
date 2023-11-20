@@ -2,7 +2,7 @@ import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
 import { APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../../urls';
 
-import { getNotificationBannerConfig } from './utils';
+import { getNotificationBannerConfig } from './index';
 const userDetails = {
   id: '123',
   accessToken: 'mock-user-access-token',

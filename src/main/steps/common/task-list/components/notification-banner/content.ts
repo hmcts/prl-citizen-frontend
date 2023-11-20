@@ -239,7 +239,74 @@ const en = {
     },
   },
   [CaseType.FL401]: {
-    [PartyType.RESPONDENT]: {},
+    [PartyType.RESPONDENT]: {
+      notifications: {
+        newOrder: {
+          heading: 'You have a new order from the court',
+          contents: [
+            {
+              text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+            },
+          ],
+          links: [
+            {
+              text: 'View the order (PDF)',
+              href: APPLICANT_ORDERS_FROM_THE_COURT,
+            },
+          ],
+        },
+        newDocument: {
+          heading: 'You have a new document to view',
+          contents: [
+            {
+              text: 'A new document has been added to your case.',
+            },
+          ],
+          links: [
+            {
+              text: 'See all documents',
+              href: APPLICANT_VIEW_ALL_DOCUMENTS,
+            },
+          ],
+        },
+        finalOrder: {
+          heading: 'You have a final order',
+          contents: [
+            {
+              text: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+            },
+          ],
+          links: [
+            {
+              text: 'View the final order (PDF)',
+              href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+            },
+          ],
+        },
+        daRespondentBanner: {
+          heading:
+            'You have been named as the respondent in a domestic abuse application and have an order from the court',
+          contents: [
+            {
+              text: 'This means that another person (the applicant) has applied to a court for protection from domestic abuse.',
+            },
+            {
+              text: 'The court has considered their concerns. The order tells you what the court has decided.',
+            },
+          ],
+          links: [
+            {
+              text: 'Read the order (PDF)',
+              href: RESPONDENT_ORDERS_FROM_THE_COURT,
+            },
+            {
+              href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
+              text: 'Read the application (PDF)',
+            },
+          ],
+        },
+      },
+    },
     [PartyType.APPLICANT]: {
       notifications: {
         newOrder: {
@@ -517,7 +584,74 @@ const cy: typeof en = {
     },
   },
   [CaseType.FL401]: {
-    [PartyType.RESPONDENT]: {},
+    [PartyType.RESPONDENT]: {
+      notifications: {
+        newOrder: {
+          heading: 'Mae gennych orchymyn newydd gan y llys',
+          contents: [
+            {
+              text: 'Mae’r llys wedi gwneud penderfyniad terfynol am eich achos. Mae’r gorchymyn hwn yn dweud wrthych beth mae’r llys wedi penderfynu.',
+            },
+          ],
+          links: [
+            {
+              text: 'Gweld y gorchymyn (PDF)',
+              href: APPLICANT_ORDERS_FROM_THE_COURT,
+            },
+          ],
+        },
+        newDocument: {
+          heading: 'Mae gennych ddogfen newydd i edrych arni',
+          contents: [
+            {
+              text: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
+            },
+          ],
+          links: [
+            {
+              text: 'Gweld yr holl ddogfennau',
+              href: APPLICANT_VIEW_ALL_DOCUMENTS,
+            },
+          ],
+        },
+        finalOrder: {
+          heading: 'Mae gennych orchymyn terfynol',
+          contents: [
+            {
+              text: 'Mae’r llys wedi gwneud penderfyniad terfynol ynghylch eich achos. Mae’r gorchymyn yn dweud wrthych beth y mae’r llys wedi penderfynu. ',
+            },
+          ],
+          links: [
+            {
+              text: 'Gweld y gorchymyn terfynol (PDF)',
+              href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+            },
+          ],
+        },
+        daRespondentBanner: {
+          heading:
+            'Rydych wedi cael eich enwi fel yr atebydd mewn cais cam-drin domestig ac mae gennych orchymyn gan y llys',
+          contents: [
+            {
+              text: 'Mae hyn yn golygu bod unigolyn arall (y ceisydd) wedi gwneud cais i’r llys am orchymyn amddiffyn rhag cam-drin domestig.',
+            },
+            {
+              text: 'Mae’r llys wedi ystyried eu pryderon. Mae’r gorchymyn hwn yn dweud wrthych beth mae’r llys wedi penderfynu.',
+            },
+          ],
+          links: [
+            {
+              text: 'Darllen y gorchymyn (PDF)',
+              href: RESPONDENT_ORDERS_FROM_THE_COURT,
+            },
+            {
+              text: 'Darllen y gorchymyn (PDF)',
+              href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
+            },
+          ],
+        },
+      },
+    },
     [PartyType.APPLICANT]: {
       notifications: {
         newOrder: {
