@@ -3806,16 +3806,16 @@ __metadata:
   linkType: hard
 
 "@wdio/sauce-service@npm:^8.3.10":
-  version: 8.23.1
-  resolution: "@wdio/sauce-service@npm:8.23.1"
+  version: 8.23.3
+  resolution: "@wdio/sauce-service@npm:8.23.3"
   dependencies:
     "@wdio/logger": 8.16.17
     "@wdio/types": 8.23.1
     "@wdio/utils": 8.23.1
     ip: ^1.1.8
     saucelabs: 7.4.0
-    webdriverio: 8.23.1
-  checksum: 5131ff8e0a0671255c30bd18d1ecad5e70594d60aff13d61e9ca672e964300b7a8fcba6ab8939e624546949855d53f476dd4fbad0ae9c9169046b7fafcd34b77
+    webdriverio: 8.23.3
+  checksum: ad7251ce2e7f3014e2cbbe70634f11a765e87a7f74fe0fbecf6279fcdcc332f2e18c634eb7554139fc7dabffc9dabb041a40aa01814c10615a006f6c46d5d4eb
   languageName: node
   linkType: hard
 
@@ -18949,9 +18949,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webdriverio@npm:8.23.1":
-  version: 8.23.1
-  resolution: "webdriverio@npm:8.23.1"
+"webdriverio@npm:8.23.3":
+  version: 8.23.3
+  resolution: "webdriverio@npm:8.23.3"
   dependencies:
     "@types/node": ^20.1.0
     "@wdio/config": 8.23.1
@@ -18982,7 +18982,7 @@ __metadata:
   peerDependenciesMeta:
     devtools:
       optional: true
-  checksum: a48d311c561c0da6fa30601b5aef9baf75d5d14a27b47a9067e45ad7eb9df97a63fd88c0b164dd2b134a9dc8271d0206b18ebf3cde305376838f2bd4d7de217f
+  checksum: d041ee45a70a1a3dc7b024cfcaddf4fe84f56bcf359e3478dcda7a128336cb8f455cdc56a8b66f2c422cb1198bd159079b6f754fda7ae33ba95d7703adc9b196
   languageName: node
   linkType: hard
 
