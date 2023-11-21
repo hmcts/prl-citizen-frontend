@@ -2966,7 +2966,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:*, @types/express@npm:^4.17.11, @types/express@npm:^4.17.14":
+"@types/express@npm:*, @types/express@npm:^4.17.11, @types/express@npm:^4.17.21":
   version: 4.17.21
   resolution: "@types/express@npm:4.17.21"
   dependencies:
@@ -14978,7 +14978,7 @@ __metadata:
     "@types/copy-webpack-plugin": ^8.0.1
     "@types/csurf": ^1.11.2
     "@types/es6-promisify": ^6.0.1
-    "@types/express": ^4.17.14
+    "@types/express": ^4.17.21
     "@types/express-session": ^1.17.4
     "@types/glob": ^8.0.0
     "@types/jest": ^27.5.0
