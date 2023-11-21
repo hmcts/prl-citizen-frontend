@@ -30,7 +30,7 @@ export class ReasonableAdjustmentsService {
         existingFlags: payload,
         language,
       };
-
+      console.info(' **** request ****', JSON.stringify(requestData, null, 4));
       const response = await RAProvider.APIClient()!.post<RAPostResponse>(
         applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_POST_URL, {
           baseUrl: config.get('services.reasonableAdjustments.url'),

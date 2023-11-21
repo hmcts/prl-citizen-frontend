@@ -1,5 +1,7 @@
 import { Respondent, YesOrNo } from '../../../app/case/definition';
 import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
+import { applyParms } from '../../../steps/common/url-parser';
+import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import * as URL from '../../urls';
 
 import {
@@ -73,7 +75,9 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
             status: getSupportYourNeedsDetails(userCase),
-            href: URL.C7_ATTENDING_THE_COURT + '/' + userCase.id,
+            href: applyParms(URL.REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
+              partyType: getCasePartyType(userCase, userIdamId),
+            }),
           },
         ],
       },

@@ -24,7 +24,7 @@ import { Nunjucks } from './modules/nunjucks';
 import { OidcMiddleware } from './modules/oidc';
 //import { StateRedirectMiddleware } from './modules/state-redirect';
 import { PropertiesVolume } from './modules/properties-volume';
-import { RAProvider } from './modules/reasonable-adjustements';
+import { RAProvider } from './modules/reasonable-adjustments';
 import { SessionStorage } from './modules/session';
 import { TooBusy } from './modules/too-busy';
 import { Webpack } from './modules/webpack';

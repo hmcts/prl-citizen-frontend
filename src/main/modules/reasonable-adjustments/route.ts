@@ -3,8 +3,8 @@ import path from 'path';
 import { Application } from 'express';
 
 import { GetController } from '../../app/controller/GetController';
-import { generateContent as confirmationContent } from '../../steps/common/reasonable-adjustements/confirmation/content';
-import { generateContent as guidanceContent } from '../../steps/common/reasonable-adjustements/guidance/content';
+import { generateContent as confirmationContent } from '../../steps/common/reasonable-adjustments/confirmation/content';
+import { generateContent as guidanceContent } from '../../steps/common/reasonable-adjustments/guidance/content';
 import { applyParms } from '../../steps/common/url-parser';
 import {
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CALLBACK_URL,
@@ -19,7 +19,7 @@ class ReasonableAdjustmentsRoute {
   private templateRoot: string;
 
   constructor() {
-    this.templateRoot = path.join(__dirname, '../../steps/common/reasonable-adjustements');
+    this.templateRoot = path.join(__dirname, '../../steps/common/reasonable-adjustments');
   }
 
   enable(app: Application) {

@@ -19,7 +19,7 @@ import {
   SIGN_OUT_URL,
   TESTING_SUPPORT,
 } from '../../steps/urls';
-import { RAProvider } from '../reasonable-adjustements';
+import { RAProvider } from '../reasonable-adjustments';
 
 /**
  * Adds the oidc middleware to add oauth authentication

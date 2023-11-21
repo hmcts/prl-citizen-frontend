@@ -12,7 +12,8 @@ import { RespondentSubmitResponseController } from './app/controller/RespondentS
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
-import { StepWithContent, stepsWithContent } from './steps/';
+import { RAProvider } from './modules/reasonable-adjustments';
+import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
@@ -132,7 +133,7 @@ import {
 } from './steps/urls';
 
 export class Routes {
-  public enableFor(app: Application): void {
+  public async enableFor(app: Application): Promise<void> {
     const { errorHandler } = app.locals;
     const errorController = new ErrorController();
 
@@ -140,7 +141,7 @@ export class Routes {
     app.get(HOME_URL, (req, res) => res.redirect(DASHBOARD_URL));
     app.get(DASHBOARD_URL, errorHandler(new DashboardGetController().get));
     app.get(FETCH_CASE_DETAILS, errorHandler(new CaseDetailsGetController().get));
-    app.get(PARTY_TASKLIST, errorHandler(new TaskListGetController().get));
+    app.get(PARTY_TASKLIST, errorHandler(new TaskListGetController().load));
     app.get(COOKIES_PAGE, errorHandler(new CookiesGetController().get));
     app.get(PRIVACY_POLICY, errorHandler(new PrivacyPolicyGetController().get));
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
@@ -240,7 +241,9 @@ export class Routes {
     app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(TSDraftController.createTSC100Draft));
     app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(TSDraftController.deleteTSC100Draft));
 
-    for (const step of stepsWithContent) {
+    const steps = [...stepsWithContent, ...getStepsWithContent(await RAProvider.getSequence(), '/common')];
+
+    for (const step of steps) {
       const files = fs.readdirSync(`${step.stepDir}`);
       const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
       const getController = getControllerFileName

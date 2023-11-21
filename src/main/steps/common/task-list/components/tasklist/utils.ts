@@ -27,7 +27,7 @@ export enum Tasks {
   EDIT_YOUR_CONTACT_DETAILS = 'editYouContactDetails',
   CONTACT_PREFERENCES = 'contactPreferences',
   KEEP_YOUR_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
-  YOUR_SUPPORT = 'yourSupport',
+  SUPPORT_YOU_NEED = 'supportYouNeed',
   VIEW_ORDERS = 'viewOrders',
   YOUR_APPLICATION_WITNESS_STATEMENT = 'yourAapplicationWitnessStatment',
   CHECK_THE_APPLICATION = 'checkTheApplication',
