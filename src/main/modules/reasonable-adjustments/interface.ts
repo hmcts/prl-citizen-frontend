@@ -2,8 +2,6 @@ import {
   CommonComponentMasterFlagCode,
   CommonComponentServiceID,
   CommonComponentUserAction,
-  PartyType,
-  YesOrNo,
 } from '../../app/case/definition';
 import { Language } from '../../steps/common/common.content';
 
@@ -19,11 +17,11 @@ export interface RARequestPayload {
 
 export interface RAFlags {
   partyName: string;
-  roleOnCase: PartyType;
-  details?: RAFlagDetails[];
+  roleOnCase: string;
+  details: RAFlagDetail[] | [];
 }
 
-export interface RAFlagDetails {
+export interface RAFlagDetail {
   id: string;
   value: RAFlagValue;
 }
@@ -31,26 +29,27 @@ export interface RAFlagDetails {
 export interface RAFlagValue {
   name: string;
   name_cy: string;
-  subTypeValue: string;
-  subTypeValue_cy: string;
-  subTypeKey: string;
-  otherDescription: string;
-  otherDescription_cy: string;
-  flagComment: string;
-  flagComment_cy: string;
-  flagUpdateComment: string;
-  dateTimeModified: string;
+  subTypeValue?: string;
+  subTypeValue_cy?: string;
+  subTypeKey?: string;
+  otherDescription?: string;
+  otherDescription_cy?: string;
+  flagComment?: string;
+  flagComment_cy?: string;
+  flagUpdateComment?: string;
+  dateTimeModified?: string;
   dateTimeCreated: string;
   path: Path[];
-  hearingRelevant: YesOrNo;
+  hearingRelevant: string;
   flagCode: string;
   status: string;
-  availableExternally: YesOrNo;
+  availableExternally: string;
 }
 
 export interface Path {
-  id: string;
-  name: string;
+  id?: string;
+  value?: string;
+  name?: string;
 }
 
 export interface RAPostResponse {

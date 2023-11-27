@@ -4,9 +4,9 @@ import { Response } from 'express';
 import { PartyType } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Language } from '../../steps/common/common.content';
-import { getPartyName } from '../../steps/common/task-list/utils';
 import { applyParms } from '../../steps/common/url-parser';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
+import { getPartyDetails } from '../../steps/tasklistresponse/utils';
 import {
   DASHBOARD_URL,
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE,
@@ -39,11 +39,30 @@ export class ReasonableAdjustementsController {
     const partyType = getCasePartyType(caseData, userDetails.id);
     try {
       const language = RAProvider.getPreferredLanguage(req) as Language;
+      const partyDetails = getPartyDetails(caseData, userDetails.id);
+
+      if (!partyDetails) {
+        return ReasonableAdjustementsController.handleError('RA - partyDetails not available', res, partyType);
+      }
+
+      const existingRAFlags = await RAProvider.service.retrieveExistingPartyRAFlags(
+        caseData.id!,
+        partyDetails.user.idamId,
+        userDetails.accessToken
+      );
+      console.info(existingRAFlags);
+
+      if (!existingRAFlags) {
+        return ReasonableAdjustementsController.handleError('RA - partyExistingRAFlags not available', res, partyType);
+      }
+
+      const { partyName, details, roleOnCase } = RAProvider.utils.transformFlags(existingRAFlags);
 
       await RAProvider.launch(
         {
-          partyName: getPartyName(caseData, partyType, userDetails),
-          roleOnCase: partyType,
+          partyName,
+          roleOnCase,
+          details,
         },
         language,
         res
@@ -66,7 +85,7 @@ export class ReasonableAdjustementsController {
     const partyType = getCasePartyType(caseData, userDetails.id);
     try {
       if (externalRefId) {
-        const response = await RAProvider.service.getRAData(externalRefId);
+        const response = await RAProvider.service.retrievePartyRAFlagsFromCommonComponent(externalRefId);
         console.info('**** response ****', JSON.stringify(response, null, 4));
         RAProvider.trySettlingRequest(response.correlationId, response.action).then(
           () => {
@@ -92,7 +111,7 @@ export class ReasonableAdjustementsController {
         ReasonableAdjustementsController.handleError('RA - no external reference ID present', res, partyType);
       }
     } catch (error) {
-      ReasonableAdjustementsController.handleError(error, res);
+      ReasonableAdjustementsController.handleError(error, res, partyType);
     }
   }
 }

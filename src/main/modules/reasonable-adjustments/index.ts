@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import https from 'https';
 
 import Axios, { AxiosError, AxiosInstance } from 'axios';
@@ -21,6 +22,7 @@ import { RAData, RARequestPayload } from './interface';
 import { RARoute } from './route';
 import { RASequence, ReasonableAdjustementsSequence } from './sequence';
 import { RAService, ReasonableAdjustmentsService } from './service';
+import { RAUtility, ReasonableAdjustementsUtility } from './util';
 
 class ReasonableAdjustmentsProvider {
   private isEnabled = false;
@@ -30,12 +32,14 @@ class ReasonableAdjustmentsProvider {
   private correlationId: string | null = null;
   service: ReasonableAdjustmentsService;
   controller: ReasonableAdjustementsController;
+  utils: ReasonableAdjustementsUtility;
   private sequence: ReasonableAdjustementsSequence;
 
   constructor() {
     this.service = RAService;
     this.controller = RAController;
     this.sequence = RASequence;
+    this.utils = RAUtility;
   }
 
   async enable(app: Application): Promise<void> {
@@ -116,12 +120,12 @@ class ReasonableAdjustmentsProvider {
     }
   }
 
-  trySettlingRequest(correlationId: string, action: RAData['action']): Promise<void> {
+  trySettlingRequest(correlationId: string, action: RAData['action']): Promise<any> {
     return new Promise((resolve, reject) => {
       console.info('**** this.correlationId ****', this.correlationId);
       if (this.correlationId === correlationId) {
         if (action === CommonComponentUserAction.SUBMIT) {
-          resolve();
+          resolve(action);
         } else {
           reject(new Error('RA - user cancelled operation'));
         }
