@@ -18,7 +18,7 @@ import { RARoute } from './route';
 import { RAProvider } from './index';
 
 describe('ReasonableAdjustementsProvider', () => {
-  let appMock;
+  let appRequest;
   let appResponse;
   jest.mock('axios');
   config.get = jest.fn();
@@ -30,7 +30,10 @@ describe('ReasonableAdjustementsProvider', () => {
   } as unknown as LoggerInstance;
 
   beforeEach(() => {
-    appMock = {
+    appRequest = {
+      query: {
+        lng: 'en',
+      },
       get: jest.fn(),
       post: jest.fn(),
       delete: jest.fn(),
@@ -42,6 +45,7 @@ describe('ReasonableAdjustementsProvider', () => {
         user: {
           accessToken: 'testUserToken',
         },
+        lang: 'cy',
       },
     } as unknown as Application;
     appResponse = mockResponse();
@@ -51,26 +55,26 @@ describe('ReasonableAdjustementsProvider', () => {
   });
 
   test('when enabling RA module', async () => {
-    await RAProvider.enable(appMock);
-    expect(RARoute.enable(appMock)).toBeCalled;
+    await RAProvider.enable(appRequest);
+    expect(RARoute.enable(appRequest)).toBeCalled;
   });
 
   test('when initializing the module', async () => {
     mockedAxios.create.mockResolvedValueOnce;
-    RAProvider.init(appMock);
+    RAProvider.init(appRequest);
     expect((RAProvider as any).appBaseUrl).not.toBeNull;
     expect((RAProvider as any).client).not.toBeNull;
   });
 
   test('get the client instance of the module', async () => {
     mockedAxios.create.mockResolvedValueOnce;
-    RAProvider.init(appMock);
+    RAProvider.init(appRequest);
     expect(RAProvider.APIClient()).not.toBeNull;
   });
 
   test('get appBaseUrl of the module', async () => {
     mockedAxios.create.mockResolvedValueOnce;
-    RAProvider.init(appMock);
+    RAProvider.init(appRequest);
     expect(RAProvider.getAppBaseUrl()).not.toBeNull;
   });
 
@@ -148,6 +152,12 @@ describe('ReasonableAdjustementsProvider', () => {
     } finally {
       expect(isRequestSettled).toBe(false);
     }
+  });
+
+  test('when invoking getPreferredLanguage', async () => {
+    expect(RAProvider.getPreferredLanguage(appRequest)).toBe('en');
+    delete appRequest.query.lng;
+    expect(RAProvider.getPreferredLanguage(appRequest)).toBe('cy');
   });
 
   test('when invoking destroy', async () => {
