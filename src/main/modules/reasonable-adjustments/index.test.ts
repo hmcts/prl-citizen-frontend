@@ -10,9 +10,8 @@ import { Application } from 'express';
 import { LoggerInstance } from 'winston';
 
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { CommonComponentUserAction } from '../../app/case/definition';
 
-import { RAFlags } from './interface';
+import { RACommonComponentUserAction, RAFlags } from './definitions';
 import { RARoute } from './route';
 
 import { RAProvider } from './index';
@@ -126,7 +125,7 @@ describe('ReasonableAdjustementsProvider', () => {
       .spyOn(RAProvider.service, 'getCommonComponentUrl')
       .mockImplementation(() => Promise.resolve({ url: 'https://cui-ra.aat.platform.hmcts.net/test-id' }));
     await RAProvider.launch(requestData, 'en', appResponse);
-    await RAProvider.trySettlingRequest('MOCK_V4_UUID', CommonComponentUserAction.SUBMIT).then(() => {
+    await RAProvider.trySettlingRequest('MOCK_V4_UUID', RACommonComponentUserAction.SUBMIT).then(() => {
       isRequestSettled = true;
       expect(isRequestSettled).toBe(true);
     });
@@ -145,7 +144,7 @@ describe('ReasonableAdjustementsProvider', () => {
       .mockImplementation(() => Promise.resolve({ url: 'https://cui-ra.aat.platform.hmcts.net/test-id' }));
     await RAProvider.launch(requestData, 'en', appResponse);
     try {
-      await RAProvider.trySettlingRequest('MOCK_V4_UUID', CommonComponentUserAction.CANCEL);
+      await RAProvider.trySettlingRequest('MOCK_V4_UUID', RACommonComponentUserAction.CANCEL);
       isRequestSettled = true;
     } catch (error) {
       isRequestSettled = false;

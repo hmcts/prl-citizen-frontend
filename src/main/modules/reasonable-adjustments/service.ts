@@ -1,12 +1,7 @@
 import config from 'config';
 
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
-import {
-  CaseData,
-  CommonComponentMasterFlagCode,
-  CommonComponentServiceID,
-  PartyDetails,
-} from '../../app/case/definition';
+import { CaseData, CaseType, PartyDetails } from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
 import { applyParms } from '../../steps/common/url-parser';
 import {
@@ -14,9 +9,12 @@ import {
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_FETCH_DATA_URL,
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_POST_URL,
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_SIGN_OUT_URl,
+  REASONABLE_ADJUSTMENTS_MANAGE_SUPPORT_FLAGS,
+  REASONABLE_ADJUSTMENTS_REQUEST_SUPPORT_FLAGS,
+  REASONABLE_ADJUSTMENTS_RETRIEVE_SUPPORT_FLAGS,
 } from '../../steps/urls';
 
-import { RAData, RAFlags, RAPostResponse, RARequestPayload } from './interface';
+import { RACommonComponent, RAData, RAFlags, RAPostResponse, RARequestPayload } from './definitions';
 
 import { RAProvider } from './index';
 
@@ -29,10 +27,10 @@ export class ReasonableAdjustmentsService {
     try {
       const appBaseUrl = RAProvider.getAppBaseUrl();
       const requestData: RARequestPayload = {
-        hmctsServiceId: CommonComponentServiceID.RA,
+        hmctsServiceId: RACommonComponent.SERVICE_ID,
         callbackUrl: applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CALLBACK_URL, { baseUrl: appBaseUrl }),
         logoutUrl: applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_SIGN_OUT_URl, { baseUrl: appBaseUrl }),
-        masterFlagCode: CommonComponentMasterFlagCode.RA,
+        masterFlagCode: RACommonComponent.MASTER_FLAG_CODE,
         correlationId,
         existingFlags: payload,
         language,
@@ -47,7 +45,8 @@ export class ReasonableAdjustmentsService {
 
       return response.data;
     } catch (error) {
-      throw new Error(error);
+      RAProvider.log('error', error);
+      throw new Error('Could not fetch CUIRA component URL - getCommonComponentUrl');
     }
   }
 
@@ -62,7 +61,8 @@ export class ReasonableAdjustmentsService {
 
       return response.data;
     } catch (error) {
-      throw new Error(error);
+      RAProvider.log('error', error);
+      throw new Error('Could not fetch party RA flags from CC - retrievePartyRAFlagsFromCommonComponent');
     }
   }
 
@@ -73,7 +73,11 @@ export class ReasonableAdjustmentsService {
   ): Promise<RAFlags> {
     try {
       const response = await RAProvider.APIClient()!.get(
-        `${config.get('services.cos.url')}/${caseId}/retrieve-ra-flags/${partyId}`,
+        applyParms(REASONABLE_ADJUSTMENTS_RETRIEVE_SUPPORT_FLAGS, {
+          baseUrl: config.get('services.cos.url'),
+          caseId,
+          partyId,
+        }),
         {
           headers: {
             Authorization: 'Bearer ' + userAccessToken,
@@ -86,7 +90,52 @@ export class ReasonableAdjustmentsService {
 
       return response.data;
     } catch (error) {
-      throw new Error(error);
+      RAProvider.log('error', error);
+      throw new Error('Could not fetch party RA flags - retrieveExistingPartyRAFlags');
+    }
+  }
+
+  async updatePartyRAFlags(
+    caseId: CaseData['id'],
+    caseTypeOfApplication: CaseType,
+    partyId: PartyDetails['user']['idamId'],
+    userAccessToken: UserDetails['accessToken'],
+    supportContext: string,
+    flags: RAFlags['details']
+  ): Promise<string> {
+    try {
+      const data = {
+        caseTypeOfApplication,
+        partyIdamId: partyId,
+        partyExternalFlags: {
+          details: flags,
+        },
+      };
+      const url =
+        supportContext === 'manage'
+          ? applyParms(REASONABLE_ADJUSTMENTS_MANAGE_SUPPORT_FLAGS, {
+              baseUrl: config.get('services.cos.url'),
+              caseId,
+              eventId: RAProvider.utils.getUpdateFlagsEventID(caseTypeOfApplication, supportContext),
+            })
+          : applyParms(REASONABLE_ADJUSTMENTS_REQUEST_SUPPORT_FLAGS, {
+              baseUrl: config.get('services.cos.url'),
+              caseId,
+              eventId: RAProvider.utils.getUpdateFlagsEventID(caseTypeOfApplication, supportContext),
+            });
+      const response = await RAProvider.APIClient()!.post(url, data, {
+        headers: {
+          Authorization: 'Bearer ' + userAccessToken,
+          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      RAProvider.log('error', error);
+      throw new Error('Could not update party RA flags - updatePartyRAFlags');
     }
   }
 }

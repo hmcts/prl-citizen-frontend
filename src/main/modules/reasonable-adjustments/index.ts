@@ -10,7 +10,6 @@ import { v4 as uuid } from 'uuid';
 import { LoggerInstance } from 'winston';
 
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
-import { CommonComponentUserAction } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 import { Language } from '../../steps/common/common.content';
@@ -18,7 +17,7 @@ import { Step } from '../../steps/constants';
 import { LanguageToggle } from '../i18n';
 
 import { RAController, ReasonableAdjustementsController } from './controller';
-import { RAData, RARequestPayload } from './interface';
+import { RACommonComponentUserAction, RAData, RARequestPayload } from './definitions';
 import { RARoute } from './route';
 import { RASequence, ReasonableAdjustementsSequence } from './sequence';
 import { RAService, ReasonableAdjustmentsService } from './service';
@@ -124,7 +123,7 @@ class ReasonableAdjustmentsProvider {
     return new Promise((resolve, reject) => {
       console.info('**** this.correlationId ****', this.correlationId);
       if (this.correlationId === correlationId) {
-        if (action === CommonComponentUserAction.SUBMIT) {
+        if (action === RACommonComponentUserAction.SUBMIT) {
           resolve(action);
         } else {
           reject(new Error('RA - user cancelled operation'));

@@ -4,9 +4,9 @@ import config from 'config';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import { CommonComponentUserAction } from '../../app/case/definition';
 
 import { RAController, ReasonableAdjustementsController } from './controller';
+import { RACommonComponentUserAction, RAData } from './definitions';
 
 import { RAProvider } from './index';
 
@@ -77,6 +77,7 @@ describe('ReasonableAdjustementsController', () => {
     });
     appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     appResponse = mockResponse();
+    jest.spyOn(ReasonableAdjustementsController as any, 'handleError');
     jest.clearAllMocks();
   });
 
@@ -126,7 +127,6 @@ describe('ReasonableAdjustementsController', () => {
 
   test('when launching RA module with no caseData present - error scenario', async () => {
     delete appRequest.session.userCase;
-    jest.spyOn(ReasonableAdjustementsController as any, 'handleError');
     await RAController.launch(appRequest, appResponse);
 
     expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
@@ -135,22 +135,16 @@ describe('ReasonableAdjustementsController', () => {
 
   test('when launching RA module with no partyDetails present - error scenario', async () => {
     appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac0xxx';
-    jest.spyOn(ReasonableAdjustementsController as any, 'handleError');
     await RAController.launch(appRequest, appResponse);
 
     expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
     expect(RAProvider.launch).not.toBeCalled;
   });
 
-  test('when fetching flags from common component - success scenario', async () => {
+  test('when updating RA flags for both manageFlag & requestFlags scenarios- success scenario', async () => {
     jest.spyOn(RAProvider.service, 'retrievePartyRAFlagsFromCommonComponent').mockImplementation(() =>
       Promise.resolve({
         flagsAsSupplied: {
-          partyName: 'testuser citizen',
-          roleOnCase: 'Respondent1',
-          details: [],
-        },
-        replacementFlags: {
           partyName: 'testuser citizen',
           roleOnCase: 'Respondent1',
           details: [
@@ -179,41 +173,261 @@ describe('ReasonableAdjustementsController', () => {
                 ],
                 hearingRelevant: 'Yes',
                 flagCode: 'RA0033',
-                status: 'Requested',
+                status: 'Inactive',
                 availableExternally: 'Yes',
               },
             },
           ],
         },
-        action: CommonComponentUserAction.SUBMIT,
+        replacementFlags: {
+          partyName: 'testuser citizen',
+          roleOnCase: 'Respondent1',
+          details: [
+            {
+              id: '1166265a-ebe3-4141-862f-07caa95e7123',
+              value: {
+                name: 'Private room',
+                name_cy: 'Ystafell aros breifat',
+                flagComment: '',
+                flagComment_cy: '',
+                dateTimeCreated: '2023-11-16T16:05:25.000',
+                path: [
+                  {
+                    id: 'c5e4508d-8ed0-49ae-8a3e-e5a3d5b28b1a',
+                    value: 'Party',
+                  },
+                  {
+                    id: '904e4ede-1b43-4421-be41-ae24783d0dd3',
+                    value: 'Reasonable adjustment',
+                  },
+                  {
+                    id: '932d6182-c4a8-43fa-a489-5850a460c4c7',
+                    value: 'I need something to feel comfortable during my hearing',
+                  },
+                ],
+                hearingRelevant: 'Yes',
+                flagCode: 'RA0035',
+                status: 'Requested',
+                availableExternally: 'Yes',
+              },
+            },
+            {
+              id: '1166265a-ebe3-4141-862f-07caa95e7110',
+              value: {
+                name: 'Private waiting area',
+                name_cy: 'Ystafell aros breifat',
+                flagComment: '',
+                flagComment_cy: '',
+                dateTimeCreated: '2023-11-16T16:05:25.000',
+                dateTimeModified: '2023-11-16T16:05:57.000',
+                path: [
+                  {
+                    id: 'c5e4508d-8ed0-49ae-8a3e-e5a3d5b28b1a',
+                    value: 'Party',
+                  },
+                  {
+                    id: '904e4ede-1b43-4421-be41-ae24783d0dd3',
+                    value: 'Reasonable adjustment',
+                  },
+                  {
+                    id: '932d6182-c4a8-43fa-a489-5850a460c4c7',
+                    value: 'I need something to feel comfortable during my hearing',
+                  },
+                ],
+                hearingRelevant: 'Yes',
+                flagCode: 'RA0033',
+                status: 'Inactive',
+                availableExternally: 'Yes',
+              },
+            },
+          ],
+        },
+        action: RACommonComponentUserAction.SUBMIT,
         correlationId: 'ra-cc-correlation-id',
       })
     );
     jest.spyOn(RAProvider, 'launch');
     jest
       .spyOn(RAProvider, 'trySettlingRequest')
-      .mockImplementation(() => Promise.resolve(CommonComponentUserAction.SUBMIT));
+      .mockImplementation(() => Promise.resolve(RACommonComponentUserAction.SUBMIT));
+    jest.spyOn(RAProvider.service, 'updatePartyRAFlags').mockImplementation(() => Promise.resolve('200'));
+
     await RAController.fetchData(appRequest, appResponse);
-    expect(appRequest.session.save).toBeCalled;
+    expect(RAProvider.service.updatePartyRAFlags).toHaveBeenCalledTimes(2);
+    expect(appResponse.redirect).toHaveBeenCalledWith('/respondent/reasonable-adjustments/confirmation');
   });
 
-  test('when fetching flags from common component with no caseData present - error scenario', async () => {
+  test('when updating RA flags for only manageFlags scenario - success scenario', async () => {
+    jest.spyOn(RAProvider.service, 'retrievePartyRAFlagsFromCommonComponent').mockImplementation(() =>
+      Promise.resolve({
+        flagsAsSupplied: {
+          partyName: 'testuser citizen',
+          roleOnCase: 'Respondent1',
+          details: [
+            {
+              id: '1166265a-ebe3-4141-862f-07caa95e7110',
+              value: {
+                name: 'Private waiting area',
+                name_cy: 'Ystafell aros breifat',
+                flagComment: '',
+                flagComment_cy: '',
+                dateTimeCreated: '2023-11-16T16:05:25.000',
+                dateTimeModified: '2023-11-16T16:05:57.000',
+                path: [
+                  {
+                    id: 'c5e4508d-8ed0-49ae-8a3e-e5a3d5b28b1a',
+                    value: 'Party',
+                  },
+                  {
+                    id: '904e4ede-1b43-4421-be41-ae24783d0dd3',
+                    value: 'Reasonable adjustment',
+                  },
+                  {
+                    id: '932d6182-c4a8-43fa-a489-5850a460c4c7',
+                    value: 'I need something to feel comfortable during my hearing',
+                  },
+                ],
+                hearingRelevant: 'Yes',
+                flagCode: 'RA0033',
+                status: 'Inactive',
+                availableExternally: 'Yes',
+              },
+            },
+          ],
+        },
+        replacementFlags: {
+          partyName: 'testuser citizen',
+          roleOnCase: 'Respondent1',
+          details: [],
+        },
+        action: RACommonComponentUserAction.SUBMIT,
+        correlationId: 'ra-cc-correlation-id',
+      })
+    );
+    jest.spyOn(RAProvider, 'launch');
+    jest
+      .spyOn(RAProvider, 'trySettlingRequest')
+      .mockImplementation(() => Promise.resolve(RACommonComponentUserAction.SUBMIT));
+    jest.spyOn(RAProvider.service, 'updatePartyRAFlags').mockImplementation(() => Promise.resolve('200'));
+
+    await RAController.fetchData(appRequest, appResponse);
+    expect(RAProvider.service.updatePartyRAFlags).toHaveBeenCalledTimes(1);
+    expect(appResponse.redirect).toHaveBeenCalledWith('/respondent/reasonable-adjustments/confirmation');
+  });
+
+  test('when updating RA flags for only manageFlags scenario - error scenario', async () => {
+    jest.spyOn(RAProvider.service, 'retrievePartyRAFlagsFromCommonComponent').mockImplementation(() =>
+      Promise.resolve({
+        flagsAsSupplied: {
+          partyName: 'testuser citizen',
+          roleOnCase: 'Respondent1',
+          details: [
+            {
+              id: '1166265a-ebe3-4141-862f-07caa95e7110',
+              value: {
+                name: 'Private waiting area',
+                name_cy: 'Ystafell aros breifat',
+                flagComment: '',
+                flagComment_cy: '',
+                dateTimeCreated: '2023-11-16T16:05:25.000',
+                dateTimeModified: '2023-11-16T16:05:57.000',
+                path: [
+                  {
+                    id: 'c5e4508d-8ed0-49ae-8a3e-e5a3d5b28b1a',
+                    value: 'Party',
+                  },
+                  {
+                    id: '904e4ede-1b43-4421-be41-ae24783d0dd3',
+                    value: 'Reasonable adjustment',
+                  },
+                  {
+                    id: '932d6182-c4a8-43fa-a489-5850a460c4c7',
+                    value: 'I need something to feel comfortable during my hearing',
+                  },
+                ],
+                hearingRelevant: 'Yes',
+                flagCode: 'RA0033',
+                status: 'Inactive',
+                availableExternally: 'Yes',
+              },
+            },
+          ],
+        },
+        replacementFlags: {
+          partyName: 'testuser citizen',
+          roleOnCase: 'Respondent1',
+          details: [],
+        },
+        action: RACommonComponentUserAction.SUBMIT,
+        correlationId: 'ra-cc-correlation-id',
+      })
+    );
+    jest.spyOn(RAProvider, 'launch');
+    jest
+      .spyOn(RAProvider, 'trySettlingRequest')
+      .mockImplementation(() => Promise.resolve(RACommonComponentUserAction.SUBMIT));
+    jest.spyOn(RAProvider.service, 'updatePartyRAFlags').mockImplementation(() => Promise.reject('400'));
+
+    await RAController.fetchData(appRequest, appResponse);
+    expect(RAProvider.service.updatePartyRAFlags).toHaveBeenCalledTimes(1);
+    expect(appResponse.redirect).not.toHaveBeenCalled;
+    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+  });
+
+  test('when updating RA flags while fetching flags from common component with no caseData present - error scenario', async () => {
     delete appRequest.session.userCase;
-    jest.spyOn(ReasonableAdjustementsController as any, 'handleError');
     await RAController.fetchData(appRequest, appResponse);
 
     expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
   });
 
-  test('when fetching flags from common component with no extrernal reference id present - error scenario', async () => {
+  test('when updating RA flags while fetching flags from common component with no extrernal reference id present - error scenario', async () => {
     delete appRequest.params.id;
-    jest.spyOn(ReasonableAdjustementsController as any, 'handleError');
     await RAController.fetchData(appRequest, appResponse);
 
     expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
   });
 
-  test('when fetching flags from common component on user cancelling the action- error scenario', async () => {
+  test('when updating RA flags while fetching flags from common component when correlationId not present - error scenario', async () => {
+    jest.spyOn(RAProvider.service, 'retrievePartyRAFlagsFromCommonComponent').mockImplementation(
+      () =>
+        Promise.resolve({
+          flagsAsSupplied: {
+            partyName: 'testuser citizen',
+            roleOnCase: 'Respondent1',
+            details: [],
+          },
+          replacementFlags: {
+            partyName: 'testuser citizen',
+            roleOnCase: 'Respondent1',
+            details: [],
+          },
+          action: RACommonComponentUserAction.SUBMIT,
+        }) as Promise<RAData>
+    );
+    await RAController.fetchData(appRequest, appResponse);
+
+    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+  });
+
+  test('when updating RA flags while fetching flags from common component with no flagsAsSupplied (or) replacementFlags present - error scenario', async () => {
+    jest.spyOn(RAProvider.service, 'retrievePartyRAFlagsFromCommonComponent').mockImplementation(
+      () =>
+        Promise.resolve({
+          replacementFlags: {
+            partyName: 'testuser citizen',
+            roleOnCase: 'Respondent1',
+          },
+          action: RACommonComponentUserAction.SUBMIT,
+          correlationId: 'ra-cc-correlation-id',
+        }) as Promise<RAData>
+    );
+    await RAController.fetchData(appRequest, appResponse);
+
+    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+  });
+
+  test('when updating RA flags while fetching flags from common component on user cancelling the action - error scenario', async () => {
     jest.spyOn(RAProvider.service, 'retrievePartyRAFlagsFromCommonComponent').mockImplementation(() =>
       Promise.resolve({
         flagsAsSupplied: {
@@ -256,15 +470,14 @@ describe('ReasonableAdjustementsController', () => {
             },
           ],
         },
-        action: CommonComponentUserAction.CANCEL,
+        action: RACommonComponentUserAction.CANCEL,
         correlationId: 'ra-cc-correlation-id',
       })
     );
     jest.spyOn(RAProvider, 'launch');
     jest
       .spyOn(RAProvider, 'trySettlingRequest')
-      .mockImplementation(() => Promise.reject(CommonComponentUserAction.CANCEL));
-    jest.spyOn(ReasonableAdjustementsController as any, 'handleError');
+      .mockImplementation(() => Promise.reject(RACommonComponentUserAction.CANCEL));
     await RAController.fetchData(appRequest, appResponse);
     expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
     expect(appRequest.session.save).not.toBeCalled;

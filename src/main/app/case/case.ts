@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { RAData } from '../../modules/reasonable-adjustments/interface';
+import { RAData } from '../../modules/reasonable-adjustments/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {

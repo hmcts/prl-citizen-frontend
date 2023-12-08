@@ -3111,16 +3111,3 @@ export enum DocType {
   OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
   MIAM_CERTIFICATE = 'miamcertificate',
 }
-
-export enum CommonComponentServiceID {
-  RA = 'ABA5',
-}
-
-export enum CommonComponentMasterFlagCode {
-  RA = 'RA0001',
-}
-
-export enum CommonComponentUserAction {
-  SUBMIT = 'submit',
-  CANCEL = 'cancel'
-}
