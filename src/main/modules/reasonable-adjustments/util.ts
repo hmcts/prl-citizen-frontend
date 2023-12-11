@@ -18,13 +18,13 @@ export class ReasonableAdjustementsUtility {
             ...rest,
           };
 
-          if (context === RADataTransformContext.FOR_COMMON_COMPONENT) {
+          if (context === RADataTransformContext.EXTERNAL) {
             Object.assign(transformedPath, {
               name: pathValue ?? '',
             });
           }
 
-          if (context === RADataTransformContext.FOR_PRIVATE_LAW) {
+          if (context === RADataTransformContext.INTERNAL) {
             Object.assign(transformedPath, {
               value: name ?? pathValue ?? '',
             });
@@ -37,33 +37,17 @@ export class ReasonableAdjustementsUtility {
     }, {}) as RAFlagValue;
   }
 
-  preprocessData(
-    flags: RAFlags['details'],
-    context: RADataTransformContext,
-    supportContext?: string
-  ): RAFlags['details'] {
+  preprocessData(flags: RAFlags['details'], context: RADataTransformContext): RAFlags['details'] {
     return flags?.length
       ? (flags.map((flagDetail: RAFlagDetail) => {
-          const { id, value } = flagDetail;
-
-          if (supportContext === 'request') {
-            return this.preprocessFlags(value, context);
-          }
+          const { value, ...rest } = flagDetail;
 
           return {
-            id,
+            ...rest,
             value: this.preprocessFlags(value, context),
           };
         }) as RAFlags['details'])
       : [];
-  }
-
-  filterNewRequestSupport(allFlags: RAFlags['details'], existingFlags?: RAFlags['details']): RAFlags['details'] {
-    if (existingFlags?.length && allFlags.length) {
-      return _.differenceBy(allFlags, existingFlags, 'id');
-    }
-
-    return allFlags.filter(flag => !flag?.id);
   }
 
   getUpdateFlagsEventID(caseType: CaseType, context: string): RASupportCaseEvent {

@@ -82,8 +82,8 @@ export enum RASupportCaseEvent {
 }
 
 export enum RADataTransformContext {
-  FOR_COMMON_COMPONENT = 'cc',
-  FOR_PRIVATE_LAW = 'prl',
+  EXTERNAL = 'cc',
+  INTERNAL = 'prl',
 }
 
 export enum RASupportContext {

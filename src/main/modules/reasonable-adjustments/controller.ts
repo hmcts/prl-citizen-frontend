@@ -63,10 +63,7 @@ export class ReasonableAdjustementsController {
         {
           partyName: existingRAFlags.partyName,
           roleOnCase: existingRAFlags.roleOnCase,
-          details: RAProvider.utils.preprocessData(
-            existingRAFlags.details,
-            RADataTransformContext.FOR_COMMON_COMPONENT
-          ),
+          details: RAProvider.utils.preprocessData(existingRAFlags.details, RADataTransformContext.EXTERNAL),
         },
         language,
         res
@@ -123,11 +120,7 @@ export class ReasonableAdjustementsController {
               partyId,
               userDetails.accessToken,
               RASupportContext.MANAGE_SUPPORT,
-              RAProvider.utils.preprocessData(
-                response.flagsAsSupplied.details,
-                RADataTransformContext.FOR_PRIVATE_LAW,
-                RASupportContext.MANAGE_SUPPORT
-              )
+              RAProvider.utils.preprocessData(response.flagsAsSupplied.details, RADataTransformContext.INTERNAL)
             );
           }
 
@@ -138,14 +131,7 @@ export class ReasonableAdjustementsController {
               partyId,
               userDetails.accessToken,
               RASupportContext.REQUEST_SUPPORT,
-              RAProvider.utils.preprocessData(
-                RAProvider.utils.filterNewRequestSupport(
-                  response.replacementFlags.details,
-                  response?.flagsAsSupplied?.details
-                ),
-                RADataTransformContext.FOR_PRIVATE_LAW,
-                RASupportContext.REQUEST_SUPPORT
-              )
+              RAProvider.utils.preprocessData(response.replacementFlags.details, RADataTransformContext.INTERNAL)
             );
           }
 
