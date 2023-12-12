@@ -40,34 +40,51 @@ export class ReasonableAdjustementsController {
 
     const userDetails = req.session.user;
     const partyType = getCasePartyType(caseData, userDetails.id);
+    const language = RAProvider.getPreferredLanguage(req) as Language;
+    const partyDetails = getPartyDetails(caseData, userDetails.id);
+
+    if (!partyDetails) {
+      return ReasonableAdjustementsController.handleError('RA - partyDetails not available', res, partyType);
+    }
+
     try {
-      const language = RAProvider.getPreferredLanguage(req) as Language;
-      const partyDetails = getPartyDetails(caseData, userDetails.id);
+      const status = await RAProvider.service.retrieveCommonComponentHealthStatus();
 
-      if (!partyDetails) {
-        return ReasonableAdjustementsController.handleError('RA - partyDetails not available', res, partyType);
+      if (status === 'UP') {
+        try {
+          const existingRAFlags = await RAProvider.service.retrieveExistingPartyRAFlags(
+            caseData.id!,
+            partyDetails.user.idamId,
+            userDetails.accessToken
+          );
+          console.info(existingRAFlags);
+
+          if (!existingRAFlags) {
+            return ReasonableAdjustementsController.handleError(
+              'RA - partyExistingRAFlags not available',
+              res,
+              partyType
+            );
+          }
+
+          try {
+            return await RAProvider.launch(
+              {
+                partyName: existingRAFlags.partyName,
+                roleOnCase: existingRAFlags.roleOnCase,
+                details: RAProvider.utils.preprocessData(existingRAFlags.details, RADataTransformContext.EXTERNAL),
+              },
+              language,
+              res
+            );
+          } catch (error) {
+            ReasonableAdjustementsController.handleError(error, res, partyType);
+          }
+        } catch (error) {
+          ReasonableAdjustementsController.handleError(error, res, partyType);
+        }
       }
-
-      const existingRAFlags = await RAProvider.service.retrieveExistingPartyRAFlags(
-        caseData.id!,
-        partyDetails.user.idamId,
-        userDetails.accessToken
-      );
-      console.info(existingRAFlags);
-
-      if (!existingRAFlags) {
-        return ReasonableAdjustementsController.handleError('RA - partyExistingRAFlags not available', res, partyType);
-      }
-
-      await RAProvider.launch(
-        {
-          partyName: existingRAFlags.partyName,
-          roleOnCase: existingRAFlags.roleOnCase,
-          details: RAProvider.utils.preprocessData(existingRAFlags.details, RADataTransformContext.EXTERNAL),
-        },
-        language,
-        res
-      );
+      ReasonableAdjustementsController.handleError(`RA - common component health status (${status})`, res, partyType);
     } catch (error) {
       ReasonableAdjustementsController.handleError(error, res, partyType);
     }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import config from 'config';
 
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
@@ -7,10 +8,10 @@ import { applyParms } from '../../steps/common/url-parser';
 import {
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CALLBACK_URL,
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_FETCH_DATA_URL,
+  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_HEALTH_CHECK_URL,
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_POST_URL,
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_SIGN_OUT_URl,
   REASONABLE_ADJUSTMENTS_MANAGE_SUPPORT_FLAGS,
-  REASONABLE_ADJUSTMENTS_REQUEST_SUPPORT_FLAGS,
   REASONABLE_ADJUSTMENTS_RETRIEVE_SUPPORT_FLAGS,
 } from '../../steps/urls';
 
@@ -72,7 +73,7 @@ export class ReasonableAdjustmentsService {
     userAccessToken: UserDetails['accessToken']
   ): Promise<RAFlags> {
     try {
-      const response = await RAProvider.APIClient()!.get(
+      const response = await RAProvider.APIClient()!.get<RAFlags>(
         applyParms(REASONABLE_ADJUSTMENTS_RETRIEVE_SUPPORT_FLAGS, {
           baseUrl: config.get('services.cos.url'),
           caseId,
@@ -111,31 +112,47 @@ export class ReasonableAdjustmentsService {
           details: flags,
         },
       };
-      const url =
-        supportContext === 'manage'
-          ? applyParms(REASONABLE_ADJUSTMENTS_MANAGE_SUPPORT_FLAGS, {
-              baseUrl: config.get('services.cos.url'),
-              caseId,
-              eventId: RAProvider.utils.getUpdateFlagsEventID(caseTypeOfApplication, supportContext),
-            })
-          : applyParms(REASONABLE_ADJUSTMENTS_REQUEST_SUPPORT_FLAGS, {
-              baseUrl: config.get('services.cos.url'),
-              caseId,
-              eventId: RAProvider.utils.getUpdateFlagsEventID(caseTypeOfApplication, supportContext),
-            });
-      const response = await RAProvider.APIClient()!.post(url, data, {
-        headers: {
-          Authorization: 'Bearer ' + userAccessToken,
-          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await RAProvider.APIClient()!.post<string>(
+        applyParms(REASONABLE_ADJUSTMENTS_MANAGE_SUPPORT_FLAGS, {
+          baseUrl: config.get('services.cos.url'),
+          caseId,
+          eventId: RAProvider.utils.getUpdateFlagsEventID(caseTypeOfApplication, supportContext),
+        }),
+        data,
+        {
+          headers: {
+            Authorization: 'Bearer ' + userAccessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       return response.data;
     } catch (error) {
       RAProvider.log('error', error);
       throw new Error('Could not update party RA flags - updatePartyRAFlags');
+    }
+  }
+
+  async retrieveCommonComponentHealthStatus(): Promise<string> {
+    try {
+      const response = await RAProvider.APIClient()!.get<Record<string, any>>(
+        applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_HEALTH_CHECK_URL, {
+          baseUrl: config.get('services.cos.url'),
+        }),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      return response.data.status;
+    } catch (error) {
+      RAProvider.log('error', error);
+      throw new Error('Could not fetch common component health status - retrieveCommonComponentHealthStatus');
     }
   }
 }
