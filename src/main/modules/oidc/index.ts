@@ -119,7 +119,9 @@ export class OidcMiddleware {
             if (req.session.userCase) {
               const partyType = getCasePartyType(req.session.userCase, req.session.user.id);
               if (
-                !SAFEGAURD_EXCLUDE_URLS.some(_url => req.path.startsWith(_url)) &&
+                !SAFEGAURD_EXCLUDE_URLS.some(url => {
+                  return url.split('/').every(chunk => req.path.split('/').includes(chunk));
+                }) &&
                 !req.path.split('/').includes(partyType)
               ) {
                 return res.redirect(DASHBOARD_URL);

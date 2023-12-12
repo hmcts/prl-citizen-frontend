@@ -1,15 +1,10 @@
-import {
-  CommonComponentMasterFlagCode,
-  CommonComponentServiceID,
-  CommonComponentUserAction,
-} from '../../app/case/definition';
 import { Language } from '../../steps/common/common.content';
 
 export interface RARequestPayload {
-  hmctsServiceId: CommonComponentServiceID;
+  hmctsServiceId: RACommonComponent.SERVICE_ID;
   callbackUrl: string;
   logoutUrl: string;
-  masterFlagCode: CommonComponentMasterFlagCode;
+  masterFlagCode: RACommonComponent.MASTER_FLAG_CODE;
   correlationId: string;
   existingFlags: RAFlags;
   language: Language;
@@ -22,7 +17,7 @@ export interface RAFlags {
 }
 
 export interface RAFlagDetail {
-  id: string;
+  id?: string;
   value: RAFlagValue;
 }
 
@@ -59,7 +54,7 @@ export interface RAPostResponse {
 export interface RAData {
   flagsAsSupplied: RAFlags;
   replacementFlags: RAFlags;
-  action: CommonComponentUserAction;
+  action: RACommonComponentUserAction;
   correlationId: string;
 }
 
@@ -67,4 +62,31 @@ export interface RequestPromise {
   correlationId: string;
   resolve: (data: RAFlags) => void;
   reject: (error: string | Error) => void;
+}
+
+export enum RACommonComponent {
+  SERVICE_ID = 'ABA5',
+  MASTER_FLAG_CODE = 'RA0001',
+}
+
+export enum RACommonComponentUserAction {
+  SUBMIT = 'submit',
+  CANCEL = 'cancel',
+}
+
+export enum RASupportCaseEvent {
+  RA_CA_REQUEST_SUPPORT = 'c100RequestSupport',
+  RA_CA_MANAGE_SUPPORT = 'c100ManageSupport',
+  RA_DA_REQUEST_SUPPORT = 'fl401RequestSupport',
+  RA_DA_MANAGE_SUPPORT = 'fl401ManageSupport',
+}
+
+export enum RADataTransformContext {
+  EXTERNAL = 'cc',
+  INTERNAL = 'prl',
+}
+
+export enum RASupportContext {
+  REQUEST_SUPPORT = 'request',
+  MANAGE_SUPPORT = 'manage',
 }

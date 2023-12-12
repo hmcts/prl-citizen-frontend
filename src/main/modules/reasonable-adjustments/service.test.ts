@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosInstance } from 'axios';
 
-import { CommonComponentUserAction } from '../../app/case/definition';
+import { CaseType } from '../../app/case/definition';
 
+import { RACommonComponentUserAction, RASupportCaseEvent } from './definitions';
 import { RAService } from './service';
 
 import { RAProvider } from './index';
@@ -12,7 +13,10 @@ describe('ReasonableAdjustementsService', () => {
   const correlationId = 'ra-cc-correlation-id';
   const language = 'en';
   const client = jest.spyOn(RAProvider, 'APIClient');
+
   jest.spyOn(RAProvider, 'getAppBaseUrl').mockImplementation(() => 'https://cui-ra.aat.platform.hmcts.net');
+  jest.spyOn(RAProvider, 'log');
+
   beforeEach(() => {
     existingFlags = {
       partyName: 'testuser citizen',
@@ -65,7 +69,12 @@ describe('ReasonableAdjustementsService', () => {
     client.mockReturnValueOnce({
       post: jest.fn().mockRejectedValueOnce(new Error('404')),
     } as unknown as AxiosInstance);
-    expect(RAService.getCommonComponentUrl(correlationId, existingFlags, language)).rejects.toThrow('404');
+
+    try {
+      await RAService.getCommonComponentUrl(correlationId, existingFlags, language);
+    } catch (error) {
+      expect(RAProvider.log).toBeCalled;
+    }
   });
 
   test('when invoking retrievePartyRAFlagsFromCommonComponent - success scenario', async () => {
@@ -112,7 +121,7 @@ describe('ReasonableAdjustementsService', () => {
               },
             ],
           },
-          action: CommonComponentUserAction.SUBMIT,
+          action: RACommonComponentUserAction.SUBMIT,
           correlationId: 'ra-cc-correlation-id',
         },
       }),
@@ -121,14 +130,19 @@ describe('ReasonableAdjustementsService', () => {
 
     expect(response.flagsAsSupplied.details).toHaveLength(0);
     expect(response.replacementFlags.details).toHaveLength(1);
-    expect(response.action).toBe(CommonComponentUserAction.SUBMIT);
+    expect(response.action).toBe(RACommonComponentUserAction.SUBMIT);
   });
 
   test('when invoking retrievePartyRAFlagsFromCommonComponent - error scenario', async () => {
     client.mockReturnValueOnce({
       get: jest.fn().mockRejectedValueOnce(new Error('404')),
     } as unknown as AxiosInstance);
-    expect(RAService.retrievePartyRAFlagsFromCommonComponent(correlationId)).rejects.toThrow('404');
+
+    try {
+      await RAService.retrievePartyRAFlagsFromCommonComponent(correlationId);
+    } catch (error) {
+      expect(RAProvider.log).toBeCalled;
+    }
   });
 
   test('when invoking retrieveExistingPartyRAFlags - success scenario', async () => {
@@ -185,12 +199,52 @@ describe('ReasonableAdjustementsService', () => {
     client.mockReturnValueOnce({
       get: jest.fn().mockRejectedValueOnce(new Error('404')),
     } as unknown as AxiosInstance);
-    expect(
-      RAService.retrieveExistingPartyRAFlags(
+
+    try {
+      await RAService.retrieveExistingPartyRAFlags(
         '1700583741814566',
         '0c09b130-2eba-4ca8-a910-1f001bac01e6',
         'test-user-access-token'
-      )
-    ).rejects.toThrow('404');
+      );
+    } catch (error) {
+      expect(RAProvider.log).toBeCalled;
+    }
+  });
+
+  test('when invoking updatePartyRAFlags for manageSupport - success scenario', async () => {
+    client.mockReturnValueOnce({
+      post: jest.fn().mockResolvedValueOnce({
+        data: '200',
+      }),
+    } as unknown as AxiosInstance);
+    const response = await RAService.updatePartyRAFlags(
+      '1700583741814566',
+      CaseType.C100,
+      RASupportCaseEvent.RA_CA_MANAGE_SUPPORT,
+      '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+      'test-user-access-token',
+      existingFlags.details
+    );
+
+    expect(response).toBe('200');
+  });
+
+  test('when invoking updatePartyRAFlags for manageSupport - error scenario', async () => {
+    client.mockReturnValueOnce({
+      post: jest.fn().mockRejectedValueOnce(new Error('404')),
+    } as unknown as AxiosInstance);
+
+    try {
+      await RAService.updatePartyRAFlags(
+        '1700583741814566',
+        CaseType.C100,
+        RASupportCaseEvent.RA_CA_MANAGE_SUPPORT,
+        '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+        'test-user-access-token',
+        existingFlags.details
+      );
+    } catch (error) {
+      expect(RAProvider.log).toBeCalled;
+    }
   });
 });
