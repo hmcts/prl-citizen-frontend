@@ -28,6 +28,7 @@ describe('ReasonableAdjustementsController', () => {
       },
       userCase: {
         caseTypeOfApplication: 'C100',
+        applicants: [],
         respondents: [
           {
             id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
@@ -78,6 +79,9 @@ describe('ReasonableAdjustementsController', () => {
     appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     appResponse = mockResponse();
     jest.spyOn(ReasonableAdjustementsController as any, 'handleError');
+    jest
+      .spyOn(RAProvider.service, 'retrieveCommonComponentHealthStatus')
+      .mockImplementation(() => Promise.resolve('UP'));
     jest.clearAllMocks();
   });
 
