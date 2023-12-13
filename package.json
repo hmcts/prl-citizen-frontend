@@ -48,7 +48,7 @@
     "@hmcts/properties-volume": "^0.0.14",
     "@types/autobind-decorator": "^2.1.0",
     "@types/config": "^0.0.41",
-    "@types/connect-redis": "^0.0.21",
+    "@types/connect-redis": "^0.0.23",
     "@types/cookie-parser": "^1.4.2",
     "@types/csurf": "^1.11.2",
     "@types/es6-promisify": "^6.0.1",

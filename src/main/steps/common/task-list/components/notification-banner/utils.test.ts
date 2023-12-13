@@ -8,7 +8,7 @@ import {
   FL415_DOWNLOAD_LINK,
 } from '../../../../urls';
 
-import { getNotificationBannerConfig } from './utils';
+import { getNotificationBannerConfig } from './index';
 const userDetails = {
   id: '123',
   accessToken: 'mock-user-access-token',

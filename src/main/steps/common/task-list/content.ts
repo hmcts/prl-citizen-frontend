@@ -10,8 +10,8 @@ import {
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   DASHBOARD_URL,
 } from './../../urls';
-import { getNotificationBannerConfig } from './components/notification-banner/utils';
-import { getProgressBarConfig } from './components/progress-bar/utils';
+import { getNotificationBannerConfig } from './components/notification-banner/.';
+import { getProgressBarConfig } from './components/progress-bar/index';
 import { languages as sideLinks } from './components/side-links/content';
 import { getTaskListConfig } from './components/tasklist/index';
 import { checkPartyRepresentedBySolicitor, getPartyName } from './utils';

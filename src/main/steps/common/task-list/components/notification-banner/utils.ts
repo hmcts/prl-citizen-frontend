@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
@@ -10,7 +11,7 @@ import { CaseType, PartyType, State, YesOrNo } from './../../../../../app/case/d
 import { C100_WITHDRAW_CASE } from './../../../../urls';
 import { languages as content } from './content';
 
-enum BannerNotification {
+export enum BannerNotification {
   APPLICATION_NOT_STARTED = 'applicationNotStarted',
   APPLICATION_IN_PROGRESS = 'applicationInProgress',
   APPLICATION_SUBMITTED = 'applicationSubmitted',
@@ -20,6 +21,7 @@ enum BannerNotification {
   APPLICATION_SENT_TO_GATE_KEEPING = 'applicationSentToGateKeeping',
   APPLICATION_SERVED_LINKED = 'applicationServedAndLinked',
   APPLICATION_CLOSED = 'applicationClosed',
+  DA_RESPONDENT_BANNER = 'daRespondentBanner',
   NEW_ORDER = 'newOrder',
   NEW_DOCUMENT = 'newDocument',
   FINAL_ORDER = 'finalOrder',
@@ -36,7 +38,7 @@ const getContent = (notfication: BannerNotification, caseType: CaseType, languag
   };
 };
 
-const notificationBanner = {
+export const notificationBanner = {
   [BannerNotification.APPLICATION_NOT_STARTED]: {
     id: BannerNotification.APPLICATION_NOT_STARTED,
     content: getContent.bind(null, BannerNotification.APPLICATION_NOT_STARTED),
