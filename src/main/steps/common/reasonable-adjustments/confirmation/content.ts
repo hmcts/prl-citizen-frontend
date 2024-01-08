@@ -29,6 +29,5 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     form,
-    data: JSON.stringify(content.userCase?.ra_cc, null, 4),
   };
 };

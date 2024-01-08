@@ -34,7 +34,7 @@ export interface RAFlagValue {
   flagUpdateComment?: string;
   dateTimeModified?: string;
   dateTimeCreated: string;
-  path: Path[];
+  path: Path[] | string[];
   hearingRelevant: string;
   flagCode: string;
   status: string;
@@ -84,6 +84,7 @@ export enum RASupportCaseEvent {
 export enum RADataTransformContext {
   EXTERNAL = 'cc',
   INTERNAL = 'prl',
+  FLATTEN = 'flatten'
 }
 
 export enum RASupportContext {

@@ -9,6 +9,7 @@ import { RAController, ReasonableAdjustementsController } from './controller';
 import { RACommonComponentUserAction, RAData } from './definitions';
 
 import { RAProvider } from './index';
+import { State, YesNoEmpty } from '../../app/case/definition';
 
 describe('ReasonableAdjustementsController', () => {
   let appResponse;
@@ -28,6 +29,39 @@ describe('ReasonableAdjustementsController', () => {
       },
       userCase: {
         caseTypeOfApplication: 'C100',
+        appl_allApplicants: [
+          {
+            id: '7483640e-0817-4ddc-b709-6723f7925474',
+            applicantFirstName: 'dummy',
+            applicantLastName: 'Test',
+            personalDetails: {
+              haveYouChangeName: YesNoEmpty.YES,
+              applPreviousName: 'Test1',
+              dateOfBirth: {
+                year: '1987',
+                month: '12',
+                day: '12',
+              },
+              gender: 'Male',
+              applicantPlaceOfBirth: '',
+            },
+            reasonableAdjustmentsFlags: [
+              {
+                name: 'Private waiting area',
+                name_cy: 'Ystafell aros breifat',
+                flagComment: '',
+                flagComment_cy: '',
+                dateTimeCreated: '2023-11-16T16:05:25.000',
+                dateTimeModified: '2023-11-16T16:05:57.000',
+                path: ['Party', 'Reasonable adjustment', 'I need something to feel comfortable during my hearing'],
+                hearingRelevant: 'Yes',
+                flagCode: 'RA0033',
+                status: 'Requested',
+                availableExternally: 'Yes',
+              },
+            ],
+          },
+        ],
         applicants: [],
         respondents: [
           {
@@ -70,7 +104,7 @@ describe('ReasonableAdjustementsController', () => {
               accessCode: 'string',
               invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
               expiryDate: 'string',
-              isApplicant: 'Yes',
+              isApplicant: 'No',
             },
           },
         ],
@@ -485,5 +519,76 @@ describe('ReasonableAdjustementsController', () => {
     await RAController.fetchData(appRequest, appResponse);
     expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
     expect(appRequest.session.save).not.toBeCalled;
+  });
+
+  test('when updating RA flags for c100 application - success scenario', async () => {
+    appRequest.session.userCase.state = State.AwaitingSubmissionToHmcts;
+    jest.spyOn(RAProvider.service, 'retrievePartyRAFlagsFromCommonComponent').mockImplementation(() =>
+      Promise.resolve({
+        flagsAsSupplied: {
+          partyName: 'testapplicant citizen',
+          roleOnCase: 'Applicant1',
+          details: [
+            {
+              id: '1166265a-ebe3-4141-862f-07caa95e7110',
+              value: {
+                name: 'Private waiting area',
+                name_cy: 'Ystafell aros breifat',
+                flagComment: '',
+                flagComment_cy: '',
+                dateTimeCreated: '2023-11-16T16:05:25.000',
+                dateTimeModified: '2023-11-16T16:05:57.000',
+                path: [
+                  {
+                    id: 'c5e4508d-8ed0-49ae-8a3e-e5a3d5b28b1a',
+                    name: 'Party',
+                  },
+                  {
+                    id: '904e4ede-1b43-4421-be41-ae24783d0dd3',
+                    name: 'Reasonable adjustment',
+                  },
+                  {
+                    id: '932d6182-c4a8-43fa-a489-5850a460c4c7',
+                    name: 'I need something to feel comfortable during my hearing',
+                  },
+                ],
+                hearingRelevant: 'Yes',
+                flagCode: 'RA0033',
+                status: 'Requested',
+                availableExternally: 'Yes',
+              },
+            },
+          ],
+        },
+        replacementFlags: {
+          partyName: 'testapplicant citizen',
+          roleOnCase: 'Applicant1',
+          details: [],
+        },
+        action: RACommonComponentUserAction.SUBMIT,
+        correlationId: 'ra-cc-correlation-id',
+      })
+    );
+    jest.spyOn(RAProvider, 'launch');
+    jest
+      .spyOn(RAProvider, 'trySettlingRequest')
+      .mockImplementation(() => Promise.resolve(RACommonComponentUserAction.SUBMIT));
+    jest.spyOn(RAProvider.service, 'updatePartyRAFlags').mockImplementation(() => Promise.resolve('200'));
+    jest
+      .spyOn(appRequest.locals.C100Api, 'updateCase')
+      .mockImplementation(() =>
+        Promise.resolve({
+          caseTypeOfApplication: 'C100',
+          c100RebuildChildPostCode: 'AB2 3BV',
+          helpWithFeesReferenceNumber: 'HWF-1234',
+          c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
+          applicantCaseName: 'C100 test case',
+          id: '1234',
+        })
+      );
+
+    await RAController.fetchData(appRequest, appResponse);
+    expect(appRequest.locals.C100Api.updateCase).toHaveBeenCalled;
+    expect(RAProvider.service.updatePartyRAFlags).not.toHaveBeenCalled;
   });
 });

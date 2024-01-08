@@ -5,8 +5,9 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
-import { PARTY_TASKLIST, RESPOND_TO_APPLICATION } from '../../../urls';
+import { C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES, PARTY_TASKLIST, RESPOND_TO_APPLICATION } from '../../../urls';
 import { applyParms } from '../../url-parser';
+import { RAProvider } from '../../../../modules/reasonable-adjustments';
 
 @autobind
 export default class ReasonableAdjustmentsConfirmationPostController extends PostController<AnyObject> {
@@ -19,13 +20,16 @@ export default class ReasonableAdjustmentsConfirmationPostController extends Pos
 
     if (onlyContinue) {
       const { userCase: caseData, user: userDetails, applicationSettings: appSettings } = req.session;
-      const partyType = getCasePartyType(caseData, userDetails.id);
+
+      if(RAProvider.utils.isC100ApplicationCreationJourney(caseData)) {
+        return super.redirect(req, res, C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES);
+      }
 
       if (appSettings?.navfromRespondToApplication) {
         return super.redirect(req, res, RESPOND_TO_APPLICATION);
       }
 
-      return super.redirect(req, res, applyParms(PARTY_TASKLIST, { partyType }));
+      return super.redirect(req, res, applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData, userDetails.id) }));
     } else {
       return super.redirect(req, res, req.originalUrl);
     }

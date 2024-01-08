@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { RAData } from '../../modules/reasonable-adjustments/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
@@ -620,7 +619,6 @@ export interface CaseWithId extends Case {
   applicationPayOnline?: YesOrNo;
   legalRepresentativeForProceedings?: YesOrNo;
   legalRepresentativeForApplication?: YesOrNo;
-  ra_cc?: RAData;
 }
 
 export enum Checkbox {
