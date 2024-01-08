@@ -22,7 +22,7 @@ export const getDataShape = (): C100Applicant => ({
   applicantContactDetail: {
     applicantContactPreferences: '',
   },
-  reasonableAdjustmentsFlags:[]
+  reasonableAdjustmentsFlags: [],
 });
 
 export const getApplicantDetails = (

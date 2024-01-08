@@ -1,6 +1,13 @@
 import _ from 'lodash';
+import { v4 as uuid } from 'uuid';
 
-import { C100Applicant, C100_CASE_EVENT, CaseType, PartyType, State } from '../../app/case/definition';
+import { CaseWithId } from '../../app/case/case';
+import { C100Applicant, C100_CASE_EVENT, CaseType, PartyDetails, PartyType, State } from '../../app/case/definition';
+import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
+import { updatePartyDetails } from '../../steps/c100-rebuild/people/util';
+import { applyParms } from '../../steps/common/url-parser';
+import { getPartyDetails } from '../../steps/tasklistresponse/utils';
+import { REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE } from '../../steps/urls';
 
 import {
   RAData,
@@ -11,14 +18,8 @@ import {
   RASupportCaseEvent,
   RASupportContext,
 } from './definitions';
-import { CaseWithId } from 'app/case/case';
-import { AppRequest, UserDetails } from 'app/controller/AppRequest';
+
 import { RAProvider } from '.';
-import { getPartyDetails } from '../../steps/tasklistresponse/utils';
-import { updatePartyDetails } from '../../steps/c100-rebuild/people/util';
-import { v4 as uuid } from 'uuid';
-import { REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE } from '../../steps/urls';
-import { applyParms } from '../../steps/common/url-parser';
 
 export class ReasonableAdjustementsUtility {
   private preprocessFlags(flag: RAFlagValue, context: RADataTransformContext): RAFlagValue {
@@ -55,7 +56,7 @@ export class ReasonableAdjustementsUtility {
           }
         });
       }
-      
+
       return _flag;
     }, {}) as RAFlagValue;
   }
@@ -64,7 +65,7 @@ export class ReasonableAdjustementsUtility {
     return flags?.length
       ? (flags.map((flag: RAFlagDetail | RAFlagDetail['value']) => {
           const { value, ...rest } = flag as RAFlagDetail;
-          
+
           return value
             ? {
                 ...rest,
@@ -105,67 +106,76 @@ export class ReasonableAdjustementsUtility {
 
   async retrieveExistingPartyRAFlags(
     caseData: CaseWithId,
-    partyDetails: Record<string, any>,
+    partyDetails: C100Applicant | PartyDetails,
     userAccessToken: UserDetails['accessToken']
   ): Promise<RAFlags> {
     if (this.isC100ApplicationCreationJourney(caseData)) {
       return {
-        partyName: `${partyDetails.applicantFirstName} ${partyDetails.applicantLastName}`,
+        partyName: `${(partyDetails as C100Applicant).applicantFirstName} ${
+          (partyDetails as C100Applicant).applicantLastName
+        }`,
         roleOnCase: 'Applicant 1',
-        details: partyDetails.reasonableAdjustmentsFlags,
+        details: (partyDetails as C100Applicant).reasonableAdjustmentsFlags as RAFlags['details'],
       };
     }
 
-    return RAProvider.service.retrieveExistingPartyRAFlags(caseData.id!, partyDetails.user.idamId, userAccessToken);
+    return RAProvider.service.retrieveExistingPartyRAFlags(
+      caseData.id!,
+      (partyDetails as PartyDetails).user.idamId,
+      userAccessToken
+    );
   }
 
-  updatePartyRAFlags(caseData: CaseWithId, userDetails: UserDetails, raData: RAData, req: AppRequest): Promise<void> {
-    return new Promise(async (resolve, reject) => {
-      if (this.isC100ApplicationCreationJourney(caseData)) {
-        const primaryApplicantDetails = _.first(req.session.userCase.appl_allApplicants) as C100Applicant;
+  async updatePartyRAFlags(
+    caseData: CaseWithId,
+    userDetails: UserDetails,
+    raData: RAData,
+    req: AppRequest
+  ): Promise<void> {
+    if (this.isC100ApplicationCreationJourney(caseData)) {
+      const primaryApplicantDetails = _.first(req.session.userCase.appl_allApplicants) as C100Applicant;
 
-        req.session.userCase.appl_allApplicants = updatePartyDetails(
-          {
-            ...primaryApplicantDetails,
-            reasonableAdjustmentsFlags: [...raData.flagsAsSupplied.details, ...raData.replacementFlags.details].reduce(
-              (currentFlags: RAFlagValue[], flag: RAFlagDetail) => {
-                const currentFlagIndex = currentFlags.findIndex(_flag => _flag.flagCode === flag.value.flagCode);
+      req.session.userCase.appl_allApplicants = updatePartyDetails(
+        {
+          ...primaryApplicantDetails,
+          reasonableAdjustmentsFlags: [...raData.flagsAsSupplied.details, ...raData.replacementFlags.details].reduce(
+            (currentFlags: RAFlagValue[], flag: RAFlagDetail) => {
+              const currentFlagIndex = currentFlags.findIndex(_flag => _flag.flagCode === flag.value.flagCode);
 
-                if (currentFlagIndex >= 0) {
-                  if (flag.value.status === 'Requested') {
-                    currentFlags[currentFlagIndex] = this.preprocessFlags(flag.value, RADataTransformContext.FLATTEN);
-                  } else {
-                    currentFlags.splice(currentFlagIndex, 1);
-                  }
+              if (currentFlagIndex >= 0) {
+                if (flag.value.status === 'Requested') {
+                  currentFlags[currentFlagIndex] = this.preprocessFlags(flag.value, RADataTransformContext.FLATTEN);
                 } else {
-                  currentFlags.push(this.preprocessFlags(flag.value, RADataTransformContext.FLATTEN));
+                  currentFlags.splice(currentFlagIndex, 1);
                 }
+              } else {
+                currentFlags.push(this.preprocessFlags(flag.value, RADataTransformContext.FLATTEN));
+              }
 
-                return currentFlags;
-              },
-              [...primaryApplicantDetails.reasonableAdjustmentsFlags]
-            ),
-          },
-          req.session.userCase.appl_allApplicants
-        ) as C100Applicant[];
+              return currentFlags;
+            },
+            [...primaryApplicantDetails.reasonableAdjustmentsFlags]
+          ),
+        },
+        req.session.userCase.appl_allApplicants
+      ) as C100Applicant[];
 
-        return req.session.save(async () => {
-          try {
-            await req.locals.C100Api.updateCase(
-              req.session.userCase.caseId!,
-              req.session.userCase,
-              applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE, {
-                partyType: PartyType.APPLICANT,
-              }),
-              C100_CASE_EVENT.CASE_UPDATE
-            );
-            resolve();
-          } catch (error) {
-            reject(error);
-          }
-        });
-      }
-
+      req.session.save(async () => {
+        try {
+          await req.locals.C100Api.updateCase(
+            req.session.userCase.caseId!,
+            req.session.userCase,
+            applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE, {
+              partyType: PartyType.APPLICANT,
+            }),
+            C100_CASE_EVENT.CASE_UPDATE
+          );
+          Promise.resolve();
+        } catch (error) {
+          throw error;
+        }
+      });
+    } else {
       const partyIdamId = getPartyDetails(caseData, userDetails.id)!.user.idamId;
 
       try {
@@ -190,11 +200,11 @@ export class ReasonableAdjustementsUtility {
             this.preprocessData(raData.replacementFlags.details, RADataTransformContext.INTERNAL) as RAFlags['details']
           );
         }
-        resolve();
+        Promise.resolve();
       } catch (error) {
-        reject(error);
+        throw error;
       }
-    });
+    }
   }
 }
 

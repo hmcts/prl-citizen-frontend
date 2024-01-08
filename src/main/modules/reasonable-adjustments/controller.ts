@@ -47,7 +47,9 @@ export class ReasonableAdjustementsController {
     const userDetails = req.session.user;
     const partyType = isC100Journey ? PartyType.APPLICANT : getCasePartyType(caseData, userDetails.id);
     const language = RAProvider.getPreferredLanguage(req) as Language;
-    const partyDetails = isC100Journey ? _.first(caseData?.appl_allApplicants): getPartyDetails(caseData, userDetails.id);
+    const partyDetails = isC100Journey
+      ? _.first(caseData?.appl_allApplicants)
+      : getPartyDetails(caseData, userDetails.id);
 
     if (!partyDetails) {
       return ReasonableAdjustementsController.handleError('RA - partyDetails not available', res, partyType);
@@ -78,7 +80,10 @@ export class ReasonableAdjustementsController {
               {
                 partyName: existingRAFlags.partyName,
                 roleOnCase: existingRAFlags.roleOnCase,
-                details: RAProvider.utils.preprocessData(existingRAFlags.details, RADataTransformContext.EXTERNAL) as RAFlags['details'],
+                details: RAProvider.utils.preprocessData(
+                  existingRAFlags.details,
+                  RADataTransformContext.EXTERNAL
+                ) as RAFlags['details'],
               },
               language,
               res
@@ -104,9 +109,11 @@ export class ReasonableAdjustementsController {
     if (!caseData) {
       return ReasonableAdjustementsController.handleError('RA - caseData not available', res);
     }
-    
+
     const userDetails = req.session.user;
-    const partyType = RAProvider.utils.isC100ApplicationCreationJourney(caseData) ? PartyType.APPLICANT : getCasePartyType(caseData, userDetails.id);
+    const partyType = RAProvider.utils.isC100ApplicationCreationJourney(caseData)
+      ? PartyType.APPLICANT
+      : getCasePartyType(caseData, userDetails.id);
 
     if (!externalRefId) {
       return ReasonableAdjustementsController.handleError('RA - no external reference ID present', res, partyType);
@@ -132,12 +139,7 @@ export class ReasonableAdjustementsController {
         }
 
         try {
-          await RAProvider.utils.updatePartyRAFlags(
-            caseData,
-            userDetails,
-            response,
-            req
-          );
+          await RAProvider.utils.updatePartyRAFlags(caseData, userDetails, response, req);
 
           return res.redirect(
             applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE, {

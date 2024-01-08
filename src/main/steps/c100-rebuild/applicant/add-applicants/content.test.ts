@@ -76,7 +76,7 @@ const dummyApplicants = [
       otherGenderDetails: '',
       applicantPlaceOfBirth: '',
     },
-    reasonableAdjustmentsFlags:[]
+    reasonableAdjustmentsFlags: [],
   },
   {
     id: 'c73b9d9e-1c26-4865-a0d1-01e988c67700',
@@ -94,7 +94,7 @@ const dummyApplicants = [
       otherGenderDetails: '',
       applicantPlaceOfBirth: '',
     },
-    reasonableAdjustmentsFlags:[]
+    reasonableAdjustmentsFlags: [],
   },
 ];
 
@@ -249,7 +249,7 @@ describe('applicant > add-applicants > content', () => {
           otherGenderDetails: '',
           applicantPlaceOfBirth: '',
         },
-        reasonableAdjustmentsFlags:[]
+        reasonableAdjustmentsFlags: [],
       },
     ]);
     expect(formFields).not.toBe(null);

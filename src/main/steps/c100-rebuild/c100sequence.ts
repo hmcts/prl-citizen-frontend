@@ -163,7 +163,8 @@ import UploadDocumentController from './uploadDocumentController';
 import { applyParms } from '../../steps/common/url-parser';
 
 export const C100Sequence: Step[] = [
-  {//0
+  {
+    //0
     url: C100_CONFIDENTIALITY_DETAILS_KNOW,
     showInSection: Sections.C100,
     getNextStep: data =>
@@ -209,14 +210,16 @@ export const C100Sequence: Step[] = [
   {
     url: C100_INTERNATIONAL_ELEMENTS_REQUEST,
     showInSection: Sections.C100,
-    getNextStep: () => applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {partyType: PartyType.APPLICANT}) as PageLink,
+    getNextStep: () =>
+      applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, { partyType: PartyType.APPLICANT }) as PageLink,
   },
   {
     url: C100_CONFIDENTIALITY_DETAILS_KNOW,
     showInSection: Sections.C100,
     getNextStep: () => C100_HEARING_WITHOUT_NOTICE_PART1,
   },
-  { //10
+  {
+    //10
     url: C100_HEARING_WITHOUT_NOTICE_PART1,
     showInSection: Sections.C100,
     getNextStep: (caseData: Partial<CaseWithId>): PageLink => {
@@ -294,7 +297,8 @@ export const C100Sequence: Step[] = [
     postController: AddPeoplePostContoller,
     getNextStep: caseData => ChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_DETAILS_ADD, caseData),
   },
-  {//20
+  {
+    //20
     url: C100_CHILDERN_DETAILS_PERSONAL_DETAILS,
     showInSection: Sections.C100,
     postController: ChildDetailsPostController,
@@ -368,7 +372,8 @@ export const C100Sequence: Step[] = [
     getNextStep: caseData =>
       OtherProceedingsNavigationController.getNextUrl(C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY, caseData),
   },
-  {//30
+  {
+    //30
     url: C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
@@ -433,7 +438,8 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: data => (data.miam_otherProceedings === YesOrNo.YES ? C100_MIAM_NONEED : C100_MIAM_INFO),
   },
-  {//40
+  {
+    //40
     url: C100_MIAM_ATTENDANCE,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
@@ -491,7 +497,8 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_CHILD_PROTECTION, caseData),
   },
-  {//50
+  {
+    //50
     url: C100_MIAM_MIAM_DOMESTIC_ABUSE,
     showInSection: Sections.C100,
     getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE, caseData),
@@ -545,7 +552,8 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_OTHER,
   },
-  {//60
+  {
+    //60
     url: C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_AMOUNT,
     showInSection: Sections.C100,
     getNextStep: () => C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION,
@@ -609,7 +617,8 @@ export const C100Sequence: Step[] = [
         ? C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION
         : C100_SCREENING_QUESTIONS_COURT_PERMISSION,
   },
-  {//70
+  {
+    //70
     url: C100_SCREENING_QUESTIONS_LEGAL_REPRESENTATION_APPLICATION,
     showInSection: Sections.C100,
     getNextStep: data =>
@@ -668,7 +677,8 @@ export const C100Sequence: Step[] = [
     showInSection: Sections.C100,
     getNextStep: () => C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
   },
-  {//80
+  {
+    //80
     url: C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
     showInSection: Sections.C100,
     postController: ApplicantCommonConfidentialityController,
@@ -753,7 +763,8 @@ export const C100Sequence: Step[] = [
     getNextStep: caseData =>
       OtherChildrenDetailsNavigationController.getNextUrl(C100_CHILDERN_OTHER_CHILDREN_NAMES, caseData),
   },
-  {//90
+  {
+    //90
     url: C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>

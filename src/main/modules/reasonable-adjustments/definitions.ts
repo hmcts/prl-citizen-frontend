@@ -84,7 +84,7 @@ export enum RASupportCaseEvent {
 export enum RADataTransformContext {
   EXTERNAL = 'cc',
   INTERNAL = 'prl',
-  FLATTEN = 'flatten'
+  FLATTEN = 'flatten',
 }
 
 export enum RASupportContext {

@@ -4,12 +4,12 @@ import config from 'config';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import { State, YesNoEmpty } from '../../app/case/definition';
 
 import { RAController, ReasonableAdjustementsController } from './controller';
 import { RACommonComponentUserAction, RAData } from './definitions';
 
 import { RAProvider } from './index';
-import { State, YesNoEmpty } from '../../app/case/definition';
 
 describe('ReasonableAdjustementsController', () => {
   let appResponse;
@@ -574,18 +574,16 @@ describe('ReasonableAdjustementsController', () => {
       .spyOn(RAProvider, 'trySettlingRequest')
       .mockImplementation(() => Promise.resolve(RACommonComponentUserAction.SUBMIT));
     jest.spyOn(RAProvider.service, 'updatePartyRAFlags').mockImplementation(() => Promise.resolve('200'));
-    jest
-      .spyOn(appRequest.locals.C100Api, 'updateCase')
-      .mockImplementation(() =>
-        Promise.resolve({
-          caseTypeOfApplication: 'C100',
-          c100RebuildChildPostCode: 'AB2 3BV',
-          helpWithFeesReferenceNumber: 'HWF-1234',
-          c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
-          applicantCaseName: 'C100 test case',
-          id: '1234',
-        })
-      );
+    jest.spyOn(appRequest.locals.C100Api, 'updateCase').mockImplementation(() =>
+      Promise.resolve({
+        caseTypeOfApplication: 'C100',
+        c100RebuildChildPostCode: 'AB2 3BV',
+        helpWithFeesReferenceNumber: 'HWF-1234',
+        c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
+        applicantCaseName: 'C100 test case',
+        id: '1234',
+      })
+    );
 
     await RAController.fetchData(appRequest, appResponse);
     expect(appRequest.locals.C100Api.updateCase).toHaveBeenCalled;

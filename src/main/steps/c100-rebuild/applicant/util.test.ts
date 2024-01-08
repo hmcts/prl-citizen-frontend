@@ -109,7 +109,7 @@ describe('getApplicantDetails + updateApplicantDetails', () => {
               gender: 'Male',
               applicantPlaceOfBirth: '',
             },
-            reasonableAdjustmentsFlags: []
+            reasonableAdjustmentsFlags: [],
           },
         ],
       },
@@ -135,7 +135,7 @@ describe('getApplicantDetails + updateApplicantDetails', () => {
       gender: Gender.MALE,
       applicantPlaceOfBirth: '',
     },
-    reasonableAdjustmentsFlags:[]
+    reasonableAdjustmentsFlags: [],
   };
 
   test('should getApplicantDetails', async () => {
@@ -155,7 +155,7 @@ describe('getApplicantDetails + updateApplicantDetails', () => {
         gender: 'Male',
         applicantPlaceOfBirth: '',
       },
-      reasonableAdjustmentsFlags:[]
+      reasonableAdjustmentsFlags: [],
     });
   });
 
@@ -177,7 +177,7 @@ describe('getApplicantDetails + updateApplicantDetails', () => {
           gender: 'Male',
           applicantPlaceOfBirth: '',
         },
-        reasonableAdjustmentsFlags: []
+        reasonableAdjustmentsFlags: [],
       },
     ]);
   });
