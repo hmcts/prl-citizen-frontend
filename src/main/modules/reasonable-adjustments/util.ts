@@ -172,7 +172,7 @@ export class ReasonableAdjustementsUtility {
           );
           Promise.resolve();
         } catch (error) {
-          throw error;
+          Promise.reject(error);
         }
       });
     } else {
@@ -202,7 +202,7 @@ export class ReasonableAdjustementsUtility {
         }
         Promise.resolve();
       } catch (error) {
-        throw error;
+        Promise.reject(error);
       }
     }
   }
