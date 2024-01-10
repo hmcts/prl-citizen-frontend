@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { Response } from 'express';
 import _ from 'lodash';
 
-import { CaseType, PartyType } from '../../app/case/definition';
+import { PartyType } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Language } from '../../steps/common/common.content';
 import { applyParms } from '../../steps/common/url-parser';
@@ -14,7 +14,7 @@ import {
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE,
 } from '../../steps/urls';
 
-import { RADataTransformContext, RASupportContext } from './definitions';
+import { RADataTransformContext, RAFlags } from './definitions';
 
 import { RAProvider } from './index';
 
@@ -38,10 +38,18 @@ export class ReasonableAdjustementsController {
       return ReasonableAdjustementsController.handleError('RA - caseData not available', res);
     }
 
+    const isC100Journey = RAProvider.utils.isC100ApplicationCreationJourney(caseData);
+
+    if (isC100Journey && !caseData?.appl_allApplicants?.length) {
+      return ReasonableAdjustementsController.handleError('RA - C100 applicants not available', res);
+    }
+
     const userDetails = req.session.user;
-    const partyType = getCasePartyType(caseData, userDetails.id);
+    const partyType = isC100Journey ? PartyType.APPLICANT : getCasePartyType(caseData, userDetails.id);
     const language = RAProvider.getPreferredLanguage(req) as Language;
-    const partyDetails = getPartyDetails(caseData, userDetails.id);
+    const partyDetails = isC100Journey
+      ? _.first(caseData?.appl_allApplicants)
+      : getPartyDetails(caseData, userDetails.id);
 
     if (!partyDetails) {
       return ReasonableAdjustementsController.handleError('RA - partyDetails not available', res, partyType);
@@ -52,9 +60,9 @@ export class ReasonableAdjustementsController {
 
       if (status === 'UP') {
         try {
-          const existingRAFlags = await RAProvider.service.retrieveExistingPartyRAFlags(
-            caseData.id!,
-            partyDetails.user.idamId,
+          const existingRAFlags = await RAProvider.utils.retrieveExistingPartyRAFlags(
+            caseData,
+            partyDetails,
             userDetails.accessToken
           );
           console.info(existingRAFlags);
@@ -72,7 +80,10 @@ export class ReasonableAdjustementsController {
               {
                 partyName: existingRAFlags.partyName,
                 roleOnCase: existingRAFlags.roleOnCase,
-                details: RAProvider.utils.preprocessData(existingRAFlags.details, RADataTransformContext.EXTERNAL),
+                details: RAProvider.utils.preprocessData(
+                  existingRAFlags.details,
+                  RADataTransformContext.EXTERNAL
+                ) as RAFlags['details'],
               },
               language,
               res
@@ -99,10 +110,10 @@ export class ReasonableAdjustementsController {
       return ReasonableAdjustementsController.handleError('RA - caseData not available', res);
     }
 
-    const caseId = caseData.id!;
-    const caseType = caseData.caseTypeOfApplication as CaseType;
     const userDetails = req.session.user;
-    const partyType = getCasePartyType(caseData, userDetails.id);
+    const partyType = RAProvider.utils.isC100ApplicationCreationJourney(caseData)
+      ? PartyType.APPLICANT
+      : getCasePartyType(caseData, userDetails.id);
 
     if (!externalRefId) {
       return ReasonableAdjustementsController.handleError('RA - no external reference ID present', res, partyType);
@@ -127,30 +138,8 @@ export class ReasonableAdjustementsController {
           );
         }
 
-        const partyId = getPartyDetails(caseData, userDetails.id)!.user.idamId;
-
         try {
-          if (response?.flagsAsSupplied?.details?.length) {
-            await RAProvider.service.updatePartyRAFlags(
-              caseId,
-              caseType,
-              partyId,
-              userDetails.accessToken,
-              RASupportContext.MANAGE_SUPPORT,
-              RAProvider.utils.preprocessData(response.flagsAsSupplied.details, RADataTransformContext.INTERNAL)
-            );
-          }
-
-          if (response?.replacementFlags?.details?.length) {
-            await RAProvider.service.updatePartyRAFlags(
-              caseId,
-              caseType,
-              partyId,
-              userDetails.accessToken,
-              RASupportContext.REQUEST_SUPPORT,
-              RAProvider.utils.preprocessData(response.replacementFlags.details, RADataTransformContext.INTERNAL)
-            );
-          }
+          await RAProvider.utils.updatePartyRAFlags(caseData, userDetails, response, req);
 
           return res.redirect(
             applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE, {

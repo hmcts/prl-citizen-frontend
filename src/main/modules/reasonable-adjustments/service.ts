@@ -15,7 +15,7 @@ import {
   REASONABLE_ADJUSTMENTS_RETRIEVE_SUPPORT_FLAGS,
 } from '../../steps/urls';
 
-import { RACommonComponent, RAData, RAFlags, RAPostResponse, RARequestPayload } from './definitions';
+import { RACommonComponent, RAData, RAFlags, RAPostResponse, RARequestPayload, RASupportContext } from './definitions';
 
 import { RAProvider } from './index';
 
@@ -99,15 +99,15 @@ export class ReasonableAdjustmentsService {
   async updatePartyRAFlags(
     caseId: CaseData['id'],
     caseTypeOfApplication: CaseType,
-    partyId: PartyDetails['user']['idamId'],
+    partyIdamId: PartyDetails['user']['idamId'],
     userAccessToken: UserDetails['accessToken'],
-    supportContext: string,
+    supportContext: RASupportContext,
     flags: RAFlags['details']
   ): Promise<string> {
     try {
       const data = {
         caseTypeOfApplication,
-        partyIdamId: partyId,
+        partyIdamId,
         partyExternalFlags: {
           details: flags,
         },

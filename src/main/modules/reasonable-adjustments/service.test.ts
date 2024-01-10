@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 
 import { CaseType } from '../../app/case/definition';
 
-import { RACommonComponentUserAction, RASupportCaseEvent } from './definitions';
+import { RACommonComponentUserAction, RASupportContext } from './definitions';
 import { RAService } from './service';
 
 import { RAProvider } from './index';
@@ -220,9 +220,9 @@ describe('ReasonableAdjustementsService', () => {
     const response = await RAService.updatePartyRAFlags(
       '1700583741814566',
       CaseType.C100,
-      RASupportCaseEvent.RA_CA_MANAGE_SUPPORT,
       '0c09b130-2eba-4ca8-a910-1f001bac01e6',
       'test-user-access-token',
+      RASupportContext.MANAGE_SUPPORT,
       existingFlags.details
     );
 
@@ -238,11 +238,36 @@ describe('ReasonableAdjustementsService', () => {
       await RAService.updatePartyRAFlags(
         '1700583741814566',
         CaseType.C100,
-        RASupportCaseEvent.RA_CA_MANAGE_SUPPORT,
         '0c09b130-2eba-4ca8-a910-1f001bac01e6',
         'test-user-access-token',
+        RASupportContext.MANAGE_SUPPORT,
         existingFlags.details
       );
+    } catch (error) {
+      expect(RAProvider.log).toBeCalled;
+    }
+  });
+
+  test('when invoking retrieveCommonComponentHealthStatus for health check - success scenario', async () => {
+    client.mockReturnValueOnce({
+      get: jest.fn().mockResolvedValueOnce({
+        data: {
+          status: 'UP',
+        },
+      }),
+    } as unknown as AxiosInstance);
+    const response = await RAService.retrieveCommonComponentHealthStatus();
+
+    expect(response).toBe('UP');
+  });
+
+  test('when invoking retrieveCommonComponentHealthStatus for health check - error scenario', async () => {
+    client.mockReturnValueOnce({
+      get: jest.fn().mockRejectedValueOnce(new Error('404')),
+    } as unknown as AxiosInstance);
+
+    try {
+      await RAService.retrieveCommonComponentHealthStatus();
     } catch (error) {
       expect(RAProvider.log).toBeCalled;
     }

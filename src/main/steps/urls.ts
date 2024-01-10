@@ -383,15 +383,6 @@ export const C100_INTERNATIONAL_ELEMENTS_START: PageLink = `${C100_URL}/internat
 export const C100_INTERNATIONAL_ELEMENTS_PARENTS: PageLink = `${C100_URL}/international-elements/parents`;
 export const C100_INTERNATIONAL_ELEMENTS_JURISDICTION: PageLink = `${C100_URL}/international-elements/jurisdiction`;
 export const C100_INTERNATIONAL_ELEMENTS_REQUEST: PageLink = `${C100_URL}/international-elements/request`;
-export const C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT: PageLink = `${C100_URL}/reasonable-adjustments/attending-court`;
-export const C100_REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS: PageLink = `${C100_URL}/reasonable-adjustments/language-requirements`;
-export const C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS: PageLink = `${C100_URL}/reasonable-adjustments/special-arrangements`;
-export const C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements`;
-export const C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements/support-court`;
-export const C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements/document-information`;
-export const C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements/communication-help`;
-export const C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements/feel-comfortable`;
-export const C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT: PageLink = `${C100_URL}/reasonable-adjustments/disability-requirements/travelling-court`;
 
 /** @c100 Hearing without notice */
 export const C100_HEARING_WITHOUT_NOTICE_PART1: PageLink = `${C100_URL}/hearing-without-notice/hearing-part1`;
