@@ -404,7 +404,6 @@ describe('ReasonableAdjustementsController', () => {
     jest
       .spyOn(RAProvider, 'trySettlingRequest')
       .mockImplementation(() => Promise.resolve(RACommonComponentUserAction.SUBMIT));
-    jest.spyOn(RAProvider.service, 'updatePartyRAFlags').mockImplementation(() => Promise.reject('400'));
 
     await RAController.fetchData(appRequest, appResponse);
     expect(RAProvider.service.updatePartyRAFlags).toHaveBeenCalledTimes(1);
