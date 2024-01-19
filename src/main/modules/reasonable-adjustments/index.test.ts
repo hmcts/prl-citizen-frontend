@@ -12,7 +12,6 @@ import { LoggerInstance } from 'winston';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 
 import { RACommonComponentUserAction, RAFlags } from './definitions';
-import { RARoute } from './route';
 
 import { RAProvider } from './index';
 
@@ -50,12 +49,12 @@ describe('ReasonableAdjustementsProvider', () => {
     appResponse = mockResponse();
     jest.clearAllMocks();
     jest.spyOn(RAProvider, 'isComponentEnabled').mockImplementation(() => Promise.resolve(true));
-    jest.spyOn(RARoute, 'enable');
+    jest.spyOn((RAProvider as any).route, 'enable');
   });
 
   test('when enabling RA module', async () => {
     await RAProvider.enable(appRequest);
-    expect(RARoute.enable(appRequest)).toBeCalled;
+    expect((RAProvider as any).route.enable(appRequest)).toBeCalled;
   });
 
   test('when initializing the module', async () => {

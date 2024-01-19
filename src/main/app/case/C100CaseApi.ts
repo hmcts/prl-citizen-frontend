@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import https from 'https';
+
 import Axios, { AxiosError, AxiosInstance } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
@@ -10,6 +12,7 @@ import { AppSession, UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { C100_CASE_EVENT, C100_CASE_TYPE, State } from './definition';
+
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
@@ -209,6 +212,9 @@ export const caseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseA
         ServiceAuthorization: `Bearer ${getServiceAuthToken()}`,
         'Content-Type': 'application/json',
       },
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
     }),
     logger
   );

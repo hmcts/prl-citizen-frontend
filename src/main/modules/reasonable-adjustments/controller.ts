@@ -38,16 +38,16 @@ export class ReasonableAdjustementsController {
       return ReasonableAdjustementsController.handleError('RA - caseData not available', res);
     }
 
-    const isC100Journey = RAProvider.utils.isC100ApplicationCreationJourney(caseData);
+    const isC100DraftApplication = RAProvider.utils.isC100DraftApplication(caseData);
 
-    if (isC100Journey && !caseData?.appl_allApplicants?.length) {
+    if (isC100DraftApplication && !caseData?.appl_allApplicants?.length) {
       return ReasonableAdjustementsController.handleError('RA - C100 applicants not available', res);
     }
 
     const userDetails = req.session.user;
-    const partyType = isC100Journey ? PartyType.APPLICANT : getCasePartyType(caseData, userDetails.id);
+    const partyType = isC100DraftApplication ? PartyType.APPLICANT : getCasePartyType(caseData, userDetails.id);
     const language = RAProvider.getPreferredLanguage(req) as Language;
-    const partyDetails = isC100Journey
+    const partyDetails = isC100DraftApplication
       ? _.first(caseData?.appl_allApplicants)
       : getPartyDetails(caseData, userDetails.id);
 
@@ -111,7 +111,7 @@ export class ReasonableAdjustementsController {
     }
 
     const userDetails = req.session.user;
-    const partyType = RAProvider.utils.isC100ApplicationCreationJourney(caseData)
+    const partyType = RAProvider.utils.isC100DraftApplication(caseData)
       ? PartyType.APPLICANT
       : getCasePartyType(caseData, userDetails.id);
 
@@ -155,6 +155,10 @@ export class ReasonableAdjustementsController {
     } catch (error) {
       ReasonableAdjustementsController.handleError(error, res, partyType);
     }
+  }
+
+  handleBackNavigation(req: AppRequest, res: Response): void {
+    res.redirect(RAProvider.utils.getNavigationUrl(req, 'prev'));
   }
 }
 

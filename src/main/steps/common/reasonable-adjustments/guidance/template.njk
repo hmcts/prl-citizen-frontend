@@ -1,6 +1,10 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% extends "common/template.njk" %}
 
+{% block backLink %}
+<a class="govuk-link history-back-ignore" href="{{reasonableAdjustmentsBackUrl}}">{{ back }}</a>
+{% endblock %}
+
 {% block page_content %}
   <h1 class="govuk-heading-xl">{{title}}</h1>
   {{ govukButton({

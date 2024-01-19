@@ -1403,24 +1403,8 @@ export const reasonableAdjustment = (
 ): SummaryList | undefined => {
   const SummaryData: ANYTYPE = [
     {
-      key: keys['attendingCourtHeading'],
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_typeOfHearing') + HTML.UNORDER_LIST_END,
-     changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_ATTENDING_COURT'],
-    },
-    {
-      key: keys['langaugeRequirementHeading'],
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_languageNeeds') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS'],
-    },
-    {
-      key: keys['specialArrangementsHeading'],
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_specialArrangements') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS'],
-    },
-    {
-      key: keys['disabilityRequirementHeading'], //ra_disabilityRequirements
-      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_disabilityRequirements') + HTML.UNORDER_LIST_END,
-      changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS'],
+      key: keys['yourSupport'],
+      changeUrl: Urls.REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH
     },
   ];
   const disabilityRequirements = userCase['ra_disabilityRequirements'];
@@ -1478,7 +1462,7 @@ export const reasonableAdjustment = (
   }
   return {
     title: sectionTitles['reasonAbleAdjustment'],
-    rows: getSectionSummaryList(SummaryData, content),
+    rows: getSectionSummaryList([SummaryData[0]], content),
   };
 };
 

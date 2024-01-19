@@ -1,5 +1,5 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH } from '../../../urls';
+import { REASONABLE_ADJUSTMENTS_BACK_URL, REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH } from '../../../urls';
 
 const en = {
   title: 'Your support - Guidelines',
@@ -20,5 +20,6 @@ export const generateContent: TranslationFn = content => {
   return {
     ...translations,
     reasonableAdjustmentsLaunchUrl: REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH,
+    reasonableAdjustmentsBackUrl: REASONABLE_ADJUSTMENTS_BACK_URL,
   };
 };
