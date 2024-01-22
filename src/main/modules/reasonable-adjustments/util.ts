@@ -9,7 +9,6 @@ import { applyParms } from '../../steps/common/url-parser';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../steps/tasklistresponse/utils';
 import {
-  C100_CHECK_YOUR_ANSWER,
   C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
   C100_INTERNATIONAL_ELEMENTS_REQUEST,
   PARTY_TASKLIST,
@@ -230,12 +229,11 @@ export class ReasonableAdjustementsUtility {
       const urlBeforeRedirection = RAProvider.getUrlBeforeRedirection();
       console.info('**** urlBeforeRedirection', urlBeforeRedirection);
 
-      const pages = [C100_CHECK_YOUR_ANSWER];
-      pages.push(context === 'prev' ? C100_INTERNATIONAL_ELEMENTS_REQUEST : C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES);
+      if (context === 'prev') {
+        return urlBeforeRedirection ?? C100_INTERNATIONAL_ELEMENTS_REQUEST;
+      }
 
-      return pages.includes(urlBeforeRedirection as PageLink)
-        ? urlBeforeRedirection
-        : C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
+      return C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     }
 
     if (req.session?.applicationSettings?.navfromRespondToApplication) {
@@ -244,8 +242,6 @@ export class ReasonableAdjustementsUtility {
 
     return applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(req.session.userCase, req.session.user.id) });
   }
-
-  get;
 }
 
 export const RAUtility = new ReasonableAdjustementsUtility();
