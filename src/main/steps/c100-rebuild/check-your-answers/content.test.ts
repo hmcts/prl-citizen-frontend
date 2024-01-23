@@ -1096,34 +1096,17 @@ describe('Content.ts toggle test cases', () => {
         rows: [
           {
             key: {
-              text: 'Would you be able to take part in hearings by video and phone?',
+              text: 'Your Support',
             },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: 'Do you have any language\n  requirements?',
-            },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: 'Do you or the children need special arrangements at court?',
-            },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-            },
-            value: {
-              html: '<ul>undefined</ul>',
+            value: {},
+            actions: {
+              items: [
+                {
+                  href: '/reasonable-adjustments/launch',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Your Support',
+                },
+              ],
             },
           },
         ],
@@ -1617,34 +1600,17 @@ describe('Content.ts toggle test cases', () => {
         rows: [
           {
             key: {
-              text: 'Would you be able to take part in hearings by video and phone?',
+              text: 'Your Support',
             },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: 'Do you have any language\n  requirements?',
-            },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: 'Do you or the children need special arrangements at court?',
-            },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-            },
-            value: {
-              html: '<ul>undefined</ul>',
+            value: {},
+            actions: {
+              items: [
+                {
+                  href: '/reasonable-adjustments/launch',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Your Support',
+                },
+              ],
             },
           },
         ],
@@ -2140,34 +2106,17 @@ describe('Content.ts toggle test cases', () => {
         rows: [
           {
             key: {
-              text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+              text: 'Your Support - welsh',
             },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: 'A oes gennych chi unrhyw ofynion ieithyddol?',
-            },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
-            },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
-            },
-            value: {
-              html: '<ul>undefined</ul>',
+            value: {},
+            actions: {
+              items: [
+                {
+                  href: '/reasonable-adjustments/launch',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Your Support - welsh',
+                },
+              ],
             },
           },
         ],
@@ -2572,34 +2521,17 @@ describe('Content.ts toggle test cases', () => {
         rows: [
           {
             key: {
-              text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+              text: 'Your Support - welsh',
             },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: 'A oes gennych chi unrhyw ofynion ieithyddol?',
-            },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
-            },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
-            },
-            value: {
-              html: '<ul>undefined</ul>',
+            value: {},
+            actions: {
+              items: [
+                {
+                  href: '/reasonable-adjustments/launch',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Your Support - welsh',
+                },
+              ],
             },
           },
         ],
@@ -3074,34 +3006,17 @@ describe('Content.ts toggle test cases', () => {
         rows: [
           {
             key: {
-              text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+              text: 'Your Support - welsh',
             },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: 'A oes gennych chi unrhyw ofynion ieithyddol?',
-            },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
-            },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
-            },
-            value: {
-              html: '<ul>undefined</ul>',
+            value: {},
+            actions: {
+              items: [
+                {
+                  href: '/reasonable-adjustments/launch',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Your Support - welsh',
+                },
+              ],
             },
           },
         ],
@@ -3595,34 +3510,17 @@ describe('Content.ts toggle test cases', () => {
         rows: [
           {
             key: {
-              text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+              text: 'Your Support - welsh',
             },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: 'A oes gennych chi unrhyw ofynion ieithyddol?',
-            },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
-            },
-            value: {
-              html: '<ul>undefined</ul>',
-            },
-          },
-          {
-            key: {
-              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
-            },
-            value: {
-              html: '<ul>undefined</ul>',
+            value: {},
+            actions: {
+              items: [
+                {
+                  href: '/reasonable-adjustments/launch',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Your Support - welsh',
+                },
+              ],
             },
           },
         ],

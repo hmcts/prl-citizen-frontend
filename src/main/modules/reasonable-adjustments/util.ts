@@ -2,12 +2,19 @@ import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 
 import { CaseWithId } from '../../app/case/case';
-import { C100Applicant, C100_CASE_EVENT, CaseType, PartyDetails, PartyType, State } from '../../app/case/definition';
+import { C100Applicant, C100_CASE_EVENT, CaseType, PartyDetails, State } from '../../app/case/definition';
 import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
 import { updatePartyDetails } from '../../steps/c100-rebuild/people/util';
 import { applyParms } from '../../steps/common/url-parser';
+import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../steps/tasklistresponse/utils';
-import { REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE } from '../../steps/urls';
+import {
+  C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
+  C100_INTERNATIONAL_ELEMENTS_REQUEST,
+  PARTY_TASKLIST,
+  PageLink,
+  RESPOND_TO_APPLICATION,
+} from '../../steps/urls';
 
 import {
   RAData,
@@ -100,8 +107,12 @@ export class ReasonableAdjustementsUtility {
     return eventId;
   }
 
-  isC100ApplicationCreationJourney(userCase: CaseWithId): boolean {
-    return userCase?.caseTypeOfApplication === CaseType.C100 && userCase?.state === State.AwaitingSubmissionToHmcts;
+  isC100DraftApplication(userCase: CaseWithId): boolean {
+    return (
+      userCase &&
+      userCase?.caseTypeOfApplication === CaseType.C100 &&
+      userCase?.state === State.AwaitingSubmissionToHmcts
+    );
   }
 
   async retrieveExistingPartyRAFlags(
@@ -109,7 +120,7 @@ export class ReasonableAdjustementsUtility {
     partyDetails: C100Applicant | PartyDetails,
     userAccessToken: UserDetails['accessToken']
   ): Promise<RAFlags> {
-    if (this.isC100ApplicationCreationJourney(caseData)) {
+    if (this.isC100DraftApplication(caseData)) {
       return {
         partyName: `${(partyDetails as C100Applicant).applicantFirstName} ${
           (partyDetails as C100Applicant).applicantLastName
@@ -132,79 +143,104 @@ export class ReasonableAdjustementsUtility {
     raData: RAData,
     req: AppRequest
   ): Promise<void> {
-    if (this.isC100ApplicationCreationJourney(caseData)) {
-      const primaryApplicantDetails = _.first(req.session.userCase.appl_allApplicants) as C100Applicant;
+    return new Promise((resolve, reject) => {
+      if (this.isC100DraftApplication(caseData)) {
+        const primaryApplicantDetails = _.first(req.session.userCase.appl_allApplicants) as C100Applicant;
 
-      req.session.userCase.appl_allApplicants = updatePartyDetails(
-        {
-          ...primaryApplicantDetails,
-          reasonableAdjustmentsFlags: [...raData.flagsAsSupplied.details, ...raData.replacementFlags.details].reduce(
-            (currentFlags: RAFlagValue[], flag: RAFlagDetail) => {
-              const currentFlagIndex = currentFlags.findIndex(_flag => _flag.flagCode === flag.value.flagCode);
+        req.session.userCase.appl_allApplicants = updatePartyDetails(
+          {
+            ...primaryApplicantDetails,
+            reasonableAdjustmentsFlags: [...raData.flagsAsSupplied.details, ...raData.replacementFlags.details].reduce(
+              (currentFlags: RAFlagValue[], flag: RAFlagDetail) => {
+                const currentFlagIndex = currentFlags.findIndex(_flag => _flag.flagCode === flag.value.flagCode);
 
-              if (currentFlagIndex >= 0) {
-                if (flag.value.status === 'Requested') {
-                  currentFlags[currentFlagIndex] = this.preprocessFlags(flag.value, RADataTransformContext.FLATTEN);
+                if (currentFlagIndex >= 0) {
+                  if (flag.value.status === 'Requested') {
+                    currentFlags[currentFlagIndex] = this.preprocessFlags(flag.value, RADataTransformContext.FLATTEN);
+                  } else {
+                    currentFlags.splice(currentFlagIndex, 1);
+                  }
                 } else {
-                  currentFlags.splice(currentFlagIndex, 1);
+                  currentFlags.push(this.preprocessFlags(flag.value, RADataTransformContext.FLATTEN));
                 }
-              } else {
-                currentFlags.push(this.preprocessFlags(flag.value, RADataTransformContext.FLATTEN));
-              }
 
-              return currentFlags;
-            },
-            [...primaryApplicantDetails.reasonableAdjustmentsFlags]
-          ),
-        },
-        req.session.userCase.appl_allApplicants
-      ) as C100Applicant[];
+                return currentFlags;
+              },
+              primaryApplicantDetails?.reasonableAdjustmentsFlags
+                ? [...primaryApplicantDetails.reasonableAdjustmentsFlags]
+                : []
+            ),
+          },
+          req.session.userCase.appl_allApplicants
+        ) as C100Applicant[];
 
-      req.session.save(async () => {
-        try {
-          await req.locals.C100Api.updateCase(
-            req.session.userCase.caseId!,
-            req.session.userCase,
-            applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE, {
-              partyType: PartyType.APPLICANT,
-            }),
-            C100_CASE_EVENT.CASE_UPDATE
-          );
-          Promise.resolve();
-        } catch (error) {
-          Promise.reject(error);
-        }
-      });
-    } else {
-      const partyIdamId = getPartyDetails(caseData, userDetails.id)!.user.idamId;
-
-      try {
-        if (raData.flagsAsSupplied.details.length) {
-          await RAProvider.service.updatePartyRAFlags(
-            caseData.id,
-            caseData.caseTypeOfApplication! as CaseType,
-            partyIdamId,
-            userDetails.accessToken,
-            RASupportContext.MANAGE_SUPPORT,
-            this.preprocessData(raData.flagsAsSupplied.details, RADataTransformContext.INTERNAL) as RAFlags['details']
-          );
-        }
-
-        if (raData?.replacementFlags?.details?.length) {
-          await RAProvider.service.updatePartyRAFlags(
-            caseData.id,
-            caseData.caseTypeOfApplication! as CaseType,
-            partyIdamId,
-            userDetails.accessToken,
-            RASupportContext.REQUEST_SUPPORT,
-            this.preprocessData(raData.replacementFlags.details, RADataTransformContext.INTERNAL) as RAFlags['details']
-          );
-        }
-        Promise.resolve();
-      } catch (error) {
-        Promise.reject(error);
+        return req.session.save(async () => {
+          try {
+            await req.locals.C100Api.updateCase(
+              req.session.userCase.caseId!,
+              req.session.userCase,
+              this.getNavigationUrl(req),
+              C100_CASE_EVENT.CASE_UPDATE
+            );
+            resolve();
+          } catch (error) {
+            reject(error);
+          }
+        });
       }
+
+      (async () => {
+        const partyIdamId = getPartyDetails(caseData, userDetails.id)!.user.idamId;
+        try {
+          if (raData.flagsAsSupplied.details.length) {
+            await RAProvider.service.updatePartyRAFlags(
+              caseData.id,
+              caseData.caseTypeOfApplication! as CaseType,
+              partyIdamId,
+              userDetails.accessToken,
+              RASupportContext.MANAGE_SUPPORT,
+              this.preprocessData(raData.flagsAsSupplied.details, RADataTransformContext.INTERNAL) as RAFlags['details']
+            );
+          }
+
+          if (raData?.replacementFlags?.details?.length) {
+            await RAProvider.service.updatePartyRAFlags(
+              caseData.id,
+              caseData.caseTypeOfApplication! as CaseType,
+              partyIdamId,
+              userDetails.accessToken,
+              RASupportContext.REQUEST_SUPPORT,
+              this.preprocessData(
+                raData.replacementFlags.details,
+                RADataTransformContext.INTERNAL
+              ) as RAFlags['details']
+            );
+          }
+          resolve();
+        } catch (error) {
+          reject(error);
+        }
+      })();
+    });
+  }
+
+  getNavigationUrl(req: AppRequest, context?: string): string | PageLink {
+    if (this.isC100DraftApplication(req.session.userCase)) {
+      const urlBeforeRedirection = RAProvider.getUrlBeforeRedirection();
+      console.info('**** urlBeforeRedirection', urlBeforeRedirection);
+
+      if (context === 'prev') {
+        return urlBeforeRedirection ?? C100_INTERNATIONAL_ELEMENTS_REQUEST;
+      }
+
+      return C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     }
+
+    if (req.session?.applicationSettings?.navfromRespondToApplication) {
+      return RESPOND_TO_APPLICATION;
+    }
+
+    return applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(req.session.userCase, req.session.user.id) });
   }
 }
 

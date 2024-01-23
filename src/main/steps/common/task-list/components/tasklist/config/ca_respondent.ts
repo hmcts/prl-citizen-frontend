@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../../app/case/case';
-import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { PartyType } from '../../../../../../app/case/definition';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import { UPDATE_CASE_YES } from '../../../../../../steps/constants';
-import { getCasePartyType } from '../../../../../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils';
 import {
   ALLEGATION_OF_HARM_VOILENCE,
@@ -58,9 +57,9 @@ export const aboutYou = {
     },
     {
       id: Tasks.SUPPORT_YOU_NEED,
-      href: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+      href: () => {
         return applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
-          partyType: getCasePartyType(caseData, userDetails.id),
+          partyType: PartyType.RESPONDENT,
         });
       },
       disabled: isCaseClosed,

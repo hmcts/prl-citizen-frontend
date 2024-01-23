@@ -14,11 +14,12 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 import { Language } from '../../steps/common/common.content';
 import { Step } from '../../steps/constants';
+import { C100_URL, PageLink } from '../../steps/urls';
 import { LanguageToggle } from '../i18n';
 
 import { RAController, ReasonableAdjustementsController } from './controller';
 import { RACommonComponentUserAction, RAData, RARequestPayload } from './definitions';
-import { RARoute } from './route';
+import { RARoute, ReasonableAdjustmentsRoute } from './route';
 import { RASequence, ReasonableAdjustementsSequence } from './sequence';
 import { RAService, ReasonableAdjustmentsService } from './service';
 import { RAUtility, ReasonableAdjustementsUtility } from './util';
@@ -29,22 +30,25 @@ class ReasonableAdjustmentsProvider {
   private client: AxiosInstance | null = null;
   private logger: LoggerInstance | Record<string, never> = {};
   private correlationId: string | null = null;
+  private urlBeforeRedirection = '';
+  private sequence: ReasonableAdjustementsSequence;
+  private route: ReasonableAdjustmentsRoute;
   service: ReasonableAdjustmentsService;
   controller: ReasonableAdjustementsController;
   utils: ReasonableAdjustementsUtility;
-  private sequence: ReasonableAdjustementsSequence;
 
   constructor() {
     this.service = RAService;
     this.controller = RAController;
     this.sequence = RASequence;
     this.utils = RAUtility;
+    this.route = RARoute;
   }
 
   async enable(app: Application): Promise<void> {
     this.isEnabled = await this.isComponentEnabled();
     if (this.isEnabled) {
-      RARoute.enable(app);
+      this.route.enable(app);
     }
   }
 
@@ -54,6 +58,20 @@ class ReasonableAdjustmentsProvider {
 
   getAppBaseUrl(): string {
     return this.appBaseUrl;
+  }
+
+  recordPageNavigation(url: string) {
+    if (url.includes(C100_URL) && this.route.routes.length && !this.route.routes.includes(url)) {
+      this.urlBeforeRedirection = url;
+    }
+  }
+
+  resetUrlBeforeRedirection() {
+    this.urlBeforeRedirection = '';
+  }
+
+  getUrlBeforeRedirection(): PageLink | string {
+    return this.urlBeforeRedirection;
   }
 
   async isComponentEnabled(): Promise<boolean> {
@@ -167,6 +185,7 @@ class ReasonableAdjustmentsProvider {
   destroy(): void {
     console.info('**** RA-destroy ****');
     this.resetData();
+    this.resetUrlBeforeRedirection();
     this.appBaseUrl = '';
     this.client = null;
   }

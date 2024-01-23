@@ -317,7 +317,7 @@ describe('testcase for tasklist', () => {
           },
           {
             disabled: false,
-            href: '/applicant/hearing-needs/support-help',
+            href: '/applicant/reasonable-adjustments/guidance',
             id: 'supportYouNeed',
             linkText: 'Support you need during your case',
             stateTag: {
@@ -451,7 +451,7 @@ describe('testcase for tasklist', () => {
           },
           {
             disabled: false,
-            href: '/applicant/hearing-needs/support-help',
+            href: '/applicant/reasonable-adjustments/guidance',
             id: 'supportYouNeed',
             linkText: 'Support you need during your case',
             stateTag: {
