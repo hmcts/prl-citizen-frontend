@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import https from 'https';
 
 import Axios, { AxiosError, AxiosInstance } from 'axios';
 import config from 'config';
@@ -212,9 +211,6 @@ export const caseApi = (userDetails: UserDetails, logger: LoggerInstance): CaseA
         ServiceAuthorization: `Bearer ${getServiceAuthToken()}`,
         'Content-Type': 'application/json',
       },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
     }),
     logger
   );
