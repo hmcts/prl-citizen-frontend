@@ -30,7 +30,7 @@ class ReasonableAdjustmentsProvider {
   private client: AxiosInstance | null = null;
   private logger: LoggerInstance | Record<string, never> = {};
   //private correlationId: string | null = null;
-  private urlBeforeRedirection = '';
+  //private urlBeforeRedirection = '';
   private sequence: ReasonableAdjustementsSequence;
   private route: ReasonableAdjustmentsRoute;
   service: ReasonableAdjustmentsService;
@@ -60,18 +60,25 @@ class ReasonableAdjustmentsProvider {
     return this.appBaseUrl;
   }
 
-  recordPageNavigation(url: string) {
+  async recordPageNavigation(req: AppRequest, done: () => void) {
+    const url = req.originalUrl;
     if (url.includes(C100_URL) && this.route.routes.length && !this.route.routes.includes(url)) {
-      this.urlBeforeRedirection = url;
+      await this.createSession(req);
+      req.session.applicationSettings!.reasonableAdjustments.urlBeforeRedirection = url;
+      req.session.save(() => {
+        done();
+      });
+    } else {
+      done();
     }
   }
 
   resetUrlBeforeRedirection() {
-    this.urlBeforeRedirection = '';
+    //this.urlBeforeRedirection = '';
   }
 
-  getUrlBeforeRedirection(): PageLink | string {
-    return this.urlBeforeRedirection;
+  getUrlBeforeRedirection(req: AppRequest): PageLink | string | undefined {
+    return req.session?.applicationSettings?.reasonableAdjustments?.urlBeforeRedirection;
   }
 
   async isComponentEnabled(): Promise<boolean> {
@@ -183,6 +190,7 @@ class ReasonableAdjustmentsProvider {
           ...req.session.applicationSettings,
           reasonableAdjustments: {
             correlationId: null,
+            urlBeforeRedirection: '',
           },
         };
 
