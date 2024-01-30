@@ -86,6 +86,7 @@ export class ReasonableAdjustementsController {
                 ) as RAFlags['details'],
               },
               language,
+              req,
               res
             );
           } catch (error) {
@@ -128,7 +129,7 @@ export class ReasonableAdjustementsController {
       }
 
       try {
-        await RAProvider.trySettlingRequest(response.correlationId, response.action);
+        await RAProvider.trySettlingRequest(req, response.correlationId, response.action);
 
         if (!_.get(response, 'flagsAsSupplied.details') || !_.get(response, 'replacementFlags.details')) {
           return ReasonableAdjustementsController.handleError(

@@ -1,7 +1,5 @@
-import { Respondent, YesOrNo } from '../../../app/case/definition';
-import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
+import { PartyType, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
-import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import * as URL from '../../urls';
 
 import {
@@ -74,9 +72,9 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: getSupportYourNeedsDetails(userCase),
+            status: SectionStatus.OPTIONAL,
             href: applyParms(URL.REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
-              partyType: getCasePartyType(userCase, userIdamId),
+              partyType: PartyType.RESPONDENT,
             }),
           },
         ],

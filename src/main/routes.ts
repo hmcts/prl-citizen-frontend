@@ -4,7 +4,7 @@ import { Application } from 'express';
 
 import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
 import { FieldPrefix } from './app/case/case';
-import { Environment, EventRoutesContext } from './app/case/definition';
+import { EventRoutesContext } from './app/case/definition';
 import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -16,7 +16,6 @@ import { RAProvider } from './modules/reasonable-adjustments';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
-import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
@@ -106,9 +105,6 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   PROCEEDING_SAVE,
   PROCEEDINGS_START,
-  SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
-  CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
-  C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   RESPONDENT_CHECK_ANSWERS_NO,
   FETCH_CASE_DETAILS,
   PARTY_TASKLIST,
@@ -119,7 +115,6 @@ import {
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
-  C7_ATTENDING_THE_COURT,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_TASKLIST_CONTACT_EMAIL,
@@ -129,6 +124,7 @@ import {
   RESPONSE_TO_CA,
   AOH_TO_CA,
   VIEW_DOCUMENT_URL,
+  LOCAL_API_SESSION,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -227,10 +223,6 @@ export class Routes {
       `${INTERNATIONAL_FACTORS_START}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.INTERNATIONAL_FACTORS_RESPONSE).get)
     );
-    app.get(
-      `${C7_ATTENDING_THE_COURT}/:caseId`,
-      errorHandler(new TasklistGetController(EventRoutesContext.SUPPORT_DURING_CASE).get)
-    );
 
     //C100 related routes
     app.get(
@@ -326,18 +318,6 @@ export class Routes {
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)
         );
         app.get(
-          SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
-          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
-        );
-        app.get(
-          CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
-          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
-        );
-        app.get(
-          C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
-          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
-        );
-        app.get(
           C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
           errorHandler(new SafetyConcernsPostController(step.form.fields).post)
         );
@@ -373,11 +353,9 @@ export class Routes {
      */
     app.get(PAYMENT_GATEWAY_ENTRY_URL, errorHandler(PaymentHandler));
     app.get(PAYMENT_RETURN_URL_CALLBACK, errorHandler(PaymentValidationHandler));
-    if (app.locals.ENV !== Environment.PRODUCTION) {
-      app.get('/api/v1/session', (req, res) => {
-        res.json(req.session);
-      });
-    }
+    app.get(LOCAL_API_SESSION, (req, res) => {
+      res.json(req.session);
+    });
   }
 
   private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {

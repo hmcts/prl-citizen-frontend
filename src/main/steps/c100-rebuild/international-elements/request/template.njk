@@ -1,6 +1,9 @@
 {% extends "common/template.njk" %}
 
 
+{% block backLink %}
+<a class="govuk-back-link history-back-ignore" href="/c100-rebuild/international-elements/jurisdiction">{{ back }}</a>
+{% endblock %}
 {% block page_content %}
 <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{ title }}</h1>
 <div class="govuk-hint">{{ line1 }}</div>

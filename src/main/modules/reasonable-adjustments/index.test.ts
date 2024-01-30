@@ -40,16 +40,23 @@ describe('ReasonableAdjustementsProvider', () => {
         errorHandler: jest.fn(arg => arg),
       },
       session: {
+        applicationSettings: {
+          reasonableAdjustments: {
+            correlationId: null,
+          },
+        },
         user: {
           accessToken: 'testUserToken',
         },
         lang: 'cy',
+        save: jest.fn(done => done()),
       },
     } as unknown as Application;
     appResponse = mockResponse();
     jest.clearAllMocks();
     jest.spyOn(RAProvider, 'isComponentEnabled').mockImplementation(() => Promise.resolve(true));
     jest.spyOn((RAProvider as any).route, 'enable');
+    //jest.spyOn(RAProvider, 'createAndSaveCorrelationId').mockImplementation(() => Promise.resolve());
   });
 
   test('when enabling RA module', async () => {
@@ -90,7 +97,7 @@ describe('ReasonableAdjustementsProvider', () => {
     jest
       .spyOn(RAProvider.service, 'getCommonComponentUrl')
       .mockImplementation(() => Promise.resolve({ url: 'https://cui-ra.aat.platform.hmcts.net/test-id' }));
-    await RAProvider.launch(requestData, 'en', appResponse);
+    await RAProvider.launch(requestData, 'en', appRequest, appResponse);
     expect(appResponse.redirect).toBeCalled;
   });
 
@@ -103,7 +110,7 @@ describe('ReasonableAdjustementsProvider', () => {
     let hasError = false;
     jest.spyOn(RAProvider.service, 'getCommonComponentUrl').mockImplementation(() => Promise.resolve({ url: '' }));
     try {
-      await RAProvider.launch(requestData, 'en', appResponse);
+      await RAProvider.launch(requestData, 'en', appRequest, appResponse);
     } catch (error) {
       hasError = true;
     }
@@ -119,12 +126,12 @@ describe('ReasonableAdjustementsProvider', () => {
       details: [],
     };
     let isRequestSettled = false;
-
+    jest.spyOn(RAProvider, 'canProcessRequest').mockImplementation(() => true);
     jest
       .spyOn(RAProvider.service, 'getCommonComponentUrl')
       .mockImplementation(() => Promise.resolve({ url: 'https://cui-ra.aat.platform.hmcts.net/test-id' }));
-    await RAProvider.launch(requestData, 'en', appResponse);
-    await RAProvider.trySettlingRequest('MOCK_V4_UUID', RACommonComponentUserAction.SUBMIT).then(() => {
+    await RAProvider.launch(requestData, 'en', appRequest, appResponse);
+    await RAProvider.trySettlingRequest(appRequest, 'MOCK_V4_UUID', RACommonComponentUserAction.SUBMIT).then(() => {
       isRequestSettled = true;
       expect(isRequestSettled).toBe(true);
     });
@@ -141,9 +148,9 @@ describe('ReasonableAdjustementsProvider', () => {
     jest
       .spyOn(RAProvider.service, 'getCommonComponentUrl')
       .mockImplementation(() => Promise.resolve({ url: 'https://cui-ra.aat.platform.hmcts.net/test-id' }));
-    await RAProvider.launch(requestData, 'en', appResponse);
+    await RAProvider.launch(requestData, 'en', appRequest, appResponse);
     try {
-      await RAProvider.trySettlingRequest('MOCK_V4_UUID', RACommonComponentUserAction.CANCEL);
+      await RAProvider.trySettlingRequest(appRequest, 'MOCK_V4_UUID', RACommonComponentUserAction.CANCEL);
       isRequestSettled = true;
     } catch (error) {
       isRequestSettled = false;

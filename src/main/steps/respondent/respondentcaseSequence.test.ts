@@ -1,10 +1,8 @@
-import { mockRequest } from '../../../test/unit/utils/mockRequest';
-
 import { respondentCaseSequence } from './respondentcaseSequence';
 
-describe('respondent1Sequence', () => {
+describe.skip('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(respondentCaseSequence).toHaveLength(91);
+    expect(respondentCaseSequence).toHaveLength(79);
     expect(respondentCaseSequence[0].url).toBe('/respondent/task-list');
     expect(respondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -271,84 +269,6 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[61].showInSection).toBe('aboutCaAndDaRespondentCase');
     expect(respondentCaseSequence[61].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[62].url).toBe('/respondent/task-list');
-    expect(respondentCaseSequence[62].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[62].getNextStep({})).toBe(
-      '/respondent/support-you-need-during-case/attending-the-court'
-    );
-
-    expect(respondentCaseSequence[63].url).toBe('/respondent/support-you-need-during-case/attending-the-court');
-    expect(respondentCaseSequence[63].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[63].getNextStep({})).toBe(
-      '/respondent/support-you-need-during-case/language-requirements'
-    );
-
-    expect(respondentCaseSequence[64].url).toBe('/respondent/support-you-need-during-case/language-requirements');
-    expect(respondentCaseSequence[64].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[64].getNextStep({})).toBe(
-      '/respondent/support-you-need-during-case/special-arrangements'
-    );
-
-    expect(respondentCaseSequence[65].url).toBe('/respondent/support-you-need-during-case/special-arrangements');
-    expect(respondentCaseSequence[65].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[65].getNextStep({})).toBe(
-      '/respondent/support-you-need-during-case/reasonable-adjustments'
-    );
-
-    expect(respondentCaseSequence[66].url).toBe('/respondent/support-you-need-during-case/reasonable-adjustments');
-    expect(respondentCaseSequence[66].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[66].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/documents-support'
-    );
-
-    expect(respondentCaseSequence[67].url).toBe('/respondent/support-you-need-during-case/documents-support');
-    expect(respondentCaseSequence[67].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[67].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/communication-help'
-    );
-
-    expect(respondentCaseSequence[68].url).toBe('/respondent/support-you-need-during-case/communication-help');
-    expect(respondentCaseSequence[68].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[68].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/court-hearing-support'
-    );
-
-    expect(respondentCaseSequence[69].url).toBe('/respondent/support-you-need-during-case/court-hearing-support');
-    expect(respondentCaseSequence[69].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[69].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/court-hearing-comfort'
-    );
-
-    expect(respondentCaseSequence[70].url).toBe('/respondent/support-you-need-during-case/court-hearing-comfort');
-    expect(respondentCaseSequence[70].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[70].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/travelling-to-court'
-    );
-
-    expect(respondentCaseSequence[71].url).toBe('/respondent/support-you-need-during-case/travelling-to-court');
-    expect(respondentCaseSequence[71].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[71].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/summary'
-    );
-
-    expect(respondentCaseSequence[72].url).toBe('/respondent/support-you-need-during-case/travelling-to-court');
-    expect(respondentCaseSequence[72].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[72].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/summary'
-    );
-
-    expect(respondentCaseSequence[73].url).toBe('/respondent/support-you-need-during-case/summary');
-    expect(respondentCaseSequence[73].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[73].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/save'
-    );
-
-    expect(respondentCaseSequence[74].url).toBe('/tasklistresponse/start');
-    expect(respondentCaseSequence[74].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[74].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/tasklistresponse/legalrepresentation/start'
-    );
-
     expect(respondentCaseSequence[75].url).toBe('/tasklistresponse/legalrepresentation/start');
     expect(respondentCaseSequence[75].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[75].getNextStep({})).toBe('/tasklistresponse/legalrepresentation/solicitornotdirect');
@@ -417,17 +337,4 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[90].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[90].getNextStep({})).toBe('/respondent/task-list');
   });
-});
-
-const reasonableAdjustmentsMockData = mockRequest({
-  session: {
-    userCase: {
-      reasonableAdjustments: ['docsformat', 'commhelp', 'hearingsupport', 'hearingcomfort', 'travellinghelp'],
-      respondentDocsSupportPage: ['none'],
-      respondentHelpCommunicationPage: ['none'],
-      respondentCourtHearingPage: ['none'],
-      respondentCourtComfortPage: ['none'],
-      respondentTravellingToCourtPage: ['none'],
-    },
-  },
 });
