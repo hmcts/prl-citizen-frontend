@@ -29,8 +29,8 @@ class ReasonableAdjustmentsProvider {
   private appBaseUrl = '';
   private client: AxiosInstance | null = null;
   private logger: LoggerInstance | Record<string, never> = {};
-  private correlationId: string | null = null;
-  private urlBeforeRedirection = '';
+  //private correlationId: string | null = null;
+  //private urlBeforeRedirection = '';
   private sequence: ReasonableAdjustementsSequence;
   private route: ReasonableAdjustmentsRoute;
   service: ReasonableAdjustmentsService;
@@ -60,18 +60,25 @@ class ReasonableAdjustmentsProvider {
     return this.appBaseUrl;
   }
 
-  recordPageNavigation(url: string) {
+  async recordPageNavigation(req: AppRequest, done: () => void) {
+    const url = req.originalUrl;
     if (url.includes(C100_URL) && this.route.routes.length && !this.route.routes.includes(url)) {
-      this.urlBeforeRedirection = url;
+      await this.createSession(req);
+      req.session.applicationSettings!.reasonableAdjustments.urlBeforeRedirection = url;
+      req.session.save(() => {
+        done();
+      });
+    } else {
+      done();
     }
   }
 
   resetUrlBeforeRedirection() {
-    this.urlBeforeRedirection = '';
+    //this.urlBeforeRedirection = '';
   }
 
-  getUrlBeforeRedirection(): PageLink | string {
-    return this.urlBeforeRedirection;
+  getUrlBeforeRedirection(req: AppRequest): PageLink | string | undefined {
+    return req.session?.applicationSettings?.reasonableAdjustments?.urlBeforeRedirection;
   }
 
   async isComponentEnabled(): Promise<boolean> {
@@ -90,7 +97,7 @@ class ReasonableAdjustmentsProvider {
     return !!(this.isEnabled && this.client);
   }
 
-  init(appRequest: AppRequest): void {
+  async init(appRequest: AppRequest): Promise<void> {
     this.logger = appRequest.locals.logger;
 
     if (this.isEnabled && !this.client) {
@@ -106,16 +113,27 @@ class ReasonableAdjustmentsProvider {
           rejectUnauthorized: false,
         }),
       });
+
+      await this.createSession(appRequest);
+      return Promise.resolve();
     }
+
+    return Promise.resolve();
   }
 
-  async launch(data: RARequestPayload['existingFlags'], language: Language, res: Response): Promise<void> {
+  async launch(
+    data: RARequestPayload['existingFlags'],
+    language: Language,
+    req: AppRequest,
+    res: Response
+  ): Promise<void> {
     this.resetData();
 
     if (this.canProcessRequest()) {
-      this.correlationId = uuid();
+      await this.createAndSaveCorrelationId(req);
+      //this.correlationId = uuid();
       try {
-        const response = await this.service.getCommonComponentUrl(this.correlationId, data, language);
+        const response = await this.service.getCommonComponentUrl(this.getCorrelationId(req)!, data, language);
 
         if (response.url) {
           return res.redirect(response.url);
@@ -137,20 +155,69 @@ class ReasonableAdjustmentsProvider {
     }
   }
 
-  trySettlingRequest(correlationId: string, action: RAData['action']): Promise<any> {
-    return new Promise((resolve, reject) => {
-      console.info('**** this.correlationId ****', this.correlationId);
-      if (this.correlationId === correlationId) {
-        if (action === RACommonComponentUserAction.SUBMIT) {
-          resolve(action);
-        } else {
-          reject(new Error('RA - user cancelled operation'));
-        }
+  createAndSaveCorrelationId(req: AppRequest): Promise<void> {
+    return new Promise(resolve => {
+      (async () => {
+        await this.resetCorrelationId(req);
+        await this.createSession(req);
+        req.session.applicationSettings!.reasonableAdjustments.correlationId = uuid();
+        return req.session.save(resolve);
+      })();
+    });
+  }
+
+  getCorrelationId(req: AppRequest): string | null {
+    return req.session?.applicationSettings?.reasonableAdjustments?.correlationId;
+  }
+
+  resetCorrelationId(req: AppRequest): Promise<void> {
+    return new Promise(resolve => {
+      if (req.session?.applicationSettings?.reasonableAdjustments?.hasOwnProperty('correlationId')) {
+        req.session.applicationSettings.reasonableAdjustments.correlationId = null;
+        return req.session.save(resolve);
       } else {
-        const errorMsg = 'RA - cannot process data as correlationId does not match';
-        this.log('error', errorMsg);
-        reject(new Error(errorMsg));
+        resolve();
       }
+    });
+  }
+
+  createSession(req: AppRequest): Promise<void> {
+    return new Promise(resolve => {
+      if (req.session?.applicationSettings?.reasonableAdjustments) {
+        resolve();
+      } else {
+        req.session.applicationSettings = {
+          ...req.session.applicationSettings,
+          reasonableAdjustments: {
+            correlationId: null,
+            urlBeforeRedirection: '',
+          },
+        };
+
+        return req.session.save(resolve);
+      }
+    });
+  }
+
+  trySettlingRequest(req: AppRequest, correlationId: string, action: RAData['action']): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const _correlationId = this.getCorrelationId(req);
+      console.info('**** correlationId ****', _correlationId);
+
+      (async () => {
+        await this.resetCorrelationId(req);
+        if (_correlationId === correlationId) {
+          if (action === RACommonComponentUserAction.SUBMIT) {
+            resolve(action);
+          } else {
+            reject(new Error('RA - user cancelled operation'));
+          }
+        } else {
+          const errorMsg = 'RA - cannot process data as correlationId does not match';
+          this.log('error', errorMsg);
+          reject(new Error(errorMsg));
+        }
+      })();
     });
   }
 
@@ -179,7 +246,7 @@ class ReasonableAdjustmentsProvider {
 
   private resetData(): void {
     console.info('**** RA-resetData ****');
-    this.correlationId = null;
+    //this.correlationId = null;
   }
 
   destroy(): void {

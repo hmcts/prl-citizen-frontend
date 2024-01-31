@@ -49,7 +49,7 @@ export const CA_APPLICANT = [
           });
         },
         disabled: isCaseClosed,
-        stateTag: () => StateTags.SUBMITTED,
+        stateTag: () => StateTags.OPTIONAL,
       },
     ],
   },

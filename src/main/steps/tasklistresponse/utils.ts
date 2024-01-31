@@ -1,7 +1,6 @@
 import { CaseWithId } from '../../app/case/case';
 import { CaseType, PartyDetails, PartyType } from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
-import { mapSupportYouNeedDetails } from '../../steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
 import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
 import { mapKeepYourDetailsPrivate } from '../../steps/common/keep-details-private/KeepYourDetailsPrivateMapper';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
@@ -29,9 +28,6 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
   }
   if (partyDetails?.response?.keepDetailsPrivate?.confidentiality) {
     Object.assign(userCase, mapKeepYourDetailsPrivate(partyDetails));
-  }
-  if (partyDetails?.response?.supportYouNeed) {
-    Object.assign(userCase, mapSupportYouNeedDetails(partyDetails));
   }
 };
 function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {

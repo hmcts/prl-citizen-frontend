@@ -13,6 +13,7 @@ import {
   C100_URL,
   CALLBACK_URL,
   DASHBOARD_URL,
+  LOCAL_API_SESSION,
   SAFEGAURD_EXCLUDE_URLS,
   SCREENING_QUESTIONS,
   SIGN_IN_URL,
@@ -102,13 +103,13 @@ export class OidcMiddleware {
             //If C100-Rebuild URL is not part of the path, then we need to redirect user to dashboard even if they click on case
             if (req.path.startsWith(C100_URL)) {
               if (c100RebuildLdFlag) {
-                return next();
+                return RAProvider.recordPageNavigation(req, next);
               } else {
                 return res.redirect(DASHBOARD_URL);
               }
             }
             //If testing support URL is not part of the path, then we need to redirect user to dashboard even if they click on link
-            if (req.path.startsWith(TESTING_SUPPORT)) {
+            if (req.path.startsWith(TESTING_SUPPORT) || req.path.includes(LOCAL_API_SESSION)) {
               if (req.session.testingSupport) {
                 return next();
               } else {

@@ -226,11 +226,11 @@ export class ReasonableAdjustementsUtility {
 
   getNavigationUrl(req: AppRequest, context?: string): string | PageLink {
     if (this.isC100DraftApplication(req.session.userCase)) {
-      const urlBeforeRedirection = RAProvider.getUrlBeforeRedirection();
+      const urlBeforeRedirection = RAProvider.getUrlBeforeRedirection(req);
       console.info('**** urlBeforeRedirection', urlBeforeRedirection);
 
       if (context === 'prev') {
-        return urlBeforeRedirection ?? C100_INTERNATIONAL_ELEMENTS_REQUEST;
+        return urlBeforeRedirection || C100_INTERNATIONAL_ELEMENTS_REQUEST;
       }
 
       return C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;

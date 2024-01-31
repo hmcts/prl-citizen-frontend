@@ -288,20 +288,6 @@ export const RESPONDENT_SUPPORT_NEEDED: PageLink = `${VIEW_ALL_DOCUMENTS}/suppor
 /** Document Urls */
 
 export const DOCUMENT_MANAGER: PageLink = '/document-manager';
-/* your needs when you go to court */
-export const SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${APPLICANT}/support-you-need-during-case`;
-export const APPLICANT_ATTENDING_THE_COURT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/attending-the-court`;
-export const LANGUAGE_REQUIREMENTS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/language-requirements`;
-export const REASONABLE_ADJUSTMENTS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/reasonable-adjustments`;
-export const DOCUMENTS_SUPPORT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/documents-support`;
-export const COMMUNICATION_HELP: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/communication-help`;
-export const COURT_HEARING_SUPPORT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-support`;
-export const COURT_HEARING_COMFORT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-comfort`;
-export const TRAVELLING_TO_COURT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/travelling-to-court`;
-export const UNABLE_TO_TAKE_COURT_PROCEEDINGS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/unable-to-take-court-proceedings`;
-export const SAFETY_ARRANGEMENTS: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/safety-arrangements`;
-export const SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/summary`;
-export const SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE_SUMMARY}/save`;
 
 export const PROCEEDINGS: PageLink = `${RESPONSE_TASKLIST}/proceedings`;
 export const PROCEEDINGS_START: PageLink = `${PROCEEDINGS}/start`;
@@ -311,34 +297,6 @@ export const COURT_PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/document-summ
 export const PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/documentUpload`;
 export const PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/summary`;
 export const PROCEEDING_SAVE: PageLink = `${PROCEEDINGS}/save`;
-
-/* your needs when you go to court */
-export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${RESPONDENT}/support-you-need-during-case`;
-export const CA_DA_ATTENDING_THE_COURT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/attending-the-court`;
-export const CA_DA_LANGUAGE_REQUIREMENTS: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/language-requirements`;
-export const CA_DA_SPECIAL_ARRANGEMENTS: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/special-arrangements`;
-export const CA_DA_REASONABLE_ADJUSTMENTS: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/reasonable-adjustments`;
-export const CA_DA_DOCUMENTS_SUPPORT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/documents-support`;
-export const CA_DA_COMMUNICATION_HELP: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/communication-help`;
-export const CA_DA_COURT_HEARING_SUPPORT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-support`;
-export const CA_DA_COURT_HEARING_COMFORT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-comfort`;
-export const CA_DA_TRAVELLING_TO_COURT: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/travelling-to-court`;
-export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/summary`;
-export const CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE: PageLink = `${CA_DA_SUPPORT_YOU_NEED_DURING_CASE}/save`;
-
-/* C7 response your needs when you go to court */
-export const C7_SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${TASK_LIST_RESPONSE}/support-you-need-during-case`;
-export const C7_ATTENDING_THE_COURT: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/attending-the-court`;
-export const C7_LANGUAGE_REQUIREMENTS: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/language-requirements`;
-export const C7_SPECIAL_ARRANGEMENTS: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/special-arrangements`;
-export const C7_REASONABLE_ADJUSTMENTS: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/reasonable-adjustments`;
-export const C7_DOCUMENTS_SUPPORT: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/documents-support`;
-export const C7_COMMUNICATION_HELP: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/communication-help`;
-export const C7_COURT_HEARING_SUPPORT: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-support`;
-export const C7_COURT_HEARING_COMFORT: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/court-hearing-comfort`;
-export const C7_TRAVELLING_TO_COURT: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/travelling-to-court`;
-export const C7_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/summary`;
-export const C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE: PageLink = `${C7_SUPPORT_YOU_NEED_DURING_CASE}/save`;
 
 /* Banner Links */
 export const FIND_OUT_ABOUT_CAFCASS =
@@ -572,10 +530,6 @@ export const PIN_ACTIVATION_CASE_ACTIVATED_URL: PageLink = `${PIN_ACTIVATION_URL
 export const C100_WITHDRAW_CASE: PageLink = `${C100_URL}/:caseId/withdraw`;
 export const C100_WITHDRAW_CASE_CONFIRMATION: PageLink = `${C100_URL}/withdraw/confirmation`;
 
-/** applicant/tasklist hearing needs */
-export const HEARING_NEEDS: PageLink = '/hearing-needs';
-export const APPLICANT_TASKLIST_HEARING_NEEDS: PageLink = `${APPLICANT}${HEARING_NEEDS}/support-help`;
-
 export const RESPONDENT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${RESPONDENT}/add-legal-representative`;
 export const APPLICANT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${APPLICANT}/add-legal-representative`;
 
@@ -599,7 +553,7 @@ export const SCREENING_QUESTIONS = [
   SCREENING_QUESTION_COMPLETE_APP_LEGAL_REP,
   SCREENING_QUESTION_CONTACT_LEGAL_REP,
 ];
-
+/** RA common component related end points */
 const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_BASE_URL = 'reasonable-adjustments';
 export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE: PageLink = `/:partyType/${REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_BASE_URL}/guidance`;
 export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH: PageLink = `/${REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_BASE_URL}/launch`;

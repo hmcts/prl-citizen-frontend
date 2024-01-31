@@ -1,12 +1,18 @@
-import { HearingOrders } from '../../../../app/case/definition';
+import { HearingOrders, PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { CA_DA_ATTENDING_THE_COURT, RESPONDENT_ORDERS_FROM_THE_COURT } from '../../../../steps/urls';
+import { applyParms } from '../../../../steps/common/url-parser';
+import {
+  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE,
+  RESPONDENT_ORDERS_FROM_THE_COURT,
+} from '../../../../steps/urls';
 import { generateContent as yourhearingshearingscontent } from '../../../common/yourhearings/hearings/content';
 
 export { form } from '../../../common/yourhearings/hearings/content';
 export const generateContent: TranslationFn = content => {
   const hearingsContent = yourhearingshearingscontent(content);
-  hearingsContent.linkforsupport = CA_DA_ATTENDING_THE_COURT;
+  hearingsContent.linkforsupport = applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
+    partyType: PartyType.RESPONDENT,
+  });
   const request = content.additionalData?.req;
   const hearingOrders: HearingOrders[] = [];
   for (const doc of request.session.userCase?.orderCollection || []) {

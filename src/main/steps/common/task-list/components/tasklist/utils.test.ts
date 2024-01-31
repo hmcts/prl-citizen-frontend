@@ -321,8 +321,8 @@ describe('testcase for tasklist', () => {
             id: 'supportYouNeed',
             linkText: 'Support you need during your case',
             stateTag: {
-              className: 'govuk-tag--turquoise',
-              label: 'Submitted',
+              className: 'govuk-tag--blue',
+              label: 'Optional',
             },
           },
         ],
@@ -455,8 +455,8 @@ describe('testcase for tasklist', () => {
             id: 'supportYouNeed',
             linkText: 'Support you need during your case',
             stateTag: {
-              className: 'govuk-tag--turquoise',
-              label: 'Submitted',
+              className: 'govuk-tag--blue',
+              label: 'Optional',
             },
           },
         ],
@@ -641,12 +641,12 @@ describe('testcase for tasklist', () => {
           },
           {
             disabled: false,
-            href: '/applicant/support-you-need-during-case/attending-the-court',
+            href: '/applicant/reasonable-adjustments/guidance',
             id: 'supportYouNeed',
             linkText: 'Support you need during your case',
             stateTag: {
-              className: 'govuk-tag--grey',
-              label: 'TO DO',
+              className: 'govuk-tag--blue',
+              label: 'Optional',
             },
           },
         ],
@@ -778,12 +778,12 @@ describe('testcase for tasklist', () => {
           },
           {
             disabled: false,
-            href: '/applicant/support-you-need-during-case/attending-the-court',
+            href: '/applicant/reasonable-adjustments/guidance',
             id: 'supportYouNeed',
             linkText: 'Support you need during your case',
             stateTag: {
-              className: 'govuk-tag--grey',
-              label: 'TO DO',
+              className: 'govuk-tag--blue',
+              label: 'Optional',
             },
           },
         ],
