@@ -3,10 +3,12 @@ import { REASONABLE_ADJUSTMENTS_BACK_URL, REASONABLE_ADJUSTMENTS_COMMON_COMPONEN
 
 const en = {
   title: 'Your support - Guidelines',
+  startNowButtonText: 'Start now',
 };
 
 const cy = {
   title: 'Your support - Guidelines -  welsh',
+  startNowButtonText: 'Start now - welsh',
 };
 
 export const languages = {
