@@ -2,6 +2,7 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { applyParms } from '../../../../../../steps/common/url-parser';
+import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
@@ -14,14 +15,20 @@ import {
   C100_START,
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE,
 } from '../../../../../../steps/urls';
-import { isCaseClosed, isCaseLinked, isDraftCase } from '../../../utils';
+import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
 import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing, hasAnyOrder } from '../utils';
 
 export const CA_APPLICANT = [
   {
     id: TaskListSection.ABOUT_YOU,
     content: getContents.bind(null, TaskListSection.ABOUT_YOU),
-    show: isCaseLinked,
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+      return (
+        isCaseLinked(caseData, userDetails) &&
+        !isCaseClosed(caseData as CaseWithId) &&
+        !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
+      );
+    },
     tasks: [
       {
         id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
@@ -89,7 +96,11 @@ export const CA_APPLICANT = [
       {
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-        show: isCaseLinked,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+          return (
+            isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
+          );
+        },
         disabled: isCaseClosed,
         stateTag: () => StateTags.OPTIONAL,
       },

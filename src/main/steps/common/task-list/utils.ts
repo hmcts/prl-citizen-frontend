@@ -2,6 +2,7 @@
 
 import { CaseWithId } from '../../../app/case/case';
 import { AppRequest, UserDetails } from '../../../app/controller/AppRequest';
+import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
 import { PARTY_TASKLIST, PageLink, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
 import { applyParms } from '../url-parser';
 
@@ -55,6 +56,10 @@ export const isCaseClosed = (caseData: Partial<CaseWithId>): boolean =>
 
 export const isDraftCase = (caseData: Partial<CaseWithId>): boolean => {
   return !!(caseData && caseData.state! === State.CASE_DRAFT);
+};
+
+export const isRepresentedBySolicotor = (caseData: CaseWithId, userId: UserDetails['id']): boolean => {
+  return checkPartyRepresentedBySolicitor(getPartyDetails(caseData, userId));
 };
 
 export const checkPartyRepresentedBySolicitor = (partyDetails: PartyDetails | undefined): boolean => {
