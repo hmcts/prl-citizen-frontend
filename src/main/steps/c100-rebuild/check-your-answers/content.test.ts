@@ -1096,15 +1096,15 @@ describe('Content.ts toggle test cases', () => {
         rows: [
           {
             key: {
-              text: 'Your Support',
+              text: 'Your support',
             },
             value: {},
             actions: {
               items: [
                 {
-                  href: '/reasonable-adjustments/launch',
+                  href: '/applicant/reasonable-adjustments/guidance',
                   text: 'Edit',
-                  visuallyHiddenText: 'Your Support',
+                  visuallyHiddenText: 'Your support',
                 },
               ],
             },
@@ -1600,15 +1600,15 @@ describe('Content.ts toggle test cases', () => {
         rows: [
           {
             key: {
-              text: 'Your Support',
+              text: 'Your support',
             },
             value: {},
             actions: {
               items: [
                 {
-                  href: '/reasonable-adjustments/launch',
+                  href: '/applicant/reasonable-adjustments/guidance',
                   text: 'Edit',
-                  visuallyHiddenText: 'Your Support',
+                  visuallyHiddenText: 'Your support',
                 },
               ],
             },
@@ -2106,15 +2106,15 @@ describe('Content.ts toggle test cases', () => {
         rows: [
           {
             key: {
-              text: 'Your Support - welsh',
+              text: 'Your support - welsh',
             },
             value: {},
             actions: {
               items: [
                 {
-                  href: '/reasonable-adjustments/launch',
+                  href: '/applicant/reasonable-adjustments/guidance',
                   text: ' Golygu',
-                  visuallyHiddenText: 'Your Support - welsh',
+                  visuallyHiddenText: 'Your support - welsh',
                 },
               ],
             },
@@ -2521,15 +2521,15 @@ describe('Content.ts toggle test cases', () => {
         rows: [
           {
             key: {
-              text: 'Your Support - welsh',
+              text: 'Your support - welsh',
             },
             value: {},
             actions: {
               items: [
                 {
-                  href: '/reasonable-adjustments/launch',
+                  href: '/applicant/reasonable-adjustments/guidance',
                   text: ' Golygu',
-                  visuallyHiddenText: 'Your Support - welsh',
+                  visuallyHiddenText: 'Your support - welsh',
                 },
               ],
             },
@@ -3006,15 +3006,15 @@ describe('Content.ts toggle test cases', () => {
         rows: [
           {
             key: {
-              text: 'Your Support - welsh',
+              text: 'Your support - welsh',
             },
             value: {},
             actions: {
               items: [
                 {
-                  href: '/reasonable-adjustments/launch',
+                  href: '/applicant/reasonable-adjustments/guidance',
                   text: ' Golygu',
-                  visuallyHiddenText: 'Your Support - welsh',
+                  visuallyHiddenText: 'Your support - welsh',
                 },
               ],
             },
@@ -3510,15 +3510,15 @@ describe('Content.ts toggle test cases', () => {
         rows: [
           {
             key: {
-              text: 'Your Support - welsh',
+              text: 'Your support - welsh',
             },
             value: {},
             actions: {
               items: [
                 {
-                  href: '/reasonable-adjustments/launch',
+                  href: '/applicant/reasonable-adjustments/guidance',
                   text: ' Golygu',
-                  visuallyHiddenText: 'Your Support - welsh',
+                  visuallyHiddenText: 'Your support - welsh',
                 },
               ],
             },

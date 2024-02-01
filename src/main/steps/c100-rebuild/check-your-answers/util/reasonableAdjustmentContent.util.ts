@@ -10,12 +10,12 @@ export const ReasonableAdjustmentElement = SystemLanguage => {
   const opContents = {
     en: () => {
       return {
-        yourSupport: 'Your Support',
+        yourSupport: 'Your support',
       };
     },
     cy: () => {
       return {
-        yourSupport: 'Your Support - welsh',
+        yourSupport: 'Your support - welsh',
       };
     },
   };

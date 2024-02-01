@@ -927,7 +927,7 @@ describe('testcase for tasklist', () => {
             disabled: false,
             href: '/respondent/reasonable-adjustments/guidance',
             id: 'supportYouNeed',
-            linkText: undefined,
+            linkText: 'Support you need during your case',
             stateTag: { className: 'govuk-tag--blue', label: 'Optional' },
           },
         ],

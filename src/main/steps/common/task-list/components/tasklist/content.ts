@@ -207,8 +207,8 @@ const en = {
           editYouContactDetails: {
             linkText: 'Confirm or edit your contact details',
           },
-          yourSupport: {
-            linkText: 'Your Support',
+          supportYouNeed: {
+            linkText: 'Support you need during your case',
           },
         },
       },
@@ -462,8 +462,8 @@ const cy: typeof en = {
           editYouContactDetails: {
             linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
           },
-          yourSupport: {
-            linkText: 'Your Support -welsh',
+          supportYouNeed: {
+            linkText: 'Support you need during your case - welsh',
           },
         },
       },
