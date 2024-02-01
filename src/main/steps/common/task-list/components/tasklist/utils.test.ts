@@ -154,9 +154,8 @@ describe('testcase for tasklist', () => {
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
-    const isRepresentedBySolicotor = false;
 
-    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'Your application',
         id: 'yourApplication',
@@ -182,9 +181,8 @@ describe('testcase for tasklist', () => {
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
-    const isRepresentedBySolicotor = false;
 
-    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'Your application',
         id: 'yourApplication',
@@ -278,9 +276,8 @@ describe('testcase for tasklist', () => {
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
-    const isRepresentedBySolicotor = false;
 
-    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'About you',
         id: 'aboutYou',
@@ -412,9 +409,8 @@ describe('testcase for tasklist', () => {
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
-    const isRepresentedBySolicotor = false;
 
-    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'About you',
         id: 'aboutYou',
@@ -612,9 +608,8 @@ describe('testcase for tasklist', () => {
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
-    const isRepresentedBySolicotor = false;
 
-    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'About you',
         id: 'aboutYou',
@@ -749,9 +744,8 @@ describe('testcase for tasklist', () => {
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
-    const isRepresentedBySolicotor = false;
 
-    expect(getTaskListConfig(data, userDetails, party, language, isRepresentedBySolicotor)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'About you',
         id: 'aboutYou',
@@ -910,7 +904,7 @@ describe('testcase for tasklist', () => {
         },
       ],
     } as unknown as CaseWithId;
-    expect(getTaskListConfig(data, userDetails1, PartyType.RESPONDENT, 'en', false)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails1, PartyType.RESPONDENT, 'en')).toStrictEqual([
       {
         heading: 'About you',
         id: 'aboutYou',
@@ -1041,7 +1035,7 @@ describe('c100 respondent', () => {
         },
       ],
     } as unknown as CaseWithId;
-    expect(getTaskListConfig(data, userDetails, PartyType.RESPONDENT, 'en', false)).toStrictEqual([
+    expect(getTaskListConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
       {
         heading: 'About you',
         id: 'aboutYou',
@@ -1238,7 +1232,7 @@ describe('c100 respondent', () => {
         },
       ],
     } as unknown as CaseWithId;
-    expect(getTaskListConfig(caseData, userDetails, PartyType.RESPONDENT, 'en', false)).toStrictEqual([
+    expect(getTaskListConfig(caseData, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
       {
         heading: 'About you',
         id: 'aboutYou',
@@ -1464,7 +1458,7 @@ describe('c100 respondent', () => {
         },
       ],
     } as unknown as CaseWithId;
-    expect(getTaskListConfig(caseData, userDetails, PartyType.RESPONDENT, 'en', false)).toStrictEqual([
+    expect(getTaskListConfig(caseData, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
       {
         heading: 'About you',
         id: 'aboutYou',
@@ -1692,7 +1686,7 @@ describe('c100 respondent', () => {
         },
       ],
     } as unknown as CaseWithId;
-    expect(getTaskListConfig(caseData, userDetails, PartyType.RESPONDENT, 'en', false)).toStrictEqual([
+    expect(getTaskListConfig(caseData, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
       {
         heading: 'The application',
         id: 'theApplication',
