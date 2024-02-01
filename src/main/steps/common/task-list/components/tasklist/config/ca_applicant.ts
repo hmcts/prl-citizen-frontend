@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../../app/case/case';
+import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
@@ -12,14 +13,20 @@ import {
   C100_DOWNLOAD_APPLICATION,
   C100_START,
 } from '../../../../../../steps/urls';
-import { isCaseClosed, isCaseLinked, isDraftCase } from '../../../utils';
+import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
 import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing, hasAnyOrder } from '../utils';
 
 export const CA_APPLICANT = [
   {
     id: TaskListSection.ABOUT_YOU,
     content: getContents.bind(null, TaskListSection.ABOUT_YOU),
-    show: isCaseLinked,
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+      return (
+        isCaseLinked(caseData, userDetails) &&
+        !isCaseClosed(caseData as CaseWithId) &&
+        !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
+      );
+    },
     tasks: [
       {
         id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
@@ -85,7 +92,11 @@ export const CA_APPLICANT = [
       {
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-        show: isCaseLinked,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+          return (
+            isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
+          );
+        },
         disabled: isCaseClosed,
         stateTag: () => StateTags.OPTIONAL,
       },
