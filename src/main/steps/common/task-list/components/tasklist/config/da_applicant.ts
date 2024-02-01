@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../../app/case/case';
-import { isCaseClosed, isDraftCase } from '../../../../../../steps/common/task-list/utils';
+import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { isCaseClosed, isRepresentedBySolicotor } from '../../../../../../steps/common/task-list/utils';
 import {
   APPLICANT_ATTENDING_THE_COURT,
   APPLICANT_CHECK_ANSWERS,
@@ -29,7 +30,9 @@ export const DA_APPLICANT = [
   {
     id: TaskListSection.ABOUT_YOU,
     content: getContents.bind(null, TaskListSection.ABOUT_YOU),
-    show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+      return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+    },
     tasks: [
       {
         id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
@@ -69,14 +72,12 @@ export const DA_APPLICANT = [
         id: Tasks.YOUR_APPLICATION_PDF,
         href: () => YOUR_APPLICATION_FL401,
         stateTag: () => StateTags.DOWNLOAD,
-        show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
         openInAnotherTab: true,
       },
       {
         id: Tasks.YOUR_APPLICATION_WITNESS_STATEMENT,
         href: () => APPLICANT_WITNESS_STATEMENTS_DA,
         stateTag: caseData => getYourWitnessStatementStatus(caseData),
-        show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
         openInAnotherTab: true,
       },
     ],
@@ -84,7 +85,6 @@ export const DA_APPLICANT = [
   {
     id: TaskListSection.YOUR_HEARING,
     content: getContents.bind(null, TaskListSection.YOUR_HEARING),
-    show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
     tasks: [
       {
         id: Tasks.VIEW_HEARING_DETAILS,
@@ -103,12 +103,13 @@ export const DA_APPLICANT = [
   {
     id: TaskListSection.YOUR_DOCUMENTS,
     content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-    show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
     tasks: [
       {
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-        show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+          return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+        },
         disabled: isCaseClosed,
         stateTag: () => StateTags.TO_DO,
       },
@@ -116,14 +117,13 @@ export const DA_APPLICANT = [
         id: Tasks.VIEW_ALL_DOCUMENTS,
         href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
         stateTag: () => StateTags.READY_TO_VIEW,
-        show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
+        show: (caseData: Partial<CaseWithId>) => !isCaseClosed(caseData),
       },
     ],
   },
   {
     id: TaskListSection.YOUR_ORDERS,
     content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
-    show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
     tasks: [
       {
         id: Tasks.VIEW_ORDERS,
