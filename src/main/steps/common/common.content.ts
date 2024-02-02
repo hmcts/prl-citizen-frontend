@@ -3,7 +3,7 @@ import { capitalize } from 'lodash';
 import { CaseWithId } from '../../app/case/case';
 import { C100_CASE_TYPE } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
-import { ANONYMOUS_URLS, C100_URL, DASHBOARD_URL } from '../../steps/urls';
+import { ANONYMOUS_URLS, C100_URL, DASHBOARD_URL, PIN_ACTIVATION_URL } from '../../steps/urls';
 
 import AppSurvey from './app-survey/appSurveyController';
 import { appSurveyContents } from './app-survey/content';
@@ -313,7 +313,10 @@ const getServiceName = (
   translations: typeof en | typeof cy
 ): string => {
   const url = reqData?.path;
-  const isCommonServiceName = url?.includes(DASHBOARD_URL) || ANONYMOUS_URLS.some(_url => _url.includes(url));
+  const isCommonServiceName =
+    url?.includes(DASHBOARD_URL) ||
+    url?.includes(PIN_ACTIVATION_URL) ||
+    ANONYMOUS_URLS.some(_url => _url.includes(url));
   const isC100 = url?.startsWith(C100_URL) || reqData?.session?.userCase?.caseTypeOfApplication === C100_CASE_TYPE.C100;
   let serviceName;
 
