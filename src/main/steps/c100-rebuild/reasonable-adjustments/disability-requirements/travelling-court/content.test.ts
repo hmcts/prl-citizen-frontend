@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child Arrangements',
   caption: 'Reasonable adjustments',
   headingTitle: 'I need help travelling to, or moving around court buildings',
   //line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
@@ -52,7 +51,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
   //line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible - welsh',

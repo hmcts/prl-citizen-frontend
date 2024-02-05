@@ -11,7 +11,6 @@ import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-a
 import { form, generateContent, sectionCountFormatter, toggleApplicantSafetyConcerns } from './content';
 
 const enContent = {
-  serviceName: 'Check your answers ',
   section: '',
   title: 'Check your Answers',
   change: 'Edit',
@@ -140,7 +139,6 @@ const enContent = {
   },
 };
 const cyContent = {
-  serviceName: 'Gwiriwch eich atebion',
   section: '',
   title: 'Gwiriwch eich atebion',
   change: ' Golygu',
@@ -366,7 +364,6 @@ describe('Content.ts toggle test cases', () => {
     phase: '',
     applyForChildArrangements: '',
     applyForDissolution: '',
-    c100ServiceName: '',
     feedback: '',
     languageToggle: '',
     govUk: '',
@@ -446,7 +443,6 @@ describe('Content.ts toggle test cases', () => {
     useApmCookies: '',
     doNotUseApmCookies: '',
     divider: '',
-    serviceName: '',
     userCase: {
       miam_domesticAbuse: [],
       applicantCaseName: 'test',

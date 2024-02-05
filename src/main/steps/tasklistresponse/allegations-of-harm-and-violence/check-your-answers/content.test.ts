@@ -87,7 +87,6 @@ const keys = {
   select_all_relevant: 'Select all options that are relevant to you.',
   selectSupervisionAgreementLabel:
     'Do you agree to the children spending time with the other people in this application?',
-  serviceName: 'Child arrangements',
   sexualAbuse: 'Sexual abuse',
   sexualAbuseHint:
     'A child being forced or persuaded to take part in sexual activities, including online. It can be without contact, for example grooming or exploitation',
@@ -109,7 +108,6 @@ const keys = {
 };
 
 const enContent = {
-  serviceName: 'Check your answers ',
   section: '',
   title: 'Check your Answers',
   change: 'Edit',
@@ -137,7 +135,6 @@ const enContent = {
 };
 
 const cyContent = {
-  serviceName: 'Gwirio eich atebion',
   section: '',
   title: 'Gwirio eich atebion',
   change: 'Golygu',
@@ -598,7 +595,6 @@ describe('Content.ts test cases', () => {
     phase: '',
     applyForChildArrangements: '',
     applyForDissolution: '',
-    c100ServiceName: '',
     feedback: '',
     languageToggle: '',
     govUk: '',
@@ -678,7 +674,6 @@ describe('Content.ts test cases', () => {
     useApmCookies: '',
     doNotUseApmCookies: '',
     divider: '',
-    serviceName: '',
     userCase: {
       miam_domesticAbuse: [],
       applicantCaseName: 'test',
