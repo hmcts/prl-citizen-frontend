@@ -79,6 +79,8 @@ describe('citizen-home content', () => {
     const ocd_otherChildren = fields.ocd_hasOtherChildren as FormOptions;
     expect(ocd_otherChildren.type).toBe('radios');
     expect(ocd_otherChildren.classes).toBe('govuk-radios');
+    expect((ocd_otherChildren.section as Function)(generatedContent)).toBe(undefined);
+    expect((ocd_otherChildren.hint as Function)(generatedContent)).toBe(undefined);
     expect((ocd_otherChildren.values[0].label as LanguageLookup)(generatedContent)).toBe(YesOrNo.YES);
     expect((ocd_otherChildren.values[1].label as LanguageLookup)(generatedContent)).toBe(YesOrNo.NO);
   });

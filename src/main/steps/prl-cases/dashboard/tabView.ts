@@ -4,14 +4,7 @@ import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType, State } from '../../../app/case/definition';
 import { isCaseLinked } from '../../../steps/common/task-list/utils';
 import { applyParms } from '../../common/url-parser';
-import {
-  APPLICANT_TASK_LIST_URL,
-  C100_RETRIVE_CASE,
-  FETCH_CASE_DETAILS,
-  //FETCH_CASE_DETAILS,
-  PageLink,
-  RESPONDENT_TASK_LIST_URL,
-} from '../../urls';
+import { C100_RETRIVE_CASE, FETCH_CASE_DETAILS, PageLink } from '../../urls';
 
 import { UserDetails } from './../../../app/controller/AppRequest';
 import { getCasePartyType } from './utils';
@@ -270,19 +263,10 @@ const getTaskListUrl = (
 ): PageLink => {
   let url;
 
-  if (linkPartyType === PartyType.RESPONDENT) {
-    url = `${RESPONDENT_TASK_LIST_URL}/${caseNumber}`;
+  if (caseType === CaseType.C100 && State.AWAITING_SUBMISSION_TO_HMCTS === caseStatus) {
+    url = applyParms(`${C100_RETRIVE_CASE}`, { caseId: caseNumber });
   } else {
-    if (caseType === CaseType.C100) {
-      if (State.AWAITING_SUBMISSION_TO_HMCTS === caseStatus) {
-        url = applyParms(`${C100_RETRIVE_CASE}`, { caseId: caseNumber });
-      } else {
-        url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
-      }
-    } else {
-      url = `${APPLICANT_TASK_LIST_URL}/${caseNumber}`;
-    }
+    url = applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseNumber });
   }
-
   return url;
 };

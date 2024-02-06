@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../app/form/Form';
+import { isFieldFilledIn, isTextAreaValid } from '../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../common/common.content';
 
 import { generateContent } from './content';
@@ -77,6 +79,12 @@ describe('applicant personal details > applying-with > content', () => {
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
+    expect(
+      (applyingWithField.values[0].subFields?.withdrawApplicationReason.label as LanguageLookup)(generatedContent)
+    ).toBe(en.withdrawApplicationReason);
+    (applyingWithField.values[0].subFields?.withdrawApplicationReason.validator as Function)('MOCK_VALUE');
+    expect(isFieldFilledIn).toHaveBeenCalled();
+    expect(isTextAreaValid).toHaveBeenCalled();
     expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
   });
 

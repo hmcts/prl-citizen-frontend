@@ -1,14 +1,7 @@
 import { Application } from 'express';
 
 import { Routes } from './routes';
-import {
-  ACCESSIBILITY_STATEMENT,
-  CONTACT_US,
-  COOKIES_PAGE,
-  PRIVACY_POLICY,
-  RESPONDENT_TASK_LIST_URL,
-  TERMS_AND_CONDITIONS,
-} from './steps/urls';
+import { ACCESSIBILITY_STATEMENT, CONTACT_US, COOKIES_PAGE, PRIVACY_POLICY, TERMS_AND_CONDITIONS } from './steps/urls';
 
 const mockCSRFTokenError = jest.fn();
 const mockNotFound = jest.fn();
@@ -83,15 +76,6 @@ jest.mock('./steps/timed-out/get', () => {
   };
 });
 
-const mockRespondentTaskListGetController = jest.fn();
-jest.mock('../main/steps/respondent/task-list/get', () => {
-  return {
-    RespondentTaskListGetController: jest.fn().mockImplementation(() => {
-      return { load: mockRespondentTaskListGetController };
-    }),
-  };
-});
-
 describe('Routes', () => {
   let appMock;
   beforeEach(() => {
@@ -117,6 +101,5 @@ describe('Routes', () => {
     expect(appMock.get).toHaveBeenCalledWith(CONTACT_US, mockContactUsGetController);
     expect(appMock.get).toHaveBeenCalledWith('/save-and-sign-out', mockSaveAndSignOutGetController);
     expect(appMock.get).toHaveBeenCalledWith('/timed-out', mockTimedOutGetController);
-    expect(appMock.get).toHaveBeenCalledWith(RESPONDENT_TASK_LIST_URL, mockRespondentTaskListGetController);
   });
 });

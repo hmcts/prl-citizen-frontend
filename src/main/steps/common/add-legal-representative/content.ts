@@ -1,9 +1,9 @@
 import { PartyType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { getApplicant, getApplicantName } from '../../applicant/task-list/content';
+import { getApplicant, getApplicantName } from '../../applicant/task-list';
 import { getCasePartyType } from '../../prl-cases/dashboard/utils';
-import { getRespondent, getRespondentName } from '../../respondent/task-list/content';
+import { getRespondent, getRespondentName } from '../../respondent/task-list';
 
 const en = {
   title: 'Adding a legal representative',

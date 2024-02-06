@@ -275,7 +275,7 @@ describe('respondent1Sequence', () => {
 
     expect(respondentCaseSequence[60].url).toBe('/tasklistresponse/summary-confirmation');
     expect(respondentCaseSequence[60].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[60].getNextStep({})).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[60].getNextStep({})).toBe('/task-list/respondent');
 
     expect(respondentCaseSequence[61].url).toBe('/respondent/task-list');
     expect(respondentCaseSequence[61].showInSection).toBe('aboutCaAndDaRespondentCase');

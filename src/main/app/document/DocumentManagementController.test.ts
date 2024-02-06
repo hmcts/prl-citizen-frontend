@@ -862,6 +862,7 @@ describe('DocumentManagerController', () => {
       req.query.isApplicant = 'No';
       req.session.userCase.respondentUploadFiles = uploadedFiles;
       req.params.documentId = '9813df11-41bf-4b46-a602-86766b5e3547';
+      req.session.errors = !req.session.errors;
       deleteCitizenStatementDocumentMock.mockResolvedValue('FAILURE');
       await documentManagerController.deleteDocument(req, res);
 
@@ -968,7 +969,7 @@ describe('DocumentManagerController', () => {
     });
   });
   describe('clearUploadDocumentFormData', () => {
-    test('clearUploadDocumentFormData for applicant', async () => {
+    test('clearUploadDocumentFormData for applicant tasklist', async () => {
       req.query.isApplicant = 'Yes';
       req.session.userCase.start = 'Yes';
       req.query.isContinue = YesOrNo.YES;

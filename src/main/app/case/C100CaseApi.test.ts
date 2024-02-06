@@ -264,7 +264,7 @@ describe('CaseApi', () => {
         caseId: '1234',
         caseTypeOfApplication: 'C100',
         c100RebuildReturnUrl: 'MOCK_URL',
-        state: 'REQUESTED_FOR_DELETION',
+        state: 'READY_FOR_DELETION',
         noOfDaysRemainingToSubmitCase: '10',
       },
       {
