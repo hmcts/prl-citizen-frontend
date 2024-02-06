@@ -1,48 +1,25 @@
+import { interpolate } from '../../../../steps/common/string-parser';
 import { CaseType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { applyParms } from '../../../../steps/common/url-parser';
-import { APPLICANT_TASK_LIST_URL, FETCH_CASE_DETAILS } from '../../../../steps/urls';
+import { APPLICANT_CHECK_ANSWERS, APPLICANT_TASK_LIST_URL, FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
 const en = {
-  section: 'How your documents will be shared',
-  removingDetails: 'Removing details you want kept private',
-  continue: 'Continue',
-  restrictDocument: 'Restrict a document',
-  documentSharedLine1:
-    'If there are personal details, such as your address, which you do not want to be shared in the documents then you should remove them. ',
-  documentSharedLine2:
-    'To remove the details you should get a copy of the document, then,cross out the details you want to keep private, so that they are no longer visible.',
-  documentSharedLine3:
-    'The court must treat each person in the case fairly. This includes making a decision on whether the other people in the case can see this document. The court will only restrict access if:',
-  restrictItems: [
-    'there is a good reason not to share the document, for example safety concerns',
-    'the document is not something the judge needs to see',
-    'an address that needs to be kept private is included in the document',
-  ],
-  explainWhy: 'Explain why this document should not be shared with the other people in the case (optional).',
-  cancel: 'Cancel',
+  panelTitle: 'Before you submit a document',
+  panelContent:
+    'Remove or cross out with a pen any confidential details or personal contact information you want to keep private so they are no longer visible.',
+  bodyContent:
+    'If your contact details have changed, go to <a href="{editContactDetailsUrl}" class="govuk-link" target="_self">confirm or edit your contact details</a> to update them.',
 };
 
 const cy: typeof en = {
-  section: 'Sut fydd eich dogfennau’n cael eu rhannu',
-  removingDetails: 'Removing details you want kept private (welsh)',
-  continue: 'Parhau',
-  restrictDocument: 'Restrict a document (welsh)',
-  documentSharedLine1:
-    'If there are personal details, such as your address, which you do not want to be shared in the documents then you should remove them. (welsh)',
-  documentSharedLine2:
-    'To remove the details you should get a copy of the document, then,cross out the details you want to keep private, so that they are no longer visible. (welsh)',
-  documentSharedLine3:
-    'The court must treat each person in the case fairly. This includes making a decision on whether the other people in the case can see this document. The court will only restrict access if: (welsh)',
-  restrictItems: [
-    'there is a good reason not to share the document, for example safety concerns (welsh)',
-    'the document is not something the judge needs to see (welsh)',
-    'an address that needs to be kept private is included in the document (welsh)',
-  ],
-  explainWhy: 'Explain why this document should not be shared with the other people in the case (optional). (welsh)',
-  cancel: 'Canslo',
+  panelTitle: 'Before you submit a document - welsh',
+  panelContent:
+    'Remove or cross out with a pen any confidential details or personal contact information you want to keep private so they are no longer visible. - welsh',
+  bodyContent:
+    'If your contact details have changed, go to <a href="{editContactDetailsUrl}" class="govuk-link" target="_self">confirm or edit your contact details</a> to update them. - welsh',
 };
 
 const languages = {
@@ -51,15 +28,9 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-    reasonForDocumentCantBeShared: {
-      type: 'textarea',
-      labelSize: 's',
-      label: l => l.explainWhy,
-    },
-  },
+  fields: {},
   onlyContinue: {
-    text: l => l.continue,
+    text: l => l.onlyContinue,
   },
   link: {
     classes: 'govuk-!-margin-left-3',
@@ -76,14 +47,19 @@ export const generateContent: TranslationFn = content => {
   const { docCategory, docType } = content.additionalData!.req.params;
   const { category: caption, type: title } = getDocumentMeta(docCategory, docType, content.language);
 
-  Object.assign(form.link!, {
-    href:
-      caseType === CaseType.C100 ? applyParms(FETCH_CASE_DETAILS, { caseId }) : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
-  });
-
   return {
     ...translations,
-    form,
+    bodyContent: interpolate(translations.bodyContent, { editContactDetailsUrl: APPLICANT_CHECK_ANSWERS }),
+    form: {
+      ...form,
+      link: {
+        ...form.link,
+        href:
+          caseType === CaseType.C100
+            ? applyParms(FETCH_CASE_DETAILS, { caseId })
+            : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
+      },
+    },
     caption,
     title,
   };

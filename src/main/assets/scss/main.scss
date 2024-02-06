@@ -230,3 +230,39 @@ section {
       font-size: 1.5rem;
   }
 }
+
+@media (max-width: 40.0525em) {
+  .govuk-panel--custom {
+      padding: 10px;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+  }
+}
+@media (min-width: 40.0625em) {
+  .govuk-panel--custom {
+      font-size: 2.25rem;
+      line-height: 1.1111111111;
+  }
+}
+.govuk-panel--custom {
+    font-family: GDS Transport,arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 1.0416666667;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    padding: 35px;
+    border: 5px solid #0000;
+
+  &.govuk-panel--info-custom{
+    color: #fff;
+    background: #1c70b7;
+  }
+
+  > .govuk-panel__body{
+    font-size: 1.8rem;
+  }
+
+}

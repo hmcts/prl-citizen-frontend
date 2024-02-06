@@ -1,18 +1,19 @@
 {% extends "common/template.njk" %}
+
 {% block pageTitle %}
-  {{ section }}
+  {{ panelTitle }}
   {{ appName }}
 {% endblock %}
+
 {% block page_content %}
-  <span class="govuk-heading-l">{{ section }}</span>
-  <h3 class="govuk-heading-m">{{ removingDetails }}</h3>
-  <p class="govuk-body">{{ documentSharedLine1 }}</p>
-  <p class="govuk-body">{{ documentSharedLine2 }}</p>
-  <h3 class="govuk-heading-m">{{ restrictDocument }}</h3>
-  <p class="govuk-body">{{ documentSharedLine3 }}</p>
-  <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
-    {% for item in restrictItems %}
-      <li>{{ item }}</li>
-    {% endfor %}
-  </ul>
+  <div class="govuk-panel--custom govuk-panel--info-custom">
+    <h1>
+      {{panelTitle}}
+    </h1>
+    <div class="govuk-panel__body">
+      {{panelContent}}
+    </div>
+  </div>
+
+  <p class="govuk-body govuk-!-margin-top-6 govuk-!-margin-bottom-6">{{ bodyContent | safe }}</p>
 {% endblock %}
