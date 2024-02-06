@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -91,6 +92,14 @@ describe('doemstic_abuse_risk content', () => {
     const safetyConcerns = fields.safetyConcerns as FormOptions;
     expect(safetyConcerns.type).toBe('radios');
     expect(safetyConcerns.classes).toBe('govuk-radios');
+    expect((safetyConcerns.label as Function)(generatedContent)).toBe(undefined);
+    expect((safetyConcerns.section as Function)(generatedContent)).toBe(enContent.section);
+    expect((safetyConcerns.values[0].label as Function)(generatedContent)).toBe(enContent.one);
+    expect((safetyConcerns.values[1].label as Function)(generatedContent)).toBe(enContent.two);
+    expect((safetyConcerns.values[2].label as Function)(generatedContent)).toBe(undefined);
+
+    (safetyConcerns.validator as Function)(generatedContent);
+    expect(isFieldFilledIn).toHaveBeenCalled();
   });
 
   test('should onlyContinue continue button', () => {

@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { Gender, YesNoEmpty } from '../../../../app/case/definition';
-import { FormContent, LanguageLookup } from '../../../../app/form/Form';
+import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
@@ -14,6 +15,7 @@ const en = {
   pageTitle: 'Enter your name  ',
   subTitle:
     'You and anyone else making this application are known as the applicants. <br> <br> The other people who will receive this application are known as the respondents. We will ask for their details later.',
+  applicant: 'Applicant',
   firstName: 'First name(s)',
   firstNameHint: 'Include all middle names here',
   lastName: 'Last name(s)',
@@ -36,6 +38,7 @@ const cy = {
   pageTitle: 'Nodwch eich enw',
   subTitle:
     'Gelwir chi ac unrhyw un arall sy’n gwneud y cais hwn yn ‘y ceiswyr’.<br> <br> Gelwir y bobl eraill sy’n derbyn y cais hwn yn ‘yr atebwyr.’ Byddwn yn gofyn am eu manylion yn nes ymlaen.',
+  applicant: 'Ceisydd',
   firstName: 'Enw(au) cyntaf',
   firstNameHint: 'Nodwch bob enw canol yma',
   lastName: 'Cyfenw(au)',
@@ -155,9 +158,11 @@ describe('applicant > add-applicants > content', () => {
   } as unknown as CommonContent;
   let generatedContent;
   let form;
+  let fields;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
@@ -189,6 +194,27 @@ describe('applicant > add-applicants > content', () => {
       },
       () => generateContent({ ...commonContent, language: 'cy' })
     );
+  });
+
+  test('should update form fields', () => {
+    expect(fields.applicantLabel.type).toBe('heading');
+    expect((fields.applicantLabel.label as Function)(generatedContent)).toBe(en.labelFornewName);
+
+    expect(fields.applicantFirstName.type).toBe('text');
+    expect((fields.applicantFirstName.label as Function)(generatedContent)).toBe(en.firstName);
+    expect((fields.applicantFirstName.hint as Function)(generatedContent)).toBe(en.firstNameHint);
+    (fields.applicantFirstName.validator as Function)('test');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test');
+
+    expect(fields.applicantLastName.type).toBe('text');
+    expect((fields.applicantLastName.label as Function)(generatedContent)).toBe(en.lastName);
+    (fields.applicantLastName.validator as Function)('test');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test');
+
+    expect(fields.addAnotherApplicant.type).toBe('button');
+    expect((fields.addAnotherApplicant.label as Function)(generatedContent)).toBe(en.buttonAddApplicant);
+
+    expect((fields.informationFieldSet.label as Function)(generatedContent)).toBe(en.subTitle);
   });
 
   test('should contain Save and continue button', () => {
@@ -225,5 +251,32 @@ describe('applicant > add-applicants > content', () => {
     ]);
     expect(formFields).not.toBe(null);
     expect(1).toBe(1);
+  });
+
+  test('should generate form fields correctly', () => {
+    const fields = generateFormFields(dummyApplicants).fields as FormFields;
+
+    const { fieldset1: fieldset1 } = fields as Record<string, FormFields>;
+    const {
+      'ApplicantFirstName-1': ApplicantFirstName,
+      'ApplicantLastName-1': ApplicantLastName,
+      removeApplicant,
+    } = fieldset1.subFields as FormFields;
+
+    expect(fieldset1.type).toBe('fieldset');
+    expect((fieldset1.label as Function)(generatedContent)).toBe(en.applicant + ' 1');
+
+    expect(ApplicantFirstName.type).toBe('text');
+    expect((ApplicantFirstName.label as Function)(generatedContent)).toBe(en.firstName);
+    (ApplicantFirstName.validator as Function)('test');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test');
+
+    expect(ApplicantLastName.type).toBe('text');
+    expect((ApplicantLastName.label as Function)(generatedContent)).toBe(en.lastName);
+    (ApplicantLastName.validator as Function)('test');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test');
+
+    expect(removeApplicant.type).toBe('link');
+    expect((removeApplicant.label as Function)(generatedContent)).toBe(en.removeApplicant + ' 1');
   });
 });

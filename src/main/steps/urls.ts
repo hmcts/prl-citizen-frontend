@@ -31,6 +31,7 @@ export const FETCH_CASE_DETAILS: PageLink = '/case/:caseId';
 export const PARTY_TASKLIST: PageLink = '/task-list/:partyType';
 
 export const C100_APPLICANT_TASKLIST: PageLink = '/task-list/applicant';
+export const TASKLIST_RESPONDENT: PageLink = '/task-list/respondent';
 
 /*confirm-contact-details-start */
 export const CONFIRM_CONTACT_DETAILS: PageLink = '/confirm-contact-details';
@@ -610,17 +611,21 @@ export const SCREENING_QUESTIONS = [
 export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
 export const LOCAL_API_SESSION = '/api/v1/session';
 export const SAFEGAURD_EXCLUDE_URLS = [
-  DASHBOARD_URL,
-  PIN_ACTIVATION_URL,
   C100_URL,
+  DASHBOARD_URL,
   LOCAL_API_SESSION,
   PAYMENT_RETURN_URL,
-  DOCUMENT_MANAGER,
-  ALLEGATION_OF_HARM_VOILENCE_DOC,
-  RESPONSE_TO_CA,
-  AOH_TO_CA,
-  CITIZEN_DOWNLOAD_UPLOADED_DOCS,
   TASK_LIST_RESPONSE,
+  ALLEGATION_OF_HARM_VOILENCE,
+  RESPONSE_TO_CA,
+  APPLICANT_CA_DA_REQUEST,
+  FETCH_CASE_DETAILS,
+  PIN_ACTIVATION_CASE_ACTIVATED_URL,
+  DOCUMENT_MANAGER,
+  CITIZEN_DOWNLOAD_UPLOADED_DOCS,
+  PIN_ACTIVATION_URL,
+  ALLEGATION_OF_HARM_VOILENCE_DOC,
+  AOH_TO_CA,
 ];
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>

@@ -3,8 +3,11 @@ import mockUserCase from '../../../../../../test/unit/utils/mockUserCase';
 import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
-import { applicant_all_docs_en } from './section-titles-all-documents';
-import { applicant_tasklist_items_all_docs_en } from './tasklist-items-all-documents';
+import { applicant_all_docs_cy, applicant_all_docs_en } from './section-titles-all-documents';
+import {
+  applicant_tasklist_items_all_docs_cy,
+  applicant_tasklist_items_all_docs_en,
+} from './tasklist-items-all-documents';
 
 const enContent = {
   title: 'All documents',
@@ -13,12 +16,20 @@ const enContent = {
 };
 const cyContent = {
   title: 'Pob dogfen',
-  sectionTitles: applicant_all_docs_en,
-  taskListItems: applicant_tasklist_items_all_docs_en,
+  sectionTitles: applicant_all_docs_cy,
+  taskListItems: applicant_tasklist_items_all_docs_cy,
 };
 describe('task-list > content', () => {
   const commonContent = {
     language: 'en',
+    additionalData: {
+      req: {
+        originalUrl: '/applicant/yourdocuments/alldocuments/alldocuments',
+        session: {
+          userCase: { caseTypeOfApplication: 'C100' },
+        },
+      },
+    },
     userCase: {
       ...mockUserCase,
       applicants: [
@@ -63,16 +74,16 @@ describe('task-list > content', () => {
       ],
       allegationsOfHarmYesNo: 'NO',
     },
-  } as CommonContent;
+  } as unknown as CommonContent;
   //eslint-disable-next-line jest/expect-expect
-  test.skip('should return correct english content', () => {
+  test('should return correct english content', () => {
     languageAssertions('en', enContent, () => generateContent(commonContent));
   });
   //eslint-disable-next-line jest/expect-expect
-  test.skip('should return correct welsh content', () => {
+  test('should return correct welsh content', () => {
     languageAssertions('en', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-  test.skip.each([
+  test.each([
     {
       userCase: {
         ...mockUserCase,
@@ -83,7 +94,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '#',
+              href: '/applicant/yourdocuments/alldocuments/orders',
               id: 'orders-from-the-court-all-docs',
               text: 'View all orders from the court',
             },
@@ -94,173 +105,60 @@ describe('task-list > content', () => {
           items: [
             {
               id: 'applicant_request_for_child_arrangements',
-              text: "Applicant_FNAME_LNAME's request for child arrangements",
-              href: '/applicant/yourdocuments/alldocuments/carequest',
+              text: "test test's request for domestic abuse",
+              href: '/applicant/yourdocuments/alldocuments/cadafinaldocumentrequest',
             },
             {
               id: 'applicant-allegations-of-harm-and-violence',
-              text: "Applicant_FNAME_LNAME's allegations of harm and violence",
-              href: '/applicant/yourdocuments/alldocuments/aohviolence',
+              text: "test test's allegations of harm and violence",
+              href: '/yourdocuments/alldocuments/aohviolence',
             },
             {
               id: 'applicant_response_to_other_side_allegation_of_harm',
-              text: "Applicant_FNAME_LNAME's response to the other side's allegations of harm or violence",
-              href: '/applicant/yourdocuments/alldocuments/aohviolenceresponse',
+              text: "test test's response to the other side's allegations of harm or violence",
+              href: '/applicant/yourdocuments/alldocuments/respond_others_allegation_of_harm_and_violence',
             },
             {
               id: 'applicant_position_statements',
-              text: "Applicant_FNAME_LNAME's position statements",
-              href: '/applicant/yourdocuments/alldocuments/positionstatement',
+              text: "test test's position statements",
+              href: '/doc/positionstatements/applicant/test test?',
             },
             {
               id: 'applicant_witness_statements',
-              text: "Applicant_FNAME_LNAME's witness statements",
-              href: '/applicant/yourdocuments/alldocuments/applicantwitnessstatements',
+              text: "test test's witness statements",
+              href: '/doc/yourwitnessstatements/applicant/test test?',
             },
             {
               id: 'other_people_witness_statements',
               text: "Other people's witness statements",
-              href: '/applicant/yourdocuments/alldocuments/otherpeoplewitnessstatement',
+              href: '/doc/otherpeoplewitnessstatement/applicant',
             },
-            {
-              id: 'medical_reports',
-              text: 'Medical reports',
-              href: '/applicant/yourdocuments/alldocuments/medicalreports',
-            },
-            {
-              id: 'miam_certificate',
-              text: 'MIAM certificate',
-              href: '/applicant/yourdocuments/alldocuments/miamcertificate',
-            },
-            {
-              id: 'applications_made_in_these_proceedings',
-              text: 'Applications made in these proceedings',
-              href: '/applicant/yourdocuments/alldocuments/applicationmade',
-            },
-            {
-              id: 'previous_orders_submitted',
-              text: 'Previous orders submitted with application',
-              href: '/applicant/yourdocuments/alldocuments/previousorders',
-            },
-            {
-              id: 'letters_from_school',
-              text: 'Letters from school',
-              href: '/applicant/yourdocuments/alldocuments/letterfromschool',
-            },
-            {
-              id: 'digital_downloads',
-              text: 'Emails, screenshots, images and other media files',
-              href: '/applicant/yourdocuments/alldocuments/digitaldownloads',
-            },
-            {
-              id: 'medical_records',
-              text: 'Medical records',
-              href: '/applicant/yourdocuments/alldocuments/medicalrecords',
-            },
-            {
-              id: 'paternity_test_reports',
-              text: 'Paternity test reports',
-              href: '/applicant/yourdocuments/alldocuments/paternity_test_reports',
-            },
-            {
-              id: 'drug_alcohol_tests',
-              text: 'Drug and alcohol tests (toxicology)',
-              href: '/applicant/yourdocuments/alldocuments/drug_alcohol_tests',
-            },
-            {
-              id: 'police_disclosures',
-              text: 'Police reports',
-              href: '/applicant/yourdocuments/alldocuments/police_disclosures',
-            },
-            {
-              id: 'witness_availability',
-              text: 'Witness availability',
-              href: '/applicant/yourdocuments/alldocuments/witness_availability',
-            },
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
           ],
           title: "Applicant's documents",
         },
         {
           items: [
             {
-              href: '/applicant/yourdocuments/alldocuments/caresponse',
-              id: 'respondent_response_to_request_for_child_arrangements',
-              text: "<namerespondentxxxxx>'s response to the request for child arrangements",
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondentaohresponse',
-              id: 'respondent_response_to_allegations_of_harm_and_violence',
-              text: "<namerespondentxxxxx>'s response to the allegations of harm and violence",
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondentaohviolence',
-              id: 'respondent_allegation_of_harm_and_violence',
-              text: "<namerespondentxxxxx>'s allegations of harm and violence",
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondentapplicationmade',
-              id: 'applications_made_in_these_proceedings_respondent',
-              text: 'Applications made in these proceedings',
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondentpreviousorders',
-              id: 'previous_orders_submitted_respondent',
-              text: 'Previous orders submitted with application',
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondentletterfromschool',
-              id: 'letters_from_school_respondent',
-              text: 'Letters from school',
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondentpositionstatement',
+              href: '/doc/positionstatements/respondent/test test?',
               id: 'respondent_position_statements',
-              text: "<namerespondentxxxxx>'s position statements",
+              text: "test test's position statements",
             },
             {
-              href: '/applicant/yourdocuments/alldocuments/respondentwitnessstatement',
+              href: '/doc/yourwitnessstatements/respondent/test test?',
               id: 'respondent_witness_statements',
-              text: "<namerespondentxxxxx>'s witness statements",
+              text: "test test's witness statements",
             },
             {
-              href: '/applicant/yourdocuments/alldocuments/respondentOtherPeopleWitnessStatement',
+              href: '/doc/otherpeoplewitnessstatement/respondent',
               id: 'other_people_witness_statements_respondent',
               text: "Other people's witness statements",
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondentdigitaldownloads',
-              id: 'digital_downloads_respondent',
-              text: 'Emails, screenshots, images and other media files',
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondentmedicalrecords',
-              id: 'medical_records_respondent',
-              text: 'Medical records',
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondentmedicalreports',
-              id: 'medical_reports_respondent',
-              text: 'Medical reports',
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondent_paternity_test_reports',
-              id: 'paternity_test_reports_respondent',
-              text: 'Paternity test reports',
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondent_drug_alcohol_tests',
-              id: 'drug_alcohol_tests_respondent',
-              text: 'Drug and alcohol tests (toxicology)',
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondent_police_disclosure',
-              id: 'police_disclosures_respondent',
-              text: 'Police reports',
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/respondent_drug_alcohol_tests',
-              id: 'witness_availability_respondent',
-              text: 'Witness availability',
             },
           ],
           title: "Respondent's documents",
@@ -293,24 +191,9 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/yourdocuments/alldocuments/important_address_and_contact_details',
-              id: 'important_address_and_contact_details',
-              text: 'Important information about your address and contact details',
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/dna_reports',
-              id: 'dna_reports',
-              text: 'DNA reports',
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/privacy_notice',
-              id: 'privacy_notice',
-              text: 'Privacy notice',
-            },
-            {
-              href: '/applicant/yourdocuments/alldocuments/special_measures',
-              id: 'special_measures',
-              text: 'Special measures',
+              href: '/doc/otherdocuments/applicant',
+              id: 'other_documents',
+              text: 'Other documents',
             },
           ],
           title: 'Other documents',
@@ -318,12 +201,12 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/yourdocuments/alldocuments/notice_of_hearing',
+              href: '#',
               id: 'notice_of_hearing',
               text: 'Notice of hearing',
             },
             {
-              href: '/applicant/yourdocuments/alldocuments/support_needed',
+              href: '/applicant/support-you-need-during-case/attending-the-court',
               id: 'support_you_need_during_your_case',
               text: 'Support you need during your case',
             },
@@ -338,7 +221,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '#',
+              href: '/applicant/yourdocuments/alldocuments/orders',
               id: 'orders-from-the-court-all-docs',
               text: 'View all orders from the court',
             },
@@ -349,173 +232,60 @@ describe('task-list > content', () => {
           items: [
             {
               id: 'applicant_request_for_child_arrangements',
-              text: "Applicant_FNAME_LNAME's request for child arrangements",
-              href: '#',
+              text: "test test's request for domestic abuse",
+              href: '/applicant/yourdocuments/alldocuments/cadafinaldocumentrequest',
             },
             {
               id: 'applicant-allegations-of-harm-and-violence',
-              text: "Applicant_FNAME_LNAME's allegations of harm and violence",
-              href: '#',
+              text: "test test's allegations of harm and violence",
+              href: '/applicant/yourdocuments/alldocuments/allegationofharmandviolence',
             },
             {
               id: 'applicant_response_to_other_side_allegation_of_harm',
-              text: "Applicant_FNAME_LNAME's response to the other side's allegations of harm or violence",
-              href: '#',
+              text: "test test's response to the other side's allegations of harm or violence",
+              href: '/applicant/yourdocuments/alldocuments/respond_others_allegation_of_harm_and_violence',
             },
             {
               id: 'applicant_position_statements',
-              text: "Applicant_FNAME_LNAME's position statements",
-              href: '#',
+              text: "test test's position statements",
+              href: '/doc/positionstatements/applicant/test test?',
             },
             {
               id: 'applicant_witness_statements',
-              text: "Applicant_FNAME_LNAME's witness statements",
-              href: '/applicant/yourdocuments/alldocuments/applicantwitnessstatements',
+              text: "test test's witness statements",
+              href: '/doc/yourwitnessstatements/applicant/test test?',
             },
             {
               id: 'other_people_witness_statements',
               text: "Other people's witness statements",
-              href: '#',
+              href: '/doc/otherpeoplewitnessstatement/applicant',
             },
-            {
-              id: 'medical_reports',
-              text: 'Medical reports',
-              href: '#',
-            },
-            {
-              id: 'miam_certificate',
-              text: 'MIAM certificate',
-              href: '#',
-            },
-            {
-              id: 'applications_made_in_these_proceedings',
-              text: 'Applications made in these proceedings',
-              href: '#',
-            },
-            {
-              id: 'previous_orders_submitted',
-              text: 'Previous orders submitted with application',
-              href: '#',
-            },
-            {
-              id: 'letters_from_school',
-              text: 'Letters from school',
-              href: '#',
-            },
-            {
-              id: 'digital_downloads',
-              text: 'Emails, screenshots, images and other media files',
-              href: '#',
-            },
-            {
-              id: 'medical_records',
-              text: 'Medical records',
-              href: '#',
-            },
-            {
-              id: 'paternity_test_reports',
-              text: 'Paternity test reports',
-              href: '#',
-            },
-            {
-              id: 'drug_alcohol_tests',
-              text: 'Drug and alcohol tests (toxicology)',
-              href: '#',
-            },
-            {
-              id: 'police_disclosures',
-              text: 'Police reports',
-              href: '#',
-            },
-            {
-              id: 'witness_availability',
-              text: 'Witness availability',
-              href: '#',
-            },
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
           ],
           title: "Applicant's documents",
         },
         {
           items: [
             {
-              href: '#',
-              id: 'respondent_response_to_request_for_child_arrangements',
-              text: "<namerespondentxxxxx>'s response to the request for child arrangements",
-            },
-            {
-              href: '#',
-              id: 'respondent_response_to_allegations_of_harm_and_violence',
-              text: "<namerespondentxxxxx>'s response to the allegations of harm and violence",
-            },
-            {
-              href: '#',
-              id: 'respondent_allegation_of_harm_and_violence',
-              text: "<namerespondentxxxxx>'s allegations of harm and violence",
-            },
-            {
-              href: '#',
-              id: 'applications_made_in_these_proceedings_respondent',
-              text: 'Applications made in these proceedings',
-            },
-            {
-              href: '#',
-              id: 'previous_orders_submitted_respondent',
-              text: 'Previous orders submitted with application',
-            },
-            {
-              href: '#',
-              id: 'letters_from_school_respondent',
-              text: 'Letters from school',
-            },
-            {
-              href: '#',
+              href: '/doc/positionstatements/respondent/test test?',
               id: 'respondent_position_statements',
-              text: "<namerespondentxxxxx>'s position statements",
+              text: "test test's position statements",
             },
             {
-              href: '#',
+              href: '/doc/yourwitnessstatements/respondent/test test?',
               id: 'respondent_witness_statements',
-              text: "<namerespondentxxxxx>'s witness statements",
+              text: "test test's witness statements",
             },
             {
-              href: '#',
+              href: '/doc/otherpeoplewitnessstatement/respondent',
               id: 'other_people_witness_statements_respondent',
               text: "Other people's witness statements",
-            },
-            {
-              href: '#',
-              id: 'digital_downloads_respondent',
-              text: 'Emails, screenshots, images and other media files',
-            },
-            {
-              href: '#',
-              id: 'medical_records_respondent',
-              text: 'Medical records',
-            },
-            {
-              href: '#',
-              id: 'medical_reports_respondent',
-              text: 'Medical reports',
-            },
-            {
-              href: '#',
-              id: 'paternity_test_reports_respondent',
-              text: 'Paternity test reports',
-            },
-            {
-              href: '#',
-              id: 'drug_alcohol_tests_respondent',
-              text: 'Drug and alcohol tests (toxicology)',
-            },
-            {
-              href: '#',
-              id: 'police_disclosures_respondent',
-              text: 'Police reports',
-            },
-            {
-              href: '#',
-              id: 'witness_availability_respondent',
-              text: 'Witness availability',
             },
           ],
           title: "Respondent's documents",
@@ -523,22 +293,22 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '#',
+              href: '/applicant/yourdocuments/alldocuments/safeguarding_letter',
               id: 'safeguarding_letter',
               text: 'Safeguarding letter',
             },
             {
-              href: '#',
+              href: '/applicant/yourdocuments/alldocuments/section7_report',
               id: 'section7_report',
               text: 'Section 7 report',
             },
             {
-              href: '#',
+              href: '/applicant/yourdocuments/alldocuments/section37_report',
               id: 'section37_report',
               text: 'Section 37 report',
             },
             {
-              href: '#',
+              href: '/applicant/yourdocuments/alldocuments/risk_assessment_16a',
               id: 'risk_assessment_16a',
               text: '16a risk assessment',
             },
@@ -548,24 +318,9 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '#',
-              id: 'important_address_and_contact_details',
-              text: 'Important information about your address and contact details',
-            },
-            {
-              href: '#',
-              id: 'dna_reports',
-              text: 'DNA reports',
-            },
-            {
-              href: '#',
-              id: 'privacy_notice',
-              text: 'Privacy notice',
-            },
-            {
-              href: '#',
-              id: 'special_measures',
-              text: 'Special measures',
+              href: '/doc/otherdocuments/applicant',
+              id: 'other_documents',
+              text: 'Other documents',
             },
           ],
           title: 'Other documents',
@@ -578,7 +333,7 @@ describe('task-list > content', () => {
               text: 'Notice of hearing',
             },
             {
-              href: '#',
+              href: '/applicant/support-you-need-during-case/attending-the-court',
               id: 'support_you_need_during_your_case',
               text: 'Support you need during your case',
             },

@@ -1,4 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { Validator } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -53,6 +55,14 @@ describe('address history > content', () => {
     language: 'en',
     userCase: {},
   }) as CommonContent;
+  let generatedContent;
+  let form;
+  let fields;
+  beforeEach(() => {
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
+  });
 
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -60,5 +70,28 @@ describe('address history > content', () => {
 
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+  test('should contain  field', () => {
+    const citizenUserPhoneNumberField = fields.citizenUserPhoneNumber as FormOptions;
+    expect(citizenUserPhoneNumberField.type).toBe('text');
+    expect(citizenUserPhoneNumberField.classes).toBe('govuk-input--width-20');
+    expect((citizenUserPhoneNumberField.label as Function)(generatedContent)).toBe(en.citizenUserPhoneNumber);
+    (citizenUserPhoneNumberField.validator as Validator)('test value');
+
+    const citizenUserEmailAddressField = fields.citizenUserEmailAddress as FormOptions;
+    expect(citizenUserEmailAddressField.type).toBe('text');
+    expect(citizenUserEmailAddressField.classes).toBe('govuk-input--width-20');
+    expect((citizenUserEmailAddressField.label as Function)(generatedContent)).toBe(en.citizenUserEmailAddress);
+    (citizenUserEmailAddressField.validator as Validator)('test value');
+
+    const citizenUserSafeToCallField = fields.citizenUserSafeToCall as FormOptions;
+    expect(citizenUserSafeToCallField.type).toBe('text');
+    expect(citizenUserSafeToCallField.classes).toBe('govuk-input--width-20');
+    expect((citizenUserSafeToCallField.label as Function)(generatedContent)).toBe(en.citizenUserSafeToCall);
+    expect((citizenUserSafeToCallField.hint as Function)(generatedContent)).toBe(en.safeToCallHint);
+    (citizenUserSafeToCallField.validator as Validator)('test value');
+  });
+  test('should contain continue button', () => {
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
   });
 });

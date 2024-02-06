@@ -36,11 +36,17 @@
         {% block oneThird %}
           <h2 class="govuk-heading-m">{{iWantTo}}</h2>
           <ul class="govuk-list">
-          {% for hyperlink in hyperlinks %}
-            <li><a href="{{hyperlink.link}}" target="{{hyperlink.target}}" class="govuk-link">{{hyperlink.label}}</a></li>
-          {% endfor %}
+            {% for hyperlink in hyperlinks %}
+              <li>
+                <a href="{{hyperlink.link}}" target="{{hyperlink.target}}" class="govuk-link">{{hyperlink.label}}</a>
+              </li>
+            {% endfor %}
           </ul class="govuk-list">
-          {% include "../contact-us-c100.njk" %}
+          {%if userCase.caseTypeOfApplication === "FL401" %}
+            {% include "../contact-us.njk" %}
+          {% else %}
+            {% include "../contact-us-c100.njk" %}
+          {% endif %}
         {% endblock %}
       </div>
     </div>

@@ -4,7 +4,9 @@ import {
   OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   PROCEEDINGS_COURT_PROCEEDINGS,
   PROCEEDINGS_ORDER_DETAILS,
+  PROCEEDINGS_START,
   PROCEEDINGS_SUMMARY,
+  PROCEEDING_SAVE,
 } from '../../urls';
 
 import OtherProceedingsNavigationController from './navigationController';
@@ -153,5 +155,21 @@ describe('OtherProceedingsNavigationController', () => {
       dummyRequest.params
     );
     expect(nextUrl).toBe(PROCEEDINGS_SUMMARY);
+  });
+  test('From start screen -> navigate to the summary screen', async () => {
+    const nextUrl = OtherProceedingsNavigationController.getNextUrl(
+      PROCEEDINGS_START,
+      dummyRequest.session.userCase,
+      dummyRequest.params
+    );
+    expect(nextUrl).toBe('/tasklistresponse/proceedings/summary');
+  });
+  test('From save screen -> navigate to save screen', async () => {
+    const nextUrl = OtherProceedingsNavigationController.getNextUrl(
+      PROCEEDING_SAVE,
+      dummyRequest.session.userCase,
+      dummyRequest.params
+    );
+    expect(nextUrl).toBe('/tasklistresponse/proceedings/save');
   });
 });

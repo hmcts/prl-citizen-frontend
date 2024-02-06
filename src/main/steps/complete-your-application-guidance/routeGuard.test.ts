@@ -26,7 +26,9 @@ describe('complete-your-application-guidance RouteGuard', () => {
 
   test('Should load the page without deleting screening journey related data from session when userCase is not available', async () => {
     const req = mockRequest({
-      session: {},
+      session: {
+        userCase: undefined,
+      },
     });
     const res = mockResponse();
     const next = jest.fn();
