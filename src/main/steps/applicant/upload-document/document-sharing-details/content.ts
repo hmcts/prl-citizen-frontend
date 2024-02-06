@@ -1,7 +1,7 @@
-import { interpolate } from '../../../../steps/common/string-parser';
 import { CaseType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { interpolate } from '../../../../steps/common/string-parser';
 import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { APPLICANT_CHECK_ANSWERS, APPLICANT_TASK_LIST_URL, FETCH_CASE_DETAILS } from '../../../../steps/urls';

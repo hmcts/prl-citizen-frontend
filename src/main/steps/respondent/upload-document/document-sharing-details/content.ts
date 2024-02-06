@@ -1,6 +1,6 @@
-import { interpolate } from '../../../../steps/common/string-parser';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { interpolate } from '../../../../steps/common/string-parser';
 import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { RESPONDENT_CHECK_ANSWERS, RESPONDENT_TASK_LIST_URL } from '../../../../steps/urls';
 

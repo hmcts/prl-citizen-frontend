@@ -28,16 +28,24 @@ describe('respondent -> upload-document -> document-sharing-details', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.panelTitle).toEqual('Before you submit a document');
-    expect(generatedContent.panelContent).toEqual('Remove or cross out with a pen any confidential details or personal contact information you want to keep private so they are no longer visible.');
-    expect(generatedContent.bodyContent).toEqual('If your contact details have changed, go to <a href=\"/respondent/confirm-contact-details/checkanswers\" class=\"govuk-link\" target=\"_self\">confirm or edit your contact details</a> to update them.');
+    expect(generatedContent.panelContent).toEqual(
+      'Remove or cross out with a pen any confidential details or personal contact information you want to keep private so they are no longer visible.'
+    );
+    expect(generatedContent.bodyContent).toEqual(
+      'If your contact details have changed, go to <a href="/respondent/confirm-contact-details/checkanswers" class="govuk-link" target="_self">confirm or edit your contact details</a> to update them.'
+    );
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     generatedContent = generateContent({ ...commonContent, language: 'cy' });
     expect(generatedContent.panelTitle).toEqual('Before you submit a document - welsh');
-    expect(generatedContent.panelContent).toEqual('Remove or cross out with a pen any confidential details or personal contact information you want to keep private so they are no longer visible. - welsh');
-    expect(generatedContent.bodyContent).toEqual('If your contact details have changed, go to <a href=\"/respondent/confirm-contact-details/checkanswers\" class=\"govuk-link\" target=\"_self\">confirm or edit your contact details</a> to update them. - welsh');
+    expect(generatedContent.panelContent).toEqual(
+      'Remove or cross out with a pen any confidential details or personal contact information you want to keep private so they are no longer visible. - welsh'
+    );
+    expect(generatedContent.bodyContent).toEqual(
+      'If your contact details have changed, go to <a href="/respondent/confirm-contact-details/checkanswers" class="govuk-link" target="_self">confirm or edit your contact details</a> to update them. - welsh'
+    );
   });
 
   test('should contain continue button', () => {
