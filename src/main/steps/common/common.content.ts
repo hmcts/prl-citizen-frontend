@@ -276,7 +276,8 @@ export const generatePageContent = ({
   userId?: string | undefined;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
-  const serviceName = getServiceName(additionalData?.req, commonTranslations, userCase);
+  const url = additionalData?.req?.path;
+  const serviceName = getServiceName(commonTranslations, userCase, url);
   const inPageSurveyContent = AppSurvey.getInPageSurveyContent(
     userCase?.caseTypeOfApplication as string,
     additionalData?.req,
@@ -309,11 +310,10 @@ export const generatePageContent = ({
 };
 
 const getServiceName = (
-  reqData: CommonContentAdditionalData | undefined,
   translations: typeof en | typeof cy,
-  userCase: Partial<CaseWithId> | undefined
+  userCase: Partial<CaseWithId> | undefined,
+  url: string
 ): string => {
-  const url = reqData?.path;
   const isCommonServiceName =
     url?.includes(DASHBOARD_URL) ||
     url?.includes(PIN_ACTIVATION_URL) ||
