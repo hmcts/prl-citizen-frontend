@@ -30,7 +30,11 @@
               {{ hearingLength }} 
             </dt>
             <dd class="govuk-summary-list__value">
-              {{item.lengthOfHearing}} {{days}}
+              {% if item.lengthOfHearing === 1 %}
+                {{item.lengthOfHearing}}{{smallDay}}
+              {% else %} 
+                {{item.lengthOfHearing}} {{days}}
+              {% endif %}
             </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -123,18 +127,44 @@
             {% else %}
               {% if schedule.minutes > 0 %}
                {% if schedule.durationInDayOrHours > 0 %}
-                <dd class="govuk-summary-list__value">
-                 {{schedule.durationInDayOrHours}} {{hours}} {{schedule.minutes}} {{minutes}}
-                </dd>
+                {% if schedule.minutes === 1 and schedule.durationInDayOrHours === 1 %}
+                  <dd class="govuk-summary-list__value">
+                    {{schedule.durationInDayOrHours}}{{hour}} {{schedule.minutes}} {{minute}}
+                  </dd>
+                {% elif schedule.minutes === 1 %} 
+                  <dd class="govuk-summary-list__value">
+                    {{schedule.durationInDayOrHours}} {{hours}} {{schedule.minutes}} {{minute}}
+                  </dd>
+                {% elif schedule.durationInDayOrHours === 1 %} 
+                  <dd class="govuk-summary-list__value">
+                  {{schedule.durationInDayOrHours}}{{hour}} {{schedule.minutes}} {{minutes}}
+                  </dd>
+                {% else %}
+                  <dd class="govuk-summary-list__value">
+                    {{schedule.durationInDayOrHours}} {{hours}} {{schedule.minutes}} {{minutes}}
+                  </dd>
+                {% endif %}
                {% else %}
-                <dd class="govuk-summary-list__value">
-                  {{schedule.minutes}} {{minutes}}
-                </dd>
+                {% if schedule.minutes === 1 %}
+                  <dd class="govuk-summary-list__value">
+                    {{schedule.minutes}} {{minute}}
+                  </dd>
+                {% else %}
+                  <dd class="govuk-summary-list__value">
+                    {{schedule.minutes}} {{minutes}}
+                  </dd>
+                {% endif %}
                {% endif %}
               {% else %}
-                <dd class="govuk-summary-list__value">
-                 {{schedule.durationInDayOrHours}}{{hours}}
-                </dd>
+                {% if schedule.durationInDayOrHours === 1 %}
+                  <dd class="govuk-summary-list__value">
+                    {{schedule.durationInDayOrHours}}{{hour}}
+                  </dd>
+                {% else %}
+                  <dd class="govuk-summary-list__value">
+                    {{schedule.durationInDayOrHours}}{{hours}}
+                  </dd>
+                {% endif %}
               {% endif %}
             {% endif %}
       </div>
@@ -215,7 +245,11 @@
               {{ hearingLength }} 
             </dt>
             <dd class="govuk-summary-list__value">
-              {{item.lengthOfHearing}} {{days}}
+              {% if item.lengthOfHearing === 1 %}
+                {{item.lengthOfHearing}}{{smallDay}}
+              {% else %} 
+                {{item.lengthOfHearing}} {{days}}
+              {% endif %}
             </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -309,18 +343,44 @@
             {% else %}
               {% if schedule.minutes > 0 %}
                {% if schedule.durationInDayOrHours > 0 %}
-                <dd class="govuk-summary-list__value">
-                 {{schedule.durationInDayOrHours}} {{hours}} {{schedule.minutes}} {{minutes}}
-                </dd>
+                {% if schedule.minutes === 1 and schedule.durationInDayOrHours === 1 %}
+                  <dd class="govuk-summary-list__value">
+                    {{schedule.durationInDayOrHours}}{{hour}} {{schedule.minutes}} {{minute}}
+                  </dd>
+                {% elif schedule.minutes === 1 %} 
+                  <dd class="govuk-summary-list__value">
+                    {{schedule.durationInDayOrHours}} {{hours}} {{schedule.minutes}} {{minute}}
+                  </dd>
+                {% elif schedule.durationInDayOrHours === 1 %} 
+                  <dd class="govuk-summary-list__value">
+                  {{schedule.durationInDayOrHours}}{{hour}} {{schedule.minutes}} {{minutes}}
+                  </dd>
+                {% else %}
+                  <dd class="govuk-summary-list__value">
+                    {{schedule.durationInDayOrHours}} {{hours}} {{schedule.minutes}} {{minutes}}
+                  </dd>
+                {% endif %}
                {% else %}
-                <dd class="govuk-summary-list__value">
-                  {{schedule.minutes}} {{minutes}}
-                </dd>
+                {% if schedule.minutes === 1 %}
+                  <dd class="govuk-summary-list__value">
+                    {{schedule.minutes}} {{minute}}
+                  </dd>
+                {% else %}
+                  <dd class="govuk-summary-list__value">
+                    {{schedule.minutes}} {{minutes}}
+                  </dd>
+                {% endif %}
                {% endif %}
               {% else %}
-                <dd class="govuk-summary-list__value">
-                 {{schedule.durationInDayOrHours}}{{hours}}
-                </dd>
+                {% if schedule.durationInDayOrHours === 1 %}
+                  <dd class="govuk-summary-list__value">
+                    {{schedule.durationInDayOrHours}}{{hour}}
+                  </dd>
+                {% else %}
+                  <dd class="govuk-summary-list__value">
+                    {{schedule.durationInDayOrHours}}{{hours}}
+                  </dd>
+                {% endif %}
               {% endif %}
             {% endif %}
       </div>
@@ -402,7 +462,11 @@
               {{ hearingLength }}
             </dt>
             <dd class="govuk-summary-list__value">
-              {{item.lengthOfHearing}} {{days}}
+              {% if item.lengthOfHearing === 1 %}
+                {{item.lengthOfHearing}}{{smallDay}}
+              {% else %} 
+                {{item.lengthOfHearing}} {{days}}
+              {% endif %}
             </dd>
       </div>
       <div class="govuk-summary-list__row">
