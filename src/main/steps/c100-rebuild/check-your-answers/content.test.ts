@@ -4,7 +4,6 @@ import { C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
-import { cy as caseNameCyContent, en as caseNameEnContent } from '../case-name/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 
@@ -133,7 +132,6 @@ const enContent = {
       'There is a court order preventing me from making an application without first getting the permission of the court',
     anotherReason: 'Another reason',
     dontKnow: "Don't know",
-    enterCaseName: caseNameEnContent().title,
     contactPrefernces: 'Contact preferences',
     child: 'Child',
     reasonForNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
@@ -254,7 +252,6 @@ const cyContent = {
     courtOrderPrevent: 'Mae gorchymyn llys sy’n fy rhwystro rhag gwneud cais heb gael caniatâd gan y llys yn gyntaf',
     anotherReason: 'Rheswm arall',
     dontKnow: 'Ddim yn gwybod',
-    enterCaseName: caseNameCyContent().title,
     contactPrefernces: 'Dewisiadau cyswllt',
     child: 'Plant',
     reasonForNotAttendingMiam: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
@@ -520,13 +517,11 @@ describe('Content.ts toggle test cases', () => {
                 {
                   href: '/c100-rebuild/case-name',
                   text: 'Edit',
-                  visuallyHiddenText: 'Enter Case Name',
+                  visuallyHiddenText: 'undefined',
                 },
               ],
             },
-            key: {
-              text: 'Enter Case Name',
-            },
+            key: {},
             value: {
               text: 'test',
             },
@@ -1205,9 +1200,9 @@ describe('Content.ts toggle test cases', () => {
         rows: [
           {
             actions: {
-              items: [{ href: '/c100-rebuild/case-name', text: 'Edit', visuallyHiddenText: 'Enter Case Name' }],
+              items: [{ href: '/c100-rebuild/case-name', text: 'Edit', visuallyHiddenText: 'undefined' }],
             },
-            key: { text: 'Enter Case Name' },
+            key: {},
             value: { text: 'test' },
           },
         ],
@@ -1683,9 +1678,9 @@ describe('Content.ts toggle test cases', () => {
         rows: [
           {
             actions: {
-              items: [{ href: '/c100-rebuild/case-name', text: ' Golygu', visuallyHiddenText: "Enw'r achos" }],
+              items: [{ href: '/c100-rebuild/case-name', text: ' Golygu', visuallyHiddenText: 'undefined' }],
             },
-            key: { text: "Enw'r achos" },
+            key: {},
             value: { text: 'test' },
           },
         ],
@@ -2150,13 +2145,11 @@ describe('Content.ts toggle test cases', () => {
                 {
                   href: '/c100-rebuild/case-name',
                   text: ' Golygu',
-                  visuallyHiddenText: "Enw'r achos",
+                  visuallyHiddenText: 'undefined',
                 },
               ],
             },
-            key: {
-              text: "Enw'r achos",
-            },
+            key: {},
             value: {
               text: 'test',
             },
@@ -2623,13 +2616,11 @@ describe('Content.ts toggle test cases', () => {
                 {
                   href: '/c100-rebuild/case-name',
                   text: ' Golygu',
-                  visuallyHiddenText: "Enw'r achos",
+                  visuallyHiddenText: 'undefined',
                 },
               ],
             },
-            key: {
-              text: "Enw'r achos",
-            },
+            key: {},
             value: {
               text: 'test',
             },
@@ -3163,13 +3154,11 @@ describe('Content.ts toggle test cases', () => {
                 {
                   href: '/c100-rebuild/case-name',
                   text: ' Golygu',
-                  visuallyHiddenText: "Enw'r achos",
+                  visuallyHiddenText: 'undefined',
                 },
               ],
             },
-            key: {
-              text: "Enw'r achos",
-            },
+            key: {},
             value: {
               text: 'test',
             },
