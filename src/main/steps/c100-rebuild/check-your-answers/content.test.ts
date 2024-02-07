@@ -512,15 +512,6 @@ describe('Content.ts toggle test cases', () => {
       {
         rows: [
           {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/case-name',
-                  text: 'Edit',
-                  visuallyHiddenText: 'undefined',
-                },
-              ],
-            },
             key: {},
             value: {
               text: 'test',
@@ -1199,9 +1190,6 @@ describe('Content.ts toggle test cases', () => {
       {
         rows: [
           {
-            actions: {
-              items: [{ href: '/c100-rebuild/case-name', text: 'Edit', visuallyHiddenText: 'undefined' }],
-            },
             key: {},
             value: { text: 'test' },
           },
@@ -1677,9 +1665,6 @@ describe('Content.ts toggle test cases', () => {
       {
         rows: [
           {
-            actions: {
-              items: [{ href: '/c100-rebuild/case-name', text: ' Golygu', visuallyHiddenText: 'undefined' }],
-            },
             key: {},
             value: { text: 'test' },
           },
@@ -2140,15 +2125,6 @@ describe('Content.ts toggle test cases', () => {
       {
         rows: [
           {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/case-name',
-                  text: ' Golygu',
-                  visuallyHiddenText: 'undefined',
-                },
-              ],
-            },
             key: {},
             value: {
               text: 'test',
@@ -2611,15 +2587,6 @@ describe('Content.ts toggle test cases', () => {
       {
         rows: [
           {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/case-name',
-                  text: ' Golygu',
-                  visuallyHiddenText: 'undefined',
-                },
-              ],
-            },
             key: {},
             value: {
               text: 'test',
@@ -3149,15 +3116,6 @@ describe('Content.ts toggle test cases', () => {
       {
         rows: [
           {
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/case-name',
-                  text: ' Golygu',
-                  visuallyHiddenText: 'undefined',
-                },
-              ],
-            },
             key: {},
             value: {
               text: 'test',
