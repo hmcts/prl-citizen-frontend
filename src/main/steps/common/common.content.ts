@@ -1,9 +1,9 @@
 import { capitalize } from 'lodash';
 
 import { CaseWithId } from '../../app/case/case';
-import { C100_CASE_TYPE } from '../../app/case/definition';
+import { CaseType } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
-import { ANONYMOUS_URLS, C100_URL, DASHBOARD_URL, PIN_ACTIVATION_URL } from '../../steps/urls';
+import { ACCESSIBILITY_STATEMENT, ANONYMOUS_URLS, C100_APPLICANT_TASKLIST, C100_URL, COOKIES_PAGE, DASHBOARD_URL, PIN_ACTIVATION_URL, PRIVACY_POLICY, TERMS_AND_CONDITIONS } from '../../steps/urls';
 
 import AppSurvey from './app-survey/appSurveyController';
 import { appSurveyContents } from './app-survey/content';
@@ -312,23 +312,26 @@ export const generatePageContent = ({
 const getServiceName = (
   translations: typeof en | typeof cy,
   userCase: Partial<CaseWithId> | undefined,
-  url: string
+  url: string | undefined
 ): string => {
-  const isCommonServiceName =
+  let serviceName = translations.commonServiceName;
+
+  if (!url ||
     url?.includes(DASHBOARD_URL) ||
     url?.includes(PIN_ACTIVATION_URL) ||
-    ANONYMOUS_URLS.some(_url => _url.includes(url));
-  const isC100 = url?.startsWith(C100_URL) || userCase?.caseTypeOfApplication === C100_CASE_TYPE.C100;
-  let serviceName;
-
-  if (isCommonServiceName) {
-    serviceName = translations.commonServiceName;
-  } else {
-    if (isC100) {
-      serviceName = translations.c100ServiceName;
-    } else {
-      serviceName = translations.fl401ServiceName;
-    }
+    url?.includes(COOKIES_PAGE) ||
+    url?.includes(PRIVACY_POLICY) ||
+    url?.includes(ACCESSIBILITY_STATEMENT) ||
+    url?.includes(TERMS_AND_CONDITIONS) ||
+    ANONYMOUS_URLS.some(_url => _url.includes(url))) {
+    return capitalize(serviceName)
+  }
+  if (userCase?.caseTypeOfApplication === CaseType.FL401) {
+    serviceName = translations.fl401ServiceName;
+  } else if (url.startsWith(C100_URL) ||
+    userCase?.caseTypeOfApplication === CaseType.C100 ||
+    url?.includes(C100_APPLICANT_TASKLIST)) {
+    serviceName = translations.c100ServiceName;
   }
 
   return capitalize(serviceName);

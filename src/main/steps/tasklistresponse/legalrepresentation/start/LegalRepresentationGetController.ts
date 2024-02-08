@@ -22,6 +22,9 @@ export default class LegalRepresentationGetController extends GetController {
       language,
       pageContent: this.content,
       userCase: req.session?.userCase,
+      additionalData: {
+        req,
+      },
     });
     if (!req.session.errors) {
       req.session.errors = [];
