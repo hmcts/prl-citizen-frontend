@@ -27,8 +27,8 @@ describe('applicant -> upload-document -> document-sharing-details', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.panelTitle).toEqual('Before you submit a document');
-    expect(generatedContent.panelContent).toEqual(
+    expect(generatedContent.cardTitle).toEqual('Before you submit a document');
+    expect(generatedContent.cardContent).toEqual(
       'Remove or cross out with a pen any confidential details or personal contact information you want to keep private so they are no longer visible.'
     );
     expect(generatedContent.bodyContent).toEqual(
@@ -39,8 +39,8 @@ describe('applicant -> upload-document -> document-sharing-details', () => {
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     generatedContent = generateContent({ ...commonContent, language: 'cy' });
-    expect(generatedContent.panelTitle).toEqual('Before you submit a document - welsh');
-    expect(generatedContent.panelContent).toEqual(
+    expect(generatedContent.cardTitle).toEqual('Before you submit a document - welsh');
+    expect(generatedContent.cardContent).toEqual(
       'Remove or cross out with a pen any confidential details or personal contact information you want to keep private so they are no longer visible. - welsh'
     );
     expect(generatedContent.bodyContent).toEqual(

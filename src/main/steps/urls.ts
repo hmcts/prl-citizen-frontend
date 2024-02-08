@@ -67,6 +67,7 @@ export const APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL: PageLink = `${APPLICANT_U
 export const APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details/:docCategory/:docType`;
 export const APPLICANT_UPLOAD_DOCUMENT: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/upload-your-documents/:docCategory/:docType`;
 export const APPLICANT_UPLOAD_DOCUMENT_SUCCESS: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success/:docCategory`;
+export const APPLICANT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/sharing-your-documents/:docCategory/:docType`;
 export const APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/submit-extra-evidence`;
 /* Respondent Upload document */
 export const RESPONDENT_UPLOAD_DOCUMENT_LIST_URL: PageLink = '/respondent/upload-document';
@@ -74,6 +75,7 @@ export const RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL: PageLink = `${RESPONDENT
 export const RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details/:docCategory/:docType`;
 export const RESPONDENT_UPLOAD_DOCUMENT: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/upload-your-documents/:docCategory/:docType`;
 export const RESPONDENT_UPLOAD_DOCUMENT_SUCCESS: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success/:docCategory`;
+export const RESPONDENT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/sharing-your-documents/:docCategory/:docType`;
 export const RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/submit-extra-evidence`;
 /* respondent-keep-details-private */
 export const RESPONDENT_KEEP_DETAILS_PRIVATE: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}`;

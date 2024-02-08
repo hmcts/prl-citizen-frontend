@@ -69,6 +69,7 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,
+  RESPONDENT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
   RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_YOURHEARINGS_HEARINGS,
@@ -204,17 +205,26 @@ export const respondentCaseSequence: Step[] = [
       caseData.start === YesOrNo.NO
         ? RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE
         : (applyParms(RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {
-            docCategory: req?.params?.docCategory,
-            docType: req?.params?.docType,
+            docCategory: req!.params.docCategory,
+            docType: req!.params.docType,
           }) as PageLink),
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: (caseData, req) =>
+      applyParms(RESPONDENT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS, {
+        docCategory: req!.params.docCategory,
+        docType: req!.params.docType,
+      }) as PageLink,
+  },
+  {
+    url: RESPONDENT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData, req) =>
       applyParms(RESPONDENT_UPLOAD_DOCUMENT, {
-        docCategory: req?.params?.docCategory,
-        docType: req?.params?.docType,
+        docCategory: req!.params.docCategory,
+        docType: req!.params.docType,
       }) as PageLink,
   },
   {
@@ -223,8 +233,8 @@ export const respondentCaseSequence: Step[] = [
     postController: DocumentUploadPostController,
     getNextStep: (caseData, req) =>
       applyParms(RESPONDENT_UPLOAD_DOCUMENT_SUCCESS, {
-        docCategory: req?.params?.docCategory,
-        docType: req?.params?.docType,
+        docCategory: req!.params.docCategory,
+        docType: req!.params.docType,
       }) as PageLink,
   },
   {

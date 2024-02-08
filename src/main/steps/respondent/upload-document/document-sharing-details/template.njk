@@ -1,19 +1,16 @@
 {% extends "common/template.njk" %}
 
 {% block pageTitle %}
-  {{ panelTitle }}
+  {{ cardTitle }}
   {{ appName }}
 {% endblock %}
 
 {% block page_content %}
-  <div class="govuk-panel--custom govuk-panel--info-custom">
-    <h1>
-      {{panelTitle}}
-    </h1>
-    <div class="govuk-panel__body">
-      {{panelContent}}
+  <div class="app-inverted--card app-inverted-text govuk-!-margin-top-5">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-7 app-inverted-text">{{cardTitle}}</h1>
+    <p class="govuk-heading-m app-link--inverted">
+      {{cardContent}}
     </div>
-  </div>
 
-  <p class="govuk-body govuk-!-margin-top-6 govuk-!-margin-bottom-6">{{ bodyContent | safe }}</p>
-{% endblock %}
+    <p class="govuk-body govuk-!-margin-top-6 govuk-!-margin-bottom-6">{{ bodyContent | safe }}</p>
+  {% endblock %}

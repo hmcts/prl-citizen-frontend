@@ -81,6 +81,7 @@ import {
   APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,
   PageLink,
   APPLICANT_TASKLIST_HEARING_NEEDS,
+  APPLICANT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -392,8 +393,8 @@ export const applicantCaseSequence: Step[] = [
       caseData.start === YesOrNo.NO
         ? APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE
         : (applyParms(APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {
-            docCategory: req?.params?.docCategory,
-            docType: req?.params?.docType,
+            docCategory: req!.params.docCategory,
+            docType: req!.params.docType,
           }) as PageLink),
   },
   {
@@ -405,9 +406,18 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: (caseData, req) =>
+      applyParms(APPLICANT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS, {
+        docCategory: req!.params.docCategory,
+        docType: req!.params.docType,
+      }) as PageLink,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: (caseData, req) =>
       applyParms(APPLICANT_UPLOAD_DOCUMENT, {
-        docCategory: req?.params?.docCategory,
-        docType: req?.params?.docType,
+        docCategory: req!.params.docCategory,
+        docType: req!.params.docType,
       }) as PageLink,
   },
   {
@@ -415,7 +425,7 @@ export const applicantCaseSequence: Step[] = [
     showInSection: Sections.AboutApplicantCase,
     postController: DocumentUploadPostController,
     getNextStep: (caseData, req) =>
-      applyParms(APPLICANT_UPLOAD_DOCUMENT_SUCCESS, { docCategory: req?.params?.docCategory }) as PageLink,
+      applyParms(APPLICANT_UPLOAD_DOCUMENT_SUCCESS, { docCategory: req!.params.docCategory }) as PageLink,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_SUCCESS,

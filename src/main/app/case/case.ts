@@ -376,6 +376,7 @@ export interface Case {
   cameoutofallegationsharmwithNo?: boolean;
   //applicant1CannotUploadDocuments?: DocumentType[];
   reasonForDocumentCantBeShared?: string;
+  haveReasonForDocNotToBeShared?: YesOrNo;
   documentText?: string;
   applicantUploadFiles?: DocumentUploadResponse['document'][];
   declarationCheck?: string;

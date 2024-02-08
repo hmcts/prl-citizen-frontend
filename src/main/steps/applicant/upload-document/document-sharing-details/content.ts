@@ -7,16 +7,16 @@ import { applyParms } from '../../../../steps/common/url-parser';
 import { APPLICANT_CHECK_ANSWERS, APPLICANT_TASK_LIST_URL, FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
 const en = {
-  panelTitle: 'Before you submit a document',
-  panelContent:
+  cardTitle: 'Before you submit a document',
+  cardContent:
     'Remove or cross out with a pen any confidential details or personal contact information you want to keep private so they are no longer visible.',
   bodyContent:
     'If your contact details have changed, go to <a href="{editContactDetailsUrl}" class="govuk-link" target="_self">confirm or edit your contact details</a> to update them.',
 };
 
 const cy: typeof en = {
-  panelTitle: 'Before you submit a document - welsh',
-  panelContent:
+  cardTitle: 'Before you submit a document - welsh',
+  cardContent:
     'Remove or cross out with a pen any confidential details or personal contact information you want to keep private so they are no longer visible. - welsh',
   bodyContent:
     'If your contact details have changed, go to <a href="{editContactDetailsUrl}" class="govuk-link" target="_self">confirm or edit your contact details</a> to update them. - welsh',
