@@ -15,7 +15,7 @@ const en = {
   errors: {
     haveReasonForDocNotToBeShared: {
       required:
-        'You need to select if there is a very good reason why you do not want the other people in the case to see this document.',
+        'Select if there is a very good reason why you do not want the other people in the case to see this document.',
     },
   },
 };
@@ -29,7 +29,7 @@ const cy: typeof en = {
   errors: {
     haveReasonForDocNotToBeShared: {
       required:
-        'You need to select if there is a very good reason why you do not want the other people in the case to see this document. - welsh',
+        'Select if there is a very good reason why you do not want the other people in the case to see this document. - welsh',
     },
   },
 };
