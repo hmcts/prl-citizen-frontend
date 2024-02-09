@@ -316,15 +316,16 @@ const getServiceName = (
 ): string => {
   let serviceName = translations.commonServiceName;
 
-  if (!url ||
-    COMMON_PAGE_URLS.some(_url => _url.includes(url))) {
-    return capitalize(serviceName)
+  if (!url || COMMON_PAGE_URLS.some(_url => _url.includes(url))) {
+    return capitalize(serviceName);
   }
   if (userCase?.caseTypeOfApplication === CaseType.FL401) {
     serviceName = translations.fl401ServiceName;
-  } else if (url.startsWith(C100_URL) ||
+  } else if (
+    url.startsWith(C100_URL) ||
     userCase?.caseTypeOfApplication === CaseType.C100 ||
-    url?.includes(C100_APPLICANT_TASKLIST)) {
+    url?.includes(C100_APPLICANT_TASKLIST)
+  ) {
     serviceName = translations.c100ServiceName;
   }
 
