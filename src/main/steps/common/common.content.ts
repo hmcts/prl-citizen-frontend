@@ -3,7 +3,7 @@ import { capitalize } from 'lodash';
 import { CaseWithId } from '../../app/case/case';
 import { CaseType } from '../../app/case/definition';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
-import { ACCESSIBILITY_STATEMENT, ANONYMOUS_URLS, C100_APPLICANT_TASKLIST, C100_URL, COOKIES_PAGE, DASHBOARD_URL, PIN_ACTIVATION_URL, PRIVACY_POLICY, TERMS_AND_CONDITIONS } from '../../steps/urls';
+import { C100_APPLICANT_TASKLIST, C100_URL, COMMON_PAGE_URLS } from '../../steps/urls';
 
 import AppSurvey from './app-survey/appSurveyController';
 import { appSurveyContents } from './app-survey/content';
@@ -317,13 +317,7 @@ const getServiceName = (
   let serviceName = translations.commonServiceName;
 
   if (!url ||
-    url?.includes(DASHBOARD_URL) ||
-    url?.includes(PIN_ACTIVATION_URL) ||
-    url?.includes(COOKIES_PAGE) ||
-    url?.includes(PRIVACY_POLICY) ||
-    url?.includes(ACCESSIBILITY_STATEMENT) ||
-    url?.includes(TERMS_AND_CONDITIONS) ||
-    ANONYMOUS_URLS.some(_url => _url.includes(url))) {
+    COMMON_PAGE_URLS.some(_url => _url.includes(url))) {
     return capitalize(serviceName)
   }
   if (userCase?.caseTypeOfApplication === CaseType.FL401) {
