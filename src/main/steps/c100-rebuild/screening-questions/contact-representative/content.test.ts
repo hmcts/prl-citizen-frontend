@@ -7,7 +7,6 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child arrangements',
   title: 'Contact your legal representative',
   paragraph: 'If you have a legal representative and want them to complete the application for you:',
   closeApplication: 'Close the application',
@@ -23,7 +22,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   title: "Cysylltwch â'ch cynrychiolydd cyfreithiol",
   paragraph: " Os oes gennych chi gynrychiolydd cyfreithiol a bod arnoch eisiau iddynt gwblhau'r cais ar eich rhan:",
   closeApplication: "Cau'r cais",

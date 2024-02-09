@@ -65,6 +65,9 @@ export default class DocumentUpload extends GetController {
         pageContent: this.content,
         userCase: req.session?.userCase,
         userEmail: req.session?.user?.email,
+        additionalData: {
+          req,
+        },
       });
 
       const sessionErrors = req.session?.errors || [];
