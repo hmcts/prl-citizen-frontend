@@ -2,14 +2,98 @@ import languageAssertions from '../../../../../test/unit/utils/languageAssertion
 import { DocCategory, DocType } from '../../../../app/case/definition';
 import { FormContent, FormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-import { CommonContent, en as commonEnContent } from '../../../common/common.content';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
-import { cy, en, generateContent } from './content';
+import { generateContent } from './content';
+
+const en = {
+  declaration: 'I believe that the facts stated in these documents are true',
+  consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
+  continue: 'Submit',
+  add: 'Submit',
+  uploadFiles: 'Your documents',
+  remove: 'Remove',
+  textAreaDocUploadText1: 'You can write your statement in the text box or upload it.',
+  textAreaDocUploadText2: 'Write your statement(optional)',
+  uplodFileText1:
+    'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.',
+  uplodFileText2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
+  uplodFileText3: 'How to take a picture of a document on your phone and upload it',
+  uplodFileText4: 'Place your document on a flat service in a well-lit room. Use a flash if you need to.',
+  uplodFileText5: 'Take a picture of the whole document. You should be able to see its edges.',
+  uplodFileText6: 'Check you can read all the writing, including the handwriting.',
+  uplodFileText7: 'Email or send the photo or scan to the device you are using now.',
+  uplodFileText8: 'Upload it here.',
+  uploadFileHeading: 'Upload a file',
+  uploadFile: 'Upload file',
+  statementOfTruth: 'Statement of truth',
+  warning: 'Warning',
+  warningText:
+    'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
+  errors: {
+    declarationCheck: {
+      required: 'Tick the box to confirm you believe the facts stated in this application are true.',
+    },
+    uploadFiles: {
+      uploadError: 'Document could not be uploaded',
+      noFile: 'Please choose a file to upload',
+      empty: 'No document found',
+    },
+  },
+};
+
+const cy: typeof en = {
+  declaration: 'Credaf fod y ffeithiau a nodir yn y dogfennau hyn yn wir',
+  consent:
+    'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
+  continue: 'Submit - welsh',
+  add: 'Cyflwyno',
+  uploadFiles: 'Eich dogfennau',
+  remove: 'Dileu',
+  textAreaDocUploadText1: 'You can write your statement in the text box or upload it. - welsh',
+  textAreaDocUploadText2: 'Write your statement(optional) - welsh',
+  uplodFileText1:
+    'Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, llythyr-gan-yr-ysgol.doc.',
+  uplodFileText2: 'Rhaid i ffeiliau derfynu â JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
+  uplodFileText3: 'Sut i dynnu llun o ddogfen ar eich ffôn a’i lwytho',
+  uplodFileText4:
+    'Rhowch eich dogfen ar rywbeth gwastad mewn ystafell sydd â digon o olau. Defnyddiwch fflach y camera os bydd angen.',
+  uplodFileText5: "Tynnwch lun o’r ddogfen gyfan. Dylech allu gweld corneli'r ddogfen.",
+  uplodFileText6: 'Gwiriwch eich bod yn gallu gweld yr ysgrifen i gyd, gan gynnwys y llawysgrifen.',
+  uplodFileText7: 'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
+  uplodFileText8: 'Llwythwch y ffeil yma.',
+  uploadFileHeading: 'Llwytho ffeil',
+  uploadFile: 'Llwytho ffeil i fyny',
+  statementOfTruth: 'Datganiad Gwirionedd',
+  warning: 'Rhybudd',
+  warningText:
+    'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
+  errors: {
+    declarationCheck: {
+      required: 'Cadarnhewch y datganiad',
+    },
+    uploadFiles: {
+      uploadError: 'Document could not be uploaded -welsh',
+      noFile: 'Please choose a file to upload -welsh',
+      empty: 'No document found -welsh',
+    },
+  },
+};
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
-describe('citizen-home content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+describe('respondent -> upload-document -> upload-your-documents', () => {
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        params: {
+          docCategory: DocCategory.WITNESS_STATEMENT,
+          docType: DocType.YOUR_WITNESS_STATEMENTS,
+        },
+      },
+    },
+  } as unknown as CommonContent;
   commonContent.additionalData = {
     req: {
       session: {
@@ -20,7 +104,7 @@ describe('citizen-home content', () => {
       },
       params: {
         docCategory: DocCategory.WITNESS_STATEMENT,
-        docType: DocType.POSITION_STATEMENTS,
+        docType: DocType.YOUR_WITNESS_STATEMENTS,
       },
     },
   };
@@ -34,8 +118,6 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.section).toEqual('Provide the document');
-    expect(generatedContent.subTitle).toEqual('Provide the documents');
     expect(generatedContent.declaration).toEqual('I believe that the facts stated in these documents are true');
     expect(generatedContent.consent).toEqual(
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.'
@@ -81,9 +163,9 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain cancel button', () => {
-    expect((form.link?.text as Function)(commonEnContent)).toBe('Cancel');
-    expect(form.link?.href).toBe('/case/123');
+  test('should contain correct cancel link', () => {
+    expect(form.link.text(generatePageContent({ language: 'en' }))).toBe('Cancel');
+    expect(form.link.href).toBe('/case/123');
   });
 
   test('should contain continue button', () => {
@@ -109,7 +191,7 @@ describe('citizen-home content', () => {
     };
     commonContent.userCase = {
       ...commonContent.userCase,
-      applicantUploadFiles: [
+      respondentUploadFiles: [
         {
           document_url: 'MOCK_URL',
           document_binary_url: 'MOCK_BINARY_URL',
@@ -147,29 +229,7 @@ describe('citizen-home content', () => {
     ]);
     expect(content.errorMessage).toBe('Document could not be uploaded');
     expect(content.docCategory).toBe('witnessstatements');
-    expect(content.docType).toBe('positionstatements');
-  });
-
-  test('generateContent should return correct details for FL401', () => {
-    commonContent.additionalData!.req = {
-      ...commonContent.additionalData!.req,
-      session: {
-        ...commonContent.additionalData!.req.session,
-        userCase: {
-          ...commonContent.additionalData!.req.session.userCase,
-          caseTypeOfApplication: 'Fl401',
-        },
-      },
-      params: {
-        docCategory: DocCategory.WITNESS_STATEMENT,
-        docType: DocType.YOUR_WITNESS_STATEMENTS,
-      },
-    };
-
-    const content = generateContent(commonContent);
-    expect(content.isDocWitnessOrPosition).toBe(true);
-    form = content.form as FormContent;
-    expect(form.link.href).toBe('/applicant/task-list/123');
+    expect(content.docType).toBe('yourwitnessstatements');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

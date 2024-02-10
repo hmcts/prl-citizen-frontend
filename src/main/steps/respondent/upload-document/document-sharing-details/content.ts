@@ -2,7 +2,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { interpolate } from '../../../../steps/common/string-parser';
 import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
-import { RESPONDENT_CHECK_ANSWERS, RESPONDENT_TASK_LIST_URL } from '../../../../steps/urls';
+import { applyParms } from '../../../../steps/common/url-parser';
+import { FETCH_CASE_DETAILS, RESPONDENT_CHECK_ANSWERS } from '../../../../steps/urls';
 
 const en = {
   cardTitle: 'Before you submit a document',
@@ -39,18 +40,18 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const userCase = content.additionalData?.req.session.userCase;
-  const caseId = userCase.id as string;
   const translations = languages[content.language];
   const { docCategory, docType } = content.additionalData!.req.params;
   const { category: caption, type: title } = getDocumentMeta(docCategory, docType, content.language);
 
+  Object.assign(form.link!, {
+    href: applyParms(FETCH_CASE_DETAILS, { caseId: userCase.id }),
+  });
+
   return {
     ...translations,
     bodyContent: interpolate(translations.bodyContent, { editContactDetailsUrl: RESPONDENT_CHECK_ANSWERS }),
-    form: {
-      ...form,
-      link: { ...form.link, href: `${RESPONDENT_TASK_LIST_URL}/${caseId}` },
-    },
+    form,
     caption,
     title,
   };

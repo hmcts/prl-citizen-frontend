@@ -233,9 +233,12 @@ export const getDocumentType = (type: DocType, partyType: PartyType): string => 
 };
 
 export const resetUploadDocumentSessionData = (session: AppSession): void => {
-  delete session.userCase.start;
+  delete session.userCase.hasCourtAskedForThisDoc;
+  delete session.userCase.reasonForDocumentCantBeShared;
+  delete session.userCase.haveReasonForDocNotToBeShared;
+  session.userCase.reasonsToNotSeeTheDocument = [];
+  delete session.userCase.reasonsToRestrictDocument;
   session.userCase.applicantUploadFiles = [];
   session.userCase.respondentUploadFiles = [];
-  delete session.userCase.reasonForDocumentCantBeShared;
   delete session.userCase.declarationCheck;
 };

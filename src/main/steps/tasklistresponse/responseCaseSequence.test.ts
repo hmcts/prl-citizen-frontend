@@ -148,9 +148,13 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[31].url).toBe('/respondent/upload-document');
     expect(responseCaseSequence[31].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[31].getNextStep({})).toBe('/respondent/upload-document/start/:docCategory/:docType');
+    expect(responseCaseSequence[31].getNextStep({})).toBe(
+      '/respondent/upload-document/has-the-court-asked-for-this-documents/:docCategory/:docType'
+    );
 
-    expect(responseCaseSequence[32].url).toBe('/respondent/upload-document/start/:docCategory/:docType');
+    expect(responseCaseSequence[32].url).toBe(
+      '/respondent/upload-document/has-the-court-asked-for-this-documents/:docCategory/:docType'
+    );
     expect(responseCaseSequence[32].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[32].getNextStep({})).toBe(
       '/respondent/upload-document/document-sharing-details/:docCategory/:docType'
@@ -168,11 +172,9 @@ describe('respondent1Sequence', () => {
       '/respondent/upload-document/upload-your-documents/:docCategory/:docType'
     );
     expect(responseCaseSequence[34].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[34].getNextStep({})).toBe(
-      '/respondent/upload-document/upload-documents-success/:docCategory'
-    );
+    expect(responseCaseSequence[34].getNextStep({})).toBe('/respondent/upload-document/upload-documents-success');
 
-    expect(responseCaseSequence[35].url).toBe('/respondent/upload-document/upload-documents-success/:docCategory');
+    expect(responseCaseSequence[35].url).toBe('/respondent/upload-document/upload-documents-success');
     expect(responseCaseSequence[35].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[35].getNextStep({})).toBe('/tasklistresponse/start');
 

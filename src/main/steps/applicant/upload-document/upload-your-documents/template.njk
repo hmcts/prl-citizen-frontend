@@ -30,6 +30,7 @@
           </button>
         </form>
       {% endif %}
+
     </div>
     <p class="govuk-body">{{uplodFileText1}}</p>
     <p class="govuk-body govuk-!-margin-bottom-6">{{uplodFileText2}}</p>
@@ -49,7 +50,6 @@
         </ol>
       </div>
     </details>
-
     <div id="uploadGroup" tabindex="0" class="uploadGroup">
       <div class=" govuk-!-margin-bottom-3">
         {% if errorMessage !== null %}
@@ -79,7 +79,7 @@
         }) }}
               {{ govukButton({
           text: upload,
-          type: "submit",
+          type: "submit", 
           classes: "govuk-button--secondary govuk-!-margin-bottom-0"
         }) }}
             </form>
@@ -110,7 +110,7 @@
       </dl>
     </ul>
   </div>
-  <div class="govuk-form-group">
+  <div class="govuk-form-group ">
     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
       <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
         <h3 class="govuk-heading-m">

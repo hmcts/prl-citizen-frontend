@@ -12,7 +12,7 @@ import {
   APPLICANT_TASK_LIST_URL,
   APPLICANT_UPLOAD_DOCUMENT,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-  C100_APPLICANT_TASKLIST,
+  FETCH_CASE_DETAILS,
   RESPONDENT,
   RESPONDENT_TASK_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT,
@@ -23,7 +23,6 @@ import { CosApiClient } from '../case/CosApiClient';
 import { CaseWithId } from '../case/case';
 import {
   Applicant,
-  CaseType,
   DocType,
   DocumentType,
   DownloadFileFieldFlag,
@@ -671,23 +670,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   public redirectToCaseView(req: AppRequest<AnyObject>, res: Response): void {
-    const { user, userCase: caseData } = req.session;
-    const partyType = getCasePartyType(caseData, user.id);
-    let redirectUrl;
-
     resetUploadDocumentSessionData(req.session);
-
-    if (partyType === PartyType.APPLICANT) {
-      if (caseData.caseTypeOfApplication === CaseType.C100) {
-        redirectUrl = C100_APPLICANT_TASKLIST;
-      } else {
-        redirectUrl = APPLICANT_TASK_LIST_URL;
-      }
-    } else {
-      redirectUrl = RESPONDENT_TASK_LIST_URL;
-    }
-
-    this.redirect(req, res, redirectUrl);
+    this.redirect(req, res, applyParms(FETCH_CASE_DETAILS, { caseId: req.session.userCase.id }));
   }
 
   public redirectToUploadDocument(req: AppRequest<AnyObject>, res: Response): void {

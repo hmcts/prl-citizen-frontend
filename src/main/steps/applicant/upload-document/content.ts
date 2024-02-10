@@ -56,7 +56,7 @@ export const generateContent: TranslationFn = content => {
     sections: generateUploadDocumentList(
       translations.sectionTitles,
       translations.documentsListItems,
-      URL.APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL
+      URL.APPLICANT_UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT
     ),
   };
 };

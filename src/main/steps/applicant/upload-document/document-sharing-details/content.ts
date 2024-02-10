@@ -1,10 +1,9 @@
-import { CaseType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { interpolate } from '../../../../steps/common/string-parser';
 import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { applyParms } from '../../../../steps/common/url-parser';
-import { APPLICANT_CHECK_ANSWERS, APPLICANT_TASK_LIST_URL, FETCH_CASE_DETAILS } from '../../../../steps/urls';
+import { APPLICANT_CHECK_ANSWERS, FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
 const en = {
   cardTitle: 'Before you submit a document',
@@ -41,25 +40,18 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const userCase = content.additionalData?.req.session.userCase;
-  const caseId = userCase.id as string;
-  const caseType = userCase.caseTypeOfApplication;
   const translations = languages[content.language];
   const { docCategory, docType } = content.additionalData!.req.params;
   const { category: caption, type: title } = getDocumentMeta(docCategory, docType, content.language);
 
+  Object.assign(form.link!, {
+    href: applyParms(FETCH_CASE_DETAILS, { caseId: userCase.id }),
+  });
+
   return {
     ...translations,
     bodyContent: interpolate(translations.bodyContent, { editContactDetailsUrl: APPLICANT_CHECK_ANSWERS }),
-    form: {
-      ...form,
-      link: {
-        ...form.link,
-        href:
-          caseType === CaseType.C100
-            ? applyParms(FETCH_CASE_DETAILS, { caseId })
-            : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
-      },
-    },
+    form,
     caption,
     title,
   };

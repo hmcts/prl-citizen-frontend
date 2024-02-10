@@ -1,10 +1,10 @@
-import { CaseType, YesOrNo } from '../../../../app/case/definition';
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { getDocumentMeta } from '../../../common/upload-document/util';
 import { applyParms } from '../../../common/url-parser';
-import { APPLICANT_TASK_LIST_URL, FETCH_CASE_DETAILS } from '../../../urls';
+import { FETCH_CASE_DETAILS } from '../../../urls';
 
 const en = {
   pageTitle: 'Sharing your documents',
@@ -71,24 +71,17 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const userCase = content.additionalData?.req.session.userCase;
-  const caseId = userCase.id as string;
-  const caseType = userCase.caseTypeOfApplication;
   const translations = languages[content.language];
   const { docCategory, docType } = content.additionalData!.req.params;
   const { category: caption, type: title } = getDocumentMeta(docCategory, docType, content.language);
 
+  Object.assign(form.link!, {
+    href: applyParms(FETCH_CASE_DETAILS, { caseId: userCase.id }),
+  });
+
   return {
     ...translations,
-    form: {
-      ...form,
-      link: {
-        ...form.link,
-        href:
-          caseType === CaseType.C100
-            ? applyParms(FETCH_CASE_DETAILS, { caseId })
-            : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
-      },
-    },
+    form,
     caption,
     title,
   };

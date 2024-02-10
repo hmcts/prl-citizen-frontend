@@ -94,7 +94,7 @@ describe('respondent -> upload-document -> sharing-your-documents', () => {
 
   test('should contain correct cancel link', () => {
     expect(form.link.text(generatePageContent({ language: 'en' }))).toBe('Cancel');
-    expect(form.link.href).toBe('/respondent/task-list/1234');
+    expect(form.link.href).toBe('/case/1234');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

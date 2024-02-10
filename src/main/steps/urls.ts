@@ -63,19 +63,21 @@ export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
 
 /* Applicant Upload document */
 export const APPLICANT_UPLOAD_DOCUMENT_LIST_URL: PageLink = '/applicant/upload-document';
-export const APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/start/:docCategory/:docType`;
+export const APPLICANT_UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/has-the-court-asked-for-this-documents/:docCategory/:docType`;
 export const APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details/:docCategory/:docType`;
 export const APPLICANT_UPLOAD_DOCUMENT: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/upload-your-documents/:docCategory/:docType`;
-export const APPLICANT_UPLOAD_DOCUMENT_SUCCESS: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success/:docCategory`;
+export const APPLICANT_UPLOAD_DOCUMENT_SUCCESS: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success`;
 export const APPLICANT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/sharing-your-documents/:docCategory/:docType`;
+export const APPLICANT_UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/other-party-not-see-this-document/:docCategory/:docType`;
 export const APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/submit-extra-evidence`;
 /* Respondent Upload document */
 export const RESPONDENT_UPLOAD_DOCUMENT_LIST_URL: PageLink = '/respondent/upload-document';
-export const RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/start/:docCategory/:docType`;
+export const RESPONDENT_UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/has-the-court-asked-for-this-documents/:docCategory/:docType`;
 export const RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details/:docCategory/:docType`;
 export const RESPONDENT_UPLOAD_DOCUMENT: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/upload-your-documents/:docCategory/:docType`;
-export const RESPONDENT_UPLOAD_DOCUMENT_SUCCESS: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success/:docCategory`;
+export const RESPONDENT_UPLOAD_DOCUMENT_SUCCESS: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success`;
 export const RESPONDENT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/sharing-your-documents/:docCategory/:docType`;
+export const RESPONDENT_UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/other-party-not-see-this-document/:docCategory/:docType`;
 export const RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/submit-extra-evidence`;
 /* respondent-keep-details-private */
 export const RESPONDENT_KEEP_DETAILS_PRIVATE: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}`;

@@ -1,8 +1,7 @@
-import { CaseType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { applyParms } from '../../../common/url-parser';
-import { APPLICANT_TASK_LIST_URL, FETCH_CASE_DETAILS } from '../../../urls';
+import { applyParms } from '../../../../steps/common/url-parser';
+import { FETCH_CASE_DETAILS } from '../../../urls';
 
 const en = () => ({
   section: 'Upload documents',
@@ -45,12 +44,11 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const request = content.additionalData?.req;
   const userCase = request.session.userCase;
-  const caseId = userCase.id as string;
-  const caseType = userCase.caseTypeOfApplication;
+
   Object.assign(form.link!, {
-    href:
-      caseType === CaseType.C100 ? applyParms(FETCH_CASE_DETAILS, { caseId }) : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
+    href: applyParms(FETCH_CASE_DETAILS, { caseId: userCase.id }),
   });
+
   return {
     ...translations,
     form,

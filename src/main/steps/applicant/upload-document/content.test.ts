@@ -42,38 +42,38 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/upload-document/start/witnessstatements/positionstatements',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/witnessstatements/positionstatements',
               id: 'your-position-statements',
               text: 'Your position statements',
             },
             {
-              href: '/applicant/upload-document/start/witnessstatements/yourwitnessstatements',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/witnessstatements/yourwitnessstatements',
               id: 'your-witness-statements',
               text: 'Your witness statements',
             },
             {
-              href: '/applicant/upload-document/start/witnessstatements/otherpeoplewitnessstatement',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/witnessstatements/otherpeoplewitnessstatement',
               id: 'other-witness-statements',
               text: "Other people's witness statements",
             },
 
             {
-              href: '/applicant/upload-document/start/witnessstatements/mediafiles',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/witnessstatements/mediafiles',
               id: 'mail-screenshots-media-files',
               text: 'Emails, screenshots, images and other media files',
             },
             {
-              href: '/applicant/upload-document/start/witnessstatements/medicalrecords',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/witnessstatements/medicalrecords',
               id: 'medical-records',
               text: 'Medical records',
             },
             {
-              href: '/applicant/upload-document/start/witnessstatements/lettersfromschool',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/witnessstatements/lettersfromschool',
               id: 'letters-from-school',
               text: 'Letters from school',
             },
             {
-              href: '/applicant/upload-document/start/witnessstatements/tenancyandmortgageavailability',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/witnessstatements/tenancyandmortgageavailability',
               id: 'tenancy-mortgage-agreements',
               text: 'Tenancy and mortgage agreements',
             },
@@ -83,7 +83,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/upload-document/start/applications/previousorders',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/applications/previousorders',
               id: 'previous-orders-submitted',
               text: 'Previous orders submitted with application',
             },
@@ -93,22 +93,22 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/upload-document/start/expertreports/medicalreports',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/expertreports/medicalreports',
               id: 'medical-reports',
               text: 'Medical reports',
             },
             {
-              href: '/applicant/upload-document/start/expertreports/paternitytestreports',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/expertreports/paternitytestreports',
               id: 'paternity-test-reports',
               text: 'Paternity test reports',
             },
             {
-              href: '/applicant/upload-document/start/expertreports/drugalcoholtests',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/expertreports/drugalcoholtests',
               id: 'drug-and-alcohol-tests',
               text: 'Drug and alcohol tests (toxicology)',
             },
             {
-              href: '/applicant/upload-document/start/expertreports/policedisclosures',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/expertreports/policedisclosures',
               id: 'police-reports',
               text: 'Police reports',
             },
@@ -118,7 +118,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/upload-document/start/otherdocuments/otherdocuments',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/otherdocuments/otherdocuments',
               id: 'other-documents',
               text: 'Other documents',
             },
