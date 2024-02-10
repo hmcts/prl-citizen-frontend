@@ -58,7 +58,6 @@ const fieldsArray: string[] = [
   'citizenUserPhoneNumberText',
   'citizenUserEmailAddressText',
   'citizenUserDateOfBirthText',
-  'citizenUserAddressHistory',
 ];
 
 function setRedirectUrl(req: AppRequest<Partial<Case>>) {
@@ -80,11 +79,7 @@ export const validateDataCompletion = (req: AppRequest<Partial<Case>>): void => 
   for (const key in req.session.userCase) {
     if (fieldsArray.includes(key)) {
       const value = req.session.userCase[`${key}`];
-      if (
-        value === null ||
-        (typeof value === 'string' &&
-          (value === null || value === undefined || value.trim() === '' || value === 'Invalid Date'))
-      ) {
+      if (typeof value === 'string' && (!value || value.trim() === '' || value === 'Invalid Date')) {
         req.session.userCase[`${key}`] =
           req.session.lang === 'cy'
             ? '<span class="govuk-error-message">' + cyContent.completeSection + '</span>'
