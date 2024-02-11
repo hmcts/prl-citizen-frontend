@@ -13,7 +13,7 @@ export const routeGuard = {
         ...(req.session.userCase ?? {}),
         c100ApplicationFees,
       };
-    next();
-  }
-}
+      next();
+    }
+  },
 };
