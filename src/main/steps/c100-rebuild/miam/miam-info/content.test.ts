@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child Arrangements',
   title: 'Attending a Mediation Information and Assessment Meeting MIAM',
   paragraph1:
     'Before completing this application you’re legally required to attend a Mediation Information and Assessment Meeting (MIAM), unless <a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" target="_blank" aria-label=" you’re exempt."> you’re exempt.</a>',
@@ -52,7 +51,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   title: 'Mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
   paragraph1:
     'Cyn gallu cwblhau’r cais hwn, mae  gofyniad cyfreithiol i chi fynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM), oni <a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" target="_blank" aria-label=" you’re exempt.">bai eich bod wedi\'ch heithrio.</a>',
