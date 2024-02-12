@@ -97,7 +97,7 @@ const en = {
               text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
             },
             {
-              text: 'The court has also sent the application to the Children and Family Court advisory and Support Service (Cafcass or Cafcass Cymru). Cafcass or Cafcass Cymru will contact you to consider the needs of the children.',
+              text: 'The court has also sent the application to the Children and Family Court Advisory and Support Service (Cafcass or Cafcass Cymru). Cafcass or Cafcass Cymru will contact you to consider the needs of the children.',
             },
           ],
           links: [
@@ -207,7 +207,7 @@ const en = {
           heading: 'Cafcass will contact you **',
           contents: [
             {
-              text: 'The Children and Family Court advisory and Support Service (Cafcass or Cafcass Cymru) will contact you to consider the needs of the children.',
+              text: 'The Children and Family Court Advisory and Support Service (Cafcass or Cafcass Cymru) will contact you to consider the needs of the children.',
             },
           ],
           links: [
@@ -552,7 +552,7 @@ const cy: typeof en = {
           heading: 'Cafcass will contact you **',
           contents: [
             {
-              text: 'The Children and Family Court advisory and Support Service (Cafcass or Cafcass Cymru) will contact you to consider the needs of the children.',
+              text: 'The Children and Family Court Advisory and Support Service (Cafcass or Cafcass Cymru) will contact you to consider the needs of the children.',
             },
           ],
           links: [
