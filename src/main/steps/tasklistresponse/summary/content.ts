@@ -178,9 +178,10 @@ export const enInternationalContent = {
     title: '6. International element',
   },
   keys: {
-    start: 'Do the children live outside of England or Wales?',
+    start: "Are the children's lives mainly based outside of England and Wales?",
     iFactorsStartProvideDetails: 'Provide details',
-    parents: "Do the childrens' parents or anyone significant to the children live outside of England or Wales?",
+    parents:
+      "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
     iFactorsParentsProvideDetails: 'Provide details',
     jurisdiction:
       'Could another person in the application apply for a similar order in a country outside England or Wales?',
@@ -496,14 +497,15 @@ export const cyInternationalContent = {
     title: '6. Elfennau rhyngwladol',
   },
   keys: {
-    start: "A yw'r plant yn byw y tu allan i Gymru neu Loegr?",
+    start: 'Ydy bywyd y plant yn cael ei dreulio’n bennaf y tu allan i Gymru a Lloegr?',
     iFactorsStartProvideDetails: 'Darparwch fanylion',
-    parents: "A yw rhieni'r plant neu unrhyw un o bwys i'r plant yn byw y tu allan i Gymru neu Loegr?",
+    parents:
+      "A yw rhieni'r plant (neu unrhyw un o bwys i'r plant) wedi'u lleoli y tu allan i Gymru a Lloegr yn bennaf?",
     iFactorsParentsProvideDetails: 'Darparwch fanylion',
     jurisdiction:
       'A allai rhywun arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
     iFactorsJurisdictionProvideDetails: 'Darparwch fanylion',
-    request: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
+    request: "A oes gwlad arall wedi gofyn (neu wedi cael cais) am wybodaeth neu gymorth i'r plant?",
     iFactorsRequestProvideDetails: 'Darparwch fanylion',
   },
 };
