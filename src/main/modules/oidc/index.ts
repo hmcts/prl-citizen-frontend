@@ -7,6 +7,7 @@ import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
+import { parseUrl } from '../../steps/common/url-parser';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   ANONYMOUS_URLS,
@@ -121,7 +122,9 @@ export class OidcMiddleware {
               const partyType = getCasePartyType(req.session.userCase, req.session.user.id);
               if (
                 !SAFEGAURD_EXCLUDE_URLS.some(url => {
-                  return url.split('/').every(chunk => req.path.split('/').includes(chunk));
+                  return parseUrl(url)
+                    .url.split('/')
+                    .every(chunk => req.path.split('/').includes(chunk));
                 }) &&
                 !req.path.split('/').includes(partyType)
               ) {

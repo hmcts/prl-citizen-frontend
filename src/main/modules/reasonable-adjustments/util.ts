@@ -152,7 +152,9 @@ export class ReasonableAdjustementsUtility {
             ...primaryApplicantDetails,
             reasonableAdjustmentsFlags: [...raData.flagsAsSupplied.details, ...raData.replacementFlags.details].reduce(
               (currentFlags: RAFlagValue[], flag: RAFlagDetail) => {
-                const currentFlagIndex = currentFlags.findIndex(_flag => _flag.flagCode === flag.value.flagCode);
+                const currentFlagIndex = currentFlags
+                  .filter(_flag => _flag.flagCode !== 'OT0001')
+                  .findIndex(_flag => _flag.flagCode === flag.value.flagCode);
 
                 if (currentFlagIndex >= 0) {
                   if (flag.value.status === 'Requested') {
