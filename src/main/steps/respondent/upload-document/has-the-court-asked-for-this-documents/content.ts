@@ -5,6 +5,7 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 import { getDocumentMeta } from '../../../common/upload-document/util';
 import { applyParms } from '../../../common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../urls';
+export * from './routeGuard';
 
 const en = {
   label: 'Has the court asked for this document?',

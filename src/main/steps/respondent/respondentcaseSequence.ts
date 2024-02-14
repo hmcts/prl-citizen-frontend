@@ -203,7 +203,7 @@ export const respondentCaseSequence: Step[] = [
     url: RESPONDENT_UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: (caseData, req) =>
-      caseData.start === YesOrNo.NO
+      caseData?.hasCourtAskedForThisDoc === YesOrNo.NO
         ? RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE
         : (applyParms(RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {
             docCategory: req!.params.docCategory,

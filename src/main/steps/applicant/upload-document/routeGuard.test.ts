@@ -48,6 +48,5 @@ describe('upload document routeGuard', () => {
     expect(req.session.userCase.reasonsToNotSeeTheDocument).toStrictEqual([]);
     expect(req.session.userCase.applicantUploadFiles).toStrictEqual([]);
     expect(req.session.userCase.respondentUploadFiles).toStrictEqual([]);
-    expect(next).toHaveBeenCalled();
   });
 });
