@@ -45,7 +45,7 @@ const en = (content: CommonContent) => {
   };
 };
 
-const cyContent: typeof enContent = {
+export const cyContent: typeof enContent = {
   section: ' ',
   title: 'Gwirio eich atebion',
   title2: 'Elfennau rhyngwladol',
