@@ -29,14 +29,14 @@ describe('task-list > content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('en', cyContent, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-  test.skip.each([
+  test.each([
     {
       userCase: mockUserCase,
       expected: [
         {
           items: [
             {
-              href: '#',
+              href: '/respondent/yourdocuments/alldocuments/orders',
               id: 'orders-from-the-court-all-docs',
               text: 'View all orders from the court',
             },
@@ -46,17 +46,99 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              id: 'respondent-response-to-request-for-child-arrangements',
-              text: "RESPONDENT_FNAME_LNAME's request for child arrangements",
-              href: '#',
+              href: '/doc/positionstatements/respondent/test test?',
+              id: 'respondent_position_statements',
+              text: "test test's position statements",
             },
             {
-              id: 'respondent-allegations-of-harm-and-violence',
-              text: "RESPONDENT_FNAME_LNAME's allegations of harm and violence",
-              href: '#',
+              href: '/doc/yourwitnessstatements/respondent/test test?',
+              id: 'respondent_witness_statements',
+              text: "test test's witness statements",
+            },
+            {
+              href: '/doc/otherpeoplewitnessstatement/respondent',
+              id: 'other_people_witness_statements_respondent',
+              text: "Other people's witness statements",
             },
           ],
           title: "Respondent's documents",
+        },
+        {
+          items: [
+            {
+              href: '/doc/positionstatements/applicant/test test?',
+              id: 'applicant_position_statements',
+              text: "test test's position statements",
+            },
+            {
+              href: '/doc/yourwitnessstatements/applicant/test test?',
+              id: 'applicant_witness_statements',
+              text: "test test's witness statements",
+            },
+            {
+              href: '/doc/otherpeoplewitnessstatement/applicant',
+              id: 'other_people_witness_statements',
+              text: "Other people's witness statements",
+            },
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+          ],
+          title: "Applicant's documents",
+        },
+        {
+          items: [
+            {
+              href: '/respondent/yourdocuments/alldocuments/safeguarding_letter',
+              id: 'safeguarding_letter',
+              text: 'Safeguarding letter',
+            },
+            {
+              href: '/respondent/yourdocuments/alldocuments/section7_report',
+              id: 'section7_report',
+              text: 'Section 7 report',
+            },
+            {
+              href: '/respondent/yourdocuments/alldocuments/section37_report',
+              id: 'section37_report',
+              text: 'Section 37 report',
+            },
+            {
+              href: '/respondent/yourdocuments/alldocuments/risk_assessment_16a',
+              id: 'risk_assessment_16a',
+              text: '16a risk assessment',
+            },
+          ],
+          title: 'CAFCASS and local authority document',
+        },
+        {
+          items: [
+            {
+              href: '/doc/otherdocuments/respondent',
+              id: 'other_documents',
+              text: 'Other documents',
+            },
+          ],
+          title: 'Other documents',
+        },
+        {
+          items: [
+            {
+              href: '#',
+              id: 'notice_of_hearing',
+              text: 'Notice of hearing',
+            },
+            {
+              href: '/respondent/support-you-need-during-case/attending-the-court',
+              id: 'support_you_need_during_your_case',
+              text: 'Support you need during your case',
+            },
+          ],
+          title: 'Attending the hearing',
         },
       ],
     },
