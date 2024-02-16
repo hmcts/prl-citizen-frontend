@@ -191,7 +191,7 @@ describe('respondent -> upload-document -> upload-your-documents', () => {
     };
     commonContent.userCase = {
       ...commonContent.userCase,
-      respondentUploadFiles: [
+      applicantUploadFiles: [
         {
           document_url: 'MOCK_URL',
           document_binary_url: 'MOCK_BINARY_URL',
