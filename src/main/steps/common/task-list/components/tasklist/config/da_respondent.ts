@@ -10,7 +10,6 @@ export const DA_RESPONDENT = [
   {
     id: TaskListSection.THE_APPLICATION,
     content: getContents.bind(null, TaskListSection.THE_APPLICATION),
-    show: () => true,
     tasks: [
       {
         id: Tasks.CHECK_THE_APPLICATION,

@@ -5,7 +5,7 @@ nodejs:
   livenessDelay: 130
   autoscaling: # Default is false
     enabled: true
-    maxReplicas: 5 # Required setting
+    maxReplicas: 2 # Required setting
     targetCPUUtilizationPercentage: 80 # Default is 80% target CPU utilization
   aadIdentityName: prl
   ingressHost: privatelaw.{{ .Values.global.environment }}.platform.hmcts.net

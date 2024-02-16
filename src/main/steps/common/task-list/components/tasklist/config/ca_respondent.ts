@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../../app/case/case';
+import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { UPDATE_CASE_YES } from '../../../../../../steps/constants';
 import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils';
 import {
@@ -14,7 +15,7 @@ import {
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
 } from '../../../../../../steps/urls';
-import { isApplicationResponded, isCaseClosed } from '../../../utils';
+import { isApplicationResponded, isCaseClosed, isRepresentedBySolicotor } from '../../../utils';
 import {
   StateTags,
   TaskListSection,
@@ -34,14 +35,16 @@ import {
 export const aboutYou = {
   id: TaskListSection.ABOUT_YOU,
   content: getContents.bind(null, TaskListSection.ABOUT_YOU),
-  show: caseData => !isCaseClosed(caseData),
+  show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+    return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+  },
   tasks: [
     {
       id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
       href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_DETAILS_KNOWN}/${caseData.id}`,
       disabled: isCaseClosed,
-      stateTag: (caseData, userDetails) => {
-        const respondent = getPartyDetails(caseData, userDetails.id);
+      stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+        const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
         return getKeepYourDetailsPrivateStatus(respondent?.response.keepDetailsPrivate);
       },
     },
@@ -117,7 +120,9 @@ export const document = {
       id: Tasks.UPLOAD_DOCUMENTS,
       href: () => RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
       stateTag: () => StateTags.TO_DO,
-      show: caseData => !isCaseClosed(caseData),
+      show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+        return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+      },
       disabled: isCaseClosed,
     },
   ],
@@ -153,7 +158,9 @@ export const CA_RESPONDENT = [
   {
     id: TaskListSection.YOUR_RESPONSE,
     content: getContents.bind(null, TaskListSection.YOUR_RESPONSE),
-    show: caseData => !isCaseClosed(caseData),
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+      return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+    },
     tasks: [
       {
         id: Tasks.RESPOND_TO_THE_APPLICATION,
