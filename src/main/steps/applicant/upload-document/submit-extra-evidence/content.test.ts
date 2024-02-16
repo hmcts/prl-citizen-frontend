@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent } from '../../../../app/form/Form';
-import { CommonContent } from '../../../common/common.content';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -26,7 +26,7 @@ const cy: typeof en = {
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
-describe('citizen-home content', () => {
+describe('applicant -> upload-document -> submit-extra-evidence', () => {
   const commonContent = {
     language: 'en',
     additionalData: {
@@ -67,6 +67,11 @@ describe('citizen-home content', () => {
 
   test('should contain continue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
+  });
+
+  test('should contain correct cancel link', () => {
+    expect(form.link.text(generatePageContent({ language: 'en' }))).toBe('Cancel');
+    expect(form.link.href).toBe('/case/123');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

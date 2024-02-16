@@ -1,31 +1,25 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { DocCategory, DocType } from '../../../../app/case/definition';
+import { DocCategory, DocType, YesOrNo } from '../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
-import { CommonContent } from '../../../common/common.content';
+import { CommonContent, en as commonEnContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
 const en = {
-  section: ' ',
   label: 'Has the court asked for this document?',
-  one: 'Yes',
-  two: 'No',
   continue: 'Continue',
   errors: {
-    start: {
-      required: 'Please select one of the options before proceeding further',
+    hasCourtAskedForThisDoc: {
+      required: 'Select if the court has asked for this document.',
     },
   },
 };
 
 const cy: typeof en = {
-  section: ' ',
   label: 'A yw’r llys wedi gofyn am y ddogfen hon?',
-  one: 'Do',
-  two: 'Naddo',
   continue: 'Parhau',
   errors: {
-    start: {
+    hasCourtAskedForThisDoc: {
       required: 'Dewiswch un o’r opsiynau cyn parhau ymhellach',
     },
   },
@@ -33,7 +27,7 @@ const cy: typeof en = {
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
-describe('citizen-home content', () => {
+describe('respondent -> upload-document -> has-court-asked-for-this-documents', () => {
   const commonContent = {
     language: 'en',
     additionalData: {
@@ -57,7 +51,6 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.label).toEqual('Has the court asked for this document?');
-    expect(generatedContent.section).toEqual(' ');
   });
 
   // eslint-disable-next-line jest/expect-expect
@@ -70,21 +63,24 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain start field', () => {
-    const startField = fields.start as FormOptions;
-    expect(startField.type).toBe('radios');
-    expect(startField.classes).toBe('govuk-radios');
-    expect((startField.section as Function)(generatedContent)).toBe(en.section);
-    expect((startField.label as Function)(generatedContent)).toBe(en.label);
-    expect((startField.values[0].label as Function)(generatedContent)).toBe('Yes');
-    expect((startField.values[1].label as Function)(generatedContent)).toBe('No');
-    expect((startField.hint as Function)(generatedContent)).toBe(undefined);
-    expect(startField.values[1].value).toBe('No');
-    expect(startField.values[0].value).toBe('Yes');
+  test('should contain hasCourtAskedForThisDoc field', () => {
+    const hasCourtAskedForThisDoc = fields.hasCourtAskedForThisDoc as FormOptions;
+    expect(hasCourtAskedForThisDoc.type).toBe('radios');
+    expect(hasCourtAskedForThisDoc.classes).toBe('govuk-radios');
+    expect((hasCourtAskedForThisDoc.label as Function)(generatedContent)).toBe(en.label);
+    expect((hasCourtAskedForThisDoc.values[0].label as Function)(commonEnContent)).toBe(YesOrNo.YES);
+    expect((hasCourtAskedForThisDoc.values[1].label as Function)(commonEnContent)).toBe(YesOrNo.NO);
+    expect(hasCourtAskedForThisDoc.values[1].value).toBe(YesOrNo.NO);
+    expect(hasCourtAskedForThisDoc.values[0].value).toBe(YesOrNo.YES);
   });
 
   test('should contain continue button', () => {
     expect((form.onlyContinue?.text as Function)(generatedContent)).toBe('Continue');
+  });
+
+  test('should contain correct cancel link', () => {
+    expect(form.link.text(generatePageContent({ language: 'en' }))).toBe('Cancel');
+    expect(form.link.href).toBe('/case/1234');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

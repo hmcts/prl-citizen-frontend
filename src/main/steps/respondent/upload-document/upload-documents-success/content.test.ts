@@ -9,38 +9,32 @@ import { generateContent } from './content';
 const en = {
   pageTitle: 'Document submitted',
   bannerHeading: 'Important',
-  bannerTitle: 'Serve the documents',
-  status: 'Your documents have been uploaded',
+  bannerTitle: 'You must serve the documents',
   paragraphs: [
-    "If you haven't requested this document is restricted, it is your responsibility to share it with the other people in the case.",
-    "You can do this by sending to the party's legal representative if they have one or otherwise the party themselves by post or email.",
+    'You can do this by sending them to the party’s legal representative if they have one, or by posting or emailing them directly to the party.',
   ],
-  pageCaption: 'If you have requested this document to be restricted',
-  pageContent:
-    'If you have requested this document is restricted, the court will review your request and let you know what happens next.',
+  whatHappensNext: 'What happens next',
+  courtWillMakeDecisions: 'The court will make a decision on whether to restrict access to this document.',
   continue: 'Close and return to case overview',
   uploadAgain: 'Upload another document',
 };
 
 const cy: typeof en = {
-  pageTitle: 'Document submitted -welsh',
-  bannerHeading: 'Important -welsh',
-  bannerTitle: 'Serve the documents -welsh',
-  status: 'Your documents have been uploaded -welsh',
+  pageTitle: 'Document submitted - welsh',
+  bannerHeading: 'Important - welsh',
+  bannerTitle: 'You must serve the documents - welsh',
   paragraphs: [
-    "If you haven't requested this document is restricted, it is your responsibility to share it with the other people in the case. -welsh",
-    "You can do this by sending to the party's legal representative if they have one or otherwise the party themselves by post or email. -welsh",
+    'You can do this by sending them to the party’s legal representative if they have one, or by posting or emailing them directly to the party. - welsh',
   ],
-  pageCaption: 'If you have requested this document to be restricted -welsh',
-  pageContent:
-    'If you have requested this document is restricted, the court will review your request and let you know what happens next. -welsh',
-  continue: 'Close and return to case overview -welsh',
+  whatHappensNext: 'What happens next - welsh',
+  courtWillMakeDecisions: 'The court will make a decision on whether to restrict access to this document. - welsh',
+  continue: 'Close and return to case overview - welsh',
   uploadAgain: 'Llwytho dogfen arall',
 };
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
-describe('citizen-home content', () => {
+describe('respondent -> upload-document -> upload-document-success', () => {
   const commonContent = {
     language: 'en',
     additionalData: {
@@ -58,7 +52,6 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.status).toEqual('Your documents have been uploaded');
     expect(generatedContent.uploadAgain).toEqual('Upload another document');
     expect(generatedContent.continue).toEqual('Close and return to case overview');
   });

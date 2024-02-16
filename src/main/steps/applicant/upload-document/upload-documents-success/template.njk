@@ -1,42 +1,46 @@
 {% extends "common/template.njk" %}
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% block pageTitle %}
+  {{ pageTitle }}
+  {{ appName }}
+{% endblock %}
+
 {% block page_content %}
- {% block backLink %}
-    
-    {% endblock %}
+  {% block backLink %}{% endblock %}
+
   {{ govukPanel({
-  titleText: pageTitle,
-  html: ""
+    titleText: pageTitle
 }) }}
-  {% set html %}
-  <h2 class="govuk-notification-banner__heading">{{ bannerTitle }}</h2>
-  {% for paragraph in paragraphs %}
-    <p class="govuk-body">{{ paragraph | safe }}</p>
-  {% endfor %}
-  {% endset %}
-  {{ govukNotificationBanner({
+
+  {% if haveReasonForDocNotToBeShared === "No" %}
+    {% set html %}
+    <h2 class="govuk-notification-banner__heading">{{ bannerTitle }}</h2>
+    {% for paragraph in paragraphs %}
+      <p class="govuk-body">{{ paragraph | safe }}</p>
+    {% endfor %}
+    {% endset %}
+    {{ govukNotificationBanner({
   titleText: bannerHeading,
   html:html
 }) }}
-  <div>
-    <h2 class="govuk-notification-banner__heading">{{ pageCaption }}</h2>
-    <p class="govuk-body govuk-!-margin-bottom-9">{{ pageContent }}</p>
+  {% else %}
+  <div class="govuk-!-margin-top-6 govuk-!-margin-bottom-6">
+    <h2 class="govuk-heading-m">{{whatHappensNext}}</h2>
+    <p class="govuk-body-m">{{courtWillMakeDecisions}}</p>
   </div>
-  <br>
-    <br>
-      <div class="govuk-button-group">
-        <form
-          action="/document-manager/redirectToCaseView?_csrf={{ csrfToken }}"
-          method="post"
-          novalidate="">
-          <button class="govuk-button" data-module="govuk-button" value="Continue">
-            {{ continue }}
-          </button>
-        </form>
-        <form action="/document-manager/redirectToUploadDocument?_csrf={{ csrfToken }}" method="post">
-          <input type="hidden" name="answers-checked" value="true">
-            <button class="govuk-button govuk-button--secondary" data-module="govuk-button" value="Save and come back later">{{ uploadAgain }}</button>
-          </form>
-        </div>
-      {% endblock %}
+  {% endif %}
+
+  <div class="govuk-button-group">
+    <form action="/document-manager/redirectToCaseView?_csrf={{ csrfToken }}" method="post" novalidate="">
+      <button class="govuk-button" data-module="govuk-button" value="Continue">
+        {{ continue }}
+      </button>
+    </form>
+    <form action="/document-manager/redirectToUploadDocument?_csrf={{ csrfToken }}" method="post">
+      <input type="hidden" name="answers-checked" value="true">
+      <button class="govuk-button govuk-button--secondary" data-module="govuk-button">{{ uploadAgain }}</button>
+    </form>
+  </div>
+{% endblock %}

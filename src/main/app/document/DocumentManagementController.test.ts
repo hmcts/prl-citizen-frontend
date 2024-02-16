@@ -1525,13 +1525,13 @@ describe('DocumentManagerController', () => {
 
     test('redirectToCaseView for fl401 applicant', async () => {
       await documentManagerController.redirectToCaseView(request, response);
-      expect(response.redirect).toHaveBeenCalledWith('/applicant/task-list');
+      expect(response.redirect).toHaveBeenCalledWith('/case/1234');
     });
 
     test('redirectToCaseView for c100 applicant', async () => {
       request.session.userCase.caseTypeOfApplication = 'C100';
       await documentManagerController.redirectToCaseView(request, response);
-      expect(response.redirect).toHaveBeenCalledWith('/task-list/applicant');
+      expect(response.redirect).toHaveBeenCalledWith('/case/1234');
     });
 
     test('redirectToCaseView for respondent', async () => {
@@ -1552,7 +1552,7 @@ describe('DocumentManagerController', () => {
       ];
 
       await documentManagerController.redirectToCaseView(request, response);
-      expect(response.redirect).toHaveBeenCalledWith('/respondent/task-list');
+      expect(response.redirect).toHaveBeenCalledWith('/case/1234');
     });
 
     test('redirectToUploadDocument for applicant', async () => {

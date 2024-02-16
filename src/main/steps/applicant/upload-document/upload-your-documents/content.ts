@@ -1,14 +1,11 @@
-import { CaseType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { applyParms } from '../../../../steps/common/url-parser';
-import { APPLICANT_TASK_LIST_URL, FETCH_CASE_DETAILS } from '../../../../steps/urls';
+import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
-export const en = {
-  section: 'Provide the document',
-  subTitle: 'Provide the documents',
+const en = {
   declaration: 'I believe that the facts stated in these documents are true',
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   continue: 'Submit',
@@ -34,7 +31,7 @@ export const en = {
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
   errors: {
     declarationCheck: {
-      required: 'Please confirm the declaration',
+      required: 'Tick the box to confirm you believe the facts stated in this application are true.',
     },
     uploadFiles: {
       uploadError: 'Document could not be uploaded',
@@ -44,9 +41,7 @@ export const en = {
   },
 };
 
-export const cy = {
-  section: 'Provide the document (welsh)',
-  subTitle: 'Darparwch y dogfennau',
+const cy: typeof en = {
   declaration: 'Credaf fod y ffeithiau a nodir yn y dogfennau hyn yn wir',
   consent:
     'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
@@ -105,7 +100,7 @@ export const form: FormContent = {
       },
       consentConfirm: {
         type: 'label',
-        classes: 'govuk-label',
+        classes: 'govuk-label govuk-!-margin-bottom-6',
         label: l => l.consent,
         labelSize: 'm',
       },
@@ -128,11 +123,9 @@ export const generateContent: TranslationFn = content => {
   const isDocWitnessOrPosition = docType === 'positionstatements' || docType === 'yourwitnessstatements';
   const request = content.additionalData?.req;
   const userCase = request.session.userCase;
-  const caseId = userCase.id as string;
-  const caseType = userCase.caseTypeOfApplication;
+
   Object.assign(form.link!, {
-    href:
-      caseType === CaseType.C100 ? applyParms(FETCH_CASE_DETAILS, { caseId }) : `${APPLICANT_TASK_LIST_URL}/${caseId}`,
+    href: applyParms(FETCH_CASE_DETAILS, { caseId: userCase.id }),
   });
 
   return {

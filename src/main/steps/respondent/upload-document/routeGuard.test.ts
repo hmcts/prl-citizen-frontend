@@ -40,11 +40,13 @@ describe('upload document routeGuard', () => {
 
     await routeGuard.get(req, res, next);
     expect(req.session.save).toHaveBeenCalled();
-    expect(req.session.userCase.start).toBeUndefined();
+    expect(req.session.userCase.hasCourtAskedForThisDoc).toBeUndefined();
     expect(req.session.userCase.reasonForDocumentCantBeShared).toBeUndefined();
+    expect(req.session.userCase.haveReasonForDocNotToBeShared).toBeUndefined();
+    expect(req.session.userCase.reasonsToRestrictDocument).toBeUndefined();
     expect(req.session.userCase.declarationCheck).toBeUndefined();
+    expect(req.session.userCase.reasonsToNotSeeTheDocument).toStrictEqual([]);
     expect(req.session.userCase.applicantUploadFiles).toStrictEqual([]);
     expect(req.session.userCase.respondentUploadFiles).toStrictEqual([]);
-    expect(next).toHaveBeenCalled();
   });
 });

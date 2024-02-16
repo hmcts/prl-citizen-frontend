@@ -1,22 +1,16 @@
 {% extends "common/template.njk" %}
 
 {% block pageTitle %}
-  {{ section }} {{ appName }}
+  {{ cardTitle }}
+  {{ appName }}
 {% endblock %}
 
 {% block page_content %}
-  {% if section %}
-    <span class="govuk-heading-l">{{ section }}</span>
-  {% endif %}
-  <h3 class="govuk-heading-m">{{ removingDetails }}</h3>
-  <p class="govuk-body">{{ documentSharedLine1 }}</p>
-  <p class="govuk-body">{{ documentSharedLine2 }}</p>
-  <h3 class="govuk-heading-m">{{ restrictDocument }}</h3>
-  <p class="govuk-body">{{ documentSharedLine3 }}</p>
+  <div class="app-inverted--card app-inverted-text govuk-!-margin-top-5">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-7 app-inverted-text">{{cardTitle}}</h1>
+    <p class="govuk-heading-m app-link--inverted">
+      {{cardContent}}
+    </div>
 
-  <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
-    {% for item in restrictItems %} 
-      <li>{{ item }}</li>
-    {% endfor %}
-  </ul>
-{% endblock %}
+    <p class="govuk-body govuk-!-margin-top-6 govuk-!-margin-bottom-6">{{ bodyContent | safe }}</p>
+  {% endblock %}

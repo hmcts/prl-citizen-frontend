@@ -2,13 +2,11 @@ import languageAssertions from '../../../../../test/unit/utils/languageAssertion
 import { DocCategory, DocType } from '../../../../app/case/definition';
 import { FormContent, FormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-import { CommonContent, en as commonEnContent } from '../../../common/common.content';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
 const en = {
-  section: 'Provide the document',
-  subTitle: 'Provide the documents',
   declaration: 'I believe that the facts stated in these documents are true',
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   continue: 'Submit',
@@ -34,7 +32,7 @@ const en = {
     'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
   errors: {
     declarationCheck: {
-      required: 'Please confirm the declaration',
+      required: 'Tick the box to confirm you believe the facts stated in this application are true.',
     },
     uploadFiles: {
       uploadError: 'Document could not be uploaded',
@@ -45,8 +43,6 @@ const en = {
 };
 
 const cy: typeof en = {
-  section: 'Provide the document (welsh)',
-  subTitle: 'Darparwch y dogfennau',
   declaration: 'Credaf fod y ffeithiau a nodir yn y dogfennau hyn yn wir',
   consent:
     'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
@@ -86,7 +82,7 @@ const cy: typeof en = {
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
-describe('citizen-home content', () => {
+describe('respondent -> upload-document -> upload-your-documents', () => {
   const commonContent = {
     language: 'en',
     additionalData: {
@@ -122,8 +118,6 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.section).toEqual('Provide the document');
-    expect(generatedContent.subTitle).toEqual('Provide the documents');
     expect(generatedContent.declaration).toEqual('I believe that the facts stated in these documents are true');
     expect(generatedContent.consent).toEqual(
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.'
@@ -169,9 +163,9 @@ describe('citizen-home content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain cancel button', () => {
-    expect((form.link?.text as Function)(commonEnContent)).toBe('Cancel');
-    expect(form.link?.href).toBe('/respondent/task-list/123');
+  test('should contain correct cancel link', () => {
+    expect(form.link.text(generatePageContent({ language: 'en' }))).toBe('Cancel');
+    expect(form.link.href).toBe('/case/123');
   });
 
   test('should contain continue button', () => {

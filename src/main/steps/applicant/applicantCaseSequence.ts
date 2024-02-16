@@ -33,7 +33,7 @@ import {
   APPLICANT_TASKLIST_CONTACT_PREFERENCES_SAVE,
   APPLICANT_TASK_LIST_URL,
   APPLICANT_UPLOAD_DOCUMENT,
-  APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
+  APPLICANT_UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
   APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
@@ -81,6 +81,8 @@ import {
   APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,
   PageLink,
   APPLICANT_TASKLIST_HEARING_NEEDS,
+  APPLICANT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
+  APPLICANT_UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -383,17 +385,17 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
+    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
   },
   {
-    url: APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
+    url: APPLICANT_UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: (caseData, req) =>
-      caseData.start === YesOrNo.NO
+      caseData?.hasCourtAskedForThisDoc === YesOrNo.NO
         ? APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE
         : (applyParms(APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {
-            docCategory: req?.params?.docCategory,
-            docType: req?.params?.docType,
+            docCategory: req!.params.docCategory,
+            docType: req!.params.docType,
           }) as PageLink),
   },
   {
@@ -405,17 +407,39 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: (caseData, req) =>
+      applyParms(APPLICANT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS, {
+        docCategory: req!.params.docCategory,
+        docType: req!.params.docType,
+      }) as PageLink,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: (caseData, req) =>
+      applyParms(
+        caseData?.haveReasonForDocNotToBeShared === YesOrNo.YES
+          ? APPLICANT_UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT
+          : APPLICANT_UPLOAD_DOCUMENT,
+        {
+          docCategory: req!.params.docCategory,
+          docType: req!.params.docType,
+        }
+      ) as PageLink,
+  },
+  {
+    url: APPLICANT_UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: (caseData, req) =>
       applyParms(APPLICANT_UPLOAD_DOCUMENT, {
-        docCategory: req?.params?.docCategory,
-        docType: req?.params?.docType,
+        docCategory: req!.params.docCategory,
+        docType: req!.params.docType,
       }) as PageLink,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT,
     showInSection: Sections.AboutApplicantCase,
     postController: DocumentUploadPostController,
-    getNextStep: (caseData, req) =>
-      applyParms(APPLICANT_UPLOAD_DOCUMENT_SUCCESS, { docCategory: req?.params?.docCategory }) as PageLink,
+    getNextStep: () => APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
   },
   {
     url: APPLICANT_UPLOAD_DOCUMENT_SUCCESS,
