@@ -1,20 +1,15 @@
-import {
-  //CaseType,
-  PartyType,
-} from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
-import { getApplicant } from '../../applicant/task-list';
 
 import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   DASHBOARD_URL,
 } from './../../urls';
-import { getNotificationBannerConfig } from './components/notification-banner/utils';
-import { getProgressBarConfig } from './components/progress-bar/utils';
+import { getNotificationBannerConfig } from './components/notification-banner/.';
+import { getProgressBarConfig } from './components/progress-bar/index';
 import { languages as sideLinks } from './components/side-links/content';
 import { getTaskListConfig } from './components/tasklist/index';
-import { checkPartyRepresentedBySolicitor, getPartyName } from './utils';
+import { getPartyName, isRepresentedBySolicotor } from './utils';
 
 const en = {
   title: 'Child arrangements and family injunction cases',
@@ -146,11 +141,7 @@ export const generateContent: TranslationFn = content => {
   const request = content.additionalData?.req;
   const caseData = request.session.userCase;
   const partyType = request.params.partyType;
-  let isRepresentedBySolicotor = false;
-  if (partyType === PartyType.APPLICANT) {
-    const applicant = getApplicant(request.session.userCase, request.session.user.id);
-    isRepresentedBySolicotor = checkPartyRepresentedBySolicitor(applicant);
-  }
+  const _isRepresentedBySolicotor = isRepresentedBySolicotor(caseData, request.session.user.id);
 
   if (caseData?.caseTypeOfApplication) {
     translations.hyperlinks = sideLinks[content.language]?.[caseData.caseTypeOfApplication]?.[partyType].hyperlinks;
@@ -158,8 +149,8 @@ export const generateContent: TranslationFn = content => {
 
   translations.hyperlinks.forEach((hyperLink, index) => {
     if (
-      (hyperLink.label.includes(translations.addLegalRepresentative) && isRepresentedBySolicotor) ||
-      (hyperLink.label.includes(translations.removeLegalRepresentative) && !isRepresentedBySolicotor)
+      (hyperLink.label.includes(translations.addLegalRepresentative) && _isRepresentedBySolicotor) ||
+      (hyperLink.label.includes(translations.removeLegalRepresentative) && !_isRepresentedBySolicotor)
     ) {
       translations.hyperlinks.splice(index, 1);
     }
@@ -174,6 +165,6 @@ export const generateContent: TranslationFn = content => {
     partyName: getPartyName(caseData, partyType, request.session.user),
     progressBar: getProgressBarConfig(caseData, partyType, content.language, request.session.user),
     notifications: getNotificationBannerConfig(caseData, request.session.user, partyType, content.language),
-    taskLists: getTaskListConfig(caseData, request.session.user, partyType, content.language, isRepresentedBySolicotor),
+    taskLists: getTaskListConfig(caseData, request.session.user, partyType, content.language),
   };
 };

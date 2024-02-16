@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
@@ -56,7 +58,7 @@ const taskListConfig = {
   },
   [CaseType.FL401]: {
     [PartyType.APPLICANT]: tasklistConfig.DA_APPLICANT,
-    [PartyType.RESPONDENT]: [],
+    [PartyType.RESPONDENT]: tasklistConfig.DA_RESPONDENT,
   },
 };
 
@@ -64,8 +66,7 @@ export const getTaskListConfig = (
   caseData: Partial<CaseWithId>,
   userDetails: UserDetails,
   partyType: PartyType,
-  language: string,
-  isRepresentedBySolicotor: boolean
+  language: string
 ): Record<string, any>[] => {
   let caseType = caseData?.caseTypeOfApplication;
   if (!caseType && partyType === PartyType.APPLICANT) {
@@ -86,15 +87,7 @@ export const getTaskListConfig = (
           tasks: section.tasks
             .map(task => {
               if (!task.hasOwnProperty('show') || (task.show instanceof Function && task.show(caseData, userDetails))) {
-                const config = prepareTaskListConfig(
-                  task,
-                  caseData,
-                  userDetails,
-                  _content,
-                  language,
-                  isRepresentedBySolicotor,
-                  partyType
-                );
+                const config = prepareTaskListConfig(task, caseData, userDetails, _content, language, partyType);
 
                 prepareHintConfig(task, caseData, userDetails, config, _content);
                 prepareOpenInAnotherTabConfig(task, config);
@@ -120,7 +113,6 @@ const prepareTaskListConfig = (
   userDetails: UserDetails,
   _content: any,
   language: string,
-  isRepresentedBySolicotor: boolean,
   partyType: PartyType
 ) => {
   const stateTag = task.stateTag(caseData, userDetails);
@@ -137,10 +129,7 @@ const prepareTaskListConfig = (
     id: task.id,
     linkText: _content?.tasks[task.id]?.linkText,
     href: task.href(caseData, userDetails),
-    disabled:
-      task?.disabled && task.disabled instanceof Function
-        ? task.disabled(caseData, userDetails) || isRepresentedBySolicotor
-        : false,
+    disabled: _.isFunction(task?.disabled) ? task.disabled(caseData, userDetails) : false,
     stateTag: {
       label: _stateTagConfig.label ? _stateTagConfig.label(language) : '',
       className: _stateTagConfig.className ? _stateTagConfig.className : '',

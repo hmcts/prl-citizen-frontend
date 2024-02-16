@@ -197,6 +197,57 @@ const en = {
         },
       },
     },
+    [PartyType.RESPONDENT]: {
+      aboutYou: {
+        heading: 'About you',
+        tasks: {
+          keepYourDetailsPrivate: {
+            linkText: 'Keep your details private',
+          },
+          editYouContactDetails: {
+            linkText: 'Confirm or edit your contact details',
+          },
+          yourSupport: {
+            linkText: 'Your Support',
+          },
+        },
+      },
+      theApplication: {
+        heading: 'The application',
+        tasks: {
+          checkTheApplication: {
+            linkText: 'Check the application (PDF)',
+          },
+        },
+      },
+      yourHearing: {
+        heading: 'Your court hearings',
+        tasks: {
+          viewHearingDetails: {
+            linkText: 'Check details of your court hearings',
+          },
+        },
+      },
+      yourDocuments: {
+        heading: 'Your documents',
+        tasks: {
+          viewAllDocuments: {
+            linkText: 'View all documents',
+          },
+          uploadDocuments: {
+            linkText: 'Upload Documents',
+          },
+        },
+      },
+      ordersFromTheCourt: {
+        heading: 'Orders from the court',
+        tasks: {
+          viewOrders: {
+            linkText: 'View all orders from the court',
+          },
+        },
+      },
+    },
   },
 };
 
@@ -394,6 +445,57 @@ const cy: typeof en = {
       },
       ordersFromTheCourt: {
         heading: 'Cadw eich manylion yn breifat',
+        tasks: {
+          viewOrders: {
+            linkText: 'Gweld yr holl orchmynion gan y llys',
+          },
+        },
+      },
+    },
+    [PartyType.RESPONDENT]: {
+      aboutYou: {
+        heading: 'Amdanoch chi',
+        tasks: {
+          keepYourDetailsPrivate: {
+            linkText: 'Cadw eich manylion yn breifat',
+          },
+          editYouContactDetails: {
+            linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
+          },
+          yourSupport: {
+            linkText: 'Your Support -welsh',
+          },
+        },
+      },
+      theApplication: {
+        heading: 'Y cais',
+        tasks: {
+          checkTheApplication: {
+            linkText: 'Gwirio’r cais (PDF)',
+          },
+        },
+      },
+      yourHearing: {
+        heading: 'Eich gwrandawiadau llys',
+        tasks: {
+          viewHearingDetails: {
+            linkText: 'Gwiriwch fanylion eich gwrandawiadau llys',
+          },
+        },
+      },
+      yourDocuments: {
+        heading: 'Eich dogfennau',
+        tasks: {
+          viewAllDocuments: {
+            linkText: 'Eich diogelwch',
+          },
+          uploadDocuments: {
+            linkText: 'Llwytho dogfennau Dewisol',
+          },
+        },
+      },
+      ordersFromTheCourt: {
+        heading: 'Gorchmynion gan y llys',
         tasks: {
           viewOrders: {
             linkText: 'Gweld yr holl orchmynion gan y llys',

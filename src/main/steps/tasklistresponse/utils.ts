@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../app/case/case';
-import { CaseType, PartyDetails, PartyType } from '../../app/case/definition';
+import { Applicant, CaseType, PartyDetails, PartyType, Respondent } from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
 import { mapSupportYouNeedDetails } from '../../steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
 import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
@@ -53,15 +53,22 @@ function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
 }
 
 export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id']): PartyDetails | undefined => {
+  let partyData;
+
+  if (!userCase) {
+    return partyData;
+  }
+
   const partyType = getCasePartyType(userCase, userId);
   const caseType = userCase.caseTypeOfApplication;
-  let partyData;
 
   if (caseType === CaseType.C100) {
     if (partyType === PartyType.RESPONDENT) {
-      partyData = userCase.respondents!.find(respondent => respondent?.value?.user?.idamId === userId);
+      partyData = (userCase?.respondents as Respondent[])?.find(
+        respondent => respondent?.value?.user?.idamId === userId
+      );
     } else {
-      partyData = userCase.applicants!.find(applicant => applicant?.value?.user?.idamId === userId);
+      partyData = (userCase?.applicants as Applicant[])?.find(applicant => applicant?.value?.user?.idamId === userId);
     }
   } else {
     partyData = partyType === PartyType.RESPONDENT ? userCase.respondentsFL401 : userCase.applicantsFL401;

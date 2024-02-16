@@ -2,7 +2,7 @@ import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, SelectTypeOfOrderEnum, State, YesOrNo } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 
-import { getProgressBarConfig } from './utils';
+import { getProgressBarConfig } from './index';
 
 describe('testcase for progress-bar', () => {
   test('when not started yet', () => {
@@ -55,9 +55,9 @@ describe('testcase for progress-bar', () => {
 
     expect(getProgressBarConfig(data, party, language, userDetails)).toStrictEqual([
       {
-        ariaLabel: 'Case opened stage is not yet started',
+        ariaLabel: 'Case opened stage is completed',
         label: 'Case<br/> opened',
-        statusBarClassName: '',
+        statusBarClassName: 'stage--completed',
       },
       {
         ariaLabel: 'Hearings and court orders stage is not yet started',
