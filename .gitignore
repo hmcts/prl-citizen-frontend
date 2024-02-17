@@ -30,5 +30,6 @@ npm-debug.log.*
 .settings/
 dist/
 public/
+src/test/end-to-end/output/
 
 coverage

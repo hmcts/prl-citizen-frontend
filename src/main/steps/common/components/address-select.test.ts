@@ -1,4 +1,4 @@
-import { FormContent, FormFields, FormOptions } from '../../../app/form/Form';
+import { FormContent, FormFields, FormInput } from '../../../app/form/Form';
 import { isAddressSelected } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 
@@ -125,11 +125,14 @@ describe('common > components > address-select', () => {
   test('should contain citizenUserSelectAddress field', () => {
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const selectAddressField = fields.citizenUserSelectAddress as FormOptions;
+    const selectAddressField = fields.citizenUserSelectAddress as FormInput;
 
     expect(selectAddressField.type).toBe('select');
     expect((selectAddressField.label as Function)(generatedContent)).toBe('Select an address');
     expect(selectAddressField.validator).toBe(isAddressSelected);
+    expect((selectAddressField.options as Function)(generatedContent)).toStrictEqual([
+      { attributes: { id: 'totalAddressesFound' }, selected: true, text: '0 address found', value: -1 },
+    ]);
   });
 });
 /* eslint-enable @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */

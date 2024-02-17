@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { CommonContent, generatePageContent } from '../../common.content';
+import { FormContent } from '../../../../app/form/Form';
+import { CommonContent, en as enContent, generatePageContent } from '../../common.content';
 
 import { generateContent } from './content';
 
@@ -61,5 +63,72 @@ describe('address confirmation > content', () => {
 
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+
+  test('should set correct url address text when post code is entered for english', () => {
+    expect(
+      generateContent({
+        ...commonContent,
+        userCase: { citizenUserAddressPostcode: 'SW11AA', citizenUserDateOfBirth: new Date() },
+      } as unknown as CommonContent).sections
+    ).toStrictEqual([
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: 'addresshistory',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Address history',
+                },
+              ],
+            },
+            key: {
+              text: 'Address history',
+            },
+            value: {},
+          },
+        ],
+        title: '',
+      },
+    ]);
+  });
+
+  test('should set correct url address text when post code is entered for welsh', () => {
+    expect(
+      generateContent({
+        ...commonContent,
+        userCase: { citizenUserAddressPostcode: 'SW11AA', citizenUserDateOfBirth: new Date() },
+        language: 'cy',
+      } as unknown as CommonContent).sections
+    ).toStrictEqual([
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: 'addresshistory',
+                  text: 'Golygu',
+                  visuallyHiddenText: 'Hanes cyfeiriad',
+                },
+              ],
+            },
+            key: {
+              text: 'Hanes cyfeiriad',
+            },
+            value: {},
+          },
+        ],
+        title: '',
+      },
+    ]);
+  });
+
+  test('should contain submit button', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent;
+    expect((form.submit?.text as Function)(enContent)).toBe('Save and continue');
   });
 });

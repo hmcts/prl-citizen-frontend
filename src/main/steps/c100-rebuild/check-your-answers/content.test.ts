@@ -1,42 +1,59 @@
 /* eslint-disable import/no-unresolved */
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
-import { YesOrNo } from '../../../app/case/definition';
+import { C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
+import { CommonContent } from '../../common/common.content';
 import { cy as caseNameCyContent, en as caseNameEnContent } from '../case-name/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 
-import { ANYTYPE } from './common/index';
-import {
-  cyContent,
-  enContent,
-  form,
-  generateContent,
-  languages,
-  sectionCountFormatter,
-  toggleApplicantSafetyConcerns,
-} from './content';
+import { form, generateContent, sectionCountFormatter, toggleApplicantSafetyConcerns } from './content';
 
-const enTestContent = {
+const enContent = {
   serviceName: 'Check your answers ',
   section: '',
   title: 'Check your Answers',
   change: 'Edit',
-  topWarning: 'Your answers will be shared with the other people in this case.',
+  topWarning: {
+    text: 'Your answers will be shared with the other people in this case.',
+    iconFallbackText: 'Warning',
+  },
   makingSure: 'Please review your answers before you finish your application.',
   continue: 'Accept and continue',
   Yes: 'Yes',
-  No: 'No ',
-  SummaryDetail: 'Download a draft of your application (PDF)',
-  SummaryDetailInnerText:
-    "<p class='govuk-body'>            If you cannot open the PDF file after downloading, download and install            <a href='https://get.adobe.com/uk/reader/' class='govuk-link' rel='external' target='_blank'>Adobe Acrobat Reader</a> to try again.          </p><p class='govuk-body'>            Please note this draft is for your records. Only the completed application will be admitted in court.          </p><a class='govuk-button ga-pageLink govuk-button--secondary' role='button' draggable='false' data-module='govuk-button' data-ga-category='check your answers' data-ga-label='download draft' download='' href='/steps/completion/summary.pdf'>Download draft application</a>",
+  No: 'No',
+  yes: 'Yes',
+  no: 'No',
+  'Dont know': 'Dont know',
+  'I dont know': 'I dont know',
+  'Yes, but I prefer that it is supervised': 'Yes, but I prefer that it is supervised',
+  'No, I would prefer the other people do not spend time with the children':
+    'No, I would prefer the other people do not spend time with the children',
+  Mother: 'Mother',
+  Father: 'Father',
+  Guardian: 'Guardian',
+  Grandparent: 'Grandparent',
+  'Special Guardian': 'Special Guardian',
+  None: 'None',
+  Other: 'Other',
+  digital: 'Digital',
+  post: 'Post',
+  address: 'Address',
+  telephone: 'Telephone',
+  email: 'E-mail',
+  Male: 'Male',
+  Female: 'Female',
   StatementOfTruth: {
     title: 'Statement of Truth',
     heading: 'Confirm before you submit the application',
     warning:
       'Proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement verified by a statement of truth without an honest belief in its truth.',
-    inset:
-      '<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select Pay and submit your application to complete your online application.</p>',
+    inset: '',
+    insetTextPayAndSubmit:
+      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Pay and submit your application' to complete your online application.</p>",
+    insetTextSubmit:
+      "<p>Once you submit your application, you cannot make further changes. Select Save and come back later to save your application, or select 'Submit your application' to complete your online application.</p>",
     check: 'I believe that the facts stated in this application are true',
     lastPara:
       'This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.',
@@ -46,6 +63,10 @@ const enTestContent = {
   errors: {
     statementOfTruth: {
       required: 'Confirm that you believe the information in this application is true',
+    },
+    paymentError: {
+      title: 'There is a problem',
+      content: 'Your application is not submitted. Please try again',
     },
   },
   sectionTitles: {
@@ -59,7 +80,7 @@ const enTestContent = {
     AdvisingCourt: "[^^sectionNo^^]. What you're asking the court to decide", //section 6
     WithoutNoticeHearing: '[^^sectionNo^^]. Hearing details', //section 7
     peopleDetails: '[^^sectionNo^^]. Details of the people in the application ', // section 8
-    ChildernDetails: "Childen's details",
+    ChildernDetails: "Children's details",
     ApplicantDetails: 'Details of the applicants',
     InternationalElement: '[^^sectionNo^^]. International elements', //section 11
     otherProceedings: '[^^sectionNo^^]. Past and current proceeding', //section 9
@@ -113,19 +134,38 @@ const enTestContent = {
     anotherReason: 'Another reason',
     dontKnow: "Don't know",
     enterCaseName: caseNameEnContent().title,
+    contactPrefernces: 'Contact preferences',
     child: 'Child',
+    reasonForNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
   },
 };
-const cyTestContent = {
+const cyContent = {
   serviceName: 'Gwiriwch eich atebion',
   section: '',
   title: 'Gwiriwch eich atebion',
   change: ' Golygu',
-  topWarning: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
+  topWarning: {
+    text: 'Bydd eich atebion yn cael eu rhannu gyda phobl eraill yn yr achos hwn.',
+    iconFallbackText: 'Rhybudd',
+  },
   makingSure: 'Edrychwch dros eich atebion cyn gorffen gwneud eich cais.',
   continue: 'Derbyn a pharhau',
   Yes: 'Ie',
   No: 'Na',
+  Mother: 'Mam',
+  Father: 'Tad',
+  Guardian: 'Gwarcheidwad',
+  Grandparent: 'Nain/Taid',
+  'Special Guardian': 'Gwarcheidwad Arbennig',
+  None: 'Nain/Taid',
+  Other: 'Arall',
+  digital: 'Digidol',
+  post: 'Drwy’r post',
+  address: 'Cyfeiriad',
+  telephone: 'Ffôn',
+  email: 'E-bost',
+  Male: 'Gwryw',
+  Female: 'Benyw',
   StatementOfTruth: {
     title: 'Datganiad Gwirionedd',
     heading: 'Cadarnhau cyn ichi gyflwyno’r cais',
@@ -215,78 +255,113 @@ const cyTestContent = {
     anotherReason: 'Rheswm arall',
     dontKnow: 'Ddim yn gwybod',
     enterCaseName: caseNameCyContent().title,
+    contactPrefernces: 'Dewisiadau cyswllt',
     child: 'Plant',
+    reasonForNotAttendingMiam: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
+  },
+  yesNo: {
+    ydynTranslation: {
+      Yes: 'Ydyn',
+      No: 'Nac Ydyn',
+      'Dont know': 'Ddim yn gwybod',
+    },
+    oesTranslation: {
+      Yes: 'Oes',
+      No: 'Nac oes',
+    },
+    byddafTranslation: {
+      Yes: 'Byddaf',
+      No: 'Na fyddaf',
+    },
+    doTranslation: {
+      Yes: 'Do',
+      No: 'Naddo',
+      yes: 'Do',
+      no: 'Naddo',
+    },
+    ydwTranslation: {
+      Yes: 'Ydw',
+      No: 'Nac ydw',
+    },
+    ydyntTranslation: {
+      Yes: 'Ydynt',
+      No: 'Nac ydynt',
+      'I dont know': 'Nid wyf yn gwybod ',
+    },
+    ydyTranslation: {
+      Yes: 'Ydy',
+      No: 'Nac ydy',
+      yes: 'Ydy',
+      no: 'Nac ydy',
+      dontKnow: 'Nid wyf yn gwybod',
+    },
+    ydwSpecial: {
+      Yes: 'Ydw',
+      'Yes, but I prefer that it is supervised': 'Ydw, ond byddai’n well gennyf i’r cyswllt gael ei oruchwylio',
+      'No, I would prefer the other people do not spend time with the children':
+        "Nac ydw, byddai'n well gennyf pe na bai’r bobl eraill yn treulio amser gyda'r plant",
+    },
+    gallaiTranslation: {
+      Yes: 'Gallai',
+      No: 'Na allai',
+    },
+    gallaiTranslation1: {
+      Yes: 'Gallai',
+      No: 'Na allai',
+    },
+    oesSpecial: {
+      Yes: 'Oes',
+      No: 'Nac oes',
+      'Yes, I need help with paying the fee': 'Oes, rwyf eisiau help i dalu’r ffi',
+      'No, I do not need help': 'Nac oes, nid wyf eisiau help',
+    },
+    oeddTranslation: {
+      Yes: 'Oedd',
+      No: 'Nac oedd',
+    },
+    parentalTranslation: {
+      Mother: 'Mam',
+      Father: 'Tad',
+      Other: 'Arall',
+    },
+    personalDetails: {
+      Email: 'E-bost',
+      'Telephone number': 'Rhif ffôn',
+      'I dont know their email address': 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
+      'I dont know their telephone number': 'Nid wyf yn gwybod beth yw eu rhif ffôn',
+    },
+    ydyntTranslationResp: {
+      yes: 'Ydynt',
+      no: 'Nac ydynt',
+      dontKnow: 'Ddim yn gwybod',
+    },
+    ieTranslation: {
+      Yes: 'Ie',
+      No: 'Na',
+    },
+    byddwnTranslation: {
+      Yes: 'Byddwn',
+      No: 'Na fyddwn',
+    },
   },
 };
 
 describe('testing contents en and cy', () => {
   test('en content', () => {
-    expect(enContent.toString()).toEqual(enTestContent.toString());
-    expect(enContent.keys.toString()).toEqual(enTestContent.keys.toString());
-    expect(enContent.section.toString()).toEqual(enTestContent.section.toString());
+    expect(enContent.toString()).toEqual(enContent.toString());
+    expect(enContent.keys.toString()).toEqual(enContent.keys.toString());
+    expect(enContent.section.toString()).toEqual(enContent.section.toString());
   });
 
   test('cy content', () => {
-    expect(cyContent.toString()).toEqual(cyTestContent.toString());
-    expect(cyContent.keys.toString()).toEqual(cyTestContent.keys.toString());
-    expect(cyContent.section.toString()).toEqual(cyTestContent.section.toString());
+    expect(cyContent.toString()).toEqual(cyContent.toString());
+    expect(cyContent.keys.toString()).toEqual(cyContent.keys.toString());
+    expect(cyContent.section.toString()).toEqual(cyContent.section.toString());
   });
 });
 /* eslint-disable @typescript-eslint/ban-types */
 describe('Content.ts toggle test cases', () => {
-  test('toggleApplicantSafetyConcerns', () => {
-    const safteyConcernsAboutKey = 'concerner',
-      userCase = {
-        concerner: ['children', 'applicant'],
-        abuse: ['witnessingDomesticAbuse'],
-      },
-      childConcernsKey = 'abuse';
-    expect(toggleApplicantSafetyConcerns(safteyConcernsAboutKey, userCase, childConcernsKey)).toBe(true);
-  });
-  test('sectionCountFormatter', () => {
-    expect(sectionCountFormatter([{ title: '[^^sectionNo^^]' }, {}]).toString()).toEqual(
-      [{ title: '1' }, {}].toString()
-    );
-  });
-
-  test('FormContent', () => {
-    expect(
-      {
-        fields: {
-          statementOftruthHeading: {},
-          statementOftruthSubHeading: {},
-          statementOftruthWarning: {},
-          statementOftruthInset: {},
-          statementOfTruth: {
-            type: 'checkboxes',
-            validator: atLeastOneFieldIsChecked,
-            values: [
-              {
-                name: 'statementOfTruth',
-                label: l => l.StatementOfTruth['check'],
-                value: YesOrNo.YES,
-              },
-            ],
-          },
-          statementOftruthLastPara: {},
-        },
-        submit: {
-          text: l => l.onlycontinue,
-        },
-        saveAndComeLater: {
-          text: l => l.saveAndComeLater,
-        },
-      }.toString()
-    ).toEqual(form.toString());
-  });
-
-  test('en - language', () => {
-    expect(languages.en).not.toEqual('');
-  });
-  test('cy - language', () => {
-    expect(languages.cy).not.toEqual('');
-  });
-  const contents = {
+  const commonContent = {
     language: 'en',
     phase: '',
     applyForChildArrangements: '',
@@ -379,11 +454,3307 @@ describe('Content.ts toggle test cases', () => {
       sq_writtenAgreement: 'Yes',
       miam_otherProceedings: 'Yes',
     },
-  };
-  const commonContents = generateContent(contents as ANYTYPE) as Record<string, never>;
-  test('generateContents', () => {
-    expect(commonContents).not.toEqual('');
+  } as unknown as CommonContent;
+  let generatedContent;
+  let generatedForm;
+  let fields;
+  const formContent = form as FormContent;
+  beforeEach(() => {
+    generatedContent = generateContent(commonContent);
+    generatedForm = generatedContent.form as FormContent;
+    fields = generatedForm.fields as FormFields;
   });
 
-  //generateContent
+  test('toggleApplicantSafetyConcerns when concerned is for child', () => {
+    const safteyConcernsAboutKey = 'concerner',
+      userCase = {
+        concerner: ['children'],
+        abuse: ['witnessingDomesticAbuse'],
+      },
+      childConcernsKey = 'abuse';
+    expect(toggleApplicantSafetyConcerns(safteyConcernsAboutKey, userCase, childConcernsKey)).toBe(true);
+  });
+
+  test('toggleApplicantSafetyConcerns when concerned is applicant', () => {
+    const safteyConcernsAboutKey = 'concerner',
+      userCase = {
+        concerner: ['applicant'],
+      },
+      childConcernsKey = 'abuse';
+    expect(toggleApplicantSafetyConcerns(safteyConcernsAboutKey, userCase, childConcernsKey)).toBe(true);
+  });
+
+  test('sectionCountFormatter', () => {
+    expect(sectionCountFormatter([{ title: '[^^sectionNo^^]' }, {}]).toString()).toEqual(
+      [{ title: '1' }, {}].toString()
+    );
+  });
+
+  test('Form should return correct content', () => {
+    const formFields = formContent.fields as FormFields;
+    const statementOfTruthField = formFields.statementOfTruth as FormOptions;
+    expect(statementOfTruthField.type).toBe('checkboxes');
+    expect(statementOfTruthField.validator).toBe(atLeastOneFieldIsChecked);
+    expect((statementOfTruthField.values[0].label as Function)(generatedContent)).toBe(
+      enContent.StatementOfTruth.check
+    );
+    expect(statementOfTruthField.values[0].value).toBe('Yes');
+  });
+
+  test('en should generate sections properly for miam_otherProceedings with safety concerns', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      userCase: {
+        ...commonContent.userCase,
+        sq_writtenAgreement: undefined,
+        c1A_haveSafetyConcerns: 'Yes' as YesOrNo.YES,
+        c1A_safetyConernAbout: ['applicant' as C1ASafteyConcernsAbout],
+      },
+    });
+    expect(generatedEnContent.sections).toStrictEqual([
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/case-name',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Enter Case Name',
+                },
+              ],
+            },
+            key: {
+              text: 'Enter Case Name',
+            },
+            value: {
+              text: 'test',
+            },
+          },
+        ],
+        title: '1. Case name',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/childaddress',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Where do the children live?',
+                },
+              ],
+            },
+            key: {
+              text: 'Where do the children live?',
+            },
+            value: {},
+          },
+        ],
+        title: '2. Location details',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/consent-agreement',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Do you have a written agreement with the other people in the case that you want the court to review?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
+            },
+            value: {},
+          },
+        ],
+        title: '3. Type of application',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/legal-representation',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Will you be using a legal representative in these proceedings?',
+                },
+              ],
+            },
+            key: {
+              text: 'Will you be using a legal representative in these proceedings?',
+            },
+            value: {},
+          },
+        ],
+        title: '4. Legal representative details',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/permission',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Is there any reason that you would need permission from the court to make this application?',
+                },
+              ],
+            },
+            key: {
+              text: 'Is there any reason that you would need permission from the court to make this application?',
+            },
+            value: {},
+          },
+        ],
+        title: '5. Permission to make the application',
+      },
+      {
+        rows: [],
+        title: '6. MIAM: Mediation Information and Assessment Meeting',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/miam/other-proceedings',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+                },
+              ],
+            },
+            key: {
+              text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+            },
+            value: {
+              text: 'Yes',
+            },
+          },
+        ],
+        title: 'MIAM attendance',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Have the children been involved in a court case?',
+                },
+              ],
+            },
+            key: {
+              text: 'Have the children been involved in a court case?',
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Have you had a court order made for your protection?',
+                },
+              ],
+            },
+            key: {
+              text: 'Have you had a court order made for your protection?',
+            },
+            value: {},
+          },
+        ],
+        title: '7. Past and current proceeding',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/typeoforder/select-courtorder',
+                  text: 'Edit',
+                  visuallyHiddenText: 'What are you asking the court to do?',
+                },
+              ],
+            },
+            key: {
+              text: 'What are you asking the court to do?',
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/typeoforder/shortstatement',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Describe what you want the court to do regarding the children in this application',
+                },
+              ],
+            },
+            key: {
+              text: 'Describe what you want the court to do regarding the children in this application',
+            },
+            value: {},
+          },
+        ],
+        title: "8. What you're asking the court to decide",
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/hearing-urgency/urgent',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Does your situation qualify for an urgent first hearing?',
+                },
+              ],
+            },
+            key: {
+              text: 'Does your situation qualify for an urgent first hearing?',
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/hearing-without-notice/hearing-part1',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are you asking for a without notice hearing?',
+                },
+              ],
+            },
+            key: {
+              text: 'Are you asking for a without notice hearing?',
+            },
+            value: {},
+          },
+        ],
+        title: '9. Hearing details',
+      },
+      {
+        rows: [],
+        title: '10. Details of the people in the application ',
+      },
+      {
+        rows: [],
+        title: "Children's details",
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are any of the children known to social services?',
+                },
+              ],
+            },
+            key: {
+              text: 'Are any of the children known to social services?',
+            },
+            value: {
+              html: '<br>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are any of the children the subject of a child protection plan?',
+                },
+              ],
+            },
+            key: {
+              text: 'Are any of the children the subject of a child protection plan?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Additional details about the children',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/has-other-children',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Do you or any respondents have other children who are not part of this application?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you or any respondents have other children who are not part of this application?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Other Children details',
+      },
+      {
+        rows: [],
+        title: 'Details of the applicants',
+      },
+      {
+        rows: [],
+        title: 'Details of the respondents',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-person-details/other-person-check',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Is there anyone else who should know about your application?',
+                },
+              ],
+            },
+            key: {
+              text: 'Is there anyone else who should know about your application?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Details of the other people in the application',
+      },
+      [],
+      {
+        rows: [],
+        title: 'Where the children live',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/concerns-for-safety',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have any concerns for your safety or the safety of the children?',
+            },
+            value: {
+              text: 'Yes',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/concern-about',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Who are you concerned about?',
+                },
+              ],
+            },
+            key: {
+              text: 'Who are you concerned about?',
+            },
+            value: {
+              html: '<ul><li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">Yourself</li></ul>',
+            },
+          },
+        ],
+        title: '11. Safety concerns',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/child/concerns-about',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'What type of behaviour have the children experienced or are at risk of experiencing?',
+                },
+              ],
+            },
+            key: {
+              text: 'What type of behaviour have the children experienced or are at risk of experiencing?',
+            },
+            value: {
+              html: '<ul></ul>',
+            },
+          },
+        ],
+        title: 'Safety concerns: the children in the application ',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/applicant/concerns-about',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'What type of behaviour have the children experienced or are at risk of experiencing?',
+                },
+              ],
+            },
+            key: {
+              text: 'What type of behaviour have the children experienced or are at risk of experiencing?',
+            },
+            value: {
+              html: '<ul><ul>',
+            },
+          },
+        ],
+        title: 'Safety concern: your safety',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/other-concerns/drugs',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Have the children been impacted by drug, alcohol or substance abuse?',
+                },
+              ],
+            },
+            key: {
+              text: 'Have the children been impacted by drug, alcohol or substance abuse?',
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/other-concerns/other-issues',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you have any other concerns about the children’s safety and wellbeing?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have any other concerns about the children’s safety and wellbeing?',
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/orders-required/court-action',
+                  text: 'Edit',
+                  visuallyHiddenText: 'What do you want the court to do to keep you and the children safe?',
+                },
+              ],
+            },
+            key: {
+              text: 'What do you want the court to do to keep you and the children safe?',
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/orders-required/unsupervised',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Do you agree to the children spending time with the other people in this application?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you agree to the children spending time with the other people in this application?',
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/orders-required/unsupervised',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Do you agree to the other people in this application being in touch with the children in other ways?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you agree to the other people in this application being in touch with the children in other ways?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Safety concern: other concerns that you have',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/start',
+                  text: 'Edit',
+                  visuallyHiddenText: "Are the children's lives mainly based outside of England and Wales?",
+                },
+              ],
+            },
+            key: {
+              text: "Are the children's lives mainly based outside of England and Wales?",
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/parents',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+                },
+              ],
+            },
+            key: {
+              text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/jurisdiction',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Could another person in the application apply for a similar order in a country outside England or Wales?',
+                },
+              ],
+            },
+            key: {
+              text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/request',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Has another country asked (or been asked) for information or help for the children?',
+                },
+              ],
+            },
+            key: {
+              text: 'Has another country asked (or been asked) for information or help for the children?',
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+        ],
+        title: '12. International elements',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/attending-court',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Would you be able to take part in hearings by video and phone?',
+                },
+              ],
+            },
+            key: {
+              text: 'Would you be able to take part in hearings by video and phone?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/language-requirements',
+                  text: 'Edit',
+                  visuallyHiddenText: `Do you have any language
+  requirements?`,
+                },
+              ],
+            },
+            key: {
+              text: `Do you have any language
+  requirements?`,
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you or the children need special arrangements at court?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you or the children need special arrangements at court?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/disability-requirements',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+        ],
+        title: '13. Support you need during your case',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/help-with-fees/need-help-with-fees',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you need help with paying the fee for this application?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you need help with paying the fee for this application?',
+            },
+            value: {},
+          },
+        ],
+        title: '14. Help with Fees',
+      },
+    ]);
+  });
+
+  test('en should generate sections properly for miam urgency', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      userCase: {
+        ...commonContent.userCase,
+        sq_writtenAgreement: undefined,
+        miam_otherProceedings: undefined,
+        miam_urgency: ['test'],
+      },
+    });
+    expect(generatedEnContent.sections).toStrictEqual([
+      {
+        rows: [
+          {
+            actions: {
+              items: [{ href: '/c100-rebuild/case-name', text: 'Edit', visuallyHiddenText: 'Enter Case Name' }],
+            },
+            key: { text: 'Enter Case Name' },
+            value: { text: 'test' },
+          },
+        ],
+        title: '1. Case name',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                { href: '/c100-rebuild/childaddress', text: 'Edit', visuallyHiddenText: 'Where do the children live?' },
+              ],
+            },
+            key: { text: 'Where do the children live?' },
+            value: {},
+          },
+        ],
+        title: '2. Location details',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/consent-agreement',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Do you have a written agreement with the other people in the case that you want the court to review?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
+            },
+            value: {},
+          },
+        ],
+        title: '3. Type of application',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/legal-representation',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Will you be using a legal representative in these proceedings?',
+                },
+              ],
+            },
+            key: { text: 'Will you be using a legal representative in these proceedings?' },
+            value: {},
+          },
+        ],
+        title: '4. Legal representative details',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/permission',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Is there any reason that you would need permission from the court to make this application?',
+                },
+              ],
+            },
+            key: {
+              text: 'Is there any reason that you would need permission from the court to make this application?',
+            },
+            value: {},
+          },
+        ],
+        title: '5. Permission to make the application',
+      },
+      { rows: [], title: '6. MIAM: Mediation Information and Assessment Meeting' },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/miam/other-proceedings',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+                },
+              ],
+            },
+            key: {
+              text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+            },
+            value: {},
+          },
+        ],
+        title: 'MIAM attendance',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/miam/general-reasons',
+                  text: 'Edit',
+                  visuallyHiddenText: 'What are your valid reasons for not attending a MIAM?',
+                },
+              ],
+            },
+            key: { text: 'What are your valid reasons for not attending a MIAM?' },
+            value: {},
+          },
+        ],
+        title: 'MIAM exemption',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/hearing-urgency/urgent',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Does your situation qualify for an urgent first hearing?',
+                },
+              ],
+            },
+            key: { text: 'Does your situation qualify for an urgent first hearing?' },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/hearing-without-notice/hearing-part1',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are you asking for a without notice hearing?',
+                },
+              ],
+            },
+            key: { text: 'Are you asking for a without notice hearing?' },
+            value: {},
+          },
+        ],
+        title: '7. Hearing details',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/typeoforder/select-courtorder',
+                  text: 'Edit',
+                  visuallyHiddenText: 'What are you asking the court to do?',
+                },
+              ],
+            },
+            key: { text: 'What are you asking the court to do?' },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/typeoforder/shortstatement',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Describe what you want the court to do regarding the children in this application',
+                },
+              ],
+            },
+            key: { text: 'Describe what you want the court to do regarding the children in this application' },
+            value: {},
+          },
+        ],
+        title: "8. What you're asking the court to decide",
+      },
+      { rows: [], title: '9. Details of the people in the application ' },
+      { rows: [], title: "Children's details" },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are any of the children known to social services?',
+                },
+              ],
+            },
+            key: { text: 'Are any of the children known to social services?' },
+            value: { html: '<br>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Are any of the children the subject of a child protection plan?',
+                },
+              ],
+            },
+            key: { text: 'Are any of the children the subject of a child protection plan?' },
+            value: {},
+          },
+        ],
+        title: 'Additional details about the children',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/has-other-children',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Do you or any respondents have other children who are not part of this application?',
+                },
+              ],
+            },
+            key: { text: 'Do you or any respondents have other children who are not part of this application?' },
+            value: {},
+          },
+        ],
+        title: 'Other Children details',
+      },
+      { rows: [], title: 'Details of the applicants' },
+      { rows: [], title: 'Details of the respondents' },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-person-details/other-person-check',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Is there anyone else who should know about your application?',
+                },
+              ],
+            },
+            key: { text: 'Is there anyone else who should know about your application?' },
+            value: {},
+          },
+        ],
+        title: 'Details of the other people in the application',
+      },
+      [],
+      { rows: [], title: 'Where the children live' },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Have the children been involved in a court case?',
+                },
+              ],
+            },
+            key: {
+              text: 'Have the children been involved in a court case?',
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Have you had a court order made for your protection?',
+                },
+              ],
+            },
+            key: {
+              text: 'Have you had a court order made for your protection?',
+            },
+            value: {},
+          },
+        ],
+        title: '10. Past and current proceeding',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/concerns-for-safety',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
+                },
+              ],
+            },
+            key: { text: 'Do you have any concerns for your safety or the safety of the children?' },
+            value: {},
+          },
+        ],
+        title: '11. Safety concerns',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/start',
+                  text: 'Edit',
+                  visuallyHiddenText: "Are the children's lives mainly based outside of England and Wales?",
+                },
+              ],
+            },
+            key: { text: "Are the children's lives mainly based outside of England and Wales?" },
+            value: { html: '<p></p>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/parents',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+                },
+              ],
+            },
+            key: {
+              text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+            },
+            value: { html: '<p></p>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/jurisdiction',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Could another person in the application apply for a similar order in a country outside England or Wales?',
+                },
+              ],
+            },
+            key: {
+              text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
+            },
+            value: { html: '<p></p>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/request',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Has another country asked (or been asked) for information or help for the children?',
+                },
+              ],
+            },
+            key: { text: 'Has another country asked (or been asked) for information or help for the children?' },
+            value: { html: '<p></p>' },
+          },
+        ],
+        title: '12. International elements',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/attending-court',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Would you be able to take part in hearings by video and phone?',
+                },
+              ],
+            },
+            key: { text: 'Would you be able to take part in hearings by video and phone?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/language-requirements',
+                  text: 'Edit',
+                  visuallyHiddenText: `Do you have any language
+  requirements?`,
+                },
+              ],
+            },
+            key: {
+              text: `Do you have any language
+  requirements?`,
+            },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you or the children need special arrangements at court?',
+                },
+              ],
+            },
+            key: { text: 'Do you or the children need special arrangements at court?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/disability-requirements',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+            },
+            value: { html: '<ul>undefined</ul>' },
+          },
+        ],
+        title: '13. Support you need during your case',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/help-with-fees/need-help-with-fees',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you need help with paying the fee for this application?',
+                },
+              ],
+            },
+            key: { text: 'Do you need help with paying the fee for this application?' },
+            value: {},
+          },
+        ],
+        title: '14. Help with Fees',
+      },
+    ]);
+  });
+
+  test('cy should generate sections properly for miam urgency', () => {
+    const generatedCyContent = generateContent({
+      ...commonContent,
+      userCase: {
+        ...commonContent.userCase,
+        sq_writtenAgreement: undefined,
+        miam_otherProceedings: undefined,
+        miam_urgency: ['test'],
+      },
+      language: 'cy',
+    });
+
+    expect(generatedCyContent.sections).toStrictEqual([
+      {
+        rows: [
+          {
+            actions: {
+              items: [{ href: '/c100-rebuild/case-name', text: ' Golygu', visuallyHiddenText: "Enw'r achos" }],
+            },
+            key: { text: "Enw'r achos" },
+            value: { text: 'test' },
+          },
+        ],
+        title: '1. Enw’r Achos',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                { href: '/c100-rebuild/childaddress', text: ' Golygu', visuallyHiddenText: "Ble mae'r plant yn byw?" },
+              ],
+            },
+            key: { text: "Ble mae'r plant yn byw?" },
+            value: {},
+          },
+        ],
+        title: '2. Manylion lleoliad',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/consent-agreement',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
+                },
+              ],
+            },
+            key: {
+              text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
+            },
+            value: {},
+          },
+        ],
+        title: '3. Math o gais',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/legal-representation',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
+                },
+              ],
+            },
+            key: { text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?' },
+            value: {},
+          },
+        ],
+        title: '4. Manylion cynrychiolydd cyfreithiol',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/permission',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
+                },
+              ],
+            },
+            key: { text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?' },
+            value: {},
+          },
+        ],
+        title: '5. Caniatâd i wneud cais',
+      },
+      { rows: [], title: '6. MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu' },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/miam/other-proceedings',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Mynychu MIAM',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/miam/general-reasons',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
+                },
+              ],
+            },
+            key: { text: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?' },
+            value: {},
+          },
+        ],
+        title: 'Esemptiad MIAM',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/hearing-urgency/urgent',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+                },
+              ],
+            },
+            key: { text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?' },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/hearing-without-notice/hearing-part1',
+                  text: ' Golygu',
+                  visuallyHiddenText: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
+                },
+              ],
+            },
+            key: { text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?' },
+            value: {},
+          },
+        ],
+        title: '7.  Manylion y gwrandawiad',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/typeoforder/select-courtorder',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Beth ydych chi'n gofyn i'r llys ei wneud?",
+                },
+              ],
+            },
+            key: { text: "Beth ydych chi'n gofyn i'r llys ei wneud?" },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/typeoforder/shortstatement',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
+                },
+              ],
+            },
+            key: { text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn' },
+            value: {},
+          },
+        ],
+        title: '8. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
+      },
+      { rows: [], title: '9. Manylion y bobl yn y cais' },
+      { rows: [], title: 'Manylion y plant' },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+                },
+              ],
+            },
+            key: { text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?' },
+            value: { html: '<br>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+                },
+              ],
+            },
+            key: { text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?' },
+            value: {},
+          },
+        ],
+        title: 'Manylion ychwanegol am y plant',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/has-other-children',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
+                },
+              ],
+            },
+            key: { text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?' },
+            value: {},
+          },
+        ],
+        title: 'Manylion plant eraill',
+      },
+      { rows: [], title: 'Manylion y ceiswyr' },
+      { rows: [], title: 'Manylion yr atebwyr' },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-person-details/other-person-check',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes unrhyw un arall y dylai wybod am eich cais?',
+                },
+              ],
+            },
+            key: { text: 'A oes unrhyw un arall y dylai wybod am eich cais?' },
+            value: {},
+          },
+        ],
+        title: 'Manylion y bobl eraill yn y cais',
+      },
+      [],
+      { rows: [], title: 'Ble mae’r plant yn byw' },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
+                },
+              ],
+            },
+            key: { text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?' },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
+                },
+              ],
+            },
+            key: { text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?' },
+            value: {},
+          },
+        ],
+        title: '10. Achosion yn y gorffennol ac achosion cyfredol',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/concerns-for-safety',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+                },
+              ],
+            },
+            key: { text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?' },
+            value: {},
+          },
+        ],
+        title: '11. Pryderon am ddiogelwch',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/start',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
+                },
+              ],
+            },
+            key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
+            value: { html: '<p></p>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/parents',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
+                },
+              ],
+            },
+            key: {
+              text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
+            },
+            value: { html: '<p></p>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/jurisdiction',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
+                },
+              ],
+            },
+            key: {
+              text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
+            },
+            value: { html: '<p></p>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/request',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
+                },
+              ],
+            },
+            key: {
+              text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
+            },
+            value: { html: '<p></p>' },
+          },
+        ],
+        title: '12. Elfennau rhyngwladol',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/attending-court',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+                },
+              ],
+            },
+            key: { text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/language-requirements',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+                },
+              ],
+            },
+            key: { text: 'A oes gennych chi unrhyw ofynion ieithyddol?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+                },
+              ],
+            },
+            key: { text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?" },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/disability-requirements',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+            },
+            value: { html: '<ul>undefined</ul>' },
+          },
+        ],
+        title: '13. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/help-with-fees/need-help-with-fees',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
+                },
+              ],
+            },
+            key: { text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?' },
+            value: {},
+          },
+        ],
+        title: '14.  Help i dalu ffioedd',
+      },
+    ]);
+  });
+
+  test('cy should generate sections properly for sq_writtenAgreement', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      language: 'cy',
+    });
+    expect(generatedEnContent.sections).toStrictEqual([
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/case-name',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Enw'r achos",
+                },
+              ],
+            },
+            key: {
+              text: "Enw'r achos",
+            },
+            value: {
+              text: 'test',
+            },
+          },
+        ],
+        title: '1. Enw’r Achos',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/childaddress',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Ble mae'r plant yn byw?",
+                },
+              ],
+            },
+            key: {
+              text: "Ble mae'r plant yn byw?",
+            },
+            value: {},
+          },
+        ],
+        title: '2. Manylion lleoliad',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/consent-agreement',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
+                },
+              ],
+            },
+            key: {
+              text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
+            },
+            value: {
+              text: 'Oes',
+            },
+          },
+        ],
+        title: '3. Math o gais',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/typeoforder/select-courtorder',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Beth ydych chi'n gofyn i'r llys ei wneud?",
+                },
+              ],
+            },
+            key: {
+              text: "Beth ydych chi'n gofyn i'r llys ei wneud?",
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/typeoforder/shortstatement',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
+                },
+              ],
+            },
+            key: {
+              text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
+            },
+            value: {},
+          },
+        ],
+        title: '4. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/hearing-urgency/urgent',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+                },
+              ],
+            },
+            key: {
+              text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/hearing-without-notice/hearing-part1',
+                  text: ' Golygu',
+                  visuallyHiddenText: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
+                },
+              ],
+            },
+            key: {
+              text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
+            },
+            value: {},
+          },
+        ],
+        title: '5.  Manylion y gwrandawiad',
+      },
+      {
+        rows: [],
+        title: '6. Manylion y bobl yn y cais',
+      },
+      {
+        rows: [],
+        title: 'Manylion y plant',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+            },
+            value: {
+              html: '<br>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Manylion ychwanegol am y plant',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/has-other-children',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Manylion plant eraill',
+      },
+      {
+        rows: [],
+        title: 'Manylion y ceiswyr',
+      },
+      {
+        rows: [],
+        title: 'Manylion yr atebwyr',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-person-details/other-person-check',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes unrhyw un arall y dylai wybod am eich cais?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes unrhyw un arall y dylai wybod am eich cais?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Manylion y bobl eraill yn y cais',
+      },
+      [],
+      {
+        rows: [],
+        title: 'Ble mae’r plant yn byw',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
+                },
+              ],
+            },
+            key: {
+              text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
+            },
+            value: {},
+          },
+        ],
+        title: '7. Achosion yn y gorffennol ac achosion cyfredol',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/concerns-for-safety',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+            },
+            value: {},
+          },
+        ],
+        title: '8. Pryderon am ddiogelwch',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/start',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/parents',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
+                },
+              ],
+            },
+            key: {
+              text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/jurisdiction',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
+                },
+              ],
+            },
+            key: {
+              text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/request',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
+                },
+              ],
+            },
+            key: {
+              text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+        ],
+        title: '9. Elfennau rhyngwladol',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/attending-court',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/language-requirements',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+                },
+              ],
+            },
+            key: {
+              text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/disability-requirements',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+        ],
+        title: '10. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/help-with-fees/need-help-with-fees',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
+            },
+            value: {},
+          },
+        ],
+        title: '11.  Help i dalu ffioedd',
+      },
+    ]);
+  });
+
+  test('cy should generate sections properly for miam_otherProceedings', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      language: 'cy',
+      userCase: {
+        ...commonContent.userCase,
+        sq_writtenAgreement: undefined,
+      },
+    });
+    expect(generatedEnContent.sections).toStrictEqual([
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/case-name',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Enw'r achos",
+                },
+              ],
+            },
+            key: {
+              text: "Enw'r achos",
+            },
+            value: {
+              text: 'test',
+            },
+          },
+        ],
+        title: '1. Enw’r Achos',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/childaddress',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Ble mae'r plant yn byw?",
+                },
+              ],
+            },
+            key: {
+              text: "Ble mae'r plant yn byw?",
+            },
+            value: {},
+          },
+        ],
+        title: '2. Manylion lleoliad',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/consent-agreement',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
+                },
+              ],
+            },
+            key: {
+              text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
+            },
+            value: {},
+          },
+        ],
+        title: '3. Math o gais',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/legal-representation',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
+            },
+            value: {},
+          },
+        ],
+        title: '4. Manylion cynrychiolydd cyfreithiol',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/permission',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
+            },
+            value: {},
+          },
+        ],
+        title: '5. Caniatâd i wneud cais',
+      },
+      {
+        rows: [],
+        title: '6. MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/miam/other-proceedings',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+            },
+            value: {
+              text: 'Ydyn',
+            },
+          },
+        ],
+        title: 'Mynychu MIAM',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
+                },
+              ],
+            },
+            key: {
+              text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
+            },
+            value: {},
+          },
+        ],
+        title: '7. Achosion yn y gorffennol ac achosion cyfredol',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/typeoforder/select-courtorder',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Beth ydych chi'n gofyn i'r llys ei wneud?",
+                },
+              ],
+            },
+            key: {
+              text: "Beth ydych chi'n gofyn i'r llys ei wneud?",
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/typeoforder/shortstatement',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
+                },
+              ],
+            },
+            key: {
+              text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
+            },
+            value: {},
+          },
+        ],
+        title: '8. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/hearing-urgency/urgent',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+                },
+              ],
+            },
+            key: {
+              text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/hearing-without-notice/hearing-part1',
+                  text: ' Golygu',
+                  visuallyHiddenText: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
+                },
+              ],
+            },
+            key: {
+              text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
+            },
+            value: {},
+          },
+        ],
+        title: '9.  Manylion y gwrandawiad',
+      },
+      {
+        rows: [],
+        title: '10. Manylion y bobl yn y cais',
+      },
+      {
+        rows: [],
+        title: 'Manylion y plant',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+            },
+            value: {
+              html: '<br>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Manylion ychwanegol am y plant',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/has-other-children',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Manylion plant eraill',
+      },
+      {
+        rows: [],
+        title: 'Manylion y ceiswyr',
+      },
+      {
+        rows: [],
+        title: 'Manylion yr atebwyr',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-person-details/other-person-check',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes unrhyw un arall y dylai wybod am eich cais?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes unrhyw un arall y dylai wybod am eich cais?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Manylion y bobl eraill yn y cais',
+      },
+      [],
+      {
+        rows: [],
+        title: 'Ble mae’r plant yn byw',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/concerns-for-safety',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+            },
+            value: {},
+          },
+        ],
+        title: '11. Pryderon am ddiogelwch',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/start',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/parents',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
+                },
+              ],
+            },
+            key: {
+              text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/jurisdiction',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
+                },
+              ],
+            },
+            key: {
+              text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/request',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
+                },
+              ],
+            },
+            key: {
+              text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+        ],
+        title: '12. Elfennau rhyngwladol',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/attending-court',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/language-requirements',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+                },
+              ],
+            },
+            key: {
+              text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/disability-requirements',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+        ],
+        title: '13. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/help-with-fees/need-help-with-fees',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
+            },
+            value: {},
+          },
+        ],
+        title: '14.  Help i dalu ffioedd',
+      },
+    ]);
+  });
+
+  test('cy should generate sections properly for other scenarios', () => {
+    const generatedEnContent = generateContent({
+      ...commonContent,
+      language: 'cy',
+      userCase: {
+        ...commonContent.userCase,
+        sq_writtenAgreement: undefined,
+        miam_otherProceedings: undefined,
+      },
+    });
+    expect(generatedEnContent.sections).toStrictEqual([
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/case-name',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Enw'r achos",
+                },
+              ],
+            },
+            key: {
+              text: "Enw'r achos",
+            },
+            value: {
+              text: 'test',
+            },
+          },
+        ],
+        title: '1. Enw’r Achos',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/childaddress',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Ble mae'r plant yn byw?",
+                },
+              ],
+            },
+            key: {
+              text: "Ble mae'r plant yn byw?",
+            },
+            value: {},
+          },
+        ],
+        title: '2. Manylion lleoliad',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/consent-agreement',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
+                },
+              ],
+            },
+            key: {
+              text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
+            },
+            value: {},
+          },
+        ],
+        title: '3. Math o gais',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/legal-representation',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
+            },
+            value: {},
+          },
+        ],
+        title: '4. Manylion cynrychiolydd cyfreithiol',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/screening-questions/permission',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
+            },
+            value: {},
+          },
+        ],
+        title: '5. Caniatâd i wneud cais',
+      },
+      {
+        rows: [],
+        title: '6. MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/miam/other-proceedings',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Mynychu MIAM',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/miam/general-reasons',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
+                },
+              ],
+            },
+            key: {
+              text: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Esemptiad MIAM',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/typeoforder/select-courtorder',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Beth ydych chi'n gofyn i'r llys ei wneud?",
+                },
+              ],
+            },
+            key: {
+              text: "Beth ydych chi'n gofyn i'r llys ei wneud?",
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/typeoforder/shortstatement',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
+                },
+              ],
+            },
+            key: {
+              text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
+            },
+            value: {},
+          },
+        ],
+        title: '7. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/hearing-urgency/urgent',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+                },
+              ],
+            },
+            key: {
+              text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/hearing-without-notice/hearing-part1',
+                  text: ' Golygu',
+                  visuallyHiddenText: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
+                },
+              ],
+            },
+            key: {
+              text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
+            },
+            value: {},
+          },
+        ],
+        title: '8.  Manylion y gwrandawiad',
+      },
+      {
+        rows: [],
+        title: '9. Manylion y bobl yn y cais',
+      },
+      {
+        rows: [],
+        title: 'Manylion y plant',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
+            },
+            value: {
+              html: '<br>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/further-information',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Manylion ychwanegol am y plant',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/child-details/has-other-children',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Manylion plant eraill',
+      },
+      {
+        rows: [],
+        title: 'Manylion y ceiswyr',
+      },
+      {
+        rows: [],
+        title: 'Manylion yr atebwyr',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-person-details/other-person-check',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes unrhyw un arall y dylai wybod am eich cais?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes unrhyw un arall y dylai wybod am eich cais?',
+            },
+            value: {},
+          },
+        ],
+        title: 'Manylion y bobl eraill yn y cais',
+      },
+      [],
+      {
+        rows: [],
+        title: 'Ble mae’r plant yn byw',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
+                },
+              ],
+            },
+            key: {
+              text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
+            },
+            value: {},
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/other-proceedings/current-previous-proceedings',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
+            },
+            value: {},
+          },
+        ],
+        title: '10. Achosion yn y gorffennol ac achosion cyfredol',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/safety-concerns/concerns-for-safety',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+            },
+            value: {},
+          },
+        ],
+        title: '11. Pryderon am ddiogelwch',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/start',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
+                },
+              ],
+            },
+            key: {
+              text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/parents',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
+                },
+              ],
+            },
+            key: {
+              text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/jurisdiction',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
+                },
+              ],
+            },
+            key: {
+              text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/international-elements/request',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
+                },
+              ],
+            },
+            key: {
+              text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
+            },
+            value: {
+              html: '<p></p>',
+            },
+          },
+        ],
+        title: '12. Elfennau rhyngwladol',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/attending-court',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/language-requirements',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+                },
+              ],
+            },
+            key: {
+              text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/disability-requirements',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+        ],
+        title: '13. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
+      },
+      {
+        rows: [
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/help-with-fees/need-help-with-fees',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
+                },
+              ],
+            },
+            key: {
+              text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
+            },
+            value: {},
+          },
+        ],
+        title: '14.  Help i dalu ffioedd',
+      },
+    ]);
+  });
+
+  test('generateContent without hwf conditions', () => {
+    expect(fields.statementOftruthHeading.type).toBe('textAndHtml');
+    expect(fields.statementOftruthHeading.textAndHtml).toBe('<h1>Statement of Truth </h1>');
+
+    expect(fields.statementOftruthSubHeading.type).toBe('textAndHtml');
+    expect(fields.statementOftruthSubHeading.textAndHtml).toBe(
+      "<h2 class='govuk-heading-m govuk-!-padding-bottom-4'>Confirm before you submit the application </h2>"
+    );
+
+    expect(fields.statementOftruthWarning.type).toBe('warning');
+    expect(fields.statementOftruthWarning.label).toBe(enContent.StatementOfTruth.warning);
+
+    expect(fields.statementOftruthInset.type).toBe('inset');
+    expect(fields.statementOftruthInset.label).toBe(enContent.StatementOfTruth.insetTextPayAndSubmit);
+
+    expect(fields.statementOftruthLastPara.type).toBe('textAndHtml');
+    expect(fields.statementOftruthLastPara.textAndHtml).toBe(
+      '<br>This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.<br><br><br>'
+    );
+
+    expect((form?.submit?.text as LanguageLookup)(generatedContent)).toBe(
+      enContent.StatementOfTruth.payAndSubmitButton
+    );
+  });
+
+  test('generateContent with hwf conditions', () => {
+    generatedContent = generateContent({
+      ...commonContent,
+      userCase: {
+        hwf_needHelpWithFees: 'Yes' as YesOrNo,
+        helpWithFeesReferenceNumber: '1234',
+      },
+    });
+
+    expect(fields.statementOftruthHeading.type).toBe('textAndHtml');
+    expect(fields.statementOftruthHeading.textAndHtml).toBe('<h1>Statement of Truth </h1>');
+
+    expect(fields.statementOftruthSubHeading.type).toBe('textAndHtml');
+    expect(fields.statementOftruthSubHeading.textAndHtml).toBe(
+      "<h2 class='govuk-heading-m govuk-!-padding-bottom-4'>Confirm before you submit the application </h2>"
+    );
+
+    expect(fields.statementOftruthWarning.type).toBe('warning');
+    expect(fields.statementOftruthWarning.label).toBe(enContent.StatementOfTruth.warning);
+
+    expect(fields.statementOftruthInset.type).toBe('inset');
+    expect(fields.statementOftruthInset.label).toBe(enContent.StatementOfTruth.insetTextSubmit);
+
+    expect(fields.statementOftruthLastPara.type).toBe('textAndHtml');
+    expect(fields.statementOftruthLastPara.textAndHtml).toBe(
+      '<br>This confirms that the information you are submitting is true and accurate, to the best of your knowledge. It’s known as your ‘statement of truth’.<br><br><br>'
+    );
+
+    expect((form?.submit?.text as LanguageLookup)(generatedContent)).toBe(enContent.StatementOfTruth.SubmitButton);
+  });
 });
