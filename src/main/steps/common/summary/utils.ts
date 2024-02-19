@@ -238,17 +238,3 @@ export const getOrdersDetail = (userCase: Partial<CaseWithId>): string => {
   }
   return temp;
 };
-export const getOrdersDetail1 = (userCase: Partial<CaseWithId>): string => {
-  let temp = '';
-  const value = userCase['courtProceedingsOrders'];
-  if (value) {
-    for (const k of value) {
-      const keyLabel = k as string;
-      temp += keyLabel;
-      if (value.indexOf(k) !== value.length - 1) {
-        temp += ', ';
-      }
-    }
-  }
-  return temp;
-};
