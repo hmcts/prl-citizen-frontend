@@ -90,4 +90,9 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.FINAL_ORDER),
     show: () => false,
   },
+  [BannerNotification.DA_RESPONDENT_BANNER]: {
+    id: BannerNotification.DA_RESPONDENT_BANNER,
+    content: getContent.bind(null, BannerNotification.DA_RESPONDENT_BANNER),
+    show: () => false,
+  },
 };

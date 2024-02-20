@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
 import {
   APPLICANT,
@@ -10,6 +11,7 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
 } from '../../../../../steps/urls';
+import { isCafcassCymruServed, isCafcassServed } from '../../utils';
 
 const en = {
   title: 'Important',
@@ -98,17 +100,22 @@ const en = {
             },
             {
               text: 'The court has also sent the application to the Children and Family Court Advisory and Support Service (Cafcass or Cafcass Cymru). Cafcass or Cafcass Cymru will contact you to consider the needs of the children.',
+              show: (caseData: Partial<CaseWithId>): boolean => {
+                return isCafcassServed(caseData) || isCafcassCymruServed(caseData);
+              },
             },
           ],
           links: [
             {
               text: 'Find out about Cafcass',
               href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
+              show: isCafcassServed,
               external: true,
             },
             {
               text: 'Find out about Cafcass Cymru',
               href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
+              show: isCafcassCymruServed,
               external: true,
             },
           ],
@@ -443,17 +450,20 @@ const cy: typeof en = {
             },
             {
               text: 'Mae’r llys hefyd wedi anfon y cais i’r Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass neu Cafcass Cymru). Bydd Cafcass neu Cafcass Cymru yn cysylltu â chi i ystyried anghenion y plant.',
+              show: isCafcassServed,
             },
           ],
           links: [
             {
               text: 'Mwy o wybodaeth am Cafcass',
               href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
+              show: isCafcassServed,
               external: true,
             },
             {
               text: 'Mwy o wybodaeth am Cafcass Cymru',
               href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
+              show: isCafcassServed,
               external: true,
             },
           ],

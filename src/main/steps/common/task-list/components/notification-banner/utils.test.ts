@@ -99,7 +99,7 @@ describe('testcase for notification Banner', () => {
           {
             href: '/c100-rebuild/12/withdraw',
             text: 'Withdraw your application',
-            external: undefined,
+            external: false,
           },
         ],
         title: 'Important',
@@ -135,7 +135,7 @@ describe('testcase for notification Banner', () => {
           {
             href: '#',
             text: 'Continue your application',
-            external: undefined,
+            external: false,
           },
         ],
         title: 'Important',
@@ -222,7 +222,7 @@ describe('testcase for notification Banner', () => {
           {
             href: '/applicant/yourdocuments/alldocuments/orders',
             text: 'View the order (PDF)',
-            external: undefined,
+            external: false,
           },
         ],
         title: 'Important',
@@ -289,24 +289,10 @@ describe('testcase for notification Banner', () => {
           {
             text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
           },
-          {
-            text: 'The court has also sent the application to the Children and Family Court Advisory and Support Service (Cafcass or Cafcass Cymru). Cafcass or Cafcass Cymru will contact you to consider the needs of the children.',
-          },
         ],
         heading: 'The court has issued your application',
         id: 'applicationServedAndLinked',
-        links: [
-          {
-            href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
-            text: 'Find out about Cafcass',
-            external: true,
-          },
-          {
-            href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
-            text: 'Find out about Cafcass Cymru',
-            external: true,
-          },
-        ],
+        links: [],
         title: 'Important',
       },
     ]);
@@ -417,7 +403,7 @@ describe('testcase for notification Banner', () => {
         ],
         links: [
           {
-            external: undefined,
+            external: false,
             text: 'See all documents',
             href: APPLICANT_VIEW_ALL_DOCUMENTS,
           },
@@ -496,7 +482,7 @@ describe('testcase for notification Banner', () => {
           id: 'newDocument',
           links: [
             {
-              external: undefined,
+              external: false,
               href: '/respondent/yourdocuments/alldocuments/alldocuments',
               text: 'See all documents',
             },
@@ -513,7 +499,7 @@ describe('testcase for notification Banner', () => {
           id: 'newOrder',
           links: [
             {
-              external: undefined,
+              external: false,
               href: '/respondent/yourdocuments/alldocuments/orders',
               text: 'View the order (PDF)',
             },
@@ -576,7 +562,7 @@ describe('testcase for notification Banner', () => {
           id: 'newDocument',
           links: [
             {
-              external: undefined,
+              external: false,
               href: '/respondent/yourdocuments/alldocuments/alldocuments',
               text: 'See all documents',
             },
@@ -593,7 +579,7 @@ describe('testcase for notification Banner', () => {
           id: 'finalOrder',
           links: [
             {
-              external: undefined,
+              external: false,
               href: '/respondent/yourdocuments/alldocuments/orders',
               text: 'View the order (PDF)',
             },
