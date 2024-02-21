@@ -74,7 +74,7 @@ export class ViewAllDocumentsPostController {
       req.session.user,
       req?.session?.userCase.id,
       data,
-      'citizen-case-update'
+      'citizen-case-update-1'
     );
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
@@ -105,7 +105,7 @@ export class ViewAllDocumentsPostController {
       req.session.user,
       req?.session?.userCase.id,
       data,
-      'citizen-case-update'
+      'citizen-case-update-1'
     );
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
     req.session.applicationSettings = {
