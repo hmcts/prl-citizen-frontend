@@ -2714,7 +2714,7 @@ export const enum C100_CASE_TYPE {
 }
 
 export const enum C100_CASE_EVENT {
-  CASE_UPDATE = 'citizen-case-update-1',
+  CASE_UPDATE = 'citizen-case-update',
   CASE_SUBMIT = 'citizen-case-submit',
   DELETE_CASE = 'deleteApplication',
   CASE_SUBMIT_WITH_HWF = 'citizenCaseSubmitWithHWF',
@@ -3078,8 +3078,8 @@ export enum CaseEvent {
   SAFETY_CONCERNS = 'citizenSafetyConcerns',
   MIAM = 'respondentMiam',
   PARTY_PERSONAL_DETAILS = 'linkCitizenAccount',
-  CITIZEN_INTERNAL_CASE_UPDATE = 'citizen-internal-case-update-1',
-  CITIZEN_CASE_UPDATE = 'citizen-case-update-1',
+  CITIZEN_INTERNAL_CASE_UPDATE = 'citizen-internal-case-update',
+  CITIZEN_CASE_UPDATE = 'citizen-case-update',
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative'
 }

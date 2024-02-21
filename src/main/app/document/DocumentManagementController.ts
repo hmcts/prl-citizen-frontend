@@ -204,7 +204,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     const data = toApiFormat(req?.session?.userCase);
     data.id = caseReference;
-    const updatedCaseDataFromCos = await client.updateCase(loggedInCitizen, caseReference, data, 'citizen-case-update-1');
+    const updatedCaseDataFromCos = await client.updateCase(loggedInCitizen, caseReference, data, 'citizen-case-update');
     return updatedCaseDataFromCos;
   }
 
@@ -498,7 +498,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         loggedInCitizen,
         caseReference,
         data,
-        'citizen-case-update-1'
+        'citizen-case-update'
       );
       req.session.userCase = updatedCaseDataFromCos;
     }
