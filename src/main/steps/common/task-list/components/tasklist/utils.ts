@@ -90,10 +90,23 @@ export const getKeepYourDetailsPrivateStatus = keepDetailsPrivate => {
 };
 export const getConfirmOrEditYourContactDetailsStatus = party => {
   const status = StateTags.TO_DO;
-  if (party.firstName && party.lastName && party.dateOfBirth && party.placeOfBirth) {
+  if (party.firstName && 
+    party.lastName && 
+    party.placeOfBirth && 
+    party.address.AddressLine1 &&
+    party.phoneNumber && 
+    party.email && 
+    party.dateOfBirth) {
     return StateTags.COMPLETED;
   }
-  if (party.firstName || party.lastName || party.dateOfBirth || party.placeOfBirth) {
+  if (party.firstName || 
+    party.lastName || 
+    party.placeOfBirth || 
+    party.phoneNumber || 
+    party.dateOfBirth || 
+    party.address.AddressLine1 ||
+    party.email
+    ) {
     return StateTags.IN_PROGRESS;
   }
   return status;

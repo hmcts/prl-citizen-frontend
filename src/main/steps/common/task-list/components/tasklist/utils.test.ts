@@ -888,6 +888,15 @@ describe('testcase for tasklist', () => {
         user: {
           idamId: '1234',
         },
+        address : {
+          AddressLine1: "",
+          AddressLine2: "",
+          PostTown: "",
+          County: "",
+          PostCode: ""
+        },
+        email: "",
+        phoneNumber: "",
         response: {
           citizenFlags: {
             isAllegationOfHarmViewed: 'Yes',
@@ -1018,6 +1027,15 @@ describe('c100 respondent', () => {
             user: {
               idamId: '1234',
             },
+            address : {
+              AddressLine1: "",
+              AddressLine2: "",
+              PostTown: "",
+              County: "",
+              PostCode: ""
+            },
+            email: "",
+            phoneNumber: "",
             response: {
               citizenFlags: {
                 isAllegationOfHarmViewed: 'Yes',
@@ -1419,6 +1437,15 @@ describe('c100 respondent', () => {
             lastName: 'LastName',
             dateOfBirth: '1/1/2020',
             placeOfBirth: 'London',
+            address : {
+              AddressLine1: "string",
+              AddressLine2: "string",
+              PostTown: "string",
+              County: "string",
+              PostCode: "string"
+            },
+            email: "dummy",
+            phoneNumber: "dummy",
             response: {
               citizenFlags: {
                 isAllegationOfHarmViewed: 'Yes',

@@ -47,10 +47,22 @@ export const getConfirmOrEditYourContactDetails = (
     resp = userCase?.respondentsFL401;
   }
 
-  if (resp?.firstName && resp?.lastName && resp?.dateOfBirth && resp?.placeOfBirth) {
+  if (resp.firstName && 
+    resp.lastName && 
+    resp.placeOfBirth && 
+    resp.address.AddressLine1 &&
+    resp.phoneNumber && 
+    resp.email && 
+    resp.dateOfBirth) {
     return SectionStatus.COMPLETED;
   }
-  if (resp?.firstName || resp?.lastName || resp?.dateOfBirth || resp?.placeOfBirth) {
+  if (resp.firstName || 
+    resp.lastName || 
+    resp.placeOfBirth || 
+    resp.phoneNumber || 
+    resp.dateOfBirth || 
+    resp.address.AddressLine1 ||
+    resp.email) {
     return SectionStatus.IN_PROGRESS;
   }
   return status;
