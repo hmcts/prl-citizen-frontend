@@ -32,7 +32,7 @@ const C100OrderTypeNameMapper = {
 };
 
 // eslint-disable-next-line import/no-unresolved
-import { AnyType } from './getController';
+export type AnyType = any;
 
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
