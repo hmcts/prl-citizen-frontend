@@ -1,8 +1,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import { caseApi as C100Api} from '../../../app/case/C100CaseApi';
-
-//import { CaseApi as C100Api } from '../../../app/case/C100CaseApi';
 import { FieldPrefix } from '../../../app/case/case';
 import {
   C100OrderInterface,
@@ -16,7 +14,7 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
 import { applyParms } from '../../../steps/common/url-parser';
 import { Language, generatePageContent } from '../../common/common.content';
-import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, C100_URL, OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../steps/urls';
+import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, C100_URL, OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, RESPONSE_TASKLIST } from '../../../steps/urls';
 import { caseApi } from '../../../app/case/CaseApi';
 export type URL_OF_FILE_UPLOAD = string;
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,7 +52,7 @@ export default class ProceedingDocumentUpload extends GetController {
         binaryUrl: '',
       };
 
-      const orderSessionData =(req.originalUrl=== applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }))? req.session.userCase?.op_otherProceedings?.order?.[
+      const orderSessionData =(req.originalUrl.startsWith(C100_URL))? req.session.userCase?.op_otherProceedings?.order?.[
         C100OrderTypeKeyMapper[courtOrderType]
       ] as C100OrderInterface[]
       :req.session.userCase?.otherProceedings?.order?.[
@@ -122,17 +120,18 @@ export default class ProceedingDocumentUpload extends GetController {
       const userDetails = req?.session?.user;
       (req.originalUrl.startsWith(C100_URL))?
       await C100Api(userDetails, req.locals.logger).deleteDocument(docId)
+      //await req.locals.C100Api.deleteDocument(docId)
       :await caseApi(userDetails, req.locals.logger).deleteDocument(docId)
 
       const courtOrderType: AnyType | undefined = orderType;
       const courtOrderId: AnyType | undefined = orderId;
-      if (req.originalUrl===C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD &&
+      if (req.originalUrl.startsWith(C100_URL) &&
         req.session.userCase?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]
       ) {
         req.session.userCase.op_otherProceedings.order[C100OrderTypeKeyMapper[courtOrderType]][
           courtOrderId - 1
         ].orderDocument = undefined;
-      }else if( req.originalUrl===OTHER_PROCEEDINGS_DOCUMENT_UPLOAD &&
+      }else if( req.originalUrl.startsWith(RESPONSE_TASKLIST) &&
         req.session.userCase?.otherProceedings?.order?.[ProceedingsOrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]
       ) {
         req.session.userCase.otherProceedings.order[ProceedingsOrderTypeKeyMapper[courtOrderType]][
@@ -144,7 +143,9 @@ export default class ProceedingDocumentUpload extends GetController {
         if (err) {
           throw err;
         }
-        res.redirect(applyParms(req.originalUrl, { orderType, orderId }));
+        res.redirect( (req.originalUrl.startsWith(C100_URL))?
+        applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId })
+        :applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
       });
     } catch (error) {
       console.log(error);
