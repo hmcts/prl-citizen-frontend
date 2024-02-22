@@ -3,10 +3,10 @@ import axios from 'axios';
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { FieldPrefix } from '../../../../app/case/case';
+import { applyParms } from '../../../common/url-parser';
+import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
 
 import EmergencyDocumentUpload from './getController';
-import { C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
-import { applyParms } from '../../../common/url-parser';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -44,8 +44,7 @@ describe('DocumentUpload Get Controller', () => {
       orderType: 'otherOrder',
       orderId: '1',
     };
-    req.originalUrl = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {orderType: 'otherOrder',
-      orderId: '1'});
+    req.originalUrl = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: 'otherOrder', orderId: '1' });
 
     await controller.get(req, res);
 
@@ -152,8 +151,7 @@ describe('DocumentUpload Get Controller', () => {
         orderType: 'otherOrder',
         orderId: '1',
       };
-      req.originalUrl = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {orderType: 'otherOrder',
-      orderId: '1'});
+      req.originalUrl = applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType: 'otherOrder', orderId: '1' });
 
       await controller.get(req, res);
 
