@@ -66,6 +66,7 @@ describe('testcase for tasklist', () => {
         id: 'applicationInProgress',
         links: [
           {
+            external: false,
             href: '#',
             text: 'Continue your application',
           },
@@ -178,6 +179,7 @@ describe('testcase for tasklist', () => {
         id: 'applicationInProgress',
         links: [
           {
+            external: false,
             href: '#',
             text: 'Parhau gyda’ch cais',
           },
