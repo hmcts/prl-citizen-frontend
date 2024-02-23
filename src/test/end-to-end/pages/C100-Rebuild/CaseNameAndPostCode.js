@@ -16,6 +16,11 @@ module.exports = {
     await I.retry(retryCount).waitForText('What you’ll need to complete your application' , 30);
     await I.retry(retryCount).click('Continue');
   },
+  async enterCaseName() {
+    await I.retry(retryCount).waitForText('Enter Case Name' , 60);
+    await I.retry(retryCount).fillField(this.fields.caseName, this.fields.caseNameDetails);
+    await I.retry(retryCount).click('Continue');
+  },
   async childrensPostcode() {
     await I.retry(retryCount).waitForText('Where do the children live?' , 30);
     await I.retry(retryCount).fillField(this.fields.childrenPostcodeDetails, this.fields.childPostcode);
@@ -23,6 +28,7 @@ module.exports = {
   },
   async addCaseNameAndPostCode() {
     await this.gettingStarted();
+    await this.enterCaseName();
     await this.childrensPostcode();
   },
 };
