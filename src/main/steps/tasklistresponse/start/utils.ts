@@ -46,23 +46,19 @@ export const getConfirmOrEditYourContactDetails = (
   } else {
     resp = userCase?.respondentsFL401;
   }
-
-  if (resp.firstName && 
-    resp.lastName && 
-    resp.placeOfBirth && 
-    resp.address.AddressLine1 &&
-    resp.phoneNumber && 
-    resp.email && 
-    resp.dateOfBirth) {
+  const summaryField = [
+    resp.firstName,
+    resp.lastName,
+    resp.placeOfBirth,
+    resp.address?.AddressLine1,
+    resp.phoneNumber,
+    resp.email,
+    resp.dateOfBirth,
+  ];
+  if (summaryField.every((currentValue) => currentValue)) {
     return SectionStatus.COMPLETED;
   }
-  if (resp.firstName || 
-    resp.lastName || 
-    resp.placeOfBirth || 
-    resp.phoneNumber || 
-    resp.dateOfBirth || 
-    resp.address.AddressLine1 ||
-    resp.email) {
+  if (summaryField.some((currentValue) => currentValue))  {
     return SectionStatus.IN_PROGRESS;
   }
   return status;
