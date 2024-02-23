@@ -31,8 +31,6 @@ const C100OrderTypeNameMapper = {
   otherOrder: 'Other Order',
 };
 
-//eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AnyType = any;
 
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
@@ -51,7 +49,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const { files }: AppRequest<AnyObject> = req;
     const { orderType, orderId } = req.params;
 
-    const courtOrderId: AnyType | undefined = orderId;
+    const courtOrderId: any | undefined = orderId;
     const courtOrder = {
       courtOrderType: orderType as C100OrderTypes,
       courtOrderId,
@@ -115,7 +113,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       });
     } else {
       req.session.errors = [];
-      const { documents }: AnyType = files;
+      const { documents }: any = files;
 
       const formData: FormData = new FormData();
 
@@ -197,13 +195,13 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   /**
    * It's a function that handles errors that occur during the upload process
    * @param req - AppRequest<AnyObject>
-   * @param res - Response<AnyType, Record<string, AnyType>>
+   * @param res - Response<any, Record<string, any>>
    * @param {string} [errorMessage] - The error message to be displayed.
    */
 
   private uploadFileError(
     req: AppRequest<AnyObject>,
-    res: Response<AnyType, Record<string, AnyType>>,
+    res: Response<any, Record<string, any>>,
     orderType: string,
     orderId: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
