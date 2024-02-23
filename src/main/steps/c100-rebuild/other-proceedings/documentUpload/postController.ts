@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import FormData from 'form-data';
