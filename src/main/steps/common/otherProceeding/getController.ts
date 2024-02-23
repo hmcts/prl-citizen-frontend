@@ -97,23 +97,22 @@ export default class OtherProceedingsGetController extends GetController {
         orderType,
         orderId,
         document: currentOrderDocument,
-        fileUplaodUrl: req.originalUrl.startsWith(C100_URL)
-          ? applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId })
-          : applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
-              orderType,
-              orderId,
-            }),
-        fileRemoveUrl: req.originalUrl.startsWith(C100_URL)
-          ? applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
-              orderType,
-              orderId,
-              removeId: currentOrderDocument.id,
-            })
-          : applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, {
-              orderType,
-              orderId,
-              removeId: currentOrderDocument.id,
-            }),
+        fileUplaodUrl: applyParms(
+          req.originalUrl.startsWith(C100_URL)
+            ? C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD
+            : OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+          { orderType, orderId }
+        ),
+        fileRemoveUrl: applyParms(
+          req.originalUrl.startsWith(C100_URL)
+            ? C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD
+            : OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+          {
+            orderType,
+            orderId,
+            removeId: currentOrderDocument.id,
+          }
+        ),
       });
     }
   }
@@ -129,8 +128,7 @@ export default class OtherProceedingsGetController extends GetController {
       const userDetails = req?.session?.user;
       req.originalUrl.startsWith(C100_URL)
         ? await C100Api(userDetails, req.locals.logger).deleteDocument(docId)
-        : //await req.locals.C100Api.deleteDocument(docId)
-          await caseApi(userDetails, req.locals.logger).deleteDocument(docId);
+        : await caseApi(userDetails, req.locals.logger).deleteDocument(docId);
 
       const courtOrderType: AnyType | undefined = orderType;
       const courtOrderId: AnyType | undefined = orderId;
@@ -155,9 +153,12 @@ export default class OtherProceedingsGetController extends GetController {
           throw err;
         }
         res.redirect(
-          req.originalUrl.startsWith(C100_URL)
-            ? applyParms(C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId })
-            : applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId })
+          applyParms(
+            req.originalUrl.startsWith(C100_URL)
+              ? C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD
+              : OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
+            { orderType, orderId }
+          )
         );
       });
     } catch (error) {
