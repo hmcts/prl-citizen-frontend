@@ -75,8 +75,8 @@ export default class OtherProceedingsGetController extends GetController {
       if (req.session?.errors) {
         req.session.errors = undefined;
       }
-      if(req.originalUrl.startsWith(C100_URL)) {
-       super.clearConfidentialitySessionSaveData(req)
+      if (req.originalUrl.startsWith(C100_URL)) {
+        super.clearConfidentialitySessionSaveData(req);
       }
       res.render(this.view, {
         ...content,
@@ -154,10 +154,19 @@ export default class OtherProceedingsGetController extends GetController {
     }
   };
 
-  private generateCurrentOrderDocument(req: AppRequest, courtOrderType: C100OrderTypes | ProceedingsOrderTypes, courtOrderId: any, currentOrderDocument: { id: string; url: string; filename: string; binaryUrl: string; }) {
+  private generateCurrentOrderDocument(
+    req: AppRequest,
+    courtOrderType: C100OrderTypes | ProceedingsOrderTypes,
+    courtOrderId: any,
+    currentOrderDocument: { id: string; url: string; filename: string; binaryUrl: string }
+  ) {
     const orderSessionData = req.originalUrl.startsWith(C100_URL)
-      ? (req.session.userCase?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]] as C100OrderInterface[])
-      : (req.session.userCase?.otherProceedings?.order?.[ProceedingsOrderTypeKeyMapper[courtOrderType]] as ProceedingsOrderInterface[]);
+      ? (req.session.userCase?.op_otherProceedings?.order?.[
+          C100OrderTypeKeyMapper[courtOrderType]
+        ] as C100OrderInterface[])
+      : (req.session.userCase?.otherProceedings?.order?.[
+          ProceedingsOrderTypeKeyMapper[courtOrderType]
+        ] as ProceedingsOrderInterface[]);
 
     const orderSessionDataById = orderSessionData[courtOrderId - 1];
     if (orderSessionDataById.orderDocument) {

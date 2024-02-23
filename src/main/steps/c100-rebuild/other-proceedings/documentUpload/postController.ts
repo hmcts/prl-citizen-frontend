@@ -31,7 +31,6 @@ const C100OrderTypeNameMapper = {
   otherOrder: 'Other Order',
 };
 
-
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
 @autobind
