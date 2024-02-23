@@ -3,6 +3,7 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, CitizenInternationalElements, PartyType, YesOrNo } from '../../../../../app/case/definition';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
+import { TaskListContent } from '../../definitions';
 
 import { languages as content } from './content';
 
@@ -16,6 +17,7 @@ export enum TaskListSection {
   YOUR_ORDERS = 'ordersFromTheCourt',
   THE_APPLICATION = 'theApplication',
   YOUR_RESPONSE = 'yourResponse',
+  THE_RESPONSE = 'theResponse',
 }
 export enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
@@ -34,6 +36,7 @@ export enum Tasks {
   CHECK_AOH_AND_VIOLENCE = 'checkAllegationsOfHarmAndViolence',
   RESPOND_TO_THE_APPLICATION = 'respondToTheApplication',
   RESPOND_TO_AOH_AND_VIOLENCE = 'respondToAOHAndViolence',
+  THE_RESPONSE_PDF = 'theResponsePDF',
 }
 
 export enum StateTags {
@@ -77,7 +80,7 @@ export const getContents = (
   caseType: CaseType,
   partyType: PartyType,
   language: string
-): Record<string, any> => content[language]?.[caseType]?.[partyType]?.[taskListSection] ?? {};
+): TaskListContent => content[language]?.[caseType]?.[partyType]?.[taskListSection] ?? {};
 
 export const getKeepYourDetailsPrivateStatus = keepDetailsPrivate => {
   let status = StateTags.TO_DO;

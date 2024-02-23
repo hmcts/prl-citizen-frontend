@@ -3,7 +3,7 @@
 import { CaseType, SelectTypeOfOrderEnum } from './../../../../../app/case/definition';
 import { languages as content } from './content';
 
-enum CaseProgressionStage {
+export enum CaseProgressionStage {
   APPLICATION_SUBMITTED = 'applicationSubmitted',
   CAFCASS_SAFETY_CHECKS = 'cafcassSafetyChecks',
   RESPONSE_SUBMITTED = 'responseSubmitted',

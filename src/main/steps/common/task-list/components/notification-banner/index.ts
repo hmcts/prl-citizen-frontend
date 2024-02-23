@@ -1,16 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import _ from 'lodash';
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { interpolate } from '../../../string-parser';
+import { NotificationBannerConfig, NotificationBannerProps } from '../../definitions';
 
 import { CaseType, PartyType } from './../../../../../app/case/definition';
 import { C100_WITHDRAW_CASE } from './../../../../urls';
 import notifConfig from './config/index';
 
-const notificationBannerConfig = {
+const notificationBannerConfig: NotificationBannerConfig = {
   [CaseType.C100]: {
     [PartyType.APPLICANT]: notifConfig.CA_APPLICANT,
     [PartyType.RESPONDENT]: notifConfig.CA_RESPONDENT,
@@ -26,7 +26,7 @@ export const getNotificationBannerConfig = (
   userDetails: UserDetails,
   partyType: PartyType,
   language: string
-): Record<string, any>[] => {
+): NotificationBannerProps[] => {
   let caseType = caseData?.caseTypeOfApplication;
 
   if (!caseType && partyType === PartyType.APPLICANT) {
