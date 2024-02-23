@@ -47,7 +47,7 @@ export default class OtherProceedingsGetController extends GetController {
     const courtOrderType = req.originalUrl.startsWith(C100_URL)
       ? (orderType as C100OrderTypes)
       : (orderType as ProceedingsOrderTypes);
-    const courtOrderId: any | undefined = orderId;
+    const courtOrderId: any = orderId;
     if (removeId && orderType) {
       this.removeDocument(req, res);
     } else {
@@ -119,8 +119,8 @@ export default class OtherProceedingsGetController extends GetController {
         ? await C100Api(userDetails, req.locals.logger).deleteDocument(docId)
         : await caseApi(userDetails, req.locals.logger).deleteDocument(docId);
 
-      const courtOrderType: any | undefined = orderType;
-      const courtOrderId: any | undefined = orderId;
+      const courtOrderType: any = orderType;
+      const courtOrderId: any = orderId;
       if (
         req.originalUrl.startsWith(C100_URL) &&
         req.session.userCase?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]

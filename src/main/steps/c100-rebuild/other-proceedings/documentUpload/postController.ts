@@ -49,7 +49,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const { files }: AppRequest<AnyObject> = req;
     const { orderType, orderId } = req.params;
 
-    const courtOrderId: any | undefined = orderId;
+    const courtOrderId: any = orderId;
     const courtOrder = {
       courtOrderType: orderType as C100OrderTypes,
       courtOrderId,
