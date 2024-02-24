@@ -11,7 +11,6 @@ export const routeGuard = {
       delete req.session.userCase.haveReasonForDocNotToBeShared;
       req.session.userCase.reasonsToNotSeeTheDocument = [];
       delete req.session.userCase.reasonsToRestrictDocument;
-      req.session.userCase.applicantUploadFiles = [];
       req.session.userCase.respondentUploadFiles = [];
       delete req.session.userCase.declarationCheck;
       return req.session.save(next);

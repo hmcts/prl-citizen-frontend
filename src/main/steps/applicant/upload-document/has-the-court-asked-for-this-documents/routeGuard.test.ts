@@ -22,18 +22,7 @@ describe('has-the-court-asked-for-this-documents routeGuard', () => {
           document_creation_date: '1/1/2023',
         },
       },
-    ],
-    respondentUploadFiles: [
-      {
-        document: {
-          document_url: 'url',
-          document_binary_url: 'binary url',
-          document_filename: 'filename',
-          document_hash: 'document hash',
-          document_creation_date: '1/1/2023',
-        },
-      },
-    ],
+    ]
   };
 
   test('should delete data when hasCourtAskedForThisDoc is no', async () => {
@@ -52,7 +41,6 @@ describe('has-the-court-asked-for-this-documents routeGuard', () => {
     expect(req.session.userCase.declarationCheck).toBeUndefined();
     expect(req.session.userCase.reasonsToNotSeeTheDocument).toStrictEqual([]);
     expect(req.session.userCase.applicantUploadFiles).toStrictEqual([]);
-    expect(req.session.userCase.respondentUploadFiles).toStrictEqual([]);
   });
 
   test('should not delete data when hasCourtAskedForThisDoc is yes', async () => {
