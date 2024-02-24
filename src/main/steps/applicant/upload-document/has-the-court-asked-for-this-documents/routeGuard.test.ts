@@ -22,7 +22,7 @@ describe('has-the-court-asked-for-this-documents routeGuard', () => {
           document_creation_date: '1/1/2023',
         },
       },
-    ]
+    ],
   };
 
   test('should delete data when hasCourtAskedForThisDoc is no', async () => {
