@@ -14,6 +14,9 @@ describe('sharing-the-documents routeGuard', () => {
   test('should delete data when haveReasonForDocNotToBeShared is no', async () => {
     const req = mockRequest({
       userCase,
+      body: {
+        ...userCase,
+      },
     });
     const res = mockResponse();
     const next = jest.fn();
@@ -29,6 +32,9 @@ describe('sharing-the-documents routeGuard', () => {
     userCase.haveReasonForDocNotToBeShared = 'Yes';
     const req = mockRequest({
       userCase,
+      body: {
+        ...userCase,
+      },
     });
     const res = mockResponse();
     const next = jest.fn();

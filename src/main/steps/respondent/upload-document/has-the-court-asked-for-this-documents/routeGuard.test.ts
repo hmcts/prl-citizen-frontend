@@ -28,6 +28,9 @@ describe('has-the-court-asked-for-this-documents routeGuard', () => {
   test('should delete data when hasCourtAskedForThisDoc is no', async () => {
     const req = mockRequest({
       userCase,
+      body: {
+        ...userCase,
+      },
     });
     const res = mockResponse();
     const next = jest.fn();
@@ -47,6 +50,9 @@ describe('has-the-court-asked-for-this-documents routeGuard', () => {
     userCase.hasCourtAskedForThisDoc = 'Yes';
     const req = mockRequest({
       userCase,
+      body: {
+        ...userCase,
+      },
     });
     const res = mockResponse();
     const next = jest.fn();

@@ -6,7 +6,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   post: async (req: AppRequest, res: Response, next: NextFunction) => {
-    if (req.session.userCase?.hasCourtAskedForThisDoc === YesOrNo.NO) {
+    if (req.body?.hasCourtAskedForThisDoc === YesOrNo.NO) {
       delete req.session.userCase?.reasonForDocumentCantBeShared;
       delete req.session.userCase.haveReasonForDocNotToBeShared;
       req.session.userCase.reasonsToNotSeeTheDocument = [];

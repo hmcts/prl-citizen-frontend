@@ -26,10 +26,14 @@
   html:html
 }) }}
   {% else %}
-  <div class="govuk-!-margin-top-6 govuk-!-margin-bottom-6">
-    <h2 class="govuk-heading-m">{{whatHappensNext}}</h2>
-    <p class="govuk-body-m">{{courtWillMakeDecisions}}</p>
-  </div>
+    <div class="govuk-!-margin-top-6 govuk-!-margin-bottom-6">
+      <h2 class="govuk-heading-m">{{whatHappensNext}}</h2>
+      {% if hasConfidentialDetails %}
+        <p class="govuk-body-m">{{accessToCourtOnly}}</p>
+      {% else %}
+        <p class="govuk-body-m">{{courtWillMakeDecisions}}</p>
+      {% endif %}
+    </div>
   {% endif %}
 
   <div class="govuk-button-group">

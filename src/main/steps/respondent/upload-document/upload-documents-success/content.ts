@@ -10,6 +10,7 @@ const en = {
   ],
   whatHappensNext: 'What happens next',
   courtWillMakeDecisions: 'The court will make a decision on whether to restrict access to this document.',
+  accessToCourtOnly: 'Access to the document will only be given to the court and judiciary.',
   continue: 'Close and return to case overview',
   uploadAgain: 'Upload another document',
 };
@@ -23,6 +24,7 @@ const cy: typeof en = {
   ],
   whatHappensNext: 'What happens next - welsh',
   courtWillMakeDecisions: 'The court will make a decision on whether to restrict access to this document. - welsh',
+  accessToCourtOnly: 'Access to the document will only be given to the court and judiciary. - welsh',
   continue: 'Close and return to case overview - welsh',
   uploadAgain: 'Llwytho dogfen arall',
 };
@@ -38,10 +40,13 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+  const reasonsToNotSeeTheDocument = content.userCase?.reasonsToNotSeeTheDocument;
 
   return {
     ...translations,
     form,
     haveReasonForDocNotToBeShared: content.userCase?.haveReasonForDocNotToBeShared,
+    hasConfidentialDetails:
+      reasonsToNotSeeTheDocument?.length === 1 && reasonsToNotSeeTheDocument?.includes('hasConfidentailDetails'),
   };
 };
