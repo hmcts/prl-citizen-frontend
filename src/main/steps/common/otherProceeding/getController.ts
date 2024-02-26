@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
@@ -22,9 +23,6 @@ import {
   RESPONSE_TASKLIST,
 } from '../../../steps/urls';
 import { Language, generatePageContent } from '../../common/common.content';
-export type URL_OF_FILE_UPLOAD = string;
-//eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AnyType = any;
 
 @autobind
 export default class OtherProceedingsGetController extends GetController {
@@ -49,7 +47,7 @@ export default class OtherProceedingsGetController extends GetController {
     const courtOrderType = req.originalUrl.startsWith(C100_URL)
       ? (orderType as C100OrderTypes)
       : (orderType as ProceedingsOrderTypes);
-    const courtOrderId: AnyType | undefined = orderId;
+    const courtOrderId: any = orderId;
     if (removeId && orderType) {
       this.removeDocument(req, res);
     } else {
@@ -60,18 +58,7 @@ export default class OtherProceedingsGetController extends GetController {
         binaryUrl: '',
       };
 
-      const orderSessionData = req.originalUrl.startsWith(C100_URL)
-        ? (req.session.userCase?.op_otherProceedings?.order?.[
-            C100OrderTypeKeyMapper[courtOrderType]
-          ] as C100OrderInterface[])
-        : (req.session.userCase?.otherProceedings?.order?.[
-            ProceedingsOrderTypeKeyMapper[courtOrderType]
-          ] as ProceedingsOrderInterface[]);
-
-      const orderSessionDataById = orderSessionData[courtOrderId - 1];
-      if (orderSessionDataById.orderDocument) {
-        currentOrderDocument = orderSessionDataById.orderDocument;
-      }
+      currentOrderDocument = this.generateCurrentOrderDocument(req, courtOrderType, courtOrderId, currentOrderDocument);
 
       const language = super.getPreferredLanguage(req) as Language;
 
@@ -89,7 +76,9 @@ export default class OtherProceedingsGetController extends GetController {
       if (req.session?.errors) {
         req.session.errors = undefined;
       }
-      req.originalUrl.startsWith(C100_URL) ? super.clearConfidentialitySessionSaveData(req) : null;
+      if (req.originalUrl.startsWith(C100_URL)) {
+        super.clearConfidentialitySessionSaveData(req);
+      }
       res.render(this.view, {
         ...content,
         sessionErrors,
@@ -130,8 +119,8 @@ export default class OtherProceedingsGetController extends GetController {
         ? await C100Api(userDetails, req.locals.logger).deleteDocument(docId)
         : await caseApi(userDetails, req.locals.logger).deleteDocument(docId);
 
-      const courtOrderType: AnyType | undefined = orderType;
-      const courtOrderId: AnyType | undefined = orderId;
+      const courtOrderType: any = orderType;
+      const courtOrderId: any = orderId;
       if (
         req.originalUrl.startsWith(C100_URL) &&
         req.session.userCase?.op_otherProceedings?.order?.[C100OrderTypeKeyMapper[courtOrderType]][courtOrderId - 1]
@@ -165,4 +154,25 @@ export default class OtherProceedingsGetController extends GetController {
       console.log(error);
     }
   };
+
+  private generateCurrentOrderDocument(
+    req: AppRequest,
+    courtOrderType: C100OrderTypes | ProceedingsOrderTypes,
+    courtOrderId: any,
+    currentOrderDocument: { id: string; url: string; filename: string; binaryUrl: string }
+  ) {
+    const orderSessionData = req.originalUrl.startsWith(C100_URL)
+      ? (req.session.userCase?.op_otherProceedings?.order?.[
+          C100OrderTypeKeyMapper[courtOrderType]
+        ] as C100OrderInterface[])
+      : (req.session.userCase?.otherProceedings?.order?.[
+          ProceedingsOrderTypeKeyMapper[courtOrderType]
+        ] as ProceedingsOrderInterface[]);
+
+    const orderSessionDataById = orderSessionData[courtOrderId - 1];
+    if (orderSessionDataById.orderDocument) {
+      currentOrderDocument = orderSessionDataById.orderDocument;
+    }
+    return currentOrderDocument;
+  }
 }
