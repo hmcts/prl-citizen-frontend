@@ -18,6 +18,8 @@ export enum BannerNotification {
   NEW_DOCUMENT = 'newDocument',
   FINAL_ORDER = 'finalOrder',
   DA_RESPONDENT_BANNER = 'daRespondentBanner',
+  CA_RESPONDENT_SERVED = 'caRespondentServed',
+  CAFFCASS = 'cafcass',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string, partyType: PartyType) => {

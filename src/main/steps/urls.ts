@@ -619,6 +619,8 @@ export const COMMON_PAGE_URLS = [
   ...ANONYMOUS_URLS,
 ];
 
+export const TASKLIST_RESPONSE_TO_CA: PageLink = `${APPLICANT}/responsetoca`;
+
 export const LOCAL_API_SESSION = '/api/v1/session';
 export const SAFEGAURD_EXCLUDE_URLS = [
   C100_URL,

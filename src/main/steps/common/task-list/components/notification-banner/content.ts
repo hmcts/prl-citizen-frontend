@@ -11,9 +11,10 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
 } from '../../../../../steps/urls';
+import { NotificationBannerContent } from '../../definitions';
 import { isCafcassCymruServed, isCafcassServed } from '../../utils';
 
-const en = {
+const en: NotificationBannerContent = {
   title: 'Important',
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {
