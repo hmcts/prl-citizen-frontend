@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { generateTheResponseTasks } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
-import { Respondent } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
-import { interpolate } from '../../../../../../steps/common/string-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
@@ -14,9 +13,8 @@ import {
   APPLICANT_YOURHEARINGS_HEARINGS,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
-  TASKLIST_RESPONSE_TO_CA,
 } from '../../../../../../steps/urls';
-import { SectionContent, Task, TaskListConfigProps } from '../../../definitions';
+import { Task, TaskListConfigProps } from '../../../definitions';
 import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
 import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing, hasAnyOrder } from '../utils';
 
@@ -155,36 +153,3 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
     ],
   },
 ];
-
-const isResponsePresent = (caseData: Partial<CaseWithId>, respondent: Respondent) => {
-  return caseData.respondentDocsList?.find(
-    documents => documents.value.c7Document?.partyName === respondent.value.firstName + ' ' + respondent.value.lastName
-  );
-};
-
-const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content: SectionContent): Task[] => {
-  const tasks: Task[] = [];
-
-  caseData.respondents?.forEach(respondent => {
-    tasks.push({
-      id: Tasks.THE_RESPONSE_PDF,
-      linkText: interpolate(content?.tasks[Tasks.THE_RESPONSE_PDF]!.linkText, {
-        respondentPosition: String(caseData.respondents!.indexOf(respondent) + 1),
-      }),
-      href: () => {
-        const respondentName = respondent.value.firstName + ' ' + respondent.value.lastName;
-        //TODO change to use url parameter when citizen document upload changes are merged
-        return `${TASKLIST_RESPONSE_TO_CA}?name=${respondentName}`;
-      },
-      stateTag: () => {
-        return isResponsePresent(caseData, respondent) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
-      },
-      show: () => caseData && !isDraftCase(caseData),
-      disabled: () => {
-        return !isResponsePresent(caseData, respondent);
-      },
-    });
-  });
-
-  return tasks;
-};

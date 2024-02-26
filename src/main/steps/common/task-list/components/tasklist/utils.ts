@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, CitizenInternationalElements, PartyType, YesOrNo } from '../../../../../app/case/definition';
+import {
+  CaseType,
+  CitizenInternationalElements,
+  PartyType,
+  Respondent,
+  YesOrNo,
+} from '../../../../../app/case/definition';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 import { TaskListContent } from '../../definitions';
 
@@ -206,4 +212,10 @@ export const getFinalApplicationStatus = (caseData, userDetails): StateTags => {
     result = StateTags.VIEW;
   }
   return result;
+};
+
+export const isResponsePresent = (caseData: Partial<CaseWithId>, respondent: Respondent) => {
+  return caseData.respondentDocsList?.find(
+    documents => documents.value.c7Document?.partyName === respondent.value.firstName + ' ' + respondent.value.lastName
+  );
 };

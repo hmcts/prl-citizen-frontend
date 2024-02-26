@@ -17,7 +17,7 @@ type StateTagsProps = {
 };
 
 export type TaskListConfig = {
-  [key in CaseType]?: {
+  [key in CaseType]: {
     [key in PartyType]?: TaskListConfigProps[];
   };
 };
@@ -34,7 +34,7 @@ export type TaskListContent = {
     [key in StateTags]: string;
   };
 } & {
-  [key in CaseType]?: {
+  [key in CaseType]: {
     [key in PartyType]?: {
       [key in TaskListSection]?: SectionContent;
     };
@@ -85,13 +85,13 @@ type PreparedStateTag = {
 };
 
 export type NotificationBannerConfig = {
-  [key in CaseType]?: {
+  [key in CaseType]: {
     [key in PartyType]?: NotificationBannerProps[];
   };
 };
 
 export type NotificationBannerProps = {
-  id: BannerNotification | undefined;
+  id: BannerNotification;
   content?: (caseType: CaseType, language: string, partyType: PartyType) => NotificationBannerContent;
   show?: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => boolean;
 };
@@ -99,7 +99,7 @@ export type NotificationBannerProps = {
 export type NotificationBannerContent = {
   title: string;
 } & {
-  [key in CaseType]?: {
+  [key in CaseType]: {
     [key in PartyType]?: {
       notifications: {
         [key in BannerNotification]?: NotificationContent;
@@ -123,7 +123,7 @@ type NotificationContent = {
 };
 
 export type ProgressBarConfig = {
-  [key in CaseType]?: {
+  [key in CaseType]: {
     [key in PartyType]?: ProgressBarProps[];
   };
 };
