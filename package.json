@@ -195,5 +195,5 @@
     "debug": ">=3.1.0",
     "ua-parser-js": ">=1.0.33"
   },
-  "packageManager": "yarn@3.6.4"
+  "packageManager": "yarn@3.8.0"
 }
