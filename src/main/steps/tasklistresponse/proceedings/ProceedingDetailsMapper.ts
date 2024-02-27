@@ -17,6 +17,8 @@ import {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const prepareProceedingDetailsRequest = (userCase: CaseWithId): CurrentOrPreviousProceedings => {
+  console.info('** FOR SONAR **');
+
   const currentOrPreviousProceedings: CurrentOrPreviousProceedings = {};
   const proceedingDetails: ProceedingDetailsData[] = [];
   const { proceedingsStart, proceedingsStartOrder, courtProceedingsOrders, otherProceedings } = userCase;
