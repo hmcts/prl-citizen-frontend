@@ -130,19 +130,15 @@ export class CosApiClient {
         partyType,
         caseType,
       };
-      const response = await Axios.post(
-        config.get('services.cos.url') + `/${caseId}/${eventName}/case-update`,
-        data,
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + user.accessToken,
-            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-            accessCode: 'Dummy accessCode',
-          },
-        }
-      );
+      const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventName}/case-update`, data, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + user.accessToken,
+          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+          accessCode: 'Dummy accessCode',
+        },
+      });
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
