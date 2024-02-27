@@ -131,7 +131,7 @@ export class CosApiClient {
         caseType,
       };
       const response = await Axios.post(
-        config.get('services.cos.url') + `/${caseId}/${eventName}/case-update-2`,
+        config.get('services.cos.url') + `/${caseId}/${eventName}/case-update`,
         data,
         {
           headers: {
