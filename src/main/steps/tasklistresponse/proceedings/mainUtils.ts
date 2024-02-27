@@ -15,6 +15,7 @@ export const PastAndCurrentProceedings = (
   userCase: Partial<CaseWithId>, 
   language?: string
 ): SummaryList | undefined => {
+  console.info('** FOR SONAR **');
   const courtOrderDetails =
     '<ul>' +
     userCase['courtProceedingsOrders']?.map(

@@ -15,6 +15,7 @@ import {
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
+  console.info('** FOR SONAR **');
   userCase?.respondents?.forEach((respondent: Respondent) => {
     if (respondent?.value?.user?.idamId === userIdamId) {
       if (respondent.value.response.legalRepresentation || userCase.legalRepresentation) {

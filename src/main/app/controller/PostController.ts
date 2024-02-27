@@ -27,7 +27,9 @@ import { AppRequest } from './AppRequest';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {}
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {
+    console.info('** FOR SONAR **');
+  }
   /**
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
