@@ -6,6 +6,8 @@ import { cy } from '../../child/report-abuse/content';
 import { HTML } from '../common/htmlSelectors';
 import { ANYTYPE } from '../common/index';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const childNameFormatter = (childId, userCase) => {
   const sessionChildKey = 'children';

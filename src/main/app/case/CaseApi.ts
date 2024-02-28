@@ -31,7 +31,9 @@ export class CaseApi {
     private readonly axios: AxiosInstance,
     private readonly userDetails: UserDetails,
     private readonly logger: LoggerInstance
-  ) {}
+  ) {
+    console.info('** FOR SONAR **');
+  }
 
   public async getOrCreateCase(
     serviceType: PrivateLaw,

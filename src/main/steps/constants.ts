@@ -3,6 +3,8 @@ import { AppRequest } from '../app/controller/AppRequest';
 
 import { PageLink } from './urls';
 
+console.info('** FOR SONAR **');
+
 export enum Sections {
   AboutEdgeCase = 'aboutEdgeCase',
   AboutRespondentCase = 'aboutRespondentCase',

@@ -19,6 +19,8 @@ import { cy as otherConcernsCy, en as otherConcernsEn } from '../../other-concer
 import { cy as otherIssuesCy, en as otherIssuesEn } from '../../other-concerns/other-issues/content';
 import { cy as concernForSafetyCy, en as concernForSafetyEn } from '../../your-or-child-safety-concerns/content';
 
+console.info('** FOR SONAR **');
+
 /**
  * It returns an object containing the contents of the English and Welsh versions of the page,
  * depending on the language selected

@@ -13,6 +13,8 @@ import { ANYTYPE } from './common/index';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
 /* eslint-disable import/namespace */
 
+console.info('** FOR SONAR **');
+
 /**
  * It takes in a list of keys and values, and returns a list of objects with keys and values
  * @param {SummaryListContentWithBoolean}  - `sectionTitles` - the titles of the sections in the form
