@@ -1,12 +1,28 @@
 const CYA = require("../../contents/CheckYourAnswers-content");
+const ApplicantDetails = require("../../contents/ApplicantDetails-content");
 const { I } = inject();
 const retryCount = 3;
 
 module.exports = {
     fields: {
-        statementOfTruthYes: '//*[@id="statementOfTruth"]',    
+        statementOfTruthYes: '//*[@id="statementOfTruth"]', 
+        submitApplication: '//button[@id="main-form-submit"]',
+        confirmPayment: '//button[@id="confirm"]',
+        
+        //PAYMENT
+        paymentTypeCard: '//*[@id="paymentType"]',
+        cardNo: '//*[@id="card-no"]',
+        expiryMonth: '//*[@id="expiry-month"]',
+        expiryYear: '//*[@id="expiry-year"]',
+        cardholderName: '//*[@id="cardholder-name"]',
+        cvc: '//*[@id="cvc"]',
+        addressLine1: '//*[@id="address-line-1"]',
+        addressLine2: '//*[@id="address-line-2"]',
+        addressCity: '//*[@id="address-city"]',
+        addressPostcode: '//*[@id="address-postcode"]',
+        email: '//*[@id="email"]',
     },
-    async checkYourAnswers(){
+    async checkYourAnswersHWF(){
         await I.retry(retryCount).waitForText(CYA.cyaTitle , 60);
         await I.retry(retryCount).waitForText(CYA.caseName , 60);
         await I.retry(retryCount).waitForText(CYA.locationDetails , 60);
@@ -44,13 +60,58 @@ module.exports = {
         await I.retry(retryCount).click(this.fields.statementOfTruthYes);
         await I.retry(retryCount).click('Submit your application');
     }, 
+
+    async checkYourAnswersAndPay() {
+        await I.wait('4');
+        await I.retry(retryCount).waitForText(CYA.cyaTitle , 60);
+        await I.retry(retryCount).waitForText(CYA.caseName , 60);
+        await I.retry(retryCount).waitForText(CYA.statementOfTruth , 60);
+        await I.retry(retryCount).waitForText(CYA.confirmStatementTruth , 60);
+        await I.wait('5');
+        await I.retry(retryCount).click(this.fields.statementOfTruthYes);
+        await I.wait('3');
+        await I.retry(retryCount).click(this.fields.submitApplication);
+    },
+
+    async payByCard() {
+        await I.wait(15);
+        await I.retry(3).waitForText('Enter card details', 30);
+        await I.retry(3).fillField(this.fields.cardNo, CYA.paymentCardNumber);
+        await I.retry(3).fillField(this.fields.expiryMonth, CYA.paymentCardExpiryMonth);
+        await I.retry(3).fillField(this.fields.expiryYear, CYA.paymentCardExpiryYear);
+        await I.retry(3).fillField(this.fields.cardholderName, ApplicantDetails.firstName + ' ' + ApplicantDetails.lastName);
+        await I.retry(3).fillField(this.fields.cvc, CYA.paymentCardCVVNumber);
+        await I.retry(3).fillField(this.fields.addressLine1, CYA.cardHolderAddressLine1);
+        await I.retry(3).fillField(this.fields.addressLine2, CYA.cardHolderAddressLine2);
+        await I.retry(3).fillField(this.fields.addressCity, CYA.cardHolderAddressCity);
+        await I.retry(3).fillField(this.fields.addressPostcode, CYA.cardHolderPostCode);
+        await I.retry(3).fillField(this.fields.email, CYA.cardHolderEmailAddress);
+        await I.retry(3).click('Continue');
+        await I.wait(10);
+        await I.retry(3).waitForText('Confirm your payment', 30);
+        await I.retry(3).waitForText('£232.00', 30);
+        await I.waitForElement(this.fields.confirmPayment);
+        // await I.click(this.fields.confirmPayment);
+        await I.usePlaywrightTo('force click on confirm payment', async({ page }) => {
+            await page.locator(this.fields.confirmPayment).dispatchEvent('click');
+          });
+    },
+
     async applicationSubmitted() {
+        await I.wait(15);
         await I.retry(retryCount).waitForText(CYA.applicationSubmittedSuccess , 60);
         await I.retry(retryCount).waitForText(CYA.applicationCaseNo , 60);
         await I.wait('5');
     },
+
     async checkYourAnswersEvent() {
-        await this.checkYourAnswers();
-       // await this.applicationSubmitted();
+        await this.checkYourAnswersHWF();
+        await this.applicationSubmitted();
     },
+
+    async checkAnswersAndPay() {
+        await this.checkYourAnswersAndPay();
+        await this.payByCard();
+       // await this.applicationSubmitted();
+    }
 };

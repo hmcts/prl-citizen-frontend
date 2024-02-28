@@ -52,6 +52,8 @@ describe('GetCaseController', () => {
     getHearings.mockResolvedValue(req.session.userCase);
     caseData.mockResolvedValue(req.session.userCase);
     await controller.get(req, res);
+    await controller.load(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
+    expect(res.render).toBeCalled;
   });
 });

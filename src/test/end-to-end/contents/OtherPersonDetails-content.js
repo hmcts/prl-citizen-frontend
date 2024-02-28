@@ -16,7 +16,7 @@ module.exports = {
     postcode: 'MK9 3DX',
     addressLookUpPageTitle: 'Select Address of',
     addressLookUpSubHeading: 'Select an address',
-    lookUpOption: 'M K F M STUDIOS, 417, SAXON GATE EAST, MILTON KEYNES, MK9 3DX', 
+    lookUpOption: '417, SAXON GATE EAST, MILTON KEYNES, MK9 3DX', 
     confirmAddressPageTitle: 'Address details of',
     currentlyLiveWithPageTitle: 'currently live with?',
 };

@@ -26,7 +26,7 @@ const CheckYourAnswers = require('./pages/C100-Rebuild/CheckYourAnswers');
 const ConsentOrder = require('./pages/C100-Rebuild/ConsentOrder');
 const CheckYourAnswersSimple = require('./pages/C100-Rebuild/CheckYourAnswersSimple');
 const RespondentEvents = require('./pages/RespondentEvents');
-
+const ApplicantAboutYouFL401 = require('./pages/FL-401Applicant/ApplicantAboutYouFL401.js');
 
 module.exports = () => {
   return actor({
@@ -124,11 +124,17 @@ module.exports = () => {
     reasonableAdjustments() {
       return ReasonableAdjustments.reasonableAdjustments();
     },
-    helpWithFeeEvent() {
-      return HelpWithFees.helpWithFeeEvent();
+    withHelpWithFeeEvent() {
+      return HelpWithFees.withHelpWithFeeEvent();
+    },
+    withoutHelpWithFees() {
+      return HelpWithFees.withoutHelpWithFees();
     },
     checkYourAnswersEvent() {
       return CheckYourAnswers.checkYourAnswersEvent();
+    },
+    checkAnswersAndPay() {
+      return CheckYourAnswers.checkAnswersAndPay();
     },
     checkYourAnswersSimpleEvent() {
       return CheckYourAnswersSimple.checkYourAnswersSimple();
@@ -141,6 +147,9 @@ module.exports = () => {
     },
     respondentAboutYou(){
       return RespondentEvents.respondentAboutYou();
+    },
+    aboutYouFL401() {
+      return ApplicantAboutYouFL401.aboutYouFL401();
     }
   });
 };

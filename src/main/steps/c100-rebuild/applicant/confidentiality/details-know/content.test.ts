@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable import/no-unresolved */
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { CaseWithId } from '../../../../../app/case/case';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 import { ANYTYPE } from '../common/index';
@@ -59,6 +61,17 @@ describe('applicant personal details > applying-with > content', () => {
       },
     },
   } as unknown as CommonContent;
+
+  let generatedContent;
+  let form;
+  let fields;
+
+  beforeEach(() => {
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
+  });
+
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -69,24 +82,23 @@ describe('applicant personal details > applying-with > content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain applyingWith field', () => {
-    const generatedContent = generateContent(commonContent) as Record<string, never>;
-    const form = generatedContent.form as FormContent;
-    const fields = form.fields as FormFields;
-    const applyingWithField = fields.detailsKnown as FormOptions;
-    expect(applyingWithField.type).toBe('radios');
-    expect(applyingWithField.classes).toBe('govuk-radios');
-    expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
-    expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
-    expect((applyingWithField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.three);
+  test('should contain detailsKnown field', () => {
+    const detailsKnownField = fields.detailsKnown as FormOptions;
+    expect(detailsKnownField.type).toBe('radios');
+    expect(detailsKnownField.classes).toBe('govuk-radios');
+    expect((detailsKnownField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
+    expect((detailsKnownField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
+    expect((detailsKnownField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.three);
   });
 
   test('should contain saveAndComeLater button', () => {
-    const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent | undefined;
     expect(
       (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and come back later');
+  });
+
+  test('should contain submit button', () => {
+    expect((form.submit?.text as Function)(generatedContent)).toBe(commonContent.onlycontinue);
   });
 
   test('rendering form fields', () => {
@@ -126,24 +138,28 @@ describe('applicant personal details > applying-with > content', () => {
           applicantId: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
         },
       },
-      userCase: {
-        appl_allApplicants: [
-          {
-            id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
-            applicantFirstName: 'Test2',
-            applicantLastName: 'Test2',
-            detailsKnown: 'No',
-            startAlternative: '',
-            start: '',
-            contactDetailsPrivate: [],
-            contactDetailsPrivateAlternative: [],
-          },
-        ],
-      },
     };
-    const generatedContentFields: ANYTYPE = generateContent({ ...commonContent, additionalData });
+    const userCase = {
+      appl_allApplicants: [
+        {
+          id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+          applicantFirstName: 'Test2',
+          applicantLastName: 'Test2',
+          detailsKnown: 'No',
+          startAlternative: '',
+          start: '',
+          contactDetailsPrivate: [],
+          contactDetailsPrivateAlternative: [],
+        },
+      ],
+    } as unknown as CaseWithId;
+    const generatedContentFields: ANYTYPE = generateContent({
+      ...commonContent,
+      additionalData,
+      userCase,
+    });
     expect(generatedContentFields['form'].fields['detailsKnown'].values).toHaveLength(3);
-    expect(generatedContentFields['form'].fields['detailsKnown'].values[0].attributes.checked).toBe(true);
+    expect(generatedContentFields['form'].fields['detailsKnown'].values[1].attributes.checked).toBe(true);
   });
 
   test('rendering form fields - Yes', () => {
@@ -153,22 +169,26 @@ describe('applicant personal details > applying-with > content', () => {
           applicantId: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
         },
       },
-      userCase: {
-        appl_allApplicants: [
-          {
-            id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
-            applicantFirstName: 'Test2',
-            applicantLastName: 'Test2',
-            detailsKnown: 'Yes',
-            startAlternative: '',
-            start: '',
-            contactDetailsPrivate: [],
-            contactDetailsPrivateAlternative: [],
-          },
-        ],
-      },
     };
-    const generatedContentFields: ANYTYPE = generateContent({ ...commonContent, additionalData });
+    const userCase = {
+      appl_allApplicants: [
+        {
+          id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+          applicantFirstName: 'Test2',
+          applicantLastName: 'Test2',
+          detailsKnown: 'Yes',
+          startAlternative: '',
+          start: '',
+          contactDetailsPrivate: [],
+          contactDetailsPrivateAlternative: [],
+        },
+      ],
+    } as unknown as CaseWithId;
+    const generatedContentFields: ANYTYPE = generateContent({
+      ...commonContent,
+      additionalData,
+      userCase,
+    });
     expect(generatedContentFields['form'].fields['detailsKnown'].values).toHaveLength(3);
     expect(generatedContentFields['form'].fields['detailsKnown'].values[0].attributes.checked).toBe(true);
   });
@@ -179,23 +199,27 @@ describe('applicant personal details > applying-with > content', () => {
           applicantId: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
         },
       },
-      userCase: {
-        appl_allApplicants: [
-          {
-            id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
-            applicantFirstName: 'Test2',
-            applicantLastName: 'Test2',
-            detailsKnown: 'I dont know',
-            startAlternative: '',
-            start: '',
-            contactDetailsPrivate: [],
-            contactDetailsPrivateAlternative: [],
-          },
-        ],
-      },
     };
-    const generatedContentFields: ANYTYPE = generateContent({ ...commonContent, additionalData });
+    const userCase = {
+      appl_allApplicants: [
+        {
+          id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+          applicantFirstName: 'Test2',
+          applicantLastName: 'Test2',
+          detailsKnown: 'I dont know',
+          startAlternative: '',
+          start: '',
+          contactDetailsPrivate: [],
+          contactDetailsPrivateAlternative: [],
+        },
+      ],
+    } as unknown as CaseWithId;
+    const generatedContentFields: ANYTYPE = generateContent({
+      ...commonContent,
+      additionalData,
+      userCase,
+    });
     expect(generatedContentFields['form'].fields['detailsKnown'].values).toHaveLength(3);
-    expect(generatedContentFields['form'].fields['detailsKnown'].values[0].attributes.checked).toBe(true);
+    expect(generatedContentFields['form'].fields['detailsKnown'].values[2].attributes.checked).toBe(true);
   });
 });

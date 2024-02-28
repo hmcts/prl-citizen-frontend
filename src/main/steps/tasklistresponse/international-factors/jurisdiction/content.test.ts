@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
-import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -87,21 +87,18 @@ describe('citizen-home content', () => {
     const detailsKnownField = fields.jurisdiction as FormOptions;
     expect(detailsKnownField.type).toBe('radios');
     expect(detailsKnownField.classes).toBe('govuk-radios');
+    expect((detailsKnownField.label as LanguageLookup)(generatedContent)).toBe(undefined);
     expect((detailsKnownField.section as Function)(generatedContent)).toBe(enContent.section);
+    expect((detailsKnownField.hint as Function)(generatedContent)).toBe(enContent.twoHint);
+    expect((detailsKnownField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
 
-    const jurisdictionField = fields.jurisdiction as FormOptions;
-    expect(jurisdictionField.type).toBe('radios');
-    expect(jurisdictionField.classes).toBe('govuk-radios');
-    expect((jurisdictionField.section as Function)(generatedContent)).toBe(enContent.section);
-    expect((jurisdictionField.hint as Function)(generatedContent)).toBe(enContent.twoHint);
-    expect(jurisdictionField.validator).toBe(isFieldFilledIn);
-    expect((jurisdictionField.values[0].label as Function)(generatedContent)).toBe(enContent.one);
-    expect(
-      (jurisdictionField.values[0].subFields?.iFactorsJurisdictionProvideDetails.label as Function)(generatedContent)
-    ).toBe(enContent.provideDetails);
-    (jurisdictionField.values[0].subFields?.iFactorsJurisdictionProvideDetails.validator as Validator)('test value');
-    expect(isFieldFilledIn).toHaveBeenCalledWith('test value');
-    expect((jurisdictionField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
+    (detailsKnownField.values[0].subFields?.iFactorsJurisdictionProvideDetails.validator as Validator)(
+      'iFactorsJurisdictionProvideDetails'
+    );
+    expect(isFieldFilledIn).toHaveBeenCalledWith('iFactorsJurisdictionProvideDetails');
+    expect(isTextAreaValid).toHaveBeenCalledWith('iFactorsJurisdictionProvideDetails');
+
+    expect((detailsKnownField.values[1].label as Function)(generatedContent)).toBe(enContent.two);
   });
 
   test('should contain onlyContinue button', () => {

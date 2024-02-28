@@ -1,4 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -51,6 +53,14 @@ describe('address history > content', () => {
     language: 'en',
     userCase: {},
   }) as CommonContent;
+  let generatedContent;
+  let form;
+  let fields;
+  beforeEach(() => {
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
+  });
 
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -58,5 +68,32 @@ describe('address history > content', () => {
 
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+  test('should contain  field', () => {
+    const isAtAddressLessThan5YearsField = fields.isAtAddressLessThan5Years as FormOptions;
+    expect(isAtAddressLessThan5YearsField.type).toBe('radios');
+    expect(isAtAddressLessThan5YearsField.classes).toBe('govuk-radios');
+    expect((isAtAddressLessThan5YearsField.label as Function)(generatedContent)).toBe(undefined);
+    expect((isAtAddressLessThan5YearsField.section as Function)(generatedContent)).toBe(undefined);
+    expect((isAtAddressLessThan5YearsField.values[0].label as Function)(generatedContent)).toBe(en.one);
+    expect(isAtAddressLessThan5YearsField.values[0].value).toBe('Yes');
+    expect((isAtAddressLessThan5YearsField.values[1].label as Function)(generatedContent)).toBe(en.two);
+    expect(isAtAddressLessThan5YearsField.values[1].value).toBe('No');
+    expect(isAtAddressLessThan5YearsField.values[1].subFields?.citizenUserAddressHistory.type).toBe('textarea');
+    expect(
+      (isAtAddressLessThan5YearsField.values[1].subFields?.citizenUserAddressHistory.label as Function)(
+        generatedContent
+      )
+    ).toBe(en.explainNoLabel);
+    expect(isAtAddressLessThan5YearsField.values[1].subFields?.citizenUserAddressHistory.id).toBe(
+      'provideDetailsOfPreviousAddresses'
+    );
+    (isAtAddressLessThan5YearsField.values[1].subFields?.citizenUserAddressHistory.validator as Validator)(
+      'test value'
+    );
+    expect(isAtAddressLessThan5YearsField.validator).toBe(isFieldFilledIn);
+  });
+  test('should contain continue button', () => {
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
   });
 });

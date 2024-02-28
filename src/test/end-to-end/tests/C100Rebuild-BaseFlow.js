@@ -1,3 +1,5 @@
+const testConfig = require('../config');
+
 Feature('C100 Rebuild - Base flow');
 
 Scenario('C100 Rebuild - basic journey @master @nightly', async ({ I }) => {
@@ -18,6 +20,6 @@ Scenario('C100 Rebuild - basic journey @master @nightly', async ({ I }) => {
     await I.safetyConcerns();
     await I.internationElements();
     await I.reasonableAdjustments();
-    await I.helpWithFeeEvent();
-    await I.checkYourAnswersEvent();
-  }).retry({ retries: 3, minTimeout: 30000 });
+    await I.withoutHelpWithFees();
+    await I.checkAnswersAndPay();
+  }).retry(testConfig.TestRetryScenarios);

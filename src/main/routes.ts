@@ -2,8 +2,6 @@ import fs from 'fs';
 
 import { Application } from 'express';
 
-import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
-
 import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
 import { FieldPrefix } from './app/case/case';
 import { Environment, EventRoutesContext } from './app/case/definition';
@@ -18,7 +16,6 @@ import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
-import ApplicantTaskListGetController from './steps/applicant/task-list/get';
 import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
@@ -152,7 +149,6 @@ export class Routes {
     app.get(TESTING_SUPPORT_DELETE_DRAFT, errorHandler(new DeleteDraftGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
-    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
     app.get(`${RESPOND_TO_APPLICATION}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
     app.get(
       `${APPLICANT_VIEW_ALL_DOCUMENTS}/:caseId`,
@@ -169,8 +165,8 @@ export class Routes {
     );
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
-    app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().load));
-    app.get(APPLICANT_TASK_LIST_URL, errorHandler(new ApplicantTaskListGetController().load));
+    app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new CaseDetailsGetController().load));
+    app.get(APPLICANT_TASK_LIST_URL, errorHandler(new CaseDetailsGetController().load));
     //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
     app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
@@ -197,7 +193,7 @@ export class Routes {
       `${APPLICANT_CHECK_ANSWERS}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.CONFIRM_CONTACT_DETAILS_APPLICANT).get)
     );
-    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
+    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new CaseDetailsGetController().get));
 
     app.get(
       `${RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,

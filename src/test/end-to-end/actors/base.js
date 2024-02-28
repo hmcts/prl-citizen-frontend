@@ -17,7 +17,7 @@ let currentUser = {};
 
 module.exports = {
   async signIn(user) {
-    if (!(this.isPuppeteer() && currentUser === user)) {
+    if (!(this.isPlaywright() && currentUser === user)) {
       output.debug(`Logging in as ${user.email}`);
       currentUser = {}; // reset in case the login fails
       await this.retryUntilExists(() => loginPage.createUserAndSignIn(user), signedInSelector, false, 10);
