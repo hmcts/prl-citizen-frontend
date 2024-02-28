@@ -26,7 +26,7 @@ describe('AccessibilityStatementGetController', () => {
       ...defaultViewArgs,
       userCase: req.session.userCase,
       additionalData: expect.anything(),
-      paymentError: false,
+      paymentError: undefined,
       caseId: '1234',
       breadcrumbs: [],
     });

@@ -128,12 +128,13 @@ describe('PaymentHandler', () => {
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
     expect(res.send.mock.calls).toHaveLength(0);
     expect(req.host).toBe('localhost:3001');
+    expect(req.session.paymentError).toBe('defaultPaymentError');
     expect(updateCaserMock).toHaveBeenCalled;
   });
   test('should catch and log error', async () => {
     mockedAxios.post.mockRejectedValue(undefined);
     await PaymentHandler(req, res);
-    expect(req.session.paymentError).toBe(true);
+    expect(req.session.paymentError).toBe('defaultPaymentError');
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
     expect(mockLogger.error).toHaveBeenCalledWith('Error in create service request/payment reference');
   });
@@ -191,7 +192,7 @@ describe('PaymentValidationHandler', () => {
     const mockApi = new C100Api(mockedAxios, mockLogger);
     req.locals.C100Api = mockApi;
     await PaymentValidationHandler(req, res);
-    expect(req.session.paymentError).toBe(false);
+    expect(req.session.paymentError).toBe(undefined);
   });
   test('should populate error if payment not a success', async () => {
     mockedAxios.post.mockResolvedValue({
@@ -207,14 +208,14 @@ describe('PaymentValidationHandler', () => {
       },
     });
     await PaymentValidationHandler(req, res);
-    expect(req.session.paymentError).toBe(true);
+    expect(req.session.paymentError).toBe('paymentUnsuccessful');
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
     expect(mockLogger.error).toHaveBeenCalledWith('Error in retreive payment status');
   });
   test('should catch error', async () => {
     mockedAxios.get.mockRejectedValueOnce;
     await PaymentValidationHandler(req, res);
-    expect(req.session.paymentError).toBe(true);
+    expect(req.session.paymentError).toBe('paymentUnsuccessful');
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
     expect(mockLogger.error).toHaveBeenCalledTimes(2);
     expect(mockLogger.error).toHaveBeenCalledWith('Error in retreive payment status');
@@ -272,5 +273,25 @@ describe('PaymentValidationHandler', () => {
     expect(res.render).toHaveBeenCalledTimes(0);
     expect(res.redirect).toHaveBeenCalled();
     expect(res.send.mock.calls).toHaveLength(0);
+  });
+
+  test('submitCase should catch not submitted error', async () => {
+    updateCaserMock.mockRejectedValue({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'POST',
+      },
+    });
+    await submitCase(
+      req,
+      res,
+      '1234',
+      mockUserCase,
+      'http://localhost:3001/payment/reciever/callback/RC-12/Success',
+      C100_CASE_EVENT.CASE_SUBMIT
+    );
+    expect(req.session.paymentError).toBe('applicationNotSubmitted');
   });
 });

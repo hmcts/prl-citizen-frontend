@@ -3113,3 +3113,9 @@ export enum DocType {
   OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
   MIAM_CERTIFICATE = 'miamcertificate',
 }
+
+export enum PaymentError {
+  DEFAULT_PAYMENT_ERROR = 'defaultPaymentError',
+  PAYMENT_UNSUCCESSFUL = 'paymentUnsuccessful',
+  APPLICATION_NOT_SUBMITTED = 'applicationNotSubmitted'
+}

@@ -12,12 +12,12 @@
         {% include "common/error/summary.njk" %}
       {% endblock %}   
 
-{% if paymentError === true %}
+{% if paymentError !== undefined %}
   {{ govukErrorSummary({
     titleText: errors.paymentError.title,
     errorList: [
       {
-        html: "<div class='govuk-heading-s hmcts-badge--red'>"+errors.paymentError.content+"</div>"
+        html: "<div class='govuk-heading-s hmcts-badge--red'>"+errors.paymentError[paymentError]+"</div>"
       }
     ]
   }) }}

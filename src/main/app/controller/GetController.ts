@@ -62,7 +62,7 @@ export class GetController {
     this.clearConfidentialitySessionSaveData(req);
 
     if (!req.session.hasOwnProperty('paymentError')) {
-      req.session.paymentError = false;
+      req.session.paymentError = undefined;
     }
     /**
      * Added for C100 Rebuild

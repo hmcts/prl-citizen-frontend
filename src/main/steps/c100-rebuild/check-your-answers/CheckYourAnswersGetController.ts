@@ -31,7 +31,7 @@ export default class CheckYourAnswersGetController extends GetController {
     );
     //clear payment error
     setTimeout(() => {
-      req.session.paymentError = false;
+      req.session.paymentError = undefined;
     }, 1000);
 
     super.get(req, res);

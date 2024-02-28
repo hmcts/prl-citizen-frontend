@@ -42,7 +42,7 @@ describe('DocumentUpload Get Controller', () => {
 
   test('should wait for 1 second before loading Check your answers screen', async () => {
     req.session.userCase.caseId = '1111';
-    req.session.paymentError = false;
+    req.session.paymentError = undefined;
     await controller.get(req, res);
     const callback = jest.fn();
     expect(callback).not.toHaveBeenCalled();
