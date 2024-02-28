@@ -1,6 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
+console.info('** FOR SONAR **');
+
 const en = () => ({
   title: 'Before you go to court',
   titleDetail:

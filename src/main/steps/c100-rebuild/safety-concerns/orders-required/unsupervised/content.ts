@@ -4,6 +4,8 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 export const en = () => ({
   section: 'Safety concerns',
   title: 'Contact between the children and the other people in this application',

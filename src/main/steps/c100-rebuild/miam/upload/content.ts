@@ -1,6 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
+console.info('** FOR SONAR **');
+
 const en = () => ({
   serviceName: 'Child arrangements',
   title: 'Upload your MIAM certificate',

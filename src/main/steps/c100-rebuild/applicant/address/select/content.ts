@@ -6,6 +6,8 @@ import { applyParms } from '../../../../../steps/common/url-parser';
 import { C100_APPLICANT_ADDRESS_LOOKUP, C100_APPLICANT_ADDRESS_MANUAL } from '../../../../../steps/urls';
 import { form as selectAddressForm, languages as selectAddressFormLanguages } from '../common/address-select';
 
+console.info('** FOR SONAR **');
+
 let updatedForm: FormContent;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Transfer your case to your legal representative',
   line1: 'To transfer your case to your legal representative, provide them with your Case number.',

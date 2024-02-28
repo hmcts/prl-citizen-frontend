@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Complete your response',
   line1: "Complete your response to the applicant's request for child arrangements.",

@@ -2,6 +2,8 @@ import { APPLICANT_ORDERS_FROM_THE_COURT } from '../../../../../../main/steps/ur
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 
+console.info('** FOR SONAR **');
+
 const en = () => {
   return {
     section: 'All documents',

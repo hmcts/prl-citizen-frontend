@@ -3,6 +3,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 export const en = () => ({
   hwfGuidanceTitle: 'You need to apply for help with your child arrangements application fee',
   hwfApplyLinkHint1: 'You need to',

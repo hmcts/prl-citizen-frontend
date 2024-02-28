@@ -5,6 +5,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isAlphaNumeric, isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Contact details of',

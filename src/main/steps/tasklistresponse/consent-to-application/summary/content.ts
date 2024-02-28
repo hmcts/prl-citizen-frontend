@@ -6,6 +6,8 @@ import { CommonContent } from '../../../../steps/common/common.content';
 import { CONSENT_TO_APPLICATION } from '../../../../steps/urls';
 import { summaryList } from '../../../common/summary/utils';
 
+console.info('** FOR SONAR **');
+
 const urls = {
   doYouConsent: CONSENT_TO_APPLICATION,
   reasonForNotConsenting: CONSENT_TO_APPLICATION,

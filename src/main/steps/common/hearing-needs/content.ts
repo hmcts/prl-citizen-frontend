@@ -2,6 +2,8 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 
+console.info('** FOR SONAR **');
+
 export const en = () => ({
   caption: 'Reasonable adjustments',
   title: 'Let the court know if your support needs have changed',

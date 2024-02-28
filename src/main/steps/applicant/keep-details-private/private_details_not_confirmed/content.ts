@@ -2,6 +2,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { en as english, cy as welsh } from '../../../common/keep-details-private/private_details_not_confirmed/content';
 
+console.info('** FOR SONAR **');
+
 const en = {
   ...english,
   section: 'Keeping your contact details private',

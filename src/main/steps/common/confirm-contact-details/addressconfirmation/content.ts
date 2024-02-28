@@ -2,6 +2,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isInvalidPostcode } from '../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Your Address',
   citizenUserAddress1: 'Building and street',

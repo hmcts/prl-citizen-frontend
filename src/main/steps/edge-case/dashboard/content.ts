@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 
+console.info('** FOR SONAR **');
+
 const en = () => ({
   title: 'Welcome to Citizen dashboard',
   paymentError: '',

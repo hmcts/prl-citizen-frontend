@@ -2,6 +2,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   successMessage: 'Application withdrawn',

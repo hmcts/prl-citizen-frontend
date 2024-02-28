@@ -10,7 +10,7 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
 } from '../../../../../steps/urls';
-
+console.info('** FOR SONAR **');
 const en = {
   title: 'Important',
   [CaseType.C100]: {

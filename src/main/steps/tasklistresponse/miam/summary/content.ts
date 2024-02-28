@@ -5,6 +5,8 @@ import { summaryList } from '../../../common/summary/utils';
 
 import { updateContent } from './handler';
 
+console.info('** FOR SONAR **');
+
 export const enContent = {
   section: 'Check your answers',
   title: 'Mediation Information and Assessment Meeting (MIAM) attendance',

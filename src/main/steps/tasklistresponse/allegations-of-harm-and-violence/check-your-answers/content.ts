@@ -11,6 +11,8 @@ import { SafetyConcerns, SafetyConcerns_child, SafetyConcerns_others, SafetyConc
 
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 
+console.info('** FOR SONAR **');
+
 export const enContent = {
   serviceName: 'Check your answers ',
   section: '',

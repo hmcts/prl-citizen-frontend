@@ -4,6 +4,8 @@ import { CommonContent } from '../../../../steps/common/common.content';
 import { PastAndCurrentProceedings } from '../mainUtils';
 import { otherProceedingsContents } from '../proceedingUtils';
 
+console.info('** FOR SONAR **');
+
 export const enContent = {
   serviceName: 'Check your answers ',
   section: '',

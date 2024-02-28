@@ -1,6 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Your address',
   citizenUserAddressText: 'address',

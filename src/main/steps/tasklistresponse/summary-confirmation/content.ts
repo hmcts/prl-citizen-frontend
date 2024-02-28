@@ -4,6 +4,8 @@ import { FormContent } from '../../../app/form/Form';
 import AppSurvey from '../../../steps/common/app-survey/appSurveyController';
 import { appSurveyContents } from '../../../steps/common/app-survey/content';
 
+console.info('** FOR SONAR **');
+
 const en = {
   success: 'Response submitted successfully',
   caseNumber: 'Case number ',

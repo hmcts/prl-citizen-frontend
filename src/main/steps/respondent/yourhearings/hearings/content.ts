@@ -4,6 +4,9 @@ import { CA_DA_ATTENDING_THE_COURT, RESPONDENT_ORDERS_FROM_THE_COURT } from '../
 import { generateContent as yourhearingshearingscontent } from '../../../common/yourhearings/hearings/content';
 
 export { form } from '../../../common/yourhearings/hearings/content';
+
+console.info('** FOR SONAR **');
+
 export const generateContent: TranslationFn = content => {
   const hearingsContent = yourhearingshearingscontent(content);
   hearingsContent.linkforsupport = CA_DA_ATTENDING_THE_COURT;

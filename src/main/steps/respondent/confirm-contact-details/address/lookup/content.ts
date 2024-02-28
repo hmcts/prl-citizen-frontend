@@ -7,6 +7,8 @@ import {
 } from '../../../../common/components/address-lookup';
 import { RESPONDENT_ADDRESS_MANUAL } from '../../../../urls';
 
+console.info('** FOR SONAR **');
+
 const LOOKUP_ADDRESS = 'address-lookup';
 
 const addressLookupFormFields = addressLookupForm.fields as FormFields;

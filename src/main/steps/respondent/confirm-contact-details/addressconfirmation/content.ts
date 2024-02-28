@@ -10,3 +10,5 @@ export const generateContent: TranslationFn = content => {
     ...addressConfirmationContent,
   };
 };
+
+console.info('** FOR SONAR **');

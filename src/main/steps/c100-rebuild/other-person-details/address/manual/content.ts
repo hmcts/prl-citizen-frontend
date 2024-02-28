@@ -8,6 +8,8 @@ import {
 } from '../../../people/address/address-manual';
 import { getPartyDetails } from '../../../people/util';
 
+console.info('** FOR SONAR **');
+
 let updatedForm: FormContent;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

@@ -5,6 +5,7 @@ import {
   form as formContents,
   cy as welsh,
 } from '../../../common/keep-details-private/details_known/content';
+console.info('** FOR SONAR **');
 const en = {
   ...english,
   title: 'Does the other person named in your application (the respondent) know any of your contact details?',

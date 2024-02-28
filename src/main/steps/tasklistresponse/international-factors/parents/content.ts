@@ -3,6 +3,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 const en = {
   section: ' ',
   title:

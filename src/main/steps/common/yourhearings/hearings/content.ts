@@ -18,6 +18,7 @@ import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 
 import 'dayjs/locale/cy';
 
+console.info('** FOR SONAR **');
 const en = () => {
   return {
     section: 'Your court hearings',

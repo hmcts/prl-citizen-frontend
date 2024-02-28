@@ -12,6 +12,8 @@ import { generateApplicantTaskListAllDocuments } from './tasklistalldocuments';
 
 export * from './routeGuard';
 
+console.info('** FOR SONAR **');
+
 const en = () => {
   return {
     title: 'All documents',

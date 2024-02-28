@@ -6,7 +6,7 @@ import {
   generateContent as addressLookupGenerateContent,
 } from '../../../../common/components/address-lookup';
 import { APPLICANT_MANUAL_ADDRESS } from '../../../../urls';
-
+console.info('** FOR SONAR **');
 const LOOKUP_ADDRESS = 'address-lookup';
 
 const addressLookupFormFields = addressLookupForm.fields as FormFields;

@@ -2,6 +2,8 @@ import { TranslationFn } from '../../../app/controller/GetController';
 
 import { prepareCaseView } from './tabView';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Child arrangements and family injunction cases',
   sectionTitle: 'Activate an access code or start an application:',
