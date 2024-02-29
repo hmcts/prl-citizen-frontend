@@ -18,8 +18,8 @@ const en = () => ({
   list: [
     'the court will be in touch with you to explain what will happen next and what you will need to do',
     `if you have informed the court that you need specific adjustments in order to take part in the case, 
-    the court will contact you to confirm what has been arranged. If you have not heard from the court within 3 days of the hearing, contact the court directly.You can 
-    <a href="https://www.gov.uk/find-court-tribunal" class="govuk-link" rel="external" target="_blank">find court or tribunal's contact details</a> on GOV.UK.`,
+    the court will contact you to confirm what has been arranged. If you have not heard from the court within 3 days of the hearing, contact the court directly. You can 
+    <a href="https://www.gov.uk/find-court-tribunal" class="govuk-link" rel="external" target="_blank">find a court or tribunal's contact details</a> on GOV.UK`,
     'the respondent will receive a copy of your application, and will have the chance to respond to it',
     `<a href="https://www.cafcass.gov.uk/" class="govuk-link govuk-link" rel="external" target="_blank">Cafcass</a> or
     <a href="https://gov.wales/cafcass-cymru" class="govuk-link govuk-link" rel="external" target="_blank"> Cafcass Cymru</a>
