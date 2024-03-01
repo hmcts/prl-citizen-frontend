@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child Arrangements',
   caption: 'Reasonable adjustments',
   headingTitle: 'I need to bring support with me to a court hearing',
   line1: 'Consider in-person, phone or video, in case your preferred hearing type is not possible',
@@ -55,7 +54,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf eisiau dod â rhywun efo fi i fy nghefnogi mewn gwrandawiad llys',
   line1:

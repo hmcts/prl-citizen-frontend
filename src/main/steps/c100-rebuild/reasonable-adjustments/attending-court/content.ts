@@ -5,7 +5,6 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../.
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  serviceName: 'Child Arrangements',
   caption: 'Attending the court',
   headingTitle: 'Would you be able to take part in hearings by video and phone?',
   paragraph1: 'If your case goes to a hearing, it can take place either:',
@@ -33,7 +32,6 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   caption: 'Mynychu’r llys',
   headingTitle: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
   paragraph1: 'Os bydd eich achos yn mynd i wrandawiad, gellir ei gynnal naill ai:',

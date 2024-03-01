@@ -16,7 +16,6 @@ export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  serviceName: 'Child arrangements',
   title: 'Provide details for',
   isNameChangedLabelText: 'Have they changed their name?',
   inNameChangedHintText:
@@ -72,7 +71,6 @@ const en = () => ({
 });
 
 const cy = () => ({
-  serviceName: 'Trefniadau plant',
   title: 'Darparwch fanylion am',
   isNameChangedLabelText: 'A ydynt wedi newid eu henw?',
   inNameChangedHintText:
