@@ -13,29 +13,7 @@ import { cy as opDetailsCyContents, en as opDetailsEnContents } from './order-de
 export const IndividualOrderFieldsParser = (keys, order, language) => {
   console.info('** FOR SONAR **');
   const newOrders = order;
-  const Mapper = {
-    ['orderDetail']: {
-      question: keys['courtIssuedLabel'],
-    },
-    ['caseNo']: {
-      question: keys['caseNumberLabel'],
-    },
-    ['orderDate']: {
-      question: keys['orderDateLabel'],
-    },
-    ['currentOrder']: {
-      question: keys['isCurrentOrderLabel'],
-    },
-    ['orderCopy']: {
-      question: keys['copyOfOrderLabel'],
-    },
-    ['orderEndDate']: {
-      question: keys['orderEndDateLabel'],
-    },
-    ['orderDocument']: {
-      question: keys['copy'],
-    },
-  };
+  const Mapper = getCaseDetailMapper(keys);
   let Val = '';
   Object.entries(newOrders).forEach((entry, index) => {
     const key = entry[0];
@@ -123,6 +101,32 @@ export const otherProceedingsContents = SystemLanguage => {
   };
   return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
 };
+function getCaseDetailMapper(keys) {
+  return {
+    ['orderDetail']: {
+      question: keys['courtIssuedLabel'],
+    },
+    ['caseNo']: {
+      question: keys['caseNumberLabel'],
+    },
+    ['orderDate']: {
+      question: keys['orderDateLabel'],
+    },
+    ['currentOrder']: {
+      question: keys['isCurrentOrderLabel'],
+    },
+    ['orderCopy']: {
+      question: keys['copyOfOrderLabel'],
+    },
+    ['orderEndDate']: {
+      question: keys['orderEndDateLabel'],
+    },
+    ['orderDocument']: {
+      question: keys['copy'],
+    },
+  };
+}
+
 /* eslint-disable @typescript-eslint/no-explicit-any*/
 function prepareOrderDetail(
   order: any,

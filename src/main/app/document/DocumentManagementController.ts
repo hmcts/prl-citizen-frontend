@@ -252,80 +252,126 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return partyName;
   }
 
-  public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
+  private retrieveFileNameEndPoint(req: AppRequest<Partial<CaseWithId>>): { filename: string; endPoint: string } {
+    const originalUrl = req.originalUrl;
     let filename = '';
     let endPoint = '';
-    let client: CosApiClient;
-    let caseReference: string;
-    let loggedInCitizen: UserDetails;
-
-    try {
-      const originalUrl = req.originalUrl;
-
-      if (originalUrl !== null && originalUrl !== undefined && originalUrl.length > 0) {
-        filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
-        const itemlist = originalUrl.toString().split('/');
-        endPoint = itemlist[itemlist.length - 2];
-      }
-
-      loggedInCitizen = req.session.user;
-      caseReference = req.session.userCase.id;
-
-      client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
-      const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
-      req.session.userCase = caseDataFromCos;
-    } catch (err) {
-      req.locals.logger.error(err);
+    if (originalUrl !== null && originalUrl !== undefined && originalUrl.length > 0) {
+      filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
+      const itemList = originalUrl.toString().split('/');
+      endPoint = itemList[itemList.length - 2];
     }
+    return { filename, endPoint };
+  }
 
-    let fieldFlag = '';
-    let documentToGet;
+  private async retrieveCaseData(req: AppRequest<Partial<CaseWithId>>) {
+    const loggedInCitizen = req.session.user;
+    const caseReference = req.session.userCase.id;
+
+    const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
+    const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
+    return { caseReference, client, caseDataFromCos };
+  }
+
+  private async resolveDocument(req: AppRequest<Partial<CaseWithId>>, filename: string, endPoint: string) {
+    let documentToGet = '';
     let uid = '';
-
-    if (filename === 'generate-c7-final') {
+    let finalFilename: string = filename;
+    if (finalFilename === 'generate-c7-final') {
       endPoint = 'caresponse';
-      req.session.userCase.respondents?.forEach(respondent => {
-        if (respondent.value.user.idamId === req.session.user.id) {
-          filename = respondent.id;
-        }
-      });
+      const respondent = req.session.userCase.respondents?.find(resp => resp.value.user.idamId === req.session.user.id);
+      if (respondent) {
+        finalFilename = respondent.id;
+      }
     }
 
     if (endPoint === 'caresponse') {
       req.session.userCase.citizenResponseC7DocumentList?.forEach(document => {
-        if (document.value.createdBy === filename) {
+        if (document.value.createdBy === finalFilename) {
           if (!document.value.citizenDocument.document_binary_url) {
             throw new Error('CA_RESPONSE binary url is not found');
           }
-          filename = 'C7_Document.pdf';
+          finalFilename = 'C7_Document.pdf';
           documentToGet = document.value.citizenDocument.document_binary_url;
           uid = this.getUID(documentToGet);
         }
       });
     }
-
-    if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
+    if (finalFilename === DocumentType.FL401_FINAL_DOCUMENT) {
       if (!req.session.userCase.finalDocument?.document_binary_url) {
         throw new Error('FL401_FINAL_DOCUMENT binary url is not found');
       }
       documentToGet = req.session.userCase.finalDocument?.document_binary_url;
       uid = this.getUID(documentToGet);
     }
-
-    if (filename === DocumentType.WITNESS_STATEMENT) {
-      if (!req.session.userCase.fl401UploadWitnessDocuments?.[0].value?.document_binary_url) {
-        throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
-      }
-      documentToGet = req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url;
-      uid = this.getUID(documentToGet);
+    if (finalFilename === DocumentType.WITNESS_STATEMENT) {
+      ({ documentToGet, uid } = this.documentHasWitnessStatement(req, documentToGet));
     }
+    return this.getFileNameUidAndFieldFlag(finalFilename, req, uid, endPoint);
+  }
 
+  private documentHasWitnessStatement(req: AppRequest<Partial<CaseWithId>>, docToGet: string) {
+    let documentToGet = docToGet;
+    if (!req.session.userCase.fl401UploadWitnessDocuments?.[0].value?.document_binary_url) {
+      throw new Error('APPLICATION_WITNESS_STATEMENT binary url is not found');
+    }
+    documentToGet = req.session.userCase.fl401UploadWitnessDocuments[0].value?.document_binary_url;
+    const uid = this.getUID(documentToGet);
+    return { documentToGet, uid };
+  }
+
+  private getFileNameUidAndFieldFlag(
+    finalFilename: string,
+    req: AppRequest<Partial<CaseWithId>>,
+    uid: string,
+    endPoint: string
+  ) {
+    let fieldFlag = '';
+    ({ finalFilename, uid, fieldFlag } = this.searchFileNameSearchPattern(finalFilename, req, uid, fieldFlag));
+
+    if (uid.trim() === '') {
+      ({ finalFilename, uid } = this.searchFileNameElementMap(endPoint, req, finalFilename, uid));
+    }
+    return { finalFilename, uid, fieldFlag };
+  }
+
+  private searchFileNameElementMap(
+    endPoint: string,
+    req: AppRequest<Partial<CaseWithId>>,
+    finalFilename: string,
+    uid: string
+  ) {
+    for (const entry of this.fileNameElementMap.entries()) {
+      const searchPattern = entry[0];
+      const element = entry[1];
+      const obj = this.getDocumentUIDWithMultipleElements(
+        endPoint,
+        req,
+        finalFilename,
+        searchPattern,
+        element.elements
+      );
+      uid = obj.uid;
+      finalFilename = obj.filename;
+      if (uid !== '') {
+        break;
+      }
+    }
+    return { finalFilename, uid };
+  }
+
+  private searchFileNameSearchPattern(
+    finalFilename: string,
+    req: AppRequest<Partial<CaseWithId>>,
+    uid: string,
+    fieldFlag: string
+  ) {
     for (const entry of this.fileNameSearchPatternElementMap.entries()) {
       const fileNameSearchPattern = entry[0];
-      if (filename.includes(fileNameSearchPattern) || filename === fileNameSearchPattern) {
+      if (finalFilename.includes(fileNameSearchPattern) || finalFilename === fileNameSearchPattern) {
         const obj = this.getDocumentUIDWithOutFlag(req, entry[1].elements, entry[1].downloadFileFieldFlag);
         uid = obj!.uid;
-        filename = obj!.filename;
+        finalFilename = obj!.filename;
         if (uid.trim() !== '') {
           if (entry[1]?.downloadFileFieldFlag) {
             fieldFlag = entry[1]?.downloadFileFieldFlag;
@@ -334,24 +380,52 @@ export class DocumentManagerController extends PostController<AnyObject> {
         }
       }
     }
+    return { finalFilename, uid, fieldFlag };
+  }
 
-    if (uid.trim() === '') {
-      for (const entry of this.fileNameElementMap.entries()) {
-        const searchPattern = entry[0];
-        const element = entry[1];
-        const obj = this.getDocumentUIDWithMultipleElements(endPoint, req, filename, searchPattern, element.elements);
-        uid = obj.uid;
-        filename = obj.filename;
-        if (uid !== '') {
-          break;
-        }
-      }
-    }
-
+  private async fetchDocument(req: AppRequest<Partial<CaseWithId>>, uid: string) {
     const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
     const generatedDocument = await documentManagementClient.get({ url: cdamUrl });
+    return { generatedDocument, cdamUrl };
+  }
 
+  public async get(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
+    try {
+      const { filename, endPoint } = this.retrieveFileNameEndPoint(req);
+      const { caseReference, client, caseDataFromCos } = await this.retrieveCaseData(req);
+      req.session.userCase = caseDataFromCos;
+
+      const { finalFilename, uid, fieldFlag } = await this.resolveDocument(req, filename, endPoint);
+
+      const { generatedDocument, cdamUrl } = await this.fetchDocument(req, uid);
+
+      this.handleDocumentResponse(
+        req,
+        generatedDocument,
+        res,
+        cdamUrl,
+        fieldFlag,
+        caseReference,
+        client,
+        finalFilename
+      );
+    } catch (err) {
+      req.locals.logger.error(err);
+    }
+  }
+
+  private handleDocumentResponse(
+    req: AppRequest<Partial<CaseWithId>>,
+    generatedDocument,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    res: Response<any, Record<string, any>>,
+    cdamUrl: string,
+    fieldFlag: string,
+    caseReference: string,
+    client: CosApiClient,
+    finalFilename: string
+  ) {
     req.session.save(err => {
       if (err) {
         throw err;
@@ -365,7 +439,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
           if (fieldFlag && req.query?.updateCase && req.query?.updateCase === YesOrNo.YES) {
             this.setFlagViewed(req, caseReference, client, req.session.user, fieldFlag);
           }
-          res.setHeader('Content-Disposition', 'inline; filename="' + filename + '";');
+          res.setHeader('Content-Disposition', 'inline; filename="' + finalFilename + '";');
           return res.end(generatedDocument.data);
         }
       }
@@ -390,25 +464,19 @@ export class DocumentManagerController extends PostController<AnyObject> {
     let documentToGet = '';
     let uid = '';
 
-    if (elements !== null && elements?.length && elements?.length > 0) {
-      const element = elements[0];
-      const childElement = elements[1];
+    if (elements && elements?.length > 0 && endPoint.includes(endPoint_input)) {
+      const [element, childElement] = elements;
+      const matchingDocuments = req.session.userCase[element]?.filter(doc =>
+        doc.value[childElement]?.document_url?.endsWith(filename)
+      );
 
-      if (endPoint.includes(endPoint_input) && req.session.userCase[`${element}`]) {
-        for (const doc of req.session.userCase[`${element}`]) {
-          if (
-            doc.value[`${childElement}`]?.document_url?.substring(
-              doc.value[`${childElement}`]?.document_url?.lastIndexOf('/') + 1
-            ) === filename
-          ) {
-            if (!doc.value[`${childElement}`].document_binary_url) {
-              throw new Error('Binary URL is not found for ' + element + ':' + childElement);
-            }
-            documentToGet = doc.value[`${childElement}`].document_binary_url;
-            filename = doc.value[`${childElement}`].document_filename;
-            break;
-          }
+      if (matchingDocuments && matchingDocuments.length > 0) {
+        const matchedDocument = matchingDocuments[0].value[childElement];
+        if (!matchedDocument.document_binary_url) {
+          throw new Error('Binary URL is not found for ' + element + ':' + childElement);
         }
+        documentToGet = matchedDocument.document_binary_url;
+        filename = matchedDocument.document_filename;
         uid = this.getUID(documentToGet);
       }
     }
@@ -440,26 +508,33 @@ export class DocumentManagerController extends PostController<AnyObject> {
           flag = YesOrNo.YES;
         }
       } else {
-        {
-          for (const document of req.session.userCase.respondentDocsList!) {
-            if (ele1 === 'c1a' && document.value?.c1aDocument?.partyName === req.query?.name) {
-              document_filename = document.value.c1aDocument.citizenDocument.document_filename;
-              documentToGet = document.value.c1aDocument.citizenDocument.document_binary_url;
-              uid = this.getUID(documentToGet);
-              break;
-            } else {
-              if (ele1 === 'c7' && document.value?.c7Document?.partyName === req.query?.name) {
-                document_filename = document.value.c7Document.citizenDocument.document_filename;
-                documentToGet = document.value.c7Document.citizenDocument.document_binary_url;
-                uid = this.getUID(documentToGet);
-                break;
-              }
-            }
-          }
-        }
+        ({ document_filename, uid } = this.respondentDocList(req, ele1, document_filename, documentToGet, uid));
       }
       return { uid, filename: document_filename };
     }
+  }
+
+  private respondentDocList(
+    req: AppRequest<Partial<CaseWithId>>,
+    ele1: string,
+    document_filename: string,
+    documentToGet: string,
+    uid: string
+  ) {
+    for (const document of req.session.userCase.respondentDocsList!) {
+      if (ele1 === 'c1a' && document.value?.c1aDocument?.partyName === req.query?.name) {
+        document_filename = document.value.c1aDocument.citizenDocument.document_filename;
+        documentToGet = document.value.c1aDocument.citizenDocument.document_binary_url;
+        uid = this.getUID(documentToGet);
+        break;
+      } else if (ele1 === 'c7' && document.value?.c7Document?.partyName === req.query?.name) {
+        document_filename = document.value.c7Document.citizenDocument.document_filename;
+        documentToGet = document.value.c7Document.citizenDocument.document_binary_url;
+        uid = this.getUID(documentToGet);
+        break;
+      }
+    }
+    return { document_filename, documentToGet, uid };
   }
 
   private async setFlagViewed(

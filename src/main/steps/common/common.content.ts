@@ -8,6 +8,8 @@ import { ANONYMOUS_URLS, C100_URL, DASHBOARD_URL } from '../../steps/urls';
 import AppSurvey from './app-survey/appSurveyController';
 import { appSurveyContents } from './app-survey/content';
 
+console.info('** FOR SONAR **');
+
 export const en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law',
