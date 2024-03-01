@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child arrangements',
   title: "Are the children's lives mainly based outside of England and Wales?",
   line1: 'For example, is their family life mainly based outside of England and Wales?',
   one: 'Yes',
@@ -28,7 +27,6 @@ const en = {
 };
 
 const cy: typeof en = {
-  serviceName: 'Trefniadau plant',
   title: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
   line1: "Er enghraifft, a yw eu bywyd teuluol wedi'i leoli yn bennaf y tu allan i Gymru a Lloegr?",
   one: 'Ydynt',

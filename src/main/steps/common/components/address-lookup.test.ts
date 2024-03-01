@@ -10,7 +10,7 @@ jest.mock('../../../app/form/validation');
 const enContent = {
   citizenUserAddressPostcode: 'Your current postcode',
   findAddress: 'Find address',
-  enterAddressManually: 'I live outisde the UK',
+  enterAddressManually: 'I live outside the UK',
   errors: {
     citizenUserAddressPostcode: {
       required: 'Enter a valid postcode',

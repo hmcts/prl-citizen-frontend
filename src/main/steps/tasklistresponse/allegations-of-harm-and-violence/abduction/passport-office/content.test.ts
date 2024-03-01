@@ -19,7 +19,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   title: "A oes gan unrhyw un o'r plant basbort?",
   caption: 'Pryderon diogelwch',
   one: 'Oes',

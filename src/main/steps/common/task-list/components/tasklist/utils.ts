@@ -1,8 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, CitizenInternationalElements, PartyType, YesOrNo } from '../../../../../app/case/definition';
+import {
+  CaseType,
+  CitizenInternationalElements,
+  PartyType,
+  Respondent,
+  YesOrNo,
+} from '../../../../../app/case/definition';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
+import { TaskListContent } from '../../definitions';
 
 import { languages as content } from './content';
 
@@ -16,6 +23,7 @@ export enum TaskListSection {
   YOUR_ORDERS = 'ordersFromTheCourt',
   THE_APPLICATION = 'theApplication',
   YOUR_RESPONSE = 'yourResponse',
+  THE_RESPONSE = 'theResponse',
 }
 export enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
@@ -34,6 +42,7 @@ export enum Tasks {
   CHECK_AOH_AND_VIOLENCE = 'checkAllegationsOfHarmAndViolence',
   RESPOND_TO_THE_APPLICATION = 'respondToTheApplication',
   RESPOND_TO_AOH_AND_VIOLENCE = 'respondToAOHAndViolence',
+  THE_RESPONSE_PDF = 'theResponsePDF',
 }
 
 export enum StateTags {
@@ -77,7 +86,7 @@ export const getContents = (
   caseType: CaseType,
   partyType: PartyType,
   language: string
-): Record<string, any> => content[language]?.[caseType]?.[partyType]?.[taskListSection] ?? {};
+): TaskListContent => content[language]?.[caseType]?.[partyType]?.[taskListSection] ?? {};
 
 export const getKeepYourDetailsPrivateStatus = keepDetailsPrivate => {
   let status = StateTags.TO_DO;
@@ -203,4 +212,10 @@ export const getFinalApplicationStatus = (caseData, userDetails): StateTags => {
     result = StateTags.VIEW;
   }
   return result;
+};
+
+export const isResponsePresent = (caseData: Partial<CaseWithId>, respondent: Respondent) => {
+  return caseData.respondentDocsList?.find(
+    documents => documents.value.c7Document?.partyName === respondent.value.firstName + ' ' + respondent.value.lastName
+  );
 };
