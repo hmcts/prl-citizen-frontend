@@ -5,7 +5,6 @@ export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  serviceName: 'Child Arrangements',
   caption: 'MIAM exemptions',
   title: 'Do you require an urgent hearing because you or the children are at risk for any of the following reasons?',
   line1: 'If you are seeking a MIAM exemption, you will need to give more details.',
@@ -39,7 +38,6 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   caption: 'Esemptiadau MIAM',
   title:
     "A oes angen gwrandawiad brys arnoch chi am eich bod chi neu'r plant mewn perygl am unrhyw un o'r rhesymau canlynol?",

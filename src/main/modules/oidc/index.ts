@@ -101,7 +101,7 @@ export class OidcMiddleware {
               }
             }
             //If testing support URL is not part of the path, then we need to redirect user to dashboard even if they click on link
-            if (req.path.startsWith(TESTING_SUPPORT || req.path.includes(LOCAL_API_SESSION))) {
+            if (req.path.startsWith(TESTING_SUPPORT) || req.path.includes(LOCAL_API_SESSION)) {
               if (req.session.testingSupport) {
                 return next();
               } else {

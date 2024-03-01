@@ -979,6 +979,8 @@ export interface CaseData {
   citizenResponseC7DocumentList?: ResponseDocumentList[];
   respondentDocsList?:RespondentDocs[];
   draftOrderDoc?: Document;
+  soaCafcassServedOptions?: YesOrNo | null;
+  soaCafcassCymruServedOptions? : YesOrNo | null;
 }
 
 export const enum SelectTypeOfOrderEnum {

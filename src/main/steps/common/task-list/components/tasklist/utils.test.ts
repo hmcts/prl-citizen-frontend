@@ -1,14 +1,13 @@
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, CitizenInternationalElements, PartyType, State, YesOrNo } from '../../../../../app/case/definition';
+import { CaseType, CitizenInternationalElements, State } from '../../../../../app/case/definition';
 
 import {
   getCheckAllegationOfHarmStatus,
   getFinalApplicationStatus,
   getInternationalFactorsStatus,
   getResponseStatus,
+  getYourWitnessStatementStatus,
 } from './utils';
-
-import { getTaskListConfig } from './index';
 
 describe('testcase for tasklist', () => {
   const userDetails = {
@@ -1777,7 +1776,6 @@ describe('c100 respondent', () => {
       },
     ]);
   });
-
   describe('getCheckAllegationOfHarmStatus', () => {
     test('should return correct status when c1a document present', () => {
       const data = {
@@ -1983,6 +1981,68 @@ describe('c100 respondent', () => {
         ],
       };
       expect(getFinalApplicationStatus(data, { id: '1234' })).toBe('view');
+    });
+  });
+
+  describe('getYourWitnessStatementStatus', () => {
+    test('should return correct state tag when witness statements present', () => {
+      const data = {
+        citizenUploadedDocumentList: [
+          {
+            id: '1234',
+            value: {
+              parentDocumentType: 'Witness statement',
+              documentType: 'Your witness statements',
+              partyName: 'MOCK_PARTY_NAME',
+              isApplicant: 'Yes',
+              uploadedBy: '1234',
+              dateCreated: '1/1/2020',
+              documentDetails: {
+                documentName: 'MOCK_NAME',
+                documentUploadedDate: '1/1/2020',
+              },
+              citizenDocument: {
+                document_url: 'MOCK_DOCUMENT_URL',
+                document_filename: 'MOCK_DOCUMENT_FILENAME',
+                document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              },
+              documentRequestedByCourt: 'No',
+            },
+          },
+        ],
+      };
+
+      expect(getYourWitnessStatementStatus(data as Partial<CaseWithId>)).toBe('download');
+    });
+
+    test('should return correct state tag when witness statements not present', () => {
+      const data = {
+        citizenUploadedDocumentList: [
+          {
+            id: '1234',
+            value: {
+              parentDocumentType: 'Witness statement',
+              documentType: 'Your position statements',
+              partyName: 'MOCK_PARTY_NAME',
+              isApplicant: 'Yes',
+              uploadedBy: '1234',
+              dateCreated: '1/1/2020',
+              documentDetails: {
+                documentName: 'MOCK_NAME',
+                documentUploadedDate: '1/1/2020',
+              },
+              citizenDocument: {
+                document_url: 'MOCK_DOCUMENT_URL',
+                document_filename: 'MOCK_DOCUMENT_FILENAME',
+                document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              },
+              documentRequestedByCourt: 'No',
+            },
+          },
+        ],
+      };
+
+      expect(getYourWitnessStatementStatus(data as Partial<CaseWithId>)).toBe('notAvailableYet');
     });
   });
 });

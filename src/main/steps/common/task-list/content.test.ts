@@ -66,6 +66,7 @@ describe('testcase for tasklist', () => {
         id: 'applicationInProgress',
         links: [
           {
+            external: false,
             href: '#',
             text: 'Continue your application',
           },
@@ -104,9 +105,11 @@ describe('testcase for tasklist', () => {
         tasks: [
           {
             disabled: false,
+            hintText: null,
             href: undefined,
             id: 'childArrangementApplication',
             linkText: 'Your child arrangements application',
+            openInAnotherTab: false,
             stateTag: { className: 'govuk-tag--yellow', label: 'In progress' },
           },
         ],
@@ -178,6 +181,7 @@ describe('testcase for tasklist', () => {
         id: 'applicationInProgress',
         links: [
           {
+            external: false,
             href: '#',
             text: 'Parhau gyda’ch cais',
           },
@@ -220,9 +224,11 @@ describe('testcase for tasklist', () => {
         tasks: [
           {
             disabled: false,
+            hintText: null,
             href: undefined,
             id: 'childArrangementApplication',
             linkText: 'Eich cais trefniadau plant',
+            openInAnotherTab: false,
             stateTag: { className: 'govuk-tag--yellow', label: 'Ar y gweill' },
           },
         ],

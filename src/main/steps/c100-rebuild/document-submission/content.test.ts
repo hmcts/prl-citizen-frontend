@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child arrangements',
   headingTitle: 'How would you like to submit your application to court?',
   paragraph1:
     'Your completed application can be sent straight to the court electronically, or you can print it and send it by post if you prefer.',
@@ -26,7 +25,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   headingTitle: 'Sut hoffech chi gyflwyno eich cais i’r llys?',
   paragraph1:
     'Gallwch anfon y cais yn syth i’r llys yn electronig, neu gallwch ei argraffu a’i anfon drwy’r post os yw’n well gennych wneud hynny.',
