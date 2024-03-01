@@ -99,10 +99,10 @@ export const getConfirmOrEditYourContactDetailsStatus = party => {
     party.email,
     party.dateOfBirth,
   ];
-  if (summaryField.every((currentValue) => currentValue)) {
+  if (summaryField.every(currentValue => currentValue)) {
     return StateTags.COMPLETED;
   }
-  if (summaryField.some((currentValue) => currentValue))  {
+  if (summaryField.some(currentValue => currentValue)) {
     return StateTags.IN_PROGRESS;
   }
   return status;

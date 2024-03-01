@@ -55,10 +55,10 @@ export const getConfirmOrEditYourContactDetails = (
     resp.email,
     resp.dateOfBirth,
   ];
-  if (summaryField.every((currentValue) => currentValue)) {
+  if (summaryField.every(currentValue => currentValue)) {
     return SectionStatus.COMPLETED;
   }
-  if (summaryField.some((currentValue) => currentValue))  {
+  if (summaryField.some(currentValue => currentValue)) {
     return SectionStatus.IN_PROGRESS;
   }
   return status;
