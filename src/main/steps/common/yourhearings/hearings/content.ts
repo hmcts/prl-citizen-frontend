@@ -17,6 +17,7 @@ import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 
 import 'dayjs/locale/cy';
+import { HEARING_METHOD } from '../../../../steps/constants';
 
 const en = () => {
   return {
@@ -252,6 +253,7 @@ const prepareHearingData = (req: AppRequest<Partial<Case>>): any => {
       const next = futureHearings.shift();
       nextHearing.push(next!);
     }
+//  } awaiting for shruti's reply
     //Generating completed hearing data
     if (hearingsCompleted && hearingsCompleted.length >= 1) {
       for (const hearing of hearingsCompleted) {
@@ -285,7 +287,7 @@ const prepareHearingData = (req: AppRequest<Partial<Case>>): any => {
         });
       }
     }
-  }
+  } //delete depend on shruti
   return {
     nextHearing,
     futureHearings,
@@ -316,7 +318,25 @@ export function getHearingMethod(req: AppRequest, attendees: Attendee[]): string
     hearingMethod = attendees.find(attendee => attendee.partyID === partyData.partyId)!.hearingSubChannel;
   }
   if (hearingMethod !== null) {
-    return hearingMethod;
+    const method =[{
+      type:"VID",
+      value:[HEARING_METHOD.VID,HEARING_METHOD.VIDCVP,HEARING_METHOD.VIDOTHER,HEARING_METHOD.VIDPVL,HEARING_METHOD.VIDSKYPE,HEARING_METHOD.VIDTEAMS,HEARING_METHOD.VIDVHS]
+    },
+    {
+      type:"TEL",
+      value:[HEARING_METHOD.TEL,HEARING_METHOD.TELBTM,HEARING_METHOD.TELCVP,HEARING_METHOD.TELOTHER,HEARING_METHOD.TELSKYP,HEARING_METHOD.TELTEMP]
+    }]
+    hearingMethod= method.map(hm => hm.value.find(i=>i==hearingMethod)?hm.type:hearingMethod)
+    return hearingMethod[0];
+
+    // My suggestion //
+    
+    // const video =[HEARING_METHOD.VID,HEARING_METHOD.VIDCVP,HEARING_METHOD.VIDOTHER,HEARING_METHOD.VIDPVL,HEARING_METHOD.VIDSKYPE,HEARING_METHOD.VIDTEAMS,HEARING_METHOD.VIDVHS];
+    // const phone = [HEARING_METHOD.TEL,HEARING_METHOD.TELBTM,HEARING_METHOD.TELCVP,HEARING_METHOD.TELOTHER,HEARING_METHOD.TELSKYP,HEARING_METHOD.TELTEMP];
+    // hearingMethod = video.some(method=>method.includes(hearingMethod))?
+    // 'VID':phone.some(method=>method.includes(hearingMethod))?'TEL':hearingMethod
+    
+    // return hearingMethod;
   }
   return '';
 }
