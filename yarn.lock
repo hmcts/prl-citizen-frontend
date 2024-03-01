@@ -2852,11 +2852,11 @@ __metadata:
   linkType: hard
 
 "@types/cookie-parser@npm:^1.4.2":
-  version: 1.4.6
-  resolution: "@types/cookie-parser@npm:1.4.6"
+  version: 1.4.7
+  resolution: "@types/cookie-parser@npm:1.4.7"
   dependencies:
     "@types/express": "*"
-  checksum: b1bbb17bc4189c0e953d4996b3b58bfa20161c27db21f98353e237032e7559aec733735d8902c283300e0a4cded20e62b1a5086af608608ef30a45387e080360
+  checksum: 7b87c59420598e686a57e240be6e0db53967c3c8814be9326bf86609ee2fc39c4b3b9f2263e1deba43526090121d1df88684b64c19f7b494a80a4437caf3d40b
   languageName: node
   linkType: hard
 
@@ -3269,11 +3269,11 @@ __metadata:
   linkType: hard
 
 "@types/require-directory@npm:^2.1.2":
-  version: 2.1.5
-  resolution: "@types/require-directory@npm:2.1.5"
+  version: 2.1.6
+  resolution: "@types/require-directory@npm:2.1.6"
   dependencies:
     "@types/node": "*"
-  checksum: 0c2741c6bdbe18157733243ca17ae5ad1c808cf36ab01a1841c600f9223919ac094a495be39a69c00393be28853f46ae194841bfbdf5732580b97a8eef951efd
+  checksum: 7c4a9408e04d106d968a911af913ea4cad6d3c4f17eef7fa7c948835173ce596b24baf36d495575fbd975cb2aaea66de7b660292766ecc3c6168a6f5b897bde9
   languageName: node
   linkType: hard
 
