@@ -584,6 +584,7 @@ export const C100_WITHDRAW_CASE_CONFIRMATION: PageLink = `${C100_URL}/withdraw/c
 /** applicant/tasklist hearing needs */
 export const HEARING_NEEDS: PageLink = '/hearing-needs';
 export const APPLICANT_TASKLIST_HEARING_NEEDS: PageLink = `${APPLICANT}${HEARING_NEEDS}/support-help`;
+export const RESPONDENT_TASKLIST_HEARING_NEEDS: PageLink = `${RESPONDENT}${HEARING_NEEDS}/support-help`;
 
 export const RESPONDENT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${RESPONDENT}/add-legal-representative`;
 export const APPLICANT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${APPLICANT}/add-legal-representative`;
