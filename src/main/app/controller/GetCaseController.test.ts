@@ -128,7 +128,7 @@ describe('GetCaseController', () => {
     };
     req.locals.C100Api.createCase.mockResolvedValueOnce(req.session.userCase);
     await controller.createC100ApplicantCase(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/case-name');
+    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/childaddress');
   });
   test('getC100ApplicantCase', async () => {
     req.params.caseId = '123';
