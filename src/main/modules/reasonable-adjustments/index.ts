@@ -19,6 +19,7 @@ import { LanguageToggle } from '../i18n';
 
 import { RAController, ReasonableAdjustementsController } from './controller';
 import { RACommonComponentUserAction, RAData, RARequestPayload } from './definitions';
+import { RANavigationController, ReasonableAdjustementsNavigationController } from './navigationController';
 import { RARoute, ReasonableAdjustmentsRoute } from './route';
 import { RASequence, ReasonableAdjustementsSequence } from './sequence';
 import { RAService, ReasonableAdjustmentsService } from './service';
@@ -36,6 +37,7 @@ class ReasonableAdjustmentsProvider {
   service: ReasonableAdjustmentsService;
   controller: ReasonableAdjustementsController;
   utils: ReasonableAdjustementsUtility;
+  navigationController: ReasonableAdjustementsNavigationController;
 
   constructor() {
     this.service = RAService;
@@ -43,6 +45,7 @@ class ReasonableAdjustmentsProvider {
     this.sequence = RASequence;
     this.utils = RAUtility;
     this.route = RARoute;
+    this.navigationController = RANavigationController;
   }
 
   async enable(app: Application): Promise<void> {
@@ -89,8 +92,13 @@ class ReasonableAdjustmentsProvider {
 
   async getSequence(): Promise<Step[] | []> {
     const isEnabled = await this.isComponentEnabled();
+    const sequence = this.sequence.getSequence();
 
-    return isEnabled ? this.sequence.getSequence() : [];
+    if (!isEnabled) {
+      sequence.splice(-2);
+    }
+
+    return sequence;
   }
 
   canProcessRequest(): boolean {

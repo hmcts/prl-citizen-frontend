@@ -3,7 +3,7 @@ import { CaseType } from '../../app/case/definition';
 
 import { applicantCaseSequence } from './applicantCaseSequence';
 
-describe.skip('applicant1Sequence', () => {
+describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
     expect(applicantCaseSequence).toHaveLength(79);
 

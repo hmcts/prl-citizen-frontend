@@ -341,7 +341,7 @@ const cyContent = {
   },
 };
 
-describe.skip('testing contents en and cy', () => {
+describe('testing contents en and cy', () => {
   test('en content', () => {
     expect(enContent.toString()).toEqual(enContent.toString());
     expect(enContent.keys.toString()).toEqual(enContent.keys.toString());
@@ -355,7 +355,7 @@ describe.skip('testing contents en and cy', () => {
   });
 });
 /* eslint-disable @typescript-eslint/ban-types */
-describe.skip('Content.ts toggle test cases', () => {
+describe('Content.ts toggle test cases', () => {
   const commonContent = {
     language: 'en',
     phase: '',

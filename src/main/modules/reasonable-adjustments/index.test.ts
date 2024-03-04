@@ -85,7 +85,7 @@ describe('ReasonableAdjustementsProvider', () => {
 
   test('get the sequence of the module', async () => {
     const sequence = await RAProvider.getSequence();
-    expect(sequence).toHaveLength(1);
+    expect(sequence).toHaveLength(10);
   });
 
   test('when launching RA component - success scenario', async () => {

@@ -73,8 +73,8 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
             status: SectionStatus.OPTIONAL,
-            href: applyParms(URL.REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
-              partyType: PartyType.RESPONDENT,
+            href: applyParms(URL.REASONABLE_ADJUSTMENTS_ATTENDING_COURT, {
+              root: PartyType.RESPONDENT,
             }),
           },
         ],

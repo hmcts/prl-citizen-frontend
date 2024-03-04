@@ -25,7 +25,7 @@ const PRL_safetyConcernsMockData = mockRequest({
   },
 });
 
-describe.skip('respondent1Sequence', () => {
+describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
     expect(responseCaseSequence).toHaveLength(57);
     expect(responseCaseSequence[0].url).toBe('/tasklistresponse/consent-to-application/consent');

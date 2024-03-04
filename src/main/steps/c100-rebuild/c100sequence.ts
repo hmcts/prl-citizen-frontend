@@ -137,12 +137,12 @@ import {
   C100_CHECK_YOUR_ANSWER,
   C100_CREATE_CASE,
   C100_APPLICANT_CONTACT_PREFERENCES,
-  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE,
+  REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
 } from './../urls';
 
 /* eslint-disable import/order */
 import { Case, CaseWithId } from '../../app/case/case';
-import { MiamNonAttendReason, PartyType, YesOrNo } from '../../app/case/definition';
+import { MiamNonAttendReason, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Sections, Step } from '../constants';
 
@@ -160,6 +160,7 @@ import ApplicantCommonConfidentialityController from './applicant/confidentialit
 import LookupAndManualAddressPostController from './people/LookupAndManualAddressPostController';
 import UploadDocumentController from './uploadDocumentController';
 import { applyParms } from '../../steps/common/url-parser';
+import { RARootContext } from '../../modules/reasonable-adjustments/definitions';
 
 export const C100Sequence: Step[] = [
   {
@@ -210,7 +211,7 @@ export const C100Sequence: Step[] = [
     url: C100_INTERNATIONAL_ELEMENTS_REQUEST,
     showInSection: Sections.C100,
     getNextStep: () =>
-      applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, { partyType: PartyType.APPLICANT }) as PageLink,
+      applyParms(REASONABLE_ADJUSTMENTS_ATTENDING_COURT, { root: RARootContext.C100_REBUILD }) as PageLink,
   },
   {
     url: C100_CONFIDENTIALITY_DETAILS_KNOW,

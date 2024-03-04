@@ -10,7 +10,7 @@ import { YesOrNo } from '../../app/case/definition';
 
 import { C100Sequence } from './c100sequence';
 
-describe.skip('C100Sequence', () => {
+describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
     expect(C100Sequence).toHaveLength(124);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');

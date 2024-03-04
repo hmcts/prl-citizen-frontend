@@ -33,7 +33,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
       TempFirstName: applicantFirstName,
       TempLastName: applicantLastName,
     };
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
     const form = new Form(fields);
     const { _csrf, ...formData } = form.getParsedBody(req.body);
     const saveAndContinueChecked = req['body']['saveAndContinue'];

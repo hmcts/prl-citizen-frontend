@@ -2,7 +2,8 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
 import { CaseWithId } from '../../../app/case/case';
-import { C1AAbuseTypes, C1ASafteyConcernsAbout, PartyType, YesOrNo } from '../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
+import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
 import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
@@ -1484,75 +1485,82 @@ export const reasonableAdjustment = (
 ): SummaryList | undefined => {
   const SummaryData: ANYTYPE = [
     {
-      key: keys['yourSupport'],
-      changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
-        partyType: PartyType.APPLICANT,
-      }),
+      key: keys['attendingCourtHeading'],
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_typeOfHearing') + HTML.UNORDER_LIST_END,
+     changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_ATTENDING_COURT, { root: RARootContext.C100_REBUILD }),
+    },
+    {
+      key: keys['langaugeRequirementHeading'],
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_languageNeeds') + HTML.UNORDER_LIST_END,
+      changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS, { root: RARootContext.C100_REBUILD }),
+    },
+    {
+      key: keys['specialArrangementsHeading'],
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_specialArrangements') + HTML.UNORDER_LIST_END,
+      changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS, { root: RARootContext.C100_REBUILD }),
+    },
+    {
+      key: keys['disabilityRequirementHeading'], //ra_disabilityRequirements
+      valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_disabilityRequirements') + HTML.UNORDER_LIST_END,
+      changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE, { root: RARootContext.C100_REBUILD }),
     },
   ];
   const disabilityRequirements = userCase['ra_disabilityRequirements'];
-  if (userCase.hasOwnProperty('ra_disabilityRequirements') && Array.isArray(disabilityRequirements)) {
+  if(userCase.hasOwnProperty('ra_disabilityRequirements')  && Array.isArray(disabilityRequirements)){
     disabilityRequirements.forEach(requirement => {
-      switch (requirement) {
+      switch(requirement){
         case 'documentsHelp': {
-          SummaryData.push({
-            key: keys['documentInformationHeading'],
-            valueHtml:
-              HTML.UNORDER_LIST +
-              resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation') +
-              HTML.UNORDER_LIST_END,
-            changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION'],
-          });
+          SummaryData.push(
+            {
+              key: keys['documentInformationHeading'],
+              valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation') + HTML.UNORDER_LIST_END,
+              changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT, { root: RARootContext.C100_REBUILD }),
+            });
           break;
         }
         case 'communicationHelp': {
-          SummaryData.push({
-            key: keys['communicationHelpHeading'],
-            valueHtml:
-              HTML.UNORDER_LIST +
-              resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp') +
-              HTML.UNORDER_LIST_END,
-            changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP'],
-          });
+          SummaryData.push(
+              {
+                key: keys['communicationHelpHeading'],
+                valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp') + HTML.UNORDER_LIST_END,
+                changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP, { root: RARootContext.C100_REBUILD }),
+              });
           break;
         }
         case 'extraSupport': {
-          SummaryData.push({
-            key: keys['supportCourtHeading'],
-            valueHtml:
-              HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt') + HTML.UNORDER_LIST_END,
-            changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT'],
-          });
+          SummaryData.push(
+            {
+              key: keys['supportCourtHeading'],
+              valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt') + HTML.UNORDER_LIST_END,
+              changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING, { root: RARootContext.C100_REBUILD }),
+            });
           break;
         }
         case 'feelComfortableSupport': {
-          SummaryData.push({
-            key: keys['feelComfortableHeading'],
-            valueHtml:
-              HTML.UNORDER_LIST +
-              resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable') +
-              HTML.UNORDER_LIST_END,
-            changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE'],
-          });
+          SummaryData.push(
+            {
+              key: keys['feelComfortableHeading'],
+              valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable') + HTML.UNORDER_LIST_END,
+              changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING, { root: RARootContext.C100_REBUILD }),
+            },);
           break;
         }
         case 'helpTravellingMovingBuildingSupport': {
-          SummaryData.push({
-            key: keys['travellingCourtHeading'],
-            valueHtml:
-              HTML.UNORDER_LIST +
-              resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt') +
-              HTML.UNORDER_LIST_END,
-            changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT'],
-          });
+          SummaryData.push(
+            {
+              key: keys['travellingCourtHeading'],
+              valueHtml: HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt') + HTML.UNORDER_LIST_END,
+              changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_COURT_NEEDS, { root: RARootContext.C100_REBUILD }),
+            });
           break;
         }
+
       }
     });
   }
   return {
     title: sectionTitles['reasonAbleAdjustment'],
-    rows: getSectionSummaryList([SummaryData[0]], content),
+    rows: getSectionSummaryList(SummaryData, content),
   };
 };
 
