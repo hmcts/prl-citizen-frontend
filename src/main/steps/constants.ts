@@ -125,4 +125,7 @@ export enum HEARING_METHOD {
   VIDTEAMS = 'VIDTEAMS',
   VIDVHS = 'VIDVHS',
   VIDPVL = 'VIDPVL',
+  INTER = 'INTER',
+  NA = 'NA',
+  ONPPRS = 'ONPPRS',
 }

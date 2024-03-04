@@ -2445,6 +2445,7 @@ export interface HearingsList {
 export interface Hearing{
   dates : string,
   lengthOfHearing : number | undefined,
+  lengthOfHearingText: string,
   hearingMethod: string ,
   hearingDaySchedule: hearingDay[],
 }
@@ -2453,18 +2454,22 @@ export interface hearingDay{
   hearingDate: string,
   startTime: string,
   amPm:string,
+  preparedStartTime:string,
   durationInDayOrHours:number,
   minutes:number,
+  hearingDurationText: string,
   judgeName:string | null | undefined,
   venue:string | null | undefined,
   address:string | null | undefined,
   roomId:string | null | undefined,
+  detailsBlock: any
 }
 
 export interface CompletedHearings{
   hearingId: Number | undefined,
   dates: string,
   lengthOfHearing: number | undefined,
+  lengthOfHearingText: string,
   hearingMethod: string,
 }
 
