@@ -9,8 +9,7 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   caption: 'Language requirements',
-  headingTitle: `Do you have any language
-  requirements?`,
+  headingTitle: 'Do you have any language requirements?',
   line1: `Think about all communication with the court, as well as what you might
   need at a hearing. Consider remote and in-person hearings, in case your preferred
   hearing type is not possible.`,
@@ -18,8 +17,8 @@ const en = {
   speakInWelsh: 'I need to speak in Welsh',
   readAndWriteInWelsh: 'I need to read and write in Welsh',
   needInterpreterInCertainLanguage: 'I need an interpreter in a certain language',
-  needInterpreterInCertainLanguage_subfield: `Give details of the language you require (including dialect,
-    if applicable)`,
+  needInterpreterInCertainLanguage_subfield:
+    'Give details of the language you require (including dialect, if applicable)',
   noLanguageRequirements: 'No, I do not have any language requirements at this time',
   errors: {
     ra_needInterpreterInCertainLanguage_subfield: {
@@ -60,7 +59,14 @@ const cy = {
 };
 /* eslint-disable @typescript-eslint/ban-types */
 describe('Language requirements content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        originalUrl: '/c100-rebuild/reasonable-adjustments/language-requirements',
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   let form;
   let fields;
@@ -97,7 +103,7 @@ describe('Language requirements content', () => {
       en.needInterpreterInCertainLanguage
     );
     expect((languageNeedsField.values[4].label as LanguageLookup)(generatedContent)).toBe(en.noLanguageRequirements);
-    expect(languageNeedsField.values[4].behaviour).toBe('exclusive');
+    expect(languageNeedsField.values[4].exclusive).toBe(true);
 
     (languageNeedsField.validator as Function)('speakInWelsh');
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('speakInWelsh');

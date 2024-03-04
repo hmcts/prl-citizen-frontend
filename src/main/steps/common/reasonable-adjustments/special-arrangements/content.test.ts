@@ -68,7 +68,14 @@ const cy = {
 };
 /* eslint-disable @typescript-eslint/ban-types */
 describe('applicant personal details > applying-with > content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        originalUrl: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   let form;
   let fields;
@@ -122,7 +129,7 @@ describe('applicant personal details > applying-with > content', () => {
       en.noSafetyRequirements
     );
 
-    expect(specialArrangementsField.values[8].behaviour).toBe('exclusive');
+    expect(specialArrangementsField.values[8].exclusive).toBe(true);
 
     (specialArrangementsField.validator as Function)('separateWaitingRoom');
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('separateWaitingRoom');

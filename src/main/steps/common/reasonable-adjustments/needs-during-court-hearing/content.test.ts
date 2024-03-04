@@ -5,7 +5,7 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 
 import { generateContent } from './content';
 
-jest.mock('../../../../../app/form/validation');
+jest.mock('../../../../app/form/validation');
 
 const en = {
   caption: 'Reasonable adjustments',
@@ -39,7 +39,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad llys',
   line1:
@@ -72,7 +71,14 @@ const cy = {
 };
 /* eslint-disable @typescript-eslint/ban-types */
 describe('applicant personal details > applying-with > content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        originalUrl: '/c100-rebuild/reasonable-adjustments/support-during-court-hearing',
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   let form;
   let fields;
@@ -124,7 +130,7 @@ describe('applicant personal details > applying-with > content', () => {
     expect((feelComportableField.values[3].label as LanguageLookup)(generatedContent)).toBe(en.feelComportableOther);
     expect((feelComportableField.values[5].label as LanguageLookup)(generatedContent)).toBe(en.feelComportableNoOption);
 
-    expect(feelComportableField.values[5].behaviour).toBe('exclusive');
+    expect(feelComportableField.values[5].exclusive).toBe(true);
   });
 
   test('should contain Save and continue button', () => {

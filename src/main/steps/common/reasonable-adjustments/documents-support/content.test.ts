@@ -5,7 +5,7 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 
 import { generateContent } from './content';
 
-jest.mock('../../../../../app/form/validation');
+jest.mock('../../../../app/form/validation');
 
 const en = {
   caption: 'Reasonable adjustments',
@@ -92,7 +92,14 @@ const cy = {
 };
 /* eslint-disable @typescript-eslint/ban-types */
 describe('Disability requirements content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        originalUrl: '/c100-rebuild/reasonable-adjustments/documents-support',
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   let form;
   let fields;
@@ -131,7 +138,7 @@ describe('Disability requirements content', () => {
     expect((documentInformationField.values[5].label as LanguageLookup)(generatedContent)).toBe(en.readOutDocuments);
     expect((documentInformationField.values[6].label as LanguageLookup)(generatedContent)).toBe(en.emailInformation);
     expect((documentInformationField.values[7].label as LanguageLookup)(generatedContent)).toBe(en.documentHelpOther);
-    expect(documentInformationField.values[9].behaviour).toBe('exclusive');
+    expect(documentInformationField.values[9].exclusive).toBe(true);
     expect((documentInformationField.values[9].label as LanguageLookup)(generatedContent)).toBe(en.noSupportRequired);
 
     expect((documentInformationField.values[1].hint as LanguageLookup)(generatedContent)).toBe(

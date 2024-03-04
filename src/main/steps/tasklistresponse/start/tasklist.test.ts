@@ -164,7 +164,7 @@ describe('generateRespondentTaskList', () => {
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/respondent/reasonable-adjustments/guidance',
+            href: '/respondent/reasonable-adjustments/attending-court',
             id: 'support_you_need_during_your_case',
             status: 'OPTIONAL',
             text: 'Support you need during your case',
@@ -300,7 +300,7 @@ describe('getRemainingTaskList', () => {
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/respondent/reasonable-adjustments/guidance',
+            href: '/respondent/reasonable-adjustments/attending-court',
             id: 'support_you_need_during_your_case',
             status: 'OPTIONAL',
             text: 'Support you need during your case',
@@ -410,7 +410,7 @@ describe('getRemainingTaskList', () => {
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/respondent/reasonable-adjustments/guidance',
+            href: '/respondent/reasonable-adjustments/attending-court',
             id: 'support_you_need_during_your_case',
             status: 'OPTIONAL',
             text: 'Support you need during your case',
@@ -508,7 +508,7 @@ describe('getRemainingTaskList', () => {
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/respondent/reasonable-adjustments/guidance',
+            href: '/respondent/reasonable-adjustments/attending-court',
             id: 'support_you_need_during_your_case',
             status: 'OPTIONAL',
             text: 'Support you need during your case',

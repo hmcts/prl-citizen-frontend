@@ -5,7 +5,7 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 
 import { generateContent } from './content';
 
-jest.mock('../../../../../app/form/validation');
+jest.mock('../../../../app/form/validation');
 
 const en = {
   caption: 'Reasonable adjustments',
@@ -96,7 +96,14 @@ const cy = {
 };
 /* eslint-disable @typescript-eslint/ban-types */
 describe('applicant personal details > applying-with > content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        originalUrl: '/c100-rebuild/reasonable-adjustments/needs-in-court',
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   let form;
   let fields;
@@ -165,7 +172,7 @@ describe('applicant personal details > applying-with > content', () => {
     expect((travellingCourtField.values[7].label as LanguageLookup)(generatedContent)).toBe(en.travellingCourtOther);
     expect((travellingCourtField.values[9].label as LanguageLookup)(generatedContent)).toBe(en.travellingCourtNoOption);
 
-    expect(travellingCourtField.values[9].behaviour).toBe('exclusive');
+    expect(travellingCourtField.values[9].exclusive).toBe(true);
   });
 
   test('should contain Save and continue button', () => {
