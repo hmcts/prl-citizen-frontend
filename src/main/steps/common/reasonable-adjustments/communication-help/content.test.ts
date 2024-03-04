@@ -5,7 +5,7 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 
 import { generateContent } from './content';
 
-jest.mock('../../../../../app/form/validation');
+jest.mock('../../../../app/form/validation');
 
 const en = {
   caption: 'Reasonable adjustments',
@@ -90,7 +90,14 @@ const cy = {
 };
 /* eslint-disable @typescript-eslint/ban-types */
 describe('Communication help content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        originalUrl: '/c100-rebuild/reasonable-adjustments/communication-help',
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   let form;
   let fields;
@@ -136,7 +143,7 @@ describe('Communication help content', () => {
     expect((communicationHelpField.values[10].label as LanguageLookup)(generatedContent)).toBe(
       en.communicationHelpOther
     );
-    expect(communicationHelpField.values[12].behaviour).toBe('exclusive');
+    expect(communicationHelpField.values[12].exclusive).toBe(true);
     expect((communicationHelpField.values[12].label as LanguageLookup)(generatedContent)).toBe(en.noSupportRequired);
 
     (communicationHelpField.validator as Function)('needExtraTime');

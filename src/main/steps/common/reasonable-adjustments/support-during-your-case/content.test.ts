@@ -62,7 +62,14 @@ const cy = {
 };
 /* eslint-disable @typescript-eslint/ban-types */
 describe('Disability requirements content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  const commonContent = {
+    language: 'en',
+    additionalData: {
+      req: {
+        originalUrl: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+      },
+    },
+  } as unknown as CommonContent;
   let generatedContent;
   let form;
   let fields;
@@ -98,7 +105,7 @@ describe('Disability requirements content', () => {
     expect((disabilityRequirementsField.values[4].label as LanguageLookup)(generatedContent)).toBe(
       en.helpTravellingMovingBuildingSupport
     );
-    expect(disabilityRequirementsField.values[6].behaviour).toBe('exclusive');
+    expect(disabilityRequirementsField.values[6].exclusive).toBe(true);
     expect((disabilityRequirementsField.values[6].label as LanguageLookup)(generatedContent)).toBe(
       en.noSupportRequired
     );

@@ -831,6 +831,7 @@ export const C100Sequence: Step[] = [
       OtherPersonsDetailsNavigationController.getNextUrl(C100_OTHER_PERSON_CHECK, caseData, req?.params),
   },
   {
+    //100
     url: C100_OTHER_PERSON_DETAILS_ADD,
     showInSection: Sections.C100,
     postController: AddPeoplePostContoller,
@@ -914,6 +915,7 @@ export const C100Sequence: Step[] = [
       ApplicantNavigationController.getNextUrl(C100_APPLICANT_CONTACT_DETAIL, caseData, req?.params),
   },
   {
+    //110
     url: C100_CONSENT_ORDER_UPLOAD,
     postController: UploadDocumentController,
     showInSection: Sections.C100,

@@ -508,35 +508,19 @@ describe('Content.ts toggle test cases', () => {
     });
     expect(generatedEnContent.sections).toStrictEqual([
       {
-        title: '1. Case name',
         rows: [
           {
-            key: {
-              text: 'Enter Case Name',
-            },
+            key: {},
             value: {
               text: 'test',
             },
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/case-name',
-                  text: 'Edit',
-                  visuallyHiddenText: 'Enter Case Name',
-                },
-              ],
-            },
           },
         ],
+        title: undefined,
       },
       {
-        title: '2. Location details',
         rows: [
           {
-            key: {
-              text: 'Where do the children live?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -546,17 +530,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: '3. Type of application',
-        rows: [
-          {
             key: {
-              text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
+              text: 'Where do the children live?',
             },
             value: {},
+          },
+        ],
+        title: '1. Location details',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -567,17 +551,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: '4. Legal representative details',
-        rows: [
-          {
             key: {
-              text: 'Will you be using a legal representative in these proceedings?',
+              text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
             },
             value: {},
+          },
+        ],
+        title: '2. Type of application',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -587,17 +571,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: '5. Permission to make the application',
-        rows: [
-          {
             key: {
-              text: 'Is there any reason that you would need permission from the court to make this application?',
+              text: 'Will you be using a legal representative in these proceedings?',
             },
             value: {},
+          },
+        ],
+        title: '3. Legal representative details',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -608,23 +592,21 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'Is there any reason that you would need permission from the court to make this application?',
+            },
+            value: {},
           },
         ],
+        title: '4. Permission to make the application',
       },
       {
-        title: '6. MIAM: Mediation Information and Assessment Meeting',
         rows: [],
+        title: '5. MIAM: Mediation Information and Assessment Meeting',
       },
       {
-        title: 'MIAM attendance',
         rows: [
           {
-            key: {
-              text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
-            },
-            value: {
-              text: 'Yes',
-            },
             actions: {
               items: [
                 {
@@ -635,17 +617,19 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+            },
+            value: {
+              text: 'Yes',
+            },
           },
         ],
+        title: 'MIAM attendance',
       },
       {
-        title: '7. Past and current proceeding',
         rows: [
           {
-            key: {
-              text: 'Have the children been involved in a court case?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -655,12 +639,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-          {
             key: {
-              text: 'Have you had a court order made for your protection?',
+              text: 'Have the children been involved in a court case?',
             },
             value: {},
+          },
+          {
             actions: {
               items: [
                 {
@@ -670,17 +654,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: "8. What you're asking the court to decide",
-        rows: [
-          {
             key: {
-              text: 'What are you asking the court to do?',
+              text: 'Have you had a court order made for your protection?',
             },
             value: {},
+          },
+        ],
+        title: '6. Past and current proceeding',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -690,12 +674,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-          {
             key: {
-              text: 'Describe what you want the court to do regarding the children in this application',
+              text: 'What are you asking the court to do?',
             },
             value: {},
+          },
+          {
             actions: {
               items: [
                 {
@@ -706,17 +690,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: '9. Hearing details',
-        rows: [
-          {
             key: {
-              text: 'Does your situation qualify for an urgent first hearing?',
+              text: 'Describe what you want the court to do regarding the children in this application',
             },
             value: {},
+          },
+        ],
+        title: "7. What you're asking the court to decide",
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -726,12 +710,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-          {
             key: {
-              text: 'Are you asking for a without notice hearing?',
+              text: 'Does your situation qualify for an urgent first hearing?',
             },
             value: {},
+          },
+          {
             actions: {
               items: [
                 {
@@ -741,27 +725,25 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'Are you asking for a without notice hearing?',
+            },
+            value: {},
           },
         ],
+        title: '8. Hearing details',
       },
       {
-        title: '10. Details of the people in the application ',
         rows: [],
+        title: '9. Details of the people in the application ',
       },
       {
+        rows: [],
         title: "Children's details",
-        rows: [],
       },
       {
-        title: 'Additional details about the children',
         rows: [
           {
-            key: {
-              text: 'Are any of the children known to social services?',
-            },
-            value: {
-              html: '<br>',
-            },
             actions: {
               items: [
                 {
@@ -771,12 +753,14 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'Are any of the children known to social services?',
+            },
+            value: {
+              html: '<br>',
+            },
           },
           {
-            key: {
-              text: 'Are any of the children the subject of a child protection plan?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -786,17 +770,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: 'Other Children details',
-        rows: [
-          {
             key: {
-              text: 'Do you or any respondents have other children who are not part of this application?',
+              text: 'Are any of the children the subject of a child protection plan?',
             },
             value: {},
+          },
+        ],
+        title: 'Additional details about the children',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -807,25 +791,25 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: 'Details of the applicants',
-        rows: [],
-      },
-      {
-        title: 'Details of the respondents',
-        rows: [],
-      },
-      {
-        title: 'Details of the other people in the application',
-        rows: [
-          {
             key: {
-              text: 'Is there anyone else who should know about your application?',
+              text: 'Do you or any respondents have other children who are not part of this application?',
             },
             value: {},
+          },
+        ],
+        title: 'Other Children details',
+      },
+      {
+        rows: [],
+        title: 'Details of the applicants',
+      },
+      {
+        rows: [],
+        title: 'Details of the respondents',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -835,24 +819,22 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'Is there anyone else who should know about your application?',
+            },
+            value: {},
           },
         ],
+        title: 'Details of the other people in the application',
       },
       [],
       {
-        title: 'Where the children live',
         rows: [],
+        title: 'Where the children live',
       },
       {
-        title: '11. Safety concerns',
         rows: [
           {
-            key: {
-              text: 'Do you have any concerns for your safety or the safety of the children?',
-            },
-            value: {
-              text: 'Yes',
-            },
             actions: {
               items: [
                 {
@@ -862,14 +844,14 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-          {
             key: {
-              text: 'Who are you concerned about?',
+              text: 'Do you have any concerns for your safety or the safety of the children?',
             },
             value: {
-              html: '<ul><li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">Yourself</li></ul>',
+              text: 'Yes',
             },
+          },
+          {
             actions: {
               items: [
                 {
@@ -879,19 +861,19 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: 'Safety concerns: the children in the application ',
-        rows: [
-          {
             key: {
-              text: 'What type of behaviour have the children experienced or are at risk of experiencing?',
+              text: 'Who are you concerned about?',
             },
             value: {
-              html: '<ul></ul>',
+              html: '<ul><li class="govuk-!-padding-top-1 govuk-!-padding-bottom-1">Yourself</li></ul>',
             },
+          },
+        ],
+        title: '10. Safety concerns',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -902,19 +884,19 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: 'Safety concern: your safety',
-        rows: [
-          {
             key: {
               text: 'What type of behaviour have the children experienced or are at risk of experiencing?',
             },
             value: {
-              html: '<ul><ul>',
+              html: '<ul></ul>',
             },
+          },
+        ],
+        title: 'Safety concerns: the children in the application ',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -925,17 +907,19 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'What type of behaviour have the children experienced or are at risk of experiencing?',
+            },
+            value: {
+              html: '<ul><ul>',
+            },
           },
         ],
+        title: 'Safety concern: your safety',
       },
       {
-        title: 'Safety concern: other concerns that you have',
         rows: [
           {
-            key: {
-              text: 'Have the children been impacted by drug, alcohol or substance abuse?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -945,12 +929,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-          {
             key: {
-              text: 'Do you have any other concerns about the children’s safety and wellbeing?',
+              text: 'Have the children been impacted by drug, alcohol or substance abuse?',
             },
             value: {},
+          },
+          {
             actions: {
               items: [
                 {
@@ -960,12 +944,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-          {
             key: {
-              text: 'What do you want the court to do to keep you and the children safe?',
+              text: 'Do you have any other concerns about the children’s safety and wellbeing?',
             },
             value: {},
+          },
+          {
             actions: {
               items: [
                 {
@@ -975,12 +959,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-          {
             key: {
-              text: 'Do you agree to the children spending time with the other people in this application?',
+              text: 'What do you want the court to do to keep you and the children safe?',
             },
             value: {},
+          },
+          {
             actions: {
               items: [
                 {
@@ -991,12 +975,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-          {
             key: {
-              text: 'Do you agree to the other people in this application being in touch with the children in other ways?',
+              text: 'Do you agree to the children spending time with the other people in this application?',
             },
             value: {},
+          },
+          {
             actions: {
               items: [
                 {
@@ -1007,19 +991,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'Do you agree to the other people in this application being in touch with the children in other ways?',
+            },
+            value: {},
           },
         ],
+        title: 'Safety concern: other concerns that you have',
       },
       {
-        title: '12. International elements',
         rows: [
           {
-            key: {
-              text: "Are the children's lives mainly based outside of England and Wales?",
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -1029,14 +1011,14 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-          {
             key: {
-              text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+              text: "Are the children's lives mainly based outside of England and Wales?",
             },
             value: {
               html: '<p></p>',
             },
+          },
+          {
             actions: {
               items: [
                 {
@@ -1047,14 +1029,14 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-          {
             key: {
-              text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
+              text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
             },
             value: {
               html: '<p></p>',
             },
+          },
+          {
             actions: {
               items: [
                 {
@@ -1065,14 +1047,14 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-          {
             key: {
-              text: 'Has another country asked (or been asked) for information or help for the children?',
+              text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
             },
             value: {
               html: '<p></p>',
             },
+          },
+          {
             actions: {
               items: [
                 {
@@ -1083,37 +1065,93 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'Has another country asked (or been asked) for information or help for the children?',
+            },
+            value: {
+              html: '<p></p>',
+            },
           },
         ],
+        title: '11. International elements',
       },
       {
-        title: '13. Support you need during your case',
         rows: [
           {
-            key: {
-              text: 'Your support',
-            },
-            value: {},
             actions: {
               items: [
                 {
-                  href: '/applicant/reasonable-adjustments/guidance',
+                  href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: 'Edit',
-                  visuallyHiddenText: 'Your support',
+                  visuallyHiddenText: 'Would you be able to take part in hearings by video and phone?',
                 },
               ],
             },
+            key: {
+              text: 'Would you be able to take part in hearings by video and phone?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/language-requirements',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you have any language requirements?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have any language requirements?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you or the children need special arrangements at court?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you or the children need special arrangements at court?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+            },
+            value: {
+              html: '<ul>undefined</ul>',
+            },
           },
         ],
+        title: '12. Support you need during your case',
       },
       {
-        title: '14. Help with Fees',
         rows: [
           {
-            key: {
-              text: 'Do you need help with paying the fee for this application?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1123,8 +1161,13 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'Do you need help with paying the fee for this application?',
+            },
+            value: {},
           },
         ],
+        title: '13. Help with Fees',
       },
     ]);
   });
@@ -1140,56 +1183,24 @@ describe('Content.ts toggle test cases', () => {
       },
     });
     expect(generatedEnContent.sections).toStrictEqual([
+      { rows: [{ key: {}, value: { text: 'test' } }], title: undefined },
       {
-        title: '1. Case name',
         rows: [
           {
-            key: {
-              text: 'Enter Case Name',
-            },
-            value: {
-              text: 'test',
-            },
             actions: {
               items: [
-                {
-                  href: '/c100-rebuild/case-name',
-                  text: 'Edit',
-                  visuallyHiddenText: 'Enter Case Name',
-                },
+                { href: '/c100-rebuild/childaddress', text: 'Edit', visuallyHiddenText: 'Where do the children live?' },
               ],
             },
+            key: { text: 'Where do the children live?' },
+            value: {},
           },
         ],
+        title: '1. Location details',
       },
       {
-        title: '2. Location details',
         rows: [
           {
-            key: {
-              text: 'Where do the children live?',
-            },
-            value: {},
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/childaddress',
-                  text: 'Edit',
-                  visuallyHiddenText: 'Where do the children live?',
-                },
-              ],
-            },
-          },
-        ],
-      },
-      {
-        title: '3. Type of application',
-        rows: [
-          {
-            key: {
-              text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1200,17 +1211,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: '4. Legal representative details',
-        rows: [
-          {
             key: {
-              text: 'Will you be using a legal representative in these proceedings?',
+              text: 'Do you have a written agreement with the other people in the case that you want the court to review?',
             },
             value: {},
+          },
+        ],
+        title: '2. Type of application',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -1220,17 +1231,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Will you be using a legal representative in these proceedings?' },
+            value: {},
           },
         ],
+        title: '3. Legal representative details',
       },
       {
-        title: '5. Permission to make the application',
         rows: [
           {
-            key: {
-              text: 'Is there any reason that you would need permission from the court to make this application?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1241,21 +1250,18 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: '6. MIAM: Mediation Information and Assessment Meeting',
-        rows: [],
-      },
-      {
-        title: 'MIAM attendance',
-        rows: [
-          {
             key: {
-              text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
+              text: 'Is there any reason that you would need permission from the court to make this application?',
             },
             value: {},
+          },
+        ],
+        title: '4. Permission to make the application',
+      },
+      { rows: [], title: '5. MIAM: Mediation Information and Assessment Meeting' },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -1266,17 +1272,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: 'MIAM exemption',
-        rows: [
-          {
             key: {
-              text: 'What are your valid reasons for not attending a MIAM?',
+              text: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
             },
             value: {},
+          },
+        ],
+        title: 'MIAM attendance',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -1286,17 +1292,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'What are your valid reasons for not attending a MIAM?' },
+            value: {},
           },
         ],
+        title: 'MIAM exemption',
       },
       {
-        title: '7. Hearing details',
         rows: [
           {
-            key: {
-              text: 'Does your situation qualify for an urgent first hearing?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1306,12 +1310,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Does your situation qualify for an urgent first hearing?' },
+            value: {},
           },
           {
-            key: {
-              text: 'Are you asking for a without notice hearing?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1321,17 +1323,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Are you asking for a without notice hearing?' },
+            value: {},
           },
         ],
+        title: '6. Hearing details',
       },
       {
-        title: "8. What you're asking the court to decide",
         rows: [
           {
-            key: {
-              text: 'What are you asking the court to do?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1341,12 +1341,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'What are you asking the court to do?' },
+            value: {},
           },
           {
-            key: {
-              text: 'Describe what you want the court to do regarding the children in this application',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1357,27 +1355,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Describe what you want the court to do regarding the children in this application' },
+            value: {},
           },
         ],
+        title: "7. What you're asking the court to decide",
       },
+      { rows: [], title: '8. Details of the people in the application ' },
+      { rows: [], title: "Children's details" },
       {
-        title: '9. Details of the people in the application ',
-        rows: [],
-      },
-      {
-        title: "Children's details",
-        rows: [],
-      },
-      {
-        title: 'Additional details about the children',
         rows: [
           {
-            key: {
-              text: 'Are any of the children known to social services?',
-            },
-            value: {
-              html: '<br>',
-            },
             actions: {
               items: [
                 {
@@ -1387,12 +1375,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Are any of the children known to social services?' },
+            value: { html: '<br>' },
           },
           {
-            key: {
-              text: 'Are any of the children the subject of a child protection plan?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1402,17 +1388,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Are any of the children the subject of a child protection plan?' },
+            value: {},
           },
         ],
+        title: 'Additional details about the children',
       },
       {
-        title: 'Other Children details',
         rows: [
           {
-            key: {
-              text: 'Do you or any respondents have other children who are not part of this application?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1423,25 +1407,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Do you or any respondents have other children who are not part of this application?' },
+            value: {},
           },
         ],
+        title: 'Other Children details',
       },
+      { rows: [], title: 'Details of the applicants' },
+      { rows: [], title: 'Details of the respondents' },
       {
-        title: 'Details of the applicants',
-        rows: [],
-      },
-      {
-        title: 'Details of the respondents',
-        rows: [],
-      },
-      {
-        title: 'Details of the other people in the application',
         rows: [
           {
-            key: {
-              text: 'Is there anyone else who should know about your application?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1451,22 +1427,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Is there anyone else who should know about your application?' },
+            value: {},
           },
         ],
+        title: 'Details of the other people in the application',
       },
       [],
+      { rows: [], title: 'Where the children live' },
       {
-        title: 'Where the children live',
-        rows: [],
-      },
-      {
-        title: '10. Past and current proceeding',
         rows: [
           {
-            key: {
-              text: 'Have the children been involved in a court case?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1476,12 +1447,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Have the children been involved in a court case?' },
+            value: {},
           },
           {
-            key: {
-              text: 'Have you had a court order made for your protection?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1491,17 +1460,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Have you had a court order made for your protection?' },
+            value: {},
           },
         ],
+        title: '9. Past and current proceeding',
       },
       {
-        title: '11. Safety concerns',
         rows: [
           {
-            key: {
-              text: 'Do you have any concerns for your safety or the safety of the children?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1511,19 +1478,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Do you have any concerns for your safety or the safety of the children?' },
+            value: {},
           },
         ],
+        title: '10. Safety concerns',
       },
       {
-        title: '12. International elements',
         rows: [
           {
-            key: {
-              text: "Are the children's lives mainly based outside of England and Wales?",
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -1533,14 +1496,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: "Are the children's lives mainly based outside of England and Wales?" },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -1551,14 +1510,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: "Are the children's parents (or anyone significant to the children) mainly based outside of England and Wales?",
+            },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -1569,14 +1526,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
+            },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: 'Has another country asked (or been asked) for information or help for the children?',
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -1587,37 +1542,75 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Has another country asked (or been asked) for information or help for the children?' },
+            value: { html: '<p></p>' },
           },
         ],
+        title: '11. International elements',
       },
       {
-        title: '13. Support you need during your case',
         rows: [
           {
-            key: {
-              text: 'Your support',
-            },
-            value: {},
             actions: {
               items: [
                 {
-                  href: '/applicant/reasonable-adjustments/guidance',
+                  href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: 'Edit',
-                  visuallyHiddenText: 'Your support',
+                  visuallyHiddenText: 'Would you be able to take part in hearings by video and phone?',
                 },
               ],
             },
+            key: { text: 'Would you be able to take part in hearings by video and phone?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/language-requirements',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you have any language requirements?',
+                },
+              ],
+            },
+            key: { text: 'Do you have any language requirements?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+                  text: 'Edit',
+                  visuallyHiddenText: 'Do you or the children need special arrangements at court?',
+                },
+              ],
+            },
+            key: { text: 'Do you or the children need special arrangements at court?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: 'Edit',
+                  visuallyHiddenText:
+                    'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+                },
+              ],
+            },
+            key: {
+              text: 'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
+            },
+            value: { html: '<ul>undefined</ul>' },
           },
         ],
+        title: '12. Support you need during your case',
       },
       {
-        title: '14. Help with Fees',
         rows: [
           {
-            key: {
-              text: 'Do you need help with paying the fee for this application?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1627,8 +1620,11 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Do you need help with paying the fee for this application?' },
+            value: {},
           },
         ],
+        title: '13. Help with Fees',
       },
     ]);
   });
@@ -1646,56 +1642,24 @@ describe('Content.ts toggle test cases', () => {
     });
 
     expect(generatedCyContent.sections).toStrictEqual([
+      { rows: [{ key: {}, value: { text: 'test' } }], title: undefined },
       {
-        title: '1. Enw’r Achos',
         rows: [
           {
-            key: {
-              text: "Enw'r achos",
-            },
-            value: {
-              text: 'test',
-            },
             actions: {
               items: [
-                {
-                  href: '/c100-rebuild/case-name',
-                  text: ' Golygu',
-                  visuallyHiddenText: "Enw'r achos",
-                },
+                { href: '/c100-rebuild/childaddress', text: ' Golygu', visuallyHiddenText: "Ble mae'r plant yn byw?" },
               ],
             },
+            key: { text: "Ble mae'r plant yn byw?" },
+            value: {},
           },
         ],
+        title: '1. Manylion lleoliad',
       },
       {
-        title: '2. Manylion lleoliad',
         rows: [
           {
-            key: {
-              text: "Ble mae'r plant yn byw?",
-            },
-            value: {},
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/childaddress',
-                  text: ' Golygu',
-                  visuallyHiddenText: "Ble mae'r plant yn byw?",
-                },
-              ],
-            },
-          },
-        ],
-      },
-      {
-        title: '3. Math o gais',
-        rows: [
-          {
-            key: {
-              text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1706,17 +1670,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: '4. Manylion cynrychiolydd cyfreithiol',
-        rows: [
-          {
             key: {
-              text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
+              text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
             },
             value: {},
+          },
+        ],
+        title: '2. Math o gais',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -1726,17 +1690,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?' },
+            value: {},
           },
         ],
+        title: '3. Manylion cynrychiolydd cyfreithiol',
       },
       {
-        title: '5. Caniatâd i wneud cais',
         rows: [
           {
-            key: {
-              text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1747,21 +1709,16 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?' },
+            value: {},
           },
         ],
+        title: '4. Caniatâd i wneud cais',
       },
+      { rows: [], title: '5. MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu' },
       {
-        title: '6. MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu',
-        rows: [],
-      },
-      {
-        title: 'Mynychu MIAM',
         rows: [
           {
-            key: {
-              text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1772,17 +1729,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: 'Esemptiad MIAM',
-        rows: [
-          {
             key: {
-              text: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
+              text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
             },
             value: {},
+          },
+        ],
+        title: 'Mynychu MIAM',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -1792,17 +1749,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?' },
+            value: {},
           },
         ],
+        title: 'Esemptiad MIAM',
       },
       {
-        title: '7.  Manylion y gwrandawiad',
         rows: [
           {
-            key: {
-              text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1812,12 +1767,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?' },
+            value: {},
           },
           {
-            key: {
-              text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1827,17 +1780,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?' },
+            value: {},
           },
         ],
+        title: '6.  Manylion y gwrandawiad',
       },
       {
-        title: '8. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
         rows: [
           {
-            key: {
-              text: "Beth ydych chi'n gofyn i'r llys ei wneud?",
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1847,12 +1798,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: "Beth ydych chi'n gofyn i'r llys ei wneud?" },
+            value: {},
           },
           {
-            key: {
-              text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1863,27 +1812,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn' },
+            value: {},
           },
         ],
+        title: '7. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
       },
+      { rows: [], title: '8. Manylion y bobl yn y cais' },
+      { rows: [], title: 'Manylion y plant' },
       {
-        title: '9. Manylion y bobl yn y cais',
-        rows: [],
-      },
-      {
-        title: 'Manylion y plant',
-        rows: [],
-      },
-      {
-        title: 'Manylion ychwanegol am y plant',
         rows: [
           {
-            key: {
-              text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
-            },
-            value: {
-              html: '<br>',
-            },
             actions: {
               items: [
                 {
@@ -1893,12 +1832,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?' },
+            value: { html: '<br>' },
           },
           {
-            key: {
-              text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1908,17 +1845,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?' },
+            value: {},
           },
         ],
+        title: 'Manylion ychwanegol am y plant',
       },
       {
-        title: 'Manylion plant eraill',
         rows: [
           {
-            key: {
-              text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1929,25 +1864,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?' },
+            value: {},
           },
         ],
+        title: 'Manylion plant eraill',
       },
+      { rows: [], title: 'Manylion y ceiswyr' },
+      { rows: [], title: 'Manylion yr atebwyr' },
       {
-        title: 'Manylion y ceiswyr',
-        rows: [],
-      },
-      {
-        title: 'Manylion yr atebwyr',
-        rows: [],
-      },
-      {
-        title: 'Manylion y bobl eraill yn y cais',
         rows: [
           {
-            key: {
-              text: 'A oes unrhyw un arall y dylai wybod am eich cais?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1957,22 +1884,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes unrhyw un arall y dylai wybod am eich cais?' },
+            value: {},
           },
         ],
+        title: 'Manylion y bobl eraill yn y cais',
       },
       [],
+      { rows: [], title: 'Ble mae’r plant yn byw' },
       {
-        title: 'Ble mae’r plant yn byw',
-        rows: [],
-      },
-      {
-        title: '10. Achosion yn y gorffennol ac achosion cyfredol',
         rows: [
           {
-            key: {
-              text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1982,12 +1904,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?' },
+            value: {},
           },
           {
-            key: {
-              text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -1997,17 +1917,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?' },
+            value: {},
           },
         ],
+        title: '9. Achosion yn y gorffennol ac achosion cyfredol',
       },
       {
-        title: '11. Pryderon am ddiogelwch',
         rows: [
           {
-            key: {
-              text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2017,19 +1935,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?' },
+            value: {},
           },
         ],
+        title: '10. Pryderon am ddiogelwch',
       },
       {
-        title: '12. Elfennau rhyngwladol',
         rows: [
           {
-            key: {
-              text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -2039,14 +1953,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -2057,14 +1967,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
+            },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -2075,14 +1983,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
+            },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -2093,37 +1999,77 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
+            },
+            value: { html: '<p></p>' },
           },
         ],
+        title: '11. Elfennau rhyngwladol',
       },
       {
-        title: '13. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
         rows: [
           {
-            key: {
-              text: 'Your support - welsh',
-            },
-            value: {},
             actions: {
               items: [
                 {
-                  href: '/applicant/reasonable-adjustments/guidance',
+                  href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: ' Golygu',
-                  visuallyHiddenText: 'Your support - welsh',
+                  visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
                 },
               ],
             },
+            key: { text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/language-requirements',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+                },
+              ],
+            },
+            key: { text: 'A oes gennych chi unrhyw ofynion ieithyddol?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+                },
+              ],
+            },
+            key: { text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?" },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+            },
+            value: { html: '<ul>undefined</ul>' },
           },
         ],
+        title: '12. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
       },
       {
-        title: '14.  Help i dalu ffioedd',
         rows: [
           {
-            key: {
-              text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2133,8 +2079,11 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?' },
+            value: {},
           },
         ],
+        title: '13.  Help i dalu ffioedd',
       },
     ]);
   });
@@ -2145,58 +2094,24 @@ describe('Content.ts toggle test cases', () => {
       language: 'cy',
     });
     expect(generatedEnContent.sections).toStrictEqual([
+      { rows: [{ key: {}, value: { text: 'test' } }], title: undefined },
       {
-        title: '1. Enw’r Achos',
         rows: [
           {
-            key: {
-              text: "Enw'r achos",
-            },
-            value: {
-              text: 'test',
-            },
             actions: {
               items: [
-                {
-                  href: '/c100-rebuild/case-name',
-                  text: ' Golygu',
-                  visuallyHiddenText: "Enw'r achos",
-                },
+                { href: '/c100-rebuild/childaddress', text: ' Golygu', visuallyHiddenText: "Ble mae'r plant yn byw?" },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: '2. Manylion lleoliad',
-        rows: [
-          {
-            key: {
-              text: "Ble mae'r plant yn byw?",
-            },
+            key: { text: "Ble mae'r plant yn byw?" },
             value: {},
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/childaddress',
-                  text: ' Golygu',
-                  visuallyHiddenText: "Ble mae'r plant yn byw?",
-                },
-              ],
-            },
           },
         ],
+        title: '1. Manylion lleoliad',
       },
       {
-        title: '3. Math o gais',
         rows: [
           {
-            key: {
-              text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
-            },
-            value: {
-              text: 'Oes',
-            },
             actions: {
               items: [
                 {
@@ -2207,17 +2122,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
+            },
+            value: { text: 'Oes' },
           },
         ],
+        title: '2. Math o gais',
       },
       {
-        title: '4. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
         rows: [
           {
-            key: {
-              text: "Beth ydych chi'n gofyn i'r llys ei wneud?",
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2227,12 +2142,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: "Beth ydych chi'n gofyn i'r llys ei wneud?" },
+            value: {},
           },
           {
-            key: {
-              text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2243,17 +2156,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn' },
+            value: {},
           },
         ],
+        title: '3. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
       },
       {
-        title: '5.  Manylion y gwrandawiad',
         rows: [
           {
-            key: {
-              text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2263,12 +2174,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?' },
+            value: {},
           },
           {
-            key: {
-              text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2278,27 +2187,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?' },
+            value: {},
           },
         ],
+        title: '4.  Manylion y gwrandawiad',
       },
+      { rows: [], title: '5. Manylion y bobl yn y cais' },
+      { rows: [], title: 'Manylion y plant' },
       {
-        title: '6. Manylion y bobl yn y cais',
-        rows: [],
-      },
-      {
-        title: 'Manylion y plant',
-        rows: [],
-      },
-      {
-        title: 'Manylion ychwanegol am y plant',
         rows: [
           {
-            key: {
-              text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
-            },
-            value: {
-              html: '<br>',
-            },
             actions: {
               items: [
                 {
@@ -2308,12 +2207,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?' },
+            value: { html: '<br>' },
           },
           {
-            key: {
-              text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2323,17 +2220,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?' },
+            value: {},
           },
         ],
+        title: 'Manylion ychwanegol am y plant',
       },
       {
-        title: 'Manylion plant eraill',
         rows: [
           {
-            key: {
-              text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2344,25 +2239,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?' },
+            value: {},
           },
         ],
+        title: 'Manylion plant eraill',
       },
+      { rows: [], title: 'Manylion y ceiswyr' },
+      { rows: [], title: 'Manylion yr atebwyr' },
       {
-        title: 'Manylion y ceiswyr',
-        rows: [],
-      },
-      {
-        title: 'Manylion yr atebwyr',
-        rows: [],
-      },
-      {
-        title: 'Manylion y bobl eraill yn y cais',
         rows: [
           {
-            key: {
-              text: 'A oes unrhyw un arall y dylai wybod am eich cais?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2372,22 +2259,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes unrhyw un arall y dylai wybod am eich cais?' },
+            value: {},
           },
         ],
+        title: 'Manylion y bobl eraill yn y cais',
       },
       [],
+      { rows: [], title: 'Ble mae’r plant yn byw' },
       {
-        title: 'Ble mae’r plant yn byw',
-        rows: [],
-      },
-      {
-        title: '7. Achosion yn y gorffennol ac achosion cyfredol',
         rows: [
           {
-            key: {
-              text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2397,12 +2279,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?' },
+            value: {},
           },
           {
-            key: {
-              text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2412,17 +2292,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?' },
+            value: {},
           },
         ],
+        title: '6. Achosion yn y gorffennol ac achosion cyfredol',
       },
       {
-        title: '8. Pryderon am ddiogelwch',
         rows: [
           {
-            key: {
-              text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2432,19 +2310,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?' },
+            value: {},
           },
         ],
+        title: '7. Pryderon am ddiogelwch',
       },
       {
-        title: '9. Elfennau rhyngwladol',
         rows: [
           {
-            key: {
-              text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -2454,14 +2328,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -2472,14 +2342,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
+            },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -2490,14 +2358,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
+            },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -2508,37 +2374,77 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
+            },
+            value: { html: '<p></p>' },
           },
         ],
+        title: '8. Elfennau rhyngwladol',
       },
       {
-        title: '10. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
         rows: [
           {
-            key: {
-              text: 'Your support - welsh',
-            },
-            value: {},
             actions: {
               items: [
                 {
-                  href: '/applicant/reasonable-adjustments/guidance',
+                  href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: ' Golygu',
-                  visuallyHiddenText: 'Your support - welsh',
+                  visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
                 },
               ],
             },
+            key: { text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/language-requirements',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+                },
+              ],
+            },
+            key: { text: 'A oes gennych chi unrhyw ofynion ieithyddol?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+                },
+              ],
+            },
+            key: { text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?" },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+            },
+            value: { html: '<ul>undefined</ul>' },
           },
         ],
+        title: '9. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
       },
       {
-        title: '11.  Help i dalu ffioedd',
         rows: [
           {
-            key: {
-              text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2548,8 +2454,11 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?' },
+            value: {},
           },
         ],
+        title: '10.  Help i dalu ffioedd',
       },
     ]);
   });
@@ -2564,56 +2473,24 @@ describe('Content.ts toggle test cases', () => {
       },
     });
     expect(generatedEnContent.sections).toStrictEqual([
+      { rows: [{ key: {}, value: { text: 'test' } }], title: undefined },
       {
-        title: '1. Enw’r Achos',
         rows: [
           {
-            key: {
-              text: "Enw'r achos",
-            },
-            value: {
-              text: 'test',
-            },
             actions: {
               items: [
-                {
-                  href: '/c100-rebuild/case-name',
-                  text: ' Golygu',
-                  visuallyHiddenText: "Enw'r achos",
-                },
+                { href: '/c100-rebuild/childaddress', text: ' Golygu', visuallyHiddenText: "Ble mae'r plant yn byw?" },
               ],
             },
+            key: { text: "Ble mae'r plant yn byw?" },
+            value: {},
           },
         ],
+        title: '1. Manylion lleoliad',
       },
       {
-        title: '2. Manylion lleoliad',
         rows: [
           {
-            key: {
-              text: "Ble mae'r plant yn byw?",
-            },
-            value: {},
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/childaddress',
-                  text: ' Golygu',
-                  visuallyHiddenText: "Ble mae'r plant yn byw?",
-                },
-              ],
-            },
-          },
-        ],
-      },
-      {
-        title: '3. Math o gais',
-        rows: [
-          {
-            key: {
-              text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2624,17 +2501,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: '4. Manylion cynrychiolydd cyfreithiol',
-        rows: [
-          {
             key: {
-              text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
+              text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
             },
             value: {},
+          },
+        ],
+        title: '2. Math o gais',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -2644,17 +2521,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?' },
+            value: {},
           },
         ],
+        title: '3. Manylion cynrychiolydd cyfreithiol',
       },
       {
-        title: '5. Caniatâd i wneud cais',
         rows: [
           {
-            key: {
-              text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2665,23 +2540,16 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?' },
+            value: {},
           },
         ],
+        title: '4. Caniatâd i wneud cais',
       },
+      { rows: [], title: '5. MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu' },
       {
-        title: '6. MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu',
-        rows: [],
-      },
-      {
-        title: 'Mynychu MIAM',
         rows: [
           {
-            key: {
-              text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
-            },
-            value: {
-              text: 'Ydyn',
-            },
             actions: {
               items: [
                 {
@@ -2692,17 +2560,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
+            },
+            value: { text: 'Ydyn' },
           },
         ],
+        title: 'Mynychu MIAM',
       },
       {
-        title: '7. Achosion yn y gorffennol ac achosion cyfredol',
         rows: [
           {
-            key: {
-              text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2712,12 +2580,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?' },
+            value: {},
           },
           {
-            key: {
-              text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2727,17 +2593,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?' },
+            value: {},
           },
         ],
+        title: '6. Achosion yn y gorffennol ac achosion cyfredol',
       },
       {
-        title: '8. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
         rows: [
           {
-            key: {
-              text: "Beth ydych chi'n gofyn i'r llys ei wneud?",
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2747,12 +2611,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: "Beth ydych chi'n gofyn i'r llys ei wneud?" },
+            value: {},
           },
           {
-            key: {
-              text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2763,17 +2625,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn' },
+            value: {},
           },
         ],
+        title: '7. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
       },
       {
-        title: '9.  Manylion y gwrandawiad',
         rows: [
           {
-            key: {
-              text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2783,12 +2643,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?' },
+            value: {},
           },
           {
-            key: {
-              text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2798,27 +2656,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?' },
+            value: {},
           },
         ],
+        title: '8.  Manylion y gwrandawiad',
       },
+      { rows: [], title: '9. Manylion y bobl yn y cais' },
+      { rows: [], title: 'Manylion y plant' },
       {
-        title: '10. Manylion y bobl yn y cais',
-        rows: [],
-      },
-      {
-        title: 'Manylion y plant',
-        rows: [],
-      },
-      {
-        title: 'Manylion ychwanegol am y plant',
         rows: [
           {
-            key: {
-              text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
-            },
-            value: {
-              html: '<br>',
-            },
             actions: {
               items: [
                 {
@@ -2828,12 +2676,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?' },
+            value: { html: '<br>' },
           },
           {
-            key: {
-              text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2843,17 +2689,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?' },
+            value: {},
           },
         ],
+        title: 'Manylion ychwanegol am y plant',
       },
       {
-        title: 'Manylion plant eraill',
         rows: [
           {
-            key: {
-              text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2864,25 +2708,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?' },
+            value: {},
           },
         ],
+        title: 'Manylion plant eraill',
       },
+      { rows: [], title: 'Manylion y ceiswyr' },
+      { rows: [], title: 'Manylion yr atebwyr' },
       {
-        title: 'Manylion y ceiswyr',
-        rows: [],
-      },
-      {
-        title: 'Manylion yr atebwyr',
-        rows: [],
-      },
-      {
-        title: 'Manylion y bobl eraill yn y cais',
         rows: [
           {
-            key: {
-              text: 'A oes unrhyw un arall y dylai wybod am eich cais?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2892,22 +2728,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes unrhyw un arall y dylai wybod am eich cais?' },
+            value: {},
           },
         ],
+        title: 'Manylion y bobl eraill yn y cais',
       },
       [],
+      { rows: [], title: 'Ble mae’r plant yn byw' },
       {
-        title: 'Ble mae’r plant yn byw',
-        rows: [],
-      },
-      {
-        title: '11. Pryderon am ddiogelwch',
         rows: [
           {
-            key: {
-              text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -2917,19 +2748,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?' },
+            value: {},
           },
         ],
+        title: '10. Pryderon am ddiogelwch',
       },
       {
-        title: '12. Elfennau rhyngwladol',
         rows: [
           {
-            key: {
-              text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -2939,14 +2766,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -2957,14 +2780,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
+            },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -2975,14 +2796,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
+            },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -2993,37 +2812,77 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
+            },
+            value: { html: '<p></p>' },
           },
         ],
+        title: '11. Elfennau rhyngwladol',
       },
       {
-        title: '13. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
         rows: [
           {
-            key: {
-              text: 'Your support - welsh',
-            },
-            value: {},
             actions: {
               items: [
                 {
-                  href: '/applicant/reasonable-adjustments/guidance',
+                  href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: ' Golygu',
-                  visuallyHiddenText: 'Your support - welsh',
+                  visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
                 },
               ],
             },
+            key: { text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/language-requirements',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+                },
+              ],
+            },
+            key: { text: 'A oes gennych chi unrhyw ofynion ieithyddol?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+                },
+              ],
+            },
+            key: { text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?" },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+            },
+            value: { html: '<ul>undefined</ul>' },
           },
         ],
+        title: '12. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
       },
       {
-        title: '14.  Help i dalu ffioedd',
         rows: [
           {
-            key: {
-              text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3033,8 +2892,11 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?' },
+            value: {},
           },
         ],
+        title: '13.  Help i dalu ffioedd',
       },
     ]);
   });
@@ -3050,56 +2912,24 @@ describe('Content.ts toggle test cases', () => {
       },
     });
     expect(generatedEnContent.sections).toStrictEqual([
+      { rows: [{ key: {}, value: { text: 'test' } }], title: undefined },
       {
-        title: '1. Enw’r Achos',
         rows: [
           {
-            key: {
-              text: "Enw'r achos",
-            },
-            value: {
-              text: 'test',
-            },
             actions: {
               items: [
-                {
-                  href: '/c100-rebuild/case-name',
-                  text: ' Golygu',
-                  visuallyHiddenText: "Enw'r achos",
-                },
+                { href: '/c100-rebuild/childaddress', text: ' Golygu', visuallyHiddenText: "Ble mae'r plant yn byw?" },
               ],
             },
+            key: { text: "Ble mae'r plant yn byw?" },
+            value: {},
           },
         ],
+        title: '1. Manylion lleoliad',
       },
       {
-        title: '2. Manylion lleoliad',
         rows: [
           {
-            key: {
-              text: "Ble mae'r plant yn byw?",
-            },
-            value: {},
-            actions: {
-              items: [
-                {
-                  href: '/c100-rebuild/childaddress',
-                  text: ' Golygu',
-                  visuallyHiddenText: "Ble mae'r plant yn byw?",
-                },
-              ],
-            },
-          },
-        ],
-      },
-      {
-        title: '3. Math o gais',
-        rows: [
-          {
-            key: {
-              text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3110,17 +2940,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: '4. Manylion cynrychiolydd cyfreithiol',
-        rows: [
-          {
             key: {
-              text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
+              text: "A oes gennych chi gytundeb ysgrifenedig gyda'r bobl eraill yn yr achos, yr ydych am i'r llys ei adolygu?",
             },
             value: {},
+          },
+        ],
+        title: '2. Math o gais',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -3130,17 +2960,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?' },
+            value: {},
           },
         ],
+        title: '3. Manylion cynrychiolydd cyfreithiol',
       },
       {
-        title: '5. Caniatâd i wneud cais',
         rows: [
           {
-            key: {
-              text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3151,21 +2979,16 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes yna unrhyw reswm pam y byddech angen caniatâd gan y llys i wneud y cais hwn?' },
+            value: {},
           },
         ],
+        title: '4. Caniatâd i wneud cais',
       },
+      { rows: [], title: '5. MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu' },
       {
-        title: '6. MIAM: Cyfarfod Asesu a Gwybodaeth am Gyfryngu',
-        rows: [],
-      },
-      {
-        title: 'Mynychu MIAM',
         rows: [
           {
-            key: {
-              text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3176,17 +2999,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
-          },
-        ],
-      },
-      {
-        title: 'Esemptiad MIAM',
-        rows: [
-          {
             key: {
-              text: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
+              text: 'A yw’r plant ynghlwm ag unrhyw achos diogelu, gofal neu oruchwyliaeth brys (neu a fuont ynghlwm ag achosion o’r fath)?',
             },
             value: {},
+          },
+        ],
+        title: 'Mynychu MIAM',
+      },
+      {
+        rows: [
+          {
             actions: {
               items: [
                 {
@@ -3196,17 +3019,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?' },
+            value: {},
           },
         ],
+        title: 'Esemptiad MIAM',
       },
       {
-        title: '7. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
         rows: [
           {
-            key: {
-              text: "Beth ydych chi'n gofyn i'r llys ei wneud?",
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3216,12 +3037,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: "Beth ydych chi'n gofyn i'r llys ei wneud?" },
+            value: {},
           },
           {
-            key: {
-              text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3232,17 +3051,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn' },
+            value: {},
           },
         ],
+        title: '6. Beth yr ydych chi’n gofyn i’r llys ei benderfynu',
       },
       {
-        title: '8.  Manylion y gwrandawiad',
         rows: [
           {
-            key: {
-              text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3252,12 +3069,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Ydy eich sefyllfa’n gymwys i gael gwrandawiad cyntaf brys?' },
+            value: {},
           },
           {
-            key: {
-              text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3267,27 +3082,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: ' Ydych chi’n gofyn am wrandawiad heb rybudd?' },
+            value: {},
           },
         ],
+        title: '7.  Manylion y gwrandawiad',
       },
+      { rows: [], title: '8. Manylion y bobl yn y cais' },
+      { rows: [], title: 'Manylion y plant' },
       {
-        title: '9. Manylion y bobl yn y cais',
-        rows: [],
-      },
-      {
-        title: 'Manylion y plant',
-        rows: [],
-      },
-      {
-        title: 'Manylion ychwanegol am y plant',
         rows: [
           {
-            key: {
-              text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?',
-            },
-            value: {
-              html: '<br>',
-            },
             actions: {
               items: [
                 {
@@ -3297,12 +3102,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A yw gwasanaethau cymdeithasol yn gyfarwydd ag unrhyw un o’r plant?' },
+            value: { html: '<br>' },
           },
           {
-            key: {
-              text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3312,17 +3115,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A yw unrhyw un o’r plant yn destun cynllun amddiffyn plentyn?' },
+            value: {},
           },
         ],
+        title: 'Manylion ychwanegol am y plant',
       },
       {
-        title: 'Manylion plant eraill',
         rows: [
           {
-            key: {
-              text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3333,25 +3134,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes gennych chi neu unrhyw atebwyr blant eraill nad ydynt yn rhan o’r cais hwn?' },
+            value: {},
           },
         ],
+        title: 'Manylion plant eraill',
       },
+      { rows: [], title: 'Manylion y ceiswyr' },
+      { rows: [], title: 'Manylion yr atebwyr' },
       {
-        title: 'Manylion y ceiswyr',
-        rows: [],
-      },
-      {
-        title: 'Manylion yr atebwyr',
-        rows: [],
-      },
-      {
-        title: 'Manylion y bobl eraill yn y cais',
         rows: [
           {
-            key: {
-              text: 'A oes unrhyw un arall y dylai wybod am eich cais?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3361,22 +3154,17 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes unrhyw un arall y dylai wybod am eich cais?' },
+            value: {},
           },
         ],
+        title: 'Manylion y bobl eraill yn y cais',
       },
       [],
+      { rows: [], title: 'Ble mae’r plant yn byw' },
       {
-        title: 'Ble mae’r plant yn byw',
-        rows: [],
-      },
-      {
-        title: '10. Achosion yn y gorffennol ac achosion cyfredol',
         rows: [
           {
-            key: {
-              text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3386,12 +3174,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'Ydy’r plant wedi bod ynghlwm ag achos llys?' },
+            value: {},
           },
           {
-            key: {
-              text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3401,17 +3187,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes gorchymyn llys wedi ei wneud ar eich cyfer er mwyn eich diogelu chi?' },
+            value: {},
           },
         ],
+        title: '9. Achosion yn y gorffennol ac achosion cyfredol',
       },
       {
-        title: '11. Pryderon am ddiogelwch',
         rows: [
           {
-            key: {
-              text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3421,19 +3205,15 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?' },
+            value: {},
           },
         ],
+        title: '10. Pryderon am ddiogelwch',
       },
       {
-        title: '12. Elfennau rhyngwladol',
         rows: [
           {
-            key: {
-              text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?',
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -3443,14 +3223,10 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A yw’r plant yn byw yn bennaf y tu allan i Gymru a Lloegr?' },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -3461,14 +3237,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: "A yw rhieni’r plant (neu unrhyw un arwyddocaol i'r plant) wedi eu lleoli yn bennaf y tu allan i Gymru a Lloegr?",
+            },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -3479,14 +3253,12 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
+            },
+            value: { html: '<p></p>' },
           },
           {
-            key: {
-              text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
-            },
-            value: {
-              html: '<p></p>',
-            },
             actions: {
               items: [
                 {
@@ -3497,37 +3269,77 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: {
+              text: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
+            },
+            value: { html: '<p></p>' },
           },
         ],
+        title: '11. Elfennau rhyngwladol',
       },
       {
-        title: '13. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
         rows: [
           {
-            key: {
-              text: 'Your support - welsh',
-            },
-            value: {},
             actions: {
               items: [
                 {
-                  href: '/applicant/reasonable-adjustments/guidance',
+                  href: '/c100-rebuild/reasonable-adjustments/attending-court',
                   text: ' Golygu',
-                  visuallyHiddenText: 'Your support - welsh',
+                  visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
                 },
               ],
             },
+            key: { text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/language-requirements',
+                  text: ' Golygu',
+                  visuallyHiddenText: 'A oes gennych chi unrhyw ofynion ieithyddol?',
+                },
+              ],
+            },
+            key: { text: 'A oes gennych chi unrhyw ofynion ieithyddol?' },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/special-arrangements',
+                  text: ' Golygu',
+                  visuallyHiddenText: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
+                },
+              ],
+            },
+            key: { text: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?" },
+            value: { html: '<ul>undefined</ul>' },
+          },
+          {
+            actions: {
+              items: [
+                {
+                  href: '/c100-rebuild/reasonable-adjustments/support-during-your-case',
+                  text: ' Golygu',
+                  visuallyHiddenText:
+                    'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+                },
+              ],
+            },
+            key: {
+              text: 'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
+            },
+            value: { html: '<ul>undefined</ul>' },
           },
         ],
+        title: '12. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos',
       },
       {
-        title: '14.  Help i dalu ffioedd',
         rows: [
           {
-            key: {
-              text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
-            },
-            value: {},
             actions: {
               items: [
                 {
@@ -3537,8 +3349,11 @@ describe('Content.ts toggle test cases', () => {
                 },
               ],
             },
+            key: { text: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?' },
+            value: {},
           },
         ],
+        title: '13.  Help i dalu ffioedd',
       },
     ]);
   });
