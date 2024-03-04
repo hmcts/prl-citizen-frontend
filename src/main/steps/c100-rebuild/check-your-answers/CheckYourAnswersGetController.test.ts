@@ -42,13 +42,15 @@ describe('DocumentUpload Get Controller', () => {
 
   test('should wait for 1 second before loading Check your answers screen', async () => {
     req.session.userCase.caseId = '1111';
-    req.session.paymentError = undefined;
+    req.session.save = () => true;
     await controller.get(req, res);
     const callback = jest.fn();
     expect(callback).not.toHaveBeenCalled();
     jest.runAllTimers();
+
     expect(req.session.userCase.caseId).toEqual('1111');
     expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
+    expect(req.session.paymentError).toStrictEqual({ hasError: false, errorContext: undefined });
   });
 
   test('checkYourAnswerFlow1', async () => {
@@ -79,5 +81,34 @@ describe('DocumentUpload Get Controller', () => {
     await controller.get(reqs, res);
     expect(reqs.session.userCase).toEqual(checkYourAnswerFlow4.session.userCase);
     expect(reqs.originalUrl).toEqual('/request');
+  });
+
+  test('should catch errors and set payment error', async () => {
+    req.locals.C100Api.updateCase.mockImplementation(() => {
+      throw new Error();
+    });
+    await controller.get(req, res);
+    expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'defaultPaymentError' });
+  });
+
+  test('should catch errors and set payment error for successful payment', async () => {
+    req.session.userCase.paymentSuccessDetails = {
+      amount: 'MOCK_AMOUNT',
+      reference: 'REFERENCE',
+      ccd_case_number: '0123456789',
+      case_reference: '0123456789',
+      channel: 'CHANNEL',
+      method: 'METHOD',
+      status: 'success',
+      external_reference: 'EXTERNAL_REFERENCE',
+      payment_group_reference: 'PAYMENT_GROUP_REFERENCE',
+    };
+    req.session.paymentError = { hasError: false, errorContext: undefined };
+    req.locals.C100Api.updateCase.mockImplementation(() => {
+      throw new Error();
+    });
+
+    await controller.get(req, res);
+    expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'applicationNotSubmitted' });
   });
 });

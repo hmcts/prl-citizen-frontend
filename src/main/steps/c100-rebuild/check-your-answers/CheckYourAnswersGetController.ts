@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { FieldPrefix } from '../../../app/case/case';
-import { C100_CASE_EVENT, YesOrNo } from '../../../app/case/definition';
+import { C100_CASE_EVENT, PaymentErrorContext, PaymentStatus, YesOrNo } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
 
@@ -22,18 +22,35 @@ export default class CheckYourAnswersGetController extends GetController {
       req.session.userCase.helpWithFeesReferenceNumber = undefined;
       req.session.save();
     }
-    await req.locals.C100Api.updateCase(
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      req.session.userCase?.caseId as string,
-      req.session.userCase,
-      req.originalUrl,
-      C100_CASE_EVENT.CASE_UPDATE
-    );
-    //clear payment error
-    setTimeout(() => {
-      req.session.paymentError = undefined;
-    }, 1000);
+    try {
+      await req.locals.C100Api.updateCase(
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        req.session.userCase?.caseId as string,
+        req.session.userCase,
+        req.originalUrl,
+        C100_CASE_EVENT.CASE_UPDATE
+      );
 
-    super.get(req, res);
+      //clear payment error
+      setTimeout(() => {
+        req.session.paymentError = { hasError: false, errorContext: undefined };
+        req.session.save();
+      }, 1000);
+      super.get(req, res);
+    } catch (error) {
+      req.locals.logger.error('error in update case', error);
+
+      if (req.session.paymentError.hasError === false) {
+        req.session.paymentError =
+          req.session.userCase.paymentSuccessDetails?.status === PaymentStatus.SUCCESS
+            ? { hasError: true, errorContext: PaymentErrorContext.APPLICATION_NOT_SUBMITTED }
+            : { hasError: true, errorContext: PaymentErrorContext.DEFAULT_PAYMENT_ERROR };
+        req.session.save(() => {
+          super.get(req, res);
+        });
+      } else {
+        super.get(req, res);
+      }
+    }
   }
 }

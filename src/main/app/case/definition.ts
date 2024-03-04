@@ -3114,7 +3114,12 @@ export enum DocType {
   MIAM_CERTIFICATE = 'miamcertificate',
 }
 
-export enum PaymentError {
+export interface PaymentError {
+  hasError: boolean;
+  errorContext: PaymentErrorContext | undefined;
+}
+
+export enum PaymentErrorContext {
   DEFAULT_PAYMENT_ERROR = 'defaultPaymentError',
   PAYMENT_UNSUCCESSFUL = 'paymentUnsuccessful',
   APPLICATION_NOT_SUBMITTED = 'applicationNotSubmitted'
