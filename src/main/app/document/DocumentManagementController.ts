@@ -273,25 +273,14 @@ export class DocumentManagerController extends PostController<AnyObject> {
   ) {
     let documentToGet = '';
     let uid = '';
-    if (filename === 'generate-c7-final') {
-      endPoint = 'caresponse';
-      const respondent = req.session.userCase.respondents?.find(resp => resp.value.user.idamId === req.session.user.id);
-      if (respondent) {
-        filename = respondent.id;
-      }
-    }
-    if (endPoint === 'caresponse') {
-      req.session.userCase.citizenResponseC7DocumentList?.forEach(document => {
-        if (document.value.createdBy === filename) {
-          if (!document.value.citizenDocument.document_binary_url) {
-            throw new Error('CA_RESPONSE binary url is not found');
-          }
-          filename = 'C7_Document.pdf';
-          documentToGet = document.value.citizenDocument.document_binary_url;
-          uid = this.getUID(documentToGet);
-        }
-      });
-    }
+    ({ filename, endPoint } = this.getC7FileNameAndEndPoint(filename, endPoint, req));
+    ({ filename, documentToGet, uid } = this.getCAResponseFileNameDocToGetAndUid(
+      endPoint,
+      req,
+      filename,
+      documentToGet,
+      uid
+    ));
 
     if (filename === DocumentType.FL401_FINAL_DOCUMENT) {
       if (!req.session.userCase.finalDocument?.document_binary_url) {
@@ -311,6 +300,39 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return this.getFileNameUidAndFieldFlag(filename, req, uid, endPoint, fieldFlag);
   }
 
+  private getC7FileNameAndEndPoint(filename: string, endPoint: string, req: AppRequest<Partial<CaseWithId>>) {
+    if (filename === 'generate-c7-final') {
+      endPoint = 'caresponse';
+      const respondent = req.session.userCase.respondents?.find(resp => resp.value.user.idamId === req.session.user.id);
+      if (respondent) {
+        filename = respondent.id;
+      }
+    }
+    return { filename, endPoint };
+  }
+
+  private getCAResponseFileNameDocToGetAndUid(
+    endPoint: string,
+    req: AppRequest<Partial<CaseWithId>>,
+    filename: string,
+    documentToGet: string,
+    uid: string
+  ) {
+    if (endPoint === 'caresponse') {
+      req.session.userCase.citizenResponseC7DocumentList?.forEach(document => {
+        if (document.value.createdBy === filename) {
+          if (!document.value.citizenDocument.document_binary_url) {
+            throw new Error('CA_RESPONSE binary url is not found');
+          }
+          filename = 'C7_Document.pdf';
+          documentToGet = document.value.citizenDocument.document_binary_url;
+          uid = this.getUID(documentToGet);
+        }
+      });
+    }
+    return { filename, documentToGet, uid };
+  }
+
   private getFileNameUidAndFieldFlag(
     filename: string,
     req: AppRequest<Partial<CaseWithId>>,
@@ -318,22 +340,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     endPoint: string,
     fieldFlag: any
   ) {
-    for (const [
-      fileNameSearchPattern,
-      { elements, downloadFileFieldFlag },
-    ] of this.fileNameSearchPatternElementMap.entries()) {
-      if (filename.includes(fileNameSearchPattern) || filename === fileNameSearchPattern) {
-        const obj = this.getDocumentUIDWithOutFlag(req, elements, downloadFileFieldFlag);
-        uid = obj!.uid;
-        filename = obj!.filename;
-        if (uid.trim() !== '') {
-          if (downloadFileFieldFlag) {
-            fieldFlag = downloadFileFieldFlag;
-          }
-          break;
-        }
-      }
-    }
+    ({ filename, uid, fieldFlag } = this.searchFileNameByPattern(filename, req, uid, fieldFlag));
 
     if (uid.trim() === '') {
       for (const entry of this.fileNameElementMap.entries()) {
@@ -343,6 +350,24 @@ export class DocumentManagerController extends PostController<AnyObject> {
         uid = obj.uid;
         filename = obj.filename;
         if (uid !== '') {
+          break;
+        }
+      }
+    }
+    return { filename, uid, fieldFlag };
+  }
+
+  private searchFileNameByPattern(filename: string, req: AppRequest<Partial<CaseWithId>>, uid: string, fieldFlag: any) {
+    for (const entry of this.fileNameSearchPatternElementMap.entries()) {
+      const fileNameSearchPattern = entry[0];
+      if (filename.includes(fileNameSearchPattern) || filename === fileNameSearchPattern) {
+        const obj = this.getDocumentUIDWithOutFlag(req, entry[1].elements, entry[1].downloadFileFieldFlag);
+        uid = obj!.uid;
+        filename = obj!.filename;
+        if (uid.trim() !== '') {
+          if (entry[1]?.downloadFileFieldFlag) {
+            fieldFlag = entry[1]?.downloadFileFieldFlag;
+          }
           break;
         }
       }
@@ -385,36 +410,33 @@ export class DocumentManagerController extends PostController<AnyObject> {
     uid = documentData.uid;
 
     const { generatedDocument, cdamUrl } = await this.fetchDocument(req, uid);
+    const documentObj = { generatedDocument, cdamUrl, fieldFlag, filename };
 
-    this.handleDocumentResponse(req, generatedDocument, res, cdamUrl, fieldFlag, caseReference, client, filename);
+    this.handleDocumentResponse(req, res, client, caseReference, documentObj);
   }
 
   private handleDocumentResponse(
     req: AppRequest<Partial<CaseWithId>>,
-    generatedDocument,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     res: Response<any, Record<string, any>>,
-    cdamUrl: string,
-    fieldFlag: string,
-    caseReference: string,
     client: CosApiClient,
-    filename: string
+    caseReference: string,
+    documentObj
   ) {
     req.session.save(err => {
       if (err) {
         throw err;
-      } else if (generatedDocument) {
-        res.setHeader('Content-Type', generatedDocument.headers['content-type']);
-        if (cdamUrl && this.getFlagViewed(req, fieldFlag) === true) {
+      } else if (documentObj.generatedDocument) {
+        res.setHeader('Content-Type', documentObj.generatedDocument.headers['content-type']);
+        if (documentObj.cdamUrl && this.getFlagViewed(req, documentObj.fieldFlag) === true) {
           // download and open the pdf in the same window
-          return res.send(generatedDocument.data);
+          return res.send(documentObj.generatedDocument.data);
         } else {
           // set the flag from "Download" to "View" and only download the pdf
-          if (fieldFlag && req.query?.updateCase && req.query?.updateCase === YesOrNo.YES) {
-            this.setFlagViewed(req, caseReference, client, req.session.user, fieldFlag);
+          if (documentObj.fieldFlag && req.query?.updateCase && req.query?.updateCase === YesOrNo.YES) {
+            this.setFlagViewed(req, caseReference, client, req.session.user, documentObj.fieldFlag);
           }
-          res.setHeader('Content-Disposition', 'inline; filename="' + filename + '";');
-          return res.end(generatedDocument.data);
+          res.setHeader('Content-Disposition', 'inline; filename="' + documentObj.filename + '";');
+          return res.end(documentObj.generatedDocument.data);
         }
       }
 
