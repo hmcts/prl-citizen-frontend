@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
@@ -25,6 +26,17 @@ import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util
 
 console.info('** FOR SONAR **');
 
+interface ContactInfo {
+  contactDetails: any, 
+  language: string, 
+  id: string, 
+  contactType: string, 
+  detailKey: string, 
+  donknowKey: string,
+  newRespondentStorage: any, 
+  respondentUrl: string;
+
+}
 /* eslint-disable import/namespace */
 export const CaseName = (
   { sectionTitles, keys, ...content }: SummaryListContent,
@@ -1060,7 +1072,7 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
     },
     );
    }
-   else if(sessionRespondentData[respondent].hasOwnProperty('addressUnknown') && sessionRespondentData[respondent]['addressUnknown'] === YesOrNo.YES){
+  if(sessionRespondentData[respondent].hasOwnProperty('addressUnknown') && sessionRespondentData[respondent]['addressUnknown'] === YesOrNo.YES){
     newRespondentStorage.push({
       key: keys['explainNoLabel'],
       value: getYesNoTranslation(language,sessionRespondentData[respondent]?.['addressUnknown'],'doTranslation'),
@@ -1068,28 +1080,37 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
     },
     );
    }
-   
-    pushContactDetails(contactDetails, newRespondentStorage, language, id, 'Email', 'emailAddress', Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS']);
-    pushContactDetails(contactDetails, newRespondentStorage, language, id, 'Telephone number', 'telephoneNumber', Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS']);
+   const emailContactInfo: ContactInfo = {
+    contactDetails, newRespondentStorage, language, id, contactType: 'Email', detailKey: 'emailAddress', donknowKey: 'donKnowEmailAddress', respondentUrl: 'C100_RESPONDENT_DETAILS_CONTACT_DETAILS'
+   };
+   pushContactDetails(emailContactInfo);
+
+   const telephoneContactInfo: ContactInfo = {
+    contactDetails, newRespondentStorage, language, id, contactType: 'Telephone number', detailKey: 'telephoneNumber',  donknowKey: 'donKnowTelephoneNumber', respondentUrl: 'C100_RESPONDENT_DETAILS_CONTACT_DETAILS'
+   };
+    
+    pushContactDetails(telephoneContactInfo);
 
     return newRespondentStorage;
 };
 
-const pushContactDetails = (contactDetails, newRespondentStorage, language, id, key, detailKey, url) => {
-  if (contactDetails.hasOwnProperty('donKnow'+detailKey.capitalize()) && contactDetails['donKnow'+detailKey.capitalize()] === 'Yes') {
-    newRespondentStorage.push(
+const pushContactDetails = (contactInfo: ContactInfo) => {
+  const contactDetails = contactInfo.contactDetails;
+
+  if (contactDetails.hasOwnProperty(contactInfo.donknowKey) && contactDetails[contactInfo.donknowKey] === 'Yes') {
+    contactInfo.newRespondentStorage.push(
       {
-        key: (language === 'en') ? 'I dont know their ${key.toLowerCase()}' : getYesNoTranslation(language, 'I dont know their ${key.toLowerCase()}', 'personalDetails'),
-        value: getYesNoTranslation(language, contactDetails?.['donKnow'+detailKey.capitalize()], 'doTranslation'),
-        changeUrl: applyParms(url, { respondentId: id }),
+        key: (contactInfo.language === 'en') ? 'I dont know their ${key.toLowerCase()}' : getYesNoTranslation(contactInfo.language, 'I dont know their ${key.toLowerCase()}', 'personalDetails'),
+        value: getYesNoTranslation(contactInfo.language, contactDetails?.[contactInfo.donknowKey], 'doTranslation'),
+        changeUrl: applyParms(Urls[contactInfo.respondentUrl], { respondentId: contactInfo.id }),
       }
     );
   } else {
-    newRespondentStorage.push(
+    contactInfo.newRespondentStorage.push(
       {
-        key: (language === 'en') ? key : getYesNoTranslation(language, key, 'personalDetails'),
-        value: contactDetails?.[detailKey],
-        changeUrl: applyParms(url, { respondentId: id }),
+        key: (contactInfo.language === 'en') ? contactInfo.contactType : getYesNoTranslation(contactInfo.language, contactInfo.contactType, 'personalDetails'),
+        value: contactDetails?.[contactInfo.detailKey],
+        changeUrl: applyParms(Urls[contactInfo.respondentUrl], { respondentId: contactInfo.id }),
       }
     );
   }

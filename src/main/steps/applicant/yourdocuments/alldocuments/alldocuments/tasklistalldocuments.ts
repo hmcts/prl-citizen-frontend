@@ -279,7 +279,7 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
   const respondentItems: object[] = [];
   const respondentItems2: object[] = [];
   if (userCase.caseTypeOfApplication === 'C100') {
-    handleC100Case(respondentItems, userCase, taskListItems, respondentItems2);
+    documentListForC100(respondentItems, userCase, taskListItems, respondentItems2);
   } else if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
     handleDoNotShowCase(userCase, respondentItems, taskListItems);
   } else {
@@ -891,7 +891,12 @@ const handleDoNotShowCase = (userCase: any, respondentItems: object[], taskListI
   });
 };
 
-const handleC100Case = (respondentItems: object[], userCase: any, taskListItems: any, respondentItems2: object[]) => {
+const documentListForC100 = (
+  respondentItems: object[],
+  userCase: any,
+  taskListItems: any,
+  respondentItems2: object[]
+) => {
   Object.assign(respondentItems, responseFromOtherPeople(userCase, taskListItems));
   userCase.respondents.forEach((respondent: Respondent) => {
     if (userCase.citizenResponseC7DocumentList) {
