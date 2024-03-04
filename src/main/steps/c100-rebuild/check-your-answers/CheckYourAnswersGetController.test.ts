@@ -50,7 +50,7 @@ describe('DocumentUpload Get Controller', () => {
 
     expect(req.session.userCase.caseId).toEqual('1111');
     expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
-    expect(req.session.paymentError).toStrictEqual({ hasError: false, errorContext: undefined });
+    expect(req.session.paymentError).toStrictEqual({ hasError: false, errorContext: null });
   });
 
   test('checkYourAnswerFlow1', async () => {
@@ -103,7 +103,7 @@ describe('DocumentUpload Get Controller', () => {
       external_reference: 'EXTERNAL_REFERENCE',
       payment_group_reference: 'PAYMENT_GROUP_REFERENCE',
     };
-    req.session.paymentError = { hasError: false, errorContext: undefined };
+    req.session.paymentError = { hasError: false, errorContext: null };
     req.locals.C100Api.updateCase.mockImplementation(() => {
       throw new Error();
     });

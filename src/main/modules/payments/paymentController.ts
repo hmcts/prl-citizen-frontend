@@ -123,7 +123,7 @@ export async function submitCase(
   caseEvent: C100_CASE_EVENT
 ): Promise<void> {
   try {
-    req.session.paymentError = { hasError: false, errorContext: undefined };
+    req.session.paymentError = { hasError: false, errorContext: null };
     const updatedCase = await req.locals.C100Api.updateCase(caseId, caseData, returnUrl, caseEvent);
     //update final document in session for download on confirmation
     req.session.userCase.finalDocument = updatedCase.data?.draftOrderDoc;

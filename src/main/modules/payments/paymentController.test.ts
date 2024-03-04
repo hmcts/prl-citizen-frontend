@@ -192,7 +192,7 @@ describe('PaymentValidationHandler', () => {
     const mockApi = new C100Api(mockedAxios, mockLogger);
     req.locals.C100Api = mockApi;
     await PaymentValidationHandler(req, res);
-    expect(req.session.paymentError).toStrictEqual({ hasError: false, errorContext: undefined });
+    expect(req.session.paymentError).toStrictEqual({ hasError: false, errorContext: null });
   });
   test('should populate error if payment not a success', async () => {
     mockedAxios.post.mockResolvedValue({

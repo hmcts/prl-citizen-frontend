@@ -3116,7 +3116,7 @@ export enum DocType {
 
 export interface PaymentError {
   hasError: boolean;
-  errorContext: PaymentErrorContext | undefined;
+  errorContext: PaymentErrorContext | null;
 }
 
 export enum PaymentErrorContext {
