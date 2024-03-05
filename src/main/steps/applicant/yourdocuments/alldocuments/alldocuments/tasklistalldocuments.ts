@@ -278,12 +278,16 @@ export const getRespondentDocuments = (sectionTitles, taskListItems, userCase, i
 
   const respondentItems: object[] = [];
   const respondentItems2: object[] = [];
-  if (userCase.caseTypeOfApplication === 'C100') {
-    documentListForC100(respondentItems, userCase, taskListItems, respondentItems2);
-  } else if (userCase.caseTypeOfApplication === 'DO_NOT_SHOW') {
-    handleDoNotShowCase(userCase, respondentItems, taskListItems);
-  } else {
-    handleDefaultCase(respondentItems2, userCase, taskListItems);
+  switch (userCase.caseTypeOfApplication) {
+    case 'C100':
+      documentListForC100(respondentItems, userCase, taskListItems, respondentItems2);
+      break;
+    case 'DO_NOT_SHOW':
+      handleDoNotShowCase(userCase, respondentItems, taskListItems);
+      break;
+    default:
+      handleDefaultCase(respondentItems2, userCase, taskListItems);
+      break;
   }
   addOptionalItems(userCase, respondentItems, taskListItems, url, flags, respondentItems2);
 
