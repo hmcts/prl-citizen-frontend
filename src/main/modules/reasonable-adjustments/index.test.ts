@@ -9,6 +9,7 @@ import config from 'config';
 import { Application } from 'express';
 import { LoggerInstance } from 'winston';
 
+import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 
 import { RACommonComponentUserAction, RAFlags } from './definitions';
@@ -62,6 +63,14 @@ describe('ReasonableAdjustementsProvider', () => {
   test('when enabling RA module', async () => {
     await RAProvider.enable(appRequest);
     expect((RAProvider as any).route.enable(appRequest)).toBeCalled;
+  });
+
+  test('recordPageNavigation should save with new url', () => {
+    const req = mockRequest();
+    req.originalUrl = '/c100-rebuild/test';
+    const mockDone = jest.fn();
+    RAProvider.recordPageNavigation(req, mockDone);
+    expect(req.session.save).toHaveBeenCalled();
   });
 
   test('when initializing the module', async () => {
