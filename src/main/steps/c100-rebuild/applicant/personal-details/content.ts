@@ -126,7 +126,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (personalDetails: C100Applicant['personalDetails']): GenerateDynamicFormFields => {
+export const generateFormFields = (personalDetails: C100Applicant['personalDetails'],language): GenerateDynamicFormFields => {
   const { haveYouChangeName, applPreviousName, dateOfBirth, gender, otherGenderDetails, applicantPlaceOfBirth } =
     personalDetails;
   const errors = {
@@ -206,7 +206,7 @@ export const generateFormFields = (personalDetails: C100Applicant['personalDetai
         {
           label: l => l.dateFormat['day'],
           //label: l => l.day,
-          name: 'day', //l=>l.dateFormat['day'],
+          name: day(language), //l=>l.dateFormat['day'],
           value: dateOfBirth!.day,
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -214,7 +214,7 @@ export const generateFormFields = (personalDetails: C100Applicant['personalDetai
         {
           //label: l => l.dateFormat['month'],
           label: l => l.month,
-          name: 'month',
+          name: month(language),
           value: dateOfBirth!.month,
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -222,7 +222,7 @@ export const generateFormFields = (personalDetails: C100Applicant['personalDetai
         {
           //label: l => l.dateFormat['year'],
           label: l => l.year,
-          name: 'year',
+          name: year(language),
           value: dateOfBirth!.year,
           classes: 'govuk-input--width-4',
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -265,16 +265,16 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (caseData: Partial<CaseWithId>, applicantId: C100Applicant['id']): FormContent => {
+export const getFormFields = (caseData: Partial<CaseWithId>, applicantId: C100Applicant['id'],language): FormContent => {
   const applicantDetails = getApplicantDetails(caseData.appl_allApplicants ?? [], applicantId);
-  return updateFormFields(form, generateFormFields(applicantDetails?.personalDetails ?? {}).fields);
+  return updateFormFields(form, generateFormFields(applicantDetails?.personalDetails ?? {},language).fields);
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const applicantId = content.additionalData!.req.params.applicantId;
   const applicantDetails = getApplicantDetails(content.userCase!.appl_allApplicants ?? [], applicantId)!;
-  const { fields } = generateFormFields(applicantDetails.personalDetails);
+  const { fields } = generateFormFields(applicantDetails.personalDetails,content.language);
 
   return {
     ...translations,
@@ -282,3 +282,21 @@ export const generateContent: TranslationFn = content => {
     form: updateFormFields(form, fields),
   };
 };
+function day(language):string {
+  if(language==="cy"){
+    return "Diwrnod"
+  }
+  return "Day"
+}
+function month(language):string {
+  if(language==="cy"){
+    return "Mis"
+  }
+  return "Month"
+}
+function year(language):string {
+  if(language==="cy"){
+    return "Blwyddyn"
+  }
+  return "Year"
+}

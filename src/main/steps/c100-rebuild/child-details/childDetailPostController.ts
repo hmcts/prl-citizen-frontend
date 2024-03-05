@@ -13,7 +13,7 @@ import { getFormFields as getChildMatters } from './child-matters/content';
 import { getFormFields as getChildParentalResponsibility } from './parental-responsibility/content';
 import { getFormFields as getChildPersonalDetails } from './personal-details/content';
 
-type ContextReference = { formRef: (caseData: Partial<CaseWithId>, childId: ChildrenDetails['id']) => FormContent };
+type ContextReference = { formRef: (caseData: Partial<CaseWithId>, childId: ChildrenDetails['id'],language) => FormContent };
 type FeatureContext = { [key: string]: ContextReference };
 @autobind
 export default class ChildDetailsPostController {
@@ -43,7 +43,8 @@ export default class ChildDetailsPostController {
 
     this.contextReference = this.featureContext[_ctx as string];
     const { formRef } = this.contextReference;
-    const form = new Form(formRef(req.session.userCase, childId).fields as FormFields);
+    let language=req.acceptsLanguages();
+    const form = new Form(formRef(req.session.userCase, childId,language).fields as FormFields);
     const { _csrf, ...formData } = form.getParsedBody(formFields);
 
     let data;

@@ -148,7 +148,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 };
 
 export const generateFormFields = (
-  personalDetails: C100RebuildPartyDetails['personalDetails']
+  personalDetails: C100RebuildPartyDetails['personalDetails'],language
 ): GenerateDynamicFormFields => {
   const {
     hasNameChanged,
@@ -242,7 +242,7 @@ export const generateFormFields = (
         {
           label: l => l.dateFormat['day'],
           //label: l => l.day,
-          name: 'day',
+          name: day(language),
           value: dateOfBirth!.day,
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -250,7 +250,7 @@ export const generateFormFields = (
         {
           label: l => l.dateFormat['month'],
           //label: l => l.month,
-          name: 'month',
+          name: month(language),
           value: dateOfBirth!.month,
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -258,7 +258,7 @@ export const generateFormFields = (
         {
           label: l => l.dateFormat['year'],
           //label: l => l.year,
-          name: 'year',
+          name: year(language),
           value: dateOfBirth!.year,
           classes: 'govuk-input--width-4',
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -295,7 +295,7 @@ export const generateFormFields = (
                 {
                   label: l => l.dateFormat['day'],
                   //label: l => l.day,
-                  name: 'day',
+                  name: day(language),
                   value: approxDateOfBirth!.day,
                   classes: 'govuk-input--width-2',
                   attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -303,7 +303,7 @@ export const generateFormFields = (
                 {
                   label: l => l.dateFormat['month'],
                   //label: l => l.month,
-                  name: 'month',
+                  name: month(language),
                   value: approxDateOfBirth!.month,
                   classes: 'govuk-input--width-2',
                   attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -311,7 +311,7 @@ export const generateFormFields = (
                 {
                   label: l => l.dateFormat['year'],
                   //label: l => l.year,
-                  name: 'year',
+                  name: year(language),
                   value: approxDateOfBirth!.year,
                   classes: 'govuk-input--width-4',
                   attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -378,10 +378,10 @@ export const form: FormContent = {
 
 export const getFormFields = (
   caseData: Partial<CaseWithId>,
-  respondentId: C100RebuildPartyDetails['id']
+  respondentId: C100RebuildPartyDetails['id'],language
 ): FormContent => {
   const respondentDetails = getPartyDetails(respondentId, caseData?.resp_Respondents) as C100RebuildPartyDetails;
-  return updateFormFields(form, generateFormFields(respondentDetails.personalDetails ?? {}).fields);
+  return updateFormFields(form, generateFormFields(respondentDetails.personalDetails ?? {},language).fields);
 };
 
 export const generateContent: TranslationFn = content => {
@@ -391,7 +391,7 @@ export const generateContent: TranslationFn = content => {
     respondentId,
     content.userCase!.resp_Respondents
   ) as C100RebuildPartyDetails;
-  const { fields } = generateFormFields(respondentDetails.personalDetails);
+  const { fields } = generateFormFields(respondentDetails.personalDetails,content.language);
 
   return {
     ...translations,
@@ -399,3 +399,21 @@ export const generateContent: TranslationFn = content => {
     form: updateFormFields(form, fields),
   };
 };
+function day(language):string {
+  if(language==="cy"){
+    return "Diwrnod"
+  }
+  return "Day"
+}
+function month(language):string {
+  if(language==="cy"){
+    return "Mis"
+  }
+  return "Month"
+}
+function year(language):string {
+  if(language==="cy"){
+    return "Blwyddyn"
+  }
+  return "Year"
+}

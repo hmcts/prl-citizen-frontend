@@ -18,6 +18,7 @@ const en = {
   addRespondentLabel: 'Add another respondent',
   removeRespondentLabel: 'Remove respondent',
   newNameLabel: 'Enter a new name',
+  Respondent: 'Respondent',
   errors: {
     c100TempFirstName: {
       required: 'Enter the first name',
@@ -37,6 +38,7 @@ const cy = {
   addRespondentLabel: 'Ychwanegu atebydd arall',
   removeRespondentLabel: 'Tynnu atebydd',
   newNameLabel: 'Nodwch enw newydd',
+  Respondent: 'Atebydd',
   errors: {
     c100TempFirstName: {
       required: 'Nodwch yr enw cyntaf',

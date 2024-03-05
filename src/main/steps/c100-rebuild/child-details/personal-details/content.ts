@@ -114,7 +114,7 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (personalDetails: ChildrenDetails['personalDetails']): GenerateDynamicFormFields => {
+export const generateFormFields = (personalDetails: ChildrenDetails['personalDetails'],language): GenerateDynamicFormFields => {
   const { dateOfBirth, isDateOfBirthUnknown, approxDateOfBirth, gender, otherGenderDetails } = personalDetails;
   const errors = {
     en: {},
@@ -131,7 +131,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
         {
           label: l => l.dateFormat['day'],
           //label: l => l.day,
-          name: 'day',
+          name: day(language),
           value: dateOfBirth!.day,
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -139,7 +139,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
         {
           label: l => l.dateFormat['month'],
           //label: l => l.month,
-          name: 'month',
+          name: month(language),
           value: dateOfBirth!.month,
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -147,7 +147,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
         {
           label: l => l.dateFormat['year'],
           //label: l => l.year,
-          name: 'year',
+          name: year(language),
           value: dateOfBirth!.year,
           classes: 'govuk-input--width-4',
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -185,7 +185,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                 {
                   label: l => l.dateFormat['day'],
                   //label: l => l.day,
-                  name: 'day',
+                  name: day(language),
                   value: approxDateOfBirth!.day,
                   classes: 'govuk-input--width-2',
                   attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -193,7 +193,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                 {
                   label: l => l.dateFormat['month'],
                   //label: l => l.month,
-                  name: 'month',
+                  name: month(language),
                   value: approxDateOfBirth!.month,
                   classes: 'govuk-input--width-2',
                   attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -201,7 +201,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
                 {
                   label: l => l.dateFormat['year'],
                   //label: l => l.year,
-                  name: 'year',
+                  name: year(language),
                   value: approxDateOfBirth!.year,
                   classes: 'govuk-input--width-4',
                   attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
@@ -276,17 +276,17 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (caseData: Partial<CaseWithId>, childId: ChildrenDetails['id']): FormContent => {
+export const getFormFields = (caseData: Partial<CaseWithId>, childId: ChildrenDetails['id'],language): FormContent => {
   const childDetails = getPartyDetails(childId, caseData?.cd_children) as ChildrenDetails;
 
-  return updateFormFields(form, generateFormFields(childDetails?.personalDetails ?? {}).fields);
+  return updateFormFields(form, generateFormFields(childDetails?.personalDetails ?? {},language).fields);
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const childId = content.additionalData!.req.params.childId;
   const childDetails = getPartyDetails(childId, content.userCase!.cd_children) as ChildrenDetails;
-  const { fields } = generateFormFields(childDetails.personalDetails);
+  const { fields } = generateFormFields(childDetails.personalDetails,content.language);
 
   return {
     ...translations,
@@ -294,3 +294,21 @@ export const generateContent: TranslationFn = content => {
     form: updateFormFields(form, fields),
   };
 };
+function day(language):string {
+  if(language==="cy"){
+    return "Diwrnod"
+  }
+  return "Day"
+}
+function month(language):string {
+  if(language==="cy"){
+    return "Mis"
+  }
+  return "Month"
+}
+function year(language):string {
+  if(language==="cy"){
+    return "Blwyddyn"
+  }
+  return "Year"
+}

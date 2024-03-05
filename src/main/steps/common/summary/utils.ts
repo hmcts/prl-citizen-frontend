@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import dayjs from 'dayjs';
-
+import { cyContent, enContent } from '../../prl-cases/dashboard/content';
 import { CaseDate, CaseWithId } from '../../../app/case/case';
 import { State } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
@@ -38,6 +38,7 @@ interface SummaryListRow {
   changeUrl?: string;
   classes?: string;
   caseLink?: string;
+  detail?: string;
 }
 
 export interface SummaryList {
@@ -111,12 +112,15 @@ export const summaryList = (
 };
 
 export const summaryCaseList = (
+  language: string,
   userCaseList: Partial<CaseWithId>[],
   sectionTitle?: string,
-  isRespondent?: boolean
+  isRespondent?: boolean,
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
-  summaryData.push({ key: 'Case Name', value: '<h4>Case Status</h4>' });
+  if(language==="cy"){
+    summaryData.push({ key: cyContent.caseName, value: cyContent.CaseStatus, changeUrl:cyContent.CaseNumber}); 
+  }else{ summaryData.push({ key: enContent.caseName, value: enContent.CaseStatus, changeUrl:enContent.CaseNumber });}
   for (const userCase of userCaseList) {
     const id = userCase.id as string;
     const name = userCase.applicantCaseName;

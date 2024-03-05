@@ -149,7 +149,7 @@ describe('Applicant details > personal details', () => {
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    const { errors } = generateFormFields(getDataShape().personalDetails);
+    const { errors } = generateFormFields(getDataShape().personalDetails,"en");
     languageAssertions(
       'en',
       {
@@ -166,7 +166,7 @@ describe('Applicant details > personal details', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    const { errors } = generateFormFields(getDataShape().personalDetails);
+    const { errors } = generateFormFields(getDataShape().personalDetails,"cy");
     languageAssertions(
       'cy',
       {

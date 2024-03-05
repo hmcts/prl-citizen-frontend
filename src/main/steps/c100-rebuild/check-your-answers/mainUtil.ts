@@ -415,10 +415,10 @@ export const OtherChildrenDetails = (
 };
 
 
-export const ApplicantDetailNameParser = (personalDetails, keys): string => {
+export const ApplicantDetailNameParser = (personalDetails, keys,language): string => {
   let changeNameInformation = '' as string;
   const hasNameChanged = personalDetails['haveYouChangeName'];
-  changeNameInformation += hasNameChanged;
+  changeNameInformation += getYesNoTranslation(language,hasNameChanged,'doTranslation');
   if(hasNameChanged === 'Yes'){
     changeNameInformation += HTML.RULER;
     changeNameInformation += HTML.H4;
@@ -496,7 +496,7 @@ export const ApplicantDetails = (
       {
         key: keys['haveYouChangeNameLabel'],
         value: '',
-        valueHtml: getYesNoTranslation(language,ApplicantDetailNameParser(personalDetails, keys),'doTranslation'),
+        valueHtml: ApplicantDetailNameParser(personalDetails, keys,language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
@@ -830,7 +830,7 @@ export const SafetyConcerns_child = (
    * @policeOrInvestigatorsOtherDetails session Values
    */
   let policeOrInvestigatorsOtherDetailsHTML = '';
-  policeOrInvestigatorsOtherDetailsHTML += userCase['c1A_policeOrInvestigatorInvolved'];
+  policeOrInvestigatorsOtherDetailsHTML +=  getYesNoTranslation(language,userCase['c1A_policeOrInvestigatorInvolved'],'OeddTranslation');
    policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
     ?  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + userCase['c1A_policeOrInvestigatorOtherDetails']
     :  '' ;
@@ -838,13 +838,13 @@ export const SafetyConcerns_child = (
    * @c1A_childAbductedBefore session Values
    */
   let c1A_childAbductedBefore = '';
-  c1A_childAbductedBefore += userCase?.['c1A_passportOffice'];
+  c1A_childAbductedBefore += getYesNoTranslation(language,userCase?.['c1A_passportOffice'],'oesTranslation');
   if (userCase.hasOwnProperty('c1A_passportOffice') && userCase.c1A_passportOffice === 'Yes') {
     c1A_childAbductedBefore += HTML.RULER;
     c1A_childAbductedBefore += HTML.H4;
     c1A_childAbductedBefore += keys['childrenMoreThanOnePassport'];
     c1A_childAbductedBefore += HTML.H4_CLOSE;
-    c1A_childAbductedBefore += userCase['c1A_childrenMoreThanOnePassport'];
+    c1A_childAbductedBefore += getYesNoTranslation(language,userCase['c1A_childrenMoreThanOnePassport'],'oesTranslation');
     c1A_childAbductedBefore += HTML.RULER;
     c1A_childAbductedBefore += HTML.H4;
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
@@ -852,7 +852,7 @@ export const SafetyConcerns_child = (
     c1A_childAbductedBefore += HTML.UNORDER_LIST;
     c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport']
       .filter(element => element !== 'Other')
-      .map(relatives => HTML.LIST_ITEM + relatives + HTML.LIST_ITEM_END)
+      .map(relatives => HTML.LIST_ITEM + relationshipTranslation(relatives,language)+ HTML.LIST_ITEM_END)
       .toString()
       .split(',')
       .join('');
@@ -880,12 +880,12 @@ export const SafetyConcerns_child = (
     },
     {
       key: keys['haspassportOfficeNotified'],
-      valueHtml: userCase['c1A_abductionPassportOfficeNotified'],
+      valueHtml: getYesNoTranslation(language,userCase['c1A_abductionPassportOfficeNotified'],'ydyTranslation'),
       changeUrl: Urls['C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION'],
     },
     {
       key: keys['abducionThreats'],
-      valueHtml: userCase['c1A_childAbductedBefore'] as string,
+      valueHtml: getYesNoTranslation(language,userCase['c1A_childAbductedBefore'],'OeddTranslation'),
       changeUrl: Urls['C100_C1A_CHILD_ABDUCTION_THREATS'],
     },
 

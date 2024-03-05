@@ -15,6 +15,7 @@ const en = () => ({
   buttonAddApplicant: 'Add another applicant',
   removeApplicant: 'Remove applicant',
   labelFornewName: 'Enter a new name',
+  Applicant: 'Applicant',
   errors: {
     applicantFirstName: {
       required: 'Enter the first name',
@@ -35,6 +36,7 @@ const cy = () => ({
   buttonAddApplicant: 'Ychwanegu ceisydd arall',
   removeApplicant: 'Dileu Ceisydd',
   labelFornewName: 'Nodwch enw newydd',
+  Applicant: 'Ceisydd',
   errors: {
     applicantFirstName: {
       required: 'Nodwch yr enw cyntaf',
@@ -62,9 +64,7 @@ export const generateFormFields = (applicantData: C100ListOfApplicants): Generat
 
     fields[key] = {
       type: 'fieldset',
-      label: () => {
-        return `Applicant ${count}`;
-      },
+      label: l => `${l.Applicant} ${count}`,
       classes: 'govuk-fieldset__legend--m',
       subFields: {
         [`ApplicantFirstName-${count}`]: {
