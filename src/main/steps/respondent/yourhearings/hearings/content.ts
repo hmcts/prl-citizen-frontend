@@ -15,11 +15,8 @@ export const generateContent: TranslationFn = content => {
   const hearingsContent = yourhearingshearingscontent(content);
   const request = content.additionalData?.req;
   const caseData = request.session.userCase;
-  if (content.additionalData?.req.session.userCase.caseTypeOfApplication === CaseType.C100) {
-    hearingsContent.linkforsupport = RESPONDENT_TASKLIST_HEARING_NEEDS;
-  } else {
-    hearingsContent.linkforsupport = CA_DA_ATTENDING_THE_COURT;
-  }
+  hearingsContent.linkforsupport =
+    caseData.caseTypeOfApplication === CaseType.C100 ? RESPONDENT_TASKLIST_HEARING_NEEDS : CA_DA_ATTENDING_THE_COURT;
   const hearingOrders: HearingOrders[] = [];
   for (const doc of request.session.userCase?.orderCollection || []) {
     if (doc.value.selectedHearingType) {
