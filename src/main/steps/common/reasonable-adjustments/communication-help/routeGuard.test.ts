@@ -22,7 +22,7 @@ describe('RA > communication-help > routeGuard', () => {
     routeGuard.post(req, res, mockNext);
     expect(req.session.save).toHaveBeenCalled();
     expect(mockNext).toHaveBeenCalled();
-    expect(req.session.userCase.ra_communicationHelp).toStrictEqual([]);
+    expect(req.session.userCase.ra_communicationHelp).toEqual(['signlanguage', 'other']);
     expect(req.session.userCase.ra_signLanguageInterpreter_subfield).toBe(undefined);
     expect(req.session.userCase.ra_communicationHelpOther_subfield).toBe(undefined);
   });

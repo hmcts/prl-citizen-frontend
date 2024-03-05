@@ -4,30 +4,15 @@ import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 
 import { CaseWithId } from '../../app/case/case';
-import {
-  C100Applicant,
-  C100_CASE_EVENT,
-  CaseType,
-  PartyDetails,
-  ReasonableAdjustmentsSupport,
-  State,
-} from '../../app/case/definition';
+import { C100Applicant, CaseType, PartyDetails, ReasonableAdjustmentsSupport } from '../../app/case/definition';
 import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
 import { PageContent } from '../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../app/form/Form';
-import { updatePartyDetails } from '../../steps/c100-rebuild/people/util';
 import { CommonContent } from '../../steps/common/common.content';
 import { applyParms } from '../../steps/common/url-parser';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../steps/tasklistresponse/utils';
-import {
-  C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
-  C100_INTERNATIONAL_ELEMENTS_REQUEST,
-  C100_URL,
-  PARTY_TASKLIST,
-  PageLink,
-  RESPOND_TO_APPLICATION,
-} from '../../steps/urls';
+import { C100_URL, PARTY_TASKLIST, PageLink, RESPOND_TO_APPLICATION } from '../../steps/urls';
 
 import {
   RAData,
@@ -111,7 +96,7 @@ export class ReasonableAdjustementsUtility {
     return caseData;
   }
 
-  private cleanSessionForDocSupportSubFields(docSupportNeeds: string[] | undefined, caseData: CaseWithId): CaseWithId {
+  public cleanSessionForDocSupportSubFields(docSupportNeeds: string[] | undefined, caseData: CaseWithId): CaseWithId {
     if (!['specifiedColorDocuments', 'docsprint'].some(val => docSupportNeeds?.includes(val))) {
       delete caseData?.ra_specifiedColorDocuments_subfield;
     }
@@ -135,7 +120,7 @@ export class ReasonableAdjustementsUtility {
     return caseData;
   }
 
-  private cleanSessionForCommunicationHelpSubFields(
+  public cleanSessionForCommunicationHelpSubFields(
     communicationHelp: string[] | undefined,
     caseData: CaseWithId
   ): CaseWithId {
@@ -160,7 +145,7 @@ export class ReasonableAdjustementsUtility {
     return caseData;
   }
 
-  private cleanSessionForSupportForCourtSubFields(
+  public cleanSessionForSupportForCourtSubFields(
     supportForCourt: string[] | undefined,
     caseData: CaseWithId
   ): CaseWithId {
@@ -191,7 +176,7 @@ export class ReasonableAdjustementsUtility {
     return caseData;
   }
 
-  private cleanSessionForNeedsDuringCourtSubFields(
+  public cleanSessionForNeedsDuringCourtSubFields(
     needsDuringCourtHearing: string[] | undefined,
     caseData: CaseWithId
   ): CaseWithId {
@@ -214,7 +199,7 @@ export class ReasonableAdjustementsUtility {
     return caseData;
   }
 
-  private cleanSessionForNeedsInCourtSubFields(needsInCourt: string[] | undefined, caseData: CaseWithId): CaseWithId {
+  public cleanSessionForNeedsInCourtSubFields(needsInCourt: string[] | undefined, caseData: CaseWithId): CaseWithId {
     if (!['parkingSpace', 'parkingspace'].some(val => needsInCourt?.includes(val))) {
       delete caseData?.ra_parkingSpace_subfield;
     }
@@ -269,29 +254,11 @@ export class ReasonableAdjustementsUtility {
     return eventId;
   }
 
-  isC100DraftApplication(userCase: CaseWithId): boolean {
-    return (
-      userCase &&
-      userCase?.caseTypeOfApplication === CaseType.C100 &&
-      userCase?.state === State.AwaitingSubmissionToHmcts
-    );
-  }
-
   async retrieveExistingPartyRAFlags(
     caseData: CaseWithId,
     partyDetails: C100Applicant | PartyDetails,
     userAccessToken: UserDetails['accessToken']
   ): Promise<RAFlags> {
-    if (this.isC100DraftApplication(caseData)) {
-      return {
-        partyName: `${(partyDetails as C100Applicant).applicantFirstName} ${
-          (partyDetails as C100Applicant).applicantLastName
-        }`,
-        roleOnCase: 'Applicant 1',
-        details: (partyDetails as C100Applicant).reasonableAdjustmentsFlags as RAFlags['details'],
-      };
-    }
-
     return RAProvider.service.retrieveExistingPartyRAFlags(
       caseData.id!,
       (partyDetails as PartyDetails).user.idamId,
@@ -299,60 +266,8 @@ export class ReasonableAdjustementsUtility {
     );
   }
 
-  async updatePartyRAFlags(
-    caseData: CaseWithId,
-    userDetails: UserDetails,
-    raData: RAData,
-    req: AppRequest
-  ): Promise<void> {
+  async updatePartyRAFlags(caseData: CaseWithId, userDetails: UserDetails, raData: RAData): Promise<void> {
     return new Promise((resolve, reject) => {
-      if (this.isC100DraftApplication(caseData)) {
-        const primaryApplicantDetails = _.first(req.session.userCase.appl_allApplicants) as C100Applicant;
-
-        req.session.userCase.appl_allApplicants = updatePartyDetails(
-          {
-            ...primaryApplicantDetails,
-            reasonableAdjustmentsFlags: [...raData.flagsAsSupplied.details, ...raData.replacementFlags.details].reduce(
-              (currentFlags: RAFlagValue[], flag: RAFlagDetail) => {
-                const currentFlagIndex = currentFlags
-                  .filter(_flag => _flag.flagCode !== 'OT0001')
-                  .findIndex(_flag => _flag.flagCode === flag.value.flagCode);
-
-                if (currentFlagIndex >= 0) {
-                  if (flag.value.status === 'Requested') {
-                    currentFlags[currentFlagIndex] = this.preprocessFlags(flag.value, RADataTransformContext.FLATTEN);
-                  } else {
-                    currentFlags.splice(currentFlagIndex, 1);
-                  }
-                } else {
-                  currentFlags.push(this.preprocessFlags(flag.value, RADataTransformContext.FLATTEN));
-                }
-
-                return currentFlags;
-              },
-              primaryApplicantDetails?.reasonableAdjustmentsFlags
-                ? [...primaryApplicantDetails.reasonableAdjustmentsFlags]
-                : []
-            ),
-          },
-          req.session.userCase.appl_allApplicants
-        ) as C100Applicant[];
-
-        return req.session.save(async () => {
-          try {
-            await req.locals.C100Api.updateCase(
-              req.session.userCase.caseId!,
-              req.session.userCase,
-              this.getNavigationUrl(req),
-              C100_CASE_EVENT.CASE_UPDATE
-            );
-            resolve();
-          } catch (error) {
-            reject(error);
-          }
-        });
-      }
-
       (async () => {
         const partyIdamId = getPartyDetails(caseData, userDetails.id)!.user.idamId;
         try {
@@ -388,18 +303,7 @@ export class ReasonableAdjustementsUtility {
     });
   }
 
-  getNavigationUrl(req: AppRequest, context?: string): string | PageLink {
-    if (this.isC100DraftApplication(req.session.userCase)) {
-      const urlBeforeRedirection = RAProvider.getUrlBeforeRedirection(req);
-      console.info('**** urlBeforeRedirection', urlBeforeRedirection);
-
-      if (context === 'prev') {
-        return urlBeforeRedirection || C100_INTERNATIONAL_ELEMENTS_REQUEST;
-      }
-
-      return C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
-    }
-
+  getNavigationUrl(req: AppRequest): string | PageLink {
     if (req.session?.applicationSettings?.navfromRespondToApplication) {
       return RESPOND_TO_APPLICATION;
     }
@@ -499,7 +403,7 @@ export class ReasonableAdjustementsUtility {
     Object.assign(request, {
       attendingToCourt: caseData?.ra_typeOfHearing,
       hearingDetails: caseData?.ra_noVideoAndPhoneHearing_subfield,
-      safetyArrangements: caseData?.safetyArrangements,
+      safetyArrangements: caseData?.ra_specialArrangements,
       safetyArrangementsDetails: caseData?.ra_specialArrangementsOther_subfield,
       languageRequirements: caseData?.ra_languageNeeds,
       languageDetails: caseData?.ra_needInterpreterInCertainLanguage_subfield,
@@ -560,52 +464,65 @@ export class ReasonableAdjustementsUtility {
     }
 
     if (supportRequirements?.length) {
-      caseData = !this.hasRAValueInSessionForLocalComponent(
-        [RALocalComponentC100SupportNeeds.DOCUMENTS_SUPPORT, RALocalComponentRespondentSupportNeeds.DOCUMENTS_SUPPORT],
-        supportRequirements
-      )
-        ? this.cleanSessionForDocumentSupport(caseData)
-        : this.cleanSessionForDocSupportSubFields(body?.ra_documentInformation, caseData);
+      if (
+        !this.hasRAValueInSessionForLocalComponent(
+          [
+            RALocalComponentC100SupportNeeds.DOCUMENTS_SUPPORT,
+            RALocalComponentRespondentSupportNeeds.DOCUMENTS_SUPPORT,
+          ],
+          supportRequirements
+        )
+      ) {
+        caseData = this.cleanSessionForDocumentSupport(caseData);
+      }
 
-      caseData = !this.hasRAValueInSessionForLocalComponent(
-        [
-          RALocalComponentC100SupportNeeds.COMMUNICATION_HELP,
-          RALocalComponentRespondentSupportNeeds.COMMUNICATION_HELP,
-        ],
-        supportRequirements
-      )
-        ? this.cleanSessionForCommunicationHelp(caseData)
-        : this.cleanSessionForCommunicationHelpSubFields(body?.ra_communicationHelp, caseData);
+      if (
+        !this.hasRAValueInSessionForLocalComponent(
+          [
+            RALocalComponentC100SupportNeeds.COMMUNICATION_HELP,
+            RALocalComponentRespondentSupportNeeds.COMMUNICATION_HELP,
+          ],
+          supportRequirements
+        )
+      ) {
+        caseData = this.cleanSessionForCommunicationHelp(caseData);
+      }
 
-      caseData = !this.hasRAValueInSessionForLocalComponent(
-        [
-          RALocalComponentC100SupportNeeds.COURT_HEARING_SUPPORT,
-          RALocalComponentRespondentSupportNeeds.COURT_HEARING_SUPPORT,
-        ],
-        supportRequirements
-      )
-        ? this.cleanSessionForSupportForCourtHearing(caseData)
-        : this.cleanSessionForSupportForCourtSubFields(body?.ra_supportCourt, caseData);
+      if (
+        !this.hasRAValueInSessionForLocalComponent(
+          [
+            RALocalComponentC100SupportNeeds.COURT_HEARING_SUPPORT,
+            RALocalComponentRespondentSupportNeeds.COURT_HEARING_SUPPORT,
+          ],
+          supportRequirements
+        )
+      ) {
+        caseData = this.cleanSessionForSupportForCourtHearing(caseData);
+      }
 
-      caseData = !this.hasRAValueInSessionForLocalComponent(
-        [
-          RALocalComponentC100SupportNeeds.COURT_HEARING_COMFORT,
-          RALocalComponentRespondentSupportNeeds.COURT_HEARING_COMFORT,
-        ],
-        supportRequirements
-      )
-        ? this.cleanSessionForNeedsDuringCourtHearing(caseData)
-        : this.cleanSessionForNeedsDuringCourtSubFields(body?.ra_feelComportable, caseData);
+      if (
+        !this.hasRAValueInSessionForLocalComponent(
+          [
+            RALocalComponentC100SupportNeeds.COURT_HEARING_COMFORT,
+            RALocalComponentRespondentSupportNeeds.COURT_HEARING_COMFORT,
+          ],
+          supportRequirements
+        )
+      ) {
+        caseData = this.cleanSessionForNeedsDuringCourtHearing(caseData);
+      }
 
-      caseData = !this.hasRAValueInSessionForLocalComponent(
-        [
-          RALocalComponentC100SupportNeeds.TRAVELLING_TO_COURT,
-          RALocalComponentRespondentSupportNeeds.TRAVELLING_TO_COURT,
-        ],
-        supportRequirements
-      )
-        ? this.cleanSessionForNeedsInCourt(caseData)
-        : this.cleanSessionForNeedsInCourtSubFields(body?.ra_travellingCourt, caseData);
+      if (
+        !this.hasRAValueInSessionForLocalComponent(
+          [
+            RALocalComponentC100SupportNeeds.TRAVELLING_TO_COURT,
+            RALocalComponentRespondentSupportNeeds.TRAVELLING_TO_COURT,
+          ],
+          supportRequirements
+        )
+      ) {
+        caseData = this.cleanSessionForNeedsInCourt(caseData);
+      }
 
       if (
         this.hasRAValueInSessionForLocalComponent(

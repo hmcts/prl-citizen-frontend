@@ -23,7 +23,7 @@ describe('RA > needs-in-court > routeGuard', () => {
     routeGuard.post(req, res, mockNext);
     expect(req.session.save).toHaveBeenCalled();
     expect(mockNext).toHaveBeenCalled();
-    expect(req.session.userCase.ra_travellingCourt).toStrictEqual([]);
+    expect(req.session.userCase.ra_travellingCourt).toStrictEqual(['parkingspace', 'differentchair', 'other']);
     expect(req.session.userCase.ra_parkingSpace_subfield).toBe(undefined);
     expect(req.session.userCase.ra_differentTypeChair_subfield).toBe(undefined);
     expect(req.session.userCase.ra_travellingCourtOther_subfield).toBe(undefined);

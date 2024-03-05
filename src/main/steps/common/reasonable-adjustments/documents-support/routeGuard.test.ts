@@ -22,7 +22,7 @@ describe('RA > documents-support > routeGuard', () => {
     routeGuard.post(req, res, mockNext);
     expect(req.session.save).toHaveBeenCalled();
     expect(mockNext).toHaveBeenCalled();
-    expect(req.session.userCase.ra_documentInformation).toStrictEqual([]);
+    expect(req.session.userCase.ra_documentInformation).toStrictEqual(['largeprintdocs', 'other']);
     expect(req.session.userCase.ra_largePrintDocuments_subfield).toBe(undefined);
     expect(req.session.userCase.ra_documentHelpOther_subfield).toBe(undefined);
   });

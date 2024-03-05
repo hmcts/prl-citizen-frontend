@@ -30,7 +30,7 @@ describe('RA > review > postController', () => {
           },
           ra_typeOfHearing: 'ra_typeOfHearing',
           ra_noVideoAndPhoneHearing_subfield: 'ra_noVideoAndPhoneHearing_subfield',
-          safetyArrangements: 'safetyArrangements',
+          ra_specialArrangements: 'ra_specialArrangements',
           ra_specialArrangementsOther_subfield: 'ra_specialArrangementsOther_subfield',
           ra_languageNeeds: 'ra_languageNeeds',
           ra_needInterpreterInCertainLanguage_subfield: 'ra_needInterpreterInCertainLanguage_subfield',
@@ -62,7 +62,7 @@ describe('RA > review > postController', () => {
 
     await controller.post(req, res);
     expect(req.session.save).toHaveBeenCalled();
-    expect(req.session.userCase).toStrictEqual({
+    expect(req.session.userCase).toEqual({
       applicantsFL401: {
         address: {
           AddressLine2: '',
@@ -94,7 +94,7 @@ describe('RA > review > postController', () => {
             otherProvideDetails: 'ra_feelComportableOther_subfield',
             parkingDetails: 'ra_parkingSpace_subfield',
             reasonableAdjustments: 'ra_disabilityRequirements',
-            safetyArrangements: 'safetyArrangements',
+            safetyArrangements: 'ra_specialArrangements',
             safetyArrangementsDetails: 'ra_specialArrangementsOther_subfield',
             signLanguageDetails: 'ra_signLanguageInterpreter_subfield',
             supportWorkerDetails: 'ra_supportWorkerCarer_subfield',
@@ -141,7 +141,7 @@ describe('RA > review > postController', () => {
       ra_noVideoAndPhoneHearing_subfield: 'ra_noVideoAndPhoneHearing_subfield',
       ra_parkingSpace_subfield: 'ra_parkingSpace_subfield',
       ra_signLanguageInterpreter_subfield: 'ra_signLanguageInterpreter_subfield',
-      ra_specialArrangements: 'safetyArrangements',
+      ra_specialArrangements: 'ra_specialArrangements',
       ra_specialArrangementsOther_subfield: 'ra_specialArrangementsOther_subfield',
       ra_specifiedColorDocuments_subfield: 'ra_specifiedColorDocuments_subfield',
       ra_supportCourt: 'ra_supportCourt',
@@ -151,7 +151,6 @@ describe('RA > review > postController', () => {
       ra_travellingCourt: 'ra_travellingCourt',
       ra_travellingCourtOther_subfield: 'ra_travellingCourtOther_subfield',
       ra_typeOfHearing: 'ra_typeOfHearing',
-      safetyArrangements: 'safetyArrangements',
     });
   });
 

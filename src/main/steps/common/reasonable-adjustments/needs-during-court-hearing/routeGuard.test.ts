@@ -22,7 +22,7 @@ describe('RA > needs-during-court-hearing > routeGuard', () => {
     routeGuard.post(req, res, mockNext);
     expect(req.session.save).toHaveBeenCalled();
     expect(mockNext).toHaveBeenCalled();
-    expect(req.session.userCase.ra_feelComportable).toStrictEqual([]);
+    expect(req.session.userCase.ra_feelComportable).toStrictEqual(['appropriatelighting', 'other']);
     expect(req.session.userCase.ra_appropriateLighting_subfield).toBe(undefined);
     expect(req.session.userCase.ra_feelComportableOther_subfield).toBe(undefined);
   });

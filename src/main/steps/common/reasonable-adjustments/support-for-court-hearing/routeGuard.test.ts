@@ -24,7 +24,7 @@ describe('RA > support-for-court-hearing > routeGuard', () => {
     routeGuard.post(req, res, mockNext);
     expect(req.session.save).toHaveBeenCalled();
     expect(mockNext).toHaveBeenCalled();
-    expect(req.session.userCase.ra_supportCourt).toStrictEqual([]);
+    expect(req.session.userCase.ra_supportCourt).toEqual(['assistance']);
     expect(req.session.userCase.ra_supportWorkerCarer_subfield).toBe(undefined);
     expect(req.session.userCase.ra_friendFamilyMember_subfield).toBe(undefined);
     expect(req.session.userCase.ra_therapyAnimal_subfield).toBe(undefined);
@@ -51,7 +51,7 @@ describe('RA > support-for-court-hearing > routeGuard', () => {
     routeGuard.post(req, res, mockNext);
     expect(req.session.save).toHaveBeenCalled();
     expect(mockNext).toHaveBeenCalled();
-    expect(req.session.userCase.ra_supportCourt).toStrictEqual(['assistance']);
+    expect(req.session.userCase.ra_supportCourt).toEqual(['assistance']);
     expect(req.session.userCase.ra_supportWorkerCarer_subfield).toBe(undefined);
     expect(req.session.userCase.ra_friendFamilyMember_subfield).toBe(undefined);
     expect(req.session.userCase.ra_therapyAnimal_subfield).toBe(undefined);
