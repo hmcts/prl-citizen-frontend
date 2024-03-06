@@ -29,8 +29,8 @@ export class ReasonableAdjustmentsService {
       const appBaseUrl = RAProvider.getAppBaseUrl();
       const requestData: RARequestPayload = {
         hmctsServiceId: RACommonComponent.SERVICE_ID,
-        callbackUrl: applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CALLBACK_URL, { baseUrl: appBaseUrl }),
-        logoutUrl: applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_SIGN_OUT_URl, { baseUrl: appBaseUrl }),
+        callbackUrl: applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CALLBACK_URL, { appBaseUrl }),
+        logoutUrl: applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_SIGN_OUT_URl, { appBaseUrl }),
         masterFlagCode: RACommonComponent.MASTER_FLAG_CODE,
         correlationId,
         existingFlags: payload,
@@ -38,9 +38,7 @@ export class ReasonableAdjustmentsService {
       };
       console.info(' **** request ****', JSON.stringify(requestData, null, 4));
       const response = await RAProvider.APIClient()!.post<RAPostResponse>(
-        applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_POST_URL, {
-          baseUrl: config.get('services.reasonableAdjustments.url'),
-        }),
+        REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_POST_URL,
         requestData
       );
 
@@ -55,7 +53,6 @@ export class ReasonableAdjustmentsService {
     try {
       const response = await RAProvider.APIClient()!.get<RAData>(
         applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_FETCH_DATA_URL, {
-          baseUrl: config.get('services.reasonableAdjustments.url'),
           id: referenceId,
         })
       );
@@ -75,7 +72,7 @@ export class ReasonableAdjustmentsService {
     try {
       const response = await RAProvider.APIClient()!.get<RAFlags>(
         applyParms(REASONABLE_ADJUSTMENTS_RETRIEVE_SUPPORT_FLAGS, {
-          baseUrl: config.get('services.cos.url'),
+          appBaseUrl: config.get('services.cos.url'),
           caseId,
           partyId,
         }),
@@ -114,7 +111,7 @@ export class ReasonableAdjustmentsService {
       };
       const response = await RAProvider.APIClient()!.post<string>(
         applyParms(REASONABLE_ADJUSTMENTS_MANAGE_SUPPORT_FLAGS, {
-          baseUrl: config.get('services.cos.url'),
+          appBaseUrl: config.get('services.cos.url'),
           caseId,
           eventId: RAProvider.utils.getUpdateFlagsEventID(caseTypeOfApplication, supportContext),
         }),
@@ -139,9 +136,7 @@ export class ReasonableAdjustmentsService {
   async retrieveCommonComponentHealthStatus(): Promise<string> {
     try {
       const response = await RAProvider.APIClient()!.get<Record<string, any>>(
-        applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_HEALTH_CHECK_URL, {
-          baseUrl: config.get('services.cos.url'),
-        }),
+        REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_HEALTH_CHECK_URL,
         {
           headers: {
             'Content-Type': 'application/json',

@@ -90,13 +90,17 @@ export class ReasonableAdjustementsController {
               res
             );
           } catch (error) {
-            ReasonableAdjustementsController.handleError(error, res, partyType);
+            return ReasonableAdjustementsController.handleError(error, res, partyType);
           }
         } catch (error) {
-          ReasonableAdjustementsController.handleError(error, res, partyType);
+          return ReasonableAdjustementsController.handleError(error, res, partyType);
         }
       }
-      ReasonableAdjustementsController.handleError(`RA - common component health status (${status})`, res, partyType);
+      return ReasonableAdjustementsController.handleError(
+        `RA - common component health status (${status})`,
+        res,
+        partyType
+      );
     } catch (error) {
       ReasonableAdjustementsController.handleError(error, res, partyType);
     }
