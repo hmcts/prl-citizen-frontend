@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import dayjs from 'dayjs';
 
 import { Case } from '../../../../app/case/case';
@@ -10,6 +8,7 @@ import {
   Hearing,
   HearingsList,
   PartyType,
+  Row,
   hearingDay,
   hearingStatus,
 } from '../../../../app/case/definition';
@@ -19,7 +18,7 @@ import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 
 import { cy, en } from './content';
 
-export function getHearingMethod(req: AppRequest, attendees: Attendee[]): string {
+export const getHearingMethod = (req: AppRequest, attendees: Attendee[]): string => {
   const partyType = getCasePartyType(req.session.userCase, req.session.user.id);
   const caseType = req.session.userCase.caseTypeOfApplication;
   let partyData;
@@ -67,16 +66,29 @@ export function getHearingMethod(req: AppRequest, attendees: Attendee[]): string
       onpprs: [HEARING_METHOD.ONPPRS],
     };
 
-    return lang[Object.keys(methodOfHearingList).find(key => methodOfHearingList[key].includes(hearingMethod)) ?? ''];
+    return lang[
+      Object.keys(methodOfHearingList).find(key => methodOfHearingList[key].includes(hearingMethod)) ??
+        mapHearingChannel(hearingMethod)
+    ];
   }
-}
+};
+//this method is if in future hmc team want to add new way of telephonic or video hearing
+export const mapHearingChannel = (hearingMethod: string): string => {
+  if (hearingMethod.startsWith('TEL')) {
+    return 'tel';
+  }
+  if (hearingMethod.startsWith('VID')) {
+    return 'vid';
+  }
+  return '';
+};
 
 export const generateHearingDaySchedule = (
   hearing: HearingsList,
   req: AppRequest<Partial<Case>>,
   hearingDays: hearingDay[],
-  hearingMethod
-) => {
+  hearingMethod: string
+): hearingDay[] => {
   for (const schedule of hearing.hearingDaySchedule!) {
     const startDate = schedule.hearingStartDateTime!;
     const formattedDate = new Date(startDate);
@@ -85,43 +97,48 @@ export const generateHearingDaySchedule = (
     const hearingDate = generateHearingDateDisplayText(req, startDate);
     const startTime = generateHearingTimeDisplayText(formattedDate);
     const lang = req.session.lang === 'cy' ? cy : en;
-    const preparedStartTime =
+    const startTimeDisplayText =
       hearingMethod === lang.inter ? startTime + ' ' + amPm + '<br>' + lang.inPersonTime : startTime + ' ' + amPm;
     const diff = Math.abs(formattedDate.valueOf() - endDate.valueOf()) / 1000;
     const durationInDayOrHours = Math.floor(diff / 3600) % 24;
     const minutes = Math.floor(diff / 60) % 60;
-    const hearingDurationText = generateHearingScheduleDisplayText(durationInDayOrHours, minutes, lang);
+    const hearingDurationDisplayText = generateHearingScheduleDisplayText(
+      durationInDayOrHours,
+      minutes,
+      req.session.lang
+    );
 
     const judgeName = schedule.hearingJudgeName;
     const venue = schedule.hearingVenueName;
     const address = schedule.hearingVenueAddress;
     const roomId = schedule.hearingRoomId;
-    const detailsBlock: Row[] = [];
+    const hearingToAttendDetails: Row[] = [];
     if (hearingMethod === lang.inter) {
-      detailsBlock.push(
-        { key: lang.venue, value: venue },
-        { key: lang.address, value: address },
-        { key: lang.roomId, value: roomId }
+      hearingToAttendDetails.push(
+        { displayText: lang.venue, value: venue },
+        { displayText: lang.address, value: address },
+        { displayText: lang.roomId, value: roomId }
       );
-    } else if (hearingMethod === lang.tel || lang.vid) {
-      detailsBlock.push({ key: lang.hearingLinkHeading, value: lang.hearingLink });
+    } else if (hearingMethod === lang.tel || hearingMethod === lang.vid) {
+      hearingToAttendDetails.push({ displayText: lang.hearingLinkHeading, value: lang.hearingLink });
     }
 
     hearingDays.push({
       hearingDate,
       startTime,
       amPm,
-      preparedStartTime,
+      startTimeDisplayText,
       durationInDayOrHours,
       minutes,
-      hearingDurationText,
+      hearingDurationDisplayText,
       judgeName,
       venue,
       address,
       roomId,
-      detailsBlock,
+      hearingToAttendDetails,
     });
   }
+  return hearingDays;
 };
 
 export const generateHearingTimeDisplayText = (date: Date): string => {
@@ -136,54 +153,60 @@ export const generateHearingTimeDisplayText = (date: Date): string => {
   return dateString;
 };
 
-export type Row = {
-  key: string;
-  value: string | null | undefined;
-};
-
-export const generateHearingDate = (req: AppRequest<Partial<Case>>, endDate: string) => {
+export const generateHearingDate = (req: AppRequest<Partial<Case>>, endDate: string): string => {
   return req.session.lang === 'cy'
     ? dayjs(endDate).locale('cy').format('DD MMMM YYYY').toString()
     : dayjs(endDate).locale('en').format('DD MMMM YYYY').toString();
 };
-export const generateHearingDateDisplayText = (req: AppRequest<Partial<Case>>, date: string) => {
+export const generateHearingDateDisplayText = (req: AppRequest<Partial<Case>>, date: string): string => {
   return req.session.lang === 'cy'
     ? dayjs(date).locale('cy').format('dddd, D MMMM YYYY')
     : dayjs(date).locale('en').format('dddd, D MMMM YYYY');
 };
 
-export const generateHearingScheduleDisplayText = (durationInDayOrHours: number, minutes: number, lang) => {
+export const generateHearingScheduleDisplayText = (
+  durationInDayOrHours: number,
+  minutes: number,
+  preference: string | undefined
+): string => {
+  const lang = preference === 'cy' ? cy : en;
   if (durationInDayOrHours >= 5) {
     return `1 ${lang.smallDay}`;
   } else {
     if (minutes > 0) {
       if (durationInDayOrHours > 0) {
-        const hourText = generateHearingHourDisplayText(durationInDayOrHours, lang);
-        const minuteText = generateHearingMinuteDisplayText(minutes, lang);
+        const hourText = generateHearingHourDisplayText(durationInDayOrHours, preference);
+        const minuteText = generateHearingMinuteDisplayText(minutes, preference);
         return `${hourText} ${minuteText}`;
       } else {
-        return generateHearingMinuteDisplayText(minutes, lang);
+        return generateHearingMinuteDisplayText(minutes, preference);
       }
     } else {
-      return generateHearingHourDisplayText(durationInDayOrHours, lang);
+      return generateHearingHourDisplayText(durationInDayOrHours, preference);
     }
   }
 };
-export const generateHearingMinuteDisplayText = (minutes: number, lang: any) => {
+export const generateHearingMinuteDisplayText = (minutes: number, preference: string | undefined): string => {
+  const lang = preference === 'cy' ? cy : en;
   return minutes === 1 ? `1 ${lang.minute}` : `${minutes} ${lang.minutes}`;
 };
 
-export const generateHearingHourDisplayText = (durationInDayOrHours: number, lang: any) => {
+export const generateHearingHourDisplayText = (
+  durationInDayOrHours: number,
+  preference: string | undefined
+): string => {
+  const lang = preference === 'cy' ? cy : en;
   return durationInDayOrHours === 1 ? `1 ${lang.hour}` : `${durationInDayOrHours} ${lang.hours}`;
 };
 
-export const prepareHearingData = (req: AppRequest<Partial<Case>>): any => {
+export const prepareHearingData = (
+  req: AppRequest<Partial<Case>>
+): { nextHearing: Hearing[]; futureHearings: Hearing[]; completedHearings: CompletedHearings[] } => {
   const nextHearing: Hearing[] = [];
   const futureHearings: Hearing[] = [];
   const completedHearings: CompletedHearings[] = [];
   let hearingsFuture: HearingsList[] = [];
   const hearingsCompleted: HearingsList[] = [];
-  const lang = req.session.lang === 'cy' ? cy : en;
   //Here we are sorting the hearing based on completed or future dated..
   sortHearings(req, hearingsCompleted, hearingsFuture);
   //sorting future hearings based on their next hearing dates
@@ -191,9 +214,9 @@ export const prepareHearingData = (req: AppRequest<Partial<Case>>): any => {
     (a, b) => new Date(a.nextHearingDate!).valueOf() - new Date(b.nextHearingDate!).valueOf()
   );
   //sorting shddules of particular hearing
-  prepareFutureHearingData(hearingsFuture, req, lang, futureHearings, nextHearing);
+  prepareFutureHearingData(hearingsFuture, req, futureHearings, nextHearing);
   //Generating completed hearing data
-  prepareCompletedHearingData(hearingsCompleted, req, lang, completedHearings);
+  prepareCompletedHearingData(hearingsCompleted, req, completedHearings);
   return {
     nextHearing,
     futureHearings,
@@ -204,9 +227,9 @@ export const prepareHearingData = (req: AppRequest<Partial<Case>>): any => {
 export const prepareCompletedHearingData = (
   hearingsCompleted: HearingsList[],
   req: AppRequest<Partial<Case>>,
-  lang,
   completedHearings: CompletedHearings[]
-) => {
+): CompletedHearings[] => {
+  const lang = req.session.lang === 'cy' ? cy : en;
   if (hearingsCompleted && hearingsCompleted.length >= 1) {
     for (const hearing of hearingsCompleted) {
       if (hearing.hearingDaySchedule!.length >= 2) {
@@ -224,27 +247,28 @@ export const prepareCompletedHearingData = (
         dates = dates + ' - ' + endDateFormatted;
       }
       const hearingLength = hearing.hearingDaySchedule?.length;
-      const lengthOfHearingText =
+      const hearingDurationDisplayText =
         hearingLength === 1 ? `${hearingLength} ${lang.smallDay}` : `${hearingLength} ${lang.days}`;
       const hearingMethod = getHearingMethod(req, hearing.hearingDaySchedule![0].attendees!);
       completedHearings.push({
         hearingId,
         dates,
         lengthOfHearing: hearingLength,
-        lengthOfHearingText,
+        hearingDurationDisplayText,
         hearingMethod,
       });
     }
   }
+  return completedHearings;
 };
 
 export const prepareFutureHearingData = (
   hearingsFuture: HearingsList[],
   req: AppRequest<Partial<Case>>,
-  lang,
   futureHearings: Hearing[],
   nextHearing: Hearing[]
-) => {
+): { nextHearing: Hearing[]; futureHearings: Hearing[] } => {
+  const lang = req.session.lang === 'cy' ? cy : en;
   if (hearingsFuture && hearingsFuture.length >= 1) {
     multidayHearingSort(hearingsFuture);
     if (hearingsFuture.length >= 1) {
@@ -258,7 +282,7 @@ export const prepareFutureHearingData = (
           dates = `${dates} - ${endDateFormatted}`;
         }
         const lengthOfHearing = hearing.hearingDaySchedule?.length;
-        const lengthOfHearingText =
+        const hearingDurationDisplayText =
           lengthOfHearing === 1 ? `${lengthOfHearing} ${lang.smallDay}` : `${lengthOfHearing} ${lang.days}`;
         const hearingMethod = getHearingMethod(req, hearing.hearingDaySchedule![0].attendees!);
         const hearingDays: hearingDay[] = [];
@@ -267,7 +291,7 @@ export const prepareFutureHearingData = (
         futureHearings.push({
           dates,
           lengthOfHearing,
-          lengthOfHearingText,
+          hearingDurationDisplayText,
           hearingMethod,
           hearingDaySchedule: hearingDays,
         });
@@ -276,9 +300,13 @@ export const prepareFutureHearingData = (
       nextHearing.push(next!);
     }
   }
+  return {
+    nextHearing,
+    futureHearings,
+  };
 };
 
-export const multidayHearingSort = (hearingsFuture: HearingsList[]) => {
+export const multidayHearingSort = (hearingsFuture: HearingsList[]): HearingsList[] => {
   for (const hearing of hearingsFuture) {
     if (hearing.hearingDaySchedule!.length >= 2) {
       hearing.hearingDaySchedule = hearing.hearingDaySchedule!.sort(
@@ -286,13 +314,14 @@ export const multidayHearingSort = (hearingsFuture: HearingsList[]) => {
       );
     }
   }
+  return hearingsFuture;
 };
 
 export const sortHearings = (
   req: AppRequest<Partial<Case>>,
   hearingsCompleted: HearingsList[],
   hearingsFuture: HearingsList[]
-) => {
+): { hearingsCompleted: HearingsList[]; hearingsFuture: HearingsList[] } => {
   if (req.session.userCase.hearingCollection && req.session.userCase.hearingCollection.length >= 1) {
     for (const hearing of req.session.userCase.hearingCollection) {
       if (hearing.hmcStatus === hearingStatus.COMPLETED) {
@@ -302,4 +331,8 @@ export const sortHearings = (
       }
     }
   }
+  return {
+    hearingsCompleted,
+    hearingsFuture,
+  };
 };

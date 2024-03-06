@@ -30,7 +30,7 @@
               {{ hearingLength }} 
             </dt>
             <dd class="govuk-summary-list__value">
-              {{ item.lengthOfHearingText }}
+              {{ item.hearingDurationDisplayText }}
             </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -64,7 +64,7 @@
               {{ startTime }}
             </dt>
               <dd class="govuk-summary-list__value">
-              {{schedule.preparedStartTime |safe}}
+              {{schedule.startTimeDisplayText |safe}}
               </dd>
         </div>
       <div class="govuk-summary-list__row">
@@ -72,7 +72,7 @@
               {{ hearingDuration }}
             </dt>
               <dd class="govuk-summary-list__value">
-                    {{schedule.hearingDurationText}}
+                    {{schedule.hearingDurationDisplayText}}
               </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -83,11 +83,11 @@
               {{schedule.judgeName}}
             </dd>
       </div>
-      {% if schedule.detailsBlock %}
-        {% for detail in schedule.detailsBlock %}
+      {% if schedule.hearingToAttendDetails %}
+        {% for detail in schedule.hearingToAttendDetails %}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{detail.key}}
+              {{detail.displayText}}
             </dt>
             <dd class="govuk-summary-list__value">
               {{detail.value}}
@@ -118,7 +118,7 @@
               {{ hearingLength }} 
             </dt>
             <dd class="govuk-summary-list__value">
-             {{ item.lengthOfHearingText }}
+             {{ item.hearingDurationDisplayText }}
             </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -154,7 +154,7 @@
               {{ startTime }}
             </dt>
               <dd class="govuk-summary-list__value">
-              {{schedule.preparedStartTime | safe}}
+              {{schedule.startTimeDisplayText | safe}}
               </dd>
         </div>
       <div class="govuk-summary-list__row">
@@ -162,7 +162,7 @@
               {{ hearingDuration }}
             </dt>
               <dd class="govuk-summary-list__value">
-                {{schedule.hearingDurationText}}
+                {{schedule.hearingDurationDisplayText}}
               </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -173,11 +173,11 @@
               {{schedule.judgeName}}
             </dd>
       </div>
-      {% if schedule.detailsBlock %}
-        {% for detail in schedule.detailsBlock %}
+      {% if schedule.hearingToAttendDetails %}
+        {% for detail in schedule.hearingToAttendDetails %}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              {{detail.key}}
+              {{detail.displayText}}
             </dt>
             <dd class="govuk-summary-list__value">
               {{detail.value}}
@@ -193,9 +193,9 @@
    {% endfor %}
   {% endif %}
   {% if completedHearings.length>=1 %}
-   {# ...<h3 class="govuk-heading-l">{{ previousHearings }}</h2> #}
+   <h3 class="govuk-heading-l">{{ previousHearings }}</h2>
   {% for item in completedHearings %}
-    <h3 class="govuk-heading-l">{{ previousHearings }}</h2>
+    {# ...<h3 class="govuk-heading-l">{{ previousHearings }}</h2>#}
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -210,7 +210,7 @@
               {{ hearingLength }}
             </dt>
             <dd class="govuk-summary-list__value">
-              {{ item.lengthOfHearingText }}
+              {{ item.hearingDurationDisplayText }}
             </dd>
       </div>
       <div class="govuk-summary-list__row">
