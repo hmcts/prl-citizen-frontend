@@ -41,7 +41,7 @@ export class ReasonableAdjustmentsRoute {
 
     app.get(this.routes[1], errorHandler(RAProvider.controller.launch));
 
-    app.get(applyParms(this.routes[2], { baseUrl: '' }), errorHandler(RAProvider.controller.fetchData));
+    app.get(applyParms(this.routes[2], { appBaseUrl: '' }), errorHandler(RAProvider.controller.fetchData));
 
     app.get(
       this.routes[3],
