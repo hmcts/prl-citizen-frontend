@@ -1,5 +1,3 @@
-//import path from 'path';
-
 import { Application } from 'express';
 
 import { applyParms } from '../../steps/common/url-parser';
@@ -26,7 +24,7 @@ export class ReasonableAdjustmentsRoute {
     const { errorHandler } = app.locals;
 
     app.get(this.routes[0], errorHandler(RAProvider.controller.launch));
-    app.get(applyParms(this.routes[1], { baseUrl: '' }), errorHandler(RAProvider.controller.fetchData));
+    app.get(applyParms(this.routes[1], { appBaseUrl: '' }), errorHandler(RAProvider.controller.fetchData));
     app.get(this.routes[2], errorHandler(RAProvider.controller.handleBackNavigation));
   }
 }
