@@ -196,6 +196,7 @@ export interface CitizenFlags {
   isAllegationOfHarmViewed?: string
   isAllDocumentsViewed?: string
   isResponseInitiated?: string
+  isApplicationToBeServed?: string
 }
 
 export const enum DownloadFileFieldFlag {
