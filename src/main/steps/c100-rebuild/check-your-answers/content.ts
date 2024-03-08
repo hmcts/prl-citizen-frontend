@@ -109,7 +109,9 @@ export const enContent = {
     },
     paymentError: {
       title: 'There is a problem',
-      content: 'Your application is not submitted. Please try again',
+      defaultPaymentError: 'Your application is not submitted. Please try again',
+      applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application',
+      paymentUnsuccessful: 'Your payment was unsuccessful. Make the payment again and resubmit your application',
     },
   },
   sectionTitles: {
@@ -228,7 +230,10 @@ export const cyContent = {
     },
     paymentError: {
       title: 'Mae yna broblem',
-      content: 'Nid yw eich cais wedi’i gyflwyno. Rhowch gynnig arall arni',
+      defaultPaymentError: 'Nid yw eich cais wedi’i gyflwyno. Rhowch gynnig arall arni',
+      applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application (welsh)',
+      paymentUnsuccessful:
+        'Your payment was unsuccessful. Make the payment again and resubmit your application (welsh)',
     },
   },
   sectionTitles: {
