@@ -3123,3 +3123,14 @@ export enum DocType {
   OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
   MIAM_CERTIFICATE = 'miamcertificate',
 }
+
+export interface PaymentError {
+  hasError: boolean;
+  errorContext: PaymentErrorContext | null;
+}
+
+export enum PaymentErrorContext {
+  DEFAULT_PAYMENT_ERROR = 'defaultPaymentError',
+  PAYMENT_UNSUCCESSFUL = 'paymentUnsuccessful',
+  APPLICATION_NOT_SUBMITTED = 'applicationNotSubmitted'
+}
