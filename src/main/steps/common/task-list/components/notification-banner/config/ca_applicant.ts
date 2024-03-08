@@ -89,7 +89,8 @@ export const CA_APPLICANT: NotificationBannerProps[] = [
       return (
         caseData?.state === State.CASE_SERVED &&
         isApplicantLIPServingRespondent(caseData) &&
-        isPrimaryApplicant(caseData, userDetails)
+        isPrimaryApplicant(caseData, userDetails) &&
+        isCaseLinked(caseData, userDetails)
       );
     },
   },
@@ -99,7 +100,8 @@ export const CA_APPLICANT: NotificationBannerProps[] = [
       return (
         caseData?.state === State.CASE_SERVED &&
         isApplicantLIPServingRespondent(caseData) &&
-        !isPrimaryApplicant(caseData, userDetails)
+        !isPrimaryApplicant(caseData, userDetails) &&
+        isCaseLinked(caseData, userDetails)
       );
     },
   },
