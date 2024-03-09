@@ -9,6 +9,7 @@ const en = {
   title: 'Your hearing needs and requirments',
   sectionTitles: {
     aboutYou: 'About you',
+    supportYouNeed: 'Support you need during your case',
   },
   edit: 'Edit',
   keys: {
@@ -48,6 +49,7 @@ const cy = {
   title: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
     aboutYou: 'Amdanoch chi',
+    supportYouNeed: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',
   },
   edit: 'Golygu',
   keys: {

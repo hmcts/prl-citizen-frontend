@@ -540,6 +540,20 @@ export class ReasonableAdjustementsUtility {
 
     return caseData;
   }
+
+  isReasonableAdjustmentsNeedsPresent(userCase: Partial<CaseWithId>): boolean {
+    return !!(
+      userCase?.ra_typeOfHearing?.length ||
+      userCase?.ra_languageNeeds?.length ||
+      userCase?.ra_specialArrangements?.length ||
+      userCase?.ra_disabilityRequirements?.length ||
+      userCase?.ra_documentInformation?.length ||
+      userCase?.ra_communicationHelp?.length ||
+      userCase?.ra_supportCourt?.length ||
+      userCase?.ra_feelComportable?.length ||
+      userCase?.ra_travellingCourt?.length
+    );
+  }
 }
 
 export const RAUtility = new ReasonableAdjustementsUtility();

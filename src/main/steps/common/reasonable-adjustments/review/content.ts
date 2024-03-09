@@ -4,11 +4,11 @@ import { CaseWithId } from '../../../../app/case/case';
 import { PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+import { RAProvider } from '../../../../modules/reasonable-adjustments';
 import { RALocalComponentRespondentSupportNeeds } from '../../../../modules/reasonable-adjustments/definitions';
 import {
   GovUkNunjucksSummary,
   SummaryList,
-  SummaryListContent,
   SummaryListRow,
 } from '../../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { applyParms } from '../../../../steps/common/url-parser';
@@ -25,11 +25,12 @@ import {
 } from '../../../../steps/urls';
 import { CommonContent } from '../../../common/common.content';
 
-const enContent = {
+export const enContent = {
   section: 'Check your answers ',
   title: 'Your hearing needs and requirments',
   sectionTitles: {
     aboutYou: 'About you',
+    supportYouNeed: 'Support you need during your case',
   },
   edit: 'Edit',
   keys: {
@@ -64,11 +65,12 @@ const enContent = {
   errors: {},
 };
 
-const cyContent: typeof enContent = {
+export const cyContent: typeof enContent = {
   section: 'Gwirio eich atebion',
   title: 'Eich anghenion a gofynion o ran clywed',
   sectionTitles: {
     aboutYou: 'Amdanoch chi',
+    supportYouNeed: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',
   },
   edit: 'Golygu',
   keys: {
@@ -270,20 +272,22 @@ const getSectionSummaryList = (rows: SummaryListRow[], language: string): GovUkN
   });
 };
 
-const summaryList = (
-  { keys }: SummaryListContent,
-  userCase: Partial<CaseWithId>,
-  urls: Record<string, string>,
+export const summaryList = (
+  context: string,
   language: string,
-  sectionTitle?: string
+  userCase: Partial<CaseWithId>
 ): SummaryList | undefined => {
   const summaryData: SummaryListRow[] = [];
-  for (const key in keys) {
-    const keyLabel = keys[key];
+  const contents = language === 'en' ? enContent : cyContent;
+  const isReasonableAdjustmentsNeedsPresent = RAProvider.utils.isReasonableAdjustmentsNeedsPresent(userCase);
+
+  Object.assign(url, ammendUrls(userCase));
+
+  for (const key in contents.keys) {
     const row = {
-      key: keyLabel,
+      key: contents.keys[key],
       value: getValue(key, userCase, language),
-      changeUrl: urls[key],
+      changeUrl: url[key],
     };
 
     if (row.value) {
@@ -292,8 +296,12 @@ const summaryList = (
   }
 
   return {
-    title: sectionTitle || '',
-    rows: getSectionSummaryList(summaryData, language),
+    title: isReasonableAdjustmentsNeedsPresent
+      ? context === 'C7Review'
+        ? contents.sectionTitles.aboutYou
+        : contents.sectionTitles.supportYouNeed
+      : '',
+    rows: isReasonableAdjustmentsNeedsPresent ? getSectionSummaryList(summaryData, language) : [],
   };
 };
 
@@ -393,14 +401,13 @@ const ammendUrls = (caseData: Partial<CaseWithId>): Record<string, string> => {
 };
 
 const getContents = (language: string, content: CommonContent): Record<string, any> => {
-  const { userCase } = content.additionalData?.req.session;
+  const request = content.additionalData?.req;
   const contents = language === 'en' ? enContent : cyContent;
-  Object.assign(url, ammendUrls(userCase));
 
   return {
     ...contents,
     language,
-    sections: [summaryList(enContent, userCase, url, language, contents.sectionTitles.aboutYou)],
+    sections: [summaryList('C7Review', language, request.session.userCase)],
   };
 };
 
