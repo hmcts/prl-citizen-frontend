@@ -3036,7 +3036,7 @@ describe('c100 respondent', () => {
             id: 'editYouContactDetails',
             linkText: 'Confirm or edit your contact details',
             openInAnotherTab: false,
-            stateTag: { className: 'govuk-tag--green', label: 'Completed' },
+            stateTag: { className: 'govuk-tag--blue', label: 'In progress' },
           },
           {
             disabled: false,
