@@ -3098,6 +3098,8 @@ export enum CaseEvent {
 
 export enum hearingStatus {
   COMPLETED = 'COMPLETED',
+  HEARING_REQUESTED = 'HEARING_REQUESTED',
+  EXCEPTION = 'EXCEPTION'
 } 
 
 export enum passportPossessionRelative {
