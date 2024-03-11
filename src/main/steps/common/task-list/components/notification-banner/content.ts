@@ -226,12 +226,10 @@ const en: NotificationBannerContent = {
                   text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party (such as a process server or court bailiff). More information about court bailiffs can be found on GOV.UK.',
                 },
                 {
-                  text: '',
-                  html: '<a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
+                  text: '<a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
                 },
                 {
-                  text: 'Tell us once the respondent has been given the documents',
-                  html: '<br/><p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
+                  text: '<br/><p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
                 },
                 {
                   text: 'You need to submit a statement of service after the respondent has been given the documents.',
@@ -734,12 +732,10 @@ const cy: typeof en = {
                   text: 'Gallwch roi’r dogfennau i’r atebydd neu ddewis unigolyn sydd wedi cytuno i’w rhoi i’r atebydd. Gall hyn fod yn rhywun rydych chi’n ei adnabod neu’n drydydd parti proffesiynol (fel gweinydd proses neu feili’r llys). Mae mwy o wybodaeth am feili’r llys ar gael ar GOV.UK.',
                 },
                 {
-                  text: '',
-                  html: '<a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
+                  text: '<a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
                 },
                 {
-                  text: 'Dywedwch wrthym unwaith y bydd yr atebydd wedi cael y dogfennau',
-                  html: '<br/><p class="govuk-notification-banner__heading">Dywedwch wrthym unwaith y bydd yr atebydd wedi cael y dogfennau</p>',
+                  text: '<br/><p class="govuk-notification-banner__heading">Dywedwch wrthym unwaith y bydd yr atebydd wedi cael y dogfennau</p>',
                 },
                 {
                   text: "Mae angen i chi gyflwyno datganiad cyflwyno ar ôl i'r atebydd gael y dogfennau.",

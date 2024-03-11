@@ -162,7 +162,6 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'Your application is being reviewed and you will be contacted with next steps.',
-                html: null,
               },
             ],
             links: [
@@ -202,7 +201,6 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'You have caseData.noOfDaysRemainingToSubmitCase days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
-                html: null,
               },
             ],
             links: [
@@ -234,7 +232,6 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'You can still access all documents related to the case',
-                html: null,
               },
             ],
             links: null,
@@ -291,7 +288,6 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'The court rejected your request to withdraw this application. The application will continue to progress.',
-                html: null,
               },
             ],
             links: null,
@@ -306,7 +302,6 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'The court has made a decision about your case. The order tells you what the court has decided.',
-                html: null,
               },
             ],
             links: [
@@ -338,7 +333,6 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'Your application is being reviewed and you will be contacted with next steps.',
-                html: null,
               },
             ],
             links: null,
@@ -366,7 +360,6 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'Your application is being reviewed and you will be contacted with next steps.',
-                html: null,
               },
             ],
             links: null,
@@ -395,7 +388,6 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
-                html: null,
               },
             ],
             links: [],
@@ -427,7 +419,6 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
-                html: null,
               },
             ],
             links: [],
@@ -444,11 +435,9 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                html: null,
                 text: 'The court has issued your application. This means a copy of your application and other court documents are ready to give to the other people in the case (the respondents).',
               },
               {
-                html: null,
                 text: 'You must give the following documents to the respondent:',
               },
             ],
@@ -463,19 +452,15 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                html: null,
                 text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party (such as a process server or court bailiff). More information about court bailiffs can be found on GOV.UK.',
               },
               {
-                html: '<a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
-                text: '',
+                text: '<a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
               },
               {
-                html: '<br/><p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
-                text: 'Tell us once the respondent has been given the documents',
+                text: '<br/><p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
               },
               {
-                html: null,
                 text: 'You need to submit a statement of service after the respondent has been given the documents.',
               },
             ],
@@ -517,7 +502,6 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
-                html: null,
               },
             ],
             links: [],
@@ -534,7 +518,6 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                html: null,
                 text: 'You should review your application pack to check what you should do next.',
               },
             ],
@@ -566,7 +549,6 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'Your case is closed. The court has made a final decision about your case. The order tells you what the court has decided.',
-                html: null,
               },
             ],
             links: null,
@@ -662,7 +644,6 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'A new document has been added to your case.',
-                html: null,
               },
             ],
             links: [
@@ -746,7 +727,6 @@ describe('testcase for notification Banner', () => {
               contents: [
                 {
                   text: 'A new document has been added to your case.',
-                  html: null,
                 },
               ],
               links: [
@@ -769,7 +749,6 @@ describe('testcase for notification Banner', () => {
               contents: [
                 {
                   text: 'The court has made a decision about your case. The order tells you what the court has decided.',
-                  html: null,
                 },
               ],
               links: [
@@ -844,7 +823,6 @@ describe('testcase for notification Banner', () => {
               contents: [
                 {
                   text: 'A new document has been added to your case.',
-                  html: null,
                 },
               ],
             },
@@ -859,7 +837,6 @@ describe('testcase for notification Banner', () => {
               contents: [
                 {
                   text: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
-                  html: null,
                 },
               ],
               links: [

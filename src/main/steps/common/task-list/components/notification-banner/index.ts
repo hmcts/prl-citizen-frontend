@@ -49,7 +49,6 @@ export const getNotificationBannerConfig = (
                 noOfDaysRemainingToSubmitCase:
                   caseData?.noOfDaysRemainingToSubmitCase ?? 'caseData.noOfDaysRemainingToSubmitCase',
               }),
-              html: content.html ?? null,
             }));
 
           const links = section?.links?.length

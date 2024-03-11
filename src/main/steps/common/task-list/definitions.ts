@@ -117,7 +117,6 @@ export type NotificationSection = {
   contents: {
     text: string;
     show?: (caseData: Partial<CaseWithId>) => boolean;
-    html?: string;
   }[];
   links?: {
     text: string;

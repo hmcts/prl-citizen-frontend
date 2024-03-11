@@ -64,7 +64,6 @@ describe('testcase for tasklist', () => {
             contents: [
               {
                 text: 'You have caseData.noOfDaysRemainingToSubmitCase days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
-                html: null,
               },
             ],
             links: [
@@ -184,7 +183,6 @@ describe('testcase for tasklist', () => {
             contents: [
               {
                 text: 'Mae gennych caseData.noOfDaysRemainingToSubmitCase diwrnod i gyflwyno eich cais o’r dyddiad y gwnaethoch ei gychwyn, neu bydd yn cael ei ddileu a bydd rhaid i chi gychwyn y cais eto. Mae hyn er mwyn cadw eich gwybodaeth yn ddiogel.',
-                html: null,
               },
             ],
             links: [

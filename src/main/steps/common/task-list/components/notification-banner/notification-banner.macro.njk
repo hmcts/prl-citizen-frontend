@@ -11,11 +11,7 @@
 
     {% for section in notification.sections %}
       {% for content in section.contents %}
-        {% if content.html %}
-          <p class="govuk-body govuk-!-margin-bottom-2">{{ content.html | safe }}</p>
-          {%else%}
-          <p class="govuk-body govuk-!-margin-bottom-2">{{ content.text }}</p>
-        {% endif %}
+        <p class="govuk-body govuk-!-margin-bottom-2">{{ content.text | safe  }}</p>
       {% endfor %}
 
       {% if section.links and section.links.length > 0%}
