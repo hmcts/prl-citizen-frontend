@@ -180,7 +180,7 @@ export class CosApiClient {
     caseId: string,
     partyId: string,
     data: Partial<CaseData>,
-    isWelsh:boolean
+    isWelsh: boolean
   ): Promise<DocumentDetail> {
     try {
       const headers = {
@@ -188,7 +188,7 @@ export class CosApiClient {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
         ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-        isWelsh: isWelsh,
+        isWelsh,
       };
       const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document`,

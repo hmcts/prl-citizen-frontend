@@ -198,7 +198,7 @@ describe('CosApiClient', () => {
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
-    const actual = await client.generateC7DraftDocument(req.session.user, '123456', '123456789', data,false);
+    const actual = await client.generateC7DraftDocument(req.session.user, '123456', '123456789', data, false);
     expect(actual).not.toBeUndefined;
   });
 
@@ -209,7 +209,7 @@ describe('CosApiClient', () => {
     const client = new CosApiClient('abc', 'http://return-url');
     let flag = false;
     try {
-      await client.generateC7DraftDocument(req.session.user, '123456', '123456789', data,false);
+      await client.generateC7DraftDocument(req.session.user, '123456', '123456789', data, false);
     } catch (error) {
       flag = true;
     }
