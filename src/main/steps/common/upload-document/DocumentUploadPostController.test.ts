@@ -66,7 +66,7 @@ describe('DocumentUploadPostController', () => {
     });
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalled();
-    expect(req.session.errors).toStrictEqual([{ errorType: 'uploadError', propertyName: 'uploadFiles' }]);
+    expect(req.session.errors).toStrictEqual([{ errorType: 'uploadError', propertyName: 'uploadDocumentFileUpload' }]);
   });
   test('continue is true with api error', async () => {
     req = mockRequest({
@@ -94,7 +94,7 @@ describe('DocumentUploadPostController', () => {
     submitUploadedDocumentsMock.mockRejectedValue;
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalled();
-    expect(req.session.errors).toStrictEqual([{ errorType: 'uploadError', propertyName: 'uploadFiles' }]);
+    expect(req.session.errors).toStrictEqual([{ errorType: 'uploadError', propertyName: 'uploadDocumentFileUpload' }]);
   });
   test('continue is true with out uploadedDocuments', async () => {
     req = mockRequest({

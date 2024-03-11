@@ -4,7 +4,12 @@ import type { Response } from 'express';
 import _ from 'lodash';
 
 import { getPartyName } from '../../steps/common/task-list/utils';
-import { getDocumentType, resetUploadDocumentSessionData } from '../../steps/common/upload-document/util';
+import {
+  getDocumentType,
+  handleUploadDocError,
+  removeUploadDocErrors,
+  resetUploadDocumentSessionData,
+} from '../../steps/common/upload-document/util';
 import { applyParms } from '../../steps/common/url-parser';
 import { UPDATE_CASE } from '../../steps/constants';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
@@ -35,7 +40,7 @@ import {
 import { toApiFormat } from '../case/to-api-format';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
-import { FormError, FormFields, FormFieldsFn } from '../form/Form';
+import { FormFields, FormFieldsFn } from '../form/Form';
 
 import { DocumentManagementClient } from './DocumentManagementClient';
 const UID_LENGTH = 36;
@@ -536,13 +541,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
   }
 
-  private handleError(req: AppRequest, error: FormError) {
-    if (!req.session?.errors) {
-      req.session.errors = [];
-      req.session.errors.push({ errorType: error.errorType, propertyName: error.propertyName });
-    }
-  }
-
   public async generateDocument(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { query, session, body } = req;
     const { user, userCase: caseData } = session;
@@ -552,10 +550,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     req.url = redirectUrl;
     this.initializeData(caseData);
-    req.session.errors = [];
 
     if (!statementText) {
-      this.handleError(req, { errorType: 'nothingToUpload', propertyName: 'uploadFiles' });
+      req.session.errors = handleUploadDocError(req.session.errors, 'empty');
       return this.redirect(req, res, redirectUrl);
     }
 
@@ -570,22 +567,22 @@ export class DocumentManagerController extends PostController<AnyObject> {
         freeTextStatements: statementText,
       });
 
-      if (response.status === 'Success') {
-        req.session.userCase?.[
-          partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'
-        ]?.push(response.document);
-
-        const caseDetailsFromCos = await client.retrieveByCaseId(caseData.id, user);
-
-        Object.assign(req.session.userCase, caseDetailsFromCos);
-        const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(req, caseData.id, client, user);
-        Object.assign(req.session.userCase, caseDataFromCos);
-        req.session.errors = [];
-      } else {
-        this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });
+      if (response.status !== 'Success') {
+        req.session.errors = handleUploadDocError(req.session.errors, 'uploadError', true);
+        return;
       }
+      req.session.userCase?.[
+        partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'
+      ]?.push(response.document);
+
+      const caseDetailsFromCos = await client.retrieveByCaseId(caseData.id, user);
+
+      Object.assign(req.session.userCase, caseDetailsFromCos);
+      const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(req, caseData.id, client, user);
+      Object.assign(req.session.userCase, caseDataFromCos);
+      req.session.errors = removeUploadDocErrors(req.session.errors);
     } catch (e) {
-      this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });
+      req.session.errors = handleUploadDocError(req.session.errors, 'uploadError', true);
     } finally {
       this.redirect(req, res, redirectUrl);
     }
@@ -600,10 +597,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     req.url = redirectUrl;
     this.initializeData(caseData);
-    req.session.errors = [];
 
     if (!files) {
-      this.handleError(req, { errorType: 'nothingToUpload', propertyName: 'uploadFiles' });
+      req.session.errors = handleUploadDocError(req.session.errors, 'empty');
       return this.redirect(req, res, redirectUrl);
     }
 
@@ -612,22 +608,23 @@ export class DocumentManagerController extends PostController<AnyObject> {
         files: [files['files[]']],
       });
 
-      if (response.status === 'Success') {
-        req.session.userCase?.[
-          partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'
-        ]?.push(response.document);
-
-        const caseDetailsFromCos = await client.retrieveByCaseId(caseData.id, user);
-
-        Object.assign(req.session.userCase, caseDetailsFromCos);
-        const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(req, caseData.id, client, user);
-        Object.assign(req.session.userCase, caseDataFromCos);
-        req.session.errors = [];
-      } else {
-        this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });
+      if (response.status !== 'Success') {
+        req.session.errors = handleUploadDocError(req.session.errors, 'uploadError', true);
+        return;
       }
+
+      req.session.userCase?.[
+        partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'
+      ]?.push(response.document);
+
+      const caseDetailsFromCos = await client.retrieveByCaseId(caseData.id, user);
+
+      Object.assign(req.session.userCase, caseDetailsFromCos);
+      const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(req, caseData.id, client, user);
+      Object.assign(req.session.userCase, caseDataFromCos);
+      req.session.errors = removeUploadDocErrors(req.session.errors);
     } catch (e) {
-      this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });
+      req.session.errors = handleUploadDocError(req.session.errors, 'uploadError', true);
     } finally {
       this.redirect(req, res, redirectUrl);
     }
@@ -660,9 +657,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
           partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'
         ];
       }
-      req.session.errors = [];
+      req.session.errors = removeUploadDocErrors(req.session.errors);
     } catch (e) {
-      this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });
+      req.session.errors = handleUploadDocError(req.session.errors, 'uploadError', true);
     } finally {
       this.redirect(req, res, redirectUrl);
     }

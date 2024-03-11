@@ -287,9 +287,7 @@ export class CosApiClient {
         },
       });
 
-      return {
-        response,
-      };
+      return response;
     } catch (err) {
       console.log('Error: ', err);
       throw new Error('submit citizen uploaded documents failed.');

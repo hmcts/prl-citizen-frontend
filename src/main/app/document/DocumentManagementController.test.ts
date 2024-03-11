@@ -1418,7 +1418,9 @@ describe.skip('DocumentManagerController', () => {
       });
 
       await generateDocumentManagerController.generateDocument(request, response);
-      expect(request.session.errors).toStrictEqual([{ errorType: 'uploadError', propertyName: 'uploadFiles' }]);
+      expect(request.session.errors).toStrictEqual([
+        { errorType: 'uploadError', propertyName: 'uploadDocumentFileUpload' },
+      ]);
       expect(response.redirect).toHaveBeenCalledWith(
         '/applicant/upload-document/upload-your-documents/witnessstatements/positionstatements'
       );

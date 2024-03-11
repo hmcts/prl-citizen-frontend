@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import { DocCategory, DocType, PartyType, YesOrNo } from '../../../app/case/definition';
 import { AppSession } from '../../../app/controller/AppRequest';
+import { FormError } from '../../../app/form/Form';
 import { document_list_cy, document_list_en } from '../../../steps/applicant/upload-document/section-titles';
 import {
   documents_list_items_cy,
@@ -256,4 +257,22 @@ export const isRestrictedDoc = (caseData: Partial<CaseWithId>): YesOrNo => {
     caseData?.reasonsToNotSeeTheDocument?.includes('containsSentsitiveInformation')
     ? YesOrNo.YES
     : YesOrNo.NO;
+};
+
+export const removeUploadDocErrors = (errors: FormError[] | undefined): FormError[] => {
+  return errors?.length ? errors.filter(error => error.propertyName !== 'uploadDocumentFileUpload') : [];
+};
+
+export const handleUploadDocError = (
+  errors: FormError[] | undefined,
+  errorType: string,
+  omitOtherErrors?: boolean
+): FormError[] => {
+  let _errors: FormError[] = errors?.length ? errors : [];
+
+  if (omitOtherErrors) {
+    _errors = [...removeUploadDocErrors(_errors)];
+  }
+
+  return [..._errors, { errorType, propertyName: 'uploadDocumentFileUpload' }];
 };

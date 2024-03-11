@@ -11,10 +11,10 @@ const en = {
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   continue: 'Submit',
   add: 'Submit',
-  uploadFiles: 'Your documents',
+  uploadDocumentFileUpload: 'Your documents',
   remove: 'Remove',
   textAreaDocUploadText1: 'You can write your statement in the text box or upload it.',
-  textAreaDocUploadText2: 'Write your statement(optional)',
+  textAreaDocUploadText2: 'Write your statement (optional)',
   uplodFileText1:
     'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.',
   uplodFileText2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
@@ -34,7 +34,7 @@ const en = {
     declarationCheck: {
       required: 'Tick the box to confirm you believe the facts stated in this application are true.',
     },
-    uploadFiles: {
+    uploadDocumentFileUpload: {
       uploadError: 'Document could not be uploaded',
       noFile: 'Please choose a file to upload',
       empty: 'No document found',
@@ -48,10 +48,10 @@ const cy: typeof en = {
     'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
   continue: 'Submit - welsh',
   add: 'Cyflwyno',
-  uploadFiles: 'Eich dogfennau',
+  uploadDocumentFileUpload: 'Eich dogfennau',
   remove: 'Dileu',
   textAreaDocUploadText1: 'You can write your statement in the text box or upload it. - welsh',
-  textAreaDocUploadText2: 'Write your statement(optional) - welsh',
+  textAreaDocUploadText2: 'Write your statement (optional) - welsh',
   uplodFileText1:
     'Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, llythyr-gan-yr-ysgol.doc.',
   uplodFileText2: 'Rhaid i ffeiliau derfynu â JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
@@ -72,7 +72,7 @@ const cy: typeof en = {
     declarationCheck: {
       required: 'Cadarnhewch y datganiad',
     },
-    uploadFiles: {
+    uploadDocumentFileUpload: {
       uploadError: 'Document could not be uploaded -welsh',
       noFile: 'Please choose a file to upload -welsh',
       empty: 'No document found -welsh',
@@ -124,7 +124,7 @@ describe.skip('respondent -> upload-document -> upload-your-documents', () => {
     );
     expect(generatedContent.continue).toEqual('Submit');
     expect(generatedContent.add).toEqual('Submit');
-    expect(generatedContent.uploadFiles).toEqual('Your documents');
+    expect(generatedContent.uploadDocumentFileUpload).toEqual('Your documents');
     expect(generatedContent.remove).toEqual('Remove');
     expect(generatedContent.textAreaDocUploadText1).toEqual(
       'You can write your statement in the text box or upload it.'
@@ -187,7 +187,7 @@ describe.skip('respondent -> upload-document -> upload-your-documents', () => {
   test('generateContent should return correct details', () => {
     commonContent.additionalData!.req.session = {
       ...commonContent.additionalData!.req.session,
-      errors: [{ errorType: 'uploadError', propertyName: 'uploadFiles' }],
+      errors: [{ errorType: 'uploadError', propertyName: 'uploadDocumentFileUpload' }],
     };
     commonContent.userCase = {
       ...commonContent.userCase,

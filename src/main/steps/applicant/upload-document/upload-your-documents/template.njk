@@ -73,13 +73,10 @@
             method="post"
             enctype="multipart/form-data">
               {{ govukFileUpload({
-          id: 'uploadFiles',
+          id: 'uploadDocumentFileUpload',
           name: "files[]",
           attributes: {
             accept: "image/jpeg,image/tiff,image/jpg,image/bmp,image/png,image/tif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-          },
-          label: {
-            text: chooseFilePhoto
           },
           classes: "govuk-!-margin-bottom-4",
           errorMessage: {
@@ -87,7 +84,7 @@
           } if errorMessage !== null
         }) }}
               {{ govukButton({
-          text: upload,
+          text: uploadFile,
           type: "submit", 
           classes: "govuk-button--secondary govuk-!-margin-bottom-0"
         }) }}
@@ -98,7 +95,7 @@
         </div>
       {% endif %}
       {% if userCase.applicantUploadFiles.length > 0 %}
-        <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
+        <h2 class="govuk-heading-s">{{ uploadDocumentFileUpload }}</h2>
       {% endif %}
       <ul id="filesUploadedList" class="govuk-list">
         <dl class="govuk-summary-list">
@@ -119,7 +116,7 @@
       </dl>
     </ul>
   </div>
-  <div class="govuk-form-group ">
+  <div class="govuk-form-group govuk-!-margin-bottom-0">
     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
       <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
         <h3 class="govuk-heading-m">
