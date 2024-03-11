@@ -188,13 +188,18 @@ export class CosApiClient {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
         ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+      };
+
+      const params = {
         isWelsh,
       };
+
       const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document`,
         data,
         {
           headers,
+          params,
         }
       );
 
