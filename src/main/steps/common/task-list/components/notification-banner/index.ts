@@ -53,8 +53,8 @@ export const getNotificationBannerConfig = (
             }));
 
           const links = section?.links?.length
-            ? section?.links
-                ?.filter(content => (_.isFunction(content?.show) ? content.show(caseData, userDetails) : true))
+            ? section.links
+                .filter(content => (_.isFunction(content?.show) ? content.show(caseData, userDetails) : true))
                 ?.map(link => ({
                   ...link,
                   external: link?.external ?? false,

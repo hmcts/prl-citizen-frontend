@@ -87,10 +87,9 @@ export const CA_APPLICANT: NotificationBannerProps[] = [
     ...notificationBanner[BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS],
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
       return (
-        caseData?.state === State.CASE_SERVED &&
-        isApplicantLIPServingRespondent(caseData) &&
+        isCaseLinked(caseData, userDetails) &&
         isPrimaryApplicant(caseData, userDetails) &&
-        isCaseLinked(caseData, userDetails)
+        isApplicantLIPServingRespondent(caseData)
       );
     },
   },
@@ -98,10 +97,9 @@ export const CA_APPLICANT: NotificationBannerProps[] = [
     ...notificationBanner[BannerNotification.CA_PERSONAL_SERVICE],
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
       return (
-        caseData?.state === State.CASE_SERVED &&
-        isApplicantLIPServingRespondent(caseData) &&
+        isCaseLinked(caseData, userDetails) &&
         !isPrimaryApplicant(caseData, userDetails) &&
-        isCaseLinked(caseData, userDetails)
+        isApplicantLIPServingRespondent(caseData)
       );
     },
   },
