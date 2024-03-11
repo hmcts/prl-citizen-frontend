@@ -25,7 +25,7 @@ services:
   cos:
     url: 'https://prl-cos-pr-2156.preview.platform.hmcts.net'
   documentManagement:
-    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-1990.preview.platform.hmcts.net'
+    url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
   health:
   timeout: 5000
   deadline: 15000

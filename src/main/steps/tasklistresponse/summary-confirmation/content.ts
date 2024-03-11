@@ -21,7 +21,7 @@ const en = {
   line7: 'A copy of your submitted application will be in your personal dashboard.',
   downloadLink:
     ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-final">Download your response</a>',
-  saveAndContinue: 'Continue',
+    saveAndContinue: 'Continue',
 };
 
 const cy: typeof en = {
@@ -40,8 +40,8 @@ const cy: typeof en = {
   <a href="https://get.adobe.com/uk/reader/" class="govuk-link" rel="external" target="_blank">Adobe Acrobat Reader</a> ar eich dyfais a cheisio eto.`,
   line7: 'Bydd copi o’r cais a gyflwynwyd ar eich dangosfwrdd personol',
   downloadLink:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-final">Lawrlwytho eich ymateb</a>',
-  saveAndContinue: 'Parhau',
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-final/en">Lawrlwytho eich ymateb</a>',
+    saveAndContinue: 'Parhau',
 };
 
 const languages = {

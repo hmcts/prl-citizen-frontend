@@ -36,6 +36,7 @@ export class RespondentSubmitResponseController {
 
   public async getDraftDocument(req: AppRequest, res: Response): Promise<void> {
     const caseReference = req.session.userCase.id;
+    let isWelsh = req.params.language==='cy'? true : false;
     let partyId;
     req.session.userCase.respondents?.forEach(respondent => {
       if (respondent.value.user.idamId === req.session.user.id) {
@@ -45,7 +46,7 @@ export class RespondentSubmitResponseController {
     const client = new CosApiClient(req.session.user.accessToken, 'https://return-url');
     const caseData = toApiFormat(req?.session?.userCase);
 
-    const draftDocument = await client.generateC7DraftDocument(req.session.user, caseReference, partyId, caseData);
+    const draftDocument = await client.generateC7DraftDocument(req.session.user, caseReference, partyId, caseData,isWelsh);
     const binaryUrl = draftDocument?.documentId;
     if (!binaryUrl) {
       throw new Error('Document url is not found');
