@@ -3,7 +3,7 @@
 {% block page_content %}
   {% if section %}
     <span class="govuk-heading-l">{{ section }}</span>
-  
+
   {% endif %}
   {% if title %}
     <h1 class="govuk-caption-m govuk-!-margin-bottom-2">{{ title }}</h1>
@@ -33,12 +33,13 @@
           </p>
           <p class="govuk-body">
             {{forRecords}}
-          </p>
+          </p> 
 
           <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-draft/en">{{downloadDraft}}</a>
           <br/>
+          {% if (userCase.welshLanguageRequirement == 'Yes'  or userCase.welshLanguageRequirement == 'Ydy') %}
           <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft welsh" download="" href="/tasklistresponse/generate-c7-draft/cy">Download draft response welsh</a>
-
+          {% endif %}
         </div>
       </details>
 {% endblock %}
