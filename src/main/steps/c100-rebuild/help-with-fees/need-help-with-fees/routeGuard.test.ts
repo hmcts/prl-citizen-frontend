@@ -61,12 +61,18 @@ describe('c100ApplicationFees Route Guard', () => {
     expect(next).toHaveBeenCalled();
   });
 
-  test('Should not render the page when the guard validation fails', async () => {
+  test('Should render the page when the guard validation fails', async () => {
     const req = mockRequest();
     const res = mockResponse();
-
+    const oldUserCase = req.session.userCase;
     mockedAxios.get.mockRejectedValueOnce;
+    req.locals.C100Api.updateCase.mockRejectedValue({
+      message: 'MOCK_ERROR',
+      response: { status: 500, data: 'Error' },
+    });
     const next = jest.fn();
-    await expect(routeGuard.get(req, res, next)).rejects.toThrow('Fee could not be fetched.');
+    await routeGuard.get(req, res, next);
+    expect(req.session.userCase).toEqual(oldUserCase);
+    expect(next).toHaveBeenCalled();
   });
 });
