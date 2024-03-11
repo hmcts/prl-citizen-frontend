@@ -10,7 +10,7 @@
         <span class="govuk-caption-l">{{caption}}</span>
         {{title}}
       </h1>
-      {% if isDocWitnessOrPosition %}
+      {% if allowFreeTextForStatements %}
         <form
         action="/document-manager/generate-document?_csrf={{ csrfToken }}&documentCategory={{ docCategory }}&documentType={{ docType }}"
         method="post"
@@ -23,7 +23,7 @@
             </div>
             <br>
             <h1 class="govuk-heading-s">{{textAreaDocUploadText2}}</h1>
-            <textarea class="govuk-textarea" id="freeTextAreaForUpload" name="freeTextAreaForUpload" rows="5" aria-describedby="more-detail-hint"></textarea>
+            <textarea class="govuk-textarea" id="statementText" name="statementText" rows="5" aria-describedby="more-detail-hint"></textarea>
           </div>
           <button class="govuk-button upload-addnew govuk-button--secondary" data-module="govuk-button">
             {{add}}

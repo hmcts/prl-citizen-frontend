@@ -16,6 +16,7 @@ import {
   PartyType,
   RespondentCaseData,
   RespondentCaseId,
+  YesOrNo,
 } from './definition';
 import { fromApiFormat } from './from-api-format';
 
@@ -206,7 +207,7 @@ export class CosApiClient {
 
   public async generateStatementDocument(
     user: UserDetails,
-    request: DocumentUploadRequest
+    request: GenerateDocumentRequest
   ): Promise<DocumentUploadResponse> {
     try {
       const response = await Axios.post(config.get('services.cos.url') + '/citizen-generate-document', request, {
@@ -230,7 +231,7 @@ export class CosApiClient {
 
   public async uploadStatementDocument(
     user: UserDetails,
-    request: DocumentUploadRequest
+    request: DocumentFileUploadRequest
   ): Promise<DocumentUploadResponse> {
     try {
       const formData = new FormData();
@@ -275,7 +276,7 @@ export class CosApiClient {
   }
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
-  public async submitUploadedDocuments(user: UserDetails, request: DocumentUploadRequest): Promise<any> {
+  public async submitUploadedDocuments(user: UserDetails, request: SubmitUploadedDocsRequest): Promise<any> {
     try {
       const response = await Axios.post(config.get('services.cos.url') + '/citizen-submit-documents', request, {
         headers: {
@@ -405,16 +406,24 @@ export class CosApiClient {
   }
 }
 
-export interface DocumentUploadRequest {
+interface DocumentUploadRequest {
   caseId: string;
   categoryId: string;
   partyId: string;
   partyName: string;
   partyType: PartyType;
+}
+export interface GenerateDocumentRequest extends DocumentUploadRequest {
+  freeTextStatements: string;
+}
+export interface DocumentFileUploadRequest {
+  files: UploadedFiles;
+}
+export interface SubmitUploadedDocsRequest extends DocumentUploadRequest {
+  isConfidential?: YesOrNo;
+  isRestricted?: YesOrNo;
   restrictDocumentDetails?: string;
-  freeTextStatements?: string;
-  files?: UploadedFiles;
-  documents?: DocumentUploadResponse['document'][];
+  documents: DocumentUploadResponse['document'][];
 }
 
 export type UploadedFiles =

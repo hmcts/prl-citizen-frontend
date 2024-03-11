@@ -3,6 +3,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
 <div class="govuk-form-group">
   {% block page_content %}
     <div class="govuk-form-group">
@@ -10,7 +11,7 @@
         <span class="govuk-caption-l">{{caption}}</span>
         {{title}}
       </h1>
-      {% if isDocWitnessOrPosition %}
+      {% if allowFreeTextForStatements %}
         <form
         action="/document-manager/generate-document?_csrf={{ csrfToken }}&documentCategory={{ docCategory }}&documentType={{ docType }}"
         method="post"
@@ -21,9 +22,17 @@
                 {{textAreaDocUploadText1}}
               </label>
             </div>
-            <br>
-            <h1 class="govuk-heading-s">{{textAreaDocUploadText2}}</h1>
-            <textarea class="govuk-textarea" id="freeTextAreaForUpload" name="freeTextAreaForUpload" rows="5" aria-describedby="more-detail-hint"></textarea>
+
+            {{ govukTextarea({
+              name: "statementText",
+              label: {
+                text: textAreaDocUploadText2,
+                classes: "govuk-label--s govuk-!-margin-top-4"
+              },
+               errorMessage: {
+            text: errorMessage
+          } if errorMessage !== null
+            }) }}
           </div>
           <button class="govuk-button upload-addnew govuk-button--secondary" data-module="govuk-button">
             {{add}}

@@ -1,4 +1,5 @@
-import { DocCategory, DocType, PartyType } from '../../../app/case/definition';
+import { CaseWithId } from '../../../app/case/case';
+import { DocCategory, DocType, PartyType, YesOrNo } from '../../../app/case/definition';
 import { AppSession } from '../../../app/controller/AppRequest';
 import { document_list_cy, document_list_en } from '../../../steps/applicant/upload-document/section-titles';
 import {
@@ -241,4 +242,18 @@ export const resetUploadDocumentSessionData = (session: AppSession): void => {
   session.userCase.applicantUploadFiles = [];
   session.userCase.respondentUploadFiles = [];
   delete session.userCase.declarationCheck;
+};
+
+export const isConfidentialDoc = (caseData: Partial<CaseWithId>): YesOrNo => {
+  return caseData?.haveReasonForDocNotToBeShared === YesOrNo.YES &&
+    caseData?.reasonsToNotSeeTheDocument?.includes('hasConfidentailDetails')
+    ? YesOrNo.YES
+    : YesOrNo.NO;
+};
+
+export const isRestrictedDoc = (caseData: Partial<CaseWithId>): YesOrNo => {
+  return caseData?.haveReasonForDocNotToBeShared === YesOrNo.YES &&
+    caseData?.reasonsToNotSeeTheDocument?.includes('containsSentsitiveInformation')
+    ? YesOrNo.YES
+    : YesOrNo.NO;
 };

@@ -1,3 +1,4 @@
+import { DocType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
@@ -35,8 +36,7 @@ const en = {
     },
     uploadFiles: {
       uploadError: 'Document could not be uploaded',
-      noFile: 'Please choose a file to upload',
-      empty: 'No document found',
+      nothingToUpload: 'Enter your statement or upload a file.',
     },
   },
 };
@@ -73,8 +73,7 @@ const cy: typeof en = {
     },
     uploadFiles: {
       uploadError: 'Document could not be uploaded -welsh',
-      noFile: 'Please choose a file to upload -welsh',
-      empty: 'No document found -welsh',
+      nothingToUpload: 'Please choose a file to upload -welsh',
     },
   },
 };
@@ -120,7 +119,6 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const { docCategory, docType } = content.additionalData!.req.params;
   const { category: caption, type: title } = getDocumentMeta(docCategory, docType, content.language);
-  const isDocWitnessOrPosition = docType === 'positionstatements' || docType === 'yourwitnessstatements';
   const request = content.additionalData?.req;
   const userCase = request.session.userCase;
 
@@ -139,7 +137,7 @@ export const generateContent: TranslationFn = content => {
     })),
     docCategory,
     docType,
-    isDocWitnessOrPosition,
+    allowFreeTextForStatements: [DocType.POSITION_STATEMENTS, DocType.YOUR_WITNESS_STATEMENTS].includes(docType),
     errorMessage:
       translations.errors.uploadFiles?.[
         request.session?.errors?.find(error => error.propertyName === 'uploadFiles')?.errorType

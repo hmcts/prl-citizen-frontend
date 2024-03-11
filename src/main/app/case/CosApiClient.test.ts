@@ -3,7 +3,7 @@ import axios, { AxiosInstance } from 'axios';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { UserDetails } from '../controller/AppRequest';
 
-import { CosApiClient, DocumentUploadRequest, UploadedFiles } from './CosApiClient';
+import { CosApiClient, DocumentFileUploadRequest, UploadedFiles } from './CosApiClient';
 import { CaseWithId } from './case';
 import { CaseData, CaseEvent, CaseType, DocumentUploadResponse, PartyType } from './definition';
 import { toApiFormat } from './to-api-format';
@@ -21,6 +21,10 @@ describe('CosApiClient', () => {
     partyId: '',
     partyName: '',
     partyType: PartyType.APPLICANT,
+    freeTextStatements: 'text',
+    files: [
+      { originalname: 'uploaded-file.jpg', data: 'mock data', name: 'uploaded-file.jpg' },
+    ] as unknown as UploadedFiles,
     documents: [
       {
         document_url: 'abc',
@@ -198,7 +202,7 @@ describe('CosApiClient', () => {
       files: [
         { originalname: 'uploaded-file.jpg', data: 'mock data', name: 'uploaded-file.jpg' },
       ] as unknown as UploadedFiles,
-    } as DocumentUploadRequest;
+    } as DocumentFileUploadRequest;
 
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<DocumentUploadResponse>);
     const client = new CosApiClient('abc', 'http://return-url');
@@ -484,15 +488,7 @@ describe('CosApiClientWithError', () => {
       partyId: '',
       partyName: '',
       partyType: PartyType.APPLICANT,
-      documents: [
-        {
-          document_url: '',
-          document_binary_url: '',
-          document_filename: '',
-          document_hash: '',
-          document_creation_date: '',
-        },
-      ],
+      freeTextStatements: 'text',
     };
     let flag = true;
     try {
@@ -508,20 +504,9 @@ describe('CosApiClientWithError', () => {
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
     const DocumentUploadReq = {
-      caseId: '',
-      categoryId: '',
-      partyId: '',
-      partyName: '',
-      partyType: PartyType.APPLICANT,
-      documents: [
-        {
-          document_url: '',
-          document_binary_url: '',
-          document_filename: '',
-          document_hash: '',
-          document_creation_date: '',
-        },
-      ],
+      files: [
+        { originalname: 'uploaded-file.jpg', data: 'mock data', name: 'uploaded-file.jpg' },
+      ] as unknown as UploadedFiles,
     };
     let flag = true;
     try {

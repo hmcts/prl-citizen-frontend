@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import config from 'config';
 import type { Response } from 'express';
+import _ from 'lodash';
 
 import { getPartyName } from '../../steps/common/task-list/utils';
 import { getDocumentType, resetUploadDocumentSessionData } from '../../steps/common/upload-document/util';
@@ -34,7 +35,7 @@ import {
 import { toApiFormat } from '../case/to-api-format';
 import type { AppRequest, UserDetails } from '../controller/AppRequest';
 import { AnyObject, PostController } from '../controller/PostController';
-import { Form, FormError, FormFields, FormFieldsFn } from '../form/Form';
+import { FormError, FormFields, FormFieldsFn } from '../form/Form';
 
 import { DocumentManagementClient } from './DocumentManagementClient';
 const UID_LENGTH = 36;
@@ -541,14 +542,22 @@ export class DocumentManagerController extends PostController<AnyObject> {
       req.session.errors.push({ errorType: error.errorType, propertyName: error.propertyName });
     }
   }
+
   public async generateDocument(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { query, session, body } = req;
     const { user, userCase: caseData } = session;
     const partyType = getCasePartyType(caseData, user.id);
     const redirectUrl = this.setRedirectUrl(partyType, req);
+    const statementText = _.get(body, 'statementText', '') as string;
 
     req.url = redirectUrl;
     this.initializeData(caseData);
+    req.session.errors = [];
+
+    if (!statementText) {
+      this.handleError(req, { errorType: 'nothingToUpload', propertyName: 'uploadFiles' });
+      return this.redirect(req, res, redirectUrl);
+    }
 
     const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
     try {
@@ -558,8 +567,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         partyId: user.id,
         partyName: getPartyName(caseData, partyType, user),
         partyType,
-        restrictDocumentDetails: caseData.reasonForDocumentCantBeShared ?? ('' as string),
-        freeTextStatements: body.textStatement as string,
+        freeTextStatements: statementText,
       });
 
       if (response.status === 'Success') {
@@ -584,7 +592,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   public async uploadDocument(req: AppRequest, res: Response): Promise<void> {
-    const { query, body, session, files } = req;
+    const { session, files } = req;
     const { user, userCase: caseData } = session;
     const partyType = getCasePartyType(caseData, user.id);
     const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
@@ -592,26 +600,15 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     req.url = redirectUrl;
     this.initializeData(caseData);
+    req.session.errors = [];
 
     if (!files) {
-      this.handleError(req, { errorType: 'noFile', propertyName: 'uploadFiles' });
+      this.handleError(req, { errorType: 'nothingToUpload', propertyName: 'uploadFiles' });
       return this.redirect(req, res, redirectUrl);
     }
 
-    const fields = typeof this.fields === 'function' ? this.fields(caseData) : this.fields;
-    const form = new Form(fields);
-
-    const { _csrf, ...formData } = form.getParsedBody(body);
-    req.session.errors = form.getErrors(formData);
-
     try {
       const response = await client.uploadStatementDocument(user, {
-        caseId: caseData.id,
-        categoryId: getDocumentType(query.documentType as DocType, partyType),
-        partyId: user.id,
-        partyName: getPartyName(caseData, partyType, user),
-        partyType,
-        restrictDocumentDetails: caseData.reasonForDocumentCantBeShared ?? ('' as string),
         files: [files['files[]']],
       });
 
@@ -635,6 +632,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
       this.redirect(req, res, redirectUrl);
     }
   }
+
+  public async;
 
   public async deleteDocument(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     const { params, session } = req;

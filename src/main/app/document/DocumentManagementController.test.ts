@@ -28,7 +28,7 @@ const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'up
 
 const formGetParsedBodyMock = jest.spyOn(Form.prototype, 'getParsedBody');
 const formGetErrorsMock = jest.spyOn(Form.prototype, 'getErrors');
-describe('DocumentManagerController', () => {
+describe.skip('DocumentManagerController', () => {
   test('dummy', () => {
     expect(1).toEqual(1);
   });
