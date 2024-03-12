@@ -6,7 +6,6 @@ import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { generateContent as parentContent } from '../content';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  serviceName: 'Child arrangements',
   title: 'Do any of the children have a passport?',
   caption: 'Safety concerns',
   one: 'Yes',
@@ -19,7 +18,6 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   title: "A oes gan unrhyw un o'r plant basbort?",
   caption: 'Pryderon diogelwch',
   one: 'Oes',
