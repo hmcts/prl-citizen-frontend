@@ -5,7 +5,6 @@ import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../.
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  serviceName: 'Child Arrangements',
   caption: 'Special arrangements',
   headingTitle: 'Do you or the children need special arrangements at court?',
   line1:
@@ -36,7 +35,6 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   caption: 'Trefniadau arbennig',
   headingTitle: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
   line1:

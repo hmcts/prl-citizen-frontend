@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child arrangements',
   title: 'Will you be using a legal representative in these proceedings?',
   one: 'Yes',
   two: 'No',
@@ -24,7 +23,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   title: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
   one: 'Byddaf',
   two: 'Na fyddaf',

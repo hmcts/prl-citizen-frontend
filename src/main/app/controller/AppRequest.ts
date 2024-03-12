@@ -3,6 +3,7 @@ import { Request } from 'express';
 import { Session } from 'express-session';
 import type { LoggerInstance } from 'winston';
 
+import { PaymentError } from '../../app/case/definition';
 import { CaseApi as C100Api } from '../case/C100CaseApi';
 import { CaseApi } from '../case/CaseApi';
 import { Case, CaseWithId } from '../case/case';
@@ -22,7 +23,7 @@ export interface AppRequest<T = Partial<Case>> extends Request {
 
 export interface AppSession extends Session {
   testingSupport: boolean;
-  paymentError: boolean;
+  paymentError: PaymentError;
   user: UserDetails;
   userCase: CaseWithId;
   userCaseList: CaseWithId[];
