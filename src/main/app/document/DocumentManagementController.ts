@@ -228,7 +228,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return partyName;
   }
 
-  private getPartyName(isApplicant, req: AppRequest<AnyObject>) {
+  private getPartyName(isApplicant, req: AppRequest<AnyObject>): string {
     let partyName = '';
     if (YesOrNo.YES === isApplicant) {
       if (req.session.userCase?.caseTypeOfApplication === 'C100') {
@@ -300,7 +300,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return this.getFileNameUidAndFieldFlag(filename, req, uid, endPoint, fieldFlag);
   }
 
-  private getC7FileNameAndEndPoint(filename: string, endPoint: string, req: AppRequest<Partial<CaseWithId>>) {
+  private getC7FileNameAndEndPoint(
+    filename: string,
+    endPoint: string,
+    req: AppRequest<Partial<CaseWithId>>
+  ): { filename: string; endPoint: string } {
     if (filename === 'generate-c7-final') {
       endPoint = 'caresponse';
       const respondent = req.session.userCase.respondents?.find(resp => resp.value.user.idamId === req.session.user.id);
