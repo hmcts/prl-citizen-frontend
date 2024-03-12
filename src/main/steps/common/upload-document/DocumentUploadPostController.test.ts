@@ -33,6 +33,44 @@ describe('DocumentUploadPostController', () => {
     fields: {},
   } as unknown as FormContent;
 
+  test('should redirect with no errors when continue is true and uploadedDocuments submitted successfully', async () => {
+    req = mockRequest({
+      body: {
+        onlyContinue: 'true',
+        _ctx: '',
+        formFields: {},
+      },
+      session: {
+        userCase: {
+          caseId: '1234',
+          applicantUploadFiles: [
+            {
+              document_url: 'string;',
+              document_binary_url: '',
+              document_filename: '',
+              document_hash: '',
+              document_creation_date: 'string;',
+            },
+          ],
+        },
+      },
+    });
+    const controller = new DocumentUploadPostController(mockFormContent.fields);
+    submitUploadedDocumentsMock.mockResolvedValueOnce({
+      data: 'Success',
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'POST',
+      },
+    });
+
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalled();
+    expect(req.session.errors).toStrictEqual({});
+  });
+
   test('continue is true with uploadedDocuments', async () => {
     req = mockRequest({
       body: {

@@ -1,7 +1,15 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { DocCategory, DocType, PartyType } from '../../../app/case/definition';
+import { DocCategory, DocType, PartyType, YesOrNo } from '../../../app/case/definition';
 
-import { getDocumentMeta, getDocumentType, resetUploadDocumentSessionData } from './util';
+import {
+  getDocumentMeta,
+  getDocumentType,
+  handleUploadDocError,
+  isConfidentialDoc,
+  isRestrictedDoc,
+  removeUploadDocErrors,
+  resetUploadDocumentSessionData,
+} from './util';
 
 describe('upload document util', () => {
   test.each([
@@ -27,7 +35,12 @@ describe('upload document util', () => {
     {
       docType: 'lettersfromschool',
       partyType: 'applicant',
-      expected: 'LETTERS_FROM_SCHOOL',
+      expected: 'LETTERS_FROM_SCHOOL_APPLICANT',
+    },
+    {
+      docType: 'lettersfromschool',
+      partyType: 'respondent',
+      expected: 'LETTERS_FROM_SCHOOL_RESPONDENT',
     },
     {
       docType: 'tenancyandmortgageavailability',
@@ -294,5 +307,48 @@ describe('upload document util', () => {
     expect(req.session.userCase.reasonsToNotSeeTheDocument).toStrictEqual([]);
     expect(req.session.userCase.applicantUploadFiles).toStrictEqual([]);
     expect(req.session.userCase.respondentUploadFiles).toStrictEqual([]);
+  });
+
+  test('isConfidentialDoc should return yes when hasConfidentialDetails present', () => {
+    expect(
+      isConfidentialDoc({
+        haveReasonForDocNotToBeShared: 'Yes' as YesOrNo,
+        reasonsToNotSeeTheDocument: ['hasConfidentailDetails'],
+      })
+    ).toBe('Yes');
+  });
+
+  test('isRestrictedDoc should return yes when containsSentsitiveInformation present', () => {
+    expect(
+      isRestrictedDoc({
+        haveReasonForDocNotToBeShared: 'Yes' as YesOrNo,
+        reasonsToNotSeeTheDocument: ['containsSentsitiveInformation'],
+      })
+    ).toBe('Yes');
+  });
+
+  test('removeUploadDocErrors should remove errors when property uploadDocumentFileUpload', () => {
+    expect(removeUploadDocErrors([{ propertyName: 'uploadDocumentFileUpload', errorType: 'empty' }])).toStrictEqual([]);
+  });
+
+  test('removeUploadDocErrors should not remove errors when property not uploadDocumentFileUpload', () => {
+    expect(removeUploadDocErrors([{ propertyName: 'errorPropertyName', errorType: 'empty' }])).toStrictEqual([
+      { errorType: 'empty', propertyName: 'errorPropertyName' },
+    ]);
+  });
+
+  test('handleUploadDocError should not remove existing uploadDoc errors when omitOtherErrors is false', () => {
+    expect(
+      handleUploadDocError([{ propertyName: 'uploadDocumentFileUpload', errorType: 'empty' }], 'newErrorType', false)
+    ).toStrictEqual([
+      { errorType: 'empty', propertyName: 'uploadDocumentFileUpload' },
+      { errorType: 'newErrorType', propertyName: 'uploadDocumentFileUpload' },
+    ]);
+  });
+
+  test('handleUploadDocError should remove existing uploadDoc when omitOtherErrors is true', () => {
+    expect(
+      handleUploadDocError([{ propertyName: 'uploadDocumentFileUpload', errorType: 'empty' }], 'newErrorType', true)
+    ).toStrictEqual([{ errorType: 'newErrorType', propertyName: 'uploadDocumentFileUpload' }]);
   });
 });

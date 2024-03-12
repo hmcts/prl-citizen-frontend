@@ -207,7 +207,8 @@ export const getDocumentType = (type: DocType, partyType: PartyType): string => 
       break;
     case DocType.LETTERS_FROM_SCHOOL:
       //documentType = 'LETTERS_FROM_SCHOOL';
-      partyType === PartyType.APPLICANT ? 'LETTERS_FROM_SCHOOL_APPLICANT' : 'LETTERS_FROM_SCHOOL_RESPONDENT';
+      documentType =
+        partyType === PartyType.APPLICANT ? 'LETTERS_FROM_SCHOOL_APPLICANT' : 'LETTERS_FROM_SCHOOL_RESPONDENT';
       break;
     case DocType.TENANCY_AND_MORTGAGE_AVAILABILITY:
       documentType = 'TENANCY_MORTGAGE_AGREEMENTS';

@@ -1,4 +1,5 @@
 import languageAssertions from '../../../../test/unit/utils/languageAssertions';
+import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
 import { CommonContent } from '../../common/common.content';
 
@@ -128,5 +129,42 @@ describe('task-list > content', () => {
   ])('should generate correct task list %#', ({ userCase, expected }) => {
     const { sections: uploadDocsList } = generateContent({ ...commonContent, userCase });
     expect(uploadDocsList).toEqual(expected);
+  });
+
+  test('get correct user name for FL401 case', () => {
+    const req = mockRequest({
+      session: {
+        userCase: { ...mockUserCase, caseTypeOfApplication: 'FL401', respondentName: 'FL401 Respondent' },
+      },
+    });
+    const translations = generateContent({ ...commonContent, userCase: mockUserCase, additionalData: { req } });
+    expect(translations.userName).toBe('FL401 Respondent');
+  });
+
+  test('get correct user name for C100 case', () => {
+    const req = mockRequest({
+      session: {
+        user: {
+          id: '123',
+        },
+        userCase: {
+          ...mockUserCase,
+          caseTypeOfApplication: 'C100',
+          respondents: [
+            {
+              value: {
+                user: {
+                  idamId: '123',
+                },
+                firstName: 'C100',
+                lastName: 'Respondent',
+              },
+            },
+          ],
+        },
+      },
+    });
+    const translations = generateContent({ ...commonContent, userCase: mockUserCase, additionalData: { req } });
+    expect(translations.userName).toBe('C100  Respondent');
   });
 });

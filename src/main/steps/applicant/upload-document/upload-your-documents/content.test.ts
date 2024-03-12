@@ -36,8 +36,7 @@ const en = {
     },
     uploadDocumentFileUpload: {
       uploadError: 'Document could not be uploaded',
-      noFile: 'Please choose a file to upload',
-      empty: 'No document found',
+      empty: 'Enter your statement or upload a file.',
     },
   },
 };
@@ -74,15 +73,14 @@ const cy: typeof en = {
     },
     uploadDocumentFileUpload: {
       uploadError: 'Document could not be uploaded -welsh',
-      noFile: 'Please choose a file to upload -welsh',
-      empty: 'No document found -welsh',
+      empty: 'Enter your statement or upload a file. -welsh',
     },
   },
 };
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
-describe.skip('respondent -> upload-document -> upload-your-documents', () => {
+describe('respondent -> upload-document -> upload-your-documents', () => {
   const commonContent = {
     language: 'en',
     additionalData: {
@@ -129,7 +127,7 @@ describe.skip('respondent -> upload-document -> upload-your-documents', () => {
     expect(generatedContent.textAreaDocUploadText1).toEqual(
       'You can write your statement in the text box or upload it.'
     );
-    expect(generatedContent.textAreaDocUploadText2).toEqual('Write your statement(optional)');
+    expect(generatedContent.textAreaDocUploadText2).toEqual('Write your statement (optional)');
     expect(generatedContent.uplodFileText1).toEqual(
       'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.'
     );
@@ -187,7 +185,7 @@ describe.skip('respondent -> upload-document -> upload-your-documents', () => {
   test('generateContent should return correct details', () => {
     commonContent.additionalData!.req.session = {
       ...commonContent.additionalData!.req.session,
-      errors: [{ errorType: 'uploadError', propertyName: 'uploadDocumentFileUpload' }],
+      errors: [{ errorType: 'empty', propertyName: 'uploadDocumentFileUpload' }],
     };
     commonContent.userCase = {
       ...commonContent.userCase,
@@ -227,7 +225,7 @@ describe.skip('respondent -> upload-document -> upload-your-documents', () => {
         id: 'MOCK_URL2',
       },
     ]);
-    expect(content.errorMessage).toBe('Document could not be uploaded');
+    expect(content.errorMessage).toBe('Enter your statement or upload a file.');
     expect(content.docCategory).toBe('witnessstatements');
     expect(content.docType).toBe('yourwitnessstatements');
   });

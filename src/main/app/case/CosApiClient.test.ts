@@ -244,9 +244,9 @@ describe('CosApiClient', () => {
       'Document could not be deleted.'
     );
   });
-  test.skip('submitUploadedDocuments-', async () => {
-    const response = {};
-    mockedAxios.post.mockReturnValueOnce;
+  test('submitUploadedDocuments-', async () => {
+    const response = { status: 'success' };
+    mockedAxios.post.mockReturnValueOnce({ status: 'success' } as unknown as Promise<any>);
     //mockedAxios.post.mockRejectedValueOnce
     const req = mockRequest({
       session: {
