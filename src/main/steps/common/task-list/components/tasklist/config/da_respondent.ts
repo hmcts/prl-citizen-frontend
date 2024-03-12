@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { UPDATE_CASE_YES } from '../../../../../constants';
 import { APPLICANT_CA_DA_REQUEST } from '../../../../../urls';
 import { TaskListSection, Tasks, getContents, getFinalApplicationStatus } from '../utils';
 
 import { aboutYou, document, hearing, order } from './ca_respondent';
 
-export const DA_RESPONDENT = [
+export const DA_RESPONDENT: TaskListConfigProps[] = [
   aboutYou,
   {
     id: TaskListSection.THE_APPLICATION,
     content: getContents.bind(null, TaskListSection.THE_APPLICATION),
-    tasks: [
+    tasks: (): Task[] => [
       {
         id: Tasks.CHECK_THE_APPLICATION,
         href: (caseData, userDetails) => {

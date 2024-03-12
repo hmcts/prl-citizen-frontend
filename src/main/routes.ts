@@ -128,6 +128,7 @@ import {
   RESPONSE_TO_CA,
   AOH_TO_CA,
   VIEW_DOCUMENT_URL,
+  TASKLIST_RESPONSE_TO_CA,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -283,6 +284,8 @@ export class Routes {
         app.get(`${APPLICANT}${APPLICANT_CA_DA_REQUEST}`, errorHandler(documentManagerController.get));
         app.get(APPLICANT_CA_DA_REQUEST, errorHandler(documentManagerController.get));
         app.get(RESPONSE_TO_CA, errorHandler(documentManagerController.get));
+        //TODO remove TASKLIST_RESPONSE_TO_CA when citizen document upload changes are merged
+        app.get(TASKLIST_RESPONSE_TO_CA, errorHandler(documentManagerController.get));
         app.get(AOH_TO_CA, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));

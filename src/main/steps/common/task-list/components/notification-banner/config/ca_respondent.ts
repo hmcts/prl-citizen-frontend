@@ -1,9 +1,10 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { State, YesOrNo } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { NotificationBannerProps } from '../../../../../../steps/common/task-list/definitions';
 import { BannerNotification, notificationBanner } from '../utils';
 
-export const CA_RESPONDENT = [
+export const CA_RESPONDENT: NotificationBannerProps[] = [
   {
     ...notificationBanner[BannerNotification.NEW_DOCUMENT],
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
