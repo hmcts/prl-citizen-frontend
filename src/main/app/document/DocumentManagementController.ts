@@ -257,7 +257,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const originalUrl = req.originalUrl;
     let filename = '';
     let endPoint = '';
-    if (originalUrl !== null && originalUrl !== undefined && originalUrl.length > 0) {
+    if (originalUrl) {
       filename = originalUrl.substring(originalUrl.lastIndexOf('/') + 1);
       const itemList = originalUrl.toString().split('/');
       endPoint = itemList[itemList.length - 2];
@@ -269,8 +269,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
     req: AppRequest<Partial<CaseWithId>>,
     filename: string,
     endPoint: string,
-    fieldFlag: any
-  ) {
+    fieldFlag: string
+  ): Promise<{ filename: string; uid: string; fieldFlag: string }> {
     let documentToGet = '';
     let uid = '';
     ({ filename, endPoint } = this.getC7FileNameAndEndPoint(filename, endPoint, req));
@@ -317,7 +317,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     filename: string,
     documentToGet: string,
     uid: string
-  ) {
+  ): { filename: string; documentToGet: string; uid: string } {
     if (endPoint === 'caresponse') {
       req.session.userCase.citizenResponseC7DocumentList?.forEach(document => {
         if (document.value.createdBy === filename) {
@@ -338,18 +338,18 @@ export class DocumentManagerController extends PostController<AnyObject> {
     req: AppRequest<Partial<CaseWithId>>,
     uid: string,
     endPoint: string,
-    fieldFlag: any
-  ) {
+    fieldFlag: string
+  ): { filename: string; uid: string; fieldFlag: string } {
     ({ filename, uid, fieldFlag } = this.searchFileNameByPattern(filename, req, uid, fieldFlag));
 
-    if (uid.trim() === '') {
+    if (!uid.trim()) {
       for (const entry of this.fileNameElementMap.entries()) {
         const searchPattern = entry[0];
         const element = entry[1];
         const obj = this.getDocumentUIDWithMultipleElements(endPoint, req, filename, searchPattern, element.elements);
         uid = obj.uid;
         filename = obj.filename;
-        if (uid !== '') {
+        if (uid) {
           break;
         }
       }
@@ -357,7 +357,12 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return { filename, uid, fieldFlag };
   }
 
-  private searchFileNameByPattern(filename: string, req: AppRequest<Partial<CaseWithId>>, uid: string, fieldFlag: any) {
+  private searchFileNameByPattern(
+    filename: string,
+    req: AppRequest<Partial<CaseWithId>>,
+    uid: string,
+    fieldFlag: string
+  ): { filename: string; uid: string; fieldFlag: string } {
     for (const entry of this.fileNameSearchPatternElementMap.entries()) {
       const fileNameSearchPattern = entry[0];
       if (filename.includes(fileNameSearchPattern) || filename === fileNameSearchPattern) {
@@ -375,7 +380,10 @@ export class DocumentManagerController extends PostController<AnyObject> {
     return { filename, uid, fieldFlag };
   }
 
-  private async fetchDocument(req: AppRequest<Partial<CaseWithId>>, uid: string) {
+  private async fetchDocument(
+    req: AppRequest<Partial<CaseWithId>>,
+    uid: string
+  ): Promise<{ generatedDocument: any; cdamUrl: string }> {
     const cdamUrl = config.get('services.documentManagement.url') + '/cases/documents/' + uid + '/binary';
     const documentManagementClient = this.getDocumentManagementClient(req.session.user);
     const generatedDocument = await documentManagementClient.get({ url: cdamUrl });
@@ -456,7 +464,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     filename: string,
     endPoint_input: string,
     elements: string[] | undefined
-  ) {
+  ): { uid: string; filename: string } {
     let documentToGet = '';
     let uid = '';
 
@@ -516,7 +524,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     document_filename: string,
     documentToGet: string,
     uid: string
-  ) {
+  ): { document_filename: string; documentToGet: string; uid: string } {
     for (const document of req.session.userCase.respondentDocsList!) {
       if (ele1 === 'c1a' && document.value?.c1aDocument?.partyName === req.query?.name) {
         document_filename = document.value.c1aDocument.citizenDocument.document_filename;
