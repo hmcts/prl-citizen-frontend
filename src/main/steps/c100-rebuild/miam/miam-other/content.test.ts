@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child Arrangements',
   caption: 'MIAM exemptions',
   title: 'Can you confirm that any of the other valid reasons for not attending a MIAM apply in your case?',
   lines: [
@@ -55,7 +54,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   caption: 'Esemptiadau MIAM',
   title:
     "A allwch chi gadarnhau bod unrhyw un o'r rhesymau dilys eraill dros beidio â mynychu MIAM yn berthnasol yn eich achos chi?",
