@@ -1,12 +1,10 @@
 {
     "translations": {
         "en": {
-            "title": "Your address",
-            "serviceName": "Address/postcode lookup"
+            "title": "Your address"
         },
         "cy": {
-            "title": "Eich cyfeiriad",
-            "serviceName": "Chwilio am gyfeiriad/cod post"
+            "title": "Eich cyfeiriad"
         }
     },
     "errors":{
