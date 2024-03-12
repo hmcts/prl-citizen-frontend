@@ -163,7 +163,7 @@ export class CosApiClient {
       const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document-final`,
         {
-          isWelsh: isDocRequiredInWelsh
+          isWelsh: isDocRequiredInWelsh,
         },
         {
           headers,
@@ -194,7 +194,7 @@ export class CosApiClient {
       const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document`,
         {
-          isWelsh: isDocRequiredInWelsh
+          isWelsh: isDocRequiredInWelsh,
         },
         {
           headers,
