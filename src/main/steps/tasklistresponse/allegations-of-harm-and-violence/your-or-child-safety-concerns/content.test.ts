@@ -9,7 +9,6 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child Arrangements',
   title: 'Safety Concerns',
   headingTitle: 'Do you have any concerns for your safety or the safety of the children?',
   paragraph1: '<p> You may have concerns about current, or future safety. </p>',
@@ -33,7 +32,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   title: 'Pryderon diogelwch',
   headingTitle: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
   paragraph1: '<p> Efallai bod gennych bryderon am eich diogelwch ar hyn o bryd, neu eich diogelwch yn y dyfodol. </p>',
