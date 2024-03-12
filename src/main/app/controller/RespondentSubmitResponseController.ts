@@ -5,7 +5,6 @@ import type { Response } from 'express';
 import { CA_RESPONDENT_RESPONSE_CONFIRMATION } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CosApiClient } from '../case/CosApiClient';
-import { toApiFormat } from '../case/to-api-format';
 import { DocumentManagementClient } from '../document/DocumentManagementClient';
 
 import type { AppRequest, UserDetails } from './AppRequest';
@@ -13,7 +12,6 @@ const UID_LENGTH = 36;
 @autobind
 export class RespondentSubmitResponseController {
   public async save(req: AppRequest, res: Response): Promise<void> {
-    const caseReference = req.session.userCase.id;
     let partyId;
     req.session.userCase.respondents?.forEach(respondent => {
       if (respondent.value.user.idamId === req.session.user.id) {
@@ -21,13 +19,12 @@ export class RespondentSubmitResponseController {
       }
     });
     const client = new CosApiClient(req.session.user.accessToken, 'https://return-url');
-    const caseData = toApiFormat(req?.session?.userCase);
 
     const updatedCaseDataFromCos = await client.submitRespondentResponse(
       req.session.user,
-      caseReference,
+      req.session.userCase.id,
       partyId,
-      caseData
+      req.params.language === 'cy'
     );
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
@@ -35,8 +32,6 @@ export class RespondentSubmitResponseController {
   }
 
   public async getDraftDocument(req: AppRequest, res: Response): Promise<void> {
-    const caseReference = req.session.userCase.id;
-    const isWelsh = req.params.language === 'cy';
     let partyId;
     req.session.userCase.respondents?.forEach(respondent => {
       if (respondent.value.user.idamId === req.session.user.id) {
@@ -44,14 +39,11 @@ export class RespondentSubmitResponseController {
       }
     });
     const client = new CosApiClient(req.session.user.accessToken, 'https://return-url');
-    const caseData = toApiFormat(req?.session?.userCase);
-
     const draftDocument = await client.generateC7DraftDocument(
       req.session.user,
-      caseReference,
+      req.session.userCase.id,
       partyId,
-      caseData,
-      isWelsh
+      req.params.language === 'cy'
     );
     const binaryUrl = draftDocument?.documentId;
     if (!binaryUrl) {

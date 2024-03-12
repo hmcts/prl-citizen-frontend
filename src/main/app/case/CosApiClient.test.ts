@@ -6,7 +6,7 @@ import { GenerateAndUploadDocumentRequest } from '../document/GenerateAndUploadD
 
 import { CosApiClient, UploadDocumentRequest } from './CosApiClient';
 import { CaseWithId } from './case';
-import { CaseData, YesOrNo } from './definition';
+import { YesOrNo } from './definition';
 import { toApiFormat } from './to-api-format';
 
 jest.mock('axios');
@@ -67,8 +67,7 @@ describe('CosApiClient', () => {
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
-    const caseData = toApiFormat(req?.session?.userCase);
-    const actual = await client.submitRespondentResponse(req.session.user, '123456', '123456', caseData);
+    const actual = await client.submitRespondentResponse(req.session.user, '123456', '123456', false);
     expect(actual).toEqual(response);
   });
 
@@ -194,22 +193,20 @@ describe('CosApiClient', () => {
         document_filename: 'test',
       },
     };
-    const data = {} as Partial<CaseData>;
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
-    const actual = await client.generateC7DraftDocument(req.session.user, '123456', '123456789', data, false);
+    const actual = await client.generateC7DraftDocument(req.session.user, '123456', '123456789', false);
     expect(actual).not.toBeUndefined;
   });
 
   test('generateC7Document throws exception', async () => {
-    const data = {} as Partial<CaseData>;
     mockedAxios.post.mockRejectedValueOnce;
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
     let flag = false;
     try {
-      await client.generateC7DraftDocument(req.session.user, '123456', '123456789', data, false);
+      await client.generateC7DraftDocument(req.session.user, '123456', '123456789', false);
     } catch (error) {
       flag = true;
     }
@@ -264,10 +261,9 @@ describe('CosApiClientWithError', () => {
   test('submitRespondentResponseWithError', async () => {
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
-    const caseData = toApiFormat(req?.session?.userCase);
     let flag = true;
     try {
-      await client.submitRespondentResponse(req.session.user, '123456', '123456', caseData);
+      await client.submitRespondentResponse(req.session.user, '123456', '123456', false);
     } catch {
       flag = false;
     }
