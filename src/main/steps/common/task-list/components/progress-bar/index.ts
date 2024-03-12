@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
+import { ProgressBarConfig, ProgressBarProps } from '../../definitions';
 
 import { CaseType, PartyType } from './../../../../../app/case/definition';
 import progressConfig from './config/index';
 import { languages as content } from './content';
 
-export const progressBarConfig = {
+export const progressBarConfig: ProgressBarConfig = {
   [CaseType.C100]: {
     [PartyType.APPLICANT]: progressConfig.CA_APPLICANT,
     [PartyType.RESPONDENT]: progressConfig.CA_RESPONDENT,
@@ -21,7 +21,7 @@ export const getProgressBarConfig = (
   partyType: PartyType,
   language: string,
   userDetails: UserDetails
-): Record<string, any>[] => {
+): ProgressBarProps[] => {
   let caseType = caseData?.caseTypeOfApplication;
 
   if (!caseType && partyType === PartyType.APPLICANT) {
