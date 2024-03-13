@@ -270,17 +270,12 @@ export const prepareFutureHearingData = (
 ): { nextHearing: Hearing[]; futureHearings: Hearing[] } => {
   const lang = req.session.lang === 'cy' ? cy : en;
   if (hearingsFuture && hearingsFuture.length >= 1) {
-    multidayHearingSort(hearingsFuture);
+    multiHearingSort(hearingsFuture);
     if (hearingsFuture.length >= 1) {
       for (const hearing of hearingsFuture) {
         const date = hearing.hearingDaySchedule![0].hearingStartDateTime!;
         let dates = generateHearingDate(req, date);
-        if (hearing.hearingDaySchedule!.length >= 2) {
-          const len = hearing.hearingDaySchedule!.length;
-          const endDate = hearing.hearingDaySchedule![len - 1].hearingStartDateTime!;
-          const endDateFormatted = generateHearingDate(req, endDate);
-          dates = `${dates} - ${endDateFormatted}`;
-        }
+        dates = generateDatesForMultidayHearing(hearing, req, dates);
         const lengthOfHearing = hearing.hearingDaySchedule?.length;
         const hearingDurationDisplayText =
           lengthOfHearing === 1 ? `${lengthOfHearing} ${lang.smallDay}` : `${lengthOfHearing} ${lang.days}`;
@@ -306,7 +301,7 @@ export const prepareFutureHearingData = (
   };
 };
 
-export const multidayHearingSort = (hearingsFuture: HearingsList[]): HearingsList[] => {
+export const multiHearingSort = (hearingsFuture: HearingsList[]): HearingsList[] => {
   for (const hearing of hearingsFuture) {
     if (hearing.hearingDaySchedule!.length >= 2) {
       hearing.hearingDaySchedule = hearing.hearingDaySchedule!.sort(
@@ -335,4 +330,17 @@ export const sortHearings = (
     hearingsCompleted,
     hearingsFuture,
   };
+};
+const generateDatesForMultidayHearing = (
+  hearing: HearingsList,
+  req: AppRequest<Partial<Case>>,
+  dates: string
+): string => {
+  if (hearing.hearingDaySchedule!.length >= 2) {
+    const len = hearing.hearingDaySchedule!.length;
+    const endDate = hearing.hearingDaySchedule![len - 1].hearingStartDateTime!;
+    const endDateFormatted = generateHearingDate(req, endDate);
+    dates = `${dates} - ${endDateFormatted}`;
+  }
+  return dates;
 };
