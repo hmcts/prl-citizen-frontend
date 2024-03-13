@@ -15,6 +15,8 @@ const en = {
     'The court will share documents with the other people in the case unless there is a very good reason not to. For example, safety concerns or sensitive information is included.',
   haveReasonForDocNotToBeShared:
     'Is there a very good reason why you do not want the other people in the case to see this document?',
+  yes: 'Yes',
+  no: 'No',
   errors: {
     haveReasonForDocNotToBeShared: {
       required:
@@ -24,15 +26,17 @@ const en = {
 };
 
 const cy: typeof en = {
-  pageTitle: 'Sharing your documents - welsh',
+  pageTitle: 'Rhannu eich dogfennau',
   infoContent:
-    'The court will share documents with the other people in the case unless there is a very good reason not to. For example, safety concerns or sensitive information is included. - welsh',
+    "Bydd y llys yn rhannu dogfennau gyda’r bobl eraill yn yr achos oni bai bod rheswm da iawn dros beidio â gwneud hynny. Er enghraifft, oherwydd pryderon diogelwch neu oherwydd bod gwybodaeth sensitif wedi'i chynnwys.",
   haveReasonForDocNotToBeShared:
-    'Is there a very good reason why you do not want the other people in the case to see this document? - welsh',
+    "A oes rheswm da iawn dros pam nad ydych eisiau i'r bobl eraill yn yr achos weld y ddogfen hon?",
+  yes: 'Oes',
+  no: 'Nac oes',
   errors: {
     haveReasonForDocNotToBeShared: {
       required:
-        'Select if there is a very good reason why you do not want the other people in the case to see this document. - welsh',
+        'Dewiswch os oes rheswm da iawn dros pam nad ydych eisiau i’r bobl eraill yn yr achos weld y ddogfen hon',
     },
   },
 };

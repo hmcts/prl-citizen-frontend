@@ -12,14 +12,16 @@ const enContent = {
   note: 'The court will tell you in a letter or email which documents or materials you need to submit.',
   sectionTitles: document_list_en,
   documentsListItems: documents_list_items_en,
+  continue: 'Close and return to case overview',
 };
 const cyContent = {
   section: 'Llwytho dogfennau',
   caseNumber: 'Rhif yr achos ',
   title: 'Dewiswch y math o ddogfen',
-  note: 'The court will tell you in a letter or email which documents or materials you need to submit. - welsh',
+  note: 'Bydd y llys yn dweud wrthych mewn llythyr neu e-bost pa ddogfennau neu ddeunydd y mae angen i chi eu cyflwyno',
   sectionTitles: document_list_cy,
   documentsListItems: documents_list_items_cy,
+  continue: 'Cau a dychwelyd i drosolwg o’r achos',
 };
 describe('task-list > content', () => {
   const commonContent = {
