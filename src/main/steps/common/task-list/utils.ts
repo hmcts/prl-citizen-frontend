@@ -96,3 +96,8 @@ export const keepDetailsPrivateNav = (caseData: Partial<CaseWithId>, req: AppReq
       : RESPONDENT_TASK_LIST_URL;
   return req?.session.applicationSettings?.navfromRespondToApplication ? RESPOND_TO_APPLICATION : respondentTaskListUrl;
 };
+
+export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseData?.isCafcassServed === YesOrNo.YES;
+
+export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean =>
+  caseData?.isCafcassCymruServed === YesOrNo.YES;
