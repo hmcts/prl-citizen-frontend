@@ -44,6 +44,10 @@
       </p>
 
       {{downloadLink |safe}}
+      <br/>
+      {% if (userCase.welshLanguageRequirement == 'Yes'  or userCase.welshLanguageRequirement == 'Ydy') %}
+      {{downloadLinkWelsh | safe}}
+      {% endif %}
     </div>
   </details>
 

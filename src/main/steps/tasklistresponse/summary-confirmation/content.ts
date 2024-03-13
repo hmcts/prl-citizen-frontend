@@ -21,6 +21,8 @@ const en = {
   line7: 'A copy of your submitted application will be in your personal dashboard.',
   downloadLink:
     ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-final">Download your response</a>',
+  downloadLinkWelsh:
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-final">Download your response welsh</a>',
   saveAndContinue: 'Continue',
 };
 
@@ -41,6 +43,8 @@ const cy: typeof en = {
   line7: 'Bydd copi o’r cais a gyflwynwyd ar eich dangosfwrdd personol',
   downloadLink:
     ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-final">Lawrlwytho eich ymateb</a>',
+  downloadLinkWelsh:
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/tasklistresponse/generate-c7-final">Lawrlwytho eich ymateb cymareg</a>',
   saveAndContinue: 'Parhau',
 };
 
