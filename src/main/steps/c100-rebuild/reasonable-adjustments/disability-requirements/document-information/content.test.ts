@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child Arrangements',
   caption: 'Reasonable adjustments',
   headingTitle: 'I need documents in an alternative format',
   line1:
@@ -51,7 +50,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   caption: 'Addasiadau rhesymol',
   headingTitle: 'Rwyf angen dogfennau mewn fformat arall',
   line1:

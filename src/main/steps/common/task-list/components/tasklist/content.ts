@@ -1,6 +1,7 @@
 import { CaseType, PartyType } from '../../../../../app/case/definition';
+import { TaskListContent } from '../../definitions';
 
-const en = {
+const en: TaskListContent = {
   stateTags: {
     notStartedYet: 'Not started yet',
     inProgress: 'In progress',
@@ -34,6 +35,14 @@ const en = {
           },
           viewAllDocuments: {
             linkText: 'View all documents',
+          },
+        },
+      },
+      theResponse: {
+        heading: 'The response',
+        tasks: {
+          theResponsePDF: {
+            linkText: 'Response {respondentPosition} to your application',
           },
         },
       },
@@ -288,7 +297,14 @@ const cy: typeof en = {
           },
         },
       },
-
+      theResponse: {
+        heading: 'The response (welsh)',
+        tasks: {
+          theResponsePDF: {
+            linkText: 'Response {respondentPosition} to your application (welsh)',
+          },
+        },
+      },
       yourHearing: {
         heading: 'Eich gwrandawiadau llys',
         tasks: {

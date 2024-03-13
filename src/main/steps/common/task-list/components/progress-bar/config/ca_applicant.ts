@@ -2,10 +2,11 @@
 
 import { CaseWithId } from '../../../../../../app/case/case';
 import { State } from '../../../../../../app/case/definition';
+import { ProgressBarProps } from '../../../../../../steps/common/task-list/definitions';
 import { isCaseClosed } from '../../../../../../steps/common/task-list/utils';
 import { progressBarStage } from '../utils';
 
-export const CA_APPLICANT = [
+export const CA_APPLICANT: ProgressBarProps[] = [
   {
     ...progressBarStage.applicationSubmitted,
     isComplete: (caseData: Partial<CaseWithId>) =>

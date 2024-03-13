@@ -5,7 +5,6 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/valida
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   title: 'Have the children been impacted by drug, alcohol or substance abuse?',
   line1: 'This could be abuse that is taking place now, or abuse that occurred in the past.',
@@ -28,7 +27,6 @@ export const en = () => ({
 });
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   title: 'A yw’r plant wedi cael eu heffeithio o ganlyniad i gamddefnyddio cyffuriau, alcohol neu sylweddau?',
   line1: "Gallai hyn fod yn gamdriniaeth sy'n digwydd nawr neu yn y gorffennol.",
