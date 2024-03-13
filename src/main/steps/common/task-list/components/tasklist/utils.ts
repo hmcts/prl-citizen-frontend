@@ -77,15 +77,14 @@ export interface Task {
 export const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
 
 export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => {
-  let counter = 0;
-  if (caseData?.hearingCollection && caseData?.hearingCollection?.length >= 1) {
-    for (const hearing of caseData.hearingCollection) {
-      if (hearing.hmcStatus !== hearingStatus.HEARING_REQUESTED && hearing.hmcStatus !== hearingStatus.EXCEPTION) {
-        counter = counter + 1;
-      }
-    }
-  }
-  return counter > 0;
+
+  const inactiveHmcStatus:string[]=[
+    hearingStatus.HEARING_REQUESTED,
+    hearingStatus.AWAITING_LISTING,
+    hearingStatus.EXCEPTION 
+  ];
+  return (caseData?.hearingCollection ?? []).find(hearing=>(!inactiveHmcStatus.includes(hearing.hmcStatus!))) ? true : false;
+
 };
 
 export const getStateTagLabel = (state: StateTags, language: string): string =>
