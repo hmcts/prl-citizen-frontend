@@ -324,7 +324,7 @@ export const sortHearings = (
 ): { hearingsCompleted: HearingsList[]; hearingsFuture: HearingsList[] } => {
   if (req.session.userCase.hearingCollection && req.session.userCase.hearingCollection.length >= 1) {
     for (const hearing of req.session.userCase.hearingCollection) {
-      if (hearing.hmcStatus === hearingStatus.COMPLETED) {
+      if (hearing.hmcStatus === hearingStatus.COMPLETED || hearing.hmcStatus === hearingStatus.AWAITING_ACTUALS) {
         hearingsCompleted.push(hearing);
       } else if (hearing.nextHearingDate && new Date() <= new Date(hearing.nextHearingDate)) {
         hearingsFuture?.push(hearing);
