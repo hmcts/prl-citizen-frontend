@@ -556,6 +556,9 @@ const cy: typeof en = {
                 {
                   text: 'Mae gennych {noOfDaysRemainingToSubmitCase} diwrnod i gyflwyno eich cais o’r dyddiad y gwnaethoch ei gychwyn, neu bydd yn cael ei ddileu a bydd rhaid i chi gychwyn y cais eto. Mae hyn er mwyn cadw eich gwybodaeth yn ddiogel.',
                 },
+                {
+                  text: 'You can review all your answers before you submit your application.-welsh',
+                },
               ],
               links: [
                 {
