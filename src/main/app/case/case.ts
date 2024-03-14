@@ -592,6 +592,23 @@ export interface Case {
   withdrawApplicationReason?: string;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
+  serviceOfApplication?: serviceOfApplication
+}
+export type serviceOfApplication = {
+  soaServingRespondentsOptionsCA?:SoaSolicitorServingRespondentsEnum,
+  soaServingRespondentsOptionsDA?:SoaSolicitorServingRespondentsEnum,
+  soaCitizenServingRespondentsOptionsCA?:SoaCitizenServingRespondentsEnum, 
+  soaCitizenServingRespondentsOptionsDA?:SoaCitizenServingRespondentsEnum, 
+}
+export const enum SoaSolicitorServingRespondentsEnum {
+  applicantLegalRepresentative="applicantLegalRepresentative",
+  courtBailiff="courtBailiff",
+  courtAdmin="courtAdmin"
+}
+export const enum SoaCitizenServingRespondentsEnum {
+  courtBailiff="courtBailiff",
+  courtAdmin="courtAdmin",
+  unrepresentedApplicant="unrepresentedApplicant" 
 }
 
 export interface CaseWithId extends Case {

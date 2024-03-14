@@ -1,4 +1,4 @@
-import { CaseWithId } from '../../../../../app/case/case';
+import { CaseWithId, SoaCitizenServingRespondentsEnum, SoaSolicitorServingRespondentsEnum} from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
 import {
   APPLICANT,
@@ -13,6 +13,8 @@ import {
 } from '../../../../../steps/urls';
 import { NotificationBannerContent } from '../../definitions';
 import { isCafcassCymruServed, isCafcassServed } from '../../utils';
+import { getCasePartyType } from '../../../../../steps/prl-cases/dashboard/utils';
+
 
 const en: NotificationBannerContent = {
   title: 'Important',
@@ -130,9 +132,45 @@ const en: NotificationBannerContent = {
                   text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
                 },
                 {
-                  text: 'The court has also sent the application to the Children and Family Court Advisory and Support Service (Cafcass or Cafcass Cymru). Cafcass or Cafcass Cymru will contact you to consider the needs of the children.',
+                  text: 'We will let you know when the other people in the case have been given your application and case documents.',
                   show: (caseData: Partial<CaseWithId>): boolean => {
-                    return isCafcassServed(caseData) || isCafcassCymruServed(caseData);
+                    return isPersonalServiceByCourtStuff(caseData);
+                  },
+                },
+                {
+                  text: '<a href="APPLICANT_VIEW_ALL_DOCUMENTS">View your application pack</a>',
+                  show: (caseData: Partial<CaseWithId>,userDetails): boolean => {
+                    return getCasePartyType(caseData,userDetails.id)===PartyType.APPLICANT?true:false;
+                  },
+                },
+                {
+                  text: '<a href="RESPONDENT_VIEW_ALL_DOCUMENTS">View your application pack</a>',
+                  show: (caseData: Partial<CaseWithId>,userDetails): boolean => {
+                    return getCasePartyType(caseData,userDetails.id)===PartyType.RESPONDENT;
+                  },
+                },
+                {
+                  text: '<br/><p class="govuk-notification-banner__heading">Cafcass will contact you.</p>',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassServed(caseData);
+                  },
+                },
+                {
+                  text: '<br/><p class="govuk-notification-banner__heading">Cafcass Cymru will contact you.</p>',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassCymruServed(caseData);
+                  },
+                },
+                {
+                  text: 'The Children and Family Court Advisory and Support Service (Cafcass) will contact you to consider the needs of the children.',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassServed(caseData);
+                  },
+                },
+                {
+                  text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) will contact you to consider the needs of the children.',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassCymruServed(caseData);
                   },
                 },
               ],
@@ -1032,3 +1070,12 @@ export const languages = {
   en,
   cy,
 };
+export const isPersonalServiceByCourtStuff=(caseData: Partial<CaseWithId>): boolean=> {
+  if((caseData.serviceOfApplication?.soaServingRespondentsOptionsCA===SoaSolicitorServingRespondentsEnum.courtBailiff||SoaSolicitorServingRespondentsEnum.courtAdmin)||
+  (caseData.serviceOfApplication?.soaCitizenServingRespondentsOptionsCA===SoaCitizenServingRespondentsEnum.courtBailiff||SoaCitizenServingRespondentsEnum.courtAdmin)){
+      return true
+  }
+  return false
+
+}
+
