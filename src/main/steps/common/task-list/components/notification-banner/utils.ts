@@ -121,3 +121,14 @@ export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): 
 export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
   return caseData.applicants?.[0].value.user.idamId === userDetails.id;
 };
+
+export const isPersonalServiceByCourtStuff=(caseData: Partial<CaseWithId>): boolean=> {
+  let lengthOfServedApplicationDetailsList:number = 0;
+  lengthOfServedApplicationDetailsList = caseData.finalServedApplicationDetailsList?.length as number;
+  if(lengthOfServedApplicationDetailsList>=1 && 
+    caseData.finalServedApplicationDetailsList?.[lengthOfServedApplicationDetailsList-1].value.whoIsResponsible==="Court"){
+      return true
+  }
+  return false
+
+}

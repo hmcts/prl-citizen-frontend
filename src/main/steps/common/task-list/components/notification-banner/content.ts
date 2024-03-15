@@ -13,6 +13,7 @@ import {
 } from '../../../../../steps/urls';
 import { NotificationBannerContent } from '../../definitions';
 import { isCafcassCymruServed, isCafcassServed } from '../../utils';
+import { isPersonalServiceByCourtStuff } from './utils';
 
 
 const en: NotificationBannerContent = {
@@ -1089,14 +1090,5 @@ export const languages = {
   en,
   cy,
 };
-export const isPersonalServiceByCourtStuff=(caseData: Partial<CaseWithId>): boolean=> {
-  let lengthOfServedApplicationDetailsList:number = 0;
-  lengthOfServedApplicationDetailsList = caseData.finalServedApplicationDetailsList?.length as number;
-  if(lengthOfServedApplicationDetailsList>=1 && 
-    caseData.finalServedApplicationDetailsList?.[lengthOfServedApplicationDetailsList-1].value.whoIsResponsible==="Court"){
-      return true
-  }
-  return false
 
-}
 
