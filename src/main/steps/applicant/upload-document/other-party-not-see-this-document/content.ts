@@ -24,19 +24,19 @@ const en = {
 };
 
 const cy: typeof en = {
-  reasonsToNotSeeTheDocument: 'Why should the other party not see this document? - welsh',
-  confidentialDetailsLabel: 'It contains confidential details - welsh',
-  confidentialDetailsHint: 'For example, my address, email address or telephone number. - welsh',
-  sensitiveInfoLabel: 'It contains sensitive information - welsh',
-  sensitiveInfoHint: 'For example, medical information or a criminal record. - welsh',
+  reasonsToNotSeeTheDocument: "Pam na ddylai'r parti arall weld y ddogfen hon?",
+  confidentialDetailsLabel: 'Mae’n cynnwys manylion cyfrinachol',
+  confidentialDetailsHint: 'Er enghraifft, fy nghyfeiriad, cyfeiriad e-bost neu rif ffôn.',
+  sensitiveInfoLabel: "Mae'n cynnwys gwybodaeth sensitif",
+  sensitiveInfoHint: 'Er enghraifft, gwybodaeth feddygol neu gofnod troseddol.',
   reasonsToRestrictDocument:
-    'Give reasons why you need to restrict this document. The court will only restrict if it you have a very good reason.',
+    'Rhowch resymau dros pam fod angen i chi gyfyngu ar y ddogfen hon. Bydd y llys ond yn ei chyfyngu os oes gennych reswm da iawn.',
   errors: {
     reasonsToNotSeeTheDocument: {
-      required: 'Select why the other party should not see this document. - welsh',
+      required: "Dewiswch pam na ddylai'r parti arall weld y ddogfen hon",
     },
     reasonsToRestrictDocument: {
-      required: 'Enter reasons why you need to restrict this document. - welsh',
+      required: 'Rhowch y rhesymau dros pam fod angen i chi gyfyngu ar y ddogfen hon',
     },
   },
 };

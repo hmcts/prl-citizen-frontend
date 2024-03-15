@@ -22,9 +22,9 @@ const cy = () => ({
   section: 'Llwytho dogfennau',
   caseNumber: 'Rhif yr achos ',
   title: 'Dewiswch y math o ddogfen',
-  note: 'The court will tell you in a letter or email which documents or materials you need to submit. - welsh',
+  note: 'Bydd y llys yn dweud wrthych mewn llythyr neu e-bost pa ddogfennau neu ddeunydd y mae angen i chi eu cyflwyno',
   userName: '',
-  continue: 'Close and return to case overview -welsh',
+  continue: 'Cau a dychwelyd i drosolwg o’r achos',
   sectionTitles: document_list_cy,
   documentsListItems: documents_list_items_cy,
 });

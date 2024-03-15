@@ -16,10 +16,10 @@ const en = () => ({
 const cy = () => ({
   section: 'Llwytho dogfennau',
   title: 'Llwytho dogfennau',
-  line1: 'You need permission to submit extra evidence - welsh',
-  line2_1: 'If you want to submit evidence the court has not requested,you need to  - welsh',
-  line2_2: 'complete the form C2.',
-  line3: 'You may need to pay a fee to submit this application. - welsh',
+  line1: 'Mae angen caniatâd arnoch i gyflwyno tystiolaeth ychwanegol',
+  line2_1: "Os ydych eisiau cyflwyno tystiolaeth nad yw'r llys wedi gofyn amdani, mae angen i chi ",
+  line2_2: 'lenwi ffurflen C2.',
+  line3: "Efallai y bydd angen i chi dalu ffi i gyflwyno'r cais hwn.",
   continue: 'Parhau',
 });
 

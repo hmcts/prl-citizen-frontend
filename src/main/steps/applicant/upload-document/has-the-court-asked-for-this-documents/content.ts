@@ -22,7 +22,7 @@ const cy: typeof en = {
   continue: 'Parhau',
   errors: {
     hasCourtAskedForThisDoc: {
-      required: 'Dewiswch un o’r opsiynau cyn parhau ymhellach',
+      required: "Dewiswch a yw'r llys wedi gofyn am y ddogfen hon",
     },
   },
 };
