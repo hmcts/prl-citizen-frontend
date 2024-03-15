@@ -114,7 +114,7 @@ export const PermissionForApplication = (
   language
 ): SummaryList | undefined => {
   const valForPermissionWhy = userCase.hasOwnProperty('sq_permissionsWhy') ? (HTML.UNORDER_LIST + userCase['sq_permissionsWhy']?.map(props => HTML.LIST_ITEM + keys[props] + ': ' + userCase[`sq_${props}_subfield`] + HTML.LIST_ITEM_END) + HTML.UNORDER_LIST_END).split(',').join('') : '';
-  let SummaryData=[{}];
+  let SummaryData;
   if(userCase['sq_courtPermissionRequired']===YesOrNo.YES){
    SummaryData = [
     {
@@ -279,7 +279,7 @@ export const ChildernDetails = (
       {
         key: keys['childGenderLabel'],
         value: '',
-        valueHtml:  personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? genderChose(personalDetails?.['gender'], language) + HTML.BREAK +  HTML.RULER  + keys['otherGender'] +  HTML.H4 +  keys['details']  + HTML.H4_CLOSE + HTML.BREAK + personalDetails['otherGenderDetails']: genderChose(personalDetails?.['gender'], language),
+        valueHtml:  personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? translation(personalDetails?.['gender'], language) + HTML.BREAK +  HTML.RULER  + keys['otherGender'] +  HTML.H4 +  keys['details']  + HTML.H4_CLOSE + HTML.BREAK + personalDetails['otherGenderDetails']: translation(personalDetails?.['gender'], language),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
       },
       {
@@ -408,8 +408,8 @@ export const OtherChildrenDetails = (
       }
       newChildDataStorage.push( {
         key: keys['childGenderLabel'],
-        value: genderChose(personalDetails?.['gender'],language),
-        valueHtml: genderChose(personalDetails?.['gender'], language) + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
+        value: translation(personalDetails?.['gender'],language),
+        valueHtml: translation(personalDetails?.['gender'], language) + ' ' + personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? HTML.BREAK + keys['otherGender'] +  HTML.RULER +  HTML.H4 +  keys['details'] + HTML.H4_CLOSE + personalDetails['otherGenderDetails']: '',
         changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
       });
     }
@@ -511,7 +511,7 @@ export const ApplicantDetails = (
       {
         key: keys['childGenderLabel'],
         value: '',
-        valueHtml:  personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? genderChose(personalDetails?.['gender'],language) + HTML.BREAK +  HTML.RULER  + keys['otherGender'] +  HTML.H4 +  keys['details']  + HTML.H4_CLOSE + HTML.BREAK + personalDetails['otherGenderDetails']: genderChose(personalDetails?.['gender'], language),
+        valueHtml:  personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== '' ? translation(personalDetails?.['gender'],language) + HTML.BREAK +  HTML.RULER  + keys['otherGender'] +  HTML.H4 +  keys['details']  + HTML.H4_CLOSE + HTML.BREAK + personalDetails['otherGenderDetails']: translation(personalDetails?.['gender'], language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
@@ -534,8 +534,8 @@ export const ApplicantDetails = (
         const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
         newApplicantData.push({
           key: keys['relationshipTo'] + ' ' + childFullName ,
-          value: relationshipTranslation(element['relationshipType'],language),
-          valueHtml: element['relationshipType'] === 'Other' ?  element['otherRelationshipTypeDetails'] : relationshipTranslation(element['relationshipType'],language) , //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+          value: translation(element['relationshipType'],language),
+          valueHtml: element['relationshipType'] === 'Other' ?  element['otherRelationshipTypeDetails'] : translation(element['relationshipType'],language) , //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
           changeUrl: applyParms(Urls['C100_APPLICANT_RELATIONSHIP_TO_CHILD'], { applicantId: id, childId: element['childId'] }),
         });
       });
@@ -706,7 +706,7 @@ export const PastAndCurrentProceedings = (
       order => '<li class="govuk-!-padding-bottom-2">' + keys[`${order}Label`] + '</li>'
     ) +
     '</ul>';
-    let SummaryData=[{}];
+    let SummaryData;
     if(userCase['op_childrenInvolvedCourtCase']===YesOrNo.YES || userCase['op_courtOrderProtection']===YesOrNo.YES){
     SummaryData = [
     {
@@ -863,7 +863,7 @@ export const SafetyConcerns_child = (
     c1A_childAbductedBefore += HTML.H4_CLOSE;
     c1A_childAbductedBefore += HTML.UNORDER_LIST;
     c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport'].filter(element => element !== 'Other')
-    .map(relatives => HTML.LIST_ITEM + relationshipTranslation(relatives,language)+ HTML.LIST_ITEM_END)
+    .map(relatives => HTML.LIST_ITEM + translation(relatives,language)+ HTML.LIST_ITEM_END)
     .toString()
     .split(',')
     .join('');
@@ -1068,42 +1068,45 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
     );
    }
 
-    if(contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes'){
-      newRespondentStorage.push(
-        {
-          key: (language === 'en')? 'I dont know their email address':getYesNoTranslation(language,'I dont know their email address', 'personalDetails'),
-          value: getYesNoTranslation(language,contactDetails?.['donKnowEmailAddress'],'doTranslation'),
-          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-        },
-      );
-    }else {
-      newRespondentStorage.push(
-      {
-        key:(language === 'en')? 'Email': getYesNoTranslation(language,'Email', 'personalDetails'),
-            value: contactDetails?.['emailAddress'],
-            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-      },
-    );}
-   
-    if(contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes'){
-      newRespondentStorage.push(
-        {
-          key: (language === 'en')? 'I dont know their telephone number':getYesNoTranslation(language,'I dont know their telephone number', 'personalDetails'),
-          value: getYesNoTranslation(language,contactDetails?.['donKnowTelephoneNumber'],'doTranslation'),
-          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-        },
-      );
-    }else{
-      newRespondentStorage.push(
-        {
-          key: (language === 'en')? 'Telephone number' :getYesNoTranslation(language,'Telephone number', 'personalDetails'),
-          value: contactDetails?.['telephoneNumber'],
-          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-        }
-      );
-    }
+  newRespondentStorage.push(respondentEmailDetails(contactDetails, id, language));
+  newRespondentStorage.push(respondentTelephoneDetails(contactDetails, id, language));
 
-    return newRespondentStorage;
+  return newRespondentStorage;
+};
+
+const respondentEmailDetails = (contactDetails, id, language) => {
+  if (contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes') {
+    return {
+      key:
+        getYesNoTranslation(language, 'dont_know_email_address', 'personalDetails'),
+      value: getYesNoTranslation(language, contactDetails?.['donKnowEmailAddress'], 'doTranslation'),
+      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+    };
+  } else {
+    return {
+      key: getYesNoTranslation(language, 'email', 'personalDetails'),
+      value: contactDetails?.['emailAddress'],
+      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+    };
+  }
+};
+
+const respondentTelephoneDetails = (contactDetails, id, language) => {
+  if (contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes') {
+    return {
+      key:
+        getYesNoTranslation(language, 'dont_know_telephone', 'personalDetails'),
+      value: getYesNoTranslation(language, contactDetails?.['donKnowTelephoneNumber'], 'doTranslation'),
+      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+    };
+  } else {
+    return {
+      key:
+        getYesNoTranslation(language, 'telephone_number', 'personalDetails'),
+      value: contactDetails?.['telephoneNumber'],
+      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+    };
+  }
 };
 
 /* eslint-disable import/namespace */
@@ -1195,8 +1198,8 @@ export const RespondentDetails = (
         const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
         newRespondentStorage.push({
           key: keys['relationshipTo'] + ' ' + childFullName ,
-          value: relationshipTranslation(element['relationshipType'],language),
-          valueHtml: element['relationshipType'] === 'Other' ?  element['otherRelationshipTypeDetails'] : relationshipTranslation(element['relationshipType'],language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+          value: translation(element['relationshipType'],language),
+          valueHtml: element['relationshipType'] === 'Other' ?  element['otherRelationshipTypeDetails'] : translation(element['relationshipType'],language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
           changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD'], { respondentId: id, childId: element['childId'] }),
         });
       });
@@ -1309,8 +1312,8 @@ export const OtherPeopleDetails = (
         const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
         newOtherPeopleStorage.push({
           key: keys['relationshipTo'] + ' ' + childFullName ,
-          value: relationshipTranslation(element['relationshipType'],language),
-          valueHtml: element['relationshipType'] === 'Other' ?  element['otherRelationshipTypeDetails'] : relationshipTranslation(element['relationshipType'],language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+          value: translation(element['relationshipType'],language),
+          valueHtml: element['relationshipType'] === 'Other' ?  element['otherRelationshipTypeDetails'] : translation(element['relationshipType'],language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
           changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD'], { otherPersonId: id, childId: element['childId'] }),
         });
       });
@@ -1482,19 +1485,13 @@ export const reasonableAdjustment = (
   };
 };
 
-export const genderChose=(choice, language): string=> {
+export const translation = (choice, language) => {
   let value = enContent?.[choice];
-  if(language==='cy'){
+  if (language === 'cy') {
     value = cyContent?.[choice];
   }
-    return value ||'';
-};
-const translation=(choice, language)=> {
-  let value = enContent?.[choice];
-if(language==='cy'){
-  value = cyContent?.[choice];
-}
-    return value ||'';
+
+  return value || '';
 };
 
 const contactTranslation=(preferences, language)=> {
@@ -1511,11 +1508,3 @@ export const getYesNoTranslation = (language, data, ctx): string=>{
   }
   return value || '';
   };
-const relationshipTranslation=(choice, language): string=> {
-let value = enContent?.[choice];
-if(language==='cy'){
-  value = cyContent?.[choice];
-}
-return value || '';
-};
-

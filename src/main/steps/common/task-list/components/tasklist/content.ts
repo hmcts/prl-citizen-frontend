@@ -31,7 +31,7 @@ const en: TaskListContent = {
         heading: 'Your documents',
         tasks: {
           uploadDocuments: {
-            linkText: ' Upload documents',
+            linkText: 'Upload documents, applications and statements',
           },
           viewAllDocuments: {
             linkText: 'View all documents',
@@ -290,7 +290,7 @@ const cy: typeof en = {
         heading: 'Eich dogfennau',
         tasks: {
           uploadDocuments: {
-            linkText: 'Llwytho dogfennau',
+            linkText: 'Llwytho dogfennau, ceisiadau a datganiadau',
           },
           viewAllDocuments: {
             linkText: 'Gweld yr holl ddogfennau',

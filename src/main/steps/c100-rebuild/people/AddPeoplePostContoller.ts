@@ -105,17 +105,7 @@ export default class AddPersonPostController {
     const fullName = c100TempFirstName && c100TempLastName;
 
     if (add) {
-      if (fullName) {
-        req.session.errors = form.getErrors(formData);
-        if (!req.session.errors.length) {
-          this.addPerson(c100TempFirstName, c100TempLastName);
-        }
-      } else {
-        req.session.errors = form
-          .getErrors(formData)
-          .filter(error => ['c100TempFirstName', 'c100TempLastName'].includes(error.propertyName));
-      }
-
+      this.tryAddingPerson(fullName, form, formData, req, c100TempFirstName, c100TempLastName);
       return this.parent.redirect(req, res, req.originalUrl);
     } else if (onlycontinue) {
       req.session.userCase[dataReference] = transformAddPeople(context, rest, req.session.userCase[dataReference]);
@@ -138,6 +128,19 @@ export default class AddPersonPostController {
       }
 
       this.parent.saveAndComeLater(req, res, req.session.userCase);
+    }
+  }
+
+  private tryAddingPerson(fullName, form, formData, req, c100TempFirstName, c100TempLastName) {
+    if (fullName) {
+      req.session.errors = form.getErrors(formData);
+      if (!req.session.errors.length) {
+        this.addPerson(c100TempFirstName, c100TempLastName);
+      }
+    } else {
+      req.session.errors = form
+        .getErrors(formData)
+        .filter(error => ['c100TempFirstName', 'c100TempLastName'].includes(error.propertyName));
     }
   }
 }
