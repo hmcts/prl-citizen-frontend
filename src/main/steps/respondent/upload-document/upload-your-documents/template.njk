@@ -10,7 +10,7 @@
         <span class="govuk-caption-l">{{caption}}</span>
         {{title}}
       </h1>
-      {% if isDocWitnessOrPosition %}
+      {% if allowFreeTextForStatements %}
         <form
         action="/document-manager/generate-document?_csrf={{ csrfToken }}&documentCategory={{ docCategory }}&documentType={{ docType }}"
         method="post"
@@ -21,10 +21,16 @@
                 {{textAreaDocUploadText1}}
               </label>
             </div>
-            <br>
-            <h1 class="govuk-heading-s">{{textAreaDocUploadText2}}</h1>
-            <textarea class="govuk-textarea" id="freeTextAreaForUpload" name="freeTextAreaForUpload" rows="5" aria-describedby="more-detail-hint"></textarea>
-          </div>
+            {{ govukTextarea({
+              name: "statementText",
+              label: {
+                text: textAreaDocUploadText2,
+                classes: "govuk-label--s govuk-!-margin-top-4"
+              },
+               errorMessage: {
+            text: errorMessage
+          } if errorMessage !== null
+            }) }}</div>
           <button class="govuk-button upload-addnew govuk-button--secondary" data-module="govuk-button">
             {{add}}
           </button>
@@ -64,13 +70,10 @@
             method="post"
             enctype="multipart/form-data">
               {{ govukFileUpload({
-          id: 'uploadFiles',
+          id: 'uploadDocumentFileUpload',
           name: "files[]",
           attributes: {
             accept: "image/jpeg,image/tiff,image/jpg,image/bmp,image/png,image/tif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-          },
-          label: {
-            text: chooseFilePhoto
           },
           classes: "govuk-!-margin-bottom-4",
           errorMessage: {
@@ -78,7 +81,7 @@
           } if errorMessage !== null
         }) }}
               {{ govukButton({
-          text: upload,
+          text: uploadFile,
           type: "submit", 
           classes: "govuk-button--secondary govuk-!-margin-bottom-0"
         }) }}
@@ -89,7 +92,7 @@
         </div>
       {% endif %}
       {% if userCase.respondentUploadFiles.length > 0 %}
-        <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
+        <h2 class="govuk-heading-s">{{ uploadDocumentFileUpload }}</h2>
       {% endif %}
       <ul id="filesUploadedList" class="govuk-list">
         <dl class="govuk-summary-list">
@@ -110,7 +113,7 @@
       </dl>
     </ul>
   </div>
-  <div class="govuk-form-group ">
+  <div class="govuk-form-group govuk-!-margin-bottom-0">
     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
       <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
         <h3 class="govuk-heading-m">

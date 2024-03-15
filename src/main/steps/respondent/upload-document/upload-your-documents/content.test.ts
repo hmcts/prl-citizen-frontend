@@ -11,13 +11,13 @@ const en = {
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   continue: 'Submit',
   add: 'Submit',
-  uploadFiles: 'Your documents',
+  uploadDocumentFileUpload: 'Your documents',
   remove: 'Remove',
   textAreaDocUploadText1: 'You can write your statement in the text box or upload it.',
-  textAreaDocUploadText2: 'Write your statement(optional)',
+  textAreaDocUploadText2: 'Write your statement (optional)',
   uplodFileText1:
     'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.',
-  uplodFileText2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
+  uplodFileText2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX and have a maximum size of 20mb.',
   uplodFileText3: 'How to take a picture of a document on your phone and upload it',
   uplodFileText4: 'Place your document on a flat service in a well-lit room. Use a flash if you need to.',
   uplodFileText5: 'Take a picture of the whole document. You should be able to see its edges.',
@@ -34,10 +34,9 @@ const en = {
     declarationCheck: {
       required: 'Tick the box to confirm you believe the facts stated in this application are true.',
     },
-    uploadFiles: {
+    uploadDocumentFileUpload: {
       uploadError: 'Document could not be uploaded',
-      noFile: 'Please choose a file to upload',
-      empty: 'No document found',
+      empty: 'Enter your statement or upload a file.',
     },
   },
 };
@@ -45,16 +44,17 @@ const en = {
 const cy: typeof en = {
   declaration: 'Credaf fod y ffeithiau a nodir yn y dogfennau hyn yn wir',
   consent:
-    'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth. Gelwir hwn yn eich ‘datganiad gwirionedd',
-  continue: 'Submit - welsh',
+    'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth.',
+  continue: 'Cyflwyno',
   add: 'Cyflwyno',
-  uploadFiles: 'Eich dogfennau',
+  uploadDocumentFileUpload: 'Eich dogfennau',
   remove: 'Dileu',
-  textAreaDocUploadText1: 'You can write your statement in the text box or upload it. - welsh',
-  textAreaDocUploadText2: 'Write your statement(optional) - welsh',
+  textAreaDocUploadText1: 'Gallwch ysgrifennu eich datganiad yn y blwch testun neu ei lwytho.',
+  textAreaDocUploadText2: 'Ysgrifennwch eich datganiad (dewisol)',
   uplodFileText1:
     'Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, llythyr-gan-yr-ysgol.doc.',
-  uplodFileText2: 'Rhaid i ffeiliau derfynu â JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
+  uplodFileText2:
+    'Rhaid i ffeiliau fod ar ffurf JPG, BMP, PNG, TIF, PDF, DOC neu DOCX a bod yn uchafswm o 20mb o ran maint.',
   uplodFileText3: 'Sut i dynnu llun o ddogfen ar eich ffôn a’i lwytho',
   uplodFileText4:
     'Rhowch eich dogfen ar rywbeth gwastad mewn ystafell sydd â digon o olau. Defnyddiwch fflach y camera os bydd angen.',
@@ -70,12 +70,11 @@ const cy: typeof en = {
     'Gellir dwyn achos dirmyg llys yn erbyn unrhyw un sy’n gwneud datganiad anwir, neu sy’n achosi i ddatganiad anwir gael ei wneud mewn dogfen a ddilysir gan ddatganiad gwirionedd heb gredu’n onest ei fod yn wir.',
   errors: {
     declarationCheck: {
-      required: 'Cadarnhewch y datganiad',
+      required: 'Ticiwch y blwch i gadarnhau eich bod yn credu bod y ffeithiau a nodir yn y cais hwn yn wir',
     },
-    uploadFiles: {
+    uploadDocumentFileUpload: {
       uploadError: 'Document could not be uploaded -welsh',
-      noFile: 'Please choose a file to upload -welsh',
-      empty: 'No document found -welsh',
+      empty: 'Rhowch eich datganiad neu llwythwch ffeil',
     },
   },
 };
@@ -124,16 +123,18 @@ describe('respondent -> upload-document -> upload-your-documents', () => {
     );
     expect(generatedContent.continue).toEqual('Submit');
     expect(generatedContent.add).toEqual('Submit');
-    expect(generatedContent.uploadFiles).toEqual('Your documents');
+    expect(generatedContent.uploadDocumentFileUpload).toEqual('Your documents');
     expect(generatedContent.remove).toEqual('Remove');
     expect(generatedContent.textAreaDocUploadText1).toEqual(
       'You can write your statement in the text box or upload it.'
     );
-    expect(generatedContent.textAreaDocUploadText2).toEqual('Write your statement(optional)');
+    expect(generatedContent.textAreaDocUploadText2).toEqual('Write your statement (optional)');
     expect(generatedContent.uplodFileText1).toEqual(
       'If you are uploading documents from a computer, name the files clearly. For example, letter-from-school.doc.'
     );
-    expect(generatedContent.uplodFileText2).toEqual('Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.');
+    expect(generatedContent.uplodFileText2).toEqual(
+      'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX and have a maximum size of 20mb.'
+    );
     expect(generatedContent.uplodFileText3).toEqual('How to take a picture of a document on your phone and upload it');
     expect(generatedContent.uplodFileText4).toEqual(
       'Place your document on a flat service in a well-lit room. Use a flash if you need to.'
@@ -187,7 +188,7 @@ describe('respondent -> upload-document -> upload-your-documents', () => {
   test('generateContent should return correct details', () => {
     commonContent.additionalData!.req.session = {
       ...commonContent.additionalData!.req.session,
-      errors: [{ errorType: 'uploadError', propertyName: 'uploadFiles' }],
+      errors: [{ errorType: 'empty', propertyName: 'uploadDocumentFileUpload' }],
     };
     commonContent.userCase = {
       ...commonContent.userCase,
@@ -227,7 +228,7 @@ describe('respondent -> upload-document -> upload-your-documents', () => {
         id: 'MOCK_URL2',
       },
     ]);
-    expect(content.errorMessage).toBe('Document could not be uploaded');
+    expect(content.errorMessage).toBe('Enter your statement or upload a file.');
     expect(content.docCategory).toBe('witnessstatements');
     expect(content.docType).toBe('yourwitnessstatements');
   });

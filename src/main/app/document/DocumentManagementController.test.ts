@@ -787,6 +787,8 @@ describe('DocumentManagerController', () => {
         },
       };
       req.query.isApplicant = 'Yes';
+      req.body = { ...req.body, statementText: 'testStatement' };
+
       generateStatementDocumentMock.mockResolvedValue(documentDetail);
       await documentManagerController.generateDocument(req, res);
 
@@ -1382,6 +1384,7 @@ describe('DocumentManagerController', () => {
       request.files = {
         statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
       };
+      request.body = { ...request.body, statementText: 'testStatement' };
       generateStatementDocumentMock.mockResolvedValue({
         status: 'Success',
         document: {
@@ -1413,12 +1416,15 @@ describe('DocumentManagerController', () => {
       request.files = {
         statementDocument: { name: 'file_example_TIFF_1MB.tiff', data: '', mimetype: 'text' },
       };
+      request.body = { ...request.body, statementText: 'testStatement' };
       generateStatementDocumentMock.mockRejectedValueOnce({
         status: 'Failure',
       });
 
       await generateDocumentManagerController.generateDocument(request, response);
-      expect(request.session.errors).toStrictEqual([{ errorType: 'uploadError', propertyName: 'uploadFiles' }]);
+      expect(request.session.errors).toStrictEqual([
+        { errorType: 'uploadError', propertyName: 'uploadDocumentFileUpload' },
+      ]);
       expect(response.redirect).toHaveBeenCalledWith(
         '/applicant/upload-document/upload-your-documents/witnessstatements/positionstatements'
       );
@@ -1485,7 +1491,9 @@ describe('DocumentManagerController', () => {
       });
 
       await uploadDocumentManagerController.uploadDocument(request, response);
-      expect(request.session.errors).toStrictEqual([]);
+      expect(request.session.errors).toStrictEqual([
+        { errorType: 'uploadError', propertyName: 'uploadDocumentFileUpload' },
+      ]);
       expect(response.redirect).toHaveBeenCalledWith(
         '/applicant/upload-document/upload-your-documents/witnessstatements/positionstatements'
       );
@@ -1500,7 +1508,9 @@ describe('DocumentManagerController', () => {
       });
 
       await uploadDocumentManagerController.uploadDocument(request, response);
-      expect(request.session.errors).toStrictEqual([]);
+      expect(request.session.errors).toStrictEqual([
+        { errorType: 'uploadError', propertyName: 'uploadDocumentFileUpload' },
+      ]);
       expect(response.redirect).toHaveBeenCalledWith(
         '/applicant/upload-document/upload-your-documents/witnessstatements/positionstatements'
       );

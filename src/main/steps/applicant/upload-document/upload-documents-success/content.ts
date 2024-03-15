@@ -16,16 +16,16 @@ const en = {
 };
 
 const cy: typeof en = {
-  pageTitle: 'Document submitted - welsh',
-  bannerHeading: 'Important - welsh',
-  bannerTitle: 'You must serve the documents - welsh',
+  pageTitle: 'Cyflwynwyd y ddogfen',
+  bannerHeading: 'Pwysig',
+  bannerTitle: "Rhaid i chi gyflwyno'r dogfennau",
   paragraphs: [
-    'You can do this by sending them to the party’s legal representative if they have one, or by posting or emailing them directly to the party. - welsh',
+    'Gallwch wneud hyn drwy eu hanfon at gynrychiolydd cyfreithiol y parti os oes ganddynt un, neu drwy eu postio neu eu hanfon yn uniongyrchol at y parti.',
   ],
-  whatHappensNext: 'What happens next - welsh',
-  courtWillMakeDecisions: 'The court will make a decision on whether to restrict access to this document. - welsh',
-  accessToCourtOnly: 'Access to the document will only be given to the court and judiciary. - welsh',
-  continue: 'Close and return to case overview - welsh',
+  whatHappensNext: 'Beth fydd yn digwydd nesaf',
+  courtWillMakeDecisions: "Bydd y llys yn penderfynu a ddylid cyfyngu ar fynediad i'r ddogfen hon ai peidio",
+  accessToCourtOnly: "Dim ond i'r llys a'r farnwriaeth y rhoddir mynediad i'r ddogfen",
+  continue: 'Cau a dychwelyd i drosolwg o’r achos',
   uploadAgain: 'Llwytho dogfen arall',
 };
 

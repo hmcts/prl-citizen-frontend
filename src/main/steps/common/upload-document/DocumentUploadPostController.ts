@@ -1,16 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+import _ from 'lodash';
 
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { DocType, PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
-import { Form, FormError, FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { getPartyName } from '../task-list/utils';
 
-import { getDocumentType } from './util';
+import {
+  getDocumentType,
+  handleUploadDocError,
+  isConfidentialDoc,
+  isRestrictedDoc,
+  removeUploadDocErrors,
+} from './util';
 
 @autobind
 export default class DocumentUploadPostController {
@@ -31,14 +38,17 @@ export default class DocumentUploadPostController {
       caseData?.[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'] ?? [];
 
     if (onlyContinue) {
+      Object.assign(req.session.userCase, formData);
       req.session.errors = form.getErrors(formData);
 
       if (!uploadedDocuments?.length) {
-        this.handleError(req, { errorType: 'empty', propertyName: 'uploadFiles' });
+        req.session.errors = handleUploadDocError(req.session.errors, 'empty', true);
       }
+
       if (req.session.errors.length) {
         return this.parent.redirect(req, res);
       }
+
       try {
         const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
         const response = await client.submitUploadedDocuments(user, {
@@ -47,25 +57,25 @@ export default class DocumentUploadPostController {
           partyId: user.id,
           partyName: getPartyName(caseData, partyType, user),
           partyType,
+          isConfidential: isConfidentialDoc(caseData),
+          isRestricted: isRestrictedDoc(caseData),
+          restrictDocumentDetails: _.get(caseData, 'reasonsToRestrictDocument', ''),
           documents: uploadedDocuments,
         });
-        req.session.errors = [];
 
-        if (response.response.status !== 200) {
-          this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });
+        if (response.data !== 'Success') {
+          req.session.errors = handleUploadDocError(req.session.errors, 'uploadError', true);
+          return;
         }
+
+        req.session.errors = {
+          ...removeUploadDocErrors(req.session.errors),
+        };
       } catch (error) {
-        this.handleError(req, { errorType: 'uploadError', propertyName: 'uploadFiles' });
+        req.session.errors = handleUploadDocError(req.session.errors, 'uploadError', true);
       } finally {
         this.parent.redirect(req, res);
       }
     }
-  }
-
-  private handleError(req: AppRequest, error: FormError) {
-    if (!req.session?.errors) {
-      req.session.errors = [];
-    }
-    req.session.errors.push({ errorType: error.errorType, propertyName: error.propertyName });
   }
 }

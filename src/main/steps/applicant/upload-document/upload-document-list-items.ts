@@ -18,8 +18,8 @@ export const documents_list_items_en = {
 
 export const documents_list_items_cy = {
   your_position_statements: 'Eich datganiadau safbwynt',
-  position_statement: 'Position statement - welsh',
-  witness_statements: 'Witness statements - welsh',
+  position_statement: 'Datganiad safbwynt',
+  witness_statements: 'Datganiadau tyst',
   your_witness_statements: 'Eich datganiadau tyst',
   other_witness_statements: 'Datganiadau tyst pobl eraill',
   mail_screenshots_media_files: 'Negeseuon e-bost, cipluniau, delweddau a ffeiliau cyfryngau eraill',
