@@ -227,6 +227,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   draftOrderDoc: 'draftOrderDoc',
   isCafcassServed: 'soaCafcassServedOptions',
   isCafcassCymruServed: 'soaCafcassCymruServedOptions',
+  finalServedApplicationDetailsList: 'finalServedApplicationDetailsList'
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -592,23 +593,14 @@ export interface Case {
   withdrawApplicationReason?: string;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
-  serviceOfApplication?: serviceOfApplication
+  finalServedApplicationDetailsList?:ServedApplicationDetails[]
 }
-export type serviceOfApplication = {
-  soaServingRespondentsOptionsCA?:SoaSolicitorServingRespondentsEnum,
-  soaServingRespondentsOptionsDA?:SoaSolicitorServingRespondentsEnum,
-  soaCitizenServingRespondentsOptionsCA?:SoaCitizenServingRespondentsEnum, 
-  soaCitizenServingRespondentsOptionsDA?:SoaCitizenServingRespondentsEnum, 
+export interface ServedApplicationDetails {
+  id: string;
+  value: ServedApplication;
 }
-export const enum SoaSolicitorServingRespondentsEnum {
-  applicantLegalRepresentative="applicantLegalRepresentative",
-  courtBailiff="courtBailiff",
-  courtAdmin="courtAdmin"
-}
-export const enum SoaCitizenServingRespondentsEnum {
-  courtBailiff="courtBailiff",
-  courtAdmin="courtAdmin",
-  unrepresentedApplicant="unrepresentedApplicant" 
+export type ServedApplication = {
+whoIsResponsible:string
 }
 
 export interface CaseWithId extends Case {

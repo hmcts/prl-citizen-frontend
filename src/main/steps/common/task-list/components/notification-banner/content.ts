@@ -1,4 +1,4 @@
-import { CaseWithId, SoaCitizenServingRespondentsEnum, SoaSolicitorServingRespondentsEnum} from '../../../../../app/case/case';
+import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
 import {
   APPLICANT,
@@ -13,7 +13,6 @@ import {
 } from '../../../../../steps/urls';
 import { NotificationBannerContent } from '../../definitions';
 import { isCafcassCymruServed, isCafcassServed } from '../../utils';
-import { getCasePartyType } from '../../../../../steps/prl-cases/dashboard/utils';
 
 
 const en: NotificationBannerContent = {
@@ -138,25 +137,16 @@ const en: NotificationBannerContent = {
                   },
                 },
                 {
-                  text: '<a href="APPLICANT_VIEW_ALL_DOCUMENTS">View your application pack</a>',
-                  show: (caseData: Partial<CaseWithId>,userDetails): boolean => {
-                    return getCasePartyType(caseData,userDetails.id)===PartyType.APPLICANT?true:false;
-                  },
+                  text: `<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>`,
                 },
                 {
-                  text: '<a href="RESPONDENT_VIEW_ALL_DOCUMENTS">View your application pack</a>',
-                  show: (caseData: Partial<CaseWithId>,userDetails): boolean => {
-                    return getCasePartyType(caseData,userDetails.id)===PartyType.RESPONDENT;
-                  },
-                },
-                {
-                  text: '<br/><p class="govuk-notification-banner__heading">Cafcass will contact you.</p>',
+                  text: '<p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
                   show: (caseData: Partial<CaseWithId>): boolean => {
                     return isCafcassServed(caseData);
                   },
                 },
                 {
-                  text: '<br/><p class="govuk-notification-banner__heading">Cafcass Cymru will contact you.</p>',
+                  text: '<p class="govuk-notification-banner__heading">Cafcass Cymru will contact you</p>',
                   show: (caseData: Partial<CaseWithId>): boolean => {
                     return isCafcassCymruServed(caseData);
                   },
@@ -668,29 +658,58 @@ const cy: typeof en = {
           ],
         },
         applicationServedAndLinked: {
-          heading: 'Mae’r llys wedi cychwyn eich cais',
+          heading: `Mae'r llys wedi cychwyn eich cais`,
           sections: [
             {
               contents: [
                 {
-                  text: 'Mae hyn yn golygu bod y llys wedianfon eich cais at y bobl eraill yn yr achos (yr atebwyr). Bydd yr atebwyr yn cael cyfle i ymateb i’r hyn yr ydych wedi’i ddweud. Bydd y cais yn mynd rhagddo p’un a fyddant yn ymateb neu beidio.',
+                  text: `Mae hyn yn golygu y bydd y llys yn rhoi eich cais i'r bobl eraill yn yr achos (yr atebwyr). Bydd yr atebwyr yn cael cyfle i ymateb i'r hyn yr ydych wedi'i ddweud.  Bydd y cais yn symud yn ei flaen p’un a fyddant yn ymateb neu beidio.`,
                 },
                 {
-                  text: 'Mae’r llys hefyd wedi anfon y cais i’r Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass neu Cafcass Cymru). Bydd Cafcass neu Cafcass Cymru yn cysylltu â chi i ystyried anghenion y plant.',
-                  show: isCafcassServed,
+                  text: `Byddwn yn rhoi gwybod i chi pan fydd y bobl eraill yn yr achos wedi cael eich cais a'ch dogfennau achos.`,
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isPersonalServiceByCourtStuff(caseData);
+                  },
+                },
+                {
+                  text: `<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">Gweld eich pecyn cais</a>`,
+                },
+                {
+                  text: '<p class="govuk-notification-banner__heading">Bydd Cafcass yn cysylltu â chi</p>',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassServed(caseData);
+                  },
+                },
+                {
+                  text: '<p class="govuk-notification-banner__heading">Bydd Cafcass Cymru yn cysylltu â chi </p>',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassCymruServed(caseData);
+                  },
+                },
+                {
+                  text: `Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass) yn cysylltu â chi i ystyried anghenion y plant.`,
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassServed(caseData);
+                  },
+                },
+                {
+                  text: `Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.`,
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassCymruServed(caseData);
+                  },
                 },
               ],
               links: [
                 {
-                  text: 'Mwy o wybodaeth am Cafcass',
+                  text: 'Gwybodaeth am Cafcass',
                   href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
                   show: isCafcassServed,
                   external: true,
                 },
                 {
-                  text: 'Mwy o wybodaeth am Cafcass Cymru',
+                  text: 'Gwybodaeth am Cafcass Cymru',
                   href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
-                  show: isCafcassServed,
+                  show: isCafcassCymruServed,
                   external: true,
                 },
               ],
@@ -1071,8 +1090,10 @@ export const languages = {
   cy,
 };
 export const isPersonalServiceByCourtStuff=(caseData: Partial<CaseWithId>): boolean=> {
-  if((caseData.serviceOfApplication?.soaServingRespondentsOptionsCA===SoaSolicitorServingRespondentsEnum.courtBailiff||SoaSolicitorServingRespondentsEnum.courtAdmin)||
-  (caseData.serviceOfApplication?.soaCitizenServingRespondentsOptionsCA===SoaCitizenServingRespondentsEnum.courtBailiff||SoaCitizenServingRespondentsEnum.courtAdmin)){
+  let lengthOfServedApplicationDetailsList:number = 0;
+  lengthOfServedApplicationDetailsList = caseData.finalServedApplicationDetailsList?.length as number;
+  if(lengthOfServedApplicationDetailsList>=1 && 
+    caseData.finalServedApplicationDetailsList?.[lengthOfServedApplicationDetailsList-1].value.whoIsResponsible==="Court"){
       return true
   }
   return false

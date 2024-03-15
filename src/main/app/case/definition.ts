@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
-import { CaseDate, FieldPrefix } from './case';
+import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
 
 export interface ChildDetails {
   gender: string;
@@ -982,6 +982,7 @@ export interface CaseData {
   draftOrderDoc?: Document;
   soaCafcassServedOptions?: YesOrNo | null;
   soaCafcassCymruServedOptions? : YesOrNo | null;
+  finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
 
 export const enum SelectTypeOfOrderEnum {
