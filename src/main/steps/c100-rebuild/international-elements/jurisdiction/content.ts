@@ -6,7 +6,6 @@ import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validatio
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  serviceName: 'Child arrangements',
   title: 'Could another person in the application apply for a similar order in a country outside England or Wales?',
   line1: 'For example, because a court in another country has the power (jurisdiction) to make decisions or judgments.',
   one: 'Yes',
@@ -28,7 +27,6 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   title: 'A allai unigolyn arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr? ',
   line1:
     'Er enghraifft, am fod gan lys mewn gwlad arall y pŵer (awdurdodaeth) i wneud penderfyniadau neu ddyfarniadau.',
