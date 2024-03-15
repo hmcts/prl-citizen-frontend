@@ -83,7 +83,7 @@ describe('Accessibility', () => {
     const page = await browser.newPage();
     await page.goto(config.TEST_URL);
     await page.type('#username', process.env.CITIZEN_USERNAME);
-    await page.type('#password', process.env.CITIZEN_PASSWORD);
+    await page.type('#password', process.env.CITIZEN_PW);
     await page.click('input[type="submit"]');
     cookies = await page.cookies(config.TEST_URL);
     await page.close();
