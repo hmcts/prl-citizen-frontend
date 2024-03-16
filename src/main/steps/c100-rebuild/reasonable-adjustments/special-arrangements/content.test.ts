@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child Arrangements',
   caption: 'Special arrangements',
   headingTitle: 'Do you or the children need special arrangements at court?',
   line1:
@@ -39,7 +38,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   caption: 'Trefniadau arbennig',
   headingTitle: "Ydych chi neu'r plant angen trefniadau arbennig yn y llys?",
   line1:

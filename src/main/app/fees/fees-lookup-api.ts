@@ -26,6 +26,6 @@ export const getFeesForC100ApplicationSubmission = async (
 };
 
 export interface FeesResponse {
-  feeAmountForC100Application: string;
+  feeAmount: string;
   errorRetrievingResponse: string;
 }

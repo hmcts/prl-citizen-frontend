@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child Arrangements',
   headingTitle: 'Do you need help with paying the fee for this application?',
   paragraph1: 'This application costs £',
   paragraph2: '. You may be able to get help with paying the fee if \n you have little or no savings, and either:',
@@ -27,7 +26,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   headingTitle: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
   paragraph1: 'Cost y cais hwn £',
   paragraph2:
