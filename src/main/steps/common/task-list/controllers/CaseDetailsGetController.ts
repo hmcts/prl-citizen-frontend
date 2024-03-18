@@ -2,10 +2,11 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { CaseWithId } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
-import { mapDataInSession } from '../../../../steps/tasklistresponse/utils';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
 import { DASHBOARD_URL, PARTY_TASKLIST, SIGN_IN_URL } from '../../../urls';
+import CaseDataController from '../../CaseDataController';
 import { applyParms } from '../../url-parser';
 
 @autobind
@@ -17,6 +18,15 @@ export default class CaseDetailsGetController {
     }
 
     try {
+      const { caseData } = await new CaseDataController().fetchAndSaveData(req);
+      res.redirect(
+        applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData as CaseWithId, req.session.user.id) })
+      );
+    } catch (error) {
+      res.redirect(DASHBOARD_URL);
+    }
+
+    /* try {
       const caseData = await new CosApiClient(req.session.user.accessToken, 'https://return-url').retrieveByCaseId(
         req.params.caseId,
         req.session.user
@@ -40,8 +50,9 @@ export default class CaseDetailsGetController {
       });
     } catch (e) {
       res.redirect(DASHBOARD_URL);
-    }
+    }*/
   }
+
   public async load(req: AppRequest, res: Response): Promise<void> {
     try {
       const User = req.session.user;

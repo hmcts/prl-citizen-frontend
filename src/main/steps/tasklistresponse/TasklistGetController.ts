@@ -1,9 +1,9 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CosApiClient } from '../../app/case/CosApiClient';
 import { EventRoutesContext } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
+import CaseDataController from '../../steps/common/CaseDataController';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
@@ -16,22 +16,29 @@ import {
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
 } from '../urls';
-
-import { mapDataInSession } from './utils';
 @autobind
 export class TasklistGetController {
   constructor(protected readonly context: EventRoutesContext) {}
   public async get(req: AppRequest, res: Response): Promise<void> {
-    try {
+    /*try {
       const citizenUser = req.session.user;
       const caseId = req.params?.caseId;
       const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
 
       req.session.userCase = await client.retrieveByCaseId(caseId, citizenUser);
+      const partyType = getCasePartyType(req.session.userCase, citizenUser.id);
+
       mapDataInSession(req.session.userCase, citizenUser.id);
 
-      req.session.save(() => res.redirect(this.getRedirectUrl()));
+      req.session.save(() => res.redirect(this.getRedirectUrl(partyType)));
     } catch (err) {
+      throw new Error('Case Data could not be retrieved.');
+    }*/
+
+    try {
+      await new CaseDataController().fetchAndSaveData(req);
+      res.redirect(this.getRedirectUrl());
+    } catch (error) {
       throw new Error('Case Data could not be retrieved.');
     }
   }
