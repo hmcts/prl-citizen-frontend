@@ -157,6 +157,20 @@ const en: NotificationBannerContent = {
             },
           ],
         },
+        responseSubmitted: {
+          heading: 'View the response to your application',
+          contents: [
+            {
+              text: 'The other person in the case (the respondent) has responded to your application.',
+            },
+          ],
+          links: [
+            {
+              text: 'View the response (PDF)',
+              href: APPLICANT_VIEW_ALL_DOCUMENTS,
+            },
+          ],
+        },
       },
     },
     [PartyType.RESPONDENT]: {
@@ -501,6 +515,20 @@ const cy: typeof en = {
           links: [
             {
               text: 'Gweld yr holl ddogfennau',
+              href: APPLICANT_VIEW_ALL_DOCUMENTS,
+            },
+          ],
+        },
+        responseSubmitted: {
+          heading: 'View the response to your application (welsh)',
+          contents: [
+            {
+              text: 'The other person in the case (the respondent) has responded to your application. (welsh)',
+            },
+          ],
+          links: [
+            {
+              text: 'View the response (PDF) (welsh)',
               href: APPLICANT_VIEW_ALL_DOCUMENTS,
             },
           ],

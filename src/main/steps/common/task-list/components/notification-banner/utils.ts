@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { CaseType, PartyType } from './../../../../../app/case/definition';
+import { CaseWithId } from './../../../../../app/case/case';
+import { CaseType, PartyType, Respondent } from './../../../../../app/case/definition';
+import { DocumentCategory } from './../../../../../steps/common/documents/definitions';
 import { languages as content } from './content';
 
 export enum BannerNotification {
@@ -20,6 +22,7 @@ export enum BannerNotification {
   DA_RESPONDENT_BANNER = 'daRespondentBanner',
   CA_RESPONDENT_SERVED = 'caRespondentServed',
   CAFFCASS = 'cafcass',
+  RESPONSE_SUBMITTED = 'responseSubmitted',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string, partyType: PartyType) => {
@@ -97,4 +100,20 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.DA_RESPONDENT_BANNER),
     show: () => false,
   },
+  [BannerNotification.RESPONSE_SUBMITTED]: {
+    id: BannerNotification.RESPONSE_SUBMITTED,
+    content: getContent.bind(null, BannerNotification.RESPONSE_SUBMITTED),
+    show: () => false,
+  },
+};
+
+export const hasResponseBeenSubmitted = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
+  return (
+    caseData.citizenDocuments?.filter(
+      document =>
+        document.partyId === respondent.id &&
+        document.categoryId === DocumentCategory.RESPONDENT_APPLICATION &&
+        document.reviewedDate !== null
+    ).length !== 0
+  );
 };
