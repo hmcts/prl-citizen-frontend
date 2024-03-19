@@ -566,6 +566,17 @@ export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE: PageLink
 export const REASONABLE_ADJUSTMENTS_RETRIEVE_SUPPORT_FLAGS = ':appBaseUrl/:caseId/retrieve-ra-flags/:partyId';
 export const REASONABLE_ADJUSTMENTS_MANAGE_SUPPORT_FLAGS = ':appBaseUrl/:caseId/:eventId/party-update-ra';
 export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
+export const COMMON_PAGE_URLS = [
+  DASHBOARD_URL,
+  PIN_ACTIVATION_URL,
+  COOKIES_PAGE,
+  PRIVACY_POLICY,
+  ACCESSIBILITY_STATEMENT,
+  TERMS_AND_CONDITIONS,
+  ...ANONYMOUS_URLS,
+];
+
+export const TASKLIST_RESPONSE_TO_CA: PageLink = `${APPLICANT}/responsetoca`;
 
 export const LOCAL_API_SESSION = '/api/v1/session';
 export const SAFEGAURD_EXCLUDE_URLS = [
