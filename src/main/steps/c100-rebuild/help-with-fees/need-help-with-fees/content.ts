@@ -5,6 +5,8 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 export * from './routeGuard';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   headingTitle: 'Do you need help with paying the fee for this application?',

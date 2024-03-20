@@ -5,6 +5,8 @@ import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { generateContent as parentContent } from '../content';
 
+console.info('** FOR SONAR **');
+
 export const en = () => ({
   caption: 'Safety concerns',
   headingTitle: 'What type of behaviour have the children experienced or are at risk of experiencing?',

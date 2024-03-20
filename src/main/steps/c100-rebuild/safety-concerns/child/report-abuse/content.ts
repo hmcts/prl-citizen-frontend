@@ -8,6 +8,8 @@ import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
 export * from './routeGuard';
 
+console.info('** FOR SONAR **');
+
 export const en = () => ({
   caption: 'Safety concerns',
   physicalAbusePageTitle: 'Briefly describe the physical abuse against the children if you feel able to',

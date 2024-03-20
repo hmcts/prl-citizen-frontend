@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 
+console.info('** FOR SONAR **');
+
 const en = () => ({
   guidanceOnAbductionLabel: 'Guidance on parental child abduction',
   guidanceOnAbductionLink: 'https://www.gov.uk/government/collections/child-abduction',

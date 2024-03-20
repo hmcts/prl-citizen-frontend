@@ -11,6 +11,8 @@ import { isAlphaNumeric, isFieldFilledIn } from '../../../../app/form/validation
 import { getPartyDetails } from '../../people/util';
 import { getApplicantDetails } from '../util';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'What is ',

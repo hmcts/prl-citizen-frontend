@@ -2,7 +2,7 @@ import { TranslationFn } from '../../app/controller/GetController';
 import { FormContent } from '../../app/form/Form';
 import { getMOJForkingScreenUrl } from '../../steps/urls';
 export * from './routeGuard';
-
+console.info('** FOR SONAR **');
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Completing your application',

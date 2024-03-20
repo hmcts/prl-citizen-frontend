@@ -4,6 +4,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 export const en = () => ({
   title: 'Do you or any respondents have other children who are not part of this application?',
   one: 'Yes',

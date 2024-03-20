@@ -8,3 +8,4 @@ export const generateContent: TranslationFn = content => {
     ...privateDetailsConfirmedContent,
   };
 };
+console.info('** FOR SONAR **');

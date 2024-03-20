@@ -45,6 +45,7 @@ PostDocumentUploader method */
 export default class UploadDocumentController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
+    console.info('** FOR SONAR **');
   }
 
   /**

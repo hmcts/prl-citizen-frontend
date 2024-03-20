@@ -6,6 +6,8 @@ import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/form/validation';
 import { generateDetailsKnownYesField } from '../common/utils';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Keeping your contact details private for',

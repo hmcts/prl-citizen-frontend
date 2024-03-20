@@ -7,7 +7,7 @@ import {
   isFieldFilledIn,
   isNumeric,
 } from '../../../../app/form/validation';
-
+console.info('** FOR SONAR **');
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Access your case',

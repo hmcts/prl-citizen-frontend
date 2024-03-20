@@ -10,6 +10,8 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/For
 import { isAlphaNumeric, isFieldFilledIn } from '../../../../app/form/validation';
 import { getPartyDetails } from '../../people/util';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'What is ',

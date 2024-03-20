@@ -17,6 +17,8 @@ import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainU
 import { cy, en } from '../common.content';
 import { applyParms } from '../url-parser';
 
+console.info('** FOR SONAR **');
+
 export const getSectionSummaryList = (
   rows: SummaryListRow[],
   content: PageContent,

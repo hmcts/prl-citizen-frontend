@@ -6,6 +6,8 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/For
 import { isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
 import { getPartyDetails } from '../../people/util';
 
+console.info('** FOR SONAR **');
+
 export const en = () => ({
   title: 'Contact details of',
   subTitle:

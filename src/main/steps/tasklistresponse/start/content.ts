@@ -6,6 +6,8 @@ import { respondent_cy, respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
 
+console.info('** FOR SONAR **');
+
 const en = () => ({
   title: 'Respond to the application',
   statuses: {

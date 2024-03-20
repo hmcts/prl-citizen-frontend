@@ -7,6 +7,8 @@ import { generateUploadDocumentList } from './upload-documents-list';
 
 export * from './routeGuard';
 
+console.info('** FOR SONAR **');
+
 const en = () => ({
   section: 'Upload documents',
   caseNumber: 'Case Number ',

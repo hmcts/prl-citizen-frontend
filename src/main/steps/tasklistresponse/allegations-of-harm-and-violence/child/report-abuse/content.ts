@@ -5,6 +5,9 @@ import { isTextAreaValid } from '../../../../../app/form/validation';
 import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
 export * from './routeGuard';
+
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Safety concerns',

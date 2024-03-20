@@ -7,6 +7,8 @@ import { cy as OtherCy, en as OtherEn } from '../miam-other/content';
 import { cy as PreviousAttendanceCy, en as PreviousAttendanceEn } from '../previous-attendance/content';
 import { cy as UrgencyCy, en as UrgencyEn } from '../urgency/content';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'You don’t have to attend a MIAM',

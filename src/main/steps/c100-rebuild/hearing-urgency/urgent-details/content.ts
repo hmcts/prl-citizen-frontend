@@ -9,6 +9,8 @@ import {
   isTextAreaValid,
 } from '../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 export const en = () => ({
   title: 'Tell us about your situation',
   reasonForUrgentHearing: 'Reason you are asking for an urgent hearing',

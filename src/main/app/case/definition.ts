@@ -3,6 +3,8 @@
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
 import { CaseDate, FieldPrefix } from './case';
 
+console.info('** FOR SONAR **');
+
 export interface ChildDetails {
   gender: string;
   lastName: string;
@@ -2446,6 +2448,7 @@ export interface HearingsList {
 export interface Hearing{
   dates : string,
   lengthOfHearing : number | undefined,
+  hearingDurationDisplayText: string,
   hearingMethod: string ,
   hearingDaySchedule: hearingDay[],
 }
@@ -2454,18 +2457,27 @@ export interface hearingDay{
   hearingDate: string,
   startTime: string,
   amPm:string,
+  startTimeDisplayText:string,
   durationInDayOrHours:number,
   minutes:number,
+  hearingDurationDisplayText: string,
   judgeName:string | null | undefined,
   venue:string | null | undefined,
   address:string | null | undefined,
   roomId:string | null | undefined,
+  hearingToAttendDetails: Row[]
 }
+
+export type Row = {
+  displayText: string;
+  value: string | null | undefined;
+};
 
 export interface CompletedHearings{
   hearingId: Number | undefined,
   dates: string,
   lengthOfHearing: number | undefined,
+  hearingDurationDisplayText: string,
   hearingMethod: string,
 }
 
@@ -3089,6 +3101,11 @@ export enum CaseEvent {
 
 export enum hearingStatus {
   COMPLETED = 'COMPLETED',
+  HEARING_REQUESTED = 'HEARING_REQUESTED',
+  EXCEPTION = 'EXCEPTION',
+  AWAITING_LISTING = 'AWAITING_LISTING',
+  AWAITING_ACTUALS = 'AWAITING_ACTUALS',
+  LISTED = 'LISTED'
 } 
 
 export enum passportPossessionRelative {

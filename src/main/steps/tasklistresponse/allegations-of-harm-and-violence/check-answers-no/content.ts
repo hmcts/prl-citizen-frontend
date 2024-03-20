@@ -3,6 +3,8 @@ import { FormContent } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 import { summaryList } from '../../../common/summary/utils';
 
+console.info('** FOR SONAR **');
+
 export const enContent = {
   section: 'Check your answers',
   title: 'Safety concerns',

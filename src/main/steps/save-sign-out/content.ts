@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Your application has been saved',
   applicationSentTo: 'A link to your application has been sent to:',

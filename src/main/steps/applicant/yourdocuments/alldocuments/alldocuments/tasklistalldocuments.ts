@@ -14,6 +14,9 @@ import * as URL from '../../../../urls';
 import { getApplicantAllegationsOfHarmAndViolence } from '../../../task-list/utils';
 
 import { applicant_tasklist_items_all_docs_en } from './tasklist-items-all-documents';
+
+console.info('** FOR SONAR **');
+
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const generateApplicantTaskListAllDocuments = (sectionTitles, taskListItems, userCase) => {
   return [

@@ -5,6 +5,8 @@ import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { generateContent as parentContent } from '../content';
 
+console.info('** FOR SONAR **');
+
 export const en = () => ({
   caption: 'Safety concerns',
   title: 'Has the passport office been notified? ',

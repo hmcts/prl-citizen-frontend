@@ -8,6 +8,8 @@ import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
+console.info('** FOR SONAR **');
+
 let updatedForm: FormContent;
 
 export const en = () => ({

@@ -4,6 +4,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 export const en = () => ({
   title: 'Are the children involved in any emergency protection, care or supervision proceedings (or have they been)? ',
   localAuthority: 'These will usually involve a local authority.',

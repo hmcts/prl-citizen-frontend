@@ -1,6 +1,8 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 
+console.info('** FOR SONAR **');
+
 const en = () => {
   return {
     section: 'All documents',

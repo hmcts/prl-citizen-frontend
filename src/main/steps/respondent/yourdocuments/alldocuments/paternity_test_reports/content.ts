@@ -1,6 +1,8 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getDocumentList } from '../../../../../steps/applicant/yourdocuments/alldocuments/alldocuments/utils';
 
+console.info('** FOR SONAR **');
+
 const en = () => {
   return {
     section: 'All documents',

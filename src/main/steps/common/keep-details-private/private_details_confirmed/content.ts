@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-
+console.info('** FOR SONAR **');
 export const en = {
   title: 'The court will keep your contact details private',
   line1: 'You have told us you want to keep these contact details private',

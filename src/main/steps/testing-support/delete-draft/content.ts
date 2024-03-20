@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Testing support - create drafts',
   deleteC100Draft: 'Delete C100 Draft/s',

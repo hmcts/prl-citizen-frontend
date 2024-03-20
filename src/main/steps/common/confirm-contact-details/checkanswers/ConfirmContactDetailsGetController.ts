@@ -17,6 +17,8 @@ import { APPLICANT_CHECK_ANSWERS, RESPONDENT_CHECK_ANSWERS } from '../../../../s
 import { mapConfirmContactDetails } from './ContactDetailsMapper';
 import { cyContent, enContent } from './content';
 
+console.info('** FOR SONAR **');
+
 @autobind
 export class ConfirmContactDetailsGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {

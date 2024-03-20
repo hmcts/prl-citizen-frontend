@@ -6,6 +6,8 @@ import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
+console.info('** FOR SONAR **');
+
 const en = {
   declaration: 'I believe that the facts stated in these documents are true',
   consent: 'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',

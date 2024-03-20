@@ -8,6 +8,7 @@ import type { UserDetails } from '../controller/AppRequest';
 export class DocumentManagementClient {
   client: AxiosInstance;
   constructor(baseURL: string, authToken: string, private readonly user: UserDetails) {
+    console.info('** FOR SONAR **');
     this.client = Axios.create({
       baseURL,
       headers: {

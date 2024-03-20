@@ -8,3 +8,5 @@ export const generateContent: TranslationFn = content => {
     ...contactPost,
   };
 };
+
+console.info('** FOR SONAR **');

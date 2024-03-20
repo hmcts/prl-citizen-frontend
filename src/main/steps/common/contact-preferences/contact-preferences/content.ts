@@ -7,7 +7,7 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/For
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { interpolate } from '../../../../steps/common/string-parser';
 import { getPartyDetails } from '../../../../steps/tasklistresponse/utils';
-
+console.info('** FOR SONAR **');
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Case number {caseNumber}',

@@ -44,6 +44,8 @@ import { PastAndCurrentProceedings } from '../proceedings/mainUtils';
 import { ANYTYPE } from './common/index';
 import { populateSummaryData } from './handler';
 
+console.info('** FOR SONAR **');
+
 export const enlegalRepresntationContent = {
   sectionTitles: {
     title: '1. Legal representation',

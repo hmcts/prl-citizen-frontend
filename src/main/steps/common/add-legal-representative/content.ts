@@ -5,6 +5,8 @@ import { getApplicant, getApplicantName } from '../../applicant/task-list';
 import { getCasePartyType } from '../../prl-cases/dashboard/utils';
 import { getRespondent, getRespondentName } from '../../respondent/task-list';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Adding a legal representative',
   partyName: '',

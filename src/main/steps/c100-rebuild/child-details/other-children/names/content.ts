@@ -4,6 +4,8 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isFieldLetters } from '../../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 let updatedForm: FormContent;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({

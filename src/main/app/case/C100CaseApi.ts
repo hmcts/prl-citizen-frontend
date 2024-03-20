@@ -11,7 +11,9 @@ import { AppSession, UserDetails } from '../controller/AppRequest';
 import { Case, CaseWithId } from './case';
 import { C100_CASE_EVENT, C100_CASE_TYPE, State } from './definition';
 export class CaseApi {
-  constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
+  constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {
+    console.info('** FOR SONAR **');
+  }
 
   public async retrieveCaseById(caseId: string): Promise<RetreiveDraftCase> {
     if (!caseId) {

@@ -1,6 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
+console.info('** FOR SONAR **');
+
 const en = () => ({
   title: 'Upload your MIAM certificate',
   youNeed: 'If you are uploading documents from a computer, name the files clearly. For example, miam-certificate.doc.',

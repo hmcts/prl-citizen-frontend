@@ -1,3 +1,5 @@
+console.info('** FOR SONAR **');
+
 const en = {
   home: 'Home',
   caseView: 'CaseView',

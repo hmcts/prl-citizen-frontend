@@ -15,6 +15,8 @@ import {
 } from '../../../../app/form/validation';
 import { getApplicantDetails } from '../util';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Provide details for',

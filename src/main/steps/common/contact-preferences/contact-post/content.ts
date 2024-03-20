@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { interpolate } from '../../../../steps/common/string-parser';
-
+console.info('** FOR SONAR **');
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Case number {caseNumber}',

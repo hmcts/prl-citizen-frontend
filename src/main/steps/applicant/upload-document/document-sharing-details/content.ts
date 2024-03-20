@@ -5,6 +5,8 @@ import { getDocumentMeta } from '../../../../steps/common/upload-document/util';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { APPLICANT_CHECK_ANSWERS, FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
+console.info('** FOR SONAR **');
+
 const en = {
   cardTitle: 'Before you submit a document',
   cardContent:
