@@ -298,6 +298,78 @@ describe('testcase for notification Banner', () => {
       },
     ]);
   });
+
+  test('when respondent has submitted their response', () => {
+    const data = {
+      id: '1',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      respondents: [
+        {
+          id: '1',
+          value: {
+            user: {
+              idamId: '1',
+            },
+          },
+        },
+      ],
+      citizenDocuments: [
+        {
+          partyId: '1',
+          partyName: null,
+          partyType: 'respondent',
+          categoryId: 'respondentApplication',
+          uploadedBy: 'test user',
+          uploadedDate: '2024-03-11T16:24:33.122506',
+          reviewedDate: '2024-03-11T16:24:33.122506',
+          document: {
+            document_url: 'MOCK_DOCUMENT_URL',
+            document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+            document_hash: null,
+            category_id: 'respondentApplication',
+            document_creation_date: '2024-03-11T16:24:33.122506',
+          },
+          documentWelsh: null,
+        },
+      ],
+    } as unknown as CaseWithId;
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+      {
+        contents: [
+          {
+            text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
+          },
+        ],
+        heading: 'The court has issued your application',
+        id: 'applicationServedAndLinked',
+        links: [],
+        title: 'Important',
+      },
+      {
+        contents: [
+          {
+            text: 'The other person in the case (the respondent) has responded to your application.',
+          },
+        ],
+        heading: 'View the response to your application',
+        id: 'responseSubmitted',
+        links: [
+          {
+            external: false,
+            href: '/applicant/yourdocuments/alldocuments/alldocuments',
+            text: 'View the response (PDF)',
+          },
+        ],
+        title: 'Important',
+      },
+    ]);
+  });
+
   test('when case is closed', () => {
     const data = {
       id: '12',

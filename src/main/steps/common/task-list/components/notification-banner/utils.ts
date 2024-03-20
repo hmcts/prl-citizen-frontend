@@ -112,7 +112,7 @@ export const hasResponseBeenSubmitted = (caseData: Partial<CaseWithId>, responde
     caseData.citizenDocuments?.filter(
       document =>
         document.partyId === respondent.id &&
-        document.categoryId === DocumentCategory.RESPONDENT_APPLICATION &&
+        document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
         document.reviewedDate !== null
     ).length !== 0
   );

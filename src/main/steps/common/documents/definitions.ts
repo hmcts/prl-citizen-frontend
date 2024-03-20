@@ -30,7 +30,7 @@ export const enum DocumentCategory {
   POLICE_REPORTS = 'policeReport', //2
   DNA_REPORTS = 'DNAReports_expertReport', //1 PATERNITY R - resp
   DRUG_ALCOHOL_TESTS = 'drugAndAlcoholTest(toxicology)', //1
-  RESPONDENT_APPLICATION = 'respondentApplication',
+  RESPONDENT_C7_RESPONSE_TO_APPLICATION = 'respondentApplication',
 }
 
 export type DocumentsListConfigProps = {

@@ -37,48 +37,55 @@ export const getNotificationBannerConfig = (
     caseType = CaseType.C100;
   }
 
-  return notificationBannerConfig(caseData)
-    [caseType!][partyType].map(config => {
-      const { id, show } = config;
+  const notificationConfig = notificationBannerConfig(caseData);
 
-      if (show(caseData, userDetails)) {
-        const _content = config.content(caseType, language, partyType);
-        let _config = {
-          id,
-          ..._content,
-          contents: _content?.contents
-            ?.filter(content => (_.isFunction(content?.show) ? content.show(caseData, userDetails) : true))
-            ?.map(content => ({
-              text: interpolate(content.text, {
-                noOfDaysRemainingToSubmitCase:
-                  caseData?.noOfDaysRemainingToSubmitCase ?? 'caseData.noOfDaysRemainingToSubmitCase',
-              }),
-            })),
-        };
+  return notificationConfig &&
+    caseType &&
+    notificationConfig.hasOwnProperty(caseType) &&
+    notificationConfig[caseType].hasOwnProperty(partyType)
+    ? notificationConfig[caseType][partyType]
+        .map(config => {
+          const { id, show } = config;
 
-        if (_content?.links && _content.links.length) {
-          _config = {
-            ..._config,
-            links: _content?.links
-              ?.filter(content => (_.isFunction(content?.show) ? content.show(caseData, userDetails) : true))
-              ?.map(link => ({
-                ...link,
-                external: link?.external ?? false,
-                href: interpolate(link.href, {
-                  c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#',
-                  withdrawCase: applyParms(C100_WITHDRAW_CASE, { caseId: caseData?.id ?? '' }),
-                }),
-              })),
-          };
-        }
-        return _config;
-      }
+          if (show(caseData, userDetails)) {
+            const _content = config.content(caseType, language, partyType);
+            let _config = {
+              id,
+              ..._content,
+              contents: _content?.contents
+                ?.filter(content => (_.isFunction(content?.show) ? content.show(caseData, userDetails) : true))
+                ?.map(content => ({
+                  text: interpolate(content.text, {
+                    noOfDaysRemainingToSubmitCase:
+                      caseData?.noOfDaysRemainingToSubmitCase ?? 'caseData.noOfDaysRemainingToSubmitCase',
+                  }),
+                })),
+            };
 
-      return null;
-    })
-    .filter(config => {
-      return config !== null;
-    });
+            if (_content?.links && _content.links.length) {
+              _config = {
+                ..._config,
+                links: _content?.links
+                  ?.filter(content => (_.isFunction(content?.show) ? content.show(caseData, userDetails) : true))
+                  ?.map(link => ({
+                    ...link,
+                    external: link?.external ?? false,
+                    href: interpolate(link.href, {
+                      c100RebuildReturnUrl: caseData?.c100RebuildReturnUrl ?? '#',
+                      withdrawCase: applyParms(C100_WITHDRAW_CASE, { caseId: caseData?.id ?? '' }),
+                    }),
+                  })),
+              };
+            }
+            return _config;
+          }
+
+          return null;
+        })
+        .filter(config => {
+          return config !== null;
+        })
+    : [];
 };
 
 export const generateResponseNotifications = (caseData: Partial<CaseWithId>): NotificationBannerProps[] => {
