@@ -11,6 +11,7 @@ import {
   C100_CHILD_ADDRESS,
   DASHBOARD_URL,
   PARTY_TASKLIST,
+  PageLink,
   RESPONDENT,
   RESPONDENT_TASK_LIST_URL,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
@@ -108,27 +109,31 @@ export class GetCaseController {
     } else {
       const caseId = req.originalUrl.split('/').pop() ?? '';
       if (parseInt(caseId)) {
-        let url = DASHBOARD_URL;
+        const url = this.getRedirectUrl(req);
         req.session.userCase = await GetCaseController.assignUserCase(req, caseId);
-        if (req.originalUrl.includes(RESPONDENT)) {
-          if (req.originalUrl.includes(RESPONDENT_TASK_LIST_URL)) {
-            url = RESPONDENT_TASK_LIST_URL;
-          } else if (req.originalUrl.includes(VIEW_ALL_DOCUMENTS)) {
-            url = RESPONDENT_VIEW_ALL_DOCUMENTS;
-          }
-        } else if (req.originalUrl.includes(APPLICANT)) {
-          if (req.originalUrl.includes(APPLICANT_TASK_LIST_URL)) {
-            url = APPLICANT_TASK_LIST_URL;
-          } else if (req.originalUrl.includes(VIEW_ALL_DOCUMENTS)) {
-            url = APPLICANT_VIEW_ALL_DOCUMENTS;
-          }
-        } else if (req.originalUrl.includes(RESPONSE_TASKLIST)) {
-          url = RESPOND_TO_APPLICATION;
-        }
         req.session.save(() => res.redirect(url));
       } else {
         res.redirect(DASHBOARD_URL);
       }
     }
+  }
+
+  private getRedirectUrl(req: AppRequest): PageLink {
+    let url = DASHBOARD_URL;
+    if (req.originalUrl.includes(VIEW_ALL_DOCUMENTS)) {
+      if (req.originalUrl.includes(RESPONDENT)) {
+        url = RESPONDENT_VIEW_ALL_DOCUMENTS;
+      } else if (req.originalUrl.includes(APPLICANT)) {
+        url = APPLICANT_VIEW_ALL_DOCUMENTS;
+      }
+    } else if (req.originalUrl.includes(RESPONDENT_TASK_LIST_URL)) {
+      url = RESPONDENT_TASK_LIST_URL;
+    } else if (req.originalUrl.includes(APPLICANT_TASK_LIST_URL)) {
+      url = APPLICANT_TASK_LIST_URL;
+    } else if (req.originalUrl.includes(RESPONSE_TASKLIST)) {
+      url = RESPOND_TO_APPLICATION;
+    }
+
+    return url;
   }
 }
