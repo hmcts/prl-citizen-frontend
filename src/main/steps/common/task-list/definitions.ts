@@ -116,7 +116,7 @@ type NotificationContent = {
 export type NotificationSection = {
   contents: {
     text: string;
-    show?: (caseData: Partial<CaseWithId>,userDetails?) => boolean;
+    show?: (caseData: Partial<CaseWithId>, userDetails?) => boolean;
   }[];
   links?: {
     text: string;

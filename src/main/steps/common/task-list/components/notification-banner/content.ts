@@ -13,8 +13,8 @@ import {
 } from '../../../../../steps/urls';
 import { NotificationBannerContent } from '../../definitions';
 import { isCafcassCymruServed, isCafcassServed } from '../../utils';
-import { isPersonalServiceByCourtStuff } from './utils';
 
+import { isPersonalServiceByCourtStuff } from './utils';
 
 const en: NotificationBannerContent = {
   title: 'Important',
@@ -138,7 +138,7 @@ const en: NotificationBannerContent = {
                   },
                 },
                 {
-                  text: `<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>`,
+                  text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
                 },
                 {
                   text: '<p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
@@ -659,21 +659,21 @@ const cy: typeof en = {
           ],
         },
         applicationServedAndLinked: {
-          heading: `Mae'r llys wedi cychwyn eich cais`,
+          heading: "Mae'r llys wedi cychwyn eich cais",
           sections: [
             {
               contents: [
                 {
-                  text: `Mae hyn yn golygu y bydd y llys yn rhoi eich cais i'r bobl eraill yn yr achos (yr atebwyr). Bydd yr atebwyr yn cael cyfle i ymateb i'r hyn yr ydych wedi'i ddweud.  Bydd y cais yn symud yn ei flaen p’un a fyddant yn ymateb neu beidio.`,
+                  text: "Mae hyn yn golygu y bydd y llys yn rhoi eich cais i'r bobl eraill yn yr achos (yr atebwyr). Bydd yr atebwyr yn cael cyfle i ymateb i'r hyn yr ydych wedi'i ddweud.  Bydd y cais yn symud yn ei flaen p’un a fyddant yn ymateb neu beidio.",
                 },
                 {
-                  text: `Byddwn yn rhoi gwybod i chi pan fydd y bobl eraill yn yr achos wedi cael eich cais a'ch dogfennau achos.`,
+                  text: "Byddwn yn rhoi gwybod i chi pan fydd y bobl eraill yn yr achos wedi cael eich cais a'ch dogfennau achos.",
                   show: (caseData: Partial<CaseWithId>): boolean => {
                     return isPersonalServiceByCourtStuff(caseData);
                   },
                 },
                 {
-                  text: `<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">Gweld eich pecyn cais</a>`,
+                  text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">Gweld eich pecyn cais</a>',
                 },
                 {
                   text: '<p class="govuk-notification-banner__heading">Bydd Cafcass yn cysylltu â chi</p>',
@@ -688,13 +688,13 @@ const cy: typeof en = {
                   },
                 },
                 {
-                  text: `Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass) yn cysylltu â chi i ystyried anghenion y plant.`,
+                  text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass) yn cysylltu â chi i ystyried anghenion y plant.',
                   show: (caseData: Partial<CaseWithId>): boolean => {
                     return isCafcassServed(caseData);
                   },
                 },
                 {
-                  text: `Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.`,
+                  text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.',
                   show: (caseData: Partial<CaseWithId>): boolean => {
                     return isCafcassCymruServed(caseData);
                   },
@@ -1090,5 +1090,3 @@ export const languages = {
   en,
   cy,
 };
-
-

@@ -1,9 +1,9 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
 import { APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../../urls';
+import { isCafcassCymruServed, isCafcassServed } from '../../utils';
 
 import { getNotificationBannerConfig } from '.';
-import { isCafcassCymruServed, isCafcassServed } from '../../utils';
 
 const userDetails = {
   id: '123',
@@ -372,21 +372,20 @@ describe('testcase for notification Banner', () => {
       },
     ]);
   });
-  test('when case is in served and linked', () => {
+  test('when case is in served and linked by admin', () => {
     const data = {
       id: '12',
       state: State.CASE_SERVED,
       caseTypeOfApplication: CaseType.C100,
       applicants: applicant,
-      finalServedApplicationDetailsList:[
+      finalServedApplicationDetailsList: [
         {
-          id:"1",
-          value:{
-            whoIsResponsible:"Court"
-          }
-
-        }
-      ]
+          id: '1',
+          value: {
+            whoIsResponsible: 'Court - court admin',
+          },
+        },
+      ],
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -396,13 +395,54 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: "This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond",
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
               },
               {
-                text: "We will let you know when the other people in the case have been given your application and case documents.",
+                text: 'We will let you know when the other people in the case have been given your application and case documents.',
               },
               {
-                text: "<a href=\"/applicant/yourdocuments/alldocuments/alldocuments\" class=\"govuk-link\">View your application pack</a>",
+                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
+              },
+            ],
+            links: [],
+          },
+        ],
+        heading: 'The court has issued your application',
+        id: 'applicationServedAndLinked',
+        title: 'Important',
+      },
+    ]);
+  });
+  test('when case is in served and linked by court bailiff', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            whoIsResponsible: 'Court - court bailiff',
+          },
+        },
+      ],
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+      {
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
+              },
+              {
+                text: 'We will let you know when the other people in the case have been given your application and case documents.',
+              },
+              {
+                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
               },
             ],
             links: [],
@@ -423,7 +463,21 @@ describe('testcase for notification Banner', () => {
       state: State.CASE_SERVED,
       caseTypeOfApplication: CaseType.C100,
       applicants: [applicantLIP, applicant[1]],
-      isCafcassServed: YesOrNo.YES
+      finalServedApplicationDetailsList: [
+        {
+          id: '123',
+          value: {
+            emailNotificationDetails: [
+              {
+                value: {
+                  servedParty: 'cafcass',
+                },
+              },
+            ],
+            whoIsResponsible: 'Unrepresented Applicant',
+          },
+        },
+      ],
     } as Partial<CaseWithId>;
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -437,21 +491,21 @@ describe('testcase for notification Banner', () => {
                 text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
               },
               {
-                text: "<a href=\"/applicant/yourdocuments/alldocuments/alldocuments\" class=\"govuk-link\">View your application pack</a>",
+                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
               },
               {
-              text: "<p class=\"govuk-notification-banner__heading\">Cafcass will contact you</p>",
+                text: '<p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
               },
               {
-              text: "The Children and Family Court Advisory and Support Service (Cafcass) will contact you to consider the needs of the children.",
-              }
+                text: 'The Children and Family Court Advisory and Support Service (Cafcass) will contact you to consider the needs of the children.',
+              },
             ],
             links: [
               {
                 text: 'Find out about Cafcass',
                 href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
                 external: true,
-                show: isCafcassServed
+                show: isCafcassServed,
               },
             ],
           },
@@ -523,7 +577,21 @@ describe('testcase for notification Banner', () => {
       state: State.CASE_SERVED,
       caseTypeOfApplication: CaseType.C100,
       applicants: [applicantLIP, applicant[1]],
-      isCafcassCymruServed: YesOrNo.YES
+      finalServedApplicationDetailsList: [
+        {
+          id: '123',
+          value: {
+            emailNotificationDetails: [
+              {
+                value: {
+                  servedParty: 'Cafcass cymru',
+                },
+              },
+            ],
+            whoIsResponsible: 'Court',
+          },
+        },
+      ],
     } as Partial<CaseWithId>;
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -537,21 +605,21 @@ describe('testcase for notification Banner', () => {
                 text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
               },
               {
-                text: "<a href=\"/applicant/yourdocuments/alldocuments/alldocuments\" class=\"govuk-link\">View your application pack</a>",
+                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
               },
               {
-              text: "<p class=\"govuk-notification-banner__heading\">Cafcass Cymru will contact you</p>",
+                text: '<p class="govuk-notification-banner__heading">Cafcass Cymru will contact you</p>',
               },
               {
-              text: "The Children and Family Court Advisory and Support Service (Cafcass Cymru) will contact you to consider the needs of the children.",
-              }
+                text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) will contact you to consider the needs of the children.',
+              },
             ],
             links: [
               {
                 text: 'Find out about Cafcass Cymru',
                 href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
                 external: true,
-                show: isCafcassCymruServed
+                show: isCafcassCymruServed,
               },
             ],
           },

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
@@ -122,13 +123,18 @@ export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: U
   return caseData.applicants?.[0].value.user.idamId === userDetails.id;
 };
 
-export const isPersonalServiceByCourtStuff=(caseData: Partial<CaseWithId>): boolean=> {
-  let lengthOfServedApplicationDetailsList:number = 0;
+export const isPersonalServiceByCourtStuff = (caseData: Partial<CaseWithId>): boolean => {
+  let lengthOfServedApplicationDetailsList = 0;
+  const PERSONAL_SOA_BY_COURT_STUFF = ['Court - court admin', 'Court - court bailiff'];
   lengthOfServedApplicationDetailsList = caseData.finalServedApplicationDetailsList?.length as number;
-  if(lengthOfServedApplicationDetailsList>=1 && 
-    caseData.finalServedApplicationDetailsList?.[lengthOfServedApplicationDetailsList-1].value.whoIsResponsible==="Court"){
-      return true
+  if (
+    lengthOfServedApplicationDetailsList >= 1 &&
+    caseData.finalServedApplicationDetailsList?.[lengthOfServedApplicationDetailsList - 1].value.whoIsResponsible &&
+    PERSONAL_SOA_BY_COURT_STUFF.includes(
+      caseData.finalServedApplicationDetailsList?.[lengthOfServedApplicationDetailsList - 1].value.whoIsResponsible!
+    )
+  ) {
+    return true;
   }
-  return false
-
-}
+  return false;
+};
