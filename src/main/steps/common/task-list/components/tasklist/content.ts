@@ -1,5 +1,4 @@
 import { CaseType, PartyType } from '../../../../../app/case/definition';
-console.info('** FOR SONAR **');
 const en = {
   stateTags: {
     notStartedYet: 'Not started yet',
