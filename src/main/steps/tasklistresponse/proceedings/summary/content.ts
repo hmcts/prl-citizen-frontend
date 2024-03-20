@@ -7,7 +7,6 @@ import { otherProceedingsContents } from '../proceedingUtils';
 console.info('** FOR SONAR **');
 
 export const enContent = {
-  serviceName: 'Check your answers ',
   section: '',
   title: 'Check your answers',
   change: 'Edit',
@@ -38,7 +37,6 @@ const en = (content: CommonContent) => {
 };
 
 export const cyContent: typeof enContent = {
-  serviceName: 'Gwirio eich atebion',
   section: '',
   title: 'Gwirio eich atebion',
   change: 'Golygu',

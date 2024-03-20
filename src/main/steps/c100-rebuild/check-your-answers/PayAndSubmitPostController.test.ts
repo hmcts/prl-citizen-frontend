@@ -51,6 +51,7 @@ describe('PayAndSubmitPostController test cases', () => {
     await controller.post(req, res);
 
     expect(res.redirect).not.toHaveBeenCalled();
+    expect(req.session.paymentError).toStrictEqual({ hasError: false, errorContext: null });
   });
 
   test('Should invoke save and come back later and navigate to dashboard', async () => {
@@ -70,6 +71,7 @@ describe('PayAndSubmitPostController test cases', () => {
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith('/task-list/applicant');
+    expect(req.session.paymentError).toStrictEqual({ hasError: false, errorContext: null });
   });
 
   // test('Should submit case when help with fees reference number is present and navigate to confirmation page', async () => {
@@ -113,6 +115,7 @@ describe('PayAndSubmitPostController test cases', () => {
     await controller.post(req, res);
 
     expect(res.redirect).not.toHaveBeenCalledWith(C100_CONFIRMATIONPAGE);
+    expect(req.session.paymentError).toStrictEqual({ hasError: false, errorContext: null });
   });
 
   test('Should navigate to check your answers in case of any errors', async () => {
@@ -121,5 +124,7 @@ describe('PayAndSubmitPostController test cases', () => {
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalledWith(C100_CHECK_YOUR_ANSWER);
+    expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'defaultPaymentError' });
+    expect(req.session.save).toHaveBeenCalled();
   });
 });

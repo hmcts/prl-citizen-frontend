@@ -8,7 +8,6 @@ console.info('** FOR SONAR **');
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  serviceName: 'Child arrangements',
   title: 'Is there anyone else who should know about your application?',
   paragraph: 'For example, you should tell everyone who:',
   bulletPoints: [
@@ -26,7 +25,6 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   title: 'A oes unrhyw un arall y dylai wybod am eich cais?',
   paragraph: 'Er enghraifft, dylech ddweud wrth pawb sy’n:',
   bulletPoints: [

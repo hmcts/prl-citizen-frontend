@@ -36,8 +36,8 @@ const C100OrderTypeNameMapper = {
   otherOrder: 'Other Order',
 };
 
-// eslint-disable-next-line import/no-unresolved
-import { AnyType } from './getController';
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type AnyType = any;
 
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */

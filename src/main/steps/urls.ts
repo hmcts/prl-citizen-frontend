@@ -548,7 +548,6 @@ export const C100_CONSENT_ORDER_UPLOAD_CONFIRMATION: PageLink = `${C100_CONSENT_
 /**@C100 check you answers */
 export const C100_CHECK_YOUR_ANSWER: PageLink = `${C100_URL}/check-your-answers`;
 
-export const C100_CASE_NAME: PageLink = `${C100_URL}/case-name`;
 export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orderType/:orderId/documentUpload/:removeId?`;
 
 /** @C100 rebuild */
@@ -584,6 +583,7 @@ export const C100_WITHDRAW_CASE_CONFIRMATION: PageLink = `${C100_URL}/withdraw/c
 /** applicant/tasklist hearing needs */
 export const HEARING_NEEDS: PageLink = '/hearing-needs';
 export const APPLICANT_TASKLIST_HEARING_NEEDS: PageLink = `${APPLICANT}${HEARING_NEEDS}/support-help`;
+export const RESPONDENT_TASKLIST_HEARING_NEEDS: PageLink = `${RESPONDENT}${HEARING_NEEDS}/support-help`;
 
 export const RESPONDENT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${RESPONDENT}/add-legal-representative`;
 export const APPLICANT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${APPLICANT}/add-legal-representative`;
@@ -609,6 +609,17 @@ export const SCREENING_QUESTIONS = [
   SCREENING_QUESTION_CONTACT_LEGAL_REP,
 ];
 export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
+export const COMMON_PAGE_URLS = [
+  DASHBOARD_URL,
+  PIN_ACTIVATION_URL,
+  COOKIES_PAGE,
+  PRIVACY_POLICY,
+  ACCESSIBILITY_STATEMENT,
+  TERMS_AND_CONDITIONS,
+  ...ANONYMOUS_URLS,
+];
+
+export const TASKLIST_RESPONSE_TO_CA: PageLink = `${APPLICANT}/responsetoca`;
 
 export const LOCAL_API_SESSION = '/api/v1/session';
 export const SAFEGAURD_EXCLUDE_URLS = [

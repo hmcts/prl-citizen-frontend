@@ -8,7 +8,6 @@ console.info('** FOR SONAR **');
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  serviceName: 'Child Arrangements',
   title: 'Do you have valid reasons for not attending a MIAM?',
   paragraph1: 'You must attend a MIAM before making an application unless you have valid reasons not to attend.',
   applyForVrLink:
@@ -25,7 +24,6 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   title: 'A oes gennych chi resymau dilys dros beidio â mynychu MIAM?',
   paragraph1: 'Rhaid i chi fynychu MIAM cyn gwneud cais oni bai bod gennych resymau dilys dros beidio â mynychu.',
   applyForVrLink:

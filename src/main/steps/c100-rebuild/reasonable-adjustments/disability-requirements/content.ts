@@ -7,7 +7,6 @@ console.info('** FOR SONAR **');
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  serviceName: 'Child Arrangements',
   caption: 'Reasonable adjustments',
   headingTitle:
     'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
@@ -35,7 +34,6 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   caption: 'Addasiadau rhesymol',
   headingTitle:
     'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',

@@ -8,7 +8,6 @@ console.info('** FOR SONAR **');
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  serviceName: 'Child arrangements',
   title: 'Has another country asked (or been asked) for information or help for the children?',
   line1:
     'It may be that there are child protection concerns, a court needs help with a request on another case, an order needs to be enforced abroad, or efforts are being made to return children to England or Wales.',
@@ -30,7 +29,6 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   title: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
   line1:
     'Gall bod pryderon amddiffyn plant, gall bod llys angen help gyda chais am achos arall, gall bod angen gorfodi gorchymyn dramor, neu gall bod ymdrechion yn cael eu gwneud i ddychwelyd plant i Gymru neu Loegr.',

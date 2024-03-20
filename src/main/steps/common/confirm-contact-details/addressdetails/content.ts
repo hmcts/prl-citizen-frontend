@@ -41,6 +41,9 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
+  content.userCase!.citizenUserAddressText = content.userCase?.citizenUserAddressText?.includes('<br/>')
+    ? content.userCase.citizenUserAddressText.split('<br/>')[0]
+    : content.userCase?.citizenUserAddressText;
   const translations = languages[content.language];
   return {
     ...translations,

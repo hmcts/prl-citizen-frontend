@@ -3,7 +3,7 @@
 import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
-import { State, YesOrNo } from '../../../app/case/definition';
+import { State } from '../../../app/case/definition';
 import { PageContent } from '../../../app/controller/GetController';
 import { isDateInputInvalid } from '../../../app/form/validation';
 import {
@@ -12,7 +12,6 @@ import {
   SummaryListContent,
   SummaryListRow,
 } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
-import { INVALID_DATE } from '../../../steps/constants';
 import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../../steps/urls';
 import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
 import { cy, en } from '../common.content';
@@ -82,11 +81,6 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
         return getOrdersDetail(userCase);
       }
       break;
-    case 'citizenUserAddressHistory':
-      if (userCase['isAtAddressLessThan5Years'] === YesOrNo.YES) {
-        return userCase['citizenUserAddressText'];
-      }
-      return userCase['citizenUserAddressHistory'];
     case 'startAlternative':
       if (!userCase[key]) {
         return (
@@ -94,11 +88,6 @@ const setkey = (userCase: Partial<CaseWithId>, key: string, language: string | u
         );
       }
       break;
-    case 'citizenUserDateOfBirthText':
-      if (userkey === INVALID_DATE && language === 'cy') {
-        return cy.invalidDate;
-      }
-      return userkey;
     default:
       return userkey;
   }

@@ -8,7 +8,6 @@ console.info('** FOR SONAR **');
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  serviceName: 'Child arrangements',
   title: 'Do any of the children have a passport?',
   caption: 'Safety concerns',
   one: 'Yes',
@@ -21,7 +20,6 @@ export const en = () => ({
 });
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   title: "A oes gan unrhyw un o'r plant basbort?",
   caption: 'Pryderon diogelwch',
   one: 'Oes',

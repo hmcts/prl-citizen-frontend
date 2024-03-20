@@ -1,8 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, CitizenInternationalElements, PartyType, YesOrNo } from '../../../../../app/case/definition';
+import {
+  CaseType,
+  CitizenInternationalElements,
+  PartyType,
+  Respondent,
+  YesOrNo,
+  hearingStatus,
+} from '../../../../../app/case/definition';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
+import { TaskListContent } from '../../definitions';
 
 import { languages as content } from './content';
 
@@ -16,6 +24,7 @@ export enum TaskListSection {
   YOUR_ORDERS = 'ordersFromTheCourt',
   THE_APPLICATION = 'theApplication',
   YOUR_RESPONSE = 'yourResponse',
+  THE_RESPONSE = 'theResponse',
 }
 export enum Tasks {
   CHILD_ARRANGEMENT_APPLICATION = 'childArrangementApplication',
@@ -34,6 +43,7 @@ export enum Tasks {
   CHECK_AOH_AND_VIOLENCE = 'checkAllegationsOfHarmAndViolence',
   RESPOND_TO_THE_APPLICATION = 'respondToTheApplication',
   RESPOND_TO_AOH_AND_VIOLENCE = 'respondToAOHAndViolence',
+  THE_RESPONSE_PDF = 'theResponsePDF',
 }
 
 export enum StateTags {
@@ -66,8 +76,14 @@ export interface Task {
 
 export const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
 
-export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean =>
-  !!(caseData?.hearingCollection && caseData?.hearingCollection?.length >= 1);
+export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => {
+  const inactiveHmcStatus: string[] = [
+    hearingStatus.HEARING_REQUESTED,
+    hearingStatus.AWAITING_LISTING,
+    hearingStatus.EXCEPTION,
+  ];
+  return !!(caseData?.hearingCollection ?? []).find(hearing => !inactiveHmcStatus.includes(hearing.hmcStatus!));
+};
 
 export const getStateTagLabel = (state: StateTags, language: string): string =>
   content?.[language]?.['stateTags']?.[state] ?? '';
@@ -77,7 +93,7 @@ export const getContents = (
   caseType: CaseType,
   partyType: PartyType,
   language: string
-): Record<string, any> => content[language]?.[caseType]?.[partyType]?.[taskListSection] ?? {};
+): TaskListContent => content[language]?.[caseType]?.[partyType]?.[taskListSection] ?? {};
 
 export const getKeepYourDetailsPrivateStatus = keepDetailsPrivate => {
   let status = StateTags.TO_DO;
@@ -90,10 +106,19 @@ export const getKeepYourDetailsPrivateStatus = keepDetailsPrivate => {
 };
 export const getConfirmOrEditYourContactDetailsStatus = party => {
   const status = StateTags.TO_DO;
-  if (party.firstName && party.lastName && party.dateOfBirth && party.placeOfBirth) {
+  const summaryField = [
+    party.firstName,
+    party.lastName,
+    party.placeOfBirth,
+    party.address?.AddressLine1,
+    party.phoneNumber,
+    party.email,
+    party.dateOfBirth,
+  ];
+  if (summaryField.every(currentValue => currentValue)) {
     return StateTags.COMPLETED;
   }
-  if (party.firstName || party.lastName || party.dateOfBirth || party.placeOfBirth) {
+  if (summaryField.some(currentValue => currentValue)) {
     return StateTags.IN_PROGRESS;
   }
   return status;
@@ -203,4 +228,10 @@ export const getFinalApplicationStatus = (caseData, userDetails): StateTags => {
     result = StateTags.VIEW;
   }
   return result;
+};
+
+export const isResponsePresent = (caseData: Partial<CaseWithId>, respondent: Respondent) => {
+  return caseData.respondentDocsList?.find(
+    documents => documents.value.c7Document?.partyName === respondent.value.firstName + ' ' + respondent.value.lastName
+  );
 };

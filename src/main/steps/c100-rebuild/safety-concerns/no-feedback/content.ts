@@ -4,7 +4,6 @@ import { FormContent } from '../../../../app/form/Form';
 console.info('** FOR SONAR **');
 
 const en = () => ({
-  serviceName: 'Child Arrangements',
   caption: 'Safety Concerns',
   title: "The children's safety",
   firstParagraph:
@@ -24,7 +23,6 @@ const en = () => ({
 });
 
 const cy = () => ({
-  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   title: 'Diogelwch y plant',
   firstParagraph:

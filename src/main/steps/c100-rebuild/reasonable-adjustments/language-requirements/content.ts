@@ -7,7 +7,6 @@ console.info('** FOR SONAR **');
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  serviceName: 'Child Arrangements',
   caption: 'Language requirements',
   headingTitle: `Do you have any language
   requirements?`,
@@ -35,7 +34,6 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   caption: 'Gofynion ieithyddol',
   headingTitle: 'A oes gennych chi unrhyw ofynion ieithyddol?',
   line1:

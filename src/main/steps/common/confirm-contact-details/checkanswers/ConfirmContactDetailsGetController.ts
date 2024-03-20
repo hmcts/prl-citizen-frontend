@@ -81,7 +81,7 @@ export const validateDataCompletion = (req: AppRequest<Partial<Case>>): void => 
   for (const key in req.session.userCase) {
     if (fieldsArray.includes(key)) {
       const value = req.session.userCase[`${key}`];
-      if (typeof value === 'string' && (value === null || value === undefined || value.trim() === '')) {
+      if (typeof value === 'string' && (!value || value.trim() === '' || value === 'Invalid Date')) {
         req.session.userCase[`${key}`] =
           req.session.lang === 'cy'
             ? '<span class="govuk-error-message">' + cyContent.completeSection + '</span>'

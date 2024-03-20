@@ -4,7 +4,6 @@ import { FormContent } from '../../../../app/form/Form';
 console.info('** FOR SONAR **');
 
 const en = () => ({
-  serviceName: 'Child arrangements',
   title: 'Safety concerns',
   caption:
     'The court needs to know about any violent or abusive behaviour that puts you or the children at risk of harm.',
@@ -60,7 +59,6 @@ const en = () => ({
 });
 
 const cy = () => ({
-  serviceName: 'Trefniadau plant',
   title: 'Pryderon diogelwch',
   caption:
     "Mae’r llys angen gwybod am unrhyw ymddygiad treisgar neu ddifrïol sy'n eich rhoi chi neu'r plant mewn risg o niwed.",

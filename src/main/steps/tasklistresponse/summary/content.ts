@@ -201,7 +201,6 @@ export const enDummyContent = {
   keys: {},
 };
 export const enContentProceding = {
-  serviceName: 'Check your answers ',
   section: '',
   title: 'Check your answers',
   change: 'Edit',
@@ -354,7 +353,6 @@ export const cyContent: typeof enContent = {
   downloadDraft: 'Lawrlwytho drafft o’r ymateb',
 };
 export const cyContentProceding = {
-  serviceName: 'Gwirio eich atebion',
   section: '',
   title: 'Gwirio eich atebion',
   change: 'Golygu',

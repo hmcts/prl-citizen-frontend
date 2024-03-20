@@ -4,7 +4,6 @@ import { FormContent } from '../../../../app/form/Form';
 console.info('** FOR SONAR **');
 
 const en = () => ({
-  serviceName: 'Child arrangements',
   title: 'Upload your MIAM certificate',
   youNeed: 'If you are uploading documents from a computer, name the files clearly. For example, miam-certificate.doc.',
   youNeed2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
@@ -34,7 +33,6 @@ const en = () => ({
 });
 
 const cy = () => ({
-  serviceName: 'Trefniadau plant',
   title: 'Llwytho eich tystysgrif MIAM',
   youNeed:
     'Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, tystysgrif-miam.doc.',

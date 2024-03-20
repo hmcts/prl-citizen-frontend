@@ -8,7 +8,6 @@ import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../../steps/common/common.content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
-import { cy as caseNameCyContent, en as caseNameEnContent } from '../case-name/content';
 
 import { HTML } from './common/htmlSelectors';
 
@@ -58,7 +57,6 @@ import { typeOfCourtOrderContents } from './util/typeOfOrder.util';
 console.info('** FOR SONAR **');
 
 export const enContent = {
-  serviceName: 'Check your answers ',
   section: '',
   title: 'Check your Answers',
   change: 'Edit',
@@ -113,7 +111,9 @@ export const enContent = {
     },
     paymentError: {
       title: 'There is a problem',
-      content: 'Your application is not submitted. Please try again',
+      defaultPaymentError: 'Your application is not submitted. Please try again',
+      applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application',
+      paymentUnsuccessful: 'Your payment was unsuccessful. Make the payment again and resubmit your application',
     },
   },
   sectionTitles: {
@@ -142,7 +142,6 @@ export const enContent = {
     whereTheChildrenLive: 'Where the children live',
     detailofOtherPeople: 'Details of the other people in the application',
     reasonAbleAdjustment: '[^^sectionNo^^]. Support you need during your case', //section 12
-    caseName: '[^^sectionNo^^]. Case name',
   },
   keys: {
     wantingCourtToDo: 'Describe what you want the court to do regarding the children in this application',
@@ -180,14 +179,12 @@ export const enContent = {
       'There is a court order preventing me from making an application without first getting the permission of the court',
     anotherReason: 'Another reason',
     dontKnow: "Don't know",
-    enterCaseName: caseNameEnContent().title,
     contactPrefernces: 'Contact preferences',
     child: 'Child',
     reasonForNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
   },
 };
 export const cyContent = {
-  serviceName: 'Gwiriwch eich atebion',
   section: '',
   title: 'Gwiriwch eich atebion',
   change: ' Golygu',
@@ -235,7 +232,10 @@ export const cyContent = {
     },
     paymentError: {
       title: 'Mae yna broblem',
-      content: 'Nid yw eich cais wedi’i gyflwyno. Rhowch gynnig arall arni',
+      defaultPaymentError: 'Nid yw eich cais wedi’i gyflwyno. Rhowch gynnig arall arni',
+      applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application (welsh)',
+      paymentUnsuccessful:
+        'Your payment was unsuccessful. Make the payment again and resubmit your application (welsh)',
     },
   },
   sectionTitles: {
@@ -264,7 +264,6 @@ export const cyContent = {
     whereTheChildrenLive: 'Ble mae’r plant yn byw',
     detailofOtherPeople: 'Manylion y bobl eraill yn y cais',
     reasonAbleAdjustment: '[^^sectionNo^^]. Cefnogaeth y mae arnoch ei hangen yn ystod eich achos', //section 12
-    caseName: '[^^sectionNo^^]. Enw’r Achos',
   },
   keys: {
     wantingCourtToDo: 'Disgrifiwch yr hyn rydych chi eisiau i’r llys ei wneud o ran y plant yn y cais hwn',
@@ -301,7 +300,6 @@ export const cyContent = {
     courtOrderPrevent: 'Mae gorchymyn llys sy’n fy rhwystro rhag gwneud cais heb gael caniatâd gan y llys yn gyntaf',
     anotherReason: 'Rheswm arall',
     dontKnow: 'Ddim yn gwybod',
-    enterCaseName: caseNameCyContent().title,
     contactPrefernces: 'Dewisiadau cyswllt',
     child: 'Plant',
     reasonForNotAttendingMiam: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
@@ -532,7 +530,7 @@ export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, lan
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   const userCase = content.userCase!;
-  let sections = [] as ANYTYPE;
+  let sections;
   // if on sreening screen enable Yes
   if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
     sections = CheckYourAnswerFlow1(userCase, enContent, content.language).flat() as ANYTYPE;
@@ -562,7 +560,7 @@ export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
 
 export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
   const userCase = content.userCase!;
-  let sections = [] as ANYTYPE;
+  let sections;
   // if on sreening screen enable Yes
   if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
     sections = CheckYourAnswerFlow1(userCase, cyContent, content.language).flat() as ANYTYPE;
