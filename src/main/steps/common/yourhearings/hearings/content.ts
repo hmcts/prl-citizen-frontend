@@ -3,6 +3,7 @@ import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 
 import { prepareHearingData } from './utils';
 
+console.info('** FOR SONAR **');
 export const en = {
   section: 'Your court hearings',
   title: 'Your Hearings',
