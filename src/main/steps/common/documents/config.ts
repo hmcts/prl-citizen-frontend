@@ -1,16 +1,8 @@
 import { PartyType } from '../../../app/case/definition';
 
+import { DocumentSectionId, DocumentSectionsProps } from './definitions';
 import {
-  DocumentCategory,
-  DocumentLabelCategory,
-  DocumentSectionId,
-  DocumentSectionsProps,
-  DocumentsListConfigProps,
-} from './definitions';
-import {
-  getDocumentLabel,
   getDocumentSectionTitle,
-  getDocuments,
   getDocumentsList,
   hasAnyDocumentForPartyType,
   isOrdersFromTheCourtPresent,
@@ -44,53 +36,5 @@ export const documentSections: DocumentSectionsProps[] = [
     displayOrder: () => 6,
     isVisible: () => false,
     documentsList: () => [],
-  },
-];
-
-export const documentsListConfig: DocumentsListConfigProps[] = [
-  {
-    documentCategoryId: DocumentCategory.POSITION_STATEMENTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.POSITION_STATEMENTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.POSITION_STATEMENTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.WITNESS_STATEMENTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.APPLICANT_WITNESS_STATEMENTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.WITNESS_STATEMENTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.RESPONDENT_WITNESS_STATEMENTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.OTHER_PEOPLE_WITNESS_STATEMENTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.MEDICAL_RECORDS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.MEDICAL_RECORDS),
-    documentsList: getDocuments.bind(null, DocumentCategory.MEDICAL_RECORDS),
-  },
-  {
-    documentCategoryId: DocumentCategory.MEDICAL_REPORTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.MEDICAL_REPORTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.MEDICAL_REPORTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.DNA_REPORTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.DNA_REPORTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.DNA_REPORTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.DRUG_ALCOHOL_TESTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.DRUG_ALCOHOL_TESTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.DRUG_ALCOHOL_TESTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.POLICE_REPORTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.POLICE_REPORTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.POLICE_REPORTS),
   },
 ];

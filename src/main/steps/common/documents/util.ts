@@ -7,7 +7,6 @@ import { CITIZEN_DOWNLOAD_UPLOADED_DOCS, VIEW_DOCUMENTS } from '../../urls';
 import { interpolate } from '../string-parser';
 import { applyParms } from '../url-parser';
 
-import { documentsListConfig } from './config';
 import {
   CitizenDocuments,
   Document,
@@ -230,3 +229,52 @@ export const getDocuments = (
 
 export const getDocumentConfig = (documentCategory: DocumentCategory): DocumentsListConfigProps | undefined =>
   documentsListConfig.find(documentConfig => documentConfig.documentCategoryId === documentCategory);
+
+// Moved here as getting error with bind being undefined when importing from config file
+export const documentsListConfig: DocumentsListConfigProps[] = [
+  {
+    documentCategoryId: DocumentCategory.POSITION_STATEMENTS,
+    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.POSITION_STATEMENTS),
+    documentsList: getDocuments.bind(null, DocumentCategory.POSITION_STATEMENTS),
+  },
+  {
+    documentCategoryId: DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
+    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.WITNESS_STATEMENTS),
+    documentsList: getDocuments.bind(null, DocumentCategory.APPLICANT_WITNESS_STATEMENTS),
+  },
+  {
+    documentCategoryId: DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
+    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.WITNESS_STATEMENTS),
+    documentsList: getDocuments.bind(null, DocumentCategory.RESPONDENT_WITNESS_STATEMENTS),
+  },
+  {
+    documentCategoryId: DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS,
+    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.OTHER_PEOPLE_WITNESS_STATEMENTS),
+    documentsList: getDocuments.bind(null, DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS),
+  },
+  {
+    documentCategoryId: DocumentCategory.MEDICAL_RECORDS,
+    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.MEDICAL_RECORDS),
+    documentsList: getDocuments.bind(null, DocumentCategory.MEDICAL_RECORDS),
+  },
+  {
+    documentCategoryId: DocumentCategory.MEDICAL_REPORTS,
+    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.MEDICAL_REPORTS),
+    documentsList: getDocuments.bind(null, DocumentCategory.MEDICAL_REPORTS),
+  },
+  {
+    documentCategoryId: DocumentCategory.DNA_REPORTS,
+    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.DNA_REPORTS),
+    documentsList: getDocuments.bind(null, DocumentCategory.DNA_REPORTS),
+  },
+  {
+    documentCategoryId: DocumentCategory.DRUG_ALCOHOL_TESTS,
+    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.DRUG_ALCOHOL_TESTS),
+    documentsList: getDocuments.bind(null, DocumentCategory.DRUG_ALCOHOL_TESTS),
+  },
+  {
+    documentCategoryId: DocumentCategory.POLICE_REPORTS,
+    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.POLICE_REPORTS),
+    documentsList: getDocuments.bind(null, DocumentCategory.POLICE_REPORTS),
+  },
+];
