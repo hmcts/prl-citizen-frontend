@@ -89,16 +89,14 @@ const prepapeHTMLForChildren = (bodyHtml: any, keys: any, FoundElement: any, lan
         HTML.LIST_ITEM +
         (language === 'cy' ? cy().allchildLabel : FoundElement['childrenConcernedAbout'][0]) +
         HTML.LIST_ITEM_END;
+    } else if (Array.isArray(FoundElement['childrenConcernedAbout'])) {
+      bodyHtml += FoundElement['childrenConcernedAbout']
+        ?.map(childId => childNameFormatter(childId, userCase))
+        .toString()
+        .split(',')
+        .join('');
     } else {
-      if (Array.isArray(FoundElement['childrenConcernedAbout'])) {
-        bodyHtml += FoundElement['childrenConcernedAbout']
-          ?.map(childId => childNameFormatter(childId, userCase))
-          .toString()
-          .split(',')
-          .join('');
-      } else {
-        bodyHtml += childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
-      }
+      bodyHtml += childNameFormatter(FoundElement['childrenConcernedAbout'], userCase);
     }
     bodyHtml += HTML.UNORDER_LIST_END;
   }

@@ -48,7 +48,7 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const { userCase, user } = content.additionalData?.req.session;
+  const { userCase, user } = content.additionalData?.req.session ?? {};
   const partyType = getCasePartyType(userCase, user.id);
   translations.partyName =
     partyType === PartyType.APPLICANT

@@ -54,7 +54,7 @@ export const enContent = {
 
 const en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { userCase, user } = content.additionalData?.req.session;
+  const { userCase, user } = content.additionalData?.req.session ?? {};
   filterSelectedUrls(userCase, urls, user.id);
   return {
     ...enContent,
@@ -114,7 +114,7 @@ export const urls = {
 
 const cy: typeof en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { userCase, user } = content.additionalData?.req.session;
+  const { userCase, user } = content.additionalData?.req.session || {};
   filterSelectedUrls(userCase, urls, user.id);
   return {
     ...cyContent,
