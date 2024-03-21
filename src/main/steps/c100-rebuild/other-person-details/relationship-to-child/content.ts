@@ -21,6 +21,9 @@ const en = () => ({
   grandparent: 'Grandparent',
   other: 'Other',
   otherRelationshipDetails: 'Please specify',
+  guardianHintText:
+    'Someone who represents the rights of a child, may be appointed by a parent, special guardian or the court',
+  specialGuardianHintText: 'Someone who represents the rights of a child, appointed by the court',
   errors: {
     relationshipType: {
       required: 'Enter the relationship',
@@ -42,6 +45,9 @@ const cy = () => ({
   grandparent: 'Nain/Taid',
   other: 'Arall',
   otherRelationshipDetails: 'Rhowch fanylion',
+  guardianHintText:
+    'Someone who represents the rights of a child, may be appointed by a parent, special guardian or the court -welsh',
+  specialGuardianHintText: 'Someone who represents the rights of a child, appointed by the court -welsh',
   errors: {
     relationshipType: {
       required: 'Nodwch y berthynas',
@@ -95,10 +101,12 @@ export const generateFormFields = (relationshipTypeOption: RelationshipToChildre
         },
         {
           label: l => l.guardian,
+          hint: l => l.guardianHintText,
           value: RelationshipType.GUARDIAN,
         },
         {
           label: l => l.specialGuardian,
+          hint: l => l.specialGuardianHintText,
           value: RelationshipType.SPECIAL_GUARDIAN,
         },
         {
