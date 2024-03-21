@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { generateResponseNotifications } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { State, YesOrNo } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
@@ -6,7 +7,7 @@ import { NotificationBannerProps } from '../../../../../../steps/common/task-lis
 import { isCaseLinked, isCaseWithdrawn } from '../../../../../../steps/common/task-list/utils';
 import { BannerNotification, notificationBanner } from '../utils';
 
-export const CA_APPLICANT: NotificationBannerProps[] = [
+export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerProps[] => [
   {
     ...notificationBanner[BannerNotification.NEW_DOCUMENT],
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
@@ -83,4 +84,5 @@ export const CA_APPLICANT: NotificationBannerProps[] = [
       return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
     },
   },
+  ...generateResponseNotifications(userCase),
 ];
