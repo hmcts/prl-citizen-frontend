@@ -9,9 +9,9 @@ import { cy, en } from './courtproceedings/content';
 import { HTML } from './htmlSelectors';
 import { cy as opDetailsCyContents, en as opDetailsEnContents } from './order-details/content';
 
+console.info('** FOR SONAR **');
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const IndividualOrderFieldsParser = (keys, order, language) => {
-  console.info('** FOR SONAR **');
   const newOrders = order;
   const Mapper = {
     ['orderDetail']: {
@@ -36,41 +36,46 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
       question: keys['copy'],
     },
   };
+
   let Val = '';
-  Object.entries(newOrders).forEach((entry, index) => {
-    const key = entry[0];
-    const value = entry[1];
+  Object.entries(newOrders).forEach(([key, value], index) => {
+    const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
+    let valueDetails = '';
     const rulerForLastElement = Object.entries(newOrders).length > index + 1 ? HTML.RULER : '<br>';
+    const ctx = 'doTranslation';
+
     if (key !== 'id' && key !== 'orderDocument') {
-      if (typeof entry[1] === 'object' && entry[1] !== null) {
-        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
-        const valueDetails = HTML.P + DATE_FORMATTOR(value, language) + HTML.P_CLOSE;
-        Val += keyDetails + valueDetails + rulerForLastElement;
+      if (typeof value === 'object' && value !== null) {
+        valueDetails = HTML.P + DATE_FORMATTOR(value, language) + HTML.P_CLOSE;
       } else {
-        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
-        const valueDetails =
-          HTML.P +
-          (value === YesOrNo.YES
-            ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
-            : value === YesOrNo.NO
-            ? getYesNoTranslation(language, YesOrNo.NO, 'doTranslation')
-            : value) +
-          HTML.P_CLOSE;
-        Val += keyDetails + valueDetails + rulerForLastElement;
+        valueDetails = `${HTML.P}${getTranslationKey(value, language, ctx)}${HTML.P_CLOSE}`;
       }
     } else if (key === 'orderDocument') {
-      if (value !== 'undefined') {
-        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
-        const valueDetails = HTML.P + getYesNoTranslation(language, YesOrNo.YES, 'doTranslation') + HTML.P_CLOSE;
-        Val += keyDetails + valueDetails + rulerForLastElement;
-      } else {
-        const keyDetails = HTML.H4 + Mapper[key]?.question + HTML.H4_CLOSE;
-        const valueDetails = HTML.P + getYesNoTranslation(language, YesOrNo.NO, 'doTranslation') + HTML.P_CLOSE;
-        Val += keyDetails + valueDetails + rulerForLastElement;
-      }
+      valueDetails =
+        HTML.P +
+        (value !== 'undefined'
+          ? getYesNoTranslation(language, YesOrNo.YES, ctx)
+          : getYesNoTranslation(language, YesOrNo.NO, ctx)) +
+        HTML.P_CLOSE;
     }
+    Val += keyDetails + valueDetails + rulerForLastElement;
   });
   return Val;
+};
+
+const getTranslationKey = (value, language, ctx) => {
+  let translationKey = '';
+  switch (value) {
+    case YesOrNo.YES:
+      translationKey = getYesNoTranslation(language, YesOrNo.YES, ctx);
+      break;
+    case YesOrNo.NO:
+      translationKey = getYesNoTranslation(language, YesOrNo.NO, ctx);
+      break;
+    default:
+      translationKey = value;
+  }
+  return translationKey;
 };
 
 /**
@@ -123,6 +128,7 @@ export const otherProceedingsContents = SystemLanguage => {
   };
   return SystemLanguage === 'en' ? opContents.en() : opContents.cy();
 };
+
 /* eslint-disable @typescript-eslint/no-explicit-any*/
 function prepareOrderDetail(
   order: any,

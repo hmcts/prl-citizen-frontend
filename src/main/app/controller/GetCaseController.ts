@@ -102,33 +102,49 @@ export class GetCaseController {
     }
   }
 
+  resolveRedirectUrl(
+    originalUrl: string,
+    taskListUrl: string,
+    viewAllDocumentString: string,
+    viewAllDocumentUrl: string
+  ): string {
+    if (originalUrl.includes(taskListUrl)) {
+      return taskListUrl;
+    } else if (originalUrl.includes(viewAllDocumentString)) {
+      return viewAllDocumentUrl;
+    }
+    return DASHBOARD_URL;
+  }
+
   public async fetchAndRedirectToTasklist(req: AppRequest, res: Response): Promise<void> {
     if (!req.session.user) {
       res.redirect(SIGN_IN_URL + '?callback=' + req.originalUrl);
-    } else {
-      const caseId = req.originalUrl.split('/').pop() ?? '';
-      if (parseInt(caseId)) {
-        let url = DASHBOARD_URL;
-        req.session.userCase = await GetCaseController.assignUserCase(req, caseId);
-        if (req.originalUrl.includes(RESPONDENT)) {
-          if (req.originalUrl.includes(RESPONDENT_TASK_LIST_URL)) {
-            url = RESPONDENT_TASK_LIST_URL;
-          } else if (req.originalUrl.includes(VIEW_ALL_DOCUMENTS)) {
-            url = RESPONDENT_VIEW_ALL_DOCUMENTS;
-          }
-        } else if (req.originalUrl.includes(APPLICANT)) {
-          if (req.originalUrl.includes(APPLICANT_TASK_LIST_URL)) {
-            url = APPLICANT_TASK_LIST_URL;
-          } else if (req.originalUrl.includes(VIEW_ALL_DOCUMENTS)) {
-            url = APPLICANT_VIEW_ALL_DOCUMENTS;
-          }
-        } else if (req.originalUrl.includes(RESPONSE_TASKLIST)) {
-          url = RESPOND_TO_APPLICATION;
-        }
-        req.session.save(() => res.redirect(url));
-      } else {
-        res.redirect(DASHBOARD_URL);
-      }
+      return;
     }
+    const caseId = req.originalUrl.split('/').pop() ?? '';
+    if (!parseInt(caseId)) {
+      res.redirect(DASHBOARD_URL);
+      return;
+    }
+    let url: string = DASHBOARD_URL;
+    req.session.userCase = await GetCaseController.assignUserCase(req, caseId);
+    if (req.originalUrl.includes(RESPONDENT)) {
+      url = this.resolveRedirectUrl(
+        req.originalUrl,
+        RESPONDENT_TASK_LIST_URL,
+        VIEW_ALL_DOCUMENTS,
+        RESPONDENT_VIEW_ALL_DOCUMENTS
+      );
+    } else if (req.originalUrl.includes(APPLICANT)) {
+      url = this.resolveRedirectUrl(
+        req.originalUrl,
+        APPLICANT_TASK_LIST_URL,
+        VIEW_ALL_DOCUMENTS,
+        APPLICANT_VIEW_ALL_DOCUMENTS
+      );
+    } else if (req.originalUrl.includes(RESPONSE_TASKLIST)) {
+      url = RESPOND_TO_APPLICATION;
+    }
+    req.session.save(() => res.redirect(url));
   }
 }

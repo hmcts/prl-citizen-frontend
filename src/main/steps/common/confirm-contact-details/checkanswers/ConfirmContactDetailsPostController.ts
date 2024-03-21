@@ -88,16 +88,30 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
     let redirectUrl;
     if (partyType === PartyType.RESPONDENT) {
       // temporary until FL401 respondent tasklist refactored
-      if (req.session.userCase.caseTypeOfApplication === 'C100') {
-        redirectUrl = req.session.applicationSettings?.navfromRespondToApplication
-          ? RESPOND_TO_APPLICATION
-          : applyParms(`${PARTY_TASKLIST}`, { partyType: PartyType.RESPONDENT });
-      } else {
-        redirectUrl = req.session.applicationSettings?.navfromRespondToApplication
-          ? RESPOND_TO_APPLICATION
-          : RESPONDENT_TASK_LIST_URL;
-      }
-    } else if (userCase.caseTypeOfApplication === CaseType.C100) {
+      redirectUrl = this.getRespondentRedirectUrl(req);
+    } else {
+      redirectUrl = this.getApplicantRedirectUrl(req, userCase);
+    }
+    return redirectUrl;
+  }
+
+  private getRespondentRedirectUrl(req: AppRequest<AnyObject>) {
+    let redirectUrl;
+    if (req.session.userCase.caseTypeOfApplication === 'C100') {
+      redirectUrl = req.session.applicationSettings?.navfromRespondToApplication
+        ? RESPOND_TO_APPLICATION
+        : applyParms(`${PARTY_TASKLIST}`, { partyType: PartyType.RESPONDENT });
+    } else {
+      redirectUrl = req.session.applicationSettings?.navfromRespondToApplication
+        ? RESPOND_TO_APPLICATION
+        : RESPONDENT_TASK_LIST_URL;
+    }
+    return redirectUrl;
+  }
+
+  private getApplicantRedirectUrl(req: AppRequest<AnyObject>, userCase: CaseWithId) {
+    let redirectUrl = APPLICANT_TASK_LIST_URL;
+    if (userCase.caseTypeOfApplication === CaseType.C100) {
       redirectUrl = C100_APPLICANT_TASKLIST;
       if (req.session.applicationSettings?.navFromContactPreferences) {
         if (userCase.applicantPreferredContact === applicantContactPreferencesEnum.POST) {
@@ -106,8 +120,6 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
           redirectUrl = APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS;
         }
       }
-    } else {
-      redirectUrl = APPLICANT_TASK_LIST_URL;
     }
     return redirectUrl;
   }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable prettier/prettier */
@@ -25,6 +26,17 @@ import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util
 
 console.info('** FOR SONAR **');
 
+interface ContactInfo {
+  contactDetails: any, 
+  language: string, 
+  id: string, 
+  contactType: string, 
+  detailKey: string, 
+  donknowKey: string,
+  newRespondentStorage: any, 
+  respondentUrl: string;
+
+}
 /* eslint-disable import/namespace */
 export const CaseName = (
   { sectionTitles, keys, ...content }: SummaryListContent,
@@ -1060,7 +1072,7 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
     },
     );
    }
-   if(sessionRespondentData[respondent].hasOwnProperty('addressUnknown') && sessionRespondentData[respondent]['addressUnknown'] === YesOrNo.YES){
+  if(sessionRespondentData[respondent].hasOwnProperty('addressUnknown') && sessionRespondentData[respondent]['addressUnknown'] === YesOrNo.YES){
     newRespondentStorage.push({
       key: keys['explainNoLabel'],
       value: getYesNoTranslation(language,sessionRespondentData[respondent]?.['addressUnknown'],'doTranslation'),
@@ -1068,43 +1080,40 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
     },
     );
    }
+   const emailContactInfo: ContactInfo = {
+    contactDetails, newRespondentStorage, language, id, contactType: 'Email', detailKey: 'emailAddress', donknowKey: 'donKnowEmailAddress', respondentUrl: 'C100_RESPONDENT_DETAILS_CONTACT_DETAILS'
+   };
+   pushContactDetails(emailContactInfo);
 
-    if(contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes'){
-      newRespondentStorage.push(
-        {
-          key: (language === 'en')? 'I dont know their email address':getYesNoTranslation(language,'I dont know their email address', 'personalDetails'),
-          value: getYesNoTranslation(language,contactDetails?.['donKnowEmailAddress'],'doTranslation'),
-          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-        },
-      );
-    }else {
-      newRespondentStorage.push(
-      {
-        key:(language === 'en')? 'Email': getYesNoTranslation(language,'Email', 'personalDetails'),
-            value: contactDetails?.['emailAddress'],
-            changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-      },
-    );}
-   
-    if(contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes'){
-      newRespondentStorage.push(
-        {
-          key: (language === 'en')? 'I dont know their telephone number':getYesNoTranslation(language,'I dont know their telephone number', 'personalDetails'),
-          value: getYesNoTranslation(language,contactDetails?.['donKnowTelephoneNumber'],'doTranslation'),
-          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-        },
-      );
-    }else{
-      newRespondentStorage.push(
-        {
-          key: (language === 'en')? 'Telephone number' :getYesNoTranslation(language,'Telephone number', 'personalDetails'),
-          value: contactDetails?.['telephoneNumber'],
-          changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-        }
-      );
-    }
+   const telephoneContactInfo: ContactInfo = {
+    contactDetails, newRespondentStorage, language, id, contactType: 'Telephone number', detailKey: 'telephoneNumber',  donknowKey: 'donKnowTelephoneNumber', respondentUrl: 'C100_RESPONDENT_DETAILS_CONTACT_DETAILS'
+   };
+    
+    pushContactDetails(telephoneContactInfo);
 
     return newRespondentStorage;
+};
+
+const pushContactDetails = (contactInfo: ContactInfo) => {
+  const contactDetails = contactInfo.contactDetails;
+
+  if (contactDetails.hasOwnProperty(contactInfo.donknowKey) && contactDetails[contactInfo.donknowKey] === 'Yes') {
+    contactInfo.newRespondentStorage.push(
+      {
+        key: (contactInfo.language === 'en') ? 'I dont know their ${key.toLowerCase()}' : getYesNoTranslation(contactInfo.language, 'I dont know their ${key.toLowerCase()}', 'personalDetails'),
+        value: getYesNoTranslation(contactInfo.language, contactDetails?.[contactInfo.donknowKey], 'doTranslation'),
+        changeUrl: applyParms(Urls[contactInfo.respondentUrl], { respondentId: contactInfo.id }),
+      }
+    );
+  } else {
+    contactInfo.newRespondentStorage.push(
+      {
+        key: (contactInfo.language === 'en') ? contactInfo.contactType : getYesNoTranslation(contactInfo.language, contactInfo.contactType, 'personalDetails'),
+        value: contactDetails?.[contactInfo.detailKey],
+        changeUrl: applyParms(Urls[contactInfo.respondentUrl], { respondentId: contactInfo.id }),
+      }
+    );
+  }
 };
 
 /* eslint-disable import/namespace */
@@ -1519,4 +1528,6 @@ if(language==='cy'){
 }
 return value || '';
 };
+
+
 
