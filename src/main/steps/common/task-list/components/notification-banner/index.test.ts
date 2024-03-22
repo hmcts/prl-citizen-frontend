@@ -476,23 +476,6 @@ describe('testcase for notification Banner', () => {
         {
           contents: [
             {
-              text: 'A new document has been added to your case.',
-            },
-          ],
-          heading: 'You have a new document to view',
-          id: 'newDocument',
-          links: [
-            {
-              external: false,
-              href: '/respondent/yourdocuments/alldocuments/alldocuments',
-              text: 'See all documents',
-            },
-          ],
-          title: 'Important',
-        },
-        {
-          contents: [
-            {
               text: 'The court has made a decision about your case. The order tells you what the court has decided.',
             },
           ],
@@ -553,23 +536,6 @@ describe('testcase for notification Banner', () => {
         },
       ];
       expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
-        {
-          contents: [
-            {
-              text: 'A new document has been added to your case.',
-            },
-          ],
-          heading: 'You have a new document to view',
-          id: 'newDocument',
-          links: [
-            {
-              external: false,
-              href: '/respondent/yourdocuments/alldocuments/alldocuments',
-              text: 'See all documents',
-            },
-          ],
-          title: 'Important',
-        },
         {
           contents: [
             {
