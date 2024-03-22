@@ -3094,7 +3094,7 @@ export enum CaseEvent {
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
-  CONTACT_PREFERENCE="contactPreference"
+  CONTACT_PREFERENCE='citizenContactPreference'
 }
 
 export enum hearingStatus {
