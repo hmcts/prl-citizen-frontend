@@ -14,7 +14,7 @@ import {
 
 const userCase: CaseWithId = {
   id: '123',
-  state: State.Submitted,
+  state: State.SUBMITTED_PAID,
   serviceType: '',
   caseTypeOfApplication: 'C100',
 };

@@ -123,7 +123,8 @@ const getRedirectUrl = (
   state: string | undefined,
   id: string
 ) => {
-  const applicantUrl = state === State.Draft ? applyParms(`${C100_RETRIVE_CASE}`, { caseId: id }) : '#';
+  const applicantUrl =
+    state === State.AWAITING_SUBMISSION_TO_HMCTS ? applyParms(`${C100_RETRIVE_CASE}`, { caseId: id }) : '#';
   const C100_Url = isRespondent ? RESPONDENT_TASK_LIST_URL + '/' + id : applicantUrl;
   const FL401_Url = (!isRespondent ? APPLICANT_TASK_LIST_URL : RESPONDENT_TASK_LIST_URL) + '/' + id;
   const caseUrl = userCase.caseTypeOfApplication === CaseType.C100 ? C100_Url : FL401_Url;
