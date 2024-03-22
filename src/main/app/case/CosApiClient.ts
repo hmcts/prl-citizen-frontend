@@ -130,7 +130,9 @@ export class CosApiClient {
         partyType,
         caseType,
       };
-      const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventName}/case-update`, data, {
+      //old - const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventName}/case-update`, data, {
+      // new -
+      const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/${eventName}/citizen-update-party-details`, data, {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
