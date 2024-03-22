@@ -1,21 +1,30 @@
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
-import { FETCH_CASE_DETAILS } from '../../../urls';
-import { applyParms } from '../../url-parser';
-import { languages as commonContent } from '../common/content';
-import { documentSections } from '../config';
+import { TranslationFn } from '../../../../../app/controller/GetController';
+import { getCasePartyType } from '../../../../prl-cases/dashboard/utils';
+import { FETCH_CASE_DETAILS } from '../../../../urls';
+import { applyParms } from '../../../url-parser';
+import { en, cy } from '../../common/content';
+import { viewDocumentsSections as sections } from '../../config';
+import { DocumentLabelCategory, DocumentSectionId } from '../../definitions';
 export * from './routeGuard';
 
 const languages = {
-  en: { ...commonContent.en },
-  cy: { ...commonContent.cy },
+  en: { ...en },
+  cy: { ...cy },
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const request = content.additionalData?.req;
   const caseData = request.session.userCase;
-  const partyType = getCasePartyType(caseData, request.session.user.id);
+  const loggedInUserPartyType = getCasePartyType(caseData, request.session.user.id);
+  const documentSectionTitles = translations.viewDocuments.documentSectionTitles as Record<
+  DocumentSectionId,
+    string
+  >;
+  const documentCategoryLabels = translations.viewDocuments.documentCategoryLabels as Record<
+    Partial<DocumentLabelCategory>,
+    string
+  >;
   /*Object.assign(caseData, {
     citizenDocuments: [
       {
@@ -103,13 +112,13 @@ export const generateContent: TranslationFn = content => {
       id: 'caseView',
       href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData?.id }),
     },
-    sections: documentSections
-      .filter(documentSection => documentSection.isVisible(caseData))
-      .sort((current, next) => (current.displayOrder(partyType) > next.displayOrder(partyType) ? 1 : -1))
-      .map(documentSection => ({
-        id: documentSection.documentSectionId,
-        title: documentSection.documentSectionTitle(translations.documentSectionTitles),
-        items: documentSection.documentsList(partyType, caseData, translations.documentCategoryLabels),
+    sections: sections
+      .filter(section => section.isVisible(caseData))
+      .sort((current, next) => (current.displayOrder(loggedInUserPartyType) > next.displayOrder(loggedInUserPartyType) ? 1 : -1))
+      .map(section => ({
+        id: section.sectionId,
+        title: section.sectionTitle(documentSectionTitles),
+        items: section.documentCategoryList(caseData, documentCategoryLabels, loggedInUserPartyType),
       })),
   };
 };

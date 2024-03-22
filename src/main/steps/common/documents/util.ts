@@ -1,9 +1,10 @@
 import dayjs from 'dayjs';
 import _ from 'lodash';
+import { Response } from 'express';
 
 import { CaseWithId } from '../../../app/case/case';
 import { PartyType } from '../../../app/case/definition';
-import { CITIZEN_DOWNLOAD_UPLOADED_DOCS, VIEW_DOCUMENTS } from '../../urls';
+import { CITIZEN_DOWNLOAD_UPLOADED_DOCS, UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, VIEW_DOCUMENTS } from '../../urls';
 import { interpolate } from '../string-parser';
 import { applyParms } from '../url-parser';
 
@@ -11,12 +12,21 @@ import {
   CitizenDocuments,
   Document,
   DocumentCategory,
-  DocumentDetails,
+  ViewDocumentDetails,
   DocumentLabelCategory,
   DocumentSectionId,
   DocumentTypes,
-  DocumentsListConfigProps,
+  UploadDocumentSectionId,
+  ViewDocumentsCategoryListProps,
+  ViewDocumentsSectionId,
+  UploadDocumentCategory,
 } from './definitions';
+import { uploadDocumentSections, viewDocumentsCategoryListConfig } from './config';
+import { en, cy } from './common/content';
+import { AppRequest } from '../../../app/controller/AppRequest';
+import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
+import { CosApiClient } from '../../../app/case/CosApiClient';
+import { FormError } from '../../../app/form/Form';
 
 export const isOrdersFromTheCourtPresent = (caseData: CaseWithId): boolean =>
   !!(caseData && caseData?.citizenOrders?.length);
@@ -31,11 +41,11 @@ export const getDocumentSectionTitle = (
   documentSectionTitles: Record<DocumentSectionId, string>
 ): string => _.get(documentSectionTitles, documentSectionId, '');
 
-const getDocumentLinkMeta = (
+const getViewDocumentLinkMeta = (
   document: CitizenDocuments,
-  loggedInPartyType: PartyType,
-  documentCategoryLabels: Record<DocumentLabelCategory, string>
-): DocumentDetails['link'] => {
+  documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+  loggedInUserPartyType: PartyType
+): ViewDocumentDetails['link'] => {
   const documentConfig = getDocumentConfig(document.categoryId);
   const linkMeta = {
     text: '',
@@ -43,7 +53,7 @@ const getDocumentLinkMeta = (
     openInAnotherTab: false,
   };
   const urlParams = {
-    partyType: loggedInPartyType,
+    partyType: loggedInUserPartyType,
     documentPartyType: document.partyType,
     documentCategory: document.categoryId,
   };
@@ -60,18 +70,18 @@ const getDocumentLinkMeta = (
 
   return documentConfig
     ? Object.assign(linkMeta, {
-        text: documentConfig ? documentConfig.documentLabel(document.uploadedBy, documentCategoryLabels) : '',
+        text: documentConfig ? documentConfig.documentCategoryLabel(documentCategoryLabels, document.uploadedBy) : '',
         url: applyParms(VIEW_DOCUMENTS, urlParams),
         openInAnotherTab: false,
       })
     : linkMeta;
 };
 
-export const getDocumentLabel = (
+export const getDocumentCategoryLabel = (
   documentLabelId: DocumentLabelCategory,
-  uploadedPartyName: CitizenDocuments['uploadedBy'],
-  documentCategoryLabels: Record<DocumentLabelCategory, string>
-): DocumentDetails['link']['text'] => {
+  documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+  uploadedPartyName?: string
+): string => {
   let documentLabel = _.get(documentCategoryLabels, documentLabelId, '');
 
   switch (documentLabelId) {
@@ -116,35 +126,35 @@ const filterAndGroupPartyDocuments = (
   return groupedDocuments;
 };
 
-const getDocumentDetails = (
-  loggedInPartyType: PartyType,
-  documentCategoryLabels: Record<DocumentLabelCategory, string>,
+const getViewDocumentCategoryDetails = (
+  documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+  loggedInUserPartyType: PartyType,
   document: CitizenDocuments
-): DocumentDetails => ({
+): ViewDocumentDetails => ({
   categoryId: document.categoryId,
-  link: getDocumentLinkMeta(document, loggedInPartyType, documentCategoryLabels),
+  link: getViewDocumentLinkMeta(document, documentCategoryLabels, loggedInUserPartyType),
 });
 
-export const getDocumentsList = (
-  documentSectionId: DocumentSectionId,
-  loggedInPartyType: PartyType,
+export const getViewDocumentCategoryList = (
+  documentSectionId: ViewDocumentsSectionId | UploadDocumentSectionId,
   caseData: CaseWithId,
-  documentCategoryLabels: Record<DocumentLabelCategory, string>
-): DocumentDetails[] | [] => {
-  let documents: DocumentDetails[] | [] = [];
+  documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+  loggedInUserPartyType: PartyType
+): ViewDocumentDetails[] | [] => {
+  let documents: ViewDocumentDetails[] | [] = [];
 
   switch (documentSectionId) {
-    case DocumentSectionId.APPLICANTS_DOCUMENT:
+    case ViewDocumentsSectionId.APPLICANTS_DOCUMENT:
       {
         documents = filterAndGroupPartyDocuments(PartyType.APPLICANT, caseData?.citizenDocuments)!.map(
-          getDocumentDetails.bind(null, loggedInPartyType, documentCategoryLabels)
+          getViewDocumentCategoryDetails.bind(null, documentCategoryLabels, loggedInUserPartyType)
         );
       }
       break;
-    case DocumentSectionId.RESPONDENTS_DOCUMENTS:
+    case ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS:
       {
         documents = filterAndGroupPartyDocuments(PartyType.RESPONDENT, caseData?.citizenDocuments)!.map(
-          getDocumentDetails.bind(null, loggedInPartyType, documentCategoryLabels)
+          getViewDocumentCategoryDetails.bind(null, documentCategoryLabels, loggedInUserPartyType)
         );
       }
       break;
@@ -227,54 +237,91 @@ export const getDocuments = (
   return docs;
 };
 
-export const getDocumentConfig = (documentCategory: DocumentCategory): DocumentsListConfigProps | undefined =>
-  documentsListConfig.find(documentConfig => documentConfig.documentCategoryId === documentCategory);
+export const getDocumentConfig = (documentCategory: DocumentCategory): ViewDocumentsCategoryListProps | undefined =>
+  viewDocumentsCategoryListConfig.find(section => section.categoryId === documentCategory);
 
-// Moved here as getting error with bind being undefined when importing from config file
-export const documentsListConfig: DocumentsListConfigProps[] = [
-  {
-    documentCategoryId: DocumentCategory.POSITION_STATEMENTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.POSITION_STATEMENTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.POSITION_STATEMENTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.WITNESS_STATEMENTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.APPLICANT_WITNESS_STATEMENTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.WITNESS_STATEMENTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.RESPONDENT_WITNESS_STATEMENTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.OTHER_PEOPLE_WITNESS_STATEMENTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.MEDICAL_RECORDS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.MEDICAL_RECORDS),
-    documentsList: getDocuments.bind(null, DocumentCategory.MEDICAL_RECORDS),
-  },
-  {
-    documentCategoryId: DocumentCategory.MEDICAL_REPORTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.MEDICAL_REPORTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.MEDICAL_REPORTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.DNA_REPORTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.DNA_REPORTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.DNA_REPORTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.DRUG_ALCOHOL_TESTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.DRUG_ALCOHOL_TESTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.DRUG_ALCOHOL_TESTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.POLICE_REPORTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.POLICE_REPORTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.POLICE_REPORTS),
-  },
-];
+export const getUploadDocumentCategoryDetails = (
+  language: string,
+  categoryId: UploadDocumentCategory
+): { sectionTitle: string; categoryLabel: string } => {
+  const isEn = language === 'en';
+  const config = uploadDocumentSections.find(section =>
+    section.documentCategoryList.find(category => category.categoryId === categoryId)
+  );
+  const documentSectionTitles = (isEn ? en : cy).uploadDocuments.documentSectionTitles as Record<
+    DocumentSectionId,
+    string
+  >;
+  const documentCategoryLabels = (isEn ? en : cy).uploadDocuments.documentCategoryLabels as Record<
+    Partial<DocumentLabelCategory>,
+    string
+  >;
+
+  return {
+    sectionTitle: config ? config.sectionTitle(documentSectionTitles) : '',
+    categoryLabel: config
+      ? config.documentCategoryList
+          .find(category => category.categoryId === categoryId)
+          ?.documentCategoryLabel(documentCategoryLabels) ?? ''
+      : '',
+  };
+};
+
+/** Upload documents related utilty */
+
+export const deleteDocument = async (req: AppRequest, res: Response): Promise<void> => {
+  const { query, session } = req;
+  const { user: userDetails, userCase: caseData } = session;
+  const partyType = getCasePartyType(caseData, userDetails.id);
+  const client = new CosApiClient(userDetails.accessToken, '/');
+  const uploadedFilesDataReference = getUploadedFilesDataReference(partyType);
+
+  try {
+    await client.deleteCitizenStatementDocument(query.documentId as string, userDetails);
+
+    if (req.session.userCase && req.session.userCase.hasOwnProperty(uploadedFilesDataReference)) {
+      req.session.userCase[uploadedFilesDataReference] = caseData?.[uploadedFilesDataReference]?.filter(
+        document => query.documentId !== document.document_url.substring(document.document_url.lastIndexOf('/') + 1)
+      );
+
+      if (req.session.userCase?.[uploadedFilesDataReference]?.length === 0) {
+        delete req.session.userCase[uploadedFilesDataReference];
+      }
+    }
+
+    req.session.errors = removeUploadDocErrors(req.session.errors);
+  } catch (e) {
+    req.session.errors = handleError(req.session.errors, 'donwloadError', true);
+  } finally {
+    req.session.save(() => {
+      res.redirect(
+        applyParms(UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, {
+          partyType,
+          docCategory: req.params.docCategory,
+        })
+      );
+    });
+  }
+};
+
+export const getUploadedFilesDataReference = (partyType: PartyType): string => {
+  return partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles';
+};
+
+export const removeUploadDocErrors = (errors: FormError[] | undefined): FormError[] => {
+  return errors?.length ? errors.filter(error => error.propertyName !== 'uploadDocumentFileUpload') : [];
+};
+
+export const handleError = (
+  errors: FormError[] | undefined,
+  errorType: string,
+  omitOtherErrors?: boolean
+): FormError[] => {
+  let _errors: FormError[] = errors?.length ? errors : [];
+
+  if (omitOtherErrors) {
+    _errors = [...removeUploadDocErrors(_errors)];
+  }
+
+  return [..._errors, { errorType, propertyName: 'uploadDocumentFileUpload' }];
+};

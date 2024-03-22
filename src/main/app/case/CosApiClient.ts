@@ -259,16 +259,16 @@ export class CosApiClient {
     }
   }
 
-  public async deleteCitizenStatementDocument(user: UserDetails, docId: string): Promise<string> {
+  public async deleteCitizenStatementDocument(documentId: string, userDetails: UserDetails): Promise<string> {
     try {
       const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + user.accessToken,
+        Authorization: 'Bearer ' + userDetails.accessToken,
         ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
 
-      const response = await Axios.delete(config.get('services.cos.url') + `/${docId}/delete`, { headers });
+      const response = await Axios.delete(config.get('services.cos.url') + `/${documentId}/delete`, { headers });
       return response.data;
     } catch (err) {
       throw new Error('Document could not be deleted.');
