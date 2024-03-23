@@ -2,6 +2,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 
@@ -123,18 +125,9 @@ export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: U
   return caseData.applicants?.[0].value.user.idamId === userDetails.id;
 };
 
-export const isPersonalServiceByCourtStuff = (caseData: Partial<CaseWithId>): boolean => {
-  let lengthOfServedApplicationDetailsList = 0;
-  const PERSONAL_SOA_BY_COURT_STUFF = ['Court - court admin', 'Court - court bailiff'];
-  lengthOfServedApplicationDetailsList = caseData.finalServedApplicationDetailsList?.length as number;
-  if (
-    lengthOfServedApplicationDetailsList >= 1 &&
-    caseData.finalServedApplicationDetailsList?.[lengthOfServedApplicationDetailsList - 1].value.whoIsResponsible &&
-    PERSONAL_SOA_BY_COURT_STUFF.includes(
-      caseData.finalServedApplicationDetailsList?.[lengthOfServedApplicationDetailsList - 1].value.whoIsResponsible!
-    )
-  ) {
-    return true;
-  }
-  return false;
+export const isPersonalServiceByCourtStaff = (caseData: Partial<CaseWithId>): boolean => {
+  const PERSONAL_SOA_BY_COURT_STAFF = ['Court - court admin', 'Court - court bailiff'];
+  return caseData.finalServedApplicationDetailsList && caseData.finalServedApplicationDetailsList?.length
+    ? PERSONAL_SOA_BY_COURT_STAFF.includes(_.last(caseData.finalServedApplicationDetailsList)?.value.whoIsResponsible!)
+    : false;
 };

@@ -14,7 +14,7 @@ import {
 import { NotificationBannerContent } from '../../definitions';
 import { isCafcassCymruServed, isCafcassServed } from '../../utils';
 
-import { isPersonalServiceByCourtStuff } from './utils';
+import { isPersonalServiceByCourtStaff } from './utils';
 
 const en: NotificationBannerContent = {
   title: 'Important',
@@ -134,7 +134,7 @@ const en: NotificationBannerContent = {
                 {
                   text: 'We will let you know when the other people in the case have been given your application and case documents.',
                   show: (caseData: Partial<CaseWithId>): boolean => {
-                    return isPersonalServiceByCourtStuff(caseData);
+                    return isPersonalServiceByCourtStaff(caseData);
                   },
                 },
                 {
@@ -669,7 +669,7 @@ const cy: typeof en = {
                 {
                   text: "Byddwn yn rhoi gwybod i chi pan fydd y bobl eraill yn yr achos wedi cael eich cais a'ch dogfennau achos.",
                   show: (caseData: Partial<CaseWithId>): boolean => {
-                    return isPersonalServiceByCourtStuff(caseData);
+                    return isPersonalServiceByCourtStaff(caseData);
                   },
                 },
                 {

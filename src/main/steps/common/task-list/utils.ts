@@ -89,29 +89,15 @@ export const keepDetailsPrivateNav = (caseData: Partial<CaseWithId>, req: AppReq
   return req?.session.applicationSettings?.navfromRespondToApplication ? RESPOND_TO_APPLICATION : respondentTaskListUrl;
 };
 
-export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => {
-  let lengthOfServedApplicationDetailsList = 0;
-  lengthOfServedApplicationDetailsList = caseData.finalServedApplicationDetailsList?.length as number;
-  if (
-    lengthOfServedApplicationDetailsList >= 1 &&
-    caseData.finalServedApplicationDetailsList?.[
-      lengthOfServedApplicationDetailsList - 1
-    ].value.emailNotificationDetails?.find(i => i.value?.servedParty === 'cafcass')
-  ) {
-    /* casfcass serverd code may need to to revisited once SOA cafcass (English court is in place)*/
-    return true;
-  }
-  return false;
-};
+export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseData?.isCafcassServed === YesOrNo.YES;
 
 export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean => {
-  let lengthOfServedApplicationDetailsList = 0;
-  lengthOfServedApplicationDetailsList = caseData.finalServedApplicationDetailsList?.length as number;
+  const lengthOfServedApplicationDetailsList = caseData.finalServedApplicationDetailsList?.length as number;
   if (
     lengthOfServedApplicationDetailsList >= 1 &&
-    caseData.finalServedApplicationDetailsList?.[
-      lengthOfServedApplicationDetailsList - 1
-    ].value.emailNotificationDetails?.find(i => i.value?.servedParty === 'Cafcass cymru')
+    caseData.finalServedApplicationDetailsList?.find(list =>
+      list.value.emailNotificationDetails?.find(i => i.value?.servedParty === 'Cafcass cymru')
+    )
   ) {
     return true;
   }

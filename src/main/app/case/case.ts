@@ -600,14 +600,15 @@ export interface ServedApplicationDetails {
   value: ServedApplication;
 }
 export type ServedApplication = {
-  emailNotificationDetails?: [
-    {
-      value?: {
-        servedParty?: string;
-      };
-    }
-  ];
+  emailNotificationDetails: emailNotificationDetails[] | [];
   whoIsResponsible: string;
+};
+export interface emailNotificationDetails {
+  id: string;
+  value: emailNotification;
+}
+export type emailNotification = {
+  servedParty: string;
 };
 
 export interface CaseWithId extends Case {

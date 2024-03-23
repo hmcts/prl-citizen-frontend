@@ -382,6 +382,7 @@ describe('testcase for notification Banner', () => {
         {
           id: '1',
           value: {
+            emailNotificationDetails: [],
             whoIsResponsible: 'Court - court admin',
           },
         },
@@ -423,6 +424,7 @@ describe('testcase for notification Banner', () => {
         {
           id: '1',
           value: {
+            emailNotificationDetails: [],
             whoIsResponsible: 'Court - court bailiff',
           },
         },
@@ -463,17 +465,12 @@ describe('testcase for notification Banner', () => {
       state: State.CASE_SERVED,
       caseTypeOfApplication: CaseType.C100,
       applicants: [applicantLIP, applicant[1]],
+      isCafcassServed: YesOrNo.YES,
       finalServedApplicationDetailsList: [
         {
           id: '123',
           value: {
-            emailNotificationDetails: [
-              {
-                value: {
-                  servedParty: 'cafcass',
-                },
-              },
-            ],
+            emailNotificationDetails: [],
             whoIsResponsible: 'Unrepresented Applicant',
           },
         },
@@ -583,6 +580,7 @@ describe('testcase for notification Banner', () => {
           value: {
             emailNotificationDetails: [
               {
+                id: '123',
                 value: {
                   servedParty: 'Cafcass cymru',
                 },
