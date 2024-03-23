@@ -3,6 +3,7 @@ import { PartyType } from '../../../app/case/definition';
 import {
   DocumentCategory,
   DocumentLabelCategory,
+  DocumentSectionId,
   UploadDocumentCategory,
   UploadDocumentSectionId,
   UploadDocumentSectionsProps,
@@ -22,28 +23,32 @@ import {
 export const viewDocumentsSections: ViewDocumentsSectionsProps[] = [
   {
     sectionId: ViewDocumentsSectionId.ORDERS_FROM_THE_COURT,
-    sectionTitle: getDocumentSectionTitle.bind(null, ViewDocumentsSectionId.ORDERS_FROM_THE_COURT),
+    sectionTitle: (documentSectionTitles: Record<DocumentSectionId, string>) =>
+      getDocumentSectionTitle(ViewDocumentsSectionId.ORDERS_FROM_THE_COURT, documentSectionTitles),
     documentCategoryList: () => [],
     isVisible: isOrdersFromTheCourtPresent,
     displayOrder: () => 1,
   },
   {
     sectionId: ViewDocumentsSectionId.APPLICANTS_DOCUMENT,
-    sectionTitle: getDocumentSectionTitle.bind(null, ViewDocumentsSectionId.APPLICANTS_DOCUMENT),
+    sectionTitle: (documentSectionTitles: Record<DocumentSectionId, string>) =>
+      getDocumentSectionTitle(ViewDocumentsSectionId.APPLICANTS_DOCUMENT, documentSectionTitles),
     documentCategoryList: getViewDocumentCategoryList.bind(null, ViewDocumentsSectionId.APPLICANTS_DOCUMENT),
     isVisible: hasAnyDocumentForPartyType.bind(null, PartyType.APPLICANT),
     displayOrder: (partyType: PartyType) => (partyType === PartyType.APPLICANT ? 2 : 3),
   },
   {
     sectionId: ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS,
-    sectionTitle: getDocumentSectionTitle.bind(null, ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS),
+    sectionTitle: (documentSectionTitles: Record<DocumentSectionId, string>) =>
+      getDocumentSectionTitle(ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS, documentSectionTitles),
     documentCategoryList: getViewDocumentCategoryList.bind(null, ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS),
     isVisible: hasAnyDocumentForPartyType.bind(null, PartyType.RESPONDENT),
     displayOrder: (partyType: PartyType) => (partyType === PartyType.RESPONDENT ? 2 : 3),
   },
   {
     sectionId: ViewDocumentsSectionId.ATTENDING_THE_HEARING,
-    sectionTitle: getDocumentSectionTitle.bind(null, ViewDocumentsSectionId.ATTENDING_THE_HEARING),
+    sectionTitle: (documentSectionTitles: Record<DocumentSectionId, string>) =>
+      getDocumentSectionTitle(ViewDocumentsSectionId.ATTENDING_THE_HEARING, documentSectionTitles),
     documentCategoryList: () => [],
     isVisible: () => false,
     displayOrder: () => 4,
@@ -53,22 +58,40 @@ export const viewDocumentsSections: ViewDocumentsSectionsProps[] = [
 export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] = [
   {
     categoryId: DocumentCategory.POSITION_STATEMENTS,
-    documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.POSITION_STATEMENTS),
+    documentCategoryLabel: (
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      uploadedPartyName?: string
+    ) => getDocumentCategoryLabel(DocumentLabelCategory.POSITION_STATEMENTS, documentCategoryLabels, uploadedPartyName),
     documents: getDocuments.bind(null, DocumentCategory.POSITION_STATEMENTS),
   },
   {
     categoryId: DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
-    documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.WITNESS_STATEMENTS),
+    documentCategoryLabel: (
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      uploadedPartyName?: string
+    ) => getDocumentCategoryLabel(DocumentLabelCategory.WITNESS_STATEMENTS, documentCategoryLabels, uploadedPartyName),
+
     documents: getDocuments.bind(null, DocumentCategory.APPLICANT_WITNESS_STATEMENTS),
   },
   {
     categoryId: DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
-    documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.WITNESS_STATEMENTS),
+    documentCategoryLabel: (
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      uploadedPartyName?: string
+    ) => getDocumentCategoryLabel(DocumentLabelCategory.WITNESS_STATEMENTS, documentCategoryLabels, uploadedPartyName),
     documents: getDocuments.bind(null, DocumentCategory.RESPONDENT_WITNESS_STATEMENTS),
   },
   {
     categoryId: DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS,
-    documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.OTHER_PEOPLE_WITNESS_STATEMENTS),
+    documentCategoryLabel: (
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      uploadedPartyName?: string
+    ) =>
+      getDocumentCategoryLabel(
+        DocumentLabelCategory.OTHER_PEOPLE_WITNESS_STATEMENTS,
+        documentCategoryLabels,
+        uploadedPartyName
+      ),
     documents: getDocuments.bind(null, DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS),
   },
   {
@@ -105,7 +128,8 @@ export const uploadDocumentSections: UploadDocumentSectionsProps[] = [
     documentCategoryList: [
       {
         categoryId: UploadDocumentCategory.POSITION_STATEMENTS,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.POSITION_STATEMENTS),
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.POSITION_STATEMENTS, documentCategoryLabels),
       },
       {
         categoryId: UploadDocumentCategory.WITNESS_STATEMENTS,
@@ -113,7 +137,10 @@ export const uploadDocumentSections: UploadDocumentSectionsProps[] = [
       },
       {
         categoryId: UploadDocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.OTHER_PEOPLE_WITNESS_STATEMENTS),
+        documentCategoryLabel: getDocumentCategoryLabel.bind(
+          null,
+          DocumentLabelCategory.OTHER_PEOPLE_WITNESS_STATEMENTS
+        ),
       },
       {
         categoryId: UploadDocumentCategory.EMAIL_IMAGES_MEDIA,
@@ -129,7 +156,10 @@ export const uploadDocumentSections: UploadDocumentSectionsProps[] = [
       },
       {
         categoryId: UploadDocumentCategory.TENANCY_AND_MORTGAGE_AGREEMENTS,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.TENANCY_AND_MORTGAGE_AGREEMENTS),
+        documentCategoryLabel: getDocumentCategoryLabel.bind(
+          null,
+          DocumentLabelCategory.TENANCY_AND_MORTGAGE_AGREEMENTS
+        ),
       },
     ],
   },
