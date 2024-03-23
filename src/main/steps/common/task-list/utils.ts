@@ -6,7 +6,7 @@ import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
 import { PARTY_TASKLIST, PageLink, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
 import { applyParms } from '../url-parser';
 
-import { CaseType, PartyDetails, PartyType, State, YesOrNo } from './../../../app/case/definition';
+import { CaseType, PartyDetails, PartyType, ServedParty, State, YesOrNo } from './../../../app/case/definition';
 
 export const getPartyName = (
   caseData: Partial<CaseWithId> | undefined,
@@ -92,11 +92,10 @@ export const keepDetailsPrivateNav = (caseData: Partial<CaseWithId>, req: AppReq
 export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseData?.isCafcassServed === YesOrNo.YES;
 
 export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean => {
-  const lengthOfServedApplicationDetailsList = caseData.finalServedApplicationDetailsList?.length as number;
   if (
-    lengthOfServedApplicationDetailsList >= 1 &&
-    caseData.finalServedApplicationDetailsList?.find(list =>
-      list.value.emailNotificationDetails?.find(i => i.value?.servedParty === 'Cafcass cymru')
+    caseData.finalServedApplicationDetailsList?.length &&
+    caseData.finalServedApplicationDetailsList.find(list =>
+      list.value.emailNotificationDetails?.find(i => i.value?.servedParty === ServedParty.CYMRU)
     )
   ) {
     return true;

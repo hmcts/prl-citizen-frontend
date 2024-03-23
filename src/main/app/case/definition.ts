@@ -3060,7 +3060,9 @@ export enum PartyType {
   RESPONDENT = 'respondent',
   OTHER_PERSON = 'otherPerson',
 }
-
+export enum ServedParty {
+  CYMRU = 'Cafcass cymru',
+}
 export type People = {
   id: string;
   firstName: string;
