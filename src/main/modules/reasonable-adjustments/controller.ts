@@ -38,18 +38,10 @@ export class ReasonableAdjustementsController {
       return ReasonableAdjustementsController.handleError('RA - caseData not available', res);
     }
 
-    const isC100DraftApplication = RAProvider.utils.isC100DraftApplication(caseData);
-
-    if (isC100DraftApplication && !caseData?.appl_allApplicants?.length) {
-      return ReasonableAdjustementsController.handleError('RA - C100 applicants not available', res);
-    }
-
     const userDetails = req.session.user;
-    const partyType = isC100DraftApplication ? PartyType.APPLICANT : getCasePartyType(caseData, userDetails.id);
+    const partyType = getCasePartyType(caseData, userDetails.id);
     const language = RAProvider.getPreferredLanguage(req) as Language;
-    const partyDetails = isC100DraftApplication
-      ? _.first(caseData?.appl_allApplicants)
-      : getPartyDetails(caseData, userDetails.id);
+    const partyDetails = getPartyDetails(caseData, userDetails.id);
 
     if (!partyDetails) {
       return ReasonableAdjustementsController.handleError('RA - partyDetails not available', res, partyType);
@@ -116,9 +108,7 @@ export class ReasonableAdjustementsController {
     }
 
     const userDetails = req.session.user;
-    const partyType = RAProvider.utils.isC100DraftApplication(caseData)
-      ? PartyType.APPLICANT
-      : getCasePartyType(caseData, userDetails.id);
+    const partyType = getCasePartyType(caseData, userDetails.id);
 
     if (!externalRefId) {
       return ReasonableAdjustementsController.handleError('RA - no external reference ID present', res, partyType);
@@ -144,7 +134,7 @@ export class ReasonableAdjustementsController {
         }
 
         try {
-          await RAProvider.utils.updatePartyRAFlags(caseData, userDetails, response, req);
+          await RAProvider.utils.updatePartyRAFlags(caseData, userDetails, response);
 
           return res.redirect(
             applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE, {
@@ -163,7 +153,7 @@ export class ReasonableAdjustementsController {
   }
 
   handleBackNavigation(req: AppRequest, res: Response): void {
-    res.redirect(RAProvider.utils.getNavigationUrl(req, 'prev'));
+    res.redirect(RAProvider.utils.getNavigationUrl(req));
   }
 }
 

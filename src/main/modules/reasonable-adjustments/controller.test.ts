@@ -588,4 +588,51 @@ describe('ReasonableAdjustementsController', () => {
     expect(appRequest.locals.C100Api.updateCase).toHaveBeenCalled;
     expect(RAProvider.service.updatePartyRAFlags).not.toHaveBeenCalled;
   });
+
+  test('handleError should be called when launching RA module and not all applicants are available', async () => {
+    appRequest.session.userCase.state = State.AwaitingSubmissionToHmcts;
+    appRequest.session.userCase.appl_allApplicants = [];
+    jest.spyOn(RAProvider.service, 'retrieveExistingPartyRAFlags').mockImplementation(() =>
+      Promise.resolve({
+        partyName: 'testuser citizen',
+        roleOnCase: 'Respondent1',
+        details: [
+          {
+            id: '1166265a-ebe3-4141-862f-07caa95e7110',
+            value: {
+              name: 'Private waiting area',
+              name_cy: 'Ystafell aros breifat',
+              flagComment: '',
+              flagComment_cy: '',
+              dateTimeCreated: '2023-11-16T16:05:25.000',
+              dateTimeModified: '2023-11-16T16:05:57.000',
+              path: [
+                {
+                  id: 'c5e4508d-8ed0-49ae-8a3e-e5a3d5b28b1a',
+                  value: 'Party',
+                },
+                {
+                  id: '904e4ede-1b43-4421-be41-ae24783d0dd3',
+                  value: 'Reasonable adjustment',
+                },
+                {
+                  id: '932d6182-c4a8-43fa-a489-5850a460c4c7',
+                  value: 'I need something to feel comfortable during my hearing',
+                },
+              ],
+              hearingRelevant: 'Yes',
+              flagCode: 'RA0033',
+              status: 'Requested',
+              availableExternally: 'Yes',
+            },
+          },
+        ],
+      })
+    );
+    jest.spyOn(RAProvider, 'launch');
+    await RAController.launch(appRequest, appResponse);
+
+    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect(RAProvider.launch).not.toBeCalled;
+  });
 });

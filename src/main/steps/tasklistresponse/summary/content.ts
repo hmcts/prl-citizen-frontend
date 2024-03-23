@@ -22,6 +22,7 @@ import {
   RESPONDENT_PERSONAL_DETAILS,
   START_ALTERNATIVE_RESPONDENT,
 } from '../../../steps/urls';
+import { summaryList as prepareRASummaryList } from '../../common/reasonable-adjustments/review/content';
 import { summaryList } from '../../common/summary/utils';
 import {
   SafetyConcerns,
@@ -153,6 +154,7 @@ export const enDummyContent = {
   },
   keys: {},
 };
+
 export const enContentProceding = {
   section: '',
   title: 'Check your answers',
@@ -197,6 +199,7 @@ export const enContentProceding = {
     otherOrderLabel: 'Other Order',
   },
 };
+
 export const enSaftyConcern = {
   change: 'Edit',
   sectionTitles: {
@@ -305,6 +308,7 @@ export const cyContent: typeof enContent = {
   forRecords: 'Noder mai drafft yw hwn ar gyfer eich cofnodion. Dim ond yr ymateb terfynol a dderbynnir yn y llys.',
   downloadDraft: 'Lawrlwytho drafft o’r ymateb',
 };
+
 export const cyContentProceding = {
   section: '',
   title: 'Gwirio eich atebion',
@@ -349,6 +353,7 @@ export const cyContentProceding = {
     otherOrderLabel: 'Gorchymyn Arall',
   },
 };
+
 export const cylegalRepresntationContent = {
   sectionTitles: {
     title: '1. Cynrychiolydd cyfreithiol',
@@ -509,6 +514,7 @@ export const cySaftyConcern = {
   Yes: 'Yes',
   No: 'No ',
 };
+
 export const cyDummyContent = {
   sectionTitles: {
     title2: '3. Eich manylion',
@@ -561,6 +567,7 @@ const urls = {
   miamStart: MIAM_START,
   legalRepresentation: LEGAL_REPRESENTATION_START,
 };
+
 const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childConcernsKey): boolean => {
   const safetyConcernIFOnlyChildAndwaitnessingSafetyConcernSelected =
     userCase.hasOwnProperty(safteyConcernsAboutKey) &&
@@ -603,6 +610,7 @@ const en = (content: CommonContent) => {
       enConfirmYourDetailsContent.sectionTitles.title,
       content.language
     ),
+    prepareRASummaryList('C7ConsolidatedReview', 'en', userCase),
     summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title3, content.language),
     summaryList(enContentMiam, userCase, urls, enContentMiam.sectionTitles.title, content.language),
     PastAndCurrentProceedings(enContentProceding, userCase, content.language),
@@ -656,6 +664,7 @@ const cy: typeof en = (content: CommonContent) => {
       cyConfirmYourDetailsContent.sectionTitles.title,
       content.language
     ),
+    prepareRASummaryList('C7ConsolidatedReview', 'cy', userCase),
     summaryList(cyDummyContent, userCase, '', cyDummyContent.sectionTitles.title3, content.language),
     summaryList(cyContentMiam, userCase, urls, cyContentMiam.sectionTitles.title, content.language),
     PastAndCurrentProceedings(cyContentProceding, userCase, content.language),

@@ -14,11 +14,11 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 import { Language } from '../../steps/common/common.content';
 import { Step } from '../../steps/constants';
-import { C100_URL, PageLink } from '../../steps/urls';
 import { LanguageToggle } from '../i18n';
 
 import { RAController, ReasonableAdjustementsController } from './controller';
 import { RACommonComponentUserAction, RAData, RARequestPayload } from './definitions';
+import { RANavigationController, ReasonableAdjustementsNavigationController } from './navigationController';
 import { RARoute, ReasonableAdjustmentsRoute } from './route';
 import { RASequence, ReasonableAdjustementsSequence } from './sequence';
 import { RAService, ReasonableAdjustmentsService } from './service';
@@ -36,6 +36,7 @@ class ReasonableAdjustmentsProvider {
   service: ReasonableAdjustmentsService;
   controller: ReasonableAdjustementsController;
   utils: ReasonableAdjustementsUtility;
+  navigationController: ReasonableAdjustementsNavigationController;
 
   constructor() {
     this.service = RAService;
@@ -43,6 +44,7 @@ class ReasonableAdjustmentsProvider {
     this.sequence = RASequence;
     this.utils = RAUtility;
     this.route = RARoute;
+    this.navigationController = RANavigationController;
   }
 
   async enable(app: Application): Promise<void> {
@@ -60,7 +62,7 @@ class ReasonableAdjustmentsProvider {
     return this.appBaseUrl;
   }
 
-  async recordPageNavigation(req: AppRequest, done: () => void) {
+  /*async recordPageNavigation(req: AppRequest, done: () => void) {
     const url = req.originalUrl;
     if (url.includes(C100_URL) && this.route.routes.length && !this.route.routes.includes(url)) {
       await this.createSession(req);
@@ -71,15 +73,7 @@ class ReasonableAdjustmentsProvider {
     } else {
       done();
     }
-  }
-
-  resetUrlBeforeRedirection() {
-    //this.urlBeforeRedirection = '';
-  }
-
-  getUrlBeforeRedirection(req: AppRequest): PageLink | string | undefined {
-    return req.session?.applicationSettings?.reasonableAdjustments?.urlBeforeRedirection;
-  }
+  }*/
 
   async isComponentEnabled(): Promise<boolean> {
     const isEnabled =
@@ -89,8 +83,13 @@ class ReasonableAdjustmentsProvider {
 
   async getSequence(): Promise<Step[] | []> {
     const isEnabled = await this.isComponentEnabled();
+    const sequence = this.sequence.getSequence();
 
-    return isEnabled ? this.sequence.getSequence() : [];
+    if (!isEnabled) {
+      sequence.splice(-2);
+    }
+
+    return sequence;
   }
 
   canProcessRequest(): boolean {
@@ -252,7 +251,6 @@ class ReasonableAdjustmentsProvider {
   destroy(): void {
     console.info('**** RA-destroy ****');
     this.resetData();
-    this.resetUrlBeforeRedirection();
     this.appBaseUrl = '';
     this.client = null;
   }
