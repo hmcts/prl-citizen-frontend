@@ -306,7 +306,7 @@ export class CosApiClient {
         caseId,
         accessCode,
       };
-      const response = await Axios.post(config.get('services.cos.url') + '/citizen/link-case-to-account', {
+      const response = await Axios.post(config.get('services.cos.url') + `/citizen/link-case-to-account`, {
         headers,
       });
       return response;
