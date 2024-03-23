@@ -18,6 +18,8 @@ export enum BannerNotification {
   NEW_DOCUMENT = 'newDocument',
   FINAL_ORDER = 'finalOrder',
   DA_RESPONDENT_BANNER = 'daRespondentBanner',
+  CA_RESPONDENT_SERVED = 'caRespondentServed',
+  CAFFCASS = 'cafcass',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string, partyType: PartyType) => {
@@ -88,6 +90,11 @@ export const notificationBanner = {
   [BannerNotification.FINAL_ORDER]: {
     id: BannerNotification.FINAL_ORDER,
     content: getContent.bind(null, BannerNotification.FINAL_ORDER),
+    show: () => false,
+  },
+  [BannerNotification.DA_RESPONDENT_BANNER]: {
+    id: BannerNotification.DA_RESPONDENT_BANNER,
+    content: getContent.bind(null, BannerNotification.DA_RESPONDENT_BANNER),
     show: () => false,
   },
 };

@@ -156,7 +156,6 @@ export const enDummyContent = {
 };
 
 export const enContentProceding = {
-  serviceName: 'Check your answers ',
   section: '',
   title: 'Check your answers',
   change: 'Edit',
@@ -311,7 +310,6 @@ export const cyContent: typeof enContent = {
 };
 
 export const cyContentProceding = {
-  serviceName: 'Gwirio eich atebion',
   section: '',
   title: 'Gwirio eich atebion',
   change: 'Golygu',

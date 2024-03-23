@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Application upload',
   titleList: {
     childArrangementOrder: 'Upload Child Arrangements Order',
     emergencyProtectionOrder: 'Upload Emergency Protection Order',
@@ -58,7 +57,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Cais wedi’i lwytho',
   titleList: {
     childArrangementOrder: 'Llwytho Gorchymyn Trefniadau Plant',
     emergencyProtectionOrder: 'Llwytho Gorchymyn Diogelu Brys',

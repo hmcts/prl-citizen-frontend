@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { generateTheResponseTasks } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
@@ -15,10 +16,11 @@ import {
   C100_START,
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE,
 } from '../../../../../../steps/urls';
+import { Task, TaskListConfigProps } from '../../../definitions';
 import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
 import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing, hasAnyOrder } from '../utils';
 
-export const CA_APPLICANT = [
+export const CA_APPLICANT: TaskListConfigProps[] = [
   {
     id: TaskListSection.ABOUT_YOU,
     content: getContents.bind(null, TaskListSection.ABOUT_YOU),
@@ -29,7 +31,7 @@ export const CA_APPLICANT = [
         !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
       );
     },
-    tasks: [
+    tasks: (): Task[] => [
       {
         id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`,
@@ -63,14 +65,14 @@ export const CA_APPLICANT = [
   {
     id: TaskListSection.YOUR_APPLICATION,
     content: getContents.bind(null, TaskListSection.YOUR_APPLICATION),
-    tasks: [
+    tasks: (): Task[] => [
       {
         id: Tasks.CHILD_ARRANGEMENT_APPLICATION,
         href: (caseData: Partial<CaseWithId>) => {
           if (!caseData) {
             return C100_START;
           }
-          return caseData.c100RebuildReturnUrl;
+          return caseData.c100RebuildReturnUrl!;
         },
         stateTag: (caseData: Partial<CaseWithId>) => {
           if (!caseData) {
@@ -92,7 +94,7 @@ export const CA_APPLICANT = [
     id: TaskListSection.YOUR_DOCUMENTS,
     content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
     show: isCaseLinked,
-    tasks: [
+    tasks: (): Task[] => [
       {
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
@@ -116,7 +118,7 @@ export const CA_APPLICANT = [
     id: TaskListSection.YOUR_ORDERS,
     content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
     show: isCaseLinked,
-    tasks: [
+    tasks: (): Task[] => [
       {
         id: Tasks.VIEW_ORDERS,
         href: () => APPLICANT_ORDERS_FROM_THE_COURT,
@@ -131,10 +133,16 @@ export const CA_APPLICANT = [
     ],
   },
   {
+    id: TaskListSection.THE_RESPONSE,
+    content: getContents.bind(null, TaskListSection.THE_RESPONSE),
+    show: isCaseLinked,
+    tasks: (caseData, content): Task[] => generateTheResponseTasks(caseData, content),
+  },
+  {
     id: TaskListSection.YOUR_HEARING,
     content: getContents.bind(null, TaskListSection.YOUR_HEARING),
     show: isCaseLinked,
-    tasks: [
+    tasks: (): Task[] => [
       {
         id: Tasks.VIEW_HEARING_DETAILS,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_YOURHEARINGS_HEARINGS}/${caseData.id}`,

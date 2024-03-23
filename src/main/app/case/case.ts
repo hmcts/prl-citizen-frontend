@@ -225,6 +225,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentDocsList: 'respondentDocsList',
   caseInvites: 'caseInvites',
   draftOrderDoc: 'draftOrderDoc',
+  isCafcassServed: 'soaCafcassServedOptions',
+  isCafcassCymruServed: 'soaCafcassCymruServedOptions',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -587,6 +589,8 @@ export interface Case {
   draftOrderDoc?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
+  isCafcassServed?: YesOrNo | null;
+  isCafcassCymruServed?: YesOrNo | null;
   // RA local component
   ra_typeOfHearing?: string[];
   ra_noVideoAndPhoneHearing_subfield?: string;

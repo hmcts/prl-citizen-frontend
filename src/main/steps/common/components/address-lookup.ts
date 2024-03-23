@@ -4,7 +4,7 @@ import { isInvalidPostcode } from '../../../app/form/validation';
 
 const en = () => ({
   citizenUserAddressPostcode: 'Your current postcode',
-  enterAddressManually: 'I live outisde the UK',
+  enterAddressManually: 'I live outside the UK',
   errors: {
     citizenUserAddressPostcode: {
       required: 'Enter a valid postcode',
