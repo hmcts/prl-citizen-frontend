@@ -2,7 +2,7 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getCasePartyType } from '../../../../prl-cases/dashboard/utils';
 import { FETCH_CASE_DETAILS } from '../../../../urls';
 import { applyParms } from '../../../url-parser';
-import { en, cy } from '../../common/content';
+import { cy, en } from '../../common/content';
 import { viewDocumentsSections as sections } from '../../config';
 import { DocumentLabelCategory, DocumentSectionId } from '../../definitions';
 export * from './routeGuard';
@@ -17,10 +17,7 @@ export const generateContent: TranslationFn = content => {
   const request = content.additionalData?.req;
   const caseData = request.session.userCase;
   const loggedInUserPartyType = getCasePartyType(caseData, request.session.user.id);
-  const documentSectionTitles = translations.viewDocuments.documentSectionTitles as Record<
-  DocumentSectionId,
-    string
-  >;
+  const documentSectionTitles = translations.viewDocuments.documentSectionTitles as Record<DocumentSectionId, string>;
   const documentCategoryLabels = translations.viewDocuments.documentCategoryLabels as Record<
     Partial<DocumentLabelCategory>,
     string
@@ -114,7 +111,9 @@ export const generateContent: TranslationFn = content => {
     },
     sections: sections
       .filter(section => section.isVisible(caseData))
-      .sort((current, next) => (current.displayOrder(loggedInUserPartyType) > next.displayOrder(loggedInUserPartyType) ? 1 : -1))
+      .sort((current, next) =>
+        current.displayOrder(loggedInUserPartyType) > next.displayOrder(loggedInUserPartyType) ? 1 : -1
+      )
       .map(section => ({
         id: section.sectionId,
         title: section.sectionTitle(documentSectionTitles),

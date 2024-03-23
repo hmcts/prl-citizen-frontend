@@ -6,7 +6,7 @@ import { applyParms } from '../../../../../steps/common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../../../steps/urls';
 import { UploadDocumentCategory } from '../../definitions';
 import { getUploadDocumentCategoryDetails } from '../../util';
-export * from  './routeGuard';
+export * from './routeGuard';
 
 const en = {
   positionStatements: 'Position statement',
@@ -51,7 +51,7 @@ const cy: typeof en = {
   declaration: 'Credaf fod y ffeithiau a nodir yn y dogfennau hyn yn wir',
   consent:
     'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth.',
-    submitButtonText: 'Cyflwyno',
+  submitButtonText: 'Cyflwyno',
   uploadDocumentFileUpload: 'Eich dogfennau',
   removeDocument: 'Dileu',
   textAreaDocUploadText1: 'Gallwch ysgrifennu eich datganiad yn y blwch testun neu ei lwytho.',
@@ -128,7 +128,8 @@ export const generateContent: TranslationFn = content => {
   const { sectionTitle, categoryLabel } = getUploadDocumentCategoryDetails(content.language, docCategory);
   const request = content.additionalData?.req;
   const userCase = request.session.userCase;
-  const uploadedFilesDataReference = partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles';
+  const uploadedFilesDataReference =
+    partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles';
   let title;
 
   if (docCategory === UploadDocumentCategory.POSITION_STATEMENTS) {
@@ -148,10 +149,11 @@ export const generateContent: TranslationFn = content => {
     title,
     ...translations,
     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
-    filesUploaded: content.userCase?.[uploadedFilesDataReference]?.map(file => ({
-      id: file.document_url.substring(file.document_url.lastIndexOf('/') + 1),
-      ...file,
-    })) ?? [],
+    filesUploaded:
+      content.userCase?.[uploadedFilesDataReference]?.map(file => ({
+        id: file.document_url.substring(file.document_url.lastIndexOf('/') + 1),
+        ...file,
+      })) ?? [],
     docCategory,
     allowFreeTextForStatements: [
       UploadDocumentCategory.POSITION_STATEMENTS,

@@ -4,18 +4,18 @@ import { Response } from 'express';
 import _ from 'lodash';
 
 import { CosApiClient } from '../../../../../app/case/CosApiClient';
+import { CaseWithId } from '../../../../../app/case/case';
 import { PartyType, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
-import { getCasePartyType } from '../../../../../steps/prl-cases/dashboard/utils';
-import { getPartyName } from '../../../task-list/utils';
-import { CaseWithId } from '../../../../../app/case/case';
 import { removeUploadDocErrors } from '../../../../../steps/common/upload-document/util';
-import { UploadDocumentAPICategory, UploadDocumentCategory } from '../../definitions';
 import { applyParms } from '../../../../../steps/common/url-parser';
+import { getCasePartyType } from '../../../../../steps/prl-cases/dashboard/utils';
 import { UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../../../steps/urls';
-import { handleError, getUploadedFilesDataReference } from '../../util';
+import { getPartyName } from '../../../task-list/utils';
+import { UploadDocumentAPICategory, UploadDocumentCategory } from '../../definitions';
+import { getUploadedFilesDataReference, handleError } from '../../util';
 
 @autobind
 export default class UploadDocumentPostController extends PostController<AnyObject> {

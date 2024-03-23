@@ -256,7 +256,6 @@ export const UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS: PageLink = `${UPLOAD_DOCUMEN
 export const UPLOAD_DOCUMENT_SUCCESS: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/upload-documents-success`;
 export const UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/submit-extra-evidence`;
 
-
 export const RESPNDT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 
 export const APPLICANT_WITNESS_STATEMENTS_DA: PageLink = `${APPLICANT}/witnessstatements`;

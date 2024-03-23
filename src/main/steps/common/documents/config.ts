@@ -1,6 +1,8 @@
+import { CaseWithId } from '../../../app/case/case';
 import { PartyType } from '../../../app/case/definition';
 
 import {
+  CitizenDocuments,
   DocumentCategory,
   DocumentLabelCategory,
   DocumentSectionId,
@@ -13,9 +15,9 @@ import {
 } from './definitions';
 import {
   getDocumentCategoryLabel,
-  getViewDocumentCategoryList,
   getDocumentSectionTitle,
   getDocuments,
+  getViewDocumentCategoryList,
   hasAnyDocumentForPartyType,
   isOrdersFromTheCourtPresent,
 } from './util';
@@ -33,16 +35,36 @@ export const viewDocumentsSections: ViewDocumentsSectionsProps[] = [
     sectionId: ViewDocumentsSectionId.APPLICANTS_DOCUMENT,
     sectionTitle: (documentSectionTitles: Record<DocumentSectionId, string>) =>
       getDocumentSectionTitle(ViewDocumentsSectionId.APPLICANTS_DOCUMENT, documentSectionTitles),
-    documentCategoryList: getViewDocumentCategoryList.bind(null, ViewDocumentsSectionId.APPLICANTS_DOCUMENT),
-    isVisible: hasAnyDocumentForPartyType.bind(null, PartyType.APPLICANT),
+    documentCategoryList: (
+      caseData: CaseWithId,
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      loggedInUserPartyType: PartyType
+    ) =>
+      getViewDocumentCategoryList(
+        ViewDocumentsSectionId.APPLICANTS_DOCUMENT,
+        caseData,
+        documentCategoryLabels,
+        loggedInUserPartyType
+      ),
+    isVisible: (caseData: CaseWithId) => hasAnyDocumentForPartyType(PartyType.APPLICANT, caseData),
     displayOrder: (partyType: PartyType) => (partyType === PartyType.APPLICANT ? 2 : 3),
   },
   {
     sectionId: ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS,
     sectionTitle: (documentSectionTitles: Record<DocumentSectionId, string>) =>
       getDocumentSectionTitle(ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS, documentSectionTitles),
-    documentCategoryList: getViewDocumentCategoryList.bind(null, ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS),
-    isVisible: hasAnyDocumentForPartyType.bind(null, PartyType.RESPONDENT),
+    documentCategoryList: (
+      caseData: CaseWithId,
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      loggedInUserPartyType: PartyType
+    ) =>
+      getViewDocumentCategoryList(
+        ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS,
+        caseData,
+        documentCategoryLabels,
+        loggedInUserPartyType
+      ),
+    isVisible: (caseData: CaseWithId) => hasAnyDocumentForPartyType(PartyType.RESPONDENT, caseData),
     displayOrder: (partyType: PartyType) => (partyType === PartyType.RESPONDENT ? 2 : 3),
   },
   {
@@ -62,7 +84,11 @@ export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] =
       documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
       uploadedPartyName?: string
     ) => getDocumentCategoryLabel(DocumentLabelCategory.POSITION_STATEMENTS, documentCategoryLabels, uploadedPartyName),
-    documents: getDocuments.bind(null, DocumentCategory.POSITION_STATEMENTS),
+    documents: (
+      documents: CaseWithId['citizenDocuments'],
+      documentPartyType: CitizenDocuments['partyType'],
+      documentPartyId?: CitizenDocuments['partyId']
+    ) => getDocuments(DocumentCategory.POSITION_STATEMENTS, documents, documentPartyType, documentPartyId),
   },
   {
     categoryId: DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
@@ -70,8 +96,11 @@ export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] =
       documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
       uploadedPartyName?: string
     ) => getDocumentCategoryLabel(DocumentLabelCategory.WITNESS_STATEMENTS, documentCategoryLabels, uploadedPartyName),
-
-    documents: getDocuments.bind(null, DocumentCategory.APPLICANT_WITNESS_STATEMENTS),
+    documents: (
+      documents: CaseWithId['citizenDocuments'],
+      documentPartyType: CitizenDocuments['partyType'],
+      documentPartyId?: CitizenDocuments['partyId']
+    ) => getDocuments(DocumentCategory.APPLICANT_WITNESS_STATEMENTS, documents, documentPartyType, documentPartyId),
   },
   {
     categoryId: DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
@@ -79,7 +108,11 @@ export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] =
       documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
       uploadedPartyName?: string
     ) => getDocumentCategoryLabel(DocumentLabelCategory.WITNESS_STATEMENTS, documentCategoryLabels, uploadedPartyName),
-    documents: getDocuments.bind(null, DocumentCategory.RESPONDENT_WITNESS_STATEMENTS),
+    documents: (
+      documents: CaseWithId['citizenDocuments'],
+      documentPartyType: CitizenDocuments['partyType'],
+      documentPartyId?: CitizenDocuments['partyId']
+    ) => getDocuments(DocumentCategory.RESPONDENT_WITNESS_STATEMENTS, documents, documentPartyType, documentPartyId),
   },
   {
     categoryId: DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS,
@@ -92,39 +125,79 @@ export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] =
         documentCategoryLabels,
         uploadedPartyName
       ),
-    documents: getDocuments.bind(null, DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS),
+    documents: (
+      documents: CaseWithId['citizenDocuments'],
+      documentPartyType: CitizenDocuments['partyType'],
+      documentPartyId?: CitizenDocuments['partyId']
+    ) => getDocuments(DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS, documents, documentPartyType, documentPartyId),
   },
   {
     categoryId: DocumentCategory.MEDICAL_RECORDS,
-    documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.MEDICAL_RECORDS),
-    documents: getDocuments.bind(null, DocumentCategory.MEDICAL_RECORDS),
+    documentCategoryLabel: (
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      uploadedPartyName?: string
+    ) => getDocumentCategoryLabel(DocumentLabelCategory.MEDICAL_RECORDS, documentCategoryLabels, uploadedPartyName),
+    documents: (
+      documents: CaseWithId['citizenDocuments'],
+      documentPartyType: CitizenDocuments['partyType'],
+      documentPartyId?: CitizenDocuments['partyId']
+    ) => getDocuments(DocumentCategory.MEDICAL_RECORDS, documents, documentPartyType, documentPartyId),
   },
   {
     categoryId: DocumentCategory.MEDICAL_REPORTS,
-    documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.MEDICAL_REPORTS),
-    documents: getDocuments.bind(null, DocumentCategory.MEDICAL_REPORTS),
+    documentCategoryLabel: (
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      uploadedPartyName?: string
+    ) => getDocumentCategoryLabel(DocumentLabelCategory.MEDICAL_REPORTS, documentCategoryLabels, uploadedPartyName),
+    documents: (
+      documents: CaseWithId['citizenDocuments'],
+      documentPartyType: CitizenDocuments['partyType'],
+      documentPartyId?: CitizenDocuments['partyId']
+    ) => getDocuments(DocumentCategory.MEDICAL_REPORTS, documents, documentPartyType, documentPartyId),
   },
   {
     categoryId: DocumentCategory.DNA_REPORTS,
-    documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.DNA_REPORTS),
-    documents: getDocuments.bind(null, DocumentCategory.DNA_REPORTS),
+    documentCategoryLabel: (
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      uploadedPartyName?: string
+    ) => getDocumentCategoryLabel(DocumentLabelCategory.DNA_REPORTS, documentCategoryLabels, uploadedPartyName),
+    documents: (
+      documents: CaseWithId['citizenDocuments'],
+      documentPartyType: CitizenDocuments['partyType'],
+      documentPartyId?: CitizenDocuments['partyId']
+    ) => getDocuments(DocumentCategory.DNA_REPORTS, documents, documentPartyType, documentPartyId),
   },
   {
     categoryId: DocumentCategory.DRUG_ALCOHOL_TESTS,
-    documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.DRUG_ALCOHOL_TESTS),
-    documents: getDocuments.bind(null, DocumentCategory.DRUG_ALCOHOL_TESTS),
+    documentCategoryLabel: (
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      uploadedPartyName?: string
+    ) => getDocumentCategoryLabel(DocumentLabelCategory.DRUG_ALCOHOL_TESTS, documentCategoryLabels, uploadedPartyName),
+    documents: (
+      documents: CaseWithId['citizenDocuments'],
+      documentPartyType: CitizenDocuments['partyType'],
+      documentPartyId?: CitizenDocuments['partyId']
+    ) => getDocuments(DocumentCategory.DRUG_ALCOHOL_TESTS, documents, documentPartyType, documentPartyId),
   },
   {
     categoryId: DocumentCategory.POLICE_REPORTS,
-    documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.POLICE_REPORTS),
-    documents: getDocuments.bind(null, DocumentCategory.POLICE_REPORTS),
+    documentCategoryLabel: (
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      uploadedPartyName?: string
+    ) => getDocumentCategoryLabel(DocumentLabelCategory.POLICE_REPORTS, documentCategoryLabels, uploadedPartyName),
+    documents: (
+      documents: CaseWithId['citizenDocuments'],
+      documentPartyType: CitizenDocuments['partyType'],
+      documentPartyId?: CitizenDocuments['partyId']
+    ) => getDocuments(DocumentCategory.POLICE_REPORTS, documents, documentPartyType, documentPartyId),
   },
 ];
 
 export const uploadDocumentSections: UploadDocumentSectionsProps[] = [
   {
     sectionId: UploadDocumentSectionId.WITNESS_STATEMENTS_AND_EVIDENCE,
-    sectionTitle: getDocumentSectionTitle.bind(null, UploadDocumentSectionId.WITNESS_STATEMENTS_AND_EVIDENCE),
+    sectionTitle: (documentSectionTitles: Record<DocumentSectionId, string>) =>
+      getDocumentSectionTitle(UploadDocumentSectionId.WITNESS_STATEMENTS_AND_EVIDENCE, documentSectionTitles),
     documentCategoryList: [
       {
         categoryId: UploadDocumentCategory.POSITION_STATEMENTS,
@@ -133,75 +206,84 @@ export const uploadDocumentSections: UploadDocumentSectionsProps[] = [
       },
       {
         categoryId: UploadDocumentCategory.WITNESS_STATEMENTS,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.WITNESS_STATEMENTS),
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.WITNESS_STATEMENTS, documentCategoryLabels),
       },
       {
         categoryId: UploadDocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(
-          null,
-          DocumentLabelCategory.OTHER_PEOPLE_WITNESS_STATEMENTS
-        ),
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.OTHER_PEOPLE_WITNESS_STATEMENTS, documentCategoryLabels),
       },
       {
         categoryId: UploadDocumentCategory.EMAIL_IMAGES_MEDIA,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.EMAIL_IMAGES_MEDIA),
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.EMAIL_IMAGES_MEDIA, documentCategoryLabels),
       },
       {
         categoryId: UploadDocumentCategory.MEDICAL_RECORDS,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.MEDICAL_RECORDS),
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.MEDICAL_RECORDS, documentCategoryLabels),
       },
       {
         categoryId: UploadDocumentCategory.LETTERS_FROM_SCHOOL,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.LETTERS_FROM_SCHOOL),
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.LETTERS_FROM_SCHOOL, documentCategoryLabels),
       },
       {
         categoryId: UploadDocumentCategory.TENANCY_AND_MORTGAGE_AGREEMENTS,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(
-          null,
-          DocumentLabelCategory.TENANCY_AND_MORTGAGE_AGREEMENTS
-        ),
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.TENANCY_AND_MORTGAGE_AGREEMENTS, documentCategoryLabels),
       },
     ],
   },
   {
     sectionId: UploadDocumentSectionId.APPLICATIONS,
-    sectionTitle: getDocumentSectionTitle.bind(null, UploadDocumentSectionId.APPLICATIONS),
+    sectionTitle: (documentSectionTitles: Record<DocumentSectionId, string>) =>
+      getDocumentSectionTitle(UploadDocumentSectionId.APPLICATIONS, documentSectionTitles),
     documentCategoryList: [
       {
         categoryId: UploadDocumentCategory.PREVIOUS_ORDERS_SUBMITTED,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.PREVIOUS_ORDERS_SUBMITTED),
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.PREVIOUS_ORDERS_SUBMITTED, documentCategoryLabels),
       },
     ],
   },
   {
     sectionId: UploadDocumentSectionId.EXPERT_REPORTS,
-    sectionTitle: getDocumentSectionTitle.bind(null, UploadDocumentSectionId.EXPERT_REPORTS),
+    sectionTitle: (documentSectionTitles: Record<DocumentSectionId, string>) =>
+      getDocumentSectionTitle(UploadDocumentSectionId.EXPERT_REPORTS, documentSectionTitles),
     documentCategoryList: [
       {
         categoryId: UploadDocumentCategory.MEDICAL_REPORTS,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.MEDICAL_REPORTS),
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.MEDICAL_REPORTS, documentCategoryLabels),
       },
       {
         categoryId: UploadDocumentCategory.PATERNITY_TEST_REPORTS,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.PATERNITY_TEST_REPORTS),
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.PATERNITY_TEST_REPORTS, documentCategoryLabels),
       },
       {
         categoryId: UploadDocumentCategory.DRUG_ALCOHOL_TESTS,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.DRUG_ALCOHOL_TESTS),
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.DRUG_ALCOHOL_TESTS, documentCategoryLabels),
       },
       {
         categoryId: UploadDocumentCategory.POLICE_REPORTS,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.POLICE_REPORTS),
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.POLICE_REPORTS, documentCategoryLabels),
       },
     ],
   },
   {
     sectionId: UploadDocumentSectionId.OTHER_DOCUMENTS,
-    sectionTitle: getDocumentSectionTitle.bind(null, UploadDocumentSectionId.OTHER_DOCUMENTS),
+    sectionTitle: (documentSectionTitles: Record<DocumentSectionId, string>) =>
+      getDocumentSectionTitle(UploadDocumentSectionId.OTHER_DOCUMENTS, documentSectionTitles),
     documentCategoryList: [
       {
         categoryId: UploadDocumentCategory.OTHER_DOCUMENTS,
-        documentCategoryLabel: getDocumentCategoryLabel.bind(null, DocumentLabelCategory.OTHER_DOCUMENTS),
+        documentCategoryLabel: (documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>) =>
+          getDocumentCategoryLabel(DocumentLabelCategory.OTHER_DOCUMENTS, documentCategoryLabels),
       },
     ],
   },

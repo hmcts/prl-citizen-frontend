@@ -1,6 +1,6 @@
-import { DocCategory, DocType } from '../../../../app/case/definition';
-import { FormContent } from '../../../../app/form/Form';
-import { CommonContent, generatePageContent } from '../../../common/common.content';
+import { DocCategory, DocType } from '../../../../../app/case/definition';
+import { FormContent } from '../../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 

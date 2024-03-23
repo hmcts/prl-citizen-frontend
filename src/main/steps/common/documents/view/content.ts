@@ -4,7 +4,7 @@ import { VIEW_ALL_DOCUMENT_TYPES } from '../../../urls';
 import { interpolate } from '../../string-parser';
 import { getPartyName } from '../../task-list/utils';
 import { applyParms } from '../../url-parser';
-import { en, cy } from '../common/content';
+import { cy, en } from '../common/content';
 import { DocumentLabelCategory } from '../definitions';
 import { getDocumentConfig } from '../util';
 

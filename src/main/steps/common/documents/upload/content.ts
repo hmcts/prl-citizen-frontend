@@ -1,10 +1,10 @@
-import { FETCH_CASE_DETAILS, UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT } from '../../../../steps/urls';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { applyParms } from '../../../../steps/common/url-parser';
+import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
+import { FETCH_CASE_DETAILS, UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT } from '../../../../steps/urls';
 import { cy, en } from '../common/content';
 import { uploadDocumentSections as sections } from '../config';
 import { DocumentLabelCategory, DocumentSectionId } from '../definitions';
-import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 
 export * from './routeGuard';
 

@@ -1,12 +1,12 @@
-import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { DocCategory, DocType, YesOrNo } from '../../../../app/case/definition';
-import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
-import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
-import { CommonContent, en as commonContentEN, generatePageContent } from '../../../common/common.content';
+import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { DocCategory, DocType, YesOrNo } from '../../../../../app/case/definition';
+import { FormContent, FormFields, FormOptions } from '../../../../../app/form/Form';
+import { Validator, isFieldFilledIn } from '../../../../../app/form/validation';
+import { CommonContent, en as commonContentEN, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 
-jest.mock('../../../../app/form/validation');
+jest.mock('../../../../../app/form/validation');
 
 /* eslint-disable @typescript-eslint/ban-types */
 const en = {

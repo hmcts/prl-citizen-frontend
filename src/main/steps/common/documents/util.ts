@@ -1,32 +1,32 @@
 import dayjs from 'dayjs';
-import _ from 'lodash';
 import { Response } from 'express';
+import _ from 'lodash';
 
+import { CosApiClient } from '../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../app/case/case';
 import { PartyType } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
+import { FormError } from '../../../app/form/Form';
+import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { CITIZEN_DOWNLOAD_UPLOADED_DOCS, UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, VIEW_DOCUMENTS } from '../../urls';
 import { interpolate } from '../string-parser';
 import { applyParms } from '../url-parser';
 
+import { cy, en } from './common/content';
+import { uploadDocumentSections, viewDocumentsCategoryListConfig } from './config';
 import {
   CitizenDocuments,
   Document,
   DocumentCategory,
-  ViewDocumentDetails,
   DocumentLabelCategory,
   DocumentSectionId,
   DocumentTypes,
+  UploadDocumentCategory,
   UploadDocumentSectionId,
+  ViewDocumentDetails,
   ViewDocumentsCategoryListProps,
   ViewDocumentsSectionId,
-  UploadDocumentCategory,
 } from './definitions';
-import { uploadDocumentSections, viewDocumentsCategoryListConfig } from './config';
-import { en, cy } from './common/content';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { CosApiClient } from '../../../app/case/CosApiClient';
-import { FormError } from '../../../app/form/Form';
 
 export const isOrdersFromTheCourtPresent = (caseData: CaseWithId): boolean =>
   !!(caseData && caseData?.citizenOrders?.length);

@@ -1,10 +1,8 @@
-import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { DocCategory, DocType } from '../../../../app/case/definition';
-import { CommonContent } from '../../../common/common.content';
+import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { DocCategory, DocType } from '../../../../../app/case/definition';
+import { CommonContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
-
-//const docsEmail = 'test';
 
 const en = {
   pageTitle: 'Document submitted',
@@ -34,7 +32,7 @@ const cy: typeof en = {
   uploadAgain: 'Llwytho dogfen arall',
 };
 
-jest.mock('../../../../app/form/validation');
+jest.mock('../../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('applicant -> upload-document -> upload-document-success', () => {
   const commonContent = {

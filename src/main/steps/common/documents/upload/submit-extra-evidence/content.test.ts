@@ -1,6 +1,6 @@
-import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent } from '../../../../app/form/Form';
-import { CommonContent, generatePageContent } from '../../../common/common.content';
+import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { FormContent } from '../../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -24,7 +24,7 @@ const cy: typeof en = {
   continue: 'Parhau',
 };
 
-jest.mock('../../../../app/form/validation');
+jest.mock('../../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('applicant -> upload-document -> submit-extra-evidence', () => {
   const commonContent = {

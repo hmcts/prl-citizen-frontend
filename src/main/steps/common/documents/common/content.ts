@@ -62,7 +62,7 @@ export const cy: typeof en = {
     documentCategoryLabels: {
       positionStatements: 'Eich datganiadau safbwynt',
       witnessStatements: 'Eich datganiadau tyst',
-      otherPeopleWitnessStatements: "Datganiadau tyst pobl eraill",
+      otherPeopleWitnessStatements: 'Datganiadau tyst pobl eraill',
       emailImagesMedia: 'Negeseuon e-bost, cipluniau, delweddau a ffeiliau cyfryngau eraill',
       medicalRecords: 'Cofnodion meddygol',
       lettersFromSchool: 'Llythyrau gan yr ysgol',
