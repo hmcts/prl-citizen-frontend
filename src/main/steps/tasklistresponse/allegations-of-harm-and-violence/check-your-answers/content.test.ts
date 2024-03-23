@@ -2,12 +2,11 @@ import mockUserCase from '../../../../../test/unit/utils/mockUserCase';
 import { YesOrNo } from '../../../../app/case/definition';
 import { FormContent } from '../../../../app/form/Form';
 import { toggleApplicantSafetyConcerns } from '../../../c100-rebuild/check-your-answers/content';
-import { MiamContentsForDomensticVoilence } from '../../../c100-rebuild/check-your-answers/util/miam.util';
 import { CommonContent } from '../../../common/common.content';
 
 /* eslint-disable import/no-unresolved */
 import { ANYTYPE } from './common';
-import { SystemLanguageContent, cy, en, generateContent } from './content';
+import { cy, en, generateContent } from './content';
 
 const keys = {
   abducionThreats: 'Have the children been abducted or kept outside the UK without your consent before?',
@@ -584,10 +583,6 @@ describe('Content.ts test cases', () => {
 
   test('cy - language', () => {
     expect(languages.cyContent).not.toEqual('');
-  });
-
-  test('SystemLanguageContent', () => {
-    expect(SystemLanguageContent(commonContent, MiamContentsForDomensticVoilence)).toBe(undefined);
   });
 
   const contents = {

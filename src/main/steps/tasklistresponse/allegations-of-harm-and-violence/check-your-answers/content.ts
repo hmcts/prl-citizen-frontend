@@ -135,10 +135,6 @@ export const cy: typeof en = (content: CommonContent) => {
   };
 };
 
-export const SystemLanguageContent = (content, Function) => {
-  return content['language'] === 'en' ? Function(content.userCase)?.en() : Function(content.userCase)?.cy();
-};
-
 export const form: FormContent = {
   fields: {},
   submit: {
