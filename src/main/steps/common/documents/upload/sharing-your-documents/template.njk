@@ -1,0 +1,21 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% extends "common/template.njk" %}
+
+{% block pageTitle %}
+  {{ pageTitle }}
+  {{ appName }}
+{% endblock %}
+
+{% block page_content %}
+
+  <h1 class="govuk-heading-xl">
+    <span class="govuk-caption-l">{{ caption }}</span>
+    {{ pageTitle }}
+  </h1>
+
+  {{ govukWarningText({
+  text: infoContent,
+  iconFallbackText: "Warning"
+}) }}
+
+{% endblock %}
