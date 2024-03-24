@@ -69,14 +69,16 @@ export class CosApiClient {
     if (!caseId || !user || !accessCode) {
       return Promise.reject(new Error('Case id must be set and user must be set'));
     }
-    const response = await Axios.get(config.get('services.cos.url') + '/citizen/validate-access-code', {
+
+    const data = {
+      caseId,
+      accessCode,
+    };
+
+    const response = await Axios.post(config.get('services.cos.url') + '/citizen/validate-access-code', data, {
       headers: {
         Authorization: 'Bearer ' + user.accessToken,
         ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-        caseId,
-        accessCode,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
       },
     });
 
@@ -299,14 +301,16 @@ export class CosApiClient {
   ): Promise<AxiosResponse> {
     try {
       const headers = {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
         Authorization: 'Bearer ' + user.accessToken,
         ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+      };
+
+      const data = {
         caseId,
         accessCode,
       };
-      const response = await Axios.post(config.get('services.cos.url') + `/citizen/link-case-to-account`, {
+
+      const response = await Axios.post(config.get('services.cos.url') + '/citizen/link-case-to-account', data, {
         headers,
       });
       return response;
