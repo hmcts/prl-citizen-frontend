@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { RelationshipToChildren, RelationshipType } from '../../../../app/case/definition';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { isAlphaNumeric, isFieldFilledIn } from '../../../../app/form/validation';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'What is ',
   title1: "'s relationship to ",
