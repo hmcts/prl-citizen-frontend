@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../../app/case/case';
+import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
+import { applyParms } from '../../../../../../steps/common/url-parser';
 import { UPDATE_CASE_YES } from '../../../../../../steps/constants';
 import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils';
 import {
   ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT_CA_DA_REQUEST,
-  CA_DA_ATTENDING_THE_COURT,
+  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -28,7 +30,6 @@ import {
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getResponseStatus,
-  getSupportYourNeedsDetailsStatus,
   hasAnyHearing,
   hasAnyOrder,
 } from '../utils';
@@ -59,15 +60,14 @@ export const aboutYou: TaskListConfigProps = {
       },
     },
     {
-      id: Tasks.YOUR_SUPPORT,
+      id: Tasks.SUPPORT_YOU_NEED,
       href: () => {
-        return `${CA_DA_ATTENDING_THE_COURT}`;
+        return applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
+          partyType: PartyType.RESPONDENT,
+        });
       },
       disabled: isCaseClosed,
-      stateTag: (caseData, userDetails) => {
-        const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-        return getSupportYourNeedsDetailsStatus(respondent?.response.supportYouNeed as CaseWithId);
-      },
+      stateTag: () => StateTags.OPTIONAL,
     },
   ],
 };

@@ -33,7 +33,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
       TempFirstName: applicantFirstName,
       TempLastName: applicantLastName,
     };
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
     const form = new Form(fields);
     const { _csrf, ...formData } = form.getParsedBody(req.body);
     const saveAndContinueChecked = req['body']['saveAndContinue'];
@@ -179,6 +179,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
         canNotProvideTelephoneNumberReason: '',
         canLeaveVoiceMail: YesNoEmpty.EMPTY,
       },
+      reasonableAdjustmentsFlags: [],
     };
     let applicantInSession: C100ListOfApplicants = [];
     if (req.session.userCase.hasOwnProperty('appl_allApplicants') && req.session.userCase.appl_allApplicants) {
@@ -242,6 +243,27 @@ export default class AddApplicantPostController extends PostController<AnyObject
         applicantFirstName,
         applicantLastName,
       };
+
+      /*if (applicant === 0) {
+        Object.assign(applicantObject, {
+          reasonableAdjustmentsFlags: [
+            {
+              name: 'Guidance on how to complete forms',
+              name_cy: 'Arweiniad ar sut i lenwi ffurflenni',
+              flagComment: '',
+              flagComment_cy: '',
+              dateTimeCreated: '2023-11-16T16:05:25.000Z',
+              dateTimeModified: '2023-11-16T16:05:53.000Z',
+              path: ['Party', 'Reasonable adjustment', 'I need help with forms'],
+              hearingRelevant: 'No',
+              flagCode: 'RA0017',
+              status: 'Requested',
+              availableExternally: 'Yes',
+            },
+          ],
+        });
+      }*/
+
       newApplicantStorage.push(applicantObject);
     }
   }

@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { CaseType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { mapDataInSession } from '../../../../steps/tasklistresponse/utils';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
@@ -24,7 +25,7 @@ export default class CaseDetailsGetController {
       req.session.userCase = caseData;
 
       if (req.session?.userCase) {
-        if (req.session?.userCase.caseTypeOfApplication !== 'C100') {
+        if (req.session.userCase.caseTypeOfApplication !== CaseType.C100) {
           req.session.userCaseList = [];
         }
         mapDataInSession(req.session.userCase, req.session.user.id);

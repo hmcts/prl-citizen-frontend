@@ -3,17 +3,6 @@ import { keepDetailsPrivateNav } from '../../steps/common/task-list/utils';
 import { Sections, Step } from '../constants';
 import {
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
-  CA_DA_ATTENDING_THE_COURT,
-  CA_DA_COMMUNICATION_HELP,
-  CA_DA_COURT_HEARING_COMFORT,
-  CA_DA_COURT_HEARING_SUPPORT,
-  CA_DA_DOCUMENTS_SUPPORT,
-  CA_DA_LANGUAGE_REQUIREMENTS,
-  CA_DA_REASONABLE_ADJUSTMENTS,
-  CA_DA_SPECIAL_ARRANGEMENTS,
-  CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
-  CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
-  CA_DA_TRAVELLING_TO_COURT,
   CA_RESPONDENT_RESPONSE_CONFIRMATION,
   CA_RESPONDENT_RESPONSE_SUBMIT,
   DIGITAL_DOWNLOADS,
@@ -74,8 +63,6 @@ import {
   WITNESS_AVAILABILITY,
   YOUR_WITNESS_STATEMENTS,
 } from '../urls';
-
-import ReasonableAdjustmentsNavigationController from './task-list/navigationController';
 
 export const respondentCaseSequence: Step[] = [
   {
@@ -387,69 +374,6 @@ export const respondentCaseSequence: Step[] = [
     url: RESPONDENT_TASK_LIST_URL,
     showInSection: Sections.AboutCaAndDaRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  },
-  {
-    url: RESPONDENT_TASK_LIST_URL,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: () => CA_DA_ATTENDING_THE_COURT,
-  },
-  {
-    url: CA_DA_ATTENDING_THE_COURT,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: () => CA_DA_LANGUAGE_REQUIREMENTS,
-  },
-  {
-    url: CA_DA_LANGUAGE_REQUIREMENTS,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: () => CA_DA_SPECIAL_ARRANGEMENTS,
-  },
-  {
-    url: CA_DA_SPECIAL_ARRANGEMENTS,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: () => CA_DA_REASONABLE_ADJUSTMENTS,
-  },
-  {
-    url: CA_DA_REASONABLE_ADJUSTMENTS,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: caseData =>
-      ReasonableAdjustmentsNavigationController.getNextUrl(CA_DA_REASONABLE_ADJUSTMENTS, caseData),
-  },
-  {
-    url: CA_DA_DOCUMENTS_SUPPORT,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(CA_DA_DOCUMENTS_SUPPORT, caseData),
-  },
-  {
-    url: CA_DA_COMMUNICATION_HELP,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(CA_DA_COMMUNICATION_HELP, caseData),
-  },
-  {
-    url: CA_DA_COURT_HEARING_SUPPORT,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: caseData =>
-      ReasonableAdjustmentsNavigationController.getNextUrl(CA_DA_COURT_HEARING_SUPPORT, caseData),
-  },
-  {
-    url: CA_DA_COURT_HEARING_COMFORT,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: caseData =>
-      ReasonableAdjustmentsNavigationController.getNextUrl(CA_DA_COURT_HEARING_COMFORT, caseData),
-  },
-  {
-    url: CA_DA_TRAVELLING_TO_COURT,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: caseData => ReasonableAdjustmentsNavigationController.getNextUrl(CA_DA_TRAVELLING_TO_COURT, caseData),
-  },
-  {
-    url: CA_DA_TRAVELLING_TO_COURT,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: () => CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
-  },
-  {
-    url: CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
-    showInSection: Sections.AboutCaAndDaRespondentCase,
-    getNextStep: () => CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   },
   {
     url: RESPOND_TO_APPLICATION,

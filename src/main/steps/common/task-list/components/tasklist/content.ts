@@ -60,14 +60,14 @@ const en: TaskListContent = {
           editYouContactDetails: {
             linkText: 'Confirm or edit your contact details',
           },
+          supportYouNeed: {
+            linkText: 'Support you need during your case',
+          },
           contactPreferences: {
             linkText: 'Contact preferences',
           },
           keepYourDetailsPrivate: {
             linkText: 'Keep your details private',
-          },
-          yourSupport: {
-            linkText: 'Your Support',
           },
         },
       },
@@ -90,8 +90,8 @@ const en: TaskListContent = {
           editYouContactDetails: {
             linkText: 'Confirm or edit your contact details',
           },
-          yourSupport: {
-            linkText: 'Your Support',
+          supportYouNeed: {
+            linkText: 'Support you need during your case',
           },
         },
       },
@@ -192,8 +192,8 @@ const en: TaskListContent = {
           keepYourDetailsPrivate: {
             linkText: 'Keep your details private',
           },
-          yourSupport: {
-            linkText: 'Your Support',
+          supportYouNeed: {
+            linkText: 'Support you need during your case',
           },
         },
       },
@@ -216,8 +216,8 @@ const en: TaskListContent = {
           editYouContactDetails: {
             linkText: 'Confirm or edit your contact details',
           },
-          yourSupport: {
-            linkText: 'Your Support',
+          supportYouNeed: {
+            linkText: 'Support you need during your case',
           },
         },
       },
@@ -320,14 +320,14 @@ const cy: typeof en = {
           editYouContactDetails: {
             linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
           },
+          supportYouNeed: {
+            linkText: 'Support you need during your case - welsh',
+          },
           contactPreferences: {
             linkText: 'Dewisiadau cyswllt',
           },
           keepYourDetailsPrivate: {
             linkText: 'Cadw eich manylion yn breifat',
-          },
-          yourSupport: {
-            linkText: 'Your Support -welsh',
           },
         },
       },
@@ -350,8 +350,8 @@ const cy: typeof en = {
           editYouContactDetails: {
             linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
           },
-          yourSupport: {
-            linkText: 'Your Support -welsh',
+          supportYouNeed: {
+            linkText: 'Support you need during your case - welsh',
           },
         },
       },
@@ -454,8 +454,8 @@ const cy: typeof en = {
           keepYourDetailsPrivate: {
             linkText: 'Cadw eich manylion yn breifat',
           },
-          yourSupport: {
-            linkText: 'Your Support -welsh',
+          supportYouNeed: {
+            linkText: 'Support you need during your case - welsh',
           },
         },
       },
@@ -478,8 +478,8 @@ const cy: typeof en = {
           editYouContactDetails: {
             linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
           },
-          yourSupport: {
-            linkText: 'Your Support -welsh',
+          supportYouNeed: {
+            linkText: 'Support you need during your case - welsh',
           },
         },
       },

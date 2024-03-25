@@ -48,6 +48,16 @@ export class FeatureToggles {
     );
     return isTestingSupportEnabled;
   }
+
+  async isRAComponentEnabled(): Promise<boolean> {
+    if (this.launchDarklyClient) {
+      return this.launchDarklyClient.serviceVariation(
+        'enable-ra-component',
+        toBoolean(config.get<boolean>('featureToggles.enableRAComponent'))
+      );
+    }
+    return toBoolean(config.get<boolean>('featureToggles.enableRAComponent'));
+  }
 }
 
 let featureToggleObj: FeatureToggles;

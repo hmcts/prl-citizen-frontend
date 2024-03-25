@@ -21,7 +21,7 @@ export default class LegalRepresentationPostController extends PostController<An
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
     const form = new Form(fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
     const redirectUrl = LEGAL_REPRESENTATION_START;

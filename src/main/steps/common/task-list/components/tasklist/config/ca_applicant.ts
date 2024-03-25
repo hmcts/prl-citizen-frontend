@@ -1,18 +1,20 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { generateTheResponseTasks } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
+import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-  APPLICANT_TASKLIST_HEARING_NEEDS,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_YOURHEARINGS_HEARINGS,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
+  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE,
 } from '../../../../../../steps/urls';
 import { Task, TaskListConfigProps } from '../../../definitions';
 import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
@@ -49,12 +51,14 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         stateTag: () => StateTags.SUBMITTED,
       },
       {
-        id: Tasks.YOUR_SUPPORT,
+        id: Tasks.SUPPORT_YOU_NEED,
         href: () => {
-          return `${APPLICANT_TASKLIST_HEARING_NEEDS}`;
+          return applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
+            partyType: PartyType.APPLICANT,
+          });
         },
         disabled: isCaseClosed,
-        stateTag: () => StateTags.SUBMITTED,
+        stateTag: () => StateTags.OPTIONAL,
       },
     ],
   },
