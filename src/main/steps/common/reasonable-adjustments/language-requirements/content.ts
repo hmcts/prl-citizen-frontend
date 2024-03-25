@@ -96,7 +96,7 @@ export const form: FormContent = {
                 label: l => l.needInterpreterInCertainLanguage_subfield,
                 labelSize: null,
                 attributes: {
-                  rows: 3
+                  rows: 3,
                 },
                 validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
               },

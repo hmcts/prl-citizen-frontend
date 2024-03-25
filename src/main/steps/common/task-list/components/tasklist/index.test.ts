@@ -1252,7 +1252,7 @@ describe('tasklist index', () => {
               hintText: null,
               href: '/applicant/reasonable-adjustments/guidance',
               id: 'supportYouNeed',
-              linkText: "Support you need during your case",
+              linkText: 'Support you need during your case',
               openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--blue',
