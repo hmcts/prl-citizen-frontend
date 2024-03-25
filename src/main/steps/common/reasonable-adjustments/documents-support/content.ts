@@ -176,7 +176,7 @@ export const form: FormContent = {
                 label: l => l.describeWhatNeeded,
                 labelSize: null,
                 attributes: {
-                  rows: 1,
+                  rows: 3,
                 },
                 validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
               },

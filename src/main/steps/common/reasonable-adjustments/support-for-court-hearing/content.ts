@@ -180,7 +180,7 @@ export const form: FormContent = {
                 label: l => l.supportCourtOther_subfield,
                 labelSize: null,
                 attributes: {
-                  rows: 1,
+                  rows: 3,
                 },
                 validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
               },

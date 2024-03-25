@@ -95,6 +95,9 @@ export const form: FormContent = {
                 type: 'textarea',
                 label: l => l.needInterpreterInCertainLanguage_subfield,
                 labelSize: null,
+                attributes: {
+                  rows: 3
+                },
                 validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
               },
             },
