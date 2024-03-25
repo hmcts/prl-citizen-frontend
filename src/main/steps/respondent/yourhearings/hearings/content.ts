@@ -1,9 +1,16 @@
 import { HearingOrders, PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { applyParms } from '../../../../steps/common/url-parser';
+import { CaseType, HearingOrders, PartyType } from '../../../../app/case/definition';
+import { TranslationFn } from '../../../../app/controller/GetController';
+import { applyParms } from '../../../../steps/common/url-parser';
+import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import {
-  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE,
+  CA_DA_ATTENDING_THE_COURT,
+  PARTY_TASKLIST,
   RESPONDENT_ORDERS_FROM_THE_COURT,
+  RESPONDENT_TASKLIST_HEARING_NEEDS,
+  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE
 } from '../../../../steps/urls';
 import { generateContent as yourhearingshearingscontent } from '../../../common/yourhearings/hearings/content';
 
@@ -14,6 +21,9 @@ export const generateContent: TranslationFn = content => {
     partyType: PartyType.RESPONDENT,
   });
   const request = content.additionalData?.req;
+  const caseData = request.session.userCase;
+  hearingsContent.linkforsupport =
+    caseData.caseTypeOfApplication === CaseType.C100 ? RESPONDENT_TASKLIST_HEARING_NEEDS : CA_DA_ATTENDING_THE_COURT;
   const hearingOrders: HearingOrders[] = [];
   for (const doc of request.session.userCase?.orderCollection || []) {
     if (doc.value.selectedHearingType) {
@@ -32,5 +42,12 @@ export const generateContent: TranslationFn = content => {
   return {
     ...hearingsContent,
     hearingOrders,
+    breadcrumb:
+      request.originalUrl.includes(PartyType.RESPONDENT) && caseData.caseTypeOfApplication === CaseType.C100
+        ? {
+            id: 'caseOverView',
+            href: applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData, request.session.user.id) }),
+          }
+        : null,
   };
 };

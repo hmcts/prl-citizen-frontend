@@ -7,6 +7,7 @@ import {
   PartyType,
   Respondent,
   YesOrNo,
+  hearingStatus,
 } from '../../../../../app/case/definition';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 import { TaskListContent } from '../../definitions';
@@ -75,8 +76,14 @@ export interface Task {
 
 export const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
 
-export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean =>
-  !!(caseData?.hearingCollection && caseData?.hearingCollection?.length >= 1);
+export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => {
+  const inactiveHmcStatus: string[] = [
+    hearingStatus.HEARING_REQUESTED,
+    hearingStatus.AWAITING_LISTING,
+    hearingStatus.EXCEPTION,
+  ];
+  return !!(caseData?.hearingCollection ?? []).find(hearing => !inactiveHmcStatus.includes(hearing.hmcStatus!));
+};
 
 export const getStateTagLabel = (state: StateTags, language: string): string =>
   content?.[language]?.['stateTags']?.[state] ?? '';
