@@ -36,7 +36,7 @@ export class CaseApi {
 
     try {
       const response = await this.axios.post<CreateCaseResponse>('/case/create', data);
-      const { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase } = response?.data;
+      const { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase } = response.data;
       return { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase };
     } catch (err) {
       this.logError(err);

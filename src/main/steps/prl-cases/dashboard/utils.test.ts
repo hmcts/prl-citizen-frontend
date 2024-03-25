@@ -6,7 +6,7 @@ describe('testcase for partytype', () => {
   test('when party type c100-applicant', () => {
     const data = {
       id: '12',
-      state: State.Submitted,
+      state: State.SUBMITTED_PAID,
       caseTypeOfApplication: CaseType.C100,
       caseInvites: [
         {
@@ -156,7 +156,7 @@ describe('testcase for partytype', () => {
   test('when party type c100-respondent', () => {
     const data = {
       id: '12',
-      state: State.Submitted,
+      state: State.SUBMITTED_PAID,
       caseTypeOfApplication: CaseType.C100,
       caseInvites: [
         {
@@ -306,7 +306,7 @@ describe('testcase for partytype', () => {
   test('when party type FL401-respondent', () => {
     const data = {
       id: '12',
-      state: State.Submitted,
+      state: State.SUBMITTED_PAID,
       caseTypeOfApplication: CaseType.FL401,
       caseInvites: [
         {
@@ -456,7 +456,7 @@ describe('testcase for partytype', () => {
   test('when party type FL401-applicant', () => {
     const data = {
       id: '12',
-      state: State.Submitted,
+      state: State.SUBMITTED_PAID,
       caseTypeOfApplication: CaseType.FL401,
       caseInvites: [
         {

@@ -22,7 +22,7 @@ import {
   APPLICANT_TASK_LIST_URL,
   C100_APPLICANT_TASKLIST,
   PARTY_TASKLIST,
-  RESPONDENT_TASK_LIST_URL,
+  PageLink,
   RESPOND_TO_APPLICATION,
 } from '../../../../steps/urls';
 
@@ -84,19 +84,12 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
     }
   }
 
-  private getRedirectUrl(partyType: PartyType, req: AppRequest<AnyObject>, userCase: CaseWithId) {
+  private getRedirectUrl(partyType: PartyType, req: AppRequest<AnyObject>, userCase: CaseWithId): PageLink {
     let redirectUrl;
     if (partyType === PartyType.RESPONDENT) {
-      // temporary until FL401 respondent tasklist refactored
-      if (req.session.userCase.caseTypeOfApplication === 'C100') {
-        redirectUrl = req.session.applicationSettings?.navfromRespondToApplication
-          ? RESPOND_TO_APPLICATION
-          : applyParms(`${PARTY_TASKLIST}`, { partyType: PartyType.RESPONDENT });
-      } else {
-        redirectUrl = req.session.applicationSettings?.navfromRespondToApplication
-          ? RESPOND_TO_APPLICATION
-          : RESPONDENT_TASK_LIST_URL;
-      }
+      redirectUrl = req.session.applicationSettings?.navfromRespondToApplication
+        ? RESPOND_TO_APPLICATION
+        : applyParms(`${PARTY_TASKLIST}`, { partyType: PartyType.RESPONDENT });
     } else if (userCase.caseTypeOfApplication === CaseType.C100) {
       redirectUrl = C100_APPLICANT_TASKLIST;
       if (req.session.applicationSettings?.navFromContactPreferences) {

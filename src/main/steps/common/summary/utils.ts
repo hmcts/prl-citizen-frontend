@@ -143,7 +143,7 @@ export const summaryCaseList = (
     let caseUrl = '#';
     if (userCase.caseTypeOfApplication === 'C100') {
       if (!isRespondent) {
-        if (state === State.Draft) {
+        if (state === State.AWAITING_SUBMISSION_TO_HMCTS) {
           caseUrl = applyParms(`${C100_RETRIVE_CASE}`, { caseId: id });
         }
       } else {

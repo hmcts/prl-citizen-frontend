@@ -27,7 +27,7 @@ export const CA_RESPONDENT: NotificationBannerProps[] = [
   {
     ...notificationBanner[BannerNotification.FINAL_ORDER],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return !!caseData?.orderCollection?.length && caseData.state === State.ALL_FINAL_ORDERS_ISSUED;
+      return !!caseData?.orderCollection?.length && caseData.state === State.CASE_CLOSED;
     },
   },
 ];
