@@ -93,6 +93,7 @@ export class CaseApi {
   }
 
   /**
+   * TODO: Alok need to double check on this API call - what to do with old case data
    * Delete Case
    * State: DELETED
    * Event: C100_CASE_EVENT.DELETE_CASE
@@ -106,9 +107,8 @@ export class CaseApi {
       if (!caseId) {
         throw new Error('caseId not found so case could not be deleted.');
       }
-      await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100_CASE_EVENT.DELETE_CASE}/update-case`, caseData, {
+      await this.axios.post<UpdateCaseResponse>(`/citizen/${caseId}/delete-application`, caseData, {
         headers: {
-          accessCode: 'null',
         },
       });
       session.userCase = {} as CaseWithId;
