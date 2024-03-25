@@ -17,7 +17,10 @@ import { AccessibilityStatementGetController } from './steps/accessibility-state
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
+import ApplicantRelationshipToChildPostController from './steps/c100-rebuild/applicant/relationship-to-child/postController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
+import OtherPersonsRelationshipToChildPostController from './steps/c100-rebuild/other-person-details/relationship-to-child/postController';
+import RespondentsRelationshipToChildPostController from './steps/c100-rebuild/respondent-details/relationship-to-child/postController';
 import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
 import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
@@ -129,6 +132,9 @@ import {
   AOH_TO_CA,
   VIEW_DOCUMENT_URL,
   LOCAL_API_SESSION,
+  C100_APPLICANT_RELATIONSHIP_TO_CHILD,
+  C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
+  C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -364,6 +370,18 @@ export class Routes {
         app.post(
           `${APPLICANT_TASKLIST_CONTACT_POST}`,
           errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
+        );
+        app.post(
+          C100_APPLICANT_RELATIONSHIP_TO_CHILD,
+          errorHandler(new ApplicantRelationshipToChildPostController(step.form.fields).post)
+        );
+        app.post(
+          C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
+          errorHandler(new RespondentsRelationshipToChildPostController(step.form.fields).post)
+        );
+        app.post(
+          C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
+          errorHandler(new OtherPersonsRelationshipToChildPostController(step.form.fields).post)
         );
       }
     }
