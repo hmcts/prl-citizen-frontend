@@ -5,7 +5,6 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import PreProcessCaseData from '../../steps/c100-rebuild/PreProcessCaseData';
 import { applyParms } from '../../steps/common/url-parser';
-import { ApplicantUploadFiles, RespondentUploadFiles, UploadDocumentSucess } from '../../steps/constants';
 import { C100_URL, PARTY_TASKLIST, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
@@ -27,7 +26,9 @@ import { AppRequest } from './AppRequest';
 @autobind
 export class PostController<T extends AnyObject> {
   //protected ALLOWED_RETURN_URLS: string[] = [CHECK_ANSWERS_URL];
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {}
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {
+    console.info('** FOR SONAR **');
+  }
   /**
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
@@ -86,15 +87,6 @@ export class PostController<T extends AnyObject> {
     req.session.userCase = {
       ...PreProcessCaseData.clean(this.fields, formData, req.session.userCase, !req.path.startsWith(C100_URL)),
     };
-
-    if (req.originalUrl.includes(UploadDocumentSucess)) {
-      if (req?.session?.userCase?.applicantUploadFiles) {
-        req.session.userCase[ApplicantUploadFiles] = [];
-      }
-      if (req?.session?.userCase?.respondentUploadFiles) {
-        req.session.userCase[RespondentUploadFiles] = [];
-      }
-    }
 
     this.redirect(req, res);
   }

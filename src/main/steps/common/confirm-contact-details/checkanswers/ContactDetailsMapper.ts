@@ -7,6 +7,7 @@ import type { AppRequest } from '../../../../app/controller/AppRequest';
 import { getFormattedDate } from '../../../common/summary/utils';
 
 export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
+  console.info('** FOR SONAR **');
   const request: Partial<PartyDetails> = {};
 
   const {

@@ -241,7 +241,7 @@ describe('testcase for tasklist', () => {
     language: 'en',
     userCase: {
       ...mockUserCase,
-      state: State.AwaitingSubmissionToHmcts,
+      state: State.CASE_DRAFT,
     },
     additionalData: {
       req: {
@@ -250,13 +250,13 @@ describe('testcase for tasklist', () => {
           userCase: {
             ...mockUserCase,
             caseTypeOfApplication: 'C100',
-            state: State.AwaitingSubmissionToHmcts,
+            state: State.CASE_DRAFT,
           },
         },
         params: {
           partyType: PartyType.APPLICANT,
         },
-        state: State.AwaitingSubmissionToHmcts,
+        state: State.CASE_DRAFT,
       },
     },
   } as unknown as CommonContent;

@@ -7,7 +7,7 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/For
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { interpolate } from '../../../../steps/common/string-parser';
 import { getPartyDetails } from '../../../../steps/tasklistresponse/utils';
-
+console.info('** FOR SONAR **');
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Case number {caseNumber}',
@@ -126,7 +126,7 @@ export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
   const caseNumber = content.userCase?.id!;
-  const { user, userCase } = content.additionalData?.req.session;
+  const { user, userCase } = content.additionalData?.req.session ?? {};
   const partyDetails = getPartyDetails(userCase, user.id) as PartyDetails;
   // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
   const { fields } = generateFormFields(partyDetails);

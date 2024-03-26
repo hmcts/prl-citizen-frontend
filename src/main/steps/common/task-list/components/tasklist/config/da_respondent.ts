@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
-import { UPDATE_CASE_YES } from '../../../../../constants';
+import { applyParms } from '../../../../../../steps/common/url-parser';
+import { UPDATE_CASE } from '../../../../../constants';
 import { APPLICANT_CA_DA_REQUEST } from '../../../../../urls';
 import { TaskListSection, Tasks, getContents, getFinalApplicationStatus } from '../utils';
 
@@ -15,7 +16,9 @@ export const DA_RESPONDENT: TaskListConfigProps[] = [
       {
         id: Tasks.CHECK_THE_APPLICATION,
         href: (caseData, userDetails) => {
-          return getFinalApplicationStatus(caseData, userDetails) ? APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES : null;
+          return getFinalApplicationStatus(caseData, userDetails)
+            ? applyParms(APPLICANT_CA_DA_REQUEST, { docContext: UPDATE_CASE })
+            : null;
         },
         stateTag: (caseData, userDetails) => getFinalApplicationStatus(caseData, userDetails),
         openInAnotherTab: true,

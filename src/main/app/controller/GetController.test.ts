@@ -211,7 +211,7 @@ describe('GetController', () => {
       const getContentMock = jest.fn().mockReturnValue({});
       const controller = new GetController('page', getContentMock);
 
-      const req = mockRequest({ userCase: { state: State.Draft }, session: { errors: [] } });
+      const req = mockRequest({ userCase: { state: State.AWAITING_SUBMISSION_TO_HMCTS }, session: { errors: [] } });
       const res = mockResponse();
       await controller.get(req, res);
 

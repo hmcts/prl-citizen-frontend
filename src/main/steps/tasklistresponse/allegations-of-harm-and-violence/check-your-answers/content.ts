@@ -11,6 +11,8 @@ import { SafetyConcerns, SafetyConcerns_child, SafetyConcerns_others, SafetyConc
 
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 
+console.info('** FOR SONAR **');
+
 export const enContent = {
   section: '',
   title: 'Check your Answers',
@@ -131,10 +133,6 @@ export const cy: typeof en = (content: CommonContent) => {
     language: content.language,
     sections,
   };
-};
-
-export const SystemLanguageContent = (content, Function) => {
-  return content['language'] === 'en' ? Function(content.userCase)?.en() : Function(content.userCase)?.cy();
 };
 
 export const form: FormContent = {

@@ -11,7 +11,7 @@ import {
 const userCase: CaseWithId = {
   ...mockUserCase,
   id: '123',
-  state: State.Submitted,
+  state: State.SUBMITTED_PAID,
   serviceType: '',
 };
 

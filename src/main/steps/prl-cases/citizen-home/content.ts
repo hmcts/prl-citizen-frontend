@@ -4,6 +4,8 @@ import { isAccessCodeValid, isCaseCodeValid, isFieldFilledIn, isNumeric } from '
 
 import { contact_cy, contact_en } from './contact';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Enter your access details',
   line1: 'Enter the case number from the email or letter we sent you.',

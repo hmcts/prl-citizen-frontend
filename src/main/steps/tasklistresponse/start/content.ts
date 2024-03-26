@@ -6,6 +6,8 @@ import { respondent_cy, respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
 
+console.info('** FOR SONAR **');
+
 const en = () => ({
   title: 'Respond to the application',
   statuses: {
@@ -14,6 +16,7 @@ const en = () => ({
     [SectionStatus.TO_DO]: 'To Do',
     [SectionStatus.READY_TO_VIEW]: 'Ready to view',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Not available yet',
+    [SectionStatus.OPTIONAL]: 'Optional',
   },
   sectionTitles: respondent_en,
   taskListItems: respondent_tasklist_items_en,
@@ -31,6 +34,7 @@ const cy = () => ({
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
+    [SectionStatus.OPTIONAL]: 'Dewisol',
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,

@@ -4,8 +4,16 @@ import { YesNoDontKnow } from '../../../../../app/case/definition';
 import { applicant_all_docs_en } from './section-titles-all-documents';
 import { applicant_tasklist_items_all_docs_en } from './tasklist-items-all-documents';
 import {
-  digitalDownloadsUploadedByRespondent,
-  drugDocUploadedByRespondent,
+  addDigitalDownloadsUploadedByRespondent,
+  addDrugDocUploadedByRespondent,
+  addLettersFromSchoolByRespondent,
+  addMedicalRecordsUploadByRespondent,
+  addMedicalReportsUploadedByRespondent,
+  addPaternityDocUploadedByRespondent,
+  addPoliceReportUploadedByRespondent,
+  addPreviousOrdersSubmittedByRespondent,
+  addTenancyUploadedByRespondent,
+  addWitnessAvailabilityUploadedByRespondent,
   generateApplicantTaskListAllDocuments,
   getApplicantDocuments,
   getApplicantResponseToAohAndViolence,
@@ -21,11 +29,6 @@ import {
   isMedicalReportsUploadedd,
   isPaternityDocUploadedd,
   isPreviousOrdersSubmittedd,
-  lettersFromSchoolByRespondent,
-  medicalRecordsUploadByRespondent,
-  medicalReportsUploadedByRespondent,
-  paternityDocUploadedByRespondent,
-  previousOrdersSubmittedByRespondent,
   // getApplicantResponseToAohAndViolence,
 } from './tasklistalldocuments';
 
@@ -420,6 +423,38 @@ describe('respondent-tasklistalldocuments', () => {
         },
       },
     ];
+    req.session.userCase.respondentDocsList = [
+      {
+        id: '1234',
+        value: {
+          c1aDocument: {
+            partyName: 'MOCK_NAME',
+            createdBy: 'MOCK_VALUE',
+            dateCreated: new Date(),
+            citizenDocument: {
+              document_url: 'MOCK_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_binary_url: 'MOCK_BINARY_URL',
+            },
+          },
+        },
+      },
+      {
+        id: '1234',
+        value: {
+          c7Document: {
+            partyName: 'MOCK_NAME',
+            createdBy: 'MOCK_VALUE',
+            dateCreated: new Date(),
+            citizenDocument: {
+              document_url: 'MOCK_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_binary_url: 'MOCK_BINARY_URL',
+            },
+          },
+        },
+      },
+    ];
     req.session.userCase.respondents = [
       {
         id: '310f3f16-7425-4680-8054-92f3a01ab923',
@@ -442,7 +477,7 @@ describe('respondent-tasklistalldocuments', () => {
       false
     );
     expect(actual.title).toEqual(applicant_all_docs_en.respondentsDocuments);
-    expect(actual.items).toHaveLength(15);
+    expect(actual.items).toHaveLength(17);
   });
 
   test('getApplicantDocuments for respondent, DO_NOT_SHOW', async () => {
@@ -556,40 +591,75 @@ describe('testing all the additional function created as a part of applicant and
     });
   });
   test('testing as a part of respondent docs', () => {
-    expect(previousOrdersSubmittedByRespondent(applicant_tasklist_items_all_docs_en)).toEqual({
+    const documents = [];
+    addPreviousOrdersSubmittedByRespondent(applicant_tasklist_items_all_docs_en, true, documents);
+    expect(documents[0]).toStrictEqual({
       id: 'previous_orders_submitted_respondent',
       text: applicant_tasklist_items_all_docs_en.previous_orders_submitted_respondent,
       href: '/doc/previousorders/respondent',
     });
-    expect(lettersFromSchoolByRespondent(applicant_tasklist_items_all_docs_en)).toEqual({
+
+    addLettersFromSchoolByRespondent(applicant_tasklist_items_all_docs_en, true, documents);
+    expect(documents[1]).toStrictEqual({
       id: 'letters_from_school_respondent',
       text: applicant_tasklist_items_all_docs_en.letters_from_school_respondent,
       href: '/doc/lettersfromschool/respondent',
     });
-    expect(digitalDownloadsUploadedByRespondent(applicant_tasklist_items_all_docs_en)).toEqual({
+
+    addDigitalDownloadsUploadedByRespondent(applicant_tasklist_items_all_docs_en, true, documents);
+    expect(documents[2]).toStrictEqual({
       id: 'digital_downloads_respondent',
       text: applicant_tasklist_items_all_docs_en.digital_downloads_respondent,
       href: '/doc/digitaldownloads/respondent',
     });
-    expect(medicalRecordsUploadByRespondent(applicant_tasklist_items_all_docs_en)).toEqual({
+
+    addMedicalRecordsUploadByRespondent(applicant_tasklist_items_all_docs_en, true, documents);
+    expect(documents[3]).toStrictEqual({
       id: 'medical_records_respondent',
       text: applicant_tasklist_items_all_docs_en.medical_records_respondent,
       href: '/doc/medicalrecords/respondent',
     });
-    expect(medicalReportsUploadedByRespondent(applicant_tasklist_items_all_docs_en)).toEqual({
+
+    addMedicalReportsUploadedByRespondent(applicant_tasklist_items_all_docs_en, true, documents);
+    expect(documents[4]).toStrictEqual({
       id: 'medical_reports_respondent',
       text: applicant_tasklist_items_all_docs_en.medical_reports_respondent,
       href: '/doc/medicalreports/respondent',
     });
-    expect(paternityDocUploadedByRespondent(applicant_tasklist_items_all_docs_en)).toEqual({
+
+    addPaternityDocUploadedByRespondent(applicant_tasklist_items_all_docs_en, true, documents);
+    expect(documents[5]).toStrictEqual({
       id: 'paternity_test_reports_respondent',
       text: applicant_tasklist_items_all_docs_en.paternity_test_reports_respondent,
       href: '/doc/paternitytestreports/respondent',
     });
-    expect(drugDocUploadedByRespondent(applicant_tasklist_items_all_docs_en)).toEqual({
+
+    addDrugDocUploadedByRespondent(applicant_tasklist_items_all_docs_en, true, documents);
+    expect(documents[6]).toStrictEqual({
       id: 'drug_alcohol_tests_respondent',
       text: applicant_tasklist_items_all_docs_en.drug_alcohol_tests_respondent,
       href: '/doc/drugalcoholtests/respondent',
+    });
+
+    addPoliceReportUploadedByRespondent(applicant_tasklist_items_all_docs_en, true, documents);
+    expect(documents[7]).toStrictEqual({
+      id: 'police_disclosures_respondent',
+      text: applicant_tasklist_items_all_docs_en.police_disclosures_respondent,
+      href: '/doc/policedisclosures/respondent',
+    });
+
+    addWitnessAvailabilityUploadedByRespondent(applicant_tasklist_items_all_docs_en, true, documents);
+    expect(documents[8]).toStrictEqual({
+      id: 'witness_availability_respondent',
+      text: applicant_tasklist_items_all_docs_en.witness_availability_respondent,
+      href: '/doc/witnessavailability/respondent',
+    });
+
+    addTenancyUploadedByRespondent(applicant_tasklist_items_all_docs_en, true, documents);
+    expect(documents[9]).toStrictEqual({
+      id: 'tenancy_and_mortgage_availability',
+      text: applicant_tasklist_items_all_docs_en.tenancy_and_mortgage_availability,
+      href: '/doc/tenancyandmortgageavailability/respondent',
     });
   });
 

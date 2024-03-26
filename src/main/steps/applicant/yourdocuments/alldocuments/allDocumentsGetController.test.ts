@@ -57,6 +57,48 @@ describe('allDocumentsGetController', () => {
     expect(res.redirect).toHaveBeenCalledWith('/respondent/yourdocuments/alldocuments/lettersfromschool');
   });
 
+  test('Should redirect correctly for responsetoca', async () => {
+    req.session = {
+      ...req.session,
+      userCase: {
+        caseType: 'FL401',
+        caseInvites: [],
+        respondents: undefined,
+        respondentsFL401: undefined,
+      },
+      user: { id: '1234' },
+    };
+    req.params = {
+      docType: 'responsetoca',
+      uploadedBy: 'applicant',
+    };
+
+    await controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith('/yourdocuments/alldocuments/responsetoca');
+  });
+
+  test('Should redirect correctly for aohtoca', async () => {
+    req.session = {
+      ...req.session,
+      userCase: {
+        caseType: 'FL401',
+        caseInvites: [],
+        respondents: undefined,
+        respondentsFL401: undefined,
+      },
+      user: { id: '1234' },
+    };
+    req.params = {
+      docType: 'aohtoca',
+      uploadedBy: 'applicant',
+    };
+
+    await controller.get(req, res);
+
+    expect(res.redirect).toHaveBeenCalledWith('/yourdocuments/alldocuments/aohtoca');
+  });
+
   test('should throw an error', async () => {
     req.session = {
       ...req.session,
@@ -96,12 +138,14 @@ describe('allDocumentsGetController', () => {
       expected: '/yourdocuments/alldocuments/tenancy_and_mortgage_availability',
     },
     { value: 'medicalreports', expected: '/yourdocuments/alldocuments/medicalreports' },
-    { value: 'otherDocuments', expected: '/yourdocuments/alldocuments/otherDocuments' },
+    { value: 'otherdocuments', expected: '/yourdocuments/alldocuments/otherDocuments' },
     { value: 'previousorders', expected: '/yourdocuments/alldocuments/previousorders' },
     { value: 'otherpeoplewitnessstatement', expected: '/yourdocuments/alldocuments/otherpeoplewitnessstatement' },
     { value: 'policedisclosures', expected: '/yourdocuments/alldocuments/police_disclosures' },
     { value: 'miamcertificate', expected: '/yourdocuments/alldocuments/miamcertificate' },
-  ])('get english document list item text', ({ value, expected }) => {
+    { value: 'responsetoca', expected: '/yourdocuments/alldocuments/responsetoca' },
+    { value: 'aohtoca', expected: '/yourdocuments/alldocuments/aohtoca' },
+  ])('get correct urls for each document type', ({ value, expected }) => {
     expect(getViewDocumentUrl(value)).toBe(expected);
   });
 });

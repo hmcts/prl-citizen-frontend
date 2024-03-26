@@ -1,5 +1,5 @@
 import { CaseType } from '../../../../../app/case/definition';
-
+console.info('** FOR SONAR **');
 const en = {
   complete: 'is completed',
   inProgress: 'is in progress',

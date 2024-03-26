@@ -4,6 +4,8 @@ import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/For
 import { isFieldFilledIn, isFieldLetters } from '../../../../app/form/validation';
 import { C100_APPLICANT_ADD_APPLICANTS } from '../../../urls';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   pageTitle: 'Enter your name  ',

@@ -10,6 +10,9 @@ import { DocumentManagementClient } from '../document/DocumentManagementClient';
 
 import type { AppRequest, UserDetails } from './AppRequest';
 const UID_LENGTH = 36;
+
+console.info('** FOR SONAR **');
+
 @autobind
 export class RespondentSubmitResponseController {
   public async save(req: AppRequest, res: Response): Promise<void> {

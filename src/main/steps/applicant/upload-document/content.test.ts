@@ -9,17 +9,19 @@ const enContent = {
   section: 'Upload documents',
   caseNumber: 'Case Number ',
   title: 'Select the type of document',
-  line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
+  note: 'The court will tell you in a letter or email which documents or materials you need to submit.',
   sectionTitles: document_list_en,
   documentsListItems: documents_list_items_en,
+  continue: 'Close and return to case overview',
 };
 const cyContent = {
   section: 'Llwytho dogfennau',
   caseNumber: 'Rhif yr achos ',
   title: 'Dewiswch y math o ddogfen',
-  line1: 'Os yw’r llys wedi gofyn i chi gyflwyno tystiolaeth bellach, gallwch lwytho dogfennau yma.',
+  note: 'Bydd y llys yn dweud wrthych mewn llythyr neu e-bost pa ddogfennau neu ddeunydd y mae angen i chi eu cyflwyno',
   sectionTitles: document_list_cy,
   documentsListItems: documents_list_items_cy,
+  continue: 'Cau a dychwelyd i drosolwg o’r achos',
 };
 describe('task-list > content', () => {
   const commonContent = {
@@ -42,38 +44,38 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your position statements&parentDocType=Witness statements and evidence&docType=Your position statements',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/witnessstatements/positionstatements',
               id: 'your-position-statements',
               text: 'Your position statements',
             },
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Your witness statements&parentDocType=Witness statements and evidence&docType=Your witness statements',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/witnessstatements/yourwitnessstatements',
               id: 'your-witness-statements',
               text: 'Your witness statements',
             },
             {
-              href: "/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Other people's witness statements&parentDocType=Witness statements and evidence&docType=Other people's witness statements",
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/witnessstatements/otherpeoplewitnessstatement',
               id: 'other-witness-statements',
               text: "Other people's witness statements",
             },
 
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Emails, screenshots, images and other media files&parentDocType=Witness statements and evidence&docType=Emails, screenshots, images and other media files',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/witnessstatements/mediafiles',
               id: 'mail-screenshots-media-files',
               text: 'Emails, screenshots, images and other media files',
             },
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Medical records&parentDocType=Witness statements and evidence&docType=Medical records',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/witnessstatements/medicalrecords',
               id: 'medical-records',
               text: 'Medical records',
             },
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Letters from school&parentDocType=Witness statements and evidence&docType=Letters from school',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/witnessstatements/lettersfromschool',
               id: 'letters-from-school',
               text: 'Letters from school',
             },
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Tenancy and mortgage agreements&parentDocType=Witness statements and evidence&docType=Tenancy and mortgage agreements',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/witnessstatements/tenancyandmortgageavailability',
               id: 'tenancy-mortgage-agreements',
               text: 'Tenancy and mortgage agreements',
             },
@@ -83,7 +85,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Previous orders submitted with application&parentDocType=Applications&docType=Previous orders submitted with application',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/applications/previousorders',
               id: 'previous-orders-submitted',
               text: 'Previous orders submitted with application',
             },
@@ -93,22 +95,22 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Medical reports&parentDocType=Expert reports&docType=Medical reports',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/expertreports/medicalreports',
               id: 'medical-reports',
               text: 'Medical reports',
             },
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Paternity test reports&parentDocType=Expert reports&docType=Paternity test reports',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/expertreports/paternitytestreports',
               id: 'paternity-test-reports',
               text: 'Paternity test reports',
             },
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Drug and alcohol tests (toxicology)&parentDocType=Expert reports&docType=Drug and alcohol tests (toxicology)',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/expertreports/drugalcoholtests',
               id: 'drug-and-alcohol-tests',
               text: 'Drug and alcohol tests (toxicology)',
             },
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Police reports&parentDocType=Expert reports&docType=Police reports',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/expertreports/policedisclosures',
               id: 'police-reports',
               text: 'Police reports',
             },
@@ -118,7 +120,7 @@ describe('task-list > content', () => {
         {
           items: [
             {
-              href: '/applicant/upload-document/start?caption=Witness statements and evidence&document_type=Other documents&parentDocType=Other documents&docType=Other documents',
+              href: '/applicant/upload-document/has-the-court-asked-for-this-documents/otherdocuments/otherdocuments',
               id: 'other-documents',
               text: 'Other documents',
             },

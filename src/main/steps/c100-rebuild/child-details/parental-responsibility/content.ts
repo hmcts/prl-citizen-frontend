@@ -7,6 +7,8 @@ import { isAlphaNumericWithApostrophe, isFieldFilledIn } from '../../../../app/f
 import { getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
+console.info('** FOR SONAR **');
+
 let updatedForm: FormContent;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

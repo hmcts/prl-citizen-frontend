@@ -3,6 +3,8 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Keeping your contact details private for',

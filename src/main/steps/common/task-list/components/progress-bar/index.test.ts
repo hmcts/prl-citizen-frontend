@@ -633,7 +633,7 @@ describe('getProgressBarConfig', () => {
     test('when state is all final orders issues', () => {
       const data = {
         id: '12',
-        state: State.ALL_FINAL_ORDERS_ISSUED,
+        state: State.CASE_CLOSED,
         caseTypeOfApplication: CaseType.C100,
         respondents: [
           {

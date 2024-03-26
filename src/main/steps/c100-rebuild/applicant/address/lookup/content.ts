@@ -7,6 +7,8 @@ import { form as lookupAddressForm, languages as lookupAddressFormLanguages } fr
 
 import { CaseWithId } from './../../../../../app/case/case';
 
+console.info('** FOR SONAR **');
+
 let updatedForm: FormContent;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

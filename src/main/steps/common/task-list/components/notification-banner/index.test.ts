@@ -168,7 +168,7 @@ describe('testcase for notification Banner', () => {
   test('withdrawn is rejected', () => {
     const data = {
       id: '12',
-      state: State.Submitted,
+      state: State.SUBMITTED_PAID,
       orderCollection: [
         {
           id: '',
@@ -446,7 +446,7 @@ describe('testcase for notification Banner', () => {
           },
         } as unknown as Respondent,
       ];
-      data.state = State.Draft;
+      data.state = State.AWAITING_SUBMISSION_TO_HMCTS;
       data.orderCollection = [
         {
           id: '1234',
@@ -526,7 +526,7 @@ describe('testcase for notification Banner', () => {
           },
         } as unknown as Respondent,
       ];
-      data.state = State.ALL_FINAL_ORDERS_ISSUED;
+      data.state = State.CASE_CLOSED;
       data.orderCollection = [
         {
           id: '1234',

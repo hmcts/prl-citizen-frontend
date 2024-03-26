@@ -5,6 +5,8 @@ import { getApplicant, getApplicantName } from '../../applicant/task-list';
 import { getCasePartyType } from '../../prl-cases/dashboard/utils';
 import { getRespondent, getRespondentName } from '../../respondent/task-list';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Adding a legal representative',
   partyName: '',
@@ -46,11 +48,12 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const { userCase, user } = content.additionalData?.req.session;
+  const { userCase, user } = content.additionalData?.req.session ?? {};
   const partyType = getCasePartyType(userCase, user.id);
-  partyType === PartyType.APPLICANT
-    ? (translations.partyName = getApplicantName(getApplicant(userCase, user.id)))
-    : (translations.partyName = getRespondentName(getRespondent(userCase, user.id)));
+  translations.partyName =
+    partyType === PartyType.APPLICANT
+      ? getApplicantName(getApplicant(userCase, user.id))
+      : getRespondentName(getRespondent(userCase, user.id));
 
   return {
     ...translations,

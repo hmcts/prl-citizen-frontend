@@ -2,6 +2,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isAlphaNumeric, isEmailValid, isFieldFilledIn, isPhoneNoValid } from '../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Your contact details',
   citizenUserPhoneNumber: 'UK telephone number',

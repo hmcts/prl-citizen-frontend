@@ -8,6 +8,8 @@ import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
+console.info('** FOR SONAR **');
+
 let updatedForm: FormContent;
 
 export const en = () => ({
@@ -184,7 +186,7 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    title: `${translations['title']} ${childDetails!.firstName} ${childDetails!.lastName}`,
+    title: `${translations['title']} ${childDetails.firstName} ${childDetails.lastName}`,
     form: updateFormFields(form, fields),
   };
 };

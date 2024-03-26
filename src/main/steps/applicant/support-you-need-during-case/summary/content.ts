@@ -10,6 +10,8 @@ import {
 } from '../../../../../main/steps/urls';
 import { filterSelectedUrls } from '../../../../steps/common/support-you-need-during-case/summary/handler';
 
+console.info('** FOR SONAR **');
+
 export const enContent = {
   section: 'Check your answers',
   title: 'Your hearing needs and requirements',
@@ -51,7 +53,7 @@ export const enContent = {
 const en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 
-  const { userCase, user } = content.additionalData?.req.session;
+  const { userCase, user } = content.additionalData?.req.session ?? {};
   filterSelectedUrls(userCase, urls, user.id);
   return {
     ...enContent,
@@ -111,7 +113,7 @@ const urls = {
 
 const cy: typeof en = (content: CommonContent) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { userCase, user } = content.additionalData?.req.session;
+  const { userCase, user } = content.additionalData?.req.session ?? {};
   filterSelectedUrls(userCase, urls, user.id);
   return {
     ...cyContent,

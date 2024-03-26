@@ -7,6 +7,8 @@ import { getCaseApi } from '../../app/case/CaseApi';
 import { CosApiClient } from '../../app/case/CosApiClient';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
+import { parseUrl } from '../../steps/common/url-parser';
+import { AOH_VIOLENCE, CA_DA_REQUEST, VIEW_DOC_URL_START } from '../../steps/constants';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   ANONYMOUS_URLS,
@@ -101,7 +103,7 @@ export class OidcMiddleware {
               }
             }
             //If testing support URL is not part of the path, then we need to redirect user to dashboard even if they click on link
-            if (req.path.startsWith(TESTING_SUPPORT) || req.path.includes(LOCAL_API_SESSION)) {
+            if (req.path.startsWith(TESTING_SUPPORT) || req.path.startsWith(LOCAL_API_SESSION)) {
               if (req.session.testingSupport) {
                 return next();
               } else {
@@ -112,8 +114,14 @@ export class OidcMiddleware {
             if (req.session.userCase) {
               const partyType = getCasePartyType(req.session.userCase, req.session.user.id);
               if (
-                !SAFEGAURD_EXCLUDE_URLS.some(_url => req.path.startsWith(_url)) &&
-                !req.path.split('/').includes(partyType)
+                !SAFEGAURD_EXCLUDE_URLS.some(url => {
+                  const _url = parseUrl(url).url;
+                  return _url.split('/').every(chunk => req.path.split('/').includes(chunk));
+                }) &&
+                !req.path.split('/').includes(partyType) &&
+                !req.path.split('/').includes(VIEW_DOC_URL_START) &&
+                !req.path.split('/').includes(CA_DA_REQUEST) &&
+                !req.path.split('/').includes(AOH_VIOLENCE)
               ) {
                 return res.redirect(DASHBOARD_URL);
               }

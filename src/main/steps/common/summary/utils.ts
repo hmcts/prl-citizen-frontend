@@ -17,6 +17,8 @@ import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainU
 import { cy, en } from '../common.content';
 import { applyParms } from '../url-parser';
 
+console.info('** FOR SONAR **');
+
 export const getSectionSummaryList = (
   rows: SummaryListRow[],
   content: PageContent,
@@ -141,7 +143,7 @@ export const summaryCaseList = (
     let caseUrl = '#';
     if (userCase.caseTypeOfApplication === 'C100') {
       if (!isRespondent) {
-        if (state === State.Draft) {
+        if (state === State.AWAITING_SUBMISSION_TO_HMCTS) {
           caseUrl = applyParms(`${C100_RETRIVE_CASE}`, { caseId: id });
         }
       } else {

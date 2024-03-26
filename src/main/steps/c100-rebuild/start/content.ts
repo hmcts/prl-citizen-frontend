@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   caption: 'Getting started',

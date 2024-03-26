@@ -3,6 +3,8 @@ import { AppRequest } from '../app/controller/AppRequest';
 
 import { PageLink } from './urls';
 
+console.info('** FOR SONAR **');
+
 export enum Sections {
   AboutEdgeCase = 'aboutEdgeCase',
   AboutRespondentCase = 'aboutRespondentCase',
@@ -37,7 +39,11 @@ export const URL_PATTERN_INTERNATIONAL_FACTORS = 'international-factors';
 export const EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement';
 
 export const EVENT_RESPONDENT_MIAM = 'respondentMiam';
-export const UPDATE_CASE_YES = '?updateCase=Yes';
+
+export const VIEW_DOC_URL_START = 'doc';
+export const CA_DA_REQUEST = 'cadafinaldocumentrequest';
+export const AOH_VIOLENCE = 'aohviolence';
+export const UPDATE_CASE = 'update-case';
 
 export const ordinalNumberMapEn = new Map<number, string>([
   [1, 'First'],

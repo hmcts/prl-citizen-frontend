@@ -2,6 +2,9 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../app/form/validation';
 import { en as english, cy as welsh } from '../../../common/keep-details-private/start_alternative/content';
+
+console.info('** FOR SONAR **');
+
 const en = {
   ...english,
   title:

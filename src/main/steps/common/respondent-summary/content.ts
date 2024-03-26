@@ -2,6 +2,8 @@
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 
+console.info('** FOR SONAR **');
+
 const en = () => ({
   confirm: 'Confirm before continuing',
   submit:

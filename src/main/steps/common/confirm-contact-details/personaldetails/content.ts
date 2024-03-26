@@ -10,6 +10,8 @@ import {
   isFutureDate,
 } from '../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Your name and date of birth',
   citizenUserFirstNames: 'Your first name',

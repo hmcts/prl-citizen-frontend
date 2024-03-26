@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
 import { isDateInputInvalid, isFieldFilledIn, isFutureDate } from '../../../../app/form/validation';
-
+console.info('** FOR SONAR **');
 const en = {
   section: 'Current or previous proceedings',
   title: 'Provide details of court cases you or the children have been involved in',

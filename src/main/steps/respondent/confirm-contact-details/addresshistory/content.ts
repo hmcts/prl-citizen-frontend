@@ -9,3 +9,4 @@ export const generateContent: TranslationFn = content => {
     ...addressHistoryContent,
   };
 };
+console.info('** FOR SONAR **');

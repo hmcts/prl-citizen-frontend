@@ -6,7 +6,7 @@ import { buildProgressBarStages } from './progress-bar-utils';
 
 const userCase: CaseWithId = {
   id: '123',
-  state: State.Submitted,
+  state: State.SUBMITTED_PAID,
   serviceType: '',
 };
 
