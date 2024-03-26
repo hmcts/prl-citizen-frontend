@@ -32,6 +32,6 @@ export const CA_RESPONDENT: ProgressBarProps[] = [
   },
   {
     ...progressBarStage.caseClosed,
-    isComplete: caseData => caseData.state === State.ALL_FINAL_ORDERS_ISSUED,
+    isComplete: caseData => caseData.state === State.CASE_CLOSED,
   },
 ];

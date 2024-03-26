@@ -112,7 +112,7 @@ describe('GetCaseController', () => {
     req.session.userCase = {
       id: '1234',
       caseTypeOfApplication: 'C100',
-      state: State.Draft,
+      state: State.AWAITING_SUBMISSION_TO_HMCTS,
       noOfDaysRemainingToSubmitCase: '3',
     };
     await expect(controller.createC100ApplicantCase(req, res)).rejects.toThrow(
@@ -123,7 +123,7 @@ describe('GetCaseController', () => {
     req.session.userCase = {
       id: '1234',
       caseTypeOfApplication: 'C100',
-      state: State.Draft,
+      state: State.AWAITING_SUBMISSION_TO_HMCTS,
       noOfDaysRemainingToSubmitCase: '3',
     };
     req.locals.C100Api.createCase.mockResolvedValueOnce(req.session.userCase);

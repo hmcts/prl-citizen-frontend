@@ -1,11 +1,11 @@
 /* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
-import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcernsAbout, SessionLanguage, YesOrNo } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
-import { CommonContent } from '../../../steps/common/common.content';
+import { CommonContent, Language } from '../../../steps/common/common.content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
 
@@ -53,6 +53,8 @@ import { ReasonableAdjustmentElement } from './util/reasonableAdjustmentContent.
 import { RespondentsElements } from './util/respondent.util';
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 import { typeOfCourtOrderContents } from './util/typeOfOrder.util';
+import { CaseWithId } from '../../../app/case/case';
+import { SummaryList } from './lib/lib';
 
 console.info('** FOR SONAR **');
 
@@ -532,68 +534,66 @@ export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, lan
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
-  const userCase = content.userCase!;
-  let sections;
-  // if on sreening screen enable Yes
-  if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
-    sections = CheckYourAnswerFlow1(userCase, enContent, content.language).flat() as ANYTYPE;
-  } else {
-    if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) {
-      sections = CheckYourAnswerFlow2(userCase, enContent, content.language).flat() as ANYTYPE;
-    } else {
-      //if miam urgency is requested miam_urgency
-      if (
-        userCase['miam_urgency'] &&
-        userCase.hasOwnProperty('miam_urgency') &&
-        !userCase['miam_urgency'].includes('none')
-      ) {
-        sections = CheckYourAnswerFlow3(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
-      } else {
-        sections = CheckYourAnswerFlow4(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
-      }
-    }
-  }
-  sections = sectionCountFormatter(sections);
   return {
     ...enContent,
     language: content.language,
-    sections,
+    sections: generateSectionContent(content.userCase!, content.language, newEnContents),
   };
 };
 
 export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
-  const userCase = content.userCase!;
-  let sections;
-  // if on sreening screen enable Yes
-  if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
-    sections = CheckYourAnswerFlow1(userCase, cyContent, content.language).flat() as ANYTYPE;
-  } else {
-    if (userCase.hasOwnProperty('miam_otherProceedings') && userCase['miam_otherProceedings'] === YesOrNo.YES) {
-      sections = CheckYourAnswerFlow2(userCase, cyContent, content.language).flat() as ANYTYPE;
-    } else {
-      //if miam urgency is requested miam_urgency
-      if (
-        userCase['miam_urgency'] &&
-        userCase.hasOwnProperty('miam_urgency') &&
-        !userCase['miam_urgency'].includes('none')
-      ) {
-        sections = CheckYourAnswerFlow3(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
-      } else {
-        sections = CheckYourAnswerFlow4(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
-      }
-    }
-  }
-
-  sections = sectionCountFormatter(sections);
   return {
     ...cyContent,
     language: content.language,
-    sections,
+    sections: generateSectionContent(content.userCase!, content.language, newCyContents),
   };
 };
 
-export const SystemLanguageContent = (content, Function) => {
-  return content['language'] === 'en' ? Function(content.userCase)?.en() : Function(content.userCase)?.cy();
+const generateSectionContent = (
+  caseData: Partial<CaseWithId>,
+  language: Language,
+  newContent: typeof enContent
+): SummaryList[] => {
+  let sections;
+
+  if (caseData.hasOwnProperty('sq_writtenAgreement') && caseData['sq_writtenAgreement'] === YesOrNo.YES) {
+    sections = CheckYourAnswerFlow1(
+      caseData,
+      language === SessionLanguage.WELSH ? cyContent : enContent,
+      language
+    ).flat() as ANYTYPE;
+  } else if (caseData.hasOwnProperty('miam_otherProceedings') && caseData['miam_otherProceedings'] === YesOrNo.YES) {
+    sections = CheckYourAnswerFlow2(
+      caseData,
+      language === SessionLanguage.WELSH ? cyContent : enContent,
+      language
+    ).flat() as ANYTYPE;
+  } else if (
+    //if miam urgency is requested miam_urgency
+    caseData['miam_urgency'] &&
+    caseData.hasOwnProperty('miam_urgency') &&
+    !caseData['miam_urgency'].includes('none')
+  ) {
+    sections = CheckYourAnswerFlow3(
+      caseData,
+      language === SessionLanguage.WELSH ? cyContent : enContent,
+      newContent,
+      language
+    ).flat() as ANYTYPE;
+  } else {
+    sections = CheckYourAnswerFlow4(
+      caseData,
+      language === SessionLanguage.WELSH ? cyContent : enContent,
+      newContent,
+      language
+    ).flat() as ANYTYPE;
+  }
+
+  return sectionCountFormatter(sections);
+};
+
+export const SystemLanguageContent = (content, getMiamContent) => {
+  return content['language'] === 'en' ? getMiamContent(content.userCase)?.en() : getMiamContent(content.userCase)?.cy();
 };
 
 export const form: FormContent = {

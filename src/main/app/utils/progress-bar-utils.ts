@@ -83,7 +83,7 @@ const isFinalOrderIssued = (userCase: Partial<CaseWithId>) => {
   return false;
 };
 const isAllFinalOrderIssued = (userCase: Partial<CaseWithId>) => {
-  if (userCase.state === State.ALL_FINAL_ORDERS_ISSUED) {
+  if (userCase.state === State.CASE_CLOSED) {
     return true;
   }
   return false;
