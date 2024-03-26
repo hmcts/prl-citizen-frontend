@@ -3,9 +3,9 @@ import type { Response } from 'express';
 
 import { C100_CHECK_YOUR_ANSWER, HOME_URL } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
-import { C100_CASE_EVENT } from '../case/definition';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
+//import { State } from 'app/case/definition';
 
 @autobind
 class TSDraftController {
@@ -30,8 +30,9 @@ class TSDraftController {
     const value = data.split(',');
     for (const element of value) {
       try {
-        const caseData = {};
-        await req.locals.C100Api.updateCase(element, caseData, HOME_URL, C100_CASE_EVENT.DELETE_CASE);
+        const caseData=req.session.userCase || {};
+        caseData.caseId =element
+        await req.locals.C100Api.deleteCase(caseData, req.session);
       } catch (e) {
         throw new Error('C100case could not be deleted');
       }
