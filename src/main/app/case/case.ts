@@ -618,6 +618,7 @@ export interface Case {
   ra_parkingSpace_subfield?: string;
   ra_differentTypeChair_subfield?: string;
   ra_travellingCourtOther_subfield?: string;
+  ra_languageReqAndSpecialArrangements?: string;
 }
 
 export interface CaseWithId extends Case {

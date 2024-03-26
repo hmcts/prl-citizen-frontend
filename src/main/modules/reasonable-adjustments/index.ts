@@ -86,7 +86,7 @@ class ReasonableAdjustmentsProvider {
     const sequence = this.sequence.getSequence();
 
     if (!isEnabled) {
-      sequence.splice(-2);
+      sequence.splice(-5);
     }
 
     return sequence;
@@ -126,8 +126,6 @@ class ReasonableAdjustmentsProvider {
     req: AppRequest,
     res: Response
   ): Promise<void> {
-    this.resetData();
-
     if (this.canProcessRequest()) {
       await this.createAndSaveCorrelationId(req);
       //this.correlationId = uuid();
@@ -188,6 +186,7 @@ class ReasonableAdjustmentsProvider {
         req.session.applicationSettings = {
           ...req.session.applicationSettings,
           reasonableAdjustments: {
+            isManageSupport: false,
             correlationId: null,
             urlBeforeRedirection: '',
           },
@@ -243,16 +242,22 @@ class ReasonableAdjustmentsProvider {
     }
   }
 
-  private resetData(): void {
+  resetData(req: AppRequest): Promise<void> {
     console.info('**** RA-resetData ****');
-    //this.correlationId = null;
+    return new Promise(resolve => {
+      if (req.session?.applicationSettings?.reasonableAdjustments) {
+        delete req.session.applicationSettings.reasonableAdjustments;
+        return req.session.save(resolve);
+      }
+      resolve();
+    });
   }
 
-  destroy(): void {
+  async destroy(req: AppRequest): Promise<void> {
     console.info('**** RA-destroy ****');
-    this.resetData();
     this.appBaseUrl = '';
     this.client = null;
+    await this.resetData(req);
   }
 }
 

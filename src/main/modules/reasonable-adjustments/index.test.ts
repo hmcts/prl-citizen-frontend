@@ -166,7 +166,7 @@ describe('ReasonableAdjustementsProvider', () => {
   });
 
   test('when invoking destroy', async () => {
-    RAProvider.destroy();
+    await RAProvider.destroy(appRequest);
     expect((RAProvider as any).correlationId).toBeNull;
     expect((RAProvider as any).client).toBeNull;
     expect((RAProvider as any).appBaseUrl).toBe('');

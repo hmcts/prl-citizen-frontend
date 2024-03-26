@@ -40,8 +40,8 @@ export class OidcMiddleware {
       res.redirect(url);
     });
 
-    app.get(SIGN_OUT_URL, (req, res) => {
-      RAProvider.destroy();
+    app.get(SIGN_OUT_URL, async (req, res) => {
+      await RAProvider.destroy(req as AppRequest);
       req.session.destroy(() => res.redirect('/'));
     });
 
@@ -63,7 +63,7 @@ export class OidcMiddleware {
             req.session.save(() => res.redirect(DASHBOARD_URL));
           }
         } else {
-          RAProvider.destroy();
+          await RAProvider.destroy(req as AppRequest);
           res.redirect(SIGN_IN_URL);
         }
       })
@@ -159,7 +159,7 @@ export class OidcMiddleware {
             if (req.originalUrl.includes('.css')) {
               return next();
             }
-            RAProvider.destroy();
+            await RAProvider.destroy(req as AppRequest);
             res.redirect(SIGN_IN_URL + `?callback=${encodeURIComponent(req.originalUrl)}`);
           }
         });

@@ -2,33 +2,21 @@ import { AxiosError } from 'axios';
 import { Response } from 'express';
 import _ from 'lodash';
 
-import { PartyType } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Language } from '../../steps/common/common.content';
 import { applyParms } from '../../steps/common/url-parser';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../steps/tasklistresponse/utils';
-import {
-  DASHBOARD_URL,
-  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE,
-  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE,
-} from '../../steps/urls';
+import { REASONABLE_ADJUSTMENTS_ERROR, REASONABLE_ADJUSTMENTS_SUCCESS_CONFIRMATION } from '../../steps/urls';
 
 import { RADataTransformContext, RAFlags } from './definitions';
 
 import { RAProvider } from './index';
 
 export class ReasonableAdjustementsController {
-  protected static handleError(error: string | AxiosError, res: Response, partyType?: PartyType | undefined): void {
+  protected static handleError(error: string | AxiosError, res: Response): void {
     RAProvider.log('error', error);
-    if (partyType) {
-      return res.redirect(
-        applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
-          partyType,
-        })
-      );
-    }
-    res.redirect(DASHBOARD_URL);
+    return res.redirect(REASONABLE_ADJUSTMENTS_ERROR);
   }
 
   async launch(req: AppRequest, res: Response): Promise<void> {
@@ -39,12 +27,11 @@ export class ReasonableAdjustementsController {
     }
 
     const userDetails = req.session.user;
-    const partyType = getCasePartyType(caseData, userDetails.id);
     const language = RAProvider.getPreferredLanguage(req) as Language;
     const partyDetails = getPartyDetails(caseData, userDetails.id);
 
     if (!partyDetails) {
-      return ReasonableAdjustementsController.handleError('RA - partyDetails not available', res, partyType);
+      return ReasonableAdjustementsController.handleError('RA - partyDetails not available', res);
     }
 
     try {
@@ -52,19 +39,15 @@ export class ReasonableAdjustementsController {
 
       if (status === 'UP') {
         try {
-          const existingRAFlags = await RAProvider.utils.retrieveExistingPartyRAFlags(
-            caseData,
-            partyDetails,
+          const existingRAFlags = await RAProvider.service.retrieveExistingPartyRAFlags(
+            caseData.id!,
+            partyDetails.user.idamId,
             userDetails.accessToken
           );
           console.info(existingRAFlags);
 
           if (!existingRAFlags) {
-            return ReasonableAdjustementsController.handleError(
-              'RA - partyExistingRAFlags not available',
-              res,
-              partyType
-            );
+            return ReasonableAdjustementsController.handleError('RA - partyExistingRAFlags not available', res);
           }
 
           try {
@@ -82,19 +65,15 @@ export class ReasonableAdjustementsController {
               res
             );
           } catch (error) {
-            return ReasonableAdjustementsController.handleError(error, res, partyType);
+            return ReasonableAdjustementsController.handleError(error, res);
           }
         } catch (error) {
-          return ReasonableAdjustementsController.handleError(error, res, partyType);
+          return ReasonableAdjustementsController.handleError(error, res);
         }
       }
-      return ReasonableAdjustementsController.handleError(
-        `RA - common component health status (${status})`,
-        res,
-        partyType
-      );
+      return ReasonableAdjustementsController.handleError(`RA - common component health status (${status})`, res);
     } catch (error) {
-      ReasonableAdjustementsController.handleError(error, res, partyType);
+      ReasonableAdjustementsController.handleError(error, res);
     }
   }
 
@@ -111,7 +90,7 @@ export class ReasonableAdjustementsController {
     const partyType = getCasePartyType(caseData, userDetails.id);
 
     if (!externalRefId) {
-      return ReasonableAdjustementsController.handleError('RA - no external reference ID present', res, partyType);
+      return ReasonableAdjustementsController.handleError('RA - no external reference ID present', res);
     }
 
     try {
@@ -119,7 +98,7 @@ export class ReasonableAdjustementsController {
       console.info('**** response ****', JSON.stringify(response, null, 4));
 
       if (!response.correlationId) {
-        return ReasonableAdjustementsController.handleError('RA - no correlation ID present', res, partyType);
+        return ReasonableAdjustementsController.handleError('RA - no correlation ID present', res);
       }
 
       try {
@@ -128,8 +107,7 @@ export class ReasonableAdjustementsController {
         if (!_.get(response, 'flagsAsSupplied.details') || !_.get(response, 'replacementFlags.details')) {
           return ReasonableAdjustementsController.handleError(
             'RA - no flagsAsSupplied (or) replacementFlags present',
-            res,
-            partyType
+            res
           );
         }
 
@@ -137,18 +115,18 @@ export class ReasonableAdjustementsController {
           await RAProvider.utils.updatePartyRAFlags(caseData, userDetails, response);
 
           return res.redirect(
-            applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE, {
+            applyParms(REASONABLE_ADJUSTMENTS_SUCCESS_CONFIRMATION, {
               partyType,
             })
           );
         } catch (error) {
-          ReasonableAdjustementsController.handleError(error, res, partyType);
+          ReasonableAdjustementsController.handleError(error, res);
         }
       } catch (error) {
-        ReasonableAdjustementsController.handleError(error, res, partyType);
+        ReasonableAdjustementsController.handleError(error, res);
       }
     } catch (error) {
-      ReasonableAdjustementsController.handleError(error, res, partyType);
+      ReasonableAdjustementsController.handleError(error, res);
     }
   }
 
