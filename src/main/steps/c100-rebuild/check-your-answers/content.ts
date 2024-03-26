@@ -231,9 +231,9 @@ export const cyContent = {
     paymentError: {
       title: 'Mae yna broblem',
       defaultPaymentError: 'Nid yw eich cais wedi’i gyflwyno. Rhowch gynnig arall arni',
-      applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application (welsh)',
+      applicationNotSubmitted: "Roedd eich taliad yn llwyddiannus ond mae angen i chi ailgyflwyno'ch cais",
       paymentUnsuccessful:
-        'Your payment was unsuccessful. Make the payment again and resubmit your application (welsh)',
+        'Roedd eich taliad yn aflwyddiannus. Gwnewch y taliad eto ac ailgyflwynwch y caisRoedd eich taliad yn aflwyddiannus. Gwnewch y taliad eto ac ailgyflwynwch y cais',
     },
   },
   sectionTitles: {

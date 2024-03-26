@@ -37,7 +37,7 @@ const en: NotificationBannerContent = {
           heading: 'You have not finished your application',
           contents: [
             {
-              text: 'You have {noOfDaysRemainingToSubmitCase} days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
+              text: 'You have {noOfDaysRemainingToSubmitCase} days to submit your application from the date you started it, or it will be deleted and you will need to start the application again. This is to keep your information secure.',
             },
           ],
           links: [
