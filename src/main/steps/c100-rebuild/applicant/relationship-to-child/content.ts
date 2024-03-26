@@ -2,14 +2,19 @@ import { CaseWithId } from '../../../../app/case/case';
 import { C100Applicant, ChildrenDetails, RelationshipToChildren } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
-import { form, generateFormFields, languages, updateFormFields } from '../../common/relationship-to-child/content';
+import {
+  form as formConfig,
+  generateFormFields,
+  languages,
+  updateFormFields,
+} from '../../common/relationship-to-child/content';
 import { getPartyDetails } from '../../people/util';
 import { getApplicantDetails } from '../util';
 
 console.info('** FOR SONAR **');
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-
+export const form: FormContent = { ...formConfig };
 export const getFormFields = (
   caseData: Partial<CaseWithId>,
   applicantId: C100Applicant['id'],
