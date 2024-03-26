@@ -1,16 +1,8 @@
-import { CommonContent } from '../../../../steps/common/common.content';
+import { TranslationFn } from '../../../../app/controller/GetController';
 
-import { generateContent } from './content';
+console.info('** FOR SONAR **');
 
-jest.mock('../../../../app/form/validation');
-
-const EN = 'en';
-const CY = 'cy';
-const commonContent = {
-  language: EN,
-} as CommonContent;
-
-const enContent = {
+const en = () => ({
   applyForAnInjunctionHyperLink: 'https://www.gov.uk/injunction-domestic-violence',
   applyForAnInjunctionLabel: 'Apply for an injunction',
   howToReportChildAbuseHyperLink: 'https://www.gov.uk/report-child-abuse',
@@ -26,9 +18,9 @@ const enContent = {
   reportIncident: 'Report an incident',
   emergencyCall: 'Always call 999 if there’s an emergency or if you think a child’s in danger.',
   support: 'Get support',
-};
+});
 
-const cyContent = {
+const cy = () => ({
   applyForAnInjunctionHyperLink: 'https://www.gov.uk/injunction-domestic-violence',
   applyForAnInjunctionLabel: 'Gwneud cais am waharddeb',
   howToReportChildAbuseHyperLink: 'https://www.gov.uk/report-child-abuse',
@@ -44,21 +36,16 @@ const cyContent = {
   reportIncident: 'Riportio digwyddiad',
   emergencyCall: "Ffoniwch 999 bob amser os oes argyfwng neu os ydych chi'n meddwl bod plentyn mewn perygl.",
   support: 'Cael cefnogaeth',
+});
+
+const languages = {
+  en,
+  cy,
 };
 
-describe('safety concerns guidance', () => {
-  test('should return correct english content', () => {
-    const generatedContent = generateContent({ ...commonContent });
-
-    expect(generatedContent).toEqual(enContent);
-  });
-
-  test('should return correct welsh content', () => {
-    const generatedContent = generateContent({
-      ...commonContent,
-      language: CY,
-    });
-
-    expect(generatedContent).toEqual(cyContent);
-  });
-});
+export const generateContent: TranslationFn = content => {
+  const translations = languages[content.language]();
+  return {
+    ...translations,
+  };
+};

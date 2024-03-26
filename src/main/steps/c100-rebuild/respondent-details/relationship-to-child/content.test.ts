@@ -2,8 +2,9 @@ import languageAssertions from '../../../../../test/unit/utils/languageAssertion
 import { RelationshipType } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
+import { generateFormFields } from '../../common/relationship-to-child/content';
 
-import { generateContent, generateFormFields } from './content';
+import { generateContent } from './content';
 
 jest.mock('../../../../app/form/validation');
 

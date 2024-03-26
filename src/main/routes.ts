@@ -129,7 +129,6 @@ import {
   AOH_TO_CA,
   VIEW_DOCUMENT_URL,
   LOCAL_API_SESSION,
-  //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
 export class Routes {
