@@ -110,6 +110,10 @@ export type NotificationBannerContent = {
 
 type NotificationContent = {
   heading: string;
+  sections: NotificationSection[];
+};
+
+export type NotificationSection = {
   contents: {
     text: string;
     show?: (caseData: Partial<CaseWithId>) => boolean;
