@@ -4,7 +4,6 @@ import {
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
   APPLICANT_ORDERS_FROM_THE_COURT,
-  APPLICANT_VIEW_ALL_DOCUMENTS,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -234,20 +233,6 @@ const en: NotificationBannerContent = {
             },
           ],
         },
-        newDocument: {
-          heading: 'You have a new document to view',
-          contents: [
-            {
-              text: 'A new document has been added to your case.',
-            },
-          ],
-          links: [
-            {
-              text: 'See all documents',
-              href: APPLICANT_VIEW_ALL_DOCUMENTS,
-            },
-          ],
-        },
         finalOrder: {
           heading: 'You have a final order',
           contents: [
@@ -299,20 +284,6 @@ const en: NotificationBannerContent = {
             {
               text: 'View the order (PDF)',
               href: APPLICANT_ORDERS_FROM_THE_COURT,
-            },
-          ],
-        },
-        newDocument: {
-          heading: 'You have a new document to view',
-          contents: [
-            {
-              text: 'A new document has been added to your case.',
-            },
-          ],
-          links: [
-            {
-              text: 'See all documents',
-              href: APPLICANT_VIEW_ALL_DOCUMENTS,
             },
           ],
         },
@@ -554,20 +525,6 @@ const cy: typeof en = {
             },
           ],
         },
-        newDocument: {
-          heading: 'Mae gennych ddogfen newydd i edrych arni',
-          contents: [
-            {
-              text: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
-            },
-          ],
-          links: [
-            {
-              text: 'Gweld yr holl ddogfennau',
-              href: APPLICANT_VIEW_ALL_DOCUMENTS,
-            },
-          ],
-        },
         finalOrder: {
           heading: 'Mae gennych orchymyn terfynol',
           contents: [
@@ -619,20 +576,6 @@ const cy: typeof en = {
             {
               text: 'Gweld y gorchymyn (PDF)',
               href: APPLICANT_ORDERS_FROM_THE_COURT,
-            },
-          ],
-        },
-        newDocument: {
-          heading: 'Mae gennych ddogfen newydd i edrych arni',
-          contents: [
-            {
-              text: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
-            },
-          ],
-          links: [
-            {
-              text: 'Gweld yr holl ddogfennau',
-              href: APPLICANT_VIEW_ALL_DOCUMENTS,
             },
           ],
         },
