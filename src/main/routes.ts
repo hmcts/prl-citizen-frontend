@@ -57,7 +57,6 @@ import {
   APPLICANT_MIAM_CERTIFICATE,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASK_LIST_URL,
-  APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   CA_RESPONDENT_GENERATE_C7_DRAFT,
   CA_RESPONDENT_GENERATE_C7_Final,
@@ -86,7 +85,6 @@ import {
   RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
-  RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
   RESPOND_TO_APPLICATION,
   SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
@@ -197,16 +195,8 @@ export class Routes {
     app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new CaseDetailsGetController().get));
 
     app.get(
-      `${RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
-      errorHandler(new ViewAllDocumentsPostController().setAllDocumentsViewed)
-    );
-    app.get(
       `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
       errorHandler(new ViewAllDocumentsPostController().setResponseInitiatedFlag)
-    );
-    app.get(
-      `${APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
-      errorHandler(new ViewAllDocumentsPostController().setAllDocumentsViewed)
     );
 
     // Common get controller for tasklist response events
