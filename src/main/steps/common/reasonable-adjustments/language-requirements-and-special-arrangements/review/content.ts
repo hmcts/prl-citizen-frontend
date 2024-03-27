@@ -19,13 +19,13 @@ const en = {
 };
 
 const cy: typeof en = {
-  caption: 'Support you need during the case - welsh',
-  title: 'Review your language requirements and special arrangements - welsh',
-  content1: 'Tell us what support you need (optional) - welsh',
-  content2: 'If your hearing is within 2 days - welsh',
+  caption: 'Cymorth y mae arnoch angen yn ystod yr achos',
+  title: "Adolygu eich gofynion ieithyddol a'ch trefniadau arbennig",
+  content1: 'Dywedwch wrthym pa gymorth sydd ei angen arnoch (dewisol)',
+  content2: "Os yw'ch gwrandawiad o fewn 2 ddiwrnod",
   content3:
     '<a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank">Contact the court (opens in a new tab)</a> to request any support you need for the hearing. - welsh',
-  submitAndContinue: 'Sumbit and continue - welsh',
+  submitAndContinue: 'Cyflwyno a pharhau',
   change: commonContentCy.change,
 };
 

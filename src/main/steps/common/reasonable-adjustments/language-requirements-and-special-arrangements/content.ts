@@ -56,49 +56,49 @@ const en = {
 };
 
 const cy: typeof en = {
-  caption: 'Support you need during the case - welsh',
-  title: 'Language requirements and special arrangements - welsh',
-  content1: 'Language requirements - welsh',
-  content2: 'Think about all communication with the court, as well as what you might need at a hearing. - welsh',
-  content3: 'For example, tell us if you need: - welsh',
+  caption: 'Cymorth y mae arnoch ei angen yn ystod yr achos',
+  title: 'Gofynion ieithyddol a threfniadau arbennig',
+  content1: 'Gofynion ieithyddol',
+  content2: 'Meddyliwch am yr holl ohebiaeth â’r llys, ynghyd â’r hyn y gallwch fod ei angen mewn gwrandawiad.',
+  content3: 'Er enghraifft, dywedwch wrthym os oes arnoch angen:',
   list: [
     {
-      content: 'to speak, read or write in Welsh - welsh',
+      content: 'siarad, darllen neu ysgrifennu yn Gymraeg',
     },
     {
-      content: 'an interpreter in a language that is not English - welsh',
+      content: 'cyfieithydd mewn iaith ar wahan i Saesneg',
     },
   ],
-  content4: 'Special arrangements - welsh',
+  content4: 'Trefniadau arbennig',
   content5:
-    'You may need special arrangements to feel safe at court. Some of these arrangements will need to be agreed by the judge or HMCTS staff. If your needs change, you can tell the court before your hearing date. - welsh',
-  content6: 'Tell us if you need: - welsh',
+    "Efallai y bydd angen trefniadau arbennig arnoch i deimlo'n ddiogel yn y llys. Rhaid i rai o’r addasiadau hyn gael eu cytuno gan y barnwr neu staff GLlTEF. Os bydd eich anghenion yn newid, gallwch ddweud wrth y llys cyn dyddiad eich gwrandawiad.",
+  content6: 'Dywedwch wrthym os oes arnoch angen:',
   specialArrangementsList: [
     {
-      content: 'separate entrances and exits - welsh',
+      content: "drysau ar wahân i fynd i mewn ac allan o'r llys",
     },
     {
-      content: 'separate toilets - welsh',
+      content: 'toiledau ar wahân',
     },
     {
-      content: 'a separate waiting room - welsh',
+      content: 'ystafell aros ar wahân',
     },
     {
-      content: 'a visit to the court before the hearing - welsh',
+      content: "ymweld â'r llys cyn y gwrandawiad",
     },
     {
-      content: 'screens so you and the other people in the case cannot see each other - welsh',
+      content: 'sgriniau i atal chi a’r bobl eraill yn yr achos rhag gweld eich gilydd',
     },
     {
-      content: 'a hearing by phone or video - welsh',
+      content: 'gwrandawiad dros y ffôn neu drwy fideo',
     },
     {
-      content: 'anything else to help make you feel safe during the hearing - welsh',
+      content: "unrhyw beth arall i'ch helpu i deimlo'n ddiogel yn ystod y gwrandawiad",
     },
   ],
-  supportYouNeed: 'Tell us what support you need (optional) - welsh',
+  supportYouNeed: 'Dywedwch wrthym pa gymorth sydd ei angen arnoch (dewisol)',
   supportYouNeedHint:
-    'Provide as much detail as possible, including why the support is needed.If you have already asked for support, your request has been sent to the court. - welsh',
+    "Rhowch gymaint o fanylion â phosibl, gan gynnwys pam fod angen y cymorth.Os ydych eisoes wedi gofyn am gymorth, anfonwyd eich cais i'r llys.",
   errors: {
     ra_languageReqAndSpecialArrangements: {
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',

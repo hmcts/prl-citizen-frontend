@@ -41,39 +41,39 @@ const en = {
 };
 
 const cy: typeof en = {
-  caption: 'Support you need during the case - welsh',
-  title: 'Tell us if you need support - welsh',
-  title2: 'Tell us if your support needs have changed - welsh',
-  content1: 'Some people need support during their case. This includes if a case goes to court. - welsh',
-  content2: 'You can ask for: - welsh',
+  caption: 'Cefnogaeth y mae arnoch ei angen yn ystod eich achos',
+  title: 'Dywedwch wrthym os oes arnoch angen cefnogaeth',
+  title2: 'Dywedwch wrthym os yw eich anghenion cefnogaeth wedi newid',
+  content1: "Mae rhai pobl angen cefnogaeth yn ystod eu hachos. Mae hyn yn cynnwys os bydd achos yn mynd i'r llys.",
+  content2: 'Gallwch ofyn am:',
   list: [
     {
-      content: 'language requirements, for example if you need an interpreter in a particular language - welsh',
+      content: 'ofynion ieithyddol, er enghraifft os oes angen cyfieithydd arnoch mewn iaith benodol',
     },
     {
       content:
-        'support for people with a health condition or disability (known as ‘reasonable adjustments’), for example access and mobility needs - welsh',
+        'cymorth i bobl â chyflwr iechyd neu anabledd (a elwir yn ‘addasiadau rhesymol’), er enghraifft, anghenion mynediad a symudedd',
     },
     {
-      content: 'special arrangements for you to feel safe at court, for example a separate waiting room - welsh',
+      content: 'trefniadau arbennig i chi deimlo’n ddiogel yn y llys, er enghraifft, ystafell aros ar wahân',
     },
   ],
-  content3: 'Requesting support - welsh',
+  content3: 'Gofyn am gymorth',
   content4:
     '<a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank">Contact the court (opens in a new tab)</a> if you have a hearing within 2 days and you need support. - welsh',
-  content5: 'Support before a court hearing - welsh',
+  content5: 'Cymorth cyn gwrandawiad llys',
   content6:
-    'If you need support before a hearing, you can ask for it at any point during your case. For example, if you need documents in an alternative format like braille. - welsh',
-  content7: 'Support at a court hearing - welsh',
+    'Os oes arnoch angen cymorth cyn gwrandawiad, gallwch ofyn amdano ar unrhyw adeg yn ystod eich achos. Er enghraifft, os oes angen dogfennau arnoch mewn fformat amgen fel braille.',
+  content7: 'Cymorth mewn gwrandawiad llys',
   content8:
-    'If you’re asked to attend a hearing, you can ask for support if you need help to take part. We’ll let you know if you need to attend and you can tell us what support you’ll need. - welsh',
-  content9: 'Support for somebody else - welsh',
+    'Os gofynnir i chi fynychu gwrandawiad, gallwch ofyn am gymorth os oes angen help arnoch i gymryd rhan. Byddwn yn rhoi gwybod i chi os oes angen i chi fynychu a gallwch ddweud wrthym pa gymorth y bydd ei angen arnoch.',
+  content9: 'Cymorth i rywun arall',
   content10:
     'If somebody else who’s also attending the hearing needs support, you can <a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank">contact the court (opens in a new tab)</a>. - welsh',
-  content11: 'What happens next - welsh',
+  content11: 'Beth fydd yn digwydd nesaf',
   content12:
-    'Once you’ve submitted your request for support, it’ll be reviewed by HMCTS staff or a judge. We’ll contact you if we need more information. - welsh',
-  startNow: 'Start now - welsh',
+    'Unwaith y byddwch wedi cyflwyno eich cais am gymorth, bydd yn cael ei adolygu gan staff GLlTEF neu farnwr. Byddwn yn cysylltu â chi os byddwn angen mwy o wybodaeth.',
+  startNow: 'Dechrau nawr',
 };
 
 export const languages = {
