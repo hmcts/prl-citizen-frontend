@@ -15,7 +15,7 @@ const en = () => ({
   Respondent: 'Respondent',
   addRespondentLabel: 'Add another respondent',
   removeRespondentLabel: 'Remove respondent',
-  newNameLabel: 'Enter a new name',
+  newNameLabel: 'Enter name',
   errors: {
     c100TempFirstName: {
       required: 'Enter the first name',
@@ -37,7 +37,7 @@ const cy = () => ({
   Respondent: 'Atebydd',
   addRespondentLabel: 'Ychwanegu atebydd arall',
   removeRespondentLabel: 'Tynnu atebydd',
-  newNameLabel: 'Nodwch enw newydd',
+  newNameLabel: 'Enter name -welsh',
   errors: {
     c100TempFirstName: {
       required: 'Nodwch yr enw cyntaf',
