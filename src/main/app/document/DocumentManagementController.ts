@@ -499,9 +499,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
         partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'
       ]?.push(response.document);
 
-      const caseDetailsFromCos = await client.retrieveByCaseId(caseData.id, user);
-
-      Object.assign(req.session.userCase, caseDetailsFromCos);
       req.session.errors = removeUploadDocErrors(req.session.errors);
     } catch (e) {
       req.session.errors = handleUploadDocError(req.session.errors, 'uploadError', true);
@@ -539,9 +536,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
         partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'
       ]?.push(response.document);
 
-      const caseDetailsFromCos = await client.retrieveByCaseId(caseData.id, user);
-
-      Object.assign(req.session.userCase, caseDetailsFromCos);
       req.session.errors = removeUploadDocErrors(req.session.errors);
     } catch (e) {
       req.session.errors = handleUploadDocError(req.session.errors, 'uploadError', true);
