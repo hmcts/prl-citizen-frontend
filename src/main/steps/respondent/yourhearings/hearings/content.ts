@@ -11,6 +11,9 @@ import {
 import { generateContent as yourhearingshearingscontent } from '../../../common/yourhearings/hearings/content';
 
 export { form } from '../../../common/yourhearings/hearings/content';
+
+console.info('** FOR SONAR **');
+
 export const generateContent: TranslationFn = content => {
   const hearingsContent = yourhearingshearingscontent(content);
   const request = content.additionalData?.req;

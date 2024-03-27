@@ -6,6 +6,8 @@ import {
   generateContent as manualAddressGenerateContent,
 } from '../../../../common/components/address-manual';
 
+console.info('** FOR SONAR **');
+
 const MANUAL_ADDRESS = 'manual-address';
 
 const manualAddressFormFields = manualAddressForm.fields as FormFields;

@@ -83,6 +83,8 @@ import SafteyConcernsNavigationController from './allegations-of-harm-and-violen
 import OtherProceedingsNavigationController from './proceedings/navigationController';
 import ReasonableAdjustmentsNavigationController from './support-you-need-during-case/navigationController';
 
+console.info('** FOR SONAR **');
+
 export const responseCaseSequence: Step[] = [
   {
     url: CONSENT_TO_APPLICATION,

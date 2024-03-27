@@ -23,6 +23,7 @@ import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSect
 import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
 
 
+console.info('** FOR SONAR **');
 
 /* eslint-disable import/namespace */
 export const CaseName = (

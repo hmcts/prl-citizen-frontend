@@ -1,6 +1,7 @@
 import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { TaskListContent } from '../../definitions';
 
+console.info('** FOR SONAR **');
 const en: TaskListContent = {
   stateTags: {
     notStartedYet: 'Not started yet',

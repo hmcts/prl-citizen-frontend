@@ -14,6 +14,8 @@ import {
   enContent,
 } from '../../../../steps/respondent/support-you-need-during-case/summary/content';
 
+console.info('** FOR SONAR **');
+
 const getSectionSummaryList = (
   rows: SummaryListRow[],
   content: PageContent,

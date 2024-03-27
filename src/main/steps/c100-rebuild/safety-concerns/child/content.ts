@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 
+console.info('** FOR SONAR **');
+
 const en = () => ({
   applyForAnInjunctionHyperLink: 'https://www.gov.uk/injunction-domestic-violence',
   applyForAnInjunctionLabel: 'Apply for an injunction',

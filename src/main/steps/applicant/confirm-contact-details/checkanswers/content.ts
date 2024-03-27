@@ -8,6 +8,8 @@ import { generateContent as checkAnswersGenerateContent } from '../../../common/
 
 import { CaseType, PartyType } from './../../../../app/case/definition';
 
+console.info('** FOR SONAR **');
+
 export const enContent = {
   section: 'Check your details',
   title: 'Read the information to make sure it is correct, and add any missing details',

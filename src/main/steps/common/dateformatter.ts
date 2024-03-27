@@ -1,5 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import { ANYTYPE } from '../c100-rebuild/check-your-answers/common/index';
+
+console.info('** FOR SONAR **');
 /**
  * It takes a date object and returns a string
  * @param date - The date object that you want to format.

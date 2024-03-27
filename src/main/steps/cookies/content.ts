@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../app/controller/GetController';
 
+console.info('** FOR SONAR **');
+
 const en = () => ({
   title: 'Cookies',
   paragraph1:

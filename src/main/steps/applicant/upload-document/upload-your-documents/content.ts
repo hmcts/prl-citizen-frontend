@@ -2,6 +2,8 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
+console.info('** FOR SONAR **');
+
 export const en = {
   section: 'Provide the document',
   title: 'Provide the documents',

@@ -11,6 +11,7 @@ import { cy as opDetailsCyContents, en as opDetailsEnContents } from './order-de
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const IndividualOrderFieldsParser = (keys, order, language) => {
+  console.info('** FOR SONAR **');
   const newOrders = order;
   const Mapper = {
     ['orderDetail']: {

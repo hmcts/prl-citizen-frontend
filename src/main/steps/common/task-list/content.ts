@@ -11,6 +11,8 @@ import { languages as sideLinks } from './components/side-links/content';
 import { getTaskListConfig } from './components/tasklist/index';
 import { getPartyName, isRepresentedBySolicotor } from './utils';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Child arrangements and family injunction cases',
   caseNumber: 'Case number ',

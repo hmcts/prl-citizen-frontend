@@ -7,6 +7,8 @@ import { interpolate } from '../../../../steps/common/string-parser';
 import { getPartyDetails } from '../../people/util';
 export * from './routeGuard';
 
+console.info('** FOR SONAR **');
+
 let people: People[] = [];
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

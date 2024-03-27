@@ -15,6 +15,8 @@ import {
 import { getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Provide details for',

@@ -24,7 +24,9 @@ import { CosApiClient } from '../case/CosApiClient';
 import { AppRequest } from './AppRequest';
 
 export class GetCaseController {
-  //constructor(protected readonly view: string, protected readonly content: TranslationFn) {}
+  constructor() {
+    console.info('** FOR SONAR **');
+  }
 
   public async getApplicantCase(req: AppRequest, res: Response): Promise<void> {
     req.session.userCase = await GetCaseController.assignUserCase(req, undefined);

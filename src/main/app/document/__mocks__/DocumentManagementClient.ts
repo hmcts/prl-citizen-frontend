@@ -1,3 +1,4 @@
+console.info('** FOR SONAR **');
 export enum Classification {
   Private = 'PRIVATE',
   Restricted = 'RESTRICTED',

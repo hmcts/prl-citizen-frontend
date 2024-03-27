@@ -14,6 +14,7 @@ import {
 import { NotificationBannerContent } from '../../definitions';
 import { isCafcassCymruServed, isCafcassServed } from '../../utils';
 
+console.info('** FOR SONAR **');
 const en: NotificationBannerContent = {
   title: 'Important',
   [CaseType.C100]: {

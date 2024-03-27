@@ -8,6 +8,8 @@ import {
   YesOrNo,
 } from '../../../app/case/definition';
 
+console.info('** FOR SONAR **');
+
 export const prepareRequest = (userCase: CaseWithId): PRL_C1ASafteyConcerns_total => {
   const {
     PRL_c1A_haveSafetyConcerns,

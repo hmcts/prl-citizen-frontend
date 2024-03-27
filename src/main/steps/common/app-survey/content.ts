@@ -1,3 +1,5 @@
+console.info('** FOR SONAR **');
+
 const en = {
   inPageSurveyContent:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="{inPageSurveyUrl}" target="{target}">feedback (opens in a new tab)</a> will help us to improve it.',

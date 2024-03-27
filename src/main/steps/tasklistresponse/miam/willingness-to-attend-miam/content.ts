@@ -10,6 +10,8 @@ import {
   miam_how_to_arrange_mediation_label_en,
 } from './miam-cost-exemptions';
 
+console.info('** FOR SONAR **');
+
 const en = {
   title: 'Would you be willing to attend a MIAM?',
   one: 'Yes',

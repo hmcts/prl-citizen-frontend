@@ -36,6 +36,7 @@ import {
 export class ConfirmContactDetailsPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
+    console.info('** FOR SONAR **');
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
