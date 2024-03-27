@@ -17,9 +17,12 @@ export const routeGuard = {
         userDetails.accessToken
       );
 
-      await RAProvider.createSession(req);
-      req.session.applicationSettings!.reasonableAdjustments['isManageSupport'] = !!existingRAFlags.details.length;
-      next();
+      req.session.userCase = {
+        ...req.session.userCase,
+        ra_existingFlags: existingRAFlags,
+      };
+
+      req.session.save(next);
     } catch (error) {
       return res.redirect(REASONABLE_ADJUSTMENTS_ERROR);
     }

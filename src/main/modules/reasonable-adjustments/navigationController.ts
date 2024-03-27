@@ -118,6 +118,7 @@ export class ReasonableAdjustementsNavigationController {
   public getNextUrl(caseData: Partial<CaseWithId> | undefined, req: AppRequest | undefined): PageLink {
     let nextUrl;
     const currentPageUrl = req?.originalUrl as PageLink;
+
     if (!caseData || !currentPageUrl || !req?.session.user) {
       return (nextUrl = REASONABLE_ADJUSTMENTS_ERROR);
     }

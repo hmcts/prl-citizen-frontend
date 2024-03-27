@@ -1,5 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
+export * from './routeGuard';
 
 const en = {
   title: 'Sorry, there is a problem with the service',

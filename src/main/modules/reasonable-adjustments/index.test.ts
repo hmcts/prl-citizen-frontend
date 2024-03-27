@@ -126,7 +126,7 @@ describe('ReasonableAdjustementsProvider', () => {
       details: [],
     };
     let isRequestSettled = false;
-    jest.spyOn(RAProvider, 'canProcessRequest').mockImplementation(() => true);
+    jest.spyOn(RAProvider as any, 'canProcessRequest').mockImplementation(() => true);
     jest
       .spyOn(RAProvider.service, 'getCommonComponentUrl')
       .mockImplementation(() => Promise.resolve({ url: 'https://cui-ra.aat.platform.hmcts.net/test-id' }));
