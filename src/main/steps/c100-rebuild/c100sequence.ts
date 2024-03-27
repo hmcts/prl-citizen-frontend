@@ -163,6 +163,7 @@ import OtherProceedingsNavigationController from './other-proceedings/navigation
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
 import SafteyConcernsNavigationController from './safety-concerns/navigationController';
 import ApplicantNavigationController from './applicant/navigationController';
+import RANavigationController from './reasonable-adjustments/navigationController'
 import AddPeoplePostContoller from './people/AddPeoplePostContoller';
 import ChildDetailsPostController from './child-details/childDetailPostController';
 import ApplicantCommonConfidentialityController from './applicant/confidentiality/common/commonConfidentialityPostController';
@@ -237,73 +238,73 @@ export const C100Sequence: Step[] = [
   {
     url: C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
     showInSection: Sections.C100,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+    getNextStep: (data: Partial<CaseWithId>, req: AppRequest<Partial<Case>> | undefined): PageLink=> {
       PageStepConfigurator.deriveSteps(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         data?.ra_disabilityRequirements
       );
       const nextPage = PageStepConfigurator.getNextPage(C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS);
-      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
+      return nextPage?.url || RANavigationController.getNextUrl(C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS, req);
     },
   },
   {
     url: C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION,
     showInSection: Sections.C100,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+    getNextStep: (data: Partial<CaseWithId>, req: AppRequest<Partial<Case>> | undefined): PageLink => {
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
+      return nextPage?.url || RANavigationController.getNextUrl(C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION, req);
     },
   },
   {
     url: C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
     showInSection: Sections.C100,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+    getNextStep: (data: Partial<CaseWithId>, req: AppRequest<Partial<Case>> | undefined): PageLink => {
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
+      return nextPage?.url || RANavigationController.getNextUrl(C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP, req);
     },
   },
   {
     url: C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
     showInSection: Sections.C100,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+    getNextStep: (data: Partial<CaseWithId>, req: AppRequest<Partial<Case>> | undefined): PageLink => {
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
+      return nextPage?.url || RANavigationController.getNextUrl(C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT, req);
     },
   },
   {
     url: C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE,
     showInSection: Sections.C100,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+    getNextStep: (data: Partial<CaseWithId>, req: AppRequest<Partial<Case>> | undefined): PageLink => {
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
+      return nextPage?.url || RANavigationController.getNextUrl(C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE, req);
     },
   },
   {
     url: C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
     showInSection: Sections.C100,
-    getNextStep: (data: Partial<CaseWithId>): PageLink => {
+    getNextStep: (data: Partial<CaseWithId>, req: AppRequest<Partial<Case>> | undefined): PageLink => {
       const nextPage = PageStepConfigurator.getNextPage(
         C100_REASONABLE_ADJUSTMENTS_DISABILITY_REQUIREMENTS,
         C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT,
         data?.ra_disabilityRequirements
       );
-      return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
+      return nextPage?.url || RANavigationController.getNextUrl(C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT, req);
     },
   },
   {
