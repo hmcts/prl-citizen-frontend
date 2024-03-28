@@ -278,15 +278,15 @@ const en: NotificationBannerContent = {
           sections: [
             {
               contents: [
-                  {
-                    text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
-                  },
-                  {
-                    text: 'You must refer to correspondence from the court about serving the application on the respondent',
-                  },
-                  {
-                    text: 'You must not give any court documents to the respondent yourself.',
-                  },
+                {
+                  text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+                },
+                {
+                  text: 'You must refer to correspondence from the court about serving the application on the respondent',
+                },
+                {
+                  text: 'You must not give any court documents to the respondent yourself.',
+                },
               ],
               links: [
                 {
@@ -308,7 +308,7 @@ const en: NotificationBannerContent = {
                 },
                 {
                   href: `${C9_DOWNLOAD_LINK}`,
-                  text: "Statement"
+                  text: 'Statement'
                 },
               ],
             },
@@ -602,7 +602,7 @@ const en: NotificationBannerContent = {
                   text: 'statement of service (form FL415)',
                 },
               ],
-            }
+            },
           ],
         },
       },
@@ -899,10 +899,10 @@ const cy: typeof en = {
                 },
                 {
                   href: `${C9_DOWNLOAD_LINK}`,
-                  text: "Statement"
+                  text: 'Statement'
                 },
               ],
-            }
+            },
           ],
         },
       },
