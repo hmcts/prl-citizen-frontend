@@ -2,6 +2,7 @@
 
 import { CaseWithId } from '../../../app/case/case';
 import { AppRequest, UserDetails } from '../../../app/controller/AppRequest';
+import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
 import { PARTY_TASKLIST, PageLink, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
 import { applyParms } from '../url-parser';
 
@@ -57,6 +58,10 @@ export const isDraftCase = (caseData: Partial<CaseWithId>): boolean => {
   return !!(caseData && caseData.state! === State.CASE_DRAFT);
 };
 
+export const isRepresentedBySolicotor = (caseData: CaseWithId, userId: UserDetails['id']): boolean => {
+  return checkPartyRepresentedBySolicitor(getPartyDetails(caseData, userId));
+};
+
 export const checkPartyRepresentedBySolicitor = (partyDetails: PartyDetails | undefined): boolean => {
   return partyDetails?.user?.solicitorRepresented === YesOrNo.YES;
 };
@@ -83,6 +88,11 @@ export const keepDetailsPrivateNav = (caseData: Partial<CaseWithId>, req: AppReq
       : RESPONDENT_TASK_LIST_URL;
   return req?.session.applicationSettings?.navfromRespondToApplication ? RESPOND_TO_APPLICATION : respondentTaskListUrl;
 };
+
+export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseData?.isCafcassServed === YesOrNo.YES;
+
+export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean =>
+  caseData?.isCafcassCymruServed === YesOrNo.YES;
 
 export const isCaseServed = (caseData: Partial<CaseWithId>): boolean => {
   let applicants: Applicant[] = [];

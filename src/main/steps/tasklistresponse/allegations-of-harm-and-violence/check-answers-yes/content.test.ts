@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   headingTitle: 'Who are you concerned about?',
   select_all_relevant: 'Select all options that are relevant to you.',
@@ -22,7 +21,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   headingTitle: 'Am bwy ydych chi’n poeni amdano/amdani?',
   select_all_relevant: "Dewiswch bob opsiwn sy'n berthnasol i'ch sefyllfa.",
