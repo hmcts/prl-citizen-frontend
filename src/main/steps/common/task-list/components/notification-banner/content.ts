@@ -278,40 +278,40 @@ const en: NotificationBannerContent = {
           sections: [
             {
               contents: [
-                                      {
-                                        text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
-                                      },
-                                      {
-                                        text: 'You must refer to correspondence from the court about serving the application on the respondent',
-                                      },
-                                      {
-                                        text: 'You must not give any court documents to the respondent yourself.',
-                                      },
-                                  ],
-                                  links: [
-                                    {
-                                      href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
-                                      text: 'View the final order (PDF)',
-                                    },
-                                  ],
+                  {
+                    text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+                  },
+                  {
+                    text: 'You must refer to correspondence from the court about serving the application on the respondent',
+                  },
+                  {
+                    text: 'You must not give any court documents to the respondent yourself.',
+                  },
+              ],
+              links: [
+                {
+                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  text: 'View the final order (PDF)',
+                },
+              ],
             },
             {
               contents: [
-                          {
-                            text: 'You must tell the court once the respondent has been served. Do this by completing the',
-                          },
-                        ],
-                        links: [
-                          {
-                            href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
-                            text: 'Send Statement of service (form C9) to the court',
-                          },
-                          {
-                            href: `${C9_DOWNLOAD_LINK}`,
-                            text: "Statement"
-                          },
-                        ],
-            }
+                {
+                  text: 'You must tell the court once the respondent has been served. Do this by completing the',
+                },
+              ],
+              links: [
+                {
+                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  text: 'Send Statement of service (form C9) to the court',
+                },
+                {
+                  href: `${C9_DOWNLOAD_LINK}`,
+                  text: "Statement"
+                },
+              ],
+            },
           ],
         },
       },
@@ -569,44 +569,41 @@ const en: NotificationBannerContent = {
           sections: [
             {
               contents: [
-
-                          {
-                            text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
-                          },
-                          {
-                            text: 'You must refer to correspondence from the court about serving the application on the respondent',
-                          },
-                          {
-                            text: 'You must not give any court documents to the respondent yourself.',
-                          },
-                        ],
-                        links: [
-                          {
-                            href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
-                            text: 'View the final order (PDF)',
-                          },
-                        ],
+                {
+                  text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+                },
+                {
+                  text: 'You must refer to correspondence from the court about serving the application on the respondent',
+                },
+                {
+                  text: 'You must not give any court documents to the respondent yourself.',
+                },
+              ],
+              links: [
+                {
+                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  text: 'View the final order (PDF)',
+                },
+              ],
             },
             {
               contents: [
-                          {
-                            text: 'You must tell the court once the respondent has been served. Do this by completing the',
-                          },
-                        ],
-                        links: [
-                          {
-                            href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
-                            text: 'Send Statement of service (form FL415) to the court',
-                          },
-                          {
-                            href: `${FL415_DOWNLOAD_LINK}`,
-                            text: 'statement of service (form FL415)',
-                          },
-                        ],
+                {
+                  text: 'You must tell the court once the respondent has been served. Do this by completing the',
+                },
+              ],
+              links: [
+                {
+                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  text: 'Send Statement of service (form FL415) to the court',
+                },
+                {
+                  href: `${FL415_DOWNLOAD_LINK}`,
+                  text: 'statement of service (form FL415)',
+                },
+              ],
             }
           ],
-
-
         },
       },
     },
@@ -872,15 +869,15 @@ const cy: typeof en = {
           sections: [
             {
               contents: [
-                  {
-                    text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
-                  },
-                  {
-                    text: 'You must refer to correspondence from the court about serving the application on the respondent',
-                  },
-                  {
-                    text: 'You must not give any court documents to the respondent yourself.',
-                  },
+                {
+                  text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+                },
+                {
+                  text: 'You must refer to correspondence from the court about serving the application on the respondent',
+                },
+                {
+                  text: 'You must not give any court documents to the respondent yourself.',
+                },
               ],
               links: [
                 {
@@ -1162,17 +1159,16 @@ const cy: typeof en = {
           sections: [
             {
               contents: [
-
-                          {
-                            text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
-                          },
-                          {
-                            text: 'You must refer to correspondence from the court about serving the application on the respondent',
-                          },
-                          {
-                            text: 'You must not give any court documents to the respondent yourself.',
-                          },
-                        ],
+                {
+                  text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+                },
+                {
+                  text: 'You must refer to correspondence from the court about serving the application on the respondent',
+                },
+                {
+                  text: 'You must not give any court documents to the respondent yourself.',
+                },
+              ],
               links: [
                 {
                   href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
@@ -1182,21 +1178,21 @@ const cy: typeof en = {
             },
             {
               contents: [
-                          {
-                            text: 'You must tell the court once the respondent has been served. Do this by completing the',
-                          },
-                        ],
+                {
+                  text: 'You must tell the court once the respondent has been served. Do this by completing the',
+                },
+              ],
               links: [
-                          {
-                            href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
-                            text: 'Send Statement of service (form FL415) to the court',
-                          },
-                          {
-                            href: `${FL415_DOWNLOAD_LINK}`,
-                            text: 'statement of service (form FL415)',
-                          },
-                        ],
-            }
+                {
+                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  text: 'Send Statement of service (form FL415) to the court',
+                },
+                {
+                  href: `${FL415_DOWNLOAD_LINK}`,
+                  text: 'statement of service (form FL415)',
+                },
+              ],
+            },
           ],
         },
       },

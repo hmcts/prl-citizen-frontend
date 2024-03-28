@@ -100,13 +100,13 @@ export const notificationBanner = {
     show: () => false,
   },
   [BannerNotification.SOA_SERVED_CA]: {
-      id: BannerNotification.SOA_SERVED_CA,
-      content: getContent.bind(null, BannerNotification.SOA_SERVED_CA),
-    },
-    [BannerNotification.SOA_SERVED_DA]: {
-      id: BannerNotification.SOA_SERVED_DA,
-      content: getContent.bind(null, BannerNotification.SOA_SERVED_DA),
-    },
+    id: BannerNotification.SOA_SERVED_CA,
+    content: getContent.bind(null, BannerNotification.SOA_SERVED_CA),
+  },
+  [BannerNotification.SOA_SERVED_DA]: {
+    id: BannerNotification.SOA_SERVED_DA,
+    content: getContent.bind(null, BannerNotification.SOA_SERVED_DA),
+  },
   [BannerNotification.DA_RESPONDENT_BANNER]: {
     id: BannerNotification.DA_RESPONDENT_BANNER,
     content: getContent.bind(null, BannerNotification.DA_RESPONDENT_BANNER),
