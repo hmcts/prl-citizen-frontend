@@ -34,11 +34,14 @@ describe('RA > sequence', () => {
         ra_travellingCourtOther_subfield: ['ra_travellingCourtOther_subfield'],
       },
     },
+    params: {
+      partyType: 'applicant',
+    },
   });
 
   test('should contain 1 entries in respondent 1 screen sequence', () => {
     const raSequence = RASequence.getSequence();
-    expect(raSequence).toHaveLength(12);
+    expect(raSequence).toHaveLength(15);
 
     expect(raSequence[0].url).toBe('/:root/reasonable-adjustments/attending-court');
     expect(raSequence[0].showInSection).toBe('cuira');
@@ -154,22 +157,70 @@ describe('RA > sequence', () => {
       })
     ).toBe('/tasklistresponse/start');
 
-    expect(raSequence[10].url).toBe('/:partyType/reasonable-adjustments/guidance');
+    expect(raSequence[10].url).toBe('/:partyType/reasonable-adjustments/intro');
     expect(raSequence[10].showInSection).toBe('cuira');
     expect(
       raSequence[10].getNextStep(req.session.userCase, {
         ...req,
-        originalUrl: '/:partyType/reasonable-adjustments/guidance',
+        originalUrl: '/:partyType/reasonable-adjustments/intro',
       })
-    ).toBe('/');
+    ).toBe('/applicant/reasonable-adjustments/language-requirements-and-special-arrangements');
 
-    expect(raSequence[11].url).toBe('/:partyType/reasonable-adjustments/confirmation');
+    expect(raSequence[11].url).toBe(
+      '/:partyType/reasonable-adjustments/language-requirements-and-special-arrangements'
+    );
     expect(raSequence[11].showInSection).toBe('cuira');
+    expect(
+      raSequence[11].getNextStep(
+        {
+          ra_languageReqAndSpecialArrangements: 'ra_languageReqAndSpecialArrangements',
+        },
+        {
+          ...req,
+          originalUrl: '/:partyType/reasonable-adjustments/language-requirements-and-special-arrangements',
+        }
+      )
+    ).toBe('/applicant/reasonable-adjustments/language-requirements-and-special-arrangements/review');
     expect(
       raSequence[11].getNextStep(req.session.userCase, {
         ...req,
-        originalUrl: '/:partyType/reasonable-adjustments/confirmation',
+        originalUrl: '/:partyType/reasonable-adjustments/language-requirements-and-special-arrangements',
       })
-    ).toBe('/');
+    ).toBe('/reasonable-adjustments/launch');
+
+    expect(raSequence[12].url).toBe(
+      '/:partyType/reasonable-adjustments/language-requirements-and-special-arrangements/review'
+    );
+    expect(raSequence[12].showInSection).toBe('cuira');
+    expect(
+      raSequence[12].getNextStep(req.session.userCase, {
+        ...req,
+        originalUrl: '/:partyType/reasonable-adjustments/language-requirements-and-special-arrangements/review',
+      })
+    ).toBe('/reasonable-adjustments/launch');
+
+    expect(raSequence[13].url).toBe('/:partyType/reasonable-adjustments/confirmation');
+    expect(raSequence[13].showInSection).toBe('cuira');
+    expect(
+      raSequence[13].getNextStep(
+        { id: '1234' },
+        {
+          ...req,
+          originalUrl: '/:partyType/reasonable-adjustments/confirmation',
+        }
+      )
+    ).toBe('/case/1234');
+
+    expect(raSequence[14].url).toBe('/reasonable-adjustments/error');
+    expect(raSequence[14].showInSection).toBe('cuira');
+    expect(
+      raSequence[14].getNextStep(
+        { id: '1234' },
+        {
+          ...req,
+          originalUrl: '/:partyType/reasonable-adjustments/error',
+        }
+      )
+    ).toBe('/case/1234');
   });
 });

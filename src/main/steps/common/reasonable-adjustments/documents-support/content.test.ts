@@ -173,6 +173,22 @@ describe('Disability requirements content', () => {
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
   });
 
+  test('should contain correct values when not c100 journey', () => {
+    commonContent.additionalData!.req.originalUrl = 'applicant/reasonable-adjustments/documents-support';
+    generatedContent = generateContent(commonContent);
+    const documentInformationField = generatedContent.form.fields.ra_documentInformation as FormOptions;
+
+    expect(documentInformationField.values[0].value).toBe('docsprint');
+    expect(documentInformationField.values[1].value).toBe('docsreadformat');
+    expect(documentInformationField.values[2].value).toBe('brailledocs');
+    expect(documentInformationField.values[3].value).toBe('largeprintdocs');
+    expect(documentInformationField.values[4].value).toBe('docsaudio');
+    expect(documentInformationField.values[5].value).toBe('docsReadOut');
+    expect(documentInformationField.values[6].value).toBe('emailInfo');
+    expect(documentInformationField.values[7].value).toBe('other');
+    expect(documentInformationField.values[9].value).toBe('nosupport');
+  });
+
   test('should contain continue button', () => {
     expect(
       (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)

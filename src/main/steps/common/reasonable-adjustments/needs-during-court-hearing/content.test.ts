@@ -133,6 +133,18 @@ describe('applicant personal details > applying-with > content', () => {
     expect(feelComportableField.values[5].exclusive).toBe(true);
   });
 
+  test('should contain correct values when not c100 journey', () => {
+    commonContent.additionalData!.req.originalUrl = 'applicant/reasonable-adjustments/needs-during-court-hearing';
+    generatedContent = generateContent(commonContent);
+    const feelComportableField = generatedContent.form.fields.ra_feelComportable as FormOptions;
+
+    expect(feelComportableField.values[0].value).toBe('appropriatelighting');
+    expect(feelComportableField.values[1].value).toBe('breaks');
+    expect(feelComportableField.values[2].value).toBe('space');
+    expect(feelComportableField.values[3].value).toBe('other');
+    expect(feelComportableField.values[5].value).toBe('nosupport');
+  });
+
   test('should contain Save and continue button', () => {
     expect(
       (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)

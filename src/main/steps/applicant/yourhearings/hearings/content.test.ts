@@ -28,7 +28,7 @@ const enContent = {
   previousHearings: 'Previous hearings',
   supportDuringCaselinktext: 'Support you need during your hearing',
   delayorcancellinktext: 'Ask to delay or cancel a hearing date',
-  linkforsupport: '/applicant/reasonable-adjustments/guidance',
+  linkforsupport: '/applicant/reasonable-adjustments/intro',
   linkfordelayorcancel: '#',
   hearingOutcome: 'Hearing outcome',
   hearing: 'Hearing',
@@ -68,7 +68,7 @@ const cyContent: typeof enContent = {
   previousHearings: 'Previous hearings - welsh',
   supportDuringCaselinktext: 'Support you need during your hearing - welsh',
   delayorcancellinktext: 'Ask to delay or cancel a hearing date - welsh',
-  linkforsupport: '/applicant/reasonable-adjustments/guidance',
+  linkforsupport: '/applicant/reasonable-adjustments/intro',
   linkfordelayorcancel: '#',
   hearingOutcome: 'Hearing outcome - welsh',
   hearing: 'Hearing - welsh',
@@ -261,7 +261,7 @@ describe('citizen-home yourhearings hearings content', () => {
 
   test('should generate correct link for FL401 case', () => {
     commonContent.additionalData!.req.session.userCase.caseTypeOfApplication = 'FL401';
-    expect(generateContent(commonContent).linkforsupport).toBe('/applicant/reasonable-adjustments/guidance');
+    expect(generateContent(commonContent).linkforsupport).toBe('/applicant/reasonable-adjustments/intro');
   });
 
   test('should generate hearingOrders correctly', () => {

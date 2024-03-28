@@ -2,7 +2,7 @@ import languageAssertions from '../../../../../test/unit/utils/languageAssertion
 import { FormContent, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../common.content';
 
-import { generateContent } from './content';
+import { generateContent, summaryList } from './content';
 
 const en = {
   section: 'Check your answers ',
@@ -119,5 +119,80 @@ describe('RA > review > content', () => {
     expect(
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and continue');
+  });
+
+  test('should generate correct summary list', () => {
+    expect(
+      summaryList('mockContext', 'en', {
+        ra_typeOfHearing: ['languageNeeds'],
+        ra_noVideoAndPhoneHearing_subfield: 'ra_noVideoAndPhoneHearing_subfield',
+      })
+    ).toStrictEqual({
+      rows: [
+        {
+          actions: {
+            items: [
+              {
+                href: '/respondent/reasonable-adjustments/attending-court',
+                text: 'Edit',
+                visuallyHiddenText: 'Would you be able to take part in hearings by video and phone?',
+              },
+            ],
+          },
+          key: { text: 'Would you be able to take part in hearings by video and phone?' },
+          value: { text: 'undefined' },
+        },
+        {
+          actions: {
+            items: [
+              {
+                href: '/respondent/reasonable-adjustments/attending-court',
+                text: 'Edit',
+                visuallyHiddenText: 'Please provide the details',
+              },
+            ],
+          },
+          key: {
+            text: 'Please provide the details',
+          },
+          value: {
+            text: 'ra_noVideoAndPhoneHearing_subfield',
+          },
+        },
+      ],
+      title: 'Support you need during your case',
+    });
+  });
+
+  test('should generate correct summary list for welsh', () => {
+    expect(
+      summaryList('mockContext', 'cy', {
+        ra_typeOfHearing: ['languageNeeds'],
+      })
+    ).toStrictEqual({
+      rows: [
+        {
+          actions: {
+            items: [
+              {
+                href: '/respondent/reasonable-adjustments/attending-court',
+                text: 'Golygu',
+                visuallyHiddenText: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
+              },
+            ],
+          },
+          key: { text: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?' },
+          value: { text: 'undefined' },
+        },
+      ],
+      title: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',
+    });
+  });
+
+  test('should generate correct summary list when RA needs not present', () => {
+    expect(summaryList('mockContext', 'en', {})).toStrictEqual({
+      rows: [],
+      title: '',
+    });
   });
 });

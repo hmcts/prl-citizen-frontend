@@ -2,6 +2,7 @@
 import config from 'config';
 
 import { getServiceAuthToken } from '../../app/auth/service/get-service-auth-token';
+import { CaseWithId } from '../../app/case/case';
 import { CaseData, CaseType, PartyDetails } from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
 import { applyParms } from '../../steps/common/url-parser';
@@ -13,6 +14,7 @@ import {
   REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_SIGN_OUT_URl,
   REASONABLE_ADJUSTMENTS_MANAGE_SUPPORT_FLAGS,
   REASONABLE_ADJUSTMENTS_RETRIEVE_SUPPORT_FLAGS,
+  REASONABLE_ADJUSTMENTS_SUBMIT_LANGUAGE_REQ,
 } from '../../steps/urls';
 
 import { RACommonComponent, RAData, RAFlags, RAPostResponse, RARequestPayload, RASupportContext } from './definitions';
@@ -148,6 +150,39 @@ export class ReasonableAdjustmentsService {
     } catch (error) {
       RAProvider.log('error', error);
       throw new Error('Could not fetch common component health status - retrieveCommonComponentHealthStatus');
+    }
+  }
+
+  async saveLanguagePrefAndSpecialArrangements(
+    caseData: CaseWithId,
+    partyIdamId: PartyDetails['user']['idamId'],
+    userAccessToken: UserDetails['accessToken']
+  ): Promise<any> {
+    try {
+      const data = {
+        languageSupportNotes: caseData.ra_languageReqAndSpecialArrangements,
+        partyIdamId,
+      };
+      const response = await RAProvider.APIClient()!.post<string>(
+        applyParms(REASONABLE_ADJUSTMENTS_SUBMIT_LANGUAGE_REQ, {
+          appBaseUrl: config.get('services.cos.url'),
+          caseId: caseData.id,
+        }),
+        data,
+        {
+          headers: {
+            Authorization: 'Bearer ' + userAccessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      RAProvider.log('error', error);
+      throw new Error('Could not save RA language pref - saveLanguagePrefAndSpecialArrangements');
     }
   }
 }

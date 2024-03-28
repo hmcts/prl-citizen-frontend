@@ -150,6 +150,7 @@ export interface FormContent {
   };
   onlyContinue?: {
     text: Label;
+    isStartButton?: boolean;
     classes?: string;
   };
   onlycontinue?: {

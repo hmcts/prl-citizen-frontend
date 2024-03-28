@@ -166,6 +166,25 @@ describe('Communication help content', () => {
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
   });
 
+  test('should contain correct values when not c100 journey', () => {
+    commonContent.additionalData!.req.originalUrl = 'applicant/reasonable-adjustments/communication-help';
+    generatedContent = generateContent(commonContent);
+    const communicationHelpField = generatedContent.form.fields.ra_communicationHelp as FormOptions;
+
+    expect(communicationHelpField.values[0].value).toBe('hearingloop');
+    expect(communicationHelpField.values[1].value).toBe('infraredreceiver');
+    expect(communicationHelpField.values[2].value).toBe('needspeakinghelp');
+    expect(communicationHelpField.values[3].value).toBe('lipspeaker');
+    expect(communicationHelpField.values[4].value).toBe('signlanguage');
+    expect(communicationHelpField.values[5].value).toBe('speechreporter');
+    expect(communicationHelpField.values[6].value).toBe('extratime');
+    expect(communicationHelpField.values[7].value).toBe('courtvisit');
+    expect(communicationHelpField.values[8].value).toBe('courthearing');
+    expect(communicationHelpField.values[9].value).toBe('intermediary');
+    expect(communicationHelpField.values[10].value).toBe('other');
+    expect(communicationHelpField.values[12].value).toBe('nosupport');
+  });
+
   test('should contain continue button', () => {
     expect(
       (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)

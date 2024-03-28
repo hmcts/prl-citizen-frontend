@@ -9,7 +9,7 @@ import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils'
 import {
   ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT_CA_DA_REQUEST,
-  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE,
+  REASONABLE_ADJUSTMENTS_INTRO,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -62,7 +62,7 @@ export const aboutYou: TaskListConfigProps = {
     {
       id: Tasks.SUPPORT_YOU_NEED,
       href: () => {
-        return applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
+        return applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
           partyType: PartyType.RESPONDENT,
         });
       },

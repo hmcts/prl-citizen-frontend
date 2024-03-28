@@ -184,6 +184,19 @@ describe('applicant personal details > applying-with > content', () => {
     expect(supportCourtField.values[6].exclusive).toBe(true);
   });
 
+  test('should contain correct values when not c100 journey', () => {
+    commonContent.additionalData!.req.originalUrl = 'applicant/reasonable-adjustments/support-for-court-hearing';
+    generatedContent = generateContent(commonContent);
+    const supportCourtField = generatedContent.form.fields.ra_supportCourt as FormOptions;
+
+    expect(supportCourtField.values[0].value).toBe('supportworker');
+    expect(supportCourtField.values[1].value).toBe('familymember');
+    expect(supportCourtField.values[2].value).toBe('assistance');
+    expect(supportCourtField.values[3].value).toBe('animal');
+    expect(supportCourtField.values[4].value).toBe('other');
+    expect(supportCourtField.values[6].value).toBe('nosupport');
+  });
+
   test('should contain Save and continue button', () => {
     expect(
       (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)

@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { v4 as uuid } from 'uuid';
 
 import { CaseWithId } from '../../app/case/case';
-import { C100Applicant, CaseType, PartyDetails, ReasonableAdjustmentsSupport } from '../../app/case/definition';
+import { CaseType, PartyDetails, ReasonableAdjustmentsSupport } from '../../app/case/definition';
 import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
 import { PageContent } from '../../app/controller/GetController';
 import { FormContent, FormFieldsFn } from '../../app/form/Form';
@@ -252,18 +252,6 @@ export class ReasonableAdjustementsUtility {
     }
 
     return eventId;
-  }
-
-  async retrieveExistingPartyRAFlags(
-    caseData: CaseWithId,
-    partyDetails: C100Applicant | PartyDetails,
-    userAccessToken: UserDetails['accessToken']
-  ): Promise<RAFlags> {
-    return RAProvider.service.retrieveExistingPartyRAFlags(
-      caseData.id!,
-      (partyDetails as PartyDetails).user.idamId,
-      userAccessToken
-    );
   }
 
   async updatePartyRAFlags(caseData: CaseWithId, userDetails: UserDetails, raData: RAData): Promise<void> {

@@ -127,6 +127,19 @@ describe('Disability requirements content', () => {
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('documentsHelp');
   });
 
+  test('should contain correct values when not c100 journey', () => {
+    commonContent.additionalData!.req.originalUrl = 'applicant/reasonable-adjustments/support-during-your-case';
+    generatedContent = generateContent(commonContent);
+    const disabilityRequirementsField = generatedContent.form.fields.ra_disabilityRequirements as FormOptions;
+
+    expect(disabilityRequirementsField.values[0].value).toBe('docsformat');
+    expect(disabilityRequirementsField.values[1].value).toBe('commhelp');
+    expect(disabilityRequirementsField.values[2].value).toBe('hearingsupport');
+    expect(disabilityRequirementsField.values[3].value).toBe('hearingcomfort');
+    expect(disabilityRequirementsField.values[4].value).toBe('travellinghelp');
+    expect(disabilityRequirementsField.values[6].value).toBe('nosupport');
+  });
+
   test('should contain continue button', () => {
     expect(
       (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)

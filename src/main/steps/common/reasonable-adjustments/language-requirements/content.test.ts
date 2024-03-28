@@ -113,6 +113,17 @@ describe('Language requirements content', () => {
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
   });
 
+  test('should contain correct values when not c100 journey', () => {
+    commonContent.additionalData!.req.originalUrl = 'applicant/reasonable-adjustments/language-requirements';
+    generatedContent = generateContent(commonContent);
+    const languageNeedsField = generatedContent.form.fields.ra_languageNeeds as FormOptions;
+
+    expect(languageNeedsField.values[0].value).toBe('speakwelsh');
+    expect(languageNeedsField.values[1].value).toBe('readandwritewelsh');
+    expect(languageNeedsField.values[2].value).toBe('languageinterpreter');
+    expect(languageNeedsField.values[4].value).toBe('nointerpreter');
+  });
+
   test('should contain continue button', () => {
     expect(
       (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)

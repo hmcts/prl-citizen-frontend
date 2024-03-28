@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { RAFlags } from '../../modules/reasonable-adjustments/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
@@ -618,6 +619,8 @@ export interface Case {
   ra_parkingSpace_subfield?: string;
   ra_differentTypeChair_subfield?: string;
   ra_travellingCourtOther_subfield?: string;
+  ra_languageReqAndSpecialArrangements?: string;
+  ra_existingFlags?: RAFlags;
 }
 
 export interface CaseWithId extends Case {
