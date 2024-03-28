@@ -4,7 +4,7 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 
-import { CaseType, PartyType, YesOrNo } from './../../../../../app/case/definition';
+import { CaseInvite, CaseType, PartyType, Respondent, YesOrNo } from './../../../../../app/case/definition';
 import { languages as content } from './content';
 
 export enum BannerNotification {
@@ -112,6 +112,11 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.CA_PERSONAL_SERVICE),
     show: () => false,
   },
+  [BannerNotification.CA_RESPONDENT_SERVED]: {
+    id: BannerNotification.CA_RESPONDENT_SERVED,
+    content: getContent.bind(null, BannerNotification.CA_RESPONDENT_SERVED),
+    show: () => false,
+  },
 };
 
 export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): boolean => {
@@ -120,4 +125,29 @@ export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): 
 
 export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
   return caseData.applicants?.[0].value.user.idamId === userDetails.id;
+};
+
+export const hasRespondentBeenServed = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+  const currentPartyId = getCurrentPartyId(caseData.respondents!, caseData.caseInvites!, userDetails);
+  return !!caseData.servedApplicationList?.find(
+    servedApplication =>
+      servedApplication.value.bulkPrintDetails.find(
+        bulkPrintDetails => bulkPrintDetails.value.partyIds === currentPartyId
+      ) ||
+      servedApplication.value.emailNotificationDetails.find(
+        emailNotification => emailNotification.value.partyIds === currentPartyId
+      )
+  );
+};
+
+const getCurrentPartyId = (
+  respondents: Respondent[],
+  caseInvites: CaseInvite[],
+  userDetails: UserDetails
+): string | undefined => {
+  return caseInvites?.find(invites =>
+    respondents?.find(
+      respondent => respondent.id === invites.value.partyId && userDetails.id === invites.value.invitedUserId
+    )
+  )?.value.partyId;
 };
