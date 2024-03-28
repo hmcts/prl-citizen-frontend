@@ -4,7 +4,7 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 
-import { CaseInvite, CaseType, PartyType, Respondent, YesOrNo } from './../../../../../app/case/definition';
+import { CaseType, PartyType, YesOrNo } from './../../../../../app/case/definition';
 import { languages as content } from './content';
 
 export enum BannerNotification {
@@ -125,29 +125,4 @@ export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): 
 
 export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
   return caseData.applicants?.[0].value.user.idamId === userDetails.id;
-};
-
-export const hasRespondentBeenServed = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-  const currentPartyId = getCurrentPartyId(caseData.respondents!, caseData.caseInvites!, userDetails);
-  return !!caseData.servedApplicationList?.find(
-    servedApplication =>
-      servedApplication.value.bulkPrintDetails.find(
-        bulkPrintDetails => bulkPrintDetails.value.partyIds === currentPartyId
-      ) ||
-      servedApplication.value.emailNotificationDetails.find(
-        emailNotification => emailNotification.value.partyIds === currentPartyId
-      )
-  );
-};
-
-const getCurrentPartyId = (
-  respondents: Respondent[],
-  caseInvites: CaseInvite[],
-  userDetails: UserDetails
-): string | undefined => {
-  return caseInvites?.find(invites =>
-    respondents?.find(
-      respondent => respondent.id === invites.value.partyId && userDetails.id === invites.value.invitedUserId
-    )
-  )?.value.partyId;
 };

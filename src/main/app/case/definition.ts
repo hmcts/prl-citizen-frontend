@@ -982,7 +982,6 @@ export interface CaseData {
   draftOrderDoc?: Document;
   soaCafcassServedOptions?: YesOrNo | null;
   soaCafcassCymruServedOptions? : YesOrNo | null;
-  finalServedApplicationDetailsList?: SoaDetails[];
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -3140,54 +3139,4 @@ export enum PaymentErrorContext {
   DEFAULT_PAYMENT_ERROR = 'defaultPaymentError',
   PAYMENT_UNSUCCESSFUL = 'paymentUnsuccessful',
   APPLICATION_NOT_SUBMITTED = 'applicationNotSubmitted'
-}
-
-export type SoaDetails = {
-  id: string;
-  value: {
-    bulkPrintDetails: BulkPrintDetails[];
-    emailNotificationDetails: EmailNotificationDetails[];
-    servedBy: string;
-    servedAt: string;
-    modeOfService: string;
-    whoIsResponsible: string;
-  }
-}
-
-export type BulkPrintDetails = {
-  id: string;
-  value: {
-    printedDocs: string;
-    bulkPrintId: string;
-    recipientsName: string;
-    postalAddress: Address;
-    timestamp: string;
-    servedParty: string;
-    printDocs: SOADocuments[];
-    partyIds: string;
-  }
-}
-
-export type EmailNotificationDetails = {
-  id: string;
-  value: {
-    attachedDocs: string;
-    emailAddress: string;
-    timestamp: string;
-    servedParty: string;
-    docs: SOADocuments[];
-    partyIds: string;
-  }
-}
-
-export type SOADocuments = {
-  id: string;
-  value: {
-    document_url: string;
-    document_binary_url: string;
-    document_filename: string;
-    document_hash: string;
-    category_id: string;
-    document_creation_date: string;
-  }
 }

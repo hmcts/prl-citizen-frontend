@@ -78,7 +78,6 @@ import {
   PRL_C1AAbuseTypes,
   applicantContactPreferencesEnum,
   RespondentDocs,
-  SoaDetails,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -228,7 +227,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   draftOrderDoc: 'draftOrderDoc',
   soaCafcassServedOptions: 'soaCafcassServedOptions',
   soaCafcassCymruServedOptions: 'soaCafcassCymruServedOptions',
-  servedApplicationList: 'finalServedApplicationDetailsList',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -594,7 +592,6 @@ export interface Case {
   withdrawApplicationReason?: string;
   soaCafcassServedOptions?: YesOrNo | null;
   soaCafcassCymruServedOptions?: YesOrNo | null;
-  servedApplicationList?: SoaDetails[];
 }
 
 export interface CaseWithId extends Case {
