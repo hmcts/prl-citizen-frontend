@@ -30,8 +30,8 @@ class TSDraftController {
     const value = data.split(',');
     for (const element of value) {
       try {
-        const caseData=req.session.userCase || {};
-        caseData.caseId =element
+        const caseData = req.session.userCase || {};
+        caseData.caseId = element;
         await req.locals.C100Api.deleteCase(caseData, req.session);
       } catch (e) {
         throw new Error('C100case could not be deleted');

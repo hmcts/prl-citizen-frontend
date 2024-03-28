@@ -119,9 +119,13 @@ export class CaseApi {
       paymentReferenceNumber: caseData.paymentDetails?.payment_reference,
     };
     try {
-      const response = await this.axios.post<UpdateCaseResponse>(`/citizen/${caseId}/save-c100-draft-application`, data, {
-        headers: {},
-      });
+      const response = await this.axios.post<UpdateCaseResponse>(
+        `/citizen/${caseId}/save-c100-draft-application`,
+        data,
+        {
+          headers: {},
+        }
+      );
       return { data: response.data };
     } catch (err) {
       this.logError(err);
@@ -145,8 +149,7 @@ export class CaseApi {
         throw new Error('caseId not found so case could not be deleted.');
       }
       await this.axios.post<UpdateCaseResponse>(`/citizen/${caseId}/delete-application`, caseData, {
-        headers: {
-        },
+        headers: {},
       });
       session.userCase = {} as CaseWithId;
       session.save();
