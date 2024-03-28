@@ -196,6 +196,7 @@ export interface CitizenFlags {
   isAllegationOfHarmViewed?: string
   isAllDocumentsViewed?: string
   isResponseInitiated?: string
+  isApplicationToBeServed?: string
 }
 
 export const enum DownloadFileFieldFlag {
@@ -3094,7 +3095,9 @@ export enum CaseEvent {
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
-  CONTACT_PREFERENCE="contactPreference"
+  CONTACT_PREFERENCE='citizenContactPreference',
+  CITIZEN_SAVE_C100_DRAFT_INTERNAL="citizenSaveC100DraftInternal",
+  CITIZEN_INTERNAL_FLAG_UPDATES="citizenInternalFlagUpdates"
 }
 
 export enum hearingStatus {
