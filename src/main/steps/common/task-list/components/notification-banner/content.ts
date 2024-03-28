@@ -308,7 +308,7 @@ const en: NotificationBannerContent = {
                 },
                 {
                   href: `${C9_DOWNLOAD_LINK}`,
-                  text: 'Statement'
+                  text: 'Statement',
                 },
               ],
             },
@@ -899,7 +899,7 @@ const cy: typeof en = {
                 },
                 {
                   href: `${C9_DOWNLOAD_LINK}`,
-                  text: 'Statement'
+                  text: 'Statement',
                 },
               ],
             },
