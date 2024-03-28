@@ -135,25 +135,9 @@ describe('CosApiClient', () => {
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
-    const caseData = toApiFormat(req?.session?.userCase);
     let flag = false;
     try {
-      await client.linkCaseToCitizen(req.session.user, '1234567', req, '123456789', caseData);
-    } catch (err) {
-      flag = true;
-    }
-    expect(flag).toBe(false);
-  });
-
-  test('updateRespondentCase', async () => {
-    const response = { id: '1234567' };
-    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
-    const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
-    const caseData = toApiFormat(req?.session?.userCase);
-    let flag = false;
-    try {
-      await client.updateRespondentCase(req.session.user, '123456789', req, caseData);
+      await client.linkCaseToCitizen(req.session.user, '1234567', req, '123456789');
     } catch (err) {
       flag = true;
     }
