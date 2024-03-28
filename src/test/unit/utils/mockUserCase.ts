@@ -146,6 +146,18 @@ export default {
     firstName: 'test',
     lastName: 'test',
   },
-  applicants: [],
+  applicants: [
+    {
+      id: '1234',
+      value: {
+        user: {
+          idamId: '0000-0000-0000-0000',
+        },
+        response: {
+          citizenFlags: {},
+        },
+      },
+    },
+  ],
   id: '1234',
 } as unknown as CaseWithId;

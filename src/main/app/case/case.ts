@@ -21,9 +21,9 @@ import {
   ContactDetails,
   DateOfSubmission,
   Document,
+  DocumentCollection,
   DraftConsentOrderFile,
   ExistingProceedings,
-  Fl401UploadWitnessDocuments,
   HearingUrgencyTable,
   HearingsList,
   InternationalElementTable,
@@ -380,7 +380,7 @@ export interface Case {
   applicantUploadFiles?: UploadedFile[];
   declarationCheck?: string;
   finalDocument?: Document;
-  fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
+  fl401UploadWitnessDocuments?: DocumentCollection[];
   citizenUploadedDocumentList?: UploadDocumentList[];
   /*** Document upload */
   respondentUploadFiles?: UploadedFile[];
@@ -590,10 +590,12 @@ export interface Case {
   draftOrderDoc?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
+  partiesServed?: string[];
+  partiesServedDate?: string;
+  docIdList?: string[];
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
 }
-
 export interface CaseWithId extends Case {
   paymentSuccessDetails?: {
     amount: string;

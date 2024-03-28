@@ -5,6 +5,7 @@ import type { Response } from 'express';
 import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
 import {
   APPLICANT,
+  APPLICANT_STATEMENT_OF_SERVICE,
   APPLICANT_TASK_LIST_URL,
   APPLICANT_UPLOAD_DOCUMENT,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
@@ -660,6 +661,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (req.query && req.query.documentType) {
       documentType = req.query.documentType;
     }
+    if (req.query && req.query.isSos?.toString().includes('Yes')) {
+      documentType = 'Statement of service';
+      parentDocumentType = 'Statement of service';
+      documentRequestedByCourt = 'Yes';
+    }
     const partyId = req.session.user.id;
 
     const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
@@ -675,10 +681,18 @@ export class DocumentManagerController extends PostController<AnyObject> {
       files,
       documentRequestedByCourt,
     };
+
     const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(uploadRequest);
     if (citizenDocumentListFromCos.status !== 200) {
       req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } else {
+      if (req.query.isSos?.toString().includes('Yes')) {
+        if (req.session.userCase.docIdList) {
+          req.session.userCase.docIdList.push(citizenDocumentListFromCos.documentId as string);
+        } else {
+          req.session.userCase.docIdList = [citizenDocumentListFromCos.documentId as string];
+        }
+      }
       const obj = {
         id: citizenDocumentListFromCos.documentId as string,
         name: citizenDocumentListFromCos.documentName as string,
@@ -700,8 +714,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
       Object.assign(req.session.userCase, caseDataFromCos);
       req.session.errors = [];
     }
-
-    this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
+    if (req.query && req.query.isSos) {
+      this.redirect(req, res, APPLICANT_STATEMENT_OF_SERVICE);
+    } else {
+      this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
+    }
   }
 
   public async clearUploadDocumentFormData(req: AppRequest<AnyObject>, res: Response): Promise<void> {

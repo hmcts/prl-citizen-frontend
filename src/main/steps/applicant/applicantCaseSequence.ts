@@ -76,6 +76,8 @@ import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+  APPLICANT_STATEMENT_OF_SERVICE,
+  APPLICANT_STATEMENT_OF_SERVICE_NEXT,
   APPLICANT_TASKLIST_HEARING_NEEDS,
 } from '../urls';
 
@@ -577,6 +579,21 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: APPLICANT_TASKLIST_HEARING_NEEDS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_STATEMENT_OF_SERVICE,
+  },
+  {
+    url: APPLICANT_STATEMENT_OF_SERVICE,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_STATEMENT_OF_SERVICE_NEXT,
+  },
+  {
+    url: APPLICANT_STATEMENT_OF_SERVICE_NEXT,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },

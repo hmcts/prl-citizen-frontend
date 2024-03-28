@@ -4,9 +4,12 @@ import {
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
   APPLICANT_ORDERS_FROM_THE_COURT,
+  APPLICANT_STATEMENT_OF_SERVICE,
   APPLICANT_VIEW_ALL_DOCUMENTS,
+  C9_DOWNLOAD_LINK,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
+  FL415_DOWNLOAD_LINK,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
@@ -270,6 +273,47 @@ const en: NotificationBannerContent = {
             },
           ],
         },
+        soaServedBannerCa: {
+          heading: 'Serve the application',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+                },
+                {
+                  text: 'You must refer to correspondence from the court about serving the application on the respondent',
+                },
+                {
+                  text: 'You must not give any court documents to the respondent yourself.',
+                },
+              ],
+              links: [
+                {
+                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  text: 'View the final order (PDF)',
+                },
+              ],
+            },
+            {
+              contents: [
+                {
+                  text: 'You must tell the court once the respondent has been served. Do this by completing the',
+                },
+              ],
+              links: [
+                {
+                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  text: 'Send Statement of service (form C9) to the court',
+                },
+                {
+                  href: `${C9_DOWNLOAD_LINK}`,
+                  text: 'Statement',
+                },
+              ],
+            },
+          ],
+        },
       },
     },
     [PartyType.RESPONDENT]: {
@@ -515,6 +559,47 @@ const en: NotificationBannerContent = {
                 {
                   text: 'View the final order (PDF)',
                   href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                },
+              ],
+            },
+          ],
+        },
+        soaServedBannerDa: {
+          heading: 'Serve the application',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+                },
+                {
+                  text: 'You must refer to correspondence from the court about serving the application on the respondent',
+                },
+                {
+                  text: 'You must not give any court documents to the respondent yourself.',
+                },
+              ],
+              links: [
+                {
+                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  text: 'View the final order (PDF)',
+                },
+              ],
+            },
+            {
+              contents: [
+                {
+                  text: 'You must tell the court once the respondent has been served. Do this by completing the',
+                },
+              ],
+              links: [
+                {
+                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  text: 'Send Statement of service (form FL415) to the court',
+                },
+                {
+                  href: `${FL415_DOWNLOAD_LINK}`,
+                  text: 'statement of service (form FL415)',
                 },
               ],
             },
@@ -779,6 +864,47 @@ const cy: typeof en = {
             },
           ],
         },
+        soaServedBannerCa: {
+          heading: 'Serve the application',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+                },
+                {
+                  text: 'You must refer to correspondence from the court about serving the application on the respondent',
+                },
+                {
+                  text: 'You must not give any court documents to the respondent yourself.',
+                },
+              ],
+              links: [
+                {
+                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  text: 'View the final order (PDF)',
+                },
+              ],
+            },
+            {
+              contents: [
+                {
+                  text: 'You must tell the court once the respondent has been served. Do this by completing the',
+                },
+              ],
+              links: [
+                {
+                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  text: 'Send Statement of service (form C9) to the court',
+                },
+                {
+                  href: `${C9_DOWNLOAD_LINK}`,
+                  text: 'Statement',
+                },
+              ],
+            },
+          ],
+        },
       },
     },
     [PartyType.RESPONDENT]: {
@@ -801,7 +927,6 @@ const cy: typeof en = {
             },
           ],
         },
-
         newOrder: {
           heading: 'You have a new order from the court',
           sections: [
@@ -1024,6 +1149,47 @@ const cy: typeof en = {
                 {
                   text: 'Gweld y gorchymyn terfynol (PDF)',
                   href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                },
+              ],
+            },
+          ],
+        },
+        soaServedBannerDa: {
+          heading: 'Serve the application',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+                },
+                {
+                  text: 'You must refer to correspondence from the court about serving the application on the respondent',
+                },
+                {
+                  text: 'You must not give any court documents to the respondent yourself.',
+                },
+              ],
+              links: [
+                {
+                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  text: 'View the final order (PDF)',
+                },
+              ],
+            },
+            {
+              contents: [
+                {
+                  text: 'You must tell the court once the respondent has been served. Do this by completing the',
+                },
+              ],
+              links: [
+                {
+                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  text: 'Send Statement of service (form FL415) to the court',
+                },
+                {
+                  href: `${FL415_DOWNLOAD_LINK}`,
+                  text: 'statement of service (form FL415)',
                 },
               ],
             },

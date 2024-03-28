@@ -6,7 +6,7 @@ import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
 import { PARTY_TASKLIST, PageLink, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
 import { applyParms } from '../url-parser';
 
-import { CaseType, PartyDetails, PartyType, State, YesOrNo } from './../../../app/case/definition';
+import { Applicant, CaseType, PartyDetails, PartyType, State, YesOrNo } from './../../../app/case/definition';
 
 export const getPartyName = (
   caseData: Partial<CaseWithId> | undefined,
@@ -93,3 +93,17 @@ export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseD
 
 export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean =>
   caseData?.isCafcassCymruServed === YesOrNo.YES;
+
+export const isCaseServed = (caseData: Partial<CaseWithId>): boolean => {
+  let applicants: Applicant[] = [];
+  if (!caseData) {
+    return false;
+  }
+  if (caseData.applicants) {
+    applicants = caseData.applicants;
+    if (applicants[0].value.response.citizenFlags?.isApplicationToBeServed === YesOrNo.YES) {
+      return true;
+    }
+  }
+  return false;
+};

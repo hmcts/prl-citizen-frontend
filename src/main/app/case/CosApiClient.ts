@@ -248,10 +248,13 @@ export class CosApiClient {
         formData.append('files', file.data, file.name);
       }
 
-      formData.append('documentRequestedByCourt', request.documentRequestedByCourt);
+      formData.append(
+        'documentRequestedByCourt',
+        request.documentRequestedByCourt ? request.documentRequestedByCourt : ''
+      );
       formData.append('caseId', request.caseId);
-      formData.append('parentDocumentType', request.parentDocumentType);
-      formData.append('documentType', request.documentType);
+      formData.append('parentDocumentType', request.parentDocumentType ? request.parentDocumentType : '');
+      formData.append('documentType', request.documentType ? request.documentType : '');
       formData.append('partyId', request.partyId);
       formData.append('partyName', request.partyName);
       formData.append('isApplicant', request.isApplicant);
@@ -408,13 +411,13 @@ export class CosApiClient {
 export interface UploadDocumentRequest {
   user: UserDetails;
   caseId: string;
-  parentDocumentType: string;
-  documentType: string;
+  parentDocumentType?: string;
+  documentType?: string;
   partyId: string;
   partyName: string;
   isApplicant: string;
   files: UploadedFiles;
-  documentRequestedByCourt: YesOrNo;
+  documentRequestedByCourt?: YesOrNo;
 }
 
 export type UploadedFiles =
