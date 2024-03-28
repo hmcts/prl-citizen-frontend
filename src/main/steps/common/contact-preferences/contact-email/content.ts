@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import _ from 'lodash';
 
+import { CaseWithId } from '../../../../app/case/case';
+import { PartyType } from '../../../../app/case/definition';
+import { UserDetails } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { interpolate } from '../../../../steps/common/string-parser';
+import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
+import { getPartyDetails } from '../../../../steps/tasklistresponse/utils';
+import { APPLICANT_CONTACT_DETAILS, RESPONDENT_CONTACT_DETAILS } from '../../../../steps/urls';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   caption: 'Case number {caseNumber}',
@@ -72,23 +77,18 @@ export const getFormFields = (): FormContent => {
 };
 
 export const generateContent: TranslationFn = content => {
-  let applicantEmail = '';
   const caseNumber = content.userCase?.id!;
   const translations = languages[content.language]();
   const { fields } = generateFormFields();
-
-  if (content?.userCase?.applicants?.length) {
-    applicantEmail = _.get(
-      content.userCase.applicants.find(applicant => applicant.value.user.idamId === content.userIdamId),
-      'value.email',
-      ''
-    );
-  }
 
   return {
     ...translations,
     caption: interpolate(translations.caption, { caseNumber }),
     form: updateFormFields(form, fields),
-    userEmail: applicantEmail,
+    emailAddress: getPartyDetails(content.userCase as CaseWithId, content.userIdamId as UserDetails['id'])?.email,
+    changeEmailLink:
+      getCasePartyType(content.userCase as CaseWithId, content.userIdamId as UserDetails['id']) === PartyType.APPLICANT
+        ? APPLICANT_CONTACT_DETAILS
+        : RESPONDENT_CONTACT_DETAILS,
   };
 };

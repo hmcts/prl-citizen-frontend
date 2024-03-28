@@ -454,7 +454,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/contact-preferences/contact-preferences/12',
+              href: '/contact-preferences/fetch/12',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,
@@ -721,7 +721,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/contact-preferences/contact-preferences/12',
+              href: '/contact-preferences/fetch/12',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,
@@ -904,7 +904,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/contact-preferences/contact-preferences/12',
+              href: '/contact-preferences/fetch/12',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,
@@ -1226,7 +1226,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/contact-preferences/contact-preferences/12',
+              href: '/contact-preferences/fetch/12',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,
@@ -1474,7 +1474,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/contact-preferences/contact-preferences/12',
+              href: '/contact-preferences/fetch/12',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,

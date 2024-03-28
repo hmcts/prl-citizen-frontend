@@ -3,13 +3,7 @@ import type { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../../app/case/case';
-import {
-  CaseEvent,
-  CaseType,
-  PartyDetails,
-  PartyType,
-  applicantContactPreferencesEnum,
-} from '../../../../app/case/definition';
+import { CaseEvent, CaseType, ContactPreference, PartyDetails, PartyType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -29,6 +23,7 @@ import {
 import {
   mapConfirmContactDetails,
   prepareRequest,
+  setAddressFields,
   //setContactDetails
 } from './ContactDetailsMapper';
 
@@ -73,6 +68,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
           CaseEvent.CONFIRM_YOUR_DETAILS
         );
         mapDataInSession(req.session.userCase, user.id);
+        req.session.userCase.citizenUserAddressText = setAddressFields(req).citizenUserAddressText;
         req.session.save(() => {
           const redirectUrl = this.getRedirectUrl(partyType, req, userCase);
           res.redirect(redirectUrl);
@@ -99,7 +95,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
     } else if (userCase.caseTypeOfApplication === CaseType.C100) {
       redirectUrl = C100_APPLICANT_TASKLIST;
       if (req.session.applicationSettings?.navFromContactPreferences) {
-        if (userCase.applicantPreferredContact === applicantContactPreferencesEnum.POST) {
+        if (userCase.preferredModeOfContact === ContactPreference.POST) {
           redirectUrl = APPLICANT_TASKLIST_CONTACT_POST_SUCCESS;
         } else {
           redirectUrl = APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS;

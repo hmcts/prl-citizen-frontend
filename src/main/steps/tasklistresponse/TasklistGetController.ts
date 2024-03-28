@@ -2,10 +2,13 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../app/case/CosApiClient';
-import { EventRoutesContext } from '../../app/case/definition';
-import { AppRequest } from '../../app/controller/AppRequest';
+import { CaseWithId } from '../../app/case/case';
+import { EventRoutesContext, PartyType } from '../../app/case/definition';
+import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
+import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   APPLICANT_CHECK_ANSWERS,
+  APPLICANT_CHOOSE_CONTACT_PREFERENCE,
   APPLICANT_DETAILS_KNOWN,
   C7_ATTENDING_THE_COURT,
   CONSENT_TO_APPLICATION,
@@ -14,6 +17,7 @@ import {
   PROCEEDINGS_START,
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
+  RESPONDENT_CHOOSE_CONTACT_PREFERENCE,
   RESPONDENT_DETAILS_KNOWN,
 } from '../urls';
 
@@ -30,13 +34,13 @@ export class TasklistGetController {
       req.session.userCase = await client.retrieveByCaseId(caseId, citizenUser);
       mapDataInSession(req.session.userCase, citizenUser.id);
 
-      req.session.save(() => res.redirect(this.getRedirectUrl()));
+      req.session.save(() => res.redirect(this.getRedirectUrl(req.session.userCase, citizenUser)));
     } catch (err) {
       throw new Error('Case Data could not be retrieved.');
     }
   }
 
-  private getRedirectUrl() {
+  private getRedirectUrl(userCase: CaseWithId, user: UserDetails) {
     let redirectUrl;
     switch (this.context) {
       case EventRoutesContext.INTERNATIONAL_FACTORS_RESPONSE:
@@ -68,6 +72,12 @@ export class TasklistGetController {
         break;
       case EventRoutesContext.CONFIRM_CONTACT_DETAILS_RESPONDENT:
         redirectUrl = RESPONDENT_CHECK_ANSWERS;
+        break;
+      case EventRoutesContext.CONTACT_PREFERENCE:
+        redirectUrl =
+          getCasePartyType(userCase, user.id) === PartyType.APPLICANT
+            ? APPLICANT_CHOOSE_CONTACT_PREFERENCE
+            : RESPONDENT_CHOOSE_CONTACT_PREFERENCE;
         break;
     }
 

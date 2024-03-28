@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars*/
 /* eslint-disable @typescript-eslint/no-explicit-any*/
-import { PartyDetails, applicantContactPreferencesEnum } from '../../../../app/case/definition';
+import { CaseWithId } from '../../../../app/case/case';
+import { ContactPreference } from '../../../../app/case/definition';
+import { UserDetails } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
+import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-import { interpolate } from '../../../../steps/common/string-parser';
 import { getPartyDetails } from '../../../../steps/tasklistresponse/utils';
+import { interpolate } from '../../string-parser';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -26,7 +28,7 @@ export const en = () => ({
   labelPostHintText: 'All communication from the court will be sent by post.',
   continue: 'Save and continue',
   errors: {
-    applicantPreferredContact: {
+    preferredModeOfContact: {
       required: 'Please select a contact preference',
     },
   },
@@ -49,7 +51,7 @@ export const cy = () => ({
   labelPostHintText: 'Fe anfonir pob cyfathrebiad gan y llys drwy’r post.',
   continue: 'Cadw a pharhau',
   errors: {
-    applicantPreferredContact: {
+    preferredModeOfContact: {
       required: 'Dewiswch sut hoffech inni gysylltu â chi',
     },
   },
@@ -60,31 +62,10 @@ const languages = {
   cy,
 };
 
-let updatedForm: FormContent;
-
-const updateFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
-  updatedForm = {
-    ...form,
-    fields: {
-      ...formFields,
-      ...(form.fields ?? {}),
-    },
-  };
-
-  return updatedForm;
-};
-
-export const generateFormFields = (partyDetails: PartyDetails): GenerateDynamicFormFields => {
-  const contactPreferences = partyDetails?.contactPreferences;
-
-  const errors = {
-    en: {},
-    cy: {},
-  };
-
-  const fields = {
-    applicantPreferredContact: {
-      id: 'applicantPreferredContact',
+export const form: FormContent = {
+  fields: {
+    preferredModeOfContact: {
+      id: 'preferredModeOfContact',
       type: 'radios',
       classes: 'govuk-radios',
       validator: atLeastOneFieldIsChecked,
@@ -94,29 +75,19 @@ export const generateFormFields = (partyDetails: PartyDetails): GenerateDynamicF
       values: [
         {
           label: l => l.labelDigital,
-          name: 'applicantPreferredContact',
-          value: applicantContactPreferencesEnum.DIGITAL,
+          name: 'preferredModeOfContact',
+          value: ContactPreference.DIGITAL,
           hint: l => l.labelDitigalHintText,
         },
         {
           label: l => l.labelPost,
-          name: 'applicantPreferredContact',
-          value: applicantContactPreferencesEnum.POST,
+          name: 'preferredModeOfContact',
+          value: ContactPreference.POST,
           hint: l => l.labelPostHintText,
         },
       ],
     },
-  };
-
-  fields.applicantPreferredContact.values = fields.applicantPreferredContact.values.map(config =>
-    config.value === contactPreferences ? { ...config, selected: true } : config
-  );
-
-  return { fields, errors };
-};
-
-export const form: FormContent = {
-  fields: {},
+  },
   onlycontinue: {
     text: l => l.continue,
   },
@@ -124,16 +95,18 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-  const caseNumber = content.userCase?.id!;
-  const { user, userCase } = content.additionalData?.req.session;
-  const partyDetails = getPartyDetails(userCase, user.id) as PartyDetails;
-  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-  const { fields } = generateFormFields(partyDetails);
+  const caseData = content.userCase as CaseWithId;
+  const partyDetails = getPartyDetails(caseData, content.userIdamId as UserDetails['id']);
+
+  if (!partyDetails?.email) {
+    form.fields['preferredModeOfContact'].values[0].disabled = true;
+  } else {
+    delete form.fields['preferredModeOfContact'].values[0].disabled;
+  }
 
   return {
     ...translations,
-    caption: interpolate(translations.caption, { caseNumber }),
-    form: updateFormFields(form, fields),
+    form,
+    caption: interpolate(translations.caption, { caseNumber: caseData.id! }),
   };
 };

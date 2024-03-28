@@ -78,6 +78,7 @@ import {
   PRL_C1AAbuseTypes,
   applicantContactPreferencesEnum,
   RespondentDocs,
+  ContactPreference,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -587,6 +588,7 @@ export interface Case {
   c100RebuildReturnUrl?: string;
   noOfDaysRemainingToSubmitCase?: string;
   applicantPreferredContact?: applicantContactPreferencesEnum;
+  preferredModeOfContact?: ContactPreference | null;
   draftOrderDoc?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;

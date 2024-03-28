@@ -1,4 +1,4 @@
-import { Respondent, State, applicantContactPreferencesEnum } from '../../../app/case/definition';
+import { ContactPreference, Respondent, State } from '../../../app/case/definition';
 
 import {
   mapSupportYouNeedDetails,
@@ -346,7 +346,7 @@ describe('mapSupportYouNeedDetails', () => {
           email: 'test@email.com',
           idamId: '',
         },
-        contactPreferences: applicantContactPreferencesEnum.DIGITAL,
+        contactPreferences: ContactPreference.DIGITAL,
       },
     };
 
