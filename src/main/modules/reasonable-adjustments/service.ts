@@ -160,14 +160,13 @@ export class ReasonableAdjustmentsService {
   ): Promise<any> {
     try {
       const data = {
-        languageSupportCaseNotesRequest: {
-          languageSupportNotes: caseData.ra_languageReqAndSpecialArrangements,
-          partyIdamId,
-        },
+        languageSupportNotes: caseData.ra_languageReqAndSpecialArrangements,
+        partyIdamId,
       };
       const response = await RAProvider.APIClient()!.post<string>(
         applyParms(REASONABLE_ADJUSTMENTS_SUBMIT_LANGUAGE_REQ, {
-          caseId: caseData.id
+          appBaseUrl: config.get('services.cos.url'),
+          caseId: caseData.id,
         }),
         data,
         {
