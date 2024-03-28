@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
+import { CitizenDocuments } from '../../steps/common/documents/definitions';
 import { CaseDate, FieldPrefix } from './case';
 
 export interface ChildDetails {
@@ -981,6 +982,8 @@ export interface CaseData {
   draftOrderDoc?: Document;
   soaCafcassServedOptions?: YesOrNo | null;
   soaCafcassCymruServedOptions? : YesOrNo | null;
+  citizenDocuments?: CitizenDocuments[];
+  citizenOrders?: Record<string, any>[];
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -1652,7 +1655,8 @@ export const enum EventRoutesContext {
   SAFETY_CONCERNS_RESPONSE = "SAFETY_CONCERNS_RESPONSE",
   INTERNATIONAL_FACTORS_RESPONSE = "INTERNATIONAL_FACTORS_RESPONSE",
   SUPPORT_DURING_CASE = "SUPPORT_DURING_CASE",
-  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO"
+  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO",
+  VIEW_ALL_DOCUMENTS = 'VIEW_ALL_DOCUMENTS'
 }
 
 export const enum ClarificationReason {

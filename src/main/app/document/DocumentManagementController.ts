@@ -578,8 +578,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const caseDetailsFromCos = await client.retrieveByCaseId(caseData.id, user);
 
       Object.assign(req.session.userCase, caseDetailsFromCos);
-      const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(req, caseData.id, client, user);
-      Object.assign(req.session.userCase, caseDataFromCos);
+      //const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(req, caseData.id, client, user);
+      //Object.assign(req.session.userCase, caseDataFromCos);
       req.session.errors = removeUploadDocErrors(req.session.errors);
     } catch (e) {
       req.session.errors = handleUploadDocError(req.session.errors, 'uploadError', true);
@@ -620,8 +620,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const caseDetailsFromCos = await client.retrieveByCaseId(caseData.id, user);
 
       Object.assign(req.session.userCase, caseDetailsFromCos);
-      const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(req, caseData.id, client, user);
-      Object.assign(req.session.userCase, caseDataFromCos);
+      //const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(req, caseData.id, client, user);
+      //Object.assign(req.session.userCase, caseDataFromCos);
       req.session.errors = removeUploadDocErrors(req.session.errors);
     } catch (e) {
       req.session.errors = handleUploadDocError(req.session.errors, 'uploadError', true);

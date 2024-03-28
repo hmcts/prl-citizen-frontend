@@ -1,0 +1,42 @@
+{% extends "common/page.njk" %}
+{% from "common/breadcrumb/breadcrumb.macro.njk" import appBreadcrumb with context %}
+
+{% block backLink %}{% endblock %}
+
+{% block pageTitle %}
+  {{pageHeading}} - Private law - GOV.UK
+{% endblock %}
+
+{% block page_content %}
+  <div class="govuk-grid-column-full">
+    {{appBreadcrumb(breadcrumbs)}}
+    <h1 class="govuk-heading-xl">
+      <span class="govuk-caption-l">{{title}}</span>
+      {{pageHeading}}
+    </h1>
+
+    <div class="govuk-form-group">
+      <fieldset class="govuk-fieldset">
+        <p class="govuk-body">{{caseNumber}}&nbsp;&nbsp;{{caseId}}</p>
+      </fieldset>
+      <hr class="govuk-section-break govuk-section-break govuk-section-break--visible">
+    </div>
+
+    <ol class="app-task-list">
+      <li>
+        <dl class="govuk-summary-list govuk-summary-list--no-border">
+          {% for document in documents %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{document['document_en']['createdDate']}}
+              </dt>
+              <dd class="govuk-summary-list__value">
+                <a href={{document['document_en']['downloadLink']}} target="_blank">{{ document['document_en']['documentName'] }}</a>
+              </dd>
+            </div>
+          {% endfor %}
+        </dl>
+      </li>
+    </ol>
+  </div>
+{% endblock %}

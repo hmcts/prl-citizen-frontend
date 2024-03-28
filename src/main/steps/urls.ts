@@ -239,6 +239,11 @@ export const RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER: PageLink = `${RESPONDENT
 export const APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER: PageLink = `${APPLICANT_VIEW_ALL_DOCUMENTS}/allDocumentsViewed`;
 export const VIEW_DOCUMENT_URL = '/doc/:docType/:uploadedBy/:partyName?';
 
+/** View all documents */
+const ALL_DOCUMENTS = '/documents';
+export const VIEW_ALL_DOCUMENT_TYPES: PageLink = `/:partyType${ALL_DOCUMENTS}/all-documents`;
+export const VIEW_DOCUMENTS: PageLink = `/:partyType${ALL_DOCUMENTS}/list/:documentCategory/:documentPartyType/:documentPartyId?`;
+
 export const RESPNDT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 
 export const APPLICANT_WITNESS_STATEMENTS_DA: PageLink = `${APPLICANT}/witnessstatements`;

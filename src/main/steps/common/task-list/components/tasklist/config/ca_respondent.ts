@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../../app/case/case';
+import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { applyParms } from '../../../../../../steps/common/url-parser';
@@ -16,6 +17,7 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
+  VIEW_ALL_DOCUMENT_TYPES,
 } from '../../../../../../steps/urls';
 import { isApplicationResponded, isCaseClosed, isRepresentedBySolicotor } from '../../../utils';
 import {
@@ -113,6 +115,11 @@ export const document: TaskListConfigProps = {
   content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
   show: () => true,
   tasks: (): Task[] => [
+    {
+      id: Tasks.VIEW_ALL_DOCUMENTS,
+      href: () => applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.RESPONDENT }),
+      stateTag: () => StateTags.READY_TO_VIEW,
+    },
     {
       id: Tasks.VIEW_ALL_DOCUMENTS,
       href: () => RESPONDENT_VIEW_ALL_DOCUMENTS,

@@ -103,8 +103,12 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
   const results: StepWithContent[] = [];
   if (sequence?.length) {
     for (const step of sequence) {
+      if (step.subDir) {
+        console.info('****');
+      }
       const { url } = parseUrl(step.url);
-      const subdirurl = url.startsWith(subDir) ? url : `${subDir}${url}`;
+      const _subDir = step?.subDir ?? subDir;
+      const subdirurl = url.startsWith(_subDir) ? url : `${_subDir}${url}`;
       const stepDir = `${dir}${subdirurl}`;
       const { content, view } = getStepFiles(stepDir);
       results.push({ stepDir, ...step, ...content, view });

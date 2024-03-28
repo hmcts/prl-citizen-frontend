@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { generateTheResponseTasks } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
+import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
@@ -13,6 +15,7 @@ import {
   APPLICANT_YOURHEARINGS_HEARINGS,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
+  VIEW_ALL_DOCUMENT_TYPES,
 } from '../../../../../../steps/urls';
 import { Task, TaskListConfigProps } from '../../../definitions';
 import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
@@ -89,24 +92,29 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
   {
     id: TaskListSection.YOUR_DOCUMENTS,
     content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-    show: isCaseLinked,
+    //show: isCaseLinked,
     tasks: (): Task[] => [
       {
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+        /*show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
           return (
             isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
           );
-        },
+        },*/
         disabled: isCaseClosed,
         stateTag: () => StateTags.OPTIONAL,
       },
       {
         id: Tasks.VIEW_ALL_DOCUMENTS,
+        href: () => applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+        stateTag: () => StateTags.READY_TO_VIEW,
+      },
+      {
+        id: Tasks.VIEW_ALL_DOCUMENTS,
         href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
         stateTag: () => StateTags.READY_TO_VIEW,
-        show: isCaseLinked,
+        //show: isCaseLinked,
       },
     ],
   },
