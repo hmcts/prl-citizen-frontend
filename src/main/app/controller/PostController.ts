@@ -11,14 +11,7 @@ import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
-import {
-  C100_CASE_EVENT,
-  CITIZEN_SAVE_AND_CLOSE,
-  CITIZEN_UPDATE,
-  CaseData,
-  PartyType,
-  State,
-} from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, PartyType, State } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -275,11 +268,10 @@ export class PostController<T extends AnyObject> {
       try {
         req.session.errors = [];
         Object.assign(req.session.userCase, formData);
-        await req.locals.C100Api.updateCase(
+        await req.locals.C100Api.saveC100DraftApplication(
           req.session.userCase!.caseId!,
           req.session.userCase,
-          req.originalUrl,
-          C100_CASE_EVENT.CASE_UPDATE
+          req.originalUrl
         );
         //update latest reutrn URL in the session
         req.session.userCase.c100RebuildReturnUrl = req.originalUrl;

@@ -36,7 +36,7 @@ export class ContactPreferencesPostController extends PostController<AnyObject> 
           partyDetails,
           partyType,
           userCase.caseTypeOfApplication as CaseType,
-          CaseEvent.PARTY_PERSONAL_DETAILS
+          CaseEvent.CONTACT_PREFERENCE
         );
         mapDataInSession(req.session.userCase, user.id);
         req.session.userCase.applicantPreferredContact = partyDetails.contactPreferences;
