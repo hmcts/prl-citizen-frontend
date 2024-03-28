@@ -47,6 +47,9 @@ const en: NotificationBannerContent = {
                 {
                   text: 'You have {noOfDaysRemainingToSubmitCase} days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
                 },
+                {
+                  text: 'You can review all your answers before you submit your application.',
+                },
               ],
               links: [
                 {
@@ -581,6 +584,9 @@ const cy: typeof en = {
               contents: [
                 {
                   text: 'Mae gennych {noOfDaysRemainingToSubmitCase} diwrnod i gyflwyno eich cais o’r dyddiad y gwnaethoch ei gychwyn, neu bydd yn cael ei ddileu a bydd rhaid i chi gychwyn y cais eto. Mae hyn er mwyn cadw eich gwybodaeth yn ddiogel.',
+                },
+                {
+                  text: 'You can review all your answers before you submit your application.-welsh',
                 },
               ],
               links: [
