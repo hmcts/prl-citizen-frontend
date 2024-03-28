@@ -35,7 +35,7 @@ describe('CosApiClient', () => {
 
   test('validateAccessCode', async () => {
     const response = { id: '200', state: 'SUCCESS' };
-    mockedAxios.get.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
     const actual = await client.validateAccessCode('1234567', '1234', req.session.user);
