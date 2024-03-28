@@ -478,7 +478,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/reasonable-adjustments/guidance',
+              href: '/applicant/reasonable-adjustments/intro',
               id: 'supportYouNeed',
               linkText: 'Support you need during your case',
               openInAnotherTab: false,
@@ -745,7 +745,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/reasonable-adjustments/guidance',
+              href: '/applicant/reasonable-adjustments/intro',
               id: 'supportYouNeed',
               linkText: 'Support you need during your case',
               openInAnotherTab: false,
@@ -928,7 +928,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/reasonable-adjustments/guidance',
+              href: '/applicant/reasonable-adjustments/intro',
               id: 'supportYouNeed',
               linkText: 'Support you need during your case',
               openInAnotherTab: false,
@@ -1250,7 +1250,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/reasonable-adjustments/guidance',
+              href: '/applicant/reasonable-adjustments/intro',
               id: 'supportYouNeed',
               linkText: 'Support you need during your case',
               openInAnotherTab: false,
@@ -1498,7 +1498,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/reasonable-adjustments/guidance',
+              href: '/applicant/reasonable-adjustments/intro',
               id: 'supportYouNeed',
               linkText: 'Support you need during your case',
               openInAnotherTab: false,
@@ -1737,7 +1737,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/reasonable-adjustments/guidance',
+              href: '/applicant/reasonable-adjustments/intro',
               id: 'supportYouNeed',
               linkText: 'Support you need during your case',
               openInAnotherTab: false,
@@ -1889,7 +1889,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/reasonable-adjustments/guidance',
+              href: '/applicant/reasonable-adjustments/intro',
               id: 'supportYouNeed',
               linkText: 'Support you need during your case',
               openInAnotherTab: false,
@@ -2249,7 +2249,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/respondent/reasonable-adjustments/guidance',
+              href: '/respondent/reasonable-adjustments/intro',
               id: 'supportYouNeed',
               linkText: 'Support you need during your case',
               openInAnotherTab: false,
@@ -2578,7 +2578,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/reasonable-adjustments/guidance',
+            href: '/respondent/reasonable-adjustments/intro',
             id: 'supportYouNeed',
             linkText: 'Support you need during your case',
             openInAnotherTab: false,
@@ -2795,7 +2795,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/reasonable-adjustments/guidance',
+            href: '/respondent/reasonable-adjustments/intro',
             id: 'supportYouNeed',
             linkText: 'Support you need during your case',
             openInAnotherTab: false,
@@ -3041,7 +3041,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/reasonable-adjustments/guidance',
+            href: '/respondent/reasonable-adjustments/intro',
             id: 'supportYouNeed',
             linkText: 'Support you need during your case',
             openInAnotherTab: false,
