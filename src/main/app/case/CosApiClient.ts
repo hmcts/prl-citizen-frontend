@@ -151,7 +151,7 @@ export class CosApiClient {
     user: UserDetails,
     caseId: string,
     partyId: string,
-    data: Partial<CaseData>
+    isDocRequiredInWelsh: boolean
   ): Promise<CaseWithId> {
     try {
       const headers = {
@@ -162,7 +162,9 @@ export class CosApiClient {
       };
       const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document-final`,
-        data,
+        {
+          isWelsh: isDocRequiredInWelsh,
+        },
         {
           headers,
         }
@@ -179,7 +181,7 @@ export class CosApiClient {
     user: UserDetails,
     caseId: string,
     partyId: string,
-    data: Partial<CaseData>
+    isDocRequiredInWelsh: boolean
   ): Promise<DocumentDetail> {
     try {
       const headers = {
@@ -188,9 +190,12 @@ export class CosApiClient {
         Authorization: 'Bearer ' + user.accessToken,
         ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
       };
+
       const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document`,
-        data,
+        {
+          isWelsh: isDocRequiredInWelsh,
+        },
         {
           headers,
         }
