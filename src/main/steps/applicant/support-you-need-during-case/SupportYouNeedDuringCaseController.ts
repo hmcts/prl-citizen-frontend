@@ -6,9 +6,15 @@ import { CaseEvent, CaseType, PartyType } from '../../../app/case/definition';
 import type { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { applyParms } from '../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails, mapDataInSession } from '../../../steps/tasklistresponse/utils';
-import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
+import {
+  APPLICANT_TASK_LIST_URL,
+  PARTY_TASKLIST,
+  RESPONDENT_TASK_LIST_URL,
+  RESPOND_TO_APPLICATION,
+} from '../../../steps/urls';
 
 import { prepareSupportYouNeedDuringCaseRequest } from './SupportYouNeedDuringYourCaseService';
 @autobind
@@ -38,9 +44,7 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
         if (partyType === PartyType.APPLICANT) {
           return_url = APPLICANT_TASK_LIST_URL;
         } else {
-          return_url = req.session.applicationSettings?.navfromRespondToApplication
-            ? RESPOND_TO_APPLICATION
-            : RESPONDENT_TASK_LIST_URL;
+          return_url = this.getReturnUrl(req);
         }
 
         req.session.save(() => res.redirect(return_url));
@@ -49,4 +53,16 @@ export class SupportYouNeedDuringYourCaseController extends PostController<AnyOb
       throw new Error('SupportDuringCase - Case could not be updated.');
     }
   }
+
+  private getReturnUrl = (req: AppRequest) => {
+    if (req.session.userCase.caseTypeOfApplication === 'C100') {
+      return req.session.applicationSettings?.navfromRespondToApplication
+        ? RESPOND_TO_APPLICATION
+        : applyParms(`${PARTY_TASKLIST}`, { partyType: PartyType.RESPONDENT });
+    } else {
+      return req.session.applicationSettings?.navfromRespondToApplication
+        ? RESPOND_TO_APPLICATION
+        : RESPONDENT_TASK_LIST_URL;
+    }
+  };
 }

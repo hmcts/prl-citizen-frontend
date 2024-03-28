@@ -30,7 +30,7 @@ export const en = () => ({
   approxCheckboxLabel: 'I don’t know their date of birth',
   approxDobLabel: 'Approximate date of birth',
   previousName: 'Enter their previous name',
-  previousNameHint: 'This should be the full legal name(including any middle names)',
+  previousNameHint: 'This should be the full legal name (including any middle names)',
   respondentGenderLabel: 'Gender',
   male: 'Male',
   female: 'Female',

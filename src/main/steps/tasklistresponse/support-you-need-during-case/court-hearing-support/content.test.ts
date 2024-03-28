@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -147,7 +148,48 @@ describe('citizen-home content', () => {
   test('should contain courthearing field', () => {
     const courthearingField = fields.courtHearing as FormOptions;
     expect(courthearingField.type).toBe('checkboxes');
+    expect((courthearingField.hint as Function)(generatedContent)).toBe(en.optionHint);
     expect((courthearingField.section as Function)(generatedContent)).toBe(en.section);
+    expect((courthearingField.values[0].label as Function)(generatedContent)).toBe(en.supportworker);
+    expect((courthearingField.values[0].subFields?.supportWorkerDetails.label as Function)(generatedContent)).toBe(
+      en.supportWorkerDetails
+    );
+
+    (courthearingField.values[0].subFields?.supportWorkerDetails.validator as Validator)('supportWorkerDetails');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('supportWorkerDetails');
+    expect(isTextAreaValid).toHaveBeenCalledWith('supportWorkerDetails');
+
+    expect((courthearingField.values[1].label as Function)(generatedContent)).toBe(en.familymember);
+    expect((courthearingField.values[1].subFields?.familyProviderDetails.label as Function)(generatedContent)).toBe(
+      en.familyMemberDetails
+    );
+
+    (courthearingField.values[1].subFields?.familyProviderDetails.validator as Validator)('familyProviderDetails');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('familyProviderDetails');
+    expect(isTextAreaValid).toHaveBeenCalledWith('familyProviderDetails');
+
+    expect((courthearingField.values[2].label as Function)(generatedContent)).toBe(en.assistance);
+    expect((courthearingField.values[3].label as Function)(generatedContent)).toBe(en.animal);
+    expect((courthearingField.values[3].subFields?.therapyDetails.label as Function)(generatedContent)).toBe(
+      en.animalDetails
+    );
+
+    (courthearingField.values[3].subFields?.therapyDetails.validator as Validator)('therapyDetails');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('therapyDetails');
+    expect(isTextAreaValid).toHaveBeenCalledWith('therapyDetails');
+
+    expect((courthearingField.values[4].label as Function)(generatedContent)).toBe(en.other);
+    expect((courthearingField.values[4].subFields?.communicationSupportOther.label as Function)(generatedContent)).toBe(
+      en.otherDetails
+    );
+
+    (courthearingField.values[4].subFields?.communicationSupportOther.validator as Validator)(
+      'communicationSupportOther'
+    );
+    expect(isFieldFilledIn).toHaveBeenCalledWith('communicationSupportOther');
+    expect(isTextAreaValid).toHaveBeenCalledWith('communicationSupportOther');
+
+    expect((courthearingField.values[6].label as Function)(generatedContent)).toBe(en.nosupport);
   });
 
   test('should contain Continue button', () => {

@@ -1,6 +1,8 @@
+const testConfig = require('../config');
+
 Feature('C100 Rebuild - draft consent flow');
 
-Scenario('C100 Rebuild - draft consent flow  @nightly',  async ({ I }) => {
+Scenario('C100 Rebuild - draft consent flow @nightly',  async ({ I }) => {
    await I.loginAsCitizen();
    await I.createC100Application();
    await I.startTheApplication();
@@ -20,4 +22,4 @@ Scenario('C100 Rebuild - draft consent flow  @nightly',  async ({ I }) => {
    await I.reasonableAdjustments();
    await I.withHelpWithFeeEvent();
    await I.checkYourAnswersSimpleEvent();
-  }).retry({ retries: 3, minTimeout: 30000 });
+  }).retry(testConfig.TestRetryScenarios);

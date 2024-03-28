@@ -1,3 +1,5 @@
+const testConfig = require('../config');
+
 Feature('C100 Rebuild - with urgency flow');
 
 Scenario('C100 Rebuild - urgent hearing flow @nightly',  async ({ I }) => {
@@ -20,4 +22,4 @@ Scenario('C100 Rebuild - urgent hearing flow @nightly',  async ({ I }) => {
     await I.reasonableAdjustments();
     await I.withHelpWithFeeEvent();
     await I.checkYourAnswersSimpleEvent();
-}).retry({ retries: 3, minTimeout: 60000 });
+}).retry(testConfig.TestRetryScenarios);

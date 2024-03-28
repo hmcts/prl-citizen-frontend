@@ -144,7 +144,6 @@ import {
   C100_APPLICANTS_PERSONAL_DETAILS,
   C100_APPLICANT_CONTACT_DETAIL,
   C100_CHECK_YOUR_ANSWER,
-  C100_CASE_NAME,
   C100_CREATE_CASE,
   C100_APPLICANT_CONTACT_PREFERENCES,
 } from './../urls';
@@ -1013,11 +1012,6 @@ export const C100Sequence: Step[] = [
     url: C100_CHECK_YOUR_ANSWER,
     showInSection: Sections.C100,
     getNextStep: () => C100_CHECK_YOUR_ANSWER,
-  },
-  {
-    url: C100_CASE_NAME,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_CHILD_ADDRESS,
   },
   {
     url: C100_APPLICANT_CONTACT_PREFERENCES,

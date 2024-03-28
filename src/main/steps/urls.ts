@@ -31,6 +31,7 @@ export const FETCH_CASE_DETAILS: PageLink = '/case/:caseId';
 export const PARTY_TASKLIST: PageLink = '/task-list/:partyType';
 
 export const C100_APPLICANT_TASKLIST: PageLink = '/task-list/applicant';
+export const TASKLIST_RESPONDENT: PageLink = '/task-list/respondent';
 
 /*confirm-contact-details-start */
 export const CONFIRM_CONTACT_DETAILS: PageLink = '/confirm-contact-details';
@@ -547,7 +548,6 @@ export const C100_CONSENT_ORDER_UPLOAD_CONFIRMATION: PageLink = `${C100_CONSENT_
 /**@C100 check you answers */
 export const C100_CHECK_YOUR_ANSWER: PageLink = `${C100_URL}/check-your-answers`;
 
-export const C100_CASE_NAME: PageLink = `${C100_URL}/case-name`;
 export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orderType/:orderId/documentUpload/:removeId?`;
 
 /** @C100 rebuild */
@@ -593,6 +593,7 @@ export const C100_WITHDRAW_CASE_CONFIRMATION: PageLink = `${C100_URL}/withdraw/c
 /** applicant/tasklist hearing needs */
 export const HEARING_NEEDS: PageLink = '/hearing-needs';
 export const APPLICANT_TASKLIST_HEARING_NEEDS: PageLink = `${APPLICANT}${HEARING_NEEDS}/support-help`;
+export const RESPONDENT_TASKLIST_HEARING_NEEDS: PageLink = `${RESPONDENT}${HEARING_NEEDS}/support-help`;
 
 export const RESPONDENT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${RESPONDENT}/add-legal-representative`;
 export const APPLICANT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${APPLICANT}/add-legal-representative`;
@@ -618,21 +619,33 @@ export const SCREENING_QUESTIONS = [
   SCREENING_QUESTION_CONTACT_LEGAL_REP,
 ];
 export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
+export const COMMON_PAGE_URLS = [
+  DASHBOARD_URL,
+  PIN_ACTIVATION_URL,
+  COOKIES_PAGE,
+  PRIVACY_POLICY,
+  ACCESSIBILITY_STATEMENT,
+  TERMS_AND_CONDITIONS,
+  ...ANONYMOUS_URLS,
+];
+
+export const TASKLIST_RESPONSE_TO_CA: PageLink = `${APPLICANT}/responsetoca`;
 
 export const LOCAL_API_SESSION = '/api/v1/session';
 export const SAFEGAURD_EXCLUDE_URLS = [
-  DASHBOARD_URL,
-  PIN_ACTIVATION_URL,
   C100_URL,
-  '/case/',
+  DASHBOARD_URL,
   LOCAL_API_SESSION,
   PAYMENT_RETURN_URL,
-  DOCUMENT_MANAGER,
-  ALLEGATION_OF_HARM_VOILENCE_DOC,
-  RESPONSE_TO_CA,
-  AOH_TO_CA,
-  CITIZEN_DOWNLOAD_UPLOADED_DOCS,
   TASK_LIST_RESPONSE,
+  ALLEGATION_OF_HARM_VOILENCE,
+  RESPONSE_TO_CA,
+  APPLICANT_CA_DA_REQUEST,
+  FETCH_CASE_DETAILS,
+  PIN_ACTIVATION_CASE_ACTIVATED_URL,
+  // RESPONDENT_TASK_LIST_URL,
+  DOCUMENT_MANAGER,
+  CITIZEN_DOWNLOAD_UPLOADED_DOCS,
   CONTACT_PREFERENCES,
 ];
 

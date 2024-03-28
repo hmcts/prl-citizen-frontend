@@ -1,6 +1,9 @@
 /* eslint-disable import/no-unresolved */
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { CaseWithId } from '../../../../../app/case/case';
+import { YesOrNo } from '../../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
+import { Validator, atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 import { ANYTYPE } from '../common/index';
 
@@ -67,14 +70,16 @@ describe('applicant personal details > applying-with > content', () => {
         },
       ],
     },
-    additionalData: {
-      req: {
-        query: {
-          applicantId: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
-        },
+  } as unknown as CommonContent;
+
+  const additionalData = {
+    req: {
+      params: {
+        applicantId: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
       },
     },
-  } as unknown as CommonContent;
+  };
+
   let generatedContent;
   let form;
   let fields;
@@ -99,11 +104,15 @@ describe('applicant personal details > applying-with > content', () => {
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
+    expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
     expect(subFields.type).toBe('checkboxes');
     expect((subFields.hint as LanguageLookup)(generatedContent)).toBe(en.contact_details_private);
     expect((subFields.values[0].label as LanguageLookup)(generatedContent)).toBe(en.address);
     expect((subFields.values[1].label as LanguageLookup)(generatedContent)).toBe(en.telephoneNumber);
     expect((subFields.values[2].label as LanguageLookup)(generatedContent)).toBe(en.Email);
+
+    subFields.validator!('', { start: 'Yes' as YesOrNo }) as unknown as Validator;
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalled();
   });
   test('should contain Continue button', () => {
     expect(
@@ -117,45 +126,78 @@ describe('applicant personal details > applying-with > content', () => {
     ).toBe('Save and come back later');
   });
 
-  test('rendering form fields', () => {
-    const additionalData = {
-      req: {
-        params: {
-          applicantId: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
+  test('rendering form fields - toggled check as yes', () => {
+    const userCase = {
+      appl_allApplicants: [
+        {
+          id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+          applicantFirstName: 'Test1',
+          applicantLastName: 'Test2',
+          detailsKnown: 'Yes',
+          startAlternative: '',
+          start: 'Yes',
+          contactDetailsPrivate: ['address', 'telephone', 'email'],
+          contactDetailsPrivateAlternative: [],
         },
-      },
-      userCase: {
-        appl_allApplicants: [
-          {
-            id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
-            applicantFirstName: 'Test1',
-            applicantLastName: 'Test2',
-            detailsKnown: 'Yes',
-            startAlternative: '',
-            start: 'Yes',
-            contactDetailsPrivate: ['email'],
-            contactDetailsPrivateAlternative: [],
-          },
-          {
-            id: 'd8d2d081-115e-49e6-add9-bd8b0e3e851a',
-            applicantFirstName: 'Test2',
-            applicantLastName: 'Test2',
-            detailsKnown: 'Yes',
-            startAlternative: '',
-            start: 'Yes',
-            contactDetailsPrivate: ['address', 'telephone', 'email'],
-            contactDetailsPrivateAlternative: [],
-          },
-        ],
-      },
-    };
-    const generatedContentFields: ANYTYPE = generateContent({ ...commonContent, additionalData });
+      ],
+    } as unknown as CaseWithId;
+    const generatedContentFields: ANYTYPE = generateContent({ ...commonContent, additionalData, userCase });
     expect(generatedContentFields).not.toBeNull();
-    expect(generatedContentFields.form).not.toBe([]);
     expect(generatedContentFields).not.toBe([]);
     expect(generatedContentFields.Email).toBe('Email');
     expect(generatedContentFields.address).toBe('Address');
-    expect(generatedContentFields.applicantName).toEqual('Test2 Test2');
+    expect(generatedContentFields.applicantName).toEqual('Test1 Test2');
+    expect(generatedContentFields.caption).toBe('Keeping your contact details private for');
+    expect(generatedContentFields.form.fields._ctx.value).toBe('appl_start');
+    expect(generatedContentFields['form'].fields['start'].values[0].attributes.checked).toBe(true);
+  });
+
+  test('rendering form fields - toggled check as no', () => {
+    const userCase = {
+      appl_allApplicants: [
+        {
+          id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+          applicantFirstName: 'Test1',
+          applicantLastName: 'Test2',
+          detailsKnown: 'Yes',
+          startAlternative: '',
+          start: 'No',
+          contactDetailsPrivate: ['address', 'telephone', 'email'],
+          contactDetailsPrivateAlternative: [],
+        },
+      ],
+    } as unknown as CaseWithId;
+    const generatedContentFields: ANYTYPE = generateContent({ ...commonContent, additionalData, userCase });
+    expect(generatedContentFields).not.toBeNull();
+    expect(generatedContentFields).not.toBe([]);
+    expect(generatedContentFields.Email).toBe('Email');
+    expect(generatedContentFields.address).toBe('Address');
+    expect(generatedContentFields.applicantName).toEqual('Test1 Test2');
+    expect(generatedContentFields.caption).toBe('Keeping your contact details private for');
+    expect(generatedContentFields.form.fields._ctx.value).toBe('appl_start');
+    expect(generatedContentFields['form'].fields['start'].values[1].attributes.checked).toBe(true);
+  });
+
+  test('rendering form fields - not checked', () => {
+    const userCase = {
+      appl_allApplicants: [
+        {
+          id: '480e8295-4c5b-4b9b-827f-f9be423ec1c5',
+          applicantFirstName: 'Test1',
+          applicantLastName: 'Test2',
+          detailsKnown: 'Yes',
+          startAlternative: '',
+          start: '',
+          contactDetailsPrivate: ['address', 'telephone', 'email'],
+          contactDetailsPrivateAlternative: [],
+        },
+      ],
+    } as unknown as CaseWithId;
+    const generatedContentFields: ANYTYPE = generateContent({ ...commonContent, userCase, additionalData: undefined });
+    expect(generatedContentFields).not.toBeNull();
+    expect(generatedContentFields).not.toBe([]);
+    expect(generatedContentFields.Email).toBe('Email');
+    expect(generatedContentFields.address).toBe('Address');
     expect(generatedContentFields.caption).toBe('Keeping your contact details private for');
     expect(generatedContentFields.form.fields._ctx.value).toBe('appl_start');
   });

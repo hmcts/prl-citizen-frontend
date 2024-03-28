@@ -1,6 +1,8 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../../test/unit/utils/mockUserCase';
-import { CommonContent } from '../../../common/common.content';
+import { YesOrNo } from '../../../../app/case/definition';
+import { FormContent, LanguageLookup } from '../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -51,9 +53,17 @@ jest.mock('../../../../app/form/validation');
 describe('citizen-home content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
+  let form;
   beforeEach(() => {
-    commonContent.userCase = mockUserCase;
+    commonContent.userCase = {
+      ...mockUserCase,
+      start: YesOrNo.NO,
+      parents: YesOrNo.NO,
+      jurisdiction: YesOrNo.NO,
+      request: YesOrNo.NO,
+    };
     generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
   });
 
   test('should return correct english content', () => {
@@ -70,6 +80,11 @@ describe('citizen-home content', () => {
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+  test('should contain continue button', () => {
+    expect(
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and continue');
   });
 });
 

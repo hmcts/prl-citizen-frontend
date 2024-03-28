@@ -1,5 +1,6 @@
 import { YesOrNo } from '../../app/case/definition';
 import { ContactPreferencesPostController } from '../../steps/common/contact-preferences/ContactPreferencesPostController';
+import { keepDetailsPrivateNav } from '../../steps/common/task-list/utils';
 import { Sections, Step } from '../constants';
 import {
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
@@ -74,6 +75,7 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
+  TASKLIST_RESPONDENT,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
   WITNESS_AVAILABILITY,
   YOUR_WITNESS_STATEMENTS,
@@ -100,14 +102,12 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_PRIVATE_DETAILS_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: (_caseData, req) =>
-      req?.session.applicationSettings?.navfromRespondToApplication ? RESPOND_TO_APPLICATION : RESPONDENT_TASK_LIST_URL,
+    getNextStep: (caseData, req) => keepDetailsPrivateNav(caseData, req!),
   },
   {
     url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: (_caseData, req) =>
-      req?.session.applicationSettings?.navfromRespondToApplication ? RESPOND_TO_APPLICATION : RESPONDENT_TASK_LIST_URL,
+    getNextStep: (caseData, req) => keepDetailsPrivateNav(caseData, req!),
   },
   {
     url: MIAM_START,
@@ -387,7 +387,7 @@ export const respondentCaseSequence: Step[] = [
   {
     url: CA_RESPONDENT_RESPONSE_CONFIRMATION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    getNextStep: () => TASKLIST_RESPONDENT,
   },
   {
     url: RESPONDENT_TASK_LIST_URL,

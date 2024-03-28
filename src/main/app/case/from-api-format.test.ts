@@ -1,5 +1,5 @@
 import { CaseData, ThePrayer } from './definition';
-import { fromApiFormat } from './from-api-format';
+import { checkboxConverter, fromApiDate, fromApiFormat } from './from-api-format';
 
 describe('from-api-format', () => {
   const results: Partial<Record<keyof CaseData, string | ThePrayer[] | null>> = {
@@ -39,5 +39,17 @@ describe('from-api-format', () => {
       serviceType: 'MOCK_serviceType',
     } as unknown as CaseData);
     expect(privateLawFormat).toStrictEqual(results);
+  });
+  test('fromApiDate', async () => {
+    const emptyDate = fromApiDate('');
+    const date = fromApiDate('2023-12-20');
+    expect(emptyDate).toStrictEqual({ year: '', month: '', day: '' });
+    expect(date).toStrictEqual({ year: '2023', month: '12', day: '20' });
+  });
+  test('checkboxConverter', async () => {
+    const emptyDate = checkboxConverter('');
+    const date = checkboxConverter('Yes');
+    expect(emptyDate).toStrictEqual(undefined);
+    expect(date).toStrictEqual('checked');
   });
 });

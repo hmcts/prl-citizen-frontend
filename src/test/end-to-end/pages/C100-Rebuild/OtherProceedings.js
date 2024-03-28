@@ -20,33 +20,25 @@ module.exports = {
     await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingTopSubHeading , 30);
     await I.retry(retryCount).click(this.fields.childrenInvolvedCourtCaseYesButton);
     await I.retry(retryCount).waitForText(OtherProceedings.otherProceedingBottomSubHeading , 30);
-    await I.wait('2');
     await I.retry(retryCount).click(this.fields.courtOrderProtectionYesButton);
-    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async proceedingDetails() {
     await I.retry(retryCount).waitForText(OtherProceedings.proceedingDetailsPageTitle , 30);
-    await I.wait('2');
     await I.retry(retryCount).click(this.fields.courtProceedingsOrdersButton);
-    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async provideDetailsOfCourtCases(copyOfOrder) {
     await I.retry(retryCount).waitForText(OtherProceedings.provideDetailsOfCourtCasesPageTitle , 30);
     await I.retry(retryCount).waitForText(OtherProceedings.provideDetailsOfCourtCasesSubHeading , 30);
-    await I.wait('2');
     await I.retry(retryCount).waitForSelector(this.fields.courtIssued, 30);
     await I.retry(retryCount).fillField(this.fields.courtIssued, OtherProceedings.testingText);
     await I.retry(retryCount).fillField(this.fields.caseNo, OtherProceedings.caseNumber);
     await I.retry(retryCount).fillField(this.fields.dateMadeDay, OtherProceedings.day);
     await I.retry(retryCount).fillField(this.fields.dateMadeMonth, OtherProceedings.month);
     await I.retry(retryCount).fillField(this.fields.dateMadeYear, OtherProceedings.year);
-    await I.wait('2');
     await I.retry(retryCount).click(this.fields.currentOrderYes);
     await I.retry(retryCount).click(copyOfOrder ? this.fields.copyOfOrderYes : this.fields.copyOfOrderNo);
-    await I.wait('2');
-    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
    async uploadOrder() {
@@ -63,7 +55,6 @@ module.exports = {
   async uploadOrderSummary() {
     await I.retry(retryCount).waitForText(OtherProceedings.uploadOrderSummaryInfo);
     await I.retry(retryCount).waitForText(OtherProceedings.uploadOrderSummary);
-    await I.wait('2');
     await I.retry(retryCount).click('Continue');
   },
   async otherProceedings() {

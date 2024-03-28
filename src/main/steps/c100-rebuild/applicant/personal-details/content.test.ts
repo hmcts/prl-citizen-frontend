@@ -1,7 +1,15 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { YesNoEmpty } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
-import { Validator, areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
+import {
+  Validator,
+  areDateFieldsFilledIn,
+  isAlphaNumeric,
+  isDateInputInvalid,
+  isFieldFilledIn,
+  isFieldLetters,
+  isFutureDate,
+} from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 import { getDataShape } from '../util';
 
@@ -22,7 +30,7 @@ const en = {
   dobLabel: 'Your date of birth',
   dobHint: 'For example, 31 3 2016',
   previousNameLabel: 'Enter your previous name',
-  previousNameHint: 'This should be the full legal name(including any middle names)',
+  previousNameHint: 'This should be the full legal name (including any middle names)',
   applicantGenderLabel: 'Gender',
   male: 'Male',
   female: 'Female',
@@ -209,10 +217,15 @@ describe('Applicant details > personal details', () => {
       en.previousNameLabel
     );
 
+    (haveYouChangeName.values[0].subFields.applPreviousName.validator as Function)('123');
+    expect(isFieldFilledIn).toHaveBeenCalled();
+    expect(isFieldLetters).toHaveBeenCalled();
+
     expect((haveYouChangeName.values[1].label as Function)(generatedContent)).toBe(en.two);
     expect(dateOfBirth.type).toBe('date');
     expect(dateOfBirth.classes).toBe('govuk-date-input');
     expect((dateOfBirth.label as Function)(generatedContent)).toBe(en.dobLabel);
+    expect((dateOfBirth.hint as Function)(generatedContent)).toBe(en.dobHint);
     (dateOfBirth.validator as Validator)(commonContent.userCase!.appl_allApplicants![0].personalDetails.dateOfBirth);
     expect(areDateFieldsFilledIn).toHaveBeenCalledWith({
       day: '12',
@@ -230,6 +243,19 @@ describe('Applicant details > personal details', () => {
       year: '1987',
     });
 
+    expect(dateOfBirth.values[0].name).toBe('day');
+    expect(
+      (dateOfBirth.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(dateOfBirth.values[0].classes).toBe('govuk-input--width-2');
+
     expect(gender.type).toBe('radios');
     expect(gender.classes).toBe('govuk-radios');
     expect((gender.label as Function)(generatedContent)).toBe(en.applicantGenderLabel);
@@ -243,6 +269,9 @@ describe('Applicant details > personal details', () => {
     expect((gender.values[2].subFields.otherGenderDetails.label as Function)(generatedContent)).toBe(
       en.otherGenderDetailsLabel
     );
+    (gender.values[2].subFields.otherGenderDetails.validator as Function)('123');
+    expect(isAlphaNumeric).toHaveBeenCalled();
+
     expect(applicantPlaceOfBirth.type).toBe('text');
     expect(applicantPlaceOfBirth.classes).toBe('govuk-input--width-20');
     expect((applicantPlaceOfBirth.label as Function)(generatedContent)).toBe(en.applicantPlaceOfBirthLabel);

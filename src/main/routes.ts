@@ -2,8 +2,6 @@ import fs from 'fs';
 
 import { Application } from 'express';
 
-import { RespondentTaskListGetController } from '../main/steps/respondent/task-list/get';
-
 import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
 import { FieldPrefix } from './app/case/case';
 import { EventRoutesContext } from './app/case/definition';
@@ -18,7 +16,6 @@ import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
-import ApplicantTaskListGetController from './steps/applicant/task-list/get';
 import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
@@ -130,6 +127,7 @@ import {
   VIEW_DOCUMENT_URL,
   LOCAL_API_SESSION,
   FETCH_CONTACT_PREFERENCES,
+  TASKLIST_RESPONSE_TO_CA,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -151,7 +149,6 @@ export class Routes {
     app.get(TESTING_SUPPORT_DELETE_DRAFT, errorHandler(new DeleteDraftGetController().get));
     app.get(ACCESSIBILITY_STATEMENT, errorHandler(new AccessibilityStatementGetController().get));
     app.get(CONTACT_US, errorHandler(new ContactUsGetController().get));
-    app.get(`${APPLICANT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
     app.get(`${RESPOND_TO_APPLICATION}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
     app.get(
       `${APPLICANT_VIEW_ALL_DOCUMENTS}/:caseId`,
@@ -168,8 +165,8 @@ export class Routes {
     );
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
-    app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new RespondentTaskListGetController().load));
-    app.get(APPLICANT_TASK_LIST_URL, errorHandler(new ApplicantTaskListGetController().load));
+    app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new CaseDetailsGetController().load));
+    app.get(APPLICANT_TASK_LIST_URL, errorHandler(new CaseDetailsGetController().load));
     //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
     app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
@@ -196,7 +193,7 @@ export class Routes {
       `${APPLICANT_CHECK_ANSWERS}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.CONFIRM_CONTACT_DETAILS_APPLICANT).get)
     );
-    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new GetCaseController().fetchAndRedirectToTasklist));
+    app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new CaseDetailsGetController().get));
 
     app.get(
       `${RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
@@ -287,6 +284,8 @@ export class Routes {
         app.get(`${APPLICANT}${APPLICANT_CA_DA_REQUEST}`, errorHandler(documentManagerController.get));
         app.get(APPLICANT_CA_DA_REQUEST, errorHandler(documentManagerController.get));
         app.get(RESPONSE_TO_CA, errorHandler(documentManagerController.get));
+        //TODO remove TASKLIST_RESPONSE_TO_CA when citizen document upload changes are merged
+        app.get(TASKLIST_RESPONSE_TO_CA, errorHandler(documentManagerController.get));
         app.get(AOH_TO_CA, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));

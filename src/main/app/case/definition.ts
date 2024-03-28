@@ -196,6 +196,7 @@ export interface CitizenFlags {
   isAllegationOfHarmViewed?: string
   isAllDocumentsViewed?: string
   isResponseInitiated?: string
+  isApplicationToBeServed?: string
 }
 
 export const enum DownloadFileFieldFlag {
@@ -984,6 +985,8 @@ export interface CaseData {
   citizenResponseC7DocumentList?: ResponseDocumentList[];
   respondentDocsList?:RespondentDocs[];
   draftOrderDoc?: Document;
+  soaCafcassServedOptions?: YesOrNo | null;
+  soaCafcassCymruServedOptions? : YesOrNo | null;
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -2049,7 +2052,7 @@ export const enum State {
   CASE_CLOSED = 'ALL_FINAL_ORDERS_ISSUED',
   CASE_SERVED = 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
   CASE_WITHDRAWN = 'CASE_WITHDRAWN',
-  CASE_DELETED = 'REQUESTED_FOR_DELETION',
+  CASE_DELETED = 'READY_FOR_DELETION',
 }
 
 export const enum UserRole {
@@ -2449,6 +2452,7 @@ export interface HearingsList {
 export interface Hearing{
   dates : string,
   lengthOfHearing : number | undefined,
+  hearingDurationDisplayText: string,
   hearingMethod: string ,
   hearingDaySchedule: hearingDay[],
 }
@@ -2457,18 +2461,27 @@ export interface hearingDay{
   hearingDate: string,
   startTime: string,
   amPm:string,
+  startTimeDisplayText:string,
   durationInDayOrHours:number,
   minutes:number,
+  hearingDurationDisplayText: string,
   judgeName:string | null | undefined,
   venue:string | null | undefined,
   address:string | null | undefined,
   roomId:string | null | undefined,
+  hearingToAttendDetails: Row[]
 }
+
+export type Row = {
+  displayText: string;
+  value: string | null | undefined;
+};
 
 export interface CompletedHearings{
   hearingId: Number | undefined,
   dates: string,
   lengthOfHearing: number | undefined,
+  hearingDurationDisplayText: string,
   hearingMethod: string,
 }
 
@@ -3092,6 +3105,11 @@ export enum CaseEvent {
 
 export enum hearingStatus {
   COMPLETED = 'COMPLETED',
+  HEARING_REQUESTED = 'HEARING_REQUESTED',
+  EXCEPTION = 'EXCEPTION',
+  AWAITING_LISTING = 'AWAITING_LISTING',
+  AWAITING_ACTUALS = 'AWAITING_ACTUALS',
+  LISTED = 'LISTED'
 } 
 
 export enum passportPossessionRelative {
@@ -3116,4 +3134,15 @@ export enum DocType {
   PREVIOUS_ORDERS = 'previousorders',
   OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
   MIAM_CERTIFICATE = 'miamcertificate',
+}
+
+export interface PaymentError {
+  hasError: boolean;
+  errorContext: PaymentErrorContext | null;
+}
+
+export enum PaymentErrorContext {
+  DEFAULT_PAYMENT_ERROR = 'defaultPaymentError',
+  PAYMENT_UNSUCCESSFUL = 'paymentUnsuccessful',
+  APPLICATION_NOT_SUBMITTED = 'applicationNotSubmitted'
 }

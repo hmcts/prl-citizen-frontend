@@ -82,3 +82,27 @@ describe('AddressLookupPostControllerBase', () => {
     });
   });
 });
+describe('AddressLookupPostControllerBase for respondent', () => {
+  let req;
+  let res;
+  let controller;
+
+  beforeEach(() => {
+    req = mockRequest({ session: { userCase: { email: 'test@example.com' } } });
+    res = mockResponse();
+    req.body.citizenUserAddressPostcode = 'a';
+    req.session.errors = [];
+    controller = new AddressLookupPostControllerBase({}, FieldPrefix.RESPONDENT);
+    mockGetParsedBody.mockReturnValue({});
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('should redirect to same page', async () => {
+    await controller.post(req, res);
+    expect(req.session.errors[0].errorType).toBe('invalid');
+    expect(res.redirect).toHaveBeenCalledWith('/respondent/confirm-contact-details/address/lookup');
+  });
+});

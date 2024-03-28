@@ -1,6 +1,7 @@
 //import { FormContent , FormFields , FormOptions } from "../../../../app/form/Form";
 
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormOptions } from '../../../../app/form/Form';
 import { CommonContent } from '../../common.content';
 
 import { generateContent } from './content';
@@ -22,16 +23,19 @@ const cyContent: typeof enContent = {
   editAddress: 'Golygu Cyfeiriad',
   errors: {},
 };
-
+/* eslint-disable @typescript-eslint/ban-types */
 describe('address details', () => {
   const commonContent = { language: 'en', userCase: { citizenUserAddressText: 'address' } } as CommonContent;
   const commonContentcy = { language: 'cy', userCase: { citizenUserAddressText: 'cyfeiriad' } } as CommonContent;
   let generatedContent;
   let generatedContentcy;
-
+  let form;
+  let fields;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
     generatedContentcy = generateContent(commonContentcy);
+    form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
   });
 
   test('should return correct english content', () => {
@@ -55,32 +59,13 @@ describe('address details', () => {
   test('should return correct welsh content using language assertions', () => {
     languageAssertions('cy', cyContent, () => generateContent({ ...commonContentcy, language: 'cy' }));
   });
-
-  // test('should contain citizenUserAddressPostcode field', () => {
-  //   const form = generatedContent.form as FormContent;
-  //   const fields = form.fields as FormFields;
-  //   const addressPostcodeField = fields.citizenUserAddressPostcode as FormOptions;
-
-  //   expect(addressPostcodeField.type).toBe('text');
-  //   expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');
-  //   expect((addressPostcodeField.label as Function)(generatedContent)).toBe(enContent.citizenUserAddressPostcode);
-  //   expect(addressPostcodeField.labelSize).toBe('m');
-  //   expect(addressPostcodeField.attributes!.maxLength).toBe(14);
-  //   expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
-  //   expect((form.submit?.text as Function)(generatedContent)).toBe('Continue');
-  // });
-
-  // test('should contain citizenUserAddressPostcode field with welsh', () => {
-  //   const form = generatedContent.form as FormContent;
-  //   const fields = form.fields as FormFields;
-  //   const addressPostcodeField = fields.citizenUserAddressPostcode as FormOptions;
-
-  //   expect(addressPostcodeField.type).toBe('text');
-  //   expect(addressPostcodeField.classes).toBe('govuk-label govuk-input--width-10');
-  //   expect((addressPostcodeField.label as Function)(generatedContentcy)).toBe(cyContent.citizenUserAddressPostcode);
-  //   expect(addressPostcodeField.labelSize).toBe('m');
-  //   expect(addressPostcodeField.attributes!.maxLength).toBe(14);
-  //   expect(addressPostcodeField.validator).toBe(isInvalidPostcode);
-  //   expect((form.submit?.text as Function)(generatedContentcy)).toBe('Continue (in welsh)');
-  // });
+  test('should contain  field', () => {
+    const citizenUserAddressTextField = fields.citizenUserAddressText as FormOptions;
+    expect(citizenUserAddressTextField.type).toBe('label');
+    expect((citizenUserAddressTextField.label as Function)(generatedContent)).toBe(enContent.citizenUserAddressText);
+  });
+  test('should contain continue button', () => {
+    expect((form.submit?.text as Function)(generatedContent)).toBe('Save and continue');
+    expect((form.editAddress?.text as Function)(generatedContent)).toBe(enContent.editAddress);
+  });
 });

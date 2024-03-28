@@ -1,3 +1,5 @@
+const testConfig = require('../config');
+
 Feature('C100 Rebuild - Basic Miam Document flow');
 
 Scenario('C100 Rebuild - basic miam document journey @nightly', async ({ I }) => {
@@ -20,4 +22,4 @@ Scenario('C100 Rebuild - basic miam document journey @nightly', async ({ I }) =>
   await I.reasonableAdjustments();
   await I.withHelpWithFeeEvent();
   await I.checkYourAnswersSimpleEvent();
-}).retry({ retries: 3, minTimeout: 30000 });
+}).retry(testConfig.TestRetryScenarios);

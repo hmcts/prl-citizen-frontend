@@ -12,7 +12,6 @@ import { SafetyConcerns, SafetyConcerns_child, SafetyConcerns_others, SafetyConc
 import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 
 export const enContent = {
-  serviceName: 'Check your answers ',
   section: '',
   title: 'Check your Answers',
   change: 'Edit',
@@ -38,7 +37,6 @@ export const enContent = {
   },
 };
 export const cyContent: typeof enContent = {
-  serviceName: 'Gwirio eich atebion',
   section: '',
   title: 'Gwirio eich atebion',
   change: 'Golygu',
@@ -90,7 +88,7 @@ export const sectionCountFormatter = sections => {
   });
   return sections;
 };
-const en = (content: CommonContent) => {
+export const en = (content: CommonContent) => {
   const userCase = content.userCase!;
   let sections = [] as ANYTYPE;
 
@@ -113,7 +111,7 @@ const en = (content: CommonContent) => {
   };
 };
 
-const cy: typeof en = (content: CommonContent) => {
+export const cy: typeof en = (content: CommonContent) => {
   const userCase = content.userCase!;
   let sections = [] as ANYTYPE;
 
