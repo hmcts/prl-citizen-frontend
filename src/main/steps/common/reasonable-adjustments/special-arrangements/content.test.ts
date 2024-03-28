@@ -138,6 +138,21 @@ describe('applicant personal details > applying-with > content', () => {
     expect(isFieldFilledIn).toHaveBeenCalledWith('test text area');
   });
 
+  test('should contain correct values when not c100 journey', () => {
+    commonContent.additionalData!.req.originalUrl = 'applicant/reasonable-adjustments/special-arrangements';
+    generatedContent = generateContent(commonContent);
+    const specialArrangementsField = generatedContent.form.fields.ra_specialArrangements as FormOptions;
+
+    expect(specialArrangementsField.values[0].value).toBe('waitingroom');
+    expect(specialArrangementsField.values[1].value).toBe('separateexitentry');
+    expect(specialArrangementsField.values[2].value).toBe('screens');
+    expect(specialArrangementsField.values[3].value).toBe('separatetoilets');
+    expect(specialArrangementsField.values[4].value).toBe('visitToCourt');
+    expect(specialArrangementsField.values[5].value).toBe('videolinks');
+    expect(specialArrangementsField.values[6].value).toBe('other');
+    expect(specialArrangementsField.values[8].value).toBe('noSafetyrequirements');
+  });
+
   test('should contain Save and continue button', () => {
     expect(
       (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)

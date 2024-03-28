@@ -7,7 +7,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { State, YesNoEmpty } from '../../app/case/definition';
 
 import { RAController, ReasonableAdjustementsController } from './controller';
-import { RACommonComponentUserAction, RAData } from './definitions';
+import { RACommonComponentUserAction, RAData, RAFlags } from './definitions';
 
 import { RAProvider } from './index';
 
@@ -197,6 +197,16 @@ describe('ReasonableAdjustementsController', () => {
   test('when launching RA module and retrieveExistingPartyRAFlags throws error - error scenario', async () => {
     appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     jest.spyOn(RAProvider.service, 'retrieveExistingPartyRAFlags').mockRejectedValueOnce({ status: 500 });
+    await RAController.launch(appRequest, appResponse);
+    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect(RAProvider.launch).not.toBeCalled;
+  });
+
+  test('when launching RA module and retrieveExistingPartyRAFlags does not return flags - error scenario', async () => {
+    appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    jest
+      .spyOn(RAProvider.service, 'retrieveExistingPartyRAFlags')
+      .mockResolvedValueOnce(undefined as unknown as RAFlags);
     await RAController.launch(appRequest, appResponse);
     expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
     expect(RAProvider.launch).not.toBeCalled;
@@ -485,6 +495,16 @@ describe('ReasonableAdjustementsController', () => {
   test('should handle error when updatePartyRAFlags fails', async () => {
     delete appRequest.params.id;
     jest.spyOn(RAProvider.utils, 'updatePartyRAFlags').mockRejectedValueOnce({ status: 500 });
+    await RAController.fetchData(appRequest, appResponse);
+
+    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+  });
+
+  test('should handle error when retrievePartyRAFlagsFromCommonComponent does not return correlationId', async () => {
+    appRequest.params.id = '123';
+    jest
+      .spyOn(RAProvider.service, 'retrievePartyRAFlagsFromCommonComponent')
+      .mockImplementationOnce(() => Promise.resolve({ response: {} } as unknown as RAData));
     await RAController.fetchData(appRequest, appResponse);
 
     expect((ReasonableAdjustementsController as any).handleError).toBeCalled;

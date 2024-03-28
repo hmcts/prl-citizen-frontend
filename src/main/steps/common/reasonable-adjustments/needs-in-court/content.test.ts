@@ -175,6 +175,22 @@ describe('applicant personal details > applying-with > content', () => {
     expect(travellingCourtField.values[9].exclusive).toBe(true);
   });
 
+  test('should contain correct values when not c100 journey', () => {
+    commonContent.additionalData!.req.originalUrl = 'applicant/reasonable-adjustments/needs-in-court';
+    generatedContent = generateContent(commonContent);
+    const travellingCourtField = generatedContent.form.fields.ra_travellingCourt as FormOptions;
+
+    expect(travellingCourtField.values[0].value).toBe('parkingspace');
+    expect(travellingCourtField.values[1].value).toBe('stepfree');
+    expect(travellingCourtField.values[2].value).toBe('wheelchair');
+    expect(travellingCourtField.values[3].value).toBe('toilet');
+    expect(travellingCourtField.values[4].value).toBe('lift');
+    expect(travellingCourtField.values[5].value).toBe('differentchair');
+    expect(travellingCourtField.values[6].value).toBe('building');
+    expect(travellingCourtField.values[7].value).toBe('other');
+    expect(travellingCourtField.values[9].value).toBe('nosupport');
+  });
+
   test('should contain Save and continue button', () => {
     expect(
       (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)

@@ -16,4 +16,17 @@ describe('RA > navigationController', () => {
 
     expect(controller.getNextUrl(req.session.userCase, req)).toBe('/currentPage');
   });
+
+  test('getNextUrl should return correct url when ra_disabilityRequirements has mulitple entries', () => {
+    const req = mockRequest({
+      session: {
+        userCase: {
+          ra_disabilityRequirements: ['helpTravellingMovingBuildingSupport', 'travellinghelp'],
+        },
+      },
+    });
+    req.originalUrl = '/applicant/reasonable-adjustments/needs-in-court';
+
+    expect(controller.getNextUrl(req.session.userCase, req)).toBe('/respondent/reasonable-adjustments/needs-in-court');
+  });
 });

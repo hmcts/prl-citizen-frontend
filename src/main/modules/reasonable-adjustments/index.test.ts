@@ -144,6 +144,32 @@ describe('ReasonableAdjustementsProvider', () => {
     expect(logger.error).toBeCalled;
   });
 
+  test('when launching RA component common component API throws error with data', async () => {
+    const requestData: RAFlags = {
+      partyName: 'testUser',
+      roleOnCase: 'Respondent 1',
+      details: [],
+    };
+    let hasError = false;
+    jest.spyOn(RAProvider.service, 'getCommonComponentUrl').mockRejectedValueOnce({
+      response: {
+        data: 'test',
+      },
+    });
+
+    let errorMessage;
+    try {
+      await RAProvider.launch(requestData, 'en', appRequest, appResponse);
+    } catch (error) {
+      hasError = true;
+      errorMessage = error.message;
+    }
+    expect(appResponse.redirect).not.toBeCalled;
+    expect(hasError).toEqual(true);
+    expect(logger.error).toBeCalled;
+    expect(errorMessage).toBe('"test"');
+  });
+
   test('when invoking trySettlingRequest while user action is sumbit', async () => {
     const requestData: RAFlags = {
       partyName: 'testUser',
@@ -239,6 +265,20 @@ describe('ReasonableAdjustementsProvider', () => {
     expect(RAProvider.getPreferredLanguage(appRequest)).toBe('en');
     delete appRequest.query.lng;
     expect(RAProvider.getPreferredLanguage(appRequest)).toBe('cy');
+  });
+
+  test('when invoking getPreferredLanguage for en through header', async () => {
+    delete appRequest.query.lng;
+    delete appRequest.session.lang;
+    appRequest.headers = { 'accept-language': 'en' };
+    expect(RAProvider.getPreferredLanguage(appRequest)).toBe('en');
+  });
+
+  test('when invoking getPreferredLanguage for unsupported language', async () => {
+    delete appRequest.query.lng;
+    delete appRequest.session.lang;
+    appRequest.headers = { 'accept-language': 'jp' };
+    expect(RAProvider.getPreferredLanguage(appRequest)).toBe('en');
   });
 
   test('when invoking destroy', async () => {
