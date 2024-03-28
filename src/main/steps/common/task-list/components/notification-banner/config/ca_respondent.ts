@@ -30,4 +30,10 @@ export const CA_RESPONDENT: NotificationBannerProps[] = [
       return !!caseData?.orderCollection?.length && caseData.state === State.ALL_FINAL_ORDERS_ISSUED;
     },
   },
+  {
+    ...notificationBanner[BannerNotification.CA_RESPONDENT_SERVED],
+    show: (caseData: Partial<CaseWithId>): boolean => {
+      return caseData?.state !== State.CASE_CLOSED;
+    },
+  },
 ];

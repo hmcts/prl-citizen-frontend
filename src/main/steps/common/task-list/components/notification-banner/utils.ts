@@ -112,6 +112,11 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.CA_PERSONAL_SERVICE),
     show: () => false,
   },
+  [BannerNotification.CA_RESPONDENT_SERVED]: {
+    id: BannerNotification.CA_RESPONDENT_SERVED,
+    content: getContent.bind(null, BannerNotification.CA_RESPONDENT_SERVED),
+    show: () => false,
+  },
 };
 
 export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): boolean => {

@@ -765,6 +765,39 @@ describe('testcase for notification Banner', () => {
           ],
           title: 'Important',
         },
+        {
+          heading: 'Respond to an application about a child',
+          id: 'caRespondentServed',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'Another person (the applicant) has applied to the court to make a decision about a child.',
+                },
+                {
+                  text: 'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
+                },
+              ],
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/yourdocuments/alldocuments/alldocuments',
+                  text: 'View the application pack',
+                },
+                {
+                  external: false,
+                  href: '/tasklistresponse/start/flag/updateFlag',
+                  text: 'Respond to the application',
+                },
+              ],
+            },
+            {
+              contents: [],
+              links: [],
+            },
+          ],
+          title: 'Important',
+        },
       ]);
     });
 
