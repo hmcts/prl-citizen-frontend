@@ -156,11 +156,9 @@ export class ReasonableAdjustmentsService {
   async saveLanguagePrefAndSpecialArrangements(
     caseData: CaseWithId,
     partyIdamId: PartyDetails['user']['idamId'],
-    userAccessToken: UserDetails['accessToken'],
-    supportContext: RASupportContext
+    userAccessToken: UserDetails['accessToken']
   ): Promise<any> {
     try {
-      const caseTypeOfApplication = caseData.caseTypeOfApplication as CaseType;
       const data = {
         languageSupportCaseNotesRequest: {
           languageSupportNotes: caseData.ra_languageReqAndSpecialArrangements,
@@ -169,8 +167,7 @@ export class ReasonableAdjustmentsService {
       };
       const response = await RAProvider.APIClient()!.post<string>(
         applyParms(REASONABLE_ADJUSTMENTS_SUBMIT_LANGUAGE_REQ, {
-          caseId: caseData.id,
-          eventId: RAProvider.utils.getUpdateFlagsEventID(caseTypeOfApplication, supportContext),
+          caseId: caseData.id
         }),
         data,
         {

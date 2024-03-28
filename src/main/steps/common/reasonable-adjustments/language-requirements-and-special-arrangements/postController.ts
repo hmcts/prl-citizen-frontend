@@ -8,7 +8,6 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { RAProvider } from '../../../../modules/reasonable-adjustments';
-import { RASupportContext } from '../../../../modules/reasonable-adjustments/definitions';
 import { getPartyDetails } from '../../../../steps/tasklistresponse/utils';
 import { REASONABLE_ADJUSTMENTS_ERROR } from '../../../../steps/urls';
 
@@ -37,15 +36,11 @@ export default class RALangReqSplArrangementsPostController extends PostControll
         const caseData = req.session.userCase;
         const userDetails = req.session.user;
         const partyIdamId = _.get(getPartyDetails(caseData, userDetails.id), 'user.idamId', '');
-        const supportContext = req.session.userCase?.ra_existingFlags?.details?.length
-          ? RASupportContext.MANAGE_SUPPORT
-          : RASupportContext.REQUEST_SUPPORT;
 
         await RAProvider.service.saveLanguagePrefAndSpecialArrangements(
           req.session.userCase,
           partyIdamId,
-          userDetails.accessToken,
-          supportContext
+          userDetails.accessToken
         );
 
         super.redirect(req, res);
