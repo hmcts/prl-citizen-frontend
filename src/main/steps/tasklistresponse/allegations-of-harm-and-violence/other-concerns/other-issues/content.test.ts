@@ -1,6 +1,6 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { YesOrNo } from '../../../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
-import { Validator, isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
@@ -12,13 +12,13 @@ const en = {
   one: 'Yes',
   two: 'No',
   summaryText: 'Contacts for help',
-  description:
+  detail:
     'Describe in a few sentences the nature of the behaviour that you want the court to be aware of. Explain who is involved, and if the behaviour is ongoing.',
   errors: {
-    PRL_c1A_childSafetyConcerns: {
+    c1A_childSafetyConcerns: {
       required: 'Select yes if you have other concerns about the children’s safety and wellbeing',
     },
-    PRL_c1A_childSafetyConcernsDetails: {
+    c1A_childSafetyConcernsDetails: {
       required: 'Describe what concerns you have about the children’s safety and wellbeing',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
@@ -34,14 +34,14 @@ const cy = {
   one: 'Oes',
   two: 'Nac oes',
   summaryText: 'Cysylltiadau am gymorth',
-  description:
+  detail:
     "Disgrifiwch mewn ychydig frawddegau, natur yr ymddygiad rydych eisiau i'r llys fod yn ymwybodol ohono. Esboniwch pwy sy'n ymddwyn yn amhriodol, ac os yw'r ymddygiad yn parhau.",
   errors: {
-    PRL_c1A_childSafetyConcerns: {
+    c1A_childSafetyConcerns: {
       required: 'Dewiswch oes os oes gennych bryderon eraill am ddiogelwch a lles y plant',
     },
-    PRL_c1A_childSafetyConcernsDetails: {
-      required: 'Disgrifiwch y pryderon sydd gennych am ddiogelwch a lles y plant',
+    c1A_childSafetyConcernsDetails: {
+      required: 'Disgrifiwch unrhyw bryderon sydd gennych am ddiogelwch a lles y plant',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
         'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
@@ -79,28 +79,32 @@ describe('safety_concerns > other_concerns > content', () => {
   });
 
   test('should contain childSafetyConcerns field', () => {
-    const childSafetyConcerns = fields.PRL_c1A_childSafetyConcerns as FormOptions;
+    const childSafetyConcerns = fields.c1A_childSafetyConcerns as FormOptions;
     expect(childSafetyConcerns.type).toBe('radios');
     expect(childSafetyConcerns.classes).toBe('govuk-radios');
+    expect((childSafetyConcerns.section as Function)(generatedContent)).toBe(en.section);
     expect((childSafetyConcerns.label as Function)(generatedContent)).toBe(undefined);
     expect((childSafetyConcerns.hint as Function)(generatedContent)).toBe(en.hint);
-    expect((childSafetyConcerns.section as Function)(generatedContent)).toBe(en.section);
-
+    expect(childSafetyConcerns.values[0].value).toBe(YesOrNo.YES);
     expect((childSafetyConcerns.values[0].label as Function)(generatedContent)).toBe(en.one);
-
-    (childSafetyConcerns.values[0].subFields?.PRL_c1A_childSafetyConcernsDetails.validator as Validator)(
-      'PRL_c1A_childSafetyConcernsDetails'
-    );
-    expect(isFieldFilledIn).toHaveBeenCalledWith('PRL_c1A_childSafetyConcernsDetails');
-    expect(isTextAreaValid).toHaveBeenCalledWith('PRL_c1A_childSafetyConcernsDetails');
-
+    expect(
+      (childSafetyConcerns.values[0].subFields!.c1A_childSafetyConcernsDetails.label as Function)(generatedContent)
+    ).toBe(en.detail);
+    expect(childSafetyConcerns.values[0].subFields!.c1A_childSafetyConcernsDetails.type).toBe('textarea');
+    expect(childSafetyConcerns.values[1].value).toBe(YesOrNo.NO);
     expect((childSafetyConcerns.values[1].label as Function)(generatedContent)).toBe(en.two);
   });
 
   test('should contain continue button', () => {
     expect(
-      (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.onlycontinue.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
+  });
+
+  test('should contain saveAndComeLater button', () => {
+    expect(
+      (form?.saveAndComeLater.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

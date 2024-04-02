@@ -26,7 +26,10 @@ export interface Child {
   id: string;
   value: ChildDetails;
 }
-
+export interface Child1 {
+  id: string;
+  value: string;
+}
 export interface MiamTable {
   soleTraderName?: string;
   familyMediatorMiam?: string;

@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { PRL_C1AAbuseTypes } from '../../../../../app/case/definition';
+import { C1AAbuseTypes } from '../../../../../app/case/definition';
 
 import { routeGuard } from './routeGuard';
 
@@ -8,11 +8,11 @@ describe('C1A Saftey Concers child report abuse RouteGuard', () => {
   test('Should render the page when the guard validation passes', async () => {
     const req = mockRequest({
       params: {
-        abuseType: PRL_C1AAbuseTypes.FINANCIAL_ABUSE,
+        abuseType: C1AAbuseTypes.FINANCIAL_ABUSE,
       },
       session: {
         userCase: {
-          PRL_c1A_concernAboutChild: [PRL_C1AAbuseTypes.PSYCHOLOGICAL_ABUSE, PRL_C1AAbuseTypes.FINANCIAL_ABUSE],
+          c1A_concernAboutChild: [C1AAbuseTypes.PSYCHOLOGICAL_ABUSE, C1AAbuseTypes.FINANCIAL_ABUSE],
         },
       },
     });
@@ -25,11 +25,11 @@ describe('C1A Saftey Concers child report abuse RouteGuard', () => {
   test('Should not render the page when the guard validation fails', async () => {
     const req = mockRequest({
       params: {
-        abuseType: PRL_C1AAbuseTypes.EMOTIONAL_ABUSE,
+        abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE,
       },
       session: {
         userCase: {
-          PRL_c1A_concernAboutChild: [PRL_C1AAbuseTypes.PSYCHOLOGICAL_ABUSE, PRL_C1AAbuseTypes.FINANCIAL_ABUSE],
+          c1A_concernAboutChild: [C1AAbuseTypes.PSYCHOLOGICAL_ABUSE, C1AAbuseTypes.FINANCIAL_ABUSE],
         },
       },
     });

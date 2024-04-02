@@ -12,7 +12,7 @@ const en = {
   one: 'Yes',
   two: 'No',
   errors: {
-    PRL_c1A_passportOffice: {
+    c1A_passportOffice: {
       required: 'Select yes if any of the children have a passport',
     },
   },
@@ -24,8 +24,8 @@ const cy = {
   one: 'Oes',
   two: 'Nac oes',
   errors: {
-    PRL_c1A_passportOffice: {
-      required: 'Dewiswch oes os oes gan unrhyw un o’r plant basbort',
+    c1A_passportOffice: {
+      required: "Dewiswch oes os oes gan unrhyw un o'r plant basbort",
     },
   },
 };
@@ -45,7 +45,7 @@ describe('safetyconcerns > abduction > passport-office', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.PRL_c1A_passportOffice as FormOptions;
+    const applyingWithField = fields.c1A_passportOffice as FormOptions;
     expect(applyingWithField.type).toBe('radios');
     expect(applyingWithField.classes).toBe('govuk-radios');
     expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
@@ -56,7 +56,15 @@ describe('safetyconcerns > abduction > passport-office', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent | undefined;
     expect(
-      (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
+  });
+
+  test('should contain saveAndComeLater button', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent | undefined;
+    expect(
+      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });

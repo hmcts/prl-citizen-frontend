@@ -1,7 +1,7 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 //import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/form/validation';
-import { CommonContent } from '../../../../common/common.content';
+import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -35,7 +35,7 @@ const en = {
   somethingElse: 'Something else',
   somethingElseHint: 'Any concerns you have that do not fit into the above categories',
   errors: {
-    PRL_c1A_concernAboutChild: {
+    c1A_concernAboutChild: {
       required: 'Specify the type of behaviour the children have experienced or are at risk of experiencing',
     },
   },
@@ -43,18 +43,17 @@ const en = {
 
 const cy = {
   caption: 'Pryderon diogelwch',
-  headingTitle: 'Pa fath o ymddygiad ydych chi wedi ei brofi neu mewn perygl o’i brofi?',
-  paragraph1: "Gweler canllawiau'r Gymdeithas Genedlaethol er Atal Creulondeb i Blant (NSPCC) ar",
-  spottingSignsOfChildHyperLink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse - welsh',
-  spottingSignsOfChildAbuseLabel: ' adnabod arwyddion o gam-drin plant.',
-  supportNavLabel: 'SupportNav',
-  select_all_relevant: "Dewiswch bob opsiwn sy'n berthnasol i'ch sefyllfa.",
-  physicalAbuse: 'cam-drin corfforol',
+  headingTitle: "Pa fath o ymddygiad y mae'r plant wedi ei brofi neu mewn perygl o’i brofi?",
+  paragraph1: "Gweler canllawiau'r Gymdeithas Genedlaethol er Atal Creulondeb i Blant (NSPCC) ar ",
+  spottingSignsOfChildHyperLink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse',
+  spottingSignsOfChildAbuseLabel: 'adnabod arwyddion o gam-drin plant.',
+  select_all_relevant: "Dewiswch unrhyw opsiynau sy'n berthnasol i'ch sefyllfa chi. ",
+  physicalAbuse: 'Cam-drin corfforol',
   physicalAbuseHint: 'Ymddygiad megis dyrnu, tagu, cicio neu daro gyda gwrthrych',
   psychologicalAbuse: 'Cam-drin seicolegol',
   psychologicalAbuseHint:
     "Cael eu rhoi mewn sefyllfa sy'n arwain at or-bryder, iselder, neu anhwylder straen ar ôl trawma",
-  emotionalAbuse: 'cam-drin emosiynol',
+  emotionalAbuse: 'Cam-drin emosiynol',
   emotionalAbuseHint:
     'Gwneud i blentyn deimlo fel nad oes neb yn ei garu, ei fod yn ddiwerth, yn cael ei fychanu neu ei anwybyddu',
   sexualAbuse: 'Cam-drin rhywiol',
@@ -65,14 +64,13 @@ const cy = {
   witnessingDomesticAbuse: 'Gweld cam-drin domestig',
   witnessingDomesticAbuseHint:
     'Lles emosiynol a meddyliol y plentyn yn cael ei effeithio gan gam-drin domestig yn y cartref',
-  abductionAbuse: 'Herwgydio',
+  abductionAbuse: 'Cipio',
   abductionAbuseHint:
     'Risg y bydd plant yn cael eu cymryd oddi wrth eu gofalwyr, yn enwedig os ydynt yn cael eu cadw dramor',
-  somethingElse: 'Rhywbeth Arall',
+  somethingElse: 'Rhywbeth arall',
   somethingElseHint: "Unrhyw bryderon sydd gennych nad ydynt yn ffitio i'r categorïau uchod",
-  onlyContinue: 'Parhau',
   errors: {
-    PRL_c1A_concernAboutChild: {
+    c1A_concernAboutChild: {
       required: 'Nodwch y math o ymddygiad ydych chi wedi ei brofi neu mewn perygl o’i brofi',
     },
   },
@@ -99,7 +97,7 @@ describe('safetyconcerns > child > concern about > content', () => {
   });
 
   test('should contain specialArrangements field', () => {
-    const childConcernAboutField = fields.PRL_c1A_concernAboutChild as FormOptions;
+    const childConcernAboutField = fields.c1A_concernAboutChild as FormOptions;
 
     expect(childConcernAboutField.type).toBe('checkboxes');
     expect((childConcernAboutField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_relevant);
@@ -123,5 +121,17 @@ describe('safetyconcerns > child > concern about > content', () => {
       en.witnessingDomesticAbuseHint
     );
     expect((childConcernAboutField.values[7].hint as LanguageLookup)(generatedContent)).toBe(en.somethingElseHint);
+  });
+
+  test('should contain Save and continue button', () => {
+    expect(
+      (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
+  });
+
+  test('should contain saveAndComeLater button', () => {
+    expect(
+      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });

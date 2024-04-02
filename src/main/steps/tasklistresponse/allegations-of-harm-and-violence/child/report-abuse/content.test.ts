@@ -1,12 +1,9 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { YesNoEmpty } from '../../../../../app/case/definition';
-import { FormContent, FormFields, FormInput, FormOptions } from '../../../../../app/form/Form';
-import { Validator, isTextAreaValid } from '../../../../../app/form/validation';
-import { CommonContent, en as enContent } from '../../../../common/common.content';
+import { FormContent, FormFields, FormInput, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
+import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
-
-jest.mock('../../../../../app/form/validation');
 
 const en = {
   caption: 'Safety concerns',
@@ -21,7 +18,6 @@ const en = {
   warningText:
     'We will share the information that you give in this section with the other person in the case so that they can respond to what you have said.',
   childrenConcernedAboutLabel: 'Which children are you concerned about? (optional)',
-  allchildLabel: 'All the children in above application',
   behaviourDetailsLabel: 'Describe the behaviours you would like the court to be aware of. (optional)',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings.',
@@ -30,37 +26,20 @@ const en = {
   isOngoingBehaviourLabel: 'Is the behaviour ongoing? (optional)',
   isOngoingBehaviourHint:
     '<p class="govuk-body" for="respabuseongoing-hint">Contact 999 if there is an emergency. If it\'s not an emergency, consider contacting <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> or <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">the social care team at you local council </a>.</p>',
-  ongoingBehaviourYesLabel: 'Yes',
-  ongoingBehaviourNoLabel: 'No',
-  professionalHelpYesLabel: 'Yes',
-  professionalHelpNoLabel: 'No',
+  YesOptionLabel: 'Yes',
+  NoOptionLabel: 'No',
+  YesOptionLabel1: 'Yes',
+  NoOptionLabel1: 'No',
   seekHelpFromPersonOrAgencyLabel: 'Have you ever asked for help from a professional person or agency? (optional)',
   seekHelpFromPersonOrAgencyHintText: 'For example, speaking to your local GP.',
   seekHelpDetailsYesHint:
     '<p class="govuk-body">Indicate who you sought help from, and what they did to help (optional). </p><p class="govuk-body">Do not include personal details such as names and addresses.</p>',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">See the <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">NSPCC guidance</a> if you are unsure how to get help.</p>',
-  errors: {
-    behaviourDetails: {
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
-      invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
-    },
-    behaviourStartDate: {
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
-      invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
-    },
-    seekHelpDetails: {
-      invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
-      invalid:
-        'You have exceeded the character limit accepted by the free text field. Please enter 5,000 characters or less.',
-    },
-  },
 };
 
-const cy = {
-  caption: 'Pryderon diogelwch',
+const cy = () => ({
+  caption: 'Pryderon am ddiogelwch',
   physicalAbusePageTitle:
     "Disgrifiwch yn gryno y cam-drin corfforol yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
   psychologicalAbusePageTitle:
@@ -72,54 +51,37 @@ const cy = {
   financialAbusePageTitle:
     "Disgrifiwch yn gryno y cam-drin ariannol yn erbyn y plant os ydych chi'n teimlo eich bod yn gallu gwneud hynny",
   introText: `<p class="govuk-body ">Llenwch yr adran hon y gorau y gallwch. Os nad ydych chi'n teimlo eich bod chi'n gallu trafod y gamdriniaeth ar hyn o bryd, gallwch wneud hynny wrth siarad efo Cafcass</p>
-  <p class="govuk-body ">Bydd yr wybodaeth y byddwch yn ei rhoi yn cael ei defnyddio yn y cais. Nid yw'n gais am waharddeb cam-drin domestig.</p>
-  <p class="govuk-body ">Gallwch<a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank"> wneud cais am waharddeb cam-drin domestig</a> ar wahân</p>`,
+              <p class="govuk-body ">Bydd yr wybodaeth y byddwch yn ei rhoi yn cael ei defnyddio yn y cais. Nid yw'n gais am waharddeb cam-drin domestig.</p>
+              <p class="govuk-body ">Gallwch<a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link govuk-link a" rel="external" target="_blank"> wneud cais am waharddeb cam-drin domestig</a> ar wahân</p>`,
   warningText:
     "Byddwn yn rhannu'r wybodaeth y byddwch yn ei rhoi yn yr adran hon gyda'r unigolyn arall yn yr achos er mwyn iddo allu ymateb i'r hyn rydych chi wedi'i ddweud.",
-  childrenConcernedAboutLabel: "Pa blant ydych chi'n poeni amdanyn nhw?",
-  allchildLabel: 'Pob plentyn yn y cais',
-  behaviourDetailsLabel: "Disgrifiwch yr ymddygiadau yr hoffech i'r llys fod yn ymwybodol ohonynt.",
+  childrenConcernedAboutLabel: "Pa blant ydych chi'n poeni amdanyn nhw? (dewisol)",
+  behaviourDetailsLabel: "Disgrifiwch yr ymddygiadau yr hoffech i'r llys fod yn ymwybodol ohonynt. (dewisol)",
   behaviourDetailsHintText:
     "Cadwch eich ateb yn fyr. Bydd cyfle i chi roi mwy o fanylion i'r llys yn ddiweddarach yn yr achos.",
-  behaviourStartDateLabel: 'Pryd ddechreuodd yr ymddygiad hwn a pha mor hir wnaeth hynny barhau?',
+  behaviourStartDateLabel: 'Pryd ddechreuodd yr ymddygiad hwn a pha mor hir wnaeth hynny barhau? (dewisol)',
   behaviourStartDateHintText: 'Nid oes angen i hyn fod yn union ddyddiad.',
-  isOngoingBehaviourLabel: 'Ydy’r ymddygiad yn digwydd ar hyn o bryd?',
+  isOngoingBehaviourLabel: "Ydy'r ymddygiad yn parhau? (dewisol)",
   isOngoingBehaviourHint:
-    '<p class="govuk-body" for="respabuseongoing-hint">Ffoniwch 999 os oes argyfwng. Os nad yw\'n argyfwng, ystyriwch gysylltu â\'r <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> neu\'r <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">ttîm gofal cymdeithasol yn eich cyngor  lleol</a>.</p>',
-  ongoingBehaviourYesLabel: 'Ydy',
-  ongoingBehaviourNoLabel: 'Nac ydy',
-  professionalHelpYesLabel: 'Do',
-  professionalHelpNoLabel: 'Naddo',
-  seekHelpFromPersonOrAgencyLabel: 'Ydych chi erioed wedi gofyn am help gan unigolyn neu asiantaeth broffesiynol?',
+    '<p class="govuk-body" for="respabuseongoing-hint">Ffoniwch 999 os oes argyfwng. Os nad yw\'n argyfwng, ystyriwch gysylltu â\'r <a href="https://www.nspcc.org.uk" class="govuk-link" rel="external" target="_blank">NSPCC</a> neu\'r <a href="https://www.gov.uk/report-child-abuse-to-local-council" class="govuk-link" rel="external" target="_blank">tîm gofal cymdeithasol yn eich cyngor  lleol</a>.</p>',
+  YesOptionLabel: 'Do',
+  NoOptionLabel: 'Naddo',
+  YesOptionLabel1: 'Do',
+  NoOptionLabel1: 'Naddo',
+  seekHelpFromPersonOrAgencyLabel:
+    'Ydych chi erioed wedi gofyn am help gan unigolyn neu asiantaeth broffesiynol? (dewisol)',
   seekHelpFromPersonOrAgencyHintText: "Er enghraifft, siarad â'ch meddyg teulu lleol.",
   seekHelpDetailsYesHint:
     '<p class="govuk-body">Dywedwch wrth bwy wnaethoch chi ofyn am help, a beth wnaethon nhw i helpu (dewisol). </p><p class="govuk-body">Peidiwch â chynnwys manylion personol fel enwau a chyfeiriadau.</p>',
   seekHelpDetailsNoHint:
     '<p class="govuk-body">Gweler <a href="https://www.nspcc.org.uk/keeping-children-safe/reporting-abuse/dedicated-helplines/" class="govuk-link" rel="external" target="_blank">cyfarwyddyd NSPCC</a>os nad ydych yn siŵr sut i gael help.</p>',
-  errors: {
-    behaviourDetails: {
-      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
-      invalid:
-        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
-    },
-    behaviourStartDate: {
-      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
-      invalid:
-        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
-    },
-    seekHelpDetails: {
-      invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
-      invalid:
-        'Rydych wedi defnyddio mwy o nodau na’r hyn a ganiateir yn y blwch testun rhydd. Defnyddiwch 5,000 neu lai o nodau.',
-    },
-  },
-};
+});
 /* eslint-disable @typescript-eslint/ban-types */
 describe('C1A safetyconcerns > child > report abuse > content', () => {
   const commonContent = {
     language: 'en',
     userCase: {
-      PRL_c1A_safteyConcerns: {
+      c1A_safteyConcerns: {
         child: {
           physicalAbuse: {
             childrenConcernedAbout: '',
@@ -131,35 +93,6 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
           },
         },
       },
-      children: [
-        {
-          id: '7483640e-0817-4ddc-b709-6723f7925474',
-          value: {
-            firstName: 'Bob',
-            lastName: 'Silly',
-            personalDetails: {
-              dateOfBirth: {
-                year: '',
-                month: '',
-                day: '',
-              },
-              isDateOfBirthUnknown: 'Yes',
-              approxDateOfBirth: {
-                year: '1987',
-                month: '12',
-                day: '12',
-              },
-              sex: 'Male',
-            },
-            childMatters: {
-              needsResolution: [],
-            },
-            parentialResponsibility: {
-              statement: 'lorem ipsum dolor sit am',
-            },
-          },
-        },
-      ],
     },
     additionalData: {
       req: {
@@ -209,50 +142,45 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
 
     expect(childrenConcernedAboutDetails.type).toBe('checkboxes');
     expect((childrenConcernedAboutDetails.label as Function)(generatedContent)).toBe(en.childrenConcernedAboutLabel);
-    expect((childrenConcernedAboutDetails.values[0].label as Function)(generatedContent)).toBe(en.allchildLabel);
-    expect((childrenConcernedAboutDetails.values[1].divider as Function)(enContent)).toBe('or');
-    expect(childrenConcernedAboutDetails.values[2].name).toBe('childrenConcernedAbout');
-    expect(childrenConcernedAboutDetails.values[2].label).toBe('Bob Silly');
-    expect(childrenConcernedAboutDetails.values[2].value).toBe('7483640e-0817-4ddc-b709-6723f7925474');
 
     expect(behaviourDetails.type).toBe('textarea');
     expect((behaviourDetails.label as Function)(generatedContent)).toBe(en.behaviourDetailsLabel);
     expect((behaviourDetails.hint as Function)(generatedContent)).toBe(en.behaviourDetailsHintText);
-    (behaviourDetails.validator as Validator)('test value');
-    expect(isTextAreaValid).toHaveBeenCalledWith('test value');
 
     expect(behaviourStartDate.type).toBe('textarea');
     expect((behaviourStartDate.label as Function)(generatedContent)).toBe(en.behaviourStartDateLabel);
     expect((behaviourStartDate.hint as Function)(generatedContent)).toBe(en.behaviourStartDateHintText);
-    (behaviourStartDate.validator as Validator)('test value');
-    expect(isTextAreaValid).toHaveBeenCalledWith('test value');
 
     expect(isOngoingBehaviour.type).toBe('radios');
     expect((isOngoingBehaviour.label as Function)(generatedContent)).toBe(en.isOngoingBehaviourLabel);
-    expect((isOngoingBehaviour.values[0].label as Function)(generatedContent)).toBe(en.ongoingBehaviourYesLabel);
+    expect((isOngoingBehaviour.values[0].label as Function)(generatedContent)).toBe(en.YesOptionLabel);
     expect((isOngoingBehaviour.values[0].conditionalText as Function)(generatedContent)).toBe(
       en.isOngoingBehaviourHint
     );
-    expect((isOngoingBehaviour.values[1].label as Function)(generatedContent)).toBe(en.ongoingBehaviourNoLabel);
+    expect((isOngoingBehaviour.values[1].label as Function)(generatedContent)).toBe(en.NoOptionLabel);
 
     expect(seekHelpFromPersonOrAgency.type).toBe('radios');
     expect((seekHelpFromPersonOrAgency.label as Function)(generatedContent)).toBe(en.seekHelpFromPersonOrAgencyLabel);
     expect((seekHelpFromPersonOrAgency.hint as Function)(generatedContent)).toBe(en.seekHelpFromPersonOrAgencyHintText);
-    expect((seekHelpFromPersonOrAgency.values[0].label as Function)(generatedContent)).toBe(
-      en.professionalHelpYesLabel
-    );
-    expect((seekHelpFromPersonOrAgency.values[1].label as Function)(generatedContent)).toBe(en.professionalHelpNoLabel);
+    expect((seekHelpFromPersonOrAgency.values[0].label as Function)(generatedContent)).toBe(en.YesOptionLabel);
+    expect((seekHelpFromPersonOrAgency.values[1].label as Function)(generatedContent)).toBe(en.NoOptionLabel);
     expect((seekHelpFromPersonOrAgency.values[1].conditionalText as Function)(generatedContent)).toBe(
       en.seekHelpDetailsNoHint
     );
 
     expect(seekHelpDetails.type).toBe('textarea');
     expect((seekHelpDetails.hint as Function)(generatedContent)).toBe(en.seekHelpDetailsYesHint);
-    (seekHelpDetails.validator as Validator)('test value');
-    expect(isTextAreaValid).toHaveBeenCalledWith('test value');
   });
 
-  test('should contain continue button', () => {
-    expect((form.onlyContinue?.text as Function)(enContent)).toBe('Continue');
+  test('should contain Save and continue button', () => {
+    expect(
+      (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Continue');
+  });
+
+  test('should contain saveAndComeLater button', () => {
+    expect(
+      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });

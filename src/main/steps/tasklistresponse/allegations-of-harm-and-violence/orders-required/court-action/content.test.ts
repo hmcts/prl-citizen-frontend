@@ -18,7 +18,7 @@ const en = {
     '<strong>Specific issue:</strong> this order sets out a decision on specific issues, which could include medical treatment, education or a foreign holiday.',
   ],
   errors: {
-    PRL_c1A_keepingSafeStatement: {
+    c1A_keepingSafeStatement: {
       required: 'Describe what do you want the court to do to keep you and the children safe',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
@@ -39,7 +39,7 @@ const cy = {
     "<strong>Mater penodol:</strong> mae'r gorchymyn hwn yn nodi penderfyniad ar faterion penodol, a allai gynnwys triniaeth feddygol, addysg neu wyliau tramor.",
   ],
   errors: {
-    PRL_c1A_keepingSafeStatement: {
+    c1A_keepingSafeStatement: {
       required: "Disgrifiwch beth ydych chi eisiau i'r llys ei wneud i'ch cadw chi a'r plant yn ddiogel",
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
@@ -70,13 +70,19 @@ describe('safety-concerns > orders-required > orders-required content', () => {
   });
 
   test('should contain a c1A statement mandatory textarea', () => {
-    const keepingSafeStatement = fields.PRL_c1A_keepingSafeStatement as FormOptions;
+    const keepingSafeStatement = fields.c1A_keepingSafeStatement as FormOptions;
     expect(keepingSafeStatement.type).toBe('textarea');
   });
 
   test('should contain Continue button', () => {
     expect(
-      (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
+  });
+
+  test('should contain SaveAndComeLater button', () => {
+    expect(
+      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 });

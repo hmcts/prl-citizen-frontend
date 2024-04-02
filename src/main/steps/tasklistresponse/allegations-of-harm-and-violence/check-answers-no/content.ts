@@ -10,7 +10,7 @@ export const enContent = {
     applicationDetails: 'Application details',
   },
   keys: {
-    PRL_c1A_haveSafetyConcerns: 'Do you have any concerns for your safety or the safety of the children?',
+    c1A_haveSafetyConcerns: 'Do you have any concerns for your safety or the safety of the children?',
   },
   errors: {},
 };
@@ -31,13 +31,13 @@ const cyContent: typeof enContent = {
     applicationDetails: 'Manylion y cais',
   },
   keys: {
-    PRL_c1A_haveSafetyConcerns: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
+    c1A_haveSafetyConcerns: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
   },
   errors: {},
 };
 
 const urls = {
-  PRL_c1A_haveSafetyConcerns: 'your-or-child-safety-concerns',
+  c1A_haveSafetyConcerns: 'your-or-child-safety-concerns',
 };
 
 const cy: typeof en = (content: CommonContent) => {

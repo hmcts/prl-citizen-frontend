@@ -1,5 +1,7 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
+import { FormContent, FormFields, 
+  FormFieldsFn 
+} from '../../../../../app/form/Form';
 import { ResourceReader } from '../../../../../modules/resourcereader/ResourceReader';
 import {
   form as selectAddressForm,
@@ -61,6 +63,7 @@ export const generateContent: TranslationFn = content => {
   return {
     ...selectAddressContent,
     ...translationContent,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    form
+    : { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {},content.additionalData?.req) },
   };
 };

@@ -25,7 +25,7 @@ const en = {
   yesHaveSafetyConcerns: 'Yes',
   noHaveSafetyConcerns: 'No',
   errors: {
-    PRL_c1A_haveSafetyConcerns: {
+    c1A_haveSafetyConcerns: {
       required: 'Select yes if you have any concerns for your safety or the safety of the children',
     },
   },
@@ -36,21 +36,21 @@ const cy = {
   headingTitle: 'A oes gennych chi unrhyw bryderon am eich diogelwch chi neu ddiogelwch y plant?',
   paragraph1: '<p> Efallai bod gennych bryderon am eich diogelwch ar hyn o bryd, neu eich diogelwch yn y dyfodol. </p>',
   paragraph2:
-    '<p> Os ydych chi neu\'r plant wedi profi camdriniaeth neu\'n teimlo\'n anniogel, mae cymorth ar gael. <a href="https://www.gov.uk/guidance/domestic-abuse-how-to-get-help" class="govuk-link" target="_blank" aria-label="See a list of organisations that can help">Gweler rhestr o sefydliadau a all helpu.</a>. </p>',
+    "<p>Os ydych chi neu'r plant wedi profi camdriniaeth neu yn teimlo'n anniogel, mae cymorth ar gael. <a href='https://www.gov.uk/guidance/domestic-abuse-how-to-get-help' class='govuk-link' target='blank' aria-label='See a list of organisations that can help'>Gweler rhestr o sefydliadau a all helpu.</a>. </p> ",
   listOfOrganisationsHyperlink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help',
-  listOfOrganisationLabel: 'See a list of organisations that can help. - Welsh',
+  listOfOrganisationLabel: 'Gweler rhestr o sefydliadau a all helpu.',
   identifySignsOfChildAbuseHyperlink: 'https://www.nspcc.org.uk/what-is-child-abuse/types-of-abuse/',
-  identifySignsOfChildAbuseLabel: 'Adnabod arwyddion o gam-drin plant',
+  identifySignsOfChildAbuseLabel: ' Adnabod arwyddion o gam-drin plant',
   identifySignsOfDomesticAbuseHyperlink: 'https://supportnav.org.uk/what-is-domestic-abuse',
   identifySignsOfDomesticAbuseLabel: 'Adnabod arwyddion o gam-drin domestig',
   infoSafetyConcernsYes:
-    'Bydd y wybodaeth y byddwch yn ei rhoi yn cael ei hystyried fel rhan o\'ch cais. Os oes angen i chi wneud <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link" target="_blank" aria-label="an application for a domestic abuse injunction">cais am waharddeb cam-drin domestig</a>. gallwch wneud hyn ar wahân.',
+    'Bydd y wybodaeth y byddwch yn ei rhoi yn cael ei hystyried fel rhan o\'ch cais. Os oes angen i chi wneud <a href="https://www.gov.uk/injunction-domestic-violence" class="govuk-link" target="_blank" aria-label="an application for a domestic abuse injunction">cais am waharddeb cam-drin domestig</a>, gallwch wneud hyn ar wahân.',
   warningMessage:
-    "Efallai y byddwch chi'n ystyried rhai o'r cwestiynau hyn yn peri gofid neu'n anodd i'w hateb. Cymerwch eich amser a cheisiwch eu hateb y gorau y gallwch.",
+    "Efallai y byddwch chi'n ystyried rhai o'r cwestiynau hyn yn anodd i’w hateb neu eu bod yn peri gofid i chi. Cymerwch eich amser a cheisiwch eu hateb cystal ag y gallwch.",
   yesHaveSafetyConcerns: 'Oes',
   noHaveSafetyConcerns: 'Nac oes',
   errors: {
-    PRL_c1A_haveSafetyConcerns: {
+    c1A_haveSafetyConcerns: {
       required: 'Dewiswch oes os oes gennych bryderon eraill am ddiogelwch a lles y plant',
     },
   },
@@ -71,7 +71,7 @@ describe('Safety concern about > applying-with > content', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.PRL_c1A_haveSafetyConcerns as FormOptions;
+    const applyingWithField = fields.c1A_haveSafetyConcerns as FormOptions;
     const applyingWithFieldParagraph1 = fields.paragraph1 as FormInput;
     const applyingWithFieldParagraph2 = fields.paragraph2 as FormInput;
     const applyingWithFieldWarningMessage = fields.warningMessage as FormInput;
@@ -96,7 +96,14 @@ describe('Safety concern about > applying-with > content', () => {
     const form = generatedContent.form as FormContent | undefined;
     expect(
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and continue');
+    ).toBe('Continue');
+  });
+  test('should contain saveAndComeLater button', () => {
+    const generatedContent = generateContent(commonContent);
+    const form = generatedContent.form as FormContent | undefined;
+    expect(
+      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+    ).toBe('Save and come back later');
   });
 
   /* eslint-disable @typescript-eslint/ban-types */
