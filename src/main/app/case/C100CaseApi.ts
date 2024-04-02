@@ -93,6 +93,45 @@ export class CaseApi {
   }
 
   /**
+   * This is used to submit case based on the case event passed
+   * @param caseId
+   * @param caseData
+   * @param returnUrl
+   * @param caseEvent
+   * @returns
+   */
+  public async submitC100Case(
+    caseId: string,
+    caseData: Partial<CaseWithId>,
+    returnUrl: string,
+    caseEvent: C100_CASE_EVENT
+  ): Promise<UpdateCaseResponse> {
+    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, applicantCaseName, ...rest } =
+      caseData;
+    const data: UpdateCaseRequest = {
+      ...transformCaseData(rest),
+      caseTypeOfApplication: caseTypeOfApplication as string,
+      applicantCaseName,
+      c100RebuildChildPostCode,
+      helpWithFeesReferenceNumber,
+      c100RebuildReturnUrl: returnUrl,
+      id: caseId,
+      paymentServiceRequestReferenceNumber: caseData.paymentDetails?.serviceRequestReference,
+      paymentReferenceNumber: caseData.paymentDetails?.payment_reference,
+    };
+    try {
+      const response = await this.axios.post<UpdateCaseResponse>(`/citizen/${caseId}/${caseEvent}/submit-c100-application`, data, {
+        headers: {
+        },
+      });
+      return { data: response.data };
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be updated.');
+    }
+  }
+
+  /**
    * This is used to update/submit case based on the case event passed
    * @param caseId
    * @param caseData
