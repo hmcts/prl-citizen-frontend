@@ -17,6 +17,7 @@ jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
 const updateCaserMock = jest.spyOn(C100Api.prototype, 'updateCase');
+const submittedCaserMock = jest.spyOn(C100Api.prototype, 'submitC100Case');
 
 const mockLogger = {
   error: jest.fn().mockImplementation((message: string) => message),
@@ -276,7 +277,7 @@ describe('PaymentValidationHandler', () => {
   });
 
   test('submitCase should catch not submitted error', async () => {
-    updateCaserMock.mockRejectedValue({
+    submittedCaserMock.mockRejectedValue({
       response: {
         status: 500,
       },
