@@ -48,7 +48,7 @@ const en = {
   ],
   supportYouNeed: 'Tell us what support you need (optional)',
   supportYouNeedHint:
-    'Provide as much detail as possible, including why the support is needed.If you have already asked for support, your request has been sent to the court.',
+    'Provide as much detail as possible, including why the support is needed. If you have already asked for support, your request has been sent to the court.',
   errors: {
     ra_languageReqAndSpecialArrangements: {
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
@@ -101,7 +101,7 @@ const cy = {
   ],
   supportYouNeed: 'Dywedwch wrthym pa gymorth sydd ei angen arnoch (dewisol)',
   supportYouNeedHint:
-    "Rhowch gymaint o fanylion â phosibl, gan gynnwys pam fod angen y cymorth.Os ydych eisoes wedi gofyn am gymorth, anfonwyd eich cais i'r llys.",
+    "Rhowch gymaint o fanylion â phosibl, gan gynnwys pam fod angen y cymorth. Os ydych eisoes wedi gofyn am gymorth, anfonwyd eich cais i'r llys.",
   errors: {
     ra_languageReqAndSpecialArrangements: {
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
