@@ -1,15 +1,7 @@
 import axios from 'axios';
 
-import { checkYourAnswerFlow1 } from '../../../../test/unit/mocks/mocked-requests/check-your-answer-flow-1-mock';
-import { checkYourAnswerFlow2 } from '../../../../test/unit/mocks/mocked-requests/check-your-answer-flow-2-mock';
-import { checkYourAnswerFlow3 } from '../../../../test/unit/mocks/mocked-requests/check-your-answer-flow-3-mock';
-import { checkYourAnswerFlow4 } from '../../../../test/unit/mocks/mocked-requests/check-your-answer-flow-4-mock';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CaseApi } from '../../../app/case/C100CaseApi';
-import { FieldPrefix } from '../../../app/case/case';
-
-import CheckYourAnswersGetController from './CheckYourAnswersGetController';
 
 jest.mock('axios');
 jest.useFakeTimers();
@@ -17,12 +9,12 @@ jest.spyOn(global, 'setTimeout');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
 const req = mockRequest();
-const res = mockResponse();
+// const res = mockResponse();
 
 const updateCaserMock = jest.spyOn(CaseApi.prototype, 'updateCase');
 
 describe('DocumentUpload Get Controller', () => {
-  const controller = new CheckYourAnswersGetController('page', () => ({}), FieldPrefix.APPLICANT);
+  // const controller = new CheckYourAnswersGetController('page', () => ({}), FieldPrefix.APPLICANT);
   beforeEach(() => {
     jest.clearAllMocks;
     updateCaserMock.mockResolvedValue(req.session.userCase);
