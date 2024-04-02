@@ -2,7 +2,8 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../app/case/CosApiClient';
 import { applicantContactPreferencesEnum } from '../../../app/case/definition';
-import { FormFields } from '../../../app/form/Form';
+import { FormContent, FormFields } from '../../../app/form/Form';
+import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 
 import { ContactPreferencesPostController } from './ContactPreferencesPostController';
 
@@ -76,6 +77,37 @@ describe('ContactPreferencesPostController', () => {
               Country: 'string',
             },
             user: {
+              idamId: '123',
+              email: 'test1234@example.net',
+            },
+            response: 'MOCK_RESPONSE',
+            contactPreferences: 'digital',
+          },
+        },
+      ],
+      respondents: [
+        {
+          id: '0c09b130-2eba-4ca8-a910-1f001bac01e2',
+          value: {
+            firstName: 'testuser',
+            lastName: 'Citizen',
+            email: 'abc@example.net',
+            dateOfBirth: '03-20-2023',
+            phoneNumber: '7755664466',
+            placeOfBirth: 'BPP',
+            previousName: 'test',
+            isAtAddressLessThan5Years: 'No',
+            addressLivedLessThan5YearsDetails: 'Hello',
+            address: {
+              AddressLine1: 'string',
+              AddressLine2: 'string',
+              AddressLine3: 'string',
+              PostTown: 'string',
+              County: 'string',
+              PostCode: 'string',
+              Country: 'string',
+            },
+            user: {
               idamId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
               email: 'test1234@example.net',
             },
@@ -88,7 +120,7 @@ describe('ContactPreferencesPostController', () => {
         {
           id: '577695bd-2fb5-4418-a699-79ee352ed5bb',
           value: {
-            partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+            partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e2',
             caseInviteEmail: 'respondent2@example.net',
             accessCode: '3GYFGJHO',
             invitedUserId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
@@ -158,9 +190,12 @@ describe('ContactPreferencesPostController', () => {
     req.body.preferredModeOfContact = 'post';
     req.session.userCase.caseTypeOfApplication = 'C100';
     req.session.userCase.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.session.user.id = '123';
     updateCaserMock.mockResolvedValue(req.session.userCase);
 
     await controller.post(req, res);
+    await new Promise(process.nextTick);
+
     expect(req.session.userCase.contactPreferences).toEqual('post');
     expect(res.redirect).toHaveBeenCalledWith('/applicant/contact-preferences/contact-post');
   });
@@ -170,11 +205,44 @@ describe('ContactPreferencesPostController', () => {
     req.body.preferredModeOfContact = 'digital';
     req.session.userCase.caseTypeOfApplication = 'C100';
     req.session.userCase.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.session.user.id = '123';
     updateCaserMock.mockResolvedValue(req.session.userCase);
 
     await controller.post(req, res);
+    await new Promise(process.nextTick);
+
     expect(req.session.userCase.contactPreferences).toEqual('digital');
     expect(res.redirect).toHaveBeenCalledWith('/applicant/contact-preferences/contact-email');
+  });
+
+  test('Should update the userCase for contact preferences when updateCaseData API is success for respondent', async () => {
+    req.session.userCase.respondents[0].value.contactPreferences = 'post';
+    req.body.preferredModeOfContact = 'post';
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.user.id = '8e87fde0-bab4-4701-abbe-2d277ca38fr5';
+    req.session.userCase.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    updateCaserMock.mockResolvedValue(req.session.userCase);
+
+    await controller.post(req, res);
+    await new Promise(process.nextTick);
+
+    expect(req.session.userCase.contactPreferences).toEqual('post');
+    expect(res.redirect).toHaveBeenCalledWith('/respondent/contact-preferences/contact-post');
+  });
+
+  test('Should update the userCase for contact preferences when updateCaseData API is success for digital for respondent', async () => {
+    req.session.userCase.applicants[0].value.contactPreferences = 'digital';
+    req.body.preferredModeOfContact = 'digital';
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.user.id = '8e87fde0-bab4-4701-abbe-2d277ca38fr5';
+    req.session.userCase.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    updateCaserMock.mockResolvedValue(req.session.userCase);
+
+    await controller.post(req, res);
+    await new Promise(process.nextTick);
+
+    expect(req.session.userCase.contactPreferences).toEqual('digital');
+    expect(res.redirect).toHaveBeenCalledWith('/respondent/contact-preferences/contact-email');
   });
 
   test('Should not update the userCase for contact preferences when updateCaseData API is throwing error', async () => {
@@ -182,5 +250,21 @@ describe('ContactPreferencesPostController', () => {
     await expect(controller.post(req, res)).rejects.toThrow(
       'ContactPreferencesPostController - Case could not be updated.'
     );
+  });
+
+  test('should redirect if form has error', async () => {
+    req.body.preferredModeOfContact = undefined;
+    const mockErrorFields = {
+      fields: {
+        preferredModeOfContact: {
+          type: 'radios',
+          validator: atLeastOneFieldIsChecked,
+        },
+      },
+    } as unknown as FormContent;
+    const postController = new ContactPreferencesPostController(mockErrorFields.fields);
+    await postController.post(req, res);
+    await new Promise(process.nextTick);
+    expect(req.session.userCase.applicants[0].value.response.preferredModeOfContact).toEqual(undefined);
   });
 });

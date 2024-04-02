@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { applicantContactPreferencesEnum } from '../../../../app/case/definition';
+import { PartyDetails, applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
@@ -110,6 +110,21 @@ describe('contact preferences common content', () => {
 
     (preferredModeOfContact.validator as Function)(applicantContactPreferencesEnum.DIGITAL);
     expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith(applicantContactPreferencesEnum.DIGITAL);
+  });
+
+  test('preferredModeOfContact should not be disabled when email present', () => {
+    commonContent.userCase = {
+      ...commonContent.userCase,
+      applicantsFL401: {
+        email: 'test@test.com',
+      } as unknown as PartyDetails,
+      caseTypeOfApplication: 'FL401',
+    };
+    generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
+    const { preferredModeOfContact } = fields as Record<string, FormFields>;
+    expect(preferredModeOfContact.values[0].disabled).toBe(undefined);
   });
 
   test('should contain Save and continue button', () => {

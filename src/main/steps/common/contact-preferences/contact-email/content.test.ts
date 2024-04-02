@@ -1,4 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { CaseWithId } from '../../../../app/case/case';
 import { FormContent, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
@@ -63,5 +64,35 @@ describe('contact email common content', () => {
     expect(
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and continue');
+  });
+
+  test('should set correct email change link for respondent', () => {
+    commonContent.userCase = {
+      caseTypeOfApplication: 'C100',
+      respondents: [
+        {
+          id: '123',
+          value: {
+            user: {
+              idamId: '123',
+            },
+          },
+        },
+      ],
+      caseInvites: [
+        {
+          value: {
+            partyId: '123',
+            invitedUserId: '123',
+          },
+        },
+      ],
+      user: {
+        id: '123',
+      },
+    } as unknown as Partial<CaseWithId>;
+    commonContent.userIdamId = '123';
+    const generatedContent = generateContent(commonContent);
+    expect(generatedContent.changeEmailLink).toBe('/respondent/confirm-contact-details/contactdetails');
   });
 });

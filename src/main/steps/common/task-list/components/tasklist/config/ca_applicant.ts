@@ -2,6 +2,7 @@
 import { generateTheResponseTasks } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { hasContactPreference } from '../../../../../../steps/common/contact-preferences/util';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
@@ -40,7 +41,8 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         id: Tasks.CONTACT_PREFERENCES,
         href: (caseData: Partial<CaseWithId>) => `${FETCH_CONTACT_PREFERENCES}/${caseData.id}`,
         disabled: isCaseClosed,
-        stateTag: () => StateTags.SUBMITTED,
+        stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          !hasContactPreference(caseData as CaseWithId, userDetails.id) ? StateTags.TO_DO : StateTags.COMPLETED,
       },
       {
         id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,

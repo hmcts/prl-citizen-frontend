@@ -72,10 +72,6 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updateFormFields(form, generateFormFields().fields);
-};
-
 export const generateContent: TranslationFn = content => {
   const caseNumber = content.userCase?.id!;
   const translations = languages[content.language]();

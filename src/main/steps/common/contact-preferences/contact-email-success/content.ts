@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars*/
-import { CaseWithId } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { interpolate } from '../../../../steps/common/string-parser';
@@ -57,10 +56,6 @@ export const form: FormContent = {
   submit: {
     text: l => l.continue,
   },
-};
-
-export const getFormFields = (caseData: Partial<CaseWithId>): FormContent => {
-  return updateFormFields(form, generateFormFields().fields);
 };
 
 export const generateContent: TranslationFn = content => {

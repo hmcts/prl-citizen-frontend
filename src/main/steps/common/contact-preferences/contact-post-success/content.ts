@@ -56,10 +56,6 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updateFormFields(form, generateFormFields().fields);
-};
-
 export const generateContent: TranslationFn = content => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
   const caseNumber = content.userCase?.id!;

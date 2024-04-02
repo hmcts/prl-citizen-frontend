@@ -18,10 +18,11 @@ describe('ca_respondent', () => {
     const aboutYouTasks = CA_RESPONDENT[0].tasks(data, {} as SectionContent);
 
     expect(CA_RESPONDENT[0].id).toBe('aboutYou');
-    expect(aboutYouTasks).toHaveLength(3);
+    expect(aboutYouTasks).toHaveLength(4);
     expect(aboutYouTasks[0].id).toBe('keepYourDetailsPrivate');
-    expect(aboutYouTasks[1].id).toBe('editYouContactDetails');
-    expect(aboutYouTasks[2].id).toBe('yourSupport');
+    expect(aboutYouTasks[1].id).toBe('contactPreferences');
+    expect(aboutYouTasks[2].id).toBe('editYouContactDetails');
+    expect(aboutYouTasks[3].id).toBe('yourSupport');
   });
 
   test('the application section should contain correct ids and tasks', () => {

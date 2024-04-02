@@ -459,8 +459,8 @@ describe('tasklist index', () => {
               linkText: 'Contact preferences',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--grey',
+                label: 'TO DO',
               },
             },
             {
@@ -726,8 +726,8 @@ describe('tasklist index', () => {
               linkText: 'Contact preferences',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--grey',
+                label: 'TO DO',
               },
             },
             {
@@ -909,8 +909,8 @@ describe('tasklist index', () => {
               linkText: 'Contact preferences',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--grey',
+                label: 'TO DO',
               },
             },
             {
@@ -1231,8 +1231,8 @@ describe('tasklist index', () => {
               linkText: 'Contact preferences',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--grey',
+                label: 'TO DO',
               },
             },
             {
@@ -1479,8 +1479,8 @@ describe('tasklist index', () => {
               linkText: 'Contact preferences',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--grey',
+                label: 'TO DO',
               },
             },
             {
@@ -2569,6 +2569,15 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
+            href: '/contact-preferences/fetch/1234',
+            id: 'contactPreferences',
+            linkText: 'Contact preferences',
+            openInAnotherTab: false,
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            hintText: null,
             href: '/respondent/confirm-contact-details/checkanswers/1234',
             id: 'editYouContactDetails',
             linkText: 'Confirm or edit your contact details',
@@ -2782,6 +2791,15 @@ describe('c100 respondent', () => {
             linkText: 'Keep your details private',
             openInAnotherTab: false,
             stateTag: { className: 'govuk-tag--blue', label: 'In progress' },
+          },
+          {
+            disabled: false,
+            hintText: null,
+            href: '/contact-preferences/fetch/1234',
+            id: 'contactPreferences',
+            linkText: 'Contact preferences',
+            openInAnotherTab: false,
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
           },
           {
             disabled: false,
@@ -3028,6 +3046,15 @@ describe('c100 respondent', () => {
             linkText: 'Keep your details private',
             openInAnotherTab: false,
             stateTag: { className: 'govuk-tag--green', label: 'Completed' },
+          },
+          {
+            disabled: false,
+            hintText: null,
+            href: '/contact-preferences/fetch/1234',
+            id: 'contactPreferences',
+            linkText: 'Contact preferences',
+            openInAnotherTab: false,
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
           },
           {
             disabled: false,

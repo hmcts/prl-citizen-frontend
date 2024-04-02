@@ -79,10 +79,6 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (): FormContent => {
-  return updateFormFields(form, generateFormFields().fields);
-};
-
 export const generateContent: TranslationFn = content => {
   const caseNumber: string = content.userCase?.id!;
   const partyDetails = getPartyDetails(content.userCase as CaseWithId, content.userIdamId as UserDetails['id']);
@@ -94,7 +90,7 @@ export const generateContent: TranslationFn = content => {
     caption: interpolate(translations.caption, { caseNumber }),
     form: updateFormFields(form, fields),
     addresses: Object.values(partyDetails?.address!).filter(address => {
-      if (address && address.trim()) {
+      if (address?.trim()) {
         return address;
       }
     }),

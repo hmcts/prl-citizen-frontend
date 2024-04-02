@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 import { CaseWithId } from '../../../../../../app/case/case';
+import { CaseType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { hasContactPreference } from '../../../../../../steps/common/contact-preferences/util';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { UPDATE_CASE_YES } from '../../../../../../steps/constants';
 import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils';
@@ -8,6 +11,7 @@ import {
   ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT_CA_DA_REQUEST,
   CA_DA_ATTENDING_THE_COURT,
+  FETCH_CONTACT_PREFERENCES,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -48,6 +52,14 @@ export const aboutYou: TaskListConfigProps = {
         const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
         return getKeepYourDetailsPrivateStatus(respondent?.response.keepDetailsPrivate);
       },
+    },
+    {
+      id: Tasks.CONTACT_PREFERENCES,
+      href: (caseData: Partial<CaseWithId>) => `${FETCH_CONTACT_PREFERENCES}/${caseData.id}`,
+      disabled: isCaseClosed,
+      stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+        !hasContactPreference(caseData as CaseWithId, userDetails.id) ? StateTags.TO_DO : StateTags.COMPLETED,
+      show: (caseData: Partial<CaseWithId>) => caseData.caseTypeOfApplication === CaseType.C100,
     },
     {
       id: Tasks.EDIT_YOUR_CONTACT_DETAILS,

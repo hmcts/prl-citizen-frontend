@@ -12,7 +12,7 @@ export const hasContactPreference = (caseData: CaseWithId, userId: UserDetails['
     } else {
       return (
         Object.values(partyDetails.address).filter(address => {
-          if (address && address.trim()) {
+          if (address?.trim()) {
             return address;
           }
         }).length > 0
