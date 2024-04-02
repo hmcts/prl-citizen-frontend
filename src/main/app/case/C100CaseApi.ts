@@ -93,6 +93,90 @@ export class CaseApi {
   }
 
   /**
+   * This is used to submit case based on the case event passed
+   * @param caseId
+   * @param caseData
+   * @param returnUrl
+   * @param caseEvent
+   * @returns
+   */
+  public async submitC100Case(
+    caseId: string,
+    caseData: Partial<CaseWithId>,
+    returnUrl: string,
+    caseEvent: C100_CASE_EVENT
+  ): Promise<UpdateCaseResponse> {
+    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, applicantCaseName, ...rest } =
+      caseData;
+    const data: UpdateCaseRequest = {
+      ...transformCaseData(rest),
+      caseTypeOfApplication: caseTypeOfApplication as string,
+      applicantCaseName,
+      c100RebuildChildPostCode,
+      helpWithFeesReferenceNumber,
+      c100RebuildReturnUrl: returnUrl,
+      id: caseId,
+      paymentServiceRequestReferenceNumber: caseData.paymentDetails?.serviceRequestReference,
+      paymentReferenceNumber: caseData.paymentDetails?.payment_reference,
+    };
+    try {
+      const response = await this.axios.post<UpdateCaseResponse>(
+        `/citizen/${caseId}/${caseEvent}/submit-c100-application`,
+        data,
+        {
+          headers: {},
+        }
+      );
+      return { data: response.data };
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be updated.');
+    }
+  }
+
+  /**
+   * This is used to update/submit case based on the case event passed
+   * @param caseId
+   * @param caseData
+   * @param returnUrl
+   * @param caseEvent
+   * @returns
+   */
+  public async saveC100DraftApplication(
+    caseId: string,
+    caseData: Partial<CaseWithId>,
+    returnUrl: string
+  ): Promise<UpdateCaseResponse> {
+    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, applicantCaseName, ...rest } =
+      caseData;
+    const data: UpdateCaseRequest = {
+      ...transformCaseData(rest),
+      caseTypeOfApplication: caseTypeOfApplication as string,
+      applicantCaseName,
+      c100RebuildChildPostCode,
+      helpWithFeesReferenceNumber,
+      c100RebuildReturnUrl: returnUrl,
+      id: caseId,
+      paymentServiceRequestReferenceNumber: caseData.paymentDetails?.serviceRequestReference,
+      paymentReferenceNumber: caseData.paymentDetails?.payment_reference,
+    };
+    try {
+      const response = await this.axios.post<UpdateCaseResponse>(
+        `/citizen/${caseId}/save-c100-draft-application`,
+        data,
+        {
+          headers: {},
+        }
+      );
+      return { data: response.data };
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be updated.');
+    }
+  }
+
+  /**
+   * TODO: Alok need to double check on this API call - what to do with old case data
    * Delete Case
    * State: DELETED
    * Event: C100_CASE_EVENT.DELETE_CASE
@@ -106,10 +190,8 @@ export class CaseApi {
       if (!caseId) {
         throw new Error('caseId not found so case could not be deleted.');
       }
-      await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100_CASE_EVENT.DELETE_CASE}/update-case`, caseData, {
-        headers: {
-          accessCode: 'null',
-        },
+      await this.axios.post<UpdateCaseResponse>(`/citizen/${caseId}/delete-application`, caseData, {
+        headers: {},
       });
       session.userCase = {} as CaseWithId;
       session.save();
@@ -169,7 +251,7 @@ export class CaseApi {
       const { withdrawApplication, withdrawApplicationReason } = caseData;
 
       await this.axios.post<UpdateCaseResponse>(
-        `${caseId}/withdraw`,
+        `/citizen/${caseId}/withdraw`,
         {
           withDrawApplicationData: {
             withDrawApplication: withdrawApplication,
