@@ -120,10 +120,13 @@ export class CaseApi {
       paymentReferenceNumber: caseData.paymentDetails?.payment_reference,
     };
     try {
-      const response = await this.axios.post<UpdateCaseResponse>(`/citizen/${caseId}/${caseEvent}/submit-c100-application`, data, {
-        headers: {
-        },
-      });
+      const response = await this.axios.post<UpdateCaseResponse>(
+        `/citizen/${caseId}/${caseEvent}/submit-c100-application`,
+        data,
+        {
+          headers: {},
+        }
+      );
       return { data: response.data };
     } catch (err) {
       this.logError(err);
