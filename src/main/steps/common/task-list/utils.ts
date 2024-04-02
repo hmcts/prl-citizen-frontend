@@ -6,7 +6,7 @@ import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
 import { PARTY_TASKLIST, PageLink, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
 import { applyParms } from '../url-parser';
 
-import { CaseType, PartyDetails, PartyType, State, YesOrNo } from './../../../app/case/definition';
+import { CaseType, PartyDetails, PartyType, ServedParty, State, YesOrNo } from './../../../app/case/definition';
 
 export const getPartyName = (
   caseData: Partial<CaseWithId> | undefined,
@@ -89,8 +89,16 @@ export const keepDetailsPrivateNav = (caseData: Partial<CaseWithId>, req: AppReq
   return req?.session.applicationSettings?.navfromRespondToApplication ? RESPOND_TO_APPLICATION : respondentTaskListUrl;
 };
 
-export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean =>
-  caseData?.soaCafcassServedOptions === YesOrNo.YES;
+export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseData?.isCafcassServed === YesOrNo.YES;
 
-export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean =>
-  caseData?.soaCafcassCymruServedOptions === YesOrNo.YES;
+export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean => {
+  if (
+    caseData.finalServedApplicationDetailsList?.length &&
+    caseData.finalServedApplicationDetailsList.find(list =>
+      list.value.emailNotificationDetails?.find(i => i.value?.servedParty === ServedParty.CYMRU)
+    )
+  ) {
+    return true;
+  }
+  return false;
+};

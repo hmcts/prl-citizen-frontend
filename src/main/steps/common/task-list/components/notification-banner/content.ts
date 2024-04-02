@@ -14,6 +14,8 @@ import {
 import { NotificationBannerContent } from '../../definitions';
 import { isCafcassCymruServed, isCafcassServed } from '../../utils';
 
+import { isPersonalServiceByCourtStaff } from './utils';
+
 const en: NotificationBannerContent = {
   title: 'Important',
   [CaseType.C100]: {
@@ -133,9 +135,36 @@ const en: NotificationBannerContent = {
                   text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
                 },
                 {
-                  text: 'The court has also sent the application to the Children and Family Court Advisory and Support Service (Cafcass or Cafcass Cymru). Cafcass or Cafcass Cymru will contact you to consider the needs of the children.',
+                  text: 'We will let you know when the other people in the case have been given your application and case documents.',
                   show: (caseData: Partial<CaseWithId>): boolean => {
-                    return isCafcassServed(caseData) || isCafcassCymruServed(caseData);
+                    return isPersonalServiceByCourtStaff(caseData);
+                  },
+                },
+                {
+                  text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
+                },
+                {
+                  text: '<p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassServed(caseData);
+                  },
+                },
+                {
+                  text: '<p class="govuk-notification-banner__heading">Cafcass Cymru will contact you</p>',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassCymruServed(caseData);
+                  },
+                },
+                {
+                  text: 'The Children and Family Court Advisory and Support Service (Cafcass) will contact you to consider the needs of the children.',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassServed(caseData);
+                  },
+                },
+                {
+                  text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) will contact you to consider the needs of the children.',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassCymruServed(caseData);
                   },
                 },
               ],
@@ -648,29 +677,58 @@ const cy: typeof en = {
           ],
         },
         applicationServedAndLinked: {
-          heading: 'Mae’r llys wedi cychwyn eich cais',
+          heading: "Mae'r llys wedi cychwyn eich cais",
           sections: [
             {
               contents: [
                 {
-                  text: 'Mae hyn yn golygu bod y llys wedianfon eich cais at y bobl eraill yn yr achos (yr atebwyr). Bydd yr atebwyr yn cael cyfle i ymateb i’r hyn yr ydych wedi’i ddweud. Bydd y cais yn mynd rhagddo p’un a fyddant yn ymateb neu beidio.',
+                  text: "Mae hyn yn golygu y bydd y llys yn rhoi eich cais i'r bobl eraill yn yr achos (yr atebwyr). Bydd yr atebwyr yn cael cyfle i ymateb i'r hyn yr ydych wedi'i ddweud.  Bydd y cais yn symud yn ei flaen p’un a fyddant yn ymateb neu beidio.",
                 },
                 {
-                  text: 'Mae’r llys hefyd wedi anfon y cais i’r Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass neu Cafcass Cymru). Bydd Cafcass neu Cafcass Cymru yn cysylltu â chi i ystyried anghenion y plant.',
-                  show: isCafcassServed,
+                  text: "Byddwn yn rhoi gwybod i chi pan fydd y bobl eraill yn yr achos wedi cael eich cais a'ch dogfennau achos.",
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isPersonalServiceByCourtStaff(caseData);
+                  },
+                },
+                {
+                  text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">Gweld eich pecyn cais</a>',
+                },
+                {
+                  text: '<p class="govuk-notification-banner__heading">Bydd Cafcass yn cysylltu â chi</p>',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassServed(caseData);
+                  },
+                },
+                {
+                  text: '<p class="govuk-notification-banner__heading">Bydd Cafcass Cymru yn cysylltu â chi </p>',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassCymruServed(caseData);
+                  },
+                },
+                {
+                  text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass) yn cysylltu â chi i ystyried anghenion y plant.',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassServed(caseData);
+                  },
+                },
+                {
+                  text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return isCafcassCymruServed(caseData);
+                  },
                 },
               ],
               links: [
                 {
-                  text: 'Mwy o wybodaeth am Cafcass',
+                  text: 'Gwybodaeth am Cafcass',
                   href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
                   show: isCafcassServed,
                   external: true,
                 },
                 {
-                  text: 'Mwy o wybodaeth am Cafcass Cymru',
+                  text: 'Gwybodaeth am Cafcass Cymru',
                   href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
-                  show: isCafcassServed,
+                  show: isCafcassCymruServed,
                   external: true,
                 },
               ],

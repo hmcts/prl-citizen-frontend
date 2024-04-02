@@ -225,8 +225,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentDocsList: 'respondentDocsList',
   caseInvites: 'caseInvites',
   draftOrderDoc: 'draftOrderDoc',
-  soaCafcassServedOptions: 'soaCafcassServedOptions',
-  soaCafcassCymruServedOptions: 'soaCafcassCymruServedOptions',
+  isCafcassServed: 'soaCafcassServedOptions',
+  isCafcassCymruServed: 'soaCafcassCymruServedOptions',
+  finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -590,9 +591,25 @@ export interface Case {
   draftOrderDoc?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
-  soaCafcassServedOptions?: YesOrNo | null;
-  soaCafcassCymruServedOptions?: YesOrNo | null;
+  isCafcassServed?: YesOrNo | null;
+  isCafcassCymruServed?: YesOrNo | null;
+  finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
+export interface ServedApplicationDetails {
+  id: string;
+  value: ServedApplication;
+}
+export type ServedApplication = {
+  emailNotificationDetails: emailNotificationDetails[] | [];
+  whoIsResponsible: string;
+};
+export interface emailNotificationDetails {
+  id: string;
+  value: emailNotification;
+}
+export type emailNotification = {
+  servedParty: string;
+};
 
 export interface CaseWithId extends Case {
   paymentSuccessDetails?: {
