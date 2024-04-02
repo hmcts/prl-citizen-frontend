@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-import { checkYourAnswerFlow1 } from '../../../../test/unit/mocks/mocked-requests/check-your-answer-flow-1-mock';
-import { checkYourAnswerFlow2 } from '../../../../test/unit/mocks/mocked-requests/check-your-answer-flow-2-mock';
-import { checkYourAnswerFlow3 } from '../../../../test/unit/mocks/mocked-requests/check-your-answer-flow-3-mock';
-import { checkYourAnswerFlow4 } from '../../../../test/unit/mocks/mocked-requests/check-your-answer-flow-4-mock';
+// import { checkYourAnswerFlow1 } from '../../../../test/unit/mocks/mocked-requests/check-your-answer-flow-1-mock';
+// import { checkYourAnswerFlow2 } from '../../../../test/unit/mocks/mocked-requests/check-your-answer-flow-2-mock';
+// import { checkYourAnswerFlow3 } from '../../../../test/unit/mocks/mocked-requests/check-your-answer-flow-3-mock';
+// import { checkYourAnswerFlow4 } from '../../../../test/unit/mocks/mocked-requests/check-your-answer-flow-4-mock';
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CaseApi } from '../../../app/case/C100CaseApi';
@@ -19,7 +19,7 @@ mockedAxios.create = jest.fn(() => mockedAxios);
 const req = mockRequest();
 const res = mockResponse();
 
-const updateCaserMock = jest.spyOn(CaseApi.prototype, 'updateCase');
+const updateCaserMock = jest.spyOn(CaseApi.prototype, 'saveC100DraftApplication');
 
 describe('DocumentUpload Get Controller', () => {
   const controller = new CheckYourAnswersGetController('page', () => ({}), FieldPrefix.APPLICANT);
@@ -91,24 +91,24 @@ describe('DocumentUpload Get Controller', () => {
   //   expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'defaultPaymentError' });
   // });
 
-  // test('should catch errors and set payment error for successful payment', async () => {
-  //   req.session.userCase.paymentSuccessDetails = {
-  //     amount: 'MOCK_AMOUNT',
-  //     reference: 'REFERENCE',
-  //     ccd_case_number: '0123456789',
-  //     case_reference: '0123456789',
-  //     channel: 'CHANNEL',
-  //     method: 'METHOD',
-  //     status: 'success',
-  //     external_reference: 'EXTERNAL_REFERENCE',
-  //     payment_group_reference: 'PAYMENT_GROUP_REFERENCE',
-  //   };
-  //   req.session.paymentError = { hasError: false, errorContext: null };
-  //   req.locals.C100Api.updateCase.mockImplementation(() => {
-  //     throw new Error();
-  //   });
+  test('should catch errors and set payment error for successful payment', async () => {
+    req.session.userCase.paymentSuccessDetails = {
+      amount: 'MOCK_AMOUNT',
+      reference: 'REFERENCE',
+      ccd_case_number: '0123456789',
+      case_reference: '0123456789',
+      channel: 'CHANNEL',
+      method: 'METHOD',
+      status: 'success',
+      external_reference: 'EXTERNAL_REFERENCE',
+      payment_group_reference: 'PAYMENT_GROUP_REFERENCE',
+    };
+    req.session.paymentError = { hasError: false, errorContext: null };
+    req.locals.C100Api.updateCase.mockImplementation(() => {
+      throw new Error();
+    });
 
-  //   await controller.get(req, res);
-  //   expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'applicationNotSubmitted' });
-  // });
+    await controller.get(req, res);
+    expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'applicationNotSubmitted' });
+  });
 });
