@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { cy as addressManualCy, en as addressManualEn } from '../../applicant/address/common/address-manual';
+import { cy as addressManualCy, en as addressManualEn } from '../../address/manual/address-manual';
 import {
   cy as contentDetailKnownCy,
   en as contentDetailKnownEn,

@@ -2,10 +2,8 @@ import { Case } from '../../../app/case/case';
 import { C100Applicant, ChildrenDetails, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
+  C100_ADDRESS_LOOKUP,
   C100_APPLICANTS_PERSONAL_DETAILS,
-  C100_APPLICANT_ADDRESS_LOOKUP,
-  C100_APPLICANT_ADDRESS_MANUAL,
-  C100_APPLICANT_ADDRESS_SELECT,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_DETAILS_KNOW,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
@@ -17,6 +15,7 @@ import {
   C100_RESPONDENT_DETAILS_ADD,
   PageLink,
 } from '../../urls';
+import { C100UrlPartyType } from '../address/definitions';
 import { getPartyDetails } from '../people/util';
 
 class ApplicantNavigationController {
@@ -94,27 +93,10 @@ class ApplicantNavigationController {
               applicantId: this.applicantId,
               childId: nextChild?.id,
             })
-          : applyParms(C100_APPLICANT_ADDRESS_LOOKUP, {
-              applicantId: this.applicantId,
+          : applyParms(C100_ADDRESS_LOOKUP, {
+              id: this.applicantId,
+              partyType: C100UrlPartyType.APPLICANT,
             });
-        break;
-      }
-      case C100_APPLICANT_ADDRESS_LOOKUP: {
-        nextUrl = applyParms(C100_APPLICANT_ADDRESS_SELECT, {
-          applicantId: this.applicantId,
-        });
-        break;
-      }
-      case C100_APPLICANT_ADDRESS_SELECT: {
-        nextUrl = applyParms(C100_APPLICANT_ADDRESS_MANUAL, {
-          applicantId: this.applicantId,
-        });
-        break;
-      }
-      case C100_APPLICANT_ADDRESS_MANUAL: {
-        nextUrl = applyParms(C100_APPLICANT_CONTACT_DETAIL, {
-          applicantId: this.applicantId,
-        });
         break;
       }
       case C100_APPLICANT_CONTACT_DETAIL: {

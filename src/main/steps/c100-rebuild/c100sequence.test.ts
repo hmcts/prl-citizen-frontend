@@ -6,14 +6,16 @@ import { otherPersonMockData } from '../../../test/unit/mocks/mocked-requests/ot
 import { otherProceedingsMockData } from '../../../test/unit/mocks/mocked-requests/other-proceedings-mock';
 import { respondentMockData } from '../../../test/unit/mocks/mocked-requests/respondent-details-mock';
 import { safetyConcernsMockData } from '../../../test/unit/mocks/mocked-requests/safety-concerns-mock';
+import { Case } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
+import { AppRequest } from '../../app/controller/AppRequest';
 
 import PageStepConfigurator from './PageStepConfigurator';
 import { C100Sequence } from './c100sequence';
 
 describe('C100Sequence', () => {
   test('should contain 1 entries in c100 screen sequence', () => {
-    expect(C100Sequence).toHaveLength(124);
+    expect(C100Sequence).toHaveLength(118);
     expect(C100Sequence[0].url).toBe('/c100-rebuild/confidentiality/details-know');
     expect(C100Sequence[0].showInSection).toBe('c100');
     expect(C100Sequence[0].getNextStep({ detailsKnown: YesOrNo.YES })).toBe(
@@ -658,6 +660,30 @@ describe('C100Sequence', () => {
     expect(C100Sequence[96].showInSection).toBe('c100');
     expect(C100Sequence[96].getNextStep({})).toBe('/c100-rebuild/applicant/address/lookup'); */
 
+    expect(C100Sequence[94].url).toBe('/c100-rebuild/:partyType/:id/address/lookup');
+    expect(C100Sequence[94].showInSection).toBe('c100');
+    expect(
+      C100Sequence[94].getNextStep({}, { params: { partyType: 'applicant', id: '123' } } as unknown as AppRequest<
+        Partial<Case>
+      >)
+    ).toBe('/c100-rebuild/applicant/123/address/select');
+
+    expect(C100Sequence[95].url).toBe('/c100-rebuild/:partyType/:id/address/select');
+    expect(C100Sequence[95].showInSection).toBe('c100');
+    expect(
+      C100Sequence[95].getNextStep({}, { params: { partyType: 'applicant', id: '123' } } as unknown as AppRequest<
+        Partial<Case>
+      >)
+    ).toBe('/c100-rebuild/applicant/123/address/manual');
+
+    expect(C100Sequence[96].url).toBe('/c100-rebuild/:partyType/:id/address/manual');
+    expect(C100Sequence[96].showInSection).toBe('c100');
+    expect(
+      C100Sequence[96].getNextStep({}, { params: { partyType: 'applicant', id: '123' } } as unknown as AppRequest<
+        Partial<Case>
+      >)
+    ).toBe('/c100-rebuild/applicant/123/contact-detail');
+
     expect(C100Sequence[97].url).toBe('/c100-rebuild/child-details/has-other-children');
     expect(C100Sequence[97].showInSection).toBe('c100');
     expect(C100Sequence[97].getNextStep({ ocd_hasOtherChildren: YesOrNo.NO })).toBe(
@@ -697,128 +723,92 @@ describe('C100Sequence', () => {
       '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/lookup'
     );
 
-    expect(C100Sequence[103].url).toBe('/c100-rebuild/respondent-details/:respondentId/address/lookup');
+    expect(C100Sequence[103].url).toBe('/c100-rebuild/respondent-details/:respondentId/contact-details');
     expect(C100Sequence[103].showInSection).toBe('c100');
     expect(C100Sequence[103].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
-      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/select'
-    );
-
-    expect(C100Sequence[104].url).toBe('/c100-rebuild/respondent-details/:respondentId/address/select');
-    expect(C100Sequence[104].showInSection).toBe('c100');
-    expect(C100Sequence[104].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
-      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/manual'
-    );
-
-    expect(C100Sequence[105].url).toBe('/c100-rebuild/respondent-details/:respondentId/address/manual');
-    expect(C100Sequence[105].showInSection).toBe('c100');
-    expect(C100Sequence[105].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
-      '/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/contact-details'
-    );
-
-    expect(C100Sequence[106].url).toBe('/c100-rebuild/respondent-details/:respondentId/contact-details');
-    expect(C100Sequence[106].showInSection).toBe('c100');
-    expect(C100Sequence[106].getNextStep(respondentMockData.session.userCase, respondentMockData)).toBe(
       '/c100-rebuild/other-person-details/other-person-check'
     );
 
-    expect(C100Sequence[107].url).toBe('/c100-rebuild/other-person-details/other-person-check');
-    expect(C100Sequence[107].showInSection).toBe('c100');
-    expect(C100Sequence[107].getNextStep({ oprs_otherPersonCheck: YesOrNo.YES })).toBe(
+    expect(C100Sequence[104].url).toBe('/c100-rebuild/other-person-details/other-person-check');
+    expect(C100Sequence[104].showInSection).toBe('c100');
+    expect(C100Sequence[104].getNextStep({ oprs_otherPersonCheck: YesOrNo.YES })).toBe(
       '/c100-rebuild/other-person-details/add-other-persons'
     );
     expect(
-      C100Sequence[107].getNextStep(
+      C100Sequence[104].getNextStep(
         { ...otherPersonMockData.session.userCase, oprs_otherPersonCheck: YesOrNo.NO },
         otherPersonMockData
       )
     ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with');
 
-    expect(C100Sequence[108].url).toBe('/c100-rebuild/other-person-details/add-other-persons');
-    expect(C100Sequence[108].showInSection).toBe('c100');
-    expect(C100Sequence[108].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
+    expect(C100Sequence[105].url).toBe('/c100-rebuild/other-person-details/add-other-persons');
+    expect(C100Sequence[105].showInSection).toBe('c100');
+    expect(C100Sequence[105].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
       '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/personal-details'
     );
 
-    expect(C100Sequence[109].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/personal-details');
-    expect(C100Sequence[109].showInSection).toBe('c100');
-    expect(C100Sequence[109].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
+    expect(C100Sequence[106].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/personal-details');
+    expect(C100Sequence[106].showInSection).toBe('c100');
+    expect(C100Sequence[106].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
       '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925474'
     );
 
-    expect(C100Sequence[110].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/address/lookup');
-    expect(C100Sequence[110].showInSection).toBe('c100');
-    expect(C100Sequence[110].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
-      '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/address/select'
-    );
-
-    expect(C100Sequence[111].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/address/select');
-    expect(C100Sequence[111].showInSection).toBe('c100');
-    expect(C100Sequence[111].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
-      '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/address/manual'
-    );
-
-    expect(C100Sequence[112].url).toBe('/c100-rebuild/other-person-details/:otherPersonId/address/manual');
-    expect(C100Sequence[112].showInSection).toBe('c100');
-    expect(C100Sequence[112].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
-      '/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with'
-    );
-
-    expect(C100Sequence[113].url).toBe(
+    expect(C100Sequence[107].url).toBe(
       '/c100-rebuild/other-person-details/:otherPersonId/relationship-to-child/:childId'
     );
-    expect(C100Sequence[113].showInSection).toBe('c100');
-    expect(C100Sequence[113].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
+    expect(C100Sequence[107].showInSection).toBe('c100');
+    expect(C100Sequence[107].getNextStep(otherPersonMockData.session.userCase, otherPersonMockData)).toBe(
       '/c100-rebuild/other-person-details/7228444b-ef3f-4202-a1e7-cdcd2316e1f6/address/lookup'
     );
 
-    expect(C100Sequence[114].url).toBe('/c100-rebuild/child-details/:childId/live-with');
-    expect(C100Sequence[114].showInSection).toBe('c100');
-    expect(C100Sequence[114].getNextStep(childrenMockData.session.userCase, childrenMockData)).toBe(
+    expect(C100Sequence[108].url).toBe('/c100-rebuild/child-details/:childId/live-with');
+    expect(C100Sequence[108].showInSection).toBe('c100');
+    expect(C100Sequence[108].getNextStep(childrenMockData.session.userCase, childrenMockData)).toBe(
       '/c100-rebuild/other-proceedings/current-previous-proceedings'
     );
 
-    expect(C100Sequence[115].url).toBe('/c100-rebuild/applicant/:applicantId/personal-details');
-    expect(C100Sequence[115].showInSection).toBe('c100');
-    expect(C100Sequence[115].getNextStep(applicantMockRequest.session.userCase, applicantMockRequest)).toBe(
+    expect(C100Sequence[109].url).toBe('/c100-rebuild/applicant/:applicantId/personal-details');
+    expect(C100Sequence[109].showInSection).toBe('c100');
+    expect(C100Sequence[109].getNextStep(applicantMockRequest.session.userCase, applicantMockRequest)).toBe(
       '/c100-rebuild/applicant/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925474'
     );
 
-    expect(C100Sequence[116].url).toBe('/c100-rebuild/applicant/:applicantId/relationship-to-child/:childId');
-    expect(C100Sequence[116].showInSection).toBe('c100');
-    expect(C100Sequence[116].getNextStep(applicantMockRequest.session.userCase, applicantMockRequest)).toBe(
+    expect(C100Sequence[110].url).toBe('/c100-rebuild/applicant/:applicantId/relationship-to-child/:childId');
+    expect(C100Sequence[110].showInSection).toBe('c100');
+    expect(C100Sequence[110].getNextStep(applicantMockRequest.session.userCase, applicantMockRequest)).toBe(
       '/c100-rebuild/applicant/2732dd53-2e6c-46f9-88cd-08230e735b08/relationship-to-child/7483640e-0817-4ddc-b709-6723f7925635'
     );
 
-    expect(C100Sequence[117].url).toBe('/c100-rebuild/applicant/:applicantId/contact-detail');
-    expect(C100Sequence[117].showInSection).toBe('c100');
-    expect(C100Sequence[117].getNextStep(applicantMockRequest.session.userCase, applicantMockRequest)).toBe(
+    expect(C100Sequence[111].url).toBe('/c100-rebuild/applicant/:applicantId/contact-detail');
+    expect(C100Sequence[111].showInSection).toBe('c100');
+    expect(C100Sequence[111].getNextStep(applicantMockRequest.session.userCase, applicantMockRequest)).toBe(
       '/c100-rebuild/applicant/2732dd53-2e6c-46f9-88cd-08230e735b08/contact-preference'
     );
 
-    expect(C100Sequence[118].url).toBe('/c100-rebuild/consent-order/upload');
-    expect(C100Sequence[118].showInSection).toBe('c100');
-    expect(C100Sequence[118].getNextStep({})).toBe('/c100-rebuild/consent-order/upload-confirmation');
+    expect(C100Sequence[112].url).toBe('/c100-rebuild/consent-order/upload');
+    expect(C100Sequence[112].showInSection).toBe('c100');
+    expect(C100Sequence[112].getNextStep({})).toBe('/c100-rebuild/consent-order/upload-confirmation');
 
-    expect(C100Sequence[119].url).toBe('/c100-rebuild/consent-order/upload-confirmation');
-    expect(C100Sequence[119].showInSection).toBe('c100');
-    expect(C100Sequence[119].getNextStep({})).toBe('/c100-rebuild/hearing-urgency/urgent');
+    expect(C100Sequence[113].url).toBe('/c100-rebuild/consent-order/upload-confirmation');
+    expect(C100Sequence[113].showInSection).toBe('c100');
+    expect(C100Sequence[113].getNextStep({})).toBe('/c100-rebuild/hearing-urgency/urgent');
 
-    expect(C100Sequence[120].url).toBe('/c100-rebuild/check-your-answers');
-    expect(C100Sequence[120].showInSection).toBe('c100');
-    expect(C100Sequence[120].getNextStep({})).toBe('/c100-rebuild/check-your-answers');
+    expect(C100Sequence[114].url).toBe('/c100-rebuild/check-your-answers');
+    expect(C100Sequence[114].showInSection).toBe('c100');
+    expect(C100Sequence[114].getNextStep({})).toBe('/c100-rebuild/check-your-answers');
 
-    expect(C100Sequence[121].url).toBe('/c100-rebuild/applicant/:applicantId/contact-preference');
-    expect(C100Sequence[121].showInSection).toBe('c100');
-    expect(C100Sequence[121].getNextStep(applicantMockRequest.session.userCase, applicantMockRequest)).toBe(
+    expect(C100Sequence[115].url).toBe('/c100-rebuild/applicant/:applicantId/contact-preference');
+    expect(C100Sequence[115].showInSection).toBe('c100');
+    expect(C100Sequence[115].getNextStep(applicantMockRequest.session.userCase, applicantMockRequest)).toBe(
       '/c100-rebuild/applicant/2cd885a0-135e-45f1-85b7-aa46a1f78f46/confidentiality/details-know'
     );
 
-    expect(C100Sequence[122].url).toBe('/c100-rebuild/:caseId/withdraw');
-    expect(C100Sequence[122].showInSection).toBe('c100');
-    expect(C100Sequence[122].getNextStep({})).toBe('/task-list/applicant');
+    expect(C100Sequence[116].url).toBe('/c100-rebuild/:caseId/withdraw');
+    expect(C100Sequence[116].showInSection).toBe('c100');
+    expect(C100Sequence[116].getNextStep({})).toBe('/task-list/applicant');
 
-    expect(C100Sequence[123].url).toBe('/c100-rebuild/withdraw/confirmation');
-    expect(C100Sequence[123].showInSection).toBe('c100');
-    expect(C100Sequence[123].getNextStep({})).toBe('/');
+    expect(C100Sequence[117].url).toBe('/c100-rebuild/withdraw/confirmation');
+    expect(C100Sequence[117].showInSection).toBe('c100');
+    expect(C100Sequence[117].getNextStep({})).toBe('/');
   });
 });
