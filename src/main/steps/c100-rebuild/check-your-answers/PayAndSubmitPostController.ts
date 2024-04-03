@@ -20,7 +20,7 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
       if (req.body.saveAndComeLater) {
         this.saveAndComeLater(req, res, req.session.userCase);
       } else {
-        const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+        const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase,req) : this.fields;
         const form = new Form(fields);
         const { ...formData } = form.getParsedBody(req.body);
         req.session.errors = form.getErrors(formData);

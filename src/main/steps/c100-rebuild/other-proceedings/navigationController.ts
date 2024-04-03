@@ -3,12 +3,13 @@ import {
   C100OrderInterface,
   C100OrderTypeKeyMapper,
   C100OrderTypes,
+  RootContext,
   YesNoEmpty,
   YesOrNo,
 } from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
-  C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+  C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
   C100_OTHER_PROCEEDINGS_DETAILS,
   C100_OTHER_PROCEEDINGS_DOCUMENT_SUMMARY,
@@ -56,7 +57,7 @@ class OtherProceedingsNavigationController {
         const nextUrl1 =
           caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
             ? C100_TYPE_ORDER_SELECT_COURT_ORDER
-            : C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
+            : applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,{root:RootContext.C100_REBUILD})as PageLink;
         nextUrl =
           caseData.op_childrenInvolvedCourtCase === YesOrNo.YES || caseData.op_courtOrderProtection === YesOrNo.YES
             ? C100_OTHER_PROCEEDINGS_DETAILS
@@ -78,7 +79,7 @@ class OtherProceedingsNavigationController {
         nextUrl =
           caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
             ? C100_TYPE_ORDER_SELECT_COURT_ORDER
-            : C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
+            : applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,{root:RootContext.C100_REBUILD})as PageLink;
         break;
       }
       default:
@@ -109,7 +110,7 @@ class OtherProceedingsNavigationController {
           url =
             caseData.sq_writtenAgreement === YesOrNo.NO && caseData.miam_otherProceedings === YesOrNo.YES
               ? C100_TYPE_ORDER_SELECT_COURT_ORDER
-              : C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE;
+              : applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,{root:RootContext.C100_REBUILD})as PageLink;
         }
       }
     }

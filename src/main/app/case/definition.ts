@@ -3143,3 +3143,7 @@ export enum PaymentErrorContext {
   PAYMENT_UNSUCCESSFUL = 'paymentUnsuccessful',
   APPLICATION_NOT_SUBMITTED = 'applicationNotSubmitted'
 }
+export enum RootContext {
+  C100_REBUILD = 'c100-rebuild',
+  RESPONDENT = 'respondent',
+}

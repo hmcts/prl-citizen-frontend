@@ -3,7 +3,7 @@ import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { Sections, Step } from '../constants';
 import {
-  C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
+  PRL_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
   C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_AMOUNT,
   C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE,
   C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFIED,
@@ -391,7 +391,7 @@ export const responseCaseSequence: Step[] = [
       ),
   },
   {
-    url: C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
+    url: PRL_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
     showInSection: Sections.C100,
     getNextStep: () => C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_OFFICE,
   },

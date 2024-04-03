@@ -12,7 +12,7 @@ import { RespondentSubmitResponseController } from './app/controller/RespondentS
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
-import { StepWithContent, stepsWithContent } from './steps/';
+import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
@@ -131,6 +131,7 @@ import {
   TASKLIST_RESPONSE_TO_CA,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
+import { AohSequence } from './steps/common/safety-concerns/sequence';
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -240,8 +241,8 @@ export class Routes {
     app.post(CREATE_DRAFT, errorHandler(TSDraftController.post));
     app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(TSDraftController.createTSC100Draft));
     app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(TSDraftController.deleteTSC100Draft));
-
-    for (const step of stepsWithContent) {
+    const steps = [...stepsWithContent, ...getStepsWithContent(AohSequence.getSequence(), '/common')];
+    for (const step of steps) {
       const files = fs.readdirSync(`${step.stepDir}`);
       const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
       const getController = getControllerFileName

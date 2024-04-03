@@ -200,11 +200,11 @@ export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_COURT_ACTION: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/orders-required/court-action';
 export const PRL_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_UNSUPERVISED: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/orders-required/unsupervised';
-export const C1A_SAFETY_CONCERNS_ABDUCTION: PageLink = '/tasklistresponse/allegations-of-harm-and-violence/abduction';
+export const PRL_C1A_SAFETY_CONCERNS_ABDUCTION: PageLink = '/tasklistresponse/allegations-of-harm-and-violence/abduction';
 export const PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/no-feedback';
 
-export const C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION: PageLink =
+export const PRL_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/abduction/child-location';
 export const C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_PASSPORT_AMOUNT: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-amount';
@@ -434,30 +434,30 @@ export const PAYMENT_RETURN_URL: PageLink = '/payment/reciever/callback';
 export const PAYMENT_RETURN_URL_CALLBACK: PageLink = `${PAYMENT_RETURN_URL}/:paymentId/:status`;
 
 /** @C100 Rebuild C1A Safety Concerns */
-export const C100_C1A_SAFETY_CONCERNS: PageLink = `${C100_URL}/safety-concerns`;
-export const C100_C1A_SAFETY_CONCERNS_ABDUCTION: PageLink = `${C100_C1A_SAFETY_CONCERNS}/abduction`;
-export const C100_C1A_SAFETY_CONCERNS_CHILD: PageLink = `${C100_C1A_SAFETY_CONCERNS}/child`;
-export const C100_C1A_SAFETY_CONCERNS_APPLICANT: PageLink = `${C100_C1A_SAFETY_CONCERNS}/applicant`;
-export const C100_C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concern-guidance`;
-export const C100_C1A_SAFETY_CONCERNS_CONCERN_ABOUT: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concern-about`;
-export const C100_C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY: PageLink = `${C100_C1A_SAFETY_CONCERNS}/concerns-for-safety`;
-export const C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: PageLink = `${C100_C1A_SAFETY_CONCERNS_CHILD}/concerns-about`;
-export const C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE: PageLink = `${C100_C1A_SAFETY_CONCERNS_CHILD}/report-abuse/:abuseType`;
-export const C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT: PageLink = `${C100_C1A_SAFETY_CONCERNS_APPLICANT}/concerns-about`;
-export const C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: PageLink = `${C100_C1A_SAFETY_CONCERNS_APPLICANT}/report-abuse/:abuseType`;
-export const C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS: PageLink = `${C100_C1A_SAFETY_CONCERNS}/other-concerns/drugs`;
-export const C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED: PageLink = `${C100_C1A_SAFETY_CONCERNS}/orders-required/unsupervised`;
-export const C100_C1A_SAFETY_CONCERNS_OTHER: PageLink = `${C100_C1A_SAFETY_CONCERNS}/other-concerns/other-issues`;
-export const C100_C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_COURT_ACTION: PageLink = `${C100_C1A_SAFETY_CONCERNS}/orders-required/court-action`;
-export const C100_C1A_SAFETY_CONCERNS_NOFEEDBACK: PageLink = `${C100_C1A_SAFETY_CONCERNS}/no-feedback`;
+export const C1A_SAFETY_CONCERNS: PageLink = `/:root/safety-concerns`;
+export const C1A_SAFETY_CONCERNS_ABDUCTION: PageLink = `/:root/safety-concerns/abduction`;
+export const C1A_SAFETY_CONCERNS_CHILD: PageLink = `/:root/safety-concerns/child`;
+export const C1A_SAFETY_CONCERNS_APPLICANT: PageLink = `/:root/safety-concerns/applicant`;
+export const C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE: PageLink = `/:root/safety-concerns/concern-guidance`;
+export const C1A_SAFETY_CONCERNS_CONCERN_ABOUT: PageLink = `/:root/safety-concerns/concern-about`;
+export const C1A_SAFETY_CONCERNS_CONCERNS_FOR_SAFETY: PageLink = `/:root/safety-concerns/concerns-for-safety`;
+export const C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD: PageLink = `${C1A_SAFETY_CONCERNS_CHILD}/concerns-about`;
+export const C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE: PageLink = `${C1A_SAFETY_CONCERNS_CHILD}/report-abuse/:abuseType`;
+export const C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT: PageLink = `${C1A_SAFETY_CONCERNS_APPLICANT}/concerns-about`;
+export const C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE: PageLink = `${C1A_SAFETY_CONCERNS_APPLICANT}/report-abuse/:abuseType`;
+export const C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS: PageLink = `/:root/safety-concerns/other-concerns/drugs`;
+export const C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_UNSUPERVISED: PageLink = `/:root/safety-concerns/orders-required/unsupervised`;
+export const C1A_SAFETY_CONCERNS_OTHER: PageLink = `/:root/safety-concerns/other-concerns/other-issues`;
+export const C1A_SAFETY_CONCERNS_ORDERS_REQUIRED_COURT_ACTION: PageLink = `/:root/safety-concerns/orders-required/court-action`;
+export const C1A_SAFETY_CONCERNS_NOFEEDBACK: PageLink = `/:root/safety-concerns/no-feedback`;
 
 /***@C100 SafetyConcerns Abduction */
-export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/passport-office-notified`;
-export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/passport-office`;
-export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_AMOUNT: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/passport-amount`;
-export const C100_C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/previousabductions`;
-export const C100_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/child-location`;
-export const C100_C1A_CHILD_ABDUCTION_THREATS: PageLink = `${C100_C1A_SAFETY_CONCERNS_ABDUCTION}/threats`;
+export const C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION: PageLink = `/:root/safety-concerns/abduction/passport-office-notified`;
+export const C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE: PageLink = `/:root/safety-concerns/abduction/passport-office`;
+export const C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_AMOUNT: PageLink = `/:root/safety-concerns/abduction/passport-amount`;
+export const C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS: PageLink = `/:root/safety-concerns/abduction/previousabductions`;
+export const C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION: PageLink = `/:root/safety-concerns/abduction/child-location`;
+export const C1A_CHILD_ABDUCTION_THREATS: PageLink = `/:root/safety-concerns/abduction/threats`;
 
 /** @C100 Document Submission */
 export const C100_DOCUMENT_SUBMISSION: PageLink = `${C100_URL}/document-submission`;

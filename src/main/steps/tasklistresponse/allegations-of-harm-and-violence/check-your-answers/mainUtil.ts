@@ -118,12 +118,12 @@ export const SafetyConcerns_child = (
     {
       key: keys['childLocation'],
       valueHtml: userCase['PRL_c1A_abductionReasonOutsideUk']  || '',
-      changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'],
+      changeUrl: Urls['PRL_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'],
     },
     {
       key: keys['childsCurrentLocationText'],
       valueHtml: userCase['PRL_c1A_childsCurrentLocation']  || '',
-      changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'],
+      changeUrl: Urls['PRL_C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'],
     },
     {
       key: keys['passportOffice'],

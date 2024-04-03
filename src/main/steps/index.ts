@@ -18,7 +18,10 @@ import { respondentCaseSequence } from './respondent/respondentcaseSequence';
 import { screeningQuestionsSequence } from './screeningQuestionsSequence';
 import { responseCaseSequence } from './tasklistresponse/responseCaseSequence';
 // eslint-disable-next-line import/no-unresolved
-import { C100_URL, DASHBOARD_URL, PRL_CASE_URL, PageLink } from './urls';
+import { 
+  C100_URL,
+   DASHBOARD_URL, PRL_CASE_URL, PageLink } from './urls';
+import { AohSequence } from './common/safety-concerns/sequence';
 
 const stepForms: Record<string, Form> = {};
 
@@ -49,6 +52,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     ...responseCaseSequence,
     ...C100Sequence,
     ...screeningQuestionsSequence,
+    ...AohSequence.getSequence()
   ].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data, req) : DASHBOARD_URL;
   const { path: urlPath, queryString: urlQueryStr } = getPathAndQueryStringFromUrl(url);
@@ -97,7 +101,7 @@ export type StepWithContent = Step & {
   view: string;
   routeGuard?: RouteGuard;
 };
-const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] => {
+export const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] => {
   const dir = __dirname;
 
   const results: StepWithContent[] = [];
@@ -135,3 +139,4 @@ const getPathAndQueryStringFromUrl = (url: PageLink): { path: string; queryStrin
   const queryString = searchParams ? `?${searchParams}` : '';
   return { path, queryString };
 };
+
