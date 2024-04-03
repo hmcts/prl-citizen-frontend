@@ -17,7 +17,7 @@ const en = () => ({
   lastNameLabel: 'Last name(s)',
   addChildLabel: 'Add another child',
   removeChildLabel: 'Remove Child',
-  newNameLabel: 'Enter a new name',
+  newNameLabel: 'Enter name',
   errors: {
     c100TempFirstName: {
       required: 'Enter the first name',
@@ -39,7 +39,7 @@ const cy = () => ({
   lastNameLabel: 'Cyfenw(au)',
   addChildLabel: 'Ychwanegu plentyn arall',
   removeChildLabel: 'Dileu plentyn',
-  newNameLabel: 'Nodwch enw newydd',
+  newNameLabel: 'Enter name -welsh',
   errors: {
     c100TempFirstName: {
       required: 'Nodwch yr enw cyntaf',
