@@ -17,7 +17,7 @@ const en = () => ({
   lastName: 'Last name(s)',
   buttonAddApplicant: 'Add another applicant',
   removeApplicant: 'Remove applicant',
-  labelFornewName: 'Enter a new name',
+  labelFornewName: 'Enter name',
   errors: {
     applicantFirstName: {
       required: 'Enter the first name',
@@ -40,7 +40,7 @@ const cy = () => ({
   lastName: 'Cyfenw(au)',
   buttonAddApplicant: 'Ychwanegu ceisydd arall',
   removeApplicant: 'Dileu Ceisydd',
-  labelFornewName: 'Nodwch enw newydd',
+  labelFornewName: 'Enter name -welsh',
   errors: {
     applicantFirstName: {
       required: 'Nodwch yr enw cyntaf',

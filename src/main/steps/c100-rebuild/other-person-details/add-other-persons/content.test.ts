@@ -16,7 +16,7 @@ const en = {
   Person: 'Person',
   addOtherPersonLabel: 'Add another person',
   removeOtherPersonLabel: 'Remove person',
-  newNameLabel: 'Enter a new name',
+  newNameLabel: 'Enter name',
   errors: {
     c100TempFirstName: {
       required: 'Enter the first name',
@@ -37,7 +37,7 @@ const cy = {
   Person: 'Unigolyn',
   addOtherPersonLabel: 'Ychwanegu unigolyn arall',
   removeOtherPersonLabel: 'Symud unigolyn',
-  newNameLabel: 'Nodwch enw newydd',
+  newNameLabel: 'Enter name -welsh',
   errors: {
     c100TempFirstName: {
       required: 'Nodwch yr enw cyntaf',
