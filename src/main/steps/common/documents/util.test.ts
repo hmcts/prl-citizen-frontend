@@ -1,11 +1,14 @@
+import { mockRequest } from '../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../test/unit/utils/mockResponse';
+import { CosApiClient } from '../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../app/case/case';
 import { PartyType, State } from '../../../app/case/definition';
 
-import { DocumentCategory, DocumentSectionId } from './definitions';
+import { DocumentCategory, DocumentLabelCategory, DocumentSectionId } from './definitions';
 import {
-  documentsListConfig,
+  deleteDocument,
   getDocuments,
-  getDocumentsList,
+  getViewDocumentCategoryList,
   hasAnyDocumentForPartyType,
   isOrdersFromTheCourtPresent,
 } from './util';
@@ -19,7 +22,9 @@ const documentCategoryLabels = {
   DNAReports: 'DNA reports',
   drugAndAlcoholTests: 'Drug and alcohol tests (toxicology)',
   policeReports: 'Police reports',
-};
+} as Record<Partial<DocumentLabelCategory>, string>;
+
+const deleteCitizenStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteCitizenStatementDocument');
 
 describe('common > documents > util', () => {
   describe('isOrdersFromTheCourtPresent', () => {
@@ -334,12 +339,11 @@ describe('common > documents > util', () => {
     });
   });
 
-  describe('getDocumentsList', () => {
+  describe('getViewDocumentCategoryList', () => {
     test('should get correct applicant documents', () => {
       expect(
-        getDocumentsList(
+        getViewDocumentCategoryList(
           'applicantsDocuments' as DocumentSectionId,
-          'applicant' as PartyType,
           {
             citizenDocuments: [
               {
@@ -378,7 +382,8 @@ describe('common > documents > util', () => {
               },
             ],
           } as unknown as CaseWithId,
-          documentCategoryLabels
+          documentCategoryLabels,
+          'applicant' as PartyType
         )
       ).toStrictEqual([
         {
@@ -386,7 +391,7 @@ describe('common > documents > util', () => {
           link: {
             openInAnotherTab: false,
             text: "test user2's position statements",
-            url: '/applicant/documents/list/positionStatements/applicant/2?',
+            url: '/applicant/documents/view/positionStatements/applicant/2?',
           },
         },
       ]);
@@ -394,9 +399,9 @@ describe('common > documents > util', () => {
 
     test('should get correct respondent documents', () => {
       expect(
-        getDocumentsList(
+        getViewDocumentCategoryList(
           'respondentsDocuments' as DocumentSectionId,
-          'respondent' as PartyType,
+
           {
             citizenDocuments: [
               {
@@ -435,7 +440,8 @@ describe('common > documents > util', () => {
               },
             ],
           } as unknown as CaseWithId,
-          documentCategoryLabels
+          documentCategoryLabels,
+          'respondent' as PartyType
         )
       ).toStrictEqual([
         {
@@ -443,7 +449,7 @@ describe('common > documents > util', () => {
           link: {
             openInAnotherTab: false,
             text: "test user's witness statements",
-            url: '/respondent/documents/list/applicantStatements/respondent/1?',
+            url: '/respondent/documents/view/applicantStatements/respondent/1?',
           },
         },
       ]);
@@ -451,9 +457,8 @@ describe('common > documents > util', () => {
 
     test('should not get documents when sectionId is not applicant or respondent documents', () => {
       expect(
-        getDocumentsList(
+        getViewDocumentCategoryList(
           'ordersFromTheCourt' as DocumentSectionId,
-          'respondent' as PartyType,
           {
             citizenDocuments: [
               {
@@ -492,16 +497,16 @@ describe('common > documents > util', () => {
               },
             ],
           } as unknown as CaseWithId,
-          documentCategoryLabels
+          documentCategoryLabels,
+          'respondent' as PartyType
         )
       ).toStrictEqual([]);
     });
 
     test('should add documents for same category with different party ids', () => {
       expect(
-        getDocumentsList(
+        getViewDocumentCategoryList(
           'respondentsDocuments' as DocumentSectionId,
-          'respondent' as PartyType,
           {
             citizenDocuments: [
               {
@@ -540,7 +545,8 @@ describe('common > documents > util', () => {
               },
             ],
           } as unknown as CaseWithId,
-          documentCategoryLabels
+          documentCategoryLabels,
+          'respondent' as PartyType
         )
       ).toStrictEqual([
         {
@@ -548,7 +554,7 @@ describe('common > documents > util', () => {
           link: {
             openInAnotherTab: false,
             text: "test user's witness statements",
-            url: '/respondent/documents/list/applicantStatements/respondent/1?',
+            url: '/respondent/documents/view/applicantStatements/respondent/1?',
           },
         },
         {
@@ -556,7 +562,7 @@ describe('common > documents > util', () => {
           link: {
             openInAnotherTab: false,
             text: "test user2's witness statements",
-            url: '/respondent/documents/list/applicantStatements/respondent/2?',
+            url: '/respondent/documents/view/applicantStatements/respondent/2?',
           },
         },
       ]);
@@ -564,9 +570,9 @@ describe('common > documents > util', () => {
 
     test('should only get one document for other categories', () => {
       expect(
-        getDocumentsList(
+        getViewDocumentCategoryList(
           'respondentsDocuments' as DocumentSectionId,
-          'respondent' as PartyType,
+
           {
             citizenDocuments: [
               {
@@ -605,7 +611,8 @@ describe('common > documents > util', () => {
               },
             ],
           } as unknown as CaseWithId,
-          documentCategoryLabels
+          documentCategoryLabels,
+          'respondent' as PartyType
         )
       ).toStrictEqual([
         {
@@ -613,25 +620,86 @@ describe('common > documents > util', () => {
           link: {
             openInAnotherTab: false,
             text: 'Medical reports',
-            url: '/respondent/documents/list/medicalReports/respondent',
+            url: '/respondent/documents/view/medicalReports/respondent',
           },
         },
       ]);
     });
   });
 
-  describe('documentsListConfig', () => {
-    test('should have correct documentSection ids', () => {
-      expect(documentsListConfig).toHaveLength(9);
-      expect(documentsListConfig[0].documentCategoryId).toBe('positionStatements');
-      expect(documentsListConfig[1].documentCategoryId).toBe('applicantStatements');
-      expect(documentsListConfig[2].documentCategoryId).toBe('respondentStatements');
-      expect(documentsListConfig[3].documentCategoryId).toBe('otherWitnessStatements');
-      expect(documentsListConfig[4].documentCategoryId).toBe('medicalRecords');
-      expect(documentsListConfig[5].documentCategoryId).toBe('medicalReports');
-      expect(documentsListConfig[6].documentCategoryId).toBe('DNAReports_expertReport');
-      expect(documentsListConfig[7].documentCategoryId).toBe('drugAndAlcoholTest(toxicology)');
-      expect(documentsListConfig[8].documentCategoryId).toBe('policeReport');
+  describe('deleteDocuments', () => {
+    test('should remove document from upload files list', async () => {
+      const req = mockRequest({
+        session: {
+          user: { id: '1234' },
+          userCase: {
+            id: '1234',
+            caseType: 'FL401',
+            applicantsFL401: {
+              firstName: 'test',
+              lastName: 'user',
+            },
+            applicantUploadFiles: [
+              {
+                document_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+                document_binary_url: 'string',
+                document_filename: 'string',
+                document_hash: 'string',
+                document_creation_date: 'string',
+                name: 'file_example_TIFF_1MB',
+              },
+            ],
+          },
+        },
+        query: {
+          documentId: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+        },
+      });
+      const res = mockResponse();
+      deleteCitizenStatementDocumentMock.mockResolvedValue('SUCCESS');
+
+      await deleteDocument(req, res);
+      await new Promise(process.nextTick);
+      expect(req.session.userCase.applicantUploadFiles).toStrictEqual(undefined);
+    });
+
+    test('should add error to session when deleteCitizenStatementDocument fails', async () => {
+      const req = mockRequest({
+        session: {
+          user: { id: '1234' },
+          userCase: {
+            id: '1234',
+            caseType: 'FL401',
+            applicantsFL401: {
+              firstName: 'test',
+              lastName: 'user',
+            },
+            applicantUploadFiles: [
+              {
+                document_url:
+                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+                document_binary_url: 'string',
+                document_filename: 'string',
+                document_hash: 'string',
+                document_creation_date: 'string',
+                name: 'file_example_TIFF_1MB',
+              },
+            ],
+          },
+        },
+        query: {
+          documentId: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+        },
+      });
+      const res = mockResponse();
+      deleteCitizenStatementDocumentMock.mockRejectedValue('500');
+
+      await deleteDocument(req, res);
+      await new Promise(process.nextTick);
+      expect(req.session.errors).toStrictEqual([
+        { errorType: 'donwloadError', propertyName: 'uploadDocumentFileUpload' },
+      ]);
     });
   });
 });
