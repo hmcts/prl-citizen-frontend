@@ -25,6 +25,9 @@ const en = {
   yesHaveSafetyConcerns: 'Yes',
   noHaveSafetyConcerns: 'No',
   errors: {
+    PRL_c1A_haveSafetyConcerns: {
+      required: 'Select yes if you have any concerns for your safety or the safety of the children',
+    },
     c1A_haveSafetyConcerns: {
       required: 'Select yes if you have any concerns for your safety or the safety of the children',
     },
@@ -50,6 +53,9 @@ const cy = {
   yesHaveSafetyConcerns: 'Oes',
   noHaveSafetyConcerns: 'Nac oes',
   errors: {
+    PRL_c1A_haveSafetyConcerns: {
+      required: 'Dewiswch oes os oes gennych bryderon eraill am ddiogelwch a lles y plant',
+    },
     c1A_haveSafetyConcerns: {
       required: 'Dewiswch oes os oes gennych bryderon eraill am ddiogelwch a lles y plant',
     },
@@ -71,7 +77,7 @@ describe('Safety concern about > applying-with > content', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.c1A_haveSafetyConcerns as FormOptions;
+    const applyingWithField = fields.PRL_c1A_haveSafetyConcerns as FormOptions;
     const applyingWithFieldParagraph1 = fields.paragraph1 as FormInput;
     const applyingWithFieldParagraph2 = fields.paragraph2 as FormInput;
     const applyingWithFieldWarningMessage = fields.warningMessage as FormInput;

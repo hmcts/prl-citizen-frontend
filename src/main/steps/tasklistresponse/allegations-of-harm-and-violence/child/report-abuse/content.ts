@@ -1,4 +1,4 @@
-import { C1AAbuseTypes, C1ASafteyConcernsAbuse, Child1 } from '../../../../../app/case/definition';
+import { Child1, PRL_C1AAbuseTypes, PRL_C1ASafteyConcernsAbuse } from '../../../../../app/case/definition';
 import { form as c100Form, generateFormFields, languages, updateFormFields } from '../../../../common/safety-concerns/child/report-abuse/content'
 import { CaseWithId } from '../../../../../app/case/case';
 import { FormContent } from '../../../../../app/form/Form';
@@ -10,8 +10,8 @@ export * from './routeGuard';
 
 export const form = c100Form
 
-export const getFormFields = (caseData: Partial<CaseWithId>, abuseType: C1AAbuseTypes): FormContent => {
-  const sessionData: C1ASafteyConcernsAbuse = caseData?.c1A_safteyConcerns?.child?.[abuseType];
+export const getFormFields = (caseData: Partial<CaseWithId>, abuseType: PRL_C1AAbuseTypes): FormContent => {
+  const sessionData: PRL_C1ASafteyConcernsAbuse = caseData?.PRL_c1A_safteyConcerns?.child?.[abuseType];
   const sessionChildrenData = caseData?.children ?? [];
   //const sessionChildrenID = content.userCase?.children?.map(i=>i.id) ?? [];
   let data1: Child1[];
@@ -25,14 +25,14 @@ export const getFormFields = (caseData: Partial<CaseWithId>, abuseType: C1AAbuse
 };
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getPageTitle = (abuseType: C1AAbuseTypes, translations: Record<string, any>) => {
+const getPageTitle = (abuseType: PRL_C1AAbuseTypes, translations: Record<string, any>) => {
   return translations[`${abuseType}PageTitle`];
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const abuseType: C1AAbuseTypes = content.additionalData!.req.params.abuseType;
-  const sessionData: C1ASafteyConcernsAbuse = content.userCase?.c1A_safteyConcerns?.child?.[abuseType];
+  const abuseType: PRL_C1AAbuseTypes = content.additionalData!.req.params.abuseType;
+  const sessionData: PRL_C1ASafteyConcernsAbuse = content.userCase?.c1A_safteyConcerns?.child?.[abuseType];
   const sessionChildrenData = content.userCase?.children ?? [];
   //const sessionChildrenID = content.userCase?.children?.map(i=>i.id) ?? [];
   let data1: Child1[];

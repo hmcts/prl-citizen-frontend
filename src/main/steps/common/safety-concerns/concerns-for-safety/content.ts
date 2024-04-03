@@ -1,8 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { YesOrNo } from '../../../../app/case/definition';
-import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { CaseWithId } from '../../../../app/case/case';
+//import { YesOrNo } from '../../../../app/case/definition';
+//import { TranslationFn } from '../../../../app/controller/GetController';
+import { FormContent, FormFields, 
+  //FormFieldsFn 
+} from '../../../../app/form/Form';
+//import { isFieldFilledIn } from '../../../../app/form/validation';
+import { AppRequest } from '../../../../app/controller/AppRequest';
+//import { C100_URL } from '../../../../steps/urls';
 
 export const en = () => ({
   title: 'Safety Concerns',
@@ -22,6 +27,9 @@ export const en = () => ({
   noHaveSafetyConcerns: 'No',
   errors: {
     c1A_haveSafetyConcerns: {
+      required: 'Select yes if you have any concerns for your safety or the safety of the children',
+    },
+    PRL_c1A_haveSafetyConcerns: {
       required: 'Select yes if you have any concerns for your safety or the safety of the children',
     },
   },
@@ -49,62 +57,99 @@ export const cy = () => ({
     c1A_haveSafetyConcerns: {
       required: 'Dewiswch oes os oes gennych bryderon eraill am ddiogelwch a lles y plant',
     },
+    PRL_c1A_haveSafetyConcerns: {
+      required: 'Dewiswch oes os oes gennych bryderon eraill am ddiogelwch a lles y plant',
+    },
   },
 });
 
-const languages = {
+export const languages = {
   en,
   cy,
 };
-
+// const fied = (userCase: Partial<CaseWithId>, req: AppRequest) => {
+//   const isC100Journey = req.originalUrl.startsWith(C100_URL);
+//   if (isC100Journey) {
+//     return {
+//       c1A_haveSafetyConcerns: {
+//         type: 'radios',
+//         classes: 'govuk-radios',
+//         values: [
+//           {
+//             label: l => l.yesHaveSafetyConcerns,
+//             value: YesOrNo.YES,
+//             subFields: {
+//               doYouHaveSafetyConcernsYesInfo: {
+//                 type: 'textAndHtml',
+//                 textAndHtml: l => l.infoSafetyConcernsYes,
+//               },
+//             },
+//           },
+//           {
+//             label: l => l.noHaveSafetyConcerns,
+//             value: YesOrNo.NO,
+//           },
+//         ],
+//         validator: isFieldFilledIn,
+//       },
+//     }
+//   }
+//   else return {
+//     PRL_c1A_haveSafetyConcerns: {
+//       type: 'radios',
+//       classes: 'govuk-radios',
+//       values: [
+//         {
+//           label: l => l.yesHaveSafetyConcerns,
+//           value: YesOrNo.YES,
+//           subFields: {
+//             doYouHaveSafetyConcernsYesInfo: {
+//               type: 'textAndHtml',
+//               textAndHtml: l => l.infoSafetyConcernsYes,
+//             },
+//           },
+//         },
+//         {
+//           label: l => l.noHaveSafetyConcerns,
+//           value: YesOrNo.NO,
+//         },
+//       ],
+//       validator: isFieldFilledIn,
+//     }
+//   }
+// }
 export const form: FormContent = {
-  fields: {
-    paragraph1: {
-      type: 'textAndHtml',
-      textAndHtml: l => l.paragraph1,
-    },
-    paragraph2: {
-      type: 'textAndHtml',
-      textAndHtml: l => l.paragraph2,
-    },
-    warningMessage: {
-      type: 'warning',
-      label: l => l.warningMessage,
-    },
-    c1A_haveSafetyConcerns: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      values: [
-        {
-          label: l => l.yesHaveSafetyConcerns,
-          value: YesOrNo.YES,
-          subFields: {
-            doYouHaveSafetyConcernsYesInfo: {
-              type: 'textAndHtml',
-              textAndHtml: l => l.infoSafetyConcernsYes,
-            },
-          },
-        },
-        {
-          label: l => l.noHaveSafetyConcerns,
-          value: YesOrNo.NO,
-        },
-      ],
-      validator: isFieldFilledIn,
-    },
+  fields: (userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
+    //const url = req.originalUrl;
+    //const x=
+    return {
+      paragraph1: {
+        type: 'textAndHtml',
+        textAndHtml: l => l.paragraph1,
+      },
+      paragraph2: {
+        type: 'textAndHtml',
+        textAndHtml: l => l.paragraph2,
+      },
+      warningMessage: {
+        type: 'warning',
+        label: l => l.warningMessage,
+      },
+    //  ...fied(userCase, req),
+    }
+    //return x;
   },
   submit: {
     text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
-};
+  }
+}
 
-export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
-  return {
-    ...translations,
-    form,
-  };
-};
+
+// export const generateContent: TranslationFn = content => {
+//   const translations = languages[content.language]();
+//   return {
+//     ...translations,
+//     form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.additionalData?.req) },
+//   };
+// };
+
