@@ -1,0 +1,47 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% extends "common/template.njk" %}
+
+
+{% block page_content %}
+
+        <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">{{ title }}</h1>
+        <p class="govuk-body-l">{{caption}}</p>
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-7">{{ behaviourHeader }}</h2>
+        {% for item in abusiveBehaviours %}
+            <p class="govuk-body">{{item | safe}}</p>
+        {% endfor %}
+        <p class="govuk-body">{{abuseCouldBe}}</p>
+            <ul class="govuk-list govuk-list--bullet">
+                {% for abuse in abuseList %}
+                    <li>{{abuse}}</li>
+                {% endfor %}
+            </ul>
+        <p class="govuk-body">{{otherFormsLine}}</p>
+        <p class="govuk-body">{{abusiveGuidance}} {{typesOfAbusiveBehaviour | safe}} {{andSignsOf}} {{childAbuse | safe}}</p>
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-7">{{ infoUsedByCourtHeader }}</h2>
+        {% for info in infoList %}
+            <p class="govuk-body">{{info | safe}}</p>
+        {% endfor %}
+
+        {{ govukWarningText(getContent(warningText)) }}
+
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-7">{{ notReadyDescAbuseHeader }}</h2>
+        <p class="govuk-body">{{cafcassLine1}} {{cafcass | safe}} {{ or }} {{cafcassCymru | safe}}</p>
+        <p class="govuk-body">{{cafcassLine2}}</p>
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text" data-ga-category="explanations" data-ga-label="applicant abuse info">
+                    {{cafcassSupportHeader}}
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                {% for cafcassSupportLine in cafcassSupportLines %}
+                    <p class="govuk-body">{{cafcassSupportLine | safe}}</p>
+                {% endfor %}
+            </div>
+        </details>
+        {% for line in bottomLines %}
+            <p class="govuk-body">{{line}}</p>
+        {% endfor %}
+
+{% endblock %}
