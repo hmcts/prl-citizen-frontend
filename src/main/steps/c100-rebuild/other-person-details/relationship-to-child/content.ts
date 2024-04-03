@@ -12,7 +12,6 @@ import { getPartyDetails } from '../../people/util';
 
 console.info('** FOR SONAR **');
 
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const form: FormContent = { ...formConfig };
 export const getFormFields = (
