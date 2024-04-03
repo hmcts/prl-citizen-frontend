@@ -1,0 +1,8 @@
+{% extends "common/template.njk" %}
+
+{% block form %}
+  {% if partyType !== 'applicant' %}
+    <div class="govuk-inset-text">{{subTitle}}</div>
+  {% endif %}
+  {% include "./form.njk"%}
+{% endblock %}

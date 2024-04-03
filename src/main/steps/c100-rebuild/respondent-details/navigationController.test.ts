@@ -2,8 +2,6 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import {
   C100_OTHER_PERSON_CHECK,
   C100_RESPONDENT_DETAILS_ADD,
-  C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
-  C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
   C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
   C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
 } from '../../urls';
@@ -202,38 +200,6 @@ describe('RespondentsDetailsNavigationController', () => {
         dummyparams.params
       )
     ).toBe('/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/lookup');
-  });
-
-  test('From Respondent address/lookup screen -> navigate to Respondent address/select screen', async () => {
-    const dummyparams = mockRequest({
-      params: {
-        childId: '7483640e-0817-4ddc-b709-6723f7925635',
-        respondentId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
-      },
-    });
-    expect(
-      RespondentsDetailsNavigationController.getNextUrl(
-        C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
-        dummyRequest.session.userCase,
-        dummyparams.params
-      )
-    ).toBe('/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/manual');
-  });
-
-  test('From Respondent address/select screen -> navigate to Respondent address/contact-details screen', async () => {
-    const dummyparams = mockRequest({
-      params: {
-        childId: '7483640e-0817-4ddc-b709-6723f7925635',
-        respondentId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
-      },
-    });
-    expect(
-      RespondentsDetailsNavigationController.getNextUrl(
-        C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
-        dummyRequest.session.userCase,
-        dummyparams.params
-      )
-    ).toBe('/c100-rebuild/respondent-details/2732dd53-2e6c-46f9-88cd-08230e735b08/contact-details');
   });
 
   test('default', async () => {

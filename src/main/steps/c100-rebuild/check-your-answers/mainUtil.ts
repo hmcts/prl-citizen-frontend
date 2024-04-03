@@ -6,6 +6,7 @@ import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/cas
 import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
+import { C100UrlPartyType } from '../address/definitions';
 
 import { HTML } from './common/htmlSelectors';
 import { ANYTYPE } from './common/index';
@@ -546,7 +547,7 @@ export const ApplicantDetails = (
           key: keys['addressDetails'],
           value: '',
           valueHtml: applicantAddressParser(sessionApplicantData[applicant], keys,language),
-          changeUrl: applyParms( Urls['C100_APPLICANT_ADDRESS_MANUAL'], { applicantId: sessionApplicantData[applicant]['id'] }),
+          changeUrl: applyParms( Urls.C100_ADDRESS_MANUAL, { partyType: C100UrlPartyType.APPLICANT, id }),
         },
         {
           key: keys['contactDetailsOf'].split('[^applicantName^]').join(` ${fullname} `),
@@ -1056,7 +1057,7 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
       key: keys['addressDetails'],
       value: '',
       valueHtml: applicantAddressParserForRespondents(sessionRespondentData[respondent].address, keys,language),
-      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
+      changeUrl: applyParms(Urls.C100_ADDRESS_MANUAL, { partyType: C100UrlPartyType.RESPONDENT, id }),
     },
     );
    }
@@ -1064,7 +1065,7 @@ const RespondentDetails_AddressAndPersonal = (sessionRespondentData, respondent,
     newRespondentStorage.push({
       key: keys['explainNoLabel'],
       value: getYesNoTranslation(language,sessionRespondentData[respondent]?.['addressUnknown'],'doTranslation'),
-      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_ADDRESS_MANUAL'], { respondentId: id }),
+      changeUrl: applyParms(Urls.C100_ADDRESS_MANUAL, { partyType: C100UrlPartyType.RESPONDENT, id }),
     },
     );
    }
@@ -1324,7 +1325,7 @@ export const OtherPeopleDetails = (
         key: keys['addressDetails'],
         value: '',
         valueHtml: otherPeopleAddressParser(sessionOtherPeopleData[respondent].address),
-        changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
+        changeUrl: applyParms(Urls.C100_ADDRESS_MANUAL, { partyType: C100UrlPartyType.OTHER_PERSON, id }),
       },
       );
      }
@@ -1332,7 +1333,7 @@ export const OtherPeopleDetails = (
       newOtherPeopleStorage.push({
         key: keys['explainNoLabel'],
         value: getYesNoTranslation(language,sessionOtherPeopleData[respondent]['addressUnknown'],'doTranslation'),
-        changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL'], { otherPersonId: id }),
+        changeUrl: applyParms(Urls.C100_ADDRESS_MANUAL, { partyType: C100UrlPartyType.OTHER_PERSON, id }),
       },
       );
      }
