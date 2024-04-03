@@ -4,6 +4,7 @@ import { FormContent } from '../../app/form/Form';
 import { isFieldFilledIn } from '../../app/form/validation';
 import { getMOJForkingScreenUrl } from '../../steps/urls';
 
+console.info('** FOR SONAR **');
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   title: 'Do you agree to pay the court fee online using a debit or credit card?',

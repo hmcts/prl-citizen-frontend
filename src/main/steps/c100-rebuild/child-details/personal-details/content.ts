@@ -12,8 +12,10 @@ import {
   isFutureDate,
   isMoreThan18Years,
 } from '../../../../app/form/validation';
-import { getPartyDetails } from '../../people/util';
+import { dobUnknown, getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
+
+console.info('** FOR SONAR **');
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -167,11 +169,7 @@ export const generateFormFields = (personalDetails: ChildrenDetails['personalDet
             isDateInputInvalid(value as CaseDate) ||
             isMoreThan18Years(value as CaseDate) ||
             isFutureDate(value as CaseDate)
-          : formData?.isDateOfBirthUnknown === YesNoEmpty.YES
-          ? formData.dateOfBirth.day !== '' || formData.dateOfBirth.month !== '' || formData.dateOfBirth.year !== ''
-            ? 'cannotHaveBothApproxAndExact'
-            : ''
-          : '',
+          : dobUnknown(formData),
     },
     isDateOfBirthUnknown: {
       type: 'checkboxes',

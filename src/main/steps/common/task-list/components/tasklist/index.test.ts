@@ -516,7 +516,7 @@ describe('tasklist index', () => {
               hintText: null,
               href: '/applicant/upload-document',
               id: 'uploadDocuments',
-              linkText: ' Upload documents',
+              linkText: 'Upload documents, applications and statements',
               openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--blue',
@@ -563,7 +563,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/responsetoca?name=First Respondent',
+              href: '/doc/responsetoca/respondent/First Respondent?',
               id: 'theResponsePDF',
               linkText: 'Response 1 to your application',
               openInAnotherTab: false,
@@ -575,7 +575,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/responsetoca?name=Second Respondent',
+              href: '/doc/responsetoca/respondent/Second Respondent?',
               id: 'theResponsePDF',
               linkText: 'Response 2 to your application',
               openInAnotherTab: false,
@@ -783,7 +783,7 @@ describe('tasklist index', () => {
               hintText: null,
               href: '/applicant/upload-document',
               id: 'uploadDocuments',
-              linkText: ' Upload documents',
+              linkText: 'Upload documents, applications and statements',
               openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--blue',
@@ -830,7 +830,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/responsetoca?name=First Respondent',
+              href: '/doc/responsetoca/respondent/First Respondent?',
               id: 'theResponsePDF',
               linkText: 'Response 1 to your application',
               openInAnotherTab: false,
@@ -842,7 +842,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/responsetoca?name=Second Respondent',
+              href: '/doc/responsetoca/respondent/Second Respondent?',
               id: 'theResponsePDF',
               linkText: 'Response 2 to your application',
               openInAnotherTab: false,
@@ -966,7 +966,7 @@ describe('tasklist index', () => {
               hintText: null,
               href: '/applicant/upload-document',
               id: 'uploadDocuments',
-              linkText: ' Upload documents',
+              linkText: 'Upload documents, applications and statements',
               openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--blue',
@@ -1012,7 +1012,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/responsetoca?name=First Respondent',
+              href: '/doc/responsetoca/respondent/First Respondent?',
               id: 'theResponsePDF',
               linkText: 'Response 1 to your application',
               openInAnotherTab: false,
@@ -1024,7 +1024,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/responsetoca?name=Second Respondent',
+              href: '/doc/responsetoca/respondent/Second Respondent?',
               id: 'theResponsePDF',
               linkText: 'Response 2 to your application',
               openInAnotherTab: false,
@@ -1288,7 +1288,7 @@ describe('tasklist index', () => {
               hintText: null,
               href: '/applicant/upload-document',
               id: 'uploadDocuments',
-              linkText: ' Upload documents',
+              linkText: 'Upload documents, applications and statements',
               openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--blue',
@@ -1335,7 +1335,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/responsetoca?name=First Respondent',
+              href: '/doc/responsetoca/respondent/First Respondent?',
               id: 'theResponsePDF',
               linkText: 'Response 1 to your application',
               openInAnotherTab: false,
@@ -1347,7 +1347,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/responsetoca?name=Second Respondent',
+              href: '/doc/responsetoca/respondent/Second Respondent?',
               id: 'theResponsePDF',
               linkText: 'Response 2 to your application',
               openInAnotherTab: false,
@@ -1536,7 +1536,7 @@ describe('tasklist index', () => {
               hintText: null,
               href: '/applicant/upload-document',
               id: 'uploadDocuments',
-              linkText: ' Upload documents',
+              linkText: 'Upload documents, applications and statements',
               openInAnotherTab: false,
               stateTag: {
                 className: 'govuk-tag--blue',
@@ -1583,7 +1583,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/responsetoca?name=First Respondent',
+              href: '/doc/responsetoca/respondent/First Respondent?',
               id: 'theResponsePDF',
               linkText: 'Response 1 to your application',
               openInAnotherTab: false,
@@ -1595,7 +1595,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/responsetoca?name=Second Respondent',
+              href: '/doc/responsetoca/respondent/Second Respondent?',
               id: 'theResponsePDF',
               linkText: 'Response 2 to your application',
               openInAnotherTab: false,
@@ -2264,7 +2264,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
+              href: '/yourdocuments/alldocuments/cadafinaldocumentrequest/update-case?',
               id: 'checkTheApplication',
               linkText: 'Check the application (PDF)',
               stateTag: { className: 'govuk-tag--grey', label: 'Not available yet' },
@@ -2353,7 +2353,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
+              href: '/yourdocuments/alldocuments/cadafinaldocumentrequest/update-case?',
               id: 'checkTheApplication',
               linkText: 'Check the application (PDF)',
               openInAnotherTab: true,
@@ -2443,7 +2443,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
+              href: '/yourdocuments/alldocuments/cadafinaldocumentrequest/update-case?',
               id: 'checkTheApplication',
               linkText: 'Check the application (PDF)',
               openInAnotherTab: true,
@@ -2593,7 +2593,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
+            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest/update-case?',
             id: 'checkTheApplication',
             linkText: 'Check the application (PDF)',
             stateTag: { className: 'govuk-tag--grey', label: 'Not available yet' },
@@ -2810,7 +2810,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
+            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest/update-case?',
             id: 'checkTheApplication',
             linkText: 'Check the application (PDF)',
             stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
@@ -2819,7 +2819,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/yourdocuments/alldocuments/aohviolence?updateCase=Yes',
+            href: '/yourdocuments/alldocuments/aohviolence/update-case?',
             id: 'checkAllegationsOfHarmAndViolence',
             linkText: 'Check the allegations of harm and violence (PDF)',
             stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
@@ -3056,7 +3056,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
+            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest/update-case?',
             id: 'checkTheApplication',
             linkText: 'Check the application (PDF)',
             stateTag: { className: 'govuk-tag--dark-blue', label: 'VIEW' },
@@ -3065,7 +3065,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/yourdocuments/alldocuments/aohviolence?updateCase=Yes',
+            href: '/yourdocuments/alldocuments/aohviolence/update-case?',
             id: 'checkAllegationsOfHarmAndViolence',
             linkText: 'Check the allegations of harm and violence (PDF)',
             stateTag: { className: 'govuk-tag--dark-blue', label: 'VIEW' },
@@ -3269,7 +3269,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest?updateCase=Yes',
+            href: '/yourdocuments/alldocuments/cadafinaldocumentrequest/update-case?',
             id: 'checkTheApplication',
             linkText: 'Check the application (PDF)',
             stateTag: { className: 'govuk-tag--dark-blue', label: 'VIEW' },
@@ -3278,7 +3278,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/yourdocuments/alldocuments/aohviolence?updateCase=Yes',
+            href: '/yourdocuments/alldocuments/aohviolence/update-case?',
             id: 'checkAllegationsOfHarmAndViolence',
             linkText: 'Check the allegations of harm and violence (PDF)',
             stateTag: { className: 'govuk-tag--dark-blue', label: 'VIEW' },

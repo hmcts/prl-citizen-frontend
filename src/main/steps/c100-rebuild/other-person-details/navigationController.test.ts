@@ -3,9 +3,6 @@ import { RelationshipType } from '../../../app/case/definition';
 import {
   C100_CHILDERN_LIVE_WITH,
   C100_OTHER_PERSON_DETAILS_ADD,
-  C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
-  C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
-  C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
   C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
 } from '../../urls';
@@ -169,50 +166,6 @@ describe('OtherPersonsDetailsNavigationController', () => {
     ).toBe('/c100-rebuild/other-person-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/lookup');
   });
 
-  test('From OtherPerson1 address lookup screen -> navigate to other person address select', async () => {
-    const dummyparams = mockRequest({
-      params: {
-        otherPersonId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
-      },
-    });
-    expect(
-      OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
-        dummyRequest.session.userCase,
-        dummyparams.params
-      )
-    ).toBe('/c100-rebuild/other-person-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/select');
-  });
-
-  test('From OtherPerson1 select screen -> navigate to other person address manual', async () => {
-    const dummyparams = mockRequest({
-      params: {
-        otherPersonId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
-      },
-    });
-    expect(
-      OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
-        dummyRequest.session.userCase,
-        dummyparams.params
-      )
-    ).toBe('/c100-rebuild/other-person-details/2732dd53-2e6c-46f9-88cd-08230e735b08/address/manual');
-  });
-
-  test('From OtherPerson1 manual screen -> navigate to other proceedings', async () => {
-    const dummyparams = mockRequest({
-      params: {
-        otherPersonId: '2732dd53-2e6c-46f9-88cd-08230e735b08',
-      },
-    });
-    expect(
-      OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
-        dummyRequest.session.userCase,
-        dummyparams.params
-      )
-    ).toBe('/c100-rebuild/child-details/7483640e-0817-4ddc-b709-6723f7925474/live-with');
-  });
   test('default', async () => {
     const dummyparams = mockRequest({
       params: {},

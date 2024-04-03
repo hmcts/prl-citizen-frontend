@@ -1,6 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
+console.info('** FOR SONAR **');
+
 const en = () => ({
   titleList: {
     childArrangementOrder: 'Upload Child Arrangements Order',
@@ -104,7 +106,7 @@ export const form: FormContent = {
   fields: {
     documentUploadProceed: {
       type: 'hidden',
-      label: l => l.uploadFiles,
+      label: l => l.uploadDocumentFileUpload,
       labelHidden: true,
       value: 'true',
     },

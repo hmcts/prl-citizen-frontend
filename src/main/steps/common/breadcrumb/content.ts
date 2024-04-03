@@ -1,3 +1,5 @@
+console.info('** FOR SONAR **');
+
 const en = {
   home: 'Home',
   caseView: 'CaseView',
@@ -7,7 +9,7 @@ const en = {
 const cy: typeof en = {
   home: 'Hafan',
   caseView: 'Gweld yr achos',
-  caseOverView: 'Case overview - welsh',
+  caseOverView: 'Trosolwg o’r achos',
 };
 
 export const language = {

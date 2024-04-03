@@ -146,3 +146,11 @@ export const transformPartyDetails = (
     return transformedData;
   }, {});
 };
+
+export const dobUnknown = (formData: Record<string, any>): string => {
+  const isExactDobDataPresent =
+    formData.dateOfBirth.day !== '' || formData.dateOfBirth.month !== '' || formData.dateOfBirth.year !== ''
+      ? 'cannotHaveBothApproxAndExact'
+      : '';
+  return formData?.isDateOfBirthUnknown === YesNoEmpty.YES ? isExactDobDataPresent : '';
+};

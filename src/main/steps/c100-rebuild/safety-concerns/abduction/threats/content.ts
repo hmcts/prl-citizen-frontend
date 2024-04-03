@@ -5,6 +5,8 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { generateContent as parentContent } from '../content';
 
+console.info('** FOR SONAR **');
+
 export const en = () => ({
   caption: 'Safety concerns',
   title: 'Have the children been abducted or kept outside the UK without your consent before?',

@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { cy as contentAddressCy, en as contentAddressEn } from '../../respondent-details/address/manual/content';
+import { cy as contentAddressCy, en as contentAddressEn } from '../..//address/manual/content';
+import { C100UrlPartyType } from '../../address/definitions';
 import { cy as personalDetailsCy, en as personalDetailsEn } from '../../respondent-details/personal-details/content';
 /**
  * It returns an object containing the contents of the English and Welsh versions of the page,
@@ -12,17 +13,17 @@ export const RespondentsElements = SystemLanguage => {
   const opContents = {
     en: () => {
       return {
-        ...contentAddressEn(),
+        ...contentAddressEn()[C100UrlPartyType.RESPONDENT],
         ...personalDetailsEn(),
-        respondentAddressLabel: contentAddressEn().addressHistoryLabel,
+        respondentAddressLabel: contentAddressEn()[C100UrlPartyType.RESPONDENT].addressHistoryLabel,
         errors: '',
       };
     },
     cy: () => {
       return {
-        ...contentAddressCy(),
+        ...contentAddressCy()[C100UrlPartyType.RESPONDENT],
         ...personalDetailsCy(),
-        respondentAddressLabel: contentAddressCy().addressHistoryLabel,
+        respondentAddressLabel: contentAddressCy()[C100UrlPartyType.RESPONDENT].addressHistoryLabel,
         errors: '',
       };
     },

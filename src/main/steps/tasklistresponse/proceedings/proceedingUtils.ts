@@ -11,6 +11,7 @@ import { cy as opDetailsCyContents, en as opDetailsEnContents } from './order-de
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const IndividualOrderFieldsParser = (keys, order, language) => {
+  console.info('** FOR SONAR **');
   const newOrders = order;
   const Mapper = {
     ['orderDetail']: {
@@ -51,9 +52,7 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
           HTML.P +
           (value === YesOrNo.YES
             ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
-            : value === YesOrNo.NO
-            ? getYesNoTranslation(language, YesOrNo.NO, 'doTranslation')
-            : value) +
+            : isValueNo(value, language)) +
           HTML.P_CLOSE;
         Val += keyDetails + valueDetails + rulerForLastElement;
       }
@@ -71,6 +70,9 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
   });
   return Val;
 };
+
+const isValueNo = (value, language) =>
+  value === YesOrNo.NO ? getYesNoTranslation(language, YesOrNo.NO, 'doTranslation') : value;
 
 /**
  * It takes in a UserCase object, a keys object, a URLS object and a sessionKey string. It returns an

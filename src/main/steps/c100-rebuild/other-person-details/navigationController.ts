@@ -2,16 +2,15 @@ import { Case } from '../../../app/case/case';
 import { C100RebuildPartyDetails, ChildrenDetails, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
+  C100_ADDRESS_LOOKUP,
   C100_CHILDERN_LIVE_WITH,
   C100_OTHER_PERSON_CHECK,
   C100_OTHER_PERSON_DETAILS_ADD,
-  C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
-  C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
-  C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
   C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
   PageLink,
 } from '../../urls';
+import { C100UrlPartyType } from '../address/definitions';
 import { getNextPerson } from '../people/util';
 
 class OtherPersonsDetailsNavigationController {
@@ -57,26 +56,10 @@ class OtherPersonsDetailsNavigationController {
               otherPersonId: this.otherPersonId,
               childId: nextChild.id as ChildrenDetails['id'],
             })
-          : applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP, {
-              otherPersonId: this.otherPersonId,
+          : applyParms(C100_ADDRESS_LOOKUP, {
+              id: this.otherPersonId,
+              partyType: C100UrlPartyType.OTHER_PERSON,
             });
-        break;
-      }
-      case C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP: {
-        nextUrl = applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT, { otherPersonId: this.otherPersonId });
-        break;
-      }
-      case C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT: {
-        nextUrl = applyParms(C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL, { otherPersonId: this.otherPersonId });
-        break;
-      }
-      case C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL: {
-        const nextPerson = getNextPerson(this.otherPersonsDetails, this.otherPersonId);
-        nextUrl = nextPerson
-          ? applyParms(C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS, {
-              otherPersonId: nextPerson.id as C100RebuildPartyDetails['id'],
-            })
-          : applyParms(C100_CHILDERN_LIVE_WITH, { childId: this.childrenDetails[0].id });
         break;
       }
       default: {

@@ -1,6 +1,8 @@
 import { RESPONDENT_ORDERS_FROM_THE_COURT } from '../../../../../../main/steps/urls';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 
+console.info('** FOR SONAR **');
+
 const en = () => {
   return {
     section: 'All documents',

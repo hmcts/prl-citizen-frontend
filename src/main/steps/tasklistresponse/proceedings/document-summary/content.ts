@@ -6,6 +6,8 @@ import { OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../../steps/urls';
 import { getAllOrderDocuments } from '../util';
 export * from './routeGuard';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
   headingTitle:

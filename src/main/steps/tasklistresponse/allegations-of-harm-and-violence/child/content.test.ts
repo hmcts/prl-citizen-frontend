@@ -35,7 +35,7 @@ const cyContent = {
   howToReportChildAbuseLabel: 'Sut i riportio achos o gam-drin plant',
   nationalSocietyPreventionCrueltyHyperLink: 'https://www.nspcc.org.uk',
   nationalSocietyPreventionCrueltyChildrenLabel: 'NSPCC: Cymdeithas Genedlaethol er Atal Creulondeb i Blant',
-  childlineHyperLink: 'https://www.childline.org.uk ',
+  childlineHyperLink: 'https://www.childline.org.uk',
   childlineLabel: 'Childline',
   supportDirectoryHyperLink: 'https://www.gov.uk/guidance/domestic-abuse-how-to-get-help',
   supportDirectoryLabel: 'GOV.UK - Cyfeiriadur cymorth',

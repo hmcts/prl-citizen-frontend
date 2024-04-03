@@ -2,16 +2,15 @@ import { Case } from '../../../app/case/case';
 import { C100RebuildPartyDetails, ChildrenDetails } from '../../../app/case/definition';
 import { applyParms } from '../../common/url-parser';
 import {
+  C100_ADDRESS_LOOKUP,
   C100_OTHER_PERSON_CHECK,
   C100_RESPONDENT_DETAILS_ADD,
-  C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
-  C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
-  C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
   C100_RESPONDENT_DETAILS_CONTACT_DETAILS,
   C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
   C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
   PageLink,
 } from '../../urls';
+import { C100UrlPartyType } from '../address/definitions';
 import { getNextPerson } from '../people/util';
 
 class RespondentsDetailsNavigationController {
@@ -50,27 +49,10 @@ class RespondentsDetailsNavigationController {
               respondentId: this.respondentId,
               childId: nextChild.id as ChildrenDetails['id'],
             })
-          : applyParms(C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP, {
-              respondentId: this.respondentId,
+          : applyParms(C100_ADDRESS_LOOKUP, {
+              id: this.respondentId,
+              partyType: C100UrlPartyType.RESPONDENT,
             });
-        break;
-      }
-      case C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP: {
-        nextUrl = applyParms(C100_RESPONDENT_DETAILS_ADDRESS_SELECT, {
-          respondentId: this.respondentId,
-        });
-        break;
-      }
-      case C100_RESPONDENT_DETAILS_ADDRESS_SELECT: {
-        nextUrl = applyParms(C100_RESPONDENT_DETAILS_ADDRESS_MANUAL, {
-          respondentId: this.respondentId,
-        });
-        break;
-      }
-      case C100_RESPONDENT_DETAILS_ADDRESS_MANUAL: {
-        nextUrl = applyParms(C100_RESPONDENT_DETAILS_CONTACT_DETAILS, {
-          respondentId: this.respondentId,
-        });
         break;
       }
       case C100_RESPONDENT_DETAILS_CONTACT_DETAILS: {

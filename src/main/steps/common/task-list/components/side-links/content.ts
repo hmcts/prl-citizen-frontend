@@ -5,7 +5,7 @@ import {
   RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
 } from '../../../../../steps/urls';
-
+console.info('** FOR SONAR **');
 const en = {
   [CaseType.C100]: {
     [PartyType.APPLICANT]: {

@@ -113,9 +113,6 @@ import {
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_START_ALTERATIVE,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK,
   C100_APPLICANT_ADD_APPLICANTS_CONFIDENTIALITY_FEEDBACK_NO,
-  C100_APPLICANT_ADDRESS_LOOKUP,
-  C100_APPLICANT_ADDRESS_SELECT,
-  C100_APPLICANT_ADDRESS_MANUAL,
   C100_APPLICANT_RELATIONSHIP_TO_CHILD,
 
   /** @C100 Other children in people section */
@@ -126,9 +123,6 @@ import {
   /** Respondent Details */
   C100_RESPONDENT_DETAILS_ADD,
   C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD,
-  C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
-  C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
-  C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
   C100_RESPONDENT_DETAILS_PERSONAL_DETAILS,
   C100_RESPONDENT_DETAILS_CONTACT_DETAILS,
 
@@ -138,14 +132,14 @@ import {
   C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
   C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD,
   C100_CHILDERN_LIVE_WITH,
-  C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
-  C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
-  C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
   C100_APPLICANTS_PERSONAL_DETAILS,
   C100_APPLICANT_CONTACT_DETAIL,
   C100_CHECK_YOUR_ANSWER,
   C100_CREATE_CASE,
   C100_APPLICANT_CONTACT_PREFERENCES,
+  C100_ADDRESS_SELECT,
+  C100_ADDRESS_LOOKUP,
+  C100_ADDRESS_MANUAL,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -166,9 +160,9 @@ import ApplicantNavigationController from './applicant/navigationController';
 import AddPeoplePostContoller from './people/AddPeoplePostContoller';
 import ChildDetailsPostController from './child-details/childDetailPostController';
 import ApplicantCommonConfidentialityController from './applicant/confidentiality/common/commonConfidentialityPostController';
-import LookupAndManualAddressPostController from './people/LookupAndManualAddressPostController';
 import UploadDocumentController from './uploadDocumentController';
 import { applyParms } from '../../steps/common/url-parser';
+import C100AddressNavigationController from './address/C100AddressNavigationController';
 
 export const C100Sequence: Step[] = [
   {
@@ -818,22 +812,28 @@ export const C100Sequence: Step[] = [
       ),
   },
   {
-    url: C100_APPLICANT_ADDRESS_LOOKUP,
+    url: C100_ADDRESS_LOOKUP,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_APPLICANT_ADDRESS_LOOKUP, caseData, req?.params),
+      applyParms(C100_ADDRESS_SELECT, {
+        partyType: req?.params.partyType,
+        id: req?.params.id,
+      }) as PageLink,
   },
   {
-    url: C100_APPLICANT_ADDRESS_SELECT,
+    url: C100_ADDRESS_SELECT,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_APPLICANT_ADDRESS_SELECT, caseData, req?.params),
+      applyParms(C100_ADDRESS_MANUAL, {
+        partyType: req?.params.partyType,
+        id: req?.params.id,
+      }) as PageLink,
   },
   {
-    url: C100_APPLICANT_ADDRESS_MANUAL,
+    url: C100_ADDRESS_MANUAL,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
-      ApplicantNavigationController.getNextUrl(C100_APPLICANT_ADDRESS_MANUAL, caseData, req?.params),
+      C100AddressNavigationController.getNextUrl(C100_ADDRESS_MANUAL, caseData, req?.params),
   },
   {
     url: C100_CHILDERN_DETAILS_OTHER_CHILDREN,
@@ -885,24 +885,6 @@ export const C100Sequence: Step[] = [
       ),
   },
   {
-    url: C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP,
-    showInSection: Sections.C100,
-    getNextStep: (caseData, req) =>
-      RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_ADDRESS_LOOKUP, caseData, req?.params),
-  },
-  {
-    url: C100_RESPONDENT_DETAILS_ADDRESS_SELECT,
-    showInSection: Sections.C100,
-    getNextStep: (caseData, req) =>
-      RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_ADDRESS_SELECT, caseData, req?.params),
-  },
-  {
-    url: C100_RESPONDENT_DETAILS_ADDRESS_MANUAL,
-    showInSection: Sections.C100,
-    getNextStep: (caseData, req) =>
-      RespondentsDetailsNavigationController.getNextUrl(C100_RESPONDENT_DETAILS_ADDRESS_MANUAL, caseData, req?.params),
-  },
-  {
     url: C100_RESPONDENT_DETAILS_CONTACT_DETAILS,
     showInSection: Sections.C100,
     getNextStep: (caseData, req) =>
@@ -927,38 +909,6 @@ export const C100Sequence: Step[] = [
     getNextStep: (caseData, req) =>
       OtherPersonsDetailsNavigationController.getNextUrl(
         C100_OTHER_PERSON_DETAILS_PERSONAL_DETAILS,
-        caseData,
-        req?.params
-      ),
-  },
-  {
-    url: C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
-    postController: LookupAndManualAddressPostController,
-    showInSection: Sections.C100,
-    getNextStep: (caseData, req) =>
-      OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_OTHER_PERSON_DETAILS_ADDRESS_LOOKUP,
-        caseData,
-        req?.params
-      ),
-  },
-  {
-    url: C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
-    showInSection: Sections.C100,
-    getNextStep: (caseData, req) =>
-      OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_OTHER_PERSON_DETAILS_ADDRESS_SELECT,
-        caseData,
-        req?.params
-      ),
-  },
-  {
-    url: C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
-    postController: LookupAndManualAddressPostController,
-    showInSection: Sections.C100,
-    getNextStep: (caseData, req) =>
-      OtherPersonsDetailsNavigationController.getNextUrl(
-        C100_OTHER_PERSON_DETAILS_ADDRESS_MANUAL,
         caseData,
         req?.params
       ),

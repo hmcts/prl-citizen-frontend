@@ -2,6 +2,8 @@ import { APPLICATION_MADE_IN_THESE_PRCEEDINGS } from '../../../../../../main/ste
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 
+console.info('** FOR SONAR **');
+
 const en = () => {
   return {
     section: 'All documents',

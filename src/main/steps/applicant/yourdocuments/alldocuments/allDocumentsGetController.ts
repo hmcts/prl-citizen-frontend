@@ -6,6 +6,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject } from '../../../../app/controller/PostController';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import {
+  AOH_TO_CA,
   APPLICANT,
   APPLICANT_MIAM_CERTIFICATE,
   DIGITAL_DOWNLOADS,
@@ -20,6 +21,7 @@ import {
   POSITION_STATEMENTS,
   PREVIOUS_ORDERS_SUBMITTED,
   RESPONDENT,
+  RESPONSE_TO_CA,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
   WITNESS_AVAILABILITY,
   YOUR_WITNESS_STATEMENTS,
@@ -44,7 +46,9 @@ export default class AllDocumentsGetController {
       if (error) {
         throw error;
       }
-      res.redirect(url + getViewDocumentUrl(req.params.docType));
+      req.params.docType === DocType.RESPONSE_TO_CA || req.params.docType === DocType.AOH_TO_CA
+        ? res.redirect(getViewDocumentUrl(req.params.docType))
+        : res.redirect(url + getViewDocumentUrl(req.params.docType));
     });
   }
 }
@@ -97,6 +101,12 @@ export const getViewDocumentUrl = (docType: string): string => {
       break;
     case DocType.MIAM_CERTIFICATE:
       viewDocumentUrl = APPLICANT_MIAM_CERTIFICATE;
+      break;
+    case DocType.RESPONSE_TO_CA:
+      viewDocumentUrl = RESPONSE_TO_CA;
+      break;
+    case DocType.AOH_TO_CA:
+      viewDocumentUrl = AOH_TO_CA;
       break;
   }
 

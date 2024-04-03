@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { cy as contentAddressCy, en as contentAddressEn } from '../../respondent-details/address/manual/content';
+import { cy as contentAddressCy, en as contentAddressEn } from '../../address/manual/content';
 import { cy as personalDetailsCy, en as personalDetailsEn } from '../../respondent-details/personal-details/content';
 
 import { RespondentsElements } from './respondent.util';
@@ -17,7 +17,7 @@ const RespondentsTestElements = SystemLanguage => {
     },
     cy: () => {
       return {
-        ...contentAddressCy(),
+        ...contentAddressCy,
         ...personalDetailsCy(),
         errors: '',
       };

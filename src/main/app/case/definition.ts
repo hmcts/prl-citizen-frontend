@@ -3,6 +3,8 @@
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
 import { CaseDate, FieldPrefix } from './case';
 
+console.info('** FOR SONAR **');
+
 export interface ChildDetails {
   gender: string;
   lastName: string;
@@ -221,7 +223,7 @@ export interface CitizenInternationalElements {
 export interface Consent {
   consentToTheApplication?: string;
   noConsentReason?: string;
-  applicationReceivedDate?: DateAsString;
+  applicationReceivedDate?: string;
   permissionFromCourt?: string;
   courtOrderDetails?: string;
 }
@@ -421,15 +423,15 @@ export interface OrganisationPolicy<R> {
 }
 
 export interface PreviousOrganisation {
-  FromTimeStamp: DateAsString;
-  ToTimeStamp: DateAsString;
+  FromTimeStamp: string;
+  ToTimeStamp: string;
   OrganisationName: string;
   OrganisationAddress: string;
 }
 
 export interface CaseNote {
   author: string;
-  date: DateAsString;
+  date: string;
   note: string;
 }
 
@@ -510,7 +512,7 @@ export interface SolicitorAddress3 {
 
 export interface AcknowledgementOfService {
   jurisdictionDisagreeReason: string;
-  dateAosSubmitted: DateAsString;
+  dateAosSubmitted: string;
   digitalNoticeOfProceedings: YesOrNo;
   noticeOfProceedingsEmail: string;
   noticeOfProceedingsSolicitorFirm: string;
@@ -594,14 +596,14 @@ export interface Value10 {
 
 
 export interface AlternativeService {
-  receivedServiceApplicationDate: DateAsString;
+  receivedServiceApplicationDate: string;
   alternativeServiceType: AlternativeServiceType;
-  receivedServiceAddedDate: DateAsString;
+  receivedServiceAddedDate: string;
   serviceApplicationGranted: YesOrNo;
   serviceApplicationRefusalReason: string;
-  serviceApplicationDecisionDate: DateAsString;
-  deemedServiceDate: DateAsString;
-  dateOfPayment: DateAsString;
+  serviceApplicationDecisionDate: string;
+  deemedServiceDate: string;
+  dateOfPayment: string;
   paymentMethod: ServicePaymentMethod;
   feeAccountNumber: string;
   feeAccountReferenceNumber: string;
@@ -610,7 +612,7 @@ export interface AlternativeService {
   localCourtName: string;
   localCourtEmail: string;
   certificateOfServiceDocument: DivorceDocument;
-  certificateOfServiceDate: DateAsString;
+  certificateOfServiceDate: string;
   successfulServedByBailiff: YesOrNo;
   reasonFailureToServeByBailiff: string;
 }
@@ -628,7 +630,7 @@ export interface Bailiff {
   localCourtName: string;
   localCourtEmail: string;
   certificateOfServiceDocument: DivorceDocument;
-  certificateOfServiceDate: DateAsString;
+  certificateOfServiceDate: string;
   successfulServedByBailiff: YesOrNo;
   reasonFailureToServeByBailiff: string;
 }
@@ -665,7 +667,7 @@ export const enum ContactDetailsPrivate {
 export interface Children {
   FirstName: string;
   LastName: string;
-  DateOfBirth: DateAsString;
+  DateOfBirth: string;
   Nationality: Nationality[];
   AdditionalNationality: ListValue<OtherName>[];
   FirstNameAfterAdoption: string;
@@ -1064,7 +1066,7 @@ export interface CaseInviteValue {
 
 
 export interface ConditionalOrder {
-  DateSubmitted: DateAsString;
+  DateSubmitted: string;
   RespondentAnswersLink: Document;
   ApplyForConditionalOrder: YesOrNo;
   OnlinePetitionLink: Document;
@@ -1076,8 +1078,8 @@ export interface ConditionalOrder {
   Granted: YesOrNo;
   ClaimsGranted: YesOrNo;
   ClaimsCostsOrderInformation: string;
-  DecisionDate: DateAsString;
-  GrantedDate: DateAsString;
+  DecisionDate: string;
+  GrantedDate: string;
   RefusalDecision: RefusalOption;
   RefusalAdminErrorInfo: string;
   RefusalRejectionReason: RejectionReason;
@@ -1088,7 +1090,7 @@ export interface ConditionalOrder {
   ClarificationUploadDocuments: ListValue<DivorceDocument>[];
   OutcomeCase: YesOrNo;
   Court: ConditionalOrderCourt;
-  DateAndTimeOfHearing: DateAsString;
+  DateAndTimeOfHearing: string;
   PronouncementJudge: string;
   JudgeCostsClaimGranted: JudgeCostsClaimGranted;
   JudgeCostsOrderAdditionalInfo: string;
@@ -1280,8 +1282,8 @@ export interface DivorceGeneralOrder {
 }
 
 export interface FinalOrder {
-  dateFinalOrderSubmitted: DateAsString;
-  dateFinalOrderEligibleFrom: DateAsString;
+  dateFinalOrderSubmitted: string;
+  dateFinalOrderEligibleFrom: string;
 }
 
 export interface GeneralEmail {
@@ -1292,7 +1294,7 @@ export interface GeneralEmail {
 }
 
 export interface GeneralOrder {
-  generalOrderDate: DateAsString;
+  generalOrderDate: string;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
   generalOrderRecitals: string;
   generalOrderJudgeType: GeneralOrderJudge;
@@ -1305,8 +1307,8 @@ export interface GeneralOrder {
 export interface GeneralReferral {
   generalReferralReason: GeneralReferralReason;
   generalApplicationFrom: GeneralParties;
-  generalApplicationReferralDate: DateAsString;
-  generalApplicationAddedDate: DateAsString;
+  generalApplicationReferralDate: string;
+  generalApplicationAddedDate: string;
   generalReferralType: GeneralReferralType;
   alternativeServiceMedium: AlternativeServiceMediumType;
   generalReferralJudgeDetails: string;
@@ -1350,7 +1352,7 @@ export interface MarriageDetails {
   CertifiedTranslation: YesOrNo;
   CountryOfMarriage: string;
   PlaceOfMarriage: string;
-  Date: DateAsString;
+  Date: string;
   IsSameSexCouple: YesOrNo;
   CertifyMarriageCertificateIsCorrect: YesOrNo;
   MarriageCertificateIsIncorrectDetails: string;
@@ -1369,7 +1371,7 @@ export interface RetiredFields {
   applicant2ContactDetailsConfidential: ConfidentialAddress;
   applicant1LegalProceedingsRelated: LegalProceedingsRelated[];
   applicant2LegalProceedingsRelated: LegalProceedingsRelated[];
-  dateConditionalOrderSubmitted: DateAsString;
+  dateConditionalOrderSubmitted: string;
   coWhoPaysCosts: WhoPaysCostOrder;
   coJudgeWhoPaysCosts: WhoPaysCostOrder;
   coJudgeTypeCostsDecision: CostOrderList;
@@ -1398,7 +1400,7 @@ export interface Solicitor {
 }
 
 export interface SolicitorService {
-  DateOfService: DateAsString;
+  DateOfService: string;
   DocumentsServed: string;
   OnWhomServed: string;
   HowServed: DocumentsServedHow;
@@ -1416,13 +1418,13 @@ export interface ConfidentialDivorceDocument {
   confidentialDocumentsReceived: ConfidentialDocumentsReceived;
   documentEmailContent: string;
   documentLink: Document;
-  documentDateAdded: DateAsString;
+  documentDateAdded: string;
   documentComment: string;
   documentFileName: string;
 }
 
 export interface DivorceDocument {
-  documentDateAdded: DateAsString;
+  documentDateAdded: string;
   documentComment: string;
   documentFileName: string;
   documentType: DocumentType;
@@ -1431,7 +1433,7 @@ export interface DivorceDocument {
 }
 
 export interface AdoptionDocument {
-  documentDateAdded: DateAsString;
+  documentDateAdded: string;
   documentComment: string;
   documentFileName: string;
   documentType: DocumentType;
@@ -1519,8 +1521,8 @@ export interface FeeResponse {
 }
 
 export interface Payment {
-  created: DateAsString;
-  updated: DateAsString;
+  created: string;
+  updated: string;
   feeCode: string;
   amount: number;
   status: PaymentStatus;
@@ -1554,8 +1556,6 @@ export interface StatusHistoriesItem {
   error_code: string;
   error_message: string;
 }
-
-export type DateAsString = string;
 
 export const enum FieldType {
   Unspecified = 'Unspecified',
@@ -1614,7 +1614,8 @@ export const enum SectionStatus {
   VIEW = 'VIEW',
   NOT_STARTED = 'NOT_STARTED',
   READY_TO_VIEW = "READY_TO_VIEW",
-  NOT_AVAILABLE_YET = "NOT_AVAILABLE_YET"
+  NOT_AVAILABLE_YET = "NOT_AVAILABLE_YET",
+  OPTIONAL = "OPTIONAL"
 }
 
 export const enum AlternativeServiceMediumType {
@@ -2000,7 +2001,6 @@ export const enum State {
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
   AwaitingDocuments = 'AwaitingDocuments',
-  AwaitingSubmissionToHmcts = 'AWAITING_SUBMISSION_TO_HMCTS',
   AwaitingApplicant1Response = 'AwaitingApplicant1Response',
   AwaitingApplicant2Response = 'AwaitingApplicant2Response',
   AwaitingBailiffReferral = 'AwaitingBailiffReferral',
@@ -2018,16 +2018,13 @@ export const enum State {
   ConditionalOrderPronounced = 'ConditionalOrderPronounced',
   ConditionalOrderRefused = 'ConditionalOrderRefused',
   Disputed = 'Disputed',
-  Draft = 'Draft',
   FinalOrderComplete = 'FinalOrderComplete',
   IssuedToBailiff = 'IssuedToBailiff',
   AwaitingPronouncement = 'AwaitingPronouncement',
   PendingDispute = 'PendingDispute',
   BulkCaseReject = 'BulkCaseReject',
-  Submitted = 'Submitted',
   successAuthentication = 'SuccessAuthentication',
   AWAITING_SUBMISSION_TO_HMCTS = "Draft",
-  AWAITING_FL401_SUBMISSION_TO_HMCTS = "Draft",
   SUBMITTED_NOT_PAID = "Pending",
   SUBMITTED_PAID = "Submitted",
   AWAITING_RESUBMISSION_TO_HMCTS = "Returned",
@@ -2035,7 +2032,6 @@ export const enum State {
   GATEKEEPING = "Gatekeeping",
   PREPARE_FOR_HEARING_CONDUCT_HEARING = "Hearing",
   DECISION_OUTCOME = "DECISION_OUTCOME",
-  ALL_FINAL_ORDERS_ISSUED = "ALL_FINAL_ORDERS_ISSUED",
   CASE_HEARING = "Prepare for hearing",
   DELETED = "Deleted",
   CASE_DRAFT = 'AWAITING_SUBMISSION_TO_HMCTS',
@@ -2415,7 +2411,7 @@ export const enum Gender {
 }
 
 export interface PRLDocument {
-  dateCreated: DateAsString;
+  dateCreated: string;
   orderType: string;
   orderDocument: Document;
   orderDocumentWelsh: Document;
@@ -2542,7 +2538,7 @@ export interface Document {
   document_url: string;
   document_filename: string;
   document_binary_url: string;
-  document_hash?: string | undefined | null;
+  document_hash?: string | null;
 }
 export interface Fl401UploadWitnessDocuments {
   id: string;
@@ -3112,22 +3108,32 @@ export enum passportPossessionRelative {
   OTHER = 'otherPerson'
 }
 
+export enum DocCategory{
+WITNESS_STATEMENT = 'witnessstatements',
+APPLICATIONS = 'applications',
+EXPERT_REPORTS = 'expertreports',
+OTHER_DOCUMENTS = 'otherdocuments',
+}
+
 export enum DocType {
-  POSITION_STATEMENTS = 'positionstatements',
-  YOUR_WITNESS_STATEMENTS = 'yourwitnessstatements',
-  LETTERS_FROM_SCHOOL = 'lettersfromschool',
-  DIGITAL_DOWNLOADS = 'digitaldownloads',
-  MEDICAL_RECORDS = 'medicalrecords',
-  PATERNITY_TEST_REPORTS = 'paternitytestreports',
-  DRUG_ALCOHOL_TESTS = 'drugalcoholtests',
-  POLICE_REPORTS = 'policedisclosures',
-  WITNESS_AVAILABILITY = 'witnessavailability',
-  TENANCY_AND_MORTGAGE_AVAILABILITY = 'tenancyandmortgageavailability',
-  MEDICAL_REPORTS = 'medicalreports',
-  OTHER_DOCUMENTS = 'otherDocuments',
-  PREVIOUS_ORDERS = 'previousorders',
-  OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
-  MIAM_CERTIFICATE = 'miamcertificate',
+POSITION_STATEMENTS ='positionstatements',
+YOUR_WITNESS_STATEMENTS = 'yourwitnessstatements',
+LETTERS_FROM_SCHOOL = 'lettersfromschool',
+DIGITAL_DOWNLOADS = 'digitaldownloads',
+MEDIA_FILES = 'mediafiles',
+MEDICAL_RECORDS = 'medicalrecords',
+PATERNITY_TEST_REPORTS = 'paternitytestreports',
+DRUG_ALCOHOL_TESTS = 'drugalcoholtests',
+POLICE_REPORTS = 'policedisclosures',
+WITNESS_AVAILABILITY = 'witnessavailability',
+TENANCY_AND_MORTGAGE_AVAILABILITY = 'tenancyandmortgageavailability',
+MEDICAL_REPORTS = 'medicalreports',
+OTHER_DOCUMENTS = 'otherdocuments',
+PREVIOUS_ORDERS = 'previousorders',
+OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
+MIAM_CERTIFICATE = 'miamcertificate',
+RESPONSE_TO_CA = 'responsetoca',
+AOH_TO_CA = 'aohtoca'
 }
 
 export interface PaymentError {

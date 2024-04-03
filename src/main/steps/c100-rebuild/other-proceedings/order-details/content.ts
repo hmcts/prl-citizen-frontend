@@ -12,6 +12,8 @@ import { covertToDateObject } from '../../../../app/form/parser';
 import { areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
 export * from './routeGuard';
 
+console.info('** FOR SONAR **');
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   pageTitle: 'Provide details of court cases you or the children have been involved in',

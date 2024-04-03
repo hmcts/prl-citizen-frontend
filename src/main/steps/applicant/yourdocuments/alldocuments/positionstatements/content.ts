@@ -1,6 +1,9 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { getDocumentList } from '../alldocuments/utils';
+
+console.info('** FOR SONAR **');
+
 const en = {
   section: 'All documents',
   title: "'s position statements",

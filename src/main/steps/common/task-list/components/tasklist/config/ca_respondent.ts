@@ -2,7 +2,8 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
-import { UPDATE_CASE_YES } from '../../../../../../steps/constants';
+import { applyParms } from '../../../../../../steps/common/url-parser';
+import { UPDATE_CASE } from '../../../../../../steps/constants';
 import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils';
 import {
   ALLEGATION_OF_HARM_VOILENCE,
@@ -139,7 +140,9 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
       {
         id: Tasks.CHECK_THE_APPLICATION,
         href: (caseData, userDetails) => {
-          return getFinalApplicationStatus(caseData, userDetails) ? APPLICANT_CA_DA_REQUEST + UPDATE_CASE_YES : null;
+          return getFinalApplicationStatus(caseData, userDetails)
+            ? applyParms(APPLICANT_CA_DA_REQUEST, { docContext: UPDATE_CASE })
+            : null;
         },
         stateTag: (caseData, userDetails) => getFinalApplicationStatus(caseData, userDetails),
         openInAnotherTab: true,
@@ -149,7 +152,7 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         href: (caseData, userDetails) => {
           return getCheckAllegationOfHarmStatus(caseData, userDetails) === StateTags.NOT_AVAILABLE_YET
             ? '#'
-            : ALLEGATION_OF_HARM_VOILENCE + UPDATE_CASE_YES;
+            : applyParms(ALLEGATION_OF_HARM_VOILENCE, { docContext: UPDATE_CASE });
         },
         stateTag: (caseData, userDetails) => getCheckAllegationOfHarmStatus(caseData, userDetails),
         openInAnotherTab: true,

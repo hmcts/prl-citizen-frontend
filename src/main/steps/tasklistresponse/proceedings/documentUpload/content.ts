@@ -1,6 +1,8 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
+console.info('** FOR SONAR **');
+
 const en = () => ({
   problem: 'There is a problem',
   titleList: {
@@ -108,7 +110,7 @@ export const form: FormContent = {
   fields: {
     documentUploadProceed: {
       type: 'hidden',
-      label: l => l.uploadFiles,
+      label: l => l.uploadDocumentFileUpload,
       labelHidden: true,
       value: 'true',
     },

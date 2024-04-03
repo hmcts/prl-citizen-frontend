@@ -82,7 +82,7 @@ describe('LegalRepresentationGetController', () => {
 
     describe('generatePageContent()', () => {
       test('calls generatePageContent with correct arguments for new sessions', async () => {
-        const req = mockRequest({ userCase: { state: State.Draft }, session: { errors: [] } });
+        const req = mockRequest({ userCase: { state: State.AWAITING_SUBMISSION_TO_HMCTS }, session: { errors: [] } });
         req.session.user.id = '123';
         req.session.userCase = dummySessionData;
         const res = mockResponse();

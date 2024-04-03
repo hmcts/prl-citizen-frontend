@@ -192,6 +192,34 @@ describe('ConfirmContactDetailsPostController', () => {
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
     expect(res.redirect).toBeCalled;
   });
+
+  test('Should redirect to tasklist response when navfromRespondToApplication is present', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.session.userCase.respondents = partyDetails;
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session = { ...req.session, applicationSettings: { navfromRespondToApplication: true } };
+    req.session.userCase.caseInvites = [
+      {
+        id: '577695bd-2fb5-4418-a699-79ee352ed5bb',
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          caseInviteEmail: 'respondent2@example.net',
+          accessCode: '3GYFGJHO',
+          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          hasLinked: 'Yes',
+          expiryDate: '2023-05-07',
+          isApplicant: 'No',
+        },
+      },
+    ];
+    req.url = 'respondent';
+    await controller.post(req, res);
+    expect(retrieveByCaseIdMock).toBeCalled;
+    expect(updateCaserMock).toBeCalled;
+    expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
+    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/start');
+  });
+
   test('Should redirect FL401 respondent', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     req.url = 'respondent';

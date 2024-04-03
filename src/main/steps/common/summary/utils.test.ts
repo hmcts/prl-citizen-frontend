@@ -120,7 +120,7 @@ describe('common > summary > utils', () => {
       {
         userCase: {
           ...mockUserCase,
-          caseStatus: { state: State.Draft },
+          caseStatus: { state: State.AWAITING_SUBMISSION_TO_HMCTS },
           applicantCaseName: 'test',
           caseTypeOfApplication: 'C100',
         },
@@ -157,7 +157,7 @@ describe('common > summary > utils', () => {
       {
         userCase: {
           ...mockUserCase,
-          caseStatus: { state: State.Draft },
+          caseStatus: { state: State.AWAITING_SUBMISSION_TO_HMCTS },
           applicantCaseName: 'test',
           caseTypeOfApplication: 'FL401',
         },
@@ -218,7 +218,7 @@ describe('common > summary > utils', () => {
       {
         userCase: {
           ...mockUserCase,
-          caseStatus: { state: State.Draft },
+          caseStatus: { state: State.AWAITING_SUBMISSION_TO_HMCTS },
           applicantCaseName: 'test',
           caseTypeOfApplication: 'C100',
         },

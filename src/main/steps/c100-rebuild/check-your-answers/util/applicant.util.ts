@@ -7,7 +7,7 @@
   en as contentjurdisictionEn,
 } from '../../international-elements/jurisdiction/content';
  */
-import { cy as addressManualCy, en as addressManualEn } from '../../applicant/address/common/address-manual';
+import { cy as addressManualCy, en as addressManualEn } from '../../address/manual/address-manual';
 import {
   cy as contentDetailKnownCy,
   en as contentDetailKnownEn,
