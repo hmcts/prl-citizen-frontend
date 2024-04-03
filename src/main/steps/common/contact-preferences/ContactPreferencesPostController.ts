@@ -55,7 +55,7 @@ export class ContactPreferencesPostController {
             partyDetails,
             partyType,
             caseData.caseTypeOfApplication as CaseType,
-            CaseEvent.PARTY_PERSONAL_DETAILS
+            CaseEvent.CONTACT_PREFERENCE
           );
           mapDataInSession(req.session.userCase, user.id);
           if (partyDetails.contactPreferences === ContactPreference.POST) {
