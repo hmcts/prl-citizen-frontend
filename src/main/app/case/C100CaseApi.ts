@@ -53,46 +53,6 @@ export class CaseApi {
   }
 
   /**
-   * This is used to update/submit case based on the case event passed
-   * @param caseId
-   * @param caseData
-   * @param returnUrl
-   * @param caseEvent
-   * @returns
-   */
-  public async updateCase(
-    caseId: string,
-    caseData: Partial<CaseWithId>,
-    returnUrl: string,
-    caseEvent: C100_CASE_EVENT
-  ): Promise<UpdateCaseResponse> {
-    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, applicantCaseName, ...rest } =
-      caseData;
-    const data: UpdateCaseRequest = {
-      ...transformCaseData(rest),
-      caseTypeOfApplication: caseTypeOfApplication as string,
-      applicantCaseName,
-      c100RebuildChildPostCode,
-      helpWithFeesReferenceNumber,
-      c100RebuildReturnUrl: returnUrl,
-      id: caseId,
-      paymentServiceRequestReferenceNumber: caseData.paymentDetails?.serviceRequestReference,
-      paymentReferenceNumber: caseData.paymentDetails?.payment_reference,
-    };
-    try {
-      const response = await this.axios.post<UpdateCaseResponse>(`${caseId}/${caseEvent}/update-case`, data, {
-        headers: {
-          accessCode: 'null',
-        },
-      });
-      return { data: response.data };
-    } catch (err) {
-      this.logError(err);
-      throw new Error('Case could not be updated.');
-    }
-  }
-
-  /**
    * This is used to submit case based on the case event passed
    * @param caseId
    * @param caseData
@@ -122,10 +82,7 @@ export class CaseApi {
     try {
       const response = await this.axios.post<UpdateCaseResponse>(
         `/citizen/${caseId}/${caseEvent}/submit-c100-application`,
-        data,
-        {
-          headers: {},
-        }
+        data
       );
       return { data: response.data };
     } catch (err) {
@@ -163,10 +120,7 @@ export class CaseApi {
     try {
       const response = await this.axios.post<UpdateCaseResponse>(
         `/citizen/${caseId}/save-c100-draft-application`,
-        data,
-        {
-          headers: {},
-        }
+        data
       );
       return { data: response.data };
     } catch (err) {
@@ -190,9 +144,7 @@ export class CaseApi {
       if (!caseId) {
         throw new Error('caseId not found so case could not be deleted.');
       }
-      await this.axios.post<UpdateCaseResponse>(`/citizen/${caseId}/delete-application`, caseData, {
-        headers: {},
-      });
+      await this.axios.post<UpdateCaseResponse>(`/citizen/${caseId}/delete-application`, caseData);
       session.userCase = {} as CaseWithId;
       session.save();
     } catch (err) {
@@ -256,11 +208,6 @@ export class CaseApi {
           withDrawApplicationData: {
             withDrawApplication: withdrawApplication,
             withDrawApplicationReason: withdrawApplicationReason,
-          },
-        },
-        {
-          headers: {
-            accessCode: 'null',
           },
         }
       );

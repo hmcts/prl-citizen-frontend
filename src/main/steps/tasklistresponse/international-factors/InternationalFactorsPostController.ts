@@ -20,7 +20,7 @@ export class InternationalFactorsPostController extends PostController<AnyObject
     const { user, userCase } = req.session;
     const partyType = getCasePartyType(userCase, user.id);
     const partyDetails = getPartyDetails(userCase, user.id);
-    const client = new CosApiClient(user.accessToken, 'https://return-url');
+    const client = new CosApiClient(user.accessToken, req.locals.logger);
 
     if (partyDetails) {
       Object.assign(partyDetails.response, {
@@ -28,7 +28,6 @@ export class InternationalFactorsPostController extends PostController<AnyObject
       });
       try {
         req.session.userCase = await client.updateCaseData(
-          user,
           userCase.id,
           partyDetails,
           partyType,

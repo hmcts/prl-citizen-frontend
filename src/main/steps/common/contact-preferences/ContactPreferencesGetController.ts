@@ -34,7 +34,7 @@ export class ContactPreferencesGetController {
     const loggedInCitizen = req.session.user;
     const caseReference = req.params?.caseId;
 
-    const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
+    const client = new CosApiClient(loggedInCitizen.accessToken, req.locals.logger);
 
     const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
     Object.assign(req.session.userCase, caseDataFromCos);
