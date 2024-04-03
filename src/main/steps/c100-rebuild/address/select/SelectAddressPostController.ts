@@ -29,7 +29,7 @@ export default class SelectAddressPostController extends PostController<AnyObjec
 
     if (selectedAddressIndex >= 0) {
       const selectedAddress = req.session.addresses[selectedAddressIndex];
-      req = this.updateAddressDetails(req, id, partyType as C100UrlPartyType, selectedAddress, selectedAddressIndex);
+      this.updateAddressDetails(req, id, partyType as C100UrlPartyType, selectedAddress, selectedAddressIndex);
     }
 
     if (onlycontinue) {
@@ -93,7 +93,5 @@ export default class SelectAddressPostController extends PostController<AnyObjec
         req.session.userCase.oprs_otherPersons
       ) as C100RebuildPartyDetails[];
     }
-
-    return req;
   };
 }

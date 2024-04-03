@@ -36,7 +36,7 @@ export default class AddressLookupPostController extends PostController<AnyObjec
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const postcode = partyType === C100UrlPartyType.APPLICANT ? formData['addressPostcode'] : formData['PostCode'];
 
-    req = this.updateAddressDetails(req, id, partyType as C100UrlPartyType, postcode);
+    this.updateAddressDetails(req, id, partyType as C100UrlPartyType, postcode);
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);
@@ -85,7 +85,5 @@ export default class AddressLookupPostController extends PostController<AnyObjec
         req.session.userCase.oprs_otherPersons
       ) as C100RebuildPartyDetails[];
     }
-
-    return req;
   };
 }

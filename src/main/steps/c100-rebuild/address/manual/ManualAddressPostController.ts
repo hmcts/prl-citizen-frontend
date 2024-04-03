@@ -40,7 +40,7 @@ export default class ManualAddressPostController extends PostController<AnyObjec
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
 
-    req = this.updateAddressDetails(req, id, partyType as C100UrlPartyType, formData);
+    this.updateAddressDetails(req, id, partyType as C100UrlPartyType, formData);
 
     if (onlycontinue) {
       req.session.errors = form.getErrors(formData);
@@ -85,7 +85,5 @@ export default class ManualAddressPostController extends PostController<AnyObjec
         req.session.userCase.oprs_otherPersons
       ) as C100RebuildPartyDetails[];
     }
-
-    return req;
   };
 }
