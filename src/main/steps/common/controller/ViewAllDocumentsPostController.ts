@@ -72,11 +72,7 @@ export class ViewAllDocumentsPostController {
     const data = toApiFormat(req?.session?.userCase);
     data.id = req?.session?.userCase.id;
 
-    const updatedCaseDataFromCos = await client.updateCase(
-      req?.session?.userCase.id,
-      data,
-      'citizen-case-update'
-    );
+    const updatedCaseDataFromCos = await client.updateCase(req?.session?.userCase.id, data, 'citizen-case-update');
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
     let redirectUrl;

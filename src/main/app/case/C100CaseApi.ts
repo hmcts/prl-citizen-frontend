@@ -202,15 +202,12 @@ export class CaseApi {
       }
       const { withdrawApplication, withdrawApplicationReason } = caseData;
 
-      await this.axios.post<UpdateCaseResponse>(
-        `/citizen/${caseId}/withdraw`,
-        {
-          withDrawApplicationData: {
-            withDrawApplication: withdrawApplication,
-            withDrawApplicationReason: withdrawApplicationReason,
-          },
-        }
-      );
+      await this.axios.post<UpdateCaseResponse>(`/citizen/${caseId}/withdraw`, {
+        withDrawApplicationData: {
+          withDrawApplication: withdrawApplication,
+          withDrawApplicationReason: withdrawApplicationReason,
+        },
+      });
     } catch (err) {
       this.logError(err);
       throw new Error('Error occured, case could not be withdrawn.');

@@ -7,7 +7,7 @@ import { DeleteDocumentRequest } from '../../app/document/DeleteDocumentRequest'
 import { DocumentDetail } from '../../app/document/DocumentDetail';
 import { GenerateAndUploadDocumentRequest } from '../../app/document/GenerateAndUploadDocumentRequest';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import type { AppRequest, UserDetails } from '../controller/AppRequest';
+import type { UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
 import { CaseData, CaseEvent, CaseType, PartyDetails, PartyType, YesOrNo } from './definition';

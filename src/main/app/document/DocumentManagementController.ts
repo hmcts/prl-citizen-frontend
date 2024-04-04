@@ -120,12 +120,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const caseDetailsFromCos = await client.retrieveByCaseId(req.session.userCase.id, loggedInCitizen);
 
       Object.assign(req.session.userCase, caseDetailsFromCos);
-      const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
+      const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(req, req.session.userCase.id, client);
       Object.assign(req.session.userCase, caseDataFromCos);
       req.session.errors = [];
     }
@@ -163,8 +158,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
   public async notifyBannerForNewDcoumentUploaded(
     req: AppRequest<Partial<CaseWithId>>,
     caseReference: string,
-    client: CosApiClient,
-    loggedInCitizen: UserDetails
+    client: CosApiClient
   ): Promise<CaseWithId> {
     if (req?.session?.userCase?.caseTypeOfApplication === 'C100') {
       this.notifyBannerForNewDcoumentC100Respondent(req);
@@ -492,11 +486,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (isFlagViewed) {
       const data = toApiFormat(req?.session?.userCase);
       data.id = caseReference;
-      const updatedCaseDataFromCos = await client.updateCase(
-        caseReference,
-        data,
-        'citizen-case-update'
-      );
+      const updatedCaseDataFromCos = await client.updateCase(caseReference, data, 'citizen-case-update');
       req.session.userCase = updatedCaseDataFromCos;
     }
   }
@@ -688,12 +678,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const caseDetailsFromCos = await client.retrieveByCaseId(req.session.userCase.id, caseworkerUser);
 
       Object.assign(req.session.userCase, caseDetailsFromCos);
-      const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
+      const caseDataFromCos = this.notifyBannerForNewDcoumentUploaded(req, req.session.userCase.id, client);
       Object.assign(req.session.userCase, caseDataFromCos);
       req.session.errors = [];
     }
