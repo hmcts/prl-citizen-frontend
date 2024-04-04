@@ -14,11 +14,14 @@ jest.mock('config');
 jest.mock('../auth/service/get-service-auth-token');
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
+mockedAxios.create = jest.fn(() => mockedAxios);
+
 describe('CosApiClient', () => {
   test('connect cos api', async () => {
+    const req = mockRequest();
     const mockGet = jest.fn().mockResolvedValueOnce({ data: { mockPayment: 'data' } });
     mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const actual = await client.get();
     expect(mockGet).toHaveBeenCalledWith('/');
     expect(actual).toEqual({ mockPayment: 'data' });
@@ -28,7 +31,7 @@ describe('CosApiClient', () => {
     const response = { id: '200', state: 'SUCCESS' };
     mockedAxios.get.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const actual = await client.retrieveByCaseId('1234567', req.session.user);
     expect(actual).toEqual(response);
   });
@@ -37,7 +40,7 @@ describe('CosApiClient', () => {
     const response = { id: '200', state: 'SUCCESS' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const actual = await client.validateAccessCode('1234567', '1234', req.session.user);
     expect(actual).toEqual(response);
   });
@@ -46,9 +49,9 @@ describe('CosApiClient', () => {
     const response = { id: '200', state: 'SUCCESS' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const caseData = toApiFormat(req?.session?.userCase);
-    const actual = await client.updateCase(req.session.user, '123456', caseData, 'update');
+    const actual = await client.updateCase('123456', caseData, 'update');
     expect(actual).toEqual(response);
   });
 
@@ -57,7 +60,7 @@ describe('CosApiClient', () => {
     /* eslint-disable @typescript-eslint/no-explicit-any */
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<any>);
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const actual = await client.retrieveCaseHearingsByCaseId(req.session.user, '123456');
     expect(actual).toEqual(response);
   });
@@ -66,9 +69,9 @@ describe('CosApiClient', () => {
     const response = { id: '200', state: 'SUCCESS' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const caseData = toApiFormat(req?.session?.userCase);
-    const actual = await client.submitRespondentResponse(req.session.user, '123456', '123456', caseData);
+    const actual = await client.submitRespondentResponse('123456', '123456', caseData);
     expect(actual).toEqual(response);
   });
 
@@ -76,7 +79,7 @@ describe('CosApiClient', () => {
     const response = { documentId: '123456', documentName: 'test' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const uploadDocumentDetails = {
       documentRequestedByCourt: 'No',
       caseId: '123456',
@@ -88,10 +91,7 @@ describe('CosApiClient', () => {
       isApplicant: 'Yes',
     };
     const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
-    const actual = await client.generateUserUploadedStatementDocument(
-      req.session.user,
-      generateAndUploadDocumentRequest
-    );
+    const actual = await client.generateUserUploadedStatementDocument(generateAndUploadDocumentRequest);
     expect(actual).toEqual(response);
   });
 
@@ -99,7 +99,7 @@ describe('CosApiClient', () => {
     const response = { documentId: '123456', documentName: 'test' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const files = [];
     const request: UploadDocumentRequest = {
       user: req.session.user,
@@ -120,13 +120,13 @@ describe('CosApiClient', () => {
     const response = { documentId: '123456', documentName: 'test' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const deleteDocumentDetails = {
       caseId: '1234567',
       documentId: 'documentIdToDelete',
     };
     const deleteDocumentRequest = new DeleteDocumentRequest(deleteDocumentDetails);
-    const actual = await client.deleteCitizenStatementDocument(req.session.user, deleteDocumentRequest);
+    const actual = await client.deleteCitizenStatementDocument(deleteDocumentRequest);
     expect(actual).toEqual(response);
   });
 
@@ -134,10 +134,10 @@ describe('CosApiClient', () => {
     const response = { id: '1234567' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     let flag = false;
     try {
-      await client.linkCaseToCitizen(req.session.user, '1234567', req, '123456789');
+      await client.linkCaseToCitizen('1234567', '123456789');
     } catch (err) {
       flag = true;
     }
@@ -157,8 +157,8 @@ describe('CosApiClient', () => {
     };
     mockedAxios.get.mockReturnValueOnce(response as unknown as Promise<CaseWithId>);
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
-    const actual = await client.retrieveCasesByUserId(req.session.user);
+    const client = new CosApiClient('abc', req.locals.logger);
+    const actual = await client.retrieveCasesByUserId();
     expect(actual).toEqual([
       {
         id: '1234',
@@ -181,7 +181,7 @@ describe('CosApiClient', () => {
     const data = {} as Partial<CaseData>;
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const actual = await client.generateC7DraftDocument(req.session.user, '123456', '123456789', data);
     expect(actual).not.toBeUndefined;
   });
@@ -190,7 +190,7 @@ describe('CosApiClient', () => {
     const data = {} as Partial<CaseData>;
     mockedAxios.post.mockRejectedValueOnce;
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     let flag = false;
     try {
       await client.generateC7DraftDocument(req.session.user, '123456', '123456789', data);
@@ -205,7 +205,7 @@ describe('CosApiClientWithError', () => {
     const response = { id: '200', state: 'SUCCESS' };
     mockedAxios.get.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const id = '';
     let flag = true;
     try {
@@ -220,7 +220,7 @@ describe('CosApiClientWithError', () => {
     const response = { id: '200', state: 'SUCCESS' };
     mockedAxios.get.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const id = '';
     let flag = true;
     try {
@@ -233,11 +233,11 @@ describe('CosApiClientWithError', () => {
 
   test('updateCaseWithError', async () => {
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const caseData = toApiFormat(req?.session?.userCase);
     let flag = true;
     try {
-      await client.updateCase(req.session.user, '123456', caseData, 'update');
+      await client.updateCase('123456', caseData, 'update');
     } catch {
       flag = false;
     }
@@ -247,11 +247,11 @@ describe('CosApiClientWithError', () => {
 
   test('submitRespondentResponseWithError', async () => {
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const caseData = toApiFormat(req?.session?.userCase);
     let flag = true;
     try {
-      await client.submitRespondentResponse(req.session.user, '123456', '123456', caseData);
+      await client.submitRespondentResponse('123456', '123456', caseData);
     } catch {
       flag = false;
     }
@@ -261,7 +261,7 @@ describe('CosApiClientWithError', () => {
 
   test('generateUserUploadedStatementDocument', async () => {
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const uploadDocumentDetails = {
       documentRequestedByCourt: 'No',
       caseId: '123456',
@@ -275,7 +275,7 @@ describe('CosApiClientWithError', () => {
     let flag = true;
     const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
     try {
-      await client.generateUserUploadedStatementDocument(req.session.user, generateAndUploadDocumentRequest);
+      await client.generateUserUploadedStatementDocument(generateAndUploadDocumentRequest);
     } catch {
       flag = false;
     }
@@ -285,7 +285,7 @@ describe('CosApiClientWithError', () => {
 
   test('UploadDocumentListFromCitizenWithError', async () => {
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const files = [];
     const request: UploadDocumentRequest = {
       user: req.session.user,
@@ -310,7 +310,7 @@ describe('CosApiClientWithError', () => {
 
   test('deleteCitizenStatementDocumentWithError', async () => {
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const deleteDocumentDetails = {
       caseId: '1234567',
       documentId: 'documentIdToDelete',
@@ -318,7 +318,7 @@ describe('CosApiClientWithError', () => {
     const deleteDocumentRequest = new DeleteDocumentRequest(deleteDocumentDetails);
     let flag = true;
     try {
-      await client.deleteCitizenStatementDocument(req.session.user, deleteDocumentRequest);
+      await client.deleteCitizenStatementDocument(deleteDocumentRequest);
     } catch {
       flag = false;
     }
