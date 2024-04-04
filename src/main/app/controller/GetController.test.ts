@@ -4,7 +4,6 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import BreadcrumbController from '../../steps/common/breadcrumb/BreadcrumbController';
 // import { generatePageContent } from '../../steps/common/common.content';
 // import { Case } from '../case/case';
-import * as Urls from '../../steps/urls';
 import { State } from '../case/definition';
 
 import { GetController } from './GetController';
@@ -37,27 +36,6 @@ describe('GetController', () => {
       userEmail,
     });*/
     expect(1).toEqual(1);
-  });
-
-  test('Testing controller native methods to ensure right validation', async () => {
-    const controller = new GetController('page', () => ({}));
-
-    const req = mockRequest({ userCase: { state: State.AwaitingPayment } });
-    const res = mockResponse();
-    await controller.get(req, res);
-    req.originalUrl = Urls.C100_CONFIDENTIALITY_START;
-    controller.clearConfidentialitySessionSaveData(req);
-    expect(req.session['contactDetailsPrivateAlternative']).toBe(undefined);
-    expect(1).toBe(1);
-
-    req.originalUrl = Urls.C100_CONFIDENTIALITY_START_ALTERNATIVE;
-    controller.clearConfidentialitySessionSaveData(req);
-    expect(req.session['contactDetailsPrivate']).toBe(undefined);
-
-    req.originalUrl = Urls.C100_CONFIDENTIALITY_START_ALTERNATIVE;
-    controller.saveSessionAndRedirect(req, res);
-    controller.parseAndSetReturnUrl(req);
-    expect(req.originalUrl).toBe(Urls.C100_CONFIDENTIALITY_START_ALTERNATIVE);
   });
 
   test('Detects when application is not in a draft state', async () => {

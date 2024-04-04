@@ -76,9 +76,7 @@ export default class OtherProceedingsGetController extends GetController {
       if (req.session?.errors) {
         req.session.errors = undefined;
       }
-      if (req.originalUrl.startsWith(C100_URL)) {
-        super.clearConfidentialitySessionSaveData(req);
-      }
+
       res.render(this.view, {
         ...content,
         sessionErrors,
