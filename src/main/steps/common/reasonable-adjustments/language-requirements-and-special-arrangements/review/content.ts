@@ -4,7 +4,10 @@ import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../../steps/prl-cases/dashboard/utils';
-import { REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS } from '../../../../../steps/urls';
+import {
+  FETCH_CASE_DETAILS,
+  REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS,
+} from '../../../../../steps/urls';
 import { cy as commonContentCy, en as commonContentEn } from '../../../common.content';
 
 const en = {
@@ -49,6 +52,10 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const { userCase: caseData, user: userDetails } = _.get(content, 'additionalData.req.session', {});
+
+  Object.assign(form.link!, {
+    href: applyParms(FETCH_CASE_DETAILS, { caseId: _.get(content, 'userCase.id', '') }),
+  });
 
   return {
     ...translations,

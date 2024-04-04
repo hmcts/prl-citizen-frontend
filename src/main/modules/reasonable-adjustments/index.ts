@@ -221,7 +221,7 @@ class ReasonableAdjustmentsProvider {
           if (action === RACommonComponentUserAction.SUBMIT) {
             resolve(action);
           } else {
-            reject(new Error('RA - user cancelled operation'));
+            reject(new Error('user-cancelled'));
           }
         } else {
           const errorMsg = 'RA - cannot process data as correlationId does not match';

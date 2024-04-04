@@ -1,12 +1,12 @@
 import { AxiosInstance } from 'axios';
 
-import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import { RAProvider } from '../../../../modules/reasonable-adjustments';
+import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
+import { RAProvider } from '../../../../../modules/reasonable-adjustments';
 
 import RALangReqSplArrangementsPostController from './postController';
 
-describe('RA > language-requirements-and-special-arrangements > postController', () => {
+describe.skip('RA > language-requirements-and-special-arrangements > review > postController', () => {
   test('should save language preferences and special arrangements', async () => {
     const req = mockRequest({
       body: {

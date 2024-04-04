@@ -7,7 +7,11 @@ import { Language } from '../../steps/common/common.content';
 import { applyParms } from '../../steps/common/url-parser';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../steps/tasklistresponse/utils';
-import { REASONABLE_ADJUSTMENTS_ERROR, REASONABLE_ADJUSTMENTS_SUCCESS_CONFIRMATION } from '../../steps/urls';
+import {
+  FETCH_CASE_DETAILS,
+  REASONABLE_ADJUSTMENTS_ERROR,
+  REASONABLE_ADJUSTMENTS_SUCCESS_CONFIRMATION,
+} from '../../steps/urls';
 
 import { RADataTransformContext, RAFlags } from './definitions';
 
@@ -123,6 +127,13 @@ export class ReasonableAdjustementsController {
           ReasonableAdjustementsController.handleError(error, res);
         }
       } catch (error) {
+        if (error.message === 'user-cancelled') {
+          return res.redirect(
+            applyParms(FETCH_CASE_DETAILS, {
+              caseId: caseData.id,
+            })
+          );
+        }
         ReasonableAdjustementsController.handleError(error, res);
       }
     } catch (error) {

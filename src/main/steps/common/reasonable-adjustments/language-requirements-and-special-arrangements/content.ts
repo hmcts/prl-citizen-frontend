@@ -1,6 +1,10 @@
+import _ from 'lodash';
+
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isTextAreaValid } from '../../../../app/form/validation';
+import { applyParms } from '../../../../steps/common/url-parser';
+import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 
 const en = {
   caption: 'Support you need during the case',
@@ -138,6 +142,10 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+
+  Object.assign(form.link!, {
+    href: applyParms(FETCH_CASE_DETAILS, { caseId: _.get(content, 'userCase.id', '') }),
+  });
 
   return {
     ...translations,
