@@ -4,11 +4,6 @@ import {
   PARTY_TASKLIST,
   // eslint-disable-next-line sort-imports
   C100_CHILD_ADDRESS,
-  C100_CONFIDENTIALITY_DETAILS_KNOW,
-  C100_CONFIDENTIALITY_FEEDBACK,
-  C100_CONFIDENTIALITY_FEEDBACK_NO,
-  C100_CONFIDENTIALITY_START,
-  C100_CONFIDENTIALITY_START_ALTERNATIVE,
   C100_HEARING_WITHOUT_NOTICE_PART1,
   C100_HEARING_WITHOUT_NOTICE_PART2,
   C100_INTERNATIONAL_ELEMENTS_JURISDICTION,
@@ -166,34 +161,6 @@ import C100AddressNavigationController from './address/C100AddressNavigationCont
 
 export const C100Sequence: Step[] = [
   {
-    url: C100_CONFIDENTIALITY_DETAILS_KNOW,
-    showInSection: Sections.C100,
-    getNextStep: data =>
-      data.detailsKnown === YesOrNo.YES ? C100_CONFIDENTIALITY_START_ALTERNATIVE : C100_CONFIDENTIALITY_START,
-  },
-  {
-    url: C100_CONFIDENTIALITY_FEEDBACK,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_INTERNATIONAL_ELEMENTS_START,
-  },
-  {
-    url: C100_CONFIDENTIALITY_FEEDBACK_NO,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_INTERNATIONAL_ELEMENTS_START,
-  },
-  {
-    url: C100_CONFIDENTIALITY_START,
-    showInSection: Sections.C100,
-    getNextStep: data =>
-      data.start === YesOrNo.YES ? C100_CONFIDENTIALITY_FEEDBACK : C100_CONFIDENTIALITY_FEEDBACK_NO,
-  },
-  {
-    url: C100_CONFIDENTIALITY_START_ALTERNATIVE,
-    showInSection: Sections.C100,
-    getNextStep: data =>
-      data.startAlternative === YesOrNo.YES ? C100_CONFIDENTIALITY_FEEDBACK : C100_CONFIDENTIALITY_FEEDBACK_NO,
-  },
-  {
     url: C100_INTERNATIONAL_ELEMENTS_START,
     showInSection: Sections.C100,
     getNextStep: () => C100_INTERNATIONAL_ELEMENTS_PARENTS,
@@ -299,11 +266,6 @@ export const C100Sequence: Step[] = [
       );
       return nextPage?.url || C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES;
     },
-  },
-  {
-    url: C100_CONFIDENTIALITY_DETAILS_KNOW,
-    showInSection: Sections.C100,
-    getNextStep: () => C100_HEARING_WITHOUT_NOTICE_PART1,
   },
   {
     url: C100_HEARING_WITHOUT_NOTICE_PART1,
