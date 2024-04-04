@@ -170,7 +170,7 @@ describe('ReasonableAdjustementsProvider', () => {
     expect(errorMessage).toBe('"test"');
   });
 
-  test('when invoking trySettlingRequest while user action is sumbit', async () => {
+  test('when invoking trySettlingRequest while user action is submit', async () => {
     const requestData: RAFlags = {
       partyName: 'testUser',
       roleOnCase: 'Respondent 1',

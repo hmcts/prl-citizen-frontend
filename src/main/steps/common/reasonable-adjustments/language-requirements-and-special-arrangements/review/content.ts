@@ -17,7 +17,7 @@ const en = {
   content2: 'If your hearing is within 2 days',
   content3:
     '<a class="govuk-link" rel="external" href="https://www.gov.uk/find-court-tribunal" target="_blank">Contact the court (opens in a new tab)</a> to request any support you need for the hearing.',
-  submitAndContinue: 'Sumbit and continue',
+  submitAndContinue: 'Submit and continue',
   change: commonContentEn.change,
 };
 
