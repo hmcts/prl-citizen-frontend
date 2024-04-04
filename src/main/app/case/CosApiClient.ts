@@ -271,7 +271,12 @@ export class CosApiClient {
       };
     } catch (err) {
       console.log('Error: ', err);
-      throw new Error('Upload citizen statement document failed.');
+      return {
+        status: 404,
+        documentId: 'response.data?.documentId',
+        documentName: 'response.data?.documentName',
+      };
+      //throw new Error('Upload citizen statement document failed.');
     }
   }
 

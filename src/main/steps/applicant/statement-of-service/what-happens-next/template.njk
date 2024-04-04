@@ -2,6 +2,11 @@
 <div class="govuk-form-group">
 {% block page_content %}
 <div class="govuk-form-group">
+  <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-6">
+            <h1 class="govuk-panel__title">
+              {{successMessage}}
+            </h1>
+          </div>
       {% if title %}
         <h1 class="govuk-heading-l">
           <span class="govuk-caption-l">{{caption}} #{{userCase.id}}</span>

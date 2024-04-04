@@ -15,6 +15,7 @@ import { PaymentHandler, PaymentValidationHandler } from './modules/payments/pay
 import { StepWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
+import StatementOfServicePostController from './steps/applicant/statement-of-service/choose-parties/StatementOfServicePostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
@@ -129,6 +130,7 @@ import {
   AOH_TO_CA,
   VIEW_DOCUMENT_URL,
   TASKLIST_RESPONSE_TO_CA,
+  APPLICANT_STATEMENT_OF_SERVICE_NEXT,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -314,6 +316,10 @@ export class Routes {
         app.post(
           `${RESPONDENT_ADDRESS_LOOKUP}`,
           errorHandler(new AddressLookupPostControllerBase(step.form.fields, FieldPrefix.RESPONDENT).post)
+        );
+        app.get(
+          `${APPLICANT_STATEMENT_OF_SERVICE_NEXT}`,
+          errorHandler(new StatementOfServicePostController(step.form.fields).post)
         );
         app.get(
           `${APPLICANT_CONTACT_DETAILS_SAVE}`,

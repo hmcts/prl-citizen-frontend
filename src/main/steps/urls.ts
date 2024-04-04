@@ -644,6 +644,7 @@ export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
     : 'https://apply-to-court-about-child-arrangements.service.justice.gov.uk';
 
 export const APPLICANT_STATEMENT_OF_SERVICE: PageLink = `${APPLICANT}/statement-of-service/choose-parties`;
+export const APPLICANT_STATEMENT_OF_SERVICE_SUMMARY: PageLink = `${APPLICANT}/statement-of-service/summary`;
 export const APPLICANT_STATEMENT_OF_SERVICE_NEXT: PageLink = `${APPLICANT}/statement-of-service/what-happens-next`;
 
 export const FL415_DOWNLOAD_LINK = 'https://www.gov.uk/government/publications/form-fl415-statement-of-service';

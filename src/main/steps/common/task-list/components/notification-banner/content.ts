@@ -274,41 +274,44 @@ const en: NotificationBannerContent = {
           ],
         },
         soaServedBannerCa: {
-          heading: 'Serve the application',
+          heading: 'You must give the respondent their documents',
           sections: [
             {
               contents: [
                 {
-                  text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+                  text: 'The court has issued your application. This means a copy of your application and other court documents are ready to give to other people in the case (the respondents)',
                 },
                 {
-                  text: 'You must refer to correspondence from the court about serving the application on the respondent',
-                },
-                {
-                  text: 'You must not give any court documents to the respondent yourself.',
+                  text: 'You must give the following documents to the respondent:',
                 },
               ],
               links: [
                 {
                   href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
-                  text: 'View the final order (PDF)',
+                  text: "View the respondent's documents",
                 },
               ],
             },
             {
               contents: [
                 {
-                  text: 'You must tell the court once the respondent has been served. Do this by completing the',
+                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="">GOV.UK</a>',
+                },
+                {
+                  text: '<p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
+                },
+                {
+                  text: 'You need to submit a statement of service after the respondent has been given the documents.',
                 },
               ],
               links: [
                 {
-                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
-                  text: 'Send Statement of service (form C9) to the court',
+                  href: `${C9_DOWNLOAD_LINK}`,
+                  text: 'Download the Statement of service (form C9)',
                 },
                 {
-                  href: `${C9_DOWNLOAD_LINK}`,
-                  text: 'Statement',
+                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  text: 'Upload the statement of service(form C9)',
                 },
               ],
             },
@@ -565,41 +568,44 @@ const en: NotificationBannerContent = {
           ],
         },
         soaServedBannerDa: {
-          heading: 'Serve the application',
+          heading: 'You must give the respondent their documents',
           sections: [
             {
               contents: [
                 {
-                  text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+                  text: 'The court has issued your application. This means a copy of your application and other court documents are ready to give to other people in the case (the respondents)',
                 },
                 {
-                  text: 'You must refer to correspondence from the court about serving the application on the respondent',
-                },
-                {
-                  text: 'You must not give any court documents to the respondent yourself.',
+                  text: 'You must give the following documents to the respondent:',
                 },
               ],
               links: [
                 {
                   href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
-                  text: 'View the final order (PDF)',
+                  text: "View the respondent's documents",
                 },
               ],
             },
             {
               contents: [
                 {
-                  text: 'You must tell the court once the respondent has been served. Do this by completing the',
+                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="">GOV.UK</a>',
+                },
+                {
+                  text: '<p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
+                },
+                {
+                  text: 'You need to submit a statement of service after the respondent has been given the documents.',
                 },
               ],
               links: [
                 {
-                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
-                  text: 'Send Statement of service (form FL415) to the court',
+                  href: `${FL415_DOWNLOAD_LINK}`,
+                  text: 'Download the Statement of service (form FL415)',
                 },
                 {
-                  href: `${FL415_DOWNLOAD_LINK}`,
-                  text: 'statement of service (form FL415)',
+                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  text: 'Upload the statement of service (form FL415)',
                 },
               ],
             },
@@ -865,41 +871,44 @@ const cy: typeof en = {
           ],
         },
         soaServedBannerCa: {
-          heading: 'Serve the application',
+          heading: 'You must give the respondent their documents',
           sections: [
             {
               contents: [
                 {
-                  text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+                  text: 'The court has issued your application. This means a copy of your application and other court documents are ready to give to other people in the case (the respondents)',
                 },
                 {
-                  text: 'You must refer to correspondence from the court about serving the application on the respondent',
-                },
-                {
-                  text: 'You must not give any court documents to the respondent yourself.',
+                  text: 'You must give the following documents to the respondent:',
                 },
               ],
               links: [
                 {
                   href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
-                  text: 'View the final order (PDF)',
+                  text: "View the respondent's documents",
                 },
               ],
             },
             {
               contents: [
                 {
-                  text: 'You must tell the court once the respondent has been served. Do this by completing the',
+                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="">GOV.UK</a>',
+                },
+                {
+                  text: '<p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
+                },
+                {
+                  text: 'You need to submit a statement of service after the respondent has been given the documents.',
                 },
               ],
               links: [
                 {
-                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
-                  text: 'Send Statement of service (form C9) to the court',
+                  href: `${C9_DOWNLOAD_LINK}`,
+                  text: 'Download the Statement of service (form C9)',
                 },
                 {
-                  href: `${C9_DOWNLOAD_LINK}`,
-                  text: 'Statement',
+                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  text: 'Upload the statement of service(form C9)',
                 },
               ],
             },
@@ -1155,41 +1164,44 @@ const cy: typeof en = {
           ],
         },
         soaServedBannerDa: {
-          heading: 'Serve the application',
+          heading: 'You must give the respondent their documents',
           sections: [
             {
               contents: [
                 {
-                  text: 'Your application and other documents are ready to give to other person named in the case (the respondent).',
+                  text: 'The court has issued your application. This means a copy of your application and other court documents are ready to give to other people in the case (the respondents)',
                 },
                 {
-                  text: 'You must refer to correspondence from the court about serving the application on the respondent',
-                },
-                {
-                  text: 'You must not give any court documents to the respondent yourself.',
+                  text: 'You must give the following documents to the respondent:',
                 },
               ],
               links: [
                 {
                   href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
-                  text: 'View the final order (PDF)',
+                  text: "View the respondent's documents",
                 },
               ],
             },
             {
               contents: [
                 {
-                  text: 'You must tell the court once the respondent has been served. Do this by completing the',
+                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="">GOV.UK</a>',
+                },
+                {
+                  text: '<p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
+                },
+                {
+                  text: 'You need to submit a statement of service after the respondent has been given the documents.',
                 },
               ],
               links: [
                 {
-                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
-                  text: 'Send Statement of service (form FL415) to the court',
+                  href: `${FL415_DOWNLOAD_LINK}`,
+                  text: 'Download the Statement of service (form FL415)',
                 },
                 {
-                  href: `${FL415_DOWNLOAD_LINK}`,
-                  text: 'statement of service (form FL415)',
+                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  text: 'Upload the statement of service (form FL415)',
                 },
               ],
             },

@@ -78,6 +78,7 @@ import {
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_STATEMENT_OF_SERVICE,
   APPLICANT_STATEMENT_OF_SERVICE_NEXT,
+  APPLICANT_STATEMENT_OF_SERVICE_SUMMARY,
   APPLICANT_TASKLIST_HEARING_NEEDS,
 } from '../urls';
 
@@ -589,6 +590,11 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: APPLICANT_STATEMENT_OF_SERVICE,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_STATEMENT_OF_SERVICE_SUMMARY,
+  },
+  {
+    url: APPLICANT_STATEMENT_OF_SERVICE_SUMMARY,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_STATEMENT_OF_SERVICE_NEXT,
   },

@@ -630,7 +630,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (req.query && req.query.isApplicant) {
       isApplicant = req.query.isApplicant;
     }
-
+    console.log('Helo **** ');
     this.undefiendUploadFiles(req);
 
     this.fileData(req);

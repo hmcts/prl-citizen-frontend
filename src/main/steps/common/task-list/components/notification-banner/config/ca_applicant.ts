@@ -103,4 +103,10 @@ export const CA_APPLICANT: NotificationBannerProps[] = [
       );
     },
   },
+  {
+    ...notificationBanner[BannerNotification.SOA_SERVED_CA],
+    show: (): boolean => {
+      return true;
+    },
+  },
 ];

@@ -4,7 +4,10 @@ import { Response } from 'express';
 
 import { getCasePartyType } from '../../../../../main/steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../../../../main/steps/tasklistresponse/utils';
-import { APPLICANT_STATEMENT_OF_SERVICE_NEXT } from '../../../../../main/steps/urls';
+import {
+  APPLICANT_STATEMENT_OF_SERVICE_NEXT,
+  APPLICANT_STATEMENT_OF_SERVICE_SUMMARY,
+} from '../../../../../main/steps/urls';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { CaseEvent, CaseType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
@@ -26,11 +29,11 @@ export default class StatementOfServicePostController extends PostController<Any
 
     if (onlyContinue) {
       req.session.errors = form.getErrors(formData);
-      if (
-        (req.session.errors && req.session.errors.length > 0) ||
-        !req.session.userCase.docIdList ||
-        req.session.userCase.docIdList.length === 0
-      ) {
+      if (req.session.errors && req.session.errors.length > 0) {
+        // req.session.errors.push({
+        //   propertyName: 'document',
+        //   errorType: 'required',
+        // });
         return super.redirect(req, res);
       }
     }
@@ -57,6 +60,6 @@ export default class StatementOfServicePostController extends PostController<Any
         throw new Error('SOS - Case could not be updated.');
       }
     }
-    res.redirect(APPLICANT_STATEMENT_OF_SERVICE_NEXT);
+    res.redirect(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY);
   }
 }

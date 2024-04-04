@@ -27,4 +27,10 @@ export const DA_APPLICANT: NotificationBannerProps[] = [
       return caseData?.state === State.CASE_CLOSED;
     },
   },
+  {
+    ...notificationBanner[BannerNotification.SOA_SERVED_DA],
+    show: (): boolean => {
+      return true;
+    },
+  },
 ];
