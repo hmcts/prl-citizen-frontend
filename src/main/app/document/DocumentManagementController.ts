@@ -98,9 +98,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
     };
     const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
 
-    const client = new CosApiClient(loggedInCitizen.accessToken, 'http://localhost:3001');
+    const client = new CosApiClient(loggedInCitizen.accessToken, req.locals.logger);
     const uploadCitizenDocFromCos = await client.generateUserUploadedStatementDocument(
-      loggedInCitizen,
       generateAndUploadDocumentRequest
     );
     if (uploadCitizenDocFromCos.status !== 200) {
@@ -204,7 +203,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     const data = toApiFormat(req?.session?.userCase);
     data.id = caseReference;
-    const updatedCaseDataFromCos = await client.updateCase(loggedInCitizen, caseReference, data, 'citizen-case-update');
+    const updatedCaseDataFromCos = await client.updateCase(caseReference, data, 'citizen-case-update');
     return updatedCaseDataFromCos;
   }
 
@@ -271,7 +270,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       loggedInCitizen = req.session.user;
       caseReference = req.session.userCase.id;
 
-      client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
+      client = new CosApiClient(loggedInCitizen.accessToken, req.locals.logger);
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
       req.session.userCase = caseDataFromCos;
     } catch (err) {
@@ -363,7 +362,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
         } else {
           // set the flag from "Download" to "View" and only download the pdf
           if (fieldFlag && req.query?.updateCase && req.query?.updateCase === YesOrNo.YES) {
-            this.setFlagViewed(req, caseReference, client, req.session.user, fieldFlag);
+            this.setFlagViewed(req, caseReference, client, fieldFlag);
           }
           res.setHeader('Content-Disposition', 'inline; filename="' + filename + '";');
           return res.end(generatedDocument.data);
@@ -466,7 +465,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     req: AppRequest<Partial<CaseWithId>>,
     caseReference: string,
     client: CosApiClient,
-    loggedInCitizen: UserDetails,
     flag: string
   ) {
     let isFlagViewed;
@@ -495,7 +493,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
       const data = toApiFormat(req?.session?.userCase);
       data.id = caseReference;
       const updatedCaseDataFromCos = await client.updateCase(
-        loggedInCitizen,
         caseReference,
         data,
         'citizen-case-update'
@@ -570,8 +567,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
       documentId: documentIdToDelete,
     };
     const deleteDocumentRequest = new DeleteDocumentRequest(deleteDocumentDetails);
-    const client = new CosApiClient(loggedInCitizen.accessToken, 'http://localhost:3001');
-    const deleteCitizenDocFromCos = await client.deleteCitizenStatementDocument(loggedInCitizen, deleteDocumentRequest);
+    const client = new CosApiClient(loggedInCitizen.accessToken, req.locals.logger);
+    const deleteCitizenDocFromCos = await client.deleteCitizenStatementDocument(deleteDocumentRequest);
     if ('SUCCESS' === deleteCitizenDocFromCos) {
       if (isApplicant === YesOrNo.YES) {
         req.session.userCase.applicantUploadFiles?.forEach((document, index) => {
@@ -662,7 +659,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
     const partyId = req.session.user.id;
 
-    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    const client = new CosApiClient(caseworkerUser.accessToken, req.locals.logger);
 
     const uploadRequest: UploadDocumentRequest = {
       user: caseworkerUser,

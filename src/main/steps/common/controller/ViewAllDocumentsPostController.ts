@@ -46,7 +46,7 @@ export class ViewAllDocumentsPostController {
   public async setAllDocumentsViewed(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const isRespondent = req.url.includes('respondent');
 
-    const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+    const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
     const caseDataFromCos = await client.retrieveByCaseId(req?.session?.userCase.id, req.session.user);
     Object.assign(req.session.userCase, caseDataFromCos);
 
@@ -73,7 +73,6 @@ export class ViewAllDocumentsPostController {
     data.id = req?.session?.userCase.id;
 
     const updatedCaseDataFromCos = await client.updateCase(
-      req.session.user,
       req?.session?.userCase.id,
       data,
       'citizen-case-update'
@@ -122,7 +121,7 @@ export class ViewAllDocumentsPostController {
     const { user, userCase } = req.session;
     const partyType = getCasePartyType(userCase, user.id);
     const partyDetails = getPartyDetails(userCase, user.id);
-    const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+    const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
     if (partyDetails) {
       if (partyDetails.response && partyDetails.response.citizenFlags) {
         partyDetails.response.citizenFlags.isResponseInitiated = YesOrNo.YES;
@@ -130,7 +129,6 @@ export class ViewAllDocumentsPostController {
 
       try {
         req.session.userCase = await client.updateCaseData(
-          user,
           userCase.id,
           partyDetails,
           partyType,
