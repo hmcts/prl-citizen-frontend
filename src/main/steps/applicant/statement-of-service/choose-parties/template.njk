@@ -17,8 +17,8 @@
 </div>
 {{ fileUpload(
         {
-          uploadButtonText: upload,
-          fileuploadTitle: '',
+          uploadButtonText: uploadButton,
+          fileuploadTitle: 'Upload a file',
           fileuploadTitleClass: "govuk-!-font-weight-bold",
           formPostURL: "/document-manager?_csrf={{ csrfToken }}&isApplicant=Yes&isSos=Yes",
           fileUploadedHint: uplodFileText1,
@@ -27,7 +27,8 @@
           uploadFileHeader: uploadFileHeading,
           sessionNullFilesMessage: noFilesUploaded,
           removeText: remove,
-          csrfToken: csrfToken
+          csrfToken: csrfToken,
+          fileremoveURL : removeURL
         }
       ) }}
       <ul id="filesUploadedList" class="govuk-list">

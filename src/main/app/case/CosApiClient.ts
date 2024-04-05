@@ -259,11 +259,9 @@ export class CosApiClient {
       formData.append('partyName', request.partyName);
       formData.append('isApplicant', request.isApplicant);
 
-      const response = await Axios.post(
-        config.get('services.cos.url') + '/upload-citizen-statement-document',
-        formData,
-        { headers }
-      );
+      const response = await Axios.post(config.get('services.cos.url') + '/upload-citizen-document', formData, {
+        headers,
+      });
       return {
         status: response.status,
         documentId: response.data?.documentId,
@@ -271,12 +269,7 @@ export class CosApiClient {
       };
     } catch (err) {
       console.log('Error: ', err);
-      return {
-        status: 404,
-        documentId: 'response.data?.documentId',
-        documentName: 'response.data?.documentName',
-      };
-      //throw new Error('Upload citizen statement document failed.');
+      throw new Error('Upload citizen statement document failed.');
     }
   }
 

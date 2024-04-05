@@ -30,6 +30,7 @@ export default class StatementOfServicePostController extends PostController<Any
     if (onlyContinue) {
       req.session.errors = form.getErrors(formData);
       if (req.session.errors && req.session.errors.length > 0) {
+        console.log('Errrors exist');
         // req.session.errors.push({
         //   propertyName: 'document',
         //   errorType: 'required',
@@ -37,6 +38,7 @@ export default class StatementOfServicePostController extends PostController<Any
         return super.redirect(req, res);
       }
     }
+    console.log('Errrors no exist');
     const { user, userCase } = req.session;
     const partyType = getCasePartyType(userCase, user.id);
     const partyDetails = getPartyDetails(userCase, user.id);
@@ -55,8 +57,12 @@ export default class StatementOfServicePostController extends PostController<Any
           userCase.caseTypeOfApplication as CaseType,
           CaseEvent.CITIZEN_CASE_UPDATE
         );
+        console.log(JSON.stringify(userData));
+        console.log('** User case **' + JSON.stringify(userCase.partiesServed));
+        console.log('** User case **' + JSON.stringify(userCase.partiesServedDate));
         req.session.save(() => res.redirect(APPLICANT_STATEMENT_OF_SERVICE_NEXT));
       } catch (error) {
+        console.log('error', error);
         throw new Error('SOS - Case could not be updated.');
       }
     }

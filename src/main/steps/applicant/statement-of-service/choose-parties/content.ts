@@ -27,6 +27,8 @@ export const en = {
   uplodFileText1:
     'when uploading documents, name the files clearly. For example, position-statement.doc. Files must end with JPG,BMP,PNG,TIF,PDF,DOC,or DOCX.',
   uploadFileHeading: 'Upload a document',
+  uploadButton: 'Upload file',
+  noFilesUploaded: 'No files uploaded',
   errors: {
     partiesServedDate: {
       required: 'You must enter the date of service',
@@ -36,8 +38,8 @@ export const en = {
     },
     document: {
       required: 'You must upload a statement of service',
-      multipleFiles: `You can upload only one file. 
-            If you wish to upload a new file, delete the existing 
+      multipleFiles: `You can upload only one file.
+            If you wish to upload a new file, delete the existing
             file and upload a new one`,
       fileSize: `The file you uploaded is too large.
             Maximum file size allowed is 20MB`,
@@ -60,6 +62,8 @@ export const cy = {
   uplodFileText1:
     'when uploading documents, name the files clearly. For example, position-statement.doc. Files must end with JPG,BMP,PNG,TIF,PDF,DOC,or DOCX.',
   uploadFileHeading: 'Upload a document',
+  uploadButton: 'Upload file',
+  noFilesUploaded: 'No file choosen',
   errors: {
     partiesServedDate: {
       required: 'You must enter the date of service',
@@ -69,8 +73,8 @@ export const cy = {
     },
     document: {
       required: 'You must upload a statement of service',
-      multipleFiles: `You can upload only one file. 
-            If you wish to upload a new file, delete the existing 
+      multipleFiles: `You can upload only one file.
+            If you wish to upload a new file, delete the existing
             file and upload a new one`,
       fileSize: `The file you uploaded is too large.
             Maximum file size allowed is 20MB`,
@@ -87,13 +91,12 @@ const languages = {
 
 let updatedForm: FormContent;
 
-const updateFormFields = (formFields: FormContent['fields']): FormContent => {
+const updateFormFields = (form: FormContent, formFields: FormContent['fields']): FormContent => {
   updatedForm = {
+    ...form,
     fields: {
       ...formFields,
-    },
-    onlyContinue: {
-      text: l => l.onlycontinue,
+      ...(form.fields ?? {}),
     },
   };
 
@@ -157,6 +160,13 @@ export const generateFormFields = (parties: { id: string; value: string }[]): Ge
   return { fields, errors };
 };
 
+export const form: FormContent = {
+  fields: {},
+  onlyContinue: {
+    text: l => l.onlycontinue,
+  },
+};
+
 const getParties = (userCase: Partial<CaseWithId>) => {
   const parties: { id: string; value: string }[] = [];
   userCase?.respondents?.forEach(respondent => {
@@ -187,6 +197,7 @@ export const prepateStatementOfServiceRequest = (
         partiesServedDate: date2.year + '-' + date2.month + '-' + date2.day,
         citizenSosDocs: userCase.docIdList,
       };
+      userCase.partiesServedDate = date2.year + '-' + date2.month + '-' + date2.day;
       userCase.docIdList = [];
     }
   }
@@ -201,7 +212,7 @@ export const generateContent: TranslationFn = content => {
   }
   return {
     ...translations,
-    form: updateFormFields(generateFormFields(parties).fields),
+    form: updateFormFields(form, generateFormFields(parties).fields),
     uploadedFiles: content.userCase?.applicantUploadFiles,
   };
 };
@@ -211,5 +222,5 @@ export const getFormFields = (userCase: Partial<CaseWithId>): FormContent => {
   if (userCase) {
     parties = getParties(userCase);
   }
-  return updateFormFields(generateFormFields(parties).fields);
+  return updateFormFields(form, generateFormFields(parties).fields);
 };
