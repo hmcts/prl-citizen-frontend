@@ -45,12 +45,11 @@ export class ContactPreferencesPostController {
       try {
         const partyType = getCasePartyType(caseData, user.id);
         const partyDetails = getPartyDetails(caseData, user.id);
-        const client = new CosApiClient(user.accessToken, 'https://return-url');
+        const client = new CosApiClient(user.accessToken, req.locals.logger);
 
         if (partyDetails) {
           Object.assign(partyDetails, prepareContactPreferenceRequest(caseData));
           req.session.userCase = await client.updateCaseData(
-            user,
             caseData.id,
             partyDetails,
             partyType,

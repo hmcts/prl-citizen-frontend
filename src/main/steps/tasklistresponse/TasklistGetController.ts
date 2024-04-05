@@ -29,7 +29,7 @@ export class TasklistGetController {
     try {
       const citizenUser = req.session.user;
       const caseId = req.params?.caseId;
-      const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
+      const client = new CosApiClient(citizenUser.accessToken, req.locals.logger);
 
       req.session.userCase = await client.retrieveByCaseId(caseId, citizenUser);
       mapDataInSession(req.session.userCase, citizenUser.id);
