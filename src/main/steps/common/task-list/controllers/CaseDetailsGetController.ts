@@ -18,7 +18,7 @@ export default class CaseDetailsGetController {
     }
 
     try {
-      const caseData = await new CosApiClient(req.session.user.accessToken, 'https://return-url').retrieveByCaseId(
+      const caseData = await new CosApiClient(req.session.user.accessToken, req.locals.logger).retrieveByCaseId(
         req.params.caseId,
         req.session.user
       );
@@ -32,7 +32,7 @@ export default class CaseDetailsGetController {
       }
       const citizenUser = req.session.user;
       const caseId = req.session.userCase.id;
-      const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
+      const client = new CosApiClient(citizenUser.accessToken, req.locals.logger);
       const hearings = await client.retrieveCaseHearingsByCaseId(citizenUser, caseId);
       req.session.userCase.hearingCollection = hearings.caseHearings;
 
@@ -48,7 +48,7 @@ export default class CaseDetailsGetController {
       const User = req.session.user;
       const caseID = req.session.userCase.id;
       const caseData = req.session.userCase;
-      const cosClient = new CosApiClient(User.accessToken, 'https://return-url');
+      const cosClient = new CosApiClient(User.accessToken, req.locals.logger);
       const hearings = await cosClient.retrieveCaseHearingsByCaseId(User, caseID);
       req.session.userCase.hearingCollection = hearings.caseHearings;
 
