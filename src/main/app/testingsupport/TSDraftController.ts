@@ -5,7 +5,6 @@ import { C100_CHECK_YOUR_ANSWER, HOME_URL } from '../../steps/urls';
 import { CaseWithId } from '../case/case';
 import { AppRequest } from '../controller/AppRequest';
 import { AnyObject } from '../controller/PostController';
-//import { State } from 'app/case/definition';
 
 @autobind
 class TSDraftController {
