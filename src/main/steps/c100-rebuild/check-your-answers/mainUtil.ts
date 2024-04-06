@@ -862,6 +862,7 @@ export const SafetyConcerns_child = (
     c1A_childAbductedBefore += keys['possessionChildrenPassport'];
     c1A_childAbductedBefore += HTML.H4_CLOSE;
     c1A_childAbductedBefore += HTML.UNORDER_LIST;
+    if(userCase['c1A_possessionChildrenPassport']){
     c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport'].filter(element => element !== 'Other')
     .map(relatives => HTML.LIST_ITEM + relationshipTranslation(relatives,language)+ HTML.LIST_ITEM_END)
     .toString()
@@ -870,33 +871,34 @@ export const SafetyConcerns_child = (
     if(userCase['c1A_possessionChildrenPassport'].some(element => element === 'Other')){
       c1A_childAbductedBefore +=  HTML.LIST_ITEM + userCase['c1A_provideOtherDetails'] + HTML.LIST_ITEM_END;
     }
+  }
     c1A_childAbductedBefore += HTML.UNORDER_LIST_END;
   }
 
   const abdutionScreenData = [
     {
       key: keys['childLocation'],
-      valueHtml: userCase['c1A_abductionReasonOutsideUk'],
+      valueHtml: userCase['c1A_abductionReasonOutsideUk']as string,
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'],{root:RootContext.C100_REBUILD})as Urls.PageLink,
     },
     {
       key: keys['childsCurrentLocationText'],
-      valueHtml: userCase['c1A_childsCurrentLocation'],
+      valueHtml: userCase['c1A_childsCurrentLocation']as string,
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'],{root:RootContext.C100_REBUILD})as Urls.PageLink,
     },
     {
       key: keys['passportOffice'],
-      valueHtml: c1A_childAbductedBefore,
+      valueHtml: c1A_childAbductedBefore as string,
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE'],{root:RootContext.C100_REBUILD})as Urls.PageLink,
     },
     {
       key: keys['haspassportOfficeNotified'],
-      valueHtml: getYesNoTranslation(language, userCase['c1A_abductionPassportOfficeNotified'],'ydyTranslation'),
+      valueHtml: getYesNoTranslation(language, userCase['c1A_abductionPassportOfficeNotified'],'ydyTranslation')as string,
       changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PASSPORT_OFFICE_NOTIFICATION'],{root:RootContext.C100_REBUILD})as Urls.PageLink,
     },
     {
       key: keys['abducionThreats'],
-      valueHtml: getYesNoTranslation(language, userCase['c1A_childAbductedBefore'] as string,'ydynTranslation'),
+      valueHtml: getYesNoTranslation(language, userCase['c1A_childAbductedBefore'] as string,'ydynTranslation') as string,
       changeUrl: applyParms(Urls['C1A_CHILD_ABDUCTION_THREATS'],{root:RootContext.C100_REBUILD})as Urls.PageLink,
     },
 
@@ -905,12 +907,12 @@ export const SafetyConcerns_child = (
     abdutionScreenData.push(
       {
         key: keys['previousAbduction'],
-        valueHtml: userCase['c1A_previousAbductionsShortDesc'],
+        valueHtml: userCase['c1A_previousAbductionsShortDesc'] as string,
         changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS'],{root:RootContext.C100_REBUILD})as Urls.PageLink,
       },
       {
         key: keys['c1A_policeOrInvestigatorInvolved'],
-        valueHtml: policeOrInvestigatorsOtherDetailsHTML,
+        valueHtml: policeOrInvestigatorsOtherDetailsHTML as string,
         changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS'],{root:RootContext.C100_REBUILD})as Urls.PageLink,
       },
     );
@@ -966,7 +968,7 @@ export const SafetyConcerns_yours = (
           C1ASafteyConcernsAbout.APPLICANT,
           language
         ),
-        changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE'], { abuseType: field ,root:RootContext.C100_REBUILD})as Urls.PageLink,
+        changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE'], { abuseType: field ,root:RootContext.C100_REBUILD})as Urls.PageLink,
       };
     });
 
@@ -974,7 +976,7 @@ export const SafetyConcerns_yours = (
     {
       key: keys['childConcerns'],
       valueHtml: HTML.UNORDER_LIST + childSafetyConcerns?.toString().split(',').join('') + HTML.UNORDER_LIST,
-      changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_APPLICANT'],{root:RootContext.C100_REBUILD})as Urls.PageLink,
+      changeUrl: applyParms(Urls['C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF'],{root:RootContext.C100_REBUILD})as Urls.PageLink,
     },
   ];
   if (typeof subFields === 'object') {

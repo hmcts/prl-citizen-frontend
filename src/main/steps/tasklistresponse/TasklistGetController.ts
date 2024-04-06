@@ -2,22 +2,25 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../app/case/CosApiClient';
-import { EventRoutesContext } from '../../app/case/definition';
+import { EventRoutesContext, RootContext } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
+  C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   C7_ATTENDING_THE_COURT,
   CONSENT_TO_APPLICATION,
   INTERNATIONAL_FACTORS_START,
   MIAM_START,
   PROCEEDINGS_START,
-  RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
+  PageLink,
+  //RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
 } from '../urls';
 
 import { mapDataInSession } from './utils';
+import { applyParms } from '../../steps/common/url-parser';
 @autobind
 export class TasklistGetController {
   constructor(protected readonly context: EventRoutesContext) {}
@@ -49,7 +52,7 @@ export class TasklistGetController {
         redirectUrl = PROCEEDINGS_START;
         break;
       case EventRoutesContext.SAFETY_CONCERNS_RESPONSE:
-        redirectUrl = RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE;
+        redirectUrl = applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,{root:RootContext.RESPONDENT}) as PageLink;
         break;
       case EventRoutesContext.CONSENT_RESPONSE:
         redirectUrl = CONSENT_TO_APPLICATION;

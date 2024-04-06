@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { CaseWithId } from '../../../../../app/case/case';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
+import { FormContent, FormFields } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
+import { generateContentForLocalComponent } from '../../util';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -52,25 +55,19 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
+  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => { return   {
     c1A_keepingSafeStatement: {
       type: 'textarea',
       attributes: { rows: 10 },
       validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
-  },
+  }},
   submit: {
     text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
   },
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
-  return {
-    ...translations,
-    form,
-  };
+  return generateContentForLocalComponent(content, languages, form);
+
 };

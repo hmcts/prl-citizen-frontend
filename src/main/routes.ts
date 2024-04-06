@@ -117,7 +117,7 @@ import {
   TESTING_SUPPORT_DELETE_DRAFT,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
-  RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
+  //RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   C7_ATTENDING_THE_COURT,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
@@ -220,10 +220,10 @@ export class Routes {
       `${CONSENT_TO_APPLICATION}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.CONSENT_RESPONSE).get)
     );
-    app.get(
-      `${RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE}/:caseId`,
-      errorHandler(new TasklistGetController(EventRoutesContext.SAFETY_CONCERNS_RESPONSE).get)
-    );
+    // app.get(
+    //   `${RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE}/:caseId`,
+    //   errorHandler(new TasklistGetController(EventRoutesContext.SAFETY_CONCERNS_RESPONSE).get)
+    // );
     app.get(
       `${INTERNATIONAL_FACTORS_START}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.INTERNATIONAL_FACTORS_RESPONSE).get)

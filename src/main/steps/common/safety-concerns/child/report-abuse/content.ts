@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { C100_URL } from '../../../../../steps/urls';
 import { CaseWithId } from '../../../../../app/case/case';
-import { C1AAbuseTypes, C1ASafteyConcernsAbuse, ChildrenDetails, YesNoEmpty } from '../../../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcernsAbuse, Childinfo, 
+  //ChildrenDetails,
+  YesNoEmpty } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { isTextAreaValid } from '../../../../../app/form/validation';
@@ -135,7 +138,8 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 
 export const generateFormFields = (
   data: C1ASafteyConcernsAbuse,
-  childrenData: ChildrenDetails[]
+  childrenData: Childinfo[]
+  //ChildrenDetails[]
 ): GenerateDynamicFormFields => {
   const fields = {
     childrenConcernedAbout: {
@@ -248,16 +252,27 @@ export const form: FormContent = {
   onlycontinue: {
     text: l => l.onlycontinue,
   },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
 };
 
-export const getFormFields = (caseData: Partial<CaseWithId>, abuseType: C1AAbuseTypes): FormContent => {
+export const getFormFields = (caseData: Partial<CaseWithId>, abuseType: C1AAbuseTypes, C100RebuildJourney): FormContent => {
   const sessionData: C1ASafteyConcernsAbuse = caseData?.c1A_safteyConcerns?.child?.[abuseType];
+  const sessionChildrenData = caseData?.cd_children ?? [];
+  const sessionChildrenData1 = caseData?.newChildDetails??[]
+  let data1: Childinfo[];
+  data1=(sessionChildrenData.map(i => {return{
+    id: i.id,
+    firstName: i.firstName,
+    lastName: i.lastName
+  }}))
+  let data2: Childinfo[];
+  data2=(sessionChildrenData1.map(i => {return{
+    id: i.id,
+    firstName: i.value.firstName,
+    lastName: i.value.lastName
+  }}))
   return updateFormFields(
     form,
-    generateFormFields(sessionData ?? getDataShape().abuse, caseData?.cd_children ?? []).fields
+    generateFormFields(sessionData ?? getDataShape().abuse,  C100RebuildJourney? data1:data2 ?? []).fields
   );
 };
 
@@ -268,11 +283,32 @@ const getPageTitle = (abuseType: C1AAbuseTypes, translations: Record<string, any
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const C100RebuildJourney=content.additionalData!.req.originalUrl.startsWith(C100_URL)
   const abuseType: C1AAbuseTypes = content.additionalData!.req.params.abuseType;
   const sessionData: C1ASafteyConcernsAbuse = content.userCase?.c1A_safteyConcerns?.child?.[abuseType];
   const sessionChildrenData = content.userCase?.cd_children ?? [];
-  const { fields } = generateFormFields(sessionData ?? getDataShape().abuse, sessionChildrenData);
-
+  const sessionChildrenData1 = content.userCase?.newChildDetails??[]
+  let data1: Childinfo[];
+  data1=(sessionChildrenData.map(i => {return{
+    id: i.id,
+    firstName: i.firstName,
+    lastName: i.lastName
+  }}))
+  let data2: Childinfo[];
+  data2=(sessionChildrenData1.map(i => {return{
+    id: i.id,
+    firstName: i.value.firstName,
+    lastName: i.value.lastName
+  }}))
+  const { fields } = generateFormFields(sessionData ?? getDataShape().abuse, C100RebuildJourney?data1:data2);
+ 
+  if (C100RebuildJourney) {
+    Object.assign(form, {
+      saveAndComeLater: {
+        text: l => l.saveAndComeLater,
+      },
+    });
+  }
   return {
     ...translations,
     ...commonContent(content),

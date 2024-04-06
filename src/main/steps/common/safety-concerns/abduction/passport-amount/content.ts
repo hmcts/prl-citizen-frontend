@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../app/case/case';
-import { YesOrNo } from '../../../../../app/case/definition';
+import { YesOrNo, passportPossessionRelative } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 import { generateContentForLocalComponent } from '../../util';
 import { generateContent as parentContent } from '../content';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
+import { C100_URL } from '../../../../../steps/urls';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -71,7 +72,9 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => { return  {
+  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
+    const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL)
+    return  {
     c1A_childrenMoreThanOnePassport: {
       type: 'radios',
       classes: 'govuk-radios',
@@ -100,17 +103,17 @@ export const form: FormContent = {
         {
           name: 'c1A_possessionChildrenPassport',
           label: l => l.option1,
-          value: 'Mother',
+          value: C100rebuildJourney?'Mother':passportPossessionRelative.MOTHER,
         },
         {
           name: 'c1A_possessionChildrenPassport',
           label: l => l.option2,
-          value: 'Father',
+          value: C100rebuildJourney?'Father':passportPossessionRelative.FATHER,
         },
         {
           name: 'c1A_possessionChildrenPassport',
           label: l => l.option3,
-          value: 'Other',
+          value: C100rebuildJourney?'Other':passportPossessionRelative.OTHER,
           subFields: {
             c1A_provideOtherDetails: {
               type: 'textarea',

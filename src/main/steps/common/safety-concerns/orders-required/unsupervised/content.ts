@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { CaseWithId } from '../../../../../app/case/case';
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
+import { FormContent, FormFields } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
+import { generateContentForLocalComponent } from '../../util';
 
 export const en = () => ({
   section: 'Safety concerns',
@@ -60,7 +63,7 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
+  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => { return  {
     c1A_supervisionAgreementDetails: {
       type: 'radios',
       classes: 'govuk-radios',
@@ -102,19 +105,12 @@ export const form: FormContent = {
       ],
       validator: isFieldFilledIn,
     },
-  },
+  }},
   submit: {
     text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
   },
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
-  return {
-    ...translations,
-    form,
-  };
+  return generateContentForLocalComponent(content, languages, form);
 };

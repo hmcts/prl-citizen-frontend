@@ -1,5 +1,8 @@
+import { CaseWithId } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { FormContent } from '../../../../app/form/Form';
+import { FormContent, FormFields } from '../../../../app/form/Form';
+import { generateContentForLocalComponent } from '../util';
+import { AppRequest } from '../../../../app/controller/AppRequest';
 
 const en = () => ({
   caption: 'Safety Concerns',
@@ -45,19 +48,14 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {},
+  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
+    return {}},
   submit: {
     text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
   },
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
-  return {
-    ...translations,
-    form,
-  };
+  return generateContentForLocalComponent(content, languages, form);
+
 };

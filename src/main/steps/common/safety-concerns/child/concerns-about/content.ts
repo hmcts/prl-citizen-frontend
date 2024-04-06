@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { CaseWithId } from '../../../../../app/case/case';
 import { C1AAbuseTypes } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
-import { FormContent } from '../../../../../app/form/Form';
+import { FormContent, FormFields } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
+import { generateContentForLocalComponent } from '../../util';
 import { generateContent as parentContent } from '../content';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
 
 export const en = () => ({
   caption: 'Safety concerns',
@@ -80,7 +83,8 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
+  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => { 
+    return  {
     c1A_concernAboutChild: {
       id: 'c1A_concernAboutChild',
       type: 'checkboxes',
@@ -138,20 +142,13 @@ export const form: FormContent = {
         },
       ],
     },
-  },
+  }
+},
   onlycontinue: {
     text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
   },
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
-  return {
-    ...translations,
-    ...parentContent(content),
-    form,
-  };
+  return generateContentForLocalComponent(content, languages, form,parentContent);
 };

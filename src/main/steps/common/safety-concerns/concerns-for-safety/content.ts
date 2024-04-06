@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../app/case/case';
-import { FormContent, FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { FormContent, FormFields} from '../../../../app/form/Form';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { YesOrNo } from '../../../../app/case/definition';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { generateContentForLocalComponent } from '../util';
 
 export const en = () => ({
   title: 'Safety Concerns',
@@ -109,10 +110,7 @@ export const form: FormContent = {
 
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
-  return {
-    ...translations,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.additionalData?.req) },
-  };
+  return generateContentForLocalComponent(content, languages, form);
+
 };
 

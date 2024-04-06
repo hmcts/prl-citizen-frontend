@@ -6,6 +6,7 @@ import { FormContent, FormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CaseWithId } from '../../../../app/case/case';
 import { generateContentForLocalComponent } from '../util';
+import { C100_REBUILD_URL } from '../../../../steps/urls';
 
 export const en = () => ({
   caption: 'Safety concerns',
@@ -39,7 +40,9 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => { return  {
+  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => { 
+    const C100Rebuildjourney=req.originalUrl.startsWith(C100_REBUILD_URL)
+    return  {
     c1A_safetyConernAbout: {
       id: 'c1A_safetyConernAbout',
       type: 'checkboxes',
@@ -54,7 +57,7 @@ export const form: FormContent = {
         {
           name: 'c1A_safetyConernAbout',
           label: l => l.yourself,
-          value: C1ASafteyConcernsAbout.APPLICANT,
+          value: C100Rebuildjourney?C1ASafteyConcernsAbout.APPLICANT:C1ASafteyConcernsAbout.RESPONDENT,
         },
       ],
     },

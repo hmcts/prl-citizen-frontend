@@ -34,15 +34,28 @@ export const isValidAbuseType = (
       )) ||
     (ctx === C1ASafteyConcernsAbout.APPLICANT &&
       [C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE, C1AAbuseTypes.ABDUCTION].includes(abuseType))
+      ||
+      (ctx === C1ASafteyConcernsAbout.RESPONDENT &&
+        [C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE, C1AAbuseTypes.ABDUCTION].includes(abuseType))
   ) {
     return false;
+  }
+  let context: string=""
+  switch(ctx){
+    case C1ASafteyConcernsAbout.CHILDREN:
+    context='c1A_concernAboutChild';
+    break;
+    case C1ASafteyConcernsAbout.APPLICANT:
+    context='c1A_concernAboutApplicant';
+    break;
+    case C1ASafteyConcernsAbout.RESPONDENT:
+    context='c1A_concernAboutRespondent';
+    break;
   }
 
   return !!(
     Object.values(C1AAbuseTypes).includes(abuseType) &&
-    caseData?.[
-      ctx === C1ASafteyConcernsAbout.CHILDREN ? 'c1A_concernAboutChild' : 'c1A_concernAboutApplicant'
-    ]?.includes(abuseType)
+    caseData?.[context]?.includes(abuseType)
   );
 };
 
@@ -64,7 +77,7 @@ export const generateContentForLocalComponent=(
   const translations = languages[content.language]();
   const request = content.additionalData?.req;
 
-  if (request.originalUrl.startsWith(C100_URL)) {
+  if (request.originalUrl?.startsWith(C100_URL)) {
     Object.assign(form, {
       saveAndComeLater: {
         text: l => l.saveAndComeLater,
