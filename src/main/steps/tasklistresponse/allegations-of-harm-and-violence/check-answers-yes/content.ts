@@ -5,7 +5,6 @@ import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 export const en = () => ({
-  serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   headingTitle: 'Who are you concerned about?',
   select_all_relevant: 'Select all options that are relevant to you.',
@@ -19,7 +18,6 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   headingTitle: 'Am bwy ydych chi’n poeni amdano/amdani?',
   select_all_relevant: "Dewiswch bob opsiwn sy'n berthnasol i'ch sefyllfa.",

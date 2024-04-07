@@ -5,7 +5,7 @@ import type { LoggerInstance } from 'winston';
 
 import { getTokenFromApi } from '../../app/auth/service/get-service-auth-token';
 import { Case, CaseWithId } from '../../app/case/case';
-import { AWPApplicationType, C100_CASE_EVENT, PartyType } from '../../app/case/definition';
+import { AWPApplicationType, C100_CASE_EVENT, PartyType, PaymentErrorContext } from '../../app/case/definition';
 import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
 import { applyParms } from '../../steps/common/url-parser';
 import {
@@ -71,11 +71,21 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
       res.redirect(response['next_url']);
     } else {
       //redirect to check your answers with error
-      populateError(req, res, 'Error in create service request/payment reference');
+      populateError(
+        req,
+        res,
+        'Error in create service request/payment reference',
+        PaymentErrorContext.DEFAULT_PAYMENT_ERROR
+      );
     }
   } catch (e) {
     req.locals.logger.error(e);
-    populateError(req, res, 'Error in create service request/payment reference');
+    populateError(
+      req,
+      res,
+      'Error in create service request/payment reference',
+      PaymentErrorContext.DEFAULT_PAYMENT_ERROR
+    );
   }
 };
 
@@ -107,16 +117,16 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
           C100_CASE_EVENT.CASE_SUBMIT
         );
       } else {
-        populateError(req, res, 'Error in retreive payment status');
+        populateError(req, res, 'Error in retreive payment status', PaymentErrorContext.PAYMENT_UNSUCCESSFUL);
       }
     } catch (error) {
       req.locals.logger.error(error);
-      populateError(req, res, 'Error in retreive payment status');
+      populateError(req, res, 'Error in retreive payment status', PaymentErrorContext.PAYMENT_UNSUCCESSFUL);
     }
   }
 };
 
-async function submitCase(
+export async function submitCase(
   req: AppRequest,
   res: Response,
   caseId: string,
@@ -125,8 +135,8 @@ async function submitCase(
   caseEvent: C100_CASE_EVENT
 ): Promise<void> {
   try {
-    req.session.paymentError = false;
-    const updatedCase = await req.locals.C100Api.updateCase(caseId, caseData, returnUrl, caseEvent);
+    req.session.paymentError = { hasError: false, errorContext: null };
+    const updatedCase = await req.locals.C100Api.submitC100Case(caseId, caseData, returnUrl, caseEvent);
     //update final document in session for download on confirmation
     req.session.userCase.finalDocument = updatedCase.data?.draftOrderDoc;
     //save & redirect to confirmation page
@@ -135,13 +145,13 @@ async function submitCase(
     });
   } catch (e) {
     req.locals.logger.error(e);
-    populateError(req, res, 'Error in submit case');
+    populateError(req, res, 'Error in submit case', PaymentErrorContext.APPLICATION_NOT_SUBMITTED);
   }
 }
 
-const populateError = (req: AppRequest, res: Response, errorMsg: string) => {
+const populateError = (req: AppRequest, res: Response, errorMsg: string, errorContext: PaymentErrorContext) => {
   req.locals.logger.error(errorMsg);
-  req.session.paymentError = true;
+  req.session.paymentError = { hasError: true, errorContext };
   req.session.save(() => {
     res.redirect(C100_CHECK_YOUR_ANSWER);
   });

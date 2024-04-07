@@ -395,7 +395,7 @@ export const fetchAndSaveFeeCodeDetails = async (
   return new Promise((resolve, reject) => {
     delete req.session.userCase.awpFeeDetails;
 
-    const client = new CosApiClient(userDetails.accessToken, 'https://return-url');
+    const client = new CosApiClient(userDetails.accessToken, req.locals.logger);
     client
       .fetchAWPFeeCodeDetails(applicationDetails, userDetails)
       .then(feeDetails => {
@@ -445,7 +445,7 @@ const createAWPApplication = async (
   appResponse: Response
 ): Promise<void> => {
   try {
-    await new CosApiClient(userDetails.accessToken, 'return_url').createAWPApplication(
+    await new CosApiClient(userDetails.accessToken, appRequest.locals.logger).createAWPApplication(
       userDetails,
       caseData,
       applicationType,
@@ -500,13 +500,13 @@ const handlePageRedirection = (
   appRequest: AppRequest,
   appResponse: Response
 ) => {
-  appRequest.session.paymentError = errorType !== 'success';
+  appRequest.session.paymentError.hasError = errorType !== 'success';
   delete appRequest.session.userCase?.paymentData;
   delete appRequest.session.userCase?.awp_applicationType;
   delete appRequest.session.userCase?.awp_applicationReason;
   appRequest.session.save(() => {
     setTimeout(() => {
-      appRequest.session.paymentError = false;
+      appRequest.session.paymentError.hasError = false;
       appRequest.session.save();
     }, 1000);
     appResponse.redirect(

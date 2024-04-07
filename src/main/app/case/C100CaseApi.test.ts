@@ -51,7 +51,7 @@ describe('CaseApi', () => {
   test('Should create a case', async () => {
     const request = {
       caseTypeOfApplication: C100_CASE_TYPE.C100,
-      c100RebuildReturnUrl: '/c100-rebuild/case-name',
+      c100RebuildReturnUrl: '/c100-rebuild/childaddress',
     };
 
     mockedAxios.post.mockResolvedValueOnce({
@@ -94,7 +94,7 @@ describe('CaseApi', () => {
       miam: 'c100RebuildMaim',
     };
     mockedAxios.post.mockResolvedValueOnce({ data: caseData });
-    const updatedCaseData = await api.updateCase(
+    const updatedCaseData = await api.submitC100Case(
       '1234',
       caseData,
       '{"miam":"c100RebuildMaim"}',
@@ -103,21 +103,15 @@ describe('CaseApi', () => {
     );
 
     expect(updatedCaseData).toStrictEqual({ data: caseData });
-    expect(mockedAxios.post).toHaveBeenCalledWith(
-      '1234/c100-rebuild/dummyUrl/update-case',
-      {
-        caseTypeOfApplication: C100_CASE_TYPE.C100,
-        c100RebuildChildPostCode: 'AB2 3BV',
-        helpWithFeesReferenceNumber: 'HWF-1234',
-        c100RebuildMaim: '{"miam":"c100RebuildMaim"}',
-        c100RebuildReturnUrl: '{"miam":"c100RebuildMaim"}',
-        applicantCaseName: 'C100 test case',
-        id: '1234',
-      },
-      {
-        headers: { accessCode: 'null' },
-      }
-    );
+    expect(mockedAxios.post).toHaveBeenCalledWith('/citizen/1234/c100-rebuild/dummyUrl/submit-c100-application', {
+      caseTypeOfApplication: C100_CASE_TYPE.C100,
+      c100RebuildChildPostCode: 'AB2 3BV',
+      helpWithFeesReferenceNumber: 'HWF-1234',
+      c100RebuildMaim: '{"miam":"c100RebuildMaim"}',
+      c100RebuildReturnUrl: '{"miam":"c100RebuildMaim"}',
+      applicantCaseName: 'C100 test case',
+      id: '1234',
+    });
   });
 
   test('Should throw error if there is an error updating case', async () => {
@@ -130,7 +124,7 @@ describe('CaseApi', () => {
       },
     });
 
-    await expect(api.updateCase('1234', userDetails, 'c100-rebuild/dummyUrl')).rejects.toThrow(
+    await expect(api.submitC100Case('1234', userDetails, 'c100-rebuild/dummyUrl')).rejects.toThrow(
       'Case could not be updated.'
     );
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST undefined 500');
@@ -278,7 +272,7 @@ describe('CaseApi', () => {
       ...mockData,
     };
     mockedAxios.post.mockResolvedValueOnce({ data: caseData });
-    const updatedCaseData = await api.updateCase(
+    const updatedCaseData = await api.submitC100Case(
       '1234',
       caseData,
       'c100-rebuild/dummyUrl',
@@ -286,13 +280,9 @@ describe('CaseApi', () => {
     );
 
     expect(updatedCaseData).toStrictEqual({ data: caseData });
-    expect(mockedAxios.post).toHaveBeenCalledWith(
-      '1234/citizen-case-submit/update-case',
-      { ...mockData },
-      {
-        headers: { accessCode: 'null' },
-      }
-    );
+    expect(mockedAxios.post).toHaveBeenCalledWith('/citizen/1234/citizen-case-submit/submit-c100-application', {
+      ...mockData,
+    });
   });
 
   test('Should submit case on citizen-case-submit-with-hwf', async () => {
@@ -301,7 +291,7 @@ describe('CaseApi', () => {
       ...mockData,
     };
     mockedAxios.post.mockResolvedValueOnce({ data: caseData });
-    const updatedCaseData = await api.updateCase(
+    const updatedCaseData = await api.submitC100Case(
       '1234',
       caseData,
       'c100-rebuild/dummyUrl',
@@ -309,12 +299,8 @@ describe('CaseApi', () => {
     );
 
     expect(updatedCaseData).toStrictEqual({ data: caseData });
-    expect(mockedAxios.post).toHaveBeenCalledWith(
-      '1234/citizenCaseSubmitWithHWF/update-case',
-      { ...mockData },
-      {
-        headers: { accessCode: 'null' },
-      }
-    );
+    expect(mockedAxios.post).toHaveBeenCalledWith('/citizen/1234/citizenCaseSubmitWithHWF/submit-c100-application', {
+      ...mockData,
+    });
   });
 });

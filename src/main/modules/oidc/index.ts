@@ -13,6 +13,7 @@ import {
   C100_URL,
   CALLBACK_URL,
   DASHBOARD_URL,
+  LOCAL_API_SESSION,
   SAFEGAURD_EXCLUDE_URLS,
   SCREENING_QUESTIONS,
   SIGN_IN_URL,
@@ -100,7 +101,7 @@ export class OidcMiddleware {
               }
             }
             //If testing support URL is not part of the path, then we need to redirect user to dashboard even if they click on link
-            if (req.path.startsWith(TESTING_SUPPORT)) {
+            if (req.path.startsWith(TESTING_SUPPORT) || req.path.includes(LOCAL_API_SESSION)) {
               if (req.session.testingSupport) {
                 return next();
               } else {
@@ -118,18 +119,14 @@ export class OidcMiddleware {
               }
               if (req.session.accessCodeLoginIn) {
                 try {
-                  const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
+                  const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
                   if (req.session.userCase.caseCode && req.session.userCase.accessCode) {
                     const caseReference = req.session.userCase.caseCode;
                     const accessCode = req.session.userCase.accessCode;
-                    const data = { applicantCaseName: 'DUMMY CASE DATA' };
 
                     const linkCaseToCitizenData = await client.linkCaseToCitizen(
-                      req.session.user,
                       caseReference as string,
-                      req,
-                      accessCode as string,
-                      data
+                      accessCode as string
                     );
                     req.session.userCase = linkCaseToCitizenData.data;
                     req.session.accessCodeLoginIn = false;

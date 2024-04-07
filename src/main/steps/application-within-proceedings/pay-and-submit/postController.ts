@@ -27,7 +27,7 @@ export default class AWPPayAndSubmitPostController extends PostController<AnyObj
     const partyName = getPartyDetails(caseData, userDetails.id);
 
     try {
-      appRequest.session.paymentError = false;
+      appRequest.session.paymentError.hasError = false;
       const { id: caseId, awpFeeDetails } = caseData;
       const paymentAPI = await PaymentAPI(userDetails.accessToken, appRequest.locals.logger);
 
@@ -71,11 +71,11 @@ export default class AWPPayAndSubmitPostController extends PostController<AnyObj
     appRequest: AppRequest<AnyObject>,
     appResponse: Response
   ) {
-    appRequest.session.paymentError = true;
+    appRequest.session.paymentError.hasError = true;
     delete appRequest.session.userCase.paymentData;
     appRequest.session.save(() => {
       setTimeout(() => {
-        appRequest.session.paymentError = false;
+        appRequest.session.paymentError.hasError = false;
         appRequest.session.save();
       }, 1000);
       appResponse.redirect(

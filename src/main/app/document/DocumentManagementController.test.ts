@@ -2,8 +2,14 @@ import config from 'config';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import {
+  APPLICANT_TASK_LIST_URL,
+  APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
+  C100_APPLICANT_TASKLIST,
+  RESPONDENT_TASK_LIST_URL,
+} from '../../steps/urls';
 import { CosApiClient } from '../case/CosApiClient';
-import { YesOrNo } from '../case/definition';
+import { CaseType, YesOrNo } from '../case/definition';
 import { Form } from '../form/Form';
 
 import { DocumentManagerController } from './DocumentManagementController';
@@ -173,52 +179,32 @@ describe('DocumentManagerController', () => {
       req.session.userCase.caseTypeOfApplication = 'C100';
       req.session.userCase.respondents = partyDetails;
       updateCaserMock.mockResolvedValue(req.session.userCase);
-      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
-      documentManagerController.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
+      const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
+      documentManagerController.notifyBannerForNewDcoumentUploaded(req, req.session.userCase.id, client);
       expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
     test('notifyBannerForNewDcoumentUploaded for CA applicant', async () => {
       req.session.userCase.caseTypeOfApplication = 'C100';
       req.session.userCase.applicants = partyDetails;
       updateCaserMock.mockResolvedValue(req.session.userCase);
-      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
-      documentManagerController.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
+      const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
+      documentManagerController.notifyBannerForNewDcoumentUploaded(req, req.session.userCase.id, client);
       expect(req.session.userCase.applicants[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
     test('notifyBannerForNewDcoumentUploaded for DA respondent', async () => {
       req.session.userCase.caseTypeOfApplication = 'fl401';
       req.session.userCase.respondentsFL401 = partyDetails[0].value;
       updateCaserMock.mockResolvedValue(req.session.userCase);
-      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
-      documentManagerController.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
+      const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
+      documentManagerController.notifyBannerForNewDcoumentUploaded(req, req.session.userCase.id, client);
       expect(req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
     test('notifyBannerForNewDcoumentUploaded for DA applicant', async () => {
       req.session.userCase.caseTypeOfApplication = 'fl401';
       req.session.userCase.applicantsFL401 = partyDetails[0].value;
       updateCaserMock.mockResolvedValue(req.session.userCase);
-      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
-      documentManagerController.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
+      const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
+      documentManagerController.notifyBannerForNewDcoumentUploaded(req, req.session.userCase.id, client);
       expect(req.session.userCase.applicantsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
   });
@@ -538,9 +524,10 @@ describe('DocumentManagerController', () => {
       req.query.isApplicant = 'No';
       req.session.userCase.respondentUploadFiles = uploadedFiles;
       req.params.documentId = '9813df11-41bf-4b46-a602-86766b5e3547';
+      req.session.errors = !req.session.errors;
       deleteCitizenStatementDocumentMock.mockResolvedValue('FAILURE');
       await documentManagerController.deleteDocument(req, res);
-
+      // expect(req.session.errors).toEqual([]);
       expect(req.session.errors[0].errorType).toEqual('Document could not be deleted');
     });
   });
@@ -602,14 +589,52 @@ describe('DocumentManagerController', () => {
       await documentManagerController.post(req, res);
       expect(req.session.errors[0].errorType).toEqual('Document could not be uploaded');
     });
+    // test('no files uploaded', async () => {
+    //   req.files = [];
+    //   req.headers.accept = 'application/json';
+    //   try {
+    //     await documentManagerController.fileData(req);
+    //   } catch (error) {
+    //     expect(error).toBe(error);
+    //   }
+    // });
+    test('undefined upload files', async () => {
+      req.session.userCase.applicantUploadFiles = undefined;
+      req.session.userCase.respondentUploadFiles = undefined;
+      await documentManagerController.undefiendUploadFiles(req);
+      expect(req.session.userCase.applicantUploadFiles).toEqual([]);
+      expect(req.session.userCase.respondentUploadFiles).toEqual([]);
+    });
   });
   describe('clearUploadDocumentFormData', () => {
-    test('clearUploadDocumentFormData for applicant', async () => {
+    test('clearUploadDocumentFormData for c100 applicant tasklist', async () => {
       req.query.isApplicant = 'Yes';
       req.session.userCase.start = 'Yes';
       req.query.isContinue = YesOrNo.YES;
+      req.session.userCase.caseTypeOfApplication = CaseType.C100;
+      req.url = '/task-list/applicant';
       await documentManagerController.clearUploadDocumentFormData(req, res);
       expect(req.session.userCase.start).toEqual(undefined);
+      expect(res.redirect).toHaveBeenCalledWith(C100_APPLICANT_TASKLIST);
+    });
+    test('clearUploadDocumentFormData for applicant tasklist', async () => {
+      req.query.isApplicant = 'Yes';
+      req.session.userCase.start = 'Yes';
+      req.query.isContinue = YesOrNo.YES;
+      req.session.userCase.caseTypeOfApplication = CaseType.FL401;
+      req.url = '/applicant/task-list';
+      await documentManagerController.clearUploadDocumentFormData(req, res);
+      expect(req.session.userCase.start).toEqual(undefined);
+      expect(res.redirect).toHaveBeenCalledWith(APPLICANT_TASK_LIST_URL);
+    });
+    test('clearUploadDocumentFormData for respondent tasklist', async () => {
+      req.query.isApplicant = 'No';
+      req.session.userCase.start = 'Yes';
+      req.query.isContinue = YesOrNo.YES;
+      req.url = '/respondent/task-list';
+      await documentManagerController.clearUploadDocumentFormData(req, res);
+      expect(req.session.userCase.start).toEqual(undefined);
+      expect(res.redirect).toHaveBeenCalledWith(RESPONDENT_TASK_LIST_URL);
     });
     test('clearUploadDocumentFormData for respondent', async () => {
       req.query.isApplicant = 'No';
@@ -617,6 +642,13 @@ describe('DocumentManagerController', () => {
       req.query.isContinue = YesOrNo.NO;
       await documentManagerController.clearUploadDocumentFormData(req, res);
       expect(req.session.userCase.start).toEqual(undefined);
+    });
+    test('clearUploadDocumentFormData for applicant upload doc', async () => {
+      req.query.isApplicant = 'Yes';
+      req.query.isContinue = YesOrNo.NO;
+      req.url = '/applicant/upload-document';
+      await documentManagerController.clearUploadDocumentFormData(req, res);
+      expect(res.redirect).toHaveBeenCalledWith(APPLICANT_UPLOAD_DOCUMENT_LIST_URL);
     });
   });
 });

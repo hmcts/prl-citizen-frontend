@@ -1,7 +1,14 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { C100RebuildPartyDetails, PartyType } from '../../../../app/case/definition';
-import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
-import { Validator, areDateFieldsFilledIn, isDateInputInvalid, isFutureDate } from '../../../../app/form/validation';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import {
+  Validator,
+  areDateFieldsFilledIn,
+  isAlphaNumeric,
+  isDateInputInvalid,
+  isFieldFilledIn,
+  isFutureDate,
+} from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 import { getDataShape } from '../../people/util';
 
@@ -10,7 +17,6 @@ import { generateContent, generateFormFields } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child arrangements',
   title: 'Provide details for',
   isNameChangedLabelText: 'Have they changed their name?',
   inNameChangedHintText:
@@ -66,7 +72,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   title: 'Darparwch fanylion am',
   isNameChangedLabelText: 'A ydynt wedi newid eu henw?',
   inNameChangedHintText:
@@ -232,7 +237,6 @@ describe('other person details > personal details', () => {
       month: '09',
       year: '1999',
     });
-
     expect(isDateOfBirthUnknown.type).toBe('checkboxes');
     expect(isDateOfBirthUnknown.values[0].name).toBe('isDateOfBirthUnknown');
     expect((isDateOfBirthUnknown.values[0].label as Function)(generatedContent)).toBe(en.approxCheckboxLabel);
@@ -270,6 +274,156 @@ describe('other person details > personal details', () => {
     expect((gender.values[2].label as Function)(generatedContent)).toBe(en.otherOptionLabel);
     expect(gender.values[2].value).toBe('Other');
     expect(gender.values[2].subFields.otherGenderDetails.type).toBe('text');
+  });
+  test('should contain personal details form fields dynamic', () => {
+    const hasNameChangedField = fields.hasNameChanged as FormOptions;
+    expect(hasNameChangedField.type).toBe('radios');
+    expect(hasNameChangedField.classes).toBe('govuk-radios');
+    expect((hasNameChangedField.label as Function)(generatedContent)).toBe(en.isNameChangedLabelText);
+    expect((hasNameChangedField.hint as Function)(generatedContent)).toBe(en.inNameChangedHintText);
+    expect((hasNameChangedField.values[0].label as Function)(generatedContent)).toBe(en.YesOptionLabel);
+    expect(hasNameChangedField.values[0].value).toBe('yes');
+    expect(hasNameChangedField.values[0].subFields?.previousFullName.type).toBe('text');
+    expect((hasNameChangedField.values[0].subFields?.previousFullName.label as Function)(generatedContent)).toBe(
+      en.previousFullNameLabel
+    );
+    expect((hasNameChangedField.values[0].subFields?.previousFullName.hint as Function)(generatedContent)).toBe(
+      en.previousFullNameHintText
+    );
+    (hasNameChangedField.values[0].subFields?.previousFullName.validator as Validator)('test value');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test value');
+
+    expect((hasNameChangedField.values[1].label as Function)(generatedContent)).toBe(en.NoOptionLabel);
+    expect(hasNameChangedField.values[1].value).toBe('no');
+
+    expect((hasNameChangedField.values[2].label as Function)(generatedContent)).toBe(en.DontKnowOptionLabel);
+    expect(hasNameChangedField.values[2].value).toBe('dontKnow');
+
+    expect(hasNameChangedField.validator).toBe(isFieldFilledIn);
+
+    const genderField = fields.gender as FormOptions;
+    expect(genderField.type).toBe('radios');
+    expect(genderField.classes).toBe('govuk-radios');
+    expect((genderField.label as Function)(generatedContent)).toBe(en.genderLabelText);
+
+    expect((genderField.values[0].label as Function)(generatedContent)).toBe(en.maleOptionLabel);
+    expect(genderField.values[0].value).toBe('Male');
+
+    expect((genderField.values[1].label as Function)(generatedContent)).toBe(en.femaleOptionLabel);
+    expect(genderField.values[1].value).toBe('Female');
+
+    expect((genderField.values[2].label as Function)(generatedContent)).toBe(en.otherOptionLabel);
+    expect(genderField.values[2].value).toBe('Other');
+    expect(genderField.values[2].subFields?.otherGenderDetails.type).toBe('text');
+    expect((genderField.values[2].subFields?.otherGenderDetails.label as Function)(generatedContent)).toBe(
+      en.otherGenderTextLabel
+    );
+    (genderField.values[2].subFields?.otherGenderDetails.validator as Validator)('test');
+    expect(isAlphaNumeric).toHaveBeenCalledWith('test');
+    expect(genderField.validator).toBe(isFieldFilledIn);
+
+    const dateOfBirthField = fields.dateOfBirth as FormOptions;
+    expect(dateOfBirthField.type).toBe('date');
+    expect(dateOfBirthField.classes).toBe('govuk-date-input');
+    expect((dateOfBirthField.label as Function)(generatedContent)).toBe(en.dobLabel);
+
+    expect(dateOfBirthField.values[0].name).toBe('day');
+    expect(
+      (dateOfBirthField.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(dateOfBirthField.values[0].classes).toBe('govuk-input--width-2');
+
+    expect(dateOfBirthField.values[1].name).toBe('month');
+    expect(
+      (dateOfBirthField.values[1].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Month');
+    expect(dateOfBirthField.values[1].classes).toBe('govuk-input--width-2');
+
+    expect(dateOfBirthField.values[2].name).toBe('year');
+    expect(
+      (dateOfBirthField.values[2].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Year');
+    expect(dateOfBirthField.values[2].classes).toBe('govuk-input--width-4');
+
+    const isDateOfBirthUnknownField = fields.isDateOfBirthUnknown as FormOptions;
+    expect(isDateOfBirthUnknownField.type).toBe('checkboxes');
+    expect(isDateOfBirthUnknownField.classes).toBe('govuk-checkboxes--small');
+
+    expect(isDateOfBirthUnknownField.values[0].name).toBe('isDateOfBirthUnknown');
+    expect((isDateOfBirthUnknownField.values[0].label as Function)(generatedContent)).toBe(en.approxCheckboxLabel);
+    expect(isDateOfBirthUnknownField.values[0].value).toBe('Yes');
+    expect(isDateOfBirthUnknownField.values[0].subFields?.approxDateOfBirth.type).toBe('date');
+    expect(isDateOfBirthUnknownField.values[0].subFields?.approxDateOfBirth.classes).toBe('govuk-date-input');
+    expect((isDateOfBirthUnknownField.values[0].subFields?.approxDateOfBirth.label as Function)(generatedContent)).toBe(
+      en.approxDobLabel
+    );
+    (isDateOfBirthUnknownField.values[0].subFields?.approxDateOfBirth.validator as Validator)({
+      day: '09',
+      month: '09',
+      year: '1999',
+    });
+    expect(isFutureDate).toHaveBeenCalledWith({ day: '09', month: '09', year: '1999' });
+
+    const approxDateOfBirthField = isDateOfBirthUnknownField.values[0].subFields?.approxDateOfBirth as FormOptions;
+    expect(approxDateOfBirthField.values[0].name).toBe('day');
+    expect(
+      (approxDateOfBirthField.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(approxDateOfBirthField.values[0].classes).toBe('govuk-input--width-2');
+
+    expect(approxDateOfBirthField.values[1].name).toBe('month');
+    expect(
+      (approxDateOfBirthField.values[1].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Month');
+    expect(approxDateOfBirthField.values[1].classes).toBe('govuk-input--width-2');
+
+    expect(approxDateOfBirthField.values[2].name).toBe('year');
+    expect(
+      (approxDateOfBirthField.values[2].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Year');
+    expect(approxDateOfBirthField.values[2].classes).toBe('govuk-input--width-4');
   });
 
   test('should contain Save and continue button', () => {

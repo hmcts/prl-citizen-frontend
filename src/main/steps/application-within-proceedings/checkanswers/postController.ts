@@ -31,7 +31,7 @@ export default class AWPCheckAnswersPostController extends PostController<AnyObj
     } = caseData;
 
     try {
-      appRequest.session.paymentError = false;
+      appRequest.session.paymentError.hasError = false;
 
       if (needHWF === YesOrNo.YES && hasHWFRefrence === YesOrNo.YES && hwfRefNumber) {
         const { id: caseId, awpFeeDetails } = caseData;
@@ -84,10 +84,10 @@ export default class AWPCheckAnswersPostController extends PostController<AnyObj
     appRequest: AppRequest<AnyObject>,
     appResponse: Response
   ) {
-    appRequest.session.paymentError = true;
+    appRequest.session.paymentError.hasError = true;
     appRequest.session.save(() => {
       setTimeout(() => {
-        appRequest.session.paymentError = false;
+        appRequest.session.paymentError.hasError = false;
         appRequest.session.save();
       }, 1000);
       appResponse.redirect(

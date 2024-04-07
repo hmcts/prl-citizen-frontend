@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   title: 'Have the children been impacted by drug, alcohol or substance abuse?',
   line1: 'This could be abuse that is taking place now, or abuse that occurred in the past.',
@@ -31,7 +30,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   title: 'A fu effaith ar y plant o ganlyniad i gamddefnyddio cyffuriau, alcohol neu sylweddau?',
   line1: "Gallai hyn fod yn gamdriniaeth sy'n digwydd nawr neu yn y gorffennol.",

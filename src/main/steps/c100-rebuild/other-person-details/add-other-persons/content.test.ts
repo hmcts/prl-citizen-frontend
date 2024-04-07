@@ -1,9 +1,10 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
+import { Gender, RelationshipType, YesNoEmpty } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
-import { generateContent } from './content';
+import { generateContent, generateFormFields } from './content';
 
 jest.mock('../../../../app/form/validation');
 
@@ -15,7 +16,7 @@ const en = {
   Person: 'Person',
   addOtherPersonLabel: 'Add another person',
   removeOtherPersonLabel: 'Remove person',
-  newNameLabel: 'Enter a new name',
+  newNameLabel: 'Enter name',
   errors: {
     c100TempFirstName: {
       required: 'Enter the first name',
@@ -36,7 +37,7 @@ const cy = {
   Person: 'Unigolyn',
   addOtherPersonLabel: 'Ychwanegu unigolyn arall',
   removeOtherPersonLabel: 'Symud unigolyn',
-  newNameLabel: 'Nodwch enw newydd',
+  newNameLabel: 'Enter name -welsh',
   errors: {
     c100TempFirstName: {
       required: 'Nodwch yr enw cyntaf',
@@ -116,13 +117,96 @@ describe('Add other person  > content', () => {
   });
 
   test('should contain add person form fields', () => {
-    const {
-      'fieldset-otherPersonDetails': fieldset,
-      //fieldset1
-    } = fields as Record<string, FormFields>;
-    const { c100TempFirstName: FirstName, c100TempLastName: LastName, add: add } = fieldset.subFields as FormFields;
+    const dummyApplicants = [
+      {
+        id: 'string',
+        firstName: 'Bob',
+        lastName: 'Rose',
+        personalDetails: {
+          haveYouChangeName: YesNoEmpty.EMPTY,
+          applPreviousName: '',
+          dateOfBirth: {
+            year: '',
+            month: '',
+            day: '',
+          },
+          gender: Gender.EMPTY,
+          otherGenderDetails: '',
+          applicantPlaceOfBirth: '',
+        },
+        relationshipDetails: {
+          relationshipToChildren: [
+            {
+              relationshipType: RelationshipType.EMPTY,
+              childId: '',
+            },
+          ],
+        },
+        address: {
+          AddressLine1: '',
+          AddressLine2: '',
+          PostTown: '',
+          County: '',
+          PostCode: '',
+        },
+      },
+      {
+        id: 'string',
+        firstName: 'Bobi',
+        lastName: 'Rose',
+        personalDetails: {
+          haveYouChangeName: YesNoEmpty.EMPTY,
+          applPreviousName: '',
+          dateOfBirth: {
+            year: '',
+            month: '',
+            day: '',
+          },
+          gender: Gender.EMPTY,
+          otherGenderDetails: '',
+          applicantPlaceOfBirth: '',
+        },
+        relationshipDetails: {
+          relationshipToChildren: [
+            {
+              relationshipType: RelationshipType.EMPTY,
+              childId: '',
+            },
+          ],
+        },
+        address: {
+          AddressLine1: '',
+          AddressLine2: '',
+          PostTown: '',
+          County: '',
+          PostCode: '',
+        },
+      },
+    ];
+    const fieldss = generateFormFields(dummyApplicants).fields as FormFields;
 
-    // const { 'firstName-1': firstName, 'lastName-1': lastName, remove: remove } = fieldset[0] as FormFields;
+    const { fieldset1: fieldset1 } = fieldss as Record<string, FormFields>;
+    const { 'firstName-1': FirstName, 'lastName-1': LastName, remove } = fieldset1.subFields as FormFields;
+
+    expect(fieldset1.type).toBe('fieldset');
+    expect((fieldset1.label as Function)(generatedContent)).toBe(en.Person + ' 1');
+
+    expect(FirstName.type).toBe('text');
+    expect((FirstName.label as Function)(generatedContent)).toBe(en.firstNameLabel);
+    (FirstName.validator as Function)('test');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test');
+
+    expect(LastName.type).toBe('text');
+    expect((LastName.label as Function)(generatedContent)).toBe(en.lastNameLabel);
+    (LastName.validator as Function)('test');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('test');
+
+    expect(remove.type).toBe('button');
+    expect((remove.label as Function)(generatedContent)).toBe(en.removeOtherPersonLabel + ' 1');
+  });
+  test('should contain add button form fields', () => {
+    const { 'fieldset-otherPersonDetails': fieldset } = fields as Record<string, FormFields>;
+    const { c100TempFirstName: FirstName, c100TempLastName: LastName, add: add } = fieldset.subFields as FormFields;
 
     expect(fieldset.classes).toBe('govuk-fieldset__legend--m');
     expect(fieldset.type).toBe('fieldset');
@@ -144,26 +228,6 @@ describe('Add other person  > content', () => {
     expect(add.type).toBe('button');
     expect(add.classes).toBe('govuk-button--secondary');
     expect((add.label as Function)(generatedContent)).toBe(en.addOtherPersonLabel);
-
-    // expect(fieldset1.classes).toBe('govuk-fieldset__legend--m');
-    // expect(fieldset1.type).toBe('fieldset');
-    // expect((fieldset1.label as Function)(generatedContent)).toBe('other Person 1');
-
-    // expect(firstName.type).toBe('text');
-    // expect(firstName.classes).toBe('govuk-!-width-one-half');
-    // expect((firstName.label as Function)(generatedContent)).toBe(en.firstNameLabel);
-    // (firstName.validator as Function)('Bob');
-    // expect(isFieldFilledIn).toHaveBeenCalledWith('Bob');
-
-    // expect(lastName.type).toBe('text');
-    // expect(lastName.classes).toBe('govuk-!-width-one-half');
-    // expect((lastName.label as Function)(generatedContent)).toBe(en.lastNameLabel);
-    // (lastName.validator as Function)('Silly');
-    // expect(isFieldFilledIn).toHaveBeenCalledWith('Silly');
-
-    // expect(remove.type).toBe('button');
-    // expect(remove.classes).toBe('govuk-button--warning margin-top-3');
-    // expect((remove.label as Function)(generatedContent)).toBe(`${en.removeOtherPersonLabel} 1`);
   });
 
   test('should contain Save and continue button', () => {

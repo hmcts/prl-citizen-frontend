@@ -4,7 +4,7 @@ import config from 'config';
 import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
-import { C100_CASE_NAME } from '../../steps/urls';
+import { C100_CHILD_ADDRESS } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { AppSession, UserDetails } from '../controller/AppRequest';
 
@@ -29,7 +29,7 @@ export class CaseApi {
   public async createCase(): Promise<CreateCaseResponse> {
     const data = {
       caseTypeOfApplication: C100_CASE_TYPE.C100,
-      c100RebuildReturnUrl: C100_CASE_NAME, //added to handle deafult returnURL incase save & come back is not invoked at all
+      c100RebuildReturnUrl: C100_CHILD_ADDRESS, //added to handle deafult returnURL incase save & come back is not invoked at all
     };
 
     try {
@@ -53,14 +53,14 @@ export class CaseApi {
   }
 
   /**
-   * This is used to update/submit case based on the case event passed
+   * This is used to submit case based on the case event passed
    * @param caseId
    * @param caseData
    * @param returnUrl
    * @param caseEvent
    * @returns
    */
-  public async updateCase(
+  public async submitC100Case(
     caseId: string,
     caseData: Partial<CaseWithId>,
     returnUrl: string,
@@ -80,11 +80,10 @@ export class CaseApi {
       paymentReferenceNumber: caseData.paymentDetails?.payment_reference,
     };
     try {
-      const response = await this.axios.post<UpdateCaseResponse>(`${caseId}/${caseEvent}/update-case`, data, {
-        headers: {
-          accessCode: 'null',
-        },
-      });
+      const response = await this.axios.post<UpdateCaseResponse>(
+        `/citizen/${caseId}/${caseEvent}/submit-c100-application`,
+        data
+      );
       return { data: response.data };
     } catch (err) {
       this.logError(err);
@@ -93,6 +92,45 @@ export class CaseApi {
   }
 
   /**
+   * This is used to update/submit case based on the case event passed
+   * @param caseId
+   * @param caseData
+   * @param returnUrl
+   * @param caseEvent
+   * @returns
+   */
+  public async saveC100DraftApplication(
+    caseId: string,
+    caseData: Partial<CaseWithId>,
+    returnUrl: string
+  ): Promise<UpdateCaseResponse> {
+    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, applicantCaseName, ...rest } =
+      caseData;
+    const data: UpdateCaseRequest = {
+      ...transformCaseData(rest),
+      caseTypeOfApplication: caseTypeOfApplication as string,
+      applicantCaseName,
+      c100RebuildChildPostCode,
+      helpWithFeesReferenceNumber,
+      c100RebuildReturnUrl: returnUrl,
+      id: caseId,
+      paymentServiceRequestReferenceNumber: caseData.paymentDetails?.serviceRequestReference,
+      paymentReferenceNumber: caseData.paymentDetails?.payment_reference,
+    };
+    try {
+      const response = await this.axios.post<UpdateCaseResponse>(
+        `/citizen/${caseId}/save-c100-draft-application`,
+        data
+      );
+      return { data: response.data };
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be updated.');
+    }
+  }
+
+  /**
+   * TODO: Alok need to double check on this API call - what to do with old case data
    * Delete Case
    * State: DELETED
    * Event: C100_CASE_EVENT.DELETE_CASE
@@ -106,11 +144,7 @@ export class CaseApi {
       if (!caseId) {
         throw new Error('caseId not found so case could not be deleted.');
       }
-      await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100_CASE_EVENT.DELETE_CASE}/update-case`, caseData, {
-        headers: {
-          accessCode: 'null',
-        },
-      });
+      await this.axios.post<UpdateCaseResponse>(`/citizen/${caseId}/delete-application`, caseData);
       session.userCase = {} as CaseWithId;
       session.save();
     } catch (err) {
@@ -168,20 +202,12 @@ export class CaseApi {
       }
       const { withdrawApplication, withdrawApplicationReason } = caseData;
 
-      await this.axios.post<UpdateCaseResponse>(
-        `${caseId}/withdraw`,
-        {
-          withDrawApplicationData: {
-            withDrawApplication: withdrawApplication,
-            withDrawApplicationReason: withdrawApplicationReason,
-          },
+      await this.axios.post<UpdateCaseResponse>(`/citizen/${caseId}/withdraw`, {
+        withDrawApplicationData: {
+          withDrawApplication: withdrawApplication,
+          withDrawApplicationReason: withdrawApplicationReason,
         },
-        {
-          headers: {
-            accessCode: 'null',
-          },
-        }
-      );
+      });
     } catch (err) {
       this.logError(err);
       throw new Error('Error occured, case could not be withdrawn.');

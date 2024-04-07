@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CaseWithId } from '../../../../../app/case/case';
-
-import { CaseType, PartyType, State } from './../../../../../app/case/definition';
-import { isCaseClosed } from './../../utils';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { CaseType, SelectTypeOfOrderEnum } from './../../../../../app/case/definition';
 import { languages as content } from './content';
 
-enum CaseProgressionStage {
+export enum CaseProgressionStage {
   APPLICATION_SUBMITTED = 'applicationSubmitted',
   CAFCASS_SAFETY_CHECKS = 'cafcassSafetyChecks',
   RESPONSE_SUBMITTED = 'responseSubmitted',
@@ -21,7 +19,9 @@ const getLabel = (caseStage: CaseProgressionStage, caseType: CaseType, language:
 const getAriaLabel = (caseStage: CaseProgressionStage, caseType: CaseType, language: string): string =>
   content[language]?.[caseType]?.[caseStage]?.ariaLabel;
 
-const progressBarStage = {
+export const isFinalOrderIssued = caseData => caseData.selectTypeOfOrder === SelectTypeOfOrderEnum.finl;
+
+export const progressBarStage = {
   applicationSubmitted: {
     id: CaseProgressionStage.APPLICATION_SUBMITTED,
     label: getLabel.bind(null, CaseProgressionStage.APPLICATION_SUBMITTED),
@@ -71,92 +71,4 @@ const progressBarStage = {
     isInProgress: () => false,
     isComplete: () => false,
   },
-};
-
-const progressBarConfig = {
-  [CaseType.C100]: {
-    [PartyType.APPLICANT]: [
-      {
-        ...progressBarStage.applicationSubmitted,
-        isComplete: (caseData: Partial<CaseWithId>) =>
-          caseData &&
-          ![
-            State.CASE_DRAFT,
-            State.CASE_SUBMITTED_NOT_PAID,
-            State.CASE_SUBMITTED_PAID,
-            State.CASE_ISSUED_TO_LOCAL_COURT,
-            State.CASE_GATE_KEEPING,
-          ].includes(caseData.state!),
-        isInProgress: (caseData: Partial<CaseWithId>) => caseData && caseData.state !== State.CASE_DRAFT,
-      },
-      progressBarStage.cafcassSafetyChecks,
-      progressBarStage.responseSubmitted,
-      progressBarStage.hearingAndCourtOrders,
-
-      {
-        ...progressBarStage.caseClosed,
-        isComplete: isCaseClosed,
-      },
-    ],
-    [PartyType.RESPONDENT]: [
-      {
-        ...progressBarStage.applicationSubmitted,
-        isComplete: () => true,
-      },
-      progressBarStage.cafcassSafetyChecks,
-      progressBarStage.responseSubmitted,
-      progressBarStage.hearingAndCourtOrders,
-      progressBarStage.caseClosed,
-    ],
-  },
-  [CaseType.FL401]: {
-    [PartyType.APPLICANT]: [
-      progressBarStage.caseOpened,
-      progressBarStage.hearingAndCourtOrders,
-      progressBarStage.finalOrder,
-      progressBarStage.caseClosed,
-    ],
-    [PartyType.RESPONDENT]: [
-      progressBarStage.caseOpened,
-      progressBarStage.hearingAndCourtOrders,
-      progressBarStage.finalOrder,
-      progressBarStage.caseClosed,
-    ],
-  },
-};
-
-export const getProgressBarConfig = (
-  caseData: Partial<CaseWithId>,
-  partyType: PartyType,
-  language: string
-): Record<string, any>[] => {
-  let caseType = caseData?.caseTypeOfApplication;
-
-  if (!caseType && partyType === PartyType.APPLICANT) {
-    caseType = CaseType.C100;
-  }
-
-  return progressBarConfig[caseType!][partyType].map(config => {
-    const isInProgress = config.isInProgress(caseData);
-    const isComplete = config.isComplete(caseData);
-    let ariaLabel = `${config.ariaLabel(caseType, language)} `;
-    let statusBarClassName: string;
-
-    if (isComplete) {
-      ariaLabel += content[language]['complete'];
-      statusBarClassName = 'stage--completed';
-    } else if (isInProgress) {
-      ariaLabel += content[language]['inProgress'];
-      statusBarClassName = 'stage--active';
-    } else {
-      ariaLabel += content[language]['notStarted'];
-      statusBarClassName = '';
-    }
-
-    return {
-      label: config.label(caseType, language),
-      ariaLabel,
-      statusBarClassName,
-    };
-  });
 };

@@ -144,6 +144,7 @@ describe('citizen-home content', () => {
   test('should contain helpcommunication field', () => {
     const helpcommunicationField = fields.helpCommunication as FormOptions;
     expect(helpcommunicationField.type).toBe('checkboxes');
+    expect((helpcommunicationField.hint as Function)(generatedContent)).toBe(en.optionHint);
     expect((helpcommunicationField.section as Function)(generatedContent)).toBe(en.section);
 
     expect((helpcommunicationField.hint as Function)(generatedContent)).toBe(en.optionHint);
