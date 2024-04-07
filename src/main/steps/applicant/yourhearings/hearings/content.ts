@@ -2,11 +2,7 @@ import { CaseType, HearingOrders, PartyType } from '../../../../app/case/definit
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
-import {
-  APPLICANT_ORDERS_FROM_THE_COURT,
-  PARTY_TASKLIST,
-  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE,
-} from '../../../../steps/urls';
+import { APPLICANT_ORDERS_FROM_THE_COURT, PARTY_TASKLIST, REASONABLE_ADJUSTMENTS_INTRO } from '../../../../steps/urls';
 import { generateContent as yourhearingshearingscontent } from '../../../common/yourhearings/hearings/content';
 
 export { form } from '../../../common/yourhearings/hearings/content';
@@ -15,7 +11,7 @@ export const generateContent: TranslationFn = content => {
   const request = content.additionalData?.req;
   const caseData = request.session.userCase;
 
-  hearingsContent.linkforsupport = applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
+  hearingsContent.linkforsupport = applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
     partyType: PartyType.APPLICANT,
   });
   const hearingOrders: HearingOrders[] = [];

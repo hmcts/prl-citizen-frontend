@@ -13,7 +13,7 @@ import {
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_WITNESS_STATEMENTS_DA,
   APPLICANT_YOURHEARINGS_HEARINGS,
-  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE,
+  REASONABLE_ADJUSTMENTS_INTRO,
   YOUR_APPLICATION_FL401,
 } from '../../../../../../steps/urls';
 import {
@@ -59,7 +59,7 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
       {
         id: Tasks.SUPPORT_YOU_NEED,
         href: () => {
-          return applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
+          return applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
             partyType: PartyType.APPLICANT,
           });
         },

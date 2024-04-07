@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosInstance } from 'axios';
 
+import { CaseWithId } from '../../app/case/case';
 import { CaseType } from '../../app/case/definition';
 
 import { RACommonComponentUserAction, RASupportContext } from './definitions';
@@ -271,5 +272,15 @@ describe('ReasonableAdjustementsService', () => {
     } catch (error) {
       expect(RAProvider.log).toBeCalled;
     }
+  });
+
+  test('saveLanguagePrefAndSpecialArrangements should catch error', async () => {
+    client.mockReturnValueOnce({
+      post: jest.fn().mockRejectedValueOnce(new Error('404')),
+    } as unknown as AxiosInstance);
+
+    await expect(
+      RAService.saveLanguagePrefAndSpecialArrangements({ caseTypeOfApplication: 'C100' } as CaseWithId, '1234', '1234')
+    ).rejects.toThrow(new Error('Could not save RA language pref - saveLanguagePrefAndSpecialArrangements'));
   });
 });

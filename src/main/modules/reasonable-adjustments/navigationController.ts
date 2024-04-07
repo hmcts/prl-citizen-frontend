@@ -4,16 +4,22 @@ import _ from 'lodash';
 
 import { CaseWithId } from '../../app/case/case';
 import { PartyType } from '../../app/case/definition';
+import { AppRequest } from '../../app/controller/AppRequest';
 import { applyParms, parseUrl } from '../../steps/common/url-parser';
+import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,
   C100_URL,
   PageLink,
   REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
+  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH,
   REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP,
   REASONABLE_ADJUSTMENTS_COURT_NEEDS,
   REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT,
+  REASONABLE_ADJUSTMENTS_ERROR,
   REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS,
+  REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS,
+  REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS_REVIEW,
   REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING,
   REASONABLE_ADJUSTMENTS_RESPONDENT_RESPONSE_REVIEW,
   REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS,
@@ -109,13 +115,15 @@ export class ReasonableAdjustementsNavigationController {
     return nextPageUrl;
   }
 
-  public getNextUrl(caseData: Partial<CaseWithId> | undefined, currentPageUrl: PageLink | undefined): PageLink {
+  public getNextUrl(caseData: Partial<CaseWithId> | undefined, req: AppRequest | undefined): PageLink {
     let nextUrl;
+    const currentPageUrl = req?.originalUrl as PageLink;
 
-    if (!caseData || !currentPageUrl) {
-      return (nextUrl = '/error');
+    if (!caseData || !currentPageUrl || !req?.session.user) {
+      return (nextUrl = REASONABLE_ADJUSTMENTS_ERROR);
     }
 
+    const partyType = getCasePartyType(caseData, req.session.user.id);
     const isC100Journey = currentPageUrl.startsWith(C100_URL);
     const currentPageUrlParts = currentPageUrl.split('/');
     currentPageUrlParts.splice(1, 1).unshift('');
@@ -149,6 +157,14 @@ export class ReasonableAdjustementsNavigationController {
         nextUrl = applyParms(this.getNextPageUrl(currentPageUrl, currentPage, caseData), {
           root: isC100Journey ? RARootContext.C100_REBUILD : RARootContext.RESPONDENT,
         });
+        break;
+      }
+      case parseUrl(REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS).url: {
+        nextUrl = caseData?.ra_languageReqAndSpecialArrangements
+          ? applyParms(REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS_REVIEW, {
+              partyType,
+            })
+          : REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH;
         break;
       }
       default:

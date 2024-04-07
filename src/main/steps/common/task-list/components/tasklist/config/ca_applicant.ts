@@ -14,7 +14,7 @@ import {
   APPLICANT_YOURHEARINGS_HEARINGS,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
-  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE,
+  REASONABLE_ADJUSTMENTS_INTRO,
 } from '../../../../../../steps/urls';
 import { Task, TaskListConfigProps } from '../../../definitions';
 import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
@@ -53,7 +53,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       {
         id: Tasks.SUPPORT_YOU_NEED,
         href: () => {
-          return applyParms(REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
+          return applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
             partyType: PartyType.APPLICANT,
           });
         },

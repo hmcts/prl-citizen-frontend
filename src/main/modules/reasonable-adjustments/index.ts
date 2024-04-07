@@ -47,6 +47,65 @@ class ReasonableAdjustmentsProvider {
     this.navigationController = RANavigationController;
   }
 
+  private canProcessRequest(): boolean {
+    return !!(this.isEnabled && this.client);
+  }
+
+  private createAndSaveCorrelationId(req: AppRequest): Promise<void> {
+    return new Promise(resolve => {
+      (async () => {
+        await this.resetCorrelationId(req);
+        await this.createSession(req);
+        req.session.applicationSettings!.reasonableAdjustments.correlationId = uuid();
+        return req.session.save(resolve);
+      })();
+    });
+  }
+
+  private getCorrelationId(req: AppRequest): string | null {
+    return req.session?.applicationSettings?.reasonableAdjustments?.correlationId;
+  }
+
+  private resetCorrelationId(req: AppRequest): Promise<void> {
+    return new Promise(resolve => {
+      if (req.session?.applicationSettings?.reasonableAdjustments?.hasOwnProperty('correlationId')) {
+        req.session.applicationSettings.reasonableAdjustments.correlationId = null;
+        return req.session.save(resolve);
+      } else {
+        resolve();
+      }
+    });
+  }
+
+  private resetLanguagePrefData(req: AppRequest): Promise<void> {
+    return new Promise(resolve => {
+      if (req.session?.userCase?.ra_languageReqAndSpecialArrangements) {
+        delete req.session.userCase.ra_languageReqAndSpecialArrangements;
+        return req.session.save(resolve);
+      } else {
+        resolve();
+      }
+    });
+  }
+
+  private createSession(req: AppRequest): Promise<void> {
+    return new Promise(resolve => {
+      if (req.session?.applicationSettings?.reasonableAdjustments) {
+        resolve();
+      } else {
+        req.session.applicationSettings = {
+          ...req.session.applicationSettings,
+          reasonableAdjustments: {
+            correlationId: null,
+            urlBeforeRedirection: '',
+          },
+        };
+
+        return req.session.save(resolve);
+      }
+    });
+  }
+
   async enable(app: Application): Promise<void> {
     this.isEnabled = await this.isComponentEnabled();
     if (this.isEnabled) {
@@ -86,14 +145,10 @@ class ReasonableAdjustmentsProvider {
     const sequence = this.sequence.getSequence();
 
     if (!isEnabled) {
-      sequence.splice(-2);
+      sequence.splice(-5);
     }
 
     return sequence;
-  }
-
-  canProcessRequest(): boolean {
-    return !!(this.isEnabled && this.client);
   }
 
   async init(appRequest: AppRequest): Promise<void> {
@@ -126,10 +181,9 @@ class ReasonableAdjustmentsProvider {
     req: AppRequest,
     res: Response
   ): Promise<void> {
-    this.resetData();
-
     if (this.canProcessRequest()) {
       await this.createAndSaveCorrelationId(req);
+      await this.resetLanguagePrefData(req);
       //this.correlationId = uuid();
       try {
         const response = await this.service.getCommonComponentUrl(this.getCorrelationId(req)!, data, language);
@@ -154,50 +208,6 @@ class ReasonableAdjustmentsProvider {
     }
   }
 
-  createAndSaveCorrelationId(req: AppRequest): Promise<void> {
-    return new Promise(resolve => {
-      (async () => {
-        await this.resetCorrelationId(req);
-        await this.createSession(req);
-        req.session.applicationSettings!.reasonableAdjustments.correlationId = uuid();
-        return req.session.save(resolve);
-      })();
-    });
-  }
-
-  getCorrelationId(req: AppRequest): string | null {
-    return req.session?.applicationSettings?.reasonableAdjustments?.correlationId;
-  }
-
-  resetCorrelationId(req: AppRequest): Promise<void> {
-    return new Promise(resolve => {
-      if (req.session?.applicationSettings?.reasonableAdjustments?.hasOwnProperty('correlationId')) {
-        req.session.applicationSettings.reasonableAdjustments.correlationId = null;
-        return req.session.save(resolve);
-      } else {
-        resolve();
-      }
-    });
-  }
-
-  createSession(req: AppRequest): Promise<void> {
-    return new Promise(resolve => {
-      if (req.session?.applicationSettings?.reasonableAdjustments) {
-        resolve();
-      } else {
-        req.session.applicationSettings = {
-          ...req.session.applicationSettings,
-          reasonableAdjustments: {
-            correlationId: null,
-            urlBeforeRedirection: '',
-          },
-        };
-
-        return req.session.save(resolve);
-      }
-    });
-  }
-
   trySettlingRequest(req: AppRequest, correlationId: string, action: RAData['action']): Promise<any> {
     return new Promise((resolve, reject) => {
       const _correlationId = this.getCorrelationId(req);
@@ -205,11 +215,13 @@ class ReasonableAdjustmentsProvider {
 
       (async () => {
         await this.resetCorrelationId(req);
+        await this.resetLanguagePrefData(req);
+
         if (_correlationId === correlationId) {
           if (action === RACommonComponentUserAction.SUBMIT) {
             resolve(action);
           } else {
-            reject(new Error('RA - user cancelled operation'));
+            reject(new Error('user-cancelled'));
           }
         } else {
           const errorMsg = 'RA - cannot process data as correlationId does not match';
@@ -243,16 +255,21 @@ class ReasonableAdjustmentsProvider {
     }
   }
 
-  private resetData(): void {
+  resetData(req: AppRequest): Promise<void> {
     console.info('**** RA-resetData ****');
-    //this.correlationId = null;
+    return new Promise(resolve => {
+      delete req.session?.applicationSettings?.reasonableAdjustments;
+      delete req.session?.userCase?.ra_existingFlags;
+      delete req.session?.userCase?.ra_languageReqAndSpecialArrangements;
+      req.session.save(resolve);
+    });
   }
 
-  destroy(): void {
+  async destroy(req: AppRequest): Promise<void> {
     console.info('**** RA-destroy ****');
-    this.resetData();
     this.appBaseUrl = '';
     this.client = null;
+    await this.resetData(req);
   }
 }
 

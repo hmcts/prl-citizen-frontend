@@ -96,6 +96,16 @@ describe('RA > attending-court > content', () => {
     expect(isTextAreaValid).toHaveBeenCalledWith('test text area');
   });
 
+  test('should contain correct values when not c100 journey', () => {
+    additionalData!.req.originalUrl = 'applicant/reasonable-adjustments/attending-court';
+    generatedContent = generateContent({ ...commonContent, additionalData });
+    const typeOfHearingField = generatedContent.form.fields.ra_typeOfHearing as FormOptions;
+
+    expect(typeOfHearingField.values[0].value).toBe('videohearings');
+    expect(typeOfHearingField.values[1].value).toBe('phonehearings');
+    expect(typeOfHearingField.values[3].value).toBe('nohearings');
+  });
+
   test('should contain Save and continue button', () => {
     expect(
       (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
