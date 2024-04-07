@@ -19,11 +19,10 @@ export default class RARespondentPostController extends PostController<AnyObject
     try {
       const { user, userCase } = req.session;
       const partyDetails = getPartyDetails(userCase, user.id);
-      const client = new CosApiClient(user.accessToken, 'https://return-url');
+      const client = new CosApiClient(user.accessToken, req.locals.logger);
       if (partyDetails) {
         Object.assign(partyDetails.response, { supportYouNeed: RAProvider.utils.prepareRARespondentRequest(userCase) });
         req.session.userCase = await client.updateCaseData(
-          user,
           userCase.id,
           partyDetails,
           PartyType.RESPONDENT,
