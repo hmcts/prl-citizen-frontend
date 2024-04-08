@@ -2,7 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
 import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
-import { CaseDate, FieldPrefix } from './case';
+import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
 
 export interface ChildDetails {
   gender: string;
@@ -985,6 +985,7 @@ export interface CaseData {
   citizenDocuments?: CitizenDocuments[];
   citizenOrders?: Record<string, any>[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
+  finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -3073,6 +3074,10 @@ export enum PartyType {
   OTHER_CHILDREN = 'otherChildren',
   RESPONDENT = 'respondent',
   OTHER_PERSON = 'otherPerson',
+}
+
+export enum ServedParty {
+  CYMRU = 'Cafcass cymru',
 }
 
 export type People = {

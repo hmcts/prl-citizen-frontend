@@ -1,6 +1,8 @@
-import { CaseType, State, YesOrNo } from '../../../app/case/definition';
+import { CaseWithId } from '../../../app/case/case';
+import { CaseType, PartyType, State, YesOrNo } from '../../../app/case/definition';
+import { UserDetails } from '../../../app/controller/AppRequest';
 
-import { getCasePartyType } from './utils';
+import { getCasePartyType, getCurrentPartyId } from './utils';
 
 describe('testcase for partytype', () => {
   test('when party type c100-applicant', () => {
@@ -602,5 +604,133 @@ describe('testcase for partytype', () => {
     const idamId = '12345';
 
     expect(getCasePartyType(data, idamId)).toBe('applicant');
+  });
+
+  describe('getCurrentPartyId', () => {
+    test('should return correct partyId for CA respondent', () => {
+      const data = {
+        id: '123',
+        state: State.Submitted,
+        caseTypeOfApplication: CaseType.C100,
+        caseInvites: [
+          {
+            id: '123',
+            value: {
+              partyId: '123',
+              caseInviteEmail: '',
+              accessCode: '',
+              invitedUserId: '123',
+              expiryDate: '',
+            },
+          },
+        ],
+        respondents: [
+          {
+            id: '123',
+            value: {
+              user: {
+                email: 'abc',
+                idamId: '123',
+              },
+            },
+          },
+        ],
+      } as unknown as Partial<CaseWithId>;
+      const userDetails = { id: '123' } as UserDetails;
+
+      expect(getCurrentPartyId(data, userDetails, 'respondent' as PartyType)).toBe('123');
+    });
+
+    test('should return correct partyId for CA applicant', () => {
+      const data = {
+        id: '123',
+        state: State.Submitted,
+        caseTypeOfApplication: CaseType.C100,
+        caseInvites: [
+          {
+            id: '123',
+            value: {
+              partyId: '123',
+              caseInviteEmail: '',
+              accessCode: '',
+              invitedUserId: '123',
+              expiryDate: '',
+            },
+          },
+        ],
+        applicants: [
+          {
+            id: '123',
+            value: {
+              user: {
+                email: 'abc',
+                idamId: '123',
+              },
+            },
+          },
+        ],
+      } as unknown as Partial<CaseWithId>;
+      const userDetails = { id: '123' } as UserDetails;
+
+      expect(getCurrentPartyId(data, userDetails, 'applicant' as PartyType)).toBe('123');
+    });
+
+    test('should return correct partyId for DA respondent', () => {
+      const data = {
+        id: '123',
+        state: State.Submitted,
+        caseTypeOfApplication: CaseType.FL401,
+        caseInvites: [
+          {
+            id: '123',
+            value: {
+              partyId: '123',
+              caseInviteEmail: '',
+              accessCode: '',
+              invitedUserId: '123',
+              expiryDate: '',
+            },
+          },
+        ],
+        respondentsFL401: {
+          user: {
+            email: 'abc',
+            idamId: '123',
+          },
+        },
+      } as unknown as Partial<CaseWithId>;
+      const userDetails = { id: '123' } as UserDetails;
+
+      expect(getCurrentPartyId(data, userDetails, 'respondent' as PartyType)).toBe('123');
+    });
+
+    test('should return correct partyId for DA applicant', () => {
+      const data = {
+        id: '123',
+        state: State.Submitted,
+        caseTypeOfApplication: CaseType.FL401,
+        caseInvites: [
+          {
+            id: '123',
+            value: {
+              partyId: '123',
+              caseInviteEmail: '',
+              accessCode: '',
+              invitedUserId: '123',
+              expiryDate: '',
+            },
+          },
+        ],
+        applicantsFL401: {
+          user: {
+            email: 'abc',
+            idamId: '123',
+          },
+        },
+      } as unknown as Partial<CaseWithId>;
+      const userDetails = { id: '123' } as UserDetails;
+
+      expect(getCurrentPartyId(data, userDetails, 'applicant' as PartyType)).toBe('123');
+    });
   });
 });

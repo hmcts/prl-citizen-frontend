@@ -1,5 +1,6 @@
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
+import { CaseInvite, CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
+import { CitizenApplicationPacks } from '../../../documents/definitions';
 
 import { getNotificationBannerConfig } from '.';
 
@@ -638,6 +639,120 @@ describe('testcase for notification Banner', () => {
                   text: 'View the order (PDF)',
                 },
               ],
+            },
+          ],
+          title: 'Important',
+        },
+      ]);
+    });
+
+    test('correct banners should be added when respondent has been served', () => {
+      data.respondents = [
+        {
+          id: '123',
+          value: {
+            user: {
+              email: 'abc',
+              idamId: '123',
+            },
+            response: {
+              citizenFlags: {},
+            },
+          },
+        } as unknown as Respondent,
+      ];
+      data.state = State.Draft;
+      data.orderCollection = [
+        {
+          id: '1234',
+          value: {
+            dateCreated: 'MOCK_DATE',
+            orderType: 'ORDER',
+            orderDocument: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+            orderDocumentWelsh: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+            otherDetails: {
+              createdBy: '1234',
+              orderCreatedDate: 'MOCK_DATE',
+              orderMadeDate: 'MOCK_DATE',
+              orderRecipients: 'RECIPIENTS',
+            },
+          },
+        },
+      ];
+      data.caseInvites = [
+        {
+          id: '123',
+          value: {
+            partyId: '123',
+            caseInviteEmail: '',
+            accessCode: '',
+            invitedUserId: '123',
+            expiryDate: '',
+          },
+        },
+      ] as unknown as CaseInvite[];
+      data.caseTypeOfApplication = 'C100';
+      data.citizenApplicationPacks = [{ partyId: '123' } as unknown as CitizenApplicationPacks];
+      expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
+        {
+          heading: 'You have a new order from the court',
+          id: 'newOrder',
+
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+                },
+              ],
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/yourdocuments/alldocuments/orders',
+                  text: 'View the order (PDF)',
+                },
+              ],
+            },
+          ],
+          title: 'Important',
+        },
+        {
+          heading: 'Respond to an application about a child',
+          id: 'caRespondentServed',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'Another person (the applicant) has applied to the court to make a decision about a child.',
+                },
+                {
+                  text: 'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
+                },
+              ],
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/yourdocuments/alldocuments/alldocuments',
+                  text: 'View the application pack',
+                },
+                {
+                  external: false,
+                  href: '/tasklistresponse/start/flag/updateFlag',
+                  text: 'Respond to the application',
+                },
+              ],
+            },
+            {
+              contents: [],
+              links: [],
             },
           ],
           title: 'Important',
