@@ -3,7 +3,7 @@ import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 
 import { routeGuard } from './routeGuard';
 
-describe('upload document routeGuard', () => {
+describe('documents > upload > routeGuard', () => {
   test('should clear session data', async () => {
     const req = mockRequest({
       userCase: {

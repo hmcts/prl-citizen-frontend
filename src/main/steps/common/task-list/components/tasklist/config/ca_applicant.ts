@@ -37,19 +37,16 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       {
         id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`,
-        disabled: isCaseClosed,
         stateTag: () => StateTags.SUBMITTED,
       },
       {
         id: Tasks.CONTACT_PREFERENCES,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/${caseData.id}`,
-        disabled: isCaseClosed,
         stateTag: () => StateTags.SUBMITTED,
       },
       {
         id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`,
-        disabled: isCaseClosed,
         stateTag: () => StateTags.SUBMITTED,
       },
       {
@@ -57,7 +54,6 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         href: () => {
           return `${APPLICANT_TASKLIST_HEARING_NEEDS}`;
         },
-        disabled: isCaseClosed,
         stateTag: () => StateTags.SUBMITTED,
       },
     ],
@@ -99,23 +95,21 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-          return (
-            isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
-          );
+          return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
         },
-        disabled: isCaseClosed,
         stateTag: () => StateTags.OPTIONAL,
       },
       {
         id: Tasks.VIEW_ALL_DOCUMENTS,
         href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
         stateTag: () => StateTags.READY_TO_VIEW,
-        show: isCaseLinked,
       },
       {
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.APPLICANT }),
-        disabled: isCaseClosed,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+          return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+        },
         stateTag: () => StateTags.OPTIONAL,
       },
       {

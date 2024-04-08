@@ -1,8 +1,8 @@
-import { CommonContent } from '../../common.content';
+import { CommonContent } from '../../../common.content';
 
 import { generateContent } from './content';
 
-describe('documents > view > content', () => {
+describe('documents > view > application-pack-documents > content', () => {
   test('generateContent should get correct documents', () => {
     const content = generateContent({
       language: 'en',
@@ -49,7 +49,7 @@ describe('documents > view > content', () => {
           createdDate: '01 Jan 2024',
           documentId: 'MOCK_DOCUMENT_URL',
           documentName: 'MOCK_FILENAME',
-          documentDownloadUrl: '#',
+          downloadLink: '/yourdocuments/alldocuments/downloadCitizenDocument/MOCK_DOCUMENT_URL',
           uploadedBy: 'test user',
         },
       },

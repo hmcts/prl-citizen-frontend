@@ -41,7 +41,7 @@ const cy: typeof en = {
   },
 };
 
-describe('applicant -> upload-document -> sharing-your-documents', () => {
+describe('documents > upload > sharing-your-documents > content', () => {
   let generatedContent;
   let form;
   let fields;

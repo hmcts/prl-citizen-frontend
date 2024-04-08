@@ -101,7 +101,7 @@ const cyContent = {
   },
 };
 
-describe('task-list > content', () => {
+describe('documents > upload > content', () => {
   const commonContent = {
     language: 'en',
     userCase: mockUserCase,

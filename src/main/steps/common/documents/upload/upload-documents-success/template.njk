@@ -37,14 +37,12 @@
   {% endif %}
 
   <div class="govuk-button-group">
-    <form action="/document-manager/redirectToCaseView?_csrf={{ csrfToken }}" method="post" novalidate="">
-      <button class="govuk-button" data-module="govuk-button" value="Continue">
+    <form action="?_csrf={{ csrfToken }}" method="post" novalidate>
+      <button class="govuk-button" type="submit" value="true" name="returnToCaseView" data-module="govuk-button" value="Continue">
         {{ continue }}
       </button>
-    </form>
-    <form action="/document-manager/redirectToUploadDocument?_csrf={{ csrfToken }}" method="post">
       <input type="hidden" name="answers-checked" value="true">
-      <button class="govuk-button govuk-button--secondary" data-module="govuk-button">{{ uploadAgain }}</button>
+      <button class="govuk-button govuk-button--secondary" type="submit" value="true" name="returnToUploadDoc" data-module="govuk-button">{{ uploadAgain }}</button>
     </form>
   </div>
 {% endblock %}

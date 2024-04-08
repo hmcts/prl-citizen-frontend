@@ -11,7 +11,7 @@
         <span class="govuk-caption-l">{{caption}}</span>
         {{title}}
       </h1>
-      {% if allowFreeTextForStatements %}
+      {% if allowGenerateDocs %}
         <form
         action="?docCategory={{ docCategory }}&_csrf={{ csrfToken }}"
         method="post"

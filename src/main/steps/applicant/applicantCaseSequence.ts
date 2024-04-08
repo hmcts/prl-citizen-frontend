@@ -94,6 +94,7 @@ import {
   UPLOAD_DOCUMENT_SUCCESS,
   UPLOAD_DOCUMENT,
   FETCH_CASE_DETAILS,
+  VIEW_APPLICATION_PACK_DOCUMENTS,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -717,6 +718,12 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: VIEW_ALL_DOCUMENT_TYPES,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_APPLICATION_PACK_DOCUMENTS,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
     getNextStep: () => '/',

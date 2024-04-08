@@ -5,7 +5,7 @@ import { CommonContent, generatePageContent } from '../../../../common/common.co
 import { generateContent } from './content';
 
 /* eslint-disable @typescript-eslint/ban-types */
-describe('applicant -> upload-document -> document-sharing-details', () => {
+describe('documents > upload > document-sharing-details > content', () => {
   const commonContent = {
     language: 'en',
     additionalData: {

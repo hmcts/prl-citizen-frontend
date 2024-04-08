@@ -9,13 +9,12 @@ import { PartyType, YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
-import { removeUploadDocErrors } from '../../../../../steps/common/upload-document/util';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../../steps/prl-cases/dashboard/utils';
 import { UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS } from '../../../../../steps/urls';
 import { getPartyName } from '../../../task-list/utils';
 import { UploadDocumentAPICategory, UploadDocumentCategory } from '../../definitions';
-import { getUploadedFilesDataReference, handleError } from '../../util';
+import { getUploadedFilesDataReference, handleError, removeUploadDocErrors } from '../../upload/utils';
 
 @autobind
 export default class UploadDocumentPostController extends PostController<AnyObject> {

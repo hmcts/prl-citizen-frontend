@@ -6,7 +6,8 @@ import { getPartyName } from '../../task-list/utils';
 import { applyParms } from '../../url-parser';
 import { cy, en } from '../common/content';
 import { DocumentLabelCategory } from '../definitions';
-import { getDocumentConfig } from '../util';
+
+import { getDocumentConfig } from './utils';
 
 const languages = {
   en: { ...en },

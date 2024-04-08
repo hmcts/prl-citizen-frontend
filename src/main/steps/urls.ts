@@ -245,6 +245,7 @@ const DOCUMENTS = '/:partyType/documents';
 /** View all documents */
 export const VIEW_ALL_DOCUMENT_TYPES: PageLink = `${DOCUMENTS}/view/all-documents`;
 export const VIEW_DOCUMENTS: PageLink = `${DOCUMENTS}/view/:documentCategory/:documentPartyType/:documentPartyId?`;
+export const VIEW_APPLICATION_PACK_DOCUMENTS: PageLink = `${DOCUMENTS}/view/application-pack-documents/:context?`;
 
 /* Upload documents */
 export const UPLOAD_DOCUMENT: PageLink = `${DOCUMENTS}/upload`;

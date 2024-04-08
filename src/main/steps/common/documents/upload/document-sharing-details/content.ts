@@ -1,9 +1,10 @@
+import { PartyType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { interpolate } from '../../../../../steps/common/string-parser';
 import { applyParms } from '../../../../../steps/common/url-parser';
-import { APPLICANT_CHECK_ANSWERS, FETCH_CASE_DETAILS } from '../../../../../steps/urls';
-import { getUploadDocumentCategoryDetails } from '../../util';
+import { APPLICANT_CHECK_ANSWERS, FETCH_CASE_DETAILS, RESPONDENT_CHECK_ANSWERS } from '../../../../../steps/urls';
+import { getUploadDocumentCategoryDetails } from '../../upload/utils';
 
 const en = {
   cardTitle: 'Before you submit a document',
@@ -41,7 +42,7 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const userCase = content.additionalData?.req.session.userCase;
   const translations = languages[content.language];
-  const { docCategory } = content.additionalData!.req.params;
+  const { docCategory, partyType } = content.additionalData!.req.params;
   const { sectionTitle, categoryLabel } = getUploadDocumentCategoryDetails(content.language, docCategory);
 
   Object.assign(form.link!, {
@@ -50,7 +51,9 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    bodyContent: interpolate(translations.bodyContent, { editContactDetailsUrl: APPLICANT_CHECK_ANSWERS }),
+    bodyContent: interpolate(translations.bodyContent, {
+      editContactDetailsUrl: partyType === PartyType.APPLICANT ? APPLICANT_CHECK_ANSWERS : RESPONDENT_CHECK_ANSWERS,
+    }),
     form,
     caption: sectionTitle,
     title: categoryLabel,

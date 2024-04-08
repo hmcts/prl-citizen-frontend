@@ -29,12 +29,15 @@ export const en = {
   viewDocuments: {
     title: 'All documents',
     documentSectionTitles: {
+      applicationPacks: 'Application packs',
       ordersFromTheCourt: 'Orders from the court',
       applicantsDocuments: "Applicant's documents",
       respondentsDocuments: "Respondent's documents",
       attendingTheHearing: 'Attending the hearing',
     },
     documentCategoryLabels: {
+      packServed: 'Your served application pack',
+      packToBeServed: 'Application pack to be served on the respondent',
       positionStatements: "{partyName}'s position statements",
       witnessStatements: "{partyName}'s witness statements",
       otherPeopleWitnessStatements: "Other people's witness statements",
@@ -78,12 +81,15 @@ export const cy: typeof en = {
   viewDocuments: {
     title: 'Pob dogfen',
     documentSectionTitles: {
+      applicationPacks: 'Application packs - welsh',
       ordersFromTheCourt: 'Gorchmynion gan y llys',
       applicantsDocuments: 'Dogfennau’r Ceisydd',
       respondentsDocuments: "Dogfennau'r Atebydd",
       attendingTheHearing: 'Mynychu’r gwrandawiad',
     },
     documentCategoryLabels: {
+      packServed: 'Your served application pack - welsh',
+      packToBeServed: 'Application pack to be served on the respondent - welsh',
       positionStatements: 'Datganiadau safbwynt {partyName}',
       witnessStatements: 'Datganiadau tyst {partyName}',
       otherPeopleWitnessStatements: 'Datganiadau tyst pobl eraill',

@@ -7,7 +7,7 @@ import { routeGuard } from './routeGuard';
 const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
 const retrieveCaseHearingsByCaseIddMock = jest.spyOn(CosApiClient.prototype, 'retrieveCaseHearingsByCaseId');
 
-describe('common > documents > view > all-documents > routeGuard', () => {
+describe('documents > view > all-documents > routeGuard', () => {
   test('should fetch and save data and call next', async () => {
     const req = mockRequest({
       session: {

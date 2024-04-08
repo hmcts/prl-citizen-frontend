@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 
 import { AppRequest } from '../../../../../app/controller/AppRequest';
-import { deleteDocument } from '../../util';
+import { deleteDocument } from '../../upload/utils';
 
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

@@ -6,7 +6,7 @@ import { routeGuard } from './routeGuard';
 
 const deleteCitizenStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteCitizenStatementDocument');
 
-describe('common > documents > upload > upload-your-documents > routeGuard', () => {
+describe('documents > upload > upload-your-documents > routeGuard', () => {
   test('should delete document when documentId present as query param', async () => {
     const req = mockRequest({
       session: {

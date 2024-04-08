@@ -1,17 +1,8 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CosApiClient } from '../../../app/case/CosApiClient';
-import { CaseWithId } from '../../../app/case/case';
-import { PartyType, State } from '../../../app/case/definition';
+import { CaseWithId } from '../../../../app/case/case';
+import { PartyType, State } from '../../../../app/case/definition';
+import { DocumentCategory, DocumentLabelCategory, DocumentSectionId } from '../definitions';
 
-import { DocumentCategory, DocumentLabelCategory, DocumentSectionId } from './definitions';
-import {
-  deleteDocument,
-  getDocuments,
-  getViewDocumentCategoryList,
-  hasAnyDocumentForPartyType,
-  isOrdersFromTheCourtPresent,
-} from './util';
+import { getDocuments, getViewDocumentCategoryList, hasAnyDocumentForPartyType, hasOrders } from './utils';
 
 const documentCategoryLabels = {
   positionStatements: "{partyName}'s position statements",
@@ -24,13 +15,11 @@ const documentCategoryLabels = {
   policeReports: 'Police reports',
 } as Record<Partial<DocumentLabelCategory>, string>;
 
-const deleteCitizenStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteCitizenStatementDocument');
-
-describe('common > documents > util', () => {
-  describe('isOrdersFromTheCourtPresent', () => {
+describe('documents > view > utils', () => {
+  describe('hasOrders', () => {
     test('should return true if citizenOrders present', () => {
       expect(
-        isOrdersFromTheCourtPresent({
+        hasOrders({
           citizenOrders: [
             {
               partyId: '1234',
@@ -57,7 +46,7 @@ describe('common > documents > util', () => {
     });
 
     test('should return false if citizenOrders not present', () => {
-      expect(isOrdersFromTheCourtPresent({} as CaseWithId)).toBe(false);
+      expect(hasOrders({} as CaseWithId)).toBe(false);
     });
   });
 
@@ -206,7 +195,7 @@ describe('common > documents > util', () => {
             createdDate: '01 Jan 2024',
             documentId: 'MOCK_DOCUMENT_URL',
             documentName: 'MOCK_FILENAME',
-            downloadLink: '/yourdocuments/alldocuments/downloadCitizenDocument/MOCK_DOCUMENT_URL',
+            documentDownloadUrl: '#',
             uploadedBy: 'test user',
           },
         },
@@ -261,7 +250,7 @@ describe('common > documents > util', () => {
             createdDate: '01 Jan 2024',
             documentId: 'MOCK_DOCUMENT_URL',
             documentName: 'MOCK_FILENAME',
-            downloadLink: '/yourdocuments/alldocuments/downloadCitizenDocument/MOCK_DOCUMENT_URL',
+            documentDownloadUrl: '#',
             uploadedBy: 'test user',
           },
         },
@@ -324,14 +313,14 @@ describe('common > documents > util', () => {
             createdDate: '01 Jan 2024',
             documentId: 'MOCK_DOCUMENT_URL',
             documentName: 'MOCK_FILENAME',
-            downloadLink: '/yourdocuments/alldocuments/downloadCitizenDocument/MOCK_DOCUMENT_URL',
+            documentDownloadUrl: '#',
             uploadedBy: 'test user',
           },
           document_en: {
             createdDate: '01 Jan 2024',
             documentId: 'MOCK_DOCUMENT_URL',
             documentName: 'MOCK_FILENAME',
-            downloadLink: '/yourdocuments/alldocuments/downloadCitizenDocument/MOCK_DOCUMENT_URL',
+            documentDownloadUrl: '#',
             uploadedBy: 'test user',
           },
         },
@@ -623,82 +612,6 @@ describe('common > documents > util', () => {
             url: '/respondent/documents/view/medicalReports/respondent',
           },
         },
-      ]);
-    });
-  });
-
-  describe('deleteDocuments', () => {
-    test('should remove document from upload files list', async () => {
-      const req = mockRequest({
-        session: {
-          user: { id: '1234' },
-          userCase: {
-            id: '1234',
-            caseType: 'FL401',
-            applicantsFL401: {
-              firstName: 'test',
-              lastName: 'user',
-            },
-            applicantUploadFiles: [
-              {
-                document_url:
-                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
-                document_binary_url: 'string',
-                document_filename: 'string',
-                document_hash: 'string',
-                document_creation_date: 'string',
-                name: 'file_example_TIFF_1MB',
-              },
-            ],
-          },
-        },
-        query: {
-          documentId: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
-        },
-      });
-      const res = mockResponse();
-      deleteCitizenStatementDocumentMock.mockResolvedValue('SUCCESS');
-
-      await deleteDocument(req, res);
-      await new Promise(process.nextTick);
-      expect(req.session.userCase.applicantUploadFiles).toStrictEqual(undefined);
-    });
-
-    test('should add error to session when deleteCitizenStatementDocument fails', async () => {
-      const req = mockRequest({
-        session: {
-          user: { id: '1234' },
-          userCase: {
-            id: '1234',
-            caseType: 'FL401',
-            applicantsFL401: {
-              firstName: 'test',
-              lastName: 'user',
-            },
-            applicantUploadFiles: [
-              {
-                document_url:
-                  'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
-                document_binary_url: 'string',
-                document_filename: 'string',
-                document_hash: 'string',
-                document_creation_date: 'string',
-                name: 'file_example_TIFF_1MB',
-              },
-            ],
-          },
-        },
-        query: {
-          documentId: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
-        },
-      });
-      const res = mockResponse();
-      deleteCitizenStatementDocumentMock.mockRejectedValue('500');
-
-      await deleteDocument(req, res);
-      await new Promise(process.nextTick);
-      expect(req.session.errors).toStrictEqual([
-        { errorType: 'donwloadError', propertyName: 'uploadDocumentFileUpload' },
       ]);
     });
   });

@@ -1,35 +1,34 @@
 import dayjs from 'dayjs';
-import { Response } from 'express';
 import _ from 'lodash';
 
-import { CosApiClient } from '../../../app/case/CosApiClient';
-import { CaseWithId } from '../../../app/case/case';
-import { PartyType } from '../../../app/case/definition';
-import { AppRequest } from '../../../app/controller/AppRequest';
-import { FormError } from '../../../app/form/Form';
-import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
-import { CITIZEN_DOWNLOAD_UPLOADED_DOCS, UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, VIEW_DOCUMENTS } from '../../urls';
-import { interpolate } from '../string-parser';
-import { applyParms } from '../url-parser';
-
-import { cy, en } from './common/content';
-import { uploadDocumentSections, viewDocumentsCategoryListConfig } from './config';
+import { CaseWithId } from '../../../../app/case/case';
+import { PartyType } from '../../../../app/case/definition';
+import { CITIZEN_DOWNLOAD_UPLOADED_DOCS, VIEW_APPLICATION_PACK_DOCUMENTS, VIEW_DOCUMENTS } from '../../../urls';
+import { interpolate } from '../../string-parser';
+import { applyParms } from '../../url-parser';
 import {
+  ApplicationPackDocumentDetails,
+  ApplicationPackDocumentMeta,
   CitizenDocuments,
   Document,
   DocumentCategory,
   DocumentLabelCategory,
   DocumentSectionId,
   DocumentTypes,
-  UploadDocumentCategory,
   UploadDocumentSectionId,
   ViewDocumentDetails,
   ViewDocumentsCategoryListProps,
   ViewDocumentsSectionId,
-} from './definitions';
+} from '../definitions';
 
-export const isOrdersFromTheCourtPresent = (caseData: CaseWithId): boolean =>
-  !!(caseData && caseData?.citizenOrders?.length);
+import { viewDocumentsCategoryListConfig } from './config';
+
+/** View documents related utilty */
+
+export const hasOrders = (caseData: CaseWithId): boolean => !!(caseData && caseData?.citizenOrders?.length);
+
+export const hasApplicationPacks = (caseData: CaseWithId): boolean =>
+  !!(caseData && caseData?.citizenApplicationPacks?.length);
 
 export const hasAnyDocumentForPartyType = (partyType: PartyType, caseData: CaseWithId): boolean =>
   !!(caseData && caseData?.citizenDocuments?.length
@@ -135,6 +134,83 @@ const getViewDocumentCategoryDetails = (
   link: getViewDocumentLinkMeta(document, documentCategoryLabels, loggedInUserPartyType),
 });
 
+export const getApplicationPacksCategoryList = (
+  caseData: CaseWithId,
+  documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+  loggedInUserPartyType: PartyType
+): ApplicationPackDocumentDetails[] => {
+  const packs = _.first(caseData.citizenApplicationPacks);
+  const applicationPacksSectionList: ApplicationPackDocumentDetails[] = [];
+
+  if (!packs) {
+    return applicationPacksSectionList;
+  }
+
+  if (
+    (packs.hasOwnProperty('applicantSoaPack') && packs.applicantSoaPack?.length) ||
+    (packs.hasOwnProperty('respondentSoaPack') && packs.respondentSoaPack?.length)
+  ) {
+    applicationPacksSectionList.push({
+      link: {
+        text: getDocumentCategoryLabel(DocumentLabelCategory.YOUR_APPLICATION_PACK, documentCategoryLabels),
+        url: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: loggedInUserPartyType }),
+      },
+    });
+  }
+
+  if (
+    loggedInUserPartyType === PartyType.APPLICANT &&
+    packs.hasOwnProperty('respondentSoaPack') &&
+    packs.respondentSoaPack?.length
+  ) {
+    applicationPacksSectionList.push({
+      link: {
+        text: getDocumentCategoryLabel(DocumentLabelCategory.APPLICATION_PACK_TO_BE_SERVED, documentCategoryLabels),
+        url: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
+          partyType: loggedInUserPartyType,
+          context: 'to-be-served',
+        }),
+      },
+    });
+  }
+
+  return applicationPacksSectionList;
+};
+
+export const getApplicationPackDocuments = (
+  caseData: CaseWithId,
+  loggedInUserPartyType: PartyType,
+  context: string
+): ApplicationPackDocumentMeta[] => {
+  const packs = _.first(caseData.citizenApplicationPacks);
+  const applicationPacksDocuments: ApplicationPackDocumentMeta[] = [];
+
+  if (packs) {
+    let packDocuments;
+
+    if (context === 'to-be-served' && loggedInUserPartyType === PartyType.APPLICANT && packs.respondentSoaPack) {
+      packDocuments = packs.respondentSoaPack;
+    } else {
+      packDocuments = loggedInUserPartyType === PartyType.APPLICANT ? packs.applicantSoaPack : packs.respondentSoaPack;
+    }
+
+    if (packDocuments) {
+      packDocuments.forEach(document => {
+        const documentId = document.document_url.substring(document.document_url.lastIndexOf('/') + 1);
+
+        applicationPacksDocuments.push({
+          documentId,
+          documentName: document.document_filename,
+          servedDate: dayjs(document.uploadedDate).format('DD MMM YYYY'),
+          documentDownloadUrl: '#',
+        });
+      });
+    }
+  }
+
+  return applicationPacksDocuments;
+};
+
 export const getViewDocumentCategoryList = (
   documentSectionId: ViewDocumentsSectionId | UploadDocumentSectionId,
   caseData: CaseWithId,
@@ -213,7 +289,7 @@ export const getDocuments = (
           documentName: doc.document.document_filename,
           createdDate: dayjs(doc.document.document_creation_date).format('DD MMM YYYY'),
           uploadedBy: doc.uploadedBy,
-          downloadLink: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${documentId}`,
+          documentDownloadUrl: '#',
         },
       };
 
@@ -225,7 +301,7 @@ export const getDocuments = (
             documentName: doc.documentWelsh.document_filename,
             createdDate: dayjs(doc.documentWelsh.document_creation_date).format('DD MMM YYYY'),
             uploadedBy: doc.uploadedBy,
-            downloadLink: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${documentId}`,
+            documentDownloadUrl: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${documentId}`,
           },
         });
       }
@@ -239,89 +315,3 @@ export const getDocuments = (
 
 export const getDocumentConfig = (documentCategory: DocumentCategory): ViewDocumentsCategoryListProps | undefined =>
   viewDocumentsCategoryListConfig.find(section => section.categoryId === documentCategory);
-
-export const getUploadDocumentCategoryDetails = (
-  language: string,
-  categoryId: UploadDocumentCategory
-): { sectionTitle: string; categoryLabel: string } => {
-  const isEn = language === 'en';
-  const config = uploadDocumentSections.find(section =>
-    section.documentCategoryList.find(category => category.categoryId === categoryId)
-  );
-  const documentSectionTitles = (isEn ? en : cy).uploadDocuments.documentSectionTitles as Record<
-    DocumentSectionId,
-    string
-  >;
-  const documentCategoryLabels = (isEn ? en : cy).uploadDocuments.documentCategoryLabels as Record<
-    Partial<DocumentLabelCategory>,
-    string
-  >;
-
-  return {
-    sectionTitle: config ? config.sectionTitle(documentSectionTitles) : '',
-    categoryLabel: config
-      ? config.documentCategoryList
-          .find(category => category.categoryId === categoryId)
-          ?.documentCategoryLabel(documentCategoryLabels) ?? ''
-      : '',
-  };
-};
-
-/** Upload documents related utilty */
-
-export const deleteDocument = async (req: AppRequest, res: Response): Promise<void> => {
-  const { query, session } = req;
-  const { user: userDetails, userCase: caseData } = session;
-  const partyType = getCasePartyType(caseData, userDetails.id);
-  const client = new CosApiClient(userDetails.accessToken, '/');
-  const uploadedFilesDataReference = getUploadedFilesDataReference(partyType);
-
-  try {
-    await client.deleteCitizenStatementDocument(query.documentId as string, userDetails);
-
-    if (req.session.userCase && req.session.userCase.hasOwnProperty(uploadedFilesDataReference)) {
-      req.session.userCase[uploadedFilesDataReference] = caseData?.[uploadedFilesDataReference]?.filter(
-        document => query.documentId !== document.document_url.substring(document.document_url.lastIndexOf('/') + 1)
-      );
-
-      if (req.session.userCase?.[uploadedFilesDataReference]?.length === 0) {
-        delete req.session.userCase[uploadedFilesDataReference];
-      }
-    }
-
-    req.session.errors = removeUploadDocErrors(req.session.errors);
-  } catch (e) {
-    req.session.errors = handleError(req.session.errors, 'donwloadError', true);
-  } finally {
-    req.session.save(() => {
-      res.redirect(
-        applyParms(UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, {
-          partyType,
-          docCategory: req.params.docCategory,
-        })
-      );
-    });
-  }
-};
-
-export const getUploadedFilesDataReference = (partyType: PartyType): string => {
-  return partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles';
-};
-
-export const removeUploadDocErrors = (errors: FormError[] | undefined): FormError[] => {
-  return errors?.length ? errors.filter(error => error.propertyName !== 'uploadDocumentFileUpload') : [];
-};
-
-export const handleError = (
-  errors: FormError[] | undefined,
-  errorType: string,
-  omitOtherErrors?: boolean
-): FormError[] => {
-  let _errors: FormError[] = errors?.length ? errors : [];
-
-  if (omitOtherErrors) {
-    _errors = [...removeUploadDocErrors(_errors)];
-  }
-
-  return [..._errors, { errorType, propertyName: 'uploadDocumentFileUpload' }];
-};

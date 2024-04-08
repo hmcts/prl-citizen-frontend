@@ -5,7 +5,7 @@ import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../../../steps/urls';
 import { UploadDocumentCategory } from '../../definitions';
-import { getUploadDocumentCategoryDetails } from '../../util';
+import { getUploadDocumentCategoryDetails } from '../../upload/utils';
 export * from './routeGuard';
 
 const en = {
@@ -155,10 +155,9 @@ export const generateContent: TranslationFn = content => {
         ...file,
       })) ?? [],
     docCategory,
-    allowFreeTextForStatements: [
-      UploadDocumentCategory.POSITION_STATEMENTS,
-      UploadDocumentCategory.WITNESS_STATEMENTS,
-    ].includes(docCategory),
+    allowGenerateDocs: [UploadDocumentCategory.POSITION_STATEMENTS, UploadDocumentCategory.WITNESS_STATEMENTS].includes(
+      docCategory
+    ),
     errorMessage:
       translations.errors.uploadDocumentFileUpload?.[
         request.session?.errors?.find(

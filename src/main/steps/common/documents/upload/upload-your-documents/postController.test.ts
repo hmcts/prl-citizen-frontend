@@ -9,7 +9,7 @@ const generateStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'genera
 const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'uploadStatementDocument');
 const submitUploadedDocumentsMock = jest.spyOn(CosApiClient.prototype, 'submitUploadedDocuments');
 
-describe('common > documents > upload > upload-your-documents > postController', () => {
+describe('documents > upload > upload-your-documents > postController', () => {
   describe('generateDocument', () => {
     test('should generate document', async () => {
       const req = mockRequest({

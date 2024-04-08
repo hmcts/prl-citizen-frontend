@@ -2,7 +2,7 @@ import { CommonContent } from '../../../common.content';
 
 import { generateContent } from './content';
 
-describe('common > documents > all-documents > content', () => {
+describe('documents > view > all-documents > content', () => {
   test('generateContent should get correct document sections', () => {
     expect(
       generateContent({

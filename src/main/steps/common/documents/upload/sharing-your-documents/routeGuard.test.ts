@@ -3,7 +3,7 @@ import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
 
 import { routeGuard } from './routeGuard';
 
-describe('sharing-the-documents routeGuard', () => {
+describe('documents > upload > sharing-the-documents > routeGuard', () => {
   const userCase = {
     id: '1234',
     haveReasonForDocNotToBeShared: 'No',

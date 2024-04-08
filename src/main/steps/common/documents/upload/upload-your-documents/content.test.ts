@@ -86,7 +86,7 @@ const cy: typeof en = {
 
 jest.mock('../../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
-describe('respondent -> upload-document -> upload-your-documents', () => {
+describe('documents > upload > upload-your-documents > content', () => {
   const commonContent = {
     language: 'en',
     additionalData: {

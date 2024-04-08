@@ -20,21 +20,6 @@ import {
 export class TasklistGetController {
   constructor(protected readonly context: EventRoutesContext) {}
   public async get(req: AppRequest, res: Response): Promise<void> {
-    /*try {
-      const citizenUser = req.session.user;
-      const caseId = req.params?.caseId;
-      const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
-
-      req.session.userCase = await client.retrieveByCaseId(caseId, citizenUser);
-      const partyType = getCasePartyType(req.session.userCase, citizenUser.id);
-
-      mapDataInSession(req.session.userCase, citizenUser.id);
-
-      req.session.save(() => res.redirect(this.getRedirectUrl(partyType)));
-    } catch (err) {
-      throw new Error('Case Data could not be retrieved.');
-    }*/
-
     try {
       await new CaseDataController().fetchAndSaveData(req);
       res.redirect(this.getRedirectUrl());

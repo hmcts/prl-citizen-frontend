@@ -4,7 +4,7 @@ import { FormContent } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../../urls';
-import { getUploadDocumentCategoryDetails } from '../../util';
+import { getUploadDocumentCategoryDetails } from '../../upload/utils';
 
 export * from './routeGuard';
 

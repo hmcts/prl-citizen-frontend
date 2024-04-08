@@ -45,7 +45,7 @@ const cy: typeof en = {
   },
 };
 
-describe('applicant -> upload-document -> other-party-not-see-this-document', () => {
+describe('documents > upload > other-party-not-see-this-document > content', () => {
   let generatedContent;
   let form;
   let fields;

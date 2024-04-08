@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
-import { CitizenDocuments } from '../../steps/common/documents/definitions';
+import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
 import { CaseDate, FieldPrefix } from './case';
 
 export interface ChildDetails {
@@ -984,6 +984,7 @@ export interface CaseData {
   soaCafcassCymruServedOptions? : YesOrNo | null;
   citizenDocuments?: CitizenDocuments[];
   citizenOrders?: Record<string, any>[];
+  citizenApplicationPacks?: CitizenApplicationPacks[];
 }
 
 export const enum SelectTypeOfOrderEnum {

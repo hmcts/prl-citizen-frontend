@@ -2,6 +2,7 @@ import { CaseWithId } from '../../../app/case/case';
 import { PartyType } from '../../../app/case/definition';
 
 export const enum ViewDocumentsSectionId {
+  APPLICATION_PACKS = 'applicationPacks',
   ORDERS_FROM_THE_COURT = 'ordersFromTheCourt',
   APPLICANTS_DOCUMENT = 'applicantsDocuments',
   RESPONDENTS_DOCUMENTS = 'respondentsDocuments',
@@ -18,7 +19,7 @@ export type ViewDocumentsSectionsProps = {
     caseData: CaseWithId,
     documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
     loggedInUserPartyType: PartyType
-  ) => ViewDocumentDetails[] | [];
+  ) => ViewDocumentDetails[] | ApplicationPackDocumentDetails[] | [];
 };
 
 export const enum UploadDocumentSectionId {
@@ -103,6 +104,8 @@ export type ViewDocumentsCategoryListProps = {
 };
 
 export const enum DocumentLabelCategory {
+  YOUR_APPLICATION_PACK = 'packServed',
+  APPLICATION_PACK_TO_BE_SERVED = 'packToBeServed',
   POSITION_STATEMENTS = 'positionStatements',
   WITNESS_STATEMENTS = 'witnessStatements',
   OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherPeopleWitnessStatements',
@@ -124,7 +127,14 @@ export type ViewDocumentDetails = {
   link: {
     text: string;
     url: string;
-    openInAnotherTab: boolean;
+    openInAnotherTab?: boolean;
+  };
+};
+
+export type ApplicationPackDocumentDetails = {
+  link: {
+    text: string;
+    url: string;
   };
 };
 
@@ -136,7 +146,7 @@ export type UploadDocumentDetails = {
   };
 };
 
-export type DocumentMeta = {
+type DocumentMeta = {
   document_url: string;
   document_binary_url: string;
   document_filename: string;
@@ -156,18 +166,29 @@ export type CitizenDocuments = {
   document: DocumentMeta;
   documentWelsh: DocumentMeta | null;
 };
+export interface CitizenApplicationPacks extends CitizenDocuments {
+  applicantSoaPack?: DocumentMeta[] | null;
+  respondentSoaPack?: DocumentMeta[] | null;
+  servedParty: 'Applicant' | 'Respondent';
+}
 
 export const enum DocumentTypes {
   ENGLISH = 'document_en',
   WELSH = 'document_cy',
 }
+export type ApplicationPackDocumentMeta = {
+  documentId: string;
+  documentName: string;
+  servedDate: string;
+  documentDownloadUrl: string;
+};
 
 export type Document = {
   [key in DocumentTypes]?: {
     documentId: string;
     documentName: string;
-    createdDate: string;
-    uploadedBy: string;
-    downloadLink: string;
+    documentDownloadUrl: string;
+    createdDate?: string;
+    uploadedBy?: string;
   };
 };

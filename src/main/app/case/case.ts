@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CitizenDocuments } from '../../steps/common/documents/definitions';
+import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
@@ -231,6 +231,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   isCafcassCymruServed: 'soaCafcassCymruServedOptions',
   citizenDocuments: 'citizenDocuments',
   citizenOrders: 'citizenOrders',
+  citizenApplicationPacks: 'citizenApplicationPacks',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -603,6 +604,7 @@ export interface Case {
   isCafcassCymruServed?: YesOrNo | null;
   citizenDocuments?: CitizenDocuments[];
   citizenOrders?: Record<string, any>[];
+  citizenApplicationPacks?: CitizenApplicationPacks[];
 }
 
 export interface CaseWithId extends Case {

@@ -3,7 +3,7 @@ import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 import { applyParms } from '../../../../common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../../urls';
-import { getUploadDocumentCategoryDetails } from '../../util';
+import { getUploadDocumentCategoryDetails } from '../../upload/utils';
 
 const en = {
   reasonsToNotSeeTheDocument: 'Why should the other party not see this document?',

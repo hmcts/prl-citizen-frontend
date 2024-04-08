@@ -3,8 +3,8 @@ import { getCasePartyType } from '../../../../prl-cases/dashboard/utils';
 import { FETCH_CASE_DETAILS } from '../../../../urls';
 import { applyParms } from '../../../url-parser';
 import { cy, en } from '../../common/content';
-import { viewDocumentsSections as sections } from '../../config';
 import { DocumentLabelCategory, DocumentSectionId } from '../../definitions';
+import { viewDocumentsSections as sections } from '../config';
 export * from './routeGuard';
 
 const languages = {
