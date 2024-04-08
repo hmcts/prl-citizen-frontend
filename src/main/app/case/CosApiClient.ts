@@ -13,6 +13,7 @@ import {
   CaseData,
   CaseEvent,
   CaseType,
+  DocumentUploadResponse,
   PartyDetails,
   PartyType,
   RespondentCaseData,
@@ -248,13 +249,44 @@ export class CosApiClient {
         formData.append('files', file.data, file.name);
       }
 
-      formData.append(
-        'documentRequestedByCourt',
-        request.documentRequestedByCourt ? request.documentRequestedByCourt : ''
-      );
+      formData.append('documentRequestedByCourt', request.documentRequestedByCourt);
       formData.append('caseId', request.caseId);
-      formData.append('parentDocumentType', request.parentDocumentType ? request.parentDocumentType : '');
-      formData.append('documentType', request.documentType ? request.documentType : '');
+      formData.append('parentDocumentType', request.parentDocumentType);
+      formData.append('documentType', request.documentType);
+      formData.append('partyId', request.partyId);
+      formData.append('partyName', request.partyName);
+      formData.append('isApplicant', request.isApplicant);
+
+      const response = await Axios.post(
+        config.get('services.cos.url') + '/upload-citizen-statement-document',
+        formData,
+        { headers }
+      );
+      return {
+        status: response.status,
+        documentId: response.data?.documentId,
+        documentName: response.data?.documentName,
+      };
+    } catch (err) {
+      console.log('Error: ', err);
+      throw new Error('Upload citizen statement document failed.');
+    }
+  }
+
+  public async UploadDocumentToCdam(request: UploadDocumentRequest): Promise<DocumentDetail> {
+    try {
+      const headers = {
+        Accept: '*/*',
+        'Content-Type': '*',
+        Authorization: 'Bearer ' + request.user.accessToken,
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+      };
+      const formData = new FormData();
+
+      for (const [, file] of Object.entries(request.files)) {
+        formData.append('file', file.data, file.name);
+      }
+      formData.append('caseId', request.caseId);
       formData.append('partyId', request.partyId);
       formData.append('partyName', request.partyName);
       formData.append('isApplicant', request.isApplicant);
@@ -262,10 +294,11 @@ export class CosApiClient {
       const response = await Axios.post(config.get('services.cos.url') + '/upload-citizen-document', formData, {
         headers,
       });
+      const document_id = response.data?.document.document_url.split('/').pop();
       return {
         status: response.status,
-        documentId: response.data?.documentId,
-        documentName: response.data?.documentName,
+        documentId: document_id,
+        documentName: response.data?.document.document_filename,
       };
     } catch (err) {
       console.log('Error: ', err);
@@ -290,6 +323,23 @@ export class CosApiClient {
         deleteDocumentRequest,
         { headers }
       );
+      return response.data;
+    } catch (err) {
+      throw new Error('Document could not be deleted.');
+    }
+  }
+
+  public async deleteDocumentFromCdam(user: UserDetails, documentIdToDelete: string): Promise<DocumentUploadResponse> {
+    try {
+      const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + user.accessToken,
+        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+      };
+      const response = await Axios.delete(config.get('services.cos.url') + `/${documentIdToDelete}/delete`, {
+        headers,
+      });
       return response.data;
     } catch (err) {
       throw new Error('Document could not be deleted.');

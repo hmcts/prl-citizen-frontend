@@ -1,9 +1,18 @@
 {% extends "common/summary/template.njk" %}
 {% block page_content %}
-{% if section %}
-    <span class="govuk-heading-xl govuk-!-margin-bottom-50px">{{ section }}</span>
-  {% endif %}
-  {% if title %}
-    <h1 class="govuk-heading-l">{{ title }}</h1>
+{% if sections %}
+    {% for item in sections %}
+      {% if item %}
+        <h2 class="govuk-heading-m govuk-!-margin-top-7">{{item.title}}</h2>
+        {{ govukSummaryList({
+          classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
+          rows: item.rows
+        })
+      }}
+    
+      {% endif %}
+    {% endfor %}
+
+      <br>
   {% endif %}
 {% endblock %}

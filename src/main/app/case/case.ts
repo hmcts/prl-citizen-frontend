@@ -592,7 +592,6 @@ export interface Case {
   withdrawApplicationReason?: string;
   partiesServed?: string[];
   partiesServedDate?: string;
-  docIdList?: string[];
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
 }

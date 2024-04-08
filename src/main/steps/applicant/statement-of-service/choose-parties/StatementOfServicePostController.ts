@@ -4,10 +4,7 @@ import { Response } from 'express';
 
 import { getCasePartyType } from '../../../../../main/steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../../../../main/steps/tasklistresponse/utils';
-import {
-  APPLICANT_STATEMENT_OF_SERVICE_NEXT,
-  APPLICANT_STATEMENT_OF_SERVICE_SUMMARY,
-} from '../../../../../main/steps/urls';
+import { APPLICANT_STATEMENT_OF_SERVICE_SUMMARY } from '../../../../../main/steps/urls';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { CaseEvent, CaseType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
@@ -60,12 +57,13 @@ export default class StatementOfServicePostController extends PostController<Any
         console.log(JSON.stringify(userData));
         console.log('** User case **' + JSON.stringify(userCase.partiesServed));
         console.log('** User case **' + JSON.stringify(userCase.partiesServedDate));
-        req.session.save(() => res.redirect(APPLICANT_STATEMENT_OF_SERVICE_NEXT));
+        req.session.save(() => res.redirect(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY));
       } catch (error) {
         console.log('error', error);
         throw new Error('SOS - Case could not be updated.');
       }
+    } else {
+      res.redirect(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY);
     }
-    res.redirect(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY);
   }
 }

@@ -288,6 +288,7 @@ export const RESPONDENT_SUPPORT_NEEDED: PageLink = `${VIEW_ALL_DOCUMENTS}/suppor
 /** Document Urls */
 
 export const DOCUMENT_MANAGER: PageLink = '/document-manager';
+export const UPLOAD_DOCUMENT_TO_CDAM: PageLink = '/upload-document-to-cdam';
 /* your needs when you go to court */
 export const SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${APPLICANT}/support-you-need-during-case`;
 export const APPLICANT_ATTENDING_THE_COURT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/attending-the-court`;

@@ -39,7 +39,7 @@
                 {{ file.name }}
               </dt>
               <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="/document-manager/deleteDocument/{{file.id}}?_csrf={{ csrfToken }}&caption={{caption}}&document_type={{document_type}}&parentDocumentType={{parentDocType}}&documentType={{docType}}&isApplicant=Yes">
+                <a class="govuk-link" href="/document-manager/{{file.id}}/delete?_csrf={{ csrfToken }}&caption={{caption}}&document_type={{document_type}}&parentDocumentType={{parentDocType}}&documentType={{docType}}&isApplicant=Yes">
                   {{remove}}</span>
                 </a>
               </dd>

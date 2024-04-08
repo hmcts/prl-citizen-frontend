@@ -195,10 +195,10 @@ export const prepateStatementOfServiceRequest = (
       userCase.applicants[0].value.citizenSosObject = {
         partiesServed: partyNames,
         partiesServedDate: date2.year + '-' + date2.month + '-' + date2.day,
-        citizenSosDocs: userCase.docIdList,
+        citizenSosDocs: userCase.applicantUploadFiles![0],
       };
       userCase.partiesServedDate = date2.year + '-' + date2.month + '-' + date2.day;
-      userCase.docIdList = [];
+      userCase.applicantUploadFiles = undefined;
     }
   }
   return userCase;

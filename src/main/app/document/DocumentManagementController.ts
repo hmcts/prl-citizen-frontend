@@ -22,6 +22,7 @@ import {
   Applicant,
   CaseType,
   DocumentType,
+  DocumentUploadResponse,
   DownloadFileFieldFlag,
   FileProperties,
   Respondent,
@@ -599,6 +600,26 @@ export class DocumentManagerController extends PostController<AnyObject> {
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
   }
 
+  public async deleteDocumentFromCdam(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
+    const loggedInCitizen = req.session.user;
+    const documentIdToDelete = req.params.documentId;
+    const client = new CosApiClient(loggedInCitizen.accessToken, 'http://localhost:3001');
+    const deleteCitizenDocFromCos: DocumentUploadResponse = await client.deleteDocumentFromCdam(
+      loggedInCitizen,
+      documentIdToDelete
+    );
+    if ('Success' === deleteCitizenDocFromCos.status) {
+      req.session.userCase.applicantUploadFiles = [];
+      req.session.errors = [];
+    } else {
+      if (!req.session.errors) {
+        req.session.errors = [];
+      }
+      req.session.errors?.push({ errorType: 'Document could not be deleted', propertyName: 'uploadFiles' });
+    }
+    this.redirect(req, res, APPLICANT_STATEMENT_OF_SERVICE);
+  }
+
   private setRedirectUrl(isApplicant, req: AppRequest<Partial<CaseWithId>>) {
     const { caption = '', document_type = '', parentDocumentType = '', documentType = '' } = req.query;
 
@@ -626,6 +647,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest, res: Response): Promise<void> {
+    if (req.query && req.query.isSos?.toString().includes('Yes')) {
+      return this.uploadDocumentToCdam(req, res);
+    }
     let isApplicant;
     if (req.query && req.query.isApplicant) {
       isApplicant = req.query.isApplicant;
@@ -661,11 +685,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (req.query && req.query.documentType) {
       documentType = req.query.documentType;
     }
-    if (req.query && req.query.isSos?.toString().includes('Yes')) {
-      documentType = 'Statement of service';
-      parentDocumentType = 'Statement of service';
-      documentRequestedByCourt = 'Yes';
-    }
+
     const partyId = req.session.user.id;
 
     const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
@@ -686,13 +706,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (citizenDocumentListFromCos.status !== 200) {
       req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } else {
-      if (req.query.isSos?.toString().includes('Yes')) {
-        if (req.session.userCase.docIdList) {
-          req.session.userCase.docIdList.push(citizenDocumentListFromCos.documentId as string);
-        } else {
-          req.session.userCase.docIdList = [citizenDocumentListFromCos.documentId as string];
-        }
-      }
       const obj = {
         id: citizenDocumentListFromCos.documentId as string,
         name: citizenDocumentListFromCos.documentName as string,
@@ -718,6 +731,51 @@ export class DocumentManagerController extends PostController<AnyObject> {
       this.redirect(req, res, APPLICANT_STATEMENT_OF_SERVICE);
     } else {
       this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
+    }
+  }
+
+  public async uploadDocumentToCdam(req: AppRequest, res: Response): Promise<void> {
+    console.log('Helo **** ');
+    this.undefiendUploadFiles(req);
+    this.fileData(req);
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const form = new Form(fields);
+
+    const { _csrf, ...formData } = form.getParsedBody(req.body);
+    const caseworkerUser = req.session.user;
+    req.session.errors = form.getErrors(formData);
+    const partyName = this.getPartyName(YesOrNo.YES, req);
+    const files = req.files || [];
+    const caseId = req.session.userCase.id;
+    const partyId = req.session.user.id;
+    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    const uploadRequest: UploadDocumentRequest = {
+      user: caseworkerUser,
+      caseId,
+      partyId,
+      partyName,
+      isApplicant: YesOrNo.YES,
+      files,
+    };
+    if (req.session.userCase.applicantUploadFiles && req.session.userCase.applicantUploadFiles.length > 0) {
+      await client.deleteDocumentFromCdam(req.session.user, req.session.userCase.applicantUploadFiles[0].id);
+      req.session.userCase.applicantUploadFiles = undefined;
+    }
+    const citizenDocumentListFromCos = await client.UploadDocumentToCdam(uploadRequest);
+    if (citizenDocumentListFromCos.status !== 200) {
+      req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+    } else {
+      const obj = {
+        id: citizenDocumentListFromCos.documentId as string,
+        name: citizenDocumentListFromCos.documentName as string,
+      };
+      req.session.userCase.applicantUploadFiles = [obj];
+      req.session.errors = [];
+    }
+    if (req.query && req.query.isSos) {
+      this.redirect(req, res, APPLICANT_STATEMENT_OF_SERVICE);
+    } else {
+      this.redirect(req, res, this.setRedirectUrl(YesOrNo.YES, req));
     }
   }
 

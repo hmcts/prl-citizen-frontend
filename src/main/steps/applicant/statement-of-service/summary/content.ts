@@ -69,7 +69,6 @@ export const form: FormContent = {
   fields: {
     sosConsent: {
       type: 'checkboxes',
-      labelHidden: true,
       validator: atLeastOneFieldIsChecked,
       values: [
         {
