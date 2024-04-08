@@ -220,7 +220,6 @@ export const getFinalApplicationStatus = (caseData, userDetails): StateTags => {
   return result;
 };
 
-// change to check respondent id against document uploaded id for both below
 export const isResponsePresent = (caseData: Partial<CaseWithId>, respondent: Respondent) => {
   return caseData.respondentDocsList?.find(
     documents => documents.value.c7Document?.partyName === respondent.value.firstName + ' ' + respondent.value.lastName

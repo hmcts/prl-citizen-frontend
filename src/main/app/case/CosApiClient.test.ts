@@ -36,7 +36,7 @@ describe('CosApiClient', () => {
     mockedAxios.get.mockReturnValueOnce(response as unknown as Promise<CaseWithId>);
     const client = new CosApiClient('abc', mockLogger);
     const actual = await client.retrieveCaseAndHearings('1234567', 'Yes' as YesOrNo);
-    expect(actual).toEqual({ status: 'test', caseData: 'cases', hearings: 'hearings' });
+    expect(actual).toEqual({ status: 'test', caseData: 'cases', hearingData: 'hearings' });
   });
 
   test('retrieveCaseAndHearings should throw error', async () => {

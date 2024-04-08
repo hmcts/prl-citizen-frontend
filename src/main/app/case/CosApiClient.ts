@@ -311,7 +311,7 @@ export class CosApiClient {
       return {
         status: response.status,
         caseData: response.data?.caseData,
-        hearings: response.data?.hearings,
+        hearingData: response.data?.hearings,
       };
     } catch (error) {
       this.logError(error);
