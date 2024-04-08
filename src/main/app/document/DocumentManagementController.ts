@@ -95,7 +95,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       loggedInCitizen = req.session.user;
       caseReference = req.session.userCase.id;
 
-      client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
+      client = new CosApiClient(loggedInCitizen.accessToken, req.locals.logger);
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
       req.session.userCase = caseDataFromCos;
     } catch (err) {
@@ -255,7 +255,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     } else {
       // set the flag from "Download" to "View" and only download the pdf
       if (fieldFlag && req.params?.docContext === UPDATE_CASE) {
-        this.setFlagViewed(req, caseReference, client, req.session.user, fieldFlag);
+        this.setFlagViewed(req, caseReference, client, fieldFlag);
       }
       return res.end(generatedDocument.data);
     }
@@ -356,7 +356,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     req: AppRequest<Partial<CaseWithId>>,
     caseReference: string,
     client: CosApiClient,
-    loggedInCitizen: UserDetails,
     flag: string
   ) {
     let isFlagViewed;
@@ -382,12 +381,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (isFlagViewed) {
       const data = toApiFormat(req?.session?.userCase);
       data.id = caseReference;
-      const updatedCaseDataFromCos = await client.updateCase(
-        loggedInCitizen,
-        caseReference,
-        data,
-        'citizen-case-update'
-      );
+      const updatedCaseDataFromCos = await client.updateCase(caseReference, data, 'citizen-case-update');
       req.session.userCase = updatedCaseDataFromCos;
     }
   }
@@ -450,8 +444,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const { documentCategory = '', documentType = '' } = req.query;
 
     return applyParms(partyType === PartyType.APPLICANT ? APPLICANT_UPLOAD_DOCUMENT : RESPONDENT_UPLOAD_DOCUMENT, {
-      docCategory: documentCategory,
-      doctype: documentType,
+      docCategory: documentCategory as string,
+      doctype: documentType as string,
     });
   }
 
@@ -480,7 +474,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       return this.redirect(req, res, redirectUrl);
     }
 
-    const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
+    const client = new CosApiClient(user.accessToken, req.locals.logger);
     try {
       const response = await client.generateStatementDocument(user, {
         caseId: caseData.id,
@@ -511,7 +505,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const { session, files } = req;
     const { user, userCase: caseData } = session;
     const partyType = getCasePartyType(caseData, user.id);
-    const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
+    const client = new CosApiClient(user.accessToken, req.locals.logger);
     const redirectUrl = this.setRedirectUrl(partyType, req);
 
     req.url = redirectUrl;
@@ -550,7 +544,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const { params, session } = req;
     const { user, userCase: caseData } = session;
     const partyType = getCasePartyType(caseData, user.id);
-    const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
+    const client = new CosApiClient(user.accessToken, req.locals.logger);
     const redirectUrl = this.setRedirectUrl(partyType, req);
 
     req.url = redirectUrl;

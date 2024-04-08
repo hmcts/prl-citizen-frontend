@@ -2,7 +2,7 @@ import { CA_APPLICANT } from './ca_applicant';
 
 describe('ca_applicant', () => {
   test('should have correct notification ids', () => {
-    expect(CA_APPLICANT).toHaveLength(10);
+    expect(CA_APPLICANT).toHaveLength(12);
     expect(CA_APPLICANT[0].id).toBe('applicationNotStarted');
     expect(CA_APPLICANT[1].id).toBe('applicationInProgress');
     expect(CA_APPLICANT[2].id).toBe('applicationSubmitted');
@@ -13,5 +13,7 @@ describe('ca_applicant', () => {
     expect(CA_APPLICANT[7].id).toBe('applicationServedAndLinked');
     expect(CA_APPLICANT[8].id).toBe('applicationClosed');
     expect(CA_APPLICANT[9].id).toBe('newOrder');
+    expect(CA_APPLICANT[10].id).toBe('giveRespondentTheirDocuments');
+    expect(CA_APPLICANT[11].id).toBe('caPersonalService');
   });
 });

@@ -4,8 +4,7 @@ import { CosApiClient } from '../../../app/case/CosApiClient';
 
 import { ViewAllDocumentsPostController } from './ViewAllDocumentsPostController';
 
-const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCase');
-const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
+const updateCaseDataMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
 let partyDetails;
 
 describe('ViewAllDocumentsPostController', () => {
@@ -24,19 +23,24 @@ describe('ViewAllDocumentsPostController', () => {
             idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
             email: 'test@example.net',
           },
+          address: {
+            AddressLine1: 'AddressLine1',
+            AddressLine2: 'AddressLine2',
+            PostTown: 'PostTown',
+            County: 'County',
+            PostCode: 'PostCode',
+          },
           response: {
             citizenFlags: {},
           },
         },
       },
     ];
-    retrieveByCaseIdMock.mockResolvedValue(req.session.userCase);
-    updateCaserMock.mockResolvedValue(req.session.userCase);
+    updateCaseDataMock.mockResolvedValue(req.session.userCase);
   });
 
   afterEach(() => {
-    retrieveByCaseIdMock.mockClear();
-    updateCaserMock.mockClear();
+    updateCaseDataMock.mockClear();
   });
 
   test('Should update the IsresponseInitiated details if user id matches with respondent for DA', async () => {
@@ -44,6 +48,14 @@ describe('ViewAllDocumentsPostController', () => {
     req.url = 'respondent';
     req.session.userCase.caseTypeOfApplication = 'C100';
     req.session.userCase.respondents = partyDetails;
+    req.session.userCase.caseInvites = [
+      {
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+        },
+      },
+    ];
     await controller.setResponseInitiatedFlag(req, res);
     expect(req.session.userCase.respondents[0].value.response.citizenFlags.isResponseInitiated).toEqual('Yes');
   });
