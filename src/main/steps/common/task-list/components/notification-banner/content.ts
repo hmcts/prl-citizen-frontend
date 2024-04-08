@@ -295,7 +295,7 @@ const en: NotificationBannerContent = {
             {
               contents: [
                 {
-                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="">GOV.UK</a>',
+                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">GOV.UK</a>',
                 },
                 {
                   text: '<p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
@@ -589,7 +589,7 @@ const en: NotificationBannerContent = {
             {
               contents: [
                 {
-                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="">GOV.UK</a>',
+                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">GOV.UK</a>',
                 },
                 {
                   text: '<p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
@@ -892,7 +892,7 @@ const cy: typeof en = {
             {
               contents: [
                 {
-                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="">GOV.UK</a>',
+                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">GOV.UK</a>',
                 },
                 {
                   text: '<p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
@@ -1185,7 +1185,7 @@ const cy: typeof en = {
             {
               contents: [
                 {
-                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="">GOV.UK</a>',
+                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">GOV.UK</a>',
                 },
                 {
                   text: '<p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',

@@ -2,11 +2,10 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { getCasePartyType } from '../../../../../main/steps/prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../../../../main/steps/tasklistresponse/utils';
 import { APPLICANT_STATEMENT_OF_SERVICE_SUMMARY } from '../../../../../main/steps/urls';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { CaseEvent, CaseType } from '../../../../app/case/definition';
+//import { CaseEvent, CaseType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -28,32 +27,28 @@ export default class StatementOfServicePostController extends PostController<Any
       req.session.errors = form.getErrors(formData);
       if (req.session.errors && req.session.errors.length > 0) {
         console.log('Errrors exist');
-        // req.session.errors.push({
-        //   propertyName: 'document',
-        //   errorType: 'required',
-        // });
+        req.session.errors.push({
+          propertyName: 'document',
+          errorType: 'required',
+        });
         return super.redirect(req, res);
       }
     }
     console.log('Errrors no exist');
     const { user, userCase } = req.session;
-    const partyType = getCasePartyType(userCase, user.id);
     const partyDetails = getPartyDetails(userCase, user.id);
     const client = new CosApiClient(user.accessToken, 'https://return-url');
+    console.log(client);
     if (partyDetails) {
       const userData = prepateStatementOfServiceRequest(req, formData);
-      if (userData && userData.applicants) {
-        Object.assign(partyDetails, userData.applicants[0]);
-      }
       try {
-        req.session.userCase = await client.updateCaseData(
-          user,
-          userCase.id,
-          partyDetails,
-          partyType,
-          userCase.caseTypeOfApplication as CaseType,
-          CaseEvent.CITIZEN_CASE_UPDATE
-        );
+        // req.session.userCase = await client.saveStatementOfService(
+        //   user,
+        //   userCase.id,
+        //   userCase.caseTypeOfApplication as CaseType,
+        //   userData,
+        //   CaseEvent.CITIZEN_CASE_UPDATE
+        // );
         console.log(JSON.stringify(userData));
         console.log('** User case **' + JSON.stringify(userCase.partiesServed));
         console.log('** User case **' + JSON.stringify(userCase.partiesServedDate));

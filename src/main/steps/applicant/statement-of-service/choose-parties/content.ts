@@ -1,7 +1,7 @@
 //import { isObject } from 'lodash';
 
 import { Case, CaseDate, CaseWithId } from '../../../../app/case/case';
-import { YesOrNo } from '../../../../app/case/definition';
+import { CitizenSos, YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { AnyObject } from '../../../../app/controller/PostController';
@@ -180,28 +180,18 @@ const getParties = (userCase: Partial<CaseWithId>) => {
   return parties;
 };
 
-export const prepateStatementOfServiceRequest = (
-  req: AppRequest<AnyObject>,
-  formData: Partial<Case>
-): Partial<CaseWithId> => {
+export const prepateStatementOfServiceRequest = (req: AppRequest<AnyObject>, formData: Partial<Case>): CitizenSos => {
   const userCase = req.session.userCase;
   userCase.partiesServed = formData.partiesServed as string[];
-  if (userCase.partiesServed && formData.partiesServedDate) {
-    const date = formData.partiesServedDate as unknown;
-    const date2 = date as { day: string; month: string; year: string };
-    userCase.partiesServed = userCase.partiesServed.filter(party => party !== '');
-    if (userCase.applicants && userCase.applicants[0]) {
-      const partyNames = userCase.partiesServed.toString();
-      userCase.applicants[0].value.citizenSosObject = {
-        partiesServed: partyNames,
-        partiesServedDate: date2.year + '-' + date2.month + '-' + date2.day,
-        citizenSosDocs: userCase.applicantUploadFiles![0],
-      };
-      userCase.partiesServedDate = date2.year + '-' + date2.month + '-' + date2.day;
-      userCase.applicantUploadFiles = undefined;
-    }
-  }
-  return userCase;
+  const date = formData.partiesServedDate as unknown;
+  const date2 = date as { day: string; month: string; year: string };
+  userCase.partiesServed = userCase.partiesServed.filter(party => party !== '');
+  userCase.partiesServedDate = date2.year + '-' + date2.month + '-' + date2.day;
+  return {
+    partiesServed: userCase.partiesServed.toString(),
+    partiesServedDate: date2.year + '-' + date2.month + '-' + date2.day,
+    citizenSosDocs: userCase.applicantUploadFiles![0].id,
+  };
 };
 
 export const generateContent: TranslationFn = content => {

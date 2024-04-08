@@ -13,6 +13,7 @@ import {
   CaseData,
   CaseEvent,
   CaseType,
+  CitizenSos,
   DocumentUploadResponse,
   PartyDetails,
   PartyType,
@@ -143,6 +144,40 @@ export class CosApiClient {
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
     } catch (err) {
+      throw new Error('Case could not be updated.');
+    }
+  }
+
+  public async saveStatementOfService(
+    user: UserDetails,
+    caseId: string,
+    caseType: CaseType,
+    sosObject: CitizenSos,
+    eventName: CaseEvent
+  ): Promise<CaseWithId> {
+    try {
+      const data = new FormData();
+      data.append('caseTypeOfApplication', caseType);
+      data.append('partiesServed', sosObject.partiesServed);
+      data.append('partiesServedDate', sosObject.partiesServedDate);
+      data.append('citizenSosDocs', [sosObject.citizenSosDocs]);
+      const response = await Axios.post(
+        config.get('services.cos.url') + `/${caseId}/${eventName}/save-statement-of-service-by-citizen`,
+        data,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + user.accessToken,
+            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+            accessCode: 'Dummy accessCode',
+          },
+        }
+      );
+
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
+    } catch (err) {
+      console.log('*** Error: ', err.message);
       throw new Error('Case could not be updated.');
     }
   }

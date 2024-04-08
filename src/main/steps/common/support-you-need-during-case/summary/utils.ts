@@ -14,7 +14,7 @@ import {
   enContent,
 } from '../../../../steps/respondent/support-you-need-during-case/summary/content';
 
-const getSectionSummaryList = (
+export const getSectionSummaryList = (
   rows: SummaryListRow[],
   content: PageContent,
   language: string
