@@ -17,6 +17,9 @@ const en = {
   grandparent: 'Grandparent',
   other: 'Other',
   otherRelationshipDetails: 'Please specify',
+  guardianHintText:
+    'Someone who represents the rights of a child, may be appointed by a parent, special guardian or the court',
+  specialGuardianHintText: 'Someone who represents the rights of a child, appointed by the court',
   errors: {
     relationshipType: {
       required: 'Enter the relationship',
@@ -38,6 +41,9 @@ const cy = {
   grandparent: 'Nain/Taid',
   other: 'Arall',
   otherRelationshipDetails: 'Rhowch fanylion',
+  guardianHintText:
+    'Someone who represents the rights of a child, may be appointed by a parent, special guardian or the court -welsh',
+  specialGuardianHintText: 'Someone who represents the rights of a child, appointed by the court -welsh',
   errors: {
     relationshipType: {
       required: 'Nodwch y berthynas',
@@ -201,8 +207,11 @@ describe('respondent details > relationshipDetails details', () => {
     expect(relationshipType.values[1].value).toBe(RelationshipType.FATHER);
     expect((relationshipType.values[2].label as Function)(generatedContent)).toBe(en.guardian);
     expect(relationshipType.values[2].value).toBe(RelationshipType.GUARDIAN);
+    expect((relationshipType.values[2].hint as Function)(generatedContent)).toBe(en.guardianHintText);
     expect((relationshipType.values[3].label as Function)(generatedContent)).toBe(en.specialGuardian);
     expect(relationshipType.values[3].value).toBe(RelationshipType.SPECIAL_GUARDIAN);
+    expect((relationshipType.values[2].hint as Function)(generatedContent)).toBe(en.guardianHintText);
+    expect((relationshipType.values[3].hint as Function)(generatedContent)).toBe(en.specialGuardianHintText);
     expect((relationshipType.values[4].label as Function)(generatedContent)).toBe(en.grandparent);
     expect(relationshipType.values[4].value).toBe(RelationshipType.GRAND_PARENT);
 

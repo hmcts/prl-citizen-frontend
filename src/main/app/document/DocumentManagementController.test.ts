@@ -181,13 +181,8 @@ describe('DocumentManagerController', () => {
       req.session.userCase.caseTypeOfApplication = 'C100';
       req.session.userCase.respondents = partyDetails;
       updateCaserMock.mockResolvedValue(req.session.userCase);
-      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
-      documentManagerController.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
+      const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
+      documentManagerController.notifyBannerForNewDcoumentUploaded(req, req.session.userCase.id, client);
       expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
     test('notifyBannerForNewDcoumentUploaded for CA respondent when citizenFlags not present', async () => {
@@ -208,26 +203,16 @@ describe('DocumentManagerController', () => {
         },
       ];
       updateCaserMock.mockResolvedValue(req.session.userCase);
-      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
-      documentManagerController.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
+      const client = new CosApiClient(req.session.user.accessToken, mockLogger);
+      documentManagerController.notifyBannerForNewDcoumentUploaded(req, req.session.userCase.id, client);
       expect(req.session.userCase.respondents[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
     test('notifyBannerForNewDcoumentUploaded for CA applicant', async () => {
       req.session.userCase.caseTypeOfApplication = 'C100';
       req.session.userCase.applicants = partyDetails;
       updateCaserMock.mockResolvedValue(req.session.userCase);
-      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
-      documentManagerController.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
+      const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
+      documentManagerController.notifyBannerForNewDcoumentUploaded(req, req.session.userCase.id, client);
       expect(req.session.userCase.applicants[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
     test('notifyBannerForNewDcoumentUploaded for CA applicant when citizenFlags not present', async () => {
@@ -248,26 +233,16 @@ describe('DocumentManagerController', () => {
         },
       ];
       updateCaserMock.mockResolvedValue(req.session.userCase);
-      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
-      documentManagerController.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
+      const client = new CosApiClient(req.session.user.accessToken, mockLogger);
+      documentManagerController.notifyBannerForNewDcoumentUploaded(req, req.session.userCase.id, client);
       expect(req.session.userCase.applicants[0].value.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
     test('notifyBannerForNewDcoumentUploaded for DA respondent', async () => {
       req.session.userCase.caseTypeOfApplication = 'fl401';
       req.session.userCase.respondentsFL401 = partyDetails[0].value;
       updateCaserMock.mockResolvedValue(req.session.userCase);
-      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
-      documentManagerController.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
+      const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
+      documentManagerController.notifyBannerForNewDcoumentUploaded(req, req.session.userCase.id, client);
       expect(req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
     test('notifyBannerForNewDcoumentUploaded for DA respondent when citizenFlags not present', async () => {
@@ -275,26 +250,16 @@ describe('DocumentManagerController', () => {
       req.session.userCase.respondentsFL401 = partyDetails[0].value;
       req.session.userCase.respondentsFL401.response = {};
       updateCaserMock.mockResolvedValue(req.session.userCase);
-      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
-      documentManagerController.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
+      const client = new CosApiClient(req.session.user.accessToken, mockLogger);
+      documentManagerController.notifyBannerForNewDcoumentUploaded(req, req.session.userCase.id, client);
       expect(req.session.userCase.respondentsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
     test('notifyBannerForNewDcoumentUploaded for DA applicant', async () => {
       req.session.userCase.caseTypeOfApplication = 'fl401';
       req.session.userCase.applicantsFL401 = partyDetails[0].value;
       updateCaserMock.mockResolvedValue(req.session.userCase);
-      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
-      documentManagerController.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
+      const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
+      documentManagerController.notifyBannerForNewDcoumentUploaded(req, req.session.userCase.id, client);
       expect(req.session.userCase.applicantsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
     test('notifyBannerForNewDcoumentUploaded for DA applicant when citizenFlags not present', async () => {
@@ -302,13 +267,8 @@ describe('DocumentManagerController', () => {
       req.session.userCase.applicantsFL401 = partyDetails[0].value;
       req.session.userCase.applicantsFL401.response = {};
       updateCaserMock.mockResolvedValue(req.session.userCase);
-      const client = new CosApiClient(req.session.user.accessToken, 'http://localhost:3001');
-      documentManagerController.notifyBannerForNewDcoumentUploaded(
-        req,
-        req.session.userCase.id,
-        client,
-        req.session.user
-      );
+      const client = new CosApiClient(req.session.user.accessToken, mockLogger);
+      documentManagerController.notifyBannerForNewDcoumentUploaded(req, req.session.userCase.id, client);
       expect(req.session.userCase.applicantsFL401.response.citizenFlags.isAllDocumentsViewed).toEqual('No');
     });
   });

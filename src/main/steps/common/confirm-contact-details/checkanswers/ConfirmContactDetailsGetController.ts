@@ -22,7 +22,7 @@ export class ConfirmContactDetailsGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     const caseReference = req.session.userCase.id;
-    const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
+    const client = new CosApiClient(loggedInCitizen.accessToken, req.locals.logger);
     const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
     Object.assign(req.session.userCase, caseDataFromCos);
     if (req.session.userCase.caseTypeOfApplication === CaseType.C100) {
