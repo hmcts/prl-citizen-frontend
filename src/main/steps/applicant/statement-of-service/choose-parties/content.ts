@@ -186,7 +186,7 @@ export const prepateStatementOfServiceRequest = (req: AppRequest<AnyObject>, for
   const date = formData.partiesServedDate as unknown;
   const date2 = date as { day: string; month: string; year: string };
   userCase.partiesServed = userCase.partiesServed.filter(party => party !== '');
-  userCase.partiesServedDate = date2.year + '-' + date2.month + '-' + date2.day;
+  //userCase.partiesServedDate = date2.year + '-' + date2.month + '-' + date2.day;
   return {
     partiesServed: userCase.partiesServed.toString(),
     partiesServedDate: date2.year + '-' + date2.month + '-' + date2.day,

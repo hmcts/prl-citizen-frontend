@@ -42,11 +42,6 @@ const cyContent: typeof enContent = {
   errors: {},
 };
 
-const urls = {
-  partiesServed: APPLICANT_STATEMENT_OF_SERVICE,
-  partiesServedDate: APPLICANT_STATEMENT_OF_SERVICE,
-};
-
 const en = (content: CommonContent, sections: SummaryList[]) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return {
@@ -108,24 +103,28 @@ const getSummarySection = (summaryContent: CommonContent) => {
     labels = cyContent;
   }
   const summaryData: SummaryListRow[] = [];
-  for (const key in urls) {
-    const keyLabel = labels.keys[key];
-    const url = urls[key];
-    const row = {
-      key: keyLabel,
-      value: summaryContent.userCase![key],
-      changeUrl: url,
-    };
-    if (row.value) {
-      summaryData.push(row);
+  if (summaryContent.userCase) {
+    if (summaryContent.userCase.partiesServed) {
+      summaryData.push({
+        key: labels.keys.partiesServed,
+        value: summaryContent.userCase.partiesServed.toString(),
+        changeUrl: APPLICANT_STATEMENT_OF_SERVICE,
+      });
     }
-  }
-  if (summaryContent.userCase && summaryContent.userCase.applicantUploadFiles) {
-    summaryData.push({
-      key: labels.filesUploaded,
-      value: summaryContent.userCase.applicantUploadFiles[0].name,
-      changeUrl: APPLICANT_STATEMENT_OF_SERVICE,
-    });
+    if (summaryContent.userCase.partiesServedDate) {
+      summaryData.push({
+        key: labels.keys.partiesServedDate,
+        value: summaryContent.userCase.partiesServedDate.toString(),
+        changeUrl: APPLICANT_STATEMENT_OF_SERVICE,
+      });
+    }
+    if (summaryContent.userCase.applicantUploadFiles) {
+      summaryData.push({
+        key: labels.filesUploaded,
+        value: summaryContent.userCase.applicantUploadFiles[0].name,
+        changeUrl: APPLICANT_STATEMENT_OF_SERVICE,
+      });
+    }
   }
   const sections = [
     {
