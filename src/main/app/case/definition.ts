@@ -3088,7 +3088,7 @@ export enum CaseEvent {
   CONFIRM_YOUR_DETAILS = 'confirmYourDetails',
   SUPPORT_YOU_DURING_CASE = 'hearingNeeds',
   LEGAL_REPRESENTATION = 'legalRepresentation',
-  SAFETY_CONCERNS = 'citizenSafetyConcerns',
+  SAFETY_CONCERNS = 'citizenRespondentAoH',
   MIAM = 'respondentMiam',
   PARTY_PERSONAL_DETAILS = 'linkCitizenAccount',
   CITIZEN_INTERNAL_CASE_UPDATE = 'citizen-internal-case-update',
