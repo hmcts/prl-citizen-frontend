@@ -620,6 +620,7 @@ export const COMMON_PAGE_URLS = [
 ];
 
 export const TASKLIST_RESPONSE_TO_CA: PageLink = `${APPLICANT}/responsetoca`;
+export const TASKLIST_RESPONSE: PageLink = `${RESPONDENT}/responsetoca`;
 
 export const LOCAL_API_SESSION = '/api/v1/session';
 export const SAFEGAURD_EXCLUDE_URLS = [

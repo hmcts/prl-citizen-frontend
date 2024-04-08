@@ -3,7 +3,7 @@ import { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { AppRequest } from '../../../../app/controller/AppRequest';
-import { mapDataInSession } from '../../../../steps/tasklistresponse/utils';
+import CaseDataController from '../../../../steps/common/CaseDataController';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
 import { DASHBOARD_URL, PARTY_TASKLIST, SIGN_IN_URL } from '../../../urls';
 import { applyParms } from '../../url-parser';
@@ -17,28 +17,9 @@ export default class CaseDetailsGetController {
     }
 
     try {
-      const caseData = await new CosApiClient(req.session.user.accessToken, req.locals.logger).retrieveByCaseId(
-        req.params.caseId,
-        req.session.user
-      );
-      req.session.userCase = caseData;
-
-      if (req.session?.userCase) {
-        if (req.session?.userCase.caseTypeOfApplication !== 'C100') {
-          req.session.userCaseList = [];
-        }
-        mapDataInSession(req.session.userCase, req.session.user.id);
-      }
-      const citizenUser = req.session.user;
-      const caseId = req.session.userCase.id;
-      const client = new CosApiClient(citizenUser.accessToken, req.locals.logger);
-      const hearings = await client.retrieveCaseHearingsByCaseId(citizenUser, caseId);
-      req.session.userCase.hearingCollection = hearings.caseHearings;
-
-      req.session.save(() => {
-        res.redirect(applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData, req.session.user.id) }));
-      });
-    } catch (e) {
+      const { caseData } = await new CaseDataController().fetchAndSaveData(req);
+      res.redirect(applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData, req.session.user.id) }));
+    } catch (error) {
       res.redirect(DASHBOARD_URL);
     }
   }

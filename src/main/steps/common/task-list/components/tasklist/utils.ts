@@ -157,19 +157,9 @@ export const getCheckAllegationOfHarmStatus = (caseData, userDetails): StateTags
 };
 
 export const getResponseStatus = (respondent): StateTags => {
-  if (
-    respondent.response.citizenInternationalElements &&
-    respondent.response.consent &&
-    respondent.response.currentOrPreviousProceedings &&
-    respondent.response.keepDetailsPrivate &&
-    respondent.response.miam &&
-    respondent.response.legalRepresentation &&
-    respondent.response.safetyConcerns &&
-    respondent.response.supportYouNeed
-  ) {
+  if (respondent?.response.c7ResponseSubmitted === YesOrNo.YES) {
     return StateTags.COMPLETED;
-  }
-  if (
+  } else if (
     respondent.response.citizenInternationalElements ||
     respondent.response.consent ||
     respondent.response.currentOrPreviousProceedings ||
@@ -230,6 +220,7 @@ export const getFinalApplicationStatus = (caseData, userDetails): StateTags => {
   return result;
 };
 
+// change to check respondent id against document uploaded id for both below
 export const isResponsePresent = (caseData: Partial<CaseWithId>, respondent: Respondent) => {
   return caseData.respondentDocsList?.find(
     documents => documents.value.c7Document?.partyName === respondent.value.firstName + ' ' + respondent.value.lastName

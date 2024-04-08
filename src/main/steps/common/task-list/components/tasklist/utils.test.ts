@@ -72,17 +72,10 @@ describe('getCheckAllegationOfHarmStatus', () => {
 });
 
 describe('getResponseStatus', () => {
-  test('should return completed when all response items present', () => {
+  test('should return completed when response has c7ResponseSubmitted as yes', () => {
     const data = {
       response: {
-        citizenInternationalElements: {},
-        consent: {},
-        currentOrPreviousProceedings: {},
-        keepDetailsPrivate: {},
-        miam: {},
-        safetyConcerns: {},
-        legalRepresentation: {},
-        supportYouNeed: {},
+        c7ResponseSubmitted: 'Yes',
       },
     };
 

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../../app/case/case';
+import { YesOrNo } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { UPDATE_CASE_YES } from '../../../../../../steps/constants';
@@ -15,6 +16,7 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
+  TASKLIST_RESPONSE,
 } from '../../../../../../steps/urls';
 import { isApplicationResponded, isCaseClosed, isRepresentedBySolicotor } from '../../../utils';
 import {
@@ -166,7 +168,10 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
       {
         id: Tasks.RESPOND_TO_THE_APPLICATION,
         href: (caseData, userDetails) => {
-          return !isApplicationResponded(caseData, userDetails.id) ? `${RESPOND_TO_APPLICATION}/flag/updateFlag` : null;
+          const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
+          return respondent?.response.c7ResponseSubmitted === YesOrNo.YES
+            ? `${TASKLIST_RESPONSE}?name=${respondent?.firstName + ' ' + respondent?.lastName}` //TODO change to use url parameter when citizen document upload changes are merged
+            : `${RESPOND_TO_APPLICATION}/flag/updateFlag`;
         },
         disabled: isCaseClosed,
         stateTag: (caseData, userDetails) => {

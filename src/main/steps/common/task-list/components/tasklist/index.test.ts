@@ -2977,6 +2977,7 @@ describe('c100 respondent', () => {
             dateOfBirth: '1/1/2020',
             placeOfBirth: 'London',
             response: {
+              c7ResponseSubmitted: 'Yes',
               citizenFlags: {
                 isAllegationOfHarmViewed: 'Yes',
                 isApplicationViewed: 'Yes',
@@ -3079,7 +3080,7 @@ describe('c100 respondent', () => {
         tasks: [
           {
             disabled: false,
-            href: null,
+            href: '/respondent/responsetoca?name=FirstName LastName',
             id: 'respondToTheApplication',
             hintText: 'Go to view all documents to check the response.',
             linkText: 'Respond to the application',
