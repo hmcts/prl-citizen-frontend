@@ -19,7 +19,7 @@ export const getSectionSummaryList = (
   content: PageContent,
   language: string
 ): GovUkNunjucksSummary[] => {
-  console.log(content);
+  console.log(content.userCase);
   return rows.map(item => {
     const changeUrl = item.changeUrl;
     return {

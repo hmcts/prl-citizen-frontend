@@ -78,9 +78,9 @@ export const form: FormContent = {
         },
       ],
     },
-    submit: {
-      label: l => l.submit,
-    },
+  },
+  submit: {
+    text: 'Submit',
   },
 };
 
@@ -94,44 +94,44 @@ export const generateContent: TranslationFn = content => {
   //console.log(summarySection);
   const translations = languages[content.language](content, summarySection);
   console.log(translations.confirmation);
-
   return {
+    ...translations,
     form,
   };
+};
 
-  function getSummarySection(summaryContent: CommonContent) {
-    let labels;
-    if (summaryContent.language === 'en') {
-      labels = enContent;
-    } else {
-      labels = cyContent;
-    }
-    const summaryData: SummaryListRow[] = [];
-    for (const key in urls) {
-      const keyLabel = labels.keys[key];
-      const url = urls[key];
-      const row = {
-        key: keyLabel,
-        value: summaryContent.userCase![key],
-        changeUrl: url,
-      };
-      if (row.value) {
-        summaryData.push(row);
-      }
-    }
-    if (summaryContent.userCase && summaryContent.userCase.applicantUploadFiles) {
-      summaryData.push({
-        key: labels.filesUploaded,
-        value: summaryContent.userCase.applicantUploadFiles[0].name,
-        changeUrl: APPLICANT_STATEMENT_OF_SERVICE,
-      });
-    }
-    const sections = [
-      {
-        title: '',
-        rows: getSectionSummaryList(summaryData, summaryContent, summaryContent.language),
-      },
-    ];
-    return sections;
+const getSummarySection = (summaryContent: CommonContent) => {
+  let labels;
+  if (summaryContent.language === 'en') {
+    labels = enContent;
+  } else {
+    labels = cyContent;
   }
+  const summaryData: SummaryListRow[] = [];
+  for (const key in urls) {
+    const keyLabel = labels.keys[key];
+    const url = urls[key];
+    const row = {
+      key: keyLabel,
+      value: summaryContent.userCase![key],
+      changeUrl: url,
+    };
+    if (row.value) {
+      summaryData.push(row);
+    }
+  }
+  if (summaryContent.userCase && summaryContent.userCase.applicantUploadFiles) {
+    summaryData.push({
+      key: labels.filesUploaded,
+      value: summaryContent.userCase.applicantUploadFiles[0].name,
+      changeUrl: APPLICANT_STATEMENT_OF_SERVICE,
+    });
+  }
+  const sections = [
+    {
+      title: '',
+      rows: getSectionSummaryList(summaryData, summaryContent, summaryContent.language),
+    },
+  ];
+  return sections;
 };
