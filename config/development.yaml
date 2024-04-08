@@ -19,7 +19,7 @@ services:
     systemUsername:
     systemPassword:
   citizen:
-    uploadDocsEmail:
+    uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
     url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-1441.preview.platform.hmcts.net'
   cos:
