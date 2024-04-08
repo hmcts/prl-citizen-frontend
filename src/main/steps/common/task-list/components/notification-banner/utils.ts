@@ -87,11 +87,6 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.NEW_ORDER),
     show: () => false,
   },
-  [BannerNotification.NEW_DOCUMENT]: {
-    id: BannerNotification.NEW_DOCUMENT,
-    content: getContent.bind(null, BannerNotification.NEW_DOCUMENT),
-    show: () => false,
-  },
   [BannerNotification.FINAL_ORDER]: {
     id: BannerNotification.FINAL_ORDER,
     content: getContent.bind(null, BannerNotification.FINAL_ORDER),

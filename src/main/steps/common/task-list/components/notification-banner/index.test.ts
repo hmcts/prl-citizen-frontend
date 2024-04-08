@@ -1,6 +1,5 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
-import { APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../../urls';
 
 import { getNotificationBannerConfig } from '.';
 
@@ -564,105 +563,6 @@ describe('testcase for notification Banner', () => {
     ]);
   });
 
-  test('when FL401 case is in served and linked and have new document', () => {
-    const data = {
-      id: '12',
-      state: State.CASE_SERVED,
-      caseTypeOfApplication: CaseType.FL401,
-      applicantsFL401: {
-        email: 'abc',
-        gender: 'male',
-        address: {
-          AddressLine1: '',
-          AddressLine2: '',
-          PostTown: '',
-          County: '',
-          PostCode: '',
-        },
-        dxNumber: '123',
-        landline: '987654321',
-        lastName: 'Smith',
-        firstName: 'John',
-        dateOfBirth: '',
-        otherGender: '',
-        phoneNumber: '',
-        placeOfBirth: '',
-        previousName: '',
-        solicitorOrg: {
-          OrganisationID: '',
-          OrganisationName: '',
-        },
-        sendSignUpLink: '',
-        solicitorEmail: '',
-        isAddressUnknown: '',
-        solicitorAddress: {
-          County: '',
-          Country: '',
-          PostCode: '',
-          PostTown: '',
-          AddressLine1: '',
-          AddressLine2: '',
-          AddressLine3: '',
-        },
-        isDateOfBirthKnown: '',
-        solicitorReference: '',
-        solicitorTelephone: '',
-        isPlaceOfBirthKnown: '',
-        isDateOfBirthUnknown: '',
-        isAddressConfidential: '',
-        isCurrentAddressKnown: '',
-        relationshipToChildren: '',
-        representativeLastName: '',
-        representativeFirstName: '',
-        canYouProvidePhoneNumber: '',
-        canYouProvideEmailAddress: '',
-        isAtAddressLessThan5Years: '',
-        isPhoneNumberConfidential: '',
-        isEmailAddressConfidential: '',
-        respondentLivedWithApplicant: '',
-        doTheyHaveLegalRepresentation: '',
-        addressLivedLessThan5YearsDetails: '',
-        otherPersonRelationshipToChildren: [''],
-        isAtAddressLessThan5YearsWithDontKnow: '',
-        response: {
-          citizenFlags: {
-            isAllDocumentsViewed: 'No',
-          },
-        },
-        user: {
-          email: 'abc',
-          idamId: '123',
-        },
-      },
-    };
-    const party = PartyType.APPLICANT;
-    const language = 'en';
-
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
-      {
-        heading: 'You have a new document to view',
-        id: 'newDocument',
-        sections: [
-          {
-            contents: [
-              {
-                text: 'A new document has been added to your case.',
-              },
-            ],
-            links: [
-              {
-                external: false,
-                text: 'See all documents',
-                href: APPLICANT_VIEW_ALL_DOCUMENTS,
-              },
-            ],
-          },
-        ],
-        title: 'Important',
-      },
-    ]);
-  });
-
   describe('c100 respondent banners', () => {
     const data = {
       id: '123',
@@ -688,9 +588,7 @@ describe('testcase for notification Banner', () => {
               idamId: '123',
             },
             response: {
-              citizenFlags: {
-                isAllDocumentsViewed: 'No',
-              },
+              citizenFlags: {},
             },
           },
         } as unknown as Respondent,
@@ -722,27 +620,6 @@ describe('testcase for notification Banner', () => {
         },
       ];
       expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
-        {
-          heading: 'You have a new document to view',
-          id: 'newDocument',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'A new document has been added to your case.',
-                },
-              ],
-              links: [
-                {
-                  external: false,
-                  href: '/respondent/yourdocuments/alldocuments/alldocuments',
-                  text: 'See all documents',
-                },
-              ],
-            },
-          ],
-          title: 'Important',
-        },
         {
           heading: 'You have a new order from the court',
           id: 'newOrder',
@@ -777,9 +654,7 @@ describe('testcase for notification Banner', () => {
               idamId: '123',
             },
             response: {
-              citizenFlags: {
-                isAllDocumentsViewed: 'No',
-              },
+              citizenFlags: {},
             },
           },
         } as unknown as Respondent,
@@ -811,27 +686,6 @@ describe('testcase for notification Banner', () => {
         },
       ];
       expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
-        {
-          heading: 'You have a new document to view',
-          id: 'newDocument',
-          sections: [
-            {
-              links: [
-                {
-                  external: false,
-                  href: '/respondent/yourdocuments/alldocuments/alldocuments',
-                  text: 'See all documents',
-                },
-              ],
-              contents: [
-                {
-                  text: 'A new document has been added to your case.',
-                },
-              ],
-            },
-          ],
-          title: 'Important',
-        },
         {
           heading: 'You have a final order',
           id: 'finalOrder',

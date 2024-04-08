@@ -8,7 +8,6 @@ import {
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
   RESPONDENT_ORDERS_FROM_THE_COURT,
-  RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
 } from '../../../../../steps/urls';
 import { NotificationBannerContent } from '../../definitions';
@@ -186,24 +185,6 @@ const en: NotificationBannerContent = {
             },
           ],
         },
-        newDocument: {
-          heading: 'You have a new document to view',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'A new document has been added to your case.',
-                },
-              ],
-              links: [
-                {
-                  text: 'See all documents',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
-                },
-              ],
-            },
-          ],
-        },
         giveRespondentTheirDocuments: {
           heading: 'You must give the respondent their documents',
           sections: [
@@ -358,24 +339,6 @@ const en: NotificationBannerContent = {
             },
           ],
         },
-        newDocument: {
-          heading: 'You have a new document to view',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'A new document has been added to your case.',
-                },
-              ],
-              links: [
-                {
-                  href: RESPONDENT_VIEW_ALL_DOCUMENTS,
-                  text: 'See all documents',
-                },
-              ],
-            },
-          ],
-        },
       },
     },
   },
@@ -395,24 +358,6 @@ const en: NotificationBannerContent = {
                 {
                   text: 'View the order (PDF)',
                   href: APPLICANT_ORDERS_FROM_THE_COURT,
-                },
-              ],
-            },
-          ],
-        },
-        newDocument: {
-          heading: 'You have a new document to view',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'A new document has been added to your case.',
-                },
-              ],
-              links: [
-                {
-                  text: 'See all documents',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
                 },
               ],
             },
@@ -479,24 +424,6 @@ const en: NotificationBannerContent = {
                 {
                   text: 'View the order (PDF)',
                   href: APPLICANT_ORDERS_FROM_THE_COURT,
-                },
-              ],
-            },
-          ],
-        },
-        newDocument: {
-          heading: 'You have a new document to view',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'A new document has been added to your case.',
-                },
-              ],
-              links: [
-                {
-                  text: 'See all documents',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
                 },
               ],
             },
@@ -695,24 +622,6 @@ const cy: typeof en = {
             },
           ],
         },
-        newDocument: {
-          heading: 'Mae gennych ddogfen newydd i edrych arni',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
-                },
-              ],
-              links: [
-                {
-                  text: 'Gweld yr holl ddogfennau',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
-                },
-              ],
-            },
-          ],
-        },
         giveRespondentTheirDocuments: {
           heading: "Mae'n rhaid i chi roi'r dogfennau i'r atebydd",
           sections: [
@@ -867,24 +776,6 @@ const cy: typeof en = {
             },
           ],
         },
-        newDocument: {
-          heading: 'You have a new document to view',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'A new document has been added to your case.',
-                },
-              ],
-              links: [
-                {
-                  href: RESPONDENT_VIEW_ALL_DOCUMENTS,
-                  text: 'See all documents',
-                },
-              ],
-            },
-          ],
-        },
       },
     },
   },
@@ -904,24 +795,6 @@ const cy: typeof en = {
                 {
                   text: 'Gweld y gorchymyn (PDF)',
                   href: APPLICANT_ORDERS_FROM_THE_COURT,
-                },
-              ],
-            },
-          ],
-        },
-        newDocument: {
-          heading: 'Mae gennych ddogfen newydd i edrych arni',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
-                },
-              ],
-              links: [
-                {
-                  text: 'Gweld yr holl ddogfennau',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
                 },
               ],
             },
@@ -988,24 +861,6 @@ const cy: typeof en = {
                 {
                   text: 'Gweld y gorchymyn (PDF)',
                   href: APPLICANT_ORDERS_FROM_THE_COURT,
-                },
-              ],
-            },
-          ],
-        },
-        newDocument: {
-          heading: 'Mae gennych ddogfen newydd i edrych arni',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
-                },
-              ],
-              links: [
-                {
-                  text: 'Gweld yr holl ddogfennau',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
                 },
               ],
             },

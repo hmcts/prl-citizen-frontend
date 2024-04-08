@@ -42,7 +42,6 @@ describe('notification Banner', () => {
     BannerNotification.APPLICATION_SERVED_LINKED,
     BannerNotification.APPLICATION_CLOSED,
     BannerNotification.NEW_ORDER,
-    BannerNotification.NEW_DOCUMENT,
     BannerNotification.FINAL_ORDER,
     BannerNotification.DA_RESPONDENT_BANNER,
     BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS,
