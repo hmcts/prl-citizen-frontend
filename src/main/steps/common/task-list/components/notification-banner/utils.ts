@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { CaseType, PartyType } from './../../../../../app/case/definition';
+import { CaseWithId } from '../../../../../app/case/case';
+import { UserDetails } from '../../../../../app/controller/AppRequest';
+
+import { CaseType, PartyType, YesOrNo } from './../../../../../app/case/definition';
 import { languages as content } from './content';
 
 export enum BannerNotification {
@@ -20,6 +23,8 @@ export enum BannerNotification {
   DA_RESPONDENT_BANNER = 'daRespondentBanner',
   CA_RESPONDENT_SERVED = 'caRespondentServed',
   CAFFCASS = 'cafcass',
+  GIVE_RESPONDENT_THEIR_DOCUMENTS = 'giveRespondentTheirDocuments',
+  CA_PERSONAL_SERVICE = 'caPersonalService',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string, partyType: PartyType) => {
@@ -82,11 +87,6 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.NEW_ORDER),
     show: () => false,
   },
-  [BannerNotification.NEW_DOCUMENT]: {
-    id: BannerNotification.NEW_DOCUMENT,
-    content: getContent.bind(null, BannerNotification.NEW_DOCUMENT),
-    show: () => false,
-  },
   [BannerNotification.FINAL_ORDER]: {
     id: BannerNotification.FINAL_ORDER,
     content: getContent.bind(null, BannerNotification.FINAL_ORDER),
@@ -97,4 +97,22 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.DA_RESPONDENT_BANNER),
     show: () => false,
   },
+  [BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS]: {
+    id: BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS,
+    content: getContent.bind(null, BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS),
+    show: () => false,
+  },
+  [BannerNotification.CA_PERSONAL_SERVICE]: {
+    id: BannerNotification.CA_PERSONAL_SERVICE,
+    content: getContent.bind(null, BannerNotification.CA_PERSONAL_SERVICE),
+    show: () => false,
+  },
+};
+
+export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): boolean => {
+  return caseData.applicants?.[0].value?.response?.citizenFlags?.isApplicationToBeServed === YesOrNo.YES;
+};
+
+export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+  return caseData.applicants?.[0].value.user.idamId === userDetails.id;
 };

@@ -125,7 +125,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
       return this.redirect(req, res, redirectUrl);
     }
 
-    const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
+    const client = new CosApiClient(user.accessToken, req.locals.logger);
     try {
       const response = await client.generateStatementDocument(user, {
         caseId: caseData.id,
@@ -153,7 +153,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     const { session, files } = req;
     const { user, userCase: caseData } = session;
     const partyType = getCasePartyType(caseData, user.id);
-    const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
+    const client = new CosApiClient(user.accessToken, req.locals.logger);
     const redirectUrl = this.setRedirectUrl(partyType, req);
 
     req.url = redirectUrl;
@@ -205,7 +205,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
     }
 
     try {
-      const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
+      const client = new CosApiClient(user.accessToken, req.locals.logger);
       const response = await client.submitUploadedDocuments(user, {
         caseId: caseData.id,
         categoryId: this.getDocumentCategory(req.params.docCategory as UploadDocumentCategory, partyType),

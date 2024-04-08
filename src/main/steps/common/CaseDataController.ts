@@ -53,7 +53,7 @@ export default class CaseDataController {
 
   public async fetchAndSaveData(req: AppRequest): Promise<{ caseData: CaseWithId; hearingData: any }> {
     const promises: Promise<any>[] = [];
-    const client = await new CosApiClient(req.session.user.accessToken, 'https://return-url');
+    const client = await new CosApiClient(req.session.user.accessToken, req.locals.logger);
     const userDetails = req.session.user;
     const caseId = req.params.caseId ?? req.session?.userCase?.id ?? null;
 

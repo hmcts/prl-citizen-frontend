@@ -1,6 +1,5 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
-import { APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../../urls';
 
 import { getNotificationBannerConfig } from '.';
 
@@ -77,7 +76,72 @@ const applicant = [
       },
     },
   },
+  {
+    id: 'string',
+    value: {
+      email: 'string',
+      gender: 'string',
+      address: {
+        AddressLine1: 'string',
+        AddressLine2: 'string',
+        PostTown: 'string',
+        County: 'string',
+        PostCode: 'string',
+      },
+      dxNumber: 'string',
+      landline: 'string',
+      lastName: 'string',
+      firstName: 'string',
+      dateOfBirth: 'string',
+      otherGender: 'string',
+      phoneNumber: 'string',
+      placeOfBirth: 'string',
+      previousName: 'string',
+      solicitorOrg: {
+        OrganisationID: 'string',
+        OrganisationName: 'string',
+      },
+      sendSignUpLink: 'string',
+      solicitorEmail: 'string',
+      isAddressUnknown: 'string',
+      solicitorAddress: {
+        County: '',
+        Country: '',
+        PostCode: '',
+        PostTown: '',
+        AddressLine1: '',
+        AddressLine2: '',
+        AddressLine3: '',
+      },
+      isDateOfBirthKnown: 'string',
+      solicitorReference: 'string',
+      solicitorTelephone: 'string',
+      isPlaceOfBirthKnown: 'string',
+      isDateOfBirthUnknown: 'string',
+      isAddressConfidential: 'string',
+      isCurrentAddressKnown: 'string',
+      relationshipToChildren: 'string',
+      representativeLastName: 'string',
+      representativeFirstName: 'string',
+      canYouProvidePhoneNumber: 'string',
+      canYouProvideEmailAddress: 'string',
+      isAtAddressLessThan5Years: 'string',
+      isPhoneNumberConfidential: 'string',
+      isEmailAddressConfidential: 'string',
+      respondentLivedWithApplicant: 'string',
+      doTheyHaveLegalRepresentation: 'string',
+      addressLivedLessThan5YearsDetails: 'string',
+      otherPersonRelationshipToChildren: [],
+      isAtAddressLessThan5YearsWithDontKnow: 'string',
+      response: {},
+      user: {
+        email: 'string',
+        idamId: '1234',
+      },
+    },
+  },
 ];
+
 describe('testcase for notification Banner', () => {
   test('when casetype not mentioned', () => {
     const data = {
@@ -89,21 +153,25 @@ describe('testcase for notification Banner', () => {
 
     expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
-        contents: [
-          {
-            text: 'Your application is being reviewed and you will be contacted with next steps.',
-          },
-        ],
         heading: 'Your application is in progress',
         id: 'applicationSubmitted',
-        links: [
+        title: 'Important',
+        sections: [
           {
-            href: '/c100-rebuild/12/withdraw',
-            text: 'Withdraw your application',
-            external: false,
+            contents: [
+              {
+                text: 'Your application is being reviewed and you will be contacted with next steps.',
+              },
+            ],
+            links: [
+              {
+                href: '/c100-rebuild/12/withdraw',
+                text: 'Withdraw your application',
+                external: false,
+              },
+            ],
           },
         ],
-        title: 'Important',
       },
     ]);
   });
@@ -125,18 +193,25 @@ describe('testcase for notification Banner', () => {
 
     expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
-        contents: [
-          {
-            text: 'You have caseData.noOfDaysRemainingToSubmitCase days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
-          },
-        ],
         heading: 'You have not finished your application',
         id: 'applicationInProgress',
-        links: [
+        sections: [
           {
-            href: '#',
-            text: 'Continue your application',
-            external: false,
+            contents: [
+              {
+                text: 'You have caseData.noOfDaysRemainingToSubmitCase days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
+              },
+              {
+                text: 'You can review all your answers before you submit your application.',
+              },
+            ],
+            links: [
+              {
+                href: '#',
+                text: 'Continue your application',
+                external: false,
+              },
+            ],
           },
         ],
         title: 'Important',
@@ -154,9 +229,14 @@ describe('testcase for notification Banner', () => {
 
     expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
-        contents: [
+        sections: [
           {
-            text: 'You can still access all documents related to the case',
+            contents: [
+              {
+                text: 'You can still access all documents related to the case',
+              },
+            ],
+            links: null,
           },
         ],
         heading: 'This case has now been withdrawn',
@@ -202,28 +282,37 @@ describe('testcase for notification Banner', () => {
     const language = 'en';
     expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
-        contents: [
-          {
-            text: 'The court rejected your request to withdraw this application. The application will continue to progress.',
-          },
-        ],
         heading: 'Your withdrawal request was rejected',
         id: 'withdrawalRequestRejected',
         title: 'Important',
-      },
-      {
-        contents: [
+        sections: [
           {
-            text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+            contents: [
+              {
+                text: 'The court rejected your request to withdraw this application. The application will continue to progress.',
+              },
+            ],
+            links: null,
           },
         ],
+      },
+      {
         heading: 'You have a new order from the court',
         id: 'newOrder',
-        links: [
+        sections: [
           {
-            href: '/applicant/yourdocuments/alldocuments/orders',
-            text: 'View the order (PDF)',
-            external: false,
+            contents: [
+              {
+                text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+              },
+            ],
+            links: [
+              {
+                href: '/applicant/yourdocuments/alldocuments/orders',
+                text: 'View the order (PDF)',
+                external: false,
+              },
+            ],
           },
         ],
         title: 'Important',
@@ -241,9 +330,14 @@ describe('testcase for notification Banner', () => {
 
     expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
-        contents: [
+        sections: [
           {
-            text: 'Your application is being reviewed and you will be contacted with next steps.',
+            contents: [
+              {
+                text: 'Your application is being reviewed and you will be contacted with next steps.',
+              },
+            ],
+            links: null,
           },
         ],
         heading: 'Your application is in progress',
@@ -263,9 +357,14 @@ describe('testcase for notification Banner', () => {
 
     expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
-        contents: [
+        sections: [
           {
-            text: 'Your application is being reviewed and you will be contacted with next steps.',
+            contents: [
+              {
+                text: 'Your application is being reviewed and you will be contacted with next steps.',
+              },
+            ],
+            links: null,
           },
         ],
         heading: 'Your application is in progress',
@@ -286,18 +385,158 @@ describe('testcase for notification Banner', () => {
 
     expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
-        contents: [
+        sections: [
           {
-            text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
+            contents: [
+              {
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
+              },
+            ],
+            links: [],
           },
         ],
         heading: 'The court has issued your application',
         id: 'applicationServedAndLinked',
-        links: [],
         title: 'Important',
       },
     ]);
   });
+
+  test('when primary citizen has to serve respondent personally', () => {
+    const applicantLIP = applicant[0];
+    applicantLIP.value.response = { ...applicantLIP.value.response, citizenFlags: { isApplicationToBeServed: 'Yes' } };
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: [applicantLIP, applicant[1]],
+    } as Partial<CaseWithId>;
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+      {
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
+              },
+            ],
+            links: [],
+          },
+        ],
+        heading: 'The court has issued your application',
+        id: 'applicationServedAndLinked',
+        title: 'Important',
+      },
+      {
+        heading: 'You must give the respondent their documents',
+        id: 'giveRespondentTheirDocuments',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has issued your application. This means a copy of your application and other court documents are ready to give to the other people in the case (the respondents).',
+              },
+              {
+                text: 'You must give the following documents to the respondent:',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/yourdocuments/alldocuments/alldocuments',
+                text: "View the respondent's documents",
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party (such as a process server or court bailiff). More information about court bailiffs can be found on GOV.UK.',
+              },
+              {
+                text: '<a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
+              },
+              {
+                text: '<br/><p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
+              },
+              {
+                text: 'You need to submit a statement of service after the respondent has been given the documents.',
+              },
+            ],
+            links: [
+              {
+                external: true,
+                href: 'https://assets.publishing.service.gov.uk/media/64c39c16f921860014866728/c9_0401.pdf',
+                text: 'Download the statement of service (form C9) (opens in a new tab)',
+              },
+              {
+                external: false,
+                href: '',
+                text: 'Upload the statement of service (form C9)',
+              },
+            ],
+          },
+        ],
+        title: 'Important',
+      },
+    ]);
+  });
+
+  test('when respondent being served personally by primary applicant, other applicant should have notification', () => {
+    const applicantLIP = applicant[0];
+    applicantLIP.value.response = { ...applicantLIP.value.response, citizenFlags: { isApplicationToBeServed: 'Yes' } };
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: [applicantLIP, applicant[1]],
+    } as Partial<CaseWithId>;
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+
+    expect(getNotificationBannerConfig(data, { ...userDetails, id: '1234' }, party, language)).toStrictEqual([
+      {
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
+              },
+            ],
+            links: [],
+          },
+        ],
+        heading: 'The court has issued your application',
+        id: 'applicationServedAndLinked',
+        title: 'Important',
+      },
+      {
+        heading: 'The court has issued your application',
+        id: 'caPersonalService',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'You should review your application pack to check what you should do next.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/yourdocuments/alldocuments/alldocuments',
+                text: 'View your application pack',
+              },
+            ],
+          },
+        ],
+        title: 'Important',
+      },
+    ]);
+  });
+
   test('when case is closed', () => {
     const data = {
       id: '12',
@@ -307,108 +546,18 @@ describe('testcase for notification Banner', () => {
     const language = 'en';
     expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
-        contents: [
+        sections: [
           {
-            text: 'Your case is closed. The court has made a final decision about your case. The order tells you what the court has decided.',
+            contents: [
+              {
+                text: 'Your case is closed. The court has made a final decision about your case. The order tells you what the court has decided.',
+              },
+            ],
+            links: null,
           },
         ],
         heading: 'You have a final order',
         id: 'applicationClosed',
-        title: 'Important',
-      },
-    ]);
-  });
-
-  test('when FL401 case is in served and linked and have new document', () => {
-    const data = {
-      id: '12',
-      state: State.CASE_SERVED,
-      caseTypeOfApplication: CaseType.FL401,
-      applicantsFL401: {
-        email: 'abc',
-        gender: 'male',
-        address: {
-          AddressLine1: '',
-          AddressLine2: '',
-          PostTown: '',
-          County: '',
-          PostCode: '',
-        },
-        dxNumber: '123',
-        landline: '987654321',
-        lastName: 'Smith',
-        firstName: 'John',
-        dateOfBirth: '',
-        otherGender: '',
-        phoneNumber: '',
-        placeOfBirth: '',
-        previousName: '',
-        solicitorOrg: {
-          OrganisationID: '',
-          OrganisationName: '',
-        },
-        sendSignUpLink: '',
-        solicitorEmail: '',
-        isAddressUnknown: '',
-        solicitorAddress: {
-          County: '',
-          Country: '',
-          PostCode: '',
-          PostTown: '',
-          AddressLine1: '',
-          AddressLine2: '',
-          AddressLine3: '',
-        },
-        isDateOfBirthKnown: '',
-        solicitorReference: '',
-        solicitorTelephone: '',
-        isPlaceOfBirthKnown: '',
-        isDateOfBirthUnknown: '',
-        isAddressConfidential: '',
-        isCurrentAddressKnown: '',
-        relationshipToChildren: '',
-        representativeLastName: '',
-        representativeFirstName: '',
-        canYouProvidePhoneNumber: '',
-        canYouProvideEmailAddress: '',
-        isAtAddressLessThan5Years: '',
-        isPhoneNumberConfidential: '',
-        isEmailAddressConfidential: '',
-        respondentLivedWithApplicant: '',
-        doTheyHaveLegalRepresentation: '',
-        addressLivedLessThan5YearsDetails: '',
-        otherPersonRelationshipToChildren: [''],
-        isAtAddressLessThan5YearsWithDontKnow: '',
-        response: {
-          citizenFlags: {
-            isAllDocumentsViewed: 'No',
-          },
-        },
-        user: {
-          email: 'abc',
-          idamId: '123',
-        },
-      },
-    };
-    const party = PartyType.APPLICANT;
-    const language = 'en';
-
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
-      {
-        heading: 'You have a new document to view',
-        id: 'newDocument',
-        contents: [
-          {
-            text: 'A new document has been added to your case.',
-          },
-        ],
-        links: [
-          {
-            external: false,
-            text: 'See all documents',
-            href: APPLICANT_VIEW_ALL_DOCUMENTS,
-          },
-        ],
         title: 'Important',
       },
     ]);
@@ -439,9 +588,7 @@ describe('testcase for notification Banner', () => {
               idamId: '123',
             },
             response: {
-              citizenFlags: {
-                isAllDocumentsViewed: 'No',
-              },
+              citizenFlags: {},
             },
           },
         } as unknown as Respondent,
@@ -474,35 +621,23 @@ describe('testcase for notification Banner', () => {
       ];
       expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
-          contents: [
-            {
-              text: 'A new document has been added to your case.',
-            },
-          ],
-          heading: 'You have a new document to view',
-          id: 'newDocument',
-          links: [
-            {
-              external: false,
-              href: '/respondent/yourdocuments/alldocuments/alldocuments',
-              text: 'See all documents',
-            },
-          ],
-          title: 'Important',
-        },
-        {
-          contents: [
-            {
-              text: 'The court has made a decision about your case. The order tells you what the court has decided.',
-            },
-          ],
           heading: 'You have a new order from the court',
           id: 'newOrder',
-          links: [
+
+          sections: [
             {
-              external: false,
-              href: '/respondent/yourdocuments/alldocuments/orders',
-              text: 'View the order (PDF)',
+              contents: [
+                {
+                  text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+                },
+              ],
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/yourdocuments/alldocuments/orders',
+                  text: 'View the order (PDF)',
+                },
+              ],
             },
           ],
           title: 'Important',
@@ -519,9 +654,7 @@ describe('testcase for notification Banner', () => {
               idamId: '123',
             },
             response: {
-              citizenFlags: {
-                isAllDocumentsViewed: 'No',
-              },
+              citizenFlags: {},
             },
           },
         } as unknown as Respondent,
@@ -554,37 +687,25 @@ describe('testcase for notification Banner', () => {
       ];
       expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
-          contents: [
-            {
-              text: 'A new document has been added to your case.',
-            },
-          ],
-          heading: 'You have a new document to view',
-          id: 'newDocument',
-          links: [
-            {
-              external: false,
-              href: '/respondent/yourdocuments/alldocuments/alldocuments',
-              text: 'See all documents',
-            },
-          ],
-          title: 'Important',
-        },
-        {
-          contents: [
-            {
-              text: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
-            },
-          ],
           heading: 'You have a final order',
           id: 'finalOrder',
-          links: [
+          sections: [
             {
-              external: false,
-              href: '/respondent/yourdocuments/alldocuments/orders',
-              text: 'View the order (PDF)',
+              contents: [
+                {
+                  text: 'The court has made a final decision about your case. The order tells you what the court has decided. ',
+                },
+              ],
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/yourdocuments/alldocuments/orders',
+                  text: 'View the order (PDF)',
+                },
+              ],
             },
           ],
+
           title: 'Important',
         },
       ]);

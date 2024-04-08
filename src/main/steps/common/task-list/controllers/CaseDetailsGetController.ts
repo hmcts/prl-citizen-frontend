@@ -32,7 +32,7 @@ export default class CaseDetailsGetController {
       const User = req.session.user;
       const caseID = req.session.userCase.id;
       const caseData = req.session.userCase;
-      const cosClient = new CosApiClient(User.accessToken, 'https://return-url');
+      const cosClient = new CosApiClient(User.accessToken, req.locals.logger);
       const hearings = await cosClient.retrieveCaseHearingsByCaseId(User, caseID);
       req.session.userCase.hearingCollection = hearings.caseHearings;
 

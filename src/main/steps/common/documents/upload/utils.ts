@@ -44,11 +44,11 @@ export const deleteDocument = async (req: AppRequest, res: Response): Promise<vo
   const { query, session } = req;
   const { user: userDetails, userCase: caseData } = session;
   const partyType = getCasePartyType(caseData, userDetails.id);
-  const client = new CosApiClient(userDetails.accessToken, '/');
+  const client = new CosApiClient(userDetails.accessToken, req.locals.logger);
   const uploadedFilesDataReference = getUploadedFilesDataReference(partyType);
 
   try {
-    await client.deleteCitizenStatementDocument(query.documentId as string, userDetails);
+    await client.deleteCitizenStatementDocument(query.documentId as string);
 
     if (req.session.userCase && req.session.userCase.hasOwnProperty(uploadedFilesDataReference)) {
       req.session.userCase[uploadedFilesDataReference] = caseData?.[uploadedFilesDataReference]?.filter(

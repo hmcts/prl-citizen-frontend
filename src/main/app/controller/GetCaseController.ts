@@ -40,7 +40,7 @@ export class GetCaseController {
     const caseReference = req.params?.caseId ?? id;
     if (req.params?.caseId || id) {
       const citizenUser = req.session.user;
-      const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
+      const client = new CosApiClient(citizenUser.accessToken, req.locals.logger);
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, citizenUser);
       req.session.userCase = caseDataFromCos;
     }
