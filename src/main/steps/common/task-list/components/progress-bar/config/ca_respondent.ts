@@ -14,7 +14,7 @@ export const CA_RESPONDENT: ProgressBarProps[] = [
   {
     ...progressBarStage.responseSubmitted,
     isInProgress: (caseData, userDetails) => {
-      const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
+      const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyDetails;
       return !!respondent?.response.citizenFlags?.isResponseInitiated;
     },
     isComplete: (caseData, userDetails) =>

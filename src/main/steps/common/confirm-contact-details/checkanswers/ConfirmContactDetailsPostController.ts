@@ -41,7 +41,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { user, userCase } = req.session;
     const partyType = getCasePartyType(userCase, user.id);
-    const partyDetails = getPartyDetails(userCase, user.id);
+    const partyDetails = getPartyDetails(userCase, user.id)?.partyDetails;
     const client = new CosApiClient(user.accessToken, req.locals.logger);
 
     if (partyDetails) {

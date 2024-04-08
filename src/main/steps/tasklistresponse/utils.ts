@@ -14,7 +14,7 @@ import { mapProceedingDetails } from './proceedings/ProceedingDetailsMapper';
 
 export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']): void => {
   const caseType = userCase.caseTypeOfApplication;
-  const partyDetails = getPartyDetails(userCase, userId);
+  const partyDetails = getPartyDetails(userCase, userId)?.partyDetails;
   if (partyDetails) {
     if (caseType === CaseType.C100) {
       setDataInSession(userCase, partyDetails);
@@ -52,7 +52,10 @@ function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
   }
 }
 
-export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id']): PartyDetails | undefined => {
+export const getPartyDetails = (
+  userCase: CaseWithId,
+  userId: UserDetails['id']
+): { partyDetails: PartyDetails; id?: string } | undefined => {
   let partyData;
 
   if (!userCase) {
@@ -75,11 +78,11 @@ export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id'])
   }
 
   if (partyData?.value) {
-    return Object.assign({}, partyData.value);
+    return { partyDetails: partyData.value, id: partyData.id };
   }
 
   if (partyData) {
-    return Object.assign({}, partyData);
+    return { partyDetails: partyData };
   }
 
   return partyData;

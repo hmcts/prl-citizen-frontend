@@ -127,7 +127,7 @@ export const generateContent: TranslationFn = content => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
   const caseNumber = content.userCase?.id!;
   const { user, userCase } = content.additionalData?.req.session;
-  const partyDetails = getPartyDetails(userCase, user.id) as PartyDetails;
+  const partyDetails = getPartyDetails(userCase, user.id)?.partyDetails as PartyDetails;
   // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
   const { fields } = generateFormFields(partyDetails);
 

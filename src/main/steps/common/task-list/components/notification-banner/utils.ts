@@ -3,7 +3,7 @@
 
 import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
-import { getCurrentPartyId } from '../../../../../steps/prl-cases/dashboard/utils';
+import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 
 import { CaseType, PartyType, YesOrNo } from './../../../../../app/case/definition';
 import { languages as content } from './content';
@@ -123,10 +123,9 @@ export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: U
   return caseData.applicants?.[0].value.user.idamId === userDetails.id;
 };
 
-export const isPartyServed = (
-  caseData: Partial<CaseWithId>,
-  userDetails: UserDetails,
-  partyType: PartyType
-): boolean => {
-  return getCurrentPartyId(caseData, userDetails, partyType) === caseData.citizenApplicationPacks?.[0].partyId;
+export const isPartyServed = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+  return (
+    caseData.citizenApplicationPacks?.length !== 0 &&
+    getPartyDetails(caseData as CaseWithId, userDetails.id)?.id === caseData.citizenApplicationPacks?.[0].partyId
+  );
 };

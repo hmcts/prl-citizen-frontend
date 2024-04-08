@@ -35,7 +35,7 @@ export default class LegalRepresentationPostController extends PostController<An
     } else if (formData.legalRepresentation) {
       const { user, userCase } = req.session;
       const partyType = getCasePartyType(userCase, user.id);
-      const partyDetails = getPartyDetails(userCase, user.id);
+      const partyDetails = getPartyDetails(userCase, user.id)?.partyDetails;
       const client = new CosApiClient(user.accessToken, req.locals.logger);
 
       if (partyDetails) {

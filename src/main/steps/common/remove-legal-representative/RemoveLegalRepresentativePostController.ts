@@ -22,7 +22,7 @@ export class RemoveLegalRepresentativePostController extends PostController<AnyO
   public async post(req: AppRequest, res: Response): Promise<void> {
     const { user, userCase } = req.session;
     const client = new CosApiClient(user.accessToken, req.locals.logger);
-    const partyDetails = getPartyDetails(userCase, user.id);
+    const partyDetails = getPartyDetails(userCase, user.id)?.partyDetails;
     const partyType = getCasePartyType(userCase, user.id);
     if (partyDetails) {
       Object.assign(partyDetails, { ...partyDetails, isRemoveLegalRepresentativeRequested: YesOrNo.YES });
