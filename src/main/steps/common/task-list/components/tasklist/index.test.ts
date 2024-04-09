@@ -364,6 +364,7 @@ describe('tasklist index', () => {
         state: State.CASE_SERVED,
         applicants: applicant,
         respondents,
+        caseTypeOfApplication: 'C100',
         orderCollection: [
           {
             id: '1234',
@@ -535,6 +536,30 @@ describe('tasklist index', () => {
                 label: 'Ready to view',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/upload',
+              id: 'uploadDocuments',
+              linkText: 'Upload documents, applications and statements',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/view/all-documents',
+              id: 'viewAllDocuments',
+              linkText: 'View all documents',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Ready to view',
+              },
+            },
           ],
         },
         {
@@ -613,6 +638,7 @@ describe('tasklist index', () => {
         state: State.CASE_SERVED,
         applicants: applicant,
         respondents,
+        caseTypeOfApplication: 'C100',
         orderCollection: [
           {
             id: '1234',
@@ -802,6 +828,30 @@ describe('tasklist index', () => {
                 label: 'Ready to view',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/upload',
+              id: 'uploadDocuments',
+              linkText: 'Upload documents, applications and statements',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/view/all-documents',
+              id: 'viewAllDocuments',
+              linkText: 'View all documents',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Ready to view',
+              },
+            },
           ],
         },
         {
@@ -880,6 +930,7 @@ describe('tasklist index', () => {
         state: State.CASE_SERVED,
         applicants: applicant,
         respondents,
+        caseTypeOfApplication: 'C100',
       };
       const party = PartyType.APPLICANT;
       const language = 'en';
@@ -977,6 +1028,30 @@ describe('tasklist index', () => {
               disabled: false,
               hintText: null,
               href: '/applicant/yourdocuments/alldocuments/alldocuments',
+              id: 'viewAllDocuments',
+              linkText: 'View all documents',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Ready to view',
+              },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/upload',
+              id: 'uploadDocuments',
+              linkText: 'Upload documents, applications and statements',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/view/all-documents',
               id: 'viewAllDocuments',
               linkText: 'View all documents',
               openInAnotherTab: false,
@@ -1136,6 +1211,7 @@ describe('tasklist index', () => {
         state: State.CASE_SERVED,
         applicants: applicant,
         respondents,
+        caseTypeOfApplication: 'C100',
         orderCollection: [
           {
             id: '1234',
@@ -1307,6 +1383,30 @@ describe('tasklist index', () => {
                 label: 'Ready to view',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/upload',
+              id: 'uploadDocuments',
+              linkText: 'Upload documents, applications and statements',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/view/all-documents',
+              id: 'viewAllDocuments',
+              linkText: 'View all documents',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Ready to view',
+              },
+            },
           ],
         },
         {
@@ -1384,6 +1484,7 @@ describe('tasklist index', () => {
         state: State.CASE_SERVED,
         applicants: applicant,
         respondents,
+        caseTypeOfApplication: 'C100',
         orderCollection: [
           {
             id: '1234',
@@ -1547,6 +1648,30 @@ describe('tasklist index', () => {
               disabled: false,
               hintText: null,
               href: '/applicant/yourdocuments/alldocuments/alldocuments',
+              id: 'viewAllDocuments',
+              linkText: 'View all documents',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Ready to view',
+              },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/upload',
+              id: 'uploadDocuments',
+              linkText: 'Upload documents, applications and statements',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/view/all-documents',
               id: 'viewAllDocuments',
               linkText: 'View all documents',
               openInAnotherTab: false,
@@ -1824,6 +1949,30 @@ describe('tasklist index', () => {
                 label: 'Ready to view',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/upload',
+              id: 'uploadDocuments',
+              linkText: ' Upload documents',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--grey',
+                label: 'TO DO',
+              },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/view/all-documents',
+              id: 'viewAllDocuments',
+              linkText: 'View all documents',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Ready to view',
+              },
+            },
           ],
         },
         {
@@ -1976,6 +2125,30 @@ describe('tasklist index', () => {
                 label: 'Ready to view',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/upload',
+              id: 'uploadDocuments',
+              linkText: ' Upload documents',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--grey',
+                label: 'TO DO',
+              },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/view/all-documents',
+              id: 'viewAllDocuments',
+              linkText: 'View all documents',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Ready to view',
+              },
+            },
           ],
         },
         {
@@ -2081,6 +2254,18 @@ describe('tasklist index', () => {
                 label: 'Ready to view',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/view/all-documents',
+              id: 'viewAllDocuments',
+              linkText: 'View all documents',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Ready to view',
+              },
+            },
           ],
         },
         {
@@ -2109,6 +2294,7 @@ describe('tasklist index', () => {
         id: '12',
         state: State.CASE_CLOSED,
         caseTypeOfApplication: 'FL401',
+        applicantsFL401: applicantFL401,
       };
       const party = PartyType.APPLICANT;
       const language = 'en';
@@ -2165,7 +2351,32 @@ describe('tasklist index', () => {
         {
           heading: 'Your documents',
           id: 'yourDocuments',
-          tasks: [],
+          tasks: [
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/yourdocuments/alldocuments/alldocuments',
+              id: 'viewAllDocuments',
+              linkText: 'View all documents',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Ready to view',
+              },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/applicant/documents/view/all-documents',
+              id: 'viewAllDocuments',
+              linkText: 'View all documents',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Ready to view',
+              },
+            },
+          ],
         },
         {
           heading: 'Orders from the court',
@@ -2294,6 +2505,15 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
+              href: '/respondent/upload-document',
+              id: 'uploadDocuments',
+              linkText: 'Upload Documents',
+              openInAnotherTab: false,
+              stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+            },
+            {
+              disabled: false,
+              hintText: null,
               href: '/respondent/yourdocuments/alldocuments/alldocuments',
               id: 'viewAllDocuments',
               linkText: 'View all documents',
@@ -2303,11 +2523,23 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/respondent/upload-document',
+              href: '/respondent/documents/upload',
               id: 'uploadDocuments',
               linkText: 'Upload Documents',
               openInAnotherTab: false,
               stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/respondent/documents/view/all-documents',
+              id: 'viewAllDocuments',
+              linkText: 'View all documents',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Ready to view',
+              },
             },
           ],
         },
@@ -2398,6 +2630,18 @@ describe('tasklist index', () => {
                 label: 'Ready to view',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/respondent/documents/view/all-documents',
+              id: 'viewAllDocuments',
+              linkText: 'View all documents',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Ready to view',
+              },
+            },
           ],
         },
         {
@@ -2450,60 +2694,6 @@ describe('tasklist index', () => {
               stateTag: {
                 className: 'govuk-tag--blue',
                 label: 'Ready to view',
-              },
-            },
-          ],
-        },
-        {
-          heading: 'Your court hearings',
-          id: 'yourHearing',
-          tasks: [
-            {
-              disabled: true,
-              hintText: null,
-              href: '#',
-              id: 'viewHearingDetails',
-              linkText: 'Check details of your court hearings',
-              openInAnotherTab: false,
-              stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'Not available yet',
-              },
-            },
-          ],
-        },
-        {
-          heading: 'Your documents',
-          id: 'yourDocuments',
-          tasks: [
-            {
-              disabled: false,
-              hintText: null,
-              href: '/respondent/yourdocuments/alldocuments/alldocuments',
-              id: 'viewAllDocuments',
-              linkText: 'View all documents',
-              openInAnotherTab: false,
-              stateTag: {
-                className: 'govuk-tag--blue',
-                label: 'Ready to view',
-              },
-            },
-          ],
-        },
-        {
-          heading: 'Orders from the court',
-          id: 'ordersFromTheCourt',
-          tasks: [
-            {
-              disabled: false,
-              hintText: null,
-              href: '#',
-              id: 'viewOrders',
-              linkText: 'View all orders from the court',
-              openInAnotherTab: false,
-              stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'Not available yet',
               },
             },
           ],
@@ -2656,6 +2846,15 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
+            href: '/respondent/upload-document',
+            id: 'uploadDocuments',
+            linkText: 'Upload Documents',
+            openInAnotherTab: false,
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            hintText: null,
             href: '/respondent/yourdocuments/alldocuments/alldocuments',
             id: 'viewAllDocuments',
             linkText: 'View all documents',
@@ -2665,11 +2864,23 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/upload-document',
+            href: '/respondent/documents/upload',
             id: 'uploadDocuments',
             linkText: 'Upload Documents',
             openInAnotherTab: false,
             stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            hintText: null,
+            href: '/respondent/documents/view/all-documents',
+            id: 'viewAllDocuments',
+            linkText: 'View all documents',
+            openInAnotherTab: false,
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Ready to view',
+            },
           },
         ],
       },
@@ -2873,6 +3084,15 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
+            href: '/respondent/upload-document',
+            id: 'uploadDocuments',
+            linkText: 'Upload Documents',
+            openInAnotherTab: false,
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            hintText: null,
             href: '/respondent/yourdocuments/alldocuments/alldocuments',
             id: 'viewAllDocuments',
             linkText: 'View all documents',
@@ -2882,11 +3102,23 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/upload-document',
+            href: '/respondent/documents/upload',
             id: 'uploadDocuments',
             linkText: 'Upload Documents',
             openInAnotherTab: false,
             stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            hintText: null,
+            href: '/respondent/documents/view/all-documents',
+            id: 'viewAllDocuments',
+            linkText: 'View all documents',
+            openInAnotherTab: false,
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Ready to view',
+            },
           },
         ],
       },
@@ -3119,6 +3351,15 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
+            href: '/respondent/upload-document',
+            id: 'uploadDocuments',
+            linkText: 'Upload Documents',
+            openInAnotherTab: false,
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            hintText: null,
             href: '/respondent/yourdocuments/alldocuments/alldocuments',
             id: 'viewAllDocuments',
             linkText: 'View all documents',
@@ -3128,11 +3369,23 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/upload-document',
+            href: '/respondent/documents/upload',
             id: 'uploadDocuments',
             linkText: 'Upload Documents',
             openInAnotherTab: false,
             stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            hintText: null,
+            href: '/respondent/documents/view/all-documents',
+            id: 'viewAllDocuments',
+            linkText: 'View all documents',
+            openInAnotherTab: false,
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Ready to view',
+            },
           },
         ],
       },
@@ -3313,6 +3566,18 @@ describe('c100 respondent', () => {
             linkText: 'View all documents',
             openInAnotherTab: false,
             stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
+          },
+          {
+            disabled: false,
+            hintText: null,
+            href: '/respondent/documents/view/all-documents',
+            id: 'viewAllDocuments',
+            linkText: 'View all documents',
+            openInAnotherTab: false,
+            stateTag: {
+              className: 'govuk-tag--blue',
+              label: 'Ready to view',
+            },
           },
         ],
       },
