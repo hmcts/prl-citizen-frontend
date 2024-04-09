@@ -346,7 +346,7 @@ describe('mapSupportYouNeedDetails', () => {
           email: 'test@email.com',
           idamId: '',
         },
-        contactPreferences: ContactPreference.DIGITAL,
+        contactPreferences: ContactPreference.EMAIL,
       },
     };
 

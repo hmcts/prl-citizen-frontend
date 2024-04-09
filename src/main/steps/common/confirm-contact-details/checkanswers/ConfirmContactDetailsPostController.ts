@@ -16,6 +16,8 @@ import {
   APPLICANT_TASK_LIST_URL,
   C100_APPLICANT_TASKLIST,
   PARTY_TASKLIST,
+  RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS,
+  RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS,
   RESPONDENT_TASK_LIST_URL,
   RESPOND_TO_APPLICATION,
 } from '../../../../steps/urls';
@@ -80,7 +82,19 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
 
   private getRedirectUrl(partyType: PartyType, req: AppRequest<AnyObject>, userCase: CaseWithId) {
     let redirectUrl;
-    if (partyType === PartyType.RESPONDENT) {
+    if (req.session.applicationSettings?.navFromContactPreferences) {
+      if (userCase.preferredModeOfContact === ContactPreference.POST) {
+        redirectUrl =
+          partyType === PartyType.RESPONDENT
+            ? RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS
+            : APPLICANT_TASKLIST_CONTACT_POST_SUCCESS;
+      } else {
+        redirectUrl =
+          partyType === PartyType.RESPONDENT
+            ? RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS
+            : APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS;
+      }
+    } else if (partyType === PartyType.RESPONDENT) {
       // temporary until FL401 respondent tasklist refactored
       if (req.session.userCase.caseTypeOfApplication === 'C100') {
         redirectUrl = req.session.applicationSettings?.navfromRespondToApplication
@@ -93,13 +107,6 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
       }
     } else if (userCase.caseTypeOfApplication === CaseType.C100) {
       redirectUrl = C100_APPLICANT_TASKLIST;
-      if (req.session.applicationSettings?.navFromContactPreferences) {
-        if (userCase.preferredModeOfContact === ContactPreference.POST) {
-          redirectUrl = APPLICANT_TASKLIST_CONTACT_POST_SUCCESS;
-        } else {
-          redirectUrl = APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS;
-        }
-      }
     } else {
       redirectUrl = APPLICANT_TASK_LIST_URL;
     }

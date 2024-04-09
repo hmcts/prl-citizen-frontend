@@ -6,7 +6,12 @@ import * as oidc from '../../../../app/auth/user/oidc';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import * as steps from '../../../../steps';
-import { APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS, APPLICANT_TASKLIST_CONTACT_POST_SUCCESS } from '../../../urls';
+import {
+  APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
+  APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
+  RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS,
+  RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS,
+} from '../../../urls';
 
 import { ConfirmContactDetailsPostController } from './ConfirmContactDetailsPostController';
 import { prepareRequest } from './ContactDetailsMapper';
@@ -241,6 +246,62 @@ describe('ConfirmContactDetailsPostController', () => {
     expect(updateCaserMock).toBeCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
     expect(res.redirect).toHaveBeenLastCalledWith(APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS);
+  });
+
+  test('Should redirect C100 respondent after choosing post preference', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.userCase.respondents = partyDetails;
+    req.url = 'respondent';
+    req.session.userCase.preferredModeOfContact = 'post';
+    req.session.applicationSettings = { navFromContactPreferences: true };
+    req.session.userCase.caseInvites = [
+      {
+        id: '577695bd-2fb5-4418-a699-79ee352ed5bb',
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          caseInviteEmail: 'respondent2@example.net',
+          accessCode: '3GYFGJHO',
+          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          hasLinked: 'Yes',
+          expiryDate: '2023-05-07',
+          isApplicant: 'No',
+        },
+      },
+    ];
+    await controller.post(req, res);
+    expect(retrieveByCaseIdMock).toBeCalled;
+    expect(updateCaserMock).toBeCalled;
+    expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
+    expect(res.redirect).toHaveBeenLastCalledWith(RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS);
+  });
+
+  test('Should redirect C100 respondent after choosing digital preference', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.userCase.respondents = partyDetails;
+    req.url = 'respondent';
+    req.session.userCase.preferredModeOfContact = 'email';
+    req.session.applicationSettings = { navFromContactPreferences: true };
+    req.session.userCase.caseInvites = [
+      {
+        id: '577695bd-2fb5-4418-a699-79ee352ed5bb',
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          caseInviteEmail: 'respondent2@example.net',
+          accessCode: '3GYFGJHO',
+          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          hasLinked: 'Yes',
+          expiryDate: '2023-05-07',
+          isApplicant: 'No',
+        },
+      },
+    ];
+    await controller.post(req, res);
+    expect(retrieveByCaseIdMock).toBeCalled;
+    expect(updateCaserMock).toBeCalled;
+    expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
+    expect(res.redirect).toHaveBeenLastCalledWith(RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS);
   });
 
   test('Should not update the userCase for safety concerns when updateCaseData API is throwing error', async () => {

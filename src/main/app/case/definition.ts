@@ -809,7 +809,7 @@ export enum applicantContactPreferencesEnum {
 }
 
 export enum ContactPreference {
-  DIGITAL = 'digital',
+  EMAIL = 'email',
   POST = 'post',
 }
 

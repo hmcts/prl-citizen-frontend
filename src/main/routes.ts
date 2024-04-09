@@ -128,6 +128,8 @@ import {
   LOCAL_API_SESSION,
   FETCH_CONTACT_PREFERENCES,
   TASKLIST_RESPONSE_TO_CA,
+  RESPONDENT_TASKLIST_CONTACT_EMAIL,
+  RESPONDENT_TASKLIST_CONTACT_POST,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -361,6 +363,14 @@ export class Routes {
         app.post(
           `${APPLICANT_TASKLIST_CONTACT_POST}`,
           errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
+        );
+        app.post(
+          `${RESPONDENT_TASKLIST_CONTACT_EMAIL}`,
+          errorHandler(new RespondentConfirmContactDetailsPostController(step.form.fields).post)
+        );
+        app.post(
+          `${RESPONDENT_TASKLIST_CONTACT_POST}`,
+          errorHandler(new RespondentConfirmContactDetailsPostController(step.form.fields).post)
         );
       }
     }

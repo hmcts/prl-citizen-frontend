@@ -19,8 +19,8 @@ describe('contact preferences utils', () => {
       },
     },
   } as unknown as CaseWithId;
-  test('hasContactPreferences should return correct value when digital', () => {
-    caseData.applicantsFL401!.contactPreferences = 'digital' as ContactPreference;
+  test('hasContactPreferences should return correct value when email', () => {
+    caseData.applicantsFL401!.contactPreferences = 'email' as ContactPreference;
     expect(hasContactPreference(caseData, '1234')).toBe(true);
   });
 

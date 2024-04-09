@@ -59,7 +59,7 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
   }
 
   if (userCase.preferredModeOfContact) {
-    if (userCase.preferredModeOfContact === ContactPreference.DIGITAL && (!request?.email || !request?.email?.trim())) {
+    if (userCase.preferredModeOfContact === ContactPreference.EMAIL && (!request?.email || !request?.email?.trim())) {
       request.contactPreferences = null;
     }
     if (

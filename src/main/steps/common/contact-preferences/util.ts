@@ -7,7 +7,7 @@ export const hasContactPreference = (caseData: CaseWithId, userId: UserDetails['
   const partyDetails = getPartyDetails(caseData, userId);
 
   if (partyDetails?.contactPreferences) {
-    if (partyDetails?.contactPreferences === ContactPreference.DIGITAL) {
+    if (partyDetails?.contactPreferences === ContactPreference.EMAIL) {
       return !!partyDetails.email;
     } else {
       return (

@@ -76,7 +76,7 @@ export const form: FormContent = {
         {
           label: l => l.labelDigital,
           name: 'preferredModeOfContact',
-          value: ContactPreference.DIGITAL,
+          value: ContactPreference.EMAIL,
           hint: l => l.labelDitigalHintText,
         },
         {
