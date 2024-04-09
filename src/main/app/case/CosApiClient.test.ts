@@ -395,7 +395,7 @@ describe('CosApiClient', () => {
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<FeeDetailsResponse>);
     const req = mockRequest();
     const client = new CosApiClient('abc', req.locals.logger);
-    const actual = await client.fetchAWPFeeCodeDetails(applicationDetails, req.session.user);
+    const actual = await client.fetchAWPFeeCodeDetails(applicationDetails);
     expect(actual).toEqual(response);
   });
 
@@ -414,7 +414,7 @@ describe('CosApiClient', () => {
 
     let flag = false;
     try {
-      await client.fetchAWPFeeCodeDetails(applicationDetails, req.session.user);
+      await client.fetchAWPFeeCodeDetails(applicationDetails);
     } catch (error) {
       flag = true;
     }

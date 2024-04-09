@@ -2,7 +2,8 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
-import { isCaseClosed, isRepresentedBySolicotor } from '../../../../../../steps/common/task-list/utils';
+import { isCaseClosed, isCaseLinked, isRepresentedBySolicotor } from '../../../../../../steps/common/task-list/utils';
+import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_ATTENDING_THE_COURT,
   APPLICANT_CHECK_ANSWERS,
@@ -12,6 +13,7 @@ import {
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_WITNESS_STATEMENTS_DA,
   APPLICANT_YOURHEARINGS_HEARINGS,
+  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
   YOUR_APPLICATION_FL401,
 } from '../../../../../../steps/urls';
 import {
@@ -80,6 +82,13 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
         href: () => APPLICANT_WITNESS_STATEMENTS_DA,
         stateTag: caseData => getYourWitnessStatementStatus(caseData),
         openInAnotherTab: true,
+      },
+      {
+        id: Tasks.MAKE_REQUEST_TO_COURT_ABOUT_CASE,
+        href: () => applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
+        stateTag: () => StateTags.OPTIONAL,
+        show: isCaseLinked,
+        disabled: isCaseClosed,
       },
     ],
   },

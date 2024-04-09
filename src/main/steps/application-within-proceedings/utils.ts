@@ -397,7 +397,7 @@ export const fetchAndSaveFeeCodeDetails = async (
 
     const client = new CosApiClient(userDetails.accessToken, req.locals.logger);
     client
-      .fetchAWPFeeCodeDetails(applicationDetails, userDetails)
+      .fetchAWPFeeCodeDetails(applicationDetails)
       .then(feeDetails => {
         if (feeDetails?.errorRetrievingResponse) {
           return req.session.save(() => {

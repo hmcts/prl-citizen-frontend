@@ -2,11 +2,13 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
+import { applyParms } from '../../../../../../steps/common/url-parser';
 import { UPDATE_CASE_YES } from '../../../../../../steps/constants';
 import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils';
 import {
   ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT_CA_DA_REQUEST,
+  APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS,
   CA_DA_ATTENDING_THE_COURT,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
@@ -16,7 +18,7 @@ import {
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
 } from '../../../../../../steps/urls';
-import { isApplicationResponded, isCaseClosed, isRepresentedBySolicotor } from '../../../utils';
+import { isApplicationResponded, isCaseClosed, isCaseLinked, isRepresentedBySolicotor } from '../../../utils';
 import {
   StateTags,
   TaskListSection,
@@ -186,6 +188,13 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           return getInternationalFactorsStatus(respondent?.response.citizenInternationalElements);
         },
         showHint: (caseData, userDetails) => isApplicationResponded(caseData, userDetails.id),
+      },
+      {
+        id: Tasks.MAKE_REQUEST_TO_COURT_ABOUT_CASE,
+        href: () => applyParms(APPLICATION_WITHIN_PROCEEDINGS_LIST_OF_APPLICATIONS, { pageNumber: '1' }),
+        stateTag: () => StateTags.OPTIONAL,
+        show: isCaseLinked,
+        disabled: isCaseClosed,
       },
     ],
   },

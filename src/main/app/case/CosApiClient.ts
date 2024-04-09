@@ -178,6 +178,7 @@ export class CosApiClient {
         awp_urgentRequestReason,
         awp_hasSupportingDocuments,
         awp_supportingDocuments,
+        awpFeeDetails,
       } = caseData;
       const data = {
         awpType: applicationType,
@@ -212,16 +213,12 @@ export class CosApiClient {
           category_id: document.categoryId,
           document_creation_date: document.createdDate,
         })),
+        feeType: awpFeeDetails?.feeType,
       };
-      const response = await Axios.post(config.get('services.cos.url') + `/${caseId}/update-citizen-awp`, data, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + user.accessToken,
-          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-        },
-      });
-
+      const response = await this.client.post(
+        config.get('services.cos.url') + `/citizen/${caseId}/save-citizen-awp-application`,
+        data
+      );
       return response.data;
     } catch (err) {
       throw new Error('AWP application could not be created.');
@@ -387,22 +384,11 @@ export class CosApiClient {
     }
   }
 
-  public async fetchAWPFeeCodeDetails(
-    applicationDetails: AWPFeeDetailsRequest,
-    userDetails: UserDetails
-  ): Promise<FeeDetailsResponse> {
+  public async fetchAWPFeeCodeDetails(applicationDetails: AWPFeeDetailsRequest): Promise<FeeDetailsResponse> {
     try {
-      const response = await Axios.post<FeeDetailsResponse>(
-        `${config.get('services.cos.url')}/fees-and-payment-apis/getFeeCode`,
-        applicationDetails,
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + userDetails.accessToken,
-            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-          },
-        }
+      const response = await this.client.post<FeeDetailsResponse>(
+        config.get('services.cos.url') + '/fees-and-payment-apis/getFeeCode',
+        applicationDetails
       );
       return response.data;
     } catch (error) {
