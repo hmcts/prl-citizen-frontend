@@ -2,7 +2,14 @@ import { CaseWithId } from '../../../../app/case/case';
 import { PartyType, State } from '../../../../app/case/definition';
 import { DocumentCategory, DocumentLabelCategory, DocumentSectionId } from '../definitions';
 
-import { getDocuments, getViewDocumentCategoryList, hasAnyDocumentForPartyType, hasOrders } from './utils';
+import {
+  getApplicationPackDocuments,
+  getApplicationPacksCategoryList,
+  getDocuments,
+  getViewDocumentCategoryList,
+  hasAnyDocumentForPartyType,
+  hasOrders,
+} from './utils';
 
 const documentCategoryLabels = {
   positionStatements: "{partyName}'s position statements",
@@ -313,7 +320,7 @@ describe('documents > view > utils', () => {
             createdDate: '01 Jan 2024',
             documentId: 'MOCK_DOCUMENT_URL',
             documentName: 'MOCK_FILENAME',
-            documentDownloadUrl: '#',
+            documentDownloadUrl: '/yourdocuments/alldocuments/downloadCitizenDocument/MOCK_DOCUMENT_URL',
             uploadedBy: 'test user',
           },
           document_en: {
@@ -611,6 +618,257 @@ describe('documents > view > utils', () => {
             text: 'Medical reports',
             url: '/respondent/documents/view/medicalReports/respondent',
           },
+        },
+      ]);
+    });
+  });
+
+  describe('getApplicationPacksCategoryList', () => {
+    test('should return correct section list when applicant soa pack present', () => {
+      expect(
+        getApplicationPacksCategoryList(
+          {
+            citizenApplicationPacks: [
+              {
+                servedParty: 'applicant',
+                partyId: 1234,
+                partyName: null,
+                partyType: 'applicant',
+                categoryId: 'undefined',
+                uploadedBy: 'test user',
+                uploadedDate: '2024-03-11T16:24:33.122506',
+                reviewedDate: null,
+                applicantSoaPack: [
+                  {
+                    document_url: 'MOCK_DOCUMENT_URL',
+                    document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                    document_filename: 'MOCK_FILENAME',
+                    document_hash: null,
+                    category_id: 'positionStatements',
+                    document_creation_date: '01/01/2024',
+                  },
+                ],
+                documentWelsh: null,
+              },
+            ],
+          } as unknown as CaseWithId,
+          documentCategoryLabels,
+          'applicant' as PartyType
+        )
+      ).toStrictEqual([
+        {
+          link: {
+            text: '',
+            url: '/applicant/documents/view/application-pack-documents',
+          },
+        },
+      ]);
+    });
+
+    test('should return correct section list when respondent soa pack present', () => {
+      expect(
+        getApplicationPacksCategoryList(
+          {
+            citizenApplicationPacks: [
+              {
+                servedParty: 'applicant',
+                partyId: 1234,
+                partyName: null,
+                partyType: 'applicant',
+                categoryId: 'undefined',
+                uploadedBy: 'test user',
+                uploadedDate: '2024-03-11T16:24:33.122506',
+                reviewedDate: null,
+                respondentSoaPack: [
+                  {
+                    document_url: 'MOCK_DOCUMENT_URL',
+                    document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                    document_filename: 'MOCK_FILENAME',
+                    document_hash: null,
+                    category_id: 'positionStatements',
+                    document_creation_date: '01/01/2024',
+                  },
+                ],
+                documentWelsh: null,
+              },
+            ],
+          } as unknown as CaseWithId,
+          documentCategoryLabels,
+          'applicant' as PartyType
+        )
+      ).toStrictEqual([
+        {
+          link: {
+            text: '',
+            url: '/applicant/documents/view/application-pack-documents',
+          },
+        },
+        {
+          link: {
+            text: '',
+            url: '/applicant/documents/view/application-pack-documents/to-be-served?',
+          },
+        },
+      ]);
+    });
+
+    test('should return correct section list when no soa packs present', () => {
+      expect(
+        getApplicationPacksCategoryList({} as unknown as CaseWithId, documentCategoryLabels, 'applicant' as PartyType)
+      ).toStrictEqual([]);
+    });
+  });
+
+  describe('getApplicationPackDocuments', () => {
+    test('should get respondent soa pack for applicant when the respondent is to be served', () => {
+      expect(
+        getApplicationPackDocuments(
+          {
+            citizenApplicationPacks: [
+              {
+                servedParty: 'applicant',
+                partyId: 1234,
+                partyName: null,
+                partyType: 'applicant',
+                categoryId: 'undefined',
+                uploadedBy: 'test user',
+                uploadedDate: '2024-03-11T16:24:33.122506',
+                reviewedDate: null,
+                applicantSoaPack: [
+                  {
+                    document_url: 'MOCK_DOCUMENT_URL',
+                    document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                    document_filename: 'MOCK_FILENAME',
+                    document_hash: null,
+                    category_id: 'positionStatements',
+                    document_creation_date: '01/01/2024',
+                  },
+                ],
+                respondentSoaPack: [
+                  {
+                    document_url: 'MOCK_DOCUMENT_URL',
+                    document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                    document_filename: 'MOCK_FILENAME',
+                    document_hash: null,
+                    category_id: 'positionStatements',
+                    document_creation_date: '01/01/2024',
+                  },
+                ],
+                documentWelsh: null,
+              },
+            ],
+          } as unknown as CaseWithId,
+          'applicant' as PartyType,
+          'to-be-served'
+        )
+      ).toStrictEqual([
+        {
+          documentDownloadUrl: '#',
+          documentId: 'MOCK_DOCUMENT_URL',
+          documentName: 'MOCK_FILENAME',
+          servedDate: '09 Apr 2024',
+        },
+      ]);
+    });
+
+    test('should get applicant soa pack when applicant is logged in party type', () => {
+      expect(
+        getApplicationPackDocuments(
+          {
+            citizenApplicationPacks: [
+              {
+                servedParty: 'applicant',
+                partyId: 1234,
+                partyName: null,
+                partyType: 'applicant',
+                categoryId: 'undefined',
+                uploadedBy: 'test user',
+                uploadedDate: '2024-03-11T16:24:33.122506',
+                reviewedDate: null,
+                applicantSoaPack: [
+                  {
+                    document_url: 'MOCK_DOCUMENT_URL',
+                    document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                    document_filename: 'MOCK_FILENAME',
+                    document_hash: null,
+                    category_id: 'positionStatements',
+                    document_creation_date: '01/01/2024',
+                  },
+                ],
+                respondentSoaPack: [
+                  {
+                    document_url: 'MOCK_DOCUMENT_URL',
+                    document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                    document_filename: 'MOCK_FILENAME',
+                    document_hash: null,
+                    category_id: 'positionStatements',
+                    document_creation_date: '01/01/2024',
+                  },
+                ],
+                documentWelsh: null,
+              },
+            ],
+          } as unknown as CaseWithId,
+          'applicant' as PartyType,
+          'other-context'
+        )
+      ).toStrictEqual([
+        {
+          documentDownloadUrl: '#',
+          documentId: 'MOCK_DOCUMENT_URL',
+          documentName: 'MOCK_FILENAME',
+          servedDate: '09 Apr 2024',
+        },
+      ]);
+    });
+
+    test('should get respondent soa pack when applicant is logged in party type', () => {
+      expect(
+        getApplicationPackDocuments(
+          {
+            citizenApplicationPacks: [
+              {
+                servedParty: 'applicant',
+                partyId: 1234,
+                partyName: null,
+                partyType: 'applicant',
+                categoryId: 'undefined',
+                uploadedBy: 'test user',
+                uploadedDate: '2024-03-11T16:24:33.122506',
+                reviewedDate: null,
+                applicantSoaPack: [
+                  {
+                    document_url: 'MOCK_DOCUMENT_URL',
+                    document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                    document_filename: 'MOCK_FILENAME',
+                    document_hash: null,
+                    category_id: 'positionStatements',
+                    document_creation_date: '01/01/2024',
+                  },
+                ],
+                respondentSoaPack: [
+                  {
+                    document_url: 'MOCK_DOCUMENT_URL',
+                    document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                    document_filename: 'MOCK_FILENAME',
+                    document_hash: null,
+                    category_id: 'positionStatements',
+                    document_creation_date: '01/01/2024',
+                  },
+                ],
+                documentWelsh: null,
+              },
+            ],
+          } as unknown as CaseWithId,
+          'respondent' as PartyType,
+          'other-context'
+        )
+      ).toStrictEqual([
+        {
+          documentDownloadUrl: '#',
+          documentId: 'MOCK_DOCUMENT_URL',
+          documentName: 'MOCK_FILENAME',
+          servedDate: '09 Apr 2024',
         },
       ]);
     });

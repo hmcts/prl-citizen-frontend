@@ -57,12 +57,47 @@ describe('documents > view > all-documents > content', () => {
                     documentWelsh: null,
                   },
                 ],
+                citizenApplicationPacks: [
+                  {
+                    servedParty: 'applicant',
+                    partyId: 1234,
+                    partyName: null,
+                    partyType: 'applicant',
+                    categoryId: 'undefined',
+                    uploadedBy: 'test user',
+                    uploadedDate: '2024-03-11T16:24:33.122506',
+                    reviewedDate: null,
+                    applicantSoaPack: [
+                      {
+                        document_url: 'MOCK_DOCUMENT_URL',
+                        document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                        document_filename: 'MOCK_FILENAME',
+                        document_hash: null,
+                        category_id: 'positionStatements',
+                        document_creation_date: '01/01/2024',
+                      },
+                    ],
+                    documentWelsh: null,
+                  },
+                ],
               },
             },
           },
         },
       } as unknown as CommonContent).sections
     ).toStrictEqual([
+      {
+        id: 'applicationPacks',
+        items: [
+          {
+            link: {
+              text: 'Your served application pack',
+              url: '/applicant/documents/view/application-pack-documents',
+            },
+          },
+        ],
+        title: 'Application packs',
+      },
       {
         id: 'ordersFromTheCourt',
         items: [],

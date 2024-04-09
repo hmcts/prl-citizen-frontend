@@ -14,6 +14,7 @@ describe('documents > upload > document-sharing-details > content', () => {
         params: {
           documentCategory: DocCategory.WITNESS_STATEMENT,
           docType: DocType.YOUR_WITNESS_STATEMENTS,
+          partyType: 'applicant',
         },
       },
     },

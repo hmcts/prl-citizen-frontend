@@ -18,23 +18,26 @@ describe('documents > view > application-pack-documents > content', () => {
               id: '1234',
             },
             userCase: {
-              citizenDocuments: [
+              citizenApplicationPacks: [
                 {
+                  servedParty: 'applicant',
                   partyId: 1234,
                   partyName: null,
-                  partyType: 'respondent',
-                  categoryId: 'positionStatements',
+                  partyType: 'applicant',
+                  categoryId: 'undefined',
                   uploadedBy: 'test user',
                   uploadedDate: '2024-03-11T16:24:33.122506',
                   reviewedDate: null,
-                  document: {
-                    document_url: 'MOCK_DOCUMENT_URL',
-                    document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-                    document_filename: 'MOCK_FILENAME',
-                    document_hash: null,
-                    category_id: 'positionStatements',
-                    document_creation_date: '01/01/2024',
-                  },
+                  applicantSoaPack: [
+                    {
+                      document_url: 'MOCK_DOCUMENT_URL',
+                      document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                      document_filename: 'MOCK_FILENAME',
+                      document_hash: null,
+                      category_id: 'positionStatements',
+                      document_creation_date: '01/01/2024',
+                    },
+                  ],
                   documentWelsh: null,
                 },
               ],
@@ -45,15 +48,11 @@ describe('documents > view > application-pack-documents > content', () => {
     } as unknown as CommonContent);
     expect(content.documents).toStrictEqual([
       {
-        document_en: {
-          createdDate: '01 Jan 2024',
-          documentId: 'MOCK_DOCUMENT_URL',
-          documentName: 'MOCK_FILENAME',
-          downloadLink: '/yourdocuments/alldocuments/downloadCitizenDocument/MOCK_DOCUMENT_URL',
-          uploadedBy: 'test user',
-        },
+        documentDownloadUrl: '#',
+        documentId: 'MOCK_DOCUMENT_URL',
+        documentName: 'MOCK_FILENAME',
+        servedDate: '09 Apr 2024',
       },
     ]);
-    expect(content.pageHeading).toBe("test user's position statements");
   });
 });
