@@ -40,7 +40,7 @@ export const generateContent: TranslationFn = content => {
   const relationshipFound = respondentDetails.relationshipDetails.relationshipToChildren.find(
     relationshipToChild => relationshipToChild.childId === childId
   );
-  const { fields } = generateFormFields(relationshipFound || {} as RelationshipToChildren);
+  const { fields } = generateFormFields(relationshipFound || ({} as RelationshipToChildren));
   return {
     ...translations,
     title: `${translations['title']} ${respondentDetails.firstName} ${respondentDetails.lastName}${translations['title1']} ${childDetails.firstName} ${childDetails.lastName}`,

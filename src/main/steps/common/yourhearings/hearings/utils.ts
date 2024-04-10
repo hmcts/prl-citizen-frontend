@@ -6,10 +6,10 @@ import {
   CaseType,
   CompletedHearings,
   Hearing,
+  HearingDay,
   HearingsList,
   PartyType,
   Row,
-  HearingDay,
   hearingStatus,
 } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';

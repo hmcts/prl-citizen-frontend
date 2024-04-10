@@ -261,7 +261,7 @@ export class PostController<T extends AnyObject> {
     req: AppRequest<T>,
     res: Response,
     //eslint-disable-next-line @typescript-eslint/no-explicit-any
-    formData: Partial<CaseWithId>
+    formData: any
   ): Promise<void> {
     if (req.path.startsWith(C100_URL)) {
       try {

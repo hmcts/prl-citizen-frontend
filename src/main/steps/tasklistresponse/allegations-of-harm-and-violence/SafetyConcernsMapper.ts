@@ -129,7 +129,7 @@ export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<Ca
 
   if (rest?.child) {
     safetyConerns.child = Object.entries(rest.child).reduce((childConcerns, [abuseType, data]) => {
-      childConcerns[abuseType] = {...data};
+      childConcerns[abuseType] = { ...data };
       if (data?.childrenConcernedAbout && !Array.isArray(data?.childrenConcernedAbout)) {
         childConcerns[abuseType].childrenConcernedAbout = (data.childrenConcernedAbout as unknown as string).split(',');
       }
