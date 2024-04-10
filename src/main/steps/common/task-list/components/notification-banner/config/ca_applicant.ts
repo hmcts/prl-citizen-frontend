@@ -105,8 +105,8 @@ export const CA_APPLICANT: NotificationBannerProps[] = [
   },
   {
     ...notificationBanner[BannerNotification.SOA_SERVED_CA],
-    show: (caseData: Partial<CaseWithId>): boolean => {
-      return isApplicantLIPServingRespondent(caseData);
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+      return isPrimaryApplicant(caseData, userDetails) && isApplicantLIPServingRespondent(caseData);
     },
   },
 ];

@@ -14,6 +14,7 @@ import {
   CaseEvent,
   CaseType,
   CitizenSos,
+  DocumentFromCdam,
   DocumentUploadResponse,
   PartyDetails,
   PartyType,
@@ -156,14 +157,9 @@ export class CosApiClient {
     eventName: CaseEvent
   ): Promise<CaseWithId> {
     try {
-      const data = new FormData();
-      data.append('caseTypeOfApplication', caseType);
-      data.append('partiesServed', sosObject.partiesServed);
-      data.append('partiesServedDate', sosObject.partiesServedDate);
-      data.append('citizenSosDocs', [sosObject.citizenSosDocs]);
       const response = await Axios.post(
         config.get('services.cos.url') + `/${caseId}/${eventName}/save-statement-of-service-by-citizen`,
-        data,
+        sosObject,
         {
           headers: {
             Accept: 'application/json',
@@ -308,7 +304,7 @@ export class CosApiClient {
     }
   }
 
-  public async UploadDocumentToCdam(request: UploadDocumentRequest): Promise<DocumentDetail> {
+  public async UploadDocumentToCdam(request: UploadDocumentRequest): Promise<DocumentFromCdam> {
     try {
       const headers = {
         Accept: '*/*',
@@ -329,11 +325,9 @@ export class CosApiClient {
       const response = await Axios.post(config.get('services.cos.url') + '/upload-citizen-document', formData, {
         headers,
       });
-      const document_id = response.data?.document.document_url.split('/').pop();
       return {
         status: response.status,
-        documentId: document_id,
-        documentName: response.data?.document.document_filename,
+        document: response.data?.document,
       };
     } catch (err) {
       console.log('Error: ', err);

@@ -225,7 +225,7 @@ describe('CosApiClient', () => {
 
   test('generateC7Document throws exception', async () => {
     const data = {} as Partial<CaseData>;
-    mockedAxios.post.mockRejectedValueOnce;
+    mockedAxios.post.mockRejectedValueOnce(new Error('Failed to generate C7 document'));
     const req = mockRequest();
     const client = new CosApiClient('abc', 'http://return-url');
     let flag = false;
@@ -363,35 +363,3 @@ describe('CosApiClientWithError', () => {
     expect(flag).toEqual(false);
   });
 });
-
-// describe('RetrieveCaseHearingsByCaseId', () => {
-//   test('retrieveCaseHearingsByCaseId', async () => {
-//     const req = mockRequest();
-//     const client = new CosApiClient('abc', 'http://return-url');
-//     const userCase: CaseWithId = {
-//       id: '123445566',
-//       state: State.AWAITING_SUBMISSION_TO_HMCTS,
-//     };
-
-//     const response = await client.retrieveCaseHearingsByCaseId(userCase, req.session.user);
-
-//     expect(response.state).toEqual(State.AWAITING_SUBMISSION_TO_HMCTS);
-//   });
-
-//   test('retrieveCaseHearingsByCaseId_Error', async () => {
-//     const req = mockRequest();
-//     const client = new CosApiClient('abc', 'http://return-url');
-//     const userCase: CaseWithId = {
-//       id: '',
-//       state: State.AWAITING_SUBMISSION_TO_HMCTS,
-//     };
-//     req.session.user = {};
-//     let flag = true;
-//     try {
-//       await client.retrieveCaseHearingsByCaseId(userCase, req.session.user);
-//     } catch {
-//       flag = false;
-//     }
-//     expect(flag).toEqual(false);
-//   });
-// });

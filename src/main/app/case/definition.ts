@@ -114,7 +114,12 @@ export interface PartyDetails {
 export interface CitizenSos {
   partiesServedDate?: string;
   partiesServed?: string;
-  citizenSosDocs?: string;
+  citizenSosDocs?: Document;
+}
+
+export interface DocumentFromCdam {
+  status?: number;
+  document?: Document;
 }
 
 export interface User {

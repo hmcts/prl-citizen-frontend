@@ -1,6 +1,4 @@
-//import { isObject } from 'lodash';
-
-import { Case, CaseDate, CaseWithId } from '../../../../app/case/case';
+import { CaseDate, CaseWithId } from '../../../../app/case/case';
 import { CitizenSos, YesOrNo } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
@@ -50,36 +48,33 @@ export const en = {
 };
 
 export const cy = {
-  caption: 'Case number ',
-  title: 'Add a statement of service',
-  continue: 'Continue',
-  whowasserved: 'Who was served?',
-  add: 'Submit',
-  servedDate: 'When were they served?',
-  servedDateHint: 'For example: 16 4 2021',
-  uploadFiles: 'Your documents',
-  remove: 'Remove',
+  caption: 'Rhif yr achos',
+  title: 'Llwytho’r datganiad cyflwyno',
+  continue: 'Parhau',
+  whowasserved: 'Ar bwy y cyflwynwyd?',
+  add: 'Cyflwyno',
+  servedDate: 'Pryd cawson nhw eu cyflwyno?',
+  servedDateHint: 'Er enghraifft: 16 4 2021',
+  uploadFiles: 'Eich dogfennau',
+  remove: 'Dileu',
   uplodFileText1:
-    'when uploading documents, name the files clearly. For example, position-statement.doc. Files must end with JPG,BMP,PNG,TIF,PDF,DOC,or DOCX.',
-  uploadFileHeading: 'Upload a document',
-  uploadButton: 'Upload file',
-  noFilesUploaded: 'No file choosen',
+    'Pan fyddwch yn llwytho dogfennau, gwnewch yn siŵr eich bod yn enwi’r ffeiliau yn glir.  Er enghraifft, datganiad-safbwynt.doc. Rhaid i’r ffeiliau fod ar ffurf JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
+  uploadFileHeading: 'Llwytho dogfen',
+  uploadButton: 'Llwytho ffeil',
+  noFilesUploaded: "Dim ffeil wedi'i dewis",
   errors: {
     partiesServedDate: {
-      required: 'You must enter the date of service',
+      required: "Mae'n rhaid i chi nodi'r dyddiad cyflwyno",
     },
     partiesServed: {
-      required: 'You must select a respondent',
+      required: "Mae'n rhaid i chi ddewis atebydd",
     },
     document: {
-      required: 'You must upload a statement of service',
-      multipleFiles: `You can upload only one file.
-            If you wish to upload a new file, delete the existing
-            file and upload a new one`,
-      fileSize: `The file you uploaded is too large.
-            Maximum file size allowed is 20MB`,
-      fileFormat: `The file you uploaded is in the wrong format.
-            Upload your file again in the correct format`,
+      required: "Mae'n rhaid i chi lwytho datganiad cyflwyno",
+      multipleFiles:
+        "Dim ond un ffeil y gallwch ei llwytho. Os ydych yn dymuno llwytho ffeil newydd, dylech ddileu'r ffeil bresennol a llwytho un newydd.",
+      fileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
+      fileFormat: "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
     },
   },
 };
@@ -180,17 +175,18 @@ const getParties = (userCase: Partial<CaseWithId>) => {
   return parties;
 };
 
-export const prepateStatementOfServiceRequest = (req: AppRequest<AnyObject>, formData: Partial<Case>): CitizenSos => {
+export const prepateStatementOfServiceRequest = (req: AppRequest<AnyObject>): CitizenSos => {
   const userCase = req.session.userCase;
-  userCase.partiesServed = formData.partiesServed as string[];
-  const date = formData.partiesServedDate as unknown;
-  const date2 = date as { day: string; month: string; year: string };
-  userCase.partiesServed = userCase.partiesServed.filter(party => party !== '');
-  //userCase.partiesServedDate = date2.year + '-' + date2.month + '-' + date2.day;
+  userCase.partiesServed = userCase.partiesServed!.filter(party => party !== '');
   return {
     partiesServed: userCase.partiesServed.toString(),
-    partiesServedDate: date2.year + '-' + date2.month + '-' + date2.day,
-    citizenSosDocs: userCase.applicantUploadFiles![0].id,
+    partiesServedDate:
+      userCase['partiesServedDate-year'] +
+      '-' +
+      userCase['partiesServedDate-month'] +
+      '-' +
+      userCase['partiesServedDate-day'],
+    citizenSosDocs: userCase.statementOfServiceDocument,
   };
 };
 

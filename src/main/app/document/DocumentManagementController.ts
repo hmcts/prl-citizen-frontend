@@ -654,7 +654,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (req.query && req.query.isApplicant) {
       isApplicant = req.query.isApplicant;
     }
-    console.log('Helo **** ');
+
     this.undefiendUploadFiles(req);
 
     this.fileData(req);
@@ -685,7 +685,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
     if (req.query && req.query.documentType) {
       documentType = req.query.documentType;
     }
-
     const partyId = req.session.user.id;
 
     const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
@@ -701,7 +700,6 @@ export class DocumentManagerController extends PostController<AnyObject> {
       files,
       documentRequestedByCourt,
     };
-
     const citizenDocumentListFromCos = await client.UploadDocumentListFromCitizen(uploadRequest);
     if (citizenDocumentListFromCos.status !== 200) {
       req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
@@ -727,11 +725,8 @@ export class DocumentManagerController extends PostController<AnyObject> {
       Object.assign(req.session.userCase, caseDataFromCos);
       req.session.errors = [];
     }
-    if (req.query && req.query.isSos) {
-      this.redirect(req, res, APPLICANT_STATEMENT_OF_SERVICE);
-    } else {
-      this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
-    }
+
+    this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
   }
 
   public async uploadDocumentToCdam(req: AppRequest, res: Response): Promise<void> {
@@ -766,10 +761,11 @@ export class DocumentManagerController extends PostController<AnyObject> {
       req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
     } else {
       const obj = {
-        id: citizenDocumentListFromCos.documentId as string,
-        name: citizenDocumentListFromCos.documentName as string,
+        id: citizenDocumentListFromCos.document?.document_url.split('/').pop() as string,
+        name: citizenDocumentListFromCos.document?.document_filename as string,
       };
       req.session.userCase.applicantUploadFiles = [obj];
+      req.session.userCase.statementOfServiceDocument = citizenDocumentListFromCos.document;
       req.session.errors = [];
     }
     if (req.query && req.query.isSos) {

@@ -5,7 +5,7 @@ import { Response } from 'express';
 import { getPartyDetails } from '../../../../../main/steps/tasklistresponse/utils';
 import { APPLICANT_STATEMENT_OF_SERVICE_NEXT } from '../../../../../main/steps/urls';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-//import { CaseEvent, CaseType } from '../../../../app/case/definition';
+import { CaseEvent, CaseType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -39,15 +39,17 @@ export default class StatementOfServicePostController extends PostController<Any
     const client = new CosApiClient(user.accessToken, 'https://return-url');
     console.log(client);
     if (partyDetails) {
-      const userData = prepateStatementOfServiceRequest(req, formData);
+      const userData = prepateStatementOfServiceRequest(req);
+      req.session.userCase.applicantUploadFiles = undefined;
+      req.session.userCase.statementOfServiceDocument = undefined;
       try {
-        // req.session.userCase = await client.saveStatementOfService(
-        //   user,
-        //   userCase.id,
-        //   userCase.caseTypeOfApplication as CaseType,
-        //   userData,
-        //   CaseEvent.CITIZEN_CASE_UPDATE
-        // );
+        req.session.userCase = await client.saveStatementOfService(
+          user,
+          userCase.id,
+          userCase.caseTypeOfApplication as CaseType,
+          userData,
+          CaseEvent.CITIZEN_CASE_UPDATE
+        );
         console.log(JSON.stringify(userData));
         console.log('** User case **' + JSON.stringify(userCase.partiesServed));
         console.log('** User case **' + JSON.stringify(userCase.partiesServedDate));

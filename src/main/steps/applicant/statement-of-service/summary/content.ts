@@ -1,3 +1,4 @@
+import { Respondent } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
@@ -18,6 +19,7 @@ export const enContent = {
   },
   statementOfTruth: 'Statement of truth',
   filesUploaded: 'Files uploaded',
+  submit: 'Submit',
   confirmation:
     'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   consent: 'I believe that the facts stated in this application are true',
@@ -31,14 +33,15 @@ const cyContent: typeof enContent = {
     aboutYou: ' ',
   },
   keys: {
-    partiesServed: 'who was served?',
-    partiesServedDate: 'When were they served?',
+    partiesServed: 'Ar bwy y cyflwynwyd?',
+    partiesServedDate: 'Pryd cawson nhw eu cyflwyno?',
   },
-  statementOfTruth: 'Statement of truth',
-  filesUploaded: 'Files uploaded',
+  statementOfTruth: 'Datganiad gwirionedd',
+  filesUploaded: 'Ffeiliau sydd wedi’u llwytho',
+  submit: 'Cyflwyno',
   confirmation:
-    'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
-  consent: 'I believe that the facts stated in this application are true',
+    'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth.',
+  consent: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir.',
   errors: {},
 };
 
@@ -75,7 +78,7 @@ export const form: FormContent = {
     },
   },
   submit: {
-    text: 'Submit',
+    text: l => l.submit,
   },
 };
 
@@ -105,16 +108,29 @@ const getSummarySection = (summaryContent: CommonContent) => {
   const summaryData: SummaryListRow[] = [];
   if (summaryContent.userCase) {
     if (summaryContent.userCase.partiesServed) {
+      const partyNames: string[] = [];
+      summaryContent.userCase.partiesServed
+        .filter(id => id !== '')
+        .forEach(partyId => {
+          const respondent: Respondent = summaryContent.userCase!.respondents!.filter(party => party.id === partyId)[0];
+          partyNames.push(respondent.value.firstName + ' ' + respondent.value.lastName);
+        });
       summaryData.push({
         key: labels.keys.partiesServed,
-        value: summaryContent.userCase.partiesServed.toString(),
+        value: partyNames.toString(),
         changeUrl: APPLICANT_STATEMENT_OF_SERVICE,
       });
     }
-    if (summaryContent.userCase.partiesServedDate) {
+    if (summaryContent.userCase['partiesServedDate-day']) {
+      const date =
+        summaryContent.userCase['partiesServedDate-day'] +
+        '-' +
+        summaryContent.userCase['partiesServedDate-month'] +
+        '-' +
+        summaryContent.userCase['partiesServedDate-year'];
       summaryData.push({
         key: labels.keys.partiesServedDate,
-        value: summaryContent.userCase.partiesServedDate.toString(),
+        value: date.toString(),
         changeUrl: APPLICANT_STATEMENT_OF_SERVICE,
       });
     }

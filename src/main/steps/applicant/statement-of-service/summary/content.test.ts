@@ -1,7 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../../test/unit/utils/mockUserCase';
-import { FormContent, LanguageLookup } from '../../../../app/form/Form';
-import { CommonContent, generatePageContent } from '../../../common/common.content';
+import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
 
@@ -9,26 +8,37 @@ const en = {
   section: 'Check your answers',
   title: ' ',
   sectionTitles: {
-    aboutYou: 'About you',
+    aboutYou: ' ',
   },
   keys: {
-    whowasserved: 'who was served?',
-    servedDate: 'When were they served?',
+    partiesServed: 'who was served?',
+    partiesServedDate: 'When were they served?',
   },
+  statementOfTruth: 'Statement of truth',
+  filesUploaded: 'Files uploaded',
+  submit: 'Submit',
+  confirmation:
+    'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
+  consent: 'I believe that the facts stated in this application are true',
   errors: {},
 };
 
-const cy: typeof en = {
+const cy = {
   section: 'Gwirio eich atebion',
   title: ' ',
   sectionTitles: {
-    aboutYou: 'Amdanoch chi',
+    aboutYou: ' ',
   },
-
   keys: {
-    whowasserved: 'who was served?',
-    servedDate: 'When were they served?',
+    partiesServed: 'Ar bwy y cyflwynwyd?',
+    partiesServedDate: 'Pryd cawson nhw eu cyflwyno?',
   },
+  statementOfTruth: 'Datganiad gwirionedd',
+  filesUploaded: 'Ffeiliau sydd wedi’u llwytho',
+  submit: 'Cyflwyno',
+  confirmation:
+    'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth.',
+  consent: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir.',
   errors: {},
 };
 
@@ -43,22 +53,8 @@ describe('citizen-home content', () => {
         session: {
           userCase: {
             ...mockUserCase,
-            helpCommunication: [''],
-            courtComfort: [''],
-            courtHearing: [''],
-            docsSupport: [''],
-            attendingToCourt: [''],
-            languageRequirements: [''],
-            safetyArrangements: [''],
-            reasonableAdjustments: [''],
-            travellingToCourt: [''],
-            communicationSupportOther: '',
-            describeOtherNeed: '',
-            languageDetails: '',
-            otherDetails: '',
-            otherProvideDetails: '',
-            safetyArrangementsDetails: '',
-            travellingOtherDetails: '',
+            partiesServed: '',
+            patieservedDate: '',
           },
           user: {
             id: '1234',
@@ -66,16 +62,14 @@ describe('citizen-home content', () => {
         },
       },
     };
+    commonContent.userCase = commonContent.additionalData.req.session.userCase;
     generatedContent = generateContent(commonContent);
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.title).toEqual('Your hearing needs and requirements');
     expect(generatedContent.section).toEqual('Check your answers');
-    expect(generatedContent.sectionTitles.aboutYou).toEqual('About you');
-    expect(generatedContent.keys.languageDetails).toEqual(
-      'Give details of the language you require (including dialect, if applicable)'
-    );
+    expect(generatedContent.keys.partiesServedDate).toEqual('When were they served?');
+    expect(generatedContent.keys.partiesServed).toEqual('who was served?');
   });
 
   // eslint-disable-next-line jest/expect-expect
@@ -86,13 +80,6 @@ describe('citizen-home content', () => {
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
-  });
-
-  test('should contain Submit button', () => {
-    const form = generatedContent.form as FormContent;
-    expect(
-      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and continue');
   });
 });
 
