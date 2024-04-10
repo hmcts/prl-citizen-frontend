@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CaseWithId } from '../../../../app/case/case';
-import { FormContent, FormFields} from '../../../../app/form/Form';
-import { AppRequest } from '../../../../app/controller/AppRequest';
 import { YesOrNo } from '../../../../app/case/definition';
-import { isFieldFilledIn } from '../../../../app/form/validation';
+import { AppRequest } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { FormContent, FormFields } from '../../../../app/form/Form';
+import { isFieldFilledIn } from '../../../../app/form/validation';
 import { generateContentForLocalComponent } from '../util';
 
 export const en = () => ({
@@ -25,9 +26,6 @@ export const en = () => ({
   noHaveSafetyConcerns: 'No',
   errors: {
     c1A_haveSafetyConcerns: {
-      required: 'Select yes if you have any concerns for your safety or the safety of the children',
-    },
-    PRL_c1A_haveSafetyConcerns: {
       required: 'Select yes if you have any concerns for your safety or the safety of the children',
     },
   },
@@ -55,9 +53,6 @@ export const cy = () => ({
     c1A_haveSafetyConcerns: {
       required: 'Dewiswch oes os oes gennych bryderon eraill am ddiogelwch a lles y plant',
     },
-    PRL_c1A_haveSafetyConcerns: {
-      required: 'Dewiswch oes os oes gennych bryderon eraill am ddiogelwch a lles y plant',
-    },
   },
 });
 
@@ -81,36 +76,33 @@ export const form: FormContent = {
         label: l => l.warningMessage,
       },
       c1A_haveSafetyConcerns: {
-                type: 'radios',
-                classes: 'govuk-radios',
-                values: [
-                  {
-                    label: l => l.yesHaveSafetyConcerns,
-                    value: YesOrNo.YES,
-                    subFields: {
-                      doYouHaveSafetyConcernsYesInfo: {
-                        type: 'textAndHtml',
-                        textAndHtml: l => l.infoSafetyConcernsYes,
-                      },
-                    },
-                  },
-                  {
-                    label: l => l.noHaveSafetyConcerns,
-                    value: YesOrNo.NO,
-                  },
-                ],
-                validator: isFieldFilledIn,
+        type: 'radios',
+        classes: 'govuk-radios',
+        values: [
+          {
+            label: l => l.yesHaveSafetyConcerns,
+            value: YesOrNo.YES,
+            subFields: {
+              doYouHaveSafetyConcernsYesInfo: {
+                type: 'textAndHtml',
+                textAndHtml: l => l.infoSafetyConcernsYes,
               },
-            }
+            },
           },
+          {
+            label: l => l.noHaveSafetyConcerns,
+            value: YesOrNo.NO,
+          },
+        ],
+        validator: isFieldFilledIn,
+      },
+    };
+  },
   submit: {
     text: l => l.onlycontinue,
-  }
-}
-
+  },
+};
 
 export const generateContent: TranslationFn = content => {
   return generateContentForLocalComponent(content, languages, form);
-
 };
-

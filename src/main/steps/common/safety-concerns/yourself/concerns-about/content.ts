@@ -1,12 +1,12 @@
 import { CaseWithId } from '../../../../../app/case/case';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { C1AAbuseTypes } from '../../../../../app/case/definition';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
+import { C100_URL } from '../../../../urls';
 import { generateContentForLocalComponent } from '../../util';
 import { generateContent as parentContent } from '../content';
-import { C100_URL } from '../../../../urls';
 
 const en = () => ({
   caption: 'Safety concerns',
@@ -82,100 +82,105 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => { 
-    const C100RebuildJourney=req.originalUrl.startsWith(C100_URL)
-    if(C100RebuildJourney){
-    return  {
-    c1A_concernAboutApplicant: {
-      id: 'c1A_concernAboutApplicant',
-      type: 'checkboxes',
-      hint: l => l.select_all_relevant,
-      validator: atLeastOneFieldIsChecked,
-      values: [
-        {
-          name: 'c1A_concernAboutApplicant',
-          label: l => l.physicalAbuse,
-          hint: l => l.physicalAbuseHint,
-          value: C1AAbuseTypes.PHYSICAL_ABUSE,
-        },
-        {
-          name: 'c1A_concernAboutApplicant',
-          label: l => l.psychologicalAbuse,
-          hint: l => l.psychologicalAbuseHint,
-          value: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
-        },
-        {
-          name: 'c1A_concernAboutApplicant',
-          label: l => l.emotionalAbuse,
-          hint: l => l.emotionalAbuseHint,
-          value: C1AAbuseTypes.EMOTIONAL_ABUSE,
-        },
-        {
-          name: 'c1A_concernAboutApplicant',
-          label: l => l.sexualAbuse,
-          hint: l => l.sexualAbuseHint,
-          value: C1AAbuseTypes.SEXUAL_ABUSE,
-        },
+  fields: (userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
+    const C100RebuildJourney = req.originalUrl.startsWith(C100_URL);
+    if (C100RebuildJourney) {
+      return {
+        c1A_concernAboutApplicant: {
+          id: 'c1A_concernAboutApplicant',
+          type: 'checkboxes',
+          hint: l => l.select_all_relevant,
+          validator: atLeastOneFieldIsChecked,
+          values: [
+            {
+              name: 'c1A_concernAboutApplicant',
+              label: l => l.physicalAbuse,
+              hint: l => l.physicalAbuseHint,
+              value: C1AAbuseTypes.PHYSICAL_ABUSE,
+            },
+            {
+              name: 'c1A_concernAboutApplicant',
+              label: l => l.psychologicalAbuse,
+              hint: l => l.psychologicalAbuseHint,
+              value: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
+            },
+            {
+              name: 'c1A_concernAboutApplicant',
+              label: l => l.emotionalAbuse,
+              hint: l => l.emotionalAbuseHint,
+              value: C1AAbuseTypes.EMOTIONAL_ABUSE,
+            },
+            {
+              name: 'c1A_concernAboutApplicant',
+              label: l => l.sexualAbuse,
+              hint: l => l.sexualAbuseHint,
+              value: C1AAbuseTypes.SEXUAL_ABUSE,
+            },
 
-        {
-          name: 'c1A_concernAboutApplicant',
-          label: l => l.financialAbuse,
-          hint: l => l.financialAbuseHint,
-          value: C1AAbuseTypes.FINANCIAL_ABUSE,
+            {
+              name: 'c1A_concernAboutApplicant',
+              label: l => l.financialAbuse,
+              hint: l => l.financialAbuseHint,
+              value: C1AAbuseTypes.FINANCIAL_ABUSE,
+            },
+            {
+              name: 'c1A_concernAboutApplicant',
+              label: l => l.somethingElse,
+              hint: l => l.somethingElseHint,
+              value: C1AAbuseTypes.SOMETHING_ELSE,
+            },
+          ],
         },
-        {
-          name: 'c1A_concernAboutApplicant',
-          label: l => l.somethingElse,
-          hint: l => l.somethingElseHint,
-          value: C1AAbuseTypes.SOMETHING_ELSE,
-        },
-      ],
-    }}}else return{
-    c1A_concernAboutRespondent: {
-      id: 'c1A_concernAboutRespondent',
-      type: 'checkboxes',
-      hint: l => l.select_all_relevant,
-      validator: atLeastOneFieldIsChecked,
-      values: [
-        {
-          name: 'c1A_concernAboutRespondent',
-          label: l => l.physicalAbuse,
-          hint: l => l.physicalAbuseHint,
-          value: C1AAbuseTypes.PHYSICAL_ABUSE,
-        },
-        {
-          name: 'c1A_concernAboutRespondent',
-          label: l => l.psychologicalAbuse,
-          hint: l => l.psychologicalAbuseHint,
-          value: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
-        },
-        {
-          name: 'c1A_concernAboutRespondent',
-          label: l => l.emotionalAbuse,
-          hint: l => l.emotionalAbuseHint,
-          value: C1AAbuseTypes.EMOTIONAL_ABUSE,
-        },
-        {
-          name: 'c1A_concernAboutRespondent',
-          label: l => l.sexualAbuse,
-          hint: l => l.sexualAbuseHint,
-          value: C1AAbuseTypes.SEXUAL_ABUSE,
-        },
+      };
+    } else {
+      return {
+        c1A_concernAboutRespondent: {
+          id: 'c1A_concernAboutRespondent',
+          type: 'checkboxes',
+          hint: l => l.select_all_relevant,
+          validator: atLeastOneFieldIsChecked,
+          values: [
+            {
+              name: 'c1A_concernAboutRespondent',
+              label: l => l.physicalAbuse,
+              hint: l => l.physicalAbuseHint,
+              value: C1AAbuseTypes.PHYSICAL_ABUSE,
+            },
+            {
+              name: 'c1A_concernAboutRespondent',
+              label: l => l.psychologicalAbuse,
+              hint: l => l.psychologicalAbuseHint,
+              value: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
+            },
+            {
+              name: 'c1A_concernAboutRespondent',
+              label: l => l.emotionalAbuse,
+              hint: l => l.emotionalAbuseHint,
+              value: C1AAbuseTypes.EMOTIONAL_ABUSE,
+            },
+            {
+              name: 'c1A_concernAboutRespondent',
+              label: l => l.sexualAbuse,
+              hint: l => l.sexualAbuseHint,
+              value: C1AAbuseTypes.SEXUAL_ABUSE,
+            },
 
-        {
-          name: 'c1A_concernAboutRespondent',
-          label: l => l.financialAbuse,
-          hint: l => l.financialAbuseHint,
-          value: C1AAbuseTypes.FINANCIAL_ABUSE,
+            {
+              name: 'c1A_concernAboutRespondent',
+              label: l => l.financialAbuse,
+              hint: l => l.financialAbuseHint,
+              value: C1AAbuseTypes.FINANCIAL_ABUSE,
+            },
+            {
+              name: 'c1A_concernAboutRespondent',
+              label: l => l.somethingElse,
+              hint: l => l.somethingElseHint,
+              value: C1AAbuseTypes.SOMETHING_ELSE,
+            },
+          ],
         },
-        {
-          name: 'c1A_concernAboutRespondent',
-          label: l => l.somethingElse,
-          hint: l => l.somethingElseHint,
-          value: C1AAbuseTypes.SOMETHING_ELSE,
-        },
-      ],
-    }}
+      };
+    }
   },
   onlycontinue: {
     text: l => l.onlycontinue,
@@ -183,5 +188,5 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  return generateContentForLocalComponent(content, languages, form,parentContent);
+  return generateContentForLocalComponent(content, languages, form, parentContent);
 };

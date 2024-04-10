@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { AppRequest } from '../../../../app/controller/AppRequest';
+import { CaseWithId } from '../../../../app/case/case';
 import { C1ASafteyConcernsAbout } from '../../../../app/case/definition';
+import { AppRequest } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-import { CaseWithId } from '../../../../app/case/case';
-import { generateContentForLocalComponent } from '../util';
 import { C100_REBUILD_URL } from '../../../../steps/urls';
+import { generateContentForLocalComponent } from '../util';
 
 export const en = () => ({
   caption: 'Safety concerns',
@@ -40,28 +40,29 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => { 
-    const C100Rebuildjourney=req.originalUrl.startsWith(C100_REBUILD_URL)
-    return  {
-    c1A_safetyConernAbout: {
-      id: 'c1A_safetyConernAbout',
-      type: 'checkboxes',
-      hint: l => l.select_all_relevant,
-      validator: atLeastOneFieldIsChecked,
-      values: [
-        {
-          name: 'c1A_safetyConernAbout',
-          label: l => l.childrenInThisApplication,
-          value: C1ASafteyConcernsAbout.CHILDREN,
-        },
-        {
-          name: 'c1A_safetyConernAbout',
-          label: l => l.yourself,
-          value: C100Rebuildjourney?C1ASafteyConcernsAbout.APPLICANT:C1ASafteyConcernsAbout.RESPONDENT,
-        },
-      ],
-    },
-  }},
+  fields: (userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
+    const C100Rebuildjourney = req.originalUrl.startsWith(C100_REBUILD_URL);
+    return {
+      c1A_safetyConernAbout: {
+        id: 'c1A_safetyConernAbout',
+        type: 'checkboxes',
+        hint: l => l.select_all_relevant,
+        validator: atLeastOneFieldIsChecked,
+        values: [
+          {
+            name: 'c1A_safetyConernAbout',
+            label: l => l.childrenInThisApplication,
+            value: C1ASafteyConcernsAbout.CHILDREN,
+          },
+          {
+            name: 'c1A_safetyConernAbout',
+            label: l => l.yourself,
+            value: C100Rebuildjourney ? C1ASafteyConcernsAbout.APPLICANT : C1ASafteyConcernsAbout.RESPONDENT,
+          },
+        ],
+      },
+    };
+  },
   onlycontinue: {
     text: l => l.onlycontinue,
   },

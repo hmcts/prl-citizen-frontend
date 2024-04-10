@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CaseWithId } from '../../../../../app/case/case';
 import { YesOrNo } from '../../../../../app/case/definition';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { generateContentForLocalComponent } from '../../util';
 
 export const en = () => ({
@@ -63,49 +64,51 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => { return  {
-    c1A_supervisionAgreementDetails: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.selectSupervisionAgreementLabel,
-      labelSize: 'm',
-      section: l => l.section,
-      values: [
-        {
-          label: l => l.one,
-          value: YesOrNo.YES,
-        },
-        {
-          label: l => l.two,
-          value: 'Yes, but I prefer that it is supervised',
-        },
-        {
-          label: l => l.three,
-          value: 'No, I would prefer the other people do not spend time with the children',
-        },
-      ],
-      validator: isFieldFilledIn,
-    },
-    c1A_agreementOtherWaysDetails: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.supervisionAgreementOtherWaysLabel,
-      labelSize: 'm',
-      hint: l => l.supervisionAgreementOtherWaysHint,
-      section: l => l.section,
-      values: [
-        {
-          label: l => l.yes,
-          value: YesOrNo.YES,
-        },
-        {
-          label: l => l.no,
-          value: YesOrNo.NO,
-        },
-      ],
-      validator: isFieldFilledIn,
-    },
-  }},
+  fields: (userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
+    return {
+      c1A_supervisionAgreementDetails: {
+        type: 'radios',
+        classes: 'govuk-radios',
+        label: l => l.selectSupervisionAgreementLabel,
+        labelSize: 'm',
+        section: l => l.section,
+        values: [
+          {
+            label: l => l.one,
+            value: YesOrNo.YES,
+          },
+          {
+            label: l => l.two,
+            value: 'Yes, but I prefer that it is supervised',
+          },
+          {
+            label: l => l.three,
+            value: 'No, I would prefer the other people do not spend time with the children',
+          },
+        ],
+        validator: isFieldFilledIn,
+      },
+      c1A_agreementOtherWaysDetails: {
+        type: 'radios',
+        classes: 'govuk-radios',
+        label: l => l.supervisionAgreementOtherWaysLabel,
+        labelSize: 'm',
+        hint: l => l.supervisionAgreementOtherWaysHint,
+        section: l => l.section,
+        values: [
+          {
+            label: l => l.yes,
+            value: YesOrNo.YES,
+          },
+          {
+            label: l => l.no,
+            value: YesOrNo.NO,
+          },
+        ],
+        validator: isFieldFilledIn,
+      },
+    };
+  },
   submit: {
     text: l => l.onlycontinue,
   },

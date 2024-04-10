@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CaseWithId } from '../../../../../app/case/case';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { YesOrNo } from '../../../../../app/case/definition';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../../app/form/validation';
@@ -39,24 +40,26 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => { return  {
-    c1A_childAbductedBefore: {
-      type: 'radios',
-      classes: 'govuk-radios',
+  fields: (userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
+    return {
+      c1A_childAbductedBefore: {
+        type: 'radios',
+        classes: 'govuk-radios',
 
-      values: [
-        {
-          label: l => l.one,
-          value: YesOrNo.YES,
-        },
-        {
-          label: l => l.two,
-          value: YesOrNo.NO,
-        },
-      ],
-      validator: isFieldFilledIn,
-    },
-  }},
+        values: [
+          {
+            label: l => l.one,
+            value: YesOrNo.YES,
+          },
+          {
+            label: l => l.two,
+            value: YesOrNo.NO,
+          },
+        ],
+        validator: isFieldFilledIn,
+      },
+    };
+  },
 
   submit: {
     text: l => l.onlycontinue,
@@ -64,5 +67,5 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-   return generateContentForLocalComponent(content, languages, form,parentContent);
+  return generateContentForLocalComponent(content, languages, form, parentContent);
 };

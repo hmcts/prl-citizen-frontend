@@ -6,10 +6,10 @@ import { C1AAbuseTypes, C1ASafteyConcerns } from '../../../../../app/case/defini
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';
+import { C100_URL } from '../../../../../steps/urls';
 import { transformAbuseFormData } from '../../util';
 
 import { getFormFields } from './content';
-import { C100_URL } from '../../../../../steps/urls';
 
 @autobind
 export default class SafteyConcernsAbusePostController extends PostController<AnyObject> {
@@ -19,8 +19,8 @@ export default class SafteyConcernsAbusePostController extends PostController<An
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const abuseType = req.params.abuseType as C1AAbuseTypes;
-    const C100RebuildJourney=req.originalUrl.startsWith(C100_URL)
-    const form = new Form(getFormFields(req.session.userCase, abuseType,C100RebuildJourney).fields as FormFields);
+    const C100RebuildJourney = req.originalUrl.startsWith(C100_URL);
+    const form = new Form(getFormFields(req.session.userCase, abuseType, C100RebuildJourney).fields as FormFields);
     const { onlycontinue, saveAndComeLater, ...formFields } = req.body;
     const { _csrf, ...formData } = form.getParsedBody(formFields);
     const childAbuseData: Partial<Case> = {

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { Case } from '../../../app/case/case';
 import {
   C1AAbuseTypes,
@@ -7,9 +6,10 @@ import {
   C1ASafteyConcernsAbuse,
   YesNoEmpty,
 } from '../../../app/case/definition';
-import { CommonContent } from '../common.content';
 import { PageContent, TranslationFn } from '../../../app/controller/GetController';
+import { FormContent, FormFieldsFn } from '../../../app/form/Form';
 import { C100_URL } from '../../../steps/urls';
+import { CommonContent } from '../common.content';
 
 export const getDataShape = (): Record<string, any> => ({
   abuse: {
@@ -33,30 +33,26 @@ export const isValidAbuseType = (
         abuseType
       )) ||
     (ctx === C1ASafteyConcernsAbout.APPLICANT &&
+      [C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE, C1AAbuseTypes.ABDUCTION].includes(abuseType)) ||
+    (ctx === C1ASafteyConcernsAbout.RESPONDENT &&
       [C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE, C1AAbuseTypes.ABDUCTION].includes(abuseType))
-      ||
-      (ctx === C1ASafteyConcernsAbout.RESPONDENT &&
-        [C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE, C1AAbuseTypes.ABDUCTION].includes(abuseType))
   ) {
     return false;
   }
-  let context: string=""
-  switch(ctx){
+  let context = '';
+  switch (ctx) {
     case C1ASafteyConcernsAbout.CHILDREN:
-    context='c1A_concernAboutChild';
-    break;
+      context = 'c1A_concernAboutChild';
+      break;
     case C1ASafteyConcernsAbout.APPLICANT:
-    context='c1A_concernAboutApplicant';
-    break;
+      context = 'c1A_concernAboutApplicant';
+      break;
     case C1ASafteyConcernsAbout.RESPONDENT:
-    context='c1A_concernAboutRespondent';
-    break;
+      context = 'c1A_concernAboutRespondent';
+      break;
   }
 
-  return !!(
-    Object.values(C1AAbuseTypes).includes(abuseType) &&
-    caseData?.[context]?.includes(abuseType)
-  );
+  return !!(Object.values(C1AAbuseTypes).includes(abuseType) && caseData?.[context]?.includes(abuseType));
 };
 
 export const transformAbuseFormData = (formData: Record<string, any>): C1ASafteyConcernsAbuse => {
@@ -68,11 +64,11 @@ export const transformAbuseFormData = (formData: Record<string, any>): C1ASaftey
     return transformedData;
   }, {});
 };
-export const generateContentForLocalComponent=(
+export const generateContentForLocalComponent = (
   content: CommonContent,
   languages: Record<string, any>,
   form: FormContent,
-  parentContent?:TranslationFn
+  parentContent?: TranslationFn
 ): PageContent => {
   const translations = languages[content.language]();
   const request = content.additionalData?.req;
@@ -84,16 +80,16 @@ export const generateContentForLocalComponent=(
       },
     });
   }
-if(parentContent)
-  return {
-    ...translations,
-   ...parentContent(content),
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.additionalData?.req) },
-  };
-  else return{
-    ...translations,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.additionalData?.req) },
+  if (parentContent) {
+    return {
+      ...translations,
+      ...parentContent(content),
+      form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.additionalData?.req) },
+    };
+  } else {
+    return {
+      ...translations,
+      form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, content.additionalData?.req) },
+    };
   }
-}
-
-
+};

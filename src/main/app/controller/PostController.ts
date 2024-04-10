@@ -25,7 +25,7 @@ export class PostController<T extends AnyObject> {
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase,req) : this.fields;
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
     const form = new Form(fields);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
@@ -77,7 +77,7 @@ export class PostController<T extends AnyObject> {
     }
 
     req.session.userCase = {
-      ...PreProcessCaseData.clean(this.fields,req, formData, req.session.userCase, !req.path.startsWith(C100_URL)),
+      ...PreProcessCaseData.clean(this.fields, req, formData, req.session.userCase, !req.path.startsWith(C100_URL)),
     };
 
     if (req.originalUrl.includes(UploadDocumentSucess)) {

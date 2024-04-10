@@ -1,11 +1,11 @@
-import { C100_URL } from '../../../../../steps/urls';
 import { C1AAbuseTypes, C1ASafteyConcernsAbuse, YesNoEmpty } from '../../../../../app/case/definition';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { isTextAreaValid } from '../../../../../app/form/validation';
+import { C100_URL } from '../../../../../steps/urls';
 import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
 export * from './routeGuard';
 
 const en = () => ({
@@ -225,9 +225,11 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (req:AppRequest, abuseType: C1AAbuseTypes): FormContent => {
-  const C100RebuildJourney=req.originalUrl.startsWith(C100_URL)
-  const sessionData: C1ASafteyConcernsAbuse = C100RebuildJourney?req.session.userCase.c1A_safteyConcerns?.applicant?.[abuseType]:req.session.userCase?.c1A_safteyConcerns?.respondent?.[abuseType];
+export const getFormFields = (req: AppRequest, abuseType: C1AAbuseTypes): FormContent => {
+  const C100RebuildJourney = req.originalUrl.startsWith(C100_URL);
+  const sessionData: C1ASafteyConcernsAbuse = C100RebuildJourney
+    ? req.session.userCase.c1A_safteyConcerns?.applicant?.[abuseType]
+    : req.session.userCase?.c1A_safteyConcerns?.respondent?.[abuseType];
 
   return updateFormFields(form, generateFormFields(sessionData ?? getDataShape().abuse).fields);
 };
@@ -239,9 +241,11 @@ const getPageTitle = (abuseType: C1AAbuseTypes, translations: Record<string, any
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const C100RebuildJourney=content.additionalData!.req.originalUrl.startsWith(C100_URL)
+  const C100RebuildJourney = content.additionalData!.req.originalUrl.startsWith(C100_URL);
   const abuseType: C1AAbuseTypes = content.additionalData!.req.params.abuseType;
-  const sessionData: C1ASafteyConcernsAbuse = C100RebuildJourney?content.userCase?.c1A_safteyConcerns?.applicant?.[abuseType]:content.userCase?.c1A_safteyConcerns?.respondent?.[abuseType];
+  const sessionData: C1ASafteyConcernsAbuse = C100RebuildJourney
+    ? content.userCase?.c1A_safteyConcerns?.applicant?.[abuseType]
+    : content.userCase?.c1A_safteyConcerns?.respondent?.[abuseType];
   const { fields } = generateFormFields(sessionData ?? getDataShape().abuse);
   if (C100RebuildJourney) {
     Object.assign(form, {

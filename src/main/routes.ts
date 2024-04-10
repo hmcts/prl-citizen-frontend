@@ -23,6 +23,7 @@ import { ContactPreferencesPostController } from './steps/common/contact-prefere
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
+import { AohSequence } from './steps/common/safety-concerns/sequence';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
 import { HearingsGetController } from './steps/common/yourhearings/hearings/HearingsGetController';
@@ -36,7 +37,6 @@ import RespondentConfirmContactDetailsPostController from './steps/respondent/co
 import { ConsentPostController } from './steps/respondent/consent-to-application/ConsentPostController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TasklistGetController } from './steps/tasklistresponse/TasklistGetController';
-import { SafetyConcernsPostController } from './steps/tasklistresponse/allegations-of-harm-and-violence/SafetyConcernsPostController';
 import { InternationalFactorsPostController } from './steps/tasklistresponse/international-factors/InternationalFactorsPostController';
 import { MIAMPostController } from './steps/tasklistresponse/miam/MIAMPostController';
 import { ProceedingPostController } from './steps/tasklistresponse/proceedings/ProceedingPostController';
@@ -99,7 +99,6 @@ import {
   PAYMENT_GATEWAY_ENTRY_URL,
   PAYMENT_RETURN_URL_CALLBACK,
   C100_RETRIVE_CASE,
-  C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
   C100_DOWNLOAD_APPLICATION,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
@@ -108,7 +107,6 @@ import {
   SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
   CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
-  RESPONDENT_CHECK_ANSWERS_NO,
   FETCH_CASE_DETAILS,
   PARTY_TASKLIST,
   TESTING_SUPPORT,
@@ -131,7 +129,6 @@ import {
   TASKLIST_RESPONSE_TO_CA,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
-import { AohSequence } from './steps/common/safety-concerns/sequence';
 
 export class Routes {
   public enableFor(app: Application): void {
@@ -338,11 +335,6 @@ export class Routes {
           C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
           errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
         );
-        app.get(
-          C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
-          errorHandler(new SafetyConcernsPostController(step.form.fields).post)
-        );
-        app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
         app.post(
           `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}`,
           errorHandler(new ContactPreferencesPostController(step.form.fields).post)

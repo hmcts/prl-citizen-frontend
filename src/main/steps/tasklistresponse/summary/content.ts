@@ -31,14 +31,14 @@ import {
   RESPONDENT_PERSONAL_DETAILS,
   START_ALTERNATIVE_RESPONDENT,
 } from '../../../steps/urls';
-import { summaryList } from '../../common/summary/utils';
-import { summaryList as supportList } from '../../common/support-you-need-during-case/summary/utils';
 import {
   SafetyConcerns,
   SafetyConcerns_child,
   SafetyConcerns_others,
   SafetyConcerns_yours,
-} from '../allegations-of-harm-and-violence/check-your-answers/mainUtil';
+} from '../../common/safety-concerns/review/mainUtil';
+import { summaryList } from '../../common/summary/utils';
+import { summaryList as supportList } from '../../common/support-you-need-during-case/summary/utils';
 import { PastAndCurrentProceedings } from '../proceedings/mainUtils';
 
 import { ANYTYPE } from './common/index';

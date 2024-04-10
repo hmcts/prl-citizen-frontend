@@ -11,6 +11,7 @@ import { Form, FormContent } from '../app/form/Form';
 
 import { applicantCaseSequence } from './applicant/applicantCaseSequence';
 import { C100Sequence } from './c100-rebuild/c100sequence';
+import { AohSequence } from './common/safety-concerns/sequence';
 import { parseUrl } from './common/url-parser';
 import { Step } from './constants';
 import { citizenSequence } from './prl-cases/citizenSequence';
@@ -18,10 +19,7 @@ import { respondentCaseSequence } from './respondent/respondentcaseSequence';
 import { screeningQuestionsSequence } from './screeningQuestionsSequence';
 import { responseCaseSequence } from './tasklistresponse/responseCaseSequence';
 // eslint-disable-next-line import/no-unresolved
-import { 
-  C100_URL,
-   DASHBOARD_URL, PRL_CASE_URL, PageLink } from './urls';
-import { AohSequence } from './common/safety-concerns/sequence';
+import { C100_URL, DASHBOARD_URL, PRL_CASE_URL, PageLink } from './urls';
 
 const stepForms: Record<string, Form> = {};
 
@@ -52,7 +50,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     ...responseCaseSequence,
     ...C100Sequence,
     ...screeningQuestionsSequence,
-    ...AohSequence.getSequence()
+    ...AohSequence.getSequence(),
   ].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data, req) : DASHBOARD_URL;
   const { path: urlPath, queryString: urlQueryStr } = getPathAndQueryStringFromUrl(url);
@@ -139,4 +137,3 @@ const getPathAndQueryStringFromUrl = (url: PageLink): { path: string; queryStrin
   const queryString = searchParams ? `?${searchParams}` : '';
   return { path, queryString };
 };
-

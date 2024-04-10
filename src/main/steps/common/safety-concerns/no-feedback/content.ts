@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CaseWithId } from '../../../../app/case/case';
+import { AppRequest } from '../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../app/form/Form';
 import { generateContentForLocalComponent } from '../util';
-import { AppRequest } from '../../../../app/controller/AppRequest';
 
 const en = () => ({
   caption: 'Safety Concerns',
@@ -48,8 +49,9 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
-    return {}},
+  fields: (userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
+    return {};
+  },
   submit: {
     text: l => l.onlycontinue,
   },
@@ -57,5 +59,4 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   return generateContentForLocalComponent(content, languages, form);
-
 };

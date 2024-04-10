@@ -19,7 +19,7 @@ export default class AddressLookupPostControllerBase extends PostController<AnyO
 
     let addresses;
 
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase,req) : this.fields;
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
     const form = new Form(fields);
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
 

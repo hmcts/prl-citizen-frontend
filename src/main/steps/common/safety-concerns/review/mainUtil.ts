@@ -4,8 +4,8 @@ import { CaseWithId } from '../../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, RootContext, YesOrNo, passportPossessionRelative } from '../../../../app/case/definition';
 import { SummaryList, SummaryListContentWithBoolean, getSectionSummaryList } from '../../../c100-rebuild/check-your-answers/lib/lib';
 import { getYesNoTranslation } from '../../../c100-rebuild/check-your-answers/mainUtil';
-import { applyParms } from '../../url-parser';
 import * as Urls from '../../../urls';
+import { applyParms } from '../../url-parser';
 import { cy } from '../abduction/passport-amount/content';
 
 import { HTML } from './common/htmlSelectors';
@@ -285,9 +285,10 @@ export const SafetyConcerns_others = (
 const preparePoliceInvesitigationData=(userCase: Partial<CaseWithId>, language: string, keys: Record<string, string>)=> {
   let policeOrInvestigatorsOtherDetailsHTML = '';
   policeOrInvestigatorsOtherDetailsHTML += (userCase['c1A_policeOrInvestigatorInvolved'] === YesOrNo.YES ? getYesNoTranslation(language, YesOrNo.YES, 'oeddTranslation') : getYesNoTranslation(language, YesOrNo.NO, 'oeddTranslation'));
+  if(userCase['c1A_policeOrInvestigatorInvolved'] === YesOrNo.YES){
   policeOrInvestigatorsOtherDetailsHTML += userCase.hasOwnProperty('c1A_policeOrInvestigatorOtherDetails')
     ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + userCase['c1A_policeOrInvestigatorOtherDetails']
-    : '';
+    : '';}
   return policeOrInvestigatorsOtherDetailsHTML;
 };
 

@@ -1,5 +1,5 @@
-import { AppRequest } from '../../app/controller/AppRequest';
 import { Case, CaseWithId } from '../../app/case/case';
+import { AppRequest } from '../../app/controller/AppRequest';
 import { FormField, FormFields, FormFieldsFn } from '../../app/form/Form';
 
 class PreProcessCaseData {
@@ -60,7 +60,7 @@ class PreProcessCaseData {
       } as CaseWithId;
     }
 
-    return Object.entries(typeof fields === 'function' ? fields(caseData,req) : (fields as FormField)).reduce(
+    return Object.entries(typeof fields === 'function' ? fields(caseData, req) : (fields as FormField)).reduce(
       (_caseData: Partial<CaseWithId>, [field, fieldConfig]) => {
         const { type: fieldType, values: fieldValues } = fieldConfig;
         const formFieldValue = formData[field];

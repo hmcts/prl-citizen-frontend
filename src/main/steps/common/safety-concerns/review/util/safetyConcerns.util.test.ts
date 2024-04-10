@@ -10,14 +10,14 @@ import {
 } from '../../abduction/passport-office-notified/content';
 import { cy as previousAbductionCy, en as previousAbductionEn } from '../../abduction/previousabductions/content';
 import { cy as abducionThreatsCy, en as abducionThreatsEn } from '../../abduction/threats/content';
-import { cy as concernAboutCy, en as concernAboutEn } from '../../check-answers-yes/content';
 import { cy as concernForChildSafetyCy, en as concernForChildSafetyEn } from '../../child/concerns-about/content';
 import { cy as reportAbuseCy, en as reportAbuseEn } from '../../child/report-abuse/content';
+import { cy as concernAboutCy, en as concernAboutEn } from '../../concern-about/content';
+import { cy as concernForSafetyCy, en as concernForSafetyEn } from '../../concerns-for-safety/content';
 import { cy as courtActionCy, en as courtActionEn } from '../../orders-required/court-action/content';
 import { cy as unsupervisedCy, en as unsupervisedEn } from '../../orders-required/unsupervised/content';
 import { cy as otherConcernsCy, en as otherConcernsEn } from '../../other-concerns/drugs/content';
 import { cy as otherIssuesCy, en as otherIssuesEn } from '../../other-concerns/other-issues/content';
-import { cy as concernForSafetyCy, en as concernForSafetyEn } from '../../your-or-child-safety-concerns/content';
 
 import { SafetyConcernContentElements } from './safetyConcerns.util';
 

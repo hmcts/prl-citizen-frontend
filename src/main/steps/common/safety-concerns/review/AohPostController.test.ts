@@ -1,16 +1,16 @@
-import { mockRequest } from '../../../../test/unit/utils/mockRequest';
-import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CosApiClient } from '../../../app/case/CosApiClient';
-import { RESPOND_TO_APPLICATION } from '../../urls';
+import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
+import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
+import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { RESPOND_TO_APPLICATION } from '../../../urls';
 
-import { SafetyConcernsPostController } from './AohPostController';
+import AohPostController from './AohPostController';
 
 jest.mock('../../../app/case/CosApiClient');
 const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
 
-describe('SafetyConcernsPostController', () => {
+describe('AohPostController', () => {
   let fields;
-  const safetyConcernsPostController = new SafetyConcernsPostController(fields);
+  const safetyConcernsPostController = new AohPostController(fields);
   const req = mockRequest();
   const res = mockResponse();
 

@@ -12,6 +12,7 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
 } from '../../../steps/urls';
+import { prepareChildAbuses } from '../safety-concerns/review/AoHMapperr';
 
 export class ViewAllDocumentsPostController {
   public static async setAllDocumentsViewedC100Respondent(req: AppRequest<AnyObject>): Promise<void> {
@@ -126,6 +127,7 @@ export class ViewAllDocumentsPostController {
     if (partyDetails) {
       if (partyDetails.response && partyDetails.response.citizenFlags) {
         partyDetails.response.citizenFlags.isResponseInitiated = YesOrNo.YES;
+        partyDetails.response.respChildAbuses = prepareChildAbuses(partyDetails.response.respChildAbuses);
       }
 
       try {

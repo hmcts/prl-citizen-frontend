@@ -3,9 +3,9 @@ import {
   C1AAbuseTypes,
   C1ASafteyConcerns,
   C1ASafteyConcernsAbout,
-  c1ASafteyConcerns_total,
-  PartyDetails,
   YesOrNo,
+  c1ASafteyConcerns_total,
+  //PartyDetails,
 } from '../../../../app/case/definition';
 
 export const prepareRequest = (userCase: CaseWithId): c1ASafteyConcerns_total => {
@@ -111,59 +111,59 @@ export const prepareRequest = (userCase: CaseWithId): c1ASafteyConcerns_total =>
   return request;
 };
 
-export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
-  const {
-    haveSafetyConcerns,
-    safetyConcernAbout,
-    concernAboutChild,
-    concernAboutRespondent,
-    otherconcerns,
-    abductions,
-    ...rest
-  } = partyDetails?.response?.safetyConcerns || {};
-  const safetyConerns = {
-    child: {},
-  } as Partial<c1ASafteyConcerns_total>;
+// export const mapSafetyConcernsDetails = (partyDetails: PartyDetails): Partial<CaseWithId> => {
+//   const {
+//     haveSafetyConcerns,
+//     safetyConcernAbout,
+//     concernAboutChild,
+//     concernAboutRespondent,
+//     otherconcerns,
+//     abductions,
+//     ...rest
+//   } = partyDetails?.response?.safetyConcerns || {};
+//   const safetyConerns = {
+//     child: {},
+//   } as Partial<c1ASafteyConcerns_total>;
 
-  if (rest?.child) {
-    safetyConerns.child = Object.entries(rest.child).reduce((childConcerns, [abuseType, data]) => {
-      childConcerns[abuseType] = Object.assign({}, data);
-      if (data?.childrenConcernedAbout && !Array.isArray(data?.childrenConcernedAbout)) {
-        childConcerns[abuseType].childrenConcernedAbout = (data.childrenConcernedAbout as unknown as string).split(',');
-      }
-      return childConcerns;
-    }, {});
-  }
+//   if (rest?.child) {
+//     safetyConerns.child = Object.entries(rest.child).reduce((childConcerns, [abuseType, data]) => {
+//       childConcerns[abuseType] = Object.assign({}, data);
+//       if (data?.childrenConcernedAbout && !Array.isArray(data?.childrenConcernedAbout)) {
+//         childConcerns[abuseType].childrenConcernedAbout = (data.childrenConcernedAbout as unknown as string).split(',');
+//       }
+//       return childConcerns;
+//     }, {});
+//   }
 
-  return {
-    c1A_haveSafetyConcerns: haveSafetyConcerns,
-    c1A_safetyConernAbout: safetyConcernAbout,
-    c1A_concernAboutChild: concernAboutChild,
-    c1A_concernAboutRespondent: concernAboutRespondent,
-    c1A_safteyConcerns: {
-      ...rest,
-      ...safetyConerns,
-    },
-    c1A_abductionReasonOutsideUk: abductions?.c1AabductionReasonOutsideUk,
-    c1A_childsCurrentLocation: abductions?.c1AchildsCurrentLocation,
-    c1A_passportOffice: abductions?.c1ApassportOffice,
-    c1A_childrenMoreThanOnePassport: abductions?.c1AchildrenMoreThanOnePassport,
-    c1A_possessionChildrenPassport: abductions?.c1ApossessionChildrenPassport,
-    c1A_provideOtherDetails: abductions?.c1AprovideOtherDetails,
-    c1A_abductionPassportOfficeNotified: abductions?.c1AabductionPassportOfficeNotified,
-    c1A_childAbductedBefore: abductions?.c1AchildAbductedBefore,
-    c1A_previousAbductionsShortDesc: abductions?.c1ApreviousAbductionsShortDesc,
-    c1A_policeOrInvestigatorInvolved: abductions?.c1ApoliceOrInvestigatorInvolved,
-    c1A_policeOrInvestigatorOtherDetails: abductions?.c1ApoliceOrInvestigatorOtherDetails,
-    c1A_otherConcernsDrugs: otherconcerns?.c1AotherConcernsDrugs,
-    c1A_otherConcernsDrugsDetails: otherconcerns?.c1AotherConcernsDrugsDetails,
-    c1A_childSafetyConcerns: otherconcerns?.c1AchildSafetyConcerns,
-    c1A_childSafetyConcernsDetails: otherconcerns?.c1AchildSafetyConcernsDetails,
-    c1A_keepingSafeStatement: otherconcerns?.c1AkeepingSafeStatement,
-    c1A_supervisionAgreementDetails: otherconcerns?.c1AsupervisionAgreementDetails,
-    c1A_agreementOtherWaysDetails: otherconcerns?.c1AagreementOtherWaysDetails,
-  };
-};
+//   return {
+//     c1A_haveSafetyConcerns: haveSafetyConcerns,
+//     c1A_safetyConernAbout: safetyConcernAbout,
+//     c1A_concernAboutChild: concernAboutChild,
+//     c1A_concernAboutRespondent: concernAboutRespondent,
+//     c1A_safteyConcerns: {
+//       ...rest,
+//       ...safetyConerns,
+//     },
+//     c1A_abductionReasonOutsideUk: abductions?.c1AabductionReasonOutsideUk,
+//     c1A_childsCurrentLocation: abductions?.c1AchildsCurrentLocation,
+//     c1A_passportOffice: abductions?.c1ApassportOffice,
+//     c1A_childrenMoreThanOnePassport: abductions?.c1AchildrenMoreThanOnePassport,
+//     c1A_possessionChildrenPassport: abductions?.c1ApossessionChildrenPassport,
+//     c1A_provideOtherDetails: abductions?.c1AprovideOtherDetails,
+//     c1A_abductionPassportOfficeNotified: abductions?.c1AabductionPassportOfficeNotified,
+//     c1A_childAbductedBefore: abductions?.c1AchildAbductedBefore,
+//     c1A_previousAbductionsShortDesc: abductions?.c1ApreviousAbductionsShortDesc,
+//     c1A_policeOrInvestigatorInvolved: abductions?.c1ApoliceOrInvestigatorInvolved,
+//     c1A_policeOrInvestigatorOtherDetails: abductions?.c1ApoliceOrInvestigatorOtherDetails,
+//     c1A_otherConcernsDrugs: otherconcerns?.c1AotherConcernsDrugs,
+//     c1A_otherConcernsDrugsDetails: otherconcerns?.c1AotherConcernsDrugsDetails,
+//     c1A_childSafetyConcerns: otherconcerns?.c1AchildSafetyConcerns,
+//     c1A_childSafetyConcernsDetails: otherconcerns?.c1AchildSafetyConcernsDetails,
+//     c1A_keepingSafeStatement: otherconcerns?.c1AkeepingSafeStatement,
+//     c1A_supervisionAgreementDetails: otherconcerns?.c1AsupervisionAgreementDetails,
+//     c1A_agreementOtherWaysDetails: otherconcerns?.c1AagreementOtherWaysDetails,
+//   };
+// };
 function concernDetailsAboutRespondent(
   c1A_concernAboutRespondent: C1AAbuseTypes[] | undefined,
   request: c1ASafteyConcerns_total,

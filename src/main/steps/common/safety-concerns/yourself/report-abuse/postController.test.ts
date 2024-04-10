@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../../test/unit/utils/mockResponse';
-import { C1AAbuseTypes } from '../../../../../app/case/definition';
+import { C1AAbuseTypes, RootContext } from '../../../../../app/case/definition';
 import { FormContent } from '../../../../../app/form/Form';
 import { CommonContent } from '../../../../common/common.content';
 
@@ -12,6 +12,7 @@ describe('SafteyConcernsApplicantAbusePostController Post Controller', () => {
     language: 'en',
     additionalData: {
       req: {
+        originalUrl:'/c100-rebuild/dummy',
         params: {
           abuseType: 'physicalAbuse',
         },
@@ -50,7 +51,9 @@ describe('SafteyConcernsApplicantAbusePostController Post Controller', () => {
     const controller = new SafteyConcernsApplicantAbusePostController(mockFormContent.fields);
     const language = 'en';
     const req = mockRequest({
+      
       params: {
+        root:RootContext.C100_REBUILD,
         abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,
       },
       body: {
@@ -61,6 +64,7 @@ describe('SafteyConcernsApplicantAbusePostController Post Controller', () => {
       },
     });
     const res = mockResponse();
+    req.originalUrl='/c100-rebuild/dummy',
     generateContent(commonContent);
     await controller.post(req, res);
 

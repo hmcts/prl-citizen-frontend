@@ -82,10 +82,7 @@ const prepapeHTMLForChildren = (bodyHtml: any, keys: any, FoundElement: any, lan
       Array.isArray(FoundElement['childrenConcernedAbout']) &&
       FoundElement['childrenConcernedAbout'][0] === 'All the children in application'
     ) {
-      bodyHtml +=
-        HTML.LIST_ITEM +
-         FoundElement['childrenConcernedAbout'][0] +
-        HTML.LIST_ITEM_END;
+      bodyHtml += HTML.LIST_ITEM + FoundElement['childrenConcernedAbout'][0] + HTML.LIST_ITEM_END;
     } else {
       if (Array.isArray(FoundElement['childrenConcernedAbout'])) {
         bodyHtml += FoundElement['childrenConcernedAbout']

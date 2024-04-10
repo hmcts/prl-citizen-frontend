@@ -1,21 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AppRequest } from 'app/controller/AppRequest';
+
 import { Case } from '../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, RootContext } from '../../../app/case/definition';
+import { AppRequest } from '../../../app/controller/AppRequest';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
   C100_URL,
   C1A_CHILD_ABDUCTION_THREATS,
   C1A_SAFETY_CONCERNS_ABDUCTION,
   C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
-  C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF,
   C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+  C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF,
   C1A_SAFETY_CONCERNS_CONCERN_ABOUT,
   C1A_SAFETY_CONCERNS_NOFEEDBACK,
   C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,
   C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS,
-  C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE,
   C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
+  C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE,
   PageLink,
 } from '../../urls';
 
@@ -37,73 +38,68 @@ class SafteyConcernsNavigationController {
       url: C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
       abuse: {
         [C1AAbuseTypes.PHYSICAL_ABUSE]: {
-          url: applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,}),
+          url: applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.PHYSICAL_ABUSE }),
         },
         [C1AAbuseTypes.PSYCHOLOGICAL_ABUSE]: {
           url: applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, {
             abuseType: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
-            
           }),
         },
         [C1AAbuseTypes.EMOTIONAL_ABUSE]: {
-          url: applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE, }),
+          url: applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE }),
         },
         [C1AAbuseTypes.SEXUAL_ABUSE]: {
-          url: applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.SEXUAL_ABUSE,  }),
+          url: applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.SEXUAL_ABUSE }),
         },
         [C1AAbuseTypes.FINANCIAL_ABUSE]: {
-          url: applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.FINANCIAL_ABUSE, }),
+          url: applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.FINANCIAL_ABUSE }),
         },
         [C1AAbuseTypes.ABDUCTION]: {
-          url: applyParms(C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,{})as PageLink
+          url: applyParms(C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION, {}) as PageLink,
         },
         [C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE]: {
-          url: applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF,{})as PageLink
+          url: applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF, {}) as PageLink,
         },
         [C1AAbuseTypes.SOMETHING_ELSE]: {
-          url: applyParms(C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,{})as PageLink
+          url: applyParms(C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS, {}) as PageLink,
         },
       },
       guidelines: {
-        url: applyParms(C1A_SAFETY_CONCERNS_NOFEEDBACK,{})as PageLink
+        url: applyParms(C1A_SAFETY_CONCERNS_NOFEEDBACK, {}) as PageLink,
       },
     },
     [C1ASafteyConcernsAbout.APPLICANT]: {
       dataReference: () => this.applicantConcerns,
-      url: applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF,{})as PageLink,
+      url: applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF, {}) as PageLink,
       abuse: {
         [C1AAbuseTypes.PHYSICAL_ABUSE]: {
-          url: applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, { abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,  }),
+          url: applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, { abuseType: C1AAbuseTypes.PHYSICAL_ABUSE }),
         },
         [C1AAbuseTypes.PSYCHOLOGICAL_ABUSE]: {
           url: applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, {
             abuseType: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
-            
           }),
         },
         [C1AAbuseTypes.EMOTIONAL_ABUSE]: {
           url: applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, {
             abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE,
-            
           }),
         },
         [C1AAbuseTypes.SEXUAL_ABUSE]: {
-          url: applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, { abuseType: C1AAbuseTypes.SEXUAL_ABUSE,  }),
+          url: applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, { abuseType: C1AAbuseTypes.SEXUAL_ABUSE }),
         },
         [C1AAbuseTypes.FINANCIAL_ABUSE]: {
           url: applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, {
             abuseType: C1AAbuseTypes.FINANCIAL_ABUSE,
-            
           }),
         },
         [C1AAbuseTypes.SOMETHING_ELSE]: {
-          url: applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, { abuseType: C1AAbuseTypes.SOMETHING_ELSE,
-             }),
+          url: applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, { abuseType: C1AAbuseTypes.SOMETHING_ELSE }),
         },
       },
     },
     [C1ASafteyConcernsAbout.OTHER]: {
-      url: applyParms(C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS,{})as PageLink
+      url: applyParms(C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS, {}) as PageLink,
     },
     [C1ASafteyConcernsAbout.RESPONDENT]: {
       dataReference: () => this.respondentConcerns,
@@ -140,7 +136,7 @@ class SafteyConcernsNavigationController {
           }),
         },
       },
-    }
+    },
   };
 
   private getPageUrl(concernFor: C1ASafteyConcernsAbout, abuseType?: C1AAbuseTypes, other?: string): PageLink | null {
@@ -184,38 +180,58 @@ class SafteyConcernsNavigationController {
     return pageUrl;
   }
 
-  public getNextUrl(currentPageUrl: PageLink, caseData: Partial<Case>,req?:AppRequest,params?: Record<string, any>): PageLink {
+  public getNextUrl(
+    currentPageUrl: PageLink,
+    caseData: Partial<Case>,
+    req?: AppRequest,
+    params?: Record<string, any>
+  ): PageLink {
     let nextUrl;
 
     this.concernsAbout = caseData?.c1A_safetyConernAbout as C1ASafteyConcernsAbout[];
     this.childConcerns = caseData?.c1A_concernAboutChild as C1AAbuseTypes[];
     this.applicantConcerns = caseData?.c1A_concernAboutApplicant as C1AAbuseTypes[];
     this.respondentConcerns = caseData?.c1A_concernAboutRespondent as C1AAbuseTypes[];
-    const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL)
+    const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL);
     switch (currentPageUrl) {
-      case applyParms(C1A_SAFETY_CONCERNS_CONCERN_ABOUT,{root:C100rebuildJourney?RootContext.C100_REBUILD:RootContext.RESPONDENT})
-        : {
+      case applyParms(C1A_SAFETY_CONCERNS_CONCERN_ABOUT, {
+        root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+      }): {
         nextUrl = this.getPageUrl(this.concernsAbout[0]);
         break;
       }
-      case applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,{root:C100rebuildJourney?RootContext.C100_REBUILD:RootContext.RESPONDENT}): {
+      case applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, {
+        root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+      }): {
         nextUrl = this.getNextUrlSafetyConcernChild(
           this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, this.childConcerns[0])
         );
 
         break;
       }
-      case applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,{root:C100rebuildJourney?RootContext.C100_REBUILD:RootContext.RESPONDENT}):
-      case applyParms(C1A_CHILD_ABDUCTION_THREATS,{root:C100rebuildJourney?RootContext.C100_REBUILD:RootContext.RESPONDENT}):
-      case applyParms(C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS,{root:C100rebuildJourney?RootContext.C100_REBUILD:RootContext.RESPONDENT}): {
+      case applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, {
+        root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+      }):
+      case applyParms(C1A_CHILD_ABDUCTION_THREATS, {
+        root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+      }):
+      case applyParms(C1A_SAFETY_CONCERNS_PREVIOUS_ABDUCTIONS, {
+        root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+      }): {
         nextUrl = this.getNextUrlSafetyConcernAbduct(params, currentPageUrl);
         break;
       }
-      case applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF,{root:C100rebuildJourney?RootContext.C100_REBUILD:RootContext.RESPONDENT}): {
-        nextUrl = C100rebuildJourney?this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT, this.applicantConcerns[0]):this.getPageUrl(C1ASafteyConcernsAbout.RESPONDENT, this.respondentConcerns[0]);
+      case applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF, {
+        root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+      }): {
+        nextUrl = C100rebuildJourney
+          ? this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT, this.applicantConcerns[0])
+          : this.getPageUrl(C1ASafteyConcernsAbout.RESPONDENT, this.respondentConcerns[0]);
         break;
       }
-      case applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE,{root:C100rebuildJourney?RootContext.C100_REBUILD:RootContext.RESPONDENT}): {
+      case applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, {
+        root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+      }): {
         nextUrl = this.getNextUrlSafetyConcernReport(params);
         break;
       }
@@ -224,7 +240,9 @@ class SafteyConcernsNavigationController {
         break;
     }
 
-    return applyParms(nextUrl,{ root: C100rebuildJourney?RootContext.C100_REBUILD:RootContext.RESPONDENT}) as PageLink;
+    return applyParms(nextUrl, {
+      root: C100rebuildJourney ? RootContext.C100_REBUILD : RootContext.RESPONDENT,
+    }) as PageLink;
   }
 
   private getNextUrlSafetyConcernChild(returnUrl) {
@@ -245,10 +263,10 @@ class SafteyConcernsNavigationController {
 
   private getNextUrlSafetyConcernAbduct(params, currentPageUrl) {
     const abuseType =
-      params?.abuseType ??
-      (currentPageUrl.includes(C1A_SAFETY_CONCERNS_ABDUCTION) ? C1AAbuseTypes.ABDUCTION : null);
+      params?.abuseType ?? (currentPageUrl.includes(C1A_SAFETY_CONCERNS_ABDUCTION) ? C1AAbuseTypes.ABDUCTION : null);
     let returnUrl = this.getNextPageUrl(C1ASafteyConcernsAbout.CHILDREN, abuseType);
-const yourself=params.root==RootContext.C100_REBUILD?C1ASafteyConcernsAbout.APPLICANT:C1ASafteyConcernsAbout.RESPONDENT
+    const yourself =
+      params.root === RootContext.C100_REBUILD ? C1ASafteyConcernsAbout.APPLICANT : C1ASafteyConcernsAbout.RESPONDENT;
     //Flow-3
     if (this.checkForConcerns([C1ASafteyConcernsAbout.CHILDREN, yourself])) {
       /* 
@@ -256,7 +274,11 @@ const yourself=params.root==RootContext.C100_REBUILD?C1ASafteyConcernsAbout.APPL
     2. If the next page url is other concerns page, then the next page url should be applicant abuse selection page.
     */
       if (!returnUrl || returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.SOMETHING_ELSE)) {
-        returnUrl = this.getPageUrl(params.root==RootContext.C100_REBUILD?C1ASafteyConcernsAbout.APPLICANT:C1ASafteyConcernsAbout.RESPONDENT);
+        returnUrl = this.getPageUrl(
+          params.root === RootContext.C100_REBUILD
+            ? C1ASafteyConcernsAbout.APPLICANT
+            : C1ASafteyConcernsAbout.RESPONDENT
+        );
       }
     } else {
       //Flow-1 or Flow-2
@@ -266,8 +288,18 @@ const yourself=params.root==RootContext.C100_REBUILD?C1ASafteyConcernsAbout.APPL
     */
       if (
         !returnUrl ||
-        (this.checkForConcerns(params.root==RootContext.C100_REBUILD?C1ASafteyConcernsAbout.APPLICANT:C1ASafteyConcernsAbout.RESPONDENT, true) &&
-          returnUrl === this.getPageUrl(params.root==RootContext.C100_REBUILD?C1ASafteyConcernsAbout.APPLICANT:C1ASafteyConcernsAbout.RESPONDENT))
+        (this.checkForConcerns(
+          params.root === RootContext.C100_REBUILD
+            ? C1ASafteyConcernsAbout.APPLICANT
+            : C1ASafteyConcernsAbout.RESPONDENT,
+          true
+        ) &&
+          returnUrl ===
+            this.getPageUrl(
+              params.root === RootContext.C100_REBUILD
+                ? C1ASafteyConcernsAbout.APPLICANT
+                : C1ASafteyConcernsAbout.RESPONDENT
+            ))
       ) {
         returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.OTHER);
       }
@@ -282,8 +314,18 @@ const yourself=params.root==RootContext.C100_REBUILD?C1ASafteyConcernsAbout.APPL
           Flow-3: If there is no page left to navigate for applicant, then the next page url should be other concerns page.
           */
     const returnUrl =
-      this.getNextPageUrl(params?.root==RootContext.C100_REBUILD?C1ASafteyConcernsAbout.APPLICANT:C1ASafteyConcernsAbout.RESPONDENT, params?.abuseType) ??
-      (this.checkForConcerns(params?.root==RootContext.C100_REBUILD?C1ASafteyConcernsAbout.APPLICANT:C1ASafteyConcernsAbout.RESPONDENT, true)
+      this.getNextPageUrl(
+        params?.root === RootContext.C100_REBUILD
+          ? C1ASafteyConcernsAbout.APPLICANT
+          : C1ASafteyConcernsAbout.RESPONDENT,
+        params?.abuseType
+      ) ??
+      (this.checkForConcerns(
+        params?.root === RootContext.C100_REBUILD
+          ? C1ASafteyConcernsAbout.APPLICANT
+          : C1ASafteyConcernsAbout.RESPONDENT,
+        true
+      )
         ? this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, undefined, 'guidelines')
         : this.getPageUrl(C1ASafteyConcernsAbout.OTHER));
 
@@ -292,4 +334,3 @@ const yourself=params.root==RootContext.C100_REBUILD?C1ASafteyConcernsAbout.APPL
 }
 
 export default new SafteyConcernsNavigationController();
-

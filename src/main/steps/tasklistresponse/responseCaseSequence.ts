@@ -1,7 +1,7 @@
-import { applyParms } from '../../steps/common/url-parser';
 import { Case } from '../../app/case/case';
 import { RootContext, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
+import { applyParms } from '../../steps/common/url-parser';
 import { Sections, Step } from '../constants';
 import {
   C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
@@ -64,8 +64,8 @@ import {
   RESPONDENT_ADDRESS_SELECT,
   //RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
-  RESPONDENT_CHECK_ANSWERS_NO,
-  RESPONDENT_CHECK_ANSWERS_YES,
+  // RESPONDENT_CHECK_ANSWERS_NO,
+  // RESPONDENT_CHECK_ANSWERS_YES,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_FIND_ADDRESS,
   RESPONDENT_PERSONAL_DETAILS,
@@ -75,13 +75,13 @@ import {
   RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
-  RESPONDENT_YOUR_CHILD_CONCERNS,
+  // RESPONDENT_YOUR_CHILD_CONCERNS,
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
   YOUR_SAFETY,
 } from '../urls';
 
-import SafteyConcernsNavigationController from './allegations-of-harm-and-violence/navigationController';
+//import SafteyConcernsNavigationController from '../common/safety-concerns/navigationController';
 import OtherProceedingsNavigationController from './proceedings/navigationController';
 import ReasonableAdjustmentsNavigationController from './support-you-need-during-case/navigationController';
 
@@ -332,30 +332,30 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPOND_TO_APPLICATION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () =>applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,{root:RootContext.RESPONDENT}) as PageLink
+    getNextStep: () => applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.RESPONDENT }) as PageLink,
   },
   // {
   //   url: RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   //   showInSection: Sections.AboutRespondentCase,
   //   getNextStep: () => RESPONDENT_YOUR_CHILD_CONCERNS,
   // },
-  {
-    url: RESPONDENT_YOUR_CHILD_CONCERNS,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: data =>
-      data.PRL_c1A_haveSafetyConcerns === YesOrNo.NO ? RESPONDENT_CHECK_ANSWERS_NO : RESPONDENT_CHECK_ANSWERS_YES,
-  },
-  {
-    url: RESPONDENT_CHECK_ANSWERS_YES,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: (caseData, req) =>
-      SafteyConcernsNavigationController.getNextUrl(RESPONDENT_CHECK_ANSWERS_YES, caseData, req?.params),
-  },
-  {
-    url: RESPONDENT_CHECK_ANSWERS_NO,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
-  },
+  // {
+  //   url: RESPONDENT_YOUR_CHILD_CONCERNS,
+  //   showInSection: Sections.AboutRespondentCase,
+  //   getNextStep: data =>
+  //     data.PRL_c1A_haveSafetyConcerns === YesOrNo.NO ? RESPONDENT_CHECK_ANSWERS_NO : RESPONDENT_CHECK_ANSWERS_YES,
+  // },
+  // {
+  //   url: RESPONDENT_CHECK_ANSWERS_YES,
+  //   showInSection: Sections.AboutRespondentCase,
+  //   getNextStep: (caseData, req) =>
+  //     SafteyConcernsNavigationController.getNextUrl(RESPONDENT_CHECK_ANSWERS_YES, caseData, req?.params),
+  // },
+  // {
+  //   url: RESPONDENT_CHECK_ANSWERS_NO,
+  //   showInSection: Sections.AboutRespondentCase,
+  //   getNextStep: () => RESPOND_TO_APPLICATION,
+  // },
   // {
   //   url: PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
   //   showInSection: Sections.AboutRespondentCase,

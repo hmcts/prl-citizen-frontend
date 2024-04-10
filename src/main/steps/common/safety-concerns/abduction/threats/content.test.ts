@@ -1,8 +1,9 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 import { Validator, isFieldFilledIn } from '../../../../../app/form/validation';
-import { generateContent } from './content';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
+
+import { generateContent } from './content';
 
 jest.mock('../../../../../app/form/validation');
 
@@ -36,16 +37,31 @@ describe('miam->have document signed by mediator or not', () => {
   const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
-    commonContent.additionalData!.req?.originalUrl="/c100-rebuild/dummy"
-    languageAssertions('en', en, () => generateContent(commonContent));
+    const additionalData = {
+      req: {
+        originalUrl: '/c100-rebuild/dummy',
+      },
+    };
+    //additionalData!.req.originalUrl = 'applicant/reasonable-adjustments/attending-court';
+    languageAssertions('en', en, () => generateContent({ ...commonContent, additionalData }));
   });
 
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+    const additionalData = {
+      req: {
+        originalUrl: '/taskistResponse/dummy',
+      },
+    };
+    languageAssertions('cy', cy, () => generateContent({ ...commonContent, additionalData, language: 'cy' }));
   });
   test('should contain applyingWith field', () => {
-    const generatedContent = generateContent(commonContent) as Record<string, never>;
+    const additionalData = {
+      req: {
+        originalUrl: '/c100-rebuild/dummy',
+      },
+    };
+    const generatedContent = generateContent({ ...commonContent, additionalData }) as Record<string, never>;
     form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
     const applyingWithField = fields.c1A_childAbductedBefore as FormOptions;
@@ -59,13 +75,27 @@ describe('miam->have document signed by mediator or not', () => {
   });
 
   test('should contain Continue button', () => {
+    const additionalData = {
+      req: {
+        originalUrl: '/c100-rebuild/dummy',
+      },
+    };
     expect(
-      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.submit?.text as LanguageLookup)(
+        generatePageContent({ additionalData, language: 'en' }) as Record<string, never>
+      )
     ).toBe('Continue');
   });
   test('should contain saveAndComeLater button', () => {
+    const additionalData = {
+      req: {
+        originalUrl: '/c100-rebuild/dummy',
+      },
+    };
     expect(
-      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.saveAndComeLater?.text as LanguageLookup)(
+        generatePageContent({ additionalData, language: 'en' }) as Record<string, never>
+      )
     ).toBe('Save and come back later');
   });
 });

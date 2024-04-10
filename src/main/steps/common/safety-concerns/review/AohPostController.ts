@@ -7,8 +7,8 @@ import type { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
-import { RESPOND_TO_APPLICATION } from '../../../urls';
 import { getPartyDetails, mapDataInSession } from '../../../tasklistresponse/utils';
+import { RESPOND_TO_APPLICATION } from '../../../urls';
 
 import { prepareRequest } from './AoHMapperr';
 @autobind
@@ -24,8 +24,8 @@ export default class AohPostController extends PostController<AnyObject> {
     const client = new CosApiClient(user.accessToken, 'https://return-url');
 
     if (partyDetails) {
-      Object.assign(partyDetails.response, { respondentAllegationsOfHarmData: prepareRequest(userCase) });
-      //Object.assign(partyDetails.response, { ... prepareRequest(userCase),...rest });
+      // Object.assign(partyDetails.response, { respondentAllegationsOfHarmData: prepareRequest(userCase) });
+      Object.assign(partyDetails.response, prepareRequest(userCase));
       try {
         req.session.userCase = await client.updateCaseData(
           user,

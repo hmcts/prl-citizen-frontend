@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { C100_URL } from '../../../../../steps/urls';
 import { CaseWithId } from '../../../../../app/case/case';
-import { C1AAbuseTypes, C1ASafteyConcernsAbuse, Childinfo, 
+import {
+  C1AAbuseTypes,
+  C1ASafteyConcernsAbuse,
+  Childinfo,
   //ChildrenDetails,
-  YesNoEmpty } from '../../../../../app/case/definition';
+  YesNoEmpty,
+} from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../../app/form/Form';
 import { isTextAreaValid } from '../../../../../app/form/validation';
+import { C100_URL } from '../../../../../steps/urls';
 import { getDataShape } from '../../util';
 import { generateContent as commonContent } from '../content';
 export * from './routeGuard';
@@ -254,25 +258,33 @@ export const form: FormContent = {
   },
 };
 
-export const getFormFields = (caseData: Partial<CaseWithId>, abuseType: C1AAbuseTypes, C100RebuildJourney): FormContent => {
+export const getFormFields = (
+  caseData: Partial<CaseWithId>,
+  abuseType: C1AAbuseTypes,
+  C100RebuildJourney
+): FormContent => {
   const sessionData: C1ASafteyConcernsAbuse = caseData?.c1A_safteyConcerns?.child?.[abuseType];
   const sessionChildrenData = caseData?.cd_children ?? [];
-  const sessionChildrenData1 = caseData?.newChildDetails??[]
-  let data1: Childinfo[];
-  data1=(sessionChildrenData.map(i => {return{
-    id: i.id,
-    firstName: i.firstName,
-    lastName: i.lastName
-  }}))
-  let data2: Childinfo[];
-  data2=(sessionChildrenData1.map(i => {return{
-    id: i.id,
-    firstName: i.value.firstName,
-    lastName: i.value.lastName
-  }}))
+  const sessionChildrenData1 = caseData?.newChildDetails ?? [];
+
+  const data1: Childinfo[] = sessionChildrenData.map(i => {
+    return {
+      id: i.id,
+      firstName: i.firstName,
+      lastName: i.lastName,
+    };
+  });
+
+  const data2: Childinfo[] = sessionChildrenData1.map(i => {
+    return {
+      id: i.id,
+      firstName: i.value.firstName,
+      lastName: i.value.lastName,
+    };
+  });
   return updateFormFields(
     form,
-    generateFormFields(sessionData ?? getDataShape().abuse,  C100RebuildJourney? data1:data2 ?? []).fields
+    generateFormFields(sessionData ?? getDataShape().abuse, C100RebuildJourney ? data1 : data2 ?? []).fields
   );
 };
 
@@ -283,25 +295,27 @@ const getPageTitle = (abuseType: C1AAbuseTypes, translations: Record<string, any
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
-  const C100RebuildJourney=content.additionalData!.req.originalUrl.startsWith(C100_URL)
+  const C100RebuildJourney = content.additionalData!.req.originalUrl.startsWith(C100_URL);
   const abuseType: C1AAbuseTypes = content.additionalData!.req.params.abuseType;
   const sessionData: C1ASafteyConcernsAbuse = content.userCase?.c1A_safteyConcerns?.child?.[abuseType];
   const sessionChildrenData = content.userCase?.cd_children ?? [];
-  const sessionChildrenData1 = content.userCase?.newChildDetails??[]
-  let data1: Childinfo[];
-  data1=(sessionChildrenData.map(i => {return{
-    id: i.id,
-    firstName: i.firstName,
-    lastName: i.lastName
-  }}))
-  let data2: Childinfo[];
-  data2=(sessionChildrenData1.map(i => {return{
-    id: i.id,
-    firstName: i.value.firstName,
-    lastName: i.value.lastName
-  }}))
-  const { fields } = generateFormFields(sessionData ?? getDataShape().abuse, C100RebuildJourney?data1:data2);
- 
+  const sessionChildrenData1 = content.userCase?.newChildDetails ?? [];
+  const data1: Childinfo[] = sessionChildrenData.map(i => {
+    return {
+      id: i.id,
+      firstName: i.firstName,
+      lastName: i.lastName,
+    };
+  });
+  const data2: Childinfo[] = sessionChildrenData1.map(i => {
+    return {
+      id: i.id,
+      firstName: i.value.firstName,
+      lastName: i.value.lastName,
+    };
+  });
+  const { fields } = generateFormFields(sessionData ?? getDataShape().abuse, C100RebuildJourney ? data1 : data2);
+
   if (C100RebuildJourney) {
     Object.assign(form, {
       saveAndComeLater: {

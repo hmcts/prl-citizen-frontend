@@ -117,7 +117,47 @@ export interface User {
 }
 
 export interface Response {
-  respondentAllegationsOfHarmData?:c1A_AOH_total;
+  respAohYesOrNo?:YesOrNo;
+  respAohDomesticAbuseYesNo?:YesOrNo;
+   respAohChildAbductionYesNo?:YesOrNo;
+   respAohChildAbuseYesNo?:YesOrNo;
+   respChildAbductionReasons?:string;
+   respPreviousAbductionThreats?:YesOrNo;
+   respPreviousAbductionThreatsDetails?: string;
+   respChildrenLocationNow?: string;
+   respAbductionPassportOfficeNotified?:YesOrNo;
+   respAbductionChildHasPassport?:YesOrNo;
+   respChildPassportDetails?: RespChildPassportDetails;
+
+     respAbductionPreviousPoliceInvolvement?:YesOrNo;
+     respAbductionPreviousPoliceInvolvementDetails?:string;
+    respAohSubstanceAbuseYesNo?:YesOrNo;
+    respAohSubstanceAbuseDetails?:string;
+     respAohOtherConcerns?:YesOrNo;
+     respAohOtherConcernsDetails?:string;
+     respAohOtherConcernsCourtActions?:string;
+//      respAgreeChildUnsupervisedTime?:YesOrNo;?
+//      respAgreeChildSupervisedTime?:YesOrNo;?
+      respAgreeChildOtherContact?:YesOrNo;
+//private final List<Element<RespDomesticAbuseBehaviours>> 
+      respDomesticBehaviours?:RespDomesticAbuseBehaviours[];
+      respChildAbuses?:C1AAbuseTypes[];
+respChildPhysicalAbuse?:RespChildAbuse;
+
+respChildPsychologicalAbuse?:RespChildAbuse;
+respChildFinancialAbuse?:RespChildAbuse;
+
+respChildSexualAbuse?:RespChildAbuse;
+ respChildEmotionalAbuse?:RespChildAbuse;
+
+ respWhichChildrenAreRiskPhysicalAbuse?:string;
+respWhichChildrenAreRiskPsychologicalAbuse?:string;
+
+respWhichChildrenAreRiskSexualAbuse?:string;
+
+respWhichChildrenAreRiskEmotionalAbuse?:string;
+
+ respWhichChildrenAreRiskFinancialAbuse?:string;
   legalRepresentation?: string;
   consent?: Consent;
   miam?: Miam;
@@ -126,7 +166,7 @@ export interface Response {
   citizenFlags?: CitizenFlags
   safeToCallOption?: string;
   supportYouNeed?: ReasonableAdjustmentsSupport;
-  safetyConcerns?: c1ASafteyConcerns_total;
+ // safetyConcerns?: c1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
 }
 
@@ -3006,7 +3046,7 @@ respWhichChildrenAreRiskEmotionalAbuse?:string;
   value?: RespDomesticAbuseBehavioursDetails;
 }
  export interface RespDomesticAbuseBehavioursDetails {
-  respTypeOfAbuse?:C1AAbuseTypes;
+  respTypeOfAbuse?:string;
   respAbuseNatureDescription?:string;
   respBehavioursStartDateAndLength?:string;
   respBehavioursApplicantSoughtHelp?:YesOrNo;
@@ -3035,6 +3075,7 @@ export enum C1AAbuseTypes {
   WITNESSING_DOMESTIC_ABUSE = 'witnessingDomesticAbuse',
   SOMETHING_ELSE = 'somethingElse',
 }
+
 
 export enum PRL_C1AAbuseTypes {
   PHYSICAL_ABUSE = 'physicalAbuse',

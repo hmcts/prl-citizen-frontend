@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CaseWithId } from '../../../../../app/case/case';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 import { generateContentForLocalComponent } from '../../util';
 import { generateContent as parentContent } from '../content';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
 
 export const en = () => ({
   section: 'Safety concerns',
@@ -72,32 +73,33 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => { return  {
-    c1A_abductionReasonOutsideUk: {
-      type: 'textarea',
-      labelSize: 's',
-      attributes: {
-        rows: 4,
+  fields: (userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
+    return {
+      c1A_abductionReasonOutsideUk: {
+        type: 'textarea',
+        labelSize: 's',
+        attributes: {
+          rows: 4,
+        },
+        validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
       },
-      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
-    },
-    c1A_childsCurrentLocation: {
-      type: 'textarea',
-      labelSize: 's',
-      label: l => l.childsCurrentLocationText,
-      hint: l => l.childsCurrentLocationHint,
-      attributes: {
-        rows: 4,
+      c1A_childsCurrentLocation: {
+        type: 'textarea',
+        labelSize: 's',
+        label: l => l.childsCurrentLocationText,
+        hint: l => l.childsCurrentLocationHint,
+        attributes: {
+          rows: 4,
+        },
+        validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
       },
-      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
-    },
-  }},
+    };
+  },
   onlycontinue: {
     text: l => l.onlycontinue,
   },
- 
 };
 
 export const generateContent: TranslationFn = content => {
-  return generateContentForLocalComponent(content, languages, form,parentContent);
+  return generateContentForLocalComponent(content, languages, form, parentContent);
 };

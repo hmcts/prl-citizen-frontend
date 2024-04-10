@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { AppRequest } from '../../../../../app/controller/AppRequest';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CaseWithId } from '../../../../../app/case/case';
 import { YesOrNo } from '../../../../../app/case/definition';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
@@ -73,44 +74,46 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields:(userCase: Partial<CaseWithId>, req: AppRequest): FormFields => { return  {
-    c1A_previousAbductionsShortDesc: {
-      type: 'textarea',
-      name: 'c1A_previousAbductionsShortDesc',
-      hint: l => l.c1A_previousAbductionsShortDescHint,
-      validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
-    },
-    c1A_policeOrInvestigatorInvolved: {
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.c1A_policeOrInvestigatorInvolved,
-      labelSize: 'm',
-      hint: l => l.c1A_policeOrInvestigatorInvolvedHint,
-      values: [
-        {
-          label: l => l.one,
-          value: YesOrNo.YES,
-          subFields: {
-            c1A_policeOrInvestigatorOtherDetails: {
-              type: 'textarea',
-              label: l => l.otherDetails,
-              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+  fields: (userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
+    return {
+      c1A_previousAbductionsShortDesc: {
+        type: 'textarea',
+        name: 'c1A_previousAbductionsShortDesc',
+        hint: l => l.c1A_previousAbductionsShortDescHint,
+        validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+      },
+      c1A_policeOrInvestigatorInvolved: {
+        type: 'radios',
+        classes: 'govuk-radios',
+        label: l => l.c1A_policeOrInvestigatorInvolved,
+        labelSize: 'm',
+        hint: l => l.c1A_policeOrInvestigatorInvolvedHint,
+        values: [
+          {
+            label: l => l.one,
+            value: YesOrNo.YES,
+            subFields: {
+              c1A_policeOrInvestigatorOtherDetails: {
+                type: 'textarea',
+                label: l => l.otherDetails,
+                validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+              },
             },
           },
-        },
-        {
-          label: l => l.two,
-          value: YesOrNo.NO,
-        },
-      ],
-      validator: isFieldFilledIn,
-    },
-  }},
+          {
+            label: l => l.two,
+            value: YesOrNo.NO,
+          },
+        ],
+        validator: isFieldFilledIn,
+      },
+    };
+  },
   submit: {
     text: l => l.onlycontinue,
   },
 };
 
 export const generateContent: TranslationFn = content => {
-  return generateContentForLocalComponent(content, languages, form,parentContent);
+  return generateContentForLocalComponent(content, languages, form, parentContent);
 };

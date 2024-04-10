@@ -1,6 +1,6 @@
-import { applyParms } from '../../../steps/common/url-parser';
 import { Respondent, RootContext, YesOrNo } from '../../../app/case/definition';
 import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
+import { applyParms } from '../../../steps/common/url-parser';
 import * as URL from '../../urls';
 
 import {
@@ -102,7 +102,9 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
             id: 'allegations_of_harm_and_violence',
             text: taskListItems.allegations_of_harm_and_violence,
             status: getAllegationOfHarmStatus(userCase),
-            href: applyParms(URL.C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,{root:RootContext.RESPONDENT}) as URL.PageLink,
+            href: applyParms(URL.C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, {
+              root: RootContext.RESPONDENT,
+            }) as URL.PageLink,
           },
         ],
       },

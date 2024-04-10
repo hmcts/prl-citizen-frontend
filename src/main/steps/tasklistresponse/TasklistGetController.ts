@@ -4,6 +4,7 @@ import { Response } from 'express';
 import { CosApiClient } from '../../app/case/CosApiClient';
 import { EventRoutesContext, RootContext } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
+import { applyParms } from '../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
@@ -20,7 +21,6 @@ import {
 } from '../urls';
 
 import { mapDataInSession } from './utils';
-import { applyParms } from '../../steps/common/url-parser';
 @autobind
 export class TasklistGetController {
   constructor(protected readonly context: EventRoutesContext) {}
@@ -52,7 +52,7 @@ export class TasklistGetController {
         redirectUrl = PROCEEDINGS_START;
         break;
       case EventRoutesContext.SAFETY_CONCERNS_RESPONSE:
-        redirectUrl = applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,{root:RootContext.RESPONDENT}) as PageLink;
+        redirectUrl = applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.RESPONDENT }) as PageLink;
         break;
       case EventRoutesContext.CONSENT_RESPONSE:
         redirectUrl = CONSENT_TO_APPLICATION;

@@ -6,8 +6,8 @@ import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-det
 import { mapKeepYourDetailsPrivate } from '../../steps/common/keep-details-private/KeepYourDetailsPrivateMapper';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { mapConsentToApplicationDetails } from '../../steps/respondent/consent-to-application/ConsentMapper';
+import { mapSafetyConcernsDetails } from '../common/safety-concerns/review/AoHMapperr';
 
-import { mapSafetyConcernsDetails } from './allegations-of-harm-and-violence/SafetyConcernsMapper';
 import { mapInternationalFactorsDetails } from './international-factors/InternationalFactorsMapper';
 import { mapMIAMDetails } from './miam/MIAMMapper';
 import { mapProceedingDetails } from './proceedings/ProceedingDetailsMapper';
@@ -35,8 +35,8 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
   }
 };
 function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
-  if (partyDetails?.response?.safetyConcerns) {
-    Object.assign(userCase, mapSafetyConcernsDetails(partyDetails));
+  if (partyDetails?.response) {
+    Object.assign(userCase, { ...mapSafetyConcernsDetails(partyDetails), ...userCase });
   }
 
   if (partyDetails?.response?.citizenInternationalElements) {

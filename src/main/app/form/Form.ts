@@ -1,4 +1,4 @@
-import { AppRequest } from 'app/controller/AppRequest';
+import { AppRequest } from '../../app/controller/AppRequest';
 import { SummaryListContent } from '../../steps/common/models/summaryListContent';
 import { Case, CaseDate, CaseWithId } from '../case/case';
 import { AnyObject } from '../controller/PostController';
@@ -136,7 +136,7 @@ export type ValidationCheck = (
   formData: Partial<Case>
 ) => void | string;
 export type FormFields = Record<string, FormField>;
-export type FormFieldsFn = (userCase: Partial<Case>,req:AppRequest) => FormFields;
+export type FormFieldsFn = (userCase: Partial<Case>, req: AppRequest) => FormFields;
 
 export interface FormContent {
   accessCodeCheck?: {

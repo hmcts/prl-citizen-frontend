@@ -82,7 +82,7 @@ import {
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   children: 'children',
-  newChildDetails:'newChildDetails',
+  newChildDetails: 'newChildDetails',
   miamTable: 'miamTable',
   caseStatus: 'caseStatus',
   welshNeeds: 'welshNeeds',
@@ -248,7 +248,7 @@ export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
 export interface Case {
   children?: Child[];
-  newChildDetails?:Child[];
+  newChildDetails?: Child[];
   miamTable?: MiamTable;
   applicants?: Applicant[];
   applicantsFL401?: PartyDetails;

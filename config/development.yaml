@@ -7,12 +7,12 @@ services:
     url: 'https://api.os.uk/search/places/v1'
     token: POSTCODE_TOKEN
   authProvider:
-    url: 'http://rpe-service-auth-provider-ithc.service.core-compute-ithc.internal'
+    url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
     microservice: 'prl_citizen_frontend'
     secret: 'NEED TO INSERT SECRET'
   idam:
-    authorizationURL: 'https://idam-web-public.ithc.platform.hmcts.net/login'
-    tokenURL: 'https://idam-api.ithc.platform.hmcts.net/o/token'
+    authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
+    tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'prl-citizen-frontend'
     citizenClientSecret:
     cosApiClientSecret:
@@ -21,11 +21,11 @@ services:
   citizen:
     uploadDocsEmail:
   case:
-    url: 'http://ccd-data-store-api-ithc.service.core-compute-ithc.internal'
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2055.preview.platform.hmcts.net'
   cos:
-    url: 'http://prl-cos-ithc.service.core-compute-ithc.internal'
+    url: 'https://prl-cos-pr-2258.preview.platform.hmcts.net'
   documentManagement:
-    url: 'http://ccd-case-document-am-api-ithc.service.core-compute-ithc.internal'
+    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2055.preview.platform.hmcts.net'
   health:
   timeout: 5000
   deadline: 15000

@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CaseWithId } from '../../../../../app/case/case';
 import { YesOrNo } from '../../../../../app/case/definition';
+import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent, FormFields } from '../../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
 import { generateContentForLocalComponent } from '../../util';
-import { AppRequest } from '../../../../../app/controller/AppRequest';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -58,37 +59,37 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: (userCase: Partial<CaseWithId>, req: AppRequest): FormFields => { 
-    return  {
-    c1A_childSafetyConcerns: {
-      id: 'c1A_childSafetyConcerns',
-      type: 'radios',
-      classes: 'govuk-radios',
-      label: l => l.label,
-      section: l => l.section,
-      hint: l => l.hint,
-      values: [
-        {
-          label: l => l.one,
-          value: YesOrNo.YES,
-          subFields: {
-            c1A_childSafetyConcernsDetails: {
-              type: 'textarea',
-              label: l => l.detail,
-              labelSize: null,
-              validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+  fields: (userCase: Partial<CaseWithId>, req: AppRequest): FormFields => {
+    return {
+      c1A_childSafetyConcerns: {
+        id: 'c1A_childSafetyConcerns',
+        type: 'radios',
+        classes: 'govuk-radios',
+        label: l => l.label,
+        section: l => l.section,
+        hint: l => l.hint,
+        values: [
+          {
+            label: l => l.one,
+            value: YesOrNo.YES,
+            subFields: {
+              c1A_childSafetyConcernsDetails: {
+                type: 'textarea',
+                label: l => l.detail,
+                labelSize: null,
+                validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
+              },
             },
           },
-        },
-        {
-          label: l => l.two,
-          value: YesOrNo.NO,
-        },
-      ],
-      validator: isFieldFilledIn,
-    },
-  }
-},
+          {
+            label: l => l.two,
+            value: YesOrNo.NO,
+          },
+        ],
+        validator: isFieldFilledIn,
+      },
+    };
+  },
   onlycontinue: {
     text: l => l.onlycontinue,
   },
