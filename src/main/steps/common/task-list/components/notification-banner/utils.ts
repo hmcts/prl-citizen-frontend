@@ -125,8 +125,7 @@ export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: U
 
 export const isPartyServed = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
   return !!(
-    caseData.citizenApplicationPacks &&
-    caseData.citizenApplicationPacks?.length !== 0 &&
-    getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyId === caseData.citizenApplicationPacks?.[0].partyId
+    caseData.citizenApplicationPacks?.length &&
+    getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyId === caseData.citizenApplicationPacks[0].partyId
   );
 };
