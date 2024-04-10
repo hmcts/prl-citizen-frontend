@@ -36,7 +36,7 @@ export default class StatementOfServicePostController extends PostController<Any
     console.log('Errrors no exist');
     const { user, userCase } = req.session;
     const partyDetails = getPartyDetails(userCase, user.id);
-    const client = new CosApiClient(user.accessToken, 'https://return-url');
+    const client = new CosApiClient(user.accessToken, req.locals.logger);
     console.log(client);
     if (partyDetails) {
       const userData = prepateStatementOfServiceRequest(req);

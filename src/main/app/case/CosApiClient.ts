@@ -281,12 +281,6 @@ export class CosApiClient {
 
   public async UploadDocumentToCdam(request: UploadDocumentRequest): Promise<DocumentFromCdam> {
     try {
-      const headers = {
-        Accept: '*/*',
-        'Content-Type': '*',
-        Authorization: 'Bearer ' + request.user.accessToken,
-        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-      };
       const formData = new FormData();
 
       for (const [, file] of Object.entries(request.files)) {
@@ -297,9 +291,7 @@ export class CosApiClient {
       formData.append('partyName', request.partyName);
       formData.append('isApplicant', request.isApplicant);
 
-      const response = await Axios.post(config.get('services.cos.url') + '/upload-citizen-document', formData, {
-        headers,
-      });
+      const response = await this.client.post(config.get('services.cos.url') + '/upload-citizen-document', formData);
       return {
         status: response.status,
         document: response.data?.document,
@@ -325,15 +317,7 @@ export class CosApiClient {
 
   public async deleteDocumentFromCdam(user: UserDetails, documentIdToDelete: string): Promise<DocumentUploadResponse> {
     try {
-      const headers = {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + user.accessToken,
-        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-      };
-      const response = await Axios.delete(config.get('services.cos.url') + `/${documentIdToDelete}/delete`, {
-        headers,
-      });
+      const response = await this.client.delete(config.get('services.cos.url') + `/${documentIdToDelete}/delete`);
       return response.data;
     } catch (err) {
       throw new Error('Document could not be deleted.');
