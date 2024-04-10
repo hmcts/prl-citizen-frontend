@@ -52,7 +52,7 @@ export const aboutYou: TaskListConfigProps = {
       id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
       href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_DETAILS_KNOWN}/${caseData.id}`,
       stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-        const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyDetails;
+        const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
         return getKeepYourDetailsPrivateStatus(respondent?.response.keepDetailsPrivate);
       },
     },
@@ -60,7 +60,7 @@ export const aboutYou: TaskListConfigProps = {
       id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
       href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_CHECK_ANSWERS}/${caseData.id}`,
       stateTag: (caseData, userDetails) => {
-        const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyDetails;
+        const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
         return getConfirmOrEditYourContactDetailsStatus(respondent);
       },
     },
@@ -70,7 +70,7 @@ export const aboutYou: TaskListConfigProps = {
         return `${CA_DA_ATTENDING_THE_COURT}`;
       },
       stateTag: (caseData, userDetails) => {
-        const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyDetails;
+        const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
         return getSupportYourNeedsDetailsStatus(respondent?.response.supportYouNeed as CaseWithId);
       },
     },
@@ -192,7 +192,7 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           return !isApplicationResponded(caseData, userDetails.id) ? `${RESPOND_TO_APPLICATION}/flag/updateFlag` : null;
         },
         stateTag: (caseData, userDetails) => {
-          const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyDetails;
+          const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
           return getResponseStatus(respondent);
         },
         showHint: (caseData, userDetails) => isApplicationResponded(caseData, userDetails.id),
@@ -203,7 +203,7 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           return '#';
         },
         stateTag: (caseData, userDetails) => {
-          const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyDetails;
+          const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
           return getInternationalFactorsStatus(respondent?.response.citizenInternationalElements);
         },
         showHint: (caseData, userDetails) => isApplicationResponded(caseData, userDetails.id),

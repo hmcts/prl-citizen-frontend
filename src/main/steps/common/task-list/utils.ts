@@ -57,7 +57,7 @@ export const isCaseWithdrawn = (caseData: Partial<CaseWithId>): boolean => {
 };
 
 export const isCaseLinked = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-  const partyDetails = getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyDetails;
+  const partyDetails = getPartyDetails(caseData as CaseWithId, userDetails.id);
 
   return !!(partyDetails && partyDetails.user.idamId === userDetails.id);
 };
@@ -70,7 +70,7 @@ export const isDraftCase = (caseData: Partial<CaseWithId>): boolean => {
 };
 
 export const isRepresentedBySolicotor = (caseData: CaseWithId, userId: UserDetails['id']): boolean => {
-  return checkPartyRepresentedBySolicitor(getPartyDetails(caseData, userId)?.partyDetails);
+  return checkPartyRepresentedBySolicitor(getPartyDetails(caseData, userId));
 };
 
 export const checkPartyRepresentedBySolicitor = (partyDetails: PartyDetails | undefined): boolean => {

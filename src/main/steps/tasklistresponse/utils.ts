@@ -1,5 +1,12 @@
 import { CaseWithId } from '../../app/case/case';
-import { Applicant, CaseType, PartyDetails, PartyType, Respondent } from '../../app/case/definition';
+import {
+  Applicant,
+  CaseType,
+  PartyDetails,
+  PartyDetailsWithId,
+  PartyType,
+  Respondent,
+} from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
 import { mapSupportYouNeedDetails } from '../../steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
 import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
@@ -14,7 +21,7 @@ import { mapProceedingDetails } from './proceedings/ProceedingDetailsMapper';
 
 export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']): void => {
   const caseType = userCase.caseTypeOfApplication;
-  const partyDetails = getPartyDetails(userCase, userId)?.partyDetails;
+  const partyDetails = getPartyDetails(userCase, userId);
   if (partyDetails) {
     if (caseType === CaseType.C100) {
       setDataInSession(userCase, partyDetails);
@@ -52,10 +59,7 @@ function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
   }
 }
 
-export const getPartyDetails = (
-  userCase: CaseWithId,
-  userId: UserDetails['id']
-): { partyDetails: PartyDetails; id?: string } | undefined => {
+export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id']): PartyDetailsWithId | undefined => {
   let partyData;
 
   if (!userCase) {
@@ -78,11 +82,11 @@ export const getPartyDetails = (
   }
 
   if (partyData?.value) {
-    return { partyDetails: partyData.value, id: partyData.id };
+    return { ...partyData.value, partyId: partyData.id };
   }
 
   if (partyData) {
-    return { partyDetails: partyData };
+    return { ...partyData, partyId: null };
   }
 
   return partyData;

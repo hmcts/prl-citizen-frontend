@@ -36,6 +36,7 @@ describe('documents > view > application-pack-documents > content', () => {
                       document_hash: null,
                       category_id: 'positionStatements',
                       document_creation_date: '01/01/2024',
+                      uploadedDate: '01/01/2024',
                     },
                   ],
                   documentWelsh: null,
@@ -51,7 +52,7 @@ describe('documents > view > application-pack-documents > content', () => {
         documentDownloadUrl: '#',
         documentId: 'MOCK_DOCUMENT_URL',
         documentName: 'MOCK_FILENAME',
-        servedDate: '09 Apr 2024',
+        servedDate: '01 Jan 2024',
       },
     ]);
   });

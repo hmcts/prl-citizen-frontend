@@ -111,6 +111,10 @@ export interface PartyDetails {
   isRemoveLegalRepresentativeRequested?: YesOrNo;
 }
 
+export interface PartyDetailsWithId extends PartyDetails {
+  partyId: string | undefined,
+}
+
 export interface User {
   email: string,
   idamId: string,

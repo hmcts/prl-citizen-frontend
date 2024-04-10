@@ -149,7 +149,7 @@ export const getCheckAllegationOfHarmStatus = (caseData, userDetails): StateTags
     return StateTags.NOT_AVAILABLE_YET;
   }
 
-  const respondent = getPartyDetails(caseData, userDetails.id)?.partyDetails;
+  const respondent = getPartyDetails(caseData, userDetails.id);
   if (respondent?.response?.citizenFlags?.isAllegationOfHarmViewed === YesOrNo.YES) {
     status = StateTags.VIEW;
   }
@@ -223,7 +223,7 @@ export const getFinalApplicationStatus = (caseData, userDetails): StateTags => {
     return StateTags.NOT_AVAILABLE_YET;
   }
 
-  const respondent = getPartyDetails(caseData, userDetails.id)?.partyDetails;
+  const respondent = getPartyDetails(caseData, userDetails.id);
   if (respondent?.response?.citizenFlags?.isApplicationViewed === YesOrNo.YES) {
     result = StateTags.VIEW;
   }
