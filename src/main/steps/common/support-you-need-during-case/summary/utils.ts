@@ -70,7 +70,7 @@ export const summaryList = (
   }
 
   return {
-    title: sectionTitle || '',
+    title: sectionTitle ?? '',
     rows: getSectionSummaryList(summaryData, content, language),
   };
 };

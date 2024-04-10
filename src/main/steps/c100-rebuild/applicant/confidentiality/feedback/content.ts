@@ -63,7 +63,7 @@ export const generateContent: TranslationFn = content => {
         prepareOptions(items, subItems, shownToggledConfidentialOptions);
       }
     }
-    translations['listOfCofidentialInfromations'] = shownToggledConfidentialOptions as [];
+    translations['listOfCofidentialInfromations'] = shownToggledConfidentialOptions;
   }
 
   const selectedOptionsContactDetailPrivateAlterative = content.userCase?.appl_allApplicants?.filter(
@@ -76,7 +76,7 @@ export const generateContent: TranslationFn = content => {
         prepareOptions(items, subItems, shownToggledConfidentialOptions);
       }
     }
-    translations['listOfCofidentialInfromations'] = shownToggledConfidentialOptions as [];
+    translations['listOfCofidentialInfromations'] = shownToggledConfidentialOptions;
   }
   const applicantData = content.userCase?.appl_allApplicants?.filter(user => user['id'] === userId)[0];
   const applicantName = applicantData?.['applicantFirstName'] + ' ' + applicantData?.['applicantLastName'];

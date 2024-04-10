@@ -6,10 +6,10 @@ import {
   CaseType,
   CompletedHearings,
   Hearing,
+  HearingDay,
   HearingsList,
   PartyType,
   Row,
-  hearingDay,
   hearingStatus,
 } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
@@ -86,9 +86,9 @@ export const mapHearingChannel = (hearingMethod: string): string => {
 export const generateHearingDaySchedule = (
   hearing: HearingsList,
   req: AppRequest<Partial<Case>>,
-  hearingDays: hearingDay[],
+  hearingDays: HearingDay[],
   hearingMethod: string
-): hearingDay[] => {
+): HearingDay[] => {
   for (const schedule of hearing.hearingDaySchedule!) {
     const startDate = schedule.hearingStartDateTime!;
     const formattedDate = new Date(startDate);
@@ -280,7 +280,7 @@ export const prepareFutureHearingData = (
         const hearingDurationDisplayText =
           lengthOfHearing === 1 ? `${lengthOfHearing} ${lang.smallDay}` : `${lengthOfHearing} ${lang.days}`;
         const hearingMethod = getHearingMethod(req, hearing.hearingDaySchedule![0].attendees!);
-        const hearingDays: hearingDay[] = [];
+        const hearingDays: HearingDay[] = [];
         //Generating the schedule related data to be displayed for a paricular hearing
         generateHearingDaySchedule(hearing, req, hearingDays, hearingMethod);
         futureHearings.push({
