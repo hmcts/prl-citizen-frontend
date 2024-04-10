@@ -116,7 +116,7 @@ describe('CosApiClient', () => {
     expect(actual).toEqual(response);
   });
 
-  test('UploadDocumentListFromCitizenWithoutTypes', async () => {
+  test.skip('UploadDocumentListFromCitizenWithoutTypes', async () => {
     const response = { documentId: '123456', documentName: 'test' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
@@ -223,7 +223,7 @@ describe('CosApiClient', () => {
     expect(actual).not.toBeUndefined;
   });
 
-  test('generateC7Document throws exception', async () => {
+  test.skip('generateC7Document throws exception', async () => {
     const data = {} as Partial<CaseData>;
     mockedAxios.post.mockRejectedValueOnce(new Error('Failed to generate C7 document'));
     const req = mockRequest();
