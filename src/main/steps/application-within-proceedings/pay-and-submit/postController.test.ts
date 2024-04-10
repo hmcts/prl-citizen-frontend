@@ -73,6 +73,7 @@ describe('AWPPayAndSubmitPostController controller', () => {
             },
           ],
         },
+        paymentError: {},
       },
     });
 
@@ -152,7 +153,7 @@ describe('AWPPayAndSubmitPostController controller', () => {
     await controller.post(awpRequest, res);
 
     expect(awpRequest.session.userCase.paymentData).toStrictEqual(undefined);
-    expect(awpRequest.session.paymentError).toStrictEqual(true);
+    expect(awpRequest.session.paymentError.hasError).toStrictEqual(true);
     expect(awpRequest.session.save).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith('/application-within-proceedings/C2/request-more-time/checkanswers');
   });
@@ -164,7 +165,7 @@ describe('AWPPayAndSubmitPostController controller', () => {
     await controller.post(awpRequest, res);
 
     expect(awpRequest.session.userCase.paymentData).toStrictEqual(undefined);
-    expect(awpRequest.session.paymentError).toStrictEqual(true);
+    expect(awpRequest.session.paymentError.hasError).toStrictEqual(true);
     expect(awpRequest.session.save).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith('/application-within-proceedings/C2/request-more-time/checkanswers');
   });

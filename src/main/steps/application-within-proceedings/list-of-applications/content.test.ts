@@ -470,7 +470,7 @@ describe('list of applications content', () => {
             },
             {
               text: 'Specific issue order',
-              url: '/application-within-proceedings/C2/specfic-issue-order/guidance',
+              url: '/application-within-proceedings/C2/specific-issue-order/guidance',
             },
           ],
           sectionTitle: 'Request an order relating to a child',
@@ -784,7 +784,7 @@ describe('list of applications content', () => {
             },
             {
               text: 'Specific issue order',
-              url: '/application-within-proceedings/C2/specfic-issue-order/guidance',
+              url: '/application-within-proceedings/C2/specific-issue-order/guidance',
             },
           ],
           sectionTitle: 'Request an order relating to a child',

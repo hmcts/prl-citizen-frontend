@@ -99,6 +99,7 @@ describe('AWP utils', () => {
             },
           ],
         },
+        paymentError: {},
       },
     });
 
@@ -357,7 +358,7 @@ describe('AWP utils', () => {
       expect(res.redirect).toHaveBeenCalledWith(
         '/application-within-proceedings/C2/request-more-time/application-submitted'
       );
-      expect(awpRequest.session.paymentError).toBe(false);
+      expect(awpRequest.session.paymentError.hasError).toBe(false);
       expect(awpRequest.session.save).toHaveBeenCalled();
       expect(awpRequest.session.userCase.paymentData).toBe(undefined);
       expect(awpRequest.session.userCase.awp_applicationType).toBe(undefined);
@@ -389,7 +390,7 @@ describe('AWP utils', () => {
 
       await processAWPApplication(awpRequest, res);
 
-      expect(awpRequest.session.paymentError).toBe(true);
+      expect(awpRequest.session.paymentError.hasError).toBe(true);
       expect(awpRequest.session.save).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith('/application-within-proceedings/C2/request-more-time/checkanswers');
       expect(awpRequest.session.userCase.paymentData).toBe(undefined);
@@ -437,7 +438,7 @@ describe('AWP utils', () => {
       expect(res.redirect).toHaveBeenCalledWith(
         '/application-within-proceedings/C2/request-more-time/application-submitted'
       );
-      expect(awpRequest.session.paymentError).toBe(false);
+      expect(awpRequest.session.paymentError.hasError).toBe(false);
       expect(awpRequest.session.save).toHaveBeenCalled();
       expect(awpRequest.session.userCase.paymentData).toBe(undefined);
       expect(awpRequest.session.userCase.awp_applicationType).toBe(undefined);
@@ -470,7 +471,7 @@ describe('AWP utils', () => {
 
       await processAWPApplication(awpRequest, res);
 
-      expect(awpRequest.session.paymentError).toBe(true);
+      expect(awpRequest.session.paymentError.hasError).toBe(true);
       expect(awpRequest.session.save).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith('/application-within-proceedings/C2/request-more-time/checkanswers');
       expect(awpRequest.session.userCase.paymentData).toBe(undefined);
@@ -494,7 +495,7 @@ describe('AWP utils', () => {
 
       await processAWPApplication(awpRequest, res);
 
-      expect(awpRequest.session.paymentError).toBe(true);
+      expect(awpRequest.session.paymentError.hasError).toBe(true);
       expect(awpRequest.session.save).toHaveBeenCalled();
       expect(res.redirect).toHaveBeenCalledWith('/application-within-proceedings/C2/request-more-time/checkanswers');
       expect(awpRequest.session.userCase.paymentData).toBe(undefined);

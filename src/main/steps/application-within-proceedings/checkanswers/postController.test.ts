@@ -73,6 +73,7 @@ describe('AWPCheckAnswersPostController controller', () => {
             },
           ],
         },
+        paymentError: {},
       },
     });
 
@@ -150,7 +151,7 @@ describe('AWPCheckAnswersPostController controller', () => {
     const res = mockResponse();
     await controller.post(awpRequest, res);
 
-    expect(awpRequest.session.paymentError).toStrictEqual(true);
+    expect(awpRequest.session.paymentError.hasError).toStrictEqual(true);
     expect(awpRequest.session.save).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith('/application-within-proceedings/C2/request-more-time/checkanswers');
   });
@@ -161,7 +162,7 @@ describe('AWPCheckAnswersPostController controller', () => {
     const res = mockResponse();
     await controller.post(awpRequest, res);
 
-    expect(awpRequest.session.paymentError).toStrictEqual(true);
+    expect(awpRequest.session.paymentError.hasError).toStrictEqual(true);
     expect(awpRequest.session.save).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith('/application-within-proceedings/C2/request-more-time/checkanswers');
   });

@@ -505,6 +505,18 @@ describe('tasklist index', () => {
                 label: 'Submitted',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
           ],
         },
         {
@@ -772,6 +784,18 @@ describe('tasklist index', () => {
                 label: 'Submitted',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
           ],
         },
         {
@@ -953,6 +977,18 @@ describe('tasklist index', () => {
               stateTag: {
                 className: 'govuk-tag--turquoise',
                 label: 'Submitted',
+              },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
               },
             },
           ],
@@ -1277,6 +1313,18 @@ describe('tasklist index', () => {
                 label: 'Submitted',
               },
             },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
+              },
+            },
           ],
         },
         {
@@ -1523,6 +1571,18 @@ describe('tasklist index', () => {
               stateTag: {
                 className: 'govuk-tag--turquoise',
                 label: 'Submitted',
+              },
+            },
+            {
+              disabled: false,
+              hintText: null,
+              href: '/application-within-proceedings/list-of-applications/1',
+              id: 'requestToCourtAboutYourCase',
+              linkText: 'Make a request to the court about your case',
+              openInAnotherTab: false,
+              stateTag: {
+                className: 'govuk-tag--blue',
+                label: 'Optional',
               },
             },
           ],

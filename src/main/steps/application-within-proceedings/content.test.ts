@@ -9,7 +9,7 @@ describe('application reasons content', () => {
       expected: 'Child arrangements live with, or spend time with, order',
     },
     { value: 'prohibited-steps-order', expected: 'Prohibited steps order' },
-    { value: 'specfic-issue-order', expected: 'Specific issue order' },
+    { value: 'specific-issue-order', expected: 'Specific issue order' },
     { value: 'enforce-a-child-arrangements-order', expected: 'Enforce a Child Arrangements Order' },
     {
       value: 'change-extend-or-cancel-non-molestation-order-or-occupation-order',
@@ -77,7 +77,7 @@ describe('application reasons content', () => {
       expected: 'Child arrangements live with, or spend time with, order - welsh',
     },
     { value: 'prohibited-steps-order', expected: 'Prohibited steps order - welsh' },
-    { value: 'specfic-issue-order', expected: 'Specific issue order - welsh' },
+    { value: 'specific-issue-order', expected: 'Specific issue order - welsh' },
     { value: 'enforce-a-child-arrangements-order', expected: 'Enforce a Child Arrangements Order - welsh' },
     {
       value: 'change-extend-or-cancel-non-molestation-order-or-occupation-order',

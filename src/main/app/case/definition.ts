@@ -3105,6 +3105,7 @@ export enum CaseEvent {
   CITIZEN_INTERNAL_FLAG_UPDATES="citizenInternalFlagUpdates"
 }
 
+//DO NOT CHANGE VALUES AS THESE ARE USED IN BACKEND TO MAP FIELDS INTO CASE_DATA
 export enum AWPApplicationType {
   C1 = 'C1',
   C2 = 'C2',
@@ -3121,6 +3122,7 @@ export enum AWPApplicationType {
   FL407 = 'FL407',
 }
 
+//DO NOT CHANGE VALUES AS THESE ARE USED IN BACKEND TO MAP FIELDS INTO CASE_DATA
 export enum AWPApplicationReason{
   REQUEST_PARENTAL_RESPONSIBILITY = 'request-grant-for-parental-responsibility',
   REQUEST_GUARDIAN_FOR_CHILD = 'request-appoint-a-guardian-for-child',
@@ -3129,7 +3131,7 @@ export enum AWPApplicationReason{
   REQUEST_MORE_TIME = 'request-more-time',
   CHILD_ARRANGEMENTS_ORDER_TO_LIVE_SPEND_TIME = 'child-arrangements-order-to-live-with-or-spend-time',
   PROHIBITED_STEPS_ORDER = 'prohibited-steps-order',
-  SPECIFIC_ISSUE_ORCDER = 'specfic-issue-order',
+  SPECIFIC_ISSUE_ORCDER = 'specific-issue-order',
   SUBMIT_EVIDENCE_COURT_NOT_REQUESTED = 'submit-evidence-the-court-has-not-requested',
   SHARE_DOCUMENTS_WITH_SOMEONE_ELSE = 'share-documents-with-someone-else',
   JOIN_OR_LEAVE_CASE = 'ask-to-join-or-leave-a-case',

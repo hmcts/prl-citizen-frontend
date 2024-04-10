@@ -49,7 +49,7 @@ describe('list of applications config', () => {
           },
           {
             applicationType: 'C2',
-            reason: 'specfic-issue-order',
+            reason: 'specific-issue-order',
             textMappingKey: 'specificIssuelinkText',
             url: '/application-within-proceedings/:applicationType/:applicationReason/guidance',
           },
