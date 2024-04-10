@@ -32,6 +32,7 @@ import {
   LitigationCapacityTable,
   MiamExemptionsTable,
   MiamTable,
+  OrderInterface,
   OtherDocuments,
   OtherName,
   OtherPeopleInTheCaseTable,
@@ -58,7 +59,6 @@ import {
   WithoutNoticeOrderDetails,
   YesNoDontKnow,
   YesOrNo,
-  OrderInterface,
   //C100 Rebuild
   // eslint-disable-next-line sort-imports
   C100DocumentInfo,

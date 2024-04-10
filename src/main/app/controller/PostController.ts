@@ -1,4 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
