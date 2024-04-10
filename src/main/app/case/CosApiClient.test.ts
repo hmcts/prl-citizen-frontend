@@ -253,7 +253,7 @@ describe('CosApiClient', () => {
     const response = { documentId: '123456', documentName: 'test' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
-    const client = new CosApiClient('abc', 'http://return-url');
+    const client = new CosApiClient('abc', req.locals.logger);
     const files = [];
     const request: UploadDocumentRequest = {
       user: req.session.user,
