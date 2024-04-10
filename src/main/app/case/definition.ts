@@ -759,13 +759,13 @@ export interface Sibling {
 
 export type C100Applicant = {
   id?: string,
-  applicantFirstName?: string | unknown,
-  applicantLastName?: string | unknown,
-  detailsKnown?: string | unknown
-  startAlternative?: string | unknown,
-  start?: string | unknown,
-  contactDetailsPrivate?: unknown | [],
-  contactDetailsPrivateAlternative?: unknown | [],
+  applicantFirstName?: string,
+  applicantLastName?: string ,
+  detailsKnown?: string ,
+  startAlternative?: string ,
+  start?: string ,
+  contactDetailsPrivate?:  [],
+  contactDetailsPrivateAlternative?: [],
   applicantSelectedAddress?: number,
   applicantAddressPostcode?: string,
   applicantAddress1?: string,
@@ -2387,7 +2387,7 @@ export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 
 // citizen frontend
-export interface orderInterface {
+export interface OrderInterface {
   caseNoDetails: string;
   orderDateDetails: CaseDate;
   orderTimeDetails: string;
@@ -2423,12 +2423,12 @@ export interface PRLDocument {
 }
 
 export interface HearingsList {
-  hearingID?: Number,
+  hearingID?: number,
   hearingRequestDateTime?: string | null,
   hearingType?: string | null,
   hmcStatus?: string | null,
   lastResponseReceivedDateTime?: string | null,
-  requestVersion?: Number | null,
+  requestVersion?: number | null,
   hearingListingStatus?: string | null,
   listAssistCaseStatus?: string | null,
   hearingDaySchedule?:Schedules[] | null,
@@ -2444,10 +2444,10 @@ export interface Hearing{
   lengthOfHearing : number | undefined,
   hearingDurationDisplayText: string,
   hearingMethod: string ,
-  hearingDaySchedule: hearingDay[],
+  hearingDaySchedule: HearingDay[],
 }
 
-export interface hearingDay{
+export interface HearingDay{
   hearingDate: string,
   startTime: string,
   amPm:string,
@@ -2479,21 +2479,21 @@ export interface HearingOrders{
   href: string,
   createdDate: string,
   fileName: string,
-  id: Number,
+  id: number,
 }
 
 export interface Schedules {
   hearingStartDateTime?: string | null,
   hearingEndDateTime?: string | null,
-  listAssistSessionId?: Number | string | null,
+  listAssistSessionId?: number | string | null,
   hearingVenueId?: string | null,
   hearingVenueName?: string | null,
-  hearingVenueLocationCode?: Number | string | null,
+  hearingVenueLocationCode?: number | string | null,
   hearingVenueAddress?: string | null,
   hearingRoomId?: string | null,
   hearingJudgeId?: string | null,
   hearingJudgeName?: string | null,
-  panelMemberIds?: string[] | Number[] | null,
+  panelMemberIds?: string[] | number[] | null,
   attendees?: Attendee[] | null,
 
 }
@@ -2526,14 +2526,6 @@ export interface ListValue<T> {
 }
 
 // citizen frontend
-export interface orderInterface {
-  caseNoDetails: string;
-  orderDateDetails: CaseDate;
-  orderTimeDetails: string;
-  currentOrderDetails: YesOrNo;
-  issueOrderDetails: string;
-}
-
 export interface Document {
   document_url: string;
   document_filename: string;
@@ -2576,13 +2568,6 @@ export interface UploadDocumentList {
 }
 /***  */
 // citizen frontend
-export interface orderInterface {
-  caseNoDetails: string;
-  orderDateDetails: CaseDate;
-  orderTimeDetails: string;
-  currentOrderDetails: YesOrNo;
-  issueOrderDetails: string;
-}
 
 export const enum ThePrayer {
   I_CONFIRM = 'Yes',

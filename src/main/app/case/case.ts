@@ -58,7 +58,7 @@ import {
   WithoutNoticeOrderDetails,
   YesNoDontKnow,
   YesOrNo,
-  orderInterface,
+  OrderInterface,
   //C100 Rebuild
   // eslint-disable-next-line sort-imports
   C100DocumentInfo,
@@ -396,29 +396,29 @@ export interface Case {
   proceedingsStartOrder?: YesOrNo;
   courtProceedingsInvolved?: string;
   supervisionOrderOption?: YesOrNo;
-  supervisionOrder?: orderInterface;
+  supervisionOrder?: OrderInterface;
   emergencyOrderOptions?: YesOrNo;
-  emergencyOrder?: orderInterface;
+  emergencyOrder?: OrderInterface;
   careOrderOptions?: YesOrNo;
-  careOrder?: orderInterface;
+  careOrder?: OrderInterface;
   childAbductionOrderOption?: YesOrNo;
-  childAbductionOrder?: orderInterface;
+  childAbductionOrder?: OrderInterface;
   caOrderOption?: YesOrNo;
-  caOrder?: orderInterface;
+  caOrder?: OrderInterface;
   financialOrderOption?: YesOrNo;
-  financialOrder?: orderInterface;
+  financialOrder?: OrderInterface;
   nonmolestationOrderOption?: YesOrNo;
-  nonmolestationOrder?: orderInterface;
+  nonmolestationOrder?: OrderInterface;
   occupationalOrderOptions?: YesOrNo;
-  occupationOrder?: orderInterface;
+  occupationOrder?: OrderInterface;
   marraigeOrderOptions?: YesOrNo;
-  marraigeOrder?: orderInterface;
+  marraigeOrder?: OrderInterface;
   restrainingOrderOptions?: YesOrNo;
-  restrainingOrder?: orderInterface;
+  restrainingOrder?: OrderInterface;
   injuctiveOrderOptions?: YesOrNo;
-  injuctiveOrder?: orderInterface;
+  injuctiveOrder?: OrderInterface;
   underTakingOrderOptions?: YesOrNo;
-  underTakingOrder?: orderInterface;
+  underTakingOrder?: OrderInterface;
 
   /***** Applicant1 *****/
   citizenUserFullName?: string;
