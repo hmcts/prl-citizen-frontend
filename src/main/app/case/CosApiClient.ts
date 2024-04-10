@@ -19,8 +19,6 @@ import {
   DocumentUploadResponse,
   PartyDetails,
   PartyType,
-  RespondentCaseData,
-  RespondentCaseId,
   YesOrNo,
 } from './definition';
 import { fromApiFormat } from './from-api-format';

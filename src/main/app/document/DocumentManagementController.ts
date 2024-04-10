@@ -590,7 +590,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
   public async deleteDocumentFromCdam(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     const documentIdToDelete = req.params.documentId;
-    const client = new CosApiClient(loggedInCitizen.accessToken, 'http://localhost:3001');
+    const client = new CosApiClient(loggedInCitizen.accessToken, req.locals.logger);
     const deleteCitizenDocFromCos: DocumentUploadResponse = await client.deleteDocumentFromCdam(
       loggedInCitizen,
       documentIdToDelete
@@ -725,7 +725,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     const files = req.files || [];
     const caseId = req.session.userCase.id;
     const partyId = req.session.user.id;
-    const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+    const client = new CosApiClient(caseworkerUser.accessToken, req.locals.logger);
     const uploadRequest: UploadDocumentRequest = {
       user: caseworkerUser,
       caseId,
