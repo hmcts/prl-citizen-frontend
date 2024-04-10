@@ -219,6 +219,7 @@ export interface CitizenFlags {
   isAllDocumentsViewed?: string;
   isResponseInitiated?: string;
   isApplicationToBeServed?: string;
+  isOrderPersonallyServed?: string;
 }
 
 export const enum DownloadFileFieldFlag {
