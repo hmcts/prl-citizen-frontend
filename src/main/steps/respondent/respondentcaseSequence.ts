@@ -1,6 +1,8 @@
+import { CaseWithId } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
-import { ContactPreferencesPostController } from '../../steps/common/contact-preferences/ContactPreferencesPostController';
+import { AppRequest } from '../../app/controller/AppRequest';
 import { keepDetailsPrivateNav } from '../../steps/common/task-list/utils';
+import ContactPreferenceNavigationController from '../common/contact-preference/navigationController';
 import { Sections, Step } from '../constants';
 import {
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
@@ -17,6 +19,8 @@ import {
   CA_DA_TRAVELLING_TO_COURT,
   CA_RESPONDENT_RESPONSE_CONFIRMATION,
   CA_RESPONDENT_RESPONSE_SUBMIT,
+  CHOOSE_CONTACT_PREFERENCE,
+  CONTACT_PREFERENCE_CONFIRMATION,
   DIGITAL_DOWNLOADS,
   DRUG_ALCOHOL_TESTS,
   LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
@@ -45,7 +49,6 @@ import {
   RESPONDENT_ADDRESS_SELECT,
   RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
   RESPONDENT_CHECK_ANSWERS,
-  RESPONDENT_CHOOSE_CONTACT_PREFERENCE,
   RESPONDENT_CONTACT_DETAILS,
   RESPONDENT_CONTACT_DETAILS_SAVE,
   RESPONDENT_DETAILS_KNOWN,
@@ -62,10 +65,6 @@ import {
   RESPONDENT_SECTION37_REPORT,
   RESPONDENT_SECTION7_REPORT,
   RESPONDENT_START_ALTERNATIVE,
-  RESPONDENT_TASKLIST_CONTACT_EMAIL,
-  RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS,
-  RESPONDENT_TASKLIST_CONTACT_POST,
-  RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS,
   RESPONDENT_TASK_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
@@ -75,6 +74,7 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
+  REVIEW_CONTACT_PREFERENCE,
   TASKLIST_RESPONDENT,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
   WITNESS_AVAILABILITY,
@@ -543,29 +543,24 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
   },
   {
-    url: RESPONDENT_CHOOSE_CONTACT_PREFERENCE,
+    url: CHOOSE_CONTACT_PREFERENCE,
     showInSection: Sections.AboutApplicantCase,
-    postController: ContactPreferencesPostController,
-    getNextStep: () => '/',
+    subDir: '/common',
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
+      ContactPreferenceNavigationController.getNextPageUrl(CHOOSE_CONTACT_PREFERENCE, caseData, req!),
   },
   {
-    url: RESPONDENT_TASKLIST_CONTACT_EMAIL,
+    url: REVIEW_CONTACT_PREFERENCE,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS,
+    subDir: '/common',
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
+      ContactPreferenceNavigationController.getNextPageUrl(REVIEW_CONTACT_PREFERENCE, caseData, req!),
   },
   {
-    url: RESPONDENT_TASKLIST_CONTACT_POST,
+    url: CONTACT_PREFERENCE_CONFIRMATION,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS,
-  },
-  {
-    url: RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
-  },
-  {
-    url: RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+    subDir: '/common',
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
+      ContactPreferenceNavigationController.getNextPageUrl(CONTACT_PREFERENCE_CONFIRMATION, caseData, req!),
   },
 ];

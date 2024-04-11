@@ -3,7 +3,7 @@ import type { Response } from 'express';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../../app/case/case';
-import { CaseEvent, CaseType, ContactPreference, PartyDetails, PartyType } from '../../../../app/case/definition';
+import { CaseEvent, CaseType, PartyDetails, PartyType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -11,13 +11,10 @@ import { applyParms } from '../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import { getPartyDetails, mapDataInSession } from '../../../../steps/tasklistresponse/utils';
 import {
-  APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
-  APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
   APPLICANT_TASK_LIST_URL,
   C100_APPLICANT_TASKLIST,
+  CONTACT_PREFERENCE_CONFIRMATION,
   PARTY_TASKLIST,
-  RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS,
-  RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS,
   RESPONDENT_TASK_LIST_URL,
   RESPOND_TO_APPLICATION,
 } from '../../../../steps/urls';
@@ -83,17 +80,7 @@ export class ConfirmContactDetailsPostController extends PostController<AnyObjec
   private getRedirectUrl(partyType: PartyType, req: AppRequest<AnyObject>, userCase: CaseWithId) {
     let redirectUrl;
     if (req.session.applicationSettings?.navFromContactPreferences) {
-      if (userCase.preferredModeOfContact === ContactPreference.POST) {
-        redirectUrl =
-          partyType === PartyType.RESPONDENT
-            ? RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS
-            : APPLICANT_TASKLIST_CONTACT_POST_SUCCESS;
-      } else {
-        redirectUrl =
-          partyType === PartyType.RESPONDENT
-            ? RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS
-            : APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS;
-      }
+      redirectUrl = applyParms(CONTACT_PREFERENCE_CONFIRMATION, { partyType });
     } else if (partyType === PartyType.RESPONDENT) {
       // temporary until FL401 respondent tasklist refactored
       if (req.session.userCase.caseTypeOfApplication === 'C100') {

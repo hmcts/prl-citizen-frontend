@@ -58,12 +58,12 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
     request.addressLivedLessThan5YearsDetails = '';
   }
 
-  if (userCase.preferredModeOfContact) {
-    if (userCase.preferredModeOfContact === ContactPreference.EMAIL && (!request?.email || !request?.email?.trim())) {
+  if (userCase.partyContactPreference) {
+    if (userCase.partyContactPreference === ContactPreference.EMAIL && (!request?.email || !request?.email?.trim())) {
       request.contactPreferences = null;
     }
     if (
-      userCase.preferredModeOfContact === ContactPreference.POST &&
+      userCase.partyContactPreference === ContactPreference.POST &&
       (!request?.address || !request?.address?.AddressLine1?.trim())
     ) {
       request.contactPreferences = null;

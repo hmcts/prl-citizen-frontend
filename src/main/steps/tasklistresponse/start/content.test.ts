@@ -95,7 +95,7 @@ describe('task-list > content', () => {
               text: 'Keep your details private',
             },
             {
-              href: '/contact-preferences/fetch/1234567',
+              href: '/respondent/contact-preference/choose-a-contact-preference',
               id: 'contact-preference',
               status: 'TO_DO',
               text: 'Contact preferences',

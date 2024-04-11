@@ -454,7 +454,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/contact-preferences/fetch/12',
+              href: '/applicant/contact-preference/choose-a-contact-preference',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,
@@ -721,7 +721,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/contact-preferences/fetch/12',
+              href: '/applicant/contact-preference/choose-a-contact-preference',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,
@@ -904,7 +904,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/contact-preferences/fetch/12',
+              href: '/applicant/contact-preference/choose-a-contact-preference',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,
@@ -1226,7 +1226,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/contact-preferences/fetch/12',
+              href: '/applicant/contact-preference/choose-a-contact-preference',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,
@@ -1474,7 +1474,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/contact-preferences/fetch/12',
+              href: '/applicant/contact-preference/choose-a-contact-preference',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,
@@ -2569,7 +2569,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/contact-preferences/fetch/1234',
+            href: '/respondent/contact-preference/choose-a-contact-preference',
             id: 'contactPreferences',
             linkText: 'Contact preferences',
             openInAnotherTab: false,
@@ -2795,7 +2795,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/contact-preferences/fetch/1234',
+            href: '/respondent/contact-preference/choose-a-contact-preference',
             id: 'contactPreferences',
             linkText: 'Contact preferences',
             openInAnotherTab: false,
@@ -3050,7 +3050,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/contact-preferences/fetch/1234',
+            href: '/respondent/contact-preference/choose-a-contact-preference',
             id: 'contactPreferences',
             linkText: 'Contact preferences',
             openInAnotherTab: false,

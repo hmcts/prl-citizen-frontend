@@ -3,21 +3,21 @@ import { Response } from 'express';
 
 import { CosApiClient } from '../../app/case/CosApiClient';
 import { CaseWithId } from '../../app/case/case';
-import { EventRoutesContext, PartyType } from '../../app/case/definition';
+import { EventRoutesContext } from '../../app/case/definition';
 import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
+import { applyParms } from '../../steps/common/url-parser';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   APPLICANT_CHECK_ANSWERS,
-  APPLICANT_CHOOSE_CONTACT_PREFERENCE,
   APPLICANT_DETAILS_KNOWN,
   C7_ATTENDING_THE_COURT,
+  CHOOSE_CONTACT_PREFERENCE,
   CONSENT_TO_APPLICATION,
   INTERNATIONAL_FACTORS_START,
   MIAM_START,
   PROCEEDINGS_START,
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
-  RESPONDENT_CHOOSE_CONTACT_PREFERENCE,
   RESPONDENT_DETAILS_KNOWN,
 } from '../urls';
 
@@ -74,10 +74,7 @@ export class TasklistGetController {
         redirectUrl = RESPONDENT_CHECK_ANSWERS;
         break;
       case EventRoutesContext.CONTACT_PREFERENCE:
-        redirectUrl =
-          getCasePartyType(userCase, user.id) === PartyType.APPLICANT
-            ? APPLICANT_CHOOSE_CONTACT_PREFERENCE
-            : RESPONDENT_CHOOSE_CONTACT_PREFERENCE;
+        redirectUrl = applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: getCasePartyType(userCase, user.id) });
         break;
     }
 

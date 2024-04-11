@@ -6,12 +6,6 @@ import * as oidc from '../../../../app/auth/user/oidc';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import * as steps from '../../../../steps';
-import {
-  APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
-  APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
-  RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS,
-  RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS,
-} from '../../../urls';
 
 import { ConfirmContactDetailsPostController } from './ConfirmContactDetailsPostController';
 import { prepareRequest } from './ContactDetailsMapper';
@@ -232,7 +226,7 @@ describe('ConfirmContactDetailsPostController', () => {
     expect(retrieveByCaseIdMock).toBeCalled;
     expect(updateCaserMock).toBeCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
-    expect(res.redirect).toHaveBeenLastCalledWith(APPLICANT_TASKLIST_CONTACT_POST_SUCCESS);
+    expect(res.redirect).toHaveBeenLastCalledWith('/applicant/contact-preference/confirmation');
   });
   test('Should redirect C100 applicant after choosing digital preference', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
@@ -245,7 +239,7 @@ describe('ConfirmContactDetailsPostController', () => {
     expect(retrieveByCaseIdMock).toBeCalled;
     expect(updateCaserMock).toBeCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
-    expect(res.redirect).toHaveBeenLastCalledWith(APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS);
+    expect(res.redirect).toHaveBeenLastCalledWith('/applicant/contact-preference/confirmation');
   });
 
   test('Should redirect C100 respondent after choosing post preference', async () => {
@@ -273,7 +267,7 @@ describe('ConfirmContactDetailsPostController', () => {
     expect(retrieveByCaseIdMock).toBeCalled;
     expect(updateCaserMock).toBeCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
-    expect(res.redirect).toHaveBeenLastCalledWith(RESPONDENT_TASKLIST_CONTACT_POST_SUCCESS);
+    expect(res.redirect).toHaveBeenLastCalledWith('/respondent/contact-preference/confirmation');
   });
 
   test('Should redirect C100 respondent after choosing digital preference', async () => {
@@ -301,7 +295,7 @@ describe('ConfirmContactDetailsPostController', () => {
     expect(retrieveByCaseIdMock).toBeCalled;
     expect(updateCaserMock).toBeCalled;
     expect(prepareRequest(req.session.userCase)).toStrictEqual(prepare);
-    expect(res.redirect).toHaveBeenLastCalledWith(RESPONDENT_TASKLIST_CONTACT_EMAIL_SUCCESS);
+    expect(res.redirect).toHaveBeenLastCalledWith('/respondent/contact-preference/confirmation');
   });
 
   test('Should not update the userCase for safety concerns when updateCaseData API is throwing error', async () => {

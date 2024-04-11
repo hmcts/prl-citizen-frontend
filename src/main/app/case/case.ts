@@ -589,7 +589,7 @@ export interface Case {
   c100RebuildReturnUrl?: string;
   noOfDaysRemainingToSubmitCase?: string;
   applicantPreferredContact?: applicantContactPreferencesEnum;
-  preferredModeOfContact?: ContactPreference | null;
+  partyContactPreference?: ContactPreference | null;
   draftOrderDoc?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;

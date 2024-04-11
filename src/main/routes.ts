@@ -18,6 +18,7 @@ import ApplicantConfirmContactDetailsPostController from './steps/applicant/conf
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
+import { ConfirmContactDetailsPostController } from './steps/common/confirm-contact-details/checkanswers/ConfirmContactDetailsPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
@@ -118,18 +119,14 @@ import {
   C7_ATTENDING_THE_COURT,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
-  APPLICANT_TASKLIST_CONTACT_EMAIL,
-  APPLICANT_TASKLIST_CONTACT_POST,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   APPLICANT_YOURHEARINGS_HEARINGS,
   RESPONSE_TO_CA,
   AOH_TO_CA,
   VIEW_DOCUMENT_URL,
   LOCAL_API_SESSION,
-  FETCH_CONTACT_PREFERENCES,
   TASKLIST_RESPONSE_TO_CA,
-  RESPONDENT_TASKLIST_CONTACT_EMAIL,
-  RESPONDENT_TASKLIST_CONTACT_POST,
+  REVIEW_CONTACT_PREFERENCE,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -231,11 +228,6 @@ export class Routes {
     app.get(
       `${C7_ATTENDING_THE_COURT}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.SUPPORT_DURING_CASE).get)
-    );
-
-    app.get(
-      `${FETCH_CONTACT_PREFERENCES}/:caseId`,
-      errorHandler(new TasklistGetController(EventRoutesContext.CONTACT_PREFERENCE).get)
     );
 
     //C100 related routes
@@ -357,20 +349,8 @@ export class Routes {
           errorHandler(new RemoveLegalRepresentativePostController(step.form.fields).post)
         );
         app.post(
-          `${APPLICANT_TASKLIST_CONTACT_EMAIL}`,
-          errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
-        );
-        app.post(
-          `${APPLICANT_TASKLIST_CONTACT_POST}`,
-          errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
-        );
-        app.post(
-          `${RESPONDENT_TASKLIST_CONTACT_EMAIL}`,
-          errorHandler(new RespondentConfirmContactDetailsPostController(step.form.fields).post)
-        );
-        app.post(
-          `${RESPONDENT_TASKLIST_CONTACT_POST}`,
-          errorHandler(new RespondentConfirmContactDetailsPostController(step.form.fields).post)
+          `${REVIEW_CONTACT_PREFERENCE}`,
+          errorHandler(new ConfirmContactDetailsPostController(step.form.fields).post)
         );
       }
     }

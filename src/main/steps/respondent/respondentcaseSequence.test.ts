@@ -1,10 +1,11 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { CaseWithId } from '../../app/case/case';
 
 import { respondentCaseSequence } from './respondentcaseSequence';
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(respondentCaseSequence).toHaveLength(96);
+    expect(respondentCaseSequence).toHaveLength(94);
     expect(respondentCaseSequence[0].url).toBe('/respondent/task-list');
     expect(respondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -417,25 +418,32 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[90].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[90].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[91].url).toBe('/respondent/contact-preferences/choose-a-contact-preference');
+    expect(respondentCaseSequence[91].url).toBe('/:partyType/contact-preference/choose-a-contact-preference');
     expect(respondentCaseSequence[91].showInSection).toBe('aboutApplicantCase');
-    expect(respondentCaseSequence[91].getNextStep({})).toBe('/');
+    expect(
+      respondentCaseSequence[91].getNextStep(
+        respondentUserCase as unknown as Partial<CaseWithId>,
+        mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
+      )
+    ).toBe('/respondent/contact-preference/review');
 
-    expect(respondentCaseSequence[92].url).toBe('/respondent/contact-preferences/contact-email');
+    expect(respondentCaseSequence[92].url).toBe('/:partyType/contact-preference/review');
     expect(respondentCaseSequence[92].showInSection).toBe('aboutApplicantCase');
-    expect(respondentCaseSequence[92].getNextStep({})).toBe('/respondent/contact-preferences/contact-email-success');
+    expect(
+      respondentCaseSequence[92].getNextStep(
+        respondentUserCase as unknown as Partial<CaseWithId>,
+        mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
+      )
+    ).toBe('/respondent/contact-preference/confirmation');
 
-    expect(respondentCaseSequence[93].url).toBe('/respondent/contact-preferences/contact-post');
+    expect(respondentCaseSequence[93].url).toBe('/:partyType/contact-preference/confirmation');
     expect(respondentCaseSequence[93].showInSection).toBe('aboutApplicantCase');
-    expect(respondentCaseSequence[93].getNextStep({})).toBe('/respondent/contact-preferences/contact-post-success');
-
-    expect(respondentCaseSequence[94].url).toBe('/respondent/contact-preferences/contact-email-success');
-    expect(respondentCaseSequence[94].showInSection).toBe('aboutApplicantCase');
-    expect(respondentCaseSequence[94].getNextStep({})).toBe('/respondent/task-list');
-
-    expect(respondentCaseSequence[95].url).toBe('/respondent/contact-preferences/contact-post-success');
-    expect(respondentCaseSequence[95].showInSection).toBe('aboutApplicantCase');
-    expect(respondentCaseSequence[95].getNextStep({})).toBe('/respondent/task-list');
+    expect(
+      respondentCaseSequence[93].getNextStep(
+        respondentUserCase as unknown as Partial<CaseWithId>,
+        mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
+      )
+    ).toBe('/respondent/task-list');
   });
 });
 
@@ -451,3 +459,27 @@ const reasonableAdjustmentsMockData = mockRequest({
     },
   },
 });
+
+const respondentUserCase = {
+  caseTypeOfApplication: 'C100',
+  caseInvites: [
+    {
+      id: '1234',
+      value: {
+        partyId: '1234',
+        invitedUserId: '1234',
+      },
+    },
+  ],
+  respondents: [
+    {
+      id: '1234',
+      value: {
+        id: '1234',
+        user: {
+          idamId: '1234',
+        },
+      },
+    },
+  ],
+};

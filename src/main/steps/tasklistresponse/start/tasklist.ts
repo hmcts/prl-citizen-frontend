@@ -1,7 +1,9 @@
-import { Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
+import { PartyType, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
-import { hasContactPreference } from '../../../steps/common/contact-preferences/util';
+import { applyParms } from '../../../steps/common/url-parser';
+import { hasContactPreference } from '../../common/contact-preference/util';
 import * as URL from '../../urls';
+import { CHOOSE_CONTACT_PREFERENCE } from '../../urls';
 
 import {
   getAllegationOfHarmStatus,
@@ -68,7 +70,7 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
             id: 'contact-preference',
             text: taskListItems.contact_preference,
             status: !hasContactPreference(userCase, userIdamId) ? SectionStatus.TO_DO : SectionStatus.COMPLETED,
-            href: URL.FETCH_CONTACT_PREFERENCES + '/' + userCase.id,
+            href: applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: PartyType.RESPONDENT }),
           },
           {
             id: 'confirm-or-edit-your-contact-details',

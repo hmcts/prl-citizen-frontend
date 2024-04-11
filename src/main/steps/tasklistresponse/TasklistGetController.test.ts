@@ -425,6 +425,6 @@ describe('GetCaseController', () => {
     controller = new TasklistGetController(EventRoutesContext.CONTACT_PREFERENCE);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenLastCalledWith('/applicant/contact-preferences/choose-a-contact-preference');
+    expect(res.redirect).toHaveBeenLastCalledWith('/applicant/contact-preference/choose-a-contact-preference');
   });
 });
