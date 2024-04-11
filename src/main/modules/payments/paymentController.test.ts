@@ -244,7 +244,7 @@ describe('PaymentValidationHandler', () => {
         status: 'Failed',
       },
     });
-    mockedAxios.get.mockResolvedValueOnce({
+    mockedAxios.get.mockResolvedValue({
       data: {
         ...paymentDetails,
         status: 'Failed',
@@ -323,6 +323,11 @@ describe('PaymentController', () => {
   const paymentController = new PaymentController(mockedAxios, Logger);
 
   describe('getPaymentStatus', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+      
+    });
+
     test('getPaymentStatus success', async () => {
       mockedAxios.get.mockResolvedValueOnce({ data: { status: 'Success' } });
 
