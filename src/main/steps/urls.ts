@@ -665,6 +665,7 @@ export const SAFEGAURD_EXCLUDE_URLS = [
   DOCUMENT_MANAGER,
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
   APPLICATION_WITHIN_PROCEEDINGS_BASE_URL,
+  '/payment-callback',
 ];
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
