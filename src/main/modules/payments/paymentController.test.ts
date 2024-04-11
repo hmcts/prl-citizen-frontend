@@ -325,7 +325,6 @@ describe('PaymentController', () => {
   describe('getPaymentStatus', () => {
     beforeEach(() => {
       jest.clearAllMocks();
-      
     });
 
     test('getPaymentStatus success', async () => {
