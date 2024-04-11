@@ -2,7 +2,7 @@ import { CommonContent } from '../../common.content';
 
 import { generateContent } from './content';
 
-describe('common > documents > list > content', () => {
+describe('documents > view > content', () => {
   test('generateContent should get correct documents', () => {
     const content = generateContent({
       language: 'en',
@@ -49,7 +49,7 @@ describe('common > documents > list > content', () => {
           createdDate: '01 Jan 2024',
           documentId: 'MOCK_DOCUMENT_URL',
           documentName: 'MOCK_FILENAME',
-          downloadLink: '/yourdocuments/alldocuments/downloadCitizenDocument/MOCK_DOCUMENT_URL',
+          documentDownloadUrl: '#',
           uploadedBy: 'test user',
         },
       },

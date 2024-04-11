@@ -4,12 +4,14 @@ import { VIEW_ALL_DOCUMENT_TYPES } from '../../../urls';
 import { interpolate } from '../../string-parser';
 import { getPartyName } from '../../task-list/utils';
 import { applyParms } from '../../url-parser';
-import { languages as commonContent } from '../common/content';
-import { getDocumentConfig } from '../util';
+import { cy, en } from '../common/content';
+import { DocumentLabelCategory } from '../definitions';
+
+import { getDocumentConfig } from './utils';
 
 const languages = {
-  en: { ...commonContent.en },
-  cy: { ...commonContent.cy },
+  en: { ...en },
+  cy: { ...cy },
 };
 
 export const generateContent: TranslationFn = content => {
@@ -17,24 +19,28 @@ export const generateContent: TranslationFn = content => {
   const request = content.additionalData?.req;
   const caseData = request.session.userCase;
   const userDetails = request.session.user;
-  const loggedInPartyType = getCasePartyType(caseData, userDetails.id);
+  const documentCategoryLabels = translations.viewDocuments.documentCategoryLabels as Record<
+    Partial<DocumentLabelCategory>,
+    string
+  >;
+  const loggedInUserPartyType = getCasePartyType(caseData, userDetails.id);
   const { documentPartyId, documentPartyType, documentCategory } = request.params;
   const documentConfig = getDocumentConfig(documentCategory);
   const documents = documentConfig
-    ? documentConfig.documentsList(caseData.citizenDocuments, documentPartyType, documentPartyId)
+    ? documentConfig.documents(caseData.citizenDocuments, documentPartyType, documentPartyId)
     : [];
   const pageHeading = interpolate(
     documentConfig && documents.length
-      ? documentConfig.documentLabel(documents[0].document_en!.uploadedBy, translations.documentCategoryLabels)
+      ? documentConfig.documentCategoryLabel(documentCategoryLabels, documents[0].document_en!.uploadedBy)
       : '',
-    { partyName: getPartyName(caseData, loggedInPartyType, userDetails) }
+    { partyName: getPartyName(caseData, loggedInUserPartyType, userDetails) }
   );
 
   return {
     ...translations,
     breadcrumb: {
       id: 'allDocuments',
-      href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: loggedInPartyType }),
+      href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: loggedInUserPartyType }),
     },
     pageHeading,
     documents,

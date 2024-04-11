@@ -1,25 +1,34 @@
 import dayjs from 'dayjs';
 import _ from 'lodash';
 
-import { CaseWithId } from '../../../app/case/case';
-import { PartyType } from '../../../app/case/definition';
-import { CITIZEN_DOWNLOAD_UPLOADED_DOCS, VIEW_DOCUMENTS } from '../../urls';
-import { interpolate } from '../string-parser';
-import { applyParms } from '../url-parser';
-
+import { CaseWithId } from '../../../../app/case/case';
+import { PartyType } from '../../../../app/case/definition';
+import { CITIZEN_DOWNLOAD_UPLOADED_DOCS, VIEW_APPLICATION_PACK_DOCUMENTS, VIEW_DOCUMENTS } from '../../../urls';
+import { interpolate } from '../../string-parser';
+import { applyParms } from '../../url-parser';
 import {
+  ApplicationPackDocumentDetails,
+  ApplicationPackDocumentMeta,
   CitizenDocuments,
   Document,
   DocumentCategory,
-  DocumentDetails,
   DocumentLabelCategory,
   DocumentSectionId,
   DocumentTypes,
-  DocumentsListConfigProps,
-} from './definitions';
+  UploadDocumentSectionId,
+  ViewDocumentDetails,
+  ViewDocumentsCategoryListProps,
+  ViewDocumentsSectionId,
+} from '../definitions';
 
-export const isOrdersFromTheCourtPresent = (caseData: CaseWithId): boolean =>
-  !!(caseData && caseData?.citizenOrders?.length);
+import { viewDocumentsCategoryListConfig } from './config';
+
+/** View documents related utilty */
+
+export const hasOrders = (caseData: CaseWithId): boolean => !!(caseData && caseData?.citizenOrders?.length);
+
+export const hasApplicationPacks = (caseData: CaseWithId): boolean =>
+  !!(caseData && caseData?.citizenApplicationPacks?.length);
 
 export const hasAnyDocumentForPartyType = (partyType: PartyType, caseData: CaseWithId): boolean =>
   !!(caseData && caseData?.citizenDocuments?.length
@@ -31,11 +40,11 @@ export const getDocumentSectionTitle = (
   documentSectionTitles: Record<DocumentSectionId, string>
 ): string => _.get(documentSectionTitles, documentSectionId, '');
 
-const getDocumentLinkMeta = (
+const getViewDocumentLinkMeta = (
   document: CitizenDocuments,
-  loggedInPartyType: PartyType,
-  documentCategoryLabels: Record<DocumentLabelCategory, string>
-): DocumentDetails['link'] => {
+  documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+  loggedInUserPartyType: PartyType
+): ViewDocumentDetails['link'] => {
   const documentConfig = getDocumentConfig(document.categoryId);
   const linkMeta = {
     text: '',
@@ -43,7 +52,7 @@ const getDocumentLinkMeta = (
     openInAnotherTab: false,
   };
   const urlParams = {
-    partyType: loggedInPartyType,
+    partyType: loggedInUserPartyType,
     documentPartyType: document.partyType,
     documentCategory: document.categoryId,
   };
@@ -60,18 +69,18 @@ const getDocumentLinkMeta = (
 
   return documentConfig
     ? Object.assign(linkMeta, {
-        text: documentConfig ? documentConfig.documentLabel(document.uploadedBy, documentCategoryLabels) : '',
+        text: documentConfig ? documentConfig.documentCategoryLabel(documentCategoryLabels, document.uploadedBy) : '',
         url: applyParms(VIEW_DOCUMENTS, urlParams),
         openInAnotherTab: false,
       })
     : linkMeta;
 };
 
-export const getDocumentLabel = (
+export const getDocumentCategoryLabel = (
   documentLabelId: DocumentLabelCategory,
-  uploadedPartyName: CitizenDocuments['uploadedBy'],
-  documentCategoryLabels: Record<DocumentLabelCategory, string>
-): DocumentDetails['link']['text'] => {
+  documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+  uploadedPartyName?: string
+): string => {
   let documentLabel = _.get(documentCategoryLabels, documentLabelId, '');
 
   switch (documentLabelId) {
@@ -116,35 +125,112 @@ const filterAndGroupPartyDocuments = (
   return groupedDocuments;
 };
 
-const getDocumentDetails = (
-  loggedInPartyType: PartyType,
-  documentCategoryLabels: Record<DocumentLabelCategory, string>,
+const getViewDocumentCategoryDetails = (
+  documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+  loggedInUserPartyType: PartyType,
   document: CitizenDocuments
-): DocumentDetails => ({
+): ViewDocumentDetails => ({
   categoryId: document.categoryId,
-  link: getDocumentLinkMeta(document, loggedInPartyType, documentCategoryLabels),
+  link: getViewDocumentLinkMeta(document, documentCategoryLabels, loggedInUserPartyType),
 });
 
-export const getDocumentsList = (
-  documentSectionId: DocumentSectionId,
-  loggedInPartyType: PartyType,
+export const getApplicationPacksCategoryList = (
   caseData: CaseWithId,
-  documentCategoryLabels: Record<DocumentLabelCategory, string>
-): DocumentDetails[] | [] => {
-  let documents: DocumentDetails[] | [] = [];
+  documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+  loggedInUserPartyType: PartyType
+): ApplicationPackDocumentDetails[] => {
+  const packs = _.first(caseData.citizenApplicationPacks);
+  const applicationPacksSectionList: ApplicationPackDocumentDetails[] = [];
+
+  if (!packs) {
+    return applicationPacksSectionList;
+  }
+
+  if (
+    (packs.hasOwnProperty('applicantSoaPack') && packs.applicantSoaPack?.length) ||
+    (packs.hasOwnProperty('respondentSoaPack') && packs.respondentSoaPack?.length)
+  ) {
+    applicationPacksSectionList.push({
+      link: {
+        text: getDocumentCategoryLabel(DocumentLabelCategory.YOUR_APPLICATION_PACK, documentCategoryLabels),
+        url: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: loggedInUserPartyType }),
+      },
+    });
+  }
+
+  if (
+    loggedInUserPartyType === PartyType.APPLICANT &&
+    packs.hasOwnProperty('respondentSoaPack') &&
+    packs.respondentSoaPack?.length
+  ) {
+    applicationPacksSectionList.push({
+      link: {
+        text: getDocumentCategoryLabel(DocumentLabelCategory.APPLICATION_PACK_TO_BE_SERVED, documentCategoryLabels),
+        url: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
+          partyType: loggedInUserPartyType,
+          context: 'to-be-served',
+        }),
+      },
+    });
+  }
+
+  return applicationPacksSectionList;
+};
+
+export const getApplicationPackDocuments = (
+  caseData: CaseWithId,
+  loggedInUserPartyType: PartyType,
+  context: string
+): ApplicationPackDocumentMeta[] => {
+  const packs = _.first(caseData.citizenApplicationPacks);
+  const applicationPacksDocuments: ApplicationPackDocumentMeta[] = [];
+
+  if (packs) {
+    let packDocuments;
+
+    if (context === 'to-be-served' && loggedInUserPartyType === PartyType.APPLICANT && packs.respondentSoaPack) {
+      packDocuments = packs.respondentSoaPack;
+    } else {
+      packDocuments = loggedInUserPartyType === PartyType.APPLICANT ? packs.applicantSoaPack : packs.respondentSoaPack;
+    }
+
+    if (packDocuments) {
+      packDocuments.forEach(document => {
+        const documentId = document.document_url.substring(document.document_url.lastIndexOf('/') + 1);
+
+        applicationPacksDocuments.push({
+          documentId,
+          documentName: document.document_filename,
+          servedDate: dayjs(document.uploadedDate).format('DD MMM YYYY'),
+          documentDownloadUrl: '#',
+        });
+      });
+    }
+  }
+
+  return applicationPacksDocuments;
+};
+
+export const getViewDocumentCategoryList = (
+  documentSectionId: ViewDocumentsSectionId | UploadDocumentSectionId,
+  caseData: CaseWithId,
+  documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+  loggedInUserPartyType: PartyType
+): ViewDocumentDetails[] | [] => {
+  let documents: ViewDocumentDetails[] | [] = [];
 
   switch (documentSectionId) {
-    case DocumentSectionId.APPLICANTS_DOCUMENT:
+    case ViewDocumentsSectionId.APPLICANTS_DOCUMENT:
       {
         documents = filterAndGroupPartyDocuments(PartyType.APPLICANT, caseData?.citizenDocuments)!.map(
-          getDocumentDetails.bind(null, loggedInPartyType, documentCategoryLabels)
+          getViewDocumentCategoryDetails.bind(null, documentCategoryLabels, loggedInUserPartyType)
         );
       }
       break;
-    case DocumentSectionId.RESPONDENTS_DOCUMENTS:
+    case ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS:
       {
         documents = filterAndGroupPartyDocuments(PartyType.RESPONDENT, caseData?.citizenDocuments)!.map(
-          getDocumentDetails.bind(null, loggedInPartyType, documentCategoryLabels)
+          getViewDocumentCategoryDetails.bind(null, documentCategoryLabels, loggedInUserPartyType)
         );
       }
       break;
@@ -203,7 +289,7 @@ export const getDocuments = (
           documentName: doc.document.document_filename,
           createdDate: dayjs(doc.document.document_creation_date).format('DD MMM YYYY'),
           uploadedBy: doc.uploadedBy,
-          downloadLink: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${documentId}`,
+          documentDownloadUrl: '#',
         },
       };
 
@@ -215,7 +301,7 @@ export const getDocuments = (
             documentName: doc.documentWelsh.document_filename,
             createdDate: dayjs(doc.documentWelsh.document_creation_date).format('DD MMM YYYY'),
             uploadedBy: doc.uploadedBy,
-            downloadLink: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${documentId}`,
+            documentDownloadUrl: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${documentId}`,
           },
         });
       }
@@ -227,54 +313,5 @@ export const getDocuments = (
   return docs;
 };
 
-export const getDocumentConfig = (documentCategory: DocumentCategory): DocumentsListConfigProps | undefined =>
-  documentsListConfig.find(documentConfig => documentConfig.documentCategoryId === documentCategory);
-
-// Moved here as getting error with bind being undefined when importing from config file
-export const documentsListConfig: DocumentsListConfigProps[] = [
-  {
-    documentCategoryId: DocumentCategory.POSITION_STATEMENTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.POSITION_STATEMENTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.POSITION_STATEMENTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.WITNESS_STATEMENTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.APPLICANT_WITNESS_STATEMENTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.WITNESS_STATEMENTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.RESPONDENT_WITNESS_STATEMENTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.OTHER_PEOPLE_WITNESS_STATEMENTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.MEDICAL_RECORDS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.MEDICAL_RECORDS),
-    documentsList: getDocuments.bind(null, DocumentCategory.MEDICAL_RECORDS),
-  },
-  {
-    documentCategoryId: DocumentCategory.MEDICAL_REPORTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.MEDICAL_REPORTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.MEDICAL_REPORTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.DNA_REPORTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.DNA_REPORTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.DNA_REPORTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.DRUG_ALCOHOL_TESTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.DRUG_ALCOHOL_TESTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.DRUG_ALCOHOL_TESTS),
-  },
-  {
-    documentCategoryId: DocumentCategory.POLICE_REPORTS,
-    documentLabel: getDocumentLabel.bind(null, DocumentLabelCategory.POLICE_REPORTS),
-    documentsList: getDocuments.bind(null, DocumentCategory.POLICE_REPORTS),
-  },
-];
+export const getDocumentConfig = (documentCategory: DocumentCategory): ViewDocumentsCategoryListProps | undefined =>
+  viewDocumentsCategoryListConfig.find(section => section.categoryId === documentCategory);

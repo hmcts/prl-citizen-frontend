@@ -50,7 +50,7 @@ export default class DocumentUploadPostController {
       }
 
       try {
-        const client = new CosApiClient(user.accessToken, 'http://localhost:3001');
+        const client = new CosApiClient(user.accessToken, req.locals.logger);
         const response = await client.submitUploadedDocuments(user, {
           caseId: caseData.id,
           categoryId: getDocumentType(req.params.docType as DocType, partyType),

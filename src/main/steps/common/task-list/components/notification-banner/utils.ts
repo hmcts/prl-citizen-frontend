@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
+import { UserDetails } from '../../../../../app/controller/AppRequest';
+
 import { CaseWithId } from './../../../../../app/case/case';
-import { CaseType, PartyType, Respondent } from './../../../../../app/case/definition';
+import { CaseType, PartyType, Respondent, YesOrNo } from './../../../../../app/case/definition';
 import { DocumentCategory } from './../../../../../steps/common/documents/definitions';
 import { languages as content } from './content';
 
@@ -23,6 +25,8 @@ export enum BannerNotification {
   CA_RESPONDENT_SERVED = 'caRespondentServed',
   CAFFCASS = 'cafcass',
   RESPONSE_SUBMITTED = 'responseSubmitted',
+  GIVE_RESPONDENT_THEIR_DOCUMENTS = 'giveRespondentTheirDocuments',
+  CA_PERSONAL_SERVICE = 'caPersonalService',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string, partyType: PartyType) => {
@@ -85,11 +89,6 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.NEW_ORDER),
     show: () => false,
   },
-  [BannerNotification.NEW_DOCUMENT]: {
-    id: BannerNotification.NEW_DOCUMENT,
-    content: getContent.bind(null, BannerNotification.NEW_DOCUMENT),
-    show: () => false,
-  },
   [BannerNotification.FINAL_ORDER]: {
     id: BannerNotification.FINAL_ORDER,
     content: getContent.bind(null, BannerNotification.FINAL_ORDER),
@@ -98,6 +97,16 @@ export const notificationBanner = {
   [BannerNotification.DA_RESPONDENT_BANNER]: {
     id: BannerNotification.DA_RESPONDENT_BANNER,
     content: getContent.bind(null, BannerNotification.DA_RESPONDENT_BANNER),
+    show: () => false,
+  },
+  [BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS]: {
+    id: BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS,
+    content: getContent.bind(null, BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS),
+    show: () => false,
+  },
+  [BannerNotification.CA_PERSONAL_SERVICE]: {
+    id: BannerNotification.CA_PERSONAL_SERVICE,
+    content: getContent.bind(null, BannerNotification.CA_PERSONAL_SERVICE),
     show: () => false,
   },
   [BannerNotification.RESPONSE_SUBMITTED]: {
@@ -116,4 +125,12 @@ export const hasResponseBeenSubmitted = (caseData: Partial<CaseWithId>, responde
         document.reviewedDate !== null
     ).length !== 0
   );
+};
+
+export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): boolean => {
+  return caseData.applicants?.[0].value?.response?.citizenFlags?.isApplicationToBeServed === YesOrNo.YES;
+};
+
+export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+  return caseData.applicants?.[0].value.user.idamId === userDetails.id;
 };

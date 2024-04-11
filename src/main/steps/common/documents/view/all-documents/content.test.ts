@@ -1,75 +1,8 @@
-import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { CommonContent } from '../../common.content';
+import { CommonContent } from '../../../common.content';
 
 import { generateContent } from './content';
 
-const en = {
-  title: 'All documents',
-  caseNumber: 'Case number',
-  documentSectionTitles: {
-    ordersFromTheCourt: 'Orders from the court',
-    applicantsDocuments: "Applicant's documents",
-    respondentsDocuments: "Respondent's documents",
-    attendingTheHearing: 'Attending the hearing',
-  },
-  documentCategoryLabels: {
-    positionStatements: "{partyName}'s position statements",
-    witnessStatements: "{partyName}'s witness statements",
-    otherPeopleWitnessStatements: "Other people's witness statements",
-    medicalRecords: 'Medical records',
-    medicalReports: 'Medical reports',
-    DNAReports: 'DNA reports',
-    drugAndAlcoholTests: 'Drug and alcohol tests (toxicology)',
-    policeReports: 'Police reports',
-  },
-};
-
-const cy: typeof en = {
-  title: 'Pob dogfen',
-  caseNumber: 'Rhif yr achos',
-  documentSectionTitles: {
-    ordersFromTheCourt: 'Gorchmynion gan y llys',
-    applicantsDocuments: 'Dogfennau’r Ceisydd',
-    respondentsDocuments: "Dogfennau'r Atebydd",
-    attendingTheHearing: 'Mynychu’r gwrandawiad',
-  },
-  documentCategoryLabels: {
-    positionStatements: 'Datganiadau safbwynt {partyName}',
-    witnessStatements: 'Datganiadau tyst {partyName}',
-    otherPeopleWitnessStatements: 'Datganiadau tyst pobl eraill',
-    medicalRecords: 'Cofnodion meddygol',
-    medicalReports: 'Adroddiadau meddygol',
-    DNAReports: 'Adroddiadau DNA',
-    drugAndAlcoholTests: 'Profion cyffuriau ag alcohol (tocsicoleg)',
-    policeReports: 'Adroddiadau gan yr heddlu',
-  },
-};
-
-describe('common > documents > all-documents > content', () => {
-  const commonContent = {
-    language: 'en',
-    additionalData: {
-      req: {
-        session: {
-          user: {
-            id: '1234',
-          },
-          userCase: {},
-        },
-      },
-    },
-  } as unknown as CommonContent;
-
-  // eslint-disable-next-line jest/expect-expect
-  test('should return correct english content Data', () => {
-    languageAssertions('en', en, () => generateContent(commonContent));
-  });
-
-  // eslint-disable-next-line jest/expect-expect
-  test('should return correct welsh content', () => {
-    languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
-  });
-
+describe('documents > view > all-documents > content', () => {
   test('generateContent should get correct document sections', () => {
     expect(
       generateContent({
@@ -124,12 +57,47 @@ describe('common > documents > all-documents > content', () => {
                     documentWelsh: null,
                   },
                 ],
+                citizenApplicationPacks: [
+                  {
+                    servedParty: 'applicant',
+                    partyId: 1234,
+                    partyName: null,
+                    partyType: 'applicant',
+                    categoryId: 'undefined',
+                    uploadedBy: 'test user',
+                    uploadedDate: '2024-03-11T16:24:33.122506',
+                    reviewedDate: null,
+                    applicantSoaPack: [
+                      {
+                        document_url: 'MOCK_DOCUMENT_URL',
+                        document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                        document_filename: 'MOCK_FILENAME',
+                        document_hash: null,
+                        category_id: 'positionStatements',
+                        document_creation_date: '01/01/2024',
+                      },
+                    ],
+                    documentWelsh: null,
+                  },
+                ],
               },
             },
           },
         },
       } as unknown as CommonContent).sections
     ).toStrictEqual([
+      {
+        id: 'applicationPacks',
+        items: [
+          {
+            link: {
+              text: 'Your served application pack',
+              url: '/applicant/documents/view/application-pack-documents',
+            },
+          },
+        ],
+        title: 'Application packs',
+      },
       {
         id: 'ordersFromTheCourt',
         items: [],
@@ -143,7 +111,7 @@ describe('common > documents > all-documents > content', () => {
             link: {
               openInAnotherTab: false,
               text: "test user2's position statements",
-              url: '/applicant/documents/list/positionStatements/applicant/2?',
+              url: '/applicant/documents/view/positionStatements/applicant/2?',
             },
           },
         ],
@@ -157,7 +125,7 @@ describe('common > documents > all-documents > content', () => {
             link: {
               openInAnotherTab: false,
               text: "test user's position statements",
-              url: '/applicant/documents/list/positionStatements/respondent/1234?',
+              url: '/applicant/documents/view/positionStatements/respondent/1234?',
             },
           },
         ],

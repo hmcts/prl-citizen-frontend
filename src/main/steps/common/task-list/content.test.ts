@@ -57,18 +57,25 @@ describe('testcase for tasklist', () => {
     iWantTo: 'I want to...',
     notifications: [
       {
-        contents: [
-          {
-            text: 'You have caseData.noOfDaysRemainingToSubmitCase days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
-          },
-        ],
         heading: 'You have not finished your application',
         id: 'applicationInProgress',
-        links: [
+        sections: [
           {
-            external: false,
-            href: '#',
-            text: 'Continue your application',
+            contents: [
+              {
+                text: 'You have caseData.noOfDaysRemainingToSubmitCase days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
+              },
+              {
+                text: 'You can review all your answers before you submit your application.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '#',
+                text: 'Continue your application',
+              },
+            ],
           },
         ],
         title: 'Important',
@@ -172,18 +179,25 @@ describe('testcase for tasklist', () => {
     ],
     notifications: [
       {
-        contents: [
-          {
-            text: 'Mae gennych caseData.noOfDaysRemainingToSubmitCase diwrnod i gyflwyno eich cais o’r dyddiad y gwnaethoch ei gychwyn, neu bydd yn cael ei ddileu a bydd rhaid i chi gychwyn y cais eto. Mae hyn er mwyn cadw eich gwybodaeth yn ddiogel.',
-          },
-        ],
         heading: 'Nid ydych wedi gorffen eich cais',
         id: 'applicationInProgress',
-        links: [
+        sections: [
           {
-            external: false,
-            href: '#',
-            text: 'Parhau gyda’ch cais',
+            contents: [
+              {
+                text: 'Mae gennych caseData.noOfDaysRemainingToSubmitCase diwrnod i gyflwyno eich cais o’r dyddiad y gwnaethoch ei gychwyn, neu bydd yn cael ei ddileu a bydd rhaid i chi gychwyn y cais eto. Mae hyn er mwyn cadw eich gwybodaeth yn ddiogel.',
+              },
+              {
+                text: 'You can review all your answers before you submit your application.-welsh',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '#',
+                text: 'Parhau gyda’ch cais',
+              },
+            ],
           },
         ],
         title: 'Pwysig',
@@ -319,6 +333,12 @@ describe('testcase for tasklist', () => {
 
   test('should return correct sidebar hyperlinks for FL401 applicant', () => {
     commonContent.additionalData!.req.session.userCase.caseTypeOfApplication = 'FL401';
+    commonContent.additionalData!.req.session.userCase.applicantsFL401 = {
+      ...commonContent.additionalData!.req.session.userCase.applicantsFL401,
+      user: {
+        idamId: '1234',
+      },
+    };
     expect(generateContent(commonContent).hyperlinks).toStrictEqual([
       {
         label: 'Add a legal representative',

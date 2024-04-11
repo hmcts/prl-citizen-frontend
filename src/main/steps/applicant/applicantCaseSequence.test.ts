@@ -6,7 +6,7 @@ import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(applicantCaseSequence).toHaveLength(102);
+    expect(applicantCaseSequence).toHaveLength(111);
 
     expect(applicantCaseSequence[0].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');
@@ -531,15 +531,85 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[99].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[99].getNextStep({})).toBe('/applicant/task-list');
 
-    expect(applicantCaseSequence[100].url).toBe('/:partyType/documents/all-documents');
+    expect(applicantCaseSequence[100].url).toBe('/:partyType/documents/upload');
     expect(applicantCaseSequence[100].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[100].getNextStep({})).toBe('/');
 
     expect(applicantCaseSequence[101].url).toBe(
-      '/:partyType/documents/list/:documentCategory/:documentPartyType/:documentPartyId?'
+      '/:partyType/documents/upload/:docCategory/has-the-court-asked-for-this-documents'
     );
     expect(applicantCaseSequence[101].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[101].getNextStep({})).toBe('/');
+    expect(
+      applicantCaseSequence[101].getNextStep({}, {
+        params: { docCategory: 'otherdocuments', partyType: 'applicant' },
+      } as unknown as AppRequest)
+    ).toBe('/applicant/documents/upload/otherdocuments/document-sharing-details');
+    expect(
+      applicantCaseSequence[101].getNextStep({ hasCourtAskedForThisDoc: 'No' as YesOrNo }, {
+        params: { docCategory: 'otherdocuments', partyType: 'applicant' },
+      } as unknown as AppRequest)
+    ).toBe('/applicant/documents/upload/otherdocuments/submit-extra-evidence');
+
+    expect(applicantCaseSequence[102].url).toBe('/:partyType/documents/upload/:docCategory/submit-extra-evidence');
+    expect(applicantCaseSequence[102].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[102].getNextStep({ id: '1234' })).toBe('/case/1234');
+
+    expect(applicantCaseSequence[103].url).toBe('/:partyType/documents/upload/:docCategory/document-sharing-details');
+    expect(applicantCaseSequence[103].showInSection).toBe('aboutApplicantCase');
+    expect(
+      applicantCaseSequence[103].getNextStep({}, {
+        params: { docCategory: 'otherdocuments', partyType: 'applicant' },
+      } as unknown as AppRequest)
+    ).toBe('/applicant/documents/upload/otherdocuments/sharing-your-documents');
+
+    expect(applicantCaseSequence[104].url).toBe('/:partyType/documents/upload/:docCategory/sharing-your-documents');
+    expect(applicantCaseSequence[104].showInSection).toBe('aboutApplicantCase');
+    expect(
+      applicantCaseSequence[104].getNextStep({}, {
+        params: { docCategory: 'otherdocuments', partyType: 'applicant' },
+      } as unknown as AppRequest)
+    ).toBe('/applicant/documents/upload/otherdocuments/upload-your-documents');
+    expect(
+      applicantCaseSequence[104].getNextStep({ haveReasonForDocNotToBeShared: 'Yes' as YesOrNo }, {
+        params: { docCategory: 'otherdocuments', partyType: 'applicant' },
+      } as unknown as AppRequest)
+    ).toBe('/applicant/documents/upload/otherdocuments/other-party-not-see-this-document');
+
+    expect(applicantCaseSequence[105].url).toBe(
+      '/:partyType/documents/upload/:docCategory/other-party-not-see-this-document'
+    );
+    expect(applicantCaseSequence[105].showInSection).toBe('aboutApplicantCase');
+    expect(
+      applicantCaseSequence[105].getNextStep({}, {
+        params: { docCategory: 'otherdocuments', partyType: 'applicant' },
+      } as unknown as AppRequest)
+    ).toBe('/applicant/documents/upload/otherdocuments/upload-your-documents');
+
+    expect(applicantCaseSequence[106].url).toBe('/:partyType/documents/upload/:docCategory/upload-your-documents');
+    expect(applicantCaseSequence[106].showInSection).toBe('aboutApplicantCase');
+    expect(
+      applicantCaseSequence[106].getNextStep({}, {
+        params: { docCategory: 'otherdocuments', partyType: 'applicant' },
+      } as unknown as AppRequest)
+    ).toBe('/applicant/documents/upload/otherdocuments/upload-documents-success');
+
+    expect(applicantCaseSequence[107].url).toBe('/:partyType/documents/upload/:docCategory/upload-documents-success');
+    expect(applicantCaseSequence[107].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[107].getNextStep({})).toBe('/');
+
+    expect(applicantCaseSequence[108].url).toBe('/:partyType/documents/view/all-documents');
+    expect(applicantCaseSequence[108].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[108].getNextStep({})).toBe('/');
+
+    expect(applicantCaseSequence[109].url).toBe('/:partyType/documents/view/application-pack-documents/:context?');
+    expect(applicantCaseSequence[109].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[109].getNextStep({})).toBe('/');
+
+    expect(applicantCaseSequence[110].url).toBe(
+      '/:partyType/documents/view/:documentCategory/:documentPartyType/:documentPartyId?'
+    );
+    expect(applicantCaseSequence[110].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[110].getNextStep({})).toBe('/');
   });
 });
 

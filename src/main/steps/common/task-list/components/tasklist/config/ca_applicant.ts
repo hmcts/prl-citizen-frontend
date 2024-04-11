@@ -15,6 +15,7 @@ import {
   APPLICANT_YOURHEARINGS_HEARINGS,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
+  UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
 } from '../../../../../../steps/urls';
 import { Task, TaskListConfigProps } from '../../../definitions';
@@ -36,19 +37,16 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       {
         id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`,
-        disabled: isCaseClosed,
         stateTag: () => StateTags.SUBMITTED,
       },
       {
         id: Tasks.CONTACT_PREFERENCES,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/${caseData.id}`,
-        disabled: isCaseClosed,
         stateTag: () => StateTags.SUBMITTED,
       },
       {
         id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`,
-        disabled: isCaseClosed,
         stateTag: () => StateTags.SUBMITTED,
       },
       {
@@ -56,7 +54,6 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         href: () => {
           return `${APPLICANT_TASKLIST_HEARING_NEEDS}`;
         },
-        disabled: isCaseClosed,
         stateTag: () => StateTags.SUBMITTED,
       },
     ],
@@ -92,29 +89,33 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
   {
     id: TaskListSection.YOUR_DOCUMENTS,
     content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-    //show: isCaseLinked,
+    show: isCaseLinked,
     tasks: (): Task[] => [
       {
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-        /*show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-          return (
-            isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
-          );
-        },*/
-        disabled: isCaseClosed,
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+          return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+        },
+        stateTag: () => StateTags.OPTIONAL,
+      },
+      {
+        id: Tasks.VIEW_ALL_DOCUMENTS,
+        href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+        stateTag: () => StateTags.READY_TO_VIEW,
+      },
+      {
+        id: Tasks.UPLOAD_DOCUMENTS,
+        href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.APPLICANT }),
+        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+          return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+        },
         stateTag: () => StateTags.OPTIONAL,
       },
       {
         id: Tasks.VIEW_ALL_DOCUMENTS,
         href: () => applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
         stateTag: () => StateTags.READY_TO_VIEW,
-      },
-      {
-        id: Tasks.VIEW_ALL_DOCUMENTS,
-        href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
-        stateTag: () => StateTags.READY_TO_VIEW,
-        //show: isCaseLinked,
       },
     ],
   },

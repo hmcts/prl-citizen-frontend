@@ -1,16 +1,12 @@
-import { NextFunction, Response } from 'express';
+import { NextFunction } from 'express';
 
 import { AppRequest } from '../../../../app/controller/AppRequest';
-import CaseDataController from '../../CaseDataController';
+import { resetUploadDocumentSessionData } from '../upload/utils';
 
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   get: async (req: AppRequest, res: Response, next: NextFunction) => {
-    try {
-      await new CaseDataController().fetchAndSaveData(req);
-      next();
-    } catch (error) {
-      throw new Error(error);
-    }
+    resetUploadDocumentSessionData(req);
+    req.session.save(next);
   },
 };
