@@ -1,15 +1,13 @@
 import { CaseWithId } from '../../../app/case/case';
-import { PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { getCasePartyType } from '../../../steps/prl-cases/dashboard/utils';
 import {
   CHOOSE_CONTACT_PREFERENCE,
   CONTACT_PREFERENCE_CONFIRMATION,
+  FETCH_CASE_DETAILS,
   PageLink,
-  RESPONDENT_TASK_LIST_URL,
   RESPOND_TO_APPLICATION,
   REVIEW_CONTACT_PREFERENCE,
-  TASK_LIST_APPLICANT_URL,
 } from '../../../steps/urls';
 import { applyParms } from '../url-parser';
 
@@ -28,10 +26,9 @@ class ContactPreferenceNavigationController {
         break;
       }
       case CONTACT_PREFERENCE_CONFIRMATION: {
-        const respondentUrl = req.session.applicationSettings?.navfromRespondToApplication
+        url = req.session.applicationSettings?.navfromRespondToApplication
           ? RESPOND_TO_APPLICATION
-          : RESPONDENT_TASK_LIST_URL;
-        url = partyType === PartyType.APPLICANT ? TASK_LIST_APPLICANT_URL : respondentUrl;
+          : applyParms(FETCH_CASE_DETAILS, { caseId: req.session.userCase.id! });
         break;
       }
       default: {

@@ -33,13 +33,14 @@ describe('common > contact-preference > navigationController', () => {
         req.session.userCase,
         req
       )
-    ).toBe('/task-list/applicant');
+    ).toBe('/case/1234');
   });
 
   test('should get correct next url for contact preference confirmation for respondent', () => {
     const req = mockRequest({
       session: {
         userCase: {
+          id: '1234',
           caseTypeOfApplication: 'C100',
           caseInvites: [
             {
@@ -73,7 +74,7 @@ describe('common > contact-preference > navigationController', () => {
         req.session.userCase,
         req
       )
-    ).toBe('/respondent/task-list');
+    ).toBe('/case/1234');
   });
 
   test('should get correct next url for contact preference confirmation for tasklistresponse', () => {

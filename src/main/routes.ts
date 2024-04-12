@@ -18,7 +18,6 @@ import ApplicantConfirmContactDetailsPostController from './steps/applicant/conf
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
-import { ConfirmContactDetailsPostController } from './steps/common/confirm-contact-details/checkanswers/ConfirmContactDetailsPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
@@ -126,7 +125,6 @@ import {
   VIEW_DOCUMENT_URL,
   LOCAL_API_SESSION,
   TASKLIST_RESPONSE_TO_CA,
-  REVIEW_CONTACT_PREFERENCE,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -347,10 +345,6 @@ export class Routes {
         app.post(
           RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
           errorHandler(new RemoveLegalRepresentativePostController(step.form.fields).post)
-        );
-        app.post(
-          `${REVIEW_CONTACT_PREFERENCE}`,
-          errorHandler(new ConfirmContactDetailsPostController(step.form.fields).post)
         );
       }
     }

@@ -471,8 +471,10 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[93].url).toBe('/:partyType/contact-preference/confirmation');
     expect(applicantCaseSequence[93].showInSection).toBe('aboutApplicantCase');
     expect(
-      applicantCaseSequence[93].getNextStep({}, { session: { user: { id: '1234' } } } as unknown as AppRequest)
-    ).toBe('/task-list/applicant');
+      applicantCaseSequence[93].getNextStep({ id: '1234' }, {
+        session: { userCase: { id: '1234' }, user: { id: '1234' } },
+      } as unknown as AppRequest)
+    ).toBe('/case/1234');
   });
 });
 

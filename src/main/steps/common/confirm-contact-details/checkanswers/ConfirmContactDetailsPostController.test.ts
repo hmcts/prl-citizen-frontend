@@ -70,7 +70,26 @@ describe('ConfirmContactDetailsPostController', () => {
     };
     req.session.userCase = {
       ...req.session.userCase,
+      citizenUserAddress1: 'Flatc1',
+      citizenUserAddress2: 'Unkonwn lane',
+      citizenUserAddressCounty: 'Dummy County',
+      citizenUserAddressPostcode: 'SW13ND',
+      citizenUserAddressTown: 'Dummy Town',
       state: 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
+      citizenUserAddressHistory: '',
+      citizenUserDateOfBirth: {
+        year: '2000',
+        month: '11',
+        day: '14',
+      },
+      citizenUserEmailAddress: 'a.b@test.com',
+      citizenUserFirstNames: 'John',
+      isAtAddressLessThan5Years: 'Yes',
+      citizenUserLastNames: 'Smith',
+      citizenUserPhoneNumber: '0987654321',
+      citizenUserPlaceOfBirth: 'london',
+      citizenUserAdditionalName: 'Johnny Smith',
+      citizenUserSafeToCall: '4 pm',
       respondents: [
         {
           id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
@@ -301,7 +320,7 @@ describe('ConfirmContactDetailsPostController', () => {
   test('Should not update the userCase for safety concerns when updateCaseData API is throwing error', async () => {
     updateCaserMock.mockRejectedValue({ message: 'MOCK_ERROR', response: { status: 500, data: 'Error' } });
     await expect(controller.post(req, res)).rejects.toThrow(
-      'ConfirmContactDetailsPostController - Case could not be updated.'
+      'ConfirmContactDetailsPostController - error when saving contact details and redirecting'
     );
   });
 });

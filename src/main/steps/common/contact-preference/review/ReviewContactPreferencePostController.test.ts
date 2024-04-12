@@ -2,10 +2,9 @@ import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { applicantContactPreferencesEnum } from '../../../../app/case/definition';
-import { FormContent, FormFields } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import { FormFields } from '../../../../app/form/Form';
 
-import ChooseContactPreferencePostController from './ChooseContactPreferencePostController';
+import ReviewContactPreferencePostController from './ReviewContactPreferencePostController';
 
 const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
 const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
@@ -15,7 +14,7 @@ describe('ContactPreferencesPostController', () => {
   const mockFields = {
     fields: {},
   } as unknown as FormFields;
-  const controller = new ChooseContactPreferencePostController(mockFields);
+  const controller = new ReviewContactPreferencePostController(mockFields);
   const req = mockRequest();
   const res = mockResponse();
   beforeEach(() => {
@@ -197,7 +196,7 @@ describe('ContactPreferencesPostController', () => {
     await new Promise(process.nextTick);
 
     expect(req.session.userCase.contactPreferences).toEqual('post');
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/contact-preference/review');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/contact-preference/confirmation');
   });
 
   test('Should update the userCase for contact preferences when updateCaseData API is success for digital', async () => {
@@ -212,7 +211,7 @@ describe('ContactPreferencesPostController', () => {
     await new Promise(process.nextTick);
 
     expect(req.session.userCase.contactPreferences).toEqual('email');
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/contact-preference/review');
+    expect(res.redirect).toHaveBeenCalledWith('/applicant/contact-preference/confirmation');
   });
 
   test('Should update the userCase for contact preferences when updateCaseData API is success for respondent', async () => {
@@ -227,7 +226,7 @@ describe('ContactPreferencesPostController', () => {
     await new Promise(process.nextTick);
 
     expect(req.session.userCase.contactPreferences).toEqual('post');
-    expect(res.redirect).toHaveBeenCalledWith('/respondent/contact-preference/review');
+    expect(res.redirect).toHaveBeenCalledWith('/respondent/contact-preference/confirmation');
   });
 
   test('Should update the userCase for contact preferences when updateCaseData API is success for email for respondent', async () => {
@@ -242,29 +241,13 @@ describe('ContactPreferencesPostController', () => {
     await new Promise(process.nextTick);
 
     expect(req.session.userCase.contactPreferences).toEqual('email');
-    expect(res.redirect).toHaveBeenCalledWith('/respondent/contact-preference/review');
+    expect(res.redirect).toHaveBeenCalledWith('/respondent/contact-preference/confirmation');
   });
 
   test('Should not update the userCase for contact preferences when updateCaseData API is throwing error', async () => {
     updateCaserMock.mockRejectedValue({ message: 'MOCK_ERROR', response: { status: 500, data: 'Error' } });
     await expect(controller.post(req, res)).rejects.toThrow(
-      'ContactPreferencesPostController - Case could not be updated.'
+      'ReviewContactPreferencePostController - error when saving contact preferences and redirecting'
     );
-  });
-
-  test('should redirect if form has error', async () => {
-    req.body.preferredModeOfContact = undefined;
-    const mockErrorFields = {
-      fields: {
-        preferredModeOfContact: {
-          type: 'radios',
-          validator: atLeastOneFieldIsChecked,
-        },
-      },
-    } as unknown as FormContent;
-    const postController = new ChooseContactPreferencePostController(mockErrorFields.fields);
-    await postController.post(req, res);
-    await new Promise(process.nextTick);
-    expect(req.session.userCase.applicants[0].value.response.preferredModeOfContact).toEqual(undefined);
   });
 });

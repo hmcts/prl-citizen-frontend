@@ -443,7 +443,7 @@ describe('respondent1Sequence', () => {
         respondentUserCase as unknown as Partial<CaseWithId>,
         mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
       )
-    ).toBe('/respondent/task-list');
+    ).toBe('/case/1234');
   });
 });
 
@@ -461,6 +461,7 @@ const reasonableAdjustmentsMockData = mockRequest({
 });
 
 const respondentUserCase = {
+  id: '1234',
   caseTypeOfApplication: 'C100',
   caseInvites: [
     {

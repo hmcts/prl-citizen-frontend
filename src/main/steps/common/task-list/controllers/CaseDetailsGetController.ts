@@ -34,7 +34,10 @@ export default class CaseDetailsGetController {
       const client = new CosApiClient(citizenUser.accessToken, req.locals.logger);
       const hearings = await client.retrieveCaseHearingsByCaseId(citizenUser, caseId);
       req.session.userCase.hearingCollection = hearings.caseHearings;
-
+      req.session.applicationSettings = {
+        ...req.session.applicationSettings,
+        navfromRespondToApplication: false,
+      };
       req.session.save(() => {
         res.redirect(applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData, req.session.user.id) }));
       });
