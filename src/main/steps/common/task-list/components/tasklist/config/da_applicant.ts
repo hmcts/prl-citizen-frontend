@@ -2,6 +2,7 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { isCaseClosed, isCaseLinked, isRepresentedBySolicotor } from '../../../../../../steps/common/task-list/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
@@ -9,13 +10,13 @@ import {
   APPLICANT_ATTENDING_THE_COURT,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
-  APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_WITNESS_STATEMENTS_DA,
   APPLICANT_YOURHEARINGS_HEARINGS,
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
+  VIEW_ALL_ORDERS,
   YOUR_APPLICATION_FL401,
 } from '../../../../../../steps/urls';
 import {
@@ -28,7 +29,6 @@ import {
   getSupportYourNeedsDetailsStatus,
   getYourWitnessStatementStatus,
   hasAnyHearing,
-  hasAnyOrder,
 } from '../utils';
 
 export const DA_APPLICANT: TaskListConfigProps[] = [
@@ -142,14 +142,14 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
     tasks: (): Task[] => [
       {
         id: Tasks.VIEW_ORDERS,
-        href: caseData => (hasAnyOrder(caseData) ? APPLICANT_ORDERS_FROM_THE_COURT : '#'),
+        href: () => applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
         stateTag: (caseData: Partial<CaseWithId>) => {
-          if (hasAnyOrder(caseData)) {
+          if (hasOrders(caseData as CaseWithId)) {
             return StateTags.READY_TO_VIEW;
           }
           return StateTags.NOT_AVAILABLE_YET;
         },
-        disabled: (caseData: Partial<CaseWithId>) => !hasAnyOrder(caseData),
+        disabled: (caseData: Partial<CaseWithId>) => !hasOrders(caseData as CaseWithId),
       },
     ],
   },

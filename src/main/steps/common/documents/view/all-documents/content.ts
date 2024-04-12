@@ -105,10 +105,12 @@ export const generateContent: TranslationFn = content => {
   });*/
   return {
     ...translations,
-    breadcrumb: {
-      id: 'caseView',
-      href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData?.id }),
-    },
+    breadcrumbs: [
+      {
+        id: 'caseView',
+        href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData?.id }),
+      },
+    ],
     sections: sections
       .filter(section => section.isVisible(caseData))
       .sort((current, next) =>

@@ -55,7 +55,11 @@ export const CA_APPLICANT: NotificationBannerProps[] = [
   {
     ...notificationBanner[BannerNotification.APPLICATION_SERVED_LINKED],
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-      return caseData?.state === State.CASE_SERVED && isCaseLinked(caseData, userDetails);
+      return (
+        caseData?.state === State.CASE_SERVED &&
+        isCaseLinked(caseData, userDetails) &&
+        !isApplicantLIPServingRespondent(caseData)
+      );
     },
   },
   {

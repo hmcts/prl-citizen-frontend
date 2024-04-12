@@ -15,6 +15,7 @@ import {
   getDocumentCategoryLabel,
   getDocumentSectionTitle,
   getDocuments,
+  getOrdersFromTheCourtCategoryList,
   getViewDocumentCategoryList,
   hasAnyDocumentForPartyType,
   hasApplicationPacks,
@@ -38,7 +39,11 @@ export const viewDocumentsSections: ViewDocumentsSectionsProps[] = [
     sectionId: ViewDocumentsSectionId.ORDERS_FROM_THE_COURT,
     sectionTitle: (documentSectionTitles: Record<DocumentSectionId, string>) =>
       getDocumentSectionTitle(ViewDocumentsSectionId.ORDERS_FROM_THE_COURT, documentSectionTitles),
-    documentCategoryList: () => [],
+    documentCategoryList: (
+      caseData: CaseWithId,
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      loggedInUserPartyType: PartyType
+    ) => getOrdersFromTheCourtCategoryList(caseData, documentCategoryLabels, loggedInUserPartyType),
     isVisible: hasOrders,
     displayOrder: () => 2,
   },

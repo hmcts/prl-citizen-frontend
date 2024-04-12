@@ -10,8 +10,8 @@ import { DocumentLabelCategory } from '../definitions';
 import { getDocumentConfig } from './utils';
 
 const languages = {
-  en: { ...en },
-  cy: { ...cy },
+  en,
+  cy,
 };
 
 export const generateContent: TranslationFn = content => {
@@ -29,20 +29,21 @@ export const generateContent: TranslationFn = content => {
   const documents = documentConfig
     ? documentConfig.documents(caseData.citizenDocuments, documentPartyType, documentPartyId)
     : [];
-  const pageHeading = interpolate(
-    documentConfig && documents.length
-      ? documentConfig.documentCategoryLabel(documentCategoryLabels, documents[0].document_en!.uploadedBy)
-      : '',
-    { partyName: getPartyName(caseData, loggedInUserPartyType, userDetails) }
-  );
 
   return {
     ...translations,
-    breadcrumb: {
-      id: 'allDocuments',
-      href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: loggedInUserPartyType }),
-    },
-    pageHeading,
+    breadcrumbs: [
+      {
+        id: 'allDocuments',
+        href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: loggedInUserPartyType }),
+      },
+    ],
+    title: interpolate(
+      documentConfig && documents.length
+        ? documentConfig.documentCategoryLabel(documentCategoryLabels, documents[0].document_en!.uploadedBy)
+        : '',
+      { partyName: getPartyName(caseData, loggedInUserPartyType, userDetails) }
+    ),
     documents,
   };
 };

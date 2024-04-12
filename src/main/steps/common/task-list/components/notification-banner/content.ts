@@ -1,5 +1,6 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
+import { applyParms } from '../../../../../steps/common/url-parser';
 import {
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
@@ -9,6 +10,7 @@ import {
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPOND_TO_APPLICATION,
+  VIEW_APPLICATION_PACK_DOCUMENTS,
 } from '../../../../../steps/urls';
 import { NotificationBannerContent } from '../../definitions';
 import { isCafcassCymruServed, isCafcassServed } from '../../utils';
@@ -245,7 +247,7 @@ const en: NotificationBannerContent = {
               links: [
                 {
                   text: 'View your application pack',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },

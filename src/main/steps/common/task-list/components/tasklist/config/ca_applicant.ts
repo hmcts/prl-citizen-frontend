@@ -3,11 +3,11 @@ import { generateTheResponseTasks } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
-  APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   APPLICANT_TASKLIST_HEARING_NEEDS,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
@@ -17,10 +17,11 @@ import {
   C100_START,
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
+  VIEW_ALL_ORDERS,
 } from '../../../../../../steps/urls';
 import { Task, TaskListConfigProps } from '../../../definitions';
 import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
-import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing, hasAnyOrder } from '../utils';
+import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing } from '../utils';
 
 export const CA_APPLICANT: TaskListConfigProps[] = [
   {
@@ -126,14 +127,14 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
     tasks: (): Task[] => [
       {
         id: Tasks.VIEW_ORDERS,
-        href: () => APPLICANT_ORDERS_FROM_THE_COURT,
+        href: () => applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
         stateTag: (caseData: Partial<CaseWithId>) => {
-          if (hasAnyOrder(caseData)) {
+          if (hasOrders(caseData as CaseWithId)) {
             return StateTags.READY_TO_VIEW;
           }
           return StateTags.NOT_AVAILABLE_YET;
         },
-        disabled: (caseData: Partial<CaseWithId>) => !hasAnyOrder(caseData),
+        disabled: (caseData: Partial<CaseWithId>) => !hasOrders(caseData as CaseWithId),
       },
     ],
   },

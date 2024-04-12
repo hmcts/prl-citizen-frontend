@@ -26,10 +26,12 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    breadcrumb: {
-      id: 'caseView',
-      href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData?.id }),
-    },
+    breadcrumbs: [
+      {
+        id: 'caseView',
+        href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData?.id }),
+      },
+    ],
     sections: sections.map(section => ({
       id: section.sectionId,
       title: section.sectionTitle(documentSectionTitles),
