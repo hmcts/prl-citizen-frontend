@@ -142,6 +142,30 @@ export class CosApiClient {
     }
   }
 
+  public async submitRespondentResponse1(
+    caseId: string,
+    partyDetails: Partial<PartyDetails>,
+    partyType: PartyType,
+    caseType: CaseType
+  ): Promise<CaseWithId> {
+    try {
+      const data = {
+        partyDetails,
+        partyType,
+        caseType,
+      };
+      const response = await this.client.post(
+        config.get('services.cos.url') + `/citizen/${caseId}/submit-citizen-response`,
+        data
+      );
+
+      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, case could not be updated - updateCaseData');
+    }
+  }
+
   /**  submit respondent response*/
   public async submitRespondentResponse(caseId: string, partyId: string, data: Partial<CaseData>): Promise<CaseWithId> {
     try {
@@ -166,7 +190,7 @@ export class CosApiClient {
   ): Promise<DocumentDetail> {
     try {
       const response = await this.client.post(
-        config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document`,
+        config.get('services.cos.url') + `/citizen/${caseId}/${partyId}/generate-c7document`,
         data
       );
 
