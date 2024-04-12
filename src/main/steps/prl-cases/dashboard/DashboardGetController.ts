@@ -1,10 +1,10 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
-import _ from 'lodash';
 
 import { getCaseDetails } from '../../../app/auth/user/oidc';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController } from '../../../app/controller/GetController';
+import { RAProvider } from '../../../modules/reasonable-adjustments';
 import BreadcrumbController from '../../common/breadcrumb/BreadcrumbController';
 
 import { generateContent } from './content';
@@ -17,12 +17,14 @@ export default class DashboardGetController extends GetController {
 
   public async get(req: AppRequest, res: Response): Promise<void> {
     try {
-      removeCaseData(req.session, async () => {
-        await BreadcrumbController.enable(req.session);
-        req.session.userCaseList = await getCaseDetails(req);
-        req.session.save(() => {
-          super.get(req, res);
-        });
+      await BreadcrumbController.enable(req.session);
+      await RAProvider.resetData(req);
+
+      req.session.userCaseList = await getCaseDetails(req);
+
+      clean(req.session);
+      req.session.save(() => {
+        super.get(req, res);
       });
     } catch (e) {
       super.get(req, res);
@@ -30,13 +32,6 @@ export default class DashboardGetController extends GetController {
   }
 }
 
-function removeCaseData(session, callback) {
+function clean(session) {
   delete session.userCase;
-  session.save(() => {
-    session.reload(() => {
-      if (_.isFunction(callback)) {
-        callback();
-      }
-    });
-  });
 }

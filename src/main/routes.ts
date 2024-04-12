@@ -12,10 +12,10 @@ import { RespondentSubmitResponseController } from './app/controller/RespondentS
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
-import { StepWithContent, stepsWithContent } from './steps/';
+import { RAProvider } from './modules/reasonable-adjustments';
+import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
-import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
@@ -103,9 +103,6 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   PROCEEDING_SAVE,
   PROCEEDINGS_START,
-  SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
-  CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
-  C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   RESPONDENT_CHECK_ANSWERS_NO,
   FETCH_CASE_DETAILS,
   PARTY_TASKLIST,
@@ -115,7 +112,6 @@ import {
   TESTING_SUPPORT_DELETE_DRAFT,
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
-  C7_ATTENDING_THE_COURT,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_YOURHEARINGS_HEARINGS,
@@ -129,7 +125,7 @@ import {
 } from './steps/urls';
 
 export class Routes {
-  public enableFor(app: Application): void {
+  public async enableFor(app: Application): Promise<void> {
     const { errorHandler } = app.locals;
     const errorController = new ErrorController();
 
@@ -137,7 +133,7 @@ export class Routes {
     app.get(HOME_URL, (req, res) => res.redirect(DASHBOARD_URL));
     app.get(DASHBOARD_URL, errorHandler(new DashboardGetController().get));
     app.get(FETCH_CASE_DETAILS, errorHandler(new CaseDetailsGetController().get));
-    app.get(PARTY_TASKLIST, errorHandler(new TaskListGetController().get));
+    app.get(PARTY_TASKLIST, errorHandler(new TaskListGetController().load));
     app.get(COOKIES_PAGE, errorHandler(new CookiesGetController().get));
     app.get(PRIVACY_POLICY, errorHandler(new PrivacyPolicyGetController().get));
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
@@ -223,17 +219,15 @@ export class Routes {
       `${INTERNATIONAL_FACTORS_START}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.INTERNATIONAL_FACTORS_RESPONSE).get)
     );
-    app.get(
-      `${C7_ATTENDING_THE_COURT}/:caseId`,
-      errorHandler(new TasklistGetController(EventRoutesContext.SUPPORT_DURING_CASE).get)
-    );
 
     //C100 related routes
     app.post(CREATE_DRAFT, errorHandler(TSDraftController.post));
     app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(TSDraftController.createTSC100Draft));
     app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(TSDraftController.deleteTSC100Draft));
 
-    for (const step of stepsWithContent) {
+    const steps = [...stepsWithContent, ...getStepsWithContent(await RAProvider.getSequence(), '/common')];
+
+    for (const step of steps) {
       const files = fs.readdirSync(`${step.stepDir}`);
       const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
       const getController = getControllerFileName
@@ -316,18 +310,6 @@ export class Routes {
         app.get(
           `${INTERNATIONAL_FACTORS_SAVE}`,
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)
-        );
-        app.get(
-          SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
-          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
-        );
-        app.get(
-          CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
-          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
-        );
-        app.get(
-          C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
-          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
         );
         app.get(
           C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,

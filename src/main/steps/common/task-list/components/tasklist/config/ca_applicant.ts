@@ -8,13 +8,13 @@ import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_ORDERS_FROM_THE_COURT,
-  APPLICANT_TASKLIST_HEARING_NEEDS,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_YOURHEARINGS_HEARINGS,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
   CHOOSE_CONTACT_PREFERENCE,
+  REASONABLE_ADJUSTMENTS_INTRO,
 } from '../../../../../../steps/urls';
 import { hasContactPreference } from '../../../../contact-preference/util';
 import { Task, TaskListConfigProps } from '../../../definitions';
@@ -53,12 +53,14 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         stateTag: () => StateTags.SUBMITTED,
       },
       {
-        id: Tasks.YOUR_SUPPORT,
+        id: Tasks.SUPPORT_YOU_NEED,
         href: () => {
-          return `${APPLICANT_TASKLIST_HEARING_NEEDS}`;
+          return applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
+            partyType: PartyType.APPLICANT,
+          });
         },
         disabled: isCaseClosed,
-        stateTag: () => StateTags.SUBMITTED,
+        stateTag: () => StateTags.OPTIONAL,
       },
     ],
   },

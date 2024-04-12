@@ -21,6 +21,7 @@ import {
   SIGN_OUT_URL,
   TESTING_SUPPORT,
 } from '../../steps/urls';
+import { RAProvider } from '../reasonable-adjustments';
 
 /**
  * Adds the oidc middleware to add oauth authentication
@@ -39,13 +40,18 @@ export class OidcMiddleware {
       res.redirect(url);
     });
 
-    app.get(SIGN_OUT_URL, (req, res) => req.session.destroy(() => res.redirect('/')));
+    app.get(SIGN_OUT_URL, async (req, res) => {
+      await RAProvider.destroy(req as AppRequest);
+      req.session.destroy(() => res.redirect('/'));
+    });
 
     app.get(
       CALLBACK_URL,
       errorHandler(async (req, res) => {
         if (typeof req.query.code === 'string') {
           req.session.user = await getUserDetails(`${protocol}${res.locals.host}${port}`, req.query.code, CALLBACK_URL);
+          RAProvider.init(req);
+
           if (req.session.cookie.path) {
             const caseId = req.session.cookie.path.split('/').pop();
             if (parseInt(caseId)) {
@@ -57,6 +63,7 @@ export class OidcMiddleware {
             req.session.save(() => res.redirect(DASHBOARD_URL));
           }
         } else {
+          await RAProvider.destroy(req as AppRequest);
           res.redirect(SIGN_IN_URL);
         }
       })
@@ -83,6 +90,7 @@ export class OidcMiddleware {
           }
 
           if (req.session?.user) {
+            RAProvider.init(req);
             res.locals.isLoggedIn = true;
             req.locals.api = getCaseApi(req.session.user, req.locals.logger);
 
@@ -114,8 +122,9 @@ export class OidcMiddleware {
               const partyType = getCasePartyType(req.session.userCase, req.session.user.id);
               if (
                 !SAFEGAURD_EXCLUDE_URLS.some(url => {
-                  const _url = parseUrl(url).url;
-                  return _url.split('/').every(chunk => req.path.split('/').includes(chunk));
+                  return parseUrl(url)
+                    .url.split('/')
+                    .every(chunk => req.path.split('/').includes(chunk));
                 }) &&
                 !req.path.split('/').includes(partyType)
               ) {
@@ -146,6 +155,7 @@ export class OidcMiddleware {
             if (req.originalUrl.includes('.css')) {
               return next();
             }
+            await RAProvider.destroy(req as AppRequest);
             res.redirect(SIGN_IN_URL + `?callback=${encodeURIComponent(req.originalUrl)}`);
           }
         });

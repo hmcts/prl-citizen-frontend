@@ -30,11 +30,12 @@
         {{
           govukButton({
             text: getContent(form.onlyContinue.text),
-            classes: form.submit.classes,
+            classes: form.onlyContinue.classes,
             preventDoubleClick: true,
             type: "submit",
             name: "onlyContinue",
             value: true,
+            isStartButton: true if form.onlyContinue.isStartButton,
             attributes: {
               id: ''
             }

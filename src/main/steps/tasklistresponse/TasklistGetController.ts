@@ -10,7 +10,6 @@ import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
-  C7_ATTENDING_THE_COURT,
   CHOOSE_CONTACT_PREFERENCE,
   CONSENT_TO_APPLICATION,
   INTERNATIONAL_FACTORS_START,
@@ -57,9 +56,6 @@ export class TasklistGetController {
         break;
       case EventRoutesContext.CONSENT_RESPONSE:
         redirectUrl = CONSENT_TO_APPLICATION;
-        break;
-      case EventRoutesContext.SUPPORT_DURING_CASE:
-        redirectUrl = C7_ATTENDING_THE_COURT;
         break;
       case EventRoutesContext.KEEP_DETAILS_PRIVATE_APPLICANT:
         redirectUrl = APPLICANT_DETAILS_KNOWN;

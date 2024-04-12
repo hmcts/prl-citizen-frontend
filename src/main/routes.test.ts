@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Application } from 'express';
+
+import { RAProvider } from '../main/modules/reasonable-adjustments/index';
 
 import { Routes } from './routes';
 import { ACCESSIBILITY_STATEMENT, CONTACT_US, COOKIES_PAGE, PRIVACY_POLICY, TERMS_AND_CONDITIONS } from './steps/urls';
@@ -12,6 +15,9 @@ jest.mock('./steps/error/error.controller', () => {
     }),
   };
 });
+
+jest.spyOn(RAProvider, 'isComponentEnabled').mockImplementation(() => Promise.resolve(true));
+jest.spyOn((RAProvider as any).route, 'enable');
 
 const mockCookiesGetController = jest.fn();
 jest.mock('../main/steps/cookies/get', () => {

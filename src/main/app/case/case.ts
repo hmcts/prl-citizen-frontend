@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { RAFlags } from '../../modules/reasonable-adjustments/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
@@ -508,7 +509,6 @@ export interface Case {
   //C100 Rebuild
   contactDetailsPrivateAlternative?: string;
   c100ApplicationFees?: string;
-  ra_disabilityRequirements?: string[];
   hwf_needHelpWithFees?: YesOrNo;
   hwf_feesAppliedDetails?: YesOrNo;
   caseId?: string;
@@ -595,6 +595,35 @@ export interface Case {
   withdrawApplicationReason?: string;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
+  // RA local component
+  ra_typeOfHearing?: string[];
+  ra_noVideoAndPhoneHearing_subfield?: string;
+  ra_specialArrangements?: string[];
+  ra_specialArrangementsOther_subfield?: string;
+  ra_languageNeeds?: string[];
+  ra_needInterpreterInCertainLanguage_subfield?: string;
+  ra_documentInformation?: string[];
+  ra_disabilityRequirements?: string[];
+  ra_specifiedColorDocuments_subfield?: string;
+  ra_largePrintDocuments_subfield?: string;
+  ra_documentHelpOther_subfield?: string;
+  ra_communicationHelp?: string[];
+  ra_signLanguageInterpreter_subfield?: string;
+  ra_communicationHelpOther_subfield?: string;
+  ra_supportCourt?: string[];
+  ra_supportWorkerCarer_subfield?: string;
+  ra_friendFamilyMember_subfield?: string;
+  ra_therapyAnimal_subfield?: string;
+  ra_supportCourtOther_subfield?: string;
+  ra_feelComportable?: string[];
+  ra_appropriateLighting_subfield?: string;
+  ra_feelComportableOther_subfield?: string;
+  ra_travellingCourt?: string[];
+  ra_parkingSpace_subfield?: string;
+  ra_differentTypeChair_subfield?: string;
+  ra_travellingCourtOther_subfield?: string;
+  ra_languageReqAndSpecialArrangements?: string;
+  ra_existingFlags?: RAFlags;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
 export interface ServedApplicationDetails {

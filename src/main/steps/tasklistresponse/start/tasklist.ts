@@ -1,5 +1,4 @@
 import { PartyType, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
-import { getSupportYourNeedsDetails } from '../../../steps/applicant/task-list/utils';
 import { applyParms } from '../../../steps/common/url-parser';
 import { hasContactPreference } from '../../common/contact-preference/util';
 import * as URL from '../../urls';
@@ -81,8 +80,10 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
           {
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
-            status: getSupportYourNeedsDetails(userCase),
-            href: URL.C7_ATTENDING_THE_COURT + '/' + userCase.id,
+            status: SectionStatus.OPTIONAL,
+            href: applyParms(URL.REASONABLE_ADJUSTMENTS_ATTENDING_COURT, {
+              root: PartyType.RESPONDENT,
+            }),
           },
         ],
       },

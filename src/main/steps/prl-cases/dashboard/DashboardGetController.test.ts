@@ -2,6 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import * as oidc from '../../../app/auth/user/oidc';
 import { CaseWithId } from '../../../app/case/case';
+import { RAProvider } from '../../../modules/reasonable-adjustments';
 import BreadcrumbController from '../../common/breadcrumb/BreadcrumbController';
 
 import DashboardGetController from './DashboardGetController';
@@ -15,6 +16,7 @@ describe('DashboardGetController', () => {
 
   jest.spyOn(controller, 'get');
   jest.spyOn(BreadcrumbController, 'enable').mockResolvedValue();
+  jest.spyOn(RAProvider, 'resetData').mockResolvedValue();
   getCaseDetailsMock.mockResolvedValue(req.session.userCase);
 
   test('Should able to render the view', async () => {

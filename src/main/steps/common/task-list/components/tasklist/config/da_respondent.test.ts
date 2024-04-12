@@ -22,7 +22,7 @@ describe('da_respondent', () => {
     expect(aboutYouTasks[0].id).toBe('keepYourDetailsPrivate');
     expect(aboutYouTasks[1].id).toBe('contactPreferences');
     expect(aboutYouTasks[2].id).toBe('editYouContactDetails');
-    expect(aboutYouTasks[3].id).toBe('yourSupport');
+    expect(aboutYouTasks[3].id).toBe('supportYouNeed');
   });
 
   test('the application section should contain correct ids and tasks', () => {

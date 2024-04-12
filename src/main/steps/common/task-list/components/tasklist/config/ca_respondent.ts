@@ -10,8 +10,8 @@ import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils'
 import {
   ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT_CA_DA_REQUEST,
-  CA_DA_ATTENDING_THE_COURT,
   CHOOSE_CONTACT_PREFERENCE,
+  REASONABLE_ADJUSTMENTS_INTRO,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -33,7 +33,6 @@ import {
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getResponseStatus,
-  getSupportYourNeedsDetailsStatus,
   hasAnyHearing,
   hasAnyOrder,
 } from '../utils';
@@ -72,15 +71,14 @@ export const aboutYou: TaskListConfigProps = {
       },
     },
     {
-      id: Tasks.YOUR_SUPPORT,
+      id: Tasks.SUPPORT_YOU_NEED,
       href: () => {
-        return `${CA_DA_ATTENDING_THE_COURT}`;
+        return applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
+          partyType: PartyType.RESPONDENT,
+        });
       },
       disabled: isCaseClosed,
-      stateTag: (caseData, userDetails) => {
-        const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-        return getSupportYourNeedsDetailsStatus(respondent?.response.supportYouNeed as CaseWithId);
-      },
+      stateTag: () => StateTags.OPTIONAL,
     },
   ],
 };

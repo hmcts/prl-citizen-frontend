@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../../app/case/case';
+import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { isCaseClosed, isRepresentedBySolicotor } from '../../../../../../steps/common/task-list/utils';
+import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
-  APPLICANT_ATTENDING_THE_COURT,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_ORDERS_FROM_THE_COURT,
@@ -12,6 +13,7 @@ import {
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_WITNESS_STATEMENTS_DA,
   APPLICANT_YOURHEARINGS_HEARINGS,
+  REASONABLE_ADJUSTMENTS_INTRO,
   YOUR_APPLICATION_FL401,
 } from '../../../../../../steps/urls';
 import {
@@ -21,7 +23,6 @@ import {
   getConfirmOrEditYourContactDetailsStatus,
   getContents,
   getKeepYourDetailsPrivateStatus,
-  getSupportYourNeedsDetailsStatus,
   getYourWitnessStatementStatus,
   hasAnyHearing,
   hasAnyOrder,
@@ -56,12 +57,14 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
       //   stateTag: () => StateTags.SUBMITTED,
       // },
       {
-        id: Tasks.YOUR_SUPPORT,
+        id: Tasks.SUPPORT_YOU_NEED,
         href: () => {
-          return `${APPLICANT_ATTENDING_THE_COURT}`;
+          return applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
+            partyType: PartyType.APPLICANT,
+          });
         },
         disabled: isCaseClosed,
-        stateTag: (caseData: Partial<CaseWithId>) => getSupportYourNeedsDetailsStatus(caseData),
+        stateTag: () => StateTags.OPTIONAL,
       },
     ],
   },

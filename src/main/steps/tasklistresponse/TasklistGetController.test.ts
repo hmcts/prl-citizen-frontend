@@ -416,11 +416,6 @@ describe('GetCaseController', () => {
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
-  test('C100 case for respondent SUPPORT_DURING_CASE', async () => {
-    controller = new TasklistGetController(EventRoutesContext.SUPPORT_DURING_CASE);
-    await controller.get(req, res);
-    expect(mockMyFunction).toHaveBeenCalled();
-  });
   test('C100 case for respondent CONTACT_PREFERENCE', async () => {
     controller = new TasklistGetController(EventRoutesContext.CONTACT_PREFERENCE);
     await controller.get(req, res);
