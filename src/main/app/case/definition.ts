@@ -115,6 +115,7 @@ export interface CitizenSos {
   partiesServedDate?: string;
   partiesServed?: string;
   citizenSosDocs?: Document;
+  isOrder?: string;
 }
 
 export interface DocumentFromCdam {

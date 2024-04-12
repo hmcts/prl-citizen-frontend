@@ -1,3 +1,4 @@
+import { applyParms } from '../../../../../../main/steps/common/url-parser';
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
 import {
@@ -249,7 +250,7 @@ const en: NotificationBannerContent = {
                 },
                 {
                   text: 'Upload the statement of service (form C9)',
-                  href: '',
+                  href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'order' }),
                 },
               ],
             },
@@ -310,7 +311,7 @@ const en: NotificationBannerContent = {
                   text: 'Download the Statement of service (form C9)',
                 },
                 {
-                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'application' }),
                   text: 'Upload the statement of service(form C9)',
                 },
               ],
@@ -604,7 +605,7 @@ const en: NotificationBannerContent = {
                   text: 'Download the Statement of service (form FL415)',
                 },
                 {
-                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'application' }),
                   text: 'Upload the statement of service (form FL415)',
                 },
               ],
@@ -846,7 +847,7 @@ const cy: typeof en = {
                 },
                 {
                   text: 'Llwytho’r datganiad cyflwyno (ffurflen C9)',
-                  href: '',
+                  href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'order' }),
                 },
               ],
             },
@@ -907,7 +908,7 @@ const cy: typeof en = {
                   text: 'Download the Statement of service (form C9)',
                 },
                 {
-                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'application' }),
                   text: 'Upload the statement of service(form C9)',
                 },
               ],
@@ -1200,7 +1201,7 @@ const cy: typeof en = {
                   text: 'Download the Statement of service (form FL415)',
                 },
                 {
-                  href: `${APPLICANT_STATEMENT_OF_SERVICE}`,
+                  href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'application' }),
                   text: 'Upload the statement of service (form FL415)',
                 },
               ],

@@ -24,20 +24,13 @@ export default class StatementOfServicePostController extends PostController<Any
 
     if (onlyContinue) {
       req.session.errors = form.getErrors(formData);
-      if (req.session.errors && req.session.errors.length > 0) {
-        console.log('Errrors exist');
-        req.session.errors.push({
-          propertyName: 'document',
-          errorType: 'required',
-        });
+      if (req.session.errors.length > 0) {
         return super.redirect(req, res);
       }
     }
-    console.log('Errrors no exist');
     const { user, userCase } = req.session;
     const partyDetails = getPartyDetails(userCase, user.id);
     const client = new CosApiClient(user.accessToken, req.locals.logger);
-    console.log(client);
     if (partyDetails) {
       const userData = prepateStatementOfServiceRequest(req);
       req.session.userCase.applicantUploadFiles = undefined;
@@ -50,12 +43,8 @@ export default class StatementOfServicePostController extends PostController<Any
           userData,
           CaseEvent.CITIZEN_CASE_UPDATE
         );
-        console.log(JSON.stringify(userData));
-        console.log('** User case **' + JSON.stringify(userCase.partiesServed));
-        console.log('** User case **' + JSON.stringify(userCase.partiesServedDate));
         req.session.save(() => res.redirect(APPLICANT_STATEMENT_OF_SERVICE_NEXT));
       } catch (error) {
-        console.log('error', error);
         throw new Error('SOS - Case could not be updated.');
       }
     } else {

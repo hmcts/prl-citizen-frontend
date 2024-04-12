@@ -34,7 +34,7 @@ export const en = {
     partiesServed: {
       required: 'You must select a respondent',
     },
-    document: {
+    documents: {
       required: 'You must upload a statement of service',
       multipleFiles: `You can upload only one file.
             If you wish to upload a new file, delete the existing
@@ -69,7 +69,7 @@ export const cy = {
     partiesServed: {
       required: "Mae'n rhaid i chi ddewis atebydd",
     },
-    document: {
+    documents: {
       required: "Mae'n rhaid i chi lwytho datganiad cyflwyno",
       multipleFiles:
         "Dim ond un ffeil y gallwch ei llwytho. Os ydych yn dymuno llwytho ffeil newydd, dylech ddileu'r ffeil bresennol a llwytho un newydd.",
@@ -187,6 +187,7 @@ export const prepateStatementOfServiceRequest = (req: AppRequest<AnyObject>): Ci
       '-' +
       userCase['partiesServedDate-day'],
     citizenSosDocs: userCase.statementOfServiceDocument,
+    isOrder: 'order' === req.params.context ? 'Yes' : 'No',
   };
 };
 

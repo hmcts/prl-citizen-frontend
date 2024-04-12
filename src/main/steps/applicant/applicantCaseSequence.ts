@@ -1,5 +1,6 @@
-import { Case } from '../../app/case/case';
+import { Case, CaseWithId } from '../../app/case/case';
 import { CaseType } from '../../app/case/definition';
+import { applyParms } from '../../steps/common/url-parser';
 import { Sections, Step } from '../constants';
 import {
   ALLEGATION_OF_HARM_VOILENCE_DOC,
@@ -80,6 +81,8 @@ import {
   APPLICANT_STATEMENT_OF_SERVICE_NEXT,
   APPLICANT_STATEMENT_OF_SERVICE_SUMMARY,
   APPLICANT_TASKLIST_HEARING_NEEDS,
+  FETCH_CASE_DETAILS,
+  PageLink,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -586,21 +589,23 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_TASK_LIST_URL,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_STATEMENT_OF_SERVICE,
+    getNextStep: (data: Partial<CaseWithId>, req) =>
+      applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: req!.params.context }) as PageLink,
   },
   {
     url: APPLICANT_STATEMENT_OF_SERVICE,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_STATEMENT_OF_SERVICE_SUMMARY,
+    getNextStep: (data: Partial<CaseWithId>, req) =>
+      applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req!.params.context }) as PageLink,
   },
   {
-    url: APPLICANT_STATEMENT_OF_SERVICE_SUMMARY,
+    url: `${APPLICANT_STATEMENT_OF_SERVICE_SUMMARY}`,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_STATEMENT_OF_SERVICE_NEXT,
   },
   {
     url: APPLICANT_STATEMENT_OF_SERVICE_NEXT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: (caseData: Partial<CaseWithId>) => applyParms(FETCH_CASE_DETAILS, { caseId: caseData.id! }) as PageLink,
   },
 ];

@@ -592,6 +592,7 @@ export interface Case {
   withdrawApplicationReason?: string;
   partiesServed?: string[];
   partiesServedDate?: string;
+  sosContent?: string;
   statementOfServiceDocument?: Document;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;

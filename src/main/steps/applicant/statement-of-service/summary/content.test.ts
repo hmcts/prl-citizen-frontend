@@ -20,7 +20,11 @@ const en = {
   confirmation:
     'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
   consent: 'I believe that the facts stated in this application are true',
-  errors: {},
+  errors: {
+    sosConsent: {
+      required: 'Please tick the checkbox',
+    },
+  },
 };
 
 const cy = {
@@ -39,7 +43,11 @@ const cy = {
   confirmation:
     'Mae hyn yn cadarnhau bod yr wybodaeth yr ydych yn ei chyflwyno yn wir ac yn gywir, hyd eithaf eich gwybodaeth.',
   consent: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir.',
-  errors: {},
+  errors: {
+    sosConsent: {
+      required: 'Dewiswch os ydych yn credu fod y ffeithiau a nodir yn y cais hwn yn wir',
+    },
+  },
 };
 
 jest.mock('../../../../app/form/validation');

@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import type { Response } from 'express';
 
+import { applyParms } from '../../steps/common/url-parser';
 import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
 import {
   APPLICANT,
@@ -604,7 +605,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       }
       req.session.errors?.push({ errorType: 'Document could not be deleted', propertyName: 'uploadFiles' });
     }
-    this.redirect(req, res, APPLICANT_STATEMENT_OF_SERVICE);
+    this.redirect(req, res, applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: req.params.context }));
   }
 
   private setRedirectUrl(isApplicant, req: AppRequest<Partial<CaseWithId>>) {
@@ -740,7 +741,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
     const citizenDocumentListFromCos = await client.UploadDocumentToCdam(uploadRequest);
     if (citizenDocumentListFromCos.status !== 200) {
-      req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'uploadFiles' });
+      req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'documents' });
     } else {
       const obj = {
         id: citizenDocumentListFromCos.document?.document_url.split('/').pop() as string,
@@ -750,11 +751,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
       req.session.userCase.statementOfServiceDocument = citizenDocumentListFromCos.document;
       req.session.errors = [];
     }
-    if (req.query && req.query.isSos) {
-      this.redirect(req, res, APPLICANT_STATEMENT_OF_SERVICE);
-    } else {
-      this.redirect(req, res, this.setRedirectUrl(YesOrNo.YES, req));
-    }
+    this.redirect(req, res, applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: req.params.context }));
   }
 
   public async clearUploadDocumentFormData(req: AppRequest<AnyObject>, res: Response): Promise<void> {
