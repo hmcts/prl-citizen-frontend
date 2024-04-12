@@ -1,45 +1,50 @@
 {% extends "common/template.njk" %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% block pageTitle %}
+  {{ pageTitle }}
+  {{ appName }}
+{% endblock %}
 
 {% block page_content %}
-  <div class="govuk-notification-banner govuk-notification-banner--success govuk-!-margin-bottom-29" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
-    <div class="govuk-notification-banner__header">
-      <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-        {{sucess}}
-      </h2>
-    </div>
-    <div class="govuk-notification-banner__content">
-      <h2 class="govuk-notification-banner__heading">
-        {{status}}
-      </h2>
-    </div>
-  </div>
-  <div class="uploadedfiles govuk-!-margin-bottom-3" style=" display: inline-block">
+  {% block backLink %}{% endblock %}
 
-    <h2 class="govuk-heading-s{% if userCase.applicantUploadFiles.length==0 %} hidden{% endif %}">{{documentDetails}}{{caption}}</h2>
-    <ul id="filesUploadedList" class="govuk-list">
-      <dl class="govuk-summary-list">
-        {% for file in userCase.applicantUploadFiles %}
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__value">
-              {{ file.name }}
-            </dt>
+  {{ govukPanel({
+    titleText: pageTitle
+}) }}
 
-          </div>
-        {% endfor %}
-      </dl>
-    </ul>
-  </div>
+  {% if haveReasonForDocNotToBeShared === "No" %}
+    {% set html %}
+    <h2 class="govuk-notification-banner__heading">{{ bannerTitle }}</h2>
+    {% for paragraph in paragraphs %}
+      <p class="govuk-body">{{ paragraph | safe }}</p>
+    {% endfor %}
+    {% endset %}
+    {{ govukNotificationBanner({
+  titleText: bannerHeading,
+  html:html
+}) }}
+  {% else %}
+    <div class="govuk-!-margin-top-6 govuk-!-margin-bottom-6">
+      <h2 class="govuk-heading-m">{{whatHappensNext}}</h2>
+      {% if hasConfidentialDetails %}
+        <p class="govuk-body-m">{{accessToCourtOnly}}</p>
+      {% else %}
+        <p class="govuk-body-m">{{courtWillMakeDecisions}}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
   <div class="govuk-button-group">
-    <form action="/document-manager/clearUploadDocumentFormData?_csrf={{ csrfToken }}&isApplicant=Yes" method="post">
-      <input type="hidden" name="answers-checked" value="true">
-      <button class="govuk-button govuk-button--secondary" data-module="govuk-button" value="Save and come back later">{{uploadAgain}}</button>
+    <form action="/document-manager/redirectToCaseView?_csrf={{ csrfToken }}" method="post" novalidate="">
+      <button class="govuk-button" data-module="govuk-button" value="Continue">
+        {{ continue }}
+      </button>
     </form>
-    <form action="/document-manager/clearUploadDocumentFormData?_csrf={{ csrfToken }}&isApplicant=Yes&isContinue=Yes" method="post" novalidate="">
-
-              <button class="govuk-button" data-module="govuk-button" value="Continue">
-                {{continue}}
-              </button>
-
-            </form>
+    <form action="/document-manager/redirectToUploadDocument?_csrf={{ csrfToken }}" method="post">
+      <input type="hidden" name="answers-checked" value="true">
+      <button class="govuk-button govuk-button--secondary" data-module="govuk-button">{{ uploadAgain }}</button>
+    </form>
   </div>
 {% endblock %}

@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
+import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
 import { CaseDate, FieldPrefix } from './case';
 
 export interface ChildDetails {
@@ -215,12 +216,11 @@ export interface OtherProceedingDetails {
   orderDocument?: Document;
 }
 export interface CitizenFlags {
-  isApplicationViewed?: string;
-  isAllegationOfHarmViewed?: string;
-  isAllDocumentsViewed?: string;
-  isResponseInitiated?: string;
-  isApplicationToBeServed?: string;
-  isOrderPersonallyServed?: string;
+  isApplicationViewed?: string,
+  isAllegationOfHarmViewed?: string
+  isResponseInitiated?: string
+  isApplicationToBeServed?: string
+  isOrderPersonallyServed?: string
 }
 
 export const enum DownloadFileFieldFlag {
@@ -1006,6 +1006,9 @@ export interface CaseData {
   draftOrderDoc?: Document;
   soaCafcassServedOptions?: YesOrNo | null;
   soaCafcassCymruServedOptions? : YesOrNo | null;
+  citizenDocuments?: CitizenDocuments[];
+  citizenOrders?: CitizenDocuments[];
+  citizenApplicationPacks?: CitizenApplicationPacks[];
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -1623,7 +1626,8 @@ export const enum SectionStatus {
   VIEW = 'VIEW',
   NOT_STARTED = 'NOT_STARTED',
   READY_TO_VIEW = "READY_TO_VIEW",
-  NOT_AVAILABLE_YET = "NOT_AVAILABLE_YET"
+  NOT_AVAILABLE_YET = "NOT_AVAILABLE_YET",
+  OPTIONAL = "OPTIONAL"
 }
 
 export const enum AlternativeServiceMediumType {
@@ -1661,7 +1665,8 @@ export const enum EventRoutesContext {
   SAFETY_CONCERNS_RESPONSE = "SAFETY_CONCERNS_RESPONSE",
   INTERNATIONAL_FACTORS_RESPONSE = "INTERNATIONAL_FACTORS_RESPONSE",
   SUPPORT_DURING_CASE = "SUPPORT_DURING_CASE",
-  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO"
+  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO",
+  VIEW_ALL_DOCUMENTS = 'VIEW_ALL_DOCUMENTS'
 }
 
 export const enum ClarificationReason {
@@ -3125,22 +3130,32 @@ export enum passportPossessionRelative {
   OTHER = 'otherPerson'
 }
 
+export enum DocCategory{
+WITNESS_STATEMENT = 'witnessstatements',
+APPLICATIONS = 'applications',
+EXPERT_REPORTS = 'expertreports',
+OTHER_DOCUMENTS = 'otherdocuments',
+}
+
 export enum DocType {
-  POSITION_STATEMENTS = 'positionstatements',
-  YOUR_WITNESS_STATEMENTS = 'yourwitnessstatements',
-  LETTERS_FROM_SCHOOL = 'lettersfromschool',
-  DIGITAL_DOWNLOADS = 'digitaldownloads',
-  MEDICAL_RECORDS = 'medicalrecords',
-  PATERNITY_TEST_REPORTS = 'paternitytestreports',
-  DRUG_ALCOHOL_TESTS = 'drugalcoholtests',
-  POLICE_REPORTS = 'policedisclosures',
-  WITNESS_AVAILABILITY = 'witnessavailability',
-  TENANCY_AND_MORTGAGE_AVAILABILITY = 'tenancyandmortgageavailability',
-  MEDICAL_REPORTS = 'medicalreports',
-  OTHER_DOCUMENTS = 'otherDocuments',
-  PREVIOUS_ORDERS = 'previousorders',
-  OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
-  MIAM_CERTIFICATE = 'miamcertificate',
+POSITION_STATEMENTS ='positionstatements',
+YOUR_WITNESS_STATEMENTS = 'yourwitnessstatements',
+LETTERS_FROM_SCHOOL = 'lettersfromschool',
+DIGITAL_DOWNLOADS = 'digitaldownloads',
+MEDIA_FILES = 'mediafiles',
+MEDICAL_RECORDS = 'medicalrecords',
+PATERNITY_TEST_REPORTS = 'paternitytestreports',
+DRUG_ALCOHOL_TESTS = 'drugalcoholtests',
+POLICE_REPORTS = 'policedisclosures',
+WITNESS_AVAILABILITY = 'witnessavailability',
+TENANCY_AND_MORTGAGE_AVAILABILITY = 'tenancyandmortgageavailability',
+MEDICAL_REPORTS = 'medicalreports',
+OTHER_DOCUMENTS = 'otherdocuments',
+PREVIOUS_ORDERS = 'previousorders',
+OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
+MIAM_CERTIFICATE = 'miamcertificate',
+RESPONSE_TO_CA = 'responsetoca',
+AOH_TO_CA = 'aohtoca'
 }
 
 export interface PaymentError {

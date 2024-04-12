@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
@@ -78,6 +79,7 @@ import {
   PRL_C1AAbuseTypes,
   applicantContactPreferencesEnum,
   RespondentDocs,
+  DocumentUploadResponse,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -227,6 +229,9 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   draftOrderDoc: 'draftOrderDoc',
   isCafcassServed: 'soaCafcassServedOptions',
   isCafcassCymruServed: 'soaCafcassCymruServedOptions',
+  citizenDocuments: 'citizenDocuments',
+  citizenOrders: 'citizenOrders',
+  citizenApplicationPacks: 'citizenApplicationPacks',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -376,14 +381,19 @@ export interface Case {
   yourchildconcernsstart?: YesOrNo;
   cameoutofallegationsharmwithNo?: boolean;
   //applicant1CannotUploadDocuments?: DocumentType[];
+  hasCourtAskedForThisDoc?: YesOrNo;
+  reasonForDocumentCantBeShared?: string;
+  haveReasonForDocNotToBeShared?: YesOrNo;
+  reasonsToNotSeeTheDocument?: string[];
+  reasonsToRestrictDocument?: string;
   documentText?: string;
-  applicantUploadFiles?: UploadedFile[];
+  applicantUploadFiles?: DocumentUploadResponse['document'][];
   declarationCheck?: string;
   finalDocument?: Document;
   fl401UploadWitnessDocuments?: DocumentCollection[];
   citizenUploadedDocumentList?: UploadDocumentList[];
   /*** Document upload */
-  respondentUploadFiles?: UploadedFile[];
+  respondentUploadFiles?: DocumentUploadResponse['document'][];
   proceedingsCourtCase?: string;
   proceedingsStart?: YesOrNo;
   proceedingsCourtOrder?: string;
@@ -596,6 +606,9 @@ export interface Case {
   statementOfServiceDocument?: Document;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
+  citizenDocuments?: CitizenDocuments[];
+  citizenOrders?: Record<string, any>[];
+  citizenApplicationPacks?: CitizenApplicationPacks[];
 }
 export interface CaseWithId extends Case {
   paymentSuccessDetails?: {

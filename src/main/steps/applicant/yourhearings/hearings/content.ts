@@ -1,12 +1,11 @@
-import { CaseType, HearingOrders, PartyType } from '../../../../app/case/definition';
+import { CaseType, HearingOrders } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { applyParms } from '../../../../steps/common/url-parser';
-import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import {
   APPLICANT_ATTENDING_THE_COURT,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASKLIST_HEARING_NEEDS,
-  PARTY_TASKLIST,
+  FETCH_CASE_DETAILS,
 } from '../../../../steps/urls';
 import { generateContent as yourhearingshearingscontent } from '../../../common/yourhearings/hearings/content';
 
@@ -38,12 +37,11 @@ export const generateContent: TranslationFn = content => {
   return {
     ...hearingsContent,
     hearingOrders,
-    breadcrumb:
-      request.originalUrl.includes(PartyType.APPLICANT) && caseData.caseTypeOfApplication === CaseType.C100
-        ? {
-            id: 'caseOverView',
-            href: applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData, request.session.user.id) }),
-          }
-        : null,
+    breadcrumbs: [
+      {
+        id: 'caseView',
+        href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData?.id }),
+      },
+    ],
   };
 };

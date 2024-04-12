@@ -22,6 +22,7 @@ export interface Step {
   getController?: any;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   postController?: any;
+  subDir?: string;
   sanitizeQueryString?: (fromurl: string, toUrl: string, queryString: Record<string, string>) => Record<string, string>;
 }
 
@@ -37,7 +38,11 @@ export const URL_PATTERN_INTERNATIONAL_FACTORS = 'international-factors';
 export const EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement';
 
 export const EVENT_RESPONDENT_MIAM = 'respondentMiam';
-export const UPDATE_CASE_YES = '?updateCase=Yes';
+
+export const VIEW_DOC_URL_START = 'doc';
+export const CA_DA_REQUEST = 'cadafinaldocumentrequest';
+export const AOH_VIOLENCE = 'aohviolence';
+export const UPDATE_CASE = 'update-case';
 
 export const ordinalNumberMapEn = new Map<number, string>([
   [1, 'First'],

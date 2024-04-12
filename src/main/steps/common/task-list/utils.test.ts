@@ -1,6 +1,6 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { CaseWithId } from '../../../app/case/case';
-import { CaseType, PartyType, State, YesOrNo } from '../../../app/case/definition';
+import { Applicant, CaseType, PartyType, State, YesOrNo } from '../../../app/case/definition';
 
 import { getPartyName, isApplicationResponded, isCaseServed, isCaseWithdrawn, keepDetailsPrivateNav } from './utils';
 
@@ -105,6 +105,36 @@ describe('testcase for partyname', () => {
 
     expect(getPartyName(data, party, userDetail)).toBe('John Smith');
   });
+
+  test('when party type c100-applicant and ids match', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SUBMITTED_PAID,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: [
+        {
+          value: {
+            firstName: 'First',
+            lastName: 'Last',
+            user: {
+              idamId: '12345',
+            },
+          },
+        } as unknown as Applicant,
+      ],
+    };
+    const party = PartyType.APPLICANT;
+    const userDetail = {
+      accessToken: '1234',
+      id: '12345',
+      email: 'abc',
+      givenName: 'John',
+      familyName: 'Smith',
+    };
+
+    expect(getPartyName(data, party, userDetail)).toBe('First Last');
+  });
+
   test('when party type FL401-respondent', () => {
     const data = {
       id: '12',

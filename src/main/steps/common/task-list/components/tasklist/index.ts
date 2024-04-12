@@ -1,10 +1,11 @@
 import _ from 'lodash';
 
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, PartyType } from '../../../../../app/case/definition';
+import { CaseType, DocType, PartyType } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { interpolate } from '../../../../../steps/common/string-parser';
-import { TASKLIST_RESPONSE_TO_CA } from '../../../../../steps/urls';
+import { applyParms } from '../../../../../steps/common/url-parser';
+import { VIEW_DOCUMENT_URL } from '../../../../../steps/urls';
 import {
   HintConfig,
   HyperLinkConfig,
@@ -184,8 +185,11 @@ export const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content:
       }),
       href: () => {
         const respondentName = respondent.value.firstName + ' ' + respondent.value.lastName;
-        //TODO change to use url parameter when citizen document upload changes are merged
-        return `${TASKLIST_RESPONSE_TO_CA}?name=${respondentName}`;
+        return applyParms(VIEW_DOCUMENT_URL, {
+          docType: DocType.RESPONSE_TO_CA,
+          uploadedBy: PartyType.RESPONDENT,
+          partyName: respondentName,
+        });
       },
       stateTag: () => {
         return isResponsePresent(caseData, respondent) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;

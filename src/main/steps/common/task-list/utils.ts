@@ -18,7 +18,10 @@ export const getPartyName = (
   if (caseData) {
     if (caseData.caseTypeOfApplication === CaseType.C100) {
       if (partyType === PartyType.APPLICANT) {
-        partyDetails = { firstName: userDetails.givenName, lastName: userDetails.familyName };
+        partyDetails = caseData?.applicants?.find(party => party.value.user.idamId === userDetails.id) ?? {
+          firstName: userDetails.givenName,
+          lastName: userDetails.familyName,
+        };
       } else {
         partyDetails = caseData?.respondents?.find(party => party.value.user.idamId === userDetails.id)?.value;
       }
@@ -28,6 +31,11 @@ export const getPartyName = (
   } else {
     partyDetails = { firstName: userDetails.givenName, lastName: userDetails.familyName };
   }
+
+  if (partyDetails?.value) {
+    partyDetails = partyDetails.value;
+  }
+
   return partyDetails ? `${partyDetails.firstName} ${partyDetails.lastName}` : '';
 };
 
@@ -48,8 +56,11 @@ export const isCaseWithdrawn = (caseData: Partial<CaseWithId>): boolean => {
   }
 };
 
-export const isCaseLinked = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean =>
-  !!(caseData && caseData?.applicants?.find(applicant => applicant.value.user.idamId === userDetails.id));
+export const isCaseLinked = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+  const partyDetails = getPartyDetails(caseData as CaseWithId, userDetails.id);
+
+  return !!(partyDetails && partyDetails.user.idamId === userDetails.id);
+};
 
 export const isCaseClosed = (caseData: Partial<CaseWithId>): boolean =>
   !!(caseData && [State.CASE_WITHDRAWN, State.CASE_CLOSED].includes(caseData.state!));

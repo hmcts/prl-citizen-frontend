@@ -29,7 +29,7 @@
 {% macro taskListSection(section, index) %}
   <li>
     <h2 class="app-task-list__section">
-      <span class="app-task-list__section-number"></span>{{section.title}}
+      {{section.title}}
     </h2>
     <ul class="app-task-list__items">
       {% for item in section.items %}
@@ -45,24 +45,26 @@
 
     <div class="govuk-grid-column-two-thirds">
       {{appBreadcrumb(breadcrumbs)}}
-      <h1 class="govuk-heading-xl">
+      <h1 class="govuk-heading-xl govuk-!-margin-bottom-5">
+         <span class="govuk-caption-l">{{ section }}</span>
         {{title}}
       </h1>
 
-  <div class="govuk-form-group">
-  
-    <fieldset class="govuk-fieldset">
-      <p class="govuk-body">{{userName}}</p>
-      <p class="govuk-body">{{caseNumber}}{{userCase.id}}</p>
-    </fieldset>
-    
-  </div>
+      <hr class="govuk-section-break govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-5">
+      <p class="govuk-body govuk-!-margin-bottom-8">{{note}}</p>
 
       <ol class="app-task-list">
         {% for section in sections %}
           {{ taskListSection(section, loop.index) }}
         {% endfor %}
       </ol>
+      <div class="govuk-button-group">
+        <form action="/document-manager/redirectToCaseView?_csrf={{ csrfToken }}" method="post" novalidate="">
+          <button class="govuk-button" data-module="govuk-button" value="Continue">
+            {{ continue }}
+          </button>
+        </form>
+      </div>
     </div>
     <div class="govuk-grid-column-one-third">
         {%if userCase.caseTypeOfApplication === "FL401" %}

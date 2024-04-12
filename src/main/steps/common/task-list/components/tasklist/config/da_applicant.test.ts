@@ -45,9 +45,11 @@ describe('da_applicant', () => {
     const yourDocumentsTasks = DA_APPLICANT[3].tasks(data, {} as SectionContent);
 
     expect(DA_APPLICANT[3].id).toBe('yourDocuments');
-    expect(yourDocumentsTasks).toHaveLength(2);
+    expect(yourDocumentsTasks).toHaveLength(4);
     expect(yourDocumentsTasks[0].id).toBe('uploadDocuments');
     expect(yourDocumentsTasks[1].id).toBe('viewAllDocuments');
+    expect(yourDocumentsTasks[2].id).toBe('uploadDocuments');
+    expect(yourDocumentsTasks[3].id).toBe('viewAllDocuments');
   });
 
   test('your orders section should contain correct ids and tasks', () => {

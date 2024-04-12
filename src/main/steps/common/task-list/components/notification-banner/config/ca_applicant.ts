@@ -8,19 +8,6 @@ import { BannerNotification, isApplicantLIPServingRespondent, isPrimaryApplicant
 
 export const CA_APPLICANT: NotificationBannerProps[] = [
   {
-    ...notificationBanner[BannerNotification.NEW_DOCUMENT],
-    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-      return (
-        caseData &&
-        !!caseData?.applicants?.find(
-          applicant =>
-            applicant?.value?.user?.idamId === userDetails.id &&
-            applicant?.value.response?.citizenFlags?.isAllDocumentsViewed === YesOrNo.NO
-        )
-      );
-    },
-  },
-  {
     ...notificationBanner[BannerNotification.APPLICATION_NOT_STARTED],
     show: (caseData: Partial<CaseWithId>): boolean => {
       return !caseData;
@@ -68,7 +55,11 @@ export const CA_APPLICANT: NotificationBannerProps[] = [
   {
     ...notificationBanner[BannerNotification.APPLICATION_SERVED_LINKED],
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-      return caseData?.state === State.CASE_SERVED && isCaseLinked(caseData, userDetails);
+      return (
+        caseData?.state === State.CASE_SERVED &&
+        isCaseLinked(caseData, userDetails) &&
+        !isApplicantLIPServingRespondent(caseData)
+      );
     },
   },
   {

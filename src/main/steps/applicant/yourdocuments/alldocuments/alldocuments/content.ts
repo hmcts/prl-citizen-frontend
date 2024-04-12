@@ -1,4 +1,3 @@
-import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../../../steps/urls';
@@ -44,13 +43,12 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    breadcrumb:
-      request.originalUrl.includes(PartyType.APPLICANT) && caseData?.caseTypeOfApplication === CaseType.C100
-        ? {
-            id: 'caseView',
-            href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData.id }),
-          }
-        : null,
+    breadcrumbs: [
+      {
+        id: 'caseView',
+        href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData.id }),
+      },
+    ],
     sections: generateApplicantTaskListAllDocuments(
       translations.sectionTitles,
       translations.taskListItems,

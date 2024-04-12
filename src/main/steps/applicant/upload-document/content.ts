@@ -1,4 +1,3 @@
-import { CaseType, PartyType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { applyParms } from '../../../steps/common/url-parser';
 import * as URL from '../../urls';
@@ -7,12 +6,15 @@ import { document_list_cy, document_list_en } from './section-titles';
 import { documents_list_items_cy, documents_list_items_en } from './upload-document-list-items';
 import { generateUploadDocumentList } from './upload-documents-list';
 
+export * from './routeGuard';
+
 const en = () => ({
   section: 'Upload documents',
   caseNumber: 'Case Number ',
   title: 'Select the type of document',
   userName: '',
-  line1: 'If the court has asked you to submit further evidence, you can upload documents here.',
+  note: 'The court will tell you in a letter or email which documents or materials you need to submit.',
+  continue: 'Close and return to case overview',
   sectionTitles: document_list_en,
   documentsListItems: documents_list_items_en,
 });
@@ -21,7 +23,8 @@ const cy = () => ({
   section: 'Llwytho dogfennau',
   caseNumber: 'Rhif yr achos ',
   title: 'Dewiswch y math o ddogfen',
-  line1: 'Os yw’r llys wedi gofyn i chi gyflwyno tystiolaeth bellach, gallwch lwytho dogfennau yma.',
+  note: 'Bydd y llys yn dweud wrthych mewn llythyr neu e-bost pa ddogfennau neu ddeunydd y mae angen i chi eu cyflwyno',
+  continue: 'Cau a dychwelyd i drosolwg o’r achos',
   sectionTitles: document_list_cy,
   userName: '',
   documentsListItems: documents_list_items_cy,
@@ -42,17 +45,16 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    breadcrumb:
-      request.originalUrl.includes(PartyType.APPLICANT) && caseData?.caseTypeOfApplication === CaseType.C100
-        ? {
-            id: 'caseView',
-            href: applyParms(`${URL.FETCH_CASE_DETAILS}`, { caseId: caseData.id }),
-          }
-        : null,
+    breadcrumbs: [
+      {
+        id: 'caseView',
+        href: applyParms(`${URL.FETCH_CASE_DETAILS}`, { caseId: caseData.id }),
+      },
+    ],
     sections: generateUploadDocumentList(
       translations.sectionTitles,
       translations.documentsListItems,
-      URL.APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL
+      URL.APPLICANT_UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT
     ),
   };
 };

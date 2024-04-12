@@ -4,7 +4,7 @@ import { Application } from 'express';
 
 import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
 import { FieldPrefix } from './app/case/case';
-import { Environment, EventRoutesContext } from './app/case/definition';
+import { EventRoutesContext } from './app/case/definition';
 import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -57,7 +57,6 @@ import {
   APPLICANT_MIAM_CERTIFICATE,
   APPLICANT_ORDERS_FROM_THE_COURT,
   APPLICANT_TASK_LIST_URL,
-  APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   CA_RESPONDENT_GENERATE_C7_DRAFT,
   CA_RESPONDENT_GENERATE_C7_Final,
@@ -86,7 +85,6 @@ import {
   RESPONDENT_KEEP_DETAILS_PRIVATE_SAVE,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_TASK_LIST_URL,
-  RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER,
   RESPOND_TO_APPLICATION,
   SAVE_AND_SIGN_OUT,
   TERMS_AND_CONDITIONS,
@@ -128,6 +126,7 @@ import {
   RESPONSE_TO_CA,
   AOH_TO_CA,
   VIEW_DOCUMENT_URL,
+  LOCAL_API_SESSION,
   TASKLIST_RESPONSE_TO_CA,
   UPLOAD_DOCUMENT_TO_CDAM,
   //C100_DOCUMENT_SUBMISSION,
@@ -198,16 +197,8 @@ export class Routes {
     app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new CaseDetailsGetController().get));
 
     app.get(
-      `${RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
-      errorHandler(new ViewAllDocumentsPostController().setAllDocumentsViewed)
-    );
-    app.get(
       `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
       errorHandler(new ViewAllDocumentsPostController().setResponseInitiatedFlag)
-    );
-    app.get(
-      `${APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER}`,
-      errorHandler(new ViewAllDocumentsPostController().setAllDocumentsViewed)
     );
 
     // Common get controller for tasklist response events
@@ -269,29 +260,27 @@ export class Routes {
         );
 
         const documentManagerController = new DocumentManagerController(step.form.fields);
-        app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
+        app.post(`${DOCUMENT_MANAGER}/upload-document`, errorHandler(documentManagerController.uploadDocument));
+        app.post(`${DOCUMENT_MANAGER}/redirectToCaseView`, errorHandler(documentManagerController.redirectToCaseView));
+        app.post(
+          `${DOCUMENT_MANAGER}/redirectToUploadDocument`,
+          errorHandler(documentManagerController.redirectToUploadDocument)
+        );
         app.post(UPLOAD_DOCUMENT_TO_CDAM, errorHandler(documentManagerController.uploadDocumentToCdam));
         app.get(
-          `${DOCUMENT_MANAGER}/deleteDocument/:documentId`,
+          `${DOCUMENT_MANAGER}/delete-document/:documentId`,
           errorHandler(documentManagerController.deleteDocument)
         );
-        app.get(
-          `${DOCUMENT_MANAGER}/:documentId/delete`,
-          errorHandler(documentManagerController.deleteDocumentFromCdam)
-        );
-        app.post(`${DOCUMENT_MANAGER}/generatePdf`, errorHandler(documentManagerController.generatePdf));
+        app.get(`${DOCUMENT_MANAGER}/:documentId/delete`,
+                  errorHandler(documentManagerController.deleteDocumentFromCdam)
+                );
+        app.post(`${DOCUMENT_MANAGER}/generate-document`, errorHandler(documentManagerController.generateDocument));
         app.get(`${CA_RESPONDENT_GENERATE_C7_Final}`, errorHandler(documentManagerController.get));
-        app.post(
-          `${DOCUMENT_MANAGER}/clearUploadDocumentFormData`,
-          errorHandler(documentManagerController.clearUploadDocumentFormData)
-        );
         app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));
         app.get(YOUR_APPLICATION_WITNESS_STATEMENT, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT}${APPLICANT_CA_DA_REQUEST}`, errorHandler(documentManagerController.get));
         app.get(APPLICANT_CA_DA_REQUEST, errorHandler(documentManagerController.get));
         app.get(RESPONSE_TO_CA, errorHandler(documentManagerController.get));
-        //TODO remove TASKLIST_RESPONSE_TO_CA when citizen document upload changes are merged
-        app.get(TASKLIST_RESPONSE_TO_CA, errorHandler(documentManagerController.get));
         app.get(AOH_TO_CA, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
@@ -379,11 +368,9 @@ export class Routes {
      */
     app.get(PAYMENT_GATEWAY_ENTRY_URL, errorHandler(PaymentHandler));
     app.get(PAYMENT_RETURN_URL_CALLBACK, errorHandler(PaymentValidationHandler));
-    if (app.locals.ENV !== Environment.PRODUCTION) {
-      app.get('/api/v1/session', (req, res) => {
-        res.json(req.session);
-      });
-    }
+    app.get(LOCAL_API_SESSION, (req, res) => {
+      res.json(req.session);
+    });
   }
 
   private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {

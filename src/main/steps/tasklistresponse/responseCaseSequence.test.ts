@@ -148,17 +148,29 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[31].url).toBe('/respondent/upload-document');
     expect(responseCaseSequence[31].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[31].getNextStep({})).toBe('/respondent/upload-document/start');
+    expect(responseCaseSequence[31].getNextStep({})).toBe(
+      '/respondent/upload-document/has-the-court-asked-for-this-documents/:docCategory/:docType'
+    );
 
-    expect(responseCaseSequence[32].url).toBe('/respondent/upload-document/start');
+    expect(responseCaseSequence[32].url).toBe(
+      '/respondent/upload-document/has-the-court-asked-for-this-documents/:docCategory/:docType'
+    );
     expect(responseCaseSequence[32].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[32].getNextStep({})).toBe('/respondent/upload-document/document-sharing-details');
+    expect(responseCaseSequence[32].getNextStep({})).toBe(
+      '/respondent/upload-document/document-sharing-details/:docCategory/:docType'
+    );
 
-    expect(responseCaseSequence[33].url).toBe('/respondent/upload-document/document-sharing-details');
+    expect(responseCaseSequence[33].url).toBe(
+      '/respondent/upload-document/document-sharing-details/:docCategory/:docType'
+    );
     expect(responseCaseSequence[33].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[33].getNextStep({})).toBe('/respondent/upload-document/upload-your-documents');
+    expect(responseCaseSequence[33].getNextStep({})).toBe(
+      '/respondent/upload-document/upload-your-documents/:docCategory/:docType'
+    );
 
-    expect(responseCaseSequence[34].url).toBe('/respondent/upload-document/upload-your-documents');
+    expect(responseCaseSequence[34].url).toBe(
+      '/respondent/upload-document/upload-your-documents/:docCategory/:docType'
+    );
     expect(responseCaseSequence[34].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[34].getNextStep({})).toBe('/respondent/upload-document/upload-documents-success');
 

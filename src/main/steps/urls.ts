@@ -61,20 +61,24 @@ export const PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/
 /* Respondent-start */
 export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
 
-/* Applicant Upload document start */
+/* Applicant Upload document */
 export const APPLICANT_UPLOAD_DOCUMENT_LIST_URL: PageLink = '/applicant/upload-document';
-export const APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/start`;
-export const APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details`;
-export const APPLICANT_UPLOAD_DOCUMENT: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/upload-your-documents`;
+export const APPLICANT_UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/has-the-court-asked-for-this-documents/:docCategory/:docType`;
+export const APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details/:docCategory/:docType`;
+export const APPLICANT_UPLOAD_DOCUMENT: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/upload-your-documents/:docCategory/:docType`;
 export const APPLICANT_UPLOAD_DOCUMENT_SUCCESS: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success`;
-/* Applicant Upload document end */
-/* Respondent Upload document start */
+export const APPLICANT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/sharing-your-documents/:docCategory/:docType`;
+export const APPLICANT_UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/other-party-not-see-this-document/:docCategory/:docType`;
+export const APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/submit-extra-evidence`;
+/* Respondent Upload document */
 export const RESPONDENT_UPLOAD_DOCUMENT_LIST_URL: PageLink = '/respondent/upload-document';
-export const RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/start`;
-export const RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details`;
-export const RESPONDENT_UPLOAD_DOCUMENT: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/upload-your-documents`;
+export const RESPONDENT_UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/has-the-court-asked-for-this-documents/:docCategory/:docType`;
+export const RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details/:docCategory/:docType`;
+export const RESPONDENT_UPLOAD_DOCUMENT: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/upload-your-documents/:docCategory/:docType`;
 export const RESPONDENT_UPLOAD_DOCUMENT_SUCCESS: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success`;
-/* Respondent Upload document end */
+export const RESPONDENT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/sharing-your-documents/:docCategory/:docType`;
+export const RESPONDENT_UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/other-party-not-see-this-document/:docCategory/:docType`;
+export const RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/submit-extra-evidence`;
 /* respondent-keep-details-private */
 export const RESPONDENT_KEEP_DETAILS_PRIVATE: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}`;
 export const RESPONDENT_DETAILS_KNOWN: PageLink = `${RESPONDENT}${DETAILS_KNOWN}`;
@@ -231,9 +235,26 @@ export const YOUR_APPLICATION_WITNESS_STATEMENT: PageLink = `${APPLICANT}${APPLI
 export const VIEW_ALL_DOCUMENTS: PageLink = '/yourdocuments/alldocuments';
 export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
 export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
-export const RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER: PageLink = `${RESPONDENT_VIEW_ALL_DOCUMENTS}/allDocumentsViewed`;
-export const APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER: PageLink = `${APPLICANT_VIEW_ALL_DOCUMENTS}/allDocumentsViewed`;
 export const VIEW_DOCUMENT_URL = '/doc/:docType/:uploadedBy/:partyName?';
+
+/** Documents */
+const DOCUMENTS = '/:partyType/documents';
+
+/** View all documents */
+export const VIEW_ALL_DOCUMENT_TYPES: PageLink = `${DOCUMENTS}/view/all-documents`;
+export const VIEW_DOCUMENTS: PageLink = `${DOCUMENTS}/view/:documentCategory/:documentPartyType/:documentPartyId?`;
+export const VIEW_APPLICATION_PACK_DOCUMENTS: PageLink = `${DOCUMENTS}/view/application-pack-documents/:context?`;
+export const VIEW_ALL_ORDERS: PageLink = `${DOCUMENTS}/view/orders-from-the-court`;
+
+/* Upload documents */
+export const UPLOAD_DOCUMENT: PageLink = `${DOCUMENTS}/upload`;
+export const UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/has-the-court-asked-for-this-documents`;
+export const UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/document-sharing-details`;
+export const UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/sharing-your-documents`;
+export const UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/other-party-not-see-this-document`;
+export const UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/upload-your-documents`;
+export const UPLOAD_DOCUMENT_SUCCESS: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/upload-documents-success`;
+export const UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/submit-extra-evidence`;
 
 export const RESPNDT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 
@@ -243,10 +264,10 @@ export const CITIZEN_DOWNLOAD_UPLOADED_DOCS: PageLink = `${VIEW_ALL_DOCUMENTS}/d
 export const MANAGE_DOCUMENTS_DOWNLOAD: PageLink = `${VIEW_ALL_DOCUMENTS}/downloadManageDocument`;
 
 /* Applicant Documents */
-export const APPLICANT_CA_DA_REQUEST: PageLink = `${VIEW_ALL_DOCUMENTS}/cadafinaldocumentrequest`;
+export const APPLICANT_CA_DA_REQUEST: PageLink = `${VIEW_ALL_DOCUMENTS}/cadafinaldocumentrequest/:docContext?`;
 export const RESPONSE_TO_CA: PageLink = `${VIEW_ALL_DOCUMENTS}/responsetoca`;
 export const AOH_TO_CA: PageLink = `${VIEW_ALL_DOCUMENTS}/aohtoca`;
-export const ALLEGATION_OF_HARM_VOILENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolence`;
+export const ALLEGATION_OF_HARM_VOILENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolence/:docContext?`;
 export const APPLICANT_RESPONSE_TO_AOH_VIOLENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolenceresponse`;
 export const POSITION_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/positionstatements`;
 export const YOUR_WITNESS_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/yourwitnessstatements`;
@@ -620,8 +641,6 @@ export const COMMON_PAGE_URLS = [
   ...ANONYMOUS_URLS,
 ];
 
-export const TASKLIST_RESPONSE_TO_CA: PageLink = `${APPLICANT}/responsetoca`;
-
 export const LOCAL_API_SESSION = '/api/v1/session';
 export const SAFEGAURD_EXCLUDE_URLS = [
   C100_URL,
@@ -634,9 +653,11 @@ export const SAFEGAURD_EXCLUDE_URLS = [
   APPLICANT_CA_DA_REQUEST,
   FETCH_CASE_DETAILS,
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
-  // RESPONDENT_TASK_LIST_URL,
   DOCUMENT_MANAGER,
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
+  PIN_ACTIVATION_URL,
+  ALLEGATION_OF_HARM_VOILENCE_DOC,
+  AOH_TO_CA,
 ];
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>

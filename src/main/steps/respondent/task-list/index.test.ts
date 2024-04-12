@@ -81,7 +81,6 @@ const c100Case = {
         isAtAddressLessThan5YearsWithDontKnow: '',
         response: {
           citizenFlags: {
-            isAllDocumentsViewed: 'No',
             isResponseInitiated: 'Yes',
           },
         },

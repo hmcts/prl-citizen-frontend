@@ -14,11 +14,13 @@ describe('all documents utils', () => {
     { value: 'witnessavailability', expected: 'Witness availability' },
     { value: 'tenancyandmortgageavailability', expected: 'Tenancy and mortgage agreements' },
     { value: 'medicalreports', expected: 'Medical reports' },
-    { value: 'otherDocuments', expected: 'Other documents' },
+    { value: 'otherdocuments', expected: 'Other documents' },
     { value: 'previousorders', expected: 'Previous orders submitted with application' },
     { value: 'otherpeoplewitnessstatement', expected: "Other people's witness statements" },
     { value: 'policedisclosures', expected: 'Police reports' },
     { value: 'miamcertificate', expected: 'MIAM certificate' },
+    { value: 'responsetoca', expected: "<namerespondentxxxxx>'s response to the request for child arrangements" },
+    { value: 'aohtoca', expected: "<namerespondentxxxxx>'s allegations of harm and violence" },
   ])('get english document list item text', ({ value, expected }) => {
     expect(getDocumentListItem(value)).toBe(expected);
   });

@@ -2,17 +2,17 @@ import axios, { AxiosInstance } from 'axios';
 import { LoggerInstance } from 'winston';
 
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
-import { DeleteDocumentRequest } from '../document/DeleteDocumentRequest';
-import { GenerateAndUploadDocumentRequest } from '../document/GenerateAndUploadDocumentRequest';
+import { UserDetails } from '../controller/AppRequest';
 
-import { CosApiClient, UploadDocumentRequest } from './CosApiClient';
+import { CosApiClient, DocumentFileUploadRequest, UploadedFiles } from './CosApiClient';
 import { CaseWithId } from './case';
-import { CaseData, CaseEvent, CaseType, PartyType, YesOrNo } from './definition';
+import { CaseData, CaseEvent, CaseType, DocumentUploadResponse, PartyType } from './definition';
 import { toApiFormat } from './to-api-format';
 
 jest.mock('axios');
 jest.mock('config');
 jest.mock('../auth/service/get-service-auth-token');
+jest.mock('form-data');
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
@@ -22,6 +22,34 @@ const mockLogger = {
 } as unknown as LoggerInstance;
 
 describe('CosApiClient', () => {
+  const DocumentUploadReq = {
+    caseId: '',
+    categoryId: '',
+    partyId: '',
+    partyName: '',
+    partyType: PartyType.APPLICANT,
+    freeTextStatements: 'text',
+    files: [
+      { originalname: 'uploaded-file.jpg', data: 'mock data', name: 'uploaded-file.jpg' },
+    ] as unknown as UploadedFiles,
+    documents: [
+      {
+        document_url: 'abc',
+        document_binary_url: 'bcd',
+        document_filename: 'test',
+        document_hash: 'test',
+        document_creation_date: 'testDate',
+      },
+    ],
+  };
+
+  const userDetails: UserDetails = {
+    accessToken: '123',
+    email: 'billy@bob.com',
+    givenName: 'billy',
+    familyName: 'bob',
+    id: '1234',
+  };
   test('connect cos api', async () => {
     const mockGet = jest.fn().mockResolvedValueOnce({ data: { mockPayment: 'data' } });
     mockedAxios.create.mockReturnValueOnce({ get: mockGet } as unknown as AxiosInstance);
@@ -29,6 +57,11 @@ describe('CosApiClient', () => {
     const actual = await client.get();
     expect(mockGet).toHaveBeenCalledWith('/');
     expect(actual).toEqual({ mockPayment: 'data' });
+  });
+  test('cannot connect cos api', async () => {
+    mockedAxios.create.mockRejectedValueOnce;
+    const client = new CosApiClient('abc', mockLogger);
+    await expect(client.get()).rejects.toThrow('Could not connect to cos-api client.');
   });
 
   test('retrieveByCaseId', async () => {
@@ -209,78 +242,127 @@ describe('CosApiClient', () => {
     expect(actual).toEqual(response);
   });
 
-  test('generateUserUploadedStatementDocument', async () => {
-    const response = { documentId: '123456', documentName: 'test' };
-    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
-    const client = new CosApiClient('abc', mockLogger);
-    const uploadDocumentDetails = {
-      documentRequestedByCourt: 'No',
-      caseId: '123456',
-      freeTextUploadStatements: 'test',
-      parentDocumentType: 'test',
-      documentType: 'test',
-      partyName: 'test',
-      partyId: '123456789',
-      isApplicant: 'Yes',
+  test('generateStatementDocument', async () => {
+    const response = {
+      document: {
+        document_url: 'abc',
+        document_binary_url: 'bcd',
+        document_filename: 'test',
+        document_hash: 'test',
+        document_creation_date: 'testDate',
+      },
+      status: 200,
     };
-    const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
-    const actual = await client.generateUserUploadedStatementDocument(generateAndUploadDocumentRequest);
-    expect(actual).toEqual(response);
-  });
-
-  test('UploadDocumentListFromCitizen', async () => {
-    const response = { documentId: '123456', documentName: 'test' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
-    const files = [];
-    const request: UploadDocumentRequest = {
-      user: req.session.user,
-      caseId: '123456',
-      parentDocumentType: 'test',
-      documentType: 'test',
-      partyId: '12345',
-      partyName: 'a test',
-      isApplicant: 'Yes',
-      files,
-      documentRequestedByCourt: YesOrNo.YES,
-    };
-    const actual = await client.UploadDocumentListFromCitizen(request);
+    const actual = await client.generateStatementDocument(req.session.user, DocumentUploadReq);
     expect(actual).toEqual(response);
   });
 
-  test.skip('UploadDocumentListFromCitizenWithoutTypes', async () => {
-    const response = { documentId: '123456', documentName: 'test' };
-    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
-    const req = mockRequest();
-    const client = new CosApiClient('abc', req.locals.logger);
-    const files = [];
-    const request: UploadDocumentRequest = {
-      user: req.session.user,
-      caseId: '123456',
-      partyId: '12345',
-      partyName: '',
-      isApplicant: 'Yes',
-      files,
-      parentDocumentType: undefined,
-      documentType: undefined,
-      documentRequestedByCourt: undefined,
+  test('uploadStatementDocument should return correct response data', async () => {
+    const response = {
+      status: 200,
+      document: {
+        document_url: 'abc',
+        document_binary_url: 'bcd',
+        document_filename: 'test',
+        document_hash: 'test',
+        document_creation_date: 'testDate',
+      },
     };
-    const actual = await client.UploadDocumentListFromCitizen(request);
-    expect(actual).toEqual(response);
-  });
+    const req = {
+      caseId: '1234',
+      categoryId: '1',
+      partyId: '1234',
+      partyName: 'party name',
+      partyType: 'applicant',
+      files: [
+        { originalname: 'uploaded-file.jpg', data: 'mock data', name: 'uploaded-file.jpg' },
+      ] as unknown as UploadedFiles,
+    } as DocumentFileUploadRequest;
 
-  test('deleteCitizenStatementDocument', async () => {
-    const response = { documentId: '123456', documentName: 'test' };
-    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<DocumentUploadResponse>);
     const client = new CosApiClient('abc', mockLogger);
-    const deleteDocumentDetails = {
-      caseId: '1234567',
-      documentId: 'documentIdToDelete',
-    };
-    const deleteDocumentRequest = new DeleteDocumentRequest(deleteDocumentDetails);
-    const actual = await client.deleteCitizenStatementDocument(deleteDocumentRequest);
+    const result = await client.uploadStatementDocument(userDetails, req);
+    expect(result).toStrictEqual(response);
+  });
+
+  test('uploadStatementDocument-with api error', async () => {
+    mockedAxios.post.mockRejectedValueOnce;
+    const req = mockRequest();
+    const client = new CosApiClient('abc', mockLogger);
+    await expect(client.uploadStatementDocument(req.session.user, DocumentUploadReq)).rejects.toThrow(
+      'Error occured, upload citizen statement document failed - UploadDocumentListFromCitizen'
+    );
+  });
+
+  test('deleteCitizenStatementDocument-', async () => {
+    mockedAxios.delete.mockResolvedValueOnce;
+    const req = mockRequest({
+      session: {
+        userCase: {
+          applicantUploadFiles: [
+            {
+              document_url:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+              document_binary_url: '',
+              document_filename: '',
+              document_hash: '',
+              document_creation_date: 'string;',
+            },
+          ],
+        },
+      },
+    });
+    req.params.documentId = 'c9f56483-6e2d-43ce-9de8-72661755b87c';
+    const client = new CosApiClient('abc', mockLogger);
+    const docId = 'c9f56483-6e2d-43ce-9de8-72661755b87c';
+    await expect(client.deleteCitizenStatementDocument(docId)).rejects.toThrow(
+      'Error occured, document could not be deleted. - deleteCitizenStatementDocument'
+    );
+  });
+  test('submitUploadedDocuments-', async () => {
+    const response = { status: 'success' };
+    mockedAxios.post.mockReturnValueOnce({ status: 'success' } as unknown as Promise<any>);
+    //mockedAxios.post.mockRejectedValueOnce
+    const req = mockRequest({
+      session: {
+        userCase: {
+          applicantUploadFiles: [
+            {
+              document_url:
+                'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+              document_binary_url: '',
+              document_filename: '',
+              document_hash: '',
+              document_creation_date: 'string;',
+            },
+          ],
+        },
+      },
+    });
+    req.params.documentId = 'c9f56483-6e2d-43ce-9de8-72661755b87c';
+    const client = new CosApiClient('abc', mockLogger);
+    const actual = await client.submitUploadedDocuments(req.session.user, req.session.userCase.applicantUploadFiles);
     expect(actual).toEqual(response);
+    //await expect(client.submitUploadedDocuments(req.session.user, req.session.userCase.applicantUploadFiles[0])).toBe({});
+  });
+
+  test('submitUploadedDocuments-should fail with api error', async () => {
+    mockedAxios.post.mockRejectedValueOnce({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'POST',
+      },
+    });
+    const req = mockRequest();
+    const client = new CosApiClient('abc', mockLogger);
+    await expect(client.submitUploadedDocuments(req.session.user, DocumentUploadReq)).rejects.toThrow(
+      'submit citizen uploaded documents failed.'
+    );
   });
 
   test('linkCaseToCitizen', async () => {
@@ -371,9 +453,9 @@ describe('CosApiClient', () => {
     expect(actual).not.toBeUndefined;
   });
 
-  test.skip('generateC7Document throws exception', async () => {
+  test('generateC7Document throws exception', async () => {
     const data = {} as Partial<CaseData>;
-    mockedAxios.post.mockRejectedValueOnce(new Error('Failed to generate C7 document'));
+    mockedAxios.post.mockRejectedValueOnce;
     const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
     let flag = false;
@@ -444,22 +526,20 @@ describe('CosApiClientWithError', () => {
     expect(flag).toEqual(false);
   });
 
-  test('generateUserUploadedStatementDocument', async () => {
+  test('generateStatementDocument', async () => {
+    const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
-    const uploadDocumentDetails = {
-      documentRequestedByCourt: 'No',
-      caseId: '123456',
-      freeTextUploadStatements: 'test',
-      parentDocumentType: 'test',
-      documentType: 'test',
-      partyName: 'test',
-      partyId: '123456789',
-      isApplicant: 'Yes',
+    const DocumentUploadReq = {
+      caseId: '',
+      categoryId: '',
+      partyId: '',
+      partyName: '',
+      partyType: PartyType.APPLICANT,
+      freeTextStatements: 'text',
     };
     let flag = true;
-    const generateAndUploadDocumentRequest = new GenerateAndUploadDocumentRequest(uploadDocumentDetails);
     try {
-      await client.generateUserUploadedStatementDocument(generateAndUploadDocumentRequest);
+      await client.generateStatementDocument(req.session.user, DocumentUploadReq);
     } catch {
       flag = false;
     }
@@ -467,24 +547,17 @@ describe('CosApiClientWithError', () => {
     expect(flag).toEqual(false);
   });
 
-  test('UploadDocumentListFromCitizenWithError', async () => {
+  test('uploadStatementDocument', async () => {
     const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
-    const files = [];
-    const request: UploadDocumentRequest = {
-      user: req.session.user,
-      caseId: '123456',
-      parentDocumentType: 'test',
-      documentType: 'test',
-      partyId: '12345',
-      partyName: 'a test',
-      isApplicant: 'Yes',
-      files,
-      documentRequestedByCourt: YesOrNo.YES,
+    const DocumentUploadReq = {
+      files: [
+        { originalname: 'uploaded-file.jpg', data: 'mock data', name: 'uploaded-file.jpg' },
+      ] as unknown as UploadedFiles,
     };
     let flag = true;
     try {
-      await client.UploadDocumentListFromCitizen(request);
+      await client.uploadStatementDocument(req.session.user, DocumentUploadReq);
     } catch {
       flag = false;
     }
@@ -494,18 +567,43 @@ describe('CosApiClientWithError', () => {
 
   test('deleteCitizenStatementDocumentWithError', async () => {
     const client = new CosApiClient('abc', mockLogger);
-    const deleteDocumentDetails = {
-      caseId: '1234567',
-      documentId: 'documentIdToDelete',
-    };
-    const deleteDocumentRequest = new DeleteDocumentRequest(deleteDocumentDetails);
+    const docId = '12345';
     let flag = true;
     try {
-      await client.deleteCitizenStatementDocument(deleteDocumentRequest);
+      await client.deleteCitizenStatementDocument(docId);
     } catch {
       flag = false;
     }
 
     expect(flag).toEqual(false);
+  });
+});
+
+describe('RetrieveCaseHearingsByCaseId', () => {
+  test('retrieveCaseHearingsByCaseId', async () => {
+    const req = mockRequest();
+    const response = { id: '1234567' };
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const client = new CosApiClient('abc', mockLogger);
+
+    const result = await client.retrieveCaseHearingsByCaseId(req.session.userCase, req.session.user);
+
+    expect(result).toEqual(response);
+  });
+
+  test('retrieveCaseHearingsByCaseId_Error', async () => {
+    const req = mockRequest();
+    mockedAxios.get.mockRejectedValueOnce({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'GET',
+      },
+    });
+    const client = new CosApiClient('abc', mockLogger);
+    await expect(client.retrieveCaseHearingsByCaseId(req.session.userCase, req.session.user)).rejects.toThrow(
+      'Error occured, case could not be updated - retrieveCaseHearingsByCaseId'
+    );
   });
 });

@@ -1,5 +1,7 @@
 import { YesOrNo } from '../../app/case/definition';
 import { keepDetailsPrivateNav } from '../../steps/common/task-list/utils';
+import DocumentUploadPostController from '../../steps/common/upload-document/DocumentUploadPostController';
+import { applyParms } from '../../steps/common/url-parser';
 import { Sections, Step } from '../constants';
 import {
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
@@ -34,6 +36,7 @@ import {
   POLICE_DISCLOSURE,
   POSITION_STATEMENTS,
   PREVIOUS_ORDERS_SUBMITTED,
+  PageLink,
   RESPNDT_TO_APPLICATION_SUMMARY,
   RESPONDENT,
   RESPONDENT_ADDRESS_CONFIRMATION,
@@ -62,15 +65,22 @@ import {
   RESPONDENT_START_ALTERNATIVE,
   RESPONDENT_TASK_LIST_URL,
   RESPONDENT_UPLOAD_DOCUMENT,
-  RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
+  RESPONDENT_UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
+  RESPONDENT_UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT,
+  RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,
+  RESPONDENT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
   RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
   TASKLIST_RESPONDENT,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
+  VIEW_ALL_DOCUMENT_TYPES,
+  VIEW_ALL_ORDERS,
+  VIEW_APPLICATION_PACK_DOCUMENTS,
+  VIEW_DOCUMENTS,
   WITNESS_AVAILABILITY,
   YOUR_WITNESS_STATEMENTS,
 } from '../urls';
@@ -191,21 +201,55 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
+    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
   },
   {
-    url: RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
+    url: RESPONDENT_UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
+    getNextStep: (caseData, req) =>
+      caseData?.hasCourtAskedForThisDoc === YesOrNo.NO
+        ? RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE
+        : (applyParms(RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL, {
+            docCategory: req!.params.docCategory,
+            docType: req!.params.docType,
+          }) as PageLink),
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT,
+    getNextStep: (caseData, req) =>
+      applyParms(RESPONDENT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS, {
+        docCategory: req!.params.docCategory,
+        docType: req!.params.docType,
+      }) as PageLink,
+  },
+  {
+    url: RESPONDENT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData, req) =>
+      applyParms(
+        caseData?.haveReasonForDocNotToBeShared === YesOrNo.YES
+          ? RESPONDENT_UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT
+          : RESPONDENT_UPLOAD_DOCUMENT,
+        {
+          docCategory: req!.params.docCategory,
+          docType: req!.params.docType,
+        }
+      ) as PageLink,
+  },
+  {
+    url: RESPONDENT_UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: (caseData, req) =>
+      applyParms(RESPONDENT_UPLOAD_DOCUMENT, {
+        docCategory: req!.params.docCategory,
+        docType: req!.params.docType,
+      }) as PageLink,
   },
   {
     url: RESPONDENT_UPLOAD_DOCUMENT,
     showInSection: Sections.AboutRespondentCase,
+    postController: DocumentUploadPostController,
     getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
   },
   {
@@ -535,5 +579,34 @@ export const respondentCaseSequence: Step[] = [
     url: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: VIEW_ALL_DOCUMENT_TYPES,
+    showInSection: Sections.AboutRespondentCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_APPLICATION_PACK_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_ALL_ORDERS,
+    showInSection: Sections.AboutRespondentCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    subDir: '/common',
+    getNextStep: () => '/',
   },
 ];
