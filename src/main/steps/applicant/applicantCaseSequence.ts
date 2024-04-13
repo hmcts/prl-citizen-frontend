@@ -1,5 +1,7 @@
-import { Case } from '../../app/case/case';
+import { Case, CaseWithId } from '../../app/case/case';
 import { CaseType } from '../../app/case/definition';
+import { AppRequest } from '../../app/controller/AppRequest';
+import ContactPreferenceNavigationController from '../common/contact-preference/navigationController';
 import { Sections, Step } from '../constants';
 import {
   ALLEGATION_OF_HARM_VOILENCE_DOC,
@@ -22,12 +24,6 @@ import {
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   APPLICANT_SELECT_ADDRESS,
   APPLICANT_START_ALTERNATIVE,
-  APPLICANT_TASKLIST_CONTACT_EMAIL,
-  APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
-  APPLICANT_TASKLIST_CONTACT_POST,
-  APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
-  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-  APPLICANT_TASKLIST_CONTACT_PREFERENCES_SAVE,
   APPLICANT_TASK_LIST_URL,
   APPLICANT_UPLOAD_DOCUMENT,
   APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL,
@@ -55,7 +51,6 @@ import {
   RESPONDENT_SECTION37_REPORT,
   RESPONDENT_SECTION7_REPORT,
   RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC,
-  TASK_LIST_APPLICANT_URL,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
   WITNESS_AVAILABILITY,
   YOUR_WITNESS_STATEMENTS,
@@ -64,6 +59,9 @@ import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
+  CHOOSE_CONTACT_PREFERENCE,
+  CONTACT_PREFERENCE_CONFIRMATION,
+  REVIEW_CONTACT_PREFERENCE,
 } from '../urls';
 
 export const applicantCaseSequence: Step[] = [
@@ -435,36 +433,6 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
   {
-    url: APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-  },
-  {
-    url: APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASKLIST_CONTACT_PREFERENCES_SAVE,
-  },
-  {
-    url: APPLICANT_TASKLIST_CONTACT_EMAIL,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
-  },
-  {
-    url: APPLICANT_TASKLIST_CONTACT_POST,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
-  },
-  {
-    url: APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => TASK_LIST_APPLICANT_URL,
-  },
-  {
-    url: APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => TASK_LIST_APPLICANT_URL,
-  },
-  {
     url: APPLICANT_TASK_LIST_URL,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_YOURHEARINGS_HEARINGS,
@@ -486,5 +454,26 @@ export const applicantCaseSequence: Step[] = [
     showInSection: Sections.AboutApplicantCase,
     getNextStep: (data: Partial<Case>) =>
       data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: CHOOSE_CONTACT_PREFERENCE,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
+      ContactPreferenceNavigationController.getNextPageUrl(CHOOSE_CONTACT_PREFERENCE, caseData, req!),
+  },
+  {
+    url: REVIEW_CONTACT_PREFERENCE,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
+      ContactPreferenceNavigationController.getNextPageUrl(REVIEW_CONTACT_PREFERENCE, caseData, req!),
+  },
+  {
+    url: CONTACT_PREFERENCE_CONFIRMATION,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
+      ContactPreferenceNavigationController.getNextPageUrl(CONTACT_PREFERENCE_CONFIRMATION, caseData, req!),
   },
 ];

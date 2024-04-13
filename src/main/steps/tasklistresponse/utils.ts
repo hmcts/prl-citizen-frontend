@@ -6,6 +6,7 @@ import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-det
 import { mapKeepYourDetailsPrivate } from '../../steps/common/keep-details-private/KeepYourDetailsPrivateMapper';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { mapConsentToApplicationDetails } from '../../steps/respondent/consent-to-application/ConsentMapper';
+import { mapContactPreference } from '../common/contact-preference/ContactPreferencesMapper';
 
 import { mapSafetyConcernsDetails } from './allegations-of-harm-and-violence/SafetyConcernsMapper';
 import { mapInternationalFactorsDetails } from './international-factors/InternationalFactorsMapper';
@@ -20,21 +21,27 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
       setDataInSession(userCase, partyDetails);
     }
 
-    if (partyDetails.response.consent) {
-      Object.assign(userCase, mapConsentToApplicationDetails(partyDetails));
-    }
-  }
-  if (partyDetails) {
     Object.assign(userCase, mapConfirmContactDetails(partyDetails));
   }
+
+  if (partyDetails?.response?.consent) {
+    Object.assign(userCase, mapConsentToApplicationDetails(partyDetails));
+  }
+
   if (partyDetails?.response?.keepDetailsPrivate?.confidentiality) {
     Object.assign(userCase, mapKeepYourDetailsPrivate(partyDetails));
   }
+
   if (partyDetails?.response?.supportYouNeed) {
     Object.assign(userCase, RAProvider.utils.mapRADetailsForRespondent(partyDetails));
   }
+
+  if (partyDetails?.contactPreferences) {
+    Object.assign(userCase, mapContactPreference(partyDetails));
+  }
 };
-function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
+
+const setDataInSession = (userCase: CaseWithId, partyDetails: PartyDetails): void => {
   if (partyDetails?.response?.safetyConcerns) {
     Object.assign(userCase, mapSafetyConcernsDetails(partyDetails));
   }
@@ -50,7 +57,7 @@ function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
   if (partyDetails?.response?.miam) {
     Object.assign(userCase, mapMIAMDetails(partyDetails));
   }
-}
+};
 
 export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id']): PartyDetails | undefined => {
   let partyData;

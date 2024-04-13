@@ -8,14 +8,15 @@ import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_ORDERS_FROM_THE_COURT,
-  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_YOURHEARINGS_HEARINGS,
   C100_DOWNLOAD_APPLICATION,
   C100_START,
+  CHOOSE_CONTACT_PREFERENCE,
   REASONABLE_ADJUSTMENTS_INTRO,
 } from '../../../../../../steps/urls';
+import { hasContactPreference } from '../../../../contact-preference/util';
 import { Task, TaskListConfigProps } from '../../../definitions';
 import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
 import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing, hasAnyOrder } from '../utils';
@@ -40,9 +41,10 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       },
       {
         id: Tasks.CONTACT_PREFERENCES,
-        href: (caseData: Partial<CaseWithId>) => `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/${caseData.id}`,
+        href: () => applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: PartyType.APPLICANT }),
         disabled: isCaseClosed,
-        stateTag: () => StateTags.SUBMITTED,
+        stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          !hasContactPreference(caseData as CaseWithId, userDetails.id) ? StateTags.TO_DO : StateTags.COMPLETED,
       },
       {
         id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,

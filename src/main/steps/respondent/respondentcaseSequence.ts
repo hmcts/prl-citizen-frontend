@@ -1,10 +1,15 @@
+import { CaseWithId } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
+import { AppRequest } from '../../app/controller/AppRequest';
 import { keepDetailsPrivateNav } from '../../steps/common/task-list/utils';
+import ContactPreferenceNavigationController from '../common/contact-preference/navigationController';
 import { Sections, Step } from '../constants';
 import {
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
   CA_RESPONDENT_RESPONSE_CONFIRMATION,
   CA_RESPONDENT_RESPONSE_SUBMIT,
+  CHOOSE_CONTACT_PREFERENCE,
+  CONTACT_PREFERENCE_CONFIRMATION,
   DIGITAL_DOWNLOADS,
   DRUG_ALCOHOL_TESTS,
   LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
@@ -58,6 +63,7 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
+  REVIEW_CONTACT_PREFERENCE,
   TASKLIST_RESPONDENT,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
   WITNESS_AVAILABILITY,
@@ -459,5 +465,26 @@ export const respondentCaseSequence: Step[] = [
     url: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: CHOOSE_CONTACT_PREFERENCE,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
+      ContactPreferenceNavigationController.getNextPageUrl(CHOOSE_CONTACT_PREFERENCE, caseData, req!),
+  },
+  {
+    url: REVIEW_CONTACT_PREFERENCE,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
+      ContactPreferenceNavigationController.getNextPageUrl(REVIEW_CONTACT_PREFERENCE, caseData, req!),
+  },
+  {
+    url: CONTACT_PREFERENCE_CONFIRMATION,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
+      ContactPreferenceNavigationController.getNextPageUrl(CONTACT_PREFERENCE_CONFIRMATION, caseData, req!),
   },
 ];

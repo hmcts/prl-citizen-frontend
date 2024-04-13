@@ -506,14 +506,12 @@ export const TESTING_SUPPORT: PageLink = '/testing-support';
 export const TESTING_SUPPORT_CREATE_DRAFT: PageLink = '/testing-support/create-Draft';
 export const TESTING_SUPPORT_DELETE_DRAFT: PageLink = '/testing-support/delete-Draft';
 export const CREATE_DRAFT: PageLink = '/draft-controller';
-/* applicant-tasklist-contactpreferences*/
-export const CONTACT_PREFERENCES: PageLink = '/contact-preferences';
-export const APPLICANT_TASKLIST_CONTACT_PREFERENCES: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-preferences`;
-export const APPLICANT_TASKLIST_CONTACT_PREFERENCES_SAVE: PageLink = `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/save`;
-export const APPLICANT_TASKLIST_CONTACT_EMAIL: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-email`;
-export const APPLICANT_TASKLIST_CONTACT_POST: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-post`;
-export const APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-email-success`;
-export const APPLICANT_TASKLIST_CONTACT_POST_SUCCESS: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-post-success`;
+/* tasklist-contactpreferences*/
+export const CONTACT_PREFERENCE: PageLink = '/:partyType/contact-preference';
+export const CHOOSE_CONTACT_PREFERENCE: PageLink = `${CONTACT_PREFERENCE}/choose-a-contact-preference`;
+export const REVIEW_CONTACT_PREFERENCE: PageLink = `${CONTACT_PREFERENCE}/review`;
+export const CONTACT_PREFERENCE_CONFIRMATION: PageLink = `${CONTACT_PREFERENCE}/confirmation`;
+
 /*temporary task-list/applicant URL for applicant dashboard */
 export const TASK_LIST_APPLICANT_URL: PageLink = '/task-list/applicant';
 /*temporary task-list/applicant URL for applicant dashboard end/*
@@ -614,6 +612,7 @@ export const SAFEGAURD_EXCLUDE_URLS = [
   REASONABLE_ADJUSTMENTS_BASE_URL,
   DOCUMENT_MANAGER,
   CITIZEN_DOWNLOAD_UPLOADED_DOCS,
+  CONTACT_PREFERENCE,
   COOKIES_PAGE,
   PRIVACY_POLICY,
   ACCESSIBILITY_STATEMENT,

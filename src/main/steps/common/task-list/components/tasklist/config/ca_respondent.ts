@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 import { CaseWithId } from '../../../../../../app/case/case';
-import { PartyType } from '../../../../../../app/case/definition';
+import { CaseType, PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { applyParms } from '../../../../../../steps/common/url-parser';
@@ -9,6 +10,7 @@ import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils'
 import {
   ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT_CA_DA_REQUEST,
+  CHOOSE_CONTACT_PREFERENCE,
   REASONABLE_ADJUSTMENTS_INTRO,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
@@ -18,6 +20,7 @@ import {
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
 } from '../../../../../../steps/urls';
+import { hasContactPreference } from '../../../../contact-preference/util';
 import { isApplicationResponded, isCaseClosed, isRepresentedBySolicotor } from '../../../utils';
 import {
   StateTags,
@@ -49,6 +52,14 @@ export const aboutYou: TaskListConfigProps = {
         const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
         return getKeepYourDetailsPrivateStatus(respondent?.response.keepDetailsPrivate);
       },
+    },
+    {
+      id: Tasks.CONTACT_PREFERENCES,
+      href: () => applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: PartyType.RESPONDENT }),
+      disabled: isCaseClosed,
+      stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+        !hasContactPreference(caseData as CaseWithId, userDetails.id) ? StateTags.TO_DO : StateTags.COMPLETED,
+      show: (caseData: Partial<CaseWithId>) => caseData.caseTypeOfApplication === CaseType.C100,
     },
     {
       id: Tasks.EDIT_YOUR_CONTACT_DETAILS,

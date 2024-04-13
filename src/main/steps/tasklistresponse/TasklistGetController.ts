@@ -2,11 +2,15 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { CosApiClient } from '../../app/case/CosApiClient';
+import { CaseWithId } from '../../app/case/case';
 import { EventRoutesContext } from '../../app/case/definition';
-import { AppRequest } from '../../app/controller/AppRequest';
+import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
+import { applyParms } from '../../steps/common/url-parser';
+import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
+  CHOOSE_CONTACT_PREFERENCE,
   CONSENT_TO_APPLICATION,
   INTERNATIONAL_FACTORS_START,
   MIAM_START,
@@ -29,13 +33,13 @@ export class TasklistGetController {
       req.session.userCase = await client.retrieveByCaseId(caseId, citizenUser);
       mapDataInSession(req.session.userCase, citizenUser.id);
 
-      req.session.save(() => res.redirect(this.getRedirectUrl()));
+      req.session.save(() => res.redirect(this.getRedirectUrl(req.session.userCase, citizenUser)));
     } catch (err) {
       throw new Error('Case Data could not be retrieved.');
     }
   }
 
-  private getRedirectUrl() {
+  private getRedirectUrl(userCase: CaseWithId, user: UserDetails) {
     let redirectUrl;
     switch (this.context) {
       case EventRoutesContext.INTERNATIONAL_FACTORS_RESPONSE:
@@ -64,6 +68,9 @@ export class TasklistGetController {
         break;
       case EventRoutesContext.CONFIRM_CONTACT_DETAILS_RESPONDENT:
         redirectUrl = RESPONDENT_CHECK_ANSWERS;
+        break;
+      case EventRoutesContext.CONTACT_PREFERENCE:
+        redirectUrl = applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: getCasePartyType(userCase, user.id) });
         break;
     }
 

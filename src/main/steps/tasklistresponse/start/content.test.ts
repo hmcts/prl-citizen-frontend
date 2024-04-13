@@ -97,6 +97,12 @@ describe('task-list > content', () => {
               text: 'Keep your details private',
             },
             {
+              href: '/respondent/contact-preference/choose-a-contact-preference',
+              id: 'contact-preference',
+              status: 'TO_DO',
+              text: 'Contact preferences',
+            },
+            {
               href: '/respondent/confirm-contact-details/checkanswers/1234567',
               id: 'confirm-or-edit-your-contact-details',
               status: 'IN_PROGRESS',

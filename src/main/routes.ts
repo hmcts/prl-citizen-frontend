@@ -18,8 +18,6 @@ import { AccessibilityStatementGetController } from './steps/accessibility-state
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
-import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
-import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
@@ -112,13 +110,10 @@ import {
   TESTING_SUPPORT_CREATE_DRAFT,
   CREATE_DRAFT,
   TESTING_SUPPORT_DELETE_DRAFT,
-  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
-  APPLICANT_TASKLIST_CONTACT_EMAIL,
-  APPLICANT_TASKLIST_CONTACT_POST,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   APPLICANT_YOURHEARINGS_HEARINGS,
   RESPONSE_TO_CA,
@@ -226,10 +221,6 @@ export class Routes {
     );
 
     //C100 related routes
-    app.get(
-      `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/:caseId`,
-      errorHandler(new ContactPreferencesGetController().get)
-    );
     app.post(CREATE_DRAFT, errorHandler(TSDraftController.post));
     app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(TSDraftController.createTSC100Draft));
     app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(TSDraftController.deleteTSC100Draft));
@@ -326,10 +317,6 @@ export class Routes {
         );
         app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
         app.post(
-          `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}`,
-          errorHandler(new ContactPreferencesPostController(step.form.fields).post)
-        );
-        app.post(
           PIN_ACTIVATION_CASE_ACTIVATED_URL,
           errorHandler(new CaseActivationPostController(step.form.fields).post)
         );
@@ -340,14 +327,6 @@ export class Routes {
         app.post(
           RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
           errorHandler(new RemoveLegalRepresentativePostController(step.form.fields).post)
-        );
-        app.post(
-          `${APPLICANT_TASKLIST_CONTACT_EMAIL}`,
-          errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
-        );
-        app.post(
-          `${APPLICANT_TASKLIST_CONTACT_POST}`,
-          errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
         );
       }
     }
