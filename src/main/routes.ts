@@ -17,10 +17,10 @@ import { AccessibilityStatementGetController } from './steps/accessibility-state
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
-import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
 import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
 import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
+import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
@@ -98,7 +98,6 @@ import {
   PAYMENT_RETURN_URL_CALLBACK,
   C100_RETRIVE_CASE,
   C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
-  C100_DOWNLOAD_APPLICATION,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   PROCEEDING_SAVE,
@@ -127,6 +126,7 @@ import {
   AOH_TO_CA,
   VIEW_DOCUMENT_URL,
   LOCAL_API_SESSION,
+  DOWNLOAD_DOCUMENT,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -170,7 +170,6 @@ export class Routes {
     app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
     app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
     app.get(C100_RETRIVE_CASE, errorHandler(new GetCaseController().getC100ApplicantCase));
-    app.get(C100_DOWNLOAD_APPLICATION, errorHandler(new ApplicationDownloadController().download));
     app.get(VIEW_DOCUMENT_URL, errorHandler(new AllDocumentsGetController().get));
     //Tasklist event common get controller routes
     app.get(
@@ -221,6 +220,7 @@ export class Routes {
       `${C7_ATTENDING_THE_COURT}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.SUPPORT_DURING_CASE).get)
     );
+    app.get(DOWNLOAD_DOCUMENT, errorHandler(new DownloadDocumentController().download));
 
     //C100 related routes
     app.get(

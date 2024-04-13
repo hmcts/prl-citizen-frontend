@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
-import { VIEW_ALL_DOCUMENT_TYPES } from '../../../urls';
+import { FETCH_CASE_DETAILS, VIEW_ALL_DOCUMENT_TYPES } from '../../../urls';
 import { interpolate } from '../../string-parser';
 import { getPartyName } from '../../task-list/utils';
 import { applyParms } from '../../url-parser';
@@ -10,8 +10,8 @@ import { DocumentLabelCategory } from '../definitions';
 import { getDocumentConfig } from './utils';
 
 const languages = {
-  en: { ...en },
-  cy: { ...cy },
+  en,
+  cy,
 };
 
 export const generateContent: TranslationFn = content => {
@@ -27,22 +27,27 @@ export const generateContent: TranslationFn = content => {
   const { documentPartyId, documentPartyType, documentCategory } = request.params;
   const documentConfig = getDocumentConfig(documentCategory);
   const documents = documentConfig
-    ? documentConfig.documents(caseData.citizenDocuments, documentPartyType, documentPartyId)
+    ? documentConfig.documents(caseData.citizenDocuments, loggedInUserPartyType, documentPartyType, documentPartyId)
     : [];
-  const pageHeading = interpolate(
-    documentConfig && documents.length
-      ? documentConfig.documentCategoryLabel(documentCategoryLabels, documents[0].document_en!.uploadedBy)
-      : '',
-    { partyName: getPartyName(caseData, loggedInUserPartyType, userDetails) }
-  );
 
   return {
     ...translations,
-    breadcrumb: {
-      id: 'allDocuments',
-      href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: loggedInUserPartyType }),
-    },
-    pageHeading,
+    breadcrumbs: [
+      {
+        id: 'caseView',
+        href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData?.id }),
+      },
+      {
+        id: 'allDocuments',
+        href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: loggedInUserPartyType }),
+      },
+    ],
+    title: interpolate(
+      documentConfig && documents.length
+        ? documentConfig.documentCategoryLabel(documentCategoryLabels, documents[0].document_en!.uploadedBy)
+        : '',
+      { partyName: getPartyName(caseData, loggedInUserPartyType, userDetails) }
+    ),
     documents,
   };
 };

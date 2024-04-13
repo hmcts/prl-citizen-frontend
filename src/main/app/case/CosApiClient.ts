@@ -8,7 +8,16 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
-import { CaseData, CaseEvent, CaseType, DocumentUploadResponse, PartyDetails, PartyType, YesOrNo } from './definition';
+import {
+  CaseData,
+  CaseEvent,
+  CaseType,
+  DocumentUploadResponse,
+  PartyDetails,
+  PartyType,
+  UserRole,
+  YesOrNo,
+} from './definition';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -307,6 +316,19 @@ export class CosApiClient {
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, case could not be updated - retrieveCaseHearingsByCaseId');
+    }
+  }
+
+  public async downloadDocument(documentId: string, userId: string): Promise<AxiosResponse> {
+    try {
+      const response = await this.client.get(
+        `${config.get('services.documentManagement.url')}/cases/documents/${documentId}/binary`,
+        { responseType: 'arraybuffer', headers: { 'user-id': userId, 'user-roles': UserRole.CITIZEN } }
+      );
+      return response;
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, document could not be fetched for download - downloadDocument');
     }
   }
 }

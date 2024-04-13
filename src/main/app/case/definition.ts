@@ -987,7 +987,7 @@ export interface CaseData {
   soaCafcassServedOptions?: YesOrNo | null;
   soaCafcassCymruServedOptions? : YesOrNo | null;
   citizenDocuments?: CitizenDocuments[];
-  citizenOrders?: Record<string, any>[];
+  citizenOrders?: CitizenDocuments[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }

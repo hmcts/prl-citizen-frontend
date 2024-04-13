@@ -95,6 +95,7 @@ import {
   UPLOAD_DOCUMENT,
   FETCH_CASE_DETAILS,
   VIEW_APPLICATION_PACK_DOCUMENTS,
+  VIEW_ALL_ORDERS,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -724,6 +725,12 @@ export const applicantCaseSequence: Step[] = [
   },
   {
     url: VIEW_APPLICATION_PACK_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_ALL_ORDERS,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
     getNextStep: () => '/',

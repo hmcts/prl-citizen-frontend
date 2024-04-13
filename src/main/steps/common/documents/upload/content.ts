@@ -1,7 +1,11 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
-import { FETCH_CASE_DETAILS, UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT } from '../../../../steps/urls';
+import {
+  DASHBOARD_URL,
+  FETCH_CASE_DETAILS,
+  UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
+} from '../../../../steps/urls';
 import { cy, en } from '../common/content';
 import { DocumentLabelCategory, DocumentSectionId } from '../definitions';
 import { uploadDocumentSections as sections } from '../upload/config';
@@ -26,10 +30,16 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    breadcrumb: {
-      id: 'caseView',
-      href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData?.id }),
-    },
+    breadcrumbs: [
+      {
+        id: 'home',
+        href: DASHBOARD_URL,
+      },
+      {
+        id: 'caseView',
+        href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData?.id }),
+      },
+    ],
     sections: sections.map(section => ({
       id: section.sectionId,
       title: section.sectionTitle(documentSectionTitles),

@@ -15,6 +15,7 @@ import {
   getDocumentCategoryLabel,
   getDocumentSectionTitle,
   getDocuments,
+  getOrdersFromTheCourtCategoryList,
   getViewDocumentCategoryList,
   hasAnyDocumentForPartyType,
   hasApplicationPacks,
@@ -38,7 +39,11 @@ export const viewDocumentsSections: ViewDocumentsSectionsProps[] = [
     sectionId: ViewDocumentsSectionId.ORDERS_FROM_THE_COURT,
     sectionTitle: (documentSectionTitles: Record<DocumentSectionId, string>) =>
       getDocumentSectionTitle(ViewDocumentsSectionId.ORDERS_FROM_THE_COURT, documentSectionTitles),
-    documentCategoryList: () => [],
+    documentCategoryList: (
+      caseData: CaseWithId,
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      loggedInUserPartyType: PartyType
+    ) => getOrdersFromTheCourtCategoryList(caseData, documentCategoryLabels, loggedInUserPartyType),
     isVisible: hasOrders,
     displayOrder: () => 2,
   },
@@ -97,9 +102,17 @@ export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] =
     ) => getDocumentCategoryLabel(DocumentLabelCategory.POSITION_STATEMENTS, documentCategoryLabels, uploadedPartyName),
     documents: (
       documents: CaseWithId['citizenDocuments'],
+      loggedInUserPartyType: PartyType,
       documentPartyType: CitizenDocuments['partyType'],
       documentPartyId?: CitizenDocuments['partyId']
-    ) => getDocuments(DocumentCategory.POSITION_STATEMENTS, documents, documentPartyType, documentPartyId),
+    ) =>
+      getDocuments(
+        DocumentCategory.POSITION_STATEMENTS,
+        documents,
+        loggedInUserPartyType,
+        documentPartyType,
+        documentPartyId
+      ),
   },
   {
     categoryId: DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
@@ -109,9 +122,17 @@ export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] =
     ) => getDocumentCategoryLabel(DocumentLabelCategory.WITNESS_STATEMENTS, documentCategoryLabels, uploadedPartyName),
     documents: (
       documents: CaseWithId['citizenDocuments'],
+      loggedInUserPartyType: PartyType,
       documentPartyType: CitizenDocuments['partyType'],
       documentPartyId?: CitizenDocuments['partyId']
-    ) => getDocuments(DocumentCategory.APPLICANT_WITNESS_STATEMENTS, documents, documentPartyType, documentPartyId),
+    ) =>
+      getDocuments(
+        DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
+        documents,
+        loggedInUserPartyType,
+        documentPartyType,
+        documentPartyId
+      ),
   },
   {
     categoryId: DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
@@ -121,9 +142,17 @@ export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] =
     ) => getDocumentCategoryLabel(DocumentLabelCategory.WITNESS_STATEMENTS, documentCategoryLabels, uploadedPartyName),
     documents: (
       documents: CaseWithId['citizenDocuments'],
+      loggedInUserPartyType: PartyType,
       documentPartyType: CitizenDocuments['partyType'],
       documentPartyId?: CitizenDocuments['partyId']
-    ) => getDocuments(DocumentCategory.RESPONDENT_WITNESS_STATEMENTS, documents, documentPartyType, documentPartyId),
+    ) =>
+      getDocuments(
+        DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
+        documents,
+        loggedInUserPartyType,
+        documentPartyType,
+        documentPartyId
+      ),
   },
   {
     categoryId: DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS,
@@ -138,9 +167,17 @@ export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] =
       ),
     documents: (
       documents: CaseWithId['citizenDocuments'],
+      loggedInUserPartyType: PartyType,
       documentPartyType: CitizenDocuments['partyType'],
       documentPartyId?: CitizenDocuments['partyId']
-    ) => getDocuments(DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS, documents, documentPartyType, documentPartyId),
+    ) =>
+      getDocuments(
+        DocumentCategory.OTHER_PEOPLE_WITNESS_STATEMENTS,
+        documents,
+        loggedInUserPartyType,
+        documentPartyType,
+        documentPartyId
+      ),
   },
   {
     categoryId: DocumentCategory.MEDICAL_RECORDS,
@@ -150,9 +187,17 @@ export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] =
     ) => getDocumentCategoryLabel(DocumentLabelCategory.MEDICAL_RECORDS, documentCategoryLabels, uploadedPartyName),
     documents: (
       documents: CaseWithId['citizenDocuments'],
+      loggedInUserPartyType: PartyType,
       documentPartyType: CitizenDocuments['partyType'],
       documentPartyId?: CitizenDocuments['partyId']
-    ) => getDocuments(DocumentCategory.MEDICAL_RECORDS, documents, documentPartyType, documentPartyId),
+    ) =>
+      getDocuments(
+        DocumentCategory.MEDICAL_RECORDS,
+        documents,
+        loggedInUserPartyType,
+        documentPartyType,
+        documentPartyId
+      ),
   },
   {
     categoryId: DocumentCategory.MEDICAL_REPORTS,
@@ -162,9 +207,17 @@ export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] =
     ) => getDocumentCategoryLabel(DocumentLabelCategory.MEDICAL_REPORTS, documentCategoryLabels, uploadedPartyName),
     documents: (
       documents: CaseWithId['citizenDocuments'],
+      loggedInUserPartyType: PartyType,
       documentPartyType: CitizenDocuments['partyType'],
       documentPartyId?: CitizenDocuments['partyId']
-    ) => getDocuments(DocumentCategory.MEDICAL_REPORTS, documents, documentPartyType, documentPartyId),
+    ) =>
+      getDocuments(
+        DocumentCategory.MEDICAL_REPORTS,
+        documents,
+        loggedInUserPartyType,
+        documentPartyType,
+        documentPartyId
+      ),
   },
   {
     categoryId: DocumentCategory.DNA_REPORTS,
@@ -174,9 +227,11 @@ export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] =
     ) => getDocumentCategoryLabel(DocumentLabelCategory.DNA_REPORTS, documentCategoryLabels, uploadedPartyName),
     documents: (
       documents: CaseWithId['citizenDocuments'],
+      loggedInUserPartyType: PartyType,
       documentPartyType: CitizenDocuments['partyType'],
       documentPartyId?: CitizenDocuments['partyId']
-    ) => getDocuments(DocumentCategory.DNA_REPORTS, documents, documentPartyType, documentPartyId),
+    ) =>
+      getDocuments(DocumentCategory.DNA_REPORTS, documents, loggedInUserPartyType, documentPartyType, documentPartyId),
   },
   {
     categoryId: DocumentCategory.DRUG_ALCOHOL_TESTS,
@@ -186,9 +241,17 @@ export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] =
     ) => getDocumentCategoryLabel(DocumentLabelCategory.DRUG_ALCOHOL_TESTS, documentCategoryLabels, uploadedPartyName),
     documents: (
       documents: CaseWithId['citizenDocuments'],
+      loggedInUserPartyType: PartyType,
       documentPartyType: CitizenDocuments['partyType'],
       documentPartyId?: CitizenDocuments['partyId']
-    ) => getDocuments(DocumentCategory.DRUG_ALCOHOL_TESTS, documents, documentPartyType, documentPartyId),
+    ) =>
+      getDocuments(
+        DocumentCategory.DRUG_ALCOHOL_TESTS,
+        documents,
+        loggedInUserPartyType,
+        documentPartyType,
+        documentPartyId
+      ),
   },
   {
     categoryId: DocumentCategory.POLICE_REPORTS,
@@ -198,8 +261,16 @@ export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] =
     ) => getDocumentCategoryLabel(DocumentLabelCategory.POLICE_REPORTS, documentCategoryLabels, uploadedPartyName),
     documents: (
       documents: CaseWithId['citizenDocuments'],
+      loggedInUserPartyType: PartyType,
       documentPartyType: CitizenDocuments['partyType'],
       documentPartyId?: CitizenDocuments['partyId']
-    ) => getDocuments(DocumentCategory.POLICE_REPORTS, documents, documentPartyType, documentPartyId),
+    ) =>
+      getDocuments(
+        DocumentCategory.POLICE_REPORTS,
+        documents,
+        loggedInUserPartyType,
+        documentPartyType,
+        documentPartyId
+      ),
   },
 ];

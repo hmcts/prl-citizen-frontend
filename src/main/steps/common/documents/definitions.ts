@@ -19,7 +19,7 @@ export type ViewDocumentsSectionsProps = {
     caseData: CaseWithId,
     documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
     loggedInUserPartyType: PartyType
-  ) => ViewDocumentDetails[] | ApplicationPackDocumentDetails[] | [];
+  ) => ViewDocumentDetails[] | ViewDocCategoryLinkProps[] | [];
 };
 
 export const enum UploadDocumentSectionId {
@@ -98,12 +98,14 @@ export type ViewDocumentsCategoryListProps = {
   ) => string;
   documents: (
     documents: CaseWithId['citizenDocuments'],
+    loggedInUserPartyType: PartyType,
     documentPartyType: CitizenDocuments['partyType'],
     documentPartyId?: CitizenDocuments['partyId']
   ) => Document[];
 };
 
 export const enum DocumentLabelCategory {
+  VIEW_ALL_ORDERS = 'viewAllOrders',
   YOUR_APPLICATION_PACK = 'packServed',
   APPLICATION_PACK_TO_BE_SERVED = 'packToBeServed',
   POSITION_STATEMENTS = 'positionStatements',
@@ -131,15 +133,7 @@ export type ViewDocumentDetails = {
   };
 };
 
-export type ApplicationPackDocumentDetails = {
-  link: {
-    text: string;
-    url: string;
-  };
-};
-
-export type UploadDocumentDetails = {
-  categoryId: UploadDocumentCategory;
+export type ViewDocCategoryLinkProps = {
   link: {
     text: string;
     url: string;
@@ -176,6 +170,16 @@ export const enum DocumentTypes {
   ENGLISH = 'document_en',
   WELSH = 'document_cy',
 }
+
+export type OrderDocumentMeta = {
+  [key in DocumentTypes]?: {
+    documentId: string;
+    documentName: string;
+    orderMadeDate: string;
+    documentDownloadUrl: string;
+  };
+};
+
 export type ApplicationPackDocumentMeta = {
   documentId: string;
   documentName: string;
