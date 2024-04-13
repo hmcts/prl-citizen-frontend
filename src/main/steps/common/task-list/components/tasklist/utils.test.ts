@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, CitizenInternationalElements, State } from '../../../../../app/case/definition';
+import { CaseType, CitizenInternationalElements, PartyDetails, State } from '../../../../../app/case/definition';
 
 import {
   getCheckAllegationOfHarmStatus,
@@ -79,7 +79,7 @@ describe('getResponseStatus', () => {
       },
     };
 
-    expect(getResponseStatus(data)).toBe('completed');
+    expect(getResponseStatus(data as unknown as PartyDetails)).toBe('completed');
   });
 
   test('should return inProgress when some response items present', () => {
@@ -93,7 +93,7 @@ describe('getResponseStatus', () => {
       },
     };
 
-    expect(getResponseStatus(data)).toBe('inProgress');
+    expect(getResponseStatus(data as unknown as PartyDetails)).toBe('inProgress');
   });
 
   test('should return todo when no response items present', () => {
@@ -101,7 +101,7 @@ describe('getResponseStatus', () => {
       response: {},
     };
 
-    expect(getResponseStatus(data)).toBe('toDo');
+    expect(getResponseStatus(data as unknown as PartyDetails)).toBe('toDo');
   });
 });
 

@@ -186,7 +186,7 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         disabled: isCaseClosed,
         stateTag: (caseData, userDetails) => {
           const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-          return getResponseStatus(respondent);
+          return getResponseStatus(respondent!);
         },
         showHint: (caseData, userDetails) => isApplicationResponded(caseData, userDetails.id),
       },

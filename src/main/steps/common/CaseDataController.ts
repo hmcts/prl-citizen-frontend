@@ -26,12 +26,12 @@ export default class CaseDataController {
     if (this.isDataRequired('hearingDetails')) {
       if (hearingData?.caseHearings) {
         Object.assign(hearingCollection, {
-          hearingCollection: hearingData?.caseHearings,
+          hearingCollection: hearingData.caseHearings,
         });
       }
     } else if (req.session.userCase?.hearingCollection?.length) {
       Object.assign(hearingCollection, {
-        hearingCollection: req.session.userCase?.hearingCollection,
+        hearingCollection: req.session.userCase.hearingCollection,
       });
     }
 
@@ -60,15 +60,6 @@ export default class CaseDataController {
     }
 
     try {
-      // const api = await client.retrieveCaseAndHearings(
-      //   caseId,
-      //   this.isDataRequired('hearingDetails') ? YesOrNo.YES : YesOrNo.NO
-      // );
-
-      // const api = await (this.isDataRequired('hearingDetails')
-      //   ? client.retrieveCaseAndHearings(caseId, YesOrNo.YES)
-      //   : client.retrieveByCaseId(caseId, userDetails));
-
       const { caseData, hearingData } = await client.retrieveCaseAndHearings(
         caseId,
         this.isDataRequired('hearingDetails') ? YesOrNo.YES : YesOrNo.NO
