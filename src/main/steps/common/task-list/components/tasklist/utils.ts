@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../../../app/case/case';
 import {
   CaseType,
   CitizenInternationalElements,
+  PartyDetails,
   PartyType,
   Respondent,
   YesOrNo,
@@ -156,20 +159,10 @@ export const getCheckAllegationOfHarmStatus = (caseData, userDetails): StateTags
   return status;
 };
 
-export const getResponseStatus = (respondent): StateTags => {
-  if (
-    respondent.response.citizenInternationalElements &&
-    respondent.response.consent &&
-    respondent.response.currentOrPreviousProceedings &&
-    respondent.response.keepDetailsPrivate &&
-    respondent.response.miam &&
-    respondent.response.legalRepresentation &&
-    respondent.response.safetyConcerns &&
-    respondent.response.supportYouNeed
-  ) {
+export const getResponseStatus = (respondent: PartyDetails): StateTags => {
+  if (_.get(respondent, 'response.c7ResponseSubmitted', YesOrNo.NO) === YesOrNo.YES) {
     return StateTags.COMPLETED;
-  }
-  if (
+  } else if (
     respondent.response.citizenInternationalElements ||
     respondent.response.consent ||
     respondent.response.currentOrPreviousProceedings ||

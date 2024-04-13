@@ -301,6 +301,23 @@ export class CosApiClient {
       throw new Error('Error occured, case could not be updated - retrieveCaseHearingsByCaseId');
     }
   }
+
+  public async retrieveCaseAndHearings(caseId: string, hearingNeeded: YesOrNo): Promise<any> {
+    try {
+      const response = await this.client.get(
+        config.get('services.cos.url') + `/retrieve-case-and-hearing/${caseId}/${hearingNeeded}`
+      );
+
+      return {
+        status: response.status,
+        caseData: response.data?.caseData,
+        hearingData: response.data?.hearings,
+      };
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, case data and hearings could not be retrieved - retrieveCaseAndHearings');
+    }
+  }
 }
 
 export interface UploadDocumentRequest {
