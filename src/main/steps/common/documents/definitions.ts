@@ -98,6 +98,7 @@ export type ViewDocumentsCategoryListProps = {
   ) => string;
   documents: (
     documents: CaseWithId['citizenDocuments'],
+    loggedInUserPartyType: PartyType,
     documentPartyType: CitizenDocuments['partyType'],
     documentPartyId?: CitizenDocuments['partyId']
   ) => Document[];

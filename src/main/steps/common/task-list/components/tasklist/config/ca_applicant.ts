@@ -3,6 +3,7 @@ import { generateTheResponseTasks } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { transformFileName } from '../../../../../../steps/common/documents/download/utils';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
@@ -13,8 +14,8 @@ import {
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_YOURHEARINGS_HEARINGS,
-  C100_DOWNLOAD_APPLICATION,
   C100_START,
+  DOWNLOAD_DOCUMENT,
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
@@ -81,7 +82,18 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       },
       {
         id: Tasks.YOUR_APPLICATION_PDF,
-        href: () => C100_DOWNLOAD_APPLICATION,
+        href: (caseData: Partial<CaseWithId>) => {
+          const document = caseData?.finalDocument;
+          const draftDocumentId = document?.document_url
+            ? document.document_url.substring(document.document_url.lastIndexOf('/') + 1)
+            : '';
+          return applyParms(DOWNLOAD_DOCUMENT, {
+            partyType: PartyType.APPLICANT,
+            documentId: draftDocumentId,
+            documentName: transformFileName(document?.document_filename ?? ''),
+            documentType: 'c100-application-document',
+          });
+        },
         stateTag: () => StateTags.SUBMITTED,
         show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
       },

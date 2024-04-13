@@ -193,6 +193,7 @@ describe('documents > view > utils', () => {
               documentWelsh: null,
             },
           ],
+          PartyType.RESPONDENT,
           'respondent' as PartyType,
           '1'
         )
@@ -249,6 +250,7 @@ describe('documents > view > utils', () => {
               documentWelsh: null,
             },
           ],
+          PartyType.RESPONDENT,
           'respondent' as PartyType
         )
       ).toStrictEqual([
@@ -311,6 +313,7 @@ describe('documents > view > utils', () => {
               documentWelsh: null,
             },
           ],
+          PartyType.RESPONDENT,
           'respondent' as PartyType,
           '1'
         )

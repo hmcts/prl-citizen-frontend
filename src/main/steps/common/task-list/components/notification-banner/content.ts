@@ -10,6 +10,7 @@ import {
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPOND_TO_APPLICATION,
+  VIEW_ALL_ORDERS,
   VIEW_APPLICATION_PACK_DOCUMENTS,
 } from '../../../../../steps/urls';
 import { NotificationBannerContent } from '../../definitions';
@@ -181,7 +182,7 @@ const en: NotificationBannerContent = {
               links: [
                 {
                   text: 'View the order (PDF)',
-                  href: APPLICANT_ORDERS_FROM_THE_COURT,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -268,8 +269,8 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
-                  href: RESPONDENT_ORDERS_FROM_THE_COURT,
                   text: 'View the order (PDF)',
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
             },
@@ -287,8 +288,8 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
-                  href: RESPONDENT_ORDERS_FROM_THE_COURT,
                   text: 'View the order (PDF)',
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
             },
@@ -359,7 +360,7 @@ const en: NotificationBannerContent = {
               links: [
                 {
                   text: 'View the order (PDF)',
-                  href: APPLICANT_ORDERS_FROM_THE_COURT,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -425,7 +426,7 @@ const en: NotificationBannerContent = {
               links: [
                 {
                   text: 'View the order (PDF)',
-                  href: APPLICANT_ORDERS_FROM_THE_COURT,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -724,8 +725,8 @@ const cy: typeof en = {
               ],
               links: [
                 {
-                  href: RESPONDENT_ORDERS_FROM_THE_COURT,
                   text: 'View the order (PDF)',
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
             },
