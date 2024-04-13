@@ -107,9 +107,13 @@ export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean =>
   caseData?.isCafcassCymruServed === YesOrNo.YES;
 
 export const hasResponseBeenSubmitted = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
-  return !!caseData.citizenDocuments?.find(
-    document =>
-      (document.partyId === respondent.id || document.solicitorRepresentedPartyId === respondent.id) &&
-      document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
+  return !!(
+    caseData.citizenDocuments &&
+    caseData.citizenDocuments.length &&
+    caseData.citizenDocuments?.find(
+      document =>
+        (document.partyId === respondent.id || document.solicitorRepresentedPartyId === respondent.id) &&
+        document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
+    )
   );
 };

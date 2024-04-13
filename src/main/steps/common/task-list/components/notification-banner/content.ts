@@ -1,14 +1,15 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
+import { applyParms } from '../../../../../steps/common/url-parser';
 import {
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
   APPLICANT_ORDERS_FROM_THE_COURT,
-  APPLICANT_VIEW_ALL_DOCUMENTS,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPOND_TO_APPLICATION,
+  VIEW_ALL_DOCUMENT_TYPES,
 } from '../../../../../steps/urls';
 import { NotificationBannerContent } from '../../definitions';
 import { isCafcassCymruServed, isCafcassServed } from '../../utils';
@@ -200,7 +201,7 @@ const en: NotificationBannerContent = {
               links: [
                 {
                   text: "View the respondent's documents",
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -245,7 +246,7 @@ const en: NotificationBannerContent = {
               links: [
                 {
                   text: 'View your application pack',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -263,7 +264,7 @@ const en: NotificationBannerContent = {
               links: [
                 {
                   text: 'View the response (PDF)',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -655,7 +656,7 @@ const cy: typeof en = {
               links: [
                 {
                   text: 'Gweld dogfennau’r atebydd',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -700,7 +701,7 @@ const cy: typeof en = {
               links: [
                 {
                   text: 'Gweld eich pecyn cais',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -718,7 +719,7 @@ const cy: typeof en = {
               links: [
                 {
                   text: 'View the response (PDF) (welsh)',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },

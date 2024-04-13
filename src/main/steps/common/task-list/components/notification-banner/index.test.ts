@@ -470,7 +470,7 @@ describe('testcase for notification Banner', () => {
             links: [
               {
                 external: false,
-                href: '/applicant/yourdocuments/alldocuments/alldocuments',
+                href: '/applicant/documents/view/all-documents',
                 text: 'View the response (PDF)',
               },
             ],
@@ -525,7 +525,7 @@ describe('testcase for notification Banner', () => {
             links: [
               {
                 external: false,
-                href: '/applicant/yourdocuments/alldocuments/alldocuments',
+                href: '/applicant/documents/view/all-documents',
                 text: "View the respondent's documents",
               },
             ],
@@ -605,7 +605,7 @@ describe('testcase for notification Banner', () => {
             links: [
               {
                 external: false,
-                href: '/applicant/yourdocuments/alldocuments/alldocuments',
+                href: '/applicant/documents/view/all-documents',
                 text: 'View your application pack',
               },
             ],
