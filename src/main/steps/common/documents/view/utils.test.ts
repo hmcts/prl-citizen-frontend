@@ -728,37 +728,44 @@ describe('documents > view > utils', () => {
         getApplicationPackDocuments(
           [
             {
-              servedParty: 'Applicant',
-              partyId: '1234',
-              partyType: 'applicant',
-              categoryId: 'undefined',
-              uploadedBy: 'test user',
-              uploadedDate: '2024-03-11T16:24:33.122506',
-              reviewedDate: null,
-              applicantSoaPack: [
+              citizenApplicationPacks: [
                 {
-                  document_url: 'MOCK_DOCUMENT_URL',
-                  document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-                  document_filename: 'MOCK_FILENAME',
-                  document_hash: null,
-                  category_id: 'positionStatements',
-                  document_creation_date: '01/01/2024',
+                  servedParty: 'applicant',
+                  partyId: 1234,
+                  partyName: null,
+                  partyType: 'applicant',
+                  categoryId: 'undefined',
+                  uploadedBy: 'test user',
+                  uploadedDate: '2024-03-11T16:24:33.122506',
+                  reviewedDate: null,
+                  applicantSoaPack: [
+                    {
+                      document_url: 'MOCK_DOCUMENT_URL',
+                      document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                      document_filename: 'MOCK_FILENAME',
+                      document_hash: null,
+                      category_id: 'positionStatements',
+                      document_creation_date: '01/01/2024',
+                      uploadedDate: '01/01/2024',
+                    },
+                  ],
+                  respondentSoaPack: [
+                    {
+                      document_url: 'MOCK_DOCUMENT_URL',
+                      document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                      document_filename: 'MOCK_FILENAME',
+                      document_hash: null,
+                      category_id: 'positionStatements',
+                      document_creation_date: '01/01/2024',
+                      uploadedDate: '01/01/2024',
+                    },
+                  ],
+                  documentWelsh: null,
                 },
               ],
-              respondentSoaPack: [
-                {
-                  document_url: 'MOCK_DOCUMENT_URL',
-                  document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-                  document_filename: 'MOCK_FILENAME',
-                  document_hash: null,
-                  category_id: 'positionStatements',
-                  document_creation_date: '01/01/2024',
-                },
-              ],
-              documentWelsh: null,
             },
           ] as unknown as CitizenApplicationPacks[],
-          PartyType.APPLICANT,
+          'applicant' as PartyType,
           'to-be-served'
         )
       ).toStrictEqual([
@@ -766,7 +773,7 @@ describe('documents > view > utils', () => {
           documentDownloadUrl: '#',
           documentId: 'MOCK_DOCUMENT_URL',
           documentName: 'MOCK_FILENAME',
-          servedDate: '09 Apr 2024',
+          servedDate: '01 Jan 2024',
         },
       ]);
     });
@@ -776,34 +783,39 @@ describe('documents > view > utils', () => {
         getApplicationPackDocuments(
           [
             {
-              servedParty: 'applicant',
-              partyId: 1234,
-              partyType: 'applicant',
-              categoryId: 'undefined',
-              uploadedBy: 'test user',
-              uploadedDate: '2024-03-11T16:24:33.122506',
-              reviewedDate: null,
-              applicantSoaPack: [
+              citizenApplicationPacks: [
                 {
-                  document_url: 'MOCK_DOCUMENT_URL',
-                  document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-                  document_filename: 'MOCK_FILENAME',
-                  document_hash: null,
-                  category_id: 'positionStatements',
-                  document_creation_date: '01/01/2024',
+                  servedParty: 'applicant',
+                  partyId: 1234,
+                  partyName: null,
+                  partyType: 'applicant',
+                  categoryId: 'undefined',
+                  uploadedBy: 'test user',
+                  uploadedDate: '2024-03-11T16:24:33.122506',
+                  reviewedDate: null,
+                  applicantSoaPack: [
+                    {
+                      document_url: 'MOCK_DOCUMENT_URL',
+                      document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                      document_filename: 'MOCK_FILENAME',
+                      document_hash: null,
+                      category_id: 'positionStatements',
+                      document_creation_date: '01/01/2024',
+                    },
+                  ],
+                  respondentSoaPack: [
+                    {
+                      document_url: 'MOCK_DOCUMENT_URL',
+                      document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                      document_filename: 'MOCK_FILENAME',
+                      document_hash: null,
+                      category_id: 'positionStatements',
+                      document_creation_date: '01/01/2024',
+                    },
+                  ],
+                  documentWelsh: null,
                 },
               ],
-              respondentSoaPack: [
-                {
-                  document_url: 'MOCK_DOCUMENT_URL',
-                  document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-                  document_filename: 'MOCK_FILENAME',
-                  document_hash: null,
-                  category_id: 'positionStatements',
-                  document_creation_date: '01/01/2024',
-                },
-              ],
-              documentWelsh: null,
             },
           ] as unknown as CitizenApplicationPacks[],
           'applicant' as PartyType,
@@ -814,7 +826,7 @@ describe('documents > view > utils', () => {
           documentDownloadUrl: '#',
           documentId: 'MOCK_DOCUMENT_URL',
           documentName: 'MOCK_FILENAME',
-          servedDate: '09 Apr 2024',
+          servedDate: '01 Jan 2024',
         },
       ]);
     });
@@ -824,34 +836,39 @@ describe('documents > view > utils', () => {
         getApplicationPackDocuments(
           [
             {
-              servedParty: 'applicant',
-              partyId: 1234,
-              partyType: 'applicant',
-              categoryId: 'undefined',
-              uploadedBy: 'test user',
-              uploadedDate: '2024-03-11T16:24:33.122506',
-              reviewedDate: null,
-              applicantSoaPack: [
+              citizenApplicationPacks: [
                 {
-                  document_url: 'MOCK_DOCUMENT_URL',
-                  document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-                  document_filename: 'MOCK_FILENAME',
-                  document_hash: null,
-                  category_id: 'positionStatements',
-                  document_creation_date: '01/01/2024',
+                  servedParty: 'applicant',
+                  partyId: 1234,
+                  partyName: null,
+                  partyType: 'applicant',
+                  categoryId: 'undefined',
+                  uploadedBy: 'test user',
+                  uploadedDate: '2024-03-11T16:24:33.122506',
+                  reviewedDate: null,
+                  applicantSoaPack: [
+                    {
+                      document_url: 'MOCK_DOCUMENT_URL',
+                      document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                      document_filename: 'MOCK_FILENAME',
+                      document_hash: null,
+                      category_id: 'positionStatements',
+                      document_creation_date: '01/01/2024',
+                    },
+                  ],
+                  respondentSoaPack: [
+                    {
+                      document_url: 'MOCK_DOCUMENT_URL',
+                      document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                      document_filename: 'MOCK_FILENAME',
+                      document_hash: null,
+                      category_id: 'positionStatements',
+                      document_creation_date: '01/01/2024',
+                    },
+                  ],
+                  documentWelsh: null,
                 },
               ],
-              respondentSoaPack: [
-                {
-                  document_url: 'MOCK_DOCUMENT_URL',
-                  document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-                  document_filename: 'MOCK_FILENAME',
-                  document_hash: null,
-                  category_id: 'positionStatements',
-                  document_creation_date: '01/01/2024',
-                },
-              ],
-              documentWelsh: null,
             },
           ] as unknown as CitizenApplicationPacks[],
           'respondent' as PartyType,
@@ -862,7 +879,7 @@ describe('documents > view > utils', () => {
           documentDownloadUrl: '#',
           documentId: 'MOCK_DOCUMENT_URL',
           documentName: 'MOCK_FILENAME',
-          servedDate: '09 Apr 2024',
+          servedDate: '01 Jan 2024',
         },
       ]);
     });

@@ -46,6 +46,7 @@ describe('notification Banner', () => {
     BannerNotification.DA_RESPONDENT_BANNER,
     BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS,
     BannerNotification.CA_PERSONAL_SERVICE,
+    BannerNotification.RESPONSE_SUBMITTED,
   ])('should have show as false by default', notification => {
     expect(notificationBanner[notification].show()).toBe(false);
   });

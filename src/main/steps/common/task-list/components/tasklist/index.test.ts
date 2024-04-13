@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, PartyType, RespondentDocs, State, YesOrNo } from '../../../../../app/case/definition';
+import { CaseType, PartyType, State, YesOrNo } from '../../../../../app/case/definition';
 
 import { getTaskListConfig } from './index';
 
@@ -704,26 +704,27 @@ describe('tasklist index', () => {
             urgentFlag: false,
           },
         ],
-        respondentDocsList: [
+        citizenDocuments: [
           {
-            id: 'f0dddf6e-8ece-4e6c-b49e-4612d442e8a8',
-            value: {
-              c1aDocument: undefined,
-              c7Document: {
-                partyName: 'First Respondent',
-                createdBy: '123456',
-                dateCreated: '1/1/2020',
-                citizenDocument: {
-                  document_url: 'MOCK_DOCUMENT_URL',
-                  document_filename: 'MOCK_DOCUMENT_FILENAME',
-                  document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-                },
-              },
-              otherDocuments: undefined,
+            partyId: '123456',
+            partyName: null,
+            partyType: 'respondent',
+            categoryId: 'respondentApplication',
+            uploadedBy: 'test user',
+            uploadedDate: '2024-03-11T16:24:33.122506',
+            reviewedDate: '2024-03-11T16:24:33.122506',
+            document: {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'respondentApplication',
+              document_creation_date: '2024-03-11T16:24:33.122506',
             },
-          } as unknown as RespondentDocs,
+            documentWelsh: null,
+          },
         ],
-      };
+      } as unknown as Partial<CaseWithId>;
       const party = PartyType.APPLICANT;
       const language = 'en';
 

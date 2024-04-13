@@ -4,9 +4,10 @@ import { CaseWithId } from '../../../app/case/case';
 import { AppRequest, UserDetails } from '../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
 import { PARTY_TASKLIST, PageLink, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
+import { DocumentCategory } from '../documents/definitions';
 import { applyParms } from '../url-parser';
 
-import { CaseType, PartyDetails, PartyType, State, YesOrNo } from './../../../app/case/definition';
+import { CaseType, PartyDetails, PartyType, Respondent, State, YesOrNo } from './../../../app/case/definition';
 
 export const getPartyName = (
   caseData: Partial<CaseWithId> | undefined,
@@ -104,3 +105,15 @@ export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseD
 
 export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean =>
   caseData?.isCafcassCymruServed === YesOrNo.YES;
+
+export const hasResponseBeenSubmitted = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
+  return !!(
+    caseData.citizenDocuments &&
+    caseData.citizenDocuments.length &&
+    caseData.citizenDocuments?.find(
+      document =>
+        (document.partyId === respondent.id || document.solicitorRepresentedPartyId === respondent.id) &&
+        document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
+    )
+  );
+};

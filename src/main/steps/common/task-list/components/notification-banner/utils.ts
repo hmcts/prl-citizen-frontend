@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 
+import { CaseWithId } from './../../../../../app/case/case';
 import { CaseType, PartyType, YesOrNo } from './../../../../../app/case/definition';
 import { languages as content } from './content';
 
@@ -23,6 +23,7 @@ export enum BannerNotification {
   DA_RESPONDENT_BANNER = 'daRespondentBanner',
   CA_RESPONDENT_SERVED = 'caRespondentServed',
   CAFFCASS = 'cafcass',
+  RESPONSE_SUBMITTED = 'responseSubmitted',
   GIVE_RESPONDENT_THEIR_DOCUMENTS = 'giveRespondentTheirDocuments',
   CA_PERSONAL_SERVICE = 'caPersonalService',
 }
@@ -105,6 +106,11 @@ export const notificationBanner = {
   [BannerNotification.CA_PERSONAL_SERVICE]: {
     id: BannerNotification.CA_PERSONAL_SERVICE,
     content: getContent.bind(null, BannerNotification.CA_PERSONAL_SERVICE),
+    show: () => false,
+  },
+  [BannerNotification.RESPONSE_SUBMITTED]: {
+    id: BannerNotification.RESPONSE_SUBMITTED,
+    content: getContent.bind(null, BannerNotification.RESPONSE_SUBMITTED),
     show: () => false,
   },
 };

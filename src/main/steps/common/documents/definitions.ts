@@ -53,6 +53,7 @@ export const enum DocumentCategory {
   POLICE_REPORTS = 'policeReport',
   DNA_REPORTS = 'DNAReports_expertReport',
   DRUG_ALCOHOL_TESTS = 'DRUG_AND_ALCOHOL_TESTS',
+  RESPONDENT_C7_RESPONSE_TO_APPLICATION = 'respondentApplication',
 }
 
 export const enum UploadDocumentAPICategory {
@@ -159,6 +160,8 @@ export type CitizenDocuments = {
   reviewedDate: string | null;
   document: DocumentMeta;
   documentWelsh: DocumentMeta | null;
+  solicitorRepresentedPartyName?: string;
+  solicitorRepresentedPartyId?: string;
 };
 export interface CitizenApplicationPacks extends CitizenDocuments {
   applicantSoaPack?: DocumentMeta[] | null;

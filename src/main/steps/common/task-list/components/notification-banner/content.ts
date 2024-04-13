@@ -5,11 +5,11 @@ import {
   APPLICANT,
   APPLICANT_CA_DA_REQUEST,
   APPLICANT_ORDERS_FROM_THE_COURT,
-  APPLICANT_VIEW_ALL_DOCUMENTS,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
   RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPOND_TO_APPLICATION,
+  VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
   VIEW_APPLICATION_PACK_DOCUMENTS,
 } from '../../../../../steps/urls';
@@ -203,7 +203,7 @@ const en: NotificationBannerContent = {
               links: [
                 {
                   text: "View the respondent's documents",
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -249,6 +249,24 @@ const en: NotificationBannerContent = {
                 {
                   text: 'View your application pack',
                   href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.APPLICANT }),
+                },
+              ],
+            },
+          ],
+        },
+        responseSubmitted: {
+          heading: 'View the response to your application',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'The other person in the case (the respondent) has responded to your application.',
+                },
+              ],
+              links: [
+                {
+                  text: 'View the response (PDF)',
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -640,7 +658,7 @@ const cy: typeof en = {
               links: [
                 {
                   text: 'Gweld dogfennau’r atebydd',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -685,7 +703,25 @@ const cy: typeof en = {
               links: [
                 {
                   text: 'Gweld eich pecyn cais',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+                },
+              ],
+            },
+          ],
+        },
+        responseSubmitted: {
+          heading: 'View the response to your application (welsh)',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'The other person in the case (the respondent) has responded to your application. (welsh)',
+                },
+              ],
+              links: [
+                {
+                  text: 'View the response (PDF) (welsh)',
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
