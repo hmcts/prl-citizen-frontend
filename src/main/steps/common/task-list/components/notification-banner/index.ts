@@ -5,12 +5,12 @@ import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { interpolate } from '../../../string-parser';
 import { NotificationBannerConfig, NotificationBannerProps, NotificationSection } from '../../definitions';
-import { isCaseLinked } from '../../utils';
+import { hasResponseBeenSubmitted, isCaseLinked } from '../../utils';
 
 import { CaseType, PartyType } from './../../../../../app/case/definition';
 import { C100_WITHDRAW_CASE } from './../../../../urls';
 import notifConfig from './config/index';
-import { BannerNotification, hasResponseBeenSubmitted, notificationBanner } from './utils';
+import { BannerNotification, notificationBanner } from './utils';
 
 const notificationBannerConfig = (caseData): NotificationBannerConfig => {
   return {

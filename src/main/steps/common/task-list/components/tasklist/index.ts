@@ -16,10 +16,10 @@ import {
   TaskListConfig,
   TaskListConfigProps,
 } from '../../definitions';
-import { isDraftCase } from '../../utils';
+import { hasResponseBeenSubmitted, isDraftCase } from '../../utils';
 
 import tasklistConfig from './config/index';
-import { StateTags, Tasks, getStateTagLabel, isResponsePresent } from './utils';
+import { StateTags, Tasks, getStateTagLabel } from './utils';
 
 const stateTagsConfig: StateTagsConfig = {
   [StateTags.NOT_STARTED_YET]: {
@@ -192,11 +192,11 @@ export const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content:
         });
       },
       stateTag: () => {
-        return isResponsePresent(caseData, respondent) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
+        return hasResponseBeenSubmitted(caseData, respondent) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
       },
       show: () => caseData && !isDraftCase(caseData),
       disabled: () => {
-        return !isResponsePresent(caseData, respondent);
+        return !hasResponseBeenSubmitted(caseData, respondent);
       },
     });
   });

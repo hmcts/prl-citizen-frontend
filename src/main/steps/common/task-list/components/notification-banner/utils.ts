@@ -4,8 +4,7 @@
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 
 import { CaseWithId } from './../../../../../app/case/case';
-import { CaseType, PartyType, Respondent, YesOrNo } from './../../../../../app/case/definition';
-import { DocumentCategory } from './../../../../../steps/common/documents/definitions';
+import { CaseType, PartyType, YesOrNo } from './../../../../../app/case/definition';
 import { languages as content } from './content';
 
 export enum BannerNotification {
@@ -114,17 +113,6 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.RESPONSE_SUBMITTED),
     show: () => false,
   },
-};
-
-export const hasResponseBeenSubmitted = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
-  return (
-    caseData.citizenDocuments?.filter(
-      document =>
-        document.partyId === respondent.id &&
-        document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION &&
-        document.reviewedDate !== null
-    ).length !== 0
-  );
 };
 
 export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): boolean => {

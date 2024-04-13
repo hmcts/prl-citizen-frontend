@@ -166,6 +166,8 @@ export type CitizenDocuments = {
   reviewedDate: string | null;
   document: DocumentMeta;
   documentWelsh: DocumentMeta | null;
+  solicitorRepresentedPartyName?: string;
+  solicitorRepresentedPartyId?: string;
 };
 export interface CitizenApplicationPacks extends CitizenDocuments {
   applicantSoaPack?: DocumentMeta[] | null;
