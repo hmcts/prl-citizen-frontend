@@ -18,7 +18,14 @@ export default class CaseDetailsGetController {
 
     try {
       const { caseData } = await new CaseDataController().fetchAndSaveData(req);
-      res.redirect(applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData, req.session.user.id) }));
+      req.session.applicationSettings = {
+        ...req.session.applicationSettings,
+        navfromRespondToApplication: false,
+      };
+
+      req.session.save(() => {
+        res.redirect(applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData, req.session.user.id) }));
+      });
     } catch (error) {
       res.redirect(DASHBOARD_URL);
     }

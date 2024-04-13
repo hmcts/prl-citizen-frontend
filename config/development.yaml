@@ -19,13 +19,13 @@ services:
     systemUsername:
     systemPassword:
   citizen:
-    uploadDocsEmail:
+    uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
-    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2009.preview.platform.hmcts.net'
   cos:
-    url: 'http://prl-cos-aat.service.core-compute-aat.internal'
+    url: 'https://prl-cos-pr-2205.preview.platform.hmcts.net'
   documentManagement:
-    url: 'http://ccd-case-document-am-api-aat.service.core-compute-aat.internal'
+    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2009.preview.platform.hmcts.net'
   health:
   timeout: 5000
   deadline: 15000
@@ -43,6 +43,7 @@ featureToggles:
   launchDarklyKey: LAUNCH_DARKLY_SDK_KEY
   c100Rebuild: true
   testingSupport: true
+  enableRAComponent: true
 
 
 launchDarkly:
