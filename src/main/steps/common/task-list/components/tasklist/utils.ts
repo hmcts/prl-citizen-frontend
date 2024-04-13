@@ -5,7 +5,6 @@ import {
   CaseType,
   CitizenInternationalElements,
   PartyType,
-  Respondent,
   YesOrNo,
   hearingStatus,
 } from '../../../../../app/case/definition';
@@ -228,10 +227,4 @@ export const getFinalApplicationStatus = (caseData, userDetails): StateTags => {
     result = StateTags.VIEW;
   }
   return result;
-};
-
-export const isResponsePresent = (caseData: Partial<CaseWithId>, respondent: Respondent) => {
-  return caseData.respondentDocsList?.find(
-    documents => documents.value.c7Document?.partyName === respondent.value.firstName + ' ' + respondent.value.lastName
-  );
 };

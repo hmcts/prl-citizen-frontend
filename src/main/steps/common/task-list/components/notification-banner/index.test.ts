@@ -403,6 +403,85 @@ describe('testcase for notification Banner', () => {
     ]);
   });
 
+  test('when respondent has submitted their response', () => {
+    const data = {
+      id: '1',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      respondents: [
+        {
+          id: '1',
+          value: {
+            user: {
+              idamId: '1',
+            },
+          },
+        },
+      ],
+      citizenDocuments: [
+        {
+          partyId: '1',
+          partyName: null,
+          partyType: 'respondent',
+          categoryId: 'respondentApplication',
+          uploadedBy: 'test user',
+          uploadedDate: '2024-03-11T16:24:33.122506',
+          reviewedDate: '2024-03-11T16:24:33.122506',
+          document: {
+            document_url: 'MOCK_DOCUMENT_URL',
+            document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+            document_hash: null,
+            category_id: 'respondentApplication',
+            document_creation_date: '2024-03-11T16:24:33.122506',
+          },
+          documentWelsh: null,
+        },
+      ],
+    } as unknown as CaseWithId;
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+      {
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
+              },
+            ],
+            links: [],
+          },
+        ],
+        heading: 'The court has issued your application',
+        id: 'applicationServedAndLinked',
+        title: 'Important',
+      },
+      {
+        heading: 'View the response to your application',
+        id: 'responseSubmitted',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The other person in the case (the respondent) has responded to your application.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/all-documents',
+                text: 'View the response (PDF)',
+              },
+            ],
+          },
+        ],
+        title: 'Important',
+      },
+    ]);
+  });
+
   test('when primary citizen has to serve respondent personally', () => {
     const applicantLIP = applicant[0];
     applicantLIP.value.response = { ...applicantLIP.value.response, citizenFlags: { isApplicationToBeServed: 'Yes' } };
@@ -447,7 +526,7 @@ describe('testcase for notification Banner', () => {
             links: [
               {
                 external: false,
-                href: '/applicant/yourdocuments/alldocuments/alldocuments',
+                href: '/applicant/documents/view/all-documents',
                 text: "View the respondent's documents",
               },
             ],
@@ -527,7 +606,7 @@ describe('testcase for notification Banner', () => {
             links: [
               {
                 external: false,
-                href: '/applicant/yourdocuments/alldocuments/alldocuments',
+                href: '/applicant/documents/view/all-documents',
                 text: 'View your application pack',
               },
             ],
