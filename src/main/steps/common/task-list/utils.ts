@@ -7,7 +7,7 @@ import { PARTY_TASKLIST, PageLink, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICAT
 import { DocumentCategory } from '../documents/definitions';
 import { applyParms } from '../url-parser';
 
-import { CaseType, PartyDetails, PartyType, Respondent, State, YesOrNo } from './../../../app/case/definition';
+import { CaseType, PartyDetails, PartyType, ServedParty, Respondent, State, YesOrNo } from './../../../app/case/definition';
 
 export const getPartyName = (
   caseData: Partial<CaseWithId> | undefined,
@@ -103,8 +103,17 @@ export const keepDetailsPrivateNav = (caseData: Partial<CaseWithId>, req: AppReq
 
 export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseData?.isCafcassServed === YesOrNo.YES;
 
-export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean =>
-  caseData?.isCafcassCymruServed === YesOrNo.YES;
+export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean => {
+  if (
+    caseData.finalServedApplicationDetailsList?.length &&
+    caseData.finalServedApplicationDetailsList.find(list =>
+      list.value.emailNotificationDetails?.find(i => i.value?.servedParty === ServedParty.CYMRU)
+    )
+  ) {
+    return true;
+  }
+  return false;
+};
 
 export const hasResponseBeenSubmitted = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
   return !!(

@@ -1,5 +1,12 @@
 import { CaseWithId } from '../../app/case/case';
-import { Applicant, CaseType, PartyDetails, PartyType, Respondent } from '../../app/case/definition';
+import {
+  Applicant,
+  CaseType,
+  PartyDetails,
+  PartyDetailsWithId,
+  PartyType,
+  Respondent,
+} from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
 import { mapSupportYouNeedDetails } from '../../steps/applicant/support-you-need-during-case/SupportYouNeedDuringYourCaseService';
 import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
@@ -52,7 +59,7 @@ function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
   }
 }
 
-export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id']): PartyDetails | undefined => {
+export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id']): PartyDetailsWithId | undefined => {
   let partyData;
 
   if (!userCase) {
@@ -75,11 +82,11 @@ export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id'])
   }
 
   if (partyData?.value) {
-    return Object.assign({}, partyData.value);
+    return { ...partyData.value, partyId: partyData.id };
   }
 
   if (partyData) {
-    return Object.assign({}, partyData);
+    return { ...partyData, partyId: null };
   }
 
   return partyData;

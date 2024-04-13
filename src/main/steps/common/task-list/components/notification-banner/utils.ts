@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { UserDetails } from '../../../../../app/controller/AppRequest';
+import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 
 import { CaseWithId } from './../../../../../app/case/case';
 import { CaseType, PartyType, YesOrNo } from './../../../../../app/case/definition';
@@ -113,6 +114,11 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.RESPONSE_SUBMITTED),
     show: () => false,
   },
+  [BannerNotification.CA_RESPONDENT_SERVED]: {
+    id: BannerNotification.CA_RESPONDENT_SERVED,
+    content: getContent.bind(null, BannerNotification.CA_RESPONDENT_SERVED),
+    show: () => false,
+  },
 };
 
 export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): boolean => {
@@ -121,4 +127,11 @@ export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): 
 
 export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
   return caseData.applicants?.[0].value.user.idamId === userDetails.id;
+};
+
+export const isPartyServed = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+  return !!(
+    caseData.citizenApplicationPacks?.length &&
+    getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyId === caseData.citizenApplicationPacks[0].partyId
+  );
 };
