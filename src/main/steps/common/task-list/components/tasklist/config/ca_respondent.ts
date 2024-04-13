@@ -2,6 +2,7 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import { UPDATE_CASE } from '../../../../../../steps/constants';
@@ -12,13 +13,13 @@ import {
   CA_DA_ATTENDING_THE_COURT,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
-  RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
+  VIEW_ALL_ORDERS,
 } from '../../../../../../steps/urls';
 import { isApplicationResponded, isCaseClosed, isCaseLinked, isRepresentedBySolicotor } from '../../../utils';
 import {
@@ -34,7 +35,6 @@ import {
   getResponseStatus,
   getSupportYourNeedsDetailsStatus,
   hasAnyHearing,
-  hasAnyOrder,
 } from '../utils';
 
 export const aboutYou: TaskListConfigProps = {
@@ -102,16 +102,18 @@ export const order: TaskListConfigProps = {
   tasks: (): Task[] => [
     {
       id: Tasks.VIEW_ORDERS,
-      href: caseData => (hasAnyOrder(caseData) ? RESPONDENT_ORDERS_FROM_THE_COURT : '#'),
+      href: () => applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
       stateTag: (caseData: Partial<CaseWithId>) => {
-        if (hasAnyOrder(caseData)) {
+        if (hasOrders(caseData as CaseWithId)) {
           return StateTags.READY_TO_VIEW;
         }
         return StateTags.NOT_AVAILABLE_YET;
       },
+      disabled: (caseData: Partial<CaseWithId>) => !hasOrders(caseData as CaseWithId),
     },
   ],
 };
+
 export const document: TaskListConfigProps = {
   id: TaskListSection.YOUR_DOCUMENTS,
   content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),

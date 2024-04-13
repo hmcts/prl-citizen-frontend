@@ -36,6 +36,7 @@ export const en = {
       attendingTheHearing: 'Attending the hearing',
     },
     documentCategoryLabels: {
+      viewAllOrders: 'View all orders from the court',
       packServed: 'Your served application pack',
       packToBeServed: 'Application pack to be served on the respondent',
       positionStatements: "{partyName}'s position statements",
@@ -88,6 +89,7 @@ export const cy: typeof en = {
       attendingTheHearing: 'Mynychu’r gwrandawiad',
     },
     documentCategoryLabels: {
+      viewAllOrders: 'View all orders from the court - welsh',
       packServed: 'Your served application pack - welsh',
       packToBeServed: 'Application pack to be served on the respondent - welsh',
       positionStatements: 'Datganiadau safbwynt {partyName}',

@@ -78,6 +78,7 @@ import {
   TASKLIST_RESPONDENT,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
   VIEW_ALL_DOCUMENT_TYPES,
+  VIEW_ALL_ORDERS,
   VIEW_APPLICATION_PACK_DOCUMENTS,
   VIEW_DOCUMENTS,
   WITNESS_AVAILABILITY,
@@ -592,6 +593,12 @@ export const respondentCaseSequence: Step[] = [
   },
   {
     url: VIEW_APPLICATION_PACK_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_ALL_ORDERS,
     showInSection: Sections.AboutRespondentCase,
     subDir: '/common',
     getNextStep: () => '/',

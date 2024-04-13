@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { getCasePartyType } from '../../../../prl-cases/dashboard/utils';
-import { FETCH_CASE_DETAILS } from '../../../../urls';
+import { DASHBOARD_URL, FETCH_CASE_DETAILS } from '../../../../urls';
 import { applyParms } from '../../../url-parser';
 import { cy, en } from '../../common/content';
 import { DocumentLabelCategory, DocumentSectionId } from '../../definitions';
@@ -105,10 +105,16 @@ export const generateContent: TranslationFn = content => {
   });*/
   return {
     ...translations,
-    breadcrumb: {
-      id: 'caseView',
-      href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData?.id }),
-    },
+    breadcrumbs: [
+      {
+        id: 'home',
+        href: DASHBOARD_URL,
+      },
+      {
+        id: 'caseView',
+        href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData?.id }),
+      },
+    ],
     sections: sections
       .filter(section => section.isVisible(caseData))
       .sort((current, next) =>
