@@ -97,15 +97,21 @@ describe('task-list > content', () => {
               text: 'Keep your details private',
             },
             {
+              href: '/respondent/contact-preference/choose-a-contact-preference',
+              id: 'contact-preference',
+              status: 'TO_DO',
+              text: 'Contact preferences',
+            },
+            {
               href: '/respondent/confirm-contact-details/checkanswers/1234567',
               id: 'confirm-or-edit-your-contact-details',
               status: 'IN_PROGRESS',
               text: 'Confirm or edit your contact details',
             },
             {
-              href: '/tasklistresponse/support-you-need-during-case/attending-the-court/1234567',
+              href: '/respondent/reasonable-adjustments/attending-court',
               id: 'support_you_need_during_your_case',
-              status: 'TO_DO',
+              status: 'OPTIONAL',
               text: 'Support you need during your case',
             },
           ],

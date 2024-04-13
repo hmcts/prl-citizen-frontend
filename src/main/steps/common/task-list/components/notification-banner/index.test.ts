@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseInvite, CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
 import { CitizenApplicationPacks } from '../../../documents/definitions';
+import { isCafcassCymruServed, isCafcassServed } from '../../utils';
 
 import { getNotificationBannerConfig } from '.';
 
@@ -374,12 +375,21 @@ describe('testcase for notification Banner', () => {
       },
     ]);
   });
-  test('when case is in served and linked', () => {
+  test('when case is in served and linked by admin', () => {
     const data = {
       id: '12',
       state: State.CASE_SERVED,
       caseTypeOfApplication: CaseType.C100,
       applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court admin',
+          },
+        },
+      ],
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -390,7 +400,55 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
+              },
+              {
+                text: 'We will let you know when the other people in the case have been given your application and case documents.',
+              },
+              {
+                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
+              },
+            ],
+            links: [],
+          },
+        ],
+        heading: 'The court has issued your application',
+        id: 'applicationServedAndLinked',
+        title: 'Important',
+      },
+    ]);
+  });
+  test('when case is in served and linked by court bailiff', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court bailiff',
+          },
+        },
+      ],
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+      {
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
+              },
+              {
+                text: 'We will let you know when the other people in the case have been given your application and case documents.',
+              },
+              {
+                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
               },
             ],
             links: [],
@@ -404,6 +462,135 @@ describe('testcase for notification Banner', () => {
   });
 
   test('when respondent has submitted their response', () => {
+    const data = {
+      id: '1',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      respondents: [
+        {
+          id: '1',
+          value: {
+            user: {
+              idamId: '1',
+            },
+          },
+        },
+      ],
+      citizenDocuments: [
+        {
+          partyId: '1',
+          partyName: null,
+          partyType: 'respondent',
+          categoryId: 'respondentApplication',
+          uploadedBy: 'test user',
+          uploadedDate: '2024-03-11T16:24:33.122506',
+          reviewedDate: '2024-03-11T16:24:33.122506',
+          document: {
+            document_url: 'MOCK_DOCUMENT_URL',
+            document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+            document_hash: null,
+            category_id: 'respondentApplication',
+            document_creation_date: '2024-03-11T16:24:33.122506',
+          },
+          documentWelsh: null,
+        },
+      ],
+    } as unknown as CaseWithId;
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+      {
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
+              },
+              {
+                text: 'We will let you know when the other people in the case have been given your application and case documents.',
+              },
+              {
+                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
+              },
+            ],
+            links: [],
+          },
+        ],
+        heading: 'The court has issued your application',
+        id: 'applicationServedAndLinked',
+        title: 'Important',
+      },
+    ]);
+  });
+  test('when case is in served and linked by court bailiff2', () => {
+    // TODO remove the duplicate
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      finalServedApplicationDetailsList: [
+        {
+          id: '1',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Court - court bailiff',
+          },
+        },
+      ],
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+      {
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
+              },
+              {
+                text: 'We will let you know when the other people in the case have been given your application and case documents.',
+              },
+              {
+                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
+              },
+            ],
+            links: [],
+          },
+        ],
+        heading: 'The court has issued your application',
+        id: 'applicationServedAndLinked',
+        title: 'Important',
+      },
+      {
+        heading: 'View the response to your application',
+        id: 'responseSubmitted',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The other person in the case (the respondent) has responded to your application.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/all-documents',
+                text: 'View the response (PDF)',
+              },
+            ],
+          },
+        ],
+        title: 'Important',
+      },
+    ]);
+  });
+
+  test('when respondent has submitted their response2', () => {
+    // TODO remove the duplicate
     const data = {
       id: '1',
       state: State.CASE_SERVED,
@@ -490,6 +677,16 @@ describe('testcase for notification Banner', () => {
       state: State.CASE_SERVED,
       caseTypeOfApplication: CaseType.C100,
       applicants: [applicantLIP, applicant[1]],
+      isCafcassServed: YesOrNo.YES,
+      finalServedApplicationDetailsList: [
+        {
+          id: '123',
+          value: {
+            emailNotificationDetails: [],
+            whoIsResponsible: 'Unrepresented Applicant',
+          },
+        },
+      ],
     } as Partial<CaseWithId>;
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -500,10 +697,26 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
+              },
+              {
+                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
+              },
+              {
+                text: '<p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
+              },
+              {
+                text: 'The Children and Family Court Advisory and Support Service (Cafcass) will contact you to consider the needs of the children.',
               },
             ],
-            links: [],
+            links: [
+              {
+                text: 'Find out about Cafcass',
+                href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
+                external: true,
+                show: isCafcassServed,
+              },
+            ],
           },
         ],
         heading: 'The court has issued your application',
@@ -573,6 +786,22 @@ describe('testcase for notification Banner', () => {
       state: State.CASE_SERVED,
       caseTypeOfApplication: CaseType.C100,
       applicants: [applicantLIP, applicant[1]],
+      finalServedApplicationDetailsList: [
+        {
+          id: '123',
+          value: {
+            emailNotificationDetails: [
+              {
+                id: '123',
+                value: {
+                  servedParty: 'Cafcass cymru',
+                },
+              },
+            ],
+            whoIsResponsible: 'Court',
+          },
+        },
+      ],
     } as Partial<CaseWithId>;
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -583,10 +812,26 @@ describe('testcase for notification Banner', () => {
           {
             contents: [
               {
-                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
+              },
+              {
+                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
+              },
+              {
+                text: '<p class="govuk-notification-banner__heading">Cafcass Cymru will contact you</p>',
+              },
+              {
+                text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) will contact you to consider the needs of the children.',
               },
             ],
-            links: [],
+            links: [
+              {
+                text: 'Find out about Cafcass Cymru',
+                href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
+                external: true,
+                show: isCafcassCymruServed,
+              },
+            ],
           },
         ],
         heading: 'The court has issued your application',

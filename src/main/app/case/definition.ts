@@ -2,6 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
 import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
+import { RAFlagValue } from '../../modules/reasonable-adjustments/definitions';
 import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
 
 export interface ChildDetails {
@@ -107,7 +108,7 @@ export interface PartyDetails {
   isAtAddressLessThan5YearsWithDontKnow: string;
   response: Response;
   user: User;
-  contactPreferences?: applicantContactPreferencesEnum;
+  contactPreferences?: ContactPreference | null;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
 }
 
@@ -132,6 +133,7 @@ export interface Response {
   supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
+  c7ResponseSubmitted?: YesOrNo;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -789,6 +791,7 @@ export type C100Applicant = {
     relationshipToChildren: RelationshipToChildren[];
   };
   applicantContactDetail?: ContactDetail;
+  reasonableAdjustmentsFlags: RAFlagValue[] | [];
 }
 
 export interface RelationshipToChildren {
@@ -809,6 +812,11 @@ export interface ContactDetail {
 
 export enum applicantContactPreferencesEnum {
   DIGITAL = 'digital',
+  POST = 'post',
+}
+
+export enum ContactPreference {
+  EMAIL = 'email',
   POST = 'post',
 }
 
@@ -1660,9 +1668,9 @@ export const enum EventRoutesContext {
   PROCEEDINGS_RESPONSE = "PROCEEDINGS_RESPONSE",
   SAFETY_CONCERNS_RESPONSE = "SAFETY_CONCERNS_RESPONSE",
   INTERNATIONAL_FACTORS_RESPONSE = "INTERNATIONAL_FACTORS_RESPONSE",
-  SUPPORT_DURING_CASE = "SUPPORT_DURING_CASE",
   SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO",
-  VIEW_ALL_DOCUMENTS = 'VIEW_ALL_DOCUMENTS'
+  VIEW_ALL_DOCUMENTS = 'VIEW_ALL_DOCUMENTS',
+  CONTACT_PREFERENCE = "CONTACT_PREFERENCE",
 }
 
 export const enum ClarificationReason {
@@ -3102,7 +3110,7 @@ export enum CaseEvent {
   CONFIRM_YOUR_DETAILS = 'confirmYourDetails',
   SUPPORT_YOU_DURING_CASE = 'hearingNeeds',
   LEGAL_REPRESENTATION = 'legalRepresentation',
-  SAFETY_CONCERNS = 'citizenSafetyConcerns',
+  SAFETY_CONCERNS = 'citizenRespondentAoH',
   MIAM = 'respondentMiam',
   PARTY_PERSONAL_DETAILS = 'linkCitizenAccount',
   CITIZEN_INTERNAL_CASE_UPDATE = 'citizen-internal-case-update',
@@ -3156,7 +3164,6 @@ MIAM_CERTIFICATE = 'miamcertificate',
 RESPONSE_TO_CA = 'responsetoca',
 AOH_TO_CA = 'aohtoca'
 }
-
 export interface PaymentError {
   hasError: boolean;
   errorContext: PaymentErrorContext | null;

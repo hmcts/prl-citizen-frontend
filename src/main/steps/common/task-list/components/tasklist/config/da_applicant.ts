@@ -7,13 +7,13 @@ import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-l
 import { isCaseClosed, isCaseLinked, isRepresentedBySolicotor } from '../../../../../../steps/common/task-list/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
-  APPLICANT_ATTENDING_THE_COURT,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_WITNESS_STATEMENTS_DA,
   APPLICANT_YOURHEARINGS_HEARINGS,
+  REASONABLE_ADJUSTMENTS_INTRO,
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
@@ -26,7 +26,6 @@ import {
   getConfirmOrEditYourContactDetailsStatus,
   getContents,
   getKeepYourDetailsPrivateStatus,
-  getSupportYourNeedsDetailsStatus,
   getYourWitnessStatementStatus,
   hasAnyHearing,
 } from '../utils';
@@ -56,11 +55,14 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
           getConfirmOrEditYourContactDetailsStatus(caseData?.applicantsFL401),
       },
       {
-        id: Tasks.YOUR_SUPPORT,
+        id: Tasks.SUPPORT_YOU_NEED,
         href: () => {
-          return `${APPLICANT_ATTENDING_THE_COURT}`;
+          return applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
+            partyType: PartyType.APPLICANT,
+          });
         },
-        stateTag: (caseData: Partial<CaseWithId>) => getSupportYourNeedsDetailsStatus(caseData),
+        disabled: isCaseClosed,
+        stateTag: () => StateTags.OPTIONAL,
       },
     ],
   },

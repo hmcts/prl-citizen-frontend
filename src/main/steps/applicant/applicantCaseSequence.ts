@@ -1,7 +1,9 @@
-import { Case } from '../../app/case/case';
+import { Case, CaseWithId } from '../../app/case/case';
 import { CaseType, YesOrNo } from '../../app/case/definition';
+import { AppRequest } from '../../app/controller/AppRequest';
 import DocumentUploadPostController from '../../steps/common/upload-document/DocumentUploadPostController';
 import { applyParms } from '../../steps/common/url-parser';
+import ContactPreferenceNavigationController from '../common/contact-preference/navigationController';
 import { Sections, Step } from '../constants';
 import {
   ALLEGATION_OF_HARM_VOILENCE_DOC,
@@ -10,7 +12,6 @@ import {
   APPLICANT_ADDRESS_DETAILS,
   APPLICANT_ADDRESS_HISTORY,
   APPLICANT_ADDRESS_LOOKUP,
-  APPLICANT_ATTENDING_THE_COURT,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_CONTACT_DETAILS,
   APPLICANT_CONTACT_DETAILS_SAVE,
@@ -25,12 +26,6 @@ import {
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   APPLICANT_SELECT_ADDRESS,
   APPLICANT_START_ALTERNATIVE,
-  APPLICANT_TASKLIST_CONTACT_EMAIL,
-  APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
-  APPLICANT_TASKLIST_CONTACT_POST,
-  APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
-  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-  APPLICANT_TASKLIST_CONTACT_PREFERENCES_SAVE,
   APPLICANT_TASK_LIST_URL,
   APPLICANT_UPLOAD_DOCUMENT,
   APPLICANT_UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
@@ -42,13 +37,8 @@ import {
   APPLICANT_WITNESS_STATEMENTS_DA,
   APPLICANT_YOURHEARINGS_HEARINGS,
   APPLICATION_MADE_IN_THESE_PRCEEDINGS,
-  COMMUNICATION_HELP,
-  COURT_HEARING_COMFORT,
-  COURT_HEARING_SUPPORT,
   DIGITAL_DOWNLOADS,
-  DOCUMENTS_SUPPORT,
   DRUG_ALCOHOL_TESTS,
-  LANGUAGE_REQUIREMENTS,
   LETTER_FROM_SCHOOL,
   MEDICAL_RECORDS,
   MEDICAL_REPORTS,
@@ -58,19 +48,12 @@ import {
   POLICE_DISCLOSURE,
   POSITION_STATEMENTS,
   PREVIOUS_ORDERS_SUBMITTED,
-  REASONABLE_ADJUSTMENTS,
   RESPONDENT_RISK_ASSESSMENT,
   RESPONDENT_SAFEGUARDING_LETTER,
   RESPONDENT_SECTION37_REPORT,
   RESPONDENT_SECTION7_REPORT,
   RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC,
-  SAFETY_ARRANGEMENTS,
-  SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
-  SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
-  TASK_LIST_APPLICANT_URL,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
-  TRAVELLING_TO_COURT,
-  UNABLE_TO_TAKE_COURT_PROCEEDINGS,
   WITNESS_AVAILABILITY,
   YOUR_WITNESS_STATEMENTS,
   // eslint-disable-next-line sort-imports
@@ -80,7 +63,9 @@ import {
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,
   PageLink,
-  APPLICANT_TASKLIST_HEARING_NEEDS,
+  CHOOSE_CONTACT_PREFERENCE,
+  CONTACT_PREFERENCE_CONFIRMATION,
+  REVIEW_CONTACT_PREFERENCE,
   APPLICANT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
   APPLICANT_UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
@@ -97,8 +82,6 @@ import {
   VIEW_APPLICATION_PACK_DOCUMENTS,
   VIEW_ALL_ORDERS,
 } from '../urls';
-
-import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
 
 export const applicantCaseSequence: Step[] = [
   {
@@ -154,6 +137,7 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_SELECT_ADDRESS,
   },
   {
+    //10
     url: APPLICANT_SELECT_ADDRESS,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_ADDRESS_CONFIRMATION,
@@ -184,72 +168,6 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
-    url: APPLICANT_TASK_LIST_URL,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_ATTENDING_THE_COURT,
-  },
-  {
-    url: APPLICANT_ATTENDING_THE_COURT,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => LANGUAGE_REQUIREMENTS,
-  },
-  {
-    url: LANGUAGE_REQUIREMENTS,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => REASONABLE_ADJUSTMENTS,
-  },
-  {
-    url: REASONABLE_ADJUSTMENTS,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: caseData =>
-      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(REASONABLE_ADJUSTMENTS, caseData),
-  },
-  {
-    url: DOCUMENTS_SUPPORT,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: caseData => ApplicantReasonableAdjustmentsNavigationController.getNextUrl(DOCUMENTS_SUPPORT, caseData),
-  },
-  {
-    url: COMMUNICATION_HELP,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: caseData =>
-      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(COMMUNICATION_HELP, caseData),
-  },
-  {
-    url: COURT_HEARING_SUPPORT,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: caseData =>
-      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(COURT_HEARING_SUPPORT, caseData),
-  },
-  {
-    url: COURT_HEARING_COMFORT,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: caseData =>
-      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(COURT_HEARING_COMFORT, caseData),
-  },
-  {
-    url: TRAVELLING_TO_COURT,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: caseData =>
-      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(TRAVELLING_TO_COURT, caseData),
-  },
-  {
-    url: UNABLE_TO_TAKE_COURT_PROCEEDINGS,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: caseData =>
-      ApplicantReasonableAdjustmentsNavigationController.getNextUrl(UNABLE_TO_TAKE_COURT_PROCEEDINGS, caseData),
-  },
-  {
-    url: SAFETY_ARRANGEMENTS,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
-  },
-  {
-    url: SUPPORT_YOU_NEED_DURING_CASE_SUMMARY,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
-  },
-  {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
@@ -270,6 +188,7 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_ORDERS_FROM_THE_COURT,
   },
   {
+    //20
     url: APPLICANT_ORDERS_FROM_THE_COURT,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: (data: Partial<Case>) =>
@@ -321,6 +240,7 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => `${APPLICANT}${DIGITAL_DOWNLOADS}`,
   },
   {
+    //30
     url: `${APPLICANT}${DIGITAL_DOWNLOADS}`,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
@@ -371,6 +291,7 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => `${APPLICANT}${PATERNITY_TEST_REPORTS}`,
   },
   {
+    //40
     url: `${APPLICANT}${PATERNITY_TEST_REPORTS}`,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
@@ -460,6 +381,7 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
   {
+    //50
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => `${APPLICANT}${TENANCY_AND_MORTGAGE_AVAILABILITY}`,
@@ -507,21 +429,12 @@ export const applicantCaseSequence: Step[] = [
       data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
   },
   {
-    url: APPLICANT_TASK_LIST_URL,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_ATTENDING_THE_COURT,
-  },
-  {
-    url: APPLICANT_ATTENDING_THE_COURT,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
-  },
-  {
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => `${APPLICANT}${RESPONDENT_SAFEGUARDING_LETTER}`,
   },
   {
+    //60
     url: `${APPLICANT}${RESPONDENT_SAFEGUARDING_LETTER}`,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
@@ -567,6 +480,7 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
   },
   {
+    //70
     url: APPLICANT_VIEW_ALL_DOCUMENTS,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => `${APPLICANT}${RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC}`,
@@ -575,36 +489,6 @@ export const applicantCaseSequence: Step[] = [
     url: `${APPLICANT}${RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC}`,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_VIEW_ALL_DOCUMENTS,
-  },
-  {
-    url: APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-  },
-  {
-    url: APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASKLIST_CONTACT_PREFERENCES_SAVE,
-  },
-  {
-    url: APPLICANT_TASKLIST_CONTACT_EMAIL,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
-  },
-  {
-    url: APPLICANT_TASKLIST_CONTACT_POST,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
-  },
-  {
-    url: APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => TASK_LIST_APPLICANT_URL,
-  },
-  {
-    url: APPLICANT_TASKLIST_CONTACT_POST_SUCCESS,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => TASK_LIST_APPLICANT_URL,
   },
   {
     url: APPLICANT_TASK_LIST_URL,
@@ -618,6 +502,7 @@ export const applicantCaseSequence: Step[] = [
       data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
   },
   {
+    //80
     url: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
@@ -629,14 +514,128 @@ export const applicantCaseSequence: Step[] = [
       data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
   },
   {
-    url: APPLICANT_TASK_LIST_URL,
+    url: CHOOSE_CONTACT_PREFERENCE,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASKLIST_HEARING_NEEDS,
+    subDir: '/common',
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
+      ContactPreferenceNavigationController.getNextPageUrl(CHOOSE_CONTACT_PREFERENCE, caseData, req!),
   },
   {
-    url: APPLICANT_TASKLIST_HEARING_NEEDS,
+    url: REVIEW_CONTACT_PREFERENCE,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    subDir: '/common',
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
+      ContactPreferenceNavigationController.getNextPageUrl(REVIEW_CONTACT_PREFERENCE, caseData, req!),
+  },
+  {
+    url: CONTACT_PREFERENCE_CONFIRMATION,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData: Partial<CaseWithId>, req?: AppRequest) =>
+      ContactPreferenceNavigationController.getNextPageUrl(CONTACT_PREFERENCE_CONFIRMATION, caseData, req!),
+  },
+  {
+    url: UPLOAD_DOCUMENT,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData, req) =>
+      applyParms(
+        caseData?.hasCourtAskedForThisDoc === YesOrNo.NO
+          ? UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE
+          : UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
+        {
+          partyType: req!.params.partyType,
+          docCategory: req!.params.docCategory,
+        }
+      ) as PageLink,
+  },
+  {
+    url: UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+  },
+  {
+    url: UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData, req) =>
+      applyParms(UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS, {
+        partyType: req!.params.partyType,
+        docCategory: req!.params.docCategory,
+      }) as PageLink,
+  },
+  {
+    url: UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData, req) =>
+      applyParms(
+        caseData?.haveReasonForDocNotToBeShared === YesOrNo.YES
+          ? UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT
+          : UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS,
+        {
+          partyType: req!.params.partyType,
+          docCategory: req!.params.docCategory,
+        }
+      ) as PageLink,
+  },
+  {
+    url: UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData, req) =>
+      applyParms(UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, {
+        partyType: req!.params.partyType,
+        docCategory: req!.params.docCategory,
+      }) as PageLink,
+  },
+  {
+    url: UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    postController: DocumentUploadPostController,
+    getNextStep: (caseData, req) =>
+      applyParms(UPLOAD_DOCUMENT_SUCCESS, {
+        partyType: req!.params.partyType,
+        docCategory: req!.params.docCategory,
+      }) as PageLink,
+  },
+  {
+    url: UPLOAD_DOCUMENT_SUCCESS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_ALL_DOCUMENT_TYPES,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_APPLICATION_PACK_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_ALL_ORDERS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
   },
   {
     url: UPLOAD_DOCUMENT,

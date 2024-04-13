@@ -7,7 +7,15 @@ import { PARTY_TASKLIST, PageLink, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICAT
 import { DocumentCategory } from '../documents/definitions';
 import { applyParms } from '../url-parser';
 
-import { CaseType, PartyDetails, PartyType, ServedParty, Respondent, State, YesOrNo } from './../../../app/case/definition';
+import {
+  CaseType,
+  PartyDetails,
+  PartyType,
+  Respondent,
+  ServedParty,
+  State,
+  YesOrNo,
+} from './../../../app/case/definition';
 
 export const getPartyName = (
   caseData: Partial<CaseWithId> | undefined,

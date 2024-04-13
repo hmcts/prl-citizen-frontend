@@ -4,6 +4,7 @@ import autobind from 'autobind-decorator';
 
 import { CosApiClient } from '../../app/case/CosApiClient';
 import { CaseWithId } from '../../app/case/case';
+import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { mapDataInSession } from '../tasklistresponse/utils';
 
@@ -23,17 +24,15 @@ export default class CaseDataController {
     req.session.userCaseList = [];
 
     if (this.isDataRequired('hearingDetails')) {
-      if (hearingData && hearingData?.caseHearings) {
+      if (hearingData?.caseHearings) {
         Object.assign(hearingCollection, {
-          hearingCollection: hearingData?.caseHearings,
+          hearingCollection: hearingData.caseHearings,
         });
       }
-    } else {
-      if (req.session.userCase?.hearingCollection?.length) {
-        Object.assign(hearingCollection, {
-          hearingCollection: req.session.userCase?.hearingCollection,
-        });
-      }
+    } else if (req.session.userCase?.hearingCollection?.length) {
+      Object.assign(hearingCollection, {
+        hearingCollection: req.session.userCase.hearingCollection,
+      });
     }
 
     if (caseData) {
@@ -52,8 +51,7 @@ export default class CaseDataController {
   }
 
   public async fetchAndSaveData(req: AppRequest): Promise<{ caseData: CaseWithId; hearingData: any }> {
-    const promises: Promise<any>[] = [];
-    const client = await new CosApiClient(req.session.user.accessToken, req.locals.logger);
+    const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
     const userDetails = req.session.user;
     const caseId = req.params.caseId ?? req.session?.userCase?.id ?? null;
 
@@ -61,17 +59,11 @@ export default class CaseDataController {
       throw new Error('FetchCaseDataController: caseId or userDetails not present.');
     }
 
-    promises.push(client.retrieveByCaseId(caseId, userDetails));
-
-    if (this.isDataRequired('hearingDetails')) {
-      promises.push(client.retrieveCaseHearingsByCaseId(userDetails, caseId));
-    }
-
     try {
-      const [caseData, hearingData] = (await Promise.all(promises)) as unknown as [
-        caseData: CaseWithId,
-        hearingData: any
-      ];
+      const { caseData, hearingData } = await client.retrieveCaseAndHearings(
+        caseId,
+        this.isDataRequired('hearingDetails') ? YesOrNo.YES : YesOrNo.NO
+      );
 
       await this.saveDataInSession(req, caseData, hearingData);
       return Promise.resolve({

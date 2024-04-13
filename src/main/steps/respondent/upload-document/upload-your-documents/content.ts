@@ -129,7 +129,7 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}) },
+    form: { ...form, fields: (form.fields as FormFieldsFn)(content.userCase || {}, request) },
     caption,
     title,
     filesUploaded: content.userCase?.respondentUploadFiles?.map(file => ({

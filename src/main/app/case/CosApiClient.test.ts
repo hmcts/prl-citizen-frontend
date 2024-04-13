@@ -6,7 +6,7 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { CosApiClient, DocumentFileUploadRequest, UploadedFiles } from './CosApiClient';
 import { CaseWithId } from './case';
-import { CaseData, CaseEvent, CaseType, DocumentUploadResponse, PartyType } from './definition';
+import { CaseData, CaseEvent, CaseType, DocumentUploadResponse, PartyType, YesOrNo } from './definition';
 import { toApiFormat } from './to-api-format';
 
 jest.mock('axios');
@@ -62,6 +62,31 @@ describe('CosApiClient', () => {
     mockedAxios.create.mockRejectedValueOnce;
     const client = new CosApiClient('abc', mockLogger);
     await expect(client.get()).rejects.toThrow('Could not connect to cos-api client.');
+  });
+
+  test('retrieveCaseAndHearings', async () => {
+    const response = { status: 'test', id: '200', state: 'SUCCESS', data: { caseData: 'cases', hearings: 'hearings' } };
+    mockedAxios.get.mockReturnValueOnce(response as unknown as Promise<CaseWithId>);
+    const client = new CosApiClient('abc', mockLogger);
+    const actual = await client.retrieveCaseAndHearings('1234567', 'Yes' as YesOrNo);
+    expect(actual).toEqual({ status: 'test', caseData: 'cases', hearingData: 'hearings' });
+  });
+
+  test('retrieveCaseAndHearings should throw error', async () => {
+    mockedAxios.get.mockRejectedValueOnce({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'GET',
+      },
+    });
+    const client = new CosApiClient('abc', mockLogger);
+
+    await expect(client.retrieveCaseAndHearings('1234567', 'Yes' as YesOrNo)).rejects.toThrow(
+      'Error occured, case data and hearings could not be retrieved - retrieveCaseAndHearings'
+    );
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error GET undefined 500');
   });
 
   test('retrieveByCaseId', async () => {

@@ -319,6 +319,23 @@ export class CosApiClient {
     }
   }
 
+  public async retrieveCaseAndHearings(caseId: string, hearingNeeded: YesOrNo): Promise<any> {
+    try {
+      const response = await this.client.get(
+        config.get('services.cos.url') + `/retrieve-case-and-hearing/${caseId}/${hearingNeeded}`
+      );
+
+      return {
+        status: response.status,
+        caseData: response.data?.caseData,
+        hearingData: response.data?.hearings,
+      };
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, case data and hearings could not be retrieved - retrieveCaseAndHearings');
+    }
+  }
+
   public async downloadDocument(documentId: string, userId: string): Promise<AxiosResponse> {
     try {
       const response = await this.client.get(

@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+
+import _ from 'lodash';
 
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
@@ -127,6 +130,13 @@ export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): 
 
 export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
   return caseData.applicants?.[0].value.user.idamId === userDetails.id;
+};
+
+export const isPersonalServiceByCourtStaff = (caseData: Partial<CaseWithId>): boolean => {
+  const PERSONAL_SOA_BY_COURT_STAFF = ['Court - court admin', 'Court - court bailiff'];
+  return caseData.finalServedApplicationDetailsList && caseData.finalServedApplicationDetailsList?.length
+    ? PERSONAL_SOA_BY_COURT_STAFF.includes(_.last(caseData.finalServedApplicationDetailsList)?.value.whoIsResponsible!)
+    : false;
 };
 
 export const isPartyServed = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {

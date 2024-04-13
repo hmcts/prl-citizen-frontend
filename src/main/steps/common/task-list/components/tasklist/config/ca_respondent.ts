@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 import { CaseWithId } from '../../../../../../app/case/case';
-import { PartyType } from '../../../../../../app/case/definition';
+import { CaseType, DocType, PartyType, YesOrNo } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
@@ -10,7 +11,8 @@ import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils'
 import {
   ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT_CA_DA_REQUEST,
-  CA_DA_ATTENDING_THE_COURT,
+  CHOOSE_CONTACT_PREFERENCE,
+  REASONABLE_ADJUSTMENTS_INTRO,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
@@ -20,7 +22,9 @@ import {
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
+  VIEW_DOCUMENT_URL,
 } from '../../../../../../steps/urls';
+import { hasContactPreference } from '../../../../contact-preference/util';
 import { isApplicationResponded, isCaseClosed, isCaseLinked, isRepresentedBySolicotor } from '../../../utils';
 import {
   StateTags,
@@ -33,7 +37,6 @@ import {
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getResponseStatus,
-  getSupportYourNeedsDetailsStatus,
   hasAnyHearing,
 } from '../utils';
 
@@ -57,6 +60,14 @@ export const aboutYou: TaskListConfigProps = {
       },
     },
     {
+      id: Tasks.CONTACT_PREFERENCES,
+      href: () => applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: PartyType.RESPONDENT }),
+      disabled: isCaseClosed,
+      stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+        !hasContactPreference(caseData as CaseWithId, userDetails.id) ? StateTags.TO_DO : StateTags.COMPLETED,
+      show: (caseData: Partial<CaseWithId>) => caseData.caseTypeOfApplication === CaseType.C100,
+    },
+    {
       id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
       href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_CHECK_ANSWERS}/${caseData.id}`,
       stateTag: (caseData, userDetails) => {
@@ -65,14 +76,14 @@ export const aboutYou: TaskListConfigProps = {
       },
     },
     {
-      id: Tasks.YOUR_SUPPORT,
+      id: Tasks.SUPPORT_YOU_NEED,
       href: () => {
-        return `${CA_DA_ATTENDING_THE_COURT}`;
+        return applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
+          partyType: PartyType.RESPONDENT,
+        });
       },
-      stateTag: (caseData, userDetails) => {
-        const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-        return getSupportYourNeedsDetailsStatus(respondent?.response.supportYouNeed as CaseWithId);
-      },
+      disabled: isCaseClosed,
+      stateTag: () => StateTags.OPTIONAL,
     },
   ],
 };
@@ -191,11 +202,19 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
       {
         id: Tasks.RESPOND_TO_THE_APPLICATION,
         href: (caseData, userDetails) => {
-          return !isApplicationResponded(caseData, userDetails.id) ? `${RESPOND_TO_APPLICATION}/flag/updateFlag` : null;
+          const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id)!;
+          const respondentName = respondent.firstName + ' ' + respondent.lastName;
+          return respondent?.response.c7ResponseSubmitted === YesOrNo.YES
+            ? applyParms(VIEW_DOCUMENT_URL, {
+                docType: DocType.RESPONSE_TO_CA,
+                uploadedBy: PartyType.RESPONDENT,
+                partyName: respondentName,
+              })
+            : `${RESPOND_TO_APPLICATION}/flag/updateFlag`;
         },
         stateTag: (caseData, userDetails) => {
           const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-          return getResponseStatus(respondent);
+          return getResponseStatus(respondent!);
         },
         showHint: (caseData, userDetails) => isApplicationResponded(caseData, userDetails.id),
       },
