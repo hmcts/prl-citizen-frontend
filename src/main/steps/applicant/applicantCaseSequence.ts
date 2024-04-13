@@ -83,6 +83,19 @@ import {
   APPLICANT_TASKLIST_HEARING_NEEDS,
   APPLICANT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
   APPLICANT_UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT,
+  VIEW_ALL_DOCUMENT_TYPES,
+  VIEW_DOCUMENTS,
+  UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
+  UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE,
+  UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
+  UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
+  UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT,
+  UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS,
+  UPLOAD_DOCUMENT_SUCCESS,
+  UPLOAD_DOCUMENT,
+  FETCH_CASE_DETAILS,
+  VIEW_APPLICATION_PACK_DOCUMENTS,
+  VIEW_ALL_ORDERS,
 } from '../urls';
 
 import ApplicantReasonableAdjustmentsNavigationController from './task-list/navigationController';
@@ -624,5 +637,108 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_TASKLIST_HEARING_NEEDS,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
+  {
+    url: UPLOAD_DOCUMENT,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData, req) =>
+      applyParms(
+        caseData?.hasCourtAskedForThisDoc === YesOrNo.NO
+          ? UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE
+          : UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
+        {
+          partyType: req!.params.partyType,
+          docCategory: req!.params.docCategory,
+        }
+      ) as PageLink,
+  },
+  {
+    url: UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+  },
+  {
+    url: UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData, req) =>
+      applyParms(UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS, {
+        partyType: req!.params.partyType,
+        docCategory: req!.params.docCategory,
+      }) as PageLink,
+  },
+  {
+    url: UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData, req) =>
+      applyParms(
+        caseData?.haveReasonForDocNotToBeShared === YesOrNo.YES
+          ? UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT
+          : UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS,
+        {
+          partyType: req!.params.partyType,
+          docCategory: req!.params.docCategory,
+        }
+      ) as PageLink,
+  },
+  {
+    url: UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: (caseData, req) =>
+      applyParms(UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS, {
+        partyType: req!.params.partyType,
+        docCategory: req!.params.docCategory,
+      }) as PageLink,
+  },
+  {
+    url: UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    postController: DocumentUploadPostController,
+    getNextStep: (caseData, req) =>
+      applyParms(UPLOAD_DOCUMENT_SUCCESS, {
+        partyType: req!.params.partyType,
+        docCategory: req!.params.docCategory,
+      }) as PageLink,
+  },
+  {
+    url: UPLOAD_DOCUMENT_SUCCESS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_ALL_DOCUMENT_TYPES,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_APPLICATION_PACK_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_ALL_ORDERS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    subDir: '/common',
+    getNextStep: () => '/',
   },
 ];

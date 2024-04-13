@@ -318,7 +318,7 @@ describe('CosApiClient', () => {
     req.params.documentId = 'c9f56483-6e2d-43ce-9de8-72661755b87c';
     const client = new CosApiClient('abc', mockLogger);
     const docId = 'c9f56483-6e2d-43ce-9de8-72661755b87c';
-    await expect(client.deleteCitizenStatementDocument(req.session.user, docId)).rejects.toThrow(
+    await expect(client.deleteCitizenStatementDocument(docId)).rejects.toThrow(
       'Error occured, document could not be deleted. - deleteCitizenStatementDocument'
     );
   });
@@ -566,12 +566,11 @@ describe('CosApiClientWithError', () => {
   });
 
   test('deleteCitizenStatementDocumentWithError', async () => {
-    const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
     const docId = '12345';
     let flag = true;
     try {
-      await client.deleteCitizenStatementDocument(req.session.user, docId);
+      await client.deleteCitizenStatementDocument(docId);
     } catch {
       flag = false;
     }

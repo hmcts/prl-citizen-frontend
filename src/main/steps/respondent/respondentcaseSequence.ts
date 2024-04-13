@@ -77,6 +77,10 @@ import {
   RESPOND_TO_APPLICATION,
   TASKLIST_RESPONDENT,
   TENANCY_AND_MORTGAGE_AVAILABILITY,
+  VIEW_ALL_DOCUMENT_TYPES,
+  VIEW_ALL_ORDERS,
+  VIEW_APPLICATION_PACK_DOCUMENTS,
+  VIEW_DOCUMENTS,
   WITNESS_AVAILABILITY,
   YOUR_WITNESS_STATEMENTS,
 } from '../urls';
@@ -580,5 +584,29 @@ export const respondentCaseSequence: Step[] = [
     url: RESPONDENT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_TASK_LIST_URL,
+  },
+  {
+    url: VIEW_ALL_DOCUMENT_TYPES,
+    showInSection: Sections.AboutRespondentCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_APPLICATION_PACK_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_ALL_ORDERS,
+    showInSection: Sections.AboutRespondentCase,
+    subDir: '/common',
+    getNextStep: () => '/',
+  },
+  {
+    url: VIEW_DOCUMENTS,
+    showInSection: Sections.AboutRespondentCase,
+    subDir: '/common',
+    getNextStep: () => '/',
   },
 ];

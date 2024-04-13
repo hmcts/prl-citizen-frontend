@@ -6,7 +6,7 @@ import { respondentCaseSequence } from './respondentcaseSequence';
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(respondentCaseSequence).toHaveLength(94);
+    expect(respondentCaseSequence).toHaveLength(97);
     expect(respondentCaseSequence[0].url).toBe('/respondent/task-list');
     expect(respondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -471,6 +471,20 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[93].url).toBe('/respondent/upload-document/submit-extra-evidence');
     expect(respondentCaseSequence[93].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[93].getNextStep({})).toBe('/respondent/task-list');
+
+    expect(respondentCaseSequence[94].url).toBe('/:partyType/documents/view/all-documents');
+    expect(respondentCaseSequence[94].showInSection).toBe('aboutRespondentCase');
+    expect(respondentCaseSequence[94].getNextStep({})).toBe('/');
+
+    expect(respondentCaseSequence[95].url).toBe('/:partyType/documents/view/application-pack-documents/:context?');
+    expect(respondentCaseSequence[95].showInSection).toBe('aboutRespondentCase');
+    expect(respondentCaseSequence[95].getNextStep({})).toBe('/');
+
+    expect(respondentCaseSequence[96].url).toBe(
+      '/:partyType/documents/view/:documentCategory/:documentPartyType/:documentPartyId?'
+    );
+    expect(respondentCaseSequence[96].showInSection).toBe('aboutRespondentCase');
+    expect(respondentCaseSequence[96].getNextStep({})).toBe('/');
   });
 });
 

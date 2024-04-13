@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../../app/case/case';
+import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import { UPDATE_CASE } from '../../../../../../steps/constants';
@@ -11,13 +13,15 @@ import {
   CA_DA_ATTENDING_THE_COURT,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
-  RESPONDENT_ORDERS_FROM_THE_COURT,
   RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
+  UPLOAD_DOCUMENT,
+  VIEW_ALL_DOCUMENT_TYPES,
+  VIEW_ALL_ORDERS,
 } from '../../../../../../steps/urls';
-import { isApplicationResponded, isCaseClosed, isRepresentedBySolicotor } from '../../../utils';
+import { isApplicationResponded, isCaseClosed, isCaseLinked, isRepresentedBySolicotor } from '../../../utils';
 import {
   StateTags,
   TaskListSection,
@@ -31,20 +35,22 @@ import {
   getResponseStatus,
   getSupportYourNeedsDetailsStatus,
   hasAnyHearing,
-  hasAnyOrder,
 } from '../utils';
 
 export const aboutYou: TaskListConfigProps = {
   id: TaskListSection.ABOUT_YOU,
   content: getContents.bind(null, TaskListSection.ABOUT_YOU),
   show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-    return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+    return (
+      isCaseLinked(caseData, userDetails) &&
+      !isCaseClosed(caseData) &&
+      !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
+    );
   },
   tasks: (): Task[] => [
     {
       id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
       href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_DETAILS_KNOWN}/${caseData.id}`,
-      disabled: isCaseClosed,
       stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
         const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
         return getKeepYourDetailsPrivateStatus(respondent?.response.keepDetailsPrivate);
@@ -53,7 +59,6 @@ export const aboutYou: TaskListConfigProps = {
     {
       id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
       href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_CHECK_ANSWERS}/${caseData.id}`,
-      disabled: isCaseClosed,
       stateTag: (caseData, userDetails) => {
         const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
         return getConfirmOrEditYourContactDetailsStatus(respondent);
@@ -64,7 +69,6 @@ export const aboutYou: TaskListConfigProps = {
       href: () => {
         return `${CA_DA_ATTENDING_THE_COURT}`;
       },
-      disabled: isCaseClosed,
       stateTag: (caseData, userDetails) => {
         const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
         return getSupportYourNeedsDetailsStatus(respondent?.response.supportYouNeed as CaseWithId);
@@ -75,7 +79,7 @@ export const aboutYou: TaskListConfigProps = {
 export const hearing: TaskListConfigProps = {
   id: TaskListSection.YOUR_HEARING,
   content: getContents.bind(null, TaskListSection.YOUR_HEARING),
-  show: () => true,
+  show: isCaseLinked,
   tasks: (): Task[] => [
     {
       id: Tasks.VIEW_HEARING_DETAILS,
@@ -94,30 +98,27 @@ export const hearing: TaskListConfigProps = {
 export const order: TaskListConfigProps = {
   id: TaskListSection.YOUR_ORDERS,
   content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
-  show: () => true,
+  show: isCaseLinked,
   tasks: (): Task[] => [
     {
       id: Tasks.VIEW_ORDERS,
-      href: caseData => (hasAnyOrder(caseData) ? RESPONDENT_ORDERS_FROM_THE_COURT : '#'),
+      href: () => applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
       stateTag: (caseData: Partial<CaseWithId>) => {
-        if (hasAnyOrder(caseData)) {
+        if (hasOrders(caseData as CaseWithId)) {
           return StateTags.READY_TO_VIEW;
         }
         return StateTags.NOT_AVAILABLE_YET;
       },
+      disabled: (caseData: Partial<CaseWithId>) => !hasOrders(caseData as CaseWithId),
     },
   ],
 };
+
 export const document: TaskListConfigProps = {
   id: TaskListSection.YOUR_DOCUMENTS,
   content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-  show: () => true,
+  show: isCaseLinked,
   tasks: (): Task[] => [
-    {
-      id: Tasks.VIEW_ALL_DOCUMENTS,
-      href: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
-      stateTag: () => StateTags.READY_TO_VIEW,
-    },
     {
       id: Tasks.UPLOAD_DOCUMENTS,
       href: () => RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
@@ -125,7 +126,24 @@ export const document: TaskListConfigProps = {
       show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
         return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
       },
-      disabled: isCaseClosed,
+    },
+    {
+      id: Tasks.VIEW_ALL_DOCUMENTS,
+      href: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
+      stateTag: () => StateTags.READY_TO_VIEW,
+    },
+    {
+      id: Tasks.UPLOAD_DOCUMENTS,
+      href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.RESPONDENT }),
+      stateTag: () => StateTags.TO_DO,
+      show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
+        return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+      },
+    },
+    {
+      id: Tasks.VIEW_ALL_DOCUMENTS,
+      href: () => applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.RESPONDENT }),
+      stateTag: () => StateTags.READY_TO_VIEW,
     },
   ],
 };
@@ -135,7 +153,7 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
   {
     id: TaskListSection.THE_APPLICATION,
     content: getContents.bind(null, TaskListSection.THE_APPLICATION),
-    show: () => true,
+    show: isCaseLinked,
     tasks: (): Task[] => [
       {
         id: Tasks.CHECK_THE_APPLICATION,
@@ -163,7 +181,11 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
     id: TaskListSection.YOUR_RESPONSE,
     content: getContents.bind(null, TaskListSection.YOUR_RESPONSE),
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-      return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
+      return (
+        isCaseLinked(caseData, userDetails) &&
+        !isCaseClosed(caseData) &&
+        !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
+      );
     },
     tasks: (): Task[] => [
       {
@@ -171,7 +193,6 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         href: (caseData, userDetails) => {
           return !isApplicationResponded(caseData, userDetails.id) ? `${RESPOND_TO_APPLICATION}/flag/updateFlag` : null;
         },
-        disabled: isCaseClosed,
         stateTag: (caseData, userDetails) => {
           const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
           return getResponseStatus(respondent);
@@ -183,7 +204,6 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         href: () => {
           return '#';
         },
-        disabled: isCaseClosed,
         stateTag: (caseData, userDetails) => {
           const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
           return getInternationalFactorsStatus(respondent?.response.citizenInternationalElements);

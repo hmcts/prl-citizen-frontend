@@ -1,5 +1,6 @@
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
+import { CaseInvite, CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
+import { CitizenApplicationPacks } from '../../../documents/definitions';
 
 import { getNotificationBannerConfig } from '.';
 
@@ -402,6 +403,85 @@ describe('testcase for notification Banner', () => {
     ]);
   });
 
+  test('when respondent has submitted their response', () => {
+    const data = {
+      id: '1',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: applicant,
+      respondents: [
+        {
+          id: '1',
+          value: {
+            user: {
+              idamId: '1',
+            },
+          },
+        },
+      ],
+      citizenDocuments: [
+        {
+          partyId: '1',
+          partyName: null,
+          partyType: 'respondent',
+          categoryId: 'respondentApplication',
+          uploadedBy: 'test user',
+          uploadedDate: '2024-03-11T16:24:33.122506',
+          reviewedDate: '2024-03-11T16:24:33.122506',
+          document: {
+            document_url: 'MOCK_DOCUMENT_URL',
+            document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+            document_filename: 'MOCK_FILENAME',
+            document_hash: null,
+            category_id: 'respondentApplication',
+            document_creation_date: '2024-03-11T16:24:33.122506',
+          },
+          documentWelsh: null,
+        },
+      ],
+    } as unknown as CaseWithId;
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+      {
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond',
+              },
+            ],
+            links: [],
+          },
+        ],
+        heading: 'The court has issued your application',
+        id: 'applicationServedAndLinked',
+        title: 'Important',
+      },
+      {
+        heading: 'View the response to your application',
+        id: 'responseSubmitted',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The other person in the case (the respondent) has responded to your application.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '/applicant/documents/view/all-documents',
+                text: 'View the response (PDF)',
+              },
+            ],
+          },
+        ],
+        title: 'Important',
+      },
+    ]);
+  });
+
   test('when primary citizen has to serve respondent personally', () => {
     const applicantLIP = applicant[0];
     applicantLIP.value.response = { ...applicantLIP.value.response, citizenFlags: { isApplicationToBeServed: 'Yes' } };
@@ -446,7 +526,7 @@ describe('testcase for notification Banner', () => {
             links: [
               {
                 external: false,
-                href: '/applicant/yourdocuments/alldocuments/alldocuments',
+                href: '/applicant/documents/view/all-documents',
                 text: "View the respondent's documents",
               },
             ],
@@ -526,7 +606,7 @@ describe('testcase for notification Banner', () => {
             links: [
               {
                 external: false,
-                href: '/applicant/yourdocuments/alldocuments/alldocuments',
+                href: '/applicant/documents/view/all-documents',
                 text: 'View your application pack',
               },
             ],
@@ -638,6 +718,120 @@ describe('testcase for notification Banner', () => {
                   text: 'View the order (PDF)',
                 },
               ],
+            },
+          ],
+          title: 'Important',
+        },
+      ]);
+    });
+
+    test('correct banners should be added when respondent has been served', () => {
+      data.respondents = [
+        {
+          id: '123',
+          value: {
+            user: {
+              email: 'abc',
+              idamId: '123',
+            },
+            response: {
+              citizenFlags: {},
+            },
+          },
+        } as unknown as Respondent,
+      ];
+      data.state = State.Draft;
+      data.orderCollection = [
+        {
+          id: '1234',
+          value: {
+            dateCreated: 'MOCK_DATE',
+            orderType: 'ORDER',
+            orderDocument: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+            orderDocumentWelsh: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+            otherDetails: {
+              createdBy: '1234',
+              orderCreatedDate: 'MOCK_DATE',
+              orderMadeDate: 'MOCK_DATE',
+              orderRecipients: 'RECIPIENTS',
+            },
+          },
+        },
+      ];
+      data.caseInvites = [
+        {
+          id: '123',
+          value: {
+            partyId: '123',
+            caseInviteEmail: '',
+            accessCode: '',
+            invitedUserId: '123',
+            expiryDate: '',
+          },
+        },
+      ] as unknown as CaseInvite[];
+      data.caseTypeOfApplication = 'C100';
+      data.citizenApplicationPacks = [{ partyId: '123' } as unknown as CitizenApplicationPacks];
+      expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
+        {
+          heading: 'You have a new order from the court',
+          id: 'newOrder',
+
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'The court has made a decision about your case. The order tells you what the court has decided.',
+                },
+              ],
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/yourdocuments/alldocuments/orders',
+                  text: 'View the order (PDF)',
+                },
+              ],
+            },
+          ],
+          title: 'Important',
+        },
+        {
+          heading: 'Respond to an application about a child',
+          id: 'caRespondentServed',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'Another person (the applicant) has applied to the court to make a decision about a child.',
+                },
+                {
+                  text: 'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
+                },
+              ],
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/yourdocuments/alldocuments/alldocuments',
+                  text: 'View the application pack',
+                },
+                {
+                  external: false,
+                  href: '/tasklistresponse/start/flag/updateFlag',
+                  text: 'Respond to the application',
+                },
+              ],
+            },
+            {
+              contents: [],
+              links: [],
             },
           ],
           title: 'Important',

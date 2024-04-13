@@ -8,7 +8,16 @@ import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
 
 import { CaseWithId } from './case';
-import { CaseData, CaseEvent, CaseType, DocumentUploadResponse, PartyDetails, PartyType, YesOrNo } from './definition';
+import {
+  CaseData,
+  CaseEvent,
+  CaseType,
+  DocumentUploadResponse,
+  PartyDetails,
+  PartyType,
+  UserRole,
+  YesOrNo,
+} from './definition';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -230,9 +239,9 @@ export class CosApiClient {
     }
   }
 
-  public async deleteCitizenStatementDocument(user: UserDetails, docId: string): Promise<string> {
+  public async deleteCitizenStatementDocument(documentId: string): Promise<string> {
     try {
-      const response = await this.client.delete(config.get('services.cos.url') + `/${docId}/delete`);
+      const response = await this.client.delete(config.get('services.cos.url') + `/${documentId}/delete`);
       return response.data;
     } catch (error) {
       this.logError(error);
@@ -307,6 +316,19 @@ export class CosApiClient {
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, case could not be updated - retrieveCaseHearingsByCaseId');
+    }
+  }
+
+  public async downloadDocument(documentId: string, userId: string): Promise<AxiosResponse> {
+    try {
+      const response = await this.client.get(
+        `${config.get('services.documentManagement.url')}/cases/documents/${documentId}/binary`,
+        { responseType: 'arraybuffer', headers: { 'user-id': userId, 'user-roles': UserRole.CITIZEN } }
+      );
+      return response;
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, document could not be fetched for download - downloadDocument');
     }
   }
 }

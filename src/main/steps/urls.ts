@@ -237,6 +237,28 @@ export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_
 export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
 export const VIEW_DOCUMENT_URL = '/doc/:docType/:uploadedBy/:partyName?';
 
+/** Documents */
+const DOCUMENTS = '/:partyType/documents';
+
+/** View all documents */
+export const VIEW_ALL_DOCUMENT_TYPES: PageLink = `${DOCUMENTS}/view/all-documents`;
+export const VIEW_DOCUMENTS: PageLink = `${DOCUMENTS}/view/:documentCategory/:documentPartyType/:documentPartyId?`;
+export const VIEW_APPLICATION_PACK_DOCUMENTS: PageLink = `${DOCUMENTS}/view/application-pack-documents/:context?`;
+export const VIEW_ALL_ORDERS: PageLink = `${DOCUMENTS}/view/orders-from-the-court`;
+
+/* Upload documents */
+export const UPLOAD_DOCUMENT: PageLink = `${DOCUMENTS}/upload`;
+export const UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/has-the-court-asked-for-this-documents`;
+export const UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/document-sharing-details`;
+export const UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/sharing-your-documents`;
+export const UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/other-party-not-see-this-document`;
+export const UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/upload-your-documents`;
+export const UPLOAD_DOCUMENT_SUCCESS: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/upload-documents-success`;
+export const UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/submit-extra-evidence`;
+
+/* Download documents */
+export const DOWNLOAD_DOCUMENT: PageLink = `${DOCUMENTS}/download/:documentId/:documentName/:documentType?`;
+
 export const RESPNDT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 
 export const APPLICANT_WITNESS_STATEMENTS_DA: PageLink = `${APPLICANT}/witnessstatements`;
@@ -374,7 +396,6 @@ export const C100_CHILD_ADDRESS: PageLink = `${C100_URL}/childaddress`;
 
 export const C100_CREATE_CASE: PageLink = `${C100_URL}/case/create`;
 export const C100_RETRIVE_CASE: PageLink = `${C100_URL}/case/:caseId/retrive`;
-export const C100_DOWNLOAD_APPLICATION: PageLink = `${C100_URL}/application-copy/download`;
 export const C100_CONFIRMATIONPAGE: PageLink = `${C100_URL}/confirmation-page`;
 export const C100_CONFIDENTIALITY_DETAILS_KNOW: PageLink = `${C100_URL}/confidentiality/details-know`;
 export const C100_CONFIDENTIALITY_START: PageLink = `${C100_URL}/confidentiality/start`;

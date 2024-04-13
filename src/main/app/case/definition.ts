@@ -1,7 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
-import { CaseDate, FieldPrefix } from './case';
+import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
+import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
 
 export interface ChildDetails {
   gender: string;
@@ -108,6 +109,10 @@ export interface PartyDetails {
   user: User;
   contactPreferences?: applicantContactPreferencesEnum;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
+}
+
+export interface PartyDetailsWithId extends PartyDetails {
+  partyId: string | undefined,
 }
 
 export interface User {
@@ -981,6 +986,10 @@ export interface CaseData {
   draftOrderDoc?: Document;
   soaCafcassServedOptions?: YesOrNo | null;
   soaCafcassCymruServedOptions? : YesOrNo | null;
+  citizenDocuments?: CitizenDocuments[];
+  citizenOrders?: CitizenDocuments[];
+  citizenApplicationPacks?: CitizenApplicationPacks[];
+  finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -1652,7 +1661,8 @@ export const enum EventRoutesContext {
   SAFETY_CONCERNS_RESPONSE = "SAFETY_CONCERNS_RESPONSE",
   INTERNATIONAL_FACTORS_RESPONSE = "INTERNATIONAL_FACTORS_RESPONSE",
   SUPPORT_DURING_CASE = "SUPPORT_DURING_CASE",
-  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO"
+  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO",
+  VIEW_ALL_DOCUMENTS = 'VIEW_ALL_DOCUMENTS'
 }
 
 export const enum ClarificationReason {
@@ -3068,6 +3078,10 @@ export enum PartyType {
   OTHER_CHILDREN = 'otherChildren',
   RESPONDENT = 'respondent',
   OTHER_PERSON = 'otherPerson',
+}
+
+export enum ServedParty {
+  CYMRU = 'Cafcass cymru',
 }
 
 export type People = {

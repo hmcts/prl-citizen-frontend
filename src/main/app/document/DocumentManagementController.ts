@@ -549,7 +549,7 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
     req.url = redirectUrl;
     try {
-      await client.deleteCitizenStatementDocument(user, params.documentId);
+      await client.deleteCitizenStatementDocument(params.documentId);
       const uploadedFiles =
         caseData?.[partyType === PartyType.APPLICANT ? 'applicantUploadFiles' : 'respondentUploadFiles'];
 

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
@@ -228,6 +229,10 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   draftOrderDoc: 'draftOrderDoc',
   isCafcassServed: 'soaCafcassServedOptions',
   isCafcassCymruServed: 'soaCafcassCymruServedOptions',
+  citizenDocuments: 'citizenDocuments',
+  citizenOrders: 'citizenOrders',
+  citizenApplicationPacks: 'citizenApplicationPacks',
+  finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -598,7 +603,26 @@ export interface Case {
   withdrawApplicationReason?: string;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
+  citizenDocuments?: CitizenDocuments[];
+  citizenOrders?: Record<string, any>[];
+  citizenApplicationPacks?: CitizenApplicationPacks[];
+  finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
+export interface ServedApplicationDetails {
+  id: string;
+  value: ServedApplication;
+}
+export type ServedApplication = {
+  emailNotificationDetails: emailNotificationDetails[] | [];
+  whoIsResponsible: string;
+};
+export interface emailNotificationDetails {
+  id: string;
+  value: emailNotification;
+}
+export type emailNotification = {
+  servedParty: string;
+};
 
 export interface CaseWithId extends Case {
   paymentSuccessDetails?: {
