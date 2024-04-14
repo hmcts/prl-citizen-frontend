@@ -444,7 +444,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
 
   private setRedirectUrl(partyType: PartyType, req: AppRequest<Partial<CaseWithId>>) {
     const { documentCategory = '', documentType = '' } = req.query;
-
+    if (req.query.isSos) {
+      return applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: req.query.context });
+    }
     return applyParms(partyType === PartyType.APPLICANT ? APPLICANT_UPLOAD_DOCUMENT : RESPONDENT_UPLOAD_DOCUMENT, {
       docCategory: documentCategory as string,
       doctype: documentType as string,
@@ -519,9 +521,13 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
 
     try {
-      const response = await client.uploadStatementDocument(user, {
-        files: [files['files[]']],
-      });
+      const response = req.query.isSos
+        ? await client.uploadStatementDocument(user, {
+            files,
+          })
+        : await client.uploadStatementDocument(user, {
+            files: [files['files[]']],
+          });
 
       if (response.status !== 'Success') {
         req.session.errors = handleUploadDocError(req.session.errors, 'uploadError', true);
@@ -576,70 +582,28 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   public async deleteDocumentFromCdam(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
-      const loggedInCitizen = req.session.user;
-      const documentIdToDelete = req.params.documentId;
-      const client = new CosApiClient(loggedInCitizen.accessToken, req.locals.logger);
-      const deleteCitizenDocFromCos: DocumentUploadResponse = await client.deleteDocumentFromCdam(
-        loggedInCitizen,
-        documentIdToDelete
-      );
-      if ('Success' === deleteCitizenDocFromCos.status) {
-        req.session.userCase.applicantUploadFiles = [];
+    const loggedInCitizen = req.session.user;
+    const documentIdToDelete = req.params.documentId;
+    const client = new CosApiClient(loggedInCitizen.accessToken, req.locals.logger);
+    const deleteCitizenDocFromCos: DocumentUploadResponse = await client.deleteDocumentFromCdam(
+      loggedInCitizen,
+      documentIdToDelete
+    );
+    if ('Success' === deleteCitizenDocFromCos.status) {
+      req.session.userCase.applicantUploadFiles = [];
+      req.session.errors = [];
+    } else {
+      if (!req.session.errors) {
         req.session.errors = [];
-      } else {
-        if (!req.session.errors) {
-          req.session.errors = [];
-        }
-        req.session.errors?.push({ errorType: 'Document could not be deleted', propertyName: 'uploadFiles' });
       }
-      this.redirect(req, res, applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: req.params.context }));
+      req.session.errors?.push({ errorType: 'Document could not be deleted', propertyName: 'uploadFiles' });
     }
+    this.redirect(req, res, applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: req.params.context }));
+  }
 
   public redirectToCaseView(req: AppRequest<AnyObject>, res: Response): void {
     resetUploadDocumentSessionData(req.session);
     this.redirect(req, res, applyParms(FETCH_CASE_DETAILS, { caseId: req.session.userCase.id }));
-  }
-
-  public async uploadDocumentToCdam(req: AppRequest, res: Response): Promise<void> {
-    console.log('Helo **** ');
-    this.undefiendUploadFiles(req);
-    this.fileData(req);
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
-    const form = new Form(fields);
-
-    const { _csrf, ...formData } = form.getParsedBody(req.body);
-    const caseworkerUser = req.session.user;
-    req.session.errors = form.getErrors(formData);
-    const partyName = this.getPartyName(YesOrNo.YES, req);
-    const files = req.files || [];
-    const caseId = req.session.userCase.id;
-    const partyId = req.session.user.id;
-    const client = new CosApiClient(caseworkerUser.accessToken, req.locals.logger);
-    const uploadRequest: UploadDocumentRequest = {
-      user: caseworkerUser,
-      caseId,
-      partyId,
-      partyName,
-      isApplicant: YesOrNo.YES,
-      files,
-    };
-    if (req.session.userCase.applicantUploadFiles && req.session.userCase.applicantUploadFiles.length > 0) {
-      await client.deleteDocumentFromCdam(req.session.user, req.session.userCase.applicantUploadFiles[0].id);
-      req.session.userCase.applicantUploadFiles = undefined;
-    }
-    const citizenDocumentListFromCos = await client.UploadDocumentToCdam(uploadRequest);
-    if (citizenDocumentListFromCos.status !== 200) {
-      req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'documents' });
-    } else {
-      const obj = {
-        id: citizenDocumentListFromCos.document?.document_url.split('/').pop() as string,
-        name: citizenDocumentListFromCos.document?.document_filename as string,
-      };
-      req.session.userCase.applicantUploadFiles = [obj];
-      req.session.userCase.statementOfServiceDocument = citizenDocumentListFromCos.document;
-      req.session.errors = [];
-    }
-    this.redirect(req, res, applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: req.params.context }));
   }
 
   public redirectToUploadDocument(req: AppRequest<AnyObject>, res: Response): void {

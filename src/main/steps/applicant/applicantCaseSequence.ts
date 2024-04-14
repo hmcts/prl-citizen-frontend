@@ -82,7 +82,6 @@ import {
   APPLICANT_STATEMENT_OF_SERVICE_NEXT,
   APPLICANT_STATEMENT_OF_SERVICE_SUMMARY,
   APPLICANT_UPLOAD_DOCUMENT_PERMISSION_TO_SUBMIT_EXTRA_EVIDENCE,
-  PageLink,
   APPLICANT_TASKLIST_HEARING_NEEDS,
   APPLICANT_UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
   APPLICANT_UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT,
@@ -765,6 +764,6 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_STATEMENT_OF_SERVICE_NEXT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: (caseData: Partial<CaseWithId>) => applyParms(FETCH_CASE_DETAILS, { caseId: caseData.id! }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
   },
 ];

@@ -127,8 +127,6 @@ import {
   AOH_TO_CA,
   VIEW_DOCUMENT_URL,
   LOCAL_API_SESSION,
-  TASKLIST_RESPONSE_TO_CA,
-  UPLOAD_DOCUMENT_TO_CDAM,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -266,14 +264,10 @@ export class Routes {
           `${DOCUMENT_MANAGER}/redirectToUploadDocument`,
           errorHandler(documentManagerController.redirectToUploadDocument)
         );
-        app.post(UPLOAD_DOCUMENT_TO_CDAM, errorHandler(documentManagerController.uploadDocumentToCdam));
         app.get(
           `${DOCUMENT_MANAGER}/delete-document/:documentId`,
           errorHandler(documentManagerController.deleteDocument)
         );
-        app.get(`${DOCUMENT_MANAGER}/:documentId/delete`,
-                  errorHandler(documentManagerController.deleteDocumentFromCdam)
-                );
         app.post(`${DOCUMENT_MANAGER}/generate-document`, errorHandler(documentManagerController.generateDocument));
         app.get(`${CA_RESPONDENT_GENERATE_C7_Final}`, errorHandler(documentManagerController.get));
         app.get(YOUR_APPLICATION_FL401, errorHandler(documentManagerController.get));

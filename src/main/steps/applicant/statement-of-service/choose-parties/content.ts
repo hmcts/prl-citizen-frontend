@@ -197,10 +197,15 @@ export const generateContent: TranslationFn = content => {
   if (content.userCase) {
     parties = getParties(content.userCase);
   }
+  const url = `/document-manager/upload-document?isApplicant=Yes&context=${content.additionalData?.req.params.context}&isSos=Yes`;
   return {
     ...translations,
     form: updateFormFields(form, generateFormFields(parties).fields),
-    uploadedFiles: content.userCase?.applicantUploadFiles,
+    uploadedFiles: content.userCase?.applicantUploadFiles?.map(file => ({
+      id: file.document_url.substring(file.document_url.lastIndexOf('/') + 1),
+      ...file,
+    })),
+    url,
   };
 };
 

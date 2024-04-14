@@ -145,7 +145,7 @@ const getSummarySection = (summaryContent: CommonContent) => {
     if (summaryContent.userCase.applicantUploadFiles) {
       summaryData.push({
         key: labels.filesUploaded,
-        value: summaryContent.userCase.applicantUploadFiles[0].name,
+        value: summaryContent.userCase.applicantUploadFiles[0].document_filename,
         changeUrl: APPLICANT_STATEMENT_OF_SERVICE,
       });
     }

@@ -13,7 +13,6 @@ import {
   CaseEvent,
   CaseType,
   CitizenSos,
-  DocumentFromCdam,
   DocumentUploadResponse,
   PartyDetails,
   PartyType,
@@ -266,29 +265,6 @@ export class CosApiClient {
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, upload citizen statement document failed - UploadDocumentListFromCitizen');
-    }
-  }
-
-  public async UploadDocumentToCdam(request: UploadDocumentRequest): Promise<DocumentFromCdam> {
-    try {
-      const formData = new FormData();
-
-      for (const [, file] of Object.entries(request.files)) {
-        formData.append('file', file.data, file.name);
-      }
-      formData.append('caseId', request.caseId);
-      formData.append('partyId', request.partyId);
-      formData.append('partyName', request.partyName);
-      formData.append('isApplicant', request.isApplicant);
-
-      const response = await this.client.post(config.get('services.cos.url') + '/upload-citizen-document', formData);
-      return {
-        status: response.status,
-        document: response.data?.document,
-      };
-    } catch (err) {
-      console.log('Error: ', err);
-      throw new Error('Upload citizen statement document failed.');
     }
   }
 

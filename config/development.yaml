@@ -23,8 +23,8 @@ services:
   case:
     url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2073.preview.platform.hmcts.net'
   cos:
-    #url: 'https://prl-cos-pr-2272.preview.platform.hmcts.net'
-    url: 'http://localhost:4044'
+    url: 'https://prl-cos-pr-2272.preview.platform.hmcts.net'
+    #url: 'http://localhost:4044'
   documentManagement:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2073.preview.platform.hmcts.net'
   health:
