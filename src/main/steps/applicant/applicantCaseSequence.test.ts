@@ -640,8 +640,6 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[127].url).toBe('/applicant/statement-of-service/what-happens-next');
     expect(applicantCaseSequence[127].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[127].getNextStep({})).toBe('/applicant/task-list');
-  });
-});
 
     expect(applicantCaseSequence[128].url).toBe('/:partyType/contact-preference/confirmation');
     expect(applicantCaseSequence[128].showInSection).toBe('aboutApplicantCase');

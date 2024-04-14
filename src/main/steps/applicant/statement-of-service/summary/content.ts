@@ -2,9 +2,12 @@ import { Respondent } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-import { SummaryList, SummaryListRow } from '../../../../steps/c100-rebuild/check-your-answers/lib/lib';
+import {
+  SummaryList,
+  SummaryListRow,
+  getSectionSummaryList,
+} from '../../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { CommonContent } from '../../../../steps/common/common.content';
-import { getSectionSummaryList } from '../../../../steps/common/support-you-need-during-case/summary/utils';
 import { APPLICANT_STATEMENT_OF_SERVICE } from '../../../../steps/urls';
 
 export const enContent = {
@@ -153,7 +156,7 @@ const getSummarySection = (summaryContent: CommonContent) => {
   const sections = [
     {
       title: '',
-      rows: getSectionSummaryList(summaryData, summaryContent, summaryContent.language),
+      rows: getSectionSummaryList(summaryData, summaryContent),
     },
   ];
   return sections;

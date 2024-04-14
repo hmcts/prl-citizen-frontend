@@ -4,6 +4,7 @@ import { applyParms } from '../../../../../steps/common/url-parser';
 import {
   APPLICANT_STATEMENT_OF_SERVICE,
   C9_DOWNLOAD_LINK,
+  DOWNLOAD_DOCUMENT_BY_TYPE,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
   FL415_DOWNLOAD_LINK,
@@ -316,7 +317,7 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
-                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  href: 'APPLICANT_ORDERS_FROM_THE_COURT',
                   text: "View the respondent's documents",
                 },
               ],
@@ -581,7 +582,7 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
-                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  href: 'APPLICANT_ORDERS_FROM_THE_COURT',
                   text: "View the respondent's documents",
                 },
               ],
@@ -914,7 +915,7 @@ const cy: typeof en = {
               ],
               links: [
                 {
-                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  href: 'APPLICANT_ORDERS_FROM_THE_COURT',
                   text: "View the respondent's documents",
                 },
               ],
@@ -1178,7 +1179,7 @@ const cy: typeof en = {
               ],
               links: [
                 {
-                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  href: 'APPLICANT_ORDERS_FROM_THE_COURT',
                   text: "View the respondent's documents",
                 },
               ],
