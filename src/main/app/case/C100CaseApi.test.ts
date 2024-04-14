@@ -390,20 +390,20 @@ describe('CaseApi', () => {
     });
   });
 
-  test('Should download draft application', async () => {
+  test('Should download C100 application', async () => {
     mockedAxios.get.mockResolvedValueOnce({
       data: {
         id: '1234',
       },
     });
-    const responseData = await api.downloadDraftApplication('1234');
+    const responseData = await api.downloadC100Application('1234');
     expect(responseData).toStrictEqual({
       id: '1234',
     });
     expect(mockedAxios.get).toHaveBeenCalledWith('/1234/download', { responseType: 'arraybuffer' });
   });
 
-  test('Should throw error when case draft application could not be downloaded', async () => {
+  test('Should throw error when case C100 application could not be downloaded', async () => {
     mockedAxios.get.mockRejectedValue({
       response: {
         status: 500,
@@ -413,7 +413,9 @@ describe('CaseApi', () => {
       },
     });
 
-    await expect(api.downloadDraftApplication('1234')).rejects.toThrow('Draft application could not be downloaded.');
+    await expect(api.downloadC100Application('1234')).rejects.toThrow(
+      'Error occured, C100 application document could not be downloaded.'
+    );
     expect(mockLogger.error).toHaveBeenCalledWith('API Error GET undefined 500');
   });
 
@@ -427,7 +429,9 @@ describe('CaseApi', () => {
         url: '/1234/download',
       },
     });
-    await expect(api.downloadDraftApplication('1234')).rejects.toThrow('Draft application could not be downloaded.');
+    await expect(api.downloadC100Application('1234')).rejects.toThrow(
+      'Error occured, C100 application document could not be downloaded.'
+    );
     expect(mockLogger.error).toHaveBeenCalledWith('API Error GET /1234/download');
   });
 

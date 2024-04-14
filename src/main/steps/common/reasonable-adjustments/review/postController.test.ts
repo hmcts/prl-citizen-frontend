@@ -125,6 +125,7 @@ describe('RA > review > postController', () => {
       citizenUserSafeToCall: '',
       citizenUserSelectAddress: '',
       isAtAddressLessThan5Years: undefined,
+      partyId: null,
       ra_appropriateLighting_subfield: 'ra_appropriateLighting_subfield',
       ra_communicationHelp: 'ra_communicationHelp',
       ra_communicationHelpOther_subfield: 'ra_communicationHelpOther_subfield',
