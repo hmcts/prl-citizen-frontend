@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { CaseWithId } from '../../../../app/case/case';
 import { PartyType } from '../../../../app/case/definition';
-import { VIEW_ALL_ORDERS, VIEW_APPLICATION_PACK_DOCUMENTS, VIEW_DOCUMENTS } from '../../../urls';
+import { DOWNLOAD_DOCUMENT, VIEW_ALL_ORDERS, VIEW_APPLICATION_PACK_DOCUMENTS, VIEW_DOCUMENTS } from '../../../urls';
 import { interpolate } from '../../string-parser';
 import { applyParms } from '../../url-parser';
 import {
@@ -22,6 +22,7 @@ import {
   ViewDocumentsCategoryListProps,
   ViewDocumentsSectionId,
 } from '../definitions';
+import { transformFileName } from '../download/utils';
 
 import { viewDocumentsCategoryListConfig } from './config';
 
@@ -205,7 +206,11 @@ export const getApplicationPackDocuments = (
           documentId,
           documentName: document.document_filename,
           servedDate: dayjs(soaPack.uploadedDate).format('DD MMM YYYY'),
-          documentDownloadUrl: '#',
+          documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
+            partyType: loggedInUserPartyType,
+            documentId,
+            documentName: transformFileName(document.document_filename),
+          }),
         });
       });
     }
@@ -231,7 +236,10 @@ export const getOrdersFromTheCourtCategoryList = (
   ];
 };
 
-export const getOrderDocuments = (orders: CitizenDocuments[]): OrderDocumentMeta[] => {
+export const getOrderDocuments = (
+  orders: CitizenDocuments[],
+  loggedInUserPartyType: PartyType
+): OrderDocumentMeta[] => {
   const orderDocuments: OrderDocumentMeta[] = [];
 
   orders.forEach(order => {
@@ -242,7 +250,11 @@ export const getOrderDocuments = (orders: CitizenDocuments[]): OrderDocumentMeta
         documentId,
         documentName: document.document_filename,
         orderMadeDate: dayjs(order.uploadedDate).format('DD MMM YYYY'),
-        documentDownloadUrl: '#',
+        documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
+          partyType: loggedInUserPartyType,
+          documentId,
+          documentName: transformFileName(document.document_filename),
+        }),
       },
     };
 
@@ -307,6 +319,7 @@ const filterDocumentsByPartyTypeAndCategory = (
 export const getDocuments = (
   documentCategoryId: DocumentCategory,
   documents: CaseWithId['citizenDocuments'],
+  loggedInUserPartyType: PartyType,
   documentPartyType: CitizenDocuments['partyType'],
   documentPartyId?: CitizenDocuments['partyId']
 ): Document[] => {
@@ -330,22 +343,13 @@ export const getDocuments = (
           documentName: doc.document.document_filename,
           createdDate: dayjs(doc.document.document_creation_date).format('DD MMM YYYY'),
           uploadedBy: doc.uploadedBy,
-          documentDownloadUrl: '#',
+          documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
+            partyType: loggedInUserPartyType,
+            documentId,
+            documentName: transformFileName(doc.document.document_filename),
+          }),
         },
       };
-
-      /*if (doc.documentWelsh) {
-        documentId = doc.documentWelsh.document_url.substring(doc.document.document_url.lastIndexOf('/') + 1);
-        Object.assign(document, {
-          [DocumentTypes.WELSH]: {
-            documentId,
-            documentName: doc.documentWelsh.document_filename,
-            createdDate: dayjs(doc.documentWelsh.document_creation_date).format('DD MMM YYYY'),
-            uploadedBy: doc.uploadedBy,
-            documentDownloadUrl: `${CITIZEN_DOWNLOAD_UPLOADED_DOCS}/${documentId}`,
-          },
-        });
-      }*/
 
       docs.push(document);
     });

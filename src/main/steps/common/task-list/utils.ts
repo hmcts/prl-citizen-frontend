@@ -4,9 +4,19 @@ import { CaseWithId } from '../../../app/case/case';
 import { AppRequest, UserDetails } from '../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
 import { PARTY_TASKLIST, PageLink, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
+import { DocumentCategory } from '../documents/definitions';
 import { applyParms } from '../url-parser';
 
-import { Applicant, CaseType, PartyDetails, PartyType, State, YesOrNo } from './../../../app/case/definition';
+import {
+  Applicant,
+  CaseType,
+  PartyDetails,
+  PartyType,
+  Respondent,
+  ServedParty,
+  State,
+  YesOrNo,
+} from './../../../app/case/definition';
 
 export const getPartyName = (
   caseData: Partial<CaseWithId> | undefined,
@@ -102,8 +112,29 @@ export const keepDetailsPrivateNav = (caseData: Partial<CaseWithId>, req: AppReq
 
 export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseData?.isCafcassServed === YesOrNo.YES;
 
-export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean =>
-  caseData?.isCafcassCymruServed === YesOrNo.YES;
+export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean => {
+  if (
+    caseData.finalServedApplicationDetailsList?.length &&
+    caseData.finalServedApplicationDetailsList.find(list =>
+      list.value.emailNotificationDetails?.find(i => i.value?.servedParty === ServedParty.CYMRU)
+    )
+  ) {
+    return true;
+  }
+  return false;
+};
+
+export const hasResponseBeenSubmitted = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
+  return !!(
+    caseData.citizenDocuments &&
+    caseData.citizenDocuments.length &&
+    caseData.citizenDocuments?.find(
+      document =>
+        (document.partyId === respondent.id || document.solicitorRepresentedPartyId === respondent.id) &&
+        document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
+    )
+  );
+};
 
 export const isCaseServed = (caseData: Partial<CaseWithId>): boolean => {
   let applicants: Applicant[] = [];

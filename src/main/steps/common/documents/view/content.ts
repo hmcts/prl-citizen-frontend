@@ -1,6 +1,6 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
-import { VIEW_ALL_DOCUMENT_TYPES } from '../../../urls';
+import { FETCH_CASE_DETAILS, VIEW_ALL_DOCUMENT_TYPES } from '../../../urls';
 import { interpolate } from '../../string-parser';
 import { getPartyName } from '../../task-list/utils';
 import { applyParms } from '../../url-parser';
@@ -27,12 +27,16 @@ export const generateContent: TranslationFn = content => {
   const { documentPartyId, documentPartyType, documentCategory } = request.params;
   const documentConfig = getDocumentConfig(documentCategory);
   const documents = documentConfig
-    ? documentConfig.documents(caseData.citizenDocuments, documentPartyType, documentPartyId)
+    ? documentConfig.documents(caseData.citizenDocuments, loggedInUserPartyType, documentPartyType, documentPartyId)
     : [];
 
   return {
     ...translations,
     breadcrumbs: [
+      {
+        id: 'caseView',
+        href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData?.id }),
+      },
       {
         id: 'allDocuments',
         href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: loggedInUserPartyType }),

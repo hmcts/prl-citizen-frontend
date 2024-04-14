@@ -16,6 +16,7 @@ import {
   DocumentUploadResponse,
   PartyDetails,
   PartyType,
+  UserRole,
   YesOrNo,
 } from './definition';
 import { fromApiFormat } from './from-api-format';
@@ -278,15 +279,6 @@ export class CosApiClient {
     }
   }
 
-  public async deleteDocumentFromCdam(user: UserDetails, documentIdToDelete: string): Promise<DocumentUploadResponse> {
-    try {
-      const response = await this.client.delete(config.get('services.cos.url') + `/${documentIdToDelete}/delete`);
-      return response.data;
-    } catch (err) {
-      throw new Error('Document could not be deleted.');
-    }
-  }
-
   /* eslint-disable @typescript-eslint/no-explicit-any */
   public async submitUploadedDocuments(user: UserDetails, request: SubmitUploadedDocsRequest): Promise<any> {
     try {
@@ -354,6 +346,40 @@ export class CosApiClient {
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, case could not be updated - retrieveCaseHearingsByCaseId');
+    }
+  }
+
+  public async retrieveCaseAndHearings(caseId: string, hearingNeeded: YesOrNo): Promise<any> {
+    try {
+      const response = await this.client.get(
+        config.get('services.cos.url') + `/retrieve-case-and-hearing/${caseId}/${hearingNeeded}`
+      );
+
+      return {
+        status: response.status,
+        caseData: {
+          id: response.data.caseData.id,
+          state: response.data.caseData.state,
+          ...fromApiFormat(response.data.caseData),
+        },
+        hearingData: response.data.hearings,
+      };
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, case data and hearings could not be retrieved - retrieveCaseAndHearings');
+    }
+  }
+
+  public async downloadDocument(documentId: string, userId: string): Promise<AxiosResponse> {
+    try {
+      const response = await this.client.get(
+        `${config.get('services.documentManagement.url')}/cases/documents/${documentId}/binary`,
+        { responseType: 'arraybuffer', headers: { 'user-id': userId, 'user-roles': UserRole.CITIZEN } }
+      );
+      return response;
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, document could not be fetched for download - downloadDocument');
     }
   }
 }

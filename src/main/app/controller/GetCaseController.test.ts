@@ -2,9 +2,7 @@ import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import {
   APPLICANT_TASK_LIST_URL,
-  APPLICANT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_TASK_LIST_URL,
-  RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
 } from '../../steps/urls';
 import { CosApiClient } from '../case/CosApiClient';
@@ -72,25 +70,11 @@ describe('GetCaseController', () => {
     expect(res.redirect).toHaveBeenCalledWith('/login?callback=/request');
   });
 
-  test('fetchAndRedirectToTasklist redirect to RESPONDENT_VIEW_ALL_DOCUMENTS', async () => {
-    req.originalUrl = RESPONDENT_VIEW_ALL_DOCUMENTS + '/' + req.params.caseId;
-    await controller.fetchAndRedirectToTasklist(req, res);
-    expect(mockMyFunction).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith('/respondent/yourdocuments/alldocuments/alldocuments');
-  });
-
   test('fetchAndRedirectToTasklist redirect to APPLICANT_TASK_LIST_URL', async () => {
     req.originalUrl = APPLICANT_TASK_LIST_URL + '/' + req.params.caseId;
     await controller.fetchAndRedirectToTasklist(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
     expect(res.redirect).toHaveBeenCalledWith('/applicant/task-list');
-  });
-
-  test('fetchAndRedirectToTasklist redirect to APPLICANT_VIEW_ALL_DOCUMENTS', async () => {
-    req.originalUrl = APPLICANT_VIEW_ALL_DOCUMENTS + '/' + req.params.caseId;
-    await controller.fetchAndRedirectToTasklist(req, res);
-    expect(mockMyFunction).toHaveBeenCalled();
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/yourdocuments/alldocuments/alldocuments');
   });
 
   test('fetchAndRedirectToTasklist redirect to RESPOND_TO_APPLICATION', async () => {

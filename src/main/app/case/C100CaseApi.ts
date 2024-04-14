@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import Axios, { AxiosError, AxiosInstance } from 'axios';
 import config from 'config';
 import FormData from 'form-data';
@@ -10,6 +11,7 @@ import { AppSession, UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { C100_CASE_EVENT, C100_CASE_TYPE, State } from './definition';
+
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
@@ -178,7 +180,7 @@ export class CaseApi {
     }
   }
 
-  public async downloadDraftApplication(docId: string): Promise<void> {
+  public async downloadC100Application(docId: string): Promise<void> {
     try {
       const response = await this.axios.get(`/${docId}/download`, {
         responseType: 'arraybuffer',
@@ -186,7 +188,7 @@ export class CaseApi {
       return response.data;
     } catch (err) {
       this.logError(err);
-      throw new Error('Draft application could not be downloaded.');
+      throw new Error('Error occured, C100 application document could not be downloaded.');
     }
   }
 

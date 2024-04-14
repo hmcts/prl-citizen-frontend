@@ -1,5 +1,5 @@
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, PartyType, RespondentDocs, State, YesOrNo } from '../../../../../app/case/definition';
+import { CaseType, PartyType, State, YesOrNo } from '../../../../../app/case/definition';
 
 import { getTaskListConfig } from './index';
 
@@ -455,13 +455,13 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/contact-preferences/contact-preferences/12',
+              href: '/applicant/contact-preference/choose-a-contact-preference',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--grey',
+                label: 'TO DO',
               },
             },
             {
@@ -479,13 +479,13 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/hearing-needs/support-help',
-              id: 'yourSupport',
-              linkText: 'Your Support',
+              href: '/applicant/reasonable-adjustments/intro',
+              id: 'supportYouNeed',
+              linkText: 'Support you need during your case',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--blue',
+                label: 'Optional',
               },
             },
           ],
@@ -704,26 +704,27 @@ describe('tasklist index', () => {
             urgentFlag: false,
           },
         ],
-        respondentDocsList: [
+        citizenDocuments: [
           {
-            id: 'f0dddf6e-8ece-4e6c-b49e-4612d442e8a8',
-            value: {
-              c1aDocument: undefined,
-              c7Document: {
-                partyName: 'First Respondent',
-                createdBy: '123456',
-                dateCreated: '1/1/2020',
-                citizenDocument: {
-                  document_url: 'MOCK_DOCUMENT_URL',
-                  document_filename: 'MOCK_DOCUMENT_FILENAME',
-                  document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-                },
-              },
-              otherDocuments: undefined,
+            partyId: '123456',
+            partyName: null,
+            partyType: 'respondent',
+            categoryId: 'respondentApplication',
+            uploadedBy: 'test user',
+            uploadedDate: '2024-03-11T16:24:33.122506',
+            reviewedDate: '2024-03-11T16:24:33.122506',
+            document: {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'respondentApplication',
+              document_creation_date: '2024-03-11T16:24:33.122506',
             },
-          } as unknown as RespondentDocs,
+            documentWelsh: null,
+          },
         ],
-      };
+      } as unknown as Partial<CaseWithId>;
       const party = PartyType.APPLICANT;
       const language = 'en';
 
@@ -747,13 +748,13 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/contact-preferences/contact-preferences/12',
+              href: '/applicant/contact-preference/choose-a-contact-preference',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--grey',
+                label: 'TO DO',
               },
             },
             {
@@ -771,13 +772,13 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/hearing-needs/support-help',
-              id: 'yourSupport',
-              linkText: 'Your Support',
+              href: '/applicant/reasonable-adjustments/intro',
+              id: 'supportYouNeed',
+              linkText: 'Support you need during your case',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--blue',
+                label: 'Optional',
               },
             },
           ],
@@ -955,13 +956,13 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/contact-preferences/contact-preferences/12',
+              href: '/applicant/contact-preference/choose-a-contact-preference',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--grey',
+                label: 'TO DO',
               },
             },
             {
@@ -979,13 +980,13 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/hearing-needs/support-help',
-              id: 'yourSupport',
-              linkText: 'Your Support',
+              href: '/applicant/reasonable-adjustments/intro',
+              id: 'supportYouNeed',
+              linkText: 'Support you need during your case',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--blue',
+                label: 'Optional',
               },
             },
           ],
@@ -1302,13 +1303,13 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/contact-preferences/contact-preferences/12',
+              href: '/applicant/contact-preference/choose-a-contact-preference',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--grey',
+                label: 'TO DO',
               },
             },
             {
@@ -1326,13 +1327,13 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/hearing-needs/support-help',
-              id: 'yourSupport',
-              linkText: 'Your Support',
+              href: '/applicant/reasonable-adjustments/intro',
+              id: 'supportYouNeed',
+              linkText: 'Support you need during your case',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--blue',
+                label: 'Optional',
               },
             },
           ],
@@ -1575,13 +1576,13 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/contact-preferences/contact-preferences/12',
+              href: '/applicant/contact-preference/choose-a-contact-preference',
               id: 'contactPreferences',
               linkText: 'Contact preferences',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--grey',
+                label: 'TO DO',
               },
             },
             {
@@ -1599,13 +1600,13 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/hearing-needs/support-help',
-              id: 'yourSupport',
-              linkText: 'Your Support',
+              href: '/applicant/reasonable-adjustments/intro',
+              id: 'supportYouNeed',
+              linkText: 'Support you need during your case',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--turquoise',
-                label: 'Submitted',
+                className: 'govuk-tag--blue',
+                label: 'Optional',
               },
             },
           ],
@@ -1862,13 +1863,13 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/support-you-need-during-case/attending-the-court',
-              id: 'yourSupport',
-              linkText: 'Your Support',
+              href: '/applicant/reasonable-adjustments/intro',
+              id: 'supportYouNeed',
+              linkText: 'Support you need during your case',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'TO DO',
+                className: 'govuk-tag--blue',
+                label: 'Optional',
               },
             },
           ],
@@ -2038,13 +2039,13 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/support-you-need-during-case/attending-the-court',
-              id: 'yourSupport',
-              linkText: 'Your Support',
+              href: '/applicant/reasonable-adjustments/intro',
+              id: 'supportYouNeed',
+              linkText: 'Support you need during your case',
               openInAnotherTab: false,
               stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'TO DO',
+                className: 'govuk-tag--blue',
+                label: 'Optional',
               },
             },
           ],
@@ -2460,11 +2461,11 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/respondent/support-you-need-during-case/attending-the-court',
-              id: 'yourSupport',
-              linkText: 'Your Support',
+              href: '/respondent/reasonable-adjustments/intro',
+              id: 'supportYouNeed',
+              linkText: 'Support you need during your case',
               openInAnotherTab: false,
-              stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+              stateTag: { className: 'govuk-tag--blue', label: 'Optional' },
             },
           ],
         },
@@ -2759,6 +2760,15 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
+            href: '/respondent/contact-preference/choose-a-contact-preference',
+            id: 'contactPreferences',
+            linkText: 'Contact preferences',
+            openInAnotherTab: false,
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            hintText: null,
             href: '/respondent/confirm-contact-details/checkanswers/1234',
             id: 'editYouContactDetails',
             linkText: 'Confirm or edit your contact details',
@@ -2768,11 +2778,11 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/support-you-need-during-case/attending-the-court',
-            id: 'yourSupport',
-            linkText: 'Your Support',
+            href: '/respondent/reasonable-adjustments/intro',
+            id: 'supportYouNeed',
+            linkText: 'Support you need during your case',
             openInAnotherTab: false,
-            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+            stateTag: { className: 'govuk-tag--blue', label: 'Optional' },
           },
         ],
       },
@@ -2997,6 +3007,15 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
+            href: '/respondent/contact-preference/choose-a-contact-preference',
+            id: 'contactPreferences',
+            linkText: 'Contact preferences',
+            openInAnotherTab: false,
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            hintText: null,
             href: '/respondent/confirm-contact-details/checkanswers/1234',
             id: 'editYouContactDetails',
             linkText: 'Confirm or edit your contact details',
@@ -3006,11 +3025,11 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/support-you-need-during-case/attending-the-court',
-            id: 'yourSupport',
-            linkText: 'Your Support',
+            href: '/respondent/reasonable-adjustments/intro',
+            id: 'supportYouNeed',
+            linkText: 'Support you need during your case',
             openInAnotherTab: false,
-            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+            stateTag: { className: 'govuk-tag--blue', label: 'Optional' },
           },
         ],
       },
@@ -3209,6 +3228,7 @@ describe('c100 respondent', () => {
             dateOfBirth: '1/1/2020',
             placeOfBirth: 'London',
             response: {
+              c7ResponseSubmitted: 'Yes',
               citizenFlags: {
                 isAllegationOfHarmViewed: 'Yes',
                 isApplicationViewed: 'Yes',
@@ -3264,6 +3284,15 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
+            href: '/respondent/contact-preference/choose-a-contact-preference',
+            id: 'contactPreferences',
+            linkText: 'Contact preferences',
+            openInAnotherTab: false,
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
+          },
+          {
+            disabled: false,
+            hintText: null,
             href: '/respondent/confirm-contact-details/checkanswers/1234',
             id: 'editYouContactDetails',
             linkText: 'Confirm or edit your contact details',
@@ -3273,11 +3302,11 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/support-you-need-during-case/attending-the-court',
-            id: 'yourSupport',
-            linkText: 'Your Support',
+            href: '/respondent/reasonable-adjustments/intro',
+            id: 'supportYouNeed',
+            linkText: 'Support you need during your case',
             openInAnotherTab: false,
-            stateTag: { className: 'govuk-tag--green', label: 'Completed' },
+            stateTag: { className: 'govuk-tag--blue', label: 'Optional' },
           },
         ],
       },
@@ -3311,7 +3340,7 @@ describe('c100 respondent', () => {
         tasks: [
           {
             disabled: false,
-            href: null,
+            href: '/respondent/responsetoca?name=FirstName LastName',
             id: 'respondToTheApplication',
             hintText: 'Go to view all documents to check the response.',
             linkText: 'Respond to the application',

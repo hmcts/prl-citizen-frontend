@@ -2,7 +2,8 @@
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
 import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
-import { CaseDate, FieldPrefix } from './case';
+import { RAFlagValue } from '../../modules/reasonable-adjustments/definitions';
+import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
 
 export interface ChildDetails {
   gender: string;
@@ -107,7 +108,7 @@ export interface PartyDetails {
   isAtAddressLessThan5YearsWithDontKnow: string;
   response: Response;
   user: User;
-  contactPreferences?: applicantContactPreferencesEnum;
+  contactPreferences?: ContactPreference | null;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
   citizenSosObject?: CitizenSos;
 }
@@ -124,10 +125,14 @@ export interface DocumentFromCdam {
   document?: Document;
 }
 
+export interface PartyDetailsWithId extends PartyDetails {
+  partyId: string | undefined;
+}
+
 export interface User {
-  email: string,
-  idamId: string,
-  solicitorRepresented?: string
+  email: string;
+  idamId: string;
+  solicitorRepresented?: string;
 }
 
 export interface Response {
@@ -136,11 +141,12 @@ export interface Response {
   miam?: Miam;
   citizenInternationalElements?: CitizenInternationalElements;
   keepDetailsPrivate?: KeepDetailsPrivate;
-  citizenFlags?: CitizenFlags
+  citizenFlags?: CitizenFlags;
   safeToCallOption?: string;
   supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
+  c7ResponseSubmitted?: YesOrNo;
 }
 
 export interface DynamicMultiSelectList {
@@ -154,33 +160,33 @@ export interface DynamicMultiSelectListElement {
 }
 
 export interface ReasonableAdjustmentsSupport {
-  helpCommunication?: string[],
-  describeOtherNeed?: string,
-  courtComfort?: string[],
-  otherProvideDetails?: string,
-  courtHearing?: string[],
-  communicationSupportOther?: string,
-  docsSupport?: string[],
-  otherDetails?: string,
-  languageRequirements?: string[],
-  languageDetails?: string,
-  reasonableAdjustments?: string[],
-  safetyArrangements?: string[],
-  safetyArrangementsDetails?: string,
-  travellingToCourt?: string[],
-  travellingOtherDetails?: string,
+  helpCommunication?: string[];
+  describeOtherNeed?: string;
+  courtComfort?: string[];
+  otherProvideDetails?: string;
+  courtHearing?: string[];
+  communicationSupportOther?: string;
+  docsSupport?: string[];
+  otherDetails?: string;
+  languageRequirements?: string[];
+  languageDetails?: string;
+  reasonableAdjustments?: string[];
+  safetyArrangements?: string[];
+  safetyArrangementsDetails?: string;
+  travellingToCourt?: string[];
+  travellingOtherDetails?: string;
   //respondent support you need
-  attendingToCourt?: string[],
-  hearingDetails?: string,
-  signLanguageDetails?: string,
-  lightingDetails?: string,
-  supportWorkerDetails?: string,
-  familyProviderDetails?: string,
-  therapyDetails?: string,
-  docsDetails?: string,
-  largePrintDetails?: string,
-  parkingDetails?: string,
-  differentChairDetails?: string,
+  attendingToCourt?: string[];
+  hearingDetails?: string;
+  signLanguageDetails?: string;
+  lightingDetails?: string;
+  supportWorkerDetails?: string;
+  familyProviderDetails?: string;
+  therapyDetails?: string;
+  docsDetails?: string;
+  largePrintDetails?: string;
+  parkingDetails?: string;
+  differentChairDetails?: string;
   describeSignLanguageDetails?: string;
   lightingProvideDetails?: string;
 }
@@ -216,21 +222,20 @@ export interface OtherProceedingDetails {
   orderDocument?: Document;
 }
 export interface CitizenFlags {
-  isApplicationViewed?: string,
-  isAllegationOfHarmViewed?: string
-  isResponseInitiated?: string
-  isApplicationToBeServed?: string
-  isOrderPersonallyServed?: string
+  isApplicationViewed?: string;
+  isAllegationOfHarmViewed?: string;
+  isResponseInitiated?: string;
+  isApplicationToBeServed?: string;
+  isOrderPersonallyServed?: string;
 }
 
 export const enum DownloadFileFieldFlag {
   IS_APPLICATION_VIEWED = 'isApplicationViewed',
   IS_ALLEGATION_OF_HARM_VIEWED = 'isAllegationOfHarmViewed',
-
 }
 export interface FileProperties {
-  elements?: string[],
-  downloadFileFieldFlag?: string | DownloadFileFieldFlag
+  elements?: string[];
+  downloadFileFieldFlag?: string | DownloadFileFieldFlag;
 }
 export interface CitizenInternationalElements {
   childrenLiveOutsideOfEnWl?: YesOrNo;
@@ -307,11 +312,11 @@ export interface SolicitorAddress2 {
   AddressLine3: string;
 }
 
-export interface AddressGlobal extends Address { }
+export interface AddressGlobal extends Address {}
 
-export interface AddressGlobalUK extends Address { }
+export interface AddressGlobalUK extends Address {}
 
-export interface AddressUK extends Address { }
+export interface AddressUK extends Address {}
 
 export interface CaseLink {
   CaseReference: string;
@@ -323,7 +328,7 @@ export interface Document {
   document_binary_url: string;
 }
 
-export interface DynamicElementIndicator { }
+export interface DynamicElementIndicator {}
 
 export interface DynamicList {
   value: DynamicListElement;
@@ -616,7 +621,6 @@ export interface Value10 {
   otherRespondentsRelationshipToChild: string;
 }
 
-
 export interface AlternativeService {
   receivedServiceApplicationDate: DateAsString;
   alternativeServiceType: AlternativeServiceType;
@@ -673,8 +677,6 @@ export enum MiamNonAttendReason {
   NONE = 'none',
 }
 
-
-
 export const enum ContactDetails {
   EMAIL = 'email',
   PHONE = 'phone',
@@ -683,7 +685,7 @@ export const enum ContactDetails {
 export const enum ContactDetailsPrivate {
   EMAIL = 'email',
   PHONE = 'phone',
-  ADDRESS = 'address'
+  ADDRESS = 'address',
 }
 
 export interface Children {
@@ -777,29 +779,27 @@ export interface Sibling {
   siblingPlacementOrders?: (PlacementOrder | ListValue<PlacementOrder>)[];
 }
 
-
-
 export type C100Applicant = {
-  id?: string,
-  applicantFirstName?: string | unknown,
-  applicantLastName?: string | unknown,
-  detailsKnown?: string | unknown
-  startAlternative?: string | unknown,
-  start?: string | unknown,
-  contactDetailsPrivate?: unknown | [],
-  contactDetailsPrivateAlternative?: unknown | [],
-  applicantSelectedAddress?: number,
-  applicantAddressPostcode?: string,
-  applicantAddress1?: string,
-  applicantAddress2?: string,
-  applicantAddressTown?: string,
-  applicantAddressCounty?: string,
-  country?: string,
-  applicantAddressHistory?: YesOrNo,
+  id?: string;
+  applicantFirstName?: string | unknown;
+  applicantLastName?: string | unknown;
+  detailsKnown?: string | unknown;
+  startAlternative?: string | unknown;
+  start?: string | unknown;
+  contactDetailsPrivate?: unknown | [];
+  contactDetailsPrivateAlternative?: unknown | [];
+  applicantSelectedAddress?: number;
+  applicantAddressPostcode?: string;
+  applicantAddress1?: string;
+  applicantAddress2?: string;
+  applicantAddressTown?: string;
+  applicantAddressCounty?: string;
+  country?: string;
+  applicantAddressHistory?: YesOrNo;
   applicantProvideDetailsOfPreviousAddresses?: string;
   personalDetails: {
     haveYouChangeName?: YesNoEmpty;
-    applPreviousName?: string,
+    applPreviousName?: string;
     dateOfBirth?: CaseDate;
     gender?: Gender;
     otherGenderDetails?: string;
@@ -809,7 +809,8 @@ export type C100Applicant = {
     relationshipToChildren: RelationshipToChildren[];
   };
   applicantContactDetail?: ContactDetail;
-}
+  reasonableAdjustmentsFlags: RAFlagValue[] | [];
+};
 
 export interface RelationshipToChildren {
   relationshipType: RelationshipType;
@@ -818,17 +819,22 @@ export interface RelationshipToChildren {
 }
 
 export interface ContactDetail {
-  canProvideEmail?: YesNoEmpty,
-  emailAddress?: string,
-  canProvideTelephoneNumber?: YesNoEmpty,
-  telephoneNumber?: string,
-  canNotProvideTelephoneNumberReason?: string,
-  canLeaveVoiceMail?: YesNoEmpty,
+  canProvideEmail?: YesNoEmpty;
+  emailAddress?: string;
+  canProvideTelephoneNumber?: YesNoEmpty;
+  telephoneNumber?: string;
+  canNotProvideTelephoneNumberReason?: string;
+  canLeaveVoiceMail?: YesNoEmpty;
   applicantContactPreferences?: string;
 }
 
 export enum applicantContactPreferencesEnum {
   DIGITAL = 'digital',
+  POST = 'post',
+}
+
+export enum ContactPreference {
+  EMAIL = 'email',
   POST = 'post',
 }
 
@@ -977,7 +983,7 @@ export interface CaseData {
   c100Applicants?: C100Applicant;
   citizenUserManualAddressPostcode?: string;
   accessCode: string;
-  caseInvites: CaseInvite[]
+  caseInvites: CaseInvite[];
   detailsKnown?: string;
   startAlternative?: string;
   citizenRole?: FieldPrefix;
@@ -1002,13 +1008,15 @@ export interface CaseData {
   doesOrderClosesCase?: YesOrNo;
   selectTypeOfOrder?: SelectTypeOfOrderEnum;
   citizenResponseC7DocumentList?: ResponseDocumentList[];
-  respondentDocsList?:RespondentDocs[];
+  respondentDocsList?: RespondentDocs[];
   draftOrderDoc?: Document;
+  submitAndPayDownloadApplicationLink?: Document;
   soaCafcassServedOptions?: YesOrNo | null;
-  soaCafcassCymruServedOptions? : YesOrNo | null;
+  soaCafcassCymruServedOptions?: YesOrNo | null;
   citizenDocuments?: CitizenDocuments[];
   citizenOrders?: CitizenDocuments[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
+  finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -1088,7 +1096,6 @@ export interface CaseInviteValue {
   expiryDate: string;
   isApplicant: YesOrNo;
 }
-
 
 export interface ConditionalOrder {
   DateSubmitted: DateAsString;
@@ -1614,7 +1621,7 @@ export const enum YesNoDontKnow {
 export const enum YesNoIDontKnow {
   YES = 'Yes',
   NO = 'No',
-  IDONTKNOW = 'I'
+  IDONTKNOW = 'I',
 }
 
 export const enum SectionStatus {
@@ -1625,9 +1632,9 @@ export const enum SectionStatus {
   DOWNLOAD = 'DOWNLOAD',
   VIEW = 'VIEW',
   NOT_STARTED = 'NOT_STARTED',
-  READY_TO_VIEW = "READY_TO_VIEW",
-  NOT_AVAILABLE_YET = "NOT_AVAILABLE_YET",
-  OPTIONAL = "OPTIONAL"
+  READY_TO_VIEW = 'READY_TO_VIEW',
+  NOT_AVAILABLE_YET = 'NOT_AVAILABLE_YET',
+  OPTIONAL = 'OPTIONAL',
 }
 
 export const enum AlternativeServiceMediumType {
@@ -1655,18 +1662,18 @@ export const enum ApplyingWith {
 }
 
 export const enum EventRoutesContext {
-  KEEP_DETAILS_PRIVATE_RESPONDENT = "KEEP_DETAILS_PRIVATE_RESPONDENT",
-  KEEP_DETAILS_PRIVATE_APPLICANT = "KEEP_DETAILS_PRIVATE_APPLICANT",
-  CONFIRM_CONTACT_DETAILS_RESPONDENT = "CONFIRM_CONTACT_DETAILS_RESPONDENT",
-  CONFIRM_CONTACT_DETAILS_APPLICANT = "CONFIRM_CONTACT_DETAILS_APPLICANT",
-  MIAM_RESPONSE = "MIAM_RESPONSE",
-  CONSENT_RESPONSE = "CONSENT_RESPONSE",
-  PROCEEDINGS_RESPONSE = "PROCEEDINGS_RESPONSE",
-  SAFETY_CONCERNS_RESPONSE = "SAFETY_CONCERNS_RESPONSE",
-  INTERNATIONAL_FACTORS_RESPONSE = "INTERNATIONAL_FACTORS_RESPONSE",
-  SUPPORT_DURING_CASE = "SUPPORT_DURING_CASE",
-  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO",
-  VIEW_ALL_DOCUMENTS = 'VIEW_ALL_DOCUMENTS'
+  KEEP_DETAILS_PRIVATE_RESPONDENT = 'KEEP_DETAILS_PRIVATE_RESPONDENT',
+  KEEP_DETAILS_PRIVATE_APPLICANT = 'KEEP_DETAILS_PRIVATE_APPLICANT',
+  CONFIRM_CONTACT_DETAILS_RESPONDENT = 'CONFIRM_CONTACT_DETAILS_RESPONDENT',
+  CONFIRM_CONTACT_DETAILS_APPLICANT = 'CONFIRM_CONTACT_DETAILS_APPLICANT',
+  MIAM_RESPONSE = 'MIAM_RESPONSE',
+  CONSENT_RESPONSE = 'CONSENT_RESPONSE',
+  PROCEEDINGS_RESPONSE = 'PROCEEDINGS_RESPONSE',
+  SAFETY_CONCERNS_RESPONSE = 'SAFETY_CONCERNS_RESPONSE',
+  INTERNATIONAL_FACTORS_RESPONSE = 'INTERNATIONAL_FACTORS_RESPONSE',
+  SAFETY_CONCERNS_NO = 'SAFETY_CONCERNS_NO',
+  VIEW_ALL_DOCUMENTS = 'VIEW_ALL_DOCUMENTS',
+  CONTACT_PREFERENCE = 'CONTACT_PREFERENCE',
 }
 
 export const enum ClarificationReason {
@@ -1785,14 +1792,13 @@ export interface RespondentDocs {
     c1aDocument: ResponseDocuments;
     c7Document: ResponseDocuments;
     otherDocuments: ResponseDocs[];
-  }
+  };
 }
 
 export interface ResponseDocs {
   id: string;
   value: ResponseDocuments;
 }
-
 
 export interface ResponseDocumentList {
   id: string;
@@ -2040,18 +2046,18 @@ export const enum State {
   BulkCaseReject = 'BulkCaseReject',
   Submitted = 'Submitted',
   successAuthentication = 'SuccessAuthentication',
-  AWAITING_SUBMISSION_TO_HMCTS = "Draft",
-  AWAITING_FL401_SUBMISSION_TO_HMCTS = "Draft",
-  SUBMITTED_NOT_PAID = "Pending",
-  SUBMITTED_PAID = "Submitted",
-  AWAITING_RESUBMISSION_TO_HMCTS = "Returned",
-  CASE_ISSUE = "Case Issued",
-  GATEKEEPING = "Gatekeeping",
-  PREPARE_FOR_HEARING_CONDUCT_HEARING = "Hearing",
-  DECISION_OUTCOME = "DECISION_OUTCOME",
-  ALL_FINAL_ORDERS_ISSUED = "ALL_FINAL_ORDERS_ISSUED",
-  CASE_HEARING = "Prepare for hearing",
-  DELETED = "Deleted",
+  AWAITING_SUBMISSION_TO_HMCTS = 'Draft',
+  AWAITING_FL401_SUBMISSION_TO_HMCTS = 'Draft',
+  SUBMITTED_NOT_PAID = 'Pending',
+  SUBMITTED_PAID = 'Submitted',
+  AWAITING_RESUBMISSION_TO_HMCTS = 'Returned',
+  CASE_ISSUE = 'Case Issued',
+  GATEKEEPING = 'Gatekeeping',
+  PREPARE_FOR_HEARING_CONDUCT_HEARING = 'Hearing',
+  DECISION_OUTCOME = 'DECISION_OUTCOME',
+  ALL_FINAL_ORDERS_ISSUED = 'ALL_FINAL_ORDERS_ISSUED',
+  CASE_HEARING = 'Prepare for hearing',
+  DELETED = 'Deleted',
   CASE_DRAFT = 'AWAITING_SUBMISSION_TO_HMCTS',
   CASE_SUBMITTED_PAID = 'SUBMITTED_PAID',
   CASE_SUBMITTED_NOT_PAID = 'SUBMITTED_NOT_PAID',
@@ -2165,7 +2171,7 @@ export const enum DocumentType {
   APPLICATION_SUMMARY = 'applicationSummary',
   FL401_FINAL_DOCUMENT = 'FL401-Final-Document.pdf',
   WITNESS_STATEMENT = 'witness-statement-Final-Document.pdf',
-  CITIZEN_DOCUMENT ='citizenDocument'
+  CITIZEN_DOCUMENT = 'citizenDocument',
 }
 
 export const enum PaymentStatus {
@@ -2413,7 +2419,6 @@ export interface orderInterface {
   issueOrderDetails: string;
 }
 
-
 export const enum CONFIDENTIAL_DETAILS {
   PUBLIC = 'This information was provided by the applicant so it cannot be kept confidential.',
   PRIVATE = 'This information will be kept confidential',
@@ -2425,7 +2430,7 @@ export const enum Gender {
   MALE = 'Male',
   FEMALE = 'Female',
   OTHER = 'Other',
-  EMPTY = ''
+  EMPTY = '',
 }
 
 export interface PRLDocument {
@@ -2435,49 +2440,49 @@ export interface PRLDocument {
   orderDocumentWelsh: Document;
   otherDetails: OtherDetails;
   orderTypeId?: string;
-  isWithdrawnRequestApproved?: YesOrNo
+  isWithdrawnRequestApproved?: YesOrNo;
   withdrawnRequestType?: string;
   selectedHearingType?: string | null;
 }
 
 export interface HearingsList {
-  hearingID?: Number,
-  hearingRequestDateTime?: string | null,
-  hearingType?: string | null,
-  hmcStatus?: string | null,
-  lastResponseReceivedDateTime?: string | null,
-  requestVersion?: Number | null,
-  hearingListingStatus?: string | null,
-  listAssistCaseStatus?: string | null,
-  hearingDaySchedule?:Schedules[] | null,
-  hearingGroupRequestId?: string | null,
-  hearingIsLinkedFlag?: boolean | null,
-  hearingTypeValue?: string,
-  nextHearingDate?: string | null ,
-  urgentFlag?: boolean | null,
+  hearingID?: Number;
+  hearingRequestDateTime?: string | null;
+  hearingType?: string | null;
+  hmcStatus?: string | null;
+  lastResponseReceivedDateTime?: string | null;
+  requestVersion?: Number | null;
+  hearingListingStatus?: string | null;
+  listAssistCaseStatus?: string | null;
+  hearingDaySchedule?: Schedules[] | null;
+  hearingGroupRequestId?: string | null;
+  hearingIsLinkedFlag?: boolean | null;
+  hearingTypeValue?: string;
+  nextHearingDate?: string | null;
+  urgentFlag?: boolean | null;
 }
 
-export interface Hearing{
-  dates : string,
-  lengthOfHearing : number | undefined,
-  hearingDurationDisplayText: string,
-  hearingMethod: string ,
-  hearingDaySchedule: hearingDay[],
+export interface Hearing {
+  dates: string;
+  lengthOfHearing: number | undefined;
+  hearingDurationDisplayText: string;
+  hearingMethod: string;
+  hearingDaySchedule: hearingDay[];
 }
 
-export interface hearingDay{
-  hearingDate: string,
-  startTime: string,
-  amPm:string,
-  startTimeDisplayText:string,
-  durationInDayOrHours:number,
-  minutes:number,
-  hearingDurationDisplayText: string,
-  judgeName:string | null | undefined,
-  venue:string | null | undefined,
-  address:string | null | undefined,
-  roomId:string | null | undefined,
-  hearingToAttendDetails: Row[]
+export interface hearingDay {
+  hearingDate: string;
+  startTime: string;
+  amPm: string;
+  startTimeDisplayText: string;
+  durationInDayOrHours: number;
+  minutes: number;
+  hearingDurationDisplayText: string;
+  judgeName: string | null | undefined;
+  venue: string | null | undefined;
+  address: string | null | undefined;
+  roomId: string | null | undefined;
+  hearingToAttendDetails: Row[];
 }
 
 export type Row = {
@@ -2485,41 +2490,39 @@ export type Row = {
   value: string | null | undefined;
 };
 
-export interface CompletedHearings{
-  hearingId: Number | undefined,
-  dates: string,
-  lengthOfHearing: number | undefined,
-  hearingDurationDisplayText: string,
-  hearingMethod: string,
+export interface CompletedHearings {
+  hearingId: Number | undefined;
+  dates: string;
+  lengthOfHearing: number | undefined;
+  hearingDurationDisplayText: string;
+  hearingMethod: string;
 }
 
-export interface HearingOrders{
-  href: string,
-  createdDate: string,
-  fileName: string,
-  id: Number,
+export interface HearingOrders {
+  href: string;
+  createdDate: string;
+  fileName: string;
+  id: Number;
 }
 
 export interface Schedules {
-  hearingStartDateTime?: string | null,
-  hearingEndDateTime?: string | null,
-  listAssistSessionId?: Number | string | null,
-  hearingVenueId?: string | null,
-  hearingVenueName?: string | null,
-  hearingVenueLocationCode?: Number | string | null,
-  hearingVenueAddress?: string | null,
-  hearingRoomId?: string | null,
-  hearingJudgeId?: string | null,
-  hearingJudgeName?: string | null,
-  panelMemberIds?: string[] | Number[] | null,
-  attendees?: Attendee[] | null,
-
+  hearingStartDateTime?: string | null;
+  hearingEndDateTime?: string | null;
+  listAssistSessionId?: Number | string | null;
+  hearingVenueId?: string | null;
+  hearingVenueName?: string | null;
+  hearingVenueLocationCode?: Number | string | null;
+  hearingVenueAddress?: string | null;
+  hearingRoomId?: string | null;
+  hearingJudgeId?: string | null;
+  hearingJudgeName?: string | null;
+  panelMemberIds?: string[] | Number[] | null;
+  attendees?: Attendee[] | null;
 }
 
-
 export interface Attendee {
-  partyID?: string,
-  hearingSubChannel?: string | null,
+  partyID?: string;
+  hearingSubChannel?: string | null;
 }
 
 export interface Hearings {
@@ -2562,7 +2565,6 @@ export interface DocumentCollection {
   id: string;
   value: Document;
 }
-
 
 /** Document upload interfaces */
 export interface CitizenDocument {
@@ -2633,7 +2635,6 @@ export interface OrderDocumentInfo extends DocumentInfo {
   id: string;
 }
 
-
 export interface ProceedingsOrderInterface {
   id: string;
   orderDetail: string;
@@ -2661,8 +2662,8 @@ export const ProceedingsOrderTypeKeyMapper = {
   restrainingOrder: 'restrainingOrders',
   otherInjuctionOrder: 'otherInjuctionOrders',
   undertakingOrder: 'undertakingOrders',
-  otherOrder: 'otherOrders'
-}
+  otherOrder: 'otherOrders',
+};
 
 export enum ProceedingsOrderTypes {
   CHILD_ARRANGEMENT_ORDER = 'childArrangementOrder',
@@ -2684,26 +2685,26 @@ export enum ProceedingsOrderTypes {
 }
 
 export interface OtherProceedings {
-  order?: ProceedingsOrderTypeInterface
+  order?: ProceedingsOrderTypeInterface;
 }
 
 export interface ProceedingsOrderTypeInterface {
-  childArrangementOrders?: ProceedingsOrderInterface[],
-  emergencyProtectionOrders?: ProceedingsOrderInterface[],
-  supervisionOrders?: ProceedingsOrderInterface[],
-  careOrders?: ProceedingsOrderInterface[],
-  childAbductionOrders?: ProceedingsOrderInterface[],
-  contactOrdersForDivorce?: ProceedingsOrderInterface[],
-  contactOrdersForAdoption?: ProceedingsOrderInterface[],
-  childMaintenanceOrders?: ProceedingsOrderInterface[],
-  financialOrders?: ProceedingsOrderInterface[],
-  nonMolestationOrders?: ProceedingsOrderInterface[],
-  occupationOrders?: ProceedingsOrderInterface[],
-  forcedMarriageProtectionOrders?: ProceedingsOrderInterface[],
-  restrainingOrders?: ProceedingsOrderInterface[],
-  otherInjuctionOrders?: ProceedingsOrderInterface[],
-  undertakingOrders?: ProceedingsOrderInterface[],
-  otherOrders?: ProceedingsOrderInterface[]
+  childArrangementOrders?: ProceedingsOrderInterface[];
+  emergencyProtectionOrders?: ProceedingsOrderInterface[];
+  supervisionOrders?: ProceedingsOrderInterface[];
+  careOrders?: ProceedingsOrderInterface[];
+  childAbductionOrders?: ProceedingsOrderInterface[];
+  contactOrdersForDivorce?: ProceedingsOrderInterface[];
+  contactOrdersForAdoption?: ProceedingsOrderInterface[];
+  childMaintenanceOrders?: ProceedingsOrderInterface[];
+  financialOrders?: ProceedingsOrderInterface[];
+  nonMolestationOrders?: ProceedingsOrderInterface[];
+  occupationOrders?: ProceedingsOrderInterface[];
+  forcedMarriageProtectionOrders?: ProceedingsOrderInterface[];
+  restrainingOrders?: ProceedingsOrderInterface[];
+  otherInjuctionOrders?: ProceedingsOrderInterface[];
+  undertakingOrders?: ProceedingsOrderInterface[];
+  otherOrders?: ProceedingsOrderInterface[];
 }
 
 export interface DocumentInfo {
@@ -2802,33 +2803,32 @@ export const C100OrderTypeKeyMapper = {
   restrainingOrder: 'restrainingOrders',
   otherInjuctionOrder: 'otherInjuctionOrders',
   undertakingOrder: 'undertakingOrders',
-  otherOrder: 'otherOrders'
-}
-export const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png', 'tif', 'tiff', 'pdf', 'doc', 'docx']
-export const C100MaxFileSize = '20000000'
+  otherOrder: 'otherOrders',
+};
+export const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png', 'tif', 'tiff', 'pdf', 'doc', 'docx'];
+export const C100MaxFileSize = '20000000';
 export interface C100OrderTypeInterface {
-  childArrangementOrders?: C100OrderInterface[],
-  emergencyProtectionOrders?: C100OrderInterface[],
-  supervisionOrders?: C100OrderInterface[],
-  careOrders?: C100OrderInterface[],
-  childAbductionOrders?: C100OrderInterface[],
-  contactOrdersForDivorce?: C100OrderInterface[],
-  contactOrdersForAdoption?: C100OrderInterface[],
-  childMaintenanceOrders?: C100OrderInterface[],
-  financialOrders?: C100OrderInterface[],
-  nonMolestationOrders?: C100OrderInterface[],
-  occupationOrders?: C100OrderInterface[],
-  forcedMarriageProtectionOrders?: C100OrderInterface[],
-  restrainingOrders?: C100OrderInterface[],
-  otherInjuctionOrders?: C100OrderInterface[],
-  undertakingOrders?: C100OrderInterface[],
-  otherOrders?: C100OrderInterface[]
+  childArrangementOrders?: C100OrderInterface[];
+  emergencyProtectionOrders?: C100OrderInterface[];
+  supervisionOrders?: C100OrderInterface[];
+  careOrders?: C100OrderInterface[];
+  childAbductionOrders?: C100OrderInterface[];
+  contactOrdersForDivorce?: C100OrderInterface[];
+  contactOrdersForAdoption?: C100OrderInterface[];
+  childMaintenanceOrders?: C100OrderInterface[];
+  financialOrders?: C100OrderInterface[];
+  nonMolestationOrders?: C100OrderInterface[];
+  occupationOrders?: C100OrderInterface[];
+  forcedMarriageProtectionOrders?: C100OrderInterface[];
+  restrainingOrders?: C100OrderInterface[];
+  otherInjuctionOrders?: C100OrderInterface[];
+  undertakingOrders?: C100OrderInterface[];
+  otherOrders?: C100OrderInterface[];
 }
 
 export interface OtherProceedings {
-  order?: C100OrderTypeInterface
+  order?: C100OrderTypeInterface;
 }
-
 
 export enum C1ASafteyConcernsAbout {
   CHILDREN = 'children',
@@ -2842,7 +2842,6 @@ export enum PRL_C1ASafteyConcernsAbout {
   RESPONDENT = 'respondent',
   APPLICANT = 'applicant',
   OTHER = 'otherConcerns',
-
 }
 
 export interface C1ASafteyConcernsAbuse {
@@ -2871,7 +2870,7 @@ export interface C1ASafteyConcerns {
     sexualAbuse?: C1ASafteyConcernsAbuse;
     financialAbuse?: C1ASafteyConcernsAbuse;
     somethingElse?: C1ASafteyConcernsAbuse;
-  },
+  };
   applicant?: {
     physicalAbuse?: C1ASafteyConcernsAbuse;
     psychologicalAbuse?: C1ASafteyConcernsAbuse;
@@ -2879,7 +2878,7 @@ export interface C1ASafteyConcerns {
     sexualAbuse?: C1ASafteyConcernsAbuse;
     financialAbuse?: C1ASafteyConcernsAbuse;
     somethingElse?: C1ASafteyConcernsAbuse;
-  },
+  };
   respondent?: {
     physicalAbuse?: C1ASafteyConcernsAbuse;
     psychologicalAbuse?: C1ASafteyConcernsAbuse;
@@ -2887,7 +2886,7 @@ export interface C1ASafteyConcerns {
     sexualAbuse?: C1ASafteyConcernsAbuse;
     financialAbuse?: C1ASafteyConcernsAbuse;
     somethingElse?: C1ASafteyConcernsAbuse;
-  },
+  };
 }
 
 export interface PRL_C1ASafteyConcerns {
@@ -2898,7 +2897,7 @@ export interface PRL_C1ASafteyConcerns {
     sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
     financialAbuse?: PRL_C1ASafteyConcernsAbuse;
     somethingElse?: PRL_C1ASafteyConcernsAbuse;
-  },
+  };
   applicant?: {
     physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
     psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
@@ -2906,7 +2905,7 @@ export interface PRL_C1ASafteyConcerns {
     sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
     financialAbuse?: PRL_C1ASafteyConcernsAbuse;
     somethingElse?: PRL_C1ASafteyConcernsAbuse;
-  },
+  };
   respondent?: {
     physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
     psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
@@ -2914,7 +2913,7 @@ export interface PRL_C1ASafteyConcerns {
     sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
     financialAbuse?: PRL_C1ASafteyConcernsAbuse;
     somethingElse?: PRL_C1ASafteyConcernsAbuse;
-  },
+  };
 }
 
 export interface PRL_C1ASafteyConcerns_total {
@@ -2929,7 +2928,7 @@ export interface PRL_C1ASafteyConcerns_total {
     sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
     financialAbuse?: PRL_C1ASafteyConcernsAbuse;
     somethingElse?: PRL_C1ASafteyConcernsAbuse;
-  },
+  };
   applicant?: {
     physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
     psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
@@ -2937,7 +2936,7 @@ export interface PRL_C1ASafteyConcerns_total {
     sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
     financialAbuse?: PRL_C1ASafteyConcernsAbuse;
     somethingElse?: PRL_C1ASafteyConcernsAbuse;
-  },
+  };
   respondent?: {
     physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
     psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
@@ -2945,7 +2944,7 @@ export interface PRL_C1ASafteyConcerns_total {
     sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
     financialAbuse?: PRL_C1ASafteyConcernsAbuse;
     somethingElse?: PRL_C1ASafteyConcernsAbuse;
-  },
+  };
   otherconcerns?: {
     c1AkeepingSafeStatement?: string;
     c1AsupervisionAgreementDetails?: string;
@@ -2954,7 +2953,7 @@ export interface PRL_C1ASafteyConcerns_total {
     c1AotherConcernsDrugsDetails?: string;
     c1AchildSafetyConcerns?: YesOrNo;
     c1AchildSafetyConcernsDetails?: string;
-  },
+  };
   abductions?: {
     c1AabductionReasonOutsideUk?: string;
     c1AchildsCurrentLocation?: string;
@@ -2967,7 +2966,7 @@ export interface PRL_C1ASafteyConcerns_total {
     c1ApoliceOrInvestigatorInvolved?: YesOrNo;
     c1ApoliceOrInvestigatorOtherDetails?: string;
     c1AchildAbductedBefore?: YesOrNo;
-  }
+  };
 }
 
 export enum C1AAbuseTypes {
@@ -3009,7 +3008,7 @@ export type ChildrenDetails = {
   parentialResponsibility: {
     statement: string;
   };
-  liveWith?: People[]
+  liveWith?: People[];
 };
 
 export type OtherChildrenDetails = {
@@ -3045,11 +3044,11 @@ export type C100RebuildPartyDetails = {
   };
   address: C100Address;
   contactDetails?: {
-    donKnowEmailAddress?: YesOrNo
-    emailAddress?: string
-    telephoneNumber?: string
-    donKnowTelephoneNumber?: YesOrNo
-  }
+    donKnowEmailAddress?: YesOrNo;
+    emailAddress?: string;
+    telephoneNumber?: string;
+    donKnowTelephoneNumber?: YesOrNo;
+  };
   addressUnknown?: YesOrNo;
 };
 
@@ -3066,15 +3065,14 @@ export const enum RelationshipType {
   SPECIAL_GUARDIAN = 'Special Guardian',
   GRAND_PARENT = 'Grandparent',
   OTHER = 'Other',
-  EMPTY = ''
+  EMPTY = '',
 }
 
 export interface C100Address extends Address {
-  selectedAddress?: number,
-  addressHistory?: YesNoDontKnow,
-  provideDetailsOfPreviousAddresses?: string
+  selectedAddress?: number;
+  addressHistory?: YesNoDontKnow;
+  provideDetailsOfPreviousAddresses?: string;
 }
-
 
 export enum PartyType {
   CHILDREN = 'children',
@@ -3084,12 +3082,16 @@ export enum PartyType {
   OTHER_PERSON = 'otherPerson',
 }
 
+export enum ServedParty {
+  CYMRU = 'Cafcass cymru',
+}
+
 export type People = {
   id: string;
   firstName: string;
   lastName: string;
   partyType: PartyType;
-}
+};
 
 export enum CaseType {
   C100 = 'C100',
@@ -3102,7 +3104,7 @@ export enum CaseEvent {
   CONFIRM_YOUR_DETAILS = 'confirmYourDetails',
   SUPPORT_YOU_DURING_CASE = 'hearingNeeds',
   LEGAL_REPRESENTATION = 'legalRepresentation',
-  SAFETY_CONCERNS = 'citizenSafetyConcerns',
+  SAFETY_CONCERNS = 'citizenRespondentAoH',
   MIAM = 'respondentMiam',
   PARTY_PERSONAL_DETAILS = 'linkCitizenAccount',
   CITIZEN_INTERNAL_CASE_UPDATE = 'citizen-internal-case-update',
@@ -3110,9 +3112,9 @@ export enum CaseEvent {
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
   STATEMENT_OF_SERVICE = 'citizenStatementOfService',
-  CONTACT_PREFERENCE='citizenContactPreference',
-  CITIZEN_SAVE_C100_DRAFT_INTERNAL="citizenSaveC100DraftInternal",
-  CITIZEN_INTERNAL_FLAG_UPDATES="citizenInternalFlagUpdates"
+  CONTACT_PREFERENCE = 'citizenContactPreference',
+  CITIZEN_SAVE_C100_DRAFT_INTERNAL = 'citizenSaveC100DraftInternal',
+  CITIZEN_INTERNAL_FLAG_UPDATES = 'citizenInternalFlagUpdates',
 }
 
 export enum hearingStatus {
@@ -3121,43 +3123,42 @@ export enum hearingStatus {
   EXCEPTION = 'EXCEPTION',
   AWAITING_LISTING = 'AWAITING_LISTING',
   AWAITING_ACTUALS = 'AWAITING_ACTUALS',
-  LISTED = 'LISTED'
+  LISTED = 'LISTED',
 }
 
 export enum passportPossessionRelative {
   MOTHER = 'mother',
   FATHER = 'father',
-  OTHER = 'otherPerson'
+  OTHER = 'otherPerson',
 }
 
-export enum DocCategory{
-WITNESS_STATEMENT = 'witnessstatements',
-APPLICATIONS = 'applications',
-EXPERT_REPORTS = 'expertreports',
-OTHER_DOCUMENTS = 'otherdocuments',
+export enum DocCategory {
+  WITNESS_STATEMENT = 'witnessstatements',
+  APPLICATIONS = 'applications',
+  EXPERT_REPORTS = 'expertreports',
+  OTHER_DOCUMENTS = 'otherdocuments',
 }
 
 export enum DocType {
-POSITION_STATEMENTS ='positionstatements',
-YOUR_WITNESS_STATEMENTS = 'yourwitnessstatements',
-LETTERS_FROM_SCHOOL = 'lettersfromschool',
-DIGITAL_DOWNLOADS = 'digitaldownloads',
-MEDIA_FILES = 'mediafiles',
-MEDICAL_RECORDS = 'medicalrecords',
-PATERNITY_TEST_REPORTS = 'paternitytestreports',
-DRUG_ALCOHOL_TESTS = 'drugalcoholtests',
-POLICE_REPORTS = 'policedisclosures',
-WITNESS_AVAILABILITY = 'witnessavailability',
-TENANCY_AND_MORTGAGE_AVAILABILITY = 'tenancyandmortgageavailability',
-MEDICAL_REPORTS = 'medicalreports',
-OTHER_DOCUMENTS = 'otherdocuments',
-PREVIOUS_ORDERS = 'previousorders',
-OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
-MIAM_CERTIFICATE = 'miamcertificate',
-RESPONSE_TO_CA = 'responsetoca',
-AOH_TO_CA = 'aohtoca'
+  POSITION_STATEMENTS = 'positionstatements',
+  YOUR_WITNESS_STATEMENTS = 'yourwitnessstatements',
+  LETTERS_FROM_SCHOOL = 'lettersfromschool',
+  DIGITAL_DOWNLOADS = 'digitaldownloads',
+  MEDIA_FILES = 'mediafiles',
+  MEDICAL_RECORDS = 'medicalrecords',
+  PATERNITY_TEST_REPORTS = 'paternitytestreports',
+  DRUG_ALCOHOL_TESTS = 'drugalcoholtests',
+  POLICE_REPORTS = 'policedisclosures',
+  WITNESS_AVAILABILITY = 'witnessavailability',
+  TENANCY_AND_MORTGAGE_AVAILABILITY = 'tenancyandmortgageavailability',
+  MEDICAL_REPORTS = 'medicalreports',
+  OTHER_DOCUMENTS = 'otherdocuments',
+  PREVIOUS_ORDERS = 'previousorders',
+  OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
+  MIAM_CERTIFICATE = 'miamcertificate',
+  RESPONSE_TO_CA = 'responsetoca',
+  AOH_TO_CA = 'aohtoca',
 }
-
 export interface PaymentError {
   hasError: boolean;
   errorContext: PaymentErrorContext | null;
@@ -3166,5 +3167,5 @@ export interface PaymentError {
 export enum PaymentErrorContext {
   DEFAULT_PAYMENT_ERROR = 'defaultPaymentError',
   PAYMENT_UNSUCCESSFUL = 'paymentUnsuccessful',
-  APPLICATION_NOT_SUBMITTED = 'applicationNotSubmitted'
+  APPLICATION_NOT_SUBMITTED = 'applicationNotSubmitted',
 }

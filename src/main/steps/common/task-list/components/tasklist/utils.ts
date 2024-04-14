@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../../../app/case/case';
 import {
   CaseType,
   CitizenInternationalElements,
+  PartyDetails,
   PartyType,
-  Respondent,
   YesOrNo,
   hearingStatus,
 } from '../../../../../app/case/definition';
-import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 import { TaskListContent } from '../../definitions';
 
 import { languages as content } from './content';
@@ -36,7 +37,7 @@ export enum Tasks {
   EDIT_YOUR_CONTACT_DETAILS = 'editYouContactDetails',
   CONTACT_PREFERENCES = 'contactPreferences',
   KEEP_YOUR_DETAILS_PRIVATE = 'keepYourDetailsPrivate',
-  YOUR_SUPPORT = 'yourSupport',
+  SUPPORT_YOU_NEED = 'supportYouNeed',
   VIEW_ORDERS = 'viewOrders',
   YOUR_APPLICATION_WITNESS_STATEMENT = 'yourAapplicationWitnessStatment',
   CHECK_THE_APPLICATION = 'checkTheApplication',
@@ -73,8 +74,6 @@ export interface Task {
   showHint?: boolean;
   openInAnotherTab?: boolean;
 }
-
-export const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
 
 export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => {
   const inactiveHmcStatus: string[] = [
@@ -142,34 +141,14 @@ export const getYourWitnessStatementStatus = (userCase: Partial<CaseWithId>): St
     : StateTags.NOT_AVAILABLE_YET;
 };
 
-export const getCheckAllegationOfHarmStatus = (caseData, userDetails): StateTags => {
-  let status = StateTags.READY_TO_VIEW;
-
-  if (!caseData?.c1ADocument?.document_binary_url) {
-    return StateTags.NOT_AVAILABLE_YET;
-  }
-
-  const respondent = getPartyDetails(caseData, userDetails.id);
-  if (respondent?.response?.citizenFlags?.isAllegationOfHarmViewed === YesOrNo.YES) {
-    status = StateTags.VIEW;
-  }
-  return status;
+export const getCheckAllegationOfHarmStatus = (caseData): StateTags => {
+  return _.get(caseData, 'c1ADocument.document_binary_url') ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
 };
 
-export const getResponseStatus = (respondent): StateTags => {
-  if (
-    respondent.response.citizenInternationalElements &&
-    respondent.response.consent &&
-    respondent.response.currentOrPreviousProceedings &&
-    respondent.response.keepDetailsPrivate &&
-    respondent.response.miam &&
-    respondent.response.legalRepresentation &&
-    respondent.response.safetyConcerns &&
-    respondent.response.supportYouNeed
-  ) {
+export const getResponseStatus = (respondent: PartyDetails): StateTags => {
+  if (_.get(respondent, 'response.c7ResponseSubmitted', YesOrNo.NO) === YesOrNo.YES) {
     return StateTags.COMPLETED;
-  }
-  if (
+  } else if (
     respondent.response.citizenInternationalElements ||
     respondent.response.consent ||
     respondent.response.currentOrPreviousProceedings ||
@@ -216,22 +195,6 @@ export const getInternationalFactorsStatus = (
   return StateTags.TO_DO;
 };
 
-export const getFinalApplicationStatus = (caseData, userDetails): StateTags => {
-  let result = StateTags.READY_TO_VIEW;
-
-  if (!caseData?.finalDocument?.document_binary_url) {
-    return StateTags.NOT_AVAILABLE_YET;
-  }
-
-  const respondent = getPartyDetails(caseData, userDetails.id);
-  if (respondent?.response?.citizenFlags?.isApplicationViewed === YesOrNo.YES) {
-    result = StateTags.VIEW;
-  }
-  return result;
-};
-
-export const isResponsePresent = (caseData: Partial<CaseWithId>, respondent: Respondent) => {
-  return caseData.respondentDocsList?.find(
-    documents => documents.value.c7Document?.partyName === respondent.value.firstName + ' ' + respondent.value.lastName
-  );
+export const getFinalApplicationStatus = (caseData): StateTags => {
+  return _.get(caseData, 'finalDocument.document_binary_url') ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
 };

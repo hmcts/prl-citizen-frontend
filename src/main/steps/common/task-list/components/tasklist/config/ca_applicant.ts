@@ -8,17 +8,16 @@ import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
-  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
-  APPLICANT_TASKLIST_HEARING_NEEDS,
-  APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-  APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_YOURHEARINGS_HEARINGS,
-  C100_DOWNLOAD_APPLICATION,
   C100_START,
+  CHOOSE_CONTACT_PREFERENCE,
+  DOWNLOAD_DOCUMENT_BY_TYPE,
+  REASONABLE_ADJUSTMENTS_INTRO,
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
 } from '../../../../../../steps/urls';
+import { hasContactPreference } from '../../../../contact-preference/util';
 import { Task, TaskListConfigProps } from '../../../definitions';
 import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
 import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing } from '../utils';
@@ -42,8 +41,10 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       },
       {
         id: Tasks.CONTACT_PREFERENCES,
-        href: (caseData: Partial<CaseWithId>) => `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/${caseData.id}`,
-        stateTag: () => StateTags.SUBMITTED,
+        href: () => applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: PartyType.APPLICANT }),
+        disabled: isCaseClosed,
+        stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+          !hasContactPreference(caseData as CaseWithId, userDetails.id) ? StateTags.TO_DO : StateTags.COMPLETED,
       },
       {
         id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
@@ -51,11 +52,14 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         stateTag: () => StateTags.SUBMITTED,
       },
       {
-        id: Tasks.YOUR_SUPPORT,
+        id: Tasks.SUPPORT_YOU_NEED,
         href: () => {
-          return `${APPLICANT_TASKLIST_HEARING_NEEDS}`;
+          return applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
+            partyType: PartyType.APPLICANT,
+          });
         },
-        stateTag: () => StateTags.SUBMITTED,
+        disabled: isCaseClosed,
+        stateTag: () => StateTags.OPTIONAL,
       },
     ],
   },
@@ -81,9 +85,15 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       },
       {
         id: Tasks.YOUR_APPLICATION_PDF,
-        href: () => C100_DOWNLOAD_APPLICATION,
+        href: () => {//** validate **
+          return applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.APPLICANT,
+            documentType: 'c100-application'
+          });
+        },
         stateTag: () => StateTags.SUBMITTED,
         show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
+        openInAnotherTab: true
       },
     ],
   },
@@ -92,19 +102,6 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
     content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
     show: isCaseLinked,
     tasks: (): Task[] => [
-      {
-        id: Tasks.UPLOAD_DOCUMENTS,
-        href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-          return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
-        },
-        stateTag: () => StateTags.OPTIONAL,
-      },
-      {
-        id: Tasks.VIEW_ALL_DOCUMENTS,
-        href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
-        stateTag: () => StateTags.READY_TO_VIEW,
-      },
       {
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.APPLICANT }),

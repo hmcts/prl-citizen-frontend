@@ -1,8 +1,14 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { CaseWithId } from '../../../app/case/case';
-import { Applicant, CaseType, PartyType, State, YesOrNo } from '../../../app/case/definition';
+import { Applicant, CaseType, PartyType, Respondent, State, YesOrNo } from '../../../app/case/definition';
 
-import { getPartyName, isApplicationResponded, isCaseServed, isCaseWithdrawn, keepDetailsPrivateNav } from './utils';
+import {
+  getPartyName,
+  hasResponseBeenSubmitted,
+  isApplicationResponded,
+  isCaseWithdrawn,
+  keepDetailsPrivateNav,
+} from './utils';
 
 describe('testcase for partyname', () => {
   test('when party type c100-respondent', () => {
@@ -451,18 +457,119 @@ describe('isApplicationRespondent', () => {
     const req = mockRequest({ session: { ...userCase } });
     expect(keepDetailsPrivateNav(userCase, req)).toBe('/respondent/task-list');
   });
-});
 
-describe('testcase for isCaseServed', () => {
-  test('case without applicant data', () => {
-    const data = {
-      id: '12',
-      state: State.GATEKEEPING,
-    };
-    expect(isCaseServed(data)).toBe(false);
-  });
-  test('when no case data', () => {
-    const data = {};
-    expect(isCaseServed(data)).toBe(false);
+  describe('hasResponseBeenSubmitted', () => {
+    test('should return true if respondent submitted response document is present', () => {
+      expect(
+        hasResponseBeenSubmitted(
+          {
+            citizenDocuments: [
+              {
+                partyId: '1',
+                partyName: null,
+                partyType: 'respondent',
+                categoryId: 'respondentApplication',
+                uploadedBy: 'test user',
+                uploadedDate: '2024-03-11T16:24:33.122506',
+                reviewedDate: '2024-03-11T16:24:33.122506',
+                document: {
+                  document_url: 'MOCK_DOCUMENT_URL',
+                  document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                  document_filename: 'MOCK_FILENAME',
+                  document_hash: null,
+                  category_id: 'respondentApplication',
+                  document_creation_date: '2024-03-11T16:24:33.122506',
+                },
+                documentWelsh: null,
+              },
+            ],
+          } as unknown as CaseWithId,
+          {
+            id: '1',
+            value: {
+              user: {
+                idamId: '1',
+              },
+            },
+          } as Respondent
+        )
+      ).toBe(true);
+    });
+
+    test('should return true if solicitor submitted response document is present', () => {
+      expect(
+        hasResponseBeenSubmitted(
+          {
+            citizenDocuments: [
+              {
+                partyId: null,
+                partyName: null,
+                solicitorRepresentedPartyId: '1',
+                solicitorRepresentedPartyName: 'test',
+                partyType: 'respondent',
+                categoryId: 'respondentApplication',
+                uploadedBy: 'test user',
+                uploadedDate: '2024-03-11T16:24:33.122506',
+                reviewedDate: '2024-03-11T16:24:33.122506',
+                document: {
+                  document_url: 'MOCK_DOCUMENT_URL',
+                  document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                  document_filename: 'MOCK_FILENAME',
+                  document_hash: null,
+                  category_id: 'respondentApplication',
+                  document_creation_date: '2024-03-11T16:24:33.122506',
+                },
+                documentWelsh: null,
+              },
+            ],
+          } as unknown as CaseWithId,
+          {
+            id: '1',
+            value: {
+              user: {
+                idamId: '1',
+              },
+            },
+          } as Respondent
+        )
+      ).toBe(true);
+    });
+
+    test('should return false if response document is not present', () => {
+      expect(
+        hasResponseBeenSubmitted(
+          {
+            citizenDocuments: [
+              {
+                partyId: '1',
+                partyName: null,
+                partyType: 'respondent',
+                categoryId: 'positionStatements',
+                uploadedBy: 'test user',
+                uploadedDate: '2024-03-11T16:24:33.122506',
+                reviewedDate: '2024-03-11T16:24:33.122506',
+                document: {
+                  document_url: 'MOCK_DOCUMENT_URL',
+                  document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                  document_filename: 'MOCK_FILENAME',
+                  document_hash: null,
+                  category_id: 'positionStatements',
+                  document_creation_date: '2024-03-11T16:24:33.122506',
+                },
+                documentWelsh: null,
+              },
+            ],
+          } as unknown as CaseWithId,
+          {
+            id: '1',
+            value: {
+              user: {
+                idamId: '1',
+              },
+            },
+          } as Respondent
+        )
+      ).toBe(false);
+    });
   });
 });

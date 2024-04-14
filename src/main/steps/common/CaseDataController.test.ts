@@ -3,17 +3,20 @@ import { CosApiClient } from '../../app/case/CosApiClient';
 
 import CaseDataController from './CaseDataController';
 
-const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
-const retrieveCaseHearingsByCaseIddMock = jest.spyOn(CosApiClient.prototype, 'retrieveCaseHearingsByCaseId');
+// const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
+const retrieveCaseAndHearingsMock = jest.spyOn(CosApiClient.prototype, 'retrieveCaseAndHearings');
 
 describe('common > CaseDataController', () => {
   test('fetchAndSaveData should get case hearings and map in session', async () => {
     const controller = new CaseDataController();
     const req = mockRequest();
-    retrieveByCaseIdMock.mockResolvedValue(req.session.userCase);
-    retrieveCaseHearingsByCaseIddMock.mockResolvedValue({ caseHearings: ['MOCK_HEARING'] });
+    retrieveCaseAndHearingsMock.mockResolvedValue({
+      caseData: req.session.userCase,
+      hearingData: { caseHearings: ['MOCK_HEARING'] },
+    });
 
     await controller.fetchAndSaveData(req);
+    await new Promise(process.nextTick);
     expect(req.session.userCase.hearingCollection).toStrictEqual(['MOCK_HEARING']);
   });
 
@@ -30,7 +33,7 @@ describe('common > CaseDataController', () => {
         },
       },
     });
-    retrieveByCaseIdMock.mockResolvedValue(req.session.userCase);
+    retrieveCaseAndHearingsMock.mockResolvedValue(req.session.userCase);
 
     await controller.fetchAndSaveData(req);
     expect(req.session.userCase.hearingCollection).toStrictEqual(['MOCK_HEARING']);
@@ -46,8 +49,9 @@ describe('common > CaseDataController', () => {
 
   test('should catch and throw errors when retrieving case data', async () => {
     const req = mockRequest();
-    retrieveByCaseIdMock.mockRejectedValue({ status: '500' });
+    retrieveCaseAndHearingsMock.mockRejectedValue({ status: '500' });
     const controller = new CaseDataController([]);
+
     await expect(controller.fetchAndSaveData(req)).rejects.toThrow(
       new Error('FetchCaseDataController: Data could not be retrieved.')
     );

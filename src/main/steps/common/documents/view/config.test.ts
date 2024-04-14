@@ -186,7 +186,9 @@ describe('documents > view > config', () => {
     test('should have correct categoryId ids', () => {
       expect(viewDocumentsCategoryListConfig).toHaveLength(9);
       expect(viewDocumentsCategoryListConfig[0].categoryId).toBe('positionStatements');
-      expect(viewDocumentsCategoryListConfig[0].documents(documents, 'respondent' as PartyType, '1')).toStrictEqual([
+      expect(
+        viewDocumentsCategoryListConfig[0].documents(documents, PartyType.RESPONDENT, 'respondent' as PartyType, '1')
+      ).toStrictEqual([
         {
           document_en: {
             createdDate: '01 Jan 2024',
@@ -202,7 +204,9 @@ describe('documents > view > config', () => {
       );
 
       expect(viewDocumentsCategoryListConfig[1].categoryId).toBe('applicantStatements');
-      expect(viewDocumentsCategoryListConfig[1].documents(documents, 'respondent' as PartyType, '2')).toStrictEqual([
+      expect(
+        viewDocumentsCategoryListConfig[1].documents(documents, PartyType.RESPONDENT, 'respondent' as PartyType, '2')
+      ).toStrictEqual([
         {
           document_en: {
             createdDate: '01 Jan 2024',
@@ -218,7 +222,9 @@ describe('documents > view > config', () => {
       );
 
       expect(viewDocumentsCategoryListConfig[2].categoryId).toBe('respondentStatements');
-      expect(viewDocumentsCategoryListConfig[2].documents(documents, 'respondent' as PartyType, '3')).toStrictEqual([
+      expect(
+        viewDocumentsCategoryListConfig[2].documents(documents, PartyType.RESPONDENT, 'respondent' as PartyType, '3')
+      ).toStrictEqual([
         {
           document_en: {
             createdDate: '01 Jan 2024',
@@ -234,7 +240,9 @@ describe('documents > view > config', () => {
       );
 
       expect(viewDocumentsCategoryListConfig[3].categoryId).toBe('otherWitnessStatements');
-      expect(viewDocumentsCategoryListConfig[3].documents(documents, 'respondent' as PartyType, '4')).toStrictEqual([
+      expect(
+        viewDocumentsCategoryListConfig[3].documents(documents, PartyType.RESPONDENT, 'respondent' as PartyType, '4')
+      ).toStrictEqual([
         {
           document_en: {
             createdDate: '01 Jan 2024',
@@ -250,7 +258,9 @@ describe('documents > view > config', () => {
       );
 
       expect(viewDocumentsCategoryListConfig[4].categoryId).toBe('medicalRecords');
-      expect(viewDocumentsCategoryListConfig[4].documents(documents, 'respondent' as PartyType, '5')).toStrictEqual([
+      expect(
+        viewDocumentsCategoryListConfig[4].documents(documents, PartyType.RESPONDENT, 'respondent' as PartyType, '5')
+      ).toStrictEqual([
         {
           document_en: {
             createdDate: '01 Jan 2024',
@@ -264,7 +274,9 @@ describe('documents > view > config', () => {
       expect(viewDocumentsCategoryListConfig[4].documentCategoryLabel(documentCategoryLabels)).toBe('Medical records');
 
       expect(viewDocumentsCategoryListConfig[5].categoryId).toBe('medicalReports');
-      expect(viewDocumentsCategoryListConfig[5].documents(documents, 'respondent' as PartyType, '6')).toStrictEqual([
+      expect(
+        viewDocumentsCategoryListConfig[5].documents(documents, PartyType.RESPONDENT, 'respondent' as PartyType, '6')
+      ).toStrictEqual([
         {
           document_en: {
             createdDate: '01 Jan 2024',
@@ -278,7 +290,9 @@ describe('documents > view > config', () => {
       expect(viewDocumentsCategoryListConfig[5].documentCategoryLabel(documentCategoryLabels)).toBe('Medical reports');
 
       expect(viewDocumentsCategoryListConfig[6].categoryId).toBe('DNAReports_expertReport');
-      expect(viewDocumentsCategoryListConfig[6].documents(documents, 'respondent' as PartyType, '7')).toStrictEqual([
+      expect(
+        viewDocumentsCategoryListConfig[6].documents(documents, PartyType.RESPONDENT, 'respondent' as PartyType, '7')
+      ).toStrictEqual([
         {
           document_en: {
             createdDate: '01 Jan 2024',
@@ -292,7 +306,9 @@ describe('documents > view > config', () => {
       expect(viewDocumentsCategoryListConfig[6].documentCategoryLabel(documentCategoryLabels)).toBe('DNA reports');
 
       expect(viewDocumentsCategoryListConfig[7].categoryId).toBe('DRUG_AND_ALCOHOL_TESTS');
-      expect(viewDocumentsCategoryListConfig[7].documents(documents, 'respondent' as PartyType, '8')).toStrictEqual([
+      expect(
+        viewDocumentsCategoryListConfig[7].documents(documents, PartyType.RESPONDENT, 'respondent' as PartyType, '8')
+      ).toStrictEqual([
         {
           document_en: {
             createdDate: '01 Jan 2024',
@@ -308,7 +324,9 @@ describe('documents > view > config', () => {
       );
 
       expect(viewDocumentsCategoryListConfig[8].categoryId).toBe('policeReport');
-      expect(viewDocumentsCategoryListConfig[8].documents(documents, 'respondent' as PartyType, '9')).toStrictEqual([
+      expect(
+        viewDocumentsCategoryListConfig[8].documents(documents, PartyType.RESPONDENT, 'respondent' as PartyType, '9')
+      ).toStrictEqual([
         {
           document_en: {
             createdDate: '01 Jan 2024',

@@ -1,3 +1,4 @@
+import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { State, YesOrNo } from '../../../../../../app/case/definition';
 import { NotificationBannerProps } from '../../../../../../steps/common/task-list/definitions';
@@ -7,7 +8,7 @@ export const DA_RESPONDENT: NotificationBannerProps[] = [
   {
     ...notificationBanner[BannerNotification.NEW_ORDER],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
+      return caseData?.state !== State.CASE_CLOSED && hasOrders(caseData as CaseWithId);
     },
   },
   {

@@ -1,11 +1,9 @@
 import _ from 'lodash';
 
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, DocType, PartyType } from '../../../../../app/case/definition';
+import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { interpolate } from '../../../../../steps/common/string-parser';
-import { applyParms } from '../../../../../steps/common/url-parser';
-import { VIEW_DOCUMENT_URL } from '../../../../../steps/urls';
 import {
   HintConfig,
   HyperLinkConfig,
@@ -16,10 +14,10 @@ import {
   TaskListConfig,
   TaskListConfigProps,
 } from '../../definitions';
-import { isDraftCase } from '../../utils';
+import { hasResponseBeenSubmitted, isDraftCase } from '../../utils';
 
 import tasklistConfig from './config/index';
-import { StateTags, Tasks, getStateTagLabel, isResponsePresent } from './utils';
+import { StateTags, Tasks, getStateTagLabel } from './utils';
 
 const stateTagsConfig: StateTagsConfig = {
   [StateTags.NOT_STARTED_YET]: {
@@ -184,19 +182,14 @@ export const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content:
         respondentPosition: String(caseData.respondents!.indexOf(respondent) + 1),
       }),
       href: () => {
-        const respondentName = respondent.value.firstName + ' ' + respondent.value.lastName;
-        return applyParms(VIEW_DOCUMENT_URL, {
-          docType: DocType.RESPONSE_TO_CA,
-          uploadedBy: PartyType.RESPONDENT,
-          partyName: respondentName,
-        });
+        return '#';
       },
       stateTag: () => {
-        return isResponsePresent(caseData, respondent) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
+        return hasResponseBeenSubmitted(caseData, respondent) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
       },
       show: () => caseData && !isDraftCase(caseData),
       disabled: () => {
-        return !isResponsePresent(caseData, respondent);
+        return !hasResponseBeenSubmitted(caseData, respondent);
       },
     });
   });

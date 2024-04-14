@@ -187,7 +187,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
   private async submitDocuments(req: AppRequest, res: Response): Promise<void> {
     const { user, userCase: caseData } = req.session;
-    const fields = typeof this.fields === 'function' ? this.fields(caseData) : this.fields;
+    const fields = typeof this.fields === 'function' ? this.fields(caseData, req) : this.fields;
     const form = new Form(fields);
     const { _csrf, ...formData } = form.getParsedBody(req.body);
     const partyType = getCasePartyType(caseData, user.id);
