@@ -75,7 +75,7 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const { exitPageSurveyTitle, exitPageSurveyContent } = appSurveyContents[content.language];
-  
+
   return {
     ...translations,
     exitPageSurveyTitle,
@@ -83,7 +83,7 @@ export const generateContent: TranslationFn = content => {
     draftApplicationDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
       partyType: PartyType.APPLICANT,
       documentType: 'c100-application',
-      forceDownload: true
+      forceDownload: true,
     }),
   };
 };

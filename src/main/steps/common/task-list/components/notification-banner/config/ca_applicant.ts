@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { generateResponseNotifications } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { State, YesOrNo } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { NotificationBannerProps } from '../../../../../../steps/common/task-list/definitions';
 import { isCaseLinked, isCaseWithdrawn } from '../../../../../../steps/common/task-list/utils';
 import { BannerNotification, isApplicantLIPServingRespondent, isPrimaryApplicant, notificationBanner } from '../utils';

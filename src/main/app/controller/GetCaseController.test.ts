@@ -1,10 +1,6 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
-import {
-  APPLICANT_TASK_LIST_URL,
-  RESPONDENT_TASK_LIST_URL,
-  RESPOND_TO_APPLICATION,
-} from '../../steps/urls';
+import { APPLICANT_TASK_LIST_URL, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../steps/urls';
 import { CosApiClient } from '../case/CosApiClient';
 import { State } from '../case/definition';
 

@@ -85,15 +85,16 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       },
       {
         id: Tasks.YOUR_APPLICATION_PDF,
-        href: () => {//** validate **
+        href: () => {
+          //** validate **
           return applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
-            documentType: 'c100-application'
+            documentType: 'c100-application',
           });
         },
         stateTag: () => StateTags.SUBMITTED,
         show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
-        openInAnotherTab: true
+        openInAnotherTab: true,
       },
     ],
   },

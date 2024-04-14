@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { DocumentCategory } from 'steps/common/documents/definitions';
+
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
@@ -70,7 +71,8 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
     show: isCaseLinked,
     content: getContents.bind(null, TaskListSection.YOUR_APPLICATION),
     tasks: (): Task[] => [
-      { // ** validate **
+      {
+        // ** validate **
         id: Tasks.YOUR_APPLICATION_PDF,
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, { partyType: PartyType.APPLICANT, documentType: 'fl401-application' }),

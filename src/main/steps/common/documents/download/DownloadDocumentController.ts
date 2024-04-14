@@ -1,12 +1,12 @@
+import { CaseWithId } from 'app/case/case';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+import _ from 'lodash';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject } from '../../../../app/controller/PostController';
 import { deTransformFileName, transformFileName } from '../download/utils';
-import { CaseWithId } from 'app/case/case';
-import _ from 'lodash';
 
 @autobind
 export default class DownloadDocumentController {

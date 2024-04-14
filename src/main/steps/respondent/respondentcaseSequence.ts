@@ -5,10 +5,10 @@ import { keepDetailsPrivateNav } from '../../steps/common/task-list/utils';
 import ContactPreferenceNavigationController from '../common/contact-preference/navigationController';
 import { Sections, Step } from '../constants';
 import {
-  CHOOSE_CONTACT_PREFERENCE,
-  CONTACT_PREFERENCE_CONFIRMATION,
   CA_RESPONDENT_RESPONSE_CONFIRMATION,
   CA_RESPONDENT_RESPONSE_SUBMIT,
+  CHOOSE_CONTACT_PREFERENCE,
+  CONTACT_PREFERENCE_CONFIRMATION,
   LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
   LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
   LEGAL_REPRESENTATION_START,

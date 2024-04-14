@@ -1,7 +1,7 @@
-import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { State } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { NotificationBannerProps } from '../../../../../../steps/common/task-list/definitions';
 import { BannerNotification, isPartyServed, notificationBanner } from '../utils';
 
