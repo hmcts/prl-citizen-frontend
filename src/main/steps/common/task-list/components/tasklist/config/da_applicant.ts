@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { DocumentCategory } from 'steps/common/documents/definitions';
 
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { DocumentCategory } from '../../../../../../steps/common/documents/definitions';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { isCaseClosed, isCaseLinked, isRepresentedBySolicotor } from '../../../../../../steps/common/task-list/utils';

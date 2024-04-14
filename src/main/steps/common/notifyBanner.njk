@@ -19,24 +19,6 @@
       <a class="govuk-notification-banner__link" href={{ link.href }}>{{link.text}}</a>
       <p class="govuk-body govuk-!-margin-bottom-2"></p>
     {% endfor %}
-
-    {% if banner.bannerHeading2 %}
-      <p class="govuk-notification-banner__heading">
-        {{ banner.bannerHeading2 }}
-        {% if banner.bannerHeadingLink %}
-        <a class="govuk-notification-banner__link" href={{ banner.bannerHeadingLink }}>{{banner.bannerHeadingLinkText}}</a>.
-        {% endif %}
-      </p>
-    {% endif %}
-    {% for content in banner.bannerContent2 %}
-        <p class="govuk-body govuk-!-margin-bottom-2">{{ content.line1 }} <a class="govuk-notification-banner__link" target="_blank" href={{ content.href1 }}>{{content.href1text}}</a></p>
-        <p class="govuk-body govuk-!-margin-bottom-2">{{ content.line2 }}</p>
-    {% endfor %}
-
-    {% for link in banner.bannerLinks2 %}
-      <a class="govuk-notification-banner__link" href={{ link.href }}>{{link.text}}</a>
-      <p class="govuk-body govuk-!-margin-bottom-2"></p>
-    {% endfor %}
   {% endset %}
 
   {{ govukNotificationBanner({
