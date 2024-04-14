@@ -3,18 +3,15 @@ import { generateTheResponseTasks } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
-import { transformFileName } from '../../../../../../steps/common/documents/download/utils';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
-  APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-  APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_YOURHEARINGS_HEARINGS,
   C100_START,
   CHOOSE_CONTACT_PREFERENCE,
-  DOWNLOAD_DOCUMENT,
+  DOWNLOAD_DOCUMENT_BY_TYPE,
   REASONABLE_ADJUSTMENTS_INTRO,
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
@@ -88,20 +85,15 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       },
       {
         id: Tasks.YOUR_APPLICATION_PDF,
-        href: (caseData: Partial<CaseWithId>) => {
-          const document = caseData?.finalDocument;
-          const draftDocumentId = document?.document_url
-            ? document.document_url.substring(document.document_url.lastIndexOf('/') + 1)
-            : '';
-          return applyParms(DOWNLOAD_DOCUMENT, {
+        href: () => {//** validate **
+          return applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
             partyType: PartyType.APPLICANT,
-            documentId: draftDocumentId,
-            documentName: transformFileName(document?.document_filename ?? ''),
-            documentType: 'c100-application-document',
+            documentType: 'c100-application'
           });
         },
         stateTag: () => StateTags.SUBMITTED,
         show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
+        openInAnotherTab: true
       },
     ],
   },
@@ -110,19 +102,6 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
     content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
     show: isCaseLinked,
     tasks: (): Task[] => [
-      {
-        id: Tasks.UPLOAD_DOCUMENTS,
-        href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-          return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
-        },
-        stateTag: () => StateTags.OPTIONAL,
-      },
-      {
-        id: Tasks.VIEW_ALL_DOCUMENTS,
-        href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
-        stateTag: () => StateTags.READY_TO_VIEW,
-      },
       {
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.APPLICANT }),

@@ -2,7 +2,6 @@ import { PartyType } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import AppSurvey from '../../../steps/common/app-survey/appSurveyController';
 import { appSurveyContents } from '../../../steps/common/app-survey/content';
-import { transformFileName } from '../../../steps/common/documents/download/utils';
 import { applyParms } from '../../../steps/common/url-parser';
 import { DOWNLOAD_DOCUMENT } from '../../../steps/urls';
 
@@ -76,21 +75,15 @@ const languages = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
   const { exitPageSurveyTitle, exitPageSurveyContent } = appSurveyContents[content.language];
-  const caseData = content.additionalData?.req?.session?.userCase;
-  const draftDocument = caseData?.draftOrderDoc;
-  const draftDocumentId = draftDocument?.document_url
-    ? draftDocument.document_url.substring(draftDocument.document_url.lastIndexOf('/') + 1)
-    : '';
-
+  
   return {
     ...translations,
     exitPageSurveyTitle,
     exitPageSurveyContent: AppSurvey.getExitPageSurveyContent(PartyType.APPLICANT, exitPageSurveyContent),
     draftApplicationDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
       partyType: PartyType.APPLICANT,
-      documentId: draftDocumentId,
-      documentName: transformFileName(draftDocument?.document_filename ?? ''),
-      documentType: 'c100-application-document',
+      documentType: 'c100-application',
+      forceDownload: true
     }),
   };
 };

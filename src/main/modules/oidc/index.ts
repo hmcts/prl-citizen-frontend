@@ -8,7 +8,6 @@ import { CosApiClient } from '../../app/case/CosApiClient';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 import { parseUrl } from '../../steps/common/url-parser';
-import { AOH_VIOLENCE, CA_DA_REQUEST, VIEW_DOC_URL_START } from '../../steps/constants';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   ANONYMOUS_URLS,
@@ -126,10 +125,7 @@ export class OidcMiddleware {
                   const _url = parseUrl(url).url;
                   return _url.split('/').every(chunk => req.path.split('/').includes(chunk));
                 }) &&
-                !req.path.split('/').includes(partyType) &&
-                !req.path.split('/').includes(VIEW_DOC_URL_START) &&
-                !req.path.split('/').includes(CA_DA_REQUEST) &&
-                !req.path.split('/').includes(AOH_VIOLENCE)
+                !req.path.split('/').includes(partyType)
               ) {
                 return res.redirect(DASHBOARD_URL);
               }

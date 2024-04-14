@@ -6,17 +6,13 @@ import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { applyParms } from '../../../../../../steps/common/url-parser';
-import { UPDATE_CASE } from '../../../../../../steps/constants';
 import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils';
 import {
-  ALLEGATION_OF_HARM_VOILENCE,
-  APPLICANT_CA_DA_REQUEST,
   CHOOSE_CONTACT_PREFERENCE,
+  DOWNLOAD_DOCUMENT_BY_TYPE,
   REASONABLE_ADJUSTMENTS_INTRO,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
-  RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
-  RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
   UPLOAD_DOCUMENT,
@@ -132,19 +128,6 @@ export const document: TaskListConfigProps = {
   tasks: (): Task[] => [
     {
       id: Tasks.UPLOAD_DOCUMENTS,
-      href: () => RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
-      stateTag: () => StateTags.TO_DO,
-      show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-        return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
-      },
-    },
-    {
-      id: Tasks.VIEW_ALL_DOCUMENTS,
-      href: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
-      stateTag: () => StateTags.READY_TO_VIEW,
-    },
-    {
-      id: Tasks.UPLOAD_DOCUMENTS,
       href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.RESPONDENT }),
       stateTag: () => StateTags.TO_DO,
       show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
@@ -167,23 +150,31 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
     show: isCaseLinked,
     tasks: (): Task[] => [
       {
+        //** validate **
         id: Tasks.CHECK_THE_APPLICATION,
-        href: (caseData, userDetails) => {
-          return getFinalApplicationStatus(caseData, userDetails)
-            ? applyParms(APPLICANT_CA_DA_REQUEST, { docContext: UPDATE_CASE })
-            : null;
+        href: () =>
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.RESPONDENT,
+            documentType: 'cada-document',
+          }),
+        stateTag: caseData => getFinalApplicationStatus(caseData),
+        disabled: caseData => {
+          return getFinalApplicationStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
         },
-        stateTag: (caseData, userDetails) => getFinalApplicationStatus(caseData, userDetails),
         openInAnotherTab: true,
       },
       {
+        //** validate **
         id: Tasks.CHECK_AOH_AND_VIOLENCE,
-        href: (caseData, userDetails) => {
-          return getCheckAllegationOfHarmStatus(caseData, userDetails) === StateTags.NOT_AVAILABLE_YET
-            ? '#'
-            : applyParms(ALLEGATION_OF_HARM_VOILENCE, { docContext: UPDATE_CASE });
+        href: () =>
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.RESPONDENT,
+            documentType: 'aoh-document',
+          }),
+        stateTag: caseData => getCheckAllegationOfHarmStatus(caseData),
+        disabled: caseData => {
+          return getCheckAllegationOfHarmStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
         },
-        stateTag: (caseData, userDetails) => getCheckAllegationOfHarmStatus(caseData, userDetails),
         openInAnotherTab: true,
       },
     ],
@@ -221,6 +212,7 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
       {
         id: Tasks.RESPOND_TO_AOH_AND_VIOLENCE,
         href: () => {
+          //** validate **
           return '#';
         },
         stateTag: (caseData, userDetails) => {

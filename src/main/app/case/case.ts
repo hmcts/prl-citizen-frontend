@@ -229,6 +229,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentDocsList: 'respondentDocsList',
   caseInvites: 'caseInvites',
   draftOrderDoc: 'draftOrderDoc',
+  c100DraftDoc: 'submitAndPayDownloadApplicationLink',
   isCafcassServed: 'soaCafcassServedOptions',
   isCafcassCymruServed: 'soaCafcassCymruServedOptions',
   citizenDocuments: 'citizenDocuments',
@@ -601,6 +602,7 @@ export interface Case {
   applicantPreferredContact?: applicantContactPreferencesEnum;
   partyContactPreference?: ContactPreference | null;
   draftOrderDoc?: Document;
+  c100DraftDoc?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
   isCafcassServed?: YesOrNo | null;

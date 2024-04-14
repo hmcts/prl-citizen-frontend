@@ -1,11 +1,9 @@
 import _ from 'lodash';
 
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseType, DocType, PartyType } from '../../../../../app/case/definition';
+import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { interpolate } from '../../../../../steps/common/string-parser';
-import { applyParms } from '../../../../../steps/common/url-parser';
-import { VIEW_DOCUMENT_URL } from '../../../../../steps/urls';
 import {
   HintConfig,
   HyperLinkConfig,
@@ -184,12 +182,7 @@ export const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content:
         respondentPosition: String(caseData.respondents!.indexOf(respondent) + 1),
       }),
       href: () => {
-        const respondentName = respondent.value.firstName + ' ' + respondent.value.lastName;
-        return applyParms(VIEW_DOCUMENT_URL, {
-          docType: DocType.RESPONSE_TO_CA,
-          uploadedBy: PartyType.RESPONDENT,
-          partyName: respondentName,
-        });
+        return '#';
       },
       stateTag: () => {
         return hasResponseBeenSubmitted(caseData, respondent) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;

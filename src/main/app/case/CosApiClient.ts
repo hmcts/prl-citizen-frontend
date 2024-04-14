@@ -327,8 +327,12 @@ export class CosApiClient {
 
       return {
         status: response.status,
-        caseData: response.data?.caseData,
-        hearingData: response.data?.hearings,
+        caseData: {
+          id: response.data.caseData.id,
+          state: response.data.caseData.state,
+          ...fromApiFormat(response.data.caseData),
+        },
+        hearingData: response.data.hearings,
       };
     } catch (error) {
       this.logError(error);

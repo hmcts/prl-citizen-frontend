@@ -2,13 +2,9 @@ import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import {
-  APPLICANT,
-  APPLICANT_CA_DA_REQUEST,
-  APPLICANT_ORDERS_FROM_THE_COURT,
+  DOWNLOAD_DOCUMENT_BY_TYPE,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
-  RESPONDENT_ORDERS_FROM_THE_COURT,
-  RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
@@ -211,6 +207,7 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View the order (PDF)',
                   href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
@@ -277,6 +274,7 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View your application pack',
                   href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.APPLICANT }),
                 },
@@ -317,6 +315,7 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View the order (PDF)',
                   href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
@@ -336,6 +335,7 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View the order (PDF)',
                   href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
@@ -357,7 +357,8 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
-                  href: RESPONDENT_VIEW_ALL_DOCUMENTS,
+                  //** validate **
+                  href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.RESPONDENT }),
                   text: 'View the application pack',
                 },
                 {
@@ -419,8 +420,9 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View the order (PDF)',
-                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
             },
@@ -437,8 +439,9 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View the final order (PDF)',
-                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
             },
@@ -459,12 +462,18 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'Read the order (PDF)',
-                  href: RESPONDENT_ORDERS_FROM_THE_COURT,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
                 {
-                  href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
+                  //** validate **
+                  href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+                    partyType: PartyType.RESPONDENT,
+                    documentType: 'cada-document',
+                  }),
                   text: 'Read the application (PDF)',
+                  external: true,
                 },
               ],
             },
@@ -485,6 +494,7 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View the order (PDF)',
                   href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
@@ -503,8 +513,9 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View the final order (PDF)',
-                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -707,8 +718,9 @@ const cy: typeof en = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'Gweld y gorchymyn (PDF)',
-                  href: APPLICANT_ORDERS_FROM_THE_COURT,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -813,7 +825,8 @@ const cy: typeof en = {
               ],
               links: [
                 {
-                  href: RESPONDENT_ORDERS_FROM_THE_COURT,
+                  //** validate **
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                   text: 'Gweld y gorchymyn (PDF)',
                 },
               ],
@@ -832,6 +845,7 @@ const cy: typeof en = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View the order (PDF)',
                   href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
@@ -853,7 +867,8 @@ const cy: typeof en = {
               ],
               links: [
                 {
-                  href: RESPONDENT_VIEW_ALL_DOCUMENTS,
+                  //** validate **
+                  href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.RESPONDENT }),
                   text: 'Gweld y cais',
                 },
                 {
@@ -915,8 +930,9 @@ const cy: typeof en = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'Gweld y gorchymyn (PDF)',
-                  href: APPLICANT_ORDERS_FROM_THE_COURT,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
             },
@@ -933,8 +949,9 @@ const cy: typeof en = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'Gweld y gorchymyn terfynol (PDF)',
-                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
             },
@@ -955,12 +972,18 @@ const cy: typeof en = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'Darllen y gorchymyn (PDF)',
-                  href: RESPONDENT_ORDERS_FROM_THE_COURT,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
                 {
+                  //** validate **
                   text: 'Darllen y gorchymyn (PDF)',
-                  href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
+                  href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+                    partyType: PartyType.RESPONDENT,
+                    documentType: 'cada-document',
+                  }),
+                  external: true,
                 },
               ],
             },
@@ -981,8 +1004,9 @@ const cy: typeof en = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'Gweld y gorchymyn (PDF)',
-                  href: APPLICANT_ORDERS_FROM_THE_COURT,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -999,8 +1023,9 @@ const cy: typeof en = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'Gweld y gorchymyn terfynol (PDF)',
-                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },

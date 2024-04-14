@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { generateResponseNotifications } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { State, YesOrNo } from '../../../../../../app/case/definition';
@@ -72,7 +73,7 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
   {
     ...notificationBanner[BannerNotification.NEW_ORDER],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
+      return caseData?.state !== State.CASE_CLOSED && hasOrders(caseData as CaseWithId);
     },
   },
   {

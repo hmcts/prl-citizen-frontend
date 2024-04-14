@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { DocumentCategory } from 'steps/common/documents/definitions';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
@@ -9,15 +10,13 @@ import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
-  APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-  APPLICANT_VIEW_ALL_DOCUMENTS,
-  APPLICANT_WITNESS_STATEMENTS_DA,
   APPLICANT_YOURHEARINGS_HEARINGS,
+  DOWNLOAD_DOCUMENT_BY_TYPE,
   REASONABLE_ADJUSTMENTS_INTRO,
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
-  YOUR_APPLICATION_FL401,
+  VIEW_DOCUMENTS,
 } from '../../../../../../steps/urls';
 import {
   StateTags,
@@ -71,17 +70,23 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
     show: isCaseLinked,
     content: getContents.bind(null, TaskListSection.YOUR_APPLICATION),
     tasks: (): Task[] => [
-      {
+      { // ** validate **
         id: Tasks.YOUR_APPLICATION_PDF,
-        href: () => YOUR_APPLICATION_FL401,
+        href: () =>
+          applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, { partyType: PartyType.APPLICANT, documentType: 'fl401-application' }),
         stateTag: () => StateTags.DOWNLOAD,
         openInAnotherTab: true,
       },
       {
+        // ** validate **
         id: Tasks.YOUR_APPLICATION_WITNESS_STATEMENT,
-        href: () => APPLICANT_WITNESS_STATEMENTS_DA,
+        href: () =>
+          applyParms(VIEW_DOCUMENTS, {
+            partyType: PartyType.APPLICANT,
+            documentCategory: DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
+            documentPartyType: PartyType.APPLICANT,
+          }),
         stateTag: caseData => getYourWitnessStatementStatus(caseData),
-        openInAnotherTab: true,
       },
     ],
   },
@@ -109,19 +114,6 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
     content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
     show: isCaseLinked,
     tasks: (): Task[] => [
-      {
-        id: Tasks.UPLOAD_DOCUMENTS,
-        href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-        stateTag: () => StateTags.TO_DO,
-        show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-          return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
-        },
-      },
-      {
-        id: Tasks.VIEW_ALL_DOCUMENTS,
-        href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
-        stateTag: () => StateTags.READY_TO_VIEW,
-      },
       {
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.APPLICANT }),
