@@ -10,6 +10,7 @@ export enum Sections {
   AboutCaAndDaRespondentCase = 'aboutCaAndDaRespondentCase',
   C100 = 'c100',
   Screening = 'screening',
+  RA = 'cuira',
 }
 
 export interface Step {
@@ -22,6 +23,7 @@ export interface Step {
   getController?: any;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   postController?: any;
+  subDir?: string;
   sanitizeQueryString?: (fromurl: string, toUrl: string, queryString: Record<string, string>) => Record<string, string>;
 }
 

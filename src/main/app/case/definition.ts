@@ -1,7 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
-import { CaseDate, FieldPrefix } from './case';
+import { RAFlagValue } from '../../modules/reasonable-adjustments/definitions';
+import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
 
 export interface ChildDetails {
   gender: string;
@@ -106,7 +107,7 @@ export interface PartyDetails {
   isAtAddressLessThan5YearsWithDontKnow: string;
   response: Response;
   user: User;
-  contactPreferences?: applicantContactPreferencesEnum;
+  contactPreferences?: ContactPreference | null;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
 }
 
@@ -127,6 +128,7 @@ export interface Response {
   supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
+  c7ResponseSubmitted?: YesOrNo;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -785,6 +787,7 @@ export type C100Applicant = {
     relationshipToChildren: RelationshipToChildren[];
   };
   applicantContactDetail?: ContactDetail;
+  reasonableAdjustmentsFlags: RAFlagValue[] | [];
 }
 
 export interface RelationshipToChildren {
@@ -805,6 +808,11 @@ export interface ContactDetail {
 
 export enum applicantContactPreferencesEnum {
   DIGITAL = 'digital',
+  POST = 'post',
+}
+
+export enum ContactPreference {
+  EMAIL = 'email',
   POST = 'post',
 }
 
@@ -982,6 +990,7 @@ export interface CaseData {
   draftOrderDoc?: Document;
   soaCafcassServedOptions?: YesOrNo | null;
   soaCafcassCymruServedOptions? : YesOrNo | null;
+  finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -1614,7 +1623,8 @@ export const enum SectionStatus {
   VIEW = 'VIEW',
   NOT_STARTED = 'NOT_STARTED',
   READY_TO_VIEW = "READY_TO_VIEW",
-  NOT_AVAILABLE_YET = "NOT_AVAILABLE_YET"
+  NOT_AVAILABLE_YET = "NOT_AVAILABLE_YET",
+  OPTIONAL = "OPTIONAL"
 }
 
 export const enum AlternativeServiceMediumType {
@@ -1651,8 +1661,8 @@ export const enum EventRoutesContext {
   PROCEEDINGS_RESPONSE = "PROCEEDINGS_RESPONSE",
   SAFETY_CONCERNS_RESPONSE = "SAFETY_CONCERNS_RESPONSE",
   INTERNATIONAL_FACTORS_RESPONSE = "INTERNATIONAL_FACTORS_RESPONSE",
-  SUPPORT_DURING_CASE = "SUPPORT_DURING_CASE",
-  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO"
+  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO",
+  CONTACT_PREFERENCE = "CONTACT_PREFERENCE",
 }
 
 export const enum ClarificationReason {
@@ -3069,7 +3079,9 @@ export enum PartyType {
   RESPONDENT = 'respondent',
   OTHER_PERSON = 'otherPerson',
 }
-
+export enum ServedParty {
+  CYMRU = 'Cafcass cymru',
+}
 export type People = {
   id: string;
   firstName: string;
@@ -3132,7 +3144,6 @@ export enum DocType {
   OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
   MIAM_CERTIFICATE = 'miamcertificate',
 }
-
 export interface PaymentError {
   hasError: boolean;
   errorContext: PaymentErrorContext | null;

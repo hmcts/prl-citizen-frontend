@@ -4,7 +4,7 @@ import { Application } from 'express';
 
 import AddressLookupPostControllerBase from './app/address/AddressLookupPostControllerBase';
 import { FieldPrefix } from './app/case/case';
-import { Environment, EventRoutesContext } from './app/case/definition';
+import { EventRoutesContext } from './app/case/definition';
 import { GetCaseController } from './app/controller/GetCaseController';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
@@ -12,14 +12,12 @@ import { RespondentSubmitResponseController } from './app/controller/RespondentS
 import { DocumentManagerController } from './app/document/DocumentManagementController';
 import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
-import { StepWithContent, stepsWithContent } from './steps/';
+import { RAProvider } from './modules/reasonable-adjustments';
+import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
-import { SupportYouNeedDuringYourCaseController } from './steps/applicant/support-you-need-during-case/SupportYouNeedDuringCaseController';
 import AllDocumentsGetController from './steps/applicant/yourdocuments/alldocuments/allDocumentsGetController';
 import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation-page/ApplicationDownloadController';
-import { ContactPreferencesGetController } from './steps/common/contact-preferences/ContactPreferencesGetController';
-import { ContactPreferencesPostController } from './steps/common/contact-preferences/ContactPreferencesPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
@@ -105,9 +103,6 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   PROCEEDING_SAVE,
   PROCEEDINGS_START,
-  SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
-  CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
-  C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
   RESPONDENT_CHECK_ANSWERS_NO,
   FETCH_CASE_DETAILS,
   PARTY_TASKLIST,
@@ -115,25 +110,23 @@ import {
   TESTING_SUPPORT_CREATE_DRAFT,
   CREATE_DRAFT,
   TESTING_SUPPORT_DELETE_DRAFT,
-  APPLICANT_TASKLIST_CONTACT_PREFERENCES,
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
-  C7_ATTENDING_THE_COURT,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
-  APPLICANT_TASKLIST_CONTACT_EMAIL,
-  APPLICANT_TASKLIST_CONTACT_POST,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   APPLICANT_YOURHEARINGS_HEARINGS,
   RESPONSE_TO_CA,
   AOH_TO_CA,
   VIEW_DOCUMENT_URL,
+  LOCAL_API_SESSION,
   TASKLIST_RESPONSE_TO_CA,
+  TASKLIST_RESPONSE,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
 export class Routes {
-  public enableFor(app: Application): void {
+  public async enableFor(app: Application): Promise<void> {
     const { errorHandler } = app.locals;
     const errorController = new ErrorController();
 
@@ -141,7 +134,7 @@ export class Routes {
     app.get(HOME_URL, (req, res) => res.redirect(DASHBOARD_URL));
     app.get(DASHBOARD_URL, errorHandler(new DashboardGetController().get));
     app.get(FETCH_CASE_DETAILS, errorHandler(new CaseDetailsGetController().get));
-    app.get(PARTY_TASKLIST, errorHandler(new TaskListGetController().get));
+    app.get(PARTY_TASKLIST, errorHandler(new TaskListGetController().load));
     app.get(COOKIES_PAGE, errorHandler(new CookiesGetController().get));
     app.get(PRIVACY_POLICY, errorHandler(new PrivacyPolicyGetController().get));
     app.get(TERMS_AND_CONDITIONS, errorHandler(new TermsAndConditionsGetController().get));
@@ -227,21 +220,15 @@ export class Routes {
       `${INTERNATIONAL_FACTORS_START}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.INTERNATIONAL_FACTORS_RESPONSE).get)
     );
-    app.get(
-      `${C7_ATTENDING_THE_COURT}/:caseId`,
-      errorHandler(new TasklistGetController(EventRoutesContext.SUPPORT_DURING_CASE).get)
-    );
 
     //C100 related routes
-    app.get(
-      `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/:caseId`,
-      errorHandler(new ContactPreferencesGetController().get)
-    );
     app.post(CREATE_DRAFT, errorHandler(TSDraftController.post));
     app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(TSDraftController.createTSC100Draft));
     app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(TSDraftController.deleteTSC100Draft));
 
-    for (const step of stepsWithContent) {
+    const steps = [...stepsWithContent, ...getStepsWithContent(await RAProvider.getSequence(), '/common')];
+
+    for (const step of steps) {
       const files = fs.readdirSync(`${step.stepDir}`);
       const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
       const getController = getControllerFileName
@@ -286,6 +273,7 @@ export class Routes {
         app.get(RESPONSE_TO_CA, errorHandler(documentManagerController.get));
         //TODO remove TASKLIST_RESPONSE_TO_CA when citizen document upload changes are merged
         app.get(TASKLIST_RESPONSE_TO_CA, errorHandler(documentManagerController.get));
+        app.get(TASKLIST_RESPONSE, errorHandler(documentManagerController.get));
         app.get(AOH_TO_CA, errorHandler(documentManagerController.get));
         app.get(`${APPLICANT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
         app.get(`${RESPONDENT_ORDERS_FROM_THE_COURT}/:uid`, errorHandler(documentManagerController.get));
@@ -326,26 +314,10 @@ export class Routes {
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)
         );
         app.get(
-          SUPPORT_YOU_NEED_DURING_CASE_SUMMARY_SAVE,
-          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
-        );
-        app.get(
-          CA_DA_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
-          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
-        );
-        app.get(
-          C7_SUPPORT_YOU_NEED_DURING_CASE_SAVE,
-          errorHandler(new SupportYouNeedDuringYourCaseController(step.form.fields).post)
-        );
-        app.get(
           C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
           errorHandler(new SafetyConcernsPostController(step.form.fields).post)
         );
         app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
-        app.post(
-          `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}`,
-          errorHandler(new ContactPreferencesPostController(step.form.fields).post)
-        );
         app.post(
           PIN_ACTIVATION_CASE_ACTIVATED_URL,
           errorHandler(new CaseActivationPostController(step.form.fields).post)
@@ -358,14 +330,6 @@ export class Routes {
           RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
           errorHandler(new RemoveLegalRepresentativePostController(step.form.fields).post)
         );
-        app.post(
-          `${APPLICANT_TASKLIST_CONTACT_EMAIL}`,
-          errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
-        );
-        app.post(
-          `${APPLICANT_TASKLIST_CONTACT_POST}`,
-          errorHandler(new ApplicantConfirmContactDetailsPostController(step.form.fields).post)
-        );
       }
     }
     /**
@@ -373,11 +337,9 @@ export class Routes {
      */
     app.get(PAYMENT_GATEWAY_ENTRY_URL, errorHandler(PaymentHandler));
     app.get(PAYMENT_RETURN_URL_CALLBACK, errorHandler(PaymentValidationHandler));
-    if (app.locals.ENV !== Environment.PRODUCTION) {
-      app.get('/api/v1/session', (req, res) => {
-        res.json(req.session);
-      });
-    }
+    app.get(LOCAL_API_SESSION, (req, res) => {
+      res.json(req.session);
+    });
   }
 
   private routeGuard(step: StepWithContent, httpMethod: string, req, res, next) {
