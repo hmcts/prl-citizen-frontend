@@ -1,7 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
-import { CaseDate, FieldPrefix } from './case';
+import { RAFlagValue } from '../../modules/reasonable-adjustments/definitions';
+import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
 
 export interface ChildDetails {
   gender: string;
@@ -106,7 +107,7 @@ export interface PartyDetails {
   isAtAddressLessThan5YearsWithDontKnow: string;
   response: Response;
   user: User;
-  contactPreferences?: applicantContactPreferencesEnum;
+  contactPreferences?: ContactPreference | null;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
 }
 
@@ -127,6 +128,7 @@ export interface Response {
   supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
+  c7ResponseSubmitted?: YesOrNo;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -196,6 +198,7 @@ export interface CitizenFlags {
   isAllegationOfHarmViewed?: string
   isAllDocumentsViewed?: string
   isResponseInitiated?: string
+  isApplicationToBeServed?: string
 }
 
 export const enum DownloadFileFieldFlag {
@@ -784,6 +787,7 @@ export type C100Applicant = {
     relationshipToChildren: RelationshipToChildren[];
   };
   applicantContactDetail?: ContactDetail;
+  reasonableAdjustmentsFlags: RAFlagValue[] | [];
 }
 
 export interface RelationshipToChildren {
@@ -804,6 +808,11 @@ export interface ContactDetail {
 
 export enum applicantContactPreferencesEnum {
   DIGITAL = 'digital',
+  POST = 'post',
+}
+
+export enum ContactPreference {
+  EMAIL = 'email',
   POST = 'post',
 }
 
@@ -979,6 +988,9 @@ export interface CaseData {
   citizenResponseC7DocumentList?: ResponseDocumentList[];
   respondentDocsList?:RespondentDocs[];
   draftOrderDoc?: Document;
+  soaCafcassServedOptions?: YesOrNo | null;
+  soaCafcassCymruServedOptions? : YesOrNo | null;
+  finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
 
 export const enum SelectTypeOfOrderEnum {
@@ -1611,7 +1623,8 @@ export const enum SectionStatus {
   VIEW = 'VIEW',
   NOT_STARTED = 'NOT_STARTED',
   READY_TO_VIEW = "READY_TO_VIEW",
-  NOT_AVAILABLE_YET = "NOT_AVAILABLE_YET"
+  NOT_AVAILABLE_YET = "NOT_AVAILABLE_YET",
+  OPTIONAL = "OPTIONAL"
 }
 
 export const enum AlternativeServiceMediumType {
@@ -1648,8 +1661,8 @@ export const enum EventRoutesContext {
   PROCEEDINGS_RESPONSE = "PROCEEDINGS_RESPONSE",
   SAFETY_CONCERNS_RESPONSE = "SAFETY_CONCERNS_RESPONSE",
   INTERNATIONAL_FACTORS_RESPONSE = "INTERNATIONAL_FACTORS_RESPONSE",
-  SUPPORT_DURING_CASE = "SUPPORT_DURING_CASE",
-  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO"
+  SAFETY_CONCERNS_NO = "SAFETY_CONCERNS_NO",
+  CONTACT_PREFERENCE = "CONTACT_PREFERENCE",
 }
 
 export const enum ClarificationReason {
@@ -2443,6 +2456,7 @@ export interface HearingsList {
 export interface Hearing{
   dates : string,
   lengthOfHearing : number | undefined,
+  hearingDurationDisplayText: string,
   hearingMethod: string ,
   hearingDaySchedule: hearingDay[],
 }
@@ -2451,18 +2465,27 @@ export interface hearingDay{
   hearingDate: string,
   startTime: string,
   amPm:string,
+  startTimeDisplayText:string,
   durationInDayOrHours:number,
   minutes:number,
+  hearingDurationDisplayText: string,
   judgeName:string | null | undefined,
   venue:string | null | undefined,
   address:string | null | undefined,
   roomId:string | null | undefined,
+  hearingToAttendDetails: Row[]
 }
+
+export type Row = {
+  displayText: string;
+  value: string | null | undefined;
+};
 
 export interface CompletedHearings{
   hearingId: Number | undefined,
   dates: string,
   lengthOfHearing: number | undefined,
+  hearingDurationDisplayText: string,
   hearingMethod: string,
 }
 
@@ -3056,7 +3079,9 @@ export enum PartyType {
   RESPONDENT = 'respondent',
   OTHER_PERSON = 'otherPerson',
 }
-
+export enum ServedParty {
+  CYMRU = 'Cafcass cymru',
+}
 export type People = {
   id: string;
   firstName: string;
@@ -3075,17 +3100,25 @@ export enum CaseEvent {
   CONFIRM_YOUR_DETAILS = 'confirmYourDetails',
   SUPPORT_YOU_DURING_CASE = 'hearingNeeds',
   LEGAL_REPRESENTATION = 'legalRepresentation',
-  SAFETY_CONCERNS = 'citizenSafetyConcerns',
+  SAFETY_CONCERNS = 'citizenRespondentAoH',
   MIAM = 'respondentMiam',
   PARTY_PERSONAL_DETAILS = 'linkCitizenAccount',
   CITIZEN_INTERNAL_CASE_UPDATE = 'citizen-internal-case-update',
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
-  CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative'
+  CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
+  CONTACT_PREFERENCE='citizenContactPreference',
+  CITIZEN_SAVE_C100_DRAFT_INTERNAL="citizenSaveC100DraftInternal",
+  CITIZEN_INTERNAL_FLAG_UPDATES="citizenInternalFlagUpdates"
 }
 
 export enum hearingStatus {
   COMPLETED = 'COMPLETED',
+  HEARING_REQUESTED = 'HEARING_REQUESTED',
+  EXCEPTION = 'EXCEPTION',
+  AWAITING_LISTING = 'AWAITING_LISTING',
+  AWAITING_ACTUALS = 'AWAITING_ACTUALS',
+  LISTED = 'LISTED'
 } 
 
 export enum passportPossessionRelative {
@@ -3110,4 +3143,14 @@ export enum DocType {
   PREVIOUS_ORDERS = 'previousorders',
   OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherpeoplewitnessstatement',
   MIAM_CERTIFICATE = 'miamcertificate',
+}
+export interface PaymentError {
+  hasError: boolean;
+  errorContext: PaymentErrorContext | null;
+}
+
+export enum PaymentErrorContext {
+  DEFAULT_PAYMENT_ERROR = 'defaultPaymentError',
+  PAYMENT_UNSUCCESSFUL = 'paymentUnsuccessful',
+  APPLICATION_NOT_SUBMITTED = 'applicationNotSubmitted'
 }

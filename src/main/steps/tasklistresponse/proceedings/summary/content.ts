@@ -5,7 +5,6 @@ import { PastAndCurrentProceedings } from '../mainUtils';
 import { otherProceedingsContents } from '../proceedingUtils';
 
 export const enContent = {
-  serviceName: 'Check your answers ',
   section: '',
   title: 'Check your answers',
   change: 'Edit',
@@ -36,7 +35,6 @@ const en = (content: CommonContent) => {
 };
 
 export const cyContent: typeof enContent = {
-  serviceName: 'Gwirio eich atebion',
   section: '',
   title: 'Gwirio eich atebion',
   change: 'Golygu',

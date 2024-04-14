@@ -11,14 +11,7 @@ import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
 import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
-import {
-  C100_CASE_EVENT,
-  CITIZEN_SAVE_AND_CLOSE,
-  CITIZEN_UPDATE,
-  CaseData,
-  PartyType,
-  State,
-} from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, PartyType, State } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -32,7 +25,7 @@ export class PostController<T extends AnyObject> {
    * Parse the form body and decide whether this is a save and sign out, save and continue or session time out
    */
   public async post(req: AppRequest<T>, res: Response): Promise<void> {
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
     const form = new Form(fields);
 
     const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
@@ -84,7 +77,7 @@ export class PostController<T extends AnyObject> {
     }
 
     req.session.userCase = {
-      ...PreProcessCaseData.clean(this.fields, formData, req.session.userCase, !req.path.startsWith(C100_URL)),
+      ...PreProcessCaseData.clean(this.fields, req, formData, req.session.userCase, !req.path.startsWith(C100_URL)),
     };
 
     if (req.originalUrl.includes(UploadDocumentSucess)) {
@@ -200,7 +193,7 @@ export class PostController<T extends AnyObject> {
 
     try {
       if (!req.session.errors.length) {
-        const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+        const client = new CosApiClient(caseworkerUser.accessToken, req.locals.logger);
         const accessCodeValidated = await client.validateAccessCode(
           caseReference as string,
           accessCode as string,
@@ -275,11 +268,10 @@ export class PostController<T extends AnyObject> {
       try {
         req.session.errors = [];
         Object.assign(req.session.userCase, formData);
-        await req.locals.C100Api.updateCase(
+        await req.locals.C100Api.saveC100DraftApplication(
           req.session.userCase!.caseId!,
           req.session.userCase,
-          req.originalUrl,
-          C100_CASE_EVENT.CASE_UPDATE
+          req.originalUrl
         );
         //update latest reutrn URL in the session
         req.session.userCase.c100RebuildReturnUrl = req.originalUrl;

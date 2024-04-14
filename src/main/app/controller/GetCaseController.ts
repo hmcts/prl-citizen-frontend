@@ -8,7 +8,7 @@ import {
   APPLICANT,
   APPLICANT_TASK_LIST_URL,
   APPLICANT_VIEW_ALL_DOCUMENTS,
-  C100_CASE_NAME,
+  C100_CHILD_ADDRESS,
   DASHBOARD_URL,
   PARTY_TASKLIST,
   RESPONDENT,
@@ -40,7 +40,7 @@ export class GetCaseController {
     const caseReference = req.params?.caseId ?? id;
     if (req.params?.caseId || id) {
       const citizenUser = req.session.user;
-      const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
+      const client = new CosApiClient(citizenUser.accessToken, req.locals.logger);
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, citizenUser);
       req.session.userCase = caseDataFromCos;
     }
@@ -78,7 +78,7 @@ export class GetCaseController {
         } as CaseWithId;
         req.session.userCaseList = [];
         req.session.save(() => {
-          res.redirect(C100_CASE_NAME);
+          res.redirect(C100_CHILD_ADDRESS);
         });
       } catch (e) {
         throw new Error('case could not be created-createC100ApplicantCase');

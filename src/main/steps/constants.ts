@@ -10,6 +10,7 @@ export enum Sections {
   AboutCaAndDaRespondentCase = 'aboutCaAndDaRespondentCase',
   C100 = 'c100',
   Screening = 'screening',
+  RA = 'cuira',
 }
 
 export interface Step {
@@ -22,6 +23,7 @@ export interface Step {
   getController?: any;
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   postController?: any;
+  subDir?: string;
   sanitizeQueryString?: (fromurl: string, toUrl: string, queryString: Record<string, string>) => Record<string, string>;
 }
 
@@ -110,3 +112,22 @@ export const DIFFERENT_CHAIR = 'differentchair';
 export const NO_SUPPORT = 'nosupport';
 export const NO_INTERPRETER = 'nointerpreter';
 export const INVALID_DATE = 'Invalid Date';
+
+export enum HEARING_METHOD {
+  TEL = 'TEL',
+  TELBTM = 'TELBTM',
+  TELCVP = 'TELCVP',
+  TELSKYP = 'TELSKYP',
+  TELOTHER = 'TELOTHER',
+  TELTEMP = 'TELTEMP',
+  VID = 'VID',
+  VIDOTHER = 'VIDOTHER',
+  VIDSKYPE = 'VIDSKYPE',
+  VIDCVP = 'VIDCVP',
+  VIDTEAMS = 'VIDTEAMS',
+  VIDVHS = 'VIDVHS',
+  VIDPVL = 'VIDPVL',
+  INTER = 'INTER',
+  NA = 'NA',
+  ONPPRS = 'ONPPRS',
+}

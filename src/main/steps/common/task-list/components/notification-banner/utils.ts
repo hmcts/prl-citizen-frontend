@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 
-import { CaseType, PartyType } from './../../../../../app/case/definition';
+import _ from 'lodash';
+
+import { CaseWithId } from '../../../../../app/case/case';
+import { UserDetails } from '../../../../../app/controller/AppRequest';
+
+import { CaseType, PartyType, YesOrNo } from './../../../../../app/case/definition';
 import { languages as content } from './content';
 
 export enum BannerNotification {
@@ -18,6 +24,10 @@ export enum BannerNotification {
   NEW_DOCUMENT = 'newDocument',
   FINAL_ORDER = 'finalOrder',
   DA_RESPONDENT_BANNER = 'daRespondentBanner',
+  CA_RESPONDENT_SERVED = 'caRespondentServed',
+  CAFFCASS = 'cafcass',
+  GIVE_RESPONDENT_THEIR_DOCUMENTS = 'giveRespondentTheirDocuments',
+  CA_PERSONAL_SERVICE = 'caPersonalService',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string, partyType: PartyType) => {
@@ -90,4 +100,34 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.FINAL_ORDER),
     show: () => false,
   },
+  [BannerNotification.DA_RESPONDENT_BANNER]: {
+    id: BannerNotification.DA_RESPONDENT_BANNER,
+    content: getContent.bind(null, BannerNotification.DA_RESPONDENT_BANNER),
+    show: () => false,
+  },
+  [BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS]: {
+    id: BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS,
+    content: getContent.bind(null, BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS),
+    show: () => false,
+  },
+  [BannerNotification.CA_PERSONAL_SERVICE]: {
+    id: BannerNotification.CA_PERSONAL_SERVICE,
+    content: getContent.bind(null, BannerNotification.CA_PERSONAL_SERVICE),
+    show: () => false,
+  },
+};
+
+export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): boolean => {
+  return caseData.applicants?.[0].value?.response?.citizenFlags?.isApplicationToBeServed === YesOrNo.YES;
+};
+
+export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+  return caseData.applicants?.[0].value.user.idamId === userDetails.id;
+};
+
+export const isPersonalServiceByCourtStaff = (caseData: Partial<CaseWithId>): boolean => {
+  const PERSONAL_SOA_BY_COURT_STAFF = ['Court - court admin', 'Court - court bailiff'];
+  return caseData.finalServedApplicationDetailsList && caseData.finalServedApplicationDetailsList?.length
+    ? PERSONAL_SOA_BY_COURT_STAFF.includes(_.last(caseData.finalServedApplicationDetailsList)?.value.whoIsResponsible!)
+    : false;
 };

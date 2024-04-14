@@ -5,15 +5,6 @@ import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../../steps/common/common.content';
 import {
-  CA_DA_ATTENDING_THE_COURT,
-  CA_DA_COMMUNICATION_HELP,
-  CA_DA_COURT_HEARING_COMFORT,
-  CA_DA_COURT_HEARING_SUPPORT,
-  CA_DA_DOCUMENTS_SUPPORT,
-  CA_DA_LANGUAGE_REQUIREMENTS,
-  CA_DA_REASONABLE_ADJUSTMENTS,
-  CA_DA_SPECIAL_ARRANGEMENTS,
-  CA_DA_TRAVELLING_TO_COURT,
   CONSENT_TO_APPLICATION,
   DETAILS_KNOWN_RESPONDENT,
   INTERNATIONAL_FACTORS_JURISDICTION,
@@ -31,8 +22,8 @@ import {
   RESPONDENT_PERSONAL_DETAILS,
   START_ALTERNATIVE_RESPONDENT,
 } from '../../../steps/urls';
+import { summaryList as prepareRASummaryList } from '../../common/reasonable-adjustments/review/content';
 import { summaryList } from '../../common/summary/utils';
-import { summaryList as supportList } from '../../common/support-you-need-during-case/summary/utils';
 import {
   SafetyConcerns,
   SafetyConcerns_child,
@@ -142,41 +133,6 @@ export const enContent = {
   downloadDraft: 'Download draft response',
 };
 
-export const enSupportYouNeedContent = {
-  sectionTitles: {
-    title: 'Support you need during your case',
-  },
-  keys: {
-    attendingToCourt: 'Would you be able to take part in hearings by video and phone?',
-    hearingDetails: 'Please provide the details',
-    languageRequirements: 'Do you have any language requirements?',
-    languageDetails: 'Please provide language details',
-    safetyArrangements: 'Do you or the children need special safety arrangements at court?',
-    safetyArrangementsDetails: 'Please describe your need in detail',
-    reasonableAdjustments:
-      'Do you have a physical, mental or learning disability or health condition that means you need support during your case?',
-    docsSupport: 'I need documents in an alternative format',
-    docsDetails: 'Please provide the docs details',
-    largePrintDetails: 'Please provide the large print details',
-    otherDetails: 'Please provide the other details',
-    helpCommunication: 'I need help communicating and understanding',
-    describeSignLanguageDetails: 'Please provide sign language details',
-    describeOtherNeed: 'Please provide the details',
-    courtHearing: 'I would need to bring support with me to a court hearing',
-    supportWorkerDetails: 'Please provide support worker details',
-    familyProviderDetails: 'Please provide family member details',
-    therapyDetails: 'Please provide therapy animal details',
-    communicationSupportOther: 'Please provide the details',
-    courtComfort: 'I need something to make me feel comfortable during a court hearing',
-    lightingProvideDetails: 'Please describe appropriate lighting details',
-    otherProvideDetails: 'Please describe your need in detail',
-    travellingToCourt: 'I need help travelling to, or moving around court buildings',
-    parkingDetails: 'Please describe parking space details',
-    differentChairDetails: 'Please describe different chair details',
-    travellingOtherDetails: 'Please describe your need in detail',
-  },
-};
-
 export const enInternationalContent = {
   sectionTitles: {
     title: '6. International element',
@@ -192,8 +148,8 @@ export const enDummyContent = {
   },
   keys: {},
 };
+
 export const enContentProceding = {
-  serviceName: 'Check your answers ',
   section: '',
   title: 'Check your answers',
   change: 'Edit',
@@ -237,6 +193,7 @@ export const enContentProceding = {
     otherOrderLabel: 'Other Order',
   },
 };
+
 export const enSaftyConcern = {
   change: 'Edit',
   sectionTitles: {
@@ -345,8 +302,8 @@ export const cyContent: typeof enContent = {
   forRecords: 'Noder mai drafft yw hwn ar gyfer eich cofnodion. Dim ond yr ymateb terfynol a dderbynnir yn y llys.',
   downloadDraft: 'Lawrlwytho drafft o’r ymateb',
 };
+
 export const cyContentProceding = {
-  serviceName: 'Gwirio eich atebion',
   section: '',
   title: 'Gwirio eich atebion',
   change: 'Golygu',
@@ -390,6 +347,7 @@ export const cyContentProceding = {
     otherOrderLabel: 'Gorchymyn Arall',
   },
 };
+
 export const cylegalRepresntationContent = {
   sectionTitles: {
     title: '1. Cynrychiolydd cyfreithiol',
@@ -447,41 +405,6 @@ export const cyConfirmYourDetailsContent = {
     citizenUserPhoneNumberText: 'Rhif ffôn',
     citizenUserEmailAddressText: 'E-bost',
     citizenUserSafeToCall: 'Pa bryd y mae’n ddiogel eich ffonio (dewisol)',
-  },
-};
-
-export const cySupportYouNeedContent = {
-  sectionTitles: {
-    title: 'Cefnogaeth sydd ei hangen arnoch yn ystod eich achos',
-  },
-  keys: {
-    attendingToCourt: 'A fyddech chi’n gallu cymryd rhan mewn gwrandawiadau drwy fideo a dros y ffôn?',
-    hearingDetails: 'Rhowch fanylion',
-    languageRequirements: 'A oes gennych chi unrhyw ofynion ieithyddol?',
-    languageDetails: 'Rhowch fanylion eich gofynion ieithyddol',
-    safetyArrangements: 'Ydych chi neu’r plant angen i’r llys wneud unrhyw drefniadau diogelwch arbennig?',
-    safetyArrangementsDetails: 'Disgrifiwch eich anghenion yn fanwl',
-    reasonableAdjustments:
-      'A oes gennych anabledd corfforol, meddyliol neu addysgol neu gyflwr iechyd sy’n golygu bod angen cymorth arnoch yn ystod eich achos?',
-    docsSupport: 'Rwyf angen dogfennau mewn fformat amgen',
-    docsDetails: 'Rhowch fanylion y dogfennau',
-    largePrintDetails: 'Rhowch fanylion y print bras',
-    otherDetails: 'Rhowch y manylion eraill',
-    helpCommunication: 'Rwyf angen cymorth gyda chyfathrebu a deall pethau',
-    signLanguageDetails: 'Rhowch fanylion yr iaith arwyddion',
-    describeOtherNeed: 'Rhowch fanylion',
-    courtHearing: 'Byddwn i angen dod â rhywun efo fi i fy nghefnogi mewn gwrandawiad llys',
-    supportWorkerDetails: 'Rhowch fanylion eich gweithiwr cymorth',
-    familyProviderDetails: 'Rhowch fanylion aelod o’ch teulu',
-    therapyDetails: 'Rhowch fanylion yr anifail therapi',
-    communicationSupportOther: 'Rhowch fanylion',
-    courtComfort: 'Rwyf angen rhywbeth i wneud i mi deimlo’n gyfforddus yn ystod gwrandawiad llys',
-    lightingProvideDetails: 'Rhowch fanylion y goleuadau priodol',
-    otherProvideDetails: 'Disgrifiwch eich anghenion yn fanwl',
-    travellingToCourt: 'Rwyf angen cymorth i deithio i, neu symud o gwmpas adeiladau’r llys',
-    parkingDetails: 'Rhowch fanylion y lle parcio',
-    differentChairDetails: 'Rhowch fanylion y math gwahanol o gadair',
-    travellingOtherDetails: 'Disgrifiwch eich anghenion yn fanwl',
   },
 };
 
@@ -575,6 +498,7 @@ export const cySaftyConcern = {
   Yes: 'Yes',
   No: 'No ',
 };
+
 export const cyDummyContent = {
   sectionTitles: {
     title2: '3. Eich manylion',
@@ -604,32 +528,6 @@ const urls = {
   restrainingOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS,
   injuctiveOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS,
   underTakingOrderOptions: PROCEEDINGS_COURT_PROCEEDINGS,
-  attendingToCourt: CA_DA_ATTENDING_THE_COURT,
-  hearingDetails: CA_DA_ATTENDING_THE_COURT,
-  languageRequirements: CA_DA_LANGUAGE_REQUIREMENTS,
-  languageDetails: CA_DA_LANGUAGE_REQUIREMENTS,
-  safetyArrangements: CA_DA_SPECIAL_ARRANGEMENTS,
-  safetyArrangementsDetails: CA_DA_SPECIAL_ARRANGEMENTS,
-  reasonableAdjustments: CA_DA_REASONABLE_ADJUSTMENTS,
-  docsSupport: CA_DA_DOCUMENTS_SUPPORT,
-  docsDetails: CA_DA_DOCUMENTS_SUPPORT,
-  largePrintDetails: CA_DA_DOCUMENTS_SUPPORT,
-  otherDetails: CA_DA_DOCUMENTS_SUPPORT,
-  helpCommunication: CA_DA_COMMUNICATION_HELP,
-  describeSignLanguageDetails: CA_DA_COMMUNICATION_HELP,
-  describeOtherNeed: CA_DA_COMMUNICATION_HELP,
-  courtHearing: CA_DA_COURT_HEARING_SUPPORT,
-  supportWorkerDetails: CA_DA_COURT_HEARING_SUPPORT,
-  familyProviderDetails: CA_DA_COURT_HEARING_SUPPORT,
-  therapyDetails: CA_DA_COURT_HEARING_SUPPORT,
-  communicationSupportOther: CA_DA_COURT_HEARING_SUPPORT,
-  courtComfort: CA_DA_COURT_HEARING_COMFORT,
-  lightingProvideDetails: CA_DA_COURT_HEARING_COMFORT,
-  otherProvideDetails: CA_DA_COURT_HEARING_COMFORT,
-  travellingToCourt: CA_DA_TRAVELLING_TO_COURT,
-  parkingDetails: CA_DA_TRAVELLING_TO_COURT,
-  differentChairDetails: CA_DA_TRAVELLING_TO_COURT,
-  travellingOtherDetails: CA_DA_TRAVELLING_TO_COURT,
   citizenUserFullName: RESPONDENT_PERSONAL_DETAILS,
   citizenUserDateOfBirthText: RESPONDENT_PERSONAL_DETAILS,
   citizenUserPlaceOfBirthText: RESPONDENT_PERSONAL_DETAILS,
@@ -653,6 +551,7 @@ const urls = {
   miamStart: MIAM_START,
   legalRepresentation: LEGAL_REPRESENTATION_START,
 };
+
 const toggleApplicantSafetyConcerns = (safteyConcernsAboutKey, userCase, childConcernsKey): boolean => {
   const safetyConcernIFOnlyChildAndwaitnessingSafetyConcernSelected =
     userCase.hasOwnProperty(safteyConcernsAboutKey) &&
@@ -695,7 +594,7 @@ const en = (content: CommonContent) => {
       enConfirmYourDetailsContent.sectionTitles.title,
       content.language
     ),
-    supportList(enSupportYouNeedContent, userCase, urls, 'en', enSupportYouNeedContent.sectionTitles.title),
+    prepareRASummaryList('C7ConsolidatedReview', 'en', userCase),
     summaryList(enDummyContent, userCase, '', enDummyContent.sectionTitles.title3, content.language),
     summaryList(enContentMiam, userCase, urls, enContentMiam.sectionTitles.title, content.language),
     PastAndCurrentProceedings(enContentProceding, userCase, content.language),
@@ -749,7 +648,7 @@ const cy: typeof en = (content: CommonContent) => {
       cyConfirmYourDetailsContent.sectionTitles.title,
       content.language
     ),
-    supportList(cySupportYouNeedContent, userCase, urls, 'cy', cySupportYouNeedContent.sectionTitles.title),
+    prepareRASummaryList('C7ConsolidatedReview', 'cy', userCase),
     summaryList(cyDummyContent, userCase, '', cyDummyContent.sectionTitles.title3, content.language),
     summaryList(cyContentMiam, userCase, urls, cyContentMiam.sectionTitles.title, content.language),
     PastAndCurrentProceedings(cyContentProceding, userCase, content.language),

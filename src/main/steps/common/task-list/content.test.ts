@@ -57,17 +57,25 @@ describe('testcase for tasklist', () => {
     iWantTo: 'I want to...',
     notifications: [
       {
-        contents: [
-          {
-            text: 'You have caseData.noOfDaysRemainingToSubmitCase days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
-          },
-        ],
         heading: 'You have not finished your application',
         id: 'applicationInProgress',
-        links: [
+        sections: [
           {
-            href: '#',
-            text: 'Continue your application',
+            contents: [
+              {
+                text: 'You have caseData.noOfDaysRemainingToSubmitCase days to submit your application or it will be deleted and you will need to start again. This is for security reasons.',
+              },
+              {
+                text: 'You can review all your answers before you submit your application.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '#',
+                text: 'Continue your application',
+              },
+            ],
           },
         ],
         title: 'Important',
@@ -104,9 +112,11 @@ describe('testcase for tasklist', () => {
         tasks: [
           {
             disabled: false,
+            hintText: null,
             href: undefined,
             id: 'childArrangementApplication',
             linkText: 'Your child arrangements application',
+            openInAnotherTab: false,
             stateTag: { className: 'govuk-tag--yellow', label: 'In progress' },
           },
         ],
@@ -169,17 +179,25 @@ describe('testcase for tasklist', () => {
     ],
     notifications: [
       {
-        contents: [
-          {
-            text: 'Mae gennych caseData.noOfDaysRemainingToSubmitCase diwrnod i gyflwyno eich cais o’r dyddiad y gwnaethoch ei gychwyn, neu bydd yn cael ei ddileu a bydd rhaid i chi gychwyn y cais eto. Mae hyn er mwyn cadw eich gwybodaeth yn ddiogel.',
-          },
-        ],
         heading: 'Nid ydych wedi gorffen eich cais',
         id: 'applicationInProgress',
-        links: [
+        sections: [
           {
-            href: '#',
-            text: 'Parhau gyda’ch cais',
+            contents: [
+              {
+                text: 'Mae gennych caseData.noOfDaysRemainingToSubmitCase diwrnod i gyflwyno eich cais o’r dyddiad y gwnaethoch ei gychwyn, neu bydd yn cael ei ddileu a bydd rhaid i chi gychwyn y cais eto. Mae hyn er mwyn cadw eich gwybodaeth yn ddiogel.',
+              },
+              {
+                text: 'You can review all your answers before you submit your application.-welsh',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                href: '#',
+                text: 'Parhau gyda’ch cais',
+              },
+            ],
           },
         ],
         title: 'Pwysig',
@@ -220,9 +238,11 @@ describe('testcase for tasklist', () => {
         tasks: [
           {
             disabled: false,
+            hintText: null,
             href: undefined,
             id: 'childArrangementApplication',
             linkText: 'Eich cais trefniadau plant',
+            openInAnotherTab: false,
             stateTag: { className: 'govuk-tag--yellow', label: 'Ar y gweill' },
           },
         ],
@@ -360,6 +380,15 @@ describe('testcase for tasklist', () => {
                 lastName: 'LastName',
                 dateOfBirth: '1/1/2020',
                 placeOfBirth: 'London',
+                address: {
+                  AddressLine1: 'string',
+                  AddressLine2: 'string',
+                  PostTown: 'string',
+                  County: 'string',
+                  PostCode: 'string',
+                },
+                email: 'dummy',
+                phoneNumber: 'dummy',
                 response: {
                   citizenFlags: {
                     isAllegationOfHarmViewed: 'Yes',
@@ -435,6 +464,15 @@ describe('testcase for tasklist', () => {
       user: {
         idamId: '1234',
       },
+      address: {
+        AddressLine1: 'string',
+        AddressLine2: 'string',
+        PostTown: 'string',
+        County: 'string',
+        PostCode: 'string',
+      },
+      email: 'dummy',
+      phoneNumber: 'dummy',
       response: {
         citizenFlags: {
           isAllegationOfHarmViewed: 'Yes',

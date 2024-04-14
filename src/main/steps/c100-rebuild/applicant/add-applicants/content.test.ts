@@ -21,7 +21,7 @@ const en = {
   lastName: 'Last name(s)',
   buttonAddApplicant: 'Add another applicant',
   removeApplicant: 'Remove applicant',
-  labelFornewName: 'Enter a new name',
+  labelFornewName: 'Enter name',
   errors: {
     applicantFirstName: {
       required: 'Enter the first name',
@@ -44,7 +44,7 @@ const cy = {
   lastName: 'Cyfenw(au)',
   buttonAddApplicant: 'Ychwanegu ceisydd arall',
   removeApplicant: 'Dileu Ceisydd',
-  labelFornewName: 'Nodwch enw newydd',
+  labelFornewName: 'Enter name -welsh',
   errors: {
     applicantFirstName: {
       required: 'Nodwch yr enw cyntaf',
@@ -76,6 +76,7 @@ const dummyApplicants = [
       otherGenderDetails: '',
       applicantPlaceOfBirth: '',
     },
+    reasonableAdjustmentsFlags: [],
   },
   {
     id: 'c73b9d9e-1c26-4865-a0d1-01e988c67700',
@@ -93,6 +94,7 @@ const dummyApplicants = [
       otherGenderDetails: '',
       applicantPlaceOfBirth: '',
     },
+    reasonableAdjustmentsFlags: [],
   },
 ];
 
@@ -247,6 +249,7 @@ describe('applicant > add-applicants > content', () => {
           otherGenderDetails: '',
           applicantPlaceOfBirth: '',
         },
+        reasonableAdjustmentsFlags: [],
       },
     ]);
     expect(formFields).not.toBe(null);

@@ -1,14 +1,21 @@
-import { HearingOrders } from '../../../../app/case/definition';
+import { CaseType, HearingOrders, PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { CA_DA_ATTENDING_THE_COURT, RESPONDENT_ORDERS_FROM_THE_COURT } from '../../../../steps/urls';
+import { applyParms } from '../../../../steps/common/url-parser';
+import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
+import { PARTY_TASKLIST, REASONABLE_ADJUSTMENTS_INTRO, RESPONDENT_ORDERS_FROM_THE_COURT } from '../../../../steps/urls';
 import { generateContent as yourhearingshearingscontent } from '../../../common/yourhearings/hearings/content';
 
 export { form } from '../../../common/yourhearings/hearings/content';
 export const generateContent: TranslationFn = content => {
   const hearingsContent = yourhearingshearingscontent(content);
-  hearingsContent.linkforsupport = CA_DA_ATTENDING_THE_COURT;
   const request = content.additionalData?.req;
+  const caseData = request.session.userCase;
   const hearingOrders: HearingOrders[] = [];
+
+  hearingsContent.linkforsupport = applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
+    partyType: PartyType.RESPONDENT,
+  });
+
   for (const doc of request.session.userCase?.orderCollection || []) {
     if (doc.value.selectedHearingType) {
       const uid = doc.value.orderDocument.document_url.substring(
@@ -26,5 +33,12 @@ export const generateContent: TranslationFn = content => {
   return {
     ...hearingsContent,
     hearingOrders,
+    breadcrumb:
+      request.originalUrl.includes(PartyType.RESPONDENT) && caseData.caseTypeOfApplication === CaseType.C100
+        ? {
+            id: 'caseOverView',
+            href: applyParms(PARTY_TASKLIST, { partyType: getCasePartyType(caseData, request.session.user.id) }),
+          }
+        : null,
   };
 };

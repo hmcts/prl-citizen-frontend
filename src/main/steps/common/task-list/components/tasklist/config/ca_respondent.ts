@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 import { CaseWithId } from '../../../../../../app/case/case';
+import { CaseType, PartyType, YesOrNo } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
+import { applyParms } from '../../../../../../steps/common/url-parser';
 import { UPDATE_CASE_YES } from '../../../../../../steps/constants';
 import { getPartyDetails } from '../../../../../../steps/tasklistresponse/utils';
 import {
   ALLEGATION_OF_HARM_VOILENCE,
   APPLICANT_CA_DA_REQUEST,
-  CA_DA_ATTENDING_THE_COURT,
+  CHOOSE_CONTACT_PREFERENCE,
+  REASONABLE_ADJUSTMENTS_INTRO,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_DETAILS_KNOWN,
   RESPONDENT_ORDERS_FROM_THE_COURT,
@@ -14,7 +19,9 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
+  TASKLIST_RESPONSE,
 } from '../../../../../../steps/urls';
+import { hasContactPreference } from '../../../../contact-preference/util';
 import { isApplicationResponded, isCaseClosed, isRepresentedBySolicotor } from '../../../utils';
 import {
   StateTags,
@@ -27,18 +34,17 @@ import {
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
   getResponseStatus,
-  getSupportYourNeedsDetailsStatus,
   hasAnyHearing,
   hasAnyOrder,
 } from '../utils';
 
-export const aboutYou = {
+export const aboutYou: TaskListConfigProps = {
   id: TaskListSection.ABOUT_YOU,
   content: getContents.bind(null, TaskListSection.ABOUT_YOU),
   show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
     return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
   },
-  tasks: [
+  tasks: (): Task[] => [
     {
       id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
       href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_DETAILS_KNOWN}/${caseData.id}`,
@@ -49,32 +55,39 @@ export const aboutYou = {
       },
     },
     {
+      id: Tasks.CONTACT_PREFERENCES,
+      href: () => applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: PartyType.RESPONDENT }),
+      disabled: isCaseClosed,
+      stateTag: (caseData: Partial<CaseWithId>, userDetails: UserDetails) =>
+        !hasContactPreference(caseData as CaseWithId, userDetails.id) ? StateTags.TO_DO : StateTags.COMPLETED,
+      show: (caseData: Partial<CaseWithId>) => caseData.caseTypeOfApplication === CaseType.C100,
+    },
+    {
       id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
       href: (caseData: Partial<CaseWithId>) => `${RESPONDENT_CHECK_ANSWERS}/${caseData.id}`,
       disabled: isCaseClosed,
       stateTag: (caseData, userDetails) => {
-        const respondent = getPartyDetails(caseData, userDetails.id);
+        const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
         return getConfirmOrEditYourContactDetailsStatus(respondent);
       },
     },
     {
-      id: Tasks.YOUR_SUPPORT,
+      id: Tasks.SUPPORT_YOU_NEED,
       href: () => {
-        return `${CA_DA_ATTENDING_THE_COURT}`;
+        return applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
+          partyType: PartyType.RESPONDENT,
+        });
       },
       disabled: isCaseClosed,
-      stateTag: (caseData, userDetails) => {
-        const respondent = getPartyDetails(caseData, userDetails.id);
-        return getSupportYourNeedsDetailsStatus(respondent?.response.supportYouNeed as CaseWithId);
-      },
+      stateTag: () => StateTags.OPTIONAL,
     },
   ],
 };
-export const hearing = {
+export const hearing: TaskListConfigProps = {
   id: TaskListSection.YOUR_HEARING,
   content: getContents.bind(null, TaskListSection.YOUR_HEARING),
   show: () => true,
-  tasks: [
+  tasks: (): Task[] => [
     {
       id: Tasks.VIEW_HEARING_DETAILS,
       href: (caseData: Partial<CaseWithId>) =>
@@ -89,11 +102,11 @@ export const hearing = {
     },
   ],
 };
-export const order = {
+export const order: TaskListConfigProps = {
   id: TaskListSection.YOUR_ORDERS,
   content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
   show: () => true,
-  tasks: [
+  tasks: (): Task[] => [
     {
       id: Tasks.VIEW_ORDERS,
       href: caseData => (hasAnyOrder(caseData) ? RESPONDENT_ORDERS_FROM_THE_COURT : '#'),
@@ -106,11 +119,11 @@ export const order = {
     },
   ],
 };
-export const document = {
+export const document: TaskListConfigProps = {
   id: TaskListSection.YOUR_DOCUMENTS,
   content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
   show: () => true,
-  tasks: [
+  tasks: (): Task[] => [
     {
       id: Tasks.VIEW_ALL_DOCUMENTS,
       href: () => RESPONDENT_VIEW_ALL_DOCUMENTS,
@@ -128,13 +141,13 @@ export const document = {
   ],
 };
 
-export const CA_RESPONDENT = [
+export const CA_RESPONDENT: TaskListConfigProps[] = [
   aboutYou,
   {
     id: TaskListSection.THE_APPLICATION,
     content: getContents.bind(null, TaskListSection.THE_APPLICATION),
     show: () => true,
-    tasks: [
+    tasks: (): Task[] => [
       {
         id: Tasks.CHECK_THE_APPLICATION,
         href: (caseData, userDetails) => {
@@ -161,16 +174,19 @@ export const CA_RESPONDENT = [
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
       return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
     },
-    tasks: [
+    tasks: (): Task[] => [
       {
         id: Tasks.RESPOND_TO_THE_APPLICATION,
         href: (caseData, userDetails) => {
-          return !isApplicationResponded(caseData, userDetails.id) ? `${RESPOND_TO_APPLICATION}/flag/updateFlag` : null;
+          const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
+          return respondent?.response.c7ResponseSubmitted === YesOrNo.YES
+            ? `${TASKLIST_RESPONSE}?name=${respondent?.firstName + ' ' + respondent?.lastName}` //TODO change to use url parameter when citizen document upload changes are merged
+            : `${RESPOND_TO_APPLICATION}/flag/updateFlag`;
         },
         disabled: isCaseClosed,
         stateTag: (caseData, userDetails) => {
-          const respondent = getPartyDetails(caseData, userDetails.id);
-          return getResponseStatus(respondent);
+          const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
+          return getResponseStatus(respondent!);
         },
         showHint: (caseData, userDetails) => isApplicationResponded(caseData, userDetails.id),
       },
@@ -181,7 +197,7 @@ export const CA_RESPONDENT = [
         },
         disabled: isCaseClosed,
         stateTag: (caseData, userDetails) => {
-          const respondent = getPartyDetails(caseData, userDetails.id);
+          const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
           return getInternationalFactorsStatus(respondent?.response.citizenInternationalElements);
         },
         showHint: (caseData, userDetails) => isApplicationResponded(caseData, userDetails.id),

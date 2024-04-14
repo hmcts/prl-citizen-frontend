@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../../../app/case/case';
+import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
 import { isCaseClosed, isRepresentedBySolicotor } from '../../../../../../steps/common/task-list/utils';
+import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
-  APPLICANT_ATTENDING_THE_COURT,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_ORDERS_FROM_THE_COURT,
@@ -11,6 +13,7 @@ import {
   APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_WITNESS_STATEMENTS_DA,
   APPLICANT_YOURHEARINGS_HEARINGS,
+  REASONABLE_ADJUSTMENTS_INTRO,
   YOUR_APPLICATION_FL401,
 } from '../../../../../../steps/urls';
 import {
@@ -20,20 +23,19 @@ import {
   getConfirmOrEditYourContactDetailsStatus,
   getContents,
   getKeepYourDetailsPrivateStatus,
-  getSupportYourNeedsDetailsStatus,
   getYourWitnessStatementStatus,
   hasAnyHearing,
   hasAnyOrder,
 } from '../utils';
 
-export const DA_APPLICANT = [
+export const DA_APPLICANT: TaskListConfigProps[] = [
   {
     id: TaskListSection.ABOUT_YOU,
     content: getContents.bind(null, TaskListSection.ABOUT_YOU),
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
       return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
     },
-    tasks: [
+    tasks: (): Task[] => [
       {
         id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`,
@@ -55,19 +57,21 @@ export const DA_APPLICANT = [
       //   stateTag: () => StateTags.SUBMITTED,
       // },
       {
-        id: Tasks.YOUR_SUPPORT,
+        id: Tasks.SUPPORT_YOU_NEED,
         href: () => {
-          return `${APPLICANT_ATTENDING_THE_COURT}`;
+          return applyParms(REASONABLE_ADJUSTMENTS_INTRO, {
+            partyType: PartyType.APPLICANT,
+          });
         },
         disabled: isCaseClosed,
-        stateTag: (caseData: Partial<CaseWithId>) => getSupportYourNeedsDetailsStatus(caseData),
+        stateTag: () => StateTags.OPTIONAL,
       },
     ],
   },
   {
     id: TaskListSection.YOUR_APPLICATION,
     content: getContents.bind(null, TaskListSection.YOUR_APPLICATION),
-    tasks: [
+    tasks: (): Task[] => [
       {
         id: Tasks.YOUR_APPLICATION_PDF,
         href: () => YOUR_APPLICATION_FL401,
@@ -85,7 +89,7 @@ export const DA_APPLICANT = [
   {
     id: TaskListSection.YOUR_HEARING,
     content: getContents.bind(null, TaskListSection.YOUR_HEARING),
-    tasks: [
+    tasks: (): Task[] => [
       {
         id: Tasks.VIEW_HEARING_DETAILS,
         href: (caseData: Partial<CaseWithId>) =>
@@ -103,7 +107,7 @@ export const DA_APPLICANT = [
   {
     id: TaskListSection.YOUR_DOCUMENTS,
     content: getContents.bind(null, TaskListSection.YOUR_DOCUMENTS),
-    tasks: [
+    tasks: (): Task[] => [
       {
         id: Tasks.UPLOAD_DOCUMENTS,
         href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
@@ -124,7 +128,7 @@ export const DA_APPLICANT = [
   {
     id: TaskListSection.YOUR_ORDERS,
     content: getContents.bind(null, TaskListSection.YOUR_ORDERS),
-    tasks: [
+    tasks: (): Task[] => [
       {
         id: Tasks.VIEW_ORDERS,
         href: caseData => (hasAnyOrder(caseData) ? APPLICANT_ORDERS_FROM_THE_COURT : '#'),
