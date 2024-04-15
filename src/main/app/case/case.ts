@@ -84,6 +84,7 @@ import {
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
   children: 'children',
+  newChildDetails: 'newChildDetails',
   miamTable: 'miamTable',
   caseStatus: 'caseStatus',
   welshNeeds: 'welshNeeds',
@@ -250,6 +251,7 @@ export type FieldFormats = Record<string, string | ((AnyObject) => AnyObject)>;
 
 export interface Case {
   children?: Child[];
+  newChildDetails?: Child[];
   miamTable?: MiamTable;
   applicants?: Applicant[];
   applicantsFL401?: PartyDetails;
@@ -520,11 +522,11 @@ export interface Case {
   PRL_c1A_safetyConernAbout?: PRL_C1ASafteyConcernsAbout[];
   c1A_safteyConcerns?: C1ASafteyConcerns;
   PRL_c1A_safteyConcerns?: PRL_C1ASafteyConcerns;
-  PRL_c1A_abductionReasonOutsideUk?: string;
-  PRL_c1A_childsCurrentLocation?: string;
-  PRL_c1A_childrenMoreThanOnePassport?: YesOrNo;
-  PRL_c1A_possessionChildrenPassport?: string[];
-  PRL_c1A_provideOtherDetails?: string;
+  c1A_abductionReasonOutsideUk?: string;
+  c1A_childsCurrentLocation?: string;
+  c1A_childrenMoreThanOnePassport?: YesOrNo;
+  c1A_possessionChildrenPassport?: string[];
+  c1A_provideOtherDetails?: string;
   miam_otherProceedings?: string;
   miam_haveDocSigned?: string;
   miam_consent?: string;
@@ -541,18 +543,18 @@ export interface Case {
   hu_urgentHearingReasons?: YesOrNo;
   c1A_passportOffice?: YesOrNo;
   PRL_c1A_passportOffice?: YesOrNo;
-  PRL_c1A_abductionPassportOfficeNotified?: YesOrNo;
-  PRL_c1A_previousAbductionsShortDesc?: string;
-  PRL_c1A_policeOrInvestigatorInvolved?: YesOrNo;
-  PRL_c1A_policeOrInvestigatorOtherDetails?: string;
+  c1A_abductionPassportOfficeNotified?: YesOrNo;
+  c1A_previousAbductionsShortDesc?: string;
+  c1A_policeOrInvestigatorInvolved?: YesOrNo;
+  c1A_policeOrInvestigatorOtherDetails?: string;
   PRL_c1A_childAbductedBefore?: YesOrNo;
-  PRL_c1A_otherConcernsDrugs?: YesOrNo;
-  PRL_c1A_otherConcernsDrugsDetails?: string;
-  PRL_c1A_childSafetyConcerns?: YesOrNo;
-  PRL_c1A_childSafetyConcernsDetails?: string;
-  PRL_c1A_keepingSafeStatement?: string;
-  PRL_c1A_supervisionAgreementDetails?: string;
-  PRL_c1A_agreementOtherWaysDetails?: YesOrNo;
+  c1A_otherConcernsDrugs?: YesOrNo;
+  c1A_otherConcernsDrugsDetails?: string;
+  c1A_childSafetyConcerns?: YesOrNo;
+  c1A_childSafetyConcernsDetails?: string;
+  c1A_keepingSafeStatement?: string;
+  c1A_supervisionAgreementDetails?: string;
+  c1A_agreementOtherWaysDetails?: YesOrNo;
   cd_children?: ChildrenDetails[];
   ocd_otherChildren?: OtherChildrenDetails[];
   ocd_hasOtherChildren?: YesOrNo;

@@ -21,6 +21,7 @@ import { ApplicationDownloadController } from './steps/c100-rebuild/confirmation
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
+import { AohSequence } from './steps/common/safety-concerns/sequence';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
 import { HearingsGetController } from './steps/common/yourhearings/hearings/HearingsGetController';
@@ -34,7 +35,6 @@ import RespondentConfirmContactDetailsPostController from './steps/respondent/co
 import { ConsentPostController } from './steps/respondent/consent-to-application/ConsentPostController';
 import { SaveSignOutGetController } from './steps/save-sign-out/get';
 import { TasklistGetController } from './steps/tasklistresponse/TasklistGetController';
-import { SafetyConcernsPostController } from './steps/tasklistresponse/allegations-of-harm-and-violence/SafetyConcernsPostController';
 import { InternationalFactorsPostController } from './steps/tasklistresponse/international-factors/InternationalFactorsPostController';
 import { MIAMPostController } from './steps/tasklistresponse/miam/MIAMPostController';
 import { ProceedingPostController } from './steps/tasklistresponse/proceedings/ProceedingPostController';
@@ -97,7 +97,6 @@ import {
   PAYMENT_GATEWAY_ENTRY_URL,
   PAYMENT_RETURN_URL_CALLBACK,
   C100_RETRIVE_CASE,
-  C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
   C100_DOWNLOAD_APPLICATION,
   APPLICANT_VIEW_ALL_DOCUMENTS,
   RESPONDENT_VIEW_ALL_DOCUMENTS,
@@ -111,7 +110,6 @@ import {
   CREATE_DRAFT,
   TESTING_SUPPORT_DELETE_DRAFT,
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
-  RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_YOURHEARINGS_HEARINGS,
@@ -212,10 +210,10 @@ export class Routes {
       `${CONSENT_TO_APPLICATION}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.CONSENT_RESPONSE).get)
     );
-    app.get(
-      `${RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE}/:caseId`,
-      errorHandler(new TasklistGetController(EventRoutesContext.SAFETY_CONCERNS_RESPONSE).get)
-    );
+    // app.get(
+    //   `${RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE}/:caseId`,
+    //   errorHandler(new TasklistGetController(EventRoutesContext.SAFETY_CONCERNS_RESPONSE).get)
+    // );
     app.get(
       `${INTERNATIONAL_FACTORS_START}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.INTERNATIONAL_FACTORS_RESPONSE).get)
@@ -225,8 +223,8 @@ export class Routes {
     app.post(CREATE_DRAFT, errorHandler(TSDraftController.post));
     app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(TSDraftController.createTSC100Draft));
     app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(TSDraftController.deleteTSC100Draft));
-
-    const steps = [...stepsWithContent, ...getStepsWithContent(await RAProvider.getSequence(), '/common')];
+    let steps = [...stepsWithContent, ...getStepsWithContent(AohSequence.getSequence(), '/common')];
+    steps = [...steps, ...getStepsWithContent(await RAProvider.getSequence(), '/common')];
 
     for (const step of steps) {
       const files = fs.readdirSync(`${step.stepDir}`);

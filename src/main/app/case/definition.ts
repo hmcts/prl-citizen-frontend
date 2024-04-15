@@ -119,6 +119,48 @@ export interface User {
 }
 
 export interface Response {
+  respondingCitizenAoH?:string,
+  respAohYesOrNo?:YesOrNo;
+  respAohDomesticAbuseYesNo?:YesOrNo;
+   respAohChildAbductionYesNo?:YesOrNo;
+   respAohChildAbuseYesNo?:YesOrNo;
+   respChildAbductionReasons?:string;
+   respPreviousAbductionThreats?:YesOrNo;
+   respPreviousAbductionThreatsDetails?: string;
+   respChildrenLocationNow?: string;
+   respAbductionPassportOfficeNotified?:YesOrNo;
+   respAbductionChildHasPassport?:YesOrNo;
+   respChildPassportDetails?: RespChildPassportDetails;
+
+     respAbductionPreviousPoliceInvolvement?:YesOrNo;
+     respAbductionPreviousPoliceInvolvementDetails?:string;
+    respAohSubstanceAbuseYesNo?:YesOrNo;
+    respAohSubstanceAbuseDetails?:string;
+     respAohOtherConcerns?:YesOrNo;
+     respAohOtherConcernsDetails?:string;
+     respAohOtherConcernsCourtActions?:string;
+//      respAgreeChildUnsupervisedTime?:YesOrNo;?
+//      respAgreeChildSupervisedTime?:YesOrNo;?
+      respAgreeChildOtherContact?:YesOrNo;
+//private final List<Element<RespDomesticAbuseBehaviours>> 
+      respDomesticBehaviours?:RespDomesticAbuseBehaviours[];
+      respChildAbuses?:C1AAbuseTypes[];
+respChildPhysicalAbuse?:RespChildAbuse;
+
+respChildPsychologicalAbuse?:RespChildAbuse;
+respChildFinancialAbuse?:RespChildAbuse;
+
+respChildSexualAbuse?:RespChildAbuse;
+ respChildEmotionalAbuse?:RespChildAbuse;
+
+ respWhichChildrenAreRiskPhysicalAbuse?:string;
+respWhichChildrenAreRiskPsychologicalAbuse?:string;
+
+respWhichChildrenAreRiskSexualAbuse?:string;
+
+respWhichChildrenAreRiskEmotionalAbuse?:string;
+
+ respWhichChildrenAreRiskFinancialAbuse?:string;
   legalRepresentation?: string;
   consent?: Consent;
   miam?: Miam;
@@ -127,7 +169,7 @@ export interface Response {
   citizenFlags?: CitizenFlags
   safeToCallOption?: string;
   supportYouNeed?: ReasonableAdjustmentsSupport;
-  safetyConcerns?: PRL_C1ASafteyConcerns_total;
+ // safetyConcerns?: c1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
   c7ResponseSubmitted?: YesOrNo;
 }
@@ -822,6 +864,7 @@ export type C100ListOfApplicants = C100Applicant[];
 export interface CaseData {
   id: string;
   children: Child[];
+  newChildDetails?:Child[];
   miamTable: MiamTable;
   applicants: Applicant[];
   applicantsFL401: PartyDetails;
@@ -2914,26 +2957,26 @@ export interface PRL_C1ASafteyConcerns {
   },
 }
 
-export interface PRL_C1ASafteyConcerns_total {
+export interface c1ASafteyConcerns_total {
   haveSafetyConcerns?: YesOrNo;
-  safetyConcernAbout?: PRL_C1ASafteyConcernsAbout[];
-  concernAboutChild?: PRL_C1AAbuseTypes[];
-  concernAboutRespondent?: PRL_C1AAbuseTypes[];
+  safetyConcernAbout?: C1ASafteyConcernsAbout[];
+  concernAboutChild?: C1AAbuseTypes[];
+  concernAboutRespondent?: C1AAbuseTypes[];
   child?: {
-    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
-    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-    somethingElse?: PRL_C1ASafteyConcernsAbuse;
+    physicalAbuse?: C1ASafteyConcernsAbuse;
+    psychologicalAbuse?: C1ASafteyConcernsAbuse;
+    emotionalAbuse?: C1ASafteyConcernsAbuse;
+    sexualAbuse?: C1ASafteyConcernsAbuse;
+    financialAbuse?: C1ASafteyConcernsAbuse;
+    somethingElse?: C1ASafteyConcernsAbuse;
   },
   applicant?: {
-    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
-    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-    somethingElse?: PRL_C1ASafteyConcernsAbuse;
+    physicalAbuse?: C1ASafteyConcernsAbuse;
+    psychologicalAbuse?: C1ASafteyConcernsAbuse;
+    emotionalAbuse?: C1ASafteyConcernsAbuse;
+    sexualAbuse?: C1ASafteyConcernsAbuse;
+    financialAbuse?: C1ASafteyConcernsAbuse;
+    somethingElse?: C1ASafteyConcernsAbuse;
   },
   respondent?: {
     physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
@@ -2966,6 +3009,73 @@ export interface PRL_C1ASafteyConcerns_total {
     c1AchildAbductedBefore?: YesOrNo;
   }
 }
+export interface c1A_AOH_total {
+ respAohYesOrNo?:YesOrNo;
+  respAohDomesticAbuseYesNo?:YesOrNo;
+   respAohChildAbductionYesNo?:YesOrNo;
+   respAohChildAbuseYesNo?:YesOrNo;
+   respChildAbductionReasons?:string;
+   respPreviousAbductionThreats?:YesOrNo;
+   respPreviousAbductionThreatsDetails?: string;
+   respChildrenLocationNow?: string;
+   respAbductionPassportOfficeNotified?:YesOrNo;
+   respAbductionChildHasPassport?:YesOrNo;
+   respChildPassportDetails?: RespChildPassportDetails;
+
+     respAbductionPreviousPoliceInvolvement?:YesOrNo;
+     respAbductionPreviousPoliceInvolvementDetails?:string;
+    respAohSubstanceAbuseYesNo?:YesOrNo;
+    respAohSubstanceAbuseDetails?:string;
+     respAohOtherConcerns?:YesOrNo;
+     respAohOtherConcernsDetails?:string;
+     respAohOtherConcernsCourtActions?:string;
+//      respAgreeChildUnsupervisedTime?:YesOrNo;?
+//      respAgreeChildSupervisedTime?:YesOrNo;?
+      respAgreeChildOtherContact?:YesOrNo;
+//private final List<Element<RespDomesticAbuseBehaviours>> 
+      respDomesticBehaviours?:RespDomesticAbuseBehaviours[];
+      respChildAbuses?:C1AAbuseTypes[];
+respChildPhysicalAbuse?:RespChildAbuse;
+
+respChildPsychologicalAbuse?:RespChildAbuse;
+respChildFinancialAbuse?:RespChildAbuse;
+
+respChildSexualAbuse?:RespChildAbuse;
+ respChildEmotionalAbuse?:RespChildAbuse;
+
+ respWhichChildrenAreRiskPhysicalAbuse?:string;
+respWhichChildrenAreRiskPsychologicalAbuse?:string;
+
+respWhichChildrenAreRiskSexualAbuse?:string;
+
+respWhichChildrenAreRiskEmotionalAbuse?:string;
+
+ respWhichChildrenAreRiskFinancialAbuse?:string;
+ }
+
+ export interface RespDomesticAbuseBehaviours {
+  id?:string;
+  value?: RespDomesticAbuseBehavioursDetails;
+}
+ export interface RespDomesticAbuseBehavioursDetails {
+  respTypeOfAbuse?:string;
+  respAbuseNatureDescription?:string;
+  respBehavioursStartDateAndLength?:string;
+  respBehavioursApplicantSoughtHelp?:YesOrNo;
+  respBehavioursApplicantHelpSoughtWho?:string;
+}
+export interface RespChildAbuse {
+  respAbuseNatureDescription?:string;
+  respBehavioursStartDateAndLength?:string;
+  respBehavioursApplicantSoughtHelp?:YesOrNo;
+  respBehavioursApplicantHelpSoughtWho?:string;
+}
+export interface RespChildPassportDetails {
+  respChildHasMultiplePassports?:YesOrNo;
+      respChildPassportPossession?:passportPossessionRelative[];
+      respChildPassportPossessionOtherDetails?:string;
+}
+
 
 export enum C1AAbuseTypes {
   PHYSICAL_ABUSE = 'physicalAbuse',
@@ -2977,6 +3087,7 @@ export enum C1AAbuseTypes {
   WITNESSING_DOMESTIC_ABUSE = 'witnessingDomesticAbuse',
   SOMETHING_ELSE = 'somethingElse',
 }
+
 
 export enum PRL_C1AAbuseTypes {
   PHYSICAL_ABUSE = 'physicalAbuse',
@@ -3008,6 +3119,11 @@ export type ChildrenDetails = {
   };
   liveWith?: People[]
 };
+export type Childinfo = {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
 
 export type OtherChildrenDetails = {
   id: string;
@@ -3154,4 +3270,8 @@ export enum PaymentErrorContext {
   DEFAULT_PAYMENT_ERROR = 'defaultPaymentError',
   PAYMENT_UNSUCCESSFUL = 'paymentUnsuccessful',
   APPLICATION_NOT_SUBMITTED = 'applicationNotSubmitted'
+}
+export enum RootContext {
+  C100_REBUILD = 'c100-rebuild',
+  RESPONDENT = 'tasklistresponse',
 }

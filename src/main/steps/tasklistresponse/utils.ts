@@ -6,9 +6,7 @@ import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-det
 import { mapKeepYourDetailsPrivate } from '../../steps/common/keep-details-private/KeepYourDetailsPrivateMapper';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { mapConsentToApplicationDetails } from '../../steps/respondent/consent-to-application/ConsentMapper';
-import { mapContactPreference } from '../common/contact-preference/ContactPreferencesMapper';
 
-import { mapSafetyConcernsDetails } from './allegations-of-harm-and-violence/SafetyConcernsMapper';
 import { mapInternationalFactorsDetails } from './international-factors/InternationalFactorsMapper';
 import { mapMIAMDetails } from './miam/MIAMMapper';
 import { mapProceedingDetails } from './proceedings/ProceedingDetailsMapper';
@@ -40,10 +38,13 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
     Object.assign(userCase, mapContactPreference(partyDetails));
   }
 };
-
-const setDataInSession = (userCase: CaseWithId, partyDetails: PartyDetails): void => {
-  if (partyDetails?.response?.safetyConcerns) {
-    Object.assign(userCase, mapSafetyConcernsDetails(partyDetails));
+function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
+  if (partyDetails?.response) {
+    //Object.assign(userCase, { ...mapSafetyConcernsDetails(partyDetails), ...userCase });
+    if (partyDetails?.response.respondingCitizenAoH) {
+      const obj = JSON.parse(partyDetails?.response.respondingCitizenAoH);
+      Object.assign(userCase, obj);
+    }
   }
 
   if (partyDetails?.response?.citizenInternationalElements) {
