@@ -16,6 +16,7 @@ describe('C1A Saftey Concers applicant report abuse RouteGuard', () => {
         },
       },
     });
+    req.originalUrl = '/c100-rebuild';
     const res = mockResponse();
     const next = jest.fn();
     routeGuard.get(req, res, next);

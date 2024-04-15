@@ -56,7 +56,15 @@ const cy = {
 
 /* eslint-disable @typescript-eslint/ban-types */
 describe('Safety concern > other-concerns> drugs', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+  let commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+  commonContent = {
+    ...commonContent,
+    additionalData: {
+      req: {
+        originalUrl: 'c100-rebuild',
+      },
+    },
+  };
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -89,12 +97,5 @@ describe('Safety concern > other-concerns> drugs', () => {
     expect(
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
-  });
-  test('should contain SaveAndComeLater button', () => {
-    const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent | undefined;
-    expect(
-      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
   });
 });

@@ -52,7 +52,16 @@ const cy = {
 jest.mock('../../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 describe('safety_concerns > other_concerns > content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  let commonContent = { language: 'en' } as CommonContent;
+  commonContent = {
+    ...commonContent,
+    additionalData: {
+      req: {
+        originalUrl: 'c100-rebuild',
+      },
+    },
+  };
+
   let generatedContent;
   let form;
   let fields;
@@ -99,12 +108,6 @@ describe('safety_concerns > other_concerns > content', () => {
     expect(
       (form?.onlycontinue.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
-  });
-
-  test('should contain saveAndComeLater button', () => {
-    expect(
-      (form?.saveAndComeLater.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

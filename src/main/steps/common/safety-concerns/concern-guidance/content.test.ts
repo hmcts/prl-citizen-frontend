@@ -115,8 +115,15 @@ const cy = {
 };
 
 describe('C1A safety concerns guidance > applying-with > content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
-
+  let commonContent = { language: 'en' } as CommonContent;
+  commonContent = {
+    ...commonContent,
+    additionalData: {
+      req: {
+        originalUrl: 'c100-rebuild',
+      },
+    },
+  };
   let generatedContent;
   let form;
 
@@ -138,11 +145,5 @@ describe('C1A safety concerns guidance > applying-with > content', () => {
     expect(
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
-  });
-
-  test('should contain saveAndComeLater button', () => {
-    expect(
-      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
   });
 });

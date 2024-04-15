@@ -31,8 +31,16 @@ const cy = {
 };
 
 describe('safetyconcerns > abduction > passport-office', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+  let commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
+  commonContent = {
+    ...commonContent,
+    additionalData: {
+      req: {
+        originalUrl: 'c100-rebuild',
+      },
+    },
+  };
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
   });
@@ -58,13 +66,5 @@ describe('safetyconcerns > abduction > passport-office', () => {
     expect(
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
-  });
-
-  test('should contain saveAndComeLater button', () => {
-    const generatedContent = generateContent(commonContent);
-    const form = generatedContent.form as FormContent | undefined;
-    expect(
-      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
   });
 });

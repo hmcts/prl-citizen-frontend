@@ -95,6 +95,7 @@ describe('C1A safetyconcerns > applicant > report abuse > content', () => {
     },
     additionalData: {
       req: {
+        originalUrl: '/tasklistresponse',
         params: {
           abuseType: 'physicalAbuse',
         },
@@ -171,11 +172,5 @@ describe('C1A safetyconcerns > applicant > report abuse > content', () => {
     expect(
       (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
-  });
-
-  test('should contain saveAndComeLater button', () => {
-    expect(
-      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
   });
 });

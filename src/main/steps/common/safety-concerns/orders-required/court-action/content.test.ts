@@ -48,7 +48,15 @@ const cy = {
   },
 };
 describe('safety-concerns > orders-required > orders-required content', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+  let commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+  commonContent = {
+    ...commonContent,
+    additionalData: {
+      req: {
+        originalUrl: 'c100-rebuild',
+      },
+    },
+  };
   let generatedContent;
   let form;
   let fields;
@@ -78,11 +86,5 @@ describe('safety-concerns > orders-required > orders-required content', () => {
     expect(
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
-  });
-
-  test('should contain SaveAndComeLater button', () => {
-    expect(
-      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
   });
 });

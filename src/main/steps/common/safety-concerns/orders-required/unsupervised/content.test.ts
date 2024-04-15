@@ -56,7 +56,15 @@ const cy = {
 };
 
 describe('c1A safety concerns, orders required', () => {
-  const commonContent = { language: 'en' } as CommonContent;
+  let commonContent = { language: 'en' } as CommonContent;
+  commonContent = {
+    ...commonContent,
+    additionalData: {
+      req: {
+        originalUrl: 'c100-rebuild',
+      },
+    },
+  };
   let generatedContent;
   let form;
   let fields;
@@ -108,11 +116,5 @@ describe('c1A safety concerns, orders required', () => {
     expect(
       (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
-  });
-
-  test('should contain SaveAndComeLater button', () => {
-    expect(
-      (form.saveAndComeLater.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
   });
 });

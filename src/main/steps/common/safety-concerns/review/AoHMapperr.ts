@@ -7,6 +7,7 @@ import {
   PartyDetails,
   RespDomesticAbuseBehaviours,
   Response,
+  YesNoEmpty,
   YesOrNo,
   // c1A_AOH_total
 } from '../../../../app/case/definition';
@@ -285,7 +286,14 @@ function concernDetailsAboutRespondent(
           value: {
             respTypeOfAbuse: respTypeOfAbuseText,
             respAbuseNatureDescription: c1A_safteyConcerns?.respondent?.[abuse].behaviourDetails,
-            respBehavioursStartDateAndLength: c1A_safteyConcerns?.respondent?.[abuse].behaviourStartDate,
+            respBehavioursStartDateAndLength:
+              // c1A_safteyConcerns?.respondent?.[abuse].behaviourStartDate,
+              c1A_safteyConcerns.respondent[abuse].isOngoingBehaviour === YesNoEmpty.YES
+                ? c1A_safteyConcerns.respondent[abuse].behaviourStartDate + '__*data-seperator*__Behaviour is ongoing'
+                : c1A_safteyConcerns.respondent[abuse].isOngoingBehaviour === YesNoEmpty.NO
+                ? c1A_safteyConcerns.respondent[abuse].behaviourStartDate +
+                  '__*data-seperator*__Behaviour is not ongoing'
+                : c1A_safteyConcerns.respondent[abuse].behaviourStartDate,
             respBehavioursApplicantSoughtHelp: c1A_safteyConcerns?.respondent?.[abuse].seekHelpFromPersonOrAgency,
             respBehavioursApplicantHelpSoughtWho:
               c1A_safteyConcerns?.respondent?.[abuse].seekHelpFromPersonOrAgency === YesOrNo.YES
@@ -347,7 +355,15 @@ function mapconcernDetailsAboutRespondent(respDomesticBehaviours) {
         respondent: {
           [abuse]: {
             behaviourDetails: behaviour.value.respAbuseNatureDescription,
-            behaviourStartDate: behaviour.value.respBehavioursStartDateAndLength,
+            behaviourStartDate: behaviour.value.respBehavioursStartDateAndLength.split('__*data-seperator*__')[0],
+            isOngoingBehaviour:
+              behaviour.value.respBehavioursStartDateAndLength.split('__*data-seperator*__')[1] ===
+              'Behaviour is ongoing'
+                ? YesNoEmpty.YES
+                : behaviour.value.respBehavioursStartDateAndLength.split('__*data-seperator*__')[1] ===
+                  'Behaviour is not ongoing'
+                ? YesNoEmpty.NO
+                : YesNoEmpty.EMPTY,
             seekHelpFromPersonOrAgency: behaviour.value.respBehavioursApplicantSoughtHelp,
             seekHelpDetails: behaviour.value.respBehavioursApplicantHelpSoughtWho,
           },
@@ -419,7 +435,12 @@ const concernDetailsAboutChild = (
           ...request,
           [abuseObjectName]: {
             respAbuseNatureDescription: c1A_safteyConcerns.child[abuse].behaviourDetails,
-            respBehavioursStartDateAndLength: c1A_safteyConcerns.child[abuse].behaviourStartDate,
+            respBehavioursStartDateAndLength:
+              c1A_safteyConcerns.child[abuse].isOngoingBehaviour === YesNoEmpty.YES
+                ? c1A_safteyConcerns.child[abuse].behaviourStartDate + '__*data-seperator*__Behaviour is ongoing'
+                : c1A_safteyConcerns.child[abuse].isOngoingBehaviour === YesNoEmpty.NO
+                ? c1A_safteyConcerns.child[abuse].behaviourStartDate + '__*data-seperator*__Behaviour is not ongoing'
+                : c1A_safteyConcerns.child[abuse].behaviourStartDate,
             respBehavioursApplicantSoughtHelp: c1A_safteyConcerns.child[abuse].seekHelpFromPersonOrAgency,
             respBehavioursApplicantHelpSoughtWho:
               c1A_safteyConcerns.child[abuse].seekHelpFromPersonOrAgency === YesOrNo.YES
@@ -530,7 +551,15 @@ function mapconcernDetailsAboutChild(
         ...c1A_safteyConcerns.child,
         physicalAbuse: {
           behaviourDetails: respChildPhysicalAbuse.respAbuseNatureDescription,
-          behaviourStartDate: respChildPhysicalAbuse.respBehavioursStartDateAndLength,
+          behaviourStartDate: respChildPhysicalAbuse.respBehavioursStartDateAndLength.split('__*data-seperator*__')[0],
+          isOngoingBehaviour:
+            respChildPhysicalAbuse.respBehavioursStartDateAndLength.split('__*data-seperator*__')[1] ===
+            'Behaviour is ongoing'
+              ? YesNoEmpty.YES
+              : respChildPhysicalAbuse.respBehavioursStartDateAndLength.split('__*data-seperator*__')[1] ===
+                'Behaviour is not ongoing'
+              ? YesNoEmpty.NO
+              : YesNoEmpty.EMPTY,
           seekHelpFromPersonOrAgency: respChildPhysicalAbuse.respBehavioursApplicantSoughtHelp,
           seekHelpDetails: respChildPhysicalAbuse.respBehavioursApplicantHelpSoughtWho,
         },

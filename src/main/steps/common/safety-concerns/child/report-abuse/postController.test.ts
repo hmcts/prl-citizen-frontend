@@ -12,6 +12,7 @@ describe('SafteyConcernsAbusePostController Post Controller', () => {
     language: 'en',
     additionalData: {
       req: {
+        originalUrl: '/tasklistresponse',
         params: {
           abuseType: 'physicalAbuse',
         },
@@ -36,6 +37,7 @@ describe('SafteyConcernsAbusePostController Post Controller', () => {
         lang: language,
       },
     });
+    req.originalUrl = '/tasklistresponse';
     const res = mockResponse();
     generateContent(commonContent);
     await controller.post(req, res);
@@ -60,6 +62,7 @@ describe('SafteyConcernsAbusePostController Post Controller', () => {
         lang: language,
       },
     });
+    req.originalUrl = '/tasklistresponse';
     const res = mockResponse();
     generateContent(commonContent);
     await controller.post(req, res);

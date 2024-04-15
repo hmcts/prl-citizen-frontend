@@ -10,13 +10,16 @@ import { ANYTYPE } from './common';
 import { SystemLanguageContent, cy, en, generateContent } from './content';
 
 const keys = {
+  NoOptionLabel: 'No',
+  NoOptionLabel1: 'No',
+  YesOptionLabel: 'Yes',
+  YesOptionLabel1: 'Yes',
   abducionThreats: 'Have the children been abducted or kept outside the UK without your consent before?',
   abduction: 'Abduction',
   abductionAbuse: 'Abduction',
   abductionAbuseHint:
     'A risk of the children being taken away from their caregivers, especially if they are kept abroad',
-  allchildLabel: 'All the children in above application',
-  applicantConcerns: 'Pa fath o ymddygiad ydych chi wedi ei brofi neu mewn perygl o’i brofi?',
+  applicantConcerns: "Pa fath o ymddygiad y mae'r plant wedi ei brofi neu mewn perygl o’i brofi?",
   applicantDetails: 'Applicant [^^^] - Your details',
   behaviourDetailsHintText:
     'Keep your answer brief. You will have a chance to give more detail to the court later in the proceedings.',
@@ -56,9 +59,6 @@ const keys = {
   isOngoingBehaviourLabel: 'Is the behaviour ongoing? (optional)',
   line1: 'Give a short description of the previous incidents of abduction.',
   one: 'Yes',
-  ongoingBehaviourNoLabel: 'No',
-  ongoingBehaviourYesLabel: 'Yes',
-  onlyContinue: 'Continue',
   option1: 'Mother',
   option2: 'Father',
   option3: 'Other',
@@ -71,8 +71,6 @@ const keys = {
   physicalAbusePageTitle: 'Briefly describe the physical abuse against the children if you feel able to',
   possessionChildrenPassport: 'Who is in possession of the children’s passports?',
   previousAbduction: 'Provide details of the previous abductions',
-  professionalHelpNoLabel: 'No',
-  professionalHelpYesLabel: 'Yes',
   psychologicalAbuse: 'Psychological abuse',
   psychologicalAbuseHint:
     'Being subjected to a situation that leads to anxiety, depression, or post-traumatic stress disorder',
@@ -168,15 +166,30 @@ const languages = {
 
 /* eslint-disable @typescript-eslint/ban-types */
 describe('Content.ts test cases', () => {
-  const commonContent = { language: 'en', userCase: {} } as CommonContent;
-  const commonContent2 = {
+  let commonContent = { language: 'en', userCase: {} } as CommonContent;
+  commonContent = {
+    ...commonContent,
+    additionalData: {
+      req: {
+        originalUrl: '/tasklistresponse',
+      },
+    },
+  };
+  let commonContent2 = {
     language: 'en',
     userCase: {
       ...mockUserCase,
-      PRL_c1A_haveSafetyConcerns: YesOrNo.YES,
+      c1A_haveSafetyConcerns: YesOrNo.YES,
     },
   } as CommonContent;
-
+  commonContent2 = {
+    ...commonContent2,
+    additionalData: {
+      req: {
+        originalUrl: '/tasklistresponse',
+      },
+    },
+  };
   let generatedContent;
   let form;
 
@@ -213,7 +226,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns',
+                    href: '/tasklistresponse/safety-concerns/concerns-for-safety',
                     text: 'Edit',
                     visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
                   },
@@ -240,7 +253,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns',
+                    href: '/tasklistresponse/safety-concerns/concerns-for-safety',
                     text: 'Edit',
                     visuallyHiddenText: 'Do you have any concerns for your safety or the safety of the children?',
                   },
@@ -257,7 +270,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes',
+                    href: '/tasklistresponse/safety-concerns/concern-about',
                     text: 'Edit',
                     visuallyHiddenText: 'Who are you concerned about?',
                   },
@@ -279,7 +292,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/child/concerns-about',
+                    href: '/tasklistresponse/safety-concerns/child/concerns-about',
                     text: 'Edit',
                     visuallyHiddenText:
                       'What type of behaviour have the children experienced or are at risk of experiencing?',
@@ -302,7 +315,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/drugs',
+                    href: '/tasklistresponse/safety-concerns/other-concerns/drugs',
                     text: 'Edit',
                     visuallyHiddenText: 'Have the children been impacted by drug, alcohol or substance abuse?',
                   },
@@ -319,7 +332,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/other-issues',
+                    href: '/tasklistresponse/safety-concerns/other-concerns/other-issues',
                     text: 'Edit',
                     visuallyHiddenText: 'Do you have any other concerns about the children’s safety and wellbeing?',
                   },
@@ -336,7 +349,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/orders-required/court-action',
+                    href: '/tasklistresponse/safety-concerns/orders-required/court-action',
                     text: 'Edit',
                     visuallyHiddenText: 'What do you want the court to do to keep you and the children safe?',
                   },
@@ -351,7 +364,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/orders-required/unsupervised',
+                    href: '/tasklistresponse/safety-concerns/orders-required/unsupervised',
                     text: 'Edit',
                     visuallyHiddenText:
                       'Do you agree to the children spending time with the other people in this application?',
@@ -367,7 +380,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/orders-required/unsupervised',
+                    href: '/tasklistresponse/safety-concerns/orders-required/unsupervised',
                     text: 'Edit',
                     visuallyHiddenText:
                       'Do you agree to the other people in this application being in touch with the children in other ways?',
@@ -409,7 +422,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns',
+                    href: '/tasklistresponse/safety-concerns/concerns-for-safety',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
                   },
@@ -434,7 +447,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns',
+                    href: '/tasklistresponse/safety-concerns/concerns-for-safety',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
                   },
@@ -449,7 +462,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes',
+                    href: '/tasklistresponse/safety-concerns/concern-about',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
                   },
@@ -469,7 +482,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/child/concerns-about',
+                    href: '/tasklistresponse/safety-concerns/child/concerns-about',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
                   },
@@ -489,7 +502,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/drugs',
+                    href: '/tasklistresponse/safety-concerns/other-concerns/drugs',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
                   },
@@ -504,7 +517,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/other-issues',
+                    href: '/tasklistresponse/safety-concerns/other-concerns/other-issues',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
                   },
@@ -519,7 +532,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/orders-required/court-action',
+                    href: '/tasklistresponse/safety-concerns/orders-required/court-action',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
                   },
@@ -532,7 +545,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/orders-required/unsupervised',
+                    href: '/tasklistresponse/safety-concerns/orders-required/unsupervised',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
                   },
@@ -545,7 +558,7 @@ describe('Content.ts test cases', () => {
               actions: {
                 items: [
                   {
-                    href: '/tasklistresponse/allegations-of-harm-and-violence/orders-required/unsupervised',
+                    href: '/tasklistresponse/safety-concerns/orders-required/unsupervised',
                     text: 'Golygu',
                     visuallyHiddenText: 'undefined',
                   },

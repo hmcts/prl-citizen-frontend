@@ -117,6 +117,7 @@ export interface User {
 }
 
 export interface Response {
+  respondingCitizenAoH?:string,
   respAohYesOrNo?:YesOrNo;
   respAohDomesticAbuseYesNo?:YesOrNo;
    respAohChildAbductionYesNo?:YesOrNo;

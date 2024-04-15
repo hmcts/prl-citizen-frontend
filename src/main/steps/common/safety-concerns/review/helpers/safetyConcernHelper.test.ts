@@ -14,7 +14,7 @@ const language = 'en';
 describe('test cases for SaftyConcern', () => {
   const id = '7483640e-0817-4ddc-b709-6723f7925474';
   const userCase = {
-    PRL_c1A_safteyConcerns: {
+    c1A_safteyConcerns: {
       child: {
         physicalAbuse: {
           behaviourDetails: 'pa',
@@ -36,7 +36,7 @@ describe('test cases for SaftyConcern', () => {
         },
       },
     },
-    children: [
+    newChildDetails: [
       {
         id: '7483640e-0817-4ddc-b709-6723f7925474',
         value: {
@@ -105,12 +105,12 @@ describe('test cases for SaftyConcern', () => {
         {
           ...userCase,
           sessionKey,
-          PRL_c1A_safteyConcerns: {
-            ...userCase.PRL_c1A_safteyConcerns,
+          c1A_safteyConcerns: {
+            ...userCase.c1A_safteyConcerns,
             respondent: {
-              ...userCase.PRL_c1A_safteyConcerns.respondent,
+              ...userCase.c1A_safteyConcerns.respondent,
               physicalAbuse: {
-                ...userCase.PRL_c1A_safteyConcerns.respondent.physicalAbuse,
+                ...userCase.c1A_safteyConcerns.respondent.physicalAbuse,
                 seekHelpFromPersonOrAgency: 'No',
               },
             },
@@ -145,12 +145,12 @@ describe('test cases for SaftyConcern', () => {
         {
           ...userCase,
           sessionKey,
-          PRL_c1A_safteyConcerns: {
-            ...userCase.PRL_c1A_safteyConcerns,
+          c1A_safteyConcerns: {
+            ...userCase.c1A_safteyConcerns,
             child: {
-              ...userCase.PRL_c1A_safteyConcerns.child,
+              ...userCase.c1A_safteyConcerns.child,
               physicalAbuse: {
-                ...userCase.PRL_c1A_safteyConcerns.child.physicalAbuse,
+                ...userCase.c1A_safteyConcerns.child.physicalAbuse,
                 childrenConcernedAbout: ['All the children in application'],
               },
             },
@@ -175,12 +175,12 @@ describe('test cases for SaftyConcern', () => {
         {
           ...userCase,
           sessionKey,
-          PRL_c1A_safteyConcerns: {
-            ...userCase.PRL_c1A_safteyConcerns,
+          c1A_safteyConcerns: {
+            ...userCase.c1A_safteyConcerns,
             child: {
-              ...userCase.PRL_c1A_safteyConcerns.child,
+              ...userCase.c1A_safteyConcerns.child,
               physicalAbuse: {
-                ...userCase.PRL_c1A_safteyConcerns.child.physicalAbuse,
+                ...userCase.c1A_safteyConcerns.child.physicalAbuse,
                 childrenConcernedAbout: ['All the children in application'],
               },
             },
@@ -193,7 +193,7 @@ describe('test cases for SaftyConcern', () => {
         'cy'
       )
     ).toBe(
-      '<h4>childrenConcernedAboutLabel</h4><ul><li>Pob plentyn yn y cais</li></ul><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>pa<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>pa<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4>Ydy<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4><div class="govuk-!-padding-bottom-3">Do</div><div class="govuk-!-padding-top-3">pa extra</div>'
+      '<h4>childrenConcernedAboutLabel</h4><ul><li>All the children in application</li></ul><hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourDetailsLabel</h4>pa<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>behaviourStartDateLabel</h4>pa<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>isOngoingBehaviourLabel</h4>Ydy<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible"><h4>seekHelpFromPersonOrAgencyLabel</h4><div class="govuk-!-padding-bottom-3">Do</div><div class="govuk-!-padding-top-3">pa extra</div>'
     );
   });
 

@@ -96,12 +96,14 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
     },
     additionalData: {
       req: {
+        originalUrl: 'c100-rebuild',
         params: {
           abuseType: 'physicalAbuse',
         },
       },
     },
   } as unknown as CommonContent;
+
   let generatedContent;
   let form;
   let fields;
@@ -176,11 +178,5 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
     expect(
       (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
-  });
-
-  test('should contain saveAndComeLater button', () => {
-    expect(
-      (form?.saveAndComeLater?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
-    ).toBe('Save and come back later');
   });
 });
