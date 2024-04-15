@@ -26,6 +26,8 @@ services:
     url: 'https://prl-cos-pr-2288.preview.platform.hmcts.net'
   documentManagement:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2092.preview.platform.hmcts.net'
+  reasonableAdjustments:
+    url: 'https://cui-ra.aat.platform.hmcts.net'
   health:
   timeout: 5000
   deadline: 15000
