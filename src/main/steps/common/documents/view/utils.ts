@@ -59,6 +59,7 @@ const getViewDocumentLinkMeta = (
     documentPartyType: document.partyType,
     documentCategory: document.categoryId,
   };
+  const isDownloadDocument = [DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION].includes(document.categoryId);
 
   if (
     [
@@ -73,8 +74,10 @@ const getViewDocumentLinkMeta = (
   return documentConfig
     ? Object.assign(linkMeta, {
         text: documentConfig ? documentConfig.documentCategoryLabel(documentCategoryLabels, document.uploadedBy) : '',
-        url: applyParms(VIEW_DOCUMENTS, urlParams),
-        openInAnotherTab: false,
+        url: isDownloadDocument
+          ? getDownloadDocUrl(document, loggedInUserPartyType)
+          : applyParms(VIEW_DOCUMENTS, urlParams),
+        openInAnotherTab: isDownloadDocument,
       })
     : linkMeta;
 };
@@ -329,6 +332,7 @@ export const getDocuments = (
       DocumentCategory.POSITION_STATEMENTS,
       DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
       DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
+      DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
     ].includes(documentCategoryId)
       ? filterDocumentsByPartyIdAndCategory(documentPartyId, documentCategoryId, documents)
       : filterDocumentsByPartyTypeAndCategory(documentPartyType, documentCategoryId, documents);
@@ -343,11 +347,7 @@ export const getDocuments = (
           documentName: doc.document.document_filename,
           createdDate: dayjs(doc.document.document_creation_date).format('DD MMM YYYY'),
           uploadedBy: doc.uploadedBy,
-          documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
-            partyType: loggedInUserPartyType,
-            documentId,
-            documentName: transformFileName(doc.document.document_filename),
-          }),
+          documentDownloadUrl: getDownloadDocUrl(doc, loggedInUserPartyType),
         },
       };
 
@@ -356,6 +356,14 @@ export const getDocuments = (
   }
 
   return docs;
+};
+
+const getDownloadDocUrl = (document: CitizenDocuments, loggedInUserPartyType: PartyType): string => {
+  return applyParms(DOWNLOAD_DOCUMENT, {
+    partyType: loggedInUserPartyType,
+    documentId: document.document.document_url.substring(document.document.document_url.lastIndexOf('/') + 1),
+    documentName: transformFileName(document.document.document_filename),
+  });
 };
 
 export const getDocumentConfig = (documentCategory: DocumentCategory): ViewDocumentsCategoryListProps | undefined =>

@@ -109,6 +109,7 @@ export const enum DocumentLabelCategory {
   VIEW_ALL_ORDERS = 'viewAllOrders',
   YOUR_APPLICATION_PACK = 'packServed',
   APPLICATION_PACK_TO_BE_SERVED = 'packToBeServed',
+  RESPONDENT_C7_RESPONSE_TO_APPLICATION = 'respondentResponseToApplication',
   POSITION_STATEMENTS = 'positionStatements',
   WITNESS_STATEMENTS = 'witnessStatements',
   OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherPeopleWitnessStatements',
