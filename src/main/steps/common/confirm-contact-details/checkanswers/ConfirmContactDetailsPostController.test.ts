@@ -104,13 +104,11 @@ describe('ConfirmContactDetailsPostController', () => {
             isAtAddressLessThan5Years: 'No',
             addressLivedLessThan5YearsDetails: 'Hello',
             address: {
-              AddressLine1: 'string',
-              AddressLine2: 'string',
-              AddressLine3: 'string',
-              PostTown: 'string',
-              County: 'string',
-              PostCode: 'string',
-              Country: 'string',
+              AddressLine1: 'Flatc1',
+              AddressLine2: 'Unkonwn lane',
+              County: 'Dummy County',
+              PostCode: 'SW13ND',
+              PostTown: 'Dummy Town',
             },
             user: {
               idamId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
