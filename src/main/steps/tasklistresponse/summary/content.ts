@@ -30,6 +30,10 @@ import {
   SafetyConcerns_others,
   SafetyConcerns_yours,
 } from '../allegations-of-harm-and-violence/check-your-answers/mainUtil';
+import {
+  cyContent as internationalSummaryCyContent,
+  enContent as internationalSummaryEnContent,
+} from '../international-factors/summary/content';
 import { PastAndCurrentProceedings } from '../proceedings/mainUtils';
 
 import { ANYTYPE } from './common/index';
@@ -133,17 +137,7 @@ export const enInternationalContent = {
   sectionTitles: {
     title: '6. International element',
   },
-  keys: {
-    start: 'Do the children live outside of England or Wales?',
-    iFactorsStartProvideDetails: 'Provide details',
-    parents: "Do the childrens' parents or anyone significant to the children live outside of England or Wales?",
-    iFactorsParentsProvideDetails: 'Provide details',
-    jurisdiction:
-      'Could another person in the application apply for a similar order in a country outside England or Wales?',
-    iFactorsJurisdictionProvideDetails: 'Provide details',
-    request: 'Has another country asked (or been asked) for information or help for the children?',
-    iFactorsRequestProvideDetails: 'Provide details',
-  },
+  keys: internationalSummaryEnContent.keys,
 };
 
 export const enDummyContent = {
@@ -418,17 +412,7 @@ export const cyInternationalContent = {
   sectionTitles: {
     title: '6. Elfennau rhyngwladol',
   },
-  keys: {
-    start: "A yw'r plant yn byw y tu allan i Gymru neu Loegr?",
-    iFactorsStartProvideDetails: 'Darparwch fanylion',
-    parents: "A yw rhieni'r plant neu unrhyw un o bwys i'r plant yn byw y tu allan i Gymru neu Loegr?",
-    iFactorsParentsProvideDetails: 'Darparwch fanylion',
-    jurisdiction:
-      'A allai rhywun arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
-    iFactorsJurisdictionProvideDetails: 'Darparwch fanylion',
-    request: "A oes gwlad arall wedi gofyn (neu a ofynnwyd i wlad arall) am wybodaeth neu help i'r plant?",
-    iFactorsRequestProvideDetails: 'Darparwch fanylion',
-  },
+  keys: internationalSummaryCyContent.keys,
 };
 
 export const cySaftyConcern = {
