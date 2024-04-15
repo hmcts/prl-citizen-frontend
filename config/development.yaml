@@ -26,6 +26,8 @@ services:
     url: 'http://prl-cos-demo.service.core-compute-demo.internal'
   documentManagement:
     url: 'http://ccd-case-document-am-api-demo.service.core-compute-demo.internal'
+  reasonableAdjustments:
+    url: 'https://cui-ra.aat.platform.hmcts.net'
 health:
   timeout: 5000
   deadline: 15000

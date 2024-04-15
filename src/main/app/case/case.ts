@@ -719,3 +719,10 @@ export interface UploadedFile {
   id: string;
   name: string;
 }
+export interface HearingData {
+  hmctsServiceCode: string;
+  caseRef: string;
+  caseHearings: HearingsList[];
+  courtTypeId: string;
+  courtName: string;
+}
