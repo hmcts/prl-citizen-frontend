@@ -2,6 +2,9 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import type { Response } from 'express';
 
+import { CaseType } from '../../app/case/definition';
+import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
+import { getPartyDetails, mapDataInSession } from '../../steps/tasklistresponse/utils';
 import { CA_RESPONDENT_RESPONSE_CONFIRMATION } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CosApiClient } from '../case/CosApiClient';
@@ -12,26 +15,46 @@ import type { AppRequest, UserDetails } from './AppRequest';
 const UID_LENGTH = 36;
 @autobind
 export class RespondentSubmitResponseController {
+  // public async save(req: AppRequest, res: Response): Promise<void> {
+  //   const caseReference = req.session.userCase.id;
+  //   let partyId;
+  //   req.session.userCase.respondents?.forEach(respondent => {
+  //     if (respondent.value.user.idamId === req.session.user.id) {
+  //       partyId = respondent.id;
+  //     }
+  //   });
+  //   const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
+  //   const caseData = toApiFormat(req?.session?.userCase);
+
+  //   const updatedCaseDataFromCos = await client.submitRespondentResponse(caseReference, partyId, caseData);
+  //   Object.assign(req.session.userCase, updatedCaseDataFromCos);
+
+  //   req.session.save(() => res.redirect(CA_RESPONDENT_RESPONSE_CONFIRMATION));
+  // }
+
   public async save(req: AppRequest, res: Response): Promise<void> {
-    const caseReference = req.session.userCase.id;
-    let partyId;
-    req.session.userCase.respondents?.forEach(respondent => {
-      if (respondent.value.user.idamId === req.session.user.id) {
-        partyId = respondent.id;
+    const { user, userCase } = req.session;
+    const partyType = getCasePartyType(userCase, user.id);
+    const partyDetails = getPartyDetails(userCase, user.id);
+    const client = new CosApiClient(user.accessToken, req.locals.logger);
+
+    if (partyDetails) {
+      try {
+        req.session.userCase = await client.submitRespondentResponse1(
+          userCase.id,
+          partyDetails,
+          partyType,
+          userCase.caseTypeOfApplication as CaseType
+        );
+        mapDataInSession(req.session.userCase, user.id);
+        req.session.save(() => {
+          const redirectUrl = CA_RESPONDENT_RESPONSE_CONFIRMATION;
+          res.redirect(redirectUrl);
+        });
+      } catch (error) {
+        throw new Error('ConfirmContactDetailsPostController - Case could not be updated.');
       }
-    });
-    const client = new CosApiClient(req.session.user.accessToken, 'https://return-url');
-    const caseData = toApiFormat(req?.session?.userCase);
-
-    const updatedCaseDataFromCos = await client.submitRespondentResponse(
-      req.session.user,
-      caseReference,
-      partyId,
-      caseData
-    );
-    Object.assign(req.session.userCase, updatedCaseDataFromCos);
-
-    req.session.save(() => res.redirect(CA_RESPONDENT_RESPONSE_CONFIRMATION));
+    }
   }
 
   public async getDraftDocument(req: AppRequest, res: Response): Promise<void> {
@@ -42,7 +65,7 @@ export class RespondentSubmitResponseController {
         partyId = respondent.id;
       }
     });
-    const client = new CosApiClient(req.session.user.accessToken, 'https://return-url');
+    const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
     const caseData = toApiFormat(req?.session?.userCase);
 
     const draftDocument = await client.generateC7DraftDocument(req.session.user, caseReference, partyId, caseData);

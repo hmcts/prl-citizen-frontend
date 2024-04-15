@@ -193,7 +193,7 @@ export class PostController<T extends AnyObject> {
 
     try {
       if (!req.session.errors.length) {
-        const client = new CosApiClient(caseworkerUser.accessToken, 'http://localhost:3001');
+        const client = new CosApiClient(caseworkerUser.accessToken, req.locals.logger);
         const accessCodeValidated = await client.validateAccessCode(
           caseReference as string,
           accessCode as string,
