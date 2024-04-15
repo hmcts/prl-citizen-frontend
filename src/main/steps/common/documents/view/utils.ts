@@ -10,6 +10,7 @@ import {
   ApplicationPackDocumentMeta,
   CitizenApplicationPacks,
   CitizenDocuments,
+  CitizenOrders,
   Document,
   DocumentCategory,
   DocumentLabelCategory,
@@ -240,7 +241,7 @@ export const getOrdersFromTheCourtCategoryList = (
 };
 
 export const getOrderDocuments = (
-  orders: CitizenDocuments[],
+  orders: CitizenOrders[],
   loggedInUserPartyType: PartyType
 ): OrderDocumentMeta[] => {
   const orderDocuments: OrderDocumentMeta[] = [];
@@ -252,7 +253,7 @@ export const getOrderDocuments = (
       [DocumentTypes.ENGLISH]: {
         documentId,
         documentName: document.document_filename,
-        orderMadeDate: dayjs(order.uploadedDate).format('DD MMM YYYY'),
+        orderMadeDate: dayjs(order.createdDate).format('DD MMM YYYY'),
         documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
           partyType: loggedInUserPartyType,
           documentId,

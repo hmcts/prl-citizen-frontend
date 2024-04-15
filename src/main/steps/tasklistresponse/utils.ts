@@ -1,12 +1,5 @@
 import { CaseWithId } from '../../app/case/case';
-import {
-  Applicant,
-  CaseType,
-  PartyDetails,
-  PartyDetailsWithId,
-  PartyType,
-  Respondent,
-} from '../../app/case/definition';
+import { Applicant, CaseType, PartyDetails, PartyType, Respondent } from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
 import { RAProvider } from '../../modules/reasonable-adjustments';
 import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
@@ -66,7 +59,7 @@ const setDataInSession = (userCase: CaseWithId, partyDetails: PartyDetails): voi
   }
 };
 
-export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id']): PartyDetailsWithId | undefined => {
+export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id']): PartyDetails | undefined => {
   let partyData;
 
   if (!userCase) {
@@ -93,7 +86,7 @@ export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id'])
   }
 
   if (partyData) {
-    return { ...partyData, partyId: null };
+    return { ...partyData };
   }
 
   return partyData;

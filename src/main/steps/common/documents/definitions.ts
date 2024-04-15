@@ -164,6 +164,21 @@ export type CitizenDocuments = {
   solicitorRepresentedPartyName?: string;
   solicitorRepresentedPartyId?: string;
 };
+
+export type CitizenOrders = {
+  partyId: string;
+  partyName: string;
+  partyType: PartyType;
+  uploadedBy: string;
+  document: DocumentMeta;
+  documentWelsh: DocumentMeta;
+  orderType: string;
+  createdDate: string;
+  servedDate: string;
+  wasCafcassServed: boolean;
+  final: boolean;
+  new: boolean;
+};
 export interface CitizenApplicationPacks extends CitizenDocuments {
   applicantSoaPack?: DocumentMeta[] | null;
   respondentSoaPack?: DocumentMeta[] | null;

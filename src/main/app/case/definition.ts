@@ -110,10 +110,7 @@ export interface PartyDetails {
   user: User;
   contactPreferences?: ContactPreference | null;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
-}
-
-export interface PartyDetailsWithId extends PartyDetails {
-  partyId: string | undefined;
+  partyId: string;
 }
 
 export interface User {
