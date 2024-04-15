@@ -3,6 +3,7 @@ import { Applicant, CaseType, PartyDetails, PartyType, Respondent } from '../../
 import { UserDetails } from '../../app/controller/AppRequest';
 import { RAProvider } from '../../modules/reasonable-adjustments';
 import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
+import { mapContactPreference } from '../../steps/common/contact-preference/ContactPreferencesMapper';
 import { mapKeepYourDetailsPrivate } from '../../steps/common/keep-details-private/KeepYourDetailsPrivateMapper';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import { mapConsentToApplicationDetails } from '../../steps/respondent/consent-to-application/ConsentMapper';
@@ -58,7 +59,7 @@ function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
   if (partyDetails?.response?.miam) {
     Object.assign(userCase, mapMIAMDetails(partyDetails));
   }
-};
+}
 
 export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id']): PartyDetails | undefined => {
   let partyData;

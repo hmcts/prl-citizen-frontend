@@ -102,7 +102,6 @@ import {
   RESPONDENT_VIEW_ALL_DOCUMENTS,
   PROCEEDING_SAVE,
   PROCEEDINGS_START,
-  RESPONDENT_CHECK_ANSWERS_NO,
   FETCH_CASE_DETAILS,
   PARTY_TASKLIST,
   TESTING_SUPPORT,
@@ -311,11 +310,6 @@ export class Routes {
           `${INTERNATIONAL_FACTORS_SAVE}`,
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)
         );
-        app.get(
-          C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
-          errorHandler(new SafetyConcernsPostController(step.form.fields).post)
-        );
-        app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
         app.post(
           PIN_ACTIVATION_CASE_ACTIVATED_URL,
           errorHandler(new CaseActivationPostController(step.form.fields).post)

@@ -169,7 +169,7 @@ export const getResponseStatus = (respondent: PartyDetails): StateTags => {
     respondent.response.keepDetailsPrivate ||
     respondent.response.miam ||
     respondent.response.legalRepresentation ||
-    respondent.response.safetyConcerns ||
+    respondent.response.respondingCitizenAoH ||
     respondent.response.supportYouNeed
   ) {
     return StateTags.IN_PROGRESS;

@@ -1,7 +1,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CosApiClient } from '../../app/case/CosApiClient';
 import { CaseWithId } from '../../app/case/case';
 import { EventRoutesContext, RootContext } from '../../app/case/definition';
 import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
@@ -11,6 +10,7 @@ import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
+  C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
   CHOOSE_CONTACT_PREFERENCE,
   CONSENT_TO_APPLICATION,
   INTERNATIONAL_FACTORS_START,
