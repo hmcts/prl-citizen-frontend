@@ -1,12 +1,8 @@
-import { transformFileName } from '../../../../steps/common/documents/download/utils';
 import { HearingOrders, PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
+import { transformFileName } from '../../../../steps/common/documents/download/utils';
 import { applyParms } from '../../../../steps/common/url-parser';
-import {
-  DOWNLOAD_DOCUMENT,
-  FETCH_CASE_DETAILS,
-  REASONABLE_ADJUSTMENTS_INTRO,
-} from '../../../../steps/urls';
+import { DOWNLOAD_DOCUMENT, FETCH_CASE_DETAILS, REASONABLE_ADJUSTMENTS_INTRO } from '../../../../steps/urls';
 import { generateContent as yourhearingshearingscontent } from '../../../common/yourhearings/hearings/content';
 
 export { form } from '../../../common/yourhearings/hearings/content';
@@ -19,6 +15,7 @@ export const generateContent: TranslationFn = content => {
     partyType: PartyType.APPLICANT,
   });
   const hearingOrders: HearingOrders[] = [];
+  //** validate **
   for (const doc of request.session.userCase?.orderCollection || []) {
     if (doc.value.selectedHearingType) {
       hearingOrders?.push({

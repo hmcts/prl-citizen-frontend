@@ -188,9 +188,7 @@ export class CosApiClient {
     }
   }
 
-  public async generateStatementDocument(
-    request: GenerateDocumentRequest
-  ): Promise<DocumentUploadResponse> {
+  public async generateStatementDocument(request: GenerateDocumentRequest): Promise<DocumentUploadResponse> {
     try {
       const response = await this.client.post(
         config.get('services.cos.url') + '/generate-citizen-statement-document',

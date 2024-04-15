@@ -65,11 +65,22 @@ describe('CosApiClient', () => {
   });
 
   test('retrieveCaseAndHearings', async () => {
-    const response = { status: 'test', id: '200', state: 'SUCCESS', data: { caseData: 'cases', hearings: 'hearings' } };
+    const response = {
+      status: 'test',
+      id: '200',
+      state: 'SUCCESS',
+      data: {
+        caseData: { id: '200', state: 'SUCCESS', applicantsFL401: { firstName: 'testuser', lastName: 'Citizen' } },
+        hearings: 'hearings',
+      },
+    };
     mockedAxios.get.mockReturnValueOnce(response as unknown as Promise<CaseWithId>);
     const client = new CosApiClient('abc', mockLogger);
     const actual = await client.retrieveCaseAndHearings('1234567', 'Yes' as YesOrNo);
-    expect(actual).toEqual({ status: 'test', caseData: 'cases', hearingData: 'hearings' });
+    expect(actual).toEqual({
+      caseData: { id: '200', state: 'SUCCESS', applicantsFL401: { firstName: 'testuser', lastName: 'Citizen' } },
+      hearingData: 'hearings',
+    });
   });
 
   test('retrieveCaseAndHearings should throw error', async () => {
@@ -279,9 +290,8 @@ describe('CosApiClient', () => {
       status: 200,
     };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
-    const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
-    const actual = await client.generateStatementDocument(req.session.user, DocumentUploadReq);
+    const actual = await client.generateStatementDocument(DocumentUploadReq);
     expect(actual).toEqual(response);
   });
 
@@ -552,7 +562,6 @@ describe('CosApiClientWithError', () => {
   });
 
   test('generateStatementDocument', async () => {
-    const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
     const DocumentUploadReq = {
       caseId: '',
@@ -564,7 +573,7 @@ describe('CosApiClientWithError', () => {
     };
     let flag = true;
     try {
-      await client.generateStatementDocument(req.session.user, DocumentUploadReq);
+      await client.generateStatementDocument(DocumentUploadReq);
     } catch {
       flag = false;
     }

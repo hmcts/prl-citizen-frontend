@@ -1,19 +1,17 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+import _ from 'lodash';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { CaseWithId } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject } from '../../../../app/controller/PostController';
 import { deTransformFileName, transformFileName } from '../download/utils';
-import { CaseWithId } from 'app/case/case';
-import _ from 'lodash';
 
 @autobind
 export default class DownloadDocumentController {
   private getDocumentMeta(documentType: string, caseData: CaseWithId): { documentId: string; documentName: string } {
     let documentReference;
-    let documentId;
-    let documentName;
 
     if (documentType === 'c100-application') {
       documentReference = caseData.finalDocument ?? caseData.c100DraftDoc;
@@ -23,10 +21,10 @@ export default class DownloadDocumentController {
       documentReference = caseData.c1ADocument;
     }
 
-    documentId = documentReference
+    const documentId = documentReference
       ? documentReference.document_url.substring(documentReference!.document_url.lastIndexOf('/') + 1)
       : '';
-    documentName = _.get(documentReference, 'document_filename', '');
+    const documentName = _.get(documentReference, 'document_filename', '');
 
     return {
       documentId,
@@ -35,6 +33,7 @@ export default class DownloadDocumentController {
   }
 
   public async download(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    // eslint-disable-next-line prefer-const
     let { documentId, documentName, documentType, forceDownload = false } = req.params;
 
     try {

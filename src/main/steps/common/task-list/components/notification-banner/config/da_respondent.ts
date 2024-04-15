@@ -1,6 +1,6 @@
-import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { State, YesOrNo } from '../../../../../../app/case/definition';
+import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { NotificationBannerProps } from '../../../../../../steps/common/task-list/definitions';
 import { BannerNotification, notificationBanner } from '../utils';
 
