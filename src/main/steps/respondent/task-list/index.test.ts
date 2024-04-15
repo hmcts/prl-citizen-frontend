@@ -1,3 +1,4 @@
+import { CaseWithId } from '../../../app/case/case';
 import { CaseType, State } from '../../../app/case/definition';
 
 import { getRespondent, getRespondentName } from './index';
@@ -96,7 +97,7 @@ const c100Case = {
 
 describe('task-list > content', () => {
   test('should return respondent firstname and lastname', () => {
-    expect(getRespondentName(getRespondent(c100Case, '12345'))).toBe('John Smith');
+    expect(getRespondentName(getRespondent(c100Case as unknown as Partial<CaseWithId>, '12345'))).toBe('John Smith');
   });
 
   test('should return respondentFL401 firstname and lastname', () => {
@@ -167,6 +168,6 @@ describe('task-list > content', () => {
       caseTypeOfApplication: CaseType.FL401,
     };
 
-    expect(getRespondentName(getRespondent(data, '12345'))).toBe('John Smith');
+    expect(getRespondentName(getRespondent(data as unknown as Partial<CaseWithId>, '12345'))).toBe('John Smith');
   });
 });

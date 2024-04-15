@@ -77,7 +77,7 @@ export const DA_APPLICANT: TaskListConfigProps[] = [
         href: () =>
           applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, { partyType: PartyType.APPLICANT, documentType: 'fl401-application' }),
         stateTag: () => StateTags.DOWNLOAD,
-        openInAnotherTab: true,
+        openInAnotherTab: () => true,
       },
       {
         // ** validate **

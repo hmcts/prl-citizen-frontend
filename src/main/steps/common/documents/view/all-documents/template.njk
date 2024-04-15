@@ -30,9 +30,15 @@
           {% for item in section.items %}
             <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status">
-                  {{item.link.text}}
-                </a>
+                {% if item.link.openInAnotherTab %}
+                  <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status" target="_blank">
+                    {{item.link.text}}
+                  </a>
+                {% else %}
+                  <a id="{{item.categoryId}}" class="govuk-link" href="{{item.link.url}}" aria-describedby="{{item.categoryId}}-status">
+                    {{item.link.text}}
+                  </a>
+                {% endif %}
               </span>
             </li>
           {% endfor %}

@@ -25,7 +25,7 @@ export const DA_RESPONDENT: TaskListConfigProps[] = [
         disabled: caseData => {
           return getFinalApplicationStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
         },
-        openInAnotherTab: true,
+        openInAnotherTab: () => true,
       },
     ],
   },

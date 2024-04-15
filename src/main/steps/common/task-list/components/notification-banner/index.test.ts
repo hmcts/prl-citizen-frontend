@@ -1,6 +1,6 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseInvite, CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
-import { CitizenApplicationPacks } from '../../../documents/definitions';
+import { CitizenApplicationPacks, CitizenOrders } from '../../../documents/definitions';
 
 import { getNotificationBannerConfig } from '.';
 
@@ -297,7 +297,7 @@ describe('testcase for notification Banner', () => {
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+    expect(getNotificationBannerConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
       {
         heading: 'Your withdrawal request was rejected',
         id: 'withdrawalRequestRejected',
@@ -409,7 +409,7 @@ describe('testcase for notification Banner', () => {
     const party = PartyType.APPLICANT;
     const language = 'en';
 
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+    expect(getNotificationBannerConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
       {
         sections: [
           {
@@ -451,7 +451,7 @@ describe('testcase for notification Banner', () => {
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+    expect(getNotificationBannerConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
       {
         sections: [
           {
@@ -478,17 +478,33 @@ describe('testcase for notification Banner', () => {
 
   test('when respondent has submitted their response', () => {
     const data = {
-      id: '1',
+      id: '1234',
       state: State.CASE_SERVED,
       caseTypeOfApplication: CaseType.C100,
       applicants: applicant,
       respondents: [
         {
-          id: '1',
+          id: '1234',
           value: {
             user: {
-              idamId: '1',
+              idamId: '1234',
             },
+            response: {
+              c7ResponseSubmitted: 'Yes',
+            },
+          },
+        },
+      ],
+      caseInvites: [
+        {
+          id: 'string',
+          value: {
+            partyId: '1234',
+            caseInviteEmail: 'string',
+            accessCode: 'string',
+            invitedUserId: '1234',
+            expiryDate: 'string',
+            isApplicant: 'Yes',
           },
         },
       ],
@@ -576,7 +592,7 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
-    } as Partial<CaseWithId>;
+    } as unknown as Partial<CaseWithId>;
     const party = PartyType.APPLICANT;
     const language = 'en';
 
@@ -597,7 +613,7 @@ describe('testcase for notification Banner', () => {
             links: [
               {
                 external: false,
-                href: '/applicant/documents/view/all-documents',
+                href: '/applicant/documents/view/application-pack-documents/to-be-served?',
                 text: "View the respondent's documents",
               },
             ],
@@ -660,7 +676,7 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
-    } as Partial<CaseWithId>;
+    } as unknown as Partial<CaseWithId>;
     const party = PartyType.APPLICANT;
     const language = 'en';
 
@@ -760,7 +776,7 @@ describe('testcase for notification Banner', () => {
             document_filename: 'DOC_FILENAME',
             document_binary_url: 'DOC_BINARY_URL',
           },
-        },
+        } as unknown as CitizenOrders,
       ];
       expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
@@ -931,7 +947,7 @@ describe('testcase for notification Banner', () => {
             document_filename: 'DOC_FILENAME',
             document_binary_url: 'DOC_BINARY_URL',
           },
-        },
+        } as unknown as CitizenOrders,
       ];
       expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {

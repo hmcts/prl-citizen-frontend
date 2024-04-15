@@ -463,11 +463,49 @@ describe('tasklist index', () => {
           document_filename: 'c100_final_document',
           document_binary_url: 'document_url/123/binary',
         },
+        citizenDocuments: [
+          {
+            partyId: '123456',
+            partyName: 'First Respondent',
+            partyType: 'respondent',
+            categoryId: 'respondentApplication',
+            uploadedBy: 'test user',
+            uploadedDate: '2024-03-11T16:24:33.122506',
+            reviewedDate: '2024-03-11T16:24:33.122506',
+            document: {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'respondentApplication',
+              document_creation_date: '2024-03-11T16:24:33.122506',
+            },
+            documentWelsh: null,
+          },
+          {
+            partyId: '123456',
+            partyName: 'Second Respondent',
+            partyType: 'respondent',
+            categoryId: 'respondentApplication',
+            uploadedBy: 'test user',
+            uploadedDate: '2024-03-11T16:24:33.122506',
+            reviewedDate: '2024-03-11T16:24:33.122506',
+            document: {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'respondentApplication',
+              document_creation_date: '2024-03-11T16:24:33.122506',
+            },
+            documentWelsh: null,
+          },
+        ],
       };
       const party = PartyType.APPLICANT;
       const language = 'en';
 
-      expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
+      expect(getTaskListConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
         {
           heading: 'About you',
           id: 'aboutYou',
@@ -599,7 +637,7 @@ describe('tasklist index', () => {
               href: '#',
               id: 'theResponsePDF',
               linkText: 'Response 1 to your application',
-              openInAnotherTab: false,
+              openInAnotherTab: true,
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
@@ -611,7 +649,7 @@ describe('tasklist index', () => {
               href: '#',
               id: 'theResponsePDF',
               linkText: 'Response 2 to your application',
-              openInAnotherTab: false,
+              openInAnotherTab: true,
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
@@ -738,6 +776,42 @@ describe('tasklist index', () => {
           {
             partyId: '123456',
             partyName: null,
+            partyType: 'respondent',
+            categoryId: 'respondentApplication',
+            uploadedBy: 'test user',
+            uploadedDate: '2024-03-11T16:24:33.122506',
+            reviewedDate: '2024-03-11T16:24:33.122506',
+            document: {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'respondentApplication',
+              document_creation_date: '2024-03-11T16:24:33.122506',
+            },
+            documentWelsh: null,
+          },
+          {
+            partyId: '123456',
+            partyName: 'First Respondent',
+            partyType: 'respondent',
+            categoryId: 'respondentApplication',
+            uploadedBy: 'test user',
+            uploadedDate: '2024-03-11T16:24:33.122506',
+            reviewedDate: '2024-03-11T16:24:33.122506',
+            document: {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'respondentApplication',
+              document_creation_date: '2024-03-11T16:24:33.122506',
+            },
+            documentWelsh: null,
+          },
+          {
+            partyId: '123456',
+            partyName: 'Second Respondent',
             partyType: 'respondent',
             categoryId: 'respondentApplication',
             uploadedBy: 'test user',
@@ -890,15 +964,15 @@ describe('tasklist index', () => {
           id: 'theResponse',
           tasks: [
             {
-              disabled: false,
+              disabled: true,
               hintText: null,
               href: '#',
               id: 'theResponsePDF',
               linkText: 'Response 1 to your application',
-              openInAnotherTab: false,
+              openInAnotherTab: true,
               stateTag: {
-                className: 'govuk-tag--blue',
-                label: 'Ready to view',
+                className: 'govuk-tag--grey',
+                label: 'Not available yet',
               },
             },
             {
@@ -907,7 +981,7 @@ describe('tasklist index', () => {
               href: '#',
               id: 'theResponsePDF',
               linkText: 'Response 2 to your application',
-              openInAnotherTab: false,
+              openInAnotherTab: true,
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
@@ -948,11 +1022,49 @@ describe('tasklist index', () => {
           document_filename: 'c100_final_document',
           document_binary_url: 'document_url/123/binary',
         },
+        citizenDocuments: [
+          {
+            partyId: '123456',
+            partyName: 'First Respondent',
+            partyType: 'respondent',
+            categoryId: 'respondentApplication',
+            uploadedBy: 'test user',
+            uploadedDate: '2024-03-11T16:24:33.122506',
+            reviewedDate: '2024-03-11T16:24:33.122506',
+            document: {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'respondentApplication',
+              document_creation_date: '2024-03-11T16:24:33.122506',
+            },
+            documentWelsh: null,
+          },
+          {
+            partyId: '123456',
+            partyName: 'Second Respondent',
+            partyType: 'respondent',
+            categoryId: 'respondentApplication',
+            uploadedBy: 'test user',
+            uploadedDate: '2024-03-11T16:24:33.122506',
+            reviewedDate: '2024-03-11T16:24:33.122506',
+            document: {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'respondentApplication',
+              document_creation_date: '2024-03-11T16:24:33.122506',
+            },
+            documentWelsh: null,
+          },
+        ],
       };
       const party = PartyType.APPLICANT;
       const language = 'en';
 
-      expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
+      expect(getTaskListConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
         {
           heading: 'About you',
           id: 'aboutYou',
@@ -1083,7 +1195,7 @@ describe('tasklist index', () => {
               href: '#',
               id: 'theResponsePDF',
               linkText: 'Response 1 to your application',
-              openInAnotherTab: false,
+              openInAnotherTab: true,
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
@@ -1095,7 +1207,7 @@ describe('tasklist index', () => {
               href: '#',
               id: 'theResponsePDF',
               linkText: 'Response 2 to your application',
-              openInAnotherTab: false,
+              openInAnotherTab: true,
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
@@ -1286,11 +1398,49 @@ describe('tasklist index', () => {
           document_filename: 'c100_final_document',
           document_binary_url: 'document_url/123/binary',
         },
+        citizenDocuments: [
+          {
+            partyId: '123456',
+            partyName: 'First Respondent',
+            partyType: 'respondent',
+            categoryId: 'respondentApplication',
+            uploadedBy: 'test user',
+            uploadedDate: '2024-03-11T16:24:33.122506',
+            reviewedDate: '2024-03-11T16:24:33.122506',
+            document: {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'respondentApplication',
+              document_creation_date: '2024-03-11T16:24:33.122506',
+            },
+            documentWelsh: null,
+          },
+          {
+            partyId: '123456',
+            partyName: 'Second Respondent',
+            partyType: 'respondent',
+            categoryId: 'respondentApplication',
+            uploadedBy: 'test user',
+            uploadedDate: '2024-03-11T16:24:33.122506',
+            reviewedDate: '2024-03-11T16:24:33.122506',
+            document: {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'respondentApplication',
+              document_creation_date: '2024-03-11T16:24:33.122506',
+            },
+            documentWelsh: null,
+          },
+        ],
       };
       const party = PartyType.APPLICANT;
       const language = 'en';
 
-      expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
+      expect(getTaskListConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
         {
           heading: 'About you',
           id: 'aboutYou',
@@ -1422,7 +1572,7 @@ describe('tasklist index', () => {
               href: '#',
               id: 'theResponsePDF',
               linkText: 'Response 1 to your application',
-              openInAnotherTab: false,
+              openInAnotherTab: true,
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
@@ -1434,7 +1584,7 @@ describe('tasklist index', () => {
               href: '#',
               id: 'theResponsePDF',
               linkText: 'Response 2 to your application',
-              openInAnotherTab: false,
+              openInAnotherTab: true,
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
@@ -1469,6 +1619,44 @@ describe('tasklist index', () => {
         applicants: applicant,
         respondents,
         caseTypeOfApplication: 'C100',
+        citizenDocuments: [
+          {
+            partyId: '123456',
+            partyName: 'First Respondent',
+            partyType: 'respondent',
+            categoryId: 'respondentApplication',
+            uploadedBy: 'test user',
+            uploadedDate: '2024-03-11T16:24:33.122506',
+            reviewedDate: '2024-03-11T16:24:33.122506',
+            document: {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'respondentApplication',
+              document_creation_date: '2024-03-11T16:24:33.122506',
+            },
+            documentWelsh: null,
+          },
+          {
+            partyId: '123456',
+            partyName: 'Second Respondent',
+            partyType: 'respondent',
+            categoryId: 'respondentApplication',
+            uploadedBy: 'test user',
+            uploadedDate: '2024-03-11T16:24:33.122506',
+            reviewedDate: '2024-03-11T16:24:33.122506',
+            document: {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'respondentApplication',
+              document_creation_date: '2024-03-11T16:24:33.122506',
+            },
+            documentWelsh: null,
+          },
+        ],
         orderCollection: [
           {
             id: '1234',
@@ -1544,7 +1732,7 @@ describe('tasklist index', () => {
       const party = PartyType.APPLICANT;
       const language = 'en';
 
-      expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
+      expect(getTaskListConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
         {
           heading: 'About you',
           id: 'aboutYou',
@@ -1676,7 +1864,7 @@ describe('tasklist index', () => {
               href: '#',
               id: 'theResponsePDF',
               linkText: 'Response 1 to your application',
-              openInAnotherTab: false,
+              openInAnotherTab: true,
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
@@ -1688,7 +1876,7 @@ describe('tasklist index', () => {
               href: '#',
               id: 'theResponsePDF',
               linkText: 'Response 2 to your application',
-              openInAnotherTab: false,
+              openInAnotherTab: true,
               stateTag: {
                 className: 'govuk-tag--grey',
                 label: 'Not available yet',
@@ -1817,7 +2005,7 @@ describe('tasklist index', () => {
       const party = PartyType.APPLICANT;
       const language = 'en';
 
-      expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
+      expect(getTaskListConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
         {
           heading: 'About you',
           id: 'aboutYou',
@@ -1969,7 +2157,7 @@ describe('tasklist index', () => {
       const party = PartyType.APPLICANT;
       const language = 'en';
 
-      expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
+      expect(getTaskListConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
         {
           heading: 'About you',
           id: 'aboutYou',
@@ -2225,7 +2413,7 @@ describe('tasklist index', () => {
       const party = PartyType.APPLICANT;
       const language = 'en';
 
-      expect(getTaskListConfig(data, userDetails, party, language)).toStrictEqual([
+      expect(getTaskListConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
         {
           heading: 'Your application',
           id: 'yourApplication',
@@ -3214,18 +3402,18 @@ describe('c100 respondent', () => {
         tasks: [
           {
             disabled: false,
-            href: '/doc/responsetoca/respondent/FirstName LastName?',
+            href: '/respondent/documents/download/type/c7-response-document',
             id: 'respondToTheApplication',
-            hintText: 'Go to view all documents to check the response.',
+            hintText: null,
             linkText: 'Respond to the application',
-            openInAnotherTab: false,
-            stateTag: { className: 'govuk-tag--green', label: 'Completed' },
+            openInAnotherTab: true,
+            stateTag: { className: 'govuk-tag--blue', label: 'Ready to view' },
           },
           {
             disabled: false,
             href: '#',
             id: 'respondToAOHAndViolence',
-            hintText: 'Go to view all documents to check the response.',
+            hintText: null,
             linkText: 'Respond to the allegations of harm and violence',
             openInAnotherTab: false,
             stateTag: { className: 'govuk-tag--green', label: 'Completed' },

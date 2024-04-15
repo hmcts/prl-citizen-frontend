@@ -43,6 +43,7 @@ const enContent = {
     documentCategoryLabels: {
       packServed: 'Your served application pack',
       packToBeServed: 'Application pack to be served on the respondent',
+      respondentResponseToApplication: "{partyName}'s response to the request for child arrangements",
       positionStatements: "{partyName}'s position statements",
       viewAllOrders: 'View all orders from the court',
       witnessStatements: "{partyName}'s witness statements",
@@ -96,6 +97,7 @@ const cyContent = {
     documentCategoryLabels: {
       packServed: 'Your served application pack - welsh',
       packToBeServed: 'Application pack to be served on the respondent - welsh',
+      respondentResponseToApplication: 'Ymateb {partyName} i’r cais am drefniadau plant',
       positionStatements: 'Datganiadau safbwynt {partyName}',
       viewAllOrders: 'View all orders from the court - welsh',
       witnessStatements: 'Datganiadau tyst {partyName}',

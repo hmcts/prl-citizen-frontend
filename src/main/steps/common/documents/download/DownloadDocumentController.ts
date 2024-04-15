@@ -4,13 +4,18 @@ import _ from 'lodash';
 
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../../app/case/case';
-import { AppRequest } from '../../../../app/controller/AppRequest';
+import { AppRequest, UserDetails } from '../../../../app/controller/AppRequest';
 import { AnyObject } from '../../../../app/controller/PostController';
+import { DocumentCategory } from '../definitions';
 import { deTransformFileName, transformFileName } from '../download/utils';
 
 @autobind
 export default class DownloadDocumentController {
-  private getDocumentMeta(documentType: string, caseData: CaseWithId): { documentId: string; documentName: string } {
+  private getDocumentMeta(
+    documentType: string,
+    caseData: CaseWithId,
+    userDetails: UserDetails
+  ): { documentId: string; documentName: string } {
     let documentReference;
 
     if (documentType === 'c100-application') {
@@ -19,6 +24,12 @@ export default class DownloadDocumentController {
       documentReference = caseData.finalDocument;
     } else if (documentType === 'aoh-document') {
       documentReference = caseData.c1ADocument;
+    } else if (documentType === 'c7-response-document') {
+      const c7Document = caseData.citizenDocuments?.find(
+        doc =>
+          doc.partyId === userDetails.id && doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
+      );
+      documentReference = c7Document?.document;
     }
 
     const documentId = documentReference
@@ -38,7 +49,7 @@ export default class DownloadDocumentController {
 
     try {
       if (documentType) {
-        const documentMeta = this.getDocumentMeta(documentType, req.session.userCase);
+        const documentMeta = this.getDocumentMeta(documentType, req.session.userCase, req.session.user);
         documentId = documentMeta.documentId;
         documentName = documentMeta.documentName;
       }

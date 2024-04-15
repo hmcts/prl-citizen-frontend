@@ -94,7 +94,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
         },
         stateTag: () => StateTags.SUBMITTED,
         show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
-        openInAnotherTab: true,
+        openInAnotherTab: () => true,
       },
     ],
   },

@@ -93,6 +93,7 @@ export const getDocumentCategoryLabel = (
   switch (documentLabelId) {
     case DocumentLabelCategory.POSITION_STATEMENTS:
     case DocumentLabelCategory.WITNESS_STATEMENTS:
+    case DocumentLabelCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION:
       {
         documentLabel = interpolate(documentLabel, { partyName: uploadedPartyName ?? '' });
       }
@@ -117,6 +118,7 @@ const filterAndGroupPartyDocuments = (
             DocumentCategory.POSITION_STATEMENTS,
             DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
             DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
+            DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
           ].includes(document.categoryId) &&
           !groupedDocuments.find(groupedDoc => groupedDoc.partyId === document.partyId)
         ) {
@@ -240,10 +242,7 @@ export const getOrdersFromTheCourtCategoryList = (
   ];
 };
 
-export const getOrderDocuments = (
-  orders: CitizenOrders[],
-  loggedInUserPartyType: PartyType
-): OrderDocumentMeta[] => {
+export const getOrderDocuments = (orders: CitizenOrders[], loggedInUserPartyType: PartyType): OrderDocumentMeta[] => {
   const orderDocuments: OrderDocumentMeta[] = [];
 
   orders.forEach(order => {
@@ -359,7 +358,7 @@ export const getDocuments = (
   return docs;
 };
 
-const getDownloadDocUrl = (document: CitizenDocuments, loggedInUserPartyType: PartyType): string => {
+export const getDownloadDocUrl = (document: CitizenDocuments, loggedInUserPartyType: PartyType): string => {
   return applyParms(DOWNLOAD_DOCUMENT, {
     partyType: loggedInUserPartyType,
     documentId: document.document.document_url.substring(document.document.document_url.lastIndexOf('/') + 1),

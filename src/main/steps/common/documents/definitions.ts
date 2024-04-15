@@ -155,6 +155,7 @@ type DocumentMeta = {
 export type CitizenDocuments = {
   partyId: string;
   partyType: PartyType;
+  partyName: string;
   categoryId: DocumentCategory;
   uploadedBy: string;
   uploadedDate: string;

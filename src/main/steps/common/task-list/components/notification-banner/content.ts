@@ -230,7 +230,10 @@ const en: NotificationBannerContent = {
               links: [
                 {
                   text: "View the respondent's documents",
-                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+                  href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
+                    partyType: PartyType.APPLICANT,
+                    context: 'to-be-served',
+                  }),
                 },
               ],
             },
@@ -741,7 +744,10 @@ const cy: typeof en = {
               links: [
                 {
                   text: 'Gweld dogfennau’r atebydd',
-                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+                  href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
+                    partyType: PartyType.APPLICANT,
+                    context: 'to-be-served',
+                  }),
                 },
               ],
             },

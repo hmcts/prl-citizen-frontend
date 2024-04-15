@@ -1,11 +1,12 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, CitizenInternationalElements, PartyDetails, State } from '../../../../../app/case/definition';
+import { UserDetails } from '../../../../../app/controller/AppRequest';
 
 import {
+  getC7ApplicationResponseStatus,
   getCheckAllegationOfHarmStatus,
   getFinalApplicationStatus,
   getInternationalFactorsStatus,
-  getResponseStatus,
   getYourWitnessStatementStatus,
 } from './utils';
 
@@ -71,37 +72,115 @@ describe('getCheckAllegationOfHarmStatus', () => {
   });
 });
 
-describe('getResponseStatus', () => {
-  test('should return completed when response has c7ResponseSubmitted as yes', () => {
+describe('getC7ApplicationResponseStatus', () => {
+  test('should return readyToView when response has c7ResponseSubmitted as yes', () => {
     const data = {
-      response: {
-        c7ResponseSubmitted: 'Yes',
-      },
+      caseTypeOfApplication: 'C100',
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+            response: {
+              c7ResponseSubmitted: 'Yes',
+            },
+          },
+        },
+      ],
+      caseInvites: [
+        {
+          id: 'string',
+          value: {
+            partyId: '1234',
+            caseInviteEmail: 'string',
+            accessCode: 'string',
+            invitedUserId: '1234',
+            expiryDate: 'string',
+            isApplicant: 'Yes',
+          },
+        },
+      ],
     };
 
-    expect(getResponseStatus(data as unknown as PartyDetails)).toBe('completed');
+    expect(
+      getC7ApplicationResponseStatus(data as unknown as PartyDetails, { id: '1234' } as unknown as UserDetails)
+    ).toBe('readyToView');
   });
 
   test('should return inProgress when some response items present', () => {
     const data = {
-      response: {
-        keepDetailsPrivate: {},
-        miam: {},
-        safetyConcerns: {},
-        legalRepresentation: {},
-        supportYouNeed: {},
-      },
+      caseTypeOfApplication: 'C100',
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+            response: {
+              keepDetailsPrivate: {},
+              miam: {},
+              safetyConcerns: {},
+              legalRepresentation: {},
+              supportYouNeed: {},
+            },
+          },
+        },
+      ],
+      caseInvites: [
+        {
+          id: 'string',
+          value: {
+            partyId: '1234',
+            caseInviteEmail: 'string',
+            accessCode: 'string',
+            invitedUserId: '1234',
+            expiryDate: 'string',
+            isApplicant: 'Yes',
+          },
+        },
+      ],
     };
 
-    expect(getResponseStatus(data as unknown as PartyDetails)).toBe('inProgress');
+    expect(
+      getC7ApplicationResponseStatus(data as unknown as PartyDetails, { id: '1234' } as unknown as UserDetails)
+    ).toBe('inProgress');
   });
 
   test('should return todo when no response items present', () => {
     const data = {
-      response: {},
+      caseTypeOfApplication: 'C100',
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+            response: {},
+          },
+        },
+      ],
+      caseInvites: [
+        {
+          id: 'string',
+          value: {
+            partyId: '1234',
+            caseInviteEmail: 'string',
+            accessCode: 'string',
+            invitedUserId: '1234',
+            expiryDate: 'string',
+            isApplicant: 'Yes',
+          },
+        },
+      ],
     };
 
-    expect(getResponseStatus(data as unknown as PartyDetails)).toBe('toDo');
+    expect(
+      getC7ApplicationResponseStatus(data as unknown as PartyDetails, { id: '1234' } as unknown as UserDetails)
+    ).toBe('toDo');
   });
 });
 

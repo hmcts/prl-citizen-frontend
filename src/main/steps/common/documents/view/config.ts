@@ -99,7 +99,12 @@ export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] =
     documentCategoryLabel: (
       documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
       uploadedPartyName?: string
-    ) => getDocumentCategoryLabel(DocumentLabelCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION, documentCategoryLabels, uploadedPartyName),
+    ) =>
+      getDocumentCategoryLabel(
+        DocumentLabelCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+        documentCategoryLabels,
+        uploadedPartyName
+      ),
     documents: (
       documents: CaseWithId['citizenDocuments'],
       loggedInUserPartyType: PartyType,

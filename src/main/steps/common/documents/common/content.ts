@@ -93,7 +93,7 @@ export const cy: typeof en = {
       viewAllOrders: 'View all orders from the court - welsh',
       packServed: 'Your served application pack - welsh',
       packToBeServed: 'Application pack to be served on the respondent - welsh',
-      respondentResponseToApplication: "Ymateb {partyName} i’r cais am drefniadau plant",
+      respondentResponseToApplication: 'Ymateb {partyName} i’r cais am drefniadau plant',
       positionStatements: 'Datganiadau safbwynt {partyName}',
       witnessStatements: 'Datganiadau tyst {partyName}',
       otherPeopleWitnessStatements: 'Datganiadau tyst pobl eraill',

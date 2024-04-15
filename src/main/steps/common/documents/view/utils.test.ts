@@ -1,6 +1,12 @@
 import { CaseWithId } from '../../../../app/case/case';
 import { PartyType, State } from '../../../../app/case/definition';
-import { CitizenApplicationPacks, DocumentCategory, DocumentLabelCategory, DocumentSectionId } from '../definitions';
+import {
+  CitizenApplicationPacks,
+  CitizenOrders,
+  DocumentCategory,
+  DocumentLabelCategory,
+  DocumentSectionId,
+} from '../definitions';
 
 import {
   getApplicationPackDocuments,
@@ -15,6 +21,7 @@ const documentCategoryLabels = {
   positionStatements: "{partyName}'s position statements",
   witnessStatements: "{partyName}'s witness statements",
   otherPeopleWitnessStatements: "Other people's witness statements",
+  respondentResponseToApplication: "{partyName}'s response to the request for child arrangements",
   medicalRecords: 'Medical records',
   medicalReports: 'Medical reports',
   DNAReports: 'DNA reports',
@@ -44,7 +51,7 @@ describe('documents > view > utils', () => {
                 document_creation_date: '01/01/2024',
               },
               documentWelsh: null,
-            },
+            } as unknown as CitizenOrders,
           ],
           id: '123',
           state: 'Draft' as State,
@@ -161,6 +168,8 @@ describe('documents > view > utils', () => {
             {
               partyId: '1',
               partyType: 'respondent' as PartyType,
+              partyName: 'testname1',
+
               categoryId: 'applicantStatements' as DocumentCategory,
               uploadedBy: 'test user',
               uploadedDate: '2024-03-11T16:24:33.122506',
@@ -177,6 +186,7 @@ describe('documents > view > utils', () => {
             },
             {
               partyId: '2',
+              partyName: 'testname2',
               partyType: 'applicant' as PartyType,
               categoryId: 'positionStatements' as DocumentCategory,
               uploadedBy: 'test user2',
@@ -218,6 +228,7 @@ describe('documents > view > utils', () => {
             {
               partyId: '1',
               partyType: 'respondent' as PartyType,
+              partyName: 'testname1',
               categoryId: 'applicantStatements' as DocumentCategory,
               uploadedBy: 'test user',
               uploadedDate: '2024-03-11T16:24:33.122506',
@@ -234,6 +245,7 @@ describe('documents > view > utils', () => {
             },
             {
               partyId: '2',
+              partyName: 'testname2',
               partyType: 'applicant' as PartyType,
               categoryId: 'positionStatements' as DocumentCategory,
               uploadedBy: 'test user2',
