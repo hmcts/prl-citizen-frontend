@@ -5,6 +5,7 @@
 import _ from 'lodash';
 
 import { UserDetails } from '../../../../../app/controller/AppRequest';
+import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 
 import { CaseWithId } from './../../../../../app/case/case';
 import { CaseType, PartyType, YesOrNo } from './../../../../../app/case/definition';
@@ -146,4 +147,11 @@ export const isPersonalServiceByCourtStaff = (caseData: Partial<CaseWithId>): bo
   return caseData.finalServedApplicationDetailsList && caseData.finalServedApplicationDetailsList?.length
     ? PERSONAL_SOA_BY_COURT_STAFF.includes(_.last(caseData.finalServedApplicationDetailsList)?.value.whoIsResponsible!)
     : false;
+};
+
+export const isPartyServed = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+  return !!(
+    caseData.citizenApplicationPacks?.length &&
+    getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyId === caseData.citizenApplicationPacks[0].partyId
+  );
 };

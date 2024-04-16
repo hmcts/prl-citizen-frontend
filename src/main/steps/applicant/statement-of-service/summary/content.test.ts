@@ -19,10 +19,10 @@ const en = {
   submit: 'Submit',
   confirmation:
     'This confirms that the information you are submitting is true and accurate, to the best of your knowledge.',
-  consent: 'I believe that the facts stated in this application are true',
+  consent: 'Select if you believe the facts stated in this application are true',
   errors: {
     sosConsent: {
-      required: 'Please tick the checkbox',
+      required: 'Select if you believe the facts stated in this application are true',
     },
   },
 };
@@ -45,7 +45,7 @@ const cy = {
   consent: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir.',
   errors: {
     sosConsent: {
-      required: 'Dewiswch os ydych yn credu fod y ffeithiau a nodir yn y cais hwn yn wir',
+      required: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir.',
     },
   },
 };

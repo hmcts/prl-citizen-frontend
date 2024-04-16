@@ -45,7 +45,7 @@ describe('documents > view > orders-from-the-court > content', () => {
           documentDownloadUrl: '/applicant/documents/download/1234/DOC_FILENAME',
           documentId: '1234',
           documentName: 'DOC_FILENAME',
-          orderMadeDate: '15 Apr 2024',
+          orderMadeDate: '16 Apr 2024',
         },
       },
     ]);

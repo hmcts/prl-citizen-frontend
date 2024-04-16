@@ -51,7 +51,7 @@ const cyContent: typeof enContent = {
   consent: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir.',
   errors: {
     sosConsent: {
-      required: 'Dewiswch os ydych yn credu fod y ffeithiau a nodir yn y cais hwn yn wir',
+      required: 'Credaf fod y ffeithiau a nodir yn y cais hwn yn wir.',
     },
   },
 };
