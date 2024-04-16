@@ -95,6 +95,10 @@ export const getNotificationBannerConfig = (
 export const generateResponseNotifications = (caseData: Partial<CaseWithId>): NotificationBannerProps[] => {
   const notifications: NotificationBannerProps[] = [];
 
+  if (!caseData || !caseData?.respondents?.length) {
+    return notifications;
+  }
+
   caseData.respondents?.forEach(respondent => {
     notifications.push({
       ...notificationBanner[BannerNotification.RESPONSE_SUBMITTED],
@@ -103,5 +107,6 @@ export const generateResponseNotifications = (caseData: Partial<CaseWithId>): No
       },
     });
   });
+
   return notifications;
 };
