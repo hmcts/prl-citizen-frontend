@@ -8,6 +8,7 @@ import {
   C100_OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
   C100_OTHER_PROCEEDINGS_ORDER_DETAILS,
   C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+  PageLink,
 } from '../../urls';
 
 import OtherProceedingsNavigationController from './navigationController';
@@ -185,7 +186,7 @@ describe('OtherProceedingsNavigationController', () => {
   test('Default', async () => {
     dummyRequest.params = {};
     const nextUrl = OtherProceedingsNavigationController.getNextUrl(
-      C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
+      applyParms(C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE, { root: RootContext.C100_REBUILD }) as PageLink,
       dummyRequest.session.userCase,
       dummyRequest.params
     );

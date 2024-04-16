@@ -52,7 +52,7 @@ function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
     Object.assign(userCase, mapInternationalFactorsDetails(partyDetails));
   }
 
-  if (partyDetails?.response.currentOrPreviousProceedings) {
+  if (partyDetails?.response?.currentOrPreviousProceedings) {
     Object.assign(userCase, mapProceedingDetails(partyDetails));
   }
 

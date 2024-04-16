@@ -198,7 +198,7 @@ describe('generateRespondentTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page/1234',
+            href: '/tasklistresponse/safety-concerns/concern-guidance',
             id: 'allegations_of_harm_and_violence',
             status: 'TO_DO',
             text: 'Allegations of harm and violence',
@@ -340,7 +340,7 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page/1234',
+            href: '/tasklistresponse/safety-concerns/concern-guidance',
             id: 'allegations_of_harm_and_violence',
             status: 'TO_DO',
             text: 'Allegations of harm and violence',
@@ -456,7 +456,7 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page/1234',
+            href: '/tasklistresponse/safety-concerns/concern-guidance',
             id: 'allegations_of_harm_and_violence',
             status: 'TO_DO',
             text: 'Allegations of harm and violence',
@@ -560,7 +560,7 @@ describe('getRemainingTaskList', () => {
       {
         items: [
           {
-            href: '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page/1234',
+            href: '/tasklistresponse/safety-concerns/concern-guidance',
             id: 'allegations_of_harm_and_violence',
             status: 'TO_DO',
             text: 'Allegations of harm and violence',

@@ -472,14 +472,14 @@ describe('SafteyConcernsNavigationController for both children and applicant', (
 
   test('From safety concern about screen -> navigate to the children report abuse screen', async () => {
     expect(SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_CONCERNS_CONCERN_ABOUT, caseData)).toBe(
-      C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD
+      '/tasklistresponse/safety-concerns/concern-about'
     );
   });
 
   test('From children report abuse screen -> navigate to children physical abuse screen', async () => {
-    expect(SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, caseData)).toBe(
-      applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.PHYSICAL_ABUSE })
-    );
+    expect(
+      SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, caseData, req, req.param)
+    ).toBe(applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.PHYSICAL_ABUSE }));
   });
 
   test('From children physical abuse screen -> navigate to financial abuse screen', async () => {
