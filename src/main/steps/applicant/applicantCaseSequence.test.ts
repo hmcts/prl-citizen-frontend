@@ -311,6 +311,5 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[51].url).toBe('/applicant/statement-of-service/what-happens-next');
     expect(applicantCaseSequence[51].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[51].getNextStep({})).toBe('/applicant/task-list');
-
   });
 });

@@ -111,6 +111,7 @@ export interface PartyDetails {
   user: User;
   contactPreferences?: ContactPreference | null;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
+  partyId: string;
   citizenSosObject?: CitizenSos;
 }
 

@@ -390,25 +390,25 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => '/',
   },
   {
-      url: APPLICANT_TASK_LIST_URL,
-      showInSection: Sections.AboutApplicantCase,
-      getNextStep: (data: Partial<CaseWithId>, req) =>
-        applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: req!.params.context }) as PageLink,
-    },
-    {
-      url: APPLICANT_STATEMENT_OF_SERVICE,
-      showInSection: Sections.AboutApplicantCase,
-      getNextStep: (data: Partial<CaseWithId>, req) =>
-        applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req!.params.context }) as PageLink,
-    },
-    {
-      url: `${APPLICANT_STATEMENT_OF_SERVICE_SUMMARY}`,
-      showInSection: Sections.AboutApplicantCase,
-      getNextStep: () => APPLICANT_STATEMENT_OF_SERVICE_NEXT,
-    },
-    {
-      url: APPLICANT_STATEMENT_OF_SERVICE_NEXT,
-      showInSection: Sections.AboutApplicantCase,
-      getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
-    },
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: (data: Partial<CaseWithId>, req) =>
+      applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: req!.params.context }) as PageLink,
+  },
+  {
+    url: APPLICANT_STATEMENT_OF_SERVICE,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: (data: Partial<CaseWithId>, req) =>
+      applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req!.params.context }) as PageLink,
+  },
+  {
+    url: `${APPLICANT_STATEMENT_OF_SERVICE_SUMMARY}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_STATEMENT_OF_SERVICE_NEXT,
+  },
+  {
+    url: APPLICANT_STATEMENT_OF_SERVICE_NEXT,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+  },
 ];
