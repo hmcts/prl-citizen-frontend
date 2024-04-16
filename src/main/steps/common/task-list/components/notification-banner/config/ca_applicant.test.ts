@@ -26,7 +26,7 @@ describe('ca_applicant', () => {
     expect(ca_applicantNotifications[9].id).toBe('newOrder');
     expect(ca_applicantNotifications[10].id).toBe('giveRespondentTheirDocuments');
     expect(ca_applicantNotifications[11].id).toBe('caPersonalService');
-    expect(ca_applicantNotifications[12].id).toBe('responseSubmitted');
-    expect(ca_applicantNotifications[13].id).toBe('soaServedBannerCa');
+    expect(ca_applicantNotifications[12].id).toBe('soaServedBannerCa');
+    expect(ca_applicantNotifications[13].id).toBe('responseSubmitted');
   });
 });
