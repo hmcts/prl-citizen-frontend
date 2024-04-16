@@ -221,6 +221,7 @@ export interface OtherProceedingDetails {
 export interface CitizenFlags {
   isApplicationViewed?: string;
   isAllegationOfHarmViewed?: string;
+  isAllDocumentsViewed?: string
   isResponseInitiated?: string;
   isApplicationToBeServed?: string;
   isOrderPersonallyServed?: string;
