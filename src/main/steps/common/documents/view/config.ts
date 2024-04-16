@@ -95,6 +95,31 @@ export const viewDocumentsSections: ViewDocumentsSectionsProps[] = [
 
 export const viewDocumentsCategoryListConfig: ViewDocumentsCategoryListProps[] = [
   {
+    categoryId: DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+    documentCategoryLabel: (
+      documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
+      uploadedPartyName?: string
+    ) =>
+      getDocumentCategoryLabel(
+        DocumentLabelCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+        documentCategoryLabels,
+        uploadedPartyName
+      ),
+    documents: (
+      documents: CaseWithId['citizenDocuments'],
+      loggedInUserPartyType: PartyType,
+      documentPartyType: CitizenDocuments['partyType'],
+      documentPartyId?: CitizenDocuments['partyId']
+    ) =>
+      getDocuments(
+        DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+        documents,
+        loggedInUserPartyType,
+        documentPartyType,
+        documentPartyId
+      ),
+  },
+  {
     categoryId: DocumentCategory.POSITION_STATEMENTS,
     documentCategoryLabel: (
       documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,

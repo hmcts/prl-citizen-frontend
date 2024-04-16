@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../app/case/case';
 import { AppRequest, UserDetails } from '../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
@@ -87,18 +89,15 @@ export const checkPartyRepresentedBySolicitor = (partyDetails: PartyDetails | un
   return partyDetails?.user?.solicitorRepresented === YesOrNo.YES;
 };
 
-export const isApplicationResponded = (userCase: Partial<CaseWithId>, userId: string): boolean => {
-  if (userCase?.citizenResponseC7DocumentList?.length) {
-    return !!userCase.respondents?.find(respondent => {
-      if (respondent.value.user.idamId === userId) {
-        return userCase.citizenResponseC7DocumentList!.find(
-          responseDocument => responseDocument.value.createdBy === respondent.id
-        );
-      }
-    });
-  }
+export const hasRespondentRespondedToC7Application = (
+  caseData: Partial<CaseWithId>,
+  userDetails: UserDetails
+): boolean => {
+  return isC7ResponseSubmitted(getPartyDetails(caseData as CaseWithId, userDetails.id));
+};
 
-  return false;
+export const isC7ResponseSubmitted = (respondent: PartyDetails | undefined): boolean => {
+  return _.get(respondent, 'response.c7ResponseSubmitted', YesOrNo.NO) === YesOrNo.YES;
 };
 
 // temporary, remove after fl401 tasklist refactored

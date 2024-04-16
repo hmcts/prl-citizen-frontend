@@ -16,11 +16,12 @@ export const generateContent: TranslationFn = content => {
     partyType: PartyType.RESPONDENT,
   });
 
+  //** validate **
   for (const doc of request.session.userCase?.orderCollection || []) {
     if (doc.value.selectedHearingType) {
       hearingOrders?.push({
         href: applyParms(DOWNLOAD_DOCUMENT, {
-          partyType: PartyType.APPLICANT,
+          partyType: PartyType.RESPONDENT,
           documentId: doc.value.orderDocument.document_url.substring(
             doc.value.orderDocument.document_url.lastIndexOf('/') + 1
           ),

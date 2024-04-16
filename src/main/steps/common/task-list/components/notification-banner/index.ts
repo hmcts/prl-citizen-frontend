@@ -5,7 +5,7 @@ import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import { interpolate } from '../../../string-parser';
 import { NotificationBannerConfig, NotificationBannerProps, NotificationSection } from '../../definitions';
-import { hasResponseBeenSubmitted, isCaseLinked } from '../../utils';
+import { isC7ResponseSubmitted, isCaseLinked } from '../../utils';
 
 import { CaseType, PartyType } from './../../../../../app/case/definition';
 import { C100_WITHDRAW_CASE } from './../../../../urls';
@@ -99,7 +99,7 @@ export const generateResponseNotifications = (caseData: Partial<CaseWithId>): No
     notifications.push({
       ...notificationBanner[BannerNotification.RESPONSE_SUBMITTED],
       show: (caseDataShow: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-        return isCaseLinked(caseDataShow, userDetails) && hasResponseBeenSubmitted(caseDataShow, respondent);
+        return isCaseLinked(caseDataShow, userDetails) && isC7ResponseSubmitted(respondent.value);
       },
     });
   });

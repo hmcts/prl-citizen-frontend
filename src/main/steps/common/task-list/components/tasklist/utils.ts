@@ -6,11 +6,12 @@ import { CaseWithId } from '../../../../../app/case/case';
 import {
   CaseType,
   CitizenInternationalElements,
-  PartyDetails,
   PartyType,
   YesOrNo,
   hearingStatus,
 } from '../../../../../app/case/definition';
+import { UserDetails } from '../../../../../app/controller/AppRequest';
+import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 import { TaskListContent } from '../../definitions';
 
 import { languages as content } from './content';
@@ -145,9 +146,10 @@ export const getCheckAllegationOfHarmStatus = (caseData): StateTags => {
   return _.get(caseData, 'c1ADocument.document_binary_url') ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
 };
 
-export const getResponseStatus = (respondent: PartyDetails): StateTags => {
+export const getC7ApplicationResponseStatus = (caseData: Partial<CaseWithId>, userDetails: UserDetails): StateTags => {
+  const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id)!;
   if (_.get(respondent, 'response.c7ResponseSubmitted', YesOrNo.NO) === YesOrNo.YES) {
-    return StateTags.COMPLETED;
+    return StateTags.READY_TO_VIEW;
   } else if (
     respondent.response.citizenInternationalElements ||
     respondent.response.consent ||

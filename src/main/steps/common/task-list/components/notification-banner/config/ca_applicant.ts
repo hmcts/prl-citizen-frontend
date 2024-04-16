@@ -103,4 +103,5 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
     },
   },
   ...generateResponseNotifications(userCase),
+  ...generateResponseNotifications(userCase),
 ];

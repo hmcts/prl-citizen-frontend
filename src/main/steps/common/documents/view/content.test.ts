@@ -49,11 +49,11 @@ describe('documents > view > content', () => {
           createdDate: '01 Jan 2024',
           documentId: 'MOCK_DOCUMENT_URL',
           documentName: 'MOCK_FILENAME',
-          documentDownloadUrl: '#',
+          documentDownloadUrl: '/applicant/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
           uploadedBy: 'test user',
         },
       },
     ]);
-    expect(content.pageHeading).toBe("test user's position statements");
+    expect(content.title).toBe("test user's position statements");
   });
 });

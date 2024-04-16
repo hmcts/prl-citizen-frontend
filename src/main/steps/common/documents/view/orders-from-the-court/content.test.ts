@@ -18,27 +18,20 @@ describe('documents > view > orders-from-the-court > content', () => {
               id: '1234',
             },
             userCase: {
-              citizenApplicationPacks: [
+              citizenOrders: [
                 {
-                  servedParty: 'applicant',
-                  partyId: 1234,
-                  partyName: null,
-                  partyType: 'applicant',
-                  categoryId: 'undefined',
-                  uploadedBy: 'test user',
-                  uploadedDate: '2024-03-11T16:24:33.122506',
-                  reviewedDate: null,
-                  applicantSoaPack: [
-                    {
-                      document_url: 'MOCK_DOCUMENT_URL',
-                      document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-                      document_filename: 'MOCK_FILENAME',
-                      document_hash: null,
-                      category_id: 'positionStatements',
-                      document_creation_date: '01/01/2024',
-                    },
-                  ],
-                  documentWelsh: null,
+                  dateCreated: 'MOCK_DATE',
+                  orderType: 'ORDER',
+                  document: {
+                    document_url: 'DOC_URL/1234',
+                    document_filename: 'DOC_FILENAME',
+                    document_binary_url: 'DOC_BINARY_URL',
+                  },
+                  documentWelsh: {
+                    document_url: 'DOC_URL/1234',
+                    document_filename: 'DOC_FILENAME',
+                    document_binary_url: 'DOC_BINARY_URL',
+                  },
                 },
               ],
             },
@@ -48,10 +41,12 @@ describe('documents > view > orders-from-the-court > content', () => {
     } as unknown as CommonContent);
     expect(content.documents).toStrictEqual([
       {
-        documentDownloadUrl: '#',
-        documentId: 'MOCK_DOCUMENT_URL',
-        documentName: 'MOCK_FILENAME',
-        servedDate: '09 Apr 2024',
+        document_en: {
+          documentDownloadUrl: '/applicant/documents/download/1234/DOC_FILENAME',
+          documentId: '1234',
+          documentName: 'DOC_FILENAME',
+          orderMadeDate: '15 Apr 2024',
+        },
       },
     ]);
   });

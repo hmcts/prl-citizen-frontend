@@ -148,10 +148,3 @@ export const isPersonalServiceByCourtStaff = (caseData: Partial<CaseWithId>): bo
     ? PERSONAL_SOA_BY_COURT_STAFF.includes(_.last(caseData.finalServedApplicationDetailsList)?.value.whoIsResponsible!)
     : false;
 };
-
-export const isPartyServed = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-  return !!(
-    caseData.citizenApplicationPacks?.length &&
-    getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyId === caseData.citizenApplicationPacks[0].partyId
-  );
-};

@@ -109,6 +109,7 @@ export const enum DocumentLabelCategory {
   VIEW_ALL_ORDERS = 'viewAllOrders',
   YOUR_APPLICATION_PACK = 'packServed',
   APPLICATION_PACK_TO_BE_SERVED = 'packToBeServed',
+  RESPONDENT_C7_RESPONSE_TO_APPLICATION = 'respondentResponseToApplication',
   POSITION_STATEMENTS = 'positionStatements',
   WITNESS_STATEMENTS = 'witnessStatements',
   OTHER_PEOPLE_WITNESS_STATEMENTS = 'otherPeopleWitnessStatements',
@@ -154,6 +155,7 @@ type DocumentMeta = {
 export type CitizenDocuments = {
   partyId: string;
   partyType: PartyType;
+  partyName: string;
   categoryId: DocumentCategory;
   uploadedBy: string;
   uploadedDate: string;
@@ -162,6 +164,21 @@ export type CitizenDocuments = {
   documentWelsh: DocumentMeta | null;
   solicitorRepresentedPartyName?: string;
   solicitorRepresentedPartyId?: string;
+};
+
+export type CitizenOrders = {
+  partyId: string;
+  partyName: string;
+  partyType: PartyType;
+  uploadedBy: string;
+  document: DocumentMeta;
+  documentWelsh: DocumentMeta;
+  orderType: string;
+  createdDate: string;
+  servedDate: string;
+  wasCafcassServed: boolean;
+  final: boolean;
+  new: boolean;
 };
 export interface CitizenApplicationPacks extends CitizenDocuments {
   applicantSoaPack?: DocumentMeta[] | null;

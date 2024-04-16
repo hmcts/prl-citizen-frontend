@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RAFlags } from '../../modules/reasonable-adjustments/definitions';
-import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
+import { CitizenApplicationPacks, CitizenDocuments, CitizenOrders } from '../../steps/common/documents/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
@@ -612,7 +612,7 @@ export interface Case {
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
   citizenDocuments?: CitizenDocuments[];
-  citizenOrders?: Record<string, any>[];
+  citizenOrders?: CitizenOrders[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
   // RA local component
   ra_typeOfHearing?: string[];
@@ -722,4 +722,11 @@ export enum FieldPrefix {
 export interface UploadedFile {
   id: string;
   name: string;
+}
+export interface HearingData {
+  hmctsServiceCode: string;
+  caseRef: string;
+  caseHearings: HearingsList[];
+  courtTypeId: string;
+  courtName: string;
 }

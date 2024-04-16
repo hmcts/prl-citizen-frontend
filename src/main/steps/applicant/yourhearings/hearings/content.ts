@@ -15,6 +15,7 @@ export const generateContent: TranslationFn = content => {
     partyType: PartyType.APPLICANT,
   });
   const hearingOrders: HearingOrders[] = [];
+  //** validate **
   for (const doc of request.session.userCase?.orderCollection || []) {
     if (doc.value.selectedHearingType) {
       hearingOrders?.push({

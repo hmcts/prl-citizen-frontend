@@ -127,7 +127,7 @@ export default class UploadDocumentPostController extends PostController<AnyObje
 
     const client = new CosApiClient(user.accessToken, req.locals.logger);
     try {
-      const response = await client.generateStatementDocument(user, {
+      const response = await client.generateStatementDocument({
         caseId: caseData.id,
         categoryId: this.getDocumentCategory(params.docCategory as UploadDocumentCategory, partyType),
         partyId: user.id,

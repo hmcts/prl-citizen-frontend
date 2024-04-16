@@ -2,6 +2,7 @@
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
 import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
+
 import { RAFlagValue } from '../../modules/reasonable-adjustments/definitions';
 import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
 
@@ -125,14 +126,10 @@ export interface DocumentFromCdam {
   document?: Document;
 }
 
-export interface PartyDetailsWithId extends PartyDetails {
-  partyId: string | undefined;
-}
-
 export interface User {
-  email: string;
-  idamId: string;
-  solicitorRepresented?: string;
+  email: string,
+  idamId: string,
+  solicitorRepresented?: string
 }
 
 export interface Response {

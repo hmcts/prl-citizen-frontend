@@ -3,6 +3,8 @@ import _ from 'lodash';
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
+import { DocumentCategory } from '../../../../../steps/common/documents/definitions';
+import { getDownloadDocUrl } from '../../../../../steps/common/documents/view/utils';
 import { interpolate } from '../../../../../steps/common/string-parser';
 import {
   HintConfig,
@@ -14,7 +16,7 @@ import {
   TaskListConfig,
   TaskListConfigProps,
 } from '../../definitions';
-import { hasResponseBeenSubmitted, isDraftCase } from '../../utils';
+import { isC7ResponseSubmitted, isDraftCase } from '../../utils';
 
 import tasklistConfig from './config/index';
 import { StateTags, Tasks, getStateTagLabel } from './utils';
@@ -103,7 +105,7 @@ export const getTaskListConfig = (
                 return {
                   ...prepareTaskListConfig(task, caseData, userDetails, _content, language, partyType),
                   ...prepareHintConfig(task, caseData, userDetails, _content),
-                  ...prepareHyperLinkConfig(task),
+                  ...prepareHyperLinkConfig(task, caseData, userDetails),
                 };
               }
               return null;
@@ -166,31 +168,46 @@ const prepareHintConfig = (
   };
 };
 
-const prepareHyperLinkConfig = (task: Task): HyperLinkConfig => {
+const prepareHyperLinkConfig = (
+  task: Task,
+  caseData: Partial<CaseWithId>,
+  userDetails: UserDetails
+): HyperLinkConfig => {
   return {
-    openInAnotherTab: task.openInAnotherTab ?? false,
+    openInAnotherTab: _.isFunction(task.openInAnotherTab)
+      ? task.openInAnotherTab(caseData, userDetails)
+      : task.openInAnotherTab ?? false,
   };
 };
 
 export const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content: SectionContent): Task[] => {
   const tasks: Task[] = [];
 
-  caseData.respondents?.forEach(respondent => {
+  caseData.respondents?.forEach((respondent, index) => {
     tasks.push({
       id: Tasks.THE_RESPONSE_PDF,
-      linkText: interpolate(content?.tasks[Tasks.THE_RESPONSE_PDF]!.linkText, {
-        respondentPosition: String(caseData.respondents!.indexOf(respondent) + 1),
+      linkText: interpolate(_.get(content, 'tasks.theResponsePDF.linkText', ''), {
+        respondentPosition: `${index + 1}`,
       }),
       href: () => {
-        return '#';
+        if (!isC7ResponseSubmitted(respondent.value)) {
+          return '#';
+        }
+        const c7Document = caseData.citizenDocuments?.find(
+          doc =>
+            doc.partyName === `${respondent.value.firstName} ${respondent.value.lastName}` &&
+            doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
+        );
+        return getDownloadDocUrl(c7Document!, PartyType.APPLICANT);
       },
       stateTag: () => {
-        return hasResponseBeenSubmitted(caseData, respondent) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
+        return isC7ResponseSubmitted(respondent.value) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
       },
       show: () => caseData && !isDraftCase(caseData),
       disabled: () => {
-        return !hasResponseBeenSubmitted(caseData, respondent);
+        return !isC7ResponseSubmitted(respondent.value);
       },
+      openInAnotherTab: () => true,
     });
   });
 

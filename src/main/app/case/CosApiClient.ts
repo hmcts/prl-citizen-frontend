@@ -7,7 +7,7 @@ import { DocumentDetail } from '../../app/document/DocumentDetail';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
 
-import { CaseWithId } from './case';
+import { CaseWithId, HearingData } from './case';
 import {
   CaseData,
   CaseEvent,
@@ -218,10 +218,7 @@ export class CosApiClient {
     }
   }
 
-  public async generateStatementDocument(
-    user: UserDetails,
-    request: GenerateDocumentRequest
-  ): Promise<DocumentUploadResponse> {
+  public async generateStatementDocument(request: GenerateDocumentRequest): Promise<DocumentUploadResponse> {
     try {
       const response = await this.client.post(
         config.get('services.cos.url') + '/generate-citizen-statement-document',
@@ -349,20 +346,23 @@ export class CosApiClient {
     }
   }
 
-  public async retrieveCaseAndHearings(caseId: string, hearingNeeded: YesOrNo): Promise<any> {
+  public async retrieveCaseAndHearings(
+    caseId: string,
+    hearingNeeded: YesOrNo
+  ): Promise<{ caseData: CaseWithId; hearingData: HearingData | null }> {
     try {
       const response = await this.client.get(
         config.get('services.cos.url') + `/retrieve-case-and-hearing/${caseId}/${hearingNeeded}`
       );
+      const { caseData, hearings } = response.data;
 
       return {
-        status: response.status,
         caseData: {
-          id: response.data.caseData.id,
-          state: response.data.caseData.state,
-          ...fromApiFormat(response.data.caseData),
-        },
-        hearingData: response.data.hearings,
+          id: caseData.id,
+          state: caseData.state,
+          ...fromApiFormat(caseData),
+        } as CaseWithId,
+        hearingData: hearings,
       };
     } catch (error) {
       this.logError(error);

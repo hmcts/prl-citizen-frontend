@@ -233,7 +233,10 @@ const en: NotificationBannerContent = {
               links: [
                 {
                   text: "View the respondent's documents",
-                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+                  href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
+                    partyType: PartyType.APPLICANT,
+                    context: 'to-be-served',
+                  }),
                 },
               ],
             },
@@ -280,24 +283,6 @@ const en: NotificationBannerContent = {
                   //** validate **
                   text: 'View your application pack',
                   href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.APPLICANT }),
-                },
-              ],
-            },
-          ],
-        },
-        responseSubmitted: {
-          heading: 'View the response to your application',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'The other person in the case (the respondent) has responded to your application.',
-                },
-              ],
-              links: [
-                {
-                  text: 'View the response (PDF)',
-                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -832,7 +817,10 @@ const cy: typeof en = {
               links: [
                 {
                   text: 'Gweld dogfennau’r atebydd',
-                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+                  href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
+                    partyType: PartyType.APPLICANT,
+                    context: 'to-be-served',
+                  }),
                 },
               ],
             },
@@ -877,24 +865,6 @@ const cy: typeof en = {
               links: [
                 {
                   text: 'Gweld eich pecyn cais',
-                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
-                },
-              ],
-            },
-          ],
-        },
-        responseSubmitted: {
-          heading: 'View the response to your application (welsh)',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'The other person in the case (the respondent) has responded to your application. (welsh)',
-                },
-              ],
-              links: [
-                {
-                  text: 'View the response (PDF) (welsh)',
                   href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],

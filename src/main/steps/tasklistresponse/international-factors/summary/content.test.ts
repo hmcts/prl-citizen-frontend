@@ -39,10 +39,10 @@ const cy: typeof en = {
     parents:
       "A yw rhieni'r plant (neu unrhyw un o bwys i'r plant) wedi'u lleoli y tu allan i Gymru a Lloegr yn bennaf?",
     iFactorsParentsProvideDetails: 'Rhowch fanylion',
+    request: "A oes gwlad arall wedi gofyn (neu wedi cael cais) am wybodaeth neu gymorth i'r plant?",
+    iFactorsJurisdictionProvideDetails: 'Rhowch fanylion',
     jurisdiction:
       'A allai rhywun arall yn y cais wneud cais am orchymyn tebyg mewn gwlad y tu allan i Gymru neu Loegr?',
-    iFactorsJurisdictionProvideDetails: 'Rhowch fanylion',
-    request: "A oes gwlad arall wedi gofyn (neu wedi cael cais) am wybodaeth neu gymorth i'r plant?",
     iFactorsRequestProvideDetails: 'Rhowch fanylion',
   },
   errors: {},

@@ -26,7 +26,7 @@ describe('documents > view > application-pack-documents > content', () => {
                   partyType: 'applicant',
                   categoryId: 'undefined',
                   uploadedBy: 'test user',
-                  uploadedDate: '2024-03-11T16:24:33.122506',
+                  uploadedDate: '01/01/2024',
                   reviewedDate: null,
                   applicantSoaPack: [
                     {
@@ -49,7 +49,7 @@ describe('documents > view > application-pack-documents > content', () => {
     } as unknown as CommonContent);
     expect(content.documents).toStrictEqual([
       {
-        documentDownloadUrl: '#',
+        documentDownloadUrl: '/applicant/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
         documentId: 'MOCK_DOCUMENT_URL',
         documentName: 'MOCK_FILENAME',
         servedDate: '01 Jan 2024',

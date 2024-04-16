@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { CaseWithId } from '../../../../../../app/case/case';
-import { CaseType, DocType, PartyType, YesOrNo } from '../../../../../../app/case/definition';
+import { CaseType, PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
 import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { Task, TaskListConfigProps } from '../../../../../../steps/common/task-list/definitions';
@@ -18,21 +18,25 @@ import {
   UPLOAD_DOCUMENT,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
-  VIEW_DOCUMENT_URL,
 } from '../../../../../../steps/urls';
 import { hasContactPreference } from '../../../../contact-preference/util';
-import { isApplicationResponded, isCaseClosed, isCaseLinked, isRepresentedBySolicotor } from '../../../utils';
+import {
+  hasRespondentRespondedToC7Application,
+  isCaseClosed,
+  isCaseLinked,
+  isRepresentedBySolicotor,
+} from '../../../utils';
 import {
   StateTags,
   TaskListSection,
   Tasks,
+  getC7ApplicationResponseStatus,
   getCheckAllegationOfHarmStatus,
   getConfirmOrEditYourContactDetailsStatus,
   getContents,
   getFinalApplicationStatus,
   getInternationalFactorsStatus,
   getKeepYourDetailsPrivateStatus,
-  getResponseStatus,
   hasAnyHearing,
 } from '../utils';
 
@@ -161,7 +165,7 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         disabled: caseData => {
           return getFinalApplicationStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
         },
-        openInAnotherTab: true,
+        openInAnotherTab: () => true,
       },
       {
         //** validate **
@@ -175,7 +179,7 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
         disabled: caseData => {
           return getCheckAllegationOfHarmStatus(caseData) === StateTags.NOT_AVAILABLE_YET;
         },
-        openInAnotherTab: true,
+        openInAnotherTab: () => true,
       },
     ],
   },
@@ -193,21 +197,17 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
       {
         id: Tasks.RESPOND_TO_THE_APPLICATION,
         href: (caseData, userDetails) => {
-          const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id)!;
-          const respondentName = respondent.firstName + ' ' + respondent.lastName;
-          return respondent?.response.c7ResponseSubmitted === YesOrNo.YES
-            ? applyParms(VIEW_DOCUMENT_URL, {
-                docType: DocType.RESPONSE_TO_CA,
-                uploadedBy: PartyType.RESPONDENT,
-                partyName: respondentName,
+          return hasRespondentRespondedToC7Application(caseData, userDetails)
+            ? applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+                partyType: PartyType.RESPONDENT,
+                documentType: 'c7-response-document',
               })
             : `${RESPOND_TO_APPLICATION}/flag/updateFlag`;
         },
         stateTag: (caseData, userDetails) => {
-          const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
-          return getResponseStatus(respondent!);
+          return getC7ApplicationResponseStatus(caseData, userDetails);
         },
-        showHint: (caseData, userDetails) => isApplicationResponded(caseData, userDetails.id),
+        openInAnotherTab: (caseData, userDetails) => hasRespondentRespondedToC7Application(caseData, userDetails),
       },
       {
         id: Tasks.RESPOND_TO_AOH_AND_VIOLENCE,
@@ -219,7 +219,6 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
           const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id);
           return getInternationalFactorsStatus(respondent?.response.citizenInternationalElements);
         },
-        showHint: (caseData, userDetails) => isApplicationResponded(caseData, userDetails.id),
       },
     ],
   },

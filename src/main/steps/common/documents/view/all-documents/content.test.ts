@@ -100,7 +100,14 @@ describe('documents > view > all-documents > content', () => {
       },
       {
         id: 'ordersFromTheCourt',
-        items: [],
+        items: [
+          {
+            link: {
+              text: 'View all orders from the court',
+              url: '/applicant/documents/view/orders-from-the-court',
+            },
+          },
+        ],
         title: 'Orders from the court',
       },
       {
