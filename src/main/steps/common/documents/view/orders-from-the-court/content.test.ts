@@ -20,7 +20,7 @@ describe('documents > view > orders-from-the-court > content', () => {
             userCase: {
               citizenOrders: [
                 {
-                  dateCreated: 'MOCK_DATE',
+                  createdDate: '01/01/2024',
                   orderType: 'ORDER',
                   document: {
                     document_url: 'DOC_URL/1234',
@@ -45,7 +45,7 @@ describe('documents > view > orders-from-the-court > content', () => {
           documentDownloadUrl: '/applicant/documents/download/1234/DOC_FILENAME',
           documentId: '1234',
           documentName: 'DOC_FILENAME',
-          orderMadeDate: '15 Apr 2024',
+          orderMadeDate: '01 Jan 2024',
         },
       },
     ]);
