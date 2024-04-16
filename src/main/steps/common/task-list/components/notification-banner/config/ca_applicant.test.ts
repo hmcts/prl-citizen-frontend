@@ -13,7 +13,7 @@ describe('ca_applicant', () => {
       ],
     });
 
-    expect(ca_applicantNotifications).toHaveLength(13);
+    expect(ca_applicantNotifications).toHaveLength(14);
     expect(ca_applicantNotifications[0].id).toBe('applicationNotStarted');
     expect(ca_applicantNotifications[1].id).toBe('applicationInProgress');
     expect(ca_applicantNotifications[2].id).toBe('applicationSubmitted');
@@ -27,5 +27,6 @@ describe('ca_applicant', () => {
     expect(ca_applicantNotifications[10].id).toBe('giveRespondentTheirDocuments');
     expect(ca_applicantNotifications[11].id).toBe('caPersonalService');
     expect(ca_applicantNotifications[12].id).toBe('responseSubmitted');
+    expect(ca_applicantNotifications[13].id).toBe('soaServedBannerCa');
   });
 });

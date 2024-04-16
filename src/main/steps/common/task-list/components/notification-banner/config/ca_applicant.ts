@@ -99,9 +99,12 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
   {
     ...notificationBanner[BannerNotification.SOA_SERVED_CA],
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-      return isPrimaryApplicant(caseData, userDetails) && isApplicantLIPServingRespondent(caseData);
+      return (
+        isCaseLinked(caseData, userDetails) &&
+        isPrimaryApplicant(caseData, userDetails) &&
+        isApplicantLIPServingRespondent(caseData)
+      );
     },
   },
-  ...generateResponseNotifications(userCase),
   ...generateResponseNotifications(userCase),
 ];

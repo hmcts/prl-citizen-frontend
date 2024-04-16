@@ -15,6 +15,9 @@ describe('citizen-home content', () => {
         parentDocType: 'parent',
         docType: 'doc',
       },
+      params: {
+        context: 'order',
+      },
     },
   };
   let generatedContent;

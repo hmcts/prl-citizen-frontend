@@ -54,7 +54,7 @@ describe('ca_respondent', () => {
   test('your documents section should contain correct ids and tasks', () => {
     const yourDocumentsTasks = CA_RESPONDENT[4].tasks(data, {} as SectionContent);
 
-    expect(CA_RESPONDENT[5].id).toBe('ordersFromTheCourt');
+    expect(CA_RESPONDENT[4].id).toBe('yourDocuments');
     expect(yourDocumentsTasks).toHaveLength(2);
     expect(yourDocumentsTasks[0].id).toBe('uploadDocuments');
     expect(yourDocumentsTasks[1].id).toBe('viewAllDocuments');

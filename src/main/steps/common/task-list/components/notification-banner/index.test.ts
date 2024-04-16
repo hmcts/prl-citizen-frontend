@@ -690,7 +690,7 @@ describe('testcase for notification Banner', () => {
                 external: false,
               },
               {
-                href: '/applicant/statement-of-service/choose-parties',
+                href: '/applicant/statement-of-service/choose-parties/application',
                 text: 'Upload the statement of service(form C9)',
                 external: false,
               },
