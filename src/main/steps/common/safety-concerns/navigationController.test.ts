@@ -476,32 +476,87 @@ describe('SafteyConcernsNavigationController for both children and applicant', (
     );
   });
 
-  test('From children report abuse screen -> navigate to children physical abuse screen', async () => {
+  test('From children report abuse screen -> navigate to children emotionalAbuse screen', async () => {
+    caseData.c1A_safetyConernAbout = [C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.APPLICANT];
+    req.originalUrl = '/c100-rebuild';
+    caseData.c1A_concernAboutChild = ['emotionalAbuse', 'financialAbuse'];
+    caseData.c1A_concernAboutApplicant = ['psychologicalAbuse', 'emotionalAbuse', 'somethingElse'];
     expect(
-      SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, caseData, req, req.param)
-    ).toBe(applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.PHYSICAL_ABUSE }));
+      SafteyConcernsNavigationController.getNextUrl(
+        applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, { root: RootContext.C100_REBUILD }) as PageLink,
+        caseData,
+        req,
+        req.param
+      )
+    ).toBe(
+      applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, {
+        root: RootContext.C100_REBUILD,
+        abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE,
+      })
+    );
   });
 
   test('From children physical abuse screen -> navigate to financial abuse screen', async () => {
+    caseData.c1A_safetyConernAbout = [C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.APPLICANT];
+    req.originalUrl = '/c100-rebuild';
+    caseData.c1A_concernAboutChild = ['emotionalAbuse', 'financialAbuse'];
+    caseData.c1A_concernAboutApplicant = ['psychologicalAbuse', 'emotionalAbuse', 'somethingElse'];
     expect(
-      SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, req, {
-        abuseType: C1AAbuseTypes.PHYSICAL_ABUSE,
+      SafteyConcernsNavigationController.getNextUrl(
+        applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { root: RootContext.C100_REBUILD }) as PageLink,
+        caseData,
+        req,
+        {
+          abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE,
+        }
+      )
+    ).toBe(
+      applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, {
+        root: RootContext.C100_REBUILD,
+        abuseType: C1AAbuseTypes.FINANCIAL_ABUSE,
       })
-    ).toBe(applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { abuseType: C1AAbuseTypes.FINANCIAL_ABUSE }));
+    );
   });
 
   test('From children financial abuse screen -> navigate to the applicant report abuse screen', async () => {
+    caseData.c1A_safetyConernAbout = [C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.APPLICANT];
+    req.originalUrl = '/c100-rebuild';
+    caseData.c1A_concernAboutChild = ['emotionalAbuse', 'financialAbuse'];
+    caseData.c1A_concernAboutApplicant = ['psychologicalAbuse', 'emotionalAbuse', 'somethingElse'];
     expect(
-      SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, caseData, req, {
-        abuseType: C1AAbuseTypes.FINANCIAL_ABUSE,
+      SafteyConcernsNavigationController.getNextUrl(
+        applyParms(C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE, { root: RootContext.C100_REBUILD }) as PageLink,
+        caseData,
+        req,
+        {
+          root: RootContext.C100_REBUILD,
+          abuseType: C1AAbuseTypes.FINANCIAL_ABUSE,
+        }
+      )
+    ).toBe(
+      applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF, {
+        root: RootContext.C100_REBUILD,
       })
-    ).toBe(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF);
+    );
   });
 
   test('From applicant report abuse screen -> navigate to applicant somethingElse abuse screen', async () => {
-    expect(SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF, caseData)).toBe(
+    caseData.c1A_safetyConernAbout = [C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.APPLICANT];
+    req.originalUrl = '/c100-rebuild';
+    caseData.c1A_concernAboutChild = ['emotionalAbuse', 'financialAbuse'];
+    caseData.c1A_concernAboutApplicant = ['somethingElse'];
+    expect(
+      SafteyConcernsNavigationController.getNextUrl(
+        applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF, {
+          root: RootContext.C100_REBUILD,
+        }) as PageLink,
+        caseData,
+        req,
+        req.param
+      )
+    ).toBe(
       applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, {
-        root: RootContext.RESPONDENT,
+        root: RootContext.C100_REBUILD,
         abuseType: C1AAbuseTypes.SOMETHING_ELSE,
       })
     );
@@ -522,18 +577,41 @@ describe('SafteyConcernsNavigationController for both children and applicant', (
   });
 
   test('When only somethingElse is selected as children abuse, from children report abuse screen -> navigate to the applicant report abuse screen -> From applicant report abuse screen -> navigate to applicant somethingElse abuse screen -> navigate to other concerns screen', async () => {
+    caseData.c1A_safetyConernAbout = [C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.RESPONDENT];
+    req.originalUrl = '/tasklistResponse';
     caseData.c1A_concernAboutChild = ['somethingElse'];
-    expect(SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, caseData)).toBe(
-      applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF, { root: RootContext.RESPONDENT }) as PageLink
-    );
-    expect(SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF, caseData)).toBe(
-      applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, { abuseType: C1AAbuseTypes.SOMETHING_ELSE })
+    caseData.c1A_concernAboutRespondent = ['psychologicalAbuse'];
+    expect(
+      SafteyConcernsNavigationController.getNextUrl(
+        applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, { root: RootContext.RESPONDENT }) as PageLink,
+        caseData,
+        req,
+        req.param
+      )
+    ).toBe(applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF, { root: RootContext.RESPONDENT }) as PageLink);
+    expect(
+      SafteyConcernsNavigationController.getNextUrl(
+        applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF, { root: RootContext.RESPONDENT }) as PageLink,
+        caseData,
+        req,
+        req.param
+      )
+    ).toBe(
+      applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, {
+        root: RootContext.RESPONDENT,
+        abuseType: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
+      })
     );
     expect(
-      SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, caseData, req, {
-        abuseType: C1AAbuseTypes.SOMETHING_ELSE,
-      })
-    ).toBe(C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS);
+      SafteyConcernsNavigationController.getNextUrl(
+        applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, { root: RootContext.RESPONDENT }) as PageLink,
+        caseData,
+        req,
+        {
+          abuseType: C1AAbuseTypes.PSYCHOLOGICAL_ABUSE,
+        }
+      )
+    ).toBe(applyParms(C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS, { root: RootContext.RESPONDENT }) as PageLink);
   });
 
   test('When navigation controller is called from someother screen -> navigate to the same screen', async () => {
@@ -543,6 +621,11 @@ describe('SafteyConcernsNavigationController for both children and applicant', (
   });
 
   test('From safety concern about screen -> navigate to the respondent report abuse screen', async () => {
+    caseData.c1A_safetyConernAbout = [C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.RESPONDENT];
+    req.originalUrl = '/tasklistResponse';
+    caseData.c1A_concernAboutChild = ['emotionalAbuse', 'financialAbuse'];
+    caseData.c1A_concernAboutRespondent = ['psychologicalAbuse', 'emotionalAbuse', 'somethingElse'];
+    caseData.c1A_concernAboutChild = ['somethingElse'];
     caseData.c1A_safetyConernAbout = [C1ASafteyConcernsAbout.RESPONDENT];
     expect(
       SafteyConcernsNavigationController.getNextUrl(
@@ -554,6 +637,11 @@ describe('SafteyConcernsNavigationController for both children and applicant', (
     ).toBe(applyParms(C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_YOURSELF, { root: RootContext.RESPONDENT }) as PageLink);
   });
   test('From respondent report abuse screen -> navigate to respondent psychological abuse screen', async () => {
+    caseData.c1A_safetyConernAbout = [C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.RESPONDENT];
+    req.originalUrl = '/tasklistResponse';
+    caseData.c1A_concernAboutChild = ['emotionalAbuse', 'financialAbuse'];
+    caseData.c1A_concernAboutRespondent = ['psychologicalAbuse', 'emotionalAbuse', 'somethingElse'];
+    caseData.c1A_concernAboutChild = ['somethingElse'];
     caseData.c1A_safetyConernAbout = [C1ASafteyConcernsAbout.RESPONDENT];
     caseData.c1A_concernAboutRespondent = ['psychologicalAbuse', 'financialAbuse', 'abduction', 'somethingElse'];
     expect(
@@ -585,7 +673,7 @@ describe('SafteyConcernsNavigationController for both children and applicant', (
       )
     ).toBe(
       applyParms(C1A_SAFETY_CONCERNS_REPORT_YOURSELF_ABUSE, {
-        RootContext: RootContext.RESPONDENT,
+        root: RootContext.RESPONDENT,
         abuseType: C1AAbuseTypes.EMOTIONAL_ABUSE,
       })
     );

@@ -245,11 +245,12 @@ class SafteyConcernsNavigationController {
   }
 
   private getNextUrlSafetyConcernChild(returnUrl) {
-    if (
-      returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.SOMETHING_ELSE) &&
-      this.checkForConcerns([C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.APPLICANT])
-    ) {
-      returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT);
+    if (returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.SOMETHING_ELSE)) {
+      if (this.checkForConcerns([C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.APPLICANT])) {
+        returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.APPLICANT);
+      } else if (this.checkForConcerns([C1ASafteyConcernsAbout.CHILDREN, C1ASafteyConcernsAbout.RESPONDENT])) {
+        returnUrl = this.getPageUrl(C1ASafteyConcernsAbout.RESPONDENT);
+      }
     } else if (
       returnUrl === this.getPageUrl(C1ASafteyConcernsAbout.CHILDREN, C1AAbuseTypes.WITNESSING_DOMESTIC_ABUSE) &&
       (this.checkForConcerns(C1ASafteyConcernsAbout.APPLICANT, true) ||
