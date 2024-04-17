@@ -32,7 +32,7 @@ import { viewDocumentsCategoryListConfig } from './config';
 export const hasOrders = (caseData: CaseWithId): boolean => !!(caseData && caseData?.citizenOrders?.length);
 
 export const hasApplicationPacks = (caseData: CaseWithId): boolean =>
-  !!(caseData && caseData?.citizenApplicationPacks?.length);
+  !!(caseData && _.isArray(caseData.citizenApplicationPacks) && _.first(caseData.citizenApplicationPacks));
 
 export const hasAnyDocumentForPartyType = (partyType: PartyType, caseData: CaseWithId): boolean =>
   !!(caseData && caseData?.citizenDocuments?.length
