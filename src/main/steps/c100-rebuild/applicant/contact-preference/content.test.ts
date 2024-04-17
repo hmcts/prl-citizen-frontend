@@ -112,7 +112,7 @@ describe('Contact Preference > content', () => {
     expect((applicantContactPreferences.label as Function)(generatedContent)).toBe(en.contactPreferenceLabel);
     expect((applicantContactPreferences.hint as Function)(generatedContent)).toBe(en.contactPreferenceHintText);
     expect((applicantContactPreferences.values[0].label as Function)(generatedContent)).toBe(en.labelDigital);
-    expect(applicantContactPreferences.values[0].value).toBe('digital');
+    expect(applicantContactPreferences.values[0].value).toBe('email');
     expect((applicantContactPreferences.values[0].hint as Function)(generatedContent)).toBe(en.labelDitigalHintText);
     expect((applicantContactPreferences.values[1].label as Function)(generatedContent)).toBe(en.labelPost);
     expect((applicantContactPreferences.values[1].hint as Function)(generatedContent)).toBe(en.labelPostHintText);
