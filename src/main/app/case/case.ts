@@ -74,9 +74,6 @@ import {
   OtherChildrenDetails,
   C100RebuildPartyDetails,
   C100Applicant,
-  PRL_C1ASafteyConcernsAbout,
-  PRL_C1ASafteyConcerns,
-  PRL_C1AAbuseTypes,
   applicantContactPreferencesEnum,
   RespondentDocs,
   ContactPreference,
@@ -514,19 +511,8 @@ export interface Case {
   hwf_needHelpWithFees?: YesOrNo;
   hwf_feesAppliedDetails?: YesOrNo;
   caseId?: string;
-  c1A_haveSafetyConcerns?: YesOrNo;
-  PRL_c1A_haveSafetyConcerns?: YesOrNo;
   op_courtProceedingsOrders?: C100OrderTypes[];
   op_otherProceedings?: OtherProceedings;
-  c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
-  PRL_c1A_safetyConernAbout?: PRL_C1ASafteyConcernsAbout[];
-  c1A_safteyConcerns?: C1ASafteyConcerns;
-  PRL_c1A_safteyConcerns?: PRL_C1ASafteyConcerns;
-  c1A_abductionReasonOutsideUk?: string;
-  c1A_childsCurrentLocation?: string;
-  c1A_childrenMoreThanOnePassport?: YesOrNo;
-  c1A_possessionChildrenPassport?: string[];
-  c1A_provideOtherDetails?: string;
   miam_otherProceedings?: string;
   miam_haveDocSigned?: string;
   miam_consent?: string;
@@ -541,20 +527,6 @@ export interface Case {
   miam_previousAttendance?: string[];
   miam_notAttendingReasons?: string[];
   hu_urgentHearingReasons?: YesOrNo;
-  c1A_passportOffice?: YesOrNo;
-  PRL_c1A_passportOffice?: YesOrNo;
-  c1A_abductionPassportOfficeNotified?: YesOrNo;
-  c1A_previousAbductionsShortDesc?: string;
-  c1A_policeOrInvestigatorInvolved?: YesOrNo;
-  c1A_policeOrInvestigatorOtherDetails?: string;
-  PRL_c1A_childAbductedBefore?: YesOrNo;
-  c1A_otherConcernsDrugs?: YesOrNo;
-  c1A_otherConcernsDrugsDetails?: string;
-  c1A_childSafetyConcerns?: YesOrNo;
-  c1A_childSafetyConcernsDetails?: string;
-  c1A_keepingSafeStatement?: string;
-  c1A_supervisionAgreementDetails?: string;
-  c1A_agreementOtherWaysDetails?: YesOrNo;
   cd_children?: ChildrenDetails[];
   ocd_otherChildren?: OtherChildrenDetails[];
   ocd_hasOtherChildren?: YesOrNo;
@@ -562,12 +534,7 @@ export interface Case {
   sq_legalRepresentation?: YesOrNo;
   sq_legalRepresentationApplication?: YesOrNo;
   sq_courtPermissionRequired?: YesOrNo;
-  c1A_concernAboutChild?: C1AAbuseTypes[];
-  PRL_c1A_concernAboutChild?: PRL_C1AAbuseTypes[];
-  c1A_concernAboutApplicant?: C1AAbuseTypes[];
-  c1A_concernAboutRespondent?: C1AAbuseTypes[];
-  PRL_c1A_concernAboutRespondent?: PRL_C1AAbuseTypes[];
-  c1A_childAbductedBefore?: YesOrNo;
+
   co_certificate?: C100DocumentInfo;
   too_courtOrder?: string[];
   too_stopOtherPeopleDoingSomethingSubField?: string[];
@@ -627,6 +594,31 @@ export interface Case {
   ra_languageReqAndSpecialArrangements?: string;
   ra_existingFlags?: RAFlags;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
+  //AOH fields
+  c1A_safteyConcerns?: C1ASafteyConcerns;
+  c1A_safetyConernAbout?: C1ASafteyConcernsAbout[];
+  c1A_haveSafetyConcerns?: YesOrNo;
+  c1A_abductionReasonOutsideUk?: string;
+  c1A_childsCurrentLocation?: string;
+  c1A_childrenMoreThanOnePassport?: YesOrNo;
+  c1A_possessionChildrenPassport?: string[];
+  c1A_provideOtherDetails?: string;
+  c1A_passportOffice?: YesOrNo;
+  c1A_abductionPassportOfficeNotified?: YesOrNo;
+  c1A_previousAbductionsShortDesc?: string;
+  c1A_policeOrInvestigatorInvolved?: YesOrNo;
+  c1A_policeOrInvestigatorOtherDetails?: string;
+  c1A_otherConcernsDrugs?: YesOrNo;
+  c1A_otherConcernsDrugsDetails?: string;
+  c1A_childSafetyConcerns?: YesOrNo;
+  c1A_childSafetyConcernsDetails?: string;
+  c1A_keepingSafeStatement?: string;
+  c1A_supervisionAgreementDetails?: string;
+  c1A_agreementOtherWaysDetails?: YesOrNo;
+  c1A_concernAboutApplicant?: C1AAbuseTypes[];
+  c1A_concernAboutRespondent?: C1AAbuseTypes[];
+  c1A_concernAboutChild?: C1AAbuseTypes[];
+  c1A_childAbductedBefore?: YesOrNo;
 }
 export interface ServedApplicationDetails {
   id: string;

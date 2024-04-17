@@ -222,8 +222,11 @@ export class Routes {
     app.post(CREATE_DRAFT, errorHandler(TSDraftController.post));
     app.post(`${CREATE_DRAFT}/createC100Draft`, errorHandler(TSDraftController.createTSC100Draft));
     app.post(`${CREATE_DRAFT}/deleteC100Draft`, errorHandler(TSDraftController.deleteTSC100Draft));
-    let steps = [...stepsWithContent, ...getStepsWithContent(AohSequence.getSequence(), '/common')];
-    steps = [...steps, ...getStepsWithContent(await RAProvider.getSequence(), '/common')];
+    const steps = [
+      ...stepsWithContent,
+      ...getStepsWithContent(AohSequence.getSequence(), '/common'),
+      ...getStepsWithContent(await RAProvider.getSequence(), '/common'),
+    ];
 
     for (const step of steps) {
       const files = fs.readdirSync(`${step.stepDir}`);

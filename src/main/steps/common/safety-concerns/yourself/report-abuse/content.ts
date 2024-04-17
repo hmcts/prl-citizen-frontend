@@ -220,9 +220,6 @@ export const form: FormContent = {
   onlycontinue: {
     text: l => l.onlycontinue,
   },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
-  },
 };
 
 export const getFormFields = (req: AppRequest, abuseType: C1AAbuseTypes): FormContent => {

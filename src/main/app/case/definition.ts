@@ -139,10 +139,7 @@ export interface Response {
      respAohOtherConcerns?:YesOrNo;
      respAohOtherConcernsDetails?:string;
      respAohOtherConcernsCourtActions?:string;
-//      respAgreeChildUnsupervisedTime?:YesOrNo;?
-//      respAgreeChildSupervisedTime?:YesOrNo;?
       respAgreeChildOtherContact?:YesOrNo;
-//private final List<Element<RespDomesticAbuseBehaviours>> 
       respDomesticBehaviours?:RespDomesticAbuseBehaviours[];
       respChildAbuses?:C1AAbuseTypes[];
 respChildPhysicalAbuse?:RespChildAbuse;
@@ -169,7 +166,6 @@ respWhichChildrenAreRiskEmotionalAbuse?:string;
   citizenFlags?: CitizenFlags
   safeToCallOption?: string;
   supportYouNeed?: ReasonableAdjustmentsSupport;
- // safetyConcerns?: c1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
   c7ResponseSubmitted?: YesOrNo;
 }
@@ -2957,101 +2953,6 @@ export interface PRL_C1ASafteyConcerns {
   },
 }
 
-export interface c1ASafteyConcerns_total {
-  haveSafetyConcerns?: YesOrNo;
-  safetyConcernAbout?: C1ASafteyConcernsAbout[];
-  concernAboutChild?: C1AAbuseTypes[];
-  concernAboutRespondent?: C1AAbuseTypes[];
-  child?: {
-    physicalAbuse?: C1ASafteyConcernsAbuse;
-    psychologicalAbuse?: C1ASafteyConcernsAbuse;
-    emotionalAbuse?: C1ASafteyConcernsAbuse;
-    sexualAbuse?: C1ASafteyConcernsAbuse;
-    financialAbuse?: C1ASafteyConcernsAbuse;
-    somethingElse?: C1ASafteyConcernsAbuse;
-  },
-  applicant?: {
-    physicalAbuse?: C1ASafteyConcernsAbuse;
-    psychologicalAbuse?: C1ASafteyConcernsAbuse;
-    emotionalAbuse?: C1ASafteyConcernsAbuse;
-    sexualAbuse?: C1ASafteyConcernsAbuse;
-    financialAbuse?: C1ASafteyConcernsAbuse;
-    somethingElse?: C1ASafteyConcernsAbuse;
-  },
-  respondent?: {
-    physicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    psychologicalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    emotionalAbuse?: PRL_C1ASafteyConcernsAbuse;
-    sexualAbuse?: PRL_C1ASafteyConcernsAbuse;
-    financialAbuse?: PRL_C1ASafteyConcernsAbuse;
-    somethingElse?: PRL_C1ASafteyConcernsAbuse;
-  },
-  otherconcerns?: {
-    c1AkeepingSafeStatement?: string;
-    c1AsupervisionAgreementDetails?: string;
-    c1AagreementOtherWaysDetails?: YesOrNo;
-    c1AotherConcernsDrugs?: YesOrNo;
-    c1AotherConcernsDrugsDetails?: string;
-    c1AchildSafetyConcerns?: YesOrNo;
-    c1AchildSafetyConcernsDetails?: string;
-  },
-  abductions?: {
-    c1AabductionReasonOutsideUk?: string;
-    c1AchildsCurrentLocation?: string;
-    c1AchildrenMoreThanOnePassport?: YesOrNo;
-    c1ApossessionChildrenPassport?: string[];
-    c1AprovideOtherDetails?: string;
-    c1ApassportOffice?: YesOrNo;
-    c1AabductionPassportOfficeNotified?: YesOrNo;
-    c1ApreviousAbductionsShortDesc?: string;
-    c1ApoliceOrInvestigatorInvolved?: YesOrNo;
-    c1ApoliceOrInvestigatorOtherDetails?: string;
-    c1AchildAbductedBefore?: YesOrNo;
-  }
-}
-export interface c1A_AOH_total {
- respAohYesOrNo?:YesOrNo;
-  respAohDomesticAbuseYesNo?:YesOrNo;
-   respAohChildAbductionYesNo?:YesOrNo;
-   respAohChildAbuseYesNo?:YesOrNo;
-   respChildAbductionReasons?:string;
-   respPreviousAbductionThreats?:YesOrNo;
-   respPreviousAbductionThreatsDetails?: string;
-   respChildrenLocationNow?: string;
-   respAbductionPassportOfficeNotified?:YesOrNo;
-   respAbductionChildHasPassport?:YesOrNo;
-   respChildPassportDetails?: RespChildPassportDetails;
-
-     respAbductionPreviousPoliceInvolvement?:YesOrNo;
-     respAbductionPreviousPoliceInvolvementDetails?:string;
-    respAohSubstanceAbuseYesNo?:YesOrNo;
-    respAohSubstanceAbuseDetails?:string;
-     respAohOtherConcerns?:YesOrNo;
-     respAohOtherConcernsDetails?:string;
-     respAohOtherConcernsCourtActions?:string;
-//      respAgreeChildUnsupervisedTime?:YesOrNo;?
-//      respAgreeChildSupervisedTime?:YesOrNo;?
-      respAgreeChildOtherContact?:YesOrNo;
-//private final List<Element<RespDomesticAbuseBehaviours>> 
-      respDomesticBehaviours?:RespDomesticAbuseBehaviours[];
-      respChildAbuses?:C1AAbuseTypes[];
-respChildPhysicalAbuse?:RespChildAbuse;
-
-respChildPsychologicalAbuse?:RespChildAbuse;
-respChildFinancialAbuse?:RespChildAbuse;
-
-respChildSexualAbuse?:RespChildAbuse;
- respChildEmotionalAbuse?:RespChildAbuse;
-
- respWhichChildrenAreRiskPhysicalAbuse?:string;
-respWhichChildrenAreRiskPsychologicalAbuse?:string;
-
-respWhichChildrenAreRiskSexualAbuse?:string;
-
-respWhichChildrenAreRiskEmotionalAbuse?:string;
-
- respWhichChildrenAreRiskFinancialAbuse?:string;
- }
 
  export interface RespDomesticAbuseBehaviours {
   id?:string;

@@ -11,7 +11,7 @@ import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
 import { getPartyDetails, mapDataInSession } from '../../../tasklistresponse/utils';
 import { RESPOND_TO_APPLICATION } from '../../../urls';
 
-import { transformCaseData } from './safetyConcernMapper';
+import { prepareRequest } from './safetyConcernMapper';
 
 //import { prepareRequest } from './AoHMapperr';
 @autobind
@@ -29,7 +29,7 @@ export default class AohPostController extends PostController<AnyObject> {
     if (partyDetails) {
       // Object.assign(partyDetails.response, { respondentAllegationsOfHarmData: prepareRequest(userCase) });
       // Object.assign(partyDetails.response, prepareRequest(userCase));
-      Object.assign(partyDetails.response, { respondingCitizenAoH: transformCaseData(userCase) });
+      Object.assign(partyDetails.response, { respondingCitizenAoH: prepareRequest(userCase) });
       try {
         req.session.userCase = await client.updateCaseData(
           //user,

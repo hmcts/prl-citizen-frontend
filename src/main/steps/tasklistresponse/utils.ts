@@ -43,8 +43,7 @@ function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
   if (partyDetails?.response) {
     //Object.assign(userCase, { ...mapSafetyConcernsDetails(partyDetails), ...userCase });
     if (partyDetails?.response.respondingCitizenAoH) {
-      const obj = JSON.parse(partyDetails?.response.respondingCitizenAoH);
-      Object.assign(userCase, obj);
+      Object.assign(userCase, JSON.parse(partyDetails?.response.respondingCitizenAoH));
     }
   }
 

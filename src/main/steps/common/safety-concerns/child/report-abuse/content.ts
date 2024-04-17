@@ -264,10 +264,10 @@ export const getFormFields = (
   C100RebuildJourney
 ): FormContent => {
   const sessionData: C1ASafteyConcernsAbuse = caseData?.c1A_safteyConcerns?.child?.[abuseType];
-  const sessionChildrenData = caseData?.cd_children ?? [];
-  const sessionChildrenData1 = caseData?.newChildDetails ?? [];
+  const c100Children = caseData?.cd_children ?? [];
+  const CARespChildren = caseData?.newChildDetails ?? [];
 
-  const data1: Childinfo[] = sessionChildrenData.map(i => {
+  const c100ChildrenDetails: Childinfo[] = c100Children.map(i => {
     return {
       id: i.id,
       firstName: i.firstName,
@@ -275,7 +275,7 @@ export const getFormFields = (
     };
   });
 
-  const data2: Childinfo[] = sessionChildrenData1.map(i => {
+  const CARespChildrenDetails: Childinfo[] = CARespChildren.map(i => {
     return {
       id: i.id,
       firstName: i.value.firstName,
@@ -284,7 +284,10 @@ export const getFormFields = (
   });
   return updateFormFields(
     form,
-    generateFormFields(sessionData ?? getDataShape().abuse, C100RebuildJourney ? data1 : data2 ?? []).fields
+    generateFormFields(
+      sessionData ?? getDataShape().abuse,
+      C100RebuildJourney ? c100ChildrenDetails : CARespChildrenDetails ?? []
+    ).fields
   );
 };
 
@@ -298,23 +301,26 @@ export const generateContent: TranslationFn = content => {
   const C100RebuildJourney = content.additionalData!.req.originalUrl.startsWith(C100_URL);
   const abuseType: C1AAbuseTypes = content.additionalData!.req.params.abuseType;
   const sessionData: C1ASafteyConcernsAbuse = content.userCase?.c1A_safteyConcerns?.child?.[abuseType];
-  const sessionChildrenData = content.userCase?.cd_children ?? [];
-  const sessionChildrenData1 = content.userCase?.newChildDetails ?? [];
-  const data1: Childinfo[] = sessionChildrenData.map(i => {
+  const c100Children = content.userCase?.cd_children ?? [];
+  const CARespChildren = content.userCase?.newChildDetails ?? [];
+  const c100ChildrenDetails: Childinfo[] = c100Children.map(i => {
     return {
       id: i.id,
       firstName: i.firstName,
       lastName: i.lastName,
     };
   });
-  const data2: Childinfo[] = sessionChildrenData1.map(i => {
+  const CARespChildrenDetails: Childinfo[] = CARespChildren.map(i => {
     return {
       id: i.id,
       firstName: i.value.firstName,
       lastName: i.value.lastName,
     };
   });
-  const { fields } = generateFormFields(sessionData ?? getDataShape().abuse, C100RebuildJourney ? data1 : data2);
+  const { fields } = generateFormFields(
+    sessionData ?? getDataShape().abuse,
+    C100RebuildJourney ? c100ChildrenDetails : CARespChildrenDetails
+  );
 
   if (C100RebuildJourney) {
     Object.assign(form, {

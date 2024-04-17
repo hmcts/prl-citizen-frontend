@@ -2,7 +2,7 @@
 import { Case } from '../../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../../app/case/definition';
 
-export const transformCaseData = (caseData: Partial<Case>): string => {
+export const prepareRequest = (caseData: Partial<Case>): string => {
   const {
     c1A_haveSafetyConcerns,
     c1A_safetyConernAbout,
@@ -54,6 +54,7 @@ export const transformCaseData = (caseData: Partial<Case>): string => {
     c1A_childAbductedBefore,
     c1A_safteyConcerns,
   };
+  console.log(data);
 
   Object.assign(
     data,
