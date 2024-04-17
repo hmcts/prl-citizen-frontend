@@ -51,29 +51,27 @@ const languages = {
 export const form: FormContent = {
   fields: {
     miam_childProtectionEvidence: {
-        type: 'radios',
-        classes: 'govuk-radios',
-        values: [
-          {
-            label: l => l.localAuthority,
-            value: "localAuthority",
-          },
-          {
-            label: l => l.childProtectionPlan,
-            hint: l => l.childProtectionPlanHint,
-            value: "childProtectionPlan",
-          },
-          {
-            divider: true,
-          },
-          {
-            label: l => l.none,
-            value: "none",
-          },
-
-        ],
-        validator: isFieldFilledIn,
-      
+      type: 'radios',
+      classes: 'govuk-radios',
+      values: [
+        {
+          label: l => l.localAuthority,
+          value: 'localAuthority',
+        },
+        {
+          label: l => l.childProtectionPlan,
+          hint: l => l.childProtectionPlanHint,
+          value: 'childProtectionPlan',
+        },
+        {
+          divider: true,
+        },
+        {
+          label: l => l.none,
+          value: 'none',
+        },
+      ],
+      validator: isFieldFilledIn,
     },
   },
   submit: {

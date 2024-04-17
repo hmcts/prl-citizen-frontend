@@ -1,12 +1,12 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
-import { Validator,  isFieldFilledIn } from '../../../../app/form/validation';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 import { generateContent } from '../../miam/child-protection/content';
 
 jest.mock('../../../../app/form/validation');
 
-const en =  {
+const en = {
   section: 'MIAM exemptions',
   title: 'Child protection concerns',
   needMoreDetails1: 'You need to give the court more information about your concerns.',
@@ -26,7 +26,7 @@ const en =  {
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
- const cy =  {
+const cy = {
   section: 'Esemptiadau MIAM',
   title: 'Pryderon amddiffyn plant',
   needMoreDetails1: 'Mae angen i chi roi mwy o wybodaeth am eich pryderon i’r llys.',
