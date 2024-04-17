@@ -804,7 +804,7 @@ export interface ContactDetail {
 }
 
 export enum applicantContactPreferencesEnum {
-  DIGITAL = 'digital',
+  DIGITAL = 'email',
   POST = 'post',
 }
 
