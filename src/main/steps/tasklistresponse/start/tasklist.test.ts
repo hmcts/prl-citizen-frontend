@@ -123,6 +123,7 @@ describe('generateRespondentTaskList', () => {
           addressLivedLessThan5YearsDetails: '',
           otherPersonRelationshipToChildren: [],
           isAtAddressLessThan5YearsWithDontKnow: '',
+          partyId: '1234',
         },
       },
     ];

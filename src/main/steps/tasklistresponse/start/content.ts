@@ -32,7 +32,7 @@ const cy = () => ({
     [SectionStatus.TO_DO]: 'Heb Ddechrau',
     [SectionStatus.READY_TO_VIEW]: 'Yn barod i’w gweld',
     [SectionStatus.NOT_AVAILABLE_YET]: 'Ddim ar gael eto',
-    [SectionStatus.OPTIONAL]: 'Optional - welsh',
+    [SectionStatus.OPTIONAL]: 'Dewisol',
   },
   sectionTitles: respondent_cy,
   taskListItems: respondent_tasklist_items_cy,
