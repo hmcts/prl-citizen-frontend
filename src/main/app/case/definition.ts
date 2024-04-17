@@ -3127,7 +3127,8 @@ export enum CaseEvent {
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
   CONTACT_PREFERENCE='citizenContactPreference',
   CITIZEN_SAVE_C100_DRAFT_INTERNAL="citizenSaveC100DraftInternal",
-  CITIZEN_INTERNAL_FLAG_UPDATES="citizenInternalFlagUpdates"
+  CITIZEN_INTERNAL_FLAG_UPDATES="citizenInternalFlagUpdates",
+  CITIZEN_CURRENT_OR_PREVIOUS_PROCEEDINGS="citizenCurrentOrPreviousProceeding"
 }
 
 export enum hearingStatus {
