@@ -63,7 +63,7 @@
       <div class=" govuk-!-margin-bottom-3">
         {% if errorMessage !== null %}
           <div class="govuk-form-group--error">
-          {% endif %}
+        {% endif %}
           <div class="govuk-form-group govuk-inset-text">
             <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
               {{uploadFileHeading}}
@@ -95,8 +95,8 @@
           </div>
         </div>
         {% if errorMessage !== null %}
-        </div>
-      {% endif %}
+          </div>
+        % endif %}
 
       {% if filesUploaded.length > 0 %}
         <h2 class="govuk-heading-s">{{ uploadDocumentFileUpload }}</h2>

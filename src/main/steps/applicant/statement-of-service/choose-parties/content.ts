@@ -1,8 +1,6 @@
 import { CaseDate, CaseWithId } from '../../../../app/case/case';
-import { CitizenSos, YesOrNo } from '../../../../app/case/definition';
-import { AppRequest } from '../../../../app/controller/AppRequest';
+import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
-import { AnyObject } from '../../../../app/controller/PostController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
 import {
@@ -35,6 +33,7 @@ export const en = {
       required: 'You must select a respondent',
     },
     documents: {
+      uploadError: 'Document could not be uploaded',
       required: 'You must upload a statement of service',
       multipleFiles: `You can upload only one file.
             If you wish to upload a new file, delete the existing
@@ -70,6 +69,7 @@ export const cy = {
       required: "Mae'n rhaid i chi ddewis atebydd",
     },
     documents: {
+      uploadError: 'Document could not be uploaded',
       required: "Mae'n rhaid i chi lwytho datganiad cyflwyno",
       multipleFiles:
         "Dim ond un ffeil y gallwch ei llwytho. Os ydych yn dymuno llwytho ffeil newydd, dylech ddileu'r ffeil bresennol a llwytho un newydd.",
@@ -175,29 +175,13 @@ const getParties = (userCase: Partial<CaseWithId>) => {
   return parties;
 };
 
-export const prepateStatementOfServiceRequest = (req: AppRequest<AnyObject>): CitizenSos => {
-  const userCase = req.session.userCase;
-  userCase.partiesServed = userCase.partiesServed!.filter(party => party !== '');
-  return {
-    partiesServed: userCase.partiesServed.toString(),
-    partiesServedDate:
-      userCase['partiesServedDate-year'] +
-      '-' +
-      userCase['partiesServedDate-month'] +
-      '-' +
-      userCase['partiesServedDate-day'],
-    citizenSosDocs: userCase.statementOfServiceDocument,
-    isOrder: 'order' === req.params.context ? 'Yes' : 'No',
-  };
-};
-
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   let parties: { id: string; value: string }[] = [];
   if (content.userCase) {
     parties = getParties(content.userCase);
   }
-  const url = `/document-manager/upload-document?isApplicant=Yes&context=${content.additionalData?.req.params.context}&isSos=Yes`;
+  const url = `?context=${content.additionalData?.req.params.context}&isSos=Yes`;
   return {
     ...translations,
     form: updateFormFields(form, generateFormFields(parties).fields),
@@ -206,6 +190,18 @@ export const generateContent: TranslationFn = content => {
       ...file,
     })),
     url,
+    ...translations,
+    filesUploaded:
+      content.userCase?.['applicantUploadFiles']?.map(file => ({
+        id: file.document_url.substring(file.document_url.lastIndexOf('/') + 1),
+        ...file,
+      })) ?? [],
+    errorMessage:
+      translations.errors.documents?.[
+        content.additionalData?.req.session?.errors?.find(
+          error => error.propertyName === 'documents' && error.errorType !== 'uploadError'
+        )?.errorType
+      ] ?? null,
   };
 };
 

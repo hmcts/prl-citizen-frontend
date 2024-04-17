@@ -7,45 +7,97 @@
 {% from "common/fileupload/macro.njk" import fileUpload %}
 
 <div class="govuk-form-group">
-{% block page_content %}
-<div class="govuk-form-group">
+  {% block page_content %}
+    <div class="govuk-form-group">
       {% if title %}
         <h1 class="govuk-heading-l">
           <span class="govuk-caption-l">{{caption}} #{{userCase.id}}</span>
-          {{ title }}</h1>
+          {{ title }}
+        </h1>
       {% endif %}
+    </div>
+    <p class="govuk-body">{{uplodFileText1}}</p>
+    <p class="govuk-body govuk-!-margin-bottom-6">{{uplodFileText2}}</p>
+    
+    <div id="uploadGroup" tabindex="0" class="uploadGroup">
+      <div class=" govuk-!-margin-bottom-3">
+        {% if errorMessage !== null %}
+          <div class="govuk-form-group--error">
+        {% endif %}
+          <div class="govuk-form-group govuk-inset-text">
+            <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
+              {{uploadFileHeading}}
+            </label>
+            <form
+            action="{{url}}&_csrf={{ csrfToken }}"
+            method="post"
+            enctype="multipart/form-data"
+            novalidate>
+              {{ govukFileUpload(
+                {
+                  id: 'documents',
+                  name: "files[]",
+                  attributes: {
+                    accept: "image/jpeg,image/tiff,image/jpg,image/bmp,image/png,image/tif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  },
+                  classes: "govuk-!-margin-bottom-4",
+                  errorMessage: {
+                    text: errorMessage
+                  } if errorMessage !== null }) }}
+              {{ govukButton(
+                {
+                  text: uploadFileButtontext,
+                  name: "uploadFile",
+                  value: "true",
+                  type: "submit", 
+                  classes: "govuk-button--secondary govuk-!-margin-bottom-0"
+                }) }}
+            </form>
+          </div>
+      </div>
+      {% if errorMessage !== null %}
+        </div>
+      {% endif %}
+
+      {% if filesUploaded.length > 0 %}
+        <h2 class="govuk-heading-s">{{ uploadDocumentFileUpload }}</h2>
+
+        <ul id="filesUploadedList" class="govuk-list">
+          <dl class="govuk-summary-list">
+            {% for file in filesUploaded %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__value">
+                  {{ file.document_filename }}
+                </dt>
+                <dd class="govuk-summary-list__actions">
+                  <a
+                    href="?documentId={{ file.id }}"
+                  class="govuk-link">
+                    {{ removeDocument }}</span>
+                  </a>
+                </dd>
+              </div>
+            {% endfor %}
+          </dl>
+        </ul>
+      {% endif %}
+
+    </div>
+    <div class="govuk-form-group govuk-!-margin-bottom-0">
+      <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h3 class="govuk-heading-m">
+            {{ statementOfTruth }}
+          </h3>
+        </legend>
+        <div class="govuk-warning-text">
+          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="govuk-warning-text__text">
+            <span class="govuk-warning-text__assistive">{{ warning }}</span>
+            {{ warningText }}
+          </strong>
+        </div>
+      </fieldset>
+    </div>
+  {% endblock %}
 </div>
-{{ fileUpload(
-        {
-          uploadButtonText: uploadButton,
-          fileuploadTitle: 'Upload a file',
-          fileuploadTitleClass: "govuk-!-font-weight-bold",
-          formPostURL: url,
-          fileUploadedHint: uplodFileText1,
-          sessionFilesArray: false,
-          sessionFiles: uploadedFiles,
-          uploadFileHeader: uploadFileHeading,
-          sessionNullFilesMessage: noFilesUploaded,
-          removeText: remove,
-          csrfToken: csrfToken,
-          fileremoveURL : removeURL
-        }
-      ) }}
-      <ul id="filesUploadedList" class="govuk-list">
-    <dl class="govuk-summary-list">
-      {% for file in uploadedFiles %}
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__value">
-                {{ file.document_filename }}
-              </dt>
-              <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="/delete-document/{{file.id}}?isSos=Yes">
-                  {{remove}}</span>
-                </a>
-              </dd>
-            </div>
-          {% endfor %}
-      </dl>
-    </ul>
-{% endblock %}
- </div>

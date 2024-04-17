@@ -2,14 +2,15 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { getPartyDetails } from '../../../../../main/steps/tasklistresponse/utils';
+import { getPartyDetails, mapDataInSession } from '../../../../../main/steps/tasklistresponse/utils';
 import { APPLICANT_STATEMENT_OF_SERVICE_NEXT } from '../../../../../main/steps/urls';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { CaseEvent, CaseType } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { getFormFields, prepateStatementOfServiceRequest } from '../choose-parties/content';
+import { prepateStatementOfServiceRequest } from '../choose-parties/StatementOfServiceMapper';
+import { getFormFields } from '../choose-parties/content';
 
 @autobind
 export default class StatementOfServicePostController extends PostController<AnyObject> {
@@ -36,12 +37,15 @@ export default class StatementOfServicePostController extends PostController<Any
       req.session.userCase.applicantUploadFiles = undefined;
       req.session.userCase.statementOfServiceDocument = undefined;
       try {
-        req.session.userCase = await client.saveStatementOfService(
-          user,
-          userCase.id,
-          userCase.caseTypeOfApplication as CaseType,
-          userData,
-          CaseEvent.CITIZEN_CASE_UPDATE
+        mapDataInSession(
+          await client.saveStatementOfService(
+            user,
+            userCase.id,
+            userCase.caseTypeOfApplication as CaseType,
+            userData,
+            CaseEvent.CITIZEN_CASE_UPDATE
+          ),
+          user.id
         );
         req.session.save(() => res.redirect(APPLICANT_STATEMENT_OF_SERVICE_NEXT));
       } catch (error) {
