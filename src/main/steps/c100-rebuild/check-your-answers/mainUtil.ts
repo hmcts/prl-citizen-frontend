@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
 import { CaseWithId } from '../../../app/case/case';
-import { C1AAbuseTypes, C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcernsAbout, ContactPreference, YesOrNo } from '../../../app/case/definition';
 import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
 import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
@@ -604,7 +604,10 @@ export const ApplicantDetails = (
       {
         key: keys['contactPrefernces'],
         value: contactTranslation(
-          sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences,
+          sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences ===
+            ContactPreference.EMAIL
+            ? DIGITAL
+            : ContactPreference.POST,
           language
         ),
         changeUrl: applyParms(Urls['C100_APPLICANT_CONTACT_PREFERENCES'], {
@@ -1601,3 +1604,5 @@ export const getYesNoTranslation = (language, data, ctx): string => {
   }
   return value || '';
 };
+
+const DIGITAL = 'digital';

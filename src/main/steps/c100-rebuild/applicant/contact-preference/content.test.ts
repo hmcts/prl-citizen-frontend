@@ -1,5 +1,4 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
@@ -117,8 +116,8 @@ describe('Contact Preference > content', () => {
     expect((applicantContactPreferences.values[1].label as Function)(generatedContent)).toBe(en.labelPost);
     expect((applicantContactPreferences.values[1].hint as Function)(generatedContent)).toBe(en.labelPostHintText);
     expect(applicantContactPreferences.values[1].value).toBe('post');
-    (applicantContactPreferences.validator as Function)(applicantContactPreferencesEnum.DIGITAL);
-    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith(applicantContactPreferencesEnum.DIGITAL);
+    (applicantContactPreferences.validator as Function)('email');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('email');
   });
 
   test('should contain Save and continue button', () => {

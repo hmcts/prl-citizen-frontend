@@ -803,11 +803,6 @@ export interface ContactDetail {
   applicantContactPreferences?: string;
 }
 
-export enum applicantContactPreferencesEnum {
-  DIGITAL = 'email',
-  POST = 'post',
-}
-
 export enum ContactPreference {
   EMAIL = 'email',
   POST = 'post',
