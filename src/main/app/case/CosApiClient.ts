@@ -3,14 +3,21 @@ import config from 'config';
 import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
-import { DeleteDocumentRequest } from '../../app/document/DeleteDocumentRequest';
 import { DocumentDetail } from '../../app/document/DocumentDetail';
-import { GenerateAndUploadDocumentRequest } from '../../app/document/GenerateAndUploadDocumentRequest';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import type { UserDetails } from '../controller/AppRequest';
 
-import { CaseWithId } from './case';
-import { CaseData, CaseEvent, CaseType, PartyDetails, PartyType, YesOrNo } from './definition';
+import { CaseWithId, HearingData } from './case';
+import {
+  CaseData,
+  CaseEvent,
+  CaseType,
+  DocumentUploadResponse,
+  PartyDetails,
+  PartyType,
+  UserRole,
+  YesOrNo,
+} from './definition';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -181,18 +188,15 @@ export class CosApiClient {
     }
   }
 
-  public async generateUserUploadedStatementDocument(
-    generateAndUploadDocumentRequest: GenerateAndUploadDocumentRequest
-  ): Promise<DocumentDetail> {
+  public async generateStatementDocument(request: GenerateDocumentRequest): Promise<DocumentUploadResponse> {
     try {
       const response = await this.client.post(
         config.get('services.cos.url') + '/generate-citizen-statement-document',
-        generateAndUploadDocumentRequest
+        request
       );
       return {
-        status: response.status,
-        documentId: response.data?.documentId,
-        documentName: response.data?.documentName,
+        status: response.data.status,
+        document: response.data.document,
       };
     } catch (error) {
       this.logError(error);
@@ -202,37 +206,29 @@ export class CosApiClient {
     }
   }
 
-  public async UploadDocumentListFromCitizen(request: UploadDocumentRequest): Promise<DocumentDetail> {
+  public async uploadStatementDocument(
+    user: UserDetails,
+    request: DocumentFileUploadRequest
+  ): Promise<DocumentUploadResponse> {
     try {
-      const headers = {
-        Accept: '*/*',
-        'Content-Type': '*',
-        Authorization: 'Bearer ' + request.user.accessToken,
-        ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-      };
       const formData = new FormData();
 
-      for (const [, file] of Object.entries(request.files)) {
-        formData.append('files', file.data, file.name);
+      for (const [, file] of Object.entries(request.files!)) {
+        formData.append('file', file.data, file.name);
       }
 
-      formData.append('documentRequestedByCourt', request.documentRequestedByCourt);
-      formData.append('caseId', request.caseId);
-      formData.append('parentDocumentType', request.parentDocumentType);
-      formData.append('documentType', request.documentType);
-      formData.append('partyId', request.partyId);
-      formData.append('partyName', request.partyName);
-      formData.append('isApplicant', request.isApplicant);
+      const response = await this.client.post(config.get('services.cos.url') + '/upload-citizen-document', formData, {
+        headers: {
+          Accept: '*/*',
+          'Content-Type': 'multipart/form-data',
+          Authorization: 'Bearer ' + user.accessToken,
+          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+        },
+      });
 
-      const response = await this.client.post(
-        config.get('services.cos.url') + '/upload-citizen-statement-document',
-        formData,
-        { headers }
-      );
       return {
-        status: response.status,
-        documentId: response.data?.documentId,
-        documentName: response.data?.documentName,
+        status: response.data.status,
+        document: response.data.document,
       };
     } catch (error) {
       this.logError(error);
@@ -240,18 +236,36 @@ export class CosApiClient {
     }
   }
 
-  public async deleteCitizenStatementDocument(deleteDocumentRequest: DeleteDocumentRequest): Promise<string> {
+  public async deleteCitizenStatementDocument(documentId: string): Promise<string> {
     try {
-      const response = await this.client.post(
-        config.get('services.cos.url') + '/delete-citizen-statement-document',
-        deleteDocumentRequest
-      );
+      const response = await this.client.delete(config.get('services.cos.url') + `/${documentId}/delete`);
       return response.data;
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, document could not be deleted. - deleteCitizenStatementDocument');
     }
   }
+
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  public async submitUploadedDocuments(user: UserDetails, request: SubmitUploadedDocsRequest): Promise<any> {
+    try {
+      const response = await Axios.post(config.get('services.cos.url') + '/citizen-submit-documents', request, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + user.accessToken,
+          ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
+        },
+      });
+
+      return response;
+    } catch (err) {
+      console.log('Error: ', err);
+      throw new Error('submit citizen uploaded documents failed.');
+    }
+  }
+
+  /* eslint-disable @typescript-eslint/no-explicit-any */
 
   public async linkCaseToCitizen(caseId: string, accessCode: string): Promise<AxiosResponse> {
     try {
@@ -301,18 +315,63 @@ export class CosApiClient {
       throw new Error('Error occured, case could not be updated - retrieveCaseHearingsByCaseId');
     }
   }
+
+  public async retrieveCaseAndHearings(
+    caseId: string,
+    hearingNeeded: YesOrNo
+  ): Promise<{ caseData: CaseWithId; hearingData: HearingData | null }> {
+    try {
+      const response = await this.client.get(
+        config.get('services.cos.url') + `/retrieve-case-and-hearing/${caseId}/${hearingNeeded}`
+      );
+      const { caseData, hearings } = response.data;
+
+      return {
+        caseData: {
+          id: caseData.id,
+          state: caseData.state,
+          ...fromApiFormat(caseData),
+        } as CaseWithId,
+        hearingData: hearings,
+      };
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, case data and hearings could not be retrieved - retrieveCaseAndHearings');
+    }
+  }
+
+  public async downloadDocument(documentId: string, userId: string): Promise<AxiosResponse> {
+    try {
+      const response = await this.client.get(
+        `${config.get('services.documentManagement.url')}/cases/documents/${documentId}/binary`,
+        { responseType: 'arraybuffer', headers: { 'user-id': userId, 'user-roles': UserRole.CITIZEN } }
+      );
+      return response;
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Error occured, document could not be fetched for download - downloadDocument');
+    }
+  }
 }
 
-export interface UploadDocumentRequest {
-  user: UserDetails;
+interface DocumentUploadRequest {
   caseId: string;
-  parentDocumentType: string;
-  documentType: string;
+  categoryId: string;
   partyId: string;
   partyName: string;
-  isApplicant: string;
+  partyType: PartyType;
+}
+export interface GenerateDocumentRequest extends DocumentUploadRequest {
+  freeTextStatements: string;
+}
+export interface DocumentFileUploadRequest {
   files: UploadedFiles;
-  documentRequestedByCourt: YesOrNo;
+}
+export interface SubmitUploadedDocsRequest extends DocumentUploadRequest {
+  isConfidential?: YesOrNo;
+  isRestricted?: YesOrNo;
+  restrictDocumentDetails?: string;
+  documents: DocumentUploadResponse['document'][];
 }
 
 export type UploadedFiles =

@@ -87,6 +87,32 @@ describe('CaseApi', () => {
     expect(mockLogger.error).toHaveBeenCalledWith('API Error POST undefined 500');
   });
 
+  test('Should create a case using testing support', async () => {
+    mockedAxios.post.mockResolvedValueOnce({
+      data: {
+        id: '1234',
+      },
+    });
+    const userCase = await api.createCaseTestingSupport();
+
+    expect(userCase).toBe('1234');
+    expect(mockedAxios.post).toHaveBeenCalledWith('/testing-support/create-dummy-citizen-case');
+  });
+
+  test('Should throw error if there is an error in creating a case using testing support', async () => {
+    mockedAxios.post.mockRejectedValue({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'POST',
+      },
+    });
+
+    await expect(api.createCaseTestingSupport()).rejects.toThrow('Case could not be created.');
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error POST undefined 500');
+  });
+
   test('Should update case if one is found', async () => {
     //mock
     const caseData = {
@@ -161,6 +187,33 @@ describe('CaseApi', () => {
       helpWithFeesReferenceNumber: 'HWF-1234',
     });
   });
+
+  test('Should retrieve case with detransformed data', async () => {
+    const response = {
+      caseTypeOfApplication: C100_CASE_TYPE.C100,
+      c100RebuildChildPostCode: 'AB2 3BV',
+      helpWithFeesReferenceNumber: 'HWF-1234',
+      c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
+      applicantCaseName: 'C100 test case',
+      id: '1234',
+      c100RebuildApplicantDetails: '{"applicantCaseName": "new case name", "caseId": "6789"}',
+      noOfDaysRemainingToSubmitCase: '10',
+      state: 'AWAITING_SUBMISSION_TO_HMCTS',
+    };
+    mockedAxios.get.mockReturnValueOnce({ data: response } as unknown as Promise<CaseData>);
+    const actual = await api.retrieveCaseById('1234');
+    expect(actual).toEqual({
+      applicantCaseName: 'new case name',
+      c100RebuildChildPostCode: 'AB2 3BV',
+      c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
+      caseId: '6789',
+      caseTypeOfApplication: 'C100',
+      helpWithFeesReferenceNumber: 'HWF-1234',
+      noOfDaysRemainingToSubmitCase: '10',
+      state: 'AWAITING_SUBMISSION_TO_HMCTS',
+    });
+  });
+
   test('Should throw error when case could not be retrieved', async () => {
     mockedAxios.get.mockRejectedValue({
       response: {
@@ -173,6 +226,39 @@ describe('CaseApi', () => {
 
     await expect(api.retrieveCaseById('1234')).rejects.toThrow('Case could not be retreived');
     expect(mockLogger.error).toHaveBeenCalled();
+  });
+
+  test('Should delete a case', async () => {
+    mockedAxios.post.mockResolvedValueOnce({
+      data: {
+        id: '1234',
+      },
+    });
+    const req = mockRequest();
+    req.session = {
+      ...req.session,
+      userCase: {
+        id: '1234',
+        caseId: '1234',
+        caseTypeOfApplication: 'C100',
+        c100RebuildReturnUrl: 'MOCK_URL',
+        state: 'AWAITING_SUBMISSION_TO_HMCTS',
+        noOfDaysRemainingToSubmitCase: '10',
+      },
+      save: jest.fn(),
+    };
+    await api.deleteCase(req.session.userCase, req.session);
+
+    expect(req.session.userCase).toStrictEqual({});
+    expect(req.session.save).toHaveBeenCalled();
+    expect(mockedAxios.post).toHaveBeenCalledWith('/citizen/1234/delete-application', {
+      id: '1234',
+      caseId: '1234',
+      caseTypeOfApplication: 'C100',
+      c100RebuildReturnUrl: 'MOCK_URL',
+      state: 'READY_FOR_DELETION',
+      noOfDaysRemainingToSubmitCase: '10',
+    });
   });
 
   test('Should throw error when case could not be deleted', async () => {
@@ -302,5 +388,83 @@ describe('CaseApi', () => {
     expect(mockedAxios.post).toHaveBeenCalledWith('/citizen/1234/citizenCaseSubmitWithHWF/submit-c100-application', {
       ...mockData,
     });
+  });
+
+  test('Should download C100 application', async () => {
+    mockedAxios.get.mockResolvedValueOnce({
+      data: {
+        id: '1234',
+      },
+    });
+    const responseData = await api.downloadC100Application('1234');
+    expect(responseData).toStrictEqual({
+      id: '1234',
+    });
+    expect(mockedAxios.get).toHaveBeenCalledWith('/1234/download', { responseType: 'arraybuffer' });
+  });
+
+  test('Should throw error when case C100 application could not be downloaded', async () => {
+    mockedAxios.get.mockRejectedValue({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'GET',
+      },
+    });
+
+    await expect(api.downloadC100Application('1234')).rejects.toThrow(
+      'Error occured, C100 application document could not be downloaded.'
+    );
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error GET undefined 500');
+  });
+
+  test('logError should log method and url for error with request', async () => {
+    mockedAxios.get.mockRejectedValue({
+      request: {
+        status: 500,
+      },
+      config: {
+        method: 'GET',
+        url: '/1234/download',
+      },
+    });
+    await expect(api.downloadC100Application('1234')).rejects.toThrow(
+      'Error occured, C100 application document could not be downloaded.'
+    );
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error GET /1234/download');
+  });
+
+  test('withdrawCase should withdraw case', async () => {
+    mockedAxios.post.mockResolvedValueOnce({
+      data: {
+        id: '1234',
+      },
+    });
+
+    const userCase = {
+      id: '1234',
+      caseId: '1234',
+      caseTypeOfApplication: 'C100',
+      c100RebuildReturnUrl: 'MOCK_URL',
+      state: 'AWAITING_SUBMISSION_TO_HMCTS',
+      noOfDaysRemainingToSubmitCase: '10',
+      withdrawApplication: 'Yes',
+      withdrawApplicationReason: 'withdraw reason',
+    };
+
+    await api.withdrawCase('1234', userCase);
+
+    expect(mockedAxios.post).toHaveBeenCalledWith('/citizen/1234/withdraw', {
+      withDrawApplicationData: {
+        withDrawApplication: 'Yes',
+        withDrawApplicationReason: 'withdraw reason',
+      },
+    });
+  });
+
+  test('withdrawCase should throw error when no caseId given', async () => {
+    await expect(api.withdrawCase(undefined, undefined)).rejects.toThrow('Error occured, case could not be withdrawn.');
+    expect(mockLogger.error).toHaveBeenCalledWith('API Error', 'caseId not found so case could not be withdrawn.');
   });
 });
