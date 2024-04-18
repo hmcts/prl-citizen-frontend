@@ -54,39 +54,6 @@ export const prepareRequest = (caseData: Partial<Case>): string => {
     c1A_childAbductedBefore,
     c1A_safteyConcerns,
   };
-  console.log(data);
-
-  Object.assign(
-    data,
-    {
-      c1A_haveSafetyConcerns,
-      c1A_safetyConernAbout,
-      c1A_concernAboutChild,
-      c1A_concernAboutRespondent,
-      c1A_keepingSafeStatement,
-      c1A_supervisionAgreementDetails,
-      c1A_agreementOtherWaysDetails,
-      c1A_otherConcernsDrugs,
-      c1A_otherConcernsDrugsDetails,
-      c1A_childSafetyConcerns,
-      c1A_childSafetyConcernsDetails,
-      c1A_abductionReasonOutsideUk,
-      c1A_childsCurrentLocation,
-      c1A_childrenMoreThanOnePassport,
-      c1A_possessionChildrenPassport,
-      c1A_provideOtherDetails,
-      c1A_passportOffice,
-      c1A_abductionPassportOfficeNotified,
-      c1A_previousAbductionsShortDesc,
-      c1A_policeOrInvestigatorInvolved,
-      c1A_policeOrInvestigatorOtherDetails,
-      c1A_childAbductedBefore,
-      c1A_safteyConcerns,
-    }
-    //caseData
-  );
-  console.log(data);
-
   if (c1A_haveSafetyConcerns === YesOrNo.NO) {
     data.c1A_safetyConernAbout = [];
     data.c1A_concernAboutChild = [];
@@ -111,8 +78,6 @@ export const prepareRequest = (caseData: Partial<Case>): string => {
       (data.c1A_childAbductedBefore = undefined),
       (data.c1A_safteyConcerns = {});
   }
-  console.log('************************');
-  console.log(data);
   if (c1A_otherConcernsDrugs === YesOrNo.NO) {
     data.c1A_otherConcernsDrugsDetails = undefined;
   }
@@ -213,8 +178,6 @@ export const prepareRequest = (caseData: Partial<Case>): string => {
 
     return transformedData;
   }, {});
-  console.log('*************************');
-  console.log(transformedCaseData);
 
   return JSON.stringify(transformedCaseData.respondingCitizenAoH, function (k, v) {
     return v === undefined ? null : v;

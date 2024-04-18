@@ -120,44 +120,6 @@ export interface User {
 
 export interface Response {
   respondingCitizenAoH?:string,
-  respAohYesOrNo?:YesOrNo;
-  respAohDomesticAbuseYesNo?:YesOrNo;
-   respAohChildAbductionYesNo?:YesOrNo;
-   respAohChildAbuseYesNo?:YesOrNo;
-   respChildAbductionReasons?:string;
-   respPreviousAbductionThreats?:YesOrNo;
-   respPreviousAbductionThreatsDetails?: string;
-   respChildrenLocationNow?: string;
-   respAbductionPassportOfficeNotified?:YesOrNo;
-   respAbductionChildHasPassport?:YesOrNo;
-   respChildPassportDetails?: RespChildPassportDetails;
-
-     respAbductionPreviousPoliceInvolvement?:YesOrNo;
-     respAbductionPreviousPoliceInvolvementDetails?:string;
-    respAohSubstanceAbuseYesNo?:YesOrNo;
-    respAohSubstanceAbuseDetails?:string;
-     respAohOtherConcerns?:YesOrNo;
-     respAohOtherConcernsDetails?:string;
-     respAohOtherConcernsCourtActions?:string;
-      respAgreeChildOtherContact?:YesOrNo;
-      respDomesticBehaviours?:RespDomesticAbuseBehaviours[];
-      respChildAbuses?:C1AAbuseTypes[];
-respChildPhysicalAbuse?:RespChildAbuse;
-
-respChildPsychologicalAbuse?:RespChildAbuse;
-respChildFinancialAbuse?:RespChildAbuse;
-
-respChildSexualAbuse?:RespChildAbuse;
- respChildEmotionalAbuse?:RespChildAbuse;
-
- respWhichChildrenAreRiskPhysicalAbuse?:string;
-respWhichChildrenAreRiskPsychologicalAbuse?:string;
-
-respWhichChildrenAreRiskSexualAbuse?:string;
-
-respWhichChildrenAreRiskEmotionalAbuse?:string;
-
- respWhichChildrenAreRiskFinancialAbuse?:string;
   legalRepresentation?: string;
   consent?: Consent;
   miam?: Miam;
@@ -2964,17 +2926,6 @@ export interface PRL_C1ASafteyConcerns {
   respBehavioursStartDateAndLength?:string;
   respBehavioursApplicantSoughtHelp?:YesOrNo;
   respBehavioursApplicantHelpSoughtWho?:string;
-}
-export interface RespChildAbuse {
-  respAbuseNatureDescription?:string;
-  respBehavioursStartDateAndLength?:string;
-  respBehavioursApplicantSoughtHelp?:YesOrNo;
-  respBehavioursApplicantHelpSoughtWho?:string;
-}
-export interface RespChildPassportDetails {
-  respChildHasMultiplePassports?:YesOrNo;
-      respChildPassportPossession?:passportPossessionRelative[];
-      respChildPassportPossessionOtherDetails?:string;
 }
 
 
