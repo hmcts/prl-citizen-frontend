@@ -544,7 +544,7 @@ export interface Case {
   miam_mediatorDocument?: YesOrNo;
   miam_nonAttendanceReasons?: MiamNonAttendReason[];
   miam_domesticAbuse?: string[];
-  miam_childProtectionEvidence?: string[];
+  miam_childProtectionEvidence?: string;
   miam_urgency?: string[];
   miam_previousAttendance?: string[];
   miam_notAttendingReasons?: string[];
