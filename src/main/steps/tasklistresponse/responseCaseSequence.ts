@@ -39,11 +39,6 @@ import {
   RESPONDENT_FIND_ADDRESS,
   RESPONDENT_PERSONAL_DETAILS,
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
-  RESPONDENT_UPLOAD_DOCUMENT,
-  RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
-  RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
-  RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
-  RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
   YOUR_SAFETY,
@@ -215,31 +210,6 @@ export const responseCaseSequence: Step[] = [
     url: PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => PROCEEDING_SAVE,
-  },
-  {
-    url: RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
-  },
-  {
-    url: RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
-  },
-  {
-    url: RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT,
-  },
-  {
-    url: RESPONDENT_UPLOAD_DOCUMENT,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
-  },
-  {
-    url: RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
   },
   {
     url: RESPOND_TO_APPLICATION,

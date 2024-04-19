@@ -1,6 +1,7 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { HearingData } from '../../../../app/case/case';
 import { State } from '../../../../app/case/definition';
 
 //import { SIGN_IN_URL } from "../../../urls";
@@ -109,7 +110,7 @@ describe('GetCaseController', () => {
     mockMyFunction.mockReturnValue('hello');
     retrieveCaseAndHearingsMock.mockResolvedValue({
       caseData: req.session.userCase,
-      hearingData: { caseHearings: ['MOCK_HEARING'] },
+      hearingData: { caseHearings: ['MOCK_HEARING'] } as unknown as HearingData,
     });
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();

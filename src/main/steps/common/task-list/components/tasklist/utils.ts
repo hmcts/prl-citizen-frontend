@@ -6,12 +6,11 @@ import { CaseWithId } from '../../../../../app/case/case';
 import {
   CaseType,
   CitizenInternationalElements,
-  PartyDetails,
   PartyType,
-  Respondent,
   YesOrNo,
   hearingStatus,
 } from '../../../../../app/case/definition';
+import { UserDetails } from '../../../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 import { TaskListContent } from '../../definitions';
 
@@ -76,8 +75,6 @@ export interface Task {
   showHint?: boolean;
   openInAnotherTab?: boolean;
 }
-
-export const hasAnyOrder = (caseData: Partial<CaseWithId>): boolean => !!caseData?.orderCollection?.length;
 
 export const hasAnyHearing = (caseData: Partial<CaseWithId>): boolean => {
   const inactiveHmcStatus: string[] = [
@@ -145,23 +142,14 @@ export const getYourWitnessStatementStatus = (userCase: Partial<CaseWithId>): St
     : StateTags.NOT_AVAILABLE_YET;
 };
 
-export const getCheckAllegationOfHarmStatus = (caseData, userDetails): StateTags => {
-  let status = StateTags.READY_TO_VIEW;
-
-  if (!caseData?.c1ADocument?.document_binary_url) {
-    return StateTags.NOT_AVAILABLE_YET;
-  }
-
-  const respondent = getPartyDetails(caseData, userDetails.id);
-  if (respondent?.response?.citizenFlags?.isAllegationOfHarmViewed === YesOrNo.YES) {
-    status = StateTags.VIEW;
-  }
-  return status;
+export const getCheckAllegationOfHarmStatus = (caseData): StateTags => {
+  return _.get(caseData, 'c1ADocument.document_binary_url') ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
 };
 
-export const getResponseStatus = (respondent: PartyDetails): StateTags => {
+export const getC7ApplicationResponseStatus = (caseData: Partial<CaseWithId>, userDetails: UserDetails): StateTags => {
+  const respondent = getPartyDetails(caseData as CaseWithId, userDetails.id)!;
   if (_.get(respondent, 'response.c7ResponseSubmitted', YesOrNo.NO) === YesOrNo.YES) {
-    return StateTags.COMPLETED;
+    return StateTags.READY_TO_VIEW;
   } else if (
     respondent.response.citizenInternationalElements ||
     respondent.response.consent ||
@@ -209,22 +197,6 @@ export const getInternationalFactorsStatus = (
   return StateTags.TO_DO;
 };
 
-export const getFinalApplicationStatus = (caseData, userDetails): StateTags => {
-  let result = StateTags.READY_TO_VIEW;
-
-  if (!caseData?.finalDocument?.document_binary_url) {
-    return StateTags.NOT_AVAILABLE_YET;
-  }
-
-  const respondent = getPartyDetails(caseData, userDetails.id);
-  if (respondent?.response?.citizenFlags?.isApplicationViewed === YesOrNo.YES) {
-    result = StateTags.VIEW;
-  }
-  return result;
-};
-
-export const isResponsePresent = (caseData: Partial<CaseWithId>, respondent: Respondent) => {
-  return caseData.respondentDocsList?.find(
-    documents => documents.value.c7Document?.partyName === respondent.value.firstName + ' ' + respondent.value.lastName
-  );
+export const getFinalApplicationStatus = (caseData): StateTags => {
+  return _.get(caseData, 'finalDocument.document_binary_url') ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
 };

@@ -6,7 +6,7 @@ import { generateContent } from './content';
 const en = {
   successMessage: 'Your application has been submitted',
   label: 'Case number',
-  subContent: "Your application has been sent to Central Family Court. You'll receive a confirmation email to",
+  subContent: "You'll receive a confirmation email to",
   subTitle1: 'Download a copy of your application',
   subTitle2: 'Now that you have submitted your application:',
   triTitle: 'You can also:',
@@ -37,7 +37,7 @@ const en = {
 const cy = {
   successMessage: 'Mae eich cais wedi ei gyflwyno',
   label: 'Rhif yr achos',
-  subContent: 'Mae eich cais wedi ei anfon i’r Llys Teulu Canolog. Fe anfonir e-bost i gadarnhau i',
+  subContent: 'Fe anfonir e-bost i gadarnhau i',
   subTitle1: 'Llwytho copi o’ch cais',
   subTitle2: 'Gan eich bod wedi cyflwyno eich cais:',
   triTitle: ' Gallwch hefyd:',

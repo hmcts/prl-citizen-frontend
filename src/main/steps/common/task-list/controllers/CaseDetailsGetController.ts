@@ -30,6 +30,7 @@ export default class CaseDetailsGetController {
       res.redirect(DASHBOARD_URL);
     }
   }
+
   public async load(req: AppRequest, res: Response): Promise<void> {
     try {
       const User = req.session.user;

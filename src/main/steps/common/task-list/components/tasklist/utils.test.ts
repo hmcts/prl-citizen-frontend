@@ -1,11 +1,12 @@
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, CitizenInternationalElements, PartyDetails, State } from '../../../../../app/case/definition';
+import { UserDetails } from '../../../../../app/controller/AppRequest';
 
 import {
+  getC7ApplicationResponseStatus,
   getCheckAllegationOfHarmStatus,
   getFinalApplicationStatus,
   getInternationalFactorsStatus,
-  getResponseStatus,
   getYourWitnessStatementStatus,
 } from './utils';
 
@@ -21,7 +22,7 @@ describe('getCheckAllegationOfHarmStatus', () => {
         document_binary_url: 'DOC_BINARY_URL',
       },
     };
-    expect(getCheckAllegationOfHarmStatus(data, { id: '1234' })).toBe('readyToView');
+    expect(getCheckAllegationOfHarmStatus(data)).toBe('readyToView');
   });
 
   test('should return correct status when c1a document not present', () => {
@@ -30,7 +31,7 @@ describe('getCheckAllegationOfHarmStatus', () => {
       state: State.CASE_DRAFT,
       caseTypeOfApplication: CaseType.FL401,
     };
-    expect(getCheckAllegationOfHarmStatus(data, { id: '1234' })).toBe('notAvailableYet');
+    expect(getCheckAllegationOfHarmStatus(data)).toBe('notAvailableYet');
   });
 
   test('should return correct status when isAllegationOfHarmViewed is yes', () => {
@@ -67,41 +68,119 @@ describe('getCheckAllegationOfHarmStatus', () => {
         },
       ],
     };
-    expect(getCheckAllegationOfHarmStatus(data, { id: '1234' })).toBe('view');
+    expect(getCheckAllegationOfHarmStatus(data)).toBe('readyToView');
   });
 });
 
-describe('getResponseStatus', () => {
-  test('should return completed when response has c7ResponseSubmitted as yes', () => {
+describe('getC7ApplicationResponseStatus', () => {
+  test('should return readyToView when response has c7ResponseSubmitted as yes', () => {
     const data = {
-      response: {
-        c7ResponseSubmitted: 'Yes',
-      },
+      caseTypeOfApplication: 'C100',
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+            response: {
+              c7ResponseSubmitted: 'Yes',
+            },
+          },
+        },
+      ],
+      caseInvites: [
+        {
+          id: 'string',
+          value: {
+            partyId: '1234',
+            caseInviteEmail: 'string',
+            accessCode: 'string',
+            invitedUserId: '1234',
+            expiryDate: 'string',
+            isApplicant: 'Yes',
+          },
+        },
+      ],
     };
 
-    expect(getResponseStatus(data as unknown as PartyDetails)).toBe('completed');
+    expect(
+      getC7ApplicationResponseStatus(data as unknown as PartyDetails, { id: '1234' } as unknown as UserDetails)
+    ).toBe('readyToView');
   });
 
   test('should return inProgress when some response items present', () => {
     const data = {
-      response: {
-        keepDetailsPrivate: {},
-        miam: {},
-        safetyConcerns: {},
-        legalRepresentation: {},
-        supportYouNeed: {},
-      },
+      caseTypeOfApplication: 'C100',
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+            response: {
+              keepDetailsPrivate: {},
+              miam: {},
+              safetyConcerns: {},
+              legalRepresentation: {},
+              supportYouNeed: {},
+            },
+          },
+        },
+      ],
+      caseInvites: [
+        {
+          id: 'string',
+          value: {
+            partyId: '1234',
+            caseInviteEmail: 'string',
+            accessCode: 'string',
+            invitedUserId: '1234',
+            expiryDate: 'string',
+            isApplicant: 'Yes',
+          },
+        },
+      ],
     };
 
-    expect(getResponseStatus(data as unknown as PartyDetails)).toBe('inProgress');
+    expect(
+      getC7ApplicationResponseStatus(data as unknown as PartyDetails, { id: '1234' } as unknown as UserDetails)
+    ).toBe('inProgress');
   });
 
   test('should return todo when no response items present', () => {
     const data = {
-      response: {},
+      caseTypeOfApplication: 'C100',
+      respondents: [
+        {
+          id: '1234',
+          value: {
+            user: {
+              idamId: '1234',
+            },
+            response: {},
+          },
+        },
+      ],
+      caseInvites: [
+        {
+          id: 'string',
+          value: {
+            partyId: '1234',
+            caseInviteEmail: 'string',
+            accessCode: 'string',
+            invitedUserId: '1234',
+            expiryDate: 'string',
+            isApplicant: 'Yes',
+          },
+        },
+      ],
     };
 
-    expect(getResponseStatus(data as unknown as PartyDetails)).toBe('toDo');
+    expect(
+      getC7ApplicationResponseStatus(data as unknown as PartyDetails, { id: '1234' } as unknown as UserDetails)
+    ).toBe('toDo');
   });
 });
 
@@ -160,7 +239,7 @@ describe('getFinalApplicationStatus', () => {
         document_binary_url: 'DOC_BINARY_URL',
       },
     };
-    expect(getFinalApplicationStatus(data, { id: '1234' })).toBe('readyToView');
+    expect(getFinalApplicationStatus(data)).toBe('readyToView');
   });
 
   test('should return correct status when finalDocument document not present', () => {
@@ -169,7 +248,7 @@ describe('getFinalApplicationStatus', () => {
       state: State.CASE_DRAFT,
       caseTypeOfApplication: CaseType.FL401,
     };
-    expect(getFinalApplicationStatus(data, { id: '1234' })).toBe('notAvailableYet');
+    expect(getFinalApplicationStatus(data)).toBe('notAvailableYet');
   });
 
   test('should return correct status when isApplicationViewed is yes', () => {
@@ -206,7 +285,7 @@ describe('getFinalApplicationStatus', () => {
         },
       ],
     };
-    expect(getFinalApplicationStatus(data, { id: '1234' })).toBe('view');
+    expect(getFinalApplicationStatus(data)).toBe('readyToView');
   });
 });
 

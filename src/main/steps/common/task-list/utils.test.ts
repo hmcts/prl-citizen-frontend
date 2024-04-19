@@ -1,8 +1,15 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { CaseWithId } from '../../../app/case/case';
-import { CaseType, PartyType, State, YesOrNo } from '../../../app/case/definition';
+import { Applicant, CaseType, PartyType, Respondent, State, YesOrNo } from '../../../app/case/definition';
+import { UserDetails } from '../../../app/controller/AppRequest';
 
-import { getPartyName, isApplicationResponded, isCaseWithdrawn, keepDetailsPrivateNav } from './utils';
+import {
+  getPartyName,
+  hasRespondentRespondedToC7Application,
+  hasResponseBeenSubmitted,
+  isCaseWithdrawn,
+  keepDetailsPrivateNav,
+} from './utils';
 
 describe('testcase for partyname', () => {
   test('when party type c100-respondent', () => {
@@ -86,7 +93,7 @@ describe('testcase for partyname', () => {
       familyName: 'Smith',
     };
 
-    expect(getPartyName(data, party, userDetail)).toBe('John Smith');
+    expect(getPartyName(data as unknown as Partial<CaseWithId>, party, userDetail)).toBe('John Smith');
   });
   test('when party type c100-applicant', () => {
     const data = {
@@ -105,6 +112,36 @@ describe('testcase for partyname', () => {
 
     expect(getPartyName(data, party, userDetail)).toBe('John Smith');
   });
+
+  test('when party type c100-applicant and ids match', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SUBMITTED_PAID,
+      caseTypeOfApplication: CaseType.C100,
+      applicants: [
+        {
+          value: {
+            firstName: 'First',
+            lastName: 'Last',
+            user: {
+              idamId: '12345',
+            },
+          },
+        } as unknown as Applicant,
+      ],
+    };
+    const party = PartyType.APPLICANT;
+    const userDetail = {
+      accessToken: '1234',
+      id: '12345',
+      email: 'abc',
+      givenName: 'John',
+      familyName: 'Smith',
+    };
+
+    expect(getPartyName(data, party, userDetail)).toBe('First Last');
+  });
+
   test('when party type FL401-respondent', () => {
     const data = {
       id: '12',
@@ -182,7 +219,7 @@ describe('testcase for partyname', () => {
     };
     console.log('data is' + data);
 
-    expect(getPartyName(data, party, userDetail)).toBe('John Smith');
+    expect(getPartyName(data as unknown as Partial<CaseWithId>, party, userDetail)).toBe('John Smith');
   });
   test('when party type FL401-applicant', () => {
     const data = {
@@ -261,7 +298,7 @@ describe('testcase for partyname', () => {
     };
     console.log('data is' + data);
 
-    expect(getPartyName(data, party, userDetail)).toBe('John Smith');
+    expect(getPartyName(data as unknown as Partial<CaseWithId>, party, userDetail)).toBe('John Smith');
   });
   test('when party type unkown', () => {
     const data = undefined;
@@ -327,9 +364,10 @@ describe('testcase for isCaseWithdrawn', () => {
   });
 });
 
-describe('isApplicationRespondent', () => {
-  test('should return true when C7 document created by respondent', () => {
+describe('hasRespondentRespondedToC7Application', () => {
+  test('should return true when respondent has submitted response', () => {
     const userCase = {
+      caseTypeOfApplication: 'C100',
       respondents: [
         {
           id: '1234',
@@ -337,29 +375,30 @@ describe('isApplicationRespondent', () => {
             user: {
               idamId: '1234',
             },
-          },
-        },
-      ],
-      citizenResponseC7DocumentList: [
-        {
-          id: '1234',
-          value: {
-            partyName: 'MOCK_NAME',
-            createdBy: '1234',
-            dateCreated: '1/1/2020',
-            citizenDocument: {
-              document_url: 'DOC_URL',
-              document_filename: 'DOC_FILENAME',
-              document_binary_url: 'DOC_BINARY_URL',
+            response: {
+              c7ResponseSubmitted: 'Yes',
             },
           },
         },
       ],
+      caseInvites: [
+        {
+          id: 'string',
+          value: {
+            partyId: '1234',
+            caseInviteEmail: 'string',
+            accessCode: 'string',
+            invitedUserId: '1234',
+            expiryDate: 'string',
+            isApplicant: 'Yes',
+          },
+        },
+      ],
     } as unknown as CaseWithId;
-    expect(isApplicationResponded(userCase, '1234')).toBe(true);
+    expect(hasRespondentRespondedToC7Application(userCase, { id: '1234' } as unknown as UserDetails)).toBe(true);
   });
 
-  test('should return false when C7 document created by other respondent', () => {
+  test('should return false when C7 response has not been submitted', () => {
     const userCase = {
       respondents: [
         {
@@ -368,57 +407,145 @@ describe('isApplicationRespondent', () => {
             user: {
               idamId: '1234',
             },
-          },
-        },
-      ],
-      citizenResponseC7DocumentList: [
-        {
-          id: '1234',
-          value: {
-            partyName: 'MOCK_NAME',
-            createdBy: '12345',
-            dateCreated: '1/1/2020',
-            citizenDocument: {
-              document_url: 'DOC_URL',
-              document_filename: 'DOC_FILENAME',
-              document_binary_url: 'DOC_BINARY_URL',
+            response: {
+              c7ResponseSubmitted: 'No',
             },
           },
         },
       ],
     } as unknown as CaseWithId;
-    expect(isApplicationResponded(userCase, '1234')).toBe(false);
+    expect(hasRespondentRespondedToC7Application(userCase, { id: '1234' } as unknown as UserDetails)).toBe(false);
+  });
+});
+
+test('keepDetailsPrivateNav', () => {
+  const userCase = {
+    respondents: [
+      {
+        id: '1234',
+        value: {
+          user: {
+            idamId: '1234',
+          },
+        },
+      },
+    ],
+  } as unknown as CaseWithId;
+  const req = mockRequest({ session: { ...userCase } });
+  expect(keepDetailsPrivateNav(userCase, req)).toBe('/respondent/task-list');
+});
+
+describe('hasResponseBeenSubmitted', () => {
+  test('should return true if respondent submitted response document is present', () => {
+    expect(
+      hasResponseBeenSubmitted(
+        {
+          citizenDocuments: [
+            {
+              partyId: '1',
+              partyName: null,
+              partyType: 'respondent',
+              categoryId: 'respondentApplication',
+              uploadedBy: 'test user',
+              uploadedDate: '2024-03-11T16:24:33.122506',
+              reviewedDate: '2024-03-11T16:24:33.122506',
+              document: {
+                document_url: 'MOCK_DOCUMENT_URL',
+                document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                document_filename: 'MOCK_FILENAME',
+                document_hash: null,
+                category_id: 'respondentApplication',
+                document_creation_date: '2024-03-11T16:24:33.122506',
+              },
+              documentWelsh: null,
+            },
+          ],
+        } as unknown as CaseWithId,
+        {
+          id: '1',
+          value: {
+            user: {
+              idamId: '1',
+            },
+          },
+        } as Respondent
+      )
+    ).toBe(true);
   });
 
-  test('should return false when no C7 document list present', () => {
-    const userCase = {
-      respondents: [
+  test('should return true if solicitor submitted response document is present', () => {
+    expect(
+      hasResponseBeenSubmitted(
         {
-          id: '1234',
+          citizenDocuments: [
+            {
+              partyId: null,
+              partyName: null,
+              solicitorRepresentedPartyId: '1',
+              solicitorRepresentedPartyName: 'test',
+              partyType: 'respondent',
+              categoryId: 'respondentApplication',
+              uploadedBy: 'test user',
+              uploadedDate: '2024-03-11T16:24:33.122506',
+              reviewedDate: '2024-03-11T16:24:33.122506',
+              document: {
+                document_url: 'MOCK_DOCUMENT_URL',
+                document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                document_filename: 'MOCK_FILENAME',
+                document_hash: null,
+                category_id: 'respondentApplication',
+                document_creation_date: '2024-03-11T16:24:33.122506',
+              },
+              documentWelsh: null,
+            },
+          ],
+        } as unknown as CaseWithId,
+        {
+          id: '1',
           value: {
             user: {
-              idamId: '1234',
+              idamId: '1',
             },
           },
-        },
-      ],
-    } as unknown as CaseWithId;
-    expect(isApplicationResponded(userCase, '1234')).toBe(false);
+        } as Respondent
+      )
+    ).toBe(true);
   });
-  test('keepDetailsPrivateNav', () => {
-    const userCase = {
-      respondents: [
+
+  test('should return false if response document is not present', () => {
+    expect(
+      hasResponseBeenSubmitted(
         {
-          id: '1234',
+          citizenDocuments: [
+            {
+              partyId: '1',
+              partyName: null,
+              partyType: 'respondent',
+              categoryId: 'positionStatements',
+              uploadedBy: 'test user',
+              uploadedDate: '2024-03-11T16:24:33.122506',
+              reviewedDate: '2024-03-11T16:24:33.122506',
+              document: {
+                document_url: 'MOCK_DOCUMENT_URL',
+                document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+                document_filename: 'MOCK_FILENAME',
+                document_hash: null,
+                category_id: 'positionStatements',
+                document_creation_date: '2024-03-11T16:24:33.122506',
+              },
+              documentWelsh: null,
+            },
+          ],
+        } as unknown as CaseWithId,
+        {
+          id: '1',
           value: {
             user: {
-              idamId: '1234',
+              idamId: '1',
             },
           },
-        },
-      ],
-    } as unknown as CaseWithId;
-    const req = mockRequest({ session: { ...userCase } });
-    expect(keepDetailsPrivateNav(userCase, req)).toBe('/respondent/task-list');
+        } as Respondent
+      )
+    ).toBe(false);
   });
 });
