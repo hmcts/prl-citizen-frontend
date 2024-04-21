@@ -4,7 +4,7 @@ import { cy as attendanceCy, en as attendanceEn } from '../../miam/attendance/co
 import { cy as mcCy, en as mcEn } from '../../miam/mediator-confirmation/content';
 import { cy as opCy, en as opEn } from '../../miam/other-proceedings/content';
 import { cy as UrgentHearingContentCy, en as UrgentHearingContentEn } from '../../miam/urgency/content';
-import { cy as vrCy, en as vrEn } from '../../miam/valid-reason/content';
+import { cy as validReasonCy, en as validReasonEn } from '../../miam/valid-reason/content';
 
 import {
   MiamContentForOtherFeatureAndSubFeilds,
@@ -22,10 +22,10 @@ const additionalTitlesMiamTestSample = SystemLanguage => {
       return {
         childInvolvementInSupervision: opEn().title,
         mediatorConfirmation: mcEn().title,
-        reasonForNotAttendingMiam: vrEn().title,
-        validResonsNotAttendingMiam: vrEn().title,
-        attendedMiamMidiation: attendanceEn().title,
-        urgentHearing: UrgentHearingContentEn().title,
+        reasonForNotAttendingMiam: validReasonEn.title,
+        validResonsNotAttendingMiam: validReasonEn.title,
+        attendedMiamMidiation: attendanceEn.title,
+        urgentHearing: UrgentHearingContentEn.title,
         error: '',
       };
     },
@@ -33,10 +33,10 @@ const additionalTitlesMiamTestSample = SystemLanguage => {
       return {
         childInvolvementInSupervision: opCy().title,
         mediatorConfirmation: mcCy().title,
-        reasonForNotAttendingMiam: vrCy().title,
-        validResonsNotAttendingMiam: vrCy().title,
-        attendedMiamMidiation: attendanceCy().title,
-        urgentHearing: UrgentHearingContentCy().title,
+        reasonForNotAttendingMiam: validReasonCy.title,
+        validResonsNotAttendingMiam: validReasonCy.title,
+        attendedMiamMidiation: attendanceCy.title,
+        urgentHearing: UrgentHearingContentCy.title,
         error: '',
       };
     },

@@ -545,7 +545,7 @@ export interface Case {
   miam_nonAttendanceReasons?: MiamNonAttendReason[];
   miam_domesticAbuse?: string[];
   miam_childProtectionEvidence?: string[];
-  miam_urgency?: string[];
+  miam_urgency?: string;
   miam_previousAttendance?: string[];
   miam_notAttendingReasons?: string[];
   hu_urgentHearingReasons?: YesOrNo;
