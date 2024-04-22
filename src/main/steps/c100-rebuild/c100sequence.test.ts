@@ -265,9 +265,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[40].url).toBe('/c100-rebuild/miam/attendance');
     expect(C100Sequence[40].showInSection).toBe('c100');
     expect(C100Sequence[40].getNextStep({ miam_attendance: YesOrNo.YES })).toBe('/c100-rebuild/miam/mediator-document');
-    expect(C100Sequence[40].getNextStep({ miam_attendance: YesOrNo.NO })).toBe(
-      '/c100-rebuild/miam/valid-reason'
-    );
+    expect(C100Sequence[40].getNextStep({ miam_attendance: YesOrNo.NO })).toBe('/c100-rebuild/miam/valid-reason');
 
     expect(C100Sequence[41].url).toBe('/c100-rebuild/miam/mediator-confirmation');
     expect(C100Sequence[41].showInSection).toBe('c100');
