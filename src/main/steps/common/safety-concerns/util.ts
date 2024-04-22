@@ -73,6 +73,7 @@ export const generateContentForLocalComponent = (
   const translations = languages[content.language]();
   const request = content.additionalData?.req;
 
+  delete form.saveAndComeLater;
   if (request.originalUrl?.startsWith(C100_URL)) {
     Object.assign(form, {
       saveAndComeLater: {

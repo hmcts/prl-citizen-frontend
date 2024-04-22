@@ -165,6 +165,6 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[31].url).toBe('/tasklistresponse/start');
     expect(responseCaseSequence[31].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[31].getNextStep({})).toBe('/tasklistresponse/safety-concerns/concern-guidance');
+    expect(responseCaseSequence[31].getNextStep({})).toBe('/respondent/safety-concerns/concern-guidance');
   });
 });

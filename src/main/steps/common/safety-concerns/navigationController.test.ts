@@ -95,10 +95,10 @@ test('For respondent journey When abduction abuse along with witnessingDomesticA
       req,
       req.param
     )
-  ).toBe('/tasklistresponse/safety-concerns/abduction/child-location');
+  ).toBe('/respondent/safety-concerns/abduction/child-location');
   expect(
     SafteyConcernsNavigationController.getNextUrl(
-      '/tasklistresponse/safety-concerns/abduction/threats',
+      '/respondent/safety-concerns/abduction/threats',
       req.session.userCase,
       req,
       {
@@ -106,7 +106,7 @@ test('For respondent journey When abduction abuse along with witnessingDomesticA
         abuseType: C1AAbuseTypes.ABDUCTION,
       }
     )
-  ).toBe('/tasklistresponse/safety-concerns/yourself/concerns-about');
+  ).toBe('/respondent/safety-concerns/yourself/concerns-about');
 });
 
 const dummyRequest = (concernFor: C1ASafteyConcernsAbout | 'both') => {
@@ -472,7 +472,7 @@ describe('SafteyConcernsNavigationController for both children and applicant', (
 
   test('From safety concern about screen -> navigate to the children report abuse screen', async () => {
     expect(SafteyConcernsNavigationController.getNextUrl(C1A_SAFETY_CONCERNS_CONCERN_ABOUT, caseData)).toBe(
-      '/tasklistresponse/safety-concerns/concern-about'
+      '/respondent/safety-concerns/concern-about'
     );
   });
 
