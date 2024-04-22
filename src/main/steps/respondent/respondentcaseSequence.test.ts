@@ -1,10 +1,12 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
+import { CaseWithId } from '../../app/case/case';
+import { YesOrNo } from '../../app/case/definition';
 
 import { respondentCaseSequence } from './respondentcaseSequence';
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(respondentCaseSequence).toHaveLength(91);
+    expect(respondentCaseSequence).toHaveLength(38);
     expect(respondentCaseSequence[0].url).toBe('/respondent/task-list');
     expect(respondentCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[0].getNextStep({})).toBe('/respondent/task-list');
@@ -28,6 +30,9 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[5].url).toBe('/tasklistresponse/miam/miam-start');
     expect(respondentCaseSequence[5].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[5].getNextStep({})).toBe('/tasklistresponse/miam/summary');
+    expect(respondentCaseSequence[5].getNextStep({ miamStart: YesOrNo.NO })).toBe(
+      '/tasklistresponse/miam/willingness-to-attend-miam'
+    );
 
     expect(respondentCaseSequence[6].url).toBe('/tasklistresponse/miam/willingness-to-attend-miam');
     expect(respondentCaseSequence[6].showInSection).toBe('aboutRespondentCase');
@@ -77,357 +82,127 @@ describe('respondent1Sequence', () => {
     expect(respondentCaseSequence[17].showInSection).toBe('aboutRespondentCase');
     expect(respondentCaseSequence[17].getNextStep({})).toBe('/respondent/confirm-contact-details/checkanswers');
 
-    expect(respondentCaseSequence[18].url).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[18].url).toBe('/tasklistresponse/start');
     expect(respondentCaseSequence[18].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[18].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/orders');
+    expect(respondentCaseSequence[18].getNextStep({})).toBe('/tasklistresponse/summary');
 
-    expect(respondentCaseSequence[19].url).toBe('/respondent/yourdocuments/alldocuments/orders');
+    expect(respondentCaseSequence[19].url).toBe('/tasklistresponse/summary');
     expect(respondentCaseSequence[19].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[19].getNextStep({})).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[19].getNextStep({})).toBe('/tasklistresponse/summary-confirmation/submit');
 
-    expect(respondentCaseSequence[20].url).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[20].url).toBe('/tasklistresponse/summary-confirmation');
     expect(respondentCaseSequence[20].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[20].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
+    expect(respondentCaseSequence[20].getNextStep({})).toBe('/task-list/respondent');
 
-    expect(respondentCaseSequence[21].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[21].showInSection).toBe('aboutRespondentCase');
+    expect(respondentCaseSequence[21].url).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[21].showInSection).toBe('aboutCaAndDaRespondentCase');
     expect(respondentCaseSequence[21].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[22].url).toBe('/respondent/upload-document');
+    expect(respondentCaseSequence[22].url).toBe('/tasklistresponse/start');
     expect(respondentCaseSequence[22].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[22].getNextStep({})).toBe('/respondent/upload-document/start');
+    expect(respondentCaseSequence[22].getNextStep({})).toBe('/tasklistresponse/legalrepresentation/start');
 
-    expect(respondentCaseSequence[23].url).toBe('/respondent/upload-document/start');
+    expect(respondentCaseSequence[23].url).toBe('/tasklistresponse/legalrepresentation/start');
     expect(respondentCaseSequence[23].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[23].getNextStep({})).toBe('/respondent/upload-document/document-sharing-details');
+    expect(respondentCaseSequence[23].getNextStep({})).toBe('/tasklistresponse/legalrepresentation/solicitornotdirect');
 
-    expect(respondentCaseSequence[24].url).toBe('/respondent/upload-document/document-sharing-details');
+    expect(respondentCaseSequence[24].url).toBe('/tasklistresponse/legalrepresentation/start');
     expect(respondentCaseSequence[24].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[24].getNextStep({})).toBe('/respondent/upload-document/upload-your-documents');
+    expect(respondentCaseSequence[24].getNextStep({})).toBe('/tasklistresponse/legalrepresentation/solicitordirect');
 
-    expect(respondentCaseSequence[25].url).toBe('/respondent/upload-document/upload-your-documents');
+    expect(respondentCaseSequence[25].url).toBe('/tasklistresponse/legalrepresentation/solicitordirect');
     expect(respondentCaseSequence[25].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[25].getNextStep({})).toBe('/respondent/upload-document/upload-documents-success');
+    expect(respondentCaseSequence[25].getNextStep({})).toBe('/tasklistresponse/start');
 
-    expect(respondentCaseSequence[26].url).toBe('/respondent/upload-document/upload-documents-success');
+    expect(respondentCaseSequence[26].url).toBe('/tasklistresponse/legalrepresentation/solicitornotdirect');
     expect(respondentCaseSequence[26].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[26].getNextStep({})).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[26].getNextStep({})).toBe('/tasklistresponse/start');
 
-    expect(respondentCaseSequence[27].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
+    expect(respondentCaseSequence[27].url).toBe('/respondent/yourhearings/hearings');
     expect(respondentCaseSequence[27].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[27].getNextStep({})).toBe(
-      '/respondent/yourdocuments/alldocuments/yourwitnessstatements'
-    );
+    expect(respondentCaseSequence[27].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[28].url).toBe('/respondent/yourdocuments/alldocuments/yourwitnessstatements');
+    expect(respondentCaseSequence[28].url).toBe('/respondent/add-legal-representative');
     expect(respondentCaseSequence[28].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[28].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
+    expect(respondentCaseSequence[28].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[29].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
+    expect(respondentCaseSequence[29].url).toBe('/respondent/remove-legal-representative/start');
     expect(respondentCaseSequence[29].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[29].getNextStep({})).toBe(
-      '/respondent/yourdocuments/alldocuments/positionstatements'
-    );
+    expect(respondentCaseSequence[29].getNextStep({})).toBe('/respondent/remove-legal-representative/confirm');
 
-    expect(respondentCaseSequence[30].url).toBe('/respondent/yourdocuments/alldocuments/positionstatements');
+    expect(respondentCaseSequence[30].url).toBe('/respondent/remove-legal-representative/confirm');
     expect(respondentCaseSequence[30].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[30].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
+    expect(respondentCaseSequence[30].getNextStep({})).toBe('/respondent/task-list');
 
-    expect(respondentCaseSequence[31].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
+    expect(respondentCaseSequence[31].url).toBe('/:partyType/documents/view/all-documents');
     expect(respondentCaseSequence[31].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[31].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/lettersfromschool');
+    expect(respondentCaseSequence[31].getNextStep({})).toBe('/');
 
-    expect(respondentCaseSequence[32].url).toBe('/respondent/yourdocuments/alldocuments/lettersfromschool');
+    expect(respondentCaseSequence[32].url).toBe('/:partyType/documents/view/application-pack-documents/:context?');
     expect(respondentCaseSequence[32].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[32].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
+    expect(respondentCaseSequence[32].getNextStep({})).toBe('/');
 
-    expect(respondentCaseSequence[33].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
+    expect(respondentCaseSequence[33].url).toBe('/:partyType/documents/view/orders-from-the-court');
     expect(respondentCaseSequence[33].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[33].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/digitaldownloads');
+    expect(respondentCaseSequence[33].getNextStep({})).toBe('/');
 
-    expect(respondentCaseSequence[34].url).toBe('/respondent/yourdocuments/alldocuments/digitaldownloads');
+    expect(respondentCaseSequence[34].url).toBe(
+      '/:partyType/documents/view/:documentCategory/:documentPartyType/:documentPartyId?'
+    );
     expect(respondentCaseSequence[34].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[34].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
+    expect(respondentCaseSequence[34].getNextStep({})).toBe('/');
 
-    expect(respondentCaseSequence[35].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[35].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[35].getNextStep({})).toBe(
-      '/respondent/yourdocuments/alldocuments/drug_alcohol_tests'
-    );
+    expect(respondentCaseSequence[35].url).toBe('/:partyType/contact-preference/choose-a-contact-preference');
+    expect(respondentCaseSequence[35].showInSection).toBe('aboutApplicantCase');
 
-    expect(respondentCaseSequence[36].url).toBe('/respondent/yourdocuments/alldocuments/drug_alcohol_tests');
-    expect(respondentCaseSequence[36].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[36].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
+    expect(
+      respondentCaseSequence[35].getNextStep(
+        respondentUserCase as unknown as Partial<CaseWithId>,
+        mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
+      )
+    ).toBe('/respondent/contact-preference/review');
 
-    expect(respondentCaseSequence[37].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[37].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[37].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/medicalrecords');
+    expect(respondentCaseSequence[36].url).toBe('/:partyType/contact-preference/review');
+    expect(respondentCaseSequence[36].showInSection).toBe('aboutApplicantCase');
+    expect(
+      respondentCaseSequence[36].getNextStep(
+        respondentUserCase as unknown as Partial<CaseWithId>,
+        mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
+      )
+    ).toBe('/respondent/contact-preference/confirmation');
 
-    expect(respondentCaseSequence[38].url).toBe('/respondent/yourdocuments/alldocuments/medicalrecords');
-    expect(respondentCaseSequence[38].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[38].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[39].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[39].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[39].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/medicalreports');
-
-    expect(respondentCaseSequence[40].url).toBe('/respondent/yourdocuments/alldocuments/medicalreports');
-    expect(respondentCaseSequence[40].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[40].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[41].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[41].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[41].getNextStep({})).toBe(
-      '/respondent/yourdocuments/alldocuments/otherpeoplewitnessstatement'
-    );
-
-    expect(respondentCaseSequence[42].url).toBe('/respondent/yourdocuments/alldocuments/otherpeoplewitnessstatement');
-    expect(respondentCaseSequence[42].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[42].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[43].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[43].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[43].getNextStep({})).toBe(
-      '/respondent/yourdocuments/alldocuments/paternity_test_reports'
-    );
-
-    expect(respondentCaseSequence[44].url).toBe('/respondent/yourdocuments/alldocuments/paternity_test_reports');
-    expect(respondentCaseSequence[44].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[44].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[45].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[45].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[45].getNextStep({})).toBe(
-      '/respondent/yourdocuments/alldocuments/police_disclosures'
-    );
-
-    expect(respondentCaseSequence[46].url).toBe('/respondent/yourdocuments/alldocuments/police_disclosures');
-    expect(respondentCaseSequence[46].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[46].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[47].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[47].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[47].getNextStep({})).toBe(
-      '/respondent/yourdocuments/alldocuments/witness_availability'
-    );
-
-    expect(respondentCaseSequence[48].url).toBe('/respondent/yourdocuments/alldocuments/witness_availability');
-    expect(respondentCaseSequence[48].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[48].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[49].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[49].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[49].getNextStep({})).toBe(
-      '/respondent/yourdocuments/alldocuments/tenancy_and_mortgage_availability'
-    );
-
-    expect(respondentCaseSequence[50].url).toBe(
-      '/respondent/yourdocuments/alldocuments/tenancy_and_mortgage_availability'
-    );
-    expect(respondentCaseSequence[50].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[50].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[51].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[51].showInSection).toBe('aboutApplicantCase');
-    expect(respondentCaseSequence[51].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/previousorders');
-
-    expect(respondentCaseSequence[52].url).toBe('/respondent/yourdocuments/alldocuments/previousorders');
-    expect(respondentCaseSequence[52].showInSection).toBe('aboutApplicantCase');
-    expect(respondentCaseSequence[52].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[53].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[53].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[53].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/applicationmade');
-
-    expect(respondentCaseSequence[54].url).toBe('/respondent/yourdocuments/alldocuments/applicationmade');
-    expect(respondentCaseSequence[54].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[54].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[55].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[55].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[55].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/otherDocuments');
-
-    expect(respondentCaseSequence[56].url).toBe('/respondent/yourdocuments/alldocuments/otherDocuments');
-    expect(respondentCaseSequence[56].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[56].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[57].url).toBe('/respondent/task-list');
-    expect(respondentCaseSequence[57].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[57].getNextStep({})).toBe('/tasklistresponse/start');
-
-    expect(respondentCaseSequence[58].url).toBe('/tasklistresponse/start');
-    expect(respondentCaseSequence[58].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[58].getNextStep({})).toBe('/tasklistresponse/summary');
-
-    expect(respondentCaseSequence[59].url).toBe('/tasklistresponse/summary');
-    expect(respondentCaseSequence[59].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[59].getNextStep({})).toBe('/tasklistresponse/summary-confirmation/submit');
-
-    expect(respondentCaseSequence[60].url).toBe('/tasklistresponse/summary-confirmation');
-    expect(respondentCaseSequence[60].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[60].getNextStep({})).toBe('/task-list/respondent');
-
-    expect(respondentCaseSequence[61].url).toBe('/respondent/task-list');
-    expect(respondentCaseSequence[61].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[61].getNextStep({})).toBe('/respondent/task-list');
-
-    expect(respondentCaseSequence[62].url).toBe('/respondent/task-list');
-    expect(respondentCaseSequence[62].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[62].getNextStep({})).toBe(
-      '/respondent/support-you-need-during-case/attending-the-court'
-    );
-
-    expect(respondentCaseSequence[63].url).toBe('/respondent/support-you-need-during-case/attending-the-court');
-    expect(respondentCaseSequence[63].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[63].getNextStep({})).toBe(
-      '/respondent/support-you-need-during-case/language-requirements'
-    );
-
-    expect(respondentCaseSequence[64].url).toBe('/respondent/support-you-need-during-case/language-requirements');
-    expect(respondentCaseSequence[64].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[64].getNextStep({})).toBe(
-      '/respondent/support-you-need-during-case/special-arrangements'
-    );
-
-    expect(respondentCaseSequence[65].url).toBe('/respondent/support-you-need-during-case/special-arrangements');
-    expect(respondentCaseSequence[65].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[65].getNextStep({})).toBe(
-      '/respondent/support-you-need-during-case/reasonable-adjustments'
-    );
-
-    expect(respondentCaseSequence[66].url).toBe('/respondent/support-you-need-during-case/reasonable-adjustments');
-    expect(respondentCaseSequence[66].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[66].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/documents-support'
-    );
-
-    expect(respondentCaseSequence[67].url).toBe('/respondent/support-you-need-during-case/documents-support');
-    expect(respondentCaseSequence[67].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[67].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/communication-help'
-    );
-
-    expect(respondentCaseSequence[68].url).toBe('/respondent/support-you-need-during-case/communication-help');
-    expect(respondentCaseSequence[68].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[68].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/court-hearing-support'
-    );
-
-    expect(respondentCaseSequence[69].url).toBe('/respondent/support-you-need-during-case/court-hearing-support');
-    expect(respondentCaseSequence[69].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[69].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/court-hearing-comfort'
-    );
-
-    expect(respondentCaseSequence[70].url).toBe('/respondent/support-you-need-during-case/court-hearing-comfort');
-    expect(respondentCaseSequence[70].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[70].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/travelling-to-court'
-    );
-
-    expect(respondentCaseSequence[71].url).toBe('/respondent/support-you-need-during-case/travelling-to-court');
-    expect(respondentCaseSequence[71].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[71].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/summary'
-    );
-
-    expect(respondentCaseSequence[72].url).toBe('/respondent/support-you-need-during-case/travelling-to-court');
-    expect(respondentCaseSequence[72].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[72].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/summary'
-    );
-
-    expect(respondentCaseSequence[73].url).toBe('/respondent/support-you-need-during-case/summary');
-    expect(respondentCaseSequence[73].showInSection).toBe('aboutCaAndDaRespondentCase');
-    expect(respondentCaseSequence[73].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/respondent/support-you-need-during-case/save'
-    );
-
-    expect(respondentCaseSequence[74].url).toBe('/tasklistresponse/start');
-    expect(respondentCaseSequence[74].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[74].getNextStep(reasonableAdjustmentsMockData.session.userCase)).toBe(
-      '/tasklistresponse/legalrepresentation/start'
-    );
-
-    expect(respondentCaseSequence[75].url).toBe('/tasklistresponse/legalrepresentation/start');
-    expect(respondentCaseSequence[75].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[75].getNextStep({})).toBe('/tasklistresponse/legalrepresentation/solicitornotdirect');
-
-    expect(respondentCaseSequence[76].url).toBe('/tasklistresponse/legalrepresentation/start');
-    expect(respondentCaseSequence[76].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[76].getNextStep({})).toBe('/tasklistresponse/legalrepresentation/solicitordirect');
-
-    expect(respondentCaseSequence[77].url).toBe('/tasklistresponse/legalrepresentation/solicitordirect');
-    expect(respondentCaseSequence[77].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[77].getNextStep({})).toBe('/tasklistresponse/start');
-
-    expect(respondentCaseSequence[78].url).toBe('/tasklistresponse/legalrepresentation/solicitornotdirect');
-    expect(respondentCaseSequence[78].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[78].getNextStep({})).toBe('/tasklistresponse/start');
-
-    expect(respondentCaseSequence[79].url).toBe('/respondent/yourhearings/hearings');
-    expect(respondentCaseSequence[79].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[79].getNextStep({})).toBe('/respondent/task-list');
-
-    expect(respondentCaseSequence[80].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[80].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[80].getNextStep({})).toBe(
-      '/respondent/yourdocuments/alldocuments/safeguarding_letter'
-    );
-
-    expect(respondentCaseSequence[81].url).toBe('/respondent/yourdocuments/alldocuments/safeguarding_letter');
-    expect(respondentCaseSequence[81].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[81].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[82].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[82].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[82].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/section7_report');
-
-    expect(respondentCaseSequence[83].url).toBe('/respondent/yourdocuments/alldocuments/section7_report');
-    expect(respondentCaseSequence[83].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[83].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[84].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[84].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[84].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/section37_report');
-
-    expect(respondentCaseSequence[85].url).toBe('/respondent/yourdocuments/alldocuments/section37_report');
-    expect(respondentCaseSequence[85].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[85].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[86].url).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-    expect(respondentCaseSequence[86].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[86].getNextStep({})).toBe(
-      '/respondent/yourdocuments/alldocuments/risk_assessment_16a'
-    );
-
-    expect(respondentCaseSequence[87].url).toBe('/respondent/yourdocuments/alldocuments/risk_assessment_16a');
-    expect(respondentCaseSequence[87].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[87].getNextStep({})).toBe('/respondent/yourdocuments/alldocuments/alldocuments');
-
-    expect(respondentCaseSequence[88].url).toBe('/respondent/add-legal-representative');
-    expect(respondentCaseSequence[88].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[88].getNextStep({})).toBe('/respondent/task-list');
-
-    expect(respondentCaseSequence[89].url).toBe('/respondent/remove-legal-representative/start');
-    expect(respondentCaseSequence[89].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[89].getNextStep({})).toBe('/respondent/remove-legal-representative/confirm');
-
-    expect(respondentCaseSequence[90].url).toBe('/respondent/remove-legal-representative/confirm');
-    expect(respondentCaseSequence[90].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[90].getNextStep({})).toBe('/respondent/task-list');
+    expect(respondentCaseSequence[37].url).toBe('/:partyType/contact-preference/confirmation');
+    expect(respondentCaseSequence[37].showInSection).toBe('aboutApplicantCase');
+    expect(
+      respondentCaseSequence[37].getNextStep(
+        respondentUserCase as unknown as Partial<CaseWithId>,
+        mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
+      )
+    ).toBe('/case/1234');
   });
 });
 
-const reasonableAdjustmentsMockData = mockRequest({
-  session: {
-    userCase: {
-      reasonableAdjustments: ['docsformat', 'commhelp', 'hearingsupport', 'hearingcomfort', 'travellinghelp'],
-      respondentDocsSupportPage: ['none'],
-      respondentHelpCommunicationPage: ['none'],
-      respondentCourtHearingPage: ['none'],
-      respondentCourtComfortPage: ['none'],
-      respondentTravellingToCourtPage: ['none'],
+const respondentUserCase = {
+  id: '1234',
+  caseTypeOfApplication: 'C100',
+  caseInvites: [
+    {
+      id: '1234',
+      value: {
+        partyId: '1234',
+        invitedUserId: '1234',
+      },
     },
-  },
-});
+  ],
+  respondents: [
+    {
+      id: '1234',
+      value: {
+        id: '1234',
+        user: {
+          idamId: '1234',
+        },
+      },
+    },
+  ],
+};

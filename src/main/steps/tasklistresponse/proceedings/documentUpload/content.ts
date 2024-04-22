@@ -108,7 +108,7 @@ export const form: FormContent = {
   fields: {
     documentUploadProceed: {
       type: 'hidden',
-      label: l => l.uploadFiles,
+      label: l => l.uploadDocumentFileUpload,
       labelHidden: true,
       value: 'true',
     },

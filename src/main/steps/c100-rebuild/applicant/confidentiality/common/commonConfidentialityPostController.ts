@@ -1,8 +1,8 @@
 /* eslint-disable import/no-unresolved */
-import { YesOrNo } from 'app/case/definition';
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { YesOrNo } from '../../../../../app/case/definition';
 import { AppRequest } from '../../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../../app/form/Form';

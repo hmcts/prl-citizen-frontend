@@ -21,7 +21,7 @@ describe('da_applicant', () => {
     expect(aboutYouTasks).toHaveLength(3);
     expect(aboutYouTasks[0].id).toBe('keepYourDetailsPrivate');
     expect(aboutYouTasks[1].id).toBe('editYouContactDetails');
-    expect(aboutYouTasks[2].id).toBe('yourSupport');
+    expect(aboutYouTasks[2].id).toBe('supportYouNeed');
   });
 
   test('your application section should contain correct ids and tasks', () => {

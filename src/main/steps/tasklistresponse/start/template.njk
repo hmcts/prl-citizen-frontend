@@ -1,4 +1,8 @@
 {% extends "common/respondent-task-list/template.njk" %}
+{% block backLink %}
+<a class="govuk-back-link history-back-ignore" href="/task-list/respondent">{{ back }}</a>
+{% endblock %}
+
 {% block caseDetails %}
     <div class="govuk-warning-text">
         <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
@@ -8,5 +12,4 @@
         </strong>
 
     </div>
-
 {% endblock %}

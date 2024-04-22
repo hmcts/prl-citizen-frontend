@@ -17,7 +17,8 @@ config.get = jest.fn();
 const mockedAxios = Axios as jest.Mocked<AxiosStatic>;
 const token = 'authToken';
 
-const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
+const retrieveCaseAndHearingsMock = jest.spyOn(CosApiClient.prototype, 'retrieveCaseAndHearings');
+
 jest.mock('../../app/case/CosApiClient');
 
 const mockMyFunction = CosApiClient as jest.Mock;
@@ -80,10 +81,10 @@ describe('GetCaseController', () => {
     req.url = 'respondent';
     res = mockResponse();
     mockMyFunction.mockReturnValue('hello');
-    retrieveByCaseIdMock.mockResolvedValue(req.session.userCase);
+    retrieveCaseAndHearingsMock.mockResolvedValue(req.session.userCase);
   });
   afterEach(() => {
-    retrieveByCaseIdMock.mockClear();
+    retrieveCaseAndHearingsMock.mockClear();
   });
   test('FL case for respondent keept details private', async () => {
     req.session.userCase = {
@@ -416,9 +417,10 @@ describe('GetCaseController', () => {
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
   });
-  test('C100 case for respondent SUPPORT_DURING_CASE', async () => {
-    controller = new TasklistGetController(EventRoutesContext.SUPPORT_DURING_CASE);
+  test('C100 case for respondent CONTACT_PREFERENCE', async () => {
+    controller = new TasklistGetController(EventRoutesContext.CONTACT_PREFERENCE);
     await controller.get(req, res);
     expect(mockMyFunction).toHaveBeenCalled();
+    expect(res.redirect).toHaveBeenLastCalledWith('/applicant/contact-preference/choose-a-contact-preference');
   });
 });

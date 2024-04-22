@@ -1,13 +1,15 @@
 const en = {
   home: 'Home',
-  caseView: 'CaseView',
+  caseView: 'Case view',
   caseOverView: 'Case overview',
+  allDocuments: 'All documents',
 };
 
 const cy: typeof en = {
   home: 'Hafan',
   caseView: 'Gweld yr achos',
-  caseOverView: 'Case overview - welsh',
+  caseOverView: 'Trosolwg o’r achos',
+  allDocuments: 'All documents - welsh',
 };
 
 export const language = {

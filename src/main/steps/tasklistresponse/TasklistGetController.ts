@@ -1,13 +1,16 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CosApiClient } from '../../app/case/CosApiClient';
+import { CaseWithId } from '../../app/case/case';
 import { EventRoutesContext } from '../../app/case/definition';
-import { AppRequest } from '../../app/controller/AppRequest';
+import { AppRequest, UserDetails } from '../../app/controller/AppRequest';
+import CaseDataController from '../../steps/common/CaseDataController';
+import { applyParms } from '../../steps/common/url-parser';
+import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
-  C7_ATTENDING_THE_COURT,
+  CHOOSE_CONTACT_PREFERENCE,
   CONSENT_TO_APPLICATION,
   INTERNATIONAL_FACTORS_START,
   MIAM_START,
@@ -17,26 +20,19 @@ import {
   RESPONDENT_DETAILS_KNOWN,
 } from '../urls';
 
-import { mapDataInSession } from './utils';
 @autobind
 export class TasklistGetController {
   constructor(protected readonly context: EventRoutesContext) {}
   public async get(req: AppRequest, res: Response): Promise<void> {
     try {
-      const citizenUser = req.session.user;
-      const caseId = req.params?.caseId;
-      const client = new CosApiClient(citizenUser.accessToken, req.locals.logger);
-
-      req.session.userCase = await client.retrieveByCaseId(caseId, citizenUser);
-      mapDataInSession(req.session.userCase, citizenUser.id);
-
-      req.session.save(() => res.redirect(this.getRedirectUrl()));
-    } catch (err) {
+      await new CaseDataController().fetchAndSaveData(req);
+      res.redirect(this.getRedirectUrl(req.session.userCase, req.session.user));
+    } catch (error) {
       throw new Error('Case Data could not be retrieved.');
     }
   }
 
-  private getRedirectUrl() {
+  private getRedirectUrl(userCase: CaseWithId, user: UserDetails) {
     let redirectUrl;
     switch (this.context) {
       case EventRoutesContext.INTERNATIONAL_FACTORS_RESPONSE:
@@ -54,9 +50,6 @@ export class TasklistGetController {
       case EventRoutesContext.CONSENT_RESPONSE:
         redirectUrl = CONSENT_TO_APPLICATION;
         break;
-      case EventRoutesContext.SUPPORT_DURING_CASE:
-        redirectUrl = C7_ATTENDING_THE_COURT;
-        break;
       case EventRoutesContext.KEEP_DETAILS_PRIVATE_APPLICANT:
         redirectUrl = APPLICANT_DETAILS_KNOWN;
         break;
@@ -68,6 +61,9 @@ export class TasklistGetController {
         break;
       case EventRoutesContext.CONFIRM_CONTACT_DETAILS_RESPONDENT:
         redirectUrl = RESPONDENT_CHECK_ANSWERS;
+        break;
+      case EventRoutesContext.CONTACT_PREFERENCE:
+        redirectUrl = applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: getCasePartyType(userCase, user.id) });
         break;
     }
 

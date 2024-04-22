@@ -2,7 +2,7 @@
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import BreadcrumbController from '../../steps/common/breadcrumb/BreadcrumbController';
-// import { generatePageContent } from '../../steps/common/common.content';
+import * as commonContent from '../../steps/common/common.content';
 // import { Case } from '../case/case';
 import * as Urls from '../../steps/urls';
 import { State } from '../case/definition';
@@ -254,26 +254,26 @@ describe('GetController', () => {
             },
           ],
           applicationSettings: {
-            breadcrumbs: [],
+            breadcrumbs: [{ id: 'home', href: '/test' }],
           },
         },
         params: {
           caseId: '1234',
         },
       });
-      getController = new GetController('view', jest.fn());
       jest.clearAllMocks();
     });
     test('add breadcrumbs to the current session', async () => {
-      const breadcrumb = { id: 'home', href: '/test' };
+      const breadcrumbs = [{ id: 'home', href: '/test' }];
       const res = mockResponse();
       jest.spyOn(BreadcrumbController, 'add').mockImplementation(() => Promise.resolve());
+      jest.spyOn(commonContent, 'generatePageContent').mockReturnValueOnce({ breadcrumbs });
       getController = new GetController(
         'view',
-        jest.fn(() => ({ breadcrumb }))
+        jest.fn(() => ({ breadcrumbs }))
       );
       await getController.get(req, res);
-      expect(BreadcrumbController.add).toHaveBeenCalledWith(breadcrumb, req.session);
+      expect(BreadcrumbController.add).toHaveBeenCalledWith(breadcrumbs, req.session);
     });
   });
 
