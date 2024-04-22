@@ -4,7 +4,6 @@ import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import * as oidc from '../../../../app/auth/user/oidc';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import * as steps from '../../../../steps';
 
 import { ConfirmContactDetailsPostController } from './ConfirmContactDetailsPostController';
@@ -104,13 +103,11 @@ describe('ConfirmContactDetailsPostController', () => {
             isAtAddressLessThan5Years: 'No',
             addressLivedLessThan5YearsDetails: 'Hello',
             address: {
-              AddressLine1: 'string',
-              AddressLine2: 'string',
-              AddressLine3: 'string',
-              PostTown: 'string',
-              County: 'string',
-              PostCode: 'string',
-              Country: 'string',
+              AddressLine1: 'Flatc1',
+              AddressLine2: 'Unkonwn lane',
+              County: 'Dummy County',
+              PostCode: 'SW13ND',
+              PostTown: 'Dummy Town',
             },
             user: {
               idamId: '8e87fde0-bab4-4701-abbe-2d277ca38fr5',
@@ -239,7 +236,7 @@ describe('ConfirmContactDetailsPostController', () => {
     req.session.userCase.applicantsFL401 = partyDetails;
     req.session.userCase.caseTypeOfApplication = 'C100';
     req.url = 'applicant';
-    req.session.userCase.preferredModeOfContact = applicantContactPreferencesEnum.POST;
+    req.session.userCase.preferredModeOfContact = 'post';
     req.session.applicationSettings = { navFromContactPreferences: true };
     await controller.post(req, res);
     expect(retrieveByCaseIdMock).toBeCalled;
@@ -252,7 +249,7 @@ describe('ConfirmContactDetailsPostController', () => {
     req.session.userCase.applicantsFL401 = partyDetails;
     req.session.userCase.caseTypeOfApplication = 'C100';
     req.url = 'applicant';
-    req.session.userCase.preferredModeOfContact = applicantContactPreferencesEnum.DIGITAL;
+    req.session.userCase.preferredModeOfContact = 'email';
     req.session.applicationSettings = { navFromContactPreferences: true };
     await controller.post(req, res);
     expect(retrieveByCaseIdMock).toBeCalled;
