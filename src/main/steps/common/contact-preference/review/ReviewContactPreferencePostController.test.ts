@@ -1,7 +1,6 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import { FormFields } from '../../../../app/form/Form';
 
 import ReviewContactPreferencePostController from './ReviewContactPreferencePostController';
@@ -153,7 +152,7 @@ describe('ContactPreferencesPostController', () => {
   test('Should not update the KeepDetailsPrivate details if user id matches with applicant for Post contact preference', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
     req.session.userCase.applicants = partyDetails;
-    req.session.userCase.preferredModeOfContact = applicantContactPreferencesEnum.POST;
+    req.session.userCase.preferredModeOfContact = 'post';
     req.session.userCase.caseTypeOfApplication = 'C100';
     req.url = 'applicant';
     await controller.post(req, res);

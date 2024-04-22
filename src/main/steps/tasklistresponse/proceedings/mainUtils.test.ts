@@ -48,15 +48,28 @@ const content = {
 const keys = {};
 
 describe('test cases for main util', () => {
-  test.skip('PastAndCurrentProceedings', () => {
+  test('PastAndCurrentProceedings', () => {
     expect(PastAndCurrentProceedings(enContent, userCase)).toStrictEqual({
       rows: [
         {
           actions: {
             items: [
               {
-                href: '/tasklistresponse/proceedings/courtproceedings',
-                text: 'Edit',
+                href: '/tasklistresponse/proceedings/start',
+                text: undefined,
+                visuallyHiddenText: 'undefined',
+              },
+            ],
+          },
+          key: {},
+          value: {},
+        },
+        {
+          actions: {
+            items: [
+              {
+                href: '/tasklistresponse/proceedings/start',
+                text: undefined,
                 visuallyHiddenText: 'undefined',
               },
             ],
@@ -69,11 +82,15 @@ describe('test cases for main util', () => {
             items: [
               {
                 href: '/tasklistresponse/proceedings/courtproceedings',
-                text: 'Edit',
+                text: undefined,
                 visuallyHiddenText: 'undefined',
               },
             ],
           },
+          key: {},
+          value: {},
+        },
+        {
           key: {},
           value: {},
         },
