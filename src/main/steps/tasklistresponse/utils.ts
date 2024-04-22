@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { CaseWithId } from '../../app/case/case';
 import { Applicant, CaseType, PartyDetails, PartyType, Respondent } from '../../app/case/definition';
 import { UserDetails } from '../../app/controller/AppRequest';
@@ -40,10 +42,12 @@ export const mapDataInSession = (userCase: CaseWithId, userId: UserDetails['id']
   }
 };
 function setDataInSession(userCase: CaseWithId, partyDetails: PartyDetails) {
-  if (partyDetails?.response) {
-    //Object.assign(userCase, { ...mapSafetyConcernsDetails(partyDetails), ...userCase });
-    if (partyDetails?.response.respondingCitizenAoH) {
-      Object.assign(userCase, JSON.parse(partyDetails?.response.respondingCitizenAoH));
+  const allegationOfHarm = _.get(partyDetails, 'response.respondingCitizenAoH');
+  if (allegationOfHarm) {
+    try {
+      Object.assign(userCase, JSON.parse(allegationOfHarm));
+    } catch (err) {
+      console.log('Error: ', err);
     }
   }
 
