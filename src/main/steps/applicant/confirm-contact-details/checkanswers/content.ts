@@ -6,6 +6,8 @@ import { applyParms } from '../../../../steps/common/url-parser';
 import { FETCH_CASE_DETAILS } from '../../../../steps/urls';
 import { generateContent as checkAnswersGenerateContent } from '../../../common/confirm-contact-details/checkanswers/content';
 
+import { CaseType, PartyType } from './../../../../app/case/definition';
+
 export const enContent = {
   section: 'Check your details',
   title: 'Read the information to make sure it is correct, and add any missing details',
@@ -41,11 +43,12 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...checkAnswersContent,
-    breadcrumbs: [
-      {
-        id: 'caseView',
-        href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData.id }),
-      },
-    ],
+    breadcrumb:
+      request.originalUrl.includes(PartyType.APPLICANT) && caseData.caseTypeOfApplication === CaseType.C100
+        ? {
+            id: 'caseView',
+            href: applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData.id }),
+          }
+        : null,
   };
 };

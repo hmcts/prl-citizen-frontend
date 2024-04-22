@@ -13,7 +13,7 @@ import {
   isFieldLetters,
   isFutureDate,
 } from '../../../../app/form/validation';
-import { dobUnknown, getPartyDetails } from '../../people/util';
+import { getPartyDetails } from '../../people/util';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -284,7 +284,11 @@ export const generateFormFields = (
           ? areDateFieldsFilledIn(value as CaseDate) ||
             isDateInputInvalid(value as CaseDate) ||
             isFutureDate(value as CaseDate)
-          : dobUnknown(formData),
+          : formData?.isDateOfBirthUnknown === YesNoEmpty.YES
+          ? formData.dateOfBirth.day !== '' || formData.dateOfBirth.month !== '' || formData.dateOfBirth.year !== ''
+            ? 'cannotHaveBothApproxAndExact'
+            : ''
+          : '',
     },
     isDateOfBirthUnknown: {
       type: 'checkboxes',

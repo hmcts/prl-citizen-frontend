@@ -3,7 +3,6 @@ import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn } from '../../../../../app/form/validation';
-import { generateDetailsKnownYesField } from '../common/utils';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -85,6 +84,17 @@ export const form: FormContent = {
   },
 };
 
+type FieldLabel = {
+  name: string;
+  label: string;
+  value: string;
+  attributes: {
+    checked: boolean;
+  };
+};
+
+type FieldLabelArray = FieldLabel[];
+
 export const generateContent: TranslationFn = content => {
   const applicantId = content.additionalData?.req.params.applicantId ?? '';
   const userId = applicantId;
@@ -138,8 +148,24 @@ export const generateContent: TranslationFn = content => {
   ];
   switch (startOption) {
     case YesOrNo.YES:
+      // eslint-disable-next-line no-case-declarations
+      let subFieldValueStorage: FieldLabelArray = [];
       detailKnownFormField = formFieldValues.map(fieldSet => {
-        return generateDetailsKnownYesField(fieldSet, contactDetailsPrivateAlternative, true);
+        const { value } = fieldSet;
+        if (value === YesOrNo.YES) {
+          fieldSet['attributes'] = { checked: true };
+          const subFields = fieldSet['subFields']!['contactDetailsPrivateAlternative']['values'] as [];
+          for (const subValue of subFields) {
+            for (const bodyVal of contactDetailsPrivateAlternative) {
+              const field: FieldLabel = subValue;
+              if (subValue['value'] === bodyVal) {
+                field['attributes'] = { checked: true };
+              }
+              subFieldValueStorage = [...subFieldValueStorage.filter(item => item.value !== field['value']), field];
+            }
+          }
+        }
+        return fieldSet;
       });
       break;
 

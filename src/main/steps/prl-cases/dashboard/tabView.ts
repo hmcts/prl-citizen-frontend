@@ -236,6 +236,7 @@ export const prepareCaseView = (
 
   return tabs;
 };
+
 const getCaseTabGrouping = (
   caseData: Partial<CaseWithId>,
   userDetails: UserDetails,
@@ -243,6 +244,7 @@ const getCaseTabGrouping = (
 ): string => {
   const { state, caseTypeOfApplication } = caseData;
   const tab = tabGroup[state as string] ?? tabGroup['*'];
+
   if (
     tab === 'active' &&
     caseTypeOfApplication === CaseType.C100 &&

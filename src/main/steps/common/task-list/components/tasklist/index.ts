@@ -3,9 +3,8 @@ import _ from 'lodash';
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
-import { DocumentCategory } from '../../../../../steps/common/documents/definitions';
-import { getDownloadDocUrl } from '../../../../../steps/common/documents/view/utils';
 import { interpolate } from '../../../../../steps/common/string-parser';
+import { TASKLIST_RESPONSE_TO_CA } from '../../../../../steps/urls';
 import {
   HintConfig,
   HyperLinkConfig,
@@ -16,10 +15,10 @@ import {
   TaskListConfig,
   TaskListConfigProps,
 } from '../../definitions';
-import { isC7ResponseSubmitted, isDraftCase } from '../../utils';
+import { isDraftCase } from '../../utils';
 
 import tasklistConfig from './config/index';
-import { StateTags, Tasks, getStateTagLabel } from './utils';
+import { StateTags, Tasks, getStateTagLabel, isResponsePresent } from './utils';
 
 const stateTagsConfig: StateTagsConfig = {
   [StateTags.NOT_STARTED_YET]: {
@@ -105,7 +104,7 @@ export const getTaskListConfig = (
                 return {
                   ...prepareTaskListConfig(task, caseData, userDetails, _content, language, partyType),
                   ...prepareHintConfig(task, caseData, userDetails, _content),
-                  ...prepareHyperLinkConfig(task, caseData, userDetails),
+                  ...prepareHyperLinkConfig(task),
                 };
               }
               return null;
@@ -168,46 +167,33 @@ const prepareHintConfig = (
   };
 };
 
-const prepareHyperLinkConfig = (
-  task: Task,
-  caseData: Partial<CaseWithId>,
-  userDetails: UserDetails
-): HyperLinkConfig => {
+const prepareHyperLinkConfig = (task: Task): HyperLinkConfig => {
   return {
-    openInAnotherTab: _.isFunction(task.openInAnotherTab)
-      ? task.openInAnotherTab(caseData, userDetails)
-      : task.openInAnotherTab ?? false,
+    openInAnotherTab: task.openInAnotherTab ?? false,
   };
 };
 
 export const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content: SectionContent): Task[] => {
   const tasks: Task[] = [];
 
-  caseData.respondents?.forEach((respondent, index) => {
+  caseData.respondents?.forEach(respondent => {
     tasks.push({
       id: Tasks.THE_RESPONSE_PDF,
-      linkText: interpolate(_.get(content, 'tasks.theResponsePDF.linkText', ''), {
-        respondentPosition: `${index + 1}`,
+      linkText: interpolate(content?.tasks[Tasks.THE_RESPONSE_PDF]!.linkText, {
+        respondentPosition: String(caseData.respondents!.indexOf(respondent) + 1),
       }),
       href: () => {
-        if (!isC7ResponseSubmitted(respondent.value)) {
-          return '#';
-        }
-        const c7Document = caseData.citizenDocuments?.find(
-          doc =>
-            doc.partyName === `${respondent.value.firstName} ${respondent.value.lastName}` &&
-            doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
-        );
-        return getDownloadDocUrl(c7Document!, PartyType.APPLICANT);
+        const respondentName = respondent.value.firstName + ' ' + respondent.value.lastName;
+        //TODO change to use url parameter when citizen document upload changes are merged
+        return `${TASKLIST_RESPONSE_TO_CA}?name=${respondentName}`;
       },
       stateTag: () => {
-        return isC7ResponseSubmitted(respondent.value) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
+        return isResponsePresent(caseData, respondent) ? StateTags.READY_TO_VIEW : StateTags.NOT_AVAILABLE_YET;
       },
       show: () => caseData && !isDraftCase(caseData),
       disabled: () => {
-        return !isC7ResponseSubmitted(respondent.value);
+        return !isResponsePresent(caseData, respondent);
       },
-      openInAnotherTab: () => true,
     });
   });
 

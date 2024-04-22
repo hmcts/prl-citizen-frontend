@@ -158,12 +158,10 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    breadcrumbs: [
-      {
-        id: 'home',
-        href: DASHBOARD_URL,
-      },
-    ],
+    breadcrumb: {
+      id: 'home',
+      href: DASHBOARD_URL,
+    },
     partyName: getPartyName(caseData, partyType, request.session.user),
     progressBar: getProgressBarConfig(caseData, partyType, content.language, request.session.user),
     notifications: getNotificationBannerConfig(caseData, request.session.user, partyType, content.language),

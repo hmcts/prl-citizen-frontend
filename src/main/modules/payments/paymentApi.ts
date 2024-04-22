@@ -13,11 +13,14 @@ interface PaymentApi {
   getPaymentCredentails(): Promise<PaymentRetrivalDataType>;
 }
 
+//const token = 'INSERT_TOKEN_HERE';
+
 /* This class is used to create an instance of the axios library with the required headers for the
 PaymentSystemAPI */
 export class PaymentSystemAPIInstance {
   protected AxiosAJAXInstance: AxiosInstance;
   constructor(PaymentURL: string, userSystemAuthToken: string, serviceAuthToken: string) {
+    //userSystemAuthToken = token;
     this.AxiosAJAXInstance = axios.create({
       baseURL: PaymentURL,
       headers: {
@@ -36,6 +39,7 @@ PaymentSystemAPI */
 export class CheckPaymentStatusApi {
   protected AxiosAJAXInstance: AxiosInstance;
   constructor(PaymentURL: string, userSystemAuthToken: string, serviceAuthToken: string) {
+    //userSystemAuthToken = token;
     this.AxiosAJAXInstance = axios.create({
       baseURL: PaymentURL,
       headers: {

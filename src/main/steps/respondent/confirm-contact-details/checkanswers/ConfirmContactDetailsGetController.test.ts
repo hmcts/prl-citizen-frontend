@@ -9,7 +9,6 @@
 // import ConfirmContactDetailsGetController from '../../../../steps/common/confirm-contact-details/checkanswers/ConfirmContactDetailsGetController';
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
-import * as commonContent from '../../../../steps/common/common.content';
 
 import ConfirmContactDetailsGetController from './ConfirmContactDetailsGetController';
 jest.mock('autobind-decorator');
@@ -43,9 +42,6 @@ describe('ConfirmContactDetailsGetController', () => {
   test('should', async () => {
     const req = mockRequest({ session: { userCase: { email: 'test@example.com' } } });
     const res = mockResponse();
-    jest
-      .spyOn(commonContent, 'generatePageContent')
-      .mockReturnValueOnce({ breadcrumbs: [{ id: 'home', href: '/test' }] });
     await controller.get(req, res);
     expect(res.redirect).toBeCalled;
   });

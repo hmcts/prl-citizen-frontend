@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../../../../app/case/case';
-import { CaseInvite, CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
-import { CitizenApplicationPacks, CitizenOrders } from '../../../documents/definitions';
+import { CaseType, PartyType, Respondent, State, YesOrNo } from '../../../../../app/case/definition';
+import { APPLICANT_VIEW_ALL_DOCUMENTS } from '../../../../urls';
+import { isCafcassCymruServed, isCafcassServed } from '../../utils';
 
 import { getNotificationBannerConfig } from '.';
 
@@ -278,26 +279,10 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
-      citizenOrders: [
-        {
-          dateCreated: 'MOCK_DATE',
-          orderType: 'ORDER',
-          document: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-          documentWelsh: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-        },
-      ],
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
-    expect(getNotificationBannerConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
         heading: 'Your withdrawal request was rejected',
         id: 'withdrawalRequestRejected',
@@ -325,7 +310,7 @@ describe('testcase for notification Banner', () => {
             ],
             links: [
               {
-                href: '/applicant/documents/view/orders-from-the-court',
+                href: '/applicant/yourdocuments/alldocuments/orders',
                 text: 'View the order (PDF)',
                 external: false,
               },
@@ -405,26 +390,10 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
-      citizenApplicationPacks: [
-        {
-          partyId: '123',
-          applicantSoaPack: [
-            {
-              document_url: 'MOCK_DOCUMENT_URL',
-              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-              document_filename: 'MOCK_FILENAME',
-              document_hash: null,
-              category_id: 'positionStatements',
-              document_creation_date: '01/01/2024',
-            },
-          ],
-        },
-      ] as unknown as CitizenApplicationPacks[],
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
-
-    expect(getNotificationBannerConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
         sections: [
           {
@@ -436,7 +405,7 @@ describe('testcase for notification Banner', () => {
                 text: 'We will let you know when the other people in the case have been given your application and case documents.',
               },
               {
-                text: '<a href="/applicant/documents/view/application-pack-documents" class="govuk-link">View your application pack</a>',
+                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
               },
             ],
             links: [],
@@ -463,25 +432,10 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
-      citizenApplicationPacks: [
-        {
-          partyId: '123',
-          applicantSoaPack: [
-            {
-              document_url: 'MOCK_DOCUMENT_URL',
-              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-              document_filename: 'MOCK_FILENAME',
-              document_hash: null,
-              category_id: 'positionStatements',
-              document_creation_date: '01/01/2024',
-            },
-          ],
-        },
-      ] as unknown as CitizenApplicationPacks[],
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
-    expect(getNotificationBannerConfig(data as unknown as CaseWithId, userDetails, party, language)).toStrictEqual([
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
       {
         sections: [
           {
@@ -493,7 +447,7 @@ describe('testcase for notification Banner', () => {
                 text: 'We will let you know when the other people in the case have been given your application and case documents.',
               },
               {
-                text: '<a href="/applicant/documents/view/application-pack-documents" class="govuk-link">View your application pack</a>',
+                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
               },
             ],
             links: [],
@@ -501,101 +455,6 @@ describe('testcase for notification Banner', () => {
         ],
         heading: 'The court has issued your application',
         id: 'applicationServedAndLinked',
-        title: 'Important',
-      },
-    ]);
-  });
-
-  test('when respondent has submitted their response', () => {
-    const data = {
-      id: '1234',
-      state: State.CASE_SERVED,
-      caseTypeOfApplication: CaseType.C100,
-      applicants: applicant,
-      respondents: [
-        {
-          id: '1234',
-          value: {
-            user: {
-              idamId: '1234',
-            },
-            response: {
-              c7ResponseSubmitted: 'Yes',
-            },
-          },
-        },
-      ],
-      caseInvites: [
-        {
-          id: 'string',
-          value: {
-            partyId: '1234',
-            caseInviteEmail: 'string',
-            accessCode: 'string',
-            invitedUserId: '1234',
-            expiryDate: 'string',
-            isApplicant: 'Yes',
-          },
-        },
-      ],
-      citizenDocuments: [
-        {
-          partyId: '1',
-          partyName: null,
-          partyType: 'respondent',
-          categoryId: 'respondentApplication',
-          uploadedBy: 'test user',
-          uploadedDate: '2024-03-11T16:24:33.122506',
-          reviewedDate: '2024-03-11T16:24:33.122506',
-          document: {
-            document_url: 'MOCK_DOCUMENT_URL',
-            document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-            document_filename: 'MOCK_FILENAME',
-            document_hash: null,
-            category_id: 'respondentApplication',
-            document_creation_date: '2024-03-11T16:24:33.122506',
-          },
-          documentWelsh: null,
-        },
-      ],
-    } as unknown as CaseWithId;
-    const party = PartyType.APPLICANT;
-    const language = 'en';
-    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
-      {
-        sections: [
-          {
-            contents: [
-              {
-                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
-              },
-            ],
-            links: [],
-          },
-        ],
-        heading: 'The court has issued your application',
-        id: 'applicationServedAndLinked',
-        title: 'Important',
-      },
-      {
-        heading: 'View the response to your application',
-        id: 'responseSubmitted',
-        sections: [
-          {
-            contents: [
-              {
-                text: 'The other person in the case (the respondent) has responded to your application.',
-              },
-            ],
-            links: [
-              {
-                external: false,
-                href: '/applicant/documents/view/all-documents',
-                text: 'View the response (PDF)',
-              },
-            ],
-          },
-        ],
         title: 'Important',
       },
     ]);
@@ -610,21 +469,6 @@ describe('testcase for notification Banner', () => {
       caseTypeOfApplication: CaseType.C100,
       applicants: [applicantLIP, applicant[1]],
       isCafcassServed: YesOrNo.YES,
-      citizenApplicationPacks: [
-        {
-          partyId: '123',
-          respondentSoaPack: [
-            {
-              document_url: 'MOCK_DOCUMENT_URL',
-              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-              document_filename: 'MOCK_FILENAME',
-              document_hash: null,
-              category_id: 'positionStatements',
-              document_creation_date: '01/01/2024',
-            },
-          ],
-        },
-      ] as unknown as CitizenApplicationPacks[],
       finalServedApplicationDetailsList: [
         {
           id: '123',
@@ -634,11 +478,42 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
-    } as unknown as Partial<CaseWithId>;
+    } as Partial<CaseWithId>;
     const party = PartyType.APPLICANT;
     const language = 'en';
 
     expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+      {
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
+              },
+              {
+                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
+              },
+              {
+                text: '<p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
+              },
+              {
+                text: 'The Children and Family Court Advisory and Support Service (Cafcass) will contact you to consider the needs of the children.',
+              },
+            ],
+            links: [
+              {
+                text: 'Find out about Cafcass',
+                href: 'https://www.cafcass.gov.uk/grown-ups/parents-and-carers/divorce-and-separation/what-to-expect-from-cafcass/',
+                external: true,
+                show: isCafcassServed,
+              },
+            ],
+          },
+        ],
+        heading: 'The court has issued your application',
+        id: 'applicationServedAndLinked',
+        title: 'Important',
+      },
       {
         heading: 'You must give the respondent their documents',
         id: 'giveRespondentTheirDocuments',
@@ -655,8 +530,7 @@ describe('testcase for notification Banner', () => {
             links: [
               {
                 external: false,
-                href: '/applicant/documents/view/application-pack-documents/to-be-served?',
-                show: expect.any(Function),
+                href: '/applicant/yourdocuments/alldocuments/alldocuments',
                 text: "View the respondent's documents",
               },
             ],
@@ -703,21 +577,6 @@ describe('testcase for notification Banner', () => {
       state: State.CASE_SERVED,
       caseTypeOfApplication: CaseType.C100,
       applicants: [applicantLIP, applicant[1]],
-      citizenApplicationPacks: [
-        {
-          partyId: '123',
-          applicantSoaPack: [
-            {
-              document_url: 'MOCK_DOCUMENT_URL',
-              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-              document_filename: 'MOCK_FILENAME',
-              document_hash: null,
-              category_id: 'positionStatements',
-              document_creation_date: '01/01/2024',
-            },
-          ],
-        },
-      ] as unknown as CitizenApplicationPacks[],
       finalServedApplicationDetailsList: [
         {
           id: '123',
@@ -734,11 +593,42 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
-    } as unknown as Partial<CaseWithId>;
+    } as Partial<CaseWithId>;
     const party = PartyType.APPLICANT;
     const language = 'en';
 
     expect(getNotificationBannerConfig(data, { ...userDetails, id: '1234' }, party, language)).toStrictEqual([
+      {
+        sections: [
+          {
+            contents: [
+              {
+                text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
+              },
+              {
+                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
+              },
+              {
+                text: '<p class="govuk-notification-banner__heading">Cafcass Cymru will contact you</p>',
+              },
+              {
+                text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) will contact you to consider the needs of the children.',
+              },
+            ],
+            links: [
+              {
+                text: 'Find out about Cafcass Cymru',
+                href: 'https://www.gov.wales/cafcass-cymru/what-we-do',
+                external: true,
+                show: isCafcassCymruServed,
+              },
+            ],
+          },
+        ],
+        heading: 'The court has issued your application',
+        id: 'applicationServedAndLinked',
+        title: 'Important',
+      },
       {
         heading: 'The court has issued your application',
         id: 'caPersonalService',
@@ -752,8 +642,7 @@ describe('testcase for notification Banner', () => {
             links: [
               {
                 external: false,
-                href: '/applicant/documents/view/application-pack-documents',
-                show: expect.any(Function),
+                href: '/applicant/yourdocuments/alldocuments/alldocuments',
                 text: 'View your application pack',
               },
             ],
@@ -790,6 +679,105 @@ describe('testcase for notification Banner', () => {
     ]);
   });
 
+  test('when FL401 case is in served and linked and have new document', () => {
+    const data = {
+      id: '12',
+      state: State.CASE_SERVED,
+      caseTypeOfApplication: CaseType.FL401,
+      applicantsFL401: {
+        email: 'abc',
+        gender: 'male',
+        address: {
+          AddressLine1: '',
+          AddressLine2: '',
+          PostTown: '',
+          County: '',
+          PostCode: '',
+        },
+        dxNumber: '123',
+        landline: '987654321',
+        lastName: 'Smith',
+        firstName: 'John',
+        dateOfBirth: '',
+        otherGender: '',
+        phoneNumber: '',
+        placeOfBirth: '',
+        previousName: '',
+        solicitorOrg: {
+          OrganisationID: '',
+          OrganisationName: '',
+        },
+        sendSignUpLink: '',
+        solicitorEmail: '',
+        isAddressUnknown: '',
+        solicitorAddress: {
+          County: '',
+          Country: '',
+          PostCode: '',
+          PostTown: '',
+          AddressLine1: '',
+          AddressLine2: '',
+          AddressLine3: '',
+        },
+        isDateOfBirthKnown: '',
+        solicitorReference: '',
+        solicitorTelephone: '',
+        isPlaceOfBirthKnown: '',
+        isDateOfBirthUnknown: '',
+        isAddressConfidential: '',
+        isCurrentAddressKnown: '',
+        relationshipToChildren: '',
+        representativeLastName: '',
+        representativeFirstName: '',
+        canYouProvidePhoneNumber: '',
+        canYouProvideEmailAddress: '',
+        isAtAddressLessThan5Years: '',
+        isPhoneNumberConfidential: '',
+        isEmailAddressConfidential: '',
+        respondentLivedWithApplicant: '',
+        doTheyHaveLegalRepresentation: '',
+        addressLivedLessThan5YearsDetails: '',
+        otherPersonRelationshipToChildren: [''],
+        isAtAddressLessThan5YearsWithDontKnow: '',
+        response: {
+          citizenFlags: {
+            isAllDocumentsViewed: 'No',
+          },
+        },
+        user: {
+          email: 'abc',
+          idamId: '123',
+        },
+      },
+    };
+    const party = PartyType.APPLICANT;
+    const language = 'en';
+
+    expect(getNotificationBannerConfig(data, userDetails, party, language)).toStrictEqual([
+      {
+        heading: 'You have a new document to view',
+        id: 'newDocument',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'A new document has been added to your case.',
+              },
+            ],
+            links: [
+              {
+                external: false,
+                text: 'See all documents',
+                href: APPLICANT_VIEW_ALL_DOCUMENTS,
+              },
+            ],
+          },
+        ],
+        title: 'Important',
+      },
+    ]);
+  });
+
   describe('c100 respondent banners', () => {
     const data = {
       id: '123',
@@ -815,84 +803,13 @@ describe('testcase for notification Banner', () => {
               idamId: '123',
             },
             response: {
-              citizenFlags: {},
+              citizenFlags: {
+                isAllDocumentsViewed: 'No',
+              },
             },
           },
         } as unknown as Respondent,
       ];
-      data.state = State.Draft;
-      data.citizenOrders = [
-        {
-          dateCreated: 'MOCK_DATE',
-          orderType: 'ORDER',
-          document: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-          documentWelsh: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-        } as unknown as CitizenOrders,
-      ];
-      expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
-        {
-          heading: 'You have a new order from the court',
-          id: 'newOrder',
-
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'The court has made a decision about your case. The order tells you what the court has decided.',
-                },
-              ],
-              links: [
-                {
-                  external: false,
-                  href: '/respondent/documents/view/orders-from-the-court',
-                  text: 'View the order (PDF)',
-                },
-              ],
-            },
-          ],
-          title: 'Important',
-        },
-      ]);
-    });
-
-    test('correct banners should be added when respondent has been served', () => {
-      data.respondents = [
-        {
-          id: '123',
-          value: {
-            user: {
-              email: 'abc',
-              idamId: '123',
-            },
-            response: {
-              citizenFlags: {},
-            },
-          },
-        } as unknown as Respondent,
-      ];
-      data.citizenApplicationPacks = [
-        {
-          partyId: '123',
-          respondentSoaPack: [
-            {
-              document_url: 'MOCK_DOCUMENT_URL',
-              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
-              document_filename: 'MOCK_FILENAME',
-              document_hash: null,
-              category_id: 'positionStatements',
-              document_creation_date: '01/01/2024',
-            },
-          ],
-        },
-      ] as unknown as CitizenApplicationPacks[];
       data.state = State.Draft;
       data.orderCollection = [
         {
@@ -919,24 +836,32 @@ describe('testcase for notification Banner', () => {
           },
         },
       ];
-      data.caseInvites = [
-        {
-          id: '123',
-          value: {
-            partyId: '123',
-            caseInviteEmail: '',
-            accessCode: '',
-            invitedUserId: '123',
-            expiryDate: '',
-          },
-        },
-      ] as unknown as CaseInvite[];
-      data.caseTypeOfApplication = 'C100';
-      // data.citizenApplicationPacks = [{ partyId: '123' } as unknown as CitizenApplicationPacks];
       expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
+        {
+          heading: 'You have a new document to view',
+          id: 'newDocument',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'A new document has been added to your case.',
+                },
+              ],
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/yourdocuments/alldocuments/alldocuments',
+                  text: 'See all documents',
+                },
+              ],
+            },
+          ],
+          title: 'Important',
+        },
         {
           heading: 'You have a new order from the court',
           id: 'newOrder',
+
           sections: [
             {
               contents: [
@@ -947,40 +872,11 @@ describe('testcase for notification Banner', () => {
               links: [
                 {
                   external: false,
-                  href: '/respondent/documents/view/orders-from-the-court',
+                  href: '/respondent/yourdocuments/alldocuments/orders',
                   text: 'View the order (PDF)',
                 },
               ],
             },
-          ],
-          title: 'Important',
-        },
-        {
-          heading: 'Respond to an application about a child',
-          id: 'caRespondentServed',
-          sections: [
-            {
-              contents: [
-                { text: 'Another person (the applicant) has applied to the court to make a decision about a child.' },
-                {
-                  text: 'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
-                },
-              ],
-              links: [
-                {
-                  external: false,
-                  href: '/respondent/documents/view/application-pack-documents',
-                  show: expect.any(Function),
-                  text: 'View the application pack',
-                },
-                {
-                  external: false,
-                  href: '/tasklistresponse/start/flag/updateFlag',
-                  text: 'Respond to the application',
-                },
-              ],
-            },
-            { contents: [], links: [] },
           ],
           title: 'Important',
         },
@@ -996,29 +892,61 @@ describe('testcase for notification Banner', () => {
               idamId: '123',
             },
             response: {
-              citizenFlags: {},
+              citizenFlags: {
+                isAllDocumentsViewed: 'No',
+              },
             },
           },
         } as unknown as Respondent,
       ];
       data.state = State.ALL_FINAL_ORDERS_ISSUED;
-      data.citizenOrders = [
+      data.orderCollection = [
         {
-          dateCreated: 'MOCK_DATE',
-          orderType: 'ORDER',
-          document: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
+          id: '1234',
+          value: {
+            dateCreated: 'MOCK_DATE',
+            orderType: 'ORDER',
+            orderDocument: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+            orderDocumentWelsh: {
+              document_url: 'DOC_URL',
+              document_filename: 'DOC_FILENAME',
+              document_binary_url: 'DOC_BINARY_URL',
+            },
+            otherDetails: {
+              createdBy: '1234',
+              orderCreatedDate: 'MOCK_DATE',
+              orderMadeDate: 'MOCK_DATE',
+              orderRecipients: 'RECIPIENTS',
+            },
           },
-          documentWelsh: {
-            document_url: 'DOC_URL/1234',
-            document_filename: 'DOC_FILENAME',
-            document_binary_url: 'DOC_BINARY_URL',
-          },
-        } as unknown as CitizenOrders,
+        },
       ];
       expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
+        {
+          heading: 'You have a new document to view',
+          id: 'newDocument',
+          sections: [
+            {
+              links: [
+                {
+                  external: false,
+                  href: '/respondent/yourdocuments/alldocuments/alldocuments',
+                  text: 'See all documents',
+                },
+              ],
+              contents: [
+                {
+                  text: 'A new document has been added to your case.',
+                },
+              ],
+            },
+          ],
+          title: 'Important',
+        },
         {
           heading: 'You have a final order',
           id: 'finalOrder',
@@ -1032,7 +960,7 @@ describe('testcase for notification Banner', () => {
               links: [
                 {
                   external: false,
-                  href: '/respondent/documents/view/orders-from-the-court',
+                  href: '/respondent/yourdocuments/alldocuments/orders',
                   text: 'View the order (PDF)',
                 },
               ],

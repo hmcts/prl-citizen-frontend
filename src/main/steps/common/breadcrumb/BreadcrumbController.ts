@@ -1,5 +1,4 @@
 import autobind from 'autobind-decorator';
-import _ from 'lodash';
 
 import { AppSession } from '../../../app/controller/AppRequest';
 
@@ -27,32 +26,40 @@ class BreadcrumbController {
     });
   }
 
-  public async add(breadcrumbs: Record<string, string>[], session: AppSession): Promise<void | AppSession> {
+  public async add({ id, href }, session: AppSession): Promise<void | AppSession> {
     if (!session?.applicationSettings?.breadcrumbs) {
       await this.enable(session);
     }
 
-    const existingBreadcrumbs = [..._.get(session, 'applicationSettings.breadcrumbs', [])];
+    let breadcrumbs = session?.applicationSettings?.breadcrumbs ? [...session.applicationSettings.breadcrumbs] : null;
 
-    breadcrumbs.forEach(breadcrumb => {
-      const index = existingBreadcrumbs.findIndex(_breadcrumb => _breadcrumb.id === breadcrumb.id);
+    if (breadcrumbs) {
+      const index = breadcrumbs.findIndex(breadcrumb => breadcrumb.id === id);
 
       if (index >= 0) {
-        existingBreadcrumbs[index] = { id: breadcrumb.id, href: breadcrumb.href };
-        existingBreadcrumbs.splice(index + 1);
+        breadcrumbs = breadcrumbs.map(breadcrumb =>
+          breadcrumb.id === id
+            ? {
+                id,
+                href,
+              }
+            : breadcrumb
+        );
+
+        breadcrumbs.splice(index + 1);
       } else {
-        existingBreadcrumbs.push({
-          id: breadcrumb.id,
-          href: breadcrumb.href,
+        breadcrumbs.push({
+          id,
+          href,
         });
       }
-    });
+    }
 
     return new Promise(resolve => {
       if (session?.applicationSettings?.breadcrumbs) {
         session.applicationSettings = {
           ...session.applicationSettings,
-          breadcrumbs: existingBreadcrumbs,
+          breadcrumbs,
         };
         session.save(resolve);
       } else {

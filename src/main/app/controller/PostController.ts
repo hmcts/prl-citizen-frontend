@@ -5,6 +5,7 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import PreProcessCaseData from '../../steps/c100-rebuild/PreProcessCaseData';
 import { applyParms } from '../../steps/common/url-parser';
+import { ApplicantUploadFiles, RespondentUploadFiles, UploadDocumentSucess } from '../../steps/constants';
 import { C100_URL, PARTY_TASKLIST, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
 import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
@@ -78,6 +79,15 @@ export class PostController<T extends AnyObject> {
     req.session.userCase = {
       ...PreProcessCaseData.clean(this.fields, req, formData, req.session.userCase, !req.path.startsWith(C100_URL)),
     };
+
+    if (req.originalUrl.includes(UploadDocumentSucess)) {
+      if (req?.session?.userCase?.applicantUploadFiles) {
+        req.session.userCase[ApplicantUploadFiles] = [];
+      }
+      if (req?.session?.userCase?.respondentUploadFiles) {
+        req.session.userCase[RespondentUploadFiles] = [];
+      }
+    }
 
     this.redirect(req, res);
   }

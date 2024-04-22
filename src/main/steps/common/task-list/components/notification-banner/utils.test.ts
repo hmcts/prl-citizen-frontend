@@ -42,12 +42,11 @@ describe('notification Banner', () => {
     BannerNotification.APPLICATION_SERVED_LINKED,
     BannerNotification.APPLICATION_CLOSED,
     BannerNotification.NEW_ORDER,
+    BannerNotification.NEW_DOCUMENT,
     BannerNotification.FINAL_ORDER,
     BannerNotification.DA_RESPONDENT_BANNER,
     BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS,
     BannerNotification.CA_PERSONAL_SERVICE,
-    BannerNotification.RESPONSE_SUBMITTED,
-    BannerNotification.CA_RESPONDENT_SERVED,
   ])('should have show as false by default', notification => {
     expect(notificationBanner[notification].show()).toBe(false);
   });

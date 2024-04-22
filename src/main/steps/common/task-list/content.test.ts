@@ -333,12 +333,6 @@ describe('testcase for tasklist', () => {
 
   test('should return correct sidebar hyperlinks for FL401 applicant', () => {
     commonContent.additionalData!.req.session.userCase.caseTypeOfApplication = 'FL401';
-    commonContent.additionalData!.req.session.userCase.applicantsFL401 = {
-      ...commonContent.additionalData!.req.session.userCase.applicantsFL401,
-      user: {
-        idamId: '1234',
-      },
-    };
     expect(generateContent(commonContent).hyperlinks).toStrictEqual([
       {
         label: 'Add a legal representative',

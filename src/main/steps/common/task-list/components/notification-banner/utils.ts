@@ -4,10 +4,9 @@
 
 import _ from 'lodash';
 
+import { CaseWithId } from '../../../../../app/case/case';
 import { UserDetails } from '../../../../../app/controller/AppRequest';
-import { getPartyDetails } from '../../../../../steps/tasklistresponse/utils';
 
-import { CaseWithId } from './../../../../../app/case/case';
 import { CaseType, PartyType, YesOrNo } from './../../../../../app/case/definition';
 import { languages as content } from './content';
 
@@ -27,7 +26,6 @@ export enum BannerNotification {
   DA_RESPONDENT_BANNER = 'daRespondentBanner',
   CA_RESPONDENT_SERVED = 'caRespondentServed',
   CAFFCASS = 'cafcass',
-  RESPONSE_SUBMITTED = 'responseSubmitted',
   GIVE_RESPONDENT_THEIR_DOCUMENTS = 'giveRespondentTheirDocuments',
   CA_PERSONAL_SERVICE = 'caPersonalService',
 }
@@ -92,6 +90,11 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.NEW_ORDER),
     show: () => false,
   },
+  [BannerNotification.NEW_DOCUMENT]: {
+    id: BannerNotification.NEW_DOCUMENT,
+    content: getContent.bind(null, BannerNotification.NEW_DOCUMENT),
+    show: () => false,
+  },
   [BannerNotification.FINAL_ORDER]: {
     id: BannerNotification.FINAL_ORDER,
     content: getContent.bind(null, BannerNotification.FINAL_ORDER),
@@ -112,16 +115,6 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.CA_PERSONAL_SERVICE),
     show: () => false,
   },
-  [BannerNotification.RESPONSE_SUBMITTED]: {
-    id: BannerNotification.RESPONSE_SUBMITTED,
-    content: getContent.bind(null, BannerNotification.RESPONSE_SUBMITTED),
-    show: () => false,
-  },
-  [BannerNotification.CA_RESPONDENT_SERVED]: {
-    id: BannerNotification.CA_RESPONDENT_SERVED,
-    content: getContent.bind(null, BannerNotification.CA_RESPONDENT_SERVED),
-    show: () => false,
-  },
 };
 
 export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): boolean => {
@@ -137,11 +130,4 @@ export const isPersonalServiceByCourtStaff = (caseData: Partial<CaseWithId>): bo
   return caseData.finalServedApplicationDetailsList && caseData.finalServedApplicationDetailsList?.length
     ? PERSONAL_SOA_BY_COURT_STAFF.includes(_.last(caseData.finalServedApplicationDetailsList)?.value.whoIsResponsible!)
     : false;
-};
-
-export const isPartyServed = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-  return !!(
-    caseData.citizenApplicationPacks?.length &&
-    getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyId === caseData.citizenApplicationPacks[0].partyId
-  );
 };

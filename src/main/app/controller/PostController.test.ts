@@ -482,26 +482,8 @@ describe('PostController', () => {
       },
     ];
     await controller.post(req, res);
-    expect(req.session.userCase[ApplicantUploadFiles]).toStrictEqual([
-      {
-        documentName: 'uploaded1.pdf',
-        id: '9813df11-41bf-4b46-a602-86766b5e3547',
-      },
-      {
-        documentName: 'uploaded2.pdf',
-        id: '9813df11-41bf-4aaa-a602-86766b5e3547',
-      },
-    ]);
-    expect(req.session.userCase[RespondentUploadFiles]).toStrictEqual([
-      {
-        id: '9813df11-41bf-4b46-a602-86766b5e3547',
-        documentName: 'uploaded1.pdf',
-      },
-      {
-        id: '9813df11-41bf-4aaa-a602-86766b5e3547',
-        documentName: 'uploaded2.pdf',
-      },
-    ]);
+    expect(req.session.userCase[ApplicantUploadFiles]).toStrictEqual([]);
+    expect(req.session.userCase[RespondentUploadFiles]).toStrictEqual([]);
   });
   test('Should call filterErrorsForSaveAsDraft', async () => {
     const body = {

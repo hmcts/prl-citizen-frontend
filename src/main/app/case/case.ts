@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RAFlags } from '../../modules/reasonable-adjustments/definitions';
-import { CitizenApplicationPacks, CitizenDocuments, CitizenOrders } from '../../steps/common/documents/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
@@ -75,8 +74,8 @@ import {
   OtherChildrenDetails,
   C100RebuildPartyDetails,
   C100Applicant,
+  applicantContactPreferencesEnum,
   RespondentDocs,
-  DocumentUploadResponse,
   ContactPreference,
 } from './definition';
 
@@ -226,12 +225,8 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentDocsList: 'respondentDocsList',
   caseInvites: 'caseInvites',
   draftOrderDoc: 'draftOrderDoc',
-  c100DraftDoc: 'submitAndPayDownloadApplicationLink',
   isCafcassServed: 'soaCafcassServedOptions',
   isCafcassCymruServed: 'soaCafcassCymruServedOptions',
-  citizenDocuments: 'citizenDocuments',
-  citizenOrders: 'citizenOrders',
-  citizenApplicationPacks: 'citizenApplicationPacks',
   finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
 };
 
@@ -383,19 +378,14 @@ export interface Case {
   yourchildconcernsstart?: YesOrNo;
   cameoutofallegationsharmwithNo?: boolean;
   //applicant1CannotUploadDocuments?: DocumentType[];
-  hasCourtAskedForThisDoc?: YesOrNo;
-  reasonForDocumentCantBeShared?: string;
-  haveReasonForDocNotToBeShared?: YesOrNo;
-  reasonsToNotSeeTheDocument?: string[];
-  reasonsToRestrictDocument?: string;
   documentText?: string;
-  applicantUploadFiles?: DocumentUploadResponse['document'][];
+  applicantUploadFiles?: UploadedFile[];
   declarationCheck?: string;
   finalDocument?: Document;
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   citizenUploadedDocumentList?: UploadDocumentList[];
   /*** Document upload */
-  respondentUploadFiles?: DocumentUploadResponse['document'][];
+  respondentUploadFiles?: UploadedFile[];
   proceedingsCourtCase?: string;
   proceedingsStart?: YesOrNo;
   proceedingsCourtOrder?: string;
@@ -567,16 +557,13 @@ export interface Case {
   lastModifiedDate?: string;
   c100RebuildReturnUrl?: string;
   noOfDaysRemainingToSubmitCase?: string;
+  applicantPreferredContact?: applicantContactPreferencesEnum;
   partyContactPreference?: ContactPreference | null;
   draftOrderDoc?: Document;
-  c100DraftDoc?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
-  citizenDocuments?: CitizenDocuments[];
-  citizenOrders?: CitizenOrders[];
-  citizenApplicationPacks?: CitizenApplicationPacks[];
   // RA local component
   ra_typeOfHearing?: string[];
   ra_noVideoAndPhoneHearing_subfield?: string;
@@ -710,11 +697,4 @@ export enum FieldPrefix {
 export interface UploadedFile {
   id: string;
   name: string;
-}
-export interface HearingData {
-  hmctsServiceCode: string;
-  caseRef: string;
-  caseHearings: HearingsList[];
-  courtTypeId: string;
-  courtName: string;
 }

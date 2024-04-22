@@ -1,4 +1,4 @@
-import { getYesNoTranslation, translation } from '../mainUtil';
+import { genderChose, getYesNoTranslation } from '../mainUtil';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const nameAndGenderParser = (personalDetails, keys, HTML, language) => {
@@ -26,7 +26,7 @@ export const nameAndGenderParser = (personalDetails, keys, HTML, language) => {
     }
   }
   let childGender = '';
-  childGender += translation(personalDetails['gender'], language);
+  childGender += genderChose(personalDetails['gender'], language);
   if (personalDetails['otherGenderDetails'] !== '') {
     childGender +=
       HTML.BREAK +

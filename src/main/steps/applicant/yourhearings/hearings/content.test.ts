@@ -300,7 +300,7 @@ describe('citizen-home yourhearings hearings content', () => {
     ];
     expect(generateContent(commonContent).hearingOrders).toStrictEqual([
       {
-        href: '/applicant/documents/download/c9f56483-6e2d-43ce-9de8-72661755b87c/finalDocument.pdf',
+        href: '/applicant/yourdocuments/alldocuments/orders/c9f56483-6e2d-43ce-9de8-72661755b87c',
         createdDate: '1/1/2020',
         fileName: 'finalDocument.pdf',
         id: 1,

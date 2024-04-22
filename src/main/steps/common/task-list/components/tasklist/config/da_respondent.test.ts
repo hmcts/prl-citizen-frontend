@@ -46,8 +46,8 @@ describe('da_respondent', () => {
 
     expect(DA_RESPONDENT[3].id).toBe('yourDocuments');
     expect(yourDocumentsTasks).toHaveLength(2);
-    expect(yourDocumentsTasks[0].id).toBe('uploadDocuments');
-    expect(yourDocumentsTasks[1].id).toBe('viewAllDocuments');
+    expect(yourDocumentsTasks[0].id).toBe('viewAllDocuments');
+    expect(yourDocumentsTasks[1].id).toBe('uploadDocuments');
   });
 
   test('your orders section should contain correct ids and tasks', () => {

@@ -1,11 +1,6 @@
 {% from "common/app-survey/survey-banner.macro.njk" import surveyBanner %}
 {% extends "common/template.njk" %}
 
-
-{% block pageTitle %}
-  {{successMessage }} {{appName}}
-{% endblock %}
-
 {% block page_content %}
   <main class="govuk-main-wrapper govuk-main-wrapper--l" id="main-content" role="main">
     <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-6">
@@ -28,7 +23,7 @@
     <div class="govuk-inset-text">
       <p class="govuk-body">{{copyRightsTxt}}</p>
     </div>
-    <a href="{{draftApplicationDownloadUrl}}" class="govuk-button">{{primaryBtnLabel}}</a>
+    <a href="application-copy/download"  class="govuk-button">{{primaryBtnLabel}}</a>
 
     <h2 class="govuk-heading-m">{{subTitle2}}</h2>
     <ul class="govuk-list govuk-list--bullet govuk-list--spaced govuk-!-margin-bottom-6">

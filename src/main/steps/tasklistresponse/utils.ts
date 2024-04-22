@@ -83,11 +83,11 @@ export const getPartyDetails = (userCase: CaseWithId, userId: UserDetails['id'])
   }
 
   if (partyData?.value) {
-    return { ...partyData.value, partyId: partyData.id };
+    return Object.assign({}, partyData.value);
   }
 
   if (partyData) {
-    return { ...partyData };
+    return Object.assign({}, partyData);
   }
 
   return partyData;

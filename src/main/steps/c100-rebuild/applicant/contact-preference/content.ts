@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseWithId } from '../../../../app/case/case';
-import { C100Applicant, ContactPreference } from '../../../../app/case/definition';
+import { C100Applicant, applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
@@ -86,14 +86,14 @@ export const generateFormFields = (data: C100Applicant): GenerateDynamicFormFiel
         {
           label: l => l.labelDigital,
           name: 'applicantContactPreferences',
-          value: ContactPreference.EMAIL,
+          value: applicantContactPreferencesEnum.DIGITAL,
           hint: l => l.labelDitigalHintText,
           disabled: !data?.applicantContactDetail?.emailAddress,
         },
         {
           label: l => l.labelPost,
           name: 'applicantContactPreferences',
-          value: ContactPreference.POST,
+          value: applicantContactPreferencesEnum.POST,
           hint: l => l.labelPostHintText,
         },
       ],

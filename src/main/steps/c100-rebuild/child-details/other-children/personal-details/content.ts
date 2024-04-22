@@ -11,7 +11,7 @@ import {
   isFutureDate,
   isMoreThan18Years,
 } from '../../../../../app/form/validation';
-import { dobUnknown, getPartyDetails } from '../../../people/util';
+import { getPartyDetails } from '../../../people/util';
 export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -162,7 +162,11 @@ export const generateFormFields = (
             isMoreThan18Years(value as CaseDate) ||
             isDateInputInvalid(value as CaseDate) ||
             isFutureDate(value as CaseDate)
-          : dobUnknown(formData),
+          : formData?.isDateOfBirthUnknown === YesNoEmpty.YES
+          ? formData.dateOfBirth.day !== '' || formData.dateOfBirth.month !== '' || formData.dateOfBirth.year !== ''
+            ? 'cannotHaveBothApproxAndExact'
+            : ''
+          : '',
     },
     isDateOfBirthUnknown: {
       type: 'checkboxes',

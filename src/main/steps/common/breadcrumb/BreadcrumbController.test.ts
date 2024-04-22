@@ -51,7 +51,7 @@ describe('BreadcrumbController', () => {
     test('should add a new breadcrumb to the session', async () => {
       const id = 'home';
       const href = '/';
-      await BreadcrumbController.add([{ id, href }], req.session);
+      await BreadcrumbController.add({ id, href }, req.session);
       expect(req.session.applicationSettings?.breadcrumbs).toEqual([{ id, href }]);
       expect(req.session.save).toHaveBeenCalledTimes(1);
     });
@@ -59,7 +59,7 @@ describe('BreadcrumbController', () => {
       const id = 'home';
       const href = '/';
       req.session.applicationSettings = { breadcrumbs: [{ id, href }] };
-      await BreadcrumbController.add([{ id, href: '/new' }], req.session);
+      await BreadcrumbController.add({ id, href: '/new' }, req.session);
       expect(req.session.applicationSettings?.breadcrumbs).toEqual([{ id, href: '/new' }]);
       expect(req.session.save).toHaveBeenCalledTimes(1);
     });
@@ -74,7 +74,7 @@ describe('BreadcrumbController', () => {
           { id: id2, href: href2 },
         ],
       };
-      await BreadcrumbController.add([{ id, href: '/new' }], req.session);
+      await BreadcrumbController.add({ id, href: '/new' }, req.session);
       expect(req.session.applicationSettings?.breadcrumbs).toEqual([{ id, href: '/new' }]);
       expect(req.session.save).toHaveBeenCalledTimes(1);
     });
@@ -82,13 +82,13 @@ describe('BreadcrumbController', () => {
       req.session.applicationSettings = {
         breadcrumbs: [],
       };
-      const result = await BreadcrumbController.add([{ id: 'home', href: '/' }], req.session);
+      const result = await BreadcrumbController.add({ id: 'home', href: '/' }, req.session);
       expect(result).toBeUndefined();
     });
 
     test('should resolve if there is no session', async () => {
       req.session = null;
-      const result = await BreadcrumbController.add([{ id: 'home', href: '/' }], req.session);
+      const result = await BreadcrumbController.add({ id: 'home', href: '/' }, req.session);
       expect(result).toBeUndefined();
     });
   });

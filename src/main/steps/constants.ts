@@ -39,6 +39,8 @@ export const URL_PATTERN_INTERNATIONAL_FACTORS = 'international-factors';
 export const EVENT_INTERNATIONAL_ELEMENT = 'citizenInternationalElement';
 
 export const EVENT_RESPONDENT_MIAM = 'respondentMiam';
+export const UPDATE_CASE_YES = '?updateCase=Yes';
+
 export const ordinalNumberMapEn = new Map<number, string>([
   [1, 'First'],
   [2, 'Second'],

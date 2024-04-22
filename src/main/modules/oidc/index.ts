@@ -110,7 +110,7 @@ export class OidcMiddleware {
               }
             }
             //If testing support URL is not part of the path, then we need to redirect user to dashboard even if they click on link
-            if (req.path.startsWith(TESTING_SUPPORT) || req.path.startsWith(LOCAL_API_SESSION)) {
+            if (req.path.startsWith(TESTING_SUPPORT) || req.path.includes(LOCAL_API_SESSION)) {
               if (req.session.testingSupport) {
                 return next();
               } else {
@@ -122,8 +122,9 @@ export class OidcMiddleware {
               const partyType = getCasePartyType(req.session.userCase, req.session.user.id);
               if (
                 !SAFEGAURD_EXCLUDE_URLS.some(url => {
-                  const _url = parseUrl(url).url;
-                  return _url.split('/').every(chunk => req.path.split('/').includes(chunk));
+                  return parseUrl(url)
+                    .url.split('/')
+                    .every(chunk => req.path.split('/').includes(chunk));
                 }) &&
                 !req.path.split('/').includes(partyType)
               ) {

@@ -3,7 +3,7 @@
 import autobind from 'autobind-decorator';
 
 import { CosApiClient } from '../../app/case/CosApiClient';
-import { CaseWithId, HearingData } from '../../app/case/case';
+import { CaseWithId } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { mapDataInSession } from '../tasklistresponse/utils';
@@ -16,11 +16,7 @@ export default class CaseDataController {
     return this.fetchDataFor.includes(fetchDataFor);
   }
 
-  private async saveDataInSession(
-    req: AppRequest,
-    caseData: CaseWithId,
-    hearingData: HearingData | null
-  ): Promise<void> {
+  private async saveDataInSession(req: AppRequest, caseData: CaseWithId, hearingData: any): Promise<void> {
     const hearingCollection = {
       hearingCollection: [],
     };
@@ -54,7 +50,7 @@ export default class CaseDataController {
     });
   }
 
-  public async fetchAndSaveData(req: AppRequest): Promise<{ caseData: CaseWithId; hearingData: HearingData | null }> {
+  public async fetchAndSaveData(req: AppRequest): Promise<{ caseData: CaseWithId; hearingData: any }> {
     const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
     const userDetails = req.session.user;
     const caseId = req.params.caseId ?? req.session?.userCase?.id ?? null;

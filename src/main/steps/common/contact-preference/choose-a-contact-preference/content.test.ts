@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { PartyDetails } from '../../../../app/case/definition';
+import { PartyDetails, applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
@@ -70,7 +70,7 @@ describe('contact preferences common content', () => {
           userCase: {
             applicants: [
               {
-                contactPreferences: 'post',
+                contactPreferences: applicantContactPreferencesEnum.POST,
               },
             ],
           },
@@ -108,8 +108,8 @@ describe('contact preferences common content', () => {
     expect((partyContactPreference.values[1].hint as Function)(generatedContent)).toBe(en.labelPostHintText);
     expect(partyContactPreference.values[1].value).toBe('post');
 
-    (partyContactPreference.validator as Function)('email');
-    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('email');
+    (partyContactPreference.validator as Function)(applicantContactPreferencesEnum.DIGITAL);
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith(applicantContactPreferencesEnum.DIGITAL);
   });
 
   test('partyContactPreference should not be disabled when email present', () => {

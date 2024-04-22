@@ -59,7 +59,7 @@ export type Task = {
   show?: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => boolean;
   disabled?: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => boolean;
   showHint?: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => boolean;
-  openInAnotherTab?: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => boolean;
+  openInAnotherTab?: boolean;
 };
 
 export type PreparedTask = {
@@ -76,7 +76,7 @@ export type HintConfig = {
 };
 
 export type HyperLinkConfig = {
-  openInAnotherTab: boolean;
+  openInAnotherTab: boolean | undefined;
 };
 
 type PreparedStateTag = {

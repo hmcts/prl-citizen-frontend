@@ -39,7 +39,7 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
       submitCase(
         req,
         res,
-        req.session.userCase.caseId!,
+        req.session.userCase!.caseId!,
         req.session.userCase,
         req.originalUrl,
         C100_CASE_EVENT.CASE_SUBMIT_WITH_HWF
@@ -49,7 +49,7 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
       submitCase(
         req,
         res,
-        req.session.userCase.caseId!,
+        req.session.userCase!.caseId!,
         req.session.userCase,
         req.originalUrl,
         C100_CASE_EVENT.CASE_SUBMIT
@@ -99,7 +99,7 @@ export const PaymentValidationHandler = async (req: AppRequest, res: Response) =
         submitCase(
           req,
           res,
-          req.session.userCase.caseId!,
+          req.session.userCase!.caseId!,
           req.session.userCase,
           req.originalUrl,
           C100_CASE_EVENT.CASE_SUBMIT

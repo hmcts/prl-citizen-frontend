@@ -1,0 +1,17 @@
+export const applicant_all_docs_en = {
+  ordersFromTheCourt: 'Orders from the court',
+  applicantsDocuments: "Applicant's documents",
+  respondentsDocuments: "Respondent's documents",
+  cafcassAndLaDocuments: 'CAFCASS and local authority document',
+  otherDocuments: 'Other documents',
+  attendingTheHearing: 'Attending the hearing',
+};
+
+export const applicant_all_docs_cy = {
+  ordersFromTheCourt: 'Gorchmynion gan y llys',
+  applicantsDocuments: 'Dogfennau’r Ceisydd',
+  respondentsDocuments: "Dogfennau'r Atebydd",
+  cafcassAndLaDocuments: 'Dogfennau gan CAFCASS a’r awdurdod lleol',
+  otherDocuments: 'Dogfennau eraill',
+  attendingTheHearing: 'Mynychu’r gwrandawiad',
+};

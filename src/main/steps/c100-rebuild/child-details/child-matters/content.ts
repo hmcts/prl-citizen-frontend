@@ -184,7 +184,7 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    title: `${translations['title']} ${childDetails.firstName} ${childDetails.lastName}`,
+    title: `${translations['title']} ${childDetails!.firstName} ${childDetails!.lastName}`,
     form: updateFormFields(form, fields),
   };
 };

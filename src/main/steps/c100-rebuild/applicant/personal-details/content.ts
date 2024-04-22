@@ -14,6 +14,7 @@ import {
   isFutureDate,
 } from '../../../../app/form/validation';
 import { getApplicantDetails } from '../util';
+//export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({

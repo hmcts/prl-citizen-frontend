@@ -51,7 +51,9 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
           HTML.P +
           (value === YesOrNo.YES
             ? getYesNoTranslation(language, YesOrNo.YES, 'doTranslation')
-            : isValueNo(value, language)) +
+            : value === YesOrNo.NO
+            ? getYesNoTranslation(language, YesOrNo.NO, 'doTranslation')
+            : value) +
           HTML.P_CLOSE;
         Val += keyDetails + valueDetails + rulerForLastElement;
       }
@@ -69,9 +71,6 @@ export const IndividualOrderFieldsParser = (keys, order, language) => {
   });
   return Val;
 };
-
-const isValueNo = (value, language) =>
-  value === YesOrNo.NO ? getYesNoTranslation(language, YesOrNo.NO, 'doTranslation') : value;
 
 /**
  * It takes in a UserCase object, a keys object, a URLS object and a sessionKey string. It returns an
