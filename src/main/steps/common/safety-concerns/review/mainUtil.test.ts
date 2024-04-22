@@ -32,8 +32,8 @@ describe('Test cases for safety concerns check answers', () => {
     const userCase = {
       id: 'id',
       state: undefined,
-      PRL_c1A_safetyConernAbout: ['applicant'],
-      PRL_c1A_haveSafetyConcerns: 'Yes',
+      c1A_safetyConernAbout: ['applicant'],
+      c1A_haveSafetyConcerns: 'Yes',
     } as ANYTYPE;
     const SafetyConcernsObj = SafetyConcerns(
       { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
@@ -49,12 +49,12 @@ describe('Test cases for safety concerns check answers', () => {
     const userCase = {
       id: 'id',
       state: undefined,
-      PRL_c1A_concernAboutChild: ['physicalAbuse', 'psychologicalAbuse'],
-      PRL_c1A_haveSafetyConcerns: 'Yes',
-      PRL_c1A_passportOffice: 'Yes',
-      PRL_c1A_possessionChildrenPassport: ['mother', 'Other'],
-      PRL_c1A_provideOtherDetails: 'aunt',
-      PRL_c1A_childAbductedBefore: 'Yes',
+      c1A_concernAboutChild: ['physicalAbuse', 'psychologicalAbuse'],
+      c1A_haveSafetyConcerns: 'Yes',
+      c1A_passportOffice: 'Yes',
+      c1A_possessionChildrenPassport: ['mother', 'Other'],
+      c1A_provideOtherDetails: 'aunt',
+      c1A_childAbductedBefore: 'Yes',
     } as ANYTYPE;
     const safetyConcerns_childObj = SafetyConcerns_child(
       { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
@@ -70,7 +70,7 @@ describe('Test cases for safety concerns check answers', () => {
     const userCase = {
       id: 'id',
       state: undefined,
-      PRL_c1A_concernAboutRespondent: ['respondent'],
+      c1A_concernAboutRespondent: ['respondent'],
     } as ANYTYPE;
     const safetyConcerns_yoursObj = SafetyConcerns_yours(
       { sectionTitles, keys, Yes: 'Yes', No: 'No', content },
@@ -86,7 +86,7 @@ describe('Test cases for safety concerns check answers', () => {
     const userCase = {
       id: 'id',
       state: undefined,
-      PRL_c1A_otherConcernsDrugsDetails: 'Test_Drug_Details',
+      c1A_otherConcernsDrugsDetails: 'Test_Drug_Details',
     } as ANYTYPE;
     const safetyConcerns_yoursObj = SafetyConcerns_others(
       { sectionTitles, keys, Yes: 'Yes', No: 'No', content },

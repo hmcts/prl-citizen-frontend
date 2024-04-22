@@ -1,5 +1,5 @@
 import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFieldsFn, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../../common/common.content';
 
 import { generateContent } from './content';
@@ -84,13 +84,23 @@ describe('safetyconcerns > child > concern about > content', () => {
       },
     },
   };
+  const commonContent1: CommonContent = {
+    ...commonContent,
+    additionalData: {
+      req: {
+        originalUrl: '/c100-rebuild',
+      },
+    },
+  };
   let generatedContent;
   let form;
   let fields;
+  let fields1;
   beforeEach(() => {
     generatedContent = generateContent(commonContent);
     form = generatedContent.form as FormContent;
-    fields = form.fields as FormFieldsFn;
+    fields = form.fields as FormFields;
+    fields1 = (generateContent(commonContent1).form as FormContent).fields as FormFields;
   });
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
@@ -102,9 +112,34 @@ describe('safetyconcerns > child > concern about > content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test.skip('should contain specialArrangements field', () => {
-    const applicantConcernAboutField = fields.c1A_concernAboutApplicant as FormOptions;
+  test('should contain respondent field', () => {
+    const respondentConcernAboutField = fields.c1A_concernAboutRespondent as FormOptions;
+    expect(respondentConcernAboutField.type).toBe('checkboxes');
+    expect((respondentConcernAboutField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_relevant);
+    expect((respondentConcernAboutField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.physicalAbuse);
+    expect((respondentConcernAboutField.values[1].label as LanguageLookup)(generatedContent)).toBe(
+      en.psychologicalAbuse
+    );
+    expect((respondentConcernAboutField.values[2].label as LanguageLookup)(generatedContent)).toBe(en.emotionalAbuse);
+    expect((respondentConcernAboutField.values[3].label as LanguageLookup)(generatedContent)).toBe(en.sexualAbuse);
+    expect((respondentConcernAboutField.values[4].label as LanguageLookup)(generatedContent)).toBe(en.financialAbuse);
+    expect((respondentConcernAboutField.values[5].label as LanguageLookup)(generatedContent)).toBe(en.somethingElse);
+    expect((respondentConcernAboutField.values[0].hint as LanguageLookup)(generatedContent)).toBe(en.physicalAbuseHint);
+    expect((respondentConcernAboutField.values[1].hint as LanguageLookup)(generatedContent)).toBe(
+      en.psychologicalAbuseHint
+    );
+    expect((respondentConcernAboutField.values[2].hint as LanguageLookup)(generatedContent)).toBe(
+      en.emotionalAbuseHint
+    );
+    expect((respondentConcernAboutField.values[3].hint as LanguageLookup)(generatedContent)).toBe(en.sexualAbuseHint);
+    expect((respondentConcernAboutField.values[4].hint as LanguageLookup)(generatedContent)).toBe(
+      en.financialAbuseHint
+    );
+    expect((respondentConcernAboutField.values[5].hint as LanguageLookup)(generatedContent)).toBe(en.somethingElseHint);
+  });
 
+  test('should contain applicant field', () => {
+    const applicantConcernAboutField = fields1.c1A_concernAboutApplicant as FormOptions;
     expect(applicantConcernAboutField.type).toBe('checkboxes');
     expect((applicantConcernAboutField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_relevant);
     expect((applicantConcernAboutField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.physicalAbuse);

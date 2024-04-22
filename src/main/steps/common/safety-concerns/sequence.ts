@@ -37,6 +37,7 @@ export class AOHSequence {
         showInSection: Sections.C100,
         getNextStep: (caseData, req) => {
           const C100rebuildJourney = req?.originalUrl?.startsWith(C100_URL);
+          //const C100rebuildJourney = getCasePartyType(req?.session?.userCase!, req?.session?.user.id!)===PartyType.RESPONDENT
           return SafteyConcernsNavigationController.getNextUrl(
             C100rebuildJourney
               ? (applyParms(C1A_SAFETY_CONCERNS_CONCERN_ABOUT, { root: RootContext.C100_REBUILD }) as PageLink)

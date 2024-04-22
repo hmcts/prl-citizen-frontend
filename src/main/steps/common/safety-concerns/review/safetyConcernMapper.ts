@@ -133,6 +133,46 @@ export const prepareRequest = (caseData: Partial<Case>): string => {
       data.c1A_safteyConcerns.child.sexualAbuse = undefined;
     }
   }
+  if (
+    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.RESPONDENT) &&
+    !c1A_concernAboutRespondent?.includes(C1AAbuseTypes.PHYSICAL_ABUSE)
+  ) {
+    if (data.c1A_safteyConcerns?.respondent?.physicalAbuse) {
+      data.c1A_safteyConcerns.respondent.physicalAbuse = undefined;
+    }
+  }
+  if (
+    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.RESPONDENT) &&
+    !c1A_concernAboutRespondent?.includes(C1AAbuseTypes.PSYCHOLOGICAL_ABUSE)
+  ) {
+    if (data.c1A_safteyConcerns?.respondent?.psychologicalAbuse) {
+      data.c1A_safteyConcerns.respondent.psychologicalAbuse = undefined;
+    }
+  }
+  if (
+    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.RESPONDENT) &&
+    !c1A_concernAboutRespondent?.includes(C1AAbuseTypes.EMOTIONAL_ABUSE)
+  ) {
+    if (data.c1A_safteyConcerns?.respondent?.emotionalAbuse) {
+      data.c1A_safteyConcerns.respondent.emotionalAbuse = undefined;
+    }
+  }
+  if (
+    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.RESPONDENT) &&
+    !c1A_concernAboutRespondent?.includes(C1AAbuseTypes.FINANCIAL_ABUSE)
+  ) {
+    if (data.c1A_safteyConcerns?.respondent?.financialAbuse) {
+      data.c1A_safteyConcerns.respondent.financialAbuse = undefined;
+    }
+  }
+  if (
+    c1A_safetyConernAbout?.includes(C1ASafteyConcernsAbout.RESPONDENT) &&
+    !c1A_concernAboutRespondent?.includes(C1AAbuseTypes.SEXUAL_ABUSE)
+  ) {
+    if (data.c1A_safteyConcerns?.respondent?.sexualAbuse) {
+      data.c1A_safteyConcerns.respondent.sexualAbuse = undefined;
+    }
+  }
 
   if (!c1A_concernAboutChild?.includes(C1AAbuseTypes.ABDUCTION)) {
     data.c1A_abductionReasonOutsideUk = '';

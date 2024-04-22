@@ -81,6 +81,33 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
   const commonContent = {
     language: 'en',
     userCase: {
+      cd_children: [
+        {
+          id: '7483640e-0817-4ddc-b709-6723f7925474',
+          firstName: 'Bob',
+          lastName: 'Silly',
+          personalDetails: {
+            dateOfBirth: {
+              year: '1987',
+              month: '12',
+              day: '12',
+            },
+            isDateOfBirthUnknown: '',
+            approxDateOfBirth: {
+              year: '',
+              month: '',
+              day: '',
+            },
+            gender: 'Male',
+          },
+          childMatters: {
+            needsResolution: [],
+          },
+          parentialResponsibility: {
+            statement: 'test stmt',
+          },
+        },
+      ],
       c1A_safteyConcerns: {
         child: {
           physicalAbuse: {
@@ -178,5 +205,8 @@ describe('C1A safetyconcerns > child > report abuse > content', () => {
     expect(
       (form?.onlycontinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
+  });
+  test('should contain saveAndComeLater button', () => {
+    expect(form?.saveAndComeLater?.text).toBe(undefined);
   });
 });

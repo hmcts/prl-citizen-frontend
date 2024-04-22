@@ -168,10 +168,6 @@ export class Routes {
       `${CONSENT_TO_APPLICATION}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.CONSENT_RESPONSE).get)
     );
-    // app.get(
-    //   `${RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE}/:caseId`,
-    //   errorHandler(new TasklistGetController(EventRoutesContext.SAFETY_CONCERNS_RESPONSE).get)
-    // );
     app.get(
       `${INTERNATIONAL_FACTORS_START}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.INTERNATIONAL_FACTORS_RESPONSE).get)

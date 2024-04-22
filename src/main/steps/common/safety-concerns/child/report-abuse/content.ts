@@ -143,7 +143,6 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
 export const generateFormFields = (
   data: C1ASafteyConcernsAbuse,
   childrenData: Childinfo[]
-  //ChildrenDetails[]
 ): GenerateDynamicFormFields => {
   const fields = {
     childrenConcernedAbout: {

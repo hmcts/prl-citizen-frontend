@@ -132,7 +132,6 @@ import MIAMNavigationController from './miam/navigationController';
 import OtherPersonsDetailsNavigationController from './other-person-details/navigationController';
 import OtherProceedingsNavigationController from './other-proceedings/navigationController';
 import RespondentsDetailsNavigationController from './respondent-details/navigationController';
-//import SafteyConcernsNavigationController from '../common/safety-concerns/navigationController';
 import ApplicantNavigationController from './applicant/navigationController';
 import AddPeoplePostContoller from './people/AddPeoplePostContoller';
 import ChildDetailsPostController from './child-details/childDetailPostController';
