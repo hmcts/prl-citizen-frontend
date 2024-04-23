@@ -86,7 +86,7 @@ describe('Urgency requirements content', () => {
 
   test('should contain riskUrgency field', () => {
     const previousAttendance = fields.miam_previousAttendance as FormOptions;
-    expect(previousAttendance.type).toBe('checkboxes');
+    expect(previousAttendance.type).toBe('radios');
 
     expect((previousAttendance.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
     expect((previousAttendance.values[0].label as LanguageLookup)(generatedContent)).toBe(en.fourMonthsPriorAttended);

@@ -126,11 +126,11 @@ export const MiamContentsForPreviousAttendance = UserCase => {
   if (UserCase.hasOwnProperty(key)) {
     return {
       en: () => {
-        const data = { ...PreviousAttendanceContentEn() } as ANYTYPE;
+        const data = { ...PreviousAttendanceContentEn } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
       cy: () => {
-        const data = { ...PreviousAttendanceContentCy() } as ANYTYPE;
+        const data = { ...PreviousAttendanceContentCy } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
     };

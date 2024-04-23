@@ -540,11 +540,7 @@ export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
       sections = CheckYourAnswerFlow2(userCase, enContent, content.language).flat() as ANYTYPE;
     } else {
       //if miam urgency is requested miam_urgency
-      if (
-        userCase['miam_urgency'] &&
-        userCase.hasOwnProperty('miam_urgency') &&
-        !userCase['miam_urgency'].includes('none')
-      ) {
+      if (userCase['miam_urgency'] && userCase.hasOwnProperty('miam_urgency') && userCase['miam_urgency'] !== 'none') {
         sections = CheckYourAnswerFlow3(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
       } else {
         sections = CheckYourAnswerFlow4(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
@@ -570,11 +566,7 @@ export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
       sections = CheckYourAnswerFlow2(userCase, cyContent, content.language).flat() as ANYTYPE;
     } else {
       //if miam urgency is requested miam_urgency
-      if (
-        userCase['miam_urgency'] &&
-        userCase.hasOwnProperty('miam_urgency') &&
-        !userCase['miam_urgency'].includes('none')
-      ) {
+      if (userCase['miam_urgency'] && userCase.hasOwnProperty('miam_urgency') && userCase['miam_urgency'] !== 'none') {
         sections = CheckYourAnswerFlow3(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
       } else {
         sections = CheckYourAnswerFlow4(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;

@@ -81,6 +81,7 @@ import {
   RespondentDocs,
   DocumentUploadResponse,
   ContactPreference,
+  DocumentResponse,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -546,7 +547,9 @@ export interface Case {
   miam_domesticAbuse?: string[];
   miam_childProtectionEvidence?: string[];
   miam_urgency?: string;
-  miam_previousAttendance?: string[];
+  miam_previousAttendance?: string;
+  miam_previousAttendanceEvidenceDoc?: DocumentResponse;
+  miam_haveDocSignedByMediatorForPrevAttendance?: string;
   miam_notAttendingReasons?: string[];
   hu_urgentHearingReasons?: YesOrNo;
   c1A_passportOffice?: YesOrNo;

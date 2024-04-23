@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Case } from '../../../app/case/case';
-import { MiamNonAttendReason } from '../../../app/case/definition';
+import { MiamNonAttendReason, YesOrNo } from '../../../app/case/definition';
+import { applyParms } from '../../../steps/common/url-parser';
 import {
   C100_HEARING_URGENCY_URGENT,
   C100_MIAM_CHILD_PROTECTION,
@@ -10,6 +11,8 @@ import {
   C100_MIAM_NO_NEED_WITH_REASONS,
   C100_MIAM_OTHER,
   C100_MIAM_PREVIOUS_ATTENDANCE,
+  C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR,
+  C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING,
   C100_MIAM_URGENCY,
   C100_TYPE_ORDER_SELECT_COURT_ORDER,
   PageLink,
@@ -88,6 +91,28 @@ class MIAMNavigationController {
         url = this.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
           ? C100_HEARING_URGENCY_URGENT
           : C100_TYPE_ORDER_SELECT_COURT_ORDER;
+        break;
+      }
+      case C100_MIAM_PREVIOUS_ATTENDANCE: {
+        if (caseData.miam_previousAttendance === 'fourMonthsPriorAttended') {
+          url = applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING) as PageLink;
+        } else if (caseData.miam_previousAttendance === 'miamExamptionApplied') {
+          url = C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR;
+        } else {
+          url =
+            this.getNextPageUrl(currentPageUrl) ||
+            (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+        }
+        break;
+      }
+      case C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR: {
+        if (caseData.miam_haveDocSignedByMediatorForPrevAttendance === YesOrNo.YES) {
+          url = applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING) as PageLink;
+        } else {
+          url =
+            this.getNextPageUrl(currentPageUrl) ||
+            (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+        }
         break;
       }
       default: {

@@ -52,12 +52,8 @@ const en = {
     riskOfCourtProceedingsDispute: UrgencyEn.riskOfCourtProceedingsDispute,
   },
   previousMIAMOrExempt: {
-    fourMonthsPriorAttended: PreviousAttendanceEn().fourMonthsPriorAttended,
-    onTimeParticipation: PreviousAttendanceEn().onTimeParticipation,
-    beforeInitiationProceeding: PreviousAttendanceEn().beforeInitiationProceeding,
-    fourMonthsPriorFiled: PreviousAttendanceEn().fourMonthsPriorFiled,
-    miamExamptionApplied: PreviousAttendanceEn().miamExamptionApplied,
-    beforStatingApplication: PreviousAttendanceEn().beforStatingApplication,
+    fourMonthsPriorAttended: PreviousAttendanceEn.fourMonthsPriorAttended,
+    miamExamptionApplied: PreviousAttendanceEn.miamExamptionApplied,
   },
   validExemption: {
     noSufficientContactDetails: OtherEn().noSufficientContactDetails,
@@ -112,12 +108,8 @@ const cy = {
     riskOfCourtProceedingsDispute: UrgencyCy.riskOfCourtProceedingsDispute,
   },
   previousMIAMOrExempt: {
-    fourMonthsPriorAttended: PreviousAttendanceCy().fourMonthsPriorAttended,
-    onTimeParticipation: PreviousAttendanceCy().onTimeParticipation,
-    beforeInitiationProceeding: PreviousAttendanceCy().beforeInitiationProceeding,
-    fourMonthsPriorFiled: PreviousAttendanceCy().fourMonthsPriorFiled,
-    miamExamptionApplied: PreviousAttendanceCy().miamExamptionApplied,
-    beforStatingApplication: PreviousAttendanceCy().beforStatingApplication,
+    fourMonthsPriorAttended: PreviousAttendanceCy.fourMonthsPriorAttended,
+    miamExamptionApplied: PreviousAttendanceCy.miamExamptionApplied,
   },
   validExemption: {
     noSufficientContactDetails: OtherCy().noSufficientContactDetails,
