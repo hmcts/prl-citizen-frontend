@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 //import { isFieldFilledIn } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
@@ -8,55 +9,41 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'Upload your MIAM certificate',
-  youNeed: 'If you are uploading documents from a computer, name the files clearly. For example, miam-certificate.doc.',
-  youNeed2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
-  uploadDescription: 'How to take a picture of a document on your phone and upload it',
-  uploadRequirement: [
-    'Place your document on a flat service in a well-lit room. Use a flash if you need to.',
-    'Take a picture of the whole document. You should be able to see its edges.',
-    'Check you can read all the writing, including the handwriting.',
-    'Email or send the photo or scan to the device you are using now.',
-    'Upload it here.',
-  ],
-  uploadButton: 'Upload file',
-  remove: 'Remove',
+  caption: 'MIAM exemptions',
+  title: 'Previous MIAM attendance or NCDR',
+  content: 'You must provide evidence that you’ve previously attended a MIAM or NCDR.',
+  haveDocSignedByMediatorForPrevAttendance: 'Do you have a document signed by a mediator?',
+  yes: 'Yes',
+  no: 'No',
+  detailsOfEvidence: 'Provide details of MIAM attendance',
+  detailsOfEvidenceHint:
+    'If you are the respondent in existing proceedings, provide the date of the MIAM alongside the name and contact details of the mediator.',
   errors: {
-    document: {
-      required: 'Please choose a file.',
-      multipleFiles: `You can upload only one file. 
-            If you wish to upload a new file, delete the existing 
-            file and upload a new one`,
-      fileSize: `The file you uploaded is too large.
-            Maximum file size allowed is 20MB`,
-      fileFormat: `The file you uploaded is in the wrong format.
-            Upload your file again in the correct format`,
+    miam_haveDocSignedByMediatorForPrevAttendance: {
+      required: 'Select yes if you have a document signed by a mediator',
+    },
+    miam_detailsOfEvidence: {
+      required: 'Provide details of MIAM attendance',
     },
   },
 };
 
 const cy = {
-  title: 'Llwytho eich tystysgrif MIAM',
-  youNeed:
-    'Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, tystysgrif-miam.doc.',
-  youNeed2: 'Rhaid i’r ffeiliau orffen efo JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
-  uploadDescription: "Sut i dynnu llun o ddogfen ar eich ffôn a'i lwytho",
-  uploadRequirement: [
-    'Rhowch eich dogfen ar rywbeth gwastad mewn ystafell sydd â digon o olau. Defnyddiwch fflach y camera os bydd angen.',
-    "Tynnwch lun o’r ddogfen gyfan. Dylech allu gweld corneli'r ddogfen.",
-    'Gwiriwch eich bod yn gallu gweld yr ysgrifen i gyd, gan gynnwys y llawysgrifen.',
-    'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
-    'Llwythwch y ffeil yma.',
-  ],
-  uploadButton: 'Llwytho ffeil',
-  remove: 'Dileu',
+  caption: 'Esemptiadau MIAM',
+  title: 'Eisoes wedi mynychu MIAM neu NCDR',
+  content: 'Mae’n rhaid i chi ddarparu tystiolaeth eich bod eisoes wedi mynychu MIAM neu NCDR.',
+  haveDocSignedByMediatorForPrevAttendance: 'A oes gennych chi ddogfen wedi’i llofnodi gan gyfryngwr?',
+  yes: 'Oes',
+  no: '	Nac oes',
+  detailsOfEvidence: 'Darparu manylion o fynychu MIAM',
+  detailsOfEvidenceHint:
+    'Os mai chi yw’r atebydd yn yr achos sydd ar y gweill, rhowch ddyddiad y MIAM yn ogystal ag enw a manylion cyswllt y cyfryngwr.',
   errors: {
-    document: {
-      required: 'Dewiswch ffeil.',
-      multipleFiles:
-        "Dim ond un ffeil y gallwch ei llwytho. Os ydych yn dymuno llwytho ffeil newydd, dylech ddileu'r ffeil bresennol a llwytho un newydd.",
-      fileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
-      fileFormat: "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
+    miam_haveDocSignedByMediatorForPrevAttendance: {
+      required: 'Dewiswch ‘Oes’ os oes gennych chi ddogfen wedi’i llofnodi gan gyfryngwr',
+    },
+    miam_detailsOfEvidence: {
+      required: 'Darparu manylion o fynychu MIAM',
     },
   },
 };
@@ -74,12 +61,40 @@ describe('Miam Upload-should return english content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain miam document upload field', () => {
+  test('should contain miam_haveDocSignedByMediatorForPrevAttendance field', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const miamUploadField = fields.miamUpload as FormOptions;
-    expect(miamUploadField.type).toBe('hidden');
+    const haveDocSignedByMediatorForPrevAttendanceField =
+      fields.miam_haveDocSignedByMediatorForPrevAttendance as FormOptions;
+    expect((haveDocSignedByMediatorForPrevAttendanceField.label as LanguageLookup)(generatedContent)).toBe(
+      en.haveDocSignedByMediatorForPrevAttendance
+    );
+    expect(haveDocSignedByMediatorForPrevAttendanceField.validator).toBe(atLeastOneFieldIsChecked);
+
+    expect((haveDocSignedByMediatorForPrevAttendanceField.values[0].label as LanguageLookup)(generatedContent)).toBe(
+      en.yes
+    );
+    expect((haveDocSignedByMediatorForPrevAttendanceField.values[1].label as LanguageLookup)(generatedContent)).toBe(
+      en.no
+    );
+
+    expect(
+      (
+        haveDocSignedByMediatorForPrevAttendanceField.values[1].subFields?.miam_detailsOfEvidence
+          .label as LanguageLookup
+      )(generatedContent)
+    ).toBe(en.detailsOfEvidence);
+    expect(
+      (
+        haveDocSignedByMediatorForPrevAttendanceField.values[1].subFields?.miam_detailsOfEvidence.hint as LanguageLookup
+      )(generatedContent)
+    ).toBe(en.detailsOfEvidenceHint);
+    (haveDocSignedByMediatorForPrevAttendanceField.values[1].subFields?.miam_detailsOfEvidence.validator as Function)(
+      'miam_detailsOfEvidence'
+    );
+    expect(isFieldFilledIn).toHaveBeenCalledWith('miam_detailsOfEvidence');
+    expect(isTextAreaValid).toHaveBeenCalledWith('miam_detailsOfEvidence');
   });
 
   test('should contain Continue button', () => {

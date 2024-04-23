@@ -1,6 +1,5 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
-//import { isFieldFilledIn } from '../../../../app/form/validation';
+import { FormContent, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -8,11 +7,15 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'Upload your MIAM certificate',
-  youNeed: 'If you are uploading documents from a computer, name the files clearly. For example, miam-certificate.doc.',
-  youNeed2: 'Files must end with JPG, BMP, PNG,TIF, PDF, DOC or DOCX.',
-  uploadDescription: 'How to take a picture of a document on your phone and upload it',
-  uploadRequirement: [
+  caption: 'MIAM exemptions',
+  title: 'Upload evidence of attending a MIAM or NCDR',
+  content:
+    'This document must be signed by the mediator. If you are uploading a paper copy of a document, make sure it has been scanned clearly and saved in a suitable file format (for example, a PDF).',
+  uploadEvidenceTitle: 'Upload your evidence',
+  uploadEvidenceHint:
+    'Give each document a file name that makes it clear what it is about. For example: MIAM-attendance.docx. Files must end with JPG, JPEG, BMP, PNG, TIF, PDF, DOC or DOCX.',
+  uploadEvidencePanelTitle: 'Take a picture of a document on your phone and upload it',
+  uploadEvidenceRequirements: [
     'Place your document on a flat service in a well-lit room. Use a flash if you need to.',
     'Take a picture of the whole document. You should be able to see its edges.',
     'Check you can read all the writing, including the handwriting.',
@@ -20,43 +23,48 @@ const en = {
     'Upload it here.',
   ],
   uploadButton: 'Upload file',
+  noFiles: 'No files uploaded',
   remove: 'Remove',
   errors: {
-    document: {
-      required: 'Please choose a file.',
-      multipleFiles: `You can upload only one file. 
-            If you wish to upload a new file, delete the existing 
-            file and upload a new one`,
-      fileSize: `The file you uploaded is too large.
-            Maximum file size allowed is 20MB`,
-      fileFormat: `The file you uploaded is in the wrong format.
-            Upload your file again in the correct format`,
+    miam_previousAttendanceEvidenceDoc: {
+      required: 'You must upload a document',
+      multipleFiles: 'You can only upload one document',
+      maxFileSize: 'The file you uploaded is too large. Maximum file size allowed is 20MB',
+      invalidFileFormat: 'The file you uploaded is in the wrong format. Upload your file again in the correct format',
+      uploadError: 'Document could not be uploaded',
+      deleteFile: 'Document could not be deleted',
     },
   },
 };
 
 const cy = {
-  title: 'Llwytho eich tystysgrif MIAM',
-  youNeed:
-    'Os ydych chi’n llwytho dogfennau o gyfrifiadur, rhowch enwau clir i’r ffeiliau. Er enghraifft, tystysgrif-miam.doc.',
-  youNeed2: 'Rhaid i’r ffeiliau orffen efo JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
-  uploadDescription: "Sut i dynnu llun o ddogfen ar eich ffôn a'i lwytho",
-  uploadRequirement: [
+  caption: 'Esemptiadau MIAM',
+  title: 'Uwchlwytho tystiolaeth o fynychu MIAM neu NCDR',
+  content:
+    'Rhaid i’r ddogfen hon gael ei llofnodi gan y cyfryngwr. Os ydych chi’n uwchlwytho copi papur o ddogfen, gwnewch yn siŵr ei fod wedi’i sganio’n glir, a’i gadw mewn fformat ffeil addas (er enghraifft, PDF).',
+  uploadEvidenceTitle: 'Uwchlwytho eich tystiolaeth',
+  uploadEvidenceHint:
+    'Rhowch enw ffeil i bob dogfen sy’n dweud yn glir beth ydyw. Er enghraifft MIAMexemption.docx. Rhaid i’r ffeiliau fod yn ffeiliau JPG, JPEG, BMP, PNG, TIF, PDF, DOC neu DOCX.',
+  uploadEvidencePanelTitle: 'Tynnu llun o ddogfen ar eich ffôn a’i uwchlwytho',
+  uploadEvidenceRequirements: [
     'Rhowch eich dogfen ar rywbeth gwastad mewn ystafell sydd â digon o olau. Defnyddiwch fflach y camera os bydd angen.',
     "Tynnwch lun o’r ddogfen gyfan. Dylech allu gweld corneli'r ddogfen.",
-    'Gwiriwch eich bod yn gallu gweld yr ysgrifen i gyd, gan gynnwys y llawysgrifen.',
+    'Gwiriwch eich bod yn gallu darllen yr holl ysgrifen, gan gynnwys y llawysgrifen.',
     'Anfonwch y llun trwy e-bost neu sganiwch y ddogfen i’r ddyfais rydych yn ei defnyddio nawr.',
-    'Llwythwch y ffeil yma.',
+    'Llwythwch y ffeil yma',
   ],
-  uploadButton: 'Llwytho ffeil',
-  remove: 'Dileu',
+  uploadButton: 'Uwchlwytho ffeil',
+  noFiles: 'Nid oes ffeiliau wedi cael eu huwchlwytho',
+  remove: 'Remove',
   errors: {
-    document: {
-      required: 'Dewiswch ffeil.',
-      multipleFiles:
-        "Dim ond un ffeil y gallwch ei llwytho. Os ydych yn dymuno llwytho ffeil newydd, dylech ddileu'r ffeil bresennol a llwytho un newydd.",
-      fileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
-      fileFormat: "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
+    miam_previousAttendanceEvidenceDoc: {
+      required: 'Mae’n rhaid i chi uwchlwytho dogfen',
+      multipleFiles: 'Gallwch uwchlwytho un ddogfen yn unig',
+      maxFileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
+      invalidFileFormat:
+        "Mae'r ffeil a lwythwyd gennych yn y fformat anghywir. Llwythwch eich ffeil eto yn y fformat cywir.",
+      uploadError: 'Document could not be uploaded - welsh',
+      deleteFile: 'Document could not be deleted - welsh',
     },
   },
 };
@@ -74,19 +82,11 @@ describe('Miam Upload-should return english content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain miam document upload field', () => {
-    const generatedContent = generateContent(commonContent) as Record<string, never>;
-    const form = generatedContent.form as FormContent;
-    const fields = form.fields as FormFields;
-    const miamUploadField = fields.miamUpload as FormOptions;
-    expect(miamUploadField.type).toBe('hidden');
-  });
-
   test('should contain Continue button', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent | undefined;
     expect(
-      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Continue');
   });
   test('should contain SaveAndComeLater button', () => {

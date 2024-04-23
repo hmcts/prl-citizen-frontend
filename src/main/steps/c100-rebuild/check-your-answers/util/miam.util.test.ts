@@ -105,14 +105,7 @@ describe('miam Util', () => {
 
   test('miam_previousAttendance test for checking if respective screen match contentss', () => {
     const userCase = {
-      miam_previousAttendance: [
-        'fourMonthsPriorAttended',
-        'onTimeParticipation',
-        'beforeInitiationProceeding',
-        'fourMonthsPriorFiled',
-        'miamExamptionApplied',
-        'beforStatingApplication',
-      ],
+      miam_previousAttendance: ['fourMonthsPriorAttended', 'miamExamptionApplied'],
     };
     const sessionFields = MiamContentsForPreviousAttendance(userCase);
     userCase.miam_previousAttendance.forEach(item => {

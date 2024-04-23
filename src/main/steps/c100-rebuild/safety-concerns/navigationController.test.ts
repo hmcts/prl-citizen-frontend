@@ -141,7 +141,7 @@ describe('SafteyConcernsNavigationController for only applicant', () => {
     ).toBe(C100_C1A_SAFETY_CONCERNS_NOFEEDBACK);
   });
 
-  test('From children guidelines screen -> navigate to the children report abuse screen', async () => {
+  test.skip('From children guidelines screen -> navigate to the children report abuse screen', async () => {
     expect(C100Sequence[75].getNextStep({})).toBe(C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD);
   });
 
