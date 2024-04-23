@@ -11,8 +11,8 @@ const en = {
     aboutYou: ' ',
   },
   keys: {
-    partiesServed: 'who was served?',
-    partiesServedDate: 'When were they served?',
+    sos_partiesServed: 'who was served?',
+    sos_partiesServedDate: 'When were they served?',
   },
   statementOfTruth: 'Statement of truth',
   filesUploaded: 'Files uploaded',
@@ -34,8 +34,8 @@ const cy = {
     aboutYou: ' ',
   },
   keys: {
-    partiesServed: 'Ar bwy y cyflwynwyd?',
-    partiesServedDate: 'Pryd cawson nhw eu cyflwyno?',
+    sos_partiesServed: 'Ar bwy y cyflwynwyd?',
+    sos_partiesServedDate: 'Pryd cawson nhw eu cyflwyno?',
   },
   statementOfTruth: 'Datganiad gwirionedd',
   filesUploaded: 'Ffeiliau sydd wedi’u llwytho',
@@ -61,7 +61,7 @@ describe('citizen-home content', () => {
         session: {
           userCase: {
             ...mockUserCase,
-            partiesServed: '',
+            sos_partiesServed: '',
             patieservedDate: '',
           },
           user: {
@@ -76,8 +76,8 @@ describe('citizen-home content', () => {
 
   test('should return correct english content', () => {
     expect(generatedContent.section).toEqual('Check your answers');
-    expect(generatedContent.keys.partiesServedDate).toEqual('When were they served?');
-    expect(generatedContent.keys.partiesServed).toEqual('who was served?');
+    expect(generatedContent.keys.sos_partiesServedDate).toEqual('When were they served?');
+    expect(generatedContent.keys.sos_partiesServed).toEqual('who was served?');
   });
 
   // eslint-disable-next-line jest/expect-expect

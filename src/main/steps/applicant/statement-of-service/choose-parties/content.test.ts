@@ -53,13 +53,13 @@ describe('citizen-home content', () => {
   });
 
   test('should contain continue checkboxes', () => {
-    const partiesServed = fields.partiesServed;
-    expect(partiesServed.type).toBe('checkboxes');
-    expect(partiesServed.validator).toBe(atLeastOneFieldIsChecked);
+    const sos_partiesServed = fields.sos_partiesServed;
+    expect(sos_partiesServed.type).toBe('checkboxes');
+    expect(sos_partiesServed.validator).toBe(atLeastOneFieldIsChecked);
 
-    const partiesServedDate = fields.partiesServedDate;
-    expect(partiesServedDate.type).toBe('date');
-    expect((partiesServedDate.label as Function)(generatedContent)).toBe(en.servedDate);
+    const sos_partiesServedDate = fields.sos_partiesServedDate;
+    expect(sos_partiesServedDate.type).toBe('date');
+    expect((sos_partiesServedDate.label as Function)(generatedContent)).toBe(en.servedDate);
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

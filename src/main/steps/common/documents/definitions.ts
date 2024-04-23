@@ -152,6 +152,20 @@ type DocumentMeta = {
   document_id?: string;
 };
 
+export type CitizenRespondentPack = {
+  packDocument?: {
+    id: string;
+    value: DocumentMeta | null;
+  }[];
+  partyIds: {
+    id: string;
+    value: string;
+  }[];
+  servedBy: string;
+  packCreatedDate: string;
+  personalServiceBy: string;
+};
+
 export type CitizenDocuments = {
   partyId: string;
   partyType: PartyType;

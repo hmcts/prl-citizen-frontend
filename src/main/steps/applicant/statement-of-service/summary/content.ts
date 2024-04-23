@@ -8,6 +8,7 @@ import {
   getSectionSummaryList,
 } from '../../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { CommonContent } from '../../../../steps/common/common.content';
+import { applyParms } from '../../../../steps/common/url-parser';
 import { APPLICANT_STATEMENT_OF_SERVICE } from '../../../../steps/urls';
 
 export const enContent = {
@@ -17,8 +18,8 @@ export const enContent = {
     aboutYou: ' ',
   },
   keys: {
-    partiesServed: 'who was served?',
-    partiesServedDate: 'When were they served?',
+    sos_partiesServed: 'who was served?',
+    sos_partiesServedDate: 'When were they served?',
   },
   statementOfTruth: 'Statement of truth',
   filesUploaded: 'Files uploaded',
@@ -40,8 +41,8 @@ const cyContent: typeof enContent = {
     aboutYou: ' ',
   },
   keys: {
-    partiesServed: 'Ar bwy y cyflwynwyd?',
-    partiesServedDate: 'Pryd cawson nhw eu cyflwyno?',
+    sos_partiesServed: 'Ar bwy y cyflwynwyd?',
+    sos_partiesServedDate: 'Pryd cawson nhw eu cyflwyno?',
   },
   statementOfTruth: 'Datganiad gwirionedd',
   filesUploaded: 'Ffeiliau sydd wedi’u llwytho',
@@ -118,38 +119,44 @@ const getSummarySection = (summaryContent: CommonContent) => {
   }
   const summaryData: SummaryListRow[] = [];
   if (summaryContent.userCase) {
-    if (summaryContent.userCase.partiesServed) {
+    if (summaryContent.userCase.sos_partiesServed) {
       const partyNames: string[] = [];
-      summaryContent.userCase.partiesServed
+      summaryContent.userCase.sos_partiesServed
         .filter(id => id !== '')
         .forEach(partyId => {
           const respondent: Respondent = summaryContent.userCase!.respondents!.filter(party => party.id === partyId)[0];
           partyNames.push(respondent.value.firstName + ' ' + respondent.value.lastName);
         });
       summaryData.push({
-        key: labels.keys.partiesServed,
+        key: labels.keys.sos_partiesServed,
         value: partyNames.toString(),
-        changeUrl: APPLICANT_STATEMENT_OF_SERVICE,
+        changeUrl: applyParms(APPLICANT_STATEMENT_OF_SERVICE, {
+          context: summaryContent.additionalData?.req.params.context,
+        }),
       });
     }
-    if (summaryContent.userCase['partiesServedDate-day']) {
+    if (summaryContent.userCase['sos_partiesServedDate-day']) {
       const date =
-        summaryContent.userCase['partiesServedDate-day'] +
+        summaryContent.userCase['sos_partiesServedDate-day'] +
         '-' +
-        summaryContent.userCase['partiesServedDate-month'] +
+        summaryContent.userCase['sos_partiesServedDate-month'] +
         '-' +
-        summaryContent.userCase['partiesServedDate-year'];
+        summaryContent.userCase['sos_partiesServedDate-year'];
       summaryData.push({
-        key: labels.keys.partiesServedDate,
+        key: labels.keys.sos_partiesServedDate,
         value: date.toString(),
-        changeUrl: APPLICANT_STATEMENT_OF_SERVICE,
+        changeUrl: applyParms(APPLICANT_STATEMENT_OF_SERVICE, {
+          context: summaryContent.additionalData?.req.params.context,
+        }),
       });
     }
     if (summaryContent.userCase.applicantUploadFiles) {
       summaryData.push({
         key: labels.filesUploaded,
         value: summaryContent.userCase.applicantUploadFiles[0].document_filename,
-        changeUrl: APPLICANT_STATEMENT_OF_SERVICE,
+        changeUrl: applyParms(APPLICANT_STATEMENT_OF_SERVICE, {
+          context: summaryContent.additionalData?.req.params.context,
+        }),
       });
     }
   }

@@ -31,16 +31,16 @@ export const prepareKeepDetailsPrivateRequest = (req: CaseWithId): KeepDetailsPr
 
 export const prepateStatementOfServiceRequest = (req: AppRequest<AnyObject>): CitizenSos => {
   const userCase = req.session.userCase;
-  userCase.partiesServed = userCase.partiesServed!.filter(party => party !== '');
+  userCase.sos_partiesServed = userCase.sos_partiesServed!.filter(party => party !== '');
   return {
-    partiesServed: userCase.partiesServed.toString(),
-    partiesServedDate:
-      userCase['partiesServedDate-year'] +
+    sos_partiesServed: userCase.sos_partiesServed.toString(),
+    sos_partiesServedDate:
+      userCase['sos_partiesServedDate-year'] +
       '-' +
-      userCase['partiesServedDate-month'] +
+      userCase['sos_partiesServedDate-month'] +
       '-' +
-      userCase['partiesServedDate-day'],
-    citizenSosDocs: userCase.statementOfServiceDocument,
+      userCase['sos_partiesServedDate-day'],
+    citizenSosDocs: userCase.statementOfServiceDocument!,
     isOrder: 'order' === req.params.context ? 'Yes' : 'No',
   };
 };

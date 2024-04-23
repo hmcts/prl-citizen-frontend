@@ -27,6 +27,7 @@ import {
   APPLICANT_START_ALTERNATIVE,
   APPLICANT_STATEMENT_OF_SERVICE,
   APPLICANT_STATEMENT_OF_SERVICE_NEXT,
+  APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
   APPLICANT_STATEMENT_OF_SERVICE_SUMMARY,
   APPLICANT_TASK_LIST_URL,
   APPLICANT_YOURHEARINGS_HEARINGS,
@@ -410,5 +411,15 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_STATEMENT_OF_SERVICE_NEXT,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+  },
+  {
+    url: APPLICANT_TASK_LIST_URL,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
+  },
+  {
+    url: APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
   },
 ];

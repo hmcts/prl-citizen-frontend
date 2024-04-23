@@ -153,23 +153,13 @@ export class CosApiClient {
   public async saveStatementOfService(
     user: UserDetails,
     caseId: string,
-    caseType: CaseType,
     sosObject: CitizenSos,
     eventName: CaseEvent
   ): Promise<CaseWithId> {
     try {
-      const response = await Axios.post(
+      const response = await this.client.post(
         config.get('services.cos.url') + `/${caseId}/${eventName}/save-statement-of-service-by-citizen`,
-        sosObject,
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + user.accessToken,
-            ServiceAuthorization: 'Bearer ' + getServiceAuthToken(),
-            accessCode: 'Dummy accessCode',
-          },
-        }
+        sosObject
       );
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };

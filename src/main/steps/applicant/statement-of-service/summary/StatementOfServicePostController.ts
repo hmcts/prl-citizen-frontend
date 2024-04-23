@@ -3,14 +3,17 @@ import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { getPartyDetails, mapDataInSession } from '../../../../../main/steps/tasklistresponse/utils';
-import { APPLICANT_STATEMENT_OF_SERVICE_NEXT } from '../../../../../main/steps/urls';
+import {
+  APPLICANT_STATEMENT_OF_SERVICE_NEXT,
+  APPLICANT_STATEMENT_OF_SERVICE_SUMMARY,
+} from '../../../../../main/steps/urls';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { CaseEvent, CaseType } from '../../../../app/case/definition';
+import { CaseEvent } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
-import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { applyParms } from '../../../../steps/common/url-parser';
 import { prepateStatementOfServiceRequest } from '../choose-parties/StatementOfServiceMapper';
-import { getFormFields } from '../choose-parties/content';
 
 @autobind
 export default class StatementOfServicePostController extends PostController<AnyObject> {
@@ -19,14 +22,19 @@ export default class StatementOfServicePostController extends PostController<Any
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const form = new Form(getFormFields(req.session.userCase).fields as FormFields);
-    const { onlyContinue, saveAndComeLater, ...formFields } = req.body;
-    const { _csrf, ...formData } = form.getParsedBody(formFields);
-
-    if (onlyContinue) {
-      req.session.errors = form.getErrors(formData);
-      if (req.session.errors.length > 0) {
-        return super.redirect(req, res);
+    const { sosConsent } = req.body;
+    if (!sosConsent || sosConsent === '') {
+      if (!req.session.errors) {
+        req.session.errors = [];
+      }
+      req.session.errors?.push({
+        errorType: 'required',
+        propertyName: 'sosConsent',
+      });
+      if (req.session.errors?.length) {
+        req.session.save(() =>
+          res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req.params.context }))
+        );
       }
     }
     const { user, userCase } = req.session;
@@ -38,13 +46,7 @@ export default class StatementOfServicePostController extends PostController<Any
       req.session.userCase.statementOfServiceDocument = undefined;
       try {
         mapDataInSession(
-          await client.saveStatementOfService(
-            user,
-            userCase.id,
-            userCase.caseTypeOfApplication as CaseType,
-            userData,
-            CaseEvent.CITIZEN_CASE_UPDATE
-          ),
+          await client.saveStatementOfService(user, userCase.id, userData, CaseEvent.CITIZEN_CASE_UPDATE),
           user.id
         );
         req.session.save(() => res.redirect(APPLICANT_STATEMENT_OF_SERVICE_NEXT));

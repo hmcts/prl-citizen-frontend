@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
-import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
+import { CitizenApplicationPacks, CitizenDocuments, CitizenRespondentPack } from '../../steps/common/documents/definitions';
 
 import { RAFlagValue } from '../../modules/reasonable-adjustments/definitions';
 import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
@@ -116,15 +116,10 @@ export interface PartyDetails {
 }
 
 export interface CitizenSos {
-  partiesServedDate?: string;
-  partiesServed?: string;
-  citizenSosDocs?: Document;
+  sos_partiesServedDate: string;
+  sos_partiesServed: string;
+  citizenSosDocs: Document;
   isOrder?: string;
-}
-
-export interface DocumentFromCdam {
-  status?: number;
-  document?: Document;
 }
 
 export interface User {
@@ -145,16 +140,6 @@ export interface Response {
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
   c7ResponseSubmitted?: YesOrNo;
-}
-
-export interface DynamicMultiSelectList {
-  list_items: DynamicMultiSelectListElement[];
-  value: DynamicMultiSelectListElement[];
-}
-
-export interface DynamicMultiSelectListElement {
-  code: string;
-  label: string;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -222,10 +207,8 @@ export interface OtherProceedingDetails {
 export interface CitizenFlags {
   isApplicationViewed?: string;
   isAllegationOfHarmViewed?: string;
-  isAllDocumentsViewed?: string
   isResponseInitiated?: string;
   isApplicationToBeServed?: string;
-  isOrderPersonallyServed?: string;
 }
 
 export const enum DownloadFileFieldFlag {
@@ -1015,6 +998,7 @@ export interface CaseData {
   citizenDocuments?: CitizenDocuments[];
   citizenOrders?: CitizenDocuments[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
+  personalServiceUnServedRespondentPack: CitizenRespondentPack;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
 

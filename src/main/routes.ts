@@ -17,7 +17,6 @@ import { AccessibilityStatementGetController } from './steps/accessibility-state
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
-import UploadDocumentPostController from './steps/common/documents/upload/upload-your-documents/postController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
@@ -98,7 +97,6 @@ import {
   LOCAL_API_SESSION,
   DOWNLOAD_DOCUMENT,
   DOWNLOAD_DOCUMENT_BY_TYPE,
-  DOCUMENT_MANAGER,
 } from './steps/urls';
 
 export class Routes {
@@ -239,10 +237,6 @@ export class Routes {
         );
         app.get(`${MIAM_SAVE}`, errorHandler(new MIAMPostController(step.form.fields).post));
         app.get(`${PROCEEDING_SAVE}`, errorHandler(new ProceedingPostController(step.form.fields).post));
-        app.get(
-          `${DOCUMENT_MANAGER}/upload-document`,
-          errorHandler(new UploadDocumentPostController(step.form.fields).post)
-        );
 
         app.get(
           `${INTERNATIONAL_FACTORS_SAVE}`,

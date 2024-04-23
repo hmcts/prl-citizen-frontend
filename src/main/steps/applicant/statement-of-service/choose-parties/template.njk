@@ -16,9 +16,6 @@
         </h1>
       {% endif %}
     </div>
-    <p class="govuk-body">{{uplodFileText1}}</p>
-    <p class="govuk-body govuk-!-margin-bottom-6">{{uplodFileText2}}</p>
-    
     <div id="uploadGroup" tabindex="0" class="uploadGroup">
       <div class=" govuk-!-margin-bottom-3">
         {% if errorMessage !== null %}
@@ -28,14 +25,51 @@
             <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
               {{uploadFileHeading}}
             </label>
+            <p class="govuk-body">{{uplodFileHintText}}</p>
             <form
             action="{{url}}&_csrf={{ csrfToken }}"
             method="post"
             enctype="multipart/form-data"
             novalidate>
+              {% if uploadFileHeader !== undefined  %}
+                <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
+                  {{uploadFileHeader}}
+                  {% if fileUploadedHint !== undefined %}
+                  <span class="govuk-caption-l">{{fileUploadedHint}}</span>
+                  {%endif%}
+                </label>
+              {%endif%}
+              
+                            <h2 class="govuk-heading-s">{{ filesUploadedText }}</h2>
+
+                <ul id="filesUploadedList" class="govuk-list">
+                  <dl class="govuk-summary-list">
+                      {% if filesUploaded.length > 0 %}
+                        {% for file in filesUploaded %}
+                          <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__value">
+                              {{ file.document_filename }}
+                            </dt>
+                            <dd class="govuk-summary-list__actions">
+                              <a
+                                href="?documentId={{ file.id }}"
+                              class="govuk-link">
+                                {{ removeDocument }}</span>
+                              </a>
+                            </dd>
+                          </div>
+                        {% endfor %}
+                      {%else%}
+                        {{noFilesUploaded}}
+                      {%endif%}
+                  </dl>
+                </ul>
+                <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
+                Upload a file
+              </label> 
               {{ govukFileUpload(
                 {
-                  id: 'documents',
+                  id: 'uploadDocumentFileUpload',
                   name: "files[]",
                   attributes: {
                     accept: "image/jpeg,image/tiff,image/jpg,image/bmp,image/png,image/tif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -46,7 +80,7 @@
                   } if errorMessage !== null }) }}
               {{ govukButton(
                 {
-                  text: uploadFileButtontext,
+                  text: "Upload file",
                   name: "uploadFile",
                   value: "true",
                   type: "submit", 
@@ -59,28 +93,7 @@
         </div>
       {% endif %}
 
-      {% if filesUploaded.length > 0 %}
-        <h2 class="govuk-heading-s">{{ uploadDocumentFileUpload }}</h2>
-
-        <ul id="filesUploadedList" class="govuk-list">
-          <dl class="govuk-summary-list">
-            {% for file in filesUploaded %}
-              <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__value">
-                  {{ file.document_filename }}
-                </dt>
-                <dd class="govuk-summary-list__actions">
-                  <a
-                    href="?documentId={{ file.id }}"
-                  class="govuk-link">
-                    {{ removeDocument }}</span>
-                  </a>
-                </dd>
-              </div>
-            {% endfor %}
-          </dl>
-        </ul>
-      {% endif %}
+      
 
     </div>
     <div class="govuk-form-group govuk-!-margin-bottom-0">
@@ -90,13 +103,7 @@
             {{ statementOfTruth }}
           </h3>
         </legend>
-        <div class="govuk-warning-text">
-          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-          <strong class="govuk-warning-text__text">
-            <span class="govuk-warning-text__assistive">{{ warning }}</span>
-            {{ warningText }}
-          </strong>
-        </div>
+        
       </fieldset>
     </div>
   {% endblock %}

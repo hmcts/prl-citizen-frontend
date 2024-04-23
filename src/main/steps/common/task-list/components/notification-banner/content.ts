@@ -3,6 +3,7 @@ import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import {
   APPLICANT_STATEMENT_OF_SERVICE,
+  APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
   C9_DOWNLOAD_LINK,
   DOWNLOAD_DOCUMENT_BY_TYPE,
   FIND_OUT_ABOUT_CAFCASS,
@@ -302,7 +303,7 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
-                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+                  href: APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
                   text: "View the respondent's documents",
                 },
               ],
@@ -567,7 +568,7 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
-                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+                  href: APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
                   text: "View the respondent's documents",
                 },
               ],
@@ -886,10 +887,7 @@ const cy: typeof en = {
               links: [
                 {
                   text: 'Gweld dogfennau’r atebydd',
-                  href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
-                    partyType: PartyType.APPLICANT,
-                    context: 'to-be-served',
-                  }),
+                  href: APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
                 },
               ],
             },
@@ -1156,7 +1154,7 @@ const cy: typeof en = {
               ],
               links: [
                 {
-                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+                  href: APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
                   text: "View the respondent's documents",
                 },
               ],

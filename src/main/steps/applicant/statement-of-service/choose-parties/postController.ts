@@ -4,12 +4,12 @@ import { Response } from 'express';
 
 import { handleError, removeUploadDocErrors } from '../../../../../main/steps/common/documents/upload/utils';
 import { applyParms } from '../../../../../main/steps/common/url-parser';
-import { APPLICANT_STATEMENT_OF_SERVICE } from '../../../../../main/steps/urls';
+import { APPLICANT_STATEMENT_OF_SERVICE, APPLICANT_STATEMENT_OF_SERVICE_SUMMARY } from '../../../../../main/steps/urls';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
-import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { Form, FormError, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 
 @autobind
 export default class UploadSosPostController extends PostController<AnyObject> {
@@ -44,6 +44,11 @@ export default class UploadSosPostController extends PostController<AnyObject> {
     }
 
     try {
+      if (req.session.userCase?.['applicantUploadFiles']?.length !== 0) {
+        const document = req.session.userCase?.['applicantUploadFiles']![0];
+        const documentId = document.document_url.substring(document.document_url.lastIndexOf('/') + 1) as string;
+        await client.deleteCitizenStatementDocument(documentId);
+      }
       const response = await client.uploadStatementDocument(user, {
         files: [files['files[]']],
       });
@@ -63,10 +68,31 @@ export default class UploadSosPostController extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { onlyContinue: uploadFile } = req.body;
+    const uploadFile = req.body.uploadFile;
 
     if (uploadFile) {
       this.uploadDocument(req, res);
+    } else {
+      const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
+      const form = new Form(fields);
+      const { _csrf, ...formData } = form.getParsedBody(req.body);
+      const formErrors: FormError[] = form.getErrors(formData);
+      if (formErrors.length > 0) {
+        return super.redirect(req, res);
+      }
+      req.session.userCase.sos_partiesServed = formData['sos_partiesServed'];
+      req.session.userCase['sos_partiesServedDate-day'] = formData['sos_partiesServedDate-day'];
+      req.session.userCase['sos_partiesServedDate-month'] = formData['sos_partiesServedDate-month'];
+      req.session.userCase['sos_partiesServedDate-year'] = formData['sos_partiesServedDate-year'];
+
+      // req.session.userCase['sos_partiesServedDate'] = new Date(
+      //   formData['sos_partiesServedDate-year'],
+      //   formData['sos_partiesServedDate-month'] - 1,
+      //   formData['sos_partiesServedDate-day']
+      // );
+      req.session.save(() =>
+        res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req.params.context }))
+      );
     }
   }
 }

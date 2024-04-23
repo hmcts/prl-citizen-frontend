@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { CaseDate, CaseWithId } from '../../../../app/case/case';
 import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
@@ -10,6 +12,8 @@ import {
   isFutureDate,
 } from '../../../../app/form/validation';
 
+export * from './routeGuard';
+
 export const en = {
   caption: 'Case number ',
   title: 'Add a statement of service',
@@ -20,21 +24,23 @@ export const en = {
   remove: 'Remove',
   servedDate: 'When were they served?',
   servedDateHint: 'For example: 16 4 2021',
-  uplodFileText1:
+  uplodFileHintText:
     'when uploading documents, name the files clearly. For example, position-statement.doc. Files must end with JPG,BMP,PNG,TIF,PDF,DOC,or DOCX.',
   uploadFileHeading: 'Upload a document',
   uploadButton: 'Upload file',
+  filesUploadedText: 'Files uploaded',
   noFilesUploaded: 'No files uploaded',
+  removeDocument: 'Remove',
   errors: {
-    partiesServedDate: {
+    sos_partiesServedDate: {
       required: 'You must enter the date of service',
     },
-    partiesServed: {
+    sos_partiesServed: {
       required: 'You must select a respondent',
     },
-    documents: {
+    uploadDocumentFileUpload: {
       uploadError: 'Document could not be uploaded',
-      required: 'You must upload a statement of service',
+      empty: 'You must upload a statement of service',
       multipleFiles: `You can upload only one file.
             If you wish to upload a new file, delete the existing
             file and upload a new one`,
@@ -56,21 +62,23 @@ export const cy = {
   servedDateHint: 'Er enghraifft: 16 4 2021',
   uploadFiles: 'Eich dogfennau',
   remove: 'Dileu',
-  uplodFileText1:
+  uplodFileHintText:
     'Pan fyddwch yn llwytho dogfennau, gwnewch yn siŵr eich bod yn enwi’r ffeiliau yn glir.  Er enghraifft, datganiad-safbwynt.doc. Rhaid i’r ffeiliau fod ar ffurf JPG, BMP, PNG,TIF, PDF, DOC neu DOCX.',
   uploadFileHeading: 'Llwytho dogfen',
   uploadButton: 'Llwytho ffeil',
-  noFilesUploaded: "Dim ffeil wedi'i dewis",
+  filesUploadedText: "Ffeiliau sydd wedi'u llwytho",
+  noFilesUploaded: "Nid oes ffeiliau wedi'u llwytho",
+  removeDocument: 'Remove',
   errors: {
-    partiesServedDate: {
+    sos_partiesServedDate: {
       required: "Mae'n rhaid i chi nodi'r dyddiad cyflwyno",
     },
-    partiesServed: {
+    sos_partiesServed: {
       required: "Mae'n rhaid i chi ddewis atebydd",
     },
-    documents: {
+    uploadDocumentFileUpload: {
       uploadError: 'Document could not be uploaded',
-      required: "Mae'n rhaid i chi lwytho datganiad cyflwyno",
+      empty: "Mae'n rhaid i chi lwytho datganiad cyflwyno",
       multipleFiles:
         "Dim ond un ffeil y gallwch ei llwytho. Os ydych yn dymuno llwytho ffeil newydd, dylech ddileu'r ffeil bresennol a llwytho un newydd.",
       fileSize: "Mae'r ffeil yr ydych wedi ei llwytho yn rhy fawr. Uchafswm maint y ffeil yw 20MB",
@@ -98,27 +106,25 @@ const updateFormFields = (form: FormContent, formFields: FormContent['fields']):
   return updatedForm;
 };
 
-export const generateFormFields = (parties: { id: string; value: string }[]): GenerateDynamicFormFields => {
+export const generateFormFields = (caseData: Partial<CaseWithId>): GenerateDynamicFormFields => {
   const errors = {
     en: {},
     cy: {},
   };
-  const checkboxes: { name: string; label: string; value: string }[] = [];
-  parties.forEach(p => {
-    checkboxes.push({
-      name: 'partiesServed',
-      label: p.value,
-      value: p.id,
-    });
-  });
+
   const fields = {
-    partiesServed: {
+    sos_partiesServed: {
       type: 'checkboxes',
       label: l => l.whowasserved,
-      values: [...checkboxes],
+      values: getParties(caseData).map(respondent => ({
+        name: 'sos_partiesServed',
+        value: respondent.id,
+        label: respondent.value,
+        selected: caseData.sos_partiesServed?.includes(respondent.id) || false,
+      })),
       validator: atLeastOneFieldIsChecked,
     },
-    partiesServedDate: {
+    sos_partiesServedDate: {
       type: 'date',
       classes: 'govuk-date-input',
       label: l => l.servedDate,
@@ -130,21 +136,24 @@ export const generateFormFields = (parties: { id: string; value: string }[]): Ge
           name: 'day',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          value: _.get(caseData, 'sos_partiesServedDate.day', ''),
         },
         {
           label: l => l.dateFormat['month'],
           name: 'month',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
+          value: _.get(caseData, 'sos_partiesServedDate.month', ''),
         },
         {
           label: l => l.dateFormat['year'],
           name: 'year',
           classes: 'govuk-input--width-4',
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
+          value: _.get(caseData, 'sos_partiesServedDate.year', ''),
         },
       ],
-      parser: body => covertToDateObject('partiesServedDate', body as Record<string, unknown>),
+      parser: body => covertToDateObject('sos_partiesServedDate', body as Record<string, unknown>),
       validator: value =>
         areDateFieldsFilledIn(value as CaseDate) ||
         isDateInputInvalid(value as CaseDate) ||
@@ -177,38 +186,25 @@ const getParties = (userCase: Partial<CaseWithId>) => {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  let parties: { id: string; value: string }[] = [];
-  if (content.userCase) {
-    parties = getParties(content.userCase);
-  }
   const url = `?context=${content.additionalData?.req.params.context}&isSos=Yes`;
   return {
     ...translations,
-    form: updateFormFields(form, generateFormFields(parties).fields),
-    uploadedFiles: content.userCase?.applicantUploadFiles?.map(file => ({
-      id: file.document_url.substring(file.document_url.lastIndexOf('/') + 1),
-      ...file,
-    })),
+    form: updateFormFields(form, generateFormFields(content.userCase!).fields),
     url,
-    ...translations,
     filesUploaded:
       content.userCase?.['applicantUploadFiles']?.map(file => ({
         id: file.document_url.substring(file.document_url.lastIndexOf('/') + 1),
         ...file,
       })) ?? [],
     errorMessage:
-      translations.errors.documents?.[
+      translations.errors.uploadDocumentFileUpload?.[
         content.additionalData?.req.session?.errors?.find(
-          error => error.propertyName === 'documents' && error.errorType !== 'uploadError'
+          error => error.propertyName === 'uploadDocumentFileUpload' && error.errorType !== 'uploadError'
         )?.errorType
       ] ?? null,
   };
 };
 
 export const getFormFields = (userCase: Partial<CaseWithId>): FormContent => {
-  let parties: { id: string; value: string }[] = [];
-  if (userCase) {
-    parties = getParties(userCase);
-  }
-  return updateFormFields(form, generateFormFields(parties).fields);
+  return updateFormFields(form, generateFormFields(userCase).fields);
 };
