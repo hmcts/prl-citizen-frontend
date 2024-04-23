@@ -27,7 +27,7 @@ import { resonableAdjustmentHelper } from './helpers/reasonableAdjustment';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
 import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
 import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
-
+console.info('** FOR SONAR **');
 /* eslint-disable import/namespace */
 export const CaseName = (
   { sectionTitles, keys, ...content }: SummaryListContent,

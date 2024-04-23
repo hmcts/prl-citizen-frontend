@@ -7,7 +7,7 @@ import { C100_APPLICANT_TASKLIST, C100_URL, COMMON_PAGE_URLS } from '../../steps
 
 import AppSurvey from './app-survey/appSurveyController';
 import { appSurveyContents } from './app-survey/content';
-
+console.info('** FOR SONAR **');
 export const en = {
   phase: 'Beta',
   applyForChildArrangements: 'Private Law',

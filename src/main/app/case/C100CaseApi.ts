@@ -11,7 +11,7 @@ import { AppSession, UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { C100_CASE_EVENT, C100_CASE_TYPE, State } from './definition';
-
+console.info('** FOR SONAR **');
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 

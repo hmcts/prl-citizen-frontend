@@ -16,7 +16,7 @@ import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } 
 import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
 import { cy, en } from '../common.content';
 import { applyParms } from '../url-parser';
-
+console.info('** FOR SONAR **');
 export const getSectionSummaryList = (
   rows: SummaryListRow[],
   content: PageContent,

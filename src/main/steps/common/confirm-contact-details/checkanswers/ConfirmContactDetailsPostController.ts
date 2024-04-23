@@ -27,6 +27,7 @@ import {
   setAddressFields,
   //setContactDetails
 } from './ContactDetailsMapper';
+console.info('** FOR SONAR **');
 
 @autobind
 export class ConfirmContactDetailsPostController extends PostController<AnyObject> {

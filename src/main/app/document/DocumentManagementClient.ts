@@ -4,7 +4,7 @@ import FormData from 'form-data';
 
 import { UserRole } from '../../app/case/definition';
 import type { UserDetails } from '../controller/AppRequest';
-
+console.info('** FOR SONAR **');
 export class DocumentManagementClient {
   client: AxiosInstance;
   constructor(baseURL: string, authToken: string, private readonly user: UserDetails) {

@@ -19,7 +19,7 @@ import {
 import { CosApiClient } from '../case/CosApiClient';
 
 import { AppRequest } from './AppRequest';
-
+console.info('** FOR SONAR **');
 export class GetCaseController {
   //constructor(protected readonly view: string, protected readonly content: TranslationFn) {}
 
