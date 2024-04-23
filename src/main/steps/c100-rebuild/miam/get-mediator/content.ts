@@ -1,9 +1,9 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 
-const en = () => ({
+const en = {
   title: 'You must attend a MIAM',
-  paragraph: `You’re legally required to attend a MIAM before making a child arrangements application.`,
-  whatNextLabel: `What you need to do next`,
+  paragraph: 'You’re legally required to attend a MIAM before making a child arrangements application.',
+  whatNextLabel: 'What you need to do next',
   stepsLabel: 'Follow these steps before continuing with your application:',
   step1: 'Enter your postcode to find your nearest MIAM mediator',
   steps: [
@@ -19,12 +19,12 @@ const en = () => ({
   formActionUrl: 'https://www.familymediationcouncil.org.uk/find-local-mediator/',
   minimumDistance: '5',
   findButtonText: 'Find a mediator',
-});
+};
 
-const cy = () => ({
+const cy = {
   title: 'Mae’n rhaid i chi fynychu MIAM',
-  paragraph: "Mae yna ofyniad cyfreithiol arnoch i fynychu MIAM cyn gwneud cais am drefniadau plant.",
-  whatNextLabel: `Beth sydd angen i chi wneud nesaf`,
+  paragraph: 'Mae yna ofyniad cyfreithiol arnoch i fynychu MIAM cyn gwneud cais am drefniadau plant.',
+  whatNextLabel: 'Beth sydd angen i chi wneud nesaf',
   stepsLabel: 'Dilynwch y camau hyn cyn parhau â’ch cais:',
   step1: 'Rhowch eich cod post i ddod o hyd i’ch cyfryngwr MIAM agosaf',
   steps: [
@@ -38,7 +38,7 @@ const cy = () => ({
   formActionUrl: 'https://www.familymediationcouncil.org.uk/find-local-mediator/',
   minimumDistance: '5',
   findButtonText: 'Dod o hyd i gyfryngwr',
-});
+};
 
 const languages = {
   en,
@@ -46,7 +46,7 @@ const languages = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language];
   return {
     ...translations,
   };
