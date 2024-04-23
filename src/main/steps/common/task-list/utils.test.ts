@@ -6,7 +6,7 @@ import { UserDetails } from '../../../app/controller/AppRequest';
 import {
   getPartyName,
   hasRespondentRespondedToC7Application,
-  hasResponseBeenSubmitted,
+  hasResponseBeenReviewed,
   isCaseWithdrawn,
   keepDetailsPrivateNav,
 } from './utils';
@@ -435,10 +435,10 @@ test('keepDetailsPrivateNav', () => {
   expect(keepDetailsPrivateNav(userCase, req)).toBe('/respondent/task-list');
 });
 
-describe('hasResponseBeenSubmitted', () => {
+describe('hasResponseBeenReviewed', () => {
   test('should return true if respondent submitted response document is present', () => {
     expect(
-      hasResponseBeenSubmitted(
+      hasResponseBeenReviewed(
         {
           citizenDocuments: [
             {
@@ -475,7 +475,7 @@ describe('hasResponseBeenSubmitted', () => {
 
   test('should return true if solicitor submitted response document is present', () => {
     expect(
-      hasResponseBeenSubmitted(
+      hasResponseBeenReviewed(
         {
           citizenDocuments: [
             {
@@ -514,7 +514,7 @@ describe('hasResponseBeenSubmitted', () => {
 
   test('should return false if response document is not present', () => {
     expect(
-      hasResponseBeenSubmitted(
+      hasResponseBeenReviewed(
         {
           citizenDocuments: [
             {
