@@ -5,7 +5,7 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const en = () => ({
+export const en = {
   title: 'Attending a Mediation Information and Assessment Meeting (MIAM)',
   miam: 'A MIAM is a one-off meeting that you must attend by law.',
   whatHappens: 'What happens at a MIAM',
@@ -32,9 +32,9 @@ export const en = () => ({
         'Confirm that you understand that you have to attend a MIAM or provide a valid reason for not attending',
     },
   },
-});
+};
 
-export const cy = () => ({
+export const cy = {
   title: 'Mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
   miam: 'Cyfarfod un-tro y mae’r gyfraith yn datgan bod rhaid i chi fynychu yw MIAM.',
   whatHappens: 'Beth fydd yn digwydd mewn MIAM',
@@ -61,7 +61,7 @@ export const cy = () => ({
         'Cadarnhewch eich bod yn deall bod rhaid i chi fynychu MIAM neu ddarparu rheswm dilys dros beidio â mynychu',
     },
   },
-});
+};
 
 const languages = {
   en,
@@ -94,7 +94,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language];
   return {
     ...translations,
     form,
