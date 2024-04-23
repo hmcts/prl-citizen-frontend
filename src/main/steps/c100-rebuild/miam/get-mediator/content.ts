@@ -1,7 +1,7 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 
 const en = () => ({
-  title: 'You must attend a MIAMM',
+  title: 'You must attend a MIAM',
   paragraph: `You’re legally required to attend a MIAM before making a child arrangements application.`,
   whatNextLabel: `What you need to do next`,
   stepsLabel: 'Follow these steps before continuing with your application:',

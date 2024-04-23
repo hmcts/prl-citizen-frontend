@@ -28,7 +28,7 @@ services:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2136.preview.platform.hmcts.net'
   reasonableAdjustments:
     url: 'https://cui-ra.aat.platform.hmcts.net'
-  health:
+health:
   timeout: 5000
   deadline: 15000
 session:
