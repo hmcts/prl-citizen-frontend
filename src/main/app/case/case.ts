@@ -78,7 +78,6 @@ import {
   PRL_C1ASafteyConcernsAbout,
   PRL_C1ASafteyConcerns,
   PRL_C1AAbuseTypes,
-  applicantContactPreferencesEnum,
   RespondentDocs,
   DocumentUploadResponse,
   ContactPreference,
@@ -600,7 +599,6 @@ export interface Case {
   lastModifiedDate?: string;
   c100RebuildReturnUrl?: string;
   noOfDaysRemainingToSubmitCase?: string;
-  applicantPreferredContact?: applicantContactPreferencesEnum;
   partyContactPreference?: ContactPreference | null;
   draftOrderDoc?: Document;
   c100DraftDoc?: Document;

@@ -3,7 +3,7 @@ import { TranslationFn } from '../../../app/controller/GetController';
 import AppSurvey from '../../../steps/common/app-survey/appSurveyController';
 import { appSurveyContents } from '../../../steps/common/app-survey/content';
 import { applyParms } from '../../../steps/common/url-parser';
-import { DOWNLOAD_DOCUMENT } from '../../../steps/urls';
+import { DOWNLOAD_DOCUMENT_BY_TYPE } from '../../../steps/urls';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
@@ -80,7 +80,7 @@ export const generateContent: TranslationFn = content => {
     ...translations,
     exitPageSurveyTitle,
     exitPageSurveyContent: AppSurvey.getExitPageSurveyContent(PartyType.APPLICANT, exitPageSurveyContent),
-    draftApplicationDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
+    draftApplicationDownloadUrl: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
       partyType: PartyType.APPLICANT,
       documentType: 'c100-application',
       forceDownload: true,

@@ -834,6 +834,11 @@ describe('tasklist index', () => {
           document_binary_url: 'document_url/123/binary',
         },
       } as unknown as Partial<CaseWithId>;
+      data.respondents![0].value.response = {
+        ...data.respondents![0].value.response,
+        c7ResponseSubmitted: 'Yes' as YesOrNo,
+      };
+
       const party = PartyType.APPLICANT;
       const language = 'en';
 
@@ -964,15 +969,15 @@ describe('tasklist index', () => {
           id: 'theResponse',
           tasks: [
             {
-              disabled: true,
+              disabled: false,
               hintText: null,
-              href: '#',
+              href: '/applicant/documents/download/MOCK_DOCUMENT_URL/MOCK_FILENAME',
               id: 'theResponsePDF',
               linkText: 'Response 1 to your application',
               openInAnotherTab: true,
               stateTag: {
-                className: 'govuk-tag--grey',
-                label: 'Not available yet',
+                className: 'govuk-tag--blue',
+                label: 'Ready to view',
               },
             },
             {
@@ -1061,6 +1066,7 @@ describe('tasklist index', () => {
           },
         ],
       };
+      data.respondents![0].value.response = {};
       const party = PartyType.APPLICANT;
       const language = 'en';
 

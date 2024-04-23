@@ -405,6 +405,21 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -421,7 +436,7 @@ describe('testcase for notification Banner', () => {
                 text: 'We will let you know when the other people in the case have been given your application and case documents.',
               },
               {
-                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
+                text: '<a href="/applicant/documents/view/application-pack-documents" class="govuk-link">View your application pack</a>',
               },
             ],
             links: [],
@@ -448,6 +463,21 @@ describe('testcase for notification Banner', () => {
           },
         },
       ],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
     };
     const party = PartyType.APPLICANT;
     const language = 'en';
@@ -463,7 +493,7 @@ describe('testcase for notification Banner', () => {
                 text: 'We will let you know when the other people in the case have been given your application and case documents.',
               },
               {
-                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
+                text: '<a href="/applicant/documents/view/application-pack-documents" class="govuk-link">View your application pack</a>',
               },
             ],
             links: [],
@@ -510,7 +540,7 @@ describe('testcase for notification Banner', () => {
       ],
       citizenDocuments: [
         {
-          partyId: '1',
+          partyId: '1234',
           partyName: null,
           partyType: 'respondent',
           categoryId: 'respondentApplication',
@@ -538,9 +568,6 @@ describe('testcase for notification Banner', () => {
             contents: [
               {
                 text: 'This means the court has sent your application to the other people in the case (the respondents). The respondents will have a chance to reply to what you have said. The case will proceed whether or not they respond.',
-              },
-              {
-                text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
               },
             ],
             links: [],
@@ -583,6 +610,21 @@ describe('testcase for notification Banner', () => {
       caseTypeOfApplication: CaseType.C100,
       applicants: [applicantLIP, applicant[1]],
       isCafcassServed: YesOrNo.YES,
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          respondentSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
       finalServedApplicationDetailsList: [
         {
           id: '123',
@@ -614,6 +656,7 @@ describe('testcase for notification Banner', () => {
               {
                 external: false,
                 href: '/applicant/documents/view/application-pack-documents/to-be-served?',
+                show: expect.any(Function),
                 text: "View the respondent's documents",
               },
             ],
@@ -709,6 +752,21 @@ describe('testcase for notification Banner', () => {
       state: State.CASE_SERVED,
       caseTypeOfApplication: CaseType.C100,
       applicants: [applicantLIP, applicant[1]],
+      citizenApplicationPacks: [
+        {
+          partyId: '123',
+          applicantSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[],
       finalServedApplicationDetailsList: [
         {
           id: '123',
@@ -744,6 +802,7 @@ describe('testcase for notification Banner', () => {
               {
                 external: false,
                 href: '/applicant/documents/view/application-pack-documents',
+                show: expect.any(Function),
                 text: 'View your application pack',
               },
             ],
@@ -868,6 +927,21 @@ describe('testcase for notification Banner', () => {
           },
         } as unknown as Respondent,
       ];
+      data.citizenApplicationPacks = [
+        {
+          partyId: '123',
+          respondentSoaPack: [
+            {
+              document_url: 'MOCK_DOCUMENT_URL',
+              document_binary_url: 'MOCK_DOCUMENT_BINARY_URL',
+              document_filename: 'MOCK_FILENAME',
+              document_hash: null,
+              category_id: 'positionStatements',
+              document_creation_date: '01/01/2024',
+            },
+          ],
+        },
+      ] as unknown as CitizenApplicationPacks[];
       data.state = State.Draft;
       data.orderCollection = [
         {
@@ -907,12 +981,11 @@ describe('testcase for notification Banner', () => {
         },
       ] as unknown as CaseInvite[];
       data.caseTypeOfApplication = 'C100';
-      data.citizenApplicationPacks = [{ partyId: '123' } as unknown as CitizenApplicationPacks];
+      // data.citizenApplicationPacks = [{ partyId: '123' } as unknown as CitizenApplicationPacks];
       expect(getNotificationBannerConfig(data, userDetails, PartyType.RESPONDENT, 'en')).toStrictEqual([
         {
           heading: 'You have a new order from the court',
           id: 'newOrder',
-
           sections: [
             {
               contents: [
@@ -937,9 +1010,7 @@ describe('testcase for notification Banner', () => {
           sections: [
             {
               contents: [
-                {
-                  text: 'Another person (the applicant) has applied to the court to make a decision about a child.',
-                },
+                { text: 'Another person (the applicant) has applied to the court to make a decision about a child.' },
                 {
                   text: 'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
                 },
@@ -948,6 +1019,7 @@ describe('testcase for notification Banner', () => {
                 {
                   external: false,
                   href: '/respondent/documents/view/application-pack-documents',
+                  show: expect.any(Function),
                   text: 'View the application pack',
                 },
                 {
@@ -957,10 +1029,7 @@ describe('testcase for notification Banner', () => {
                 },
               ],
             },
-            {
-              contents: [],
-              links: [],
-            },
+            { contents: [], links: [] },
           ],
           title: 'Important',
         },

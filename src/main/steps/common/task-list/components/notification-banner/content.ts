@@ -1,5 +1,8 @@
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
+import { hasApplicationPacks } from '../../../../../steps/common/documents/view/utils';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import {
   APPLICANT_STATEMENT_OF_SERVICE,
@@ -144,7 +147,15 @@ const en: NotificationBannerContent = {
                   },
                 },
                 {
-                  text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
+                  text: `<a href="${applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
+                    partyType: PartyType.APPLICANT,
+                  })}" class="govuk-link">View your application pack</a>`,
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return (
+                      hasApplicationPacks(caseData as CaseWithId) &&
+                      (_.get(caseData.citizenApplicationPacks![0], 'applicantSoaPack', false) as boolean)
+                    );
+                  },
                 },
                 {
                   text: '<p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
@@ -238,6 +249,12 @@ const en: NotificationBannerContent = {
                     partyType: PartyType.APPLICANT,
                     context: 'to-be-served',
                   }),
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return (
+                      hasApplicationPacks(caseData as CaseWithId) &&
+                      (_.get(caseData.citizenApplicationPacks![0], 'respondentSoaPack', false) as boolean)
+                    );
+                  },
                 },
               ],
             },
@@ -284,6 +301,12 @@ const en: NotificationBannerContent = {
                   //** validate **
                   text: 'View your application pack',
                   href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.APPLICANT }),
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return (
+                      hasApplicationPacks(caseData as CaseWithId) &&
+                      (_.get(caseData.citizenApplicationPacks![0], 'applicantSoaPack', false) as boolean)
+                    );
+                  },
                 },
               ],
             },
@@ -393,6 +416,12 @@ const en: NotificationBannerContent = {
                   //** validate **
                   href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.RESPONDENT }),
                   text: 'View the application pack',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return (
+                      hasApplicationPacks(caseData as CaseWithId) &&
+                      (_.get(caseData.citizenApplicationPacks![0], 'respondentSoaPack', false) as boolean)
+                    );
+                  },
                 },
                 {
                   href: `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
@@ -728,7 +757,15 @@ const cy: typeof en = {
                   },
                 },
                 {
-                  text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">Gweld eich pecyn cais</a>',
+                  text: `<a href="${applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
+                    partyType: PartyType.APPLICANT,
+                  })}" class="govuk-link">Gweld eich pecyn cais</a>`,
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return (
+                      hasApplicationPacks(caseData as CaseWithId) &&
+                      (_.get(caseData.citizenApplicationPacks![0], 'applicantSoaPack', false) as boolean)
+                    );
+                  },
                 },
                 {
                   text: '<p class="govuk-notification-banner__heading">Bydd Cafcass yn cysylltu â chi</p>',
@@ -822,6 +859,12 @@ const cy: typeof en = {
                     partyType: PartyType.APPLICANT,
                     context: 'to-be-served',
                   }),
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return (
+                      hasApplicationPacks(caseData as CaseWithId) &&
+                      (_.get(caseData.citizenApplicationPacks![0], 'respondentSoaPack', false) as boolean)
+                    );
+                  },
                 },
               ],
             },
@@ -979,6 +1022,12 @@ const cy: typeof en = {
                   //** validate **
                   href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.RESPONDENT }),
                   text: 'Gweld y cais',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return (
+                      hasApplicationPacks(caseData as CaseWithId) &&
+                      (_.get(caseData.citizenApplicationPacks![0], 'respondentSoaPack', false) as boolean)
+                    );
+                  },
                 },
                 {
                   href: `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
