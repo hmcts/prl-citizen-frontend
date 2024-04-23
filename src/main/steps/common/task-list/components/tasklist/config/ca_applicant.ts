@@ -3,23 +3,24 @@ import { generateTheResponseTasks } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { PartyType } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
 import { applyParms } from '../../../../../../steps/common/url-parser';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
-  APPLICANT_ORDERS_FROM_THE_COURT,
-  APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
-  APPLICANT_VIEW_ALL_DOCUMENTS,
   APPLICANT_YOURHEARINGS_HEARINGS,
-  C100_DOWNLOAD_APPLICATION,
   C100_START,
   CHOOSE_CONTACT_PREFERENCE,
+  DOWNLOAD_DOCUMENT_BY_TYPE,
   REASONABLE_ADJUSTMENTS_INTRO,
+  UPLOAD_DOCUMENT,
+  VIEW_ALL_DOCUMENT_TYPES,
+  VIEW_ALL_ORDERS,
 } from '../../../../../../steps/urls';
 import { hasContactPreference } from '../../../../contact-preference/util';
 import { Task, TaskListConfigProps } from '../../../definitions';
 import { isCaseClosed, isCaseLinked, isDraftCase, isRepresentedBySolicotor } from '../../../utils';
-import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing, hasAnyOrder } from '../utils';
+import { StateTags, TaskListSection, Tasks, getContents, hasAnyHearing } from '../utils';
 
 export const CA_APPLICANT: TaskListConfigProps[] = [
   {
@@ -36,7 +37,6 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       {
         id: Tasks.EDIT_YOUR_CONTACT_DETAILS,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_CHECK_ANSWERS}/${caseData.id}`,
-        disabled: isCaseClosed,
         stateTag: () => StateTags.SUBMITTED,
       },
       {
@@ -49,7 +49,6 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       {
         id: Tasks.KEEP_YOUR_DETAILS_PRIVATE,
         href: (caseData: Partial<CaseWithId>) => `${APPLICANT_DETAILS_KNOWN}/${caseData.id}`,
-        disabled: isCaseClosed,
         stateTag: () => StateTags.SUBMITTED,
       },
       {
@@ -86,9 +85,16 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       },
       {
         id: Tasks.YOUR_APPLICATION_PDF,
-        href: () => C100_DOWNLOAD_APPLICATION,
+        href: () => {
+          //** validate **
+          return applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+            partyType: PartyType.APPLICANT,
+            documentType: 'c100-application',
+          });
+        },
         stateTag: () => StateTags.SUBMITTED,
         show: (caseData: Partial<CaseWithId>) => caseData && !isDraftCase(caseData),
+        openInAnotherTab: () => true,
       },
     ],
   },
@@ -99,20 +105,16 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
     tasks: (): Task[] => [
       {
         id: Tasks.UPLOAD_DOCUMENTS,
-        href: () => APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
+        href: () => applyParms(UPLOAD_DOCUMENT, { partyType: PartyType.APPLICANT }),
         show: (caseData: Partial<CaseWithId>, userDetails: UserDetails) => {
-          return (
-            isCaseLinked(caseData, userDetails) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id)
-          );
+          return !isCaseClosed(caseData) && !isRepresentedBySolicotor(caseData as CaseWithId, userDetails.id);
         },
-        disabled: isCaseClosed,
         stateTag: () => StateTags.OPTIONAL,
       },
       {
         id: Tasks.VIEW_ALL_DOCUMENTS,
-        href: () => APPLICANT_VIEW_ALL_DOCUMENTS,
+        href: () => applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
         stateTag: () => StateTags.READY_TO_VIEW,
-        show: isCaseLinked,
       },
     ],
   },
@@ -123,14 +125,14 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
     tasks: (): Task[] => [
       {
         id: Tasks.VIEW_ORDERS,
-        href: () => APPLICANT_ORDERS_FROM_THE_COURT,
+        href: () => applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
         stateTag: (caseData: Partial<CaseWithId>) => {
-          if (hasAnyOrder(caseData)) {
+          if (hasOrders(caseData as CaseWithId)) {
             return StateTags.READY_TO_VIEW;
           }
           return StateTags.NOT_AVAILABLE_YET;
         },
-        disabled: (caseData: Partial<CaseWithId>) => !hasAnyOrder(caseData),
+        disabled: (caseData: Partial<CaseWithId>) => !hasOrders(caseData as CaseWithId),
       },
     ],
   },

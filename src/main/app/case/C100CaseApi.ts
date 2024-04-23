@@ -180,7 +180,7 @@ export class CaseApi {
     }
   }
 
-  public async downloadDraftApplication(docId: string): Promise<void> {
+  public async downloadC100Application(docId: string): Promise<void> {
     try {
       const response = await this.axios.get(`/${docId}/download`, {
         responseType: 'arraybuffer',
@@ -188,7 +188,7 @@ export class CaseApi {
       return response.data;
     } catch (err) {
       this.logError(err);
-      throw new Error('Draft application could not be downloaded.');
+      throw new Error('Error occured, C100 application document could not be downloaded.');
     }
   }
 

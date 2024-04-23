@@ -1,15 +1,17 @@
+import _ from 'lodash';
+
 import { CaseWithId } from '../../../../../app/case/case';
 import { CaseType, PartyType } from '../../../../../app/case/definition';
+import { hasApplicationPacks } from '../../../../../steps/common/documents/view/utils';
+import { applyParms } from '../../../../../steps/common/url-parser';
 import {
-  APPLICANT,
-  APPLICANT_CA_DA_REQUEST,
-  APPLICANT_ORDERS_FROM_THE_COURT,
-  APPLICANT_VIEW_ALL_DOCUMENTS,
+  DOWNLOAD_DOCUMENT_BY_TYPE,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
-  RESPONDENT_ORDERS_FROM_THE_COURT,
-  RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
+  VIEW_ALL_DOCUMENT_TYPES,
+  VIEW_ALL_ORDERS,
+  VIEW_APPLICATION_PACK_DOCUMENTS,
 } from '../../../../../steps/urls';
 import { NotificationBannerContent } from '../../definitions';
 import { isCafcassCymruServed, isCafcassServed } from '../../utils';
@@ -141,7 +143,15 @@ const en: NotificationBannerContent = {
                   },
                 },
                 {
-                  text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">View your application pack</a>',
+                  text: `<a href="${applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
+                    partyType: PartyType.APPLICANT,
+                  })}" class="govuk-link">View your application pack</a>`,
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return (
+                      hasApplicationPacks(caseData as CaseWithId) &&
+                      (_.get(caseData.citizenApplicationPacks![0], 'applicantSoaPack', false) as boolean)
+                    );
+                  },
                 },
                 {
                   text: '<p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
@@ -208,26 +218,9 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View the order (PDF)',
-                  href: APPLICANT_ORDERS_FROM_THE_COURT,
-                },
-              ],
-            },
-          ],
-        },
-        newDocument: {
-          heading: 'You have a new document to view',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'A new document has been added to your case.',
-                },
-              ],
-              links: [
-                {
-                  text: 'See all documents',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -248,7 +241,16 @@ const en: NotificationBannerContent = {
               links: [
                 {
                   text: "View the respondent's documents",
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
+                    partyType: PartyType.APPLICANT,
+                    context: 'to-be-served',
+                  }),
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return (
+                      hasApplicationPacks(caseData as CaseWithId) &&
+                      (_.get(caseData.citizenApplicationPacks![0], 'respondentSoaPack', false) as boolean)
+                    );
+                  },
                 },
               ],
             },
@@ -292,8 +294,33 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View your application pack',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.APPLICANT }),
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return (
+                      hasApplicationPacks(caseData as CaseWithId) &&
+                      (_.get(caseData.citizenApplicationPacks![0], 'applicantSoaPack', false) as boolean)
+                    );
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        responseSubmitted: {
+          heading: 'View the response to your application',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'The other person in the case (the respondent) has responded to your application.',
+                },
+              ],
+              links: [
+                {
+                  text: 'View the response (PDF)',
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -314,8 +341,9 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
-                  href: RESPONDENT_ORDERS_FROM_THE_COURT,
+                  //** validate **
                   text: 'View the order (PDF)',
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
             },
@@ -333,8 +361,9 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
-                  href: RESPONDENT_ORDERS_FROM_THE_COURT,
+                  //** validate **
                   text: 'View the order (PDF)',
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
             },
@@ -354,52 +383,53 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
-                  href: APPLICANT + APPLICANT_CA_DA_REQUEST,
-                  text: 'Check the application (PDF)',
+                  //** validate **
+                  href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.RESPONDENT }),
+                  text: 'View the application pack',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return (
+                      hasApplicationPacks(caseData as CaseWithId) &&
+                      (_.get(caseData.citizenApplicationPacks![0], 'respondentSoaPack', false) as boolean)
+                    );
+                  },
                 },
                 {
-                  href: RESPOND_TO_APPLICATION + '/updateFlag',
+                  href: `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
                   text: 'Respond to the application',
                 },
               ],
             },
-          ],
-        },
-        cafcass: {
-          heading: 'Cafcass will contact you **',
-          sections: [
             {
               contents: [
                 {
-                  text: 'The Children and Family Court Advisory and Support Service (Cafcass or Cafcass Cymru) will contact you to consider the needs of the children.',
+                  text: '<br/><p class="govuk-notification-banner__heading">Cafcass will contact you</p>',
+                  show: isCafcassServed,
+                },
+                {
+                  text: 'The Children and Family Court Advisory and Support Service (Cafcass) will contact you to consider the needs of the children.',
+                  show: isCafcassServed,
+                },
+                {
+                  text: '<br/><p class="govuk-notification-banner__heading">Cafcass Cymru will contact you </p>',
+                  show: isCafcassCymruServed,
+                },
+                {
+                  text: 'The Children and Family Court Advisory and Support Service (Cafcass Cymru) will contact you to consider the needs of the children.',
+                  show: isCafcassCymruServed,
                 },
               ],
               links: [
                 {
                   href: FIND_OUT_ABOUT_CAFCASS,
-                  text: 'Find out about Cafcass',
+                  text: 'Find out about CafcassFind out about Cafcass Cymru',
+                  show: isCafcassServed,
+                  external: true,
                 },
                 {
                   href: FIND_OUT_ABOUT_CAFCASS_CYMRU,
-                  text: 'Find out about Cafcass Cymru ',
-                },
-              ],
-            },
-          ],
-        },
-        newDocument: {
-          heading: 'You have a new document to view',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'A new document has been added to your case.',
-                },
-              ],
-              links: [
-                {
-                  href: RESPONDENT_VIEW_ALL_DOCUMENTS,
-                  text: 'See all documents',
+                  text: 'Find out about Cafcass Cymru',
+                  show: isCafcassCymruServed,
+                  external: true,
                 },
               ],
             },
@@ -422,26 +452,9 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View the order (PDF)',
-                  href: APPLICANT_ORDERS_FROM_THE_COURT,
-                },
-              ],
-            },
-          ],
-        },
-        newDocument: {
-          heading: 'You have a new document to view',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'A new document has been added to your case.',
-                },
-              ],
-              links: [
-                {
-                  text: 'See all documents',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
             },
@@ -458,8 +471,9 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View the final order (PDF)',
-                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
             },
@@ -480,12 +494,18 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'Read the order (PDF)',
-                  href: RESPONDENT_ORDERS_FROM_THE_COURT,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
                 {
-                  href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
+                  //** validate **
+                  href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+                    partyType: PartyType.RESPONDENT,
+                    documentType: 'cada-document',
+                  }),
                   text: 'Read the application (PDF)',
+                  external: true,
                 },
               ],
             },
@@ -506,26 +526,9 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View the order (PDF)',
-                  href: APPLICANT_ORDERS_FROM_THE_COURT,
-                },
-              ],
-            },
-          ],
-        },
-        newDocument: {
-          heading: 'You have a new document to view',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'A new document has been added to your case.',
-                },
-              ],
-              links: [
-                {
-                  text: 'See all documents',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -542,8 +545,9 @@ const en: NotificationBannerContent = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'View the final order (PDF)',
-                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -679,7 +683,15 @@ const cy: typeof en = {
                   },
                 },
                 {
-                  text: '<a href="/applicant/yourdocuments/alldocuments/alldocuments" class="govuk-link">Gweld eich pecyn cais</a>',
+                  text: `<a href="${applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
+                    partyType: PartyType.APPLICANT,
+                  })}" class="govuk-link">Gweld eich pecyn cais</a>`,
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return (
+                      hasApplicationPacks(caseData as CaseWithId) &&
+                      (_.get(caseData.citizenApplicationPacks![0], 'applicantSoaPack', false) as boolean)
+                    );
+                  },
                 },
                 {
                   text: '<p class="govuk-notification-banner__heading">Bydd Cafcass yn cysylltu â chi</p>',
@@ -746,26 +758,9 @@ const cy: typeof en = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'Gweld y gorchymyn (PDF)',
-                  href: APPLICANT_ORDERS_FROM_THE_COURT,
-                },
-              ],
-            },
-          ],
-        },
-        newDocument: {
-          heading: 'Mae gennych ddogfen newydd i edrych arni',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
-                },
-              ],
-              links: [
-                {
-                  text: 'Gweld yr holl ddogfennau',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -786,7 +781,16 @@ const cy: typeof en = {
               links: [
                 {
                   text: 'Gweld dogfennau’r atebydd',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, {
+                    partyType: PartyType.APPLICANT,
+                    context: 'to-be-served',
+                  }),
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return (
+                      hasApplicationPacks(caseData as CaseWithId) &&
+                      (_.get(caseData.citizenApplicationPacks![0], 'respondentSoaPack', false) as boolean)
+                    );
+                  },
                 },
               ],
             },
@@ -831,7 +835,25 @@ const cy: typeof en = {
               links: [
                 {
                   text: 'Gweld eich pecyn cais',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+                },
+              ],
+            },
+          ],
+        },
+        responseSubmitted: {
+          heading: 'View the response to your application (welsh)',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'The other person in the case (the respondent) has responded to your application. (welsh)',
+                },
+              ],
+              links: [
+                {
+                  text: 'View the response (PDF) (welsh)',
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -852,7 +874,8 @@ const cy: typeof en = {
               ],
               links: [
                 {
-                  href: RESPONDENT_ORDERS_FROM_THE_COURT,
+                  //** validate **
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                   text: 'Gweld y gorchymyn (PDF)',
                 },
               ],
@@ -871,73 +894,75 @@ const cy: typeof en = {
               ],
               links: [
                 {
-                  href: RESPONDENT_ORDERS_FROM_THE_COURT,
+                  //** validate **
                   text: 'View the order (PDF)',
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
             },
           ],
         },
         caRespondentServed: {
-          heading: 'Respond to an application about a child',
+          heading: 'Ymateb i gais ynghylch plentyn',
           sections: [
             {
               contents: [
                 {
-                  text: 'Another person (the applicant) has applied to the court to make a decision about a child.',
+                  text: 'Mae person arall (y ceisydd) wedi gwneud cais i’r llys wneud penderfyniad ynghylch plentyn.',
                 },
                 {
-                  text: 'You should respond within 14 days of receiving the application unless the court has asked you to respond sooner.',
+                  text: 'Dylech ymateb o fewn 14 diwrnod o dderbyn y cais oni bai bod y llys wedi gofyn i chi ymateb yn gynt.',
                 },
               ],
               links: [
                 {
-                  href: APPLICANT + APPLICANT_CA_DA_REQUEST,
-                  text: 'Check the application (PDF)',
+                  //** validate **
+                  href: applyParms(VIEW_APPLICATION_PACK_DOCUMENTS, { partyType: PartyType.RESPONDENT }),
+                  text: 'Gweld y cais',
+                  show: (caseData: Partial<CaseWithId>): boolean => {
+                    return (
+                      hasApplicationPacks(caseData as CaseWithId) &&
+                      (_.get(caseData.citizenApplicationPacks![0], 'respondentSoaPack', false) as boolean)
+                    );
+                  },
                 },
                 {
-                  href: RESPOND_TO_APPLICATION + '/updateFlag',
-                  text: 'Respond to the application',
+                  href: `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
+                  text: "Ymateb i'r cais",
                 },
               ],
             },
-          ],
-        },
-        cafcass: {
-          heading: 'Cafcass will contact you **',
-          sections: [
             {
               contents: [
                 {
-                  text: 'The Children and Family Court Advisory and Support Service (Cafcass or Cafcass Cymru) will contact you to consider the needs of the children.',
+                  text: '<br/><p class="govuk-notification-banner__heading">Bydd Cafcass yn cysylltu â chi</p>',
+                  show: isCafcassServed,
+                },
+                {
+                  text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass) yn cysylltu â chi i ystyried anghenion y plant.',
+                  show: isCafcassServed,
+                },
+                {
+                  text: '<br/><p class="govuk-notification-banner__heading">Bydd Cafcass Cymru yn cysylltu â chi</p>',
+                  show: isCafcassCymruServed,
+                },
+                {
+                  text: 'Bydd y Gwasanaeth Cynghori a Chynorthwyo Llys i Blant a Theuluoedd (Cafcass Cymru) yn cysylltu â chi i ystyried anghenion y plant.',
+                  show: isCafcassCymruServed,
                 },
               ],
               links: [
                 {
                   href: FIND_OUT_ABOUT_CAFCASS,
-                  text: 'Find out about Cafcass',
+                  text: 'Gwybodaeth am Cafcass',
+                  show: isCafcassServed,
+                  external: true,
                 },
                 {
                   href: FIND_OUT_ABOUT_CAFCASS_CYMRU,
-                  text: 'Find out about Cafcass Cymru ',
-                },
-              ],
-            },
-          ],
-        },
-        newDocument: {
-          heading: 'You have a new document to view',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'A new document has been added to your case.',
-                },
-              ],
-              links: [
-                {
-                  href: RESPONDENT_VIEW_ALL_DOCUMENTS,
-                  text: 'See all documents',
+                  text: 'Gwybodaeth am Cafcass Cymru',
+                  show: isCafcassCymruServed,
+                  external: true,
                 },
               ],
             },
@@ -960,26 +985,9 @@ const cy: typeof en = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'Gweld y gorchymyn (PDF)',
-                  href: APPLICANT_ORDERS_FROM_THE_COURT,
-                },
-              ],
-            },
-          ],
-        },
-        newDocument: {
-          heading: 'Mae gennych ddogfen newydd i edrych arni',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
-                },
-              ],
-              links: [
-                {
-                  text: 'Gweld yr holl ddogfennau',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
             },
@@ -996,8 +1004,9 @@ const cy: typeof en = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'Gweld y gorchymyn terfynol (PDF)',
-                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
               ],
             },
@@ -1018,12 +1027,18 @@ const cy: typeof en = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'Darllen y gorchymyn (PDF)',
-                  href: RESPONDENT_ORDERS_FROM_THE_COURT,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.RESPONDENT }),
                 },
                 {
+                  //** validate **
                   text: 'Darllen y gorchymyn (PDF)',
-                  href: `${APPLICANT}${APPLICANT_CA_DA_REQUEST}`,
+                  href: applyParms(DOWNLOAD_DOCUMENT_BY_TYPE, {
+                    partyType: PartyType.RESPONDENT,
+                    documentType: 'cada-document',
+                  }),
+                  external: true,
                 },
               ],
             },
@@ -1044,26 +1059,9 @@ const cy: typeof en = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'Gweld y gorchymyn (PDF)',
-                  href: APPLICANT_ORDERS_FROM_THE_COURT,
-                },
-              ],
-            },
-          ],
-        },
-        newDocument: {
-          heading: 'Mae gennych ddogfen newydd i edrych arni',
-          sections: [
-            {
-              contents: [
-                {
-                  text: 'Mae dogfen newydd wedi’i hychwanegu i’ch achos.',
-                },
-              ],
-              links: [
-                {
-                  text: 'Gweld yr holl ddogfennau',
-                  href: APPLICANT_VIEW_ALL_DOCUMENTS,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
@@ -1080,8 +1078,9 @@ const cy: typeof en = {
               ],
               links: [
                 {
+                  //** validate **
                   text: 'Gweld y gorchymyn terfynol (PDF)',
-                  href: `${APPLICANT_ORDERS_FROM_THE_COURT}`,
+                  href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
                 },
               ],
             },
