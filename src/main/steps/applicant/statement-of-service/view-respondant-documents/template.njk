@@ -1,0 +1,39 @@
+
+{% extends "common/template.njk" %}
+
+<div class="govuk-form-group">
+  {% block page_content %}
+    <div id="uploadGroup" tabindex="0" class="uploadGroup">
+      <div class=" govuk-!-margin-bottom-3">
+          <div class="govuk-form-group govuk-inset-text">
+          {% for file in data %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__value">
+                {{ file.name }}
+              </dt>
+              <dd class="govuk-summary-list__actions">
+                  {{ file.id }}
+              </dd>
+            </div>
+          {% endfor %}
+          </div>
+      </div>
+    </div>
+    <ol class="app-task-list">
+      <li>
+        <dl class="govuk-summary-list govuk-summary-list--no-border">
+          {% for document in documents %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{document['servedDate']}}
+              </dt>
+              <dd class="govuk-summary-list__value">
+                <a href={{document['documentDownloadUrl']}} target="_blank">{{ document['documentName'] }}</a>
+              </dd>
+            </div>
+          {% endfor %}
+        </dl>
+      </li>
+    </ol>
+  {% endblock %}
+</div>
