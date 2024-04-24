@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   headingTitle: 'What type of behaviour have the children experienced or are at risk of experiencing?',
   paragraph1: 'See the National Society for Prevention of Cruelty to Children (NSPCC) guidance on ',
@@ -43,7 +42,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   headingTitle: "Pa fath o ymddygiad y mae'r plant wedi ei brofi neu mewn perygl o’i brofi?",
   paragraph1: "Gweler canllawiau'r Gymdeithas Genedlaethol er Atal Creulondeb i Blant (NSPCC) ar ",

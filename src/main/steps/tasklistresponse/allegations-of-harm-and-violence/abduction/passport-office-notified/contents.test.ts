@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   title: 'Has the passport office been notified? ',
   Yes: 'Yes',
@@ -21,7 +20,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   title: "Ydy'r swyddfa basbort wedi cael gwybod?",
   Yes: 'Oes',

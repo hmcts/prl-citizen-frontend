@@ -8,7 +8,6 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child Arrangements',
   caption: 'MIAM exemptions',
   title: 'Do you require an urgent hearing because you or the children are at risk for any of the following reasons?',
   line1: 'If you are seeking a MIAM exemption, you will need to give more details.',
@@ -41,7 +40,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   caption: 'Esemptiadau MIAM',
   title:
     "A oes angen gwrandawiad brys arnoch chi am eich bod chi neu'r plant mewn perygl am unrhyw un o'r rhesymau canlynol?",

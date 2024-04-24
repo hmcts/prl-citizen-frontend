@@ -10,7 +10,6 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Contact details of',
-  serviceName: 'Child Arrangements',
   canProvideEmailLabel: 'I can provide an email address',
   canNotProvideEmailLabel: 'I cannot provide an email address',
   emailAdddressLabel: 'Your email address',
@@ -50,7 +49,6 @@ const en = {
 
 const cy = {
   title: 'Manylion cyswllt ',
-  serviceName: 'Trefniadau plant',
   canProvideEmailLabel: 'Gallaf ddarparu cyfeiriad e-bost',
   canNotProvideEmailLabel: 'Ni allaf ddarparu cyfeiriad e-bost',
   emailAdddressLabel: 'Eich cyfeiriad e-bost',

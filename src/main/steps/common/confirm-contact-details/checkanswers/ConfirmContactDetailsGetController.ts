@@ -22,7 +22,7 @@ export class ConfirmContactDetailsGetController extends GetController {
   public async get(req: AppRequest, res: Response): Promise<void> {
     const loggedInCitizen = req.session.user;
     const caseReference = req.session.userCase.id;
-    const client = new CosApiClient(loggedInCitizen.accessToken, 'https://return-url');
+    const client = new CosApiClient(loggedInCitizen.accessToken, req.locals.logger);
     const caseDataFromCos = await client.retrieveByCaseId(caseReference, loggedInCitizen);
     Object.assign(req.session.userCase, caseDataFromCos);
     if (req.session.userCase.caseTypeOfApplication === CaseType.C100) {
@@ -79,7 +79,7 @@ export const validateDataCompletion = (req: AppRequest<Partial<Case>>): void => 
   for (const key in req.session.userCase) {
     if (fieldsArray.includes(key)) {
       const value = req.session.userCase[`${key}`];
-      if (typeof value === 'string' && (value === null || value === undefined || value.trim() === '')) {
+      if (typeof value === 'string' && (!value || value.trim() === '' || value === 'Invalid Date')) {
         req.session.userCase[`${key}`] =
           req.session.lang === 'cy'
             ? '<span class="govuk-error-message">' + cyContent.completeSection + '</span>'

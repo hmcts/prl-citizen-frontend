@@ -2,10 +2,11 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { State, YesOrNo } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { NotificationBannerProps } from '../../../../../../steps/common/task-list/definitions';
 import { isCaseLinked, isCaseWithdrawn } from '../../../../../../steps/common/task-list/utils';
-import { BannerNotification, notificationBanner } from '../utils';
+import { BannerNotification, isApplicantLIPServingRespondent, isPrimaryApplicant, notificationBanner } from '../utils';
 
-export const CA_APPLICANT = [
+export const CA_APPLICANT: NotificationBannerProps[] = [
   {
     ...notificationBanner[BannerNotification.NEW_DOCUMENT],
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
@@ -80,6 +81,26 @@ export const CA_APPLICANT = [
     ...notificationBanner[BannerNotification.NEW_ORDER],
     show: (caseData: Partial<CaseWithId>): boolean => {
       return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
+    },
+  },
+  {
+    ...notificationBanner[BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS],
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+      return (
+        isCaseLinked(caseData, userDetails) &&
+        isPrimaryApplicant(caseData, userDetails) &&
+        isApplicantLIPServingRespondent(caseData)
+      );
+    },
+  },
+  {
+    ...notificationBanner[BannerNotification.CA_PERSONAL_SERVICE],
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+      return (
+        isCaseLinked(caseData, userDetails) &&
+        !isPrimaryApplicant(caseData, userDetails) &&
+        isApplicantLIPServingRespondent(caseData)
+      );
     },
   },
 ];

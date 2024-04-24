@@ -14,18 +14,18 @@ services:
     authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
     tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
     clientID: 'prl-citizen-frontend'
-    citizenClientSecret: 'NEED TO INSERT SECRET'
-    cosApiClientSecret: 'NEED TO INSERT SECRET'
-    systemUsername: 'dummy_user'
-    systemPassword: 'dummy_password'
+    citizenClientSecret:
+    cosApiClientSecret:
+    systemUsername:
+    systemPassword:
   citizen:
-    uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
+    uploadDocsEmail:
   case:
-    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-1894.preview.platform.hmcts.net'
+    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-2032.preview.platform.hmcts.net'
   cos:
-    url: 'https://prl-cos-pr-2046.preview.platform.hmcts.net'
+    url: 'https://prl-cos-pr-2229.preview.platform.hmcts.net'
   documentManagement:
-    url: 'https://ccd-data-store-api-prl-ccd-definitions-pr-1894.preview.platform.hmcts.net'
+    url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2032.preview.platform.hmcts.net'
   health:
   timeout: 5000
   deadline: 15000
