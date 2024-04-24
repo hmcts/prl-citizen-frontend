@@ -30,6 +30,12 @@ export default class DownloadDocumentController {
           doc.partyId === userDetails.id && doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
       );
       documentReference = c7Document?.document;
+    } else if (documentType === 'c1a-response-document') {
+      const c1aDocument = caseData.citizenDocuments?.find(
+        doc =>
+          doc.partyId === userDetails.id && doc.categoryId === DocumentCategory.RESPONDENT_C1A_RESPONSE_TO_APPLICATION
+      );
+      documentReference = c1aDocument?.document;
     }
 
     const documentId = documentReference

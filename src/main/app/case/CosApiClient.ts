@@ -24,6 +24,7 @@ export class CosApiClient {
   client: AxiosInstance;
 
   constructor(authToken: string, private readonly logger: LoggerInstance) {
+    console.log(getServiceAuthToken());
     this.client = Axios.create({
       baseURL: config.get('services.cos.url'),
       headers: {
@@ -142,7 +143,7 @@ export class CosApiClient {
         data
       );
 
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
+      return { id: response.data.caseData.id, state: response.data.caseData.state, ...fromApiFormat(response.data.caseData) };
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, case could not be updated - updateCaseData');
@@ -166,7 +167,7 @@ export class CosApiClient {
         data
       );
 
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
+      return { id: response.data.caseData.id, state: response.data.caseData.state, ...fromApiFormat(response.data.caseData) };
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, case could not be updated - updateCaseData');
@@ -366,6 +367,7 @@ export class CosApiClient {
 
   public async downloadDocument(documentId: string, userId: string): Promise<AxiosResponse> {
     try {
+      console.log("url {}",`${config.get('services.documentManagement.url')}/cases/documents/${documentId}/binary`);
       const response = await this.client.get(
         `${config.get('services.documentManagement.url')}/cases/documents/${documentId}/binary`,
         { responseType: 'arraybuffer', headers: { 'user-id': userId, 'user-roles': UserRole.CITIZEN } }

@@ -54,6 +54,7 @@ export const enum DocumentCategory {
   DNA_REPORTS = 'DNAReports_expertReport',
   DRUG_ALCOHOL_TESTS = 'DRUG_AND_ALCOHOL_TESTS',
   RESPONDENT_C7_RESPONSE_TO_APPLICATION = 'respondentApplication',
+  RESPONDENT_C1A_RESPONSE_TO_APPLICATION = 'respondentC1AResponse',
 }
 
 export const enum UploadDocumentAPICategory {
@@ -164,6 +165,7 @@ export type CitizenDocuments = {
   documentWelsh: DocumentMeta | null;
   solicitorRepresentedPartyName?: string;
   solicitorRepresentedPartyId?: string;
+  documentLanguage?: string;
 };
 
 export type CitizenOrders = {
