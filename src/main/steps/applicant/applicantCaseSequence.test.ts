@@ -302,7 +302,7 @@ describe('applicant1Sequence', () => {
       applicantCaseSequence[48].getNextStep({}, {
         params: { context: 'order' },
       } as unknown as AppRequest)
-    ).toBe('/applicant/statement-of-service/choose-parties');
+    ).toBe('/applicant/statement-of-service/choose-parties/order');
 
     expect(applicantCaseSequence[49].url).toBe('/applicant/statement-of-service/choose-parties');
     expect(applicantCaseSequence[49].showInSection).toBe('aboutApplicantCase');
