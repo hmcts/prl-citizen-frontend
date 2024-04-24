@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RAFlags } from '../../modules/reasonable-adjustments/definitions';
-import { CitizenApplicationPacks, CitizenDocuments, CitizenOrders, CitizenRespondentPack } from '../../steps/common/documents/definitions';
+import {
+  CitizenApplicationPacks,
+  CitizenDocuments,
+  CitizenOrders,
+  CitizenRespondentPack,
+} from '../../steps/common/documents/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {

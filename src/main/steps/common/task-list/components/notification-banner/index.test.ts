@@ -708,7 +708,7 @@ describe('testcase for notification Banner', () => {
             ],
             links: [
               {
-                href: '/applicant/yourdocuments/alldocuments/orders',
+                href: '/applicant/statement-of-service/view-respondant-documents',
                 text: "View the respondent's documents",
                 external: false,
               },

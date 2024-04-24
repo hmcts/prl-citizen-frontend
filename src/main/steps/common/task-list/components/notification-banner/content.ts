@@ -312,6 +312,24 @@ const en: NotificationBannerContent = {
             },
           ],
         },
+        responseSubmitted: {
+          heading: 'View the response to your application',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'The other person in the case (the respondent) has responded to your application.',
+                },
+              ],
+              links: [
+                {
+                  text: 'View the response (PDF)',
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+                },
+              ],
+            },
+          ],
+        },
         soaServedBannerCa: {
           heading: 'You must give the respondent their documents',
           sections: [
@@ -909,6 +927,24 @@ const cy: typeof en = {
               links: [
                 {
                   text: 'Gweld eich pecyn cais',
+                  href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+                },
+              ],
+            },
+          ],
+        },
+        responseSubmitted: {
+          heading: 'View the response to your application (welsh)',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'The other person in the case (the respondent) has responded to your application. (welsh)',
+                },
+              ],
+              links: [
+                {
+                  text: 'View the response (PDF) (welsh)',
                   href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
                 },
               ],

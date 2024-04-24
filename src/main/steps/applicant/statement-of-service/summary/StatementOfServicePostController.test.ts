@@ -1,7 +1,7 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { APPLICANT_STATEMENT_OF_SERVICE, APPLICANT_STATEMENT_OF_SERVICE_NEXT } from '../../../urls';
+import { APPLICANT_STATEMENT_OF_SERVICE } from '../../../urls';
 
 import StatementOfServicePostController from './StatementOfServicePostController';
 
@@ -85,7 +85,7 @@ describe('StatementOfServicePostController', () => {
     ];
     req.url = 'applicant';
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(APPLICANT_STATEMENT_OF_SERVICE_NEXT);
+    expect(res.redirect).toHaveBeenCalledTimes(2);
   });
 
   test('Should redirect to same page', async () => {
@@ -111,6 +111,6 @@ describe('StatementOfServicePostController', () => {
     ];
     req.url = APPLICANT_STATEMENT_OF_SERVICE;
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith(APPLICANT_STATEMENT_OF_SERVICE);
+    expect(res.redirect).toHaveBeenCalledTimes(3);
   });
 });

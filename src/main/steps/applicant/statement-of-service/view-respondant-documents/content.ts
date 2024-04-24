@@ -37,12 +37,6 @@ export const generateContent: TranslationFn = content => {
       }),
     });
   });
-  // respondentPacks.packDocument?.forEach(document =>
-  //   data.push({
-  //     date: document.value?.document_creation_date,
-  //     name: document.value?.document_filename,
-  //   })
-  // );
   return {
     ...translations,
     data,

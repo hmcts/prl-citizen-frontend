@@ -35,6 +35,7 @@ export default class StatementOfServicePostController extends PostController<Any
         req.session.save(() =>
           res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req.params.context }))
         );
+        return;
       }
     }
     const { user, userCase } = req.session;
@@ -50,11 +51,13 @@ export default class StatementOfServicePostController extends PostController<Any
           user.id
         );
         req.session.save(() => res.redirect(APPLICANT_STATEMENT_OF_SERVICE_NEXT));
+        return;
       } catch (error) {
         throw new Error('SOS - Case could not be updated.');
       }
     } else {
       res.redirect(APPLICANT_STATEMENT_OF_SERVICE_NEXT);
+      return;
     }
   }
 }

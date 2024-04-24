@@ -37,7 +37,7 @@ describe('citizen-home content', () => {
     expect(generatedContent.add).toEqual('Submit');
     expect(generatedContent.uploadFiles).toEqual('Your documents');
     expect(generatedContent.remove).toEqual('Remove');
-    expect(generatedContent.uplodFileText1).toEqual(
+    expect(generatedContent.uplodFileHintText).toEqual(
       'when uploading documents, name the files clearly. For example, position-statement.doc. Files must end with JPG,BMP,PNG,TIF,PDF,DOC,or DOCX.'
     );
   });
