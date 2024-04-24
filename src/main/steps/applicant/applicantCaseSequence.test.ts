@@ -304,17 +304,21 @@ describe('applicant1Sequence', () => {
       } as unknown as AppRequest)
     ).toBe('/applicant/statement-of-service/choose-parties/order');
 
-    expect(applicantCaseSequence[49].url).toBe('/applicant/statement-of-service/choose-parties');
+    expect(applicantCaseSequence[49].url).toBe('/applicant/statement-of-service/choose-parties/:context');
     expect(applicantCaseSequence[49].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[49].getNextStep({})).toBe('/applicant/statement-of-service/summary');
+    expect(
+      applicantCaseSequence[49].getNextStep({}, {
+        params: { context: 'order' },
+      } as unknown as AppRequest)
+    ).toBe('/applicant/statement-of-service/summary/order');
 
-    expect(applicantCaseSequence[50].url).toBe('/applicant/statement-of-service/summary');
+    expect(applicantCaseSequence[50].url).toBe('/applicant/statement-of-service/summary/:context');
     expect(applicantCaseSequence[50].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[50].getNextStep({})).toBe('/applicant/statement-of-service/what-happens-next');
 
     expect(applicantCaseSequence[51].url).toBe('/applicant/statement-of-service/what-happens-next');
     expect(applicantCaseSequence[51].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[51].getNextStep({})).toBe('/applicant/task-list');
+    expect(applicantCaseSequence[51].getNextStep({ id: '1234' })).toBe('/case/1234');
 
     expect(applicantCaseSequence[52].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[52].showInSection).toBe('aboutApplicantCase');
