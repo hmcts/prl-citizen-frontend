@@ -367,7 +367,7 @@ export class CosApiClient {
 
   public async downloadDocument(documentId: string, userId: string): Promise<AxiosResponse> {
     try {
-      console.log("url {}",`${config.get('services.documentManagement.url')}/cases/documents/${documentId}/binary`);
+      console.log('url {}',`${config.get('services.documentManagement.url')}/cases/documents/${documentId}/binary`);
       const response = await this.client.get(
         `${config.get('services.documentManagement.url')}/cases/documents/${documentId}/binary`,
         { responseType: 'arraybuffer', headers: { 'user-id': userId, 'user-roles': UserRole.CITIZEN } }
