@@ -26,8 +26,8 @@ const en = {
   downloadC1aLink:
     ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Download your C1A response</a>',
   downloadC1aLinkWelsh:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Download your C1A response - welsh</a>',  
-    saveAndContinue: 'Continue',
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Download your C1A response - welsh</a>',
+  saveAndContinue: 'Continue',
 };
 
 const cy: typeof en = {
@@ -52,7 +52,7 @@ const cy: typeof en = {
   downloadC1aLink:
     ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Lawrlwytho eich ymateb -eng </a>',
   downloadC1aLinkWelsh:
-    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Lawrlwytho eich ymateb cymareg -wel</a>',  
+    ' <a class="govuk-button ga-pageLink govuk-button--secondary" role="button" draggable="false" data-module="govuk-button" data-ga-category="check your answers" data-ga-label="download draft" download="" href="/respondent/documents/download/type/c1a-response-document">Lawrlwytho eich ymateb cymareg -wel</a>',
   saveAndContinue: 'Parhau',
 };
 
