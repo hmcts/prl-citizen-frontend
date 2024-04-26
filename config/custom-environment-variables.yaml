@@ -22,6 +22,10 @@ services:
     url: COS_URL
   documentManagement:
     url: DOCUMENT_MANAGEMENT_URL
+  equalityAndDiversity:
+    url: EQUALITY_URL
+    tokenKey: PCQ_TOKEN
+    pcqEnabled: PCQ_ENABLED
   reasonableAdjustments:
     url: REASONABLE_ADJUSTMENTS
   dgs:

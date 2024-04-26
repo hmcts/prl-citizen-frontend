@@ -43,6 +43,7 @@ nodejs:
         - launchDarkly-sdk-key
         - citizen-upload-docs-email
         - redis-access-key
+        - privatelaw-pcq-token
 
 idam-pr:
   enabled: false
