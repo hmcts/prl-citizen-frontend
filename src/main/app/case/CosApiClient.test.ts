@@ -167,7 +167,8 @@ describe('CosApiClient', () => {
 
   test('updateCaseData', async () => {
     const response = { id: '200', state: 'SUCCESS' };
-    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const apiResponse = { caseData: { id: '200', state: 'SUCCESS' } };
+    mockedAxios.post.mockReturnValueOnce({ data: apiResponse } as unknown as Promise<CaseWithId>);
     const client = new CosApiClient('abc', mockLogger);
     const actual = await client.updateCaseData(
       '123456',
