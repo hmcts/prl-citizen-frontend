@@ -12087,10 +12087,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"helmet@npm:^4.6.0":
-  version: 4.6.0
-  resolution: "helmet@npm:4.6.0"
-  checksum: 139ad678d1cab207b043c206f50f6744eff2ef1f463e4626d36718b45b337485c77d10260ef9d89d292fa678da5153d86b08172b3b365cc8e680241015ed3a49
+"helmet@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "helmet@npm:7.1.0"
+  checksum: 16aaa0df997eaa18821e71389bc9ceffeeaa935df98427ede2bb006065f7e02bb1941caabea16d5a93a791cb3fe7d8a760266bc57b3b9ca5dd7da17ea84244b8
   languageName: node
   linkType: hard
 
@@ -18127,7 +18127,7 @@ __metadata:
     form-data: ^4.0.0
     glob: ^8.0.3
     govuk-frontend: 4.7.0
-    helmet: ^4.6.0
+    helmet: ^7.1.0
     html-webpack-plugin: ^5.5.0
     http-status-codes: ^2.2.0
     husky: ^8.0.1
