@@ -207,7 +207,7 @@ export const applicantCaseSequence: Step[] = [
     url: UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
@@ -309,7 +309,7 @@ export const applicantCaseSequence: Step[] = [
     url: UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: String(caseData?.id) }) as PageLink,
   },
   {
     url: UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,

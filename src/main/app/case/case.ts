@@ -644,10 +644,10 @@ export interface ServedApplicationDetails {
   value: ServedApplication;
 }
 export type ServedApplication = {
-  emailNotificationDetails: emailNotificationDetails[] | [];
+  emailNotificationDetails: EmailNotificationDetails[] | [];
   whoIsResponsible: string;
 };
-export interface emailNotificationDetails {
+export interface EmailNotificationDetails {
   id: string;
   value: emailNotification;
 }

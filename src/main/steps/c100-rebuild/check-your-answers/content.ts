@@ -15,7 +15,7 @@ import { HTML } from './common/htmlSelectors';
 import { ANYTYPE } from './common/index';
 import {
   ApplicantDetails,
-  CaseName,
+  //CaseName,
   ChildernDetails,
   ChildernDetailsAdditional,
   HelpWithFee,
@@ -451,7 +451,7 @@ const safteyConcenFilledSection = (userCase, contentLanguage, language) => {
 export const commonSectionsForContentLoader = (contentLanguage, userCase, language) => {
   return {
     PostCodeAndTypeOfApplication: [
-      CaseName(contentLanguage, userCase),
+      //CaseName(contentLanguage, userCase),
       LocationDetails(contentLanguage, userCase),
       TypeOfApplication(contentLanguage, userCase, language),
     ],
