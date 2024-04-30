@@ -288,6 +288,7 @@ export const RESPONDENT_SUPPORT_NEEDED: PageLink = `${VIEW_ALL_DOCUMENTS}/suppor
 /** Document Urls */
 
 export const DOCUMENT_MANAGER: PageLink = '/document-manager';
+export const UPLOAD_DOCUMENT_TO_CDAM: PageLink = '/upload-document-to-cdam';
 /* your needs when you go to court */
 export const SUPPORT_YOU_NEED_DURING_CASE: PageLink = `${APPLICANT}/support-you-need-during-case`;
 export const APPLICANT_ATTENDING_THE_COURT: PageLink = `${SUPPORT_YOU_NEED_DURING_CASE}/attending-the-court`;
@@ -642,3 +643,10 @@ export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>
   isNonProd
     ? 'https://c100-application-staging.apps.live-1.cloud-platform.service.justice.gov.uk/'
     : 'https://apply-to-court-about-child-arrangements.service.justice.gov.uk';
+
+export const APPLICANT_STATEMENT_OF_SERVICE: PageLink = `${APPLICANT}/statement-of-service/choose-parties/:context`;
+export const APPLICANT_STATEMENT_OF_SERVICE_SUMMARY: PageLink = `${APPLICANT}/statement-of-service/summary/:context`;
+export const APPLICANT_STATEMENT_OF_SERVICE_NEXT: PageLink = `${APPLICANT}/statement-of-service/what-happens-next`;
+
+export const FL415_DOWNLOAD_LINK = 'https://www.gov.uk/government/publications/form-fl415-statement-of-service';
+export const C9_DOWNLOAD_LINK = 'https://www.gov.uk/government/publications/form-c9-statement-of-service';

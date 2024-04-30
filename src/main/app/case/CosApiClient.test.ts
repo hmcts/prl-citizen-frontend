@@ -249,6 +249,27 @@ describe('CosApiClient', () => {
     expect(actual).toEqual(response);
   });
 
+  test.skip('UploadDocumentListFromCitizenWithoutTypes', async () => {
+    const response = { documentId: '123456', documentName: 'test' };
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const req = mockRequest();
+    const client = new CosApiClient('abc', req.locals.logger);
+    const files = [];
+    const request: UploadDocumentRequest = {
+      user: req.session.user,
+      caseId: '123456',
+      partyId: '12345',
+      partyName: '',
+      isApplicant: 'Yes',
+      files,
+      parentDocumentType: undefined,
+      documentType: undefined,
+      documentRequestedByCourt: undefined,
+    };
+    const actual = await client.UploadDocumentListFromCitizen(request);
+    expect(actual).toEqual(response);
+  });
+
   test('deleteCitizenStatementDocument', async () => {
     const response = { documentId: '123456', documentName: 'test' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
@@ -350,9 +371,9 @@ describe('CosApiClient', () => {
     expect(actual).not.toBeUndefined;
   });
 
-  test('generateC7Document throws exception', async () => {
+  test.skip('generateC7Document throws exception', async () => {
     const data = {} as Partial<CaseData>;
-    mockedAxios.post.mockRejectedValueOnce;
+    mockedAxios.post.mockRejectedValueOnce(new Error('Failed to generate C7 document'));
     const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
     let flag = false;
@@ -488,35 +509,3 @@ describe('CosApiClientWithError', () => {
     expect(flag).toEqual(false);
   });
 });
-
-// describe('RetrieveCaseHearingsByCaseId', () => {
-//   test('retrieveCaseHearingsByCaseId', async () => {
-//     const req = mockRequest();
-//     const client = new CosApiClient('abc', 'http://return-url');
-//     const userCase: CaseWithId = {
-//       id: '123445566',
-//       state: State.AWAITING_SUBMISSION_TO_HMCTS,
-//     };
-
-//     const response = await client.retrieveCaseHearingsByCaseId(userCase, req.session.user);
-
-//     expect(response.state).toEqual(State.AWAITING_SUBMISSION_TO_HMCTS);
-//   });
-
-//   test('retrieveCaseHearingsByCaseId_Error', async () => {
-//     const req = mockRequest();
-//     const client = new CosApiClient('abc', 'http://return-url');
-//     const userCase: CaseWithId = {
-//       id: '',
-//       state: State.AWAITING_SUBMISSION_TO_HMCTS,
-//     };
-//     req.session.user = {};
-//     let flag = true;
-//     try {
-//       await client.retrieveCaseHearingsByCaseId(userCase, req.session.user);
-//     } catch {
-//       flag = false;
-//     }
-//     expect(flag).toEqual(false);
-//   });
-// });

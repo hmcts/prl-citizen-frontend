@@ -483,6 +483,55 @@ describe('testcase for notification Banner', () => {
         ],
         title: 'Important',
       },
+      {
+        id: 'soaServedBannerCa',
+        title: 'Important',
+        heading: 'You must give the respondent their documents',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has issued your application. This means a copy of your application and other court documents are ready to give to other people in the case (the respondents)',
+              },
+              {
+                text: 'You must give the following documents to the respondent:',
+              },
+            ],
+            links: [
+              {
+                href: '/applicant/yourdocuments/alldocuments/orders',
+                text: "View the respondent's documents",
+                external: false,
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">GOV.UK</a>',
+              },
+              {
+                text: '<p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
+              },
+              {
+                text: 'You need to submit a statement of service after the respondent has been given the documents.',
+              },
+            ],
+            links: [
+              {
+                href: 'https://www.gov.uk/government/publications/form-c9-statement-of-service',
+                text: 'Download the Statement of service (form C9)',
+                external: false,
+              },
+              {
+                href: '/applicant/statement-of-service/choose-parties',
+                text: 'Upload the statement of service(form C9)',
+                external: false,
+              },
+            ],
+          },
+        ],
+      },
     ]);
   });
 
@@ -659,6 +708,55 @@ describe('testcase for notification Banner', () => {
           },
         ],
         title: 'Important',
+      },
+      {
+        id: 'soaServedBannerDa',
+        title: 'Important',
+        heading: 'You must give the respondent their documents',
+        sections: [
+          {
+            contents: [
+              {
+                text: 'The court has issued your application. This means a copy of your application and other court documents are ready to give to other people in the case (the respondents)',
+              },
+              {
+                text: 'You must give the following documents to the respondent:',
+              },
+            ],
+            links: [
+              {
+                href: '/applicant/yourdocuments/alldocuments/orders',
+                text: "View the respondent's documents",
+                external: false,
+              },
+            ],
+          },
+          {
+            contents: [
+              {
+                text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">GOV.UK</a>',
+              },
+              {
+                text: '<p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
+              },
+              {
+                text: 'You need to submit a statement of service after the respondent has been given the documents.',
+              },
+            ],
+            links: [
+              {
+                href: 'https://www.gov.uk/government/publications/form-fl415-statement-of-service',
+                text: 'Download the Statement of service (form FL415)',
+                external: false,
+              },
+              {
+                href: '/applicant/statement-of-service/choose-parties',
+                text: 'Upload the statement of service (form FL415)',
+                external: false,
+              },
+            ],
+          },
+        ],
       },
     ]);
   });

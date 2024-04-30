@@ -129,6 +129,7 @@ import {
   AOH_TO_CA,
   VIEW_DOCUMENT_URL,
   TASKLIST_RESPONSE_TO_CA,
+  UPLOAD_DOCUMENT_TO_CDAM,
   //C100_DOCUMENT_SUBMISSION,
 } from './steps/urls';
 
@@ -269,9 +270,14 @@ export class Routes {
 
         const documentManagerController = new DocumentManagerController(step.form.fields);
         app.post(DOCUMENT_MANAGER, errorHandler(documentManagerController.post));
+        app.post(UPLOAD_DOCUMENT_TO_CDAM, errorHandler(documentManagerController.uploadDocumentToCdam));
         app.get(
           `${DOCUMENT_MANAGER}/deleteDocument/:documentId`,
           errorHandler(documentManagerController.deleteDocument)
+        );
+        app.get(
+          `${DOCUMENT_MANAGER}/:documentId/delete`,
+          errorHandler(documentManagerController.deleteDocumentFromCdam)
         );
         app.post(`${DOCUMENT_MANAGER}/generatePdf`, errorHandler(documentManagerController.generatePdf));
         app.get(`${CA_RESPONDENT_GENERATE_C7_Final}`, errorHandler(documentManagerController.get));

@@ -2,7 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { CaseWithId } from '../../../app/case/case';
 import { CaseType, PartyType, State, YesOrNo } from '../../../app/case/definition';
 
-import { getPartyName, isApplicationResponded, isCaseWithdrawn, keepDetailsPrivateNav } from './utils';
+import { getPartyName, isApplicationResponded, isCaseServed, isCaseWithdrawn, keepDetailsPrivateNav } from './utils';
 
 describe('testcase for partyname', () => {
   test('when party type c100-respondent', () => {
@@ -420,5 +420,19 @@ describe('isApplicationRespondent', () => {
     } as unknown as CaseWithId;
     const req = mockRequest({ session: { ...userCase } });
     expect(keepDetailsPrivateNav(userCase, req)).toBe('/respondent/task-list');
+  });
+});
+
+describe('testcase for isCaseServed', () => {
+  test('case without applicant data', () => {
+    const data = {
+      id: '12',
+      state: State.GATEKEEPING,
+    };
+    expect(isCaseServed(data)).toBe(false);
+  });
+  test('when no case data', () => {
+    const data = {};
+    expect(isCaseServed(data)).toBe(false);
   });
 });

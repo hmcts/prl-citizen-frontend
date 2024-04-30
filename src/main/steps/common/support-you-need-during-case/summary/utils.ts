@@ -14,12 +14,12 @@ import {
   enContent,
 } from '../../../../steps/respondent/support-you-need-during-case/summary/content';
 
-const getSectionSummaryList = (
+export const getSectionSummaryList = (
   rows: SummaryListRow[],
   content: PageContent,
   language: string
 ): GovUkNunjucksSummary[] => {
-  console.log(content);
+  console.log(content.userCase);
   return rows.map(item => {
     const changeUrl = item.changeUrl;
     return {

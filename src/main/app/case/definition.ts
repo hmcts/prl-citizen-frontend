@@ -108,6 +108,19 @@ export interface PartyDetails {
   user: User;
   contactPreferences?: applicantContactPreferencesEnum;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
+  citizenSosObject?: CitizenSos;
+}
+
+export interface CitizenSos {
+  partiesServedDate?: string;
+  partiesServed?: string;
+  citizenSosDocs?: Document;
+  isOrder?: string;
+}
+
+export interface DocumentFromCdam {
+  status?: number;
+  document?: Document;
 }
 
 export interface User {
@@ -127,6 +140,16 @@ export interface Response {
   supportYouNeed?: ReasonableAdjustmentsSupport;
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
+}
+
+export interface DynamicMultiSelectList {
+  list_items: DynamicMultiSelectListElement[];
+  value: DynamicMultiSelectListElement[];
+}
+
+export interface DynamicMultiSelectListElement {
+  code: string;
+  label: string;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -192,11 +215,12 @@ export interface OtherProceedingDetails {
   orderDocument?: Document;
 }
 export interface CitizenFlags {
-  isApplicationViewed?: string,
-  isAllegationOfHarmViewed?: string
-  isAllDocumentsViewed?: string
-  isResponseInitiated?: string
-  isApplicationToBeServed?: string
+  isApplicationViewed?: string;
+  isAllegationOfHarmViewed?: string;
+  isAllDocumentsViewed?: string;
+  isResponseInitiated?: string;
+  isApplicationToBeServed?: string;
+  isOrderPersonallyServed?: string;
 }
 
 export const enum DownloadFileFieldFlag {
@@ -957,7 +981,7 @@ export interface CaseData {
   detailsKnown?: string;
   startAlternative?: string;
   citizenRole?: FieldPrefix;
-  fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
+  fl401UploadWitnessDocuments: DocumentCollection[];
   doYouConsent?: YesOrNo;
   applicationReceivedDate?: CaseDate;
   courtPermission?: YesOrNo;
@@ -1340,21 +1364,6 @@ export interface LabelContent {
   UnionType: string;
   UnionTypeUC: string;
   ApplicationType: ApplicationType;
-}
-
-export interface MarriageDetails {
-  Applicant1Name: string;
-  Applicant2Name: string;
-  MarriedInUk: YesOrNo;
-  CertificateInEnglish: YesOrNo;
-  CertifiedTranslation: YesOrNo;
-  CountryOfMarriage: string;
-  PlaceOfMarriage: string;
-  Date: DateAsString;
-  IsSameSexCouple: YesOrNo;
-  CertifyMarriageCertificateIsCorrect: YesOrNo;
-  MarriageCertificateIsIncorrectDetails: string;
-  IssueApplicationWithoutMarriageCertificate: YesOrNo;
 }
 
 export interface RejectReason {
@@ -2544,7 +2553,7 @@ export interface Document {
   document_binary_url: string;
   document_hash?: string | undefined | null;
 }
-export interface Fl401UploadWitnessDocuments {
+export interface DocumentCollection {
   id: string;
   value: Document;
 }
@@ -3095,6 +3104,7 @@ export enum CaseEvent {
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
+  STATEMENT_OF_SERVICE = 'citizenStatementOfService',
   CONTACT_PREFERENCE='citizenContactPreference',
   CITIZEN_SAVE_C100_DRAFT_INTERNAL="citizenSaveC100DraftInternal",
   CITIZEN_INTERNAL_FLAG_UPDATES="citizenInternalFlagUpdates"
@@ -3107,7 +3117,7 @@ export enum hearingStatus {
   AWAITING_LISTING = 'AWAITING_LISTING',
   AWAITING_ACTUALS = 'AWAITING_ACTUALS',
   LISTED = 'LISTED'
-} 
+}
 
 export enum passportPossessionRelative {
   MOTHER = 'mother',

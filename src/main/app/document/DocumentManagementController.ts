@@ -2,9 +2,11 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import type { Response } from 'express';
 
+import { applyParms } from '../../steps/common/url-parser';
 import { ApplicantUploadFiles, RespondentUploadFiles } from '../../steps/constants';
 import {
   APPLICANT,
+  APPLICANT_STATEMENT_OF_SERVICE,
   APPLICANT_TASK_LIST_URL,
   APPLICANT_UPLOAD_DOCUMENT,
   APPLICANT_UPLOAD_DOCUMENT_LIST_URL,
@@ -21,6 +23,7 @@ import {
   Applicant,
   CaseType,
   DocumentType,
+  DocumentUploadResponse,
   DownloadFileFieldFlag,
   FileProperties,
   Respondent,
@@ -585,6 +588,26 @@ export class DocumentManagerController extends PostController<AnyObject> {
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
   }
 
+  public async deleteDocumentFromCdam(req: AppRequest<Partial<CaseWithId>>, res: Response): Promise<void> {
+    const loggedInCitizen = req.session.user;
+    const documentIdToDelete = req.params.documentId;
+    const client = new CosApiClient(loggedInCitizen.accessToken, req.locals.logger);
+    const deleteCitizenDocFromCos: DocumentUploadResponse = await client.deleteDocumentFromCdam(
+      loggedInCitizen,
+      documentIdToDelete
+    );
+    if ('Success' === deleteCitizenDocFromCos.status) {
+      req.session.userCase.applicantUploadFiles = [];
+      req.session.errors = [];
+    } else {
+      if (!req.session.errors) {
+        req.session.errors = [];
+      }
+      req.session.errors?.push({ errorType: 'Document could not be deleted', propertyName: 'uploadFiles' });
+    }
+    this.redirect(req, res, applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: req.params.context }));
+  }
+
   private setRedirectUrl(isApplicant, req: AppRequest<Partial<CaseWithId>>) {
     const { caption = '', document_type = '', parentDocumentType = '', documentType = '' } = req.query;
 
@@ -612,6 +635,9 @@ export class DocumentManagerController extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest, res: Response): Promise<void> {
+    if (req.query && req.query.isSos?.toString().includes('Yes')) {
+      return this.uploadDocumentToCdam(req, res);
+    }
     let isApplicant;
     if (req.query && req.query.isApplicant) {
       isApplicant = req.query.isApplicant;
@@ -684,6 +710,48 @@ export class DocumentManagerController extends PostController<AnyObject> {
     }
 
     this.redirect(req, res, this.setRedirectUrl(isApplicant, req));
+  }
+
+  public async uploadDocumentToCdam(req: AppRequest, res: Response): Promise<void> {
+    console.log('Helo **** ');
+    this.undefiendUploadFiles(req);
+    this.fileData(req);
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const form = new Form(fields);
+
+    const { _csrf, ...formData } = form.getParsedBody(req.body);
+    const caseworkerUser = req.session.user;
+    req.session.errors = form.getErrors(formData);
+    const partyName = this.getPartyName(YesOrNo.YES, req);
+    const files = req.files || [];
+    const caseId = req.session.userCase.id;
+    const partyId = req.session.user.id;
+    const client = new CosApiClient(caseworkerUser.accessToken, req.locals.logger);
+    const uploadRequest: UploadDocumentRequest = {
+      user: caseworkerUser,
+      caseId,
+      partyId,
+      partyName,
+      isApplicant: YesOrNo.YES,
+      files,
+    };
+    if (req.session.userCase.applicantUploadFiles && req.session.userCase.applicantUploadFiles.length > 0) {
+      await client.deleteDocumentFromCdam(req.session.user, req.session.userCase.applicantUploadFiles[0].id);
+      req.session.userCase.applicantUploadFiles = undefined;
+    }
+    const citizenDocumentListFromCos = await client.UploadDocumentToCdam(uploadRequest);
+    if (citizenDocumentListFromCos.status !== 200) {
+      req.session.errors.push({ errorType: 'Document could not be uploaded', propertyName: 'documents' });
+    } else {
+      const obj = {
+        id: citizenDocumentListFromCos.document?.document_url.split('/').pop() as string,
+        name: citizenDocumentListFromCos.document?.document_filename as string,
+      };
+      req.session.userCase.applicantUploadFiles = [obj];
+      req.session.userCase.statementOfServiceDocument = citizenDocumentListFromCos.document;
+      req.session.errors = [];
+    }
+    this.redirect(req, res, applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: req.params.context }));
   }
 
   public async clearUploadDocumentFormData(req: AppRequest<AnyObject>, res: Response): Promise<void> {
