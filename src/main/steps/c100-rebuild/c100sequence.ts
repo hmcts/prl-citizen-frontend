@@ -271,7 +271,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_START,
     showInSection: Sections.C100,
-    getNextStep: () => '/',
+    getNextStep: () => C100_CHILD_ADDRESS,
   },
   {
     url: C100_HELP_WITH_FEES_NEED_HELP_WITH_FEES,

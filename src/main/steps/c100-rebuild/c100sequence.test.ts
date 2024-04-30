@@ -95,7 +95,7 @@ describe('C100Sequence', () => {
 
     expect(C100Sequence[15].url).toBe('/c100-rebuild/start');
     expect(C100Sequence[15].showInSection).toBe('c100');
-    expect(C100Sequence[15].getNextStep({})).toBe('/');
+    expect(C100Sequence[15].getNextStep({})).toBe('/c100-rebuild/childaddress');
 
     expect(C100Sequence[16].url).toBe('/c100-rebuild/help-with-fees/need-help-with-fees');
     expect(C100Sequence[16].showInSection).toBe('c100');

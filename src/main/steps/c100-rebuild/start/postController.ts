@@ -1,22 +1,13 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CaseWithId, FieldPrefix } from '../../../app/case/case';
+import { CaseWithId } from '../../../app/case/case';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { GetController, TranslationFn } from '../../../app/controller/GetController';
-import { C100_CHILD_ADDRESS } from '../../urls';
+import { AnyObject, PostController } from '../../../app/controller/PostController';
 
 @autobind
-export default class C100StartGetController extends GetController {
-  constructor(
-    protected readonly view: string,
-    protected readonly content: TranslationFn,
-    protected readonly fieldPrefix: FieldPrefix
-  ) {
-    super(view, content);
-  }
-
-  public async get(req: AppRequest, res: Response): Promise<void> {
+export default class C100StartPostController extends PostController<AnyObject> {
+  public async post(req: AppRequest, res: Response): Promise<void> {
     const userDeatils = req?.session?.user;
     if (userDeatils) {
       try {
@@ -34,9 +25,7 @@ export default class C100StartGetController extends GetController {
           noOfDaysRemainingToSubmitCase,
         } as CaseWithId;
         req.session.userCaseList = [];
-        req.session.save(() => {
-          res.redirect(C100_CHILD_ADDRESS);
-        });
+        super.redirect(req, res);
       } catch (e) {
         throw new Error('case could not be created-createC100ApplicantCase');
       }

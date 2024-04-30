@@ -1,10 +1,9 @@
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../app/case/CosApiClient';
-import { FieldPrefix } from '../../../app/case/case';
 import { State } from '../../../app/case/definition';
 
-import C100StartGetController from './getController';
+import C100StartPostController from './postController';
 
 jest.mock('../../../app/case/CosApiClient');
 
@@ -12,13 +11,13 @@ const mockMyFunction = CosApiClient as jest.Mock;
 jest.mock('axios');
 jest.mock('config');
 jest.mock('../../../app/auth/service/get-service-auth-token');
-describe('GetCaseController', () => {
+describe('C100StartPostController', () => {
   let controller;
   let req;
   let res;
 
   beforeEach(() => {
-    controller = new C100StartGetController('page', () => ({}), FieldPrefix.APPLICANT);
+    controller = new C100StartPostController({});
     req = mockRequest({
       locals: {
         api: jest.fn(),
@@ -46,7 +45,7 @@ describe('GetCaseController', () => {
       state: State.Draft,
       noOfDaysRemainingToSubmitCase: '3',
     };
-    await expect(controller.get(req, res)).rejects.toThrow('case could not be created-createC100ApplicantCase');
+    await expect(controller.post(req, res)).rejects.toThrow('case could not be created-createC100ApplicantCase');
   });
 
   test('createC100ApplicantCase', async () => {
@@ -57,7 +56,7 @@ describe('GetCaseController', () => {
       noOfDaysRemainingToSubmitCase: '3',
     };
     req.locals.C100Api.createCase.mockResolvedValueOnce(req.session.userCase);
-    await controller.get(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/childaddress');
+    await controller.post(req, res);
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 });
