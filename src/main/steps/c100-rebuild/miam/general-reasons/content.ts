@@ -5,7 +5,7 @@ import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  section: 'MIAM exemptions',
+  caption: 'MIAM exemptions',
   title: 'What are your reasons for not attending a MIAM?',
   courtcommunication: 'You need to give the court details of why you have not attended a MIAM.',
   optionHint: 'Select all reasons that apply.',
@@ -27,7 +27,7 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  section: 'Esemptiadau MIAM',
+  caption: 'Esemptiadau MIAM',
   title: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?',
   courtcommunication: 'Mae angen i chi roi manylion i’r llys pam nad ydych wedi mynychu MIAM.',
   optionHint: "Dewiswch bob rheswm sy'n berthnasol.",

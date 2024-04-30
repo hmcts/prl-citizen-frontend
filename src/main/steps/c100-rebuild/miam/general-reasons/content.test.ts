@@ -5,7 +5,7 @@ import { CommonContent, generatePageContent } from '../../../common/common.conte
 import { generateContent } from './content';
 
 const en = {
-  section: 'MIAM exemptions',
+  caption: 'MIAM exemptions',
   title: 'What are your reasons for not attending a MIAM?',
   courtcommunication: 'You need to give the court details of why you have not attended a MIAM.',
   optionHint: 'Select all reasons that apply.',
@@ -26,7 +26,7 @@ const en = {
 };
 
 const cy = {
-  section: 'Esemptiadau MIAM',
+  caption: 'Esemptiadau MIAM',
   title: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?',
   courtcommunication: 'Mae angen i chi roi manylion i’r llys pam nad ydych wedi mynychu MIAM.',
   optionHint: "Dewiswch bob rheswm sy'n berthnasol.",
