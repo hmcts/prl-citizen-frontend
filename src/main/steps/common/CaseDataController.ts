@@ -16,7 +16,7 @@ export default class CaseDataController {
     return this.fetchDataFor.includes(fetchDataFor);
   }
 
-  private async saveDataInSession(
+  public async saveDataInSession(
     req: AppRequest,
     caseData: CaseWithId,
     hearingData: HearingData | null

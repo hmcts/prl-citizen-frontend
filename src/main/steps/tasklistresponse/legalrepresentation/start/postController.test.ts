@@ -1,12 +1,12 @@
+import * as steps from '../../..';
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { YesOrNo } from '../../../../app/case/definition';
 import { FormContent } from '../../../../app/form/Form';
-import * as steps from '../../../../steps';
 import { LEGAL_REPRESENTATION_SOLICITOR_DIRECT, LEGAL_REPRESENTATION_START } from '../../../urls';
 
-import LegalRepresentationPostController from './LegalRepresentationPostController';
+import LegalRepresentationPostController from './postController';
 
 // import Mock = jest.Mock;
 jest.mock('../../../../app/case/CosApiClient');

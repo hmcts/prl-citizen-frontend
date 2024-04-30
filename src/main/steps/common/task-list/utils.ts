@@ -77,7 +77,7 @@ export const isCaseClosed = (caseData: Partial<CaseWithId>): boolean =>
   !!(caseData && [State.CASE_WITHDRAWN, State.CASE_CLOSED].includes(caseData.state!));
 
 export const isDraftCase = (caseData: Partial<CaseWithId>): boolean => {
-  return !!(caseData && caseData.state! === State.CASE_DRAFT);
+  return caseData?.state === State.CASE_DRAFT;
 };
 
 export const isRepresentedBySolicotor = (caseData: CaseWithId, userId: UserDetails['id']): boolean => {
@@ -124,8 +124,7 @@ export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean => 
 
 export const hasResponseBeenReviewed = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
   return !!(
-    caseData.citizenDocuments &&
-    caseData.citizenDocuments.length &&
+    caseData?.citizenDocuments?.length &&
     caseData.citizenDocuments.find(
       document =>
         (document.partyId === respondent.id || document.solicitorRepresentedPartyId === respondent.id) &&
