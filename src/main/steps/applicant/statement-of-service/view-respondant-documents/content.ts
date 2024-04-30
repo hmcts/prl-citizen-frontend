@@ -25,18 +25,20 @@ export const generateContent: TranslationFn = content => {
   const documents: ApplicationPackDocumentMeta[] = [];
   const respondentPacks: CitizenRespondentPack =
     content.additionalData?.req.session.userCase.personalServiceUnServedRespondentPack;
-  respondentPacks.packDocument?.forEach(document => {
-    const documentId = document.value?.document_url.substring(document.value.document_url.lastIndexOf('/') + 1);
-    documents.push({
-      documentId: documentId || '',
-      documentName: document.value?.document_filename || '',
-      servedDate: document.value?.category_id || '',
-      documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
-        documentId,
-        documentName: document.value?.document_filename,
-      }),
+  if (respondentPacks) {
+    respondentPacks.packDocument?.forEach(document => {
+      const documentId = document.value?.document_url.substring(document.value.document_url.lastIndexOf('/') + 1);
+      documents.push({
+        documentId: documentId || '',
+        documentName: document.value?.document_filename || '',
+        servedDate: document.value?.category_id || '',
+        documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
+          documentId,
+          documentName: document.value?.document_filename,
+        }),
+      });
     });
-  });
+  }
   return {
     ...translations,
     documents,

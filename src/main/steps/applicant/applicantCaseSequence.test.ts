@@ -6,7 +6,7 @@ import { applicantCaseSequence } from './applicantCaseSequence';
 
 describe('applicant1Sequence', () => {
   test('should contain 1 entries in applicant 1 screen sequence', () => {
-    expect(applicantCaseSequence).toHaveLength(53);
+    expect(applicantCaseSequence).toHaveLength(54);
 
     expect(applicantCaseSequence[0].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[0].showInSection).toBe('aboutApplicantCase');
@@ -323,5 +323,9 @@ describe('applicant1Sequence', () => {
     expect(applicantCaseSequence[52].url).toBe('/applicant/task-list');
     expect(applicantCaseSequence[52].showInSection).toBe('aboutApplicantCase');
     expect(applicantCaseSequence[52].getNextStep({})).toBe('/applicant/statement-of-service/view-respondant-documents');
+
+    expect(applicantCaseSequence[53].url).toBe('/applicant/statement-of-service/view-respondant-documents');
+    expect(applicantCaseSequence[53].showInSection).toBe('aboutApplicantCase');
+    expect(applicantCaseSequence[53].getNextStep({})).toBe('/applicant/task-list');
   });
 });

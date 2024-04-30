@@ -7,7 +7,7 @@ import { cy, en, generateContent } from './content';
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
-describe('citizen-home content', () => {
+describe('sos choose-parties content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   commonContent.additionalData = {
     req: {

@@ -5,7 +5,7 @@ import { cy, en, generateContent } from './content';
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
-describe('citizen-home content', () => {
+describe('view respondent documents content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   commonContent.additionalData = {
     req: {
@@ -39,7 +39,7 @@ describe('citizen-home content', () => {
   });
 
   test('should return correct english content', () => {
-    expect(generatedContent.data[0].documentId).toEqual('abcd-efgh-ijkl-mnop');
+    expect(generatedContent.documents[0].documentId).toEqual('abcd-efgh-ijkl-mnop');
   });
 
   // eslint-disable-next-line jest/expect-expect

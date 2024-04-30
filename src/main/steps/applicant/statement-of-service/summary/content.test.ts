@@ -52,7 +52,7 @@ const cy = {
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
-describe('citizen-home content', () => {
+describe('sos summary content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
   beforeEach(() => {

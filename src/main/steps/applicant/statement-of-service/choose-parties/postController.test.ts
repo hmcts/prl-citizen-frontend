@@ -6,16 +6,14 @@ import UploadSosPostController from './postController';
 
 const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'uploadStatementDocument');
 
-describe('documents > upload > upload-your-documents > postController', () => {
+describe('statement-of-service > choose-parties > postController', () => {
   describe('uploadDocument', () => {
     test('should generate document', async () => {
       const req = mockRequest({
         body: {
           uploadFile: true,
         },
-        params: {
-          docCategory: 'your-position-statements',
-        },
+        params: {},
         session: {
           user: { id: '1234' },
           userCase: {
@@ -67,9 +65,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
         body: {
           uploadFile: true,
         },
-        params: {
-          docCategory: 'your-position-statements',
-        },
+        params: {},
         session: {
           user: { id: '1234' },
           userCase: {
@@ -100,9 +96,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
         body: {
           uploadFile: true,
         },
-        params: {
-          docCategory: 'your-position-statements',
-        },
+        params: {},
         session: {
           user: { id: '1234' },
           userCase: {
@@ -150,9 +144,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
         body: {
           uploadFile: true,
         },
-        params: {
-          docCategory: 'your-position-statements',
-        },
+        params: {},
         session: {
           user: { id: '1234' },
           userCase: {
