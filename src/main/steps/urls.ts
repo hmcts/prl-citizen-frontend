@@ -431,8 +431,8 @@ export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orde
 export const C100_REBUILD_URL: PageLink = '/c100-rebuild';
 
 export const TESTING_SUPPORT: PageLink = '/testing-support';
-export const TESTING_SUPPORT_CREATE_DRAFT: PageLink = '/testing-support/create-Draft';
-export const TESTING_SUPPORT_DELETE_DRAFT: PageLink = '/testing-support/delete-Draft';
+export const TESTING_SUPPORT_CREATE_DRAFT: PageLink = '/testing-support/create-draft';
+export const TESTING_SUPPORT_DELETE_DRAFT: PageLink = '/testing-support/delete-draft';
 export const CREATE_DRAFT: PageLink = '/draft-controller';
 /* tasklist-contactpreferences*/
 export const CONTACT_PREFERENCE: PageLink = '/:partyType/contact-preference';

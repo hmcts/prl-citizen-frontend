@@ -42,12 +42,12 @@ describe('applicant1Sequence', () => {
     expect(citizenSequence[7].showInSection).toBe('aboutEdgeCase');
     expect(citizenSequence[7].getNextStep({})).toBe('/testing-support');
 
-    expect(citizenSequence[8].url).toBe('/testing-support/create-Draft');
+    expect(citizenSequence[8].url).toBe('/testing-support/create-draft');
     expect(citizenSequence[8].showInSection).toBe('aboutEdgeCase');
-    expect(citizenSequence[8].getNextStep({})).toBe('/testing-support/create-Draft');
+    expect(citizenSequence[8].getNextStep({})).toBe('/testing-support/create-draft');
 
-    expect(citizenSequence[9].url).toBe('/testing-support/delete-Draft');
+    expect(citizenSequence[9].url).toBe('/testing-support/delete-draft');
     expect(citizenSequence[9].showInSection).toBe('aboutEdgeCase');
-    expect(citizenSequence[9].getNextStep({})).toBe('/testing-support/delete-Draft');
+    expect(citizenSequence[9].getNextStep({})).toBe('/testing-support/delete-draft');
   });
 });
