@@ -18,17 +18,15 @@ describe('documents > upload > upload-your-documents > routeGuard', () => {
             firstName: 'test',
             lastName: 'user',
           },
-          applicantUploadFiles: [
-            {
-              document_url:
-                'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
-              document_binary_url: 'string',
-              document_filename: 'string',
-              document_hash: 'string',
-              document_creation_date: 'string',
-              name: 'file_example_TIFF_1MB',
-            },
-          ],
+          statementOfServiceDocument: {
+            document_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+            document_binary_url: 'string',
+            document_filename: 'string',
+            document_hash: 'string',
+            document_creation_date: 'string',
+            name: 'file_example_TIFF_1MB',
+          },
         },
       },
       query: {
@@ -41,7 +39,7 @@ describe('documents > upload > upload-your-documents > routeGuard', () => {
 
     routeGuard.get(req, res, next);
     await new Promise(process.nextTick);
-    expect(req.session.userCase.applicantUploadFiles).toStrictEqual(undefined);
+    expect(req.session.userCase.statementOfServiceDocument).toStrictEqual(undefined);
   });
 
   test('should call next when documentId not present in query params', async () => {
@@ -55,17 +53,15 @@ describe('documents > upload > upload-your-documents > routeGuard', () => {
             firstName: 'test',
             lastName: 'user',
           },
-          applicantUploadFiles: [
-            {
-              document_url:
-                'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
-              document_binary_url: 'string',
-              document_filename: 'string',
-              document_hash: 'string',
-              document_creation_date: 'string',
-              name: 'file_example_TIFF_1MB',
-            },
-          ],
+          statementOfServiceDocument: {
+            document_url:
+              'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
+            document_binary_url: 'string',
+            document_filename: 'string',
+            document_hash: 'string',
+            document_creation_date: 'string',
+            name: 'file_example_TIFF_1MB',
+          },
         },
       },
     });

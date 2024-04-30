@@ -136,21 +136,21 @@ export const generateFormFields = (caseData: Partial<CaseWithId>): GenerateDynam
           name: 'day',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-          value: _.get(caseData, 'sos_partiesServedDate.day', ''),
+          value: _.get(caseData, 'sos_partiesServedDate.day', undefined),
         },
         {
           label: l => l.dateFormat['month'],
           name: 'month',
           classes: 'govuk-input--width-2',
           attributes: { maxLength: 2, pattern: '[0-9]*', inputMode: 'numeric' },
-          value: _.get(caseData, 'sos_partiesServedDate.month', ''),
+          value: _.get(caseData, 'sos_partiesServedDate.month', undefined),
         },
         {
           label: l => l.dateFormat['year'],
           name: 'year',
           classes: 'govuk-input--width-4',
           attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
-          value: _.get(caseData, 'sos_partiesServedDate.year', ''),
+          value: _.get(caseData, 'sos_partiesServedDate.year', undefined),
         },
       ],
       parser: body => covertToDateObject('sos_partiesServedDate', body as Record<string, unknown>),
@@ -187,15 +187,15 @@ const getParties = (userCase: Partial<CaseWithId>) => {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const url = `?context=${content.additionalData?.req.params.context}&isSos=Yes`;
+  const file = content.userCase?.['statementOfServiceDocument'];
   return {
     ...translations,
     form: updateFormFields(form, generateFormFields(content.userCase!).fields),
     url,
-    filesUploaded:
-      content.userCase?.['applicantUploadFiles']?.map(file => ({
-        id: file.document_url.substring(file.document_url.lastIndexOf('/') + 1),
-        ...file,
-      })) ?? [],
+    filesUploaded: {
+      id: file?.document_url.substring(file.document_url.lastIndexOf('/') + 1),
+      ...file,
+    },
     errorMessage:
       translations.errors.uploadDocumentFileUpload?.[
         content.additionalData?.req.session?.errors?.find(

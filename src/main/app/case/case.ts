@@ -609,7 +609,6 @@ export interface Case {
   c100DraftDoc?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
-  sosContent?: string;
   statementOfServiceDocument?: Document;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;

@@ -11,9 +11,11 @@ import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { CaseEvent } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
-import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { prepateStatementOfServiceRequest } from '../choose-parties/StatementOfServiceMapper';
+
+import { form as summaryForm } from './content';
 
 @autobind
 export default class StatementOfServicePostController extends PostController<AnyObject> {
@@ -22,28 +24,23 @@ export default class StatementOfServicePostController extends PostController<Any
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const { sosConsent } = req.body;
-    if (!sosConsent || sosConsent === '') {
-      if (!req.session.errors) {
-        req.session.errors = [];
-      }
-      req.session.errors?.push({
-        errorType: 'required',
-        propertyName: 'sosConsent',
-      });
-      if (req.session.errors?.length) {
-        req.session.save(() =>
-          res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req.params.context }))
-        );
-        return;
-      }
+    const form = new Form(summaryForm.fields as FormFields);
+    const { ...formData } = form.getParsedBody(req.body);
+    req.session.errors = form.getErrors(formData);
+    if (!req.session.errors) {
+      req.session.errors = [];
+    }
+    if (req.session.errors?.length) {
+      req.session.save(() =>
+        res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req.params.context }))
+      );
+      return;
     }
     const { user, userCase } = req.session;
     const partyDetails = getPartyDetails(userCase, user.id);
     const client = new CosApiClient(user.accessToken, req.locals.logger);
     if (partyDetails) {
       const userData = prepateStatementOfServiceRequest(req);
-      req.session.userCase.applicantUploadFiles = undefined;
       req.session.userCase.statementOfServiceDocument = undefined;
       try {
         mapDataInSession(

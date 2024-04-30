@@ -22,12 +22,12 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const data: ApplicationPackDocumentMeta[] = [];
+  const documents: ApplicationPackDocumentMeta[] = [];
   const respondentPacks: CitizenRespondentPack =
     content.additionalData?.req.session.userCase.personalServiceUnServedRespondentPack;
   respondentPacks.packDocument?.forEach(document => {
     const documentId = document.value?.document_url.substring(document.value.document_url.lastIndexOf('/') + 1);
-    data.push({
+    documents.push({
       documentId: documentId || '',
       documentName: document.value?.document_filename || '',
       servedDate: document.value?.category_id || '',
@@ -39,6 +39,6 @@ export const generateContent: TranslationFn = content => {
   });
   return {
     ...translations,
-    data,
+    documents,
   };
 };

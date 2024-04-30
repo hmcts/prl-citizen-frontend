@@ -44,21 +44,20 @@
 
                 <ul id="filesUploadedList" class="govuk-list">
                   <dl class="govuk-summary-list">
-                      {% if filesUploaded.length > 0 %}
-                        {% for file in filesUploaded %}
+                      {% if filesUploaded.id %}
                           <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__value">
-                              {{ file.document_filename }}
+                              {{ filesUploaded.document_filename }}
                             </dt>
                             <dd class="govuk-summary-list__actions">
                               <a
-                                href="?documentId={{ file.id }}"
+                                href="?documentId={{ filesUploaded.id }}"
                               class="govuk-link">
                                 {{ removeDocument }}</span>
                               </a>
                             </dd>
                           </div>
-                        {% endfor %}
+
                       {%else%}
                         {{noFilesUploaded}}
                       {%endif%}

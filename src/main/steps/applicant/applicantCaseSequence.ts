@@ -417,4 +417,9 @@ export const applicantCaseSequence: Step[] = [
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
   },
+  {
+    url: APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_TASK_LIST_URL,
+  },
 ];

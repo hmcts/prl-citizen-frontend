@@ -150,10 +150,10 @@ const getSummarySection = (summaryContent: CommonContent) => {
         }),
       });
     }
-    if (summaryContent.userCase.applicantUploadFiles) {
+    if (summaryContent.userCase.statementOfServiceDocument) {
       summaryData.push({
         key: labels.filesUploaded,
-        value: summaryContent.userCase.applicantUploadFiles[0].document_filename,
+        value: summaryContent.userCase.statementOfServiceDocument.document_filename,
         changeUrl: applyParms(APPLICANT_STATEMENT_OF_SERVICE, {
           context: summaryContent.additionalData?.req.params.context,
         }),

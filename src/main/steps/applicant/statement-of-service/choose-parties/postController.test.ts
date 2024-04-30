@@ -52,16 +52,14 @@ describe('documents > upload > upload-your-documents > postController', () => {
 
       await controller.post(req, res);
       await new Promise(process.nextTick);
-      expect(req.session.userCase.applicantUploadFiles).toStrictEqual([
-        {
-          document_url: 'string',
-          document_binary_url: 'string',
-          document_filename: 'string',
-          document_hash: 'string',
-          document_creation_date: 'string',
-          name: 'file_example_TIFF_1MB',
-        },
-      ]);
+      expect(req.session.userCase.statementOfServiceDocument).toStrictEqual({
+        document_url: 'string',
+        document_binary_url: 'string',
+        document_filename: 'string',
+        document_hash: 'string',
+        document_creation_date: 'string',
+        name: 'file_example_TIFF_1MB',
+      });
     });
 
     test('should set error when files are not present', async () => {

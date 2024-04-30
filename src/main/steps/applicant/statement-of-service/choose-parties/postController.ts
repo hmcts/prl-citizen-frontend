@@ -23,20 +23,13 @@ export default class UploadSosPostController extends PostController<AnyObject> {
     });
   }
 
-  private initializeData(caseData: Partial<CaseWithId>): void {
-    if (!caseData?.applicantUploadFiles) {
-      caseData['applicantUploadFiles'] = [];
-    }
-  }
-
   private async uploadDocument(req: AppRequest, res: Response): Promise<void> {
     const { session, files } = req;
-    const { user, userCase: caseData } = session;
+    const { user } = session;
     const client = new CosApiClient(user.accessToken, req.locals.logger);
     const redirectUrl = this.setRedirectUrl(req);
 
     req.url = redirectUrl;
-    this.initializeData(caseData);
 
     if (!files) {
       req.session.errors = handleError(req.session.errors, 'empty');
@@ -44,21 +37,19 @@ export default class UploadSosPostController extends PostController<AnyObject> {
     }
 
     try {
-      if (req.session.userCase?.['applicantUploadFiles']?.length !== 0) {
-        const document = req.session.userCase?.['applicantUploadFiles']![0];
+      if (req.session.userCase['statementOfServiceDocument']) {
+        const document = req.session.userCase['statementOfServiceDocument'];
         const documentId = document.document_url.substring(document.document_url.lastIndexOf('/') + 1) as string;
         await client.deleteCitizenStatementDocument(documentId);
       }
       const response = await client.uploadStatementDocument(user, {
         files: [files['files[]']],
       });
-
       if (response.status !== 'Success') {
         req.session.errors = handleError(req.session.errors, 'uploadError', true);
         return;
       }
-
-      req.session.userCase?.['applicantUploadFiles']?.push(response.document);
+      req.session.userCase['statementOfServiceDocument'] = response.document;
       req.session.errors = removeUploadDocErrors(req.session.errors);
     } catch (e) {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);
@@ -84,12 +75,6 @@ export default class UploadSosPostController extends PostController<AnyObject> {
       req.session.userCase['sos_partiesServedDate-day'] = formData['sos_partiesServedDate-day'];
       req.session.userCase['sos_partiesServedDate-month'] = formData['sos_partiesServedDate-month'];
       req.session.userCase['sos_partiesServedDate-year'] = formData['sos_partiesServedDate-year'];
-
-      // req.session.userCase['sos_partiesServedDate'] = new Date(
-      //   formData['sos_partiesServedDate-year'],
-      //   formData['sos_partiesServedDate-month'] - 1,
-      //   formData['sos_partiesServedDate-day']
-      // );
       req.session.save(() =>
         res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req.params.context }))
       );

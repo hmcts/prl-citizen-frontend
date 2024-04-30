@@ -11,18 +11,16 @@ export const routeGuard = {
   get: async (req: AppRequest, res: Response, next: NextFunction) => {
     if (req.query?.documentId) {
       const { query, session } = req;
-      const { user: userDetails, userCase: caseData } = session;
+      const { user: userDetails } = session;
       const client = new CosApiClient(userDetails.accessToken, req.locals.logger);
       try {
         await client.deleteCitizenStatementDocument(query.documentId as string);
 
-        if (req.session.userCase && req.session.userCase.hasOwnProperty('applicantUploadFiles')) {
-          req.session.userCase['applicantUploadFiles'] = caseData?.['applicantUploadFiles']?.filter(
-            document => query.documentId !== document.document_url.substring(document.document_url.lastIndexOf('/') + 1)
-          );
+        if (req.session.userCase && req.session.userCase.hasOwnProperty('statementOfServiceDocument')) {
+          req.session.userCase['statementOfServiceDocument'] = undefined;
 
-          if (req.session.userCase?.['applicantUploadFiles']?.length === 0) {
-            delete req.session.userCase['applicantUploadFiles'];
+          if (!req.session.userCase?.['statementOfServiceDocument']) {
+            delete req.session.userCase['statementOfServiceDocument'];
           }
         }
 
