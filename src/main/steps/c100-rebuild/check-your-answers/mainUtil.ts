@@ -34,23 +34,6 @@ import {
 } from './lib/lib';
 import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
 console.info('** FOR SONAR **');
-/* eslint-disable import/namespace */
-// export const CaseName = (
-//   { sectionTitles, keys, ...content }: SummaryListContent,
-//   userCase: Partial<CaseWithId>
-// ): SummaryList | undefined => {
-//   const SummaryData = [
-//     {
-//       key: keys['enterCaseName'],
-//       value: userCase['applicantCaseName'],
-//       changeUrl: Urls['C100_CASE_NAME'],
-//     },
-//   ];
-//   return {
-//     title: sectionTitles['caseName'],
-//     rows: getSectionSummaryList(SummaryData, content),
-//   };
-// };
 
 /* eslint-disable import/namespace */
 export const LocationDetails = (
@@ -368,7 +351,6 @@ export const OtherChildrenDetails = (
         lastname = sessionChildData[child]['lastName'],
         id = sessionChildData[child]['id'],
         personalDetails = sessionChildData[child]['personalDetails'];
-      // const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== '';
       const childNo = Number(child) + 1;
       newChildDataStorage.push(
         {
@@ -384,26 +366,6 @@ export const OtherChildrenDetails = (
         }
       );
       populateDateOfBirth(personalDetails, newChildDataStorage, keys, language, id, false);
-      // if (isDateOfBirthUnknown) {
-      //   newChildDataStorage.push(
-      //     {
-      //       key: keys['approxCheckboxLabel'],
-      //       value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
-      //       changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-      //     },
-      //     {
-      //       key: keys['approxDobLabel'],
-      //       value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
-      //       changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-      //     }
-      //   );
-      // } else {
-      //   newChildDataStorage.push({
-      //     key: keys['dobLabel'],
-      //     value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
-      //     changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-      //   });
-      // }
       newChildDataStorage.push({
         key: keys['childGenderLabel'],
         value: translation(personalDetails?.['gender'], language),

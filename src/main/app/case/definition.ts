@@ -915,7 +915,6 @@ export interface CaseData {
   finalDocument?: Document;
   serviceType: string;
   claimNumber: string;
-  applicantCaseName: string;
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
