@@ -133,6 +133,7 @@ export const en = {
 };
 
 export const cy: typeof en = {
+  ...en, // @TODO delete me to get a list of missing translations
   phase: 'Beta',
   applyForChildArrangements: 'Cyfraith breifat',
   applyForDissolution: 'Cyfraith breifat',
@@ -150,7 +151,8 @@ export const cy: typeof en = {
   warning: 'Rhybudd',
   required: 'Nid ydych wedi ateb y cwestiwn. Rhaid ichi ddewis ateb cyn symud ymlaen.',
   notAnswered: 'Nid ydych wedi ateb y cwestiwn.',
-  errorSaving: "Mae'n ddrwg gennym, rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni mewn ychydig funudau.",
+  errorSaving:
+    "Mae'n ddrwg gennym, rydym yn cael problemau technegol wrth geisio cadw eich cais. Rhowch gynnig arall arni mewn ychydig funudau.",
   ogl: 'Mae’r holl gynnwys ar gael o dan <a class="govuk-link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license" >Drwydded Agored y Llywodraeth f3.0</a>, oni nodir fel arall',
   errorSummaryHeading: 'Mae yna broblem',
   saveAndSignOut: 'Cadw ac allgofnodi',
@@ -208,7 +210,8 @@ export const cy: typeof en = {
   openNewWindow: '(agor mewn ffenestr newydd)',
   telephone: 'Ffôn',
   cookiesLine1: 'Rydym yn defnyddio rhai cwcis hanfodol i wneud i’r gwasanaeth hwn weithio',
-  cookiesLine2: 'Hoffwn osod cwcis ychwanegol ar eich cyfrifiadur fel y gallwn gofio eich gosodiadau, deall sut mae pobl yn defnyddio’r gwasanaeth a gwella gwasanaethau’r llywodraeth',
+  cookiesLine2:
+    'Hoffwn osod cwcis ychwanegol ar eich cyfrifiadur fel y gallwn gofio eich gosodiadau, deall sut mae pobl yn defnyddio’r gwasanaeth a gwella gwasanaethau’r llywodraeth',
   cookiesAcceptedPart: 'Rydych wedi derbyn cwcis ychwanegol. Gallwch',
   cookiesAcceptorRejectPart2: 'newid eich gosodiadau cwcis ',
   cookiesAcceptorRejectPart3: ' ar unrhyw bryd',
@@ -233,20 +236,14 @@ export const cy: typeof en = {
   edit: 'Golygu',
   appName: '- Cyfraith Breifat - GOV.UK',
   ...appSurveyContents.cy,
-  contactUs1: 'Gallwch <a href="https://www.gov.uk/find-court-tribunal" class="govuk-link" target="blank">gysylltu â’r llys perthnasol</a> os ydych angen trafod eich achos.',
+  contactUs1:
+    'Gallwch <a href="https://www.gov.uk/find-court-tribunal" class="govuk-link" target="blank">gysylltu â’r llys perthnasol</a> os ydych angen trafod eich achos.',
   contactUs2: 'Ni allant roi cyngor cyfreithiol i chi nac ateb cwestiynau am geisiadau a gyflwynwyd.',
-  contactUs3: 'Os hoffech roi gwybod inni am broblem neu os oes gennych awgrym i’n helpu ni i wella’r gwasanaeth hwn, anfonwch neges e-bost i: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk-welsh</a>',
+  contactUs3:
+    'Os hoffech roi gwybod inni am broblem neu os oes gennych awgrym i’n helpu ni i wella’r gwasanaeth hwn, anfonwch neges e-bost i: <a href="#" class="govuk-link" target="blank">C100applications@justice.gov.uk-welsh</a>',
   contactUs4: "Dim ond i roi adborth ar y gwasanaeth digidol y dylid defnyddio'r cyfeiriad e-bost hwn.",
   feedback: 'Adborth',
   invalidDate: 'Dyddiad Annilys',
-  next: '',
-  errorSendingInvite: '',
-  habitualResidentHelpText1: '',
-  habitualResidentHelpText2: '',
-  save: '',
-  cookiesSaved: '',
-  additionalCookies: '',
-  goToHomepage: ''
 };
 
 export const generatePageContent = ({
