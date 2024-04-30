@@ -27,14 +27,14 @@ const PRL_safetyConcernsMockData = mockRequest({
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(responseCaseSequence).toHaveLength(52);
+    expect(responseCaseSequence).toHaveLength(55);
     expect(responseCaseSequence[0].url).toBe('/tasklistresponse/consent-to-application/consent');
     expect(responseCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[0].getNextStep({})).toBe('/tasklistresponse/consent-to-application/summary');
 
     expect(responseCaseSequence[1].url).toBe('/tasklistresponse/consent-to-application/summary');
     expect(responseCaseSequence[1].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[1].getNextStep({})).toBe('/tasklistresponse/consent-to-application/save');
+    expect(responseCaseSequence[1].getNextStep({})).toBe('/');
 
     expect(responseCaseSequence[2].url).toBe('/respondent/keep-details-private/private_details_not_confirmed');
     expect(responseCaseSequence[2].showInSection).toBe('aboutRespondentCase');
@@ -50,7 +50,7 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[5].url).toBe('/tasklistresponse/miam/summary');
     expect(responseCaseSequence[5].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[5].getNextStep({})).toBe('/tasklistresponse/miam/save');
+    expect(responseCaseSequence[5].getNextStep({})).toBe('/');
 
     expect(responseCaseSequence[6].url).toBe('/respondent/confirm-contact-details/checkanswers');
     expect(responseCaseSequence[6].showInSection).toBe('aboutRespondentCase');
@@ -110,7 +110,7 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[20].url).toBe('/tasklistresponse/international-factors/summary');
     expect(responseCaseSequence[20].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[20].getNextStep({})).toBe('/tasklistresponse/international-factors/save');
+    expect(responseCaseSequence[20].getNextStep({})).toBe('/');
 
     expect(responseCaseSequence[21].url).toBe('/tasklistresponse/safety_concerns/main_page');
     expect(responseCaseSequence[21].showInSection).toBe('aboutRespondentCase');
@@ -167,7 +167,7 @@ describe('respondent1Sequence', () => {
 
     expect(responseCaseSequence[30].url).toBe('/tasklistresponse/proceedings/summary');
     expect(responseCaseSequence[30].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[30].getNextStep({})).toBe('/tasklistresponse/proceedings/save');
+    expect(responseCaseSequence[30].getNextStep({})).toBe('/');
 
     expect(responseCaseSequence[31].url).toBe('/tasklistresponse/start');
     expect(responseCaseSequence[31].showInSection).toBe('aboutRespondentCase');
@@ -327,5 +327,17 @@ describe('respondent1Sequence', () => {
     expect(responseCaseSequence[51].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/child/concerns-about'
     );
+
+    expect(responseCaseSequence[52].url).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[52].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[52].getNextStep({})).toBe('/tasklistresponse/summary');
+
+    expect(responseCaseSequence[53].url).toBe('/tasklistresponse/summary');
+    expect(responseCaseSequence[53].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[53].getNextStep({})).toBe('/tasklistresponse/summary-confirmation');
+
+    expect(responseCaseSequence[54].url).toBe('/tasklistresponse/summary-confirmation');
+    expect(responseCaseSequence[54].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[54].getNextStep({ id: '1234' })).toBe('/case/1234');
   });
 });

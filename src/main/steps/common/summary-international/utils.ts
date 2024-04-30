@@ -3,17 +3,13 @@
 import dayjs from 'dayjs';
 
 import { CaseDate, CaseWithId } from '../../../app/case/case';
-import { CaseType, State } from '../../../app/case/definition';
 import { isDateInputInvalid } from '../../../app/form/validation';
 import {
-  GovUkNunjucksSummary,
   SummaryList,
   SummaryListContent,
   SummaryListRow,
 } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
-import { APPLICANT_TASK_LIST_URL, C100_RETRIVE_CASE, RESPONDENT_TASK_LIST_URL } from '../../urls';
 import { getSectionSummaryList } from '../summary/utils';
-import { applyParms } from '../url-parser';
 
 /* eslint-disable import/namespace */
 export const summaryListIntElement = (
@@ -45,58 +41,6 @@ export const summaryListIntElement = (
   };
 };
 
-export const summaryCaseList = (
-  userCaseList: Partial<CaseWithId>[],
-  sectionTitle?: string,
-  isRespondent?: boolean
-): SummaryList | undefined => {
-  const summaryData: SummaryListRow[] = [];
-  summaryData.push({ key: 'Case Name', value: '<h4>Case Status</h4>' });
-  for (const userCase of userCaseList) {
-    const id = userCase.id as string;
-    const name = userCase.applicantCaseName;
-    const state = userCase.caseStatus?.state;
-    const caseUrl = getRedirectUrl(userCase, isRespondent, state, id);
-    const row = {
-      key: name,
-      value: state,
-      changeUrl: id,
-      caseLink: caseUrl,
-    };
-
-    summaryData.push(row);
-  }
-
-  return {
-    title: sectionTitle || '',
-    rows: getSectionCaseList(summaryData),
-  };
-};
-
-const getSectionCaseList = (rows: SummaryListRow[]): GovUkNunjucksSummary[] => {
-  return rows.map(item => {
-    const changeUrl = item.changeUrl;
-    return {
-      key: { ...(item.key ? { text: item.key } : {}) },
-      value: { ...(item.value ? { html: item.value } : {}) },
-      ...(changeUrl
-        ? {
-            actions: {
-              items: [
-                {
-                  href: `${item.caseLink}`,
-                  text: `${item.changeUrl}`,
-                  visuallyHiddenText: `${item.changeUrl}`,
-                },
-              ],
-            },
-          }
-        : {}),
-      ...(item.classes ? { classes: item.classes } : {}),
-    };
-  });
-};
-
 export const getFormattedDate = (date: CaseDate | undefined, locale = 'en'): string =>
   date && !isDateInputInvalid(date)
     ? dayjs(`${date.day}-${date.month}-${date.year}`, 'D-M-YYYY').locale(locale).format('D MMMM YYYY')
@@ -116,18 +60,6 @@ export const getSelectedPrivateDetails = (userCase: Partial<CaseWithId>): string
   }
   tempDetails = tempDetails + '</ul>';
   return tempDetails;
-};
-const getRedirectUrl = (
-  userCase: Partial<CaseWithId>,
-  isRespondent: boolean | undefined,
-  state: string | undefined,
-  id: string
-) => {
-  const applicantUrl = state === State.Draft ? applyParms(`${C100_RETRIVE_CASE}`, { caseId: id }) : '#';
-  const C100_Url = isRespondent ? RESPONDENT_TASK_LIST_URL + '/' + id : applicantUrl;
-  const FL401_Url = (!isRespondent ? APPLICANT_TASK_LIST_URL : RESPONDENT_TASK_LIST_URL) + '/' + id;
-  const caseUrl = userCase.caseTypeOfApplication === CaseType.C100 ? C100_Url : FL401_Url;
-  return caseUrl;
 };
 
 const notDate = (key: string, userCase: Partial<CaseWithId>) => {

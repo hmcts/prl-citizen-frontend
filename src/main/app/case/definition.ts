@@ -1659,6 +1659,7 @@ export const enum EventRoutesContext {
   SAFETY_CONCERNS_NO = 'SAFETY_CONCERNS_NO',
   VIEW_ALL_DOCUMENTS = 'VIEW_ALL_DOCUMENTS',
   CONTACT_PREFERENCE = 'CONTACT_PREFERENCE',
+  HEARINGS = 'HEARINGS'
 }
 
 export const enum ClarificationReason {

@@ -33,11 +33,11 @@ describe('case activated content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
 
-  test('should contain Submit button', () => {
+  test('should contain onlyContinue button', () => {
     const generatedContent = generateContent(commonContent);
     const form = generatedContent.form as FormContent;
     expect(
-      (form?.submit?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
+      (form?.onlyContinue?.text as LanguageLookup)(generatePageContent({ language: 'en' }) as Record<string, never>)
     ).toBe('Save and continue');
   });
 });

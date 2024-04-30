@@ -2,7 +2,6 @@ import autobind from 'autobind-decorator';
 import config from 'config';
 import type { Response } from 'express';
 
-import { CA_RESPONDENT_RESPONSE_CONFIRMATION } from '../../steps/urls';
 import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
 import { CosApiClient } from '../case/CosApiClient';
 import { toApiFormat } from '../case/to-api-format';
@@ -13,23 +12,6 @@ const UID_LENGTH = 36;
 console.info('** FOR SONAR **');
 @autobind
 export class RespondentSubmitResponseController {
-  public async save(req: AppRequest, res: Response): Promise<void> {
-    const caseReference = req.session.userCase.id;
-    let partyId;
-    req.session.userCase.respondents?.forEach(respondent => {
-      if (respondent.value.user.idamId === req.session.user.id) {
-        partyId = respondent.id;
-      }
-    });
-    const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
-    const caseData = toApiFormat(req?.session?.userCase);
-
-    const updatedCaseDataFromCos = await client.submitRespondentResponse(caseReference, partyId, caseData);
-    Object.assign(req.session.userCase, updatedCaseDataFromCos);
-
-    req.session.save(() => res.redirect(CA_RESPONDENT_RESPONSE_CONFIRMATION));
-  }
-
   public async getDraftDocument(req: AppRequest, res: Response): Promise<void> {
     const caseReference = req.session.userCase.id;
     let partyId;

@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { CaseWithId } from '../../../app/case/case';
 import { AppRequest, UserDetails } from '../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
-import { PARTY_TASKLIST, PageLink, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
+import { FETCH_CASE_DETAILS, PageLink, RESPOND_TO_APPLICATION } from '../../../steps/urls';
 import { DocumentCategory } from '../documents/definitions';
 import { applyParms } from '../url-parser';
 
@@ -101,11 +101,9 @@ export const isC7ResponseSubmitted = (respondent: PartyDetails | undefined): boo
 
 // temporary, remove after fl401 tasklist refactored
 export const keepDetailsPrivateNav = (caseData: Partial<CaseWithId>, req: AppRequest): PageLink => {
-  const respondentTaskListUrl =
-    caseData.caseTypeOfApplication === CaseType.C100
-      ? (applyParms(`${PARTY_TASKLIST}`, { partyType: PartyType.RESPONDENT }) as PageLink)
-      : RESPONDENT_TASK_LIST_URL;
-  return req?.session.applicationSettings?.navfromRespondToApplication ? RESPOND_TO_APPLICATION : respondentTaskListUrl;
+  return req?.session.applicationSettings?.navfromRespondToApplication
+    ? RESPOND_TO_APPLICATION
+    : (applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData.id }) as PageLink);
 };
 
 export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseData?.isCafcassServed === YesOrNo.YES;

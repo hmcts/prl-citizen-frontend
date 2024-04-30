@@ -51,7 +51,7 @@ export const generateFormFields = (): GenerateDynamicFormFields => {
 
 export const form: FormContent = {
   fields: {},
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
   },
 };

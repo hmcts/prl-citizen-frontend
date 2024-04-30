@@ -5,12 +5,10 @@ import { Response } from 'express';
 import { getNextStepUrl } from '../../steps';
 import PreProcessCaseData from '../../steps/c100-rebuild/PreProcessCaseData';
 import { applyParms } from '../../steps/common/url-parser';
-import { C100_URL, PARTY_TASKLIST, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { getSystemUser } from '../auth/user/oidc';
+import { C100_URL, PARTY_TASKLIST } from '../../steps/urls';
 import { getCaseApi } from '../case/CaseApi';
-import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, PartyType, State } from '../case/definition';
+import { CITIZEN_UPDATE, CaseData, PartyType } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -27,39 +25,15 @@ export class PostController<T extends AnyObject> {
     const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
     const form = new Form(fields);
 
-    const { saveAndSignOut, saveBeforeSessionTimeout, _csrf, ...formData } = form.getParsedBody(req.body);
+    const { _csrf, ...formData } = form.getParsedBody(req.body);
 
-    if (req.body.saveAndSignOut) {
-      await this.saveAndSignOut(req, res, formData);
-    } else if (req.body.saveBeforeSessionTimeout) {
-      await this.saveBeforeSessionTimeout(req, res, formData);
-    } else if (req.body.accessCodeCheck) {
-      await this.checkCaseAccessCode(req, res, form, formData);
-    } else if (req.body.onlyContinue) {
+    if (req.body.onlyContinue) {
       await this.onlyContinue(req, res, form, formData);
     } else if (req.body.saveAndComeLater) {
       await this.saveAndComeLater(req, res, formData);
     } else {
       await this.saveAndContinue(req, res, form, formData);
     }
-  }
-
-  private async saveAndSignOut(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    try {
-      await this.save(req, formData, CITIZEN_SAVE_AND_CLOSE);
-    } catch {
-      // ignore
-    }
-    res.redirect(SAVE_AND_SIGN_OUT);
-  }
-
-  private async saveBeforeSessionTimeout(req: AppRequest<T>, res: Response, formData: Partial<Case>): Promise<void> {
-    try {
-      await this.save(req, formData, this.getEventName(req));
-    } catch {
-      // ignore
-    }
-    res.end();
   }
 
   private async saveAndContinue(req: AppRequest<T>, res: Response, form: Form, formData: Partial<Case>): Promise<void> {
@@ -132,11 +106,7 @@ export class PostController<T extends AnyObject> {
 
   protected redirect(req: AppRequest<T>, res: Response, nextUrl?: string): void {
     let target;
-    if (req.body['saveAsDraft']) {
-      //redirects to task-list page in case of save-as-draft button click
-      req.session.returnUrl = undefined;
-      target = RESPONDENT_TASK_LIST_URL; //changed from task_list_url to respondent_taskList_url
-    } else if (req.session.errors?.length) {
+    if (req.session.errors?.length) {
       //redirects to same page in case of validation errors
       target = req.url;
     } else {
@@ -167,62 +137,6 @@ export class PostController<T extends AnyObject> {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getEventName(req: AppRequest): string {
     return CITIZEN_UPDATE;
-  }
-
-  private async checkCaseAccessCode(
-    req: AppRequest<T>,
-    res: Response,
-    form: Form,
-    formData: Partial<CaseWithId>
-  ): Promise<void> {
-    const caseworkerUser = await getSystemUser();
-    const caseReference = formData.caseCode?.replace(/-/g, '');
-    const accessCode = formData.accessCode?.replace(/-/g, '');
-
-    req.session.errors = form.getErrors(formData);
-
-    try {
-      if (!req.session.errors.length) {
-        const client = new CosApiClient(caseworkerUser.accessToken, req.locals.logger);
-        const accessCodeValidated = await client.validateAccessCode(
-          caseReference as string,
-          accessCode as string,
-          caseworkerUser
-        );
-        if (accessCodeValidated === 'Linked') {
-          req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
-        } else if (accessCodeValidated !== 'Valid') {
-          req.session.errors.push(
-            { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
-            { errorType: 'invalidAccessCode', propertyName: 'accessCode' }
-          );
-        }
-      }
-    } catch (err) {
-      req.locals.logger.error('Retrieving case failed with error: ' + err);
-      req.session.errors.push(
-        { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
-        { errorType: 'invalidAccessCode', propertyName: 'accessCode' }
-      );
-    }
-
-    if (req.session.errors.length) {
-      req.session.accessCodeLoginIn = false;
-    } else {
-      req.session.accessCodeLoginIn = true;
-      if (req?.session?.userCase) {
-        Object.assign(req?.session?.userCase, formData);
-      } else {
-        const initData = {
-          id: caseReference as string,
-          state: State.successAuthentication,
-          serviceType: '',
-          ...formData,
-        };
-        req.session.userCase = initData;
-      }
-    }
-    this.redirect(req, res);
   }
 
   /**
