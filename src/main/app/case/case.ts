@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { RAFlags } from '../../modules/reasonable-adjustments/definitions';
+import { CitizenApplicationPacks, CitizenDocuments, CitizenOrders } from '../../steps/common/documents/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
@@ -76,8 +78,9 @@ import {
   PRL_C1ASafteyConcernsAbout,
   PRL_C1ASafteyConcerns,
   PRL_C1AAbuseTypes,
-  applicantContactPreferencesEnum,
   RespondentDocs,
+  DocumentUploadResponse,
+  ContactPreference,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -225,6 +228,13 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   respondentDocsList: 'respondentDocsList',
   caseInvites: 'caseInvites',
   draftOrderDoc: 'draftOrderDoc',
+  c100DraftDoc: 'submitAndPayDownloadApplicationLink',
+  isCafcassServed: 'soaCafcassServedOptions',
+  isCafcassCymruServed: 'soaCafcassCymruServedOptions',
+  citizenDocuments: 'citizenDocuments',
+  citizenOrders: 'citizenOrders',
+  citizenApplicationPacks: 'citizenApplicationPacks',
+  finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -374,14 +384,19 @@ export interface Case {
   yourchildconcernsstart?: YesOrNo;
   cameoutofallegationsharmwithNo?: boolean;
   //applicant1CannotUploadDocuments?: DocumentType[];
+  hasCourtAskedForThisDoc?: YesOrNo;
+  reasonForDocumentCantBeShared?: string;
+  haveReasonForDocNotToBeShared?: YesOrNo;
+  reasonsToNotSeeTheDocument?: string[];
+  reasonsToRestrictDocument?: string;
   documentText?: string;
-  applicantUploadFiles?: UploadedFile[];
+  applicantUploadFiles?: DocumentUploadResponse['document'][];
   declarationCheck?: string;
   finalDocument?: Document;
   fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
   citizenUploadedDocumentList?: UploadDocumentList[];
   /*** Document upload */
-  respondentUploadFiles?: UploadedFile[];
+  respondentUploadFiles?: DocumentUploadResponse['document'][];
   proceedingsCourtCase?: string;
   proceedingsStart?: YesOrNo;
   proceedingsCourtOrder?: string;
@@ -504,7 +519,6 @@ export interface Case {
   //C100 Rebuild
   contactDetailsPrivateAlternative?: string;
   c100ApplicationFees?: string;
-  ra_disabilityRequirements?: string[];
   hwf_needHelpWithFees?: YesOrNo;
   hwf_feesAppliedDetails?: YesOrNo;
   caseId?: string;
@@ -584,11 +598,62 @@ export interface Case {
   lastModifiedDate?: string;
   c100RebuildReturnUrl?: string;
   noOfDaysRemainingToSubmitCase?: string;
-  applicantPreferredContact?: applicantContactPreferencesEnum;
+  partyContactPreference?: ContactPreference | null;
   draftOrderDoc?: Document;
+  c100DraftDoc?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
+  isCafcassServed?: YesOrNo | null;
+  isCafcassCymruServed?: YesOrNo | null;
+  citizenDocuments?: CitizenDocuments[];
+  citizenOrders?: CitizenOrders[];
+  citizenApplicationPacks?: CitizenApplicationPacks[];
+  // RA local component
+  ra_typeOfHearing?: string[];
+  ra_noVideoAndPhoneHearing_subfield?: string;
+  ra_specialArrangements?: string[];
+  ra_specialArrangementsOther_subfield?: string;
+  ra_languageNeeds?: string[];
+  ra_needInterpreterInCertainLanguage_subfield?: string;
+  ra_documentInformation?: string[];
+  ra_disabilityRequirements?: string[];
+  ra_specifiedColorDocuments_subfield?: string;
+  ra_largePrintDocuments_subfield?: string;
+  ra_documentHelpOther_subfield?: string;
+  ra_communicationHelp?: string[];
+  ra_signLanguageInterpreter_subfield?: string;
+  ra_communicationHelpOther_subfield?: string;
+  ra_supportCourt?: string[];
+  ra_supportWorkerCarer_subfield?: string;
+  ra_friendFamilyMember_subfield?: string;
+  ra_therapyAnimal_subfield?: string;
+  ra_supportCourtOther_subfield?: string;
+  ra_feelComportable?: string[];
+  ra_appropriateLighting_subfield?: string;
+  ra_feelComportableOther_subfield?: string;
+  ra_travellingCourt?: string[];
+  ra_parkingSpace_subfield?: string;
+  ra_differentTypeChair_subfield?: string;
+  ra_travellingCourtOther_subfield?: string;
+  ra_languageReqAndSpecialArrangements?: string;
+  ra_existingFlags?: RAFlags;
+  finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
+export interface ServedApplicationDetails {
+  id: string;
+  value: ServedApplication;
+}
+export type ServedApplication = {
+  emailNotificationDetails: emailNotificationDetails[] | [];
+  whoIsResponsible: string;
+};
+export interface emailNotificationDetails {
+  id: string;
+  value: emailNotification;
+}
+export type emailNotification = {
+  servedParty: string;
+};
 
 export interface CaseWithId extends Case {
   paymentSuccessDetails?: {
@@ -651,4 +716,11 @@ export enum FieldPrefix {
 export interface UploadedFile {
   id: string;
   name: string;
+}
+export interface HearingData {
+  hmctsServiceCode: string;
+  caseRef: string;
+  caseHearings: HearingsList[];
+  courtTypeId: string;
+  courtName: string;
 }

@@ -1,23 +1,14 @@
 import { CaseWithId } from '../../../../../../app/case/case';
 import { State, YesOrNo } from '../../../../../../app/case/definition';
-import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
+import { NotificationBannerProps } from '../../../../../../steps/common/task-list/definitions';
 import { BannerNotification, notificationBanner } from '../utils';
 
-export const DA_RESPONDENT = [
-  {
-    ...notificationBanner[BannerNotification.NEW_DOCUMENT],
-    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-      return !!(
-        caseData &&
-        caseData?.respondentsFL401?.user?.idamId === userDetails.id &&
-        caseData?.respondentsFL401?.response?.citizenFlags?.isAllDocumentsViewed === YesOrNo.NO
-      );
-    },
-  },
+export const DA_RESPONDENT: NotificationBannerProps[] = [
   {
     ...notificationBanner[BannerNotification.NEW_ORDER],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
+      return caseData?.state !== State.CASE_CLOSED && hasOrders(caseData as CaseWithId);
     },
   },
   {

@@ -60,22 +60,6 @@ export const PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${KEEP_DETAILS_PRIVATE}/
 
 /* Respondent-start */
 export const RESPONDENT_TASK_LIST_URL: PageLink = '/respondent/task-list';
-
-/* Applicant Upload document start */
-export const APPLICANT_UPLOAD_DOCUMENT_LIST_URL: PageLink = '/applicant/upload-document';
-export const APPLICANT_UPLOAD_DOCUMENT_LIST_START_URL: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/start`;
-export const APPLICANT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details`;
-export const APPLICANT_UPLOAD_DOCUMENT: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/upload-your-documents`;
-export const APPLICANT_UPLOAD_DOCUMENT_SUCCESS: PageLink = `${APPLICANT_UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success`;
-/* Applicant Upload document end */
-/* Respondent Upload document start */
-export const RESPONDENT_UPLOAD_DOCUMENT_LIST_URL: PageLink = '/respondent/upload-document';
-export const RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/start`;
-export const RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/document-sharing-details`;
-export const RESPONDENT_UPLOAD_DOCUMENT: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/upload-your-documents`;
-export const RESPONDENT_UPLOAD_DOCUMENT_SUCCESS: PageLink = `${RESPONDENT_UPLOAD_DOCUMENT_LIST_URL}/upload-documents-success`;
-/* Respondent Upload document end */
-/* respondent-keep-details-private */
 export const RESPONDENT_KEEP_DETAILS_PRIVATE: PageLink = `${RESPONDENT}${KEEP_DETAILS_PRIVATE}`;
 export const RESPONDENT_DETAILS_KNOWN: PageLink = `${RESPONDENT}${DETAILS_KNOWN}`;
 export const RESPONDENT_START_ALTERNATIVE: PageLink = `${RESPONDENT}${START_ALTERNATIVE}`;
@@ -162,8 +146,6 @@ export const APPLICANT_PRIVATE_DETAILS_CONFIRMED: PageLink = `${APPLICANT}${PRIV
 export const APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED: PageLink = `${APPLICANT}${PRIVATE_DETAILS_NOT_CONFIRMED}`;
 /* applicant-keep-details-private-end */
 
-export const APPLICANT_ORDERS_FROM_THE_COURT: PageLink = `${APPLICANT}/yourdocuments/alldocuments/orders`;
-
 /* consent-to-the-application */
 export const CONSENT: PageLink = `${RESPONSE_TASKLIST}/consent-to-application`;
 export const CONSENT_TO_APPLICATION: PageLink = `${CONSENT}/consent`;
@@ -171,8 +153,6 @@ export const CONSENT_SUMMARY: PageLink = `${CONSENT}/summary`;
 export const CONSENT_SAVE: PageLink = `${CONSENT}/save`;
 
 /* consent-to-the-application */
-export const RESPONDENT_ORDERS_FROM_THE_COURT: PageLink = `${RESPONDENT}/yourdocuments/alldocuments/orders`;
-
 export const RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE_LINK: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence';
 export const RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE: PageLink =
@@ -223,70 +203,32 @@ export const C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS: PageLink =
 export const C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/check-your-answers/save';
 
-export const APPLICATION_FL401: PageLink = '/public/docs/FL401-Final-Document.pdf';
-export const YOUR_APPLICATION_FL401: PageLink = `${APPLICANT}${APPLICATION_FL401}`;
-export const APPLICATION_WITNESS_STATEMENT: PageLink = '/public/docs/witness-statement-Final-Document.pdf';
-export const YOUR_APPLICATION_WITNESS_STATEMENT: PageLink = `${APPLICANT}${APPLICATION_WITNESS_STATEMENT}`;
-
-export const VIEW_ALL_DOCUMENTS: PageLink = '/yourdocuments/alldocuments';
-export const RESPONDENT_VIEW_ALL_DOCUMENTS: PageLink = `${RESPONDENT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
-export const APPLICANT_VIEW_ALL_DOCUMENTS: PageLink = `${APPLICANT}${VIEW_ALL_DOCUMENTS}/alldocuments`;
-export const RESPONDENT_VIEW_ALL_DOCUMENTS_FROM_BANNER: PageLink = `${RESPONDENT_VIEW_ALL_DOCUMENTS}/allDocumentsViewed`;
-export const APPLICANT_VIEW_ALL_DOCUMENTS_FROM_BANNER: PageLink = `${APPLICANT_VIEW_ALL_DOCUMENTS}/allDocumentsViewed`;
 export const VIEW_DOCUMENT_URL = '/doc/:docType/:uploadedBy/:partyName?';
 
+/** Documents */
+const DOCUMENTS = '/:partyType/documents';
+
+/** View all documents */
+export const VIEW_ALL_DOCUMENT_TYPES: PageLink = `${DOCUMENTS}/view/all-documents`;
+export const VIEW_DOCUMENTS: PageLink = `${DOCUMENTS}/view/:documentCategory/:documentPartyType/:documentPartyId?`;
+export const VIEW_APPLICATION_PACK_DOCUMENTS: PageLink = `${DOCUMENTS}/view/application-pack-documents/:context?`;
+export const VIEW_ALL_ORDERS: PageLink = `${DOCUMENTS}/view/orders-from-the-court`;
+
+/* Upload documents */
+export const UPLOAD_DOCUMENT: PageLink = `${DOCUMENTS}/upload`;
+export const UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/has-the-court-asked-for-this-documents`;
+export const UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/document-sharing-details`;
+export const UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/sharing-your-documents`;
+export const UPLOAD_DOCUMENT_OTHER_PARTY_NOT_SEE_DOCUMENT: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/other-party-not-see-this-document`;
+export const UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/upload-your-documents`;
+export const UPLOAD_DOCUMENT_SUCCESS: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/upload-documents-success`;
+export const UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE: PageLink = `${UPLOAD_DOCUMENT}/:docCategory/submit-extra-evidence`;
+
+/* Download documents */
+export const DOWNLOAD_DOCUMENT: PageLink = `${DOCUMENTS}/download/:documentId/:documentName/:forceDownload?`;
+export const DOWNLOAD_DOCUMENT_BY_TYPE: PageLink = `${DOCUMENTS}/download/type/:documentType/:forceDownload?`;
+
 export const RESPNDT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
-
-export const APPLICANT_WITNESS_STATEMENTS_DA: PageLink = `${APPLICANT}/witnessstatements`;
-/* view all documents */
-export const CITIZEN_DOWNLOAD_UPLOADED_DOCS: PageLink = `${VIEW_ALL_DOCUMENTS}/downloadCitizenDocument`;
-export const MANAGE_DOCUMENTS_DOWNLOAD: PageLink = `${VIEW_ALL_DOCUMENTS}/downloadManageDocument`;
-
-/* Applicant Documents */
-export const APPLICANT_CA_DA_REQUEST: PageLink = `${VIEW_ALL_DOCUMENTS}/cadafinaldocumentrequest`;
-export const RESPONSE_TO_CA: PageLink = `${VIEW_ALL_DOCUMENTS}/responsetoca`;
-export const AOH_TO_CA: PageLink = `${VIEW_ALL_DOCUMENTS}/aohtoca`;
-export const ALLEGATION_OF_HARM_VOILENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolence`;
-export const APPLICANT_RESPONSE_TO_AOH_VIOLENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/aohviolenceresponse`;
-export const POSITION_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/positionstatements`;
-export const YOUR_WITNESS_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/yourwitnessstatements`;
-export const OTHER_PEOPLE_WITNESS_STATEMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/otherpeoplewitnessstatement`;
-export const MEDICAL_REPORTS: PageLink = `${VIEW_ALL_DOCUMENTS}/medicalreports`;
-export const APPLICANT_MIAM_CERTIFICATE: PageLink = `${VIEW_ALL_DOCUMENTS}/miamcertificate`;
-export const APPLICATION_MADE_IN_THESE_PRCEEDINGS: PageLink = `${VIEW_ALL_DOCUMENTS}/applicationmade`;
-export const PREVIOUS_ORDERS_SUBMITTED: PageLink = `${VIEW_ALL_DOCUMENTS}/previousorders`;
-export const LETTER_FROM_SCHOOL: PageLink = `${VIEW_ALL_DOCUMENTS}/lettersfromschool`;
-export const DIGITAL_DOWNLOADS: PageLink = `${VIEW_ALL_DOCUMENTS}/digitaldownloads`;
-export const MEDICAL_RECORDS: PageLink = `${VIEW_ALL_DOCUMENTS}/medicalrecords`;
-export const PATERNITY_TEST_REPORTS: PageLink = `${VIEW_ALL_DOCUMENTS}/paternity_test_reports`;
-export const DRUG_ALCOHOL_TESTS: PageLink = `${VIEW_ALL_DOCUMENTS}/drug_alcohol_tests`;
-export const POLICE_DISCLOSURE: PageLink = `${VIEW_ALL_DOCUMENTS}/police_disclosures`;
-export const WITNESS_AVAILABILITY: PageLink = `${VIEW_ALL_DOCUMENTS}/witness_availability`;
-export const TENANCY_AND_MORTGAGE_AVAILABILITY: PageLink = `${VIEW_ALL_DOCUMENTS}/tenancy_and_mortgage_availability`;
-export const ALLEGATION_OF_HARM_VOILENCE_DOC: PageLink = `${VIEW_ALL_DOCUMENTS}/allegationofharmandviolence`;
-export const RESPOND_TO_OTHERS_ALLEGATION_OF_HARM_VOILENCE_DOC: PageLink = `${VIEW_ALL_DOCUMENTS}/respond_others_allegation_of_harm_and_violence`;
-
-/* Respondent Documents */
-export const RESPONDENT_CA_RESPONSE: PageLink = `${VIEW_ALL_DOCUMENTS}/caresponse`;
-export const RESPONDENT_RESPONSE_TO_AOH_VIOLENCE: PageLink = `${VIEW_ALL_DOCUMENTS}/respondentaohresponse`;
-/** CAFCASS and local authority document */
-export const RESPONDENT_SAFEGUARDING_LETTER: PageLink = `${VIEW_ALL_DOCUMENTS}/safeguarding_letter`;
-export const RESPONDENT_SECTION7_REPORT: PageLink = `${VIEW_ALL_DOCUMENTS}/section7_report`;
-export const RESPONDENT_SECTION37_REPORT: PageLink = `${VIEW_ALL_DOCUMENTS}/section37_report`;
-export const RESPONDENT_RISK_ASSESSMENT: PageLink = `${VIEW_ALL_DOCUMENTS}/risk_assessment_16a`;
-/** Other document */
-export const RESPONDENT_IMP_ADDRESS_CONTACT_INFO: PageLink = `${VIEW_ALL_DOCUMENTS}/important_address_and_contact_details`;
-export const RESPONDENT_DNA_REPORTS: PageLink = `${VIEW_ALL_DOCUMENTS}/dna_reports`;
-export const RESPONDENT_PRIVACY_NOTICE: PageLink = `${VIEW_ALL_DOCUMENTS}/privacy_notice`;
-export const RESPONDENT_SPECIAL_MEASURES: PageLink = `${VIEW_ALL_DOCUMENTS}/special_measures`;
-export const OTHER_DOCUMENTS: PageLink = `${VIEW_ALL_DOCUMENTS}/otherDocuments`;
-
-/** Attending the hearing */
-export const RESPONDENT_NOTICE_OF_HEARING: PageLink = `${VIEW_ALL_DOCUMENTS}/notice_of_hearing`;
-export const RESPONDENT_SUPPORT_NEEDED: PageLink = `${VIEW_ALL_DOCUMENTS}/support_needed`;
-
-/** Document Urls */
-
 export const DOCUMENT_MANAGER: PageLink = '/document-manager';
 
 export const PROCEEDINGS: PageLink = `${RESPONSE_TASKLIST}/proceedings`;
@@ -310,7 +252,6 @@ export const FIND_OUT_ABOUT_CAFCASS_CYMRU_WELSH = 'https://llyw.cymru/cafcass-cy
 export const CA_RESPONDENT_RESPONSE_CONFIRMATION: PageLink = '/tasklistresponse/summary-confirmation';
 export const CA_RESPONDENT_RESPONSE_SUBMIT: PageLink = `${CA_RESPONDENT_RESPONSE_CONFIRMATION}/submit`;
 export const CA_RESPONDENT_GENERATE_C7_DRAFT: PageLink = '/tasklistresponse/generate-c7-draft';
-export const CA_RESPONDENT_GENERATE_C7_Final: PageLink = '/tasklistresponse/generate-c7-final';
 /* Legal representation*/
 
 export const LEGAL_REPRESENTATION_START: PageLink = '/tasklistresponse/legalrepresentation/start';
@@ -330,7 +271,6 @@ export const C100_CHILD_ADDRESS: PageLink = `${C100_URL}/childaddress`;
 
 export const C100_CREATE_CASE: PageLink = `${C100_URL}/case/create`;
 export const C100_RETRIVE_CASE: PageLink = `${C100_URL}/case/:caseId/retrive`;
-export const C100_DOWNLOAD_APPLICATION: PageLink = `${C100_URL}/application-copy/download`;
 export const C100_CONFIRMATIONPAGE: PageLink = `${C100_URL}/confirmation-page`;
 export const C100_CONFIDENTIALITY_DETAILS_KNOW: PageLink = `${C100_URL}/confidentiality/details-know`;
 export const C100_CONFIDENTIALITY_START: PageLink = `${C100_URL}/confidentiality/start`;
@@ -506,14 +446,12 @@ export const TESTING_SUPPORT: PageLink = '/testing-support';
 export const TESTING_SUPPORT_CREATE_DRAFT: PageLink = '/testing-support/create-Draft';
 export const TESTING_SUPPORT_DELETE_DRAFT: PageLink = '/testing-support/delete-Draft';
 export const CREATE_DRAFT: PageLink = '/draft-controller';
-/* applicant-tasklist-contactpreferences*/
-export const CONTACT_PREFERENCES: PageLink = '/contact-preferences';
-export const APPLICANT_TASKLIST_CONTACT_PREFERENCES: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-preferences`;
-export const APPLICANT_TASKLIST_CONTACT_PREFERENCES_SAVE: PageLink = `${APPLICANT_TASKLIST_CONTACT_PREFERENCES}/save`;
-export const APPLICANT_TASKLIST_CONTACT_EMAIL: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-email`;
-export const APPLICANT_TASKLIST_CONTACT_POST: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-post`;
-export const APPLICANT_TASKLIST_CONTACT_EMAIL_SUCCESS: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-email-success`;
-export const APPLICANT_TASKLIST_CONTACT_POST_SUCCESS: PageLink = `${APPLICANT}${CONTACT_PREFERENCES}/contact-post-success`;
+/* tasklist-contactpreferences*/
+export const CONTACT_PREFERENCE: PageLink = '/:partyType/contact-preference';
+export const CHOOSE_CONTACT_PREFERENCE: PageLink = `${CONTACT_PREFERENCE}/choose-a-contact-preference`;
+export const REVIEW_CONTACT_PREFERENCE: PageLink = `${CONTACT_PREFERENCE}/review`;
+export const CONTACT_PREFERENCE_CONFIRMATION: PageLink = `${CONTACT_PREFERENCE}/confirmation`;
+
 /*temporary task-list/applicant URL for applicant dashboard */
 export const TASK_LIST_APPLICANT_URL: PageLink = '/task-list/applicant';
 /*temporary task-list/applicant URL for applicant dashboard end/*
@@ -528,6 +466,11 @@ export const PIN_ACTIVATION_CASE_ACTIVATED_URL: PageLink = `${PIN_ACTIVATION_URL
 /**@C100 withdraw case */
 export const C100_WITHDRAW_CASE: PageLink = `${C100_URL}/:caseId/withdraw`;
 export const C100_WITHDRAW_CASE_CONFIRMATION: PageLink = `${C100_URL}/withdraw/confirmation`;
+
+/** applicant/tasklist hearing needs */
+export const HEARING_NEEDS: PageLink = '/hearing-needs';
+export const APPLICANT_TASKLIST_HEARING_NEEDS: PageLink = `${APPLICANT}${HEARING_NEEDS}/support-help`;
+export const RESPONDENT_TASKLIST_HEARING_NEEDS: PageLink = `${RESPONDENT}${HEARING_NEEDS}/support-help`;
 
 export const RESPONDENT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${RESPONDENT}/add-legal-representative`;
 export const APPLICANT_ADD_LEGAL_REPRESENTATIVE: PageLink = `${APPLICANT}/add-legal-representative`;
@@ -552,21 +495,47 @@ export const SCREENING_QUESTIONS = [
   SCREENING_QUESTION_COMPLETE_APP_LEGAL_REP,
   SCREENING_QUESTION_CONTACT_LEGAL_REP,
 ];
-/** RA common component related end points */
-const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_BASE_URL = 'reasonable-adjustments';
-export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE: PageLink = `/:partyType/${REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_BASE_URL}/guidance`;
-export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH: PageLink = `/${REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_BASE_URL}/launch`;
+/** Reasonable Adjustments */
+const REASONABLE_ADJUSTMENTS_BASE_URL = 'reasonable-adjustments';
+/** common component related end points */
+export const REASONABLE_ADJUSTMENTS_INTRO: PageLink = `/:partyType/${REASONABLE_ADJUSTMENTS_BASE_URL}/intro`;
+export const REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS: PageLink = `/:partyType/${REASONABLE_ADJUSTMENTS_BASE_URL}/language-requirements-and-special-arrangements`;
+export const REASONABLE_ADJUSTMENTS_LANGUAGE_REQ_SPECIAL_ARRANGEMENTS_REVIEW: PageLink = `/:partyType/${REASONABLE_ADJUSTMENTS_BASE_URL}/language-requirements-and-special-arrangements/review`;
+export const REASONABLE_ADJUSTMENTS_SUBMIT_LANGUAGE_REQ = ':appBaseUrl/:caseId/language-support-notes';
+export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_LAUNCH: PageLink = `/${REASONABLE_ADJUSTMENTS_BASE_URL}/launch`;
 export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_HEALTH_CHECK_URL = '/health';
 export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_POST_URL = '/api/payload';
 export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_FETCH_DATA_URL = '/api/payload/:id';
-export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CALLBACK_URL = `:appBaseUrl/${REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_BASE_URL}/callback/:id`;
+export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CALLBACK_URL = `:appBaseUrl/${REASONABLE_ADJUSTMENTS_BASE_URL}/callback/:id`;
 export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_SIGN_OUT_URl = `:appBaseUrl${SIGN_OUT_URL}`;
-export const REASONABLE_ADJUSTMENTS_BACK_URL: PageLink = `/${REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_BASE_URL}/back`;
-export const REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_CONFIRMATION_PAGE: PageLink = `/:partyType/${REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_BASE_URL}/confirmation`;
+export const REASONABLE_ADJUSTMENTS_BACK_URL: PageLink = `/${REASONABLE_ADJUSTMENTS_BASE_URL}/back`;
+export const REASONABLE_ADJUSTMENTS_SUCCESS_CONFIRMATION: PageLink = `/:partyType/${REASONABLE_ADJUSTMENTS_BASE_URL}/confirmation`;
 export const REASONABLE_ADJUSTMENTS_RETRIEVE_SUPPORT_FLAGS = ':appBaseUrl/:caseId/retrieve-ra-flags/:partyId';
 export const REASONABLE_ADJUSTMENTS_MANAGE_SUPPORT_FLAGS = ':appBaseUrl/:caseId/:eventId/party-update-ra';
-export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
+export const REASONABLE_ADJUSTMENTS_ERROR: PageLink = `/${REASONABLE_ADJUSTMENTS_BASE_URL}/error`;
+/** RA local component related end points */
+export const REASONABLE_ADJUSTMENTS_ATTENDING_COURT: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/attending-court`;
+export const REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/language-requirements`;
+export const REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/special-arrangements`;
+export const REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/support-during-your-case`;
+export const REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/documents-support`;
+export const REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/communication-help`;
+export const REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/support-for-court-hearing`;
+export const REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/needs-during-court-hearing`;
+export const REASONABLE_ADJUSTMENTS_COURT_NEEDS: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/needs-in-court`;
+export const REASONABLE_ADJUSTMENTS_RESPONDENT_RESPONSE_REVIEW: PageLink = `/:root/${REASONABLE_ADJUSTMENTS_BASE_URL}/review`;
+/** Reasonable Adjustments end */
 
+export const ANONYMOUS_URLS = [HEALTH_URL, ...SCREENING_QUESTIONS];
+export const COMMON_PAGE_URLS = [
+  DASHBOARD_URL,
+  PIN_ACTIVATION_URL,
+  COOKIES_PAGE,
+  PRIVACY_POLICY,
+  ACCESSIBILITY_STATEMENT,
+  TERMS_AND_CONDITIONS,
+  ...ANONYMOUS_URLS,
+];
 export const LOCAL_API_SESSION = '/api/v1/session';
 export const SAFEGAURD_EXCLUDE_URLS = [
   C100_URL,
@@ -574,18 +543,16 @@ export const SAFEGAURD_EXCLUDE_URLS = [
   LOCAL_API_SESSION,
   PAYMENT_RETURN_URL,
   TASK_LIST_RESPONSE,
-  ALLEGATION_OF_HARM_VOILENCE,
-  RESPONSE_TO_CA,
-  APPLICANT_CA_DA_REQUEST,
   FETCH_CASE_DETAILS,
   PIN_ACTIVATION_CASE_ACTIVATED_URL,
-  REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_BASE_URL,
+  REASONABLE_ADJUSTMENTS_BASE_URL,
   DOCUMENT_MANAGER,
-  CITIZEN_DOWNLOAD_UPLOADED_DOCS,
+  CONTACT_PREFERENCE,
   COOKIES_PAGE,
   PRIVACY_POLICY,
   ACCESSIBILITY_STATEMENT,
   TERMS_AND_CONDITIONS,
+  PIN_ACTIVATION_URL,
 ];
 
 export const getMOJForkingScreenUrl = (isNonProd: boolean): string =>

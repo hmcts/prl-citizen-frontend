@@ -7,7 +7,7 @@ import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { State, YesNoEmpty } from '../../app/case/definition';
 
 import { RAController, ReasonableAdjustementsController } from './controller';
-import { RACommonComponentUserAction, RAData } from './definitions';
+import { RACommonComponentUserAction, RAData, RAFlags } from './definitions';
 
 import { RAProvider } from './index';
 
@@ -62,7 +62,38 @@ describe('ReasonableAdjustementsController', () => {
             ],
           },
         ],
-        applicants: [],
+        applicants: [
+          {
+            id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+            value: {
+              firstName: 'testuser',
+              lastName: 'citizen',
+              email: 'abc@example.net',
+              dateOfBirth: '03-20-2023',
+              phoneNumber: '7755664466',
+              placeOfBirth: 'BPP',
+              previousName: 'test',
+              isAtAddressLessThan5Years: 'No',
+              addressLivedLessThan5YearsDetails: 'Hello',
+              address: {
+                AddressLine1: 'string',
+                AddressLine2: 'string',
+                AddressLine3: 'string',
+                PostTown: 'string',
+                County: 'string',
+                PostCode: 'string',
+                Country: 'string',
+              },
+              user: {
+                idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+                email: 'test@example.net',
+              },
+              response: {
+                legalRepresentation: 'No',
+              },
+            },
+          },
+        ],
         respondents: [
           {
             id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
@@ -161,6 +192,42 @@ describe('ReasonableAdjustementsController', () => {
     await RAController.launch(appRequest, appResponse);
 
     expect(RAProvider.launch).toBeCalled;
+  });
+
+  test('when launching RA module and retrieveExistingPartyRAFlags throws error - error scenario', async () => {
+    appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    jest.spyOn(RAProvider.service, 'retrieveExistingPartyRAFlags').mockRejectedValueOnce({ status: 500 });
+    await RAController.launch(appRequest, appResponse);
+    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect(RAProvider.launch).not.toBeCalled;
+  });
+
+  test('when launching RA module and retrieveExistingPartyRAFlags does not return flags - error scenario', async () => {
+    appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    jest
+      .spyOn(RAProvider.service, 'retrieveExistingPartyRAFlags')
+      .mockResolvedValueOnce(undefined as unknown as RAFlags);
+    await RAController.launch(appRequest, appResponse);
+    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect(RAProvider.launch).not.toBeCalled;
+  });
+
+  test('when launching RA module and retrieveCommonComponentHealthStatus does not return UP - error scenario', async () => {
+    appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    jest
+      .spyOn(RAProvider.service, 'retrieveCommonComponentHealthStatus')
+      .mockImplementation(() => Promise.resolve('DOWN'));
+    await RAController.launch(appRequest, appResponse);
+    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect(RAProvider.launch).not.toBeCalled;
+  });
+
+  test('when launching RA module and retrieveCommonComponentHealthStatus throws error - error scenario', async () => {
+    appRequest.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    jest.spyOn(RAProvider.service, 'retrieveCommonComponentHealthStatus').mockRejectedValueOnce('500');
+    await RAController.launch(appRequest, appResponse);
+    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect(RAProvider.launch).not.toBeCalled;
   });
 
   test('when launching RA module with no caseData present - error scenario', async () => {
@@ -425,6 +492,32 @@ describe('ReasonableAdjustementsController', () => {
     expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
   });
 
+  test('should handle error when updatePartyRAFlags fails', async () => {
+    delete appRequest.params.id;
+    jest.spyOn(RAProvider.utils, 'updatePartyRAFlags').mockRejectedValueOnce({ status: 500 });
+    await RAController.fetchData(appRequest, appResponse);
+
+    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+  });
+
+  test('should handle error when retrievePartyRAFlagsFromCommonComponent does not return correlationId', async () => {
+    appRequest.params.id = '123';
+    jest
+      .spyOn(RAProvider.service, 'retrievePartyRAFlagsFromCommonComponent')
+      .mockImplementationOnce(() => Promise.resolve({ response: {} } as unknown as RAData));
+    await RAController.fetchData(appRequest, appResponse);
+
+    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+  });
+
+  test('should handle error when retrievePartyRAFlagsFromCommonComponent fails', async () => {
+    delete appRequest.params.id;
+    jest.spyOn(RAProvider.service, 'retrievePartyRAFlagsFromCommonComponent').mockRejectedValueOnce({ status: 500 });
+    await RAController.fetchData(appRequest, appResponse);
+
+    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+  });
+
   test('when updating RA flags while fetching flags from common component when correlationId not present - error scenario', async () => {
     jest.spyOn(RAProvider.service, 'retrievePartyRAFlagsFromCommonComponent').mockImplementation(
       () =>
@@ -587,5 +680,65 @@ describe('ReasonableAdjustementsController', () => {
     await RAController.fetchData(appRequest, appResponse);
     expect(appRequest.locals.C100Api.updateCase).toHaveBeenCalled;
     expect(RAProvider.service.updatePartyRAFlags).not.toHaveBeenCalled;
+  });
+
+  test('handleError should be called when launching RA module and not all applicants are available', async () => {
+    appRequest.session.userCase.state = State.AwaitingSubmissionToHmcts;
+    appRequest.session.userCase.appl_allApplicants = [];
+    jest.spyOn(RAProvider.service, 'retrieveExistingPartyRAFlags').mockImplementation(() =>
+      Promise.resolve({
+        partyName: 'testuser citizen',
+        roleOnCase: 'Respondent1',
+        details: [
+          {
+            id: '1166265a-ebe3-4141-862f-07caa95e7110',
+            value: {
+              name: 'Private waiting area',
+              name_cy: 'Ystafell aros breifat',
+              flagComment: '',
+              flagComment_cy: '',
+              dateTimeCreated: '2023-11-16T16:05:25.000',
+              dateTimeModified: '2023-11-16T16:05:57.000',
+              path: [
+                {
+                  id: 'c5e4508d-8ed0-49ae-8a3e-e5a3d5b28b1a',
+                  value: 'Party',
+                },
+                {
+                  id: '904e4ede-1b43-4421-be41-ae24783d0dd3',
+                  value: 'Reasonable adjustment',
+                },
+                {
+                  id: '932d6182-c4a8-43fa-a489-5850a460c4c7',
+                  value: 'I need something to feel comfortable during my hearing',
+                },
+              ],
+              hearingRelevant: 'Yes',
+              flagCode: 'RA0033',
+              status: 'Requested',
+              availableExternally: 'Yes',
+            },
+          },
+        ],
+      })
+    );
+    jest.spyOn(RAProvider, 'launch');
+    await RAController.launch(appRequest, appResponse);
+
+    expect((ReasonableAdjustementsController as any).handleError).toBeCalled;
+    expect(RAProvider.launch).not.toBeCalled;
+  });
+
+  test('handleBackNavigation should redirect correctly', () => {
+    const req = mockRequest({
+      session: {
+        applicationSettings: {
+          navfromRespondToApplication: true,
+        },
+      },
+    });
+    const res = mockResponse();
+    RAController.handleBackNavigation(req, res);
+    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/start');
   });
 });

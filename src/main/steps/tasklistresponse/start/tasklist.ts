@@ -1,6 +1,8 @@
 import { PartyType, Respondent, SectionStatus, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
+import { hasContactPreference } from '../../common/contact-preference/util';
 import * as URL from '../../urls';
+import { CHOOSE_CONTACT_PREFERENCE } from '../../urls';
 
 import {
   getAllegationOfHarmStatus,
@@ -64,6 +66,12 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
             href: URL.RESPONDENT_DETAILS_KNOWN + '/' + userCase.id,
           },
           {
+            id: 'contact-preference',
+            text: taskListItems.contact_preference,
+            status: !hasContactPreference(userCase, userIdamId) ? SectionStatus.TO_DO : SectionStatus.COMPLETED,
+            href: applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: PartyType.RESPONDENT }),
+          },
+          {
             id: 'confirm-or-edit-your-contact-details',
             text: taskListItems.confirm_or_edit_your_contact_details,
             status: getConfirmOrEditYourContactDetails(userCase, userIdamId),
@@ -73,8 +81,8 @@ export const getRemainingTaskList = (sectionTitles, taskListItems, userCase, use
             id: 'support_you_need_during_your_case',
             text: taskListItems.support_you_need_during_your_case,
             status: SectionStatus.OPTIONAL,
-            href: applyParms(URL.REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
-              partyType: PartyType.RESPONDENT,
+            href: applyParms(URL.REASONABLE_ADJUSTMENTS_ATTENDING_COURT, {
+              root: PartyType.RESPONDENT,
             }),
           },
         ],

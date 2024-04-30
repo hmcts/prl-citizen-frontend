@@ -1,6 +1,7 @@
 import { CaseType, PartyType } from '../../../../../app/case/definition';
+import { TaskListContent } from '../../definitions';
 
-const en = {
+const en: TaskListContent = {
   stateTags: {
     notStartedYet: 'Not started yet',
     inProgress: 'In progress',
@@ -30,10 +31,18 @@ const en = {
         heading: 'Your documents',
         tasks: {
           uploadDocuments: {
-            linkText: ' Upload documents',
+            linkText: 'Upload documents, applications and statements',
           },
           viewAllDocuments: {
             linkText: 'View all documents',
+          },
+        },
+      },
+      theResponse: {
+        heading: 'The response',
+        tasks: {
+          theResponsePDF: {
+            linkText: 'Response {respondentPosition} to your application',
           },
         },
       },
@@ -78,6 +87,9 @@ const en = {
           keepYourDetailsPrivate: {
             linkText: 'Keep your details private',
           },
+          contactPreferences: {
+            linkText: 'Contact preferences',
+          },
           editYouContactDetails: {
             linkText: 'Confirm or edit your contact details',
           },
@@ -102,11 +114,9 @@ const en = {
         tasks: {
           respondToTheApplication: {
             linkText: 'Respond to the application',
-            hintText: 'Go to view all documents to check the response.',
           },
           respondToAOHAndViolence: {
             linkText: 'Respond to the allegations of harm and violence',
-            hintText: 'Go to view all documents to check the response.',
           },
         },
       },
@@ -281,14 +291,21 @@ const cy: typeof en = {
         heading: 'Eich dogfennau',
         tasks: {
           uploadDocuments: {
-            linkText: 'Llwytho dogfennau',
+            linkText: 'Llwytho dogfennau, ceisiadau a datganiadau',
           },
           viewAllDocuments: {
             linkText: 'Gweld yr holl ddogfennau',
           },
         },
       },
-
+      theResponse: {
+        heading: 'The response (welsh)',
+        tasks: {
+          theResponsePDF: {
+            linkText: 'Response {respondentPosition} to your application (welsh)',
+          },
+        },
+      },
       yourHearing: {
         heading: 'Eich gwrandawiadau llys',
         tasks: {
@@ -331,6 +348,9 @@ const cy: typeof en = {
           keepYourDetailsPrivate: {
             linkText: 'Cadw eich manylion yn breifat',
           },
+          contactPreferences: {
+            linkText: 'Dewisiadau cyswllt',
+          },
           editYouContactDetails: {
             linkText: 'Cadarnhau neu olygu eich manylion cyswllt',
           },
@@ -355,11 +375,9 @@ const cy: typeof en = {
         tasks: {
           respondToTheApplication: {
             linkText: "Ymateb i'r cais",
-            hintText: 'Ewch i gweld yr holl ddogfennau i wirio’r ymateb',
           },
           respondToAOHAndViolence: {
             linkText: "Ymateb i'r honiadau o niwed a thrais",
-            hintText: 'Ewch i gweld yr holl ddogfennau i wirio’r ymateb',
           },
         },
       },

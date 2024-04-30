@@ -20,15 +20,10 @@ export class RespondentSubmitResponseController {
         partyId = respondent.id;
       }
     });
-    const client = new CosApiClient(req.session.user.accessToken, 'https://return-url');
+    const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
     const caseData = toApiFormat(req?.session?.userCase);
 
-    const updatedCaseDataFromCos = await client.submitRespondentResponse(
-      req.session.user,
-      caseReference,
-      partyId,
-      caseData
-    );
+    const updatedCaseDataFromCos = await client.submitRespondentResponse(caseReference, partyId, caseData);
     Object.assign(req.session.userCase, updatedCaseDataFromCos);
 
     req.session.save(() => res.redirect(CA_RESPONDENT_RESPONSE_CONFIRMATION));
@@ -42,7 +37,7 @@ export class RespondentSubmitResponseController {
         partyId = respondent.id;
       }
     });
-    const client = new CosApiClient(req.session.user.accessToken, 'https://return-url');
+    const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
     const caseData = toApiFormat(req?.session?.userCase);
 
     const draftDocument = await client.generateC7DraftDocument(req.session.user, caseReference, partyId, caseData);

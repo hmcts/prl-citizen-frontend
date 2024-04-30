@@ -7,17 +7,14 @@ import { mapDataInSession } from '../../steps/tasklistresponse/utils';
 import {
   APPLICANT,
   APPLICANT_TASK_LIST_URL,
-  APPLICANT_VIEW_ALL_DOCUMENTS,
   C100_CHILD_ADDRESS,
   DASHBOARD_URL,
   PARTY_TASKLIST,
   RESPONDENT,
   RESPONDENT_TASK_LIST_URL,
-  RESPONDENT_VIEW_ALL_DOCUMENTS,
   RESPOND_TO_APPLICATION,
   RESPONSE_TASKLIST,
   SIGN_IN_URL,
-  VIEW_ALL_DOCUMENTS,
 } from '../../steps/urls';
 import { CosApiClient } from '../case/CosApiClient';
 
@@ -40,7 +37,7 @@ export class GetCaseController {
     const caseReference = req.params?.caseId ?? id;
     if (req.params?.caseId || id) {
       const citizenUser = req.session.user;
-      const client = new CosApiClient(citizenUser.accessToken, 'https://return-url');
+      const client = new CosApiClient(citizenUser.accessToken, req.locals.logger);
       const caseDataFromCos = await client.retrieveByCaseId(caseReference, citizenUser);
       req.session.userCase = caseDataFromCos;
     }
@@ -111,14 +108,10 @@ export class GetCaseController {
         if (req.originalUrl.includes(RESPONDENT)) {
           if (req.originalUrl.includes(RESPONDENT_TASK_LIST_URL)) {
             url = RESPONDENT_TASK_LIST_URL;
-          } else if (req.originalUrl.includes(VIEW_ALL_DOCUMENTS)) {
-            url = RESPONDENT_VIEW_ALL_DOCUMENTS;
           }
         } else if (req.originalUrl.includes(APPLICANT)) {
           if (req.originalUrl.includes(APPLICANT_TASK_LIST_URL)) {
             url = APPLICANT_TASK_LIST_URL;
-          } else if (req.originalUrl.includes(VIEW_ALL_DOCUMENTS)) {
-            url = APPLICANT_VIEW_ALL_DOCUMENTS;
           }
         } else if (req.originalUrl.includes(RESPONSE_TASKLIST)) {
           url = RESPOND_TO_APPLICATION;

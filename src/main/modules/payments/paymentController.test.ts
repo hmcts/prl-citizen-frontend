@@ -16,7 +16,8 @@ const dummyCaseID = '2122323';
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.create = jest.fn(() => mockedAxios);
-const updateCaserMock = jest.spyOn(C100Api.prototype, 'updateCase');
+const saveC100DraftApplicationMock = jest.spyOn(C100Api.prototype, 'saveC100DraftApplication');
+const submittedCaserMock = jest.spyOn(C100Api.prototype, 'submitC100Case');
 
 const mockLogger = {
   error: jest.fn().mockImplementation((message: string) => message),
@@ -38,7 +39,7 @@ describe('PaymentHandler', () => {
   });
 
   test('Should render the page', async () => {
-    updateCaserMock.mockResolvedValue(req.session.userCase);
+    saveC100DraftApplicationMock.mockResolvedValue(req.session.userCase);
     const paymentDetailsRequestBody = {
       payment_reference: 'a',
       date_created: 'b',
@@ -58,10 +59,10 @@ describe('PaymentHandler', () => {
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
     expect(res.send.mock.calls).toHaveLength(0);
     expect(req.host).toBe('localhost:3001');
-    expect(updateCaserMock).toHaveBeenCalled;
+    expect(saveC100DraftApplicationMock).toHaveBeenCalled;
   });
   test('Should render the page in case of HWF', async () => {
-    updateCaserMock.mockResolvedValue(req.session.userCase);
+    saveC100DraftApplicationMock.mockResolvedValue(req.session.userCase);
     req.session.userCase.helpWithFeesReferenceNumber = '12345';
     const paymentDetailsRequestBody = {
       payment_reference: 'a',
@@ -82,10 +83,10 @@ describe('PaymentHandler', () => {
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
     expect(res.send.mock.calls).toHaveLength(0);
     expect(req.host).toBe('localhost:3001');
-    expect(updateCaserMock).toHaveBeenCalled;
+    expect(saveC100DraftApplicationMock).toHaveBeenCalled;
   });
   test('Should render the page in case next url', async () => {
-    updateCaserMock.mockResolvedValue(req.session.userCase);
+    saveC100DraftApplicationMock.mockResolvedValue(req.session.userCase);
     const paymentDetailsRequestBody = {
       payment_reference: '',
       date_created: '',
@@ -105,10 +106,10 @@ describe('PaymentHandler', () => {
     expect(res.redirect).toHaveBeenCalledWith('MOCK_NEXT_URL');
     expect(res.send.mock.calls).toHaveLength(0);
     expect(req.host).toBe('localhost:3001');
-    expect(updateCaserMock).toHaveBeenCalled;
+    expect(saveC100DraftApplicationMock).toHaveBeenCalled;
   });
   test('Should render the page in case error', async () => {
-    updateCaserMock.mockResolvedValue(req.session.userCase);
+    saveC100DraftApplicationMock.mockResolvedValue(req.session.userCase);
     const paymentDetailsRequestBody = {
       payment_reference: '',
       date_created: '',
@@ -128,12 +129,13 @@ describe('PaymentHandler', () => {
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
     expect(res.send.mock.calls).toHaveLength(0);
     expect(req.host).toBe('localhost:3001');
-    expect(updateCaserMock).toHaveBeenCalled;
+    expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'defaultPaymentError' });
+    expect(saveC100DraftApplicationMock).toHaveBeenCalled;
   });
   test('should catch and log error', async () => {
     mockedAxios.post.mockRejectedValue(undefined);
     await PaymentHandler(req, res);
-    expect(req.session.paymentError).toBe(true);
+    expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'defaultPaymentError' });
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
     expect(mockLogger.error).toHaveBeenCalledWith('Error in create service request/payment reference');
   });
@@ -166,7 +168,7 @@ describe('PaymentValidationHandler', () => {
         ...paymentDetails,
       },
     });
-    updateCaserMock.mockResolvedValue({
+    saveC100DraftApplicationMock.mockResolvedValue({
       data: {
         draftOrderDoc: {
           document_url:
@@ -191,7 +193,7 @@ describe('PaymentValidationHandler', () => {
     const mockApi = new C100Api(mockedAxios, mockLogger);
     req.locals.C100Api = mockApi;
     await PaymentValidationHandler(req, res);
-    expect(req.session.paymentError).toBe(false);
+    expect(req.session.paymentError).toStrictEqual({ hasError: false, errorContext: null });
   });
   test('should populate error if payment not a success', async () => {
     mockedAxios.post.mockResolvedValue({
@@ -207,14 +209,14 @@ describe('PaymentValidationHandler', () => {
       },
     });
     await PaymentValidationHandler(req, res);
-    expect(req.session.paymentError).toBe(true);
+    expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'paymentUnsuccessful' });
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
     expect(mockLogger.error).toHaveBeenCalledWith('Error in retreive payment status');
   });
   test('should catch error', async () => {
     mockedAxios.get.mockRejectedValueOnce;
     await PaymentValidationHandler(req, res);
-    expect(req.session.paymentError).toBe(true);
+    expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'paymentUnsuccessful' });
     expect(res.redirect).toHaveBeenCalledWith('/c100-rebuild/check-your-answers');
     expect(mockLogger.error).toHaveBeenCalledTimes(2);
     expect(mockLogger.error).toHaveBeenCalledWith('Error in retreive payment status');
@@ -272,5 +274,25 @@ describe('PaymentValidationHandler', () => {
     expect(res.render).toHaveBeenCalledTimes(0);
     expect(res.redirect).toHaveBeenCalled();
     expect(res.send.mock.calls).toHaveLength(0);
+  });
+
+  test('submitCase should catch not submitted error', async () => {
+    submittedCaserMock.mockRejectedValue({
+      response: {
+        status: 500,
+      },
+      config: {
+        method: 'POST',
+      },
+    });
+    await submitCase(
+      req,
+      res,
+      '1234',
+      mockUserCase,
+      'http://localhost:3001/payment/reciever/callback/RC-12/Success',
+      C100_CASE_EVENT.CASE_SUBMIT
+    );
+    expect(req.session.paymentError).toStrictEqual({ hasError: true, errorContext: 'applicationNotSubmitted' });
   });
 });

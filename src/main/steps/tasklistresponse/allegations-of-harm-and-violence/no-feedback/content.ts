@@ -2,7 +2,6 @@ import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 
 const en = () => ({
-  serviceName: 'Child Arrangements',
   caption: 'Safety Concerns',
   title: "The children's safety",
   firstParagraph:
@@ -22,7 +21,6 @@ const en = () => ({
 });
 
 const cy = () => ({
-  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   title: 'Diogelwch y plant',
   firstParagraph:

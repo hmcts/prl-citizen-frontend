@@ -6,7 +6,6 @@ import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { generateContent as parentContent } from '../content';
 
 export const en = () => ({
-  serviceName: 'Child arrangements',
   caption: 'Safety concerns',
   title: 'Has the passport office been notified? ',
   Yes: 'Yes',
@@ -19,7 +18,6 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   caption: 'Pryderon diogelwch',
   title: "Ydy'r swyddfa basbort wedi cael gwybod?",
   Yes: 'Ydy',

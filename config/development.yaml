@@ -7,17 +7,17 @@ services:
     url: 'https://api.os.uk/search/places/v1'
     token: POSTCODE_TOKEN
   authProvider:
-    url: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
+    url: 'http://rpe-service-auth-provider-demo.service.core-compute-demo.internal'
     microservice: 'prl_citizen_frontend'
     secret: 'NEED TO INSERT SECRET'
   idam:
-    authorizationURL: 'https://idam-web-public.aat.platform.hmcts.net/login'
-    tokenURL: 'https://idam-api.aat.platform.hmcts.net/o/token'
+    authorizationURL: 'https://idam-web-public.demo.platform.hmcts.net/login'
+    tokenURL: 'https://idam-api.demo.platform.hmcts.net/o/token'
     clientID: 'prl-citizen-frontend'
-    citizenClientSecret: 'NEED TO INSERT SECRET'
-    cosApiClientSecret: 'NEED TO INSERT SECRET'
-    systemUsername: 'dummy_user'
-    systemPassword: 'dummy_password'
+    citizenClientSecret:
+    cosApiClientSecret:
+    systemUsername:
+    systemPassword:
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:
@@ -28,7 +28,7 @@ services:
     url: 'https://ccd-case-document-am-api-prl-ccd-definitions-pr-2146.preview.platform.hmcts.net'
   reasonableAdjustments:
     url: 'https://cui-ra.aat.platform.hmcts.net'
-  health:
+health:
   timeout: 5000
   deadline: 15000
 session:
