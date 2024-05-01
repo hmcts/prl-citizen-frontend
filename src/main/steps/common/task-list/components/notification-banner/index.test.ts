@@ -975,7 +975,7 @@ describe('testcase for notification Banner', () => {
                 },
                 {
                   external: false,
-                  href: '/tasklistresponse/start/flag/updateFlag',
+                  href: '/tasklistresponse/start',
                   text: 'Respond to the application',
                 },
               ],

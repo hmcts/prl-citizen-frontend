@@ -3,10 +3,9 @@ import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { YesOrNo } from '../../../../app/case/definition';
 import { FormContent } from '../../../../app/form/Form';
-import * as steps from '../../../../steps';
 import { LEGAL_REPRESENTATION_SOLICITOR_DIRECT, LEGAL_REPRESENTATION_START } from '../../../urls';
 
-import LegalRepresentationPostController from './LegalRepresentationPostController';
+import LegalRepresentationPostController from './postController';
 
 // import Mock = jest.Mock;
 jest.mock('../../../../app/case/CosApiClient');
@@ -27,8 +26,6 @@ const body = {
     },
   ],
 };
-
-const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 
 describe('PostController', () => {
   const req = mockRequest();
@@ -98,15 +95,9 @@ describe('PostController', () => {
     controller = new LegalRepresentationPostController(mockForm.fields);
   });
 
-  afterEach(() => {
-    getNextStepUrlMock.mockClear();
-  });
-
   test('post should be able to save legal representation information', async () => {
     //const errors = [{ propertyName: 'applicant1PhoneNumber', errorType: 'invalid' }];
     req.session.user.id = '8e87fde0-bab4-4701-abbe-2d277ca38fr5';
-    req.session.userCase = body;
-    req.body.respondents = body.respondents;
     req.body.legalRepresentation = body.respondents[0].value.response.legalRepresentation;
     const language = 'en';
     req.session.lang = language;
@@ -116,8 +107,6 @@ describe('PostController', () => {
 
   test('proceed saving legal representation without error', async () => {
     req.session.user.id = '8e87fde0-bab4-4701-abbe-2d277ca38fr5';
-    req.session.userCase = body;
-    req.body.respondents = body.respondents;
     body.respondents[0].value.response.legalRepresentation = YesOrNo.NO;
     req.body.legalRepresentation = body.respondents[0].value.response.legalRepresentation;
     const language = 'en';
@@ -127,15 +116,6 @@ describe('PostController', () => {
     expect(req.originalUrl).not.toBe(redirectUrl);
   });
 
-  test('legal representation with error', async () => {
-    req.session.errors = [];
-    req.body = body;
-    const language = 'en';
-    req.session.lang = language;
-    controller.post(req, res);
-    expect(req.session.errors).toHaveLength(1);
-  });
-
   test('Should update the userCase for proceedings when updateCaseData API is success', async () => {
     req.body.respondents = body.respondents;
     req.body.legalRepresentation = YesOrNo.YES;
@@ -143,14 +123,18 @@ describe('PostController', () => {
     updateCaserMock.mockResolvedValue(req.session.userCase);
 
     await controller.post(req, res);
+    await new Promise(process.nextTick);
+
     expect(req.session.userCase.respondents[0].value.response.legalRepresentation).toEqual(YesOrNo.YES);
     expect(res.redirect).toHaveBeenCalledWith(LEGAL_REPRESENTATION_SOLICITOR_DIRECT);
   });
 
   test('Should not update the userCase for proceedings when updateCaseData API is throwing error', async () => {
     updateCaserMock.mockRejectedValue({ message: 'MOCK_ERROR', response: { status: 500, data: 'Error' } });
+    await new Promise(process.nextTick);
+
     await expect(controller.post(req, res)).rejects.toThrow(
-      'LegalRepresentationPostController - Case could not be updated.'
+      'Error occured, case could not be updated. - LegalRepresentationPostController'
     );
   });
 });

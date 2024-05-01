@@ -6,11 +6,9 @@ import { getNextStepUrl } from '../../steps';
 import PreProcessCaseData from '../../steps/c100-rebuild/PreProcessCaseData';
 import { applyParms } from '../../steps/common/url-parser';
 import { C100_URL, PARTY_TASKLIST, RESPONDENT_TASK_LIST_URL, SAVE_AND_SIGN_OUT } from '../../steps/urls';
-import { getSystemUser } from '../auth/user/oidc';
 import { getCaseApi } from '../case/CaseApi';
-import { CosApiClient } from '../case/CosApiClient';
 import { Case, CaseWithId } from '../case/case';
-import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, PartyType, State } from '../case/definition';
+import { CITIZEN_SAVE_AND_CLOSE, CITIZEN_UPDATE, CaseData, PartyType } from '../case/definition';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 import { ValidationError } from '../form/validation';
 
@@ -33,8 +31,6 @@ export class PostController<T extends AnyObject> {
       await this.saveAndSignOut(req, res, formData);
     } else if (req.body.saveBeforeSessionTimeout) {
       await this.saveBeforeSessionTimeout(req, res, formData);
-    } else if (req.body.accessCodeCheck) {
-      await this.checkCaseAccessCode(req, res, form, formData);
     } else if (req.body.onlyContinue) {
       await this.onlyContinue(req, res, form, formData);
     } else if (req.body.saveAndComeLater) {
@@ -167,62 +163,6 @@ export class PostController<T extends AnyObject> {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getEventName(req: AppRequest): string {
     return CITIZEN_UPDATE;
-  }
-
-  private async checkCaseAccessCode(
-    req: AppRequest<T>,
-    res: Response,
-    form: Form,
-    formData: Partial<CaseWithId>
-  ): Promise<void> {
-    const caseworkerUser = await getSystemUser();
-    const caseReference = formData.caseCode?.replace(/-/g, '');
-    const accessCode = formData.accessCode?.replace(/-/g, '');
-
-    req.session.errors = form.getErrors(formData);
-
-    try {
-      if (!req.session.errors.length) {
-        const client = new CosApiClient(caseworkerUser.accessToken, req.locals.logger);
-        const accessCodeValidated = await client.validateAccessCode(
-          caseReference as string,
-          accessCode as string,
-          caseworkerUser
-        );
-        if (accessCodeValidated === 'Linked') {
-          req.session.errors.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
-        } else if (accessCodeValidated !== 'Valid') {
-          req.session.errors.push(
-            { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
-            { errorType: 'invalidAccessCode', propertyName: 'accessCode' }
-          );
-        }
-      }
-    } catch (err) {
-      req.locals.logger.error('Retrieving case failed with error: ' + err);
-      req.session.errors.push(
-        { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
-        { errorType: 'invalidAccessCode', propertyName: 'accessCode' }
-      );
-    }
-
-    if (req.session.errors.length) {
-      req.session.accessCodeLoginIn = false;
-    } else {
-      req.session.accessCodeLoginIn = true;
-      if (req?.session?.userCase) {
-        Object.assign(req?.session?.userCase, formData);
-      } else {
-        const initData = {
-          id: caseReference as string,
-          state: State.successAuthentication,
-          serviceType: '',
-          ...formData,
-        };
-        req.session.userCase = initData;
-      }
-    }
-    this.redirect(req, res);
   }
 
   /**

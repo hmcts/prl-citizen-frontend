@@ -141,6 +141,7 @@ export const PermissionForApplication = (
       },
     ];
   }
+
   return {
     title: sectionTitles['permissionForApplication'],
     rows: getSectionSummaryList(SummaryData, content),

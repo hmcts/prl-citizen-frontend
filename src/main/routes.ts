@@ -15,7 +15,6 @@ import { RAProvider } from './modules/reasonable-adjustments';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
 import { AccessibilityStatementGetController } from './steps/accessibility-statement/get';
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
-import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
@@ -26,7 +25,6 @@ import { ContactUsGetController } from './steps/contact-us/get';
 import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { PrivacyPolicyGetController } from './steps/privacy-policy/get';
-import { CaseActivationPostController } from './steps/prl-cases/CaseActivationPostController';
 import DashboardGetController from './steps/prl-cases/dashboard/DashboardGetController';
 import RespondentConfirmContactDetailsPostController from './steps/respondent/confirm-contact-details/checkanswers/controller/RespondentConfirmContactDetailsPostController';
 import { ConsentPostController } from './steps/respondent/consent-to-application/ConsentPostController';
@@ -88,7 +86,6 @@ import {
   TESTING_SUPPORT_CREATE_DRAFT,
   CREATE_DRAFT,
   TESTING_SUPPORT_DELETE_DRAFT,
-  PIN_ACTIVATION_CASE_ACTIVATED_URL,
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
@@ -131,7 +128,6 @@ export class Routes {
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new CaseDetailsGetController().load));
     app.get(APPLICANT_TASK_LIST_URL, errorHandler(new CaseDetailsGetController().load));
     //app.get(`${CONSENT_TO_APPLICATION}/:caseId`, errorHandler(new ConsentGetController().getConsent));
-    app.post('/redirect/tasklistresponse', (req, res) => res.redirect(RESPOND_TO_APPLICATION));
     app.get(C100_CREATE_CASE, errorHandler(new GetCaseController().createC100ApplicantCase));
     app.get(C100_RETRIVE_CASE, errorHandler(new GetCaseController().getC100ApplicantCase));
     //Tasklist event common get controller routes
@@ -155,11 +151,6 @@ export class Routes {
       errorHandler(new TasklistGetController(EventRoutesContext.CONFIRM_CONTACT_DETAILS_APPLICANT).get)
     );
     app.get(`${RESPONDENT_TASK_LIST_URL}/:caseId`, errorHandler(new CaseDetailsGetController().get));
-
-    app.get(
-      `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
-      errorHandler(new ViewAllDocumentsPostController().setResponseInitiatedFlag)
-    );
 
     // Common get controller for tasklist response events
     app.get(`${MIAM_START}/:caseId`, errorHandler(new TasklistGetController(EventRoutesContext.MIAM_RESPONSE).get));
@@ -246,10 +237,6 @@ export class Routes {
           errorHandler(new SafetyConcernsPostController(step.form.fields).post)
         );
         app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
-        app.post(
-          PIN_ACTIVATION_CASE_ACTIVATED_URL,
-          errorHandler(new CaseActivationPostController(step.form.fields).post)
-        );
         app.post(
           APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
           errorHandler(new RemoveLegalRepresentativePostController(step.form.fields).post)

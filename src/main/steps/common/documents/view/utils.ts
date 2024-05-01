@@ -17,7 +17,6 @@ import {
   DocumentSectionId,
   DocumentTypes,
   OrderDocumentMeta,
-  UploadDocumentSectionId,
   ViewDocCategoryLinkProps,
   ViewDocumentDetails,
   ViewDocumentsCategoryListProps,
@@ -29,13 +28,13 @@ import { viewDocumentsCategoryListConfig } from './config';
 
 /** View documents related utilty */
 
-export const hasOrders = (caseData: CaseWithId): boolean => !!(caseData && caseData?.citizenOrders?.length);
+export const hasOrders = (caseData: CaseWithId): boolean => !!caseData?.citizenOrders?.length;
 
 export const hasApplicationPacks = (caseData: CaseWithId): boolean =>
   !!(caseData && _.isArray(caseData.citizenApplicationPacks) && _.first(caseData.citizenApplicationPacks));
 
 export const hasAnyDocumentForPartyType = (partyType: PartyType, caseData: CaseWithId): boolean =>
-  !!(caseData && caseData?.citizenDocuments?.length
+  !!(caseData?.citizenDocuments?.length
     ? caseData.citizenDocuments.find(document => document.partyType === partyType)
     : false);
 
@@ -90,14 +89,15 @@ export const getDocumentCategoryLabel = (
 ): string => {
   let documentLabel = _.get(documentCategoryLabels, documentLabelId, '');
 
-  switch (documentLabelId) {
-    case DocumentLabelCategory.POSITION_STATEMENTS:
-    case DocumentLabelCategory.WITNESS_STATEMENTS:
-    case DocumentLabelCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION:
-      {
-        documentLabel = interpolate(documentLabel, { partyName: uploadedPartyName ?? '' });
-      }
-      break;
+  if (
+    uploadedPartyName &&
+    [
+      DocumentLabelCategory.POSITION_STATEMENTS,
+      DocumentLabelCategory.WITNESS_STATEMENTS,
+      DocumentLabelCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
+    ].includes(documentLabelId)
+  ) {
+    documentLabel = interpolate(documentLabel, { partyName: uploadedPartyName });
   }
 
   return documentLabel;
@@ -109,24 +109,21 @@ const filterAndGroupPartyDocuments = (
 ): CaseWithId['citizenDocuments'] | [] => {
   const groupedDocuments: CaseWithId['citizenDocuments'] = [];
 
-  if (documents && documents.length) {
+  if (documents?.length) {
     documents
       .filter(document => document.partyType === partyType)
       .forEach(document => {
         if (
-          [
+          ([
             DocumentCategory.POSITION_STATEMENTS,
             DocumentCategory.APPLICANT_WITNESS_STATEMENTS,
             DocumentCategory.RESPONDENT_WITNESS_STATEMENTS,
             DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION,
           ].includes(document.categoryId) &&
-          !groupedDocuments.find(groupedDoc => groupedDoc.partyId === document.partyId)
+            !groupedDocuments.find(groupedDoc => groupedDoc.partyId === document.partyId)) ||
+          !groupedDocuments.find(groupedDoc => groupedDoc.categoryId === document.categoryId)
         ) {
           groupedDocuments.push(document);
-        } else {
-          if (!groupedDocuments.find(groupedDoc => groupedDoc.categoryId === document.categoryId)) {
-            groupedDocuments.push(document);
-          }
         }
       });
   }
@@ -268,30 +265,22 @@ export const getOrderDocuments = (orders: CitizenOrders[], loggedInUserPartyType
 };
 
 export const getViewDocumentCategoryList = (
-  documentSectionId: ViewDocumentsSectionId | UploadDocumentSectionId,
+  documentSectionId: ViewDocumentsSectionId,
   caseData: CaseWithId,
   documentCategoryLabels: Record<Partial<DocumentLabelCategory>, string>,
   loggedInUserPartyType: PartyType
 ): ViewDocumentDetails[] | [] => {
   let documents: ViewDocumentDetails[] | [] = [];
 
-  switch (documentSectionId) {
-    case ViewDocumentsSectionId.APPLICANTS_DOCUMENT:
-      {
-        documents = filterAndGroupPartyDocuments(PartyType.APPLICANT, caseData?.citizenDocuments)!.map(
-          getViewDocumentCategoryDetails.bind(null, documentCategoryLabels, loggedInUserPartyType)
-        );
-      }
-      break;
-    case ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS:
-      {
-        documents = filterAndGroupPartyDocuments(PartyType.RESPONDENT, caseData?.citizenDocuments)!.map(
-          getViewDocumentCategoryDetails.bind(null, documentCategoryLabels, loggedInUserPartyType)
-        );
-      }
-      break;
-    default:
-      break;
+  if (
+    [ViewDocumentsSectionId.APPLICANTS_DOCUMENT, ViewDocumentsSectionId.RESPONDENTS_DOCUMENTS].includes(
+      documentSectionId
+    )
+  ) {
+    documents = filterAndGroupPartyDocuments(
+      documentSectionId === ViewDocumentsSectionId.APPLICANTS_DOCUMENT ? PartyType.APPLICANT : PartyType.RESPONDENT,
+      caseData?.citizenDocuments
+    )!.map(getViewDocumentCategoryDetails.bind(null, documentCategoryLabels, loggedInUserPartyType));
   }
 
   return documents;
@@ -302,7 +291,7 @@ const filterDocumentsByPartyIdAndCategory = (
   documentCategoryId: DocumentCategory,
   documents: CaseWithId['citizenDocuments']
 ): CaseWithId['citizenDocuments'] => {
-  return documents && documents.length
+  return documents?.length
     ? documents.filter(document => document.partyId === documentPartyId && document.categoryId === documentCategoryId)
     : [];
 };
@@ -312,7 +301,7 @@ const filterDocumentsByPartyTypeAndCategory = (
   documentCategoryId: DocumentCategory,
   documents: CaseWithId['citizenDocuments']
 ): CaseWithId['citizenDocuments'] => {
-  return documents && documents.length
+  return documents?.length
     ? documents.filter(
         document => document.categoryId === documentCategoryId && document.partyType === documentPartyType
       )
@@ -338,7 +327,7 @@ export const getDocuments = (
       : filterDocumentsByPartyTypeAndCategory(documentPartyType, documentCategoryId, documents);
   const docs: Document[] = [];
 
-  if (filteredDocs && filteredDocs.length) {
+  if (filteredDocs?.length) {
     filteredDocs.forEach(doc => {
       const documentId = doc.document.document_url.substring(doc.document.document_url.lastIndexOf('/') + 1);
       const document: Document = {

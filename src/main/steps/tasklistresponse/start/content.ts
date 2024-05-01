@@ -5,6 +5,7 @@ import { FormContent } from '../../../app/form/Form';
 import { respondent_cy, respondent_en } from './section-titles';
 import { generateRespondentTaskList } from './tasklist';
 import { respondent_tasklist_items_cy, respondent_tasklist_items_en } from './tasklist-items';
+export * from './routeGuard';
 
 const en = () => ({
   title: 'Respond to the application',

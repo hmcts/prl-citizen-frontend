@@ -35,7 +35,7 @@ export class CosApiClient {
     });
   }
 
-  private logError(error: AxiosError) {
+  public logError(error: AxiosError): void {
     if (error.response) {
       this.logger.error(`API Error ${error.config.method} ${error.config.url} ${error.response.status}`);
       this.logger.info('Response: ', error.response.data);
@@ -267,15 +267,30 @@ export class CosApiClient {
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
 
-  public async linkCaseToCitizen(caseId: string, accessCode: string): Promise<AxiosResponse> {
+  public async linkCaseToCitizen(
+    caseId: string,
+    accessCode: string
+  ): Promise<{ caseData: CaseWithId; hearingData: HearingData | null }> {
     try {
       const data = {
         caseId,
         accessCode,
+        hearingNeeded: YesOrNo.YES,
       };
+      const response = await this.client.post(
+        config.get('services.cos.url') + '/citizen/link-case-to-account-with-hearing',
+        data
+      );
+      const { caseData, hearings } = response.data;
 
-      const response = await this.client.post(config.get('services.cos.url') + '/citizen/link-case-to-account', data);
-      return response;
+      return {
+        caseData: {
+          id: caseData.id,
+          state: caseData.state,
+          ...fromApiFormat(caseData),
+        } as CaseWithId,
+        hearingData: hearings,
+      };
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, failed to link case to citizen - linkCaseToCitizen');
