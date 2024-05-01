@@ -104,7 +104,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   dateOfSubmission: 'dateOfSubmission',
   //declarationTable: 'DeclarationTable',
   interpreterNeeds: 'interpreterNeeds',
-  applicantCaseName: 'applicantCaseName',
   childDetailsTable: 'childDetailsTable',
   jurisdictionIssue: 'jurisdictionIssue',
   ordersApplyingFor: 'ordersApplyingFor',
@@ -274,7 +273,6 @@ export interface Case {
   dateOfSubmission?: DateOfSubmission;
   //declarationTable?: DeclarationTable;
   interpreterNeeds?: InterpreterNeed[];
-  applicantCaseName?: string;
   childDetailsTable?: ChildDetailsTable[];
   jurisdictionIssue?: string;
   ordersApplyingFor?: string[];
@@ -644,10 +642,10 @@ export interface ServedApplicationDetails {
   value: ServedApplication;
 }
 export type ServedApplication = {
-  emailNotificationDetails: emailNotificationDetails[] | [];
+  emailNotificationDetails: EmailNotificationDetails[] | [];
   whoIsResponsible: string;
 };
-export interface emailNotificationDetails {
+export interface EmailNotificationDetails {
   id: string;
   value: emailNotification;
 }

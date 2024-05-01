@@ -137,7 +137,7 @@ export class PostController<T extends AnyObject> {
       target = req.url;
     } else {
       //redirects to input nextUrl if present otherwise calls getNextStepUrl to get the next step url
-      target = nextUrl || getNextStepUrl(req, req.session.userCase);
+      target = nextUrl ?? getNextStepUrl(req, req.session.userCase);
     }
 
     req.session.save(err => {
@@ -192,14 +192,14 @@ export class PostController<T extends AnyObject> {
     req: AppRequest<T>,
     res: Response,
     //eslint-disable-next-line @typescript-eslint/no-explicit-any
-    formData: Partial<CaseWithId> | any
+    formData: Partial<CaseWithId>
   ): Promise<void> {
     if (req.path.startsWith(C100_URL)) {
       try {
         req.session.errors = [];
         Object.assign(req.session.userCase, formData);
         await req.locals.C100Api.saveC100DraftApplication(
-          req.session.userCase!.caseId!,
+          req.session.userCase.caseId!,
           req.session.userCase,
           req.originalUrl
         );

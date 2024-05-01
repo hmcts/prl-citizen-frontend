@@ -49,7 +49,7 @@ export default class CaseDataController {
 
     return new Promise((resolve, reject) => {
       req.session.save(err => {
-        !err ? resolve() : reject(err);
+        !err ? resolve() : reject(new Error(err));
       });
     });
   }

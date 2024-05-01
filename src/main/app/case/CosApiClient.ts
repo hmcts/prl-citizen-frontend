@@ -213,7 +213,7 @@ export class CosApiClient {
     try {
       const formData = new FormData();
 
-      for (const [, file] of Object.entries(request.files!)) {
+      for (const [, file] of Object.entries(request.files)) {
         formData.append('file', file.data, file.name);
       }
 

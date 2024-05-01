@@ -5,12 +5,10 @@ import { PartyType } from '../../app/case/definition';
 import { applyParms } from '../../steps/common/url-parser';
 import { mapDataInSession } from '../../steps/tasklistresponse/utils';
 import {
-  APPLICANT,
   APPLICANT_TASK_LIST_URL,
   C100_CHILD_ADDRESS,
   DASHBOARD_URL,
   PARTY_TASKLIST,
-  RESPONDENT,
   RESPONDENT_TASK_LIST_URL,
   RESPOND_TO_APPLICATION,
   RESPONSE_TASKLIST,
@@ -105,14 +103,11 @@ export class GetCaseController {
       if (parseInt(caseId)) {
         let url = DASHBOARD_URL;
         req.session.userCase = await GetCaseController.assignUserCase(req, caseId);
-        if (req.originalUrl.includes(RESPONDENT)) {
-          if (req.originalUrl.includes(RESPONDENT_TASK_LIST_URL)) {
-            url = RESPONDENT_TASK_LIST_URL;
-          }
-        } else if (req.originalUrl.includes(APPLICANT)) {
-          if (req.originalUrl.includes(APPLICANT_TASK_LIST_URL)) {
-            url = APPLICANT_TASK_LIST_URL;
-          }
+
+        if (req.originalUrl.includes(RESPONDENT_TASK_LIST_URL)) {
+          url = RESPONDENT_TASK_LIST_URL;
+        } else if (req.originalUrl.includes(APPLICANT_TASK_LIST_URL)) {
+          url = APPLICANT_TASK_LIST_URL;
         } else if (req.originalUrl.includes(RESPONSE_TASKLIST)) {
           url = RESPOND_TO_APPLICATION;
         }
