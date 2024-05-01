@@ -3,21 +3,21 @@ import config from 'config';
 import FormData from 'form-data';
 import { LoggerInstance } from 'winston';
 
-import { Document } from '../../app/case/definition';
-import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
-import type { UserDetails } from '../controller/AppRequest';
-
-import { CaseWithId, HearingData } from './case';
 import {
   CaseData,
   CaseEvent,
   CaseType,
+  Document,
   DocumentUploadResponse,
   PartyDetails,
   PartyType,
   UserRole,
   YesOrNo,
-} from './definition';
+} from '../../app/case/definition';
+import { getServiceAuthToken } from '../auth/service/get-service-auth-token';
+import type { UserDetails } from '../controller/AppRequest';
+
+import { CaseWithId, HearingData } from './case';
 import { fromApiFormat } from './from-api-format';
 
 export class CosApiClient {
@@ -35,7 +35,7 @@ export class CosApiClient {
     });
   }
 
-  public logError(error: AxiosError) {
+  public logError(error: AxiosError): void {
     if (error.response) {
       this.logger.error(`API Error ${error.config.method} ${error.config.url} ${error.response.status}`);
       this.logger.info('Response: ', error.response.data);

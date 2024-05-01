@@ -27,7 +27,7 @@ const PRL_safetyConcernsMockData = mockRequest({
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(responseCaseSequence).toHaveLength(55);
+    expect(responseCaseSequence).toHaveLength(54);
     expect(responseCaseSequence[0].url).toBe('/tasklistresponse/consent-to-application/consent');
     expect(responseCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[0].getNextStep({})).toBe('/tasklistresponse/consent-to-application/summary');
@@ -169,175 +169,169 @@ describe('respondent1Sequence', () => {
     expect(responseCaseSequence[30].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[30].getNextStep({})).toBe('/');
 
-    expect(responseCaseSequence[31].url).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[31].url).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page'
+    );
     expect(responseCaseSequence[31].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[31].getNextStep({})).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page'
+      '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns'
     );
 
     expect(responseCaseSequence[32].url).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/safety-concerns-guidance-page'
+      '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns'
     );
     expect(responseCaseSequence[32].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[32].getNextStep({})).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns'
-    );
-
-    expect(responseCaseSequence[33].url).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/your-or-child-safety-concerns'
-    );
-    expect(responseCaseSequence[33].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[33].getNextStep({ PRL_c1A_haveSafetyConcerns: YesOrNo.YES })).toBe(
+    expect(responseCaseSequence[32].getNextStep({ PRL_c1A_haveSafetyConcerns: YesOrNo.YES })).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes'
     );
-    expect(responseCaseSequence[33].getNextStep({ PRL_c1A_haveSafetyConcerns: YesOrNo.NO })).toBe(
+    expect(responseCaseSequence[32].getNextStep({ PRL_c1A_haveSafetyConcerns: YesOrNo.NO })).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/check-answers-no'
     );
 
-    expect(responseCaseSequence[34].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes');
-    expect(responseCaseSequence[34].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[34].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+    expect(responseCaseSequence[33].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/check-answers-yes');
+    expect(responseCaseSequence[33].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[33].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/child/concerns-about'
     );
 
-    expect(responseCaseSequence[35].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/check-answers-no');
-    expect(responseCaseSequence[35].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[35].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+    expect(responseCaseSequence[34].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/check-answers-no');
+    expect(responseCaseSequence[34].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[34].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
       '/tasklistresponse/start'
     );
 
-    expect(responseCaseSequence[36].url).toBe(
+    expect(responseCaseSequence[35].url).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/child/concerns-about'
     );
-    expect(responseCaseSequence[36].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[36].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+    expect(responseCaseSequence[35].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[35].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/physicalAbuse'
     );
 
-    expect(responseCaseSequence[37].url).toBe(
+    expect(responseCaseSequence[36].url).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/respondent/concerns-about'
     );
-    expect(responseCaseSequence[37].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[37].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+    expect(responseCaseSequence[36].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[36].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/respondent/report-abuse/physicalAbuse'
     );
 
-    expect(responseCaseSequence[38].url).toBe(
+    expect(responseCaseSequence[37].url).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/child/report-abuse/:abuseType'
     );
-    expect(responseCaseSequence[38].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[38].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+    expect(responseCaseSequence[37].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[37].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/respondent/concerns-about'
     );
 
-    expect(responseCaseSequence[39].url).toBe(
+    expect(responseCaseSequence[38].url).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/respondent/report-abuse/:abuseType'
     );
-    expect(responseCaseSequence[39].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[39].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+    expect(responseCaseSequence[38].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[38].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/drugs'
     );
 
-    expect(responseCaseSequence[40].url).toBe(
+    expect(responseCaseSequence[39].url).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/abduction/child-location'
+    );
+    expect(responseCaseSequence[39].showInSection).toBe('c100');
+    expect(responseCaseSequence[39].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-office'
+    );
+
+    expect(responseCaseSequence[40].url).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-office'
     );
     expect(responseCaseSequence[40].showInSection).toBe('c100');
     expect(responseCaseSequence[40].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-office'
+      '/tasklistresponse/allegations-of-harm-and-violence/abduction/threats'
     );
 
     expect(responseCaseSequence[41].url).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-office'
+      '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-amount'
     );
     expect(responseCaseSequence[41].showInSection).toBe('c100');
     expect(responseCaseSequence[41].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/abduction/threats'
+      '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-office-notified'
     );
 
     expect(responseCaseSequence[42].url).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-amount'
+      '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-office-notified'
     );
     expect(responseCaseSequence[42].showInSection).toBe('c100');
     expect(responseCaseSequence[42].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-office-notified'
-    );
-
-    expect(responseCaseSequence[43].url).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/abduction/passport-office-notified'
-    );
-    expect(responseCaseSequence[43].showInSection).toBe('c100');
-    expect(responseCaseSequence[43].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/abduction/threats'
     );
 
-    expect(responseCaseSequence[44].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/abduction/threats');
+    expect(responseCaseSequence[43].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/abduction/threats');
+    expect(responseCaseSequence[43].showInSection).toBe('c100');
+    expect(responseCaseSequence[43].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/respondent/concerns-about'
+    );
+
+    expect(responseCaseSequence[44].url).toBe(
+      '/tasklistresponse/allegations-of-harm-and-violence/abduction/previousabductions'
+    );
     expect(responseCaseSequence[44].showInSection).toBe('c100');
     expect(responseCaseSequence[44].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/respondent/concerns-about'
     );
 
     expect(responseCaseSequence[45].url).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/abduction/previousabductions'
+      '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/drugs'
     );
-    expect(responseCaseSequence[45].showInSection).toBe('c100');
+    expect(responseCaseSequence[45].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[45].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/respondent/concerns-about'
+      '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/other-issues'
     );
 
     expect(responseCaseSequence[46].url).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/drugs'
+      '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/other-issues'
     );
     expect(responseCaseSequence[46].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[46].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/other-issues'
+      '/tasklistresponse/allegations-of-harm-and-violence/orders-required/court-action'
     );
 
     expect(responseCaseSequence[47].url).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/other-concerns/other-issues'
+      '/tasklistresponse/allegations-of-harm-and-violence/orders-required/court-action'
     );
     expect(responseCaseSequence[47].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[47].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/orders-required/court-action'
+      '/tasklistresponse/allegations-of-harm-and-violence/orders-required/unsupervised'
     );
 
     expect(responseCaseSequence[48].url).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/orders-required/court-action'
+      '/tasklistresponse/allegations-of-harm-and-violence/orders-required/unsupervised'
     );
     expect(responseCaseSequence[48].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[48].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/orders-required/unsupervised'
-    );
-
-    expect(responseCaseSequence[49].url).toBe(
-      '/tasklistresponse/allegations-of-harm-and-violence/orders-required/unsupervised'
-    );
-    expect(responseCaseSequence[49].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[49].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/check-your-answers'
     );
 
-    expect(responseCaseSequence[50].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/check-your-answers');
-    expect(responseCaseSequence[50].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[50].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+    expect(responseCaseSequence[49].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/check-your-answers');
+    expect(responseCaseSequence[49].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[49].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/check-your-answers/save'
     );
 
-    expect(responseCaseSequence[51].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/no-feedback');
-    expect(responseCaseSequence[51].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[51].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
+    expect(responseCaseSequence[50].url).toBe('/tasklistresponse/allegations-of-harm-and-violence/no-feedback');
+    expect(responseCaseSequence[50].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[50].getNextStep(PRL_safetyConcernsMockData.session.userCase)).toBe(
       '/tasklistresponse/allegations-of-harm-and-violence/child/concerns-about'
     );
 
-    expect(responseCaseSequence[52].url).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[51].url).toBe('/tasklistresponse/start');
+    expect(responseCaseSequence[51].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[51].getNextStep({})).toBe('/tasklistresponse/summary');
+
+    expect(responseCaseSequence[52].url).toBe('/tasklistresponse/summary');
     expect(responseCaseSequence[52].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[52].getNextStep({})).toBe('/tasklistresponse/summary');
+    expect(responseCaseSequence[52].getNextStep({})).toBe('/tasklistresponse/summary-confirmation');
 
-    expect(responseCaseSequence[53].url).toBe('/tasklistresponse/summary');
+    expect(responseCaseSequence[53].url).toBe('/tasklistresponse/summary-confirmation');
     expect(responseCaseSequence[53].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[53].getNextStep({})).toBe('/tasklistresponse/summary-confirmation');
-
-    expect(responseCaseSequence[54].url).toBe('/tasklistresponse/summary-confirmation');
-    expect(responseCaseSequence[54].showInSection).toBe('aboutRespondentCase');
-    expect(responseCaseSequence[54].getNextStep({ id: '1234' })).toBe('/case/1234');
+    expect(responseCaseSequence[53].getNextStep({ id: '1234' })).toBe('/case/1234');
   });
 });

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 import { SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -65,7 +66,7 @@ export const generateContent: TranslationFn = content => {
   );
 
   if (tasklistSections.length > 1) {
-    form.onlyContinue!.disabled = _.every(tasklistSections, section => {
+    form.onlyContinue!.disabled = !_.every(tasklistSections, section => {
       return _.every(section.items, item => [SectionStatus.OPTIONAL, SectionStatus.COMPLETED].includes(item.status));
     });
   }

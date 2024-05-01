@@ -1,12 +1,13 @@
 import autobind from 'autobind-decorator';
 import type { Response } from 'express';
+import _ from 'lodash';
 
+import DownloadDocumentController from '../../steps/common/documents/download/DownloadDocumentController';
+import { getPartyDetails } from '../../steps/tasklistresponse/utils';
 import { CosApiClient } from '../case/CosApiClient';
 
 import type { AppRequest } from './AppRequest';
-import { getPartyDetails } from 'steps/tasklistresponse/utils';
-import _ from 'lodash';
-import DownloadDocumentController from 'steps/common/documents/download/DownloadDocumentController';
+
 console.info('** FOR SONAR **');
 @autobind
 export class RespondentSubmitResponseController {
