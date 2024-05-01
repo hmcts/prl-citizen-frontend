@@ -13,8 +13,7 @@ export default class C100StartPostController extends PostController<AnyObject> {
   }
 
   public async post(req: AppRequest, res: Response): Promise<void> {
-    const userDeatils = req?.session?.user;
-    if (userDeatils) {
+    if (req?.session?.user) {
       try {
         const {
           id: caseId,
