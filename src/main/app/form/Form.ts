@@ -152,6 +152,7 @@ export interface FormContent {
     text: Label;
     isStartButton?: boolean;
     classes?: string;
+    disabled?: boolean;
   };
   onlycontinue?: {
     text: Label;

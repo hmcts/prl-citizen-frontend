@@ -42,7 +42,6 @@ import {
   PROCEEDINGS_START,
   PROCEEDINGS_SUMMARY,
   PageLink,
-  RESPNDT_TO_APPLICATION_SUMMARY,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
   RESPONDENT_ADDRESS_HISTORY,
@@ -57,6 +56,7 @@ import {
   RESPONDENT_FIND_ADDRESS,
   RESPONDENT_PERSONAL_DETAILS,
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
+  RESPONDENT_TO_APPLICATION_SUMMARY,
   RESPONDENT_YOUR_CHILD_CONCERNS,
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
@@ -231,11 +231,6 @@ export const responseCaseSequence: Step[] = [
     getNextStep: () => '/',
   },
   {
-    url: RESPOND_TO_APPLICATION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
-  },
-  {
     url: RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => RESPONDENT_YOUR_CHILD_CONCERNS,
@@ -367,10 +362,10 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPOND_TO_APPLICATION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPNDT_TO_APPLICATION_SUMMARY,
+    getNextStep: () => RESPONDENT_TO_APPLICATION_SUMMARY,
   },
   {
-    url: RESPNDT_TO_APPLICATION_SUMMARY,
+    url: RESPONDENT_TO_APPLICATION_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => CA_RESPONDENT_RESPONSE_CONFIRMATION,
   },

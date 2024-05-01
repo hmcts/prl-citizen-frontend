@@ -131,11 +131,6 @@ export const respondentCaseSequence: Step[] = [
     getNextStep: () => TASKLIST_RESPONDENT,
   },
   {
-    url: RESPOND_TO_APPLICATION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => LEGAL_REPRESENTATION_START,
-  },
-  {
     url: LEGAL_REPRESENTATION_START,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
