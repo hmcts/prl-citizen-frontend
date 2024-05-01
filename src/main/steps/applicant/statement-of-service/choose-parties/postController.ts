@@ -79,9 +79,7 @@ export default class UploadSosPostController extends PostController<AnyObject> {
         return;
       }
       req.session.userCase.sos_partiesServed = formData['sos_partiesServed'];
-      req.session.userCase['sos_partiesServedDate-day'] = formData['sos_partiesServedDate-day'];
-      req.session.userCase['sos_partiesServedDate-month'] = formData['sos_partiesServedDate-month'];
-      req.session.userCase['sos_partiesServedDate-year'] = formData['sos_partiesServedDate-year'];
+      req.session.userCase.sos_partiesServedDate = formData['sos_partiesServedDate'];
       req.session.save(() =>
         res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req.params.context }))
       );

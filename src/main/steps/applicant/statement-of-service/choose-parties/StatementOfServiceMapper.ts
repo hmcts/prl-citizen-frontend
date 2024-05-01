@@ -8,12 +8,7 @@ export const prepareStatementOfServiceRequest = (req: AppRequest<AnyObject>): Ci
   const sos_partiesServed = userCase.sos_partiesServed!.filter(party => party !== '').toString();
   return {
     sos_partiesServed,
-    sos_partiesServedDate:
-      userCase['sos_partiesServedDate-year'] +
-      '-' +
-      userCase['sos_partiesServedDate-month'] +
-      '-' +
-      userCase['sos_partiesServedDate-day'],
+    sos_partiesServedDate: `${userCase.sos_partiesServedDate?.getFullYear()}-${userCase.sos_partiesServedDate?.getMonth()}-${userCase.sos_partiesServedDate?.getDay()}`,
     citizenSosDocs: userCase.statementOfServiceDocument!,
     isOrder: 'order' === req.params.context ? 'Yes' : 'No',
   };
