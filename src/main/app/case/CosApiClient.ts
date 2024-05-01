@@ -151,7 +151,6 @@ export class CosApiClient {
   }
 
   public async saveStatementOfService(
-    user: UserDetails,
     caseId: string,
     sosObject: CitizenSos,
     eventName: CaseEvent
@@ -163,8 +162,8 @@ export class CosApiClient {
       );
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
-    } catch (err) {
-      console.log('*** Error: ', err.message);
+    } catch (error) {
+      this.logError(error);
       throw new Error('Case could not be updated.');
     }
   }

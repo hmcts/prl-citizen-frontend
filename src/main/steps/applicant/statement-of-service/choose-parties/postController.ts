@@ -37,8 +37,8 @@ export default class UploadSosPostController extends PostController<AnyObject> {
     }
 
     try {
-      if (req.session.userCase['statementOfServiceDocument']) {
-        const document = req.session.userCase['statementOfServiceDocument'];
+      if (req.session.userCase.statementOfServiceDocument) {
+        const document = req.session.userCase.statementOfServiceDocument;
         const documentId = document.document_url.substring(document.document_url.lastIndexOf('/') + 1) as string;
         await client.deleteCitizenStatementDocument(documentId);
       }
@@ -49,7 +49,7 @@ export default class UploadSosPostController extends PostController<AnyObject> {
         req.session.errors = handleError(req.session.errors, 'uploadError', true);
         return;
       }
-      req.session.userCase['statementOfServiceDocument'] = response.document;
+      req.session.userCase.statementOfServiceDocument = response.document;
       req.session.errors = removeUploadDocErrors(req.session.errors);
     } catch (e) {
       req.session.errors = handleError(req.session.errors, 'uploadError', true);

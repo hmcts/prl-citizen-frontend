@@ -26,7 +26,7 @@ export const routeGuard = {
 
         req.session.errors = removeUploadDocErrors(req.session.errors);
       } catch (e) {
-        req.session.errors = handleError(req.session.errors, 'donwloadError', true);
+        req.session.errors = handleError(req.session.errors, 'deleteError', true);
       } finally {
         req.session.save(() => {
           res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: req.params.context }));

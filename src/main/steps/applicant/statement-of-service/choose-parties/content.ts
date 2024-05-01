@@ -40,6 +40,7 @@ export const en = {
     },
     uploadDocumentFileUpload: {
       uploadError: 'Document could not be uploaded',
+      deleteError: 'Document could not be deleted',
       empty: 'You must upload a statement of service',
       multipleFiles: `You can upload only one file.
             If you wish to upload a new file, delete the existing
@@ -78,6 +79,7 @@ export const cy = {
     },
     uploadDocumentFileUpload: {
       uploadError: 'Document could not be uploaded',
+      deleteError: 'Document could not be deleted',
       empty: "Mae'n rhaid i chi lwytho datganiad cyflwyno",
       multipleFiles:
         "Dim ond un ffeil y gallwch ei llwytho. Os ydych yn dymuno llwytho ffeil newydd, dylech ddileu'r ffeil bresennol a llwytho un newydd.",
@@ -177,7 +179,7 @@ const getParties = (userCase: Partial<CaseWithId>) => {
     if (respondent.value.response.citizenFlags?.isApplicationToBeServed !== YesOrNo.YES) {
       parties.push({
         id: respondent.id,
-        value: respondent.value.firstName + ' ' + respondent.value.lastName,
+        value: `${respondent.value.firstName} ${respondent.value.lastName}`,
       });
     }
   });

@@ -237,7 +237,6 @@ export class Routes {
         );
         app.get(`${MIAM_SAVE}`, errorHandler(new MIAMPostController(step.form.fields).post));
         app.get(`${PROCEEDING_SAVE}`, errorHandler(new ProceedingPostController(step.form.fields).post));
-
         app.get(
           `${INTERNATIONAL_FACTORS_SAVE}`,
           errorHandler(new InternationalFactorsPostController(step.form.fields).post)

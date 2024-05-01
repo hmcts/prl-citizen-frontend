@@ -13,7 +13,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { applyParms } from '../../../../steps/common/url-parser';
-import { prepateStatementOfServiceRequest } from '../choose-parties/StatementOfServiceMapper';
+import { prepareStatementOfServiceRequest } from '../choose-parties/StatementOfServiceMapper';
 
 import { form as summaryForm } from './content';
 
@@ -40,11 +40,11 @@ export default class StatementOfServicePostController extends PostController<Any
     const partyDetails = getPartyDetails(userCase, user.id);
     const client = new CosApiClient(user.accessToken, req.locals.logger);
     if (partyDetails) {
-      const userData = prepateStatementOfServiceRequest(req);
+      const userData = prepareStatementOfServiceRequest(req);
       req.session.userCase.statementOfServiceDocument = undefined;
       try {
         mapDataInSession(
-          await client.saveStatementOfService(user, userCase.id, userData, CaseEvent.CITIZEN_CASE_UPDATE),
+          await client.saveStatementOfService(userCase.id, userData, CaseEvent.CITIZEN_CASE_UPDATE),
           user.id
         );
         req.session.save(() => res.redirect(APPLICANT_STATEMENT_OF_SERVICE_NEXT));

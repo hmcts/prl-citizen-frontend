@@ -6,7 +6,7 @@ import { UserDetails } from '../controller/AppRequest';
 
 import { CosApiClient, DocumentFileUploadRequest, UploadedFiles } from './CosApiClient';
 import { CaseWithId } from './case';
-import { CaseData, CaseEvent, CaseType, DocumentUploadResponse, PartyType, YesOrNo } from './definition';
+import { CaseData, CaseEvent, CaseType, CitizenSos, DocumentUploadResponse, PartyType, YesOrNo } from './definition';
 import { toApiFormat } from './to-api-format';
 
 jest.mock('axios');
@@ -639,5 +639,51 @@ describe('RetrieveCaseHearingsByCaseId', () => {
     await expect(client.retrieveCaseHearingsByCaseId(req.session.userCase, req.session.user)).rejects.toThrow(
       'Error occured, case could not be updated - retrieveCaseHearingsByCaseId'
     );
+  });
+
+  test('upload Statement of service', async () => {
+    const req = mockRequest();
+    const response = { id: '1234567' };
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    const client = new CosApiClient('abc', mockLogger);
+    const sosObject: CitizenSos = {
+      sos_partiesServed: '',
+      sos_partiesServedDate: '',
+      citizenSosDocs: {
+        document_url: 'http://localhost',
+        document_filename: 'test.docx',
+        document_binary_url: 'http://localhost',
+      },
+    };
+    let flag = true;
+    try {
+      await client.saveStatementOfService(req.session.caseId, sosObject, CaseEvent.CITIZEN_CASE_UPDATE);
+    } catch {
+      flag = false;
+    }
+
+    expect(flag).toEqual(true);
+  });
+
+  test('upload Statement of service failed', async () => {
+    const req = mockRequest();
+    const client = new CosApiClient('abc', mockLogger);
+    const sosObject: CitizenSos = {
+      sos_partiesServed: '',
+      sos_partiesServedDate: '',
+      citizenSosDocs: {
+        document_url: 'http://localhost',
+        document_filename: 'test.docx',
+        document_binary_url: 'http://localhost',
+      },
+    };
+    let flag = true;
+    try {
+      await client.saveStatementOfService(req.session.caseId, sosObject, CaseEvent.CITIZEN_CASE_UPDATE);
+    } catch {
+      flag = false;
+    }
+
+    expect(flag).toEqual(false);
   });
 });

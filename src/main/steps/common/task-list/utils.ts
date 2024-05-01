@@ -10,7 +10,6 @@ import { DocumentCategory } from '../documents/definitions';
 import { applyParms } from '../url-parser';
 
 import {
-  Applicant,
   CaseType,
   PartyDetails,
   PartyType,
@@ -133,18 +132,4 @@ export const hasResponseBeenReviewed = (caseData: Partial<CaseWithId>, responden
         document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
     )
   );
-};
-
-export const isCaseServed = (caseData: Partial<CaseWithId>): boolean => {
-  let applicants: Applicant[] = [];
-  if (!caseData) {
-    return false;
-  }
-  if (caseData.applicants) {
-    applicants = caseData.applicants;
-    if (applicants[0].value.response.citizenFlags?.isApplicationToBeServed === YesOrNo.YES) {
-      return true;
-    }
-  }
-  return false;
 };
