@@ -166,12 +166,7 @@ export const respondentCaseSequence: Step[] = [
   {
     url: LEGAL_REPRESENTATION_START,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
-  },
-  {
-    url: LEGAL_REPRESENTATION_START,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
+    getNextStep: () => '/',
   },
   {
     url: LEGAL_REPRESENTATION_SOLICITOR_DIRECT,

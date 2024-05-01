@@ -124,7 +124,8 @@ export const PermissionForApplication = (
         .split(',')
         .join('')
     : '';
-  let SummaryData = [{}];
+  let SummaryData;
+
   if (userCase['sq_courtPermissionRequired'] === YesOrNo.YES) {
     SummaryData = [
       {
@@ -152,6 +153,7 @@ export const PermissionForApplication = (
       },
     ];
   }
+
   return {
     title: sectionTitles['permissionForApplication'],
     rows: getSectionSummaryList(SummaryData, content),

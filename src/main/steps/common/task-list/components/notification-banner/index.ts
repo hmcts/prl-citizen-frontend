@@ -95,7 +95,7 @@ export const getNotificationBannerConfig = (
 export const generateResponseNotifications = (caseData: Partial<CaseWithId>): NotificationBannerProps[] => {
   const notifications: NotificationBannerProps[] = [];
 
-  if (!caseData || !caseData?.respondents?.length) {
+  if (!caseData?.respondents?.length) {
     return notifications;
   }
 

@@ -253,12 +253,10 @@ export const CA_RESPONDENT_RESPONSE_CONFIRMATION: PageLink = '/tasklistresponse/
 export const CA_RESPONDENT_RESPONSE_SUBMIT: PageLink = `${CA_RESPONDENT_RESPONSE_CONFIRMATION}/submit`;
 export const CA_RESPONDENT_GENERATE_C7_DRAFT: PageLink = '/tasklistresponse/generate-c7-draft';
 /* Legal representation*/
-
-export const LEGAL_REPRESENTATION_START: PageLink = '/tasklistresponse/legalrepresentation/start';
-export const LEGAL_REPRESENTATION_SOLICITOR_DIRECT: PageLink = '/tasklistresponse/legalrepresentation/solicitordirect';
-export const LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT: PageLink =
-  '/tasklistresponse/legalrepresentation/solicitornotdirect';
-export const REDIRECT_LEGAL: PageLink = '/legalrepresentation/redirect';
+const RESPOND_TO_APPLICATION_LEGAL_REPRESENTATION = '/tasklistresponse/legalrepresentation';
+export const LEGAL_REPRESENTATION_START: PageLink = `${RESPOND_TO_APPLICATION_LEGAL_REPRESENTATION}/start`;
+export const LEGAL_REPRESENTATION_SOLICITOR_DIRECT: PageLink = `${RESPOND_TO_APPLICATION_LEGAL_REPRESENTATION}/solicitordirect`;
+export const LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT: PageLink = `${RESPOND_TO_APPLICATION_LEGAL_REPRESENTATION}/solicitornotdirect`;
 
 /* Applicant Hearings */
 export const APPLICANT_YOURHEARINGS_HEARINGS: PageLink = `${APPLICANT}${YOURHEARINGS}${HEARINGS}`;

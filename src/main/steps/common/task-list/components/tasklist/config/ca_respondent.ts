@@ -202,7 +202,7 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
                 partyType: PartyType.RESPONDENT,
                 documentType: 'c7-response-document',
               })
-            : `${RESPOND_TO_APPLICATION}/flag/updateFlag`;
+            : RESPOND_TO_APPLICATION;
         },
         stateTag: (caseData, userDetails) => {
           return getC7ApplicationResponseStatus(caseData, userDetails);
