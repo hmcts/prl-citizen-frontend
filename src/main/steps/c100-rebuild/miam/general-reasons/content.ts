@@ -5,8 +5,8 @@ import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  caption: 'MIAM exemptions',
-  title: 'What are your reasons for not attending a MIAM?',
+  title: 'MIAM exemptions',
+  label: 'What are your reasons for not attending a MIAM?',
   courtcommunication: 'You need to give the court details of why you have not attended a MIAM.',
   optionHint: 'Select all reasons that apply.',
   domesticViolence: 'Domestic abuse',
@@ -27,8 +27,8 @@ export const en = () => ({
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const cy = () => ({
-  caption: 'Esemptiadau MIAM',
-  title: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?',
+  title: 'Esemptiadau MIAM',
+  label: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?',
   courtcommunication: 'Mae angen i chi roi manylion i’r llys pam nad ydych wedi mynychu MIAM.',
   optionHint: "Dewiswch bob rheswm sy'n berthnasol.",
   domesticViolence: 'Cam-drin domestig',
@@ -59,6 +59,8 @@ export const form: FormContent = {
       hint: l => l.optionHint,
       section: l => l.section,
       validator: atLeastOneFieldIsChecked,
+      label: l => l.label,
+      labelSize: 'm',
       values: [
         {
           name: 'miam_nonAttendanceReasons',
