@@ -9,7 +9,9 @@ import { CosApiClient } from '../../../../app/case/CosApiClient';
 import { CaseWithId } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
-import { Form, FormError, FormFields, FormFieldsFn } from '../../../../app/form/Form';
+import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
+
+import { getFormFields } from './content';
 
 @autobind
 export default class UploadSosPostController extends PostController<AnyObject> {
@@ -64,12 +66,17 @@ export default class UploadSosPostController extends PostController<AnyObject> {
     if (uploadFile) {
       this.uploadDocument(req, res);
     } else {
-      const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
-      const form = new Form(fields);
+      const form = new Form(getFormFields(req.session.userCase).fields as FormFields);
       const { _csrf, ...formData } = form.getParsedBody(req.body);
-      const formErrors: FormError[] = form.getErrors(formData);
-      if (formErrors.length > 0) {
-        return super.redirect(req, res);
+      if (!req.session.errors) {
+        req.session.errors = [];
+      }
+      req.session.errors = form.getErrors(formData);
+      if (req.session.errors.length > 0) {
+        req.session.save(() =>
+          res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req.params.context }))
+        );
+        return;
       }
       req.session.userCase.sos_partiesServed = formData['sos_partiesServed'];
       req.session.userCase['sos_partiesServedDate-day'] = formData['sos_partiesServedDate-day'];
