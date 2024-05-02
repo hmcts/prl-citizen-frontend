@@ -372,6 +372,6 @@ export const responseCaseSequence: Step[] = [
   {
     url: CA_RESPONDENT_RESPONSE_CONFIRMATION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
 ];

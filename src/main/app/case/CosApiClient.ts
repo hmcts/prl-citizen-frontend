@@ -203,7 +203,7 @@ export class CosApiClient {
     try {
       const formData = new FormData();
 
-      for (const [, file] of Object.entries(request.files!)) {
+      for (const [, file] of Object.entries(request.files)) {
         formData.append('file', file.data, file.name);
       }
 
@@ -257,15 +257,30 @@ export class CosApiClient {
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
 
-  public async linkCaseToCitizen(caseId: string, accessCode: string): Promise<AxiosResponse> {
+  public async linkCaseToCitizen(
+    caseId: string,
+    accessCode: string
+  ): Promise<{ caseData: CaseWithId; hearingData: HearingData | null }> {
     try {
       const data = {
         caseId,
         accessCode,
+        hearingNeeded: YesOrNo.YES,
       };
+      const response = await this.client.post(
+        config.get('services.cos.url') + '/citizen/link-case-to-account-with-hearing',
+        data
+      );
+      const { caseData, hearings } = response.data;
 
-      const response = await this.client.post(config.get('services.cos.url') + '/citizen/link-case-to-account', data);
-      return response;
+      return {
+        caseData: {
+          id: caseData.id,
+          state: caseData.state,
+          ...fromApiFormat(caseData),
+        } as CaseWithId,
+        hearingData: hearings,
+      };
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, failed to link case to citizen - linkCaseToCitizen');

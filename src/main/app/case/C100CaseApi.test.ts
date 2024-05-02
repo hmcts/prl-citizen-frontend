@@ -22,7 +22,6 @@ const mockData = {
   c100RebuildChildPostCode: 'AB2 3BV',
   helpWithFeesReferenceNumber: 'HWF-1234',
   c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
-  applicantCaseName: 'C100 test case',
   id: '1234',
 };
 
@@ -135,7 +134,6 @@ describe('CaseApi', () => {
       helpWithFeesReferenceNumber: 'HWF-1234',
       c100RebuildMaim: '{"miam":"c100RebuildMaim"}',
       c100RebuildReturnUrl: '{"miam":"c100RebuildMaim"}',
-      applicantCaseName: 'C100 test case',
       id: '1234',
     });
   });
@@ -179,7 +177,6 @@ describe('CaseApi', () => {
     mockedAxios.get.mockReturnValueOnce({ data: response } as unknown as Promise<CaseData>);
     const actual = await api.retrieveCaseById('1234');
     expect(actual).toEqual({
-      applicantCaseName: 'C100 test case',
       c100RebuildChildPostCode: 'AB2 3BV',
       c100RebuildReturnUrl: 'c100-rebuild/dummyUrl',
       caseId: '1234',

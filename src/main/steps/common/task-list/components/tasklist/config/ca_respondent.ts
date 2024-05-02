@@ -95,7 +95,7 @@ export const hearing: TaskListConfigProps = {
     {
       id: Tasks.VIEW_HEARING_DETAILS,
       href: (caseData: Partial<CaseWithId>) =>
-        applyParms(FETCH_HEARING_DETAILS, { partyType: PartyType.RESPONDENT, caseId: caseData.id }),
+        applyParms(FETCH_HEARING_DETAILS, { partyType: PartyType.RESPONDENT, caseId: caseData.id as string }),
       stateTag: (caseData: Partial<CaseWithId>) => {
         if (hasAnyHearing(caseData)) {
           return StateTags.READY_TO_VIEW;
@@ -202,7 +202,7 @@ export const CA_RESPONDENT: TaskListConfigProps[] = [
                 partyType: PartyType.RESPONDENT,
                 documentType: 'c7-response-document',
               })
-            : `${RESPOND_TO_APPLICATION}/flag/updateFlag`;
+            : RESPOND_TO_APPLICATION;
         },
         stateTag: (caseData, userDetails) => {
           return getC7ApplicationResponseStatus(caseData, userDetails);

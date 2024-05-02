@@ -11,7 +11,6 @@ import { PaymentHandler, PaymentValidationHandler } from './modules/payments/pay
 import { RAProvider } from './modules/reasonable-adjustments';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
 import CaseDataController from './steps/common/CaseDataController';
-import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
@@ -87,11 +86,6 @@ export class Routes {
     app.get(
       `${APPLICANT_CHECK_ANSWERS}/:caseId`,
       errorHandler(new TasklistGetController(EventRoutesContext.CONFIRM_CONTACT_DETAILS_APPLICANT).get)
-    );
-
-    app.get(
-      `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
-      errorHandler(new ViewAllDocumentsPostController().setResponseInitiatedFlag)
     );
 
     // Common get controller for tasklist response events

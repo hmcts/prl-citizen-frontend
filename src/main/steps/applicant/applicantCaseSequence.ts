@@ -56,12 +56,12 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_PRIVATE_DETAILS_CONFIRMED,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: APPLICANT_CHECK_ANSWERS,
@@ -118,12 +118,12 @@ export const applicantCaseSequence: Step[] = [
     url: APPLICANT_YOURHEARINGS_HEARINGS,
     showInSection: Sections.AboutApplicantCase,
     // getController: HearingsGetController,
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     //80
@@ -134,7 +134,7 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: CHOOSE_CONTACT_PREFERENCE,
@@ -182,7 +182,7 @@ export const applicantCaseSequence: Step[] = [
     url: UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
@@ -284,7 +284,7 @@ export const applicantCaseSequence: Step[] = [
     url: UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: String(caseData?.id) }) as PageLink,
   },
   {
     url: UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,

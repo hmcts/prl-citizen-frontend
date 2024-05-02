@@ -133,12 +133,7 @@ export const respondentCaseSequence: Step[] = [
   {
     url: LEGAL_REPRESENTATION_START,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => LEGAL_REPRESENTATION_SOLICITOR_NOT_DIRECT,
-  },
-  {
-    url: LEGAL_REPRESENTATION_START,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
+    getNextStep: () => '/',
   },
   {
     url: LEGAL_REPRESENTATION_SOLICITOR_DIRECT,
@@ -153,12 +148,12 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_YOURHEARINGS_HEARINGS,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: RESPONDENT_ADD_LEGAL_REPRESENTATIVE,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
@@ -168,7 +163,7 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: VIEW_ALL_DOCUMENT_TYPES,

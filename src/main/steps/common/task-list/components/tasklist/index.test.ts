@@ -2899,7 +2899,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/tasklistresponse/start/flag/updateFlag',
+            href: '/tasklistresponse/start',
             id: 'respondToTheApplication',
             linkText: 'Respond to the application',
             openInAnotherTab: false,
@@ -3128,11 +3128,11 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/tasklistresponse/start/flag/updateFlag',
+            href: '/tasklistresponse/start',
             id: 'respondToTheApplication',
             linkText: 'Respond to the application',
             openInAnotherTab: false,
-            stateTag: { className: 'govuk-tag--blue', label: 'In progress' },
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
           },
           {
             disabled: false,

@@ -150,7 +150,7 @@ export const CA_APPLICANT: TaskListConfigProps[] = [
       {
         id: Tasks.VIEW_HEARING_DETAILS,
         href: (caseData: Partial<CaseWithId>) =>
-          applyParms(FETCH_HEARING_DETAILS, { partyType: PartyType.APPLICANT, caseId: caseData.id }),
+          applyParms(FETCH_HEARING_DETAILS, { partyType: PartyType.APPLICANT, caseId: caseData.id as string }),
         stateTag: (caseData: Partial<CaseWithId>) => {
           if (hasAnyHearing(caseData)) {
             return StateTags.READY_TO_VIEW;

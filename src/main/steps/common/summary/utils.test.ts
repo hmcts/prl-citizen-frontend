@@ -1,9 +1,11 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
+import { ProceedingsOrderTypes } from '../../../app/case/definition';
 //import { State } from '../../../app/case/definition';
 import { SummaryList } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
+import { language } from '../breadcrumb/content';
 
-import { summaryList } from './utils';
+import { getOrdersDetail, getSelectedPrivateDetails, summaryList } from './utils';
 
 const enContent = {
   section: 'Check your details',
@@ -110,6 +112,33 @@ describe('common > summary > utils', () => {
       const result: SummaryList | undefined = summaryList(enContent, userCase, urls, 'applicationDetails', 'en');
       console.log(result?.rows);
       expect(result).toStrictEqual(expected);
+    });
+  });
+
+  describe('Return correct getSelectedPrivateDetails', () => {
+    test.each([
+      {
+        userCase: {
+          ...mockUserCase,
+          contactDetailsPrivate: ['address', 'phoneNumber'],
+        },
+        expected: '<br/><br/><ul class="govuk-list govuk-list--bullet"><li>Address</li><li>PhoneNumber</li></ul>',
+      },
+    ])('return correct summary list items when %#', ({ userCase, expected }) => {
+      expect(expected).toEqual(getSelectedPrivateDetails(userCase, language));
+    });
+  });
+  describe('Return correct getOrdersDetail', () => {
+    test.each([
+      {
+        userCase: {
+          ...mockUserCase,
+          courtProceedingsOrders: [ProceedingsOrderTypes.CARE_ORDER, ProceedingsOrderTypes.CHILD_ARRANGEMENT_ORDER],
+        },
+        expected: 'careOrder, childArrangementOrder',
+      },
+    ])('return correct summary list items when %#', ({ userCase, expected }) => {
+      expect(expected).toEqual(getOrdersDetail(userCase));
     });
   });
 });

@@ -1,20 +1,21 @@
-import { error } from 'console';
-
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import * as oidc from '../../../../app/auth/user/oidc';
-import * as cosApiClient from '../../../../app/case/CosApiClient';
-import { FormContent } from '../../../../app/form/Form';
+import { CosApiClient } from '../../../../app/case/CosApiClient';
+import { HearingData } from '../../../../app/case/case';
+import { State } from '../../../../app/case/definition';
+import { FormContent, FormFields } from '../../../../app/form/Form';
 import { isValidAccessCode } from '../../../../app/form/validation';
 import * as steps from '../../../../steps';
 
-import PinActivationPostController from './postController';
+import LinkCaseToAccountPostController from './postController';
 
 const getNextStepUrlMock = jest.spyOn(steps, 'getNextStepUrl');
 const getSystemUserMock = jest.spyOn(oidc, 'getSystemUser');
-const getCosApiClientMock = jest.spyOn(cosApiClient, 'CosApiClient');
+const validateAccessCodeMock = jest.spyOn(CosApiClient.prototype, 'validateAccessCode');
+const linkCaseToCitizenMock = jest.spyOn(CosApiClient.prototype, 'linkCaseToCitizen');
 
-describe('CaseActivationPostController', () => {
+describe('LinkCaseToAccountPostController', () => {
   let controller;
   let req;
   let res;
@@ -24,7 +25,7 @@ describe('CaseActivationPostController', () => {
   } as unknown as FormContent;
 
   beforeEach(() => {
-    controller = new PinActivationPostController(mockFormContent.fields);
+    controller = new LinkCaseToAccountPostController(mockFormContent.fields as FormFields);
     req = mockRequest();
     res = mockResponse();
     getSystemUserMock.mockResolvedValue({
@@ -40,7 +41,27 @@ describe('CaseActivationPostController', () => {
     getNextStepUrlMock.mockClear();
   });
 
-  test('Should trigger checkCaseAccessCode from if else statment - accessCodeLoginIn should be false', async () => {
+  test('Should link case and save data when access code is valid', async () => {
+    const body = {
+      accessCode: 'string',
+      caseReference: '123',
+      accessCodeCheck: true,
+      caseCode: 'string',
+    };
+    req = mockRequest({ body });
+    req.session.errors = [];
+    validateAccessCodeMock.mockResolvedValueOnce('valid');
+    linkCaseToCitizenMock.mockResolvedValueOnce({
+      caseData: { id: '123', state: 'success' as State },
+      hearingData: { caseHearings: ['hearings'] } as unknown as HearingData,
+    });
+    await controller.post(req, res);
+    expect(req.session.userCase.id).toBe('123');
+    expect(req.session.userCase.hearingCollection).toStrictEqual(['hearings']);
+    expect(res.redirect).toHaveBeenCalled();
+  });
+
+  test('Should throw error if invalid access code', async () => {
     const mockPhoneNumberFormContent = {
       fields: {
         accessCode: {
@@ -49,7 +70,8 @@ describe('CaseActivationPostController', () => {
         },
       },
     } as unknown as FormContent;
-    controller = new PinActivationPostController(mockPhoneNumberFormContent.fields);
+    controller = new LinkCaseToAccountPostController(mockPhoneNumberFormContent.fields as FormFields);
+
     req.body = {
       accessCodeCheck: {
         text: 'Continue',
@@ -61,46 +83,31 @@ describe('CaseActivationPostController', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
-  test('Should trigger checkCaseAccessCode for already linked case', async () => {
+  test('Should set errors and redirect if case already linked', async () => {
     const body = {
       accessCode: 'string',
       caseReference: '123',
       accessCodeCheck: true,
       caseCode: 'string',
     };
-    controller = new PinActivationPostController(mockFormContent.fields);
     req = mockRequest({ body });
     req.session.errors = [];
-    (getCosApiClientMock as jest.Mock).mockReturnValue({
-      retrieveCasesByUserId: jest.fn(() => {
-        return {};
-      }),
-      validateAccessCode: jest.fn(() => {
-        return 'Linked';
-      }),
-    });
+    validateAccessCodeMock.mockResolvedValueOnce('Linked');
     await controller.post(req, res);
     expect(req.session.errors).toEqual([{ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' }]);
     expect(res.redirect).toHaveBeenCalled();
   });
-  test('Should trigger checkCaseAccessCode for not valid case', async () => {
+
+  test('Should set errors and redirect if access code invalid', async () => {
     const body = {
       accessCode: 'string',
       caseReference: '123',
       accessCodeCheck: true,
       caseCode: 'string',
     };
-    controller = new PinActivationPostController(mockFormContent.fields);
     req = mockRequest({ body });
     req.session.errors = [];
-    (getCosApiClientMock as jest.Mock).mockReturnValue({
-      retrieveCasesByUserId: jest.fn(() => {
-        return {};
-      }),
-      validateAccessCode: jest.fn(() => {
-        return 'Not Valid';
-      }),
-    });
+    validateAccessCodeMock.mockResolvedValueOnce('Invalid');
     await controller.post(req, res);
     expect(req.session.errors).toEqual([
       { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
@@ -108,24 +115,18 @@ describe('CaseActivationPostController', () => {
     ]);
     expect(res.redirect).toHaveBeenCalled();
   });
-  test('Should log error if failed to execute checkCaseAccessCode', async () => {
+
+  test('Should throw error if validateAccessCode fails', async () => {
     const body = {
       accessCode: 'string',
       caseReference: '123',
       accessCodeCheck: true,
       caseCode: 'string',
     };
-    controller = new PinActivationPostController(mockFormContent.fields);
     req = mockRequest({ body });
     req.session.errors = [];
-    (getCosApiClientMock as jest.Mock).mockReturnValue({
-      retrieveCasesByUserId: jest.fn(() => {
-        return {};
-      }),
-      validateAccessCode: jest.fn(() => {
-        throw error;
-      }),
-    });
+    validateAccessCodeMock.mockRejectedValueOnce({ status: '500' });
+
     await controller.post(req, res);
     expect(req.session.errors).toEqual([
       { errorType: 'invalidCaseCode', propertyName: 'caseCode' },

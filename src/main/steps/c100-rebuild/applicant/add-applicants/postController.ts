@@ -244,26 +244,6 @@ export default class AddApplicantPostController extends PostController<AnyObject
         applicantLastName,
       };
 
-      /*if (applicant === 0) {
-        Object.assign(applicantObject, {
-          reasonableAdjustmentsFlags: [
-            {
-              name: 'Guidance on how to complete forms',
-              name_cy: 'Arweiniad ar sut i lenwi ffurflenni',
-              flagComment: '',
-              flagComment_cy: '',
-              dateTimeCreated: '2023-11-16T16:05:25.000Z',
-              dateTimeModified: '2023-11-16T16:05:53.000Z',
-              path: ['Party', 'Reasonable adjustment', 'I need help with forms'],
-              hearingRelevant: 'No',
-              flagCode: 'RA0017',
-              status: 'Requested',
-              availableExternally: 'Yes',
-            },
-          ],
-        });
-      }*/
-
       newApplicantStorage.push(applicantObject);
     }
   }

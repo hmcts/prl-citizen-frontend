@@ -401,7 +401,7 @@ describe('CosApiClient', () => {
   });
 
   test('linkCaseToCitizen', async () => {
-    const response = { id: '1234567' };
+    const response = { caseData: {}, hearings: {} };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const client = new CosApiClient('abc', mockLogger);
     let flag = false;

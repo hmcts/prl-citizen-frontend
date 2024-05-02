@@ -362,31 +362,6 @@ export interface ApplicantTable {
   value: Value5;
 }
 
-export interface Address4 {
-  County: string;
-  Country: string;
-  PostCode: string;
-  PostTown: string;
-  AddressLine1: string;
-  AddressLine2: string;
-  AddressLine3: string;
-}
-
-export interface SolicitorOrg4 {
-  OrganisationID: string;
-  OrganisationName: string;
-}
-
-export interface SolicitorAddress3 {
-  County: string;
-  Country: string;
-  PostCode: string;
-  PostTown: string;
-  AddressLine1: string;
-  AddressLine2: string;
-  AddressLine3: string;
-}
-
 export interface DynamicListElement {
   code: string;
   label: string;
@@ -436,82 +411,6 @@ export interface CaseNote {
   date: DateAsString;
   note: string;
 }
-
-export interface Respondent {
-  id: string;
-  value: PartyDetails;
-}
-
-export interface Address3 {
-  County: string;
-  Country: string;
-  PostCode: string;
-  PostTown: string;
-  AddressLine1: string;
-  AddressLine2: string;
-  AddressLine3: string;
-}
-
-export interface SolicitorOrg3 {
-  OrganisationID: string;
-  OrganisationName: string;
-}
-
-export interface Value5 {
-  email: string;
-  gender: string;
-  address: Address3;
-  dxNumber: string;
-  lastName: string;
-  firstName: string;
-  dateOfBirth: string;
-  otherGender: string;
-  phoneNumber: string;
-  placeOfBirth: string;
-  previousName: string;
-  solicitorOrg: SolicitorOrg3;
-  solicitorEmail: string;
-  solicitorReference: string;
-  isAddressConfidential: string;
-  representativeLastName: string;
-  representativeFirstName: string;
-  canYouProvideEmailAddress: string;
-  isAtAddressLessThan5Years: string;
-  isPhoneNumberConfidential: string;
-  isEmailAddressConfidential: string;
-  addressLivedLessThan5YearsDetails: string;
-}
-
-export interface ApplicantTable {
-  id: string;
-  value: Value5;
-}
-
-export interface Address4 {
-  County: string;
-  Country: string;
-  PostCode: string;
-  PostTown: string;
-  AddressLine1: string;
-  AddressLine2: string;
-  AddressLine3: string;
-}
-
-export interface SolicitorOrg4 {
-  OrganisationID: string;
-  OrganisationName: string;
-}
-
-export interface SolicitorAddress3 {
-  County: string;
-  Country: string;
-  PostCode: string;
-  PostTown: string;
-  AddressLine1: string;
-  AddressLine2: string;
-  AddressLine3: string;
-}
-
 export interface AcknowledgementOfService {
   jurisdictionDisagreeReason: string;
   dateAosSubmitted: DateAsString;
@@ -915,7 +814,6 @@ export interface CaseData {
   finalDocument?: Document;
   serviceType: string;
   claimNumber: string;
-  applicantCaseName: string;
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;

@@ -273,7 +273,7 @@ export const generatePageContent = ({
   byApplicant?: string;
   userIdamId?: string;
   additionalData?: CommonContentAdditionalData;
-  userId?: string | undefined;
+  userId?: string;
 }): PageContent => {
   const commonTranslations: typeof en = language === 'en' ? en : cy;
   const url = additionalData?.req?.path;
@@ -352,7 +352,7 @@ export type CommonContent = typeof en & {
   addresses?: any[];
   byApplicant?: string;
   additionalData?: CommonContentAdditionalData;
-  userId?: string | undefined;
+  userId?: string;
   userIdamId?: string;
 };
 

@@ -20,7 +20,7 @@ export default class CaseDataController {
     return this.fetchDataFor.includes(fetchDataFor);
   }
 
-  private async saveDataInSession(
+  public async saveDataInSession(
     req: AppRequest,
     caseData: CaseWithId,
     hearingData: HearingData | null
@@ -53,7 +53,7 @@ export default class CaseDataController {
 
     return new Promise((resolve, reject) => {
       req.session.save(err => {
-        !err ? resolve() : reject(err);
+        !err ? resolve() : reject(new Error(err));
       });
     });
   }

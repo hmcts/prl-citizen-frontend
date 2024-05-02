@@ -1,93 +1,82 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { getSystemUser } from '../../../../app/auth/user/oidc';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { CaseWithId } from '../../../../app/case/case';
-import { State } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
-import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
-import { PIN_ACTIVATION_CASE_ACTIVATED_URL } from '../../../../steps/urls';
+import { Form, FormError, FormFields } from '../../../../app/form/Form';
+import { mapDataInSession } from '../../../../steps/tasklistresponse/utils';
 
 @autobind
-export default class PinActivationPostController extends PostController<AnyObject> {
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {
+export default class LinkCaseToAccountPostController extends PostController<AnyObject> {
+  constructor(protected readonly fields: FormFields) {
     super(fields);
   }
 
-  public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
-    const form = new Form(fields);
-    const formData = form.getParsedBody(req.body);
-    req.session.errors = form.getErrors(formData);
+  private removeErrors = (req: AppRequest): FormError[] => {
+    return req.session.errors?.length
+      ? req.session.errors.filter(error => !['caseCode', 'accessCode'].includes(error.propertyName))
+      : [];
+  };
 
-    try {
-      if (!req.session.errors.length) {
-        await this.checkAccessCode(req, formData);
-        if (!req.session.errors.length) {
-          const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
-          if (req.session.userCase.caseCode && req.session.userCase.accessCode) {
-            const caseReference = req.session.userCase.caseCode;
-            const accessCode = req.session.userCase.accessCode;
+  private handleError(errorType: string, propertyName: string, req: AppRequest): FormError[] {
+    const _errors: FormError[] = req.session.errors?.length ? req.session.errors : [];
 
-            const linkCaseToCitizenData = await client.linkCaseToCitizen(caseReference, accessCode);
-            req.session.userCase = linkCaseToCitizenData.data;
-            req.session.save(() => {
-              res.redirect(PIN_ACTIVATION_CASE_ACTIVATED_URL);
-            });
-          }
-        } else {
-          this.redirect(req, res);
-        }
-      } else {
-        this.redirect(req, res);
-      }
-    } catch (error) {
-      throw new Error(error);
-    }
+    return [..._errors, { errorType, propertyName }];
   }
 
-  private async checkAccessCode(req: AppRequest, formData: Partial<CaseWithId>): Promise<void> {
-    const caseworkerUser = await getSystemUser();
-    const caseReference = formData.caseCode?.replace(/-/g, '');
-    const accessCode = formData.accessCode?.replace(/-/g, '');
+  public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
 
     try {
-      const client = new CosApiClient(caseworkerUser.accessToken, req.locals.logger);
-      const accessCodeValidated = await client.validateAccessCode(
-        caseReference as string,
-        accessCode as string,
-        caseworkerUser
-      );
-      if (accessCodeValidated === 'Linked') {
-        req.session.errors?.push({ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' });
-      } else if (accessCodeValidated !== 'Valid') {
-        req.session.errors?.push(
-          { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
-          { errorType: 'invalidAccessCode', propertyName: 'accessCode' }
-        );
-      }
-    } catch (err) {
-      req.locals.logger.error('Retrieving case failed with error: ' + err);
-      req.session.errors?.push(
-        { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
-        { errorType: 'invalidAccessCode', propertyName: 'accessCode' }
-      );
-    }
+      const form = new Form(this.fields);
+      const { _csrf, ...formData } = form.getParsedBody(req.body);
 
-    if (!req.session.errors?.length) {
-      if (req?.session?.userCase) {
-        Object.assign(req?.session?.userCase, formData);
-      } else {
-        const initData = {
-          id: caseReference as string,
-          state: State.successAuthentication,
-          serviceType: '',
-          ...formData,
-        };
-        req.session.userCase = initData;
+      req.session.errors = this.removeErrors(req);
+
+      req.session.userCase = {
+        ...req.session.userCase,
+        caseCode: formData.caseCode,
+        accessCode: formData.accessCode,
+      };
+      req.session.errors = [...req.session.errors, ...form.getErrors(formData)];
+
+      if (req.session.errors.length) {
+        return this.redirect(req, res);
       }
+
+      const accessCode = await client.validateAccessCode(
+        formData.caseCode as string,
+        formData.accessCode as string,
+        req.session.user
+      );
+
+      if (accessCode === 'Linked' || accessCode === 'Invalid') {
+        if (accessCode === 'Linked') {
+          req.session.errors = this.handleError('accesscodeAlreadyLinked', 'accessCode', req);
+        } else {
+          req.session.errors = this.handleError('invalidCaseCode', 'caseCode', req);
+          req.session.errors = this.handleError('invalidAccessCode', 'accessCode', req);
+        }
+        return this.redirect(req, res);
+      }
+
+      const { caseData, hearingData } = await client.linkCaseToCitizen(
+        formData.caseCode as string,
+        formData.accessCode as string
+      );
+
+      req.session.userCase = {
+        ...caseData,
+        hearingCollection: hearingData?.caseHearings ?? [],
+      };
+      mapDataInSession(req.session.userCase, req.session.user.id);
+      this.redirect(req, res);
+    } catch (error) {
+      client.logError(error);
+      req.session.errors = this.handleError('invalidCaseCode', 'caseCode', req);
+      req.session.errors = this.handleError('invalidAccessCode', 'accessCode', req);
+      this.redirect(req, res);
     }
   }
 }
