@@ -58,15 +58,8 @@ export const en = () => ({
     beforStatingApplication: PreviousAttendanceEn().beforStatingApplication,
   },
   validExemption: {
-    noSufficientContactDetails: OtherEn().noSufficientContactDetails,
     applyingForWithoutNoticeHearing: OtherEn().applyingForWithoutNoticeHearing,
-    canNotAccessMediator: {
-      mediatorDoesNotHaveDisabilityAccess: OtherEn().mediatorDoesNotHaveDisabilityAccess,
-      noMediatorAppointment: OtherEn().noMediatorAppointment,
-      noAuthorisedFamilyMediator: OtherEn().noAuthorisedFamilyMediator,
-    },
-    notAttendingAsInPrison: OtherEn().notAttendingAsInPrison,
-    notHabituallyResident: OtherEn().notHabituallyResident,
+    canNotAccessMediator: OtherEn().canNotAccessMediator,
     under18: OtherEn().under18,
   },
 });
@@ -118,15 +111,8 @@ export const cy = () => ({
     beforStatingApplication: PreviousAttendanceCy().beforStatingApplication,
   },
   validExemption: {
-    noSufficientContactDetails: OtherCy().noSufficientContactDetails,
     applyingForWithoutNoticeHearing: OtherCy().applyingForWithoutNoticeHearing,
-    canNotAccessMediator: {
-      mediatorDoesNotHaveDisabilityAccess: OtherCy().mediatorDoesNotHaveDisabilityAccess,
-      noMediatorAppointment: OtherCy().noMediatorAppointment,
-      noAuthorisedFamilyMediator: OtherCy().noAuthorisedFamilyMediator,
-    },
-    notAttendingAsInPrison: OtherCy().notAttendingAsInPrison,
-    notHabituallyResident: OtherCy().notHabituallyResident,
+    canNotAccessMediator: OtherCy().canNotAccessMediator,
     under18: OtherCy().under18,
   },
 });

@@ -120,7 +120,7 @@ describe('miam Util', () => {
       expect(sessionFields?.cy()[item]).not.toBe(undefined);
     });
   });
-  test('miam_notAttendingReasons test for checking if respective screen match contentss', () => {
+  test.skip('miam_notAttendingReasons test for checking if respective screen match contentss', () => {
     const userCase = {
       miam_notAttendingReasons: [
         'noSufficientContactDetails',

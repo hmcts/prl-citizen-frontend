@@ -547,7 +547,8 @@ export interface Case {
   miam_childProtectionEvidence?: string[];
   miam_urgency?: string[];
   miam_previousAttendance?: string[];
-  miam_notAttendingReasons?: string[];
+  miam_notAttendingReasons?: string;
+  miam_noMediatorReasons?: string;
   hu_urgentHearingReasons?: YesOrNo;
   c1A_passportOffice?: YesOrNo;
   PRL_c1A_passportOffice?: YesOrNo;

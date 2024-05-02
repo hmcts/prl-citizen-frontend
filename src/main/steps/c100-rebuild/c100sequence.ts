@@ -138,6 +138,7 @@ import {
   C100_CREATE_CASE,
   C100_APPLICANT_CONTACT_PREFERENCES,
   REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
+  C100_MIAM_NO_ACCESS_MEDIATOR,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -491,6 +492,11 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_OTHER,
     showInSection: Sections.C100,
     getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_OTHER, caseData),
+  },
+  {
+    url: C100_MIAM_NO_ACCESS_MEDIATOR,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_NO_ACCESS_MEDIATOR, caseData),
   },
   {
     url: C100_MIAM_CHILD_PROTECTION,

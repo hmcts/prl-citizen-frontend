@@ -7,6 +7,7 @@ import {
   C100_MIAM_GENERAL_REASONS,
   C100_MIAM_GET_MEDIATOR,
   C100_MIAM_MIAM_DOMESTIC_ABUSE,
+  C100_MIAM_NO_ACCESS_MEDIATOR,
   C100_MIAM_NO_NEED_WITH_REASONS,
   C100_MIAM_OTHER,
   C100_MIAM_PREVIOUS_ATTENDANCE,
@@ -88,6 +89,22 @@ class MIAMNavigationController {
         url = this.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
           ? C100_HEARING_URGENCY_URGENT
           : C100_TYPE_ORDER_SELECT_COURT_ORDER;
+        break;
+      }
+      case C100_MIAM_OTHER: {
+        url =
+          caseData.miam_notAttendingReasons === 'canNotAccessMediator'
+            ? C100_MIAM_NO_ACCESS_MEDIATOR
+            : this.checkForAnyValidReason(caseData)
+            ? C100_MIAM_NO_NEED_WITH_REASONS
+            : C100_MIAM_GET_MEDIATOR;
+        break;
+      }
+      case C100_MIAM_NO_ACCESS_MEDIATOR: {
+        url =
+          caseData.miam_noMediatorReasons === MiamNonAttendReason.NONE
+            ? C100_MIAM_GET_MEDIATOR
+            : C100_MIAM_NO_NEED_WITH_REASONS;
         break;
       }
       default: {
