@@ -42,7 +42,7 @@ export default class PCQGetController {
       const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
 
       const params = {
-        serviceId: 'ADOPTION',
+        serviceId: 'prl_ca',
         actor: 'APPLICANT',
         pcqId: req.session.userCase.pcqId,
         partyId: req.session.user.email,
