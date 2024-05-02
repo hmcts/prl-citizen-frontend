@@ -22,21 +22,21 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const documents: ApplicationPackDocumentMeta[] = [];
+  let documents;
   const respondentPacks: CitizenRespondentPack =
     content.additionalData?.req.session.userCase.personalServiceUnServedRespondentPack;
   if (respondentPacks) {
-    respondentPacks.packDocument?.forEach(document => {
+    documents = respondentPacks.packDocument?.map(document => {
       const documentId = document.value?.document_url.substring(document.value.document_url.lastIndexOf('/') + 1);
-      documents.push({
+      return {
         documentId: documentId || '',
-        documentName: document.value?.document_filename || '',
-        servedDate: document.value?.category_id || '',
+        documentName: document?.value?.document_filename || '',
+        servedDate: document?.value?.category_id || '',
         documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
           documentId,
-          documentName: document.value?.document_filename,
+          documentName: document?.value?.document_filename,
         }),
-      });
+      };
     });
   }
   return {
