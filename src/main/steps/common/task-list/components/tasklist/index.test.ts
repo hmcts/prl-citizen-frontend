@@ -664,7 +664,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/yourhearings/hearings/12',
+              href: '/applicant/hearings/12',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -1001,7 +1001,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/yourhearings/hearings/12',
+              href: '/applicant/hearings/12',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -1228,7 +1228,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/yourhearings/hearings/12',
+              href: '/applicant/hearings/12',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -1605,7 +1605,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/yourhearings/hearings/12',
+              href: '/applicant/hearings/12',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -1897,7 +1897,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/yourhearings/hearings/12',
+              href: '/applicant/hearings/12',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -2603,7 +2603,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '#',
+              href: '/respondent/hearings/1234',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -2698,7 +2698,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '#',
+              href: '/respondent/hearings/12',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -2923,7 +2923,7 @@ describe('c100 respondent', () => {
           {
             disabled: true,
             hintText: null,
-            href: '#',
+            href: '/respondent/hearings/1234',
             id: 'viewHearingDetails',
             linkText: 'Check details of your court hearings',
             openInAnotherTab: false,
@@ -3152,7 +3152,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/yourhearings/hearings/1234',
+            href: '/respondent/hearings/1234',
             id: 'viewHearingDetails',
             linkText: 'Check details of your court hearings',
             openInAnotherTab: false,
@@ -3433,7 +3433,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/yourhearings/hearings/1234',
+            href: '/respondent/hearings/1234',
             id: 'viewHearingDetails',
             linkText: 'Check details of your court hearings',
             openInAnotherTab: false,
@@ -3647,7 +3647,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/yourhearings/hearings/1234',
+            href: '/respondent/hearings/1234',
             id: 'viewHearingDetails',
             linkText: 'Check details of your court hearings',
             openInAnotherTab: false,

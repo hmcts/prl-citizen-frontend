@@ -430,9 +430,10 @@ test('keepDetailsPrivateNav', () => {
         },
       },
     ],
+    id: '1234',
   } as unknown as CaseWithId;
   const req = mockRequest({ session: { ...userCase } });
-  expect(keepDetailsPrivateNav(userCase, req)).toBe('/respondent/task-list');
+  expect(keepDetailsPrivateNav(userCase, req)).toBe('/case/1234');
 });
 
 describe('hasResponseBeenReviewed', () => {

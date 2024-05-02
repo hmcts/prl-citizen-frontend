@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { SectionStatus } from '../../../app/case/definition';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
@@ -50,20 +52,29 @@ const languages = {
 
 export const form: FormContent = {
   fields: {},
-  submit: {
-    text: l => l.continue,
+  onlyContinue: {
+    text: l => l.respondToApplication,
+    disabled: true,
   },
 };
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language]();
+  const tasklistSections = generateRespondentTaskList(
+    translations.sectionTitles,
+    translations.taskListItems,
+    content.userCase,
+    content.userIdamId
+  );
+
+  if (tasklistSections.length > 1) {
+    form.onlyContinue!.disabled = !_.every(tasklistSections, section => {
+      return _.every(section.items, item => [SectionStatus.OPTIONAL, SectionStatus.COMPLETED].includes(item.status));
+    });
+  }
+
   return {
     ...translations,
-    sections: generateRespondentTaskList(
-      translations.sectionTitles,
-      translations.taskListItems,
-      content.userCase,
-      content.userIdamId
-    ),
+    sections: tasklistSections,
     form,
   };
 };

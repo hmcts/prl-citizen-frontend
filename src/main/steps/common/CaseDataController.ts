@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import autobind from 'autobind-decorator';
+import { Response } from 'express';
 
 import { CosApiClient } from '../../app/case/CosApiClient';
 import { CaseWithId, HearingData } from '../../app/case/case';
-import { YesOrNo } from '../../app/case/definition';
+import { PartyType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
+import { DASHBOARD_URL, PARTY_TASKLIST } from '../../steps/urls';
 import { mapDataInSession } from '../tasklistresponse/utils';
+
+import { applyParms } from './url-parser';
 
 @autobind
 export default class CaseDataController {
@@ -76,6 +80,20 @@ export default class CaseDataController {
       });
     } catch (error) {
       throw new Error('FetchCaseDataController: Data could not be retrieved.');
+    }
+  }
+
+  public async getC100ApplicantCase(req: AppRequest, res: Response): Promise<void> {
+    try {
+      const caseData = await req.locals.C100Api.retrieveCaseById(req.params?.caseId);
+
+      req.session.userCase = caseData;
+      req.session.save(() => {
+        res.redirect(applyParms(PARTY_TASKLIST, { partyType: PartyType.APPLICANT }));
+      });
+    } catch (error) {
+      res.redirect(DASHBOARD_URL);
+      throw new Error('Error in retriving the case - getC100ApplicantCase');
     }
   }
 }

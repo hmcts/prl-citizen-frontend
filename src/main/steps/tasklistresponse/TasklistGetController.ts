@@ -14,6 +14,7 @@ import {
   CONSENT_TO_APPLICATION,
   INTERNATIONAL_FACTORS_START,
   MIAM_START,
+  PARTY_YOUR_HEARINGS,
   PROCEEDINGS_START,
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
   RESPONDENT_CHECK_ANSWERS,
@@ -25,7 +26,9 @@ export class TasklistGetController {
   constructor(protected readonly context: EventRoutesContext) {}
   public async get(req: AppRequest, res: Response): Promise<void> {
     try {
-      await new CaseDataController().fetchAndSaveData(req);
+      await new CaseDataController(
+        this.context === EventRoutesContext.HEARINGS ? ['hearingDetails'] : []
+      ).fetchAndSaveData(req);
       res.redirect(this.getRedirectUrl(req.session.userCase, req.session.user));
     } catch (error) {
       throw new Error('Case Data could not be retrieved.');
@@ -64,6 +67,9 @@ export class TasklistGetController {
         break;
       case EventRoutesContext.CONTACT_PREFERENCE:
         redirectUrl = applyParms(CHOOSE_CONTACT_PREFERENCE, { partyType: getCasePartyType(userCase, user.id) });
+        break;
+      case EventRoutesContext.HEARINGS:
+        redirectUrl = applyParms(PARTY_YOUR_HEARINGS, { partyType: getCasePartyType(userCase, user.id) });
         break;
     }
 

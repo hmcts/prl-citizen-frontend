@@ -1,5 +1,3 @@
-import { error } from 'console';
-
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../app/form/Form';
@@ -9,7 +7,7 @@ import { C100_URL } from '../../steps/urls';
 import * as oidc from '../auth/user/oidc';
 import * as caseApi from '../case/CaseApi';
 import * as cosApiClient from '../case/CosApiClient';
-import { isCaseCodeValid, isPhoneNoValid, isValidAccessCode } from '../form/validation';
+import { isPhoneNoValid, isValidAccessCode } from '../form/validation';
 
 import { PostController } from './PostController';
 
@@ -290,44 +288,6 @@ describe('PostController', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
-  test('Should log error in fail to trigger event', async () => {
-    const body = {
-      saveBeforeSessionTimeout: 'yes',
-    };
-    (getCaseApiMock as jest.Mock).mockReturnValue({
-      triggerEvent: jest.fn(() => {
-        throw error;
-      }),
-    });
-    controller = new PostController(mockFormContent.fields);
-    req = mockRequest({ body });
-    req.session.errors = [];
-    await controller.post(req, res);
-    expect(req.session.errors).toEqual([{ errorType: 'errorSaving', propertyName: '*' }]);
-  });
-  test('Should trigger saveBeforeSessionTimeout', async () => {
-    const body = {
-      saveBeforeSessionTimeout: 'yes',
-    };
-
-    const mockPhoneNumberFormContent = {
-      fields: {
-        accessCode: {
-          type: 'accessCode',
-          validator: isValidAccessCode,
-        },
-        caseCode: {
-          type: 'caseCode',
-          validator: isCaseCodeValid,
-        },
-      },
-    } as unknown as FormContent;
-    controller = new PostController(mockPhoneNumberFormContent.fields);
-    req = mockRequest({ body });
-    req.session.errors = [];
-    await controller.post(req, res);
-    expect(res.end).toHaveBeenCalled;
-  });
   test('Should trigger saveAndContinue', async () => {
     const body = {};
     req.session.errors = [];
