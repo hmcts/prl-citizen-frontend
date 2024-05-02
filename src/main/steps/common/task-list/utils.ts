@@ -74,7 +74,7 @@ export const isCaseLinked = (caseData: Partial<CaseWithId>, userDetails: UserDet
 };
 
 export const isCaseClosed = (caseData: Partial<CaseWithId>): boolean =>
-  !!(caseData && [State.CASE_WITHDRAWN, State.CASE_CLOSED].includes(caseData.state!));
+  !!(caseData && [State.CASE_WITHDRAWN, State.ALL_FINAL_ORDERS_ISSUED].includes(caseData.state!));
 
 export const isDraftCase = (caseData: Partial<CaseWithId>): boolean => {
   return caseData?.state === State.CASE_DRAFT;

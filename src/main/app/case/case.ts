@@ -13,16 +13,26 @@ import {
   Applicant,
   ApplicantTable,
   AttendingTheHearingTable,
+  C100Applicant,
+  C100DocumentInfo,
+  C100OrderTypes,
+  C100RebuildPartyDetails,
+  C1AAbuseTypes,
+  C1ASafteyConcerns,
+  C1ASafteyConcernsAbout,
   CaseData,
   CaseInvite,
   CaseStatus,
   Child,
   ChildDetailsExtraTable,
   ChildDetailsTable,
+  ChildrenDetails,
   ConfidentialDetails,
   ContactDetails,
+  ContactPreference,
   DateOfSubmission,
   Document,
+  DocumentUploadResponse,
   DraftConsentOrderFile,
   ExistingProceedings,
   Fl401UploadWitnessDocuments,
@@ -33,20 +43,28 @@ import {
   ListValue,
   LitigationCapacityTable,
   MiamExemptionsTable,
+  MiamNonAttendReason,
   MiamTable,
+  OrderInterface,
+  OtherChildrenDetails,
   OtherDocuments,
   OtherName,
   OtherPeopleInTheCaseTable,
   OtherProceedingEmptyTable,
+  OtherProceedings,
   OtherProceedingsDetailsTable,
   OtherProceedingsForSummaryTab,
   OtherProceedingsTable,
   OthersToNotify,
   PRLDocument,
+  PRL_C1AAbuseTypes,
+  PRL_C1ASafteyConcerns,
+  PRL_C1ASafteyConcernsAbout,
   PartyDetails,
   ProceedingsOrderTypes,
   ReasonableAdjustments,
   Respondent,
+  RespondentDocs,
   ResponseDocumentList,
   SelectTypeOfOrderEnum,
   SpecialArrangement,
@@ -60,27 +78,6 @@ import {
   WithoutNoticeOrderDetails,
   YesNoDontKnow,
   YesOrNo,
-  orderInterface,
-  //C100 Rebuild
-  // eslint-disable-next-line sort-imports
-  C100DocumentInfo,
-  C100OrderTypes,
-  C1ASafteyConcerns,
-  MiamNonAttendReason,
-  OtherProceedings,
-  //DocumentType,
-  ChildrenDetails,
-  C1ASafteyConcernsAbout,
-  C1AAbuseTypes,
-  OtherChildrenDetails,
-  C100RebuildPartyDetails,
-  C100Applicant,
-  PRL_C1ASafteyConcernsAbout,
-  PRL_C1ASafteyConcerns,
-  PRL_C1AAbuseTypes,
-  RespondentDocs,
-  DocumentUploadResponse,
-  ContactPreference,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -401,29 +398,29 @@ export interface Case {
   proceedingsStartOrder?: YesOrNo;
   courtProceedingsInvolved?: string;
   supervisionOrderOption?: YesOrNo;
-  supervisionOrder?: orderInterface;
+  supervisionOrder?: OrderInterface;
   emergencyOrderOptions?: YesOrNo;
-  emergencyOrder?: orderInterface;
+  emergencyOrder?: OrderInterface;
   careOrderOptions?: YesOrNo;
-  careOrder?: orderInterface;
+  careOrder?: OrderInterface;
   childAbductionOrderOption?: YesOrNo;
-  childAbductionOrder?: orderInterface;
+  childAbductionOrder?: OrderInterface;
   caOrderOption?: YesOrNo;
-  caOrder?: orderInterface;
+  caOrder?: OrderInterface;
   financialOrderOption?: YesOrNo;
-  financialOrder?: orderInterface;
+  financialOrder?: OrderInterface;
   nonmolestationOrderOption?: YesOrNo;
-  nonmolestationOrder?: orderInterface;
+  nonmolestationOrder?: OrderInterface;
   occupationalOrderOptions?: YesOrNo;
-  occupationOrder?: orderInterface;
+  occupationOrder?: OrderInterface;
   marraigeOrderOptions?: YesOrNo;
-  marraigeOrder?: orderInterface;
+  marraigeOrder?: OrderInterface;
   restrainingOrderOptions?: YesOrNo;
-  restrainingOrder?: orderInterface;
+  restrainingOrder?: OrderInterface;
   injuctiveOrderOptions?: YesOrNo;
-  injuctiveOrder?: orderInterface;
+  injuctiveOrder?: OrderInterface;
   underTakingOrderOptions?: YesOrNo;
-  underTakingOrder?: orderInterface;
+  underTakingOrder?: OrderInterface;
 
   /***** Applicant1 *****/
   citizenUserFullName?: string;

@@ -1293,7 +1293,7 @@ describe('tasklist index', () => {
     test('when case state is closed', () => {
       const data = {
         id: '12',
-        state: State.CASE_CLOSED,
+        state: State.ALL_FINAL_ORDERS_ISSUED,
         caseTypeOfApplication: 'C100',
         finalDocument: {
           document_url: 'document_url/123',
@@ -2412,7 +2412,7 @@ describe('tasklist index', () => {
     test('when case state is closed', () => {
       const data = {
         id: '12',
-        state: State.CASE_CLOSED,
+        state: State.ALL_FINAL_ORDERS_ISSUED,
         caseTypeOfApplication: 'FL401',
         applicantsFL401: applicantFL401,
       };
@@ -2751,7 +2751,7 @@ describe('tasklist index', () => {
     test('when case state is closed', () => {
       const data = {
         id: '12',
-        state: State.CASE_CLOSED,
+        state: State.ALL_FINAL_ORDERS_ISSUED,
         caseTypeOfApplication: 'FL401',
         finalDocument: {
           document_url: 'MOCK_DOCUMENT_URL',
@@ -3489,7 +3489,7 @@ describe('c100 respondent', () => {
   test('should return correct task list when case is closed', () => {
     const caseData = {
       id: '1234',
-      state: State.CASE_CLOSED,
+      state: State.ALL_FINAL_ORDERS_ISSUED,
       caseTypeOfApplication: CaseType.C100,
       finalDocument: {
         document_url: 'DOC_URL',
