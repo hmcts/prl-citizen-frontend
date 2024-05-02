@@ -101,6 +101,7 @@ export const form: FormContent = {
           subFields: {
             miam_noAppointmentAvailableDetails: {
               type: 'textarea',
+              labelSize: 's',
               label: l => l.giveDetails,
               hint: l => l.giveDetailsHint,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
@@ -115,6 +116,7 @@ export const form: FormContent = {
             miam_unableToAttainDueToDisablityDetails: {
               type: 'textarea',
               label: l => l.giveDetails,
+              labelSize: 's',
               hint: l => l.giveDetailsHint,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
             },
@@ -126,6 +128,7 @@ export const form: FormContent = {
           subFields: {
             miam_noMediatorIn15mileDetails: {
               type: 'textarea',
+              labelSize: 's',
               label: l => l.explain,
               hint: l => l.explain,
               validator: value => isFieldFilledIn(value) || isTextAreaValid(value),

@@ -1,9 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import {
-  FormContent,
-  //FormFields, FormOptions,
-  LanguageLookup,
-} from '../../../../app/form/Form';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
+import { Validator, isFieldFilledIn } from '../../../../app/form/validation';
 //import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
 
@@ -59,64 +56,29 @@ describe('miam should contain miam other reasons content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-  // test.skip('should contain miam other reasons field', () => {
-  //   const generatedContent = generateContent(commonContent) as Record<string, never>;
-  //   form = generatedContent.form as FormContent;
-  //   const fields = form.fields as FormFields;
-  //   const miamNotAttendingReasonsField = fields.miam_notAttendingReasons as FormOptions;
-  //   expect(miamNotAttendingReasonsField.type).toBe('checkboxes');
-  //   expect((miamNotAttendingReasonsField.hint as LanguageLookup)(generatedContent)).toBe(en.select_all_apply);
+  test('should contain miam other reasons field', () => {
+    const generatedContent = generateContent(commonContent) as Record<string, never>;
+    form = generatedContent.form as FormContent;
+    const fields = form.fields as FormFields;
+    const miam_domesticabuse_involvement_field = fields.miam_notAttendingReasons as FormOptions;
+    expect(miam_domesticabuse_involvement_field.type).toBe('radios');
+    expect((miam_domesticabuse_involvement_field.values[0].label as LanguageLookup)(generatedContent)).toBe(
+      en.applyingForWithoutNoticeHearing
+    );
+    expect((miam_domesticabuse_involvement_field.values[1].label as LanguageLookup)(generatedContent)).toBe(en.under18);
+    expect((miam_domesticabuse_involvement_field.values[0].hint as LanguageLookup)(generatedContent)).toBe(
+      en.applyingForWithoutNoticeHearingHint
+    );
+    expect((miam_domesticabuse_involvement_field.values[2].label as LanguageLookup)(generatedContent)).toBe(
+      en.canNotAccessMediator
+    );
+    expect((miam_domesticabuse_involvement_field.values[4].label as LanguageLookup)(generatedContent)).toBe(
+      en.noneOfTheAbove
+    );
 
-  //   expect((miamNotAttendingReasonsField.values[0].label as LanguageLookup)(generatedContent)).toBe(
-  //     en.noSufficientContactDetails
-  //   );
-  //   expect((miamNotAttendingReasonsField.values[1].label as LanguageLookup)(generatedContent)).toBe(
-  //     en.applyingForWithoutNoticeHearing
-  //   );
-  //   expect((miamNotAttendingReasonsField.values[2].label as LanguageLookup)(generatedContent)).toBe(
-  //     en.canNotAccessMediator
-  //   );
-  //   expect((miamNotAttendingReasonsField.values[2].hint as LanguageLookup)(generatedContent)).toBe(
-  //     en.canNotAccessMediatorHint
-  //   );
-  //   expect((miamNotAttendingReasonsField.values[3].label as LanguageLookup)(generatedContent)).toBe(
-  //     en.notAttendingAsInPrison
-  //   );
-  //   expect((miamNotAttendingReasonsField.values[4].label as LanguageLookup)(generatedContent)).toBe(
-  //     en.notHabituallyResident
-  //   );
-  //   expect((miamNotAttendingReasonsField.values[4].hint as LanguageLookup)(generatedContent)).toBe(
-  //     en.notHabituallyResidentHint
-  //   );
-  //   expect((miamNotAttendingReasonsField.values[5].label as LanguageLookup)(generatedContent)).toBe(en.under18);
-  //   expect((miamNotAttendingReasonsField.values[7].label as LanguageLookup)(generatedContent)).toBe(en.noneOfTheAbove);
-  //   expect(miamNotAttendingReasonsField.values[7].behaviour).toBe('exclusive');
-
-  //   (miamNotAttendingReasonsField.validator as Function)('noSufficientContactDetails');
-  //   expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('noSufficientContactDetails');
-
-  //   const noMediatorAccessSubField = miamNotAttendingReasonsField.values[2].subFields
-  //     ?.miam_noMediatorAccessSubfields as FormOptions;
-  //   expect(noMediatorAccessSubField.type).toBe('checkboxes');
-  //   expect((noMediatorAccessSubField.values[0].label as LanguageLookup)(generatedContent)).toBe(
-  //     en.mediatorDoesNotHaveDisabilityAccess
-  //   );
-  //   expect((noMediatorAccessSubField.values[0].hint as LanguageLookup)(generatedContent)).toBe(
-  //     en.mediatorDoesNotHaveDisabilityAccessHint1
-  //   );
-  //   expect((noMediatorAccessSubField.values[1].label as LanguageLookup)(generatedContent)).toBe(
-  //     en.noMediatorAppointment
-  //   );
-  //   expect((noMediatorAccessSubField.values[1].hint as LanguageLookup)(generatedContent)).toBe(
-  //     en.mediatorDoesNotHaveDisabilityAccessHint2
-  //   );
-  //   expect((noMediatorAccessSubField.values[2].label as LanguageLookup)(generatedContent)).toBe(
-  //     en.noAuthorisedFamilyMediator
-  //   );
-
-  //   (noMediatorAccessSubField.validator as Function)('noMediatorAppointment');
-  //   expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('noMediatorAppointment');
-  // });
+    (miam_domesticabuse_involvement_field.validator as Validator)('localAuthority');
+    expect(isFieldFilledIn).toHaveBeenCalledWith('localAuthority');
+  });
 
   test('should contain Continue and save and comeback later button', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
