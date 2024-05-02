@@ -15,7 +15,7 @@ const tabGroup = {
   [State.CASE_SUBMITTED_PAID]: 'draft',
   [State.CASE_ISSUED_TO_LOCAL_COURT]: 'draft',
   [State.CASE_GATE_KEEPING]: 'draft',
-  [State.CASE_CLOSED]: 'closed',
+  [State.ALL_FINAL_ORDERS_ISSUED]: 'closed',
   [State.CASE_WITHDRAWN]: 'closed',
   '*': 'active',
 };

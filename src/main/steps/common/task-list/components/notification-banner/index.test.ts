@@ -767,7 +767,7 @@ describe('testcase for notification Banner', () => {
   test('when case is closed', () => {
     const data = {
       id: '12',
-      state: State.CASE_CLOSED,
+      state: State.ALL_FINAL_ORDERS_ISSUED,
     };
     const party = PartyType.APPLICANT;
     const language = 'en';

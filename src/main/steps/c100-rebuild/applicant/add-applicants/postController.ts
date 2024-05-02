@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Case } from '../../../../app/case/case';
-import { C100ListOfApplicants, Gender, YesNoEmpty } from '../../../../app/case/definition';
+import { C100Applicant, C100ListOfApplicants, Gender, YesNoEmpty } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -180,7 +180,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
         canLeaveVoiceMail: YesNoEmpty.EMPTY,
       },
       reasonableAdjustmentsFlags: [],
-    };
+    } as C100Applicant;
     let applicantInSession: C100ListOfApplicants = [];
     if (req.session.userCase.hasOwnProperty('appl_allApplicants') && req.session.userCase.appl_allApplicants) {
       applicantInSession = req.session.userCase.appl_allApplicants;
