@@ -5,10 +5,10 @@ import { AnyObject } from '../../../../app/controller/PostController';
 
 export const prepareStatementOfServiceRequest = (req: AppRequest<AnyObject>): CitizenSos => {
   const userCase = req.session.userCase;
-  const sos_partiesServed = userCase.sos_partiesServed!.filter(party => party !== '').toString();
+  const partiesServed = userCase.sos_partiesServed!.filter(party => party !== '').toString();
   return {
-    sos_partiesServed,
-    sos_partiesServedDate: userCase.sos_partiesServedDate
+    partiesServed,
+    partiesServedDate: userCase.sos_partiesServedDate
       ? `${userCase.sos_partiesServedDate['day']}-${userCase.sos_partiesServedDate['month']}-${userCase.sos_partiesServedDate['day']}`
       : '',
     citizenSosDocs: userCase.statementOfServiceDocument!,

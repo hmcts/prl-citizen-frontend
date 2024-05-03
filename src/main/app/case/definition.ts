@@ -116,8 +116,8 @@ export interface PartyDetails {
 }
 
 export interface CitizenSos {
-  sos_partiesServedDate: string;
-  sos_partiesServed: string;
+  partiesServedDate: string;
+  partiesServed: string;
   citizenSosDocs: Document;
   isOrder?: string;
 }

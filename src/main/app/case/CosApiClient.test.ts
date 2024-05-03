@@ -647,8 +647,8 @@ describe('RetrieveCaseHearingsByCaseId', () => {
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<string>);
     const client = new CosApiClient('abc', mockLogger);
     const sosObject: CitizenSos = {
-      sos_partiesServed: '',
-      sos_partiesServedDate: '',
+      partiesServed: '',
+      partiesServedDate: '',
       citizenSosDocs: {
         document_url: 'http://localhost',
         document_filename: 'test.docx',
@@ -669,8 +669,8 @@ describe('RetrieveCaseHearingsByCaseId', () => {
     const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
     const sosObject: CitizenSos = {
-      sos_partiesServed: '',
-      sos_partiesServedDate: '',
+      partiesServed: '',
+      partiesServedDate: '',
       citizenSosDocs: {
         document_url: 'http://localhost',
         document_filename: 'test.docx',
