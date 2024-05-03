@@ -60,9 +60,9 @@ const en = {
     beforStatingApplication: PreviousAttendanceEn().beforStatingApplication,
   },
   validExemption: {
-    applyingForWithoutNoticeHearing: OtherEn().applyingForWithoutNoticeHearing,
-    under18: OtherEn().under18,
-    canNotAccessMediator: OtherEn().canNotAccessMediator,
+    applyingForWithoutNoticeHearing: OtherEn.applyingForWithoutNoticeHearing,
+    under18: OtherEn.under18,
+    canNotAccessMediator: OtherEn.canNotAccessMediator,
   },
 };
 
@@ -113,9 +113,9 @@ const cy = {
     beforStatingApplication: PreviousAttendanceCy().beforStatingApplication,
   },
   validExemption: {
-    applyingForWithoutNoticeHearing: OtherCy().applyingForWithoutNoticeHearing,
-    under18: OtherCy().under18,
-    canNotAccessMediator: OtherCy().canNotAccessMediator,
+    applyingForWithoutNoticeHearing: OtherCy.applyingForWithoutNoticeHearing,
+    under18: OtherCy.under18,
+    canNotAccessMediator: OtherCy.canNotAccessMediator,
   },
 };
 

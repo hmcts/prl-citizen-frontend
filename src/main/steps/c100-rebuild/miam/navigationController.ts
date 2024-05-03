@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Case } from '../../../app/case/case';
+import { Case, Miam_noMediatorReasons, Miam_notAttendingReasons } from '../../../app/case/case';
 import { MiamNonAttendReason } from '../../../app/case/definition';
 import {
   C100_HEARING_URGENCY_URGENT,
@@ -93,7 +93,7 @@ class MIAMNavigationController {
       }
       case C100_MIAM_OTHER: {
         url =
-          caseData.miam_notAttendingReasons === 'canNotAccessMediator'
+          caseData.miam_notAttendingReasons === Miam_notAttendingReasons.canNotAccessMediator
             ? C100_MIAM_NO_ACCESS_MEDIATOR
             : this.checkForAnyValidReason(caseData)
             ? C100_MIAM_NO_NEED_WITH_REASONS
@@ -102,7 +102,7 @@ class MIAMNavigationController {
       }
       case C100_MIAM_NO_ACCESS_MEDIATOR: {
         url =
-          caseData.miam_noMediatorReasons === MiamNonAttendReason.NONE
+          caseData.miam_noMediatorReasons === Miam_noMediatorReasons.none
             ? C100_MIAM_GET_MEDIATOR
             : C100_MIAM_NO_NEED_WITH_REASONS;
         break;

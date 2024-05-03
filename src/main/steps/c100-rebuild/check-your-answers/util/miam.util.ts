@@ -161,11 +161,11 @@ export const MiamContentForOtherFeatureAndSubFeilds = UserCase => {
   if (UserCase.hasOwnProperty(key) || UserCase.hasOwnProperty(subkey)) {
     return {
       en: () => {
-        const data = { ...MiamOtherContentEn() } as ANYTYPE;
+        const data = { ...MiamOtherContentEn } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
       cy: () => {
-        const data = { ...MiamOtherContentCy() } as ANYTYPE;
+        const data = { ...MiamOtherContentCy } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
     };

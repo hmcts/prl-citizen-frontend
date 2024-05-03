@@ -1,10 +1,11 @@
+import { Miam_noMediatorReasons } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
 export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const en = () => ({
+export const en = {
   caption: 'MIAM exemptions',
   title: 'Cannot access a mediator',
   lines: 'Depending on your reason why you cannot attend a MIAM, you might need to provide evidence.',
@@ -41,10 +42,10 @@ export const en = () => ({
       required: 'Give details of the mediators you’ve contacted',
     },
   },
-});
+};
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const cy = () => ({
+export const cy = {
   caption: 'Esemptiadau MIAM',
   title: 'Ni allwch gael mynediad at gyfryngwr',
   lines: 'Gan ddibynnu ar eich rheswm pam na allwch chi fynychu MIAM, efallai y bydd angen i chi ddarparu tystiolaeth.',
@@ -81,7 +82,7 @@ export const cy = () => ({
       required: 'Rhowch fanylion y cyfryngwr rydych wedi cysylltu ag o/â hi',
     },
   },
-});
+};
 
 const languages = {
   en,
@@ -97,7 +98,7 @@ export const form: FormContent = {
         {
           label: l => l.noAppointmentAvailable,
           hint: l => l.evidenceHint,
-          value: 'noAppointmentAvailable',
+          value: Miam_noMediatorReasons.noAppointmentAvailable,
           subFields: {
             miam_noAppointmentAvailableDetails: {
               type: 'textarea',
@@ -111,7 +112,7 @@ export const form: FormContent = {
         {
           label: l => l.disability,
           hint: l => l.evidenceHint,
-          value: 'disability',
+          value: Miam_noMediatorReasons.disability,
           subFields: {
             miam_unableToAttainDueToDisablityDetails: {
               type: 'textarea',
@@ -124,7 +125,7 @@ export const form: FormContent = {
         },
         {
           label: l => l.noMediatorIn15mile,
-          value: 'noMediatorIn15mile',
+          value: Miam_noMediatorReasons.noMediatorIn15mile,
           subFields: {
             miam_noMediatorIn15mileDetails: {
               type: 'textarea',
@@ -137,22 +138,22 @@ export const form: FormContent = {
         },
         {
           label: l => l.inPrison,
-          value: 'inPrison',
+          value: Miam_noMediatorReasons.inPrison,
         },
         {
           label: l => l.bailThatPreventContact,
-          value: 'bailThatPreventContact',
+          value: Miam_noMediatorReasons.bailThatPreventContact,
         },
         {
           label: l => l.releaseFromPrisonOnLicence,
-          value: 'releaseFromPrisonOnLicence',
+          value: Miam_noMediatorReasons.releaseFromPrisonOnLicence,
         },
         {
           divider: true,
         },
         {
           label: l => l.noneOfTheAbove,
-          value: 'none',
+          value: Miam_noMediatorReasons.none,
         },
       ],
       validator: isFieldFilledIn,
@@ -167,7 +168,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language];
   return {
     ...translations,
     form,

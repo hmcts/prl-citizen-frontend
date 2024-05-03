@@ -58,9 +58,9 @@ export const en = () => ({
     beforStatingApplication: PreviousAttendanceEn().beforStatingApplication,
   },
   validExemption: {
-    applyingForWithoutNoticeHearing: OtherEn().applyingForWithoutNoticeHearing,
-    canNotAccessMediator: OtherEn().canNotAccessMediator,
-    under18: OtherEn().under18,
+    applyingForWithoutNoticeHearing: OtherEn.applyingForWithoutNoticeHearing,
+    canNotAccessMediator: OtherEn.canNotAccessMediator,
+    under18: OtherEn.under18,
   },
 });
 
@@ -111,9 +111,9 @@ export const cy = () => ({
     beforStatingApplication: PreviousAttendanceCy().beforStatingApplication,
   },
   validExemption: {
-    applyingForWithoutNoticeHearing: OtherCy().applyingForWithoutNoticeHearing,
-    canNotAccessMediator: OtherCy().canNotAccessMediator,
-    under18: OtherCy().under18,
+    applyingForWithoutNoticeHearing: OtherCy.applyingForWithoutNoticeHearing,
+    canNotAccessMediator: OtherCy.canNotAccessMediator,
+    under18: OtherCy.under18,
   },
 });
 const languages = {

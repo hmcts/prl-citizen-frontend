@@ -547,8 +547,8 @@ export interface Case {
   miam_childProtectionEvidence?: string[];
   miam_urgency?: string[];
   miam_previousAttendance?: string[];
-  miam_notAttendingReasons?: string;
-  miam_noMediatorReasons?: string;
+  miam_notAttendingReasons?: Miam_notAttendingReasons;
+  miam_noMediatorReasons?: Miam_noMediatorReasons;
   hu_urgentHearingReasons?: YesOrNo;
   c1A_passportOffice?: YesOrNo;
   PRL_c1A_passportOffice?: YesOrNo;
@@ -639,6 +639,25 @@ export interface Case {
   ra_languageReqAndSpecialArrangements?: string;
   ra_existingFlags?: RAFlags;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
+  miam_noAppointmentAvailableDetails?: string;
+  miam_unableToAttainDueToDisablityDetails?: string;
+  miam_noMediatorIn15mileDetails?: string;
+}
+
+export enum Miam_notAttendingReasons {
+  applyingForWithoutNoticeHearing = 'applyingForWithoutNoticeHearing',
+  under18 = 'under18',
+  canNotAccessMediator = 'canNotAccessMediator',
+  none = 'none',
+}
+export enum Miam_noMediatorReasons {
+  noAppointmentAvailable = 'noAppointmentAvailable',
+  disability = 'disability',
+  noMediatorIn15mile = 'noMediatorIn15mile',
+  inPrison = 'inPrison',
+  bailThatPreventContact = 'bailThatPreventContact',
+  releaseFromPrisonOnLicence = 'releaseFromPrisonOnLicence',
+  none = 'none',
 }
 export interface ServedApplicationDetails {
   id: string;

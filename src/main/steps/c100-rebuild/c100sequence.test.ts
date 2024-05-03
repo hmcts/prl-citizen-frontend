@@ -301,7 +301,7 @@ describe('C100Sequence', () => {
     expect(C100Sequence[48].showInSection).toBe('c100');
     expect(C100Sequence[48].getNextStep(miamMockData.session.userCase)).toBe('/c100-rebuild/miam/get-mediator');
 
-    expect(C100Sequence[49].url).toBe('/c100-rebuild/miam/no-access-mediator');
+    expect(C100Sequence[49].url).toBe('/c100-rebuild/miam/no-access-to-mediator');
     expect(C100Sequence[49].showInSection).toBe('c100');
     expect(C100Sequence[49].getNextStep(miamMockData.session.userCase)).toBe('/c100-rebuild/miam/no-need-with-reasons');
 

@@ -1,10 +1,11 @@
+import { Miam_notAttendingReasons } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const en = () => ({
+export const en = {
   caption: 'MIAM exemptions',
   title: 'Other reason for not attending a MIAM',
   lines: 'Depending on your reason why you cannot attend a MIAM, you might need to provide evidence.',
@@ -20,10 +21,10 @@ export const en = () => ({
       required: 'Select what other reason you have for not attending a MIAM',
     },
   },
-});
+};
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const cy = () => ({
+export const cy = {
   caption: 'Esemptiadau MIAM',
   title: 'Rheswm arall dros beidio â mynychu MIAM',
   lines: 'Gan ddibynnu ar eich rheswm pam na allwch chi fynychu MIAM, efallai y bydd angen i chi ddarparu tystiolaeth.',
@@ -39,7 +40,7 @@ export const cy = () => ({
       required: 'Dewiswch pa reswm arall sydd gennych dros beidio â mynychu MIAM',
     },
   },
-});
+};
 
 const languages = {
   en,
@@ -55,22 +56,22 @@ export const form: FormContent = {
         {
           label: l => l.applyingForWithoutNoticeHearing,
           hint: l => l.applyingForWithoutNoticeHearingHint,
-          value: 'applyingForWithoutNoticeHearing',
+          value: Miam_notAttendingReasons.applyingForWithoutNoticeHearing,
         },
         {
           label: l => l.under18,
-          value: 'under18',
+          value: Miam_notAttendingReasons.under18,
         },
         {
           label: l => l.canNotAccessMediator,
-          value: 'canNotAccessMediator',
+          value: Miam_notAttendingReasons.canNotAccessMediator,
         },
         {
           divider: true,
         },
         {
           label: l => l.noneOfTheAbove,
-          value: 'none',
+          value: Miam_notAttendingReasons.none,
         },
       ],
       validator: isFieldFilledIn,
@@ -85,7 +86,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language];
   return {
     ...translations,
     form,
