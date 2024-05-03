@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Case } from '../../../app/case/case';
+import { Case, Miam_previousAttendance } from '../../../app/case/case';
 import { MiamNonAttendReason, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
@@ -94,9 +94,9 @@ class MIAMNavigationController {
         break;
       }
       case C100_MIAM_PREVIOUS_ATTENDANCE: {
-        if (caseData.miam_previousAttendance === 'fourMonthsPriorAttended') {
+        if (caseData.miam_previousAttendance === Miam_previousAttendance.fourMonthsPriorAttended) {
           url = applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING) as PageLink;
-        } else if (caseData.miam_previousAttendance === 'miamExamptionApplied') {
+        } else if (caseData.miam_previousAttendance === Miam_previousAttendance.miamExamptionApplied) {
           url = C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR;
         } else {
           url =

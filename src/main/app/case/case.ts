@@ -546,8 +546,8 @@ export interface Case {
   miam_nonAttendanceReasons?: MiamNonAttendReason[];
   miam_domesticAbuse?: string[];
   miam_childProtectionEvidence?: string[];
-  miam_urgency?: string;
-  miam_previousAttendance?: string;
+  miam_urgency?: Miam_urgency;
+  miam_previousAttendance?: Miam_previousAttendance;
   miam_previousAttendanceEvidenceDoc?: DocumentResponse;
   miam_haveDocSignedByMediatorForPrevAttendance?: string;
   miam_notAttendingReasons?: string[];
@@ -641,6 +641,24 @@ export interface Case {
   ra_languageReqAndSpecialArrangements?: string;
   ra_existingFlags?: RAFlags;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
+}
+
+export enum Miam_previousAttendance {
+  fourMonthsPriorAttended = 'fourMonthsPriorAttended',
+  miamExamptionApplied = 'miamExamptionApplied',
+  none = 'none',
+}
+export enum Miam_urgency {
+  freedomPhysicalSafety = 'freedomPhysicalSafety',
+  freedomPhysicalSafetyInFamily = 'freedomPhysicalSafetyInFamily',
+  riskSafetyInHome = 'riskSafetyInHome',
+  riskOfHarmToChildren = 'riskOfHarmToChildren',
+  unlawfullyRemovedFromUK = 'unlawfullyRemovedFromUK',
+  riskOfUnfairCourtDecision = 'riskOfUnfairCourtDecision',
+  riskUnreasonableFinancialHardship = 'riskUnreasonableFinancialHardship',
+  riskOfIrretrievableProblems = 'riskOfIrretrievableProblems',
+  riskOfCourtProceedingsDispute = 'riskOfCourtProceedingsDispute',
+  none = 'none',
 }
 export interface ServedApplicationDetails {
   id: string;

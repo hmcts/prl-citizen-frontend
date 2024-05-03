@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { cy as CyMidiationDocument, en as EnMidiationDocument } from '.././miam/mediator-document/content';
+import { Miam_urgency } from '../../../app/case/case';
 import { C1ASafteyConcernsAbout, YesOrNo } from '../../../app/case/definition';
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
@@ -1180,7 +1181,7 @@ describe('Content.ts toggle test cases', () => {
         ...commonContent.userCase,
         sq_writtenAgreement: undefined,
         miam_otherProceedings: undefined,
-        miam_urgency: 'test',
+        miam_urgency: Miam_urgency.freedomPhysicalSafety,
       },
     });
     expect(generatedEnContent.sections).toStrictEqual([
@@ -1637,7 +1638,7 @@ describe('Content.ts toggle test cases', () => {
         ...commonContent.userCase,
         sq_writtenAgreement: undefined,
         miam_otherProceedings: undefined,
-        miam_urgency: 'test',
+        miam_urgency: Miam_urgency.freedomPhysicalSafety,
       },
       language: 'cy',
     });

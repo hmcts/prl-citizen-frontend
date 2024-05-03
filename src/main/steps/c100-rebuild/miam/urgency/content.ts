@@ -1,3 +1,4 @@
+import { Miam_urgency } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
@@ -78,47 +79,47 @@ export const form: FormContent = {
         {
           name: 'miam_urgency',
           label: l => l.freedomPhysicalSafety,
-          value: 'freedomPhysicalSafety',
+          value: Miam_urgency.freedomPhysicalSafety,
         },
         {
           name: 'miam_urgency',
           label: l => l.freedomPhysicalSafetyInFamily,
-          value: 'freedomPhysicalSafetyInFamily',
+          value: Miam_urgency.freedomPhysicalSafetyInFamily,
         },
         {
           name: 'miam_urgency',
           label: l => l.riskSafetyInHome,
-          value: 'riskSafetyInHome',
+          value: Miam_urgency.riskSafetyInHome,
         },
         {
           name: 'miam_urgency',
           label: l => l.riskOfHarmToChildren,
-          value: 'riskOfHarmToChildren',
+          value: Miam_urgency.riskOfHarmToChildren,
         },
         {
           name: 'miam_urgency',
           label: l => l.unlawfullyRemovedFromUK,
-          value: 'unlawfullyRemovedFromUK',
+          value: Miam_urgency.unlawfullyRemovedFromUK,
         },
         {
           name: 'miam_urgency',
           label: l => l.riskOfUnfairCourtDecision,
-          value: 'riskOfUnfairCourtDecision',
+          value: Miam_urgency.riskOfUnfairCourtDecision,
         },
         {
           name: 'miam_urgency',
           label: l => l.riskUnreasonableFinancialHardship,
-          value: 'riskUnreasonableFinancialHardship',
+          value: Miam_urgency.riskUnreasonableFinancialHardship,
         },
         {
           name: 'miam_urgency',
           label: l => l.riskOfIrretrievableProblems,
-          value: 'riskOfIrretrievableProblems',
+          value: Miam_urgency.riskOfIrretrievableProblems,
         },
         {
           name: 'miam_urgency',
           label: l => l.riskOfCourtProceedingsDispute,
-          value: 'riskOfCourtProceedingsDispute',
+          value: Miam_urgency.riskOfCourtProceedingsDispute,
         },
         {
           divider: l => l.divider,
@@ -126,7 +127,7 @@ export const form: FormContent = {
         {
           name: 'miam_urgency',
           label: l => l.noneOfThese,
-          value: 'none',
+          value: Miam_urgency.none,
         },
       ],
     },

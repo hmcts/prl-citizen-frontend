@@ -1,3 +1,4 @@
+import { Miam_previousAttendance } from '../../../../app/case/case';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
@@ -63,13 +64,13 @@ export const form: FormContent = {
           name: 'miam_previousAttendance',
           label: l => l.fourMonthsPriorAttended,
           hint: l => l.fourMonthsPriorAttendedHint,
-          value: 'fourMonthsPriorAttended',
+          value: Miam_previousAttendance.fourMonthsPriorAttended,
         },
         {
           name: 'miam_previousAttendance',
           label: l => l.miamExamptionApplied,
           hint: l => l.miamExamptionAppliedHint,
-          value: 'miamExamptionApplied',
+          value: Miam_previousAttendance.miamExamptionApplied,
         },
         {
           divider: l => l.divider,
@@ -77,7 +78,7 @@ export const form: FormContent = {
         {
           name: 'miam_previousAttendance',
           label: l => l.noneOfThese,
-          value: 'none',
+          value: Miam_previousAttendance.none,
         },
       ],
     },
