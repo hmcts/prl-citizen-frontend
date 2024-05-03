@@ -174,14 +174,11 @@ export const form: FormContent = {
 };
 
 const getParties = (userCase: Partial<CaseWithId>) => {
-  const parties: { id: string; value: string }[] = [];
-  userCase?.respondents?.forEach(respondent => {
-    if (respondent.value.response.citizenFlags?.isApplicationToBeServed !== YesOrNo.YES) {
-      parties.push({
-        id: respondent.id,
-        value: `${respondent.value.firstName} ${respondent.value.lastName}`,
-      });
-    }
+  const parties: { id: string; value: string }[] | undefined = userCase?.respondents?.map(respondent => {
+    return {
+      id: respondent.id,
+      value: `${respondent.value.firstName} ${respondent.value.lastName}`,
+    };
   });
   return parties;
 };
