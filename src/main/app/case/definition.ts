@@ -993,7 +993,7 @@ export interface CaseData {
   citizenDocuments?: CitizenDocuments[];
   citizenOrders?: CitizenDocuments[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
-  personalServiceUnServedRespondentPack: CitizenRespondentPack;
+  unServedRespondentPack: CitizenRespondentPack;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
 

@@ -20,7 +20,7 @@ export const form: FormContent = {
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
   const respondentPacks: CitizenRespondentPack =
-    content.additionalData?.req.session.userCase.personalServiceUnServedRespondentPack;
+    content.additionalData?.req.session.userCase.unServedRespondentPack;
   const documents = respondentPacks
     ? respondentPacks.packDocument?.map(document => {
         const documentId = document.value?.document_url.substring(document.value.document_url.lastIndexOf('/') + 1);

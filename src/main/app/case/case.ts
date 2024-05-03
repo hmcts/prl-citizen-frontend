@@ -240,7 +240,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   citizenOrders: 'citizenOrders',
   citizenApplicationPacks: 'citizenApplicationPacks',
   finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
-  personalServiceUnServedRespondentPack: 'personalServiceUnServedRespondentPack',
+  unServedRespondentPack: 'unServedRespondentPack',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -615,7 +615,7 @@ export interface Case {
   citizenDocuments?: CitizenDocuments[];
   citizenOrders?: CitizenOrders[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
-  personalServiceUnServedRespondentPack?: CitizenRespondentPack;
+  unServedRespondentPack?: CitizenRespondentPack;
   // RA local component
   ra_typeOfHearing?: string[];
   ra_noVideoAndPhoneHearing_subfield?: string;

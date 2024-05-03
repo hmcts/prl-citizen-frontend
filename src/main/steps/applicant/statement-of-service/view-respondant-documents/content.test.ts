@@ -18,7 +18,7 @@ describe('view respondent documents content', () => {
       },
       session: {
         userCase: {
-          personalServiceUnServedRespondentPack: {
+          unServedRespondentPack: {
             packDocument: [
               {
                 id: '',
