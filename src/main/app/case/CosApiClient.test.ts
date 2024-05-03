@@ -644,7 +644,7 @@ describe('RetrieveCaseHearingsByCaseId', () => {
   test('upload Statement of service', async () => {
     const req = mockRequest();
     const response = { id: '1234567' };
-    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
+    mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<string>);
     const client = new CosApiClient('abc', mockLogger);
     const sosObject: CitizenSos = {
       sos_partiesServed: '',

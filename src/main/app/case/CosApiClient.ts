@@ -154,14 +154,13 @@ export class CosApiClient {
     caseId: string,
     sosObject: CitizenSos,
     eventName: CaseEvent
-  ): Promise<CaseWithId> {
+  ): Promise<string | undefined> {
     try {
       const response = await this.client.post(
         config.get('services.cos.url') + `/${caseId}/${eventName}/save-statement-of-service-by-citizen`,
         sosObject
       );
-
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
+      return response.data;
     } catch (error) {
       this.logError(error);
       throw new Error('Case could not be updated.');

@@ -15,15 +15,11 @@ export const routeGuard = {
       const client = new CosApiClient(userDetails.accessToken, req.locals.logger);
       try {
         await client.deleteCitizenStatementDocument(query.documentId as string);
-
         if (req.session.userCase && req.session.userCase.hasOwnProperty('statementOfServiceDocument')) {
-          req.session.userCase['statementOfServiceDocument'] = undefined;
-
           if (!req.session.userCase?.['statementOfServiceDocument']) {
             delete req.session.userCase['statementOfServiceDocument'];
           }
         }
-
         req.session.errors = removeUploadDocErrors(req.session.errors);
       } catch (e) {
         req.session.errors = handleError(req.session.errors, 'deleteError', true);

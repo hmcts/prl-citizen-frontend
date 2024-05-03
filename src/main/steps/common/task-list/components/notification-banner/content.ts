@@ -365,6 +365,7 @@ const en: NotificationBannerContent = {
                 {
                   href: `${C9_DOWNLOAD_LINK}`,
                   text: 'Download the Statement of service (form C9)',
+                  external: true,
                 },
                 {
                   href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'application' }),
@@ -636,6 +637,7 @@ const en: NotificationBannerContent = {
                 {
                   href: `${FL415_DOWNLOAD_LINK}`,
                   text: 'Download the Statement of service (form FL415)',
+                  external: true,
                 },
                 {
                   href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'application' }),
@@ -988,7 +990,7 @@ const cy: typeof en = {
               links: [
                 {
                   text: 'Lawrlwythwch y datganiad cyflwyno (ffurflen C9) (agor mewn tab newydd)',
-                  href: 'https://assets.publishing.service.gov.uk/media/64c39c16f921860014866728/c9_0401.pdf',
+                  href: C9_DOWNLOAD_LINK,
                   external: true,
                 },
                 {
@@ -1260,6 +1262,7 @@ const cy: typeof en = {
                 {
                   href: `${FL415_DOWNLOAD_LINK}`,
                   text: 'Download the Statement of service (form FL415)',
+                  external: true,
                 },
                 {
                   href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'application' }),

@@ -188,7 +188,7 @@ const getParties = (userCase: Partial<CaseWithId>) => {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const url = `?context=${content.additionalData?.req.params.context}&isSos=Yes`;
+  const url = `?context=${content.additionalData?.req.params.context}`;
   const file = content.userCase?.['statementOfServiceDocument'];
   return {
     ...translations,

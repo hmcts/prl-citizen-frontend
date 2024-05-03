@@ -730,7 +730,7 @@ describe('testcase for notification Banner', () => {
               {
                 href: 'https://www.gov.uk/government/publications/form-c9-statement-of-service',
                 text: 'Download the Statement of service (form C9)',
-                external: false,
+                external: true,
               },
               {
                 href: '/applicant/statement-of-service/choose-parties/application',

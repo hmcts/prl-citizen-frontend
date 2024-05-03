@@ -2,7 +2,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { getPartyDetails, mapDataInSession } from '../../../../../main/steps/tasklistresponse/utils';
+import { getPartyDetails } from '../../../../../main/steps/tasklistresponse/utils';
 import {
   APPLICANT_STATEMENT_OF_SERVICE_NEXT,
   APPLICANT_STATEMENT_OF_SERVICE_SUMMARY,
@@ -31,9 +31,7 @@ export default class StatementOfServicePostController extends PostController<Any
       req.session.errors = [];
     }
     if (req.session.errors?.length) {
-      req.session.save(() =>
-        res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req.params.context }))
-      );
+      res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req.params.context }));
       return;
     }
     const { user, userCase } = req.session;
@@ -43,10 +41,7 @@ export default class StatementOfServicePostController extends PostController<Any
       const userData = prepareStatementOfServiceRequest(req);
       req.session.userCase.statementOfServiceDocument = undefined;
       try {
-        mapDataInSession(
-          await client.saveStatementOfService(userCase.id, userData, CaseEvent.CITIZEN_CASE_UPDATE),
-          user.id
-        );
+        await client.saveStatementOfService(userCase.id, userData, CaseEvent.CITIZEN_CASE_UPDATE);
         req.session.save(() => res.redirect(APPLICANT_STATEMENT_OF_SERVICE_NEXT));
         return;
       } catch (error) {

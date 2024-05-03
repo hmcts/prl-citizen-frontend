@@ -25,9 +25,7 @@ export const DA_APPLICANT: NotificationBannerProps[] = [
       return (
         caseData?.state !== State.CASE_CLOSED &&
         isCaseLinked(caseData, userDetails) &&
-        (caseData.applicantsFL401
-          ? YesOrNo.YES === caseData.applicantsFL401.response?.citizenFlags?.isApplicationToBeServed
-          : false)
+        YesOrNo.YES === caseData?.applicantsFL401?.response?.citizenFlags?.isApplicationToBeServed
       );
     },
   },
