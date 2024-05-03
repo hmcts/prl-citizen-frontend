@@ -12,7 +12,7 @@ export const en = () => ({
   domesticViolence: 'Domestic abuse',
   childProtection: 'Child protection concerns',
   urgentHearing: 'Urgency',
-  previousMIAMOrExempt: 'Previous attendance of a MIAM, or non-court dispute resolution',
+  previousMIAMOrExempt: 'Previous attendance of a MIAM, or non-court dispute resolution (NCDR)',
   validExemption: 'Other reason',
   noReason: 'None of these',
   summaryText: 'Contacts for help',
