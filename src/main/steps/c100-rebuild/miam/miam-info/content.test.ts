@@ -54,7 +54,7 @@ const cy = {
   whenDontHaveToAttend: 'Amgylchiadau pam nad oes rhaid ichi fynychu MIAM',
   dontHaveToAttend:
     'Nid oes rhaid i chi fynychu MIAM os oes gennych reswm dilys (esemptiad). Er enghraifft, rydych chi neu\'r plant mewn perygl o niwed. Gweld rhestr o <a href ="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" target="_blank">resymau dilys dros beidio â mynychu MIAM (yn agor mewn tab newydd)</a>.',
-  ifExempt: 'If you’re exempt from attending a MIAM, you may have to provide evidence to the court. (welsh)',
+  ifExempt: 'Os ydych wedi’ch eithrio rhag mynychu MIAM, efallai y bydd rhaid i chi ddarparu tystiolaeth i’r llys.',
   attendingMiam: 'Mynychu MIAM',
   understandLabel: "Rwy'n deall bod rhaid i mi fynychu MIAM neu ddarparu rheswm dilys dros beidio â mynychu.",
   errors: {
