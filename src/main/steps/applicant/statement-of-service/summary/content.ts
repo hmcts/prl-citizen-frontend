@@ -135,16 +135,10 @@ const getSummarySection = (summaryContent: CommonContent) => {
         }),
       });
     }
-    if (summaryContent.userCase['sos_partiesServedDate-day']) {
-      const date =
-        summaryContent.userCase['sos_partiesServedDate-day'] +
-        '-' +
-        summaryContent.userCase['sos_partiesServedDate-month'] +
-        '-' +
-        summaryContent.userCase['sos_partiesServedDate-year'];
+    if (summaryContent.userCase.sos_partiesServedDate) {
       summaryData.push({
         key: labels.keys.sos_partiesServedDate,
-        value: date.toString(),
+        value: `${summaryContent.userCase.sos_partiesServedDate['day']}-${summaryContent.userCase.sos_partiesServedDate['month']}-${summaryContent.userCase.sos_partiesServedDate['year']}`,
         changeUrl: applyParms(APPLICANT_STATEMENT_OF_SERVICE, {
           context: summaryContent.additionalData?.req.params.context,
         }),

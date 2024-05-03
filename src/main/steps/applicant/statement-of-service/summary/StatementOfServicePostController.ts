@@ -31,7 +31,7 @@ export default class StatementOfServicePostController extends PostController<Any
       req.session.errors = [];
     }
     if (req.session.errors?.length) {
-      res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req.params.context }));
+      req.session.save(() => res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req.params.context })));
       return;
     }
     const { user, userCase } = req.session;
@@ -42,7 +42,7 @@ export default class StatementOfServicePostController extends PostController<Any
       req.session.userCase.statementOfServiceDocument = undefined;
       try {
         await client.saveStatementOfService(userCase.id, userData, CaseEvent.CITIZEN_CASE_UPDATE);
-        req.session.save(() => res.redirect(APPLICANT_STATEMENT_OF_SERVICE_NEXT));
+        res.redirect(APPLICANT_STATEMENT_OF_SERVICE_NEXT);
         return;
       } catch (error) {
         throw new Error('SOS - Case could not be updated.');
