@@ -29,7 +29,7 @@ const en = () => ({
 });
 
 const cy = () => ({
-  title: 'Reaching an agreement without going to court (welsh)',
+  title: "Sgrin Dod i gytundeb heb fynd i'r llys",
   ncdrDescription:
     'Yn aml iawn mae’n opsiwn gwell i geisio dod i gytundeb gyda’r person arall heb fynd i’r llys. Gelwir hyn yn ‘datrys anghydfod y tu allan i’r llys’ (NCDR).',
   ncdrCould: 'Gallai NCDR:',
