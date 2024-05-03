@@ -544,7 +544,7 @@ export interface Case {
   miam_mediatorDocument?: YesOrNo;
   miam_nonAttendanceReasons?: MiamNonAttendReason[];
   miam_domesticAbuse?: string[];
-  miam_childProtectionEvidence?: string;
+  miam_childProtectionEvidence?: Miam_childProtectionEvidence;
   miam_urgency?: string[];
   miam_previousAttendance?: string[];
   miam_notAttendingReasons?: string[];
@@ -638,6 +638,12 @@ export interface Case {
   ra_languageReqAndSpecialArrangements?: string;
   ra_existingFlags?: RAFlags;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
+}
+
+export enum Miam_childProtectionEvidence {
+  localAuthority = 'localAuthority',
+  childProtectionPlan = 'childProtectionPlan',
+  none = 'none',
 }
 export interface ServedApplicationDetails {
   id: string;

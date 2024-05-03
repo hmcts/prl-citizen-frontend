@@ -30,7 +30,7 @@ const cy = {
   section: 'Esemptiadau MIAM',
   title: 'Pryderon amddiffyn plant',
   needMoreDetails1: 'Mae angen i chi roi mwy o wybodaeth am eich pryderon i’r llys.',
-  subTitle: '<h1 class="govuk-heading-m govuk-!-margin-bottom-7">Pa bryder amddiffyn plant sy’n berthnasol?</h1>',
+  subTitle: 'Pa bryder amddiffyn plant sy’n berthnasol?',
   localAuthority:
     'Mae’r plant yn y cais (neu blentyn arall ar yr aelwyd) yn destun cynllun amddiffyn plant a roddwyd ar waith gan yr awdurdod lleol',
   childProtectionPlan:
