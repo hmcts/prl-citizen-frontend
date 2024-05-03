@@ -188,12 +188,10 @@ const getParties = (userCase: Partial<CaseWithId>) => {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const url = `?context=${content.additionalData?.req.params.context}`;
   const file = content.userCase?.['statementOfServiceDocument'];
   return {
     ...translations,
     form: updateFormFields(form, generateFormFields(content.userCase!).fields),
-    url,
     filesUploaded: {
       id: file?.document_url.substring(file.document_url.lastIndexOf('/') + 1),
       ...file,
