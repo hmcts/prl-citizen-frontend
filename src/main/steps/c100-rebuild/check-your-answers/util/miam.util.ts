@@ -2,7 +2,8 @@
 /* eslint-disable import/no-unresolved */
 import { cy as attendanceCy, en as attendanceEn } from '../../miam/attendance/content';
 import { cy as ChildProtectionContentCy, en as ChildProtectionContentEn } from '../../miam/child-protection/content';
-import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../../miam/domestic-abuse/content';
+import { cy as CommonDomesticAbuseCy, en as CommonDomesticAbuseEn } from '../../miam/domestic-abuse/content';
+import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../../miam/domestic-abuse/domestic-abuse/content';
 import { cy as GeneralContentCy, en as GeneralContentEn } from '../../miam/general-reasons/content';
 import { cy as mcCy, en as mcEn } from '../../miam/mediator-confirmation/content';
 import { cy as MiamOtherContentCy, en as MiamOtherContentEn } from '../../miam/miam-other/content';
@@ -66,11 +67,11 @@ export const MiamContentsForDomensticVoilence = UserCase => {
       en: () => {
         const data = {
           ...DomesticAbuseEn(),
-          ...DomesticAbuseEn().policeInvolvement_subFields,
-          ...DomesticAbuseEn().letterFromSupportService_subFields,
-          ...DomesticAbuseEn().courtInvolvement_subFields,
-          ...DomesticAbuseEn().letterOfBeingVictim_subFields,
-          ...DomesticAbuseEn().letterFromAuthority_subFields,
+          ...CommonDomesticAbuseEn.policeInvolvement_subFields,
+          ...CommonDomesticAbuseEn.letterFromSupportService_subFields,
+          ...CommonDomesticAbuseEn.courtInvolvement_subFields,
+          ...CommonDomesticAbuseEn.letterOfBeingVictim_subFields,
+          ...CommonDomesticAbuseEn.letterFromAuthority_subFields,
           ...GeneralContentEn(),
           generalReasonTitle: GeneralContentEn().title,
           domesticViolenceHead: GeneralContentEn().domesticViolence,
@@ -84,11 +85,11 @@ export const MiamContentsForDomensticVoilence = UserCase => {
       cy: () => {
         const data = {
           ...DomesticAbuseCy(),
-          ...DomesticAbuseCy().policeInvolvement_subFields,
-          ...DomesticAbuseCy().letterFromSupportService_subFields,
-          ...DomesticAbuseCy().courtInvolvement_subFields,
-          ...DomesticAbuseCy().letterOfBeingVictim_subFields,
-          ...DomesticAbuseCy().letterFromAuthority_subFields,
+          ...CommonDomesticAbuseCy.policeInvolvement_subFields,
+          ...CommonDomesticAbuseCy.letterFromSupportService_subFields,
+          ...CommonDomesticAbuseCy.courtInvolvement_subFields,
+          ...CommonDomesticAbuseCy.letterOfBeingVictim_subFields,
+          ...CommonDomesticAbuseCy.letterFromAuthority_subFields,
           ...GeneralContentCy(),
           generalReasonTitle: GeneralContentCy().title,
           domesticViolenceHead: GeneralContentCy().domesticViolence,

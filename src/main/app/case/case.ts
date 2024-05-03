@@ -82,6 +82,7 @@ import {
   DocumentUploadResponse,
   ContactPreference,
   DocumentResponse,
+  DomesticAbuseExemptions,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -544,7 +545,10 @@ export interface Case {
   miam_certificate?: C100DocumentInfo;
   miam_mediatorDocument?: YesOrNo;
   miam_nonAttendanceReasons?: MiamNonAttendReason[];
-  miam_domesticAbuse?: string[];
+  miam_domesticAbuse?: DomesticAbuseExemptions[];
+  miam_canProvideDomesticAbuseEvidence?: YesOrNo;
+  miam_detailsOfDomesticAbuseEvidence?: string;
+  miam_domesticAbuseEvidenceDoc?: DocumentResponse;
   miam_childProtectionEvidence?: string[];
   miam_urgency?: string;
   miam_previousAttendance?: string;

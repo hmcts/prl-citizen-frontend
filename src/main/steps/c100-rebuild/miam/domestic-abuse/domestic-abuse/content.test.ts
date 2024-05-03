@@ -1,7 +1,7 @@
-import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../app/form/Form';
-import { Validator, atLeastOneFieldIsChecked } from '../../../../app/form/validation';
-import { CommonContent, generatePageContent } from '../../../common/common.content';
+import languageAssertions from '../../../../../../test/unit/utils/languageAssertions';
+import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
+import { Validator, atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
+import { CommonContent, generatePageContent } from '../../../../common/common.content';
 import { generateContent } from '../../miam/domestic-abuse/content';
 
 jest.mock('../../../../app/form/validation');

@@ -7,7 +7,7 @@ import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../../steps/common/common.content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
-import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
+import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/domestic-abuse/content';
 
 import { HTML } from './common/htmlSelectors';
 
