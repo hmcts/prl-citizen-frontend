@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
 import { CaseDate, CaseWithId } from '../../../../app/case/case';
-import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent, GenerateDynamicFormFields } from '../../../../app/form/Form';
 import { covertToDateObject } from '../../../../app/form/parser';
@@ -118,7 +117,7 @@ export const generateFormFields = (caseData: Partial<CaseWithId>): GenerateDynam
     sos_partiesServed: {
       type: 'checkboxes',
       label: l => l.whowasserved,
-      values: getParties(caseData).map(respondent => ({
+      values: getParties(caseData)?.map(respondent => ({
         name: 'sos_partiesServed',
         value: respondent.id,
         label: respondent.value,

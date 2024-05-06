@@ -9,7 +9,7 @@ export const prepareStatementOfServiceRequest = (req: AppRequest<AnyObject>): Ci
   return {
     partiesServed,
     partiesServedDate: userCase.sos_partiesServedDate
-      ? `${userCase.sos_partiesServedDate['day']}-${userCase.sos_partiesServedDate['month']}-${userCase.sos_partiesServedDate['day']}`
+      ? `${userCase.sos_partiesServedDate['year']}-${userCase.sos_partiesServedDate['month']}-${userCase.sos_partiesServedDate['day']}`
       : '',
     citizenSosDocs: userCase.statementOfServiceDocument!,
     isOrder: 'order' === req.params.context ? 'Yes' : 'No',

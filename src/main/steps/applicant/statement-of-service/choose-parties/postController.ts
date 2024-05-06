@@ -72,9 +72,9 @@ export default class UploadSosPostController extends PostController<AnyObject> {
         req.session.errors = [];
       }
       req.session.errors = form.getErrors(formData);
-      if (req.session.errors.length > 0) {
+      if (req.session.errors.length > 0 || !req.session.userCase.statementOfServiceDocument) {
         req.session.save(() =>
-          res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req.params.context }))
+          res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: req.params.context }))
         );
         return;
       }
