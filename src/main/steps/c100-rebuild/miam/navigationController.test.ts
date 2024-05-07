@@ -20,7 +20,7 @@ const dummyRequest = mockRequest({
   session: {
     userCase: {
       miam_nonAttendanceReasons: ['childProtection', 'urgentHearing', 'validExemption'],
-      miam_childProtectionEvidence: ['localAuthority'],
+      miam_childProtectionEvidence: 'localAuthority',
       miam_urgency: ['freedomPhysicalSafetyInFamily'],
       miam_notAttendingReasons: ['none'],
     },

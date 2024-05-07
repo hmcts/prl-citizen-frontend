@@ -88,7 +88,9 @@ export const MiamHelperDynamicEnteriesMapper = (key, keys, URLS, userCase) => {
     },
     [MiamNonAttendReason.CHILD_PROTECTION]: {
       key: keys['childProtectionHeading'],
-      valueHtml: miamOnlyParentFieldParser(userCase, keys, 'miam_childProtectionEvidence'),
+      valueHtml: '',
+      //todo PRL-5558
+      // miamOnlyParentFieldParser(userCase, keys, 'miam_childProtectionEvidence'),
       changeUrl: URLS['C100_MIAM_CHILD_PROTECTION'],
     },
     [MiamNonAttendReason.URGENT]: {
