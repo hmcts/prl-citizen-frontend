@@ -72,4 +72,56 @@ describe('applicant > statement-of-service > choose-parties > routeGuard', () =>
     await new Promise(process.nextTick);
     expect(next).toHaveBeenCalled();
   });
+
+  test('will handle error when delete documeent threw exception', async () => {
+    const req = mockRequest({
+      session: {
+        user: { id: '1234' },
+        userCase: {
+          id: '1234',
+          caseType: 'FL401',
+          applicantsFL401: {
+            firstName: 'test',
+            lastName: 'user',
+          },
+        },
+      },
+      query: {
+        documentId: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+      },
+    });
+    const res = mockResponse();
+    const next = jest.fn();
+    deleteCitizenStatementDocumentMock.mockRejectedValueOnce('Failed');
+
+    routeGuard.get(req, res, next);
+    await new Promise(process.nextTick);
+    expect(req.session.errors).toHaveLength(1);
+  });
+
+  test('should not delete sos doc when sos document is not present in session', async () => {
+    const req = mockRequest({
+      session: {
+        user: { id: '1234' },
+        userCase: {
+          id: '1234',
+          caseType: 'FL401',
+          applicantsFL401: {
+            firstName: 'test',
+            lastName: 'user',
+          },
+        },
+      },
+      query: {
+        documentId: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
+      },
+    });
+    const res = mockResponse();
+    const next = jest.fn();
+    deleteCitizenStatementDocumentMock.mockResolvedValueOnce('SUCCESS');
+
+    routeGuard.get(req, res, next);
+    await new Promise(process.nextTick);
+    expect(req.session.errors).toHaveLength(0);
+  });
 });

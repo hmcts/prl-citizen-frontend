@@ -5,7 +5,7 @@ import { AnyObject } from '../../../../app/controller/PostController';
 
 export const prepareStatementOfServiceRequest = (req: AppRequest<AnyObject>): CitizenSos => {
   const userCase = req.session.userCase;
-  const partiesServed = userCase.sos_partiesServed!.filter(party => party !== '').toString();
+  const partiesServed = userCase.sos_partiesServed?.filter(party => party !== '').toString() ?? '';
   return {
     partiesServed,
     partiesServedDate: userCase.sos_partiesServedDate

@@ -16,9 +16,7 @@ export const routeGuard = {
       try {
         await client.deleteCitizenStatementDocument(query.documentId as string);
         if (req.session.userCase && req.session.userCase.hasOwnProperty('statementOfServiceDocument')) {
-          if (!req.session.userCase?.['statementOfServiceDocument']) {
-            delete req.session.userCase['statementOfServiceDocument'];
-          }
+          delete req.session.userCase['statementOfServiceDocument'];
         }
         req.session.errors = removeUploadDocErrors(req.session.errors);
       } catch (e) {
