@@ -135,7 +135,7 @@ const enContent = {
     dontKnow: "Don't know",
     contactPrefernces: 'Contact preferences',
     child: 'Child',
-    reasonForNotAttendingMiam: 'What are your valid reasons for not attending a MIAM?',
+    reasonForNotAttendingMiam: 'What are your reasons for not attending a MIAM?',
   },
 };
 const cyContent = {
@@ -256,7 +256,7 @@ const cyContent = {
     dontKnow: 'Ddim yn gwybod',
     contactPrefernces: 'Dewisiadau cyswllt',
     child: 'Plant',
-    reasonForNotAttendingMiam: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
+    reasonForNotAttendingMiam: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?',
   },
   yesNo: {
     ydynTranslation: {
@@ -1290,11 +1290,11 @@ describe('Content.ts toggle test cases', () => {
                 {
                   href: '/c100-rebuild/miam/general-reasons',
                   text: 'Edit',
-                  visuallyHiddenText: 'What are your valid reasons for not attending a MIAM?',
+                  visuallyHiddenText: 'What are your reasons for not attending a MIAM?',
                 },
               ],
             },
-            key: { text: 'What are your valid reasons for not attending a MIAM?' },
+            key: { text: 'What are your reasons for not attending a MIAM?' },
             value: {},
           },
         ],
@@ -1747,11 +1747,11 @@ describe('Content.ts toggle test cases', () => {
                 {
                   href: '/c100-rebuild/miam/general-reasons',
                   text: ' Golygu',
-                  visuallyHiddenText: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
+                  visuallyHiddenText: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?',
                 },
               ],
             },
-            key: { text: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?' },
+            key: { text: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?' },
             value: {},
           },
         ],
@@ -3017,11 +3017,11 @@ describe('Content.ts toggle test cases', () => {
                 {
                   href: '/c100-rebuild/miam/general-reasons',
                   text: ' Golygu',
-                  visuallyHiddenText: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?',
+                  visuallyHiddenText: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?',
                 },
               ],
             },
-            key: { text: 'Beth yw eich rhesymau dilys dros beidio â mynychu MIAM?' },
+            key: { text: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?' },
             value: {},
           },
         ],

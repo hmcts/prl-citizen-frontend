@@ -122,11 +122,11 @@ export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean => 
   return false;
 };
 
-export const hasResponseBeenSubmitted = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
+export const hasResponseBeenReviewed = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
   return !!(
     caseData.citizenDocuments &&
     caseData.citizenDocuments.length &&
-    caseData.citizenDocuments?.find(
+    caseData.citizenDocuments.find(
       document =>
         (document.partyId === respondent.id || document.solicitorRepresentedPartyId === respondent.id) &&
         document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
