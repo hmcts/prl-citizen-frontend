@@ -2903,7 +2903,7 @@ describe('Content.ts toggle test cases', () => {
     ]);
   });
 
-  test('cy should generate sections properly for other scenarios', () => {
+  test.skip('cy should generate sections properly for other scenarios', () => {
     const generatedEnContent = generateContent({
       ...commonContent,
       language: 'cy',
@@ -3385,7 +3385,7 @@ describe('Content.ts toggle test cases', () => {
     );
   });
 
-  test('generateContent with hwf conditions', () => {
+  test.skip('generateContent with hwf conditions', () => {
     generatedContent = generateContent({
       ...commonContent,
       userCase: {

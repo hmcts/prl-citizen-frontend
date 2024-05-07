@@ -658,10 +658,11 @@ export enum Miam_urgency {
   riskUnreasonableFinancialHardship = 'riskUnreasonableFinancialHardship',
   riskOfIrretrievableProblems = 'riskOfIrretrievableProblems',
   riskOfCourtProceedingsDispute = 'riskOfCourtProceedingsDispute',
+  none = 'none',
+}
 export enum Miam_childProtectionEvidence {
   localAuthority = 'localAuthority',
   childProtectionPlan = 'childProtectionPlan',
-
   none = 'none',
 }
 export interface ServedApplicationDetails {
