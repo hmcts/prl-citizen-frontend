@@ -2702,15 +2702,17 @@ export interface OtherProceedingsDocumentInfo extends DocumentInfo {
   id: string;
 }
 
-export interface DocumentUploadResponse {
-  status: string;
-  document: {
+export type DocumentResponse = {
     document_url: string;
     document_binary_url: string;
     document_filename: string;
     document_hash: string;
     document_creation_date: string;
-  };
+}
+
+export interface DocumentUploadResponse {
+  status: string;
+  document: DocumentResponse;
 }
 
 export enum ReasonableAdjustments {

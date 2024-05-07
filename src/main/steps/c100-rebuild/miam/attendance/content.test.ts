@@ -7,21 +7,31 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
-  paragraph1: 'The MIAM must be about the same issue that is being dealt with in this application.',
-  one: 'Yes',
-  two: 'No',
+  title: 'Have you attended a MIAM?',
+  content: 'The MIAM must be about the same issue that is being dealt with in this application.',
+  yes: 'Yes',
+  no: 'No',
+  errors: {
+    miam_attendance: {
+      required: 'Select yes if you have attended a Mediation Information and Assessment Meeting(MIAM).',
+    },
+  },
 };
 
 const cy = {
-  title: 'A ydych chi wedi mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)?',
-  paragraph1: 'Rhaid i’r MIAM fod mewn perthynas â’r un mater sy’n cael ei drafod yn y cais hwn.',
-  one: 'Do',
-  two: 'Naddo',
+  title: 'Ydych chi wedi mynychu MIAM?',
+  content: 'Rhaid i’r MIAM fod mewn perthynas â’r un mater sy’n cael ei drin yn y cais hwn.',
+  yes: 'Do',
+  no: 'Naddo',
+  errors: {
+    miam_attendance: {
+      required: 'Dewiswch ‘Do’ os ydych chi wedi mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM).',
+    },
+  },
 };
 
-describe('applicant personal details > applying-with > content', () => {
-  const commonContent = { language: 'en', userCase: { applyingWith: 'alone' } } as unknown as CommonContent;
+describe('maim > attendance > content', () => {
+  const commonContent = { language: 'en' } as unknown as CommonContent;
   // eslint-disable-next-line jest/expect-expect
   test('should return correct english content', () => {
     languageAssertions('en', en, () => generateContent(commonContent));
@@ -31,15 +41,15 @@ describe('applicant personal details > applying-with > content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
-  test('should contain applyingWith field', () => {
+  test('should contain maim_attendance field', () => {
     const generatedContent = generateContent(commonContent) as Record<string, never>;
     const form = generatedContent.form as FormContent;
     const fields = form.fields as FormFields;
-    const applyingWithField = fields.miam_attendance as FormOptions;
-    expect(applyingWithField.type).toBe('radios');
-    expect(applyingWithField.classes).toBe('govuk-radios');
-    expect((applyingWithField.values[0].label as LanguageLookup)(generatedContent)).toBe(en.one);
-    expect((applyingWithField.values[1].label as LanguageLookup)(generatedContent)).toBe(en.two);
+    const maim_attendance = fields.miam_attendance as FormOptions;
+    expect(maim_attendance.type).toBe('radios');
+    expect(maim_attendance.classes).toBe('govuk-radios');
+    expect((maim_attendance.values[0].label as LanguageLookup)(generatedContent)).toBe(en.yes);
+    expect((maim_attendance.values[1].label as LanguageLookup)(generatedContent)).toBe(en.no);
   });
 
   test('should contain Continue button', () => {

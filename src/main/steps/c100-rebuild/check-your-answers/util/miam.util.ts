@@ -12,7 +12,7 @@ import {
   en as PreviousAttendanceContentEn,
 } from '../../miam/previous-attendance/content';
 import { cy as UrgentHearingContentCy, en as UrgentHearingContentEn } from '../../miam/urgency/content';
-import { cy as vrCy, en as vrEn } from '../../miam/valid-reason/content';
+import { cy as validReasonCy, en as validReasonEn } from '../../miam/valid-reason/content';
 import { ANYTYPE } from '../common/index';
 export class CommonDataLoader {
   static DataFormatter = (args, storage) => {
@@ -109,11 +109,11 @@ export const MiamContentsForUrgentHearing = UserCase => {
   if (UserCase.hasOwnProperty(key)) {
     return {
       en: () => {
-        const data = { ...UrgentHearingContentEn() } as ANYTYPE;
+        const data = { ...UrgentHearingContentEn } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
       cy: () => {
-        const data = { ...UrgentHearingContentCy() } as ANYTYPE;
+        const data = { ...UrgentHearingContentCy } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
     };
@@ -126,11 +126,11 @@ export const MiamContentsForPreviousAttendance = UserCase => {
   if (UserCase.hasOwnProperty(key)) {
     return {
       en: () => {
-        const data = { ...PreviousAttendanceContentEn() } as ANYTYPE;
+        const data = { ...PreviousAttendanceContentEn } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
       cy: () => {
-        const data = { ...PreviousAttendanceContentCy() } as ANYTYPE;
+        const data = { ...PreviousAttendanceContentCy } as ANYTYPE;
         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
       },
     };
@@ -179,10 +179,10 @@ export const additionalTitlesMiam = SystemLanguage => {
       return {
         childInvolvementInSupervision: opEn().title,
         mediatorConfirmation: mcEn().title,
-        reasonForNotAttendingMiam: vrEn().title,
-        validResonsNotAttendingMiam: vrEn().title,
-        attendedMiamMidiation: attendanceEn().title,
-        urgentHearing: UrgentHearingContentEn().title,
+        reasonForNotAttendingMiam: validReasonEn.title,
+        validResonsNotAttendingMiam: validReasonEn.title,
+        attendedMiamMidiation: attendanceEn.title,
+        urgentHearing: UrgentHearingContentEn.title,
         error: '',
       };
     },
@@ -190,10 +190,10 @@ export const additionalTitlesMiam = SystemLanguage => {
       return {
         childInvolvementInSupervision: opCy().title,
         mediatorConfirmation: mcCy().title,
-        reasonForNotAttendingMiam: vrCy().title,
-        validResonsNotAttendingMiam: vrCy().title,
-        attendedMiamMidiation: attendanceCy().title,
-        urgentHearing: UrgentHearingContentCy().title,
+        reasonForNotAttendingMiam: validReasonCy.title,
+        validResonsNotAttendingMiam: validReasonCy.title,
+        attendedMiamMidiation: attendanceCy.title,
+        urgentHearing: UrgentHearingContentCy.title,
         error: '',
       };
     },

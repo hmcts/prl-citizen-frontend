@@ -81,6 +81,7 @@ import {
   RespondentDocs,
   DocumentUploadResponse,
   ContactPreference,
+  DocumentResponse,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -544,9 +545,11 @@ export interface Case {
   miam_mediatorDocument?: YesOrNo;
   miam_nonAttendanceReasons?: MiamNonAttendReason[];
   miam_domesticAbuse?: string[];
+  miam_urgency?: Miam_urgency;
+  miam_previousAttendance?: Miam_previousAttendance;
+  miam_previousAttendanceEvidenceDoc?: DocumentResponse;
+  miam_haveDocSignedByMediatorForPrevAttendance?: string;
   miam_childProtectionEvidence?: Miam_childProtectionEvidence;
-  miam_urgency?: string[];
-  miam_previousAttendance?: string[];
   miam_notAttendingReasons?: string[];
   hu_urgentHearingReasons?: YesOrNo;
   c1A_passportOffice?: YesOrNo;
@@ -640,6 +643,23 @@ export interface Case {
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
 
+export enum Miam_previousAttendance {
+  fourMonthsPriorAttended = 'fourMonthsPriorAttended',
+  miamExamptionApplied = 'miamExamptionApplied',
+  none = 'none',
+}
+export enum Miam_urgency {
+  freedomPhysicalSafety = 'freedomPhysicalSafety',
+  freedomPhysicalSafetyInFamily = 'freedomPhysicalSafetyInFamily',
+  riskSafetyInHome = 'riskSafetyInHome',
+  riskOfHarmToChildren = 'riskOfHarmToChildren',
+  unlawfullyRemovedFromUK = 'unlawfullyRemovedFromUK',
+  riskOfUnfairCourtDecision = 'riskOfUnfairCourtDecision',
+  riskUnreasonableFinancialHardship = 'riskUnreasonableFinancialHardship',
+  riskOfIrretrievableProblems = 'riskOfIrretrievableProblems',
+  riskOfCourtProceedingsDispute = 'riskOfCourtProceedingsDispute',
+  none = 'none',
+}
 export enum Miam_childProtectionEvidence {
   localAuthority = 'localAuthority',
   childProtectionPlan = 'childProtectionPlan',
