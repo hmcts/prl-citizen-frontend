@@ -139,6 +139,8 @@ import {
   C100_APPLICANT_CONTACT_PREFERENCES,
   REASONABLE_ADJUSTMENTS_ATTENDING_COURT,
   C100_MIAM_NO_ACCESS_MEDIATOR,
+  C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING,
+  C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -444,7 +446,7 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_ATTENDANCE,
     showInSection: Sections.C100,
     getNextStep: (data: Partial<Case>) =>
-      data.miam_attendance === YesOrNo.YES ? C100_MIAM_MEDIATOR_DOCUMENT : C100_MIAM_MEDIATOR_CONFIRMAION,
+      data.miam_attendance === YesOrNo.YES ? C100_MIAM_MEDIATOR_DOCUMENT : C100_MIAM_VALID_REASON,
   },
   {
     url: C100_MIAM_MEDIATOR_CONFIRMAION,
@@ -471,6 +473,16 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_PREVIOUS_ATTENDANCE,
     showInSection: Sections.C100,
     getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_PREVIOUS_ATTENDANCE, caseData),
+  },
+  {
+    url: C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING, caseData),
+  },
+  {
+    url: C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR, caseData),
   },
   {
     url: C100_MIAM_INFO,

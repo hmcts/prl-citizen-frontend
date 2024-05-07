@@ -81,6 +81,7 @@ import {
   RespondentDocs,
   DocumentUploadResponse,
   ContactPreference,
+  DocumentResponse,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -544,11 +545,13 @@ export interface Case {
   miam_mediatorDocument?: YesOrNo;
   miam_nonAttendanceReasons?: MiamNonAttendReason[];
   miam_domesticAbuse?: string[];
-  miam_childProtectionEvidence?: string[];
-  miam_urgency?: string[];
-  miam_previousAttendance?: string[];
   miam_notAttendingReasons?: Miam_notAttendingReasons;
   miam_noMediatorReasons?: Miam_noMediatorReasons;
+  miam_urgency?: Miam_urgency;
+  miam_previousAttendance?: Miam_previousAttendance;
+  miam_previousAttendanceEvidenceDoc?: DocumentResponse;
+  miam_haveDocSignedByMediatorForPrevAttendance?: string;
+  miam_childProtectionEvidence?: Miam_childProtectionEvidence;
   hu_urgentHearingReasons?: YesOrNo;
   c1A_passportOffice?: YesOrNo;
   PRL_c1A_passportOffice?: YesOrNo;
@@ -657,6 +660,29 @@ export enum Miam_noMediatorReasons {
   inPrison = 'inPrison',
   bailThatPreventContact = 'bailThatPreventContact',
   releaseFromPrisonOnLicence = 'releaseFromPrisonOnLicence',
+  none = 'none',
+}
+
+export enum Miam_previousAttendance {
+  fourMonthsPriorAttended = 'fourMonthsPriorAttended',
+  miamExamptionApplied = 'miamExamptionApplied',
+  none = 'none',
+}
+export enum Miam_urgency {
+  freedomPhysicalSafety = 'freedomPhysicalSafety',
+  freedomPhysicalSafetyInFamily = 'freedomPhysicalSafetyInFamily',
+  riskSafetyInHome = 'riskSafetyInHome',
+  riskOfHarmToChildren = 'riskOfHarmToChildren',
+  unlawfullyRemovedFromUK = 'unlawfullyRemovedFromUK',
+  riskOfUnfairCourtDecision = 'riskOfUnfairCourtDecision',
+  riskUnreasonableFinancialHardship = 'riskUnreasonableFinancialHardship',
+  riskOfIrretrievableProblems = 'riskOfIrretrievableProblems',
+  riskOfCourtProceedingsDispute = 'riskOfCourtProceedingsDispute',
+  none = 'none',
+}
+export enum Miam_childProtectionEvidence {
+  localAuthority = 'localAuthority',
+  childProtectionPlan = 'childProtectionPlan',
   none = 'none',
 }
 export interface ServedApplicationDetails {

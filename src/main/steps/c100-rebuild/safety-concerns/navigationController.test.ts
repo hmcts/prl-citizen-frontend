@@ -139,6 +139,7 @@ describe('SafteyConcernsNavigationController for only applicant', () => {
       })
     ).toBe(C100_C1A_SAFETY_CONCERNS_NOFEEDBACK);
   });
+
   test('From children report abuse screen -> navigate to other concerns screen', async () => {
     expect(SafteyConcernsNavigationController.getNextUrl(C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD, caseData)).toBe(
       C100_C1A_SAFETY_CONCERNS_OTHER_CONCERNS_DRUGS

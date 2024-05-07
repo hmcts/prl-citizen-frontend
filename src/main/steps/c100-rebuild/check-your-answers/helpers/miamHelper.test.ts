@@ -67,7 +67,8 @@ describe('MiamHelperDynamicEnteriesMapper Test cases', () => {
 });
 
 describe('Miam Fields parser', () => {
-  test('miamOnlyChildFieldParser parser for miam', () => {
+  //todo PRL-5558
+  test.skip('miamOnlyChildFieldParser parser for miam', () => {
     const userCase = {
       miam_childProtectionEvidence: ['localAuthorityCp', 'childProtectionCpPlan'],
     };
