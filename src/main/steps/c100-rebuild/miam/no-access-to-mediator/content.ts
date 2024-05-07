@@ -149,7 +149,7 @@ export const form: FormContent = {
           value: Miam_noMediatorReasons.releaseFromPrisonOnLicence,
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           label: l => l.noneOfTheAbove,

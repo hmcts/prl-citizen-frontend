@@ -67,7 +67,7 @@ export const form: FormContent = {
           value: Miam_notAttendingReasons.canNotAccessMediator,
         },
         {
-          divider: true,
+          divider: l => l.divider,
         },
         {
           label: l => l.noneOfTheAbove,
