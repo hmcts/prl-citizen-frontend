@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
 import { cy as attendanceCy, en as attendanceEn } from '../../miam/attendance/content';
-import { cy as ChildProtectionContentCy, en as ChildProtectionContentEn } from '../../miam/child-protection/content';
+//import { cy as ChildProtectionContentCy, en as ChildProtectionContentEn } from '../../miam/child-protection/content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../../miam/domestic-abuse/content';
 import { cy as GeneralContentCy, en as GeneralContentEn } from '../../miam/general-reasons/content';
 import { cy as mcCy, en as mcEn } from '../../miam/mediator-confirmation/content';
@@ -138,21 +138,22 @@ export const MiamContentsForPreviousAttendance = UserCase => {
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const MiamContentsForChildProtection = UserCase => {
-  const key = 'miam_childProtectionEvidence';
-  if (UserCase.hasOwnProperty(key)) {
-    return {
-      en: () => {
-        const data = { ...ChildProtectionContentEn() } as ANYTYPE;
-        return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
-      },
-      cy: () => {
-        const data = { ...ChildProtectionContentCy() } as ANYTYPE;
-        return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
-      },
-    };
-  }
-};
+//todo PRL-5558
+// export const MiamContentsForChildProtection = UserCase => {
+//   const key = 'miam_childProtectionEvidence';
+//   if (UserCase.hasOwnProperty(key)) {
+//     return {
+//       en: () => {
+//         const data = { ...ChildProtectionContentEn() } as ANYTYPE;
+//         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
+//       },
+//       cy: () => {
+//         const data = { ...ChildProtectionContentCy() } as ANYTYPE;
+//         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
+//       },
+//     };
+//   }
+// };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const MiamContentForOtherFeatureAndSubFeilds = UserCase => {
@@ -205,7 +206,7 @@ export const MiamFieldsLoader = (SystemLanguageContent, content) => {
     ...SystemLanguageContent(content, MiamContentsForDomensticVoilence),
     ...SystemLanguageContent(content, MiamContentsForUrgentHearing),
     ...SystemLanguageContent(content, MiamContentsForPreviousAttendance),
-    ...SystemLanguageContent(content, MiamContentsForChildProtection),
+    // ...SystemLanguageContent(content, MiamContentsForChildProtection),
     ...SystemLanguageContent(content, MiamContentForOtherFeatureAndSubFeilds),
     ...additionalTitlesMiam(content['language']),
     ...SystemLanguageContent(content, MiamContentsForGeneralReasons),

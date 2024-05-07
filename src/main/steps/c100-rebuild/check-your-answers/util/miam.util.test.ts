@@ -8,7 +8,7 @@ import { cy as validReasonCy, en as validReasonEn } from '../../miam/valid-reaso
 
 import {
   MiamContentForOtherFeatureAndSubFeilds,
-  MiamContentsForChildProtection,
+  //MiamContentsForChildProtection,
   MiamContentsForDomensticVoilence,
   MiamContentsForGeneralReasons,
   MiamContentsForPreviousAttendance,
@@ -145,17 +145,18 @@ describe('miam Util', () => {
       expect(sessionFields).not.toBe(item);
     });
   });
-  test('MiamContentsForChildProtection test for checking if respective screen match contentss', () => {
-    const userCase = {
-      /* A field that is used to store the evidence of child protection. */
-      miam_childProtectionEvidence: ['test1', 'test2', 'test3', 'test4'],
-    };
-    const sessionFields = MiamContentsForChildProtection(userCase);
-    userCase.miam_childProtectionEvidence.forEach(item => {
-      expect(sessionFields?.en()[item]).not.toBe([]);
-      expect(sessionFields?.cy()[item]).not.toBe([]);
-    });
-  });
+  //todo PRL-5558
+  // test.skip('MiamContentsForChildProtection test for checking if respective screen match contentss', () => {
+  //   const userCase = {
+  //     /* A field that is used to store the evidence of child protection. */
+  //     miam_childProtectionEvidence: ['test1', 'test2', 'test3', 'test4'],
+  //   };
+  //   const sessionFields = MiamContentsForChildProtection(userCase);
+  //   userCase.miam_childProtectionEvidence.forEach(item => {
+  //     expect(sessionFields?.en()[item]).not.toBe([]);
+  //     expect(sessionFields?.cy()[item]).not.toBe([]);
+  //   });
+  // });
 
   test('additionalTitlesMiam test for checking if respective screen match contentss', () => {
     expect(additionalTitlesMiam('en').toString()).toBe(additionalTitlesMiamTestSample('en').toString());

@@ -545,11 +545,11 @@ export interface Case {
   miam_mediatorDocument?: YesOrNo;
   miam_nonAttendanceReasons?: MiamNonAttendReason[];
   miam_domesticAbuse?: string[];
-  miam_childProtectionEvidence?: string[];
   miam_urgency?: Miam_urgency;
   miam_previousAttendance?: Miam_previousAttendance;
   miam_previousAttendanceEvidenceDoc?: DocumentResponse;
   miam_haveDocSignedByMediatorForPrevAttendance?: string;
+  miam_childProtectionEvidence?: Miam_childProtectionEvidence;
   miam_notAttendingReasons?: string[];
   hu_urgentHearingReasons?: YesOrNo;
   c1A_passportOffice?: YesOrNo;
@@ -658,6 +658,10 @@ export enum Miam_urgency {
   riskUnreasonableFinancialHardship = 'riskUnreasonableFinancialHardship',
   riskOfIrretrievableProblems = 'riskOfIrretrievableProblems',
   riskOfCourtProceedingsDispute = 'riskOfCourtProceedingsDispute',
+export enum Miam_childProtectionEvidence {
+  localAuthority = 'localAuthority',
+  childProtectionPlan = 'childProtectionPlan',
+
   none = 'none',
 }
 export interface ServedApplicationDetails {
