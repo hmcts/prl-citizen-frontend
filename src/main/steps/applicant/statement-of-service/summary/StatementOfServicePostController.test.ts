@@ -1,12 +1,11 @@
 import { mockRequest } from '../../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../../app/case/CosApiClient';
-import { APPLICANT_STATEMENT_OF_SERVICE } from '../../../urls';
+import { APPLICANT_STATEMENT_OF_SERVICE, APPLICANT_STATEMENT_OF_SERVICE_NEXT } from '../../../urls';
 
 import StatementOfServicePostController from './StatementOfServicePostController';
 
-const updateCaserMock = jest.spyOn(CosApiClient.prototype, 'updateCaseData');
-const retrieveByCaseIdMock = jest.spyOn(CosApiClient.prototype, 'retrieveByCaseId');
+const saveStatementOfServiceMock = jest.spyOn(CosApiClient.prototype, 'saveStatementOfService');
 let partyDetails;
 
 describe('StatementOfServicePostController', () => {
@@ -47,13 +46,10 @@ describe('StatementOfServicePostController', () => {
         },
       },
     ];
-    retrieveByCaseIdMock.mockResolvedValue(req.session.userCase);
-    updateCaserMock.mockResolvedValue(req.session.userCase);
   });
 
   afterEach(() => {
-    retrieveByCaseIdMock.mockClear();
-    updateCaserMock.mockClear();
+    saveStatementOfServiceMock.mockClear();
   });
 
   test('Should not update the is sos provided flag if no party details', async () => {
@@ -65,10 +61,9 @@ describe('StatementOfServicePostController', () => {
   });
 
   test('Should perform correct redirect to what happens next', async () => {
-    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
     req.session.userCase.caseTypeOfApplication = 'C100';
     req.session.userCase.applicants = partyDetails;
-
     req.params.caseId = '123';
     req.session.userCase.caseInvites = [
       {
@@ -83,32 +78,51 @@ describe('StatementOfServicePostController', () => {
         },
       },
     ];
+    req.body = {
+      sosConsent: [true],
+    };
+    saveStatementOfServiceMock.mockResolvedValueOnce('SUCCESS');
     req.url = 'applicant';
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalledTimes(2);
+    expect(res.redirect).toHaveBeenCalledWith(APPLICANT_STATEMENT_OF_SERVICE_NEXT);
+  });
+
+  test('Should handle exception when update sos fails', async () => {
+    req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e6';
+    req.session.userCase.caseTypeOfApplication = 'C100';
+    req.session.userCase.applicants = partyDetails;
+    req.params.caseId = '123';
+    req.session.userCase.caseInvites = [
+      {
+        id: 'string',
+        value: {
+          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          caseInviteEmail: 'string',
+          accessCode: 'string',
+          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          expiryDate: 'string',
+          isApplicant: 'Yes',
+        },
+      },
+    ];
+    req.body = {
+      sosConsent: [true],
+    };
+    saveStatementOfServiceMock.mockRejectedValueOnce('FAILURE');
+    req.url = 'applicant';
+    let exceptionThrown = false;
+    try {
+      expect(await controller.post(req, res)).toThrowError;
+    } catch (err) {
+      exceptionThrown = true;
+    }
+    expect(exceptionThrown).toEqual(true);
   });
 
   test('Should redirect to same page', async () => {
     req.session.user.id = '0c09b130-2eba-4ca8-a910-1f001bac01e7';
-    req.session.userCase.caseTypeOfApplication = 'C100';
-    req.session.userCase.applicants = partyDetails;
-    req.body = {
-      onlyContinue: {},
-    };
     req.params.caseId = '123';
-    req.session.userCase.caseInvites = [
-      {
-        id: 'string',
-        value: {
-          partyId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
-          caseInviteEmail: 'string',
-          accessCode: 'string',
-          invitedUserId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
-          expiryDate: 'string',
-          isApplicant: 'Yes',
-        },
-      },
-    ];
     req.url = APPLICANT_STATEMENT_OF_SERVICE;
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalledTimes(3);

@@ -51,5 +51,53 @@ describe('view respondent documents content', () => {
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
   });
+
+  test('Shall return empty document when pack does not have the data', () => {
+    commonContent.additionalData = {
+      req: {
+        query: {
+          parentDocType: 'parent',
+          docType: 'doc',
+        },
+        params: {
+          context: 'order',
+        },
+        session: {
+          userCase: {
+            unServedRespondentPack: undefined,
+          },
+        },
+      },
+    };
+    generatedContent = generateContent(commonContent);
+    expect(generatedContent.documents[0]).toEqual(undefined);
+  });
+
+  test('Shall return empty document id for document when pack does not have the value', () => {
+    commonContent.additionalData = {
+      req: {
+        query: {
+          parentDocType: 'parent',
+          docType: 'doc',
+        },
+        params: {
+          context: 'order',
+        },
+        session: {
+          userCase: {
+            unServedRespondentPack: {
+              packDocument: [
+                {
+                  id: '',
+                },
+              ],
+            },
+          },
+        },
+      },
+    };
+    generatedContent = generateContent(commonContent);
+    expect(generatedContent.documents[0].documentId).toEqual('');
+  });
 });
 /* eslint-enable @typescript-eslint/ban-types */

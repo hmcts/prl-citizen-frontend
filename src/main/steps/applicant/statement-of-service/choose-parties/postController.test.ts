@@ -5,10 +5,22 @@ import { CosApiClient } from '../../../../app/case/CosApiClient';
 import UploadSosPostController from './postController';
 
 const uploadDocumentListFromCitizenMock = jest.spyOn(CosApiClient.prototype, 'uploadStatementDocument');
+const deleteCitizenStatementDocumentMock = jest.spyOn(CosApiClient.prototype, 'deleteCitizenStatementDocument');
 
 describe('statement-of-service > choose-parties > postController', () => {
   describe('uploadDocument', () => {
     test('should generate document', async () => {
+      const documentDetail = {
+        status: 'Success',
+        document: {
+          document_url: 'string',
+          document_binary_url: 'string',
+          document_filename: 'string',
+          document_hash: 'string',
+          document_creation_date: 'string',
+          name: 'file_example_TIFF_1MB',
+        },
+      };
       const req = mockRequest({
         body: {
           uploadFile: true,
@@ -23,6 +35,7 @@ describe('statement-of-service > choose-parties > postController', () => {
               firstName: 'test',
               lastName: 'user',
             },
+            statementOfServiceDocument: documentDetail.document,
           },
         },
       });
@@ -33,18 +46,8 @@ describe('statement-of-service > choose-parties > postController', () => {
 
       const res = mockResponse();
 
-      const documentDetail = {
-        status: 'Success',
-        document: {
-          document_url: 'string',
-          document_binary_url: 'string',
-          document_filename: 'string',
-          document_hash: 'string',
-          document_creation_date: 'string',
-          name: 'file_example_TIFF_1MB',
-        },
-      };
       uploadDocumentListFromCitizenMock.mockResolvedValue(documentDetail);
+      deleteCitizenStatementDocumentMock.mockResolvedValueOnce('SUCCESS');
 
       const controller = new UploadSosPostController({});
 
@@ -174,6 +177,55 @@ describe('statement-of-service > choose-parties > postController', () => {
           propertyName: 'uploadDocumentFileUpload',
         },
       ]);
+    });
+  });
+
+  describe('validate form fields', () => {
+    test('should return errors', async () => {
+      const req = mockRequest();
+      req.session.userCase = {
+        respondents: [
+          {
+            id: 'test',
+            value: {},
+          },
+        ],
+      };
+      req.body = {
+        sos_partiesServed: [''],
+        sos_partiesServedDate: undefined,
+      };
+
+      const res = mockResponse();
+      const controller = new UploadSosPostController({});
+      await controller.post(req, res);
+      await new Promise(process.nextTick);
+      expect(req.session.errors).toHaveLength(2);
+    });
+
+    test('should return to summary page with no errors', async () => {
+      const req = mockRequest();
+      req.session.userCase = {
+        respondents: [
+          {
+            id: 'test',
+            value: {},
+          },
+        ],
+        statementOfServiceDocument: {},
+      };
+      req.body = {
+        sos_partiesServed: ['John'],
+        'sos_partiesServedDate-day': '1',
+        'sos_partiesServedDate-month': '1',
+        'sos_partiesServedDate-year': '2000',
+      };
+
+      const res = mockResponse();
+      const controller = new UploadSosPostController({});
+      await controller.post(req, res);
+      await new Promise(process.nextTick);
+      expect(req.session.errors).toHaveLength(0);
     });
   });
 });
