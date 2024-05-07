@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Case } from '../../../app/case/case';
+import {
+  Case,
+  Miam_noMediatorReasons,
+  Miam_notAttendingReasons,
+  Miam_previousAttendance,
+} from '../../../app/case/case';
 import { DomesticAbuseExemptions, MiamNonAttendReason, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
@@ -8,6 +13,7 @@ import {
   C100_MIAM_GENERAL_REASONS,
   C100_MIAM_GET_MEDIATOR,
   C100_MIAM_MIAM_DOMESTIC_ABUSE,
+  C100_MIAM_NO_ACCESS_MEDIATOR,
   C100_MIAM_NO_NEED_WITH_REASONS,
   C100_MIAM_OTHER,
   C100_MIAM_PREVIOUS_ATTENDANCE,
@@ -95,10 +101,26 @@ class MIAMNavigationController {
           : C100_TYPE_ORDER_SELECT_COURT_ORDER;
         break;
       }
+      case C100_MIAM_OTHER: {
+        url =
+          caseData.miam_notAttendingReasons === Miam_notAttendingReasons.canNotAccessMediator
+            ? C100_MIAM_NO_ACCESS_MEDIATOR
+            : this.checkForAnyValidReason(caseData)
+            ? C100_MIAM_NO_NEED_WITH_REASONS
+            : C100_MIAM_GET_MEDIATOR;
+        break;
+      }
+      case C100_MIAM_NO_ACCESS_MEDIATOR: {
+        url =
+          caseData.miam_noMediatorReasons === Miam_noMediatorReasons.none
+            ? C100_MIAM_GET_MEDIATOR
+            : C100_MIAM_NO_NEED_WITH_REASONS;
+        break;
+      }
       case C100_MIAM_PREVIOUS_ATTENDANCE: {
-        if (caseData.miam_previousAttendance === 'fourMonthsPriorAttended') {
+        if (caseData.miam_previousAttendance === Miam_previousAttendance.fourMonthsPriorAttended) {
           url = applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING) as PageLink;
-        } else if (caseData.miam_previousAttendance === 'miamExamptionApplied') {
+        } else if (caseData.miam_previousAttendance === Miam_previousAttendance.miamExamptionApplied) {
           url = C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR;
         } else {
           url =
