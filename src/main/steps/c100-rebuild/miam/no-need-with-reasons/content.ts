@@ -54,16 +54,9 @@ export const en = () => ({
     miamExamptionApplied: PreviousAttendanceEn.miamExamptionApplied,
   },
   validExemption: {
-    noSufficientContactDetails: OtherEn().noSufficientContactDetails,
-    applyingForWithoutNoticeHearing: OtherEn().applyingForWithoutNoticeHearing,
-    canNotAccessMediator: {
-      mediatorDoesNotHaveDisabilityAccess: OtherEn().mediatorDoesNotHaveDisabilityAccess,
-      noMediatorAppointment: OtherEn().noMediatorAppointment,
-      noAuthorisedFamilyMediator: OtherEn().noAuthorisedFamilyMediator,
-    },
-    notAttendingAsInPrison: OtherEn().notAttendingAsInPrison,
-    notHabituallyResident: OtherEn().notHabituallyResident,
-    under18: OtherEn().under18,
+    applyingForWithoutNoticeHearing: OtherEn.applyingForWithoutNoticeHearing,
+    canNotAccessMediator: OtherEn.canNotAccessMediator,
+    under18: OtherEn.under18,
   },
 });
 
@@ -110,16 +103,9 @@ export const cy = () => ({
     miamExamptionApplied: PreviousAttendanceCy.miamExamptionApplied,
   },
   validExemption: {
-    noSufficientContactDetails: OtherCy().noSufficientContactDetails,
-    applyingForWithoutNoticeHearing: OtherCy().applyingForWithoutNoticeHearing,
-    canNotAccessMediator: {
-      mediatorDoesNotHaveDisabilityAccess: OtherCy().mediatorDoesNotHaveDisabilityAccess,
-      noMediatorAppointment: OtherCy().noMediatorAppointment,
-      noAuthorisedFamilyMediator: OtherCy().noAuthorisedFamilyMediator,
-    },
-    notAttendingAsInPrison: OtherCy().notAttendingAsInPrison,
-    notHabituallyResident: OtherCy().notHabituallyResident,
-    under18: OtherCy().under18,
+    applyingForWithoutNoticeHearing: OtherCy.applyingForWithoutNoticeHearing,
+    canNotAccessMediator: OtherCy.canNotAccessMediator,
+    under18: OtherCy.under18,
   },
 });
 const languages = {

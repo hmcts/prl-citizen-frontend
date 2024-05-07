@@ -13,7 +13,6 @@ import {
   C100_C1A_SAFETY_CONCERNS_REPORT_APPLICANT_ABUSE,
   C100_C1A_SAFETY_CONCERNS_REPORT_CHILD_ABUSE,
 } from '../../urls';
-import { C100Sequence } from '../c100sequence';
 
 import SafteyConcernsNavigationController from './navigationController';
 
@@ -139,10 +138,6 @@ describe('SafteyConcernsNavigationController for only applicant', () => {
         abuseType: C1AAbuseTypes.SOMETHING_ELSE,
       })
     ).toBe(C100_C1A_SAFETY_CONCERNS_NOFEEDBACK);
-  });
-
-  test.skip('From children guidelines screen -> navigate to the children report abuse screen', async () => {
-    expect(C100Sequence[75].getNextStep({})).toBe(C100_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD);
   });
 
   test('From children report abuse screen -> navigate to other concerns screen', async () => {
