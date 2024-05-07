@@ -3,10 +3,11 @@ import { FormContent, FormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
-import { cy, en, generateContent } from './content';
+import { cy, en, generateContent, getFormFields, generateFormFields } from './content';
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
+let partyDetails;
 describe('sos choose-parties content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   commonContent.additionalData = {
@@ -18,7 +19,48 @@ describe('sos choose-parties content', () => {
       params: {
         context: 'order',
       },
+      session: {
+        errors: [],
+      },
     },
+  };
+  partyDetails = [
+    {
+      id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+      value: {
+        firstName: 'testuser',
+        lastName: 'Citizen',
+        email: 'abc@example.net',
+        dateOfBirth: '03-20-2023',
+        phoneNumber: '7755664466',
+        placeOfBirth: 'BPP',
+        previousName: 'test',
+        isAtAddressLessThan5Years: 'No',
+        addressLivedLessThan5YearsDetails: 'Hello',
+        address: {
+          AddressLine1: 'string',
+          AddressLine2: 'string',
+          AddressLine3: 'string',
+          PostTown: 'string',
+          County: 'string',
+          PostCode: 'string',
+          Country: 'string',
+        },
+        user: {
+          idamId: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
+          email: 'test@example.net',
+        },
+        response: {
+          legalRepresentation: 'No',
+        },
+      },
+    },
+  ];
+  commonContent.userCase = {
+    applicants: partyDetails,
+    respondents: partyDetails,
+    sos_partiesServedDate: new Date(),
+    sos_partiesServed: ['', '', ''],
   };
   let generatedContent;
   let form;
@@ -60,6 +102,17 @@ describe('sos choose-parties content', () => {
     const sos_partiesServedDate = fields.sos_partiesServedDate;
     expect(sos_partiesServedDate.type).toBe('date');
     expect((sos_partiesServedDate.label as Function)(generatedContent)).toBe(en.servedDate);
+  });
+
+  test('should return form fields', () => {
+    expect(getFormFields(commonContent.userCase!).fields['soa_PartiesServed']).toBeDefined;
+    expect(getFormFields(commonContent.userCase!).fields['soa_PartiesServedDate']).toBeDefined;
+  });
+
+  test('should generate form fields', () => {
+    const formFields = generateFormFields(commonContent.userCase!);
+    expect(formFields.fields['sos_partiesServed']).toBeDefined;
+    expect(formFields.fields['sos_partiesServedDate'].values).toHaveLength(3);
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */

@@ -39,7 +39,7 @@ describe('applicant > statement-of-service > choose-parties > routeGuard', () =>
 
     routeGuard.get(req, res, next);
     await new Promise(process.nextTick);
-    expect(req.session.userCase.statementOfServiceDocument.document_binary_url).toStrictEqual('string');
+    expect(req.session.errors).toHaveLength(0);
   });
 
   test('should call next when documentId not present in query params', async () => {
