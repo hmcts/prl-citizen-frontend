@@ -47,6 +47,7 @@ describe('Basic field form > PreProcessCaseData ()', () => {
 
     const PreProcessFunction = PreProcessCaseData.clean(
       mockForm.fields,
+      req,
       formDummyData,
       req.session.userCase,
       !req.path.startsWith(`${C100_URL}`)
@@ -65,6 +66,7 @@ describe('Basic field form > PreProcessCaseData ()', () => {
 
     const PreProcessFunction = PreProcessCaseData.clean(
       mockForm.fields,
+      req,
       formDummyData,
       req.session.userCase,
       !req.path.startsWith(`${C100_URL}`)
@@ -169,6 +171,7 @@ describe('Checkbox field form > PreProcessCaseData ()', () => {
 
     const PreProcessFunction = PreProcessCaseData.clean(
       mockCheckBoxForm.fields,
+      req,
       formDummyData,
       req.session.userCase,
       !req.path.startsWith(`${C100_URL}`)
@@ -204,6 +207,7 @@ describe('Checkbox field form > PreProcessCaseData ()', () => {
 
     const PreProcessFunction = PreProcessCaseData.clean(
       mockSubFieldForm.fields,
+      req,
       formDummyData,
       req.session.userCase,
       !req.path.startsWith(`${C100_URL}`)
@@ -283,6 +287,7 @@ describe('Checkbox field form > PreProcessCaseData () > Fields not present', () 
 
     const PreProcessFunction = PreProcessCaseData.clean(
       mockSubFieldForm.fields,
+      req,
       formDummyData,
       req.session.userCase,
       !req.path.startsWith(`${C100_URL}`)

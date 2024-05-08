@@ -7,7 +7,6 @@ import { generateContent } from '../../miam/domestic-abuse/content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  serviceName: 'Child Arrangements',
   caption: 'MIAM exemptions',
   title: 'Do you have any of the following evidence of domestic violence or abuse?',
   select_all_apply: 'Select all that apply to you',
@@ -120,7 +119,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   caption: 'Esemptiadau MIAM',
   title: 'A oes gennych chi unrhyw un o’r tystiolaethau canlynol o drais domestig neu gamdriniaeth?',
   select_all_apply: "Dewiswch bob un sy'n berthnasol i chi",

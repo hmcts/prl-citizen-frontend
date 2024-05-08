@@ -1,24 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { generateResponseNotifications } from '..';
 import { CaseWithId } from '../../../../../../app/case/case';
 import { State, YesOrNo } from '../../../../../../app/case/definition';
 import { UserDetails } from '../../../../../../app/controller/AppRequest';
+import { hasOrders } from '../../../../../../steps/common/documents/view/utils';
+import { NotificationBannerProps } from '../../../../../../steps/common/task-list/definitions';
 import { isCaseLinked, isCaseWithdrawn } from '../../../../../../steps/common/task-list/utils';
-import { BannerNotification, notificationBanner } from '../utils';
+import { BannerNotification, isApplicantLIPServingRespondent, isPrimaryApplicant, notificationBanner } from '../utils';
 
-export const CA_APPLICANT = [
-  {
-    ...notificationBanner[BannerNotification.NEW_DOCUMENT],
-    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-      return (
-        caseData &&
-        !!caseData?.applicants?.find(
-          applicant =>
-            applicant?.value?.user?.idamId === userDetails.id &&
-            applicant?.value.response?.citizenFlags?.isAllDocumentsViewed === YesOrNo.NO
-        )
-      );
-    },
-  },
+export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerProps[] => [
   {
     ...notificationBanner[BannerNotification.APPLICATION_NOT_STARTED],
     show: (caseData: Partial<CaseWithId>): boolean => {
@@ -67,19 +57,44 @@ export const CA_APPLICANT = [
   {
     ...notificationBanner[BannerNotification.APPLICATION_SERVED_LINKED],
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
-      return caseData?.state === State.CASE_SERVED && isCaseLinked(caseData, userDetails);
+      return (
+        caseData?.state === State.CASE_SERVED &&
+        isCaseLinked(caseData, userDetails) &&
+        !isApplicantLIPServingRespondent(caseData)
+      );
     },
   },
   {
     ...notificationBanner[BannerNotification.APPLICATION_CLOSED],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state === State.CASE_CLOSED && !isCaseWithdrawn(caseData);
+      return caseData?.state === State.ALL_FINAL_ORDERS_ISSUED && !isCaseWithdrawn(caseData);
     },
   },
   {
     ...notificationBanner[BannerNotification.NEW_ORDER],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state !== State.CASE_CLOSED && !!caseData?.orderCollection?.length;
+      return caseData?.state !== State.ALL_FINAL_ORDERS_ISSUED && hasOrders(caseData as CaseWithId);
     },
   },
+  {
+    ...notificationBanner[BannerNotification.GIVE_RESPONDENT_THEIR_DOCUMENTS],
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+      return (
+        isCaseLinked(caseData, userDetails) &&
+        isPrimaryApplicant(caseData, userDetails) &&
+        isApplicantLIPServingRespondent(caseData)
+      );
+    },
+  },
+  {
+    ...notificationBanner[BannerNotification.CA_PERSONAL_SERVICE],
+    show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
+      return (
+        isCaseLinked(caseData, userDetails) &&
+        !isPrimaryApplicant(caseData, userDetails) &&
+        isApplicantLIPServingRespondent(caseData)
+      );
+    },
+  },
+  ...generateResponseNotifications(userCase),
 ];
