@@ -149,6 +149,16 @@ class MIAMNavigationController {
         }
         break;
       }
+      case C100_MIAM_PROVIDING_DA_EVIDENCE: {
+        if (caseData.miam_canProvideDomesticAbuseEvidence === YesOrNo.YES) {
+          url = applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE) as PageLink;
+        } else {
+          url =
+            this.getNextPageUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE) ??
+            (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+        }
+        break;
+      }
       case C100_MIAM_UPLOAD_DA_EVIDENCE: {
         url =
           this.getNextPageUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE) ??

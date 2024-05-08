@@ -14,18 +14,17 @@ import { C100_MIAM_UPLOAD_DA_EVIDENCE } from '../../../../urls';
 import { handleEvidenceDocError, removeEvidenceDocErrors } from '../../util';
 
 @autobind
-export default class MIAMAttendanceEvidenceUploadController extends PostController<AnyObject> {
+export default class MIAMDomesticAbuseEvidenceUploadController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
 
-  private hasError(req: AppRequest): string | undefined {
+  private hasError(uploadedDocument: Record<string, any>): string | undefined {
     let errorType;
-    const documentUploaded = _.get(req, 'files.miam_domesticAbuseEvidenceDoc');
 
-    if (!isValidFileFormat({ documents: documentUploaded })) {
-      ('invalidFileFormat');
-    } else if (isFileSizeGreaterThanMaxAllowed({ documents: documentUploaded })) {
+    if (!isValidFileFormat({ documents: uploadedDocument })) {
+      errorType = 'invalidFileFormat';
+    } else if (isFileSizeGreaterThanMaxAllowed({ documents: uploadedDocument })) {
       errorType = 'maxFileSize';
     }
 
@@ -36,19 +35,23 @@ export default class MIAMAttendanceEvidenceUploadController extends PostControll
     const { uploadFile, onlyContinue } = req.body;
 
     if (onlyContinue) {
-      removeEvidenceDocErrors(req, 'miam_domesticAbuseEvidenceDoc');
+      removeEvidenceDocErrors(req, 'miam_domesticAbuseEvidenceDocs');
 
       return super.redirect(req, res);
     }
 
-    const error = this.hasError(req);
+    const fileUploaded = _.get(req, 'files.miam_domesticAbuseEvidenceDocs') as unknown as Record<string, any>;
+    if (!fileUploaded) {
+      return super.redirect(req, res, C100_MIAM_UPLOAD_DA_EVIDENCE);
+    }
+
+    const error = this.hasError(fileUploaded);
 
     if (error) {
-      handleEvidenceDocError(error, req, 'miam_domesticAbuseEvidenceDoc');
+      handleEvidenceDocError(error, req, 'miam_domesticAbuseEvidenceDocs');
       return super.redirect(req, res);
     }
 
-    const fileUploaded = _.get(req, 'files.miam_domesticAbuseEvidenceDoc') as unknown as Record<string, any>;
     const formData: FormData = new FormData();
 
     formData.append('file', fileUploaded.data, {
@@ -60,18 +63,19 @@ export default class MIAMAttendanceEvidenceUploadController extends PostControll
       const response = await caseApi(req.session.user, req.locals.logger).uploadDocument(formData);
 
       if (response.status !== 'Success') {
-        handleEvidenceDocError('uploadError', req, 'miam_domesticAbuseEvidenceDoc');
+        handleEvidenceDocError('uploadError', req, 'miam_domesticAbuseEvidenceDocs');
         return super.redirect(req, res);
       }
 
-      req.session.userCase = {
-        ...req.session.userCase,
-        miam_previousAttendanceEvidenceDoc: response.document,
-      };
-      removeEvidenceDocErrors(req, 'miam_domesticAbuseEvidenceDoc');
+      req.session.userCase.miam_domesticAbuseEvidenceDocs = req.session.userCase.miam_domesticAbuseEvidenceDocs
+        ? req.session.userCase.miam_domesticAbuseEvidenceDocs
+        : [];
+
+      req.session.userCase.miam_domesticAbuseEvidenceDocs?.push(response.document);
+      removeEvidenceDocErrors(req, 'miam_domesticAbuseEvidenceDocs');
       super.redirect(req, res, uploadFile ? applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE) : undefined);
     } catch (e) {
-      handleEvidenceDocError('uploadError', req, 'miam_domesticAbuseEvidenceDoc');
+      handleEvidenceDocError('uploadError', req, 'miam_domesticAbuseEvidenceDocs');
       super.redirect(req, res);
     }
   }

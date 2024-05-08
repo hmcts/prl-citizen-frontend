@@ -83,6 +83,11 @@ import {
   ContactPreference,
   DocumentResponse,
   DomesticAbuseExemptions,
+  PoliceInvolvementEvidence,
+  AuthorityLetterEvidence,
+  CourtInvolvementEvidence,
+  SupportServiceEvidence,
+  VictimLetterEvidence,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -546,9 +551,14 @@ export interface Case {
   miam_mediatorDocument?: YesOrNo;
   miam_nonAttendanceReasons?: MiamNonAttendReason[];
   miam_domesticAbuse?: DomesticAbuseExemptions[];
+  miam_domesticAbuse_policeInvolvement_subfields?: PoliceInvolvementEvidence[];
+  miam_domesticAbuse_courtInvolvement_subfields?: CourtInvolvementEvidence[];
+  miam_domesticAbuse_letterOfBeingVictim_subfields?: VictimLetterEvidence[];
+  miam_domesticAbuse_letterFromAuthority_subfields?: AuthorityLetterEvidence[];
+  miam_domesticAbuse_letterFromSupportService_subfields?: SupportServiceEvidence[];
   miam_canProvideDomesticAbuseEvidence?: YesOrNo;
   miam_detailsOfDomesticAbuseEvidence?: string;
-  miam_domesticAbuseEvidenceDoc?: DocumentResponse;
+  miam_domesticAbuseEvidenceDocs?: DocumentResponse[];
   miam_notAttendingReasons?: Miam_notAttendingReasons;
   miam_noMediatorReasons?: Miam_noMediatorReasons;
   miam_urgency?: Miam_urgency;

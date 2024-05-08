@@ -6,7 +6,7 @@ import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../a
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../common/common.content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
-import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
+import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/domestic-abuse/content';
 
 import { form, generateContent, sectionCountFormatter, toggleApplicantSafetyConcerns } from './content';
 
@@ -103,7 +103,7 @@ const enContent = {
     askingNoHearing: 'Are you asking for a without notice hearing?',
     phoneNumber: 'Phone number',
     emailAddress: 'Contact number of the person named on the application',
-    domesticVoilenceHeading: DomesticAbuseEn().title,
+    domesticVoilenceHeading: DomesticAbuseEn.title,
     childProtectionHeading: ChildProtectionEn().title,
     midatatorDocumentTitle: EnMidiationDocument().title,
     previousAddress: 'Previous Addresses',
@@ -225,7 +225,7 @@ const cyContent = {
     askingNoHearing: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
     phoneNumber: ' Rhif ffôn',
     emailAddress: 'C Rhif cyswllt yr un a enwir yn y cais',
-    domesticVoilenceHeading: DomesticAbuseCy().title,
+    domesticVoilenceHeading: DomesticAbuseCy.title,
     childProtectionHeading: ChildProtectionCy().title,
     midatatorDocumentTitle: CyMidiationDocument().title,
     previousAddress: 'Cyfeiriad blaenorol',

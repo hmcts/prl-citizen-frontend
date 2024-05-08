@@ -21,7 +21,7 @@ export const en = {
       'An undertaking given in court in England and Wales (or given in Scotland or Northern Ireland instead of a protective injunction) by you or another party to the application',
     undertakingHint:
       'This cannot be relied upon as evidence of domestic abuse if both you and the other party gave an undertaking',
-    ukDomesticViolcence:
+    ukDomesticViolence:
       'There has been a finding of fact in proceedings in the United Kingdom that proves that someone in the case has committed domestic abuse',
     ukPotentialVictim:
       'An expert report was produced as evidence in proceedings in the United Kingdom, showing that a person with whom a party to the application is or was personally connected was a victim (or potential victim) of domestic abuse by that person',
@@ -30,7 +30,7 @@ export const en = {
     'A letter confirming that you or someone who is a party to the application are (or have been) a victim of domestic abuse',
   letterOfBeingVictim_subFields: {
     letterFromHealthProfessional: 'A letter or report from a health professional',
-    letterFromHealthProfessional_hint:
+    letterFromHealthProfessionalHint:
       'The letter or report must confirm that an appropriate health professional has examined the person – and in their professional judgment, the person has (or has had) injuries that are consistent with being a victim of domestic abuse',
     referralLetterFromHealthProfessional:
       'A letter or report confirming that there was a referral by an appropriate health professional of a party to the application who provides specialist support or assistance for victims of (or those at risk of) domestic abuse',
@@ -71,63 +71,74 @@ export const en = {
 };
 
 export const cy = {
-  policeInvolvement: 'Mae’r heddlu wedi bod ynghlwm â hyn',
+  policeInvolvement: 'Mae’r heddlu wedi bod ynghlwm â’r mater hwn',
   policeInvolvement_subFields: {
-    evidenceOfSomeoneArrest: 'Tystiolaeth bod rhywun yn y cais wedi cael ei arestio am drosedd trais domestig',
-    evidenceOfPolice: 'Tystiolaeth o rybudd gan yr heddlu am drosedd trais domestig',
-    evidenceOfOnGoingCriminalProceeding: 'Tystiolaeth o achosion troseddol parhaus am drosedd trais domestig',
-    evidenceOfConviction: 'Tystiolaeth o euogfarn berthnasol am drosedd trais domestig',
-    evidenceOFProtectionNotice: 'Hysbysiad Diogelu rhag Trais Domestig wedi ei gyhoeddi yn erbyn rhywun yn y cais',
+    evidenceOfSomeoneArrest: 'Tystiolaeth bod parti yn y cais wedi cael ei arestio am drosedd cam-drin domestig',
+    evidenceOfPolice: 'Tystiolaeth o rybudd gan yr heddlu am drosedd cam-drin domestig',
+    evidenceOfOnGoingCriminalProceeding: 'Tystiolaeth o achos troseddol parhaus am drosedd cam-drin domestig',
+    evidenceOfConviction: 'Tystiolaeth o euogfarn am drosedd cam-drin domestig',
+    evidenceOfSection24Notice:
+      'Hysbysiad diogelu rhag trais domestig a roddwyd dan adran 24 Deddf Troseddau a Diogelwch 2010 yn erbyn rhywun sy’n barti i’r cais',
+    evidenceOfSection22Notice:
+      'Hysbysiad diogelu rhag cam-drin domestig a roddwyd dan adran 22 Deddf Camdriniaeth Ddomestig 2021 yn erbyn rhywun sy’n barti i’r cais',
   },
-  courtInvolvement: 'Hysbysiad Diogelu rhag Trais Domestig wedi ei gyhoeddi yn erbyn rhywun yn y cais',
+  courtInvolvement: 'Mae’r llys eisoes ynghlwm â’r mater hwn',
   courtInvolvement_subFields: {
     boundedByCourtAction:
-      'Mae rhywun yn yr achos wedi ei rwymo gan orchymyn llys mewn cysylltiad â throsedd trais domestig',
-    protectionInjuction: 'Mae gwaharddeb gwarchod mewn grym',
-    fmlAct1996:
-      'Ymgymeriad a roddwyd yng Nghymru a Lloegr dan adran 46 neu 63E Deddf Cyfraith Teulu 1996 (neu a roddwyd yn Yr Alban neu yng Ngogledd Iwerddon yn lle gwaharddeb gwarchod) gan ddarpar barti, ar yr amod na roddwyd traws-ymgymeriad mewn perthynas â thrais domestig gan ddarpar barti arall',
-    ukdomesticVoilcenceUK:
-      "Bu canfyddiad ffeithiol mewn achosion yn y Deyrnas Unedig, sy'n profi fod rhywun yn yr achos wedi cyflawni trais domestig",
+      'Mae rhywun yn yr achos wedi ei rwymo gan orchymyn llys mewn cysylltiad â throsedd cam-drin domestig',
+    protectionInjuction: 'Mae gwaharddeb gwarchod perthnasol ar waith',
+    protectionInjuctionHint:
+      'Mae hyn yn golygu bod yna orchymyn llys sy’n eich amddiffyn chi neu barti arall i’r cais rhag cael eich anafu neu eich bygwth gan unigolyn arall. Er enghraifft, gorchymyn rhag molestu.',
+    undertaking:
+      'Ymgymeriad a roddwyd mewn llys yng Nghymru a Lloegr (neu a roddwyd yn yr Alban neu yng Ngogledd Iwerddon yn lle gwaharddeb gwarchod) gennych chi neu barti arall i’r cais.',
+    undertakingHint:
+      'Ni ellir dibynnu ar hwn i fod yn dystiolaeth o gam-drin domestig os roesoch chi a’r parti arall ymgymeriad',
+    ukDomesticViolence:
+      'Bu canfyddiad ffeithiol mewn achos yn y Deyrnas Unedig, sy’n profi fod rhywun yn yr achos wedi cyflawni cam-drin domestig',
     ukPotentialVictim:
-      "Cyflwynwyd adroddiad arbenigol fel tystiolaeth mewn achos yn y Deyrnas Unedig, ac roedd yn dangos bod y sawl yr oedd darpar barti yn ymwneud ag ef neu a oedd mewn perthynas deuluol ag ef yn ddioddefwr (neu'n ddioddefwr posib) o gam-drin domestig gan yr unigolyn hwnnw",
-  },
-  letterFromAuthority: 'awdurdod lleol neu asiantaeth arall yn cadarnhau risg o niwed',
-  letterFromAuthority_subFields: {
-    letterFromMultiAgencyMember:
-      "Llythyr gan unrhyw un sy'n aelod o gynhadledd asesu risg aml-asiantaethol, neu fforwm diogelu lleol. Mae'r llythyr yn cadarnhau bod un o'r bobl yn y cais, neu rywun yn nheulu'r unigolyn hwnnw mewn (neu wedi bod mewn) risg o niwed yn sgil trais domestig gan ddarpar barti.",
-    letterFromOfficer:
-      'Llythyr gan swyddog a gyflogir gan awdurdod lleol neu gymdeithas tai at ddiben cefnogi tenantiaid.',
-    letterFromOfficer_hint:
-      "<div class='govuk-hint govuk-checkboxes__hint' id='authorityletter-hint'>Rhaid i'r llythyr gynnwys: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'> <li>datganiad sy'n dweud, yn eu barn broffesiynol nhw, bod darpar barti yn peri risg gwirioneddol neu botensial o drais domestig tuag at rywun arall y maen nhw mewn (neu wedi bod mewn) perthynas deuluol â nhw.</li> <li>disgrifiad o'r wybodaeth benodol yr oeddent yn dibynnu arni i gefnogi'r farn hon</li> <li>disgrifiad o'r cymorth a roddwyd i'r dioddefwr (neu'r dioddefwr posib) o gam-drin domestig gan y darpar blaid</li> </ul> </div>",
-    letterFromPublicAuthority:
-      "Cafodd llythyr gan awdurdod cyhoeddus sy'n cadarnhau bod unigolyn y mae darpar barti mewn perthynas deuluol ag ef/hi neu oedd yn arfer bod mewn perthynas deuluol ag ef/hi, wedi cael ei arestio gan ei fod/bod, neu mewn perygl o fod, yn ddioddefwr trais domestig gan y darpar barti hwnnw (neu gopi o'r asesiad hwnnw)",
+      'Cynhyrchwyd adroddiad arbenigol fel tystiolaeth mewn achos yn y Deyrnas Unedig, yn dangos bod unigolyn y mae parti i’r cais yn ymwneud ag ef/â hi yn bersonol neu roedd yn ymwneud ag ef/â hi yn bersonol yn ddioddefwr (neu’n ddioddefwr posibl) cam-drin domestig gan yr unigolyn hwnnw.',
   },
   letterOfBeingVictim:
-    "Mae llythyr yn cadarnhau eich bod chi neu'r bobl eraill yn y cais yn (neu wedi bod yn) ddioddefwr trais domestig neu gamdriniaeth",
+    'Llythyr yn cadarnhau eich bod chi neu rywun sy’n barti i’r cais yn (neu wedi bod yn) ddioddefwr gam-drin domestig',
   letterOfBeingVictim_subFields: {
-    letterFromHealthProfessional: 'Llythyr neu adroddiad gan weithiwr iechyd proffesiynol priodol',
-    letterFromHealthProfessional_hint:
-      'Rhaid i’r llythyr neu’r adroddiad gadarnhau bod gweithiwr iechyd proffesiynol priodol wedi archwilio’r unigolyn yn uniongyrchol - ac yn ei farn broffesiynol, bod gan yr unigolyn anafiadau sy’n gyson â bod yn ddioddefwr trais domestig',
-    letterFromHPfromPerspectiveParty:
-      'Llythyr neu adroddiad yn cadarnhau bod atgyfeiriad wedi cael ei wneud gan weithiwr iechyd proffesiynol priodol ar ran y darpar barti i unigolyn sy’n darparu cefnogaeth neu gymorth arbenigol i ddioddefwyr, neu’r rhai hynny sydd mewn risg o ddioddef trais domestig',
-    letterFromHPfromPerspectiveParty_hint:
-      '<div class="govuk-hint govuk-checkboxes__hint" id="sletterconfirmation-hint">Rhaid i’r llythyr neu’r adroddiad fod wedi ei ddarparu gan: <ul class="govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2"> <li>y gweithiwr iechyd proffesiynol priodol a wnaeth yr Atgyfeiriad</li> <li>gweithiwr iechyd proffesiynol priodol sydd â mynediad at gofnodion meddygol y darpar barti y cyfeiriwyd ato</li> <li>neu’r sawl y gwnaed yr atgyfeiriad iddo/iddi</li> </ul> </div>',
+    letterFromHealthProfessional: 'Llythyr neu adroddiad gan weithiwr iechyd proffesiynol',
+    letterFromHealthProfessionalHint:
+      'Rhaid i’r llythyr neu’r adroddiad gadarnhau bod gweithiwr iechyd proffesiynol priodol wedi archwilio’r unigolyn - ac yn eu barn broffesiynol, mae gan yr unigolyn (neu roedd gan yr unigolyn) anafiadau sy’n gyson â bod yn ddioddefwr cam-drin domestig',
+    referralLetterFromHealthProfessional:
+      'Llythyr neu adroddiad yn cadarnhau bod parti i’r cais wedi cael ei atgyfeirio gan weithiwr iechyd proffesiynol priodol at unigolyn sy’n darparu cefnogaeth neu gymorth arbenigol i ddioddefwyr, (neu’r rhai hynny sydd mewn risg o ddioddef) cam-drin domestig',
+    referralLetterFromHealthProfessionalHint:
+      '<div class="govuk-hint govuk-checkboxes__hint" id="sletterconfirmation-hint">Rhaid i’r llythyr neu’r adroddiad fod gan un o’r canlynol: <ul class="govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2"> <li>y gweithiwr iechyd proffesiynol a wnaeth yr atgyfeiriad</li> <li>y gweithiwr iechyd proffesiynol sydd â mynediad at gofnodion meddygol y parti i’r cais</li> <li>yr unigolyn y gwnaed yr atgyfeiriad iddo/iddi</li> </ul> </div>',
   },
-  letterFromSupportService: 'Llythyr gan wasanaeth cymorth trais domestig neu gamdriniaeth, arbenigwr neu sefydliad',
+  letterFromAuthority: 'Llythyr gan awdurdod lleol neu asiantaeth arall sy’n cadarnhau risg o niwed',
+  letterFromAuthority_subFields: {
+    letterFromMultiAgencyMember:
+      'Llythyr gan aelod o gynhadledd amlasiantaethol ar gyfer asesu risg neu fforwm diogelu lleol yn cadarnhau bod parti i’r cais (neu rywun yn nheulu’r unigolyn hwnnw) mewn risg o niwed yn sgil cam-drin domestig neu fod risg o niwed yn sgil cam-drin domestig wedi bod yn y gorffennol',
+    letterFromOfficer: 'Llythyr gan swyddog a gyflogir gan awdurdod lleol neu gymdeithas tai, i gefnogi tenantiaid.',
+    letterFromOfficer_hint:
+      "<div class='govuk-hint govuk-checkboxes__hint' id='authorityletter-hint'>Rhaid i’r llythyr gynnwys y canlynol: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'> <li>datganiad sy’n dweud bod parti i’r cais, ym marn broffesiynol yr unigolyn, yn peri risg gwirioneddol neu bosibl o gam-drin domestig tuag at rywun arall y maen nhw’n ymwneud ag ef/â hi (neu wedi bod yn ymwneud ag ef/â hi ) yn bersonol</li> <li>disgrifiad o’r wybodaeth benodol yr oeddent yn dibynnu arni i gefnogi’r dyfarniad hwn</li> <li>disgrifiad o’r cymorth a roddwyd ganddynt i’r dioddefwr (neu’r dioddefwr posib) cam-drin domestig gan barti i’r cais</li> </ul> </div>",
+    letterFromPublicAuthority:
+      'Llythyr gan awdurdod cyhoeddus yn cadarnhau bod unigolyn y mae parti i’r cais yn ymwneud ag ef/â hi, neu wedi bod yn ymwneud ag ef/â hi yn bersonol wedi’i asesu fel ei fod/bod (neu mewn risg o fod/bod) yn ddioddefwr cam-drin domestig gan barti arall',
+    letterFromPublicAuthorityHint: 'Gall hyn gynnwys copi o’r asesiad',
+  },
+  letterFromSupportService: 'Llythyr gan wasanaeth, arbenigwr neu sefydliad cymorth trais neu gamdriniaeth ddomestig',
   letterFromSupportService_subFields: {
     letterFromDomesticViolenceAdvisor:
-      'Llythyr gan gynghorydd trais domestig annibynnol yn cadarnhau ei fod yn rhoi cefnogaeth i ddarpar barti',
+      'Llythyr gan gynghorydd trais domestig annibynnol (IDVA) yn cadarnhau eu bod yn darparu cymorth i barti i’r cais',
     letterFromSexualViolenceAdvisor:
-      'Llythyr gan gynghorydd trais rhywiol annibynnol yn cadarnhau ei fod yn rhoi cefnogaeth i ddarpar barti mewn perthynas â thrais rhywiol gan ddarpar barti arall',
+      'Llythyr gan gynghorydd trais rhywiol annibynnol (ISVA) yn cadarnhau eu bod yn darparu cymorth i barti i’r cais mewn perthynas â thrais rhywiol gan barti arall',
     letterFromOrgDomesticViolenceSupport:
-      'Llythyr gan sefydliad sy’n darparu gwasanaethau cymorth trais domestig, neu elusen gofrestredig',
+      'Llythyr gan sefydliad sy’n darparu gwasanaethau cymorth cam-drin domestig, neu elusen gofrestredig',
+    letterFromOrgDomesticViolenceSupportHint:
+      "<div class='govuk-hint govuk-checkboxes__hint' id='letterFromOrgDomesticViolenceSupport-hint'>Bod y llythyr yn cadarnhau bod y sefydliad: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'> <li>wedi’i leoli yng Nghymru a Lloegr</li> <li>wedi bod yn gweithredu am gyfnod di-dor o 6 mis neu hirach</li> <li>wedi darparu cymorth i barti i’r cais mewn perthynas ag anghenion yr unigolyn hwnnw fel dioddefwr cam-drin domestig (neu unigolyn sydd mewn risg o fod yn ddioddefwr cam-drin domestig) </li> </ul> Rhaid i’r llythyr hefyd gynnwys y canlynol: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'> <li>datganiad sy’n nodi, ym marn broffesiynol resymol awdur y llythyr, bod parti i’r cais yn (neu mewn risg o fod yn) ddioddefwr cam-drin domestig</li> <li>disgrifiad o’r materion penodol y gellir dibynnu arnynt i gefnogi’r farn honno</li> <li>disgrifiad o’r cymorth a roddwyd i’r parti yn y cais</li> <li>datganiad o’r rhesymau pam bod y parti i’r cais angen y cymorth hwnnw</li> </ul> </div>",
     letterFromOrgDomesticViolenceInUk:
-      'Llythyr neu adroddiad gan sefydliad sy’n darparu gwasanaethau cefnogi trais domestig yn y Deyrnas Unedig',
+      'Llythyr neu adroddiad gan sefydliad sy’n darparu gwasanaethau cymorth cam-drin domestig yn y Deyrnas Unedig',
+    letterFromOrgDomesticViolenceInUkHint:
+      "<div class='govuk-hint govuk-checkboxes__hint' id='letterFromOrgDomesticViolenceInUk-hint'>Rhaid i’r llythyr neu’r adroddiad gadarnhau’r canlynol: <ul class='govuk-list govuk-list--bullet govuk-hint govuk-!-margin-top-2'> <li>gwrthodwyd mynediad i unigolyn y mae parti i’r cais yn (neu wedi bod yn) ymwneud ag ef/â hi yn bersonol i loches</li> <li>y dyddiad y gwrthodwyd mynediad i’r lloches i’r parti yn y cais</li> <li>bod parti i’r cais wedi gwneud cais am loches oherwydd honiadau o gam-drin domestig gan barti arall</li> </ul> </div>",
   },
   ILRDuetoDomesticAbuse:
-    'Rydych chi neu unrhyw un o’r bobl eraill yn y cais hwn (yr atebwyr) wedi cael caniatâd amhenodol i aros yn y DU fel dioddefwr trais domestig neu gamdriniaeth',
+    'Mae gennych chi neu barti arall i’r cais lythyr gan y Swyddfa Gartref yn rhoi caniatâd di-derfyn i aros yn y DU fel dioddefwr cam-drin domestig',
   financialAbuse:
-    'Mae gennych dystiolaeth eich bod chi neu’r bobl eraill yn y cais (yr atebwyr) wedi dioddef (neu mewn perygl o ddioddef) camdriniaeth ariannol gan y parti arall',
+    'Mae gennych dystiolaeth eich bod chi neu barti arall yn y cais wedi dioddef (neu mewn risg o ddioddef) camdriniaeth ariannol gan y parti arall',
 };
 
 export const languages = {

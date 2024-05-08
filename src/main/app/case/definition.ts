@@ -3180,7 +3180,7 @@ export enum CourtInvolvementEvidence {
   BOUND_BY_COURT = 'boundedByCourtAction',
   PROTECTIVE_INJUNCTION = 'protectionInjuction',
   UNDERTAKING = 'undertaking',
-  UK_DOMESTIC_VIOLENCE = 'ukDomesticViolcence',
+  UK_DOMESTIC_VIOLENCE = 'ukDomesticViolence',
   UK_POTENTIAL_VICTIM = 'ukPotentialVictim',
 }
 

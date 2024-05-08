@@ -66,12 +66,8 @@ export const MiamContentsForDomensticVoilence = UserCase => {
     return {
       en: () => {
         const data = {
-          ...DomesticAbuseEn(),
-          ...CommonDomesticAbuseEn.policeInvolvement_subFields,
-          ...CommonDomesticAbuseEn.letterFromSupportService_subFields,
-          ...CommonDomesticAbuseEn.courtInvolvement_subFields,
-          ...CommonDomesticAbuseEn.letterOfBeingVictim_subFields,
-          ...CommonDomesticAbuseEn.letterFromAuthority_subFields,
+          ...DomesticAbuseEn,
+          ...CommonDomesticAbuseEn,
           ...GeneralContentEn(),
           generalReasonTitle: GeneralContentEn().title,
           domesticViolenceHead: GeneralContentEn().domesticViolence,
@@ -84,12 +80,8 @@ export const MiamContentsForDomensticVoilence = UserCase => {
       },
       cy: () => {
         const data = {
-          ...DomesticAbuseCy(),
-          ...CommonDomesticAbuseCy.policeInvolvement_subFields,
-          ...CommonDomesticAbuseCy.letterFromSupportService_subFields,
-          ...CommonDomesticAbuseCy.courtInvolvement_subFields,
-          ...CommonDomesticAbuseCy.letterOfBeingVictim_subFields,
-          ...CommonDomesticAbuseCy.letterFromAuthority_subFields,
+          ...DomesticAbuseCy,
+          ...CommonDomesticAbuseCy,
           ...GeneralContentCy(),
           generalReasonTitle: GeneralContentCy().title,
           domesticViolenceHead: GeneralContentCy().domesticViolence,

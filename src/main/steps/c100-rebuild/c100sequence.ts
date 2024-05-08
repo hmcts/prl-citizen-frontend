@@ -526,7 +526,7 @@ export const C100Sequence: Step[] = [
   {
     url: C100_MIAM_PROVIDING_DA_EVIDENCE,
     showInSection: Sections.C100,
-    getNextStep: () => C100_MIAM_UPLOAD_DA_EVIDENCE,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_PROVIDING_DA_EVIDENCE, caseData),
   },
   {
     url: C100_MIAM_UPLOAD_DA_EVIDENCE,

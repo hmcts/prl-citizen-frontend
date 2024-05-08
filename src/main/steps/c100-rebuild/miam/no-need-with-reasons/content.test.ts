@@ -1,8 +1,8 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
+import { cy as CommonDomesticAbuseCy, en as CommonDomesticAbuseEn } from '../../miam/domestic-abuse/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../child-protection/content';
-import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../domestic-abuse/content';
 import { cy as OtherCy, en as OtherEn } from '../miam-other/content';
 import { cy as PreviousAttendanceCy, en as PreviousAttendanceEn } from '../previous-attendance/content';
 import { cy as UrgencyCy, en as UrgencyEn } from '../urgency/content';
@@ -28,13 +28,13 @@ const en = {
     validExemption: 'Other exemptions',
   },
   abuseList: {
-    policeInvolvement: DomesticAbuseEn().policeInvolvement_subFields,
-    courtInvolvement: DomesticAbuseEn().courtInvolvement_subFields,
-    letterOfBeingVictim: DomesticAbuseEn().letterOfBeingVictim_subFields,
-    letterFromAuthority: DomesticAbuseEn().letterFromAuthority_subFields,
-    letterFromSupportService: DomesticAbuseEn().letterFromSupportService_subFields,
-    ILRDuetoDomesticAbuse: DomesticAbuseEn().ILRDuetoDomesticAbuse,
-    financiallyAbuse: DomesticAbuseEn().financiallyAbuse,
+    policeInvolvement: CommonDomesticAbuseEn.policeInvolvement_subFields,
+    courtInvolvement: CommonDomesticAbuseEn.courtInvolvement_subFields,
+    letterOfBeingVictim: CommonDomesticAbuseEn.letterOfBeingVictim_subFields,
+    letterFromAuthority: CommonDomesticAbuseEn.letterFromAuthority_subFields,
+    letterFromSupportService: CommonDomesticAbuseEn.letterFromSupportService_subFields,
+    ILRDuetoDomesticAbuse: CommonDomesticAbuseEn.ILRDuetoDomesticAbuse,
+    financialAbuse: CommonDomesticAbuseEn.financialAbuse,
   },
   childProtection: {
     localAuthority: ChildProtectionEn().localAuthority,
@@ -77,13 +77,13 @@ const cy = {
     validExemption: 'Esemptiadau eraill',
   },
   abuseList: {
-    policeInvolvement: DomesticAbuseCy().policeInvolvement_subFields,
-    courtInvolvement: DomesticAbuseCy().courtInvolvement_subFields,
-    letterOfBeingVictim: DomesticAbuseCy().letterOfBeingVictim_subFields,
-    letterFromAuthority: DomesticAbuseCy().letterFromAuthority_subFields,
-    letterFromSupportService: DomesticAbuseCy().letterFromSupportService_subFields,
-    ILRDuetoDomesticAbuse: DomesticAbuseCy().ILRDuetoDomesticAbuse,
-    financiallyAbuse: DomesticAbuseCy().financiallyAbuse,
+    policeInvolvement: CommonDomesticAbuseCy.policeInvolvement_subFields,
+    courtInvolvement: CommonDomesticAbuseCy.courtInvolvement_subFields,
+    letterOfBeingVictim: CommonDomesticAbuseCy.letterOfBeingVictim_subFields,
+    letterFromAuthority: CommonDomesticAbuseCy.letterFromAuthority_subFields,
+    letterFromSupportService: CommonDomesticAbuseCy.letterFromSupportService_subFields,
+    ILRDuetoDomesticAbuse: CommonDomesticAbuseCy.ILRDuetoDomesticAbuse,
+    financialAbuse: CommonDomesticAbuseCy.financialAbuse,
   },
   childProtection: {
     localAuthority: ChildProtectionCy().localAuthority,

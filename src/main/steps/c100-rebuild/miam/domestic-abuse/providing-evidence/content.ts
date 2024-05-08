@@ -24,19 +24,18 @@ const en = {
 
 const cy: typeof en = {
   caption: 'Esemptiadau MIAM',
-  title: 'Eisoes wedi mynychu MIAM neu NCDR',
-  content: 'Mae’n rhaid i chi ddarparu tystiolaeth eich bod eisoes wedi mynychu MIAM neu NCDR.',
-  yes: 'Oes',
-  no: '	Nac oes',
-  provideEvidence: 'Darparu manylion o fynychu MIAM',
-  explainNoEvidence:
-    'Os mai chi yw’r atebydd yn yr achos sydd ar y gweill, rhowch ddyddiad y MIAM yn ogystal ag enw a manylion cyswllt y cyfryngwr.',
+  title: 'Darparu tystiolaeth o gam-drin domestig',
+  content: 'Rydych wedi dweud nad oes rhaid i chi fynychu MIAM oherwydd y rhesymau canlynol:',
+  yes: 'Gallaf',
+  no: 'Na allaf',
+  provideEvidence: 'Allwch chi ddarparu tystiolaeth?',
+  explainNoEvidence: 'Eglurwch pam allwch chi ddim darparu tystiolaeth',
   errors: {
     miam_canProvideDomesticAbuseEvidence: {
-      required: 'Dewiswch ‘Oes’ os oes gennych chi ddogfen wedi’i llofnodi gan gyfryngwr',
+      required: 'Dewiswch ‘gallaf’ os gallwch chi ddarparu tystiolaeth',
     },
     miam_detailsOfDomesticAbuseEvidence: {
-      required: 'Darparu manylion o fynychu MIAM',
+      required: 'Eglurwch pam allwch chi ddim darparu tystiolaeth',
     },
   },
 };
@@ -55,12 +54,12 @@ export const form: FormContent = {
       validator: atLeastOneFieldIsChecked,
       values: [
         {
-          name: 'miam_canProvideDAEvidence',
+          name: 'miam_canProvideDomesticAbuseEvidence',
           label: l => l.yes,
           value: YesOrNo.YES,
         },
         {
-          name: 'miam_canProvideDAEvidence',
+          name: 'miam_canProvideDomesticAbuseEvidence',
           label: l => l.no,
           value: YesOrNo.NO,
           subFields: {
@@ -85,21 +84,20 @@ export const form: FormContent = {
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
-  const listOfAbuseReasons = content.userCase?.miam_domesticAbuse?.map(abuseEvidenceType => {
-    return {
-      abuseEvidenceType: commonLanguages[content.language][abuseEvidenceType],
-      abuseEvidenceReasons: content.userCase?.[`miam_domesticAbuse_${abuseEvidenceType}_subfields`]
-        ? content.userCase?.[`miam_domesticAbuse_${abuseEvidenceType}_subfields`].map(
-            abuseReason => commonLanguages[content.language][`${abuseEvidenceType}_subFields`][abuseReason]
-          )
-        : [],
-    };
-  });
 
   return {
     ...translations,
     ...commonLanguages,
     form,
-    listOfAbuseReasons,
+    listOfAbuseReasons: content.userCase?.miam_domesticAbuse?.map(abuseEvidenceType => {
+      return {
+        abuseEvidenceType: commonLanguages[content.language][abuseEvidenceType],
+        abuseEvidenceReasons: content.userCase?.[`miam_domesticAbuse_${abuseEvidenceType}_subfields`]
+          ? content.userCase?.[`miam_domesticAbuse_${abuseEvidenceType}_subfields`].map(
+              abuseReason => commonLanguages[content.language][`${abuseEvidenceType}_subFields`][abuseReason]
+            )
+          : [],
+      };
+    }),
   };
 };
