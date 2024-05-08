@@ -550,7 +550,8 @@ export interface Case {
   miam_urgency?: Miam_urgency;
   miam_previousAttendance?: Miam_previousAttendance;
   miam_previousAttendanceEvidenceDoc?: DocumentResponse;
-  miam_haveDocSignedByMediatorForPrevAttendance?: string;
+  miam_haveDocSignedByMediatorForPrevAttendance?: YesOrNo;
+  miam_detailsOfEvidence?: string;
   miam_childProtectionEvidence?: Miam_childProtectionEvidence;
   hu_urgentHearingReasons?: YesOrNo;
   c1A_passportOffice?: YesOrNo;
