@@ -141,6 +141,8 @@ import {
   C100_MIAM_NO_ACCESS_MEDIATOR,
   C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING,
   C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR,
+  C100_MIAM_PROVIDING_DA_EVIDENCE,
+  C100_MIAM_UPLOAD_DA_EVIDENCE,
 } from './../urls';
 
 /* eslint-disable import/order */
@@ -520,6 +522,16 @@ export const C100Sequence: Step[] = [
     url: C100_MIAM_MIAM_DOMESTIC_ABUSE,
     showInSection: Sections.C100,
     getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE, caseData),
+  },
+  {
+    url: C100_MIAM_PROVIDING_DA_EVIDENCE,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_PROVIDING_DA_EVIDENCE, caseData),
+  },
+  {
+    url: C100_MIAM_UPLOAD_DA_EVIDENCE,
+    showInSection: Sections.C100,
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_UPLOAD_DA_EVIDENCE, caseData),
   },
   {
     url: C100_MIAM_GENERAL_REASONS,

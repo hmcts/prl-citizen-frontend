@@ -72,7 +72,7 @@ describe('miam Util', () => {
         'letterFromAuthority',
         'letterFromSupportService',
         'ILRDuetoDomesticAbuse',
-        'financiallyAbuse',
+        'financialAbuse',
       ],
     };
     const sessionFields = MiamContentsForDomensticVoilence(userCase);

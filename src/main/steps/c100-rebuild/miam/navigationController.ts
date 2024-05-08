@@ -5,7 +5,7 @@ import {
   Miam_notAttendingReasons,
   Miam_previousAttendance,
 } from '../../../app/case/case';
-import { MiamNonAttendReason, YesOrNo } from '../../../app/case/definition';
+import { DomesticAbuseExemptions, MiamNonAttendReason, YesOrNo } from '../../../app/case/definition';
 import { applyParms } from '../../../steps/common/url-parser';
 import {
   C100_HEARING_URGENCY_URGENT,
@@ -18,6 +18,8 @@ import {
   C100_MIAM_OTHER,
   C100_MIAM_PREVIOUS_ATTENDANCE,
   C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR,
+  C100_MIAM_PROVIDING_DA_EVIDENCE,
+  C100_MIAM_UPLOAD_DA_EVIDENCE,
   C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING,
   C100_MIAM_URGENCY,
   C100_TYPE_ORDER_SELECT_COURT_ORDER,
@@ -135,6 +137,33 @@ class MIAMNavigationController {
             this.getNextPageUrl(currentPageUrl) ||
             (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
         }
+        break;
+      }
+      case C100_MIAM_MIAM_DOMESTIC_ABUSE: {
+        if (!caseData.miam_domesticAbuse?.includes(DomesticAbuseExemptions.NONE)) {
+          url = applyParms(C100_MIAM_PROVIDING_DA_EVIDENCE) as PageLink;
+        } else {
+          url =
+            this.getNextPageUrl(currentPageUrl) ??
+            (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+        }
+        break;
+      }
+      case C100_MIAM_PROVIDING_DA_EVIDENCE: {
+        if (caseData.miam_canProvideDomesticAbuseEvidence === YesOrNo.YES) {
+          url = applyParms(C100_MIAM_UPLOAD_DA_EVIDENCE) as PageLink;
+        } else {
+          url =
+            this.getNextPageUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE) ??
+            (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+        }
+        break;
+      }
+      case C100_MIAM_UPLOAD_DA_EVIDENCE: {
+        url =
+          this.getNextPageUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE) ??
+          (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+
         break;
       }
       default: {

@@ -3155,3 +3155,49 @@ export enum PaymentErrorContext {
   PAYMENT_UNSUCCESSFUL = 'paymentUnsuccessful',
   APPLICATION_NOT_SUBMITTED = 'applicationNotSubmitted',
 }
+
+export enum DomesticAbuseExemptions {
+  POLICE_INVOLVEMENT = 'policeInvolvement',
+  COURT_INVOLVEMENT = 'courtInvolvement',
+  LETTER_OF_BEING_VICTIM = 'letterOfBeingVictim',
+  LETTER_FROM_AUTHORITY = 'letterFromAuthority',
+  LETTER_FROM_SUPPORT_SERVICE = 'letterFromSupportService',
+  ILR_DUE_TO_DOMESTIC_ABUSE = 'ILRDuetoDomesticAbuse',
+  FINANCIAL_ABUSE = 'financialAbuse',
+  NONE = 'none',
+}
+
+export enum PoliceInvolvementEvidence {
+  PARTY_ARRESTED = 'evidenceOfSomeoneArrest',
+  POLICE_CAUTION = 'evidenceOfPolice',
+  ONGOING_CRIMINAL_PROCEEDING = 'evidenceOfOnGoingCriminalProceeding',
+  CONVICTION = 'evidenceOfConviction',
+  SECTION_24_NOTICE = 'evidenceOfSection24Notice',
+  SECTION_22_NOTICE = 'evidenceOfSection22Notice',
+}
+
+export enum CourtInvolvementEvidence {
+  BOUND_BY_COURT = 'boundedByCourtAction',
+  PROTECTIVE_INJUNCTION = 'protectionInjuction',
+  UNDERTAKING = 'undertaking',
+  UK_DOMESTIC_VIOLENCE = 'ukDomesticViolence',
+  UK_POTENTIAL_VICTIM = 'ukPotentialVictim',
+}
+
+export enum VictimLetterEvidence {
+  HEALTH_PROFESSIONAL_LETTER = 'letterFromHealthProfessional',
+  REFERRAL_LETTER = 'referralLetterFromHealthProfessional',
+}
+
+export enum AuthorityLetterEvidence {
+  MULTI_AGENCY_LETTER = 'letterFromMultiAgencyMember',
+  OFFICER_LETTER = 'letterFromOfficer',
+  PUBLIC_AUTHORITY_LETTER = 'letterFromPublicAuthority',
+}
+
+export enum SupportServiceEvidence {
+  DOMESTIC_VIOLENCE_ADVISOR = 'letterFromDomesticViolenceAdvisor',
+  SEXUAL_VIOLENCE_ADVISOR = 'letterFromSexualViolenceAdvisor',
+  DOMESTIC_VIOLENCE_ORGANISATION = 'letterFromOrgDomesticViolenceSupport',
+  UK_DOMESTIC_VIOLENCE_ORGANISATION = 'letterFromOrgDomesticViolenceInUk',
+}

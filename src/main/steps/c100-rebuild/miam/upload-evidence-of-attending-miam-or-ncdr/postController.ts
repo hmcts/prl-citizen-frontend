@@ -11,7 +11,7 @@ import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING } from '../../../../steps/urls';
-import { handlePreviousAttendanceEvidenceDocError, removePreviousAttendanceEvidenceDocErrors } from '../util';
+import { handleEvidenceDocError, removeEvidenceDocErrors } from '../util';
 
 @autobind
 export default class MIAMAttendanceEvidenceUploadController extends PostController<AnyObject> {
@@ -41,7 +41,7 @@ export default class MIAMAttendanceEvidenceUploadController extends PostControll
     const miamEvidenceDocument = _.get(req, 'session.userCase.miam_previousAttendanceEvidenceDoc');
 
     if (onlyContinue && miamEvidenceDocument) {
-      removePreviousAttendanceEvidenceDocErrors(req);
+      removeEvidenceDocErrors(req, 'miam_previousAttendanceEvidenceDoc');
 
       return super.redirect(req, res);
     }
@@ -49,7 +49,7 @@ export default class MIAMAttendanceEvidenceUploadController extends PostControll
     const error = this.hasError(req);
 
     if (error) {
-      handlePreviousAttendanceEvidenceDocError(error, req);
+      handleEvidenceDocError(error, req, 'miam_previousAttendanceEvidenceDoc');
       return super.redirect(req, res);
     }
 
@@ -65,7 +65,7 @@ export default class MIAMAttendanceEvidenceUploadController extends PostControll
       const response = await caseApi(req.session.user, req.locals.logger).uploadDocument(formData);
 
       if (response.status !== 'Success') {
-        handlePreviousAttendanceEvidenceDocError('uploadError', req);
+        handleEvidenceDocError('uploadError', req, 'miam_previousAttendanceEvidenceDoc');
         return super.redirect(req, res);
       }
 
@@ -73,10 +73,10 @@ export default class MIAMAttendanceEvidenceUploadController extends PostControll
         ...req.session.userCase,
         miam_previousAttendanceEvidenceDoc: response.document,
       };
-      removePreviousAttendanceEvidenceDocErrors(req);
+      removeEvidenceDocErrors(req, 'miam_previousAttendanceEvidenceDoc');
       super.redirect(req, res, uploadFile ? applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING) : undefined);
     } catch (e) {
-      handlePreviousAttendanceEvidenceDocError('uploadError', req);
+      handleEvidenceDocError('uploadError', req, 'miam_previousAttendanceEvidenceDoc');
       super.redirect(req, res);
     }
   }

@@ -8,7 +8,7 @@ import { FormContent } from '../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 import { CommonContent } from '../../../steps/common/common.content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../miam/child-protection/content';
-import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/content';
+import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../miam/domestic-abuse/domestic-abuse/content';
 
 import { HTML } from './common/htmlSelectors';
 
@@ -151,7 +151,7 @@ export const enContent = {
     askingNoHearing: 'Are you asking for a without notice hearing?',
     phoneNumber: 'Phone number',
     emailAddress: 'Contact number of the person named on the application',
-    domesticVoilenceHeading: DomesticAbuseEn().title,
+    domesticVoilenceHeading: DomesticAbuseEn.title,
     childProtectionHeading: ChildProtectionEn().title,
     midatatorDocumentTitle: EnMidiationDocument().title,
     previousAddress: 'Previous Addresses',
@@ -273,7 +273,7 @@ export const cyContent = {
     askingNoHearing: ' Ydych chi’n gofyn am wrandawiad heb rybudd?',
     phoneNumber: ' Rhif ffôn',
     emailAddress: 'C Rhif cyswllt yr un a enwir yn y cais',
-    domesticVoilenceHeading: DomesticAbuseCy().title,
+    domesticVoilenceHeading: DomesticAbuseCy.title,
     childProtectionHeading: ChildProtectionCy().title,
     midatatorDocumentTitle: CyMidiationDocument().title,
     previousAddress: 'Cyfeiriad blaenorol',
@@ -541,11 +541,11 @@ export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
       sections = CheckYourAnswerFlow2(userCase, enContent, content.language).flat() as ANYTYPE;
     } else {
       //if miam urgency is requested miam_urgency
-      // if (userCase['miam_urgency'] && userCase.hasOwnProperty('miam_urgency') && userCase['miam_urgency'] !== 'none') {
-      //   sections = CheckYourAnswerFlow3(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
-      // } else {
-      //   sections = CheckYourAnswerFlow4(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
-      // }
+      if (userCase['miam_urgency'] && userCase.hasOwnProperty('miam_urgency') && userCase['miam_urgency'] !== 'none') {
+        sections = CheckYourAnswerFlow3(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
+      } else {
+        sections = CheckYourAnswerFlow4(userCase, enContent, newEnContents, content.language).flat() as ANYTYPE;
+      }
     }
   }
   sections = sectionCountFormatter(sections);
@@ -567,11 +567,11 @@ export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
       sections = CheckYourAnswerFlow2(userCase, cyContent, content.language).flat() as ANYTYPE;
     } else {
       //if miam urgency is requested miam_urgency
-      // if (userCase['miam_urgency'] && userCase.hasOwnProperty('miam_urgency') && userCase['miam_urgency'] !== 'none') {
-      //   sections = CheckYourAnswerFlow3(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
-      // } else {
-      //   sections = CheckYourAnswerFlow4(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
-      // }
+      if (userCase['miam_urgency'] && userCase.hasOwnProperty('miam_urgency') && userCase['miam_urgency'] !== 'none') {
+        sections = CheckYourAnswerFlow3(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
+      } else {
+        sections = CheckYourAnswerFlow4(userCase, cyContent, newCyContents, content.language).flat() as ANYTYPE;
+      }
     }
   }
 
