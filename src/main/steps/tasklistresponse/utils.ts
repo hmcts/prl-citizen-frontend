@@ -5,11 +5,11 @@ import { Applicant, CaseType, PartyDetails, PartyType, Respondent } from '../../
 import { UserDetails } from '../../app/controller/AppRequest';
 import { RAProvider } from '../../modules/reasonable-adjustments';
 import { mapConfirmContactDetails } from '../../steps/common/confirm-contact-details/checkanswers/ContactDetailsMapper';
-import { mapContactPreference } from '../../steps/common/contact-preference/ContactPreferencesMapper';
-import { mapKeepYourDetailsPrivate } from '../../steps/common/keep-details-private/KeepYourDetailsPrivateMapper';
 import { getCasePartyType } from '../../steps/prl-cases/dashboard/utils';
-import { mapConsentToApplicationDetails } from '../../steps/respondent/consent-to-application/ConsentMapper';
+import { mapContactPreference } from '../common/contact-preference/ContactPreferencesMapper';
+import { mapKeepYourDetailsPrivate } from '../common/keep-details-private/KeepYourDetailsPrivateMapper';
 
+import { mapConsentToApplicationDetails } from './consent-to-application/summary/ConsentMapper';
 import { mapInternationalFactorsDetails } from './international-factors/InternationalFactorsMapper';
 import { mapMIAMDetails } from './miam/MIAMMapper';
 import { mapProceedingDetails } from './proceedings/ProceedingDetailsMapper';

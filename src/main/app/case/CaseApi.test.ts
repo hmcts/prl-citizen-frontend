@@ -136,7 +136,6 @@ describe('caseApi', () => {
     expect(userCase).toStrictEqual({
       id: '1234',
       state: 'Draft',
-      applicantCaseName: 'C100 test case',
       caseTypeOfApplication: 'C100',
     });
   });
@@ -228,7 +227,6 @@ describe('caseApi', () => {
       id: '1234',
       state: 'Draft',
       caseTypeOfApplication: 'C100',
-      applicantCaseName: 'C100 test case',
     });
   });
 
@@ -298,7 +296,6 @@ describe('caseApi', () => {
       id: '1234',
       state: 'Draft',
       caseTypeOfApplication: 'C100',
-      applicantCaseName: 'C100 test case',
     });
   });
 
@@ -330,7 +327,6 @@ describe('caseApi', () => {
       id: '1234',
       state: 'Draft',
       caseTypeOfApplication: 'C100',
-      applicantCaseName: 'C100 test case',
     });
   });
 
@@ -370,7 +366,6 @@ describe('caseApi', () => {
       id: '1234',
       state: 'Draft',
       caseTypeOfApplication: 'C100',
-      applicantCaseName: 'C100 test case',
     });
   });
 });

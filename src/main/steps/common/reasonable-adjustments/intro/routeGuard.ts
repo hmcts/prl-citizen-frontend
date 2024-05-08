@@ -12,7 +12,7 @@ export const routeGuard = {
       const { userCase: caseData, user: userDetails } = req.session;
       const partyDetails = getPartyDetails(caseData, userDetails.id);
       const existingRAFlags = await RAProvider.service.retrieveExistingPartyRAFlags(
-        caseData.id!,
+        caseData.id,
         partyDetails!.user.idamId,
         userDetails.accessToken
       );

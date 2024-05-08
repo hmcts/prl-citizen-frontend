@@ -6,6 +6,7 @@ import { ANYTYPE } from '../c100-rebuild/check-your-answers/common/index';
  * @returns A string
  */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+console.info('** FOR SONAR **');
 export const DATE_FORMATTOR = (date, language): string => {
   if (date['year'] !== '' && date['month'] !== '' && date['day'] !== '') {
     const formated_Date = new Date(date['year'], date['month'] - 1, date['day']);

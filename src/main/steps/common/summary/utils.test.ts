@@ -1,11 +1,11 @@
 import mockUserCase from '../../../../test/unit/utils/mockUserCase';
-import { ProceedingsOrderTypes, State } from '../../../app/case/definition';
+import { ProceedingsOrderTypes } from '../../../app/case/definition';
 //import { State } from '../../../app/case/definition';
 import { SummaryList } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
 import { CONSENT, MIAM_START, PROCEEDINGS_COURT_PROCEEDINGS, PROCEEDINGS_START } from '../../urls';
 import { language } from '../breadcrumb/content';
 
-import { getOrdersDetail, getSelectedPrivateDetails, summaryCaseList, summaryList } from './utils';
+import { getOrdersDetail, getSelectedPrivateDetails, summaryList } from './utils';
 
 const enContent = {
   section: 'Check your details',
@@ -115,80 +115,6 @@ describe('common > summary > utils', () => {
     });
   });
 
-  describe('Return correct Summary Case List', () => {
-    test.each([
-      {
-        userCase: {
-          ...mockUserCase,
-          caseStatus: { state: State.Draft },
-          applicantCaseName: 'test',
-          caseTypeOfApplication: 'C100',
-        },
-        expected: {
-          title: '',
-          rows: [
-            { key: { text: 'Case Name' }, value: { html: '<h4>Case Status</h4>' } },
-            {
-              key: { text: 'test' },
-              value: { html: 'Draft' },
-              actions: { items: [{ href: '/respondent/task-list/1234', text: '1234', visuallyHiddenText: '1234' }] },
-            },
-          ],
-        },
-        expected1: {
-          title: '',
-          rows: [
-            { key: { text: 'Case Name' }, value: { html: '<h4>Case Status</h4>' } },
-            {
-              key: { text: 'test' },
-              value: { html: 'Draft' },
-              actions: {
-                items: [{ href: '/c100-rebuild/case/1234/retrive', text: '1234', visuallyHiddenText: '1234' }],
-              },
-            },
-          ],
-        },
-      },
-    ])('return correct summary list items when %#', ({ userCase, expected, expected1 }) => {
-      expect(expected1).toEqual(summaryCaseList([userCase], '', false));
-      expect(expected).toEqual(summaryCaseList([userCase], '', true));
-    });
-    test.each([
-      {
-        userCase: {
-          ...mockUserCase,
-          caseStatus: { state: State.Draft },
-          applicantCaseName: 'test',
-          caseTypeOfApplication: 'FL401',
-        },
-        expected: {
-          title: '',
-          rows: [
-            { key: { text: 'Case Name' }, value: { html: '<h4>Case Status</h4>' } },
-            {
-              key: { text: 'test' },
-              value: { html: 'Draft' },
-              actions: { items: [{ href: '/respondent/task-list/1234', text: '1234', visuallyHiddenText: '1234' }] },
-            },
-          ],
-        },
-        expected1: {
-          title: '',
-          rows: [
-            { key: { text: 'Case Name' }, value: { html: '<h4>Case Status</h4>' } },
-            {
-              key: { text: 'test' },
-              value: { html: 'Draft' },
-              actions: { items: [{ href: '/applicant/task-list/1234', text: '1234', visuallyHiddenText: '1234' }] },
-            },
-          ],
-        },
-      },
-    ])('return correct summary list items when %#', ({ userCase, expected, expected1 }) => {
-      expect(expected1).toEqual(summaryCaseList([userCase], '', false));
-      expect(expected).toEqual(summaryCaseList([userCase], '', true));
-    });
-  });
   describe('Return correct getSelectedPrivateDetails', () => {
     test.each([
       {
@@ -213,56 +139,6 @@ describe('common > summary > utils', () => {
       },
     ])('return correct summary list items when %#', ({ userCase, expected }) => {
       expect(expected).toEqual(getOrdersDetail(userCase));
-    });
-    test.each([
-      {
-        userCase: {
-          ...mockUserCase,
-          caseStatus: { state: State.Draft },
-          applicantCaseName: 'test',
-          caseTypeOfApplication: 'C100',
-        },
-        expected: {
-          title: '',
-          rows: [
-            { key: { text: 'Case Name' }, value: { html: '<h4>Case Status</h4>' } },
-            {
-              key: { text: 'test' },
-              value: {
-                html: 'Draft',
-              },
-              actions: {
-                items: [{ href: '/c100-rebuild/case/1234/retrive', text: '1234', visuallyHiddenText: '1234' }],
-              },
-            },
-          ],
-        },
-      },
-    ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(expected).toEqual(summaryCaseList([userCase], '', false));
-    });
-    test.each([
-      {
-        userCase: {
-          ...mockUserCase,
-          caseStatus: { state: '' },
-          applicantCaseName: 'test',
-          caseTypeOfApplication: 'FL401',
-        },
-        expected: {
-          title: '',
-          rows: [
-            { key: { text: 'Case Name' }, value: { html: '<h4>Case Status</h4>' } },
-            {
-              key: { text: 'test' },
-              value: {},
-              actions: { items: [{ href: '/applicant/task-list/1234', text: '1234', visuallyHiddenText: '1234' }] },
-            },
-          ],
-        },
-      },
-    ])('return correct summary list items when %#', ({ userCase, expected }) => {
-      expect(expected).toEqual(summaryCaseList([userCase], '', false));
     });
   });
 });

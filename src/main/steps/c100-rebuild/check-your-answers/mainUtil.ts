@@ -31,26 +31,15 @@ import {
 } from './helpers/peopleHelper';
 import { resonableAdjustmentHelper } from './helpers/reasonableAdjustment';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
-import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
+import {
+  SummaryList,
+  SummaryListContent,
+  SummaryListContentWithBoolean,
+  SummaryListRow,
+  getSectionSummaryList,
+} from './lib/lib';
 import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
-
-/* eslint-disable import/namespace */
-export const CaseName = (
-  { sectionTitles, keys, ...content }: SummaryListContent,
-  userCase: Partial<CaseWithId>
-): SummaryList | undefined => {
-  const SummaryData = [
-    {
-      key: keys['enterCaseName'],
-      value: userCase['applicantCaseName'],
-      changeUrl: Urls['C100_CASE_NAME'],
-    },
-  ];
-  return {
-    title: sectionTitles['caseName'],
-    rows: getSectionSummaryList(SummaryData, content),
-  };
-};
+console.info('** FOR SONAR **');
 
 /* eslint-disable import/namespace */
 export const LocationDetails = (
@@ -130,7 +119,7 @@ export const PermissionForApplication = (
         .split(',')
         .join('')
     : '';
-  let SummaryData = [{}];
+  let SummaryData;
   if (userCase['sq_courtPermissionRequired'] === YesOrNo.YES) {
     SummaryData = [
       {
@@ -158,6 +147,7 @@ export const PermissionForApplication = (
       },
     ];
   }
+
   return {
     title: sectionTitles['permissionForApplication'],
     rows: getSectionSummaryList(SummaryData, content),
@@ -266,26 +256,7 @@ export const ChildernDetails = (
       }
     );
 
-    if (personalDetails['isDateOfBirthUnknown'] === YesOrNo.YES) {
-      newChildDataStorage.push(
-        {
-          key: keys['approxCheckboxLabel'],
-          value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
-          changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
-        },
-        {
-          key: keys['approxDobLabel'],
-          value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
-          changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
-        }
-      );
-    } else {
-      newChildDataStorage.push({
-        key: keys['dobLabel'],
-        value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
-        changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
-      });
-    }
+    populateDateOfBirth(personalDetails, newChildDataStorage, keys, language, id, true);
 
     newChildDataStorage.push(
       {
@@ -387,7 +358,6 @@ export const OtherChildrenDetails = (
         lastname = sessionChildData[child]['lastName'],
         id = sessionChildData[child]['id'],
         personalDetails = sessionChildData[child]['personalDetails'];
-      const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== '';
       const childNo = Number(child) + 1;
       newChildDataStorage.push(
         {
@@ -402,27 +372,7 @@ export const OtherChildrenDetails = (
           changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
         }
       );
-
-      if (isDateOfBirthUnknown) {
-        newChildDataStorage.push(
-          {
-            key: keys['approxCheckboxLabel'],
-            value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
-            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-          },
-          {
-            key: keys['approxDobLabel'],
-            value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
-            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-          }
-        );
-      } else {
-        newChildDataStorage.push({
-          key: keys['dobLabel'],
-          value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
-          changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-        });
-      }
+      populateDateOfBirth(personalDetails, newChildDataStorage, keys, language, id, false);
       newChildDataStorage.push({
         key: keys['childGenderLabel'],
         value: translation(personalDetails?.['gender'], language),
@@ -1658,3 +1608,43 @@ export const getYesNoTranslation = (language, data, ctx): string => {
 };
 
 const DIGITAL = 'digital';
+
+const populateDateOfBirth = (
+  personalDetails: object,
+  newChildDataStorage: SummaryListRow[],
+  keys: Record<string, string>,
+  language: string,
+  id: string,
+  isForChild: boolean
+): SummaryListRow[] => {
+  const isDateOfBirthUnknown = isForChild
+    ? personalDetails['isDateOfBirthUnknown'] === YesOrNo.YES
+    : personalDetails['isDateOfBirthUnknown'] !== '';
+  if (isDateOfBirthUnknown) {
+    newChildDataStorage.push(
+      {
+        key: keys['approxCheckboxLabel'],
+        value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
+        changeUrl: isForChild
+          ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
+          : applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+      },
+      {
+        key: keys['approxDobLabel'],
+        value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
+        changeUrl: isForChild
+          ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
+          : applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+      }
+    );
+  } else {
+    newChildDataStorage.push({
+      key: keys['dobLabel'],
+      value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+      changeUrl: isForChild
+        ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
+        : applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+    });
+  }
+  return newChildDataStorage;
+};

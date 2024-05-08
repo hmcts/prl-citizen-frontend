@@ -35,6 +35,7 @@
             type: "submit",
             name: "onlyContinue",
             value: true,
+            disabled: true if form.onlyContinue.disabled else false,
             isStartButton: true if form.onlyContinue.isStartButton,
             attributes: {
               id: ''
