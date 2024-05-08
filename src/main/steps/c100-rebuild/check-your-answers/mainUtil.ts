@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
-/* eslint-disable prettier/prettier */
 import { CaseWithId } from '../../../app/case/case';
-import { C1AAbuseTypes, C1ASafteyConcernsAbout, PartyType, YesOrNo } from '../../../app/case/definition';
+import { C1AAbuseTypes, C1ASafteyConcernsAbout, ContactPreference, YesOrNo } from '../../../app/case/definition';
+import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
 import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
@@ -25,26 +25,15 @@ import {
 } from './helpers/peopleHelper';
 import { resonableAdjustmentHelper } from './helpers/reasonableAdjustment';
 import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
-import { SummaryList, SummaryListContent, SummaryListContentWithBoolean, getSectionSummaryList } from './lib/lib';
+import {
+  SummaryList,
+  SummaryListContent,
+  SummaryListContentWithBoolean,
+  SummaryListRow,
+  getSectionSummaryList,
+} from './lib/lib';
 import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
-
-/* eslint-disable import/namespace */
-export const CaseName = (
-  { sectionTitles, keys, ...content }: SummaryListContent,
-  userCase: Partial<CaseWithId>
-): SummaryList | undefined => {
-  const SummaryData = [
-    {
-      key: keys['enterCaseName'],
-      value: userCase['applicantCaseName'],
-      changeUrl: Urls['C100_CASE_NAME'],
-    },
-  ];
-  return {
-    title: sectionTitles['caseName'],
-    rows: getSectionSummaryList(SummaryData, content),
-  };
-};
+console.info('** FOR SONAR **');
 
 /* eslint-disable import/namespace */
 export const LocationDetails = (
@@ -124,7 +113,7 @@ export const PermissionForApplication = (
         .split(',')
         .join('')
     : '';
-  let SummaryData = [{}];
+  let SummaryData;
   if (userCase['sq_courtPermissionRequired'] === YesOrNo.YES) {
     SummaryData = [
       {
@@ -152,6 +141,7 @@ export const PermissionForApplication = (
       },
     ];
   }
+
   return {
     title: sectionTitles['permissionForApplication'],
     rows: getSectionSummaryList(SummaryData, content),
@@ -260,26 +250,7 @@ export const ChildernDetails = (
       }
     );
 
-    if (personalDetails['isDateOfBirthUnknown'] === YesOrNo.YES) {
-      newChildDataStorage.push(
-        {
-          key: keys['approxCheckboxLabel'],
-          value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
-          changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
-        },
-        {
-          key: keys['approxDobLabel'],
-          value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
-          changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
-        }
-      );
-    } else {
-      newChildDataStorage.push({
-        key: keys['dobLabel'],
-        value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
-        changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
-      });
-    }
+    populateDateOfBirth(personalDetails, newChildDataStorage, keys, language, id, true);
 
     newChildDataStorage.push(
       {
@@ -287,7 +258,7 @@ export const ChildernDetails = (
         value: '',
         valueHtml:
           personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
-            ? genderChose(personalDetails?.['gender'], language) +
+            ? translation(personalDetails?.['gender'], language) +
               HTML.BREAK +
               HTML.RULER +
               keys['otherGender'] +
@@ -296,7 +267,7 @@ export const ChildernDetails = (
               HTML.H4_CLOSE +
               HTML.BREAK +
               personalDetails['otherGenderDetails']
-            : genderChose(personalDetails?.['gender'], language),
+            : translation(personalDetails?.['gender'], language),
         changeUrl: applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id }),
       },
       {
@@ -381,7 +352,6 @@ export const OtherChildrenDetails = (
         lastname = sessionChildData[child]['lastName'],
         id = sessionChildData[child]['id'],
         personalDetails = sessionChildData[child]['personalDetails'];
-      const isDateOfBirthUnknown = personalDetails['isDateOfBirthUnknown'] !== '';
       const childNo = Number(child) + 1;
       newChildDataStorage.push(
         {
@@ -396,32 +366,12 @@ export const OtherChildrenDetails = (
           changeUrl: Urls['C100_CHILDERN_OTHER_CHILDREN_NAMES'],
         }
       );
-
-      if (isDateOfBirthUnknown) {
-        newChildDataStorage.push(
-          {
-            key: keys['approxCheckboxLabel'],
-            value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
-            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-          },
-          {
-            key: keys['approxDobLabel'],
-            value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
-            changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-          }
-        );
-      } else {
-        newChildDataStorage.push({
-          key: keys['dobLabel'],
-          value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
-          changeUrl: applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
-        });
-      }
+      populateDateOfBirth(personalDetails, newChildDataStorage, keys, language, id, false);
       newChildDataStorage.push({
         key: keys['childGenderLabel'],
-        value: genderChose(personalDetails?.['gender'], language),
+        value: translation(personalDetails?.['gender'], language),
         valueHtml:
-          genderChose(personalDetails?.['gender'], language) +
+          translation(personalDetails?.['gender'], language) +
             ' ' +
             personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
             ? HTML.BREAK +
@@ -533,7 +483,7 @@ export const ApplicantDetails = (
         value: '',
         valueHtml:
           personalDetails.hasOwnProperty('otherGenderDetails') && personalDetails.otherGenderDetails !== ''
-            ? genderChose(personalDetails?.['gender'], language) +
+            ? translation(personalDetails?.['gender'], language) +
               HTML.BREAK +
               HTML.RULER +
               keys['otherGender'] +
@@ -542,7 +492,7 @@ export const ApplicantDetails = (
               HTML.H4_CLOSE +
               HTML.BREAK +
               personalDetails['otherGenderDetails']
-            : genderChose(personalDetails?.['gender'], language),
+            : translation(personalDetails?.['gender'], language),
         changeUrl: applyParms(Urls['C100_APPLICANTS_PERSONAL_DETAILS'], { applicantId }),
       },
       {
@@ -564,11 +514,11 @@ export const ApplicantDetails = (
       const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
       newApplicantData.push({
         key: keys['relationshipTo'] + ' ' + childFullName,
-        value: relationshipTranslation(element['relationshipType'], language),
+        value: translation(element['relationshipType'], language),
         valueHtml:
           element['relationshipType'] === 'Other'
             ? element['otherRelationshipTypeDetails']
-            : relationshipTranslation(element['relationshipType'], language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+            : translation(element['relationshipType'], language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
         changeUrl: applyParms(Urls['C100_APPLICANT_RELATIONSHIP_TO_CHILD'], {
           applicantId: id,
           childId: element['childId'],
@@ -604,7 +554,10 @@ export const ApplicantDetails = (
       {
         key: keys['contactPrefernces'],
         value: contactTranslation(
-          sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences,
+          sessionApplicantData[applicant].applicantContactDetail?.applicantContactPreferences ===
+            ContactPreference.EMAIL
+            ? DIGITAL
+            : ContactPreference.POST,
           language
         ),
         changeUrl: applyParms(Urls['C100_APPLICANT_CONTACT_PREFERENCES'], {
@@ -741,7 +694,7 @@ export const PastAndCurrentProceedings = (
       order => '<li class="govuk-!-padding-bottom-2">' + keys[`${order}Label`] + '</li>'
     ) +
     '</ul>';
-  let SummaryData = [{}];
+  let SummaryData;
   if (userCase['op_childrenInvolvedCourtCase'] === YesOrNo.YES || userCase['op_courtOrderProtection'] === YesOrNo.YES) {
     SummaryData = [
       {
@@ -907,7 +860,7 @@ export const SafetyConcerns_child = (
     c1A_childAbductedBefore += HTML.UNORDER_LIST;
     c1A_childAbductedBefore += userCase['c1A_possessionChildrenPassport']
       .filter(element => element !== 'Other')
-      .map(relatives => HTML.LIST_ITEM + relationshipTranslation(relatives, language) + HTML.LIST_ITEM_END)
+      .map(relatives => HTML.LIST_ITEM + translation(relatives, language) + HTML.LIST_ITEM_END)
       .toString()
       .split(',')
       .join('');
@@ -1132,42 +1085,42 @@ const RespondentDetails_AddressAndPersonal = (
     });
   }
 
-  if (contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes') {
-    newRespondentStorage.push({
-      key:
-        language === 'en'
-          ? 'I dont know their email address'
-          : getYesNoTranslation(language, 'I dont know their email address', 'personalDetails'),
-      value: getYesNoTranslation(language, contactDetails?.['donKnowEmailAddress'], 'doTranslation'),
-      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-    });
-  } else {
-    newRespondentStorage.push({
-      key: language === 'en' ? 'Email' : getYesNoTranslation(language, 'Email', 'personalDetails'),
-      value: contactDetails?.['emailAddress'],
-      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-    });
-  }
-
-  if (contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes') {
-    newRespondentStorage.push({
-      key:
-        language === 'en'
-          ? 'I dont know their telephone number'
-          : getYesNoTranslation(language, 'I dont know their telephone number', 'personalDetails'),
-      value: getYesNoTranslation(language, contactDetails?.['donKnowTelephoneNumber'], 'doTranslation'),
-      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-    });
-  } else {
-    newRespondentStorage.push({
-      key:
-        language === 'en' ? 'Telephone number' : getYesNoTranslation(language, 'Telephone number', 'personalDetails'),
-      value: contactDetails?.['telephoneNumber'],
-      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-    });
-  }
+  newRespondentStorage.push(respondentEmailDetails(contactDetails, id, language));
+  newRespondentStorage.push(respondentTelephoneDetails(contactDetails, id, language));
 
   return newRespondentStorage;
+};
+
+const respondentEmailDetails = (contactDetails, id, language) => {
+  if (contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes') {
+    return {
+      key: getYesNoTranslation(language, 'dont_know_email_address', 'personalDetails'),
+      value: getYesNoTranslation(language, contactDetails?.['donKnowEmailAddress'], 'doTranslation'),
+      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+    };
+  } else {
+    return {
+      key: getYesNoTranslation(language, 'email', 'personalDetails'),
+      value: contactDetails?.['emailAddress'],
+      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+    };
+  }
+};
+
+const respondentTelephoneDetails = (contactDetails, id, language) => {
+  if (contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes') {
+    return {
+      key: getYesNoTranslation(language, 'dont_know_telephone', 'personalDetails'),
+      value: getYesNoTranslation(language, contactDetails?.['donKnowTelephoneNumber'], 'doTranslation'),
+      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+    };
+  } else {
+    return {
+      key: getYesNoTranslation(language, 'telephone_number', 'personalDetails'),
+      value: contactDetails?.['telephoneNumber'],
+      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
+    };
+  }
 };
 
 /* eslint-disable import/namespace */
@@ -1258,11 +1211,11 @@ export const RespondentDetails = (
       const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
       newRespondentStorage.push({
         key: keys['relationshipTo'] + ' ' + childFullName,
-        value: relationshipTranslation(element['relationshipType'], language),
+        value: translation(element['relationshipType'], language),
         valueHtml:
           element['relationshipType'] === 'Other'
             ? element['otherRelationshipTypeDetails']
-            : relationshipTranslation(element['relationshipType'], language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+            : translation(element['relationshipType'], language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
         changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_RELATIONSHIP_TO_CHILD'], {
           respondentId: id,
           childId: element['childId'],
@@ -1379,11 +1332,11 @@ export const OtherPeopleDetails = (
       const childFullName = childDetails?.['firstName'] + ' ' + childDetails?.['lastName'];
       newOtherPeopleStorage.push({
         key: keys['relationshipTo'] + ' ' + childFullName,
-        value: relationshipTranslation(element['relationshipType'], language),
+        value: translation(element['relationshipType'], language),
         valueHtml:
           element['relationshipType'] === 'Other'
             ? element['otherRelationshipTypeDetails']
-            : relationshipTranslation(element['relationshipType'], language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
+            : translation(element['relationshipType'], language), //element['otherRelationshipTypeDetails'] !== '' ? HTML.RULER + HTML.H4 + keys['details'] + HTML.H4_CLOSE + HTML.BREAK + element['otherRelationshipTypeDetails'] : ''
         changeUrl: applyParms(Urls['C100_OTHER_PERSON_DETAILS_RELATIONSHIP_TO_CHILD'], {
           otherPersonId: id,
           childId: element['childId'],
@@ -1484,10 +1437,30 @@ export const reasonableAdjustment = (
 ): SummaryList | undefined => {
   const SummaryData: ANYTYPE = [
     {
-      key: keys['yourSupport'],
-      changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_COMMON_COMPONENT_GUIDANCE_PAGE, {
-        partyType: PartyType.APPLICANT,
-      }),
+      key: keys['attendingCourtHeading'],
+      valueHtml:
+        HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_typeOfHearing') + HTML.UNORDER_LIST_END,
+      changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_ATTENDING_COURT, { root: RARootContext.C100_REBUILD }),
+    },
+    {
+      key: keys['langaugeRequirementHeading'],
+      valueHtml:
+        HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_languageNeeds') + HTML.UNORDER_LIST_END,
+      changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_LANGUAGE_REQUIREMENTS, { root: RARootContext.C100_REBUILD }),
+    },
+    {
+      key: keys['specialArrangementsHeading'],
+      valueHtml:
+        HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_specialArrangements') + HTML.UNORDER_LIST_END,
+      changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SPECIAL_ARRANGEMENTS, { root: RARootContext.C100_REBUILD }),
+    },
+    {
+      key: keys['disabilityRequirementHeading'], //ra_disabilityRequirements
+      valueHtml:
+        HTML.UNORDER_LIST +
+        resonableAdjustmentHelper(userCase, keys, 'ra_disabilityRequirements') +
+        HTML.UNORDER_LIST_END,
+      changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SUPPORT_DURING_CASE, { root: RARootContext.C100_REBUILD }),
     },
   ];
   const disabilityRequirements = userCase['ra_disabilityRequirements'];
@@ -1501,7 +1474,7 @@ export const reasonableAdjustment = (
               HTML.UNORDER_LIST +
               resonableAdjustmentHelper(userCase, keys, 'ra_documentInformation') +
               HTML.UNORDER_LIST_END,
-            changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_DOCUMENT_INFORMATION'],
+            changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_DOCUMENTS_SUPPORT, { root: RARootContext.C100_REBUILD }),
           });
           break;
         }
@@ -1512,7 +1485,7 @@ export const reasonableAdjustment = (
               HTML.UNORDER_LIST +
               resonableAdjustmentHelper(userCase, keys, 'ra_communicationHelp') +
               HTML.UNORDER_LIST_END,
-            changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP'],
+            changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_COMMUNICATION_HELP, { root: RARootContext.C100_REBUILD }),
           });
           break;
         }
@@ -1521,7 +1494,9 @@ export const reasonableAdjustment = (
             key: keys['supportCourtHeading'],
             valueHtml:
               HTML.UNORDER_LIST + resonableAdjustmentHelper(userCase, keys, 'ra_supportCourt') + HTML.UNORDER_LIST_END,
-            changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_SUPPORT_COURT'],
+            changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_SUPPORT_FOR_HEARING, {
+              root: RARootContext.C100_REBUILD,
+            }),
           });
           break;
         }
@@ -1532,7 +1507,7 @@ export const reasonableAdjustment = (
               HTML.UNORDER_LIST +
               resonableAdjustmentHelper(userCase, keys, 'ra_feelComportable') +
               HTML.UNORDER_LIST_END,
-            changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_FEEL_COMFORTABLE'],
+            changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_NEEDS_FOR_HEARING, { root: RARootContext.C100_REBUILD }),
           });
           break;
         }
@@ -1543,7 +1518,7 @@ export const reasonableAdjustment = (
               HTML.UNORDER_LIST +
               resonableAdjustmentHelper(userCase, keys, 'ra_travellingCourt') +
               HTML.UNORDER_LIST_END,
-            changeUrl: Urls['C100_REASONABLE_ADJUSTMENTS_TRAVELLING_COURT'],
+            changeUrl: applyParms(Urls.REASONABLE_ADJUSTMENTS_COURT_NEEDS, { root: RARootContext.C100_REBUILD }),
           });
           break;
         }
@@ -1552,22 +1527,16 @@ export const reasonableAdjustment = (
   }
   return {
     title: sectionTitles['reasonAbleAdjustment'],
-    rows: getSectionSummaryList([SummaryData[0]], content),
+    rows: getSectionSummaryList(SummaryData, content),
   };
 };
 
-export const genderChose = (choice, language): string => {
+export const translation = (choice, language) => {
   let value = enContent?.[choice];
   if (language === 'cy') {
     value = cyContent?.[choice];
   }
-  return value || '';
-};
-const translation = (choice, language) => {
-  let value = enContent?.[choice];
-  if (language === 'cy') {
-    value = cyContent?.[choice];
-  }
+
   return value || '';
 };
 
@@ -1585,10 +1554,45 @@ export const getYesNoTranslation = (language, data, ctx): string => {
   }
   return value || '';
 };
-const relationshipTranslation = (choice, language): string => {
-  let value = enContent?.[choice];
-  if (language === 'cy') {
-    value = cyContent?.[choice];
+
+const DIGITAL = 'digital';
+
+const populateDateOfBirth = (
+  personalDetails: object,
+  newChildDataStorage: SummaryListRow[],
+  keys: Record<string, string>,
+  language: string,
+  id: string,
+  isForChild: boolean
+): SummaryListRow[] => {
+  const isDateOfBirthUnknown = isForChild
+    ? personalDetails['isDateOfBirthUnknown'] === YesOrNo.YES
+    : personalDetails['isDateOfBirthUnknown'] !== '';
+  if (isDateOfBirthUnknown) {
+    newChildDataStorage.push(
+      {
+        key: keys['approxCheckboxLabel'],
+        value: getYesNoTranslation(language, personalDetails['isDateOfBirthUnknown'], 'doTranslation'),
+        changeUrl: isForChild
+          ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
+          : applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+      },
+      {
+        key: keys['approxDobLabel'],
+        value: DATE_FORMATTOR(personalDetails['approxDateOfBirth'], language),
+        changeUrl: isForChild
+          ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
+          : applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+      }
+    );
+  } else {
+    newChildDataStorage.push({
+      key: keys['dobLabel'],
+      value: DATE_FORMATTOR(personalDetails['dateOfBirth'], language),
+      changeUrl: isForChild
+        ? applyParms(Urls['C100_CHILDERN_DETAILS_PERSONAL_DETAILS'], { childId: id })
+        : applyParms(Urls['C100_CHILDERN_OTHER_CHILDREN_PERSONAL_DETAILS'], { childId: id }),
+    });
   }
-  return value || '';
+  return newChildDataStorage;
 };

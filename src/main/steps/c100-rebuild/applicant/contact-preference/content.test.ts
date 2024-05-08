@@ -1,5 +1,4 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { applicantContactPreferencesEnum } from '../../../../app/case/definition';
 import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
@@ -10,7 +9,6 @@ jest.mock('../../../../app/form/validation');
 
 const en = {
   title: 'Contact Preferences for',
-  serviceName: 'Child Arrangements',
   paragraphs: [
     'You can choose to receive case updates by email or post.',
     'If you receive updates by email, the updates will also be available to view in your dashboard.',
@@ -32,7 +30,6 @@ const en = {
 
 const cy = () => ({
   title: 'Dewisiadau cyswllt ar gyfer',
-  serviceName: 'Trefniadau plant',
   paragraphs: [
     'Gallwch ddewis cael diweddariadau ynghylch yr achos drwy e-bost neu drwy’r post.',
     'Os byddwch yn dewis cael diweddariadau drwy e-bost, byddwch hefyd yn gallu gweld y diweddariadau yn eich dangosfwrdd.',
@@ -114,13 +111,13 @@ describe('Contact Preference > content', () => {
     expect((applicantContactPreferences.label as Function)(generatedContent)).toBe(en.contactPreferenceLabel);
     expect((applicantContactPreferences.hint as Function)(generatedContent)).toBe(en.contactPreferenceHintText);
     expect((applicantContactPreferences.values[0].label as Function)(generatedContent)).toBe(en.labelDigital);
-    expect(applicantContactPreferences.values[0].value).toBe('digital');
+    expect(applicantContactPreferences.values[0].value).toBe('email');
     expect((applicantContactPreferences.values[0].hint as Function)(generatedContent)).toBe(en.labelDitigalHintText);
     expect((applicantContactPreferences.values[1].label as Function)(generatedContent)).toBe(en.labelPost);
     expect((applicantContactPreferences.values[1].hint as Function)(generatedContent)).toBe(en.labelPostHintText);
     expect(applicantContactPreferences.values[1].value).toBe('post');
-    (applicantContactPreferences.validator as Function)(applicantContactPreferencesEnum.DIGITAL);
-    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith(applicantContactPreferencesEnum.DIGITAL);
+    (applicantContactPreferences.validator as Function)('email');
+    expect(atLeastOneFieldIsChecked).toHaveBeenCalledWith('email');
   });
 
   test('should contain Save and continue button', () => {

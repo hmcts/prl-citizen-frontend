@@ -11,7 +11,7 @@ import { AppSession, UserDetails } from '../controller/AppRequest';
 
 import { Case, CaseWithId } from './case';
 import { C100_CASE_EVENT, C100_CASE_TYPE, State } from './definition';
-
+console.info('** FOR SONAR **');
 export class CaseApi {
   constructor(private readonly axios: AxiosInstance, private readonly logger: LoggerInstance) {}
 
@@ -36,7 +36,8 @@ export class CaseApi {
 
     try {
       const response = await this.axios.post<CreateCaseResponse>('/case/create', data);
-      const { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase } = response?.data;
+      const { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase } =
+        response?.data ?? {};
       return { id, caseTypeOfApplication, c100RebuildReturnUrl, state, noOfDaysRemainingToSubmitCase };
     } catch (err) {
       this.logError(err);
@@ -55,25 +56,23 @@ export class CaseApi {
   }
 
   /**
-   * This is used to update/submit case based on the case event passed
+   * This is used to submit case based on the case event passed
    * @param caseId
    * @param caseData
    * @param returnUrl
    * @param caseEvent
    * @returns
    */
-  public async updateCase(
+  public async submitC100Case(
     caseId: string,
     caseData: Partial<CaseWithId>,
     returnUrl: string,
     caseEvent: C100_CASE_EVENT
   ): Promise<UpdateCaseResponse> {
-    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, applicantCaseName, ...rest } =
-      caseData;
+    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, ...rest } = caseData;
     const data: UpdateCaseRequest = {
       ...transformCaseData(rest),
       caseTypeOfApplication: caseTypeOfApplication as string,
-      applicantCaseName,
       c100RebuildChildPostCode,
       helpWithFeesReferenceNumber,
       c100RebuildReturnUrl: returnUrl,
@@ -82,11 +81,10 @@ export class CaseApi {
       paymentReferenceNumber: caseData.paymentDetails?.payment_reference,
     };
     try {
-      const response = await this.axios.post<UpdateCaseResponse>(`${caseId}/${caseEvent}/update-case`, data, {
-        headers: {
-          accessCode: 'null',
-        },
-      });
+      const response = await this.axios.post<UpdateCaseResponse>(
+        `/citizen/${caseId}/${caseEvent}/submit-c100-application`,
+        data
+      );
       return { data: response.data };
     } catch (err) {
       this.logError(err);
@@ -95,6 +93,43 @@ export class CaseApi {
   }
 
   /**
+   * This is used to update/submit case based on the case event passed
+   * @param caseId
+   * @param caseData
+   * @param returnUrl
+   * @param caseEvent
+   * @returns
+   */
+  public async saveC100DraftApplication(
+    caseId: string,
+    caseData: Partial<CaseWithId>,
+    returnUrl: string
+  ): Promise<UpdateCaseResponse> {
+    const { caseTypeOfApplication, c100RebuildChildPostCode, helpWithFeesReferenceNumber, ...rest } = caseData;
+    const data: UpdateCaseRequest = {
+      ...transformCaseData(rest),
+      caseTypeOfApplication: caseTypeOfApplication as string,
+      c100RebuildChildPostCode,
+      helpWithFeesReferenceNumber,
+      c100RebuildReturnUrl: returnUrl,
+      id: caseId,
+      paymentServiceRequestReferenceNumber: caseData.paymentDetails?.serviceRequestReference,
+      paymentReferenceNumber: caseData.paymentDetails?.payment_reference,
+    };
+    try {
+      const response = await this.axios.post<UpdateCaseResponse>(
+        `/citizen/${caseId}/save-c100-draft-application`,
+        data
+      );
+      return { data: response.data };
+    } catch (err) {
+      this.logError(err);
+      throw new Error('Case could not be updated.');
+    }
+  }
+
+  /**
+   * TODO: Alok need to double check on this API call - what to do with old case data
    * Delete Case
    * State: DELETED
    * Event: C100_CASE_EVENT.DELETE_CASE
@@ -108,11 +143,7 @@ export class CaseApi {
       if (!caseId) {
         throw new Error('caseId not found so case could not be deleted.');
       }
-      await this.axios.post<UpdateCaseResponse>(`${caseId}/${C100_CASE_EVENT.DELETE_CASE}/update-case`, caseData, {
-        headers: {
-          accessCode: 'null',
-        },
-      });
+      await this.axios.post<UpdateCaseResponse>(`/citizen/${caseId}/delete-application`, caseData);
       session.userCase = {} as CaseWithId;
       session.save();
     } catch (err) {
@@ -146,7 +177,7 @@ export class CaseApi {
     }
   }
 
-  public async downloadDraftApplication(docId: string): Promise<void> {
+  public async downloadC100Application(docId: string): Promise<void> {
     try {
       const response = await this.axios.get(`/${docId}/download`, {
         responseType: 'arraybuffer',
@@ -154,7 +185,7 @@ export class CaseApi {
       return response.data;
     } catch (err) {
       this.logError(err);
-      throw new Error('Draft application could not be downloaded.');
+      throw new Error('Error occured, C100 application document could not be downloaded.');
     }
   }
 
@@ -170,20 +201,12 @@ export class CaseApi {
       }
       const { withdrawApplication, withdrawApplicationReason } = caseData;
 
-      await this.axios.post<UpdateCaseResponse>(
-        `${caseId}/withdraw`,
-        {
-          withDrawApplicationData: {
-            withDrawApplication: withdrawApplication,
-            withDrawApplicationReason: withdrawApplicationReason,
-          },
+      await this.axios.post<UpdateCaseResponse>(`/citizen/${caseId}/withdraw`, {
+        withDrawApplicationData: {
+          withDrawApplication: withdrawApplication,
+          withDrawApplicationReason: withdrawApplicationReason,
         },
-        {
-          headers: {
-            accessCode: 'null',
-          },
-        }
-      );
+      });
     } catch (err) {
       this.logError(err);
       throw new Error('Error occured, case could not be withdrawn.');
@@ -244,7 +267,6 @@ const transformCaseData = (caseData: Partial<Case>): UpdateCase => {
 const detransformCaseData = (caseData: RetreiveDraftCase): RetreiveDraftCase => {
   let detransformedCaseData = {
     caseId: caseData.id,
-    applicantCaseName: caseData.applicantCaseName,
     caseTypeOfApplication: caseData.caseTypeOfApplication,
     c100RebuildChildPostCode: caseData.c100RebuildChildPostCode,
     helpWithFeesReferenceNumber: caseData.helpWithFeesReferenceNumber,
@@ -302,7 +324,6 @@ interface UpdateCase {
 
 interface UpdateCaseRequest extends UpdateCase {
   caseTypeOfApplication: string;
-  applicantCaseName?: string;
   c100RebuildChildPostCode?: string;
   helpWithFeesReferenceNumber?: string;
   c100RebuildReturnUrl: string;

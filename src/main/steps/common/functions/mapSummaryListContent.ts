@@ -1,6 +1,6 @@
 import { OtherName } from '../../../app/case/definition';
 import { SummaryListContent } from '../models/summaryListContent';
-
+console.info('** FOR SONAR **');
 export const mapSummaryListContent = (
   values: (string | OtherName)[],
   actionItems: string[],

@@ -19,7 +19,6 @@ describe('PaymentHelper', () => {
     const generateMockSystemCredential = await InstanceOfPaymentHelper.SystemCredentailsToApiData(req);
 
     expect(generateMockSystemCredential.Authorization).toEqual(mockToken);
-    expect(generateMockSystemCredential.applicantCaseName).toEqual('Test');
     expect(generateMockSystemCredential.caseId).toEqual(dummyCaseID);
   });
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 import FormData from 'form-data';
@@ -31,9 +32,6 @@ const C100OrderTypeNameMapper = {
   otherOrder: 'Other Order',
 };
 
-// eslint-disable-next-line import/no-unresolved
-import { AnyType } from './getController';
-
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
 @autobind
@@ -51,7 +49,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const { files }: AppRequest<AnyObject> = req;
     const { orderType, orderId } = req.params;
 
-    const courtOrderId: AnyType | undefined = orderId;
+    const courtOrderId: any = orderId;
     const courtOrder = {
       courtOrderType: orderType as C100OrderTypes,
       courtOrderId,
@@ -65,7 +63,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     if (req.body.saveAndComeLater) {
       super.post(req, res);
     } else if (req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
-      super.redirect(req, res, '');
+      super.redirect(req, res);
     } else {
       this.ifContinueIsClicked(req, res, orderSessionDataById, files, orderType, orderId, courtOrder);
     }
@@ -115,7 +113,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       });
     } else {
       req.session.errors = [];
-      const { documents }: AnyType = files;
+      const { documents }: any = files;
 
       const formData: FormData = new FormData();
 
@@ -197,13 +195,13 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   /**
    * It's a function that handles errors that occur during the upload process
    * @param req - AppRequest<AnyObject>
-   * @param res - Response<AnyType, Record<string, AnyType>>
+   * @param res - Response<any, Record<string, any>>
    * @param {string} [errorMessage] - The error message to be displayed.
    */
 
   private uploadFileError(
     req: AppRequest<AnyObject>,
-    res: Response<AnyType, Record<string, AnyType>>,
+    res: Response<any, Record<string, any>>,
     orderType: string,
     orderId: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
