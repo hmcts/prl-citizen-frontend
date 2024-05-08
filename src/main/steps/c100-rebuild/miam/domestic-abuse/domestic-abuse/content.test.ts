@@ -3,7 +3,7 @@ import languageAssertions from '../../../../../../test/unit/utils/languageAssert
 import { FormContent, FormFields, FormOptions, LanguageLookup } from '../../../../../app/form/Form';
 import { Validator, atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
 import { CommonContent, en as enContent, generatePageContent } from '../../../../common/common.content';
-import { languages as commonLanguages } from '../content';
+import { languages as commonLanguages } from '../common.content';
 
 import { generateContent } from './content';
 

@@ -1,8 +1,10 @@
+import _ from 'lodash';
+
 import { YesOrNo } from '../../../../../app/case/definition';
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked, isFieldFilledIn, isTextAreaValid } from '../../../../../app/form/validation';
-import { languages as commonLanguages } from '../content';
+import { languages as commonLanguages } from '../common.content';
 
 const en = {
   caption: 'MIAM exemptions',
@@ -87,16 +89,14 @@ export const generateContent: TranslationFn = content => {
 
   return {
     ...translations,
-    ...commonLanguages,
+    ...commonLanguages[content.language],
     form,
     listOfAbuseReasons: content.userCase?.miam_domesticAbuse?.map(abuseEvidenceType => {
       return {
-        abuseEvidenceType: commonLanguages[content.language][abuseEvidenceType],
-        abuseEvidenceReasons: content.userCase?.[`miam_domesticAbuse_${abuseEvidenceType}_subfields`]
-          ? content.userCase?.[`miam_domesticAbuse_${abuseEvidenceType}_subfields`].map(
-              abuseReason => commonLanguages[content.language][`${abuseEvidenceType}_subFields`][abuseReason]
-            )
-          : [],
+        abuseEvidenceType: _.get(commonLanguages[content.language], abuseEvidenceType),
+        abuseEvidenceReasons: _.get(content.userCase, `miam_domesticAbuse_${abuseEvidenceType}_subfields`, []).map(
+          abuseReason => _.get(commonLanguages[content.language][`${abuseEvidenceType}_subFields`], abuseReason)
+        ),
       };
     }),
   };

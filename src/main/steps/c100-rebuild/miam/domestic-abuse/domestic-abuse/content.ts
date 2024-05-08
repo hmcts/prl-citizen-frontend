@@ -9,7 +9,7 @@ import {
 import { TranslationFn } from '../../../../../app/controller/GetController';
 import { FormContent } from '../../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../../app/form/validation';
-import { languages as commonLanguages } from '../content';
+import { languages as commonLanguages } from '../common.content';
 export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

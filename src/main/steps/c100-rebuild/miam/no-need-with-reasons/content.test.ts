@@ -1,8 +1,8 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import { FormContent, LanguageLookup } from '../../../../app/form/Form';
 import { CommonContent, generatePageContent } from '../../../common/common.content';
-import { cy as CommonDomesticAbuseCy, en as CommonDomesticAbuseEn } from '../../miam/domestic-abuse/content';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../child-protection/content';
+import { cy as CommonDomesticAbuseCy, en as CommonDomesticAbuseEn } from '../domestic-abuse/common.content';
 import { cy as OtherCy, en as OtherEn } from '../miam-other/content';
 import { cy as PreviousAttendanceCy, en as PreviousAttendanceEn } from '../previous-attendance/content';
 import { cy as UrgencyCy, en as UrgencyEn } from '../urgency/content';

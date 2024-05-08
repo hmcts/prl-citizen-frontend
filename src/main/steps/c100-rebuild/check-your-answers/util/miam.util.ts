@@ -2,7 +2,7 @@
 /* eslint-disable import/no-unresolved */
 import { cy as attendanceCy, en as attendanceEn } from '../../miam/attendance/content';
 //import { cy as ChildProtectionContentCy, en as ChildProtectionContentEn } from '../../miam/child-protection/content';
-import { cy as CommonDomesticAbuseCy, en as CommonDomesticAbuseEn } from '../../miam/domestic-abuse/content';
+import { cy as CommonDomesticAbuseCy, en as CommonDomesticAbuseEn } from '../../miam/domestic-abuse/common.content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../../miam/domestic-abuse/domestic-abuse/content';
 import { cy as GeneralContentCy, en as GeneralContentEn } from '../../miam/general-reasons/content';
 import { cy as mcCy, en as mcEn } from '../../miam/mediator-confirmation/content';
