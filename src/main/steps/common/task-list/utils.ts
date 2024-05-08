@@ -128,7 +128,7 @@ export const hasResponseBeenReviewed = (caseData: Partial<CaseWithId>, responden
     caseData.citizenDocuments.length &&
     caseData.citizenDocuments.find(
       document =>
-        (document.partyId === respondent.id || document.solicitorRepresentedPartyId === respondent.id) &&
+        (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
         document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
     )
   );

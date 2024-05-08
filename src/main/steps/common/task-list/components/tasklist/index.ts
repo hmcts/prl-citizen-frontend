@@ -195,7 +195,7 @@ export const generateTheResponseTasks = (caseData: Partial<CaseWithId>, content:
         }
         const c7Document = caseData.citizenDocuments?.find(
           doc =>
-            doc.partyName === `${respondent.value.firstName} ${respondent.value.lastName}` &&
+            (doc.partyId === respondent.value.user.idamId || doc.solicitorRepresentedPartyId === respondent.id) &&
             doc.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
         );
         return getDownloadDocUrl(c7Document!, PartyType.APPLICANT);
