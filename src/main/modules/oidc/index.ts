@@ -4,7 +4,6 @@ import { Application, NextFunction, Response } from 'express';
 import { getRedirectUrl, getUserDetails } from '../../app/auth/user/oidc';
 import { caseApi } from '../../app/case/C100CaseApi';
 import { getCaseApi } from '../../app/case/CaseApi';
-import { CosApiClient } from '../../app/case/CosApiClient';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { getFeatureToggle } from '../../app/utils/featureToggles';
 import { parseUrl } from '../../steps/common/url-parser';
@@ -128,25 +127,6 @@ export class OidcMiddleware {
                 !req.path.split('/').includes(partyType)
               ) {
                 return res.redirect(DASHBOARD_URL);
-              }
-              if (req.session.accessCodeLoginIn) {
-                try {
-                  const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
-                  if (req.session.userCase.caseCode && req.session.userCase.accessCode) {
-                    const caseReference = req.session.userCase.caseCode;
-                    const accessCode = req.session.userCase.accessCode;
-
-                    const linkCaseToCitizenData = await client.linkCaseToCitizen(
-                      caseReference as string,
-                      accessCode as string
-                    );
-                    req.session.userCase = linkCaseToCitizenData.data;
-                    req.session.accessCodeLoginIn = false;
-                  }
-                } catch (err) {
-                  req.session.accessCodeLoginIn = false;
-                }
-                return req.session.save(next);
               }
             }
             return next();

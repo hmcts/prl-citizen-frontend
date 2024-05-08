@@ -5,7 +5,7 @@ import { fromApiDate } from '../../../../app/case/from-api-format';
 import { toApiDate } from '../../../../app/case/to-api-format';
 import type { AppRequest } from '../../../../app/controller/AppRequest';
 import { getFormattedDate } from '../../../common/summary/utils';
-
+console.info('** FOR SONAR **');
 export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
   const request: Partial<PartyDetails> = {};
 
@@ -59,13 +59,10 @@ export const prepareRequest = (userCase: CaseWithId): Partial<PartyDetails> => {
   }
 
   if (userCase.partyContactPreference) {
-    if (userCase.partyContactPreference === ContactPreference.EMAIL && (!request?.email || !request?.email?.trim())) {
+    if (userCase.partyContactPreference === ContactPreference.EMAIL && !request?.email?.trim()) {
       request.contactPreferences = null;
     }
-    if (
-      userCase.partyContactPreference === ContactPreference.POST &&
-      (!request?.address || !request?.address?.AddressLine1?.trim())
-    ) {
+    if (userCase.partyContactPreference === ContactPreference.POST && !request?.address?.AddressLine1?.trim()) {
       request.contactPreferences = null;
     }
   }

@@ -664,7 +664,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/yourhearings/hearings/12',
+              href: '/applicant/hearings/12',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -1001,7 +1001,7 @@ describe('tasklist index', () => {
             {
               disabled: false,
               hintText: null,
-              href: '/applicant/yourhearings/hearings/12',
+              href: '/applicant/hearings/12',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -1228,7 +1228,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/yourhearings/hearings/12',
+              href: '/applicant/hearings/12',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -1293,7 +1293,7 @@ describe('tasklist index', () => {
     test('when case state is closed', () => {
       const data = {
         id: '12',
-        state: State.CASE_CLOSED,
+        state: State.ALL_FINAL_ORDERS_ISSUED,
         caseTypeOfApplication: 'C100',
         finalDocument: {
           document_url: 'document_url/123',
@@ -1605,7 +1605,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/yourhearings/hearings/12',
+              href: '/applicant/hearings/12',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -1897,7 +1897,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '/applicant/yourhearings/hearings/12',
+              href: '/applicant/hearings/12',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -2412,7 +2412,7 @@ describe('tasklist index', () => {
     test('when case state is closed', () => {
       const data = {
         id: '12',
-        state: State.CASE_CLOSED,
+        state: State.ALL_FINAL_ORDERS_ISSUED,
         caseTypeOfApplication: 'FL401',
         applicantsFL401: applicantFL401,
       };
@@ -2603,7 +2603,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '#',
+              href: '/respondent/hearings/1234',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -2698,7 +2698,7 @@ describe('tasklist index', () => {
             {
               disabled: true,
               hintText: null,
-              href: '#',
+              href: '/respondent/hearings/12',
               id: 'viewHearingDetails',
               linkText: 'Check details of your court hearings',
               openInAnotherTab: false,
@@ -2751,7 +2751,7 @@ describe('tasklist index', () => {
     test('when case state is closed', () => {
       const data = {
         id: '12',
-        state: State.CASE_CLOSED,
+        state: State.ALL_FINAL_ORDERS_ISSUED,
         caseTypeOfApplication: 'FL401',
         finalDocument: {
           document_url: 'MOCK_DOCUMENT_URL',
@@ -2899,7 +2899,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/tasklistresponse/start/flag/updateFlag',
+            href: '/tasklistresponse/start',
             id: 'respondToTheApplication',
             linkText: 'Respond to the application',
             openInAnotherTab: false,
@@ -2923,7 +2923,7 @@ describe('c100 respondent', () => {
           {
             disabled: true,
             hintText: null,
-            href: '#',
+            href: '/respondent/hearings/1234',
             id: 'viewHearingDetails',
             linkText: 'Check details of your court hearings',
             openInAnotherTab: false,
@@ -3128,11 +3128,11 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/tasklistresponse/start/flag/updateFlag',
+            href: '/tasklistresponse/start',
             id: 'respondToTheApplication',
             linkText: 'Respond to the application',
             openInAnotherTab: false,
-            stateTag: { className: 'govuk-tag--blue', label: 'In progress' },
+            stateTag: { className: 'govuk-tag--grey', label: 'TO DO' },
           },
           {
             disabled: false,
@@ -3152,7 +3152,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/yourhearings/hearings/1234',
+            href: '/respondent/hearings/1234',
             id: 'viewHearingDetails',
             linkText: 'Check details of your court hearings',
             openInAnotherTab: false,
@@ -3433,7 +3433,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/yourhearings/hearings/1234',
+            href: '/respondent/hearings/1234',
             id: 'viewHearingDetails',
             linkText: 'Check details of your court hearings',
             openInAnotherTab: false,
@@ -3489,7 +3489,7 @@ describe('c100 respondent', () => {
   test('should return correct task list when case is closed', () => {
     const caseData = {
       id: '1234',
-      state: State.CASE_CLOSED,
+      state: State.ALL_FINAL_ORDERS_ISSUED,
       caseTypeOfApplication: CaseType.C100,
       finalDocument: {
         document_url: 'DOC_URL',
@@ -3647,7 +3647,7 @@ describe('c100 respondent', () => {
           {
             disabled: false,
             hintText: null,
-            href: '/respondent/yourhearings/hearings/1234',
+            href: '/respondent/hearings/1234',
             id: 'viewHearingDetails',
             linkText: 'Check details of your court hearings',
             openInAnotherTab: false,
