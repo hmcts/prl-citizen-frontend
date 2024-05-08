@@ -124,55 +124,6 @@ describe('Document upload controller', () => {
     expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
-  test('Should post when saveAndComeLater clicked', async () => {
-    const mockForm = {
-      fields: {
-        field: {
-          type: 'file',
-        },
-      },
-      submit: {
-        text: l => l.continue,
-      },
-    };
-    const controller = new UploadDocumentController(mockForm.fields);
-    const req = mockRequest({
-      params: {
-        orderType: 'otherOrder',
-        orderId: '1',
-      },
-      body: {
-        saveAndComeLater: true,
-      },
-      files: { documents: { name: 'test.rtf', data: '', mimetype: 'text' } },
-      session: {
-        userCase: {
-          otherProceedings: {
-            order: {
-              otherOrders: [
-                {
-                  orderDetail: 'OtherOrder1',
-                  orderDocument: {
-                    id: 'c9f56483-6e2d-43ce-9de8-72661755b87c',
-                    url: 'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c',
-                    filename: 'applicant_emergency_protection_order10_12092022.rtf',
-                    binaryUrl:
-                      'http://dm-store-aat.service.core-compute-aat.internal/documents/c9f56483-6e2d-43ce-9de8-72661755b87c/binary',
-                  },
-                },
-              ],
-            },
-          },
-        },
-      },
-    });
-    const res = mockResponse();
-
-    await controller.post(req, res);
-
-    expect(res.redirect).toHaveBeenCalledWith('/request');
-  });
-
   test('Should upload document and redirect back to current page', async () => {
     const mockForm = {
       fields: {

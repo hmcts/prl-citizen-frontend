@@ -19,6 +19,8 @@ import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
  * @param userCase - Partial<CaseWithId>
  * @returns An object with a title and rows property.
  */
+console.info('** FOR SONAR **');
+
 export const SafetyConcerns = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>,
@@ -81,7 +83,7 @@ export const SafetyConcerns_child = (
         key: keys['detailsOfChildConcern']
         .split('[***]')
         .join(` ${keys[field]} `),
-        value: '',  
+        value: '',
         valueHtml: SafetyConcernsHelper(
           userCase,
           keys,
@@ -227,7 +229,7 @@ export const SafetyConcerns_yours = (
  */
 export const SafetyConcerns_others = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
-  userCase: Partial<CaseWithId>, 
+  userCase: Partial<CaseWithId>,
   language: string
 ): SummaryList | undefined => {
   const fieldParser = (field, fieldDescription?) => {
@@ -280,7 +282,7 @@ export const SafetyConcerns_others = (
   };
 };
 
-     
+
 
 const preparePoliceInvesitigationData=(userCase: Partial<CaseWithId>, language: string, keys: Record<string, string>)=> {
   let policeOrInvestigatorsOtherDetailsHTML = '';

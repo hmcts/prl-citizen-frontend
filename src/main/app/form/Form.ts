@@ -152,6 +152,7 @@ export interface FormContent {
     text: Label;
     isStartButton?: boolean;
     classes?: string;
+    disabled?: boolean;
   };
   onlycontinue?: {
     text: Label;
@@ -250,10 +251,8 @@ export type FormError = {
 
 interface CaseWithFormData extends CaseWithId {
   _csrf: string;
-  saveAndSignOut?: string;
   accessCodeCheck?: string;
   editAddress?: string;
-  saveBeforeSessionTimeout?: string;
   sendToApplicant2ForReview?: string;
   addAnotherName?: string;
   addAnotherNameHidden?: string;

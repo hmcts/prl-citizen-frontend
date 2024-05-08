@@ -15,7 +15,7 @@ import {
   getMiamStatus,
 } from './utils';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
+console.info('** FOR SONAR **');
 export const generateRespondentTaskList = (sectionTitles, taskListItems, userCase, userIdamId) => {
   userCase?.respondents?.forEach((respondent: Respondent) => {
     if (respondent?.value?.user?.idamId === userIdamId) {

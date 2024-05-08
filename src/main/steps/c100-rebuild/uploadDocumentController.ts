@@ -46,7 +46,7 @@ export default class UploadDocumentController {
     if (req.body.saveAndComeLater) {
       this.parent.post(req, res);
     } else if (this.checkSaveandContinueDocumentExist(req, certificate)) {
-      this.parent.redirect(req, res, '');
+      this.parent.redirect(req, res);
     } else {
       this.checkFileCondition(certificate, req, res, req.originalUrl, files, fileNamePrefix, paramCert);
     }

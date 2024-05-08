@@ -14,8 +14,7 @@ const SUCCESS = 'Success';
 export const PaymentHandler = async (req: AppRequest, res: Response) => {
   try {
     const paymentHelperTranspiler = await new PaymentHelper().SystemCredentailsToApiData(req);
-    const { Authorization, ServiceAuthorization, returnUrL, caseId, applicantCaseName, hwfRefNumber } =
-      paymentHelperTranspiler;
+    const { Authorization, ServiceAuthorization, returnUrL, caseId, hwfRefNumber } = paymentHelperTranspiler;
     const paymentApiEndpoint = config.get('services.cos.url');
     const createPaymentEndpoint = '/fees-and-payment-apis/create-payment';
     const baseURL = paymentApiEndpoint + createPaymentEndpoint;
@@ -26,7 +25,6 @@ export const PaymentHandler = async (req: AppRequest, res: Response) => {
       ServiceAuthorization,
       caseId,
       returnUrL,
-      applicantCaseName as string,
       hwfRefNumber as string
     );
     const response = await paymentCreator.getPaymentCredentails();

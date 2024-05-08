@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { CaseWithId } from '../../../app/case/case';
 import { AppRequest, UserDetails } from '../../../app/controller/AppRequest';
 import { getPartyDetails } from '../../../steps/tasklistresponse/utils';
-import { PARTY_TASKLIST, PageLink, RESPONDENT_TASK_LIST_URL, RESPOND_TO_APPLICATION } from '../../../steps/urls';
+import { FETCH_CASE_DETAILS, PageLink, RESPOND_TO_APPLICATION } from '../../../steps/urls';
 import { DocumentCategory } from '../documents/definitions';
 import { applyParms } from '../url-parser';
 
@@ -74,10 +74,10 @@ export const isCaseLinked = (caseData: Partial<CaseWithId>, userDetails: UserDet
 };
 
 export const isCaseClosed = (caseData: Partial<CaseWithId>): boolean =>
-  !!(caseData && [State.CASE_WITHDRAWN, State.CASE_CLOSED].includes(caseData.state!));
+  !!(caseData && [State.CASE_WITHDRAWN, State.ALL_FINAL_ORDERS_ISSUED].includes(caseData.state!));
 
 export const isDraftCase = (caseData: Partial<CaseWithId>): boolean => {
-  return !!(caseData && caseData.state! === State.CASE_DRAFT);
+  return caseData?.state === State.CASE_DRAFT;
 };
 
 export const isRepresentedBySolicotor = (caseData: CaseWithId, userId: UserDetails['id']): boolean => {
@@ -101,11 +101,9 @@ export const isC7ResponseSubmitted = (respondent: PartyDetails | undefined): boo
 
 // temporary, remove after fl401 tasklist refactored
 export const keepDetailsPrivateNav = (caseData: Partial<CaseWithId>, req: AppRequest): PageLink => {
-  const respondentTaskListUrl =
-    caseData.caseTypeOfApplication === CaseType.C100
-      ? (applyParms(`${PARTY_TASKLIST}`, { partyType: PartyType.RESPONDENT }) as PageLink)
-      : RESPONDENT_TASK_LIST_URL;
-  return req?.session.applicationSettings?.navfromRespondToApplication ? RESPOND_TO_APPLICATION : respondentTaskListUrl;
+  return req?.session.applicationSettings?.navfromRespondToApplication
+    ? RESPOND_TO_APPLICATION
+    : (applyParms(`${FETCH_CASE_DETAILS}`, { caseId: caseData.id as string }) as PageLink);
 };
 
 export const isCafcassServed = (caseData: Partial<CaseWithId>): boolean => caseData?.isCafcassServed === YesOrNo.YES;
@@ -124,11 +122,10 @@ export const isCafcassCymruServed = (caseData: Partial<CaseWithId>): boolean => 
 
 export const hasResponseBeenReviewed = (caseData: Partial<CaseWithId>, respondent: Respondent): boolean => {
   return !!(
-    caseData.citizenDocuments &&
-    caseData.citizenDocuments.length &&
+    caseData?.citizenDocuments?.length &&
     caseData.citizenDocuments.find(
       document =>
-        (document.partyId === respondent.id || document.solicitorRepresentedPartyId === respondent.id) &&
+        (document.partyId === respondent.value.user.idamId || document.solicitorRepresentedPartyId === respondent.id) &&
         document.categoryId === DocumentCategory.RESPONDENT_C7_RESPONSE_TO_APPLICATION
     )
   );
