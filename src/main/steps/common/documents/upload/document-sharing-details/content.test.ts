@@ -32,7 +32,7 @@ describe('documents > upload > document-sharing-details > content', () => {
     expect(generatedContent.cardContent).toEqual(
       'Remove or cross out with a pen any confidential details or personal contact information you want to keep private so they are no longer visible.'
     );
-    expect(generatedContent.bodyContent).toEqual(
+    expect(generatedContent.content2).toEqual(
       'If your contact details have changed, go to <a href="/applicant/confirm-contact-details/checkanswers" class="govuk-link" target="_self">confirm or edit your contact details</a> to update them.'
     );
   });
@@ -44,7 +44,7 @@ describe('documents > upload > document-sharing-details > content', () => {
     expect(generatedContent.cardContent).toEqual(
       "Dilëwch neu croeswch allan gyda beiro unrhyw fanylion cyfrinachol neu wybodaeth gyswllt bersonol yr ydych eisiau ei chadw'n breifat fel nad ydynt bellach yn weladwy."
     );
-    expect(generatedContent.bodyContent).toEqual(
+    expect(generatedContent.content2).toEqual(
       'Os yw\'ch manylion cyswllt wedi newid, ewch i <a href="/applicant/confirm-contact-details/checkanswers" class="govuk-link" target="_self">gadarnhau neu olygu eich manylion cyswllt</a> i\'w diweddaru.'
     );
   });

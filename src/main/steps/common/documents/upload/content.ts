@@ -4,10 +4,11 @@ import { getCasePartyType } from '../../../../steps/prl-cases/dashboard/utils';
 import {
   DASHBOARD_URL,
   FETCH_CASE_DETAILS,
+  UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
   UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
 } from '../../../../steps/urls';
 import { cy, en } from '../common/content';
-import { DocumentLabelCategory, DocumentSectionId } from '../definitions';
+import { DocumentLabelCategory, DocumentSectionId, UploadDocumentCategory } from '../definitions';
 import { uploadDocumentSections as sections } from '../upload/config';
 
 export * from './routeGuard';
@@ -48,10 +49,15 @@ export const generateContent: TranslationFn = content => {
           categoryId: documentCategory.categoryId,
           link: {
             text: documentCategory.documentCategoryLabel(documentCategoryLabels),
-            url: applyParms(UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT, {
-              partyType: loggedInUserPartyType,
-              docCategory: documentCategory.categoryId,
-            }),
+            url: applyParms(
+              documentCategory.categoryId === UploadDocumentCategory.FM5_DOCUMENT
+                ? UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS
+                : UPLOAD_DOCUMENT_HAS_COURT_ASKED_FOR_DOCUMENT,
+              {
+                partyType: loggedInUserPartyType,
+                docCategory: documentCategory.categoryId,
+              }
+            ),
           },
         };
       }),
