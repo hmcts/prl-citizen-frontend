@@ -1,22 +1,29 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import _ from 'lodash';
+
+import { MiamNonAttendReason } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../child-protection/content';
-import { cy as CommonDomesticAbuseCy, en as CommonDomesticAbuseEn } from '../domestic-abuse/common.content';
+import {
+  cy as CommonDomesticAbuseCy,
+  en as CommonDomesticAbuseEn,
+  languages as commonLanguages,
+} from '../domestic-abuse/common.content';
 import { cy as OtherCy, en as OtherEn } from '../miam-other/content';
+import { cy as MidiationCy, en as MidiationEn } from '../no-access-to-mediator/content';
 import { cy as PreviousAttendanceCy, en as PreviousAttendanceEn } from '../previous-attendance/content';
 import { cy as UrgencyCy, en as UrgencyEn } from '../urgency/content';
 
+import { prepareNoNeedWithReason } from './util';
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const en = () => ({
-  title: 'You don’t have to attend a MIAM',
-  paragraph1: 'You’ve said you have a valid reason for not attending a MIAM',
-  paragraph2: 'The reasons you’ve given are:',
-  insetText: {
-    text: `You’ll be asked to provide more information about your circumstances at the first court hearing.
-            Where evidence is needed to support an exemption, this should be taken to the hearing.
-            If the court is not satisfied that you’re exempt, you may be directed to attend a MIAM.`,
-  },
+export const en = {
+  caption: 'MIAM exemptions',
+  title: 'You’ve told us you have a valid reason for not attending a MIAM',
+  paragraph1: 'The court will review the reasons you’ve given.',
+  paragraph2: 'You might still be asked to attend a MIAM if the court decides your reasons are not valid.',
+  paragraph3: 'Reasons given for not attending a MIAM:',
   nonAttendanceReasons: {
     domesticViolence: 'Domestic violence or abuse evidence',
     childProtection: 'Child protection concerns',
@@ -25,11 +32,11 @@ export const en = () => ({
     validExemption: 'Other exemptions',
   },
   abuseList: {
-    policeInvolvement: CommonDomesticAbuseEn.policeInvolvement_subFields,
-    courtInvolvement: CommonDomesticAbuseEn.courtInvolvement_subFields,
-    letterOfBeingVictim: CommonDomesticAbuseEn.letterOfBeingVictim_subFields,
-    letterFromAuthority: CommonDomesticAbuseEn.letterFromAuthority_subFields,
-    letterFromSupportService: CommonDomesticAbuseEn.letterFromSupportService_subFields,
+    policeInvolvement: CommonDomesticAbuseEn.policeInvolvement,
+    courtInvolvement: CommonDomesticAbuseEn.courtInvolvement,
+    letterOfBeingVictim: CommonDomesticAbuseEn.letterOfBeingVictim,
+    letterFromAuthority: CommonDomesticAbuseEn.letterFromAuthority,
+    letterFromSupportService: CommonDomesticAbuseEn.letterFromSupportService,
     ILRDuetoDomesticAbuse: CommonDomesticAbuseEn.ILRDuetoDomesticAbuse,
     financialAbuse: CommonDomesticAbuseEn.financialAbuse,
   },
@@ -58,15 +65,23 @@ export const en = () => ({
     canNotAccessMediator: OtherEn.canNotAccessMediator,
     under18: OtherEn.under18,
   },
-});
-
-export const cy = () => ({
-  title: 'Nid oes raid i chi fynychu MIAM',
-  paragraph1: 'Rydych wedi dweud bod gennych reswm dilys dros beidio â mynychu MIAM',
-  paragraph2: 'Y rhesymau rydych wedi’u rhoi yw:',
-  insetText: {
-    text: 'Gofynnir ichi ddarparu mwy o wybodaeth am eich amgylchiadau yn y gwrandawiad llys cyntaf. Lle bo angen tystiolaeth i gefnogi esemptiad, dylid dod â’r dystiolaeth i’r gwrandawiad. Os na fydd y llys yn fodlon eich bod wedi’ch esemptio, efallai fe’ch cyfarwyddir i fynychu MIAM.',
+  mediatorUnavailable: {
+    noAppointmentAvailable: MidiationEn.noAppointmentAvailable,
+    disability: MidiationEn.disability,
+    noMediatorIn15mile: MidiationEn.noMediatorIn15mile,
+    inPrison: MidiationEn.inPrison,
+    bailThatPreventContact: MidiationEn.bailThatPreventContact,
+    releaseFromPrisonOnLicence: MidiationEn.releaseFromPrisonOnLicence,
   },
+};
+
+export const cy = {
+  caption: 'Esemptiadau MIAM',
+  title: 'Rydych wedi dweud wrthym bod gennych reswm dilys dros beidio â mynychu MIAM',
+  paragraph1: 'Bydd y llys yn adolygu’r rhesymau a roddwyd gennych.',
+  paragraph2: 'Efallai y gofynnir ichi fynychu MIAM o hyd os bydd y llys yn penderfynu nad yw eich rhesymau’n ddilys.',
+  paragraph3: 'Rhesymau a roddwyd dros beidio â mynychu MIAM:',
+
   nonAttendanceReasons: {
     domesticViolence: 'Tystiolaeth o drais neu gam-drin domestig',
     childProtection: 'Pryderon amddiffyn plant',
@@ -107,7 +122,15 @@ export const cy = () => ({
     canNotAccessMediator: OtherCy.canNotAccessMediator,
     under18: OtherCy.under18,
   },
-});
+  mediatorUnavailable: {
+    noAppointmentAvailable: MidiationCy.noAppointmentAvailable,
+    disability: MidiationCy.disability,
+    noMediatorIn15mile: MidiationCy.noMediatorIn15mile,
+    inPrison: MidiationCy.inPrison,
+    bailThatPreventContact: MidiationCy.bailThatPreventContact,
+    releaseFromPrisonOnLicence: MidiationCy.releaseFromPrisonOnLicence,
+  },
+};
 const languages = {
   en,
   cy,
@@ -124,9 +147,24 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language];
+  // const  reason  = prepareNoNeedWithReason(content.additionalData?.req.session.userCase || {},content.language);
   return {
     ...translations,
+    text: content.userCase?.miam_nonAttendanceReasons?.includes(MiamNonAttendReason.DOMESTIC)
+      ? translations.nonAttendanceReasons.domesticViolence
+      : null,
+    listOfAbuseReasons: content.userCase?.miam_nonAttendanceReasons?.includes(MiamNonAttendReason.DOMESTIC)
+      ? content.userCase?.miam_domesticAbuse?.map(abuseEvidenceType => {
+          return {
+            abuseEvidenceType: _.get(commonLanguages[content.language], abuseEvidenceType),
+            abuseEvidenceReasons: _.get(content.userCase, `miam_domesticAbuse_${abuseEvidenceType}_subfields`, []).map(
+              abuseReason => _.get(commonLanguages[content.language][`${abuseEvidenceType}_subFields`], abuseReason)
+            ),
+          };
+        })
+      : [],
+    nonDA: prepareNoNeedWithReason(content.additionalData?.req.session.userCase || {}, content.language),
     form,
   };
 };

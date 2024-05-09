@@ -2474,6 +2474,11 @@ export type Row = {
   displayText: string;
   value: string | null | undefined;
 };
+export type Reason= {
+  heading: string|null;
+  subHeading: string | null | undefined;
+  bullet?:string |null
+};
 
 export interface CompletedHearings {
   hearingId: Number | undefined;

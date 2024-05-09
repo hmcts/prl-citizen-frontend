@@ -132,6 +132,18 @@ class MIAMNavigationController {
       case C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR: {
         if (caseData.miam_haveDocSignedByMediatorForPrevAttendance === YesOrNo.YES) {
           url = applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING) as PageLink;
+        } else if (caseData?.miam_nonAttendanceReasons?.includes(MiamNonAttendReason.EXEMPT)) {
+          url = C100_MIAM_OTHER;
+        } else {
+          url =
+            this.getNextPageUrl(currentPageUrl) ||
+            (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+        }
+        break;
+      }
+      case C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING: {
+        if (caseData?.miam_nonAttendanceReasons?.includes(MiamNonAttendReason.EXEMPT)) {
+          url = C100_MIAM_OTHER;
         } else {
           url =
             this.getNextPageUrl(currentPageUrl) ||
