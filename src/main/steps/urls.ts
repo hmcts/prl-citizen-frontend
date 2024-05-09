@@ -439,8 +439,7 @@ export const C100_CHECK_YOUR_ANSWER: PageLink = `${C100_URL}/check-your-answers`
 
 export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orderType/:orderId/documentUpload/:removeId?`;
 
-/** @C100 rebuild */
-export const C100_REBUILD_URL: PageLink = '/c100-rebuild';
+export const C100_APPLICANT_PCQ_URL: PageLink = `${C100_URL}/equality-and-diversity`;
 
 export const TESTING_SUPPORT: PageLink = '/testing-support';
 export const TESTING_SUPPORT_CREATE_DRAFT: PageLink = '/testing-support/create-Draft';

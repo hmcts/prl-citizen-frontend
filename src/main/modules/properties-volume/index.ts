@@ -20,7 +20,7 @@ export class PropertiesVolume {
       this.setSecret('secrets.prl.citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
       this.setSecret('secrets.prl.redis-access-key', 'session.redis.key');
       this.setSecret('secrets.prl.redis-access-key', 'session.secret');
-      this.setSecret('secrets.prl.privatelaw-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      this.setSecret('secrets.prl.prl-pcq-token-key', 'services.equalityAndDiversity.tokenKey');
     } else {
       this.setLocalSecret('prl-citizen-frontend-idam-client-secret', 'services.idam.citizenClientSecret');
       this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
@@ -31,7 +31,7 @@ export class PropertiesVolume {
       this.setLocalSecret('postcode-lookup-token', 'services.postcodeLookup.token');
       this.setLocalSecret('citizen-upload-docs-email', 'services.citizen.uploadDocsEmail');
       this.setLocalSecret('launchDarkly-sdk-key', 'featureToggles.launchDarklyKey');
-      this.setLocalSecret('privatelaw-pcq-token', 'services.equalityAndDiversity.tokenKey');
+      this.setLocalSecret('prl-pcq-token-key', 'services.equalityAndDiversity.tokenKey');
     }
   }
 

@@ -33,7 +33,7 @@ def secrets = [
     secret('citizen-user', 'CITIZEN_USERNAME'),
     secret('citizen-password', 'CITIZEN_PW'),
     secret('pact-broker-password', 'PACT_BROKER_YAML_PW'),
-    secret('privatelaw-pcq-token', 'PCQ_TOKEN'),
+    secret('prl-pcq-token-key', 'PCQ_TOKEN'),
   ]
 ]
 

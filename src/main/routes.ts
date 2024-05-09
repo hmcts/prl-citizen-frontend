@@ -17,6 +17,7 @@ import { AccessibilityStatementGetController } from './steps/accessibility-state
 import ApplicantConfirmContactDetailsPostController from './steps/applicant/confirm-contact-details/checkanswers/controller/ApplicantConfirmContactDetailsPostController';
 import { ViewAllDocumentsPostController } from './steps/common/controller/ViewAllDocumentsPostController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
+import PCQGetController from './steps/common/equality/get';
 import { KeepDetailsPrivatePostController } from './steps/common/keep-details-private/KeepDetailsPrivatePostController';
 import { RemoveLegalRepresentativePostController } from './steps/common/remove-legal-representative/RemoveLegalRepresentativePostController';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
@@ -97,6 +98,7 @@ import {
   LOCAL_API_SESSION,
   DOWNLOAD_DOCUMENT,
   DOWNLOAD_DOCUMENT_BY_TYPE,
+  C100_APPLICANT_PCQ_URL,
 } from './steps/urls';
 
 export class Routes {
@@ -126,6 +128,7 @@ export class Routes {
       `${CA_RESPONDENT_GENERATE_C7_DRAFT}`,
       errorHandler(new RespondentSubmitResponseController().getDraftDocument)
     );
+    app.get(C100_APPLICANT_PCQ_URL, errorHandler(new PCQGetController().get));
     app.get(SAVE_AND_SIGN_OUT, errorHandler(new SaveSignOutGetController().get));
     app.get(TIMED_OUT_URL, errorHandler(new TimedOutGetController().get));
     app.get(RESPONDENT_TASK_LIST_URL, errorHandler(new CaseDetailsGetController().load));

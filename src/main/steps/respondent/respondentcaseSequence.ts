@@ -5,6 +5,7 @@ import { keepDetailsPrivateNav } from '../../steps/common/task-list/utils';
 import ContactPreferenceNavigationController from '../common/contact-preference/navigationController';
 import { Sections, Step } from '../constants';
 import {
+  C100_APPLICANT_PCQ_URL,
   CA_RESPONDENT_RESPONSE_CONFIRMATION,
   CA_RESPONDENT_RESPONSE_SUBMIT,
   CHOOSE_CONTACT_PREFERENCE,
@@ -141,7 +142,7 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPOND_TO_APPLICATION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPNDT_TO_APPLICATION_SUMMARY,
+    getNextStep: () => C100_APPLICANT_PCQ_URL,
   },
   {
     url: RESPNDT_TO_APPLICATION_SUMMARY,
