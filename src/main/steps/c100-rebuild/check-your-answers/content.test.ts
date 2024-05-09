@@ -512,17 +512,6 @@ describe('Content.ts toggle test cases', () => {
       {
         rows: [
           {
-            key: {},
-            value: {
-              text: 'test',
-            },
-          },
-        ],
-        title: undefined,
-      },
-      {
-        rows: [
-          {
             actions: {
               items: [
                 {
@@ -1185,7 +1174,6 @@ describe('Content.ts toggle test cases', () => {
       },
     });
     expect(generatedEnContent.sections).toStrictEqual([
-      { rows: [{ key: {}, value: { text: 'test' } }], title: undefined },
       {
         rows: [
           {
@@ -1644,7 +1632,6 @@ describe('Content.ts toggle test cases', () => {
     });
 
     expect(generatedCyContent.sections).toStrictEqual([
-      { rows: [{ key: {}, value: { text: 'test' } }], title: undefined },
       {
         rows: [
           {
@@ -2096,7 +2083,6 @@ describe('Content.ts toggle test cases', () => {
       language: 'cy',
     });
     expect(generatedEnContent.sections).toStrictEqual([
-      { rows: [{ key: {}, value: { text: 'test' } }], title: undefined },
       {
         rows: [
           {
@@ -2475,7 +2461,6 @@ describe('Content.ts toggle test cases', () => {
       },
     });
     expect(generatedEnContent.sections).toStrictEqual([
-      { rows: [{ key: {}, value: { text: 'test' } }], title: undefined },
       {
         rows: [
           {
@@ -2914,7 +2899,6 @@ describe('Content.ts toggle test cases', () => {
       },
     });
     expect(generatedEnContent.sections).toStrictEqual([
-      { rows: [{ key: {}, value: { text: 'test' } }], title: undefined },
       {
         rows: [
           {

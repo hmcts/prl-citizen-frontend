@@ -8,13 +8,13 @@ export const DA_APPLICANT: NotificationBannerProps[] = [
   {
     ...notificationBanner[BannerNotification.NEW_ORDER],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state !== State.CASE_CLOSED && hasOrders(caseData as CaseWithId);
+      return caseData?.state !== State.ALL_FINAL_ORDERS_ISSUED && hasOrders(caseData as CaseWithId);
     },
   },
   {
     ...notificationBanner[BannerNotification.FINAL_ORDER],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state === State.CASE_CLOSED;
+      return caseData?.state === State.ALL_FINAL_ORDERS_ISSUED;
     },
   },
 ];

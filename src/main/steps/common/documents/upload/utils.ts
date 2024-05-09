@@ -50,7 +50,7 @@ export const deleteDocument = async (req: AppRequest, res: Response): Promise<vo
   try {
     await client.deleteCitizenStatementDocument(query.documentId as string);
 
-    if (req.session.userCase && req.session.userCase.hasOwnProperty(uploadedFilesDataReference)) {
+    if (req.session.userCase.hasOwnProperty(uploadedFilesDataReference)) {
       req.session.userCase[uploadedFilesDataReference] = caseData?.[uploadedFilesDataReference]?.filter(
         document => query.documentId !== document.document_url.substring(document.document_url.lastIndexOf('/') + 1)
       );

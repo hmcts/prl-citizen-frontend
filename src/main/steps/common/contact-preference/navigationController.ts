@@ -28,7 +28,7 @@ class ContactPreferenceNavigationController {
       case CONTACT_PREFERENCE_CONFIRMATION: {
         url = req.session.applicationSettings?.navfromRespondToApplication
           ? RESPOND_TO_APPLICATION
-          : applyParms(FETCH_CASE_DETAILS, { caseId: req.session.userCase.id! });
+          : applyParms(FETCH_CASE_DETAILS, { caseId: req.session.userCase.id });
         break;
       }
       default: {

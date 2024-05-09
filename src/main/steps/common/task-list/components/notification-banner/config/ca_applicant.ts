@@ -67,13 +67,13 @@ export const CA_APPLICANT = (userCase: Partial<CaseWithId>): NotificationBannerP
   {
     ...notificationBanner[BannerNotification.APPLICATION_CLOSED],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state === State.CASE_CLOSED && !isCaseWithdrawn(caseData);
+      return caseData?.state === State.ALL_FINAL_ORDERS_ISSUED && !isCaseWithdrawn(caseData);
     },
   },
   {
     ...notificationBanner[BannerNotification.NEW_ORDER],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state !== State.CASE_CLOSED && hasOrders(caseData as CaseWithId);
+      return caseData?.state !== State.ALL_FINAL_ORDERS_ISSUED && hasOrders(caseData as CaseWithId);
     },
   },
   {
