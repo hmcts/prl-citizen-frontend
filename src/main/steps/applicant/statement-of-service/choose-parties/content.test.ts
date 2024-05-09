@@ -3,7 +3,7 @@ import { FormContent, FormFields } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
-import { cy, en, generateContent, getFormFields, generateFormFields } from './content';
+import { cy, en, generateContent, generateFormFields, getFormFields } from './content';
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */

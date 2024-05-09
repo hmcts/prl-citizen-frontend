@@ -61,12 +61,25 @@ describe('sos summary content', () => {
         session: {
           userCase: {
             ...mockUserCase,
-            sos_partiesServed: '',
-            patieservedDate: '',
+            sos_partiesServed: ['123', 'Doe'],
+            sos_partiesServedDate: {},
+            statementOfServiceDocument: {},
+            respondents: [
+              {
+                id: '123',
+                value: {
+                  firstName: 'John',
+                  lastName: 'Doe',
+                },
+              },
+            ],
           },
           user: {
             id: '1234',
           },
+        },
+        params: {
+          context: 'order',
         },
       },
     };

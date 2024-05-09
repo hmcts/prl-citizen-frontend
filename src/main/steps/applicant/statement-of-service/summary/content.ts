@@ -103,7 +103,6 @@ export const generateContent: TranslationFn = content => {
   const summarySection = getSummarySection(content);
   //console.log(summarySection);
   const translations = languages[content.language](content, summarySection);
-  console.log(translations.confirmation);
   return {
     ...translations,
     form,
@@ -125,7 +124,9 @@ const getSummarySection = (summaryContent: CommonContent) => {
         .filter(id => id !== '')
         .forEach(partyId => {
           const respondent: Respondent = summaryContent.userCase!.respondents!.filter(party => party.id === partyId)[0];
-          partyNames.push(respondent.value.firstName + ' ' + respondent.value.lastName);
+          if (respondent) {
+            partyNames.push(respondent.value.firstName + ' ' + respondent.value.lastName);
+          }
         });
       summaryData.push({
         key: labels.keys.sos_partiesServed,
