@@ -1,0 +1,36 @@
+{% extends "common/page.njk" %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block page_content %}
+
+  <h1 class="govuk-heading-xl">
+    <span class="govuk-caption-l">{{caption}}</span>
+    {{title}}
+  </h1>
+
+    {{ govukSummaryList({
+          classes: 'govuk-!-margin-bottom-9 govuk-!-margin-top-0',
+          rows: [{
+              key: {
+                text: content1
+              },
+              value: {
+                text: languageReqAndSpecialArrangements
+              },
+              actions: {
+                items: [
+                  {
+                    href: changeLink,
+                    text: change,
+                    visuallyHiddenText: change
+                  }
+                ]
+              }
+          }]
+        })
+      }}
+  
+  <h2 class="govuk-heading-m">{{ content2 }}</h2>
+  <p class="govuk-body">{{ content3|safe}}</p>
+
+{% endblock %}

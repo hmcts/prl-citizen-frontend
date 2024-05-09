@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Case } from '../../../../app/case/case';
-import { C100ListOfApplicants, Gender, YesNoEmpty } from '../../../../app/case/definition';
+import { C100Applicant, C100ListOfApplicants, Gender, YesNoEmpty } from '../../../../app/case/definition';
 import { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../../app/form/Form';
@@ -33,7 +33,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
       TempFirstName: applicantFirstName,
       TempLastName: applicantLastName,
     };
-    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
+    const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase, req) : this.fields;
     const form = new Form(fields);
     const { _csrf, ...formData } = form.getParsedBody(req.body);
     const saveAndContinueChecked = req['body']['saveAndContinue'];
@@ -180,7 +180,7 @@ export default class AddApplicantPostController extends PostController<AnyObject
         canLeaveVoiceMail: YesNoEmpty.EMPTY,
       },
       reasonableAdjustmentsFlags: [],
-    };
+    } as C100Applicant;
     let applicantInSession: C100ListOfApplicants = [];
     if (req.session.userCase.hasOwnProperty('appl_allApplicants') && req.session.userCase.appl_allApplicants) {
       applicantInSession = req.session.userCase.appl_allApplicants;
@@ -243,26 +243,6 @@ export default class AddApplicantPostController extends PostController<AnyObject
         applicantFirstName,
         applicantLastName,
       };
-
-      /*if (applicant === 0) {
-        Object.assign(applicantObject, {
-          reasonableAdjustmentsFlags: [
-            {
-              name: 'Guidance on how to complete forms',
-              name_cy: 'Arweiniad ar sut i lenwi ffurflenni',
-              flagComment: '',
-              flagComment_cy: '',
-              dateTimeCreated: '2023-11-16T16:05:25.000Z',
-              dateTimeModified: '2023-11-16T16:05:53.000Z',
-              path: ['Party', 'Reasonable adjustment', 'I need help with forms'],
-              hearingRelevant: 'No',
-              flagCode: 'RA0017',
-              status: 'Requested',
-              availableExternally: 'Yes',
-            },
-          ],
-        });
-      }*/
 
       newApplicantStorage.push(applicantObject);
     }

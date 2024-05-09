@@ -3,10 +3,10 @@ import { YesOrNo } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
+export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  serviceName: 'Child Arrangements',
   headingTitle: 'Do you need help with paying the fee for this application?',
   paragraph1: 'This application costs £',
   paragraph2: '. You may be able to get help with paying the fee if \n you have little or no savings, and either:',
@@ -25,7 +25,6 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   headingTitle: 'A ydych angen help i dalu’r ffi am wneud y cais hwn?',
   paragraph1: 'Cost y cais hwn £',
   paragraph2:

@@ -13,7 +13,7 @@ services:
     citizenClientSecret: CITIZEN_IDAM_SECRET
     cosApiClientSecret: COS_API_IDAM_SECRET
     systemUsername: SYSTEM_UPDATE_USER_USERNAME
-    systemPassword: SYSTEM_UPDATE_USER_PASSWORD
+    systemPassword: SYSTEM_UPDATE_USER_PW
   citizen:
     uploadDocsEmail: UPLOAD_DOCUMENTS_EMAIL
   case:

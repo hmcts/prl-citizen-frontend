@@ -1,6 +1,7 @@
 import { Case } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
+import { applyParms } from '../../steps/common/url-parser';
 import { Sections, Step } from '../constants';
 import {
   C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION,
@@ -11,20 +12,19 @@ import {
   C1A_SAFETY_CONCERNS_ABDUCTION_THREATS,
   C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS,
   C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
-  CONSENT_SAVE,
+  CA_RESPONDENT_RESPONSE_CONFIRMATION,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
   COURT_PROCEEDINGS_SUMMARY,
   DOMESTIC_ABUSE_RISK,
   DOMESTIC_ABUSE_RISK_NO,
+  FETCH_CASE_DETAILS,
   INTERNATIONAL_FACTORS_JURISDICTION,
   INTERNATIONAL_FACTORS_PARENTS,
   INTERNATIONAL_FACTORS_REQUEST,
-  INTERNATIONAL_FACTORS_SAVE,
   INTERNATIONAL_FACTORS_START,
   INTERNATIONAL_FACTORS_SUMMARY,
   MIAM_ATTEND_WILLINGNESS,
-  MIAM_SAVE,
   MIAM_START,
   MIAM_SUMMARY,
   OTHER_PROCEEDINGS_DOCUMENT_UPLOAD,
@@ -41,7 +41,6 @@ import {
   PROCEEDINGS_ORDER_DETAILS,
   PROCEEDINGS_START,
   PROCEEDINGS_SUMMARY,
-  PROCEEDING_SAVE,
   PageLink,
   RESPONDENT_ADDRESS_CONFIRMATION,
   RESPONDENT_ADDRESS_DETAILS,
@@ -57,11 +56,7 @@ import {
   RESPONDENT_FIND_ADDRESS,
   RESPONDENT_PERSONAL_DETAILS,
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
-  RESPONDENT_UPLOAD_DOCUMENT,
-  RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
-  RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
-  RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
-  RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
+  RESPONDENT_TO_APPLICATION_SUMMARY,
   RESPONDENT_YOUR_CHILD_CONCERNS,
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
@@ -80,7 +75,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: CONSENT_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => CONSENT_SAVE,
+    getNextStep: () => '/',
   },
   {
     url: RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
@@ -100,7 +95,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: MIAM_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => MIAM_SAVE,
+    getNextStep: () => '/',
   },
   {
     url: RESPONDENT_CHECK_ANSWERS,
@@ -175,7 +170,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: INTERNATIONAL_FACTORS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => INTERNATIONAL_FACTORS_SAVE,
+    getNextStep: () => '/',
   },
   {
     url: SAFETY_MAIN_PAGE,
@@ -233,37 +228,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => PROCEEDING_SAVE,
-  },
-  {
-    url: RESPONDENT_UPLOAD_DOCUMENT_LIST_URL,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
-  },
-  {
-    url: RESPONDENT_UPLOAD_DOCUMENT_LIST_START_URL,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
-  },
-  {
-    url: RESPONDENT_UPLOAD_DOCUMENT_LIST_SUMMARY_URL,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT,
-  },
-  {
-    url: RESPONDENT_UPLOAD_DOCUMENT,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
-  },
-  {
-    url: RESPONDENT_UPLOAD_DOCUMENT_SUCCESS,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_APPLICATION,
-  },
-  {
-    url: RESPOND_TO_APPLICATION,
-    showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
+    getNextStep: () => '/',
   },
   {
     url: RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
@@ -393,5 +358,20 @@ export const responseCaseSequence: Step[] = [
     url: PRL_C1A_SAFETY_CONCERNS_NOFEEDBACK,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: () => PRL_C1A_SAFETY_CONCERNS_CONCERNS_ABOUT_CHILD,
+  },
+  {
+    url: RESPOND_TO_APPLICATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPONDENT_TO_APPLICATION_SUMMARY,
+  },
+  {
+    url: RESPONDENT_TO_APPLICATION_SUMMARY,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => CA_RESPONDENT_RESPONSE_CONFIRMATION,
+  },
+  {
+    url: CA_RESPONDENT_RESPONSE_CONFIRMATION,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
 ];
