@@ -192,6 +192,11 @@ export const C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS: PageLink =
 export const C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE: PageLink =
   '/tasklistresponse/allegations-of-harm-and-violence/check-your-answers/save';
 
+/* respond to allegations of harm */
+export const RESPOND_TO_AOH: PageLink = `${RESPONSE_TASKLIST}/respond-to-allegations-of-harm/willing-to-respond`;
+export const RESPOND_TO_AOH_RESPONSE: PageLink = `${RESPONSE_TASKLIST}/respond-to-allegations-of-harm/your-response`;
+/* consent-to-the-application */
+
 export const VIEW_DOCUMENT_URL = '/doc/:docType/:uploadedBy/:partyName?';
 
 /** Documents */
