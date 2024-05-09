@@ -31,7 +31,9 @@ def secrets = [
     secret('system-update-user-username', 'SYSTEM_UPDATE_USER_USERNAME'),
     secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PASSWORD'),
     secret('citizen-user', 'CITIZEN_USERNAME'),
-    secret('citizen-password', 'CITIZEN_PASSWORD')
+    secret('citizen-password', 'CITIZEN_PASSWORD'),
+    secret('postgres', 'POSTGRES_USERNAME'),
+    secret('password', 'POSTGRES_PASSWORD')
   ]
 ]
 

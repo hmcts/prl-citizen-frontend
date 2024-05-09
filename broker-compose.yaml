@@ -8,8 +8,8 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: postgres
 
   broker_app:
@@ -19,8 +19,8 @@ services:
     ports:
       - '80:80'
     environment:
-      PACT_BROKER_DATABASE_USERNAME: postgres
-      PACT_BROKER_DATABASE_PASSWORD: password
+      PACT_BROKER_DATABASE_USERNAME: ${POSTGRES_USERNAME}
+      PACT_BROKER_DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
       PACT_BROKER_DATABASE_HOST: postgres
       PACT_BROKER_DATABASE_NAME: postgres
       PACT_BROKER_WEBHOOK_SCHEME_WHITELIST: http
