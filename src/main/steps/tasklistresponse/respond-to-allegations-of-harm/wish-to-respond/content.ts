@@ -7,9 +7,10 @@ export const en = {
   title: 'The allegations',
   reviewBeforeResponding: 'Before responding, review the allegations made by the applicant:',
   linkToAoH: 'Allegations of harm and violence (C1A) (Opens in new tab)',
-  disclaimer: 'If you do not agree with the allegations made by the applicant, you can respond and give your point of view. All the people in this application will be able to see your comments.',
-  disclaimer_2: 'If you choose not to respond to the allegations now, you\'ll still be able to respond in court.',
-  wishToRespondLabel: 'Do you wish to respond to the applicant\'s allegations of harm?',
+  disclaimer:
+    'If you do not agree with the allegations made by the applicant, you can respond and give your point of view. All the people in this application will be able to see your comments.',
+  disclaimer_2: "If you choose not to respond to the allegations now, you'll still be able to respond in court.",
+  wishToRespondLabel: "Do you wish to respond to the applicant's allegations of harm?",
   one: 'Yes',
   two: 'No',
   onlyContinue: 'Continue',
@@ -25,15 +26,16 @@ export const cy: typeof en = {
   title: 'Yr honiadau',
   reviewBeforeResponding: 'Cyn ymateb, adolygwch yr honiadau a wnaed gan y ceisydd:',
   linkToAoH: 'Allegations of harm and violence (C1A) (Opens in new tab) - welsh',
-  disclaimer: 'Os nad ydych yn cytuno â\’r honiadau a wnaed gan y ceisydd, gallwch ymateb a rhoi ei barn chi. Bydd pawb sy\’n rhan o\’r cais hwn yn gallu gweld eich sylwadau.',
-  disclaimer_2: 'Os byddwch yn dewis peidio ag ymateb i\’r honiadau nawr, byddwch dal yn gallu ymateb yn y llys.',
+  disclaimer:
+    'Os nad ydych yn cytuno â’r honiadau a wnaed gan y ceisydd, gallwch ymateb a rhoi ei barn chi. Bydd pawb sy’n rhan o’r cais hwn yn gallu gweld eich sylwadau.',
+  disclaimer_2: 'Os byddwch yn dewis peidio ag ymateb i’r honiadau nawr, byddwch dal yn gallu ymateb yn y llys.',
   wishToRespondLabel: 'Ydych chi eisiau ymateb i honiadau o niwed y ceisydd?',
   one: 'Ydw',
   two: 'Nac ydyw',
   onlyContinue: 'Continue - welsh',
   errors: {
     detailsKnown: {
-      required: 'Dewiswch \‘Ydw\’ os ydych eisiau ymateb nawr',
+      required: 'Dewiswch ‘Ydw’ os ydych eisiau ymateb nawr',
     },
   },
 };
@@ -58,7 +60,7 @@ export const form: FormContent = {
         {
           label: l => l.two,
           value: 'no',
-        }
+        },
       ],
       validator: isFieldFilledIn,
     },
