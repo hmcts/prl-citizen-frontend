@@ -23,7 +23,7 @@ let partyDetails;
 describe('utils', () => {
   describe('getConfirmOrEditYourContactDetails', () => {
     beforeEach(() => {
-      jest.clearAllMocks;
+      jest.clearAllMocks();
       partyDetails = [
         {
           id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
@@ -89,7 +89,7 @@ describe('utils', () => {
 
   describe('getConsentToApplicationStatus', () => {
     beforeEach(() => {
-      jest.clearAllMocks;
+      jest.clearAllMocks();
 
       const tempresponse = {
         legalRepresentation: 'No',
@@ -190,7 +190,7 @@ describe('utils', () => {
 
   describe('getInternationalFactorsStatus', () => {
     beforeEach(() => {
-      jest.clearAllMocks;
+      jest.clearAllMocks();
 
       const tempresponse = {
         citizenInternationalElements: {
@@ -276,7 +276,7 @@ describe('utils', () => {
 
   describe('getKeepYourDetailsPrivateStatus', () => {
     beforeEach(() => {
-      jest.clearAllMocks;
+      jest.clearAllMocks();
 
       const tempresponse = {
         legalRepresentation: 'No',
@@ -339,7 +339,7 @@ describe('utils', () => {
 
   describe('getMiamStatus', () => {
     beforeEach(() => {
-      jest.clearAllMocks;
+      jest.clearAllMocks();
 
       const tempresponse = {
         miam: {
@@ -427,7 +427,7 @@ describe('utils', () => {
 
   describe('getYourSafetyStatus', () => {
     beforeEach(() => {
-      jest.clearAllMocks;
+      jest.clearAllMocks();
     });
 
     test('getYourSafetyStatus TO_DO', async () => {

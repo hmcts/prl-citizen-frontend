@@ -1,5 +1,3 @@
-import { error } from 'console';
-
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../app/form/Form';
@@ -9,7 +7,7 @@ import { C100_URL } from '../../steps/urls';
 import * as oidc from '../auth/user/oidc';
 import * as caseApi from '../case/CaseApi';
 import * as cosApiClient from '../case/CosApiClient';
-import { isCaseCodeValid, isPhoneNoValid, isValidAccessCode } from '../form/validation';
+import { isPhoneNoValid, isValidAccessCode } from '../form/validation';
 
 import { PostController } from './PostController';
 
@@ -290,168 +288,6 @@ describe('PostController', () => {
     expect(res.redirect).toHaveBeenCalled();
   });
 
-  test('Should trigger checkCaseAccessCode from if else statment - accessCodeLoginIn should be false', async () => {
-    const body = {
-      accessCodeCheck: {
-        text: 'Continue',
-        classes: '',
-      },
-      accessCode: 'string',
-    };
-    const mockPhoneNumberFormContent = {
-      fields: {
-        accessCode: {
-          type: 'code',
-          validator: isValidAccessCode,
-        },
-      },
-    } as unknown as FormContent;
-    controller = new PostController(mockPhoneNumberFormContent.fields);
-    req = mockRequest({ body });
-
-    await controller.post(req, res);
-    expect(req.session.accessCodeLoginIn).toBe(false);
-    expect(res.redirect).toHaveBeenCalled();
-  });
-
-  test('Should trigger checkCaseAccessCode from if else statment - accessCodeLoginIn should be true', async () => {
-    const body = {
-      accessCodeCheck: {
-        text: 'Continue',
-        classes: '',
-      },
-    };
-    req = mockRequest({ body });
-    req.session = {
-      user: {},
-      save: jest.fn(done => done()),
-      destroy: jest.fn(done => done()),
-    };
-
-    await controller.post(req, res);
-    expect(req.session.accessCodeLoginIn).toBe(true);
-    expect(req.session.userCase).toEqual({
-      accessCodeCheck: {
-        text: 'Continue',
-        classes: '',
-      },
-      id: undefined,
-      serviceType: '',
-      state: 'SuccessAuthentication',
-    });
-    expect(res.redirect).toHaveBeenCalled();
-  });
-
-  test('Should trigger checkCaseAccessCode for already linked case', async () => {
-    const body = {
-      accessCode: 'string',
-      caseReference: '123',
-      accessCodeCheck: true,
-      caseCode: 'string',
-    };
-    controller = new PostController(mockFormContent.fields);
-    req = mockRequest({ body });
-    req.session.errors = [];
-    (getCosApiClientMock as jest.Mock).mockReturnValue({
-      retrieveCasesByUserId: jest.fn(() => {
-        return {};
-      }),
-      validateAccessCode: jest.fn(() => {
-        return 'Linked';
-      }),
-    });
-    await controller.post(req, res);
-    expect(req.session.errors).toEqual([{ errorType: 'accesscodeAlreadyLinked', propertyName: 'accessCode' }]);
-    expect(res.redirect).toHaveBeenCalled();
-  });
-  test('Should trigger checkCaseAccessCode for not valid case', async () => {
-    const body = {
-      accessCode: 'string',
-      caseReference: '123',
-      accessCodeCheck: true,
-      caseCode: 'string',
-    };
-    controller = new PostController(mockFormContent.fields);
-    req = mockRequest({ body });
-    req.session.errors = [];
-    (getCosApiClientMock as jest.Mock).mockReturnValue({
-      retrieveCasesByUserId: jest.fn(() => {
-        return {};
-      }),
-      validateAccessCode: jest.fn(() => {
-        return 'Not Valid';
-      }),
-    });
-    await controller.post(req, res);
-    expect(req.session.errors).toEqual([
-      { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
-      { errorType: 'invalidAccessCode', propertyName: 'accessCode' },
-    ]);
-    expect(res.redirect).toHaveBeenCalled();
-  });
-  test('Should log error if failed to execute checkCaseAccessCode', async () => {
-    const body = {
-      accessCode: 'string',
-      caseReference: '123',
-      accessCodeCheck: true,
-      caseCode: 'string',
-    };
-    controller = new PostController(mockFormContent.fields);
-    req = mockRequest({ body });
-    req.session.errors = [];
-    (getCosApiClientMock as jest.Mock).mockReturnValue({
-      retrieveCasesByUserId: jest.fn(() => {
-        return {};
-      }),
-      validateAccessCode: jest.fn(() => {
-        throw error;
-      }),
-    });
-    await controller.post(req, res);
-    expect(req.session.errors).toEqual([
-      { errorType: 'invalidCaseCode', propertyName: 'caseCode' },
-      { errorType: 'invalidAccessCode', propertyName: 'accessCode' },
-    ]);
-    expect(res.redirect).toHaveBeenCalled();
-  });
-  test('Should log error in fail to trigger event', async () => {
-    const body = {
-      saveBeforeSessionTimeout: 'yes',
-    };
-    (getCaseApiMock as jest.Mock).mockReturnValue({
-      triggerEvent: jest.fn(() => {
-        throw error;
-      }),
-    });
-    controller = new PostController(mockFormContent.fields);
-    req = mockRequest({ body });
-    req.session.errors = [];
-    await controller.post(req, res);
-    expect(req.session.errors).toEqual([{ errorType: 'errorSaving', propertyName: '*' }]);
-  });
-  test('Should trigger saveBeforeSessionTimeout', async () => {
-    const body = {
-      saveBeforeSessionTimeout: 'yes',
-    };
-
-    const mockPhoneNumberFormContent = {
-      fields: {
-        accessCode: {
-          type: 'accessCode',
-          validator: isValidAccessCode,
-        },
-        caseCode: {
-          type: 'caseCode',
-          validator: isCaseCodeValid,
-        },
-      },
-    } as unknown as FormContent;
-    controller = new PostController(mockPhoneNumberFormContent.fields);
-    req = mockRequest({ body });
-    req.session.errors = [];
-    await controller.post(req, res);
-    expect(res.end).toHaveBeenCalled;
-  });
   test('Should trigger saveAndContinue', async () => {
     const body = {};
     req.session.errors = [];

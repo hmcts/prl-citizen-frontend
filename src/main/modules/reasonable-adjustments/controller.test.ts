@@ -614,7 +614,7 @@ describe('ReasonableAdjustementsController', () => {
   });
 
   test('when updating RA flags for c100 application - success scenario', async () => {
-    appRequest.session.userCase.state = State.AwaitingSubmissionToHmcts;
+    appRequest.session.userCase.state = State.CASE_DRAFT;
     jest.spyOn(RAProvider.service, 'retrievePartyRAFlagsFromCommonComponent').mockImplementation(() =>
       Promise.resolve({
         flagsAsSupplied: {
@@ -683,7 +683,7 @@ describe('ReasonableAdjustementsController', () => {
   });
 
   test('handleError should be called when launching RA module and not all applicants are available', async () => {
-    appRequest.session.userCase.state = State.AwaitingSubmissionToHmcts;
+    appRequest.session.userCase.state = State.CASE_DRAFT;
     appRequest.session.userCase.appl_allApplicants = [];
     jest.spyOn(RAProvider.service, 'retrieveExistingPartyRAFlags').mockImplementation(() =>
       Promise.resolve({

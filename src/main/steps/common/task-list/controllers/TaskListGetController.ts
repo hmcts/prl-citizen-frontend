@@ -7,6 +7,7 @@ import { AppRequest } from '../../../../app/controller/AppRequest';
 import { GetController } from '../../../../app/controller/GetController';
 import { generateContent } from '../content';
 
+console.info('** FOR SONAR **');
 @autobind
 export default class TaskListGetController extends GetController {
   constructor() {

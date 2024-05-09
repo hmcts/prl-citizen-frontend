@@ -13,16 +13,30 @@ import {
   Applicant,
   ApplicantTable,
   AttendingTheHearingTable,
+  AuthorityLetterEvidence,
+  C100Applicant,
+  C100DocumentInfo,
+  C100OrderTypes,
+  C100RebuildPartyDetails,
+  C1AAbuseTypes,
+  C1ASafteyConcerns,
+  C1ASafteyConcernsAbout,
   CaseData,
   CaseInvite,
   CaseStatus,
   Child,
   ChildDetailsExtraTable,
   ChildDetailsTable,
+  ChildrenDetails,
   ConfidentialDetails,
   ContactDetails,
+  ContactPreference,
+  CourtInvolvementEvidence,
   DateOfSubmission,
   Document,
+  DocumentResponse,
+  DocumentUploadResponse,
+  DomesticAbuseExemptions,
   DraftConsentOrderFile,
   ExistingProceedings,
   Fl401UploadWitnessDocuments,
@@ -33,61 +47,44 @@ import {
   ListValue,
   LitigationCapacityTable,
   MiamExemptionsTable,
+  MiamNonAttendReason,
   MiamTable,
+  OrderInterface,
+  OtherChildrenDetails,
   OtherDocuments,
   OtherName,
   OtherPeopleInTheCaseTable,
   OtherProceedingEmptyTable,
+  OtherProceedings,
   OtherProceedingsDetailsTable,
   OtherProceedingsForSummaryTab,
   OtherProceedingsTable,
   OthersToNotify,
   PRLDocument,
+  PRL_C1AAbuseTypes,
+  PRL_C1ASafteyConcerns,
+  PRL_C1ASafteyConcernsAbout,
   PartyDetails,
+  PoliceInvolvementEvidence,
   ProceedingsOrderTypes,
   ReasonableAdjustments,
   Respondent,
+  RespondentDocs,
   ResponseDocumentList,
   SelectTypeOfOrderEnum,
   SpecialArrangement,
   State,
   SummaryTabForOrderAppliedFor,
+  SupportServiceEvidence,
   TypeOfApplicationTable,
   UploadDocumentList,
   UrgencyDetails,
+  VictimLetterEvidence,
   WelshLanguageRequirementsTable,
   WelshNeed,
   WithoutNoticeOrderDetails,
   YesNoDontKnow,
   YesOrNo,
-  orderInterface,
-  //C100 Rebuild
-  // eslint-disable-next-line sort-imports
-  C100DocumentInfo,
-  C100OrderTypes,
-  C1ASafteyConcerns,
-  MiamNonAttendReason,
-  OtherProceedings,
-  //DocumentType,
-  ChildrenDetails,
-  C1ASafteyConcernsAbout,
-  C1AAbuseTypes,
-  OtherChildrenDetails,
-  C100RebuildPartyDetails,
-  C100Applicant,
-  PRL_C1ASafteyConcernsAbout,
-  PRL_C1ASafteyConcerns,
-  PRL_C1AAbuseTypes,
-  RespondentDocs,
-  DocumentUploadResponse,
-  ContactPreference,
-  DocumentResponse,
-  DomesticAbuseExemptions,
-  PoliceInvolvementEvidence,
-  AuthorityLetterEvidence,
-  CourtInvolvementEvidence,
-  SupportServiceEvidence,
-  VictimLetterEvidence,
 } from './definition';
 
 export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>> = {
@@ -111,7 +108,6 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   dateOfSubmission: 'dateOfSubmission',
   //declarationTable: 'DeclarationTable',
   interpreterNeeds: 'interpreterNeeds',
-  applicantCaseName: 'applicantCaseName',
   childDetailsTable: 'childDetailsTable',
   jurisdictionIssue: 'jurisdictionIssue',
   ordersApplyingFor: 'ordersApplyingFor',
@@ -281,7 +277,6 @@ export interface Case {
   dateOfSubmission?: DateOfSubmission;
   //declarationTable?: DeclarationTable;
   interpreterNeeds?: InterpreterNeed[];
-  applicantCaseName?: string;
   childDetailsTable?: ChildDetailsTable[];
   jurisdictionIssue?: string;
   ordersApplyingFor?: string[];
@@ -410,29 +405,29 @@ export interface Case {
   proceedingsStartOrder?: YesOrNo;
   courtProceedingsInvolved?: string;
   supervisionOrderOption?: YesOrNo;
-  supervisionOrder?: orderInterface;
+  supervisionOrder?: OrderInterface;
   emergencyOrderOptions?: YesOrNo;
-  emergencyOrder?: orderInterface;
+  emergencyOrder?: OrderInterface;
   careOrderOptions?: YesOrNo;
-  careOrder?: orderInterface;
+  careOrder?: OrderInterface;
   childAbductionOrderOption?: YesOrNo;
-  childAbductionOrder?: orderInterface;
+  childAbductionOrder?: OrderInterface;
   caOrderOption?: YesOrNo;
-  caOrder?: orderInterface;
+  caOrder?: OrderInterface;
   financialOrderOption?: YesOrNo;
-  financialOrder?: orderInterface;
+  financialOrder?: OrderInterface;
   nonmolestationOrderOption?: YesOrNo;
-  nonmolestationOrder?: orderInterface;
+  nonmolestationOrder?: OrderInterface;
   occupationalOrderOptions?: YesOrNo;
-  occupationOrder?: orderInterface;
+  occupationOrder?: OrderInterface;
   marraigeOrderOptions?: YesOrNo;
-  marraigeOrder?: orderInterface;
+  marraigeOrder?: OrderInterface;
   restrainingOrderOptions?: YesOrNo;
-  restrainingOrder?: orderInterface;
+  restrainingOrder?: OrderInterface;
   injuctiveOrderOptions?: YesOrNo;
-  injuctiveOrder?: orderInterface;
+  injuctiveOrder?: OrderInterface;
   underTakingOrderOptions?: YesOrNo;
-  underTakingOrder?: orderInterface;
+  underTakingOrder?: OrderInterface;
 
   /***** Applicant1 *****/
   citizenUserFullName?: string;
@@ -705,10 +700,10 @@ export interface ServedApplicationDetails {
   value: ServedApplication;
 }
 export type ServedApplication = {
-  emailNotificationDetails: emailNotificationDetails[] | [];
+  emailNotificationDetails: EmailNotificationDetails[] | [];
   whoIsResponsible: string;
 };
-export interface emailNotificationDetails {
+export interface EmailNotificationDetails {
   id: string;
   value: emailNotification;
 }
