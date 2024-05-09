@@ -1,0 +1,9 @@
+  # https://help.github.com/en/articles/about-code-owners
+
+  @hmcts/fpl-developers
+
+  # Ignore files updated by Renovate
+  gradle/wrapper/gradle-wrapper.properties
+  build.gradle
+  charts/**/Chart.yaml
+  Dockerfile
