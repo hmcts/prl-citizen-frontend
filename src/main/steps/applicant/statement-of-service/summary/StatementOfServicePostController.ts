@@ -27,9 +27,6 @@ export default class StatementOfServicePostController extends PostController<Any
     const form = new Form(summaryForm.fields as FormFields);
     const { ...formData } = form.getParsedBody(req.body);
     req.session.errors = form.getErrors(formData);
-    if (!req.session.errors) {
-      req.session.errors = [];
-    }
     if (req.session.errors?.length) {
       req.session.save(() =>
         res.redirect(applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req.params.context }))

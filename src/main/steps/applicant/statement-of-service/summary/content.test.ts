@@ -1,5 +1,6 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
 import mockUserCase from '../../../../../test/unit/utils/mockUserCase';
+import { FormContent, FormFields } from '../../../../app/form/Form';
 import { CommonContent } from '../../../common/common.content';
 
 import { generateContent } from './content';
@@ -55,6 +56,8 @@ jest.mock('../../../../app/form/validation');
 describe('sos summary content', () => {
   const commonContent = { language: 'en' } as CommonContent;
   let generatedContent;
+  let form;
+  let fields;
   beforeEach(() => {
     commonContent.additionalData = {
       req: {
@@ -85,6 +88,8 @@ describe('sos summary content', () => {
     };
     commonContent.userCase = commonContent.additionalData.req.session.userCase;
     generatedContent = generateContent(commonContent);
+    form = generatedContent.form as FormContent;
+    fields = form.fields as FormFields;
   });
 
   test('should return correct english content', () => {
@@ -101,6 +106,14 @@ describe('sos summary content', () => {
   // eslint-disable-next-line jest/expect-expect
   test('should return correct welsh content', () => {
     languageAssertions('cy', cy, () => generateContent({ ...commonContent, language: 'cy' }));
+  });
+
+  test('should return correct values for fields', () => {
+    const { sosConsent } = fields as Record<string, FormFields>;
+    expect(sosConsent.values).toHaveLength(1);
+    expect(sosConsent.values[0].value).toEqual('true');
+    expect((sosConsent.values[0].label as Function)(generatedContent)).toBe(en.consent);
+    expect((form.submit.text as Function)(generatedContent)).toBe(en.submit);
   });
 });
 

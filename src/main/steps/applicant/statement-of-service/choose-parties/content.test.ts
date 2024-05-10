@@ -1,29 +1,21 @@
 import languageAssertions from '../../../../../test/unit/utils/languageAssertions';
-import { FormContent, FormFields } from '../../../../app/form/Form';
-import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
+import { CaseDate } from '../../../../app/case/case';
+import { FormContent, FormFields, LanguageLookup } from '../../../../app/form/Form';
+import {
+  Validator,
+  areDateFieldsFilledIn,
+  atLeastOneFieldIsChecked,
+  isDateInputInvalid,
+  isFutureDate,
+} from '../../../../app/form/validation';
 import { CommonContent } from '../../../common/common.content';
 
-import { cy, en, generateContent, generateFormFields, getFormFields } from './content';
+import { cy, en, generateContent, getFormFields } from './content';
 
 jest.mock('../../../../app/form/validation');
 /* eslint-disable @typescript-eslint/ban-types */
 let partyDetails;
 describe('sos choose-parties content', () => {
-  const commonContent = { language: 'en' } as CommonContent;
-  commonContent.additionalData = {
-    req: {
-      query: {
-        parentDocType: 'parent',
-        docType: 'doc',
-      },
-      params: {
-        context: 'order',
-      },
-      session: {
-        errors: [],
-      },
-    },
-  };
   partyDetails = [
     {
       id: '0c09b130-2eba-4ca8-a910-1f001bac01e6',
@@ -31,7 +23,7 @@ describe('sos choose-parties content', () => {
         firstName: 'testuser',
         lastName: 'Citizen',
         email: 'abc@example.net',
-        dateOfBirth: '03-20-2023',
+        sos_partiesServedDate: '03-20-2023',
         phoneNumber: '7755664466',
         placeOfBirth: 'BPP',
         previousName: 'test',
@@ -56,12 +48,44 @@ describe('sos choose-parties content', () => {
       },
     },
   ];
-  commonContent.userCase = {
-    applicants: partyDetails,
-    respondents: partyDetails,
-    sos_partiesServedDate: new Date(),
-    sos_partiesServed: ['', '', ''],
-  };
+  const commonContent = {
+    language: 'en',
+    dateFormat: {
+      day: 'Day',
+      month: 'Month',
+      year: 'Year',
+    },
+    userCase: {
+      applicants: partyDetails,
+      respondents: partyDetails,
+      sos_partiesServedDate: {
+        year: '1987',
+        month: '12',
+        day: '12',
+      },
+      sos_partiesServed: ['', '', ''],
+    },
+    additionalData: {
+      req: {
+        query: {
+          parentDocType: 'parent',
+          docType: 'doc',
+        },
+        params: {
+          context: 'order',
+        },
+        session: {
+          errors: [
+            {
+              errorType: 'deleteError',
+              propertyName: 'uploadDocumentFileUpload',
+            },
+          ],
+        },
+      },
+    },
+  } as unknown as CommonContent;
+
   let generatedContent;
   let form;
   let fields;
@@ -109,10 +133,88 @@ describe('sos choose-parties content', () => {
     expect(getFormFields(commonContent.userCase!).fields['soa_PartiesServedDate']).toBeDefined;
   });
 
-  test('should generate form fields', () => {
-    const formFields = generateFormFields(commonContent.userCase!);
-    expect(formFields.fields['sos_partiesServed']).toBeDefined;
-    expect(formFields.fields['sos_partiesServedDate'].values).toHaveLength(3);
+  test('should generate correct form fields for sos parties served date', () => {
+    const { sos_partiesServed, sos_partiesServedDate } = fields as Record<string, FormFields>;
+
+    expect(sos_partiesServed).toBeDefined;
+    expect((form.onlyContinue.text as LanguageLookup)(generatedContent)).toBe(undefined);
+    expect((sos_partiesServed.label as Function)(generatedContent)).toBe(en.whowasserved);
+    expect(sos_partiesServedDate.values).toHaveLength(3);
+    expect(sos_partiesServedDate.type).toBe('date');
+    expect(sos_partiesServedDate.classes).toBe('govuk-date-input');
+    expect((sos_partiesServedDate.hint as Function)(generatedContent)).toBe(en.servedDateHint);
+    expect((sos_partiesServedDate.label as Function)(generatedContent)).toBe(en.servedDate);
+    expect((sos_partiesServedDate.parser as Function)(sos_partiesServedDate).day).toBeDefined;
+
+    expect(
+      (sos_partiesServedDate.values[0].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Day');
+    expect(sos_partiesServedDate.values[0].value).toBe('12');
+    expect(sos_partiesServedDate.values[0].classes).toBe('govuk-input--width-2');
+    expect(sos_partiesServedDate.values[0].attributes).toStrictEqual({
+      inputMode: 'numeric',
+      maxLength: 2,
+      pattern: '[0-9]*',
+    });
+    expect(
+      (sos_partiesServedDate.values[1].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Month');
+    expect(sos_partiesServedDate.values[1].value).toBe('12');
+    expect(sos_partiesServedDate.values[1].classes).toBe('govuk-input--width-2');
+    expect(sos_partiesServedDate.values[1].attributes).toStrictEqual({
+      inputMode: 'numeric',
+      maxLength: 2,
+      pattern: '[0-9]*',
+    });
+    expect(
+      (sos_partiesServedDate.values[2].label as Function)({
+        ...generatedContent,
+        dateFormat: {
+          day: 'Day',
+          month: 'Month',
+          year: 'Year',
+        },
+      })
+    ).toBe('Year');
+    expect(sos_partiesServedDate.values[2].value).toBe('1987');
+    expect(sos_partiesServedDate.values[2].classes).toBe('govuk-input--width-4');
+    expect(sos_partiesServedDate.values[2].attributes).toStrictEqual({
+      inputMode: 'numeric',
+      maxLength: 4,
+      pattern: '[0-9]*',
+    });
+    (sos_partiesServedDate.validator as Validator)(
+      commonContent.userCase!.sos_partiesServedDate as unknown as CaseDate
+    );
+    expect(areDateFieldsFilledIn).toHaveBeenCalledWith({
+      day: '12',
+      month: '12',
+      year: '1987',
+    });
+    expect(isDateInputInvalid).toHaveBeenCalledWith({
+      day: '12',
+      month: '12',
+      year: '1987',
+    });
+    expect(isFutureDate).toHaveBeenCalledWith({
+      day: '12',
+      month: '12',
+      year: '1987',
+    });
   });
 });
 /* eslint-enable @typescript-eslint/ban-types */
