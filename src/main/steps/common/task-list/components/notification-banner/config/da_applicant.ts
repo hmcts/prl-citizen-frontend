@@ -10,20 +10,19 @@ export const DA_APPLICANT: NotificationBannerProps[] = [
   {
     ...notificationBanner[BannerNotification.NEW_ORDER],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state !== State.CASE_CLOSED && hasOrders(caseData as CaseWithId);
+      return caseData?.state !== State.ALL_FINAL_ORDERS_ISSUED && hasOrders(caseData as CaseWithId);
     },
   },
   {
     ...notificationBanner[BannerNotification.FINAL_ORDER],
     show: (caseData: Partial<CaseWithId>): boolean => {
-      return caseData?.state === State.CASE_CLOSED;
+      return caseData?.state === State.ALL_FINAL_ORDERS_ISSUED;
     },
   },
   {
     ...notificationBanner[BannerNotification.SOA_SERVED_DA],
     show: (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
       return (
-        caseData?.state !== State.CASE_CLOSED &&
         isCaseLinked(caseData, userDetails) &&
         YesOrNo.YES === caseData?.applicantsFL401?.response?.citizenFlags?.isApplicationToBeServed
       );

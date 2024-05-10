@@ -144,7 +144,7 @@ export const isPrimaryApplicant = (caseData: Partial<CaseWithId>, userDetails: U
 
 export const isPersonalServiceByCourtStaff = (caseData: Partial<CaseWithId>): boolean => {
   const PERSONAL_SOA_BY_COURT_STAFF = ['Court - court admin', 'Court - court bailiff'];
-  return caseData.finalServedApplicationDetailsList && caseData.finalServedApplicationDetailsList?.length
+  return caseData?.finalServedApplicationDetailsList?.length
     ? PERSONAL_SOA_BY_COURT_STAFF.includes(_.last(caseData.finalServedApplicationDetailsList)?.value.whoIsResponsible!)
     : false;
 };

@@ -1,5 +1,5 @@
-import { Case, CaseWithId } from '../../app/case/case';
-import { CaseType, YesOrNo } from '../../app/case/definition';
+import { CaseWithId } from '../../app/case/case';
+import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { applyParms } from '../../steps/common/url-parser';
 import ContactPreferenceNavigationController from '../common/contact-preference/navigationController';
@@ -12,13 +12,10 @@ import {
   APPLICANT_ADD_LEGAL_REPRESENTATIVE,
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_CONTACT_DETAILS,
-  APPLICANT_CONTACT_DETAILS_SAVE,
   APPLICANT_DETAILS_KNOWN,
   APPLICANT_FIND_ADDRESS,
-  APPLICANT_KEEP_DETAILS_PRIVATE_SAVE,
   APPLICANT_MANUAL_ADDRESS,
   APPLICANT_PERSONAL_DETAILS,
-  APPLICANT_POSTAL_ADDRESS_DETAILS,
   APPLICANT_PRIVATE_DETAILS_CONFIRMED,
   APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
@@ -29,9 +26,7 @@ import {
   APPLICANT_STATEMENT_OF_SERVICE_NEXT,
   APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
   APPLICANT_STATEMENT_OF_SERVICE_SUMMARY,
-  APPLICANT_TASK_LIST_URL,
   APPLICANT_YOURHEARINGS_HEARINGS,
-  C100_APPLICANT_TASKLIST,
   CHOOSE_CONTACT_PREFERENCE,
   CONTACT_PREFERENCE_CONFIRMATION,
   FETCH_CASE_DETAILS,
@@ -53,11 +48,6 @@ import {
 
 export const applicantCaseSequence: Step[] = [
   {
-    url: APPLICANT_TASK_LIST_URL,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
-  },
-  {
     url: APPLICANT_DETAILS_KNOWN,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: () => APPLICANT_START_ALTERNATIVE,
@@ -65,24 +55,22 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_START_ALTERNATIVE,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_KEEP_DETAILS_PRIVATE_SAVE,
+    getNextStep: () => '/',
   },
   {
     url: APPLICANT_PRIVATE_DETAILS_CONFIRMED,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: (data: Partial<Case>) =>
-      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: APPLICANT_PRIVATE_DETAILS_NOT_CONFIRMED,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: (data: Partial<Case>) =>
-      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: APPLICANT_CHECK_ANSWERS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_CONTACT_DETAILS_SAVE,
+    getNextStep: () => '/',
   },
   {
     url: APPLICANT_PERSONAL_DETAILS,
@@ -131,27 +119,15 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => APPLICANT_CHECK_ANSWERS,
   },
   {
-    url: APPLICANT_POSTAL_ADDRESS_DETAILS,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
-  },
-  {
     url: APPLICANT_YOURHEARINGS_HEARINGS,
     showInSection: Sections.AboutApplicantCase,
     // getController: HearingsGetController,
-    getNextStep: (data: Partial<Case>) =>
-      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
-  },
-  {
-    url: APPLICANT_TASK_LIST_URL,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_YOURHEARINGS_HEARINGS,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: APPLICANT_ADD_LEGAL_REPRESENTATIVE,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: (data: Partial<Case>) =>
-      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     //80
@@ -162,8 +138,7 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: (data: Partial<Case>) =>
-      data.caseTypeOfApplication === CaseType.C100 ? C100_APPLICANT_TASKLIST : APPLICANT_TASK_LIST_URL,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: CHOOSE_CONTACT_PREFERENCE,
@@ -211,7 +186,7 @@ export const applicantCaseSequence: Step[] = [
     url: UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
   {
     url: UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
@@ -313,7 +288,7 @@ export const applicantCaseSequence: Step[] = [
     url: UPLOAD_DOCUMENT_SUBMIT_EXTRA_EVIDENCE,
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: String(caseData?.id) }) as PageLink,
   },
   {
     url: UPLOAD_DOCUMENT_DOCUMENT_SHARING_DETAILS,
@@ -391,12 +366,6 @@ export const applicantCaseSequence: Step[] = [
     getNextStep: () => '/',
   },
   {
-    url: APPLICANT_TASK_LIST_URL,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: (data: Partial<CaseWithId>, req) =>
-      applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: req!.params.context }) as PageLink,
-  },
-  {
     url: APPLICANT_STATEMENT_OF_SERVICE,
     showInSection: Sections.AboutApplicantCase,
     getNextStep: (data: Partial<CaseWithId>, req) =>
@@ -410,16 +379,11 @@ export const applicantCaseSequence: Step[] = [
   {
     url: APPLICANT_STATEMENT_OF_SERVICE_NEXT,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id }) as PageLink,
-  },
-  {
-    url: APPLICANT_TASK_LIST_URL,
-    showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id ?? '' }) as PageLink,
   },
   {
     url: APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => APPLICANT_TASK_LIST_URL,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
 ];

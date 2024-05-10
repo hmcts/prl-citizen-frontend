@@ -28,8 +28,8 @@ export const generateContent: TranslationFn = content => {
           documentName: document?.value?.document_filename ?? '',
           servedDate: respondentPacks.packCreatedDate ?? '',
           documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
-            documentId,
-            documentName: document?.value?.document_filename,
+            documentId: documentId ?? '',
+            documentName: document?.value?.document_filename ?? '',
           }),
         };
       })

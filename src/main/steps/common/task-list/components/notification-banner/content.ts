@@ -443,7 +443,7 @@ const en: NotificationBannerContent = {
                   },
                 },
                 {
-                  href: `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
+                  href: RESPOND_TO_APPLICATION,
                   text: 'Respond to the application',
                 },
               ],
@@ -1068,7 +1068,7 @@ const cy: typeof en = {
                   },
                 },
                 {
-                  href: `${RESPOND_TO_APPLICATION}/flag/updateFlag`,
+                  href: RESPOND_TO_APPLICATION,
                   text: "Ymateb i'r cais",
                 },
               ],

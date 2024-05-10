@@ -5,7 +5,7 @@ import { CitizenApplicationPacks, CitizenDocuments, CitizenRespondentPack } from
 
 import { RAFlagValue } from '../../modules/reasonable-adjustments/definitions';
 import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
-
+console.info("** FOR SONAR **");
 export interface ChildDetails {
   gender: string;
   lastName: string;
@@ -232,7 +232,7 @@ export interface CitizenInternationalElements {
 export interface Consent {
   consentToTheApplication?: string;
   noConsentReason?: string;
-  applicationReceivedDate?: DateAsString;
+  applicationReceivedDate?: string;
   permissionFromCourt?: string;
   courtOrderDetails?: string;
 }
@@ -369,31 +369,6 @@ export interface ApplicantTable {
   value: Value5;
 }
 
-export interface Address4 {
-  County: string;
-  Country: string;
-  PostCode: string;
-  PostTown: string;
-  AddressLine1: string;
-  AddressLine2: string;
-  AddressLine3: string;
-}
-
-export interface SolicitorOrg4 {
-  OrganisationID: string;
-  OrganisationName: string;
-}
-
-export interface SolicitorAddress3 {
-  County: string;
-  Country: string;
-  PostCode: string;
-  PostTown: string;
-  AddressLine1: string;
-  AddressLine2: string;
-  AddressLine3: string;
-}
-
 export interface DynamicListElement {
   code: string;
   label: string;
@@ -432,96 +407,20 @@ export interface OrganisationPolicy<R> {
 }
 
 export interface PreviousOrganisation {
-  FromTimeStamp: DateAsString;
-  ToTimeStamp: DateAsString;
+  FromTimeStamp: string;
+  ToTimeStamp: string;
   OrganisationName: string;
   OrganisationAddress: string;
 }
 
 export interface CaseNote {
   author: string;
-  date: DateAsString;
+  date: string;
   note: string;
 }
-
-export interface Respondent {
-  id: string;
-  value: PartyDetails;
-}
-
-export interface Address3 {
-  County: string;
-  Country: string;
-  PostCode: string;
-  PostTown: string;
-  AddressLine1: string;
-  AddressLine2: string;
-  AddressLine3: string;
-}
-
-export interface SolicitorOrg3 {
-  OrganisationID: string;
-  OrganisationName: string;
-}
-
-export interface Value5 {
-  email: string;
-  gender: string;
-  address: Address3;
-  dxNumber: string;
-  lastName: string;
-  firstName: string;
-  dateOfBirth: string;
-  otherGender: string;
-  phoneNumber: string;
-  placeOfBirth: string;
-  previousName: string;
-  solicitorOrg: SolicitorOrg3;
-  solicitorEmail: string;
-  solicitorReference: string;
-  isAddressConfidential: string;
-  representativeLastName: string;
-  representativeFirstName: string;
-  canYouProvideEmailAddress: string;
-  isAtAddressLessThan5Years: string;
-  isPhoneNumberConfidential: string;
-  isEmailAddressConfidential: string;
-  addressLivedLessThan5YearsDetails: string;
-}
-
-export interface ApplicantTable {
-  id: string;
-  value: Value5;
-}
-
-export interface Address4 {
-  County: string;
-  Country: string;
-  PostCode: string;
-  PostTown: string;
-  AddressLine1: string;
-  AddressLine2: string;
-  AddressLine3: string;
-}
-
-export interface SolicitorOrg4 {
-  OrganisationID: string;
-  OrganisationName: string;
-}
-
-export interface SolicitorAddress3 {
-  County: string;
-  Country: string;
-  PostCode: string;
-  PostTown: string;
-  AddressLine1: string;
-  AddressLine2: string;
-  AddressLine3: string;
-}
-
 export interface AcknowledgementOfService {
   jurisdictionDisagreeReason: string;
-  dateAosSubmitted: DateAsString;
+  dateAosSubmitted: string;
   digitalNoticeOfProceedings: YesOrNo;
   noticeOfProceedingsEmail: string;
   noticeOfProceedingsSolicitorFirm: string;
@@ -604,14 +503,14 @@ export interface Value10 {
 }
 
 export interface AlternativeService {
-  receivedServiceApplicationDate: DateAsString;
+  receivedServiceApplicationDate: string;
   alternativeServiceType: AlternativeServiceType;
-  receivedServiceAddedDate: DateAsString;
+  receivedServiceAddedDate: string;
   serviceApplicationGranted: YesOrNo;
   serviceApplicationRefusalReason: string;
-  serviceApplicationDecisionDate: DateAsString;
-  deemedServiceDate: DateAsString;
-  dateOfPayment: DateAsString;
+  serviceApplicationDecisionDate: string;
+  deemedServiceDate: string;
+  dateOfPayment: string;
   paymentMethod: ServicePaymentMethod;
   feeAccountNumber: string;
   feeAccountReferenceNumber: string;
@@ -620,7 +519,7 @@ export interface AlternativeService {
   localCourtName: string;
   localCourtEmail: string;
   certificateOfServiceDocument: DivorceDocument;
-  certificateOfServiceDate: DateAsString;
+  certificateOfServiceDate: string;
   successfulServedByBailiff: YesOrNo;
   reasonFailureToServeByBailiff: string;
 }
@@ -638,7 +537,7 @@ export interface Bailiff {
   localCourtName: string;
   localCourtEmail: string;
   certificateOfServiceDocument: DivorceDocument;
-  certificateOfServiceDate: DateAsString;
+  certificateOfServiceDate: string;
   successfulServedByBailiff: YesOrNo;
   reasonFailureToServeByBailiff: string;
 }
@@ -673,7 +572,7 @@ export const enum ContactDetailsPrivate {
 export interface Children {
   FirstName: string;
   LastName: string;
-  DateOfBirth: DateAsString;
+  DateOfBirth: string;
   Nationality: Nationality[];
   AdditionalNationality: ListValue<OtherName>[];
   FirstNameAfterAdoption: string;
@@ -763,13 +662,13 @@ export interface Sibling {
 
 export type C100Applicant = {
   id?: string;
-  applicantFirstName?: string | unknown;
-  applicantLastName?: string | unknown;
-  detailsKnown?: string | unknown;
-  startAlternative?: string | unknown;
-  start?: string | unknown;
-  contactDetailsPrivate?: unknown | [];
-  contactDetailsPrivateAlternative?: unknown | [];
+  applicantFirstName?: string;
+  applicantLastName?: string;
+  detailsKnown?: string;
+  startAlternative?: string;
+  start?: string;
+  contactDetailsPrivate?: string[];
+  contactDetailsPrivateAlternative?: string[];
   applicantSelectedAddress?: number;
   applicantAddressPostcode?: string;
   applicantAddress1?: string;
@@ -922,7 +821,6 @@ export interface CaseData {
   finalDocument?: Document;
   serviceType: string;
   claimNumber: string;
-  applicantCaseName: string;
   caseCode: string;
   respondentFirstName: string;
   respondentLastName: string;
@@ -1076,7 +974,7 @@ export interface CaseInviteValue {
 }
 
 export interface ConditionalOrder {
-  DateSubmitted: DateAsString;
+  DateSubmitted: string;
   RespondentAnswersLink: Document;
   ApplyForConditionalOrder: YesOrNo;
   OnlinePetitionLink: Document;
@@ -1088,8 +986,8 @@ export interface ConditionalOrder {
   Granted: YesOrNo;
   ClaimsGranted: YesOrNo;
   ClaimsCostsOrderInformation: string;
-  DecisionDate: DateAsString;
-  GrantedDate: DateAsString;
+  DecisionDate: string;
+  GrantedDate: string;
   RefusalDecision: RefusalOption;
   RefusalAdminErrorInfo: string;
   RefusalRejectionReason: RejectionReason;
@@ -1100,7 +998,7 @@ export interface ConditionalOrder {
   ClarificationUploadDocuments: ListValue<DivorceDocument>[];
   OutcomeCase: YesOrNo;
   Court: ConditionalOrderCourt;
-  DateAndTimeOfHearing: DateAsString;
+  DateAndTimeOfHearing: string;
   PronouncementJudge: string;
   JudgeCostsClaimGranted: JudgeCostsClaimGranted;
   JudgeCostsOrderAdditionalInfo: string;
@@ -1292,8 +1190,8 @@ export interface DivorceGeneralOrder {
 }
 
 export interface FinalOrder {
-  dateFinalOrderSubmitted: DateAsString;
-  dateFinalOrderEligibleFrom: DateAsString;
+  dateFinalOrderSubmitted: string;
+  dateFinalOrderEligibleFrom: string;
 }
 
 export interface GeneralEmail {
@@ -1304,7 +1202,7 @@ export interface GeneralEmail {
 }
 
 export interface GeneralOrder {
-  generalOrderDate: DateAsString;
+  generalOrderDate: string;
   generalOrderDivorceParties: GeneralOrderDivorceParties[];
   generalOrderRecitals: string;
   generalOrderJudgeType: GeneralOrderJudge;
@@ -1317,8 +1215,8 @@ export interface GeneralOrder {
 export interface GeneralReferral {
   generalReferralReason: GeneralReferralReason;
   generalApplicationFrom: GeneralParties;
-  generalApplicationReferralDate: DateAsString;
-  generalApplicationAddedDate: DateAsString;
+  generalApplicationReferralDate: string;
+  generalApplicationAddedDate: string;
   generalReferralType: GeneralReferralType;
   alternativeServiceMedium: AlternativeServiceMediumType;
   generalReferralJudgeDetails: string;
@@ -1366,7 +1264,7 @@ export interface RetiredFields {
   applicant2ContactDetailsConfidential: ConfidentialAddress;
   applicant1LegalProceedingsRelated: LegalProceedingsRelated[];
   applicant2LegalProceedingsRelated: LegalProceedingsRelated[];
-  dateConditionalOrderSubmitted: DateAsString;
+  dateConditionalOrderSubmitted: string;
   coWhoPaysCosts: WhoPaysCostOrder;
   coJudgeWhoPaysCosts: WhoPaysCostOrder;
   coJudgeTypeCostsDecision: CostOrderList;
@@ -1395,7 +1293,7 @@ export interface Solicitor {
 }
 
 export interface SolicitorService {
-  DateOfService: DateAsString;
+  DateOfService: string;
   DocumentsServed: string;
   OnWhomServed: string;
   HowServed: DocumentsServedHow;
@@ -1413,13 +1311,13 @@ export interface ConfidentialDivorceDocument {
   confidentialDocumentsReceived: ConfidentialDocumentsReceived;
   documentEmailContent: string;
   documentLink: Document;
-  documentDateAdded: DateAsString;
+  documentDateAdded: string;
   documentComment: string;
   documentFileName: string;
 }
 
 export interface DivorceDocument {
-  documentDateAdded: DateAsString;
+  documentDateAdded: string;
   documentComment: string;
   documentFileName: string;
   documentType: DocumentType;
@@ -1428,7 +1326,7 @@ export interface DivorceDocument {
 }
 
 export interface AdoptionDocument {
-  documentDateAdded: DateAsString;
+  documentDateAdded: string;
   documentComment: string;
   documentFileName: string;
   documentType: DocumentType;
@@ -1516,8 +1414,8 @@ export interface FeeResponse {
 }
 
 export interface Payment {
-  created: DateAsString;
-  updated: DateAsString;
+  created: string;
+  updated: string;
   feeCode: string;
   amount: number;
   status: PaymentStatus;
@@ -1537,12 +1435,6 @@ export interface PaymentItem {
   version: string;
 }
 
-export interface PbaResponse {
-  httpStatus: HttpStatus;
-  errorMessage: string;
-  paymentReference: string;
-}
-
 export interface StatusHistoriesItem {
   date_updated: string;
   date_created: string;
@@ -1551,8 +1443,6 @@ export interface StatusHistoriesItem {
   error_code: string;
   error_message: string;
 }
-
-export type DateAsString = string;
 
 export const enum FieldType {
   Unspecified = 'Unspecified',
@@ -1652,6 +1542,7 @@ export const enum EventRoutesContext {
   SAFETY_CONCERNS_NO = 'SAFETY_CONCERNS_NO',
   VIEW_ALL_DOCUMENTS = 'VIEW_ALL_DOCUMENTS',
   CONTACT_PREFERENCE = 'CONTACT_PREFERENCE',
+  HEARINGS = 'HEARINGS'
 }
 
 export const enum ClarificationReason {
@@ -1998,7 +1889,6 @@ export const enum State {
   Rejected = 'Rejected',
   Withdrawn = 'Withdrawn',
   AwaitingDocuments = 'AwaitingDocuments',
-  AwaitingSubmissionToHmcts = 'AWAITING_SUBMISSION_TO_HMCTS',
   AwaitingApplicant1Response = 'AwaitingApplicant1Response',
   AwaitingApplicant2Response = 'AwaitingApplicant2Response',
   AwaitingBailiffReferral = 'AwaitingBailiffReferral',
@@ -2025,9 +1915,7 @@ export const enum State {
   Submitted = 'Submitted',
   successAuthentication = 'SuccessAuthentication',
   AWAITING_SUBMISSION_TO_HMCTS = 'Draft',
-  AWAITING_FL401_SUBMISSION_TO_HMCTS = 'Draft',
   SUBMITTED_NOT_PAID = 'Pending',
-  SUBMITTED_PAID = 'Submitted',
   AWAITING_RESUBMISSION_TO_HMCTS = 'Returned',
   CASE_ISSUE = 'Case Issued',
   GATEKEEPING = 'Gatekeeping',
@@ -2041,7 +1929,6 @@ export const enum State {
   CASE_SUBMITTED_NOT_PAID = 'SUBMITTED_NOT_PAID',
   CASE_ISSUED_TO_LOCAL_COURT = 'CASE_ISSUE',
   CASE_GATE_KEEPING = 'JUDICIAL_REVIEW',
-  CASE_CLOSED = 'ALL_FINAL_ORDERS_ISSUED',
   CASE_SERVED = 'PREPARE_FOR_HEARING_CONDUCT_HEARING',
   CASE_WITHDRAWN = 'CASE_WITHDRAWN',
   CASE_DELETED = 'READY_FOR_DELETION',
@@ -2389,7 +2276,7 @@ export const SYSTEM_PROGRESS_TO_AOS_OVERDUE = 'system-progress-to-aos-overdue';
 export const CASEWORKER_SYSTEM_USER_UPDATE_ISSUE_DATE = 'system-update-issue-date';
 
 // citizen frontend
-export interface orderInterface {
+export interface OrderInterface {
   caseNoDetails: string;
   orderDateDetails: CaseDate;
   orderTimeDetails: string;
@@ -2412,7 +2299,7 @@ export const enum Gender {
 }
 
 export interface PRLDocument {
-  dateCreated: DateAsString;
+  dateCreated: string;
   orderType: string;
   orderDocument: Document;
   orderDocumentWelsh: Document;
@@ -2424,12 +2311,12 @@ export interface PRLDocument {
 }
 
 export interface HearingsList {
-  hearingID?: Number;
+  hearingID?: number;
   hearingRequestDateTime?: string | null;
   hearingType?: string | null;
   hmcStatus?: string | null;
   lastResponseReceivedDateTime?: string | null;
-  requestVersion?: Number | null;
+  requestVersion?: number | null;
   hearingListingStatus?: string | null;
   listAssistCaseStatus?: string | null;
   hearingDaySchedule?: Schedules[] | null;
@@ -2445,10 +2332,10 @@ export interface Hearing {
   lengthOfHearing: number | undefined;
   hearingDurationDisplayText: string;
   hearingMethod: string;
-  hearingDaySchedule: hearingDay[];
+  hearingDaySchedule: HearingDay[];
 }
 
-export interface hearingDay {
+export interface HearingDay {
   hearingDate: string;
   startTime: string;
   amPm: string;
@@ -2469,7 +2356,7 @@ export type Row = {
 };
 
 export interface CompletedHearings {
-  hearingId: Number | undefined;
+  hearingId: number | undefined;
   dates: string;
   lengthOfHearing: number | undefined;
   hearingDurationDisplayText: string;
@@ -2480,21 +2367,21 @@ export interface HearingOrders {
   href: string;
   createdDate: string;
   fileName: string;
-  id: Number;
+  id: number;
 }
 
 export interface Schedules {
   hearingStartDateTime?: string | null;
   hearingEndDateTime?: string | null;
-  listAssistSessionId?: Number | string | null;
+  listAssistSessionId?: number | string | null;
   hearingVenueId?: string | null;
   hearingVenueName?: string | null;
-  hearingVenueLocationCode?: Number | string | null;
+  hearingVenueLocationCode?: number | string | null;
   hearingVenueAddress?: string | null;
   hearingRoomId?: string | null;
   hearingJudgeId?: string | null;
   hearingJudgeName?: string | null;
-  panelMemberIds?: string[] | Number[] | null;
+  panelMemberIds?: string[] | number[] | null;
   attendees?: Attendee[] | null;
 }
 
@@ -2525,19 +2412,12 @@ export interface ListValue<T> {
 }
 
 // citizen frontend
-export interface orderInterface {
-  caseNoDetails: string;
-  orderDateDetails: CaseDate;
-  orderTimeDetails: string;
-  currentOrderDetails: YesOrNo;
-  issueOrderDetails: string;
-}
 
 export interface Document {
   document_url: string;
   document_filename: string;
   document_binary_url: string;
-  document_hash?: string | undefined | null;
+  document_hash?: string;
 }
 export interface DocumentCollection {
   id: string;
@@ -2574,13 +2454,6 @@ export interface UploadDocumentList {
 }
 /***  */
 // citizen frontend
-export interface orderInterface {
-  caseNoDetails: string;
-  orderDateDetails: CaseDate;
-  orderTimeDetails: string;
-  currentOrderDetails: YesOrNo;
-  issueOrderDetails: string;
-}
 
 export const enum ThePrayer {
   I_CONFIRM = 'Yes',
