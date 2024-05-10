@@ -58,6 +58,8 @@ import {
   RESPONDENT_PRIVATE_DETAILS_NOT_CONFIRMED,
   RESPONDENT_TO_APPLICATION_SUMMARY,
   RESPONDENT_YOUR_CHILD_CONCERNS,
+  RESPOND_TO_AOH,
+  RESPOND_TO_AOH_RESPONSE,
   RESPOND_TO_APPLICATION,
   SAFETY_MAIN_PAGE,
   YOUR_SAFETY,
@@ -373,5 +375,15 @@ export const responseCaseSequence: Step[] = [
     url: CA_RESPONDENT_RESPONSE_CONFIRMATION,
     showInSection: Sections.AboutRespondentCase,
     getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
+  },
+  {
+    url: RESPOND_TO_AOH,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_AOH_RESPONSE,
+  },
+  {
+    url: RESPOND_TO_AOH_RESPONSE,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_AOH_RESPONSE,
   },
 ];

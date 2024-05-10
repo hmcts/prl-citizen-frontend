@@ -2,10 +2,11 @@
 {% extends "common/template.njk" %}
 
 {% block page_content %}
-  {% if section %}
+<h1 class="govuk-heading-l">
     <span class="govuk-caption-l">{{ section }}</span>
-  {% endif %}
-  {% if title %}
-    <h1 class="govuk-heading-l govuk-!-padding-bottom-6">{{ title }}</h1>
-  {% endif %}
+    {{ title }}</h1>
+  <p class="govuk-body-m">{{ reviewBeforeResponding }} </p>
+  <p class="govuk-body-m">{{ linkToAoH | safe }} </p>
+  <p class="govuk-body-m">{{ disclaimer }} </p>
+  <p class="govuk-body-m">{{ disclaimer_2 }} </p>
 {% endblock %}

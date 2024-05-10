@@ -49,8 +49,10 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    hwn_reasonsForApplicationWithoutNotice: {
+    your_response_to_aoh: {
       type: 'textarea',
+      label: l => l.respondToAohTitle,
+      labelSize:'m',
       hint: l => l.hint,
       validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },

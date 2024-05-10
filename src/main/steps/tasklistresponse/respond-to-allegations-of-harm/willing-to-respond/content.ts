@@ -1,3 +1,4 @@
+import { YesOrNo } from 'app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
@@ -6,7 +7,7 @@ export const en = {
   section: 'Respond to allegations of harm and violence',
   title: 'The allegations',
   reviewBeforeResponding: 'Before responding, review the allegations made by the applicant:',
-  linkToAoH: 'Allegations of harm and violence (C1A) (Opens in new tab)',
+  linkToAoH: '<a href="#" class="govuk-link" target="_blank">Allegations of harm and violence (C1A) (Opens in new tab)</a>',
   disclaimer:
     'If you do not agree with the allegations made by the applicant, you can respond and give your point of view. All the people in this application will be able to see your comments.',
   disclaimer_2: "If you choose not to respond to the allegations now, you'll still be able to respond in court.",
@@ -25,7 +26,7 @@ export const cy: typeof en = {
   section: 'Ymateb i honiadau o niwed a thrais',
   title: 'Yr honiadau',
   reviewBeforeResponding: 'Cyn ymateb, adolygwch yr honiadau a wnaed gan y ceisydd:',
-  linkToAoH: 'Allegations of harm and violence (C1A) (Opens in new tab) - welsh',
+  linkToAoH: '<a href="#" class="govuk-link" target="_blank">Allegations of harm and violence (C1A) (Opens in new tab) - welsh</a>',
   disclaimer:
     'Os nad ydych yn cytuno â’r honiadau a wnaed gan y ceisydd, gallwch ymateb a rhoi ei barn chi. Bydd pawb sy’n rhan o’r cais hwn yn gallu gweld eich sylwadau.',
   disclaimer_2: 'Os byddwch yn dewis peidio ag ymateb i’r honiadau nawr, byddwch dal yn gallu ymateb yn y llys.',
@@ -50,16 +51,16 @@ export const form: FormContent = {
     wishToRespond: {
       type: 'radios',
       classes: 'govuk-radios',
-      label: l => l.label,
+      label: l => l.wishToRespondLabel,
       section: l => l.section,
       values: [
         {
           label: l => l.one,
-          value: 'yes',
+          value: YesOrNo.YES,
         },
         {
           label: l => l.two,
-          value: 'no',
+          value: YesOrNo.NO,
         },
       ],
       validator: isFieldFilledIn,
