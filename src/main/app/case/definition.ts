@@ -2362,10 +2362,14 @@ export type Row = {
   value: string | null | undefined;
 };
 export type Reason= {
-  heading: string|null;
-  subHeading: string | null | undefined;
-  bullet?:string |null
+  title?:string,
+  reasons?:Reasons[],
+
 };
+export type Reasons= {
+  reason?:string,
+  examption?:string[]
+}
 
 export interface CompletedHearings {
   hearingId: number | undefined;
