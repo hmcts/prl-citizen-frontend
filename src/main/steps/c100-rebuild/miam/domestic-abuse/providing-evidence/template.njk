@@ -5,17 +5,21 @@
     <span class="govuk-caption-m">{{ caption }}</span>
     {{ title }}
   </h1>
-  <p class="govuk-body govuk-!-margin-bottom-2">{{ content }}</p>
+  <p class="govuk-body">{{ dontNeedToAttend }}</p>
+  <p class="govuk-body govuk-!-margin-bottom-0">{{ validReason }}</p>
+  <p class="govuk-body govuk-!-margin-bottom-2">{{ reasonsGiven }}</p>
 
-  {% for abuseReason in listOfAbuseReasons %}
-    <h2 class="govuk-heading-s govuk-!-margin-bottom-1">{{ abuseReason.abuseEvidenceType }}</h2>
-    {% if abuseReason.abuseEvidenceReasons %}
-      <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-2">
-        {% for evidence in abuseReason.abuseEvidenceReasons %}
-          <li>{{ evidence }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  {% endfor %}
-  <br/>
+  <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-1">
+    {% for abuseReason in listOfAbuseReasons %}
+      <li>{{ abuseReason.abuseEvidenceType }}</li>
+      {% if abuseReason.abuseEvidenceReasons %}
+        <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-2">
+          {% for evidence in abuseReason.abuseEvidenceReasons %}
+            <li>{{ evidence }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+  </ul>
+<br/>
 {% endblock %}
