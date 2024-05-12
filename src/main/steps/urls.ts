@@ -218,6 +218,8 @@ export const DOWNLOAD_DOCUMENT: PageLink = `${DOCUMENTS}/download/:documentId/:d
 export const DOWNLOAD_DOCUMENT_BY_TYPE: PageLink = `${DOCUMENTS}/download/type/:documentType/:forceDownload?`;
 
 export const RESPONDENT_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
+export const RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT: PageLink = '/tasklistresponse/summary/equality';
+
 export const DOCUMENT_MANAGER: PageLink = '/document-manager';
 
 export const PROCEEDINGS: PageLink = `${RESPONSE_TASKLIST}/proceedings`;

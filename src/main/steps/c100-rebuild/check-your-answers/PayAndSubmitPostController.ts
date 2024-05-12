@@ -27,7 +27,6 @@ export default class PayAndSubmitPostController extends PostController<AnyObject
         if (req.session.errors && req.session.errors.length) {
           return super.redirect(req, res, C100_CHECK_YOUR_ANSWER);
         }
-
         /** Invoke create payment
          * 1. Create only service request for case with help with fees opted
          * 2. Create service request & payment request ref in case of pay & submit

@@ -12,13 +12,13 @@ import { RAProvider } from './modules/reasonable-adjustments';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
 import CaseDataController from './steps/common/CaseDataController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
-import PCQGetController from './steps/common/equality/get';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
 import TaskListGetController from './steps/common/task-list/controllers/TaskListGetController';
 import { ErrorController } from './steps/error/error.controller';
 import DashboardGetController from './steps/prl-cases/dashboard/DashboardGetController';
 import { TasklistGetController } from './steps/tasklistresponse/TasklistGetController';
 import { SafetyConcernsPostController } from './steps/tasklistresponse/allegations-of-harm-and-violence/SafetyConcernsPostController';
+import { ResponseSummaryConfirmationPostController } from './steps/tasklistresponse/summary/postControllerAfterPcq';
 import {
   APPLICANT_CHECK_ANSWERS,
   APPLICANT_DETAILS_KNOWN,
@@ -42,17 +42,10 @@ import {
   PAYMENT_RETURN_URL_CALLBACK,
   PROCEEDINGS_START,
   RESPONDENT_ALLEGATIONS_OF_HARM_AND_VIOLENCE,
-  APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
-  RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
-  RESPONDENT_YOURHEARINGS_HEARINGS,
-  APPLICANT_YOURHEARINGS_HEARINGS,
-  LOCAL_API_SESSION,
-  DOWNLOAD_DOCUMENT,
-  DOWNLOAD_DOCUMENT_BY_TYPE,
-  C100_APPLICANT_PCQ_URL,
   RESPONDENT_CHECK_ANSWERS,
   RESPONDENT_CHECK_ANSWERS_NO,
   RESPONDENT_DETAILS_KNOWN,
+  RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT,
   RESPOND_TO_APPLICATION,
 } from './steps/urls';
 
@@ -152,6 +145,10 @@ export class Routes {
         app.get(
           C1A_SAFETY_CONCERNS_CHECK_YOUR_ANSWERS_SAVE,
           errorHandler(new SafetyConcernsPostController(step.form.fields).post)
+        );
+        app.get(
+          RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT,
+          errorHandler(new ResponseSummaryConfirmationPostController(step.form.fields).post)
         );
         app.post(RESPONDENT_CHECK_ANSWERS_NO, errorHandler(new SafetyConcernsPostController(step.form.fields).post));
       }

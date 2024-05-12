@@ -6,7 +6,6 @@ import { applyParms } from '../../steps/common/url-parser';
 import ContactPreferenceNavigationController from '../common/contact-preference/navigationController';
 import { Sections, Step } from '../constants';
 import {
-  C100_APPLICANT_PCQ_URL,
   CA_RESPONDENT_RESPONSE_CONFIRMATION,
   CHOOSE_CONTACT_PREFERENCE,
   CONTACT_PREFERENCE_CONFIRMATION,
@@ -35,6 +34,7 @@ import {
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
   RESPONDENT_REMOVE_LEGAL_REPRESENTATIVE_START,
   RESPONDENT_START_ALTERNATIVE,
+  RESPONDENT_TO_APPLICATION_SUMMARY,
   RESPONDENT_YOURHEARINGS_HEARINGS,
   RESPOND_TO_APPLICATION,
   REVIEW_CONTACT_PREFERENCE,
@@ -129,7 +129,7 @@ export const respondentCaseSequence: Step[] = [
   {
     url: RESPOND_TO_APPLICATION,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => C100_APPLICANT_PCQ_URL,
+    getNextStep: () => RESPONDENT_TO_APPLICATION_SUMMARY,
   },
   {
     url: CA_RESPONDENT_RESPONSE_CONFIRMATION,

@@ -9,7 +9,7 @@ import { CosApiClient } from '../../../app/case/CosApiClient';
 import { CaseEvent, CaseType, PartyDetails, PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { getPartyDetails, mapDataInSession } from '../../tasklistresponse/utils';
-import { C100_CHECK_YOUR_ANSWER, PageLink, RESPNDT_TO_APPLICATION_SUMMARY } from '../../urls';
+import { C100_CHECK_YOUR_ANSWER, PageLink, RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT } from '../../urls';
 
 import { createToken } from './createToken';
 
@@ -17,7 +17,7 @@ const logger = Logger.getLogger('PCQGetController');
 
 @autobind
 export default class PCQGetController {
-  public async get(req: AppRequest, res: Response): Promise<void> {
+  public async get(req: AppRequest, res: Response, returnUrl: string): Promise<void> {
     const { userCase, user } = req.session;
     let partyType;
     let partyDetails;
@@ -32,7 +32,7 @@ export default class PCQGetController {
     if (!partyDetails?.user?.pcqId) {
       const tokenKey: string = config.get('services.equalityAndDiversity.tokenKey');
       const url = config.get('services.equalityAndDiversity.url');
-      const pcqEnabled = config.get('services.equalityAndDiversity.pcqEnabled');
+      const pcqEnabled = 'true'; //config.get('services.equalityAndDiversity.pcqEnabled');
       logger.info(`PCQEnabled : ${pcqEnabled}`);
       if (pcqEnabled && pcqEnabled === 'true' && tokenKey && url) {
         const path: string = config.get('services.equalityAndDiversity.path');
@@ -53,14 +53,12 @@ export default class PCQGetController {
           logger.error(`Could not connect to PCQ service: ${health}, pcqEnabled: ${pcqEnabled}`, err.message);
           return res.redirect(redirectUrl);
         }
-        const protocol = req.app.locals.developmentMode ? 'http://' : '';
-        const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
         const params = {
           serviceId: userCase.caseTypeOfApplication === 'C100' ? 'prl_ca' : 'prl_da',
           actor: partyType.toLocaleUpperCase(),
           pcqId,
           partyId: user.email,
-          returnUrl: `${protocol}${res.locals.host}${port}${redirectUrl}`,
+          returnUrl,
           language: req.session.lang || 'en',
           ccdCaseId: userCase.id,
         };
@@ -120,7 +118,7 @@ export default class PCQGetController {
 const getRedirectUrl = (partyType: PartyType): PageLink => {
   let redirectUrl = C100_CHECK_YOUR_ANSWER;
   if (partyType === PartyType.RESPONDENT) {
-    redirectUrl = RESPNDT_TO_APPLICATION_SUMMARY;
+    redirectUrl = RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT;
   }
   return redirectUrl;
 };
