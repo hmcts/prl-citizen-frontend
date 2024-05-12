@@ -1,4 +1,5 @@
 import { CitizenRespondentPack } from '../../../../../main/steps/common/documents/definitions';
+import { PartyType } from '../../../../app/case/definition';
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { applyParms } from '../../../../steps/common/url-parser';
@@ -28,6 +29,7 @@ export const generateContent: TranslationFn = content => {
           documentName: document?.value?.document_filename ?? '',
           servedDate: respondentPacks.packCreatedDate ?? '',
           documentDownloadUrl: applyParms(DOWNLOAD_DOCUMENT, {
+            PartyType: PartyType.APPLICANT,
             documentId: documentId ?? '',
             documentName: document?.value?.document_filename ?? '',
           }),
