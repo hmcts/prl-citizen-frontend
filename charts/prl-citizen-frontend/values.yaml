@@ -26,6 +26,8 @@ nodejs:
     C100_REBUILD_FLAG: false
     TESTING_SUPPORT_FLAG: false
     ENABLE_RA_COMPONENT: true
+    PCQ_ENABLED: true
+
   keyVaults:
     prl:
       resourceGroup: prl

@@ -14,19 +14,19 @@ export class ResponseSummaryConfirmationPostController extends PostController<An
 
   public async post(req: AppRequest, res: Response): Promise<void> {
     //TODO update when merged with response submission fixes
-    const caseReference = req.session.userCase.id;
+    const { userCase, user } = req.session;
+    const caseReference = userCase.id;
     let partyId;
-    req.session.userCase.respondents?.forEach(respondent => {
-      if (respondent.value.user.idamId === req.session.user.id) {
+    userCase.respondents?.forEach(respondent => {
+      if (respondent.value.user.idamId === user.id) {
         partyId = respondent.id;
+        respondent.value.user.pcqId = userCase.respondentPcqId;
       }
     });
-    const client = new CosApiClient(req.session.user.accessToken, req.locals.logger);
+    const client = new CosApiClient(user.accessToken, req.locals.logger);
     const caseData = toApiFormat(req?.session?.userCase);
-
     const updatedCaseDataFromCos = await client.submitRespondentResponse(caseReference, partyId, caseData);
-    Object.assign(req.session.userCase, updatedCaseDataFromCos);
-
+    Object.assign(userCase, updatedCaseDataFromCos);
     req.session.save(() => res.redirect(CA_RESPONDENT_RESPONSE_CONFIRMATION));
   }
 }

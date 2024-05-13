@@ -5,10 +5,9 @@ import config from 'config';
 import { Response } from 'express';
 import { v4 as uuid } from 'uuid';
 
-import { CosApiClient } from '../../../app/case/CosApiClient';
-import { CaseEvent, CaseType, PartyDetails, PartyType } from '../../../app/case/definition';
+import { PartyType } from '../../../app/case/definition';
 import { AppRequest } from '../../../app/controller/AppRequest';
-import { getPartyDetails, mapDataInSession } from '../../tasklistresponse/utils';
+import { getPartyDetails } from '../../tasklistresponse/utils';
 import { C100_CHECK_YOUR_ANSWER, PageLink, RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT } from '../../urls';
 
 import { createToken } from './createToken';
@@ -29,13 +28,12 @@ export default class PCQGetController {
       partyDetails = getPartyDetails(userCase, user.id);
     }
     const redirectUrl = getRedirectUrl(partyType);
-    if (partyDetails?.user?.pcqId) {
+    if (!partyDetails?.user?.pcqId) {
       const tokenKey: string = config.get('services.equalityAndDiversity.tokenKey');
       const url = config.get('services.equalityAndDiversity.url');
-      const pcqEnabled = 'true'; //config.get('services.equalityAndDiversity.pcqEnabled');
+      const pcqEnabled = config.get('services.equalityAndDiversity.pcqEnabled');
       logger.info(`PCQEnabled : ${pcqEnabled}`);
-      if (pcqEnabled && pcqEnabled === 'true' && tokenKey && url) {
-        const path: string = config.get('services.equalityAndDiversity.path');
+      if (pcqEnabled && pcqEnabled === true && tokenKey && url) {
         const health = `${url}/health`;
         let pcqId;
         try {
@@ -62,35 +60,12 @@ export default class PCQGetController {
           language: req.session.lang || 'en',
           ccdCaseId: userCase.id,
         };
-        logger.info('*** Params : ' + JSON.stringify(params));
-
-        logger.info(`PCQ service return URL: ${params.returnUrl}`);
-
         params['token'] = createToken(params, tokenKey);
         params.partyId = encodeURIComponent(params.partyId);
-
-        if (partyDetails) {
-          const updatedUserDetails: Partial<PartyDetails> = {
-            user: {
-              ...partyDetails?.user,
-              pcqId,
-            },
-          };
-          Object.assign(partyDetails, updatedUserDetails);
-          logger.info('** Party details : ' + JSON.stringify(partyDetails));
-          try {
-            const client = new CosApiClient(user.accessToken, req.locals.logger);
-            req.session.userCase = await client.updateCaseData(
-              userCase.id,
-              partyDetails,
-              partyType,
-              userCase.caseTypeOfApplication as CaseType,
-              CaseEvent.CITIZEN_PCQ_UPDATE
-            );
-            mapDataInSession(req.session.userCase, user.id);
-          } catch (error) {
-            logger.error('PCQGetController - pcq id could not be updated in db.', error.message);
-          }
+        logger.info('*** Params : ' + JSON.stringify(params));
+        logger.info(`PCQ service return URL: ${params.returnUrl}`);
+        if (partyType === 'respondent') {
+          req.session.userCase.respondentPcqId = pcqId;
         }
         const qs = Object.keys(params)
           .map(key => `${key}=${params[key]}`)
@@ -100,11 +75,11 @@ export default class PCQGetController {
             req.locals.logger.error('Error', err);
             throw err;
           }
+          const path: string = config.get('services.equalityAndDiversity.path');
           logger.info(
             `PCQ service redirect URL: ${url}${path}?${qs}, pcqEnabled: ${pcqEnabled} completed successfully.`
           );
-          res.redirect(`${url}${path}?${qs}`);
-          return;
+          return res.redirect(`${url}${path}?${qs}`);
         });
       } else {
         logger.info(
