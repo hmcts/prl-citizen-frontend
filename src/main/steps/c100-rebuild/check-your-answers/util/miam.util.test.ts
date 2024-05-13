@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
+import { CaseWithId } from '../../../../app/case/case';
 import { cy as attendanceCy, en as attendanceEn } from '../../miam/attendance/content';
 import { cy as GeneralContentCy, en as GeneralContentEn } from '../../miam/general-reasons/content';
 import { cy as mcCy, en as mcEn } from '../../miam/mediator-confirmation/content';
@@ -57,7 +58,7 @@ describe('miam Util', () => {
         'validExemption',
       ],
     };
-    const sessionFields = MiamContentsForGeneralReasons(userCase);
+    const sessionFields = MiamContentsForGeneralReasons(userCase as unknown as CaseWithId);
     userCase.miam_nonAttendanceReasons.forEach(item => {
       expect(sessionFields?.en()[item]).toBe(GeneralContentEn[item]);
       expect(sessionFields?.cy()[item]).toBe(GeneralContentCy[item]);
@@ -76,7 +77,7 @@ describe('miam Util', () => {
         'financialAbuse',
       ],
     };
-    const sessionFields = MiamContentsForDomensticVoilence(userCase);
+    const sessionFields = MiamContentsForDomensticVoilence(userCase as unknown as CaseWithId);
     userCase.miam_domesticAbuse.forEach(item => {
       expect(sessionFields?.en()[item]).not.toBe(undefined);
       expect(sessionFields?.cy()[item]).not.toBe(undefined);
@@ -97,7 +98,7 @@ describe('miam Util', () => {
         'riskOfCourtProceedingsDispute',
       ],
     };
-    const sessionFields = MiamContentsForUrgentHearing(userCase);
+    const sessionFields = MiamContentsForUrgentHearing(userCase as unknown as CaseWithId);
     userCase.miam_urgency.forEach(item => {
       expect(sessionFields?.en()[item]).not.toBe(undefined);
       expect(sessionFields?.cy()[item]).not.toBe(undefined);
@@ -108,7 +109,7 @@ describe('miam Util', () => {
     const userCase = {
       miam_previousAttendance: ['fourMonthsPriorAttended', 'miamExamptionApplied'],
     };
-    const sessionFields = MiamContentsForPreviousAttendance(userCase);
+    const sessionFields = MiamContentsForPreviousAttendance(userCase as unknown as CaseWithId);
     userCase.miam_previousAttendance.forEach(item => {
       expect(sessionFields?.en()[item]).not.toBe(undefined);
       expect(sessionFields?.cy()[item]).not.toBe(undefined);
@@ -118,7 +119,7 @@ describe('miam Util', () => {
     const userCase = {
       miam_notAttendingReasons: ['applyingForWithoutNoticeHearing', 'canNotAccessMediator', 'under18'],
     };
-    const sessionFields = MiamContentForOtherFeatureAndSubFeilds(userCase);
+    const sessionFields = MiamContentForOtherFeatureAndSubFeilds(userCase as unknown as CaseWithId);
     userCase.miam_notAttendingReasons.forEach(item => {
       expect(sessionFields?.en()[item]).not.toBe(undefined);
       expect(sessionFields?.cy()[item]).not.toBe(undefined);
@@ -133,7 +134,7 @@ describe('miam Util', () => {
         'noAuthorisedFamilyMediator',
       ],
     };
-    const sessionFields = MiamContentForOtherFeatureAndSubFeilds(userCase);
+    const sessionFields = MiamContentForOtherFeatureAndSubFeilds(userCase as unknown as CaseWithId);
     userCase.miam_notAttendingReasons_canNotAccessMediator.forEach(item => {
       expect(sessionFields).not.toBe(item);
       expect(sessionFields).not.toBe(item);
@@ -145,7 +146,7 @@ describe('miam Util', () => {
       /* A field that is used to store the evidence of child protection. */
       miam_childProtectionEvidence: ['test1', 'test2', 'test3', 'test4'],
     };
-    const sessionFields = MiamContentsForChildProtection(userCase);
+    const sessionFields = MiamContentsForChildProtection(userCase as unknown as CaseWithId);
     userCase.miam_childProtectionEvidence.forEach(item => {
       expect(sessionFields?.en()[item]).not.toBe([]);
       expect(sessionFields?.cy()[item]).not.toBe([]);

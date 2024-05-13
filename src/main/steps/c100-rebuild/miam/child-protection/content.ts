@@ -5,7 +5,7 @@ import { isFieldFilledIn } from '../../../../app/form/validation';
 export * from './routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const en = () => ({
+export const en = {
   section: 'MIAM exemptions',
   title: 'Child protection concerns',
   needMoreDetails1: 'You need to give the court more information about your concerns.',
@@ -22,10 +22,10 @@ export const en = () => ({
       required: 'Select what evidence you have of child protection concerns.',
     },
   },
-});
+};
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const cy = () => ({
+export const cy = {
   section: 'Esemptiadau MIAM',
   title: 'Pryderon amddiffyn plant',
   needMoreDetails1: 'Mae angen i chi roi mwy o wybodaeth am eich pryderon i’r llys.',
@@ -42,7 +42,7 @@ export const cy = () => ({
       required: 'Dewiswch pa dystiolaeth sydd gennych o bryderon amddiffyn plant.',
     },
   },
-});
+};
 
 const languages = {
   en,
@@ -83,7 +83,7 @@ export const form: FormContent = {
   },
 };
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language];
   return {
     ...translations,
     form,

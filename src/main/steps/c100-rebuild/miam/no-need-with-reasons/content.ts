@@ -35,8 +35,8 @@ export const en = () => ({
   },
   //todo PRL-5557
   childProtection: {
-    localAuthority: ChildProtectionEn().localAuthority,
-    childProtectionPlan: ChildProtectionEn().childProtectionPlan,
+    localAuthority: ChildProtectionEn.localAuthority,
+    childProtectionPlan: ChildProtectionEn.childProtectionPlan,
   },
   urgentHearing: {
     freedomPhysicalSafety: UrgencyEn.freedomPhysicalSafety,
@@ -84,8 +84,8 @@ export const cy = () => ({
     financialAbuse: CommonDomesticAbuseCy.financialAbuse,
   },
   childProtection: {
-    localAuthority: ChildProtectionCy().localAuthority,
-    childProtectionPlan: ChildProtectionCy().childProtectionPlan,
+    localAuthority: ChildProtectionCy.localAuthority,
+    childProtectionPlan: ChildProtectionCy.childProtectionPlan,
   },
   urgentHearing: {
     freedomPhysicalSafety: UrgencyCy.freedomPhysicalSafety,
