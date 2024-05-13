@@ -2361,6 +2361,15 @@ export type Row = {
   displayText: string;
   value: string | null | undefined;
 };
+export type Reason= {
+  title?:string,
+  reasons?:Reasons[],
+
+};
+export type Reasons= {
+  reason?:string,
+  examption?:string[]
+}
 
 export interface CompletedHearings {
   hearingId: number | undefined;
