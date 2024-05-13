@@ -2,7 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { CosApiClient } from '../../../app/case/CosApiClient';
 
-import ResponseSummaryConfirmationPostController from './postController';
+import { ResponseSummaryConfirmationPostController } from './postControllerAfterPcq';
 
 describe('ResponseSummaryConfirmationPostController', () => {
   const submitRespondentResponseMock = jest.spyOn(CosApiClient.prototype, 'submitRespondentResponse');
@@ -24,10 +24,11 @@ describe('ResponseSummaryConfirmationPostController', () => {
         },
       },
     ];
+    req.session.user.id = '12234567890';
     req.session.userCase.respondents = partyDetails;
     submitRespondentResponseMock.mockResolvedValue(req.session.userCase);
     const controller = new ResponseSummaryConfirmationPostController({});
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/summary/equality');
+    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/summary-confirmation');
   });
 });
