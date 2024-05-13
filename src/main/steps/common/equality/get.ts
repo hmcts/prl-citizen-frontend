@@ -29,7 +29,7 @@ export default class PCQGetController {
       partyDetails = getPartyDetails(userCase, user.id);
     }
     const redirectUrl = getRedirectUrl(partyType);
-    if (!partyDetails?.user?.pcqId) {
+    if (partyDetails?.user?.pcqId) {
       const tokenKey: string = config.get('services.equalityAndDiversity.tokenKey');
       const url = config.get('services.equalityAndDiversity.url');
       const pcqEnabled = 'true'; //config.get('services.equalityAndDiversity.pcqEnabled');

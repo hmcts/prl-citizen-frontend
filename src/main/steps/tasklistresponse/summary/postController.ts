@@ -19,6 +19,5 @@ export default class ResponseSummaryConfirmationPcqPostController extends PostCo
     const port = req.app.locals.developmentMode ? `:${config.get('port')}` : '';
     const returnUrl = `${protocol}${res.locals.host}${port}${RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT}`;
     new PCQGetController().get(req, res, returnUrl);
-    req.session.save(() => res.redirect(RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT));
   }
 }
