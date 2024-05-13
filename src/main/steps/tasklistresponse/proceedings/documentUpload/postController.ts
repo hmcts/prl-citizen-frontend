@@ -16,6 +16,7 @@ import { FormFields, FormFieldsFn } from '../../../../app/form/Form';
 import { isFileSizeGreaterThanMaxAllowed, isValidFileFormat } from '../../../../app/form/validation';
 import { applyParms } from '../../../../steps/common/url-parser';
 import { OTHER_PROCEEDINGS_DOCUMENT_UPLOAD } from '../../../urls';
+console.info('** FOR SONAR **');
 
 const C100OrderTypeNameMapper = {
   childArrangementOrder: 'Child Arrangements Order',
@@ -36,8 +37,8 @@ const C100OrderTypeNameMapper = {
   otherOrder: 'Other Order',
 };
 
-// eslint-disable-next-line import/no-unresolved
-import { AnyType } from './getController';
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type AnyType = any;
 
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
@@ -64,22 +65,20 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     ] as ProceedingsOrderInterface[];
     const orderSessionDataById = orderSessionData[courtOrderId - 1];
 
-    if (req.body.saveAndComeLater) {
-      super.post(req, res);
-    } else if (req.body.onlyContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
-      super.redirect(req, res, '');
+    if (req.body.onlyContinue && this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
+      return super.redirect(req, res);
+    }
+
+    if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
+      req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
+      req.session.save(err => {
+        if (err) {
+          throw err;
+        }
+        res.redirect(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
+      });
     } else {
-      if (this.checkIfDocumentAlreadyExist(orderSessionDataById)) {
-        req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
-        req.session.save(err => {
-          if (err) {
-            throw err;
-          }
-          res.redirect(applyParms(OTHER_PROCEEDINGS_DOCUMENT_UPLOAD, { orderType, orderId }));
-        });
-      } else {
-        await this.processNewDocument(files, req, res, orderType, orderId, courtOrderType, courtOrderId);
-      }
+      await this.processNewDocument(files, req, res, orderType, orderId, courtOrderType, courtOrderId);
     }
   }
 

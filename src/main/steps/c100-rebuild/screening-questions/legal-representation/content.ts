@@ -5,7 +5,6 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 export const en = () => ({
-  serviceName: 'Child arrangements',
   title: 'Will you be using a legal representative in these proceedings?',
   one: 'Yes',
   two: 'No',
@@ -21,7 +20,6 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  serviceName: 'Trefniadau plant',
   title: 'A fyddwch yn defnyddio cynrychiolydd cyfreithiol yn yr achos hwn?',
   one: 'Byddaf',
   two: 'Na fyddaf',

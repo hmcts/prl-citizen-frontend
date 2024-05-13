@@ -15,7 +15,6 @@ import { HTML } from './common/htmlSelectors';
 import { ANYTYPE } from './common/index';
 import {
   ApplicantDetails,
-  CaseName,
   ChildernDetails,
   ChildernDetailsAdditional,
   HelpWithFee,
@@ -55,7 +54,6 @@ import { SafetyConcernContentElements } from './util/safetyConcerns.util';
 import { typeOfCourtOrderContents } from './util/typeOfOrder.util';
 
 export const enContent = {
-  serviceName: 'Check your answers ',
   section: '',
   title: 'Check your Answers',
   change: 'Edit',
@@ -88,6 +86,9 @@ export const enContent = {
   email: 'E-mail',
   Male: 'Male',
   Female: 'Female',
+  telephone_number: 'Telephone number',
+  dont_know_email_address: 'I dont know their email address',
+  dont_know_telephone: 'I dont know their telephone number',
   StatementOfTruth: {
     title: 'Statement of Truth',
     heading: 'Confirm before you submit the application',
@@ -110,7 +111,9 @@ export const enContent = {
     },
     paymentError: {
       title: 'There is a problem',
-      content: 'Your application is not submitted. Please try again',
+      defaultPaymentError: 'Your application is not submitted. Please try again',
+      applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application',
+      paymentUnsuccessful: 'Your payment was unsuccessful. Make the payment again and resubmit your application',
     },
   },
   sectionTitles: {
@@ -182,7 +185,6 @@ export const enContent = {
   },
 };
 export const cyContent = {
-  serviceName: 'Gwiriwch eich atebion',
   section: '',
   title: 'Gwiriwch eich atebion',
   change: ' Golygu',
@@ -230,7 +232,10 @@ export const cyContent = {
     },
     paymentError: {
       title: 'Mae yna broblem',
-      content: 'Nid yw eich cais wedi’i gyflwyno. Rhowch gynnig arall arni',
+      defaultPaymentError: 'Nid yw eich cais wedi’i gyflwyno. Rhowch gynnig arall arni',
+      applicationNotSubmitted: 'Your payment was successful but you need to resubmit your application (welsh)',
+      paymentUnsuccessful:
+        'Your payment was unsuccessful. Make the payment again and resubmit your application (welsh)',
     },
   },
   sectionTitles: {
@@ -365,10 +370,10 @@ export const cyContent = {
       Other: 'Arall',
     },
     personalDetails: {
-      Email: 'E-bost',
-      'Telephone number': 'Rhif ffôn',
-      'I dont know their email address': 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
-      'I dont know their telephone number': 'Nid wyf yn gwybod beth yw eu rhif ffôn',
+      email: 'E-bost',
+      telephone_number: 'Rhif ffôn',
+      dont_know_email_address: 'Nid wyf yn gwybod beth yw eu cyfeiriad e-bost',
+      dont_know_telephone: 'Nid wyf yn gwybod beth yw eu rhif ffôn',
     },
     ydyntTranslationResp: {
       yes: 'Ydynt',
@@ -445,7 +450,6 @@ const safteyConcenFilledSection = (userCase, contentLanguage, language) => {
 export const commonSectionsForContentLoader = (contentLanguage, userCase, language) => {
   return {
     PostCodeAndTypeOfApplication: [
-      CaseName(contentLanguage, userCase),
       LocationDetails(contentLanguage, userCase),
       TypeOfApplication(contentLanguage, userCase, language),
     ],
@@ -525,7 +529,7 @@ export const CheckYourAnswerFlow4 = (userCase, contentLanguage, newContents, lan
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
   const userCase = content.userCase!;
-  let sections = [] as ANYTYPE;
+  let sections;
   // if on sreening screen enable Yes
   if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
     sections = CheckYourAnswerFlow1(userCase, enContent, content.language).flat() as ANYTYPE;
@@ -555,7 +559,7 @@ export const en = (content: CommonContent, newEnContents?: ANYTYPE) => {
 
 export const cy = (content: CommonContent, newCyContents?: ANYTYPE) => {
   const userCase = content.userCase!;
-  let sections = [] as ANYTYPE;
+  let sections;
   // if on sreening screen enable Yes
   if (userCase.hasOwnProperty('sq_writtenAgreement') && userCase['sq_writtenAgreement'] === YesOrNo.YES) {
     sections = CheckYourAnswerFlow1(userCase, cyContent, content.language).flat() as ANYTYPE;

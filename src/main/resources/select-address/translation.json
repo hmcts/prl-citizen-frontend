@@ -2,13 +2,11 @@
     "translations": {
         "en": {
             "continue": "Continue",
-            "title": "Your address",
-            "serviceName": "Select Address"
+            "title": "Your address"
         },
         "cy": {
             "continue": "Parhau",
-            "title": "Eich cyfeiriad",
-            "serviceName": "Dewiswch gyfeiriad"
+            "title": "Eich cyfeiriad"
         }
     },
     "errors":{

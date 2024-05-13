@@ -11,12 +11,11 @@ import {
   isFieldLetters,
   isFutureDate,
 } from '../../../../app/form/validation';
-import { getPartyDetails } from '../../people/util';
+import { dobUnknown, getPartyDetails } from '../../people/util';
 export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
-  serviceName: 'Child arrangements',
   title: 'Provide details for',
   isNameChangedLabelText: 'Have they changed their name?',
   inNameChangedHintText:
@@ -72,7 +71,6 @@ const en = () => ({
 });
 
 const cy = () => ({
-  serviceName: 'Trefniadau plant',
   title: 'Darparwch fanylion am',
   isNameChangedLabelText: 'A ydynt wedi newid eu henw?',
   inNameChangedHintText:
@@ -263,11 +261,7 @@ export const generateFormFields = (
           ? areDateFieldsFilledIn(value as CaseDate) ||
             isDateInputInvalid(value as CaseDate) ||
             isFutureDate(value as CaseDate)
-          : formData?.isDateOfBirthUnknown === YesNoEmpty.YES
-          ? formData.dateOfBirth.day !== '' || formData.dateOfBirth.month !== '' || formData.dateOfBirth.year !== ''
-            ? 'cannotHaveBothApproxAndExact'
-            : ''
-          : '',
+          : dobUnknown(formData),
     },
     isDateOfBirthUnknown: {
       type: 'checkboxes',

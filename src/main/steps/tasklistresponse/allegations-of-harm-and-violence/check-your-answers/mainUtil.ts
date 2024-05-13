@@ -19,6 +19,8 @@ import { SafetyConcernsHelper } from './helpers/satetyConcernHelper';
  * @param userCase - Partial<CaseWithId>
  * @returns An object with a title and rows property.
  */
+console.info('** FOR SONAR **');
+
 export const SafetyConcerns = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
   userCase: Partial<CaseWithId>,
@@ -117,12 +119,12 @@ export const SafetyConcerns_child = (
   const abdutionScreenData = [
     {
       key: keys['childLocation'],
-      valueHtml: userCase['PRL_c1A_abductionReasonOutsideUk']  || '',
+      valueHtml: userCase['PRL_c1A_abductionReasonOutsideUk']  ?? '',
       changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'],
     },
     {
       key: keys['childsCurrentLocationText'],
-      valueHtml: userCase['PRL_c1A_childsCurrentLocation']  || '',
+      valueHtml: userCase['PRL_c1A_childsCurrentLocation']  ?? '',
       changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_CHILD_LOCATION'],
     },
     {
@@ -329,7 +331,7 @@ function childAbductedBeforeHTML(userCase: Partial<CaseWithId>, abdutionScreenDa
     abdutionScreenData.push(
       {
         key: keys['previousAbduction'],
-        valueHtml: userCase['PRL_c1A_previousAbductionsShortDesc'] || '',
+        valueHtml: userCase['PRL_c1A_previousAbductionsShortDesc'] ?? '',
         changeUrl: Urls['C1A_SAFETY_CONCERNS_ABDUCTION_PREVIOUS_ABDUCTIONS'],
       },
       {

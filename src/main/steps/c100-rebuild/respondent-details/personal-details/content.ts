@@ -13,7 +13,7 @@ import {
   isFieldLetters,
   isFutureDate,
 } from '../../../../app/form/validation';
-import { getPartyDetails } from '../../people/util';
+import { dobUnknown, getPartyDetails } from '../../people/util';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -30,7 +30,7 @@ export const en = () => ({
   approxCheckboxLabel: 'I don’t know their date of birth',
   approxDobLabel: 'Approximate date of birth',
   previousName: 'Enter their previous name',
-  previousNameHint: 'This should be the full legal name(including any middle names)',
+  previousNameHint: 'This should be the full legal name (including any middle names)',
   respondentGenderLabel: 'Gender',
   male: 'Male',
   female: 'Female',
@@ -284,11 +284,7 @@ export const generateFormFields = (
           ? areDateFieldsFilledIn(value as CaseDate) ||
             isDateInputInvalid(value as CaseDate) ||
             isFutureDate(value as CaseDate)
-          : formData?.isDateOfBirthUnknown === YesNoEmpty.YES
-          ? formData.dateOfBirth.day !== '' || formData.dateOfBirth.month !== '' || formData.dateOfBirth.year !== ''
-            ? 'cannotHaveBothApproxAndExact'
-            : ''
-          : '',
+          : dobUnknown(formData),
     },
     isDateOfBirthUnknown: {
       type: 'checkboxes',

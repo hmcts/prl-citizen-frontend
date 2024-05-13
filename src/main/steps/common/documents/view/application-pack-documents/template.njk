@@ -1,0 +1,43 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% extends "common/page.njk" %}
+{% from "common/breadcrumb/breadcrumb.macro.njk" import appBreadcrumb with context %}
+
+{% block backLink %}{% endblock %}
+
+{% block page_content %}
+  {{appBreadcrumb(breadcrumbs)}}
+  <h1 class="govuk-heading-xl">
+    <span class="govuk-caption-l">{{pageCaption}}</span>
+    {{title}}
+  </h1>
+
+  {% if isPackToBeServed != true %}
+    <p class="govuk-body">{{caseNumber}}&nbsp;&nbsp;{{caseId}}</p>
+
+    {{ govukWarningText({
+        text: note,
+        iconFallbackText: "Warning"
+      }) }}
+
+    <p class="govuk-body">
+      {{content}}
+    </p>
+  {% endif %}
+
+  <ol class="app-task-list">
+    <li>
+      <dl class="govuk-summary-list govuk-summary-list--no-border">
+        {% for document in documents %}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{document['servedDate']}}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <a href={{document['documentDownloadUrl']}} target="_blank">{{ document['documentName'] }}</a>
+            </dd>
+          </div>
+        {% endfor %}
+      </dl>
+    </li>
+  </ol>
+{% endblock %}

@@ -14,7 +14,6 @@ import {
   isFutureDate,
 } from '../../../../app/form/validation';
 import { getApplicantDetails } from '../util';
-//export * from '../routeGuard';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -30,7 +29,7 @@ export const en = () => ({
   dobLabel: 'Your date of birth',
   dobHint: 'For example, 31 3 2016',
   previousNameLabel: 'Enter your previous name',
-  previousNameHint: 'This should be the full legal name(including any middle names)',
+  previousNameHint: 'This should be the full legal name (including any middle names)',
   applicantGenderLabel: 'Gender',
   male: 'Male',
   female: 'Female',
