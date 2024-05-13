@@ -79,7 +79,7 @@ import {
   C100_HEARING_URGENCY_URGENT_DETAILS,
   C100_SCREENING_QUESTIONS_ALTERNATIVE_ROUTES,
   PageLink,
-  C100_MIAM_NO_NEED_WITH_REASONS,
+  C100_MIAM_EXCEMPTION_SUMMARY,
 
   /** Consent Order questions */
   C100_CONSENT_ORDER_UPLOAD,
@@ -559,9 +559,9 @@ export const C100Sequence: Step[] = [
     getNextStep: () => C100_MIAM_GET_DOC,
   },
   {
-    url: C100_MIAM_NO_NEED_WITH_REASONS,
+    url: C100_MIAM_EXCEMPTION_SUMMARY,
     showInSection: Sections.C100,
-    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_NO_NEED_WITH_REASONS, caseData),
+    getNextStep: caseData => MIAMNavigationController.getNextUrl(C100_MIAM_EXCEMPTION_SUMMARY, caseData),
   },
   {
     url: C100_HEARING_URGENCY_URGENT,

@@ -4,11 +4,11 @@ import { DomesticAbuseExemptions, MiamNonAttendReason, YesOrNo } from '../../../
 import {
   C100_HEARING_URGENCY_URGENT,
   C100_MIAM_CHILD_PROTECTION,
+  C100_MIAM_EXCEMPTION_SUMMARY,
   C100_MIAM_GENERAL_REASONS,
   C100_MIAM_GET_MEDIATOR,
   C100_MIAM_MIAM_DOMESTIC_ABUSE,
   C100_MIAM_NO_ACCESS_MEDIATOR,
-  C100_MIAM_NO_NEED_WITH_REASONS,
   C100_MIAM_OTHER,
   C100_MIAM_OTHER_PROCEEDINGS,
   C100_MIAM_PREVIOUS_ATTENDANCE,
@@ -50,11 +50,11 @@ describe('MIAMNavigationController', () => {
 
   test('From other exempt screen -> navigate to no need to attend MIAM with valid reasons screen', async () => {
     const nextUrl = MIAMNavigationController.getNextUrl(C100_MIAM_OTHER, dummyRequest.session.userCase);
-    expect(nextUrl).toBe(C100_MIAM_NO_NEED_WITH_REASONS);
+    expect(nextUrl).toBe(C100_MIAM_EXCEMPTION_SUMMARY);
   });
 
   test('From no need to attend MIAM with valid reasons screen -> navigate to MIAM urgency details capture screen', async () => {
-    const nextUrl = MIAMNavigationController.getNextUrl(C100_MIAM_NO_NEED_WITH_REASONS, dummyRequest.session.userCase);
+    const nextUrl = MIAMNavigationController.getNextUrl(C100_MIAM_EXCEMPTION_SUMMARY, dummyRequest.session.userCase);
     expect(nextUrl).toBe(C100_HEARING_URGENCY_URGENT);
     expect(nextUrl).not.toBe(C100_MIAM_OTHER_PROCEEDINGS);
   });
@@ -70,7 +70,7 @@ describe('MIAMNavigationController', () => {
     const nextUrl = MIAMNavigationController.getNextUrl(C100_MIAM_NO_ACCESS_MEDIATOR, {
       miam_noMediatorReasons: 'noAppointmentAvailable' as Miam_noMediatorReasons,
     });
-    expect(nextUrl).toBe('/c100-rebuild/miam/no-need-with-reasons');
+    expect(nextUrl).toBe('/c100-rebuild/miam/miam-excemptions-summary');
   });
 
   test('From previous attendance screen -> navigate to upload evidence for attending screen if previous attendance is fourMonthsPriorAttended', async () => {

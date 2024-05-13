@@ -10,11 +10,11 @@ import { applyParms } from '../../../steps/common/url-parser';
 import {
   C100_HEARING_URGENCY_URGENT,
   C100_MIAM_CHILD_PROTECTION,
+  C100_MIAM_EXCEMPTION_SUMMARY,
   C100_MIAM_GENERAL_REASONS,
   C100_MIAM_GET_MEDIATOR,
   C100_MIAM_MIAM_DOMESTIC_ABUSE,
   C100_MIAM_NO_ACCESS_MEDIATOR,
-  C100_MIAM_NO_NEED_WITH_REASONS,
   C100_MIAM_OTHER,
   C100_MIAM_PREVIOUS_ATTENDANCE,
   C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR,
@@ -95,7 +95,7 @@ class MIAMNavigationController {
         url = this.pages[this.selectedPages[0]].url;
         break;
       }
-      case C100_MIAM_NO_NEED_WITH_REASONS: {
+      case C100_MIAM_EXCEMPTION_SUMMARY: {
         url = this.checkForAnyValidReason(caseData, MiamNonAttendReason.URGENT)
           ? C100_HEARING_URGENCY_URGENT
           : C100_TYPE_ORDER_SELECT_COURT_ORDER;
@@ -106,7 +106,7 @@ class MIAMNavigationController {
           caseData.miam_notAttendingReasons === Miam_notAttendingReasons.canNotAccessMediator
             ? C100_MIAM_NO_ACCESS_MEDIATOR
             : this.checkForAnyValidReason(caseData)
-            ? C100_MIAM_NO_NEED_WITH_REASONS
+            ? C100_MIAM_EXCEMPTION_SUMMARY
             : C100_MIAM_GET_MEDIATOR;
         break;
       }
@@ -114,7 +114,7 @@ class MIAMNavigationController {
         url =
           caseData.miam_noMediatorReasons === Miam_noMediatorReasons.none
             ? C100_MIAM_GET_MEDIATOR
-            : C100_MIAM_NO_NEED_WITH_REASONS;
+            : C100_MIAM_EXCEMPTION_SUMMARY;
         break;
       }
       case C100_MIAM_PREVIOUS_ATTENDANCE: {
@@ -125,7 +125,7 @@ class MIAMNavigationController {
         } else {
           url =
             this.getNextPageUrl(C100_MIAM_PREVIOUS_ATTENDANCE) ||
-            (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+            (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
         }
         break;
       }
@@ -133,16 +133,12 @@ class MIAMNavigationController {
         if (caseData.miam_haveDocSignedByMediatorForPrevAttendance === YesOrNo.YES) {
           url = applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING) as PageLink;
         } else {
-          url =
-            this.getNextPageUrl(C100_MIAM_PREVIOUS_ATTENDANCE) ||
-            (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+          url = this.checkForOtherExemption(caseData, currentPageUrl);
         }
         break;
       }
       case C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING: {
-        url =
-          this.getNextPageUrl(C100_MIAM_PREVIOUS_ATTENDANCE) ??
-          (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+        url = this.checkForOtherExemption(caseData, currentPageUrl);
         break;
       }
       case C100_MIAM_MIAM_DOMESTIC_ABUSE: {
@@ -151,7 +147,7 @@ class MIAMNavigationController {
         } else {
           url =
             this.getNextPageUrl(currentPageUrl) ??
-            (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+            (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
         }
         break;
       }
@@ -161,24 +157,37 @@ class MIAMNavigationController {
         } else {
           url =
             this.getNextPageUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE) ??
-            (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+            (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
         }
         break;
       }
       case C100_MIAM_UPLOAD_DA_EVIDENCE: {
         url =
           this.getNextPageUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE) ??
-          (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+          (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
+
         break;
       }
       default: {
         url =
           this.getNextPageUrl(currentPageUrl) ||
-          (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
+          (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
         break;
       }
     }
 
+    return url;
+  }
+
+  private checkForOtherExemption(caseData: Partial<Case>, currentPageUrl: PageLink): PageLink {
+    let url: PageLink;
+    if (caseData?.miam_nonAttendanceReasons?.includes(MiamNonAttendReason.EXEMPT)) {
+      url = C100_MIAM_OTHER;
+    } else {
+      url =
+        this.getNextPageUrl(currentPageUrl) ||
+        (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
+    }
     return url;
   }
 }

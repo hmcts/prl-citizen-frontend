@@ -358,7 +358,7 @@ export const C100_MIAM_GENERAL_REASONS: PageLink = `${C100_MIAM}/general-reasons
 export const C100_MIAM_GET_MEDIATOR: PageLink = `${C100_MIAM}/get-mediator`;
 export const C100_MIAM_UPLOAD: PageLink = `${C100_MIAM}/upload`;
 export const C100_MIAM_GET_DOC: PageLink = `${C100_MIAM}/get-doc`;
-export const C100_MIAM_NO_NEED_WITH_REASONS: PageLink = `${C100_MIAM}/no-need-with-reasons`;
+export const C100_MIAM_EXCEMPTION_SUMMARY: PageLink = `${C100_MIAM}/miam-excemptions-summary`;
 export const C100_MIAM_PROVIDING_DA_EVIDENCE: PageLink = `${C100_MIAM}/domestic-abuse/providing-evidence`;
 export const C100_MIAM_UPLOAD_DA_EVIDENCE: PageLink = `${C100_MIAM}/domestic-abuse/upload-evidence/:removeFileId?`;
 
