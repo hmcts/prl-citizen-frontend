@@ -33,7 +33,7 @@ export default class PCQGetController {
       const url = config.get('services.equalityAndDiversity.url');
       const pcqEnabled = config.get('services.equalityAndDiversity.pcqEnabled');
       logger.info(`PCQEnabled : ${pcqEnabled}`);
-      if (pcqEnabled && pcqEnabled === true && tokenKey && url) {
+      if (pcqEnabled && pcqEnabled === 'true' && tokenKey && url) {
         const health = `${url}/health`;
         let pcqId;
         try {
