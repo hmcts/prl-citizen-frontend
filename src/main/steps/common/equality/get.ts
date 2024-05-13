@@ -77,7 +77,7 @@ export default class PCQGetController {
             },
           };
           Object.assign(partyDetails, updatedUserDetails);
-          logger.info('** Party details : ' + partyDetails);
+          logger.info('** Party details : ' + JSON.stringify(partyDetails));
           try {
             const client = new CosApiClient(user.accessToken, req.locals.logger);
             req.session.userCase = await client.updateCaseData(
@@ -104,12 +104,14 @@ export default class PCQGetController {
             `PCQ service redirect URL: ${url}${path}?${qs}, pcqEnabled: ${pcqEnabled} completed successfully.`
           );
           res.redirect(`${url}${path}?${qs}`);
+          return;
         });
       } else {
         logger.info(
           `User already attempted for PCQ ID or pcqEnabled is not enabled:${partyDetails?.user.pcqId} , pcqEnabled: ${pcqEnabled}`
         );
         res.redirect(redirectUrl);
+        return;
       }
     } else {
       return res.redirect(redirectUrl);
