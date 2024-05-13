@@ -62,6 +62,7 @@ export default class PCQGetController {
           language: req.session.lang || 'en',
           ccdCaseId: userCase.id,
         };
+        logger.info('*** Params : ' + JSON.stringify(params));
 
         logger.info(`PCQ service return URL: ${params.returnUrl}`);
 
@@ -76,6 +77,7 @@ export default class PCQGetController {
             },
           };
           Object.assign(partyDetails, updatedUserDetails);
+          logger.info('** Party details : ' + partyDetails);
           try {
             const client = new CosApiClient(user.accessToken, req.locals.logger);
             req.session.userCase = await client.updateCaseData(
@@ -87,7 +89,7 @@ export default class PCQGetController {
             );
             mapDataInSession(req.session.userCase, user.id);
           } catch (error) {
-            throw new Error('KeepDetailsPrivatePostController - Case could not be updated.');
+            logger.error('PCQGetController - pcq id could not be updated in db.', error.message);
           }
         }
         const qs = Object.keys(params)
