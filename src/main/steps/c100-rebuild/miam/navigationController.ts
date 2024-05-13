@@ -179,7 +179,7 @@ class MIAMNavigationController {
     return url;
   }
 
-  private checkForOtherExemption(caseData: Partial<Case>, currentPageUrl: PageLink) {
+  private checkForOtherExemption(caseData: Partial<Case>, currentPageUrl: PageLink): PageLink {
     let url: PageLink;
     if (caseData?.miam_nonAttendanceReasons?.includes(MiamNonAttendReason.EXEMPT)) {
       url = C100_MIAM_OTHER;

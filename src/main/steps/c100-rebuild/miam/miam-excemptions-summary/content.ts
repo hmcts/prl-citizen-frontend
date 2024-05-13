@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
-//import { MiamNonAttendReason } from '../../../../app/case/definition';
 import _ from 'lodash';
 
 import {
@@ -17,7 +15,6 @@ import { cy as ChildProtectionCy, en as ChildProtectionEn } from '../child-prote
 import {
   cy as CommonDomesticAbuseCy,
   en as CommonDomesticAbuseEn,
-  // languages as commonLanguages,
   languages as commonLanguages,
 } from '../domestic-abuse/common.content';
 import { cy as OtherCy, en as OtherEn } from '../miam-other/content';
