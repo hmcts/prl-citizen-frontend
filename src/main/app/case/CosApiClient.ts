@@ -150,11 +150,10 @@ export class CosApiClient {
   }
 
   /**  submit respondent response*/
-  public async submitRespondentResponse(caseId: string, partyId: string, data: Partial<CaseData>): Promise<CaseWithId> {
+  public async submitRespondentResponse(caseId: string, partyId: string): Promise<CaseWithId> {
     try {
       const response = await this.client.post(
-        config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document-final`,
-        data
+        config.get('services.cos.url') + `/${caseId}/${partyId}/generate-c7document-final`
       );
 
       return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };

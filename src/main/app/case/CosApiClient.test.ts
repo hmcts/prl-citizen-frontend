@@ -271,10 +271,8 @@ describe('CosApiClient', () => {
   test('submitRespondentResponse', async () => {
     const response = { id: '200', state: 'SUCCESS' };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
-    const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
-    const caseData = toApiFormat(req?.session?.userCase);
-    const actual = await client.submitRespondentResponse('123456', '123456', caseData);
+    const actual = await client.submitRespondentResponse('123456', '123456');
     expect(actual).toEqual(response);
   });
 
@@ -544,12 +542,10 @@ describe('CosApiClientWithError', () => {
   });
 
   test('submitRespondentResponseWithError', async () => {
-    const req = mockRequest();
     const client = new CosApiClient('abc', mockLogger);
-    const caseData = toApiFormat(req?.session?.userCase);
     let flag = true;
     try {
-      await client.submitRespondentResponse('123456', '123456', caseData);
+      await client.submitRespondentResponse('123456', '123456');
     } catch {
       flag = false;
     }
