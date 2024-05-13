@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
 import { cy as attendanceCy, en as attendanceEn } from '../../miam/attendance/content';
-//import { cy as ChildProtectionContentCy, en as ChildProtectionContentEn } from '../../miam/child-protection/content';
+import { cy as ChildProtectionContentCy, en as ChildProtectionContentEn } from '../../miam/child-protection/content';
 import { cy as CommonDomesticAbuseCy, en as CommonDomesticAbuseEn } from '../../miam/domestic-abuse/common.content';
 import { cy as DomesticAbuseCy, en as DomesticAbuseEn } from '../../miam/domestic-abuse/domestic-abuse/content';
 import { cy as GeneralContentCy, en as GeneralContentEn } from '../../miam/general-reasons/content';
-import { cy as mcCy, en as mcEn } from '../../miam/mediator-confirmation/content';
 import { cy as MiamOtherContentCy, en as MiamOtherContentEn } from '../../miam/miam-other/content';
 import { cy as opCy, en as opEn } from '../../miam/other-proceedings/content';
 import {
@@ -30,14 +29,18 @@ export class CommonDataLoader {
 
   static SessionToFieldGenerator = (key, UserCase) => {
     const storage: ANYTYPE = [];
-    UserCase[key].forEach(element => {
-      if (UserCase.hasOwnProperty(`${key}_${element}`)) {
-        const val = element + '_subFields';
-        storage.push(val);
-      } else {
-        storage.push(element);
-      }
-    });
+    if (UserCase[key].constructor === Array) {
+      UserCase[key].forEach(element => {
+        if (UserCase.hasOwnProperty(`${key}_${element}`)) {
+          const val = element + '_subFields';
+          storage.push(val);
+        } else {
+          storage.push(element);
+        }
+      });
+    } else {
+      storage.push(UserCase[key]);
+    }
     return storage;
   };
 }
@@ -69,7 +72,7 @@ export const MiamContentsForDomensticVoilence = UserCase => {
           ...DomesticAbuseEn,
           ...CommonDomesticAbuseEn,
           ...GeneralContentEn(),
-          generalReasonTitle: GeneralContentEn().title,
+          generalReasonTitle: GeneralContentEn().label,
           domesticViolenceHead: GeneralContentEn().domesticViolence,
           childProtectionHead: GeneralContentEn().childProtection,
           urgentHearingHead: GeneralContentEn().urgentHearing,
@@ -83,7 +86,7 @@ export const MiamContentsForDomensticVoilence = UserCase => {
           ...DomesticAbuseCy,
           ...CommonDomesticAbuseCy,
           ...GeneralContentCy(),
-          generalReasonTitle: GeneralContentCy().title,
+          generalReasonTitle: GeneralContentCy().label,
           domesticViolenceHead: GeneralContentCy().domesticViolence,
           childProtectionHead: GeneralContentCy().childProtection,
           urgentHearingHead: GeneralContentCy().urgentHearing,
@@ -132,21 +135,21 @@ export const MiamContentsForPreviousAttendance = UserCase => {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 //todo PRL-5558
-// export const MiamContentsForChildProtection = UserCase => {
-//   const key = 'miam_childProtectionEvidence';
-//   if (UserCase.hasOwnProperty(key)) {
-//     return {
-//       en: () => {
-//         const data = { ...ChildProtectionContentEn() } as ANYTYPE;
-//         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
-//       },
-//       cy: () => {
-//         const data = { ...ChildProtectionContentCy() } as ANYTYPE;
-//         return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
-//       },
-//     };
-//   }
-// };
+export const MiamContentsForChildProtection = UserCase => {
+  const key = 'miam_childProtectionEvidence';
+  if (UserCase.hasOwnProperty(key)) {
+    return {
+      en: () => {
+        const data = { ...ChildProtectionContentEn() } as ANYTYPE;
+        return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
+      },
+      cy: () => {
+        const data = { ...ChildProtectionContentCy() } as ANYTYPE;
+        return { ...CommonDataLoader.DataFormatter(data, CommonDataLoader.SessionToFieldGenerator(key, UserCase)) };
+      },
+    };
+  }
+};
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const MiamContentForOtherFeatureAndSubFeilds = UserCase => {
@@ -171,22 +174,22 @@ export const additionalTitlesMiam = SystemLanguage => {
     en: () => {
       return {
         childInvolvementInSupervision: opEn().title,
-        mediatorConfirmation: mcEn().title,
         reasonForNotAttendingMiam: validReasonEn.title,
         validResonsNotAttendingMiam: validReasonEn.title,
         attendedMiamMidiation: attendanceEn.title,
         urgentHearing: UrgentHearingContentEn.title,
+        noneHead: GeneralContentEn().noReason,
         error: '',
       };
     },
     cy: () => {
       return {
         childInvolvementInSupervision: opCy().title,
-        mediatorConfirmation: mcCy().title,
         reasonForNotAttendingMiam: validReasonCy.title,
         validResonsNotAttendingMiam: validReasonCy.title,
         attendedMiamMidiation: attendanceCy.title,
         urgentHearing: UrgentHearingContentCy.title,
+        noneHead: GeneralContentCy().noReason,
         error: '',
       };
     },
@@ -199,7 +202,7 @@ export const MiamFieldsLoader = (SystemLanguageContent, content) => {
     ...SystemLanguageContent(content, MiamContentsForDomensticVoilence),
     ...SystemLanguageContent(content, MiamContentsForUrgentHearing),
     ...SystemLanguageContent(content, MiamContentsForPreviousAttendance),
-    // ...SystemLanguageContent(content, MiamContentsForChildProtection),
+    ...SystemLanguageContent(content, MiamContentsForChildProtection),
     ...SystemLanguageContent(content, MiamContentForOtherFeatureAndSubFeilds),
     ...additionalTitlesMiam(content['language']),
     ...SystemLanguageContent(content, MiamContentsForGeneralReasons),

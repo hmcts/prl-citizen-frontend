@@ -124,7 +124,7 @@ class MIAMNavigationController {
           url = C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR;
         } else {
           url =
-            this.getNextPageUrl(currentPageUrl) ||
+            this.getNextPageUrl(C100_MIAM_PREVIOUS_ATTENDANCE) ||
             (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
         }
         break;
@@ -134,9 +134,15 @@ class MIAMNavigationController {
           url = applyParms(C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING) as PageLink;
         } else {
           url =
-            this.getNextPageUrl(currentPageUrl) ||
+            this.getNextPageUrl(C100_MIAM_PREVIOUS_ATTENDANCE) ||
             (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
         }
+        break;
+      }
+      case C100_MIAM_UPLOAD_EVIDENCE_FOR_ATTENDING: {
+        url =
+          this.getNextPageUrl(C100_MIAM_PREVIOUS_ATTENDANCE) ??
+          (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
         break;
       }
       case C100_MIAM_MIAM_DOMESTIC_ABUSE: {
@@ -163,7 +169,6 @@ class MIAMNavigationController {
         url =
           this.getNextPageUrl(C100_MIAM_MIAM_DOMESTIC_ABUSE) ??
           (this.checkForAnyValidReason(caseData) ? C100_MIAM_NO_NEED_WITH_REASONS : C100_MIAM_GET_MEDIATOR);
-
         break;
       }
       default: {

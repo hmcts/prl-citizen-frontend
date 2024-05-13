@@ -661,24 +661,10 @@ export const MiamAttendance = (
         });
       } else {
         SummaryData.push({
-          key: keys['mediatorConfirmation'],
-          value: getYesNoTranslation(language, userCase['miam_mediatorDocument'], 'ydynTranslation'),
-          changeUrl: Urls['C100_MIAM_MEDIATOR_CONFIRMAION'],
+          key: keys['reasonForNotAttendingMiam'],
+          value: getYesNoTranslation(language, userCase['miam_validReason'], 'ydynTranslation'),
+          changeUrl: Urls['C100_MIAM_VALID_REASON'],
         });
-
-        if (userCase.hasOwnProperty('miam_mediatorDocument') && userCase['miam_mediatorDocument'] === YesOrNo.YES) {
-          SummaryData.push({
-            key: keys['midatatorDocumentTitle'],
-            value: getYesNoTranslation(language, userCase['miam_haveDocSigned'], 'ydynTranslation'),
-            changeUrl: Urls['C100_MIAM_MEDIATOR_DOCUMENT'],
-          });
-        } else {
-          SummaryData.push({
-            key: keys['reasonForNotAttendingMiam'],
-            value: getYesNoTranslation(language, userCase['miam_validReason'], 'ydynTranslation'),
-            changeUrl: Urls['C100_MIAM_VALID_REASON'],
-          });
-        }
       }
     }
   }
@@ -691,7 +677,8 @@ export const MiamAttendance = (
 
 export const MiamExemption = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,
-  userCase: Partial<CaseWithId>
+  userCase: Partial<CaseWithId>,
+  language: string
 ): SummaryList | undefined => {
   const validReasonForNotAttendingMiam = MiamHelper.miamExemptionParser(userCase, keys);
   const SummaryData = [
@@ -700,7 +687,7 @@ export const MiamExemption = (
       valueHtml: validReasonForNotAttendingMiam['listOfReasons'],
       changeUrl: Urls['C100_MIAM_GENERAL_REASONS'],
     },
-    ...MiamHelper.miamExemptionParserDynamicEnteries(userCase, keys, Urls),
+    ...MiamHelper.miamExemptionParserDynamicEnteries(userCase, keys, language),
   ];
   return {
     title: sectionTitles['MiamExemption'],

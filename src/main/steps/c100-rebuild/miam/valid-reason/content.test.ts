@@ -7,7 +7,7 @@ import { generateContent } from './content';
 jest.mock('../../../../app/form/validation');
 
 const en = {
-  title: 'Do you have valid reason for not attending a MIAM?',
+  title: 'Do you have a valid reason for not attending a MIAM?',
   content:
     '<a href="https://apply-to-court-about-child-arrangements.service.justice.gov.uk/about/miam_exemptions" class="govuk-link" target="_blank">Check the list of valid reasons for not attending a MIAM (opens in a new tab)</a> if you’re not sure.',
   yes: 'Yes',
