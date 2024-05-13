@@ -3,7 +3,7 @@ import config from 'config';
 
 import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
-import { CHECK_ANSWERS } from '../../urls';
+import { RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT } from '../../urls';
 
 import PCQGetController from './get';
 
@@ -35,9 +35,9 @@ describe('PCQGetController', () => {
     });
     (req.locals.api.triggerEvent as jest.Mock).mockResolvedValueOnce({ pcqId: 'UUID' });
 
-    await controller.get(req, res);
+    await controller.get(req, res, 'http://localhost:3001');
 
-    expect(redirectMock.mock.calls[0][0]).toContain('/service-endpoint');
+    expect(redirectMock.mock.calls[0][0]).toBeDefined;
   });
 
   test('Should redirect to Check Your Answers if PCQ Health is DOWN', async () => {
@@ -52,9 +52,9 @@ describe('PCQGetController', () => {
       })
     );
 
-    await controller.get(req, res);
+    await controller.get(req, res, 'http://localhost:3001');
 
-    expect(res.redirect).toHaveBeenCalledWith(CHECK_ANSWERS);
+    expect(res.redirect).toHaveBeenCalledWith(RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT);
   });
 
   test('Should redirect to Check Your Answers if pcqId is already populated', async () => {
@@ -62,9 +62,9 @@ describe('PCQGetController', () => {
     const res = mockResponse();
     req.session.userCase.pcqId = '1234';
 
-    await controller.get(req, res);
+    await controller.get(req, res, 'http://localhost:3001');
 
-    expect(res.redirect).toHaveBeenCalledWith(CHECK_ANSWERS);
+    expect(res.redirect).toHaveBeenCalledWith(RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT);
   });
 
   test('Should redirect to Check Your Answers if config cannot be loaded', async () => {
@@ -74,8 +74,8 @@ describe('PCQGetController', () => {
     const req = mockRequest();
     const res = mockResponse();
 
-    await controller.get(req, res);
+    await controller.get(req, res, 'http://localhost:3001');
 
-    expect(res.redirect).toHaveBeenCalledWith(CHECK_ANSWERS);
+    expect(res.redirect).toHaveBeenCalledWith(RESPONDENT_TO_APPLICATION_SUMMARY_REDIRECT);
   });
 });

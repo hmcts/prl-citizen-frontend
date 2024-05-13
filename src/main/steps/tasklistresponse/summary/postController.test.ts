@@ -28,6 +28,6 @@ describe('ResponseSummaryConfirmationPostController', () => {
     submitRespondentResponseMock.mockResolvedValue(req.session.userCase);
     const controller = new ResponseSummaryConfirmationPostController({});
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/summary-confirmation');
+    expect(res.redirect).toHaveBeenCalledWith('/tasklistresponse/summary/equality');
   });
 });

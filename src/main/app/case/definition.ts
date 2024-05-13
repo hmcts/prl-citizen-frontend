@@ -119,7 +119,7 @@ export interface User {
   email: string;
   idamId: string;
   solicitorRepresented?: string;
-  pcqId: string;
+  pcqId?: string;
 }
 
 export interface Response {
