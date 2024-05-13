@@ -8,7 +8,7 @@ import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainU
 import * as Urls from '../../urls';
 
 import { OPotherProceedingsSessionParserUtil } from './proceedingUtils';
-
+console.info('** FOR SONAR **');
 /* eslint-disable import/namespace */
 export const PastAndCurrentProceedings = (
   { sectionTitles, keys, Yes, No, ...content }: SummaryListContentWithBoolean,

@@ -9,7 +9,9 @@ import { languages as commonLanguages } from '../common.content';
 const en = {
   caption: 'MIAM exemptions',
   title: 'Providing evidence of domestic abuse',
-  content: 'You have said that you don’t have to attend MIAM because of the following reasons:',
+  dontNeedToAttend: 'You don’t have to attend a MIAM',
+  validReason: 'You’ve said you have a valid reason for not attending a MIAM.',
+  reasonsGiven: "The reasons you've given are:",
   yes: 'Yes',
   no: 'No',
   provideEvidence: 'Can you provide evidence?',
@@ -27,7 +29,9 @@ const en = {
 const cy: typeof en = {
   caption: 'Esemptiadau MIAM',
   title: 'Darparu tystiolaeth o gam-drin domestig',
-  content: 'Rydych wedi dweud nad oes rhaid i chi fynychu MIAM oherwydd y rhesymau canlynol:',
+  dontNeedToAttend: 'Nid oes raid i chi fynychu MIAM',
+  validReason: 'Rydych wedi dweud bod gennych reswm dilys dros beidio â mynychu MIAM.',
+  reasonsGiven: 'Y rhesymau rydych wedi’u rhoi yw:',
   yes: 'Gallaf',
   no: 'Na allaf',
   provideEvidence: 'Allwch chi ddarparu tystiolaeth?',
