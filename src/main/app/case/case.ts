@@ -633,8 +633,10 @@ export interface Case {
   ra_languageReqAndSpecialArrangements?: string;
   ra_existingFlags?: RAFlags;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
-  wishToRespond?:YesOrNo;
-  your_response_to_aoh?:string;
+  wishToRespond?: YesOrNo;
+  your_response_to_aoh?: string;
+  aoh_wishToRespond?: YesOrNo;
+  aoh_responseToAllegations?: string;
 }
 export interface ServedApplicationDetails {
   id: string;

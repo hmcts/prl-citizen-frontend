@@ -142,7 +142,12 @@ export class CosApiClient {
         data
       );
 
-      return { id: response.data.id, state: response.data.state, ...fromApiFormat(response.data) };
+      return {
+        id: response.data.caseData.id,
+        state: response.data.caseData.state,
+        ...fromApiFormat(response.data.caseData),
+        hearingCollection: response.data?.hearings?.caseHearings ?? [],
+      };
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, case could not be updated - updateCaseData');

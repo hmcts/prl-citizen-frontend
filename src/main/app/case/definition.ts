@@ -6,7 +6,7 @@ import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/do
 
 import { RAFlagValue } from '../../modules/reasonable-adjustments/definitions';
 import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
-console.info("** FOR SONAR **");
+console.info('** FOR SONAR **');
 export interface ChildDetails {
   gender: string;
   lastName: string;
@@ -133,6 +133,8 @@ export interface Response {
   safetyConcerns?: PRL_C1ASafteyConcerns_total;
   currentOrPreviousProceedings?: CurrentOrPreviousProceedings;
   c7ResponseSubmitted?: YesOrNo;
+  responseToAllegationsOfHarmYesOrNoResponse? : YesOrNo;
+  respondentResponseToAllegationOfHarm?: string;
 }
 
 export interface ReasonableAdjustmentsSupport {
@@ -1549,7 +1551,7 @@ export const enum EventRoutesContext {
   SAFETY_CONCERNS_NO = 'SAFETY_CONCERNS_NO',
   VIEW_ALL_DOCUMENTS = 'VIEW_ALL_DOCUMENTS',
   CONTACT_PREFERENCE = 'CONTACT_PREFERENCE',
-  HEARINGS = 'HEARINGS'
+  HEARINGS = 'HEARINGS',
 }
 
 export const enum ClarificationReason {
@@ -2972,6 +2974,7 @@ export enum CaseEvent {
   CONTACT_PREFERENCE = 'citizenContactPreference',
   CITIZEN_SAVE_C100_DRAFT_INTERNAL = 'citizenSaveC100DraftInternal',
   CITIZEN_INTERNAL_FLAG_UPDATES = 'citizenInternalFlagUpdates',
+  CITIZEN_RESPONSE_TO_AOH = 'citizenResponseToAoH',
 }
 
 export enum hearingStatus {

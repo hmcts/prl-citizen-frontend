@@ -1,5 +1,5 @@
 import { Case } from '../../app/case/case';
-import { YesOrNo } from '../../app/case/definition';
+import { PartyType, YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { applyParms } from '../../steps/common/url-parser';
 import { Sections, Step } from '../constants';
@@ -59,8 +59,9 @@ import {
   RESPONDENT_TO_APPLICATION_SUMMARY,
   RESPONDENT_YOUR_CHILD_CONCERNS,
   RESPOND_TO_AOH,
-  RESPOND_TO_AOH_RESPONSE,
+  RESPOND_TO_AOH_REVIEW,
   RESPOND_TO_APPLICATION,
+  RESPONSE_TO_AOH,
   SAFETY_MAIN_PAGE,
   YOUR_SAFETY,
 } from '../urls';
@@ -379,11 +380,22 @@ export const responseCaseSequence: Step[] = [
   {
     url: RESPOND_TO_AOH,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_AOH_RESPONSE,
+    getNextStep: caseData =>
+      applyParms(caseData?.aoh_wishToRespond === YesOrNo.YES ? RESPONSE_TO_AOH : RESPOND_TO_AOH_REVIEW, {
+        partyType: PartyType.RESPONDENT,
+      }) as PageLink,
   },
   {
-    url: RESPOND_TO_AOH_RESPONSE,
+    url: RESPONSE_TO_AOH,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => RESPOND_TO_AOH_RESPONSE,
+    getNextStep: () =>
+      applyParms(RESPOND_TO_AOH_REVIEW, {
+        partyType: PartyType.RESPONDENT,
+      }) as PageLink,
+  },
+  {
+    url: RESPOND_TO_AOH_REVIEW,
+    showInSection: Sections.AboutRespondentCase,
+    getNextStep: () => RESPOND_TO_APPLICATION,
   },
 ];

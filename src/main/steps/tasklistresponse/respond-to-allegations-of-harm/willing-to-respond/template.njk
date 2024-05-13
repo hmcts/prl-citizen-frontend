@@ -1,12 +1,17 @@
-
 {% extends "common/template.njk" %}
 
 {% block page_content %}
-<h1 class="govuk-heading-l">
-    <span class="govuk-caption-l">{{ section }}</span>
+  <h1 class="govuk-heading-l">
+    <span class="govuk-caption-l">{{ caption }}</span>
     {{ title }}</h1>
-  <p class="govuk-body-m">{{ reviewBeforeResponding }} </p>
-  <p class="govuk-body-m">{{ linkToAoH | safe }} </p>
-  <p class="govuk-body-m">{{ disclaimer }} </p>
-  <p class="govuk-body-m">{{ disclaimer_2 }} </p>
+  
+  <p class="govuk-body">{{ content1 }}
+  </p>
+  <p class="govuk-body">
+    <a href="{{aohDocumentUrl}}" class="govuk-link" target="_blank">{{content2}}</a>
+  </p>
+  <p class="govuk-body">{{ content3 }}
+  </p>
+  <p class="govuk-body">{{ content4 }}
+  </p>
 {% endblock %}

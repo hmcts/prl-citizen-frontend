@@ -1,19 +1,19 @@
 import { TranslationFn } from '../../../../app/controller/GetController';
 import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn, isTextAreaValid } from '../../../../app/form/validation';
+import { RESPOND_TO_APPLICATION } from '../../../../steps/urls';
 
 export const en = {
-  section: 'Respond to allegations of harm and violence',
+  caption: 'Respond to allegations of harm and violence',
   title: 'Respond to the allegations',
-  suggestionLabel_1:
+  content1:
     'Give your response to each of the points made by the applicant. Try to explain what happened as best you can.',
-  suggestionLabel_2: 'You will have the chance to give a more detailed statement later in court.',
-  suggestionLabel_3: 'Include any evidence that is relevant to the allegations.',
-  respondToAohTitle: 'Your response',
-  respondToAohHint: 'Include times, dates and details of what happened.',
-  continue: 'Save and continue',
+  content2: 'You will have the chance to give a more detailed statement later in court.',
+  content3: 'Include any evidence that is relevant to the allegations.',
+  responseToAohLabel: 'Your response',
+  responseToAohHint: 'Include times, dates and details of what happened.',
   errors: {
-    detailsKnown: {
+    aoh_responseToAllegations: {
       required: 'You must give details if you want to respond to the allegations',
       invalidCharacters: 'You have entered an invalid character. Special characters <,>,{,} are not allowed.',
       invalid:
@@ -23,17 +23,16 @@ export const en = {
 };
 
 export const cy: typeof en = {
-  section: 'Ymateb i honiadau o niwed a thrais',
+  caption: 'Ymateb i honiadau o niwed a thrais',
   title: 'Ymateb i’r honiadau',
-  suggestionLabel_1:
+  content1:
     'Rhowch eich ymateb i bob un o’r pwyntiau a wnaed gan y ceisydd. Ceisiwch egluro beth ddigwyddodd y gorau y gallwch chi.',
-  suggestionLabel_2: 'Cewch gyfle i roi datganiad manylach yn nes ymlaen yn y llys.',
-  suggestionLabel_3: 'Dylech gynnwys unrhyw dystiolaeth sy’n berthnasol i’r honiadau.',
-  respondToAohTitle: 'Eich ymateb',
-  respondToAohHint: 'Dylech gynnwys amseroedd, dyddiadau a manylion beth ddigwyddodd.',
-  continue: 'Cadw a pharhau',
+  content2: 'Cewch gyfle i roi datganiad manylach yn nes ymlaen yn y llys.',
+  content3: 'Dylech gynnwys unrhyw dystiolaeth sy’n berthnasol i’r honiadau.',
+  responseToAohLabel: 'Eich ymateb',
+  responseToAohHint: 'Dylech gynnwys amseroedd, dyddiadau a manylion beth ddigwyddodd.',
   errors: {
-    detailsKnown: {
+    aoh_responseToAllegations: {
       required: 'Mae’n rhaid i chi roi manylion os ydych eisiau ymateb i’r honiadau',
       invalidCharacters: 'Rydych wedi defnyddio nod annilys. Ni chaniateir y nodau arbennig hyn <,>,{,}',
       invalid:
@@ -42,28 +41,34 @@ export const cy: typeof en = {
   },
 };
 
-const languages = {
+export const languages = {
   en,
   cy,
 };
 
 export const form: FormContent = {
   fields: {
-    your_response_to_aoh: {
+    aoh_responseToAllegations: {
       type: 'textarea',
-      label: l => l.respondToAohTitle,
-      labelSize:'m',
-      hint: l => l.hint,
+      label: l => l.responseToAohLabel,
+      labelSize: 'm',
+      hint: l => l.responseToAohHint,
       validator: value => isFieldFilledIn(value) || isTextAreaValid(value),
     },
   },
-  submit: {
+  onlyContinue: {
     text: l => l.continue,
+  },
+  link: {
+    classes: 'govuk-!-margin-left-3',
+    href: RESPOND_TO_APPLICATION,
+    text: l => l.cancel,
   },
 };
 
 export const generateContent: TranslationFn = content => {
   const translations = languages[content.language];
+
   return {
     ...translations,
     form,
