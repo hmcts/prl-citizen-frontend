@@ -124,7 +124,7 @@ class MIAMNavigationController {
           url = C100_MIAM_PREVIOUS_MIAM_ATTENDANCE_OR_NCDR;
         } else {
           url =
-            this.getNextPageUrl(currentPageUrl) ||
+            this.getNextPageUrl(C100_MIAM_PREVIOUS_ATTENDANCE) ||
             (this.checkForAnyValidReason(caseData) ? C100_MIAM_EXCEMPTION_SUMMARY : C100_MIAM_GET_MEDIATOR);
         }
         break;
