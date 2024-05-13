@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
 import { cy as attendanceCy, en as attendanceEn } from '../../miam/attendance/content';
+import { cy as GeneralContentCy, en as GeneralContentEn } from '../../miam/general-reasons/content';
 import { cy as mcCy, en as mcEn } from '../../miam/mediator-confirmation/content';
 import { cy as opCy, en as opEn } from '../../miam/other-proceedings/content';
 import { cy as UrgentHearingContentCy, en as UrgentHearingContentEn } from '../../miam/urgency/content';
@@ -8,7 +9,7 @@ import { cy as validReasonCy, en as validReasonEn } from '../../miam/valid-reaso
 
 import {
   MiamContentForOtherFeatureAndSubFeilds,
-  //MiamContentsForChildProtection,
+  MiamContentsForChildProtection,
   MiamContentsForDomensticVoilence,
   MiamContentsForGeneralReasons,
   MiamContentsForPreviousAttendance,
@@ -58,8 +59,8 @@ describe('miam Util', () => {
     };
     const sessionFields = MiamContentsForGeneralReasons(userCase);
     userCase.miam_nonAttendanceReasons.forEach(item => {
-      expect(sessionFields?.en()[item]).toBe(undefined);
-      expect(sessionFields?.cy()[item]).toBe(undefined);
+      expect(sessionFields?.en()[item]).toBe(GeneralContentEn[item]);
+      expect(sessionFields?.cy()[item]).toBe(GeneralContentCy[item]);
     });
   });
 
@@ -113,16 +114,9 @@ describe('miam Util', () => {
       expect(sessionFields?.cy()[item]).not.toBe(undefined);
     });
   });
-  test.skip('miam_notAttendingReasons test for checking if respective screen match contentss', () => {
+  test('miam_notAttendingReasons test for checking if respective screen match contentss', () => {
     const userCase = {
-      miam_notAttendingReasons: [
-        'noSufficientContactDetails',
-        'applyingForWithoutNoticeHearing',
-        'canNotAccessMediator',
-        'notAttendingAsInPrison',
-        'notHabituallyResident',
-        'under18',
-      ],
+      miam_notAttendingReasons: ['applyingForWithoutNoticeHearing', 'canNotAccessMediator', 'under18'],
     };
     const sessionFields = MiamContentForOtherFeatureAndSubFeilds(userCase);
     userCase.miam_notAttendingReasons.forEach(item => {
@@ -145,18 +139,18 @@ describe('miam Util', () => {
       expect(sessionFields).not.toBe(item);
     });
   });
-  //todo PRL-5558
-  // test.skip('MiamContentsForChildProtection test for checking if respective screen match contentss', () => {
-  //   const userCase = {
-  //     /* A field that is used to store the evidence of child protection. */
-  //     miam_childProtectionEvidence: ['test1', 'test2', 'test3', 'test4'],
-  //   };
-  //   const sessionFields = MiamContentsForChildProtection(userCase);
-  //   userCase.miam_childProtectionEvidence.forEach(item => {
-  //     expect(sessionFields?.en()[item]).not.toBe([]);
-  //     expect(sessionFields?.cy()[item]).not.toBe([]);
-  //   });
-  // });
+
+  test('MiamContentsForChildProtection test for checking if respective screen match contentss', () => {
+    const userCase = {
+      /* A field that is used to store the evidence of child protection. */
+      miam_childProtectionEvidence: ['test1', 'test2', 'test3', 'test4'],
+    };
+    const sessionFields = MiamContentsForChildProtection(userCase);
+    userCase.miam_childProtectionEvidence.forEach(item => {
+      expect(sessionFields?.en()[item]).not.toBe([]);
+      expect(sessionFields?.cy()[item]).not.toBe([]);
+    });
+  });
 
   test('additionalTitlesMiam test for checking if respective screen match contentss', () => {
     expect(additionalTitlesMiam('en').toString()).toBe(additionalTitlesMiamTestSample('en').toString());

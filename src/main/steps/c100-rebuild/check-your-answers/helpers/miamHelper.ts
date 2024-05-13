@@ -173,27 +173,26 @@ export const miamParentAndChildFieldParser = (
   language: string
 ): string => {
   if (userCase.hasOwnProperty(sessionKey)) {
-    const mappedVals =
-      userCase[sessionKey].constructor === Array
-        ? userCase[sessionKey].map(nonAttendance => {
-            if (userCase.hasOwnProperty(`${sessionKey}_${nonAttendance}_subfields`)) {
-              return (
-                _.get(keys, nonAttendance) +
-                HTML.UNORDER_LIST +
-                userCase[`${sessionKey}_${nonAttendance}_subfields`]
-                  .filter(field => field !== '')
-                  .map(item => {
-                    return HTML.NESTED_LIST_ITEM + keys[`${nonAttendance}_subFields`][item] + HTML.NESTED_LIST_ITEM_END;
-                  }) +
-                HTML.UNORDER_LIST_END
-              )
-                .split(',')
-                .join('');
-            } else {
-              return keys[nonAttendance];
-            }
-          })
-        : [keys[userCase[sessionKey]]];
+    const mappedVals = _.isArray(userCase[sessionKey])
+      ? userCase[sessionKey].map(nonAttendance => {
+          if (userCase.hasOwnProperty(`${sessionKey}_${nonAttendance}_subfields`)) {
+            return (
+              _.get(keys, nonAttendance) +
+              HTML.UNORDER_LIST +
+              userCase[`${sessionKey}_${nonAttendance}_subfields`]
+                .filter(field => field !== '')
+                .map(item => {
+                  return HTML.NESTED_LIST_ITEM + keys[`${nonAttendance}_subFields`][item] + HTML.NESTED_LIST_ITEM_END;
+                }) +
+              HTML.UNORDER_LIST_END
+            )
+              .split(',')
+              .join('');
+          } else {
+            return keys[nonAttendance];
+          }
+        })
+      : [keys[userCase[sessionKey]]];
 
     let additionalFields = '';
     if (sessionKey === 'miam_domesticAbuse' && !userCase.miam_domesticAbuse?.includes(DomesticAbuseExemptions.NONE)) {

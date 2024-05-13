@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable import/no-unresolved */
+import _ from 'lodash';
+
+import { CaseWithId } from '../../../../app/case/case';
 import { cy as attendanceCy, en as attendanceEn } from '../../miam/attendance/content';
 import { cy as ChildProtectionContentCy, en as ChildProtectionContentEn } from '../../miam/child-protection/content';
 import { cy as CommonDomesticAbuseCy, en as CommonDomesticAbuseEn } from '../../miam/domestic-abuse/common.content';
@@ -27,19 +30,14 @@ export class CommonDataLoader {
     return mappedData;
   };
 
-  static SessionToFieldGenerator = (key, UserCase) => {
-    const storage: ANYTYPE = [];
-    if (UserCase[key].constructor === Array) {
-      UserCase[key].forEach(element => {
-        if (UserCase.hasOwnProperty(`${key}_${element}`)) {
-          const val = element + '_subFields';
-          storage.push(val);
-        } else {
-          storage.push(element);
-        }
+  static SessionToFieldGenerator = (key: string, userCase: CaseWithId): string[] => {
+    const storage: string[] = [];
+    if (_.isArray(userCase[key])) {
+      userCase[key].forEach(element => {
+        storage.push(userCase.hasOwnProperty(`${key}_${element}`) ? element + '_subFields' : element);
       });
     } else {
-      storage.push(UserCase[key]);
+      storage.push(userCase[key]);
     }
     return storage;
   };
@@ -71,13 +69,13 @@ export const MiamContentsForDomensticVoilence = UserCase => {
         const data = {
           ...DomesticAbuseEn,
           ...CommonDomesticAbuseEn,
-          ...GeneralContentEn(),
-          generalReasonTitle: GeneralContentEn().label,
-          domesticViolenceHead: GeneralContentEn().domesticViolence,
-          childProtectionHead: GeneralContentEn().childProtection,
-          urgentHearingHead: GeneralContentEn().urgentHearing,
-          previousMIAMOrExemptHead: GeneralContentEn().previousMIAMOrExempt,
-          validExemptionHead: GeneralContentEn().validExemption,
+          ...GeneralContentEn,
+          generalReasonTitle: GeneralContentEn.label,
+          domesticViolenceHead: GeneralContentEn.domesticViolence,
+          childProtectionHead: GeneralContentEn.childProtection,
+          urgentHearingHead: GeneralContentEn.urgentHearing,
+          previousMIAMOrExemptHead: GeneralContentEn.previousMIAMOrExempt,
+          validExemptionHead: GeneralContentEn.validExemption,
         } as ANYTYPE;
         return { ...data };
       },
@@ -85,13 +83,13 @@ export const MiamContentsForDomensticVoilence = UserCase => {
         const data = {
           ...DomesticAbuseCy,
           ...CommonDomesticAbuseCy,
-          ...GeneralContentCy(),
-          generalReasonTitle: GeneralContentCy().label,
-          domesticViolenceHead: GeneralContentCy().domesticViolence,
-          childProtectionHead: GeneralContentCy().childProtection,
-          urgentHearingHead: GeneralContentCy().urgentHearing,
-          previousMIAMOrExemptHead: GeneralContentCy().previousMIAMOrExempt,
-          validExemptionHead: GeneralContentCy().validExemption,
+          ...GeneralContentCy,
+          generalReasonTitle: GeneralContentCy.label,
+          domesticViolenceHead: GeneralContentCy.domesticViolence,
+          childProtectionHead: GeneralContentCy.childProtection,
+          urgentHearingHead: GeneralContentCy.urgentHearing,
+          previousMIAMOrExemptHead: GeneralContentCy.previousMIAMOrExempt,
+          validExemptionHead: GeneralContentCy.validExemption,
         } as ANYTYPE;
         return { ...data };
       },
@@ -178,7 +176,7 @@ export const additionalTitlesMiam = SystemLanguage => {
         validResonsNotAttendingMiam: validReasonEn.title,
         attendedMiamMidiation: attendanceEn.title,
         urgentHearing: UrgentHearingContentEn.title,
-        noneHead: GeneralContentEn().noReason,
+        noneHead: GeneralContentEn.noReason,
         error: '',
       };
     },
@@ -189,7 +187,7 @@ export const additionalTitlesMiam = SystemLanguage => {
         validResonsNotAttendingMiam: validReasonCy.title,
         attendedMiamMidiation: attendanceCy.title,
         urgentHearing: UrgentHearingContentCy.title,
-        noneHead: GeneralContentCy().noReason,
+        noneHead: GeneralContentCy.noReason,
         error: '',
       };
     },

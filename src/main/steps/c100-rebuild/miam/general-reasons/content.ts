@@ -4,7 +4,7 @@ import { FormContent } from '../../../../app/form/Form';
 import { atLeastOneFieldIsChecked } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const en = () => ({
+export const en = {
   title: 'MIAM exemptions',
   label: 'What are your reasons for not attending a MIAM?',
   courtcommunication: 'You need to give the court details of why you have not attended a MIAM.',
@@ -23,10 +23,10 @@ export const en = () => ({
       required: 'Select reasons for not attending a MIAM',
     },
   },
-});
+};
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const cy = () => ({
+export const cy = {
   title: 'Esemptiadau MIAM',
   label: 'Beth yw eich rhesymau dros beidio â mynychu MIAM?',
   courtcommunication: 'Mae angen i chi roi manylion i’r llys pam nad ydych wedi mynychu MIAM.',
@@ -45,7 +45,7 @@ export const cy = () => ({
       required: 'Dewiswch eich rhesymau dilys dros beidio â mynychu MIAM',
     },
   },
-});
+};
 
 const languages = {
   en,
@@ -108,7 +108,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language];
   return {
     ...translations,
     form,
