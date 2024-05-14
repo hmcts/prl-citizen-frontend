@@ -30,6 +30,7 @@ export enum BannerNotification {
   RESPONSE_SUBMITTED = 'responseSubmitted',
   GIVE_RESPONDENT_THEIR_DOCUMENTS = 'giveRespondentTheirDocuments',
   CA_PERSONAL_SERVICE = 'caPersonalService',
+  SUMBIT_FM5 = 'submitFM5',
 }
 
 const getContent = (notfication: BannerNotification, caseType: CaseType, language: string, partyType: PartyType) => {
