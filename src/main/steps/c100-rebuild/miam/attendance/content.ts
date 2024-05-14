@@ -5,29 +5,29 @@ import { FormContent } from '../../../../app/form/Form';
 import { isFieldFilledIn } from '../../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const en = () => ({
-  title: 'Have you attended a Mediation Information and Assessment Meeting (MIAM)?',
-  paragraph1: 'The MIAM must be about the same issue that is being dealt with in this application.',
-  one: 'Yes',
-  two: 'No',
+export const en = {
+  title: 'Have you attended a MIAM?',
+  content: 'The MIAM must be about the same issue that is being dealt with in this application.',
+  yes: 'Yes',
+  no: 'No',
   errors: {
     miam_attendance: {
-      required: 'Select yes if you have attended a Mediation Information and Assessment Meeting(MIAM)',
+      required: 'Select yes if you have attended a Mediation Information and Assessment Meeting(MIAM).',
     },
   },
-});
+};
 
-export const cy = () => ({
-  title: 'A ydych chi wedi mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)?',
-  paragraph1: 'Rhaid i’r MIAM fod mewn perthynas â’r un mater sy’n cael ei drafod yn y cais hwn.',
-  one: 'Do',
-  two: 'Naddo',
+export const cy = {
+  title: 'Ydych chi wedi mynychu MIAM?',
+  content: 'Rhaid i’r MIAM fod mewn perthynas â’r un mater sy’n cael ei drin yn y cais hwn.',
+  yes: 'Do',
+  no: 'Naddo',
   errors: {
     miam_attendance: {
-      required: 'Dewiswch do os ydych wedi mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM)',
+      required: 'Dewiswch ‘Do’ os ydych chi wedi mynychu Cyfarfod Asesu a Gwybodaeth am Gyfryngu (MIAM).',
     },
   },
-});
+};
 
 const languages = {
   en,
@@ -39,14 +39,15 @@ export const form: FormContent = {
     miam_attendance: {
       type: 'radios',
       classes: 'govuk-radios',
-      // label: l => l.label,
+      label: l => l.label,
+      labelSize: 'm',
       values: [
         {
-          label: l => l.one,
+          label: l => l.yes,
           value: YesOrNo.YES,
         },
         {
-          label: l => l.two,
+          label: l => l.no,
           value: YesOrNo.NO,
         },
       ],
@@ -62,7 +63,8 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
-  const translations = languages[content.language]();
+  const translations = languages[content.language];
+
   return {
     ...translations,
     form,

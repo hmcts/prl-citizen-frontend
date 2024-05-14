@@ -7,8 +7,6 @@ module.exports = {
         writtenAgreementNo: '//*[@id="sq_writtenAgreement-2"]',
         writtenAgreementYes: '//*[@id="sq_writtenAgreement"]',
         testingText: 'Testing text area',
-        reachingAgreementYes: '//*[@id="sq_alternativeRoutes"]',
-        alternativeOptionTextBox: '//*[@id="sq_agreementReason"]',
         testingText: 'Testing text area',
         legalRepresentativeNo: '//*[@id="sq_legalRepresentation-2"]',
         //Permission from Court
@@ -32,10 +30,8 @@ module.exports = {
         await I.retry(retryCount).click('Continue');
     },
     async otherWaysToReachAnAgreement() {
-        await I.retry(retryCount).waitForText(ScreeningQuestions.otherWaysToReachAnAgreementPageTitle , 30);
-        await I.retry(retryCount).click(this.fields.reachingAgreementYes);     
+        await I.retry(retryCount).waitForText(ScreeningQuestions.otherWaysToReachAnAgreementPageTitle , 30); 
         await I.retry(retryCount).waitForText(ScreeningQuestions.otherWaysToReachAnAgreementSubHeading , 30);
-        await I.retry(retryCount).fillField(this.fields.alternativeOptionTextBox, this.fields.testingText);
         await I.retry(retryCount).click('Continue');
     },
     async usingLegalRepresentative() {

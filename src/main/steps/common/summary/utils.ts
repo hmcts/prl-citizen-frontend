@@ -11,7 +11,15 @@ import {
   SummaryListContent,
   SummaryListRow,
 } from '../../../steps/c100-rebuild/check-your-answers/lib/lib';
+import { OPotherProceedingsSessionParserUtil as OPotherProceedingsSessionParserUtilRespondent } from '../../../steps/tasklistresponse/proceedings/proceedingUtils';
+import {
+  C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+  C100_OTHER_PROCEEDINGS_DETAILS,
+  PROCEEDINGS_COURT_PROCEEDINGS,
+  PROCEEDINGS_START,
+} from '../../../steps/urls';
 import { getYesNoTranslation } from '../../c100-rebuild/check-your-answers/mainUtil';
+import { OPotherProceedingsSessionParserUtil } from '../../c100-rebuild/check-your-answers/util/otherProceeding.util';
 import { cy, en } from '../common.content';
 console.info('** FOR SONAR **');
 export const getSectionSummaryList = (
@@ -158,4 +166,40 @@ export const getOrdersDetail = (userCase: Partial<CaseWithId>): string => {
     }
   }
   return temp;
+};
+export const proceedingSummaryData = (
+  keys: Record<string, string>,
+  language: string | undefined,
+  userCase: Partial<CaseWithId>,
+  courtOrderDetails: string,
+  isRespondent: boolean
+) => {
+  return [
+    {
+      key: keys['childrenInvolvedCourtCase'],
+      value: getYesNoTranslation(
+        language,
+        isRespondent ? userCase['proceedingsStart'] : userCase['op_childrenInvolvedCourtCase'],
+        'doTranslation'
+      ),
+      changeUrl: isRespondent ? PROCEEDINGS_START : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+    },
+    {
+      key: keys['courtOrderProtection'],
+      value: getYesNoTranslation(
+        language,
+        isRespondent ? userCase['proceedingsStartOrder'] : userCase['op_courtOrderProtection'],
+        'oesTranslation'
+      ),
+      changeUrl: isRespondent ? PROCEEDINGS_START : C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS,
+    },
+    {
+      key: keys['optitle'],
+      valueHtml: userCase.hasOwnProperty('op_courtProceedingsOrders') ? courtOrderDetails?.split(',').join('') : '',
+      changeUrl: isRespondent ? PROCEEDINGS_COURT_PROCEEDINGS : C100_OTHER_PROCEEDINGS_DETAILS,
+    },
+    ...(isRespondent
+      ? OPotherProceedingsSessionParserUtilRespondent(userCase, keys, 'courtProceedingsOrders', language)
+      : OPotherProceedingsSessionParserUtil(userCase, keys, 'op_courtProceedingsOrders', language)),
+  ];
 };

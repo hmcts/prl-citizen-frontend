@@ -1,15 +1,13 @@
 import { NextFunction, Response } from 'express';
 
-import { MiamNonAttendReason } from '../../../../app/case/definition';
+import { Miam_notAttendingReasons } from '../../../../app/case/case';
 import { AppRequest } from '../../../../app/controller/AppRequest';
-import { isAllowed } from '../util';
 
 export const routeGuard = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   get: (req: AppRequest, res: Response, next: NextFunction) => {
-    if (!isAllowed(MiamNonAttendReason.DOMESTIC, req.session.userCase)) {
-      res.redirect('error');
-      return;
+    if (req.session.userCase.miam_notAttendingReasons !== Miam_notAttendingReasons.canNotAccessMediator) {
+      return res.redirect('error');
     }
     next();
   },

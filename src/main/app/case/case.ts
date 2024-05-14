@@ -13,6 +13,7 @@ import {
   Applicant,
   ApplicantTable,
   AttendingTheHearingTable,
+  AuthorityLetterEvidence,
   C100Applicant,
   C100DocumentInfo,
   C100OrderTypes,
@@ -30,9 +31,12 @@ import {
   ConfidentialDetails,
   ContactDetails,
   ContactPreference,
+  CourtInvolvementEvidence,
   DateOfSubmission,
   Document,
+  DocumentResponse,
   DocumentUploadResponse,
+  DomesticAbuseExemptions,
   DraftConsentOrderFile,
   ExistingProceedings,
   Fl401UploadWitnessDocuments,
@@ -61,6 +65,7 @@ import {
   PRL_C1ASafteyConcerns,
   PRL_C1ASafteyConcernsAbout,
   PartyDetails,
+  PoliceInvolvementEvidence,
   ProceedingsOrderTypes,
   ReasonableAdjustments,
   Respondent,
@@ -70,9 +75,11 @@ import {
   SpecialArrangement,
   State,
   SummaryTabForOrderAppliedFor,
+  SupportServiceEvidence,
   TypeOfApplicationTable,
   UploadDocumentList,
   UrgencyDetails,
+  VictimLetterEvidence,
   WelshLanguageRequirementsTable,
   WelshNeed,
   WithoutNoticeOrderDetails,
@@ -538,11 +545,23 @@ export interface Case {
   miam_certificate?: C100DocumentInfo;
   miam_mediatorDocument?: YesOrNo;
   miam_nonAttendanceReasons?: MiamNonAttendReason[];
-  miam_domesticAbuse?: string[];
-  miam_childProtectionEvidence?: string[];
-  miam_urgency?: string[];
-  miam_previousAttendance?: string[];
-  miam_notAttendingReasons?: string[];
+  miam_domesticAbuse?: DomesticAbuseExemptions[];
+  miam_domesticAbuse_policeInvolvement_subfields?: PoliceInvolvementEvidence[];
+  miam_domesticAbuse_courtInvolvement_subfields?: CourtInvolvementEvidence[];
+  miam_domesticAbuse_letterOfBeingVictim_subfields?: VictimLetterEvidence[];
+  miam_domesticAbuse_letterFromAuthority_subfields?: AuthorityLetterEvidence[];
+  miam_domesticAbuse_letterFromSupportService_subfields?: SupportServiceEvidence[];
+  miam_canProvideDomesticAbuseEvidence?: YesOrNo;
+  miam_detailsOfDomesticAbuseEvidence?: string;
+  miam_domesticAbuseEvidenceDocs?: DocumentResponse[];
+  miam_notAttendingReasons?: Miam_notAttendingReasons;
+  miam_noMediatorReasons?: Miam_noMediatorReasons;
+  miam_urgency?: Miam_urgency;
+  miam_previousAttendance?: Miam_previousAttendance;
+  miam_previousAttendanceEvidenceDoc?: DocumentResponse;
+  miam_haveDocSignedByMediatorForPrevAttendance?: YesOrNo;
+  miam_detailsOfEvidence?: string;
+  miam_childProtectionEvidence?: Miam_childProtectionEvidence;
   hu_urgentHearingReasons?: YesOrNo;
   c1A_passportOffice?: YesOrNo;
   PRL_c1A_passportOffice?: YesOrNo;
@@ -633,6 +652,48 @@ export interface Case {
   ra_languageReqAndSpecialArrangements?: string;
   ra_existingFlags?: RAFlags;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
+  miam_noAppointmentAvailableDetails?: string;
+  miam_unableToAttainDueToDisablityDetails?: string;
+  miam_noMediatorIn15mileDetails?: string;
+}
+
+export enum Miam_notAttendingReasons {
+  applyingForWithoutNoticeHearing = 'applyingForWithoutNoticeHearing',
+  under18 = 'under18',
+  canNotAccessMediator = 'canNotAccessMediator',
+  none = 'none',
+}
+export enum Miam_noMediatorReasons {
+  noAppointmentAvailable = 'noAppointmentAvailable',
+  disability = 'disability',
+  noMediatorIn15mile = 'noMediatorIn15mile',
+  inPrison = 'inPrison',
+  bailThatPreventContact = 'bailThatPreventContact',
+  releaseFromPrisonOnLicence = 'releaseFromPrisonOnLicence',
+  none = 'none',
+}
+
+export enum Miam_previousAttendance {
+  fourMonthsPriorAttended = 'fourMonthsPriorAttended',
+  miamExamptionApplied = 'miamExamptionApplied',
+  none = 'none',
+}
+export enum Miam_urgency {
+  freedomPhysicalSafety = 'freedomPhysicalSafety',
+  freedomPhysicalSafetyInFamily = 'freedomPhysicalSafetyInFamily',
+  riskSafetyInHome = 'riskSafetyInHome',
+  riskOfHarmToChildren = 'riskOfHarmToChildren',
+  unlawfullyRemovedFromUK = 'unlawfullyRemovedFromUK',
+  riskOfUnfairCourtDecision = 'riskOfUnfairCourtDecision',
+  riskUnreasonableFinancialHardship = 'riskUnreasonableFinancialHardship',
+  riskOfIrretrievableProblems = 'riskOfIrretrievableProblems',
+  riskOfCourtProceedingsDispute = 'riskOfCourtProceedingsDispute',
+  none = 'none',
+}
+export enum Miam_childProtectionEvidence {
+  localAuthority = 'localAuthority',
+  childProtectionPlan = 'childProtectionPlan',
+  none = 'none',
 }
 export interface ServedApplicationDetails {
   id: string;

@@ -10,9 +10,9 @@ export interface PageSteps extends Page {
 
 import {
   C100_MIAM_CHILD_PROTECTION,
+  C100_MIAM_EXCEMPTION_SUMMARY,
   C100_MIAM_GENERAL_REASONS,
   C100_MIAM_MIAM_DOMESTIC_ABUSE,
-  C100_MIAM_NO_NEED_WITH_REASONS,
   C100_MIAM_OTHER,
   C100_MIAM_PREVIOUS_ATTENDANCE,
   C100_MIAM_URGENCY,
@@ -46,7 +46,7 @@ export const PageStepsConfig: PageSteps[] = [
       },
       {
         id: MiamNonAttendReason.NONE,
-        url: C100_MIAM_NO_NEED_WITH_REASONS,
+        url: C100_MIAM_EXCEMPTION_SUMMARY,
       },
     ],
   },
