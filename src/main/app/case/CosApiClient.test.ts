@@ -166,7 +166,7 @@ describe('CosApiClient', () => {
   });
 
   test('updateCaseData', async () => {
-    const response = { id: '200', state: 'SUCCESS' };
+    const response = { caseData: { id: '200', state: 'SUCCESS' }, hearings: { caseHearings: {} } };
     mockedAxios.post.mockReturnValueOnce({ data: response } as unknown as Promise<CaseWithId>);
     const client = new CosApiClient('abc', mockLogger);
     const actual = await client.updateCaseData(
@@ -195,7 +195,7 @@ describe('CosApiClient', () => {
       'C100' as CaseType,
       'hearingNeeds' as CaseEvent
     );
-    expect(actual).toEqual(response);
+    expect(actual).toEqual({ id: '200', state: 'SUCCESS', hearingCollection: {} });
   });
 
   test('updateCaseData should throw error', async () => {

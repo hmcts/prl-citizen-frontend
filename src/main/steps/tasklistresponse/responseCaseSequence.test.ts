@@ -27,7 +27,7 @@ const PRL_safetyConcernsMockData = mockRequest({
 
 describe('respondent1Sequence', () => {
   test('should contain 1 entries in respondent 1 screen sequence', () => {
-    expect(responseCaseSequence).toHaveLength(56);
+    expect(responseCaseSequence).toHaveLength(57);
     expect(responseCaseSequence[0].url).toBe('/tasklistresponse/consent-to-application/consent');
     expect(responseCaseSequence[0].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[0].getNextStep({})).toBe('/tasklistresponse/consent-to-application/summary');
@@ -333,5 +333,28 @@ describe('respondent1Sequence', () => {
     expect(responseCaseSequence[53].url).toBe('/tasklistresponse/summary-confirmation');
     expect(responseCaseSequence[53].showInSection).toBe('aboutRespondentCase');
     expect(responseCaseSequence[53].getNextStep({ id: '1234' })).toBe('/case/1234');
+
+    expect(responseCaseSequence[54].url).toBe(
+      '/:partyType/tasklistresponse/respond-to-allegations-of-harm/willing-to-respond'
+    );
+    expect(responseCaseSequence[54].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[54].getNextStep({ aoh_wishToRespond: 'Yes' as YesOrNo })).toBe(
+      '/respondent/tasklistresponse/respond-to-allegations-of-harm/your-response'
+    );
+    expect(responseCaseSequence[54].getNextStep({ aoh_wishToRespond: 'No' as YesOrNo })).toBe(
+      '/respondent/tasklistresponse/respond-to-allegations-of-harm/review'
+    );
+
+    expect(responseCaseSequence[55].url).toBe(
+      '/:partyType/tasklistresponse/respond-to-allegations-of-harm/your-response'
+    );
+    expect(responseCaseSequence[55].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[55].getNextStep({})).toBe(
+      '/respondent/tasklistresponse/respond-to-allegations-of-harm/review'
+    );
+
+    expect(responseCaseSequence[56].url).toBe('/:partyType/tasklistresponse/respond-to-allegations-of-harm/review');
+    expect(responseCaseSequence[56].showInSection).toBe('aboutRespondentCase');
+    expect(responseCaseSequence[56].getNextStep({})).toBe('/tasklistresponse/start');
   });
 });
