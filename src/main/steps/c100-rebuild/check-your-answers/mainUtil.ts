@@ -3,6 +3,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, ContactPreference, YesOrNo } from '../../../app/case/definition';
 import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
+import { proceedingSummaryData } from '../../../steps/common/summary/utils';
 import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
@@ -32,7 +33,7 @@ import {
   SummaryListRow,
   getSectionSummaryList,
 } from './lib/lib';
-import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
+
 console.info('** FOR SONAR **');
 
 /* eslint-disable import/namespace */
@@ -696,24 +697,7 @@ export const PastAndCurrentProceedings = (
     '</ul>';
   let SummaryData;
   if (userCase['op_childrenInvolvedCourtCase'] === YesOrNo.YES || userCase['op_courtOrderProtection'] === YesOrNo.YES) {
-    SummaryData = [
-      {
-        key: keys['childrenInvolvedCourtCase'],
-        value: getYesNoTranslation(language, userCase['op_childrenInvolvedCourtCase'], 'doTranslation'),
-        changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
-      },
-      {
-        key: keys['courtOrderProtection'],
-        value: getYesNoTranslation(language, userCase['op_courtOrderProtection'], 'oesTranslation'),
-        changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
-      },
-      {
-        key: keys['optitle'],
-        valueHtml: userCase.hasOwnProperty('op_courtProceedingsOrders') ? courtOrderDetails?.split(',').join('') : '',
-        changeUrl: Urls['C100_OTHER_PROCEEDINGS_DETAILS'],
-      },
-      ...OPotherProceedingsSessionParserUtil(userCase, keys, Urls, 'op_courtProceedingsOrders', language),
-    ];
+    SummaryData = proceedingSummaryData(keys, language, userCase, courtOrderDetails, false);
   } else {
     SummaryData = [
       {
