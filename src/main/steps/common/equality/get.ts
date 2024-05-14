@@ -18,7 +18,7 @@ const logger = Logger.getLogger('PCQGetController');
 export default class PCQGetController {
   public async get(req: AppRequest, res: Response, returnUrl: string): Promise<void> {
     const { userCase, user } = req.session;
-    let partyType;
+    let partyType
     let partyDetails;
     if (req.url.includes('c100-rebuild')) {
       partyType = 'applicant';
@@ -60,8 +60,8 @@ export default class PCQGetController {
           language: req.session.lang || 'en',
           ccdCaseId: userCase.id,
         };
-        params['token'] = createToken(params, tokenKey);
         params.partyId = encodeURIComponent(params.partyId);
+        params['token'] = createToken(params, tokenKey);
         logger.info('*** Params : ' + JSON.stringify(params));
         logger.info(`PCQ service return URL: ${params.returnUrl}`);
         if (partyType === 'respondent') {
