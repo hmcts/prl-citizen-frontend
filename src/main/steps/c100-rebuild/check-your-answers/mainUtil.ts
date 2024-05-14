@@ -3,6 +3,7 @@
 import { CaseWithId } from '../../../app/case/case';
 import { C1AAbuseTypes, C1ASafteyConcernsAbout, ContactPreference, YesOrNo } from '../../../app/case/definition';
 import { RARootContext } from '../../../modules/reasonable-adjustments/definitions';
+import { proceedingSummaryData } from '../../../steps/common/summary/utils';
 import { DATE_FORMATTOR } from '../../common/dateformatter';
 import { applyParms } from '../../common/url-parser';
 import * as Urls from '../../urls';
@@ -32,7 +33,7 @@ import {
   SummaryListRow,
   getSectionSummaryList,
 } from './lib/lib';
-import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
+//import { OPotherProceedingsSessionParserUtil } from './util/otherProceeding.util';
 console.info('** FOR SONAR **');
 
 /* eslint-disable import/namespace */
@@ -696,24 +697,7 @@ export const PastAndCurrentProceedings = (
     '</ul>';
   let SummaryData;
   if (userCase['op_childrenInvolvedCourtCase'] === YesOrNo.YES || userCase['op_courtOrderProtection'] === YesOrNo.YES) {
-    SummaryData = [
-      {
-        key: keys['childrenInvolvedCourtCase'],
-        value: getYesNoTranslation(language, userCase['op_childrenInvolvedCourtCase'], 'doTranslation'),
-        changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
-      },
-      {
-        key: keys['courtOrderProtection'],
-        value: getYesNoTranslation(language, userCase['op_courtOrderProtection'], 'oesTranslation'),
-        changeUrl: Urls['C100_OTHER_PROCEEDINGS_CURRENT_PREVIOUS'],
-      },
-      {
-        key: keys['optitle'],
-        valueHtml: userCase.hasOwnProperty('op_courtProceedingsOrders') ? courtOrderDetails?.split(',').join('') : '',
-        changeUrl: Urls['C100_OTHER_PROCEEDINGS_DETAILS'],
-      },
-      ...OPotherProceedingsSessionParserUtil(userCase, keys, Urls, 'op_courtProceedingsOrders', language),
-    ];
+    SummaryData = proceedingSummaryData(keys, language, userCase, courtOrderDetails, false);
   } else {
     SummaryData = [
       {
@@ -1085,44 +1069,34 @@ const RespondentDetails_AddressAndPersonal = (
     });
   }
 
-  newRespondentStorage.push(respondentEmailDetails(contactDetails, id, language));
-  newRespondentStorage.push(respondentTelephoneDetails(contactDetails, id, language));
+  newRespondentStorage.push(respondentTelephoneEmailDetails(contactDetails, id, language, false));
+  newRespondentStorage.push(respondentTelephoneEmailDetails(contactDetails, id, language, true));
 
   return newRespondentStorage;
 };
 
-const respondentEmailDetails = (contactDetails, id, language) => {
-  if (contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes') {
+const respondentTelephoneEmailDetails = (contactDetails, id, language, isTelephone: boolean) => {
+  const ctx: string[] = [];
+  if (isTelephone) {
+    ctx.push('donKnowTelephoneNumber', 'dont_know_telephone', 'telephone_number', 'telephoneNumber');
+  } else {
+    ctx.push('donKnowEmailAddress', 'dont_know_email_address', 'email', 'emailAddress');
+  }
+
+  if (contactDetails.hasOwnProperty(ctx[0]) && contactDetails[ctx[0]] === 'Yes') {
     return {
-      key: getYesNoTranslation(language, 'dont_know_email_address', 'personalDetails'),
-      value: getYesNoTranslation(language, contactDetails?.['donKnowEmailAddress'], 'doTranslation'),
+      key: getYesNoTranslation(language, ctx[1], 'personalDetails'),
+      value: getYesNoTranslation(language, contactDetails?.[ctx[0]], 'doTranslation'),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
     };
   } else {
     return {
-      key: getYesNoTranslation(language, 'email', 'personalDetails'),
-      value: contactDetails?.['emailAddress'],
+      key: getYesNoTranslation(language, ctx[2], 'personalDetails'),
+      value: contactDetails?.[ctx[3]],
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
     };
   }
 };
-
-const respondentTelephoneDetails = (contactDetails, id, language) => {
-  if (contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes') {
-    return {
-      key: getYesNoTranslation(language, 'dont_know_telephone', 'personalDetails'),
-      value: getYesNoTranslation(language, contactDetails?.['donKnowTelephoneNumber'], 'doTranslation'),
-      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-    };
-  } else {
-    return {
-      key: getYesNoTranslation(language, 'telephone_number', 'personalDetails'),
-      value: contactDetails?.['telephoneNumber'],
-      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-    };
-  }
-};
-
 /* eslint-disable import/namespace */
 export const RespondentDetails = (
   { sectionTitles, keys, ...content }: SummaryListContent,
