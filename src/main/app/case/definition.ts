@@ -1073,88 +1073,11 @@ export interface RelationshipToChild {
   value: Value12;
 }
 
-export interface Value11 {
-  email: string;
-  gender: string;
-  address: Address6;
-  lastName: string;
-  firstName: string;
-  dateOfBirth: string;
-  otherGender: string;
-  phoneNumber: string;
-}
-
 export interface AllocatedJudgeDetails {
   lastName: string;
   courtName: string;
   judgeTitle: string;
   emailAddress: string;
-}
-
-export interface DraftConsentOrderFile {
-  document_url: string;
-  document_filename: string;
-  document_binary_url: string;
-}
-
-export interface OtherProceedingsTable {
-  previousOrOngoingProceedings: string;
-}
-
-export interface ChildDetailsExtraTable {
-  childrenKnownToLocalAuthority: string;
-  childrenSubjectOfChildProtectionPlan: string;
-}
-
-export interface TypeOfApplicationTable {
-  natureOfOrder: string;
-  ordersApplyingFor: string;
-  typeOfChildArrangementsOrder: string;
-}
-
-export interface LitigationCapacityTable {
-  litigationCapacityFactors: string;
-  litigationCapacityReferrals: string;
-  litigationCapacityOtherFactors: string;
-  litigationCapacityOtherFactorsDetails: string;
-}
-
-export interface AttendingTheHearingTable {
-  isWelshNeeded: string;
-  adjustmentsRequired: string;
-  isDisabilityPresent: string;
-  isInterpreterNeeded: string;
-  isIntermediaryNeeded: string;
-  reasonsForIntermediary: string;
-  specialArrangementsRequired: string;
-  isSpecialArrangementsRequired: string;
-}
-
-export interface InternationalElementTable {
-  jurisdictionIssue: string;
-  requestToForeignAuthority: string;
-  habitualResidentInOtherState: string;
-  requestToForeignAuthorityGiveReason: string;
-  habitualResidentInOtherStateGiveReason: string;
-}
-
-export interface Address6 {
-  County: string;
-  Country: string;
-  PostCode: string;
-  PostTown: string;
-  AddressLine1: string;
-  AddressLine2: string;
-  AddressLine3: string;
-}
-
-export interface Value12 {
-  personRelationshipToChild: string;
-}
-
-export interface RelationshipToChild {
-  id: string;
-  value: Value12;
 }
 
 export interface Value11 {
