@@ -1069,39 +1069,29 @@ const RespondentDetails_AddressAndPersonal = (
     });
   }
 
-  newRespondentStorage.push(respondentEmailDetails(contactDetails, id, language));
-  newRespondentStorage.push(respondentTelephoneDetails(contactDetails, id, language));
+  newRespondentStorage.push(respondentTelephoneEmailDetails(contactDetails, id, language, false));
+  newRespondentStorage.push(respondentTelephoneEmailDetails(contactDetails, id, language, true));
 
   return newRespondentStorage;
 };
 
-const respondentEmailDetails = (contactDetails, id, language) => {
-  if (contactDetails.hasOwnProperty('donKnowEmailAddress') && contactDetails['donKnowEmailAddress'] === 'Yes') {
-    return {
-      key: getYesNoTranslation(language, 'dont_know_email_address', 'personalDetails'),
-      value: getYesNoTranslation(language, contactDetails?.['donKnowEmailAddress'], 'doTranslation'),
-      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-    };
+const respondentTelephoneEmailDetails = (contactDetails, id, language, isTelephone: boolean) => {
+  const ctx: string[] = [];
+  if (isTelephone) {
+    ctx.push('donKnowTelephoneNumber', 'dont_know_telephone', 'telephone_number', 'telephoneNumber');
   } else {
-    return {
-      key: getYesNoTranslation(language, 'email', 'personalDetails'),
-      value: contactDetails?.['emailAddress'],
-      changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
-    };
+    ctx.push('donKnowEmailAddress', 'dont_know_email_address', 'email', 'emailAddress');
   }
-};
-
-const respondentTelephoneDetails = (contactDetails, id, language) => {
-  if (contactDetails.hasOwnProperty('donKnowTelephoneNumber') && contactDetails['donKnowTelephoneNumber'] === 'Yes') {
+  if (contactDetails.hasOwnProperty(ctx[0]) && contactDetails[ctx[0]] === 'Yes') {
     return {
-      key: getYesNoTranslation(language, 'dont_know_telephone', 'personalDetails'),
-      value: getYesNoTranslation(language, contactDetails?.['donKnowTelephoneNumber'], 'doTranslation'),
+      key: getYesNoTranslation(language, ctx[1], 'personalDetails'),
+      value: getYesNoTranslation(language, contactDetails?.[ctx[0]], 'doTranslation'),
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
     };
   } else {
     return {
-      key: getYesNoTranslation(language, 'telephone_number', 'personalDetails'),
-      value: contactDetails?.['telephoneNumber'],
+      key: getYesNoTranslation(language, ctx[2], 'personalDetails'),
+      value: contactDetails?.[ctx[3]],
       changeUrl: applyParms(Urls['C100_RESPONDENT_DETAILS_CONTACT_DETAILS'], { respondentId: id }),
     };
   }

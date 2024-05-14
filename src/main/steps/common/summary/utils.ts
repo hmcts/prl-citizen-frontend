@@ -195,7 +195,13 @@ export const proceedingSummaryData = (
     },
     {
       key: keys['optitle'],
-      valueHtml: userCase.hasOwnProperty('op_courtProceedingsOrders') ? courtOrderDetails?.split(',').join('') : '',
+      valueHtml: isRespondent
+        ? userCase.hasOwnProperty('courtProceedingsOrders')
+          ? courtOrderDetails?.split(',').join('')
+          : ''
+        : userCase.hasOwnProperty('op_courtProceedingsOrders')
+        ? courtOrderDetails?.split(',').join('')
+        : '',
       changeUrl: isRespondent ? PROCEEDINGS_COURT_PROCEEDINGS : C100_OTHER_PROCEEDINGS_DETAILS,
     },
     ...(isRespondent
