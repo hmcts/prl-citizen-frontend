@@ -14,11 +14,11 @@
     titleText: pageTitle
 }) }}
 
-  {% if haveReasonForDocNotToBeShared === "No" %}
+  {% if haveReasonForDocNotToBeShared === "No"%}
     {% set html %}
     <h2 class="govuk-notification-banner__heading">{{ bannerTitle }}</h2>
-    {% for paragraph in paragraphs %}
-      <p class="govuk-body">{{ paragraph | safe }}</p>
+    {% for content in bannerContents %}
+      <p class="govuk-body">{{ content | safe }}</p>
     {% endfor %}
     {% endset %}
     {{ govukNotificationBanner({

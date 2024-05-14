@@ -74,8 +74,8 @@
             enctype="multipart/form-data"
             novalidate>
               {{ govukFileUpload({
-          id: 'uploadDocumentFileUpload',
-          name: "files[]",
+          id: "uploadDocumentFileUpload",
+          name: "uploadDocumentFileUpload",
           attributes: {
             accept: "image/jpeg,image/tiff,image/jpg,image/bmp,image/png,image/tif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           },
@@ -120,23 +120,26 @@
         </dl>
       </ul>
     {% endif %}
+  </div>
 
-  </div>
-  <div class="govuk-form-group govuk-!-margin-bottom-0">
-    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-        <h3 class="govuk-heading-m">
-          {{ statementOfTruth }}
-        </h3>
-      </legend>
-      <div class="govuk-warning-text">
-        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-        <strong class="govuk-warning-text__text">
-          <span class="govuk-warning-text__assistive">{{ warning }}</span>
-          {{ warningText }}
-        </strong>
-      </div>
-    </fieldset>
-  </div>
+  {% if docCategory !== 'fm5-document' %}
+    <div class="govuk-form-group govuk-!-margin-bottom-0">
+      <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h3 class="govuk-heading-m">
+            {{ statementOfTruth }}
+          </h3>
+        </legend>
+        <div class="govuk-warning-text">
+          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="govuk-warning-text__text">
+            <span class="govuk-warning-text__assistive">{{ warning }}</span>
+            {{ warningText }}
+          </strong>
+        </div>
+      </fieldset>
+    </div>
+  {% endif %}
+
 {% endblock %}
 </div>

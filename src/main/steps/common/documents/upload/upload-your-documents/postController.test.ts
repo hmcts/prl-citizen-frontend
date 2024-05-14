@@ -90,7 +90,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       await new Promise(process.nextTick);
       expect(req.session.errors).toStrictEqual([
         {
-          errorType: 'empty',
+          errorType: 'noStatementOrFile',
           propertyName: 'uploadDocumentFileUpload',
         },
       ]);
@@ -266,7 +266,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       await new Promise(process.nextTick);
       expect(req.session.errors).toStrictEqual([
         {
-          errorType: 'empty',
+          errorType: 'noStatementOrFile',
           propertyName: 'uploadDocumentFileUpload',
         },
       ]);
@@ -449,7 +449,7 @@ describe('documents > upload > upload-your-documents > postController', () => {
       await new Promise(process.nextTick);
       expect(req.session.errors).toStrictEqual([
         {
-          errorType: 'empty',
+          errorType: 'noFile',
           propertyName: 'uploadDocumentFileUpload',
         },
       ]);

@@ -12,5 +12,8 @@
       {{cardContent}}
     </div>
 
-    <p class="govuk-body govuk-!-margin-top-6 govuk-!-margin-bottom-6">{{ bodyContent | safe }}</p>
+  {% if docCategory === 'fm5-document' %}
+    <p class="govuk-body govuk-!-margin-top-6">{{ content1 | safe }}</p>
+  {% endif %}
+    <p class="govuk-body govuk-!-margin-top-6 govuk-!-margin-bottom-6">{{ content2 | safe }}</p>
   {% endblock %}

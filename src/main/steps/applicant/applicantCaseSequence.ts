@@ -1,6 +1,7 @@
 import { CaseWithId } from '../../app/case/case';
 import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
+import { UploadDocumentCategory } from '../../steps/common/documents/definitions';
 import { applyParms } from '../../steps/common/url-parser';
 import ContactPreferenceNavigationController from '../common/contact-preference/navigationController';
 import { Sections, Step } from '../constants';
@@ -189,10 +190,15 @@ export const applicantCaseSequence: Step[] = [
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
     getNextStep: (caseData, req) =>
-      applyParms(UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS, {
-        partyType: req!.params.partyType,
-        docCategory: req!.params.docCategory,
-      }) as PageLink,
+      applyParms(
+        req?.params.docCategory === UploadDocumentCategory.FM5_DOCUMENT
+          ? UPLOAD_DOCUMENT_UPLOAD_YOUR_DOCUMENTS
+          : UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
+        {
+          partyType: req!.params.partyType,
+          docCategory: req!.params.docCategory,
+        }
+      ) as PageLink,
   },
   {
     url: UPLOAD_DOCUMENT_SHARING_YOUR_DOCUMENTS,
