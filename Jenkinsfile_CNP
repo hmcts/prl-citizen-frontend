@@ -33,7 +33,7 @@ def secrets = [
     secret('citizen-user', 'CITIZEN_USERNAME'),
     secret('citizen-password', 'CITIZEN_PW'),
     secret('pact-broker-username', 'PACT_BROKER_YAML_USERNAME'),
-    secret('pact-broker-password', 'PACT_BROKER_YAML_PW')
+    secret('pact-broker-password', 'PACT_BROKER_YAML_PW'),
   ]
 ]
 
