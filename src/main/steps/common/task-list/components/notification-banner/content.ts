@@ -5,9 +5,13 @@ import { CaseType, PartyType } from '../../../../../app/case/definition';
 import { hasApplicationPacks } from '../../../../../steps/common/documents/view/utils';
 import { applyParms } from '../../../../../steps/common/url-parser';
 import {
+  APPLICANT_STATEMENT_OF_SERVICE,
+  APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
+  C9_DOWNLOAD_LINK,
   DOWNLOAD_DOCUMENT_BY_TYPE,
   FIND_OUT_ABOUT_CAFCASS,
   FIND_OUT_ABOUT_CAFCASS_CYMRU,
+  FL415_DOWNLOAD_LINK,
   RESPOND_TO_APPLICATION,
   VIEW_ALL_DOCUMENT_TYPES,
   VIEW_ALL_ORDERS,
@@ -277,7 +281,7 @@ const en: NotificationBannerContent = {
                 },
                 {
                   text: 'Upload the statement of service (form C9)',
-                  href: '',
+                  href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'order' }),
                 },
               ],
             },
@@ -321,6 +325,51 @@ const en: NotificationBannerContent = {
                 {
                   text: 'View the response (PDF)',
                   href: applyParms(VIEW_ALL_DOCUMENT_TYPES, { partyType: PartyType.APPLICANT }),
+                },
+              ],
+            },
+          ],
+        },
+        soaServedBannerCa: {
+          heading: 'You must give the respondent their documents',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'The court has issued your application. This means a copy of your application and other court documents are ready to give to other people in the case (the respondents)',
+                },
+                {
+                  text: 'You must give the following documents to the respondent:',
+                },
+              ],
+              links: [
+                {
+                  href: APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
+                  text: "View the respondent's documents",
+                },
+              ],
+            },
+            {
+              contents: [
+                {
+                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">GOV.UK</a>',
+                },
+                {
+                  text: '<p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
+                },
+                {
+                  text: 'You need to submit a statement of service after the respondent has been given the documents.',
+                },
+              ],
+              links: [
+                {
+                  href: `${C9_DOWNLOAD_LINK}`,
+                  text: 'Download the Statement of service (form C9)',
+                  external: true,
+                },
+                {
+                  href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'application' }),
+                  text: 'Upload the statement of service(form C9)',
                 },
               ],
             },
@@ -548,6 +597,51 @@ const en: NotificationBannerContent = {
                   //** validate **
                   text: 'View the final order (PDF)',
                   href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+                },
+              ],
+            },
+          ],
+        },
+        soaServedBannerDa: {
+          heading: 'You must give the respondent their documents',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'The court has issued your application. This means a copy of your application and other court documents are ready to give to other people in the case (the respondents)',
+                },
+                {
+                  text: 'You must give the following documents to the respondent:',
+                },
+              ],
+              links: [
+                {
+                  href: APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
+                  text: "View the respondent's documents",
+                },
+              ],
+            },
+            {
+              contents: [
+                {
+                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">GOV.UK</a>',
+                },
+                {
+                  text: '<p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
+                },
+                {
+                  text: 'You need to submit a statement of service after the respondent has been given the documents.',
+                },
+              ],
+              links: [
+                {
+                  href: `${FL415_DOWNLOAD_LINK}`,
+                  text: 'Download the Statement of service (form FL415)',
+                  external: true,
+                },
+                {
+                  href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'application' }),
+                  text: 'Upload the statement of service (form FL415)',
                 },
               ],
             },
@@ -817,7 +911,7 @@ const cy: typeof en = {
                 },
                 {
                   text: 'Llwytho’r datganiad cyflwyno (ffurflen C9)',
-                  href: '',
+                  href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'order' }),
                 },
               ],
             },
@@ -859,6 +953,54 @@ const cy: typeof en = {
             },
           ],
         },
+        soaServedBannerCa: {
+          heading: "Mae'n rhaid i chi roi'r dogfennau i'r atebydd",
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'Mae’r llys wedi cychwyn eich cais. Mae hyn yn golygu bod copi o’ch cais a’r dogfennau llys eraill yn barod i’w rhoi i’r bobl eraill yn yr achos (yr atebwyr).',
+                },
+                {
+                  text: 'Mae’n rhaid i chi roi’r dogfennau canlynol i’r atebydd:',
+                },
+              ],
+              links: [
+                {
+                  text: 'Gweld dogfennau’r atebydd',
+                  href: APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
+                },
+              ],
+            },
+            {
+              contents: [
+                {
+                  text: 'Gallwch roi’r dogfennau i’r atebydd neu ddewis unigolyn sydd wedi cytuno i’w rhoi i’r atebydd. Gall hyn fod yn rhywun rydych chi’n ei adnabod neu’n drydydd parti proffesiynol (fel gweinydd proses neu feili’r llys). Mae mwy o wybodaeth am feili’r llys ar gael ar GOV.UK.',
+                },
+                {
+                  text: '<a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff</a>',
+                },
+                {
+                  text: '<br/><p class="govuk-notification-banner__heading">Dywedwch wrthym unwaith y bydd yr atebydd wedi cael y dogfennau</p>',
+                },
+                {
+                  text: "Mae angen i chi gyflwyno datganiad cyflwyno ar ôl i'r atebydd gael y dogfennau.",
+                },
+              ],
+              links: [
+                {
+                  text: 'Lawrlwythwch y datganiad cyflwyno (ffurflen C9) (agor mewn tab newydd)',
+                  href: C9_DOWNLOAD_LINK,
+                  external: true,
+                },
+                {
+                  text: 'Llwytho’r datganiad cyflwyno (ffurflen C9)',
+                  href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'application' }),
+                },
+              ],
+            },
+          ],
+        },
       },
     },
     [PartyType.RESPONDENT]: {
@@ -882,7 +1024,6 @@ const cy: typeof en = {
             },
           ],
         },
-
         newOrder: {
           heading: 'You have a new order from the court',
           sections: [
@@ -1081,6 +1222,51 @@ const cy: typeof en = {
                   //** validate **
                   text: 'Gweld y gorchymyn terfynol (PDF)',
                   href: applyParms(VIEW_ALL_ORDERS, { partyType: PartyType.APPLICANT }),
+                },
+              ],
+            },
+          ],
+        },
+        soaServedBannerDa: {
+          heading: 'You must give the respondent their documents',
+          sections: [
+            {
+              contents: [
+                {
+                  text: 'The court has issued your application. This means a copy of your application and other court documents are ready to give to other people in the case (the respondents)',
+                },
+                {
+                  text: 'You must give the following documents to the respondent:',
+                },
+              ],
+              links: [
+                {
+                  href: APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
+                  text: "View the respondent's documents",
+                },
+              ],
+            },
+            {
+              contents: [
+                {
+                  text: 'You can give the documents to the respondent or choose a person who has agreed to hand deliver them to the respondent. This can be someone you know or a professional third party(such as a process server). More information about court bailiffs can be found on <a href="https://www.gov.uk/government/publications/form-d89-request-for-personal-service-by-a-court-bailiff">GOV.UK</a>',
+                },
+                {
+                  text: '<p class="govuk-notification-banner__heading">Tell us once the respondent has been given the documents</p>',
+                },
+                {
+                  text: 'You need to submit a statement of service after the respondent has been given the documents.',
+                },
+              ],
+              links: [
+                {
+                  href: `${FL415_DOWNLOAD_LINK}`,
+                  text: 'Download the Statement of service (form FL415)',
+                  external: true,
+                },
+                {
+                  href: applyParms(APPLICANT_STATEMENT_OF_SERVICE, { context: 'application' }),
+                  text: 'Upload the statement of service (form FL415)',
                 },
               ],
             },

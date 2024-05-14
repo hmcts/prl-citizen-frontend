@@ -23,6 +23,10 @@ import {
   APPLICANT_REMOVE_LEGAL_REPRESENTATIVE_START,
   APPLICANT_SELECT_ADDRESS,
   APPLICANT_START_ALTERNATIVE,
+  APPLICANT_STATEMENT_OF_SERVICE,
+  APPLICANT_STATEMENT_OF_SERVICE_NEXT,
+  APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
+  APPLICANT_STATEMENT_OF_SERVICE_SUMMARY,
   APPLICANT_YOURHEARINGS_HEARINGS,
   CHOOSE_CONTACT_PREFERENCE,
   CONTACT_PREFERENCE_CONFIRMATION,
@@ -366,5 +370,26 @@ export const applicantCaseSequence: Step[] = [
     showInSection: Sections.AboutApplicantCase,
     subDir: '/common',
     getNextStep: () => '/',
+  },
+  {
+    url: APPLICANT_STATEMENT_OF_SERVICE,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: (data: Partial<CaseWithId>, req) =>
+      applyParms(APPLICANT_STATEMENT_OF_SERVICE_SUMMARY, { context: req!.params.context }) as PageLink,
+  },
+  {
+    url: `${APPLICANT_STATEMENT_OF_SERVICE_SUMMARY}`,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: () => APPLICANT_STATEMENT_OF_SERVICE_NEXT,
+  },
+  {
+    url: APPLICANT_STATEMENT_OF_SERVICE_NEXT,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id ?? '' }) as PageLink,
+  },
+  {
+    url: APPLICANT_STATEMENT_OF_SERVICE_RESPONDENT_DOCUMENTS,
+    showInSection: Sections.AboutApplicantCase,
+    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
   },
 ];

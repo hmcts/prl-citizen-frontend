@@ -7,6 +7,7 @@ import {
   CaseData,
   CaseEvent,
   CaseType,
+  CitizenSos,
   Document,
   DocumentUploadResponse,
   PartyDetails,
@@ -146,6 +147,23 @@ export class CosApiClient {
     } catch (error) {
       this.logError(error);
       throw new Error('Error occured, case could not be updated - updateCaseData');
+    }
+  }
+
+  public async saveStatementOfService(
+    caseId: string,
+    sosObject: CitizenSos,
+    eventName: CaseEvent
+  ): Promise<string | undefined> {
+    try {
+      const response = await this.client.post(
+        config.get('services.cos.url') + `/${caseId}/${eventName}/save-statement-of-service-by-citizen`,
+        sosObject
+      );
+      return response.data;
+    } catch (error) {
+      this.logError(error);
+      throw new Error('Case could not be updated.');
     }
   }
 

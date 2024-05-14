@@ -24,6 +24,8 @@ export enum BannerNotification {
   NEW_ORDER = 'newOrder',
   NEW_DOCUMENT = 'newDocument',
   FINAL_ORDER = 'finalOrder',
+  SOA_SERVED_CA = 'soaServedBannerCa',
+  SOA_SERVED_DA = 'soaServedBannerDa',
   DA_RESPONDENT_BANNER = 'daRespondentBanner',
   CA_RESPONDENT_SERVED = 'caRespondentServed',
   CAFFCASS = 'cafcass',
@@ -96,6 +98,14 @@ export const notificationBanner = {
     id: BannerNotification.FINAL_ORDER,
     content: getContent.bind(null, BannerNotification.FINAL_ORDER),
     show: () => false,
+  },
+  [BannerNotification.SOA_SERVED_CA]: {
+    id: BannerNotification.SOA_SERVED_CA,
+    content: getContent.bind(null, BannerNotification.SOA_SERVED_CA),
+  },
+  [BannerNotification.SOA_SERVED_DA]: {
+    id: BannerNotification.SOA_SERVED_DA,
+    content: getContent.bind(null, BannerNotification.SOA_SERVED_DA),
   },
   [BannerNotification.DA_RESPONDENT_BANNER]: {
     id: BannerNotification.DA_RESPONDENT_BANNER,

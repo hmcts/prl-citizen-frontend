@@ -1,8 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
-
-import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/documents/definitions';
+import { CitizenApplicationPacks, CitizenDocuments, CitizenRespondentPack } from '../../steps/common/documents/definitions';
 
 import { RAFlagValue } from '../../modules/reasonable-adjustments/definitions';
 import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
@@ -113,12 +112,20 @@ export interface PartyDetails {
   contactPreferences?: ContactPreference | null;
   isRemoveLegalRepresentativeRequested?: YesOrNo;
   partyId: string;
+  citizenSosObject?: CitizenSos;
+}
+
+export interface CitizenSos {
+  partiesServedDate: string;
+  partiesServed: string;
+  citizenSosDocs: Document;
+  isOrder?: string;
 }
 
 export interface User {
-  email: string;
-  idamId: string;
-  solicitorRepresented?: string;
+  email: string,
+  idamId: string,
+  solicitorRepresented?: string
 }
 
 export interface Response {
@@ -855,7 +862,7 @@ export interface CaseData {
   detailsKnown?: string;
   startAlternative?: string;
   citizenRole?: FieldPrefix;
-  fl401UploadWitnessDocuments: Fl401UploadWitnessDocuments[];
+  fl401UploadWitnessDocuments: DocumentCollection[];
   doYouConsent?: YesOrNo;
   applicationReceivedDate?: CaseDate;
   courtPermission?: YesOrNo;
@@ -884,6 +891,7 @@ export interface CaseData {
   citizenDocuments?: CitizenDocuments[];
   citizenOrders?: CitizenDocuments[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
+  unServedRespondentPack: CitizenRespondentPack;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
 }
 
@@ -1242,21 +1250,6 @@ export interface LabelContent {
   UnionType: string;
   UnionTypeUC: string;
   ApplicationType: ApplicationType;
-}
-
-export interface MarriageDetails {
-  Applicant1Name: string;
-  Applicant2Name: string;
-  MarriedInUk: YesOrNo;
-  CertificateInEnglish: YesOrNo;
-  CertifiedTranslation: YesOrNo;
-  CountryOfMarriage: string;
-  PlaceOfMarriage: string;
-  Date: string;
-  IsSameSexCouple: YesOrNo;
-  CertifyMarriageCertificateIsCorrect: YesOrNo;
-  MarriageCertificateIsIncorrectDetails: string;
-  IssueApplicationWithoutMarriageCertificate: YesOrNo;
 }
 
 export interface RejectReason {
@@ -2426,7 +2419,7 @@ export interface Document {
   document_binary_url: string;
   document_hash?: string;
 }
-export interface Fl401UploadWitnessDocuments {
+export interface DocumentCollection {
   id: string;
   value: Document;
 }
@@ -2969,6 +2962,7 @@ export enum CaseEvent {
   CITIZEN_CASE_UPDATE = 'citizen-case-update',
   CONSENT_TO_APPLICATION = 'consentToTheApplication',
   CITIZEN_REMOVE_LEGAL_REPRESENTATIVE = 'citizenRemoveLegalRepresentative',
+  STATEMENT_OF_SERVICE = 'citizenStatementOfService',
   CONTACT_PREFERENCE = 'citizenContactPreference',
   CITIZEN_SAVE_C100_DRAFT_INTERNAL = 'citizenSaveC100DraftInternal',
   CITIZEN_INTERNAL_FLAG_UPDATES = 'citizenInternalFlagUpdates',

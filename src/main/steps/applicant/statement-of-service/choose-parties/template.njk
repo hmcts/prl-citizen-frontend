@@ -1,0 +1,109 @@
+
+{% extends "common/template.njk" %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "common/fileupload/macro.njk" import fileUpload %}
+
+<div class="govuk-form-group">
+  {% block page_content %}
+    <div class="govuk-form-group">
+      {% if title %}
+        <h1 class="govuk-heading-l">
+          <span class="govuk-caption-l">{{caption}} #{{userCase.id}}</span>
+          {{ title }}
+        </h1>
+      {% endif %}
+    </div>
+    <div id="uploadGroup" tabindex="0" class="uploadGroup">
+      <div class=" govuk-!-margin-bottom-3">
+        {% if errorMessage !== null %}
+          <div class="govuk-form-group--error">
+        {% endif %}
+          <div class="govuk-form-group govuk-inset-text">
+            <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
+              {{uploadFileHeading}}
+            </label>
+            <p class="govuk-body">{{uplodFileHintText}}</p>
+            <form
+            action="?_csrf={{ csrfToken }}"
+            method="post"
+            enctype="multipart/form-data"
+            novalidate>
+              {% if uploadFileHeader !== undefined  %}
+                <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
+                  {{uploadFileHeader}}
+                  {% if fileUploadedHint !== undefined %}
+                  <span class="govuk-caption-l">{{fileUploadedHint}}</span>
+                  {%endif%}
+                </label>
+              {%endif%}
+              
+                            <h2 class="govuk-heading-s">{{ filesUploadedText }}</h2>
+
+                <ul id="filesUploadedList" class="govuk-list">
+                  <dl class="govuk-summary-list">
+                      {% if filesUploaded.id %}
+                          <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__value">
+                              {{ filesUploaded.document_filename }}
+                            </dt>
+                            <dd class="govuk-summary-list__actions">
+                              <a
+                                href="?documentId={{ filesUploaded.id }}"
+                              class="govuk-link">
+                                {{ removeDocument }}</span>
+                              </a>
+                            </dd>
+                          </div>
+
+                      {%else%}
+                        {{noFilesUploaded}}
+                      {%endif%}
+                  </dl>
+                </ul>
+                <label class="govuk-label govuk-!-font-weight-bold" for="file-upload-1">
+                uploadButton
+              </label> 
+              {{ govukFileUpload(
+                {
+                  id: 'uploadDocumentFileUpload',
+                  name: "files[]",
+                  attributes: {
+                    accept: "image/jpeg,image/tiff,image/jpg,image/bmp,image/png,image/tif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  },
+                  classes: "govuk-!-margin-bottom-4",
+                  errorMessage: {
+                    text: errorMessage
+                  } if errorMessage !== null }) }}
+              {{ govukButton(
+                {
+                  text: "Upload file",
+                  name: "uploadFile",
+                  value: "true",
+                  type: "submit", 
+                  classes: "govuk-button--secondary govuk-!-margin-bottom-0"
+                }) }}
+            </form>
+          </div>
+      </div>
+      {% if errorMessage !== null %}
+        </div>
+      {% endif %}
+
+      
+
+    </div>
+    <div class="govuk-form-group govuk-!-margin-bottom-0">
+      <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h3 class="govuk-heading-m">
+            {{ statementOfTruth }}
+          </h3>
+        </legend>
+        
+      </fieldset>
+    </div>
+  {% endblock %}
+</div>

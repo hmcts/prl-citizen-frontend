@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RAFlags } from '../../modules/reasonable-adjustments/definitions';
-import { CitizenApplicationPacks, CitizenDocuments, CitizenOrders } from '../../steps/common/documents/definitions';
+import {
+  CitizenApplicationPacks,
+  CitizenDocuments,
+  CitizenOrders,
+  CitizenRespondentPack,
+} from '../../steps/common/documents/definitions';
 import { AnyObject } from '../controller/PostController';
 
 import {
@@ -32,10 +37,10 @@ import {
   ContactPreference,
   DateOfSubmission,
   Document,
+  DocumentCollection,
   DocumentUploadResponse,
   DraftConsentOrderFile,
   ExistingProceedings,
-  Fl401UploadWitnessDocuments,
   HearingUrgencyTable,
   HearingsList,
   InternationalElementTable,
@@ -231,6 +236,7 @@ export const formFieldsToCaseMapping: Partial<Record<keyof Case, keyof CaseData>
   citizenOrders: 'citizenOrders',
   citizenApplicationPacks: 'citizenApplicationPacks',
   finalServedApplicationDetailsList: 'finalServedApplicationDetailsList',
+  unServedRespondentPack: 'unServedRespondentPack',
 };
 
 export function formatCase<InputFormat, OutputFormat>(fields: FieldFormats, data: InputFormat): OutputFormat {
@@ -388,7 +394,7 @@ export interface Case {
   applicantUploadFiles?: DocumentUploadResponse['document'][];
   declarationCheck?: string;
   finalDocument?: Document;
-  fl401UploadWitnessDocuments?: Fl401UploadWitnessDocuments[];
+  fl401UploadWitnessDocuments?: DocumentCollection[];
   citizenUploadedDocumentList?: UploadDocumentList[];
   /*** Document upload */
   respondentUploadFiles?: DocumentUploadResponse['document'][];
@@ -598,11 +604,13 @@ export interface Case {
   c100DraftDoc?: Document;
   withdrawApplication?: YesOrNo;
   withdrawApplicationReason?: string;
+  statementOfServiceDocument?: Document;
   isCafcassServed?: YesOrNo | null;
   isCafcassCymruServed?: YesOrNo | null;
   citizenDocuments?: CitizenDocuments[];
   citizenOrders?: CitizenOrders[];
   citizenApplicationPacks?: CitizenApplicationPacks[];
+  unServedRespondentPack?: CitizenRespondentPack;
   // RA local component
   ra_typeOfHearing?: string[];
   ra_noVideoAndPhoneHearing_subfield?: string;
@@ -633,6 +641,8 @@ export interface Case {
   ra_languageReqAndSpecialArrangements?: string;
   ra_existingFlags?: RAFlags;
   finalServedApplicationDetailsList?: ServedApplicationDetails[];
+  sos_partiesServed?: string[];
+  sos_partiesServedDate?: Date;
 }
 export interface ServedApplicationDetails {
   id: string;
