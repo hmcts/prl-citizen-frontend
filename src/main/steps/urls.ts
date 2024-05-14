@@ -425,7 +425,6 @@ export const C100_CONSENT_ORDER_UPLOAD_CONFIRMATION: PageLink = `${C100_CONSENT_
 export const C100_CHECK_YOUR_ANSWER: PageLink = `${C100_URL}/check-your-answers`;
 export const C100_CHECK_YOUR_ANSWER_REDIRECT: PageLink = `${C100_URL}/check-your-answers/equality`;
 
-
 export const OTHER_PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/:orderType/:orderId/documentUpload/:removeId?`;
 
 export const C100_APPLICANT_PCQ_URL: PageLink = `${C100_URL}/equality-and-diversity`;

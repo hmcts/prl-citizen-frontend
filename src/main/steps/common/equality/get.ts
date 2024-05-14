@@ -18,7 +18,7 @@ const logger = Logger.getLogger('PCQGetController');
 export default class PCQGetController {
   public async get(req: AppRequest, res: Response, returnUrl: string): Promise<void> {
     const { userCase, user } = req.session;
-    let partyType
+    let partyType;
     let partyDetails;
     if (req.url.includes('c100-rebuild')) {
       partyType = 'applicant';
