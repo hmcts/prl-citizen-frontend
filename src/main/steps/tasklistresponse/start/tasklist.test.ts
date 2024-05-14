@@ -123,6 +123,7 @@ describe('generateRespondentTaskList', () => {
           addressLivedLessThan5YearsDetails: '',
           otherPersonRelationshipToChildren: [],
           isAtAddressLessThan5YearsWithDontKnow: '',
+          partyId: '1234',
         },
       },
     ];
@@ -158,13 +159,19 @@ describe('generateRespondentTaskList', () => {
             text: 'Keep your details private',
           },
           {
+            href: '/respondent/contact-preference/choose-a-contact-preference',
+            id: 'contact-preference',
+            status: 'TO_DO',
+            text: 'Contact preferences',
+          },
+          {
             href: '/respondent/confirm-contact-details/checkanswers/1234',
             id: 'confirm-or-edit-your-contact-details',
             status: 'IN_PROGRESS',
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/respondent/reasonable-adjustments/guidance',
+            href: '/respondent/reasonable-adjustments/attending-court',
             id: 'support_you_need_during_your_case',
             status: 'OPTIONAL',
             text: 'Support you need during your case',
@@ -294,13 +301,19 @@ describe('getRemainingTaskList', () => {
             text: 'Keep your details private',
           },
           {
+            href: '/respondent/contact-preference/choose-a-contact-preference',
+            id: 'contact-preference',
+            status: 'TO_DO',
+            text: 'Contact preferences',
+          },
+          {
             href: '/respondent/confirm-contact-details/checkanswers/1234',
             id: 'confirm-or-edit-your-contact-details',
             status: 'IN_PROGRESS',
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/respondent/reasonable-adjustments/guidance',
+            href: '/respondent/reasonable-adjustments/attending-court',
             id: 'support_you_need_during_your_case',
             status: 'OPTIONAL',
             text: 'Support you need during your case',
@@ -404,13 +417,19 @@ describe('getRemainingTaskList', () => {
             text: 'Keep your details private',
           },
           {
+            href: '/respondent/contact-preference/choose-a-contact-preference',
+            id: 'contact-preference',
+            status: 'TO_DO',
+            text: 'Contact preferences',
+          },
+          {
             href: '/respondent/confirm-contact-details/checkanswers/1234',
             id: 'confirm-or-edit-your-contact-details',
             status: 'IN_PROGRESS',
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/respondent/reasonable-adjustments/guidance',
+            href: '/respondent/reasonable-adjustments/attending-court',
             id: 'support_you_need_during_your_case',
             status: 'OPTIONAL',
             text: 'Support you need during your case',
@@ -502,13 +521,19 @@ describe('getRemainingTaskList', () => {
             text: 'Keep your details private',
           },
           {
+            href: '/respondent/contact-preference/choose-a-contact-preference',
+            id: 'contact-preference',
+            status: 'TO_DO',
+            text: 'Contact preferences',
+          },
+          {
             href: '/respondent/confirm-contact-details/checkanswers/1234',
             id: 'confirm-or-edit-your-contact-details',
             status: 'IN_PROGRESS',
             text: 'Confirm or edit your contact details',
           },
           {
-            href: '/respondent/reasonable-adjustments/guidance',
+            href: '/respondent/reasonable-adjustments/attending-court',
             id: 'support_you_need_during_your_case',
             status: 'OPTIONAL',
             text: 'Support you need during your case',

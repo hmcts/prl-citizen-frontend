@@ -29,10 +29,11 @@ def secrets = [
     secret('citizen-upload-docs-email', 'UPLOAD_DOCUMENTS_EMAIL'),
     secret('microservicekey-prl-citizen-frontend', 'SERVICE_AUTH_SECRET'),
     secret('system-update-user-username', 'SYSTEM_UPDATE_USER_USERNAME'),
-    secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PASSWORD'),
+    secret('system-update-user-password', 'SYSTEM_UPDATE_USER_PW'),
     secret('citizen-user', 'CITIZEN_USERNAME'),
-    secret('citizen-password', 'CITIZEN_PASSWORD'),
-    secret('postgres', 'PACT_BROKER_YAML_USER')
+    secret('citizen-password', 'CITIZEN_PW'),
+    secret('postgres', 'PACT_BROKER_YAML_USER'),
+    secret('pact-broker-password', 'PACT_BROKER_YAML_PW')
   ]
 ]
 

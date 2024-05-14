@@ -4,7 +4,6 @@ import { CommonContent } from '../../common/common.content';
 import { generateContent } from './content';
 
 const en = {
-  serviceName: 'Child arrangements',
   caption: 'Getting started',
   headingTitle: 'What you’ll need to complete your application',
   subTitle1: 'You will need to have:',
@@ -34,7 +33,6 @@ const en = {
 };
 
 const cy = {
-  serviceName: 'Trefniadau plant',
   caption: 'Cychwyn arni',
   headingTitle: 'Beth fydd arnoch ei angen i gwblhau eich cais',
   subTitle1: 'Bydd angen i chi gael:',

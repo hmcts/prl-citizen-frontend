@@ -3,6 +3,7 @@ import { ChildrenDetails, PartyType } from '../../../app/case/definition';
 
 import {
   PartyDetailsVariant,
+  dobUnknown,
   getDataShape,
   getNextPerson,
   getPartyDetails,
@@ -224,5 +225,34 @@ describe('people util', () => {
         lastName: 'Roberts',
       })
     );
+  });
+
+  describe('dobUnknown', () => {
+    const formData = {
+      isDateOfBirthUnknown: 'Yes',
+      dateOfBirth: {
+        day: '',
+        month: '',
+        year: '',
+      },
+    };
+
+    test('should return correct value when exact dob details not present', () => {
+      expect(dobUnknown(formData)).toBe('');
+    });
+
+    test('should return correct value when exact dob details are present', () => {
+      formData.dateOfBirth = {
+        day: '1',
+        month: '2',
+        year: '1980',
+      };
+      expect(dobUnknown(formData)).toBe('cannotHaveBothApproxAndExact');
+    });
+
+    test('should return correct value when date of birth is known', () => {
+      formData.isDateOfBirthUnknown = 'No';
+      expect(dobUnknown(formData)).toBe('');
+    });
   });
 });

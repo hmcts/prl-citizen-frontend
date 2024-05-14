@@ -1,5 +1,6 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
+import _ from 'lodash';
 import Negotiator from 'negotiator';
 
 import { LanguageToggle } from '../../modules/i18n';
@@ -62,15 +63,14 @@ export class GetController {
     this.clearConfidentialitySessionSaveData(req);
 
     if (!req.session.hasOwnProperty('paymentError')) {
-      req.session.paymentError = false;
+      req.session.paymentError = { hasError: false, errorContext: null };
     }
     /**
      * Added for C100 Rebuild
      * Handled scenario where caption is not present as query param
      */
-    if (content?.breadcrumb) {
-      const { id, href } = content.breadcrumb as Record<string, string>;
-      await BreadcrumbController.add({ id, href }, req.session);
+    if (_.isArray(content.breadcrumbs) && content.breadcrumbs.length) {
+      await BreadcrumbController.add(content.breadcrumbs, req.session);
     }
 
     const viewData = {
