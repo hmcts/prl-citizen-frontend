@@ -78,7 +78,7 @@ export const cy: typeof en = {
       paternityTestReports: 'Adroddiadau profion tadolaeth',
       drugAndAlcoholTests: 'Profion cyffuriau ac alcohol (tocsicoleg)',
       policeReports: "Adroddiadau'r heddlu",
-      fm5Document: 'Statement of position on non-court dispute resolution (NCDR) (form FM5) - welsh',
+      fm5Document: 'Datganiad safbwynt ar ddatrys anghydfod y tu allan i’r llys (NCDR) (ffurflen FM5)',
       otherDocuments: 'Dogfennau eraill',
     },
   },
