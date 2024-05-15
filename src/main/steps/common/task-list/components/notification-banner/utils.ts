@@ -123,6 +123,11 @@ export const notificationBanner = {
     content: getContent.bind(null, BannerNotification.CA_RESPONDENT_SERVED),
     show: () => false,
   },
+  [BannerNotification.SUMBIT_FM5]: {
+    id: BannerNotification.SUMBIT_FM5,
+    content: getContent.bind(null, BannerNotification.SUMBIT_FM5),
+    show: () => false,
+  },
 };
 
 export const isApplicantLIPServingRespondent = (caseData: Partial<CaseWithId>): boolean => {
@@ -142,7 +147,7 @@ export const isPersonalServiceByCourtStaff = (caseData: Partial<CaseWithId>): bo
 
 export const isPartyServed = (caseData: Partial<CaseWithId>, userDetails: UserDetails): boolean => {
   return !!(
-    caseData.citizenApplicationPacks?.length &&
+    caseData?.citizenApplicationPacks?.length && caseData.citizenApplicationPacks[0] && 
     getPartyDetails(caseData as CaseWithId, userDetails.id)?.partyId === caseData.citizenApplicationPacks[0].partyId
   );
 };
