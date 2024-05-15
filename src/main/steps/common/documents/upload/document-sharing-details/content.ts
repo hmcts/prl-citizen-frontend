@@ -25,7 +25,7 @@ const cy: typeof en = {
   fm5DocumentCardTitle: 'Peidiwch â chynnwys unrhyw wybodaeth gyfrinachol neu sensitif',
   fm5DocumentCardContent: 'Mae’n rhaid i chi roi’r datganiad safbwynt ar NCDR (ffurflen FM5) i’r parti arall.',
   content1:
-    'Lawrlwythwch y <a href="https://www.gov.uk/government/publications/statement-of-position-on-non-court-dispute-resolution-form-fm5" class="govuk-link" target="_blank">atganiad safbwynt ar NCDR (ffurflen FM5) (yn agor mewn tab newydd)</a> a’i gwblhau.',
+    'Lawrlwythwch y <a href="https://www.gov.uk/government/publications/statement-of-position-on-non-court-dispute-resolution-form-fm5" class="govuk-link" target="_blank">datganiad safbwynt ar NCDR (ffurflen FM5) (yn agor mewn tab newydd)</a> a’i gwblhau.',
   content2:
     'Os yw eich manylion cyswllt wedi newid, <a href="{editContactDetailsUrl}" class="govuk-link" target="_self">cadarnhewch neu golygwch eich manylion cyswllt</a> i\'w diweddaru.',
 };
