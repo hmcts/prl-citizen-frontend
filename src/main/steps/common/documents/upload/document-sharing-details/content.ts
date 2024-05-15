@@ -15,19 +15,19 @@ const en = {
   content1:
     'Download the <a href="https://www.gov.uk/government/publications/statement-of-position-on-non-court-dispute-resolution-form-fm5" class="govuk-link" target="_blank">statement of position on NCDR (form FM5) (opens in a new tab)</a> and complete it.',
   content2:
-    'If your contact details have changed, go to <a href="{editContactDetailsUrl}" class="govuk-link" target="_self">confirm or edit your contact details</a> to update them.',
+    'If your contact details have changed, <a href="{editContactDetailsUrl}" class="govuk-link" target="_self">confirm or edit your contact details</a> to update them.',
 };
 
 const cy: typeof en = {
   cardTitle: 'Cyn ichi gyflwyno dogfen',
   cardContent:
     "Dilëwch neu croeswch allan gyda beiro unrhyw fanylion cyfrinachol neu wybodaeth gyswllt bersonol yr ydych eisiau ei chadw'n breifat fel nad ydynt bellach yn weladwy.",
-  fm5DocumentCardTitle: 'Do not include any confidential or sensitive information - welsh',
-  fm5DocumentCardContent: 'You must give the statement of position on NCDR (form FM5) to the other party. - welsh',
+  fm5DocumentCardTitle: 'Peidiwch â chynnwys unrhyw wybodaeth gyfrinachol neu sensitif',
+  fm5DocumentCardContent: 'Mae’n rhaid i chi roi’r datganiad safbwynt ar NCDR (ffurflen FM5) i’r parti arall.',
   content1:
-    'Download the <a href="https://www.gov.uk/government/publications/statement-of-position-on-non-court-dispute-resolution-form-fm5" class="govuk-link" target="_blank">statement of position on NCDR (form FM5) (opens in a new tab)</a> and complete it. - welsh',
+    'Lawrlwythwch y <a href="https://www.gov.uk/government/publications/statement-of-position-on-non-court-dispute-resolution-form-fm5" class="govuk-link" target="_blank">atganiad safbwynt ar NCDR (ffurflen FM5) (yn agor mewn tab newydd)</a> a’i gwblhau.',
   content2:
-    'Os yw\'ch manylion cyswllt wedi newid, ewch i <a href="{editContactDetailsUrl}" class="govuk-link" target="_self">gadarnhau neu olygu eich manylion cyswllt</a> i\'w diweddaru.',
+    'Os yw eich manylion cyswllt wedi newid, <a href="{editContactDetailsUrl}" class="govuk-link" target="_self">cadarnhewch neu golygwch eich manylion cyswllt</a> i\'w diweddaru.',
 };
 
 const languages = {
