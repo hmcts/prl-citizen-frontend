@@ -43,7 +43,7 @@ export class PropertiesVolume {
    * Load a secret from the aat vault using azure cli
    */
   private setLocalSecret(secret: string, toPath: string): void {
-    const result = execSync(`az keyvault secret show --vault-name prl-ithc -o tsv --query value --name ${secret}`);
+    const result = execSync(`az keyvault secret show --vault-name prl-aat -o tsv --query value --name ${secret}`);
     set(config, toPath, result.toString().replace('\n', ''));
   }
 }

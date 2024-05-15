@@ -24,7 +24,6 @@ export class CosApiClient {
   client: AxiosInstance;
 
   constructor(authToken: string, private readonly logger: LoggerInstance) {
-    console.log(getServiceAuthToken());
     this.client = Axios.create({
       baseURL: config.get('services.cos.url'),
       headers: {
@@ -201,8 +200,7 @@ export class CosApiClient {
   public async generateC7DraftDocument(caseId: string, partyId: string): Promise<Document> {
     try {
       const response = await this.client.post(
-        config.get('services.cos.url') + `/citizen/${caseId}/${partyId}/generate-c7document`,
-        data
+        config.get('services.cos.url') + `/citizen/${caseId}/${partyId}/generate-c7document`
       );
 
       return response.data;
@@ -381,7 +379,6 @@ export class CosApiClient {
 
   public async downloadDocument(documentId: string, userId: string): Promise<AxiosResponse> {
     try {
-      console.log('url {}', `${config.get('services.documentManagement.url')}/cases/documents/${documentId}/binary`);
       const response = await this.client.get(
         `${config.get('services.documentManagement.url')}/cases/documents/${documentId}/binary`,
         { responseType: 'arraybuffer', headers: { 'user-id': userId, 'user-roles': UserRole.CITIZEN } }

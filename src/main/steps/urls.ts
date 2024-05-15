@@ -21,6 +21,7 @@ export const ACCESSIBILITY_STATEMENT: PageLink = '/accessibility-statement';
 export const TERMS_AND_CONDITIONS: PageLink = '/terms-and-conditions';
 
 export const RESPOND_TO_APPLICATION: PageLink = '/tasklistresponse/start';
+export const RESPOND_TO_APPLICATION_SUMMARY: PageLink = '/tasklistresponse/summary';
 export const RESPONSE_TASKLIST: PageLink = '/tasklistresponse';
 export const RESPONDENT: PageLink = '/respondent';
 export const FETCH_CASE_DETAILS: PageLink = '/case/:caseId';
@@ -174,6 +175,7 @@ export const PROCEEDINGS_ORDER_DETAILS: PageLink = `${PROCEEDINGS}/:orderType/or
 export const COURT_PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/document-summary`;
 export const PROCEEDINGS_DOCUMENT_UPLOAD: PageLink = `${PROCEEDINGS}/documentUpload`;
 export const PROCEEDINGS_SUMMARY: PageLink = `${PROCEEDINGS}/summary`;
+export const PROCEEDING_SAVE: PageLink = `${PROCEEDINGS}/save`;
 
 /* Banner Links */
 export const FIND_OUT_ABOUT_CAFCASS =

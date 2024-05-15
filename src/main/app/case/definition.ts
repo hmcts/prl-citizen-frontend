@@ -6,7 +6,7 @@ import { CitizenApplicationPacks, CitizenDocuments } from '../../steps/common/do
 
 import { RAFlagValue } from '../../modules/reasonable-adjustments/definitions';
 import { CaseDate, FieldPrefix, ServedApplicationDetails } from './case';
-console.info("** FOR SONAR **");
+
 export interface ChildDetails {
   gender: string;
   lastName: string;

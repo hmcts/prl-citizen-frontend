@@ -5,7 +5,7 @@ import { applyParms } from '../../steps/common/url-parser';
 import { Sections, Step } from '../constants';
 import {
   C1A_SAFETY_CONCERNS_CONCERN_GUIDANCE,
-  CONSENT_SAVE,
+  CA_RESPONDENT_RESPONSE_CONFIRMATION,
   CONSENT_SUMMARY,
   CONSENT_TO_APPLICATION,
   COURT_PROCEEDINGS_SUMMARY,
@@ -43,7 +43,6 @@ import {
   YOUR_SAFETY,
 } from '../urls';
 
-//import SafteyConcernsNavigationController from '../common/safety-concerns/navigationController';
 import OtherProceedingsNavigationController from './proceedings/navigationController';
 
 export const responseCaseSequence: Step[] = [
@@ -208,7 +207,7 @@ export const responseCaseSequence: Step[] = [
   {
     url: PROCEEDINGS_SUMMARY,
     showInSection: Sections.AboutRespondentCase,
-    getNextStep: () => PROCEEDING_SAVE,
+    getNextStep: () => '/',
   },
   {
     url: RESPOND_TO_APPLICATION,
