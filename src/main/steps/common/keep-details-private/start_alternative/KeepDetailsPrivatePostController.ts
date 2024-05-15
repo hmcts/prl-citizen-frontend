@@ -8,9 +8,7 @@ import { AnyObject, PostController } from '../../../../app/controller/PostContro
 import { Form, FormFields } from '../../../../app/form/Form';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
 import { getPartyDetails, mapDataInSession } from '../../../tasklistresponse/utils';
-import { START_ALTERNATIVE } from '../../../urls';
 import { mapConfidentialListToFields, prepareKeepDetailsPrivateRequest } from '../KeepYourDetailsPrivateMapper';
-import KeepDetailsPrivateNavigationController from '../navigationController';
 
 @autobind
 export default class KeepDetailsPrivatePostController extends PostController<AnyObject> {
@@ -53,11 +51,7 @@ export default class KeepDetailsPrivatePostController extends PostController<Any
           CaseEvent.KEEP_DETAILS_PRIVATE
         );
         mapDataInSession(req.session.userCase, user.id);
-        req.session.save(() => {
-          res.redirect(
-            KeepDetailsPrivateNavigationController.getNextPageUrl(START_ALTERNATIVE, req.session.userCase, req!)
-          );
-        });
+        super.redirect(req, res);
       } catch (error) {
         throw new Error('KeepDetailsPrivatePostController - Case could not be updated.');
       }

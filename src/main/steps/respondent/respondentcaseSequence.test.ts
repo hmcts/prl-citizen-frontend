@@ -24,7 +24,7 @@ describe('respondent1Sequence', () => {
         respondentUserCase as unknown as Partial<CaseWithId>,
         mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
       )
-    ).toBe('/');
+    ).toBe('/respondent/keep-details-private/private_details_confirmed');
 
     expect(respondentCaseSequence[2].url).toBe('/:partyType/keep-details-private/private_details_confirmed');
     expect(respondentCaseSequence[2].showInSection).toBe('aboutRespondentCase');
@@ -121,11 +121,21 @@ describe('respondent1Sequence', () => {
 
     expect(respondentCaseSequence[22].url).toBe('/:partyType/remove-legal-representative/start');
     expect(respondentCaseSequence[22].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[22].getNextStep({})).toBe('/respondent/remove-legal-representative/confirm');
+    expect(
+      respondentCaseSequence[22].getNextStep(
+        respondentUserCase as unknown as Partial<CaseWithId>,
+        mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
+      )
+    ).toBe('/respondent/remove-legal-representative/confirm');
 
     expect(respondentCaseSequence[23].url).toBe('/:partyType/remove-legal-representative/confirm');
     expect(respondentCaseSequence[23].showInSection).toBe('aboutRespondentCase');
-    expect(respondentCaseSequence[23].getNextStep({ id: '1234' })).toBe('/case/1234');
+    expect(
+      respondentCaseSequence[23].getNextStep(
+        respondentUserCase as unknown as Partial<CaseWithId>,
+        mockRequest({ session: { userCase: respondentUserCase, user: { id: '1234' } } })
+      )
+    ).toBe('/case/1234');
 
     expect(respondentCaseSequence[24].url).toBe('/:partyType/documents/view/all-documents');
     expect(respondentCaseSequence[24].showInSection).toBe('aboutRespondentCase');

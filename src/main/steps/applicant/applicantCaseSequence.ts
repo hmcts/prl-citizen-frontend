@@ -1,10 +1,11 @@
 import { CaseWithId } from '../../app/case/case';
-import { PartyType, YesOrNo } from '../../app/case/definition';
+import { YesOrNo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { UploadDocumentCategory } from '../../steps/common/documents/definitions';
 import { applyParms } from '../../steps/common/url-parser';
 import ContactPreferenceNavigationController from '../common/contact-preference/navigationController';
 import KeepDetailsPrivateNavigationController from '../common/keep-details-private/navigationController';
+import RemoveLegalRepresentativeNavigationController from '../common/remove-legal-representative/navigationController';
 import { Sections, Step } from '../constants';
 import {
   APPLICANT_ADDRESS_CONFIRMATION,
@@ -56,7 +57,8 @@ export const applicantCaseSequence: Step[] = [
     url: START_ALTERNATIVE,
     subDir: '/common',
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => '/',
+    getNextStep: (caseData, req) =>
+      KeepDetailsPrivateNavigationController.getNextPageUrl(START_ALTERNATIVE, caseData, req!),
   },
   {
     url: PRIVATE_DETAILS_CONFIRMED,
@@ -139,13 +141,15 @@ export const applicantCaseSequence: Step[] = [
     url: REMOVE_LEGAL_REPRESENTATIVE_START,
     subDir: '/common',
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: () => applyParms(REMOVE_LEGAL_REPRESENTATIVE_CONFIRM, { partyType: PartyType.APPLICANT }),
+    getNextStep: (caseData, req) =>
+      RemoveLegalRepresentativeNavigationController.getNextPageUrl(REMOVE_LEGAL_REPRESENTATIVE_START, caseData, req!),
   },
   {
     url: REMOVE_LEGAL_REPRESENTATIVE_CONFIRM,
     subDir: '/common',
     showInSection: Sections.AboutApplicantCase,
-    getNextStep: caseData => applyParms(FETCH_CASE_DETAILS, { caseId: caseData?.id as string }) as PageLink,
+    getNextStep: (caseData, req) =>
+      RemoveLegalRepresentativeNavigationController.getNextPageUrl(REMOVE_LEGAL_REPRESENTATIVE_CONFIRM, caseData, req!),
   },
   {
     url: CHOOSE_CONTACT_PREFERENCE,

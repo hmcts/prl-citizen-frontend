@@ -6,10 +6,8 @@ import { CaseEvent, CaseType, YesOrNo } from '../../../../app/case/definition';
 import type { AppRequest } from '../../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../../app/controller/PostController';
 import { Form, FormFields } from '../../../../app/form/Form';
-import { applyParms } from '../../../../steps/common/url-parser';
 import { getCasePartyType } from '../../../prl-cases/dashboard/utils';
 import { getPartyDetails } from '../../../tasklistresponse/utils';
-import { REMOVE_LEGAL_REPRESENTATIVE_CONFIRM } from '../../../urls';
 
 @autobind
 export default class RemoveLegalRepresentativePostController extends PostController<AnyObject> {
@@ -45,7 +43,7 @@ export default class RemoveLegalRepresentativePostController extends PostControl
           userCase.caseTypeOfApplication as CaseType,
           CaseEvent.CITIZEN_REMOVE_LEGAL_REPRESENTATIVE
         );
-        req.session.save(() => res.redirect(applyParms(REMOVE_LEGAL_REPRESENTATIVE_CONFIRM, { partyType })));
+        super.redirect(req, res);
       } catch (error) {
         throw new Error('RemoveLegalRepresentativePostController - Case could not be updated.');
       }

@@ -76,7 +76,7 @@ describe('RemoveLegalRepresentativePostController', () => {
       },
     ];
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/respondent/remove-legal-representative/confirm');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('Should update the applicant partyDetails details', async () => {
@@ -98,7 +98,7 @@ describe('RemoveLegalRepresentativePostController', () => {
       },
     ];
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/remove-legal-representative/confirm');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('post should redirect to same page when declaration check not present', async () => {

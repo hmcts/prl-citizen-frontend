@@ -279,7 +279,7 @@ describe('KeepDetailsPrivatePostController', () => {
     req.session.userCase.caseTypeOfApplication = 'fl401';
     req.url = 'applicant';
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/applicant/keep-details-private/private_details_confirmed');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('Should perform correct redirect for respondent when startAlternative is No', async () => {
@@ -305,7 +305,7 @@ describe('KeepDetailsPrivatePostController', () => {
     ];
     req.url = 'respondent';
     await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalledWith('/respondent/keep-details-private/private_details_confirmed');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('post should redirect to same page when declaration check not present', async () => {
@@ -378,7 +378,7 @@ describe('KeepDetailsPrivatePostController', () => {
     await controller.post(req, res);
     await new Promise(process.nextTick);
 
-    expect(res.redirect).toHaveBeenCalledWith('/respondent/keep-details-private/private_details_confirmed');
+    expect(res.redirect).toHaveBeenCalledWith('/dashboard');
   });
 
   test('Should catch and throw errors', async () => {

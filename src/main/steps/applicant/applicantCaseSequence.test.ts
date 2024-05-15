@@ -22,7 +22,7 @@ describe('applicant1Sequence', () => {
       applicantCaseSequence[1].getNextStep({}, {
         session: { userCase: { id: '1234' }, user: { id: '1234' } },
       } as unknown as AppRequest)
-    ).toBe('/');
+    ).toBe('/applicant/keep-details-private/private_details_confirmed');
 
     expect(applicantCaseSequence[2].url).toBe('/:partyType/keep-details-private/private_details_confirmed');
     expect(applicantCaseSequence[2].showInSection).toBe('aboutApplicantCase');
@@ -90,11 +90,19 @@ describe('applicant1Sequence', () => {
 
     expect(applicantCaseSequence[16].url).toBe('/:partyType/remove-legal-representative/start');
     expect(applicantCaseSequence[16].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[16].getNextStep({})).toBe('/applicant/remove-legal-representative/confirm');
+    expect(
+      applicantCaseSequence[16].getNextStep({}, {
+        session: { userCase: { id: '1234' }, user: { id: '1234' } },
+      } as unknown as AppRequest)
+    ).toBe('/applicant/remove-legal-representative/confirm');
 
     expect(applicantCaseSequence[17].url).toBe('/:partyType/remove-legal-representative/confirm');
     expect(applicantCaseSequence[17].showInSection).toBe('aboutApplicantCase');
-    expect(applicantCaseSequence[17].getNextStep({ id: '1234' })).toBe('/case/1234');
+    expect(
+      applicantCaseSequence[17].getNextStep({}, {
+        session: { userCase: { id: '1234' }, user: { id: '1234' } },
+      } as unknown as AppRequest)
+    ).toBe('/case/1234');
 
     expect(applicantCaseSequence[18].url).toBe('/:partyType/contact-preference/choose-a-contact-preference');
     expect(applicantCaseSequence[18].showInSection).toBe('aboutApplicantCase');
