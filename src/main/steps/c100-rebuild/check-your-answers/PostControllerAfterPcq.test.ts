@@ -6,7 +6,7 @@ import { Document } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { C100_CONFIRMATIONPAGE } from '../../urls';
 
-import PayAndSubmitPostController from './PayAndSubmitPostController';
+import PayAndSubmitPostController from './PostControllerAfterPcq';
 
 jest.mock('axios');
 let req, res;

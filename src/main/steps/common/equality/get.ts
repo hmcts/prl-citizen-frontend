@@ -60,12 +60,14 @@ export default class PCQGetController {
           language: req.session.lang || 'en',
           ccdCaseId: userCase.id,
         };
-        params.partyId = encodeURIComponent(params.partyId);
+        //params.partyId = encodeURIComponent(params.partyId);
         params['token'] = createToken(params, tokenKey);
         logger.info('*** Params : ' + JSON.stringify(params));
         logger.info(`PCQ service return URL: ${params.returnUrl}`);
         if (partyType === 'respondent') {
           req.session.userCase.respondentPcqId = pcqId;
+        } else {
+          req.session.userCase.applicantPcqId = pcqId;
         }
         const qs = Object.keys(params)
           .map(key => `${key}=${params[key]}`)

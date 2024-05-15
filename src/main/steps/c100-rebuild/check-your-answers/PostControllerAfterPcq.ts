@@ -1,4 +1,3 @@
-import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
 import { AppRequest } from '../../../app/controller/AppRequest';
@@ -6,7 +5,6 @@ import { AnyObject, PostController } from '../../../app/controller/PostControlle
 import { FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { PaymentHandler } from '../../../modules/payments/paymentController';
 
-@autobind
 export default class PayAndSubmitPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);

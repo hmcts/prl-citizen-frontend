@@ -6,7 +6,7 @@ import { Document } from '../../../app/case/definition';
 import { FormContent } from '../../../app/form/Form';
 import { C100_CONFIRMATIONPAGE } from '../../urls';
 
-import PayAndSubmitPostController from './postController';
+import C100RebuildPostController from './PostController';
 
 jest.mock('axios');
 let req, res;
@@ -17,7 +17,7 @@ const finalDocument: Document = {
   document_binary_url: 'http://dummy.document.download',
 };
 
-describe('PayAndSubmitPostController test cases', () => {
+describe('C100RebuildPostController test cases', () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
   beforeEach(() => {
     req = mockRequest();
@@ -47,7 +47,7 @@ describe('PayAndSubmitPostController test cases', () => {
     req.locals.C100Api.updateCase.mockResolvedValue({
       ...caseData,
     });
-    const controller = new PayAndSubmitPostController(mockFormContent.fields);
+    const controller = new C100RebuildPostController(mockFormContent.fields);
     await controller.post(req, res);
 
     expect(res.redirect).toHaveBeenCalled();
@@ -66,7 +66,7 @@ describe('PayAndSubmitPostController test cases', () => {
       },
     });
     mockedAxios.post.mockResolvedValueOnce({ finalDocument });
-    const controller = new PayAndSubmitPostController(mockFormContent.fields);
+    const controller = new C100RebuildPostController(mockFormContent.fields);
     await controller.post(req, res);
 
     expect(res.redirect).not.toHaveBeenCalledWith(C100_CONFIRMATIONPAGE);

@@ -10,7 +10,7 @@ import TSDraftController from './app/testingsupport/TSDraftController';
 import { PaymentHandler, PaymentValidationHandler } from './modules/payments/paymentController';
 import { RAProvider } from './modules/reasonable-adjustments';
 import { StepWithContent, getStepsWithContent, stepsWithContent } from './steps/';
-import PayAndSubmitPostController from './steps/c100-rebuild/check-your-answers/PayAndSubmitPostController';
+import PayAndSubmitPostController from './steps/c100-rebuild/check-your-answers/PostControllerAfterPcq';
 import CaseDataController from './steps/common/CaseDataController';
 import DownloadDocumentController from './steps/common/documents/download/DownloadDocumentController';
 import CaseDetailsGetController from './steps/common/task-list/controllers/CaseDetailsGetController';
